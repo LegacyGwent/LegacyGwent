@@ -2,12 +2,22 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build server",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
                 "${workspaceFolder}/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build client",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Cynthia.Card.Client/Cynthia.Card.Client.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

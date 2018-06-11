@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Cynthia.Card.Common
 {
     public interface IModel
