@@ -1,0 +1,19 @@
+{
+  "name": "cynthia.card.webclient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "requirejs": "^2.3.5"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.2",
+    "@types/requirejs": "^2.1.31"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
