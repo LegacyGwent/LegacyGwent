@@ -11,6 +11,7 @@ namespace Cynthia.Card.Client
             var content = "";
             //------------------------------------------------
             var client = new SignalRTest();
+            client.GetCacheMessage().Wait();
             while (true)
             {
                 content = Console.ReadLine();
