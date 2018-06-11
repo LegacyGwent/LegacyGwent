@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4DFC1311-79E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Server", "src\Cynthia.Card.Server\Cynthia.Card.Server.csproj", "{327F6B28-5D67-4D19-A745-08C336ABE689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Chat.Common", "src\Cynthia.Card.Common\Cynthia.Chat.Common.csproj", "{A1B546AE-2D02-4869-ABC2-49BC32439477}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Common", "src\Cynthia.Card.Common\Cynthia.Card.Common.csproj", "{A1B546AE-2D02-4869-ABC2-49BC32439477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Chat.MongoDB", "src\Cynthia.Card.MongoDB\Cynthia.Chat.MongoDB.csproj", "{517005DC-8023-494A-BB2B-08B1F91E348B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.MongoDB", "src\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj", "{517005DC-8023-494A-BB2B-08B1F91E348B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Client", "src\Cynthia.Card.Client\Cynthia.Card.Client.csproj", "{48ABA350-2492-4F6F-8E08-753B8045EDEB}"
 EndProject

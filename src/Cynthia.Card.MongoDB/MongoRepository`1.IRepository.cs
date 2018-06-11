@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using Alsein.Utilities;
 using Cynthia.Card.Common;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace Cynthia.Card.MongoDB
