@@ -32,7 +32,7 @@ namespace Cynthia.Card.Server
             builder.Populate(services);
 
             builder.RegisterType<MongoClient>()
-                .WithParameter("connectionString", "mongodb://cynthia.ovyno.com:27017")
+                .WithParameter("connectionString", "mongodb://localhost:27017")
                 .As<IMongoClient>()
                 .PropertiesAutowired()
                 .AsSelf();

@@ -10,7 +10,7 @@ namespace Cynthia.Card.Client
             var name = Console.ReadLine();
             var content = "";
             //------------------------------------------------
-            var client = new SignalRTest();
+            var client = new SignalRTest("http://cynthia.ovyno.com/test");
             client.GetCacheMessage().Wait();
             while (true)
             {
