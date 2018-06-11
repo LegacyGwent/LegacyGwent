@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cynthia.Card.Common\Cynthia.Card.Common.csproj" />
+    <ProjectReference Include="..\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj" />
   </ItemGroup>
 
 </Project>

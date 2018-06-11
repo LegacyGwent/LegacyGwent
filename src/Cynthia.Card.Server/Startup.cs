@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Alsein.Utilities;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Cynthia.Card.Server.Services;
+using MongoDB.Driver;
+using Cynthia.Card.Common;
 
 namespace Cynthia.Card.Server
 {
@@ -28,9 +31,16 @@ namespace Cynthia.Card.Server
             services.AddSignalR();
             builder.Populate(services);
 
+            builder.RegisterType<MongoClient>()
+                .WithParameter("connectionString", "mongodb://cynthia.ovyno.com:27017")
+                .As<IMongoClient>()
+                .PropertiesAutowired()
+                .AsSelf();
             builder.RegisterAll("Hub");
+            builder.RegisterAllServices();
 
             ApplicationContainer = builder.Build();
+            ApplicationContainer.Resolve<InitializationService>().Start();
             return new AutofacServiceProvider(ApplicationContainer);
         }
 
