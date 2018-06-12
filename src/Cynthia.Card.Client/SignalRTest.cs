@@ -9,12 +9,15 @@ namespace Cynthia.Card.Client
     public class SignalRTest
     {
         private HubConnection _client;
-        public SignalRTest(string url = "http://cynthia.ovyno.com/hub/test")
+        public SignalRTest(string url = "http://localhost:5000/hub/test")
         {
             _client = new HubConnectionBuilder().WithUrl(url).Build();
             _client.On<ChatMessage>("GetChatMessage", msg => MessageProcessing.PrintMessage(msg));
             _client.On<IEnumerable<ChatMessage>>("GetCacheMessage", msgs => MessageProcessing.PrintMessage(msgs));
-            _client.StartAsync().Wait();
+        }
+        public async Task Start()
+        {
+            await _client.StartAsync();
         }
         public async void SendMessage(string name, string msg)
         {
