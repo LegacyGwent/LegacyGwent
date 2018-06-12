@@ -29,5 +29,9 @@ namespace Cynthia.Card.Server.Services
         {
             return ContextData.Skip(count);
         }
+        public IEnumerable<ChatMessage> GetLastMessage(int count = 60)
+        {
+            return ContextData.Skip(ContextData.Count - count);
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace Cynthia.Card.Server
             }
             app.UseSignalR(routes =>
             {
-                routes.MapHub<TestHub>("/hub/test");
+                routes.MapHub<ChatHub>("/hub/chat");
             });
 
             app.UseHttpsRedirection();
