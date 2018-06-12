@@ -5,17 +5,19 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Cynthia.Card.Server
 {
-    public class TestHub : Hub
+    public class ChatHub : Hub
     {
         public IMessagesService message { get; set; }
-        public async Task SendMessage(ChatMessage msg)
+        //将消息转发给全部用户 (触发全部用户的GetChatMessage)
+        public async Task ForwardMessage(ChatMessage msg)
         {
             message.AddMessage(msg);
             await Clients.All.SendAsync("GetChatMessage", msg);
         }
-        public async Task SendCache()
+        //将消息转发给请求者 (触发请求者的GetMessageCache)
+        public async Task SendMessageCache()
         {
-            await Clients.Caller.SendAsync("GetCacheMessage", message.GetMessage(0));
+            await Clients.Caller.SendAsync("GetMessageCache", message.GetLastMessage());
         }
     }
 }
