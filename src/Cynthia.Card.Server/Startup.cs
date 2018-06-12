@@ -36,8 +36,8 @@ namespace Cynthia.Card.Server
                 .As<IMongoClient>()
                 .PropertiesAutowired()
                 .AsSelf();
-            builder.RegisterAll("Hub");//.ExternallyOwned();
-            builder.RegisterAllServices();//.PreserveExistingDefaults();
+            builder.RegisterAll("Hub", x => x.ExternallyOwned());//.ExternallyOwned();
+            builder.RegisterAllServices(x => x.PreserveExistingDefaults());//.PreserveExistingDefaults();
 
             ApplicationContainer = builder.Build();
             ApplicationContainer.Resolve<InitializationService>().Start();

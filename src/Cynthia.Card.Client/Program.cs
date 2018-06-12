@@ -11,8 +11,8 @@ namespace Cynthia.Card.Client
             var name = Console.ReadLine();
             var content = "";
             //------------------------------------------------
-            var client = new SignalRTest();
-            await client.Start();
+            var client = new SignalRTest("http://cynthia.ovyno.com/hub/test");
+            client.Start().Wait();
             await client.GetCacheMessage();
             while (true)
             {
