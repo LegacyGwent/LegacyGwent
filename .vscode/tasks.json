@@ -12,12 +12,12 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build client",
+            "label": "build desktop client",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Cynthia.Card.Client/Cynthia.Card.Client.csproj"
+                "${workspaceFolder}/src/Cynthia.Card.Client.Desktop/Cynthia.Card.Client.Desktop.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

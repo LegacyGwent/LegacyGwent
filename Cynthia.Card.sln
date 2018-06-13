@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Common", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.MongoDB", "src\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj", "{517005DC-8023-494A-BB2B-08B1F91E348B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Client", "src\Cynthia.Card.Client\Cynthia.Card.Client.csproj", "{48ABA350-2492-4F6F-8E08-753B8045EDEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Client.Desktop", "src\Cynthia.Card.Client.Desktop\Cynthia.Card.Client.Desktop.csproj", "{48ABA350-2492-4F6F-8E08-753B8045EDEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
