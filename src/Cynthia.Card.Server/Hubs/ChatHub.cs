@@ -9,7 +9,7 @@ namespace Cynthia.Card.Server
     {
         public IMessagesService message { get; set; }
         //将消息转发给全部用户 (触发全部用户的GetChatMessage)
-        public async Task ForwardMessage(ChatMessage msg)
+        public async Task DistributeMessage(ChatMessage msg)
         {
             message.AddMessage(msg);
             await Clients.All.SendAsync("GetChatMessage", msg);

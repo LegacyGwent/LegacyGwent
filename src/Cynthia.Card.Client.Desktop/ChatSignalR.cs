@@ -22,7 +22,7 @@ namespace Cynthia.Card.Client
         //发送消息 (触发服务端:转发消息给全部客户端ForwardMessage)
         public async void SendMessage(string name, string msg)
         {
-            await _client.InvokeAsync("ForwardMessage", new ChatMessage() { Name = name, Time = DateTime.Now, Content = msg, Id = Guid.NewGuid().ToString() });
+            await _client.InvokeAsync("DistributeMessage", new ChatMessage() { Name = name, Time = DateTime.Now, Content = msg, Id = Guid.NewGuid().ToString() });
         }
         //获得缓存信息 (触发服务端:发送缓存信息SendMessageCache)
         public async Task GetMessageCache()
