@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Cynthia.Card.Client
+namespace Cynthia.Card.Client.Desktop
 {
     class Program
     {
