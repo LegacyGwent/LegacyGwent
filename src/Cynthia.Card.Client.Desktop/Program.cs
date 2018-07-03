@@ -11,7 +11,7 @@ namespace Cynthia.Card.Client.Desktop
             var name = Console.ReadLine();
             var content = "";
             //------------------------------------------------
-            var client = new ChatSignalR("http://cynthia.ovyno.com/hub/chat");
+            var client = new ChatSignalR("http://132.232.106.125/hub/chat");
             await client.Start();
             await client.GetMessageCache();
             while (true)

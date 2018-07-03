@@ -7,6 +7,7 @@
   "devDependencies": {
     "@types/jquery": "^3.3.2",
     "@types/requirejs": "^2.1.31",
+    "gulp": "^3.9.1",
     "jquery": "^3.3.1",
     "requirejs": "^2.3.5"
   },
