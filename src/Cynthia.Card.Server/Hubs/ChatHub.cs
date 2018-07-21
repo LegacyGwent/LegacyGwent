@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cynthia.Card.Common.Models;
-using Cynthia.Card.Server.Services;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cynthia.Card.Server

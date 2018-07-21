@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Alsein.Utilities" Version="0.2.0" />
+    <PackageReference Include="Alsein.Utilities.Modulization.Autofac" Version="0.2.2-beta" />
+    <PackageReference Include="AutoFac.Configuration" Version="4.1.0" />
+    <PackageReference Include="AutoFac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.6.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.6.1" />
