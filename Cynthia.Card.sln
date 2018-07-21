@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4DFC1311-79E1-4902-8766-E470DCF928F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Server", "src\Cynthia.Card.Server\Cynthia.Card.Server.csproj", "{327F6B28-5D67-4D19-A745-08C336ABE689}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Common", "src\Cynthia.Card.Common\Cynthia.Card.Common.csproj", "{A1B546AE-2D02-4869-ABC2-49BC32439477}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.MongoDB", "src\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj", "{517005DC-8023-494A-BB2B-08B1F91E348B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Client.Desktop", "src\Cynthia.Card.Client.Desktop\Cynthia.Card.Client.Desktop.csproj", "{48ABA350-2492-4F6F-8E08-753B8045EDEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Server", "src\Cynthia.Card.Server\Cynthia.Card.Server.csproj", "{71B4D3E2-5A39-4D05-9C1A-8072750F7753}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Debug|x64.Build.0 = Debug|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Debug|x86.Build.0 = Debug|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Release|Any CPU.Build.0 = Release|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Release|x64.ActiveCfg = Release|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Release|x64.Build.0 = Release|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Release|x86.ActiveCfg = Release|Any CPU
-		{327F6B28-5D67-4D19-A745-08C336ABE689}.Release|x86.Build.0 = Release|Any CPU
 		{A1B546AE-2D02-4869-ABC2-49BC32439477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1B546AE-2D02-4869-ABC2-49BC32439477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B546AE-2D02-4869-ABC2-49BC32439477}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -74,11 +62,23 @@ Global
 		{48ABA350-2492-4F6F-8E08-753B8045EDEB}.Release|x64.Build.0 = Release|Any CPU
 		{48ABA350-2492-4F6F-8E08-753B8045EDEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{48ABA350-2492-4F6F-8E08-753B8045EDEB}.Release|x86.Build.0 = Release|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Debug|x64.Build.0 = Debug|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Debug|x86.Build.0 = Debug|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Release|x64.ActiveCfg = Release|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Release|x64.Build.0 = Release|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Release|x86.ActiveCfg = Release|Any CPU
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{327F6B28-5D67-4D19-A745-08C336ABE689} = {4DFC1311-79E1-4902-8766-E470DCF928F4}
 		{A1B546AE-2D02-4869-ABC2-49BC32439477} = {4DFC1311-79E1-4902-8766-E470DCF928F4}
 		{517005DC-8023-494A-BB2B-08B1F91E348B} = {4DFC1311-79E1-4902-8766-E470DCF928F4}
 		{48ABA350-2492-4F6F-8E08-753B8045EDEB} = {4DFC1311-79E1-4902-8766-E470DCF928F4}
+		{71B4D3E2-5A39-4D05-9C1A-8072750F7753} = {4DFC1311-79E1-4902-8766-E470DCF928F4}
 	EndGlobalSection
 EndGlobal

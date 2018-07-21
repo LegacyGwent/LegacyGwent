@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using Alsein.Utilities;
+using Autofac.Extensions.DependencyInjection;
+using Autofac.Configuration;
+using Autofac;
 
-namespace Cynthia.Card.Client.Desktop
+namespace Cynthia.Card.Client
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main(string[] args) => await ConfiguerServices().Resolve<MainService>().Main(args);
+
+        private static IContainer ConfiguerServices()
         {
-            Console.WriteLine("请输入你的名称~:");
-            var name = Console.ReadLine();
-            var content = "";
-            //------------------------------------------------
-            var client = new ChatSignalR("http://132.232.106.125/hub/chat");
-            await client.Start();
-            await client.GetMessageCache();
-            while (true)
-            {
-                content = Console.ReadLine();
-                client.SendMessage(name, content);
-            }
+            var container = default(IContainer);
+            var builder = new ContainerBuilder();
+            builder.RegisterType<HubConnectionBuilder>().SingleInstance();
+            builder.Register(x => container.Resolve<HubConnectionBuilder>().WithUrl("http://localhost:5000/hub/chat").Build()).SingleInstance();
+            builder.Register(x => container);
+            builder.RegisterAllServices(option => option.PreserveExistingDefaults());
+            return container = builder.Build(); ;
         }
     }
 }
