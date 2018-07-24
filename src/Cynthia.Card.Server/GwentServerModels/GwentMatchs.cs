@@ -16,7 +16,7 @@ namespace Cynthia.Card.Server
                     GwentRooms[i].AddPlayer(player);
                     if (GwentRooms[i].IsReady())
                     {
-                        var gwentGame = new GwentGame(GwentRooms[i].HomePlayer, GwentRooms[i].JoinPlayer);
+                        var gwentGame = new GwentServerGame(GwentRooms[i].HomePlayer, GwentRooms[i].JoinPlayer);
                         _ = Task.Run(gwentGame.Play);
                         return;
                     }

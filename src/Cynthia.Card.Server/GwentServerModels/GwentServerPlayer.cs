@@ -7,12 +7,9 @@ using Cynthia.Card.Common;
 
 namespace Cynthia.Card.Server
 {
-    public class GwentServerPlayer
+    public class GwentServerPlayer : Player
     {
-
-        public string PlayerName { get; set; }//玩家名
         public string ConnectionId { get; set; }//链接ID
-        public GwentDeck Deck { get; set; }//所用卡组
         private Func<IHubContext<GwentHub>> _hub;
         private Resulter<Operation<ClientOperationType>> _clientOperationResulter;
         public GwentServerPlayer(UserInfo user, Func<IHubContext<GwentHub>> hub)
@@ -28,13 +25,17 @@ namespace Cynthia.Card.Server
             ConnectionId = connectionId;
             _hub = hub;
         }
-        public async Task<Operation<ClientOperationType>> GetOperation()
+        public override async Task<Operation<ClientOperationType>> ClientOperation()
         {
             return await _clientOperationResulter;
         }
-        public Task SendOperation(Operation<ServerOperationType> operation)
+        public override Task ServerOperation(Operation<ServerOperationType> operation)
         {
             return _hub().Clients.Client(ConnectionId).SendAsync("GameOperation", operation);
+        }
+        public Task UserOperation(Operation<ClientOperationType> clientoperation)
+        {
+            return _clientOperationResulter.Result(clientoperation);
         }
     }
 }
