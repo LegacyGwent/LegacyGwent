@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using Cynthia.Card.Common;
 using System.Collections.Generic;
+using Alsein.Utilities.LifetimeAnnotations;
+
 
 namespace Cynthia.Card.Client
 {
+    [Singleton]
     public class GwentChatService
     {
         public HubConnection HubConnection { get; set; }
