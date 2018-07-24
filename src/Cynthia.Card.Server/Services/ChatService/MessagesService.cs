@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cynthia.Card.Common.Models;
+using Cynthia.Card.Common;
 using Alsein.Utilities;
 using Alsein.Utilities.LifetimeAnnotations;
 

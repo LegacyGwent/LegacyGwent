@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using Cynthia.Card.Common.Models;
+using Cynthia.Card.Common;
 using System.Collections.Generic;
 
 namespace Cynthia.Card.Client

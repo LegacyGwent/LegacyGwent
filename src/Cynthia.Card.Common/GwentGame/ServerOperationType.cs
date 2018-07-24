@@ -1,7 +1,8 @@
 namespace Cynthia.Card.Common
 {
-    public class ServerOperationType
+    public enum ServerOperationType
     {
-
+        GameStart,
+        GameEnd
     }
 }

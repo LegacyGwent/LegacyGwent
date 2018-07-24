@@ -4,7 +4,7 @@ namespace Cynthia.Card.Common
 {
     public class Operation
     {
-        static Operation<TOperationType> Creat<TOperationType>(TOperationType type, params object[] arguments) => new Operation<TOperationType>(type, arguments);
+        public static Operation<TOperationType> Create<TOperationType>(TOperationType type, params object[] arguments) => new Operation<TOperationType>(type, arguments);
     }
     public class Operation<TOperationType>
     {
