@@ -17,7 +17,7 @@ namespace Cynthia.Card.Client
             var container = default(IContainer);
             var builder = new ContainerBuilder();
             builder.RegisterType<HubConnectionBuilder>().SingleInstance();
-            builder.Register(x => container.Resolve<HubConnectionBuilder>().WithUrl("http://localhost:5000/hub/chat").Build()).SingleInstance();
+            builder.Register(x => container.Resolve<HubConnectionBuilder>().WithUrl("http://localhost:5000/hub/gwent").Build()).SingleInstance();
             builder.Register(x => container);
             builder.RegisterAllServices(option => option.PreserveExistingDefaults());
             return container = builder.Build(); ;

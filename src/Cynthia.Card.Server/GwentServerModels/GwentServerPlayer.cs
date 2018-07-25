@@ -25,17 +25,8 @@ namespace Cynthia.Card.Server
             ConnectionId = connectionId;
             _hub = hub;
         }
-        public override async Task<Operation<ClientOperationType>> ClientOperation()
-        {
-            return await _clientOperationResulter;
-        }
-        public override Task ServerOperation(Operation<ServerOperationType> operation)
-        {
-            return _hub().Clients.Client(ConnectionId).SendAsync("GameOperation", operation);
-        }
-        public Task UserOperation(Operation<ClientOperationType> clientoperation)
-        {
-            return _clientOperationResulter.Result(clientoperation);
-        }
+        public override async Task<Operation<ClientOperationType>> ClientOperation() => await _clientOperationResulter;
+        public override Task ServerOperation(Operation<ServerOperationType> operation) => _hub().Clients.Client(ConnectionId).SendAsync("GameOperation", operation);
+        public Task UserOperation(Operation<ClientOperationType> clientoperation) => _clientOperationResulter.Result(clientoperation);
     }
 }
