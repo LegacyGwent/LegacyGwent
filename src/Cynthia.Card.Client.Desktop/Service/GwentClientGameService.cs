@@ -7,8 +7,8 @@ namespace Cynthia.Card.Client
     [Transient]
     public class GwentClientGameService
     {
-        private GwentLocalPlayer _player;
-        public async Task Play(GwentLocalPlayer player)
+        private LocalPlayer _player;
+        public async Task Play(LocalPlayer player)
         {
             _player = player;
             Console.WriteLine("开始游戏");

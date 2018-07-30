@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Cynthia.Card.Server
 {
-    public class GwentClientPlayer : Player
+    public class ClientPlayer : Player
     {
         public UserInfo CurrentUser { get; set; }
-        public GwentClientPlayer(UserInfo user, Func<IHubContext<GwentHub>> hub)
+        public ClientPlayer(UserInfo user, Func<IHubContext<GwentHub>> hub)
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;

@@ -4,10 +4,10 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame
     {
-        private GwentClientPlayer _player1;
-        private GwentClientPlayer _player2;
+        private ClientPlayer _player1;
+        private ClientPlayer _player2;
 
-        public GwentServerGame(GwentClientPlayer player1, GwentClientPlayer player2)
+        public GwentServerGame(ClientPlayer player1, ClientPlayer player2)
         {
             _player1 = player1;
             _player2 = player2;
