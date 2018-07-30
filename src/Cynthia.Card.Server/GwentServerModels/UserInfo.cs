@@ -4,13 +4,13 @@ namespace Cynthia.Card.Server
     {
         public string PlayerName { get; set; }//玩家名
         public string ConnectionId { get; set; }//链接ID
-        public bool IsPlay { get; set; } = false;
-        public GwentServerPlayer CurrentPlayer { get; set; }
-        public UserInfo(string playerName, string connectionId, bool isPlay = false)
+        public GwentClientPlayer CurrentPlayer { get; set; }
+        public UserState UserState;
+        public UserInfo(string playerName, string connectionId, UserState userState = UserState.Standby)
         {
             PlayerName = playerName;
             ConnectionId = connectionId;
-            IsPlay = isPlay;
+            UserState = userState;
         }
     }
 }

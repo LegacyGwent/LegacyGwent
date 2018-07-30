@@ -3,6 +3,8 @@ using Xunit;
 using Cynthia.Card.Server;
 using Cynthia.Card.Common;
 using Cynthia.Card.Client;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cynthia.Card.XUnit
 {
@@ -11,7 +13,14 @@ namespace Cynthia.Card.XUnit
         [Fact]
         public void Test1()
         {
-            var deck = new GwentDeck();
+            var list = new List<int>();
+            list.Add(10);
+            list.Add(15);
+            list.Add(20);
+            list.Add(25);
+            var result = 0;
+            result = list.First(x => x > 10);
+            return;
         }
     }
 }

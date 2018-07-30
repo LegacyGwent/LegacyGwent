@@ -4,37 +4,27 @@ namespace Cynthia.Card.Server
 {
     public class GwentRoom
     {
-        public GwentServerPlayer HomePlayer { get; set; }
-        public GwentServerPlayer JoinPlayer { get; set; }
-        public string RoomID { get; }
+        public GwentClientPlayer Player1 { get; set; }
+        public GwentClientPlayer Player2 { get; set; }
+        public bool IsReady { get => Player2 != null && Player1 != null; }
 
-        public GwentRoom(GwentServerPlayer player)
+        public GwentRoom(GwentClientPlayer player)
         {
-            HomePlayer = player;
-            RoomID = Guid.NewGuid().ToString();
+            Player1 = player;
         }
-        public bool AddPlayer(GwentServerPlayer player)
+        public bool AddPlayer(GwentClientPlayer player)
         {
-            if (HomePlayer == null && JoinPlayer == null)
+            if (Player1 == null)
             {
-                HomePlayer = player;
-                return false;
-            }
-            if (HomePlayer == null)
-            {
-                HomePlayer = player;
+                Player1 = player;
                 return true;
             }
-            if (JoinPlayer == null)
+            if (Player2 == null)
             {
-                JoinPlayer = player;
+                Player2 = player;
                 return true;
             }
             return false;
-        }
-        public bool IsReady()
-        {
-            return JoinPlayer != null && HomePlayer != null;
         }
     }
 }
