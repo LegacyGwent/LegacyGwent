@@ -8,7 +8,7 @@ namespace Cynthia.Card.Client
     {
         public GwentLocalPlayer(HubConnection hubConnection)
         {
-            ReceiveFromUpstream += x => hubConnection.SendAsync("GameOperation", x);
+            ReceiveFromDownstream += x => hubConnection.SendAsync("GameOperation", x);
         }
     }
 }
