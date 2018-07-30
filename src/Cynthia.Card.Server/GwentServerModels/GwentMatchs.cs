@@ -24,6 +24,7 @@ namespace Cynthia.Card.Server
                     }
                 }
             }
+            player.CurrentUser.UserState = UserState.Match;
             GwentRooms.Add(new GwentRoom(player));
             return;
         }

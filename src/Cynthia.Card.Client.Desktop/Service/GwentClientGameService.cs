@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Utilities.LifetimeAnnotations;
+using Cynthia.Card.Common;
 
 namespace Cynthia.Card.Client
 {
@@ -13,6 +14,7 @@ namespace Cynthia.Card.Client
         {
             _player = player;
             Console.WriteLine("开始游戏");
+            await _player.SendToUpstreamAsync(UserOperationType.None, "233");
             var op1 = await _player.ReceiveFromUpstreamAsync();
             Console.WriteLine("已接收到第一个指令");
             var op2 = await _player.ReceiveFromUpstreamAsync();

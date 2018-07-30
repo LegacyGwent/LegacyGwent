@@ -25,7 +25,7 @@ namespace Cynthia.Card.Common
         public async Task SendToDownstreamAsync(ServerOperationType type, params object[] data) => await _upstream.SendAsync(Operation.Create(type, data));
         public async Task<Operation<ServerOperationType>> ReceiveFromUpstreamAsync() => (await _upstream.ReceiveAsync<Operation<ServerOperationType>>()).Result;
         public async Task<Operation<UserOperationType>> ReceiveFromDownstreamAsync() => (await _downstream.ReceiveAsync<Operation<UserOperationType>>()).Result;
-        public event Func<object, Task> ReceiveFromUpstream { add => _upstream.Receive += value; remove => _upstream.Receive -= value; }
-        public event Func<object, Task> ReceiveFromDownstream { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
+        public event Func<object, Task> ReceiveFromUpstream { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
+        public event Func<object, Task> ReceiveFromDownstream { add => _upstream.Receive += value; remove => _upstream.Receive -= value; }
     }
 }
