@@ -34,7 +34,7 @@ namespace Cynthia.Card.Server
             try
             {
                 var user = _users.Single(item => item.Key == connectionId && item.Value.UserState == UserState.Standby).Value;
-                var player = user.CurrentPlayer = new GwentClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
+                var player = user.CurrentPlayer = new ClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
                 player.Deck = new GwentDeck();
                 _gwentMatchs.PlayerJoin(player);
             }

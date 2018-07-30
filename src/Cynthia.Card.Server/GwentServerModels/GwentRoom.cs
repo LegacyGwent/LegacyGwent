@@ -4,15 +4,15 @@ namespace Cynthia.Card.Server
 {
     public class GwentRoom
     {
-        public GwentClientPlayer Player1 { get; set; }
-        public GwentClientPlayer Player2 { get; set; }
+        public ClientPlayer Player1 { get; set; }
+        public ClientPlayer Player2 { get; set; }
         public bool IsReady { get => Player2 != null && Player1 != null; }
 
-        public GwentRoom(GwentClientPlayer player)
+        public GwentRoom(ClientPlayer player)
         {
             Player1 = player;
         }
-        public bool AddPlayer(GwentClientPlayer player)
+        public bool AddPlayer(ClientPlayer player)
         {
             if (Player1 == null)
             {

@@ -6,7 +6,7 @@ namespace Cynthia.Card.Server
     public class GwentMatchs
     {
         public IList<GwentRoom> GwentRooms { get; set; } = new List<GwentRoom>();
-        public void PlayerJoin(GwentClientPlayer player)
+        public void PlayerJoin(ClientPlayer player)
         {
             for (var i = 0; i < GwentRooms.Count; i++)
             {
