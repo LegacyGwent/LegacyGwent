@@ -9,11 +9,11 @@ namespace Cynthia.Card.Client
     public class GwentClientService
     {
         public HubConnection HubConnection { get; set; }
-        public GwentClientPlayer Player { get; set; }
+        public GwentLocalPlayer Player { get; set; }
         public GwentClientService(HubConnection hubConnection)
         {
             HubConnection = hubConnection;
-            Player = new GwentClientPlayer(HubConnection);
+            Player = new GwentLocalPlayer(HubConnection);
             HubConnection.On<Operation<ServerOperationType>>("GameOperation", async operation => await Player.SendToDownstreamAsync(operation));
         }
         public async Task<bool> Register(string username, string password) => await HubConnection.InvokeAsync<bool>("Register", username, password);
