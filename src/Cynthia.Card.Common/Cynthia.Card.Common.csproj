@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Alsein.Utilities" Version="0.2.0" />
-    <PackageReference Include="Alsein.Utilities.Modulization.Autofac" Version="0.2.2-beta" />
+    <PackageReference Include="Alsein.Utilities.Autofac" Version="0.3.0" />
+    <PackageReference Include="Alsein.Utilities.Essentials" Version="0.3.0" />
     <PackageReference Include="AutoFac.Configuration" Version="4.1.0" />
     <PackageReference Include="AutoFac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />

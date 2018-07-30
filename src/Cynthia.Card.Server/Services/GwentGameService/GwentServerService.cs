@@ -13,16 +13,16 @@ namespace Cynthia.Card.Server
     public class GwentServerService
     {
         public IContainer Container { get; set; }
-        public GwentMatchs GwentMatchs { get; set; } = new GwentMatchs();
-        public IDictionary<string, UserInfo> Users { get; set; } = new Dictionary<string, UserInfo>();
+        private readonly GwentMatchs _gwentMatchs = new GwentMatchs();
+        private readonly IDictionary<string, UserInfo> _users = new Dictionary<string, UserInfo>();
         public bool Login(UserInfo user, string password)
         {
             //判断登录条件
-            if (Users.Any(x => x.Value.PlayerName == user.PlayerName))
+            if (_users.Any(x => x.Value.PlayerName == user.PlayerName))
             {
                 return false;
             }
-            Users.Add(user.ConnectionId, user);
+            _users.Add(user.ConnectionId, user);
             return true;
         }
         public bool Register(UserInfo user, string password)
@@ -35,11 +35,11 @@ namespace Cynthia.Card.Server
             //判断卡组是否符合规范
             try
             {
-                var user = Users.Single(item => item.Key == connectionId && !item.Value.IsPlay).Value;
-                var player = user.CurrentPlayer = new GwentServerPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
+                var user = _users.Single(item => item.Key == connectionId && item.Value.UserState == UserState.Standby).Value;
+                var player = user.CurrentPlayer = new GwentClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
                 player.Deck = new GwentDeck();
-                GwentMatchs.PlayerJoin(player);
-                Users[connectionId].IsPlay = true;
+                _gwentMatchs.PlayerJoin(player);
+                _users[connectionId].UserState = UserState.Match;
             }
             catch
             {
@@ -47,14 +47,14 @@ namespace Cynthia.Card.Server
             }
             return true;
         }
-        public Task GameOperation(Operation<ClientOperationType> operation, string connectionId) => Users[connectionId].CurrentPlayer.UserOperation(operation);
+        public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendToUpstreamAsync(operation);
         public void Disconnect(string connectionId)
         {
-            if (Users[connectionId].IsPlay)
+            if (_users[connectionId].UserState != UserState.Standby)
             {
-                GwentMatchs.PlayerLeave(connectionId);
+                _gwentMatchs.PlayerLeave(connectionId);
             }
-            Users.Remove(connectionId);
+            _users.Remove(connectionId);
         }
     }
 }

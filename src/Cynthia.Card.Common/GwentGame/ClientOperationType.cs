@@ -1,6 +1,6 @@
 namespace Cynthia.Card.Common
 {
-    public enum ClientOperationType : byte
+    public enum UserOperationType : byte
     {
         None,
         PlayCard,

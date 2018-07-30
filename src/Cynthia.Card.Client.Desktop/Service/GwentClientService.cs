@@ -14,7 +14,7 @@ namespace Cynthia.Card.Client
         {
             HubConnection = hubConnection;
             Player = new GwentClientPlayer(HubConnection);
-            HubConnection.On<Operation<ServerOperationType>>("GameOperation", operation => Player.ServerOperation(operation));
+            HubConnection.On<Operation<ServerOperationType>>("GameOperation", async operation => await Player.SendToDownstreamAsync(operation));
         }
         public async Task<bool> Register(string username, string password) => await HubConnection.InvokeAsync<bool>("Register", username, password);
         public async Task<bool> Login(string username, string password) => await HubConnection.InvokeAsync<bool>("Login", username, password);
