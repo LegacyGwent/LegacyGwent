@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Cynthia.Card.Client

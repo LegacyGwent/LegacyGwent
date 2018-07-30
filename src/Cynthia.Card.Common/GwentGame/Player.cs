@@ -15,10 +15,10 @@ namespace Cynthia.Card
         {
             (_upstream, _downstream) = AsyncDataEndPoint.CreateDuplex();
         }
-        public async Task SendViaDownstreamAsync(Operation<UserOperationType> operation) => await _downstream.SendAsync(operation);
-        public async Task SendViaUpstreamAsync(Operation<ServerOperationType> operation) => await _upstream.SendAsync(operation);
-        public async Task SendViaDownstreamAsync(UserOperationType type, params object[] data) => await _downstream.SendAsync(Operation.Create(type, data));
-        public async Task SendViaUpstreamAsync(ServerOperationType type, params object[] data) => await _upstream.SendAsync(Operation.Create(type, data));
+        public Task SendViaDownstreamAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
+        public Task SendViaUpstreamAsync(Operation<ServerOperationType> operation) => _upstream.SendAsync(operation);
+        public Task SendViaDownstreamAsync(UserOperationType type, params object[] data) => _downstream.SendAsync(Operation.Create(type, data));
+        public Task SendViaUpstreamAsync(ServerOperationType type, params object[] data) => _upstream.SendAsync(Operation.Create(type, data));
         public async Task<Operation<ServerOperationType>> ReceiveFromDownstreamAsync() => (await _downstream.ReceiveAsync<Operation<ServerOperationType>>()).Result;
         public async Task<Operation<UserOperationType>> ReceiveFromUpstreamAsync() => (await _upstream.ReceiveAsync<Operation<UserOperationType>>()).Result;
         public event Func<object, Task> ReceiveFromDownstream { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
