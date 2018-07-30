@@ -1,7 +1,4 @@
 ﻿using System;
-using Cynthia.Card.Client;
-using Cynthia.Card.Common;
-using Cynthia.Card.Server;
 using Cynthia.Algorithms;
 using System.Collections.Generic;
 using Alsein.Utilities;

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Alsein.Utilities;
-using Cynthia.Card.Common;
 
 namespace Cynthia.Card.Client
 {

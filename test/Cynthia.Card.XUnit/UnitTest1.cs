@@ -1,8 +1,4 @@
-using System;
 using Xunit;
-using Cynthia.Card.Server;
-using Cynthia.Card.Common;
-using Cynthia.Card.Client;
 using System.Collections.Generic;
 using System.Linq;
 

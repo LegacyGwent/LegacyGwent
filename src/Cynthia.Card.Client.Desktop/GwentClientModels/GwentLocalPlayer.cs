@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using Cynthia.Card.Common;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Cynthia.Card.Client
@@ -8,7 +6,7 @@ namespace Cynthia.Card.Client
     {
         public GwentLocalPlayer(HubConnection hubConnection)
         {
-            ReceiveFromDownstream += x => hubConnection.SendAsync("GameOperation", x);
+            ReceiveFromUpstream += x => hubConnection.SendAsync("GameOperation", x);
         }
     }
 }

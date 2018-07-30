@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Cynthia.Card.Common;
-using Alsein.Utilities;
 using Alsein.Utilities.IO;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public abstract class Player
     {
@@ -19,13 +15,13 @@ namespace Cynthia.Card.Common
         {
             (_upstream, _downstream) = AsyncDataEndPoint.CreateDuplex();
         }
-        public async Task SendToUpstreamAsync(Operation<UserOperationType> operation) => await _downstream.SendAsync(operation);
-        public async Task SendToDownstreamAsync(Operation<ServerOperationType> operation) => await _upstream.SendAsync(operation);
-        public async Task SendToUpstreamAsync(UserOperationType type, params object[] data) => await _downstream.SendAsync(Operation.Create(type, data));
-        public async Task SendToDownstreamAsync(ServerOperationType type, params object[] data) => await _upstream.SendAsync(Operation.Create(type, data));
-        public async Task<Operation<ServerOperationType>> ReceiveFromUpstreamAsync() => (await _downstream.ReceiveAsync<Operation<ServerOperationType>>()).Result;
-        public async Task<Operation<UserOperationType>> ReceiveFromDownstreamAsync() => (await _upstream.ReceiveAsync<Operation<UserOperationType>>()).Result;
-        public event Func<object, Task> ReceiveFromUpstream { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
-        public event Func<object, Task> ReceiveFromDownstream { add => _upstream.Receive += value; remove => _upstream.Receive -= value; }
+        public async Task SendViaDownstreamAsync(Operation<UserOperationType> operation) => await _downstream.SendAsync(operation);
+        public async Task SendViaUpstreamAsync(Operation<ServerOperationType> operation) => await _upstream.SendAsync(operation);
+        public async Task SendViaDownstreamAsync(UserOperationType type, params object[] data) => await _downstream.SendAsync(Operation.Create(type, data));
+        public async Task SendViaUpstreamAsync(ServerOperationType type, params object[] data) => await _upstream.SendAsync(Operation.Create(type, data));
+        public async Task<Operation<ServerOperationType>> ReceiveFromDownstreamAsync() => (await _downstream.ReceiveAsync<Operation<ServerOperationType>>()).Result;
+        public async Task<Operation<UserOperationType>> ReceiveFromUpstreamAsync() => (await _upstream.ReceiveAsync<Operation<UserOperationType>>()).Result;
+        public event Func<object, Task> ReceiveFromDownstream { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
+        public event Func<object, Task> ReceiveFromUpstream { add => _upstream.Receive += value; remove => _upstream.Receive -= value; }
     }
 }

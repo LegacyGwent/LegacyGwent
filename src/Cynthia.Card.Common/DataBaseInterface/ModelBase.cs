@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public class ModelBase : IModel
     {

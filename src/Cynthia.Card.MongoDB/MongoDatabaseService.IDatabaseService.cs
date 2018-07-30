@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cynthia.Card.Common;
 
 namespace Cynthia.Card.MongoDB
 {

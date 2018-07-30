@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Alsein.Utilities;
-using Cynthia.Card.Common;
 using MongoDB.Driver;
 
 namespace Cynthia.Card.MongoDB

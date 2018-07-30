@@ -1,5 +1,3 @@
-using Cynthia.Card.Common;
-
 namespace Cynthia.Card.MongoDB
 {
     internal class MongoRepository : IRepository

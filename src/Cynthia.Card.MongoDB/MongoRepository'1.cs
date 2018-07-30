@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Cynthia.Card.Common;
 using MongoDB.Driver;
 
 namespace Cynthia.Card.MongoDB

@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Cynthia.Card.Common;
 
 namespace Cynthia.Card.Server
 {
@@ -14,7 +10,7 @@ namespace Cynthia.Card.Server
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
-            ReceiveFromUpstream += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x);
+            ReceiveFromDownstream += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x);
         }
     }
 }
