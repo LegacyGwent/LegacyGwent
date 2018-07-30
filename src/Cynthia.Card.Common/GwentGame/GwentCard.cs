@@ -1,6 +1,4 @@
-using Cynthia.Card.Common;
-
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     //一个卡牌类型
     public class GwentCard : ModelBase

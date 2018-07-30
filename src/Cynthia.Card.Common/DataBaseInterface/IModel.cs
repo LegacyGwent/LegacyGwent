@@ -1,4 +1,4 @@
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public interface IModel
     {

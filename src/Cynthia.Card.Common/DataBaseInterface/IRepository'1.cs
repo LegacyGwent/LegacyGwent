@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public interface IRepository<TModel> : IRepository, IQueryable<TModel>, ICollection<TModel>
     {

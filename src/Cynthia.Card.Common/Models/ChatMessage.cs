@@ -1,7 +1,6 @@
 using System;
-using Cynthia.Card.Common;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public class ChatMessage : ModelBase
     {

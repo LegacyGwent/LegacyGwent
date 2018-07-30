@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public class Resulter
     {

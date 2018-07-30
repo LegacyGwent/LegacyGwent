@@ -1,8 +1,8 @@
-using Alsein.Utilities.LifetimeAnnotations;
-using Microsoft.AspNetCore.SignalR.Client;
-using Cynthia.Card.Common;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
+using Alsein.Utilities.LifetimeAnnotations;
+using Autofac;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Cynthia.Card.Client
 {
@@ -15,8 +15,7 @@ namespace Cynthia.Card.Client
         {
             HubConnection = hubConnection;
             Player = new GwentLocalPlayer(HubConnection);
-            HubConnection.On<Operation<ServerOperationType>>("GameOperation", async operation => await Player.SendToDownstreamAsync(operation));
-            HubConnection.On<Operation<ServerOperationType>>("GameOperation", x => Console.WriteLine("aaa"));
+            HubConnection.On<Operation<ServerOperationType>>("GameOperation", x => Player.SendViaUpstreamAsync(x));
         }
         public async Task<bool> Register(string username, string password) => await HubConnection.InvokeAsync<bool>("Register", username, password);
         public async Task<bool> Login(string username, string password) => await HubConnection.InvokeAsync<bool>("Login", username, password);

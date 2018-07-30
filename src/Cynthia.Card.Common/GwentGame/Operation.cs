@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public class Operation
     {

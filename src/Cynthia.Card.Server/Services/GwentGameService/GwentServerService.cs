@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Alsein.Utilities;
 using Alsein.Utilities.LifetimeAnnotations;
-using Cynthia.Card.Common;
 using Autofac;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
@@ -46,7 +44,7 @@ namespace Cynthia.Card.Server
             }
             return true;
         }
-        public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendToUpstreamAsync(operation);
+        public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendViaDownstreamAsync(operation);
         public void Disconnect(string connectionId)
         {
             if (_users[connectionId].UserState != UserState.Standby)

@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Cynthia.Card.Common;
 
 namespace Cynthia.Card.Server
 {
@@ -16,12 +15,12 @@ namespace Cynthia.Card.Server
 
         public async Task<bool> Play()
         {
-            await _player1.SendToDownstreamAsync(ServerOperationType.GameStart, "信息1");
-            await _player1.SendToDownstreamAsync(ServerOperationType.GameStart, "信息2");
-            await _player1.SendToDownstreamAsync(ServerOperationType.GameStart, "信息3");
-            await _player2.SendToDownstreamAsync(ServerOperationType.GameStart, "信息1");
-            await _player2.SendToDownstreamAsync(ServerOperationType.GameStart, "信息2");
-            await _player2.SendToDownstreamAsync(ServerOperationType.GameStart, "信息3");
+            await _player1.SendViaUpstreamAsync(ServerOperationType.GameStart, "信息1");
+            await _player1.SendViaUpstreamAsync(ServerOperationType.GameStart, "信息2");
+            await _player1.SendViaUpstreamAsync(ServerOperationType.GameStart, "信息3");
+            await _player2.SendViaUpstreamAsync(ServerOperationType.GameStart, "信息1");
+            await _player2.SendViaUpstreamAsync(ServerOperationType.GameStart, "信息2");
+            await _player2.SendViaUpstreamAsync(ServerOperationType.GameStart, "信息3");
             return true;
         }
     }

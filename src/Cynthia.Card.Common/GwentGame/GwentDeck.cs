@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Alsein.Utilities;
-using Cynthia.Algorithms;
 
-namespace Cynthia.Card.Common
+namespace Cynthia.Card
 {
     public class GwentDeck : IReadOnlyList<GwentCard>
     {
