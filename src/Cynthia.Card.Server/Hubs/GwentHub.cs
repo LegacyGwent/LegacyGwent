@@ -7,8 +7,8 @@ namespace Cynthia.Card.Server
     public class GwentHub : Hub
     {
         public GwentServerService GwentServerService { get; set; }
-        public bool Register(string name, string password) => GwentServerService.Register(new UserInfo(name, Context.ConnectionId), password);
-        public bool Login(string username, string password) => GwentServerService.Login(new UserInfo(username, Context.ConnectionId), password);
+        public bool Register(string name, string password) => GwentServerService.Register(new User(name, Context.ConnectionId), password);
+        public bool Login(string username, string password) => GwentServerService.Login(new User(username, Context.ConnectionId), password);
         public bool Match(int cardIndex) => GwentServerService.Match(Context.ConnectionId, cardIndex);
         public Task GameOperation(Operation<UserOperationType> operation) => GwentServerService.GameOperation(operation, Context.ConnectionId);
         public override Task OnDisconnectedAsync(Exception exception)

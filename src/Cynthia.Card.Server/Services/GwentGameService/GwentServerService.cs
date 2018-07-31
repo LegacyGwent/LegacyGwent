@@ -12,8 +12,8 @@ namespace Cynthia.Card.Server
     {
         public IContainer Container { get; set; }
         private readonly GwentMatchs _gwentMatchs = new GwentMatchs();
-        private readonly IDictionary<string, UserInfo> _users = new Dictionary<string, UserInfo>();
-        public bool Login(UserInfo user, string password)
+        private readonly IDictionary<string, User> _users = new Dictionary<string, User>();
+        public bool Login(User user, string password)
         {
             //判断登录条件
             if (_users.Any(x => x.Value.PlayerName == user.PlayerName))
@@ -23,7 +23,7 @@ namespace Cynthia.Card.Server
             _users.Add(user.ConnectionId, user);
             return true;
         }
-        public bool Register(UserInfo user, string password)
+        public bool Register(User user, string password)
         {
             //判断是否能正确注册
             return true;
