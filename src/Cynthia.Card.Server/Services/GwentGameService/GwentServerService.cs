@@ -11,23 +11,18 @@ namespace Cynthia.Card.Server
     public class GwentServerService
     {
         public IContainer Container { get; set; }
+        public GwentDatabaseService DatabaseService { get; set; }
         private readonly GwentMatchs _gwentMatchs = new GwentMatchs();
         private readonly IDictionary<string, User> _users = new Dictionary<string, User>();
-        public bool Login(User user, string password)
+        public UserInfo Login(User user, string password)
         {
             //判断登录条件
-            if (_users.Any(x => x.Value.PlayerName == user.PlayerName))
-            {
-                return false;
-            }
-            _users.Add(user.ConnectionId, user);
-            return true;
+            if (_users.Any(x => x.Value.PlayerName == user.PlayerName)) { return null; }
+            var loginUser = DatabaseService.Login(user.PlayerName, password);
+            if (loginUser != null) { _users.Add(user.ConnectionId, user); }
+            return loginUser;
         }
-        public bool Register(User user, string password)
-        {
-            //判断是否能正确注册
-            return true;
-        }
+        public bool Register(string username, string password, string playerName) => DatabaseService.Register(playerName, password, playerName);
         public bool Match(string connectionId, int cardIndex)//匹配
         {
             //判断卡组是否符合规范
