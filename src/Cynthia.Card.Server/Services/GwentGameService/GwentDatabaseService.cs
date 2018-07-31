@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Cynthia.Card.Server
 {
     public class GwentDatabaseService
@@ -11,10 +13,19 @@ namespace Cynthia.Card.Server
             Database = database;
             _collection = Database[_dataBaseName].GetRepository<UserInfo>(_repositoryName);
         }
-        public bool Login(string username, string password)
+        public bool Register(string username, string password, string playername)
         {
-            //  _collection.AsQueryable<UserInfo>();
+            if (_collection.AsQueryable<UserInfo>().Any(x => x.UserName == username || x.PlayerName == playername))
+            {
+                return false;
+            }
+            _collection.Add(new UserInfo { UserName = username, PassWord = password, PlayerName = playername });
             return true;
+        }
+        public UserInfo Login(string username, string password)
+        {
+            var user = _collection.AsQueryable<UserInfo>().Where(x => x.UserName == username && x.PassWord == x.PassWord).ToArray();
+            return user.Length > 0 ? user[0] : null;
         }
     }
 }

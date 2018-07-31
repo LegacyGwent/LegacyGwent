@@ -3,6 +3,7 @@ using Cynthia.Algorithms;
 using System.Collections.Generic;
 using Alsein.Utilities;
 using System.Linq;
+using Cynthia.Card.Server;
 
 namespace Cynthia.Card.Test
 {
@@ -10,8 +11,24 @@ namespace Cynthia.Card.Test
     {
         static void Main(string[] args)
         {
-            var deck = new GwentDeck();
-            deck.Leader.Plural().Concat(deck.Mess()).ForAll(PrintCard);
+            var user = Login("gezi", "233");
+            if (user == null)
+            {
+                Console.WriteLine("登录失败,用户名或密码错误");
+            }
+            else
+            {
+                Console.WriteLine($"登录成功,欢迎~{user.PlayerName}~");
+            }
+        }
+        public static UserInfo Login(string username, string password)
+        {
+            var users = new List<UserInfo>();
+            users.Add(new UserInfo() { UserName = "gezi", PassWord = "233", PlayerName = "baka" });
+            users.Add(new UserInfo() { UserName = "hfzi", PassWord = "466", PlayerName = "huaka" });
+            users.Add(new UserInfo() { UserName = "itzi", PassWord = "699", PlayerName = "ayay" });
+            var user = users.Where(x => x.UserName == username && x.PassWord == password).ToArray();
+            return user.Length == 0 ? null : user[0];
         }
         private static IDictionary<Flavor, string> FlavorMap { get; } = new Dictionary<Flavor, string>
         {
