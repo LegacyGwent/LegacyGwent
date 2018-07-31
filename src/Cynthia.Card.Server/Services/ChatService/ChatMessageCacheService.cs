@@ -12,8 +12,8 @@ namespace Cynthia.Card.Server
     {
         public IDatabaseService Client { get; set; }
         public IMessagesService Massage { get; set; }
-        private const string dataBaseName = "chat";
-        private const string repositoryName = "test";
+        private const string _dataBaseName = "gwent";
+        private const string _repositoryName = "chat";
         private IRepository<ChatMessage> repository;
         private int _strategy = 0;//缓存中的第几位开始,是数据库没有的数据
         public async void AutoSaveData(int minute = 10)
@@ -49,7 +49,7 @@ namespace Cynthia.Card.Server
         public IRepository<TModel> GetRepositroy<TModel>() where TModel : IModel
         {
             //获得数据库集合
-            return Client[dataBaseName].GetRepository<TModel>(repositoryName);
+            return Client[_dataBaseName].GetRepository<TModel>(_repositoryName);
         }
         public IEnumerable<ChatMessage> GetEndData(int count)
         {

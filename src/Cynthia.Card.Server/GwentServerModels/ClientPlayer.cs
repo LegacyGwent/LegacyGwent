@@ -5,8 +5,8 @@ namespace Cynthia.Card.Server
 {
     public class ClientPlayer : Player
     {
-        public UserInfo CurrentUser { get; set; }
-        public ClientPlayer(UserInfo user, Func<IHubContext<GwentHub>> hub)
+        public User CurrentUser { get; set; }
+        public ClientPlayer(User user, Func<IHubContext<GwentHub>> hub)
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
