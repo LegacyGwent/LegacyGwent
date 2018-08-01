@@ -20,6 +20,16 @@
                 "${workspaceFolder}/src/Cynthia.Card.Client.Desktop/Cynthia.Card.Client.Desktop.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/test/Cynthia.Card.Test/Cynthia.Card.Test.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
