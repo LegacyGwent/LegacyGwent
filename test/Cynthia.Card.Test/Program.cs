@@ -1,10 +1,11 @@
 ﻿using System;
-using Cynthia.Algorithms;
 using System.Collections.Generic;
 using Alsein.Utilities;
 using System.Linq;
 using Cynthia.Card.Server;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cynthia.Card.Test
 {
@@ -12,14 +13,18 @@ namespace Cynthia.Card.Test
     {
         static async Task Main(string[] args)
         {
-            Resulter r = new Resulter();
-            async void A()
-            {
-                await r;
-                Console.WriteLine("over");
-            }
-            A();
-            await r.Result();
+            //////////////////////////////
+            await Task.Delay(0);
+            object userObject = new UserInfo() { UserName = "gezi", PassWord = "233", PlayerName = "baka" };
+            var jsonString = userObject.ToJson();
+            Console.WriteLine(jsonString);
+            var o = jsonString.ToType<UserInfo>();
+            Console.WriteLine(o.PlayerName);
+            Console.ReadKey();
+        }
+        public static IEnumerable<object> Test(params object[] model)
+        {
+            return model;
         }
         public static UserInfo Login(string username, string password)
         {

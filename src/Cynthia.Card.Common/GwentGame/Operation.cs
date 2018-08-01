@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cynthia.Card
 {
@@ -9,11 +10,11 @@ namespace Cynthia.Card
     public class Operation<TOperationType>
     {
         public TOperationType OperationType { get; }
-        public IEnumerable<object> Arguments { get; }
+        public IEnumerable<string> Arguments { get; }
         public Operation(TOperationType operationType, IEnumerable<object> arguments)
         {
             OperationType = operationType;
-            Arguments = arguments;
+            Arguments = arguments.Select(x => x.ToJson());
         }
     }
 }

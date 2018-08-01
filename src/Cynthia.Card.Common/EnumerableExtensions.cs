@@ -2,11 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alsein.Utilities;
+using Newtonsoft.Json;
 
-namespace Cynthia.Algorithms
+namespace Cynthia.Card
 {
     public static class EnumerableExtensions
     {
+        public static string ToJson(this object obj)
+        {
+            return JsonConvert.SerializeObject(obj);
+        }
+        public static object ToObject(this string jsonString)
+        {
+            return JsonConvert.DeserializeObject(jsonString);
+        }
+        public static T ToType<T>(this string jsonString)
+        {
+            return JsonConvert.DeserializeObject<T>(jsonString);
+        }
         public static IEnumerable<T> Mess<T>(this IEnumerable<T> source)
         {
             var arr = source.ToArray();
