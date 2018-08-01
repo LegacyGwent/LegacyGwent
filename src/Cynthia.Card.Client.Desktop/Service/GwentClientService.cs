@@ -16,11 +16,11 @@ namespace Cynthia.Card.Client
             HubConnection = hubConnection;
             Player = new LocalPlayer(HubConnection);
         }
-        public async Task<bool> Register(string username, string password, string playername) => await HubConnection.InvokeAsync<bool>("Register", username, password, playername);
-        public async Task<UserInfo> Login(string username, string password) => await HubConnection.InvokeAsync<UserInfo>("Login", username, password);
-        public async Task<bool> Match(int cardIndex) => await HubConnection.InvokeAsync<bool>("Match", cardIndex);
+        public Task<bool> Register(string username, string password, string playername) => HubConnection.InvokeAsync<bool>("Register", username, password, playername);
+        public Task<UserInfo> Login(string username, string password) => HubConnection.InvokeAsync<UserInfo>("Login", username, password);
+        public Task<bool> Match(int cardIndex) => HubConnection.InvokeAsync<bool>("Match", cardIndex);
         public Task SendOperation(Task<Operation<ServerOperationType>> operation) => HubConnection.SendAsync("GameOperation", operation);
-        public async Task StartAsync() => await HubConnection.StartAsync();
-        public async Task StopAsync() => await HubConnection.StopAsync();
+        public Task StartAsync() => HubConnection.StartAsync();
+        public Task StopAsync() => HubConnection.StopAsync();
     }
 }

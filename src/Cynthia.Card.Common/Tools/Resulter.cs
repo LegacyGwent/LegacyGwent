@@ -6,7 +6,7 @@ namespace Cynthia.Card
     public class Resulter
     {
         private TaskCompletionSource<object> _source = new TaskCompletionSource<object>();
-        private async Task GetTask() => await _source.Task;
+        private Task GetTask() => _source.Task;
         public TaskAwaiter GetAwaiter() => GetTask().GetAwaiter();
         public Task Result()
         {

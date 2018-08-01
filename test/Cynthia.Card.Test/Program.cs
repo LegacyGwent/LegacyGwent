@@ -4,22 +4,22 @@ using System.Collections.Generic;
 using Alsein.Utilities;
 using System.Linq;
 using Cynthia.Card.Server;
+using System.Threading.Tasks;
 
 namespace Cynthia.Card.Test
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var user = Login("gezi", "233");
-            if (user == null)
+            Resulter r = new Resulter();
+            async void A()
             {
-                Console.WriteLine("登录失败,用户名或密码错误");
+                await r;
+                Console.WriteLine("over");
             }
-            else
-            {
-                Console.WriteLine($"登录成功,欢迎~{user.PlayerName}~");
-            }
+            A();
+            await r.Result();
         }
         public static UserInfo Login(string username, string password)
         {

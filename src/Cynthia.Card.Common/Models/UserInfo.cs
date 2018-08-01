@@ -7,6 +7,6 @@ namespace Cynthia.Card
         public string PlayerName { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
-        public IList<IEnumerable<string>> Decks { get; set; }
+        public IList<DeckModel> Decks { get; set; }
     }
 }

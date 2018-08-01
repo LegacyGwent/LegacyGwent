@@ -5,30 +5,15 @@ using Alsein.Utilities;
 
 namespace Cynthia.Card
 {
-    public class GwentDeck : IReadOnlyList<GwentCard>
+    public static class GwentDeck
     {
-        private GwentCard[] _deck;
-        public GwentCard Leader { get; private set; }
-        public GwentDeck()
+        public static DeckModel CreateBasicDeck()
         {
-            CreateBasicDeck();
+            var leader = "tl";
+            var deck = "tb".Plural(15)
+                .Concat("ts".Plural(6))
+                .Concat("tc".Plural(4)).ToArray();
+            return new DeckModel() { Leader = leader, Deck = deck };
         }
-        public GwentDeck(IEnumerable<GwentCard> deck, GwentCard leader)
-        {
-            _deck = deck.ToArray();
-            Leader = leader;
-        }
-        private void CreateBasicDeck()
-        {
-            Leader = new GwentCard() { Strength = 18, Flavor = Flavor.Leader };
-            _deck = new GwentCard { Strength = 8, Flavor = Flavor.Copper }.Plural(15)
-                .Concat(new GwentCard { Strength = 13, Flavor = Flavor.Silver }.Plural(6))
-                .Concat(new GwentCard { Strength = 15, Flavor = Flavor.Gold }.Plural(4)).ToArray();
-        }
-
-        public int Count => ((IReadOnlyList<GwentCard>)_deck).Count;
-        public GwentCard this[int index] => ((IReadOnlyList<GwentCard>)_deck)[index];
-        public IEnumerator<GwentCard> GetEnumerator() => ((IReadOnlyList<GwentCard>)_deck).GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => ((IReadOnlyList<GwentCard>)_deck).GetEnumerator();
     }
 }
