@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cynthia.Card.Server
@@ -19,12 +21,14 @@ namespace Cynthia.Card.Server
             {
                 return false;
             }
-            _collection.Add(new UserInfo { UserName = username, PassWord = password, PlayerName = playername });
+            var decks = new List<DeckModel>();
+            decks.Add(GwentDeck.CreateBasicDeck());
+            _collection.Add(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks });
             return true;
         }
         public UserInfo Login(string username, string password)
         {
-            var user = _collection.AsQueryable<UserInfo>().Where(x => x.UserName == username && x.PassWord == x.PassWord).ToArray();
+            var user = _collection.AsQueryable<UserInfo>().Where(x => x.UserName == username && x.PassWord == password).ToArray();
             return user.Length > 0 ? user[0] : null;
         }
     }

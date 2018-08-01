@@ -59,17 +59,67 @@ namespace Cynthia.Card.Client
             var lpassword = Console.ReadLine();
             Console.WriteLine("正在验证...请等待");
             var user = await Client.Login(lusername, lpassword);
+            Console.WriteLine("得到结果");
             if (user == null)
             {
                 Console.WriteLine("登录失败\n用户名或密码错误,或者用户已经处于登录状态,请重新尝试\n~按下任意键返回~");
                 Console.ReadKey();
                 goto start;
             }
+        menu:
+            Console.Clear();
             Console.WriteLine($"登录成功~,欢迎回来{user.PlayerName},您有{user.Decks.Count}套卡组\n");
-            if (await Client.Match(1)) Console.WriteLine("成功匹配");
-            var game = Container.Resolve<GwentClientGameService>();
-            var play = game.Play(Client.Player);
-            Console.ReadKey();
+            Console.WriteLine($"按下1进行匹配\n");
+            Console.WriteLine($"按下2退出游戏\n");
+            op = Console.ReadLine();
+            if (op == "1")
+                goto match;
+            if (op == "2")
+                return;
+            goto start;
+        match:
+            Console.Clear();
+            if (user.Decks.Count <= 0)
+            {
+                Console.WriteLine($"当前没有卡组,无法进行匹配\n");
+                Console.WriteLine($"~按下任意键返回~\n");
+                Console.ReadKey();
+                goto menu;
+            }
+            Console.WriteLine($"使用第几套卡组进行匹配?\n");
+            try
+            {
+                var deckIndex = int.Parse(Console.ReadLine());
+                if (deckIndex > 0 && deckIndex <= user.Decks.Count)
+                {
+                    if (!await Client.Match(deckIndex - 1))
+                    {
+                        Console.WriteLine($"匹配发生了一些错误...匹配失败\n");
+                        Console.WriteLine($"~按下任意键返回~\n");
+                        Console.ReadKey();
+                        goto menu;
+                    }
+                    Console.WriteLine($"匹配中~请稍等\n");
+                    var game = Container.Resolve<GwentClientGameService>();
+                    var playTask = game.Play(Client.Player);
+                    await playTask;
+                    Console.WriteLine($"~比赛结束~\n");
+                    Console.WriteLine($"~按下任意键返回~\n");
+                    Console.ReadKey();
+                    goto menu;
+                }
+                Console.WriteLine($"没有找到您选择的卡组,请检查后重新输入\n");
+                Console.WriteLine($"~按下任意键返回~\n");
+                Console.ReadKey();
+                goto menu;
+            }
+            catch
+            {
+                Console.WriteLine($"输入不符合标准,请输入大于0,小于等于您当前拥有卡组数的正整数\n");
+                Console.WriteLine($"~按下任意键返回~\n");
+                Console.ReadKey();
+                goto menu;
+            }
         }
     }
 }

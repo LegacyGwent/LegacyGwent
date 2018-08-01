@@ -6,19 +6,28 @@ namespace Cynthia.Card.Server
     public class GwentMatchs
     {
         public IList<GwentRoom> GwentRooms { get; set; } = new List<GwentRoom>();
+        public async void StartGame(GwentRoom room)
+        {
+            var player1 = room.Player1;
+            var player2 = room.Player2;
+            var gwentGame = new GwentServerGame(player1, player2);
+            player1.CurrentUser.UserState = UserState.Play;
+            player2.CurrentUser.UserState = UserState.Play;
+            await gwentGame.Play();
+            player1.CurrentUser.UserState = UserState.Standby;
+            player2.CurrentUser.UserState = UserState.Standby;
+            GwentRooms.Remove(room);
+        }
         public void PlayerJoin(ClientPlayer player)
         {
-            for (var i = 0; i < GwentRooms.Count; i++)
+            foreach (var room in GwentRooms)
             {
-                if (!GwentRooms[i].IsReady)
+                if (!room.IsReady)
                 {
-                    GwentRooms[i].AddPlayer(player);
-                    if (GwentRooms[i].IsReady)
+                    room.AddPlayer(player);
+                    if (room.IsReady)
                     {
-                        var gwentGame = new GwentServerGame(GwentRooms[i].Player1, GwentRooms[i].Player2);
-                        GwentRooms[i].Player1.CurrentUser.UserState = UserState.Play;
-                        GwentRooms[i].Player2.CurrentUser.UserState = UserState.Play;
-                        _ = Task.Run(gwentGame.Play);
+                        StartGame(room);
                         return;
                     }
                 }
@@ -29,29 +38,29 @@ namespace Cynthia.Card.Server
         }
         public bool PlayerLeave(string ConnectionId)
         {
-            for (var i = 0; i < GwentRooms.Count; i++)
+            foreach (var room in GwentRooms)
             {
-                if (!GwentRooms[i].IsReady && GwentRooms[i].Player1.CurrentUser.ConnectionId == ConnectionId || GwentRooms[i].Player2.CurrentUser.ConnectionId == ConnectionId)
+                if (!room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
                 {
-                    GwentRooms.RemoveAt(i);
+                    room.Player1.CurrentUser.UserState = UserState.Standby;
+                    GwentRooms.Remove(room);
                     return true;
                 }
-                if (GwentRooms[i].Player1.CurrentUser.ConnectionId == ConnectionId)
+                if (!room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
+                {
+                    room.Player2.CurrentUser.UserState = UserState.Standby;
+                    GwentRooms.Remove(room);
+                    return true;
+                }
+                if (room.Player1.CurrentUser.ConnectionId == ConnectionId || room.Player2.CurrentUser.ConnectionId == ConnectionId)
                 {
                     //还有需要补充的代码
                     //宣告比赛结束,获胜方为JoinPlayer
-                    GwentRooms[i].Player2.CurrentUser.UserState = UserState.Standby;
-                    GwentRooms[i].Player2.CurrentUser.CurrentPlayer = null;
-                    GwentRooms.RemoveAt(i);
-                    return true;
-                }
-                if (GwentRooms[i].Player2.CurrentUser.ConnectionId == ConnectionId)
-                {
-                    //还有需要补充的代码
-                    //宣告比赛结束,获胜方为HomePlayer
-                    GwentRooms[i].Player1.CurrentUser.UserState = UserState.Standby;
-                    GwentRooms[i].Player1.CurrentUser.CurrentPlayer = null;
-                    GwentRooms.RemoveAt(i);
+                    room.Player2.CurrentUser.UserState = UserState.Standby;
+                    room.Player2.CurrentUser.CurrentPlayer = null;
+                    room.Player1.CurrentUser.UserState = UserState.Standby;
+                    room.Player1.CurrentUser.CurrentPlayer = null;
+                    GwentRooms.Remove(room);
                     return true;
                 }
             }

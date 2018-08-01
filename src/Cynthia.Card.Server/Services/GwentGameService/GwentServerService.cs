@@ -17,31 +17,36 @@ namespace Cynthia.Card.Server
         public UserInfo Login(User user, string password)
         {
             //判断登录条件
-            if (_users.Any(x => x.Value.PlayerName == user.PlayerName)) { return null; }
-            var loginUser = DatabaseService.Login(user.PlayerName, password);
-            if (loginUser != null) { _users.Add(user.ConnectionId, user); }
+            if (_users.Any(x => x.Value.UserName == user.UserName)) { return null; }
+            var loginUser = DatabaseService.Login(user.UserName, password);
+            if (loginUser != null)
+            {
+                user.PlayerName = loginUser.PlayerName;
+                user.Decks = loginUser.Decks;
+                _users.Add(user.ConnectionId, user);
+            }
             return loginUser;
         }
-        public bool Register(string username, string password, string playerName) => DatabaseService.Register(playerName, password, playerName);
-        public bool Match(string connectionId, int cardIndex)//匹配
+        public bool Register(string username, string password, string playerName) => DatabaseService.Register(username, password, playerName);
+        public bool Match(string connectionId, int deckIndex)//匹配
         {
-            //判断卡组是否符合规范
-            try
+            if (_users.ContainsKey(connectionId))
             {
-                var user = _users.Single(item => item.Key == connectionId && item.Value.UserState == UserState.Standby).Value;
-                var player = user.CurrentPlayer = new ClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
-                player.Deck = new GwentDeck();
+                var usert = _users[connectionId];
+                if (usert.UserState != UserState.Standby || usert.Decks.Count <= deckIndex || deckIndex < 0)
+                    return false;
+                var player = usert.CurrentPlayer = new ClientPlayer(usert, Container.Resolve<IHubContext<GwentHub>>);
+                player.Deck = usert.Decks[deckIndex];
                 _gwentMatchs.PlayerJoin(player);
+                return true;
             }
-            catch
-            {
-                return false;
-            }
-            return true;
+            return false;
         }
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendViaDownstreamAsync(operation);
         public void Disconnect(string connectionId)
         {
+            if (!_users.ContainsKey(connectionId))
+                return;
             if (_users[connectionId].UserState != UserState.Standby)
             {
                 _gwentMatchs.PlayerLeave(connectionId);

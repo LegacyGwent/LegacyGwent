@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Alsein.Utilities.IO;
 
@@ -8,7 +9,7 @@ namespace Cynthia.Card
     {
 
         public string PlayerName { get; set; }//玩家名
-        public GwentDeck Deck { get; set; }//所用卡组
+        public DeckModel Deck { get; set; }//所用卡组
         private IAsyncDataEndPoint _upstream;
         private IAsyncDataEndPoint _downstream;
         public Player()
