@@ -32,17 +32,17 @@ namespace Cynthia.Card.Server
         {
             if (_users.ContainsKey(connectionId))
             {
-                var usert = _users[connectionId];
-                if (usert.UserState != UserState.Standby || usert.Decks.Count <= deckIndex || deckIndex < 0)
+                var user = _users[connectionId];
+                if (user.UserState != UserState.Standby || user.Decks.Count <= deckIndex || deckIndex < 0)
                     return false;
-                var player = usert.CurrentPlayer = new ClientPlayer(usert, Container.Resolve<IHubContext<GwentHub>>);
-                player.Deck = usert.Decks[deckIndex];
+                var player = user.CurrentPlayer = new ClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
+                player.Deck = user.Decks[deckIndex];
                 _gwentMatchs.PlayerJoin(player);
                 return true;
             }
             return false;
         }
-        public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendViaDownstreamAsync(operation);
+        public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendAsync(operation);
         public void Disconnect(string connectionId)
         {
             if (!_users.ContainsKey(connectionId))

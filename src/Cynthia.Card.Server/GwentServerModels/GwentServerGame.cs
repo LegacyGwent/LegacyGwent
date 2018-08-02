@@ -6,10 +6,10 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame
     {
-        private ClientPlayer _player1;
-        private ClientPlayer _player2;
+        private Player _player1;
+        private Player _player2;
 
-        public GwentServerGame(ClientPlayer player1, ClientPlayer player2)
+        public GwentServerGame(Player player1, Player player2)
         {
             _player1 = player1;
             _player2 = player2;
@@ -19,13 +19,13 @@ namespace Cynthia.Card.Server
         {
             _player1.Deck.Deck = _player1.Deck.Deck.Mess().ToArray();
             _player2.Deck.Deck = _player2.Deck.Deck.Mess().ToArray();
-            await _player1.SendViaUpstreamAsync(ServerOperationType.GameStart, new GameInfomation()
+            await _player1.SendAsync(ServerOperationType.GameStart, new GameInfomation()
             {
                 OpponentName = _player2.PlayerName,
                 OpponentCardCount = _player2.Deck.Deck.Length,
                 YourHandCard = _player1.Deck.Deck.Take(10)
             });
-            await _player2.SendViaUpstreamAsync(ServerOperationType.GameStart, new GameInfomation()
+            await _player2.SendAsync(ServerOperationType.GameStart, new GameInfomation()
             {
                 OpponentName = _player1.PlayerName,
                 OpponentCardCount = _player1.Deck.Deck.Length,
@@ -33,8 +33,8 @@ namespace Cynthia.Card.Server
             });
             var r = new Random();
             var end = (r.Next(2) == 1);
-            await _player1.SendViaUpstreamAsync(ServerOperationType.GameEnd, end);
-            await _player2.SendViaUpstreamAsync(ServerOperationType.GameEnd, !end);
+            await _player1.SendAsync(ServerOperationType.GameEnd, end);
+            await _player2.SendAsync(ServerOperationType.GameEnd, !end);
             return true;
         }
     }
