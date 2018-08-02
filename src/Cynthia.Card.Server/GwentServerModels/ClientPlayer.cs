@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Alsein.Utilities.IO;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Cynthia.Card.Server
@@ -10,7 +12,11 @@ namespace Cynthia.Card.Server
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
-            ReceiveFromDownstream += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
+            Receive += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
         }
+        public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
+        public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));
+        public new Task<Operation<ServerOperationType>> ReceiveAsync() => _downstream.ReceiveAsync<Operation<ServerOperationType>>();
+        public new event Func<ReceiveEventArgs, Task> Receive { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
     }
 }
