@@ -10,7 +10,7 @@ namespace Cynthia.Card.Server
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
-            ReceiveFromDownstream += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x);
+            ReceiveFromDownstream += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
         }
     }
 }

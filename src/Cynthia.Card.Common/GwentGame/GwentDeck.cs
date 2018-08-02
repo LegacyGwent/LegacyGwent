@@ -15,5 +15,10 @@ namespace Cynthia.Card
                 .Concat("tc".Plural(15)).ToArray();
             return new DeckModel() { Leader = leader, Deck = deck, Name = "初始卡组" };
         }
+        public static bool CreateBasicDeck(DeckModel deck)
+        {
+            var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
+            return true;
+        }
     }
 }
