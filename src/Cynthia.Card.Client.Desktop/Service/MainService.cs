@@ -87,29 +87,39 @@ namespace Cynthia.Card.Client
                 goto menu;
             }
             Console.WriteLine($"使用第几套卡组进行匹配?");
-            var deckIndex = int.Parse(Console.ReadLine());
-            if (deckIndex > 0 && deckIndex <= user.Decks.Count)
+            try
             {
-                if (!await Client.Match(deckIndex - 1))
+                var deckIndex = int.Parse(Console.ReadLine());
+                if (deckIndex > 0 && deckIndex <= user.Decks.Count)
                 {
-                    Console.WriteLine($"匹配发生了一些错误...匹配失败");
+                    if (!await Client.Match(deckIndex - 1))
+                    {
+                        Console.WriteLine($"匹配发生了一些错误...匹配失败");
+                        Console.WriteLine($"~按下任意键返回~");
+                        Console.ReadKey();
+                        goto menu;
+                    }
+                    Console.WriteLine($"匹配中~请稍等");
+                    var game = Container.Resolve<GwentClientGameService>();
+                    var playTask = game.Play(Client.Player);
+                    await playTask;
+                    Console.WriteLine($"~比赛结束~");
                     Console.WriteLine($"~按下任意键返回~");
                     Console.ReadKey();
                     goto menu;
                 }
-                Console.WriteLine($"匹配中~请稍等");
-                var game = Container.Resolve<GwentClientGameService>();
-                var playTask = game.Play(Client.Player);
-                await playTask;
-                Console.WriteLine($"~比赛结束~");
-                Console.WriteLine($"~按下任意键返回~");
+                Console.WriteLine($"没有找到您选择的卡组,请检查后重新输入\n");
+                Console.WriteLine($"~按下任意键返回~\n");
                 Console.ReadKey();
                 goto menu;
             }
-            Console.WriteLine($"没有找到您选择的卡组,请检查后重新输入\n");
-            Console.WriteLine($"~按下任意键返回~\n");
-            Console.ReadKey();
-            goto menu;
+            catch
+            {
+                Console.WriteLine($"输入错误...请输入大于0,小于等于您当前拥有卡组数的整数\n");
+                Console.WriteLine($"~按下任意键返回~\n");
+                Console.ReadKey();
+                goto menu;
+            }
 
         }
     }
