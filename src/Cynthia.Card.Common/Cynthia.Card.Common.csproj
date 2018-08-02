@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Alsein.Utilities.Autofac" Version="0.3.1" />
-    <PackageReference Include="Alsein.Utilities.Essentials" Version="0.3.1" />
+    <PackageReference Include="Alsein.Utilities.Autofac" Version="0.3.2" />
+    <PackageReference Include="Alsein.Utilities.Essentials" Version="0.3.2" />
     <PackageReference Include="AutoFac.Configuration" Version="4.1.0" />
     <PackageReference Include="AutoFac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
