@@ -42,6 +42,51 @@ namespace Cynthia.Card.Server
             }
             return false;
         }
+        public bool StopMatch(string connectionId)
+        {
+            return _gwentMatchs.PlayerLeave(connectionId);
+        }
+        public bool AddDeck(string connectionId, DeckModel deck)
+        {
+            //添加卡组
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.Decks.Count >= 40)
+                return false;
+            if (!deck.IsBasicDeck())
+                return false;
+            if (!DatabaseService.AddDeck(user.UserName, deck))
+                return false;
+            user.Decks.Add(deck);
+            return true;
+        }
+        public bool RemoveDeck(string connectionId, int deckIndex)
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.Decks.Count <= deckIndex || deckIndex < 0)
+                return false;
+            if (!DatabaseService.RemoveDeck(user.UserName, deckIndex))
+                return false;
+            user.Decks.RemoveAt(deckIndex);
+            return true;
+        }
+        public bool ModifyDeck(string connectionId, int deckIndex, DeckModel deck)
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.Decks.Count <= deckIndex || deckIndex < 0)
+                return false;
+            if (!deck.IsBasicDeck())
+                return false;
+            if (!DatabaseService.ModifyDeck(user.UserName, deckIndex, deck))
+                return false;
+            user.Decks[deckIndex] = deck;
+            return true;
+        }
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendAsync(operation);
         public void Disconnect(string connectionId)
         {

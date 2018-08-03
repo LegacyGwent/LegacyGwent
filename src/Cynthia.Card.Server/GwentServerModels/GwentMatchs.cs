@@ -44,12 +44,14 @@ namespace Cynthia.Card.Server
                 {
                     room.Player1.CurrentUser.UserState = UserState.Standby;
                     GwentRooms.Remove(room);
+                    room.Player1.CurrentUser.CurrentPlayer = null;
                     return true;
                 }
                 if (!room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
                 {
                     room.Player2.CurrentUser.UserState = UserState.Standby;
                     GwentRooms.Remove(room);
+                    room.Player2.CurrentUser.CurrentPlayer = null;
                     return true;
                 }
                 if (room.Player1.CurrentUser.ConnectionId == ConnectionId || room.Player2.CurrentUser.ConnectionId == ConnectionId)
