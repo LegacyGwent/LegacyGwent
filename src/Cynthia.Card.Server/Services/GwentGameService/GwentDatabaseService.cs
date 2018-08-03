@@ -15,6 +15,27 @@ namespace Cynthia.Card.Server
             Database = database;
             _collection = Database[_dataBaseName].GetRepository<UserInfo>(_repositoryName);
         }
+        public bool AddDeck(string username, DeckModel deck)
+        {
+            var user = _collection.AsQueryable().Single(x => x.UserName == username);
+            user.Decks.Add(deck);
+            _collection.Update(x => x.UserName == username, user);
+            return true;
+        }
+        public bool ModifyDeck(string username, int deckIndex, DeckModel deck)
+        {
+            var user = _collection.AsQueryable().Single(x => x.UserName == username);
+            user.Decks[deckIndex] = deck;
+            _collection.Update(x => x.UserName == username, user);
+            return true;
+        }
+        public bool RemoveDeck(string username, int deckIndex)
+        {
+            var user = _collection.AsQueryable().Single(x => x.UserName == username);
+            user.Decks.RemoveAt(deckIndex);
+            _collection.Update(x => x.UserName == username, user);
+            return true;
+        }
         public bool Register(string username, string password, string playername)
         {
             if (_collection.AsQueryable<UserInfo>().Any(x => x.UserName == username || x.PlayerName == playername))
