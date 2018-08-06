@@ -17,10 +17,19 @@ namespace Cynthia.Card.Server
         public UserInfo Login(User user, string password)
         {
             //判断登录条件
-            if (_users.Any(x => x.Value.UserName == user.UserName)) { return null; }
             var loginUser = DatabaseService.Login(user.UserName, password);
             if (loginUser != null)
             {
+                if (_users.Any(x => x.Value.UserName == user.UserName))//如果重复登录的话,触发"掉线"
+                {
+                    var connectionId = _users.Single(x => x.Value.UserName == user.UserName).Value.ConnectionId;
+                    Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
+                    Disconnect(connectionId);
+                }
+                if (_users.ContainsKey(user.ConnectionId))
+                {
+                    Disconnect(user.ConnectionId);
+                }
                 user.PlayerName = loginUser.PlayerName;
                 user.Decks = loginUser.Decks;
                 _users.Add(user.ConnectionId, user);

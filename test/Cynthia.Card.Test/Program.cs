@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Alsein.Utilities.IO;
+using System.Runtime.InteropServices;
 
 namespace Cynthia.Card.Test
 {
@@ -15,17 +16,7 @@ namespace Cynthia.Card.Test
         static async Task Main(string[] args)
         {
             await Task.Delay(0);
-            IList<int> list = new List<int>();
-            list.Add(1);
-            list.Add(3);
-            list.Add(5);
-            list.Add(7);
-            list.Add(2);
-            list.Add(4);
-            list.Add(6);
-            list.Add(8);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{list.Count()},{list.Count}", ConsoleColor.Green);
+
             Console.ReadKey();
         }
         public static IEnumerable<object> Test(params object[] model)
