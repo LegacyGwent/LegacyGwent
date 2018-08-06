@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 using Alsein.Utilities.LifetimeAnnotations;
+using Alsein.Utilities;
 
 namespace Cynthia.Card.Client
 {
@@ -16,7 +17,9 @@ namespace Cynthia.Card.Client
         {
             await Client.StartAsync();
         start:
+            Console.Title = "登录界面";
             Console.Clear();
+            Console.SetCursorPosition(30, 3);
             Console.WriteLine("~这里是游戏功能测试程序主菜单~");
             Console.WriteLine("按下1进行注册\n按下2进行登录");
             var op = Console.ReadLine();
@@ -99,6 +102,7 @@ namespace Cynthia.Card.Client
                         Console.ReadKey();
                         goto menu;
                     }
+                    Client.Player.PlayerName.To(Console.WriteLine);
                     Console.WriteLine($"匹配中~请稍等");
                     var game = Container.Resolve<GwentClientGameService>();
                     var playTask = game.Play(Client.Player);

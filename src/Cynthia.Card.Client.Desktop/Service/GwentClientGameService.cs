@@ -21,6 +21,7 @@ namespace Cynthia.Card.Client
             var hand = GwentMap.DeckChange(gameInformation.YourHandCard);
             hand.Select(x => $"{GwentMap.FlavorMap[x.Group]}{x.Strength}  ").ForAll(Console.Write);
             Console.WriteLine("\n\n看起来不错呢~不过因为游戏还没有完成,胜负只能交给伟大的RNG啦!\n因为需要一点悬念~所以请按下任意键知晓比赛结果~");
+            Console.ReadKey();
             var op2 = await _player.ReceiveAsync();
             var end = op2.Arguments.ToArray()[0].ToType<bool>();
             if (end)
