@@ -63,7 +63,7 @@ namespace Cynthia.Card.Client
             Console.WriteLine("正在验证...请等待");
             var user = await Client.Login(lusername, lpassword);
             Console.WriteLine("得到结果");
-            if (user == null)
+            if (Client.User.PlayerName == null)
             {
                 Console.WriteLine("登录失败\n用户名或密码错误,或者用户已经处于登录状态,请重新尝试\n~按下任意键返回~");
                 Console.ReadKey();
@@ -71,7 +71,7 @@ namespace Cynthia.Card.Client
             }
         menu:
             Console.Clear();
-            Console.WriteLine($"登录成功~,欢迎回来{user.PlayerName},您有{user.Decks.Count}套卡组\n");
+            Console.WriteLine($"登录成功~,欢迎回来{Client.User.PlayerName},您有{Client.User.Decks.Count}套卡组\n");
             Console.WriteLine($"按下1进行匹配");
             Console.WriteLine($"按下2退出游戏");
             op = Console.ReadLine();
@@ -82,7 +82,7 @@ namespace Cynthia.Card.Client
             goto menu;
         match:
             Console.Clear();
-            if (user.Decks.Count <= 0)
+            if (Client.User.Decks.Count <= 0)
             {
                 Console.WriteLine($"当前没有卡组,无法进行匹配");
                 Console.WriteLine($"~按下任意键返回~");
@@ -93,7 +93,7 @@ namespace Cynthia.Card.Client
             try
             {
                 var deckIndex = int.Parse(Console.ReadLine());
-                if (deckIndex > 0 && deckIndex <= user.Decks.Count)
+                if (deckIndex > 0 && deckIndex <= Client.User.Decks.Count)
                 {
                     if (!await Client.Match(deckIndex - 1))
                     {
@@ -102,7 +102,6 @@ namespace Cynthia.Card.Client
                         Console.ReadKey();
                         goto menu;
                     }
-                    Client.Player.PlayerName.To(Console.WriteLine);
                     Console.WriteLine($"匹配中~请稍等");
                     var game = Container.Resolve<GwentClientGameService>();
                     var playTask = game.Play(Client.Player);
