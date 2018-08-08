@@ -44,6 +44,8 @@ namespace Cynthia.Card.Server
             }
             var decks = new List<DeckModel>();
             decks.Add(GwentDeck.CreateBasicDeck());
+            decks.Add(GwentDeck.CreateBasicDeck());
+            decks.Add(GwentDeck.CreateBasicDeck());
             _collection.Add(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks });
             return true;
         }
