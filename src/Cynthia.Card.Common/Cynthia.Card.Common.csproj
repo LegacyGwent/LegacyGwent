@@ -5,15 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Alsein.Utilities" Version="0.3.2" />
     <PackageReference Include="Alsein.Utilities.Autofac" Version="0.3.2" />
-    <PackageReference Include="Alsein.Utilities.Essentials" Version="0.3.2" />
-    <PackageReference Include="AutoFac.Configuration" Version="4.1.0" />
-    <PackageReference Include="AutoFac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="Alsein.Utilities.IO" Version="0.3.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
-    <PackageReference Include="MongoDB.Bson" Version="2.6.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.6.1" />
-    <PackageReference Include="MongoDB.Driver.Core" Version="2.6.1" />
   </ItemGroup>
 
 </Project>
