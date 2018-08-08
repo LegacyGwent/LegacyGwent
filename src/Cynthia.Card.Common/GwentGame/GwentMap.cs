@@ -19,10 +19,10 @@ namespace Cynthia.Card
             {"ts5",new GwentCard(){Strength=9,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡五号"}},
             {"ts6",new GwentCard(){Strength=8,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡六号"}},
             {"tc1",new GwentCard(){Strength=7,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号"}},
-            {"tc2",new GwentCard(){Strength=6,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号"}},
-            {"tc3",new GwentCard(){Strength=5,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号"}},
-            {"tc4",new GwentCard(){Strength=4,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号"}},
-            {"tc5",new GwentCard(){Strength=3,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号"}},
+            {"tc2",new GwentCard(){Strength=6,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡二号"}},
+            {"tc3",new GwentCard(){Strength=5,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡三号"}},
+            {"tc4",new GwentCard(){Strength=4,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡四号"}},
+            {"tc5",new GwentCard(){Strength=3,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡五号"}},
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {
