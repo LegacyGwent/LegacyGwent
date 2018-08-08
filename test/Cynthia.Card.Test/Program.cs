@@ -15,9 +15,23 @@ namespace Cynthia.Card.Test
     {
         static async Task Main(string[] args)
         {
-            await Task.Delay(0);
-
+            Console.WriteLine("小剧场");
+            Console.WriteLine("-------Start-------");
+            Console.WriteLine("路人A:唔...稍微有个问题不会呢,但是有很多工作呀,去问问琪露诺好了");
+            Task work = BakaAdd(1, 2);//把问题交给琪露诺去完成
+            Console.WriteLine("(路人A工作中)");
+            Console.WriteLine("(路人A工作中)");//琪露诺思考的过程,可以做一些其他事情
+            Console.WriteLine("(路人A工作中)");
+            Console.WriteLine("路人A:嗯...这里的工作需要刚刚哪个问题的结果呢,去等琪露诺做好吧!");
+            await work;//等待琪露诺的思考
+            Console.WriteLine("--------END--------");
             Console.ReadKey();
+        }
+        public async static Task BakaAdd(int a, int b)
+        {
+            Console.WriteLine($"琪露诺:{a}+{b}等于多少呢....我要好好想想...");
+            await Task.Delay(1000);//琪露诺思考中....
+            Console.WriteLine($"琪露诺:啊!{a}+{b}等于⑨呀");
         }
         public static IEnumerable<object> Test(params object[] model)
         {

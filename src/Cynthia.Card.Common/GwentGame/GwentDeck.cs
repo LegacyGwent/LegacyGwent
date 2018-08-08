@@ -10,9 +10,21 @@ namespace Cynthia.Card
         public static DeckModel CreateBasicDeck()
         {
             var leader = "tl";
-            var deck = "tg".Plural(4)
-                .Concat("ts".Plural(6))
-                .Concat("tc".Plural(15)).ToArray();
+            var deck = "tg1".Plural(1)
+            .Concat("tg2".Plural(1))
+            .Concat("tg3".Plural(1))
+            .Concat("tg4".Plural(1))
+            .Concat("ts1".Plural(1))
+            .Concat("ts2".Plural(1))
+            .Concat("ts3".Plural(1))
+            .Concat("ts4".Plural(1))
+            .Concat("ts5".Plural(1))
+            .Concat("ts6".Plural(1))
+            .Concat("tc1".Plural(3))
+            .Concat("tc2".Plural(3))
+            .Concat("tc3".Plural(3))
+            .Concat("tc4".Plural(3))
+            .Concat("tc5".Plural(3)).ToArray();
             return new DeckModel() { Leader = leader, Deck = deck, Name = "初始卡组" };
         }
         public static bool IsBasicDeck(this DeckModel deck)
