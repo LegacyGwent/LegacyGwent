@@ -36,8 +36,8 @@ namespace Cynthia.Card.Server
             GwentRooms.Add(new GwentRoom(player));
             return;
         }
-        public bool PlayerLeave(string ConnectionId)
-        {
+        public bool StopMatch(string ConnectionId)
+        {   //停止匹配,如果玩家没有正在匹配,返回false
             foreach (var room in GwentRooms)
             {
                 if (!room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
@@ -54,10 +54,28 @@ namespace Cynthia.Card.Server
                     room.Player2.CurrentUser.CurrentPlayer = null;
                     return true;
                 }
-                if (room.Player1.CurrentUser.ConnectionId == ConnectionId || room.Player2.CurrentUser.ConnectionId == ConnectionId)
+            }
+            return false;
+        }
+        public bool PlayerLeave(string ConnectionId)
+        {   //对局中离开, 如果玩家没有正在对局,返回false
+            foreach (var room in GwentRooms)
+            {
+                if (room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
                 {
                     //还有需要补充的代码
-                    //宣告比赛结束,获胜方为JoinPlayer
+                    //宣告比赛结束,获胜方为Player2
+                    room.Player2.CurrentUser.UserState = UserState.Standby;
+                    room.Player2.CurrentUser.CurrentPlayer = null;
+                    room.Player1.CurrentUser.UserState = UserState.Standby;
+                    room.Player1.CurrentUser.CurrentPlayer = null;
+                    GwentRooms.Remove(room);
+                    return true;
+                }
+                if (room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
+                {
+                    //还有需要补充的代码
+                    //宣告比赛结束,获胜方为Player1
                     room.Player2.CurrentUser.UserState = UserState.Standby;
                     room.Player2.CurrentUser.CurrentPlayer = null;
                     room.Player1.CurrentUser.UserState = UserState.Standby;

@@ -53,7 +53,11 @@ namespace Cynthia.Card.Server
         }
         public bool StopMatch(string connectionId)
         {
-            return _gwentMatchs.PlayerLeave(connectionId);
+            if (_users[connectionId].UserState != UserState.Match)
+            {
+                return false;
+            }
+            return _gwentMatchs.StopMatch(connectionId);
         }
         public bool AddDeck(string connectionId, DeckModel deck)
         {
@@ -101,9 +105,13 @@ namespace Cynthia.Card.Server
         {
             if (!_users.ContainsKey(connectionId))
                 return;
-            if (_users[connectionId].UserState != UserState.Standby)
+            if (_users[connectionId].UserState == UserState.Play)
             {
                 _gwentMatchs.PlayerLeave(connectionId);
+            }
+            if (_users[connectionId].UserState == UserState.Match)
+            {
+                _gwentMatchs.StopMatch(connectionId);
             }
             _users.Remove(connectionId);
         }
