@@ -20,7 +20,7 @@ namespace Cynthia.Card.Server
         //开始匹配
         public bool Match(int cardIndex) => GwentServerService.Match(Context.ConnectionId, cardIndex);
         //停止匹配
-        public bool StopMatch() => GwentServerService.StopMatch(Context.ConnectionId);
+        public async Task<bool> StopMatch() => await GwentServerService.StopMatch(Context.ConnectionId);
         //游戏内玩家操作
         public Task GameOperation(Operation<UserOperationType> operation) => GwentServerService.GameOperation(operation, Context.ConnectionId);
         //连接中断
