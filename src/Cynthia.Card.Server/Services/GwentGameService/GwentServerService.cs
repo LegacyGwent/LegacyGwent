@@ -12,8 +12,13 @@ namespace Cynthia.Card.Server
     {
         public IContainer Container { get; set; }
         public GwentDatabaseService DatabaseService { get; set; }
-        private readonly GwentMatchs _gwentMatchs = new GwentMatchs();
+        private readonly GwentMatchs _gwentMatchs;
         private readonly IDictionary<string, User> _users = new Dictionary<string, User>();
+        public GwentServerService(IContainer container)
+        {
+            Container = container;
+            _gwentMatchs = new GwentMatchs(Container.Resolve<IHubContext<GwentHub>>);
+        }
         public UserInfo Login(User user, string password)
         {
             //判断登录条件
@@ -51,13 +56,13 @@ namespace Cynthia.Card.Server
             }
             return false;
         }
-        public bool StopMatch(string connectionId)
+        public async Task<bool> StopMatch(string connectionId)
         {
             if (_users[connectionId].UserState != UserState.Match)
             {
                 return false;
             }
-            return _gwentMatchs.StopMatch(connectionId);
+            return await _gwentMatchs.StopMatch(connectionId);
         }
         public bool AddDeck(string connectionId, DeckModel deck)
         {
@@ -111,7 +116,7 @@ namespace Cynthia.Card.Server
             }
             if (_users[connectionId].UserState == UserState.Match)
             {
-                _gwentMatchs.StopMatch(connectionId);
+                _ = _gwentMatchs.StopMatch(connectionId);
             }
             _users.Remove(connectionId);
         }
