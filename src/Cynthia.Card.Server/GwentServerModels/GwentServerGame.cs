@@ -52,6 +52,7 @@ namespace Cynthia.Card.Server
                 MyLeader = PlayersLeader[myPlayerIndex],
                 EnemyLeader = PlayersLeader[enemyPlayerIndex],
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
+                MyName = Players[myPlayerIndex].PlayerName,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCardCount = PlayersDeck[enemyPlayerIndex].Count(),
                 MyHandCard = PlayersHandCard[myPlayerIndex],
