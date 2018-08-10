@@ -7,97 +7,71 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame
     {
-        public enum PlayerRound//玩家回合
+        public enum TwoPlayer//两个玩家
         {
             Player1,
-            player2
+            Player2
         }
-        public Player Player1 { get; set; } //玩家1 数据传输/
-        public Player Player2 { get; set; } //玩家2 数据传输/
-        public bool IsPlayer1Leader { get; set; } = false;//玩家1领袖是否使用/
-        public bool IsPlayer2Leader { get; set; } = false;//玩家2领袖是否使用/
-        public GameCard Player1Leader { get; set; }//玩家1领袖是?/
-        public GameCard Player2Leader { get; set; }//玩家2领袖是?/
-        public PlayerRound GameRound { get; set; }//谁的的回合----
-        public int Player1WinCount { get; set; } = 0;//玩家1胜利场数/
-        public int Player2WinCount { get; set; } = 0;//玩家2胜利场数/
-        public IList<GameCard> Player1Deck { get; set; }//玩家1卡组/
-        public IList<GameCard> Player2Deck { get; set; }//玩家2卡组/
-        public IList<GameCard> Player1HandCard { get; set; }//玩家1手牌/
-        public IList<GameCard> Player2HandCard { get; set; }//玩家2手牌/
-        public IList<GameCard>[] Player1Place { get; set; }//玩家1场地/
-        public IList<GameCard>[] Player2Place { get; set; }//玩家2场地/
-        public IList<GameCard> Player1Cemetery { get; set; }//玩家1墓地/
-        public IList<GameCard> Player2Cemetery { get; set; }//玩家2墓地/
+        public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
+        public bool[] IsPlayersLeader { get; set; } = { false, false };//玩家领袖是否使用/
+        public GameCard[] PlayersLeader { get; set; } = new GameCard[2];//玩家领袖是?/
+        public TwoPlayer GameRound { get; set; }//谁的的回合----
+        public int[] PlayersWinCount { get; set; } = { 0, 0 };//玩家胜利场数/
+        public IList<GameCard>[] PlayersDeck { get; set; } = new IList<GameCard>[2];//玩家卡组/
+        public IList<GameCard>[] PlayersHandCard { get; set; } = new IList<GameCard>[2];//玩家手牌/
+        public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
+        public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
+        public const int _Player1Index = 0;
+        public const int _Player2Index = 1;
         public GwentServerGame(Player player1, Player player2)
         {
             //初始化游戏信息
-            Player1 = player1;
-            Player2 = player2;
-            Player1Place = new List<GameCard>[3];
-            Player2Place = new List<GameCard>[3];
-            Player1Cemetery = new List<GameCard>();
-            Player2Cemetery = new List<GameCard>();
-            Player1HandCard = new List<GameCard>();
-            Player2HandCard = new List<GameCard>();
-            Player1Leader = new GameCard() { CardIndex = player1.Deck.Leader };
-            Player1Leader = new GameCard() { CardIndex = player1.Deck.Leader };
-            Player1Deck = Player1.Deck.Deck.Select(x => new GameCard() { CardIndex = x }).ToList();
-            Player2Deck = Player2.Deck.Deck.Select(x => new GameCard() { CardIndex = x }).ToList();
+            Players[_Player1Index] = player1;
+            Players[_Player2Index] = player2;
+            PlayersPlace[_Player1Index] = new List<GameCard>[3];
+            PlayersPlace[_Player2Index] = new List<GameCard>[3];
+            PlayersCemetery[_Player1Index] = new List<GameCard>();
+            PlayersCemetery[_Player2Index] = new List<GameCard>();
+            PlayersHandCard[_Player1Index] = new List<GameCard>();
+            PlayersHandCard[_Player2Index] = new List<GameCard>();
+            PlayersLeader[_Player1Index] = new GameCard() { CardIndex = player1.Deck.Leader };
+            PlayersLeader[_Player2Index] = new GameCard() { CardIndex = player1.Deck.Leader };
+            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard() { CardIndex = x }).ToList();
+            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard() { CardIndex = x }).ToList();
         }
-        public GameInfomation GetPlayer1InfoMation()
+        public GameInfomation GetPlayerInfoMation(TwoPlayer player)
         {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
             return new GameInfomation()
             {
-                IsMyLeader = IsPlayer1Leader,
-                IsEnemyLeader = IsPlayer2Leader,
-                MyLeader = Player1Leader,
-                EnemyLeader = Player2Leader,
-                EnemyName = Player2.PlayerName,
-                MyDeckCount = Player1Deck.Count(),
-                EnemyDeckCardCount = Player2Deck.Count(),
-                MyHandCard = Player1HandCard,
-                EnemyHandCard = Player2HandCard.Select(x => x.Visible ? new GameCard() : x),
-                MyPlace = Player1Place,
-                EnemyPlace = Player2Place.Select
+                IsMyLeader = IsPlayersLeader[myPlayerIndex],
+                IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
+                MyLeader = PlayersLeader[myPlayerIndex],
+                EnemyLeader = PlayersLeader[enemyPlayerIndex],
+                EnemyName = Players[enemyPlayerIndex].PlayerName,
+                MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
+                EnemyDeckCardCount = PlayersDeck[enemyPlayerIndex].Count(),
+                MyHandCard = PlayersHandCard[myPlayerIndex],
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Visible ? new GameCard() : x),
+                MyPlace = PlayersPlace[myPlayerIndex],
+                EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
                     x => x.Select(item => item.Conceal ? new GameCard() { Conceal = true } : item)
                 ).ToArray(),
-                MyCemetery = Player1Cemetery,
-                EnemyCemetery = Player2Cemetery,
-            };
-        }
-        public GameInfomation GetPlayer2InfoMation()
-        {
-            return new GameInfomation()
-            {
-                IsMyLeader = IsPlayer2Leader,
-                IsEnemyLeader = IsPlayer1Leader,
-                MyLeader = Player2Leader,
-                EnemyLeader = Player1Leader,
-                EnemyName = Player1.PlayerName,
-                MyDeckCount = Player2Deck.Count(),
-                EnemyDeckCardCount = Player1Deck.Count(),
-                MyHandCard = Player2HandCard,
-                EnemyHandCard = Player1HandCard.Select(x => x.Visible ? new GameCard() : x),
-                MyPlace = Player2Place,
-                EnemyPlace = Player1Place.Select
-                (
-                    x => x.Select(item => item.Conceal ? new GameCard() { Conceal = true } : item)
-                ).ToArray(),
-                MyCemetery = Player2Cemetery,
-                EnemyCemetery = Player1Cemetery,
+                MyCemetery = PlayersCemetery[myPlayerIndex],
+                EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
             };
         }
 
         public async Task<bool> Play()
         {
-            await Player1.SendAsync(ServerOperationType.GameInfomation, GetPlayer1InfoMation());
-            await Player2.SendAsync(ServerOperationType.GameInfomation, GetPlayer2InfoMation());
+            await Players[_Player1Index].SendAsync(ServerOperationType.GameInfomation, GetPlayerInfoMation(TwoPlayer.Player1));
+            await Players[_Player2Index].SendAsync(ServerOperationType.GameInfomation, GetPlayerInfoMation(TwoPlayer.Player2));
             var r = new Random();
             var end = (r.Next(2) == 1);
-            await Player1.SendAsync(ServerOperationType.GameEnd, end);
-            await Player2.SendAsync(ServerOperationType.GameEnd, !end);
+            await Players[_Player1Index].SendAsync(ServerOperationType.GameEnd, end);
+            await Players[_Player2Index].SendAsync(ServerOperationType.GameEnd, !end);
             return true;
         }
     }
