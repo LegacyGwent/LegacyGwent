@@ -2,8 +2,20 @@ namespace Cynthia.Card
 {
     public class GameCard
     {
+        public GameCard(string cardIndex) => CardIndex = cardIndex;
+        public GameCard() => Conceal = true;
         //卡牌基本信息索引
-        public string CardIndex { get; set; }
+        public string CardIndex { get; private set; }
+        public GwentCard CardInfo
+        {
+            get
+            {
+                if (_cardInfo == null)
+                    _cardInfo = GwentMap.CardMap[CardIndex];
+                return _cardInfo;
+            }
+        }
+        private GwentCard _cardInfo;
         //---------------------------------------
         //卡牌状态
         public bool Visible { get; set; } = false;//是否被揭示 | 手牌

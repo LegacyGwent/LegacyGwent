@@ -34,10 +34,10 @@ namespace Cynthia.Card.Server
             PlayersCemetery[_Player2Index] = new List<GameCard>();
             PlayersHandCard[_Player1Index] = new List<GameCard>();
             PlayersHandCard[_Player2Index] = new List<GameCard>();
-            PlayersLeader[_Player1Index] = new GameCard() { CardIndex = player1.Deck.Leader };
-            PlayersLeader[_Player2Index] = new GameCard() { CardIndex = player1.Deck.Leader };
-            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard() { CardIndex = x }).ToList();
-            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard() { CardIndex = x }).ToList();
+            PlayersLeader[_Player1Index] = new GameCard(player1.Deck.Leader);
+            PlayersLeader[_Player2Index] = new GameCard(player2.Deck.Leader);
+            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x)).ToList();
+            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x)).ToList();
         }
         public GameInfomation GetPlayerInfoMation(TwoPlayer player)
         {
@@ -57,7 +57,7 @@ namespace Cynthia.Card.Server
                 MyPlace = PlayersPlace[myPlayerIndex],
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
-                    x => x.Select(item => item.Conceal ? new GameCard() { Conceal = true } : item)
+                    x => x.Select(item => item.Conceal ? new GameCard() : item)
                 ).ToArray(),
                 MyCemetery = PlayersCemetery[myPlayerIndex],
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
