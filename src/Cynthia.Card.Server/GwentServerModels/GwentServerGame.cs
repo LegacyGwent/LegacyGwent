@@ -45,6 +45,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
             return new GameInfomation()
             {
+                MyWinCount = PlayersWinCount[myPlayerIndex],
+                EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
                 IsMyLeader = IsPlayersLeader[myPlayerIndex],
                 IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
                 MyLeader = PlayersLeader[myPlayerIndex],

@@ -11,6 +11,8 @@ namespace Cynthia.Card
         public string EnemyName { get; set; }//对手名称
         public int EnemyDeckCardCount { get; set; }//对手剩余卡组数量
         public int MyDeckCount { get; set; }//我方剩余卡组数量
+        public int MyWinCount { get; set; }//我方剩余卡组数量
+        public int EnemyWinCount { get; set; }//我方剩余卡组数量
         public IEnumerable<GameCard> MyHandCard { get; set; }//我方手牌(数量)
         public IEnumerable<GameCard> EnemyHandCard { get; set; }//敌方手牌(数量)
         public IEnumerable<GameCard>[] MyPlace { get; set; }//我方场地
