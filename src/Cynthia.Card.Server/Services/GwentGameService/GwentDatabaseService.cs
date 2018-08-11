@@ -43,9 +43,9 @@ namespace Cynthia.Card.Server
                 return false;
             }
             var decks = new List<DeckModel>();
-            decks.Add(GwentDeck.CreateBasicDeck());
-            decks.Add(GwentDeck.CreateBasicDeck());
-            decks.Add(GwentDeck.CreateBasicDeck());
+            decks.Add(GwentDeck.CreateBasicDeck("基础卡组一号"));
+            decks.Add(GwentDeck.CreateBasicDeck("基础卡组二号"));
+            decks.Add(GwentDeck.CreateBasicDeck("基础卡组三号"));
             _collection.Add(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks });
             return true;
         }
