@@ -16,7 +16,7 @@ namespace Cynthia.Card.Client
             var op1 = await _player.ReceiveAsync();
             var gameInformation = op1.Arguments.ToArray()[0].ToType<GameInfomation>();
             Console.WriteLine($"~匹配成功~");
-            Console.WriteLine($"您的对手是:{gameInformation.EnemyName},他的卡组有{gameInformation.EnemyDeckCardCount}张牌的说~!\n\n");
+            //Console.WriteLine($"您的对手是:{gameInformation.EnemyName},他的卡组有{gameInformation.EnemyDeckCount}张牌的说~!\n\n");
             Console.WriteLine($"抽到了手牌呢,您的手牌是");
             var hand = GwentMap.DeckChange(gameInformation.MyHandCard.Select(x => x.CardIndex));
             hand.Select(x => $"{GwentMap.FlavorMap[x.Group]}{x.Strength}  ").ForAll(Console.Write);
