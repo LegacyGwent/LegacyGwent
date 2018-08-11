@@ -30,6 +30,14 @@ namespace Cynthia.Card.Server
             Players[_Player2Index] = player2;
             PlayersPlace[_Player1Index] = new List<GameCard>[3];
             PlayersPlace[_Player2Index] = new List<GameCard>[3];
+            //----------------------------------------------------
+            PlayersPlace[_Player1Index][0] = new List<GameCard>();
+            PlayersPlace[_Player2Index][0] = new List<GameCard>();
+            PlayersPlace[_Player1Index][1] = new List<GameCard>();
+            PlayersPlace[_Player2Index][1] = new List<GameCard>();
+            PlayersPlace[_Player1Index][2] = new List<GameCard>();
+            PlayersPlace[_Player2Index][2] = new List<GameCard>();
+            //----------------------------------------------------
             PlayersCemetery[_Player1Index] = new List<GameCard>();
             PlayersCemetery[_Player2Index] = new List<GameCard>();
             PlayersHandCard[_Player1Index] = new List<GameCard>();
@@ -54,7 +62,7 @@ namespace Cynthia.Card.Server
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
                 MyName = Players[myPlayerIndex].PlayerName,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
-                EnemyDeckCardCount = PlayersDeck[enemyPlayerIndex].Count(),
+                EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
                 MyHandCard = PlayersHandCard[myPlayerIndex],
                 EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Visible ? new GameCard() : x),
                 MyPlace = PlayersPlace[myPlayerIndex],

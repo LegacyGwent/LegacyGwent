@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public GameCard EnemyLeader { get; set; }//敌方领袖是?
         public string EnemyName { get; set; }//对手名称
         public string MyName { get; set; }//对手名称
-        public int EnemyDeckCardCount { get; set; }//对手剩余卡组数量
+        public int EnemyDeckCount { get; set; }//对手剩余卡组数量
         public int MyDeckCount { get; set; }//我方剩余卡组数量
         public int MyWinCount { get; set; }//我方剩余卡组数量
         public int EnemyWinCount { get; set; }//我方剩余卡组数量
