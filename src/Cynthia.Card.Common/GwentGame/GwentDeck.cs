@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     public static class GwentDeck
     {
-        public static DeckModel CreateBasicDeck()
+        public static DeckModel CreateBasicDeck(string deckName = "初始卡组")
         {
             var leader = "tl";
             var deck = "tg1".Plural(1)
@@ -25,7 +25,7 @@ namespace Cynthia.Card
             .Concat("tc3".Plural(3))
             .Concat("tc4".Plural(3))
             .Concat("tc5".Plural(3)).ToArray();
-            return new DeckModel() { Leader = leader, Deck = deck, Name = "初始卡组" };
+            return new DeckModel() { Leader = leader, Deck = deck, Name = deckName };
         }
         public static bool IsBasicDeck(this DeckModel deck)
         {
