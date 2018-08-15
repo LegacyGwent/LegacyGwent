@@ -21,6 +21,7 @@ namespace Cynthia.Card.Server
         public IList<GameCard>[] PlayersHandCard { get; set; } = new IList<GameCard>[2];//玩家手牌/
         public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
+        public Faction[] PlayersFaction { get; set; } = new Faction[2];
         public const int _Player1Index = 0;
         public const int _Player2Index = 1;
         public GwentServerGame(Player player1, Player player2)
@@ -30,6 +31,8 @@ namespace Cynthia.Card.Server
             Players[_Player2Index] = player2;
             PlayersPlace[_Player1Index] = new List<GameCard>[3];
             PlayersPlace[_Player2Index] = new List<GameCard>[3];
+            PlayersFaction[_Player1Index] = GwentMap.CardMap[player1.Deck.Leader].Faction;
+            PlayersFaction[_Player2Index] = GwentMap.CardMap[player2.Deck.Leader].Faction;
             //----------------------------------------------------
             PlayersPlace[_Player1Index][0] = new List<GameCard>();
             PlayersPlace[_Player2Index][0] = new List<GameCard>();
@@ -42,10 +45,10 @@ namespace Cynthia.Card.Server
             PlayersCemetery[_Player2Index] = new List<GameCard>();
             PlayersHandCard[_Player1Index] = new List<GameCard>();
             PlayersHandCard[_Player2Index] = new List<GameCard>();
-            PlayersLeader[_Player1Index] = new GameCard(player1.Deck.Leader);
-            PlayersLeader[_Player2Index] = new GameCard(player2.Deck.Leader);
-            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x)).ToList();
-            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x)).ToList();
+            PlayersLeader[_Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[_Player1Index] };
+            PlayersLeader[_Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[_Player2Index] };
+            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction }).ToList();
+            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction }).ToList();
         }
         public GameInfomation GetPlayerInfoMation(TwoPlayer player)
         {
@@ -64,11 +67,11 @@ namespace Cynthia.Card.Server
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
                 MyHandCard = PlayersHandCard[myPlayerIndex],
-                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Visible ? new GameCard() : x),
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? new GameCard() { IsCardBack = true } : x),
                 MyPlace = PlayersPlace[myPlayerIndex],
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
-                    x => x.Select(item => item.Conceal ? new GameCard() : item)
+                    x => x.Select(item => item.Conceal ? new GameCard() { IsCardBack = true } : item)
                 ).ToArray(),
                 MyCemetery = PlayersCemetery[myPlayerIndex],
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
@@ -77,8 +80,8 @@ namespace Cynthia.Card.Server
 
         public async Task<bool> Play()
         {
-            await Players[_Player1Index].SendAsync(ServerOperationType.GameInfomation, GetPlayerInfoMation(TwoPlayer.Player1));
-            await Players[_Player2Index].SendAsync(ServerOperationType.GameInfomation, GetPlayerInfoMation(TwoPlayer.Player2));
+            await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
+            await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
             var r = new Random();
             var end = (r.Next(2) == 1);
             await Players[_Player1Index].SendAsync(ServerOperationType.GameEnd, end);
