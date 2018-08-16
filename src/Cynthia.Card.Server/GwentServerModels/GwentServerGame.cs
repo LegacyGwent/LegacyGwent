@@ -83,7 +83,7 @@ namespace Cynthia.Card.Server
         {
             var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
-            return Players[_Player1Index].SendAsync(ServerOperationType.GameEnd, new GameResultInfomation
+            return Players[myPlayerIndex].SendAsync(ServerOperationType.GameEnd, new GameResultInfomation
             (
                 Players[myPlayerIndex].PlayerName,
                 Players[enemyPlayerIndex].PlayerName,
