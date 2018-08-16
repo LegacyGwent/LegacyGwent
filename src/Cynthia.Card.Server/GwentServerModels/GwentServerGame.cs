@@ -77,15 +77,35 @@ namespace Cynthia.Card.Server
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
             };
         }
+        public Task SendGameResult(TwoPlayer player, GameResultInfomation.GameStatus status,
+            int roundCount = 0, int myR1Point = 0, int enemyR1Point = 0,
+            int myR2Point = 0, int enemyR2Point = 0, int myR3Point = 0, int enemyR3Point = 0)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return Players[_Player1Index].SendAsync(ServerOperationType.GameEnd, new GameResultInfomation
+            (
+                Players[myPlayerIndex].PlayerName,
+                Players[enemyPlayerIndex].PlayerName,
+                gameStatu: status,
+                roundCount,
+                myR1Point,
+                enemyR1Point,
+                myR2Point,
+                enemyR2Point,
+                myR3Point,
+                enemyR3Point
+            ));
+        }
 
         public async Task<bool> Play()
         {
             await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
             await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
             var r = new Random();
-            var end = (r.Next(2) == 1);
-            await Players[_Player1Index].SendAsync(ServerOperationType.GameEnd, end);
-            await Players[_Player2Index].SendAsync(ServerOperationType.GameEnd, !end);
+            var end = r.Next(2);
+            await SendGameResult(TwoPlayer.Player1, GameResultInfomation.GameStatus.Win, 1, 1, 0);
+            await SendGameResult(TwoPlayer.Player2, GameResultInfomation.GameStatus.Lose, 1, 0, 1);
             return true;
         }
     }
