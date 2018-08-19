@@ -7,22 +7,22 @@ namespace Cynthia.Card
     {
         public static IDictionary<string, GwentCard> CardMap { get; } = new Dictionary<string, GwentCard>
         {
-            {"tl",new GwentCard(){Strength=18,Group=Group.Leader,Faction = Faction.Nilfgaard,Name="基础领袖"}},
-            {"tg1",new GwentCard(){Strength=17,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡一号"}},
-            {"tg2",new GwentCard(){Strength=16,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡二号"}},
-            {"tg3",new GwentCard(){Strength=15,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡三号"}},
-            {"tg4",new GwentCard(){Strength=0,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡法术一号"}},
-            {"ts1",new GwentCard(){Strength=13,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡一号"}},
-            {"ts2",new GwentCard(){Strength=12,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡二号"}},
-            {"ts3",new GwentCard(){Strength=11,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡三号"}},
-            {"ts4",new GwentCard(){Strength=0,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡法术一号"}},
-            {"ts5",new GwentCard(){Strength=9,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡五号"}},
-            {"ts6",new GwentCard(){Strength=8,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡六号"}},
-            {"tc1",new GwentCard(){Strength=7,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号"}},
-            {"tc2",new GwentCard(){Strength=6,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡二号"}},
-            {"tc3",new GwentCard(){Strength=5,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡三号"}},
-            {"tc4",new GwentCard(){Strength=4,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡四号"}},
-            {"tc5",new GwentCard(){Strength=0,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡法术一号"}},
+            {"tl",new GwentCard(){Strength=18,Group=Group.Leader,Faction = Faction.Nilfgaard,Name="基础领袖",CardUseInfo = CardUseInfo.MyRow}},
+            {"tg1",new GwentCard(){Strength=17,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡一号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tg2",new GwentCard(){Strength=16,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡二号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tg3",new GwentCard(){Strength=15,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡三号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tg4",new GwentCard(){Strength=0,Group=Group.Gold,Faction = Faction.Neutral,Name="基础金卡法术一号",CardUseInfo = CardUseInfo.AnyPlace}},
+            {"ts1",new GwentCard(){Strength=13,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡一号",CardUseInfo = CardUseInfo.MyRow}},
+            {"ts2",new GwentCard(){Strength=12,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡二号",CardUseInfo = CardUseInfo.MyRow}},
+            {"ts3",new GwentCard(){Strength=11,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡三号",CardUseInfo = CardUseInfo.MyRow}},
+            {"ts4",new GwentCard(){Strength=0,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡法术一号",CardUseInfo = CardUseInfo.EnemyPlace}},
+            {"ts5",new GwentCard(){Strength=9,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡五号",CardUseInfo = CardUseInfo.MyRow}},
+            {"ts6",new GwentCard(){Strength=8,Group=Group.Silver,Faction = Faction.Neutral,Name = "基础银卡六号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tc1",new GwentCard(){Strength=7,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡一号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tc2",new GwentCard(){Strength=6,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡二号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tc3",new GwentCard(){Strength=5,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡三号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tc4",new GwentCard(){Strength=4,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡四号",CardUseInfo = CardUseInfo.MyRow}},
+            {"tc5",new GwentCard(){Strength=0,Group=Group.Copper,Faction = Faction.Neutral,Name = "基础铜卡法术一号",CardUseInfo = CardUseInfo.MyPlace}},
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {

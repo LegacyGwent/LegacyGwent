@@ -29,5 +29,7 @@ namespace Cynthia.Card
 
         //战力数值  例如:6
         public int Strength { get; set; }
+        //可放置
+        public CardUseInfo CardUseInfo { get; set; }
     }
 }
