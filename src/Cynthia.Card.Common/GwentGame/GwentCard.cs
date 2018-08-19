@@ -31,5 +31,7 @@ namespace Cynthia.Card
         public int Strength { get; set; }
         //可放置
         public CardUseInfo CardUseInfo { get; set; }
+        //卡牌类型
+        public CardType CardType { get; set; }
     }
 }
