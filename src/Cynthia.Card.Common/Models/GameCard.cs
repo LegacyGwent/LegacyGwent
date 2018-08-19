@@ -7,6 +7,7 @@ namespace Cynthia.Card
         //卡牌基本信息索引
         public string CardIndex { get; private set; }
         public GwentCard CardInfo { get; set; }
+        public CardUseInfo CardUseInfo { get; set; }
         //---------------------------------------
         //卡牌状态
         public bool IsReveal { get; set; } = false;//是否被揭示 | 手牌
