@@ -100,6 +100,8 @@ namespace Cynthia.Card.Server
 
         public async Task<bool> Play()
         {
+            DrawCard(_Player1Index, 10);
+            DrawCard(_Player2Index, 10);
             await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
             await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
             var r = new Random();
@@ -107,6 +109,16 @@ namespace Cynthia.Card.Server
             await SendGameResult(TwoPlayer.Player1, GameResultInfomation.GameStatus.Win, 1, 1, 0);
             await SendGameResult(TwoPlayer.Player2, GameResultInfomation.GameStatus.Lose, 1, 0, 1);
             return true;
+        }
+        //玩家抽卡
+        public void DrawCard(int playerIndex, int count)
+        {
+            if (count < PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
+            for (var i = 0; i < count; i++)
+            {
+                PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
+                PlayersDeck[playerIndex].RemoveAt(0);
+            }
         }
     }
 }
