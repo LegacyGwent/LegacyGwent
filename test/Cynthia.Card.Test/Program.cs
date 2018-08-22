@@ -17,6 +17,8 @@ namespace Cynthia.Card.Test
         {
             await Task.Delay(0);
             var a = new int[] { 0, 1, 2, 3 };
+            a = a.Mess().ToArray();
+            a.ForAll(Console.WriteLine);
             Console.WriteLine();
             Console.ReadKey();
         }
