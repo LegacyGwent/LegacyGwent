@@ -5,7 +5,7 @@ namespace Cynthia.Card
         public GameCard(string cardIndex) => CardIndex = cardIndex;
         public GameCard() => Conceal = true;
         //卡牌基本信息索引
-        public string CardIndex { get; private set; }
+        public string CardIndex { get; set; }
         public GwentCard CardInfo { get; set; }
         //---------------------------------------
         //卡牌状态
