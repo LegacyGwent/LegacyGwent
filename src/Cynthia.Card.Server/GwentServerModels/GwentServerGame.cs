@@ -113,7 +113,7 @@ namespace Cynthia.Card.Server
         //玩家抽卡
         public void DrawCard(int playerIndex, int count)
         {
-            if (count < PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
+            if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
             for (var i = 0; i < count; i++)
             {
                 PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
