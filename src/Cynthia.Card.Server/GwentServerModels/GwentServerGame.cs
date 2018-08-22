@@ -45,6 +45,8 @@ namespace Cynthia.Card.Server
             PlayersCemetery[_Player2Index] = new List<GameCard>();
             PlayersHandCard[_Player1Index] = new List<GameCard>();
             PlayersHandCard[_Player2Index] = new List<GameCard>();
+            IsPlayersLeader[_Player1Index] = true;
+            IsPlayersLeader[_Player2Index] = true;
             PlayersLeader[_Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[_Player1Index], Strength = GwentMap.CardMap[player1.Deck.Leader].Strength };
             PlayersLeader[_Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[_Player2Index], Strength = GwentMap.CardMap[player2.Deck.Leader].Strength };
             PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).ToList();
