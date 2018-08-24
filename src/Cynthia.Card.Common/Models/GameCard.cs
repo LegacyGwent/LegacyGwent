@@ -20,7 +20,7 @@ namespace Cynthia.Card
         public bool Conceal { get; set; } = false;//是否盖牌 | 场地
         //------------------------------------------
         //显示相关
-        public bool IsGray { get; set; } = true;
+        public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
     }
