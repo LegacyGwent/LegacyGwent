@@ -2,10 +2,8 @@ namespace Cynthia.Card
 {
     public enum UserOperationType : byte
     {
-        None,
-        PlayCard,
-        Pass,
-        Exchange,
-        DisCard
+        None,//超时操作
+        RoundOperate,//回合进行的操作(放置)
+        Exchange,//换牌
     }
 }

@@ -1,6 +1,6 @@
 namespace Cynthia.Card
 {
-    //回合操作相关信息
+    //回合开始
     public class RoundInfo
     {
         public bool IsPass { get; set; }
