@@ -16,12 +16,16 @@ namespace Cynthia.Card.Server
         public bool[] IsPlayersLeader { get; set; } = { false, false };//玩家领袖是否使用/
         public GameCard[] PlayersLeader { get; set; } = new GameCard[2];//玩家领袖是?/
         public TwoPlayer GameRound { get; set; }//谁的的回合----
-        public int[] PlayersWinCount { get; set; } = { 0, 0 };//玩家胜利场数/
+        public int RoundCount { get; set; } = 0;
+        public int[] PlayersWinCount { get; set; } = new int[2] { 0, 0 };//玩家胜利场数/
+        public int[] PlayersRound1Result { get; set; } = new int[2] { 0, 0 };//R1
+        public int[] PlayersRound2Result { get; set; } = new int[2] { 0, 0 };//R2
+        public int[] PlayersRound3Result { get; set; } = new int[2] { 0, 0 };//R3
         public IList<GameCard>[] PlayersDeck { get; set; } = new IList<GameCard>[2];//玩家卡组/
         public IList<GameCard>[] PlayersHandCard { get; set; } = new IList<GameCard>[2];//玩家手牌/
         public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
-        public Faction[] PlayersFaction { get; set; } = new Faction[2];
+        public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
         public const int _Player1Index = 0;
         public const int _Player2Index = 1;
         public GwentServerGame(Player player1, Player player2)
@@ -49,6 +53,7 @@ namespace Cynthia.Card.Server
             IsPlayersLeader[_Player2Index] = true;
             PlayersLeader[_Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[_Player1Index], Strength = GwentMap.CardMap[player1.Deck.Leader].Strength };
             PlayersLeader[_Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[_Player2Index], Strength = GwentMap.CardMap[player2.Deck.Leader].Strength };
+            //打乱牌组
             PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
             PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
         }
@@ -106,11 +111,59 @@ namespace Cynthia.Card.Server
             DrawCard(_Player2Index, 10);
             await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
             await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
-            var r = new Random();
-            var end = r.Next(2);
-            await SendGameResult(TwoPlayer.Player1, GameResultInfomation.GameStatus.Win, 1, 1, 0);
-            await SendGameResult(TwoPlayer.Player2, GameResultInfomation.GameStatus.Lose, 1, 0, 1);
+            //---------------------------------------------------------------------------------------
+            //
+            await Players[_Player1Index].SendAsync(ServerOperationType.GetDragOrPass);
+            await Players[_Player1Index].SendAsync(ServerOperationType.CardUseEnd);
+            //
+            await Players[_Player2Index].SendAsync(ServerOperationType.GetDragOrPass);
+            await Players[_Player2Index].SendAsync(ServerOperationType.CardUseEnd);
+            //
+            await Players[_Player1Index].SendAsync(ServerOperationType.GetDragOrPass);
+            await Players[_Player1Index].SendAsync(ServerOperationType.CardUseEnd);
+            //
+            await Players[_Player2Index].SendAsync(ServerOperationType.GetDragOrPass);
+            await Players[_Player2Index].SendAsync(ServerOperationType.CardUseEnd);
+            //
+            await Players[_Player1Index].SendAsync(ServerOperationType.GetDragOrPass);
+            await Players[_Player1Index].SendAsync(ServerOperationType.CardUseEnd);
+            //
+            await Players[_Player2Index].SendAsync(ServerOperationType.GetDragOrPass);
+            await Players[_Player2Index].SendAsync(ServerOperationType.CardUseEnd);
+            //---------------------------------------------------------------------------------------
+            await GameOverExecute();
             return true;
+        }
+        //根据当前信息,处理游戏结果
+        public async Task GameOverExecute()
+        {
+            int result = 0;//0为平, 1为玩家1胜利, 2为玩家2胜利
+            if (PlayersWinCount[_Player1Index] == PlayersWinCount[_Player2Index])
+                result = 0;
+            if (PlayersWinCount[_Player1Index] > PlayersWinCount[_Player2Index])
+                result = 1;
+            if (PlayersWinCount[_Player1Index] < PlayersWinCount[_Player2Index])
+                result = 2;
+            await SendGameResult
+            (
+                TwoPlayer.Player1,
+                result == 0 ? GameResultInfomation.GameStatus.Draw :
+                (result == 1 ? GameResultInfomation.GameStatus.Win : GameResultInfomation.GameStatus.Lose),
+                RoundCount,
+                PlayersRound1Result[_Player1Index],
+                PlayersRound2Result[_Player1Index],
+                PlayersRound3Result[_Player1Index]
+            );
+            await SendGameResult
+            (
+                TwoPlayer.Player2,
+                result == 0 ? GameResultInfomation.GameStatus.Draw :
+                (result == 1 ? GameResultInfomation.GameStatus.Lose : GameResultInfomation.GameStatus.Win),
+                RoundCount,
+                PlayersRound1Result[_Player2Index],
+                PlayersRound2Result[_Player2Index],
+                PlayersRound3Result[_Player2Index]
+            );
         }
         //玩家抽卡
         public void DrawCard(int playerIndex, int count)
