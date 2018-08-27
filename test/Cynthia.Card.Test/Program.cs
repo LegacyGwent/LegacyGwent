@@ -22,13 +22,6 @@ namespace Cynthia.Card.Test
             Console.WriteLine();
             Console.ReadKey();
         }
-        private static IDictionary<Group, string> FlavorMap { get; } = new Dictionary<Group, string>
-        {
-            { Group.Leader, "领袖" },
-            { Group.Gold,"金"},
-            {Group.Silver,"银"},
-            {Group.Copper,"铜"}
-        };
-        private static void PrintCard(GwentCard card) => Console.WriteLine($"你的卡牌战力为{card.Strength},是一张~{FlavorMap[card.Group]}卡~");
+
     }
 }

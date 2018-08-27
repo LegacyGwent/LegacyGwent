@@ -7,7 +7,7 @@ namespace Cynthia.Card.Client
 {
     class Program
     {
-        static async Task Main(string[] args) => await ConfiguerServices().Resolve<MainService>().Main(args);
+        static void Main(string[] args) => ConfiguerServices().Resolve<TestMainService>().Main(args);
 
         private static IContainer ConfiguerServices()
         {
