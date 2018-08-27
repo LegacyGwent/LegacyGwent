@@ -109,26 +109,39 @@ namespace Cynthia.Card.Server
         {
             DrawCard(_Player1Index, 10);
             DrawCard(_Player2Index, 10);
+            var cardInfo = default(Operation<UserOperationType>);
             await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
             await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
             //---------------------------------------------------------------------------------------
             //
             await Players[_Player1Index].SendAsync(ServerOperationType.GetDragOrPass);
+            cardInfo = await Players[_Player1Index].ReceiveAsync();
+            PlayersRound1Result[_Player1Index] += cardInfo.Arguments.ToArray()[0].ToType<RoundInfo>().CardIndex;
             await Players[_Player1Index].SendAsync(ServerOperationType.CardUseEnd);
             //
             await Players[_Player2Index].SendAsync(ServerOperationType.GetDragOrPass);
+            cardInfo = await Players[_Player2Index].ReceiveAsync();
+            PlayersRound1Result[_Player2Index] += cardInfo.Arguments.ToArray()[0].ToType<RoundInfo>().CardIndex;
             await Players[_Player2Index].SendAsync(ServerOperationType.CardUseEnd);
             //
             await Players[_Player1Index].SendAsync(ServerOperationType.GetDragOrPass);
+            cardInfo = await Players[_Player1Index].ReceiveAsync();
+            PlayersRound1Result[_Player1Index] += cardInfo.Arguments.ToArray()[0].ToType<RoundInfo>().CardIndex;
             await Players[_Player1Index].SendAsync(ServerOperationType.CardUseEnd);
             //
             await Players[_Player2Index].SendAsync(ServerOperationType.GetDragOrPass);
+            cardInfo = await Players[_Player2Index].ReceiveAsync();
+            PlayersRound1Result[_Player2Index] += cardInfo.Arguments.ToArray()[0].ToType<RoundInfo>().CardIndex;
             await Players[_Player2Index].SendAsync(ServerOperationType.CardUseEnd);
             //
             await Players[_Player1Index].SendAsync(ServerOperationType.GetDragOrPass);
+            cardInfo = await Players[_Player1Index].ReceiveAsync();
+            PlayersRound1Result[_Player1Index] += cardInfo.Arguments.ToArray()[0].ToType<RoundInfo>().CardIndex;
             await Players[_Player1Index].SendAsync(ServerOperationType.CardUseEnd);
             //
             await Players[_Player2Index].SendAsync(ServerOperationType.GetDragOrPass);
+            cardInfo = await Players[_Player2Index].ReceiveAsync();
+            PlayersRound1Result[_Player2Index] += cardInfo.Arguments.ToArray()[0].ToType<RoundInfo>().CardIndex;
             await Players[_Player2Index].SendAsync(ServerOperationType.CardUseEnd);
             //---------------------------------------------------------------------------------------
             await GameOverExecute();
