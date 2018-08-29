@@ -54,28 +54,49 @@ namespace Cynthia.Card.Server
             }
             else
             {//放置卡牌时执行
-                PlayCard(playerIndex, cardInfo.HandCardIndex, cardInfo.RowIndex, cardInfo.CardIndex);
+                PlayCard(playerIndex, cardInfo);
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
             }
             //宣告回合结束
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
         }
-        public bool PlayCard(int playerIndex, int handIndex, int rowIndex, int cardIndex)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
+        public bool PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         {
-            if (handIndex == -1)
+            //将放置信息发送给对手
+            var enemyRowIndex = cardInfo.RowIndex == -3 ? cardInfo.RowIndex :
+            (
+                cardInfo.RowIndex == -2 ? -1 :
+                (
+                    cardInfo.RowIndex == -1 ? -2 :
+                    (
+                        cardInfo.RowIndex >= 3 ? cardInfo.RowIndex - 3 : cardInfo.RowIndex + 3
+                    )
+                )
+            );
+            var enemyCardInfo = new RoundInfo()
+            {
+                HandCardIndex = cardInfo.HandCardIndex,
+                CardIndex = cardInfo.CardIndex,
+            };
+            //------------------------------------------------------------
+            var card = default(GameCard);
+            if (cardInfo.HandCardIndex == -1)//如果是-1,视为领袖卡
             {
                 if (IsPlayersLeader[playerIndex] == false)
                     return false;
-                PlayersRoundResult[CurrentRoundCount][playerIndex] += PlayersLeader[playerIndex].Strength;
+                card = PlayersLeader[playerIndex];
                 IsPlayersLeader[playerIndex] = false;
                 return true;
-
             }
-            if (handIndex < 0 || handIndex > PlayersHandCard[playerIndex].Count)
-                return false;
-            PlayersRoundResult[CurrentRoundCount][playerIndex] += PlayersHandCard[playerIndex][handIndex].Strength;//
-            var card = PlayersHandCard[playerIndex][handIndex];
-            PlayersHandCard[playerIndex].RemoveAt(handIndex);
+            else
+            {
+                if (cardInfo.HandCardIndex < 0 || cardInfo.HandCardIndex > PlayersHandCard[playerIndex].Count)//判断手牌合法
+                    return false;
+                card = PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
+                PlayersHandCard[playerIndex].RemoveAt(cardInfo.HandCardIndex);
+            }
+            //以上获得了卡牌,并且提取了出来
+            PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
         }
         //玩家抽卡
