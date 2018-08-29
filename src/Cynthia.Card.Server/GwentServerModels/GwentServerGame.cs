@@ -56,6 +56,7 @@ namespace Cynthia.Card.Server
             {//放置卡牌时执行
                 PlayCard(playerIndex, cardInfo);
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
+                await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardEffectEnd);
             }
             //宣告回合结束
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
@@ -96,6 +97,8 @@ namespace Cynthia.Card.Server
                 PlayersHandCard[playerIndex].RemoveAt(cardInfo.HandCardIndex);
             }
             //以上获得了卡牌,并且提取了出来
+            //---可以进行发送
+            Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, cardInfo, card);
             PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
         }
