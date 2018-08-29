@@ -9,18 +9,17 @@ namespace Cynthia.Card.Server
     {
         public enum TwoPlayer//两个玩家
         {
-            Player1,
-            Player2
+            Player1 = 0,
+            Player2 = 1
         }
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
-        public bool[] IsPlayersLeader { get; set; } = { false, false };//玩家领袖是否使用/
+        public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
         public GameCard[] PlayersLeader { get; set; } = new GameCard[2];//玩家领袖是?/
         public TwoPlayer GameRound { get; set; }//谁的的回合----
-        public int RoundCount { get; set; } = 0;
+        public int RoundCount { get; set; } = 0;//有效比分的回合数
+        public int CurrentRoundCount { get; set; } = 0;//当前小局
         public int[] PlayersWinCount { get; set; } = new int[2] { 0, 0 };//玩家胜利场数/
-        public int[] PlayersRound1Result { get; set; } = new int[2] { 0, 0 };//R1
-        public int[] PlayersRound2Result { get; set; } = new int[2] { 0, 0 };//R2
-        public int[] PlayersRound3Result { get; set; } = new int[2] { 0, 0 };//R3
+        public int[][] PlayersRoundResult { get; set; } = new int[3][];//三局r1 r2 r3
         public IList<GameCard>[] PlayersDeck { get; set; } = new IList<GameCard>[2];//玩家卡组/
         public IList<GameCard>[] PlayersHandCard { get; set; } = new IList<GameCard>[2];//玩家手牌/
         public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
@@ -28,9 +27,125 @@ namespace Cynthia.Card.Server
         public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
         public const int _Player1Index = 0;
         public const int _Player2Index = 1;
+        public async Task<bool> Play()
+        {
+            DrawCard(_Player1Index, 10);
+            DrawCard(_Player2Index, 10);
+            await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
+            await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
+            //---------------------------------------------------------------------------------------
+            await PlayerRound(_Player1Index);
+            await PlayerRound(_Player2Index);
+            await PlayerRound(_Player1Index);
+            await PlayerRound(_Player2Index);
+            //---------------------------------------------------------------------------------------
+            await GameOverExecute();
+            return true;
+        }
+        public async Task PlayerRound(int playerIndex)
+        {
+            //让玩家选择拖拽,或者Pass
+            await Players[playerIndex].SendAsync(ServerOperationType.GetDragOrPass);
+            //获取信息
+            var cardInfo = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RoundInfo>();//接收玩家的选择,提取结果
+            if (cardInfo.IsPass)
+            {//Pass时候执行
+                PlayersRoundResult[0][playerIndex] = 99999;
+            }
+            else
+            {//放置卡牌时执行
+                PlayCard(playerIndex, cardInfo.HandCardIndex, cardInfo.RowIndex, cardInfo.CardIndex);
+                await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
+            }
+            //宣告回合结束
+            await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
+        }
+        public bool PlayCard(int playerIndex, int handIndex, int rowIndex, int cardIndex)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
+        {
+            if (handIndex == -1)
+            {
+                if (IsPlayersLeader[playerIndex] == false)
+                    return false;
+                PlayersRoundResult[CurrentRoundCount][playerIndex] += PlayersLeader[playerIndex].Strength;
+                IsPlayersLeader[playerIndex] = false;
+                return true;
+
+            }
+            if (handIndex < 0 || handIndex > PlayersHandCard[playerIndex].Count)
+                return false;
+            PlayersRoundResult[CurrentRoundCount][playerIndex] += PlayersHandCard[playerIndex][handIndex].Strength;//
+            var card = PlayersHandCard[playerIndex][handIndex];
+            PlayersHandCard[playerIndex].RemoveAt(handIndex);
+            return true;
+        }
+        //玩家抽卡
+        public void DrawCard(int playerIndex, int count)
+        {
+            if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
+            for (var i = 0; i < count; i++)
+            {
+                PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
+                PlayersDeck[playerIndex].RemoveAt(0);
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        //下面是发送数据包,或者进行一些初始化信息
+        //根据当前信息,处理游戏结果
+        public async Task GameOverExecute()
+        {
+            RoundCount = 1;
+            if (PlayersRoundResult[0][_Player1Index] >= PlayersRoundResult[0][_Player2Index])
+                PlayersWinCount[_Player1Index]++;
+            if (PlayersRoundResult[0][_Player1Index] <= PlayersRoundResult[0][_Player2Index])
+                PlayersWinCount[_Player2Index]++;
+            if (PlayersRoundResult[1][_Player1Index] >= PlayersRoundResult[1][_Player2Index])
+                PlayersWinCount[_Player1Index]++;
+            if (PlayersRoundResult[1][_Player1Index] <= PlayersRoundResult[1][_Player2Index])
+                PlayersWinCount[_Player2Index]++;
+            if (PlayersRoundResult[2][_Player1Index] >= PlayersRoundResult[2][_Player2Index])
+                PlayersWinCount[_Player1Index]++;
+            if (PlayersRoundResult[2][_Player1Index] <= PlayersRoundResult[2][_Player2Index])
+                PlayersWinCount[_Player2Index]++;
+            int result = 0;//0为平, 1为玩家1胜利, 2为玩家2胜利
+            if (PlayersWinCount[_Player1Index] == PlayersWinCount[_Player2Index])
+                result = 0;
+            if (PlayersWinCount[_Player1Index] > PlayersWinCount[_Player2Index])
+                result = 1;
+            if (PlayersWinCount[_Player1Index] < PlayersWinCount[_Player2Index])
+                result = 2;
+            await SendGameResult
+            (
+                TwoPlayer.Player1,
+                result == 0 ? GameResultInfomation.GameStatus.Draw :
+                (result == 1 ? GameResultInfomation.GameStatus.Win : GameResultInfomation.GameStatus.Lose),
+                RoundCount,
+                PlayersRoundResult[0][_Player1Index],
+                PlayersRoundResult[0][_Player2Index],
+                PlayersRoundResult[1][_Player1Index],
+                PlayersRoundResult[1][_Player2Index],
+                PlayersRoundResult[2][_Player1Index],
+                PlayersRoundResult[2][_Player2Index]
+            );
+            await SendGameResult
+            (
+                TwoPlayer.Player2,
+                result == 0 ? GameResultInfomation.GameStatus.Draw :
+                (result == 1 ? GameResultInfomation.GameStatus.Lose : GameResultInfomation.GameStatus.Win),
+                RoundCount,
+                PlayersRoundResult[0][_Player2Index],
+                PlayersRoundResult[0][_Player1Index],
+                PlayersRoundResult[1][_Player2Index],
+                PlayersRoundResult[1][_Player1Index],
+                PlayersRoundResult[2][_Player2Index],
+                PlayersRoundResult[2][_Player1Index]
+            );
+        }
         public GwentServerGame(Player player1, Player player2)
         {
             //初始化游戏信息
+            PlayersRoundResult[0] = new int[2];
+            PlayersRoundResult[1] = new int[2];
+            PlayersRoundResult[2] = new int[2];
             Players[_Player1Index] = player1;
             Players[_Player2Index] = player2;
             PlayersPlace[_Player1Index] = new List<GameCard>[3];
@@ -74,11 +189,11 @@ namespace Cynthia.Card.Server
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
                 MyHandCard = PlayersHandCard[myPlayerIndex],
-                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? new GameCard() { IsCardBack = true } : x),
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? x : new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
                 MyPlace = PlayersPlace[myPlayerIndex],
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
-                    x => x.Select(item => item.Conceal ? new GameCard() { IsCardBack = true } : item)
+                    x => x.Select(item => item.Conceal ? new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item)
                 ).ToArray(),
                 MyCemetery = PlayersCemetery[myPlayerIndex],
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
@@ -103,82 +218,6 @@ namespace Cynthia.Card.Server
                 myR3Point,
                 enemyR3Point
             ));
-        }
-
-        public async Task<bool> Play()
-        {
-            DrawCard(_Player1Index, 10);
-            DrawCard(_Player2Index, 10);
-            await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
-            await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
-            //---------------------------------------------------------------------------------------
-            await OneRound(_Player1Index);
-            await OneRound(_Player2Index);
-            await OneRound(_Player1Index);
-            await OneRound(_Player2Index);
-            //---------------------------------------------------------------------------------------
-            await GameOverExecute();
-            return true;
-        }
-        public async Task OneRound(int playerIndex)
-        {
-            await Players[playerIndex].SendAsync(ServerOperationType.GetDragOrPass);
-            var cardInfo = await Players[playerIndex].ReceiveAsync();
-            PlayersRound1Result[playerIndex] += cardInfo.Arguments.ToArray()[0].ToType<string>().ToType<RoundInfo>().HandCardIndex;
-            await Players[playerIndex].SendAsync(ServerOperationType.CardUseEnd);
-            await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
-        }
-        //根据当前信息,处理游戏结果
-        public async Task GameOverExecute()
-        {
-            RoundCount = 1;
-            if (PlayersRound1Result[_Player1Index] >= PlayersRound1Result[_Player2Index])
-                PlayersWinCount[_Player1Index]++;
-            if (PlayersRound1Result[_Player1Index] <= PlayersRound1Result[_Player2Index])
-                PlayersWinCount[_Player2Index]++;
-            int result = 0;//0为平, 1为玩家1胜利, 2为玩家2胜利
-            if (PlayersWinCount[_Player1Index] == PlayersWinCount[_Player2Index])
-                result = 0;
-            if (PlayersWinCount[_Player1Index] > PlayersWinCount[_Player2Index])
-                result = 1;
-            if (PlayersWinCount[_Player1Index] < PlayersWinCount[_Player2Index])
-                result = 2;
-            await SendGameResult
-            (
-                TwoPlayer.Player1,
-                result == 0 ? GameResultInfomation.GameStatus.Draw :
-                (result == 1 ? GameResultInfomation.GameStatus.Win : GameResultInfomation.GameStatus.Lose),
-                RoundCount,
-                PlayersRound1Result[_Player1Index],
-                PlayersRound1Result[_Player2Index],
-                PlayersRound2Result[_Player1Index],
-                PlayersRound2Result[_Player2Index],
-                PlayersRound3Result[_Player1Index],
-                PlayersRound3Result[_Player2Index]
-            );
-            await SendGameResult
-            (
-                TwoPlayer.Player2,
-                result == 0 ? GameResultInfomation.GameStatus.Draw :
-                (result == 1 ? GameResultInfomation.GameStatus.Lose : GameResultInfomation.GameStatus.Win),
-                RoundCount,
-                PlayersRound1Result[_Player2Index],
-                PlayersRound1Result[_Player1Index],
-                PlayersRound2Result[_Player2Index],
-                PlayersRound2Result[_Player1Index],
-                PlayersRound3Result[_Player2Index],
-                PlayersRound3Result[_Player1Index]
-            );
-        }
-        //玩家抽卡
-        public void DrawCard(int playerIndex, int count)
-        {
-            if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
-            for (var i = 0; i < count; i++)
-            {
-                PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
-                PlayersDeck[playerIndex].RemoveAt(0);
-            }
         }
     }
 }
