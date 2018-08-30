@@ -4,6 +4,14 @@ namespace Cynthia.Card
 {
     public class GameInfomation
     {
+        public int MyRow1Point { get; set; }
+        public int MyRow2Point { get; set; }
+        public int MyRow3Point { get; set; }
+        public int EnemyRow1Point { get; set; }
+        public int EnemyRow2Point { get; set; }
+        public int EnemyRow3Point { get; set; }
+        public bool IsMyPlayersPass { get; set; }//我方pass
+        public bool IsEnemyPlayersPass { get; set; }//对手pass
         public bool IsMyLeader { get; set; }//我方领袖是否使用
         public bool IsEnemyLeader { get; set; }//敌方领袖是否使用
         public GameCard MyLeader { get; set; }//我方领袖是?

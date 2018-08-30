@@ -16,10 +16,20 @@ namespace Cynthia.Card.Test
         static async Task Main(string[] args)
         {
             await Task.Delay(0);
-            var a = new int[] { 0, 1, 2, 3 };
-            a = a.Mess().ToArray();
-            a.ForAll(Console.WriteLine);
-            Console.WriteLine();
+            for (var i = -3; i <= 5; i++)
+            {
+                var enemyRowIndex = i == -3 ? i :
+                (
+                    i == -2 ? -1 :
+                    (
+                        i == -1 ? -2 :
+                        (
+                            i >= 3 ? i - 3 : i + 3
+                        )
+                    )
+                );
+                Console.WriteLine($"原始数据:{i},加工数据:{enemyRowIndex}");
+            }
             Console.ReadKey();
         }
 
