@@ -32,9 +32,10 @@ namespace Cynthia.Card.Server
         {
             DrawCard(_Player1Index, 10);
             DrawCard(_Player2Index, 10);
-            await Players[_Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetPlayerInfoMation(TwoPlayer.Player1));
-            await Players[_Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetPlayerInfoMation(TwoPlayer.Player2));
+            await SetAllInfo();
             //---------------------------------------------------------------------------------------
+            await PlayerRound(_Player1Index);
+            await PlayerRound(_Player2Index);
             await PlayerRound(_Player1Index);
             await PlayerRound(_Player2Index);
             await PlayerRound(_Player1Index);
@@ -61,14 +62,14 @@ namespace Cynthia.Card.Server
             }
             else
             {//放置卡牌时执行
-                PlayCard(playerIndex, cardInfo);
+                await PlayCard(playerIndex, cardInfo);
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
                 await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardEffectEnd);
             }
             //宣告回合结束
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
         }
-        public bool PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
+        public async Task<bool> PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         {
             //将放置信息发送给对手
             var enemyRowIndex = cardInfo.RowIndex == -3 ? cardInfo.RowIndex :
@@ -105,7 +106,7 @@ namespace Cynthia.Card.Server
             }
             //以上获得了卡牌,并且提取了出来
             //---可以进行发送
-            Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
+            await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
             //这句话测试用
             if (cardInfo.RowIndex == -3)
             {
@@ -120,12 +121,14 @@ namespace Cynthia.Card.Server
                 card.Conceal = false;  //没有隐藏
                 card.IsReveal = false; //没有解释
                 PlayersCemetery[playerIndex].Add(card);
+                await SetCountInfo();
             }
             else if (cardInfo.RowIndex == -1 || cardInfo.RowIndex == -2)
             {
                 //法术卡的话
-                //执行效果代码之后
+                //执行效果代码之后...进入墓地
                 PlayersCemetery[playerIndex].Add(card);
+                await SetCountInfo();
             }
             else
             {
@@ -134,7 +137,8 @@ namespace Cynthia.Card.Server
                 var playerPlace = cardInfo.RowIndex >= 3 ? (playerIndex == 0 ? 1 : 0) : playerIndex;
                 var rowIndex = cardInfo.RowIndex >= 3 ? cardInfo.RowIndex - 3 : cardInfo.RowIndex;
                 PlayersPlace[playerPlace][rowIndex].Insert(cardInfo.CardIndex, card);
-                //----效果...?
+                await SetPointInfo();
+                //----效果----?
             }
             PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
@@ -233,7 +237,164 @@ namespace Cynthia.Card.Server
             PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
             PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
         }
-        public GameInfomation GetPlayerInfoMation(TwoPlayer player)
+        //----------------------------------------------------------------------------------------------
+        public Task SetAllInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetGameInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetGameInfo, GetGameInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetGameInfo, GetGameInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetCardsInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetCardsInfo, GetCardsInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetCardsInfo, GetCardsInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetPointInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetPointInfo, GetPointInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetPointInfo, GetPointInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetCountInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetCountInfo, GetCountInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetCountInfo, GetCountInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetPassInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetPassInfo, GetPassInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetPassInfo, GetPassInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetWinCountInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetWinCountInfo, GetWinCountInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetWinCountInfo, GetWinCountInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetNameInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetNameInfo, GetNameInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetNameInfo, GetNameInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        //---------------------------------------------------------
+        public GameInfomation GetGameInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                MyRow1Point = PlayersPlace[myPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
+                MyRow2Point = PlayersPlace[myPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
+                MyRow3Point = PlayersPlace[myPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
+                IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
+                IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex],
+                MyWinCount = PlayersWinCount[myPlayerIndex],
+                EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
+                EnemyName = Players[enemyPlayerIndex].PlayerName,
+                MyName = Players[myPlayerIndex].PlayerName,
+                MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
+                EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
+                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+                MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
+                EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
+            };
+        }
+        public GameInfomation GetCardsInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                IsMyLeader = IsPlayersLeader[myPlayerIndex],
+                IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
+                MyLeader = PlayersLeader[myPlayerIndex],
+                EnemyLeader = PlayersLeader[enemyPlayerIndex],
+                MyHandCard = PlayersHandCard[myPlayerIndex],
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? x : new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
+                MyPlace = PlayersPlace[myPlayerIndex],
+                EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
+                (
+                    x => x.Select(item => item.Conceal ? new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item)
+                ).ToArray(),
+                MyCemetery = PlayersCemetery[myPlayerIndex],
+                EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
+            };
+        }
+        public GameInfomation GetPointInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                MyRow1Point = PlayersPlace[myPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
+                MyRow2Point = PlayersPlace[myPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
+                MyRow3Point = PlayersPlace[myPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus)
+            };
+        }
+        public GameInfomation GetCountInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {//手牌/ 卡组/ 墓地/
+                MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
+                EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
+                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+                MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
+                EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count()
+            };
+        }
+        public GameInfomation GetPassInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
+                IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex]
+            };
+        }
+        public GameInfomation GetWinCountInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                MyWinCount = PlayersWinCount[myPlayerIndex],
+                EnemyWinCount = PlayersWinCount[enemyPlayerIndex]
+            };
+        }
+        public GameInfomation GetNameInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                EnemyName = Players[enemyPlayerIndex].PlayerName,
+                MyName = Players[myPlayerIndex].PlayerName
+            };
+        }
+
+        //更新所有信息
+        public GameInfomation GetAllInfo(TwoPlayer player)
         {
             var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
@@ -257,6 +418,10 @@ namespace Cynthia.Card.Server
                 MyName = Players[myPlayerIndex].PlayerName,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
+                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+                MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
+                EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
                 MyHandCard = PlayersHandCard[myPlayerIndex],
                 EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? x : new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
                 MyPlace = PlayersPlace[myPlayerIndex],
@@ -268,6 +433,7 @@ namespace Cynthia.Card.Server
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
             };
         }
+        //--------------------------------------
         public Task SendGameResult(TwoPlayer player, GameResultInfomation.GameStatus status,
             int roundCount = 0, int myR1Point = 0, int enemyR1Point = 0,
             int myR2Point = 0, int enemyR2Point = 0, int myR3Point = 0, int enemyR3Point = 0)
