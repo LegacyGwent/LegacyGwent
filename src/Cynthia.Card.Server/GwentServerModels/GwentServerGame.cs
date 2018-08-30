@@ -25,6 +25,7 @@ namespace Cynthia.Card.Server
         public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
         public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
+        public bool[] IsPlayersPass { get; set; } = new bool[2] { false, false };
         public const int _Player1Index = 0;
         public const int _Player2Index = 1;
         public async Task<bool> Play()
@@ -78,6 +79,7 @@ namespace Cynthia.Card.Server
             {
                 HandCardIndex = cardInfo.HandCardIndex,
                 CardIndex = cardInfo.CardIndex,
+                RowIndex = enemyRowIndex
             };
             //------------------------------------------------------------
             var card = default(GameCard);
@@ -87,7 +89,6 @@ namespace Cynthia.Card.Server
                     return false;
                 card = PlayersLeader[playerIndex];
                 IsPlayersLeader[playerIndex] = false;
-                return true;
             }
             else
             {
@@ -98,7 +99,7 @@ namespace Cynthia.Card.Server
             }
             //以上获得了卡牌,并且提取了出来
             //---可以进行发送
-            Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, cardInfo, card);
+            Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
             PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
         }
@@ -202,6 +203,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
             return new GameInfomation()
             {
+                IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
+                IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex],
                 MyWinCount = PlayersWinCount[myPlayerIndex],
                 EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
                 IsMyLeader = IsPlayersLeader[myPlayerIndex],
