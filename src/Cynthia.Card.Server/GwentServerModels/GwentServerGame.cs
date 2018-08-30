@@ -32,8 +32,8 @@ namespace Cynthia.Card.Server
         {
             DrawCard(_Player1Index, 10);
             DrawCard(_Player2Index, 10);
-            await Players[_Player1Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player1));
-            await Players[_Player2Index].SendAsync(ServerOperationType.GameStart, GetPlayerInfoMation(TwoPlayer.Player2));
+            await Players[_Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetPlayerInfoMation(TwoPlayer.Player1));
+            await Players[_Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetPlayerInfoMation(TwoPlayer.Player2));
             //---------------------------------------------------------------------------------------
             await PlayerRound(_Player1Index);
             await PlayerRound(_Player2Index);
@@ -52,6 +52,12 @@ namespace Cynthia.Card.Server
             if (cardInfo.IsPass)
             {//Pass时候执行
                 PlayersRoundResult[0][playerIndex] = 99999;
+                IsPlayersPass[playerIndex] = true;
+                if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
+                {
+                    //双方都已经pass,进入下一轮或者结束
+                }
+                //发送信息
             }
             else
             {//放置卡牌时执行
@@ -100,6 +106,36 @@ namespace Cynthia.Card.Server
             //以上获得了卡牌,并且提取了出来
             //---可以进行发送
             Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
+            //这句话测试用
+            if (cardInfo.RowIndex == -3)
+            {
+                //需要进行处理后进入墓地,如果是佚亡直接消除
+                card.Armor = 0; //护甲归零
+                card.HealthStatus = 0;//没有增益和受伤
+                card.IsCardBack = false; //没有背面
+                card.IsResilience = false;//没有坚韧
+                card.IsGray = false;   //没有灰
+                card.IsShield = false; //没有昆恩
+                card.IsSpying = false; //没有间谍
+                card.Conceal = false;  //没有隐藏
+                card.IsReveal = false; //没有解释
+                PlayersCemetery[playerIndex].Add(card);
+            }
+            else if (cardInfo.RowIndex == -1 || cardInfo.RowIndex == -2)
+            {
+                //法术卡的话
+                //执行效果代码之后
+                PlayersCemetery[playerIndex].Add(card);
+            }
+            else
+            {
+                //单位卡
+                //放在了...玩家1还是玩家2的场地?
+                var playerPlace = cardInfo.RowIndex >= 3 ? (playerIndex == 0 ? 1 : 0) : playerIndex;
+                var rowIndex = cardInfo.RowIndex >= 3 ? cardInfo.RowIndex - 3 : cardInfo.RowIndex;
+                PlayersPlace[playerPlace][rowIndex].Insert(cardInfo.CardIndex, card);
+                //----效果...?
+            }
             PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
         }
@@ -203,6 +239,12 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
             return new GameInfomation()
             {
+                MyRow1Point = PlayersPlace[myPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
+                MyRow2Point = PlayersPlace[myPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
+                MyRow3Point = PlayersPlace[myPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
                 IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
                 IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex],
                 MyWinCount = PlayersWinCount[myPlayerIndex],
