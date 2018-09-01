@@ -40,7 +40,7 @@ namespace Cynthia.Card.Server
             await BigRoundEnd();
             while (await PlayerRound()) ;//双方轮流执行回合|第二小局
             await BigRoundEnd();
-            if (PlayersWinCount[_Player1Index] <= 2 || PlayersWinCount[_Player2Index] <= 2)
+            if (PlayersWinCount[_Player1Index] <= 2 && PlayersWinCount[_Player2Index] <= 2)
             {
                 while (await PlayerRound()) ;//双方轮流执行回合|判断没有在前两局完成的话
                 await BigRoundEnd();
@@ -62,15 +62,22 @@ namespace Cynthia.Card.Server
             PlayersRoundResult[CurrentRoundCount][_Player1Index] = player1PlacePoint;
             PlayersRoundResult[CurrentRoundCount][_Player2Index] = player2PlacePoint;
             if (player1PlacePoint >= player2PlacePoint)
+            {
+                GameRound = TwoPlayer.Player1;
                 PlayersWinCount[_Player1Index]++;
+            }
             if (player2PlacePoint >= player1PlacePoint)
+            {
+                GameRound = TwoPlayer.Player2;
                 PlayersWinCount[_Player2Index]++;
+            }
             RoundCount++;//有效回合的总数
             CurrentRoundCount++;//当前回合
             IsPlayersPass[_Player1Index] = false;
             IsPlayersPass[_Player2Index] = false;
-            await SetWinCountInfo();
-            await SetPassInfo();
+            await SetWinCountInfo();//设置小皇冠图标
+            await SetPassInfo();//重置pass标记
+            await SendBigRoundEndToCemetery();//将所有牌移到墓地
             //清空所有场上的牌
         }
         public async Task<bool> PlayerRound()
@@ -532,7 +539,7 @@ namespace Cynthia.Card.Server
             //#############################################
             var player1CardsPart = new GameCardsPart();
             var player2CardsPart = new GameCardsPart();
-            for (var i = PlayersPlace[_Player1Index][0].Count; i > 0; i--)
+            for (var i = PlayersPlace[_Player1Index][0].Count - 1; i >= 0; i--)
             {
                 var card = PlayersPlace[_Player1Index][0][i];
                 if (card.IsResilience)
@@ -547,7 +554,7 @@ namespace Cynthia.Card.Server
                     PlayersPlace[_Player1Index][0].RemoveAt(i);
                 }
             }
-            for (var i = PlayersPlace[_Player1Index][1].Count; i > 0; i--)
+            for (var i = PlayersPlace[_Player1Index][1].Count - 1; i >= 0; i--)
             {
                 var card = PlayersPlace[_Player1Index][1][i];
                 if (card.IsResilience)
@@ -562,7 +569,7 @@ namespace Cynthia.Card.Server
                     PlayersPlace[_Player1Index][1].RemoveAt(i);
                 }
             }
-            for (var i = PlayersPlace[_Player1Index][2].Count; i > 0; i--)
+            for (var i = PlayersPlace[_Player1Index][2].Count - 1; i >= 0; i--)
             {
                 var card = PlayersPlace[_Player1Index][2][i];
                 if (card.IsResilience)
@@ -577,7 +584,7 @@ namespace Cynthia.Card.Server
                     PlayersPlace[_Player1Index][2].RemoveAt(i);
                 }
             }
-            for (var i = PlayersPlace[_Player2Index][0].Count; i > 0; i--)
+            for (var i = PlayersPlace[_Player2Index][0].Count - 1; i >= 0; i--)
             {
                 var card = PlayersPlace[_Player2Index][0][i];
                 if (card.IsResilience)
@@ -592,7 +599,7 @@ namespace Cynthia.Card.Server
                     PlayersPlace[_Player2Index][0].RemoveAt(i);
                 }
             }
-            for (var i = PlayersPlace[_Player2Index][1].Count; i > 0; i--)
+            for (var i = PlayersPlace[_Player2Index][1].Count - 1; i >= 0; i--)
             {
                 var card = PlayersPlace[_Player2Index][1][i];
                 if (card.IsResilience)
@@ -607,7 +614,7 @@ namespace Cynthia.Card.Server
                     PlayersPlace[_Player2Index][1].RemoveAt(i);
                 }
             }
-            for (var i = PlayersPlace[_Player2Index][2].Count; i > 0; i--)
+            for (var i = PlayersPlace[_Player2Index][2].Count - 1; i >= 0; i--)
             {
                 var card = PlayersPlace[_Player2Index][2][i];
                 if (card.IsResilience)
@@ -624,7 +631,7 @@ namespace Cynthia.Card.Server
             }
             var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
             var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
-            return Task.WhenAll(player1Task, player2Task);
+            return Task.WhenAll(SetCountInfo(), SetPointInfo(), player1Task, player2Task);
         }
     }
 }
