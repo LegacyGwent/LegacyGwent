@@ -30,47 +30,106 @@ namespace Cynthia.Card.Server
         public const int _Player2Index = 1;
         public async Task<bool> Play()
         {
+            //###游戏开始###
+            //双方抽牌10张
             DrawCard(_Player1Index, 10);
             DrawCard(_Player2Index, 10);
-            await SetAllInfo();
+            await SetAllInfo();//更新玩家所有数据
             //---------------------------------------------------------------------------------------
-            await PlayerRound(_Player1Index);
-            await PlayerRound(_Player2Index);
-            await PlayerRound(_Player1Index);
-            await PlayerRound(_Player2Index);
-            await PlayerRound(_Player1Index);
-            await PlayerRound(_Player2Index);
+            while (await PlayerRound()) ;//双方轮流执行回合|第一小局
+            await SmallGameEnd();
+            while (await PlayerRound()) ;//双方轮流执行回合|第二小局
+            await SmallGameEnd();
+            if (PlayersWinCount[_Player1Index] <= 2 || PlayersWinCount[_Player2Index] <= 2)
+            {
+                while (await PlayerRound()) ;//双方轮流执行回合|判断没有在前两局完成的话
+                await SmallGameEnd();
+            }
             //---------------------------------------------------------------------------------------
-            await GameOverExecute();
+            await GameOverExecute();//推送游戏结束信息
             return true;
         }
-        public async Task PlayerRound(int playerIndex)
+        public async Task SmallGameEnd()//小局结束,进行收场
         {
+            var player1Row1Point = PlayersPlace[_Player1Index][0].Sum(x => x.Strength + x.HealthStatus);
+            var player1Row2Point = PlayersPlace[_Player1Index][1].Sum(x => x.Strength + x.HealthStatus);
+            var player1Row3Point = PlayersPlace[_Player1Index][2].Sum(x => x.Strength + x.HealthStatus);
+            var player2Row1Point = PlayersPlace[_Player2Index][0].Sum(x => x.Strength + x.HealthStatus);
+            var player2Row2Point = PlayersPlace[_Player2Index][1].Sum(x => x.Strength + x.HealthStatus);
+            var player2Row3Point = PlayersPlace[_Player2Index][2].Sum(x => x.Strength + x.HealthStatus);
+            var player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
+            var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
+            PlayersRoundResult[CurrentRoundCount][_Player1Index] = player1PlacePoint;
+            PlayersRoundResult[CurrentRoundCount][_Player2Index] = player2PlacePoint;
+            if (player1PlacePoint >= player2PlacePoint)
+                PlayersWinCount[_Player1Index]++;
+            if (player2PlacePoint >= player1PlacePoint)
+                PlayersWinCount[_Player2Index]++;
+            RoundCount++;//有效回合的总数
+            CurrentRoundCount++;//当前回合
+            IsPlayersPass[_Player1Index] = false;
+            IsPlayersPass[_Player2Index] = false;
+            await SetWinCountInfo();
+            await SetPassInfo();
+            //清空所有场上的牌
+        }
+        public async Task<bool> PlayerRound()
+        {
+            //判断这是谁的回合
+            var playerIndex = GameRound == TwoPlayer.Player1 ? _Player1Index : _Player2Index;
+            //切换回合
+            GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
+            //判断当前是否已经处于pass状态
+            if (IsPlayersPass[playerIndex] == true)
+            {
+                //如果双方都pass...小局结束
+                if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
+                    return false;
+                return true;
+            }
+            else if (PlayersHandCard[playerIndex].Count + (IsPlayersLeader[playerIndex] ? 1 : 0) == 0)
+            {//如果没有手牌,强制pass
+                IsPlayersPass[playerIndex] = true;
+                await SetPassInfo();
+                if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
+                {
+                    //如果对方也pass,结束游戏
+                    return false;
+                }
+                return true;
+            }
             //让玩家选择拖拽,或者Pass
             await Players[playerIndex].SendAsync(ServerOperationType.GetDragOrPass);
             //获取信息
             var cardInfo = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RoundInfo>();//接收玩家的选择,提取结果
             if (cardInfo.IsPass)
             {//Pass时候执行
-                PlayersRoundResult[0][playerIndex] = 99999;
                 IsPlayersPass[playerIndex] = true;
+                await SetPassInfo();
+                //判断对手是否pass
                 if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
                 {
-                    //双方都已经pass,进入下一轮或者结束
+                    return false;
                 }
                 //发送信息
             }
             else
             {//放置卡牌时执行
                 await PlayCard(playerIndex, cardInfo);
+                //宣告双方效果结束#########################
+                //可能会变更
+                //########################################
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
                 await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardEffectEnd);
             }
             //宣告回合结束
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
+            return true;
         }
         public async Task<bool> PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
-        {
+        {//白板已经完成,剩下添加效果
+            if (cardInfo.IsPass == true)
+                return false;
             //将放置信息发送给对手
             var enemyRowIndex = cardInfo.RowIndex == -3 ? cardInfo.RowIndex :
             (
@@ -82,6 +141,7 @@ namespace Cynthia.Card.Server
                     )
                 )
             );
+            //创建相对于对手的位置信息
             var enemyCardInfo = new RoundInfo()
             {
                 HandCardIndex = cardInfo.HandCardIndex,
@@ -89,28 +149,34 @@ namespace Cynthia.Card.Server
                 RowIndex = enemyRowIndex
             };
             //------------------------------------------------------------
-            var card = default(GameCard);
+            var card = default(GameCard);//打出了那一张牌呢
             if (cardInfo.HandCardIndex == -1)//如果是-1,视为领袖卡
             {
                 if (IsPlayersLeader[playerIndex] == false)
                     return false;
                 card = PlayersLeader[playerIndex];
                 IsPlayersLeader[playerIndex] = false;
+                //存储这张卡,并且删除领袖卡
             }
-            else
+            else//否则是,手牌
             {
                 if (cardInfo.HandCardIndex < 0 || cardInfo.HandCardIndex > PlayersHandCard[playerIndex].Count)//判断手牌合法
                     return false;
                 card = PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
                 PlayersHandCard[playerIndex].RemoveAt(cardInfo.HandCardIndex);
+                //存储这张卡,并从手牌移除这张卡
             }
+            await SetCountInfo();//更新双方的"数量"信息(手牌数量发生了改变)
             //以上获得了卡牌,并且提取了出来
-            //---可以进行发送
+            //向对手发送,自己用了那一张牌
             await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
             //这句话测试用
             if (cardInfo.RowIndex == -3)
             {
                 //需要进行处理后进入墓地,如果是佚亡直接消除
+                //##################################################
+                //还需要添加"佚亡的判断"
+                //##################################################
                 card.Armor = 0; //护甲归零
                 card.HealthStatus = 0;//没有增益和受伤
                 card.IsCardBack = false; //没有背面
@@ -120,13 +186,16 @@ namespace Cynthia.Card.Server
                 card.IsSpying = false; //没有间谍
                 card.Conceal = false;  //没有隐藏
                 card.IsReveal = false; //没有解释
-                PlayersCemetery[playerIndex].Add(card);
-                await SetCountInfo();
+                PlayersCemetery[playerIndex].Add(card);//如果丢了这张卡,将这张卡丢入墓地
+                await SetCountInfo();//更新双方的数据
             }
             else if (cardInfo.RowIndex == -1 || cardInfo.RowIndex == -2)
             {
+                //如果拖入场上的话,会变成法术卡
                 //法术卡的话
-                //执行效果代码之后...进入墓地
+                //执行效果代码之后...进入墓地#################################
+                //还需要加入"法术卡使用"
+                //##########################################################
                 PlayersCemetery[playerIndex].Add(card);
                 await SetCountInfo();
             }
@@ -136,15 +205,18 @@ namespace Cynthia.Card.Server
                 //放在了...玩家1还是玩家2的场地?
                 var playerPlace = cardInfo.RowIndex >= 3 ? (playerIndex == 0 ? 1 : 0) : playerIndex;
                 var rowIndex = cardInfo.RowIndex >= 3 ? cardInfo.RowIndex - 3 : cardInfo.RowIndex;
+                //执行效果代码之后###########################################
+                //还需要加入"单位卡使用"
+                //##########################################################
                 PlayersPlace[playerPlace][rowIndex].Insert(cardInfo.CardIndex, card);
                 await SetPointInfo();
-                //----效果----?
             }
-            PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
+            //###########待修改,需要删除
+            //PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
         }
         //玩家抽卡
-        public void DrawCard(int playerIndex, int count)
+        public void DrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
         {
             if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
             for (var i = 0; i < count; i++)
@@ -158,7 +230,6 @@ namespace Cynthia.Card.Server
         //根据当前信息,处理游戏结果
         public async Task GameOverExecute()
         {
-            RoundCount = 1;
             if (PlayersRoundResult[0][_Player1Index] >= PlayersRoundResult[0][_Player2Index])
                 PlayersWinCount[_Player1Index]++;
             if (PlayersRoundResult[0][_Player1Index] <= PlayersRoundResult[0][_Player2Index])
