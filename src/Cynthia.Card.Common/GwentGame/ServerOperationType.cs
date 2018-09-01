@@ -11,6 +11,8 @@ namespace Cynthia.Card
         SelectPlaceCard,//选择场上一些单位
         SelectAnotherCard,//选择一些其他卡
         GameEnd,//告诉玩家游戏结束,发送游戏结束信息
+        EndOfBigRound,
+        CardsToCemetery,
         //-----------------------------------------------------------
         SetAllInfo, //更新所有信息
         SetGameInfo,//更新非卡牌相关信息
