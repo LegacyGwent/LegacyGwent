@@ -37,19 +37,19 @@ namespace Cynthia.Card.Server
             await SetAllInfo();//更新玩家所有数据
             //---------------------------------------------------------------------------------------
             while (await PlayerRound()) ;//双方轮流执行回合|第一小局
-            await SmallGameEnd();
+            await BigRoundEnd();
             while (await PlayerRound()) ;//双方轮流执行回合|第二小局
-            await SmallGameEnd();
+            await BigRoundEnd();
             if (PlayersWinCount[_Player1Index] <= 2 || PlayersWinCount[_Player2Index] <= 2)
             {
                 while (await PlayerRound()) ;//双方轮流执行回合|判断没有在前两局完成的话
-                await SmallGameEnd();
+                await BigRoundEnd();
             }
             //---------------------------------------------------------------------------------------
             await GameOverExecute();//推送游戏结束信息
             return true;
         }
-        public async Task SmallGameEnd()//小局结束,进行收场
+        public async Task BigRoundEnd()//小局结束,进行收场
         {
             var player1Row1Point = PlayersPlace[_Player1Index][0].Sum(x => x.Strength + x.HealthStatus);
             var player1Row2Point = PlayersPlace[_Player1Index][1].Sum(x => x.Strength + x.HealthStatus);
@@ -524,6 +524,107 @@ namespace Cynthia.Card.Server
                 myR3Point,
                 enemyR3Point
             ));
+        }
+        public Task SendBigRoundEndToCemetery()
+        {
+            //#############################################
+            //#                 需要优化                  
+            //#############################################
+            var player1CardsPart = new GameCardsPart();
+            var player2CardsPart = new GameCardsPart();
+            for (var i = PlayersPlace[_Player1Index][0].Count; i > 0; i--)
+            {
+                var card = PlayersPlace[_Player1Index][0][i];
+                if (card.IsResilience)
+                {
+                    card.IsResilience = false;
+                }
+                else
+                {
+                    player1CardsPart.MyRow1Cards.Add(i);
+                    player2CardsPart.EnemyRow1Cards.Add(i);
+                    PlayersCemetery[_Player1Index].Add(card);
+                    PlayersPlace[_Player1Index][0].RemoveAt(i);
+                }
+            }
+            for (var i = PlayersPlace[_Player1Index][1].Count; i > 0; i--)
+            {
+                var card = PlayersPlace[_Player1Index][1][i];
+                if (card.IsResilience)
+                {
+                    card.IsResilience = false;
+                }
+                else
+                {
+                    player1CardsPart.MyRow2Cards.Add(i);
+                    player2CardsPart.EnemyRow2Cards.Add(i);
+                    PlayersCemetery[_Player1Index].Add(card);
+                    PlayersPlace[_Player1Index][1].RemoveAt(i);
+                }
+            }
+            for (var i = PlayersPlace[_Player1Index][2].Count; i > 0; i--)
+            {
+                var card = PlayersPlace[_Player1Index][2][i];
+                if (card.IsResilience)
+                {
+                    card.IsResilience = false;
+                }
+                else
+                {
+                    player1CardsPart.MyRow3Cards.Add(i);
+                    player2CardsPart.EnemyRow3Cards.Add(i);
+                    PlayersCemetery[_Player1Index].Add(card);
+                    PlayersPlace[_Player1Index][2].RemoveAt(i);
+                }
+            }
+            for (var i = PlayersPlace[_Player2Index][0].Count; i > 0; i--)
+            {
+                var card = PlayersPlace[_Player2Index][0][i];
+                if (card.IsResilience)
+                {
+                    card.IsResilience = false;
+                }
+                else
+                {
+                    player2CardsPart.MyRow1Cards.Add(i);
+                    player1CardsPart.EnemyRow1Cards.Add(i);
+                    PlayersCemetery[_Player2Index].Add(card);
+                    PlayersPlace[_Player2Index][0].RemoveAt(i);
+                }
+            }
+            for (var i = PlayersPlace[_Player2Index][1].Count; i > 0; i--)
+            {
+                var card = PlayersPlace[_Player2Index][1][i];
+                if (card.IsResilience)
+                {
+                    card.IsResilience = false;
+                }
+                else
+                {
+                    player2CardsPart.MyRow2Cards.Add(i);
+                    player1CardsPart.EnemyRow2Cards.Add(i);
+                    PlayersCemetery[_Player2Index].Add(card);
+                    PlayersPlace[_Player2Index][1].RemoveAt(i);
+                }
+            }
+            for (var i = PlayersPlace[_Player2Index][2].Count; i > 0; i--)
+            {
+                var card = PlayersPlace[_Player2Index][2][i];
+                if (card.IsResilience)
+                {
+                    card.IsResilience = false;
+                }
+                else
+                {
+                    player2CardsPart.MyRow3Cards.Add(i);
+                    player1CardsPart.EnemyRow3Cards.Add(i);
+                    PlayersCemetery[_Player2Index].Add(card);
+                    PlayersPlace[_Player2Index][2].RemoveAt(i);
+                }
+            }
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
+            return Task.WhenAll(player1Task, player2Task);
         }
     }
 }
