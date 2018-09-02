@@ -22,7 +22,7 @@ namespace Cynthia.Card.Server
             services.AddSignalR();
             builder.Populate(services);
             builder.RegisterType<MongoClient>()
-                .WithParameter("connectionString", "mongodb://cynthia.ovyno.com:27017")
+                .WithParameter("connectionString", "mongodb://gwentdb:mygwent@cynthia.ovyno.com:27017/gwent")
                 .As<IMongoClient>()
                 .PropertiesAutowired()
                 .AsSelf();
@@ -31,7 +31,7 @@ namespace Cynthia.Card.Server
             builder.Register(x => container).SingleInstance();
             container = builder.Build();
 
-            container.Resolve<InitializationService>().Start();
+            //container.Resolve<InitializationService>().Start();
 
             return new AutofacServiceProvider(container);
         }
