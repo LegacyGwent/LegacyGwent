@@ -40,7 +40,7 @@ namespace Cynthia.Card.Server
             await BigRoundEnd();
             while (await PlayerRound()) ;//双方轮流执行回合|第二小局
             await BigRoundEnd();
-            if (PlayersWinCount[_Player1Index] <= 2 && PlayersWinCount[_Player2Index] <= 2)
+            if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)
             {
                 while (await PlayerRound()) ;//双方轮流执行回合|判断没有在前两局完成的话
                 await BigRoundEnd();
