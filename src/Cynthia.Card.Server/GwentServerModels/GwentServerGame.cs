@@ -78,6 +78,7 @@ namespace Cynthia.Card.Server
             await SetWinCountInfo();//设置小皇冠图标
             await SetPassInfo();//重置pass标记
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
+            await Task.WhenAll(SetCemeteryInfo(_Player1Index), SetCemeteryInfo(_Player2Index));
             //清空所有场上的牌
         }
         public async Task<bool> PlayerRound()
@@ -194,6 +195,7 @@ namespace Cynthia.Card.Server
                 card.Conceal = false;  //没有隐藏
                 card.IsReveal = false; //没有解释
                 PlayersCemetery[playerIndex].Add(card);//如果丢了这张卡,将这张卡丢入墓地
+                await SetCemeteryInfo(playerIndex);
                 await SetCountInfo();//更新双方的数据
             }
             else if (cardInfo.RowIndex == -1 || cardInfo.RowIndex == -2)
@@ -204,6 +206,7 @@ namespace Cynthia.Card.Server
                 //还需要加入"法术卡使用"
                 //##########################################################
                 PlayersCemetery[playerIndex].Add(card);
+                await SetCemeteryInfo(playerIndex);
                 await SetCountInfo();
             }
             else
@@ -320,6 +323,22 @@ namespace Cynthia.Card.Server
         {
             var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
             var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
+        public Task SetCemeteryInfo(int playerIndex)
+        {
+            var player1Task = default(Task);
+            var player2Task = default(Task);
+            if (playerIndex == _Player1Index)
+            {
+                player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[_Player1Index]);
+                player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[_Player1Index]);
+            }
+            else
+            {
+                player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[_Player2Index]);
+                player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[_Player2Index]);
+            }
             return Task.WhenAll(player1Task, player2Task);
         }
         public Task SetGameInfo()
