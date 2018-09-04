@@ -21,6 +21,8 @@ namespace Cynthia.Card
         SetCountInfo,//更新数量方面信息
         SetPassInfo,//更新Pass方面信息
         SetWinCountInfo,//更新胜场方面信息
+        SetMyCemetery,
+        SetEnemyCemetery,
         SetNameInfo,//更新名称方面信息(虽然感觉没什么意义)
     }
 }

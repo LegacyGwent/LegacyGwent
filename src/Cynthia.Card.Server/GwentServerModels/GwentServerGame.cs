@@ -37,16 +37,16 @@ namespace Cynthia.Card.Server
             await SetAllInfo();//更新玩家所有数据
             //---------------------------------------------------------------------------------------
             while (await PlayerRound()) ;//双方轮流执行回合|第一小局
-            await BigRoundEnd();
+            await BigRoundEnd();//回合结束处理
             while (await PlayerRound()) ;//双方轮流执行回合|第二小局
-            await BigRoundEnd();
-            if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)
+            await BigRoundEnd();//回合结束处理
+            if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
             {
-                while (await PlayerRound()) ;//双方轮流执行回合|判断没有在前两局完成的话
-                await BigRoundEnd();
+                while (await PlayerRound()) ;//双方轮流执行回合|第三小局
+                await BigRoundEnd();//回合结束处理
             }
             //---------------------------------------------------------------------------------------
-            await GameOverExecute();//推送游戏结束信息
+            await GameOverExecute();//发送游戏结束信息
             return true;
         }
         public async Task BigRoundEnd()//小局结束,进行收场
