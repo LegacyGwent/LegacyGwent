@@ -129,9 +129,11 @@ namespace Cynthia.Card.Server
                 //########################################
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
                 await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardEffectEnd);
+                await Task.Delay(500);
             }
             //宣告回合结束
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
+            await Task.Delay(500);
             return true;
         }
         public async Task<bool> PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
@@ -168,7 +170,7 @@ namespace Cynthia.Card.Server
             }
             else//否则是,手牌
             {
-                if (cardInfo.HandCardIndex < 0 || cardInfo.HandCardIndex > PlayersHandCard[playerIndex].Count)//判断手牌合法
+                if (cardInfo.HandCardIndex < 0 || cardInfo.HandCardIndex > PlayersHandCard[playerIndex].Count - 1)//判断手牌合法
                     return false;
                 card = PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
                 PlayersHandCard[playerIndex].RemoveAt(cardInfo.HandCardIndex);
@@ -178,6 +180,7 @@ namespace Cynthia.Card.Server
             //以上获得了卡牌,并且提取了出来
             //向对手发送,自己用了那一张牌
             await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
+            await Task.Delay(350);
             //这句话测试用
             if (cardInfo.RowIndex == -3)
             {
