@@ -14,6 +14,7 @@ namespace Cynthia.Card
         EndOfBigRound,
         CardsToCemetery,
         //-----------------------------------------------------------
+        SetCoinInfo,//更新硬币
         SetAllInfo, //更新所有信息
         SetGameInfo,//更新非卡牌相关信息
         SetCardsInfo,//更新卡牌相关信息
@@ -21,8 +22,8 @@ namespace Cynthia.Card
         SetCountInfo,//更新数量方面信息
         SetPassInfo,//更新Pass方面信息
         SetWinCountInfo,//更新胜场方面信息
-        SetMyCemetery,
-        SetEnemyCemetery,
+        SetMyCemetery,//更新我方墓地
+        SetEnemyCemetery,//更新敌方墓地
         SetNameInfo,//更新名称方面信息(虽然感觉没什么意义)
     }
 }
