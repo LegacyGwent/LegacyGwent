@@ -87,6 +87,11 @@ namespace Cynthia.Card.Server
             var playerIndex = GameRound == TwoPlayer.Player1 ? _Player1Index : _Player2Index;
             //切换回合
             GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
+
+            await Players[playerIndex].SendAsync(ServerOperationType.SetCoinInfo, true);
+            await Players[playerIndex == _Player1Index ? _Player2Index : _Player1Index].SendAsync(ServerOperationType.SetCoinInfo, false);
+            await Task.Delay(500);
+
             //判断当前是否已经处于pass状态
             if (IsPlayersPass[playerIndex] == true)
             {
@@ -133,7 +138,6 @@ namespace Cynthia.Card.Server
             }
             //宣告回合结束
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
-            await Task.Delay(500);
             return true;
         }
         public async Task<bool> PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
