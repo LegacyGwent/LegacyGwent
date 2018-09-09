@@ -32,16 +32,18 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
-            DrawCard(_Player1Index, 10);
-            DrawCard(_Player2Index, 10);
+            LogicDrawCard(_Player1Index, 10);
+            LogicDrawCard(_Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
             //---------------------------------------------------------------------------------------
             while (await PlayerRound()) ;//双方轮流执行回合|第一小局
             await BigRoundEnd();//回合结束处理
+            await DrawCard(2, 2);
             while (await PlayerRound()) ;//双方轮流执行回合|第二小局
             await BigRoundEnd();//回合结束处理
             if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
             {
+                await DrawCard(2, 2);
                 while (await PlayerRound()) ;//双方轮流执行回合|第三小局
                 await BigRoundEnd();//回合结束处理
             }
@@ -233,13 +235,42 @@ namespace Cynthia.Card.Server
             return true;
         }
         //玩家抽卡
-        public void DrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
+        public void LogicDrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
         {
             if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
             for (var i = 0; i < count; i++)
             {
                 PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
                 PlayersDeck[playerIndex].RemoveAt(0);
+            }
+        }
+
+        //封装的抽卡
+        public async Task DrawCard(int player1Count, int player2Count)
+        {
+            if (player1Count > PlayersDeck[_Player1Index].Count) player1Count = PlayersDeck[_Player1Index].Count;
+            if (player2Count > PlayersDeck[_Player2Index].Count) player2Count = PlayersDeck[_Player2Index].Count;
+            var player1Task = DrawCardAnimation(_Player1Index, player1Count, _Player2Index, player2Count);
+            var player2Task = DrawCardAnimation(_Player2Index, player2Count, _Player1Index, player1Count);
+            await Task.WhenAll(player1Task, player2Task);
+            await SetCountInfo();
+        }
+        public async Task DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
+        {
+            for (var i = 0; i < myPlayerCount; i++)
+            {
+                await GetCardFrom(myPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, PlayersDeck[myPlayerIndex][0]);
+                PlayersDeck[myPlayerIndex].RemoveAt(0);
+                await Task.Delay(400);
+                await SetCardTo(myPlayerIndex, RowPosition.MyStay, 0, RowPosition.MyHand, 0);
+                await Task.Delay(300);
+            }
+            for (var i = 0; i < enemyPlayerCount; i++)
+            {
+                await GetCardFrom(enemyPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
+                await Task.Delay(300);
+                await SetCardTo(enemyPlayerIndex, RowPosition.MyStay, 0, RowPosition.MyHand, 0);
+                await Task.Delay(200);
             }
         }
         //-------------------------------------------------------------------------------------------------------------------------
@@ -538,6 +569,31 @@ namespace Cynthia.Card.Server
             };
         }
         //--------------------------------------
+        public Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, GameCard cardInfo)
+        {
+            return Players[playerIndex].SendAsync
+            (
+                ServerOperationType.GetCardFrom,
+                getPosition,
+                taget,
+                index,
+                cardInfo
+            );
+        }
+
+        //将一张牌移动到另一个地方
+        public Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex)
+        {
+            return Players[playerIndex].SendAsync
+            (
+                ServerOperationType.SetCardTo,
+                rowIndex,
+                cardIndex,
+                tagetRowIndex,
+                tagetCardIndex
+            );
+        }
+        //----------------------------------------------------------------------------------------------
         public Task SendGameResult(TwoPlayer player, GameResultInfomation.GameStatus status,
             int roundCount = 0, int myR1Point = 0, int enemyR1Point = 0,
             int myR2Point = 0, int enemyR2Point = 0, int myR3Point = 0, int enemyR3Point = 0)
