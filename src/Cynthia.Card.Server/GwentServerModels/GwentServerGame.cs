@@ -43,7 +43,7 @@ namespace Cynthia.Card.Server
             await BigRoundEnd();//回合结束处理
             if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
             {
-                await DrawCard(2, 2);
+                await DrawCard(1, 1);
                 while (await PlayerRound()) ;//双方轮流执行回合|第三小局
                 await BigRoundEnd();//回合结束处理
             }
@@ -260,17 +260,18 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < myPlayerCount; i++)
             {
                 await GetCardFrom(myPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, PlayersDeck[myPlayerIndex][0]);
+                PlayersHandCard[myPlayerIndex].Insert(0, PlayersDeck[myPlayerIndex][0]);
                 PlayersDeck[myPlayerIndex].RemoveAt(0);
-                await Task.Delay(400);
+                await Task.Delay(500);
                 await SetCardTo(myPlayerIndex, RowPosition.MyStay, 0, RowPosition.MyHand, 0);
-                await Task.Delay(300);
+                await Task.Delay(400);
             }
             for (var i = 0; i < enemyPlayerCount; i++)
             {
-                await GetCardFrom(enemyPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
+                await GetCardFrom(myPlayerIndex, RowPosition.EnemyDeck, RowPosition.EnemyStay, 0, new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
+                await Task.Delay(400);
+                await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
                 await Task.Delay(300);
-                await SetCardTo(enemyPlayerIndex, RowPosition.MyStay, 0, RowPosition.MyHand, 0);
-                await Task.Delay(200);
             }
         }
         //-------------------------------------------------------------------------------------------------------------------------
