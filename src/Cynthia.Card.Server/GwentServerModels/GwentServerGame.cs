@@ -26,6 +26,7 @@ namespace Cynthia.Card.Server
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
         public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
         public bool[] IsPlayersPass { get; set; } = new bool[2] { false, false };
+        public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
         public const int _Player1Index = 0;
         public const int _Player2Index = 1;
         public async Task<bool> Play()
@@ -265,6 +266,8 @@ namespace Cynthia.Card.Server
             if (PlayersDeck[playerIndex].Count <= 0)
                 return;
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex], count);
+            IsPlayersMulligan[playerIndex] = true;
+            await SetMulliganInfo();
             for (var i = 0; i < count; i++)
             {
                 await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
@@ -280,6 +283,8 @@ namespace Cynthia.Card.Server
             }
             await Task.Delay(500);
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
+            IsPlayersMulligan[playerIndex] = false;
+            await SetMulliganInfo();
         }
         public async Task DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
         {
@@ -445,6 +450,12 @@ namespace Cynthia.Card.Server
             var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetPassInfo, GetPassInfo(TwoPlayer.Player2));
             return Task.WhenAll(player1Task, player2Task);
         }
+        public Task SetMulliganInfo()
+        {
+            var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetMulliganInfo, GetMulliganInfo(TwoPlayer.Player1));
+            var player2Task = Players[_Player2Index].SendAsync(ServerOperationType.SetMulliganInfo, GetMulliganInfo(TwoPlayer.Player2));
+            return Task.WhenAll(player1Task, player2Task);
+        }
         public Task SetWinCountInfo()
         {
             var player1Task = Players[_Player1Index].SendAsync(ServerOperationType.SetWinCountInfo, GetWinCountInfo(TwoPlayer.Player1));
@@ -541,6 +552,16 @@ namespace Cynthia.Card.Server
             {
                 IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
                 IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex]
+            };
+        }
+        public GameInfomation GetMulliganInfo(TwoPlayer player)
+        {
+            var myPlayerIndex = (player == TwoPlayer.Player1 ? _Player1Index : _Player2Index);
+            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
+            return new GameInfomation()
+            {
+                IsMyPlayerPass = IsPlayersMulligan[myPlayerIndex],
+                IsEnemyPlayerPass = IsPlayersMulligan[enemyPlayerIndex]
             };
         }
         public GameInfomation GetWinCountInfo(TwoPlayer player)
