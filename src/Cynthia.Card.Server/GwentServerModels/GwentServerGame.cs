@@ -32,18 +32,21 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
-            LogicDrawCard(_Player1Index, 10);
+            LogicDrawCard(_Player1Index, 10);//不会展示动画的,逻辑层抽牌
             LogicDrawCard(_Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
+            await Task.WhenAll(MulliganCard(_Player1Index, 3), MulliganCard(_Player2Index, 3));
             //---------------------------------------------------------------------------------------
             while (await PlayerRound()) ;//双方轮流执行回合|第一小局
             await BigRoundEnd();//回合结束处理
             await DrawCard(2, 2);
+            await Task.WhenAll(MulliganCard(_Player1Index, 2), MulliganCard(_Player2Index, 2));
             while (await PlayerRound()) ;//双方轮流执行回合|第二小局
             await BigRoundEnd();//回合结束处理
             if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
             {
                 await DrawCard(1, 1);
+                await Task.WhenAll(MulliganCard(_Player1Index, 1), MulliganCard(_Player2Index, 1));
                 while (await PlayerRound()) ;//双方轮流执行回合|第三小局
                 await BigRoundEnd();//回合结束处理
             }
@@ -255,6 +258,29 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(player1Task, player2Task);
             await SetCountInfo();
         }
+
+        //封装的调度
+        public async Task MulliganCard(int playerIndex, int count)
+        {
+            if (PlayersDeck[playerIndex].Count <= 0)
+                return;
+            await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex], count);
+            for (var i = 0; i < count; i++)
+            {
+                await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
+                var mulliganCardIndex = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<int>();
+                if (mulliganCardIndex == -1)
+                    break;
+                //逻辑处理
+                //将手牌中需要调度的牌,移动到卡组最后
+                CardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count - 1);
+                //将卡组中第一张牌抽到手牌调度走的位置
+                var card = CardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex);
+                await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card);
+            }
+            await Task.Delay(500);
+            await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
+        }
         public async Task DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
         {
             for (var i = 0; i < myPlayerCount; i++)
@@ -277,6 +303,15 @@ namespace Cynthia.Card.Server
         //-------------------------------------------------------------------------------------------------------------------------
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
+
+        //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
+        public T CardMove<T>(IList<T> soure, int soureIndex, IList<T> taget, int tagetIndex)
+        {
+            var item = soure[soureIndex];
+            soure.RemoveAt(soureIndex);
+            taget.Add(item);
+            return item;
+        }
         public async Task GameOverExecute()
         {
             if (PlayersRoundResult[0][_Player1Index] >= PlayersRoundResult[0][_Player2Index])
@@ -435,8 +470,8 @@ namespace Cynthia.Card.Server
                 EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
                 EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
                 EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
-                IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
-                IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex],
+                IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
+                IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
                 MyWinCount = PlayersWinCount[myPlayerIndex],
                 EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
@@ -504,8 +539,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
             return new GameInfomation()
             {
-                IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
-                IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex]
+                IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
+                IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex]
             };
         }
         public GameInfomation GetWinCountInfo(TwoPlayer player)
@@ -542,8 +577,8 @@ namespace Cynthia.Card.Server
                 EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Sum(x => x.Strength + x.HealthStatus),
                 EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Sum(x => x.Strength + x.HealthStatus),
                 EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Sum(x => x.Strength + x.HealthStatus),
-                IsMyPlayersPass = IsPlayersPass[myPlayerIndex],
-                IsEnemyPlayersPass = IsPlayersPass[enemyPlayerIndex],
+                IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
+                IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
                 MyWinCount = PlayersWinCount[myPlayerIndex],
                 EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
                 IsMyLeader = IsPlayersLeader[myPlayerIndex],
