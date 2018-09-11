@@ -314,7 +314,7 @@ namespace Cynthia.Card.Server
         {
             var item = soure[soureIndex];
             soure.RemoveAt(soureIndex);
-            taget.Add(item);
+            taget.Insert(tagetIndex, item);
             return item;
         }
         public async Task GameOverExecute()
@@ -560,8 +560,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? _Player2Index : _Player1Index);
             return new GameInfomation()
             {
-                IsMyPlayerPass = IsPlayersMulligan[myPlayerIndex],
-                IsEnemyPlayerPass = IsPlayersMulligan[enemyPlayerIndex]
+                IsMyPlayerMulligan = IsPlayersMulligan[myPlayerIndex],
+                IsEnemyPlayerMulligan = IsPlayersMulligan[enemyPlayerIndex]
             };
         }
         public GameInfomation GetWinCountInfo(TwoPlayer player)
