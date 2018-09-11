@@ -16,6 +16,7 @@ namespace Cynthia.Card
         //-----------------------------------------------------------
         MulliganStart,//调度开始
         MulliganData,//调度数据(将第几张卡换成某一张)int gamecard
+        GetMulliganInfo,//获取调度数据
         MulliganEnd,//调度结束
         //-----------------------------------------------------------
         GetCardFrom,//从一个地方获取卡牌
