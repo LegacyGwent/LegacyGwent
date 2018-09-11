@@ -22,6 +22,7 @@ namespace Cynthia.Card
         GetCardFrom,//从一个地方获取卡牌
         SetCardTo,//将一张牌移动到另一个位置
         //-----------------------------------------------------------
+        SetMulliganInfo,//更新调度信息
         SetCoinInfo,//更新硬币
         SetAllInfo, //更新所有信息
         SetGameInfo,//更新非卡牌相关信息
