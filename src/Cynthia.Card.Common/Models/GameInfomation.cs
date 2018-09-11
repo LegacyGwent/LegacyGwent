@@ -10,8 +10,10 @@ namespace Cynthia.Card
         public int EnemyRow1Point { get; set; }
         public int EnemyRow2Point { get; set; }
         public int EnemyRow3Point { get; set; }
-        public bool IsMyPlayersPass { get; set; }//我方pass
-        public bool IsEnemyPlayersPass { get; set; }//对手pass
+        public bool IsEnemyPlayerMulligan { get; set; }//对方是否调度中
+        public bool IsMyPlayerMulligan { get; set; }//我方是否调度中
+        public bool IsMyPlayerPass { get; set; }//我方pass
+        public bool IsEnemyPlayerPass { get; set; }//对手pass
         public bool IsMyLeader { get; set; }//我方领袖是否使用
         public bool IsEnemyLeader { get; set; }//敌方领袖是否使用
         public GameCard MyLeader { get; set; }//我方领袖是?
