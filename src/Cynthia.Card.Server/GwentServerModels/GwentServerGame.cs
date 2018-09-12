@@ -57,6 +57,7 @@ namespace Cynthia.Card.Server
         }
         public async Task BigRoundEnd()//小局结束,进行收场
         {
+            await Task.Delay(500);
             var player1Row1Point = PlayersPlace[_Player1Index][0].Sum(x => x.Strength + x.HealthStatus);
             var player1Row2Point = PlayersPlace[_Player1Index][1].Sum(x => x.Strength + x.HealthStatus);
             var player1Row3Point = PlayersPlace[_Player1Index][2].Sum(x => x.Strength + x.HealthStatus);
@@ -94,7 +95,9 @@ namespace Cynthia.Card.Server
                     MyWinCount = PlayersWinCount[_Player1Index],
                     EnemyWinCount = PlayersWinCount[_Player2Index],
                     GameStatus = player2PlacePoint == player1PlacePoint ? GameStatus.Draw :
-                    (player2PlacePoint > player1PlacePoint ? GameStatus.Lose : GameStatus.Win)
+                    (player2PlacePoint > player1PlacePoint ? GameStatus.Lose : GameStatus.Win),
+                    Title = player2PlacePoint == player1PlacePoint ? "本局平局" :
+                    (player2PlacePoint > player1PlacePoint ? "本局失败!" : "本局胜利!")
                 }),
                 Players[_Player2Index].SendAsync(ServerOperationType.BigRoundShowPoint, new BigRoundInfomation()
                 {
@@ -103,11 +106,13 @@ namespace Cynthia.Card.Server
                     MyWinCount = PlayersWinCount[_Player2Index],
                     EnemyWinCount = PlayersWinCount[_Player1Index],
                     GameStatus = player2PlacePoint == player1PlacePoint ? GameStatus.Draw :
-                    (player2PlacePoint < player1PlacePoint ? GameStatus.Lose : GameStatus.Win)
+                    (player2PlacePoint < player1PlacePoint ? GameStatus.Lose : GameStatus.Win),
+                    Title = player2PlacePoint == player1PlacePoint ? "本局平局" :
+                    (player2PlacePoint < player1PlacePoint ? "本局失败!" : "本局胜利!"),
                 })
             );
-            await Task.Delay(1000);
-            if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
+            await Task.Delay(1500);
+            if (PlayersWinCount[_Player1Index] >= 2 || PlayersWinCount[_Player2Index] >= 2)//如果前两局没有分出结果
             {
                 await Task.WhenAll(Players[_Player1Index].SendAsync(ServerOperationType.BigRoundShowClose)
                             , Players[_Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
@@ -116,7 +121,7 @@ namespace Cynthia.Card.Server
             //-+/*/展示信息
             await Task.WhenAll(Players[_Player1Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!")
                             , Players[_Player2Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!"));
-            await Task.Delay(1000);
+            await Task.Delay(1500);
             await Task.WhenAll(Players[_Player1Index].SendAsync(ServerOperationType.BigRoundShowClose)
                             , Players[_Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
             await Task.Delay(100);
@@ -131,13 +136,17 @@ namespace Cynthia.Card.Server
             var playerIndex = GameRound == TwoPlayer.Player1 ? _Player1Index : _Player2Index;
             //切换回合
             GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
-
+            //----------------------------------------------------
+            //这里是回合开始卡牌的逻辑和动画
+            //----------------------------------------------------
             await Players[playerIndex].SendAsync(ServerOperationType.SetCoinInfo, true);
             await Players[playerIndex == _Player1Index ? _Player2Index : _Player1Index].SendAsync(ServerOperationType.SetCoinInfo, false);
+            if (!IsPlayersPass[playerIndex])
+                await Players[playerIndex].SendAsync(ServerOperationType.RemindYouRoundStart);
             await Task.Delay(500);
 
             //判断当前是否已经处于pass状态
-            if (IsPlayersPass[playerIndex] == true)
+            if (IsPlayersPass[playerIndex])
             {
                 //如果双方都pass...小局结束
                 if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
