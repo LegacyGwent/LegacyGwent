@@ -84,9 +84,42 @@ namespace Cynthia.Card.Server
             await SetWinCountInfo();//设置小皇冠图标
             await SetPassInfo();//重置pass标记
             //首先应该先表示信息
+            //-+/*/展示点数
+            await Task.WhenAll
+            (
+                Players[_Player1Index].SendAsync(ServerOperationType.BigRoundShowPoint, new BigRoundInfomation()
+                {
+                    MyPoint = player1PlacePoint,
+                    EnemyPoint = player2PlacePoint,
+                    MyWinCount = PlayersWinCount[_Player1Index],
+                    EnemyWinCount = PlayersWinCount[_Player2Index],
+                    GameStatus = player2PlacePoint == player1PlacePoint ? GameStatus.Draw :
+                    (player2PlacePoint > player1PlacePoint ? GameStatus.Lose : GameStatus.Win)
+                }),
+                Players[_Player2Index].SendAsync(ServerOperationType.BigRoundShowPoint, new BigRoundInfomation()
+                {
+                    MyPoint = player2PlacePoint,
+                    EnemyPoint = player1PlacePoint,
+                    MyWinCount = PlayersWinCount[_Player2Index],
+                    EnemyWinCount = PlayersWinCount[_Player1Index],
+                    GameStatus = player2PlacePoint == player1PlacePoint ? GameStatus.Draw :
+                    (player2PlacePoint < player1PlacePoint ? GameStatus.Lose : GameStatus.Win)
+                })
+            );
+            await Task.Delay(1000);
             if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
             {
+                await Task.WhenAll(Players[_Player1Index].SendAsync(ServerOperationType.BigRoundShowClose)
+                            , Players[_Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
+                return;
             }
+            //-+/*/展示信息
+            await Task.WhenAll(Players[_Player1Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!")
+                            , Players[_Player2Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!"));
+            await Task.Delay(1000);
+            await Task.WhenAll(Players[_Player1Index].SendAsync(ServerOperationType.BigRoundShowClose)
+                            , Players[_Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
+            await Task.Delay(100);
             //
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
             await Task.WhenAll(SetCemeteryInfo(_Player1Index), SetCemeteryInfo(_Player2Index));
