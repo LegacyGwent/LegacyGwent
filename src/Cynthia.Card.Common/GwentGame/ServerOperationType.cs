@@ -14,6 +14,14 @@ namespace Cynthia.Card
         EndOfBigRound,//结束小局
         CardsToCemetery,//一些卡牌进入墓地
         //-----------------------------------------------------------
+        RemindYouRoundStart,//播放提示你的回合开始的动画
+        //-----------------------------------------------------------
+        BigRoundShowPoint,
+        BigRoundShowMessage,
+        BigRoundSetPoint,
+        BigRoundSetMessage,
+        BigRoundShowEnd,
+        //-----------------------------------------------------------
         MulliganStart,//调度开始
         MulliganData,//调度数据(将第几张卡换成某一张)int gamecard
         GetMulliganInfo,//获取调度数据
