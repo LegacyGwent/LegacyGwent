@@ -83,6 +83,11 @@ namespace Cynthia.Card.Server
             IsPlayersPass[_Player2Index] = false;
             await SetWinCountInfo();//设置小皇冠图标
             await SetPassInfo();//重置pass标记
+            //首先应该先表示信息
+            if (PlayersWinCount[_Player1Index] < 2 && PlayersWinCount[_Player2Index] < 2)//如果前两局没有分出结果
+            {
+            }
+            //
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
             await Task.WhenAll(SetCemeteryInfo(_Player1Index), SetCemeteryInfo(_Player2Index));
             //清空所有场上的牌
@@ -187,8 +192,8 @@ namespace Cynthia.Card.Server
                 //存储这张卡,并从手牌移除这张卡
             }
             await SetCountInfo();//更新双方的"数量"信息(手牌数量发生了改变)
-            //以上获得了卡牌,并且提取了出来
-            //向对手发送,自己用了那一张牌
+                                 //以上获得了卡牌,并且提取了出来
+                                 //向对手发送,自己用了那一张牌
             await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
             await Task.Delay(350);
             //这句话测试用
@@ -341,8 +346,8 @@ namespace Cynthia.Card.Server
             await SendGameResult
             (
                 TwoPlayer.Player1,
-                result == 0 ? GameResultInfomation.GameStatus.Draw :
-                (result == 1 ? GameResultInfomation.GameStatus.Win : GameResultInfomation.GameStatus.Lose),
+                result == 0 ? GameStatus.Draw :
+                result == 1 ? GameStatus.Win : GameStatus.Lose,
                 RoundCount,
                 PlayersRoundResult[0][_Player1Index],
                 PlayersRoundResult[0][_Player2Index],
@@ -354,8 +359,8 @@ namespace Cynthia.Card.Server
             await SendGameResult
             (
                 TwoPlayer.Player2,
-                result == 0 ? GameResultInfomation.GameStatus.Draw :
-                (result == 1 ? GameResultInfomation.GameStatus.Lose : GameResultInfomation.GameStatus.Win),
+                result == 0 ? GameStatus.Draw :
+                result == 2 ? GameStatus.Win : GameStatus.Lose,
                 RoundCount,
                 PlayersRoundResult[0][_Player2Index],
                 PlayersRoundResult[0][_Player1Index],
@@ -651,7 +656,7 @@ namespace Cynthia.Card.Server
             );
         }
         //----------------------------------------------------------------------------------------------
-        public Task SendGameResult(TwoPlayer player, GameResultInfomation.GameStatus status,
+        public Task SendGameResult(TwoPlayer player, GameStatus status,
             int roundCount = 0, int myR1Point = 0, int enemyR1Point = 0,
             int myR2Point = 0, int enemyR2Point = 0, int myR3Point = 0, int enemyR3Point = 0)
         {

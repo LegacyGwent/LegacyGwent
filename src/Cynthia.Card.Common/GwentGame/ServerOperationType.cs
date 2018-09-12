@@ -17,10 +17,8 @@ namespace Cynthia.Card
         RemindYouRoundStart,//播放提示你的回合开始的动画
         //-----------------------------------------------------------
         BigRoundShowPoint,
-        BigRoundShowMessage,
-        BigRoundSetPoint,
         BigRoundSetMessage,
-        BigRoundShowEnd,
+        BigRoundShowClose,
         //-----------------------------------------------------------
         MulliganStart,//调度开始
         MulliganData,//调度数据(将第几张卡换成某一张)int gamecard

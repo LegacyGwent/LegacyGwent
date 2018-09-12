@@ -1,13 +1,13 @@
 namespace Cynthia.Card
 {
+    public enum GameStatus
+    {
+        Win,
+        Lose,
+        Draw
+    }
     public class GameResultInfomation
     {
-        public enum GameStatus
-        {
-            Win,
-            Lose,
-            Draw
-        }
         public string MyName { get; private set; }
         public string EnemyName { get; private set; }
         public GameStatus GameStatu { get; private set; }
