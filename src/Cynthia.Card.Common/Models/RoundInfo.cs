@@ -5,7 +5,6 @@ namespace Cynthia.Card
     {
         public bool IsPass { get; set; }
         public int HandCardIndex { get; set; }
-        public int RowIndex { get; set; }
-        public int CardIndex { get; set; }
+        public CardLocation CardLocation { get; set; }
     }
 }
