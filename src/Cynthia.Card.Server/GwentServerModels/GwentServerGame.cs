@@ -198,22 +198,16 @@ namespace Cynthia.Card.Server
             if (cardInfo.IsPass == true)
                 return false;
             //将放置信息发送给对手
-            var enemyRowIndex = cardInfo.RowIndex == -3 ? cardInfo.RowIndex :
-            (
-                cardInfo.RowIndex == -2 ? -1 :
-                (
-                    cardInfo.RowIndex == -1 ? -2 :
-                    (
-                        cardInfo.RowIndex >= 3 ? cardInfo.RowIndex - 3 : cardInfo.RowIndex + 3
-                    )
-                )
-            );
+            var enemyRowIndex = RowMirror(cardInfo.CardLocation.RowPosition);
             //创建相对于对手的位置信息
             var enemyCardInfo = new RoundInfo()
             {
                 HandCardIndex = cardInfo.HandCardIndex,
-                CardIndex = cardInfo.CardIndex,
-                RowIndex = enemyRowIndex
+                CardLocation = new CardLocation()
+                {
+                    CardIndex = cardInfo.CardLocation.CardIndex,
+                    RowPosition = enemyRowIndex
+                },
             };
             //------------------------------------------------------------
             var card = default(GameCard);//打出了那一张牌呢
@@ -239,7 +233,7 @@ namespace Cynthia.Card.Server
             await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
             await Task.Delay(350);
             //这句话测试用
-            if (cardInfo.RowIndex == -3)
+            if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
             {
                 //需要进行处理后进入墓地,如果是佚亡直接消除
                 //##################################################
@@ -258,7 +252,7 @@ namespace Cynthia.Card.Server
                 await SetCemeteryInfo(playerIndex);
                 await SetCountInfo();//更新双方的数据
             }
-            else if (cardInfo.RowIndex == -1 || cardInfo.RowIndex == -2)
+            else if (cardInfo.CardLocation.RowPosition == RowPosition.SpecialPlace)
             {
                 //如果拖入场上的话,会变成法术卡
                 //法术卡的话
@@ -273,12 +267,13 @@ namespace Cynthia.Card.Server
             {
                 //单位卡
                 //放在了...玩家1还是玩家2的场地?
-                var playerPlace = cardInfo.RowIndex >= 3 ? (playerIndex == 0 ? 1 : 0) : playerIndex;
-                var rowIndex = cardInfo.RowIndex >= 3 ? cardInfo.RowIndex - 3 : cardInfo.RowIndex;
+                var playerPlace = IsMyRow(cardInfo.CardLocation.RowPosition) ? playerIndex : (playerIndex == 0 ? 1 : 0);
+                var trueRow = IsMyRow(cardInfo.CardLocation.RowPosition) ? cardInfo.CardLocation.RowPosition : RowMirror(cardInfo.CardLocation.RowPosition);
+                var rowIndex = (trueRow == RowPosition.MyRow1 ? 0 : (trueRow == RowPosition.MyRow2 ? 1 : 2));
                 //执行效果代码之后###########################################
                 //还需要加入"单位卡使用"
                 //##########################################################
-                PlayersPlace[playerPlace][rowIndex].Insert(cardInfo.CardIndex, card);
+                PlayersPlace[playerPlace][rowIndex].Insert(cardInfo.CardLocation.CardIndex, card);
                 await SetPointInfo();
             }
             //###########待修改,需要删除
@@ -443,6 +438,80 @@ namespace Cynthia.Card.Server
             //打乱牌组
             PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
             PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
+        }
+        public RowPosition RowMirror(RowPosition row)
+        {
+            switch (row)
+            {
+                case RowPosition.MyRow1:
+                    return RowPosition.EnemyRow1;
+                case RowPosition.MyRow2:
+                    return RowPosition.EnemyRow2;
+                case RowPosition.MyRow3:
+                    return RowPosition.EnemyRow3;
+                case RowPosition.EnemyRow1:
+                    return RowPosition.MyRow1;
+                case RowPosition.EnemyRow2:
+                    return RowPosition.MyRow2;
+                case RowPosition.EnemyRow3:
+                    return RowPosition.MyRow3;
+                case RowPosition.MyHand:
+                    return RowPosition.EnemyHand;
+                case RowPosition.EnemyHand:
+                    return RowPosition.MyHand;
+                case RowPosition.MyStay:
+                    return RowPosition.EnemyStay;
+                case RowPosition.EnemyStay:
+                    return RowPosition.MyStay;
+                case RowPosition.MyDeck:
+                    return RowPosition.EnemyDeck;
+                case RowPosition.EnemyDeck:
+                    return RowPosition.MyDeck;
+                case RowPosition.MyCemetery:
+                    return RowPosition.EnemyCemetery;
+                case RowPosition.EnemyCemetery:
+                    return RowPosition.MyCemetery;
+                case RowPosition.SpecialPlace:
+                    return RowPosition.SpecialPlace;
+            }
+            return RowPosition.SpecialPlace;
+        }
+        public bool IsMyRow(RowPosition row)
+        {
+            switch (row)
+            {
+                case RowPosition.MyRow1:
+                    return true;
+                case RowPosition.MyRow2:
+                    return true;
+                case RowPosition.MyRow3:
+                    return true;
+                case RowPosition.EnemyRow1:
+                    return false;
+                case RowPosition.EnemyRow2:
+                    return false;
+                case RowPosition.EnemyRow3:
+                    return false;
+                case RowPosition.MyHand:
+                    return true;
+                case RowPosition.EnemyHand:
+                    return false;
+                case RowPosition.MyStay:
+                    return true;
+                case RowPosition.EnemyStay:
+                    return false;
+                case RowPosition.MyDeck:
+                    return true;
+                case RowPosition.EnemyDeck:
+                    return false;
+                case RowPosition.MyCemetery:
+                    return true;
+                case RowPosition.EnemyCemetery:
+                    return false;
+                case RowPosition.SpecialPlace:
+                    return true;
+            }
+            return true;
         }
         //----------------------------------------------------------------------------------------------
         public Task SetAllInfo()
