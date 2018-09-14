@@ -239,16 +239,9 @@ namespace Cynthia.Card.Server
                 //##################################################
                 //还需要添加"佚亡的判断"
                 //##################################################
-                card.Armor = 0; //护甲归零
-                card.HealthStatus = 0;//没有增益和受伤
-                card.IsCardBack = false; //没有背面
-                card.IsResilience = false;//没有坚韧
-                card.IsGray = false;   //没有灰
-                card.IsShield = false; //没有昆恩
-                card.IsSpying = false; //没有间谍
-                card.Conceal = false;  //没有隐藏
-                card.IsReveal = false; //没有解释
+                ToCemeteryInfo(card);//进入
                 PlayersCemetery[playerIndex].Add(card);//如果丢了这张卡,将这张卡丢入墓地
+                card.Location.RowPosition = RowPosition.MyCemetery;
                 await SetCemeteryInfo(playerIndex);
                 await SetCountInfo();//更新双方的数据
             }
@@ -259,7 +252,9 @@ namespace Cynthia.Card.Server
                 //执行效果代码之后...进入墓地#################################
                 //还需要加入"法术卡使用"
                 //##########################################################
+                ToCemeteryInfo(card);
                 PlayersCemetery[playerIndex].Add(card);
+                card.Location.RowPosition = RowPosition.MyCemetery;
                 await SetCemeteryInfo(playerIndex);
                 await SetCountInfo();
             }
@@ -287,6 +282,7 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < count; i++)
             {
                 PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
+                PlayersDeck[playerIndex][0].Location.RowPosition = RowPosition.MyHand;
                 PlayersDeck[playerIndex].RemoveAt(0);
             }
         }
@@ -436,8 +432,8 @@ namespace Cynthia.Card.Server
             PlayersLeader[_Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[_Player1Index], Strength = GwentMap.CardMap[player1.Deck.Leader].Strength };
             PlayersLeader[_Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[_Player2Index], Strength = GwentMap.CardMap[player2.Deck.Leader].Strength };
             //打乱牌组
-            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
-            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength }).Mess().ToList();
+            PlayersDeck[_Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength, PlayerIndex = _Player1Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
+            PlayersDeck[_Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength, PlayerIndex = _Player2Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
         }
         public RowPosition RowMirror(RowPosition row)
         {
@@ -787,6 +783,19 @@ namespace Cynthia.Card.Server
                 enemyR3Point
             ));
         }
+        public void ToCemeteryInfo(GameCard card)
+        {
+            card.Armor = 0; //护甲归零
+            card.HealthStatus = 0;//没有增益和受伤
+            card.IsCardBack = false; //没有背面
+            card.IsResilience = false;//没有坚韧
+            card.IsGray = false;   //没有灰
+            card.IsShield = false; //没有昆恩
+            card.IsSpying = false; //没有间谍
+            card.Conceal = false;  //没有隐藏
+            card.IsReveal = false; //没有解释
+            card.Location.RowPosition = RowPosition.MyCemetery;
+        }
         public Task SendBigRoundEndToCemetery()
         {
             //#############################################
@@ -805,6 +814,7 @@ namespace Cynthia.Card.Server
                 {
                     player1CardsPart.MyRow1Cards.Add(i);
                     player2CardsPart.EnemyRow1Cards.Add(i);
+                    ToCemeteryInfo(card);
                     PlayersCemetery[_Player1Index].Add(card);
                     PlayersPlace[_Player1Index][0].RemoveAt(i);
                 }
@@ -820,6 +830,7 @@ namespace Cynthia.Card.Server
                 {
                     player1CardsPart.MyRow2Cards.Add(i);
                     player2CardsPart.EnemyRow2Cards.Add(i);
+                    ToCemeteryInfo(card);
                     PlayersCemetery[_Player1Index].Add(card);
                     PlayersPlace[_Player1Index][1].RemoveAt(i);
                 }
@@ -835,6 +846,7 @@ namespace Cynthia.Card.Server
                 {
                     player1CardsPart.MyRow3Cards.Add(i);
                     player2CardsPart.EnemyRow3Cards.Add(i);
+                    ToCemeteryInfo(card);
                     PlayersCemetery[_Player1Index].Add(card);
                     PlayersPlace[_Player1Index][2].RemoveAt(i);
                 }
@@ -850,6 +862,7 @@ namespace Cynthia.Card.Server
                 {
                     player2CardsPart.MyRow1Cards.Add(i);
                     player1CardsPart.EnemyRow1Cards.Add(i);
+                    ToCemeteryInfo(card);
                     PlayersCemetery[_Player2Index].Add(card);
                     PlayersPlace[_Player2Index][0].RemoveAt(i);
                 }
@@ -865,6 +878,7 @@ namespace Cynthia.Card.Server
                 {
                     player2CardsPart.MyRow2Cards.Add(i);
                     player1CardsPart.EnemyRow2Cards.Add(i);
+                    ToCemeteryInfo(card);
                     PlayersCemetery[_Player2Index].Add(card);
                     PlayersPlace[_Player2Index][1].RemoveAt(i);
                 }
@@ -880,6 +894,7 @@ namespace Cynthia.Card.Server
                 {
                     player2CardsPart.MyRow3Cards.Add(i);
                     player1CardsPart.EnemyRow3Cards.Add(i);
+                    ToCemeteryInfo(card);
                     PlayersCemetery[_Player2Index].Add(card);
                     PlayersPlace[_Player2Index][2].RemoveAt(i);
                 }

@@ -2,11 +2,25 @@ namespace Cynthia.Card
 {
     public class GameCard
     {
-        public GameCard(string cardIndex) => CardIndex = cardIndex;
-        public GameCard() => Conceal = true;
+        public GameCard(string cardIndex)
+        {
+            CardIndex = cardIndex;
+            Strength = GwentMap.CardMap[cardIndex].Strength;
+            Type = GwentMap.CardMap[cardIndex].CardType;
+            IsDoomed = GwentMap.CardMap[cardIndex].IsDoomed;
+        }
+        public GameCard()
+        {
+            IsCardBack = true;
+            Conceal = true;
+        }
         //卡牌基本信息索引
         public string CardIndex { get; set; }
         public GwentCard CardInfo { get; set; }
+        public CardLocation Location { get; set; }
+        public bool IsDoomed { get; set; } = false;//是否佚亡
+        public CardType Type { get; set; }//法术还是单位
+        public int PlayerIndex { get; set; }
         //---------------------------------------
         //卡牌状态
         public bool IsReveal { get; set; } = false;//是否被揭示 | 手牌

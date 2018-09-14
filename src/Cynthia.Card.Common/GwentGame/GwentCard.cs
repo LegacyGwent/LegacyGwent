@@ -22,16 +22,16 @@ namespace Cynthia.Card
         //能力描述  例如:使所有“精灵”友军获得1点增益。 每次被交换时，再次触发此能力。
         public string Info { get; set; }
 
-
         //卡牌名称  例如:维里赫德旅先锋
         public string Name { get; set; }
-
-
         //战力数值  例如:6
         public int Strength { get; set; }
         //可放置
         public CardUseInfo CardUseInfo { get; set; }
         //卡牌类型
         public CardType CardType { get; set; }
+        //卡牌效果的索引
+        public string CardEffectIndex { get; set; }
+        public bool IsDoomed { get; set; }
     }
 }
