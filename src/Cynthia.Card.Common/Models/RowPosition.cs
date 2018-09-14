@@ -16,6 +16,8 @@ namespace Cynthia.Card
         EnemyDeck,
         MyCemetery,
         EnemyCemetery,
-        SpecialPlace
+        SpecialPlace,
+        MyLeader,
+        EnemyLeader
     }
 }

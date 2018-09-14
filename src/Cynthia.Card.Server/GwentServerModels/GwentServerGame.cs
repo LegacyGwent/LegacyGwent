@@ -393,11 +393,11 @@ namespace Cynthia.Card.Server
             PlayersHandCard[Player2Index] = new List<GameCard>();
             IsPlayersLeader[Player1Index] = true;
             IsPlayersLeader[Player2Index] = true;
-            PlayersLeader[Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[Player1Index], Strength = GwentMap.CardMap[player1.Deck.Leader].Strength };
-            PlayersLeader[Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[Player2Index], Strength = GwentMap.CardMap[player2.Deck.Leader].Strength };
+            PlayersLeader[Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[Player1Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player1Index };
+            PlayersLeader[Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[Player2Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player2Index };
             //打乱牌组
-            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength, PlayerIndex = Player1Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
-            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, Strength = GwentMap.CardMap[x].Strength, PlayerIndex = Player2Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
+            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, PlayerIndex = Player1Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
+            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, PlayerIndex = Player2Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
         }
         public RowPosition RowMirror(RowPosition row)
         {
