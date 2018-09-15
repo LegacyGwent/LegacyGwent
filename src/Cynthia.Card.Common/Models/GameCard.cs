@@ -21,7 +21,7 @@ namespace Cynthia.Card
         public bool IsDoomed { get; set; } = false;//是否佚亡
         public CardType Type { get; set; }//法术还是单位
         public int PlayerIndex { get; set; }
-        //---------------------------------------
+        //---------------------------------------------------------------
         //卡牌状态
         public bool IsReveal { get; set; } = false;//是否被揭示 | 手牌
         public bool IsShield { get; set; } = false;//是否昆恩 | 手牌,场地
@@ -32,7 +32,7 @@ namespace Cynthia.Card
         public int HealthStatus { get; set; } = 0;//增益减益 | 手牌,场地
         public bool IsLock { get; set; } = false;//是否锁定 | 场地,墓地
         public bool Conceal { get; set; } = false;//是否盖牌 | 场地
-        //------------------------------------------
+        //-----------------------------------------------------------------
         //显示相关
         public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;

@@ -7,25 +7,46 @@ namespace Cynthia.Card
 {
     public static class GwentDeck
     {
-        public static DeckModel CreateBasicDeck(string deckName = "初始卡组")
+        public static DeckModel CreateBasicDeck(int defaultDeckIndex)
         {
-            var leader = "tl";
-            var deck = "tg1".Plural(1)
-            .Concat("tg2".Plural(1))
-            .Concat("tg3".Plural(1))
-            .Concat("tg4".Plural(1))
-            .Concat("ts1".Plural(1))
-            .Concat("ts2".Plural(1))
-            .Concat("ts3".Plural(1))
-            .Concat("ts4".Plural(1))
-            .Concat("ts5".Plural(1))
-            .Concat("ts6".Plural(1))
-            .Concat("tc1".Plural(3))
-            .Concat("tc2".Plural(3))
-            .Concat("tc3".Plural(3))
-            .Concat("tc4".Plural(3))
-            .Concat("tc5".Plural(3)).ToArray();
-            return new DeckModel() { Leader = leader, Deck = deck, Name = deckName };
+            var deck = default(string[]);
+            switch (defaultDeckIndex)
+            {
+                case 1:
+                    deck = "16110300".Plural(1)
+                    .Concat("20177600".Plural(1))
+                    .Concat("20015400".Plural(1))
+                    .Concat("11210200".Plural(1))
+                    .Concat("20003200".Plural(1))
+                    .Concat("16221000".Plural(1))
+                    .Concat("16240100".Plural(1))
+                    .Concat("16221200".Plural(1))
+                    .Concat("16221100".Plural(1))
+                    .Concat("11221000".Plural(1))
+                    .Concat("16230400".Plural(3))
+                    .Concat("16231400".Plural(3))
+                    .Concat("11340200".Plural(3))
+                    .Concat("16230700".Plural(3))
+                    .Concat("16231800".Plural(3)).ToArray();
+                    return new DeckModel() { Leader = "tl", Deck = deck, Name = "帝国测试卡组" };
+                default:
+                    deck = "tg1".Plural(1)
+                    .Concat("tg2".Plural(1))
+                    .Concat("tg3".Plural(1))
+                    .Concat("tg4".Plural(1))
+                    .Concat("ts1".Plural(1))
+                    .Concat("ts2".Plural(1))
+                    .Concat("ts3".Plural(1))
+                    .Concat("ts4".Plural(1))
+                    .Concat("ts5".Plural(1))
+                    .Concat("ts6".Plural(1))
+                    .Concat("tc1".Plural(3))
+                    .Concat("tc2".Plural(3))
+                    .Concat("tc3".Plural(3))
+                    .Concat("tc4".Plural(3))
+                    .Concat("tc5".Plural(3)).ToArray();
+                    return new DeckModel() { Leader = "tl", Deck = deck, Name = "默认卡组" };
+            }
         }
         public static bool IsBasicDeck(this DeckModel deck)
         {
