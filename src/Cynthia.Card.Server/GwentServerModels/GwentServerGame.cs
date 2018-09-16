@@ -733,11 +733,11 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             //---
             int result = 0;//0为平, 1为玩家1胜利, 2为玩家2胜利
-            if (PlayersWinCount[Player1Index] == PlayersWinCount[Player2Index])
+            if (PlayersWinCount[myPlayerIndex] == PlayersWinCount[enemyPlayerIndex])
                 result = 0;
-            if (PlayersWinCount[Player1Index] > PlayersWinCount[Player2Index])
+            if (PlayersWinCount[myPlayerIndex] > PlayersWinCount[enemyPlayerIndex])
                 result = 1;
-            if (PlayersWinCount[Player1Index] < PlayersWinCount[Player2Index])
+            if (PlayersWinCount[myPlayerIndex] < PlayersWinCount[enemyPlayerIndex])
                 result = 2;
             //---
             return Players[myPlayerIndex].SendAsync(ServerOperationType.GameEnd, new GameResultInfomation

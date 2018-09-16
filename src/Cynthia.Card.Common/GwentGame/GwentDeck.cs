@@ -13,22 +13,23 @@ namespace Cynthia.Card
             switch (defaultDeckIndex)
             {
                 case 1:
-                    deck = "16110300".Plural(1)
-                    .Concat("20177600".Plural(1))
-                    .Concat("20015400".Plural(1))
-                    .Concat("11210200".Plural(1))
-                    .Concat("20003200".Plural(1))
-                    .Concat("16221000".Plural(1))
-                    .Concat("16240100".Plural(1))
-                    .Concat("16221200".Plural(1))
-                    .Concat("16221100".Plural(1))
-                    .Concat("11221000".Plural(1))
-                    .Concat("16230400".Plural(3))
-                    .Concat("16231400".Plural(3))
-                    .Concat("11340200".Plural(3))
-                    .Concat("16230700".Plural(3))
-                    .Concat("16231800".Plural(3)).ToArray();
-                    return new DeckModel() { Leader = "tl", Deck = deck, Name = "帝国测试卡组" };
+                    deck = "11221300".Plural(1)//乞丐王
+                    .Concat("20177600".Plural(1))//诗人
+                    .Concat("20015400".Plural(1))//皇家
+                    .Concat("11210200".Plural(1))//杰洛特
+                    .Concat("20003200".Plural(1))//林法恩
+                    .Concat("16221000".Plural(1))//帝国间谍
+                    .Concat("16240100".Plural(1))//大魔像
+                    .Concat("16221200".Plural(1))//冒牌希里
+                    .Concat("16221100".Plural(1))//5+10
+                    .Concat("11221000".Plural(1))//萝卜
+                    .Concat("16230400".Plural(3))//医生
+                    .Concat("16231400".Plural(3))//特使
+                    .Concat("11340200".Plural(3))//侦查
+                    .Concat("16230700".Plural(3))//近卫军
+                    .Concat("16231800".Plural(3)).ToArray();//12点
+                    return new DeckModel() { Leader = "16110300", Deck = deck, Name = "帝国测试卡组" };
+                //约翰
                 default:
                     deck = "tg1".Plural(1)
                     .Concat("tg2".Plural(1))
