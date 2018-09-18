@@ -178,7 +178,7 @@ namespace Cynthia.Card.Server
             {//放置卡牌时执行
                 await PlayCard(playerIndex, cardInfo);
                 //宣告双方效果结束#########################
-                //可能会变更
+                //可能会变更, 计划封装到卡牌效果中
                 //########################################
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
                 await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardEffectEnd);
@@ -267,7 +267,6 @@ namespace Cynthia.Card.Server
                 await SetPointInfo();
             }
             //###########待修改,需要删除
-            //PlayersRoundResult[CurrentRoundCount][playerIndex] += card.Strength;
             return true;
         }
         //玩家抽卡
@@ -366,38 +365,6 @@ namespace Cynthia.Card.Server
                 PlayersWinCount[Player2Index]++;
             await SendGameResult(TwoPlayer.Player1);
             await SendGameResult(TwoPlayer.Player2);
-        }
-        public GwentServerGame(Player player1, Player player2)
-        {
-            //初始化游戏信息
-            PlayersRoundResult[0] = new int[2];
-            PlayersRoundResult[1] = new int[2];
-            PlayersRoundResult[2] = new int[2];
-            Players[Player1Index] = player1;
-            Players[Player2Index] = player2;
-            PlayersPlace[Player1Index] = new List<GameCard>[3];
-            PlayersPlace[Player2Index] = new List<GameCard>[3];
-            PlayersFaction[Player1Index] = GwentMap.CardMap[player1.Deck.Leader].Faction;
-            PlayersFaction[Player2Index] = GwentMap.CardMap[player2.Deck.Leader].Faction;
-            //----------------------------------------------------
-            PlayersPlace[Player1Index][0] = new List<GameCard>();
-            PlayersPlace[Player2Index][0] = new List<GameCard>();
-            PlayersPlace[Player1Index][1] = new List<GameCard>();
-            PlayersPlace[Player2Index][1] = new List<GameCard>();
-            PlayersPlace[Player1Index][2] = new List<GameCard>();
-            PlayersPlace[Player2Index][2] = new List<GameCard>();
-            //----------------------------------------------------
-            PlayersCemetery[Player1Index] = new List<GameCard>();
-            PlayersCemetery[Player2Index] = new List<GameCard>();
-            PlayersHandCard[Player1Index] = new List<GameCard>();
-            PlayersHandCard[Player2Index] = new List<GameCard>();
-            IsPlayersLeader[Player1Index] = true;
-            IsPlayersLeader[Player2Index] = true;
-            PlayersLeader[Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[Player1Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player1Index };
-            PlayersLeader[Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[Player2Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player2Index };
-            //打乱牌组
-            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, PlayerIndex = Player1Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
-            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, PlayerIndex = Player2Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
         }
         public RowPosition RowMirror(RowPosition row)
         {
@@ -770,6 +737,38 @@ namespace Cynthia.Card.Server
             card.Conceal = false;  //没有隐藏
             card.IsReveal = false; //没有解释
             card.Location.RowPosition = RowPosition.MyCemetery;
+        }
+        public GwentServerGame(Player player1, Player player2)
+        {
+            //初始化游戏信息
+            PlayersRoundResult[0] = new int[2];
+            PlayersRoundResult[1] = new int[2];
+            PlayersRoundResult[2] = new int[2];
+            Players[Player1Index] = player1;
+            Players[Player2Index] = player2;
+            PlayersPlace[Player1Index] = new List<GameCard>[3];
+            PlayersPlace[Player2Index] = new List<GameCard>[3];
+            PlayersFaction[Player1Index] = GwentMap.CardMap[player1.Deck.Leader].Faction;
+            PlayersFaction[Player2Index] = GwentMap.CardMap[player2.Deck.Leader].Faction;
+            //----------------------------------------------------
+            PlayersPlace[Player1Index][0] = new List<GameCard>();
+            PlayersPlace[Player2Index][0] = new List<GameCard>();
+            PlayersPlace[Player1Index][1] = new List<GameCard>();
+            PlayersPlace[Player2Index][1] = new List<GameCard>();
+            PlayersPlace[Player1Index][2] = new List<GameCard>();
+            PlayersPlace[Player2Index][2] = new List<GameCard>();
+            //----------------------------------------------------
+            PlayersCemetery[Player1Index] = new List<GameCard>();
+            PlayersCemetery[Player2Index] = new List<GameCard>();
+            PlayersHandCard[Player1Index] = new List<GameCard>();
+            PlayersHandCard[Player2Index] = new List<GameCard>();
+            IsPlayersLeader[Player1Index] = true;
+            IsPlayersLeader[Player2Index] = true;
+            PlayersLeader[Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[Player1Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player1Index };
+            PlayersLeader[Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[Player2Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player2Index };
+            //打乱牌组
+            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, PlayerIndex = Player1Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
+            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, PlayerIndex = Player2Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
         }
         public Task SendBigRoundEndToCemetery()
         {

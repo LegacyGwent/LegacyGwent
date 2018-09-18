@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Cynthia.Card
 {
     //一个卡牌类型
-    public class GwentCard : ModelBase
+    public struct GwentCard
     {
+        [Key]
+        public string Id { get; set; }
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
 

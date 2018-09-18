@@ -32,6 +32,7 @@ namespace Cynthia.Card
                 "20015400",
                 new GwentCard()
                 {
+                    Id = "20015400",
                     Name="皇家谕令",
                     Strength=0,
                     Group=Group.Gold,
@@ -50,6 +51,7 @@ namespace Cynthia.Card
                 "11210200",
                 new GwentCard()
                 {
+                    Id = "11210200",
                     Name="杰洛特：伊格尼法印",
                     Strength=5,
                     Group=Group.Gold,
@@ -68,6 +70,7 @@ namespace Cynthia.Card
                 "20177600",
                 new GwentCard()
                 {
+                    Id = "20177600",
                     Name="丹德里恩：传奇诗人",
                     Strength=5,
                     Group=Group.Gold,
@@ -88,6 +91,7 @@ namespace Cynthia.Card
                 "11221000",
                 new GwentCard()
                 {
+                    Id = "11221000",
                     Name="萝卜",
                     Strength=4,
                     Group=Group.Silver,
@@ -106,6 +110,7 @@ namespace Cynthia.Card
                 "11221300",
                 new GwentCard()
                 {
+                    Id = "11221300",
                     Name="乞丐王",
                     Strength=5,
                     Group=Group.Silver,
@@ -126,6 +131,7 @@ namespace Cynthia.Card
                 "11340200",
                 new GwentCard()
                 {
+                    Id = "11340200",
                     Name="侦查",
                     Strength=0,
                     Group=Group.Copper,
@@ -146,6 +152,7 @@ namespace Cynthia.Card
                 "16110300",
                 new GwentCard()
                 {
+                    Id ="16110300",
                     Name="约翰·卡尔维特",
                     Strength=5,
                     Group=Group.Leader,
@@ -166,6 +173,7 @@ namespace Cynthia.Card
                 "20003200",
                 new GwentCard()
                 {
+                    Id ="20003200",
                     Name="亚特里的林法恩",
                     Strength=5,
                     Group=Group.Gold,
@@ -186,6 +194,7 @@ namespace Cynthia.Card
                 "16221100",
                 new GwentCard()
                 {
+                    Id ="16221100",
                     Name="约阿希姆·德·维特",
                     Strength=5,
                     Group=Group.Silver,
@@ -204,6 +213,7 @@ namespace Cynthia.Card
                 "16221200",
                 new GwentCard()
                 {
+                    Id ="16221200",
                     Name="冒牌希里",
                     Strength=8,
                     Group=Group.Silver,
@@ -222,6 +232,7 @@ namespace Cynthia.Card
                 "16240100",
                 new GwentCard()
                 {
+                    Id ="16240100",
                     Name="魔像守卫",
                     Strength=11,
                     Group=Group.Silver,
@@ -240,6 +251,7 @@ namespace Cynthia.Card
                 "16221000",
                 new GwentCard()
                 {
+                    Id ="16221000",
                     Name="坎塔蕾拉",
                     Strength=13,
                     Group=Group.Silver,
@@ -260,6 +272,7 @@ namespace Cynthia.Card
                 "16230400",
                 new GwentCard()
                 {
+                    Id ="16230400",
                     Name="维可瓦罗医师",
                     Strength=1,
                     Group=Group.Copper,
@@ -278,6 +291,7 @@ namespace Cynthia.Card
                 "16231400",
                 new GwentCard()
                 {
+                    Id ="16231400",
                     Name="特使",
                     Strength=2,
                     Group=Group.Copper,
@@ -296,6 +310,7 @@ namespace Cynthia.Card
                 "16230700",
                 new GwentCard()
                 {
+                    Id ="16230700",
                     Name="近卫军",
                     Strength=6,
                     Group=Group.Copper,
@@ -314,6 +329,7 @@ namespace Cynthia.Card
                 "16231800",
                 new GwentCard()
                 {
+                    Id ="16231800",
                     Name="尼弗迦德骑士",
                     Strength=12,
                     Group=Group.Copper,
