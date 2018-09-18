@@ -746,15 +746,15 @@ namespace Cynthia.Card.Server
                 EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
                 MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
                 EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
-                MyHandCard = PlayersHandCard[myPlayerIndex],
-                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? x : new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
-                MyPlace = PlayersPlace[myPlayerIndex],
+                MyHandCard = PlayersHandCard[myPlayerIndex].Select(c => c.GetShowCard()),
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(c => c.GetShowCard()).Select(x => x.IsReveal ? x : new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
+                MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.GetShowCard())).ToArray(),
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
-                    x => x.Select(item => item.Conceal ? new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item)
+                    x => x.Select(c => c.GetShowCard()).Select(item => item.Conceal ? new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item)
                 ).ToArray(),
-                MyCemetery = PlayersCemetery[myPlayerIndex],
-                EnemyCemetery = PlayersCemetery[enemyPlayerIndex],
+                MyCemetery = PlayersCemetery[myPlayerIndex].Select(c => c.GetShowCard()),
+                EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(c => c.GetShowCard()),
             };
         }
         //--------------------------------------
@@ -891,8 +891,7 @@ namespace Cynthia.Card.Server
                     player1CardsPart.MyRow1Cards.Add(i);
                     player2CardsPart.EnemyRow1Cards.Add(i);
                     ToCemeteryInfo(card);
-                    PlayersCemetery[Player1Index].Add(card);
-                    PlayersPlace[Player1Index][0].RemoveAt(i);
+                    CardMove(PlayersPlace[Player1Index][0], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
                 }
             }
             for (var i = PlayersPlace[Player1Index][1].Count - 1; i >= 0; i--)
@@ -922,8 +921,7 @@ namespace Cynthia.Card.Server
                     player1CardsPart.MyRow3Cards.Add(i);
                     player2CardsPart.EnemyRow3Cards.Add(i);
                     ToCemeteryInfo(card);
-                    PlayersCemetery[Player1Index].Add(card);
-                    PlayersPlace[Player1Index][2].RemoveAt(i);
+                    CardMove(PlayersPlace[Player1Index][2], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
                 }
             }
             for (var i = PlayersPlace[Player2Index][0].Count - 1; i >= 0; i--)
@@ -938,8 +936,7 @@ namespace Cynthia.Card.Server
                     player2CardsPart.MyRow1Cards.Add(i);
                     player1CardsPart.EnemyRow1Cards.Add(i);
                     ToCemeteryInfo(card);
-                    PlayersCemetery[Player2Index].Add(card);
-                    PlayersPlace[Player2Index][0].RemoveAt(i);
+                    CardMove(PlayersPlace[Player2Index][0], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
                 }
             }
             for (var i = PlayersPlace[Player2Index][1].Count - 1; i >= 0; i--)
@@ -954,8 +951,7 @@ namespace Cynthia.Card.Server
                     player2CardsPart.MyRow2Cards.Add(i);
                     player1CardsPart.EnemyRow2Cards.Add(i);
                     ToCemeteryInfo(card);
-                    PlayersCemetery[Player2Index].Add(card);
-                    PlayersPlace[Player2Index][1].RemoveAt(i);
+                    CardMove(PlayersPlace[Player2Index][1], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
                 }
             }
             for (var i = PlayersPlace[Player2Index][2].Count - 1; i >= 0; i--)
@@ -970,8 +966,7 @@ namespace Cynthia.Card.Server
                     player2CardsPart.MyRow3Cards.Add(i);
                     player1CardsPart.EnemyRow3Cards.Add(i);
                     ToCemeteryInfo(card);
-                    PlayersCemetery[Player2Index].Add(card);
-                    PlayersPlace[Player2Index][2].RemoveAt(i);
+                    CardMove(PlayersPlace[Player2Index][2], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
                 }
             }
             var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
