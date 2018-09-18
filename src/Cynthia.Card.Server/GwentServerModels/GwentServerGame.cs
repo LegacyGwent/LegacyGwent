@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Alsein.Utilities;
 
 namespace Cynthia.Card.Server
 {
@@ -9,7 +10,7 @@ namespace Cynthia.Card.Server
     {
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
         public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
-        public GameCard[] PlayersLeader { get; set; } = new GameCard[2];//玩家领袖是?/
+        public IList<GameCard>[] PlayersLeader { get; set; } = new IList<GameCard>[2];//玩家领袖是?/
         public TwoPlayer GameRound { get; set; }//谁的的回合----
         public int RoundCount { get; set; } = 0;//有效比分的回合数
         public int CurrentRoundCount { get; set; } = 0;//当前小局
@@ -19,6 +20,7 @@ namespace Cynthia.Card.Server
         public IList<GameCard>[] PlayersHandCard { get; set; } = new IList<GameCard>[2];//玩家手牌/
         public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
+        public IList<GameCard>[] PlayersStay { get; set; } = new IList<GameCard>[2];//玩家悬牌
         public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
         public bool[] IsPlayersPass { get; set; } = new bool[2] { false, false };
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
@@ -210,7 +212,7 @@ namespace Cynthia.Card.Server
             {
                 if (IsPlayersLeader[playerIndex] == false)
                     return false;
-                card = PlayersLeader[playerIndex];
+                card = PlayersLeader[playerIndex][0];
                 IsPlayersLeader[playerIndex] = false;
                 //存储这张卡,并且删除领袖卡
             }
@@ -365,6 +367,93 @@ namespace Cynthia.Card.Server
                 PlayersWinCount[Player2Index]++;
             await SendGameResult(TwoPlayer.Player1);
             await SendGameResult(TwoPlayer.Player2);
+        }
+        public IList<GameCard> RowToList(int myPlayerIndex, RowPosition row)
+        {
+            var enemyPlayerIndex = (myPlayerIndex == Player1Index ? Player2Index : Player1Index);
+            switch (row)
+            {
+                case RowPosition.MyHand:
+                    return PlayersHandCard[myPlayerIndex];
+                case RowPosition.EnemyHand:
+                    return PlayersHandCard[enemyPlayerIndex];
+                case RowPosition.MyDeck:
+                    return PlayersDeck[myPlayerIndex];
+                case RowPosition.EnemyDeck:
+                    return PlayersDeck[enemyPlayerIndex];
+                case RowPosition.MyCemetery:
+                    return PlayersCemetery[myPlayerIndex];
+                case RowPosition.EnemyCemetery:
+                    return PlayersCemetery[enemyPlayerIndex];
+                case RowPosition.MyRow1:
+                    return PlayersPlace[myPlayerIndex][0];
+                case RowPosition.EnemyRow1:
+                    return PlayersPlace[enemyPlayerIndex][0];
+                case RowPosition.MyRow2:
+                    return PlayersPlace[myPlayerIndex][1];
+                case RowPosition.EnemyRow2:
+                    return PlayersPlace[enemyPlayerIndex][1];
+                case RowPosition.MyRow3:
+                    return PlayersPlace[myPlayerIndex][2];
+                case RowPosition.EnemyRow3:
+                    return PlayersPlace[enemyPlayerIndex][2];
+                case RowPosition.MyStay:
+                    return PlayersStay[myPlayerIndex];
+                case RowPosition.EnemyStay:
+                    return PlayersStay[enemyPlayerIndex];
+                case RowPosition.MyLeader:
+                    return PlayersLeader[myPlayerIndex];
+                case RowPosition.EnemyLeader:
+                    return PlayersLeader[enemyPlayerIndex];
+                default:
+                    return null;
+            }
+        }
+        public RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list)
+        {//这一行对于这个玩家是哪一行
+            var enemyPlayerIndex = (myPlayerIndex == Player1Index ? Player2Index : Player1Index);
+            if (list == PlayersHandCard[myPlayerIndex])
+                return RowPosition.MyHand;
+            if (list == PlayersHandCard[enemyPlayerIndex])
+                return RowPosition.EnemyHand;
+            //
+            if (list == PlayersDeck[myPlayerIndex])
+                return RowPosition.MyDeck;
+            if (list == PlayersDeck[enemyPlayerIndex])
+                return RowPosition.EnemyDeck;
+            //
+            if (list == PlayersCemetery[myPlayerIndex])
+                return RowPosition.MyCemetery;
+            if (list == PlayersCemetery[enemyPlayerIndex])
+                return RowPosition.EnemyCemetery;
+            //
+            if (list == PlayersPlace[myPlayerIndex][0])
+                return RowPosition.MyRow1;
+            if (list == PlayersPlace[enemyPlayerIndex][0])
+                return RowPosition.EnemyRow1;
+            //
+            if (list == PlayersPlace[myPlayerIndex][1])
+                return RowPosition.MyRow2;
+            if (list == PlayersPlace[enemyPlayerIndex][1])
+                return RowPosition.EnemyRow2;
+            //
+            if (list == PlayersPlace[myPlayerIndex][2])
+                return RowPosition.MyRow3;
+            if (list == PlayersPlace[enemyPlayerIndex][2])
+                return RowPosition.EnemyRow3;
+            //
+            if (list == PlayersStay[myPlayerIndex])
+                return RowPosition.MyStay;
+            if (list == PlayersStay[enemyPlayerIndex])
+                return RowPosition.EnemyStay;
+            //
+            //
+            if (list == PlayersLeader[myPlayerIndex])
+                return RowPosition.MyLeader;
+            if (list == PlayersLeader[enemyPlayerIndex])
+                return RowPosition.EnemyLeader;
+            //
+            return RowPosition.SpecialPlace;
         }
         public RowPosition RowMirror(RowPosition row)
         {
@@ -546,8 +635,8 @@ namespace Cynthia.Card.Server
             {
                 IsMyLeader = IsPlayersLeader[myPlayerIndex],
                 IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
-                MyLeader = PlayersLeader[myPlayerIndex],
-                EnemyLeader = PlayersLeader[enemyPlayerIndex],
+                MyLeader = PlayersLeader[myPlayerIndex][0],
+                EnemyLeader = PlayersLeader[enemyPlayerIndex][0],
                 MyHandCard = PlayersHandCard[myPlayerIndex],
                 EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.IsReveal ? x : new GameCard() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
                 MyPlace = PlayersPlace[myPlayerIndex],
@@ -647,8 +736,8 @@ namespace Cynthia.Card.Server
                 EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
                 IsMyLeader = IsPlayersLeader[myPlayerIndex],
                 IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
-                MyLeader = PlayersLeader[myPlayerIndex],
-                EnemyLeader = PlayersLeader[enemyPlayerIndex],
+                MyLeader = PlayersLeader[myPlayerIndex][0],
+                EnemyLeader = PlayersLeader[enemyPlayerIndex][0],
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
                 MyName = Players[myPlayerIndex].PlayerName,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
@@ -762,13 +851,26 @@ namespace Cynthia.Card.Server
             PlayersCemetery[Player2Index] = new List<GameCard>();
             PlayersHandCard[Player1Index] = new List<GameCard>();
             PlayersHandCard[Player2Index] = new List<GameCard>();
+            PlayersStay[Player1Index] = new List<GameCard>();
+            PlayersStay[Player2Index] = new List<GameCard>();
             IsPlayersLeader[Player1Index] = true;
             IsPlayersLeader[Player2Index] = true;
-            PlayersLeader[Player1Index] = new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[Player1Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player1Index };
-            PlayersLeader[Player2Index] = new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[Player2Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player2Index };
-            //打乱牌组
-            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction, PlayerIndex = Player1Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
-            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x) { DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction, PlayerIndex = Player2Index, Location = new CardLocation() { RowPosition = RowPosition.MyDeck } }).Mess().ToList();
+            PlayersLeader[Player1Index] = new List<GameCard> { new GameCard(player1.Deck.Leader) { DeckFaction = PlayersFaction[Player1Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player1Index } };
+            PlayersLeader[Player2Index] = new List<GameCard> { new GameCard(player2.Deck.Leader) { DeckFaction = PlayersFaction[Player2Index], Location = new CardLocation() { RowPosition = RowPosition.MyLeader }, PlayerIndex = Player2Index } };
+            //将卡组转化成实体,并且打乱牌组
+            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard(x)
+            {
+                DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
+                PlayerIndex = Player1Index,
+                Location = new CardLocation() { RowPosition = RowPosition.MyDeck }
+            }).Select(x => { x.CardEffect = new CardEffect(this, x); return x; }).Mess().ToList();
+            //需要更改,将卡牌效果变成对应Id的卡牌效果
+            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard(x)
+            {
+                DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
+                PlayerIndex = Player2Index,
+                Location = new CardLocation() { RowPosition = RowPosition.MyDeck }
+            }).Select(x => { x.CardEffect = new CardEffect(this, x); return x; }).Mess().ToList();
         }
         public Task SendBigRoundEndToCemetery()
         {
@@ -805,8 +907,7 @@ namespace Cynthia.Card.Server
                     player1CardsPart.MyRow2Cards.Add(i);
                     player2CardsPart.EnemyRow2Cards.Add(i);
                     ToCemeteryInfo(card);
-                    PlayersCemetery[Player1Index].Add(card);
-                    PlayersPlace[Player1Index][1].RemoveAt(i);
+                    CardMove(PlayersPlace[Player1Index][1], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
                 }
             }
             for (var i = PlayersPlace[Player1Index][2].Count - 1; i >= 0; i--)

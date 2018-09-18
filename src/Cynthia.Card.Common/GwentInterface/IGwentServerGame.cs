@@ -8,7 +8,7 @@ namespace Cynthia.Card
     {
         Player[] Players { get; set; }//玩家数据传输/
         bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
-        GameCard[] PlayersLeader { get; set; }//玩家领袖是?/
+        IList<GameCard>[] PlayersLeader { get; set; }//玩家领袖是?/
         TwoPlayer GameRound { get; set; }//谁的的回合----
         int RoundCount { get; set; }//有效比分的回合数
         int CurrentRoundCount { get; set; }//当前小局
@@ -18,6 +18,7 @@ namespace Cynthia.Card
         IList<GameCard>[] PlayersHandCard { get; set; }//玩家手牌/
         IList<GameCard>[][] PlayersPlace { get; set; }//玩家场地/
         IList<GameCard>[] PlayersCemetery { get; set; }//玩家墓地/
+        IList<GameCard>[] PlayersStay { get; set; }//玩家悬牌
         Faction[] PlayersFaction { get; set; }//玩家们的势力
         bool[] IsPlayersPass { get; set; }//玩家是否已经pass
         bool[] IsPlayersMulligan { get; set; }//玩家是否调度完毕
@@ -70,5 +71,7 @@ namespace Cynthia.Card
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);
         Task SendBigRoundEndToCemetery();
+        RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
+        IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
     }
 }
