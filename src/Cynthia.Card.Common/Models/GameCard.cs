@@ -38,5 +38,28 @@ namespace Cynthia.Card
         public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
+
+        public GameCard GetShowCard()
+        {
+            return new GameCard()
+            {
+                IsGray = this.IsGray,
+                IsCardBack = this.IsCardBack,
+                DeckFaction = this.DeckFaction,
+                Conceal = this.Conceal,
+                IsLock = this.IsLock,
+                HealthStatus = this.HealthStatus,
+                CardIndex = this.CardIndex,
+                Location = this.Location,
+                IsDoomed = this.IsDoomed,
+                Type = this.Type,
+                IsReveal = this.IsReveal,
+                IsShield = this.IsShield,
+                IsSpying = this.IsSpying,
+                IsResilience = this.IsResilience,
+                Armor = this.Armor,
+                Strength = this.Strength,
+            };
+        }
     }
 }
