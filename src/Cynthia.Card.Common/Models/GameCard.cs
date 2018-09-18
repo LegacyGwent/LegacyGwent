@@ -20,7 +20,8 @@ namespace Cynthia.Card
         public CardLocation Location { get; set; }
         public bool IsDoomed { get; set; } = false;//是否佚亡
         public CardType Type { get; set; }//法术还是单位
-        public int PlayerIndex { get; set; }
+        public int PlayerIndex { get; set; }//我方玩家Id
+        public CardEffect CardEffect { get; set; }//卡牌效果
         //---------------------------------------------------------------
         //卡牌状态
         public bool IsReveal { get; set; } = false;//是否被揭示 | 手牌
