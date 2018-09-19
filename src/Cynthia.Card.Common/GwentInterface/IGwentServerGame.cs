@@ -65,7 +65,7 @@ namespace Cynthia.Card
         GameInfomation GetNameInfo(TwoPlayer player);
         GameInfomation GetAllInfo(TwoPlayer player);
         //---------------------------------------------------------------------------------------------
-        Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, GameCard cardInfo);
+        Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
         Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
         //----------------------------------------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);

@@ -15,7 +15,7 @@ namespace Cynthia.Card
         //公共效果
         public virtual void ToCemetery()//进入墓地触发
         {
-            if (Card.IsDoomed)//如果是佚亡,放逐
+            if (Card.CardStatus.IsDoomed)//如果是佚亡,放逐
             {
                 Banish();
             }
@@ -36,38 +36,38 @@ namespace Cynthia.Card
         //单位卡的单卡效果
         public virtual void Strengthen(int num)//强化
         {
-            Card.Strength += num;
+            Card.CardStatus.Strength += num;
         }
         public virtual void Weaken(int num)//削弱
         {
-            Card.Strength -= num;
-            if (Card.Strength < 0)
+            Card.CardStatus.Strength -= num;
+            if (Card.CardStatus.Strength < 0)
             {
-                Card.Strength = 0;
+                Card.CardStatus.Strength = 0;
                 Banish();
             }
         }
         public virtual void Boost(int num)//增益
         {
-            Card.HealthStatus += num;
+            Card.CardStatus.HealthStatus += num;
         }
         public virtual void Damage(int num)//伤害
         {
-            Card.HealthStatus -= num;
-            if (Card.HealthStatus + Card.Strength < 0)
+            Card.CardStatus.HealthStatus -= num;
+            if (Card.CardStatus.HealthStatus + Card.CardStatus.Strength < 0)
             {
-                Card.HealthStatus = -Card.Strength;
+                Card.CardStatus.HealthStatus = -Card.CardStatus.Strength;
                 ToCemetery();
             }
         }
         public virtual void Reset()//重置
         {
-            Card.HealthStatus = 0;
+            Card.CardStatus.HealthStatus = 0;
         }
         public virtual void Heal()//治愈
         {
-            if (Card.HealthStatus < 0)
-                Card.HealthStatus = 0;
+            if (Card.CardStatus.HealthStatus < 0)
+                Card.CardStatus.HealthStatus = 0;
         }
     }
 }

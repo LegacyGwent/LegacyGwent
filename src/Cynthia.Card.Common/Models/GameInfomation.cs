@@ -16,8 +16,8 @@ namespace Cynthia.Card
         public bool IsEnemyPlayerPass { get; set; }//对手pass
         public bool IsMyLeader { get; set; }//我方领袖是否使用
         public bool IsEnemyLeader { get; set; }//敌方领袖是否使用
-        public GameCard MyLeader { get; set; }//我方领袖是?
-        public GameCard EnemyLeader { get; set; }//敌方领袖是?
+        public CardStatus MyLeader { get; set; }//我方领袖是?
+        public CardStatus EnemyLeader { get; set; }//敌方领袖是?
         public string EnemyName { get; set; }//对手名称
         public string MyName { get; set; }//对手名称
         public int MyHandCount { get; set; }//我方手牌数量
@@ -28,11 +28,11 @@ namespace Cynthia.Card
         public int MyDeckCount { get; set; }//我方剩余卡组数量
         public int MyWinCount { get; set; }//我方剩余卡组数量
         public int EnemyWinCount { get; set; }//我方剩余卡组数量
-        public IEnumerable<GameCard> MyHandCard { get; set; }//我方手牌(数量)
-        public IEnumerable<GameCard> EnemyHandCard { get; set; }//敌方手牌(数量)
-        public IEnumerable<GameCard>[] MyPlace { get; set; }//我方场地
-        public IEnumerable<GameCard>[] EnemyPlace { get; set; }//敌方场地
-        public IEnumerable<GameCard> MyCemetery { get; set; }//我方墓地
-        public IEnumerable<GameCard> EnemyCemetery { get; set; }//敌方墓地
+        public IEnumerable<CardStatus> MyHandCard { get; set; }//我方手牌(数量)
+        public IEnumerable<CardStatus> EnemyHandCard { get; set; }//敌方手牌(数量)
+        public IEnumerable<CardStatus>[] MyPlace { get; set; }//我方场地
+        public IEnumerable<CardStatus>[] EnemyPlace { get; set; }//敌方场地
+        public IEnumerable<CardStatus> MyCemetery { get; set; }//我方墓地
+        public IEnumerable<CardStatus> EnemyCemetery { get; set; }//敌方墓地
     }
 }
