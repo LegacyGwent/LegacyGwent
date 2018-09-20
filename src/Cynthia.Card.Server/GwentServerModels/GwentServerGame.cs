@@ -227,7 +227,7 @@ namespace Cynthia.Card.Server
             await SetCountInfo();//更新双方的"数量"信息(手牌数量发生了改变)
                                  //以上获得了卡牌,并且提取了出来
                                  //向对手发送,自己用了那一张牌
-            await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card);
+            await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card.CardStatus);
             await Task.Delay(350);
             //这句话测试用
             if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
@@ -299,7 +299,7 @@ namespace Cynthia.Card.Server
         {
             if (PlayersDeck[playerIndex].Count <= 0)
                 return;
-            await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex], count);
+            await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.CardStatus), count);
             IsPlayersMulligan[playerIndex] = true;
             await SetMulliganInfo();
             for (var i = 0; i < count; i++)
@@ -310,10 +310,10 @@ namespace Cynthia.Card.Server
                     break;
                 //逻辑处理
                 //将手牌中需要调度的牌,移动到卡组最后
-                CardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count - 1);
+                CardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
                 //将卡组中第一张牌抽到手牌调度走的位置
                 var card = CardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex);
-                await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card);
+                await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.CardStatus);
             }
             await Task.Delay(500);
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
@@ -542,13 +542,13 @@ namespace Cynthia.Card.Server
             var player2Task = default(Task);
             if (playerIndex == Player1Index)
             {
-                player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player1Index]);
-                player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player1Index]);
+                player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player1Index].Select(x => x.CardStatus));
+                player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player1Index].Select(x => x.CardStatus));
             }
             else
             {
-                player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player2Index]);
-                player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player2Index]);
+                player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player2Index].Select(x => x.CardStatus));
+                player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player2Index].Select(x => x.CardStatus));
             }
             return Task.WhenAll(player1Task, player2Task);
         }
@@ -865,8 +865,8 @@ namespace Cynthia.Card.Server
                         DeckFaction = PlayersFaction[Player1Index],
                         Location = new CardLocation() { RowPosition = RowPosition.MyLeader },
                     }
-                }
-            }.ForAll(x => { x.CardEffect = new CardEffect(this, x); }).ToList();
+                }.With(card => card.CardEffect = new CardEffect(this, card))
+            }.ToList();
             PlayersLeader[Player2Index] = new List<GameCard>
             {
                 new GameCard()
@@ -877,8 +877,8 @@ namespace Cynthia.Card.Server
                         DeckFaction = PlayersFaction[Player2Index],
                         Location = new CardLocation() { RowPosition = RowPosition.MyLeader },
                     }
-                }
-            }.ForAll(x => { x.CardEffect = new CardEffect(this, x); }).ToList();
+                }.With(card => card.CardEffect = new CardEffect(this, card))
+            }.ToList();
             //将卡组转化成实体,并且打乱牌组
             PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard()
             {
@@ -888,7 +888,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
                     Location = new CardLocation() { RowPosition = RowPosition.MyDeck }
                 }
-            }).ForAll(x => { x.CardEffect = new CardEffect(this, x); })
+            }.With(card => card.CardEffect = new CardEffect(this, card)))
             .Mess().ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
             PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard()
@@ -899,7 +899,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
                     Location = new CardLocation() { RowPosition = RowPosition.MyDeck }
                 }
-            }).ForAll(x => { x.CardEffect = new CardEffect(this, x); })
+            }.With(card => card.CardEffect = new CardEffect(this, card)))
             .Mess().ToList();
         }
         public Task SendBigRoundEndToCemetery()
@@ -921,7 +921,7 @@ namespace Cynthia.Card.Server
                     player1CardsPart.MyRow1Cards.Add(i);
                     player2CardsPart.EnemyRow1Cards.Add(i);
                     ToCemeteryInfo(card);
-                    CardMove(PlayersPlace[Player1Index][0], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
+                    CardMove(PlayersPlace[Player1Index][0], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count);
                 }
             }
             for (var i = PlayersPlace[Player1Index][1].Count - 1; i >= 0; i--)
@@ -936,7 +936,7 @@ namespace Cynthia.Card.Server
                     player1CardsPart.MyRow2Cards.Add(i);
                     player2CardsPart.EnemyRow2Cards.Add(i);
                     ToCemeteryInfo(card);
-                    CardMove(PlayersPlace[Player1Index][1], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
+                    CardMove(PlayersPlace[Player1Index][1], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count);
                 }
             }
             for (var i = PlayersPlace[Player1Index][2].Count - 1; i >= 0; i--)
@@ -951,7 +951,7 @@ namespace Cynthia.Card.Server
                     player1CardsPart.MyRow3Cards.Add(i);
                     player2CardsPart.EnemyRow3Cards.Add(i);
                     ToCemeteryInfo(card);
-                    CardMove(PlayersPlace[Player1Index][2], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
+                    CardMove(PlayersPlace[Player1Index][2], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count);
                 }
             }
             for (var i = PlayersPlace[Player2Index][0].Count - 1; i >= 0; i--)
@@ -966,7 +966,7 @@ namespace Cynthia.Card.Server
                     player2CardsPart.MyRow1Cards.Add(i);
                     player1CardsPart.EnemyRow1Cards.Add(i);
                     ToCemeteryInfo(card);
-                    CardMove(PlayersPlace[Player2Index][0], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
+                    CardMove(PlayersPlace[Player2Index][0], i, PlayersCemetery[Player2Index], PlayersCemetery[Player2Index].Count);
                 }
             }
             for (var i = PlayersPlace[Player2Index][1].Count - 1; i >= 0; i--)
@@ -981,7 +981,7 @@ namespace Cynthia.Card.Server
                     player2CardsPart.MyRow2Cards.Add(i);
                     player1CardsPart.EnemyRow2Cards.Add(i);
                     ToCemeteryInfo(card);
-                    CardMove(PlayersPlace[Player2Index][1], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
+                    CardMove(PlayersPlace[Player2Index][1], i, PlayersCemetery[Player2Index], PlayersCemetery[Player2Index].Count);
                 }
             }
             for (var i = PlayersPlace[Player2Index][2].Count - 1; i >= 0; i--)
@@ -996,7 +996,7 @@ namespace Cynthia.Card.Server
                     player2CardsPart.MyRow3Cards.Add(i);
                     player1CardsPart.EnemyRow3Cards.Add(i);
                     ToCemeteryInfo(card);
-                    CardMove(PlayersPlace[Player2Index][2], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count - 1);
+                    CardMove(PlayersPlace[Player2Index][2], i, PlayersCemetery[Player2Index], PlayersCemetery[Player2Index].Count);
                 }
             }
             var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
