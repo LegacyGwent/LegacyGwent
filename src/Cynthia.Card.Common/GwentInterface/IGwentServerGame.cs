@@ -39,8 +39,6 @@ namespace Cynthia.Card
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
         T CardMove<T>(IList<T> soure, int soureIndex, IList<T> taget, int tagetIndex);
         Task GameOverExecute();
-        RowPosition RowMirror(RowPosition row);
-        bool IsMyRow(RowPosition row);
         //----------------------------------------------------------------------------------------------
         //自动向玩家推送更新消息
         Task SetAllInfo();
