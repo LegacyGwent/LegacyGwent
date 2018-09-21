@@ -195,7 +195,7 @@ namespace Cynthia.Card.Server
             if (cardInfo.IsPass == true)
                 return false;
             //将放置信息发送给对手
-            var enemyRowIndex = RowMirror(cardInfo.CardLocation.RowPosition);
+            var enemyRowIndex = cardInfo.CardLocation.RowPosition.RowMirror();
             //创建相对于对手的位置信息
             var enemyCardInfo = new RoundInfo()
             {
@@ -259,8 +259,8 @@ namespace Cynthia.Card.Server
             {
                 //单位卡
                 //放在了...玩家1还是玩家2的场地?
-                var playerPlace = IsMyRow(cardInfo.CardLocation.RowPosition) ? playerIndex : (playerIndex == 0 ? 1 : 0);
-                var trueRow = IsMyRow(cardInfo.CardLocation.RowPosition) ? cardInfo.CardLocation.RowPosition : RowMirror(cardInfo.CardLocation.RowPosition);
+                var playerPlace = cardInfo.CardLocation.RowPosition.IsMyRow() ? playerIndex : (playerIndex == 0 ? 1 : 0);
+                var trueRow = cardInfo.CardLocation.RowPosition.IsMyRow() ? cardInfo.CardLocation.RowPosition : cardInfo.CardLocation.RowPosition.RowMirror();
                 var rowIndex = (trueRow == RowPosition.MyRow1 ? 0 : (trueRow == RowPosition.MyRow2 ? 1 : 2));
                 //执行效果代码之后###########################################
                 //还需要加入"单位卡使用"
@@ -454,80 +454,6 @@ namespace Cynthia.Card.Server
                 return RowPosition.EnemyLeader;
             //
             return RowPosition.SpecialPlace;
-        }
-        public RowPosition RowMirror(RowPosition row)
-        {
-            switch (row)
-            {
-                case RowPosition.MyRow1:
-                    return RowPosition.EnemyRow1;
-                case RowPosition.MyRow2:
-                    return RowPosition.EnemyRow2;
-                case RowPosition.MyRow3:
-                    return RowPosition.EnemyRow3;
-                case RowPosition.EnemyRow1:
-                    return RowPosition.MyRow1;
-                case RowPosition.EnemyRow2:
-                    return RowPosition.MyRow2;
-                case RowPosition.EnemyRow3:
-                    return RowPosition.MyRow3;
-                case RowPosition.MyHand:
-                    return RowPosition.EnemyHand;
-                case RowPosition.EnemyHand:
-                    return RowPosition.MyHand;
-                case RowPosition.MyStay:
-                    return RowPosition.EnemyStay;
-                case RowPosition.EnemyStay:
-                    return RowPosition.MyStay;
-                case RowPosition.MyDeck:
-                    return RowPosition.EnemyDeck;
-                case RowPosition.EnemyDeck:
-                    return RowPosition.MyDeck;
-                case RowPosition.MyCemetery:
-                    return RowPosition.EnemyCemetery;
-                case RowPosition.EnemyCemetery:
-                    return RowPosition.MyCemetery;
-                case RowPosition.SpecialPlace:
-                    return RowPosition.SpecialPlace;
-            }
-            return RowPosition.SpecialPlace;
-        }
-        public bool IsMyRow(RowPosition row)
-        {
-            switch (row)
-            {
-                case RowPosition.MyRow1:
-                    return true;
-                case RowPosition.MyRow2:
-                    return true;
-                case RowPosition.MyRow3:
-                    return true;
-                case RowPosition.EnemyRow1:
-                    return false;
-                case RowPosition.EnemyRow2:
-                    return false;
-                case RowPosition.EnemyRow3:
-                    return false;
-                case RowPosition.MyHand:
-                    return true;
-                case RowPosition.EnemyHand:
-                    return false;
-                case RowPosition.MyStay:
-                    return true;
-                case RowPosition.EnemyStay:
-                    return false;
-                case RowPosition.MyDeck:
-                    return true;
-                case RowPosition.EnemyDeck:
-                    return false;
-                case RowPosition.MyCemetery:
-                    return true;
-                case RowPosition.EnemyCemetery:
-                    return false;
-                case RowPosition.SpecialPlace:
-                    return true;
-            }
-            return true;
         }
         //----------------------------------------------------------------------------------------------
         public Task SetAllInfo()

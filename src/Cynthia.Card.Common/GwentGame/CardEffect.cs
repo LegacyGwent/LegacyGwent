@@ -29,14 +29,19 @@ namespace Cynthia.Card
         //特殊卡的单卡效果
         public virtual void CardUse()//使用
         {
+            CardUseStart();
             CardUseEffect();
             CardUseEnd();
         }
-        public virtual void CardUseEffect()//使用
+        public virtual void CardUseStart()//使用效果
         {
 
         }
-        public virtual void CardUseEnd()//使用
+        public virtual void CardUseEffect()//使用效果
+        {
+
+        }
+        public virtual void CardUseEnd()//使用结束
         {
             ToCemetery();
         }
