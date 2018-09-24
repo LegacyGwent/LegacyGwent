@@ -286,6 +286,7 @@ namespace Cynthia.Card.Server
         //封装的抽卡
         public async Task DrawCard(int player1Count, int player2Count)
         {
+            //抽卡限制,不至于抽空卡组
             if (player1Count > PlayersDeck[Player1Index].Count) player1Count = PlayersDeck[Player1Index].Count;
             if (player2Count > PlayersDeck[Player2Index].Count) player2Count = PlayersDeck[Player2Index].Count;
             var player1Task = DrawCardAnimation(Player1Index, player1Count, Player2Index, player2Count);
@@ -564,6 +565,8 @@ namespace Cynthia.Card.Server
                 MyLeader = PlayersLeader[myPlayerIndex][0].CardStatus,
                 EnemyLeader = PlayersLeader[enemyPlayerIndex][0].CardStatus,
                 MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.CardStatus),
+                MyStay = PlayersStay[myPlayerIndex].Select(x => x.CardStatus),
+                EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.CardStatus),
                 EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.CardStatus).Select(x => x.IsReveal ? x : new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
                 MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.CardStatus)).ToArray(),
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select

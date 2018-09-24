@@ -51,17 +51,6 @@ namespace Cynthia.Card
         Task SetMulliganInfo();
         Task SetWinCountInfo();
         Task SetNameInfo();
-        //---------------
-        //获取指定的数据包
-        GameInfomation GetGameInfo(TwoPlayer player);
-        GameInfomation GetCardsInfo(TwoPlayer player);
-        GameInfomation GetPointInfo(TwoPlayer player);
-        GameInfomation GetCountInfo(TwoPlayer player);
-        GameInfomation GetPassInfo(TwoPlayer player);
-        GameInfomation GetMulliganInfo(TwoPlayer player);
-        GameInfomation GetWinCountInfo(TwoPlayer player);
-        GameInfomation GetNameInfo(TwoPlayer player);
-        GameInfomation GetAllInfo(TwoPlayer player);
         //---------------------------------------------------------------------------------------------
         Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
         Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);

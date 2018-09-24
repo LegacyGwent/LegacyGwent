@@ -30,6 +30,8 @@ namespace Cynthia.Card
         public int EnemyWinCount { get; set; }//我方剩余卡组数量
         public IEnumerable<CardStatus> MyHandCard { get; set; }//我方手牌(数量)
         public IEnumerable<CardStatus> EnemyHandCard { get; set; }//敌方手牌(数量)
+        public IEnumerable<CardStatus> MyStay { get; set; }//我方悬牌
+        public IEnumerable<CardStatus> EnemyStay { get; set; }//敌方悬牌
         public IEnumerable<CardStatus>[] MyPlace { get; set; }//我方场地
         public IEnumerable<CardStatus>[] EnemyPlace { get; set; }//敌方场地
         public IEnumerable<CardStatus> MyCemetery { get; set; }//我方墓地
