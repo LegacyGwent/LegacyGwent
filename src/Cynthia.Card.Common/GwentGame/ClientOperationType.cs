@@ -4,6 +4,6 @@ namespace Cynthia.Card
     {
         None,//超时操作
         RoundOperate,//回合进行的操作(放置)
-        MulliganInfo
+        MulliganInfo//调度的相关信息
     }
 }
