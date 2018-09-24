@@ -8,6 +8,6 @@ namespace Cynthia.Card
         //需要将卡牌移动到的地方
         public CardLocation Tage;
         //移动的卡牌...如果有的话
-        public GameCard Card;
+        public CardStatus Card;
     }
 }
