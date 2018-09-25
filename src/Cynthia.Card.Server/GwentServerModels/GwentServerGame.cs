@@ -33,6 +33,7 @@ namespace Cynthia.Card.Server
             LogicDrawCard(Player1Index, 10);//不会展示动画的,逻辑层抽牌
             LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
+            //
             await Task.WhenAll(MulliganCard(Player1Index, 3), MulliganCard(Player2Index, 3));
             //---------------------------------------------------------------------------------------
             while (await PlayerRound()) ;//双方轮流执行回合|第一小局
@@ -277,9 +278,10 @@ namespace Cynthia.Card.Server
             if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
             for (var i = 0; i < count; i++)
             {
-                PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
-                PlayersDeck[playerIndex][0].CardStatus.Location.RowPosition = RowPosition.MyHand;
-                PlayersDeck[playerIndex].RemoveAt(0);
+                CardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], 0);
+                //PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
+                //PlayersDeck[playerIndex][0].CardStatus.Location.RowPosition = RowPosition.MyHand;
+                //PlayersDeck[playerIndex].RemoveAt(0);
             }
         }
 
@@ -294,33 +296,6 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(player1Task, player2Task);
             await SetCountInfo();
         }
-
-        //封装的调度
-        public async Task MulliganCard(int playerIndex, int count)
-        {
-            if (PlayersDeck[playerIndex].Count <= 0)
-                return;
-            await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.CardStatus), count);
-            IsPlayersMulligan[playerIndex] = true;
-            await SetMulliganInfo();
-            for (var i = 0; i < count; i++)
-            {
-                await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
-                var mulliganCardIndex = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<int>();
-                if (mulliganCardIndex == -1)
-                    break;
-                //逻辑处理
-                //将手牌中需要调度的牌,移动到卡组最后
-                CardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
-                //将卡组中第一张牌抽到手牌调度走的位置
-                var card = CardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex);
-                await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.CardStatus);
-            }
-            await Task.Delay(500);
-            await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
-            IsPlayersMulligan[playerIndex] = false;
-            await SetMulliganInfo();
-        }
         public async Task DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
         {
             for (var i = 0; i < myPlayerCount; i++)
@@ -332,8 +307,9 @@ namespace Cynthia.Card.Server
                     Taget = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
                     Card = PlayersDeck[myPlayerIndex][0].CardStatus
                 });
-                PlayersHandCard[myPlayerIndex].Insert(0, PlayersDeck[myPlayerIndex][0]);
-                PlayersDeck[myPlayerIndex].RemoveAt(0);
+                //PlayersHandCard[myPlayerIndex].Insert(0, PlayersDeck[myPlayerIndex][0]);
+                //PlayersDeck[myPlayerIndex].RemoveAt(0);
+                LogicDrawCard(myPlayerIndex, 1);
                 await Task.Delay(500);
                 await CardMove(myPlayerIndex, new MoveCardInfo()
                 {
@@ -361,6 +337,33 @@ namespace Cynthia.Card.Server
                 //await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
                 await Task.Delay(300);
             }
+        }
+
+        //封装的调度
+        public async Task MulliganCard(int playerIndex, int count)
+        {
+            if (PlayersDeck[playerIndex].Count <= 0)
+                return;
+            await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.CardStatus), count);
+            IsPlayersMulligan[playerIndex] = true;
+            await SetMulliganInfo();
+            for (var i = 0; i < count; i++)
+            {
+                await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
+                var mulliganCardIndex = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<int>();
+                if (mulliganCardIndex == -1)
+                    break;
+                //逻辑处理
+                //将手牌中需要调度的牌,移动到卡组最后
+                CardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
+                //将卡组中第一张牌抽到手牌调度走的位置
+                var card = CardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex);
+                await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.CardStatus);
+            }
+            await Task.Delay(500);
+            await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
+            IsPlayersMulligan[playerIndex] = false;
+            await SetMulliganInfo();
         }
         //-------------------------------------------------------------------------------------------------------------------------
         //下面是发送数据包,或者进行一些初始化信息
@@ -733,6 +736,7 @@ namespace Cynthia.Card.Server
                 info
             );
         }
+        /*
         public Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo)
         {
             return Players[playerIndex].SendAsync
@@ -756,7 +760,7 @@ namespace Cynthia.Card.Server
                 tagetRowIndex,
                 tagetCardIndex
             );
-        }
+        }*/
         //----------------------------------------------------------------------------------------------
         public Task SendGameResult(TwoPlayer player)
         {
