@@ -52,8 +52,11 @@ namespace Cynthia.Card
         Task SetWinCountInfo();
         Task SetNameInfo();
         //---------------------------------------------------------------------------------------------
-        Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
-        Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
+        //Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
+        //Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
+        Task CardOn(int playerIndex, CardLocation location);
+        Task CardDown(int playerIndex, CardLocation location);
+        Task CardMove(int playerIndex, MoveCardInfo info);
         //----------------------------------------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);

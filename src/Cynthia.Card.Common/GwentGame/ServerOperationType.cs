@@ -27,10 +27,9 @@ namespace Cynthia.Card
         GetMulliganInfo,//获取调度数据
         MulliganEnd,//调度结束
         //-----------------------------------------------------------
-        //<下个目标就准备改>
-        GetCardFrom,//从一个地方获取卡牌
-        SetCardTo,//将一张牌移动到另一个位置
-        //<计划替代上面的两个>
+        //GetCardFrom,//从一个地方获取卡牌
+        //SetCardTo,//将一张牌移动到另一个位置
+        //(已替代上面两个)
         CardMove,//卡牌移动
         CardOn,//卡牌抬起
         CardDown,//卡牌落下
