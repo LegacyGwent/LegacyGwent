@@ -65,5 +65,6 @@ namespace Cynthia.Card
         IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
         int AnotherPlayer(int playerIndex);
         CardLocation GetCardLocation(int playerIndex, RowPosition row, GameCard card);
+        Task Debug(string msg);
     }
 }

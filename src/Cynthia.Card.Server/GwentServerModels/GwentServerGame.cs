@@ -522,6 +522,11 @@ namespace Cynthia.Card.Server
             };
         }
         public int AnotherPlayer(int playerIndex) => playerIndex == Player1Index ? Player2Index : Player1Index;
+        public async Task Debug(string msg)
+        {
+            await Players[Player1Index].SendAsync(ServerOperationType.Debug, msg);
+            await Players[Player2Index].SendAsync(ServerOperationType.Debug, msg);
+        }
         //----------------------------------------------------------------------------------------------
         public Task SetAllInfo()
         {
