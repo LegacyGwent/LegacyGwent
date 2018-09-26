@@ -205,6 +205,10 @@ namespace Cynthia.Card.Server
             //var enemyRowIndex = cardInfo.CardLocation.RowPosition.RowMirror();
             //创建相对于对手的位置信息
             var card = cardInfo.HandCardIndex == -1 ? PlayersLeader[playerIndex][0] : PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
+            if (cardInfo.HandCardIndex == -1)
+            {
+                Console.WriteLine("");
+            }
             if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
             {
                 await card.Effect.ToCemetery();

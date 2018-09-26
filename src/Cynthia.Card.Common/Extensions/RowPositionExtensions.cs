@@ -93,6 +93,10 @@ namespace Cynthia.Card
                     return RowPosition.MyCemetery;
                 case RowPosition.SpecialPlace:
                     return RowPosition.SpecialPlace;
+                case RowPosition.MyLeader:
+                    return RowPosition.EnemyLeader;
+                case RowPosition.EnemyLeader:
+                    return RowPosition.MyLeader;
             }
             return RowPosition.SpecialPlace;
         }
