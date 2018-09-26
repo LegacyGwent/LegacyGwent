@@ -128,6 +128,7 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(SetCemeteryInfo(Player1Index), SetCemeteryInfo(Player2Index));
             //清空所有场上的牌
         }
+        //进行一轮回合
         public async Task<bool> PlayerRound()
         {
             //判断这是谁的回合
@@ -135,10 +136,12 @@ namespace Cynthia.Card.Server
             //切换回合
             GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
             //----------------------------------------------------
-            //这里是回合开始卡牌的逻辑和动画
+            //这里是回合开始卡牌(如剑船)的逻辑和动画<待补充>
+
             //----------------------------------------------------
+            //这是硬币动画
             await Players[playerIndex].SendAsync(ServerOperationType.SetCoinInfo, true);
-            await Players[playerIndex == Player1Index ? Player2Index : Player1Index].SendAsync(ServerOperationType.SetCoinInfo, false);
+            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.SetCoinInfo, false);
             if (!IsPlayersPass[playerIndex])
                 await Players[playerIndex].SendAsync(ServerOperationType.RemindYouRoundStart);
             await Task.Delay(500);
@@ -147,7 +150,7 @@ namespace Cynthia.Card.Server
             if (IsPlayersPass[playerIndex])
             {
                 //如果双方都pass...小局结束
-                if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
+                if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                     return false;
                 return true;
             }
@@ -155,7 +158,7 @@ namespace Cynthia.Card.Server
             {//如果没有手牌,强制pass
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
-                if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
+                if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     //如果对方也pass,结束游戏
                     return false;
@@ -165,38 +168,41 @@ namespace Cynthia.Card.Server
             //让玩家选择拖拽,或者Pass
             await Players[playerIndex].SendAsync(ServerOperationType.GetDragOrPass);
             //获取信息
-            var cardInfo = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RoundInfo>();//接收玩家的选择,提取结果
-            if (cardInfo.IsPass)
+            var roundInfo = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RoundInfo>();//接收玩家的选择,提取结果
+            if (roundInfo.IsPass)
             {//Pass时候执行
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
                 //判断对手是否pass
-                if (IsPlayersPass[playerIndex == 0 ? 1 : 0] == true)
+                if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     return false;
                 }
-                //发送信息
             }
             else
-            {//放置卡牌时执行
-                await PlayCard(playerIndex, cardInfo);
+            {//放置卡牌(单位和法术都是)时执行
+             //以上应该不需要改变,至少不是大改动(动画,pass判断之类的)
+             //------------------------------------------------------------------------------------
+             //进行移动...留在卡牌里吧
+             //------------------------------------------------------------------------------------
+                await RoundPlayCard(playerIndex, roundInfo);
                 //宣告双方效果结束#########################
                 //可能会变更, 计划封装到卡牌效果中
                 //########################################
                 await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
-                await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardEffectEnd);
+                await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.EnemyCardEffectEnd);
                 await Task.Delay(500);
             }
-            //宣告回合结束
+            //宣告回合结束(应该不需要更改)
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
             return true;
         }
-        public async Task<bool> PlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
-        {//白板已经完成,剩下添加效果
-            if (cardInfo.IsPass == true)
-                return false;
+        public async Task<bool> RoundPlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
+        {   //白板已经完成,剩下添加效果
+            //if (cardInfo.IsPass == true)
+            //return false;传入错误的信息,就错掉吧！
             //将放置信息发送给对手
-            var enemyRowIndex = cardInfo.CardLocation.RowPosition.RowMirror();
+            //var enemyRowIndex = cardInfo.CardLocation.RowPosition.RowMirror();
             //创建相对于对手的位置信息
             var enemyCardInfo = new RoundInfo()
             {
@@ -204,10 +210,10 @@ namespace Cynthia.Card.Server
                 CardLocation = new CardLocation()
                 {
                     CardIndex = cardInfo.CardLocation.CardIndex,
-                    RowPosition = enemyRowIndex
+                    RowPosition = cardInfo.CardLocation.RowPosition.RowMirror()
                 },
             };
-            //------------------------------------------------------------
+            //-----------------------------------------------------------------------
             var card = default(GameCard);//打出了那一张牌呢
             if (cardInfo.HandCardIndex == -1)//如果是-1,视为领袖卡
             {
@@ -228,7 +234,7 @@ namespace Cynthia.Card.Server
             await SetCountInfo();//更新双方的"数量"信息(手牌数量发生了改变)
                                  //以上获得了卡牌,并且提取了出来
                                  //向对手发送,自己用了那一张牌
-            await Players[playerIndex == 0 ? 1 : 0].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card.CardStatus);
+            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card.CardStatus);
             await Task.Delay(350);
             //这句话测试用
             if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
@@ -260,7 +266,7 @@ namespace Cynthia.Card.Server
             {
                 //单位卡
                 //放在了...玩家1还是玩家2的场地?
-                var playerPlace = cardInfo.CardLocation.RowPosition.IsMyRow() ? playerIndex : (playerIndex == 0 ? 1 : 0);
+                var playerPlace = cardInfo.CardLocation.RowPosition.IsMyRow() ? playerIndex : (AnotherPlayer(playerIndex));
                 var trueRow = cardInfo.CardLocation.RowPosition.IsMyRow() ? cardInfo.CardLocation.RowPosition : cardInfo.CardLocation.RowPosition.RowMirror();
                 var rowIndex = (trueRow == RowPosition.MyRow1 ? 0 : (trueRow == RowPosition.MyRow2 ? 1 : 2));
                 //执行效果代码之后###########################################
@@ -370,11 +376,12 @@ namespace Cynthia.Card.Server
         //根据当前信息,处理游戏结果
 
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        public T CardMove<T>(IList<T> soure, int soureIndex, IList<T> taget, int tagetIndex)
+        public GameCard CardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex)
         {
             var item = soure[soureIndex];
             soure.RemoveAt(soureIndex);
             taget.Insert(tagetIndex, item);
+            item.CardStatus.Location.RowPosition = ListToRow(WhoRow(taget), taget);
             return item;
         }
         public async Task GameOverExecute()
@@ -396,7 +403,7 @@ namespace Cynthia.Card.Server
         }
         public IList<GameCard> RowToList(int myPlayerIndex, RowPosition row)
         {
-            var enemyPlayerIndex = (myPlayerIndex == Player1Index ? Player2Index : Player1Index);
+            var enemyPlayerIndex = (AnotherPlayer(myPlayerIndex));
             switch (row)
             {
                 case RowPosition.MyHand:
@@ -437,7 +444,7 @@ namespace Cynthia.Card.Server
         }
         public RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list)
         {//这一行对于这个玩家是哪一行
-            var enemyPlayerIndex = (myPlayerIndex == Player1Index ? Player2Index : Player1Index);
+            var enemyPlayerIndex = AnotherPlayer(myPlayerIndex);
             if (list == PlayersHandCard[myPlayerIndex])
                 return RowPosition.MyHand;
             if (list == PlayersHandCard[enemyPlayerIndex])
@@ -481,6 +488,15 @@ namespace Cynthia.Card.Server
             //
             return RowPosition.SpecialPlace;
         }
+        public int WhoRow(IList<GameCard> list)
+        {
+            if (ListToRow(Player1Index, list).IsMyRow())
+                return Player1Index;
+            else
+                return Player2Index;
+        }
+        //另一个玩家
+        public int AnotherPlayer(int playerIndex) => playerIndex == Player1Index ? Player2Index : Player1Index;
         //----------------------------------------------------------------------------------------------
         public Task SetAllInfo()
         {
@@ -490,18 +506,8 @@ namespace Cynthia.Card.Server
         }
         public Task SetCemeteryInfo(int playerIndex)
         {
-            var player1Task = default(Task);
-            var player2Task = default(Task);
-            if (playerIndex == Player1Index)
-            {
-                player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player1Index].Select(x => x.CardStatus));
-                player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player1Index].Select(x => x.CardStatus));
-            }
-            else
-            {
-                player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player2Index].Select(x => x.CardStatus));
-                player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player2Index].Select(x => x.CardStatus));
-            }
+            var player1Task = Players[playerIndex].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[playerIndex].Select(x => x.CardStatus));
+            var player2Task = Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[playerIndex].Select(x => x.CardStatus));
             return Task.WhenAll(player1Task, player2Task);
         }
         public Task SetGameInfo()
