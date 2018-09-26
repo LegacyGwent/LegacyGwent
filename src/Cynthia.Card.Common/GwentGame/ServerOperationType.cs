@@ -5,9 +5,6 @@ namespace Cynthia.Card
         GameStart,//游戏开始发送初始信息(暂时不需要更改)
         GetDragOrPass,//告诉玩家回合开始[需要做逻辑与功能上的调整]
         RoundEnd,//告诉玩家回合结束(暂时没用)
-        MyCardEffectEnd,//告诉玩家我方卡牌效果结束 <感觉有问题>
-        EnemyCardEffectEnd,//告诉玩家敌方卡牌效果结束<感觉有问题>
-        EnemyCardDrag,//告诉玩家敌方拖拽卡牌<感觉有问题>
         SelectPlaceCard,//选择场上一些单位[等待完成]
         SelectAnotherCard,//选择一些其他卡[等待完成]
         GameEnd,//告诉玩家游戏结束,发送游戏结束信息(应该已经不用更改)
@@ -30,9 +27,13 @@ namespace Cynthia.Card
         GetMulliganInfo,//获取调度数据
         MulliganEnd,//调度结束
         //-----------------------------------------------------------
+        //MyCardEffectEnd,//告诉玩家我方卡牌效果结束 <感觉有问题>
+        //EnemyCardEffectEnd,//告诉玩家敌方卡牌效果结束<感觉有问题>
+        //EnemyCardDrag,//告诉玩家敌方拖拽卡牌<感觉有问题>
+        //
         //GetCardFrom,//从一个地方获取卡牌
         //SetCardTo,//将一张牌移动到另一个位置
-        //(已替代上面两个)
+        //(已替代上面五个)
         CardMove,//卡牌移动
         CardOn,//卡牌抬起
         CardDown,//卡牌落下
