@@ -26,7 +26,7 @@ namespace Cynthia.Card
         int Player2Index { get; }//玩家2的坐标
         Task<bool> Play();
         Task<bool> PlayerRound();
-        Task<bool> RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
+        Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         void LogicDrawCard(int playerIndex, int count);//或许应该播放抽卡动画和更新数值
         //封装的抽卡
         Task DrawCard(int player1Count, int player2Count);
@@ -37,7 +37,7 @@ namespace Cynthia.Card
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        GameCard CardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex);
+        GameCard LogicCardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex);
         Task GameOverExecute();
         //----------------------------------------------------------------------------------------------
         //自动向玩家推送更新消息
@@ -63,5 +63,7 @@ namespace Cynthia.Card
         Task SendBigRoundEndToCemetery();
         RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
         IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
+        int AnotherPlayer(int playerIndex);
+        CardLocation GetCardLocation(int playerIndex, RowPosition row, GameCard card);
     }
 }
