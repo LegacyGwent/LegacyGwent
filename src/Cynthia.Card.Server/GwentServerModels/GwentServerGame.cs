@@ -9,7 +9,7 @@ namespace Cynthia.Card.Server
     public class GwentServerGame : IGwentServerGame
     {
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
-        //public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
+        public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
         public IList<GameCard>[] PlayersLeader { get; set; } = new IList<GameCard>[2];//玩家领袖是?/
         public TwoPlayer GameRound { get; set; }//谁的的回合----
         public int RoundCount { get; set; } = 0;//有效比分的回合数
@@ -154,7 +154,7 @@ namespace Cynthia.Card.Server
                     return false;
                 return true;
             }
-            else if (PlayersHandCard[playerIndex].Count + PlayersLeader[playerIndex].Count <= 0)
+            else if (PlayersHandCard[playerIndex].Count + (IsPlayersLeader[playerIndex] ? 1 : 0) == 0)
             {//如果没有手牌,强制pass
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
@@ -206,9 +206,7 @@ namespace Cynthia.Card.Server
             //创建相对于对手的位置信息
             var card = cardInfo.HandCardIndex == -1 ? PlayersLeader[playerIndex][0] : PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
             if (cardInfo.HandCardIndex == -1)
-            {
-                Console.WriteLine("");
-            }
+                IsPlayersLeader[playerIndex] = false;
             if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
             {
                 await card.Effect.ToCemetery();
@@ -613,8 +611,8 @@ namespace Cynthia.Card.Server
                 MyName = Players[myPlayerIndex].PlayerName,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
-                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + PlayersLeader[myPlayerIndex].Count,//(IsPlayersLeader[myPlayerIndex] ? 1 : 0),
-                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + PlayersLeader[enemyPlayerIndex].Count,//(IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
                 MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
                 EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
             };
@@ -625,8 +623,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             return new GameInfomation()
             {
-                //IsMyLeader = IsPlayersLeader[myPlayerIndex],
-                //IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
+                IsMyLeader = IsPlayersLeader[myPlayerIndex],
+                IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
                 MyLeader = PlayersLeader[myPlayerIndex][0].Status,
                 EnemyLeader = PlayersLeader[enemyPlayerIndex][0].Status,
                 MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status),
@@ -664,8 +662,8 @@ namespace Cynthia.Card.Server
             {//手牌/ 卡组/ 墓地/
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
-                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + PlayersLeader[myPlayerIndex].Count,//(IsPlayersLeader[myPlayerIndex] ? 1 : 0),
-                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + PlayersLeader[enemyPlayerIndex].Count,//(IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
                 MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
                 EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count()
             };
@@ -728,16 +726,16 @@ namespace Cynthia.Card.Server
                 IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
                 MyWinCount = PlayersWinCount[myPlayerIndex],
                 EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
-                //IsMyLeader = IsPlayersLeader[myPlayerIndex],
-                //IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
+                IsMyLeader = IsPlayersLeader[myPlayerIndex],
+                IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
                 MyLeader = PlayersLeader[myPlayerIndex][0].Status,
                 EnemyLeader = PlayersLeader[enemyPlayerIndex][0].Status,
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
                 MyName = Players[myPlayerIndex].PlayerName,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
-                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + PlayersLeader[myPlayerIndex].Count,//(IsPlayersLeader[myPlayerIndex] ? 1 : 0),
-                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + PlayersLeader[enemyPlayerIndex].Count,//(IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
                 MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
                 EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
                 MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status),
@@ -872,8 +870,8 @@ namespace Cynthia.Card.Server
             PlayersHandCard[Player2Index] = new List<GameCard>();
             PlayersStay[Player1Index] = new List<GameCard>();
             PlayersStay[Player2Index] = new List<GameCard>();
-            //IsPlayersLeader[Player1Index] = true;
-            //IsPlayersLeader[Player2Index] = true;
+            IsPlayersLeader[Player1Index] = true;
+            IsPlayersLeader[Player2Index] = true;
             PlayersLeader[Player1Index] = new List<GameCard>()
             {
                 new GameCard()
