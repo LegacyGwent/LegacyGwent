@@ -57,9 +57,9 @@ namespace Cynthia.Card
         //单位卡的单卡所受效果
         public virtual async Task Play(CardLocation location)//放置
         {
+            await CardOn();
             await CardMove(location);
             await Game.SetPointInfo();
-            await CardOn();
             await Task.Delay(400);
             await CardDown();
         }
