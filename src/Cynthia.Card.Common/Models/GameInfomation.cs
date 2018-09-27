@@ -14,8 +14,8 @@ namespace Cynthia.Card
         public bool IsMyPlayerMulligan { get; set; }//我方是否调度中
         public bool IsMyPlayerPass { get; set; }//我方pass
         public bool IsEnemyPlayerPass { get; set; }//对手pass
-        //public bool IsMyLeader { get; set; }//我方领袖是否使用
-        //public bool IsEnemyLeader { get; set; }//敌方领袖是否使用
+        public bool IsMyLeader { get; set; }//我方领袖是否使用
+        public bool IsEnemyLeader { get; set; }//敌方领袖是否使用
         public CardStatus MyLeader { get; set; }//我方领袖是?
         public CardStatus EnemyLeader { get; set; }//敌方领袖是?
         public string EnemyName { get; set; }//对手名称
