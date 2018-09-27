@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public interface IGwentServerGame
     {
         Player[] Players { get; set; }//玩家数据传输/
-        bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
+        //bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
         IList<GameCard>[] PlayersLeader { get; set; }//玩家领袖是?/
         TwoPlayer GameRound { get; set; }//谁的的回合----
         int RoundCount { get; set; }//有效比分的回合数
