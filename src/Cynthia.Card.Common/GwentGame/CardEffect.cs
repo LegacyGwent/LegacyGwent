@@ -17,7 +17,7 @@ namespace Cynthia.Card
         //公共效果
         public virtual async Task ToCemetery()//进入墓地触发
         {
-            await CardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 });
+            await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
             await Task.Delay(400);
             if (Card.Status.IsDoomed)//如果是佚亡,放逐
             {
@@ -32,7 +32,7 @@ namespace Cynthia.Card
         }
 
         //-----------------------------------------------------------
-        //特殊卡的单卡效果
+        //特殊卡的单卡使用
         public virtual async Task CardUse()//使用
         {
             await CardUseStart();
@@ -41,7 +41,7 @@ namespace Cynthia.Card
         }
         public virtual async Task CardUseStart()//使用前移动
         {
-            await CardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 });
+            await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             await Task.Delay(400);
         }
         public virtual async Task CardUseEffect()//使用效果
@@ -54,49 +54,43 @@ namespace Cynthia.Card
         }
 
         //-----------------------------------------------------------
-        //单位卡的单卡所受效果
+        //单位卡的单卡放置
         public virtual async Task Play(CardLocation location)//放置
         {
-            await CardOn();
-            await CardMove(location);
-            await Game.SetPointInfo();
+            await CardPlayStart(location);
+            var count = await CardPlayEffect();
+            if (Card.Status.CardRow.IsOnPlace())
+                await CardDown();
+            await PlayStayCard(count);
+            if (Card.Status.CardRow.IsOnPlace())
+                await CardDownEffect();
+        }
+        public virtual async Task CardPlayStart(CardLocation location)//先是移动到目标地点
+        {
+            await Game.ShowCardOn(Card);
+            await Game.ShowCardMove(location, Card);
+        }
+        public virtual async Task PlayStayCard(int count)
+        {
+            await Task.CompletedTask;
+        }
+        public virtual async Task<int> CardPlayEffect()
+        {
             await Task.Delay(400);
-            await CardDown();
+            //await Game.DrawCard(1, 1);
+            return 0;
         }
-        public virtual async Task CardMove(CardLocation location)
+        public virtual async Task CardDown()
         {
-            Card.Status.IsReveal = false;
-            await Game.CardMove(Card.PlayerIndex, new MoveCardInfo()
-            {
-                Soure = Game.GetCardLocation(Card.PlayerIndex, Card.Status.CardRow, Card),
-                Taget = location,
-                Card = this.Card.Status
-            });
-            await Game.CardMove(Game.AnotherPlayer(Card.PlayerIndex), new MoveCardInfo()
-            {
-                Soure = Game.GetCardLocation(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow.RowMirror(), Card),
-                Taget = new CardLocation() { RowPosition = location.RowPosition.RowMirror(), CardIndex = location.CardIndex },
-                Card = this.Card.Status
-            });
-            var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
-            var taget = Game.RowToList(Card.PlayerIndex, location.RowPosition);
-            Game.LogicCardMove(row, row.IndexOf(Card), taget, location.CardIndex);
-            await Game.SetCountInfo();
+            await Game.ShowCardDown(Card);
+            await Game.SetPointInfo();
         }
-        public virtual async Task CardDown()//落下(收到天气陷阱,或者其他卡牌)
+        public virtual async Task CardDownEffect()
         {
-            var task1 = Game.Players[Card.PlayerIndex].SendAsync(ServerOperationType.CardDown, Game.GetCardLocation(Card.PlayerIndex, Card.Status.CardRow, Card));
-            var task2 = Game.Players[Game.AnotherPlayer(Card.PlayerIndex)].SendAsync(ServerOperationType.CardDown,
-                Game.GetCardLocation(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow.RowMirror(), Card));
-            await Task.WhenAll(task1, task2);
+            await Task.CompletedTask;
         }
-        public virtual async Task CardOn()//落下(收到天气陷阱,或者其他卡牌)
-        {
-            var task1 = Game.Players[Card.PlayerIndex].SendAsync(ServerOperationType.CardOn, Game.GetCardLocation(Card.PlayerIndex, Card.Status.CardRow, Card));
-            var task2 = Game.Players[Game.AnotherPlayer(Card.PlayerIndex)].SendAsync(ServerOperationType.CardOn,
-                Game.GetCardLocation(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow.RowMirror(), Card));
-            await Task.WhenAll(task1, task2);
-        }
+        //------------------------------------------------------------
+        //单位卡的单卡所受效果
         public virtual async Task BigRoundEnd()//小局结束
         {
             //if (Card.CardStatus.Location.RowPosition)

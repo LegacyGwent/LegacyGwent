@@ -54,9 +54,12 @@ namespace Cynthia.Card
         //---------------------------------------------------------------------------------------------
         //Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
         //Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
-        Task CardOn(int playerIndex, CardLocation location);
-        Task CardDown(int playerIndex, CardLocation location);
-        Task CardMove(int playerIndex, MoveCardInfo info);
+        Task SendCardOn(int playerIndex, CardLocation location);
+        Task SendCardDown(int playerIndex, CardLocation location);
+        Task SendCardMove(int playerIndex, MoveCardInfo info);
+        Task ShowCardMove(CardLocation location, GameCard card);//移动
+        Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
+        Task ShowCardOn(GameCard card);//抬起
         //----------------------------------------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);
