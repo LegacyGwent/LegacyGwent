@@ -324,7 +324,7 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < myPlayerCount; i++)
             {
                 //await GetCardFrom(myPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, PlayersDeck[myPlayerIndex][0].CardStatus);
-                await CardMove(myPlayerIndex, new MoveCardInfo()
+                await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.MyDeck },
                     Taget = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
@@ -333,8 +333,8 @@ namespace Cynthia.Card.Server
                 //PlayersHandCard[myPlayerIndex].Insert(0, PlayersDeck[myPlayerIndex][0]);
                 //PlayersDeck[myPlayerIndex].RemoveAt(0);
                 LogicDrawCard(myPlayerIndex, 1);
-                await Task.Delay(500);
-                await CardMove(myPlayerIndex, new MoveCardInfo()
+                await Task.Delay(1000);
+                await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.MyHand, CardIndex = 0 },
@@ -344,21 +344,21 @@ namespace Cynthia.Card.Server
             }
             for (var i = 0; i < enemyPlayerCount; i++)
             {
-                await CardMove(myPlayerIndex, new MoveCardInfo()
+                await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.EnemyDeck },
                     Taget = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
                     Card = new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
                 });
                 //await GetCardFrom(myPlayerIndex, RowPosition.EnemyDeck, RowPosition.EnemyStay, 0, new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
-                await Task.Delay(400);
-                await CardMove(myPlayerIndex, new MoveCardInfo()
+                await Task.Delay(500);
+                await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.EnemyHand, CardIndex = 0 },
                 });
                 //await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
-                await Task.Delay(300);
+                await Task.Delay(400);
             }
         }
 
@@ -750,7 +750,7 @@ namespace Cynthia.Card.Server
             };
         }
         //--------------------------------------
-        public Task CardOn(int playerIndex, CardLocation location)
+        public Task SendCardOn(int playerIndex, CardLocation location)
         {
             return Players[playerIndex].SendAsync
             (
@@ -758,7 +758,7 @@ namespace Cynthia.Card.Server
                 location
             );
         }
-        public Task CardDown(int playerIndex, CardLocation location)
+        public Task SendCardDown(int playerIndex, CardLocation location)
         {
             return Players[playerIndex].SendAsync
             (
@@ -766,13 +766,48 @@ namespace Cynthia.Card.Server
                 location
             );
         }
-        public Task CardMove(int playerIndex, MoveCardInfo info)
+        public Task SendCardMove(int playerIndex, MoveCardInfo info)
         {
             return Players[playerIndex].SendAsync
             (
                 ServerOperationType.CardMove,
                 info
             );
+        }
+        //
+        public virtual async Task ShowCardMove(CardLocation location, GameCard card)
+        {
+            card.Status.IsReveal = false;
+            await SendCardMove(card.PlayerIndex, new MoveCardInfo()
+            {
+                Soure = GetCardLocation(card.PlayerIndex, card.Status.CardRow, card),
+                Taget = location,
+                Card = card.Status
+            });
+            await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
+            {
+                Soure = GetCardLocation(AnotherPlayer(card.PlayerIndex), card.Status.CardRow.RowMirror(), card),
+                Taget = new CardLocation() { RowPosition = location.RowPosition.RowMirror(), CardIndex = location.CardIndex },
+                Card = card.Status
+            });
+            var row = RowToList(card.PlayerIndex, card.Status.CardRow);
+            var taget = RowToList(card.PlayerIndex, location.RowPosition);
+            LogicCardMove(row, row.IndexOf(card), taget, location.CardIndex);
+            await SetCountInfo();
+        }
+        public virtual async Task ShowCardDown(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+        {
+            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardDown, GetCardLocation(card.PlayerIndex, card.Status.CardRow, card));
+            var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardDown,
+                GetCardLocation(AnotherPlayer(card.PlayerIndex), card.Status.CardRow.RowMirror(), card));
+            await Task.WhenAll(task1, task2);
+        }
+        public virtual async Task ShowCardOn(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+        {
+            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardOn, GetCardLocation(card.PlayerIndex, card.Status.CardRow, card));
+            var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardOn,
+                GetCardLocation(AnotherPlayer(card.PlayerIndex), card.Status.CardRow.RowMirror(), card));
+            await Task.WhenAll(task1, task2);
         }
         /*
         public Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo)
