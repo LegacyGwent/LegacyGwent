@@ -15,36 +15,14 @@ namespace Cynthia.Card.Test
     {
         static async Task Main(string[] args)
         {
-            await Task.Delay(0);
-            IList<GCard> Hand = new List<GCard>()
-            {
-                new GCard()
-                {
-                    CStatus = new CStatus()
-                    {
-                        HP = 5
-                    }
-                }
-            }.ForAll(x => { x.CEffect = new CEffect(x); }).ToList();
+            await Task.CompletedTask;
+            var list = new List<int>() { 1, 8, 4, 5, 6, 7, 9, 4, 3, 1, 5, 7, 6, 4, 5 };
+            var list2 = new List<int>() { 1, 2, 3, 4, 5, 4, 3, 2, 1 };
+            var all = new List<IList<int>>() { list, list2 };
+            //list2.TakeWhile(x => x >= 3).ForAll(System.Console.WriteLine);//取到不符合标注为止
+            //list2.SkipWhile(x => x == 3).ForAll(System.Console.WriteLine);//检测到第一个为真,返回后面的
 
-            Console.Read();
+            Console.ReadLine();
         }
-    }
-    public class GCard
-    {
-        public CEffect CEffect { get; set; }
-        public CStatus CStatus { get; set; }
-    }
-    public class CEffect
-    {
-        public CEffect(GCard gCard)
-        {
-            GCard = gCard;
-        }
-        public GCard GCard { get; set; }
-    }
-    public class CStatus
-    {
-        public int HP { get; set; }
     }
 }

@@ -77,7 +77,14 @@ namespace Cynthia.Card
         public virtual async Task<int> CardPlayEffect()
         {
             await Task.Delay(400);
-            //await Game.DrawCard(1, 1);
+            //休战,双方各抽一张牌,并将敌方抽到的牌揭示
+            /*
+            if (!Game.IsPlayersPass[Game.Player1Index] && !Game.IsPlayersPass[Game.Player2Index])
+            {
+                await Game.DrawCard(1, 1);
+                var enemyCard = Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)][0];
+                await enemyCard.Effect.Reveal();
+            }*/
             return 0;
         }
         public virtual async Task CardDown()
@@ -96,12 +103,12 @@ namespace Cynthia.Card
             //if (Card.CardStatus.Location.RowPosition)
             await Task.CompletedTask;
         }
-        public virtual async Task Strengthen(int num, CardLocation taget = null)//强化
+        public virtual async Task Strengthen(int num, GameCard taget = null)//强化
         {
             Card.Status.Strength += num;
             await Task.CompletedTask;
         }
-        public virtual async Task Weaken(int num, CardLocation taget = null)//削弱
+        public virtual async Task Weaken(int num, GameCard taget = null)//削弱
         {
             Card.Status.Strength -= num;
             if (Card.Status.Strength < 0)
@@ -110,12 +117,12 @@ namespace Cynthia.Card
                 await Banish();
             }
         }
-        public virtual async Task Boost(int num, CardLocation taget = null)//增益
+        public virtual async Task Boost(int num, GameCard taget = null)//增益
         {
             Card.Status.HealthStatus += num;
             await Task.CompletedTask;
         }
-        public virtual async Task Damage(int num, CardLocation taget = null)//伤害
+        public virtual async Task Damage(int num, GameCard taget = null)//伤害
         {
             Card.Status.HealthStatus -= num;
             if (Card.Status.HealthStatus + Card.Status.Strength < 0)
@@ -124,16 +131,20 @@ namespace Cynthia.Card
                 await ToCemetery();
             }
         }
-        public virtual async Task Reset(CardLocation taget = null)//重置
+        public virtual async Task Reset(GameCard taget = null)//重置
         {
             Card.Status.HealthStatus = 0;
             await Task.CompletedTask;
         }
-        public virtual async Task Heal(CardLocation taget = null)//治愈
+        public virtual async Task Heal(GameCard taget = null)//治愈
         {
             await Task.CompletedTask;
             if (Card.Status.HealthStatus < 0)
                 Card.Status.HealthStatus = 0;
+        }
+        public virtual async Task Reveal()//揭示
+        {
+            await Task.CompletedTask;
         }
     }
 }
