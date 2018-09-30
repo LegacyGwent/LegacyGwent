@@ -536,12 +536,12 @@ namespace Cynthia.Card.Server
                 return Player2Index;
         }
         //另一个玩家
-        public CardLocation GetCardLocation(int playerIndex, RowPosition row, GameCard card)
+        public CardLocation GetCardLocation(int playerIndex, GameCard card)
         {
-            var list = RowToList(playerIndex, row);
+            var list = RowToList(playerIndex, card.Status.CardRow);
             return new CardLocation()
             {
-                RowPosition = row,
+                RowPosition = (playerIndex == card.PlayerIndex ? card.Status.CardRow : card.Status.CardRow.RowMirror()),
                 CardIndex = list.IndexOf(card)
             };
         }
@@ -796,19 +796,29 @@ namespace Cynthia.Card.Server
                 info
             );
         }
+        public Task SendSetCard(int playerIndex, GameCard card)//更新某个玩家的一个卡牌
+        {
+            return Players[playerIndex].SendAsync
+            (
+                ServerOperationType.SetCard,
+                card.Status.CardRow,
+                GetCardLocation(playerIndex, card),
+                card.Status
+            );
+        }
         //
         public virtual async Task ShowCardMove(CardLocation location, GameCard card)
         {
             card.Status.IsReveal = false;
             await SendCardMove(card.PlayerIndex, new MoveCardInfo()
             {
-                Soure = GetCardLocation(card.PlayerIndex, card.Status.CardRow, card),
+                Soure = GetCardLocation(card.PlayerIndex, card),
                 Taget = location,
                 Card = card.Status
             });
             await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
             {
-                Soure = GetCardLocation(AnotherPlayer(card.PlayerIndex), card.Status.CardRow.RowMirror(), card),
+                Soure = GetCardLocation(AnotherPlayer(card.PlayerIndex), card),
                 Taget = new CardLocation() { RowPosition = location.RowPosition.RowMirror(), CardIndex = location.CardIndex },
                 Card = card.Status
             });
@@ -817,18 +827,22 @@ namespace Cynthia.Card.Server
             LogicCardMove(row, row.IndexOf(card), taget, location.CardIndex);
             await SetCountInfo();
         }
-        public virtual async Task ShowCardDown(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+        public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
         {
-            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardDown, GetCardLocation(card.PlayerIndex, card.Status.CardRow, card));
+            await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
+        }
+        public async Task ShowCardDown(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+        {
+            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardDown, GetCardLocation(card.PlayerIndex, card));
             var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardDown,
-                GetCardLocation(AnotherPlayer(card.PlayerIndex), card.Status.CardRow.RowMirror(), card));
+                GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
             await Task.WhenAll(task1, task2);
         }
-        public virtual async Task ShowCardOn(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+        public async Task ShowCardOn(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
         {
-            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardOn, GetCardLocation(card.PlayerIndex, card.Status.CardRow, card));
+            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardOn, GetCardLocation(card.PlayerIndex, card));
             var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardOn,
-                GetCardLocation(AnotherPlayer(card.PlayerIndex), card.Status.CardRow.RowMirror(), card));
+                GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
             await Task.WhenAll(task1, task2);
         }
         /*
