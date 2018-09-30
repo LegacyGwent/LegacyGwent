@@ -61,6 +61,11 @@ namespace Cynthia.Card
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
         //----------------------------------------------------------------------------------------------
+        Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> card);
+        Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<GameCard> card);
+        Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, GameCardsPart part, int range = 0);
+        Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart);
+        //----------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);
         Task SendBigRoundEndToCemetery();

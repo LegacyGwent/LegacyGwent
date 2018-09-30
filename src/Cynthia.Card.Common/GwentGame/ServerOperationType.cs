@@ -26,10 +26,14 @@ namespace Cynthia.Card
         MulliganData,//调度数据(将第几张卡换成某一张)int gamecard
         GetMulliganInfo,//获取调度数据
         MulliganEnd,//调度结束
+        //--------------------
+        SelectMenuCards,//要求选择菜单上一或者多个卡牌
+        SelectPlaceCards,//要求选择场上一或者多个卡牌
+        SelectRow,//要求选择一排
         //-----------------------------------------------------------
-        //MyCardEffectEnd,//告诉玩家我方卡牌效果结束 <感觉有问题>
-        //EnemyCardEffectEnd,//告诉玩家敌方卡牌效果结束<感觉有问题>
-        //EnemyCardDrag,//告诉玩家敌方拖拽卡牌<感觉有问题>
+        //MyCardEffectEnd,//告诉玩家我方卡牌效果结束 (解决掉了)
+        //EnemyCardEffectEnd,//告诉玩家敌方卡牌效果结束(解决掉了)
+        //EnemyCardDrag,//告诉玩家敌方拖拽卡牌(解决掉了)
         //
         //GetCardFrom,//从一个地方获取卡牌
         //SetCardTo,//将一张牌移动到另一个位置
@@ -37,6 +41,8 @@ namespace Cynthia.Card
         CardMove,//卡牌移动
         CardOn,//卡牌抬起
         CardDown,//卡牌落下
+        //----------------------------
+        SetCard,
         //-----------------------------------------------------------
         //应该不需要大改
         SetMulliganInfo,//更新调度信息
