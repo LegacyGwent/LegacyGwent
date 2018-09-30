@@ -60,6 +60,8 @@ namespace Cynthia.Card
         Task ShowCardMove(CardLocation location, GameCard card);//移动
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
+        Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
+        Task ShowSetCard(GameCard card);//更新卡牌
         //----------------------------------------------------------------------------------------------
         Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> card);
         Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<GameCard> card);
@@ -72,7 +74,7 @@ namespace Cynthia.Card
         RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
         IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
         int AnotherPlayer(int playerIndex);
-        CardLocation GetCardLocation(int playerIndex, RowPosition row, GameCard card);
+        CardLocation GetCardLocation(int playerIndex, GameCard card);
         Task Debug(string msg);
     }
 }
