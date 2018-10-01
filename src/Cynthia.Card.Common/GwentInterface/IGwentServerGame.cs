@@ -63,9 +63,9 @@ namespace Cynthia.Card
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //----------------------------------------------------------------------------------------------
-        Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//
-        Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);
-        Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart);
+        Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//返回点击列表卡牌的顺序
+        Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);//返回点击场上卡牌的顺序
+        Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart);//返回选中的牌
         //----------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);

@@ -395,10 +395,10 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<int>>();
         }
-        public async Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info)//指示器向边缘扩展格数
+        public async Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info)//指示器向边缘扩展格数
         {
             await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
-            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<GameCardsPart>();
+            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<CardLocation>>();
         }
         public async Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart)
         {
