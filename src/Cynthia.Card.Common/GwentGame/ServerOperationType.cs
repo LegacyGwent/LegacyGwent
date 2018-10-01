@@ -5,8 +5,8 @@ namespace Cynthia.Card
         GameStart,//游戏开始发送初始信息(暂时不需要更改)
         GetDragOrPass,//告诉玩家回合开始[需要做逻辑与功能上的调整]
         RoundEnd,//告诉玩家回合结束(暂时没用)
-        SelectPlaceCard,//选择场上一些单位[等待完成]
-        SelectAnotherCard,//选择一些其他卡[等待完成]
+        //SelectPlaceCard,//选择场上一些单位[等待完成]已经在下面完成
+        //SelectAnotherCard,//选择一些其他卡[等待完成]已经在下面完成
         GameEnd,//告诉玩家游戏结束,发送游戏结束信息(应该已经不用更改)
         EndOfBigRound,//结束小局(暂时没用)
         CardsToCemetery,//一些卡牌进入墓地 <感觉有问题>

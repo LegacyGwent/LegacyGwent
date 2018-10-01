@@ -388,21 +388,16 @@ namespace Cynthia.Card.Server
             IsPlayersMulligan[playerIndex] = false;
             await SetMulliganInfo();
         }
-        //-----
+        //-----**************************************************
         //几个从用户哪个获得信息的途径
-        public async Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> card)
+        public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, card);
+            await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<int>>();
         }
-        public async Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<GameCard> card)
+        public async Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info)//指示器向边缘扩展格数
         {
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, card.Select(x => x.Status));
-            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<int>>();
-        }
-        public async Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, GameCardsPart part, int range = 0)//指示器向边缘扩展格数
-        {
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, part, range);
+            await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<GameCardsPart>();
         }
         public async Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart)

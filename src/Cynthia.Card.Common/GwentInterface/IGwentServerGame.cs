@@ -63,9 +63,8 @@ namespace Cynthia.Card
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //----------------------------------------------------------------------------------------------
-        Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> card);
-        Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<GameCard> card);
-        Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, GameCardsPart part, int range = 0);
+        Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//
+        Task<GameCardsPart> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);
         Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart);
         //----------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);
