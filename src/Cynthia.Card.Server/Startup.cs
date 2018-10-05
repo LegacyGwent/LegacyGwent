@@ -30,9 +30,7 @@ namespace Cynthia.Card.Server
             builder.RegisterAllServices(option => option.PreserveExistingDefaults());
             builder.Register(x => container).SingleInstance();
             container = builder.Build();
-
             //container.Resolve<InitializationService>().Start();
-
             return new AutofacServiceProvider(container);
         }
 
