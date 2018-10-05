@@ -33,6 +33,12 @@ namespace Cynthia.Card.Server
             LogicDrawCard(Player1Index, 10);//不会展示动画的,逻辑层抽牌
             LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
+            /*await Debug((await GetSelectMenuCards(Player1Index, new MenuSelectCardInfo()
+            {
+                Title = "测试选择,对方手牌选5张",
+                SelectCount = 5,
+                SelectList = PlayersHandCard[Player2Index].Select(x => x.Status).ToList(),
+            })).Join(""));*/
             //
             await Task.WhenAll(MulliganCard(Player1Index, 3), MulliganCard(Player2Index, 3));
             //---------------------------------------------------------------------------------------
@@ -389,7 +395,7 @@ namespace Cynthia.Card.Server
             await SetMulliganInfo();
         }
         //-----**************************************************
-        //几个从用户哪个获得信息的途径
+        //几个从用户那里获得信息的途径
         public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
             await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
@@ -533,10 +539,11 @@ namespace Cynthia.Card.Server
         //另一个玩家
         public CardLocation GetCardLocation(int playerIndex, GameCard card)
         {
-            var list = RowToList(playerIndex, card.Status.CardRow);
+            var row = (playerIndex == card.PlayerIndex ? card.Status.CardRow : card.Status.CardRow.RowMirror());
+            var list = RowToList(playerIndex, row);
             return new CardLocation()
             {
-                RowPosition = (playerIndex == card.PlayerIndex ? card.Status.CardRow : card.Status.CardRow.RowMirror()),
+                RowPosition = row,
                 CardIndex = list.IndexOf(card)
             };
         }
@@ -796,7 +803,6 @@ namespace Cynthia.Card.Server
             return Players[playerIndex].SendAsync
             (
                 ServerOperationType.SetCard,
-                card.Status.CardRow,
                 GetCardLocation(playerIndex, card),
                 card.Status
             );
@@ -913,6 +919,8 @@ namespace Cynthia.Card.Server
         public GwentServerGame(Player player1, Player player2)
         {
             //初始化游戏信息
+            GameRound = new Random().Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
+            //随机个先后手
             PlayersRoundResult[0] = new int[2];
             PlayersRoundResult[1] = new int[2];
             PlayersRoundResult[2] = new int[2];

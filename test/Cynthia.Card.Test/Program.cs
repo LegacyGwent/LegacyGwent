@@ -18,10 +18,15 @@ namespace Cynthia.Card.Test
             await Task.CompletedTask;
             var list = new List<int>() { 1, 8, 4, 5, 6, 7, 9, 4, 3, 1, 5, 7, 6, 4, 5 };
             var list2 = new List<int>() { 1, 2, 3, 4, 5, 4, 3, 2, 1 };
-            //var all = new List<IList<int>>() { list, list2 };
-            list2.TakeWhile(x => x >= 3).ForAll(x => System.Console.Write("take" + x + "."));
-            list2.SkipWhile(x => x >= 3).ForAll(x => System.Console.Write("skip" + x + "."));
-
+            //1.To(9).Select(x => 1.To(x).Select(y => $"{x}x{y}={x * y}").Join("\t")).ForAll(Console.WriteLine);
+            /*var size = 10;
+            size.To(1)
+            .Select(x => 1.To(x).Select(a => " ")
+            .Concat(1.To((size - x + 1) * 2 - 1).Select(b => "x")).Join(""))
+            .Plural(2).SelectMany(x => x)
+            .ForAll(Console.WriteLine);
+            */
+            1.To(10).ForAll(x => Console.WriteLine(new Random().Next(2)));
             Console.ReadLine();
         }
     }

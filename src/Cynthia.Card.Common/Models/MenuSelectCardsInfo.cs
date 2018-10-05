@@ -7,7 +7,7 @@ namespace Cynthia.Card
         public IList<CardStatus> SelectList;//从这些卡中选择
         public int SelectCount;//选择多少张?
         public bool IsCanOver = true;//是否可以提前结束
-        public string OverMessage = "确认";//提前结束的按钮内容
+        //public string OverMessage = "确认";//提前结束的按钮内容
         public string Title = "选择一张卡牌";//标题
         /* 
         选择生成一张牌
