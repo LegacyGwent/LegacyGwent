@@ -394,7 +394,8 @@ namespace Cynthia.Card.Server
             IsPlayersMulligan[playerIndex] = false;
             await SetMulliganInfo();
         }
-        //-----**************************************************
+        //----------------------------------------------------------------------------------------------------------------------
+        //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
         //几个从用户那里获得信息的途径
         public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
@@ -406,12 +407,14 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<CardLocation>>();
         }
-        public async Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart)
+        public async Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart, CardLocation selectCard)
         {
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, rowPart);
+            await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, rowPart, selectCard);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RowPosition>();
         }
-        //-------------------------------------------------------------------------------------------------------------------------
+
+        //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+        //------------------------------------------------------------------------------------------------------------------------
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
 
