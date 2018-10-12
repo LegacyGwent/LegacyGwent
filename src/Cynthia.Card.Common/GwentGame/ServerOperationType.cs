@@ -30,6 +30,7 @@ namespace Cynthia.Card
         SelectMenuCards,//要求选择菜单上一或者多个卡牌
         SelectPlaceCards,//要求选择场上一或者多个卡牌
         SelectRow,//要求选择一排
+        PlayCard,//要求选择一个位置
         //-----------------------------------------------------------
         //MyCardEffectEnd,//告诉玩家我方卡牌效果结束 (解决掉了)
         //EnemyCardEffectEnd,//告诉玩家敌方卡牌效果结束(解决掉了)

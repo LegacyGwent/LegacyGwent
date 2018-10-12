@@ -33,13 +33,6 @@ namespace Cynthia.Card.Server
             LogicDrawCard(Player1Index, 10);//不会展示动画的,逻辑层抽牌
             LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
-            /*await Debug((await GetSelectMenuCards(Player1Index, new MenuSelectCardInfo()
-            {
-                Title = "测试选择,对方手牌选5张",
-                SelectCount = 5,
-                SelectList = PlayersHandCard[Player2Index].Select(x => x.Status).ToList(),
-            })).Join(""));*/
-            //
             await Task.WhenAll(MulliganCard(Player1Index, 3), MulliganCard(Player2Index, 3));
             //---------------------------------------------------------------------------------------
             while (await PlayerRound()) ;//双方轮流执行回合|第一小局
@@ -407,12 +400,16 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<CardLocation>>();
         }
-        public async Task<RowPosition> GetSelectRow(int playerIndex, IList<RowPosition> rowPart, CardLocation selectCard)
+        public async Task<RowPosition> GetSelectRow(int playerIndex, CardLocation selectCard, IList<RowPosition> rowPart)//选择排
         {
             await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, rowPart, selectCard);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RowPosition>();
         }
-
+        public async Task<CardLocation> GetPlayStayCard(int playerIndex, GameCard card)//选择放置一张牌
+        {
+            await Players[playerIndex].SendAsync(ServerOperationType.PlayCard, GetCardLocation(playerIndex, card));
+            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<CardLocation>();
+        }
         //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
         //------------------------------------------------------------------------------------------------------------------------
         //下面是发送数据包,或者进行一些初始化信息
@@ -917,7 +914,7 @@ namespace Cynthia.Card.Server
             card.Status.IsSpying = false; //没有间谍
             card.Status.Conceal = false;  //没有隐藏
             card.Status.IsReveal = false; //没有解释
-                                          //card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
+            //card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
         }
         public GwentServerGame(Player player1, Player player2)
         {
