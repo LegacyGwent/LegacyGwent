@@ -22,6 +22,22 @@ namespace Cynthia.Card
                     return false;
             }
         }
+        public static bool IsInBack(this RowPosition row)
+        {
+            switch (row)
+            {
+                case RowPosition.MyCemetery:
+                    return true;
+                case RowPosition.MyDeck:
+                    return true;
+                case RowPosition.EnemyCemetery:
+                    return true;
+                case RowPosition.EnemyDeck:
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public static bool IsMyRow(this RowPosition row)
         {
             switch (row)
@@ -32,32 +48,19 @@ namespace Cynthia.Card
                     return true;
                 case RowPosition.MyRow3:
                     return true;
-                case RowPosition.EnemyRow1:
-                    return false;
-                case RowPosition.EnemyRow2:
-                    return false;
-                case RowPosition.EnemyRow3:
-                    return false;
                 case RowPosition.MyHand:
                     return true;
-                case RowPosition.EnemyHand:
-                    return false;
                 case RowPosition.MyStay:
                     return true;
-                case RowPosition.EnemyStay:
-                    return false;
                 case RowPosition.MyDeck:
                     return true;
-                case RowPosition.EnemyDeck:
-                    return false;
                 case RowPosition.MyCemetery:
                     return true;
-                case RowPosition.EnemyCemetery:
-                    return false;
                 case RowPosition.SpecialPlace:
                     return true;
+                default:
+                    return false;
             }
-            return true;
         }
         public static RowPosition RowMirror(this RowPosition row)
         {
