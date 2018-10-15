@@ -405,7 +405,7 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, rowPart, selectCard);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RowPosition>();
         }
-        public async Task<CardLocation> GetPlayStayCard(int playerIndex, GameCard card)//选择放置一张牌
+        public async Task<CardLocation> GetPlayCard(int playerIndex, GameCard card)//选择放置一张牌
         {
             await Players[playerIndex].SendAsync(ServerOperationType.PlayCard, GetCardLocation(playerIndex, card));
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<CardLocation>();
@@ -846,31 +846,27 @@ namespace Cynthia.Card.Server
                 GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
             await Task.WhenAll(task1, task2);
         }
-        /*
-        public Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo)
+        //
+        public Task ShowCardNumberChange(int playerIndex, GameCard location, int num, bool isW = false)
         {
             return Players[playerIndex].SendAsync
             (
-                ServerOperationType.GetCardFrom,
-                getPosition,
-                taget,
-                index,
-                cardInfo
+                ServerOperationType.ShowCardNumberChange,
+                GetCardLocation(playerIndex, location),
+                num,
+                isW
             );
         }
-
-        //将一张牌移动到另一个地方
-        public Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex)
+        public Task ShowBullet(int playerIndex, GameCard source, GameCard taget, BulletType type)
         {
             return Players[playerIndex].SendAsync
             (
-                ServerOperationType.SetCardTo,
-                rowIndex,
-                cardIndex,
-                tagetRowIndex,
-                tagetCardIndex
+                ServerOperationType.ShowBullet,
+                GetCardLocation(playerIndex, source),
+                GetCardLocation(playerIndex, taget),
+                type
             );
-        }*/
+        }
         //----------------------------------------------------------------------------------------------
         public Task SendGameResult(TwoPlayer player)
         {

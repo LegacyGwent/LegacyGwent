@@ -21,13 +21,16 @@ namespace Cynthia.Card
         BigRoundSetMessage,
         BigRoundShowClose,
         //-----------------------------------------------------------
-        //不需要改
+        //要求玩家做出选择
+        //菜单系列
         MulliganStart,//调度开始
         MulliganData,//调度数据(将第几张卡换成某一张)int gamecard
         GetMulliganInfo,//获取调度数据
         MulliganEnd,//调度结束
         //--------------------
         SelectMenuCards,//要求选择菜单上一或者多个卡牌
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        //场地系列
         SelectPlaceCards,//要求选择场上一或者多个卡牌
         SelectRow,//要求选择一排
         PlayCard,//要求选择一个位置
@@ -39,13 +42,18 @@ namespace Cynthia.Card
         //GetCardFrom,//从一个地方获取卡牌
         //SetCardTo,//将一张牌移动到另一个位置
         //(已替代上面五个)
+        //---------------------------------------------
+        //小小动画
         CardMove,//卡牌移动
-        CardOn,//卡牌抬起
-        CardDown,//卡牌落下
+        CardOn,//卡牌抬起 (CardLocation)
+        CardDown,//卡牌落下 (CardLocation)
+        //----------------------------
+        ShowCardNumberChange,//展示卡牌数字的变化 (CardLocation,int,isW)
+        ShowBullet,//(CardLocation,CardLocation,BulletType)
         //----------------------------
         SetCard,
         //-----------------------------------------------------------
-        //应该不需要大改
+        //应该不需要大改,更新信息
         SetMulliganInfo,//更新调度信息
         SetCoinInfo,//更新硬币
         SetAllInfo, //更新所有信息

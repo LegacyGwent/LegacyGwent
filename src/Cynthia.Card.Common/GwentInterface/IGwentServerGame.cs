@@ -54,6 +54,7 @@ namespace Cynthia.Card
         //---------------------------------------------------------------------------------------------
         //Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
         //Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
+        //动画系
         Task SendCardOn(int playerIndex, CardLocation location);
         Task SendCardDown(int playerIndex, CardLocation location);
         Task SendCardMove(int playerIndex, MoveCardInfo info);
@@ -62,11 +63,15 @@ namespace Cynthia.Card
         Task ShowCardOn(GameCard card);//抬起
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
+        //------------------------
+        Task ShowCardNumberChange(int playerIndex, GameCard location, int num, bool isW = false);//展示卡牌数字的变化 (CardLocation,int,isW)
+        Task ShowBullet(int playerIndex, GameCard source, GameCard taget, BulletType type);//(CardLocation,CardLocation,BulletType)
         //----------------------------------------------------------------------------------------------
+        //交互系
         Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//返回点击列表卡牌的顺序
         Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);//返回点击场上卡牌的顺序
         Task<RowPosition> GetSelectRow(int playerIndex, CardLocation selectCard, IList<RowPosition> rowPart);//返回选中的牌
-        Task<CardLocation> GetPlayStayCard(int playerIndex, GameCard card);//告诉玩家要打出什么牌,获取玩家选择的位置
+        Task<CardLocation> GetPlayCard(int playerIndex, GameCard card);//告诉玩家要打出什么牌,获取玩家选择的位置
         //----------------------------------------------------------------
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);
