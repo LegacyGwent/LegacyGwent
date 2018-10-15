@@ -847,14 +847,14 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(task1, task2);
         }
         //
-        public Task ShowCardNumberChange(int playerIndex, GameCard location, int num, bool isW = false)
+        public Task ShowCardNumberChange(int playerIndex, GameCard location, int num, NumberType type = NumberType.Normal)
         {
             return Players[playerIndex].SendAsync
             (
                 ServerOperationType.ShowCardNumberChange,
                 GetCardLocation(playerIndex, location),
                 num,
-                isW
+                type
             );
         }
         public Task ShowBullet(int playerIndex, GameCard source, GameCard taget, BulletType type)
