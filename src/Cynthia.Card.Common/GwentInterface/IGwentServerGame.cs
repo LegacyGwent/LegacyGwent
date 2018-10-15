@@ -64,7 +64,7 @@ namespace Cynthia.Card
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //------------------------
-        Task ShowCardNumberChange(int playerIndex, GameCard location, int num, bool isW = false);//展示卡牌数字的变化 (CardLocation,int,isW)
+        Task ShowCardNumberChange(int playerIndex, GameCard location, int num, NumberType type);//展示卡牌数字的变化 (CardLocation,int,isW)
         Task ShowBullet(int playerIndex, GameCard source, GameCard taget, BulletType type);//(CardLocation,CardLocation,BulletType)
         //----------------------------------------------------------------------------------------------
         //交互系
