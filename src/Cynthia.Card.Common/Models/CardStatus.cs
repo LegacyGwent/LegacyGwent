@@ -36,5 +36,8 @@ namespace Cynthia.Card
         public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
+        //-----------------------------------------------------------------
+        public int Countdown = 0;
+        public bool IsCountdown = false;
     }
 }
