@@ -70,7 +70,7 @@ namespace Cynthia.Card
                 decks.Where(x => x.Group == Group.Silver).Distinct().Count() == decks.Where(x => x.Group == Group.Silver).Count())
                 return false;
             //判断条件5.铜卡重名卡小于3
-            if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.Id).Select(x => x.Count()).Any(x => x > 3))
+            if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
 
             return true;
