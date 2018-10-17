@@ -4,12 +4,13 @@ namespace Cynthia.Card
     {
         public CardStatus(string cardIndex)
         {
-            CardIndex = cardIndex;
+            CardId = cardIndex;
             Strength = GwentMap.CardMap[cardIndex].Strength;
             Type = GwentMap.CardMap[cardIndex].CardType;
             IsDoomed = GwentMap.CardMap[cardIndex].IsDoomed;
             IsCountdown = GwentMap.CardMap[cardIndex].IsCountdown;
             Countdown = GwentMap.CardMap[cardIndex].Countdown;
+            CardArtsId = GwentMap.CardMap[cardIndex].CardArtsId;
         }
         public CardStatus()
         {
@@ -17,7 +18,8 @@ namespace Cynthia.Card
             Conceal = true;
         }
         //卡牌基本信息索引
-        public string CardIndex { get; set; }
+        public string CardId { get; set; }
+        public string CardArtsId { get; set; }
         public GwentCard CardInfo { get; set; }
         public RowPosition CardRow { get; set; }
         public bool IsDoomed { get; set; } = false;//是否佚亡
@@ -35,7 +37,7 @@ namespace Cynthia.Card
         public bool Conceal { get; set; } = false;//是否盖牌 | 场地
         //-----------------------------------------------------------------
         //显示相关
-        public bool IsGray { get; set; } = false;
+        //public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
         //-----------------------------------------------------------------
