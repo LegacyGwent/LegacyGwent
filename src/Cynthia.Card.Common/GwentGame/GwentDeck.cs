@@ -18,12 +18,12 @@ namespace Cynthia.Card
                     .Concat("12003".Plural(1))//皇家
                     .Concat("13001".Plural(1))//杰洛特
                     .Concat("13002".Plural(1))//林法恩
-                    .Concat("14001".Plural(1))//帝国间谍
+                    .Concat("63004".Plural(1))//帝国间谍
                     .Concat("62001".Plural(1))//大魔像
                     .Concat("63001".Plural(1))//冒牌希里
                     .Concat("63002".Plural(1))//5+10
                     .Concat("63003".Plural(1))//萝卜
-                    .Concat("63004".Plural(3))//医生
+                    .Concat("14001".Plural(3))//医生
                     .Concat("64001".Plural(3))//特使
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军

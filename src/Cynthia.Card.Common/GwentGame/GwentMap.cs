@@ -253,7 +253,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "石拳阻挡刀剑，逻辑战胜谎言。",
                     Info = "将一个 “次级魔像守卫” 置于对方牌组顶端。",
-                    CardArtsId = "16221200",
+                    CardArtsId = "16240100",
 
                 }
             },
@@ -355,7 +355,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "出自名门望族，生于金塔之城，组成帝国的精锐部队。",
                     Info = "随机揭示1张己方手牌（优先级为铜银金）。\n2点护甲。",
-                    CardArtsId = "16230700",
+                    CardArtsId = "16231800",
                 }
             },
         };
