@@ -40,11 +40,11 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "吾，弗尔泰斯特，以泰莫利亚圣君、索登亲王、布鲁格守护者及其他各种合法称号之名义，作出如下判决……。",
                     Info = "从牌组打出1张金色单位牌，使其获得2点增益。",
                     CardEffectIndex = "20015400",
-
                 }
             },
             {
@@ -59,6 +59,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "猎魔人晃晃手指就能点灯，或把敌人烧成灰。",
                     Info = "若对方某排总战力不低于25点，则摧毁其上所有最强的单位。",
@@ -78,6 +79,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "文胜于武，笔胜于剑。",
                     Info = "抽一张牌，随后打出1张牌。",
@@ -99,6 +101,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。",
                     Info = "己方每次从手牌打出金色单位牌时，召唤此单位至随机排。",
@@ -118,6 +121,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。",
                     Info = "若打出后总战力低于对方，则获得强化，直至战力持平或最多15点。",
@@ -139,6 +143,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "如果斥候没有回来，我们就掉头。乡下的人说这些树林里全是松鼠。我指的可不是啃松果的那种。",
                     Info = "检视牌组中2张铜色单位牌，随后打出1张。",
@@ -160,6 +165,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "剑只是统治者的工具之一。",
                     Info = "检视牌组顶端3张卡牌，打出一张。",
@@ -181,6 +187,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "辛特拉沦陷后，亚特里随即告破，这里的守军若不听任尼弗迦德人驱策，就只能去死。",
                     Info = "从牌组打出一张铜色/银色间谍单位牌",
@@ -202,6 +209,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "即便用 “无能” 来形容德·维特公爵对维登集团军的领袖，都算给他面子。",
                     Info = "间谍。\n从牌组顶端打出1张铜色/银色非间谍单位牌，并使它获得10点增益。",
@@ -221,6 +229,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "“她来了，” 他心想 “皇帝的联姻对象。冒牌公主、冒牌的辛特拉女王、冒牌的雅鲁加河口统治者，也是帝国未来的命脉。”",
                     Info = "间谍。\n回合开始时，若为间谍，则获得1点增益。所在半场的玩家放弃跟牌后，移至对方半场同排。\n遗愿：摧毁同排最弱的单位",
@@ -240,6 +249,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "石拳阻挡刀剑，逻辑战胜谎言。",
                     Info = "将一个 “次级魔像守卫” 置于对方牌组顶端。",
@@ -259,6 +269,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "男人渴望着诱惑，神秘加优雅往往事半功倍。",
                     Info = "力竭：抽两张牌。保留一张，将另一张置于牌组底端。",
@@ -280,6 +291,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = true,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "这个世界的瘟疫跟战争一样多，夺人性命也一样出其不意。",
                     Info = "从对方墓地复活1个铜色单位。",
@@ -299,6 +311,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "但是……这样不对啊！两国交兵不斩来使！。",
                     Info = "间谍。\n随机检视牌组中2张铜色单位牌，打出一张。",
@@ -318,6 +331,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "近卫军决不投降，绝不。",
                     Info = "场上每有1个敌军间谍单位，便获得2点增益。每有1个间谍单位出现在对方半场，便获得2点增益。",
@@ -337,11 +351,11 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
+                    IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "出自名门望族，生于金塔之城，组成帝国的精锐部队。",
                     Info = "随机揭示1张己方手牌（优先级为铜银金）。\n2点护甲。",
                     CardEffectIndex = "16230700",
-
                 }
             },
         };
@@ -356,7 +370,15 @@ namespace Cynthia.Card
                 Group = x.Group,
                 Info = x.Info,
                 Name = x.Name,
-                Strength = x.Strength
+                Strength = x.Strength,
+                //-------
+                Id = x.Id,
+                IsCountdown = x.IsCountdown,
+                Countdown = x.Countdown,
+                IsDoomed = x.IsDoomed,
+                CardEffectIndex = x.CardEffectIndex,
+                CardType = x.CardType,
+                CardUseInfo = x.CardUseInfo,
             });
         }
         public static IDictionary<Group, string> FlavorMap { get; } = new Dictionary<Group, string>

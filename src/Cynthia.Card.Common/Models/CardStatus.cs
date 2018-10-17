@@ -8,6 +8,8 @@ namespace Cynthia.Card
             Strength = GwentMap.CardMap[cardIndex].Strength;
             Type = GwentMap.CardMap[cardIndex].CardType;
             IsDoomed = GwentMap.CardMap[cardIndex].IsDoomed;
+            IsCountdown = GwentMap.CardMap[cardIndex].IsCountdown;
+            Countdown = GwentMap.CardMap[cardIndex].Countdown;
         }
         public CardStatus()
         {
