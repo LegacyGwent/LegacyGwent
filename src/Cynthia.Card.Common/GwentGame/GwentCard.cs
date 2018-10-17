@@ -6,7 +6,7 @@ namespace Cynthia.Card
     public struct GwentCard
     {
         [Key]
-        public string Id { get; set; }
+        public string CardId { get; set; }
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
 
@@ -35,7 +35,7 @@ namespace Cynthia.Card
         //卡牌类型
         public CardType CardType { get; set; }
         //卡牌效果的索引
-        public string CardEffectIndex { get; set; }
+        public string CardArtsId { get; set; }
         //是否佚亡
         public bool IsDoomed { get; set; }
         public int Countdown { get; set; }
