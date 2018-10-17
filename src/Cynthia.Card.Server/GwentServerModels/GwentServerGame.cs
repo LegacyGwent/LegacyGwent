@@ -905,7 +905,7 @@ namespace Cynthia.Card.Server
             card.Status.HealthStatus = 0;//没有增益和受伤
             card.Status.IsCardBack = false; //没有背面
             card.Status.IsResilience = false;//没有坚韧
-            card.Status.IsGray = false;   //没有灰
+            //card.Status.IsGray = false;   //没有灰
             card.Status.IsShield = false; //没有昆恩
             card.Status.IsSpying = false; //没有间谍
             card.Status.Conceal = false;  //没有隐藏
