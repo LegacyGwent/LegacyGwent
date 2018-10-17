@@ -36,6 +36,9 @@ namespace Cynthia.Card
         public CardType CardType { get; set; }
         //卡牌效果的索引
         public string CardEffectIndex { get; set; }
+        //是否佚亡
         public bool IsDoomed { get; set; }
+        public int Countdown { get; set; }
+        public bool IsCountdown { get; set; }
     }
 }
