@@ -61,11 +61,22 @@ namespace Cynthia.Card
         Task ShowCardMove(CardLocation location, GameCard card);//移动
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
+        //-----------------------
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //------------------------
-        Task ShowCardNumberChange(int playerIndex, GameCard location, int num, NumberType type);//展示卡牌数字的变化 (CardLocation,int,isW)
-        Task ShowBullet(int playerIndex, GameCard source, GameCard taget, BulletType type);//(CardLocation,CardLocation,BulletType)
+        Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type);//展示卡牌数字的变化
+        Task ShowCardNumberChange(GameCard card, int num, NumberType type);//展示卡牌数字的变化
+        //
+        Task SendBullet(int playerIndex, GameCard source, GameCard taget, BulletType type);
+        Task ShowBullet(GameCard source, GameCard taget, BulletType type);
+        //
+        Task SendCardIconEffect(int playerIndex, GameCard card, CardIconEffectType type);
+        Task ShowCardIconEffect(GameCard card, CardIconEffectType type);
+        //
+        Task SendCardBreakEffect(int playerIndex, GameCard card, CardIconEffectType type);
+        Task ShowCardBreakEffect(GameCard card, CardIconEffectType type);
+        //
         //----------------------------------------------------------------------------------------------
         //交互系
         Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//返回点击列表卡牌的顺序

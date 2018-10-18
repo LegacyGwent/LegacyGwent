@@ -48,6 +48,9 @@ namespace Cynthia.Card
         CardOn,//卡牌抬起 (CardLocation)
         CardDown,//卡牌落下 (CardLocation)
         //----------------------------
+        //动画
+        ShowCardIconEffect,
+        ShowCardBreakEffect,
         ShowCardNumberChange,//展示卡牌数字的变化 (CardLocation,int,isW)
         ShowBullet,//(CardLocation,CardLocation,BulletType)
         //----------------------------

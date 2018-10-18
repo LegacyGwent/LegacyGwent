@@ -188,8 +188,6 @@ namespace Cynthia.Card.Server
                 //宣告双方效果结束#########################
                 //可能会变更, 计划封装到卡牌效果中
                 //########################################
-                //await Players[playerIndex].SendAsync(ServerOperationType.MyCardEffectEnd);
-                //await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.EnemyCardEffectEnd);
                 await Task.Delay(500);
             }
             //宣告回合结束(应该不需要更改)
@@ -198,11 +196,6 @@ namespace Cynthia.Card.Server
         }
         public async Task RoundPlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         {   //白板已经完成,剩下添加效果
-            //if (cardInfo.IsPass == true)
-            //return false;传入错误的信息,就错掉吧！
-            //将放置信息发送给对手
-            //var enemyRowIndex = cardInfo.CardLocation.RowPosition.RowMirror();
-            //创建相对于对手的位置信息
             var card = cardInfo.HandCardIndex == -1 ? PlayersLeader[playerIndex][0] : PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
             if (cardInfo.HandCardIndex == -1)
                 IsPlayersLeader[playerIndex] = false;
@@ -217,82 +210,6 @@ namespace Cynthia.Card.Server
                 else
                     await card.Effect.Play(cardInfo.CardLocation);
             }
-            //card.CardEffect.Play;
-            /* 
-            var enemyCardInfo = new RoundInfo()
-            {
-                HandCardIndex = cardInfo.HandCardIndex,
-                CardLocation = new CardLocation()
-                {
-                    CardIndex = cardInfo.CardLocation.CardIndex,
-                    RowPosition = cardInfo.CardLocation.RowPosition.RowMirror()
-                },
-            };
-            //-----------------------------------------------------------------------
-            var card = default(GameCard);//打出了那一张牌呢
-            if (cardInfo.HandCardIndex == -1)//如果是-1,视为领袖卡
-            {
-                //if (IsPlayersLeader[playerIndex] == false)
-                //return false;
-                card = PlayersLeader[playerIndex][0];
-                IsPlayersLeader[playerIndex] = false;
-                //存储这张卡,并且删除领袖卡
-            }
-            else//否则是,手牌
-            {
-                //if (cardInfo.HandCardIndex < 0 || cardInfo.HandCardIndex > PlayersHandCard[playerIndex].Count - 1)//判断手牌合法
-                //return false;
-                card = PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
-                PlayersHandCard[playerIndex].RemoveAt(cardInfo.HandCardIndex);
-                //存储这张卡,并从手牌移除这张卡
-            }
-            await SetCountInfo();//更新双方的"数量"信息(手牌数量发生了改变)
-                                 //以上获得了卡牌,并且提取了出来
-                                 //向对手发送,自己用了那一张牌
-            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.EnemyCardDrag, enemyCardInfo, card.CardStatus);
-            await Task.Delay(350);
-            //这句话测试用
-            if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
-            {
-                //需要进行处理后进入墓地,如果是佚亡直接消除
-                //##################################################
-                //还需要添加"佚亡的判断"
-                //##################################################
-                ToCemeteryInfo(card);//进入
-                PlayersCemetery[playerIndex].Add(card);//如果丢了这张卡,将这张卡丢入墓地
-                card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
-                await SetCemeteryInfo(playerIndex);
-                await SetCountInfo();//更新双方的数据
-            }
-            else if (cardInfo.CardLocation.RowPosition == RowPosition.SpecialPlace)
-            {
-                //如果拖入场上的话,会变成法术卡
-                //法术卡的话
-                //执行效果代码之后...进入墓地#################################
-                //还需要加入"法术卡使用"
-                //##########################################################
-                ToCemeteryInfo(card);
-                PlayersCemetery[playerIndex].Add(card);
-                card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
-                await SetCemeteryInfo(playerIndex);
-                await SetCountInfo();
-            }
-            else
-            {
-                //单位卡
-                //放在了...玩家1还是玩家2的场地?
-                var playerPlace = cardInfo.CardLocation.RowPosition.IsMyRow() ? playerIndex : (AnotherPlayer(playerIndex));
-                var trueRow = cardInfo.CardLocation.RowPosition.IsMyRow() ? cardInfo.CardLocation.RowPosition : cardInfo.CardLocation.RowPosition.RowMirror();
-                var rowIndex = (trueRow == RowPosition.MyRow1 ? 0 : (trueRow == RowPosition.MyRow2 ? 1 : 2));
-                //执行效果代码之后###########################################
-                //还需要加入"单位卡使用"
-                //##########################################################
-                PlayersPlace[playerPlace][rowIndex].Insert(cardInfo.CardLocation.CardIndex, card);
-                await SetPointInfo();
-            }
-            //###########待修改,需要删除
-            //return true;
-            */
         }
         //玩家抽卡
         public void LogicDrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
@@ -301,9 +218,6 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < count; i++)
             {
                 LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], 0);
-                //PlayersHandCard[playerIndex].Add(PlayersDeck[playerIndex][0]);
-                //PlayersDeck[playerIndex][0].CardStatus.Location.RowPosition = RowPosition.MyHand;
-                //PlayersDeck[playerIndex].RemoveAt(0);
             }
         }
 
@@ -847,17 +761,26 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(task1, task2);
         }
         //
-        public Task ShowCardNumberChange(int playerIndex, GameCard location, int num, NumberType type = NumberType.Normal)
+        public Task ShowCardNumberChange(GameCard card, int num, NumberType type = NumberType.Normal)
+        {
+            return Task.WhenAll
+            (
+                SendCardNumberChange(Player1Index, card, num, type),
+                SendCardNumberChange(Player2Index, card, num, type)
+            );
+        }
+        public Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type = NumberType.Normal)
         {
             return Players[playerIndex].SendAsync
             (
                 ServerOperationType.ShowCardNumberChange,
-                GetCardLocation(playerIndex, location),
+                GetCardLocation(playerIndex, card),
                 num,
                 type
             );
         }
-        public Task ShowBullet(int playerIndex, GameCard source, GameCard taget, BulletType type)
+        //--
+        public Task SendBullet(int playerIndex, GameCard source, GameCard taget, BulletType type)
         {
             return Players[playerIndex].SendAsync
             (
@@ -865,6 +788,50 @@ namespace Cynthia.Card.Server
                 GetCardLocation(playerIndex, source),
                 GetCardLocation(playerIndex, taget),
                 type
+            );
+        }
+        public Task ShowBullet(GameCard source, GameCard taget, BulletType type)
+        {
+            return Task.WhenAll
+            (
+                SendBullet(Player1Index, source, taget, type),
+                SendBullet(Player2Index, source, taget, type)
+            );
+        }
+        //
+        public Task SendCardIconEffect(int playerIndex, GameCard card, CardIconEffectType type)
+        {
+            return Players[playerIndex].SendAsync
+            (
+                ServerOperationType.ShowCardIconEffect,
+                GetCardLocation(playerIndex, card),
+                type
+            );
+        }
+        public Task ShowCardIconEffect(GameCard card, CardIconEffectType type)
+        {
+            return Task.WhenAll
+            (
+                SendCardIconEffect(Player1Index, card, type),
+                SendCardIconEffect(Player2Index, card, type)
+            );
+        }
+        //
+        public Task SendCardBreakEffect(int playerIndex, GameCard card, CardIconEffectType type)
+        {
+            return Players[playerIndex].SendAsync
+            (
+                ServerOperationType.ShowCardIconEffect,
+                GetCardLocation(playerIndex, card),
+                type
+            );
+        }
+        public Task ShowCardBreakEffect(GameCard card, CardIconEffectType type)
+        {
+            return Task.WhenAll
+            (
+                SendCardBreakEffect(Player1Index, card, type),
+                SendCardBreakEffect(Player2Index, card, type)
             );
         }
         //----------------------------------------------------------------------------------------------
