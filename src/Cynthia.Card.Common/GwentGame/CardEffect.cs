@@ -17,11 +17,31 @@ namespace Cynthia.Card
         //公共效果
         public virtual async Task ToCemetery()//进入墓地触发
         {
+            Card.Status.Armor = 0; //护甲归零
+            Card.Status.HealthStatus = 0;//没有增益和受伤
+            Card.Status.IsCardBack = false; //没有背面
+            Card.Status.IsResilience = false;//没有坚韧
+            Card.Status.IsShield = false; //没有昆恩
+            Card.Status.IsSpying = false; //没有间谍
+            Card.Status.Conceal = false;  //没有隐藏
+            Card.Status.IsReveal = false; //没有揭示
+            if (Card.Status.CardRow.IsOnPlace())
+            {
+                await Game.ShowCardOn(Card);
+                await Game.ShowSetCard(Card);
+                await Task.Delay(400);
+                if (Card.Status.Strength <= 0)
+                {
+                    await Banish();
+                    return;
+                }
+            }
             await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
             await Task.Delay(400);
             if (Card.Status.IsDoomed)//如果是佚亡,放逐
             {
                 await Banish();
+                return;
             }
             await Game.SetCemeteryInfo(Card.PlayerIndex);
             await Game.SetPointInfo();
@@ -29,7 +49,15 @@ namespace Cynthia.Card
         public virtual async Task Banish()//放逐
         {
             //需要补充
-            await Task.CompletedTask;
+            if (Card.Status.CardRow.IsOnRow())
+            {
+                await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
+            }
+            var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+            list.RemoveAt(list.IndexOf(Card));
+
+            await Game.SetPointInfo();
+            await Game.SetCemeteryInfo(Card.PlayerIndex);
         }
 
         //-----------------------------------------------------------
@@ -80,14 +108,6 @@ namespace Cynthia.Card
         public virtual async Task<int> CardPlayEffect()
         {
             await Damage(5);
-            //休战,双方各抽一张牌,并将敌方抽到的牌揭示
-            /*
-            if (!Game.IsPlayersPass[Game.Player1Index] && !Game.IsPlayersPass[Game.Player2Index])
-            {
-                await Game.DrawCard(1, 1);
-                var enemyCard = Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)][0];
-                await enemyCard.Effect.Reveal();
-            }*/
             await Task.Delay(200);
             return 0;
         }
@@ -144,13 +164,62 @@ namespace Cynthia.Card
         }
         public virtual async Task Damage(int num, GameCard taget = null, bool isPenetrate = false)//伤害
         {
+            if (num <= 0) return;
             //最高承受伤害,如果穿透的话,不考虑护甲
+            var die = false;
+            var isArmor = Card.Status.Armor > 0;
             var bear = (Card.Status.Strength + (isPenetrate ? 0 : Card.Status.Armor) + Card.Status.HealthStatus);
-            Card.Status.HealthStatus -= num;
-            if (Card.Status.HealthStatus + Card.Status.Strength < 0)
+            if (num >= bear)
             {
-                Card.Status.HealthStatus = -Card.Status.Strength;
-                await ToCemetery();
+                num = bear;//如果数值大于最高伤害的话,进行限制
+                die = true;//死亡,不会触发任何效果
+            }
+            //--------------------------------------------------------------
+            //护甲处理
+            if (Card.Status.Armor > 0 && !isPenetrate)//如果有护甲并且并非穿透伤害
+            {
+                //首先播放破甲动画
+                await Game.ShowCardIconEffect(Card, CardIconEffectType.BreakArmor);
+                if (Card.Status.Armor >= num)//如果护甲更高的话
+                {
+                    Card.Status.Armor -= num;
+                    num = 0;
+                }
+                else//如果伤害更高
+                {
+                    num -= Card.Status.Armor;
+                    Card.Status.Armor = 0;
+                }
+                await Game.ShowSetCard(Card);//更新客户端的护甲值
+            }
+            //-------------------------------------------------------------
+            //战力值处理
+            var isHurt = num > 0;
+            if (num > 0)
+            {
+                Card.Status.HealthStatus -= num;
+                await Game.ShowCardNumberChange(Card, -num, NumberType.Normal);
+                await Task.Delay(50);
+                await Game.ShowSetCard(Card);
+                await Game.SetPointInfo();
+                await Task.Delay(150);
+                if (Card.Status.HealthStatus + Card.Status.Strength < 0)
+                {
+                    await ToCemetery();
+                    return;
+                }
+            }
+            if (Card.Status.Armor == 0 && isArmor && !die)
+            {
+                //***************************************
+                //破甲并且之前判断一击不死,应该触发对应事件<暂未定义,待补充>
+                //***************************************
+            }
+            if (isHurt && Card.Status.CardRow.IsOnPlace())
+            {
+                //***************************************
+                //受伤并且没有进入墓地的话,应该触发对应事件<暂未定义,待补充>
+                //***************************************
             }
         }
         public virtual async Task Reset(GameCard taget = null)//重置

@@ -62,6 +62,34 @@ namespace Cynthia.Card
                     return false;
             }
         }
+        public static bool IsOnRow(this RowPosition row)
+        {
+            switch (row)
+            {
+                case RowPosition.MyRow1:
+                    return true;
+                case RowPosition.MyRow2:
+                    return true;
+                case RowPosition.MyRow3:
+                    return true;
+                case RowPosition.MyHand:
+                    return true;
+                case RowPosition.MyStay:
+                    return true;
+                case RowPosition.EnemyRow1:
+                    return true;
+                case RowPosition.EnemyRow2:
+                    return true;
+                case RowPosition.EnemyRow3:
+                    return true;
+                case RowPosition.EnemyHand:
+                    return true;
+                case RowPosition.EnemyStay:
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public static RowPosition RowMirror(this RowPosition row)
         {
             switch (row)
