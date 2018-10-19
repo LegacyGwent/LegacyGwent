@@ -817,7 +817,7 @@ namespace Cynthia.Card.Server
             );
         }
         //
-        public Task SendCardBreakEffect(int playerIndex, GameCard card, CardIconEffectType type)
+        public Task SendCardBreakEffect(int playerIndex, GameCard card, CardBreakEffectType type)
         {
             return Players[playerIndex].SendAsync
             (
@@ -826,7 +826,7 @@ namespace Cynthia.Card.Server
                 type
             );
         }
-        public Task ShowCardBreakEffect(GameCard card, CardIconEffectType type)
+        public Task ShowCardBreakEffect(GameCard card, CardBreakEffectType type)
         {
             return Task.WhenAll
             (
@@ -876,7 +876,7 @@ namespace Cynthia.Card.Server
             card.Status.IsShield = false; //没有昆恩
             card.Status.IsSpying = false; //没有间谍
             card.Status.Conceal = false;  //没有隐藏
-            card.Status.IsReveal = false; //没有解释
+            card.Status.IsReveal = false; //没有揭示
             //card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
         }
         public GwentServerGame(Player player1, Player player2)

@@ -74,8 +74,8 @@ namespace Cynthia.Card
         Task SendCardIconEffect(int playerIndex, GameCard card, CardIconEffectType type);
         Task ShowCardIconEffect(GameCard card, CardIconEffectType type);
         //
-        Task SendCardBreakEffect(int playerIndex, GameCard card, CardIconEffectType type);
-        Task ShowCardBreakEffect(GameCard card, CardIconEffectType type);
+        Task SendCardBreakEffect(int playerIndex, GameCard card, CardBreakEffectType type);
+        Task ShowCardBreakEffect(GameCard card, CardBreakEffectType type);
         //
         //----------------------------------------------------------------------------------------------
         //交互系
