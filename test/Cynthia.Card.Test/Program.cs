@@ -15,25 +15,31 @@ namespace Cynthia.Card.Test
     {
         public static async Task Main(string[] args)
         {
-            await Task.CompletedTask;
-            IList<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var s = list.Where(x => x == 5);
-            if (s.Count() != 0)
-            {
-                LogicCardMove
-                (
-                    list, list.IndexOf(s.First()),
-                    list, 0
-                );
-            }
-            list.ForAll(x => Console.Write(" ~ " + x));
+            //await Task.CompletedTask;
+            var task1 = Test(5);
+            var task2 = Test(5);
+            var result = await Task.WhenAll(task1, task2);
+            var result1 = task1.Result;
+            var result2 = task2.Result;
+
             Console.ReadLine();
         }
-        public static void LogicCardMove(IList<int> soure, int soureIndex, IList<int> taget, int tagetIndex)
+        public static async Task<(int, string)> Test2(int num)
         {
-            var item = soure[soureIndex];
-            soure.RemoveAt(soureIndex);
-            taget.Insert(tagetIndex, item);
+            var task1 = Test(5);
+            var task2 = Test("233");
+            await Task.WhenAll(task1, task2);
+            return (task1.Result, task2.Result);
+        }
+        public static async Task<int> Test(int num)
+        {
+            await Task.Delay(1000);
+            return num;
+        }
+        public static async Task<string> Test(string s)
+        {
+            await Task.Delay(1000);
+            return s;
         }
     }
 }
