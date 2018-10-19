@@ -212,17 +212,20 @@ namespace Cynthia.Card.Server
             }
         }
         //玩家抽卡
-        public void LogicDrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
+        public IList<GameCard> LogicDrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
         {
             if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
+            var list = new List<GameCard>();
             for (var i = 0; i < count; i++)
             {
-                LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], 0);
+                //将卡组顶端的卡牌抽到手牌
+                LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], 0).To(list.Add);
             }
+            return list;
         }
 
         //封装的抽卡
-        public async Task DrawCard(int player1Count, int player2Count)
+        public async Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count)
         {
             //抽卡限制,不至于抽空卡组
             if (player1Count > PlayersDeck[Player1Index].Count) player1Count = PlayersDeck[Player1Index].Count;
@@ -231,9 +234,11 @@ namespace Cynthia.Card.Server
             var player2Task = DrawCardAnimation(Player2Index, player2Count, Player1Index, player1Count);
             await Task.WhenAll(player1Task, player2Task);
             await SetCountInfo();
+            return (player1Task.Result, player2Task.Result);
         }
-        public async Task DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
+        public async Task<List<GameCard>> DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
         {
+            var list = new List<GameCard>();
             for (var i = 0; i < myPlayerCount; i++)
             {
                 //await GetCardFrom(myPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, PlayersDeck[myPlayerIndex][0].CardStatus);
@@ -243,16 +248,14 @@ namespace Cynthia.Card.Server
                     Taget = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
                     Card = PlayersDeck[myPlayerIndex][0].Status
                 });
-                //PlayersHandCard[myPlayerIndex].Insert(0, PlayersDeck[myPlayerIndex][0]);
-                //PlayersDeck[myPlayerIndex].RemoveAt(0);
-                LogicDrawCard(myPlayerIndex, 1);
+                //真实抽的卡只有自己的
+                list.Add(LogicDrawCard(myPlayerIndex, 1).Single());
                 await Task.Delay(1000);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.MyHand, CardIndex = 0 },
                 });
-                //await SetCardTo(myPlayerIndex, RowPosition.MyStay, 0, RowPosition.MyHand, 0);
                 await Task.Delay(400);
             }
             for (var i = 0; i < enemyPlayerCount; i++)
@@ -273,6 +276,7 @@ namespace Cynthia.Card.Server
                 //await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
                 await Task.Delay(400);
             }
+            return list;
         }
 
         //封装的调度

@@ -27,12 +27,12 @@ namespace Cynthia.Card
         Task<bool> Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
-        void LogicDrawCard(int playerIndex, int count);//或许应该播放抽卡动画和更新数值
+        IList<GameCard> LogicDrawCard(int playerIndex, int count);//或许应该播放抽卡动画和更新数值
         //封装的抽卡
-        Task DrawCard(int player1Count, int player2Count);
+        Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count);
         //封装的调度
         Task MulliganCard(int playerIndex, int count);
-        Task DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount);
+        Task<List<GameCard>> DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount);
         //-------------------------------------------------------------------------------------------------------------------------
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果

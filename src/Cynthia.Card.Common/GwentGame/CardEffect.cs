@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -124,11 +125,16 @@ namespace Cynthia.Card
                         Game.PlayersDeck[AnotherPlayer], 0
                     );
                     //让对方抽一张卡
-                    await Game.DrawCard
-                    (
-                        Game.Player1Index == AnotherPlayer ? 1 : 0,
-                        Game.Player2Index == AnotherPlayer ? 1 : 0
-                    );
+                    var drawCard = default(IList<GameCard>);
+                    if (AnotherPlayer == Game.Player1Index)
+                    {
+                        (drawCard, _) = await Game.DrawCard(1, 0);
+                    }
+                    else
+                    {
+                        (_, drawCard) = await Game.DrawCard(0, 1);
+                    }
+                    await drawCard.Single().Effect.Reveal();
                 }
             }
             await Task.Delay(200);
@@ -264,7 +270,11 @@ namespace Cynthia.Card
         }
         public virtual async Task Reveal()//揭示
         {
-            await Task.CompletedTask;
+            //不在手上的话,或者已经被揭示,没有效果
+            if (!Card.Status.CardRow.IsInHand() || Card.Status.IsReveal)
+                return;
+            Card.Status.IsReveal = true;
+            await Game.ShowSetCard(Card);
         }
     }
 }
