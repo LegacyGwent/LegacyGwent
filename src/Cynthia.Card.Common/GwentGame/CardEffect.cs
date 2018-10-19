@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cynthia.Card
@@ -6,6 +7,7 @@ namespace Cynthia.Card
     {
         public GameCard Card { get; set; }//宿主
         public IGwentServerGame Game { get; set; }//游戏本体
+        public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
 
         public CardEffect(IGwentServerGame game, GameCard card)
         {
@@ -28,8 +30,9 @@ namespace Cynthia.Card
             if (Card.Status.CardRow.IsOnPlace())
             {
                 await Game.ShowCardOn(Card);
+                await Task.Delay(200);
                 await Game.ShowSetCard(Card);
-                await Task.Delay(400);
+                await Task.Delay(200);
                 if (Card.Status.Strength <= 0)
                 {
                     await Banish();
@@ -107,7 +110,27 @@ namespace Cynthia.Card
         }
         public virtual async Task<int> CardPlayEffect()
         {
-            await Damage(5);
+            if (!Game.IsPlayersPass[AnotherPlayer])//如果对方没有pass
+            {
+                await Boost(10);//增益自身10点
+                var c = Game.PlayersDeck[AnotherPlayer].Where(x => x.Status.Group == Group.Copper);
+                //检查对方卡组的铜色单位,如果有铜色单位的话
+                if (c.Count() != 0)
+                {
+                    //将这张牌移动到对方的卡组顶端
+                    Game.LogicCardMove
+                    (
+                        Game.PlayersDeck[AnotherPlayer], Game.PlayersDeck[AnotherPlayer].IndexOf(c.First()),
+                        Game.PlayersDeck[AnotherPlayer], 0
+                    );
+                    //让对方抽一张卡
+                    await Game.DrawCard
+                    (
+                        Game.Player1Index == AnotherPlayer ? 1 : 0,
+                        Game.Player2Index == AnotherPlayer ? 1 : 0
+                    );
+                }
+            }
             await Task.Delay(200);
             return 0;
         }
@@ -203,7 +226,7 @@ namespace Cynthia.Card
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
                 await Task.Delay(150);
-                if (Card.Status.HealthStatus + Card.Status.Strength < 0)
+                if ((Card.Status.HealthStatus + Card.Status.Strength) <= 0)
                 {
                     await ToCemetery();
                     return;

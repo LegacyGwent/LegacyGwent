@@ -11,6 +11,7 @@ namespace Cynthia.Card
             IsCountdown = GwentMap.CardMap[cardIndex].IsCountdown;
             Countdown = GwentMap.CardMap[cardIndex].Countdown;
             CardArtsId = GwentMap.CardMap[cardIndex].CardArtsId;
+            Group = GwentMap.CardMap[cardIndex].Group;
         }
         public CardStatus()
         {
@@ -20,7 +21,8 @@ namespace Cynthia.Card
         //卡牌基本信息索引
         public string CardId { get; set; }
         public string CardArtsId { get; set; }
-        public GwentCard CardInfo { get; set; }
+        public Group Group { get; set; }
+        //public GwentCard CardInfo { get; set; }
         public RowPosition CardRow { get; set; }
         public bool IsDoomed { get; set; } = false;//是否佚亡
         public CardType Type { get; set; }//法术还是单位
