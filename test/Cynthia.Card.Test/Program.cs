@@ -16,17 +16,24 @@ namespace Cynthia.Card.Test
         public static async Task Main(string[] args)
         {
             await Task.CompletedTask;
-            for (var i = 2; i <= 4; i++)
+            IList<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var s = list.Where(x => x == 5);
+            if (s.Count() != 0)
             {
-                if (i == 3) continue;
-                System.Console.WriteLine(i + ",");
+                LogicCardMove
+                (
+                    list, list.IndexOf(s.First()),
+                    list, 0
+                );
             }
-            System.Console.Read();
+            list.ForAll(x => Console.Write(" ~ " + x));
+            Console.ReadLine();
         }
-        public static Task Test()
+        public static void LogicCardMove(IList<int> soure, int soureIndex, IList<int> taget, int tagetIndex)
         {
-            1.To(50).ForAll(Console.Write);
-            return Task.CompletedTask;
+            var item = soure[soureIndex];
+            soure.RemoveAt(soureIndex);
+            taget.Insert(tagetIndex, item);
         }
     }
 }

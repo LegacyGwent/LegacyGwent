@@ -58,7 +58,7 @@ namespace Cynthia.Card
         Task SendCardOn(int playerIndex, CardLocation location);
         Task SendCardDown(int playerIndex, CardLocation location);
         Task SendCardMove(int playerIndex, MoveCardInfo info);
-        Task ShowCardMove(CardLocation location, GameCard card);//移动
+        Task ShowCardMove(CardLocation tage, GameCard card);//移动
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
         //-----------------------
