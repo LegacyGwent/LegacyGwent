@@ -18,6 +18,7 @@ namespace Cynthia.Card
         EnemyCemetery,
         SpecialPlace,
         MyLeader,
-        EnemyLeader
+        EnemyLeader,
+        Banish,//单位已经被放逐
     }
 }
