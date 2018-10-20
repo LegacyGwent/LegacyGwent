@@ -484,6 +484,60 @@ namespace Cynthia.Card.Server
             await Players[Player1Index].SendAsync(ServerOperationType.Debug, msg);
             await Players[Player2Index].SendAsync(ServerOperationType.Debug, msg);
         }
+        public GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, bool isContainHand = false)
+        {   //根据游戏与条件,筛选出符合条件的选择对象
+            var cardsPart = new GameCardsPart();
+            PlayersPlace[playerIndex][0].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            PlayersPlace[playerIndex][1].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            PlayersPlace[playerIndex][2].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            if (isContainHand)
+            {
+                PlayersHandCard[playerIndex].Select((x, index) => { if (Sizer(x)) cardsPart.MyHandCards.Add(index); return 0; });
+                PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, index) => { if (Sizer(x)) cardsPart.EnemyHandCards.Add(index); return 0; });
+            }
+            return cardsPart;
+        }
+        public int GameCardsPartCount(GameCardsPart part)
+        {
+            var count = 0;
+            if (part.IsSelectEnemyLeader) count++;
+            if (part.IsSelectMyLeader) count++;
+            count += part.MyHandCards.Count();
+            count += part.MyRow1Cards.Count();
+            count += part.MyRow2Cards.Count();
+            count += part.MyRow3Cards.Count();
+            count += part.MyStayCards.Count();
+            count += part.EnemyHandCards.Count();
+            count += part.EnemyRow1Cards.Count();
+            count += part.EnemyRow2Cards.Count();
+            count += part.EnemyRow3Cards.Count();
+            count += part.EnemyStayCards.Count();
+            return count;
+        }
+        public GameCardsPart MirrorGameCardsPart(GameCardsPart part)
+        {
+            var cardsPart = new GameCardsPart();
+            cardsPart.IsSelectMyLeader = part.IsSelectEnemyLeader;
+            cardsPart.IsSelectEnemyLeader = part.IsSelectMyLeader;
+            part.MyHandCards.ForAll(cardsPart.EnemyHandCards.Add);
+            part.MyRow1Cards.ForAll(cardsPart.EnemyRow1Cards.Add);
+            part.MyRow2Cards.ForAll(cardsPart.EnemyRow2Cards.Add);
+            part.MyRow3Cards.ForAll(cardsPart.EnemyRow3Cards.Add);
+            part.MyStayCards.ForAll(cardsPart.EnemyStayCards.Add);
+            part.EnemyHandCards.ForAll(cardsPart.MyHandCards.Add);
+            part.EnemyRow1Cards.ForAll(cardsPart.MyRow1Cards.Add);
+            part.EnemyRow2Cards.ForAll(cardsPart.MyRow2Cards.Add);
+            part.EnemyRow3Cards.ForAll(cardsPart.MyRow3Cards.Add);
+            part.EnemyStayCards.ForAll(cardsPart.MyStayCards.Add);
+            return cardsPart;
+        }
+        public GameCard GetCard(int playerIndex, CardLocation location)
+        {
+            return RowToList(playerIndex, location.RowPosition)[location.CardIndex];
+        }
         //----------------------------------------------------------------------------------------------
         public Task SetAllInfo()
         {

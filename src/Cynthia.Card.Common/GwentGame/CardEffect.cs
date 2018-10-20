@@ -78,14 +78,33 @@ namespace Cynthia.Card
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
             await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             await Task.Delay(400);
-            //群体发送事件
+            //群体发送事件...效果前还是效果后
         }
         public virtual async Task CardUseEffect()//使用效果
         {
-            await Task.CompletedTask;
+            var selectCount = 1;
+            var canSelect = Game.GetGameCardsPart(Card.PlayerIndex, x => true);
+            if (Game.GameCardsPartCount(canSelect) < selectCount) selectCount = Game.GameCardsPartCount(canSelect);
+            if (selectCount <= 0)
+                return;
+            //落雷术测试
+            var taget = await Game.GetSelectPlaceCards
+            (
+                Card.PlayerIndex,
+                new PlaceSelectCardsInfo()
+                {
+                    CanSelect = canSelect,
+                    SelectCard = Game.GetCardLocation(Card.PlayerIndex, Card),
+                    SelectCount = selectCount,
+                }
+            );
+            await Game.GetCard(Card.PlayerIndex, taget.Single()).Effect.Damage(9);
         }
         public virtual async Task CardUseEnd()//使用结束
         {
+            //***************************************
+            //打出了特殊牌,应该触发对应事件<暂未定义,待补充>
+            //***************************************
             await ToCemetery();
         }
 

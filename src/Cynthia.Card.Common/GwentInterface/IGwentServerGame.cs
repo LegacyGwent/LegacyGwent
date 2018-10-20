@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cynthia.Card;
@@ -84,6 +85,10 @@ namespace Cynthia.Card
         Task<RowPosition> GetSelectRow(int playerIndex, CardLocation selectCard, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(int playerIndex, GameCard card);//告诉玩家要打出什么牌,获取玩家选择的位置
         //----------------------------------------------------------------
+        //方便的封装效果
+        GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, bool isContainHand = false);
+        int GameCardsPartCount(GameCardsPart part);
+        GameCardsPart MirrorGameCardsPart(GameCardsPart part);
         Task SendGameResult(TwoPlayer player);
         void ToCemeteryInfo(GameCard card);
         Task SendBigRoundEndToCemetery();
@@ -91,6 +96,7 @@ namespace Cynthia.Card
         IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
         int AnotherPlayer(int playerIndex);
         CardLocation GetCardLocation(int playerIndex, GameCard card);
+        GameCard GetCard(int playerIndex, CardLocation location);
         Task Debug(string msg);
     }
 }
