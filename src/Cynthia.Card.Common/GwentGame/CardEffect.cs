@@ -59,7 +59,8 @@ namespace Cynthia.Card
             }
             var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
             list.RemoveAt(list.IndexOf(Card));
-
+            //所在排为放逐
+            Card.Status.CardRow = RowPosition.Banish;
             await Game.SetPointInfo();
             await Game.SetCemeteryInfo(Card.PlayerIndex);
         }
@@ -74,6 +75,7 @@ namespace Cynthia.Card
         }
         public virtual async Task CardUseStart()//使用前移动
         {
+            Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
             await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             await Task.Delay(400);
             //群体发送事件
@@ -91,19 +93,22 @@ namespace Cynthia.Card
         //单位卡的单卡放置
         public virtual async Task Play(CardLocation location)//放置
         {
-            await CardPlayStart(location);
+            var isSpying = await CardPlayStart(location);
             var count = await CardPlayEffect();
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown();
+                await CardDown(isSpying);
             await PlayStayCard(count);
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDownEffect();
         }
-        public virtual async Task CardPlayStart(CardLocation location)//先是移动到目标地点
+        public virtual async Task<bool> CardPlayStart(CardLocation location)//先是移动到目标地点
         {
+            var isSpying = !location.RowPosition.IsMyRow();
+            Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
-            await Task.Delay(300);
+            await Task.Delay(400);
+            return isSpying;//有没有间谍呢
         }
         public virtual async Task PlayStayCard(int count)
         {
@@ -140,10 +145,17 @@ namespace Cynthia.Card
             await Task.Delay(200);
             return 0;
         }
-        public virtual async Task CardDown()
+        public virtual async Task CardDown(bool isSpying)
         {
             await Game.ShowCardDown(Card);
             await Game.SetPointInfo();
+            if (isSpying)
+                await Spying();
+            //***************************************
+            //打出了卡牌,应该触发对应事件<暂未定义,待补充>
+            //***************************************
+            //-----------------------------------------
+            //大概,判断天气陷阱一类的(血月坑陷)
         }
         public virtual async Task CardDownEffect()
         {
@@ -158,6 +170,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Strengthen(int num, GameCard source = null)//强化
         {
+            if (num <= 0) return;
             if (source != null)
             {
                 await Game.ShowBullet(source, Card, BulletType.GreenLight);
@@ -169,17 +182,43 @@ namespace Cynthia.Card
             await Game.SetPointInfo();
             await Task.Delay(150);
         }
-        public virtual async Task Weaken(int num, GameCard taget = null)//削弱
+        public virtual async Task Weaken(int num, GameCard source = null)//削弱
         {
-            Card.Status.Strength -= num;
-            if (Card.Status.Strength < 0)
+            if (num <= 0) return;
+            //此为最大承受值
+            var bear = Card.Status.Strength;
+            if (num > bear) num = bear;
+            if (source != null)
             {
-                Card.Status.Strength = 0;
-                await Banish();
+                await Game.ShowBullet(source, Card, BulletType.RedLight);
+            }
+            //最大显示的数字,不超过这个值
+            var showBear = Card.Status.Strength + Card.Status.HealthStatus;
+            Card.Status.Strength -= num;
+            await Game.ShowCardNumberChange(Card, num > showBear ? showBear : num, NumberType.White);
+            await Task.Delay(50);
+            if (Card.Status.Strength < -Card.Status.HealthStatus) Card.Status.HealthStatus = -Card.Status.Strength;
+            await Game.ShowSetCard(Card);
+            await Game.SetPointInfo();
+            await Task.Delay(150);
+            //***************************************
+            //有单位被削弱了,应该触发对应事件<暂未定义,待补充>
+            //***************************************
+            if ((Card.Status.Strength + Card.Status.HealthStatus) <= 0)
+            {
+                if (Card.Status.Strength > 0)
+                {
+                    await ToCemetery();
+                }
+                else
+                {
+                    await Banish();
+                }
             }
         }
         public virtual async Task Boost(int num, GameCard source = null)//增益
         {
+            if (num <= 0) return;
             if (source != null)
             {
                 await Game.ShowBullet(source, Card, BulletType.GreenLight);
@@ -275,6 +314,14 @@ namespace Cynthia.Card
                 return;
             Card.Status.IsReveal = true;
             await Game.ShowSetCard(Card);
+        }
+        public virtual async Task Spying()//间谍
+        {
+            Card.Status.IsSpying = !Card.Status.IsSpying;
+            await Game.ShowSetCard(Card);
+            //***************************************
+            //打出了卡牌(间谍?),应该触发对应事件<暂未定义,待补充>
+            //***************************************
         }
     }
 }

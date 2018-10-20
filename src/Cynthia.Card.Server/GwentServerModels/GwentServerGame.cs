@@ -188,23 +188,23 @@ namespace Cynthia.Card.Server
                 //宣告双方效果结束#########################
                 //可能会变更, 计划封装到卡牌效果中
                 //########################################
-                await Task.Delay(500);
+                await Task.Delay(400);
             }
             //宣告回合结束(应该不需要更改)
             await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
             return true;
         }
         public async Task RoundPlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
-        {   //白板已经完成,剩下添加效果
+        {   //获取卡牌,手牌或者领袖,将那个GameCard存起来
             var card = cardInfo.HandCardIndex == -1 ? PlayersLeader[playerIndex][0] : PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
+            //如果打出的是领袖,那么设定领袖已经被打出
             if (cardInfo.HandCardIndex == -1)
                 IsPlayersLeader[playerIndex] = false;
+            //如果是直接丢墓地,触发丢墓地方法
             if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
-            {
                 await card.Effect.ToCemetery();
-            }
             else
-            {
+            {   //如果是法术,使用,如果是单位,打出
                 if (cardInfo.CardLocation.RowPosition == RowPosition.SpecialPlace)
                     await card.Effect.CardUse();
                 else
@@ -250,13 +250,13 @@ namespace Cynthia.Card.Server
                 });
                 //真实抽的卡只有自己的
                 list.Add(LogicDrawCard(myPlayerIndex, 1).Single());
-                await Task.Delay(1000);
+                await Task.Delay(800);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.MyHand, CardIndex = 0 },
                 });
-                await Task.Delay(400);
+                await Task.Delay(300);
             }
             for (var i = 0; i < enemyPlayerCount; i++)
             {
@@ -267,14 +267,14 @@ namespace Cynthia.Card.Server
                     Card = new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
                 });
                 //await GetCardFrom(myPlayerIndex, RowPosition.EnemyDeck, RowPosition.EnemyStay, 0, new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
-                await Task.Delay(500);
+                await Task.Delay(400);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.EnemyHand, CardIndex = 0 },
                 });
                 //await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
-                await Task.Delay(400);
+                await Task.Delay(300);
             }
             return list;
         }
@@ -294,6 +294,19 @@ namespace Cynthia.Card.Server
                 if (mulliganCardIndex == -1)
                     break;
                 //逻辑处理
+                //总总总之！先关掉揭示啦！
+                PlayersHandCard[playerIndex][mulliganCardIndex].Status.IsReveal = false;
+                //当然调度走揭示单位,要给对手说一声啦
+                await Players[AnotherPlayer(playerIndex)].SendAsync
+                (
+                    ServerOperationType.SetCard,
+                    new CardLocation()
+                    {
+                        RowPosition = RowPosition.EnemyHand,
+                        CardIndex = mulliganCardIndex
+                    },
+                    new CardStatus() { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
+                );
                 //将手牌中需要调度的牌,移动到卡组最后
                 LogicCardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
                 //将卡组中第一张牌抽到手牌调度走的位置
@@ -728,7 +741,6 @@ namespace Cynthia.Card.Server
         //
         public virtual async Task ShowCardMove(CardLocation location, GameCard card)
         {
-            card.Status.IsReveal = false;
             await SendCardMove(card.PlayerIndex, new MoveCardInfo()
             {
                 Soure = GetCardLocation(card.PlayerIndex, card),
