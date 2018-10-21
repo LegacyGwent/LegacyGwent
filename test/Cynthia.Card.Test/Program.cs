@@ -15,31 +15,16 @@ namespace Cynthia.Card.Test
     {
         public static async Task Main(string[] args)
         {
-            //await Task.CompletedTask;
-            var task1 = Test(5);
-            var task2 = Test(5);
-            var result = await Task.WhenAll(task1, task2);
-            var result1 = task1.Result;
-            var result2 = task2.Result;
-
+            await Task.CompletedTask;
+            var list = new List<int>() { 9, 1, 8, 2, 7, 3, 4, 6, 5, 10, 0, 0, 0, 89 };
+            LinqTest(list, x => x > 6).ForAll(Console.WriteLine);
             Console.ReadLine();
         }
-        public static async Task<(int, string)> Test2(int num)
+        public static IList<int> LinqTest(IList<int> list, Func<int, bool> sizer)
         {
-            var task1 = Test(5);
-            var task2 = Test("233");
-            await Task.WhenAll(task1, task2);
-            return (task1.Result, task2.Result);
-        }
-        public static async Task<int> Test(int num)
-        {
-            await Task.Delay(1000);
-            return num;
-        }
-        public static async Task<string> Test(string s)
-        {
-            await Task.Delay(1000);
-            return s;
+            var result = new List<int>();
+            list.Select((x, index) => (item: x, index: index)).Where(x => sizer(x.item)).ForAll(x => result.Add(x.index));
+            return result;
         }
     }
 }

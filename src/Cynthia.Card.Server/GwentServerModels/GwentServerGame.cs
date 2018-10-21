@@ -487,16 +487,16 @@ namespace Cynthia.Card.Server
         public GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, bool isContainHand = false)
         {   //根据游戏与条件,筛选出符合条件的选择对象
             var cardsPart = new GameCardsPart();
-            PlayersPlace[playerIndex][0].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
-            PlayersPlace[playerIndex][1].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
-            PlayersPlace[playerIndex][2].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
-            PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
-            PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
-            PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, index) => { if (Sizer(x)) cardsPart.MyRow1Cards.Add(index); return 0; });
+            PlayersPlace[playerIndex][0].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow1Cards.Add(item.i));
+            PlayersPlace[playerIndex][1].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow2Cards.Add(item.i));
+            PlayersPlace[playerIndex][2].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow3Cards.Add(item.i));
+            PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow1Cards.Add(item.i));
+            PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow2Cards.Add(item.i));
+            PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow3Cards.Add(item.i));
             if (isContainHand)
             {
-                PlayersHandCard[playerIndex].Select((x, index) => { if (Sizer(x)) cardsPart.MyHandCards.Add(index); return 0; });
-                PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, index) => { if (Sizer(x)) cardsPart.EnemyHandCards.Add(index); return 0; });
+                PlayersHandCard[playerIndex].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyHandCards.Add(item.i));
+                PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
             }
             return cardsPart;
         }
