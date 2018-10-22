@@ -59,7 +59,7 @@ namespace Cynthia.Card
         Task SendCardOn(int playerIndex, CardLocation location);
         Task SendCardDown(int playerIndex, CardLocation location);
         Task SendCardMove(int playerIndex, MoveCardInfo info);
-        Task ShowCardMove(CardLocation tage, GameCard card);//移动
+        Task ShowCardMove(CardLocation tage, GameCard card, bool refresh = true);//移动
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
         //-----------------------
@@ -82,6 +82,7 @@ namespace Cynthia.Card
         //交互系
         Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//返回点击列表卡牌的顺序
         Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);//返回点击场上卡牌的顺序
+        Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> Sizer = null, bool isContainHand = false);
         Task<RowPosition> GetSelectRow(int playerIndex, CardLocation selectCard, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(int playerIndex, GameCard card);//告诉玩家要打出什么牌,获取玩家选择的位置
         //----------------------------------------------------------------
