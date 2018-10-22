@@ -19,6 +19,7 @@ namespace Cynthia.Card.Server
         public IList<GameCard>[] PlayersDeck { get; set; } = new IList<GameCard>[2];//玩家卡组/
         public IList<GameCard>[] PlayersHandCard { get; set; } = new IList<GameCard>[2];//玩家手牌/
         public IList<GameCard>[][] PlayersPlace { get; set; } = new IList<GameCard>[2][];//玩家场地/
+        public RowStatus[][] GameRowStatus { get; set; } = new RowStatus[2][];//玩家天气
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
         public IList<GameCard>[] PlayersStay { get; set; } = new IList<GameCard>[2];//玩家悬牌
         public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
@@ -346,6 +347,25 @@ namespace Cynthia.Card.Server
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
 
+        public async Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> sizer = null, bool isContainHand = false)
+        {
+            var canSelect = GetGameCardsPart(card.PlayerIndex, sizer ?? (x => true));
+            if (GameCardsPartCount(canSelect) < count) count = GameCardsPartCount(canSelect);
+            if (count <= 0)
+                return new List<GameCard>();
+            //落雷术测试
+            var taget = await GetSelectPlaceCards
+            (
+                card.PlayerIndex,
+                new PlaceSelectCardsInfo()
+                {
+                    CanSelect = canSelect,
+                    SelectCard = GetCardLocation(card.PlayerIndex, card),
+                    SelectCount = count,
+                }
+            );
+            return taget.Select(x => GetCard(card.PlayerIndex, x)).ToList();
+        }
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
         public GameCard LogicCardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex)
         {
@@ -785,27 +805,36 @@ namespace Cynthia.Card.Server
         }
         public Task SendSetCard(int playerIndex, GameCard card)//更新某个玩家的一个卡牌
         {
+            //如果处于敌方场地
+            var isBack = (card.Status.CardRow.IsOnPlace() && card.Status.Conceal);
+            if (card.PlayerIndex != playerIndex) isBack = (card.Status.CardRow.IsInHand() && (!card.Status.IsReveal));
             return Players[playerIndex].SendAsync
-            (
-                ServerOperationType.SetCard,
-                GetCardLocation(playerIndex, card),
-                card.Status
-            );
+                (
+                    ServerOperationType.SetCard,
+                    GetCardLocation(playerIndex, card),
+                    isBack ?
+                    new CardStatus()
+                    {
+                        IsCardBack = true,
+                        DeckFaction = card.Status.DeckFaction
+                    }
+                    : card.Status
+                );
         }
         //
-        public virtual async Task ShowCardMove(CardLocation location, GameCard card)
+        public virtual async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true)
         {
             await SendCardMove(card.PlayerIndex, new MoveCardInfo()
             {
                 Soure = GetCardLocation(card.PlayerIndex, card),
                 Taget = location,
-                Card = card.Status
+                Card = refresh ? card.Status : null
             });
             await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
             {
                 Soure = GetCardLocation(AnotherPlayer(card.PlayerIndex), card),
                 Taget = new CardLocation() { RowPosition = location.RowPosition.RowMirror(), CardIndex = location.CardIndex },
-                Card = card.Status
+                Card = refresh ? card.Status : null
             });
             var row = RowToList(card.PlayerIndex, card.Status.CardRow);
             var taget = RowToList(card.PlayerIndex, location.RowPosition);
@@ -891,7 +920,7 @@ namespace Cynthia.Card.Server
         {
             return Players[playerIndex].SendAsync
             (
-                ServerOperationType.ShowCardIconEffect,
+                ServerOperationType.ShowCardBreakEffect,
                 GetCardLocation(playerIndex, card),
                 type
             );
@@ -970,6 +999,9 @@ namespace Cynthia.Card.Server
             PlayersPlace[Player2Index][1] = new List<GameCard>();
             PlayersPlace[Player1Index][2] = new List<GameCard>();
             PlayersPlace[Player2Index][2] = new List<GameCard>();
+            //---------------------------------------------------
+            GameRowStatus[0] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
+            GameRowStatus[1] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
             //----------------------------------------------------
             PlayersCemetery[Player1Index] = new List<GameCard>();
             PlayersCemetery[Player2Index] = new List<GameCard>();
