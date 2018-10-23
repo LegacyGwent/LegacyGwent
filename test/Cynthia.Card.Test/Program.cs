@@ -16,8 +16,15 @@ namespace Cynthia.Card.Test
         public static async Task Main(string[] args)
         {
             await Task.CompletedTask;
-            var list = new List<int>() { 9, 1, 8, 2, 7, 3, 4, 6, 5, 10, 0, 0, 0, 89 };
-            LinqTest(list, x => x > 6).ForAll(Console.WriteLine);
+            var list = new List<int>() { 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1 };
+            var ji = 4;
+            var ti = ji;
+            for (var i = 0; i <= ti; i++)
+            {
+                if (list[i] == 0)
+                    ti++;
+            }
+            Console.WriteLine(ti);
             Console.ReadLine();
         }
         public static IList<int> LinqTest(IList<int> list, Func<int, bool> sizer)
