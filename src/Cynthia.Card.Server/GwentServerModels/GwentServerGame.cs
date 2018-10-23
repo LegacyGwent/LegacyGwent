@@ -347,9 +347,15 @@ namespace Cynthia.Card.Server
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
 
-        public async Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> sizer = null, bool isContainHand = false)
+        public async Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> sizer = null, bool isContainHand = false, bool isOnlyUnit = true, int range = 0)
         {
-            var canSelect = GetGameCardsPart(card.PlayerIndex, sizer ?? (x => true));
+            //自定义规则, 是否过滤特殊卡, 过滤自身
+            var canSelect = GetGameCardsPart(card.PlayerIndex,
+            (
+                x => (sizer == null ? (true) : sizer(x)) &&
+                (isOnlyUnit ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Unit) : true) &&
+                (x != card)
+            ), isContainHand);
             if (GameCardsPartCount(canSelect) < count) count = GameCardsPartCount(canSelect);
             if (count <= 0)
                 return new List<GameCard>();
@@ -362,6 +368,7 @@ namespace Cynthia.Card.Server
                     CanSelect = canSelect,
                     SelectCard = GetCardLocation(card.PlayerIndex, card),
                     SelectCount = count,
+                    Range = range
                 }
             );
             return taget.Select(x => GetCard(card.PlayerIndex, x)).ToList();

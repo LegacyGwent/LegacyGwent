@@ -97,25 +97,7 @@ namespace Cynthia.Card
         }
         public virtual async Task CardUseEffect()//使用效果
         {
-            /*var selectCount = 3;
-            var canSelect = Game.GetGameCardsPart(Card.PlayerIndex, x => true);
-            if (Game.GameCardsPartCount(canSelect) < selectCount) selectCount = Game.GameCardsPartCount(canSelect);
-            if (selectCount <= 0)
-                return;
-            //落雷术测试
-            var taget = await Game.GetSelectPlaceCards
-            (
-                Card.PlayerIndex,
-                new PlaceSelectCardsInfo()
-                {
-                    CanSelect = canSelect,
-                    SelectCard = Game.GetCardLocation(Card.PlayerIndex, Card),
-                    SelectCount = selectCount,
-                }
-            );
-            //await Game.GetCard(Card.PlayerIndex, taget.Single()).Effect.Damage(9);
-            taget.ForAll(async x => await Game.GetCard(Card.PlayerIndex, x).Effect.Damage(9, Card));*/
-            (await Game.GetSelectPlaceCards(3, Card)).ForAll(async x => await x.Effect.Damage(9, Card));
+            (await Game.GetSelectPlaceCards(1, Card)).ForAll(async x => await x.Effect.Damage(9, Card));
         }
         public virtual async Task CardUseEnd()//使用结束
         {
@@ -128,7 +110,7 @@ namespace Cynthia.Card
         public virtual async Task Play(CardLocation location)//放置
         {
             var isSpying = await CardPlayStart(location);
-            var count = await CardPlayEffect();
+            var count = await CardPlayEffect(isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDown(isSpying);
             await PlayStayCard(count);
@@ -148,17 +130,23 @@ namespace Cynthia.Card
         {
             await Task.CompletedTask;
         }
-        public virtual async Task<int> CardPlayEffect()
+        public virtual async Task<int> CardPlayEffect(bool isSpying)
         {
-            for (var i = 0; i < 2; i++)
+            if (!isSpying)
             {
-                (await Game.GetSelectPlaceCards(1, Card, x =>
-                (
-                    (x.PlayerIndex == Card.PlayerIndex) &&
-                    (x.Status.Strength + x.Status.HealthStatus < 7)
-                ))).ForAll(x => Card.Effect.Consume(x));
+                for (var i = 0; i < 2; i++)
+                {
+                    (await Game.GetSelectPlaceCards(1, Card, x =>
+                    (
+                        (x.PlayerIndex == Card.PlayerIndex)
+                    ))).ForAll(async x => await Card.Effect.Consume(x));
+                }
+                await Task.Delay(200);
             }
-            await Task.Delay(200);
+            else
+            {
+                await Boost(4);
+            }
             return 0;
         }
         public virtual async Task CardDown(bool isSpying)
@@ -438,14 +426,16 @@ namespace Cynthia.Card
                 await taget.Effect.Banish();
             }
             else if (taget.Status.CardRow.IsOnRow())
-            {//如果在场上,展示吞噬动画
+            {//如果在场上,展示吞噬动画,之后不展示动画的情况进入墓地
                 await Game.ShowCardBreakEffect(taget, CardBreakEffectType.Consume);
+                await taget.Effect.ToCemetery(false);
             }
             else
             {
-                await ToCemetery(false);
+                await taget.Effect.ToCemetery();
             }
-            await Card.Effect.Boost(num);
+            await Boost(num);
+            await Task.Delay(500);
             //***************************************
             //吞噬,应该触发对应事件<暂未定义,待补充>
             //***************************************
