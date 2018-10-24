@@ -161,7 +161,7 @@ namespace Cynthia.Card
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)
         }
-        public virtual async Task CardDownEffect()
+        public virtual async Task CardDownEffect()//卡牌落下效果
         {
             await Task.CompletedTask;
         }
