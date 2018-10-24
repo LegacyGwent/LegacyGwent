@@ -15,23 +15,18 @@ namespace Cynthia.Card.Test
     {
         public static async Task Main(string[] args)
         {
-            await Task.CompletedTask;
-            var list = new List<int>() { 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1 };
-            var ji = 4;
-            var ti = ji;
-            for (var i = 0; i <= ti; i++)
+            var a = 1;
+            var task = WaitUnit(() => a == 3);
+            for (a = 0; a < 5; a++)
             {
-                if (list[i] == 0)
-                    ti++;
+                Console.WriteLine($"将a的值改为了{a}");
             }
-            Console.WriteLine(ti);
+            await task;
             Console.ReadLine();
         }
-        public static IList<int> LinqTest(IList<int> list, Func<int, bool> sizer)
+        public static Task WaitUnit(Func<bool> func)
         {
-            var result = new List<int>();
-            list.Select((x, index) => (item: x, index: index)).Where(x => sizer(x.item)).ForAll(x => result.Add(x.index));
-            return result;
+            return Task.Run(() => { while (!func()) ; Console.WriteLine("条件满足"); });
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Cynthia.Card
     {
         All,
         AllRow,
+        AllHand,
         My,
         MyRow,
         Enemy,

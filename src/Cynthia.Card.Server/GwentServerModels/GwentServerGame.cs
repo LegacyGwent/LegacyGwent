@@ -347,15 +347,16 @@ namespace Cynthia.Card.Server
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
 
-        public async Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> sizer = null, bool isContainHand = false, bool isOnlyUnit = true, int range = 0)
+        public async Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> sizer = null, SelectModeType SelectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0)
         {
             //自定义规则, 是否过滤特殊卡, 过滤自身
             var canSelect = GetGameCardsPart(card.PlayerIndex,
             (
                 x => (sizer == null ? (true) : sizer(x)) &&
-                (isOnlyUnit ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Unit) : true) &&
+                (selectType == CardType.Unit ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Unit) :
+                (selectType == CardType.Special ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Special) : true)) &&
                 (x != card)
-            ), isContainHand);
+            ), SelectMode);
             if (GameCardsPartCount(canSelect) < count) count = GameCardsPartCount(canSelect);
             if (count <= 0)
                 return new List<GameCard>();
@@ -511,19 +512,30 @@ namespace Cynthia.Card.Server
             await Players[Player1Index].SendAsync(ServerOperationType.Debug, msg);
             await Players[Player2Index].SendAsync(ServerOperationType.Debug, msg);
         }
-        public GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, bool isContainHand = false)
+        public GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, SelectModeType selectMode = SelectModeType.All)
         {   //根据游戏与条件,筛选出符合条件的选择对象
             var cardsPart = new GameCardsPart();
-            PlayersPlace[playerIndex][0].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow1Cards.Add(item.i));
-            PlayersPlace[playerIndex][1].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow2Cards.Add(item.i));
-            PlayersPlace[playerIndex][2].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow3Cards.Add(item.i));
-            PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow1Cards.Add(item.i));
-            PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow2Cards.Add(item.i));
-            PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow3Cards.Add(item.i));
-            if (isContainHand)
+            if (selectMode.IsHaveMy())
             {
-                PlayersHandCard[playerIndex].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyHandCards.Add(item.i));
-                PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
+                if (selectMode.IsHaveHand())
+                    PlayersHandCard[playerIndex].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyHandCards.Add(item.i));
+                if (selectMode.IsHaveRow())
+                {
+                    PlayersPlace[playerIndex][0].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow1Cards.Add(item.i));
+                    PlayersPlace[playerIndex][1].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow2Cards.Add(item.i));
+                    PlayersPlace[playerIndex][2].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.MyRow3Cards.Add(item.i));
+                }
+            }
+            if (selectMode.IsHaveEnemy())
+            {
+                if (selectMode.IsHaveHand())
+                    PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
+                if (selectMode.IsHaveRow())
+                {
+                    PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow1Cards.Add(item.i));
+                    PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow2Cards.Add(item.i));
+                    PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, i) => (x: x, i: i)).Where(x => Sizer(x.x)).ForAll(item => cardsPart.EnemyRow3Cards.Add(item.i));
+                }
             }
             return cardsPart;
         }
