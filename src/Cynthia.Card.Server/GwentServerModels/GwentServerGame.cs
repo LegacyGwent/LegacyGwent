@@ -379,6 +379,7 @@ namespace Cynthia.Card.Server
             var canSelect = GetGameCardsPart(card.PlayerIndex,
             (
                 x => (sizer == null ? (true) : sizer(x)) &&
+                (!x.Status.IsImmue) &&//如果没有免疫
                 (selectType == CardType.Unit ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Unit) :
                 (selectType == CardType.Special ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Special) : true)) &&
                 (x != card)

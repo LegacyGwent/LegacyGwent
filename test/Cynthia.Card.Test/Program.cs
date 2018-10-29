@@ -25,4 +25,27 @@ namespace Cynthia.Card.Test
             return Task.Run(() => { while (!func()) ; Console.WriteLine("条件满足"); });
         }
     }
+    public interface TestInterface
+    {
+        int Test(int num);
+        int Test2(int num);
+    }
+    public abstract class TestClass2 : TestInterface
+    {
+        public virtual int Test(int num)
+        {
+            return num * num;
+        }
+        public virtual int Test2(int num)
+        {
+            return num * num;
+        }
+    }
+    public class TestClass1 : TestClass2
+    {
+        public override int Test(int num)
+        {
+            return num + num;
+        }
+    }
 }
