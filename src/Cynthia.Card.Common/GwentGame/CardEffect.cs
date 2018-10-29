@@ -128,20 +128,35 @@ namespace Cynthia.Card
         }
         public virtual async Task PlayStayCard(int count)
         {
-            await Task.CompletedTask;
+            for (var i = 0; i < count; i++)
+            {
+                var location = await Game.GetPlayCard(Game.PlayersStay[Card.PlayerIndex][0]);
+                await Game.PlayersStay[Card.PlayerIndex][0].Effect.Play(location);
+            }
         }
         public virtual async Task<int> CardPlayEffect(bool isSpying)
         {
             if (!isSpying)
             {
-                for (var i = 0; i < 2; i++)
+                /*侦查/特使: 从卡组随机选择两张铜色单位,选择一张打出
+                var cardlist = Game.PlayersDeck[Card.PlayerIndex]
+                .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit)
+                .Mess().Take(2).ToList();//铜色单位卡,乱序取2
+                if (cardlist.Count() == 0) return 0;
+                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, cardlist);
+                if (result.Count() == 0) return 0;
+                await result.Single().MoveToCardStayFirst();
+                return 1;*/
+                var cardlist = Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)].Concat(Game.PlayersHandCard[Card.PlayerIndex])
+                .Where(x => x.Status.IsReveal == false).ToList();
+                if (cardlist.Count() == 0) return 0;
+                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, cardlist, 4, isEnemyBack: true);
+                if (result.Count() == 0) return 0;
+                result.ForAll(async x =>
                 {
-                    (await Game.GetSelectPlaceCards(1, Card, x =>
-                    (
-                        (x.PlayerIndex == Card.PlayerIndex)
-                    ))).ForAll(async x => await Card.Effect.Consume(x));
-                }
-                await Task.Delay(200);
+                    await x.Effect.Reveal(Card);
+                    await x.Effect.Boost(2);
+                });
             }
             else
             {
@@ -307,7 +322,7 @@ namespace Cynthia.Card
                 //***************************************
             }
         }
-        public virtual async Task Reset(GameCard taget = null)//重置
+        public virtual async Task Reset(GameCard taget = null)//重置(未测试)
         {
             if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish) return;
             Card.Status.HealthStatus = 0;
@@ -321,7 +336,7 @@ namespace Cynthia.Card
                 await Banish();
             }
         }
-        public virtual async Task Heal(GameCard taget = null)//治愈
+        public virtual async Task Heal(GameCard taget = null)//治愈(未测试)
         {
             if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish) return;
             if (Card.Status.HealthStatus < 0)
@@ -332,7 +347,7 @@ namespace Cynthia.Card
             //治愈,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Reveal(GameCard source = null)//揭示 (被谁..这样做了)
+        public virtual async Task Reveal(GameCard source = null)//揭示
         {
             //不在手上的话,或者已经被揭示,没有效果
             if (!Card.Status.CardRow.IsInHand() || Card.Status.IsReveal) return;
@@ -351,7 +366,7 @@ namespace Cynthia.Card
             //有卡牌间谍状态改变,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Armor(int num, GameCard source = null)//增加护甲
+        public virtual async Task Armor(int num, GameCard source = null)//增加护甲(未测试)
         {
             if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || num <= 0) return;
             Card.Status.Armor += num;
@@ -361,7 +376,7 @@ namespace Cynthia.Card
             //增加护甲,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Conceal(GameCard source = null)//隐匿
+        public virtual async Task Conceal(GameCard source = null)//隐匿(未测试)
         {
             if (!Card.Status.CardRow.IsInHand() || !Card.Status.IsReveal) return;
             Card.Status.IsReveal = false;
@@ -370,7 +385,7 @@ namespace Cynthia.Card
             //隐匿,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Resilience(GameCard source = null)//坚韧
+        public virtual async Task Resilience(GameCard source = null)//坚韧(未测试)
         {
             if (!Card.Status.CardRow.IsOnPlace()) return;
             Card.Status.IsResilience = !Card.Status.IsResilience;
@@ -379,7 +394,7 @@ namespace Cynthia.Card
             //坚韧,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Discard(GameCard source = null)//丢弃
+        public virtual async Task Discard(GameCard source = null)//丢弃(未测试)
         {//如果在场上,墓地或者已被放逐,不触发
             if (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish) return;
             await ToCemetery();
@@ -387,7 +402,7 @@ namespace Cynthia.Card
             //丢弃,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Lock(GameCard source = null)//锁定
+        public virtual async Task Lock(GameCard source = null)//锁定(未测试)
         {
             if (Card.Status.CardRow == RowPosition.Banish) return;
             Card.Status.IsLock = !Card.Status.IsLock;
@@ -396,25 +411,71 @@ namespace Cynthia.Card
             //锁定,应该触发对应事件<暂未定义,待补充>
             //***************************************
         }
-        public virtual async Task Transform(GameCard To, GameCard source = null)//变为
+        public virtual async Task Transform(GameCard To, GameCard source = null)//变为(未测试)
         {
             if (Card.Status.CardRow == RowPosition.Banish) return;
+            Card.Status = To.Status;
+            Card.Effect = To.Effect;
+            await Game.ShowSetCard(Card);
+            await Game.SetPointInfo();
+            //***************************************
+            //变为,应该触发对应事件<暂未定义,待补充>
+            //***************************************
         }
-        public virtual async Task Resurrect(CardLocation location, GameCard source = null)//复活
+        public virtual async Task Resurrect(CardLocation location, GameCard source = null)//复活(未测试)
         {
             if (Card.Status.CardRow == RowPosition.Banish && !Card.Status.CardRow.IsInCemetery()) return;
+            var cardCemetery = Card.PlayerIndex;
+            await Game.ShowCardMove(location, Card, true);
+            await Game.SetPointInfo();
+            await Game.SetCemeteryInfo(cardCemetery);
+            //***************************************
+            //变为,应该触发对应事件<暂未定义,待补充>
+            //***************************************
         }
-        public virtual async Task Charm(GameCard source = null)//魅惑
+        public virtual async Task Charm(GameCard source = null)//被魅惑
         {
             if (!Card.Status.CardRow.IsOnPlace()) return;
+            if (Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count >= 9) return;
+            await Game.ShowCardOn(Card);
+            await Game.ShowCardMove
+            (
+                new CardLocation()
+                {
+                    RowPosition = Card.Status.CardRow.RowMirror(),
+                    CardIndex = Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count
+                },
+                Card,
+                true
+            );
+            await Task.Delay(400);
+            await CardDown(true);
         }
         public virtual async Task Drain(int num, GameCard taget)//汲食
         {
             if (Card.Status.CardRow == RowPosition.Banish && Card.Status.CardRow.IsInCemetery()) return;
+            var tagetNum = taget.Status.Strength + taget.Status.HealthStatus;
+            num = num > tagetNum ? tagetNum : num;
+            await taget.Effect.Damage(num, Card, BulletType.RedLight, true);//造成穿透伤害
+            await Boost(num, Card);
+            //***************************************
+            //伏击,应该触发对应事件<暂未定义,待补充>
+            //***************************************
         }
         public virtual async Task Ambush()//伏击
         {
             if (!Card.Status.CardRow.IsOnPlace() && !Card.Status.Conceal) return;
+            Card.Status.Conceal = false;
+            await Game.ShowSetCard(Card);
+            await Game.ShowCardOn(Card);
+            await Task.Delay(200);
+            //***************************************
+            //伏击,应该触发对应事件<暂未定义,待补充>
+            //***************************************
+            if (Card.Status.CardRow.IsOnPlace())
+                await CardDown(true);
+            if (Card.Status.CardRow.IsOnPlace())
+                await CardDownEffect();
         }
         public virtual async Task Consume(GameCard taget)//吞噬
         {

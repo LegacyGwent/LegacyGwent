@@ -322,6 +322,31 @@ namespace Cynthia.Card.Server
         //----------------------------------------------------------------------------------------------------------------------
         //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
         //几个从用户那里获得信息的途径
+        public Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> selectList, int selectCount = 1, bool isCanOver = false, string title = "选择一张卡牌")//返回点击列表卡牌的顺序
+        {
+            return GetSelectMenuCards(playerIndex, new MenuSelectCardInfo() { SelectList = selectList, SelectCount = selectCount, IsCanOver = isCanOver, Title = title });
+        }
+        public async Task<IList<GameCard>> GetSelectMenuCards(int playerIndex, IList<GameCard> selectList, int selectCount = 1, string title = "选择一张卡牌", bool isEnemyBack = true, bool isCanOver = true)//返回点击列表卡牌的顺序
+        {
+            selectCount = selectCount > selectList.Count() ? selectList.Count() : selectCount;
+            return
+            (
+                await GetSelectMenuCards
+                (
+                    playerIndex,
+                    new MenuSelectCardInfo()
+                    {
+                        SelectList = selectList.Select(x =>
+                        {
+                            return (!isEnemyBack || x.PlayerIndex == playerIndex) ? x.Status : new CardStatus() { DeckFaction = x.Status.DeckFaction, IsCardBack = true };
+                        }).ToList(),
+                        SelectCount = selectCount,
+                        IsCanOver = isCanOver,
+                        Title = title
+                    }
+                )
+            ).Select(x => selectList[x]).ToList();
+        }
         public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
             await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
@@ -337,8 +362,9 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, rowPart, selectCard);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RowPosition>();
         }
-        public async Task<CardLocation> GetPlayCard(int playerIndex, GameCard card)//选择放置一张牌
+        public async Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false)//选择放置一张牌
         {
+            var playerIndex = isAnother ? AnotherPlayer(card.PlayerIndex) : card.PlayerIndex;
             await Players[playerIndex].SendAsync(ServerOperationType.PlayCard, GetCardLocation(playerIndex, card));
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<CardLocation>();
         }
@@ -990,12 +1016,12 @@ namespace Cynthia.Card.Server
             card.Status.HealthStatus = 0;//没有增益和受伤
             card.Status.IsCardBack = false; //没有背面
             card.Status.IsResilience = false;//没有坚韧
-            //card.Status.IsGray = false;   //没有灰
+                                             //card.Status.IsGray = false;   //没有灰
             card.Status.IsShield = false; //没有昆恩
             card.Status.IsSpying = false; //没有间谍
             card.Status.Conceal = false;  //没有隐藏
             card.Status.IsReveal = false; //没有揭示
-            //card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
+                                          //card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
         }
         public GwentServerGame(Player player1, Player player2)
         {
@@ -1021,7 +1047,7 @@ namespace Cynthia.Card.Server
             //---------------------------------------------------
             GameRowStatus[0] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
             GameRowStatus[1] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
-            //----------------------------------------------------
+                                                                                                   //----------------------------------------------------
             PlayersCemetery[Player1Index] = new List<GameCard>();
             PlayersCemetery[Player2Index] = new List<GameCard>();
             PlayersHandCard[Player1Index] = new List<GameCard>();
