@@ -37,6 +37,7 @@ namespace Cynthia.Card
         public int HealthStatus { get; set; } = 0;//增益减益 | 手牌,场地
         public bool IsLock { get; set; } = false;//是否锁定 | 场地,墓地
         public bool Conceal { get; set; } = false;//是否盖牌 | 场地
+        public bool IsImmue { get; set; } = false;//是否免疫 | 场地
         //-----------------------------------------------------------------
         //显示相关
         //public bool IsGray { get; set; } = false;
