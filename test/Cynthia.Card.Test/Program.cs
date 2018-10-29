@@ -15,13 +15,9 @@ namespace Cynthia.Card.Test
     {
         public static async Task Main(string[] args)
         {
-            var a = 1;
-            var task = WaitUnit(() => a == 3);
-            for (a = 0; a < 5; a++)
-            {
-                Console.WriteLine($"将a的值改为了{a}");
-            }
-            await task;
+            await Task.CompletedTask;
+            IList<int> list = new List<int>() { };
+            list.Take(5).Count().To(Console.Write);
             Console.ReadLine();
         }
         public static Task WaitUnit(Func<bool> func)
