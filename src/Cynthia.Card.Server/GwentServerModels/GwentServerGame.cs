@@ -6,7 +6,7 @@ using Alsein.Utilities;
 
 namespace Cynthia.Card.Server
 {
-    public class GwentServerGame : IGwentServerGame
+    public class GwentServerGame : IGwentServerGame, IGwentEvent
     {
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
         public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
@@ -603,6 +603,22 @@ namespace Cynthia.Card.Server
         public GameCard GetCard(int playerIndex, CardLocation location)
         {
             return RowToList(playerIndex, location.RowPosition)[location.CardIndex];
+        }
+        public IList<GameCard> GetAllCard(int playerIndex)
+        {
+            return PlayersPlace[playerIndex][0]
+            .Concat(PlayersPlace[playerIndex][1])
+            .Concat(PlayersPlace[playerIndex][2])
+            .Concat(PlayersLeader[playerIndex])
+            .Concat(PlayersCemetery[playerIndex])
+            .Concat(PlayersDeck[playerIndex])
+            .Concat(PlayersPlace[AnotherPlayer(playerIndex)][0])
+            .Concat(PlayersPlace[AnotherPlayer(playerIndex)][1])
+            .Concat(PlayersPlace[AnotherPlayer(playerIndex)][2])
+            .Concat(PlayersLeader[AnotherPlayer(playerIndex)])
+            .Concat(PlayersCemetery[AnotherPlayer(playerIndex)])
+            .Concat(PlayersDeck[AnotherPlayer(playerIndex)])
+            .ToList();
         }
         //----------------------------------------------------------------------------------------------
         public Task SetAllInfo()
@@ -1204,6 +1220,131 @@ namespace Cynthia.Card.Server
             var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
             var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
             return Task.WhenAll(SetCountInfo(), SetPointInfo(), player1Task, player2Task);
+        }
+        public Task OnTurnStart(int playerIndex)//谁的回合开始了
+        {
+            return Task.WhenAll(GetAllCard(playerIndex)
+            .ForAll(async x => await x.Effect.OnTurnStart(playerIndex)));
+        }
+        public async Task OnTurnOver(int playerIndex)//谁的回合结束了
+        {
+
+        }
+        public async Task OnRoundOver(int RoundCount, int winPlayerIndex)//第几轮,谁赢了
+        {
+
+        }
+        public async Task OnPlayerPass(int playerIndex)
+        {
+
+        }
+        public async Task OnCardReveal(GameCard taget, GameCard soure = null)//揭示
+        {
+
+        }
+        public async Task OnCardConsume(GameCard taget, GameCard soure = null)//吞噬
+        {
+
+        }
+        public async Task OnCardBoost(GameCard taget, int num, GameCard soure = null)//增益
+        {
+
+        }
+        public async Task OnCardHurt(GameCard taget, int num, GameCard soure = null)//受伤
+        {
+
+        }
+        public async Task OnSpecialPlay(GameCard taget)//法术卡使用前
+        {
+
+        }
+        public async Task OnUnitPlay(GameCard taget)//单位卡执行一段部署前
+        {
+
+        }
+        public async Task OnUnitDown(GameCard taget)//单位卡落下时(二段部署前)
+        {
+
+        }
+        public async Task OnCardDeath(GameCard taget)//有卡牌进入墓地
+        {
+
+        }
+        public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变
+        {
+
+        }
+        public async Task OnCardDiscard(GameCard taget, GameCard soure = null)//卡牌被丢弃
+        {
+
+        }
+        public async Task OnCardAmbush(GameCard taget)//有伏击卡触发
+        {
+
+        }
+        public async Task OnCardSwap(GameCard taget, GameCard soure = null)//卡牌交换
+        {
+
+        }
+        public async Task OnPlayerDraw(int playerIndex, GameCard taget)//抽卡
+        {
+
+        }
+        public async Task OnCardConceal(GameCard taget, GameCard soure = null)//隐匿
+        {
+
+        }
+        public async Task OnCardLockChange(GameCard taget, GameCard soure = null)//锁定状态改变
+        {
+
+        }
+        public async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null)//增加护甲
+        {
+
+        }
+        public async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null)//降低护甲
+        {
+
+        }
+        public async Task OnCardArmorBreak(GameCard taget, GameCard soure = null)//护甲被破坏
+        {
+
+        }
+        public async Task OnCardResurrect(GameCard taget)//有卡牌复活
+        {
+
+        }
+        public async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null)//坚韧状态改变
+        {
+
+        }
+        public async Task OnWeatherApply()//有天气降下
+        {
+
+        }
+        public async Task OnCardHeal(GameCard taget, GameCard soure = null)//卡牌被治愈
+        {
+
+        }
+        public async Task OnCardReset(GameCard taget, GameCard soure = null)//卡牌被重置
+        {
+
+        }
+        public async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null)//强化
+        {
+
+        }
+        public async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null)//削弱
+        {
+
+        }
+        public async Task OnCardDrain(GameCard taget, int num, GameCard soure = null)//有单位汲食时
+        {
+
+        }
+        public async Task OnCardCharm(GameCard taget, GameCard soure = null)//被魅惑
+        {
+
         }
     }
 }
