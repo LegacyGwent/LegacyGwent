@@ -487,11 +487,12 @@ namespace Cynthia.Card
                 if (cardlist.Count() == 0) return 0;
                 var result = await Game.GetSelectMenuCards(Card.PlayerIndex, cardlist, 4, isEnemyBack: true);
                 if (result.Count() == 0) return 0;
-                result.ForAll(async x =>
+                foreach (var card in result)
                 {
-                    await x.Effect.Reveal(Card);
-                    await x.Effect.Boost(2);
-                });
+                    await card.Effect.Reveal(Card);
+                    if (card.CardInfo().CardType == CardType.Unit)
+                        await card.Effect.Boost(2);
+                }
             }
             else
             {
@@ -500,36 +501,36 @@ namespace Cynthia.Card
             return 0;
         }
         //-----------------------------------------------------------------
-        public async Task OnTurnStart(int playerIndex) => await Task.CompletedTask;//谁的回合开始了
-        public async Task OnTurnOver(int playerIndex) => await Task.CompletedTask;//谁的回合结束了
-        public async Task OnRoundOver(int RoundCount, int winPlayerIndex) => await Task.CompletedTask;//第几轮,谁赢了
-        public async Task OnPlayerPass(int playerIndex) => await Task.CompletedTask;
-        public async Task OnCardReveal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//揭示
-        public async Task OnCardConsume(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//吞噬
-        public async Task OnCardBoost(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增益
-        public async Task OnCardHurt(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//受伤
-        public async Task OnSpecialPlay(GameCard taget) => await Task.CompletedTask;//法术卡使用前
-        public async Task OnUnitPlay(GameCard taget) => await Task.CompletedTask;//单位卡执行一段部署前
-        public async Task OnUnitDown(GameCard taget) => await Task.CompletedTask;//单位卡落下时(二段部署前)
-        public async Task OnCardDeath(GameCard taget) => await Task.CompletedTask;//有卡牌进入墓地
-        public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null) => await Task.CompletedTask;//场上间谍改变
-        public async Task OnCardDiscard(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被丢弃
-        public async Task OnCardAmbush(GameCard taget) => await Task.CompletedTask;//有伏击卡触发
-        public async Task OnCardSwap(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌交换
-        public async Task OnPlayerDraw(int playerIndex, GameCard taget) => await Task.CompletedTask;//抽卡
-        public async Task OnCardConceal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//隐匿
-        public async Task OnCardLockChange(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//锁定状态改变
-        public async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增加护甲
-        public async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//降低护甲
-        public async Task OnCardArmorBreak(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//护甲被破坏
-        public async Task OnCardResurrect(GameCard taget) => await Task.CompletedTask;//有卡牌复活
-        public async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null) => await Task.CompletedTask;//坚韧状态改变
-        public async Task OnWeatherApply() => await Task.CompletedTask;//有天气降下
-        public async Task OnCardHeal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被治愈
-        public async Task OnCardReset(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被重置
-        public async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//强化
-        public async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//削弱
-        public async Task OnCardDrain(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//有单位汲食时
-        public async Task OnCardCharm(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//被魅惑
+        public virtual async Task OnTurnStart(int playerIndex) => await Task.CompletedTask;//谁的回合开始了
+        public virtual async Task OnTurnOver(int playerIndex) => await Task.CompletedTask;//谁的回合结束了
+        public virtual async Task OnRoundOver(int RoundCount, int player1Point, int player2Point) => await Task.CompletedTask;//第几轮,谁赢了
+        public virtual async Task OnPlayerPass(int playerIndex) => await Task.CompletedTask;//哪个玩家pass了
+        public virtual async Task OnCardReveal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//揭示
+        public virtual async Task OnCardConsume(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//吞噬
+        public virtual async Task OnCardBoost(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增益
+        public virtual async Task OnCardHurt(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//受伤
+        public virtual async Task OnSpecialPlay(GameCard taget) => await Task.CompletedTask;//法术卡使用前
+        public virtual async Task OnUnitPlay(GameCard taget) => await Task.CompletedTask;//单位卡执行一段部署前
+        public virtual async Task OnUnitDown(GameCard taget) => await Task.CompletedTask;//单位卡落下时(二段部署前)
+        public virtual async Task OnCardDeath(GameCard taget) => await Task.CompletedTask;//有卡牌进入墓地
+        public virtual async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null) => await Task.CompletedTask;//场上间谍改变
+        public virtual async Task OnCardDiscard(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被丢弃
+        public virtual async Task OnCardAmbush(GameCard taget) => await Task.CompletedTask;//有伏击卡触发
+        public virtual async Task OnCardSwap(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌交换
+        public virtual async Task OnPlayerDraw(int playerIndex, GameCard taget) => await Task.CompletedTask;//抽卡
+        public virtual async Task OnCardConceal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//隐匿
+        public virtual async Task OnCardLockChange(GameCard taget, bool isLock, GameCard soure = null) => await Task.CompletedTask;//锁定状态改变
+        public virtual async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增加护甲
+        public virtual async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//降低护甲
+        public virtual async Task OnCardArmorBreak(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//护甲被破坏
+        public virtual async Task OnCardResurrect(GameCard taget) => await Task.CompletedTask;//有卡牌复活
+        public virtual async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null) => await Task.CompletedTask;//坚韧状态改变
+        public virtual async Task OnWeatherApply(int playerIndex, int row, RowStatus type) => await Task.CompletedTask;//有天气降下
+        public virtual async Task OnCardHeal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被治愈
+        public virtual async Task OnCardReset(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被重置
+        public virtual async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//强化
+        public virtual async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//削弱
+        public virtual async Task OnCardDrain(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//有单位汲食时
+        public virtual async Task OnCardCharm(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//被魅惑
     }
 }

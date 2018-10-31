@@ -34,22 +34,16 @@ namespace Cynthia.Card.Server
             LogicDrawCard(Player1Index, 10);//不会展示动画的,逻辑层抽牌
             LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
-            await Task.WhenAll(MulliganCard(Player1Index, 3), MulliganCard(Player2Index, 3));
-            //---------------------------------------------------------------------------------------
-            while (await PlayerRound()) ;//双方轮流执行回合|第一小局
-            await BigRoundEnd();//回合结束处理
+            //----------------------------------------------------------------------------------------
+            await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局
             await DrawCard(2, 2);
-            await Task.WhenAll(MulliganCard(Player1Index, 2), MulliganCard(Player2Index, 2));
-            while (await PlayerRound()) ;//双方轮流执行回合|第二小局
-            await BigRoundEnd();//回合结束处理
+            await PlayerBigRound(2, 2);//双方轮流执行回合|第二小局
             if (PlayersWinCount[Player1Index] < 2 && PlayersWinCount[Player2Index] < 2)//如果前两局没有分出结果
             {
                 await DrawCard(1, 1);
-                await Task.WhenAll(MulliganCard(Player1Index, 1), MulliganCard(Player2Index, 1));
-                while (await PlayerRound()) ;//双方轮流执行回合|第三小局
-                await BigRoundEnd();//回合结束处理
+                await PlayerBigRound(1, 1);//双方轮流执行回合|第三小局
             }
-            //---------------------------------------------------------------------------------------
+            //-----------------------------------------------------------------------------------------
             await GameOverExecute();//发送游戏结束信息
             return true;
         }
@@ -123,7 +117,9 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(Players[Player1Index].SendAsync(ServerOperationType.BigRoundShowClose)
                             , Players[Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
             await Task.Delay(100);
-            //
+            //888888888888888888888888888888888888888888888888888888888888888888888888
+            await OnRoundOver(RoundCount, player1PlacePoint, player2PlacePoint);
+            //888888888888888888888888888888888888888888888888888888888888888888888888
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
             await Task.WhenAll(SetCemeteryInfo(Player1Index), SetCemeteryInfo(Player2Index));
             //清空所有场上的牌
@@ -137,7 +133,9 @@ namespace Cynthia.Card.Server
             GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
             //----------------------------------------------------
             //这里是回合开始卡牌(如剑船)的逻辑和动画<待补充>
-
+            //888888888888888888888888888888888888888888888888888888888888888888888888
+            await OnTurnStart(playerIndex);
+            //888888888888888888888888888888888888888888888888888888888888888888888888
             //----------------------------------------------------
             //这是硬币动画
             await Players[playerIndex].SendAsync(ServerOperationType.SetCoinInfo, true);
@@ -158,6 +156,9 @@ namespace Cynthia.Card.Server
             {//如果没有手牌,强制pass
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
+                //888888888888888888888888888888888888888888888888888888888888888888888888
+                await OnPlayerPass(playerIndex);
+                //888888888888888888888888888888888888888888888888888888888888888888888888
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     //如果对方也pass,结束游戏
@@ -173,6 +174,9 @@ namespace Cynthia.Card.Server
             {//Pass时候执行
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
+                //888888888888888888888888888888888888888888888888888888888888888888888888
+                await OnPlayerPass(playerIndex);
+                //888888888888888888888888888888888888888888888888888888888888888888888888
                 //判断对手是否pass
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
@@ -182,9 +186,6 @@ namespace Cynthia.Card.Server
             else
             {//放置卡牌(单位和法术都是)时执行
              //以上应该不需要改变,至少不是大改动(动画,pass判断之类的)
-             //------------------------------------------------------------------------------------
-             //进行移动...留在卡牌里吧<<<<<<<<<<要改的地方在下RPC里>>>>>>>>>>>>>>
-             //------------------------------------------------------------------------------------
                 await RoundPlayCard(playerIndex, roundInfo);
                 //宣告双方效果结束#########################
                 //可能会变更, 计划封装到卡牌效果中
@@ -192,8 +193,15 @@ namespace Cynthia.Card.Server
                 await Task.Delay(400);
             }
             //宣告回合结束(应该不需要更改)
-            await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
+            //await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
             return true;
+        }
+
+        public async Task PlayerBigRound(int player1Mulligan = 0, int player2Mulligan = 0)
+        {
+            await Task.WhenAll(MulliganCard(Player1Index, player1Mulligan), MulliganCard(Player2Index, player2Mulligan));
+            while (await PlayerRound()) await OnTurnOver(TwoPlayerToPlayerIndex(GameRound));
+            await BigRoundEnd();
         }
         public async Task RoundPlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         {   //获取卡牌,手牌或者领袖,将那个GameCard存起来
@@ -250,7 +258,8 @@ namespace Cynthia.Card.Server
                     Card = PlayersDeck[myPlayerIndex][0].Status
                 });
                 //真实抽的卡只有自己的
-                list.Add(LogicDrawCard(myPlayerIndex, 1).Single());
+                var drawcard = LogicDrawCard(myPlayerIndex, 1).Single();
+                list.Add(drawcard);
                 await Task.Delay(800);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
@@ -258,6 +267,9 @@ namespace Cynthia.Card.Server
                     Taget = new CardLocation() { RowPosition = RowPosition.MyHand, CardIndex = 0 },
                 });
                 await Task.Delay(300);
+                //88888888888888888888888888888888888888888888888888888
+                await OnPlayerDraw(myPlayerIndex, drawcard);
+                //88888888888888888888888888888888888888888888888888888
             }
             for (var i = 0; i < enemyPlayerCount; i++)
             {
@@ -610,12 +622,14 @@ namespace Cynthia.Card.Server
             .Concat(PlayersPlace[playerIndex][1])
             .Concat(PlayersPlace[playerIndex][2])
             .Concat(PlayersLeader[playerIndex])
+            .Concat(PlayersStay[playerIndex])
             .Concat(PlayersCemetery[playerIndex])
             .Concat(PlayersDeck[playerIndex])
             .Concat(PlayersPlace[AnotherPlayer(playerIndex)][0])
             .Concat(PlayersPlace[AnotherPlayer(playerIndex)][1])
             .Concat(PlayersPlace[AnotherPlayer(playerIndex)][2])
             .Concat(PlayersLeader[AnotherPlayer(playerIndex)])
+            .Concat(PlayersStay[playerIndex])
             .Concat(PlayersCemetery[AnotherPlayer(playerIndex)])
             .Concat(PlayersDeck[AnotherPlayer(playerIndex)])
             .ToList();
@@ -841,6 +855,11 @@ namespace Cynthia.Card.Server
             };
         }
         //--------------------------------------
+        public Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type)
+        {
+            return Task.WhenAll(Players[playerIndex].SendAsync(ServerOperationType.ShowWeatherApply, row, type),
+                                Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.ShowWeatherApply, row.RowMirror(), type));
+        }
         public Task SendCardOn(int playerIndex, CardLocation location)
         {
             return Players[playerIndex].SendAsync
@@ -884,7 +903,7 @@ namespace Cynthia.Card.Server
                 );
         }
         //
-        public virtual async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true)
+        public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true)
         {
             await SendCardMove(card.PlayerIndex, new MoveCardInfo()
             {
@@ -1063,8 +1082,7 @@ namespace Cynthia.Card.Server
             PlayersPlace[Player2Index][2] = new List<GameCard>();
             //---------------------------------------------------
             GameRowStatus[0] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
-            GameRowStatus[1] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
-                                                                                                   //----------------------------------------------------
+            GameRowStatus[1] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气                                                                 //----------------------------------------------------
             PlayersCemetery[Player1Index] = new List<GameCard>();
             PlayersCemetery[Player2Index] = new List<GameCard>();
             PlayersHandCard[Player1Index] = new List<GameCard>();
@@ -1221,130 +1239,382 @@ namespace Cynthia.Card.Server
             var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
             return Task.WhenAll(SetCountInfo(), SetPointInfo(), player1Task, player2Task);
         }
-        public Task OnTurnStart(int playerIndex)//谁的回合开始了
+        public int TwoPlayerToPlayerIndex(TwoPlayer player)
         {
-            return Task.WhenAll(GetAllCard(playerIndex)
-            .ForAll(async x => await x.Effect.OnTurnStart(playerIndex)));
+            return ((player == TwoPlayer.Player1) ? Player1Index : Player2Index);
         }
-        public async Task OnTurnOver(int playerIndex)//谁的回合结束了
+        public async Task ApplyWeather(int playerIndex, int row, RowStatus type)
         {
-
+            if (row < 0 || row > 2) return;
+            GameRowStatus[playerIndex][row] = type;
+            await ShowWeatherApply(playerIndex, row.IndexToMyRow(), type);
+            await OnWeatherApply(playerIndex, row, type);
         }
-        public async Task OnRoundOver(int RoundCount, int winPlayerIndex)//第几轮,谁赢了
+        //====================================================================================
+        //====================================================================================
+        //卡牌事件处理与转发
+        public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
         {
-
-        }
-        public async Task OnPlayerPass(int playerIndex)
-        {
-
-        }
-        public async Task OnCardReveal(GameCard taget, GameCard soure = null)//揭示
-        {
-
-        }
-        public async Task OnCardConsume(GameCard taget, GameCard soure = null)//吞噬
-        {
-
-        }
-        public async Task OnCardBoost(GameCard taget, int num, GameCard soure = null)//增益
-        {
-
-        }
-        public async Task OnCardHurt(GameCard taget, int num, GameCard soure = null)//受伤
-        {
-
-        }
-        public async Task OnSpecialPlay(GameCard taget)//法术卡使用前
-        {
-
-        }
-        public async Task OnUnitPlay(GameCard taget)//单位卡执行一段部署前
-        {
-
+            switch (type)
+            {
+                case RowStatus.BloodMoon:
+                    foreach (var card in PlayersPlace[playerIndex][row])
+                    {
+                        await card.Effect.Damage(2);
+                    }
+                    break;
+                case RowStatus.PitTrap:
+                    foreach (var card in PlayersPlace[playerIndex][row])
+                    {
+                        await card.Effect.Damage(4);
+                    }
+                    break;
+            }
+            foreach (var card in GetAllCard(playerIndex))
+            {
+                await card.Effect.OnWeatherApply(playerIndex, row, type);
+            }
         }
         public async Task OnUnitDown(GameCard taget)//单位卡落下时(二段部署前)
         {
-
+            switch (GameRowStatus[taget.PlayerIndex][taget.Status.CardRow.MyRowToIndex()])
+            {
+                case RowStatus.BloodMoon:
+                    await taget.Effect.Damage(2);
+                    break;
+                case RowStatus.PitTrap:
+                    await taget.Effect.Damage(4);
+                    break;
+            }
+            //有单位落下,如果这排有血月,坑陷...对自己造成伤害
+            //-------------------------------------
+            await taget.Effect.OnUnitDown(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnUnitDown(taget);
+            }
         }
-        public async Task OnCardDeath(GameCard taget)//有卡牌进入墓地
+        public async Task OnTurnStart(int playerIndex)//谁的回合开始了
         {
-
+            for (var i = 0; i < 3; i++)
+            {
+                var list = RowToList(playerIndex, i.IndexToMyRow());
+                if (list.Count() == 0) continue;
+                switch (GameRowStatus[playerIndex][i])
+                {
+                    //灾厄
+                    case RowStatus.KorathiHeatwave://科拉兹热浪
+                        await list.WhereAllLowest().Mess().First().Effect.Damage(2);
+                        break;
+                    case RowStatus.RaghNarRoog://终末之战
+                        await list.WhereAllHighest().Mess().First().Effect.Damage(2);
+                        break;
+                    case RowStatus.SkelligeStorm://史凯利杰风暴
+                        await list[0].Effect.Damage(2);
+                        if (list.Count >= 2)
+                            await list[1].Effect.Damage(1);
+                        if (list.Count >= 3)
+                            await list[2].Effect.Damage(1);
+                        break;
+                    case RowStatus.BitingFrost://冰霜
+                        await list.WhereAllLowest().Mess().First().Effect.Damage(2);
+                        break;
+                    case RowStatus.ImpenetrableFog://浓雾
+                        await list.WhereAllHighest().Mess().First().Effect.Damage(2);
+                        break;
+                    case RowStatus.TorrentialRain://雨
+                        foreach (var card in list.Mess().Take(2))
+                            await card.Effect.Damage(1);
+                        break;
+                    //恩泽 Boon
+                    case RowStatus.GoldenFroth://黄金酒沫
+                        foreach (var card in list.Mess().Take(2))
+                            await card.Effect.Boost(1);
+                        break;
+                    case RowStatus.FullMoon://满月
+                        await list.Mess().First().Effect.Boost(2);
+                        //+++++++++++++++++++++++++++++++++++++
+                        //等待补充（临时效果:增益随机一个单位2点
+                        //+++++++++++++++++++++++++++++++++++++
+                        break;
+                    //无效果
+                    case RowStatus.DragonDream://龙之梦
+                    case RowStatus.PitTrap://坑陷
+                    case RowStatus.BloodMoon://血月
+                    case RowStatus.None:
+                        break;
+                }
+            }
+            foreach (var card in GetAllCard(playerIndex))
+            {
+                await card.Effect.OnTurnStart(playerIndex);
+            }
         }
-        public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变
+        public async Task OnTurnOver(int playerIndex)//谁的回合结束了
         {
-
+            foreach (var card in GetAllCard(playerIndex))
+            {
+                await card.Effect.OnTurnOver(playerIndex);
+            }
         }
-        public async Task OnCardDiscard(GameCard taget, GameCard soure = null)//卡牌被丢弃
+        public async Task OnRoundOver(int RoundCount, int player1Point, int player2Point)//第几轮,谁赢了
         {
-
+            foreach (var card in GetAllCard(player1Point > player2Point ? Player1Index : Player2Index))
+            {
+                await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
+            }
         }
-        public async Task OnCardAmbush(GameCard taget)//有伏击卡触发
+        public async Task OnPlayerPass(int playerIndex)
         {
-
-        }
-        public async Task OnCardSwap(GameCard taget, GameCard soure = null)//卡牌交换
-        {
-
+            foreach (var card in GetAllCard(playerIndex))
+            {
+                await card.Effect.OnPlayerPass(playerIndex);
+            }
         }
         public async Task OnPlayerDraw(int playerIndex, GameCard taget)//抽卡
         {
-
+            await taget.Effect.OnPlayerDraw(playerIndex, taget);
+            foreach (var card in GetAllCard(playerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnPlayerDraw(playerIndex, taget);
+            }
+        }
+        public async Task OnCardReveal(GameCard taget, GameCard soure = null)//揭示
+        {
+            await taget.Effect.OnCardReveal(taget, soure);
+            await soure.Effect.OnCardReveal(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardReveal(taget, soure);
+            }
+        }
+        public async Task OnCardConsume(GameCard taget, GameCard soure = null)//吞噬
+        {
+            await taget.Effect.OnCardConsume(taget, soure);
+            await soure.Effect.OnCardConsume(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardConsume(taget, soure);
+            }
+        }
+        public async Task OnCardBoost(GameCard taget, int num, GameCard soure = null)//增益
+        {
+            await taget.Effect.OnCardBoost(taget, num, soure);
+            await soure.Effect.OnCardBoost(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardBoost(taget, num, soure);
+            }
+        }
+        public async Task OnCardHurt(GameCard taget, int num, GameCard soure = null)//受伤
+        {
+            await taget.Effect.OnCardHurt(taget, num, soure);
+            await soure.Effect.OnCardHurt(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardHurt(taget, num, soure);
+            }
+        }
+        public async Task OnSpecialPlay(GameCard taget)//法术卡使用前
+        {
+            await taget.Effect.OnSpecialPlay(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnSpecialPlay(taget);
+            }
+        }
+        public async Task OnUnitPlay(GameCard taget)//单位卡执行一段部署前
+        {
+            await taget.Effect.OnUnitPlay(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnUnitPlay(taget);
+            }
+        }
+        public async Task OnCardDeath(GameCard taget)//有卡牌进入墓地
+        {
+            await taget.Effect.OnCardDeath(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnCardDeath(taget);
+            }
+        }
+        public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变
+        {
+            await taget.Effect.OnCardSpyingChange(taget, isSpying, soure);
+            await soure.Effect.OnCardSpyingChange(taget, isSpying, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardSpyingChange(taget, isSpying, soure);
+            }
+        }
+        public async Task OnCardDiscard(GameCard taget, GameCard soure = null)//卡牌被丢弃
+        {
+            await taget.Effect.OnCardDiscard(taget, soure);
+            await soure.Effect.OnCardDiscard(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardDiscard(taget, soure);
+            }
+        }
+        public async Task OnCardAmbush(GameCard taget)//有伏击卡触发
+        {
+            await taget.Effect.OnCardAmbush(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnCardAmbush(taget);
+            }
+        }
+        public async Task OnCardSwap(GameCard taget, GameCard soure = null)//卡牌交换
+        {
+            await taget.Effect.OnCardSwap(taget, soure);
+            await soure.Effect.OnCardSwap(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardSwap(taget, soure);
+            }
         }
         public async Task OnCardConceal(GameCard taget, GameCard soure = null)//隐匿
         {
-
+            await taget.Effect.OnCardConceal(taget, soure);
+            await soure.Effect.OnCardConceal(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardConceal(taget, soure);
+            }
         }
-        public async Task OnCardLockChange(GameCard taget, GameCard soure = null)//锁定状态改变
+        public async Task OnCardLockChange(GameCard taget, bool isLock, GameCard soure = null)//锁定状态改变
         {
-
+            await taget.Effect.OnCardLockChange(taget, isLock, soure);
+            await soure.Effect.OnCardLockChange(taget, isLock, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardLockChange(taget, isLock, soure);
+            }
         }
         public async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null)//增加护甲
         {
-
+            await taget.Effect.OnCardAddArmor(taget, num, soure);
+            await soure.Effect.OnCardAddArmor(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardAddArmor(taget, num, soure);
+            }
         }
         public async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null)//降低护甲
         {
-
+            await taget.Effect.OnCardSubArmor(taget, num, soure);
+            await soure.Effect.OnCardSubArmor(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardSubArmor(taget, num, soure);
+            }
         }
         public async Task OnCardArmorBreak(GameCard taget, GameCard soure = null)//护甲被破坏
         {
-
+            await taget.Effect.OnCardResurrect(taget);
+            await soure.Effect.OnCardResurrect(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardArmorBreak(taget, soure);
+            }
         }
         public async Task OnCardResurrect(GameCard taget)//有卡牌复活
         {
-
+            await taget.Effect.OnCardResurrect(taget);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget)
+                    await card.Effect.OnCardResurrect(taget);
+            }
         }
         public async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null)//坚韧状态改变
         {
-
-        }
-        public async Task OnWeatherApply()//有天气降下
-        {
-
+            await taget.Effect.OnCardResilienceChange(taget, isResilience, soure);
+            await soure.Effect.OnCardResilienceChange(taget, isResilience, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardResilienceChange(taget, isResilience, soure);
+            }
         }
         public async Task OnCardHeal(GameCard taget, GameCard soure = null)//卡牌被治愈
         {
-
+            await taget.Effect.OnCardHeal(taget, soure);
+            await soure.Effect.OnCardHeal(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardHeal(taget, soure);
+            }
         }
         public async Task OnCardReset(GameCard taget, GameCard soure = null)//卡牌被重置
         {
-
+            await taget.Effect.OnCardReset(taget, soure);
+            await soure.Effect.OnCardReset(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardReset(taget, soure);
+            }
         }
         public async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null)//强化
         {
-
+            await taget.Effect.OnCardStrengthen(taget, num, soure);
+            await soure.Effect.OnCardStrengthen(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardStrengthen(taget, num, soure);
+            }
         }
         public async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null)//削弱
         {
-
+            await taget.Effect.OnCardWeaken(taget, num, soure);
+            await soure.Effect.OnCardWeaken(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardWeaken(taget, num, soure);
+            }
         }
         public async Task OnCardDrain(GameCard taget, int num, GameCard soure = null)//有单位汲食时
         {
-
+            await taget.Effect.OnCardDrain(taget, num, soure);
+            await soure.Effect.OnCardDrain(taget, num, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardDrain(taget, num, soure);
+            }
         }
         public async Task OnCardCharm(GameCard taget, GameCard soure = null)//被魅惑
         {
-
+            await taget.Effect.OnCardCharm(taget, soure);
+            await soure.Effect.OnCardCharm(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardCharm(taget, soure);
+            }
         }
     }
 }

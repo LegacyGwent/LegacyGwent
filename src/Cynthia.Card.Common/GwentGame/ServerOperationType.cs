@@ -49,6 +49,7 @@ namespace Cynthia.Card
         CardDown,//卡牌落下 (CardLocation)
         //----------------------------
         //动画
+        ShowWeatherApply,
         ShowCardIconEffect,
         ShowCardBreakEffect,
         ShowCardNumberChange,//展示卡牌数字的变化 (CardLocation,int,isW)

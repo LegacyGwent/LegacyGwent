@@ -16,36 +16,16 @@ namespace Cynthia.Card.Test
         public static async Task Main(string[] args)
         {
             await Task.CompletedTask;
-            IList<int> list = new List<int>() { };
-            list.Take(5).Count().To(Console.Write);
+            IList<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+            //list.Take(5).Count().To(Console.Write);
+            //OrderBy           小到大
+            //OrderByDescending 大到小
+            list.Mess().OrderByDescending(x => x).ForAll(Console.WriteLine);
             Console.ReadLine();
         }
         public static Task WaitUnit(Func<bool> func)
         {
             return Task.Run(() => { while (!func()) ; Console.WriteLine("条件满足"); });
-        }
-    }
-    public interface TestInterface
-    {
-        int Test(int num);
-        int Test2(int num);
-    }
-    public abstract class TestClass2 : TestInterface
-    {
-        public virtual int Test(int num)
-        {
-            return num * num;
-        }
-        public virtual int Test2(int num)
-        {
-            return num * num;
-        }
-    }
-    public class TestClass1 : TestClass2
-    {
-        public override int Test(int num)
-        {
-            return num + num;
         }
     }
 }
