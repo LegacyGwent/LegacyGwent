@@ -150,6 +150,10 @@ namespace Cynthia.Card
                     return true;
                 case RowPosition.EnemyStay:
                     return true;
+                case RowPosition.MyLeader:
+                    return true;
+                case RowPosition.EnemyLeader:
+                    return true;
                 default:
                     return false;
             }
