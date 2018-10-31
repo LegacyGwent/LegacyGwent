@@ -9,6 +9,20 @@ namespace Cynthia.Card
         public static GwentCard CardInfo(this GameCard card) => GwentMap.CardMap[card.Status.CardId];
         public static GwentCard CardInfo(this CardStatus card) => GwentMap.CardMap[card.CardId];
         public static GwentCard CardInfo(this string cardId) => GwentMap.CardMap[cardId];
+        public static bool IsShowBack(this GameCard card, int playerIndex)
+        {
+            if (!card.Status.CardRow.IsOnRow()) return true;
+            if (card.PlayerIndex == playerIndex && card.Status.CardRow.IsOnPlace() && card.Status.Conceal)
+                return true;
+            if (card.PlayerIndex != playerIndex)
+            {
+                if (card.Status.CardRow.IsInHand() && !card.Status.IsReveal)
+                    return true;
+                if (card.Status.CardRow.IsOnPlace() && card.Status.Conceal)
+                    return true;
+            }
+            return false;
+        }
         public static Task MoveToCardStayFirst(this GameCard card, bool isShowToEnemy = true)//移动到卡牌移动区末尾
         {
             var game = card.Effect.Game;
