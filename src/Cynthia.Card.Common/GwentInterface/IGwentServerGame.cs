@@ -28,7 +28,7 @@ namespace Cynthia.Card
         Task<bool> Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
-        IList<GameCard> LogicDrawCard(int playerIndex, int count);//或许应该播放抽卡动画和更新数值
+        Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count);//或许应该播放抽卡动画和更新数值
         //封装的抽卡
         Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count);
         //封装的调度
@@ -38,7 +38,7 @@ namespace Cynthia.Card
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        GameCard LogicCardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex);
+        Task<GameCard> LogicCardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex);
         Task GameOverExecute();
         //----------------------------------------------------------------------------------------------
         //自动向玩家推送更新消息

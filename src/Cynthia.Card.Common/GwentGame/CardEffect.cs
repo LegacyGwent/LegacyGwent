@@ -49,14 +49,13 @@ namespace Cynthia.Card
             {
                 var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
                 var taget = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
-                Game.LogicCardMove(row, row.IndexOf(Card), taget, 0);
+                await Game.LogicCardMove(row, row.IndexOf(Card), taget, 0);
             }
             if (Card.Status.IsDoomed)//如果是佚亡,放逐
             {
                 await Banish();
                 return;
             }
-            await Game.SetCemeteryInfo(Card.PlayerIndex);
             await Game.SetPointInfo();
             //***************************************
             //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
@@ -385,7 +384,6 @@ namespace Cynthia.Card
             var cardCemetery = Card.PlayerIndex;
             await Game.ShowCardMove(location, Card, true);
             await Game.SetPointInfo();
-            await Game.SetCemeteryInfo(cardCemetery);
             //***************************************
             //变为,应该触发对应事件<暂未定义,待补充>
             //***************************************
@@ -502,7 +500,14 @@ namespace Cynthia.Card
         }
         //-----------------------------------------------------------------
         public virtual async Task OnTurnStart(int playerIndex) => await Task.CompletedTask;//谁的回合开始了
-        public virtual async Task OnTurnOver(int playerIndex) => await Task.CompletedTask;//谁的回合结束了
+        public virtual async Task OnTurnOver(int playerIndex)//谁的回合结束了
+        {
+            if (Card.CardInfo().CardType != CardType.Unit) return;
+            if (Card.PlayerIndex == playerIndex)
+                await Boost(1);
+            else
+                await Damage(1);
+        }
         public virtual async Task OnRoundOver(int RoundCount, int player1Point, int player2Point) => await Task.CompletedTask;//第几轮,谁赢了
         public virtual async Task OnPlayerPass(int playerIndex) => await Task.CompletedTask;//哪个玩家pass了
         public virtual async Task OnCardReveal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//揭示
