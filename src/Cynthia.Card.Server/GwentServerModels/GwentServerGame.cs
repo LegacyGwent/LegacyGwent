@@ -323,7 +323,7 @@ namespace Cynthia.Card.Server
                 //将手牌中需要调度的牌,移动到卡组最后
                 await LogicCardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
                 //将卡组中第一张牌抽到手牌调度走的位置
-                var card = LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex);
+                var card = (await LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex));
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
             }
             await Task.Delay(500);
@@ -967,6 +967,8 @@ namespace Cynthia.Card.Server
         }
         public Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type = NumberType.Normal)
         {
+            if (card.IsShowBack(playerIndex))
+                return Task.CompletedTask;
             return Players[playerIndex].SendAsync
                 (
                     ServerOperationType.ShowCardNumberChange,
@@ -978,6 +980,8 @@ namespace Cynthia.Card.Server
         //--
         public Task SendBullet(int playerIndex, GameCard source, GameCard taget, BulletType type)
         {
+            if (source.IsShowBack(playerIndex) || taget.IsShowBack(playerIndex))
+                return Task.CompletedTask;
             return Players[playerIndex].SendAsync
             (
                 ServerOperationType.ShowBullet,
