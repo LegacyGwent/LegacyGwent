@@ -38,6 +38,34 @@ namespace Cynthia.Card
                     return false;
             }
         }
+        public static int MyRowToIndex(this RowPosition row)
+        {
+            switch (row)
+            {
+                case RowPosition.MyRow1:
+                    return 0;
+                case RowPosition.MyRow2:
+                    return 1;
+                case RowPosition.MyRow3:
+                    return 2;
+                default:
+                    return -1;
+            }
+        }
+        public static RowPosition IndexToMyRow(this int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return RowPosition.MyRow1;
+                case 1:
+                    return RowPosition.MyRow2;
+                case 2:
+                    return RowPosition.MyRow3;
+                default:
+                    return RowPosition.Banish;
+            }
+        }
         public static bool IsInHand(this RowPosition row)
         {
             switch (row)

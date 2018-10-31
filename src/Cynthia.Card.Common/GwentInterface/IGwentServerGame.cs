@@ -56,6 +56,7 @@ namespace Cynthia.Card
         //Task GetCardFrom(int playerIndex, RowPosition getPosition, RowPosition taget, int index, CardStatus cardInfo);
         //Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
         //动画系
+        Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type);
         Task SendCardOn(int playerIndex, CardLocation location);
         Task SendCardDown(int playerIndex, CardLocation location);
         Task SendCardMove(int playerIndex, MoveCardInfo info);
@@ -87,6 +88,7 @@ namespace Cynthia.Card
         Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> Sizer = null, SelectModeType selectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0);
         Task<RowPosition> GetSelectRow(int playerIndex, CardLocation selectCard, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false);//告诉玩家要打出什么牌,获取玩家选择的位置
+        Task ApplyWeather(int playerIndex, int row, RowStatus type);
         //----------------------------------------------------------------
         //方便的封装效果
         GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, SelectModeType selectMode = SelectModeType.All);
