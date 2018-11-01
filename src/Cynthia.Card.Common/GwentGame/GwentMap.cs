@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,7 +30,7 @@ namespace Cynthia.Card
             //-----------------------------------------------------------------
             //中立金
             {
-                "12001",//Id
+                "12001",//皇家谕令
                 new GwentCard()
                 {
                     CardId = "12001",//Id
@@ -48,7 +49,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "12002",
+                "12002",//杰洛特：伊格尼法印
                 new GwentCard()
                 {
                     CardId = "12002",
@@ -68,7 +69,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "12003",
+                "12003",//丹德里恩：传奇诗人
                 new GwentCard()
                 {
                     CardId = "12003",
@@ -90,7 +91,7 @@ namespace Cynthia.Card
             //-------------
             //中立银
             {
-                "13001",
+                "13001",//萝卜
                 new GwentCard()
                 {
                     CardId = "13001",
@@ -110,7 +111,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "13002",
+                "13002",//乞丐王
                 new GwentCard()
                 {
                     CardId = "13002",
@@ -132,7 +133,7 @@ namespace Cynthia.Card
             //-------------
             //中立铜
             {
-                "14001",
+                "14001",//侦查
                 new GwentCard()
                 {
                     CardId = "14001",
@@ -154,7 +155,7 @@ namespace Cynthia.Card
             //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //帝国领袖
             {
-                "61001",
+                "61001",//约翰·卡尔维特
                 new GwentCard()
                 {
                     CardId ="61001",
@@ -176,7 +177,7 @@ namespace Cynthia.Card
             //-----------
             //帝国金卡
             {
-                "62001",
+                "62001",//亚特里的林法恩
                 new GwentCard()
                 {
                     CardId ="62001",
@@ -198,7 +199,7 @@ namespace Cynthia.Card
             //----------
             //帝国银卡
             {
-                "63001",
+                "63001",//约阿希姆·德·维特
                 new GwentCard()
                 {
                     CardId ="63001",
@@ -218,7 +219,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "63002",
+                "63002",//冒牌希里
                 new GwentCard()
                 {
                     CardId ="63002",
@@ -238,7 +239,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "63003",
+                "63003",//魔像守卫
                 new GwentCard()
                 {
                     CardId ="63003",
@@ -258,7 +259,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "63004",
+                "63004",//坎塔蕾拉
                 new GwentCard()
                 {
                     CardId ="63004",
@@ -280,7 +281,7 @@ namespace Cynthia.Card
             //------------
             //帝国铜卡
             {
-                "64001",
+                "64001",//维可瓦罗医师
                 new GwentCard()
                 {
                     CardId ="64001",
@@ -300,7 +301,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "64002",
+                "64002",//特使
                 new GwentCard()
                 {
                     CardId ="64002",
@@ -320,7 +321,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "64003",
+                "64003",//近卫军
                 new GwentCard()
                 {
                     CardId ="64003",
@@ -340,7 +341,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "64004",
+                "64004",//尼弗迦德骑士
                 new GwentCard()
                 {
                     CardId ="64004",
@@ -358,6 +359,33 @@ namespace Cynthia.Card
                     CardArtsId = "16231800",
                 }
             },
+        };
+        public static IDictionary<string, Type> CardEffectMap { get; } = new Dictionary<string, Type>
+        {
+            //中立金
+            {"12001",typeof(RoyalDecree)},//皇家谕令
+            {"12002",typeof(GeraltIgni)},//杰洛特：伊格尼法印
+            {"12003",typeof(DandelionPoet)},//丹德里恩：传奇诗人
+            //中立银
+            {"13001",typeof(Roach)},//萝卜
+            {"13002",typeof(KingofBeggars)},//乞丐王
+            //中立铜
+            {"14001",typeof(Reconnaissance)},//侦查
+            //--------------------------------------
+            //帝国领袖
+            {"61001",typeof(JanCalveit)},//约翰·卡尔维特
+            //帝国金
+            {"62001",typeof(RainfarnOfAttre)},//亚特里的林法恩
+            //帝国银
+            {"63001",typeof(JoachimDeWett)},//约阿希姆·德·维特
+            {"63002",typeof(FalseCiri)},//冒牌希里
+            {"63003",typeof(TheGuardian)},//魔像守卫
+            {"63004",typeof(Cantarella)},//坎塔蕾拉
+            //帝国铜
+            {"64001",typeof(VicovaroNovice)},//维可瓦罗医师
+            {"64002",typeof(Emissary)},//特使
+            {"64003",typeof(ImperaBrigade)},//近卫军
+            {"64004",typeof(NilfgaardianKnight)},//尼弗迦德骑士
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {

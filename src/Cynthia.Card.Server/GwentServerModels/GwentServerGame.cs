@@ -1124,7 +1124,7 @@ namespace Cynthia.Card.Server
                         DeckFaction = PlayersFaction[Player1Index],
                         CardRow = RowPosition.MyLeader,
                     }
-                }.With(card => card.Effect = new CardEffect(this, card))
+                }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[player1.Deck.Leader],this,card))
             }.ToList();
             PlayersLeader[Player2Index] = new List<GameCard>
             {
@@ -1136,7 +1136,7 @@ namespace Cynthia.Card.Server
                         DeckFaction = PlayersFaction[Player2Index],
                         CardRow = RowPosition.MyLeader,
                     }
-                }.With(card => card.Effect = new CardEffect(this, card))
+                }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[player2.Deck.Leader],this,card))
             }.ToList();
             //将卡组转化成实体,并且打乱牌组
             PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard()
@@ -1147,7 +1147,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
                     CardRow = RowPosition.MyDeck
                 }
-            }.With(card => card.Effect = new CardEffect(this, card)))
+            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[x], this, card)))
             .Mess().ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
             PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard()
@@ -1158,7 +1158,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
                     CardRow = RowPosition.MyDeck
                 }
-            }.With(card => card.Effect = new CardEffect(this, card)))
+            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[x], this, card)))
             .Mess().ToList();
         }
         public async Task SendBigRoundEndToCemetery()
