@@ -102,6 +102,18 @@ namespace Cynthia.Card
                     return false;
             }
         }
+        public static bool IsOnStay(this RowPosition row)
+        {
+            switch (row)
+            {
+                case RowPosition.MyStay:
+                    return true;
+                case RowPosition.EnemyStay:
+                    return true;
+                default:
+                    return false;
+            }
+        }
         public static bool IsMyRow(this RowPosition row)
         {
             switch (row)

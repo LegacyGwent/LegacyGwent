@@ -10,7 +10,7 @@ namespace Cynthia.Card
         Task OnPlayerPass(int playerIndex);
         Task OnPlayerDraw(int playerIndex, GameCard taget);//抽卡
         Task OnCardReveal(GameCard taget, GameCard soure = null);//揭示
-        Task OnCardConsume(GameCard taget, GameCard soure = null);//吞噬
+        Task OnCardConsume(GameCard master, GameCard taget);//吞噬
         Task OnCardBoost(GameCard taget, int num, GameCard soure = null);//增益
         Task OnCardHurt(GameCard taget, int num, GameCard soure = null);//受伤
         Task OnSpecialPlay(GameCard taget);//法术卡使用前
@@ -26,14 +26,15 @@ namespace Cynthia.Card
         Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null);//增加护甲
         Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null);//降低护甲
         Task OnCardArmorBreak(GameCard taget, GameCard soure = null);//护甲被破坏
-        Task OnCardResurrect(GameCard taget);//有卡牌复活
+        Task OnCardResurrect(GameCard taget, GameCard soure = null);//有卡牌复活
         Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null);//坚韧状态改变
         Task OnWeatherApply(int playerIndex, int row, RowStatus type);//有天气降下
         Task OnCardHeal(GameCard taget, GameCard soure = null);//卡牌被治愈
         Task OnCardReset(GameCard taget, GameCard soure = null);//卡牌被重置
         Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null);//强化
         Task OnCardWeaken(GameCard taget, int num, GameCard soure = null);//削弱
-        Task OnCardDrain(GameCard taget, int num, GameCard soure = null);//有单位汲食时
+        Task OnCardDrain(GameCard master, int num, GameCard taget);//有单位汲食时
         Task OnCardCharm(GameCard taget, GameCard soure = null);//被魅惑
+        Task OnCardMove(GameCard taget, GameCard soure = null);//位移时
     }
 }

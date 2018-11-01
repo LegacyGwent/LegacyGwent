@@ -130,7 +130,6 @@ namespace Cynthia.Card.Server
             //判断这是谁的回合
             var playerIndex = GameRound == TwoPlayer.Player1 ? Player1Index : Player2Index;
             //切换回合
-            GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
             //----------------------------------------------------
             //这里是回合开始卡牌(如剑船)的逻辑和动画<待补充>
             //888888888888888888888888888888888888888888888888888888888888888888888888
@@ -200,7 +199,11 @@ namespace Cynthia.Card.Server
         public async Task PlayerBigRound(int player1Mulligan = 0, int player2Mulligan = 0)
         {
             await Task.WhenAll(MulliganCard(Player1Index, player1Mulligan), MulliganCard(Player2Index, player2Mulligan));
-            while (await PlayerRound()) await OnTurnOver(TwoPlayerToPlayerIndex(GameRound));
+            while (await PlayerRound())
+            {
+                await OnTurnOver(TwoPlayerToPlayerIndex(GameRound));
+                GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
+            }
             await BigRoundEnd();
         }
         public async Task RoundPlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
@@ -1385,7 +1388,7 @@ namespace Cynthia.Card.Server
                 await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
             }
         }
-        public async Task OnPlayerPass(int playerIndex)
+        public async Task OnPlayerPass(int playerIndex)//玩家pass的时候触发
         {
             foreach (var card in GetAllCard(playerIndex))
             {
@@ -1404,14 +1407,14 @@ namespace Cynthia.Card.Server
         public async Task OnCardReveal(GameCard taget, GameCard soure = null)//揭示
         {
             await taget.Effect.OnCardReveal(taget, soure);
-            await soure.Effect.OnCardReveal(taget, soure);
+            await soure?.Effect.OnCardReveal(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
                     await card.Effect.OnCardReveal(taget, soure);
             }
         }
-        public async Task OnCardConsume(GameCard taget, GameCard soure = null)//吞噬
+        public async Task OnCardConsume(GameCard taget, GameCard soure)//吞噬
         {
             await taget.Effect.OnCardConsume(taget, soure);
             await soure.Effect.OnCardConsume(taget, soure);
@@ -1424,7 +1427,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardBoost(GameCard taget, int num, GameCard soure = null)//增益
         {
             await taget.Effect.OnCardBoost(taget, num, soure);
-            await soure.Effect.OnCardBoost(taget, num, soure);
+            await soure?.Effect.OnCardBoost(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1434,7 +1437,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardHurt(GameCard taget, int num, GameCard soure = null)//受伤
         {
             await taget.Effect.OnCardHurt(taget, num, soure);
-            await soure.Effect.OnCardHurt(taget, num, soure);
+            await soure?.Effect.OnCardHurt(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1471,7 +1474,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变
         {
             await taget.Effect.OnCardSpyingChange(taget, isSpying, soure);
-            await soure.Effect.OnCardSpyingChange(taget, isSpying, soure);
+            await soure?.Effect.OnCardSpyingChange(taget, isSpying, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1481,7 +1484,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardDiscard(GameCard taget, GameCard soure = null)//卡牌被丢弃
         {
             await taget.Effect.OnCardDiscard(taget, soure);
-            await soure.Effect.OnCardDiscard(taget, soure);
+            await soure?.Effect.OnCardDiscard(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1500,7 +1503,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardSwap(GameCard taget, GameCard soure = null)//卡牌交换
         {
             await taget.Effect.OnCardSwap(taget, soure);
-            await soure.Effect.OnCardSwap(taget, soure);
+            await soure?.Effect.OnCardSwap(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1510,7 +1513,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardConceal(GameCard taget, GameCard soure = null)//隐匿
         {
             await taget.Effect.OnCardConceal(taget, soure);
-            await soure.Effect.OnCardConceal(taget, soure);
+            await soure?.Effect.OnCardConceal(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1520,7 +1523,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardLockChange(GameCard taget, bool isLock, GameCard soure = null)//锁定状态改变
         {
             await taget.Effect.OnCardLockChange(taget, isLock, soure);
-            await soure.Effect.OnCardLockChange(taget, isLock, soure);
+            await soure?.Effect.OnCardLockChange(taget, isLock, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1530,7 +1533,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null)//增加护甲
         {
             await taget.Effect.OnCardAddArmor(taget, num, soure);
-            await soure.Effect.OnCardAddArmor(taget, num, soure);
+            await soure?.Effect.OnCardAddArmor(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1540,7 +1543,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null)//降低护甲
         {
             await taget.Effect.OnCardSubArmor(taget, num, soure);
-            await soure.Effect.OnCardSubArmor(taget, num, soure);
+            await soure?.Effect.OnCardSubArmor(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1550,26 +1553,27 @@ namespace Cynthia.Card.Server
         public async Task OnCardArmorBreak(GameCard taget, GameCard soure = null)//护甲被破坏
         {
             await taget.Effect.OnCardResurrect(taget);
-            await soure.Effect.OnCardResurrect(taget);
+            await soure?.Effect.OnCardResurrect(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
                     await card.Effect.OnCardArmorBreak(taget, soure);
             }
         }
-        public async Task OnCardResurrect(GameCard taget)//有卡牌复活
+        public async Task OnCardResurrect(GameCard taget, GameCard soure = null)//有卡牌复活
         {
             await taget.Effect.OnCardResurrect(taget);
+            await soure?.Effect.OnCardResurrect(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget)
+                if (card != taget && card != soure)
                     await card.Effect.OnCardResurrect(taget);
             }
         }
         public async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null)//坚韧状态改变
         {
             await taget.Effect.OnCardResilienceChange(taget, isResilience, soure);
-            await soure.Effect.OnCardResilienceChange(taget, isResilience, soure);
+            await soure?.Effect.OnCardResilienceChange(taget, isResilience, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1579,7 +1583,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardHeal(GameCard taget, GameCard soure = null)//卡牌被治愈
         {
             await taget.Effect.OnCardHeal(taget, soure);
-            await soure.Effect.OnCardHeal(taget, soure);
+            await soure?.Effect.OnCardHeal(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1589,7 +1593,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardReset(GameCard taget, GameCard soure = null)//卡牌被重置
         {
             await taget.Effect.OnCardReset(taget, soure);
-            await soure.Effect.OnCardReset(taget, soure);
+            await soure?.Effect.OnCardReset(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1599,7 +1603,7 @@ namespace Cynthia.Card.Server
         public async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null)//强化
         {
             await taget.Effect.OnCardStrengthen(taget, num, soure);
-            await soure.Effect.OnCardStrengthen(taget, num, soure);
+            await soure?.Effect.OnCardStrengthen(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
@@ -1609,31 +1613,41 @@ namespace Cynthia.Card.Server
         public async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null)//削弱
         {
             await taget.Effect.OnCardWeaken(taget, num, soure);
-            await soure.Effect.OnCardWeaken(taget, num, soure);
+            await soure?.Effect.OnCardWeaken(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
                     await card.Effect.OnCardWeaken(taget, num, soure);
             }
         }
-        public async Task OnCardDrain(GameCard taget, int num, GameCard soure = null)//有单位汲食时
+        public async Task OnCardDrain(GameCard master, int num, GameCard taget)//有单位汲食时
         {
-            await taget.Effect.OnCardDrain(taget, num, soure);
-            await soure.Effect.OnCardDrain(taget, num, soure);
-            foreach (var card in GetAllCard(taget.PlayerIndex))
+            await master.Effect.OnCardDrain(master, num, taget);
+            await taget.Effect.OnCardDrain(master, num, taget);
+            foreach (var card in GetAllCard(master.PlayerIndex))
             {
-                if (card != taget && card != soure)
-                    await card.Effect.OnCardDrain(taget, num, soure);
+                if (card != master && card != taget)
+                    await card.Effect.OnCardDrain(master, num, taget);
             }
         }
         public async Task OnCardCharm(GameCard taget, GameCard soure = null)//被魅惑
         {
             await taget.Effect.OnCardCharm(taget, soure);
-            await soure.Effect.OnCardCharm(taget, soure);
+            await soure?.Effect.OnCardCharm(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget && card != soure)
                     await card.Effect.OnCardCharm(taget, soure);
+            }
+        }
+        public async Task OnCardMove(GameCard taget, GameCard soure = null)//位移时
+        {
+            await taget.Effect.OnCardMove(taget, soure);
+            await soure?.Effect.OnCardMove(taget, soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget && card != soure)
+                    await card.Effect.OnCardMove(taget, soure);
             }
         }
     }

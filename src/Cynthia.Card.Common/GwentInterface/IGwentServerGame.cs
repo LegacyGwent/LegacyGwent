@@ -5,7 +5,7 @@ using Cynthia.Card;
 
 namespace Cynthia.Card
 {
-    public interface IGwentServerGame
+    public interface IGwentServerGame : IGwentEvent
     {
         Player[] Players { get; set; }//玩家数据传输/
         //bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
