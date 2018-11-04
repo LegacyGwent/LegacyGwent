@@ -23,10 +23,11 @@ namespace Cynthia.Card
             }
             return false;
         }
-        public static Task MoveToCardStayFirst(this GameCard card, bool isShowToEnemy = true)//移动到卡牌移动区末尾
+        public static int CardPoint(this GameCard card) => card.Status.HealthStatus + card.Status.Strength;
+        public static Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool isShowToEnemy = true)//移动到卡牌移动区末尾
         {
             var game = card.Effect.Game;
-            return game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, card, isShowToEnemy);
+            return game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, isShowToEnemy);
         }
         public static IEnumerable<(int health, GameCard card)> SelectToHealth(this IEnumerable<GameCard> card)
         {

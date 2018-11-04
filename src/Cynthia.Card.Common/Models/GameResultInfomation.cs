@@ -4,7 +4,8 @@ namespace Cynthia.Card
     {
         Win,
         Lose,
-        Draw
+        Draw,
+        None
     }
     public class GameResultInfomation
     {

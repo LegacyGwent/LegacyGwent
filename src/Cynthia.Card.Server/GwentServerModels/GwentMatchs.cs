@@ -26,12 +26,9 @@ namespace Cynthia.Card.Server
             player1.CurrentUser.UserState = UserState.Play;
             player2.CurrentUser.UserState = UserState.Play;
             //开启游戏
+            room.CurrentGame = gwentGame;
             await gwentGame.Play();
-            //结束游戏恢复玩家状态
-            player1.CurrentUser.UserState = UserState.Standby;
-            player2.CurrentUser.UserState = UserState.Standby;
-            //删除玩家
-            GwentRooms.Remove(room);
+            GameEnd(room);
         }
         public void PlayerJoin(ClientPlayer player)
         {
@@ -74,30 +71,30 @@ namespace Cynthia.Card.Server
             }
             return false;
         }
+        public void GameEnd(GwentRoom room)
+        {
+            //结束游戏恢复玩家状态
+            room.Player1.CurrentUser.UserState = UserState.Standby;
+            room.Player2.CurrentUser.UserState = UserState.Standby;
+            room.Player1.CurrentUser.CurrentPlayer = null;
+            room.Player2.CurrentUser.CurrentPlayer = null;
+            //删除玩家
+            GwentRooms.Remove(room);
+        }
         public bool PlayerLeave(string ConnectionId)
         {   //对局中离开, 如果玩家没有正在对局,返回false
             foreach (var room in GwentRooms)
             {
                 if (room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
                 {
-                    //还有需要补充的代码
-                    //宣告比赛结束,获胜方为Player2
-                    room.Player2.CurrentUser.UserState = UserState.Standby;
-                    room.Player2.CurrentUser.CurrentPlayer = null;
-                    room.Player1.CurrentUser.UserState = UserState.Standby;
-                    room.Player1.CurrentUser.CurrentPlayer = null;
-                    GwentRooms.Remove(room);
+                    //强制结束游戏,将获胜方设定为玩家2(待补充)
+                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player2Index);
                     return true;
                 }
                 if (room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
                 {
-                    //还有需要补充的代码
-                    //宣告比赛结束,获胜方为Player1
-                    room.Player2.CurrentUser.UserState = UserState.Standby;
-                    room.Player2.CurrentUser.CurrentPlayer = null;
-                    room.Player1.CurrentUser.UserState = UserState.Standby;
-                    room.Player1.CurrentUser.CurrentPlayer = null;
-                    GwentRooms.Remove(room);
+                    //强制结束游戏,将获胜方设定为玩家2(待补充)
+                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player1Index);
                     return true;
                 }
             }
