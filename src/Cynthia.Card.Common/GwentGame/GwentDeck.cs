@@ -31,22 +31,22 @@ namespace Cynthia.Card
                     return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组" };
                 //约翰
                 default:
-                    deck = "tg1".Plural(1)
-                    .Concat("tg2".Plural(1))
-                    .Concat("tg3".Plural(1))
-                    .Concat("tg4".Plural(1))
-                    .Concat("ts1".Plural(1))
-                    .Concat("ts2".Plural(1))
-                    .Concat("ts3".Plural(1))
-                    .Concat("ts4".Plural(1))
-                    .Concat("ts5".Plural(1))
-                    .Concat("ts6".Plural(1))
-                    .Concat("tc1".Plural(3))
-                    .Concat("tc2".Plural(3))
-                    .Concat("tc3".Plural(3))
-                    .Concat("tc4".Plural(3))
-                    .Concat("tc5".Plural(3)).ToArray();
-                    return new DeckModel() { Leader = "tl", Deck = deck, Name = "默认卡组" };
+                    deck = "12001".Plural(1)//乞丐王
+                    .Concat("12002".Plural(1))//诗人
+                    .Concat("12003".Plural(1))//皇家
+                    .Concat("13001".Plural(1))//杰洛特
+                    .Concat("13002".Plural(1))//林法恩
+                    .Concat("63004".Plural(1))//帝国间谍
+                    .Concat("62001".Plural(1))//大魔像
+                    .Concat("63001".Plural(1))//冒牌希里
+                    .Concat("63002".Plural(1))//5+10
+                    .Concat("63003".Plural(1))//萝卜
+                    .Concat("14001".Plural(3))//医生
+                    .Concat("64001".Plural(3))//特使
+                    .Concat("64002".Plural(3))//侦查
+                    .Concat("64003".Plural(3))//近卫军
+                    .Concat("64004".Plural(3)).ToArray();//12点
+                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组" };
             }
         }
         public static bool IsBasicDeck(this DeckModel deck)

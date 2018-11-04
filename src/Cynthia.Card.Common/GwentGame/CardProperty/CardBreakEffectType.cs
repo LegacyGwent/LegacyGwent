@@ -6,5 +6,6 @@ namespace Cynthia.Card
         Consume,//吞噬
         Scorch,//焚烧
         Epidemic,//瘟疫
+        ToCemetery,//去墓地,正常,无效果
     }
 }

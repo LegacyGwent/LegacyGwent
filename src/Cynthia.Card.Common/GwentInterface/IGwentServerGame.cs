@@ -25,12 +25,13 @@ namespace Cynthia.Card
         bool[] IsPlayersMulligan { get; set; }//玩家是否调度完毕
         int Player1Index { get; }//玩家1的坐标
         int Player2Index { get; }//玩家2的坐标
-        Task<bool> Play();
+        Task Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count);//或许应该播放抽卡动画和更新数值
         //封装的抽卡
         Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count);
+        Task<List<GameCard>> PlayerDrawCard(int playerIndex, int count = 1);
         //封装的调度
         Task MulliganCard(int playerIndex, int count);
         Task<List<GameCard>> DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount);
@@ -94,12 +95,13 @@ namespace Cynthia.Card
         GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, SelectModeType selectMode = SelectModeType.All);
         int GameCardsPartCount(GameCardsPart part);
         GameCardsPart MirrorGameCardsPart(GameCardsPart part);
-        Task SendGameResult(TwoPlayer player);
+        Task SendGameResult(int playerIndex, GameStatus coerceResult = GameStatus.None);
         void ToCemeteryInfo(GameCard card);
         Task SendBigRoundEndToCemetery();
         RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
         IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
         int AnotherPlayer(int playerIndex);
+        int GetPlayersPoint(int playerIndex);
         CardLocation GetCardLocation(int playerIndex, GameCard card);
         GameCard GetCard(int playerIndex, CardLocation location);
         IList<GameCard> GetAllCard(int playerIndex);

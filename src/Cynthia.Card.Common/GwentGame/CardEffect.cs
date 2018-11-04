@@ -10,7 +10,6 @@ namespace Cynthia.Card
         public GameCard Card { get; set; }//宿主
         public IGwentServerGame Game { get; set; }//游戏本体
         public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
-
         public CardEffect(IGwentServerGame game, GameCard card)
         {
             Game = game;
@@ -18,11 +17,13 @@ namespace Cynthia.Card
         }
         public virtual async Task CardUse()//使用
         {
+            var count = 0;
             await CardUseStart();
             if (Card.Status.CardRow.IsOnStay())
-                await CardUseEffect();
+                count = await CardUseEffect();
             if (Card.Status.CardRow.IsOnStay())
                 await CardUseEnd();
+            await PlayStayCard(count, false);
         }
         public virtual async Task Play(CardLocation location)//放置
         {
@@ -32,14 +33,17 @@ namespace Cynthia.Card
                 count = await CardPlayEffect(isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDown(isSpying);
-            await PlayStayCard(count);
+            await Game.Debug($"放置了卡牌:{Card.Status.CardInfo().Name}");
+            await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDownEffect(isSpying);
         }
         //-----------------------------------------------------------
         //公共效果
-        public virtual async Task ToCemetery(bool isShowToCemetery = true)//进入墓地触发
+        public virtual async Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)//进入墓地触发
         {
+            if (type != CardBreakEffectType.ToCemetery)
+                await Game.ShowCardBreakEffect(Card, type);
             Card.Status.Armor = 0; //护甲归零
             Card.Status.HealthStatus = 0;//没有增益和受伤
             Card.Status.IsCardBack = false; //没有背面
@@ -48,7 +52,7 @@ namespace Cynthia.Card
             Card.Status.IsSpying = false; //没有间谍
             Card.Status.Conceal = false;  //没有隐藏
             Card.Status.IsReveal = false; //没有揭示
-            if (isShowToCemetery)
+            if (type == CardBreakEffectType.ToCemetery)
             {
                 if (Card.Status.CardRow.IsOnPlace())
                 {
@@ -91,6 +95,7 @@ namespace Cynthia.Card
             }
             var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
             list.RemoveAt(list.IndexOf(Card));
+            await Game.Debug("试图放逐:" + Card.CardInfo().Name);
             //所在排为放逐
             Card.Status.CardRow = RowPosition.Banish;
             await Game.SetPointInfo();
@@ -102,7 +107,8 @@ namespace Cynthia.Card
         public virtual async Task CardUseStart()//使用前移动
         {
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
-            await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
+            if (!Card.Status.CardRow.IsOnStay())
+                await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             await Task.Delay(200);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了特殊牌,应该触发对应事件<暂未定义,待补充>
@@ -124,15 +130,28 @@ namespace Cynthia.Card
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
             await Task.Delay(400);
+            await Game.Debug("开始群发,一段部署前事件");
             await Game.OnUnitPlay(Card);
+            await Game.Debug("群发完毕");
             return isSpying;//有没有间谍呢
         }
-        public virtual async Task PlayStayCard(int count)
+        public virtual async Task PlayStayCard(int count, bool isSpying)
         {
+            var stayPlayer = isSpying ? Game.AnotherPlayer(Card.PlayerIndex) : Card.PlayerIndex;
             for (var i = 0; i < count; i++)
             {
-                var location = await Game.GetPlayCard(Game.PlayersStay[Card.PlayerIndex][0]);
-                await Game.PlayersStay[Card.PlayerIndex][0].Effect.Play(location);
+                if (Game.PlayersStay[stayPlayer][0].CardInfo().CardType == CardType.Special)
+                {
+                    await Game.PlayersStay[stayPlayer][0].Effect.CardUse();
+                }
+                else
+                {
+                    var location = await Game.GetPlayCard(Game.PlayersStay[stayPlayer][0]);
+                    if (location.RowPosition.IsInCemetery())
+                        await Game.PlayersStay[stayPlayer][0].Effect.ToCemetery();
+                    else
+                        await Game.PlayersStay[stayPlayer][0].Effect.Play(location);
+                }
             }
         }
         public virtual async Task CardDown(bool isSpying)
@@ -475,8 +494,7 @@ namespace Cynthia.Card
             }
             else if (taget.Status.CardRow.IsOnRow())
             {//如果在场上,展示吞噬动画,之后不展示动画的情况进入墓地
-                await Game.ShowCardBreakEffect(taget, CardBreakEffectType.Consume);
-                await taget.Effect.ToCemetery(false);
+                await taget.Effect.ToCemetery(CardBreakEffectType.Consume);
             }
             else
             {
@@ -493,7 +511,7 @@ namespace Cynthia.Card
         {
             //如果不在场上,返回
             if (!Card.Status.CardRow.IsOnPlace() || Game.RowToList(Card.PlayerIndex, location.RowPosition).Count >= 9) return;
-            var isSpyingChange = location.RowPosition.IsMyRow();
+            var isSpyingChange = !location.RowPosition.IsMyRow();
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
             await Task.Delay(200);
@@ -506,10 +524,11 @@ namespace Cynthia.Card
         //================================================================================
         //================================================================================
         //最主要要被重写的事件
-        public virtual async Task CardUseEffect()//特殊卡使用效果
+        public virtual async Task<int> CardUseEffect()//特殊卡使用效果
         {
             //(await Game.GetSelectPlaceCards(1, Card)).ForAll(async x => await x.Effect.Damage(9, Card));
             await Task.CompletedTask;
+            return 0;
         }
         public virtual async Task CardDownEffect(bool isSpying)//单位卡二段部署
         {
