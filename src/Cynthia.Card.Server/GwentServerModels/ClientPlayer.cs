@@ -12,7 +12,11 @@ namespace Cynthia.Card.Server
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
-            Receive += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
+            Receive += async (x) =>
+            {
+                if(user.IsWaitingReConnect) await Task.Delay(100);
+                await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
+            };
         }
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
         public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));

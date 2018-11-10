@@ -28,16 +28,6 @@ namespace Cynthia.Card.Server
         public int Player1Index { get; } = 0;
         public int Player2Index { get; } = 1;
         private TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
-        public async Task Play()
-        {
-            await Task.WhenAny(PlayGame(), _setGameEnd.Task);
-        }
-        public async Task GameEnd(int winPlayerIndex)
-        {
-            await SendGameResult(winPlayerIndex, GameStatus.Win);
-            await SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose);
-            _setGameEnd.SetResult(winPlayerIndex);
-        }
         public async Task PlayGame()
         {
             //###游戏开始###
@@ -56,6 +46,30 @@ namespace Cynthia.Card.Server
             }
             //-----------------------------------------------------------------------------------------
             await GameOverExecute();//发送游戏结束信息
+        }
+        public async Task Play()
+        {
+            await Task.WhenAny(PlayGame(), _setGameEnd.Task);
+        }
+        public async Task GameEnd(int winPlayerIndex,Exception exception)
+        {
+            if(exception==null)
+                await Debug("对方的账号被强制顶下线,比赛结束");
+            else
+                await Debug(exception.Message);
+            await SendGameResult(winPlayerIndex, GameStatus.Win);
+            await SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose);
+            _setGameEnd.SetResult(winPlayerIndex);
+        }
+        public async Task<bool> WaitReconnect(int waitIndex,Func<Task<bool>> waitReconnect)
+        {
+            if(await waitReconnect())
+            {
+                //如果重连成功
+                await Debug("如果重连成功,应该可以收到这个消息");
+                return true;
+            }
+            return false;
         }
         public async Task BigRoundEnd()//小局结束,进行收场
         {

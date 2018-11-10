@@ -4,6 +4,8 @@ using Alsein.Utilities.LifetimeAnnotations;
 using Autofac;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
+using System;
+using Alsein.Utilities.IO;
 
 namespace Cynthia.Card.Server
 {
@@ -14,12 +16,14 @@ namespace Cynthia.Card.Server
         public GwentDatabaseService DatabaseService { get; set; }
         private readonly GwentMatchs _gwentMatchs;
         private readonly IDictionary<string, User> _users = new Dictionary<string, User>();
-        public GwentServerService(IContainer container)
+        private readonly IDictionary<string,(IAsyncDataSender sender,IAsyncDataReceiver receiver)> _waitReconnectList = new Dictionary<string,(IAsyncDataSender,IAsyncDataReceiver)>();
+        public GwentServerService(IContainer container,GwentDatabaseService databaseService)
         {
             Container = container;
+            DatabaseService = databaseService;
             _gwentMatchs = new GwentMatchs(Container.Resolve<IHubContext<GwentHub>>);
         }
-        public UserInfo Login(User user, string password)
+        public async Task<UserInfo> Login(User user, string password)
         {
             //判断登录条件
             var loginUser = DatabaseService.Login(user.UserName, password);
@@ -28,12 +32,12 @@ namespace Cynthia.Card.Server
                 if (_users.Any(x => x.Value.UserName == user.UserName))//如果重复登录的话,触发"掉线"
                 {
                     var connectionId = _users.Single(x => x.Value.UserName == user.UserName).Value.ConnectionId;
-                    Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
-                    Disconnect(connectionId);
+                    await Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
+                    await Disconnect(connectionId);
                 }
                 if (_users.ContainsKey(user.ConnectionId))
                 {
-                    Disconnect(user.ConnectionId);
+                    await Disconnect(user.ConnectionId);
                 }
                 user.PlayerName = loginUser.PlayerName;
                 user.Decks = loginUser.Decks;
@@ -106,19 +110,71 @@ namespace Cynthia.Card.Server
             return true;
         }
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendAsync(operation);
-        public void Disconnect(string connectionId)
+        public async Task Disconnect(string connectionId,Exception exception = null,bool isWaitReconnect = false)
         {
-            if (!_users.ContainsKey(connectionId))
+            if (!_users.ContainsKey(connectionId))//如果用户没有在线,无效果
                 return;
-            if (_users[connectionId].UserState == UserState.Play)
+            if (_users[connectionId].UserState == UserState.Match)//如果用户正在匹配
             {
-                _gwentMatchs.PlayerLeave(connectionId);
+                _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
-            if (_users[connectionId].UserState == UserState.Match)
+            if(isWaitReconnect)
             {
-                _ = _gwentMatchs.StopMatch(connectionId);
+                if(_users[connectionId].UserState == UserState.Play)
+                {
+                    await _gwentMatchs.WaitReconnect(connectionId,()=>WaitReconnect(connectionId));
+                }
+                else
+                {
+                    await WaitReconnect(connectionId);
+                }
             }
-            _users.Remove(connectionId);
+            else
+            {
+                if (_users[connectionId].UserState == UserState.Play)//如果用户正在进行对局
+                {
+                    _gwentMatchs.PlayerLeave(connectionId,exception);
+                }
+                _users.Remove(connectionId);
+                _waitReconnectList.Remove(connectionId);
+            }
+
+        }
+        public async Task<bool> WaitReconnect(string connectionId)
+        {   //等待重连
+            if(!_users.ContainsKey(connectionId)) return false;
+            //如果没有发现链接,重连失败
+            _users[connectionId].IsWaitingReConnect = true;
+            _waitReconnectList[_users[connectionId].UserName] = AsyncDataEndPoint.CreateSimplex();
+            //建立管道,键为用户名
+            var timeOverTask = Task.Delay(10000);
+            var connectTask = _waitReconnectList[_users[connectionId].UserName].receiver.ReceiveAsync<bool>();
+            switch(await Task.WhenAny(timeOverTask,connectTask))
+            {
+                case Task<bool> task when task == connectTask:
+                    return true;
+                case Task task when task == timeOverTask:
+                default://如果时间结束或者出现了奇怪的结果
+                    _users.Remove(connectionId);
+                    _waitReconnectList.Remove(connectionId);
+                    return false;
+            }
+        }
+        public async Task<bool> Reconnect(string connectionId,string userName, string password)
+        {
+            //如果等待重连列表里面没有的话,重连失败,请重新登陆游戏
+            if(!_waitReconnectList.ContainsKey(userName)) return false;
+            var user = DatabaseService.Login(userName, password);
+            if(user==null||!_users.Any(x=>x.Value.UserName==userName))return false; //如果重连身份验证失败,自然不允许
+            var nowUser = _users.Single(x=>x.Value.UserName==userName).Value;
+            if(!nowUser.IsWaitingReConnect)return false;
+            nowUser.IsWaitingReConnect = false;
+            _users.Remove(_users.Single(x=>x.Value.UserName==userName).Key);
+            nowUser.ConnectionId = connectionId;
+            _users[connectionId] = nowUser;
+            //替换链接
+            await _waitReconnectList[userName].sender.SendAsync<bool>(true);
+            return true;
         }
     }
 }
