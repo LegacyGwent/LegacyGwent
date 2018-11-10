@@ -46,7 +46,7 @@ namespace Cynthia.Card
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
             return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
         }
-        public static IEnumerable<CardLocation> CardsPardToLocation(GameCardsPart part)
+        public static IEnumerable<CardLocation> CardsPardToLocation(this GameCardsPart part)
         {
             var locations = part.MyRow1Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow1}).
             Concat(part.MyRow2Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow2})).
