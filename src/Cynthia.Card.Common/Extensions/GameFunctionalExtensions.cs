@@ -46,5 +46,23 @@ namespace Cynthia.Card
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
             return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
         }
+        public static IEnumerable<CardLocation> CardsPardToLocation(GameCardsPart part)
+        {
+            var locations = part.MyRow1Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow1}).
+            Concat(part.MyRow2Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow2})).
+            Concat(part.MyRow3Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow3})).
+            Concat(part.EnemyRow1Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.EnemyRow1})).
+            Concat(part.EnemyRow2Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.EnemyRow2})).
+            Concat(part.EnemyRow3Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.EnemyRow3})).
+            Concat(part.MyHandCards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyHand})).
+            Concat(part.MyStayCards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyStay})).
+            Concat(part.EnemyHandCards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.EnemyHand})).
+            Concat(part.EnemyStayCards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.EnemyStay}));
+            if(part.IsSelectMyLeader)
+                locations.Append(new CardLocation(){CardIndex=0,RowPosition=RowPosition.MyLeader});
+            if(part.IsSelectEnemyLeader)
+                locations.Append(new CardLocation(){CardIndex=0,RowPosition=RowPosition.EnemyLeader});
+            return locations;
+        }
     }
 }
