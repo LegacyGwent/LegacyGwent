@@ -81,21 +81,38 @@ namespace Cynthia.Card.Server
             //删除玩家
             GwentRooms.Remove(room);
         }
-        public bool PlayerLeave(string ConnectionId)
+        public bool PlayerLeave(string connectionId,Exception exception=null)
         {   //对局中离开, 如果玩家没有正在对局,返回false
             foreach (var room in GwentRooms)
             {
-                if (room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
+                if (room.IsReady && room.Player1.CurrentUser.ConnectionId == connectionId)
                 {
                     //强制结束游戏,将获胜方设定为玩家2(待补充)
-                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player2Index);
+                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player2Index,exception);
                     return true;
                 }
-                if (room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
+                if (room.IsReady && room.Player2.CurrentUser.ConnectionId == connectionId)
                 {
                     //强制结束游戏,将获胜方设定为玩家2(待补充)
-                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player1Index);
+                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player1Index,exception);
                     return true;
+                }
+            }
+            return false;
+        }
+        public async Task<bool> WaitReconnect(string connectionId,Func<Task<bool>> waitReconnect)
+        {
+            foreach (var room in GwentRooms)
+            {
+                if (room.IsReady && room.Player1.CurrentUser.ConnectionId == connectionId)
+                {
+                    //强制结束游戏,将获胜方设定为玩家2(待补充)
+                    return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player2Index,waitReconnect);
+                }
+                if (room.IsReady && room.Player2.CurrentUser.ConnectionId == connectionId)
+                {
+                    //强制结束游戏,将获胜方设定为玩家2(待补充)
+                    return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player1Index,waitReconnect);
                 }
             }
             return false;

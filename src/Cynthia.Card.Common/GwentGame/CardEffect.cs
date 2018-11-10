@@ -33,7 +33,7 @@ namespace Cynthia.Card
                 count = await CardPlayEffect(isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDown(isSpying);
-            await Game.Debug($"放置了卡牌:{Card.Status.CardInfo().Name}");
+            //await Game.Debug($"放置了卡牌:{Card.Status.CardInfo().Name}");
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDownEffect(isSpying);
@@ -130,9 +130,9 @@ namespace Cynthia.Card
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
             await Task.Delay(400);
-            await Game.Debug("开始群发,一段部署前事件");
+            //await Game.Debug("开始群发,一段部署前事件");
             await Game.OnUnitPlay(Card);
-            await Game.Debug("群发完毕");
+            //await Game.Debug("群发完毕");
             return isSpying;//有没有间谍呢
         }
         public virtual async Task PlayStayCard(int count, bool isSpying)

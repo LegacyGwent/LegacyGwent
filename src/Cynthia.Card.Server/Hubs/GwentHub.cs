@@ -10,7 +10,7 @@ namespace Cynthia.Card.Server
         //注册
         public bool Register(string username, string password, string playername) => GwentServerService.Register(username, password, playername);
         //登录
-        public UserInfo Login(string username, string password) => GwentServerService.Login(new User(username, Context.ConnectionId), password);
+        public async Task<UserInfo> Login(string username, string password) => await GwentServerService.Login(new User(username, Context.ConnectionId), password);
         //上传卡组
         public bool AddDeck(DeckModel deck) => GwentServerService.AddDeck(Context.ConnectionId, deck);
         //删除卡组
@@ -23,11 +23,12 @@ namespace Cynthia.Card.Server
         public async Task<bool> StopMatch() => await GwentServerService.StopMatch(Context.ConnectionId);
         //游戏内玩家操作
         public Task GameOperation(Operation<UserOperationType> operation) => GwentServerService.GameOperation(operation, Context.ConnectionId);
+        //重新连接
+        public async Task<bool> Reconnect(string username, string password)=> await GwentServerService.Reconnect(Context.ConnectionId,username,password);
         //连接中断
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            GwentServerService.Disconnect(Context.ConnectionId);
-            return Task.CompletedTask;
+            return GwentServerService.Disconnect(Context.ConnectionId,exception,true);
         }
     }
 }

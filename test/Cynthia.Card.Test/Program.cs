@@ -13,25 +13,9 @@ namespace Cynthia.Card.Test
 {
     class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            await Task.CompletedTask;
-            var source = new TaskCompletionSource<int>();
-            var task = source.Task;
-            source.SetResult(5);
-            var result = await task;
-            Console.WriteLine(result);
             Console.ReadLine();
-        }
-        public static Task WaitUnit(Func<bool> func)
-        {
-            return Task.Run(() => { while (!func()) ; Console.WriteLine("条件满足"); });
-        }
-        public static void LogicCardMove(IList<int> soure, int soureIndex, IList<int> taget, int tagetIndex)
-        {
-            var item = soure[soureIndex];
-            soure.RemoveAt(soureIndex);
-            taget.Insert(tagetIndex > taget.Count ? taget.Count : tagetIndex, item);
         }
     }
 }
