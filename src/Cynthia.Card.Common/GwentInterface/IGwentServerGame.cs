@@ -106,5 +106,6 @@ namespace Cynthia.Card
         GameCard GetCard(int playerIndex, CardLocation location);
         IList<GameCard> GetAllCard(int playerIndex);
         Task Debug(string msg);
+        Task MessageBox(string msg);
     }
 }

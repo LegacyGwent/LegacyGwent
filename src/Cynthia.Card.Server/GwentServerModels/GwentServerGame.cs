@@ -54,9 +54,9 @@ namespace Cynthia.Card.Server
         public async Task GameEnd(int winPlayerIndex,Exception exception)
         {
             if(exception==null)
-                await Debug("对方的账号被强制顶下线,比赛结束");
+                await MessageBox("对方的账号被强制顶下线,比赛结束");
             else
-                await Debug(exception.Message);
+                await MessageBox(exception.Message);
             await SendGameResult(winPlayerIndex, GameStatus.Win);
             await SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose);
             _setGameEnd.SetResult(winPlayerIndex);
@@ -66,7 +66,7 @@ namespace Cynthia.Card.Server
             if(await waitReconnect())
             {
                 //如果重连成功
-                await Debug("如果重连成功,应该可以收到这个消息");
+                await MessageBox("如果重连成功,应该可以收到这个消息");
                 return true;
             }
             return false;
@@ -609,6 +609,11 @@ namespace Cynthia.Card.Server
         {
             await Players[Player1Index].SendAsync(ServerOperationType.Debug, msg);
             await Players[Player2Index].SendAsync(ServerOperationType.Debug, msg);
+        }
+        public async Task MessageBox(string msg)
+        {
+            await Players[Player1Index].SendAsync(ServerOperationType.MessageBox, msg);
+            await Players[Player2Index].SendAsync(ServerOperationType.MessageBox, msg);
         }
         public GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, SelectModeType selectMode = SelectModeType.All)
         {   //根据游戏与条件,筛选出符合条件的选择对象
