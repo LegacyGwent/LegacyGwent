@@ -15,6 +15,7 @@ namespace Cynthia.Card.Test
     {
         public static void Main(string[] args)
         {
+            0.To(10).Append(-1).ForAll(x=>System.Console.Write(x+" "));
             Console.ReadLine();
         }
     }
