@@ -14,7 +14,7 @@ namespace Cynthia.Card.Server
             CurrentUser = user;
             Receive += async (x) =>
             {
-                if(user.IsWaitingReConnect) await Task.Delay(100);
+                while(user.IsWaitingReConnect) await Task.Delay(100);
                 await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
             };
         }
