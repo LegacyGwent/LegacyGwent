@@ -15,8 +15,25 @@ namespace Cynthia.Card.Test
     {
         public static void Main(string[] args)
         {
-            0.To(10).Append(-1).ForAll(x=>System.Console.Write(x+" "));
+            var list = new List<Test>();
+            list.Add(new Test(1,"苹果"));
+            list.Add(new Test(1,"香蕉"));
+            list.Add(new Test(1,"橘子"));
+            list.Add(new Test(2,"汽车"));
+            list.Add(new Test(2,"飞机"));
+            list.Add(new Test(2,"潜艇"));
+            list.GroupBy(x=>x.Key).ForAll(x=>Console.WriteLine(x.Key+"总共有"+x.Count()+"个"));
             Console.ReadLine();
+        }
+    }
+    class Test
+    {
+        public int Key{get;set;}
+        public string Value{get;set;}
+        public Test(int key, string value)
+        {
+            Key = key;
+            Value = value;
         }
     }
 }
