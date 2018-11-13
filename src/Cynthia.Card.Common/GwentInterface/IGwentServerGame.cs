@@ -103,6 +103,7 @@ namespace Cynthia.Card
         int AnotherPlayer(int playerIndex);
         int GetPlayersPoint(int playerIndex);
         CardLocation GetCardLocation(int playerIndex, GameCard card);
+        CardLocation GetCardLocation(GameCard card);
         GameCard GetCard(int playerIndex, CardLocation location);
         IList<GameCard> GetAllCard(int playerIndex);
         Task Debug(string msg);
