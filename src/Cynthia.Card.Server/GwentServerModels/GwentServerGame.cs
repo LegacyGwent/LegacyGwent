@@ -600,6 +600,7 @@ namespace Cynthia.Card.Server
                 CardIndex = list.IndexOf(card)
             };
         }
+        public CardLocation GetCardLocation(GameCard card)=>GetCardLocation(card.PlayerIndex,card);
         public int AnotherPlayer(int playerIndex) => playerIndex == Player1Index ? Player2Index : Player1Index;
         public int GetPlayersPoint(int playerIndex)
         {
@@ -1517,13 +1518,13 @@ namespace Cynthia.Card.Server
                     await card.Effect.OnUnitPlay(taget);
             }
         }
-        public async Task OnCardDeath(GameCard taget)//有卡牌进入墓地
+        public async Task OnCardDeath(GameCard taget,CardLocation soure)//有卡牌进入墓地
         {
-            await taget.Effect.OnCardDeath(taget);
+            await taget.Effect.OnCardDeath(taget,soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
                 if (card != taget)
-                    await card.Effect.OnCardDeath(taget);
+                    await card.Effect.OnCardDeath(taget,soure);
             }
         }
         public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变

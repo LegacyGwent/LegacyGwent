@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cynthia.Card
@@ -15,9 +16,18 @@ namespace Cynthia.Card
         {
             if (Card.PlayerIndex == playerIndex && !Card.Status.IsLock && Card.Status.IsSpying) await Card.Effect.Charm();
         }
-        public override async Task OnCardDeath(GameCard taget)
+        public override async Task OnCardDeath(GameCard taget,CardLocation source)
         {
-            if (taget == Card) Game.Debug("冒牌希里凉啦!");
+            if (taget == Card)
+            {
+                var row = Game.RowToList(taget.PlayerIndex,source.RowPosition);
+                var cards = row.WhereAllLowest().ToList();
+                for(var i = 0; i<cards.Count;i++)
+                {
+                    await cards[i].Effect.ToCemetery(CardBreakEffectType.Scorch);
+                }
+                await Game.Debug("冒牌希里凉啦!");
+            }
         }
     }
 }

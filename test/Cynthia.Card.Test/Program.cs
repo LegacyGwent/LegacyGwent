@@ -13,27 +13,27 @@ namespace Cynthia.Card.Test
 {
     class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var list = new List<Test>();
-            list.Add(new Test(1,"苹果"));
-            list.Add(new Test(1,"香蕉"));
-            list.Add(new Test(1,"橘子"));
-            list.Add(new Test(2,"汽车"));
-            list.Add(new Test(2,"飞机"));
-            list.Add(new Test(2,"潜艇"));
-            list.GroupBy(x=>x.Key).ForAll(x=>Console.WriteLine(x.Key+"总共有"+x.Count()+"个"));
+            (IAsyncDataSender sender,IAsyncDataReceiver receiver) = AsyncDataEndPoint.CreateSimplex();
+            receiver.Receive+=x=>
+            {
+                if(((int)x.Result)>5)
+                {
+                    Console.WriteLine($"内部触发,并且不会捉住:{((int)x.Result)}");
+                    x.IsMonopolied = true;
+                }
+                else
+                {
+                    x.IsMonopolied = false;
+                }
+                return Task.CompletedTask;
+            };
+            await sender.SendAsync<int>(3);
+            await sender.SendAsync<int>(8);
+            Console.WriteLine($"接收到值:{await receiver.ReceiveAsync<int>()}");
+            Console.WriteLine($"接收到值:{await receiver.ReceiveAsync<int>()}");
             Console.ReadLine();
-        }
-    }
-    class Test
-    {
-        public int Key{get;set;}
-        public string Value{get;set;}
-        public Test(int key, string value)
-        {
-            Key = key;
-            Value = value;
         }
     }
 }
