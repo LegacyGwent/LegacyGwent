@@ -340,7 +340,8 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < count; i++)
             {
                 await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
-                var mulliganCardIndex = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<int>();
+                var result = await Players[playerIndex].ReceiveAsync();
+                var mulliganCardIndex = result.Arguments.ToArray()[0].ToType<string>().ToType<int>();
                 if (mulliganCardIndex == -1)
                     break;
                 //逻辑处理
