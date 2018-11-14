@@ -16,23 +16,18 @@ namespace Cynthia.Card.Test
         public static async Task Main(string[] args)
         {
             (IAsyncDataSender sender,IAsyncDataReceiver receiver) = AsyncDataEndPoint.CreateSimplex();
-            receiver.Receive+=x=>
+            receiver.Receive+=async (x)=>
             {
-                if(((int)x.Result)>5)
-                {
-                    Console.WriteLine($"内部触发,并且不会捉住:{((int)x.Result)}");
-                    x.IsMonopolied = true;
-                }
-                else
-                {
-                    x.IsMonopolied = false;
-                }
-                return Task.CompletedTask;
+                await Task.Delay(((int)x.Result)*500);
+                Console.WriteLine($"这是等待{((int)x.Result)}秒后输出的消息");
             };
+            await sender.SendAsync<int>(5);
+            await sender.SendAsync<int>(4);
             await sender.SendAsync<int>(3);
-            await sender.SendAsync<int>(8);
-            Console.WriteLine($"接收到值:{await receiver.ReceiveAsync<int>()}");
-            Console.WriteLine($"接收到值:{await receiver.ReceiveAsync<int>()}");
+            await sender.SendAsync<int>(2);
+            await sender.SendAsync<int>(3);
+            //Console.WriteLine($"接收到值:{await receiver.ReceiveAsync<int>()}");
+            //Console.WriteLine($"接收到值:{await receiver.ReceiveAsync<int>()}");
             Console.ReadLine();
         }
     }

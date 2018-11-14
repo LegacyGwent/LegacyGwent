@@ -8,45 +8,45 @@ namespace Cynthia.Card.Server
     public class ClientPlayer : Player
     {
         public User CurrentUser { get; set; }
-        protected IAsyncDataSender _okSender;
-        protected IAsyncDataReceiver _okReceive;
-
+        private (TaskCompletionSource<bool> Task,string Id) _nowOkTask;
         public ClientPlayer(User user, Func<IHubContext<GwentHub>> hub)
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
-            (_okSender,_okReceive) = AsyncDataEndPoint.CreateSimplex();
-            /*base.Receive+=async (x)=>
+            base.Receive+=async (x)=>
             {
-                var type = ((Operation<UserOperationType>)x.Result).OperationType;
-                if(type==UserOperationType.OK)
+                var type = ((Operation<UserOperationType>)x.Result);
+                if(type.OperationType==UserOperationType.OK)
                 {
-                    x.IsMonopolied = true;
-                    await _okSender.SendAsync<bool>(true);
+                    x.IsAsyncReceived = false;
+                    if(_nowOkTask.Id==type.Id&&!_nowOkTask.Task.Task.IsCompletedSuccessfully)
+                    {
+                        _nowOkTask.Task.SetResult(true);
+                    }
                 }
                 else
                 {
-                    x.IsMonopolied = false;
+                    x.IsAsyncReceived = true;
                 }
                 await Task.CompletedTask;
-            };*/
+            };
             Receive += async (x) =>
             {   //收到上游的消息
                 var uuid = Guid.NewGuid().ToString();
-                //reStar:
+                _nowOkTask = (new TaskCompletionSource<bool>(),uuid);
+                reStar:
                 while(user.IsWaitingReConnect) await Task.Delay(100);
                 ((Operation<ServerOperationType>)x.Result).Id = uuid;
                 await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
-                /*var waitTask = _okReceive.ReceiveAsync<bool>();
                 var timeTask = Task.Delay(500);
-                switch(await Task.WhenAny(waitTask,timeTask))
+                switch(await Task.WhenAny(_nowOkTask.Task.Task,timeTask))
                 {
-                    case Task<bool> wt when wt == waitTask:
+                    case Task<bool> wt when wt == _nowOkTask.Task.Task:
                     var result = await wt;
                         break;
                     case Task tt when tt == timeTask:
                         goto reStar;
-                }*/
+                }
             };
         }
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);

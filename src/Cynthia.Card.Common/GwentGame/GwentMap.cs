@@ -274,7 +274,7 @@ namespace Cynthia.Card
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = false,//true,
+                    IsDoomed = true,
                     IsCountdown = false,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "这个世界的瘟疫跟战争一样多，夺人性命也一样出其不意。",

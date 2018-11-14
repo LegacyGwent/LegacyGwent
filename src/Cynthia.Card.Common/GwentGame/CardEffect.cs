@@ -96,11 +96,12 @@ namespace Cynthia.Card
             {
                 await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
             }
-            var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+            var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow); 
             list.RemoveAt(list.IndexOf(Card));
             await Game.Debug("试图放逐:" + Card.CardInfo().Name);
             //所在排为放逐
             Card.Status.CardRow = RowPosition.Banish;
+            await Game.SetCountInfo();
             await Game.SetPointInfo();
             await Game.SetCemeteryInfo(Card.PlayerIndex);
         }
