@@ -27,7 +27,6 @@ namespace Cynthia.Card
                 {
                     await cards[i].Effect.ToCemetery(CardBreakEffectType.Scorch);
                 }
-                await Game.Debug("冒牌希里凉啦!");
             }
         }
     }

@@ -66,7 +66,7 @@ namespace Cynthia.Card.Server
             if(await waitReconnect())
             {
                 //如果重连成功
-                await MessageBox("如果重连成功,应该可以收到这个消息");
+                await Debug("如果重连成功,应该可以收到这个消息");
                 return true;
             }
             return false;
@@ -452,9 +452,9 @@ namespace Cynthia.Card.Server
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
         public async Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> taget, int tagetIndex)
         {
-            var player1SoureRow = source.Status.CardRow;
+            var player1SoureRow = (source.PlayerIndex==Player1Index?source.Status.CardRow:source.Status.CardRow.Mirror());
             var player1TagetRow = ListToRow(Player1Index, taget);
-            if(source.Status.CardRow.IsNone())
+            if(!source.Status.CardRow.IsNone())
             {
                 var sourceRow = RowToList(source.PlayerIndex,source.Status.CardRow);
                 sourceRow.RemoveAt(sourceRow.IndexOf(source));
@@ -1227,6 +1227,19 @@ namespace Cynthia.Card.Server
         {
             return ((player == TwoPlayer.Player1) ? Player1Index : Player2Index);
         }
+        public CardLocation GetRandomCanPlayLocation(int playerIndex)
+        {
+            Random rd = new Random();
+            var a = new List<int>();
+            if(PlayersPlace[playerIndex][0].Count<9)a.Add(0);
+            if(PlayersPlace[playerIndex][1].Count<9)a.Add(1);
+            if(PlayersPlace[playerIndex][2].Count<9)a.Add(2);
+            if(a.Count==0)return null;
+            var rowIndex = a[rd.Next(0,a.Count-1)];
+            var count = PlayersPlace[playerIndex][rowIndex].Count;
+            return new CardLocation(rowIndex.IndexToMyRow(),rd.Next(0,count));
+
+        }
         public async Task ApplyWeather(int playerIndex, int row, RowStatus type)
         {
             if (row < 0 || row > 2) return;
@@ -1248,7 +1261,8 @@ namespace Cynthia.Card.Server
                     CardRow = RowPosition.None,
                 }
             }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[GwentMap.CardMap[CardId].EffectId],this,card));
-            setting(creatCard.Status);
+            if(setting!=null)
+                setting(creatCard.Status);
             await LogicCardMove(creatCard,RowToList(playerIndex,position.RowPosition),position.CardIndex);
             await Players[playerIndex].SendAsync(ServerOperationType.CreateCard,creatCard.Status,position);
             await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,

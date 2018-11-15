@@ -560,6 +560,14 @@ namespace Cynthia.Card
             await Game.OnCardMove(Card, source);
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
+        public virtual async Task Summon(CardLocation location,GameCard source)//召唤到什么地方
+        {   //召唤
+            var isSpyingChange = !location.RowPosition.IsMyRow();
+            await Game.ShowCardMove(location, Card);
+            await Game.ShowCardOn(Card);
+            await Task.Delay(200);
+            await CardDown(isSpyingChange);
+        }
         //================================================================================
         //================================================================================
         //最主要要被重写的事件
