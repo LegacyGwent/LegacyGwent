@@ -11,7 +11,7 @@ namespace Cynthia.Card
         {
             if (taget.Status.Group == Group.Gold && taget.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
             {
-                var a = new List<int>();
+                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex),taget);
             }
         }
     }
