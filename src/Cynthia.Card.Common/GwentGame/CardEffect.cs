@@ -82,12 +82,14 @@ namespace Cynthia.Card
                 await Banish();
                 return;
             }
-            await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
             if(isDead&&Card.Status.CardRow!=RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
                 await Game.OnCardDeath(Card,deadposition);
             //8888888888888888888888888888888888888888888888888888888888888888888888
+            await Game.SetPointInfo();
+            await Game.SetCemeteryInfo();
+            await Game.SetCountInfo();
         }
         public virtual async Task Banish()//放逐
         {
@@ -105,7 +107,42 @@ namespace Cynthia.Card
             await Game.SetPointInfo();
             await Game.SetCemeteryInfo(Card.PlayerIndex);
         }
+        public virtual async Task RoundEnd()
+        {   //当回合结束的时候,如果在场上,进行处理
+            if(!Card.Status.CardRow.IsOnPlace()) return;
 
+            Card.Status.Armor = 0; //护甲归零
+            Card.Status.HealthStatus = 0;//没有增益和受伤
+            if (Card.Status.IsResilience)
+            {
+                await Card.Effect.Resilience();
+                return;
+            }
+            Card.Status.IsResilience = false;
+            Card.Status.IsCardBack = false; //没有背面
+            Card.Status.IsShield = false; //没有昆恩
+            Card.Status.IsSpying = false; //没有间谍
+            Card.Status.Conceal = false;  //没有隐藏
+            Card.Status.IsReveal = false; //没有揭示
+            if (Card.Status.Strength > 0)
+            {
+                await Game.ShowCardOn(Card);
+                await Game.ShowSetCard(Card);
+                await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
+            }
+            else
+            {
+                await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
+                var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+                var taget = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
+                await Game.LogicCardMove(row, row.IndexOf(Card), taget, 0);
+            }
+            if (Card.Status.IsDoomed)//如果是佚亡,放逐
+            {
+                await Banish();
+                return;
+            }
+        }
         //-----------------------------------------------------------
         //特殊卡的单卡使用
         public virtual async Task CardUseStart()//使用前移动

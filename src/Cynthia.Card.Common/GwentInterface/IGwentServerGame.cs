@@ -96,8 +96,9 @@ namespace Cynthia.Card
         int GameCardsPartCount(GameCardsPart part);
         GameCardsPart MirrorGameCardsPart(GameCardsPart part);
         Task SendGameResult(int playerIndex, GameStatus coerceResult = GameStatus.None);
-        void ToCemeteryInfo(GameCard card);
+        //void ToCemeteryInfo(GameCard card);
         Task SendBigRoundEndToCemetery();
+        Task SetCemeteryInfo();
         RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
         IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
         int AnotherPlayer(int playerIndex);

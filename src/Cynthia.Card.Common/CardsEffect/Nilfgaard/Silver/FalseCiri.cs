@@ -18,6 +18,7 @@ namespace Cynthia.Card
         }
         public override async Task OnCardDeath(GameCard taget,CardLocation source)
         {
+            if(!Card.Status.IsLock)return;
             if (taget == Card)
             {
                 var row = Game.RowToList(taget.PlayerIndex,source.RowPosition);

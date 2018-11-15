@@ -145,7 +145,7 @@ namespace Cynthia.Card.Server
             await OnRoundOver(RoundCount, player1PlacePoint, player2PlacePoint);
             //888888888888888888888888888888888888888888888888888888888888888888888888
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
-            await Task.WhenAll(SetCemeteryInfo(Player1Index), SetCemeteryInfo(Player2Index));
+            await SetCemeteryInfo();
             //清空所有场上的牌
         }
         //进行一轮回合
@@ -210,13 +210,8 @@ namespace Cynthia.Card.Server
             {//放置卡牌(单位和法术都是)时执行
              //以上应该不需要改变,至少不是大改动(动画,pass判断之类的)
                 await RoundPlayCard(playerIndex, roundInfo);
-                //宣告双方效果结束#########################
-                //可能会变更, 计划封装到卡牌效果中
-                //########################################
                 await Task.Delay(400);
             }
-            //宣告回合结束(应该不需要更改)
-            //await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
             return true;
         }
 
@@ -715,6 +710,11 @@ namespace Cynthia.Card.Server
             var player2Task = Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[playerIndex].Select(x => x.Status));
             return Task.WhenAll(player1Task, player2Task);
         }
+        public async Task SetCemeteryInfo()
+        {
+            await SetCemeteryInfo(Player1Index);
+            await SetCemeteryInfo(Player2Index);
+        }
         public Task SetGameInfo()
         {
             var player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetGameInfo, GetGameInfo(TwoPlayer.Player1));
@@ -1125,19 +1125,6 @@ namespace Cynthia.Card.Server
                 PlayersRoundResult[2][enemyPlayerIndex]
             ));
         }
-        public void ToCemeteryInfo(GameCard card)
-        {
-            card.Status.Armor = 0; //护甲归零
-            card.Status.HealthStatus = 0;//没有增益和受伤
-            card.Status.IsCardBack = false; //没有背面
-            card.Status.IsResilience = false;//没有坚韧
-                                             //card.Status.IsGray = false;   //没有灰
-            card.Status.IsShield = false; //没有昆恩
-            card.Status.IsSpying = false; //没有间谍
-            card.Status.Conceal = false;  //没有隐藏
-            card.Status.IsReveal = false; //没有揭示
-                                          //card.CardStatus.Location.RowPosition = RowPosition.MyCemetery;
-        }
         public GwentServerGame(Player player1, Player player2)
         {
             //初始化游戏信息
@@ -1222,101 +1209,17 @@ namespace Cynthia.Card.Server
             //#############################################
             //#                 需要优化                  
             //#############################################
-            var player1CardsPart = new GameCardsPart();
-            var player2CardsPart = new GameCardsPart();
-            for (var i = PlayersPlace[Player1Index][0].Count - 1; i >= 0; i--)
-            {
-                var card = PlayersPlace[Player1Index][0][i];
-                if (card.Status.IsResilience)
-                {
-                    card.Status.IsResilience = false;
-                }
-                else
-                {
-                    player1CardsPart.MyRow1Cards.Add(i);
-                    player2CardsPart.EnemyRow1Cards.Add(i);
-                    ToCemeteryInfo(card);
-                    await LogicCardMove(PlayersPlace[Player1Index][0], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count);
-                }
-            }
-            for (var i = PlayersPlace[Player1Index][1].Count - 1; i >= 0; i--)
-            {
-                var card = PlayersPlace[Player1Index][1][i];
-                if (card.Status.IsResilience)
-                {
-                    card.Status.IsResilience = false;
-                }
-                else
-                {
-                    player1CardsPart.MyRow2Cards.Add(i);
-                    player2CardsPart.EnemyRow2Cards.Add(i);
-                    ToCemeteryInfo(card);
-                    await LogicCardMove(PlayersPlace[Player1Index][1], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count);
-                }
-            }
-            for (var i = PlayersPlace[Player1Index][2].Count - 1; i >= 0; i--)
-            {
-                var card = PlayersPlace[Player1Index][2][i];
-                if (card.Status.IsResilience)
-                {
-                    card.Status.IsResilience = false;
-                }
-                else
-                {
-                    player1CardsPart.MyRow3Cards.Add(i);
-                    player2CardsPart.EnemyRow3Cards.Add(i);
-                    ToCemeteryInfo(card);
-                    await LogicCardMove(PlayersPlace[Player1Index][2], i, PlayersCemetery[Player1Index], PlayersCemetery[Player1Index].Count);
-                }
-            }
-            for (var i = PlayersPlace[Player2Index][0].Count - 1; i >= 0; i--)
-            {
-                var card = PlayersPlace[Player2Index][0][i];
-                if (card.Status.IsResilience)
-                {
-                    card.Status.IsResilience = false;
-                }
-                else
-                {
-                    player2CardsPart.MyRow1Cards.Add(i);
-                    player1CardsPart.EnemyRow1Cards.Add(i);
-                    ToCemeteryInfo(card);
-                    await LogicCardMove(PlayersPlace[Player2Index][0], i, PlayersCemetery[Player2Index], PlayersCemetery[Player2Index].Count);
-                }
-            }
-            for (var i = PlayersPlace[Player2Index][1].Count - 1; i >= 0; i--)
-            {
-                var card = PlayersPlace[Player2Index][1][i];
-                if (card.Status.IsResilience)
-                {
-                    card.Status.IsResilience = false;
-                }
-                else
-                {
-                    player2CardsPart.MyRow2Cards.Add(i);
-                    player1CardsPart.EnemyRow2Cards.Add(i);
-                    ToCemeteryInfo(card);
-                    await LogicCardMove(PlayersPlace[Player2Index][1], i, PlayersCemetery[Player2Index], PlayersCemetery[Player2Index].Count);
-                }
-            }
-            for (var i = PlayersPlace[Player2Index][2].Count - 1; i >= 0; i--)
-            {
-                var card = PlayersPlace[Player2Index][2][i];
-                if (card.Status.IsResilience)
-                {
-                    card.Status.IsResilience = false;
-                }
-                else
-                {
-                    player2CardsPart.MyRow3Cards.Add(i);
-                    player1CardsPart.EnemyRow3Cards.Add(i);
-                    ToCemeteryInfo(card);
-                    await LogicCardMove(PlayersPlace[Player2Index][2], i, PlayersCemetery[Player2Index], PlayersCemetery[Player2Index].Count);
-                }
-            }
-            var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
-            var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
-            await Task.WhenAll(SetCountInfo(), SetPointInfo(), player1Task, player2Task);
+            //var player1CardsPart = new GameCardsPart();
+            //var player2CardsPart = new GameCardsPart();
+            foreach(var place in PlayersPlace)
+            foreach(var row in place)
+            foreach(var card in row.ToList())
+                await card.Effect.RoundEnd();
+            //var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
+            //var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
+            await SetCountInfo();
+            await SetPointInfo();
+            await SetCemeteryInfo();
         }
         public int TwoPlayerToPlayerIndex(TwoPlayer player)
         {
@@ -1332,6 +1235,19 @@ namespace Cynthia.Card.Server
         //====================================================================================
         //====================================================================================
         //卡牌事件处理与转发
+        public async Task CreatCard(string CardId,int playerIndex,CardLocation position,Action<CardStatus> setting = null)
+        {
+            var creatCard = new GameCard()
+            {
+                PlayerIndex = playerIndex,
+                Status = new CardStatus(CardId)
+                {
+                    DeckFaction = PlayersFaction[playerIndex],
+                    CardRow = position.RowPosition,
+                }
+            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[CardId],this,card));
+            setting(creatCard.Status);
+        }
         public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
         {
             switch (type)
