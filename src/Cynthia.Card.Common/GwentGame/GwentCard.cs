@@ -7,6 +7,7 @@ namespace Cynthia.Card
     {
         [Key]
         public string CardId { get; set; }
+        public string EffectId{get;set;}
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
 

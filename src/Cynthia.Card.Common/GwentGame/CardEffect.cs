@@ -4,7 +4,6 @@ using Alsein.Utilities;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("None")]
     public abstract class CardEffect : IGwentEvent
     {
         public GameCard Card { get; set; }//宿主
