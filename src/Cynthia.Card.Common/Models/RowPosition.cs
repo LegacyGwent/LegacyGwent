@@ -19,6 +19,7 @@ namespace Cynthia.Card
         SpecialPlace,
         MyLeader,
         EnemyLeader,
-        Banish,//单位已经被放逐
+        Banish,//单位已经被放逐(代表虚无)
+        None,//代表未指定
     }
 }

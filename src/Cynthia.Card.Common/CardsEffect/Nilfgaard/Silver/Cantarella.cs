@@ -20,10 +20,10 @@ namespace Cynthia.Card
             if (result.Count == 0) return 0;
             var dcard = result.Single();
             var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);
-            await Game.LogicCardMove(row, row.IndexOf(dcard), row, 0);//将选中的卡移动到最上方
+            await Game.LogicCardMove(dcard, row, 0);//将选中的卡移动到最上方
             await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex));//抽卡
             if (list.Count() > 1)//将另一张卡移动到末尾
-                await Game.LogicCardMove(row, row.IndexOf(list.Where(x => x != dcard).Single()), row, row.Count);
+                await Game.LogicCardMove(list.Where(x => x != dcard).Single(), row, row.Count);
             return 0;
         }
     }

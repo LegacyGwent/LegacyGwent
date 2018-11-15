@@ -23,7 +23,9 @@ namespace Cynthia.Card
             }
             return false;
         }
+        public static CardStatus CreateBackCard(this CardStatus card)=>new CardStatus(){IsCardBack = true, DeckFaction = card.DeckFaction};
         public static int CardPoint(this GameCard card) => card.Status.HealthStatus + card.Status.Strength;
+        public static CardLocation Mirror(this CardLocation location)=>new CardLocation(){RowPosition = location.RowPosition.Mirror(),CardIndex = location.CardIndex};
         public static Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool isShowToEnemy = true)//移动到卡牌移动区末尾
         {
             var game = card.Effect.Game;
@@ -46,7 +48,7 @@ namespace Cynthia.Card
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
             return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
         }
-        public static IEnumerable<CardLocation> CardsPardToLocation(this GameCardsPart part)
+        public static IEnumerable<CardLocation> CardsPartToLocation(this GameCardsPart part)
         {
             var locations = part.MyRow1Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow1}).
             Concat(part.MyRow2Cards.Select(x=>new CardLocation(){CardIndex=x,RowPosition=RowPosition.MyRow2})).

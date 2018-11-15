@@ -48,6 +48,7 @@ namespace Cynthia.Card
         CardMove,//卡牌移动
         CardOn,//卡牌抬起 (CardLocation)
         CardDown,//卡牌落下 (CardLocation)
+        CreateCard,
         //----------------------------
         //动画
         ShowWeatherApply,

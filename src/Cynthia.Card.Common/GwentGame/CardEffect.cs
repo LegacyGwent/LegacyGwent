@@ -75,7 +75,7 @@ namespace Cynthia.Card
             {
                 var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
                 var taget = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
-                await Game.LogicCardMove(row, row.IndexOf(Card), taget, 0);
+                await Game.LogicCardMove(Card, taget, 0);
             }
             if (Card.Status.IsDoomed)//如果是佚亡,放逐
             {
@@ -88,7 +88,6 @@ namespace Cynthia.Card
                 await Game.OnCardDeath(Card,deadposition);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             await Game.SetPointInfo();
-            await Game.SetCemeteryInfo();
             await Game.SetCountInfo();
         }
         public virtual async Task Banish()//放逐
@@ -135,7 +134,7 @@ namespace Cynthia.Card
                 await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
                 var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
                 var taget = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
-                await Game.LogicCardMove(row, row.IndexOf(Card), taget, 0);
+                await Game.LogicCardMove(Card, taget, 0);
             }
             if (Card.Status.IsDoomed)//如果是佚亡,放逐
             {
@@ -489,7 +488,7 @@ namespace Cynthia.Card
         {
             if (!Card.Status.CardRow.IsOnPlace()) return;
             if (Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count >= 9) return;
-            await Move(new CardLocation() { RowPosition = Card.Status.CardRow.RowMirror(), CardIndex = Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count });
+            await Move(new CardLocation() { RowPosition = Card.Status.CardRow.Mirror(), CardIndex = Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count });
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //魅惑,应该触发对应事件<暂未定义,待补充>
             await Game.OnCardCharm(Card, source);
