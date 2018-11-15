@@ -65,6 +65,7 @@ namespace Cynthia.Card
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
         //-----------------------
+        Task CreatCard(string CardId,int playerIndex,CardLocation position,Action<CardStatus> setting = null);
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //------------------------
