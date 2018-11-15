@@ -39,7 +39,7 @@ namespace Cynthia.Card
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        Task<GameCard> LogicCardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex);
+        Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> taget, int tagetIndex);
         Task GameOverExecute();
         //----------------------------------------------------------------------------------------------
         //自动向玩家推送更新消息

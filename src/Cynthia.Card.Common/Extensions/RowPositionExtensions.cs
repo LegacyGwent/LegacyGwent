@@ -170,7 +170,19 @@ namespace Cynthia.Card
                     return false;
             }
         }
-        public static RowPosition RowMirror(this RowPosition row)
+        public static bool IsNone(this RowPosition row)
+        {
+            switch(row)
+            {
+                case RowPosition.Banish:
+                case RowPosition.SpecialPlace:
+                case RowPosition.None:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public static RowPosition Mirror(this RowPosition row)
         {
             switch (row)
             {

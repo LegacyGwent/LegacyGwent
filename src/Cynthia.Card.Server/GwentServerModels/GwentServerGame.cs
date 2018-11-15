@@ -250,7 +250,7 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < count; i++)
             {
                 //将卡组顶端的卡牌抽到手牌
-                (await LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], 0)).To(list.Add);
+                (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], 0)).To(list.Add);
             }
             return list;
         }
@@ -354,9 +354,9 @@ namespace Cynthia.Card.Server
                     new CardStatus() { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
                 );
                 //将手牌中需要调度的牌,移动到卡组最后
-                await LogicCardMove(PlayersHandCard[playerIndex], mulliganCardIndex, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
+                await LogicCardMove(PlayersHandCard[playerIndex][mulliganCardIndex], PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
                 //将卡组中第一张牌抽到手牌调度走的位置
-                var card = (await LogicCardMove(PlayersDeck[playerIndex], 0, PlayersHandCard[playerIndex], mulliganCardIndex));
+                var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex));
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
             }
             await Task.Delay(500);
@@ -450,28 +450,30 @@ namespace Cynthia.Card.Server
             return taget.Select(x => GetCard(card.PlayerIndex, x)).ToList();
         }
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        public async Task<GameCard> LogicCardMove(IList<GameCard> soure, int soureIndex, IList<GameCard> taget, int tagetIndex)
+        public async Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> taget, int tagetIndex)
         {
-            var player1SoureRow = ListToRow(Player1Index, soure);
-            var player1TagetRow = ListToRow(Player1Index, soure);
-
-            var item = soure[soureIndex];
-            soure.RemoveAt(soureIndex);
+            var player1SoureRow = source.Status.CardRow;
+            var player1TagetRow = ListToRow(Player1Index, taget);
+            if(source.Status.CardRow.IsNone())
+            {
+                var sourceRow = RowToList(source.PlayerIndex,source.Status.CardRow);
+                sourceRow.RemoveAt(sourceRow.IndexOf(source));
+            }
             if (tagetIndex > taget.Count)
             {
                 tagetIndex = taget.Count;
                 await Debug("指定目标大于最长长度,重指定目标为末尾");
             }
-            taget.Insert(tagetIndex, item);
-            item.Status.CardRow = ListToRow(WhoRow(taget), taget);
-            item.PlayerIndex = WhoRow(taget);
+            taget.Insert(tagetIndex, source);
+            source.Status.CardRow = ListToRow(WhoRow(taget), taget);
+            source.PlayerIndex = WhoRow(taget);
 
             if (player1SoureRow.IsInCemetery() || player1TagetRow.IsInCemetery())
             {
                 await SetCemeteryInfo(Player1Index);
                 await SetCemeteryInfo(Player2Index);
             }
-            return item;
+            return source;
         }
         public async Task GameOverExecute()
         {
@@ -587,7 +589,7 @@ namespace Cynthia.Card.Server
         //另一个玩家
         public CardLocation GetCardLocation(int playerIndex, GameCard card)
         {
-            var row = (playerIndex == card.PlayerIndex ? card.Status.CardRow : card.Status.CardRow.RowMirror());
+            var row = (playerIndex == card.PlayerIndex ? card.Status.CardRow : card.Status.CardRow.Mirror());
             var list = RowToList(playerIndex, row);
             return new CardLocation()
             {
@@ -926,7 +928,7 @@ namespace Cynthia.Card.Server
         public Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type)
         {
             return Task.WhenAll(Players[playerIndex].SendAsync(ServerOperationType.ShowWeatherApply, row, type),
-                                Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.ShowWeatherApply, row.RowMirror(), type));
+                                Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.ShowWeatherApply, row.Mirror(), type));
         }
         public Task SendCardOn(int playerIndex, CardLocation location)
         {
@@ -984,12 +986,12 @@ namespace Cynthia.Card.Server
             await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
             {
                 Soure = GetCardLocation(AnotherPlayer(card.PlayerIndex), card),
-                Taget = new CardLocation() { RowPosition = location.RowPosition.RowMirror(), CardIndex = location.CardIndex },
+                Taget = new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex },
                 Card = refresh ? card.Status : null
             });
             var row = RowToList(card.PlayerIndex, card.Status.CardRow);
             var taget = RowToList(card.PlayerIndex, location.RowPosition);
-            await LogicCardMove(row, row.IndexOf(card), taget, location.CardIndex);
+            await LogicCardMove(card, taget, location.CardIndex);
             await SetCountInfo();
         }
         public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
@@ -1243,10 +1245,14 @@ namespace Cynthia.Card.Server
                 Status = new CardStatus(CardId)
                 {
                     DeckFaction = PlayersFaction[playerIndex],
-                    CardRow = position.RowPosition,
+                    CardRow = RowPosition.None,
                 }
             }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[CardId],this,card));
             setting(creatCard.Status);
+            await LogicCardMove(creatCard,RowToList(playerIndex,position.RowPosition),position.CardIndex);
+            await Players[playerIndex].SendAsync(ServerOperationType.CreateCard,creatCard.Status,position);
+            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
+            ((creatCard.IsShowBack(AnotherPlayer(playerIndex)))?creatCard.Status.CreateBackCard():creatCard.Status),position.Mirror());
         }
         public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
         {
