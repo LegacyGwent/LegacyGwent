@@ -3,12 +3,12 @@ namespace Cynthia.Card
     //势力
     public enum Faction
     {
-        NorthernRealms,//北方
-        ScoiaTael,//松鼠党
-        Monsters,//怪物
-        Skellige,//群岛
-        Nilfgaard,//帝国
-        Neutral,//中立
-        All,//全部
+        All = 0,//全部
+        Neutral = 1,//中立
+        Monsters = 2,//怪物
+        Nilfgaard = 3,//帝国
+        NorthernRealms = 4,//北方
+        ScoiaTael = 5,//松鼠党
+        Skellige = 6,//群岛
     }
 }
