@@ -10,7 +10,7 @@ namespace Cynthia.Card
         {
             return CardMap
             .Where(x=>!x.Value.IsDerive)
-            .OrderBy(x=>x.Value.Faction)
+            .OrderByDescending(x=>x.Value.Faction)
             .ThenBy(x=>x.Value.Group)
             .ThenBy(x=>x.Value.Strength)
             .Select(x=>new CardStatus(x.Key));
