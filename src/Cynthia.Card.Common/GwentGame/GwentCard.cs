@@ -41,5 +41,6 @@ namespace Cynthia.Card
         public bool IsDoomed { get; set; }
         public int Countdown { get; set; }
         public bool IsCountdown { get; set; }
+        public bool IsDerive{get;set;}
     }
 }
