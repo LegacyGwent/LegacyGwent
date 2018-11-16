@@ -8,6 +8,7 @@ namespace Cynthia.Card
         Monsters,//怪物
         Skellige,//群岛
         Nilfgaard,//帝国
-        Neutral//中立
+        Neutral,//中立
+        All,//全部
     }
 }
