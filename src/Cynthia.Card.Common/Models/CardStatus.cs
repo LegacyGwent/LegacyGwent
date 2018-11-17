@@ -12,7 +12,9 @@ namespace Cynthia.Card
             Countdown = GwentMap.CardMap[cardIndex].Countdown;
             CardArtsId = GwentMap.CardMap[cardIndex].CardArtsId;
             Group = GwentMap.CardMap[cardIndex].Group;
+            Faction = GwentMap.CardMap[cardIndex].Faction;
         }
+        public GwentCard CardInfo{get=>GwentMap.CardMap[CardId];}
         public CardStatus()
         {
             IsCardBack = true;
@@ -43,6 +45,7 @@ namespace Cynthia.Card
         //public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
+        public Faction Faction{get;set;}
         //-----------------------------------------------------------------
         public int Countdown = 0;
         public bool IsCountdown = false;
