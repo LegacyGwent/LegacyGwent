@@ -14,9 +14,9 @@ namespace Cynthia.Card.Server
         //上传卡组
         public bool AddDeck(DeckModel deck) => GwentServerService.AddDeck(Context.ConnectionId, deck);
         //删除卡组
-        public bool RemoveDeck(int deckIndex) => GwentServerService.RemoveDeck(Context.ConnectionId, deckIndex);
+        public bool RemoveDeck(string id) => GwentServerService.RemoveDeck(Context.ConnectionId, id);
         //修改卡组
-        public bool ModifyDeck(int deckIndex, DeckModel deck) => GwentServerService.ModifyDeck(Context.ConnectionId, deckIndex, deck);
+        public bool ModifyDeck(string id, DeckModel deck) => GwentServerService.ModifyDeck(Context.ConnectionId, id, deck);
         //开始匹配
         public bool Match(int cardIndex) => GwentServerService.Match(Context.ConnectionId, cardIndex);
         //停止匹配
