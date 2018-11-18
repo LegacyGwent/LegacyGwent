@@ -18,7 +18,7 @@ namespace Cynthia.Card.Server
         //修改卡组
         public bool ModifyDeck(string id, DeckModel deck) => GwentServerService.ModifyDeck(Context.ConnectionId, id, deck);
         //开始匹配
-        public bool Match(int cardIndex) => GwentServerService.Match(Context.ConnectionId, cardIndex);
+        public bool Match(string deckId) => GwentServerService.Match(Context.ConnectionId, deckId);
         //停止匹配
         public async Task<bool> StopMatch() => await GwentServerService.StopMatch(Context.ConnectionId);
         //游戏内玩家操作
