@@ -18,6 +18,8 @@ namespace Cynthia.Card.Server
         public bool AddDeck(string username, DeckModel deck)
         {
             var user = _collection.AsQueryable().Single(x => x.UserName == username);
+            if(user.Decks.Any(x=>x.Id==deck.Id))
+                return false;
             user.Decks.Add(deck);
             _collection.Update(x => x.UserName == username, user);
             return true;
