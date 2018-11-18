@@ -22,17 +22,17 @@ namespace Cynthia.Card.Server
             _collection.Update(x => x.UserName == username, user);
             return true;
         }
-        public bool ModifyDeck(string username, int deckIndex, DeckModel deck)
+        public bool ModifyDeck(string username, string id, DeckModel deck)
         {
             var user = _collection.AsQueryable().Single(x => x.UserName == username);
-            user.Decks[deckIndex] = deck;
+            user.Decks[user.Decks.Select((x,index)=>(x,index)).Single(d=>d.x.Id==id).index] = deck;
             _collection.Update(x => x.UserName == username, user);
             return true;
         }
-        public bool RemoveDeck(string username, int deckIndex)
+        public bool RemoveDeck(string username, string id)
         {
             var user = _collection.AsQueryable().Single(x => x.UserName == username);
-            user.Decks.RemoveAt(deckIndex);
+            user.Decks.RemoveAt(user.Decks.Select((x,index)=>(x,index)).Single(deck=>deck.x.Id==id).index);
             _collection.Update(x => x.UserName == username, user);
             return true;
         }
