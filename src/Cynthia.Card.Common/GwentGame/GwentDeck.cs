@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,13 @@ namespace Cynthia.Card
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
                     .Concat("64004".Plural(3)).ToArray();//12点
-                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组" };
+                    return new DeckModel() 
+                    { 
+                        Leader = "61001", 
+                        Deck = deck, 
+                        Name = "帝国测试卡组",
+                        Id = new Guid().ToString()
+                    };
                 //约翰
                 default:
                     deck = "12001".Plural(1)//乞丐王
@@ -46,7 +53,7 @@ namespace Cynthia.Card
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
                     .Concat("64004".Plural(3)).ToArray();//12点
-                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组" };
+                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组",Id = new Guid().ToString()};
             }
         }
         public static bool IsBasicDeck(this DeckModel deck)
@@ -72,7 +79,6 @@ namespace Cynthia.Card
             //判断条件5.铜卡重名卡小于3
             if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
-
             return true;
         }
     }
