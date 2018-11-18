@@ -83,8 +83,8 @@ namespace Cynthia.Card.Server
             var user = _users[connectionId];
             if (user.Decks.Count >= 40)
                 return false;
-            if (!deck.IsBasicDeck())
-                return false;
+            //if (!deck.IsBasicDeck())
+                //return false;
             if (!DatabaseService.AddDeck(user.UserName, deck))
                 return false;
             user.Decks.Add(deck);
