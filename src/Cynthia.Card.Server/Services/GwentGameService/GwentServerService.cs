@@ -51,15 +51,16 @@ namespace Cynthia.Card.Server
 
         public bool Register(string username, string password, string playerName) => DatabaseService.Register(username, password, playerName);
 
-        public bool Match(string connectionId, int deckIndex)//匹配
+        public bool Match(string connectionId, string deckId)//匹配
         {
             if (_users.ContainsKey(connectionId))
             {
                 var user = _users[connectionId];
-                if (user.UserState != UserState.Standby || user.Decks.Count <= deckIndex || deckIndex < 0)
+                //如果玩家不处于闲置状态,或玩家没有该卡组,或者该卡组不符合标准,禁止匹配
+                if (user.UserState != UserState.Standby || (user.Decks.Any(x=>x.Id==deckId)&&user.Decks.Single(x=>x.Id==deckId).IsBasicDeck()))
                     return false;
                 var player = user.CurrentPlayer = new ClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
-                player.Deck = user.Decks[deckIndex];
+                player.Deck = user.Decks.Single(x=>x.Id==deckId);
                 _gwentMatchs.PlayerJoin(player);
                 return true;
             }
