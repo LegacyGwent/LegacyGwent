@@ -913,15 +913,17 @@ namespace Cynthia.Card.Server
                 EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
                 MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
                 EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
-                MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status),
-                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Status).Select(x => x.IsReveal ? x : new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
-                MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.Status)).ToArray(),
+                MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status).ToList(),
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Status).Select(x => x.IsReveal ? x : new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }).ToList(),
+                MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.Status).ToList()).ToArray(),
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
-                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item)
+                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item).ToList()
                 ).ToArray(),
-                MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status),
-                EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status),
+                MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status).ToList(),
+                EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status).ToList(),
+                MyStay = PlayersStay[myPlayerIndex].Select(x=>x.Status).ToList(),
+                EnemyStay = PlayersStay[enemyPlayerIndex].Select(x=>x.Status).ToList()
             };
         }
         //--------------------------------------

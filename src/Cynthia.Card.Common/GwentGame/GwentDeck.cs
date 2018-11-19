@@ -34,7 +34,7 @@ namespace Cynthia.Card
                         Leader = "61001", 
                         Deck = deck, 
                         Name = "帝国测试卡组",
-                        Id = new Guid().ToString()
+                        Id = Guid.NewGuid().ToString()
                     };
                 //约翰
                 default:
@@ -53,7 +53,7 @@ namespace Cynthia.Card
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
                     .Concat("64004".Plural(3)).ToArray();//12点
-                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组",Id = new Guid().ToString()};
+                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组",Id = Guid.NewGuid().ToString()};
             }
         }
         public static bool IsBasicDeck(this DeckModel deck)
