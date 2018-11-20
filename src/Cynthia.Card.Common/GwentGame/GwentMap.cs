@@ -405,6 +405,27 @@ namespace Cynthia.Card
                     CardArtsId = "16231800",
                 }
             },
+            {
+                "64005",//近卫军铁卫
+                new GwentCard()
+                {
+                    CardId ="64005",
+                    EffectId = "64005",//效果Id
+                    Name="近卫军铁卫",
+                    Strength=6,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},//需要添加
+                    Flavor = "皇帝最忠诚的贴身护卫，誓死保卫皇帝的安全。",
+                    Info = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点单位。",
+                    CardArtsId = "16230800",
+                }
+            },
             //===================================================================
         };
         public static IDictionary<string, Type> CardEffectMap { get; } = new Dictionary<string, Type>
@@ -435,6 +456,7 @@ namespace Cynthia.Card
             {"64002",typeof(Emissary)},//特使
             {"64003",typeof(ImperaBrigade)},//近卫军
             {"64004",typeof(NilfgaardianKnight)},//尼弗迦德骑士
+            {"64005",typeof(ImperaEnforcers)},//近卫军铁卫
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {

@@ -73,8 +73,8 @@ namespace Cynthia.Card
                 decks.Any(x => x.Group == Group.Leader))
                 return false;
             //判断条件4.金卡无重复,银卡无重复
-            if (decks.Where(x => x.Group == Group.Gold).Distinct().Count() == decks.Where(x => x.Group == Group.Gold).Count() ||
-                decks.Where(x => x.Group == Group.Silver).Distinct().Count() == decks.Where(x => x.Group == Group.Silver).Count())
+            if (decks.Where(x => x.Group == Group.Gold).Distinct().Count() != decks.Where(x => x.Group == Group.Gold).Count() ||
+                decks.Where(x => x.Group == Group.Silver).Distinct().Count() != decks.Where(x => x.Group == Group.Silver).Count())
                 return false;
             //判断条件5.铜卡重名卡小于3
             if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
