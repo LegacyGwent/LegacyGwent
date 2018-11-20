@@ -24,7 +24,7 @@ namespace Cynthia.Card
                     .Concat("63001".Plural(1))//冒牌希里
                     .Concat("63002".Plural(1))//5+10
                     .Concat("63003".Plural(1))//萝卜
-                    .Concat("14001".Plural(3))//医生
+                    .Concat("64005".Plural(3))//医生
                     .Concat("64001".Plural(3))//特使
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
@@ -48,7 +48,7 @@ namespace Cynthia.Card
                     .Concat("63001".Plural(1))//冒牌希里
                     .Concat("63002".Plural(1))//5+10
                     .Concat("63003".Plural(1))//萝卜
-                    .Concat("14001".Plural(3))//医生
+                    .Concat("64005".Plural(3))//侦察
                     .Concat("64001".Plural(3))//特使
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
