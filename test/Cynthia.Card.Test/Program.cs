@@ -15,7 +15,8 @@ namespace Cynthia.Card.Test
     {
         public static async Task Main(string[] args)
         {
-
+            var test = (Faction[])Enum.GetValues(typeof(Faction));
+            test.ForAll(x=>Console.WriteLine(x));
             await Task.CompletedTask;
             Console.ReadLine();
         }

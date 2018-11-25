@@ -10,7 +10,7 @@ namespace Cynthia.Card
     {
         public static DeckModel CreateBasicDeck(int defaultDeckIndex)
         {
-            var deck = default(string[]);
+            var deck = default(List<string>);
             switch (defaultDeckIndex)
             {
                 case 1:
@@ -28,7 +28,7 @@ namespace Cynthia.Card
                     .Concat("64001".Plural(3))//特使
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
-                    .Concat("64004".Plural(3)).ToArray();//12点
+                    .Concat("64004".Plural(3)).ToList();//12点
                     return new DeckModel() 
                     { 
                         Leader = "61001", 
@@ -52,7 +52,7 @@ namespace Cynthia.Card
                     .Concat("64001".Plural(3))//特使
                     .Concat("64002".Plural(3))//侦查
                     .Concat("64003".Plural(3))//近卫军
-                    .Concat("64004".Plural(3)).ToArray();//12点
+                    .Concat("64004".Plural(3)).ToList();//12点
                     return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组",Id = Guid.NewGuid().ToString()};
             }
         }
