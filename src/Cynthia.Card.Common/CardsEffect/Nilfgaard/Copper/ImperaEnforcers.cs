@@ -19,10 +19,12 @@ namespace Cynthia.Card
         public override async Task OnTurnOver(int playerIndex)
         {   //在回合结束,触发效果
             if(Card.PlayerIndex==playerIndex&&Card.Status.CardRow.IsOnPlace())
-            for(var i = 0; i<SpyingCount;i++)
-            {   //重复计数次效果,之后清空计数
-                var result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.EnemyRow));
-                if(result.Count!=0) await result.Single().Effect.Damage(2,Card);
+            {
+                for(var i = 0; i<SpyingCount;i++)
+                {   //重复计数次效果,之后清空计数
+                    var result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.EnemyRow));
+                    if(result.Count!=0) await result.Single().Effect.Damage(2,Card);
+                }
             }
             SpyingCount=0;
         }

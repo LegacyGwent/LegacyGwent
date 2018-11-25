@@ -57,7 +57,7 @@ namespace Cynthia.Card.Server
             {
                 var user = _users[connectionId];
                 //如果玩家不处于闲置状态,或玩家没有该卡组,或者该卡组不符合标准,禁止匹配
-                if (user.UserState != UserState.Standby || (user.Decks.Any(x=>x.Id==deckId)&&user.Decks.Single(x=>x.Id==deckId).IsBasicDeck()))
+                if (user.UserState != UserState.Standby || !(user.Decks.Any(x=>x.Id==deckId)&&user.Decks.Single(x=>x.Id==deckId).IsBasicDeck()))
                     return false;
                 var player = user.CurrentPlayer = new ClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
                 player.Deck = user.Decks.Single(x=>x.Id==deckId);
