@@ -8,16 +8,26 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Alsein.Utilities.IO;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Cynthia.Card.Test
 {
     class Program
     {
-        public static async Task Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var test = (Faction[])Enum.GetValues(typeof(Faction));
-            test.ForAll(x=>Console.WriteLine(x));
-            await Task.CompletedTask;
+            var client = new HubConnectionBuilder()
+                .WithUrl("https://cynthia.ovyno.com/hub/gwent").Build();
+            await client.StartAsync();
+            Console.WriteLine($"注册结果为{await client.InvokeAsync<bool>("Register", "gezi", "123456", "格子")}");
+            try
+            {
+                Console.WriteLine($"注册结果为{await client.InvokeAsync<bool>("Register", "gezi", "123456", "格子")}");
+            }
+            catch
+            {
+                Console.WriteLine("发生了异常");
+            }
             Console.ReadLine();
         }
     }
