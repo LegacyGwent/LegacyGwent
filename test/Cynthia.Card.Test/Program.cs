@@ -17,7 +17,7 @@ namespace Cynthia.Card.Test
         static async Task Main(string[] args)
         {
             var client = new HubConnectionBuilder()
-                .WithUrl("http://cynthia.ovyno.com:5000/hub/gwent").Build();
+                .WithUrl("http://us.ovyno.com:5000/hub/gwent").Build();
             await client.StartAsync();
             Console.WriteLine($"注册结果为{await client.InvokeAsync<bool>("Register", "gezi", "123456", "格子")}");
             try
