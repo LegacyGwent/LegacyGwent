@@ -4,7 +4,7 @@ using Alsein.Utilities;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("64005")]//近卫军铁卫
+    [CardEffectId("34005")]//近卫军铁卫
     public class ImperaEnforcers : CardEffect
     {
         public ImperaEnforcers(IGwentServerGame game, GameCard card) : base(game, card) { }
