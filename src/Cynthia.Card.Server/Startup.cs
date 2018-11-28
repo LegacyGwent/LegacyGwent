@@ -22,7 +22,7 @@ namespace Cynthia.Card.Server
             services.AddSignalR();
             builder.Populate(services);
             builder.RegisterType<MongoClient>()
-                .WithParameter("connectionString", "mongodb://gwentdb:mygwent@cynthia.ovyno.com:27017/gwent")
+                .WithParameter("connectionString", "mongodb://cynthia.ovyno.com:27017/gwent")
                 .As<IMongoClient>()
                 .PropertiesAutowired()
                 .AsSelf();
