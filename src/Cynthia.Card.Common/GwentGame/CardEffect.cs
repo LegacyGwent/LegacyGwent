@@ -309,6 +309,7 @@ namespace Cynthia.Card
                     await Game.OnCardSubArmor(Card, num, source);
                     //8888888888888888888888888888888888888888888888888888888888888888888888
                     num = 0;
+                    await Game.ShowSetCard(Card);//更新客户端的护甲值
                     return;
                 }
                 else//如果伤害更高
