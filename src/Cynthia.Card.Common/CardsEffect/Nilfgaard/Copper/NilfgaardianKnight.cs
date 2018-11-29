@@ -9,7 +9,7 @@ namespace Cynthia.Card
         public NilfgaardianKnight(IGwentServerGame game, GameCard card) : base(game, card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            await Card.Effect.Armor(2,Card);
+            await Card.Effect.Armor(3,Card);
             var taget = Game.PlayersHandCard[Card.PlayerIndex].Where(x => !x.Status.IsReveal);
             if (taget.Where(x => x.Status.Group == Group.Copper).Count() > 0)
                 await taget.Where(x => x.Status.Group == Group.Copper).Mess().First().Effect.Reveal(Card);
