@@ -207,6 +207,48 @@ namespace Cynthia.Card
 
                 }
             },
+            {
+                "32006",//威戈佛特兹
+                new GwentCard()
+                {
+                    CardId ="32006",
+                    EffectId = "32006",//效果Id
+                    Name="威戈佛特兹",
+                    Strength=9,
+                    Group=Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},//需要添加
+                    Flavor = "我们都是他棋盘上的棋子，而这棋局的规则，我们一无所知。",
+                    Info = "摧毁1个友军单位，随后从牌组顶端打出1张牌；\n或\n休战：摧毁1个敌军单位，随后对方抽1张铜色牌并揭示它。",
+                    CardArtsId = "16210500",
+                }
+            },
+            {
+                "32008",//门诺·库霍恩
+                new GwentCard()
+                {
+                    CardId ="32008",
+                    EffectId = "32008",//效果Id
+                    Name="门诺·库霍恩",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},//需要添加
+                    Flavor = "细心的侦察分队比训练有素的军团更管用。",
+                    Info = "对1个敌军单位造成4点伤害。若它为间谍单位，则直接将其摧毁。",
+                    CardArtsId = "16210200",
+                }
+            },
             //========================================================================================================================
             //帝国银卡
             {
@@ -295,6 +337,27 @@ namespace Cynthia.Card
                     Info = "力竭：抽两张牌。保留一张，将另一张置于牌组底端。",
                     CardArtsId = "16221000",
 
+                }
+            },
+            {
+                "33005",//艾希蕾·阿纳兴
+                new GwentCard()
+                {
+                    CardId ="33005",
+                    EffectId = "33005",//效果Id
+                    Name="艾希蕾·阿纳兴",
+                    Strength=11,
+                    Group=Group.Silver,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},//需要添加
+                    Flavor = "尼弗迦德法师也有选择：要么服从，要么上断头台。",
+                    Info = "将双方墓场中最多2张铜色/银色牌放回各自牌组。",
+                    CardArtsId = "16220200",
                 }
             },
             //========================================================================================================================
@@ -428,6 +491,27 @@ namespace Cynthia.Card
                     CardArtsId = "20011800",
                 }
             },
+            {
+                "34020",//那乌西卡旅
+                new GwentCard()
+                {
+                    CardId ="34020",
+                    EffectId = "34020",//效果Id
+                    Name="那乌西卡旅",
+                    Strength=5,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},//需要添加
+                    Flavor = "我们被称作死神头。想知道为什么吗？",
+                    Info = "对1个间谍单位造成7点伤害。若摧毁目标，则获得4点强化。",
+                    CardArtsId = "16231000",
+                }
+            },
             //========================================================================================================================
             //帝国衍生物
             {
@@ -480,12 +564,15 @@ namespace Cynthia.Card
             //---------------------------------------------------------
             //帝国金
             {"32001",typeof(RainfarnOfAttre)},//亚特里的林法恩
+            {"32006",typeof(Vilgefortz)},//威戈佛特兹*
+            {"32008",typeof(MennoCoehoorn)},//门诺·库霍恩*
             //---------------------------------------------------------
             //帝国银
             {"33001",typeof(JoachimDeWett)},//约阿希姆·德·维特
             {"33002",typeof(FalseCiri)},//冒牌希里
             {"33003",typeof(TheGuardian)},//魔像守卫
             {"33004",typeof(Cantarella)},//坎塔蕾拉
+            {"33005",typeof(Assire)},//艾希蕾·阿纳兴*
             //---------------------------------------------------------
             //帝国铜
             {"34001",typeof(VicovaroNovice)},//维可瓦罗医师
@@ -493,6 +580,8 @@ namespace Cynthia.Card
             {"34003",typeof(ImperaBrigade)},//近卫军
             {"34004",typeof(NilfgaardianKnight)},//尼弗迦德骑士
             {"34005",typeof(ImperaEnforcers)},//近卫军铁卫
+            {"34008",typeof(Infiltrator)},//渗透者*
+            {"34020",typeof(NauzicaaBrigade)},//那乌西卡旅*
             //==========================================================================================================
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
