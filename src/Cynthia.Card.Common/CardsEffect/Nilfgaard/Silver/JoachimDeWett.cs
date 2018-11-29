@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Alsein.Utilities;
 
 namespace Cynthia.Card
 {
@@ -13,6 +14,7 @@ namespace Cynthia.Card
             .Where(x => (x.Status.Group == Group.Copper || Card.Status.Group == Group.Silver) &&//铜色或者银色
                     x.CardInfo().CardUseInfo == CardUseInfo.MyRow &&//忠诚
                     x.CardInfo().CardType == CardType.Unit).ToList();//单位牌
+            await Game.Debug(list.Select(x=>x.CardInfo().Name).Join("+"));
             if (list.Count() == 0) return 0;
             var moveCard = list.First();
             await moveCard.MoveToCardStayFirst();

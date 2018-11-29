@@ -8,7 +8,20 @@ namespace Cynthia.Card
     {
         public MennoCoehoorn(IGwentServerGame game, GameCard card) : base(game, card){}
         public override async Task<int> CardPlayEffect(bool isSpying)
-        {
+        {//对1个敌军单位造成4点伤害。若它为间谍单位，则直接将其摧毁。
+            var result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.EnemyRow));
+            if(result.Count!=0)
+            {
+                //如果是间谍
+                if(result.Single().Status.IsSpying)
+                {
+                    await result.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
+                }
+                else
+                {
+                    await result.Single().Effect.Damage(4,Card);
+                }
+            }
             return 0;
         }
     }
