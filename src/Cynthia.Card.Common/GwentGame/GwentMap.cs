@@ -407,6 +407,27 @@ namespace Cynthia.Card
                     CardArtsId = "16230800",
                 }
             },
+            {
+                "34008",//渗透者
+                new GwentCard()
+                {
+                    CardId ="34008",
+                    EffectId = "34008",//效果Id
+                    Name="渗透着",
+                    Strength=10,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},//需要添加
+                    Flavor = "你可以一直逃，但你永远藏不了。",
+                    Info = "改变1个单位的间谍状态。",
+                    CardArtsId = "20011800",
+                }
+            },
             //========================================================================================================================
             //帝国衍生物
             {

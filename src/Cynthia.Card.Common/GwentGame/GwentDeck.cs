@@ -19,19 +19,19 @@ namespace Cynthia.Card
                     .Concat("12003".Plural(1))//皇家
                     .Concat("13001".Plural(1))//杰洛特
                     .Concat("13002".Plural(1))//林法恩
-                    .Concat("63004".Plural(1))//帝国间谍
-                    .Concat("62001".Plural(1))//大魔像
-                    .Concat("63001".Plural(1))//冒牌希里
-                    .Concat("63002".Plural(1))//5+10
-                    .Concat("63003".Plural(1))//萝卜
-                    .Concat("64005".Plural(3))//医生
-                    .Concat("64001".Plural(3))//特使
-                    .Concat("64002".Plural(3))//侦查
-                    .Concat("64003".Plural(3))//近卫军
-                    .Concat("64004".Plural(3)).ToList();//12点
+                    .Concat("33004".Plural(1))//帝国间谍
+                    .Concat("32001".Plural(1))//大魔像
+                    .Concat("33001".Plural(1))//冒牌希里
+                    .Concat("33002".Plural(1))//5+10
+                    .Concat("33003".Plural(1))//萝卜
+                    .Concat("34005".Plural(3))//医生
+                    .Concat("34001".Plural(3))//特使
+                    .Concat("34002".Plural(3))//侦查
+                    .Concat("34003".Plural(3))//近卫军
+                    .Concat("34004".Plural(3)).ToList();//12点
                     return new DeckModel() 
                     { 
-                        Leader = "61001", 
+                        Leader = "31001", 
                         Deck = deck, 
                         Name = "帝国测试卡组",
                         Id = Guid.NewGuid().ToString()
@@ -43,17 +43,17 @@ namespace Cynthia.Card
                     .Concat("12003".Plural(1))//皇家
                     .Concat("13001".Plural(1))//杰洛特
                     .Concat("13002".Plural(1))//林法恩
-                    .Concat("63004".Plural(1))//帝国间谍
-                    .Concat("62001".Plural(1))//大魔像
-                    .Concat("63001".Plural(1))//冒牌希里
-                    .Concat("63002".Plural(1))//5+10
-                    .Concat("63003".Plural(1))//萝卜
-                    .Concat("64005".Plural(3))//侦察
-                    .Concat("64001".Plural(3))//特使
-                    .Concat("64002".Plural(3))//侦查
-                    .Concat("64003".Plural(3))//近卫军
-                    .Concat("64004".Plural(3)).ToList();//12点
-                    return new DeckModel() { Leader = "61001", Deck = deck, Name = "帝国测试卡组",Id = Guid.NewGuid().ToString()};
+                    .Concat("33004".Plural(1))//帝国间谍
+                    .Concat("32001".Plural(1))//大魔像
+                    .Concat("33001".Plural(1))//冒牌希里
+                    .Concat("33002".Plural(1))//5+10
+                    .Concat("33003".Plural(1))//萝卜
+                    .Concat("34005".Plural(3))//侦察
+                    .Concat("34001".Plural(3))//特使
+                    .Concat("34002".Plural(3))//侦查
+                    .Concat("34003".Plural(3))//近卫军
+                    .Concat("34004".Plural(3)).ToList();//12点
+                    return new DeckModel() { Leader = "31001", Deck = deck, Name = "帝国测试卡组",Id = Guid.NewGuid().ToString()};
             }
         }
         public static bool IsBasicDeck(this DeckModel deck)
