@@ -16,8 +16,8 @@ namespace Cynthia.Card
             var list = Game.PlayersCemetery[Card.PlayerIndex]
             .Concat(Game.PlayersCemetery[Game.AnotherPlayer(Card.PlayerIndex)])
             .Where(x=>x.Status.Group==Group.Copper||x.Status.Group==Group.Silver).ToList();
-            //让玩家(另一半场)选择一张卡,不能不选
-            var result = await Game.GetSelectMenuCards(Game.AnotherPlayer(Card.PlayerIndex), list,2);
+            //让玩家选择
+            var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list,2);
             result.ToList().ForAll(x=>
             {
                 var playerIndex = x.PlayerIndex;
