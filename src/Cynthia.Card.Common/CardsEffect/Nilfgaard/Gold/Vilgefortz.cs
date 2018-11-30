@@ -34,7 +34,7 @@ namespace Cynthia.Card
                     if(Card.PlayerIndex==Game.Player1Index)//如果我是玩家1
                         await Game.DrawCard(0,1);
                     else await Game.DrawCard(1,0);
-                    return 1;
+                    await mCard.Effect.Reveal(Card);
                 }
             }
             return 0;

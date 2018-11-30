@@ -4,6 +4,7 @@
     // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Launch Server",
             "type": "coreclr",
@@ -40,6 +41,20 @@
             "program": "${workspaceFolder}/test/Cynthia.Card.Test/bin/Debug/netcoreapp2.1/Cynthia.Card.Test.dll",
             "args": [],
             "cwd": "${workspaceFolder}/test/Cynthia.Card.Test",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
+        {
+            "name": "Launch CardMake",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build cardmake",
+            "console": "externalTerminal",
+            "program": "${workspaceFolder}/tools/Cynthia.Card.MakeCard/bin/Debug/netcoreapp2.1/Cynthia.Card.MakeCard.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/tools/Cynthia.Card.MakeCard",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
