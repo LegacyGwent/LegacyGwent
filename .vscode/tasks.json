@@ -30,6 +30,16 @@
                 "${workspaceFolder}/test/Cynthia.Card.Test/Cynthia.Card.Test.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build cardmake",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/tools/Cynthia.Card.MakeCard/Cynthia.Card.MakeCard.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
