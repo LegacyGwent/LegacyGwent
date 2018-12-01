@@ -21,7 +21,7 @@ namespace Cynthia.Card.MakeCard
         }
         public static string GetCardPut(String Card)
         {
-            
+            return "";
         }
         public static IList<StringCard> GetSCardList(string excelFilePath)
         {
