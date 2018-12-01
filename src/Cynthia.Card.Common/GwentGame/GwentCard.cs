@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cynthia.Card
@@ -7,7 +8,8 @@ namespace Cynthia.Card
     {
         [Key]
         public string CardId { get; set; }
-        public string EffectId{get;set;}
+        public Type EffectType{get;set;}
+
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
 
@@ -29,18 +31,26 @@ namespace Cynthia.Card
 
         //卡牌名称  例如:维里赫德旅先锋
         public string Name { get; set; }
+
         //战力数值  例如:6
         public int Strength { get; set; }
+
         //可放置
         public CardUseInfo CardUseInfo { get; set; }
+
         //卡牌类型
         public CardType CardType { get; set; }
+
         //卡牌效果的索引
         public string CardArtsId { get; set; }
+
         //是否佚亡
         public bool IsDoomed { get; set; }
+
         public int Countdown { get; set; }
+
         public bool IsCountdown { get; set; }
-        public bool IsDerive{get;set;}
+
+        public bool IsDerive{ get; set; }
     }
 }
