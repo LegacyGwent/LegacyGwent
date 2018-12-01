@@ -27,7 +27,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId = "12001",//Id
-                    EffectId = "12001",//效果Id
+                    EffectType=typeof(RoyalDecree),//效果Id
                     Name="皇家谕令",
                     Strength=0,
                     Group=Group.Gold,
@@ -48,7 +48,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId = "12002",
-                    EffectId = "12002",//效果Id
+                    EffectType=typeof(GeraltIgni),//效果Id
                     Name="杰洛特：伊格尼法印",
                     Strength=5,
                     Group=Group.Gold,
@@ -70,7 +70,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId = "12003",
-                    EffectId = "12003",//效果Id
+                    EffectType=typeof(DandelionPoet),//效果Id
                     Name="丹德里恩：传奇诗人",
                     Strength=5,
                     Group=Group.Gold,
@@ -94,7 +94,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId = "13001",
-                    EffectId = "13001",//效果Id
+                    EffectType=typeof(Roach),//效果Id
                     Name="萝卜",
                     Strength=4,
                     Group=Group.Silver,
@@ -116,7 +116,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId = "13002",
-                    EffectId = "13002",//效果Id
+                    EffectType=typeof(KingofBeggars),//效果Id
                     Name="乞丐王",
                     Strength=5,
                     Group=Group.Silver,
@@ -140,7 +140,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId = "14001",
-                    EffectId = "14001",//效果Id
+                    EffectType=typeof(Reconnaissance),//效果Id
                     Name="侦查",
                     Strength=0,
                     Group=Group.Copper,
@@ -166,7 +166,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="31001",
-                    EffectId = "31001",//效果Id
+                    EffectType=typeof(JanCalveit),//效果Id
                     Name="约翰·卡尔维特",
                     Strength=5,
                     Group=Group.Leader,
@@ -190,7 +190,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="32001",
-                    EffectId = "32001",//效果Id
+                    EffectType=typeof(RainfarnOfAttre),//效果Id
                     Name="亚特里的林法恩",
                     Strength=5,
                     Group=Group.Gold,
@@ -212,7 +212,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="32006",
-                    EffectId = "32006",//效果Id
+                    EffectType=typeof(Vilgefortz),//效果Id
                     Name="威戈佛特兹",
                     Strength=9,
                     Group=Group.Gold,
@@ -233,7 +233,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="32008",
-                    EffectId = "32008",//效果Id
+                    EffectType=typeof(MennoCoehoorn),//效果Id
                     Name="门诺·库霍恩",
                     Strength=8,
                     Group=Group.Gold,
@@ -256,7 +256,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="33001",
-                    EffectId = "33001",//效果Id
+                    EffectType=typeof(JoachimDeWett),//效果Id
                     Name="约阿希姆·德·维特",
                     Strength=5,
                     Group=Group.Silver,
@@ -278,7 +278,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="33002",
-                    EffectId = "33002",//效果Id
+                    EffectType=typeof(FalseCiri),//效果Id
                     Name="冒牌希里",
                     Strength=8,
                     Group=Group.Silver,
@@ -300,7 +300,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="33003",
-                    EffectId = "33003",//效果Id
+                    EffectType=typeof(TheGuardian),//效果Id
                     Name="魔像守卫",
                     Strength=11,
                     Group=Group.Silver,
@@ -322,7 +322,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="33004",
-                    EffectId = "33004",//效果Id
+                    EffectType=typeof(Cantarella),//效果Id
                     Name="坎塔蕾拉",
                     Strength=13,
                     Group=Group.Silver,
@@ -344,7 +344,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="33005",
-                    EffectId = "33005",//效果Id
+                    EffectType=typeof(Assire),//效果Id
                     Name="艾希蕾·阿纳兴",
                     Strength=11,
                     Group=Group.Silver,
@@ -367,7 +367,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34001",
-                    EffectId = "34001",//效果Id
+                    EffectType=typeof(VicovaroNovice),//效果Id
                     Name="维可瓦罗医师",
                     Strength=1,
                     Group=Group.Copper,
@@ -389,7 +389,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34002",
-                    EffectId = "34002",//效果Id
+                    EffectType=typeof(Emissary),//效果Id
                     Name="特使",
                     Strength=2,
                     Group=Group.Copper,
@@ -411,7 +411,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34003",
-                    EffectId = "34003",//效果Id
+                    EffectType=typeof(ImperaBrigade),//效果Id
                     Name="近卫军",
                     Strength=6,
                     Group=Group.Copper,
@@ -433,7 +433,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34004",
-                    EffectId = "34004",//效果Id
+                    EffectType=typeof(NilfgaardianKnight),//效果Id
                     Name="尼弗迦德骑士",
                     Strength=12,
                     Group=Group.Copper,
@@ -454,7 +454,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34005",
-                    EffectId = "34005",//效果Id
+                    EffectType=typeof(ImperaEnforcers),//效果Id
                     Name="近卫军铁卫",
                     Strength=6,
                     Group=Group.Copper,
@@ -475,7 +475,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34008",
-                    EffectId = "34008",//效果Id
+                    EffectType=typeof(Infiltrator),//效果Id
                     Name="渗透着",
                     Strength=10,
                     Group=Group.Copper,
@@ -496,7 +496,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="34020",
-                    EffectId = "34020",//效果Id
+                    EffectType=typeof(NauzicaaBrigade),//效果Id
                     Name="那乌西卡旅",
                     Strength=5,
                     Group=Group.Copper,
@@ -519,7 +519,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="35001",
-                    EffectId = "None",//效果Id
+                    EffectType=typeof(NoneEffect),//效果Id
                     Name="次级魔像守卫",
                     Strength=6,
                     Group=Group.Copper,
@@ -538,7 +538,7 @@ namespace Cynthia.Card
             //=========================================================================================================================================================================
             //=========================================================================================================================================================================
         };
-        public static IDictionary<string, Type> CardEffectMap { get; } = new Dictionary<string, Type>
+        /*public static IDictionary<string, Type> CardEffectMap { get; } = new Dictionary<string, Type>
         {
             //无效果
             {"None",typeof(NoneEffect)},//白板
@@ -583,7 +583,7 @@ namespace Cynthia.Card
             {"34008",typeof(Infiltrator)},//渗透者*
             {"34020",typeof(NauzicaaBrigade)},//那乌西卡旅*
             //==========================================================================================================
-        };
+        };*/
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {
             var step1 = deck.Select(x => CardMap[x]);

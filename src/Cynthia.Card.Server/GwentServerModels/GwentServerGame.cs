@@ -1171,7 +1171,7 @@ namespace Cynthia.Card.Server
                         DeckFaction = PlayersFaction[Player1Index],
                         CardRow = RowPosition.MyLeader,
                     }
-                }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[GwentMap.CardMap[player1.Deck.Leader].EffectId],this,card))
+                }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[player1.Deck.Leader].EffectType,this,card))
             }.ToList();
             PlayersLeader[Player2Index] = new List<GameCard>
             {
@@ -1183,7 +1183,7 @@ namespace Cynthia.Card.Server
                         DeckFaction = PlayersFaction[Player2Index],
                         CardRow = RowPosition.MyLeader,
                     }
-                }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[GwentMap.CardMap[player2.Deck.Leader].EffectId],this,card))
+                }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[player2.Deck.Leader].EffectType,this,card))
             }.ToList();
             //将卡组转化成实体,并且打乱牌组
             PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard()
@@ -1194,7 +1194,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
                     CardRow = RowPosition.MyDeck
                 }
-            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[GwentMap.CardMap[x].EffectId], this, card)))
+            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[x].EffectType, this, card)))
             .Mess().ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
             PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard()
@@ -1205,7 +1205,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
                     CardRow = RowPosition.MyDeck
                 }
-            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[GwentMap.CardMap[x].EffectId], this, card)))
+            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[x].EffectType, this, card)))
             .Mess().ToList();
         }
         public async Task SendBigRoundEndToCemetery()
@@ -1262,7 +1262,7 @@ namespace Cynthia.Card.Server
                     DeckFaction = PlayersFaction[playerIndex],
                     CardRow = RowPosition.None,
                 }
-            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardEffectMap[GwentMap.CardMap[CardId].EffectId],this,card));
+            }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[CardId].EffectType,this,card));
             if(setting!=null)
                 setting(creatCard.Status);
             await LogicCardMove(creatCard,RowToList(playerIndex,position.RowPosition),position.CardIndex);
