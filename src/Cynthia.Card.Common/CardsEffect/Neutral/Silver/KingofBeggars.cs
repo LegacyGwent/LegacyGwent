@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("13002")]//乞丐王
-    public class KingofBeggars : CardEffect
+    public class KingOfBeggars : CardEffect
     {
-        public KingofBeggars(IGwentServerGame game, GameCard card) : base(game, card) { }
+        public KingOfBeggars(IGwentServerGame game, GameCard card) : base(game, card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
             //对方战力比我方高多少(算上单位自身)

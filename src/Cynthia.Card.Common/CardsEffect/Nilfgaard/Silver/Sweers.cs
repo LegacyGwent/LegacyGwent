@@ -1,0 +1,16 @@
+using System.Linq;
+using System.Threading.Tasks;
+using Alsein.Utilities;
+
+namespace Cynthia.Card
+{
+	[CardEffectId("33007")]//斯维尔
+	public class Sweers : CardEffect
+	{//选择1个敌军单位或对手手牌中1张被揭示的单位牌，将它所有的同名牌从其牌组置入其墓场。
+		public Sweers(IGwentServerGame game, GameCard card) : base(game, card){}
+		public override async Task<int> CardPlayEffect(bool isSpying)
+		{
+			return 0;
+		}
+	}
+}
