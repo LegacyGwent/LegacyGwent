@@ -1,0 +1,16 @@
+using System.Linq;
+using System.Threading.Tasks;
+using Alsein.Utilities;
+
+namespace Cynthia.Card
+{
+	[CardEffectId("44030")]//女巫猎人
+	public class WitchHunter : CardEffect
+	{//重置1个单位。若它为“法师”，则从牌组打出1张同名牌。
+		public WitchHunter(IGwentServerGame game, GameCard card) : base(game, card){}
+		public override async Task<int> CardPlayEffect(bool isSpying)
+		{
+			return 0;
+		}
+	}
+}
