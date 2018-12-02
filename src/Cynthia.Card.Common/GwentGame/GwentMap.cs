@@ -6492,7 +6492,7 @@ namespace Cynthia.Card
                     Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
-                    CardUseInfo = CardUseInfo.MyRow,
+                    CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
