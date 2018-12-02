@@ -1202,7 +1202,7 @@ namespace Cynthia.Card.Server
                 PlayerIndex = Player2Index,
                 Status = new CardStatus(x)
                 {
-                    DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
+                    DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
                     CardRow = RowPosition.MyDeck
                 }
             }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[x].EffectType, this, card)))
