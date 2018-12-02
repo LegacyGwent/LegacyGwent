@@ -3114,7 +3114,7 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "去猎熊吧！去抓上一只——这、这只也太大了吧！快跑！！",
                     Info = "没有特殊技能。",
@@ -3135,7 +3135,7 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "瞧，我们是民兵。我们保卫和平",
                     Info = "没有特殊技能。",
@@ -3175,9 +3175,9 @@ namespace Cynthia.Card
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Special,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "太阳出来了，德洛米！太阳出来了！也许我们命不该绝……",
                     Info = "使灾厄下的所有受伤友军单位获得2点增益，并清除己方半场所有灾厄。",
@@ -3196,9 +3196,9 @@ namespace Cynthia.Card
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Special,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "太阳出来了，德洛米！太阳出来了！也许我们命不该绝……",
                     Info = "从己方牌组打出1张随机铜色单位牌。",
@@ -3916,7 +3916,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "一些食腐生物袭击过人类后，便再也不满足于区区腐肉了……",
                     Info = "吞噬双方墓场中1个铜色/银色单位，获得其战力作为增益。",
-                    CardArtsId = "20149800",
+                    CardArtsId = "20169800",
                 }
             },
             {
@@ -4588,7 +4588,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。",
                     Info = "坚韧。 吞噬1个友军单位，获得其战力作为增益。",
-                    CardArtsId = "20179800",
+                    CardArtsId = "20170100",
                 }
             },
             {
@@ -5023,9 +5023,9 @@ namespace Cynthia.Card
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Special,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "满月的时候，梦魇便会从世界的各个角落匍匐而出。",
                     Info = "在对方单排降下灾厄，对该排上所有单位造成2点伤害。",
@@ -5044,9 +5044,9 @@ namespace Cynthia.Card
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Special,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "满月的时候，梦魇便会从世界的各个角落匍匐而出。",
                     Info = "在己方单排降下恩泽。在回合开始时，使该排上1个随机“野兽”或“吸血鬼”单位获得2点增益。",
@@ -5575,7 +5575,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "我在诺维格瑞驻守了十三年，什么我没见过？残忍、讥嘲、贪欲。可如今发生的事情却让我极度不安",
                     Info = "隐匿任意数量的单位。若为友军单位，则使它们获得2点增益；若为敌军单位，则对他们造成2点伤害。",
-                    CardArtsId = "20021700",
+                    CardArtsId = "20022700",
                 }
             },
             {
@@ -11179,7 +11179,7 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "吼！！！",
                     Info = "没有特殊技能。",
