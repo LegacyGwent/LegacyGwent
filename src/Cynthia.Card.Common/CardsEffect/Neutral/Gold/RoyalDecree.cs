@@ -14,7 +14,7 @@ namespace Cynthia.Card
             .Where(x => x.Status.Group == Group.Gold && x.CardInfo().CardType == CardType.Unit).Mess();
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
-            (Card.PlayerIndex, list.ToList(), 1);
+            (Card.PlayerIndex, list.ToList());
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0) return 0;
             await result.First().MoveToCardStayFirst();

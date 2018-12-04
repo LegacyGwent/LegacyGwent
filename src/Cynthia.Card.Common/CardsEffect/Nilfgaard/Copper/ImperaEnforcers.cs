@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
             //选择对方场上一张卡,如果目标不为空,对其造成2点伤害
-            var result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.EnemyRow));
+            var result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow));
             if(result.Count!=0) await result.Single().Effect.Damage(2,Card);
             return 0;
         }
@@ -22,7 +22,7 @@ namespace Cynthia.Card
             {
                 for(var i = 0; i<SpyingCount;i++)
                 {   //重复计数次效果,之后清空计数
-                    var result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.EnemyRow));
+                    var result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow));
                     if(result.Count!=0) await result.Single().Effect.Damage(2,Card);
                 }
             }

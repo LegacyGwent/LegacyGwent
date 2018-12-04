@@ -421,33 +421,34 @@ namespace Cynthia.Card.Server
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
 
-        public async Task<IList<GameCard>> GetSelectPlaceCards(int count, GameCard card, Func<GameCard, bool> sizer = null, SelectModeType SelectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0)
+        public async Task<IList<GameCard>> GetSelectPlaceCards(GameCard card,int count = 1,bool isEnemySwitch = false,Func<GameCard, bool> sizer = null, SelectModeType SelectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0)
         {
             //自定义规则, 是否过滤特殊卡, 过滤自身
-            var canSelect = GetGameCardsPart(card.PlayerIndex,
+            var canSelect = GetGameCardsPart(isEnemySwitch?AnotherPlayer(card.PlayerIndex):card.PlayerIndex,
             (
                 x => (sizer == null ? (true) : sizer(x)) &&
                 (!x.Status.IsImmue) &&//如果没有免疫
                 (selectType == CardType.Unit ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Unit) :
                 (selectType == CardType.Special ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Special) : true)) &&
                 (x != card)
-            ), SelectMode);
+            ), isEnemySwitch?SelectMode.Mirror():SelectMode);
             if (GameCardsPartCount(canSelect) < count) count = GameCardsPartCount(canSelect);
             if (count <= 0)
                 return new List<GameCard>();
             //落雷术测试
             var taget = await GetSelectPlaceCards
             (
-                card.PlayerIndex,
+                isEnemySwitch?AnotherPlayer(card.PlayerIndex):card.PlayerIndex,
                 new PlaceSelectCardsInfo()
                 {
                     CanSelect = canSelect,
-                    SelectCard = GetCardLocation(card.PlayerIndex, card),
+                    SelectCard = isEnemySwitch?GetCardLocation(card.PlayerIndex, card).Mirror():GetCardLocation(card.PlayerIndex, card),
                     SelectCount = count,
                     Range = range
                 }
             );
-            return taget.Select(x => GetCard(card.PlayerIndex, x)).ToList();
+            var result = (isEnemySwitch?taget.Select(x=>x.Mirror()).ToList():taget);
+            return result.Select(x => GetCard(card.PlayerIndex, x)).ToList();
         }
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
         public async Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> taget, int tagetIndex)
@@ -983,13 +984,13 @@ namespace Cynthia.Card.Server
             {
                 Soure = GetCardLocation(card.PlayerIndex, card),
                 Taget = location,
-                Card = refresh ? card.Status : null
+                Card = refresh ? (card.TagetIsShowBack(location,card.PlayerIndex,card.PlayerIndex)?card.Status.CreateBackCard():card.Status) : null
             });
             await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
             {
                 Soure = GetCardLocation(AnotherPlayer(card.PlayerIndex), card),
                 Taget = new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex },
-                Card = refresh ? card.Status : null
+                Card = refresh ? (card.TagetIsShowBack(location,card.PlayerIndex,AnotherPlayer(card.PlayerIndex))?card.Status.CreateBackCard():card.Status) : null
             });
             var row = RowToList(card.PlayerIndex, card.Status.CardRow);
             var taget = RowToList(card.PlayerIndex, location.RowPosition);

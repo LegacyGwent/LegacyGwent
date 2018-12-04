@@ -9,6 +9,73 @@ namespace Cynthia.Card
         public static GwentCard CardInfo(this GameCard card) => GwentMap.CardMap[card.Status.CardId];
         public static GwentCard CardInfo(this CardStatus card) => GwentMap.CardMap[card.CardId];
         public static GwentCard CardInfo(this string cardId) => GwentMap.CardMap[cardId];
+        public static CardLocation GetLocation(this GameCard card, int playerIndex)
+        {
+            return card.Effect.Game.GetCardLocation(card.PlayerIndex,card);
+        }
+        public static IList<GameCard> GetRangeCard(this GameCard card,int range,GetRangeType type = GetRangeType.CenterAll)
+        {//按照从左到右的顺序,选中卡牌
+            var rowList = card.GetRowList();
+            var centerIndex = card.GetRowIndex();
+            var result = new List<GameCard>();
+            for(var i = centerIndex-range; i <= centerIndex+range; i++)
+            {
+                if((i>=0&&(i<rowList.Count()))&&
+                ((i<centerIndex&&type.IsLeft())||
+                (i==centerIndex&&type.IsCenter())||
+                (i>centerIndex&&type.IsRight())))
+                {
+                    result.Add(rowList[i]);
+                }
+            }
+            return result;
+        }
+        public static bool IsLeft(this GetRangeType type)
+        {
+            switch(type)
+            {
+                case GetRangeType.CenterAll:
+                case GetRangeType.HollowAll:
+                case GetRangeType.CenterLeft:
+                case GetRangeType.HollowLeft:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public static bool IsCenter(this GetRangeType type)
+        {
+            switch(type)
+            {
+                case GetRangeType.CenterAll:
+                case GetRangeType.CenterLeft:
+                case GetRangeType.CenterRight:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public static bool IsRight(this GetRangeType type)
+        {
+            switch(type)
+            {
+                case GetRangeType.CenterAll:
+                case GetRangeType.HollowAll:
+                case GetRangeType.CenterRight:
+                case GetRangeType.HollowRight:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public static IList<GameCard> GetRowList(this GameCard card)
+        {//按照从左到右的顺序,选中卡牌
+            return card.Effect.Game.RowToList(card.PlayerIndex,card.Status.CardRow);
+        }
+        public static int GetRowIndex(this GameCard card)
+        {//按照从左到右的顺序,选中卡牌
+            return card.Effect.Game.RowToList(card.PlayerIndex,card.Status.CardRow).IndexOf(card);
+        }
         public static bool IsShowBack(this GameCard card, int playerIndex)
         {
             if (!card.Status.CardRow.IsOnRow()) return true;
@@ -23,16 +90,56 @@ namespace Cynthia.Card
             }
             return false;
         }
+        public static bool TagetIsShowBack(this GameCard card,CardLocation taget,int tagetPlayerIndex, int LookplayerIndex)
+        {
+            if (!taget.RowPosition.IsOnRow()) return true;
+            if (tagetPlayerIndex == LookplayerIndex && taget.RowPosition.IsOnPlace() && card.Status.Conceal)
+                return true;
+            if (tagetPlayerIndex != LookplayerIndex)
+            {
+                if (taget.RowPosition.IsInHand() && !card.Status.IsReveal)
+                    return true;
+                if (taget.RowPosition.IsOnPlace() && card.Status.Conceal)
+                    return true;
+            }
+            return false;
+        }
         public static CardStatus CreateBackCard(this CardStatus card)=>new CardStatus(){IsCardBack = true, DeckFaction = card.DeckFaction};
         public static int CardPoint(this GameCard card) => card.Status.HealthStatus + card.Status.Strength;
         public static CardLocation Mirror(this CardLocation location)=>new CardLocation(){RowPosition = location.RowPosition.Mirror(),CardIndex = location.CardIndex};
-        public static Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool isShowToEnemy = true)//移动到卡牌移动区末尾
+        public static SelectModeType Mirror(this SelectModeType selectMode)
         {
+            switch(selectMode)
+            {
+                case SelectModeType.All:
+                    return SelectModeType.All;
+                case SelectModeType.AllHand:
+                    return SelectModeType.AllHand;
+                case SelectModeType.AllRow:
+                    return SelectModeType.AllRow;
+                case SelectModeType.Enemy:
+                    return SelectModeType.My;
+                case SelectModeType.EnemyHand:
+                    return SelectModeType.MyHand;
+                case SelectModeType.EnemyRow:
+                    return SelectModeType.MyRow;
+                case SelectModeType.My:
+                    return SelectModeType.Enemy;
+                case SelectModeType.MyHand:
+                    return SelectModeType.EnemyHand;
+                case SelectModeType.MyRow:
+                    return SelectModeType.EnemyRow;
+                default:
+                    return SelectModeType.All;
+            }
+        }
+        public static Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool isShowToEnemy = true)//移动到卡牌移动区末尾
+        {   //将卡牌移动到最开头
             var game = card.Effect.Game;
             return game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, isShowToEnemy);
         }
         public static IEnumerable<(int health, GameCard card)> SelectToHealth(this IEnumerable<GameCard> card)
-        {
+        {   //将所有卡牌的有效战力列出来
             return card.Select(x => (health: x.Status.Strength + x.Status.HealthStatus, card: x));
         }
         public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card)
