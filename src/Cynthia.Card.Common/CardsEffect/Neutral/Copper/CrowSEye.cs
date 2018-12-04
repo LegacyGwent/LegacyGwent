@@ -11,13 +11,7 @@ namespace Cynthia.Card
 		public override async Task<int> CardUseEffect()
 		{
 			//var damage = 4+(Game.PlayersCemetery[Card.PlayerIndex]);
-			var count = Game.PlayersDeck[Card.PlayerIndex].Count<3?Game.PlayersDeck[Card.PlayerIndex].Count:3;
-			var list = Game.PlayersDeck[Card.PlayerIndex].ToList();
-			for(var i = 0; i<count; i++)
-			{
-				await list[i].MoveToCardStayFirst();
-			}
-			return count;
+			return 0;
 		}
 	}
 }
