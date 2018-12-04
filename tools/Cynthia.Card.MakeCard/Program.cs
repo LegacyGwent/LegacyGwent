@@ -52,7 +52,7 @@ namespace Cynthia.Card.MakeCard
         }
         public static string GetCardPut(StringCard Card)
         {
-            return "{\n    \""+Card.效果Id+"\",//"+Card.中文名+"\n    new GwentCard()\n    {\n        CardId =\""+Card.效果Id+"\",\n        EffectType=typeof("+ToName(Card.效果.Contains("没有特殊技能。")?"NoneEffect":Card.英文名)+"),//效果\n        Name=\""+Card.中文名+"\",\n        Strength="+Card.战力+",\n        Group=Group."+GroupD[Card.品质]+",\n        Faction = Faction."+FactionD[Card.阵营]+",\n        CardUseInfo = CardUseInfo."+(GetUseInfo(Card.卡牌介绍,Card.站位区))+",\n        CardType = CardType."+CardTypeD[Card.站位区]+",\n        IsDoomed = "+(Card.属性.Contains("退场")||Card.属性.Contains("佚亡")).ToString().ToLower()+",\n        IsCountdown = "+"false"+",\n        IsDerive = "+Card.属性.Contains("退场").ToString().ToLower()+",\n        Categories = new Categorie[]{},//需要添加\n        Flavor = \""+Card.卡牌介绍+"\",\n        Info = \""+Card.效果+"\",\n        CardArtsId = \""+Card.图片Id+"\",\n    }\n},";
+            return "{\n    \""+Card.效果Id+"\",//"+Card.中文名+"\n    new GwentCard()\n    {\n        CardId =\""+Card.效果Id+"\",\n        EffectType=typeof("+ToName(Card.效果.Contains("没有特殊技能。")?"NoneEffect":Card.英文名)+"),//效果\n        Name=\""+Card.中文名+"\",\n        Strength="+Card.战力+",\n        Group=Group."+GroupD[Card.品质]+",\n        Faction = Faction."+FactionD[Card.阵营]+",\n        CardUseInfo = CardUseInfo."+(GetUseInfo(Card.效果,Card.站位区))+",\n        CardType = CardType."+CardTypeD[Card.站位区]+",\n        IsDoomed = "+(Card.属性.Contains("退场")||Card.属性.Contains("佚亡")).ToString().ToLower()+",\n        IsCountdown = "+"false"+",\n        IsDerive = "+Card.属性.Contains("退场").ToString().ToLower()+",\n        Categories = new Categorie[]{},//需要添加\n        Flavor = \""+Card.卡牌介绍+"\",\n        Info = \""+Card.效果+"\",\n        CardArtsId = \""+Card.图片Id+"\",\n    }\n},";
         }
         public static IList<StringCard> GetSCardList(string excelFilePath)
         {
@@ -129,7 +129,7 @@ namespace Cynthia.Card.MakeCard
         {
             if(CardType.Contains("任意"))
             {//单位
-                if(source.Contains("间谍。"))
+                if(source.Contains("间谍。")||source.Contains("间谍、"))
                 {
                     return "EnemyRow";
                 }
@@ -139,13 +139,13 @@ namespace Cynthia.Card.MakeCard
             {//事件
                 if(source.Contains("己")||source.Contains("友"))
                 {
-                    return "MyRow";
+                    return "MyPlace";
                 }
                 else if(source.Contains("对方")||source.Contains("敌"))
                 {
-                    return "EnemyRow";
+                    return "EnemyPlace";
                 }
-                return "AnyRow";
+                return "AnyPlace";
             }
         }
         public class StringCard

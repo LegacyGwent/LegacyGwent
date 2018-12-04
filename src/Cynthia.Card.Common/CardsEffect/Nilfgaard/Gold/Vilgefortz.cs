@@ -14,8 +14,8 @@ namespace Cynthia.Card
             //休战：摧毁1个敌军单位，随后对方抽1张铜色牌并揭示它。
             var result = default(IList<GameCard>);//如果休战,只能选择己方卡牌
             if(Game.IsPlayersPass[Game.Player1Index]||Game.IsPlayersPass[Game.Player2Index])
-                result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.MyRow));
-            else result = (await Game.GetSelectPlaceCards(1, Card,selectMode:SelectModeType.AllRow));
+                result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.MyRow));
+            else result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.AllRow));
             if(result.Count!=0)
             {
                 var tagetCard = result.Single();

@@ -45,14 +45,7 @@ namespace Cynthia.Card
             var deadposition = Game.GetCardLocation(Card);
             if (type != CardBreakEffectType.ToCemetery)
                 await Game.ShowCardBreakEffect(Card, type);
-            Card.Status.Armor = 0; //护甲归零
-            Card.Status.HealthStatus = 0;//没有增益和受伤
-            Card.Status.IsCardBack = false; //没有背面
-            Card.Status.IsResilience = false;//没有坚韧
-            Card.Status.IsShield = false; //没有昆恩
-            Card.Status.IsSpying = false; //没有间谍
-            Card.Status.Conceal = false;  //没有隐藏
-            Card.Status.IsReveal = false; //没有揭示
+            Repair();
             if (type == CardBreakEffectType.ToCemetery)
             {
                 if (Card.Status.CardRow.IsOnPlace())
@@ -89,6 +82,19 @@ namespace Cynthia.Card
             await Game.SetPointInfo();
             await Game.SetCountInfo();
         }
+        public virtual void Repair(bool isLockReset = false)
+        {
+            if(isLockReset)
+                Card.Status.IsLock = false;
+            Card.Status.Armor = 0; //护甲归零
+            Card.Status.HealthStatus = 0;//没有增益和受伤
+            Card.Status.IsCardBack = false; //没有背面
+            Card.Status.IsResilience = false;//没有坚韧
+            Card.Status.IsShield = false; //没有昆恩
+            Card.Status.IsSpying = false; //没有间谍
+            Card.Status.Conceal = false;  //没有隐藏
+            Card.Status.IsReveal = false; //没有揭示
+        }
         public virtual async Task Banish()//放逐
         {
             //需要补充
@@ -109,19 +115,15 @@ namespace Cynthia.Card
         {   //当回合结束的时候,如果在场上,进行处理
             if(!Card.Status.CardRow.IsOnPlace()) return;
 
-            Card.Status.Armor = 0; //护甲归零
-            Card.Status.HealthStatus = 0;//没有增益和受伤
             if (Card.Status.IsResilience)
             {
+                Card.Status.Armor = 0; //护甲归零
+                if(Card.Status.HealthStatus>=0)//没有受伤
+                    Card.Status.HealthStatus = 0;
                 await Card.Effect.Resilience();
                 return;
             }
-            Card.Status.IsResilience = false;
-            Card.Status.IsCardBack = false; //没有背面
-            Card.Status.IsShield = false; //没有昆恩
-            Card.Status.IsSpying = false; //没有间谍
-            Card.Status.Conceal = false;  //没有隐藏
-            Card.Status.IsReveal = false; //没有揭示
+            Repair();
             if (Card.Status.Strength > 0)
             {
                 await Game.ShowCardOn(Card);

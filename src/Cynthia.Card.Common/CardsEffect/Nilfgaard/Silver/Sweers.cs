@@ -10,6 +10,17 @@ namespace Cynthia.Card
 		public Sweers(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			var result = await Game.GetSelectPlaceCards
+				(Card,Sizer:x=>x.Status.CardRow.IsInHand()?x.Status.IsReveal:true,selectMode:SelectModeType.Enemy);
+			if(result.Count() == 0) return 0;
+			var tab = result.Single().Status.CardId;
+			foreach(var card in Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].ToList())
+			{
+				if(card.Status.CardId==tab)
+				{
+					await card.Effect.ToCemetery();
+				}
+			}
 			return 0;
 		}
 	}

@@ -10,7 +10,11 @@ namespace Cynthia.Card
 		public BloodcurdlingRoar(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
+			var result = await Game.GetSelectPlaceCards(Card);
+			if(result.Count<=0) return 0;
+			await result.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
+			await Game.CreatCard("15010",Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+			return 1;
 		}
 	}
 }

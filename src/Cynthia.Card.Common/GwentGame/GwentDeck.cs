@@ -25,7 +25,7 @@ namespace Cynthia.Card
                     .Concat("33002".Plural(1))//5+10
                     .Concat("33003".Plural(1))//萝卜
                     .Concat("34005".Plural(3))//医生
-                    .Concat("34001".Plural(3))//特使
+                    .Concat("34030".Plural(3))//特使
                     .Concat("34002".Plural(3))//侦查
                     .Concat("34003".Plural(3))//近卫军
                     .Concat("34004".Plural(3)).ToList();//12点
@@ -49,7 +49,7 @@ namespace Cynthia.Card
                     .Concat("33002".Plural(1))//5+10
                     .Concat("33003".Plural(1))//萝卜
                     .Concat("34005".Plural(3))//侦察
-                    .Concat("34001".Plural(3))//特使
+                    .Concat("34030".Plural(3))//特使
                     .Concat("34002".Plural(3))//侦查
                     .Concat("34003".Plural(3))//近卫军
                     .Concat("34004".Plural(3)).ToList();//12点
