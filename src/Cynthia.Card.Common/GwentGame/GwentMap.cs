@@ -2782,7 +2782,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "人类对变形怪深恶痛绝，觉得光是处刑还不够。因此一旦落入人类手中，他们自然就凶多吉少了……",
                     Info = "随机生成 1 张己方阵营中的铜色单位牌。",
-                    CardArtsId = "20163200",
+                    CardArtsId = "20163100",
                 }
             },
             {

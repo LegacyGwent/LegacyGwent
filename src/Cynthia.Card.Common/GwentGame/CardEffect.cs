@@ -505,7 +505,7 @@ namespace Cynthia.Card
             await Boost(num, Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //汲食,应该触发对应事件<暂未定义,待补充>
-            await OnCardDrain(Card, num, taget);
+            await Game.OnCardDrain(Card, num, taget);
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Ambush()//伏击

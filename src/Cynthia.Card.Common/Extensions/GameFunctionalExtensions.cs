@@ -145,13 +145,13 @@ namespace Cynthia.Card
         public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card)
         {
             //大到小
-            if (card == null && card.Count() == 0) return card;
+            if (card == null || card.Count() == 0) return card;
             var hight = card.SelectToHealth().OrderByDescending(x => x.health).First().health;
             return card.SelectToHealth().OrderByDescending(x => x.health).Where(x => x.health >= hight).Select(x => x.card);
         }
         public static IEnumerable<GameCard> WhereAllLowest(this IEnumerable<GameCard> card)
         {
-            if (card == null && card.Count() == 0) return card;
+            if (card == null || card.Count() == 0) return card;
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
             return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
         }
