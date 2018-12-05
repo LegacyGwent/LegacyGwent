@@ -134,6 +134,13 @@ namespace Cynthia.Card.Server
                             , Players[Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
                 return;
             }
+            //清理天气
+            await ApplyWeather(Player1Index,0,RowStatus.None);
+            await ApplyWeather(Player1Index,1,RowStatus.None);
+            await ApplyWeather(Player1Index,2,RowStatus.None);
+            await ApplyWeather(Player2Index,0,RowStatus.None);
+            await ApplyWeather(Player2Index,1,RowStatus.None);
+            await ApplyWeather(Player2Index,2,RowStatus.None);
             //-+/*/展示信息
             await Task.WhenAll(Players[Player1Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!")
                             , Players[Player2Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!"));
@@ -404,10 +411,10 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<CardLocation>>();
         }
-        public async Task<RowPosition> GetSelectRow(int playerIndex, CardLocation selectCard, IList<RowPosition> rowPart)//选择排
+        public async Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart)//选择排
         {
             if (rowPart.Count == 0) return RowPosition.Banish;
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, selectCard, rowPart);
+            await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, GetCardLocation(playerIndex,card), rowPart);
             return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RowPosition>();
         }
         public async Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false)//选择放置一张牌
@@ -463,7 +470,7 @@ namespace Cynthia.Card.Server
             if (tagetIndex > taget.Count)
             {
                 tagetIndex = taget.Count;
-                await Debug("指定目标大于最长长度,重指定目标为末尾");
+                //await Debug("指定目标大于最长长度,重指定目标为末尾");
             }
             taget.Insert(tagetIndex, source);
             source.Status.CardRow = ListToRow(WhoRow(taget), taget);
@@ -1250,6 +1257,12 @@ namespace Cynthia.Card.Server
             await ShowWeatherApply(playerIndex, row.IndexToMyRow(), type);
             await OnWeatherApply(playerIndex, row, type);
         }
+        public async Task ApplyWeather(int playerIndex, RowPosition row, RowStatus type)
+        {
+            if(!row.IsOnPlace())return;
+            if(row.IsMyRow())await ApplyWeather(playerIndex,row.MyRowToIndex(),type);
+            else await ApplyWeather(AnotherPlayer(playerIndex),row.Mirror().MyRowToIndex(),type);
+        }
         //====================================================================================
         //====================================================================================
         //卡牌事件处理与转发
@@ -1294,7 +1307,8 @@ namespace Cynthia.Card.Server
             }
             foreach (var card in GetAllCard(playerIndex))
             {
-                await card.Effect.OnWeatherApply(playerIndex, row, type);
+                if(!card.Status.IsLock)
+                    await card.Effect.OnWeatherApply(playerIndex, row, type);
             }
         }
         public async Task OnUnitDown(GameCard taget)//单位卡落下时(二段部署前)
@@ -1310,10 +1324,11 @@ namespace Cynthia.Card.Server
             }
             //有单位落下,如果这排有血月,坑陷...对自己造成伤害
             //-------------------------------------
-            await taget.Effect.OnUnitDown(taget);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnUnitDown(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget)
+                if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnUnitDown(taget);
             }
         }
@@ -1369,283 +1384,315 @@ namespace Cynthia.Card.Server
                 }
             }
             foreach (var card in GetAllCard(playerIndex))
-            {
-                await card.Effect.OnTurnStart(playerIndex);
+            {   
+                if(!card.Status.IsLock)
+                    await card.Effect.OnTurnStart(playerIndex);
             }
         }
         public async Task OnTurnOver(int playerIndex)//谁的回合结束了
         {
             foreach (var card in GetAllCard(playerIndex))
             {
-                await card.Effect.OnTurnOver(playerIndex);
+                if(!card.Status.IsLock)
+                    await card.Effect.OnTurnOver(playerIndex);
             }
         }
         public async Task OnRoundOver(int RoundCount, int player1Point, int player2Point)//第几轮,谁赢了
         {
             foreach (var card in GetAllCard(player1Point > player2Point ? Player1Index : Player2Index))
             {
-                await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
+                if(!card.Status.IsLock)
+                    await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
             }
         }
         public async Task OnPlayerPass(int playerIndex)//玩家pass的时候触发
         {
             foreach (var card in GetAllCard(playerIndex))
             {
-                await card.Effect.OnPlayerPass(playerIndex);
+                if(!card.Status.IsLock)
+                    await card.Effect.OnPlayerPass(playerIndex);
             }
         }
         public async Task OnPlayerDraw(int playerIndex, GameCard taget)//抽卡
         {
-            await taget.Effect.OnPlayerDraw(playerIndex, taget);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnPlayerDraw(playerIndex, taget);
             foreach (var card in GetAllCard(playerIndex))
             {
-                if (card != taget)
+                if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnPlayerDraw(playerIndex, taget);
             }
         }
         public async Task OnCardReveal(GameCard taget, GameCard soure = null)//揭示
         {
-            await taget.Effect.OnCardReveal(taget, soure);
-            if (soure != null) await soure.Effect.OnCardReveal(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardReveal(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardReveal(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardReveal(taget, soure);
             }
         }
         public async Task OnCardConsume(GameCard taget, GameCard soure)//吞噬
         {
-            await taget.Effect.OnCardConsume(taget, soure);
-            await soure.Effect.OnCardConsume(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardConsume(taget, soure);
+            if(soure.Status.IsLock)    
+                await soure.Effect.OnCardConsume(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardConsume(taget, soure);
             }
         }
         public async Task OnCardBoost(GameCard taget, int num, GameCard soure = null)//增益
         {
-            await taget.Effect.OnCardBoost(taget, num, soure);
-            if (soure != null) await soure.Effect.OnCardBoost(taget, num, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardBoost(taget, num, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardBoost(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardBoost(taget, num, soure);
             }
         }
         public async Task OnCardHurt(GameCard taget, int num, GameCard soure = null)//受伤
         {
-            await taget.Effect.OnCardHurt(taget, num, soure);
-            if (soure != null) await soure.Effect.OnCardHurt(taget, num, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardHurt(taget, num, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardHurt(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardHurt(taget, num, soure);
             }
         }
         public async Task OnSpecialPlay(GameCard taget)//法术卡使用前
         {
-            await taget.Effect.OnSpecialPlay(taget);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnSpecialPlay(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget)
+                if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnSpecialPlay(taget);
             }
         }
         public async Task OnUnitPlay(GameCard taget)//单位卡执行一段部署前
         {
-            await taget.Effect.OnUnitPlay(taget);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnUnitPlay(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget)
+                if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnUnitPlay(taget);
             }
         }
         public async Task OnCardDeath(GameCard taget,CardLocation soure)//有卡牌进入墓地
         {
-            await taget.Effect.OnCardDeath(taget,soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardDeath(taget,soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget)
+                if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnCardDeath(taget,soure);
             }
         }
         public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变
         {
-            await taget.Effect.OnCardSpyingChange(taget, isSpying, soure);
-            if (soure != null) await soure.Effect.OnCardSpyingChange(taget, isSpying, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardSpyingChange(taget, isSpying, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardSpyingChange(taget, isSpying, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardSpyingChange(taget, isSpying, soure);
             }
         }
         public async Task OnCardDiscard(GameCard taget, GameCard soure = null)//卡牌被丢弃
         {
-            await taget.Effect.OnCardDiscard(taget, soure);
-            if (soure != null) await soure.Effect.OnCardDiscard(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardDiscard(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardDiscard(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardDiscard(taget, soure);
             }
         }
         public async Task OnCardAmbush(GameCard taget)//有伏击卡触发
         {
-            await taget.Effect.OnCardAmbush(taget);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardAmbush(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget)
+                if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnCardAmbush(taget);
             }
         }
         public async Task OnCardSwap(GameCard taget, GameCard soure = null)//卡牌交换
         {
-            await taget.Effect.OnCardSwap(taget, soure);
-            if (soure != null) await soure.Effect.OnCardSwap(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardSwap(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardSwap(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardSwap(taget, soure);
             }
         }
         public async Task OnCardConceal(GameCard taget, GameCard soure = null)//隐匿
         {
-            await taget.Effect.OnCardConceal(taget, soure);
-            if (soure != null) await soure.Effect.OnCardConceal(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardConceal(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardConceal(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardConceal(taget, soure);
             }
         }
         public async Task OnCardLockChange(GameCard taget, bool isLock, GameCard soure = null)//锁定状态改变
         {
-            await taget.Effect.OnCardLockChange(taget, isLock, soure);
-            if (soure != null) await soure.Effect.OnCardLockChange(taget, isLock, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardLockChange(taget, isLock, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardLockChange(taget, isLock, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardLockChange(taget, isLock, soure);
             }
         }
         public async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null)//增加护甲
         {
-            await taget.Effect.OnCardAddArmor(taget, num, soure);
-            if (soure != null) await soure.Effect.OnCardAddArmor(taget, num, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardAddArmor(taget, num, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardAddArmor(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardAddArmor(taget, num, soure);
             }
         }
         public async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null)//降低护甲
         {
-            await taget.Effect.OnCardSubArmor(taget, num, soure);
-            if (soure != null) await soure.Effect.OnCardSubArmor(taget, num, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardSubArmor(taget, num, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardSubArmor(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardSubArmor(taget, num, soure);
             }
         }
         public async Task OnCardArmorBreak(GameCard taget, GameCard soure = null)//护甲被破坏
         {
-            await taget.Effect.OnCardResurrect(taget);
-            if (soure != null) await soure.Effect.OnCardResurrect(taget);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardResurrect(taget);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardResurrect(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardArmorBreak(taget, soure);
             }
         }
         public async Task OnCardResurrect(GameCard taget, GameCard soure = null)//有卡牌复活
         {
-            await taget.Effect.OnCardResurrect(taget);
-            if (soure != null) await soure.Effect.OnCardResurrect(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardResurrect(taget);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardResurrect(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardResurrect(taget);
             }
         }
         public async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null)//坚韧状态改变
         {
-            await taget.Effect.OnCardResilienceChange(taget, isResilience, soure);
-            if (soure != null) await soure.Effect.OnCardResilienceChange(taget, isResilience, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardResilienceChange(taget, isResilience, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardResilienceChange(taget, isResilience, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardResilienceChange(taget, isResilience, soure);
             }
         }
         public async Task OnCardHeal(GameCard taget, GameCard soure = null)//卡牌被治愈
         {
-            await taget.Effect.OnCardHeal(taget, soure);
-            if (soure != null) await soure.Effect.OnCardHeal(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardHeal(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardHeal(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardHeal(taget, soure);
             }
         }
         public async Task OnCardReset(GameCard taget, GameCard soure = null)//卡牌被重置
         {
-            await taget.Effect.OnCardReset(taget, soure);
-            if (soure != null) await soure.Effect.OnCardReset(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardReset(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardReset(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardReset(taget, soure);
             }
         }
         public async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null)//强化
         {
-            await taget.Effect.OnCardStrengthen(taget, num, soure);
-            if (soure != null) await soure.Effect.OnCardStrengthen(taget, num, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardStrengthen(taget, num, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardStrengthen(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardStrengthen(taget, num, soure);
             }
         }
         public async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null)//削弱
         {
-            await taget.Effect.OnCardWeaken(taget, num, soure);
-            if (soure != null) await soure.Effect.OnCardWeaken(taget, num, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardWeaken(taget, num, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardWeaken(taget, num, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardWeaken(taget, num, soure);
             }
         }
         public async Task OnCardDrain(GameCard master, int num, GameCard taget)//有单位汲食时
         {
-            await master.Effect.OnCardDrain(master, num, taget);
-            await taget.Effect.OnCardDrain(master, num, taget);
+            if(!master.Status.IsLock)
+                await master.Effect.OnCardDrain(master, num, taget);
+            if(!taget.Status.IsLock)
+                await taget.Effect.OnCardDrain(master, num, taget);
             foreach (var card in GetAllCard(master.PlayerIndex))
             {
-                if (card != master && card != taget)
+                if (card != master && card != taget&&!card.Status.IsLock)
                     await card.Effect.OnCardDrain(master, num, taget);
             }
         }
         public async Task OnCardCharm(GameCard taget, GameCard soure = null)//被魅惑
         {
-            await taget.Effect.OnCardCharm(taget, soure);
-            if (soure != null) await soure.Effect.OnCardCharm(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardCharm(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardCharm(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardCharm(taget, soure);
             }
         }
         public async Task OnCardMove(GameCard taget, GameCard soure = null)//位移时
         {
-            await taget.Effect.OnCardMove(taget, soure);
-            if (soure != null) await soure.Effect.OnCardMove(taget, soure);
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardMove(taget, soure);
+            if (soure != null&&!soure.Status.IsLock) await soure.Effect.OnCardMove(taget, soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
             {
-                if (card != taget && card != soure)
+                if (card != taget && card != soure&&!card.Status.IsLock)
                     await card.Effect.OnCardMove(taget, soure);
             }
         }

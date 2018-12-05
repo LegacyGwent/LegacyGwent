@@ -10,7 +10,15 @@ namespace Cynthia.Card
 		public CrowSEye(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			//var damage = 4+(Game.PlayersCemetery[Card.PlayerIndex]);
+			var damage = 4+(Game.PlayersCemetery[Card.PlayerIndex].ToList().Where(x=>x.Status.CardId==Card.Status.CardId).Count());
+			foreach(var row in Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)].ToList())
+			{
+				var cards = row.WhereAllHighest();
+				if(cards.Count()!=0)
+				{
+					await cards.Mess().First().Effect.Damage(damage,Card,BulletType.RedLight);
+				}
+			}
 			return 0;
 		}
 	}

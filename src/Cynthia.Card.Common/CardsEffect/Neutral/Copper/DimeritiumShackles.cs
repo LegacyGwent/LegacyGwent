@@ -10,6 +10,11 @@ namespace Cynthia.Card
 		public DimeritiumShackles(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var result = await Game.GetSelectPlaceCards(Card);
+			if(result.Count<=0) return 0;
+			await result.Single().Effect.Lock(Card);
+			if(result.Single().PlayerIndex!=Card.PlayerIndex)
+				await result.Single().Effect.Damage(4);
 			return 0;
 		}
 	}

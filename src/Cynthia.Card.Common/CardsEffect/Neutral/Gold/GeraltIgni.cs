@@ -18,8 +18,7 @@ namespace Cynthia.Card
                 rowlist.Add(RowPosition.EnemyRow2);
             if (place[2].SelectToHealth().Sum(x => x.health) >= 25)
                 rowlist.Add(RowPosition.EnemyRow3);
-            var row = await Game.GetSelectRow(Card.PlayerIndex,
-                Game.GetCardLocation(Card.PlayerIndex, Card), rowlist);
+            var row = await Game.GetSelectRow(Card.PlayerIndex,Card, rowlist);
             if (!row.IsOnPlace()) return 0;
             var list = Game.RowToList(Card.PlayerIndex, row).WhereAllHighest();
             foreach (var card in list.ToList())
