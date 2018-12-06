@@ -10,6 +10,21 @@ namespace Cynthia.Card
 		public IceGiant(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			bool hasFrost = false;
+			for (int playerIndex = 0; playerIndex < 2; playerIndex++)
+			{
+				for (int rowIndex = 0; rowIndex < 3; rowIndex++)
+				{
+					if (Game.GameRowStatus[playerIndex][rowIndex] == RowStatus.BitingFrost)
+					{
+						hasFrost = true;
+					}
+				}
+			}
+			if (hasFrost)
+			{
+				await Boost(10);
+			}
 			return 0;
 		}
 	}
