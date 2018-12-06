@@ -10,6 +10,13 @@ namespace Cynthia.Card
 		public PeasantMilitia(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var result = await Game.GetSelectRow(Card.PlayerIndex,Card,TurnType.My.GetRow());
+			var row = Game.RowToList(Card.PlayerIndex,result);
+			for(var i = 0; i<3; i++)
+			{
+				if(row.Count<9)
+					await Game.CreatCard("15011",Card.PlayerIndex,new CardLocation(result,row.Count));
+			}
 			return 0;
 		}
 	}

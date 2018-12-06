@@ -10,6 +10,12 @@ namespace Cynthia.Card
 		public StammelfordSTremor(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var cards = Game.GetAllCard(Card.PlayerIndex).Where(x=>x.Status.CardRow.IsOnPlace()&&x.PlayerIndex!=Card.PlayerIndex).Mess().ToList();
+			foreach(var card in cards)
+			{
+				if(card.Status.CardRow.IsOnPlace())
+					await card.Effect.Damage(1,Card);
+			}
 			return 0;
 		}
 	}

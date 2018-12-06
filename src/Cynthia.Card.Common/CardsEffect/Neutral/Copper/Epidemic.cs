@@ -10,6 +10,11 @@ namespace Cynthia.Card
 		public Epidemic(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).Where(x=>x.Status.CardRow.IsOnPlace()).WhereAllLowest().ToList();
+			foreach(var card in cards)
+			{
+				await card.Effect.ToCemetery(CardBreakEffectType.Epidemic);
+			}
 			return 0;
 		}
 	}

@@ -13,6 +13,23 @@ namespace Cynthia.Card
         {
             return card.Effect.Game.GetCardLocation(card.PlayerIndex,card);
         }
+        public static IList<RowPosition> GetRow(this TurnType type)
+        {
+            var result = new List<RowPosition>();
+            if(type==TurnType.My||type==TurnType.All)
+            {
+                result.Add(RowPosition.MyRow1);
+                result.Add(RowPosition.MyRow2);
+                result.Add(RowPosition.MyRow3);
+            }
+            if(type==TurnType.Enemy||type==TurnType.All)
+            {
+                result.Add(RowPosition.EnemyRow1);
+                result.Add(RowPosition.EnemyRow2);
+                result.Add(RowPosition.EnemyRow3);
+            }
+            return result;
+        }
         public static IList<GameCard> GetRangeCard(this GameCard card,int range,GetRangeType type = GetRangeType.CenterAll)
         {//按照从左到右的顺序,选中卡牌
             var rowList = card.GetRowList();

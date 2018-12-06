@@ -10,6 +10,15 @@ namespace Cynthia.Card
 		public Lacerate(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var result = await Game.GetSelectRow(Card.PlayerIndex,Card,TurnType.All.GetRow());
+			var row = Game.RowToList(Card.PlayerIndex,result).ToList();
+			foreach(var card in row)
+			{
+				if(card.Status.CardRow.IsOnPlace())
+				{
+					await card.Effect.Damage(3,Card);
+				}
+			}
 			return 0;
 		}
 	}

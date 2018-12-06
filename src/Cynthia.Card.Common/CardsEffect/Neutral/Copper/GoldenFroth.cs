@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Utilities;
@@ -10,6 +11,8 @@ namespace Cynthia.Card
 		public GoldenFroth(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var result = await Game.GetSelectRow(Card.PlayerIndex,Card,new List<RowPosition>(){RowPosition.MyRow1,RowPosition.MyRow2,RowPosition.MyRow3});
+			await Game.ApplyWeather(Card.PlayerIndex,result,RowStatus.GoldenFroth);
 			return 0;
 		}
 	}

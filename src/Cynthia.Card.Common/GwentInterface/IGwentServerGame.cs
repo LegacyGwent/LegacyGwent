@@ -20,6 +20,7 @@ namespace Cynthia.Card
         IList<GameCard>[][] PlayersPlace { get; set; }//玩家场地/
         IList<GameCard>[] PlayersCemetery { get; set; }//玩家墓地/
         IList<GameCard>[] PlayersStay { get; set; }//玩家悬牌
+        RowStatus[][] GameRowStatus { get; set; }//玩家天气
         Faction[] PlayersFaction { get; set; }//玩家们的势力
         bool[] IsPlayersPass { get; set; }//玩家是否已经pass
         bool[] IsPlayersMulligan { get; set; }//玩家是否调度完毕

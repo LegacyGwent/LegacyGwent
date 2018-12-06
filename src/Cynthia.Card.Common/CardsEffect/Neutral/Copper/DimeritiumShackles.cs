@@ -14,7 +14,7 @@ namespace Cynthia.Card
 			if(result.Count<=0) return 0;
 			await result.Single().Effect.Lock(Card);
 			if(result.Single().PlayerIndex!=Card.PlayerIndex)
-				await result.Single().Effect.Damage(4);
+				await result.Single().Effect.Damage(4,Card);
 			return 0;
 		}
 	}

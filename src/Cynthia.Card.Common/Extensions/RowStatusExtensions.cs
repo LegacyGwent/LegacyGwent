@@ -2,7 +2,7 @@ namespace Cynthia.Card
 {
     public static class RowStatusExtensions
     {
-        public static bool IsHazard(RowStatus rowStatus)
+        public static bool IsHazard(this RowStatus rowStatus)
         {
             switch (rowStatus)
             {
@@ -20,7 +20,7 @@ namespace Cynthia.Card
                     return false;
             }
         }
-        public static bool IsBoon(RowStatus rowStatus)
+        public static bool IsBoon(this RowStatus rowStatus)
         {
             switch (rowStatus)
             {
