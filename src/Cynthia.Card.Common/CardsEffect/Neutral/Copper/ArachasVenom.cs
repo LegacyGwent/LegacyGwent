@@ -12,9 +12,10 @@ namespace Cynthia.Card
 		{
 			var result = await Game.GetSelectPlaceCards(Card,range:1);
 			if(result.Count<=0) return 0;
-			foreach(var card in result.Single().GetRangeCard(1))
+			foreach(var card in result.Single().GetRangeCard(1).ToList())
 			{
-				await card.Effect.Damage(4);
+				if(card.Status.CardRow.IsOnPlace())
+					await card.Effect.Damage(4,Card);
 			}
 			return 0;
 		}

@@ -10,6 +10,19 @@ namespace Cynthia.Card
 		public Spores(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var result = await Game.GetSelectRow(Card.PlayerIndex,Card,TurnType.Enemy.GetRow());
+			var row = Game.RowToList(Card.PlayerIndex,result).ToList();
+			foreach(var card in row)
+			{
+				if(card.Status.CardRow.IsOnPlace())
+				{
+					await card.Effect.Damage(2,Card);
+				}
+			}
+			if(Game.GameRowStatus[Game.AnotherPlayer(Card.PlayerIndex)][result.Mirror().MyRowToIndex()].IsBoon())
+			{
+				await Game.ApplyWeather(Card.PlayerIndex,result,RowStatus.None);
+			}
 			return 0;
 		}
 	}

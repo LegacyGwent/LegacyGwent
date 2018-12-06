@@ -10,6 +10,13 @@ namespace Cynthia.Card
 		public MahakamAle(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			foreach(var row in Game.PlayersPlace[Card.PlayerIndex].ToList())
+			{
+				if(row.Count()!=0)
+				{
+					await row.Mess().First().Effect.Boost(4,Card);
+				}
+			}
 			return 0;
 		}
 	}
