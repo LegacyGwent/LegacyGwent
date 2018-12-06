@@ -24,6 +24,7 @@ namespace Cynthia.Card
 			if (hasFrost)
 			{
 				await Boost(10);
+				return 1;
 			}
 			return 0;
 		}

@@ -135,14 +135,14 @@ namespace Cynthia.Card.Server
                 return;
             }
             //清理天气
-            await ApplyWeather(Player1Index,0,RowStatus.None);
-            await ApplyWeather(Player1Index,1,RowStatus.None);
-            await ApplyWeather(Player1Index,2,RowStatus.None);
-            await ApplyWeather(Player2Index,0,RowStatus.None);
-            await ApplyWeather(Player2Index,1,RowStatus.None);
-            await ApplyWeather(Player2Index,2,RowStatus.None);
-            //-+/*/展示信息
-            await Task.WhenAll(Players[Player1Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!")
+            await ApplyWeather(Player1Index, RowPosition.MyRow1, RowStatus.None);
+            await ApplyWeather(Player1Index, RowPosition.MyRow2, RowStatus.None);
+            await ApplyWeather(Player1Index, RowPosition.MyRow3, RowStatus.None);
+			await ApplyWeather(Player2Index, RowPosition.MyRow1, RowStatus.None);
+			await ApplyWeather(Player2Index, RowPosition.MyRow2, RowStatus.None);
+			await ApplyWeather(Player2Index, RowPosition.MyRow3, RowStatus.None);
+			//-+/*/展示信息
+			await Task.WhenAll(Players[Player1Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!")
                             , Players[Player2Index].SendAsync(ServerOperationType.BigRoundSetMessage, RoundCount <= 1 ? "第 2 小局开始!" : "决胜局开始!"));
             await Task.Delay(1500);
             await Task.WhenAll(Players[Player1Index].SendAsync(ServerOperationType.BigRoundShowClose)
