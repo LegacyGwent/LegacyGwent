@@ -52,7 +52,24 @@ namespace Cynthia.Card
                     return -1;
             }
         }
-        public static RowPosition IndexToMyRow(this int index)
+		public static int RowToIndex(this RowPosition row)
+		{
+			switch (row)
+			{
+				case RowPosition.MyRow1:
+				case RowPosition.EnemyRow1:
+					return 0;
+				case RowPosition.MyRow2:
+				case RowPosition.EnemyRow2:
+					return 1;
+				case RowPosition.MyRow3:
+				case RowPosition.EnemyRow3:
+					return 2;
+				default:
+					return -1;
+			}
+		}
+		public static RowPosition IndexToMyRow(this int index)
         {
             switch (index)
             {

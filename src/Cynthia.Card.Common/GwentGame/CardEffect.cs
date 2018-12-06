@@ -614,7 +614,7 @@ namespace Cynthia.Card
         public virtual async Task OnCardArmorBreak(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//护甲被破坏
         public virtual async Task OnCardResurrect(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//有卡牌复活
         public virtual async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null) => await Task.CompletedTask;//坚韧状态改变
-        public virtual async Task OnWeatherApply(int playerIndex, int row, RowStatus type) => await Task.CompletedTask;//有天气降下
+        public virtual async Task OnWeatherApply(int playerIndex, RowPosition row, RowStatus type) => await Task.CompletedTask;//有天气降下
         public virtual async Task OnCardHeal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被治愈
         public virtual async Task OnCardReset(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被重置
         public virtual async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//强化

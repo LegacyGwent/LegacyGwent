@@ -12,5 +12,19 @@ namespace Cynthia.Card
 		{
 			return 0;
 		}
+		public override async Task OnWeatherApply(int playerIndex, RowPosition row, RowStatus type)
+		{
+			// 这个判断是否同排有没有简单的方法呀
+			if (((playerIndex == Card.PlayerIndex && row == Card.Status.CardRow) // 己方
+				|| (playerIndex != Card.PlayerIndex && row.Mirror() == Card.Status.CardRow)) // 敌方
+				&& type == RowStatus.FullMoon) // 满月
+			{
+				var left = Card.GetLocation(Card.PlayerIndex); // 左侧
+				await Game.CreatCard("25007", Card.PlayerIndex, left);
+				var right = Card.GetLocation(Card.PlayerIndex); // 右侧
+				right.CardIndex += 1;
+				await Game.CreatCard("25007", Card.PlayerIndex, right);
+			}
+		}
 	}
 }

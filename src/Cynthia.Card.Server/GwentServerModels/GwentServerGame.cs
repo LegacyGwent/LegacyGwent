@@ -1250,18 +1250,11 @@ namespace Cynthia.Card.Server
             return new CardLocation(rowIndex.IndexToMyRow(),rd.Next(0,count));
 
         }
-        public async Task ApplyWeather(int playerIndex, int row, RowStatus type)
-        {
-            if (row < 0 || row > 2) return;
-            GameRowStatus[playerIndex][row] = type;
-            await ShowWeatherApply(playerIndex, row.IndexToMyRow(), type);
-            await OnWeatherApply(playerIndex, row, type);
-        }
         public async Task ApplyWeather(int playerIndex, RowPosition row, RowStatus type)
         {
             if(!row.IsOnPlace())return;
-            if(row.IsMyRow())await ApplyWeather(playerIndex,row.MyRowToIndex(),type);
-            else await ApplyWeather(AnotherPlayer(playerIndex),row.Mirror().MyRowToIndex(),type);
+            if(row.IsMyRow())await ApplyWeather(playerIndex,row,type);
+            else await ApplyWeather(AnotherPlayer(playerIndex),row.Mirror(),type);
         }
         //====================================================================================
         //====================================================================================
@@ -1288,18 +1281,18 @@ namespace Cynthia.Card.Server
                 await creatCard.Effect.CardDown(false);
             }
         }
-        public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
+        public async Task OnWeatherApply(int playerIndex, RowPosition row, RowStatus type)//有天气降下
         {
             switch (type)
             {
                 case RowStatus.BloodMoon:
-                    foreach (var card in PlayersPlace[playerIndex][row])
+                    foreach (var card in PlayersPlace[playerIndex][row.RowToIndex()])
                     {
                         await card.Effect.Damage(2);
                     }
                     break;
                 case RowStatus.PitTrap:
-                    foreach (var card in PlayersPlace[playerIndex][row])
+                    foreach (var card in PlayersPlace[playerIndex][row.RowToIndex()])
                     {
                         await card.Effect.Damage(4);
                     }

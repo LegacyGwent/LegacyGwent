@@ -28,7 +28,7 @@ namespace Cynthia.Card
         Task OnCardArmorBreak(GameCard taget, GameCard source = null);//护甲被破坏
         Task OnCardResurrect(GameCard taget, GameCard source = null);//有卡牌复活
         Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard source = null);//坚韧状态改变
-        Task OnWeatherApply(int playerIndex, int row, RowStatus type);//有天气降下
+        Task OnWeatherApply(int playerIndex, RowPosition row, RowStatus type);//有天气降下
         Task OnCardHeal(GameCard taget, GameCard source = null);//卡牌被治愈
         Task OnCardReset(GameCard taget, GameCard source = null);//卡牌被重置
         Task OnCardStrengthen(GameCard taget, int num, GameCard source = null);//强化
