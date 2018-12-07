@@ -1266,7 +1266,7 @@ namespace Cynthia.Card.Server
         //====================================================================================
         //====================================================================================
         //卡牌事件处理与转发
-        public async Task CreatCard(string CardId,int playerIndex,CardLocation position,Action<CardStatus> setting = null)
+        public async Task CreateCard(string CardId,int playerIndex,CardLocation position,Action<CardStatus> setting = null)
         {
             var creatCard = new GameCard()
             {
@@ -1288,6 +1288,20 @@ namespace Cynthia.Card.Server
                 await creatCard.Effect.CardDown(false);
             }
         }
+
+        public async Task<int> CreateAndMoveStay(int playerIndex,string[] cards,int createCount = 1,bool isCanOver = true,string title = "选择生成一张卡")
+        {
+            var selectList = cards.Select(x=>new CardStatus(x)).ToList();
+			var result = (await GetSelectMenuCards(playerIndex,selectList,isCanOver:isCanOver,title:title)).Reverse().ToList();
+            //先选的先打出
+			if(result.Count()<=0) return 0;
+            foreach(var CardIndex in result)
+            {
+			    await CreateCard(selectList[CardIndex].CardId,playerIndex,new CardLocation(RowPosition.MyStay,0));
+            }
+            return result.Count();
+        }
+
         public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
         {
             switch (type)

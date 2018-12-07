@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,10 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
+        public static Task<int> CreateAndMoveStay(this GameCard card,params string[] cards)
+        {
+            return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex,cards);
+        }
         public static GwentCard CardInfo(this GameCard card) => GwentMap.CardMap[card.Status.CardId];
         public static GwentCard CardInfo(this CardStatus card) => GwentMap.CardMap[card.CardId];
         public static GwentCard CardInfo(this string cardId) => GwentMap.CardMap[cardId];

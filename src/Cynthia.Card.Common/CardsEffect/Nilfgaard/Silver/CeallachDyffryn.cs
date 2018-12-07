@@ -9,14 +9,18 @@ namespace Cynthia.Card
 	public class CeallachDyffryn : CardEffect
 	{//生成1个“大使”、“刺客”或“特使”。
 		public CeallachDyffryn(IGwentServerGame game, GameCard card) : base(game, card){}
+		private const string createCardsId1 = "34028";
+		private const string createCardsId2 = "34029";
+		private const string createCardsId3 = "34002";
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
 			//大使,刺客,特使
+			/*
 			var selectList = new List<CardStatus>(){new CardStatus("34028"),new CardStatus("34029"),new CardStatus("34002")};
 			var result = await Game.GetSelectMenuCards(Card.PlayerIndex,selectList,isCanOver:true,title:"选择生成一张卡");
 			if(result.Count()<=0) return 0;
-			await Game.CreatCard(selectList[result.Single()].CardId,Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));
-			return 1;
+			await Game.CreatCard(selectList[result.Single()].CardId,Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));*/
+			return await Card.CreateAndMoveStay(createCardsId1,createCardsId2,createCardsId3);
 		}
 	}
 }
