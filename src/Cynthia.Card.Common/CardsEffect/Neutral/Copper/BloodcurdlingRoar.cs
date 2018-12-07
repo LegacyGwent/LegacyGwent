@@ -13,7 +13,7 @@ namespace Cynthia.Card
 			var result = await Game.GetSelectPlaceCards(Card);
 			if(result.Count<=0) return 0;
 			await result.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
-			await Game.CreatCard("15010",Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+			await Game.CreateCard("15010",Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));
 			return 1;
 		}
 	}
