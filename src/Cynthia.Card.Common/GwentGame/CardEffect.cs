@@ -9,6 +9,17 @@ namespace Cynthia.Card
         public GameCard Card { get; set; }//宿主
         public IGwentServerGame Game { get; set; }//游戏本体
         public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
+        public int Countdown {get=>Card.Status.Countdown; }
+        public async Task SetCountdown(int? value = default, int? offset = default)
+        {
+            Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
+            await Game.ShowCardNumberChange(Card, Card.Status.Countdown, NumberType.Countdown);
+            if(Card.Status.Countdown==0)
+                Card.Status.IsCountdown = false;
+            else
+                Card.Status.IsCountdown = true;
+            await Game.ShowSetCard(Card);
+        }
         public CardEffect(IGwentServerGame game, GameCard card)
         {
             Game = game;
@@ -178,7 +189,7 @@ namespace Cynthia.Card
         }
         public virtual async Task PlayStayCard(int count, bool isSpying)
         {
-            var stayPlayer = isSpying ? Game.AnotherPlayer(Card.PlayerIndex) : Card.PlayerIndex;
+            var stayPlayer = isSpying ? AnotherPlayer : Card.PlayerIndex;
             for (var i = 0; i < count; i++)
             {
                 if (Game.PlayersStay[stayPlayer][0].CardInfo().CardType == CardType.Special)
@@ -489,8 +500,8 @@ namespace Cynthia.Card
         public virtual async Task Charm(GameCard source = null)//被魅惑
         {
             if (!Card.Status.CardRow.IsOnPlace()) return;
-            if (Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count >= 9) return;
-            await Move(new CardLocation() { RowPosition = Card.Status.CardRow.Mirror(), CardIndex = Game.RowToList(Game.AnotherPlayer(Card.PlayerIndex), Card.Status.CardRow).Count });
+            if (Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count >= 9) return;
+            await Move(new CardLocation() { RowPosition = Card.Status.CardRow.Mirror(), CardIndex = Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count });
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //魅惑,应该触发对应事件<暂未定义,待补充>
             await Game.OnCardCharm(Card, source);

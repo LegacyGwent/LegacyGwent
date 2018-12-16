@@ -15,44 +15,53 @@ namespace Cynthia.Card.MakeCard
             IList<StringCard> AllStringCardList = GetSCardList("e:\\昆特效果\\中立效果.xlsx")
             .Concat(GetSCardList("e:\\昆特效果\\怪物效果.xlsx"))
             .Concat(GetSCardList("e:\\昆特效果\\帝国效果.xlsx"))
-            //.Concat(GetSCardList("e:\\昆特效果\\北方效果.xlsx"))
-            //.Concat(GetSCardList("e:\\昆特效果\\松鼠效果.xlsx"))
-            //.Concat(GetSCardList("e:\\昆特效果\\群岛效果.xlsx"))
+            .Concat(GetSCardList("e:\\昆特效果\\北方效果.xlsx"))
+            .Concat(GetSCardList("e:\\昆特效果\\松鼠效果.xlsx"))
+            .Concat(GetSCardList("e:\\昆特效果\\群岛效果.xlsx"))
             .ToList();
             var result = AllStringCardList.Select(x=>(Show:GetCardPut(x),Card:x));
             foreach(var item in result)
             {
-                if(!item.Card.效果.Contains("没有特殊能力。"))
-                    File.WriteAllText
-                    (
-                        $"e:\\昆特效果\\CardEffect\\{FactionD[item.Card.阵营]}\\{(item.Card.品质.Contains("衍生")?"Derive":GroupD[item.Card.品质])}\\{ToName(item.Card.英文名)}.cs",
-                        ("using System.Linq;\n"+
-                        "using System.Threading.Tasks;\n"+
-                        "using Alsein.Utilities;\n\n"+
-                        "namespace Cynthia.Card\n"+
-                        "{\n"+
-                        "\t[CardEffectId(\""+item.Card.效果Id+"\")]//"+item.Card.中文名+"\n"+
-                        "\tpublic class "+ToName(item.Card.英文名)+" : CardEffect\n"+
-                        "\t{//"+item.Card.效果+"\n"+
-                        "\t\tpublic "+ToName(item.Card.英文名)+"(IGwentServerGame game, GameCard card) : base(game, card){}\n"+
-                        (item.Card.站位区.Contains("任意")?("\t\tpublic override async Task<int> CardPlayEffect(bool isSpying)\n"+
-                        "\t\t{\n"+
-                        "\t\t\treturn 0;\n"+
-                        "\t\t}\n"):
-                        ("\t\tpublic override async Task<int> CardUseEffect()\n"+
-                        "\t\t{\n"+
-                        "\t\t\treturn 0;\n"+
-                        "\t\t}\n"))+
-                        "\t}\n"+
-                        "}")
-                    );
-                Console.WriteLine(item.Show);
+                //if(!item.Card.效果.Contains("没有特殊能力。"))
+                    //PutFile(item.Card);
+                //Console.WriteLine(item.Show);
+                Console.WriteLine(GetConstCard(item.Card));
             }
             Console.ReadLine();
         }
-        public static string GetCardPut(StringCard Card)
+        public static void PutFile(StringCard card)
         {
-            return "{\n    \""+Card.效果Id+"\",//"+Card.中文名+"\n    new GwentCard()\n    {\n        CardId =\""+Card.效果Id+"\",\n        EffectType=typeof("+ToName(Card.效果.Contains("没有特殊技能。")?"NoneEffect":Card.英文名)+"),//效果\n        Name=\""+Card.中文名+"\",\n        Strength="+Card.战力+",\n        Group=Group."+GroupD[Card.品质]+",\n        Faction = Faction."+FactionD[Card.阵营]+",\n        CardUseInfo = CardUseInfo."+(GetUseInfo(Card.效果,Card.站位区))+",\n        CardType = CardType."+CardTypeD[Card.站位区]+",\n        IsDoomed = "+(Card.属性.Contains("退场")||Card.属性.Contains("佚亡")).ToString().ToLower()+",\n        IsCountdown = "+"false"+",\n        IsDerive = "+Card.属性.Contains("退场").ToString().ToLower()+",\n        Categories = new Categorie[]{},//需要添加\n        Flavor = \""+Card.卡牌介绍+"\",\n        Info = \""+Card.效果+"\",\n        CardArtsId = \""+Card.图片Id+"\",\n    }\n},";
+            File.WriteAllText
+            (
+                $"e:\\昆特效果\\CardEffect\\{FactionD[card.阵营]}\\{(card.品质.Contains("衍生")?"Derive":GroupD[card.品质])}\\{ToName(card.英文名)}.cs",
+                ("using System.Linq;\n"+
+                "using System.Threading.Tasks;\n"+
+                "using Alsein.Utilities;\n\n"+
+                "namespace Cynthia.Card\n"+
+                "{\n"+
+                "\t[CardEffectId(\""+card.效果Id+"\")]//"+card.中文名+"\n"+
+                "\tpublic class "+ToName(card.英文名)+" : CardEffect\n"+
+                "\t{//"+card.效果+"\n"+
+                "\t\tpublic "+ToName(card.英文名)+"(IGwentServerGame game, GameCard card) : base(game, card){}\n"+
+                (card.站位区.Contains("任意")?("\t\tpublic override async Task<int> CardPlayEffect(bool isSpying)\n"+
+                "\t\t{\n"+
+                "\t\t\treturn 0;\n"+
+                "\t\t}\n"):
+                ("\t\tpublic override async Task<int> CardUseEffect()\n"+
+                "\t\t{\n"+
+                "\t\t\treturn 0;\n"+
+                "\t\t}\n"))+
+                "\t}\n"+
+                "}")
+            );
+        }
+        public static string GetConstCard(StringCard card)
+        {
+            return $"public const string {ToName(card.英文名)} = \"{card.效果Id}\";";
+        }
+        public static string GetCardPut(StringCard card)
+        {
+            return "{\n    \""+card.效果Id+"\",//"+card.中文名+"\n    new GwentCard()\n    {\n        CardId =\""+card.效果Id+"\",\n        EffectType=typeof("+ToName(card.效果.Contains("没有特殊技能。")?"NoneEffect":card.英文名)+"),//效果\n        Name=\""+card.中文名+"\",\n        Strength="+card.战力+",\n        Group=Group."+GroupD[card.品质]+",\n        Faction = Faction."+FactionD[card.阵营]+",\n        CardUseInfo = CardUseInfo."+(GetUseInfo(card.效果,card.站位区))+",\n        CardType = CardType."+CardTypeD[card.站位区]+",\n        IsDoomed = "+(card.属性.Contains("退场")||card.属性.Contains("佚亡")).ToString().ToLower()+",\n        IsCountdown = "+"false"+",\n        IsDerive = "+card.属性.Contains("退场").ToString().ToLower()+",\n        Categories = new Categorie[]{},//需要添加\n        Flavor = \""+card.卡牌介绍+"\",\n        Info = \""+card.效果+"\",\n        CardArtsId = \""+card.图片Id+"\",\n    }\n},";
         }
         public static IList<StringCard> GetSCardList(string excelFilePath)
         {

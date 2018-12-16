@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="ExcelEi" Version="1.0.3-rc" />
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
   </ItemGroup>
 
   <ItemGroup>

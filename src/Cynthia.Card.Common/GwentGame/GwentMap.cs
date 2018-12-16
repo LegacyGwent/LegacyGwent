@@ -6663,7 +6663,8 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = true,
-                    IsCountdown = false,
+                    IsCountdown = true,
+                    Countdown = 2,//冷却2
                     IsDerive = true,
                     Categories = new Categorie[]{},//需要添加
                     Flavor = "那是只鸟？还是头狮鹫？不对！那是……",

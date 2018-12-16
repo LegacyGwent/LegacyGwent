@@ -16,6 +16,8 @@ namespace Cynthia.Card
             Group = GwentMap.CardMap[cardIndex].Group;
             Faction = GwentMap.CardMap[cardIndex].Faction;*/
         }
+        private string _name;
+        private string _info;
         private int? _strength;
         private CardType? _type;
         private bool? _isDoomed;
@@ -56,6 +58,8 @@ namespace Cynthia.Card
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
         public Faction Faction{get=>_faction??CardInfo.Faction;set=>_faction=value;}
+        public string Name{get=>_name??CardInfo.Name;set=>_name=value;}
+        public string Info{get=>_info??CardInfo.Info;set=>_info=value;}
         //-----------------------------------------------------------------
         public int Countdown{get=>_countDown??CardInfo.Countdown;set=>_countDown=value;}
         public bool IsCountdown{get=>_isCountDown??CardInfo.IsCountdown;set=>_isCountDown=value;}
