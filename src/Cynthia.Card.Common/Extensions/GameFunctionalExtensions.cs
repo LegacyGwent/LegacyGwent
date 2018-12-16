@@ -11,6 +11,15 @@ namespace Cynthia.Card
         {
             return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex,cards);
         }
+        public static Task<IList<int>> GetMenuSwitch(this GameCard card, params (string title,string message)[] cards)
+        {
+            return card.GetMenuSwitch(1,cards);
+        }
+        public static Task<IList<int>> GetMenuSwitch(this GameCard card,int switchCount, params (string title,string message)[] cards)
+        {
+            var cardList = cards.Select(x=>new CardStatus(card.Status.CardId){Name = x.title,Info = x.message}).ToList();
+            return card.Effect.Game.GetSelectMenuCards(card.PlayerIndex,cardList,selectCount:switchCount,title:"选择一个选项");
+        }
         public static GwentCard CardInfo(this GameCard card) => GwentMap.CardMap[card.Status.CardId];
         public static GwentCard CardInfo(this CardStatus card) => GwentMap.CardMap[card.CardId];
         public static GwentCard CardInfo(this string cardId) => GwentMap.CardMap[cardId];

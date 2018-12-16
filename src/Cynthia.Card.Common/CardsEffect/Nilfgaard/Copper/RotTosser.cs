@@ -10,7 +10,8 @@ namespace Cynthia.Card
 		public RotTosser(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
-			return 0;
+			await Game.CreateCard(CardId.CowCarcass,Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+			return 1;
 		}
 	}
 }
