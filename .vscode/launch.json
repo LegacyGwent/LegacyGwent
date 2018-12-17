@@ -60,5 +60,19 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
         },
+        {
+            "name": "Launch ReadJson",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build ReadJson",
+            "console": "externalTerminal",
+            "program": "${workspaceFolder}/tools/Cynthia.Card.ReadJson/bin/Debug/netcoreapp2.1/Cynthia.Card.ReadJson.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/tools/Cynthia.Card.ReadJson",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
     ]
 }

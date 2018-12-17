@@ -11,9 +11,9 @@ namespace Cynthia.Card
         {
             return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex,cards);
         }
-        public static Task<IList<int>> GetMenuSwitch(this GameCard card, params (string title,string message)[] cards)
+        public static async Task<int> GetMenuSwitch(this GameCard card, params (string title,string message)[] cards)
         {
-            return card.GetMenuSwitch(1,cards);
+            return (await card.GetMenuSwitch(1,cards)).Single();
         }
         public static Task<IList<int>> GetMenuSwitch(this GameCard card,int switchCount, params (string title,string message)[] cards)
         {
