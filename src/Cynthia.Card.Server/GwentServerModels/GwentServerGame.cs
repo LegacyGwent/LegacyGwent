@@ -8,6 +8,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame, IGwentEvent
     {
+        public IList<(int PlayerIndex,string CardId)> HistoryList{get;set;}=new List<(int,string)>();
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
         public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
         public IList<GameCard>[] PlayersLeader { get; set; } = new IList<GameCard>[2];//玩家领袖是?/
@@ -35,7 +36,7 @@ namespace Cynthia.Card.Server
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,逻辑层抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
-                               //----------------------------------------------------------------------------------------
+            //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局
             await DrawCard(2, 2);
             await PlayerBigRound(2, 2);//双方轮流执行回合|第二小局
