@@ -1245,9 +1245,9 @@ namespace Cynthia.Card.Server
             if(PlayersPlace[playerIndex][1].Count<9)a.Add(1);
             if(PlayersPlace[playerIndex][2].Count<9)a.Add(2);
             if(a.Count==0)return null;
-            var rowIndex = a[rd.Next(0,a.Count-1)];
+            var rowIndex = a[rd.Next(0,a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;
-            return new CardLocation(rowIndex.IndexToMyRow(),rd.Next(0,count));
+            return new CardLocation(rowIndex.IndexToMyRow(),rd.Next(0,count+1));
 
         }
         public async Task ApplyWeather(int playerIndex, int row, RowStatus type)

@@ -10,7 +10,9 @@ namespace Cynthia.Card
 		public FirstLight(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
+			//生成晴空或重整
+			await Card.CreateAndMoveStay(CardId.ClearSkies,CardId.Rally);
+			return 1;
 		}
 	}
 }

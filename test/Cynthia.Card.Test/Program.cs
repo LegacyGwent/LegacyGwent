@@ -17,18 +17,16 @@ namespace Cynthia.Card.Test
     {
         static async Task Main(string[] args)
         {
-            var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
-            var client = new HubConnectionBuilder()
-                .WithUrl($"http://{IP}:5000/hub/gwent").Build();
-            await client.StartAsync();
-            Console.WriteLine($"注册结果为{await client.InvokeAsync<bool>("Register", "gezi", "123456", "格子")}");
-            try
+            await Task.CompletedTask;
+            var rd = new Random();
+            for(var i = 0; i<100; i++)
             {
-                Console.WriteLine($"注册结果为{await client.InvokeAsync<bool>("Register", "gezi", "123456", "格子")}");
-            }
-            catch
-            {
-                Console.WriteLine("发生了异常");
+                var a = new List<int>();
+                a.Add(0);
+                //a.Add(1);
+                a.Add(2);
+                var rowIndex = a[rd.Next(0,a.Count)];
+                Console.WriteLine(rowIndex.IndexToMyRow());
             }
             Console.ReadLine();
         }

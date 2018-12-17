@@ -10,7 +10,13 @@ namespace Cynthia.Card
 		public Rally(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
+			var list = Game.PlayersDeck[Card.PlayerIndex]
+            .Where(x => ((x.Status.Group == Group.Copper) &&//铜色
+                    (x.CardInfo().CardType == CardType.Unit))).Mess().ToList();//单位牌
+            if (list.Count() == 0) return 0;
+            var moveCard = list.First();
+            await moveCard.MoveToCardStayFirst();
+			return 1;
 		}
 	}
 }
