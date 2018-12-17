@@ -7,6 +7,7 @@ namespace Cynthia.Card
 {
     public interface IGwentServerGame : IGwentEvent
     {
+        IList<(int PlayerIndex,string CardId)> HistoryList{get;set;}
         Player[] Players { get; set; }//玩家数据传输/
         //bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
         IList<GameCard>[] PlayersLeader { get; set; }//玩家领袖是?/

@@ -9,6 +9,7 @@ namespace Cynthia.Card
         public GameCard Card { get; set; }//宿主
         public IGwentServerGame Game { get; set; }//游戏本体
         public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
+        public int PlayerIndex { get => Card.PlayerIndex; }
         public int Countdown {get=>Card.Status.Countdown; }
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
@@ -29,6 +30,8 @@ namespace Cynthia.Card
         {
             var count = 0;
             await CardUseStart();
+            //历史卡牌
+            Game.HistoryList.Add((Card.PlayerIndex,Card.Status.CardId));
             if (Card.Status.CardRow.IsOnStay())
                 count = await CardUseEffect();
             if (Card.Status.CardRow.IsOnStay())
@@ -38,6 +41,8 @@ namespace Cynthia.Card
         public virtual async Task Play(CardLocation location)//放置
         {
             var isSpying = await CardPlayStart(location);
+            //历史卡牌
+            Game.HistoryList.Add((isSpying?AnotherPlayer:Card.PlayerIndex,Card.Status.CardId));
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 count = await CardPlayEffect(isSpying);
