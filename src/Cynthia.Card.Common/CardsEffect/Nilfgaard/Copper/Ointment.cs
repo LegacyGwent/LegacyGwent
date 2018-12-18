@@ -10,7 +10,16 @@ namespace Cynthia.Card
 		public Ointment(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
+			//从我方墓地取铜色单位卡
+            var list = Game.PlayersCemetery[PlayerIndex]
+            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit&&x.Status.Strength<=5).Mess();
+            //让玩家选择一张卡
+            var result = await Game.GetSelectMenuCards
+            (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
+            //如果玩家一张卡都没选择,没有效果
+            if (result.Count() == 0) return 0;
+            await result.First().Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
+			return 1;
 		}
 	}
 }

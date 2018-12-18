@@ -10,6 +10,17 @@ namespace Cynthia.Card
 		public LeoBonhart(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			var list = Game.PlayersHandCard[PlayerIndex]
+            	.Where(x => x.CardInfo().CardType == CardType.Unit);
+            //让玩家选择一张卡
+            var result = await Game.GetSelectMenuCards
+            	(PlayerIndex, list.ToList(), 1);
+            if (result.Count() == 0) return 0;
+			var point = result.Single().Status.Strength;
+			await result.Single().Effect.Reveal(Card);
+			result = await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow);
+			if(result.Count<=0) return 0;
+			await result.Single().Effect.Damage(point,Card);
 			return 0;
 		}
 	}

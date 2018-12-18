@@ -10,6 +10,11 @@ namespace Cynthia.Card
 		public Spotter(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			var result = await Game.GetSelectPlaceCards
+				(Card,Sizer:x=>x.Status.IsReveal&&(x.Status.Group==Group.Copper||x.Status.Group==Group.Silver),selectMode:SelectModeType.MyHand);
+			if(result.Count() == 0) return 0;
+			var point = result.Single().Status.Strength;
+			await Card.Effect.Boost(point);
 			return 0;
 		}
 	}

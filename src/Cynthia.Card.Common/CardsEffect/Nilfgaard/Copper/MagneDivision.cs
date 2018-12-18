@@ -10,7 +10,14 @@ namespace Cynthia.Card
 		public MagneDivision(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
-			return 0;
+			var list = Game.PlayersDeck[PlayerIndex]
+            .Where(x => ((x.Status.Group == Group.Copper) &&//铜色或者银色
+                    x.Status.Categories.Contains(Categorie.Alchemy) &&//忠诚
+                    x.CardInfo().CardType == CardType.Special)).ToList();//单位牌
+            if (list.Count() == 0) return 0;
+            var moveCard = list.Mess().First();
+            await moveCard.MoveToCardStayFirst();
+            return 1;
 		}
 	}
 }
