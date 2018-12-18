@@ -15,7 +15,7 @@ namespace Cynthia.Card
             	.Mess().Take(2);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
-            (Game.AnotherPlayer(PlayerIndex), list.ToList(), 1, "选择打出一张牌");
+            (PlayerIndex, list.ToList(), 1, "选择打出一张牌");
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0) return 0;
             await result.Single().MoveToCardStayFirst();
