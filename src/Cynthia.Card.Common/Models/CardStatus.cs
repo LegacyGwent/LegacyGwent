@@ -16,6 +16,7 @@ namespace Cynthia.Card
             Group = GwentMap.CardMap[cardIndex].Group;
             Faction = GwentMap.CardMap[cardIndex].Faction;*/
         }
+        private Categorie[] _categories;
         private string _name;
         private string _info;
         private int? _strength;
@@ -60,6 +61,7 @@ namespace Cynthia.Card
         public Faction Faction{get=>_faction??CardInfo.Faction;set=>_faction=value;}
         public string Name{get=>_name??CardInfo.Name;set=>_name=value;}
         public string Info{get=>_info??CardInfo.Info;set=>_info=value;}
+        public Categorie[] Categories{get=>_categories??CardInfo.Categories;set=>_categories=value;}
         //-----------------------------------------------------------------
         public int Countdown{get=>_countDown??CardInfo.Countdown;set=>_countDown=value;}
         public bool IsCountdown{get=>_isCountDown??CardInfo.IsCountdown;set=>_isCountDown=value;}

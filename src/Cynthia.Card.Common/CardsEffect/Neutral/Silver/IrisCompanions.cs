@@ -10,7 +10,19 @@ namespace Cynthia.Card
 		public IrisCompanions(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
-			return 0;
+			//己方卡组乱序呈现
+            var list = Game.PlayersDeck[PlayerIndex].Mess().ToList();
+            //让玩家选择一张卡,不能不选
+            var result = await Game.GetSelectMenuCards(PlayerIndex, list, isCanOver: false);
+            if (result.Count == 0) return 0;//如果没有任何符合标准的牌,返回
+            var dcard = result.Single();
+            var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);
+            await Game.LogicCardMove(dcard, row, 0);//将选中的卡移动到最上方
+            await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex));//抽卡
+			//---------------------------------------------------------------------------
+			//随机弃掉一张
+			await Game.PlayersHandCard[PlayerIndex].Mess().First().Effect.ToCemetery();
+            return 0;
 		}
 	}
 }
