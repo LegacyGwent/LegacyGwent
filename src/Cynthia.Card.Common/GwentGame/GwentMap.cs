@@ -1913,7 +1913,7 @@ namespace Cynthia.Card
                     Strength=0,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
-                    CardUseInfo = CardUseInfo.MyRow,
+                    CardUseInfo = CardUseInfo.MyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,

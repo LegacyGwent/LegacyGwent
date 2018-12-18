@@ -12,8 +12,8 @@ namespace Cynthia.Card
 		{
 			var list = Game.PlayersDeck[PlayerIndex]
             .Where(x => ((x.Status.Group == Group.Copper) &&//铜色或者银色
-                    x.Status.Categories.Contains(Categorie.Alchemy) &&//忠诚
-                    x.CardInfo().CardType == CardType.Special)).ToList();//单位牌
+                    x.Status.Categories.Contains(Categorie.Item) &&//道具
+                    x.CardInfo().CardType == CardType.Special)).ToList();//特殊
             if (list.Count() == 0) return 0;
             var moveCard = list.Mess().First();
             await moveCard.MoveToCardStayFirst();
