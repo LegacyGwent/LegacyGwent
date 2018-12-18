@@ -18,7 +18,7 @@ namespace Cynthia.Card
             var dcard = result.Single();
             var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);
             await Game.LogicCardMove(dcard, row, 0);//将选中的卡移动到最上方
-            await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex));//抽卡
+            await Game.PlayerDrawCard(PlayerIndex);//抽卡
 			//---------------------------------------------------------------------------
 			//随机弃掉一张
 			await Game.PlayersHandCard[PlayerIndex].Mess().First().Effect.ToCemetery();
