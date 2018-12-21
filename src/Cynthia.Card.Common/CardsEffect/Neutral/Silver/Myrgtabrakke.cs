@@ -10,6 +10,12 @@ namespace Cynthia.Card
 		public Myrgtabrakke(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			for(var i = 0; i<3; i++)
+			{
+				var result = await Game.GetSelectPlaceCards(Card);
+				if(result.Count<=0) return 0;
+				await result.Single().Effect.Damage(2,Card,BulletType.FireBall);
+			}
 			return 0;
 		}
 	}

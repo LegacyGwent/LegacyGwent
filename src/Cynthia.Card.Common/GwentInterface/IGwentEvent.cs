@@ -16,7 +16,8 @@ namespace Cynthia.Card
         Task OnSpecialPlay(GameCard taget);//法术卡使用前
         Task OnUnitPlay(GameCard taget);//单位卡执行一段部署前
         Task OnUnitDown(GameCard taget);//单位卡落下时(二段部署前)
-        Task OnCardDeath(GameCard taget,CardLocation source);//有卡牌进入墓地
+        Task OnCardDeath(GameCard taget,CardLocation source);//有死亡墓地
+        Task OnCardToCemetery(GameCard taget,CardLocation source);//有卡牌进入墓地
         Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard source = null);//场上间谍改变
         Task OnCardDiscard(GameCard taget, GameCard source = null);//卡牌被丢弃
         Task OnCardAmbush(GameCard taget);//有伏击卡触发

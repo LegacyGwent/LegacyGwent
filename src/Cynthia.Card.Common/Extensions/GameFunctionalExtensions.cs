@@ -11,6 +11,10 @@ namespace Cynthia.Card
         {
             return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex,cards);
         }
+        public static Task<int> CreateAndMoveStay(this GameCard card,IList<string> cards)
+        {
+            return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex,cards.ToArray());
+        }
         public static async Task<int> GetMenuSwitch(this GameCard card, params (string title,string message)[] cards)
         {
             return (await card.GetMenuSwitch(1,cards)).Single();
@@ -24,6 +28,10 @@ namespace Cynthia.Card
         public static GwentCard CardInfo(this CardStatus card) => GwentMap.CardMap[card.CardId];
         public static GwentCard CardInfo(this string cardId) => GwentMap.CardMap[cardId];
         public static CardLocation GetLocation(this GameCard card, int playerIndex)
+        {
+            return card.Effect.Game.GetCardLocation(playerIndex,card);
+        }
+        public static CardLocation GetLocation(this GameCard card)
         {
             return card.Effect.Game.GetCardLocation(card.PlayerIndex,card);
         }
@@ -172,6 +180,10 @@ namespace Cynthia.Card
         public static IEnumerable<(int health, GameCard card)> SelectToHealth(this IEnumerable<GameCard> card)
         {   //将所有卡牌的有效战力列出来
             return card.Select(x => (health: x.Status.Strength + x.Status.HealthStatus, card: x));
+        }
+        public static (int health, GameCard card) ToHealth(this GameCard card)
+        {   //将所有卡牌的有效战力列出来
+            return (health: card.Status.Strength + card.Status.HealthStatus, card: card);
         }
         public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card)
         {

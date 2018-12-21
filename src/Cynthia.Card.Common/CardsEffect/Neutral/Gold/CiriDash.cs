@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Utilities;
@@ -8,9 +9,10 @@ namespace Cynthia.Card
 	public class CiriDash : CardEffect
 	{//被置入墓场时返回牌组，并获得3点强化。
 		public CiriDash(IGwentServerGame game, GameCard card) : base(game, card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task OnCardToCemetery(GameCard taget, CardLocation soure)
 		{
-			return 0;
+			var range = new Random().Next(0,Game.PlayersHandCard[PlayerIndex].Count()+1);
+			await Card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck,range),Card);
 		}
 	}
 }

@@ -15,6 +15,15 @@ namespace Cynthia.Card
             .ThenBy(x=>x.Value.Strength)
             .Select(x=>new CardStatus(x.Key));
         }
+        public static IEnumerable<string> GetCardsId(bool isHasDerive = false)
+        {
+            return CardMap
+            .Where(x=>!x.Value.IsDerive)
+            .OrderByDescending(x=>x.Value.Group)
+            .ThenBy(x=>x.Value.Faction)
+            .ThenBy(x=>x.Value.Strength)
+            .Select(x=>x.Key);
+        }
         public static IDictionary<string, GwentCard> CardMap { get; } = new Dictionary<string, GwentCard>
         {
             //卡牌展示

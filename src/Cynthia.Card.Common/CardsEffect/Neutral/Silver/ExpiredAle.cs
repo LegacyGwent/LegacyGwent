@@ -10,6 +10,14 @@ namespace Cynthia.Card
 		public ExpiredAle(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			foreach(var row in Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)].ToList())
+			{
+				var cards = row.WhereAllHighest();
+				if(cards.Count()!=0)
+				{
+					await cards.Mess().First().Effect.Damage(6,Card,BulletType.RedLight);
+				}
+			}
 			return 0;
 		}
 	}

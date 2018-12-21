@@ -10,6 +10,16 @@ namespace Cynthia.Card
 		public GloriousHunt(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			if(Game.WhoHeight.PlayerIndex==PlayerIndex)
+			{
+				await Game.CreateCard(CardId.ManticoreVenom,PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+				return 1;
+			}
+			else if(Game.WhoHeight.PlayerIndex==AnotherPlayer)
+			{
+				await Game.CreateCard(CardId.ImperialManticore,PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+				return 1;
+			}
 			return 0;
 		}
 	}

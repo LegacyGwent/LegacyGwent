@@ -10,6 +10,9 @@ namespace Cynthia.Card
 		public CyprianWiley(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			var result = await Game.GetSelectPlaceCards(Card);
+			if(result.Count<=0) return 0;
+			await result.Single().Effect.Weaken(4,Card);
 			return 0;
 		}
 	}

@@ -10,6 +10,13 @@ namespace Cynthia.Card
 		public BekkerSDarkMirror(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var list = Game.GetAllCard(PlayerIndex).ToList();
+			if(list.Count()<=0) return 0;
+			//穿透伤害
+			await list.Where(x=>x.Status.CardRow.IsOnPlace()).WhereAllHighest().Mess().First().Effect.Damage(10,Card,BulletType.RedLight,true);
+			list = Game.GetAllCard(PlayerIndex).ToList();
+			if(list.Count()<=0) return 0;
+			await list.Where(x=>x.Status.CardRow.IsOnPlace()).WhereAllLowest().Mess().First().Effect.Boost(10,Card);
 			return 0;
 		}
 	}
