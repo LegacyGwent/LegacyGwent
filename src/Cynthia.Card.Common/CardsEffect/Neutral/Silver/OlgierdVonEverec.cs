@@ -8,9 +8,11 @@ namespace Cynthia.Card
 	public class OlgierdVonEverec : CardEffect
 	{//遗愿：复活至原位。
 		public OlgierdVonEverec(IGwentServerGame game, GameCard card) : base(game, card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task OnCardDeath(GameCard taget, CardLocation soure)
 		{
-			return 0;
+			if(taget!=Card) return;
+			await Card.Effect.Resurrect(soure);
+			return;
 		}
 	}
 }

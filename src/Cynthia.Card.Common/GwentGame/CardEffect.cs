@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Utilities;
@@ -90,6 +91,8 @@ namespace Cynthia.Card
                 await Banish();
                 return;
             }
+            if(Card.Status.CardRow!=RowPosition.Banish)
+                await Game.OnCardToCemetery(Card,deadposition);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
             if(isDead&&Card.Status.CardRow!=RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
@@ -475,11 +478,11 @@ namespace Cynthia.Card
             await Game.OnCardLockChange(Card, Card.Status.IsLock, source);
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Transform(GameCard To, GameCard source = null)//变为(未测试)
+        public virtual async Task Transform(string CardId, GameCard source = null)//变为(未测试)
         {
             if (Card.Status.CardRow == RowPosition.Banish) return;
-            Card.Status = To.Status;
-            Card.Effect = To.Effect;
+            Card.Status = new CardStatus(CardId){DeckFaction = Game.PlayersFaction[PlayerIndex],CardRow = Card.Status.CardRow};
+            Card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[CardId].EffectType,Game,Card);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -618,6 +621,7 @@ namespace Cynthia.Card
         public virtual async Task OnUnitPlay(GameCard taget) => await Task.CompletedTask;//单位卡执行一段部署前
         public virtual async Task OnUnitDown(GameCard taget) => await Task.CompletedTask;//单位卡落下时(二段部署前)
         public virtual async Task OnCardDeath(GameCard taget,CardLocation soure) => await Task.CompletedTask;//有卡牌进入墓地
+        public virtual async Task OnCardToCemetery(GameCard taget,CardLocation soure) => await Task.CompletedTask;//有卡牌进入墓地
         public virtual async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null) => await Task.CompletedTask;//场上间谍改变
         public virtual async Task OnCardDiscard(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被丢弃
         public virtual async Task OnCardAmbush(GameCard taget) => await Task.CompletedTask;//有伏击卡触发

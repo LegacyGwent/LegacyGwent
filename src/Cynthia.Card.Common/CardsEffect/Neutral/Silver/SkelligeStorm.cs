@@ -10,6 +10,9 @@ namespace Cynthia.Card
 		public SkelligeStorm(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
+			var result = await Game.GetSelectRow(Card.PlayerIndex,Card,
+				TurnType.Enemy.GetRow());
+			await Game.ApplyWeather(Card.PlayerIndex,result,RowStatus.SkelligeStorm);
 			return 0;
 		}
 	}

@@ -28,6 +28,23 @@ namespace Cynthia.Card.Server
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
         public int Player1Index { get; } = 0;
         public int Player2Index { get; } = 1;
+        public (int? PlayerIndex,int HPoint) WhoHeight{get
+        {
+            var player1Row1Point = PlayersPlace[Player1Index][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player1Row2Point = PlayersPlace[Player1Index][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player1Row3Point = PlayersPlace[Player1Index][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player2Row1Point = PlayersPlace[Player2Index][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player2Row2Point = PlayersPlace[Player2Index][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player2Row3Point = PlayersPlace[Player2Index][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
+            var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
+            if(player1PlacePoint > player2PlacePoint)
+                return (Player1Index,player1PlacePoint-player2PlacePoint);
+            else if(player1PlacePoint < player2PlacePoint)
+                return (Player2Index,player2PlacePoint-player1PlacePoint);
+            else
+                return (null,0);
+        }}
         private TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
         public async Task PlayGame()
         {
@@ -1485,6 +1502,36 @@ namespace Cynthia.Card.Server
         }
         public async Task OnSpecialPlay(GameCard taget)//法术卡使用前
         {
+            for (var i = 0; i < 3; i++)
+            {
+                var list1 = RowToList(Player1Index, i.IndexToMyRow()).ToList();
+                if (list1.Count() == 0) continue;
+                switch (GameRowStatus[Player1Index][i])
+                {
+                    //灾厄
+                    case RowStatus.DragonDream://龙之梦
+                        foreach(var card in list1)
+                        {
+                            await card.Effect.Damage(4);
+                        }
+                        await ApplyWeather(Player1Index,i,RowStatus.None);
+                        break;
+                }
+                //----
+                var list2 = RowToList(Player2Index, i.IndexToMyRow()).ToList();
+                if (list2.Count() == 0) continue;
+                switch (GameRowStatus[Player2Index][i])
+                {
+                    //灾厄
+                    case RowStatus.DragonDream://龙之梦
+                        foreach(var card in list2)
+                        {
+                            await card.Effect.Damage(4);
+                        }
+                        await ApplyWeather(Player2Index,i,RowStatus.None);
+                        break;
+                }
+            }
             if(taget.Status.IsLock)
                 await taget.Effect.OnSpecialPlay(taget);
             foreach (var card in GetAllCard(taget.PlayerIndex))
@@ -1511,6 +1558,16 @@ namespace Cynthia.Card.Server
             {
                 if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnCardDeath(taget,soure);
+            }
+        }
+        public async Task OnCardToCemetery(GameCard taget,CardLocation soure)//有卡牌进入墓地
+        {
+            if(taget.Status.IsLock)
+                await taget.Effect.OnCardToCemetery(taget,soure);
+            foreach (var card in GetAllCard(taget.PlayerIndex))
+            {
+                if (card != taget&&!card.Status.IsLock)
+                    await card.Effect.OnCardToCemetery(taget,soure);
             }
         }
         public async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)//场上间谍改变

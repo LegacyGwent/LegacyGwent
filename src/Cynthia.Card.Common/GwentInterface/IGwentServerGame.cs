@@ -27,6 +27,7 @@ namespace Cynthia.Card
         bool[] IsPlayersMulligan { get; set; }//玩家是否调度完毕
         int Player1Index { get; }//玩家1的坐标
         int Player2Index { get; }//玩家2的坐标
+        (int? PlayerIndex,int HPoint) WhoHeight{get;}
         Task Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列

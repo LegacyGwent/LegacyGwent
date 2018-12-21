@@ -8,9 +8,11 @@ namespace Cynthia.Card
 	public class PrizeWinningCow : CardEffect
 	{//遗愿：在同排生成1个“羊角魔”。
 		public PrizeWinningCow(IGwentServerGame game, GameCard card) : base(game, card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task OnCardDeath(GameCard taget, CardLocation soure)
 		{
-			return 0;
+			if(taget!=Card) return;
+			await Game.CreateCard(CardId.Chort,PlayerIndex,soure);
+			return;
 		}
 	}
 }

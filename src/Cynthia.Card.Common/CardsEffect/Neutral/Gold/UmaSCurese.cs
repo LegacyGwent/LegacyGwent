@@ -10,7 +10,12 @@ namespace Cynthia.Card
 		public UmaSCurese(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
+			var list = GwentMap.GetCards()
+				.Where(x=>x.CardId.CardInfo().CardType==CardType.Unit
+						&&(x.Group == Group.Gold))
+				.Mess().Take(3).Select(x=>x.CardId)
+				.ToList();
+			return await Card.CreateAndMoveStay(list);
 		}
 	}
 }

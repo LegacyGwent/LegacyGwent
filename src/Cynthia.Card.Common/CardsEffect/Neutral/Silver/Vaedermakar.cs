@@ -10,7 +10,7 @@ namespace Cynthia.Card
 		public Vaedermakar(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
-			return 0;
+			return await Card.CreateAndMoveStay(CardId.BitingFrost,CardId.ImpenetrableFog,CardId.AlzurSThunder);
 		}
 	}
 }

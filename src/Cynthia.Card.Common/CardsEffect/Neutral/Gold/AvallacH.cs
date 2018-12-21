@@ -10,6 +10,7 @@ namespace Cynthia.Card
 		public AvallacH(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			await Game.DrawCard(2,2);
 			return 0;
 		}
 	}
