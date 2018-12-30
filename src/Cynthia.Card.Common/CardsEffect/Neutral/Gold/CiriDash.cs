@@ -11,6 +11,7 @@ namespace Cynthia.Card
 		public CiriDash(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task OnCardToCemetery(GameCard taget, CardLocation soure)
 		{
+			if(taget!=Card) return;
 			var range = new Random().Next(0,Game.PlayersHandCard[PlayerIndex].Count()+1);
 			await Card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck,range),Card);
 		}
