@@ -1562,10 +1562,10 @@ namespace Cynthia.Card.Server
         }
         public async Task OnCardToCemetery(GameCard taget,CardLocation soure)//有卡牌进入墓地
         {
-            if(!taget.Status.IsLock)
+            if(!taget.Status.IsLock)//优先向进入墓地的单位发送消息, 并且只在单位没有被锁的情况发送
                 await taget.Effect.OnCardToCemetery(taget,soure);
             foreach (var card in GetAllCard(taget.PlayerIndex))
-            {
+            {   //获得游戏中所有卡牌,向所有没有锁的单位发送消息(已经发送的不会发送)
                 if (card != taget&&!card.Status.IsLock)
                     await card.Effect.OnCardToCemetery(taget,soure);
             }

@@ -43,7 +43,7 @@ namespace Cynthia.Card.Server
             app.UseSignalR(routes =>
             {
                 routes.MapHub<GwentHub>("/hub/gwent");
-                routes.MapHub<ChatHub>("/hub/chat");
+                routes.MapHub<ChatHub>("/chathub");
             });
             app.Run(async (context) =>
             {
