@@ -45,10 +45,6 @@ namespace Cynthia.Card.Server
                 routes.MapHub<GwentHub>("/hub/gwent");
                 routes.MapHub<ChatHub>("/chathub");
             });
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
         }
     }
 }

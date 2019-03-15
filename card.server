@@ -1,0 +1,10 @@
+[Unit]
+Description=my test service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/dotnet /usr/share/card/publish/Cynthia.Card.Server.dll
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -19,20 +19,6 @@
             },
         },
         {
-            "name": "Launch Desktop Client",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build desktop client",
-            "console": "externalTerminal",
-            "program": "${workspaceFolder}/src/Cynthia.Card.Client.Desktop/bin/Debug/netcoreapp2.1/Cynthia.Card.Client.Desktop.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/Cynthia.Card.Client.Desktop",
-            "stopAtEntry": false,
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-        },
-        {
             "name": "Launch Test",
             "type": "coreclr",
             "request": "launch",
