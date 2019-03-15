@@ -46,16 +46,17 @@ namespace Cynthia.Card.Server
                 return (null,0);
         }}
         private TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
+
         public async Task PlayGame()
         {
             //###游戏开始###
             //双方抽牌10张
-            await LogicDrawCard(Player1Index, 10);//不会展示动画的,逻辑层抽牌
+            await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
             //----------------------------------------------------------------------------------------
-            await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局
-            await DrawCard(2, 2);
+            await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
+            await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
             await PlayerBigRound(2, 2);//双方轮流执行回合|第二小局
             if (PlayersWinCount[Player1Index] < 2 && PlayersWinCount[Player2Index] < 2)//如果前两局没有分出结果
             {
@@ -65,6 +66,7 @@ namespace Cynthia.Card.Server
             //-----------------------------------------------------------------------------------------
             await GameOverExecute();//发送游戏结束信息
         }
+
         public async Task Play()
         {
             await Task.WhenAny(PlayGame(), _setGameEnd.Task);

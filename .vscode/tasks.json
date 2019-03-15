@@ -12,16 +12,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build desktop client",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/Cynthia.Card.Client.Desktop/Cynthia.Card.Client.Desktop.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "build test",
             "command": "dotnet",
             "type": "process",
