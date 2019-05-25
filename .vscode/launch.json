@@ -10,7 +10,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build server",
-            "program": "${workspaceFolder}/src/Cynthia.Card.Server/bin/Debug/netcoreapp2.1/Cynthia.Card.Server.dll",
+            "program": "${workspaceFolder}/src/Cynthia.Card.Server/bin/Debug/netcoreapp3.0/Cynthia.Card.Server.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/Cynthia.Card.Server",
             "stopAtEntry": false,

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -14,10 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Cynthia.Card.Client.Desktop\Cynthia.Card.Client.Desktop.csproj" />
     <ProjectReference Include="..\..\src\Cynthia.Card.Common\Cynthia.Card.Common.csproj" />
     <ProjectReference Include="..\..\src\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj" />
-    <ProjectReference Include="..\..\src\Cynthia.Card.Server\Cynthia.Card.Server.csproj" />
   </ItemGroup>
 
 </Project>
