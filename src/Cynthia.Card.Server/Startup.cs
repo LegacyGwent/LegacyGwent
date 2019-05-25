@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Alsein.Utilities;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Cynthia.Card.MongoDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,17 +12,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 
-namespace Cynthia.Card.Server {
-    public class Startup {
-        public void ConfigureServices (IServiceCollection services) {
+namespace Cynthia.Card.Server
+{
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
             //var container = default(IContainer);
             //var builder = new ContainerBuilder();
-            services.AddSignalR ();
-            services.AddSingleton<GwentServerService> ();
-            services.AddSingleton<GwentDatabaseService> ();
-            services.AddSingleton<IDatabaseService, MongoDatabaseService> ();
-            services.AddSingleton<IMongoClient, MongoClient> ((ctx) => {
-                return new MongoClient ("mongodb://cynthia.ovyno.com:27017/gwent");
+            services.AddSignalR();
+            services.AddSingleton<GwentServerService>();
+            services.AddSingleton<GwentDatabaseService>();
+            services.AddSingleton<IMongoClient, MongoClient>((ctx) =>
+            {
+                return new MongoClient("mongodb://cynthia.ovyno.com:27017/gwent");
             });
             //services.AddAutofac(builder=> 
             //{
@@ -41,12 +43,15 @@ namespace Cynthia.Card.Server {
             //return new AutofacServiceProvider(container);
         }
 
-        public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
-            if (env.IsDevelopment ()) {
-                app.UseDeveloperExceptionPage ();
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
             }
-            app.UseSignalR (routes => {
-                routes.MapHub<GwentHub> ("/hub/gwent");
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<GwentHub>("/hub/gwent");
             });
         }
     }
