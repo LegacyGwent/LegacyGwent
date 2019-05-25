@@ -14,16 +14,18 @@ namespace Cynthia.Card.Server
     [Singleton]
     public class GwentServerService
     {
-        public IContainer Container { get; set; }
+        //public IContainer Container { get; set; }
+        private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService DatabaseService { get; set; }
         private readonly GwentMatchs _gwentMatchs;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
         private readonly IDictionary<string,(IAsyncDataSender sender,IAsyncDataReceiver receiver)> _waitReconnectList = new ConcurrentDictionary<string,(IAsyncDataSender,IAsyncDataReceiver)>();
-        public GwentServerService(IContainer container,GwentDatabaseService databaseService)
+        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService)
         {
-            Container = container;
+            //Container = container;
             DatabaseService = databaseService;
-            _gwentMatchs = new GwentMatchs(Container.Resolve<IHubContext<GwentHub>>);
+            _gwentMatchs = new GwentMatchs(()=>hub);
+            _hub = hub;
         }
 
         public async Task<UserInfo> Login(User user, string password)
@@ -35,7 +37,8 @@ namespace Cynthia.Card.Server
                 if (_users.Any(x => x.Value.UserName == user.UserName))//如果重复登录的话,触发"掉线"
                 {
                     var connectionId = _users.Single(x => x.Value.UserName == user.UserName).Value.ConnectionId;
-                    await Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
+                    //await Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
+                    await _hub.Clients.Client(connectionId).SendAsync("RepeatLogin");
                     await Disconnect(connectionId);
                 }
                 if (_users.ContainsKey(user.ConnectionId))
@@ -59,7 +62,7 @@ namespace Cynthia.Card.Server
                 //如果玩家不处于闲置状态,或玩家没有该卡组,或者该卡组不符合标准,禁止匹配
                 if (user.UserState != UserState.Standby || !(user.Decks.Any(x=>x.Id==deckId)&&user.Decks.Single(x=>x.Id==deckId).IsBasicDeck()))
                     return false;
-                var player = user.CurrentPlayer = new ClientPlayer(user, Container.Resolve<IHubContext<GwentHub>>);
+                var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 player.Deck = user.Decks.Single(x=>x.Id==deckId);
                 _gwentMatchs.PlayerJoin(player);
                 return true;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cynthia.Card.MongoDB
 {
-    internal partial class MongoDatabaseService : IDatabaseService
+    public partial class MongoDatabaseService : IDatabaseService
     {
         public IDatabase this[string name] => new MongoDatabase(_mongoClient.GetDatabase(name));
 

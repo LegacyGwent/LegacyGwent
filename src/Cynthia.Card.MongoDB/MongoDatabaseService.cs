@@ -6,7 +6,7 @@ using Alsein.Utilities.LifetimeAnnotations;
 namespace Cynthia.Card.MongoDB
 {
     [Singleton]
-    internal partial class MongoDatabaseService
+    public partial class MongoDatabaseService
     {
         private IMongoClient _mongoClient { get; set; }
         private IEnumerable<IDatabase> databases => _mongoClient.ListDatabases().ToEnumerable().Select(data => this[data["name"].ToString()]);

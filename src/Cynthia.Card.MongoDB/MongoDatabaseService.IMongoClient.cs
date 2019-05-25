@@ -6,7 +6,7 @@ using MongoDB.Driver.Core.Clusters;
 
 namespace Cynthia.Card.MongoDB
 {
-    internal partial class MongoDatabaseService : IMongoClient
+    public partial class MongoDatabaseService : IMongoClient
     {
         public ICluster Cluster => _mongoClient.Cluster;
 

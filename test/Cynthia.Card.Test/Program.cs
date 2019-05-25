@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using Alsein.Utilities;
 using System.Linq;
-using Cynthia.Card.Server;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Alsein.Utilities.IO;
 using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.SignalR.Client;
 using System.Net;
 
 namespace Cynthia.Card.Test

@@ -1,10 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Cynthia.Card.Common\Cynthia.Card.Common.csproj" />
-    <ProjectReference Include="..\..\src\Cynthia.Card.Server\Cynthia.Card.Server.csproj" />
     <ProjectReference Include="..\..\src\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj" />
-    <ProjectReference Include="..\..\src\Cynthia.Card.Client.Desktop\Cynthia.Card.Client.Desktop.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
