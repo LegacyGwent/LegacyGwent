@@ -2,7 +2,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cynthia.Card.Common\Cynthia.Card.Common.csproj" />
-    <ProjectReference Include="..\Cynthia.Card.MongoDB\Cynthia.Card.MongoDB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
   </ItemGroup>
 
   <PropertyGroup>
