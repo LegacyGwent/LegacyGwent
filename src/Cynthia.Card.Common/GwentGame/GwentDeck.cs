@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Alsein.Utilities;
+using Alsein.Extensions;
+using Alsein.Extensions.Extensions;
 
 namespace Cynthia.Card
 {
@@ -29,10 +30,10 @@ namespace Cynthia.Card
                     .Concat("34002".Plural(3))//侦查
                     .Concat("34003".Plural(3))//近卫军
                     .Concat("34004".Plural(3)).ToList();//12点
-                    return new DeckModel() 
-                    { 
-                        Leader = "31001", 
-                        Deck = deck, 
+                    return new DeckModel()
+                    {
+                        Leader = "31001",
+                        Deck = deck,
                         Name = "帝国测试卡组",
                         Id = Guid.NewGuid().ToString()
                     };
@@ -53,7 +54,7 @@ namespace Cynthia.Card
                     .Concat("34002".Plural(3))//侦查
                     .Concat("34003".Plural(3))//近卫军
                     .Concat("34004".Plural(3)).ToList();//12点
-                    return new DeckModel() { Leader = "31001", Deck = deck, Name = "帝国测试卡组",Id = Guid.NewGuid().ToString()};
+                    return new DeckModel() { Leader = "31001", Deck = deck, Name = "帝国测试卡组", Id = Guid.NewGuid().ToString() };
             }
         }
         public static bool IsBasicDeck(this DeckModel deck)

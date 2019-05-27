@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Alsein.Utilities;
+using Alsein.Extensions.Extensions;
 using Newtonsoft.Json;
 
 namespace Cynthia.Card

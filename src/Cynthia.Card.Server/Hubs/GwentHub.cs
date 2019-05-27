@@ -31,15 +31,19 @@ namespace Cynthia.Card.Server
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
 
         //游戏内玩家操作
-        public Task GameOperation(Operation<UserOperationType> operation) => _gwentServerService.GameOperation(operation, Context.ConnectionId);
+        public Task GameOperation(Operation<UserOperationType> operation)
+        {
+            var result = _gwentServerService.GameOperation(operation, Context.ConnectionId);
+            return result;
+        }
 
         //重新连接
-        public async Task<bool> Reconnect(string username, string password)=> await _gwentServerService.Reconnect(Context.ConnectionId,username,password);
-        
+        public async Task<bool> Reconnect(string username, string password) => await _gwentServerService.Reconnect(Context.ConnectionId, username, password);
+
         //连接中断
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            return _gwentServerService.Disconnect(Context.ConnectionId,exception,true);
+            return _gwentServerService.Disconnect(Context.ConnectionId, exception, true);
         }
     }
 }

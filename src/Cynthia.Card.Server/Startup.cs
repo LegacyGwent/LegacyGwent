@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Alsein.Utilities;
+using Alsein.Extensions;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -27,20 +27,6 @@ namespace Cynthia.Card.Server
             {
                 return new MongoClient("mongodb://cynthia.ovyno.com:27017/gwent");
             });
-            //services.AddAutofac(builder=> 
-            //{
-            //    builder.Populate(services);
-            //    builder.RegisterType<MongoClient>()
-            //        .WithParameter("connectionString", "mongodb://cynthia.ovyno.com:27017/gwent")
-            //        .As<IMongoClient>()
-            //        .PropertiesAutowired()
-            //        .AsSelf();
-            //    //builder.RegisterAll("Hub", option => option.ExternallyOwned());
-            //    builder.RegisterAllServices(option => option.PreserveExistingDefaults());
-            //    //builder.Register(x => container).SingleInstance();
-            //});
-            //container = builder.Build();
-            //return new AutofacServiceProvider(container);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
