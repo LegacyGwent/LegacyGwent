@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using Alsein.Utilities.LifetimeAnnotations;
+using Alsein.Extensions.LifetimeAnnotations;
 using Autofac;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 using System;
-using Alsein.Utilities.IO;
+using Alsein.Extensions.IO;
 using System.Collections.Concurrent;
-using Alsein.Utilities;
+using Alsein.Extensions;
 
 namespace Cynthia.Card.Server
 {
@@ -19,12 +19,12 @@ namespace Cynthia.Card.Server
         public GwentDatabaseService DatabaseService { get; set; }
         private readonly GwentMatchs _gwentMatchs;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
-        private readonly IDictionary<string,(IAsyncDataSender sender,IAsyncDataReceiver receiver)> _waitReconnectList = new ConcurrentDictionary<string,(IAsyncDataSender,IAsyncDataReceiver)>();
+        private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
         public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService)
         {
             //Container = container;
             DatabaseService = databaseService;
-            _gwentMatchs = new GwentMatchs(()=>hub);
+            _gwentMatchs = new GwentMatchs(() => hub);
             _hub = hub;
         }
 
@@ -60,10 +60,10 @@ namespace Cynthia.Card.Server
             {
                 var user = _users[connectionId];
                 //如果玩家不处于闲置状态,或玩家没有该卡组,或者该卡组不符合标准,禁止匹配
-                if (user.UserState != UserState.Standby || !(user.Decks.Any(x=>x.Id==deckId)&&user.Decks.Single(x=>x.Id==deckId).IsBasicDeck()))
+                if (user.UserState != UserState.Standby || !(user.Decks.Any(x => x.Id == deckId) && user.Decks.Single(x => x.Id == deckId).IsBasicDeck()))
                     return false;
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
-                player.Deck = user.Decks.Single(x=>x.Id==deckId);
+                player.Deck = user.Decks.Single(x => x.Id == deckId);
                 _gwentMatchs.PlayerJoin(player);
                 return true;
             }
@@ -87,7 +87,7 @@ namespace Cynthia.Card.Server
             if (user.Decks.Count >= 40)
                 return false;
             //if (!deck.IsBasicDeck())
-                //return false;
+            //return false;
             if (!DatabaseService.AddDeck(user.UserName, deck))
                 return false;
             user.Decks.Add(deck);
@@ -104,10 +104,10 @@ namespace Cynthia.Card.Server
             //如果用户的卡组数量小于0,拒绝删除卡组
             if (user.Decks.Count < 0)
                 return false;
-            if(user.Decks.Any(x=>x.Id==id))
-            if (!DatabaseService.RemoveDeck(user.UserName, id))
-                return false;
-            user.Decks.RemoveAt(user.Decks.Select((x,index)=>(x,index)).Single(deck=>deck.x.Id==id).index);
+            if (user.Decks.Any(x => x.Id == id))
+                if (!DatabaseService.RemoveDeck(user.UserName, id))
+                    return false;
+            user.Decks.RemoveAt(user.Decks.Select((x, index) => (x, index)).Single(deck => deck.x.Id == id).index);
             return true;
         }
 
@@ -121,13 +121,17 @@ namespace Cynthia.Card.Server
             //如果卡组不合规范
             if (!DatabaseService.ModifyDeck(user.UserName, id, deck))
                 return false;
-            user.Decks[user.Decks.Select((x,index)=>(x,index)).Single(d=>d.x.Id==id).index] = deck;
+            user.Decks[user.Decks.Select((x, index) => (x, index)).Single(d => d.x.Id == id).index] = deck;
             return true;
         }
 
-        public Task GameOperation(Operation<UserOperationType> operation, string connectionId) => _users[connectionId].CurrentPlayer.SendAsync(operation);
-    
-        public async Task Disconnect(string connectionId,Exception exception = null,bool isWaitReconnect = false)
+        public Task GameOperation(Operation<UserOperationType> operation, string connectionId)
+        {
+            var result = _users[connectionId].CurrentPlayer.SendAsync(operation);
+            return result;
+        }
+
+        public async Task Disconnect(string connectionId, Exception exception = null, bool isWaitReconnect = false)
         {
             if (!_users.ContainsKey(connectionId))//如果用户没有在线,无效果
                 return;
@@ -135,11 +139,11 @@ namespace Cynthia.Card.Server
             {
                 _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
-            if(isWaitReconnect)
+            if (isWaitReconnect)
             {
-                if(_users[connectionId].UserState == UserState.Play)
+                if (_users[connectionId].UserState == UserState.Play)
                 {
-                    await _gwentMatchs.WaitReconnect(connectionId,()=>WaitReconnect(connectionId));
+                    await _gwentMatchs.WaitReconnect(connectionId, () => WaitReconnect(connectionId));
                 }
                 else
                 {
@@ -150,7 +154,7 @@ namespace Cynthia.Card.Server
             {
                 if (_users[connectionId].UserState == UserState.Play)//如果用户正在进行对局
                 {
-                    _gwentMatchs.PlayerLeave(connectionId,exception);
+                    _gwentMatchs.PlayerLeave(connectionId, exception);
                 }
                 _users.Remove(connectionId);
                 _waitReconnectList.Remove(connectionId);
@@ -160,14 +164,14 @@ namespace Cynthia.Card.Server
 
         public async Task<bool> WaitReconnect(string connectionId)
         {   //等待重连
-            if(!_users.ContainsKey(connectionId)) return false;
+            if (!_users.ContainsKey(connectionId)) return false;
             //如果没有发现链接,重连失败
             _users[connectionId].IsWaitingReConnect = true;
-            _waitReconnectList[_users[connectionId].UserName] = AsyncDataEndPoint.CreateSimplex();
+            _waitReconnectList[_users[connectionId].UserName] = Tube.CreateSimplex();
             //建立管道,键为用户名
             var timeOverTask = Task.Delay(10000);
             var connectTask = _waitReconnectList[_users[connectionId].UserName].receiver.ReceiveAsync<bool>();
-            switch(await Task.WhenAny(timeOverTask,connectTask))
+            switch (await Task.WhenAny(timeOverTask, connectTask))
             {
                 case Task<bool> task when task == connectTask:
                     return true;
@@ -178,17 +182,17 @@ namespace Cynthia.Card.Server
                     return false;
             }
         }
-  
-        public async Task<bool> Reconnect(string connectionId,string userName, string password)
+
+        public async Task<bool> Reconnect(string connectionId, string userName, string password)
         {
             //如果等待重连列表里面没有的话,重连失败,请重新登陆游戏
-            if(!_waitReconnectList.ContainsKey(userName)) return false;
+            if (!_waitReconnectList.ContainsKey(userName)) return false;
             var user = DatabaseService.Login(userName, password);
-            if(user==null||!_users.Any(x=>x.Value.UserName==userName))return false; //如果重连身份验证失败,自然不允许
-            var nowUser = _users.Single(x=>x.Value.UserName==userName).Value;
-            if(!nowUser.IsWaitingReConnect)return false;
+            if (user == null || !_users.Any(x => x.Value.UserName == userName)) return false; //如果重连身份验证失败,自然不允许
+            var nowUser = _users.Single(x => x.Value.UserName == userName).Value;
+            if (!nowUser.IsWaitingReConnect) return false;
             nowUser.IsWaitingReConnect = false;
-            _users.Remove(_users.Single(x=>x.Value.UserName==userName).Key);
+            _users.Remove(_users.Single(x => x.Value.UserName == userName).Key);
             nowUser.ConnectionId = connectionId;
             _users[connectionId] = nowUser;
             //替换链接
