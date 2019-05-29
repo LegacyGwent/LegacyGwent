@@ -55,12 +55,9 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
-            await Debug("Game Start!");
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
-            await Debug("Send after!");
             await SetAllInfo();//更新玩家所有数据
-            await Debug("Send over!");
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
@@ -226,7 +223,7 @@ namespace Cynthia.Card.Server
             //让玩家选择拖拽,或者Pass
             await Players[playerIndex].SendAsync(ServerOperationType.GetDragOrPass);
             //获取信息
-            var roundInfo = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RoundInfo>();//接收玩家的选择,提取结果
+            var roundInfo = (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<RoundInfo>();//接收玩家的选择,提取结果
             if (roundInfo.IsPass)
             {//Pass时候执行
                 IsPlayersPass[playerIndex] = true;
@@ -371,7 +368,7 @@ namespace Cynthia.Card.Server
             {
                 await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
                 var result = await Players[playerIndex].ReceiveAsync();
-                var mulliganCardIndex = result.Arguments.ToArray()[0].ToType<string>().ToType<int>();
+                var mulliganCardIndex = result.Arguments.ToArray()[0].ToType<int>();
                 if (mulliganCardIndex == -1)
                     break;
                 //逻辑处理
@@ -432,24 +429,24 @@ namespace Cynthia.Card.Server
         public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
             await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
-            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<int>>();
+            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<IList<int>>();
         }
         public async Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info)//指示器向边缘扩展格数
         {
             await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
-            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<IList<CardLocation>>();
+            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<IList<CardLocation>>();
         }
         public async Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart)//选择排
         {
             if (rowPart.Count == 0) return RowPosition.Banish;
             await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, GetCardLocation(playerIndex, card), rowPart);
-            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<RowPosition>();
+            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<RowPosition>();
         }
         public async Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false)//选择放置一张牌
         {
             var playerIndex = isAnother ? AnotherPlayer(card.PlayerIndex) : card.PlayerIndex;
             await Players[playerIndex].SendAsync(ServerOperationType.PlayCard, GetCardLocation(playerIndex, card));
-            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<string>().ToType<CardLocation>();
+            return (await Players[playerIndex].ReceiveAsync()).Arguments.ToArray()[0].ToType<CardLocation>();
         }
         //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
         //------------------------------------------------------------------------------------------------------------------------

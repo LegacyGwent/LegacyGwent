@@ -18,6 +18,7 @@ namespace Cynthia.Card
         }
         public static T ToType<T>(this string jsonString)
         {
+            var a = typeof(T).Name;
             return JsonConvert.DeserializeObject<T>(jsonString);
         }
         public static IEnumerable<T> Mess<T>(this IEnumerable<T> source)

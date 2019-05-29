@@ -9,11 +9,15 @@ namespace Cynthia.Card.Server
     {
         public User CurrentUser { get; set; }
         // private (TaskCompletionSource<bool> Task, string Id) _nowOkTask;
-        public ClientPlayer(User user, Func<IHubContext<GwentHub>> hub)
+        public ClientPlayer(User user, Func<IHubContext<GwentHub>> hub) : base()
         {
             PlayerName = user.PlayerName;
             CurrentUser = user;
-            Receive += x => hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
+            Receive += async x =>
+            {
+                // await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("Test", "debug尝试");
+                await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
+            };
         }
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
         public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));
