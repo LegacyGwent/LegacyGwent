@@ -5,6 +5,6 @@ namespace Cynthia.Card
     public class ModelBase : IModel
     {
         [Key]
-        public string Id { get; set; }
+        public string Id { get; set; } = System.Guid.NewGuid().ToString();
     }
 }
