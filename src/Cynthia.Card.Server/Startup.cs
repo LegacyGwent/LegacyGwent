@@ -10,7 +10,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace Cynthia.Card.Server
 {
@@ -18,8 +21,6 @@ namespace Cynthia.Card.Server
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            //var container = default(IContainer);
-            //var builder = new ContainerBuilder();
             services.AddSignalR();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
@@ -29,7 +30,7 @@ namespace Cynthia.Card.Server
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory logger)
         {
             if (env.IsDevelopment())
             {
