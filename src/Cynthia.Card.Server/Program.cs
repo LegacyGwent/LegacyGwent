@@ -18,7 +18,32 @@ namespace Cynthia.Card.Server
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            // if (Directory.Exists("./logs")) Directory.CreateDirectory("./logs");
+            var name = DateTime.UtcNow.ToString("s").Replace(":", "");
+            var sw = new StreamWriter(new FileStream($"./{name}log.log", FileMode.Create));
+            var se = new StreamWriter(new FileStream($"./{name}Elog.log", FileMode.Create));
+            Console.SetOut(sw);
+            Console.SetError(se);
+            try
+            {
+                var updateTask = TimingUpdate(20, sw, se);
+                CreateHostBuilder(args).Build().Run();
+            }
+            finally
+            {
+                sw.Close();
+                se.Close();
+            }
+        }
+
+        public static async Task TimingUpdate(int updateTime, StreamWriter sw, StreamWriter se)
+        {
+            while (true)
+            {
+                await Task.Delay(1000 * updateTime);
+                sw.Flush();
+                se.Flush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
