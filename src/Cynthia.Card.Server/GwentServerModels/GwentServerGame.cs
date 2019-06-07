@@ -9,6 +9,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame, IGwentEvent
     {
+        public int RowMaxCount { get; set; } = 9;
         public IList<(int PlayerIndex, string CardId)> HistoryList { get; set; } = new List<(int, string)>();
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
         public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
@@ -1267,9 +1268,9 @@ namespace Cynthia.Card.Server
         {
             Random rd = new Random();
             var a = new List<int>();
-            if (PlayersPlace[playerIndex][0].Count < 9) a.Add(0);
-            if (PlayersPlace[playerIndex][1].Count < 9) a.Add(1);
-            if (PlayersPlace[playerIndex][2].Count < 9) a.Add(2);
+            if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
+            if (PlayersPlace[playerIndex][1].Count < RowMaxCount) a.Add(1);
+            if (PlayersPlace[playerIndex][2].Count < RowMaxCount) a.Add(2);
             if (a.Count == 0) return null;
             var rowIndex = a[rd.Next(0, a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;

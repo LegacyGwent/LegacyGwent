@@ -7,6 +7,7 @@ namespace Cynthia.Card.Server
     public class GwentHub : Hub
     {
         public GwentServerService _gwentServerService;
+
         public GwentHub(GwentServerService gwentServerService) => _gwentServerService = gwentServerService;
 
         //注册
