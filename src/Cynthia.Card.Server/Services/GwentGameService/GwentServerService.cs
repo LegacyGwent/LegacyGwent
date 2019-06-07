@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server
         public GwentDatabaseService DatabaseService { get; set; }
         private readonly GwentMatchs _gwentMatchs;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
-        private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
+        // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
         public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService)
         {
             //Container = container;
@@ -131,73 +131,81 @@ namespace Cynthia.Card.Server
             return result;
         }
 
-        public async Task Disconnect(string connectionId, Exception exception = null, bool isWaitReconnect = false)
+        public async Task Disconnect(string connectionId, Exception exception = null)//, bool isWaitReconnect = false)
         {
+            await Task.CompletedTask;
             if (!_users.ContainsKey(connectionId))//如果用户没有在线,无效果
                 return;
             if (_users[connectionId].UserState == UserState.Match)//如果用户正在匹配
             {
                 _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
-            if (isWaitReconnect)
+            // if (isWaitReconnect)
+            // {
+            //     if (_users[connectionId].UserState == UserState.Play)
+            //     {
+            //         await _gwentMatchs.WaitReconnect(connectionId, () => WaitReconnect(connectionId));
+            //     }
+            //     else
+            //     {
+            //         await WaitReconnect(connectionId);
+            //     }
+            // }
+            // else
+            // {
+            if (_users[connectionId].UserState == UserState.Play)//如果用户正在进行对局
             {
-                if (_users[connectionId].UserState == UserState.Play)
-                {
-                    await _gwentMatchs.WaitReconnect(connectionId, () => WaitReconnect(connectionId));
-                }
-                else
-                {
-                    await WaitReconnect(connectionId);
-                }
+                _gwentMatchs.PlayerLeave(connectionId, exception);
             }
-            else
-            {
-                if (_users[connectionId].UserState == UserState.Play)//如果用户正在进行对局
-                {
-                    _gwentMatchs.PlayerLeave(connectionId, exception);
-                }
-                _users.Remove(connectionId);
-                _waitReconnectList.Remove(connectionId);
-            }
+            _users.Remove(connectionId);
+            // if (_waitReconnectList.ContainsKey(connectionId))
+            //     _waitReconnectList.Remove(connectionId);
+            // }
 
         }
 
-        public async Task<bool> WaitReconnect(string connectionId)
-        {   //等待重连
-            if (!_users.ContainsKey(connectionId)) return false;
-            //如果没有发现链接,重连失败
-            _users[connectionId].IsWaitingReConnect = true;
-            _waitReconnectList[_users[connectionId].UserName] = Tube.CreateSimplex();
-            //建立管道,键为用户名
-            var timeOverTask = Task.Delay(10000);
-            var connectTask = _waitReconnectList[_users[connectionId].UserName].receiver.ReceiveAsync<bool>();
-            switch (await Task.WhenAny(timeOverTask, connectTask))
-            {
-                case Task<bool> task when task == connectTask:
-                    return true;
-                case Task task when task == timeOverTask:
-                default://如果时间结束或者出现了奇怪的结果
-                    _users.Remove(connectionId);
-                    _waitReconnectList.Remove(connectionId);
-                    return false;
-            }
-        }
-
-        public async Task<bool> Reconnect(string connectionId, string userName, string password)
+        public async Task<int> GetUserCount(string connectionId)
         {
-            //如果等待重连列表里面没有的话,重连失败,请重新登陆游戏
-            if (!_waitReconnectList.ContainsKey(userName)) return false;
-            var user = DatabaseService.Login(userName, password);
-            if (user == null || !_users.Any(x => x.Value.UserName == userName)) return false; //如果重连身份验证失败,自然不允许
-            var nowUser = _users.Single(x => x.Value.UserName == userName).Value;
-            if (!nowUser.IsWaitingReConnect) return false;
-            nowUser.IsWaitingReConnect = false;
-            _users.Remove(_users.Single(x => x.Value.UserName == userName).Key);
-            nowUser.ConnectionId = connectionId;
-            _users[connectionId] = nowUser;
-            //替换链接
-            await _waitReconnectList[userName].sender.SendAsync<bool>(true);
-            return true;
+            await Task.CompletedTask;
+            return _users.Count;
         }
+
+        // public async Task<bool> WaitReconnect(string connectionId)
+        // {   //等待重连
+        //     if (!_users.ContainsKey(connectionId)) return false;
+        //     //如果没有发现链接,重连失败
+        //     _users[connectionId].IsWaitingReConnect = true;
+        //     _waitReconnectList[_users[connectionId].UserName] = Tube.CreateSimplex();
+        //     //建立管道,键为用户名
+        //     var timeOverTask = Task.Delay(10000);
+        //     var connectTask = _waitReconnectList[_users[connectionId].UserName].receiver.ReceiveAsync<bool>();
+        //     switch (await Task.WhenAny(timeOverTask, connectTask))
+        //     {
+        //         case Task<bool> task when task == connectTask:
+        //             return true;
+        //         case Task task when task == timeOverTask:
+        //         default://如果时间结束或者出现了奇怪的结果
+        //             _users.Remove(connectionId);
+        //             _waitReconnectList.Remove(connectionId);
+        //             return false;
+        //     }
+        // }
+
+        // public async Task<bool> Reconnect(string connectionId, string userName, string password)
+        // {
+        //     //如果等待重连列表里面没有的话,重连失败,请重新登陆游戏
+        //     if (!_waitReconnectList.ContainsKey(userName)) return false;
+        //     var user = DatabaseService.Login(userName, password);
+        //     if (user == null || !_users.Any(x => x.Value.UserName == userName)) return false; //如果重连身份验证失败,自然不允许
+        //     var nowUser = _users.Single(x => x.Value.UserName == userName).Value;
+        //     if (!nowUser.IsWaitingReConnect) return false;
+        //     nowUser.IsWaitingReConnect = false;
+        //     _users.Remove(_users.Single(x => x.Value.UserName == userName).Key);
+        //     nowUser.ConnectionId = connectionId;
+        //     _users[connectionId] = nowUser;
+        //     //替换链接
+        //     await _waitReconnectList[userName].sender.SendAsync<bool>(true);
+        //     return true;
+        // }
     }
 }
