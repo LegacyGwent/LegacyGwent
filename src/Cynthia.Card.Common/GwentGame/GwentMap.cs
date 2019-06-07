@@ -1178,7 +1178,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Alchemy,Categorie.Special,Categorie.Item},//需要添加
+                    Categories = new Categorie[]{Categorie.Redania,Categorie.Cursed},//需要添加
                     Flavor = "至少你知道我的头不好砍了。",
                     Info = "遗愿：复活至原位。",
                     CardArtsId = "11220700",

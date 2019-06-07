@@ -7,7 +7,8 @@ namespace Cynthia.Card
 {
     public interface IGwentServerGame : IGwentEvent
     {
-        IList<(int PlayerIndex,string CardId)> HistoryList{get;set;}
+        int RowMaxCount { get; set; }
+        IList<(int PlayerIndex, string CardId)> HistoryList { get; set; }
         Player[] Players { get; set; }//玩家数据传输/
         //bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
         IList<GameCard>[] PlayersLeader { get; set; }//玩家领袖是?/
@@ -27,7 +28,7 @@ namespace Cynthia.Card
         bool[] IsPlayersMulligan { get; set; }//玩家是否调度完毕
         int Player1Index { get; }//玩家1的坐标
         int Player2Index { get; }//玩家2的坐标
-        (int? PlayerIndex,int HPoint) WhoHeight{get;}
+        (int? PlayerIndex, int HPoint) WhoHeight { get; }
         Task Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
@@ -68,8 +69,8 @@ namespace Cynthia.Card
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task ShowCardOn(GameCard card);//抬起
         //-----------------------
-        Task CreateCard(string CardId,int playerIndex,CardLocation position,Action<CardStatus> setting = null);
-        Task<int> CreateAndMoveStay(int playerIndex,string[] cards,int createCount = 1,bool isCanOver = true,string title = "选择生成一张卡");
+        Task CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null);
+        Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = true, string title = "选择生成一张卡");
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //------------------------
@@ -91,7 +92,7 @@ namespace Cynthia.Card
         Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> selectList, int selectCount = 1, bool isCanOver = false, string title = "选择一张卡牌");//返回点击列表卡牌的顺序
         Task<IList<GameCard>> GetSelectMenuCards(int playerIndex, IList<GameCard> selectList, int selectCount = 1, string title = "选择一张卡牌", bool isEnemyBack = false, bool isCanOver = true);//返回点击列表卡牌的顺序
         Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);//返回点击场上卡牌的顺序
-        Task<IList<GameCard>> GetSelectPlaceCards(GameCard card,int count = 1,bool isEnemySwitch = false, Func<GameCard, bool> Sizer = null, SelectModeType selectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0);
+        Task<IList<GameCard>> GetSelectPlaceCards(GameCard card, int count = 1, bool isEnemySwitch = false, Func<GameCard, bool> Sizer = null, SelectModeType selectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0);
         Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false);//告诉玩家要打出什么牌,获取玩家选择的位置
         Task ApplyWeather(int playerIndex, int row, RowStatus type);
