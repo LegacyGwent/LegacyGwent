@@ -78,7 +78,8 @@ namespace Cynthia.Card.Server
         public async Task GameEnd(int winPlayerIndex, Exception exception)
         {
             if (exception == null)
-                await MessageBox("对方的账号被强制顶下线,比赛结束");
+                // await MessageBox("对方的账号被强制顶下线,比赛结束");
+                await MessageBox("对方已断开连接,比赛结束!");
             else
                 await MessageBox(exception.Message);
             await SendGameResult(winPlayerIndex, GameStatus.Win);

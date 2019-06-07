@@ -30,6 +30,9 @@ namespace Cynthia.Card.Server
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
 
+        //获取在线人数
+        public async Task<int> GetUserCount() => await _gwentServerService.GetUserCount(Context.ConnectionId);
+
         //游戏内玩家操作
         public Task GameOperation(Operation<UserOperationType> operation)
         {
@@ -38,12 +41,12 @@ namespace Cynthia.Card.Server
         }
 
         //重新连接
-        public async Task<bool> Reconnect(string username, string password) => await _gwentServerService.Reconnect(Context.ConnectionId, username, password);
+        // public async Task<bool> Reconnect(string username, string password) => await _gwentServerService.Reconnect(Context.ConnectionId, username, password);
 
         //连接中断
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            return _gwentServerService.Disconnect(Context.ConnectionId, exception, true);
+            return _gwentServerService.Disconnect(Context.ConnectionId, exception);//, true);
         }
     }
 }
