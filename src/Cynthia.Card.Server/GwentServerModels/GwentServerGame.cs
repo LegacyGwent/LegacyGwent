@@ -1012,7 +1012,7 @@ namespace Cynthia.Card.Server
                 );
         }
         //
-        public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true)
+        public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false)
         {
             await SendCardMove(card.PlayerIndex, new MoveCardInfo()
             {
@@ -1030,6 +1030,8 @@ namespace Cynthia.Card.Server
             var taget = RowToList(card.PlayerIndex, location.RowPosition);
             await LogicCardMove(card, taget, location.CardIndex);
             await SetCountInfo();
+            if (refreshPoint)
+                await SetPointInfo();
         }
         public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
         {

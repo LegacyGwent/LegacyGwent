@@ -14,7 +14,7 @@ namespace Cynthia.Card
             if (IsUse) return 0;
             IsUse = true;
             //选择卡组随机两张卡(另一半场玩家)
-            var list = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Mess().Take(2).ToList();
+            var list = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Take(2).ToList();
             //让玩家(另一半场)选择一张卡,不能不选
             var result = await Game.GetSelectMenuCards(Game.AnotherPlayer(Card.PlayerIndex), list, isCanOver: false);
             if (result.Count == 0) return 0;

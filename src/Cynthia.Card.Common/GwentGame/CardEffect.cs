@@ -58,9 +58,10 @@ namespace Cynthia.Card
         //公共效果
         public virtual async Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)//进入墓地触发
         {
+            // await Game.Debug($"移动到墓地!将卡牌{Card.CardInfo().Name}");
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
-            if (type != CardBreakEffectType.ToCemetery)
+            if (type != CardBreakEffectType.ToCemetery)//直接移动到墓地,动画
                 await Game.ShowCardBreakEffect(Card, type);
             Repair();
             if (type == CardBreakEffectType.ToCemetery)
@@ -123,7 +124,6 @@ namespace Cynthia.Card
             }
             var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
             list.RemoveAt(list.IndexOf(Card));
-            await Game.Debug("试图放逐:" + Card.CardInfo().Name);
             //所在排为放逐
             Card.Status.CardRow = RowPosition.Banish;
             await Game.SetCountInfo();
