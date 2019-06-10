@@ -1297,6 +1297,9 @@ namespace Cynthia.Card.Server
         //卡牌事件处理与转发
         public async Task CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
         {
+            var row = RowToList(playerIndex, position.RowPosition);
+            if (position.RowPosition.IsOnPlace() && row.Count >= RowMaxCount)
+                return;
             var creatCard = new GameCard()
             {
                 PlayerIndex = playerIndex,
@@ -1308,7 +1311,7 @@ namespace Cynthia.Card.Server
             }.With(card => card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[CardId].EffectType, this, card));
             if (setting != null)
                 setting(creatCard.Status);
-            await LogicCardMove(creatCard, RowToList(playerIndex, position.RowPosition), position.CardIndex);
+            await LogicCardMove(creatCard, row, position.CardIndex);
             await Players[playerIndex].SendAsync(ServerOperationType.CreateCard, creatCard.Status, position);
             await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
             ((creatCard.IsShowBack(AnotherPlayer(playerIndex))) ? creatCard.Status.CreateBackCard() : creatCard.Status), position.Mirror());
