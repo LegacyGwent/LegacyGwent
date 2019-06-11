@@ -11,6 +11,7 @@ namespace Cynthia.Card.Server
     {
         public int RowMaxCount { get; set; } = 9;
         public IList<(int PlayerIndex, string CardId)> HistoryList { get; set; } = new List<(int, string)>();
+        public GameDeck[] PlayerBaseDeck { get; set; } = new GameDeck[2];
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
         public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
         public IList<GameCard>[] PlayersLeader { get; set; } = new IList<GameCard>[2];//玩家领袖是?/
@@ -277,42 +278,47 @@ namespace Cynthia.Card.Server
             }
         }
         //玩家抽卡
-        public async Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count)//或许应该播放抽卡动画和更新数值
+        public async Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count, Func<GameCard, bool> sizer = null)
         {
-            if (count > PlayersDeck[playerIndex].Count) count = PlayersDeck[playerIndex].Count;
+            sizer = sizer ?? (x => true);//或许应该播放抽卡动画和更新数值
+            if (count > PlayersDeck[playerIndex].Where(sizer).Count()) count = PlayersDeck[playerIndex].Where(sizer).Count();
             var list = new List<GameCard>();
             for (var i = 0; i < count; i++)
             {
                 //将卡组顶端的卡牌抽到手牌
-                (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], 0)).To(list.Add);
+                (await LogicCardMove(PlayersDeck[playerIndex].First(sizer), PlayersHandCard[playerIndex], 0)).To(list.Add);
             }
             return list;
         }
 
         //封装的抽卡
-        public async Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count)
+        public async Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count, Func<GameCard, bool> sizer = null)
         {
+            //过滤器
+            sizer = sizer ?? (x => true);
             //抽卡限制,不至于抽空卡组
-            if (player1Count > PlayersDeck[Player1Index].Count) player1Count = PlayersDeck[Player1Index].Count;
-            if (player2Count > PlayersDeck[Player2Index].Count) player2Count = PlayersDeck[Player2Index].Count;
-            var player1Task = DrawCardAnimation(Player1Index, player1Count, Player2Index, player2Count);
-            var player2Task = DrawCardAnimation(Player2Index, player2Count, Player1Index, player1Count);
+            if (player1Count > PlayersDeck[Player1Index].Where(sizer).Count()) player1Count = PlayersDeck[Player1Index].Where(sizer).Count();
+            if (player2Count > PlayersDeck[Player2Index].Where(sizer).Count()) player2Count = PlayersDeck[Player2Index].Where(sizer).Count();
+            var player1Task = DrawCardAnimation(Player1Index, player1Count, Player2Index, player2Count, sizer);
+            var player2Task = DrawCardAnimation(Player2Index, player2Count, Player1Index, player1Count, sizer);
             await Task.WhenAll(player1Task, player2Task);
             await SetCountInfo();
             return (player1Task.Result, player2Task.Result);
         }
         //只有一个玩家抽卡
-        public async Task<List<GameCard>> PlayerDrawCard(int playerIndex, int count = 1)
+        public async Task<List<GameCard>> PlayerDrawCard(int playerIndex, int count = 1, Func<GameCard, bool> sizer = null)
         {
+            sizer = sizer ?? (x => true);
             var result = default(List<GameCard>);
             if (playerIndex == Player1Index)
-                (result, _) = await DrawCard(count, 0);
+                (result, _) = await DrawCard(count, 0, sizer);
             else
-                (_, result) = await DrawCard(0, count);
+                (_, result) = await DrawCard(0, count, sizer);
             return result;
         }
-        public async Task<List<GameCard>> DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount)
+        public async Task<List<GameCard>> DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount, Func<GameCard, bool> sizer = null)
         {
+            sizer = sizer ?? (x => true);
             var list = new List<GameCard>();
             for (var i = 0; i < myPlayerCount; i++)
             {
@@ -321,10 +327,10 @@ namespace Cynthia.Card.Server
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.MyDeck },
                     Taget = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
-                    Card = PlayersDeck[myPlayerIndex][0].Status
+                    Card = PlayersDeck[myPlayerIndex].First(sizer).Status
                 });
                 //真实抽的卡只有自己的
-                var drawcard = (await LogicDrawCard(myPlayerIndex, 1)).Single();
+                var drawcard = (await LogicDrawCard(myPlayerIndex, 1, sizer)).Single();
                 list.Add(drawcard);
                 await Task.Delay(800);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
@@ -1168,6 +1174,8 @@ namespace Cynthia.Card.Server
         }
         public GwentServerGame(Player player1, Player player2)
         {
+            PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
+            PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
             //初始化游戏信息
             GameRound = new Random().Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
             //随机个先后手

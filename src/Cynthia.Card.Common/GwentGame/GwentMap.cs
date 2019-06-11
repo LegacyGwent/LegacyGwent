@@ -15,6 +15,13 @@ namespace Cynthia.Card
             .ThenBy(x => x.Value.Strength)
             .Select(x => new CardStatus(x.Key));
         }
+        public static IEnumerable<string> GetCreateCardsId(Func<CardStatus, bool> sizer, int count = 3, bool isHasDerive = false)
+        {
+            return GetCards()
+                .Where(sizer)
+                .Mess().Take(3).Select(x => x.CardId)
+                .ToList();
+        }
         public static IEnumerable<string> GetCardsId(bool isHasDerive = false)
         {
             return CardMap
@@ -509,7 +516,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Mage,Categorie.Temeria},//需要添加
                     Flavor = "捆住手脚远远不够。塞住嘴巴也不会让她的危险程度有分毫减少。所以，阻魔金是唯一的解决方案。",
                     Info = "创造任意方起始牌组中的1张铜色特殊牌。",
-                    CardArtsId = "20177400",
+                    CardArtsId = "20177300",
                 }
             },
             {
