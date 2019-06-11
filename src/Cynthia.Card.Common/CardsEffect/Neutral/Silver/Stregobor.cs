@@ -4,13 +4,19 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("13007")]//斯崔葛布
-	public class Stregobor : CardEffect
-	{//休战：双方各抽1张单位牌，将其战力设为1。
-		public Stregobor(IGwentServerGame game, GameCard card) : base(game, card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
-		{
-			return 0;
-		}
-	}
+    [CardEffectId("13007")]//斯崔葛布
+    public class Stregobor : CardEffect
+    {//休战：双方各抽1张单位牌，将其战力设为1。
+        public Stregobor(IGwentServerGame game, GameCard card) : base(game, card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying)
+        {
+            if (Game.IsPlayersPass[Game.AnotherPlayer(Card.PlayerIndex)]) return 0;
+            var cards = await Game.DrawCard(1, 1, x => x.CardInfo().CardType == CardType.Unit);
+            foreach (var item in cards.Item1.Concat(cards.Item2))
+            {
+                await item.Effect.Damage(item.ToHealth().health - 1, item, BulletType.Lightnint);
+            }
+            return 0;
+        }
+    }
 }

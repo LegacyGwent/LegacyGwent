@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cynthia.Card
 {
-    public class DeckModel
+    public class GameDeck
     {
         [Key]
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<string> Deck { get; set; }
-        public string Leader { get; set; }
+        public List<GwentCard> Deck { get; set; }
+        public GwentCard Leader { get; set; }
     }
 }
