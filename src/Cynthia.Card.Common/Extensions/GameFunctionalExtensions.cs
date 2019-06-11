@@ -7,6 +7,10 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
+        public static Task CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null)
+        {
+            return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);
+        }
         public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> sizer, bool isDistinct = false)
         {
             if (isDistinct)
