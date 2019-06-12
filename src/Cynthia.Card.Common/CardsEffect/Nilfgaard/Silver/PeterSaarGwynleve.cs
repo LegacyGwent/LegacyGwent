@@ -10,6 +10,13 @@ namespace Cynthia.Card
 		public PeterSaarGwynleve(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+            var cards = await Game.GetSelectPlaceCards(Card);
+            if (cards.Count() == 0) return 0;
+            var card = cards.Single();
+            await card.Effect.Reset(Card);
+            if (card.PlayerIndex == Card.PlayerIndex)
+                await card.Effect.Strengthen(3, Card);
+            else await card.Effect.Weaken(3, Card);
 			return 0;
 		}
 	}

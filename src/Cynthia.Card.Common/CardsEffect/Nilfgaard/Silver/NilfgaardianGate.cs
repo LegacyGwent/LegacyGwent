@@ -10,7 +10,15 @@ namespace Cynthia.Card
 		public NilfgaardianGate(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
-		}
+            var list = Game.PlayersDeck[Card.PlayerIndex]
+                .Where(x => x.Status.Categories.Contains(Categorie.Officer)&&
+                (x.Status.Group==Group.Copper||x.Status.Group==Group.Silver))
+                .ToList();
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+            if (cards.Count() == 0) return 0;
+            await cards.Single().MoveToCardStayFirst();
+            await cards.Single().Effect.Boost(1, Card);
+            return 1;
+        }
 	}
 }

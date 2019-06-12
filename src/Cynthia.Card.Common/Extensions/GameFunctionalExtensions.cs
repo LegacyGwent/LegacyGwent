@@ -47,6 +47,11 @@ namespace Cynthia.Card
             result.Deck = deck.Deck.Select(x => x.CardInfo()).ToList();
             return result;
         }
+        public static async Task<int> CreateAndMoveStay(this GameCard card, string cardId)
+        {
+            await card.Effect.Game.CreateCard(cardId, card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            return 1;
+        }
         public static Task<int> CreateAndMoveStay(this GameCard card, params string[] cards)
         {
             return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex, cards);
