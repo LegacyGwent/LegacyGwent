@@ -19,7 +19,7 @@ namespace Cynthia.Card
         {
             return GetCards()
                 .Where(sizer)
-                .Mess().Take(3).Select(x => x.CardId)
+                .Mess().Take(count).Select(x => x.CardId)
                 .ToList();
         }
         public static IEnumerable<string> GetCardsId(bool isHasDerive = false)
