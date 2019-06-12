@@ -11,11 +11,14 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
             var createCards = GwentMap.GetCreateCardsId(x => x.Group == Group.Leader && x.CardId != CardId.Usurper);
-            return await Game.CreateAndMoveStay(
+            var count = await Game.CreateAndMoveStay(
                 Game.AnotherPlayer(Card.PlayerIndex),
                 createCards.ToArray(),
                 1,
                 true);
+            if (count == 0) return 0;
+            await Game.RowToList(Card.PlayerIndex, RowPosition.MyStay).First().Effect.Boost(2, Card);
+            return 1;
         }
     }
 }
