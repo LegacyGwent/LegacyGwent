@@ -17,48 +17,6 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
-        },
-        {
-            "name": "Launch Test",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build test",
-            "console": "externalTerminal",
-            "program": "${workspaceFolder}/test/Cynthia.Card.Test/bin/Debug/netcoreapp2.1/Cynthia.Card.Test.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/test/Cynthia.Card.Test",
-            "stopAtEntry": false,
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-        },
-        {
-            "name": "Launch CardMake",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build cardmake",
-            "console": "externalTerminal",
-            "program": "${workspaceFolder}/tools/Cynthia.Card.MakeCard/bin/Debug/netcoreapp2.1/Cynthia.Card.MakeCard.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/tools/Cynthia.Card.MakeCard",
-            "stopAtEntry": false,
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-        },
-        {
-            "name": "Launch ReadJson",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build ReadJson",
-            "console": "externalTerminal",
-            "program": "${workspaceFolder}/tools/Cynthia.Card.ReadJson/bin/Debug/netcoreapp2.1/Cynthia.Card.ReadJson.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/tools/Cynthia.Card.ReadJson",
-            "stopAtEntry": false,
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-        },
+        }
     ]
 }
