@@ -1,0 +1,64 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build server",
+            "program": "${workspaceFolder}/src/Cynthia.Card.Server/bin/Debug/netcoreapp3.0/Cynthia.Card.Server.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Cynthia.Card.Server",
+            "console": "externalTerminal",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
+        {
+            "name": "Launch Test",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build test",
+            "console": "externalTerminal",
+            "program": "${workspaceFolder}/test/Cynthia.Card.Test/bin/Debug/netcoreapp2.1/Cynthia.Card.Test.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/test/Cynthia.Card.Test",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
+        {
+            "name": "Launch CardMake",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build cardmake",
+            "console": "externalTerminal",
+            "program": "${workspaceFolder}/tools/Cynthia.Card.MakeCard/bin/Debug/netcoreapp2.1/Cynthia.Card.MakeCard.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/tools/Cynthia.Card.MakeCard",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
+        {
+            "name": "Launch ReadJson",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build ReadJson",
+            "console": "externalTerminal",
+            "program": "${workspaceFolder}/tools/Cynthia.Card.ReadJson/bin/Debug/netcoreapp2.1/Cynthia.Card.ReadJson.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/tools/Cynthia.Card.ReadJson",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
+    ]
+}
