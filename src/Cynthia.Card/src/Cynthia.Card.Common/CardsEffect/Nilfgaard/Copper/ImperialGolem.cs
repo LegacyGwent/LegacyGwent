@@ -11,7 +11,7 @@ namespace Cynthia.Card
         private static GameCard temp;
         public override async Task OnCardReveal(GameCard target, GameCard soure = null)
         {
-            if (Card.Status.CardRow != RowPosition.MyDeck || temp == target || target.PlayerIndex == Card.PlayerIndex) return;
+            if (Card.Status.CardRow != RowPosition.MyDeck || temp == target || target.PlayerIndex == Card.PlayerIndex || soure == null || soure.PlayerIndex != Card.PlayerIndex) return;
             temp = target;
             await Card.Effect.Play(Game.GetRandomCanPlayLocation(Card.PlayerIndex));
         }

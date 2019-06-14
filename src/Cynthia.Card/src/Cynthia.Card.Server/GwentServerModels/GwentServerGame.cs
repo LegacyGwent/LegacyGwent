@@ -393,10 +393,12 @@ namespace Cynthia.Card.Server
                     },
                     new CardStatus() { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
                 );
+                //----------------------------------------------------------------------
                 //将手牌中需要调度的牌,移动到卡组最后
                 await LogicCardMove(PlayersHandCard[playerIndex][mulliganCardIndex], PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
                 //将卡组中第一张牌抽到手牌调度走的位置
                 var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex));
+                //----------------------------------------------------------------------
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
             }
             await Task.Delay(500);
