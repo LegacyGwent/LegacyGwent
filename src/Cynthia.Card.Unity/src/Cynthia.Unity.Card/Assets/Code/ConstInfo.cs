@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Cynthia.Card
 {
-    public static class GlobalState
+    public static class ConstInfo
     {
 
         public static readonly Color WinColor = new Color(255f / 255f, 220f / 255f, 0f / 255f, 255f / 255f);//黄色胜利文字

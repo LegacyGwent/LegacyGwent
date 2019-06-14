@@ -175,7 +175,7 @@ public class GameCardShowControl : MonoBehaviour
         useCardTitle = $"选择1张卡重抽。[{NowMulliganCount}/{NowMulliganTotal}]";
         if(IsUseMenuShow)
             ShowCardMessage.text = useCardTitle;
-        Debug.Log("发送调度消息");
+        //Debug.Log("发送调度消息");
         await player.SendAsync(UserOperationType.MulliganInfo, task);
     }
     //-----------------------------------------

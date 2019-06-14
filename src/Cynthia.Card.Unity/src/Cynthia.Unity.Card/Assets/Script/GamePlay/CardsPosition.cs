@@ -20,7 +20,7 @@ public class CardsPosition : MonoBehaviour
     public bool IsStayRow;//是否是特殊排(待出现)
     public int MaxCards;
     public RowPosition Id;
-    public bool IsCanPlay { get { return (MaxCards > GetCardCount()); } }
+    public bool IsCanPlay { get{ return (MaxCards > GetCardCount());}}
     private int _temCardIndex;
     private void Start()
     {
@@ -31,20 +31,7 @@ public class CardsPosition : MonoBehaviour
     {
         return _temCardIndex >= 0;
     }
-    public int DeadCount()
-    {
-        var count = transform.childCount;
-        var dc = 0;
-        for (var i = 0; i < count; i++)
-        {
-            if (transform.GetChild(i).gameObject.GetComponent<CardShowInfo>().IsDead)
-            {
-                dc++;
-            }
-        }
-        return dc;
-    }
-    public void AddTemCard(CardStatus cardInfo, int index)
+    public void AddTemCard(CardStatus cardInfo,int index)
     {
         if (index == _temCardIndex)//如果临时卡存在
         {
@@ -68,7 +55,7 @@ public class CardsPosition : MonoBehaviour
         //newCard.GetComponent<CardShowInfo>().SetCard();
         newCard.transform.SetParent(transform);
         newCard.transform.SetSiblingIndex(_temCardIndex);
-        newCard.transform.localPosition = new Vector3((IsLock ? 0 : (-(transform.childCount - 1f) * XSize / 2f)) + index * XSize, -YSize * index, -0.1f - 0.01f * index);
+        newCard.transform.localPosition = new Vector3((IsLock?0:(-(transform.childCount - 1f) * XSize / 2f)) + index * XSize, -YSize * index, -0.1f - 0.01f * index);
         ResetCards();
     }
     public void ResetCards()//将所有卡牌定位到应有的位置
@@ -84,7 +71,7 @@ public class CardsPosition : MonoBehaviour
             var item = transform.GetChild(i).gameObject.GetComponent<CardMoveInfo>();
             item.IsStay = false;//(在移动的一瞬间会重置掉停滞,但是却没有...)
             item.IsCanDrag = IsCanDrag;
-            if (item.CardShowInfo.CurrentCore != null && !item.CardShowInfo.IsGray)
+            if (item.CardShowInfo.CurrentCore!=null&&!item.CardShowInfo.IsGray)
                 item.IsCanSelect = IsCanSelect;
             if (!item.IsOn || item.IsStay)//如果没使用的话,恢复
             {
@@ -94,7 +81,7 @@ public class CardsPosition : MonoBehaviour
                     item.CardShowInfo.ScaleTo(1);
             }
             item.Speed = 5f;
-            item.SetResetPoint(new Vector3((IsLock ? 0 : (-(count - 1f) * size / 2f)) + i * size, -YSize * i, IsCoverage ? (-0.1f - 0.01f * (count - i - 1)) : (-0.1f - 0.01f * i)));
+            item.SetResetPoint(new Vector3((IsLock?0:(-(count - 1f) * size / 2f)) + i * size, -YSize*i,IsCoverage?(-0.1f-0.01f*(count-i-1)):(-0.1f - 0.01f * i)));
         }
     }
     public void CardsCanDrag(bool isCanDrag)
@@ -137,7 +124,7 @@ public class CardsPosition : MonoBehaviour
     }
     public IEnumerable<CardMoveInfo> GetCards()
     {
-        for (var i = 0; i < transform.childCount; i++)
+        for(var i = 0; i<transform.childCount; i++)
         {
             yield return transform.GetChild(i).GetComponent<CardMoveInfo>();
         }
@@ -153,7 +140,7 @@ public class CardsPosition : MonoBehaviour
     public void CreateCard(CardMoveInfo card, int cardIndex)
     {
         var size = XSize;
-        var count = transform.childCount + 1;
+        var count = transform.childCount+1;
         if ((count - 1f) * size > Width)
         {
             size = Width / (count - 1f);
@@ -161,7 +148,7 @@ public class CardsPosition : MonoBehaviour
         cardIndex = (cardIndex == -1 ? transform.childCount : cardIndex);
         var position = new Vector3
             (
-                ((IsLock ? 0 : (-(count - 1f) * size / 2f)) + cardIndex * size),
+                ((IsLock ? 0 : (-(count - 1f) * size / 2f)) + cardIndex * size), 
                 (-YSize * (cardIndex)),
                 (IsCoverage ? (-0.1f - 0.01f * (count - cardIndex - 1)) : (-0.1f - 0.01f * cardIndex))
             );
@@ -191,40 +178,39 @@ public class CardsPosition : MonoBehaviour
     }
     public void SetCards(IEnumerable<CardMoveInfo> Cards)
     {
-        Cards.ForAll(x => CreateCard(x, -1));
+        Cards.ForAll(x=>CreateCard(x,-1));
     }
     public int GetCardCount()
     {
         return transform.childCount;
     }
-    public void SetPartCardGray(IList<int> part, bool isGray)
+    public void SetPartCardGray(IList<int> part,bool isGray)
     {
         var card = default(CardShowInfo);
         part.ForAll
-        (i =>
-         {
-             var ti = i;
-             for (var j = 0; j <= ti; j++)
-             {
-                 if (transform.GetChild(j).GetComponent<CardShowInfo>().IsDead)
-                 {
-                     ti++;
-                 }
-             }
-             card = transform.GetChild(ti).GetComponent<CardShowInfo>();
-             card.IsGray = isGray;
-         }
+        (   i =>
+            {
+                var ti = i;
+                for(var j = 0; j <= ti; j ++)
+                {
+                    if (transform.GetChild(j).GetComponent<CardShowInfo>().IsDead)
+                    {
+                        ti++;
+                    }
+                }
+                card = transform.GetChild(ti).GetComponent<CardShowInfo>();
+                card.IsGray = isGray;
+            }
         );
     }
     public void SetAllCardGray(bool isGray)
     {
         var card = default(CardShowInfo);
         var count = transform.childCount;
-        for (var i = 0; i < count; i++)
+        for(var i = 0; i<count; i++)
         {
             card = transform.GetChild(i).GetComponent<CardShowInfo>();
-            if (card != null && !card.IsDead)
-                card.IsGray = isGray;/*
+            card.IsGray = isGray;/*
             if (card.CurrentCore.IsGray != isGray)
             {
                 card.CurrentCore.IsGray = isGray;
@@ -234,7 +220,7 @@ public class CardsPosition : MonoBehaviour
     }
     public void SetCards(IEnumerable<CardStatus> Cards)
     {
-        Cards.Select(x =>
+        Cards.Select(x=> 
         {
             var newCard = Instantiate(CardPrefab);
             newCard.GetComponent<CardShowInfo>().CurrentCore = x;

@@ -22,7 +22,7 @@ namespace Cynthia.Card.Client
         {
             Debug.Log("游戏开始");
             _player = player;
-            while (ResponseOperation(await _player.ReceiveAsync())) ;
+            while (ResponseOperation(await _player.ReceiveAsync()));
         }
 
         //-----------------------------------------------------------------------
@@ -42,7 +42,7 @@ namespace Cynthia.Card.Client
                     GameCodeService.SelectPlaceCards(arguments[0].ToType<PlaceSelectCardsInfo>(), _player);
                     break;
                 case ServerOperationType.SelectRow:
-                    GameCodeService.SelectRow(arguments[0].ToType<CardLocation>(), arguments[1].ToType<IList<RowPosition>>(), _player);
+                    GameCodeService.SelectRow(arguments[0].ToType<CardLocation>(),arguments[1].ToType<IList<RowPosition>>(), _player);
                     break;
                 case ServerOperationType.PlayCard:
                     GameCodeService.PlayCard(arguments[0].ToType<CardLocation>(), _player);
@@ -53,7 +53,7 @@ namespace Cynthia.Card.Client
                     GameCodeService.ShowWeatherApply(arguments[0].ToType<RowPosition>(), arguments[1].ToType<RowStatus>());
                     break;
                 case ServerOperationType.ShowCardNumberChange:
-                    GameCodeService.ShowCardNumberChange(arguments[0].ToType<CardLocation>(), arguments[1].ToType<int>(), arguments[2].ToType<NumberType>());
+                    GameCodeService.ShowCardNumberChange(arguments[0].ToType<CardLocation>(), arguments[1].ToType<int>(),arguments[2].ToType<NumberType> ());
                     break;
                 case ServerOperationType.ShowCardIconEffect:
                     GameCodeService.ShowCardIconEffect(arguments[0].ToType<CardLocation>(), arguments[1].ToType<CardIconEffectType>());

@@ -14,10 +14,22 @@ public class CanDrop : MonoBehaviour
         get => _isCanDrop;
         set
         {
-            _isCanDrop = value && (!IsRowDrop||CardsPosition.MaxCards > CardsPosition.GetCardCount());
+            _isCanDrop = value; //&& (!IsRowDrop||CardsPosition.MaxCards > CardsPosition.GetCardCount());
             DropShow.SetActive(_isCanDrop);
         }
     }
+    public void IfMaxDotDrop()
+    {
+        if(IsCanDrop)
+        {
+            if (CardsPosition == null||Id == RowPosition.SpecialPlace) return;
+            if(CardsPosition.MaxCards<=CardsPosition.GetCardCount())
+            {
+                IsCanDrop = false;
+            }
+        }
+    }
+
     public GameObject DropShow;
 
     private void Start()

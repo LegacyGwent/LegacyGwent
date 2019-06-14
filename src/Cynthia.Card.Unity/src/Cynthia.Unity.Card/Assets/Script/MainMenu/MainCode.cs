@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Autofac;
 using UnityEngine.UI;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine.SceneManagement;
 
 public class MainCode : MonoBehaviour
 {
@@ -15,8 +18,24 @@ public class MainCode : MonoBehaviour
     public Button MatchMenuButton;
     public Button DoMatchButton;
 
+    //async Task AutoTest()
+    //{
+    //    var hub = DependencyResolver.Container.Resolve<HubConnection>();
+    //    while (true)
+    //    {
+    //        await Task.Delay(500);
+    //        if (hub.State == HubConnectionState.Disconnected)
+    //        {
+    //            Debug.Log("MainCode检测到断线!");
+    //            SceneManager.LoadScene("LoginSecen");
+    //            _ = DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆");
+    //            return;
+    //        }
+    //    }
+    //}
     void Start()
     {
+        //_ = AutoTest();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
         if(_client.IsAutoPlay)

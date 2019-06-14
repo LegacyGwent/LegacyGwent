@@ -17,6 +17,7 @@ public class Bootstrapper : MonoBehaviour {
     public InputField TestText;
     public void Awake()
     {
+        //throw new Exception("!!!");
         var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
         if (DependencyResolver.Container != null)
             return;
@@ -25,7 +26,6 @@ public class Bootstrapper : MonoBehaviour {
         builder.RegisterType<HubConnectionBuilder>().SingleInstance();
         //builder.Register(x => DependencyResolver.Container.Resolve<HubConnectionBuilder>().WithUrl($"http://{IP}:5000/hub/gwent").Build()).SingleInstance();
         builder.Register(x => DependencyResolver.Container.Resolve<HubConnectionBuilder>().WithUrl("http://localhost:5000/hub/gwent").Build()).SingleInstance();
-
         var assembly = Assembly.GetExecutingAssembly();
         var types = assembly.GetTypes();
         var services = types.Where(x => x.Name.EndsWith("Service") && x.IsClass && !x.IsAbstract && !x.IsGenericTypeDefinition);
