@@ -10,13 +10,12 @@ using DG.Tweening;
 public class CardShowInfo : MonoBehaviour
 {
     public CardMoveInfo CardMoveInfo;
-    public bool IsDead { get => _isDead || CardMoveInfo.IsTem; set => value = _isDead; }
+    //?
+    public bool IsDead { get => _isDead || CardMoveInfo.IsTem; set => _isDead = value; }
     public bool _isDead = false;
-    public CardStatus CurrentCore
-    {
-        get => _currentCore; set
+    public CardStatus CurrentCore { get=>_currentCore; set
         {
-            if (_currentCore != null && (_currentCore.IsCardBack != value.IsCardBack))
+            if(_currentCore!=null&&(_currentCore.IsCardBack!=value.IsCardBack))
             {
                 _currentCore = value;
                 Reverse();//反转
@@ -28,9 +27,7 @@ public class CardShowInfo : MonoBehaviour
         }
     }
     public GwentCard CardInfo { get => GwentMap.CardMap[_currentCore.CardId]; }
-    public bool IsGray
-    {
-        get => _isGray;
+    public bool IsGray { get=>_isGray;
         set
         {
             if (_isGray == value)
@@ -83,22 +80,22 @@ public class CardShowInfo : MonoBehaviour
 
     //目前被CurrentCore属性取代
     //public CardShowInfo(CardStatus card) => CurrentCore = card;
-
+    
     //设定选取状态
-    public void SetSelect(bool center, bool margin, bool isLight = false)
+    public void SetSelect(bool center,bool margin,bool isLight = false)
     {
         SelectCenter.gameObject.SetActive(center);
         SelectMargin.gameObject.SetActive(margin);
         SelectIcon.SetActive(center || margin);
         if (isLight)
         {
-            SelectCenter.color = new Color(0, 160f / 255f, 1);
-            SelectMargin.color = new Color(0, 160f / 255f, 1);
+            SelectCenter.color = new Color(0, 160f/255f, 1);
+            SelectMargin.color = new Color(0, 160f/255f, 1);
         }
         else
         {
-            SelectCenter.color = new Color(0, 180f / 255f, 1);
-            SelectMargin.color = new Color(0, 180f / 255f, 1);
+            SelectCenter.color = new Color(0, 180f/255f, 1);
+            SelectMargin.color = new Color(0, 180f/255f, 1);
         }
     }
 
@@ -107,9 +104,9 @@ public class CardShowInfo : MonoBehaviour
     {
         var iconCount = 0;
         var use = this.GetComponent<CardMoveInfo>();
-        if (use != null && !CurrentCore.IsCardBack)
+        if (use != null&&!CurrentCore.IsCardBack)
             use.CardUseInfo = CardInfo.CardUseInfo;
-        CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
+        CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/"+CurrentCore.CardArtsId);
         //设置卡牌是否灰(转移到属性)
         //如果卡牌是背面,设置背面并结束
         CardBack.gameObject.SetActive(false);
@@ -161,7 +158,7 @@ public class CardShowInfo : MonoBehaviour
         if (CardInfo.CardType == CardType.Special)
         {
             Strength.gameObject.SetActive(false);
-            FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 100);
+            FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50,100);
             return;
         }
         Strength.gameObject.SetActive(true);
@@ -180,12 +177,12 @@ public class CardShowInfo : MonoBehaviour
         SpyingIcon.SetActive(CurrentCore.IsSpying);
         Strength.text = (CurrentCore.Strength + CurrentCore.HealthStatus).ToString();
         if (CurrentCore.HealthStatus > 0)
-            Strength.color = GlobalState.GreenColor;
+            Strength.color = ConstInfo.GreenColor;
         if (CurrentCore.HealthStatus == 0)
-            Strength.color = GlobalState.NormalColor;
+            Strength.color = ConstInfo.NormalColor;
         if (CurrentCore.HealthStatus < 0)
-            Strength.color = GlobalState.RedColor;
-        FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50 + (iconCount == 0 ? 1 : iconCount) * 50);
+            Strength.color = ConstInfo.RedColor;
+        FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50+(iconCount==0?1:iconCount)*50);
         //-----------------------------------------------
     }
 
@@ -194,9 +191,10 @@ public class CardShowInfo : MonoBehaviour
     public void ShowCardBreak(CardBreakEffectType type)
     {
         IsDead = true;
+        Debug.Log(IsDead);
         //GetComponent<Animator>().Play("DemoBreak");
         //CardMoveInfo.Destroy();
-        DOTween.Sequence().Append(transform.DOScale(0, 0.5f))
+        DOTween.Sequence().Append(transform.DOScale(0,0.5f))
             .AppendCallback(CardMoveInfo.Destroy);
     }
     public void Reverse()
@@ -205,7 +203,7 @@ public class CardShowInfo : MonoBehaviour
             .AppendCallback(SetCard)
             .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.15f));
     }
-    public void ScaleTo(float endValue, float duration = 0.25f, Ease ease = Ease.OutQuad)
+    public void ScaleTo(float endValue,float duration = 0.25f, Ease ease = Ease.OutQuad)
     {
         transform.DOScale(endValue, duration).SetEase(ease);
     }

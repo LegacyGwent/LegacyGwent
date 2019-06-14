@@ -1,6 +1,13 @@
-﻿using Alsein.Extensions.LifetimeAnnotations;
+﻿using System;
+using System.Threading.Tasks;
+using Alsein.Extensions.LifetimeAnnotations;
+using Autofac;
+using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
+using UnityEngine.Audio;
+using Alsein.Extensions;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Cynthia.Card.Client
 {
@@ -35,7 +42,7 @@ namespace Cynthia.Card.Client
             _code.GetComponent<GameCode>().BigRoundControl.CloseBigRound();
         }
         //--------------------
-        //新(选择卡牌,选择场地卡牌,选择行和更新卡牌信息)
+        //新纪元系列(选择卡牌,选择场地卡牌,选择行和更新卡牌信息)
         public void SelectMenuCards(MenuSelectCardInfo info, LocalPlayer player)
         {
             _ = _code.GetComponent<GameCode>().GameCardShowControl.SelectMenuCards(info, player);
@@ -163,15 +170,15 @@ namespace Cynthia.Card.Client
         }
         public void ShowBullet(CardLocation source, CardLocation taget, BulletType type)
         {
-            _code.GetComponent<GameCode>().GameEvent.ShowBullet(source, taget, type);
+            _code.GetComponent<GameCode>().GameEvent.ShowBullet(source,taget,type);
         }
         public void ShowCardIconEffect(CardLocation location, CardIconEffectType type)
         {
-            _code.GetComponent<GameCode>().GameEvent.ShowCardIconEffect(location, type);
+            _code.GetComponent<GameCode>().GameEvent.ShowCardIconEffect(location,type);
         }
         public void ShowCardBreakEffect(CardLocation location, CardBreakEffectType type)
         {
-            _code.GetComponent<GameCode>().GameEvent.ShowCardBreakEffect(location, type);
+            _code.GetComponent<GameCode>().GameEvent.ShowCardBreakEffect(location,type);
         }
         //-------------------------------------------------------------------------------------------
         public void LeaveGame()//立刻离开游戏,进入主菜单
@@ -188,7 +195,7 @@ namespace Cynthia.Card.Client
         }
         public void GetPlayerDrag(LocalPlayer player)//玩家的回合到了
         {
-            _ = _code.GetComponent<GameCode>().GameEvent.GetPlayerDrag(player);
+            _= _code.GetComponent<GameCode>().GameEvent.GetPlayerDrag(player);
         }
         public void RoundEnd()
         {

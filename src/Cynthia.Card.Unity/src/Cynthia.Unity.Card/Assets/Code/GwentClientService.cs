@@ -50,7 +50,6 @@ namespace Cynthia.Card.Client
             hubConnection.Closed += (async x =>
             {
                 Debug.Log("断线!");
-                await Task.CompletedTask;
                 //var user = DependencyResolver.Container.Resolve<GwentClientService>().User;
                 //await Task.Delay(100);
                 //await DependencyResolver.Container.Resolve<HubConnection>().StartAsync();
@@ -58,8 +57,9 @@ namespace Cynthia.Card.Client
                 //if (result) Debug.Log("尝试重连成功");
                 //else
                 //{
-                //    SceneManager.LoadScene("LoginSecen");
-                //    await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆");
+                SceneManager.LoadScene("LoginSecen");
+                Debug.Log("跳转!");
+                await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆");
                 //}
             });
             //////////////////////////////
