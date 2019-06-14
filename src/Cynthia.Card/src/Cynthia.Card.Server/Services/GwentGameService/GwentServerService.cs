@@ -20,11 +20,11 @@ namespace Cynthia.Card.Server
         private readonly GwentMatchs _gwentMatchs;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
-        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService)
+        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService, IServiceProvider container)
         {
             //Container = container;
             DatabaseService = databaseService;
-            _gwentMatchs = new GwentMatchs(() => hub);
+            _gwentMatchs = new GwentMatchs(() => hub, (Random)container.GetService(typeof(Random)));
             _hub = hub;
         }
 

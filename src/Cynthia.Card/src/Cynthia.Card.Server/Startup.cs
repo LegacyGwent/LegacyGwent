@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Alsein.Extensions;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using NLog.Extensions.Logging;
-using NLog.Web;
 
 namespace Cynthia.Card.Server
 {
@@ -24,6 +15,7 @@ namespace Cynthia.Card.Server
             services.AddSignalR();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
+            services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             services.AddSingleton<IMongoClient, MongoClient>((ctx) =>
             {
                 return new MongoClient("mongodb://cynthia.ovyno.com:27017/gwent");
