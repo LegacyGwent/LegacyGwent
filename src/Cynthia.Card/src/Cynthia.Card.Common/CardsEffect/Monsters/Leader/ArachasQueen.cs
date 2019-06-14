@@ -11,7 +11,7 @@ namespace Cynthia.Card
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
 			var result = await Game.GetSelectPlaceCards(Card, 3 , selectMode: SelectModeType.MyRow);
-			foreach(var card in cards)
+			foreach(var card in result)
 			{
 			await Card.Effect.Drain(card.ToHealth().health, card);
 			}
