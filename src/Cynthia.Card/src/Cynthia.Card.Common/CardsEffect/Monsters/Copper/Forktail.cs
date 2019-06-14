@@ -10,6 +10,11 @@ namespace Cynthia.Card
 		public Forktail(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
+			var result = await Game.GetSelectPlaceCards(Card, 2 , selectMode: SelectModeType.MyRow);
+			foreach(var card in result)
+			{
+			await Card.Effect.Drain(card.ToHealth().health, card);
+			}
 			return 0;
 		}
 	}
