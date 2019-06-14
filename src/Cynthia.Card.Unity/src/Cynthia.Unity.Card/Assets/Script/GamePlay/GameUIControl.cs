@@ -39,8 +39,8 @@ public class GameUIControl : MonoBehaviour
 
     public void SetPointInfo(GameInfomation gameInfomation)
     {
-        MyAllPoint.color = ConstInfo.NormalColor;
-        EnemyAllPoint.color = ConstInfo.NormalColor;
+        MyAllPoint.color = GlobalState.NormalColor;
+        EnemyAllPoint.color = GlobalState.NormalColor;
         MyRow1Point.text = gameInfomation.MyRow1Point.ToString();
         MyRow2Point.text = gameInfomation.MyRow2Point.ToString();
         MyRow3Point.text = gameInfomation.MyRow3Point.ToString();
@@ -52,9 +52,9 @@ public class GameUIControl : MonoBehaviour
         MyAllPoint.text = myAllPoint.ToString();
         EnemyAllPoint.text = enemyAllPoint.ToString();
         if (myAllPoint > enemyAllPoint)
-            MyAllPoint.color = ConstInfo.WinColor;
-        else if(myAllPoint < enemyAllPoint)
-            EnemyAllPoint.color = ConstInfo.WinColor;
+            MyAllPoint.color = GlobalState.WinColor;
+        else if (myAllPoint < enemyAllPoint)
+            EnemyAllPoint.color = GlobalState.WinColor;
     }
     public void SetCountInfo(GameInfomation gameInfomation)
     {

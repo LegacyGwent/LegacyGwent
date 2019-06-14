@@ -1,12 +1,7 @@
 ﻿using Cynthia.Card.Client;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Autofac;
 using UnityEngine.UI;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
-using UnityEngine.SceneManagement;
 
 public class MainCode : MonoBehaviour
 {
@@ -38,7 +33,7 @@ public class MainCode : MonoBehaviour
         //_ = AutoTest();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
-        if(_client.IsAutoPlay)
+        if (_client.IsAutoPlay || GlobalState.IsToMatch)
         {
             MatchMenuButton.onClick.Invoke();
             //DoMatchButton.onClick.Invoke();

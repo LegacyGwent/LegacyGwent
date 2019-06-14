@@ -28,6 +28,7 @@ public class GameCode : MonoBehaviour
     }
     public void LeaveGame()
     {
+        GlobalState.IsToMatch = true;
         SceneManager.LoadScene("Game");
     }
 }
