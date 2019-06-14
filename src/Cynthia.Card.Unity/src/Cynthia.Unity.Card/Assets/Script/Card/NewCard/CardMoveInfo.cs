@@ -12,11 +12,14 @@ public class CardMoveInfo : MonoBehaviour
 {
     public CardShowInfo CardShowInfo;
     public Vector2 ResetPoint;//应该在的位置
-    public float ZPosition { get=>_zPosition; set
+    public float ZPosition
+    {
+        get => _zPosition; set
         {
             _zPosition = value;
-            transform.position = new Vector3(transform.position.x,transform.position.y,_zPosition);
-        }}
+            transform.position = new Vector3(transform.position.x, transform.position.y, _zPosition);
+        }
+    }
     private float _zPosition;
     public bool IsCanDrag = true;//是否能拖动
     public bool IsCanSelect = true;
@@ -49,7 +52,8 @@ public class CardMoveInfo : MonoBehaviour
     public float Speed = 35f;
     public CardUseInfo CardUseInfo = CardUseInfo.AnyPlace;
 
-    void Update()
+
+    void FixedUpdate()
     {
         var tagetText = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //下一帧应该移动到的位置
@@ -58,18 +62,18 @@ public class CardMoveInfo : MonoBehaviour
         {
             //if (IsRestore) IsRestore = false;
             Speed = 30f;
-            SetNextPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition), Speed,Space.World);
-            var taget = Vector3.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition),0.2f);
+            SetNextPosition(Camera.main.ScreenToWorldPoint(Input.mousePosition), Speed, Space.World);
+            var taget = Vector3.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.2f);
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, ZPosition);
         }
         else
         {
             //if (!IsRestore)
             //{
-                var taget = Vector2.Lerp(transform.localPosition, ResetPoint, 0.25f);
-                transform.localPosition = new Vector3(taget.x, taget.y, ZPosition);
-                //transform.DOLocalMove(new Vector3(ResetPoint.x,ResetPoint.y,ZPosition),0.5f).SetEase(Ease.Linear);
-                //IsRestore = true;
+            var taget = Vector2.Lerp(transform.localPosition, ResetPoint, 0.25f);
+            transform.localPosition = new Vector3(taget.x, taget.y, ZPosition);
+            //transform.DOLocalMove(new Vector3(ResetPoint.x,ResetPoint.y,ZPosition),0.5f).SetEase(Ease.Linear);
+            //IsRestore = true;
             //}
         }
     }
@@ -87,14 +91,14 @@ public class CardMoveInfo : MonoBehaviour
         float distance = speed * Time.deltaTime;
         if (dir.magnitude <= distance)
         {
-            if(relativeTo == Space.World)
-                transform.position = new Vector3(taget.x,taget.y,transform.position.z);
+            if (relativeTo == Space.World)
+                transform.position = new Vector3(taget.x, taget.y, transform.position.z);
             else
                 transform.localPosition = new Vector3(taget.x, taget.y, transform.localPosition.z);
             return false;
         }
         var nextPoint = dir.normalized * distance;
-        transform.Translate(new Vector3(nextPoint.x,nextPoint.y,0));
+        transform.Translate(new Vector3(nextPoint.x, nextPoint.y, 0));
         return true;
     }
     public void SetResetPoint(Vector3 rPoint)
