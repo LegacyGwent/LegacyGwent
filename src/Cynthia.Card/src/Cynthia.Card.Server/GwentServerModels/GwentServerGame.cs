@@ -9,6 +9,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame, IGwentEvent
     {
+        public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = 9;
         public IList<(int PlayerIndex, string CardId)> HistoryList { get; set; } = new List<(int, string)>();
         public GameDeck[] PlayerBaseDeck { get; set; } = new GameDeck[2];
@@ -372,6 +373,8 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status), count);
             IsPlayersMulligan[playerIndex] = true;
             await SetMulliganInfo();
+            var backList = new List<string>();
+            var blackCardPool = new List<GameCard>();
             for (var i = 0; i < count; i++)
             {
                 await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
@@ -393,14 +396,44 @@ namespace Cynthia.Card.Server
                     },
                     new CardStatus() { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
                 );
+
                 //----------------------------------------------------------------------
+                //记录本次黑名单的卡牌Id
+                var bId = PlayersHandCard[playerIndex][mulliganCardIndex].CardInfo().CardId;
+                backList.Add(bId);
                 //将手牌中需要调度的牌,移动到卡组最后
                 await LogicCardMove(PlayersHandCard[playerIndex][mulliganCardIndex], PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
+
+                //将调度走的卡牌加入卡池,并且从手牌移除这张卡
+                foreach (var deckCard in PlayersDeck[playerIndex].ToList())
+                {
+                    if (deckCard.CardInfo().CardId == bId)
+                    {
+                        blackCardPool.Add(deckCard);
+                        PlayersDeck[playerIndex].Remove(deckCard);
+                    }
+                }
+                //如果卡组为空,随机选择黑名单卡池中一张卡进入卡组
+                if (PlayersDeck[playerIndex].Count == 0)
+                {
+                    var rCard = blackCardPool[RNG.Next(blackCardPool.Count())];
+                    PlayersDeck[playerIndex].Add(rCard);
+                    blackCardPool.Remove(rCard);
+                }
+
+
                 //将卡组中第一张牌抽到手牌调度走的位置
                 var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex));
                 //----------------------------------------------------------------------
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
             }
+            //++++++++++++++++++++++++++++++++++++++++
+            //将黑名单卡池中所有卡牌随机插入到卡组中
+            foreach (var card in blackCardPool)
+            {
+                PlayersDeck[playerIndex].Insert(RNG.Next(PlayersDeck[playerIndex].Count() + 1), card);
+            }
+            //++++++++++++++++++++++++++++++++++++++++
             await Task.Delay(500);
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
             IsPlayersMulligan[playerIndex] = false;
@@ -1174,8 +1207,9 @@ namespace Cynthia.Card.Server
                 PlayersRoundResult[2][enemyPlayerIndex]
             ));
         }
-        public GwentServerGame(Player player1, Player player2)
+        public GwentServerGame(Player player1, Player player2, Random rng)
         {
+            RNG = rng;
             PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
             PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
             //初始化游戏信息
