@@ -32,9 +32,9 @@ public class BigRoundControl : MonoBehaviour
         if (data.GameStatus == GameStatus.Win)
         {
             BigRoundBg.color = new Color32(10, 10, 24, 220);
-            TitleBg.color = new Color32(0,130,255,255);
+            TitleBg.color = new Color32(0, 130, 255, 255);
         }
-        else if(data.GameStatus == GameStatus.Lose)
+        else if (data.GameStatus == GameStatus.Lose)
         {
             BigRoundBg.color = new Color32(24, 10, 10, 220);
             TitleBg.color = new Color32(255, 0, 0, 255);
@@ -79,15 +79,15 @@ public class BigRoundControl : MonoBehaviour
     {
         MyPoint.text = data.MyPoint.ToString();
         EnemyPoint.text = data.EnemyPoint.ToString();
-        MyPoint.color = ConstInfo.NormalColor;
-        EnemyPoint.color = ConstInfo.NormalColor;
+        MyPoint.color = GlobalState.NormalColor;
+        EnemyPoint.color = GlobalState.NormalColor;
         if (data.MyPoint > data.EnemyPoint)
         {
-            MyPoint.color = ConstInfo.WinColor;
+            MyPoint.color = GlobalState.WinColor;
         }
         else if (data.EnemyPoint > data.MyPoint)
         {
-            EnemyPoint.color = ConstInfo.WinColor;
+            EnemyPoint.color = GlobalState.WinColor;
         }
         MyWinCountLeft.SetActive(false);
         MyWinCountRight.SetActive(false);
