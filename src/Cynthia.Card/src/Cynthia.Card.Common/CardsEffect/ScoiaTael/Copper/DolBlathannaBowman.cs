@@ -26,8 +26,23 @@ namespace Cynthia.Card
         {
             if (target.PlayerIndex != Card.PlayerIndex)
             {
-                await target.Effect.Damage(damage);
+                await target.Effect.Damage(damage, Card);
             }
+
+            if (target == Card)
+            {
+                var card = GetEnemyRandomCard();
+                if (card != null)
+                {
+                    await card.Effect.Damage(1, Card);
+                }
+            }
+        }
+
+        private GameCard GetEnemyRandomCard()
+        {
+            var list = Game.GetAllPlaceCard(Game.AnotherPlayer(Card.PlayerIndex));
+            return !list.Any() ? null : list.Mess().First();
         }
     }
 }

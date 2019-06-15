@@ -14,13 +14,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            var rowIndex = await Game.GetSelectRow(Card.PlayerIndex, Card,
-                TurnType.Enemy.GetRow());
-            await Game.CreateCard(playerCard, Card.PlayerIndex, new CardLocation(rowIndex, 0));
-
-            return 0;
+            return await Card.CreateAndMoveStay(CardId.IncineratingTrap);
         }
-
-        private const string playerCard = "55001";
     }
 }

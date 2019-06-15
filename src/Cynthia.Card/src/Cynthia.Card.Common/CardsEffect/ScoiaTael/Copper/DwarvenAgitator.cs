@@ -21,7 +21,7 @@ namespace Cynthia.Card
             var list = cardsToPlay.Mess().ToList();
             if (!list.Any()) return 0;
             var card = list.First();
-            await Game.CreateCard(card.Status.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Card.CreateAndMoveStay(card.CardInfo().CardId);
             return 1;
         }
     }
