@@ -10,7 +10,16 @@ namespace Cynthia.Card
 		public DwarvenMercenary(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
-			return 0;
+            var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            if (list.Count <= 0) return 0;
+            var location = Card.GetLocation();
+            var card = list.First();
+            await card.Effect.Move(location, Card);
+            if (card.PlayerIndex == Card.PlayerIndex)
+            {
+                await card.Effect.Boost(3,Card);
+            }
+            return 0;
 		}
 	}
 }
