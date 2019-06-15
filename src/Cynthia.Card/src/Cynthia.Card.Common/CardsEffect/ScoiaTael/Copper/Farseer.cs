@@ -13,17 +13,14 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying)
-        {
-            return 0;
-        }
-
         private bool needBoost = false;
 
         public override async Task OnTurnStart(int playerIndex)
         {
             if (playerIndex == PlayerIndex)
                 needBoost = false;
+
+            await Task.CompletedTask;
         }
 
         public override async Task OnCardBoost(GameCard taget, int num, GameCard soure = null)
@@ -33,6 +30,7 @@ namespace Cynthia.Card
                 needBoost = true;
             }
 
+            await Task.CompletedTask;
         }
 
         public override async Task OnTurnOver(int playerIndex)
@@ -41,7 +39,6 @@ namespace Cynthia.Card
             {
                 await Card.Effect.Boost(boost);
             }
-
         }
 
         private const int boost = 2;

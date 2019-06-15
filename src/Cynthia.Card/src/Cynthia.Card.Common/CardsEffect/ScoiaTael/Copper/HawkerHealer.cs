@@ -18,7 +18,7 @@ namespace Cynthia.Card
             if (cards.Count <= 0) return 0;
             foreach (var card in cards)
             {
-                await card.Effect.Boost(boost);
+                await card.Effect.Boost(boost,Card);
             }
 
             return 0;

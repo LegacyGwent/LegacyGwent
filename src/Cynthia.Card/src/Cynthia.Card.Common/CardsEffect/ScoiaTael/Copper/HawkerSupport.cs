@@ -22,7 +22,7 @@ namespace Cynthia.Card
             //如果玩家一张卡都没选择,没有效果
             if (!result.Any()) return 0;
             var card = result.Single();
-            await card.Effect.Boost(boost);
+            await card.Effect.Boost(boost,Card);
             return 0;
         }
 

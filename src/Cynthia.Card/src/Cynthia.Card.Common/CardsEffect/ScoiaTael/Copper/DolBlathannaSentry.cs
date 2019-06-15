@@ -13,11 +13,6 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying)
-        {
-            return 0;
-        }
-
         private const int boost = 1;
 
         public override async Task OnSpecialPlay(GameCard taget)

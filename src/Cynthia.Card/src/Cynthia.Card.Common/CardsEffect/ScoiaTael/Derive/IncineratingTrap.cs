@@ -12,11 +12,6 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying)
-        {
-            return 0;
-        }
-
         private int damage = 2;
 
         public override async Task OnTurnOver(int playerIndex)
@@ -27,7 +22,7 @@ namespace Cynthia.Card
             {
                 if (it != Card)
                 {
-                    await it.Effect.Damage(damage);
+                    await it.Effect.Damage(damage, Card);
                 }
             }
 
