@@ -13,6 +13,7 @@ namespace Cynthia.Card
         }
 
         private const int damage = 2;
+
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
             var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
