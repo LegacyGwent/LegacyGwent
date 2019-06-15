@@ -4,13 +4,29 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("54015")]//矮人好斗分子
-	public class DwarvenSkirmisher : CardEffect
-	{//对1个敌军单位造成3点伤害。若没有摧毁目标，则获得3点增益。
-		public DwarvenSkirmisher(IGwentServerGame game, GameCard card) : base(game, card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
-		{
-			return 0;
-		}
-	}
+    [CardEffectId("54015")] //矮人好斗分子
+    public class DwarvenSkirmisher : CardEffect
+    {
+        //对1个敌军单位造成3点伤害。若没有摧毁目标，则获得3点增益。
+        public DwarvenSkirmisher(IGwentServerGame game, GameCard card) : base(game, card)
+        {
+        }
+
+        public override async Task<int> CardPlayEffect(bool isSpying)
+        {
+            var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (list.Count <= 0) return 0;
+            var card = list.Single();
+            await card.Effect.Damage(damage);
+            if (card.Status.CardRow.IsOnPlace())
+            {
+                await Card.Effect.Boost(boost);
+            }
+
+            return 0;
+        }
+
+        private const int damage = 3;
+        private const int boost = 3;
+    }
 }
