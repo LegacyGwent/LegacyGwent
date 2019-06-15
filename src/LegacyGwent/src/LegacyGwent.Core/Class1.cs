@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LegacyGwent.Core
+namespace LegacyGwent
 {
     public class Class1
     {
