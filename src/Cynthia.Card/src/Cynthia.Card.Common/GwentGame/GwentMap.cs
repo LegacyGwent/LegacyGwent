@@ -9224,7 +9224,7 @@ namespace Cynthia.Card
                     Strength=1,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
-                    CardUseInfo = CardUseInfo.MyRow,
+                    CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = true,
                     IsCountdown = false,
