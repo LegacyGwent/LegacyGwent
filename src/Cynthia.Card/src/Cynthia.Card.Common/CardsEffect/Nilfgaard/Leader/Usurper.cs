@@ -14,8 +14,7 @@ namespace Cynthia.Card
             var count = await Game.CreateAndMoveStay(
                 Game.AnotherPlayer(Card.PlayerIndex),
                 createCards.ToArray(),
-                1,
-                true);
+                1);
             if (count == 0) return 0;
             await Game.RowToList(Card.PlayerIndex, RowPosition.MyStay).First().Effect.Boost(2, Card);
             return 1;
