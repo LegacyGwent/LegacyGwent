@@ -15,7 +15,7 @@
 目前版本中还缺少很多卡牌效果的实现，只是单纯的业务代码，不涉及底层架构。欢迎有时间和精力的贡献者的fork，并向我们提交pull request。我们将采纳任何有建设性改进的优质的pull request。活跃的贡献者将会加入作者名单。
 
 ### 参与讨论
-+ <a href="https://legacygwent.slack.com/">加入Slack</a>
++ <a href="https://join.slack.com/t/legacygwent/shared_invite/enQtNjU5OTQ3NDU3MjQ5LWI0MTBlYjA2MmFiZWJiMzk1MDkzZDMyOWZhZDg1OWExYmEyZmYzMzBiNzY4NjVjNGRjZjYzNTk5NWMwMzU4ZWM">加入Slack</a>
 
 ### 贡献步骤
 
