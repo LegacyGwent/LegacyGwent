@@ -1,0 +1,11 @@
+<Project>
+
+    <Import Project="$(MSBuildThisFileDirectory)/../version.props"/>
+
+    <PropertyGroup>
+        <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>8.0</LangVersion>
+    </PropertyGroup>
+
+</Project>
