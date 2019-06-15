@@ -755,6 +755,13 @@ namespace Cynthia.Card.Server
         {
             return RowToList(playerIndex, location.RowPosition)[location.CardIndex];
         }
+
+        public IList<GameCard> GetAllPlaceCard(int playerIndex)
+        {
+            return PlayersPlace[playerIndex][0]
+                .Concat(PlayersPlace[playerIndex][1])
+                .Concat(PlayersPlace[playerIndex][2]).ToList();
+        }
         public IList<GameCard> GetAllCard(int playerIndex)
         {
             return PlayersPlace[playerIndex][0]
