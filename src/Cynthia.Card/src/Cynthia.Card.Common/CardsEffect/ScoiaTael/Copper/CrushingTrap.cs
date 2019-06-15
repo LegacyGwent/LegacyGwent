@@ -4,14 +4,18 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("54032")]//碎骨陷阱
-	public class CrushingTrap : CardEffect
-	{//使对方单排左右两侧末端的单位各受到6点伤害。
-		public CrushingTrap(IGwentServerGame game, GameCard card) : base(game, card){}
-		public override async Task<int> CardUseEffect()
+    [CardEffectId("54032")] //碎骨陷阱
+    public class CrushingTrap : CardEffect
+    {
+        //使对方单排左右两侧末端的单位各受到6点伤害。
+        public CrushingTrap(IGwentServerGame game, GameCard card) : base(game, card)
         {
-            var rowIndex = await Game.GetSelectRow(Card.PlayerIndex,Card,
-				TurnType.Enemy.GetRow());
+        }
+
+        public override async Task<int> CardUseEffect()
+        {
+            var rowIndex = await Game.GetSelectRow(Card.PlayerIndex, Card,
+                TurnType.Enemy.GetRow());
             var row = Game.RowToList(Card.PlayerIndex, rowIndex).ToList();
             if (row.Count <= 0)
                 return 0;
@@ -22,6 +26,7 @@ namespace Cynthia.Card
             await cardRight.Effect.Damage(damage);
             return 0;
         }
+
         private const int damage = 6;
-	}
+    }
 }
