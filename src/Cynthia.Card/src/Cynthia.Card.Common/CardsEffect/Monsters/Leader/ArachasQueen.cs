@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public ArachasQueen(IGwentServerGame game, GameCard card) : base(game, card){}
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            for(var i = 0; i<2; i++)
+            for(var i = 0; i<3; i++)
             {
                 var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow);
                 if(result.Count<=0) return 0;
