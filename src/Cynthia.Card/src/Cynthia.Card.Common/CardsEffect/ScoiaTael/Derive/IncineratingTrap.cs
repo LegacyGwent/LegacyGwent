@@ -16,7 +16,9 @@ namespace Cynthia.Card
 
         public override async Task OnTurnOver(int playerIndex)
         {
-            if (playerIndex != Card.PlayerIndex) return;
+            if (playerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
+            await Card.Effect.SetCountdown(offset: -1);
+            if (Card.Effect.Countdown > 0) return;
             var row = Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).ToList();
             foreach (var it in row)
             {

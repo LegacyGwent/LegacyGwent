@@ -9227,7 +9227,8 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.EnemyRow,
                     CardType = CardType.Unit,
                     IsDoomed = true,
-                    IsCountdown = false,
+                    IsCountdown = true,
+                    Countdown = 1,//冷却1
                     IsDerive = true,
                     Categories = new Categorie[]{Categorie.Machine,Categorie.Token},//需要添加
                     Flavor = "小心……！再走一步，你就要被化成青烟了。",
