@@ -23,7 +23,9 @@ namespace Cynthia.Card
                 (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
             //如果玩家一张卡都没选择,没有效果
             if (!result.Any()) return 0;
-            await result.First().Effect
+            var card = result.Single();
+            card.Status.IsDoomed = true;
+            await card.Effect
                 .Resurrect(new CardLocation() {RowPosition = RowPosition.MyStay, CardIndex = 0}, Card);
             return 1;
         }
