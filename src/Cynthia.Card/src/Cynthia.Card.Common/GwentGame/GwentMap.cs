@@ -4017,9 +4017,10 @@ namespace Cynthia.Card
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
+                    Countdown = 2, 
                     IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
+                    IsCountdown = true,
+                    IsDerive = true,
                     Categories = new Categorie[]{Categorie.Soldier,Categorie.Draconid},//需要添加
                     Flavor = "他们静静地骑在马上，看起来很放松，但全副武装：宽头短矛、剑柄独特的剑、战斧以及锯齿长斧。",
                     Info = "吞噬右侧单位，获得其战力作为增益。 每2回合开始时，重复此能力。",
