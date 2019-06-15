@@ -8812,7 +8812,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Soldier,Categorie.Elf},//需要添加
                     Flavor = "管他泰莫利亚人还是瑞达尼亚人，杀无赦。",
                     Info = "使所有“精灵”友军获得1点增益。 每次被交换时，再次触发此能力。",
-                    CardArtsId = "16230900",
+                    CardArtsId = "14230900",
                 }
             },
             {
@@ -8875,7 +8875,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Soldier,Categorie.Dwarf},//需要添加
                     Flavor = "听好了，我们是天生的战士——拳拳到肉，绝不留情！",
                     Info = "坚韧。",
-                    CardArtsId = "16230600",
+                    CardArtsId = "14230600",
                 }
             },
             {
