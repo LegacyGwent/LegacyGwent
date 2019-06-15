@@ -71,7 +71,7 @@ namespace Cynthia.Card
         Task ShowCardOn(GameCard card);//抬起
         //-----------------------
         Task CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null);
-        Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = true, string title = "选择生成一张卡");
+        Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡");
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //------------------------
