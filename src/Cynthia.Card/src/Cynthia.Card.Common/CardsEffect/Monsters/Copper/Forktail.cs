@@ -13,7 +13,7 @@ namespace Cynthia.Card
 			var result = await Game.GetSelectPlaceCards(Card, 2 , selectMode: SelectModeType.MyRow);
 			foreach(var card in result)
 			{
-			await Card.Effect.Drain(card.ToHealth().health, card);
+				await Consume(card);
 			}
 			return 0;
 		}
