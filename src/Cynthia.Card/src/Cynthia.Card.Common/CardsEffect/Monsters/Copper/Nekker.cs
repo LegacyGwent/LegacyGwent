@@ -10,6 +10,7 @@ namespace Cynthia.Card
         public Nekker(IGwentServerGame game, GameCard card) : base(game, card){ }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
+            await Task.CompletedTask;
             return 0;
         }
 
