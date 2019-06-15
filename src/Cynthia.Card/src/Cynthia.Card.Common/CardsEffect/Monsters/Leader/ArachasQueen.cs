@@ -14,6 +14,7 @@ namespace Cynthia.Card
 			{
 				var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow);
 				if(result.Count<=0) return 0;
+				
 				await Consume(result.Single());
 			}
 			return 0;
