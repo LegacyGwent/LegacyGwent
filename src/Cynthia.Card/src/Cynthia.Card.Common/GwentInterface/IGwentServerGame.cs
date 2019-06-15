@@ -115,6 +115,7 @@ namespace Cynthia.Card
         CardLocation GetRandomCanPlayLocation(int playerIndex);
         CardLocation GetCardLocation(GameCard card);
         GameCard GetCard(int playerIndex, CardLocation location);
+        IList<GameCard> GetAllPlaceCard(int playerIndex);
         IList<GameCard> GetAllCard(int playerIndex);
         Task Debug(string msg);
         Task MessageBox(string msg);
