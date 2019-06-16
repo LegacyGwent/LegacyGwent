@@ -55,7 +55,7 @@ namespace LegacyGwent
             item.Target = null;
             item.Status = EffectStatus.Disposed;
             _data.Remove(item);
-            item.OnAttached();
+            item.OnDetached();
         }
     }
 }
