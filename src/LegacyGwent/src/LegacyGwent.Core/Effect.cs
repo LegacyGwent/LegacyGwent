@@ -1,10 +1,22 @@
-using System.Linq;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+
 namespace LegacyGwent
 {
-    public abstract class Effect
+    public abstract class Effect : IDisposable
     {
+        public IHasEffects? Target { get; internal set; }
+
+        public EffectStatus Status { get; internal set; }
+
+        public void Dispose()
+        => Target?.Effects.Remove(this);
+
+        protected internal virtual void OnAttaching() { }
+
+        protected internal virtual void OnAttached() { }
+
+        protected internal virtual void OnDetaching() { }
+
+        protected internal virtual void OnDetached() { }
     }
 }
