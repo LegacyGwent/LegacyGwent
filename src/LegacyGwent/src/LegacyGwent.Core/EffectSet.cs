@@ -11,6 +11,11 @@ namespace LegacyGwent
 
         public void Add(Effect item)
         {
+            if (item.Status != EffectStatus.Created)
+            {
+                throw new InvalidOperationException();
+            }
+
             item.OnAttaching();
             item.Target = Target;
             item.Status = EffectStatus.Attached;
