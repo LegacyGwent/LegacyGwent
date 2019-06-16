@@ -14,31 +14,37 @@ namespace LegacyGwent.ConsoleTester
 
     }
 
-    abstract class Unit
+    abstract class Unit : IHasEffects
     {
         public abstract string Name { get; }
 
-        public IList<Effect> Effects { get; set; } = new List<Effect>();
+        public EffectSet Effects { get; }
 
         public int Health { get; set; }
+
+        public Unit() => Effects = new EffectSet(this);
 
         public async Task GetDamaged(int damage)
         {
             Health -= damage;
             if (Health <= 0)
             {
-                var beforeDeath = new BeforeDeath();
-                await Effects.RaiseEvent(beforeDeath);
-                if (beforeDeath.IsCancelled)
-                {
-                    Console.WriteLine($"{Name} has escaped from death.");
-                    Health = 1;
-                }
-                else
-                {
-                    Console.WriteLine($"{Name} is dead.");
-                    await Effects.RaiseEvent<AfterDeath>();
-                }
+                await Die();
+            }
+        }
+
+        private async Task Die()
+        {
+            if ((await Effects.RaiseEvent<BeforeDeath>()).IsCancelled)
+            {
+                Console.WriteLine($"{Name} has escaped from death.");
+                Health = 1;
+            }
+            else
+            {
+                Console.WriteLine($"{Name} is dead.");
+                Health = 0;
+                await Effects.RaiseEvent<AfterDeath>();
             }
         }
     }
@@ -50,7 +56,6 @@ namespace LegacyGwent.ConsoleTester
         public Tryndamere()
         {
             Health = 10;
-            Effects.Add(new UndyingRage(this));
         }
     }
 
@@ -60,19 +65,13 @@ namespace LegacyGwent.ConsoleTester
 
         private int count = _maxCount;
 
-        private readonly Tryndamere _target;
-
-        public UndyingRage(Tryndamere target)
-        {
-            _target = target;
-        }
-
         public Task HandleEvent(BeforeDeath @event)
         {
-            if (count > 0)
+            @event.IsCancelled = true;
+            count--;
+            if (count <= 0)
             {
-                @event.IsCancelled = true;
-                count--;
+                Dispose();
             }
             return Task.CompletedTask;
         }
@@ -80,12 +79,13 @@ namespace LegacyGwent.ConsoleTester
 
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var trynd = new Tryndamere();
+            trynd.Effects.Add(new UndyingRage());
             while (trynd.Health > 0)
             {
-                _ = trynd.GetDamaged(5);
+                await trynd.GetDamaged(5);
             }
         }
     }
