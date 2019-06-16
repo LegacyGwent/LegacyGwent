@@ -2,7 +2,7 @@ using System;
 
 namespace LegacyGwent
 {
-    public abstract class Effect : IDisposable
+    public abstract class Effect : IDisposable, IHandlesEvent
     {
         public IHasEffects? Target { get; internal set; }
 
