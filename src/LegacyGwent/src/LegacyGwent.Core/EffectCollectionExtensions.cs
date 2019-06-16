@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LegacyGwent.Events;
 
 namespace LegacyGwent
 {
@@ -14,6 +15,13 @@ namespace LegacyGwent
             {
                 if (item is IHandlesEvent<TEvent> he)
                 {
+                    if (!(@event is RaisingEvent))
+                    {
+                        if ((await effects.RaiseEvent<RaisingEvent>(@event, item)).IsCancelled)
+                        {
+                            continue;
+                        }
+                    }
                     await he.HandleEvent(@event);
                 }
             }

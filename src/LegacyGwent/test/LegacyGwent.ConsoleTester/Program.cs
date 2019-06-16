@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LegacyGwent.Events;
 
 namespace LegacyGwent.ConsoleTester
 {
@@ -59,6 +60,19 @@ namespace LegacyGwent.ConsoleTester
         }
     }
 
+    class DisableUndyingRage : Effect, IHandlesEvent<RaisingEvent>
+    {
+        public Task HandleEvent(RaisingEvent @event)
+        {
+            if (@event.Effect is UndyingRage)
+            {
+                @event.IsCancelled = true;
+            }
+
+            return Task.CompletedTask;
+        }
+    }
+
     class UndyingRage : Effect, IHandlesEvent<BeforeDeath>
     {
         private const int _maxCount = 5;
@@ -83,6 +97,9 @@ namespace LegacyGwent.ConsoleTester
         {
             var trynd = new Tryndamere();
             trynd.Effects.Add(new UndyingRage());
+            var disableUndyingRage = new DisableUndyingRage();
+            trynd.Effects.Add(disableUndyingRage);
+            trynd.Effects.Remove(disableUndyingRage);
             while (trynd.Health > 0)
             {
                 await trynd.GetDamaged(5);
