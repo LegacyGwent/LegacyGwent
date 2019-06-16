@@ -2,9 +2,7 @@ using System.Threading.Tasks;
 
 namespace LegacyGwent
 {
-    public interface IHandlesEvent<in TEvent>
-    where TEvent : Event
+    public interface IHandlesEvent
     {
-        Task HandleEvent(TEvent @event);
     }
 }

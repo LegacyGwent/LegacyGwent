@@ -7,7 +7,7 @@ namespace LegacyGwent
 {
     public static class EffectPoolExtensions
     {
-        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects, TEvent @event)
+        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, TEvent @event)
         where TEvent : Event
         {
             foreach (var item in effects.ToList())
@@ -20,11 +20,11 @@ namespace LegacyGwent
             return @event;
         }
 
-        public static Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects)
+        public static Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects)
         where TEvent : Event, new()
         => effects.RaiseEvent(new TEvent());
 
-        public static Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects, Action<TEvent> action)
+        public static Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, Action<TEvent> action)
         where TEvent : Event, new()
         {
             var @event = new TEvent();
@@ -32,7 +32,7 @@ namespace LegacyGwent
             return effects.RaiseEvent(@event);
         }
 
-        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects, Func<TEvent, Task> action)
+        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, Func<TEvent, Task> action)
         where TEvent : Event, new()
         {
             var @event = new TEvent();
@@ -40,11 +40,11 @@ namespace LegacyGwent
             return await effects.RaiseEvent(@event);
         }
 
-        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects, params object[] arguments)
+        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, params object[] arguments)
         where TEvent : Event
         => await effects.RaiseEvent((TEvent)Activator.CreateInstance(typeof(TEvent), arguments));
 
-        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects, Action<TEvent> action, params object[] arguments)
+        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, Action<TEvent> action, params object[] arguments)
         where TEvent : Event
         {
             var @event = (TEvent)Activator.CreateInstance(typeof(TEvent), arguments);
@@ -52,7 +52,7 @@ namespace LegacyGwent
             return await effects.RaiseEvent(@event);
         }
 
-        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<Effect> effects, Func<TEvent, Task> action, params object[] arguments)
+        public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, Func<TEvent, Task> action, params object[] arguments)
         where TEvent : Event
         {
             var @event = (TEvent)Activator.CreateInstance(typeof(TEvent), arguments);
