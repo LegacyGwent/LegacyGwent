@@ -5,12 +5,13 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("12037")]//附子草
-    public class Wolfsbane : CardEffect
+    public class Wolfsbane : CardEffect, IHandlesEvent<AfterTurnOver>
     {//在墓场停留3个回合后，在回合结束时，对最强的敌军单位造成6点伤害，使最弱的友军单位获得6点增益。
         public Wolfsbane(IGwentServerGame game, GameCard card) : base(game, card) { }
-        public override async Task OnTurnOver(int playerIndex)
+
+        public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (playerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInCemetery() && Card.Status.Countdown > 0)
+            if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInCemetery() && Card.Status.Countdown > 0)
             {
                 await Card.Effect.SetCountdown(offset: -1);
                 if (Card.Effect.Countdown <= 0)
@@ -23,7 +24,7 @@ namespace Cynthia.Card
                     if (mycard.Count() > 0)
                         await mycard.Mess().First().Effect.Boost(6, Card);
                 }
-            }
+            };
         }
     }
 }

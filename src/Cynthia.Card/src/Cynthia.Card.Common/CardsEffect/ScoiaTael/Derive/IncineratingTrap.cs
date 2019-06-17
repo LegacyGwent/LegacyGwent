@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("55001")] //焚烧陷阱
-    public class IncineratingTrap : CardEffect
+    public class IncineratingTrap : CardEffect, IHandlesEvent<AfterTurnOver>
     {
         //对同排除自身外所有单位造成2点伤害，并在回合结束时放逐自身。
         public IncineratingTrap(IGwentServerGame game, GameCard card) : base(game, card)
@@ -14,9 +14,9 @@ namespace Cynthia.Card
 
         private int damage = 2;
 
-        public override async Task OnTurnOver(int playerIndex)
+        public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (playerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Effect.Countdown > 0) return;
             var row = Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).ToList();
@@ -28,7 +28,7 @@ namespace Cynthia.Card
                 }
             }
 
-            await Card.Effect.Banish();
+            await Card.Effect.Banish(); ;
         }
     }
 }

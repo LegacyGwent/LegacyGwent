@@ -102,22 +102,22 @@ namespace Cynthia.Card.Server
             }
             return false;
         }
-        public async Task<bool> WaitReconnect(string connectionId, Func<Task<bool>> waitReconnect)
-        {
-            foreach (var room in GwentRooms)
-            {
-                if (room.IsReady && room.Player1.CurrentUser.ConnectionId == connectionId)
-                {
-                    //强制结束游戏,将获胜方设定为玩家2(待补充)
-                    return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player2Index, waitReconnect);
-                }
-                if (room.IsReady && room.Player2.CurrentUser.ConnectionId == connectionId)
-                {
-                    //强制结束游戏,将获胜方设定为玩家2(待补充)
-                    return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player1Index, waitReconnect);
-                }
-            }
-            return false;
-        }
+        // public async Task<bool> WaitReconnect(string connectionId, Func<Task<bool>> waitReconnect)
+        // {
+        //     foreach (var room in GwentRooms)
+        //     {
+        //         if (room.IsReady && room.Player1.CurrentUser.ConnectionId == connectionId)
+        //         {
+        //             //强制结束游戏,将获胜方设定为玩家2(待补充)
+        //             return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player2Index, waitReconnect);
+        //         }
+        //         if (room.IsReady && room.Player2.CurrentUser.ConnectionId == connectionId)
+        //         {
+        //             //强制结束游戏,将获胜方设定为玩家2(待补充)
+        //             return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player1Index, waitReconnect);
+        //         }
+        //     }
+        //     return false;
+        // }
     }
 }

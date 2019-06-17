@@ -14,7 +14,6 @@ namespace LegacyGwent.ConsoleTester
     {
 
     }
-
     abstract class Unit : IHasEffects
     {
         public abstract string Name { get; }
@@ -95,15 +94,36 @@ namespace LegacyGwent.ConsoleTester
     {
         static async Task Main(string[] args)
         {
-            var trynd = new Tryndamere();
-            trynd.Effects.Add(new UndyingRage());
-            var disableUndyingRage = new DisableUndyingRage();
-            trynd.Effects.Add(disableUndyingRage);
-            trynd.Effects.Remove(disableUndyingRage);
-            while (trynd.Health > 0)
+            // var trynd = new Tryndamere();
+            // trynd.Effects.Add(new UndyingRage());
+            // var disableUndyingRage = new DisableUndyingRage();
+            // trynd.Effects.Add(disableUndyingRage);
+            // trynd.Effects.Remove(disableUndyingRage);
+            // while (trynd.Health > 0)
+            // {
+            //     await trynd.GetDamaged(5);
+            // }
+            await Task.CompletedTask;
+            var test = new AsyncBufferList<int>();
+            // test.Finish();
+            // test.Reveice(1);
+            Console.ReadLine();
+        }
+        static async Task Runer(Action action, int count = 10, int delayTime = 500)
+        {
+            for (var i = 0; i < count; i++)
             {
-                await trynd.GetDamaged(5);
+                await Task.Delay(delayTime);
+                action();
             }
+        }
+        static async Task Runer(IAsyncEnumerable<int> receiver, string name)
+        {
+            await foreach (var item in receiver)
+            {
+                Console.WriteLine($"{name}接收到内容:{item}");
+            }
+            Console.WriteLine($"{name}监听结束");
         }
     }
 }

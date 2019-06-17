@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("12008")]//维伦特瑞坦梅斯
-    public class Villentretenmerth : CardEffect
+    public class Villentretenmerth : CardEffect, IHandlesEvent<AfterTurnStart>
     {//3回合后的回合开始时：摧毁场上除自身外所有最强的单位。 3点护甲。
         public Villentretenmerth(IGwentServerGame game, GameCard card) : base(game, card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
@@ -13,9 +13,10 @@ namespace Cynthia.Card
             await Card.Effect.Armor(3, Card);
             return 0;
         }
-        public override async Task OnTurnStart(int playerIndex)
+
+        public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (playerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown > 0)
+            if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown > 0)
             {
                 await Card.Effect.SetCountdown(offset: -1);
                 if (Card.Effect.Countdown <= 0)

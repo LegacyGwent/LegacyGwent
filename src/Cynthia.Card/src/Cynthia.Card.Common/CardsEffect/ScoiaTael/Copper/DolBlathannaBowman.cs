@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("54009")] //多尔·布雷坦纳射手
-    public class DolBlathannaBowman : CardEffect
+    public class DolBlathannaBowman : CardEffect, IHandlesEvent<AfterCardMove>
     {
         //对1个敌军单位造成2点伤害。 每当有敌军单位改变所在排别，便对其造成2点伤害。 自身移动时对1个敌军随机单位造成2点伤害。
         public DolBlathannaBowman(IGwentServerGame game, GameCard card) : base(game, card)
@@ -22,14 +22,20 @@ namespace Cynthia.Card
             return 0;
         }
 
-        public override async Task OnCardMove(GameCard target, GameCard source = null)
+        private GameCard GetEnemyRandomCard()
         {
-            if (target.PlayerIndex != Card.PlayerIndex)
+            var list = Game.GetAllPlaceCard(Game.AnotherPlayer(Card.PlayerIndex));
+            return !list.Any() ? null : list.Mess().First();
+        }
+
+        public async Task HandleEvent(AfterCardMove @event)
+        {
+            if (@event.Target.PlayerIndex != Card.PlayerIndex)
             {
-                await target.Effect.Damage(damage, Card);
+                await @event.Target.Effect.Damage(damage, Card);
             }
 
-            if (target == Card)
+            if (@event.Target == Card)
             {
                 var card = GetEnemyRandomCard();
                 if (card != null)
@@ -37,12 +43,6 @@ namespace Cynthia.Card
                     await card.Effect.Damage(1, Card);
                 }
             }
-        }
-
-        private GameCard GetEnemyRandomCard()
-        {
-            var list = Game.GetAllPlaceCard(Game.AnotherPlayer(Card.PlayerIndex));
-            return !list.Any() ? null : list.Mess().First();
         }
     }
 }

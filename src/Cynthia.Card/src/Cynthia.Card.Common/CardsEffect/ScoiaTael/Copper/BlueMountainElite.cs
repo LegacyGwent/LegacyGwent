@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("54025")] //蓝山精锐
-    public class BlueMountainElite : CardEffect
+    public class BlueMountainElite : CardEffect, IHandlesEvent<AfterCardMove>
     {
         //召唤所有同名牌。 自身移动时获得2点增益。
         public BlueMountainElite(IGwentServerGame game, GameCard card) : base(game, card)
@@ -30,9 +30,9 @@ namespace Cynthia.Card
 
         private const int boostCount = 2;
 
-        public override async Task OnCardMove(GameCard target, GameCard source = null)
+        public async Task HandleEvent(AfterCardMove @event)
         {
-            if (target == Card)
+            if (@event.Target == Card)
             {
                 await Card.Effect.Boost(boostCount);
             }

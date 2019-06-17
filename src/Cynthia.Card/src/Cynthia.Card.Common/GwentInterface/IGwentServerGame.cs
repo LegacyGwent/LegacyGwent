@@ -5,7 +5,7 @@ using Cynthia.Card;
 
 namespace Cynthia.Card
 {
-    public interface IGwentServerGame : IGwentEvent
+    public interface IGwentServerGame
     {
         int RowMaxCount { get; set; }
         IList<(int PlayerIndex, string CardId)> HistoryList { get; set; }
@@ -119,5 +119,6 @@ namespace Cynthia.Card
         IList<GameCard> GetAllCard(int playerIndex);
         Task Debug(string msg);
         Task MessageBox(string msg);
+        Task SendEvent(Event @event);
     }
 }

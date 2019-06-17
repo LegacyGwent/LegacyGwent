@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("34016")]//射石机
-    public class Mangonel : CardEffect
+    public class Mangonel : CardEffect, IHandlesEvent<AfterCardReveal>
     {//对1个敌军随机单位造成2点伤害。己方每揭示1张牌，便再次触发此能力。
         public Mangonel(IGwentServerGame game, GameCard card) : base(game, card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
@@ -17,9 +17,9 @@ namespace Cynthia.Card
             return 0;
         }
 
-        public override async Task OnCardReveal(GameCard taget, GameCard soure = null)
+        public async Task HandleEvent(AfterCardReveal @event)
         {
-            if (soure == null || soure.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
+            if (@event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
             await CardPlayEffect(Card.Status.IsSpying);
         }
     }

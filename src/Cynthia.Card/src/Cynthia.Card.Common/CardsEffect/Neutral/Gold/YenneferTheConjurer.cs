@@ -5,12 +5,13 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("12010")]//叶奈法：咒术师
-    public class YenneferTheConjurer : CardEffect
+    public class YenneferTheConjurer : CardEffect, IHandlesEvent<AfterTurnOver>
     {//回合结束时，对所有最强的敌军单位造成1点伤害。
         public YenneferTheConjurer(IGwentServerGame game, GameCard card) : base(game, card) { }
-        public override async Task OnTurnOver(int playerIndex)
+
+        public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (!(Card.Status.CardRow.IsOnPlace() && PlayerIndex == playerIndex)) return;
+            if (!(Card.Status.CardRow.IsOnPlace() && PlayerIndex == @event.PlayerIndex)) return;
             var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex))
                 .Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == AnotherPlayer)
                 .WhereAllHighest().ToList();
