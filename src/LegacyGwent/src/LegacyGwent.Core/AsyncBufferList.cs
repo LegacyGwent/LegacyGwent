@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +25,11 @@ namespace LegacyGwent
 
             lock (_buffer)
             {
+                if (_finished)
+                {
+                    throw new InvalidOperationException();
+                }
+
                 _buffer.AddRange(items);
                 source = _onApproached;
                 _onApproached = new TaskCompletionSource<object?>();
@@ -31,10 +38,14 @@ namespace LegacyGwent
             source.SetResult(default);
         }
 
-        public void Finish()
+        public List<T> Finish()
         {
-            _finished = true;
-            _onApproached.SetResult(null);
+            lock (_buffer)
+            {
+                _finished = true;
+                _onApproached.SetResult(null);
+                return _buffer;
+            }
         }
 
         private class Enumerator : IAsyncEnumerator<T>
