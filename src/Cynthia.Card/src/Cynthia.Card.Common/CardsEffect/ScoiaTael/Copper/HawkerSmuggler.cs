@@ -5,17 +5,16 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("54010")] //私枭走私者
-    public class HawkerSmuggler : CardEffect
+    public class HawkerSmuggler : CardEffect, IHandlesEvent<AfterUnitPlay>
     {
         //每有1个敌军单位被打出，便获得1点增益。
         public HawkerSmuggler(IGwentServerGame game, GameCard card) : base(game, card)
         {
         }
 
-
-        public override async Task OnUnitPlay(GameCard taget)
+        public async Task HandleEvent(AfterUnitPlay @event)
         {
-            if (taget.PlayerIndex != Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
+            if (@event.PlayedCard.PlayerIndex != Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
                 await Card.Effect.Boost(boost);
             }

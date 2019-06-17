@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("34003")]//近卫军
-    public class ImperaBrigade : CardEffect
+    public class ImperaBrigade : CardEffect, IHandlesEvent<AfterCardSpying>
     {
         public ImperaBrigade(IGwentServerGame game, GameCard card) : base(game, card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
@@ -17,10 +17,11 @@ namespace Cynthia.Card
             await Boost(count * 2);
             return 0;
         }
-        public override async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null)
+
+        public async Task HandleEvent(AfterCardSpying @event)
         {
             //如果在场上, 并且对方半场出现间谍, 增益2点
-            if (Card.Status.CardRow.IsOnPlace() && taget.PlayerIndex != Card.PlayerIndex && isSpying)
+            if (Card.Status.CardRow.IsOnPlace() && @event.Target.PlayerIndex != Card.PlayerIndex)
                 await Boost(2);
         }
     }

@@ -4,21 +4,15 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("13001")]//萝卜
-    public class Roach : CardEffect
+    public class Roach : CardEffect, IHandlesEvent<AfterUnitDown>
     {
         public Roach(IGwentServerGame game, GameCard card) : base(game, card) { }
-        // public override async Task OnUnitPlay(GameCard taget)
-        // {
-        //     if (taget.Status.Group == Group.Gold && taget.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
-        //     {
-        //         await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), taget);
-        //     }
-        // }
-        public override async Task OnUnitDown(GameCard taget)
+
+        public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (taget.Status.Group == Group.Gold && taget.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
+            if (@event.Target.Status.Group == Group.Gold && @event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
             {
-                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), taget);
+                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), @event.Target);
             }
         }
     }

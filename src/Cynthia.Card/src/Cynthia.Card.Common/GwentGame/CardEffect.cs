@@ -5,13 +5,16 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    public abstract class CardEffect : IGwentEvent
+    public abstract class CardEffect : IHasEffects
     {
         public GameCard Card { get; set; }//宿主
         public IGwentServerGame Game { get; set; }//游戏本体
         public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
         public int PlayerIndex { get => Card.PlayerIndex; }
         public int Countdown { get => Card.Status.Countdown; }
+        public EffectSet Effects { get; }
+        public CardEffect() => Effects = new EffectSet(this);
+
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
             Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
@@ -93,11 +96,11 @@ namespace Cynthia.Card
                 return;
             }
             if (Card.Status.CardRow != RowPosition.Banish)
-                await Game.OnCardToCemetery(Card, deadposition);
+                await Game.SendEvent(new AfterCardToCemetery(Card, deadposition));//.OnCardToCemetery(Card, deadposition);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
             if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
-                await Game.OnCardDeath(Card, deadposition);
+                await Game.SendEvent(new AfterCardDeath(Card, deadposition));//await Game.OnCardDeath(Card, deadposition);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             await Game.SetPointInfo();
             await Game.SetCountInfo();
@@ -172,7 +175,8 @@ namespace Cynthia.Card
             await Task.Delay(200);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了特殊牌,应该触发对应事件<暂未定义,待补充>
-            await Game.OnSpecialPlay(Card);
+            //await Game.OnSpecialPlay(Card);
+            await Game.SendEvent(new BeforeSpecialPlay(Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task CardUseEnd()//使用结束
@@ -191,7 +195,8 @@ namespace Cynthia.Card
             await Game.ShowCardMove(location, Card);
             await Task.Delay(400);
             //await Game.Debug("开始群发,一段部署前事件");
-            await Game.OnUnitPlay(Card);
+            // await Game.OnUnitPlay(Card);
+            await Game.SendEvent(new AfterUnitPlay(Card));
             //await Game.Debug("群发完毕");
             return isSpying;//有没有间谍呢
         }
@@ -222,7 +227,8 @@ namespace Cynthia.Card
                 await Spying();
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
-            await Game.OnUnitDown(Card);
+            // await Game.OnUnitDown(Card);
+            await Game.SendEvent(new AfterUnitDown(Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)(已经交给游戏事件处理)
@@ -244,7 +250,8 @@ namespace Cynthia.Card
             //await Task.Delay(150);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //强化,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardStrengthen(Card, num, source);
+            //await Game.OnCardStrengthen(Card, num, source);
+            await Game.SendEvent(new AfterCardStrengthen(Card, num, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Weaken(int num, GameCard source = null)//削弱
@@ -268,7 +275,8 @@ namespace Cynthia.Card
             //await Task.Delay(150);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //有单位被削弱了,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardWeaken(Card, num, source);
+            // await Game.OnCardWeaken(Card, num, source);
+            await Game.SendEvent(new AfterCardWeaken(Card, num, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if ((Card.Status.Strength + Card.Status.HealthStatus) <= 0)
             {
@@ -297,7 +305,8 @@ namespace Cynthia.Card
             //await Task.Delay(150);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //有卡牌增益,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardBoost(Card, num, source);
+            // await Game.OnCardBoost(Card, num, source);
+            await Game.SendEvent(new AfterCardBoost(Card, num, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Damage(int num, GameCard source = null, BulletType type = BulletType.Arrow, bool isPenetrate = false)//伤害
@@ -327,7 +336,8 @@ namespace Cynthia.Card
                     Card.Status.Armor -= num;
                     //8888888888888888888888888888888888888888888888888888888888888888888888
                     //护甲值降低,应该触发对应事件<暂未定义,待补充>
-                    await Game.OnCardSubArmor(Card, num, source);
+                    // await Game.OnCardSubArmor(Card, num, source);
+                    await Game.SendEvent(new AfterCardSubArmor(Card, num, source));
                     //8888888888888888888888888888888888888888888888888888888888888888888888
                     num = 0;
                     await Game.ShowSetCard(Card);//更新客户端的护甲值
@@ -361,14 +371,16 @@ namespace Cynthia.Card
             {
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //破甲并且之前判断一击不死,应该触发对应事件<暂未定义,待补充>
-                await Game.OnCardArmorBreak(Card, source);
+                // await Game.OnCardArmorBreak(Card, source);
+                await Game.SendEvent(new AfterCardArmorBreak(Card, source));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
             }
             if (isHurt && Card.Status.CardRow.IsOnPlace())
             {
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //受伤并且没有进入墓地的话,应该触发对应事件<暂未定义,待补充>
-                await Game.OnCardHurt(Card, num, source);
+                // await Game.OnCardHurt(Card, num, source);
+                await Game.SendEvent(new AfterCardHurt(Card, num, source));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
             }
         }
@@ -380,7 +392,8 @@ namespace Cynthia.Card
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //重置,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardReset(Card, source);
+            // await Game.OnCardReset(Card, source);
+            await Game.SendEvent(new AfterCardReset(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if (Card.Status.Strength <= 0)
             {
@@ -396,7 +409,8 @@ namespace Cynthia.Card
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //治愈,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardHeal(Card, source);
+            // await Game.OnCardHeal(Card, source);
+            await Game.SendEvent(new AfterCardHeal(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Reveal(GameCard source = null)//揭示
@@ -407,7 +421,8 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //揭示,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardReveal(Card, source);
+            // await Game.OnCardReveal(Card, source);
+            await Game.SendEvent(new AfterCardReveal(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Spying(GameCard source = null)//间谍
@@ -417,7 +432,11 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //有卡牌间谍状态改变,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardSpyingChange(Card, Card.Status.IsSpying, source);
+            // await Game.OnCardSpyingChange(Card, Card.Status.IsSpying, source);
+            if (Card.Status.IsSpying)
+                await Game.SendEvent(new AfterCardSpying(Card, source));
+            else
+                await Game.SendEvent(new AfterCardUnSpying(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Armor(int num, GameCard source = null)//增加护甲(未测试)
@@ -428,7 +447,8 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //增加护甲,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardAddArmor(Card, num, source);
+            // await Game.OnCardAddArmor(Card, num, source);
+            await Game.SendEvent(new AfterCardAddArmor(Card, num, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Conceal(GameCard source = null)//隐匿(未测试)
@@ -438,7 +458,8 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //隐匿,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardConceal(Card, source);
+            // await Game.OnCardConceal(Card, source);
+            await Game.SendEvent(new AfterCardConceal(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Resilience(GameCard source = null)//坚韧(未测试)
@@ -448,7 +469,11 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //坚韧,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardResilienceChange(Card, Card.Status.IsResilience, source);
+            // await Game.OnCardResilienceChange(Card, Card.Status.IsResilience, source);
+            if (Card.Status.IsResilience)
+                await Game.SendEvent(new AfterCardResilience(Card, source));
+            else
+                await Game.SendEvent(new AfterCardUnResilience(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Discard(GameCard source = null)//丢弃(未测试)
@@ -457,7 +482,8 @@ namespace Cynthia.Card
             await ToCemetery();
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //丢弃,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardDiscard(Card, source);
+            // await Game.OnCardDiscard(Card, source);
+            await Game.SendEvent(new AfterCardDiscard(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Lock(GameCard source = null)//锁定(未测试)
@@ -475,7 +501,11 @@ namespace Cynthia.Card
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //锁定,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardLockChange(Card, Card.Status.IsLock, source);
+            if (Card.Status.IsLock)
+                await Game.SendEvent(new AfterCardLock(Card, source));
+            else
+                await Game.SendEvent(new AfterCardUnLock(Card, source));
+            // await Game.OnCardLockChange(Card, Card.Status.IsLock, source);
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Transform(string CardId, GameCard source = null)//变为(未测试)
@@ -502,7 +532,8 @@ namespace Cynthia.Card
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //复活,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardResurrect(Card, source);
+            // await Game.OnCardResurrect(Card, source);
+            await Game.SendEvent(new AfterCardResurrect(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Charm(GameCard source = null)//被魅惑
@@ -512,7 +543,8 @@ namespace Cynthia.Card
             await Move(new CardLocation() { RowPosition = Card.Status.CardRow.Mirror(), CardIndex = Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count });
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //魅惑,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardCharm(Card, source);
+            // await Game.OnCardCharm(Card, source);
+            await Game.SendEvent(new AfterCardCharm(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Drain(int num, GameCard taget)//汲食
@@ -524,7 +556,8 @@ namespace Cynthia.Card
             await Boost(num, Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //汲食,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardDrain(Card, num, taget);
+            // await Game.OnCardDrain(Card, num, taget);
+            await Game.SendEvent(new AfterCardDrain(Card, num, taget));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Ambush()//伏击
@@ -537,7 +570,8 @@ namespace Cynthia.Card
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //伏击,应该触发对应事件<暂未定义,待补充>
             if (!Card.Status.IsLock)
-                await Game.OnCardAmbush(Card);
+                // await Game.OnCardAmbush(Card);
+                await Game.SendEvent(new AfterCardAmbush(Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDown(false);
@@ -565,7 +599,8 @@ namespace Cynthia.Card
             await Task.Delay(500);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //吞噬,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardConsume(Card, taget);
+            // await Game.OnCardConsume(Card, taget);
+            await Game.SendEvent(new AfterCardConsume(taget, Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Move(CardLocation location, GameCard source = null)
@@ -579,7 +614,8 @@ namespace Cynthia.Card
             await CardDown(isSpyingChange);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //位移,应该触发对应事件<暂未定义,待补充>
-            await Game.OnCardMove(Card, source);
+            // await Game.OnCardMove(Card, source);
+            await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
@@ -609,38 +645,38 @@ namespace Cynthia.Card
             return 0;
         }
         //-----------------------------------------------------------------
-        public virtual async Task OnTurnStart(int playerIndex) => await Task.CompletedTask;//谁的回合开始了
-        public virtual async Task OnTurnOver(int playerIndex) => await Task.CompletedTask;//谁的回合结束了
-        public virtual async Task OnRoundOver(int RoundCount, int player1Point, int player2Point) => await Task.CompletedTask;//第几轮,谁赢了
-        public virtual async Task OnPlayerPass(int playerIndex) => await Task.CompletedTask;//哪个玩家pass了
-        public virtual async Task OnCardReveal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//揭示
-        public virtual async Task OnCardConsume(GameCard master, GameCard taget) => await Task.CompletedTask;//吞噬
-        public virtual async Task OnCardBoost(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增益
-        public virtual async Task OnCardHurt(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//受伤
-        public virtual async Task OnSpecialPlay(GameCard taget) => await Task.CompletedTask;//法术卡使用前
-        public virtual async Task OnUnitPlay(GameCard taget) => await Task.CompletedTask;//单位卡执行一段部署前
-        public virtual async Task OnUnitDown(GameCard taget) => await Task.CompletedTask;//单位卡落下时(二段部署前)
-        public virtual async Task OnCardDeath(GameCard taget, CardLocation soure) => await Task.CompletedTask;//有卡牌进入墓地
-        public virtual async Task OnCardToCemetery(GameCard taget, CardLocation soure) => await Task.CompletedTask;//有卡牌进入墓地
-        public virtual async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null) => await Task.CompletedTask;//场上间谍改变
-        public virtual async Task OnCardDiscard(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被丢弃
-        public virtual async Task OnCardAmbush(GameCard taget) => await Task.CompletedTask;//有伏击卡触发
-        public virtual async Task OnCardSwap(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌交换
-        public virtual async Task OnPlayerDraw(int playerIndex, GameCard taget) => await Task.CompletedTask;//抽卡
-        public virtual async Task OnCardConceal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//隐匿
-        public virtual async Task OnCardLockChange(GameCard taget, bool isLock, GameCard soure = null) => await Task.CompletedTask;//锁定状态改变
-        public virtual async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增加护甲
-        public virtual async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//降低护甲
-        public virtual async Task OnCardArmorBreak(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//护甲被破坏
-        public virtual async Task OnCardResurrect(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//有卡牌复活
-        public virtual async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null) => await Task.CompletedTask;//坚韧状态改变
-        public virtual async Task OnWeatherApply(int playerIndex, int row, RowStatus type) => await Task.CompletedTask;//有天气降下
-        public virtual async Task OnCardHeal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被治愈
-        public virtual async Task OnCardReset(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被重置
-        public virtual async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//强化
-        public virtual async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//削弱
-        public virtual async Task OnCardDrain(GameCard master, int num, GameCard taget) => await Task.CompletedTask;//有单位汲食时
-        public virtual async Task OnCardCharm(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//被魅惑
-        public virtual async Task OnCardMove(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//移动
+        // public virtual async Task OnTurnStart(int playerIndex) => await Task.CompletedTask;//谁的回合开始了
+        // public virtual async Task OnTurnOver(int playerIndex) => await Task.CompletedTask;//谁的回合结束了
+        // public virtual async Task OnRoundOver(int RoundCount, int player1Point, int player2Point) => await Task.CompletedTask;//第几轮,谁赢了
+        // public virtual async Task OnPlayerPass(int playerIndex) => await Task.CompletedTask;//哪个玩家pass了
+        // public virtual async Task OnCardReveal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//揭示
+        // public virtual async Task OnCardConsume(GameCard master, GameCard taget) => await Task.CompletedTask;//吞噬
+        // public virtual async Task OnCardBoost(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增益
+        // public virtual async Task OnCardHurt(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//受伤
+        // public virtual async Task OnSpecialPlay(GameCard taget) => await Task.CompletedTask;//法术卡使用前
+        // public virtual async Task OnUnitPlay(GameCard taget) => await Task.CompletedTask;//单位卡执行一段部署前
+        // public virtual async Task OnUnitDown(GameCard taget) => await Task.CompletedTask;//单位卡落下时(二段部署前)
+        // public virtual async Task OnCardDeath(GameCard taget, CardLocation soure) => await Task.CompletedTask;//有卡牌进入墓地
+        // public virtual async Task OnCardToCemetery(GameCard taget, CardLocation soure) => await Task.CompletedTask;//有卡牌进入墓地
+        // public virtual async Task OnCardSpyingChange(GameCard taget, bool isSpying, GameCard soure = null) => await Task.CompletedTask;//场上间谍改变
+        // public virtual async Task OnCardDiscard(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被丢弃
+        // public virtual async Task OnCardAmbush(GameCard taget) => await Task.CompletedTask;//有伏击卡触发
+        // public virtual async Task OnCardSwap(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌交换
+        // public virtual async Task OnPlayerDraw(int playerIndex, GameCard taget) => await Task.CompletedTask;//抽卡
+        // public virtual async Task OnCardConceal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//隐匿
+        // public virtual async Task OnCardLockChange(GameCard taget, bool isLock, GameCard soure = null) => await Task.CompletedTask;//锁定状态改变
+        // public virtual async Task OnCardAddArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//增加护甲
+        // public virtual async Task OnCardSubArmor(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//降低护甲
+        // public virtual async Task OnCardArmorBreak(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//护甲被破坏
+        // public virtual async Task OnCardResurrect(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//有卡牌复活
+        // public virtual async Task OnCardResilienceChange(GameCard taget, bool isResilience, GameCard soure = null) => await Task.CompletedTask;//坚韧状态改变
+        // public virtual async Task OnWeatherApply(int playerIndex, int row, RowStatus type) => await Task.CompletedTask;//有天气降下
+        // public virtual async Task OnCardHeal(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被治愈
+        // public virtual async Task OnCardReset(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//卡牌被重置
+        // public virtual async Task OnCardStrengthen(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//强化
+        // public virtual async Task OnCardWeaken(GameCard taget, int num, GameCard soure = null) => await Task.CompletedTask;//削弱
+        // public virtual async Task OnCardDrain(GameCard master, int num, GameCard taget) => await Task.CompletedTask;//有单位汲食时
+        // public virtual async Task OnCardCharm(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//被魅惑
+        // public virtual async Task OnCardMove(GameCard taget, GameCard soure = null) => await Task.CompletedTask;//移动
     }
 }
