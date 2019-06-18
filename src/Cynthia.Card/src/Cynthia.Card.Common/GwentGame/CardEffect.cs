@@ -73,9 +73,9 @@ namespace Cynthia.Card
                 if (Card.Status.CardRow.IsOnPlace())
                 {
                     await Game.ShowCardOn(Card);
-                    await Task.Delay(200);
+                    await Game.ClientDelay(200);
                     await Game.ShowSetCard(Card);
-                    await Task.Delay(200);
+                    await Game.ClientDelay(200);
                     if (Card.Status.Strength <= 0)
                     {
                         await Banish();
@@ -83,7 +83,7 @@ namespace Cynthia.Card
                     }
                 }
                 await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
-                await Task.Delay(400);
+                await Game.ClientDelay(400);
             }
             else
             {
@@ -173,7 +173,7 @@ namespace Cynthia.Card
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
             if (!Card.Status.CardRow.IsOnStay())
                 await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
-            await Task.Delay(200);
+            await Game.ClientDelay(200);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了特殊牌,应该触发对应事件<暂未定义,待补充>
             //await Game.OnSpecialPlay(Card);
@@ -182,7 +182,7 @@ namespace Cynthia.Card
         }
         public virtual async Task CardUseEnd()//使用结束
         {
-            await Task.Delay(300);
+            await Game.ClientDelay(300);
             await ToCemetery();
         }
 
@@ -194,7 +194,7 @@ namespace Cynthia.Card
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
-            await Task.Delay(400);
+            await Game.ClientDelay(400);
             //await Game.Debug("开始群发,一段部署前事件");
             // await Game.OnUnitPlay(Card);
             await Game.SendEvent(new AfterUnitPlay(Card));
@@ -245,10 +245,10 @@ namespace Cynthia.Card
             }
             Card.Status.Strength += num;
             await Game.ShowCardNumberChange(Card, num, NumberType.White);
-            //await Task.Delay(50);
+            //await Game.ClientDelay(50);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
-            //await Task.Delay(150);
+            //await Game.ClientDelay(150);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //强化,应该触发对应事件<暂未定义,待补充>
             //await Game.OnCardStrengthen(Card, num, source);
@@ -269,11 +269,11 @@ namespace Cynthia.Card
             var showBear = Card.Status.Strength + Card.Status.HealthStatus;
             Card.Status.Strength -= num;
             await Game.ShowCardNumberChange(Card, num > showBear ? -showBear : -num, NumberType.White);
-            //await Task.Delay(50);
+            //await Game.ClientDelay(50);
             if (Card.Status.Strength < -Card.Status.HealthStatus) Card.Status.HealthStatus = -Card.Status.Strength;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
-            //await Task.Delay(150);
+            //await Game.ClientDelay(150);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //有单位被削弱了,应该触发对应事件<暂未定义,待补充>
             // await Game.OnCardWeaken(Card, num, source);
@@ -300,10 +300,10 @@ namespace Cynthia.Card
             }
             Card.Status.HealthStatus += num;
             await Game.ShowCardNumberChange(Card, num, NumberType.Normal);
-            //await Task.Delay(50);
+            //await Game.ClientDelay(50);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
-            //await Task.Delay(150);
+            //await Game.ClientDelay(150);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //有卡牌增益,应该触发对应事件<暂未定义,待补充>
             // await Game.OnCardBoost(Card, num, source);
@@ -358,10 +358,10 @@ namespace Cynthia.Card
             {
                 Card.Status.HealthStatus -= num;
                 await Game.ShowCardNumberChange(Card, -num, NumberType.Normal);
-                //await Task.Delay(50);
+                //await Game.ClientDelay(50);
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
-                //await Task.Delay(150);
+                //await Game.ClientDelay(150);
                 if ((Card.Status.HealthStatus + Card.Status.Strength) <= 0)
                 {
                     await ToCemetery();
@@ -529,7 +529,7 @@ namespace Cynthia.Card
             if (location.RowPosition.IsOnPlace())
             {
                 await Game.ShowCardOn(Card);
-                await Task.Delay(200);
+                await Game.ClientDelay(200);
                 await CardDown(false);
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -568,7 +568,7 @@ namespace Cynthia.Card
             Card.Status.Conceal = false;
             await Game.ShowSetCard(Card);
             await Game.ShowCardOn(Card);
-            await Task.Delay(200);
+            await Game.ClientDelay(200);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //伏击,应该触发对应事件<暂未定义,待补充>
             if (!Card.Status.IsLock)
@@ -598,7 +598,7 @@ namespace Cynthia.Card
                 await taget.Effect.ToCemetery();
             }
             await Boost(num);
-            await Task.Delay(500);
+            await Game.ClientDelay(500);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //吞噬,应该触发对应事件<暂未定义,待补充>
             // await Game.OnCardConsume(Card, taget);
@@ -612,7 +612,7 @@ namespace Cynthia.Card
             var isSpyingChange = !location.RowPosition.IsMyRow();
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
-            await Task.Delay(200);
+            await Game.ClientDelay(200);
             await CardDown(isSpyingChange);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //位移,应该触发对应事件<暂未定义,待补充>
@@ -625,7 +625,7 @@ namespace Cynthia.Card
             var isSpyingChange = !location.RowPosition.IsMyRow();
             await Game.ShowCardMove(location, Card);
             await Game.ShowCardOn(Card);
-            await Task.Delay(200);
+            await Game.ClientDelay(200);
             await CardDown(isSpyingChange);
         }
         //================================================================================

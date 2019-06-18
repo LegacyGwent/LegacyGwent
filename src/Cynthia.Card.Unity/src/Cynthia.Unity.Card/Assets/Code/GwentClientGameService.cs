@@ -22,14 +22,24 @@ namespace Cynthia.Card.Client
         {
             Debug.Log("游戏开始");
             _player = player;
-            while (ResponseOperation(await _player.ReceiveAsync()));
+            while (ResponseOperations(await _player.ReceiveAsync())) ;
         }
 
         //-----------------------------------------------------------------------
         //响应指令
+        private bool ResponseOperations(IList<Operation<ServerOperationType>> operations)
+        {
+            Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令");
+            foreach (var operation in operations)
+            {
+                if (!ResponseOperation(operation))
+                    return false;
+            }
+            return true;
+        }
         private bool ResponseOperation(Operation<ServerOperationType> operation)
         {
-            //Debug.Log($"收到了指令{operation.OperationType}");
+            Debug.Log($"执行了指令{operation.OperationType}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
@@ -42,7 +52,7 @@ namespace Cynthia.Card.Client
                     GameCodeService.SelectPlaceCards(arguments[0].ToType<PlaceSelectCardsInfo>(), _player);
                     break;
                 case ServerOperationType.SelectRow:
-                    GameCodeService.SelectRow(arguments[0].ToType<CardLocation>(),arguments[1].ToType<IList<RowPosition>>(), _player);
+                    GameCodeService.SelectRow(arguments[0].ToType<CardLocation>(), arguments[1].ToType<IList<RowPosition>>(), _player);
                     break;
                 case ServerOperationType.PlayCard:
                     GameCodeService.PlayCard(arguments[0].ToType<CardLocation>(), _player);
@@ -53,7 +63,7 @@ namespace Cynthia.Card.Client
                     GameCodeService.ShowWeatherApply(arguments[0].ToType<RowPosition>(), arguments[1].ToType<RowStatus>());
                     break;
                 case ServerOperationType.ShowCardNumberChange:
-                    GameCodeService.ShowCardNumberChange(arguments[0].ToType<CardLocation>(), arguments[1].ToType<int>(),arguments[2].ToType<NumberType> ());
+                    GameCodeService.ShowCardNumberChange(arguments[0].ToType<CardLocation>(), arguments[1].ToType<int>(), arguments[2].ToType<NumberType>());
                     break;
                 case ServerOperationType.ShowCardIconEffect:
                     GameCodeService.ShowCardIconEffect(arguments[0].ToType<CardLocation>(), arguments[1].ToType<CardIconEffectType>());

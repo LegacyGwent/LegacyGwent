@@ -16,7 +16,7 @@ namespace Cynthia.Card.Client
         {
             //接收到通讯层消息,发送到下游
             ((Player)this).Receive += async x => await hubConnection.SendAsync("GameOperation", x.Result);
-            hubConnection.On<Operation<ServerOperationType>>("GameOperation", async x =>
+            hubConnection.On<IList<Operation<ServerOperationType>>>("GameOperation", async x =>
             {
                 await _upstream.SendAsync(x);
             });
@@ -26,7 +26,7 @@ namespace Cynthia.Card.Client
 
         public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));
 
-        public new Task<Operation<ServerOperationType>> ReceiveAsync() => _downstream.ReceiveAsync<Operation<ServerOperationType>>();
+        public new Task<IList<Operation<ServerOperationType>>> ReceiveAsync() => _downstream.ReceiveAsync<IList<Operation<ServerOperationType>>>();
 
         public new event Func<TubeReceiveEventArgs, Task> Receive { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
     }
