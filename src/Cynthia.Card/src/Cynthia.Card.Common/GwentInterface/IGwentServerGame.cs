@@ -119,6 +119,6 @@ namespace Cynthia.Card
         IList<GameCard> GetAllCard(int playerIndex);
         Task Debug(string msg);
         Task MessageBox(string msg);
-        Task SendEvent(Event @event);
+        Task SendEvent<TEvent>(TEvent @event) where TEvent : Event;
     }
 }

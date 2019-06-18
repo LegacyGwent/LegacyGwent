@@ -257,7 +257,7 @@ namespace Cynthia.Card.Server
         public async Task PlayerBigRound(int player1Mulligan = 0, int player2Mulligan = 0)
         {
             await Task.WhenAll(MulliganCard(Player1Index, player1Mulligan), MulliganCard(Player2Index, player2Mulligan));
-            await Debug("Mulligan Start!");
+            // await Debug("Mulligan Start!");
             while (await PlayerRound())
             {
                 // await OnTurnOver(TwoPlayerToPlayerIndex(GameRound));
@@ -1378,7 +1378,6 @@ namespace Cynthia.Card.Server
                 await creatCard.Effect.CardDown(false);
             }
         }
-
         public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡")
         {
             var selectList = cards.Select(x => new CardStatus(x)).ToList();
@@ -1391,11 +1390,11 @@ namespace Cynthia.Card.Server
             }
             return result.Count();
         }
-
-        public async Task SendEvent(Event @event)
+        public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
         {
-            foreach (var card in GetAllCard(Player1Index))
+            foreach (var card in GetAllCard(Player1Index).ToList())
             {
+                if (card.Status.IsLock || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
                 await card.Effect.Effects.RaiseEvent(@event);
             }
         }
