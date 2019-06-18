@@ -5,7 +5,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    public abstract class CardEffect : IHasEffects
+    public abstract class CardEffect : Effect, IHasEffects
     {
         public GameCard Card { get; set; }//宿主
         public IGwentServerGame Game { get; set; }//游戏本体
@@ -13,7 +13,6 @@ namespace Cynthia.Card
         public int PlayerIndex { get => Card.PlayerIndex; }
         public int Countdown { get => Card.Status.Countdown; }
         public EffectSet Effects { get; }
-        public CardEffect() => Effects = new EffectSet(this);
 
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
@@ -29,6 +28,8 @@ namespace Cynthia.Card
         {
             Game = game;
             Card = card;
+            Effects = new EffectSet(this);
+            Effects.Add(this);
         }
         public virtual async Task CardUse()//使用
         {
@@ -422,6 +423,7 @@ namespace Cynthia.Card
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //揭示,应该触发对应事件<暂未定义,待补充>
             // await Game.OnCardReveal(Card, source);
+            await Game.Debug($"{Card.CardInfo().Name}被揭示,发送揭示事件");
             await Game.SendEvent(new AfterCardReveal(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
