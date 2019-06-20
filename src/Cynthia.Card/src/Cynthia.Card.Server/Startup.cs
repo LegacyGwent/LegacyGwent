@@ -24,13 +24,19 @@ namespace Cynthia.Card.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            if (env.IsDevelopment())
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
+            // app.UseSignalR(routes =>
+            // {
+            //     routes.MapHub<GwentHub>("/hub/gwent");
+            // });
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<GwentHub>("/hub/gwent");
+                endpoints.MapHub<GwentHub>("/hub/gwent");
             });
         }
     }

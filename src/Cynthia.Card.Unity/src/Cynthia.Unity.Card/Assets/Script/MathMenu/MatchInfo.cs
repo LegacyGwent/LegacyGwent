@@ -83,44 +83,58 @@ public class MatchInfo : MonoBehaviour
         SetDeck(_client.User.Decks[GlobalState.DefaultDeckIndex], _client.User.Decks[GlobalState.DefaultDeckIndex].Id);
         SetDeckList(_client.User.Decks);
     }
-    public void Match()/////待编辑
+    public void ShowMatch()/////待编辑
     {
         ReturnButton.SetActive(false);
         SwitchButton.SetActive(false);
         MatchMessage.text = "寻找对手中";
         MatchButtonText.text = "停止匹配";
     }
-    public void StopMatch()/////待编辑
+    public void ShowStopMatch()/////待编辑
     {
         ReturnButton.SetActive(true);
         SwitchButton.SetActive(true);
         MatchMessage.text = "牌组就绪";
         MatchButtonText.text = "开始战斗";
     }
-    public async void MatchButtonClick()/////待编辑
+    public async void MatchButtonClick()/////点击匹配按钮的话
     {
+        //如果正在进行匹配
         if (IsDoingMatch)
         {
+            //停止匹配
             await _client.StopMatch();
             return;
         }
-        //开始匹配
-        if (!await _client.Match(CurrentDeckId))
-        {
-            Debug.Log("发送未知错误,匹配失败");
-        }
+        //否则尝试开始匹配(目前不关注匹配结果)
+        _ = _client.Match(CurrentDeckId);
+
+        // else if (!await _client.Match(CurrentDeckId))
+        // {
+        //     //如果发生错误的话,匹配失败
+        //     Debug.Log("发送未知错误,匹配失败");
+        // }
+
+        //将状态和显示都变成正在匹配
         IsDoingMatch = true;
-        Match();
+        ShowMatch();
+
+        //等待匹配的结果,如果是true代表成功匹配
         if (await _client.MatchResult())
         {
+            //进入了游戏
             Debug.Log("成功匹配,进入游戏");
             GlobalState.IsToMatch = false;
             SceneManager.LoadScene("GamePlay");
             return;
         }
-        Debug.Log("成功停止匹配");
-        IsDoingMatch = false;
-        StopMatch();
+        else
+        {
+            //否则代表取消了匹配
+            Debug.Log("成功停止匹配");
+            IsDoingMatch = false;
+            ShowStopMatch();
+        }
     }
     public void SwitchDeckOpen()
     {

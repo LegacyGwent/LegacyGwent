@@ -119,7 +119,7 @@ namespace Cynthia.Card
         IList<GameCard> GetAllCard(int playerIndex);
         Task Debug(string msg);
         Task MessageBox(string msg);
-        Task ClientDelay(int millisecondsDelay);
+        Task ClientDelay(int millisecondsDelay, int? playerIndex = null);
         Task SendEvent<TEvent>(TEvent @event) where TEvent : Event;
     }
 }

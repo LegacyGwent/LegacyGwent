@@ -8,18 +8,18 @@ namespace Cynthia.Card.Server
     public class GwentMatchs
     {
         public IList<GwentRoom> GwentRooms { get; set; } = new List<GwentRoom>();
-        private IHubContext<GwentHub> _hub;
+        private Func<IHubContext<GwentHub>> _hub;
         private Random _rng;
         public GwentMatchs(Func<IHubContext<GwentHub>> hub, Random rng)
         {
-            _hub = hub();
+            _hub = hub;
             _rng = rng;
         }
         public async void StartGame(GwentRoom room)
         {
             //通知玩家游戏开始
-            await _hub.Clients.Client(room.Player1.CurrentUser.ConnectionId).SendAsync("MatchResult", true);
-            await _hub.Clients.Client(room.Player2.CurrentUser.ConnectionId).SendAsync("MatchResult", true);
+            await _hub().Clients.Client(room.Player1.CurrentUser.ConnectionId).SendAsync("MatchResult", true);
+            await _hub().Clients.Client(room.Player2.CurrentUser.ConnectionId).SendAsync("MatchResult", true);
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
@@ -54,23 +54,31 @@ namespace Cynthia.Card.Server
         {   //停止匹配,如果玩家没有正在匹配,返回false
             foreach (var room in GwentRooms)
             {
+                //遍历所有的房间
+                //上下两个if效果等同,判断在未准备的房间中是否存在取消准备的玩家,如果有
                 if (!room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
                 {
+                    //将这个玩家的状态设置为 "闲置"
                     room.Player1.CurrentUser.UserState = UserState.Standby;
+                    //删除掉这个房间
                     GwentRooms.Remove(room);
-                    await _hub.Clients.Client(room.Player1.CurrentUser.ConnectionId).SendAsync("MatchResult", false);
+                    //发送匹配结果,false
+                    await _hub().Clients.Client(room.Player1.CurrentUser.ConnectionId).SendAsync("MatchResult", false);
+                    //将用户中的"当前玩家"设置为空
                     room.Player1.CurrentUser.CurrentPlayer = null;
+                    //成功停止了匹配所以返回true
                     return true;
                 }
-                if (!room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
+                else if (!room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
                 {
                     room.Player2.CurrentUser.UserState = UserState.Standby;
                     GwentRooms.Remove(room);
-                    await _hub.Clients.Client(room.Player2.CurrentUser.ConnectionId).SendAsync("MatchResult", false);
+                    await _hub().Clients.Client(room.Player2.CurrentUser.ConnectionId).SendAsync("MatchResult", false);
                     room.Player2.CurrentUser.CurrentPlayer = null;
                     return true;
                 }
             }
+            //没能停止匹配返回false
             return false;
         }
         public void GameEnd(GwentRoom room)
@@ -80,7 +88,7 @@ namespace Cynthia.Card.Server
             room.Player2.CurrentUser.UserState = UserState.Standby;
             room.Player1.CurrentUser.CurrentPlayer = null;
             room.Player2.CurrentUser.CurrentPlayer = null;
-            //删除玩家
+            //删除房间
             GwentRooms.Remove(room);
         }
         public bool PlayerLeave(string connectionId, Exception exception = null)
