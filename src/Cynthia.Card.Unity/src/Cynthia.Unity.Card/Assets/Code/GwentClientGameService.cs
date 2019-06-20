@@ -22,29 +22,34 @@ namespace Cynthia.Card.Client
         {
             Debug.Log("游戏开始");
             _player = player;
-            while (ResponseOperations(await _player.ReceiveAsync())) ;
+            while (await ResponseOperations(await _player.ReceiveAsync())) ;
         }
 
         //-----------------------------------------------------------------------
         //响应指令
-        private bool ResponseOperations(IList<Operation<ServerOperationType>> operations)
+        private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
         {
             Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令");
             foreach (var operation in operations)
             {
-                if (!ResponseOperation(operation))
+                if (!await ResponseOperation(operation))
                     return false;
             }
             return true;
         }
-        private bool ResponseOperation(Operation<ServerOperationType> operation)
+        private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
         {
             Debug.Log($"执行了指令{operation.OperationType}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
                 //----------------------------------------------------------------------------------
-                //新指令时代
+                //新时代
+                case ServerOperationType.ClientDelay:
+                    var dTime = arguments[0].ToType<int>();
+                    Debug.Log($"延迟触发,延迟时常:{dTime}");
+                    await Task.Delay(dTime);
+                    break;
                 case ServerOperationType.SelectMenuCards:
                     GameCodeService.SelectMenuCards(arguments[0].ToType<MenuSelectCardInfo>(), _player);
                     break;

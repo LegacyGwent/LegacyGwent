@@ -13,7 +13,6 @@ namespace Cynthia.Card
         public int PlayerIndex { get => Card.PlayerIndex; }
         public int Countdown { get => Card.Status.Countdown; }
         public EffectSet Effects { get; }
-
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
             Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
@@ -185,7 +184,6 @@ namespace Cynthia.Card
             await Game.ClientDelay(300);
             await ToCemetery();
         }
-
         //----------------------------------------------------------------------------
         //单位卡的单卡放置
         public virtual async Task<bool> CardPlayStart(CardLocation location)//先是移动到目标地点

@@ -61,6 +61,7 @@ namespace Cynthia.Card.Server
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
+            // await SendOperactionList();
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
@@ -77,6 +78,7 @@ namespace Cynthia.Card.Server
         public async Task Play()
         {
             await Task.WhenAny(PlayGame(), _setGameEnd.Task);
+            await SendOperactionList();
         }
         public async Task GameEnd(int winPlayerIndex, Exception exception)
         {
@@ -338,13 +340,13 @@ namespace Cynthia.Card.Server
                 //真实抽的卡只有自己的
                 var drawcard = (await LogicDrawCard(myPlayerIndex, 1, sizer)).Single();
                 list.Add(drawcard);
-                await ClientDelay(800);
+                await ClientDelay(800, myPlayerIndex);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.MyHand, CardIndex = 0 },
                 });
-                await ClientDelay(300);
+                await ClientDelay(300, myPlayerIndex);
                 //88888888888888888888888888888888888888888888888888888
                 // await OnPlayerDraw(myPlayerIndex, drawcard);
                 await SendEvent(new AfterPlayerDraw(myPlayerIndex, drawcard, null));
@@ -359,14 +361,14 @@ namespace Cynthia.Card.Server
                     Card = new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
                 });
                 //await GetCardFrom(myPlayerIndex, RowPosition.EnemyDeck, RowPosition.EnemyStay, 0, new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
-                await ClientDelay(400);
+                await ClientDelay(400, myPlayerIndex);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Soure = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
                     Taget = new CardLocation() { RowPosition = RowPosition.EnemyHand, CardIndex = 0 },
                 });
                 //await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
-                await ClientDelay(300);
+                await ClientDelay(300, myPlayerIndex);
             }
             return list;
         }
@@ -402,7 +404,6 @@ namespace Cynthia.Card.Server
                     },
                     new CardStatus() { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
                 );
-
                 //----------------------------------------------------------------------
                 //记录本次黑名单的卡牌Id
                 var bId = PlayersHandCard[playerIndex][mulliganCardIndex].CardInfo().CardId;
@@ -432,6 +433,9 @@ namespace Cynthia.Card.Server
                 var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex));
                 //----------------------------------------------------------------------
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
+                //每次调度
+                //立刻推送消息
+                await SendOperactionList();
             }
             //++++++++++++++++++++++++++++++++++++++++
             //将黑名单卡池中所有卡牌随机插入到卡组中
@@ -440,10 +444,12 @@ namespace Cynthia.Card.Server
                 PlayersDeck[playerIndex].Insert(RNG.Next(PlayersDeck[playerIndex].Count() + 1), card);
             }
             //++++++++++++++++++++++++++++++++++++++++
-            await ClientDelay(500);
+            await ClientDelay(500, playerIndex);
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
             IsPlayersMulligan[playerIndex] = false;
             await SetMulliganInfo();
+            //调度结束立刻推送消息
+            await SendOperactionList();
         }
         //----------------------------------------------------------------------------------------------------------------------
         //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -696,10 +702,12 @@ namespace Cynthia.Card.Server
             await Players[Player1Index].SendAsync(ServerOperationType.MessageBox, msg);
             await Players[Player2Index].SendAsync(ServerOperationType.MessageBox, msg);
         }
-        public async Task ClientDelay(int millisecondsDelay)
+        public async Task ClientDelay(int millisecondsDelay, int? playerIndex = null)
         {
-            await Players[Player1Index].SendAsync(ServerOperationType.ClientDelay, millisecondsDelay);
-            await Players[Player2Index].SendAsync(ServerOperationType.ClientDelay, millisecondsDelay);
+            if (playerIndex == null || playerIndex == Player1Index)
+                await Players[Player1Index].SendAsync(ServerOperationType.ClientDelay, millisecondsDelay);
+            if (playerIndex == null || playerIndex == Player2Index)
+                await Players[Player2Index].SendAsync(ServerOperationType.ClientDelay, millisecondsDelay);
             // await ClientDelay(millisecondsDelay);
         }
         public GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> Sizer, SelectModeType selectMode = SelectModeType.All)
@@ -1318,7 +1326,10 @@ namespace Cynthia.Card.Server
             foreach (var place in PlayersPlace)
                 foreach (var row in place)
                     foreach (var card in row.ToList())
+                    {
                         await card.Effect.RoundEnd();
+                        await ClientDelay(10);
+                    }
             //var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
             //var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
             await SetCountInfo();
@@ -1409,6 +1420,11 @@ namespace Cynthia.Card.Server
             await ((ClientPlayer)Players[Player1Index]).SendOperactionList();
             await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
             return await Players[playerIndex].ReceiveAsync();
+        }
+        public async Task SendOperactionList()
+        {
+            await ((ClientPlayer)Players[Player1Index]).SendOperactionList();
+            await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
         }
         // public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
         // {

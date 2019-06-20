@@ -527,6 +527,7 @@ public class GameEvent : MonoBehaviour
         // }
         // message += "|";
         //-------------------------------------
+        Debug.Log(location.RowPosition + "" + location.CardIndex);
         for (var i = 0; i <= ti; i++)
         {
             if (row.transform.GetChild(i).GetComponent<CardShowInfo>().IsDead || row.transform.GetChild(i).GetComponent<CardMoveInfo>().IsTem)

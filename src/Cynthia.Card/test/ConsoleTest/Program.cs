@@ -11,12 +11,16 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
-            foreach (var item in 1.To(10))
-            {
-                if (item == 7) continue;
-                Console.WriteLine(item);
-            }
+            ITestA test = new TestClass();
+            Test(test);
             Console.ReadLine();
         }
+        public static void Test<T>(T item)
+        {
+            Console.WriteLine(item is ITestB);
+        }
+        public interface ITestA { }
+        public interface ITestB { }
+        public class TestClass : ITestA, ITestB { }
     }
 }
