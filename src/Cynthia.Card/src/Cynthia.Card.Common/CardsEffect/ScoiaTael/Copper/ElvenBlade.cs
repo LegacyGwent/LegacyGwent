@@ -14,7 +14,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardUseEffect()
         {
-            var list = await Game.GetSelectPlaceCards(Card, Sizer: isNotElf);
+            var list = await Game.GetSelectPlaceCards(Card, filter: isNotElf);
             if (list.Count <= 0) return 0;
             var card = list.Single();
             await card.Effect.Damage(damage,Card);

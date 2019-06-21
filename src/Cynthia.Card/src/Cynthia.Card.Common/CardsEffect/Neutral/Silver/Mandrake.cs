@@ -17,9 +17,9 @@ namespace Cynthia.Card
                 ("曼德拉根茎提取物", "重置1个单位，使其受到6点削弱。")
             );
             //选择场上任意一个单位
-            var taget = await Game.GetSelectPlaceCards(Card);
-            if (taget.Count <= 0) return 0;
-            var tagetCard = taget.Single();
+            var target = await Game.GetSelectPlaceCards(Card);
+            if (target.Count <= 0) return 0;
+            var tagetCard = target.Single();
             //将单位重置,如果是第一个,强化,第二个削弱
             if (switchCard == 0)
             {

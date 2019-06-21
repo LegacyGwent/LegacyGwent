@@ -13,7 +13,7 @@ namespace Cynthia.Card
             if (Game.GameRowStatus[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].IsHazard())
                 await Game.ApplyWeather(PlayerIndex, Card.Status.CardRow.MyRowToIndex(), RowStatus.None);
             var result = await Game.GetSelectPlaceCards
-                            (Card, Sizer: x => x.Status.IsReveal || x.Status.CardRow.IsOnPlace(), selectMode: SelectModeType.My);
+                            (Card, filter: x => x.Status.IsReveal || x.Status.CardRow.IsOnPlace(), selectMode: SelectModeType.My);
             if (result.Count() == 0) return 0;
             await result.Single().Effect.Boost(3, Card);
             return 0;

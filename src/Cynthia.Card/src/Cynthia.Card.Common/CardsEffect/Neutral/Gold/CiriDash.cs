@@ -18,7 +18,7 @@ namespace Cynthia.Card
             await Card.Effect.Strengthen(3, Card); ;
         }
 
-        // public override async Task OnCardToCemetery(GameCard target, CardLocation soure)
+        // public override async Task OnCardToCemetery(GameCard target, CardLocation source)
         // {
         //     if (target != Card) return;
         //     var range = new Random().Next(0, Game.PlayersHandCard[PlayerIndex].Count() + 1);

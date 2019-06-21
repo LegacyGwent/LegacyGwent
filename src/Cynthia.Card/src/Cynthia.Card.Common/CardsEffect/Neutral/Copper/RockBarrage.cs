@@ -12,14 +12,14 @@ namespace Cynthia.Card
         {
             var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
             if (result.Count <= 0) return 0;
-            var taget = result.Single();
-            await taget.Effect.Damage(7, Card);
-            if (!taget.Status.CardRow.IsOnPlace() || Card.Status.CardRow == RowPosition.MyRow3) return 0;
-            var tagetRow = taget.Status.CardRow == RowPosition.MyRow1 ? RowPosition.MyRow2 : RowPosition.MyRow3;
-            if (Game.RowToList(taget.PlayerIndex, tagetRow).Count >= 9)
-                await taget.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            var target = result.Single();
+            await target.Effect.Damage(7, Card);
+            if (!target.Status.CardRow.IsOnPlace() || Card.Status.CardRow == RowPosition.MyRow3) return 0;
+            var tagetRow = target.Status.CardRow == RowPosition.MyRow1 ? RowPosition.MyRow2 : RowPosition.MyRow3;
+            if (Game.RowToList(target.PlayerIndex, tagetRow).Count >= 9)
+                await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
             else
-                await taget.Effect.Move(new CardLocation(tagetRow, 0), Card);
+                await target.Effect.Move(new CardLocation(tagetRow, 0), Card);
             return 0;
         }
     }

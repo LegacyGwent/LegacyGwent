@@ -10,7 +10,7 @@ namespace Cynthia.Card
 		public Regis(IGwentServerGame game, GameCard card) : base(game, card){}
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
-            var cards = await Game.GetSelectPlaceCards(Card, 1, Sizer: x => x.Status.HealthStatus > 0);
+            var cards = await Game.GetSelectPlaceCards(Card, 1, filter: x => x.Status.HealthStatus > 0);
             if (cards.Count() == 0) return 0;
             var target = cards.Single();
             await Card.Effect.Drain(target.Status.HealthStatus, target);

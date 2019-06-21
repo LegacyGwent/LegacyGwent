@@ -25,7 +25,7 @@ namespace ConsoleTest
                     _idDictionary.Add(cardId.Id, cardEffect);
                 }
             }
-            Console.WriteLine($"程序集扫描完成,总共扫描到{_idDictionary.Count}个卡牌效果.");
+            Console.WriteLine($"程序集扫描完成,总共扫描到{_idDictionary.Count}个卡牌效果");
             foreach (var item in _idDictionary)
             {
                 Console.WriteLine($"Id:{item.Key}, Value:{item.Value}");

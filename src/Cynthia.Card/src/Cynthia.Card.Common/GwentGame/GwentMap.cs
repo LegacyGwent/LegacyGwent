@@ -15,10 +15,10 @@ namespace Cynthia.Card
             .ThenBy(x => x.Value.Strength)
             .Select(x => new CardStatus(x.Key));
         }
-        public static IEnumerable<string> GetCreateCardsId(Func<CardStatus, bool> sizer, int count = 3, bool isHasDerive = false)
+        public static IEnumerable<string> GetCreateCardsId(Func<CardStatus, bool> filter, int count = 3, bool isHasDerive = false)
         {
             return GetCards()
-                .Where(sizer)
+                .Where(filter)
                 .Mess().Take(count).Select(x => x.CardId)
                 .ToList();
         }
