@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Alsein.Extensions;
-using Cynthia.Card;
-using Cynthia.Card.Server;
+using System.Reflection;
+using System.Collections.Concurrent;
+using System;
+using System.Collections.Generic;
 
-namespace ConsoleTest
+namespace Cynthia.Card.Server
 {
-    class Program
+    public class GwentCardTypeService
     {
-        static async Task Main(string[] args)
+        private IDictionary<string, Type> _idDictionary;
+
+        public GwentCardTypeService()
         {
-            IDictionary<string, Type> _idDictionary = new ConcurrentDictionary<string, Type>();
+            _idDictionary = new ConcurrentDictionary<string, Type>();
             var assembly = typeof(CardEffect).Assembly;
             var cardEffects = assembly.GetTypes().Where(x => x.GetCustomAttributes(true).Any(x => x.GetType() == typeof(CardEffectIdAttribute)));
             foreach (var cardEffect in cardEffects)
@@ -25,12 +23,11 @@ namespace ConsoleTest
                     _idDictionary.Add(cardId.Id, cardEffect);
                 }
             }
-            Console.WriteLine($"程序集扫描完成,总共扫描到{_idDictionary.Count}个卡牌效果.");
-            foreach (var item in _idDictionary)
-            {
-                Console.WriteLine($"Id:{item.Key}, Value:{item.Value}");
-            }
-            Console.ReadLine();
         }
+
+        public Type GetType(string effectId) => _idDictionary[effectId];
+
+        public CardEffect CreateInstance(string effectId, GwentServerGame game, GameCard targetCard)
+            => (CardEffect)Activator.CreateInstance(GetType(effectId), game, targetCard);
     }
 }
