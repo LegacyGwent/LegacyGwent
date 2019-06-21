@@ -11,32 +11,32 @@ namespace Cynthia.Card
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);
         }
-        public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> sizer, bool isDistinct = false)
+        public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> filter, bool isDistinct = false)
         {
             if (isDistinct)
-                return cards.Where(sizer).Distinct();
-            return cards.Where(sizer);
+                return cards.Where(filter).Distinct();
+            return cards.Where(filter);
 
         }
-        public static IList<GwentCard> GetMyBaseDeck(this GameCard card, Func<GwentCard, bool> sizer = null, bool isDistinct = false)
+        public static IList<GwentCard> GetMyBaseDeck(this GameCard card, Func<GwentCard, bool> filter = null, bool isDistinct = false)
         {
-            sizer = sizer ?? (x => true);
+            filter = filter ?? (x => true);
             //是否去除重复项,筛选器
-            return card.Effect.Game.PlayerBaseDeck[card.PlayerIndex].Deck.SelectCard(sizer, isDistinct).ToList();
+            return card.Effect.Game.PlayerBaseDeck[card.PlayerIndex].Deck.SelectCard(filter, isDistinct).ToList();
         }
-        public static IList<GwentCard> GetEnemyBaseDeck(this GameCard card, Func<GwentCard, bool> sizer = null, bool isDistinct = false)
+        public static IList<GwentCard> GetEnemyBaseDeck(this GameCard card, Func<GwentCard, bool> filter = null, bool isDistinct = false)
         {
-            sizer = sizer ?? (x => true);
+            filter = filter ?? (x => true);
             //是否去除重复项,筛选器
-            return card.Effect.Game.PlayerBaseDeck[card.Effect.Game.AnotherPlayer(card.PlayerIndex)].Deck.SelectCard(sizer, isDistinct).ToList();
+            return card.Effect.Game.PlayerBaseDeck[card.Effect.Game.AnotherPlayer(card.PlayerIndex)].Deck.SelectCard(filter, isDistinct).ToList();
         }
-        public static IList<GwentCard> GetBaseDeck(this GameCard card, Func<GwentCard, bool> sizer = null, bool isDistinct = false)
+        public static IList<GwentCard> GetBaseDeck(this GameCard card, Func<GwentCard, bool> filter = null, bool isDistinct = false)
         {
-            sizer = sizer ?? (x => true);
+            filter = filter ?? (x => true);
             //是否去除重复项,筛选器
             return card.Effect.Game.PlayerBaseDeck[card.Effect.Game.AnotherPlayer(card.PlayerIndex)].Deck
                 .Concat(card.Effect.Game.PlayerBaseDeck[card.PlayerIndex].Deck)
-                .SelectCard(sizer, isDistinct).ToList();
+                .SelectCard(filter, isDistinct).ToList();
         }
         public static GameDeck ToGameDeck(this DeckModel deck)
         {
@@ -174,16 +174,16 @@ namespace Cynthia.Card
             }
             return false;
         }
-        public static bool TagetIsShowBack(this GameCard card, CardLocation taget, int tagetPlayerIndex, int LookplayerIndex)
+        public static bool TagetIsShowBack(this GameCard card, CardLocation target, int tagetPlayerIndex, int LookplayerIndex)
         {
-            if (!taget.RowPosition.IsOnRow()) return true;
-            if (tagetPlayerIndex == LookplayerIndex && taget.RowPosition.IsOnPlace() && card.Status.Conceal)
+            if (!target.RowPosition.IsOnRow()) return true;
+            if (tagetPlayerIndex == LookplayerIndex && target.RowPosition.IsOnPlace() && card.Status.Conceal)
                 return true;
             if (tagetPlayerIndex != LookplayerIndex)
             {
-                if (taget.RowPosition.IsInHand() && !card.Status.IsReveal)
+                if (target.RowPosition.IsInHand() && !card.Status.IsReveal)
                     return true;
-                if (taget.RowPosition.IsOnPlace() && card.Status.Conceal)
+                if (target.RowPosition.IsOnPlace() && card.Status.Conceal)
                     return true;
             }
             return false;

@@ -11,7 +11,7 @@ namespace Cynthia.Card
 		public override async Task<int> CardPlayEffect(bool isSpying)
 		{
 			var result = await Game.GetSelectPlaceCards
-				(Card,Sizer:x=>x.Status.IsReveal&&(x.Status.Group==Group.Copper||x.Status.Group==Group.Silver),selectMode:SelectModeType.AllHand);
+				(Card,filter:x=>x.Status.IsReveal&&(x.Status.Group==Group.Copper||x.Status.Group==Group.Silver),selectMode:SelectModeType.AllHand);
 			if(result.Count() == 0) return 0;
 			var point = result.Single().Status.Strength;
 			await Card.Effect.Boost(point);

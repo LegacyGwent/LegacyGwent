@@ -15,7 +15,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, Sizer: Filter);
+            var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: Filter);
             if (!cards.Any()) return 0;
             var card = cards.First();
             await card.Effect.Damage(damage,Card);

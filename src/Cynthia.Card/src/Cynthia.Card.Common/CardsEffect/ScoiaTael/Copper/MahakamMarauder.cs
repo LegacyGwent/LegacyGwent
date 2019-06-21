@@ -12,9 +12,9 @@ namespace Cynthia.Card
         {
         }
 
-        private async Task BoostMyself(GameCard taget, GameCard soure)
+        private async Task BoostMyself(GameCard target, GameCard source)
         {
-            if (taget == Card && soure != Card && Card.Status.CardRow.IsOnPlace())
+            if (target == Card && source != Card && Card.Status.CardRow.IsOnPlace())
                 await BoostMyself();
         }
 

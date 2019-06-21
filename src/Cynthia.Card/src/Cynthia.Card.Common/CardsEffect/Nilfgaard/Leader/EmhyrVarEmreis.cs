@@ -21,7 +21,7 @@ namespace Cynthia.Card
         }
         public override async Task CardDownEffect(bool isSpying)
         {
-            var result = await Game.GetSelectPlaceCards(Card, Sizer: (x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver), selectMode: SelectModeType.MyRow);
+            var result = await Game.GetSelectPlaceCards(Card, filter: (x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver), selectMode: SelectModeType.MyRow);
             if (result.Count() == 0) return;
             result.Single().Effect.Repair(true);
             await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyHand, CardIndex = 0 }, result.Single(), refreshPoint: true);
