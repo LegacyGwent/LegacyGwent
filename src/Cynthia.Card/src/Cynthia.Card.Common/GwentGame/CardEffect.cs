@@ -512,7 +512,7 @@ namespace Cynthia.Card
         {
             if (Card.Status.CardRow == RowPosition.Banish) return;
             Card.Status = new CardStatus(CardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow };
-            Card.Effect = (CardEffect)Activator.CreateInstance(GwentMap.CardMap[CardId].EffectType, Game, Card);
+            Card.Effect = Game.CreateEffectInstance(CardId, Card);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888

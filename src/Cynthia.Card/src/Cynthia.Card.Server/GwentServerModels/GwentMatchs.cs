@@ -9,11 +9,11 @@ namespace Cynthia.Card.Server
     {
         public IList<GwentRoom> GwentRooms { get; set; } = new List<GwentRoom>();
         private Func<IHubContext<GwentHub>> _hub;
-        private Random _rng;
-        public GwentMatchs(Func<IHubContext<GwentHub>> hub, Random rng)
+        private GwentCardTypeService _gwentCardTypeServic;
+        public GwentMatchs(Func<IHubContext<GwentHub>> hub, GwentCardTypeService gwentCardTypeService)
         {
             _hub = hub;
-            _rng = rng;
+            _gwentCardTypeServic = gwentCardTypeService;
         }
         public async void StartGame(GwentRoom room)
         {
@@ -23,7 +23,7 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _rng);
+            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic);
             //开始游戏改变玩家状态
             player1.CurrentUser.UserState = UserState.Play;
             player2.CurrentUser.UserState = UserState.Play;

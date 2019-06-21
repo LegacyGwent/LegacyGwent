@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Cynthia.Card
 {
+    [CardEffectId("14001")]//侦查
     public class Reconnaissance : CardEffect
     {
-        [CardEffectId("14001")]//侦查
         public Reconnaissance(IGwentServerGame game, GameCard card) : base(game, card) { }
         public override async Task<int> CardUseEffect()
         {

@@ -24,7 +24,7 @@ namespace Cynthia.Card.Server
         {
             //Container = container;
             _databaseService = databaseService;
-            _gwentMatchs = new GwentMatchs(() => hub, (Random)container.GetService(typeof(Random)));
+            _gwentMatchs = new GwentMatchs(() => hub, (GwentCardTypeService)container.GetService(typeof(GwentCardTypeService)));
             _hub = hub;
         }
 

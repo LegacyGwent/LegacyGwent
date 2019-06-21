@@ -121,5 +121,6 @@ namespace Cynthia.Card
         Task MessageBox(string msg);
         Task ClientDelay(int millisecondsDelay, int? playerIndex = null);
         Task SendEvent<TEvent>(TEvent @event) where TEvent : Event;
+        CardEffect CreateEffectInstance(string effectId, GameCard targetCard);
     }
 }

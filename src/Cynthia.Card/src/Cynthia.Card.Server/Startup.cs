@@ -15,6 +15,7 @@ namespace Cynthia.Card.Server
             services.AddSignalR();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
+            services.AddSingleton<GwentCardTypeService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             services.AddSingleton<IMongoClient, MongoClient>((ctx) =>
             {
