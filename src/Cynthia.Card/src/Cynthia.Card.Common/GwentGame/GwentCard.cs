@@ -8,7 +8,7 @@ namespace Cynthia.Card
     {
         [Key]
         public string CardId { get; set; }
-        public Type EffectType{get;set;}
+        // public Type EffectType { get; set; }
 
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
@@ -51,6 +51,6 @@ namespace Cynthia.Card
 
         public bool IsCountdown { get; set; }
 
-        public bool IsDerive{ get; set; }
+        public bool IsDerive { get; set; }
     }
 }
