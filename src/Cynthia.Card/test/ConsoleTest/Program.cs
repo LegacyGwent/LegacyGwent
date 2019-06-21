@@ -14,6 +14,7 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
+            await Task.CompletedTask;
             IDictionary<string, Type> _idDictionary = new ConcurrentDictionary<string, Type>();
             var assembly = typeof(CardEffect).Assembly;
             var cardEffects = assembly.GetTypes().Where(x => x.GetCustomAttributes(true).Any(x => x.GetType() == typeof(CardEffectIdAttribute)));

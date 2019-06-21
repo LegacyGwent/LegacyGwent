@@ -13,7 +13,7 @@ namespace Cynthia.Card
             //摧毁1个友军单位，随后从牌组顶端打出1张牌；或
             //休战：摧毁1个敌军单位，随后对方抽1张铜色牌并揭示它。
             var result = default(IList<GameCard>);//如果休战,只能选择己方卡牌
-            if (Game.IsPlayersPass[Game.Player1Index] || Game.IsPlayersPass[Game.Player2Index])
+            if (Game.IsPlayersPass.Any(x => x))
                 result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow));
             else result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow));
             if (result.Count != 0)
@@ -28,13 +28,12 @@ namespace Cynthia.Card
                 }
                 else//敌方
                 {
-                    if (!Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Any(x => x.Status.Group == Group.Copper)) return 1;
-                    var mCard = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].ToList().First(x => x.Status.Group == Group.Copper);
-                    await Game.LogicCardMove(mCard, Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)], 0);
-                    if (Card.PlayerIndex == Game.Player1Index)//如果我是玩家1
-                        await Game.DrawCard(0, 1);
-                    else await Game.DrawCard(1, 0);
-                    await mCard.Effect.Reveal(Card);
+                    // if (!Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Any(x => x.Status.Group == Group.Copper)) return 1;
+                    // var mCard = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].ToList().First(x => x.Status.Group == Group.Copper);
+                    // await Game.LogicCardMove(mCard, Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)], 0);
+                    var drawCards = await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex), 1, x => x.Status.Group == Group.Copper);
+                    if (drawCards.Any())
+                        await drawCards.Single().Effect.Reveal(Card);
                 }
             }
             return 0;

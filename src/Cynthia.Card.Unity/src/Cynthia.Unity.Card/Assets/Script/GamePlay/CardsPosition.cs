@@ -20,42 +20,54 @@ public class CardsPosition : MonoBehaviour
     public bool IsStayRow;//是否是特殊排(待出现)
     public int MaxCards;
     public RowPosition Id;
-    public bool IsCanPlay { get{ return (MaxCards > GetCardCount());}}
-    private int _temCardIndex;
+    public bool IsCanPlay { get { return (MaxCards > GetTrueCardCount()); } }
     private void Start()
     {
         ResetCards();
-        _temCardIndex = -1;
     }
     public bool IsTem()
     {
-        return _temCardIndex >= 0;
-    }
-    public void AddTemCard(CardStatus cardInfo,int index)
-    {
-        if (index == _temCardIndex)//如果临时卡存在
+        for (var i = 0; i < transform.childCount; i++)
         {
-            return;//返回
+            if (transform.GetChild(i).GetComponent<CardMoveInfo>().IsTem)
+                return true;
         }
+        return false;
+    }
+    public int DeadCount()
+    {
+        var count = 0;
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<CardShowInfo>().IsDead)
+                count++;
+        }
+        return count;
+    }
+    public void AddTemCard(CardStatus cardInfo, int index)
+    {
+        // if (index == _temCardIndex)//如果临时卡存在
+        // {
+        //     return;//返回
+        // }
         if (IsTem())
         {
-            RemoveCard(_temCardIndex);//删除现有临时卡
+            RemoveAllTemp();//删除现有临时卡
         }
-        if (cardInfo == null)
+        if (cardInfo == null || index == -1)
         {
-            _temCardIndex = -1;
+            // _temCardIndex = -1;
             return;
         }
-        _temCardIndex = index;
+        // _temCardIndex = index;
         var newCard = Instantiate(CardPrefab);
         newCard.GetComponent<CardShowInfo>().CurrentCore = cardInfo;
         newCard.GetComponent<CardShowInfo>().IsGray = true;
         newCard.GetComponent<CardMoveInfo>().IsCanSelect = false;
         newCard.GetComponent<CardMoveInfo>().IsTem = true;
-        //newCard.GetComponent<CardShowInfo>().SetCard();
         newCard.transform.SetParent(transform);
-        newCard.transform.SetSiblingIndex(_temCardIndex);
-        newCard.transform.localPosition = new Vector3((IsLock?0:(-(transform.childCount - 1f) * XSize / 2f)) + index * XSize, -YSize * index, -0.1f - 0.01f * index);
+        newCard.transform.SetSiblingIndex(index);
+        newCard.transform.localPosition = new Vector3((IsLock ? 0 : (-(transform.childCount - 1f) * XSize / 2f)) + index * XSize, -YSize * index, -0.1f - 0.01f * index);
         ResetCards();
     }
     public void ResetCards()//将所有卡牌定位到应有的位置
@@ -71,7 +83,7 @@ public class CardsPosition : MonoBehaviour
             var item = transform.GetChild(i).gameObject.GetComponent<CardMoveInfo>();
             item.IsStay = false;//(在移动的一瞬间会重置掉停滞,但是却没有...)
             item.IsCanDrag = IsCanDrag;
-            if (item.CardShowInfo.CurrentCore!=null&&!item.CardShowInfo.IsGray)
+            if (item.CardShowInfo.CurrentCore != null && !item.CardShowInfo.IsGray)
                 item.IsCanSelect = IsCanSelect;
             if (!item.IsOn || item.IsStay)//如果没使用的话,恢复
             {
@@ -81,7 +93,7 @@ public class CardsPosition : MonoBehaviour
                     item.CardShowInfo.ScaleTo(1);
             }
             item.Speed = 5f;
-            item.SetResetPoint(new Vector3((IsLock?0:(-(count - 1f) * size / 2f)) + i * size, -YSize*i,IsCoverage?(-0.1f-0.01f*(count-i-1)):(-0.1f - 0.01f * i)));
+            item.SetResetPoint(new Vector3((IsLock ? 0 : (-(count - 1f) * size / 2f)) + i * size, -YSize * i, IsCoverage ? (-0.1f - 0.01f * (count - i - 1)) : (-0.1f - 0.01f * i)));
         }
     }
     public void CardsCanDrag(bool isCanDrag)
@@ -124,7 +136,7 @@ public class CardsPosition : MonoBehaviour
     }
     public IEnumerable<CardMoveInfo> GetCards()
     {
-        for(var i = 0; i<transform.childCount; i++)
+        for (var i = 0; i < transform.childCount; i++)
         {
             yield return transform.GetChild(i).GetComponent<CardMoveInfo>();
         }
@@ -137,10 +149,25 @@ public class CardsPosition : MonoBehaviour
         Destroy(card);
         ResetCards();
     }
+
+    public void RemoveAllTemp()
+    {
+        for (var i = transform.childCount - 1; i >= 0; i--)
+        {
+            var card = transform.GetChild(i).GetComponent<CardMoveInfo>();
+            if (card.IsTem)
+            {
+                card.transform.SetParent(null);
+                Destroy(card.gameObject);
+            }
+        }
+        ResetCards();
+    }
+
     public void CreateCard(CardMoveInfo card, int cardIndex)
     {
         var size = XSize;
-        var count = transform.childCount+1;
+        var count = transform.childCount + 1;
         if ((count - 1f) * size > Width)
         {
             size = Width / (count - 1f);
@@ -148,7 +175,7 @@ public class CardsPosition : MonoBehaviour
         cardIndex = (cardIndex == -1 ? transform.childCount : cardIndex);
         var position = new Vector3
             (
-                ((IsLock ? 0 : (-(count - 1f) * size / 2f)) + cardIndex * size), 
+                ((IsLock ? 0 : (-(count - 1f) * size / 2f)) + cardIndex * size),
                 (-YSize * (cardIndex)),
                 (IsCoverage ? (-0.1f - 0.01f * (count - cardIndex - 1)) : (-0.1f - 0.01f * cardIndex))
             );
@@ -160,11 +187,13 @@ public class CardsPosition : MonoBehaviour
         card.transform.localScale = Vector3.one;
         ResetCards();
     }
+
     public void CreateCardTo(CardStatus card, int cardIndex)
     {
         var gameCard = CreateCard(card);
         CreateCard(gameCard, cardIndex);
     }
+
     public CardMoveInfo CreateCard(CardStatus card)
     {
         var newCard = Instantiate(CardPrefab);
@@ -176,38 +205,56 @@ public class CardsPosition : MonoBehaviour
         newCard.GetComponent<CardShowInfo>().SetCard();
         return newCard.GetComponent<CardMoveInfo>();
     }
+
     public void SetCards(IEnumerable<CardMoveInfo> Cards)
     {
-        Cards.ForAll(x=>CreateCard(x,-1));
+        Cards.ForAll(x => CreateCard(x, -1));
+    }
+
+    public int GetTrueCardCount()
+    {
+        var count = 0;
+        for (var i = transform.childCount - 1; i >= 0; i--)
+        {
+            var card = transform.GetChild(i).GetComponent<CardMoveInfo>();
+            if (!(card.IsTem || card.CardShowInfo.IsDead))
+            {
+                count++;
+            }
+        }
+        return count;
     }
     public int GetCardCount()
     {
         return transform.childCount;
     }
-    public void SetPartCardGray(IList<int> part,bool isGray)
+
+    public void SetPartCardGray(IList<int> part, bool isGray)
     {
         var card = default(CardShowInfo);
         part.ForAll
-        (   i =>
-            {
-                var ti = i;
-                for(var j = 0; j <= ti; j ++)
-                {
-                    if (transform.GetChild(j).GetComponent<CardShowInfo>().IsDead)
-                    {
-                        ti++;
-                    }
-                }
-                card = transform.GetChild(ti).GetComponent<CardShowInfo>();
-                card.IsGray = isGray;
-            }
+        (i =>
+         {
+             var ti = i;
+             for (var j = 0; j <= ti; j++)
+             {
+                 var cardShowInfo = transform.GetChild(j).GetComponent<CardShowInfo>();
+                 if (cardShowInfo.IsDead || cardShowInfo.CardMoveInfo.IsTem)
+                 {
+                     ti++;
+                 }
+             }
+             card = transform.GetChild(ti).GetComponent<CardShowInfo>();
+             card.IsGray = isGray;
+         }
         );
     }
+
     public void SetAllCardGray(bool isGray)
     {
         var card = default(CardShowInfo);
         var count = transform.childCount;
-        for(var i = 0; i<count; i++)
+        for (var i = 0; i < count; i++)
         {
             card = transform.GetChild(i).GetComponent<CardShowInfo>();
             card.IsGray = isGray;/*
@@ -218,9 +265,10 @@ public class CardsPosition : MonoBehaviour
             }*/
         }
     }
+
     public void SetCards(IEnumerable<CardStatus> Cards)
     {
-        Cards.Select(x=> 
+        Cards.Select(x =>
         {
             var newCard = Instantiate(CardPrefab);
             newCard.GetComponent<CardShowInfo>().CurrentCore = x;

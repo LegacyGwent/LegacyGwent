@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 using System;
 using Microsoft.AspNetCore.SignalR.Client;
 
-public class LoginClick : MonoBehaviour {
+public class LoginClick : MonoBehaviour
+{
     private static bool IsLogining = false;
     public InputField Username;
     public InputField Password;
@@ -17,7 +18,7 @@ public class LoginClick : MonoBehaviour {
 
     private GwentClientService _client;
     //private GlobalUIService _guiservice;
-    
+
     private void Start()
     {
         if (_client != null)
@@ -35,7 +36,7 @@ public class LoginClick : MonoBehaviour {
         try
         {
             var hub = DependencyResolver.Container.Resolve<HubConnection>();
-            if(hub.State == HubConnectionState.Disconnected)
+            if (hub.State == HubConnectionState.Disconnected)
                 await hub.StartAsync();
             await _client.Login(Username.text, Password.text);
             if (_client.User == null)
@@ -47,7 +48,7 @@ public class LoginClick : MonoBehaviour {
             //Debug.Log($"用户名是:{_client.User.UserName},密码是:{_client.User.PassWord}");
             LogMessage.text = $"登录成功,欢迎回来~{_client.User.PlayerName}";
             SceneManager.LoadScene("Game");
-            Debug.Log("执行了!跳转后");
+            // Debug.Log("执行了!跳转后");
             IsLogining = false;
         }
         catch
@@ -56,13 +57,13 @@ public class LoginClick : MonoBehaviour {
             //await _client.Login(Username.text, Password.text);
             //if (_client.User == null)
             //{
-                LogMessage.text = "发生异常,原因或许是服务器未开启,尝试重试或者联系作者";
+            LogMessage.text = "发生异常,原因或许是服务器未开启,尝试重试或者联系作者";
             //    return;
             //}
         }
         finally
         {
-            Debug.Log("执行了!finally");
+            // Debug.Log("执行了!finally");
             IsLogining = false;
         }
     }
