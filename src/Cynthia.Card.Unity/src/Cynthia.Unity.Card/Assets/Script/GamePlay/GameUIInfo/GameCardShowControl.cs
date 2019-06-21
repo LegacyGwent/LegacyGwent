@@ -159,7 +159,6 @@ public class GameCardShowControl : MonoBehaviour
         mCard.CurrentCore = card;
         //mCard.SetCard();
         //--------------------------
-        Debug.Log(index + "!!");
         mCard = GameEvent.MyHand.transform.GetChild(index).GetComponent<CardShowInfo>();
         mCard.CurrentCore = card;
         //mCard.SetCard();

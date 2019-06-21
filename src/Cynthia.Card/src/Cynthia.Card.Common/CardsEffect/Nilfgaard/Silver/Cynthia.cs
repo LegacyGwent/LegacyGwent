@@ -11,7 +11,9 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
             var enemyhand = Game.RowToList(PlayerIndex, RowPosition.EnemyHand);
-            var card = enemyhand.Where(x => !x.Status.IsReveal && x.CardInfo().CardType == CardType.Unit).OrderByDescending(x => x.ToHealth().health).First();
+            var cards = enemyhand.Where(x => !x.Status.IsReveal && x.CardInfo().CardType == CardType.Unit).OrderByDescending(x => x.ToHealth().health);
+            if (cards.Count() == 0) return 0;
+            var card = cards.First();
             var point = card.ToHealth().health;
             await card.Effect.Reveal(Card);
             await Card.Effect.Boost(point, card);

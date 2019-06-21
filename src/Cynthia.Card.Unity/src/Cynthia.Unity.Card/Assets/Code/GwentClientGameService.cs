@@ -29,7 +29,7 @@ namespace Cynthia.Card.Client
         //响应指令
         private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
         {
-            Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令");
+            // Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令");
             foreach (var operation in operations)
             {
                 if (!await ResponseOperation(operation))
@@ -39,7 +39,7 @@ namespace Cynthia.Card.Client
         }
         private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
         {
-            Debug.Log($"执行了指令{operation.OperationType}");
+            // Debug.Log($"执行了指令{operation.OperationType}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
@@ -47,7 +47,7 @@ namespace Cynthia.Card.Client
                 //新时代
                 case ServerOperationType.ClientDelay:
                     var dTime = arguments[0].ToType<int>();
-                    Debug.Log($"延迟触发,延迟时常:{dTime}");
+                    // Debug.Log($"延迟触发,延迟时常:{dTime}");
                     await Task.Delay(dTime);
                     break;
                 case ServerOperationType.SelectMenuCards:

@@ -11,7 +11,7 @@ public class CardShowInfo : MonoBehaviour
 {
     public CardMoveInfo CardMoveInfo;
     //?
-    public bool IsDead { get => _isDead || CardMoveInfo.IsTem; set => _isDead = value; }
+    public bool IsDead { get => _isDead; set => _isDead = value; }
     public bool _isDead = false;
     public CardStatus CurrentCore
     {
