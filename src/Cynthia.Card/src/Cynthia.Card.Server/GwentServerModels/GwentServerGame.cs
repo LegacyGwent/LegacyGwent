@@ -270,6 +270,7 @@ namespace Cynthia.Card.Server
             }
             await BigRoundEnd();
         }
+
         public async Task RoundPlayCard(int playerIndex, RoundInfo cardInfo)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         {   //获取卡牌,手牌或者领袖,将那个GameCard存起来
             var card = cardInfo.HandCardIndex == -1 ? PlayersLeader[playerIndex][0] : PlayersHandCard[playerIndex][cardInfo.HandCardIndex];
@@ -287,6 +288,7 @@ namespace Cynthia.Card.Server
                     await card.Effect.Play(cardInfo.CardLocation);
             }
         }
+
         //玩家抽卡
         public async Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count, Func<GameCard, bool> filter = null)
         {
@@ -1275,50 +1277,73 @@ namespace Cynthia.Card.Server
             IsPlayersLeader[Player2Index] = true;
             PlayersLeader[Player1Index] = new List<GameCard>()
             {
-                new GameCard()
-                {
-                    PlayerIndex = Player1Index,
-                    Status = new CardStatus(player1.Deck.Leader)
-                    {
-                        DeckFaction = PlayersFaction[Player1Index],
-                        CardRow = RowPosition.MyLeader,
-                    }
-                }.With(card => card.Effect = CreateEffectInstance(player1.Deck.Leader,card))
+                new GameCard(this,Player1Index,
+                    new CardStatus(
+                        player1.Deck.Leader,
+                        PlayersFaction[Player1Index],
+                        RowPosition.MyLeader
+                    ),player1.Deck.Leader)
+                // {
+                //     PlayerIndex = Player1Index,
+                //     Status = new CardStatus(player1.Deck.Leader)
+                //     {
+                //         DeckFaction = PlayersFaction[Player1Index],
+                //         CardRow = RowPosition.MyLeader,
+                //     }
+                // }.With(card => card.Effect = CreateEffectInstance(player1.Deck.Leader,card))
             }.ToList();
             PlayersLeader[Player2Index] = new List<GameCard>
             {
-                new GameCard()
-                {
-                    PlayerIndex = Player2Index,
-                    Status = new CardStatus(player2.Deck.Leader)
-                    {
-                        DeckFaction = PlayersFaction[Player2Index],
-                        CardRow = RowPosition.MyLeader,
-                    }
-                }.With(card => card.Effect = CreateEffectInstance(player2.Deck.Leader,card))
+                new GameCard(this,Player2Index,
+                    new CardStatus(
+                        player2.Deck.Leader,
+                        PlayersFaction[Player2Index],
+                        RowPosition.MyLeader
+                    ),player2.Deck.Leader)
+                // {()
+                //     PlayerIndex = Player2Index,
+                //     Status = new CardStatus(player2.Deck.Leader)
+                //     {
+                //         DeckFaction = PlayersFaction[Player2Index],
+                //         CardRow = RowPosition.MyLeader,
+                //     }
+                // }.With(card => card.Effect = CreateEffectInstance(player2.Deck.Leader,card))
             }.ToList();
             //将卡组转化成实体,并且打乱牌组
-            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(x => new GameCard()
-            {
-                PlayerIndex = Player1Index,
-                Status = new CardStatus(x)
-                {
-                    DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
-                    CardRow = RowPosition.MyDeck
-                }
-            }.With(card => card.Effect = CreateEffectInstance(x, card)))
+            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
+                new GameCard(this, Player1Index,
+                    new CardStatus(
+                        cardId,
+                        PlayersFaction[Player1Index],
+                        RowPosition.MyDeck
+                    ), cardId))
+            // new GameCard(this)
+            // {
+            //     PlayerIndex = Player1Index,
+            //     Status = new CardStatus(cardId)
+            //     {
+            //         DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
+            //         CardRow = RowPosition.MyDeck
+            //     }
+            // }.With(card => card.Effect = CreateEffectInstance(cardId, card)))
             .Mess().ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
-            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(x => new GameCard()
-            {
-                PlayerIndex = Player2Index,
-                Status = new CardStatus(x)
-                {
-                    DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
-                    CardRow = RowPosition.MyDeck
-                }
-
-            }.With(card => card.Effect = CreateEffectInstance(x, card)))
+            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
+                new GameCard(this, Player2Index,
+                    new CardStatus(
+                        cardId,
+                        PlayersFaction[Player2Index],
+                        RowPosition.MyDeck
+                    ), cardId)
+            )
+            // {
+            //     PlayerIndex = Player2Index,
+            //     Status = new CardStatus(x)
+            //     {
+            //         DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
+            //         CardRow = RowPosition.MyDeck
+            //     }
+            // }.With(card => card.Effect = CreateEffectInstance(x, card)))
             .Mess().ToList();
         }
         public async Task SendBigRoundEndToCemetery()
@@ -1375,20 +1400,25 @@ namespace Cynthia.Card.Server
         //====================================================================================
         //====================================================================================
         //卡牌事件处理与转发
-        public async Task CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
+        public async Task CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
         {
             var row = RowToList(playerIndex, position.RowPosition);
             if (position.RowPosition.IsOnPlace() && row.Count >= RowMaxCount)
                 return;
-            var creatCard = new GameCard()
-            {
-                PlayerIndex = playerIndex,
-                Status = new CardStatus(CardId)
-                {
-                    DeckFaction = PlayersFaction[playerIndex],
-                    CardRow = RowPosition.None,
-                }
-            }.With(card => card.Effect = CreateEffectInstance(CardId, card));
+            var creatCard = new GameCard(this, playerIndex,
+                    new CardStatus(
+                        cardId,
+                        PlayersFaction[playerIndex],
+                        RowPosition.None
+                    ), cardId);
+            // {
+            //     PlayerIndex = playerIndex,
+            //     Status = new CardStatus(cardId)
+            //     {
+            //         DeckFaction = PlayersFaction[playerIndex],
+            //         CardRow = RowPosition.None,
+            //     }
+            // }.With(card => card.Effect = CreateEffectInstance(cardId, card));
             if (setting != null)
                 setting(creatCard.Status);
             await LogicCardMove(creatCard, row, position.CardIndex);
@@ -1417,7 +1447,7 @@ namespace Cynthia.Card.Server
             foreach (var card in GetAllCard(Player1Index).ToList())
             {
                 if (card.Status.IsLock || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
-                await card.Effect.Effects.RaiseEvent(@event);
+                await card.Effects.RaiseEvent(@event);
             }
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
@@ -1434,7 +1464,7 @@ namespace Cynthia.Card.Server
 
         public CardEffect CreateEffectInstance(string effectId, GameCard targetCard)
         {
-            return _gwentCardTypeService.CreateInstance(effectId, this, targetCard);
+            return _gwentCardTypeService.CreateInstance(effectId, targetCard);
         }
         // public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
         // {

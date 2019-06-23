@@ -2,10 +2,10 @@ namespace Cynthia.Card
 {
     public class CardStatus
     {
-        public CardStatus(string cardIndex)
+        public CardStatus(string statusId)
         {
-            CardId = cardIndex;
-            CardInfo = GwentMap.CardMap[cardIndex];
+            CardId = statusId;
+            CardInfo = GwentMap.CardMap[statusId];
             /*
             Strength = GwentMap.CardMap[cardIndex].Strength;
             Type = GwentMap.CardMap[cardIndex].CardType;
@@ -16,11 +16,19 @@ namespace Cynthia.Card
             Group = GwentMap.CardMap[cardIndex].Group;
             Faction = GwentMap.CardMap[cardIndex].Faction;*/
         }
+
+        public CardStatus(string statusId, Faction faction, RowPosition position) : this(statusId)
+        {
+            this.Faction = faction;
+            CardRow = position;
+        }
+
         public CardStatus()
         {
             IsCardBack = true;
             Conceal = true;
         }
+
         private Categorie[] _categories;
         private string _name;
         private string _info;

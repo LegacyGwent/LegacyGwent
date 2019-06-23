@@ -1,18 +1,26 @@
+using System.Linq;
+
 namespace Cynthia.Card
 {
     public class GameCard : IHasEffects
     {
-        public GameCard()
+        public GameCard(IGwentServerGame game)
         {
             Effects = new EffectSet(this);
+            Game = game;
         }
 
         //通过卡牌状态,效果,所在半场来创建卡牌
-        public GameCard(int playerIndex, CardStatus cardStatus, CardEffect cardEffect) : this()
+        public GameCard(IGwentServerGame game, int playerIndex, CardStatus cardStatus, params string[] effectIds) : this(game)
         {
             PlayerIndex = playerIndex;
-            Effect = cardEffect;
+            // Effect = cardEffect;
             Status = cardStatus;
+            foreach (var effectId in effectIds)
+            {
+                Effects.Add(game.CreateEffectInstance(effectId, this));
+            }
+            Effect = game.CreateEffectInstance(effectIds.First(), this);
         }
 
         //卡牌存在半场
@@ -25,6 +33,9 @@ namespace Cynthia.Card
         public CardStatus Status { get; set; }
 
         //卡牌效果合集
-        public EffectSet Effects { get; }
+        public EffectSet Effects { get; set; }
+
+        //游戏
+        public IGwentServerGame Game { get; set; }
     }
 }
