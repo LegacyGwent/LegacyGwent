@@ -27,7 +27,7 @@ namespace Cynthia.Card.Server
 
         public Type GetType(string effectId) => _idDictionary[effectId];
 
-        public CardEffect CreateInstance(string effectId, GwentServerGame game, GameCard targetCard)
-            => (CardEffect)Activator.CreateInstance(GetType(effectId), game, targetCard);
+        public CardEffect CreateInstance(string effectId, GameCard targetCard)
+            => (CardEffect)Activator.CreateInstance(GetType(effectId), targetCard);
     }
 }

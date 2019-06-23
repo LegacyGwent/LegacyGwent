@@ -1,0 +1,16 @@
+using System.Linq;
+using System.Threading.Tasks;
+using Alsein.Extensions;
+
+namespace Cynthia.Card
+{
+	[CardEffectId("32012")]//叶奈法：死灵法师
+	public class YenneferNecromancer : CardEffect
+	{//从对方墓场中复活1张铜色/银色“士兵”牌
+		public YenneferNecromancer(GameCard card) : base(card){}
+		public override async Task<int> CardPlayEffect(bool isSpying)
+		{
+			return 0;
+		}
+	}
+}
