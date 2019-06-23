@@ -21,6 +21,7 @@ namespace Cynthia.Card
         public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
         public int PlayerIndex { get => Card.PlayerIndex; }
         public int Countdown { get => Card.Status.Countdown; }
+        public Random RNG { get => Game.RNG; }
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
             Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);

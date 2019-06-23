@@ -14,7 +14,8 @@ namespace Cynthia.Card
                 GwentMap.GetCreateCardsId(
                     x => x.Faction == Faction.Nilfgaard &&
                     (x.Group == Group.Copper) &&
-                    (x.Categories.Contains(Categorie.Soldier))
+                    (x.Categories.Contains(Categorie.Soldier)),
+                    RNG
                 )
                 .ToList()
             );

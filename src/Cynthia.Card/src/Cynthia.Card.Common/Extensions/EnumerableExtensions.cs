@@ -21,15 +21,14 @@ namespace Cynthia.Card
             var a = typeof(T).Name;
             return JsonConvert.DeserializeObject<T>(jsonString);
         }
-        public static IEnumerable<T> Mess<T>(this IEnumerable<T> source)
+        public static IEnumerable<T> Mess<T>(this IEnumerable<T> source, Random rng)
         {
             var arr = source.ToArray();
             var pickeds = false.Plural(arr.Length).ToArray();
             var num = 0;
-            var rand = new Random();
             while (num < arr.Length)
             {
-                var r = rand.Next(arr.Length - num);
+                var r = rng.Next(arr.Length - num);
                 var index = r;
                 for (var i = 0; i <= index; i++)
                 {

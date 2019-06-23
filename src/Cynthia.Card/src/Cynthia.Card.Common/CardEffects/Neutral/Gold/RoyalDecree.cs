@@ -11,7 +11,7 @@ namespace Cynthia.Card
         {
             //选择卡组中的金色单位
             var list = Game.PlayersDeck[Card.PlayerIndex]
-            .Where(x => x.Status.Group == Group.Gold && x.CardInfo().CardType == CardType.Unit).Mess();
+            .Where(x => x.Status.Group == Group.Gold && x.CardInfo().CardType == CardType.Unit).Mess(RNG);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list.ToList());

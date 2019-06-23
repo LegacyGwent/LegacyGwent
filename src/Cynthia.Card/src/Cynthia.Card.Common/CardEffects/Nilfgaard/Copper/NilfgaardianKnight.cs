@@ -12,11 +12,11 @@ namespace Cynthia.Card
             await Card.Effect.Armor(2, Card);
             var target = Game.PlayersHandCard[Card.PlayerIndex].Where(x => !x.Status.IsReveal);
             if (target.Where(x => x.Status.Group == Group.Copper).Count() > 0)
-                await target.Where(x => x.Status.Group == Group.Copper).Mess().First().Effect.Reveal(Card);
+                await target.Where(x => x.Status.Group == Group.Copper).Mess(RNG).First().Effect.Reveal(Card);
             else if (target.Where(x => x.Status.Group == Group.Silver).Count() > 0)
-                await target.Where(x => x.Status.Group == Group.Silver).Mess().First().Effect.Reveal(Card);
+                await target.Where(x => x.Status.Group == Group.Silver).Mess(RNG).First().Effect.Reveal(Card);
             else if (target.Where(x => x.Status.Group == Group.Gold).Count() > 0)
-                await target.Where(x => x.Status.Group == Group.Gold).Mess().First().Effect.Reveal(Card);
+                await target.Where(x => x.Status.Group == Group.Gold).Mess(RNG).First().Effect.Reveal(Card);
             return 0;
         }
     }

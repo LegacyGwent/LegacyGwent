@@ -9,7 +9,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame
     {
-        public GwentCardTypeService _gwentCardTypeService;
+        private GwentCardTypeService _gwentCardTypeService;
         public int _randomSeed;
         public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = 9;
