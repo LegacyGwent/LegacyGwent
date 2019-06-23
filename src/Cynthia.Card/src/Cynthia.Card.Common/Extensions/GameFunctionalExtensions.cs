@@ -188,7 +188,7 @@ namespace Cynthia.Card
             }
             return false;
         }
-        public static CardStatus CreateBackCard(this CardStatus card) => new CardStatus() { IsCardBack = true, DeckFaction = card.DeckFaction };
+        public static CardStatus CreateBackCard(this CardStatus card) => new CardStatus(card.DeckFaction);// { IsCardBack = true, DeckFaction = card.DeckFaction };
         public static int CardPoint(this GameCard card) => card.Status.HealthStatus + card.Status.Strength;
         public static CardLocation Mirror(this CardLocation location) => new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex };
         public static SelectModeType Mirror(this SelectModeType selectMode)
