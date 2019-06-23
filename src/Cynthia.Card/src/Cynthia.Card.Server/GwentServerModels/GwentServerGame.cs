@@ -362,7 +362,7 @@ namespace Cynthia.Card.Server
                 {
                     Source = new CardLocation() { RowPosition = RowPosition.EnemyDeck },
                     Target = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
-                    Card = new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
+                    Card = new CardStatus(PlayersFaction[enemyPlayerIndex])// { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
                 });
                 //await GetCardFrom(myPlayerIndex, RowPosition.EnemyDeck, RowPosition.EnemyStay, 0, new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
                 await ClientDelay(400, myPlayerIndex);
@@ -406,7 +406,7 @@ namespace Cynthia.Card.Server
                         RowPosition = RowPosition.EnemyHand,
                         CardIndex = mulliganCardIndex
                     },
-                    new CardStatus() { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
+                    new CardStatus(PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction)// { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
                 );
                 //----------------------------------------------------------------------
                 //记录本次黑名单的卡牌Id
@@ -474,9 +474,9 @@ namespace Cynthia.Card.Server
                     playerIndex,
                     new MenuSelectCardInfo()
                     {
-                        SelectList = selectList.Select(x =>
+                        SelectList = selectList.Select(card =>
                         {
-                            return (!isEnemyBack || x.PlayerIndex == playerIndex) ? x.Status : new CardStatus() { DeckFaction = x.Status.DeckFaction, IsCardBack = true };
+                            return (!isEnemyBack || card.PlayerIndex == playerIndex) ? card.Status : new CardStatus(card.Status.DeckFaction);// { DeckFaction = card.Status.DeckFaction, IsCardBack = true };
                         }).ToList(),
                         SelectCount = selectCount,
                         IsCanOver = isCanOver,
@@ -912,370 +912,371 @@ namespace Cynthia.Card.Server
                 MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status),
                 MyStay = PlayersStay[myPlayerIndex].Select(x => x.Status),
                 EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.Status),
-                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Status).Select(x => x.IsReveal ? x : new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
-                MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.Status)).ToArray(),
+                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Status).Select(x => x.IsReveal ? x : new CardStatus(PlayersFaction[enemyPlayerIndex])),// { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }),
+            MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.Status)).ToArray(),
                 EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
                 (
-                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item)
+                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus(PlayersFaction[enemyPlayerIndex]) /* { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } */: item)
                 ).ToArray(),
                 MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status),
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status),
             };
-        }
-        public GameInfomation GetPointInfo(TwoPlayer player)
+    }
+    public GameInfomation GetPointInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        return new GameInfomation()
         {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {
-                MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus)
-            };
-        }
-        public GameInfomation GetCountInfo(TwoPlayer player)
+            MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus)
+        };
+    }
+    public GameInfomation GetCountInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        return new GameInfomation()
+        {//手牌/ 卡组/ 墓地/
+            MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
+            EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
+            MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+            EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+            MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
+            EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count()
+        };
+    }
+    public GameInfomation GetPassInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        return new GameInfomation()
         {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {//手牌/ 卡组/ 墓地/
-                MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
-                EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
-                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
-                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
-                MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
-                EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count()
-            };
-        }
-        public GameInfomation GetPassInfo(TwoPlayer player)
+            IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
+            IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex]
+        };
+    }
+    public GameInfomation GetMulliganInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        return new GameInfomation()
         {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {
-                IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
-                IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex]
-            };
-        }
-        public GameInfomation GetMulliganInfo(TwoPlayer player)
+            IsMyPlayerMulligan = IsPlayersMulligan[myPlayerIndex],
+            IsEnemyPlayerMulligan = IsPlayersMulligan[enemyPlayerIndex]
+        };
+    }
+    public GameInfomation GetWinCountInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        return new GameInfomation()
         {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {
-                IsMyPlayerMulligan = IsPlayersMulligan[myPlayerIndex],
-                IsEnemyPlayerMulligan = IsPlayersMulligan[enemyPlayerIndex]
-            };
-        }
-        public GameInfomation GetWinCountInfo(TwoPlayer player)
+            MyWinCount = PlayersWinCount[myPlayerIndex],
+            EnemyWinCount = PlayersWinCount[enemyPlayerIndex]
+        };
+    }
+    public GameInfomation GetNameInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        return new GameInfomation()
         {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {
-                MyWinCount = PlayersWinCount[myPlayerIndex],
-                EnemyWinCount = PlayersWinCount[enemyPlayerIndex]
-            };
-        }
-        public GameInfomation GetNameInfo(TwoPlayer player)
-        {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {
-                EnemyName = Players[enemyPlayerIndex].PlayerName,
-                MyName = Players[myPlayerIndex].PlayerName
-            };
-        }
+            EnemyName = Players[enemyPlayerIndex].PlayerName,
+            MyName = Players[myPlayerIndex].PlayerName
+        };
+    }
 
-        //更新所有信息
-        public GameInfomation GetAllInfo(TwoPlayer player)
+    //更新所有信息
+    public GameInfomation GetAllInfo(TwoPlayer player)
+    {
+        var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
+        var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+        var result = new GameInfomation()
         {
-            var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
-            var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
-            return new GameInfomation()
-            {
-                MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-                IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
-                IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
-                MyWinCount = PlayersWinCount[myPlayerIndex],
-                EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
-                IsMyLeader = IsPlayersLeader[myPlayerIndex],
-                IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
-                MyLeader = PlayersLeader[myPlayerIndex][0].Status,
-                EnemyLeader = PlayersLeader[enemyPlayerIndex][0].Status,
-                EnemyName = Players[enemyPlayerIndex].PlayerName,
-                MyName = Players[myPlayerIndex].PlayerName,
-                MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
-                EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
-                MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
-                EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
-                MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
-                EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
-                MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status).ToList(),
-                EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Status).Select(x => x.IsReveal ? x : new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }).ToList(),
-                MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.Status).ToList()).ToArray(),
-                EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
-                (
-                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } : item).ToList()
-                ).ToArray(),
-                MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status).ToList(),
-                EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status).ToList(),
-                MyStay = PlayersStay[myPlayerIndex].Select(x => x.Status).ToList(),
-                EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.Status).ToList()
-            };
-        }
-        //--------------------------------------
-        public Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type)
-        {
-            return Task.WhenAll(Players[playerIndex].SendAsync(ServerOperationType.ShowWeatherApply, row, type),
-                                Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.ShowWeatherApply, row.Mirror(), type));
-        }
-        public Task SendCardOn(int playerIndex, CardLocation location)
-        {
-            if (!location.RowPosition.IsOnRow()) return Task.CompletedTask;
-            return Players[playerIndex].SendAsync
+            MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
+            IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
+            MyWinCount = PlayersWinCount[myPlayerIndex],
+            EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
+            IsMyLeader = IsPlayersLeader[myPlayerIndex],
+            IsEnemyLeader = IsPlayersLeader[enemyPlayerIndex],
+            MyLeader = PlayersLeader[myPlayerIndex][0].Status,
+            EnemyLeader = PlayersLeader[enemyPlayerIndex][0].Status,
+            EnemyName = Players[enemyPlayerIndex].PlayerName,
+            MyName = Players[myPlayerIndex].PlayerName,
+            MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
+            EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
+            MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
+            EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
+            MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
+            EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
+            MyHandCard = PlayersHandCard[myPlayerIndex].Select(x => x.Status).ToList(),
+            EnemyHandCard = PlayersHandCard[enemyPlayerIndex].Select(x => x.Status).Select(x => x.IsReveal ? x : new CardStatus(PlayersFaction[enemyPlayerIndex])/* { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }*/).ToList(),
+            MyPlace = PlayersPlace[myPlayerIndex].Select(x => x.Select(c => c.Status).ToList()).ToArray(),
+            EnemyPlace = PlayersPlace[enemyPlayerIndex].Select
             (
-                ServerOperationType.CardOn,
-                location
-            );
-        }
-        public Task SendCardDown(int playerIndex, CardLocation location)
-        {
-            if (!location.RowPosition.IsOnRow()) return Task.CompletedTask;
-            return Players[playerIndex].SendAsync
+                x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus(PlayersFaction[enemyPlayerIndex])/*  { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] } */: item).ToList()
+            ).ToArray(),
+            MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status).ToList(),
+            EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status).ToList(),
+            MyStay = PlayersStay[myPlayerIndex].Select(x => x.Status).ToList(),
+            EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.Status).ToList()
+        };
+        return result;
+    }
+    //--------------------------------------
+    public Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type)
+    {
+        return Task.WhenAll(Players[playerIndex].SendAsync(ServerOperationType.ShowWeatherApply, row, type),
+                            Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.ShowWeatherApply, row.Mirror(), type));
+    }
+    public Task SendCardOn(int playerIndex, CardLocation location)
+    {
+        if (!location.RowPosition.IsOnRow()) return Task.CompletedTask;
+        return Players[playerIndex].SendAsync
+        (
+            ServerOperationType.CardOn,
+            location
+        );
+    }
+    public Task SendCardDown(int playerIndex, CardLocation location)
+    {
+        if (!location.RowPosition.IsOnRow()) return Task.CompletedTask;
+        return Players[playerIndex].SendAsync
+        (
+            ServerOperationType.CardDown,
+            location
+        );
+    }
+    public Task SendCardMove(int playerIndex, MoveCardInfo info)
+    {
+        return Players[playerIndex].SendAsync
+        (
+            ServerOperationType.CardMove,
+            info
+        );
+    }
+    public Task SendSetCard(int playerIndex, GameCard card)//更新某个玩家的一个卡牌
+    {
+        //如果处于敌方场地
+        var isBack = (card.Status.CardRow.IsOnPlace() && card.Status.Conceal);
+        if (card.PlayerIndex != playerIndex) isBack = (card.Status.CardRow.IsInHand() && (!card.Status.IsReveal));
+        return Players[playerIndex].SendAsync
             (
-                ServerOperationType.CardDown,
-                location
-            );
-        }
-        public Task SendCardMove(int playerIndex, MoveCardInfo info)
-        {
-            return Players[playerIndex].SendAsync
-            (
-                ServerOperationType.CardMove,
-                info
-            );
-        }
-        public Task SendSetCard(int playerIndex, GameCard card)//更新某个玩家的一个卡牌
-        {
-            //如果处于敌方场地
-            var isBack = (card.Status.CardRow.IsOnPlace() && card.Status.Conceal);
-            if (card.PlayerIndex != playerIndex) isBack = (card.Status.CardRow.IsInHand() && (!card.Status.IsReveal));
-            return Players[playerIndex].SendAsync
-                (
-                    ServerOperationType.SetCard,
-                    GetCardLocation(playerIndex, card),
-                    isBack ?
-                    new CardStatus()
-                    {
-                        IsCardBack = true,
-                        DeckFaction = card.Status.DeckFaction
-                    }
-                    : card.Status
-                );
-        }
-        //
-        public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false)
-        {
-            await SendCardMove(card.PlayerIndex, new MoveCardInfo()
-            {
-                Source = GetCardLocation(card.PlayerIndex, card),
-                Target = location,
-                Card = refresh ? (card.TagetIsShowBack(location, card.PlayerIndex, card.PlayerIndex) ? card.Status.CreateBackCard() : card.Status) : null
-            });
-            await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
-            {
-                Source = GetCardLocation(AnotherPlayer(card.PlayerIndex), card),
-                Target = new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex },
-                Card = refresh ? (card.TagetIsShowBack(location, card.PlayerIndex, AnotherPlayer(card.PlayerIndex)) ? card.Status.CreateBackCard() : card.Status) : null
-            });
-            var row = RowToList(card.PlayerIndex, card.Status.CardRow);
-            var target = RowToList(card.PlayerIndex, location.RowPosition);
-            await LogicCardMove(card, target, location.CardIndex);
-            await SetCountInfo();
-            if (refreshPoint)
-                await SetPointInfo();
-        }
-        public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
-        {
-            if (!card.Status.CardRow.IsOnRow()) return;
-            await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
-        }
-        public async Task ShowCardDown(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
-        {
-            if (!card.Status.CardRow.IsOnRow()) return;
-            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardDown, GetCardLocation(card.PlayerIndex, card));
-            var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardDown,
-                GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
-            await Task.WhenAll(task1, task2);
-        }
-        public async Task ShowCardOn(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
-        {
-            if (!card.Status.CardRow.IsOnRow()) return;
-            var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardOn, GetCardLocation(card.PlayerIndex, card));
-            var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardOn,
-                GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
-            await Task.WhenAll(task1, task2);
-        }
-        //
-        public Task ShowCardNumberChange(GameCard card, int num, NumberType type = NumberType.Normal)
-        {
-            return Task.WhenAll
-            (
-                SendCardNumberChange(Player1Index, card, num, type),
-                SendCardNumberChange(Player2Index, card, num, type)
-            );
-        }
-        public Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type = NumberType.Normal)
-        {
-            if (card.IsShowBack(playerIndex))
-                return Task.CompletedTask;
-            return Players[playerIndex].SendAsync
-                (
-                    ServerOperationType.ShowCardNumberChange,
-                    GetCardLocation(playerIndex, card),
-                    num,
-                    type
-                );
-        }
-        //--
-        public Task SendBullet(int playerIndex, GameCard source, GameCard target, BulletType type)
-        {
-            if (source.IsShowBack(playerIndex) || target.IsShowBack(playerIndex))
-                return Task.CompletedTask;
-            return Players[playerIndex].SendAsync
-            (
-                ServerOperationType.ShowBullet,
-                GetCardLocation(playerIndex, source),
-                GetCardLocation(playerIndex, target),
-                type
-            );
-        }
-        public Task ShowBullet(GameCard source, GameCard target, BulletType type)
-        {
-            return Task.WhenAll
-            (
-                SendBullet(Player1Index, source, target, type),
-                SendBullet(Player2Index, source, target, type)
-            );
-        }
-        //
-        public Task SendCardIconEffect(int playerIndex, GameCard card, CardIconEffectType type)
-        {
-            return Players[playerIndex].SendAsync
-            (
-                ServerOperationType.ShowCardIconEffect,
+                ServerOperationType.SetCard,
                 GetCardLocation(playerIndex, card),
-                type
+                isBack ?
+                new CardStatus(card.Status.DeckFaction)
+                // {
+                //     IsCardBack = true,
+                //     DeckFaction = card.Status.DeckFaction
+                // }
+                : card.Status
             );
-        }
-        public Task ShowCardIconEffect(GameCard card, CardIconEffectType type)
+    }
+    //
+    public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false)
+    {
+        await SendCardMove(card.PlayerIndex, new MoveCardInfo()
         {
-            return Task.WhenAll
-            (
-                SendCardIconEffect(Player1Index, card, type),
-                SendCardIconEffect(Player2Index, card, type)
-            );
-        }
-        //
-        public Task SendCardBreakEffect(int playerIndex, GameCard card, CardBreakEffectType type)
+            Source = GetCardLocation(card.PlayerIndex, card),
+            Target = location,
+            Card = refresh ? (card.TagetIsShowBack(location, card.PlayerIndex, card.PlayerIndex) ? card.Status.CreateBackCard() : card.Status) : null
+        });
+        await SendCardMove(AnotherPlayer(card.PlayerIndex), new MoveCardInfo()
         {
-            return Players[playerIndex].SendAsync
+            Source = GetCardLocation(AnotherPlayer(card.PlayerIndex), card),
+            Target = new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex },
+            Card = refresh ? (card.TagetIsShowBack(location, card.PlayerIndex, AnotherPlayer(card.PlayerIndex)) ? card.Status.CreateBackCard() : card.Status) : null
+        });
+        var row = RowToList(card.PlayerIndex, card.Status.CardRow);
+        var target = RowToList(card.PlayerIndex, location.RowPosition);
+        await LogicCardMove(card, target, location.CardIndex);
+        await SetCountInfo();
+        if (refreshPoint)
+            await SetPointInfo();
+    }
+    public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
+    {
+        if (!card.Status.CardRow.IsOnRow()) return;
+        await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
+    }
+    public async Task ShowCardDown(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+    {
+        if (!card.Status.CardRow.IsOnRow()) return;
+        var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardDown, GetCardLocation(card.PlayerIndex, card));
+        var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardDown,
+            GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
+        await Task.WhenAll(task1, task2);
+    }
+    public async Task ShowCardOn(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+    {
+        if (!card.Status.CardRow.IsOnRow()) return;
+        var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardOn, GetCardLocation(card.PlayerIndex, card));
+        var task2 = Players[AnotherPlayer(card.PlayerIndex)].SendAsync(ServerOperationType.CardOn,
+            GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
+        await Task.WhenAll(task1, task2);
+    }
+    //
+    public Task ShowCardNumberChange(GameCard card, int num, NumberType type = NumberType.Normal)
+    {
+        return Task.WhenAll
+        (
+            SendCardNumberChange(Player1Index, card, num, type),
+            SendCardNumberChange(Player2Index, card, num, type)
+        );
+    }
+    public Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type = NumberType.Normal)
+    {
+        if (card.IsShowBack(playerIndex))
+            return Task.CompletedTask;
+        return Players[playerIndex].SendAsync
             (
-                ServerOperationType.ShowCardBreakEffect,
+                ServerOperationType.ShowCardNumberChange,
                 GetCardLocation(playerIndex, card),
+                num,
                 type
             );
-        }
-        public Task ShowCardBreakEffect(GameCard card, CardBreakEffectType type)
-        {
-            return Task.WhenAll
+    }
+    //--
+    public Task SendBullet(int playerIndex, GameCard source, GameCard target, BulletType type)
+    {
+        if (source.IsShowBack(playerIndex) || target.IsShowBack(playerIndex))
+            return Task.CompletedTask;
+        return Players[playerIndex].SendAsync
+        (
+            ServerOperationType.ShowBullet,
+            GetCardLocation(playerIndex, source),
+            GetCardLocation(playerIndex, target),
+            type
+        );
+    }
+    public Task ShowBullet(GameCard source, GameCard target, BulletType type)
+    {
+        return Task.WhenAll
+        (
+            SendBullet(Player1Index, source, target, type),
+            SendBullet(Player2Index, source, target, type)
+        );
+    }
+    //
+    public Task SendCardIconEffect(int playerIndex, GameCard card, CardIconEffectType type)
+    {
+        return Players[playerIndex].SendAsync
+        (
+            ServerOperationType.ShowCardIconEffect,
+            GetCardLocation(playerIndex, card),
+            type
+        );
+    }
+    public Task ShowCardIconEffect(GameCard card, CardIconEffectType type)
+    {
+        return Task.WhenAll
+        (
+            SendCardIconEffect(Player1Index, card, type),
+            SendCardIconEffect(Player2Index, card, type)
+        );
+    }
+    //
+    public Task SendCardBreakEffect(int playerIndex, GameCard card, CardBreakEffectType type)
+    {
+        return Players[playerIndex].SendAsync
+        (
+            ServerOperationType.ShowCardBreakEffect,
+            GetCardLocation(playerIndex, card),
+            type
+        );
+    }
+    public Task ShowCardBreakEffect(GameCard card, CardBreakEffectType type)
+    {
+        return Task.WhenAll
+        (
+            SendCardBreakEffect(Player1Index, card, type),
+            SendCardBreakEffect(Player2Index, card, type)
+        );
+    }
+    //----------------------------------------------------------------------------------------------
+    public Task SendGameResult(int playerIndex, GameStatus coerceResult = GameStatus.None)//是否强制指定比赛结果
+    {
+        var myPlayerIndex = playerIndex;
+        var enemyPlayerIndex = AnotherPlayer(playerIndex);
+        //---
+        int result = 0;//0为平, 1为玩家1胜利, 2为玩家2胜利
+        if (PlayersWinCount[myPlayerIndex] == PlayersWinCount[enemyPlayerIndex])
+            result = 0;
+        if (PlayersWinCount[myPlayerIndex] > PlayersWinCount[enemyPlayerIndex])
+            result = 1;
+        if (PlayersWinCount[myPlayerIndex] < PlayersWinCount[enemyPlayerIndex])
+            result = 2;
+        //---
+        return Players[myPlayerIndex].SendAsync(ServerOperationType.GameEnd, new GameResultInfomation
+        (
+            Players[myPlayerIndex].PlayerName,
+            Players[enemyPlayerIndex].PlayerName,
+            gameStatu:
             (
-                SendCardBreakEffect(Player1Index, card, type),
-                SendCardBreakEffect(Player2Index, card, type)
-            );
-        }
-        //----------------------------------------------------------------------------------------------
-        public Task SendGameResult(int playerIndex, GameStatus coerceResult = GameStatus.None)//是否强制指定比赛结果
-        {
-            var myPlayerIndex = playerIndex;
-            var enemyPlayerIndex = AnotherPlayer(playerIndex);
-            //---
-            int result = 0;//0为平, 1为玩家1胜利, 2为玩家2胜利
-            if (PlayersWinCount[myPlayerIndex] == PlayersWinCount[enemyPlayerIndex])
-                result = 0;
-            if (PlayersWinCount[myPlayerIndex] > PlayersWinCount[enemyPlayerIndex])
-                result = 1;
-            if (PlayersWinCount[myPlayerIndex] < PlayersWinCount[enemyPlayerIndex])
-                result = 2;
-            //---
-            return Players[myPlayerIndex].SendAsync(ServerOperationType.GameEnd, new GameResultInfomation
-            (
-                Players[myPlayerIndex].PlayerName,
-                Players[enemyPlayerIndex].PlayerName,
-                gameStatu:
-                (
-                    coerceResult == GameStatus.None ?
-                    (result == 0 ? GameStatus.Draw :
-                    (result == 1 ? GameStatus.Win : GameStatus.Lose)) :
-                    coerceResult
-                ),
-                RoundCount,
-                PlayersRoundResult[0][myPlayerIndex],
-                PlayersRoundResult[0][enemyPlayerIndex],
-                PlayersRoundResult[1][myPlayerIndex],
-                PlayersRoundResult[1][enemyPlayerIndex],
-                PlayersRoundResult[2][myPlayerIndex],
-                PlayersRoundResult[2][enemyPlayerIndex]
-            ));
-        }
-        public GwentServerGame(Player player1, Player player2, GwentCardTypeService gwentCardTypeService)
-        {
-            _gwentCardTypeService = gwentCardTypeService;
-            _randomSeed = (int)DateTime.UtcNow.Ticks;
-            RNG = new Random(_randomSeed);
-            PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
-            PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
-            //初始化游戏信息
-            GameRound = new Random().Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
-            //随机个先后手
-            PlayersRoundResult[0] = new int[2];
-            PlayersRoundResult[1] = new int[2];
-            PlayersRoundResult[2] = new int[2];
-            Players[Player1Index] = player1;
-            Players[Player2Index] = player2;
-            PlayersPlace[Player1Index] = new List<GameCard>[3];
-            PlayersPlace[Player2Index] = new List<GameCard>[3];
-            PlayersFaction[Player1Index] = GwentMap.CardMap[player1.Deck.Leader].Faction;
-            PlayersFaction[Player2Index] = GwentMap.CardMap[player2.Deck.Leader].Faction;
-            //----------------------------------------------------
-            PlayersPlace[Player1Index][0] = new List<GameCard>();
-            PlayersPlace[Player2Index][0] = new List<GameCard>();
-            PlayersPlace[Player1Index][1] = new List<GameCard>();
-            PlayersPlace[Player2Index][1] = new List<GameCard>();
-            PlayersPlace[Player1Index][2] = new List<GameCard>();
-            PlayersPlace[Player2Index][2] = new List<GameCard>();
-            //---------------------------------------------------
-            GameRowStatus[0] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
-            GameRowStatus[1] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气                                                                 //----------------------------------------------------
-            PlayersCemetery[Player1Index] = new List<GameCard>();
-            PlayersCemetery[Player2Index] = new List<GameCard>();
-            PlayersHandCard[Player1Index] = new List<GameCard>();
-            PlayersHandCard[Player2Index] = new List<GameCard>();
-            PlayersStay[Player1Index] = new List<GameCard>();
-            PlayersStay[Player2Index] = new List<GameCard>();
-            IsPlayersLeader[Player1Index] = true;
-            IsPlayersLeader[Player2Index] = true;
-            PlayersLeader[Player1Index] = new List<GameCard>()
+                coerceResult == GameStatus.None ?
+                (result == 0 ? GameStatus.Draw :
+                (result == 1 ? GameStatus.Win : GameStatus.Lose)) :
+                coerceResult
+            ),
+            RoundCount,
+            PlayersRoundResult[0][myPlayerIndex],
+            PlayersRoundResult[0][enemyPlayerIndex],
+            PlayersRoundResult[1][myPlayerIndex],
+            PlayersRoundResult[1][enemyPlayerIndex],
+            PlayersRoundResult[2][myPlayerIndex],
+            PlayersRoundResult[2][enemyPlayerIndex]
+        ));
+    }
+    public GwentServerGame(Player player1, Player player2, GwentCardTypeService gwentCardTypeService)
+    {
+        _gwentCardTypeService = gwentCardTypeService;
+        _randomSeed = (int)DateTime.UtcNow.Ticks;
+        RNG = new Random(_randomSeed);
+        PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
+        PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
+        //初始化游戏信息
+        GameRound = new Random().Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
+        //随机个先后手
+        PlayersRoundResult[0] = new int[2];
+        PlayersRoundResult[1] = new int[2];
+        PlayersRoundResult[2] = new int[2];
+        Players[Player1Index] = player1;
+        Players[Player2Index] = player2;
+        PlayersPlace[Player1Index] = new List<GameCard>[3];
+        PlayersPlace[Player2Index] = new List<GameCard>[3];
+        PlayersFaction[Player1Index] = GwentMap.CardMap[player1.Deck.Leader].Faction;
+        PlayersFaction[Player2Index] = GwentMap.CardMap[player2.Deck.Leader].Faction;
+        //----------------------------------------------------
+        PlayersPlace[Player1Index][0] = new List<GameCard>();
+        PlayersPlace[Player2Index][0] = new List<GameCard>();
+        PlayersPlace[Player1Index][1] = new List<GameCard>();
+        PlayersPlace[Player2Index][1] = new List<GameCard>();
+        PlayersPlace[Player1Index][2] = new List<GameCard>();
+        PlayersPlace[Player2Index][2] = new List<GameCard>();
+        //---------------------------------------------------
+        GameRowStatus[0] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气
+        GameRowStatus[1] = new RowStatus[3] { RowStatus.None, RowStatus.None, RowStatus.None };//玩家天气                                                                 //----------------------------------------------------
+        PlayersCemetery[Player1Index] = new List<GameCard>();
+        PlayersCemetery[Player2Index] = new List<GameCard>();
+        PlayersHandCard[Player1Index] = new List<GameCard>();
+        PlayersHandCard[Player2Index] = new List<GameCard>();
+        PlayersStay[Player1Index] = new List<GameCard>();
+        PlayersStay[Player2Index] = new List<GameCard>();
+        IsPlayersLeader[Player1Index] = true;
+        IsPlayersLeader[Player2Index] = true;
+        PlayersLeader[Player1Index] = new List<GameCard>()
             {
                 new GameCard(this,Player1Index,
                     new CardStatus(
@@ -1292,7 +1293,7 @@ namespace Cynthia.Card.Server
                 //     }
                 // }.With(card => card.Effect = CreateEffectInstance(player1.Deck.Leader,card))
             }.ToList();
-            PlayersLeader[Player2Index] = new List<GameCard>
+        PlayersLeader[Player2Index] = new List<GameCard>
             {
                 new GameCard(this,Player2Index,
                     new CardStatus(
@@ -1309,611 +1310,611 @@ namespace Cynthia.Card.Server
                 //     }
                 // }.With(card => card.Effect = CreateEffectInstance(player2.Deck.Leader,card))
             }.ToList();
-            //将卡组转化成实体,并且打乱牌组
-            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
-                new GameCard(this, Player1Index,
-                    new CardStatus(
-                        cardId,
-                        PlayersFaction[Player1Index],
-                        RowPosition.MyDeck
-                    ), cardId))
-            // new GameCard(this)
-            // {
-            //     PlayerIndex = Player1Index,
-            //     Status = new CardStatus(cardId)
-            //     {
-            //         DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
-            //         CardRow = RowPosition.MyDeck
-            //     }
-            // }.With(card => card.Effect = CreateEffectInstance(cardId, card)))
-            .Mess().ToList();
-            //需要更改,将卡牌效果变成对应Id的卡牌效果
-            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
-                new GameCard(this, Player2Index,
-                    new CardStatus(
-                        cardId,
-                        PlayersFaction[Player2Index],
-                        RowPosition.MyDeck
-                    ), cardId)
-            )
-            // {
-            //     PlayerIndex = Player2Index,
-            //     Status = new CardStatus(x)
-            //     {
-            //         DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
-            //         CardRow = RowPosition.MyDeck
-            //     }
-            // }.With(card => card.Effect = CreateEffectInstance(x, card)))
-            .Mess().ToList();
-        }
-        public async Task SendBigRoundEndToCemetery()
-        {
-            //#############################################
-            //#                 需要优化                  
-            //#############################################
-            //var player1CardsPart = new GameCardsPart();
-            //var player2CardsPart = new GameCardsPart();
-            foreach (var place in PlayersPlace)
-                foreach (var row in place)
-                    foreach (var card in row.ToList())
-                    {
-                        await card.Effect.RoundEnd();
-                        await ClientDelay(10);
-                    }
-            //var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
-            //var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
-            await SetCountInfo();
-            await SetPointInfo();
-            await SetCemeteryInfo();
-        }
-        public int TwoPlayerToPlayerIndex(TwoPlayer player)
-        {
-            return ((player == TwoPlayer.Player1) ? Player1Index : Player2Index);
-        }
-        public CardLocation GetRandomCanPlayLocation(int playerIndex)
-        {
-            Random rd = new Random();
-            var a = new List<int>();
-            if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
-            if (PlayersPlace[playerIndex][1].Count < RowMaxCount) a.Add(1);
-            if (PlayersPlace[playerIndex][2].Count < RowMaxCount) a.Add(2);
-            if (a.Count == 0) return null;
-            var rowIndex = a[rd.Next(0, a.Count)];
-            var count = PlayersPlace[playerIndex][rowIndex].Count;
-            return new CardLocation(rowIndex.IndexToMyRow(), rd.Next(0, count + 1));
-
-        }
-        public async Task ApplyWeather(int playerIndex, int row, RowStatus type)
-        {
-            if (row < 0 || row > 2) return;
-            GameRowStatus[playerIndex][row] = type;
-            await ShowWeatherApply(playerIndex, row.IndexToMyRow(), type);
-            // await OnWeatherApply(playerIndex, row, type);
-            await SendEvent(new AfterWeatherApply(playerIndex, row.IndexToMyRow(), type));
-        }
-        public async Task ApplyWeather(int playerIndex, RowPosition row, RowStatus type)
-        {
-            if (!row.IsOnPlace()) return;
-            if (row.IsMyRow()) await ApplyWeather(playerIndex, row.MyRowToIndex(), type);
-            else await ApplyWeather(AnotherPlayer(playerIndex), row.Mirror().MyRowToIndex(), type);
-        }
-        //====================================================================================
-        //====================================================================================
-        //卡牌事件处理与转发
-        public async Task CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
-        {
-            var row = RowToList(playerIndex, position.RowPosition);
-            if (position.RowPosition.IsOnPlace() && row.Count >= RowMaxCount)
-                return;
-            var creatCard = new GameCard(this, playerIndex,
-                    new CardStatus(
-                        cardId,
-                        PlayersFaction[playerIndex],
-                        RowPosition.None
-                    ), cardId);
-            // {
-            //     PlayerIndex = playerIndex,
-            //     Status = new CardStatus(cardId)
-            //     {
-            //         DeckFaction = PlayersFaction[playerIndex],
-            //         CardRow = RowPosition.None,
-            //     }
-            // }.With(card => card.Effect = CreateEffectInstance(cardId, card));
-            if (setting != null)
-                setting(creatCard.Status);
-            await LogicCardMove(creatCard, row, position.CardIndex);
-            await Players[playerIndex].SendAsync(ServerOperationType.CreateCard, creatCard.Status, position);
-            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
-            ((creatCard.IsShowBack(AnotherPlayer(playerIndex))) ? creatCard.Status.CreateBackCard() : creatCard.Status), position.Mirror());
-            if (creatCard.Status.CardRow.IsOnPlace())
-            {
-                await creatCard.Effect.CardDown(false);
-            }
-        }
-        public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡")
-        {
-            var selectList = cards.Select(x => new CardStatus(x)).ToList();
-            var result = (await GetSelectMenuCards(playerIndex, selectList, isCanOver: isCanOver, title: title)).Reverse().ToList();
-            //先选的先打出
-            if (result.Count() <= 0) return 0;
-            foreach (var CardIndex in result)
-            {
-                await CreateCard(selectList[CardIndex].CardId, playerIndex, new CardLocation(RowPosition.MyStay, 0));
-            }
-            return result.Count();
-        }
-        public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
-        {
-            foreach (var card in GetAllCard(Player1Index).ToList())
-            {
-                if (card.Status.IsLock || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
-                await card.Effects.RaiseEvent(@event);
-            }
-        }
-        public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
-        {
-            await ((ClientPlayer)Players[Player1Index]).SendOperactionList();
-            await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
-            return await Players[playerIndex].ReceiveAsync();
-        }
-        public async Task SendOperactionList()
-        {
-            await ((ClientPlayer)Players[Player1Index]).SendOperactionList();
-            await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
-        }
-
-        public CardEffect CreateEffectInstance(string effectId, GameCard targetCard)
-        {
-            return _gwentCardTypeService.CreateInstance(effectId, targetCard);
-        }
-        // public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
+        //将卡组转化成实体,并且打乱牌组
+        PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
+            new GameCard(this, Player1Index,
+                new CardStatus(
+                    cardId,
+                    PlayersFaction[Player1Index],
+                    RowPosition.MyDeck
+                ), cardId))
+        // new GameCard(this)
         // {
-        //     switch (type)
+        //     PlayerIndex = Player1Index,
+        //     Status = new CardStatus(cardId)
         //     {
-        //         case RowStatus.BloodMoon:
-        //             foreach (var card in PlayersPlace[playerIndex][row])
-        //             {
-        //                 await card.Effect.Damage(2);
-        //             }
-        //             break;
-        //         case RowStatus.PitTrap:
-        //             foreach (var card in PlayersPlace[playerIndex][row])
-        //             {
-        //                 await card.Effect.Damage(4);
-        //             }
-        //             break;
+        //         DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
+        //         CardRow = RowPosition.MyDeck
         //     }
-        //     foreach (var card in GetAllCard(playerIndex))
-        //     {
-        //         if (!card.Status.IsLock)
-        //             await card.Effect.OnWeatherApply(playerIndex, row, type);
-        //     }
-        // }
-        // public async Task OnUnitDown(GameCard target)//单位卡落下时(二段部署前)
+        // }.With(card => card.Effect = CreateEffectInstance(cardId, card)))
+        .Mess().ToList();
+        //需要更改,将卡牌效果变成对应Id的卡牌效果
+        PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
+            new GameCard(this, Player2Index,
+                new CardStatus(
+                    cardId,
+                    PlayersFaction[Player2Index],
+                    RowPosition.MyDeck
+                ), cardId)
+        )
         // {
-        //     switch (GameRowStatus[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()])
+        //     PlayerIndex = Player2Index,
+        //     Status = new CardStatus(x)
         //     {
-        //         case RowStatus.BloodMoon:
-        //             await target.Effect.Damage(2);
-        //             break;
-        //         case RowStatus.PitTrap:
-        //             await target.Effect.Damage(4);
-        //             break;
+        //         DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
+        //         CardRow = RowPosition.MyDeck
         //     }
-        //     //有单位落下,如果这排有血月,坑陷...对自己造成伤害
-        //     //-------------------------------------
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnUnitDown(target);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnUnitDown(target);
-        //     }
-        // }
-        // public async Task OnTurnStart(int playerIndex)//谁的回合开始了
-        // {
-        //     for (var i = 0; i < 3; i++)
-        //     {
-        //         var list = RowToList(playerIndex, i.IndexToMyRow());
-        //         if (list.Count() == 0) continue;
-        //         switch (GameRowStatus[playerIndex][i])
-        //         {
-        //             //灾厄
-        //             case RowStatus.KorathiHeatwave://科拉兹热浪
-        //                 await list.WhereAllLowest().Mess().First().Effect.Damage(2);
-        //                 break;
-        //             case RowStatus.RaghNarRoog://终末之战
-        //                 await list.WhereAllHighest().Mess().First().Effect.Damage(2);
-        //                 break;
-        //             case RowStatus.SkelligeStorm://史凯利杰风暴
-        //                 await list[0].Effect.Damage(2);
-        //                 if (list.Count >= 2)
-        //                     await list[1].Effect.Damage(1);
-        //                 if (list.Count >= 3)
-        //                     await list[2].Effect.Damage(1);
-        //                 break;
-        //             case RowStatus.BitingFrost://冰霜
-        //                 await list.WhereAllLowest().Mess().First().Effect.Damage(2);
-        //                 break;
-        //             case RowStatus.ImpenetrableFog://浓雾
-        //                 await list.WhereAllHighest().Mess().First().Effect.Damage(2);
-        //                 break;
-        //             case RowStatus.TorrentialRain://雨
-        //                 foreach (var card in list.Mess().Take(2))
-        //                     await card.Effect.Damage(1);
-        //                 break;
-        //             //恩泽 Boon
-        //             case RowStatus.GoldenFroth://黄金酒沫
-        //                 foreach (var card in list.Mess().Take(2))
-        //                     await card.Effect.Boost(1);
-        //                 break;
-        //             case RowStatus.FullMoon://满月
-        //                 await list.Mess().First().Effect.Boost(2);
-        //                 //+++++++++++++++++++++++++++++++++++++
-        //                 //等待补充（临时效果:增益随机一个单位2点
-        //                 //+++++++++++++++++++++++++++++++++++++
-        //                 break;
-        //             //无效果
-        //             case RowStatus.DragonDream://龙之梦
-        //             case RowStatus.PitTrap://坑陷
-        //             case RowStatus.BloodMoon://血月
-        //             case RowStatus.None:
-        //                 break;
-        //         }
-        //     }
-        //     foreach (var card in GetAllCard(playerIndex))
-        //     {
-        //         if (!card.Status.IsLock)
-        //             await card.Effect.OnTurnStart(playerIndex);
-        //     }
-        // }
-        //================================
-        // public async Task OnTurnOver(int playerIndex)//谁的回合结束了
-        // {
-        //     foreach (var card in GetAllCard(playerIndex))
-        //     {
-        //         if (!card.Status.IsLock)
-        //             await card.Effect.OnTurnOver(playerIndex);
-        //     }
-        // }
-        // public async Task OnRoundOver(int RoundCount, int player1Point, int player2Point)//第几轮,谁赢了
-        // {
-        //     foreach (var card in GetAllCard(player1Point > player2Point ? Player1Index : Player2Index))
-        //     {
-        //         if (!card.Status.IsLock)
-        //             await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
-        //     }
-        // }
-        // public async Task OnPlayerPass(int playerIndex)//玩家pass的时候触发
-        // {
-        //     foreach (var card in GetAllCard(playerIndex))
-        //     {
-        //         if (!card.Status.IsLock)
-        //             await card.Effect.OnPlayerPass(playerIndex);
-        //     }
-        // }
-        // public async Task OnPlayerDraw(int playerIndex, GameCard target)//抽卡
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnPlayerDraw(playerIndex, target);
-        //     foreach (var card in GetAllCard(playerIndex))
-        //     {
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnPlayerDraw(playerIndex, target);
-        //     }
-        // }
-        // public async Task OnCardReveal(GameCard target, GameCard source = null)//揭示
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardReveal(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardReveal(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardReveal(target, source);
-        //     }
-        // }
-        // public async Task OnCardConsume(GameCard target, GameCard source)//吞噬
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardConsume(target, source);
-        //     if (!source.Status.IsLock)
-        //         await source.Effect.OnCardConsume(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardConsume(target, source);
-        //     }
-        // }
-        // public async Task OnCardBoost(GameCard target, int num, GameCard source = null)//增益
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardBoost(target, num, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardBoost(target, num, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardBoost(target, num, source);
-        //     }
-        // }
-        // public async Task OnCardHurt(GameCard target, int num, GameCard source = null)//受伤
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardHurt(target, num, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardHurt(target, num, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardHurt(target, num, source);
-        //     }
-        // }
-        // public async Task OnSpecialPlay(GameCard target)//法术卡使用前
-        // {
-        //     for (var i = 0; i < 3; i++)
-        //     {
-        //         var list1 = RowToList(Player1Index, i.IndexToMyRow()).ToList();
-        //         if (list1.Count() == 0) continue;
-        //         switch (GameRowStatus[Player1Index][i])
-        //         {
-        //             //灾厄
-        //             case RowStatus.DragonDream://龙之梦
-        //                 foreach (var card in list1)
-        //                 {
-        //                     await card.Effect.Damage(4);
-        //                 }
-        //                 await ApplyWeather(Player1Index, i, RowStatus.None);
-        //                 break;
-        //         }
-        //         //----
-        //         var list2 = RowToList(Player2Index, i.IndexToMyRow()).ToList();
-        //         if (list2.Count() == 0) continue;
-        //         switch (GameRowStatus[Player2Index][i])
-        //         {
-        //             //灾厄
-        //             case RowStatus.DragonDream://龙之梦
-        //                 foreach (var card in list2)
-        //                 {
-        //                     await card.Effect.Damage(4);
-        //                 }
-        //                 await ApplyWeather(Player2Index, i, RowStatus.None);
-        //                 break;
-        //         }
-        //     }
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnSpecialPlay(target);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnSpecialPlay(target);
-        //     }
-        // }
-        // public async Task OnUnitPlay(GameCard target)//单位卡执行一段部署前
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnUnitPlay(target);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnUnitPlay(target);
-        //     }
-        // }
-        // public async Task OnCardDeath(GameCard target, CardLocation source)//有卡牌进入墓地
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardDeath(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnCardDeath(target, source);
-        //     }
-        // }
-        // public async Task OnCardToCemetery(GameCard target, CardLocation source)//有卡牌进入墓地
-        // {
-        //     if (!target.Status.IsLock)//优先向进入墓地的单位发送消息, 并且只在单位没有被锁的情况发送
-        //         await target.Effect.OnCardToCemetery(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {   //获得游戏中所有卡牌,向所有没有锁的单位发送消息(已经发送的不会发送)
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnCardToCemetery(target, source);
-        //     }
-        // }
-        // public async Task OnCardSpyingChange(GameCard target, bool isSpying, GameCard source = null)//场上间谍改变
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardSpyingChange(target, isSpying, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSpyingChange(target, isSpying, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardSpyingChange(target, isSpying, source);
-        //     }
-        // }
-        // public async Task OnCardDiscard(GameCard target, GameCard source = null)//卡牌被丢弃
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardDiscard(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardDiscard(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardDiscard(target, source);
-        //     }
-        // }
-        // public async Task OnCardAmbush(GameCard target)//有伏击卡触发
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardAmbush(target);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && !card.Status.IsLock)
-        //             await card.Effect.OnCardAmbush(target);
-        //     }
-        // }
-        // public async Task OnCardSwap(GameCard target, GameCard source = null)//卡牌交换
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardSwap(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSwap(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardSwap(target, source);
-        //     }
-        // }
-        // public async Task OnCardConceal(GameCard target, GameCard source = null)//隐匿
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardConceal(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardConceal(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardConceal(target, source);
-        //     }
-        // }
-        // public async Task OnCardLockChange(GameCard target, bool isLock, GameCard source = null)//锁定状态改变
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardLockChange(target, isLock, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardLockChange(target, isLock, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardLockChange(target, isLock, source);
-        //     }
-        // }
-        // public async Task OnCardAddArmor(GameCard target, int num, GameCard source = null)//增加护甲
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardAddArmor(target, num, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardAddArmor(target, num, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardAddArmor(target, num, source);
-        //     }
-        // }
-        // public async Task OnCardSubArmor(GameCard target, int num, GameCard source = null)//降低护甲
-        // {
-        //     if (target.Status.IsLock)
-        //         await target.Effect.OnCardSubArmor(target, num, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSubArmor(target, num, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardSubArmor(target, num, source);
-        //     }
-        // }
-        // public async Task OnCardArmorBreak(GameCard target, GameCard source = null)//护甲被破坏
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardResurrect(target);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResurrect(target);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardArmorBreak(target, source);
-        //     }
-        // }
-        // public async Task OnCardResurrect(GameCard target, GameCard source = null)//有卡牌复活
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardResurrect(target);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResurrect(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardResurrect(target);
-        //     }
-        // }
-        // public async Task OnCardResilienceChange(GameCard target, bool isResilience, GameCard source = null)//坚韧状态改变
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardResilienceChange(target, isResilience, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResilienceChange(target, isResilience, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardResilienceChange(target, isResilience, source);
-        //     }
-        // }
-        // public async Task OnCardHeal(GameCard target, GameCard source = null)//卡牌被治愈
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardHeal(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardHeal(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardHeal(target, source);
-        //     }
-        // }
-        // public async Task OnCardReset(GameCard target, GameCard source = null)//卡牌被重置
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardReset(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardReset(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardReset(target, source);
-        //     }
-        // }
-        // public async Task OnCardStrengthen(GameCard target, int num, GameCard source = null)//强化
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardStrengthen(target, num, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardStrengthen(target, num, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardStrengthen(target, num, source);
-        //     }
-        // }
-        // public async Task OnCardWeaken(GameCard target, int num, GameCard source = null)//削弱
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardWeaken(target, num, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardWeaken(target, num, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardWeaken(target, num, source);
-        //     }
-        // }
-        // public async Task OnCardDrain(GameCard master, int num, GameCard target)//有单位汲食时
-        // {
-        //     if (!master.Status.IsLock)
-        //         await master.Effect.OnCardDrain(master, num, target);
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardDrain(master, num, target);
-        //     foreach (var card in GetAllCard(master.PlayerIndex))
-        //     {
-        //         if (card != master && card != target && !card.Status.IsLock)
-        //             await card.Effect.OnCardDrain(master, num, target);
-        //     }
-        // }
-        // public async Task OnCardCharm(GameCard target, GameCard source = null)//被魅惑
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardCharm(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardCharm(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardCharm(target, source);
-        //     }
-        // }
-        // public async Task OnCardMove(GameCard target, GameCard source = null)//位移时
-        // {
-        //     if (!target.Status.IsLock)
-        //         await target.Effect.OnCardMove(target, source);
-        //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardMove(target, source);
-        //     foreach (var card in GetAllCard(target.PlayerIndex))
-        //     {
-        //         if (card != target && card != source && !card.Status.IsLock)
-        //             await card.Effect.OnCardMove(target, source);
-        //     }
-        // }
+        // }.With(card => card.Effect = CreateEffectInstance(x, card)))
+        .Mess().ToList();
     }
+    public async Task SendBigRoundEndToCemetery()
+    {
+        //#############################################
+        //#                 需要优化                  
+        //#############################################
+        //var player1CardsPart = new GameCardsPart();
+        //var player2CardsPart = new GameCardsPart();
+        foreach (var place in PlayersPlace)
+            foreach (var row in place)
+                foreach (var card in row.ToList())
+                {
+                    await card.Effect.RoundEnd();
+                    await ClientDelay(10);
+                }
+        //var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
+        //var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
+        await SetCountInfo();
+        await SetPointInfo();
+        await SetCemeteryInfo();
+    }
+    public int TwoPlayerToPlayerIndex(TwoPlayer player)
+    {
+        return ((player == TwoPlayer.Player1) ? Player1Index : Player2Index);
+    }
+    public CardLocation GetRandomCanPlayLocation(int playerIndex)
+    {
+        Random rd = new Random();
+        var a = new List<int>();
+        if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
+        if (PlayersPlace[playerIndex][1].Count < RowMaxCount) a.Add(1);
+        if (PlayersPlace[playerIndex][2].Count < RowMaxCount) a.Add(2);
+        if (a.Count == 0) return null;
+        var rowIndex = a[rd.Next(0, a.Count)];
+        var count = PlayersPlace[playerIndex][rowIndex].Count;
+        return new CardLocation(rowIndex.IndexToMyRow(), rd.Next(0, count + 1));
+
+    }
+    public async Task ApplyWeather(int playerIndex, int row, RowStatus type)
+    {
+        if (row < 0 || row > 2) return;
+        GameRowStatus[playerIndex][row] = type;
+        await ShowWeatherApply(playerIndex, row.IndexToMyRow(), type);
+        // await OnWeatherApply(playerIndex, row, type);
+        await SendEvent(new AfterWeatherApply(playerIndex, row.IndexToMyRow(), type));
+    }
+    public async Task ApplyWeather(int playerIndex, RowPosition row, RowStatus type)
+    {
+        if (!row.IsOnPlace()) return;
+        if (row.IsMyRow()) await ApplyWeather(playerIndex, row.MyRowToIndex(), type);
+        else await ApplyWeather(AnotherPlayer(playerIndex), row.Mirror().MyRowToIndex(), type);
+    }
+    //====================================================================================
+    //====================================================================================
+    //卡牌事件处理与转发
+    public async Task CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
+    {
+        var row = RowToList(playerIndex, position.RowPosition);
+        if (position.RowPosition.IsOnPlace() && row.Count >= RowMaxCount)
+            return;
+        var creatCard = new GameCard(this, playerIndex,
+                new CardStatus(
+                    cardId,
+                    PlayersFaction[playerIndex],
+                    RowPosition.None
+                ), cardId);
+        // {
+        //     PlayerIndex = playerIndex,
+        //     Status = new CardStatus(cardId)
+        //     {
+        //         DeckFaction = PlayersFaction[playerIndex],
+        //         CardRow = RowPosition.None,
+        //     }
+        // }.With(card => card.Effect = CreateEffectInstance(cardId, card));
+        if (setting != null)
+            setting(creatCard.Status);
+        await LogicCardMove(creatCard, row, position.CardIndex);
+        await Players[playerIndex].SendAsync(ServerOperationType.CreateCard, creatCard.Status, position);
+        await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
+        ((creatCard.IsShowBack(AnotherPlayer(playerIndex))) ? creatCard.Status.CreateBackCard() : creatCard.Status), position.Mirror());
+        if (creatCard.Status.CardRow.IsOnPlace())
+        {
+            await creatCard.Effect.CardDown(false);
+        }
+    }
+    public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡")
+    {
+        var selectList = cards.Select(x => new CardStatus(x)).ToList();
+        var result = (await GetSelectMenuCards(playerIndex, selectList, isCanOver: isCanOver, title: title)).Reverse().ToList();
+        //先选的先打出
+        if (result.Count() <= 0) return 0;
+        foreach (var CardIndex in result)
+        {
+            await CreateCard(selectList[CardIndex].CardId, playerIndex, new CardLocation(RowPosition.MyStay, 0));
+        }
+        return result.Count();
+    }
+    public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
+    {
+        foreach (var card in GetAllCard(Player1Index).ToList())
+        {
+            if (card.Status.IsLock || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+            await card.Effects.RaiseEvent(@event);
+        }
+    }
+    public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
+    {
+        await ((ClientPlayer)Players[Player1Index]).SendOperactionList();
+        await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
+        return await Players[playerIndex].ReceiveAsync();
+    }
+    public async Task SendOperactionList()
+    {
+        await ((ClientPlayer)Players[Player1Index]).SendOperactionList();
+        await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
+    }
+
+    public CardEffect CreateEffectInstance(string effectId, GameCard targetCard)
+    {
+        return _gwentCardTypeService.CreateInstance(effectId, targetCard);
+    }
+    // public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
+    // {
+    //     switch (type)
+    //     {
+    //         case RowStatus.BloodMoon:
+    //             foreach (var card in PlayersPlace[playerIndex][row])
+    //             {
+    //                 await card.Effect.Damage(2);
+    //             }
+    //             break;
+    //         case RowStatus.PitTrap:
+    //             foreach (var card in PlayersPlace[playerIndex][row])
+    //             {
+    //                 await card.Effect.Damage(4);
+    //             }
+    //             break;
+    //     }
+    //     foreach (var card in GetAllCard(playerIndex))
+    //     {
+    //         if (!card.Status.IsLock)
+    //             await card.Effect.OnWeatherApply(playerIndex, row, type);
+    //     }
+    // }
+    // public async Task OnUnitDown(GameCard target)//单位卡落下时(二段部署前)
+    // {
+    //     switch (GameRowStatus[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()])
+    //     {
+    //         case RowStatus.BloodMoon:
+    //             await target.Effect.Damage(2);
+    //             break;
+    //         case RowStatus.PitTrap:
+    //             await target.Effect.Damage(4);
+    //             break;
+    //     }
+    //     //有单位落下,如果这排有血月,坑陷...对自己造成伤害
+    //     //-------------------------------------
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnUnitDown(target);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnUnitDown(target);
+    //     }
+    // }
+    // public async Task OnTurnStart(int playerIndex)//谁的回合开始了
+    // {
+    //     for (var i = 0; i < 3; i++)
+    //     {
+    //         var list = RowToList(playerIndex, i.IndexToMyRow());
+    //         if (list.Count() == 0) continue;
+    //         switch (GameRowStatus[playerIndex][i])
+    //         {
+    //             //灾厄
+    //             case RowStatus.KorathiHeatwave://科拉兹热浪
+    //                 await list.WhereAllLowest().Mess().First().Effect.Damage(2);
+    //                 break;
+    //             case RowStatus.RaghNarRoog://终末之战
+    //                 await list.WhereAllHighest().Mess().First().Effect.Damage(2);
+    //                 break;
+    //             case RowStatus.SkelligeStorm://史凯利杰风暴
+    //                 await list[0].Effect.Damage(2);
+    //                 if (list.Count >= 2)
+    //                     await list[1].Effect.Damage(1);
+    //                 if (list.Count >= 3)
+    //                     await list[2].Effect.Damage(1);
+    //                 break;
+    //             case RowStatus.BitingFrost://冰霜
+    //                 await list.WhereAllLowest().Mess().First().Effect.Damage(2);
+    //                 break;
+    //             case RowStatus.ImpenetrableFog://浓雾
+    //                 await list.WhereAllHighest().Mess().First().Effect.Damage(2);
+    //                 break;
+    //             case RowStatus.TorrentialRain://雨
+    //                 foreach (var card in list.Mess().Take(2))
+    //                     await card.Effect.Damage(1);
+    //                 break;
+    //             //恩泽 Boon
+    //             case RowStatus.GoldenFroth://黄金酒沫
+    //                 foreach (var card in list.Mess().Take(2))
+    //                     await card.Effect.Boost(1);
+    //                 break;
+    //             case RowStatus.FullMoon://满月
+    //                 await list.Mess().First().Effect.Boost(2);
+    //                 //+++++++++++++++++++++++++++++++++++++
+    //                 //等待补充（临时效果:增益随机一个单位2点
+    //                 //+++++++++++++++++++++++++++++++++++++
+    //                 break;
+    //             //无效果
+    //             case RowStatus.DragonDream://龙之梦
+    //             case RowStatus.PitTrap://坑陷
+    //             case RowStatus.BloodMoon://血月
+    //             case RowStatus.None:
+    //                 break;
+    //         }
+    //     }
+    //     foreach (var card in GetAllCard(playerIndex))
+    //     {
+    //         if (!card.Status.IsLock)
+    //             await card.Effect.OnTurnStart(playerIndex);
+    //     }
+    // }
+    //================================
+    // public async Task OnTurnOver(int playerIndex)//谁的回合结束了
+    // {
+    //     foreach (var card in GetAllCard(playerIndex))
+    //     {
+    //         if (!card.Status.IsLock)
+    //             await card.Effect.OnTurnOver(playerIndex);
+    //     }
+    // }
+    // public async Task OnRoundOver(int RoundCount, int player1Point, int player2Point)//第几轮,谁赢了
+    // {
+    //     foreach (var card in GetAllCard(player1Point > player2Point ? Player1Index : Player2Index))
+    //     {
+    //         if (!card.Status.IsLock)
+    //             await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
+    //     }
+    // }
+    // public async Task OnPlayerPass(int playerIndex)//玩家pass的时候触发
+    // {
+    //     foreach (var card in GetAllCard(playerIndex))
+    //     {
+    //         if (!card.Status.IsLock)
+    //             await card.Effect.OnPlayerPass(playerIndex);
+    //     }
+    // }
+    // public async Task OnPlayerDraw(int playerIndex, GameCard target)//抽卡
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnPlayerDraw(playerIndex, target);
+    //     foreach (var card in GetAllCard(playerIndex))
+    //     {
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnPlayerDraw(playerIndex, target);
+    //     }
+    // }
+    // public async Task OnCardReveal(GameCard target, GameCard source = null)//揭示
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardReveal(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardReveal(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardReveal(target, source);
+    //     }
+    // }
+    // public async Task OnCardConsume(GameCard target, GameCard source)//吞噬
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardConsume(target, source);
+    //     if (!source.Status.IsLock)
+    //         await source.Effect.OnCardConsume(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardConsume(target, source);
+    //     }
+    // }
+    // public async Task OnCardBoost(GameCard target, int num, GameCard source = null)//增益
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardBoost(target, num, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardBoost(target, num, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardBoost(target, num, source);
+    //     }
+    // }
+    // public async Task OnCardHurt(GameCard target, int num, GameCard source = null)//受伤
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardHurt(target, num, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardHurt(target, num, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardHurt(target, num, source);
+    //     }
+    // }
+    // public async Task OnSpecialPlay(GameCard target)//法术卡使用前
+    // {
+    //     for (var i = 0; i < 3; i++)
+    //     {
+    //         var list1 = RowToList(Player1Index, i.IndexToMyRow()).ToList();
+    //         if (list1.Count() == 0) continue;
+    //         switch (GameRowStatus[Player1Index][i])
+    //         {
+    //             //灾厄
+    //             case RowStatus.DragonDream://龙之梦
+    //                 foreach (var card in list1)
+    //                 {
+    //                     await card.Effect.Damage(4);
+    //                 }
+    //                 await ApplyWeather(Player1Index, i, RowStatus.None);
+    //                 break;
+    //         }
+    //         //----
+    //         var list2 = RowToList(Player2Index, i.IndexToMyRow()).ToList();
+    //         if (list2.Count() == 0) continue;
+    //         switch (GameRowStatus[Player2Index][i])
+    //         {
+    //             //灾厄
+    //             case RowStatus.DragonDream://龙之梦
+    //                 foreach (var card in list2)
+    //                 {
+    //                     await card.Effect.Damage(4);
+    //                 }
+    //                 await ApplyWeather(Player2Index, i, RowStatus.None);
+    //                 break;
+    //         }
+    //     }
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnSpecialPlay(target);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnSpecialPlay(target);
+    //     }
+    // }
+    // public async Task OnUnitPlay(GameCard target)//单位卡执行一段部署前
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnUnitPlay(target);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnUnitPlay(target);
+    //     }
+    // }
+    // public async Task OnCardDeath(GameCard target, CardLocation source)//有卡牌进入墓地
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardDeath(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnCardDeath(target, source);
+    //     }
+    // }
+    // public async Task OnCardToCemetery(GameCard target, CardLocation source)//有卡牌进入墓地
+    // {
+    //     if (!target.Status.IsLock)//优先向进入墓地的单位发送消息, 并且只在单位没有被锁的情况发送
+    //         await target.Effect.OnCardToCemetery(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {   //获得游戏中所有卡牌,向所有没有锁的单位发送消息(已经发送的不会发送)
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnCardToCemetery(target, source);
+    //     }
+    // }
+    // public async Task OnCardSpyingChange(GameCard target, bool isSpying, GameCard source = null)//场上间谍改变
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardSpyingChange(target, isSpying, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSpyingChange(target, isSpying, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardSpyingChange(target, isSpying, source);
+    //     }
+    // }
+    // public async Task OnCardDiscard(GameCard target, GameCard source = null)//卡牌被丢弃
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardDiscard(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardDiscard(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardDiscard(target, source);
+    //     }
+    // }
+    // public async Task OnCardAmbush(GameCard target)//有伏击卡触发
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardAmbush(target);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && !card.Status.IsLock)
+    //             await card.Effect.OnCardAmbush(target);
+    //     }
+    // }
+    // public async Task OnCardSwap(GameCard target, GameCard source = null)//卡牌交换
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardSwap(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSwap(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardSwap(target, source);
+    //     }
+    // }
+    // public async Task OnCardConceal(GameCard target, GameCard source = null)//隐匿
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardConceal(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardConceal(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardConceal(target, source);
+    //     }
+    // }
+    // public async Task OnCardLockChange(GameCard target, bool isLock, GameCard source = null)//锁定状态改变
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardLockChange(target, isLock, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardLockChange(target, isLock, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardLockChange(target, isLock, source);
+    //     }
+    // }
+    // public async Task OnCardAddArmor(GameCard target, int num, GameCard source = null)//增加护甲
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardAddArmor(target, num, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardAddArmor(target, num, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardAddArmor(target, num, source);
+    //     }
+    // }
+    // public async Task OnCardSubArmor(GameCard target, int num, GameCard source = null)//降低护甲
+    // {
+    //     if (target.Status.IsLock)
+    //         await target.Effect.OnCardSubArmor(target, num, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSubArmor(target, num, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardSubArmor(target, num, source);
+    //     }
+    // }
+    // public async Task OnCardArmorBreak(GameCard target, GameCard source = null)//护甲被破坏
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardResurrect(target);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResurrect(target);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardArmorBreak(target, source);
+    //     }
+    // }
+    // public async Task OnCardResurrect(GameCard target, GameCard source = null)//有卡牌复活
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardResurrect(target);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResurrect(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardResurrect(target);
+    //     }
+    // }
+    // public async Task OnCardResilienceChange(GameCard target, bool isResilience, GameCard source = null)//坚韧状态改变
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardResilienceChange(target, isResilience, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResilienceChange(target, isResilience, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardResilienceChange(target, isResilience, source);
+    //     }
+    // }
+    // public async Task OnCardHeal(GameCard target, GameCard source = null)//卡牌被治愈
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardHeal(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardHeal(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardHeal(target, source);
+    //     }
+    // }
+    // public async Task OnCardReset(GameCard target, GameCard source = null)//卡牌被重置
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardReset(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardReset(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardReset(target, source);
+    //     }
+    // }
+    // public async Task OnCardStrengthen(GameCard target, int num, GameCard source = null)//强化
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardStrengthen(target, num, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardStrengthen(target, num, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardStrengthen(target, num, source);
+    //     }
+    // }
+    // public async Task OnCardWeaken(GameCard target, int num, GameCard source = null)//削弱
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardWeaken(target, num, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardWeaken(target, num, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardWeaken(target, num, source);
+    //     }
+    // }
+    // public async Task OnCardDrain(GameCard master, int num, GameCard target)//有单位汲食时
+    // {
+    //     if (!master.Status.IsLock)
+    //         await master.Effect.OnCardDrain(master, num, target);
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardDrain(master, num, target);
+    //     foreach (var card in GetAllCard(master.PlayerIndex))
+    //     {
+    //         if (card != master && card != target && !card.Status.IsLock)
+    //             await card.Effect.OnCardDrain(master, num, target);
+    //     }
+    // }
+    // public async Task OnCardCharm(GameCard target, GameCard source = null)//被魅惑
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardCharm(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardCharm(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardCharm(target, source);
+    //     }
+    // }
+    // public async Task OnCardMove(GameCard target, GameCard source = null)//位移时
+    // {
+    //     if (!target.Status.IsLock)
+    //         await target.Effect.OnCardMove(target, source);
+    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardMove(target, source);
+    //     foreach (var card in GetAllCard(target.PlayerIndex))
+    //     {
+    //         if (card != target && card != source && !card.Status.IsLock)
+    //             await card.Effect.OnCardMove(target, source);
+    //     }
+    // }
+}
 }

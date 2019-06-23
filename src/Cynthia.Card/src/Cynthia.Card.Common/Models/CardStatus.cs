@@ -17,9 +17,9 @@ namespace Cynthia.Card
             Faction = GwentMap.CardMap[cardIndex].Faction;*/
         }
 
-        public CardStatus(string statusId, Faction faction, RowPosition position) : this(statusId)
+        public CardStatus(string statusId, Faction deckFaction, RowPosition position) : this(statusId)
         {
-            this.Faction = faction;
+            this.DeckFaction = deckFaction;
             CardRow = position;
         }
 
@@ -27,6 +27,11 @@ namespace Cynthia.Card
         {
             IsCardBack = true;
             Conceal = true;
+        }
+
+        public CardStatus(Faction deckFaction) : this()
+        {
+            this.DeckFaction = deckFaction;
         }
 
         private Categorie[] _categories;
