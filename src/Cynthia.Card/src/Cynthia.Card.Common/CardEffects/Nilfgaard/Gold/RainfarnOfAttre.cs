@@ -11,7 +11,7 @@ namespace Cynthia.Card
         {
             //打乱己方卡组取出所有间谍或双面间谍
             var list = Game.PlayersDeck[Card.PlayerIndex]
-            .Where(x => (x.CardInfo().CardUseInfo == CardUseInfo.AnyRow || x.CardInfo().CardUseInfo == CardUseInfo.EnemyRow)).Mess();
+            .Where(x => (x.CardInfo().CardUseInfo == CardUseInfo.AnyRow || x.CardInfo().CardUseInfo == CardUseInfo.EnemyRow)).Mess(RNG);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list.ToList(), 1, "选择打出一张牌");

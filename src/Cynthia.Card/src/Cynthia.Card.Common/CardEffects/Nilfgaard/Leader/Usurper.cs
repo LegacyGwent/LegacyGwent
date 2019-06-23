@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Usurper(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            var createCards = GwentMap.GetCreateCardsId(x => x.Group == Group.Leader && x.CardId != CardId.Usurper);
+            var createCards = GwentMap.GetCreateCardsId(x => x.Group == Group.Leader && x.CardId != CardId.Usurper, RNG);
             var count = await Game.CreateAndMoveStay(
                 Game.AnotherPlayer(Card.PlayerIndex),
                 createCards.ToArray(),
