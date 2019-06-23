@@ -8,6 +8,12 @@ namespace Cynthia.Card
 {
     public static class EffectPoolExtensions
     {
+        public static async Task<TEvent> RaiseEvent<TEvent>(this IHasEffects hasEffects, TEvent @event)
+        where TEvent : Event
+        {
+            return await hasEffects.Effects.RaiseEvent(@event);
+        }
+
         public static async Task<TEvent> RaiseEvent<TEvent>(this IEnumerable<IHandlesEvent> effects, TEvent @event)
         where TEvent : Event
         {

@@ -6,15 +6,6 @@ namespace Cynthia.Card
         {
             CardId = statusId;
             CardInfo = GwentMap.CardMap[statusId];
-            /*
-            Strength = GwentMap.CardMap[cardIndex].Strength;
-            Type = GwentMap.CardMap[cardIndex].CardType;
-            IsDoomed = GwentMap.CardMap[cardIndex].IsDoomed;
-            IsCountdown = GwentMap.CardMap[cardIndex].IsCountdown;
-            Countdown = GwentMap.CardMap[cardIndex].Countdown;
-            CardArtsId = GwentMap.CardMap[cardIndex].CardArtsId;
-            Group = GwentMap.CardMap[cardIndex].Group;
-            Faction = GwentMap.CardMap[cardIndex].Faction;*/
         }
 
         public CardStatus(string statusId, Faction deckFaction, RowPosition position) : this(statusId)
@@ -49,7 +40,6 @@ namespace Cynthia.Card
         public string CardId { get; set; }
         public string CardArtsId { get => _cardArtId ?? CardInfo.CardArtsId; set => _cardArtId = value; }
         public Group Group { get => _group ?? CardInfo.Group; set => _group = value; }
-        //public GwentCard CardInfo { get; set; }
         public RowPosition CardRow { get; set; }
         public bool IsDoomed { get => _isDoomed ?? CardInfo.IsDoomed; set => _isDoomed = value; }//是否佚亡
         public CardType Type { get => _type ?? CardInfo.CardType; set => _type = value; }//法术还是单位
@@ -67,7 +57,6 @@ namespace Cynthia.Card
         public bool IsImmue { get; set; } = false;//是否免疫 | 场地
         //-----------------------------------------------------------------
         //显示相关
-        //public bool IsGray { get; set; } = false;
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
         public Faction Faction { get => _faction ?? CardInfo.Faction; set => _faction = value; }

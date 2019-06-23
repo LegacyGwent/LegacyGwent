@@ -63,7 +63,6 @@ namespace Cynthia.Card.Server
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
-            // await SendOperactionList();
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
@@ -82,6 +81,7 @@ namespace Cynthia.Card.Server
             await Task.WhenAny(PlayGame(), _setGameEnd.Task);
             await SendOperactionList();
         }
+        
         public async Task GameEnd(int winPlayerIndex, Exception exception)
         {
             if (exception == null)
@@ -93,16 +93,7 @@ namespace Cynthia.Card.Server
             await SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose);
             _setGameEnd.SetResult(winPlayerIndex);
         }
-        // public async Task<bool> WaitReconnect(int waitIndex, Func<Task<bool>> waitReconnect)
-        // {
-        //     if (await waitReconnect())
-        //     {
-        //         //如果重连成功
-        //         await Debug("如果重连成功,应该可以收到这个消息");
-        //         return true;
-        //     }
-        //     return false;
-        // }
+
         public async Task BigRoundEnd()//小局结束,进行收场
         {
             await ClientDelay(500);
@@ -181,7 +172,6 @@ namespace Cynthia.Card.Server
                             , Players[Player2Index].SendAsync(ServerOperationType.BigRoundShowClose));
             await ClientDelay(100);
             //888888888888888888888888888888888888888888888888888888888888888888888888
-            // await OnRoundOver(RoundCount, player1PlacePoint, player2PlacePoint);
             await SendEvent(new AfterRoundOver(RoundCount, player1PlacePoint, player2PlacePoint));
             //888888888888888888888888888888888888888888888888888888888888888888888888
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
@@ -197,7 +187,6 @@ namespace Cynthia.Card.Server
             //----------------------------------------------------
             //这里是回合开始卡牌(如剑船)的逻辑和动画<待补充>
             //888888888888888888888888888888888888888888888888888888888888888888888888
-            // await OnTurnStart(playerIndex);
             await SendEvent(new AfterTurnStart(playerIndex));
             //888888888888888888888888888888888888888888888888888888888888888888888888
             //----------------------------------------------------
@@ -221,7 +210,6 @@ namespace Cynthia.Card.Server
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
                 //888888888888888888888888888888888888888888888888888888888888888888888888
-                // await OnPlayerPass(playerIndex);
                 await SendEvent(new AfterPlayerPass(playerIndex));
                 //888888888888888888888888888888888888888888888888888888888888888888888888
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
@@ -240,7 +228,6 @@ namespace Cynthia.Card.Server
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
                 //888888888888888888888888888888888888888888888888888888888888888888888888
-                // await OnPlayerPass(playerIndex);
                 await SendEvent(new AfterPlayerPass(playerIndex));
                 //888888888888888888888888888888888888888888888888888888888888888888888888
                 //判断对手是否pass
@@ -264,7 +251,6 @@ namespace Cynthia.Card.Server
             // await Debug("Mulligan Start!");
             while (await PlayerRound())
             {
-                // await OnTurnOver(TwoPlayerToPlayerIndex(GameRound));
                 await SendEvent(new AfterTurnOver(TwoPlayerToPlayerIndex(GameRound)));
                 GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
             }
@@ -334,7 +320,6 @@ namespace Cynthia.Card.Server
             var list = new List<GameCard>();
             for (var i = 0; i < myPlayerCount; i++)
             {
-                //await GetCardFrom(myPlayerIndex, RowPosition.MyDeck, RowPosition.MyStay, 0, PlayersDeck[myPlayerIndex][0].CardStatus);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Source = new CardLocation() { RowPosition = RowPosition.MyDeck },
@@ -352,7 +337,6 @@ namespace Cynthia.Card.Server
                 });
                 await ClientDelay(300, myPlayerIndex);
                 //88888888888888888888888888888888888888888888888888888
-                // await OnPlayerDraw(myPlayerIndex, drawcard);
                 await SendEvent(new AfterPlayerDraw(myPlayerIndex, drawcard, null));
                 //88888888888888888888888888888888888888888888888888888
             }
@@ -364,14 +348,12 @@ namespace Cynthia.Card.Server
                     Target = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
                     Card = new CardStatus(PlayersFaction[enemyPlayerIndex])// { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
                 });
-                //await GetCardFrom(myPlayerIndex, RowPosition.EnemyDeck, RowPosition.EnemyStay, 0, new CardStatus() { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] });
                 await ClientDelay(400, myPlayerIndex);
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
                 {
                     Source = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
                     Target = new CardLocation() { RowPosition = RowPosition.EnemyHand, CardIndex = 0 },
                 });
-                //await SetCardTo(myPlayerIndex, RowPosition.EnemyStay, 0, RowPosition.EnemyHand, 0);
                 await ClientDelay(300, myPlayerIndex);
             }
             return list;
@@ -807,11 +789,11 @@ namespace Cynthia.Card.Server
             .ToList();
         }
         //----------------------------------------------------------------------------------------------
-        public Task SetAllInfo()
+        public async Task SetAllInfo()
         {
-            var player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
-            var player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
-            return Task.WhenAll(player1Task, player2Task);
+            await Players[Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
+            await Players[Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
+            await SendOperactionList();
         }
         public Task SetCemeteryInfo(int playerIndex)
         {
@@ -1077,14 +1059,9 @@ namespace Cynthia.Card.Server
                 GetCardLocation(playerIndex, card),
                 isBack ?
                 new CardStatus(card.Status.DeckFaction)
-                // {
-                //     IsCardBack = true,
-                //     DeckFaction = card.Status.DeckFaction
-                // }
                 : card.Status
             );
     }
-    //
     public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false)
     {
         await SendCardMove(card.PlayerIndex, new MoveCardInfo()
@@ -1284,14 +1261,6 @@ namespace Cynthia.Card.Server
                         PlayersFaction[Player1Index],
                         RowPosition.MyLeader
                     ),player1.Deck.Leader)
-                // {
-                //     PlayerIndex = Player1Index,
-                //     Status = new CardStatus(player1.Deck.Leader)
-                //     {
-                //         DeckFaction = PlayersFaction[Player1Index],
-                //         CardRow = RowPosition.MyLeader,
-                //     }
-                // }.With(card => card.Effect = CreateEffectInstance(player1.Deck.Leader,card))
             }.ToList();
         PlayersLeader[Player2Index] = new List<GameCard>
             {
@@ -1301,14 +1270,6 @@ namespace Cynthia.Card.Server
                         PlayersFaction[Player2Index],
                         RowPosition.MyLeader
                     ),player2.Deck.Leader)
-                // {()
-                //     PlayerIndex = Player2Index,
-                //     Status = new CardStatus(player2.Deck.Leader)
-                //     {
-                //         DeckFaction = PlayersFaction[Player2Index],
-                //         CardRow = RowPosition.MyLeader,
-                //     }
-                // }.With(card => card.Effect = CreateEffectInstance(player2.Deck.Leader,card))
             }.ToList();
         //将卡组转化成实体,并且打乱牌组
         PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
@@ -1318,15 +1279,6 @@ namespace Cynthia.Card.Server
                     PlayersFaction[Player1Index],
                     RowPosition.MyDeck
                 ), cardId))
-        // new GameCard(this)
-        // {
-        //     PlayerIndex = Player1Index,
-        //     Status = new CardStatus(cardId)
-        //     {
-        //         DeckFaction = GwentMap.CardMap[player1.Deck.Leader].Faction,
-        //         CardRow = RowPosition.MyDeck
-        //     }
-        // }.With(card => card.Effect = CreateEffectInstance(cardId, card)))
         .Mess().ToList();
         //需要更改,将卡牌效果变成对应Id的卡牌效果
         PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
@@ -1337,14 +1289,6 @@ namespace Cynthia.Card.Server
                     RowPosition.MyDeck
                 ), cardId)
         )
-        // {
-        //     PlayerIndex = Player2Index,
-        //     Status = new CardStatus(x)
-        //     {
-        //         DeckFaction = GwentMap.CardMap[player2.Deck.Leader].Faction,
-        //         CardRow = RowPosition.MyDeck
-        //     }
-        // }.With(card => card.Effect = CreateEffectInstance(x, card)))
         .Mess().ToList();
     }
     public async Task SendBigRoundEndToCemetery()
@@ -1352,8 +1296,6 @@ namespace Cynthia.Card.Server
         //#############################################
         //#                 需要优化                  
         //#############################################
-        //var player1CardsPart = new GameCardsPart();
-        //var player2CardsPart = new GameCardsPart();
         foreach (var place in PlayersPlace)
             foreach (var row in place)
                 foreach (var card in row.ToList())
@@ -1361,8 +1303,6 @@ namespace Cynthia.Card.Server
                     await card.Effect.RoundEnd();
                     await ClientDelay(10);
                 }
-        //var player1Task = Players[Player1Index].SendAsync(ServerOperationType.CardsToCemetery, player1CardsPart);
-        //var player2Task = Players[Player2Index].SendAsync(ServerOperationType.CardsToCemetery, player2CardsPart);
         await SetCountInfo();
         await SetPointInfo();
         await SetCemeteryInfo();
@@ -1389,7 +1329,6 @@ namespace Cynthia.Card.Server
         if (row < 0 || row > 2) return;
         GameRowStatus[playerIndex][row] = type;
         await ShowWeatherApply(playerIndex, row.IndexToMyRow(), type);
-        // await OnWeatherApply(playerIndex, row, type);
         await SendEvent(new AfterWeatherApply(playerIndex, row.IndexToMyRow(), type));
     }
     public async Task ApplyWeather(int playerIndex, RowPosition row, RowStatus type)
@@ -1412,14 +1351,6 @@ namespace Cynthia.Card.Server
                     PlayersFaction[playerIndex],
                     RowPosition.None
                 ), cardId);
-        // {
-        //     PlayerIndex = playerIndex,
-        //     Status = new CardStatus(cardId)
-        //     {
-        //         DeckFaction = PlayersFaction[playerIndex],
-        //         CardRow = RowPosition.None,
-        //     }
-        // }.With(card => card.Effect = CreateEffectInstance(cardId, card));
         if (setting != null)
             setting(creatCard.Status);
         await LogicCardMove(creatCard, row, position.CardIndex);
@@ -1569,352 +1500,5 @@ namespace Cynthia.Card.Server
     //     }
     // }
     //================================
-    // public async Task OnTurnOver(int playerIndex)//谁的回合结束了
-    // {
-    //     foreach (var card in GetAllCard(playerIndex))
-    //     {
-    //         if (!card.Status.IsLock)
-    //             await card.Effect.OnTurnOver(playerIndex);
-    //     }
-    // }
-    // public async Task OnRoundOver(int RoundCount, int player1Point, int player2Point)//第几轮,谁赢了
-    // {
-    //     foreach (var card in GetAllCard(player1Point > player2Point ? Player1Index : Player2Index))
-    //     {
-    //         if (!card.Status.IsLock)
-    //             await card.Effect.OnRoundOver(RoundCount, player1Point, player2Point);
-    //     }
-    // }
-    // public async Task OnPlayerPass(int playerIndex)//玩家pass的时候触发
-    // {
-    //     foreach (var card in GetAllCard(playerIndex))
-    //     {
-    //         if (!card.Status.IsLock)
-    //             await card.Effect.OnPlayerPass(playerIndex);
-    //     }
-    // }
-    // public async Task OnPlayerDraw(int playerIndex, GameCard target)//抽卡
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnPlayerDraw(playerIndex, target);
-    //     foreach (var card in GetAllCard(playerIndex))
-    //     {
-    //         if (card != target && !card.Status.IsLock)
-    //             await card.Effect.OnPlayerDraw(playerIndex, target);
-    //     }
-    // }
-    // public async Task OnCardReveal(GameCard target, GameCard source = null)//揭示
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardReveal(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardReveal(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardReveal(target, source);
-    //     }
-    // }
-    // public async Task OnCardConsume(GameCard target, GameCard source)//吞噬
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardConsume(target, source);
-    //     if (!source.Status.IsLock)
-    //         await source.Effect.OnCardConsume(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardConsume(target, source);
-    //     }
-    // }
-    // public async Task OnCardBoost(GameCard target, int num, GameCard source = null)//增益
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardBoost(target, num, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardBoost(target, num, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardBoost(target, num, source);
-    //     }
-    // }
-    // public async Task OnCardHurt(GameCard target, int num, GameCard source = null)//受伤
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardHurt(target, num, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardHurt(target, num, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardHurt(target, num, source);
-    //     }
-    // }
-    // public async Task OnSpecialPlay(GameCard target)//法术卡使用前
-    // {
-    //     for (var i = 0; i < 3; i++)
-    //     {
-    //         var list1 = RowToList(Player1Index, i.IndexToMyRow()).ToList();
-    //         if (list1.Count() == 0) continue;
-    //         switch (GameRowStatus[Player1Index][i])
-    //         {
-    //             //灾厄
-    //             case RowStatus.DragonDream://龙之梦
-    //                 foreach (var card in list1)
-    //                 {
-    //                     await card.Effect.Damage(4);
-    //                 }
-    //                 await ApplyWeather(Player1Index, i, RowStatus.None);
-    //                 break;
-    //         }
-    //         //----
-    //         var list2 = RowToList(Player2Index, i.IndexToMyRow()).ToList();
-    //         if (list2.Count() == 0) continue;
-    //         switch (GameRowStatus[Player2Index][i])
-    //         {
-    //             //灾厄
-    //             case RowStatus.DragonDream://龙之梦
-    //                 foreach (var card in list2)
-    //                 {
-    //                     await card.Effect.Damage(4);
-    //                 }
-    //                 await ApplyWeather(Player2Index, i, RowStatus.None);
-    //                 break;
-    //         }
-    //     }
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnSpecialPlay(target);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && !card.Status.IsLock)
-    //             await card.Effect.OnSpecialPlay(target);
-    //     }
-    // }
-    // public async Task OnUnitPlay(GameCard target)//单位卡执行一段部署前
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnUnitPlay(target);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && !card.Status.IsLock)
-    //             await card.Effect.OnUnitPlay(target);
-    //     }
-    // }
-    // public async Task OnCardDeath(GameCard target, CardLocation source)//有卡牌进入墓地
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardDeath(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && !card.Status.IsLock)
-    //             await card.Effect.OnCardDeath(target, source);
-    //     }
-    // }
-    // public async Task OnCardToCemetery(GameCard target, CardLocation source)//有卡牌进入墓地
-    // {
-    //     if (!target.Status.IsLock)//优先向进入墓地的单位发送消息, 并且只在单位没有被锁的情况发送
-    //         await target.Effect.OnCardToCemetery(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {   //获得游戏中所有卡牌,向所有没有锁的单位发送消息(已经发送的不会发送)
-    //         if (card != target && !card.Status.IsLock)
-    //             await card.Effect.OnCardToCemetery(target, source);
-    //     }
-    // }
-    // public async Task OnCardSpyingChange(GameCard target, bool isSpying, GameCard source = null)//场上间谍改变
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardSpyingChange(target, isSpying, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSpyingChange(target, isSpying, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardSpyingChange(target, isSpying, source);
-    //     }
-    // }
-    // public async Task OnCardDiscard(GameCard target, GameCard source = null)//卡牌被丢弃
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardDiscard(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardDiscard(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardDiscard(target, source);
-    //     }
-    // }
-    // public async Task OnCardAmbush(GameCard target)//有伏击卡触发
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardAmbush(target);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && !card.Status.IsLock)
-    //             await card.Effect.OnCardAmbush(target);
-    //     }
-    // }
-    // public async Task OnCardSwap(GameCard target, GameCard source = null)//卡牌交换
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardSwap(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSwap(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardSwap(target, source);
-    //     }
-    // }
-    // public async Task OnCardConceal(GameCard target, GameCard source = null)//隐匿
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardConceal(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardConceal(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardConceal(target, source);
-    //     }
-    // }
-    // public async Task OnCardLockChange(GameCard target, bool isLock, GameCard source = null)//锁定状态改变
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardLockChange(target, isLock, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardLockChange(target, isLock, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardLockChange(target, isLock, source);
-    //     }
-    // }
-    // public async Task OnCardAddArmor(GameCard target, int num, GameCard source = null)//增加护甲
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardAddArmor(target, num, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardAddArmor(target, num, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardAddArmor(target, num, source);
-    //     }
-    // }
-    // public async Task OnCardSubArmor(GameCard target, int num, GameCard source = null)//降低护甲
-    // {
-    //     if (target.Status.IsLock)
-    //         await target.Effect.OnCardSubArmor(target, num, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardSubArmor(target, num, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardSubArmor(target, num, source);
-    //     }
-    // }
-    // public async Task OnCardArmorBreak(GameCard target, GameCard source = null)//护甲被破坏
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardResurrect(target);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResurrect(target);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardArmorBreak(target, source);
-    //     }
-    // }
-    // public async Task OnCardResurrect(GameCard target, GameCard source = null)//有卡牌复活
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardResurrect(target);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResurrect(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardResurrect(target);
-    //     }
-    // }
-    // public async Task OnCardResilienceChange(GameCard target, bool isResilience, GameCard source = null)//坚韧状态改变
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardResilienceChange(target, isResilience, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardResilienceChange(target, isResilience, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardResilienceChange(target, isResilience, source);
-    //     }
-    // }
-    // public async Task OnCardHeal(GameCard target, GameCard source = null)//卡牌被治愈
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardHeal(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardHeal(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardHeal(target, source);
-    //     }
-    // }
-    // public async Task OnCardReset(GameCard target, GameCard source = null)//卡牌被重置
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardReset(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardReset(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardReset(target, source);
-    //     }
-    // }
-    // public async Task OnCardStrengthen(GameCard target, int num, GameCard source = null)//强化
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardStrengthen(target, num, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardStrengthen(target, num, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardStrengthen(target, num, source);
-    //     }
-    // }
-    // public async Task OnCardWeaken(GameCard target, int num, GameCard source = null)//削弱
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardWeaken(target, num, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardWeaken(target, num, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardWeaken(target, num, source);
-    //     }
-    // }
-    // public async Task OnCardDrain(GameCard master, int num, GameCard target)//有单位汲食时
-    // {
-    //     if (!master.Status.IsLock)
-    //         await master.Effect.OnCardDrain(master, num, target);
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardDrain(master, num, target);
-    //     foreach (var card in GetAllCard(master.PlayerIndex))
-    //     {
-    //         if (card != master && card != target && !card.Status.IsLock)
-    //             await card.Effect.OnCardDrain(master, num, target);
-    //     }
-    // }
-    // public async Task OnCardCharm(GameCard target, GameCard source = null)//被魅惑
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardCharm(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardCharm(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardCharm(target, source);
-    //     }
-    // }
-    // public async Task OnCardMove(GameCard target, GameCard source = null)//位移时
-    // {
-    //     if (!target.Status.IsLock)
-    //         await target.Effect.OnCardMove(target, source);
-    //     if (source != null && !source.Status.IsLock) await source.Effect.OnCardMove(target, source);
-    //     foreach (var card in GetAllCard(target.PlayerIndex))
-    //     {
-    //         if (card != target && card != source && !card.Status.IsLock)
-    //             await card.Effect.OnCardMove(target, source);
-    //     }
-    // }
 }
 }
