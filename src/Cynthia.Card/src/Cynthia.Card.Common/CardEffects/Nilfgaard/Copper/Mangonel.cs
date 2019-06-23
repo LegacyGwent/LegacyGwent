@@ -10,17 +10,22 @@ namespace Cynthia.Card
         public Mangonel(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            var cards = Game.GetAllCard(Card.PlayerIndex)
-                .Where(x => x.PlayerIndex != Card.PlayerIndex && x.Status.CardRow.IsOnPlace());
-            if (cards.Count() == 0) return 0;
-            await cards.Mess().First().Effect.Damage(2, Card);
+            await DamageRandomEnemy();
             return 0;
         }
 
         public async Task HandleEvent(AfterCardReveal @event)
         {
             if (@event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
-            await CardPlayEffect(Card.Status.IsSpying);
+            await DamageRandomEnemy();
+        }
+
+        private async Task DamageRandomEnemy()
+        {
+            var cards = Game.GetAllCard(Card.PlayerIndex)
+                .Where(x => x.PlayerIndex != Card.PlayerIndex && x.Status.CardRow.IsOnPlace());
+            if (cards.Count() == 0) return;
+            await cards.Mess().First().Effect.Damage(2, Card);
         }
     }
 }
