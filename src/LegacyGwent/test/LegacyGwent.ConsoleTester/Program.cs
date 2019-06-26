@@ -94,19 +94,17 @@ namespace LegacyGwent.ConsoleTester
     {
         static async Task Main(string[] args)
         {
-            // var trynd = new Tryndamere();
-            // trynd.Effects.Add(new UndyingRage());
-            // var disableUndyingRage = new DisableUndyingRage();
-            // trynd.Effects.Add(disableUndyingRage);
-            // trynd.Effects.Remove(disableUndyingRage);
-            // while (trynd.Health > 0)
-            // {
-            //     await trynd.GetDamaged(5);
-            // }
-            await Task.CompletedTask;
-            var test = new AsyncBufferList<int>();
-            // test.Finish();
-            // test.Reveice(1);
+            var olist = new Pipeline();
+            await olist.AddLast(async () =>
+            {
+                await Task.Delay(1000);
+                Console.WriteLine("这是任务A");
+                _ = olist.AddLast(async () =>
+                    {
+                        await Task.Delay(200);
+                        Console.WriteLine("这是任务B,追加到任务A后面");
+                    });
+            });
             Console.ReadLine();
         }
         static async Task Runer(Action action, int count = 10, int delayTime = 500)

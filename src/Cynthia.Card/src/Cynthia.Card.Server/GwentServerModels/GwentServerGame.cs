@@ -9,6 +9,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame
     {
+        public Pipeline OperactionList { get; private set; } = new Pipeline();
         private GwentCardTypeService _gwentCardTypeService;
         public int _randomSeed;
         public Random RNG { get; private set; }
@@ -54,6 +55,8 @@ namespace Cynthia.Card.Server
                     return (null, 0);
             }
         }
+
+
         private TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
 
         public async Task PlayGame()
@@ -793,7 +796,7 @@ namespace Cynthia.Card.Server
         {
             await Players[Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
             await Players[Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
-            await SendOperactionList();
+            // await SendOperactionList();
         }
         public Task SetCemeteryInfo(int playerIndex)
         {
@@ -1376,10 +1379,21 @@ namespace Cynthia.Card.Server
     }
     public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
     {
-        foreach (var card in GetAllCard(Player1Index).ToList())
+        Func<Task> task = async () =>
         {
-            if (card.Status.IsLock || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
-            await card.Effects.RaiseEvent(@event);
+            foreach (var card in GetAllCard(Player1Index).ToList())
+            {
+                if (card.Status.IsLock || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+                await card.Effects.RaiseEvent(@event);
+            }
+        };
+        if (OperactionList.IsRunning)
+        {
+            await task();
+        }
+        else
+        {
+            await AddTask(task);
         }
     }
     public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
@@ -1397,6 +1411,11 @@ namespace Cynthia.Card.Server
     public CardEffect CreateEffectInstance(string effectId, GameCard targetCard)
     {
         return _gwentCardTypeService.CreateInstance(effectId, targetCard);
+    }
+
+    public Task AddTask(params Func<Task>[] task)
+    {
+        return OperactionList.AddLast(task);
     }
     // public async Task OnWeatherApply(int playerIndex, int row, RowStatus type)//有天气降下
     // {
@@ -1500,5 +1519,5 @@ namespace Cynthia.Card.Server
     //     }
     // }
     //================================
-}
+    }
 }

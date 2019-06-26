@@ -652,7 +652,7 @@ public class GameEvent : MonoBehaviour
                 result++;
             }
         }
-        Debug.Log(result);
+        // Debug.Log(result);
         return result;
     }
     public IEnumerable<int> HandCanPlay()//当前可以打出的手牌
@@ -1033,6 +1033,8 @@ public class GameEvent : MonoBehaviour
     }
     public void SetCard(CardLocation location, CardStatus card)
     {
+        // Debug.Log("刷新了卡牌设置");
+        // Debug.Log($"卡牌名称是:{card.Name},生命状态是:{card.HealthStatus}");
         var clientCard = GetCard(location);
         clientCard.CardShowInfo.CurrentCore = card;
         //clientCard.CardShowInfo.SetCard();

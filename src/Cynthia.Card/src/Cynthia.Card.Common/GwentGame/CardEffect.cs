@@ -73,7 +73,10 @@ namespace Cynthia.Card
             Game.HistoryList.Add((Card.PlayerIndex, Card.Status.CardId));
             if (Card.Status.CardRow.IsOnStay())
                 // count = await CardUseEffect();
-                count = ((CardUseEffect)await Card.Effects.RaiseEvent(new CardUseEffect())).SearchCount;
+                await Game.AddTask(async () =>
+                {
+                    count = ((CardUseEffect)await Card.Effects.RaiseEvent(new CardUseEffect())).SearchCount;
+                });
             if (Card.Status.CardRow.IsOnStay())
                 await CardUseEnd();
             await PlayStayCard(count, false);
@@ -88,61 +91,88 @@ namespace Cynthia.Card
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 // count = await CardPlayEffect(isSpying);
-                count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying))).SearchCount;
+                await Game.AddTask(async () =>
+                {
+                    count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying))).SearchCount;
+                });
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDown(isSpying);
-            // await Card.Effects.RaiseEvent(new CardDownEffect(isSpying));
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(isSpying);
-                await Card.Effects.RaiseEvent(new CardDownEffect(isSpying));
+                await Game.AddTask(async () =>
+                {
+                    await Card.Effects.RaiseEvent(new CardDownEffect(isSpying));
+                });
         }
 
         //使卡牌"进入墓地"
         public virtual async Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
         {
-            var isDead = Card.Status.CardRow.IsOnPlace();
-            var deadposition = Game.GetCardLocation(Card);
-            if (type != CardBreakEffectType.ToCemetery)//直接移动到墓地,动画
-                await Game.ShowCardBreakEffect(Card, type);
-            Repair();
-            if (type == CardBreakEffectType.ToCemetery)
+
+            Func<Task> sendEventTask = async () =>
             {
-                if (Card.Status.CardRow.IsOnPlace())
+                var isDead = Card.Status.CardRow.IsOnPlace();
+                var deadposition = Game.GetCardLocation(Card);
+                if (Card.Status.IsDoomed)//如果是佚亡,放逐
                 {
-                    await Game.ShowCardOn(Card);
-                    await Game.ClientDelay(200);
-                    await Game.ShowSetCard(Card);
-                    await Game.ClientDelay(200);
-                    if (Card.Status.Strength <= 0)
-                    {
-                        await Banish();
-                        return;
-                    }
+                    await Banish();
+                    return;
                 }
-                await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
-                await Game.ClientDelay(400);
-            }
-            else
+                if (Card.Status.CardRow != RowPosition.Banish)
+                    await Game.SendEvent(new AfterCardToCemetery(Card, deadposition));
+                //8888888888888888888888888888888888888888888888888888888888888888888888
+                //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
+                if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
+                    await Game.SendEvent(new AfterCardDeath(Card, deadposition));
+                //8888888888888888888888888888888888888888888888888888888888888888888888
+                await Game.SetPointInfo();
+                await Game.SetCountInfo();
+            };
+            //需要在这里标记死亡....
+            await Game.ShowSetCard(Card);
+            await Game.AddTask(async () =>
             {
-                var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
-                var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
-                await Game.LogicCardMove(Card, target, 0);
-            }
-            if (Card.Status.IsDoomed)//如果是佚亡,放逐
-            {
-                await Banish();
-                return;
-            }
-            if (Card.Status.CardRow != RowPosition.Banish)
-                await Game.SendEvent(new AfterCardToCemetery(Card, deadposition));
-            //8888888888888888888888888888888888888888888888888888888888888888888888
-            //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
-            if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
-                await Game.SendEvent(new AfterCardDeath(Card, deadposition));
-            //8888888888888888888888888888888888888888888888888888888888888888888888
-            await Game.SetPointInfo();
-            await Game.SetCountInfo();
+                //卡牌重置
+                Repair();
+
+                //如果是特殊死亡,播放动画
+                if (type != CardBreakEffectType.ToCemetery)
+                {
+                    await Game.ShowCardBreakEffect(Card, type);
+                    await Game.AddTask(sendEventTask);
+                }
+                //如果是移动进入墓地
+                else// if(type == CardBreakEffectType.ToCemetery)
+                {
+                    if (Card.Status.CardRow.IsOnPlace())
+                    {
+                        await Game.ShowCardOn(Card);
+                        await Game.ClientDelay(10);
+                        // await Game.ShowSetCard(Card);
+                        // await Game.ClientDelay(20);
+                        if (Card.Status.Strength <= 0)
+                        {
+                            await Banish();
+                            return;
+                        }
+                    }
+                    await Game.AddTask(async () =>
+                    {
+                        await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
+                        // await Game.ClientDelay(100);
+                        // await Game.ShowSetCard(Card);
+                        await Game.ClientDelay(20);
+                        await Game.AddTask(sendEventTask);
+                    });
+                }
+                // else //意味不明,不会进入的代码块
+                // {
+                //     var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+                //     var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
+                //     await Game.LogicCardMove(Card, target, 0);
+                // }
+            });
         }
 
         //使卡牌"恢复状态"
@@ -267,7 +297,7 @@ namespace Cynthia.Card
                 await Spying();
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
-            await Game.SendEvent(new AfterUnitDown(Card));
+            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card)));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)(已经交给游戏事件处理)
@@ -395,10 +425,12 @@ namespace Cynthia.Card
                 await Game.ClientDelay(50);
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
-                //await Game.ClientDelay(150);
+                // await Game.ClientDelay(150);
                 if ((Card.Status.HealthStatus + Card.Status.Strength) <= 0)
                 {
                     await ToCemetery();
+                    // await Game.AddTask(() => ToCemetery());
+                    var a = 10;
                     return;
                 }
             }
@@ -598,7 +630,8 @@ namespace Cynthia.Card
                 await CardDown(false);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(false);
-                await Card.Effects.RaiseEvent(new CardDownEffect(false));
+                await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false)));
+
         }
         public virtual async Task Consume(GameCard target)//吞噬
         {
@@ -643,8 +676,11 @@ namespace Cynthia.Card
             var isSpyingChange = !location.RowPosition.IsMyRow();
             await Game.ShowCardMove(location, Card);
             await Game.ShowCardOn(Card);
-            await Game.ClientDelay(200);
-            await CardDown(isSpyingChange);
+            await Game.AddTask(async () =>
+            {
+                await Game.ClientDelay(200);
+                await CardDown(isSpyingChange);
+            });
         }
         //================================================================================
     }

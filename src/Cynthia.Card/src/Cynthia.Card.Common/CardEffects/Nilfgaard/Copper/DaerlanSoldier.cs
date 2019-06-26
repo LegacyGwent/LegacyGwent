@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
             if (@event.Target != Card || @event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex) return;
             var location = Game.GetRandomCanPlayLocation(Card.PlayerIndex);
-            await Card.Effect.Play(location);
+            await Card.Effect.Summon(location, @event.Target);
             await Game.PlayerDrawCard(Card.PlayerIndex, 1);
         }
     }
