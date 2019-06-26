@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cynthia.Card
 {
@@ -37,5 +38,11 @@ namespace Cynthia.Card
 
         //游戏
         public IGwentServerGame Game { get; set; }
+
+        public async Task<TEvent> RaiseEvent<TEvent>(TEvent @event)
+        where TEvent : Event
+        {
+            return await Effects.RaiseEvent(@event);
+        }
     }
 }

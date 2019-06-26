@@ -7,6 +7,8 @@ namespace Cynthia.Card
 {
     public interface IGwentServerGame
     {
+        Pipeline OperactionList { get; }
+        Task AddTask(params Func<Task>[] task);
         int RowMaxCount { get; set; }
         Random RNG { get; }
         IList<(int PlayerIndex, string CardId)> HistoryList { get; set; }

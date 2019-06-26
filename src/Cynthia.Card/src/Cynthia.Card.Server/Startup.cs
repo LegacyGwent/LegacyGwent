@@ -17,7 +17,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentDatabaseService>();
             services.AddSingleton<GwentCardTypeService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
-            services.AddSingleton<IMongoClient, MongoClient>((ctx) =>
+            services.AddTransient<IMongoClient, MongoClient>((ctx) =>
             {
                 return new MongoClient("mongodb://cynthia.ovyno.com:27017/gwent");
             });

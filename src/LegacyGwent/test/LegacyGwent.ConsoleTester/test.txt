@@ -1,0 +1,31 @@
+OList.AddLast(async ()=>await TesteEffect())
+
+TesteEffect()
+{
+    Card.Consume(A);
+    Card.Consume(B);
+    Card.Consume(C);
+}
+
+Consume(this Card source,Card target)
+{
+    point = target.HP;
+    source.Boost(point);
+    target.Dead();
+}
+
+Dead(this Card target)
+{
+    target.ShowDead();
+    OList.AddLast(async ()=>await Card.ToCemetery());
+}
+
+ToCemetery(this Card target)
+{
+    OList.AddLast(async ()=>{
+        await Card.ShowOn();
+        OList.AddLast(async()=>{
+            await Card.ShowToCemetery();
+        })
+    });
+}
