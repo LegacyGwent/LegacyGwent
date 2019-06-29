@@ -11,8 +11,8 @@ namespace Cynthia.Card
         public ClearSkies(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var tagetRows = Game.GameRowStatus[Card.PlayerIndex].Indexed()
-                .Where(x => x.Value.IsHazard())
+            var tagetRows = Game.GameRowEffect[Card.PlayerIndex].Indexed()
+                .Where(x => x.Value.RowStatus.IsHazard())
                 .Select(x => x.Key);
             foreach (var rowIndex in tagetRows)
             {
@@ -26,7 +26,8 @@ namespace Cynthia.Card
             }
             foreach (var rowIndex in tagetRows)
             {
-                await Game.ApplyWeather(Card.PlayerIndex, rowIndex.IndexToMyRow(), RowStatus.None);
+                // await Game.ApplyWeather(Card.PlayerIndex, rowIndex.IndexToMyRow(), RowStatus.None);
+                await Game.GameRowEffect[PlayerIndex][rowIndex].SetStatus<NoneStatus>();
             }
             return 0;
         }

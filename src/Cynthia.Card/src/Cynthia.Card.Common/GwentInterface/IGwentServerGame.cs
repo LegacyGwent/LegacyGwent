@@ -26,7 +26,8 @@ namespace Cynthia.Card
         IList<GameCard>[][] PlayersPlace { get; set; }//玩家场地/
         IList<GameCard>[] PlayersCemetery { get; set; }//玩家墓地/
         IList<GameCard>[] PlayersStay { get; set; }//玩家悬牌
-        RowStatus[][] GameRowStatus { get; set; }//玩家天气
+        // RowStatus[][] GameRowStatus { get; set; }//玩家天气
+        GameRow[][] GameRowEffect { get; set; }//每排的特效
         Faction[] PlayersFaction { get; set; }//玩家们的势力
         bool[] IsPlayersPass { get; set; }//玩家是否已经pass
         bool[] IsPlayersMulligan { get; set; }//玩家是否调度完毕
@@ -99,8 +100,8 @@ namespace Cynthia.Card
         Task<IList<GameCard>> GetSelectPlaceCards(GameCard card, int count = 1, bool isEnemySwitch = false, Func<GameCard, bool> filter = null, SelectModeType selectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0);
         Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false);//告诉玩家要打出什么牌,获取玩家选择的位置
-        Task ApplyWeather(int playerIndex, int row, RowStatus type);
-        Task ApplyWeather(int playerIndex, RowPosition row, RowStatus type);
+        // Task ApplyWeather(int playerIndex, int row, RowEffect status);
+        // Task ApplyWeather(int playerIndex, RowPosition row, RowEffect status);
         //----------------------------------------------------------------
         //方便的封装效果
         GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> filter, SelectModeType selectMode = SelectModeType.All);
@@ -119,7 +120,7 @@ namespace Cynthia.Card
         CardLocation GetCardLocation(GameCard card);
         GameCard GetCard(int playerIndex, CardLocation location);
         IList<GameCard> GetAllPlaceCard(int playerIndex);
-        IList<GameCard> GetAllCard(int playerIndex);
+        IList<GameCard> GetAllCard(int playerIndex, bool isContaiDead = false);
         Task Debug(string msg);
         Task MessageBox(string msg);
         Task ClientDelay(int millisecondsDelay, int? playerIndex = null);

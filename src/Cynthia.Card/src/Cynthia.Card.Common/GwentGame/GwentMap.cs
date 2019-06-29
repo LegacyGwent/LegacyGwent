@@ -15,7 +15,7 @@ namespace Cynthia.Card
             .ThenBy(x => x.Value.Strength)
             .Select(x => new CardStatus(x.Key));
         }
-        public static IEnumerable<string> GetCreateCardsId(Func<CardStatus, bool> filter,Random rng, int count = 3, bool isHasDerive = false)
+        public static IEnumerable<string> GetCreateCardsId(Func<CardStatus, bool> filter, Random rng, int count = 3, bool isHasDerive = false)
         {
             return GetCards()
                 .Where(filter)
