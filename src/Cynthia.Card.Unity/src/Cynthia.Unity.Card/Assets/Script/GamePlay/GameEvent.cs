@@ -176,7 +176,7 @@ public class GameEvent : MonoBehaviour
             }
             _selectCard = value;
             if (value == null) return;
-            if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay)
+            if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay || _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
             {
                 _selectCard = null;
                 return;
@@ -1015,7 +1015,7 @@ public class GameEvent : MonoBehaviour
                 return;
             default:
                 tagetRow = AllCardsPosition.Single(x => x.Id == info.Target.RowPosition);
-                tagetRow.AddCard(soureCard, info.Target.CardIndex);
+                tagetRow.AddCard(soureCard, tagetRow.GetTrueIndex(info.Target.CardIndex));
                 break;
         }
     }
@@ -1028,7 +1028,7 @@ public class GameEvent : MonoBehaviour
         }
         else
         {
-            //白雾一样的,在看不见的地方创造
+            //白雾一样的,在看不见的地方创造,和没有一样
         }
     }
     public void SetCard(CardLocation location, CardStatus card)

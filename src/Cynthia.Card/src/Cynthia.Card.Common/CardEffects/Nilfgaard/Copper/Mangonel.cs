@@ -25,7 +25,7 @@ namespace Cynthia.Card
             var cards = Game.GetAllCard(Card.PlayerIndex)
                 .Where(x => x.PlayerIndex != Card.PlayerIndex && x.Status.CardRow.IsOnPlace());
             if (cards.Count() == 0) return;
-            await cards.Mess().First().Effect.Damage(2, Card);
+            await cards.Mess(Game.RNG).First().Effect.Damage(2, Card);
         }
     }
 }

@@ -181,11 +181,13 @@ public class CardsPosition : MonoBehaviour
             );
         card.IsCanDrag = IsCanDrag;
         card.transform.SetParent(transform);
-        card.transform.SetSiblingIndex(cardIndex);
+        card.transform.SetSiblingIndex(GetTrueIndex(cardIndex));
         card.transform.localPosition = position;
         card.SetResetPoint(position);
         card.transform.localScale = Vector3.one;
         ResetCards();
+        // if (Id.IsOnPlace())
+        //     card.IsOn = true;
     }
 
     public void CreateCardTo(CardStatus card, int cardIndex)
@@ -209,6 +211,19 @@ public class CardsPosition : MonoBehaviour
     public void SetCards(IEnumerable<CardMoveInfo> Cards)
     {
         Cards.ForAll(x => CreateCard(x, -1));
+    }
+
+    public int GetTrueIndex(int index)
+    {
+        for (var i = 0; i < index; i++)
+        {
+            var card = transform.GetChild(i).GetComponent<CardShowInfo>();
+            if (card.IsDead || card.CardMoveInfo.IsTem)
+            {
+                index++;
+            }
+        }
+        return index;
     }
 
     public int GetTrueCardCount()

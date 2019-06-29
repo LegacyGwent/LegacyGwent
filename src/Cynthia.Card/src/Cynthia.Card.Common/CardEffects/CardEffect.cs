@@ -109,11 +109,10 @@ namespace Cynthia.Card
         //使卡牌"进入墓地"
         public virtual async Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
         {
-
+            var isDead = Card.Status.CardRow.IsOnPlace();
+            var deadposition = Game.GetCardLocation(Card);
             Func<Task> sendEventTask = async () =>
             {
-                var isDead = Card.Status.CardRow.IsOnPlace();
-                var deadposition = Game.GetCardLocation(Card);
                 if (Card.Status.IsDoomed)//如果是佚亡,放逐
                 {
                     await Banish();
@@ -129,28 +128,38 @@ namespace Cynthia.Card
                 await Game.SetPointInfo();
                 await Game.SetCountInfo();
             };
-            //需要在这里标记死亡....
+
+            //立刻执行,将卡牌视作僵尸卡
+            if (Card.CardPoint() != 0)
+            {
+                Card.Status.HealthStatus = -Card.Status.Strength;
+            }
             await Game.ShowSetCard(Card);
+
+            //延迟执行1.卡牌抬起
             await Game.AddTask(async () =>
             {
-                //卡牌重置
-                Repair();
-
                 //如果是特殊死亡,播放动画
                 if (type != CardBreakEffectType.ToCemetery)
                 {
-                    await Game.ShowCardBreakEffect(Card, type);
-                    await Game.AddTask(sendEventTask);
+                    await Game.AddTask(async () =>
+                    {
+                        await Game.ShowCardBreakEffect(Card, type);
+                        var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+                        var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
+                        await Game.LogicCardMove(Card, target, 0);
+                        Repair();
+                        await Game.AddTask(sendEventTask);
+                    });
                 }
                 //如果是移动进入墓地
-                else// if(type == CardBreakEffectType.ToCemetery)
+                else// if (type == CardBreakEffectType.ToCemetery)
                 {
+                    //1.抬起
                     if (Card.Status.CardRow.IsOnPlace())
                     {
                         await Game.ShowCardOn(Card);
-                        await Game.ClientDelay(10);
-                        // await Game.ShowSetCard(Card);
-                        // await Game.ClientDelay(20);
+                        await Game.ClientDelay(50);
                         if (Card.Status.Strength <= 0)
                         {
                             await Banish();
@@ -159,18 +168,20 @@ namespace Cynthia.Card
                     }
                     await Game.AddTask(async () =>
                     {
+                        //2.移动到墓地并且恢复
                         await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
-                        // await Game.ClientDelay(100);
-                        // await Game.ShowSetCard(Card);
-                        await Game.ClientDelay(20);
+                        Repair();
+                        //3.遗愿和事件
                         await Game.AddTask(sendEventTask);
                     });
                 }
-                // else //意味不明,不会进入的代码块
+                // else //这是特殊死亡时的处理
                 // {
                 //     var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
                 //     var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
                 //     await Game.LogicCardMove(Card, target, 0);
+                //     Repair();
+                //     await Game.AddTask(sendEventTask);
                 // }
             });
         }

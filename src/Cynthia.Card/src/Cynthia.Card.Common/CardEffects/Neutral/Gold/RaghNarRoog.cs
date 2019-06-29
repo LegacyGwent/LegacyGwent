@@ -12,7 +12,9 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 3; i++)
             {
-                await Game.ApplyWeather(AnotherPlayer, i.IndexToMyRow(), RowStatus.RaghNarRoog);
+                // await Game.ApplyWeather(AnotherPlayer, i.IndexToMyRow(), RowStatus.RaghNarRoog);
+                await Game.GameRowEffect[AnotherPlayer][i]
+                .SetStatus<RaghNarRoogStatus>();
             }
             return 0;
         }

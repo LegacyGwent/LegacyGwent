@@ -10,8 +10,9 @@ namespace Cynthia.Card
         public NauzicaaSergeant(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            if (Game.GameRowStatus[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].IsHazard())
-                await Game.ApplyWeather(PlayerIndex, Card.Status.CardRow.MyRowToIndex(), RowStatus.None);
+            if (Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard())
+                await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<NoneStatus>();
+            // await Game.ApplyWeather(PlayerIndex, Card.Status.CardRow.MyRowToIndex(), RowStatus.None);
             var result = await Game.GetSelectPlaceCards
                             (Card, filter: x => x.Status.IsReveal || x.Status.CardRow.IsOnPlace(), selectMode: SelectModeType.My);
             if (result.Count() == 0) return 0;
