@@ -8,7 +8,7 @@ namespace Cynthia.Card
     {
         public EffectSet Effects { get; private set; }
 
-        public RowStatus RowStatus { get => ((RowEffect)Effects.First()).StatusType; }
+        public RowStatus RowStatus { get => Effects.Count == 0 ? RowStatus.None : ((RowEffect)Effects.First()).StatusType; }
 
         public IList<GameCard> RowCards { get; private set; }
 

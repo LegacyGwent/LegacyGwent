@@ -17,9 +17,9 @@ namespace Cynthia.Card.Client
         {
             _messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();
         }
-        public Task<bool> YNMessageBox(string title,string message,string yes = "确定",string no = "取消")
+        public Task<bool> YNMessageBox(string title, string message, string yes = "确定", string no = "取消")
         {
-            return _messageBox.Show(title,message,yes,no);
+            return _messageBox.Show(title, message, yes, no);
         }
     }
 }

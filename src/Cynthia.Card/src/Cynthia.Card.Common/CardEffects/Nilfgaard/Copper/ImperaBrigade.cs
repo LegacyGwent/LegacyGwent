@@ -14,7 +14,7 @@ namespace Cynthia.Card
                 .Where(x => x.PlayerIndex == Game.AnotherPlayer(Card.PlayerIndex))
                 .Where(x => x.Status.CardRow.IsOnPlace() && x.Status.IsSpying).Count();
             //每有一个间谍获得2点增益
-            await Boost(count * 2);
+            await Boost(count * 2, Card);
             return 0;
         }
 
@@ -22,7 +22,7 @@ namespace Cynthia.Card
         {
             //如果在场上, 并且对方半场出现间谍, 增益2点
             if (Card.Status.CardRow.IsOnPlace() && @event.Target.PlayerIndex != Card.PlayerIndex)
-                await Boost(2);
+                await Boost(2, Card);
         }
     }
 }

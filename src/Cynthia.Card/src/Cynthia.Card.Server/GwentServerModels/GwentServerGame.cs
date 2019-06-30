@@ -549,7 +549,7 @@ namespace Cynthia.Card.Server
             if (targetIndex >= target.Count)
             {
                 targetIndex = target.Count;
-                await Debug($"指定目标大于等于最长长度,重指定目标为末尾,重定向到的位置是:{target.Count}");
+                // await Debug($"指定目标大于等于最长长度,重指定目标为末尾,重定向到的位置是:{target.Count}");
             }
             target.Insert(targetIndex, source);
             source.Status.CardRow = ListToRow(WhoRow(target), target);

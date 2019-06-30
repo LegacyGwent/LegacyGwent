@@ -17,7 +17,7 @@ namespace Cynthia.Card
             if (list.Count() == 0) return 0;
             var moveCard = list.First();
             await moveCard.MoveToCardStayFirst();
-            await moveCard.Effect.Boost(10);
+            await moveCard.Effect.Boost(10, Card);
             return 1;
         }
     }

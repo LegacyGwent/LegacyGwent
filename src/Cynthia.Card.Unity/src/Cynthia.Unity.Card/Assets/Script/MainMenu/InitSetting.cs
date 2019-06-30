@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class InitSetting : MonoBehaviour {
+public class InitSetting : MonoBehaviour
+{
 
-    public GameObject AudioSource;
+    // public GameObject AudioSource;
     public AudioMixer AudioMixer;
     public GameObject ResolutionPanel;
     public GameObject FullPanel;
@@ -15,7 +16,8 @@ public class InitSetting : MonoBehaviour {
     public GameObject QualityPanel;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         ResolutionPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("resolutionIndex", 2);
         FullPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("isFull", 0);
         QualityPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("quality", 2);
@@ -23,9 +25,10 @@ public class InitSetting : MonoBehaviour {
         MusicVolumPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("musicVolum", 5);
         EffectVolumPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("effectVolum", 5);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

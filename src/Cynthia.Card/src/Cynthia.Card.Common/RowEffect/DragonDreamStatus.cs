@@ -11,8 +11,9 @@ namespace Cynthia.Card
         {
             foreach (var card in RowCards)
             {
-                await card.Effect.Damage(4);
+                await card.Effect.Damage(4, null);
             }
+            await Row.SetStatus<NoneStatus>();
         }
     }
 }

@@ -17,7 +17,9 @@ namespace Cynthia.Card.Client
         private GameObject _code;
         public GameCodeService()
         {
+            Debug.Log("尝试获取了Code!");
             _code = GameObject.Find("Code");
+            Debug.Log(_code == null ? "没能成功获取" : "成功获取到了");
         }
         //-------------------------------------------------------------------------------------------
         public void SelectUICard(int index)
@@ -170,15 +172,15 @@ namespace Cynthia.Card.Client
         }
         public void ShowBullet(CardLocation source, CardLocation taget, BulletType type)
         {
-            _code.GetComponent<GameCode>().GameEvent.ShowBullet(source,taget,type);
+            _code.GetComponent<GameCode>().GameEvent.ShowBullet(source, taget, type);
         }
         public void ShowCardIconEffect(CardLocation location, CardIconEffectType type)
         {
-            _code.GetComponent<GameCode>().GameEvent.ShowCardIconEffect(location,type);
+            _code.GetComponent<GameCode>().GameEvent.ShowCardIconEffect(location, type);
         }
         public void ShowCardBreakEffect(CardLocation location, CardBreakEffectType type)
         {
-            _code.GetComponent<GameCode>().GameEvent.ShowCardBreakEffect(location,type);
+            _code.GetComponent<GameCode>().GameEvent.ShowCardBreakEffect(location, type);
         }
         //-------------------------------------------------------------------------------------------
         public void LeaveGame()//立刻离开游戏,进入主菜单
@@ -195,7 +197,7 @@ namespace Cynthia.Card.Client
         }
         public void GetPlayerDrag(LocalPlayer player)//玩家的回合到了
         {
-            _= _code.GetComponent<GameCode>().GameEvent.GetPlayerDrag(player);
+            _ = _code.GetComponent<GameCode>().GameEvent.GetPlayerDrag(player);
         }
         public void RoundEnd()
         {

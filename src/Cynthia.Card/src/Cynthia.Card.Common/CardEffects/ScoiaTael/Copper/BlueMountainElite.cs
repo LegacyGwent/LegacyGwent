@@ -34,7 +34,7 @@ namespace Cynthia.Card
         {
             if (@event.Target == Card)
             {
-                await Card.Effect.Boost(boostCount);
+                await Card.Effect.Boost(boostCount, Card);
             }
         }
     }

@@ -37,7 +37,7 @@ namespace Cynthia.Card
         {
             if (@event.PlayerIndex == PlayerIndex && needBoost)
             {
-                await Card.Effect.Boost(boost);
+                await Card.Effect.Boost(boost, Card);
             }
         }
 

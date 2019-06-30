@@ -13,7 +13,7 @@ namespace Cynthia.Card
             if (@event.PlayerIndex != PlayerIndex) return;
             var cards = Row.RowCards.WhereAllLowest();
             if (cards.Count() == 0) return;
-            await cards.Mess(Game.RNG).First().Effect.Damage(2);
+            await cards.Mess(Game.RNG).First().Effect.Damage(2, null);
         }
     }
 }

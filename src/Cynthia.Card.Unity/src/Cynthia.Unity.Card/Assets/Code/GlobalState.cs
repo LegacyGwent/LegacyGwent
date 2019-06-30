@@ -5,6 +5,8 @@ using UnityEngine;
 public static class GlobalState
 {
     public static bool IsToMatch = false;
+
+    public static bool IsLoadGlobal = false;
     public static int DefaultDeckIndex
     {
         get => _defaultDeckIndex;
