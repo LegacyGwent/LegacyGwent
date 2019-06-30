@@ -685,6 +685,7 @@ namespace Cynthia.Card
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤
             var isSpyingChange = !location.RowPosition.IsMyRow();
+            if (Card.Status.IsReveal) Card.Status.IsReveal = false;
             await Game.ShowCardMove(location, Card);
             await Game.ShowCardOn(Card);
             await Game.AddTask(async () =>
