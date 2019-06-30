@@ -16,7 +16,8 @@ namespace Cynthia.Card
             var cards = await Game.DrawCard(1, 1);
             foreach (var item in cards.Item1.Concat(cards.Item2))
             {
-                await item.Effect.Reveal(Card);
+                if (item.PlayerIndex != PlayerIndex)
+                    await item.Effect.Reveal(Card);
             }
             return 0;
         }
