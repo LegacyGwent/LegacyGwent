@@ -17,7 +17,7 @@ namespace Cynthia.Card
             var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow);
             if (!cards.Any()) return 0;
             var card = cards.Single();
-            await card.Effect.Boost(boost);
+            await card.Effect.Boost(boost, Card);
 
             return 0;
         }

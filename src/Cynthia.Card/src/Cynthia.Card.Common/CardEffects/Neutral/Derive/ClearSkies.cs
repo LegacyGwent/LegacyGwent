@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 {
                     if (card.Status.HealthStatus < 0)
                     {
-                        await card.Effect.Boost(2);
+                        await card.Effect.Boost(2, Card);
                     }
                 }
             }

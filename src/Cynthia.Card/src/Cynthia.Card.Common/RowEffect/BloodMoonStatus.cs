@@ -12,7 +12,7 @@ namespace Cynthia.Card
             var target = @event.Target;
             if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
             {
-                await target.Effect.Damage(2);
+                await target.Effect.Damage(2, null);
             }
         }
 
@@ -20,7 +20,7 @@ namespace Cynthia.Card
         {
             foreach (var card in RowCards)
             {
-                await card.Effect.Damage(2);
+                await card.Effect.Damage(2, null);
             }
         }
     }

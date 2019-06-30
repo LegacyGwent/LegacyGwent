@@ -14,7 +14,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-            await Card.Effect.Resilience();
+            await Card.Effect.Resilience(Card);
             return 0;
         }
     }

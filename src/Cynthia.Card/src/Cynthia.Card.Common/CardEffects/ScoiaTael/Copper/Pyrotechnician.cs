@@ -21,7 +21,7 @@ namespace Cynthia.Card
             list.Add(RandomChooseCard(RowPosition.EnemyRow3));
             foreach (var it in list)
             {
-                if (it != null) await it.Effect.Damage(damage);
+                if (it != null) await it.Effect.Damage(damage, Card);
             }
 
             return 0;

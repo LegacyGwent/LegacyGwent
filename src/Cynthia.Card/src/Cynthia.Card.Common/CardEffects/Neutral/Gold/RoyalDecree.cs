@@ -18,7 +18,7 @@ namespace Cynthia.Card
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0) return 0;
             await result.First().MoveToCardStayFirst();
-            await result.First().Effect.Boost(2);
+            await result.First().Effect.Boost(2, Card);
             return 1;
         }
     }

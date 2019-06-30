@@ -24,12 +24,12 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterPlayerPass @event)
         {
-            if (Card.PlayerIndex == @event.PlayerIndex && !Card.Status.IsLock && Card.Status.IsSpying) await Card.Effect.Charm();
+            if (Card.PlayerIndex == @event.PlayerIndex && !Card.Status.IsLock && Card.Status.IsSpying) await Card.Effect.Charm(Card);
         }
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (Card.PlayerIndex == @event.PlayerIndex && !Card.Status.IsLock && Card.Status.IsSpying) await Card.Effect.Boost(1);
+            if (Card.PlayerIndex == @event.PlayerIndex && !Card.Status.IsLock && Card.Status.IsSpying) await Card.Effect.Boost(1, Card);
         }
     }
 }

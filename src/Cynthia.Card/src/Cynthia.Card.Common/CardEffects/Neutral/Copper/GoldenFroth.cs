@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
             var result = await Game.GetSelectRow(Card.PlayerIndex, Card, new List<RowPosition>() { RowPosition.MyRow1, RowPosition.MyRow2, RowPosition.MyRow3 });
             // await Game.ApplyWeather(Card.PlayerIndex,result,RowStatus.GoldenFroth);
-            await Game.GameRowEffect[AnotherPlayer][result.Mirror().MyRowToIndex()]
+            await Game.GameRowEffect[PlayerIndex][result.MyRowToIndex()]
                 .SetStatus<GoldenFrothStatus>();
             return 0;
         }

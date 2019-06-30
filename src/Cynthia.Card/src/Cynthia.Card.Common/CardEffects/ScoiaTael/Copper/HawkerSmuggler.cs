@@ -16,7 +16,7 @@ namespace Cynthia.Card
         {
             if (@event.PlayedCard.PlayerIndex != Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
-                await Card.Effect.Boost(boost);
+                await Card.Effect.Boost(boost, Card);
             }
         }
 

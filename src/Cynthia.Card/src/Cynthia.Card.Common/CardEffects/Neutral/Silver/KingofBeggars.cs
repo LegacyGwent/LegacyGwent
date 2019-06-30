@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var point = Game.GetPlayersPoint(Game.AnotherPlayer(Card.PlayerIndex)) - Game.GetPlayersPoint(Card.PlayerIndex);
             if (point <= 0) return 0;
             if (Card.CardPoint() + point > 15) point = (15 - Card.CardPoint());
-            await Card.Effect.Strengthen(point);
+            await Card.Effect.Strengthen(point, Card);
             return 0;
         }
     }

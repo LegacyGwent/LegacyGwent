@@ -21,7 +21,7 @@ namespace Cynthia.Card
                 var position = Card.Status.CardRow;
                 if (position.IsInDeck() || position.IsInHand() || position.IsOnPlace())
                 {
-                    await Card.Effect.Boost(boost);
+                    await Card.Effect.Boost(boost, Card);
                 }
             };
         }
