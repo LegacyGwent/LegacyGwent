@@ -14,9 +14,9 @@ public class GlobalUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            DebugConsole.gameObject.SetActive(!DebugConsole.gameObject.activeSelf);
-        }
+        // if (Input.GetKeyDown(KeyCode.T))
+        // {
+        //     DebugConsole.gameObject.SetActive(!DebugConsole.gameObject.activeSelf);
+        // }
     }
 }
