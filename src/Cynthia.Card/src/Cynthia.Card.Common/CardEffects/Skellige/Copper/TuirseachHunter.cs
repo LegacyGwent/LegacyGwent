@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class TuirseachHunter : CardEffect
 	{//造成5点伤害。
 		public TuirseachHunter(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Draug : CardEffect
 	{//将死去的单位复活为战力为1的“战鬼”，直至填满此排。
 		public Draug(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

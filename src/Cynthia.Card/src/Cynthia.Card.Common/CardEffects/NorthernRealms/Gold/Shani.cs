@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Shani : CardEffect
 	{//复活1个铜色/银色非“诅咒生物”单位，并使其获得2点护甲。
 		public Shani(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

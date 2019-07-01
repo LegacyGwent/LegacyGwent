@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BrouverHoog : CardEffect
 	{//从牌组打出1张非间谍银色单位牌或铜色“矮人”牌。
 		public BrouverHoog(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

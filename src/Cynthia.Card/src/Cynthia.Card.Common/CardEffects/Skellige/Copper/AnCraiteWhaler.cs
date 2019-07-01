@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class AnCraiteWhaler : CardEffect
 	{//将1个敌军单位移至其所在半场的同排，并使它受到等同于所在排单位数量的伤害。
 		public AnCraiteWhaler(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

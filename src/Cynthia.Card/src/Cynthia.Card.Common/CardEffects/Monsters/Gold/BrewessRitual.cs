@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BrewessRitual : CardEffect
 	{//复活2个铜色遗愿单位。
 		public BrewessRitual(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class HarpyHatchling : CardEffect
 	{//没有特殊技能。
 		public HarpyHatchling(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class DamnedSorceress : CardEffect
 	{//若同排有1个“诅咒生物”单位，则造成7点伤害。
 		public DamnedSorceress(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

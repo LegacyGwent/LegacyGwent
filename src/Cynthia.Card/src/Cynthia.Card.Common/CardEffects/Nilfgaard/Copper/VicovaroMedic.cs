@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class VicovaroMedic : CardEffect
     {//从对方墓场复活1个铜色单位。
         public VicovaroMedic(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //从敌方墓地取铜色单位卡
             var list = Game.PlayersCemetery[Game.AnotherPlayer(Card.PlayerIndex)]

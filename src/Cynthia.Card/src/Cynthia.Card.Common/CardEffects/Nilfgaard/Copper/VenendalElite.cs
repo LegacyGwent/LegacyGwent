@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class VenendalElite : CardEffect
     {//与1个被揭示的单位互换战力。
         public VenendalElite(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, filter: x => x.Status.IsReveal, selectMode: SelectModeType.AllHand);
             if (cards.Count == 0)

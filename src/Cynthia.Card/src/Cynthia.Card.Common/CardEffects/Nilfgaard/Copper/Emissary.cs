@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class Emissary : CardEffect
     {
         public Emissary(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //打乱己方卡组,并且取2张铜色卡
             var list = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)]

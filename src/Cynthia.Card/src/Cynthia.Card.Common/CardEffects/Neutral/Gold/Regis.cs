@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Regis : CardEffect
 	{//汲食1个单位的所有增益。
 		public Regis(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
             var cards = await Game.GetSelectPlaceCards(Card, 1, filter: x => x.Status.HealthStatus > 0);
             if (cards.Count() == 0) return 0;

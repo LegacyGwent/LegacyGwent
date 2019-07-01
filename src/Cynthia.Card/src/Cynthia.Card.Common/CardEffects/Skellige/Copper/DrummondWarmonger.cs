@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class DrummondWarmonger : CardEffect
 	{//从牌组丢弃1张铜色牌。
 		public DrummondWarmonger(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Ciri : CardEffect
 	{//己方输掉小局时返回手牌。 2点护甲。
 		public Ciri(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

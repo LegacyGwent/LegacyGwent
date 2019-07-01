@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class VesemirMentor : CardEffect
 	{//从牌组打出1张铜色/银色“炼金”牌。
 		public VesemirMentor(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			//己方卡组乱序呈现
             var list = Game.PlayersDeck[PlayerIndex]

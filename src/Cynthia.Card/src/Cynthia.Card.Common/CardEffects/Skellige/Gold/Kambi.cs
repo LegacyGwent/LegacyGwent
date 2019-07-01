@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Kambi : CardEffect
 	{//间谍。遗愿：生成“汉姆多尔”。
 		public Kambi(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

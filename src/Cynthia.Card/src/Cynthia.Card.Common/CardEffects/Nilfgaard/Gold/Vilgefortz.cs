@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Vilgefortz : CardEffect
     {
         public Vilgefortz(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //摧毁1个友军单位，随后从牌组顶端打出1张牌；或
             //休战：摧毁1个敌军单位，随后对方抽1张铜色牌并揭示它。

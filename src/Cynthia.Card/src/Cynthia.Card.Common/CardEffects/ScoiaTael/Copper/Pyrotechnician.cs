@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = new List<GameCard>();
             list.Add(RandomChooseCard(RowPosition.EnemyRow1));

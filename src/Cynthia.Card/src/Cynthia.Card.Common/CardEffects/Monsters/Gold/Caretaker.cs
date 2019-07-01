@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Caretaker : CardEffect
 	{//从对方墓场复活1个铜色/银色单位。
 		public Caretaker(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

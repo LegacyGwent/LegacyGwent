@@ -10,7 +10,7 @@ namespace Cynthia.Card
     {//魅惑1个战力不高于3点的铜色敌军单位。
 
         public SlaveHunter(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards
             (Card, filter: x => x.Status.Group == Group.Copper &&

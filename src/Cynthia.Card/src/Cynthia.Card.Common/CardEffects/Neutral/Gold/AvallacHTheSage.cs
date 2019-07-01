@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class AvallacHTheSage : CardEffect
 	{//随机生成1张对方起始牌组中金色/银色单位牌的原始同名牌。
 		public AvallacHTheSage(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

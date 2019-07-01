@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class JohnNatalis : CardEffect
 	{//从牌组打出1张铜色/银色“谋略”牌。
 		public JohnNatalis(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

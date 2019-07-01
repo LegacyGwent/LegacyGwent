@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class YenneferEnchantress : CardEffect
     {//生成1张己方上张打出的铜色/银色“法术”牌。
         public YenneferEnchantress(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = Game.HistoryList.Where(x => x.PlayerIndex == Card.PlayerIndex &&
                 x.CardId.CardInfo().Categories.Contains(Categorie.Spell) &&

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Botchling : CardEffect
 	{//召唤1只“家事妖精”。
 		public Botchling(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

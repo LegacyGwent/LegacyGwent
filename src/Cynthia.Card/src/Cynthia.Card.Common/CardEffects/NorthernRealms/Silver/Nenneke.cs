@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Nenneke : CardEffect
 	{//将墓场3张铜色/银色单位牌放回牌组。
 		public Nenneke(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

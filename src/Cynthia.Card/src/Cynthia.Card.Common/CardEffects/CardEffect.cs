@@ -36,11 +36,11 @@ namespace Cynthia.Card
         //未完成迁移的事件
         public async Task HandleEvent(CardDownEffect @event)
         {
-            await CardDownEffect(@event.IsSpying);
+            await CardDownEffect(@event.IsSpying, @event.IsReveal);
         }
         public async Task HandleEvent(CardPlayEffect @event)
         {
-            @event.SearchCount += await CardPlayEffect(@event.IsSpying);
+            @event.SearchCount += await CardPlayEffect(@event.IsSpying, @event.IsReveal);
         }
         public async Task HandleEvent(CardUseEffect @event)
         {
@@ -52,11 +52,11 @@ namespace Cynthia.Card
             await Task.CompletedTask;
             return 0;
         }
-        public virtual async Task CardDownEffect(bool isSpying)//单位卡二段部署
+        public virtual async Task CardDownEffect(bool isSpying, bool isReveal)//单位卡二段部署
         {
             await Task.CompletedTask;
         }
-        public virtual async Task<int> CardPlayEffect(bool isSpying)
+        public virtual async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await Task.CompletedTask;
             return 0;

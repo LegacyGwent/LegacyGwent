@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Trebuchet : CardEffect
 	{//对3个相邻敌军单位造成1点伤害。 驱动：伤害增加1点。
 		public Trebuchet(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class WildHuntNavigator : CardEffect
 	{//选择1个非“法师”的友军铜色“狂猎”单位，从牌组打出1张它的同名牌。
 		public WildHuntNavigator(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

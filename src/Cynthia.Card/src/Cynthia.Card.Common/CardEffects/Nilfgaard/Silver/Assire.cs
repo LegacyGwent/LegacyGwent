@@ -10,7 +10,7 @@ namespace Cynthia.Card
     {
         public Assire(GameCard card) : base(card){}
 
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {//将双方墓场中最多2张铜色/银色牌放回各自牌组。
             //墓地中所有的铜银色卡(先是我方墓地,再是敌方墓地)
             var list = Game.PlayersCemetery[Card.PlayerIndex]

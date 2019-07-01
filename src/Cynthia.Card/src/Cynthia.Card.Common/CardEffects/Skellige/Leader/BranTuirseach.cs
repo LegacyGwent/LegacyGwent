@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BranTuirseach : CardEffect
 	{//从牌组丢弃最多3张牌，其中的单位牌获得1点强化。
 		public BranTuirseach(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

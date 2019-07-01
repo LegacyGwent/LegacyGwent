@@ -9,7 +9,7 @@ namespace Cynthia.Card
     {
         //择一：摧毁1名敌军领袖，自身获得5点增益；或从牌组打出1张铜色/银色“谋略”牌。
         public LethoKingslayer(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //选择界面
             var switchCard = await Card.GetMenuSwitch

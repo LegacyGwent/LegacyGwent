@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class IthlinneAegli : CardEffect
 	{//从牌组打出1张铜色“法术”、恩泽或灾厄牌，重复其效果一次。
 		public IthlinneAegli(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

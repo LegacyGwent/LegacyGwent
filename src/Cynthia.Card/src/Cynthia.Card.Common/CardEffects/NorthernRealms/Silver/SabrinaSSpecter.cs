@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SabrinaSSpecter : CardEffect
 	{//复活1个铜色“诅咒生物”单位。
 		public SabrinaSSpecter(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

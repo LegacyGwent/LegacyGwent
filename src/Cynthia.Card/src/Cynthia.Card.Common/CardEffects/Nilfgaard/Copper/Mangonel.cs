@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Mangonel : CardEffect, IHandlesEvent<AfterCardReveal>
     {//对1个敌军随机单位造成2点伤害。己方每揭示1张牌，便再次触发此能力。
         public Mangonel(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             await DamageRandomEnemy();
             return 0;

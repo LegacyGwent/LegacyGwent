@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Trollololo : CardEffect
 	{//9点护甲。
 		public Trollololo(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

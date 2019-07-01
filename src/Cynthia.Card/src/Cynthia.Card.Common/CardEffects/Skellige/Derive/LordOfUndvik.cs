@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class LordOfUndvik : CardEffect
 	{//遗愿：使“哈尔玛”获得10点增益。
 		public LordOfUndvik(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

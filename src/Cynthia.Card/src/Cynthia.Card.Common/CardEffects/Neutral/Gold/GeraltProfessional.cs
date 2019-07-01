@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class GeraltProfessional : CardEffect
 	{//对1个敌军单位造成4点伤害。若它为“怪兽”单位，则直接将其摧毁。
 		public GeraltProfessional(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

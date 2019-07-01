@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class DjengeFrett : CardEffect
 	{//对2个友军单位造成1点伤害。每影响一个单位，便获得2点强化。
 		public DjengeFrett(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

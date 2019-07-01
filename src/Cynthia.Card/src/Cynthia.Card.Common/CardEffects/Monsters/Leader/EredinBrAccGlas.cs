@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class EredinBrAccGlas : CardEffect
 	{//生成1个铜色“狂猎”单位。
 		public EredinBrAccGlas(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

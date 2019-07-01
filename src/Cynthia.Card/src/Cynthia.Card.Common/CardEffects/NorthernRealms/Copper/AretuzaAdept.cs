@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class AretuzaAdept : CardEffect
 	{//从牌组随机打出1张铜色灾厄牌。
 		public AretuzaAdept(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

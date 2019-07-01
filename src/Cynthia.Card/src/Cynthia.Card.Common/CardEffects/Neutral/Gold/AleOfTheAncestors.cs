@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class AleOfTheAncestors : CardEffect
     {//在所在排洒下“黄金酒沫”。
         public AleOfTheAncestors(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             // await Game.ApplyWeather(PlayerIndex,Card.Status.CardRow,RowStatus.GoldenFroth);
             await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()]

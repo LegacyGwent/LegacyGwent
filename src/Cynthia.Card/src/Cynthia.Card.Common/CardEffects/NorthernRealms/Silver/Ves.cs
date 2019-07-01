@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Ves : CardEffect
 	{//交换最多2张牌。
 		public Ves(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class LeoBonhart : CardEffect
     {//揭示己方1张单位牌，对1个敌军单位造成等同于被揭示单位牌基础战力的伤害。
         public LeoBonhart(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersHandCard[PlayerIndex]
                 .Where(x => x.CardInfo().CardType == CardType.Unit && !x.Status.IsReveal);

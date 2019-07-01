@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class ReaverScout : CardEffect
 	{//选择1个非同名友军铜色单位，从牌组打出1张它的同名牌。
 		public ReaverScout(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class TrissMerigold : CardEffect
     {//造成5点伤害。
         public TrissMerigold(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var result = await Game.GetSelectPlaceCards(Card);
             if (result.Count <= 0) return 0;

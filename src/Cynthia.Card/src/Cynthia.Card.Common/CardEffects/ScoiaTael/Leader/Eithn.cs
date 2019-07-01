@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Eithn : CardEffect
 	{//复活1张铜色/银色“特殊”牌。
 		public Eithn(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

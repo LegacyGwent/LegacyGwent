@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class RedanianKnightElect : CardEffect
 	{//回合结束时，若受护甲保护，则使相邻单位获得1点增益。 2点护甲。
 		public RedanianKnightElect(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

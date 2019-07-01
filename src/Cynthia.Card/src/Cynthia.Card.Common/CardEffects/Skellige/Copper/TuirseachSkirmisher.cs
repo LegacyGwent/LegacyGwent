@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class TuirseachSkirmisher : CardEffect
 	{//被复活后获得3点强化。
 		public TuirseachSkirmisher(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

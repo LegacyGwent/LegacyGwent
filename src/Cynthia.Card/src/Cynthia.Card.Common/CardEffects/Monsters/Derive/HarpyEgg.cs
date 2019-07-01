@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class HarpyEgg : CardEffect
 	{//使吞噬自身的单位获得额外4点增益。 遗愿：在随机排生成1只“鹰身女妖幼崽”。
 		public HarpyEgg(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class WhisperingHillock : CardEffect
 	{//创造1张铜色/银色“有机”牌。
 		public WhisperingHillock(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

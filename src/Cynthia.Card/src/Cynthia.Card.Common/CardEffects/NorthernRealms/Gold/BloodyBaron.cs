@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BloodyBaron : CardEffect
 	{//若位于手牌、牌组或己方半场：有敌军单位被摧毁时获得1点增益。
 		public BloodyBaron(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

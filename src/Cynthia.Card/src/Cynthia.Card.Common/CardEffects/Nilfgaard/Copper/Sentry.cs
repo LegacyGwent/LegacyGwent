@@ -9,7 +9,7 @@ namespace Cynthia.Card
     {//使1个“士兵”单位的所有同名牌获得2点增益。
 
         public Sentry(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var result = await Game.GetSelectPlaceCards(Card, filter: (x => x.Status.Categories.Contains(Categorie.Soldier)), selectMode: SelectModeType.MyRow);
             if (result.Count() == 0) return 0;

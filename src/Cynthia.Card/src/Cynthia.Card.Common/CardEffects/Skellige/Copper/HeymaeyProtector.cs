@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class HeymaeyProtector : CardEffect
 	{//从牌组打出1张铜色“道具”牌。
 		public HeymaeyProtector(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

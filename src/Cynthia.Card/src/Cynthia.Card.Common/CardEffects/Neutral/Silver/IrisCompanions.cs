@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class IrisCompanions : CardEffect
 	{//将1张牌从牌组移至手牌，然后随机丢弃1张牌。
 		public IrisCompanions(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			//己方卡组乱序呈现
             var list = Game.PlayersDeck[PlayerIndex].Mess().ToList();

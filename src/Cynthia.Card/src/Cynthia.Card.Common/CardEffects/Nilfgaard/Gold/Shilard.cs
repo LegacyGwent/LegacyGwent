@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class Shilard : CardEffect
     {//休战：若双方牌组都有牌，从双方牌组各抽1张牌。保留1张，将另一张给予对方。
         public Shilard(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (Game.IsPlayersPass[AnotherPlayer] || Game.PlayersDeck[PlayerIndex].Count == 0 || Game.PlayersDeck[AnotherPlayer].Count == 0)
                 return 0;

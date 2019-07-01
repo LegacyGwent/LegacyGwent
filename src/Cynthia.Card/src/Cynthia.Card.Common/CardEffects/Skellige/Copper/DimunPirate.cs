@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class DimunPirate : CardEffect
 	{//丢弃牌组中所有同名牌。
 		public DimunPirate(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

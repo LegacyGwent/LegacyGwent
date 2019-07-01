@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class RainfarnOfAttre : CardEffect
     {
         public RainfarnOfAttre(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //打乱己方卡组取出所有间谍或双面间谍
             var list = Game.PlayersDeck[Card.PlayerIndex]

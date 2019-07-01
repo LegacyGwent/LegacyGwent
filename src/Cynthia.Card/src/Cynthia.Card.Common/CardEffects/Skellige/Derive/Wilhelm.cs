@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Wilhelm : CardEffect
 	{//遗愿：对对方同排所有单位造成1点伤害。
 		public Wilhelm(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

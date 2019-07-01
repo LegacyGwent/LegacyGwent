@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Wardancer : CardEffect
 	{//被交换时自动打出至随机排。
 		public Wardancer(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class GaunterODimm : CardEffect
 	{//发牌员随机创造一张单位牌，你猜测其战力是大于、等于或小于6。如果你猜对了打出该牌。
 		public GaunterODimm(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

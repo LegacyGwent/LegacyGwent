@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class AlbaPikeman : CardEffect
     {//召唤所有同名牌。
         public AlbaPikeman(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
             foreach (var card in cards)

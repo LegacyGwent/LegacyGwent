@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Wolf : CardEffect
 	{//没有特殊技能。
 		public Wolf(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

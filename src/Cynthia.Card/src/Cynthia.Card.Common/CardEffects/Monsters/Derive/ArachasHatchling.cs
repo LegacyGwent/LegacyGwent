@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class ArachasHatchling : CardEffect
 	{//召唤所有“蟹蜘蛛雄蛛”。
 		public ArachasHatchling(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

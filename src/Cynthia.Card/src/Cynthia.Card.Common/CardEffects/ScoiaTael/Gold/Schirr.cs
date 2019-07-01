@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Schirr : CardEffect
 	{//生成“烧灼”或“瘟疫”。
 		public Schirr(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

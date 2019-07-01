@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class SlaveInfantry : CardEffect
     {//在己方其他排生成1张佚亡原始同名牌。
         public SlaveInfantry(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             for (var i = 0; i < 3; i++)
             {

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Miruna : CardEffect
 	{//2回合后的回合开始时：魅惑对方同排最强的单位。
 		public Miruna(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

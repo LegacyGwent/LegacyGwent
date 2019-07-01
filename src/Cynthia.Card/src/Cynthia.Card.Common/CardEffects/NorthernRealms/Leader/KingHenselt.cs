@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class KingHenselt : CardEffect
 	{//选择1个友军铜色“机械”或“科德温”单位，从牌组打出所有它的同名牌。 操控。
 		public KingHenselt(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

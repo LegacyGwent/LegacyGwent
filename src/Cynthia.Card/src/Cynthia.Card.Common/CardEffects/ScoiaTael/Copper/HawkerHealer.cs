@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.MyRow);
             if (cards.Count <= 0) return 0;

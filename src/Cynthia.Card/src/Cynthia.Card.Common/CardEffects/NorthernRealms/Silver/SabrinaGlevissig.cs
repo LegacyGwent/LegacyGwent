@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SabrinaGlevissig : CardEffect
 	{//间谍。 遗愿：将该排最弱单位的战力应用于全排单位。
 		public SabrinaGlevissig(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

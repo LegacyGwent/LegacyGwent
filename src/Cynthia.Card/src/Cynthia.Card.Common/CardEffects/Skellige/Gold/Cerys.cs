@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Cerys : CardEffect
 	{//位于墓场中时，在己方复活 4个单位后，复活单位。
 		public Cerys(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

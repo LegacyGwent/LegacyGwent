@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SheldonSkaggs : CardEffect
 	{//将同排所有友军单位移至随机排。每移动1个单位，便获得1点增益。
 		public SheldonSkaggs(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

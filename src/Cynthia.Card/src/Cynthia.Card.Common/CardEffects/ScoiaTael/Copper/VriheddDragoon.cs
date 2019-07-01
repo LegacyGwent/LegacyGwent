@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class VriheddDragoon : CardEffect
 	{//回合结束时，使手牌中1张随机非间谍单位牌获得1点增益。
 		public VriheddDragoon(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

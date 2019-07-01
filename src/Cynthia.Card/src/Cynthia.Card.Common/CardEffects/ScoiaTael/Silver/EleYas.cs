@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class EleYas : CardEffect
 	{//被抽到或被收回牌组时获得2点增益。
 		public EleYas(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

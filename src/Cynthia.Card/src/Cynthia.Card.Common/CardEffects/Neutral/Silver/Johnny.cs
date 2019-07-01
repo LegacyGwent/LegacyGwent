@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Johnny : CardEffect
 	{//丢弃1张手牌，并在手牌中添加1张对方起始牌组中颜色相同的原始同名牌。
 		public Johnny(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

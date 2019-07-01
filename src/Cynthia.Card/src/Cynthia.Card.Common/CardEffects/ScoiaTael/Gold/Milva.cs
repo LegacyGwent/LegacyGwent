@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Milva : CardEffect
 	{//将双方最强的铜色/银色单位收回各自牌组。
 		public Milva(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

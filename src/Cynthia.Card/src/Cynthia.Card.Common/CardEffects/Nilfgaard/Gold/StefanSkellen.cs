@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class StefanSkellen : CardEffect
     {//将牌组任意1张卡牌移至顶端。若它为非间谍单位，则使其获得5点增益。
         public StefanSkellen(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var deck = Game.PlayersDeck[Card.PlayerIndex].ToList();
             var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, deck, 1);

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class VriheddNeophyte : CardEffect
 	{//随机使手牌中2个单位获得1点增益。
 		public VriheddNeophyte(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

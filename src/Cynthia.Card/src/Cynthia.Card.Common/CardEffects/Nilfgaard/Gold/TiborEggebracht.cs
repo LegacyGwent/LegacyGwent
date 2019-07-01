@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class TiborEggebracht : CardEffect
     {//休战：获得15点增益，随后对方抽1张铜色牌并揭示它
         public TiborEggebracht(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (Game.IsPlayersPass[AnotherPlayer]) return 0;
             await Boost(15, Card);

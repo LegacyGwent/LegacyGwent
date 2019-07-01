@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class ToadPrince : CardEffect
 	{//抽1张单位牌，随后吞噬1张手牌中的单位牌，获得等同于其战力的增益。
 		public ToadPrince(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

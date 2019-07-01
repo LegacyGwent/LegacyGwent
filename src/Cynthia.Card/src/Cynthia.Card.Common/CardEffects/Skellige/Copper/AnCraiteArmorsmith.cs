@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class AnCraiteArmorsmith : CardEffect
 	{//治愈2个友军单位，并使其获得3点护甲。
 		public AnCraiteArmorsmith(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

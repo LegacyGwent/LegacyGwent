@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class UnseenElder : CardEffect
 	{//汲食1个单位一半的战力。
 		public UnseenElder(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

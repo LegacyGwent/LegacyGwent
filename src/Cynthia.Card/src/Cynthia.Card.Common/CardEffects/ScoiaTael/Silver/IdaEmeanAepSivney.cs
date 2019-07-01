@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class IdaEmeanAepSivney : CardEffect
 	{//生成“蔽日浓雾”、“晴空”或“阿尔祖落雷术”。
 		public IdaEmeanAepSivney(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Saesenthessis : CardEffect
 	{//增益自身等同于友军“矮人”单位数量；造成等同于友军“精灵”单位数量的伤害。
 		public Saesenthessis(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

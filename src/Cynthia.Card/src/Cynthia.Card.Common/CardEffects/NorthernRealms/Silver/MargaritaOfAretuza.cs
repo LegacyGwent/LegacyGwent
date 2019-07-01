@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class MargaritaOfAretuza : CardEffect
 	{//重置1个单位，并改变它的锁定状态。
 		public MargaritaOfAretuza(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

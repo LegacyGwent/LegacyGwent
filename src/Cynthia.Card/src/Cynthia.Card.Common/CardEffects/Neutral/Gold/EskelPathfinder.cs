@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class EskelPathfinder : CardEffect
 	{//摧毁1个没有被增益的铜色/银色敌军单位。
 		public EskelPathfinder(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

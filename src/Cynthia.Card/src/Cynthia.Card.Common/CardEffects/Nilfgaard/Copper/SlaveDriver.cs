@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class SlaveDriver : CardEffect
     {//将一个友军单位的战力降至1点，并对一个敌军单位造成伤害，数值等同于该友方单位所失去的战力。
         public SlaveDriver(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, filter: x => x.CardPoint() > 1, selectMode: SelectModeType.MyRow);
             if (cards.Count == 0) return 0;

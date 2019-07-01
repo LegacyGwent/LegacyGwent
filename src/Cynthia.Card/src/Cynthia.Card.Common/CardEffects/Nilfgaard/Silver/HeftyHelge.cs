@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class HeftyHelge : CardEffect
     {//对对方半场非同排上的所有敌军单位造成1点伤害。若被揭示，则对所有敌军单位造成1点伤害。
         public HeftyHelge(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             return 0;
         }

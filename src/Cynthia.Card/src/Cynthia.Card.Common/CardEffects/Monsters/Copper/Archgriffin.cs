@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Archgriffin : CardEffect
 	{//移除所在排的灾厄。
 		public Archgriffin(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

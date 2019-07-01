@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class KingOfBeggars : CardEffect
     {
         public KingOfBeggars(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //对方战力比我方高多少(算上单位自身)
             var point = Game.GetPlayersPoint(Game.AnotherPlayer(Card.PlayerIndex)) - Game.GetPlayersPoint(Card.PlayerIndex);

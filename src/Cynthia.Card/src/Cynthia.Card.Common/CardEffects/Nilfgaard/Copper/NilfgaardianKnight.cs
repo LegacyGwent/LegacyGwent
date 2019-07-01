@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class NilfgaardianKnight : CardEffect
     {
         public NilfgaardianKnight(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             await Card.Effect.Armor(2, Card);
             var target = Game.PlayersHandCard[Card.PlayerIndex].Where(x => !x.Status.IsReveal);

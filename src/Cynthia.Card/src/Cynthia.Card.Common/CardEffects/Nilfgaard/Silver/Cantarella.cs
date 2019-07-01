@@ -8,7 +8,7 @@ namespace Cynthia.Card
     {
         public Cantarella(GameCard card) : base(card) { }
         public bool IsUse = false;
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //这张卡只能用一次
             if (IsUse) return 0;
