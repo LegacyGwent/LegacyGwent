@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class RegisHigherVampire : CardEffect
 	{//检视对方牌组3张铜色单位牌。选择1张吞噬，获得等同于其基础战力的增益。
 		public RegisHigherVampire(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

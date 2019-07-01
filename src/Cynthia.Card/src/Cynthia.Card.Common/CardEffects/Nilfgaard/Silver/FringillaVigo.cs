@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class FringillaVigo : CardEffect
     {//间谍。将左侧单位的战力复制给右侧单位。
         public FringillaVigo(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var rowIndex = Card.GetLocation(Card.PlayerIndex).CardIndex;
             var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).ToList();

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class DorregarayOfVole : CardEffect
 	{//不限阵营地创造1个铜色/银色“龙兽”或“野兽”单位。
 		public DorregarayOfVole(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			var list = GwentMap.GetCards()
 				.Where(x=>(x.Categories.Contains(Categorie.Draconid)||x.Categories.Contains(Categorie.Beast))

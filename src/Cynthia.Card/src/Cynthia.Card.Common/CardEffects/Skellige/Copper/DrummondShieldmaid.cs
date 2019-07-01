@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class DrummondShieldmaid : CardEffect
 	{//召唤所有同名牌。
 		public DrummondShieldmaid(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class ImperialManticore : CardEffect
 	{//没有特殊技能。
 		public ImperialManticore(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

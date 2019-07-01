@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class ImperaBrigade : CardEffect, IHandlesEvent<AfterCardSpying>
     {
         public ImperaBrigade(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //对方半场的间谍数量
             var count = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex))

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Gremist : CardEffect
 	{//部署：生成“倾盆大雨”、“晴空”或“惊悚咆哮”。
 		public Gremist(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

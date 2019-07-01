@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Frightener : CardEffect
 	{//间谍、力竭。 将1个敌军单位移至自身所在排，然后抽1张牌。
 		public Frightener(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

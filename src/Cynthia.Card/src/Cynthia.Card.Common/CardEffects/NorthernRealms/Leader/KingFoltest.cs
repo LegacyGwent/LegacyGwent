@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class KingFoltest : CardEffect
 	{//使己方半场其他单位，以及手牌和牌组中的非间谍单位获得1点增益。 操控。
 		public KingFoltest(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -9,7 +9,7 @@ namespace Cynthia.Card
 	public class CeallachDyffryn : CardEffect
 	{//生成1个“大使”、“刺客”或“特使”。
 		public CeallachDyffryn(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			//大使,刺客,特使
 			/*

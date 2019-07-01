@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class ShupeKnight : CardEffect
 	{//派“店店”去帝国宫廷军事学院。 强化自身至25点；坚韧；与1个敌军单位对决；重置1个单位；摧毁所有战力低于4点的敌军单位。
 		public ShupeKnight(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class AguaraTrueForm : CardEffect
 	{//不限阵营地创造1张铜色/银色“法术”牌。
 		public AguaraTrueForm(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			var list = GwentMap.GetCards()
 				.Where(x=>(x.Categories.Contains(Categorie.Spell))

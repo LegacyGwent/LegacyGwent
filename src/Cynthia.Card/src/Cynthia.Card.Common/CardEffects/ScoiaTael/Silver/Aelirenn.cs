@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Aelirenn : CardEffect
 	{//场上有至少5个“精灵”友军单位时，在回合结束时召唤此单位。
 		public Aelirenn(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

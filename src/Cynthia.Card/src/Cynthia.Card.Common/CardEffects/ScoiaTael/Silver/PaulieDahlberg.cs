@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class PaulieDahlberg : CardEffect
 	{//复活一个铜色非“辅助”矮人单位。
 		public PaulieDahlberg(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

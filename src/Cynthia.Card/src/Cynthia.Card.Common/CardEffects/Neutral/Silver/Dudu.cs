@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Dudu : CardEffect
 	{//复制一个敌军单位的战力。
 		public Dudu(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			var result = await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow);
 			if(result.Count<=0) return 0;

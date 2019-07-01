@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class MorvranVoorhis : CardEffect
     {//揭示最多4张牌。
         public MorvranVoorhis(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)]
                .Concat(Game.PlayersHandCard[Card.PlayerIndex])

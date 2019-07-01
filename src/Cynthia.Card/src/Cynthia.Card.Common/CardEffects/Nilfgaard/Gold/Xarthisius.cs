@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Xarthisius : CardEffect
     {//检视对方牌组，将其中1张牌置于底端。
         public Xarthisius(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = Game.PlayersDeck[AnotherPlayer].ToList();
             var selectCard = await Game.GetSelectMenuCards(PlayerIndex, cards);

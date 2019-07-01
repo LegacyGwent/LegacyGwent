@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class MasterOfDisguise : CardEffect
     {//隐匿2张牌。
         public MasterOfDisguise(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = Game.GetAllCard(PlayerIndex).Where(x => x.Status.IsReveal).ToList();
             var targetCards = await Game.GetSelectMenuCards(PlayerIndex, cards, 2);

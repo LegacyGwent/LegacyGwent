@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class JanCalveit : CardEffect
     {
         public JanCalveit(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //选择卡组顶端一张卡
             var list = Game.PlayersDeck[Card.PlayerIndex].Take(3);

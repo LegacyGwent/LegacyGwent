@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Filavandrel : CardEffect
 	{//创造1张银色“特殊”牌。
 		public Filavandrel(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

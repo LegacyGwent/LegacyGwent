@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class MennoCoehoorn : CardEffect
     {
         public MennoCoehoorn(GameCard card) : base(card){}
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {//对1个敌军单位造成4点伤害。若它为间谍单位，则直接将其摧毁。
             var result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow));
             if(result.Count!=0)

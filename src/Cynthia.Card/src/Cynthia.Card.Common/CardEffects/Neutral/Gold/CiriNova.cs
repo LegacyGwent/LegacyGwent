@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class CiriNova : CardEffect
     {//若每张铜色牌在己方初始牌组中刚好有2张，则基础战力变为22点。
         public CiriNova(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (Game.PlayerBaseDeck[PlayerIndex].Deck
                 .Where(x => x.Group == Group.Copper)

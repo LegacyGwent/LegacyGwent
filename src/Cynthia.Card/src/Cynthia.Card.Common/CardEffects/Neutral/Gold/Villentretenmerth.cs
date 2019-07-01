@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Villentretenmerth : CardEffect, IHandlesEvent<AfterTurnStart>
     {//3回合后的回合开始时：摧毁场上除自身外所有最强的单位。 3点护甲。
         public Villentretenmerth(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             await Card.Effect.Armor(3, Card);
             return 0;

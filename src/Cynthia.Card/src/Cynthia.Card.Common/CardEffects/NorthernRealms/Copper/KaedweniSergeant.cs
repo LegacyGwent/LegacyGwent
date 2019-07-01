@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class KaedweniSergeant : CardEffect
 	{//移除所在排的灾厄。 3点护甲。 操控。
 		public KaedweniSergeant(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

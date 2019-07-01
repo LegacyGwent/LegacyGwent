@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class GeraltIgni : CardEffect
     {
         public GeraltIgni(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var place = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)];
             var rowlist = new List<RowPosition>();

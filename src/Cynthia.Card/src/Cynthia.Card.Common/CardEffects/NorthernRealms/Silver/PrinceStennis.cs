@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class PrinceStennis : CardEffect
 	{//从牌组随机打出1张铜色/银色非间谍单位牌，使其获得5点护甲。 3点护甲。
 		public PrinceStennis(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

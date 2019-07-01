@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Dagon : CardEffect
 	{//生成“蔽日浓雾”或“倾盆大雨”。
 		public Dagon(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

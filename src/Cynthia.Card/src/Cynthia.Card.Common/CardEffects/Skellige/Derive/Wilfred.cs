@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Wilfred : CardEffect
 	{//遗愿：使1个友军随机单位获得3点强化。
 		public Wilfred(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class ElvenScout : CardEffect
 	{//交换一张牌。
 		public ElvenScout(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

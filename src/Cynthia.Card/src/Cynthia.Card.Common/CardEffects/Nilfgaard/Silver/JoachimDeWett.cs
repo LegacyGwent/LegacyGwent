@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class JoachimDeWett : CardEffect
     {
         public JoachimDeWett(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)]
             .Where(x => ((x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) &&//铜色或者银色

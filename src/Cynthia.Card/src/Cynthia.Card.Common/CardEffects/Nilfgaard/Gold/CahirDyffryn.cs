@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class CahirDyffryn : CardEffect
     {//复活1张领袖牌。
         public CahirDyffryn(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersCemetery[PlayerIndex]
             .Where(x => x.Status.Group == Group.Leader).Mess();

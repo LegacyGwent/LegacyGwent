@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Sarah : CardEffect
 	{//交换1张颜色相同的牌。
 		public Sarah(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Ermion : CardEffect
 	{//抽2张牌，随后丢弃2张牌。
 		public Ermion(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class WoodlandSpirit : CardEffect
 	{//在近战排生成3只“狼”，并在对方同排降下“蔽日浓雾”。
 		public WoodlandSpirit(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

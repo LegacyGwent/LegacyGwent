@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BarclayEls : CardEffect
 	{//从牌组打出1张随机铜色/银色矮人牌，并使其获得3点强化。
 		public BarclayEls(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class YenneferNecromancer : CardEffect
     {//从对方墓场中复活1张铜色/银色“士兵”牌
         public YenneferNecromancer(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //从敌方墓地取铜色单位卡
             var list = Game.PlayersCemetery[AnotherPlayer]

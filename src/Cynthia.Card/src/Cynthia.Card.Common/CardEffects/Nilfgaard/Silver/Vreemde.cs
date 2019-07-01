@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Vreemde : CardEffect
     {//创造1个铜色尼弗迦德“士兵”单位。
         public Vreemde(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             return await Card.CreateAndMoveStay(
                 GwentMap.GetCreateCardsId(

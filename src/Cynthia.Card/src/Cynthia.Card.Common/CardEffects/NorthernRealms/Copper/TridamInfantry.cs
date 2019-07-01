@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class TridamInfantry : CardEffect
 	{//4点护甲。
 		public TridamInfantry(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

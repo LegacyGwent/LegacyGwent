@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Lubberkin : CardEffect
 	{//召唤1只“异婴”。
 		public Lubberkin(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

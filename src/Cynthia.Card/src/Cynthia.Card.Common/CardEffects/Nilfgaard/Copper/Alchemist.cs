@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Alchemist : CardEffect
     {//揭示2张牌。
         public Alchemist(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)]
                 .Concat(Game.PlayersHandCard[Card.PlayerIndex])

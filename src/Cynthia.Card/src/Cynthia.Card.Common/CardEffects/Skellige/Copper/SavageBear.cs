@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SavageBear : CardEffect
 	{//对后续打出至对方半场的单位造成1点伤害。
 		public SavageBear(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

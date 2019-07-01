@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class TheGuardian : CardEffect
     {
         public TheGuardian(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             await Game.CreateCard("35001",Game.AnotherPlayer(Card.PlayerIndex),
             new CardLocation(RowPosition.MyDeck,0));

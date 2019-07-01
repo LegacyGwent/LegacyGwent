@@ -9,7 +9,7 @@ namespace Cynthia.Card
     {
         public ImperaEnforcers(GameCard card) : base(card) { }
         public int SpyingCount { get; set; } = 0;
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //选择对方场上一张卡,如果目标不为空,对其造成2点伤害
             var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));

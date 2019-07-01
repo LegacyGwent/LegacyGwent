@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class HubertRejk : CardEffect
 	{//汲食牌组中所有单位的增益，作为战力。
 		public HubertRejk(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

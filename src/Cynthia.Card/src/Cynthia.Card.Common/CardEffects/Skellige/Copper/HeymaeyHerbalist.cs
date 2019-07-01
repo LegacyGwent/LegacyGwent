@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class HeymaeyHerbalist : CardEffect
 	{//从牌组打出1张随机铜色“有机”或灾厄牌。
 		public HeymaeyHerbalist(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

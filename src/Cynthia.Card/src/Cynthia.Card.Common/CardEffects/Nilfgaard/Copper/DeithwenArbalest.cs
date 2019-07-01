@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class DeithwenArbalest : CardEffect
     {//对1个敌军单位造成3点伤害。若它为间谍，则伤害提升至6点。
         public DeithwenArbalest(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.EnemyRow);
             if (cards.Count() == 0) return 0;

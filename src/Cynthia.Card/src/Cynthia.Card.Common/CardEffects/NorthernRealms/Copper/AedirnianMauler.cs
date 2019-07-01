@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class AedirnianMauler : CardEffect
 	{//对1个敌军造成4点伤害。
 		public AedirnianMauler(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class PhilippaEilhart : CardEffect
 	{//对敌军单位造成5、4、3、2、1点伤害。每次随机改变目标，无法对同一目标连续造成伤害。
 		public PhilippaEilhart(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

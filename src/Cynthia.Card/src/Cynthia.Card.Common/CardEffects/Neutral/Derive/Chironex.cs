@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Chironex : CardEffect
     {//对所有其他单位造成2点伤害。
         public Chironex(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex))
                 .Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();

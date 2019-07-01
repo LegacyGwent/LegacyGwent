@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class TuirseachBearmaster : CardEffect
 	{//生成1头“熊”。
 		public TuirseachBearmaster(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

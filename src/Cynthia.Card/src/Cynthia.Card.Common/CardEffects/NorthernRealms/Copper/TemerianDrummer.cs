@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class TemerianDrummer : CardEffect
 	{//使1个友军单位获得6点增益。
 		public TemerianDrummer(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

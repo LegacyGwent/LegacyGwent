@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Stregobor : CardEffect
     {//休战：双方各抽1张单位牌，将其战力设为1。
         public Stregobor(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (Game.IsPlayersPass[Game.AnotherPlayer(Card.PlayerIndex)]) return 0;
             var cards = await Game.DrawCard(1, 1, x => x.CardInfo().CardType == CardType.Unit);

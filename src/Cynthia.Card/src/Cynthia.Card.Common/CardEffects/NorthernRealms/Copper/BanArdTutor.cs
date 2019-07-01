@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BanArdTutor : CardEffect
 	{//用1张手牌交换牌组中的一张铜色“特殊”牌。
 		public BanArdTutor(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

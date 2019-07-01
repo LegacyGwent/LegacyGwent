@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class BridgeTroll : CardEffect
 	{//将对方半场上的1个灾厄效果移至另一排。
 		public BridgeTroll(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

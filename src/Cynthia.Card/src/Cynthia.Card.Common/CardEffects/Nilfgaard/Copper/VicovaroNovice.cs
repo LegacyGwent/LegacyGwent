@@ -7,7 +7,7 @@ namespace Cynthia.Card
     public class VicovaroNovice : CardEffect
     {
         public VicovaroNovice(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //检视牌组中2张铜色“炼金”牌，打出1张。
             //打乱己方卡组,并且取2张铜色卡

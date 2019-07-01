@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Saskia : CardEffect
 	{//用最多2张牌交换同等数量的铜色牌。
 		public Saskia(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

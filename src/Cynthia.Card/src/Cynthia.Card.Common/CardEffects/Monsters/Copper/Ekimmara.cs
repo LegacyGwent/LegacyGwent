@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Ekimmara : CardEffect
 	{//汲食1个单位3点战力。
 		public Ekimmara(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

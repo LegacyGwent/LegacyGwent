@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class OldSpeartipAsleep : CardEffect
 	{//使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。
 		public OldSpeartipAsleep(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class NauzicaaSergeant : CardEffect
     {//移除所在排的灾厄效果，并使1个友军单位或1个手牌中被揭示的单位获得3点增益。
         public NauzicaaSergeant(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard())
                 await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<NoneStatus>();

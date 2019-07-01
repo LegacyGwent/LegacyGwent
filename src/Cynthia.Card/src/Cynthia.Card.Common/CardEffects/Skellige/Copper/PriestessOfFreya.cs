@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class PriestessOfFreya : CardEffect
 	{//复活1个铜色“士兵”单位。
 		public PriestessOfFreya(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

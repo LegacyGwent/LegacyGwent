@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class CelaenoHarpy : CardEffect
 	{//在左侧生成2枚“鹰身女妖蛋”。
 		public CelaenoHarpy(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

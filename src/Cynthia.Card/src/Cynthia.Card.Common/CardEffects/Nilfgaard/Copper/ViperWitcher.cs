@@ -9,7 +9,7 @@ namespace Cynthia.Card
     {//己方起始牌组中每有1张“炼金”牌，便造成1点伤害。
 
         public ViperWitcher(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var point = Card.GetMyBaseDeck(x => x.Categories.Contains(Categorie.Alchemy)).Count;
             var result = await Game.GetSelectPlaceCards(Card);

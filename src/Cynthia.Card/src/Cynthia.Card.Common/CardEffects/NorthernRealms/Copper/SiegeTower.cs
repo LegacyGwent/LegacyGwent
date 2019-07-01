@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SiegeTower : CardEffect
 	{//获得2点增益。 驱动：再次触发此能力。
 		public SiegeTower(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

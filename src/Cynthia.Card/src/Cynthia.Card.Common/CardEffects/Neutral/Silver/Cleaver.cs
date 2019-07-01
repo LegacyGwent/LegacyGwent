@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Cleaver : CardEffect
 	{//造成等同于手牌数量的伤害。
 		public Cleaver(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			var point = Game.PlayersHandCard[PlayerIndex].Count();
 			var result = await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow);

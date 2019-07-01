@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SaesenthessisBlaze : CardEffect
 	{//放逐所有手牌，抽同等数量的牌。
 		public SaesenthessisBlaze(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

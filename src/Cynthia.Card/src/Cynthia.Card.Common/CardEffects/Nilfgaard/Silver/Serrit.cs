@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Serrit : CardEffect
 	{//对1个敌军单位造成7点伤害，或将对方1张被揭示的单位牌战力降为1点
 		public Serrit(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SiegeSupport : CardEffect
 	{//使后续打出的友军单位获得1点增益，“机械”单位额外获得1点护甲。 操控。
 		public SiegeSupport(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

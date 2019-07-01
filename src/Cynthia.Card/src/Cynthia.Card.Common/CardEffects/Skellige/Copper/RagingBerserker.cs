@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class RagingBerserker : CardEffect
 	{//受伤或被削弱时变为“狂暴的熊”。
 		public RagingBerserker(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

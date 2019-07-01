@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Abaya : CardEffect
 	{//生成“倾盆大雨”、“晴空”或“蟹蜘蛛毒液”。
 		public Abaya(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

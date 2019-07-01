@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class HeymaeyFlaminica : CardEffect
 	{//移除所在排的灾厄，并将2个友军单位移至该排。
 		public HeymaeyFlaminica(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

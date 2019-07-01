@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Weavess : CardEffect
 	{//召唤“呢喃婆”和“煮婆”。
 		public Weavess(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class CombatEngineer : CardEffect
     {//使1个友军单位获得5点增益。操控。
         public CombatEngineer(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.MyRow);
             if (cards.Count() == 0) return 0;

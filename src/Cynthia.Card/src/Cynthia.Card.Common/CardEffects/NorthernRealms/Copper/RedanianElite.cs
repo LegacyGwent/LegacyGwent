@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class RedanianElite : CardEffect
 	{//每当护甲归0，获得5点增益。 4点护甲。
 		public RedanianElite(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

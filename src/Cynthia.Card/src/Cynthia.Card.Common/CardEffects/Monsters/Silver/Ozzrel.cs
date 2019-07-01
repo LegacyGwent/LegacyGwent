@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Ozzrel : CardEffect
 	{//吞噬双方墓场中1个铜色/银色单位，获得其战力作为增益。
 		public Ozzrel(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Odrin : CardEffect
 	{//回合开始时，移至随机排，并使同排所有友军单位获得1点增益。
 		public Odrin(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class DandelionPoet : CardEffect
     {
         public DandelionPoet(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var dcard = default(List<GameCard>);
             if (Card.PlayerIndex == Game.Player1Index)

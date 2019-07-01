@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class MagneDivision : CardEffect
 	{//从牌组随机打出1张铜色“道具”牌。
 		public MagneDivision(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			var list = Game.PlayersDeck[PlayerIndex]
             .Where(x => ((x.Status.Group == Group.Copper) &&//铜色或者银色

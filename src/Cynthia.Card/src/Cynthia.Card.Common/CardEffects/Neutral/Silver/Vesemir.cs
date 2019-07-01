@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Vesemir : CardEffect
     {//召唤“艾斯卡尔”和“兰伯特”。
         public Vesemir(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var myDeck = Game.PlayersDeck[PlayerIndex].ToList();
             var eskels = myDeck.Where(x => x.Status.CardId == CardId.Eskel).ToList();

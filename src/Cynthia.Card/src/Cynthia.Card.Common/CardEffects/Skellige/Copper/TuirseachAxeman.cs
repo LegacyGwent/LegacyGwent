@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class TuirseachAxeman : CardEffect
 	{//对方同排每有1个敌军单位受到伤害，便获得1点增益。2点护甲。
 		public TuirseachAxeman(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

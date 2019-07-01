@@ -10,7 +10,7 @@ namespace Cynthia.Card
     {//休战：双方各抽1张牌。对方抽到的牌将被揭示。
 
         public Albrich(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (Game.IsPlayersPass[Game.AnotherPlayer(Card.PlayerIndex)]) return 0;
             var cards = await Game.DrawCard(1, 1);

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class KingRadovidV : CardEffect
 	{//改变2个单位的锁定状态。若为敌军单位，则对其造成4点伤害。 操控。
 		public KingRadovidV(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

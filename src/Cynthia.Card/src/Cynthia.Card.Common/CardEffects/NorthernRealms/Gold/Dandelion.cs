@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Dandelion : CardEffect
 	{//使牌组3个单位获得2点增益。
 		public Dandelion(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

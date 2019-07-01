@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class VriheddSappers : CardEffect
 	{//伏击：2回合后，在回合开始时翻开。
 		public VriheddSappers(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class Sweers : CardEffect
 	{//选择1个敌军单位或对手手牌中1张被揭示的单位牌，将它所有的同名牌从其牌组置入其墓场。
 		public Sweers(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			var result = await Game.GetSelectPlaceCards
 				(Card,filter:x=>x.Status.CardRow.IsInHand()?x.Status.IsReveal:true,selectMode:SelectModeType.Enemy);

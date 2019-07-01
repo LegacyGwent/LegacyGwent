@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class PeterSaarGwynleve : CardEffect
 	{//重置1个友军单位，使其获得3点强化；或重置1个敌军单位，使其受到3点削弱。
 		public PeterSaarGwynleve(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
             var cards = await Game.GetSelectPlaceCards(Card);
             if (cards.Count() == 0) return 0;

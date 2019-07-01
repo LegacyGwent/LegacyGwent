@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class WitchHunter : CardEffect
 	{//重置1个单位。若它为“法师”，则从牌组打出1张同名牌。
 		public WitchHunter(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}

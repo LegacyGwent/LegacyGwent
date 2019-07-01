@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Vrygheff : CardEffect
     {//从牌组打出1张铜色“机械”牌。
         public Vrygheff(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying)
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Machine)).ToList();
             var cards = await Game.GetSelectMenuCards(Card.PlayerIndex,list,1);

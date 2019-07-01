@@ -8,7 +8,7 @@ namespace Cynthia.Card
 	public class SeltkirkOfGulet : CardEffect
 	{//与1个敌军单位对决。 3点护甲。
 		public SeltkirkOfGulet(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
+		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			return 0;
 		}
