@@ -389,7 +389,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Damage(int num, GameCard source, BulletType type = BulletType.Arrow, bool isPenetrate = false)//伤害
         {
-            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish) return;
+            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit) return;
             //最高承受伤害,如果穿透的话,不考虑护甲
             var die = false;
             var isArmor = Card.Status.Armor > 0;
@@ -398,6 +398,11 @@ namespace Cynthia.Card
             {
                 num = bear;//如果数值大于最高伤害的话,进行限制
                 die = true;//死亡,不会触发任何效果
+            }
+            if (Card.Status.CardRow.IsInHand() && num >= Card.CardPoint())
+            {
+                num = Card.CardPoint() - 1;
+                if (num <= 0) return;
             }
             if (source != null)
             {
@@ -694,6 +699,24 @@ namespace Cynthia.Card
                 await Game.ClientDelay(200);
                 await CardDown(isSpyingChange);
             });
+        }
+
+        public virtual async Task Duel(GameCard target, GameCard source)
+        {
+            if (target.IsDead || !target.Status.CardRow.IsOnPlace() || Card.IsDead || !Card.Status.CardRow.IsOnPlace() || target.Status.Type != CardType.Unit || Card.Status.Type != CardType.Unit)
+                return;
+            int count = 0;
+            while (true)
+            {
+                count++;
+                await target.Effect.Damage(Card.CardPoint(), Card, BulletType.RedLight);
+                if (target.IsDead || !target.Status.CardRow.IsOnPlace()) return;
+                await Game.ClientDelay(400);
+                await Card.Effect.Damage(target.CardPoint(), target, BulletType.RedLight);
+                if (Card.IsDead || !Card.Status.CardRow.IsOnPlace()) return;
+                await Game.ClientDelay(400);
+                if (count > 20) return;
+            }
         }
         //================================================================================
     }
