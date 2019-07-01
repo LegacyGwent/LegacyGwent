@@ -10,7 +10,11 @@ namespace Cynthia.Card
         public AlbaPikeman(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
-
+            var cards = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
+            foreach (var card in cards)
+            {
+                await card.Effect.Summon(Card.GetLocation() + 1, Card);
+            }
             return 0;
         }
     }

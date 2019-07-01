@@ -1116,7 +1116,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Witcher},
                     Flavor = "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……",
                     Info = "召唤“维瑟米尔”和“兰伯特”。",
-                    CardArtsId = "11220400",
+                    CardArtsId = "11220200",
                 }
             },
             {
@@ -1196,7 +1196,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Witcher},
                     Flavor = "这样的沟通方式才对路嘛！",
                     Info = "召唤“维瑟米尔”和“艾斯卡尔”。",
-                    CardArtsId = "11220200",
+                    CardArtsId = "11220400",
                 }
             },
             {

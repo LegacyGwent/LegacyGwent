@@ -684,6 +684,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤
+            if (Game.RowToList(Card.PlayerIndex, location.RowPosition).Count >= Game.RowMaxCount) return;
             var isSpyingChange = !location.RowPosition.IsMyRow();
             if (Card.Status.IsReveal) Card.Status.IsReveal = false;
             await Game.ShowCardMove(location, Card);
