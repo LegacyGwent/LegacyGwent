@@ -28,9 +28,6 @@ namespace Cynthia.Card
                 }
                 else//敌方
                 {
-                    // if (!Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Any(x => x.Status.Group == Group.Copper)) return 1;
-                    // var mCard = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].ToList().First(x => x.Status.Group == Group.Copper);
-                    // await Game.LogicCardMove(mCard, Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)], 0);
                     var drawCards = await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex), 1, x => x.Status.Group == Group.Copper);
                     if (drawCards.Any())
                         await drawCards.Single().Effect.Reveal(Card);

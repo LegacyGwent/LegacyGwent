@@ -217,10 +217,14 @@ namespace Cynthia.Card
                     return SelectModeType.All;
             }
         }
-        public static Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool isShowToEnemy = true)//移动到卡牌移动区末尾
+        public static async Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool refresh = true, bool isShowEnemyBack = false)//移动到卡牌移动区末尾
         {   //将卡牌移动到最开头
             var game = card.Effect.Game;
-            return game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, isShowToEnemy);
+            if (isShowEnemyBack)
+            {
+                await game.Debug("MoveToCardStayFirst检测到需求对方看到卡背的指示");
+            }
+            await game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, refresh, isShowEnemyBack: isShowEnemyBack);
         }
         public static IEnumerable<(int health, GameCard card)> SelectToHealth(this IEnumerable<GameCard> card)
         {   //将所有卡牌的有效战力列出来

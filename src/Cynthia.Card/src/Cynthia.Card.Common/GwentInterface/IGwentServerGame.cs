@@ -67,12 +67,12 @@ namespace Cynthia.Card
         //Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
         //动画系
         Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type);
-        Task SendCardOn(int playerIndex, CardLocation location);
-        Task SendCardDown(int playerIndex, CardLocation location);
+        Task ShowCardMove(CardLocation tage, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false);//移动
         Task SendCardMove(int playerIndex, MoveCardInfo info);
-        Task ShowCardMove(CardLocation tage, GameCard card, bool refresh = true, bool refreshPoint = false);//移动
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
+        Task SendCardDown(int playerIndex, CardLocation location);
         Task ShowCardOn(GameCard card);//抬起
+        Task SendCardOn(int playerIndex, CardLocation location);
         //-----------------------
         Task CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null);
         Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡");
@@ -100,15 +100,12 @@ namespace Cynthia.Card
         Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);//返回点击场上卡牌的顺序
         Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false);//告诉玩家要打出什么牌,获取玩家选择的位置
-        // Task ApplyWeather(int playerIndex, int row, RowEffect status);
-        // Task ApplyWeather(int playerIndex, RowPosition row, RowEffect status);
         //----------------------------------------------------------------
         //方便的封装效果
         GameCardsPart GetGameCardsPart(int playerIndex, Func<GameCard, bool> filter, SelectModeType selectMode = SelectModeType.All);
         int GameCardsPartCount(GameCardsPart part);
         GameCardsPart MirrorGameCardsPart(GameCardsPart part);
         Task SendGameResult(int playerIndex, GameStatus coerceResult = GameStatus.None);
-        //void ToCemeteryInfo(GameCard card);
         Task SendBigRoundEndToCemetery();
         Task SetCemeteryInfo();
         RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
