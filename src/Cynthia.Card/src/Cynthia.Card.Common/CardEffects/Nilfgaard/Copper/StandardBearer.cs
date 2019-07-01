@@ -14,6 +14,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterUnitPlay @event)
         {
             _tempCard = @event.PlayedCard;
+            await Task.CompletedTask;
         }
 
         public async Task HandleEvent(AfterUnitDown @event)

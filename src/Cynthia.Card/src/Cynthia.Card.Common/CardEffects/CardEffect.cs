@@ -85,24 +85,24 @@ namespace Cynthia.Card
         //使卡牌"放置"
         public virtual async Task Play(CardLocation location)//放置
         {
-            var isSpying = await CardPlayStart(location);
+            var cardPlayInfo = await CardPlayStart(location);
             //历史卡牌
-            Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
+            Game.HistoryList.Add((cardPlayInfo.isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 // count = await CardPlayEffect(isSpying);
                 await Game.AddTask(async () =>
                 {
-                    count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying))).SearchCount;
+                    count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(cardPlayInfo.isSpying, cardPlayInfo.isReveal))).SearchCount;
                 });
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(isSpying);
-            await PlayStayCard(count, isSpying);
+                await CardDown(cardPlayInfo.isSpying);
+            await PlayStayCard(count, cardPlayInfo.isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(isSpying);
                 await Game.AddTask(async () =>
                 {
-                    await Card.Effects.RaiseEvent(new CardDownEffect(isSpying));
+                    await Card.Effects.RaiseEvent(new CardDownEffect(cardPlayInfo.isSpying, cardPlayInfo.isReveal));
                 });
         }
 
@@ -271,15 +271,16 @@ namespace Cynthia.Card
         }
         //----------------------------------------------------------------------------
         //单位卡放置的分步方法
-        public virtual async Task<bool> CardPlayStart(CardLocation location)//先是移动到目标地点
+        public virtual async Task<(bool isSpying, bool isReveal)> CardPlayStart(CardLocation location)//先是移动到目标地点
         {
             var isSpying = !location.RowPosition.IsMyRow();
+            var IsReveal = Card.Status.IsReveal;
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
             await Game.ClientDelay(400);
             await Game.SendEvent(new AfterUnitPlay(Card));
-            return isSpying;//有没有间谍呢
+            return (isSpying, IsReveal);//有没有间谍呢
         }
         public virtual async Task PlayStayCard(int count, bool isSpying)
         {
@@ -441,7 +442,6 @@ namespace Cynthia.Card
                 {
                     await ToCemetery();
                     // await Game.AddTask(() => ToCemetery());
-                    var a = 10;
                     return;
                 }
             }
@@ -641,7 +641,7 @@ namespace Cynthia.Card
                 await CardDown(false);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(false);
-                await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false)));
+                await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false, false)));
 
         }
         public virtual async Task Consume(GameCard target)//吞噬

@@ -4,15 +4,15 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("34030")]//维可瓦罗医师
-	public class VicovaroMedic : CardEffect
-	{//从对方墓场复活1个铜色单位。
-		public VicovaroMedic(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying)
-		{
-			//从敌方墓地取铜色单位卡
+    [CardEffectId("34030")]//维可瓦罗医师
+    public class VicovaroMedic : CardEffect
+    {//从对方墓场复活1个铜色单位。
+        public VicovaroMedic(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying)
+        {
+            //从敌方墓地取铜色单位卡
             var list = Game.PlayersCemetery[Game.AnotherPlayer(Card.PlayerIndex)]
-            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit).Mess();
+            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit).Mess(Game.RNG);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
@@ -20,6 +20,6 @@ namespace Cynthia.Card
             if (result.Count() == 0) return 0;
             await result.First().Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 }, Card);
             return 1;
-		}
-	}
+        }
+    }
 }

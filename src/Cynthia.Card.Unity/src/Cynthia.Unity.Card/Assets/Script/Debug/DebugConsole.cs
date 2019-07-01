@@ -18,9 +18,7 @@ public class DebugConsole : MonoBehaviour
             Text.text += condition + "\n";
             Content.sizeDelta = new Vector2(0, 60 + 42 * _line);
             Scrollbar.value = 0;
-            // Text
         };
-        Debug.Log("test");
     }
 
     // Update is called once per frame

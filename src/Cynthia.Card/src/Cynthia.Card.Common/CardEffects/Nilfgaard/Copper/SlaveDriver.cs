@@ -10,6 +10,14 @@ namespace Cynthia.Card
         public SlaveDriver(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying)
         {
+            var cards = await Game.GetSelectPlaceCards(Card, filter: x => x.CardPoint() > 1, selectMode: SelectModeType.MyRow);
+            if (cards.Count == 0) return 0;
+            var card = cards.Single();
+            var point = card.CardPoint() - 1;
+            await card.Effect.Damage(point, Card, isPenetrate: true);
+            cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (cards.Count == 0) return 0;
+            await cards.Single().Effect.Damage(point, Card);
             return 0;
         }
     }
