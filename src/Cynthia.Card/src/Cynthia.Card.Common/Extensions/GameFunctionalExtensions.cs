@@ -7,6 +7,10 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
+        public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
+        {
+            return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting);
+        }
         public static Task CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null)
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);

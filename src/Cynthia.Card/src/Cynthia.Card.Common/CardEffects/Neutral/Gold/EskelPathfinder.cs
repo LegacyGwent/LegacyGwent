@@ -10,6 +10,9 @@ namespace Cynthia.Card
 		public EskelPathfinder(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+            var cards = await Game.GetSelectPlaceCards(Card,filter:x=>(x.Status.Group==Group.Copper||x.Status.Group==Group.Silver)&&x.Status.HealthStatus<=0, selectMode: SelectModeType.EnemyRow);
+            if (cards.Count == 0) return 0;
+            await cards.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
 			return 0;
 		}
 	}
