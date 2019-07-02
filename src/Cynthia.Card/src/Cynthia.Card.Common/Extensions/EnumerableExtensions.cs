@@ -8,6 +8,28 @@ namespace Cynthia.Card
 {
     public static class EnumerableExtensions
     {
+        public static bool TrySingle<T>(this IEnumerable<T> items, out T result)
+        {
+            var enumerator = items.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                result = default;
+                return false;
+            }
+            result = enumerator.Current;
+            if (enumerator.MoveNext())
+            {
+                result = default;
+                return false;
+            }
+            return true;
+        }
+
+        public static bool TryMessOne<T>(this IEnumerable<T> items, out T result, Random rng)
+        {
+            result = items.Mess(rng).FirstOrDefault();
+            return result == default ? false : true;
+        }
         public static string ToJson(this object obj)
         {
             return JsonConvert.SerializeObject(obj);

@@ -15,15 +15,7 @@ namespace Cynthia.Card
             if (@event.Target != Card) return;
             var range = new Random().Next(0, Game.PlayersHandCard[PlayerIndex].Count() + 1);
             await Card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), Card);
-            await Card.Effect.Strengthen(3, Card); ;
+            await Card.Effect.Strengthen(3, Card);
         }
-
-        // public override async Task OnCardToCemetery(GameCard target, CardLocation source)
-        // {
-        //     if (target != Card) return;
-        //     var range = new Random().Next(0, Game.PlayersHandCard[PlayerIndex].Count() + 1);
-        //     await Card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), Card);
-        //     await Card.Effect.Strengthen(3, Card);
-        // }
     }
 }

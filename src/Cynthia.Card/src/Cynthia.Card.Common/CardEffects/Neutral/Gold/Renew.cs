@@ -10,6 +10,15 @@ namespace Cynthia.Card
         public Renew(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
+            var list = Game.PlayersCemetery[PlayerIndex]
+            .Where(x => x.Status.Group == Group.Gold && x.CardInfo().CardType == CardType.Unit).ToList();
+            //让玩家选择一张卡
+            var result = await Game.GetSelectMenuCards
+            (Card.PlayerIndex, list, 1, "选择复活一张牌");
+            //如果玩家一张卡都没选择,没有效果
+            if (result.Count == 0) return 0;
+            await result.Single().Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
+            return 1;
             // var result = await Game.GetSelectMenuCards(PlayerIndex, Game.GetAllCard(PlayerIndex), 100);
             // foreach (var card in result.Reverse())
             // {
@@ -19,7 +28,7 @@ namespace Cynthia.Card
             //         await card.MoveToCardStayFirst(true);
             // }
             // return result.Count;
-            return 0;
+            // return 0;
         }
 
         // public async Task HandleEvent(AfterTurnStart @event)

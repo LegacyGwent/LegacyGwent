@@ -676,16 +676,21 @@ namespace Cynthia.Card
         public virtual async Task Move(CardLocation location, GameCard source)//发送位移
         {//移动,只限于从场上移动到另一排
             //如果不在场上,返回
-            if (!Card.Status.CardRow.IsOnPlace() || Game.RowToList(Card.PlayerIndex, location.RowPosition).Count >= 9) return;
+            var count = Game.RowToList(Card.PlayerIndex, location.RowPosition).Count;
+            if (!Card.Status.CardRow.IsOnPlace() || count >= 9) return;
+            if (location.CardIndex > count)
+            {
+                location.CardIndex = count;
+            }
             var isSpyingChange = !location.RowPosition.IsMyRow();
             await Game.ShowCardOn(Card);
             await Game.ShowCardMove(location, Card);
             await Game.ClientDelay(200);
-            await CardDown(isSpyingChange);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //位移,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
+            await Game.AddTask(async () => await CardDown(isSpyingChange));
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤
