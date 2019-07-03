@@ -12,10 +12,17 @@ public class GaneEntrance : MonoBehaviour
     public GameObject GlobalUI;
     public GameObject AudioSound;
     public AudioMixer AudioMixer;
+
     private void Start()
     {
-        DontDestroyOnLoad(GlobalUI);
-        DontDestroyOnLoad(AudioSound);
+        if (GlobalState.IsLoadGlobal) return;
+        GlobalState.IsLoadGlobal = true;
+        var globalUI = Instantiate(GlobalUI);
+        var musicSource = Instantiate(AudioSound);
+        globalUI.name = "GlobalUI";
+        musicSource.name = "MusicSource";
+        DontDestroyOnLoad(globalUI);
+        DontDestroyOnLoad(musicSource);
 
         SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
         SetQuality(PlayerPrefs.GetInt("quality", 2));

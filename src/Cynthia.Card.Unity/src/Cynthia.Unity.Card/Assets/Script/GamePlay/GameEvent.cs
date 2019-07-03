@@ -176,7 +176,7 @@ public class GameEvent : MonoBehaviour
             }
             _selectCard = value;
             if (value == null) return;
-            if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay)
+            if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay || _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
             {
                 _selectCard = null;
                 return;
@@ -286,7 +286,6 @@ public class GameEvent : MonoBehaviour
                     //----------------------------------------------------------------------------------
                     //回应服务器的请求
                     DragCard.IsStay = true;
-                    ResetAllTem();//
                     if (GetIndex(DragCard.transform) == -1) MyLeader.IsCardCanUse = false;
                     sender.SendAsync<RoundInfo>
                     (
@@ -301,6 +300,7 @@ public class GameEvent : MonoBehaviour
                             IsPass = false,
                         }
                     );
+                    ResetAllTem();//
                     //-----------------------------------------------------------------------------------
                     DropTaget = null;
                 }
@@ -338,7 +338,6 @@ public class GameEvent : MonoBehaviour
                 {
                     //----------------------------------------------------------------------------------
                     //回应服务器的请求
-                    ResetAllTem();
                     sender.SendAsync<CardLocation>
                     (
                         new CardLocation()
@@ -347,6 +346,7 @@ public class GameEvent : MonoBehaviour
                             CardIndex = GetDropIndex(GetRelativePosition(DropTaget), DropTaget.CardsPosition)
                         }
                     );
+                    ResetAllTem();
                 }
                 break;
             case GameOperationType.None:
@@ -432,10 +432,10 @@ public class GameEvent : MonoBehaviour
                             return;
                         }
                         //筛选,如果单位满了则无法放置
-                        dropTaget = (dropTaget.CardsPosition.MaxCards + (dropTaget.CardsPosition.IsTem() ? 1 : 0)) <= dropTaget.CardsPosition.GetCardCount() ? null : dropTaget;//数量没满的第一个
+                        dropTaget = (dropTaget.CardsPosition.MaxCards + (dropTaget.CardsPosition.IsTem() ? 1 : 0)) <= dropTaget.CardsPosition.GetTrueCardCount() ? null : dropTaget;//数量没满的第一个
                     }
                     //悬停效果处理,先把老排清空效果,然后赋值
-                    if (DropTaget != dropTaget && DropTaget != null && DropTaget.CardsPosition != null) DropTaget.CardsPosition.AddTemCard(null, -1);
+                    if (DropTaget != dropTaget && DropTaget != null && DropTaget.CardsPosition != null) DropTaget.CardsPosition.RemoveAllTemp();
                     DropTaget = dropTaget;
                     if (DropTaget != null)
                     {   //如果新的排不是空,设定预设卡
@@ -471,10 +471,10 @@ public class GameEvent : MonoBehaviour
                         return;
                     }
                     //筛选,如果单位满了则无法放置
-                    dropTaget = (dropTaget.CardsPosition.MaxCards + (dropTaget.CardsPosition.IsTem() ? 1 : 0)) <= dropTaget.CardsPosition.GetCardCount() ? null : dropTaget;//数量没满的第一个
+                    dropTaget = (dropTaget.CardsPosition.MaxCards + (dropTaget.CardsPosition.IsTem() ? 1 : 0)) <= dropTaget.CardsPosition.GetTrueCardCount() ? null : dropTaget;//数量没满的第一个
                 }
                 //悬停效果处理,先把老排清空效果,然后赋值
-                if (DropTaget != dropTaget && DropTaget != null && DropTaget.CardsPosition != null) DropTaget.CardsPosition.AddTemCard(null, -1);
+                if (DropTaget != dropTaget && DropTaget != null && DropTaget.CardsPosition != null) DropTaget.CardsPosition.RemoveAllTemp();
                 DropTaget = dropTaget;
                 if (DropTaget != null)
                 {   //如果新的排不是空,设定预设卡
@@ -527,6 +527,7 @@ public class GameEvent : MonoBehaviour
         // }
         // message += "|";
         //-------------------------------------
+        // Debug.Log(location.RowPosition + "" + location.CardIndex);
         for (var i = 0; i <= ti; i++)
         {
             if (row.transform.GetChild(i).GetComponent<CardShowInfo>().IsDead || row.transform.GetChild(i).GetComponent<CardMoveInfo>().IsTem)
@@ -634,20 +635,32 @@ public class GameEvent : MonoBehaviour
         if (container == null)
             return -1;
         var count = container.GetCardCount();
-        count -= container.IsTem() ? 1 : 0;
+        // count -= container.IsTem() ? 1 : 0;
+        // count -= container.DeadCount();
+        // Debug.Log(container.DeadCount());
         var index = (position.x + container.XSize * (count - 1) / 2);
         index /= container.XSize;
         index += 1;
         index = index < 0 ? 0 : index;
-        index = index > count ? count : index;
-        return (int)index;
+        index = (int)(index > count ? count : index);
+        var result = 0;
+        for (var i = 0; i < index; i++)
+        {
+            var card = container.transform.GetChild(i).GetComponent<CardMoveInfo>();
+            if (!(card.IsTem || card.CardShowInfo.IsDead))
+            {
+                result++;
+            }
+        }
+        // Debug.Log(result);
+        return result;
     }
     public IEnumerable<int> HandCanPlay()//当前可以打出的手牌
     {
-        var result = 0.To(MyHand.GetCardCount() - 1);//0-数量-1
+        var result = 0.To(MyHand.GetTrueCardCount() - 1);//0-数量-1
         if (MyLeader.IsCardCanUse)
         {
-            if (MyHand.GetCardCount() > 0)
+            if (MyHand.GetTrueCardCount() > 0)
                 return result.Append(-1);//
             else
                 return (-1).To(-1);
@@ -670,44 +683,44 @@ public class GameEvent : MonoBehaviour
                 break;
             case CardUseInfo.MyRow:
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.MyRow1).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow1).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow1).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.MyRow2).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow2).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow2).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.MyRow2, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.MyRow3).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow3).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow3).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.MyRow3, CardIndex = x }));
                 break;
             case CardUseInfo.EnemyRow:
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow1).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow1).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow1).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.EnemyRow1, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow2).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow2).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow2).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.EnemyRow2, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow3).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow3).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow3).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.EnemyRow3, CardIndex = x }));
                 break;
             case CardUseInfo.AnyRow:
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.MyRow1).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow1).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow1).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.MyRow2).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow2).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow2).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.MyRow2, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.MyRow3).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow3).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.MyRow3).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.MyRow3, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow1).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow1).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow1).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.EnemyRow1, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow2).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow2).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow2).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.EnemyRow2, CardIndex = x }));
                 if (AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow3).IsCanPlay)
-                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow3).GetCardCount())
+                    result.AddRange(0.To(AllCardsPosition.Single(x => x.Id == RowPosition.EnemyRow3).GetTrueCardCount())
                     .Select(x => new CardLocation() { RowPosition = RowPosition.EnemyRow3, CardIndex = x }));
                 break;
             case CardUseInfo.ReSet:
@@ -943,7 +956,8 @@ public class GameEvent : MonoBehaviour
     {
         var soureCard = default(CardMoveInfo);
         var tagetRow = default(CardsPosition);
-        switch (info.Soure.RowPosition)//几个特殊的移动原始位置
+        //几个特殊的移动原始位置
+        switch (info.Source.RowPosition)
         {
             case RowPosition.MyLeader:
                 if (MyLeader.TrueCard == null) return;
@@ -968,7 +982,7 @@ public class GameEvent : MonoBehaviour
             case RowPosition.SpecialPlace://这是个错误值
                 break;
             default:
-                soureCard = GetCard(info.Soure);
+                soureCard = GetCard(info.Source);
                 break;
         }
         //以上是来源卡牌
@@ -981,7 +995,7 @@ public class GameEvent : MonoBehaviour
         soureCard.IsStay = false;
         //------------------------------------------
         //移动到
-        switch (info.Taget.RowPosition)
+        switch (info.Target.RowPosition)
         {
             case RowPosition.MyDeck:
                 CardMoveBack(soureCard, MyDeck);
@@ -1000,8 +1014,8 @@ public class GameEvent : MonoBehaviour
             case RowPosition.SpecialPlace:
                 return;
             default:
-                tagetRow = AllCardsPosition.Single(x => x.Id == info.Taget.RowPosition);
-                tagetRow.AddCard(soureCard, info.Taget.CardIndex);
+                tagetRow = AllCardsPosition.Single(x => x.Id == info.Target.RowPosition);
+                tagetRow.AddCard(soureCard, tagetRow.GetTrueIndex(info.Target.CardIndex));
                 break;
         }
     }
@@ -1014,11 +1028,13 @@ public class GameEvent : MonoBehaviour
         }
         else
         {
-            //白雾一样的,在看不见的地方创造
+            //白雾一样的,在看不见的地方创造,和没有一样
         }
     }
     public void SetCard(CardLocation location, CardStatus card)
     {
+        // Debug.Log("刷新了卡牌设置");
+        // Debug.Log($"卡牌名称是:{card.Name},生命状态是:{card.HealthStatus}");
         var clientCard = GetCard(location);
         clientCard.CardShowInfo.CurrentCore = card;
         //clientCard.CardShowInfo.SetCard();
@@ -1030,7 +1046,7 @@ public class GameEvent : MonoBehaviour
     }
     public void CardDown(CardLocation location)//卡牌落下
     {
-        Debug.Log($"受到卡牌落下的请求,Index:{location.CardIndex}");
+        // Debug.Log($"受到卡牌落下的请求,Index:{location.CardIndex}");
         MyLeader.AutoSet();
         EnemyLeader.AutoSet();
         //上面这两行偷懒了,或许以后会改
@@ -1067,12 +1083,12 @@ public class GameEvent : MonoBehaviour
     //强制刷新掉所有的辅助临时卡(暂时没必要)
     public void ResetAllTem()
     {
-        EnemyRow1.CardsPosition.AddTemCard(null, -1);
-        EnemyRow2.CardsPosition.AddTemCard(null, -1);
-        EnemyRow3.CardsPosition.AddTemCard(null, -1);
-        MyRow1.CardsPosition.AddTemCard(null, -1);
-        MyRow2.CardsPosition.AddTemCard(null, -1);
-        MyRow3.CardsPosition.AddTemCard(null, -1);
+        EnemyRow1.CardsPosition.RemoveAllTemp();
+        EnemyRow2.CardsPosition.RemoveAllTemp();
+        EnemyRow3.CardsPosition.RemoveAllTemp();
+        MyRow1.CardsPosition.RemoveAllTemp();
+        MyRow2.CardsPosition.RemoveAllTemp();
+        MyRow3.CardsPosition.RemoveAllTemp();
     }
     //设定场上所有卡(灰不灰)
     public void AllCardGray(bool isGray)

@@ -7,36 +7,40 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
+        public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
+        {
+            return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting);
+        }
         public static Task CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null)
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);
         }
-        public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> sizer, bool isDistinct = false)
+        public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> filter, bool isDistinct = false)
         {
             if (isDistinct)
-                return cards.Where(sizer).Distinct();
-            return cards.Where(sizer);
+                return cards.Where(filter).Distinct();
+            return cards.Where(filter);
 
         }
-        public static IList<GwentCard> GetMyBaseDeck(this GameCard card, Func<GwentCard, bool> sizer = null, bool isDistinct = false)
+        public static IList<GwentCard> GetMyBaseDeck(this GameCard card, Func<GwentCard, bool> filter = null, bool isDistinct = false)
         {
-            sizer = sizer ?? (x => true);
+            filter = filter ?? (x => true);
             //是否去除重复项,筛选器
-            return card.Effect.Game.PlayerBaseDeck[card.PlayerIndex].Deck.SelectCard(sizer, isDistinct).ToList();
+            return card.Effect.Game.PlayerBaseDeck[card.PlayerIndex].Deck.SelectCard(filter, isDistinct).ToList();
         }
-        public static IList<GwentCard> GetEnemyBaseDeck(this GameCard card, Func<GwentCard, bool> sizer = null, bool isDistinct = false)
+        public static IList<GwentCard> GetEnemyBaseDeck(this GameCard card, Func<GwentCard, bool> filter = null, bool isDistinct = false)
         {
-            sizer = sizer ?? (x => true);
+            filter = filter ?? (x => true);
             //是否去除重复项,筛选器
-            return card.Effect.Game.PlayerBaseDeck[card.Effect.Game.AnotherPlayer(card.PlayerIndex)].Deck.SelectCard(sizer, isDistinct).ToList();
+            return card.Effect.Game.PlayerBaseDeck[card.Effect.Game.AnotherPlayer(card.PlayerIndex)].Deck.SelectCard(filter, isDistinct).ToList();
         }
-        public static IList<GwentCard> GetBaseDeck(this GameCard card, Func<GwentCard, bool> sizer = null, bool isDistinct = false)
+        public static IList<GwentCard> GetBaseDeck(this GameCard card, Func<GwentCard, bool> filter = null, bool isDistinct = false)
         {
-            sizer = sizer ?? (x => true);
+            filter = filter ?? (x => true);
             //是否去除重复项,筛选器
             return card.Effect.Game.PlayerBaseDeck[card.Effect.Game.AnotherPlayer(card.PlayerIndex)].Deck
                 .Concat(card.Effect.Game.PlayerBaseDeck[card.PlayerIndex].Deck)
-                .SelectCard(sizer, isDistinct).ToList();
+                .SelectCard(filter, isDistinct).ToList();
         }
         public static GameDeck ToGameDeck(this DeckModel deck)
         {
@@ -174,21 +178,21 @@ namespace Cynthia.Card
             }
             return false;
         }
-        public static bool TagetIsShowBack(this GameCard card, CardLocation taget, int tagetPlayerIndex, int LookplayerIndex)
+        public static bool TagetIsShowBack(this GameCard card, CardLocation target, int tagetPlayerIndex, int LookplayerIndex)
         {
-            if (!taget.RowPosition.IsOnRow()) return true;
-            if (tagetPlayerIndex == LookplayerIndex && taget.RowPosition.IsOnPlace() && card.Status.Conceal)
+            if (!target.RowPosition.IsOnRow()) return true;
+            if (tagetPlayerIndex == LookplayerIndex && target.RowPosition.IsOnPlace() && card.Status.Conceal)
                 return true;
             if (tagetPlayerIndex != LookplayerIndex)
             {
-                if (taget.RowPosition.IsInHand() && !card.Status.IsReveal)
+                if (target.RowPosition.IsInHand() && !card.Status.IsReveal)
                     return true;
-                if (taget.RowPosition.IsOnPlace() && card.Status.Conceal)
+                if (target.RowPosition.IsOnPlace() && card.Status.Conceal)
                     return true;
             }
             return false;
         }
-        public static CardStatus CreateBackCard(this CardStatus card) => new CardStatus() { IsCardBack = true, DeckFaction = card.DeckFaction };
+        public static CardStatus CreateBackCard(this CardStatus card) => new CardStatus(card.DeckFaction);// { IsCardBack = true, DeckFaction = card.DeckFaction };
         public static int CardPoint(this GameCard card) => card.Status.HealthStatus + card.Status.Strength;
         public static CardLocation Mirror(this CardLocation location) => new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex };
         public static SelectModeType Mirror(this SelectModeType selectMode)
@@ -217,10 +221,14 @@ namespace Cynthia.Card
                     return SelectModeType.All;
             }
         }
-        public static Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool isShowToEnemy = true)//移动到卡牌移动区末尾
+        public static async Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool refresh = true, bool isShowEnemyBack = false)//移动到卡牌移动区末尾
         {   //将卡牌移动到最开头
             var game = card.Effect.Game;
-            return game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, isShowToEnemy);
+            if (isShowEnemyBack)
+            {
+                await game.Debug("MoveToCardStayFirst检测到需求对方看到卡背的指示");
+            }
+            await game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, refresh, isShowEnemyBack: isShowEnemyBack);
         }
         public static IEnumerable<(int health, GameCard card)> SelectToHealth(this IEnumerable<GameCard> card)
         {   //将所有卡牌的有效战力列出来

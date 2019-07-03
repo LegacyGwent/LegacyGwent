@@ -18,7 +18,10 @@ namespace Cynthia.Card
         }
         public Task SendAsync(Operation<ServerOperationType> operation) => _upstream.SendAsync(operation);
         public Task SendAsync(ServerOperationType type, params object[] data) => _upstream.SendAsync(Operation.Create(type, data));
-        public Task<Operation<UserOperationType>> ReceiveAsync() => _upstream.ReceiveAsync<Operation<UserOperationType>>();
+        public async Task<Operation<UserOperationType>> ReceiveAsync()
+        {
+            return await _upstream.ReceiveAsync<Operation<UserOperationType>>();
+        }
         public event Func<TubeReceiveEventArgs, Task> Receive { add => _upstream.Receive += value; remove => _upstream.Receive -= value; }
     }
 }

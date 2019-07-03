@@ -5,6 +5,7 @@ using Cynthia.Card;
 using UnityEngine;
 using System.Linq;
 using Alsein.Extensions;
+using System;
 
 public class GameCardsControl : MonoBehaviour
 {
@@ -47,8 +48,8 @@ public class GameCardsControl : MonoBehaviour
         EnemyRow1.SetCards(gameInfomation.EnemyPlace[0]);
         EnemyRow2.SetCards(gameInfomation.EnemyPlace[1]);
         EnemyRow3.SetCards(gameInfomation.EnemyPlace[2]);
-        MyLeader.SetLeader(gameInfomation.MyLeader,gameInfomation.IsMyLeader);
-        EnemyLeader.SetLeader(gameInfomation.EnemyLeader,gameInfomation.IsEnemyLeader);
+        MyLeader.SetLeader(gameInfomation.MyLeader, gameInfomation.IsMyLeader);
+        EnemyLeader.SetLeader(gameInfomation.EnemyLeader, gameInfomation.IsEnemyLeader);
         //
         if (gameInfomation.MyLeader.DeckFaction == Faction.Monsters)
             MyDeckBack.GetComponent<SpriteRenderer>().sprite = MonstersBack;

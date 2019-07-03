@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Common", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cynthia.Card.Server", "src\Cynthia.Card.Server\Cynthia.Card.Server.csproj", "{7838AC98-3176-47C8-BDE5-8B15F503EF5E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CFD92A76-60E7-42ED-AFD3-24DEF827A512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "test\ConsoleTest\ConsoleTest.csproj", "{33478554-27E4-4CA3-909E-95637D4D3220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,9 +50,22 @@ Global
 		{7838AC98-3176-47C8-BDE5-8B15F503EF5E}.Release|x64.Build.0 = Release|Any CPU
 		{7838AC98-3176-47C8-BDE5-8B15F503EF5E}.Release|x86.ActiveCfg = Release|Any CPU
 		{7838AC98-3176-47C8-BDE5-8B15F503EF5E}.Release|x86.Build.0 = Release|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Debug|x64.Build.0 = Debug|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Debug|x86.Build.0 = Debug|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Release|x64.ActiveCfg = Release|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Release|x64.Build.0 = Release|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Release|x86.ActiveCfg = Release|Any CPU
+		{33478554-27E4-4CA3-909E-95637D4D3220}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{183D892D-BE81-4FBA-A280-9F5D6D70DB45} = {6C4499E8-103D-4F52-8F8B-821C30518A9F}
 		{7838AC98-3176-47C8-BDE5-8B15F503EF5E} = {6C4499E8-103D-4F52-8F8B-821C30518A9F}
+		{33478554-27E4-4CA3-909E-95637D4D3220} = {CFD92A76-60E7-42ED-AFD3-24DEF827A512}
 	EndGlobalSection
 EndGlobal
