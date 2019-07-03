@@ -10,7 +10,15 @@ namespace Cynthia.Card
 		public Forktail(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
-		}
+            for (var i = 0; i < w; i++)
+            {
+                var card = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow)).SingleOrDefault();
+                if (card != default)
+                {
+                    await Card.Effect.Consume(card);
+                }
+            }
+            return 0;
+        }
 	}
 }
