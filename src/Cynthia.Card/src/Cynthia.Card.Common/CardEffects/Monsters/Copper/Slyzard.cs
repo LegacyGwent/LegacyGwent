@@ -15,7 +15,10 @@ namespace Cynthia.Card
             //从墓地选牌
             var list = Game.PlayersCemetery[PlayerIndex]
                 .Where(x => x.Status.Group == Group.Copper && x.Status.CardId != CardId.Slyzard);
-
+            //筛选卡组还有同名卡的
+            list = list.Where(x => 
+                Game.PlayersDeck[Card.PlayerIndex].Where(y => y.Status.CardId == x.Status.CardId).Count() > 0);
+            //选卡
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1);
             if (result.Count() <= 0) 
             {
@@ -47,6 +50,10 @@ namespace Cynthia.Card
             //将buff改为打出新的同名牌
             var cardToPlay = Game.PlayersDeck[Card.PlayerIndex]
                 .Where(x.Status.CardId == target.Status.CardId)
+            if (cardToPlay.Count() <= 0) 
+            {
+                return 0;
+            }
             //打出新的同名牌
             await cardToPlay.First().MoveToCardStayFirst();
         }
