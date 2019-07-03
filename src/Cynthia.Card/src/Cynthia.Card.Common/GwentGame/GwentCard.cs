@@ -8,7 +8,6 @@ namespace Cynthia.Card
     {
         [Key]
         public string CardId { get; set; }
-        public Type EffectType{get;set;}
 
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
@@ -47,10 +46,13 @@ namespace Cynthia.Card
         //是否佚亡
         public bool IsDoomed { get; set; }
 
+        //初始倒计时
         public int Countdown { get; set; }
 
+        //是否开启倒数显示
         public bool IsCountdown { get; set; }
 
-        public bool IsDerive{ get; set; }
+        //是否是属于衍生卡池
+        public bool IsDerive { get; set; }
     }
 }

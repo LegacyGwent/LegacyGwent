@@ -17,6 +17,20 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
+        },
+        {
+            "name": "Test",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build test",
+            "program": "${workspaceFolder}/test/ConsoleTest/bin/Debug/netcoreapp3.0/ConsoleTest.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/test/ConsoleTest",
+            "console": "externalTerminal",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
         }
     ]
 }

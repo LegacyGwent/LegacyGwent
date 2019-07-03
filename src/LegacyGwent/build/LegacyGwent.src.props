@@ -1,0 +1,9 @@
+<Project>
+
+    <Import Project="$(MSBuildThisFileDirectory)/LegacyGwent.props"/>
+
+    <PropertyGroup>
+        <RootNamespace>LegacyGwent</RootNamespace>
+    </PropertyGroup>
+
+</Project>

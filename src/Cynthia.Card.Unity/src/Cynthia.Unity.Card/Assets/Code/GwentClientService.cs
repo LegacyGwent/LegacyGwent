@@ -38,10 +38,10 @@ namespace Cynthia.Card.Client
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
             /*待修改*/
-            hubConnection.On<bool>("MatchResult",async x=> 
-            {
-                await sender.SendAsync<bool>(x);
-            });
+            hubConnection.On<bool>("MatchResult", async x =>
+             {
+                 await sender.SendAsync<bool>(x);
+             });
             hubConnection.On("RepeatLogin", async () =>
             {
                 SceneManager.LoadScene("LoginSecen");
@@ -80,7 +80,7 @@ namespace Cynthia.Card.Client
         //开始匹配与停止匹配
         public Task<bool> Match(string deckId)
         {
-            Player.Deck = User.Decks.Single(x=>x.Id==deckId);
+            Player.Deck = User.Decks.Single(x => x.Id == deckId);
             return HubConnection.InvokeAsync<bool>("Match", deckId);
         }
         public Task<bool> StopMatch()
