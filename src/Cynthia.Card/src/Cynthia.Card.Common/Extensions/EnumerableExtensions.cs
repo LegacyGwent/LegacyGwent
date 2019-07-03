@@ -8,6 +8,28 @@ namespace Cynthia.Card
 {
     public static class EnumerableExtensions
     {
+        public static bool TrySingle<T>(this IEnumerable<T> items, out T result)
+        {
+            var enumerator = items.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                result = default;
+                return false;
+            }
+            result = enumerator.Current;
+            if (enumerator.MoveNext())
+            {
+                result = default;
+                return false;
+            }
+            return true;
+        }
+
+        public static bool TryMessOne<T>(this IEnumerable<T> items, out T result, Random rng)
+        {
+            result = items.Mess(rng).FirstOrDefault();
+            return result == default ? false : true;
+        }
         public static string ToJson(this object obj)
         {
             return JsonConvert.SerializeObject(obj);
@@ -21,15 +43,14 @@ namespace Cynthia.Card
             var a = typeof(T).Name;
             return JsonConvert.DeserializeObject<T>(jsonString);
         }
-        public static IEnumerable<T> Mess<T>(this IEnumerable<T> source)
+        public static IEnumerable<T> Mess<T>(this IEnumerable<T> source, Random rng)
         {
             var arr = source.ToArray();
             var pickeds = false.Plural(arr.Length).ToArray();
             var num = 0;
-            var rand = new Random();
             while (num < arr.Length)
             {
-                var r = rand.Next(arr.Length - num);
+                var r = rng.Next(arr.Length - num);
                 var index = r;
                 for (var i = 0; i <= index; i++)
                 {

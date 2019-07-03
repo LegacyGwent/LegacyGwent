@@ -1,0 +1,9 @@
+<Project>
+
+    <Import Project="$(MSBuildThisFileDirectory)/LegacyGwent.props"/>
+
+    <ItemGroup>
+        <ProjectReference Include="$(MSBuildThisFileDirectory)/../src/*/*.csproj" />
+    </ItemGroup>
+
+</Project>

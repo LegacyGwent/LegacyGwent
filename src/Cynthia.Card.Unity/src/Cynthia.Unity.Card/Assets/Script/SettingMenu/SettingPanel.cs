@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SettingPanel : MonoBehaviour {
+public class SettingPanel : MonoBehaviour
+{
 
     private Resolution screenResolution; //分辨率
     private bool isFullScreen; //是否全屏
@@ -12,7 +13,7 @@ public class SettingPanel : MonoBehaviour {
     private int effectVolum; //音效大小
     private int quality; //画质
 
-    public GameObject AudioSource;
+    // public GameObject AudioSource;
     public AudioMixer AudioMixer;
 
     private void Start()
@@ -24,7 +25,7 @@ public class SettingPanel : MonoBehaviour {
     public void Initialization()
     {
         screenResolution = IndexToResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
-        isFullScreen = PlayerPrefs.GetInt("isFull",0)==0?true:false;
+        isFullScreen = PlayerPrefs.GetInt("isFull", 0) == 0 ? true : false;
         isCloseSound = PlayerPrefs.GetInt("isCloseSound", 1) == 0 ? true : false;
         musicVolum = PlayerPrefs.GetInt("musicVolum", 5);
         effectVolum = PlayerPrefs.GetInt("effectVolum", 5);
@@ -68,7 +69,7 @@ public class SettingPanel : MonoBehaviour {
     {
         PlayerPrefs.SetInt("musicVolum", volum);
         musicVolum = volum;
-        AudioMixer.SetFloat("musicVolum",(float)((musicVolum*8)-80));
+        AudioMixer.SetFloat("musicVolum", (float)((musicVolum * 8) - 80));
     }
 
     //设置音效大小
@@ -105,9 +106,9 @@ public class SettingPanel : MonoBehaviour {
     //设置全屏
     public void SetFullScreen(int isFull)
     {
-        PlayerPrefs.SetInt("isFull",isFull);
+        PlayerPrefs.SetInt("isFull", isFull);
         isFullScreen = ((isFull == 0) ? true : false);
-        Screen.SetResolution(screenResolution.width,screenResolution.height,isFullScreen);
-        
+        Screen.SetResolution(screenResolution.width, screenResolution.height, isFullScreen);
+
     }
 }

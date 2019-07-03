@@ -11,7 +11,7 @@ public class CardShowInfo : MonoBehaviour
 {
     public CardMoveInfo CardMoveInfo;
     //?
-    public bool IsDead { get => _isDead || CardMoveInfo.IsTem; set => _isDead = value; }
+    public bool IsDead { get => _isDead; set => _isDead = value; }
     public bool _isDead = false;
     public CardStatus CurrentCore
     {
@@ -106,6 +106,8 @@ public class CardShowInfo : MonoBehaviour
     //根据CurrentCore来刷新卡面
     public void SetCard()
     {
+        // Debug.Log("刷新了卡牌设置");
+        // Debug.Log($"卡牌名称是:{CurrentCore.Name},生命状态是:{CurrentCore.HealthStatus}");
         var iconCount = 0;
         var use = this.GetComponent<CardMoveInfo>();
         if (use != null && !CurrentCore.IsCardBack)

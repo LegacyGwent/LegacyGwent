@@ -1,6 +1,6 @@
 namespace Cynthia.Card
 {
-    public enum GetRangeType//两张卡之间发射的弹道类型
+    public enum GetRangeType//对一个范围卡牌的选取规则
     {
         CenterAll,//全部
         HollowAll,//不包含选中卡的全部
