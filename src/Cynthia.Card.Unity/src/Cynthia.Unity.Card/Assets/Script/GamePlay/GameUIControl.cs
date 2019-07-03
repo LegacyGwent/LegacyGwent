@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Cynthia.Card.Client;
 using Cynthia.Card;
 using System.Linq;
+using System;
 
 public class GameUIControl : MonoBehaviour
 {

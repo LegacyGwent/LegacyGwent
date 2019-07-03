@@ -2,6 +2,7 @@
 using UnityEngine;
 using Autofac;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainCode : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class MainCode : MonoBehaviour
     }
     public async void ExitGameClick()
     {
+        // SceneManager.LoadScene("LoginSecen");
         if (await _globalUIService.YNMessageBox("退出游戏?", "是否退出游戏"))
         {
             //进行一些处理

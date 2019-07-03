@@ -24,7 +24,8 @@ public class GameCode : MonoBehaviour
     }
     private async void GameStart()
     {
-        await DependencyResolver.Container.Resolve<GwentClientGameService>().Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
+        // await DependencyResolver.Container.Resolve<GwentClientGameService>().Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
+        await new GwentClientGameService(DependencyResolver.Container.Resolve<GameCodeService>(), DependencyResolver.Container.Resolve<GlobalUIService>()).Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
     }
     public void LeaveGame()
     {

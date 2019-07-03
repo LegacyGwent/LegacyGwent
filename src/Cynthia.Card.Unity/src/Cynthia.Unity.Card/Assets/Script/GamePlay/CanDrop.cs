@@ -20,10 +20,10 @@ public class CanDrop : MonoBehaviour
     }
     public void IfMaxDotDrop()
     {
-        if(IsCanDrop)
+        if (IsCanDrop)
         {
-            if (CardsPosition == null||Id == RowPosition.SpecialPlace) return;
-            if(CardsPosition.MaxCards<=CardsPosition.GetCardCount())
+            if (CardsPosition == null || Id == RowPosition.SpecialPlace) return;
+            if (CardsPosition.MaxCards <= CardsPosition.GetTrueCardCount())
             {
                 IsCanDrop = false;
             }
