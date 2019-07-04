@@ -7,6 +7,10 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
+        public static IEnumerable<GameCard> GetPlanceCards(this IGwentServerGame game, int playerIndex)
+        {
+            return game.PlayersPlace[playerIndex][0].Concat(game.PlayersPlace[playerIndex][1]).Concat(game.PlayersPlace[playerIndex][2]);
+        }
         public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting);
