@@ -199,6 +199,8 @@ namespace Cynthia.Card
             Card.Status.IsSpying = false; //没有间谍
             Card.Status.Conceal = false;  //没有隐藏
             Card.Status.IsReveal = false; //没有揭示
+
+            Card.Status.IsImmue = false;//没有免疫
         }
 
         //使卡牌"放逐"
@@ -722,6 +724,26 @@ namespace Cynthia.Card
                 await Game.ClientDelay(400);
                 if (count > 20) return;
             }
+        }
+
+        public virtual async Task Swap()
+        {
+            if (!Card.Status.CardRow.IsInHand())
+            {
+                return;
+            }
+            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1)), Card);
+            await Game.SendEvent(new AfterCardSwap(Card));
+        }
+
+        public virtual async Task Swap(GameCard target)
+        {
+            if (!Card.Status.CardRow.IsInHand() || !target.Status.CardRow.IsInDeck())
+            {
+                return;
+            }
+            await Swap();
+            await Game.PlayerDrawCard(Card.PlayerIndex, filter: x => x == target);
         }
         //================================================================================
     }
