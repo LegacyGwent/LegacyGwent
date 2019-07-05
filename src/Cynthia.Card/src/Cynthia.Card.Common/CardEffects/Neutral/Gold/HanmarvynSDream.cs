@@ -10,9 +10,9 @@ namespace Cynthia.Card
         public HanmarvynSDream(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var ids = Game.PlayersCemetery[AnotherPlayer].Where(x => x.Is(Group.Gold)).Select(x => x.Status.CardId).ToArray();
+            var ids = Game.PlayersCemetery[AnotherPlayer].Where(x => x.Is(Group.Gold, CardType.Unit)).Select(x => x.Status.CardId).ToArray();
             var count = await Game.CreateAndMoveStay(PlayerIndex, ids);
-            if(count==0)
+            if (count == 0)
             {
                 return 0;
             }
