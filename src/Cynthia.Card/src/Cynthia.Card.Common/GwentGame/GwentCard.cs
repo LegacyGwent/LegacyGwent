@@ -12,6 +12,9 @@ namespace Cynthia.Card
         //包含标签  例如:士兵,精灵 (多选)
         public Categorie[] Categories { get; set; }
 
+        //一些需要的隐藏标签
+        public HideTag[] HideTags { get; set; }
+
 
         //所属势力  例如:松鼠党
         public Faction Faction { get; set; }

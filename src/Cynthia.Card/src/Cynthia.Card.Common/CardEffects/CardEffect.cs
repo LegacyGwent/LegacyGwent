@@ -199,6 +199,8 @@ namespace Cynthia.Card
             Card.Status.IsSpying = false; //没有间谍
             Card.Status.Conceal = false;  //没有隐藏
             Card.Status.IsReveal = false; //没有揭示
+
+            Card.Status.IsImmue = false;//没有免疫
         }
 
         //使卡牌"放逐"
@@ -649,10 +651,11 @@ namespace Cynthia.Card
                 await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false, false)));
 
         }
-        public virtual async Task Consume(GameCard target)//吞噬
+        public virtual async Task Consume(GameCard target, Func<GameCard, int> consumePoint = null)//吞噬
         {
+            consumePoint = consumePoint ?? (x => x.CardPoint());
             if (!Card.Status.CardRow.IsOnPlace() || target.Status.CardRow == RowPosition.Banish) return;
-            var num = target.Status.Strength + target.Status.HealthStatus;
+            // var num = target.Status.Strength + target.Status.HealthStatus;
             //被吞噬的目标
             if (target.Status.CardRow.IsInCemetery())
             {//如果在墓地,放逐掉
@@ -666,7 +669,7 @@ namespace Cynthia.Card
             {
                 await target.Effect.ToCemetery();
             }
-            await Boost(num, target);
+            await Boost(consumePoint(target), target);
             await Game.ClientDelay(500);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //吞噬,应该触发对应事件<暂未定义,待补充>
@@ -722,6 +725,26 @@ namespace Cynthia.Card
                 await Game.ClientDelay(400);
                 if (count > 20) return;
             }
+        }
+
+        public virtual async Task Swap()
+        {
+            if (!Card.Status.CardRow.IsInHand())
+            {
+                return;
+            }
+            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1)), Card);
+            await Game.SendEvent(new AfterCardSwap(Card));
+        }
+
+        public virtual async Task Swap(GameCard target)
+        {
+            if (!Card.Status.CardRow.IsInHand() || !target.Status.CardRow.IsInDeck())
+            {
+                return;
+            }
+            await Swap();
+            await Game.PlayerDrawCard(Card.PlayerIndex, filter: x => x == target);
         }
         //================================================================================
     }
