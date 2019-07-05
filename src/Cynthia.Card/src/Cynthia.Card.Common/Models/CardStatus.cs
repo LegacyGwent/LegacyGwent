@@ -26,6 +26,7 @@ namespace Cynthia.Card
         }
 
         private Categorie[] _categories;
+        private HideTag[] _hideTags;
         private string _name;
         private string _info;
         private int? _strength;
@@ -63,6 +64,7 @@ namespace Cynthia.Card
         public string Name { get => _name ?? CardInfo.Name; set => _name = value; }
         public string Info { get => _info ?? CardInfo.Info; set => _info = value; }
         public Categorie[] Categories { get => _categories ?? CardInfo.Categories; set => _categories = value; }
+        public HideTag[] HideTags { get => _hideTags ?? CardInfo.HideTags; set => _hideTags = value; }
         //-----------------------------------------------------------------
         public int Countdown { get => _countDown ?? CardInfo.Countdown; set => _countDown = value; }
         public bool IsCountdown { get => _isCountDown ?? CardInfo.IsCountdown; set => _isCountDown = value; }
