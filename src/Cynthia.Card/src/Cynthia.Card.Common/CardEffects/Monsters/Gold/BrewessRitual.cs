@@ -12,7 +12,8 @@ namespace Cynthia.Card
         {
             var list = Game.PlayersCemetery[PlayerIndex]
                 .Where((x.HideTags == null ? false : x.HideTags.Contains(HideTag.Deathwish))
-                    && x.Status.Group == Group.Copper).ToList();
+                    && x.Status.Group == Group.Copper
+                    && x.CardInfo().CardType == CardType.Unit).ToList();
 
             //让玩家选择两张铜色遗愿单位
             if (list.Count() <= 0)
