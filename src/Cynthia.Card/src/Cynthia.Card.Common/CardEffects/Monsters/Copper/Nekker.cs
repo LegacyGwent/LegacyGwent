@@ -8,12 +8,7 @@ namespace Cynthia.Card
     public class Nekker : CardEffect, IHandlesEvent<AfterCardDeath>, IHandlesEvent<AfterCardConsume>
     {//若位于手牌、牌组或己方半场：友军单位发动吞噬时获得1点增益。 遗愿：召唤1张同名牌。
         public Nekker(GameCard card) : base(card){ }
-        public override async Task<int> CardPlayEffect(bool isSpying)
-        {
-            await Task.CompletedTask;
-            return 0;
-        }
-
+        
         //当友军单位发动吞噬时,并且自己在场位于手牌、牌组或己方半场时获得1点增益
         private const int boost = 1;
 
@@ -41,7 +36,7 @@ namespace Cynthia.Card
 
             //在自己的牌库中寻找同名卡
             var targets = Game.PlayersDeck[Card.PlayerIndex]
-                .Where(x => x.Status.CardId = CardId.Nekker);
+                .Where(x => x.Status.CardId = Card.Status.CardId).Mess(Game.RNG);
 
             //如果没有，直接返回
             if (targets.Count() == 0) 

@@ -11,13 +11,12 @@ namespace Cynthia.Card
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
 			//选择1个友军铜色单位
-            var result = (await Game.GetSelectPlaceCards(Card, selectMode:SelectModeType.MyRow));
-            
+            var result = (await Game.GetSelectPlaceCards(Card, filter: (x => x.Status.Group == Group.Copper), selectMode:SelectModeType.MyRow));
+            var targetId = result.Single().Status.CardId
             //将2张它的同名牌加入牌组底部
             for(var i = 0; i < 2; i++)
             {
-            	await Game.CreateCard(result.Single().CardId, Card.PlayerIndex, 
-                    new CardLocation(RowPosition.MyDeck, Game.PlayersDeck[playerIndex].Count));
+            	await Game.CreateCardAtEnd(targetId, PlayerIndex, RowPosition.MyDeck)
             }
             return 0;
 		}
