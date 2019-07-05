@@ -18,17 +18,17 @@ namespace Cynthia.Card
             var list = Game.PlayersCemetery[PlayerIndex]
                 .Where(x => x.Status.Group == Group.Copper && x.Status.CardId != Card.Status.CardId);
             //筛选卡组还有同名卡的
-            list = list.Where(x => 
+            list = list.Where(x =>
                 Game.PlayersDeck[Card.PlayerIndex].Any(y => y.Status.CardId == x.Status.CardId));
             // 没有候选卡就返回
-            if (list.Count() == 0) 
+            if (list.Count() == 0)
             {
                 return 0;
             }
 
             //选卡
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1);
-            if (result.Count() == 0) 
+            if (result.Count() == 0)
             {
                 return 0;
             }
@@ -57,8 +57,9 @@ namespace Cynthia.Card
 
             //将buff改为打出新的同名牌
             var cardToPlay = Game.PlayersDeck[Card.PlayerIndex]
-                .Where(x.Status.CardId == target.Status.CardId);
-            if (cardToPlay.Count() == 0) 
+                .Where(x.Status.CardId == target.Status.CardId).Mess(Game.RNG);
+
+            if (cardToPlay.Count() == 0)
             {
                 ConsumeSuccess = 0;
                 return;

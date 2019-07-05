@@ -41,7 +41,7 @@ namespace Cynthia.Card
             {
                 await card.Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             }
-                  
+
             return result.Count();
         }
     }

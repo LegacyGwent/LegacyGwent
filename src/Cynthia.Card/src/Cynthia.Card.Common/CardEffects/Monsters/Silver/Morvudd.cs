@@ -11,6 +11,10 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var result = await Game.GetSelectPlaceCards(Card, 1);
+            if (result.Count() ==0)
+            {
+                return 0;
+            }
             var card = result.single();
             await card.Effect.Lock(Card);
             if (card.PlayerIndex != PlayerIndex)
@@ -18,7 +22,6 @@ namespace Cynthia.Card
                 await card.Effect.Damage((target.Status.Strength + target.Status.HealthStatus)/2, Card);
             }
             return 0;
-            Card.
         }
     }
 }
