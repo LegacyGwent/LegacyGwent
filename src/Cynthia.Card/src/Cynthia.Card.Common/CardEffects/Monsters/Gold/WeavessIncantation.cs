@@ -54,21 +54,26 @@ namespace Cynthia.Card
             {
                 var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Relict)
                     && (x.Status.Group == Group.Silver ||x.Status.Group == Group.Copper)).ToList();
-                var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
-
-                //没有选就无事发生
-                if (cards.Count() == 0) 
+                if (list.Count() == 0)
                 {
                     return 0;
                 }
-                
+
+                var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+
+                //没有选就无事发生
+                if (cards.Count() == 0)
+                {
+                    return 0;
+                }
+
                 //打出
                 var playCard = cards.Single();
-                await playCard.MoveToCardStayFirst();
                 await playCard.Effect.Boost(2);
+                await playCard.MoveToCardStayFirst();
                 return 1;
             }
-            
+
             return 0;
         }
     }

@@ -46,7 +46,7 @@ namespace Cynthia.Card
                     await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), cardToMove);
                 }
                 return 0;
-            } 
+            }
 
             //如果玩家选了牌
             //如果有另一张牌，先移动另一张牌到牌库顶
@@ -55,7 +55,7 @@ namespace Cynthia.Card
                 cardToMove = list.Where(x => x != result.Single()).Single();
                 await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), cardToMove);
             }
-            
+
             //打出所选的牌
             await result.Single().MoveToCardStayFirst();
             return 1;
