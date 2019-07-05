@@ -37,13 +37,10 @@ namespace Cynthia.Card
                 }
 
                 ////buff半场
-                foreach(var row in Game.PlayersPlace[Card.PlayerIndex].ToList())
+                var listPlace = Game.GetPlanceCards(Card.PlayerIndex).Where(x => x.Status.Categories.Contains(Categorie.Relict) && x != Card).ToList();
+                foreach(var target in listPlace)
                 {
-                    var list = row.Where(x => x.Status.Categories.Contains(Categorie.Relict) && x != Card).ToList();
-                    foreach(var target in list)
-                    {
-                        target.Effect.Strengthen(2, Card);
-                    }
+                    target.Effect.Strengthen(2, Card);
                 }
                 return 0;
             }
@@ -53,7 +50,10 @@ namespace Cynthia.Card
             else if (switchCard == 1)
             {
                 var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Relict)
-                    && (x.Status.Group == Group.Silver ||x.Status.Group == Group.Copper)).ToList();
+                    && (x.Status.Group == Group.Silver ||x.Status.Group == Group.Copper))
+                .Mess(Game.RNG)
+                .ToList();
+
                 if (list.Count() == 0)
                 {
                     return 0;
@@ -69,7 +69,7 @@ namespace Cynthia.Card
 
                 //打出
                 var playCard = cards.Single();
-                await playCard.Effect.Boost(2);
+                await playCard.Effect.Strengthen(2, Card);
                 await playCard.MoveToCardStayFirst();
                 return 1;
             }

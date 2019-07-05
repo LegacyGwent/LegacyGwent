@@ -9,9 +9,9 @@ namespace Cynthia.Card
     {//吞噬右侧单位，获得其战力作为增益。 每2回合开始时，重复此能力。
         public VranWarrior(GameCard card) : base(card){ }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
        {
-            await Card.Effect.SetCountdown(value: 2);
+            await Card.Effect.SetCountdown(value:2);
 
             var taget = Card.GetRangeCard(1, GetRangeType.HollowRight);
             if (taget.Count() == 0)
@@ -27,7 +27,7 @@ namespace Cynthia.Card
         {
             if(@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
-                await Card.Effect.SetCountdown(offset: -1);
+                await Card.Effect.SetCountdown(offset:-1);
                 if(Card.Effect.Countdown <= 0)
                 {
                     //触发效果
@@ -39,7 +39,7 @@ namespace Cynthia.Card
 
                     await Card.Effect.Consume(taget.Single());
                     //重新倒计时
-                    await Card.Effect.SetCountdown(value: 2);
+                    await Card.Effect.SetCountdown(value:2);
                 }
             }
         }
