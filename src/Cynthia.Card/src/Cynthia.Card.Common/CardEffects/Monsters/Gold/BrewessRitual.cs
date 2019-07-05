@@ -12,11 +12,23 @@ namespace Cynthia.Card
         {
             var list = Game.PlayersCemetery[PlayerIndex]
                 .Where(x => x.CardInfo().Info.Contains("遗愿：")//<这个位置等待category更新后改进>
-                    && x.Status.Group == Group.Copper);
-                        
+                    && x.Status.Group == Group.Copper).ToList();
+
             //让玩家选择两张铜色遗愿单位
-            var result = await Game.GetSelectMenuCards
-                (Card.PlayerIndex, list.ToList(), 2,isCanOver:true);
+            if (list.Count() <= 0)
+            {
+                return 0;
+            }
+            else if (list.Count() == 1)
+            {
+                var result = await Game.GetSelectMenuCards
+                (Card.PlayerIndex, list.ToList(), 1, isCanOver:true);
+            }
+            else
+            {
+                var result = await Game.GetSelectMenuCards
+                (Card.PlayerIndex, list.ToList(), 2, isCanOver:true);
+            }
 
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0)
@@ -30,7 +42,7 @@ namespace Cynthia.Card
                 await card.Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             }
                   
-            return 2;
+            return result.Count();
         }
     }
 }

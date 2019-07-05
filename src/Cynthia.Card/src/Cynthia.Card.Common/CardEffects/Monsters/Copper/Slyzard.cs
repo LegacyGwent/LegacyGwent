@@ -10,25 +10,33 @@ namespace Cynthia.Card
         //从己方墓场吞噬1个非同名铜色单位，并从牌组打出1张它的同名牌。
         public Slyzard(GameCard card) : base(card){ }
 
+        private  int ConsumeSuccess = 1;
+
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             //从墓地选牌
             var list = Game.PlayersCemetery[PlayerIndex]
-                .Where(x => x.Status.Group == Group.Copper && x.Status.CardId != CardId.Slyzard);
+                .Where(x => x.Status.Group == Group.Copper && x.Status.CardId != Card.Status.CardId);
             //筛选卡组还有同名卡的
             list = list.Where(x => 
-                Game.PlayersDeck[Card.PlayerIndex].Where(y => y.Status.CardId == x.Status.CardId).Count() > 0);
+                Game.PlayersDeck[Card.PlayerIndex].Any(y => y.Status.CardId == x.Status.CardId));
+            // 没有候选卡就返回
+            if (list.Count() == 0) 
+            {
+                return 0;
+            }
+
             //选卡
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1);
-            if (result.Count() <= 0) 
+            if (result.Count() == 0) 
             {
                 return 0;
             }
 
             //吞噬
-            Card.Effect.Consume(result.First());
+            Card.Effect.Consume(result.Single());
 
-            return 1;
+            return ConsumeSuccess;
         }
 
         //重写Consume
@@ -49,10 +57,11 @@ namespace Cynthia.Card
 
             //将buff改为打出新的同名牌
             var cardToPlay = Game.PlayersDeck[Card.PlayerIndex]
-                .Where(x.Status.CardId == target.Status.CardId)
-            if (cardToPlay.Count() <= 0) 
+                .Where(x.Status.CardId == target.Status.CardId);
+            if (cardToPlay.Count() == 0) 
             {
-                return 0;
+                ConsumeSuccess = 0;
+                return;
             }
             //打出新的同名牌
             await cardToPlay.First().MoveToCardStayFirst();

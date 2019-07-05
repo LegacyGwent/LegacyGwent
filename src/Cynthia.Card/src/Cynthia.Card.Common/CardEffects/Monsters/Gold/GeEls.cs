@@ -17,7 +17,7 @@ namespace Cynthia.Card
             var silverCandidate = Game.PlayersDeck[Card.PlayerIndex].Mess(Game.RNG)
                 .FirstOrDefault(x => x.Status.Group == Group.Silver);
 
-            var list = new List<string>();
+            var list = new List<GameCard>();
 
             if (goldCandidate!= default)
             {
@@ -29,7 +29,7 @@ namespace Cynthia.Card
                 list.Add(silverCandidate);
             }
 
-            //让玩家选择一张卡
+            //让玩家选择一张牌
             if (list.Count() == 0)
             {
                 return 0;
@@ -38,18 +38,18 @@ namespace Cynthia.Card
             var result = await Game.GetSelectMenuCards
                 (Card.PlayerIndex, list, 1, "选择打出一张牌");
 
-            //如果玩家一张卡都没选择, 两张都置于牌库顶
+            //如果玩家一张牌都没选择, 两张都置于牌库顶
             if (result.Count() == 0)
             {
-                list.Mess(Game.RNG);
                 foreach(var cardToMove in list)
                 {
                     await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), cardToMove);
                 }
+                return 0;
             } 
 
-            //如果玩家选了卡
-            //先移动另一张卡到牌库顶
+            //如果玩家选了牌
+            //如果有另一张牌，先移动另一张牌到牌库顶
             if (list.Count() == 2)
             {
                 cardToMove = list.Where(x => x != result.Single()).Single();

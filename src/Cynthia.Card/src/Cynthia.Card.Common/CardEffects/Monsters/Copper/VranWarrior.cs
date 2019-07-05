@@ -12,6 +12,11 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
        {
             var taget = Card.GetRangeCard(1, GetRangeType.HollowRight);
+            if (taget.Count() == 0)
+            {
+                return 0;
+            }
+            
             await Card.Effect.Consume(taget.Single());
             return 0;
         }
