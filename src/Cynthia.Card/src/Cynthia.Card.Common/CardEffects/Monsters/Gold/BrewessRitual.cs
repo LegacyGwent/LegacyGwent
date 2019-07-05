@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersCemetery[PlayerIndex]
-                .Where(x => x.CardInfo().Info.Contains("遗愿：")//<这个位置等待category更新后改进>
+                .Where((x.HideTags == null ? false : x.HideTags.Contains(HideTag.Deathwish))
                     && x.Status.Group == Group.Copper).ToList();
 
             //让玩家选择两张铜色遗愿单位
@@ -21,14 +21,13 @@ namespace Cynthia.Card
             }
             else if (list.Count() == 1)
             {
-                var result = await Game.GetSelectMenuCards
-                (Card.PlayerIndex, list.ToList(), 1, isCanOver:true);
+                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1, isCanOver:true);
             }
             else
             {
-                var result = await Game.GetSelectMenuCards
-                (Card.PlayerIndex, list.ToList(), 2, isCanOver:true);
+                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, isCanOver:true);
             }
+            result = result.ToList();
 
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0)
