@@ -651,10 +651,11 @@ namespace Cynthia.Card
                 await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false, false)));
 
         }
-        public virtual async Task Consume(GameCard target)//吞噬
+        public virtual async Task Consume(GameCard target, Func<GameCard, int> consumePoint = null)//吞噬
         {
+            consumePoint = consumePoint ?? (x => x.CardPoint());
             if (!Card.Status.CardRow.IsOnPlace() || target.Status.CardRow == RowPosition.Banish) return;
-            var num = target.Status.Strength + target.Status.HealthStatus;
+            // var num = target.Status.Strength + target.Status.HealthStatus;
             //被吞噬的目标
             if (target.Status.CardRow.IsInCemetery())
             {//如果在墓地,放逐掉
@@ -668,7 +669,7 @@ namespace Cynthia.Card
             {
                 await target.Effect.ToCemetery();
             }
-            await Boost(num, target);
+            await Boost(consumePoint(target), target);
             await Game.ClientDelay(500);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //吞噬,应该触发对应事件<暂未定义,待补充>
