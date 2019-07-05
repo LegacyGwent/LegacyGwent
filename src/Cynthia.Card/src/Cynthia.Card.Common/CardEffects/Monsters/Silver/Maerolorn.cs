@@ -13,7 +13,8 @@ namespace Cynthia.Card
             //打乱己方卡组并取出拥有遗愿能力的铜色单位牌
             var list = Game.PlayersDeck[Card.PlayerIndex]
                 .Where((x.HideTags == null ? false : x.HideTags.Contains(HideTag.Deathwish))
-                    && (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
+                    && (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper)
+                    && (x.CardInfo().CardType == CardType.Unit))
                 .Mess(Game.RNG)
                 .ToList();
 
