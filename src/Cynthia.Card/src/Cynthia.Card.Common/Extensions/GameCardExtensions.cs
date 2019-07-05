@@ -54,7 +54,14 @@ namespace Cynthia.Card
         {
             return card.Status.CardRow.IsOnPlace() && !card.IsDead;
         }
-
+        public static bool HasAll<T>(this T[] item, params T[] items) where T : Enum
+        {
+            return !items.Any(x => !item.Contains(x));
+        }
+        public static bool HasAny<T>(this T[] item, params T[] items) where T : Enum
+        {
+            return item.Intersect(items).Any();
+        }
         public static bool HasAnyCategorie(this GameCard card, params Categorie[] categories)
         {
             return card.Status.Categories.Intersect(categories).Any();
