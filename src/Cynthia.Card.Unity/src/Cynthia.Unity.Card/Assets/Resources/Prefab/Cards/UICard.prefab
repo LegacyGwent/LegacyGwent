@@ -1686,7 +1686,7 @@ RectTransform:
   m_GameObject: {fileID: 7504934871072996376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 100}
-  m_LocalScale: {x: 1.77, y: 1.77, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7728164388537866084}
   - {fileID: 7727993667223943686}
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardMoveInfo: {fileID: 0}
-  IsDead: 0
+  _isDead: 0
   Strength: {fileID: 4824913808400453155}
   Armor: {fileID: 6713377519173621949}
   Countdown: {fileID: 1080958238755139369}

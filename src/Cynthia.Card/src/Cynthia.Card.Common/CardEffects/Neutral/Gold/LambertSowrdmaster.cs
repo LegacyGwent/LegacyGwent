@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return 0;
             }
             var id = target.Status.CardId;
-            var targetCards = Game.GetPlanceCards(AnotherPlayer).Where(x => x.Status.CardId == id);
+            var targetCards = Game.GetPlaceCards(AnotherPlayer).Where(x => x.Status.CardId == id);
             foreach (var card in targetCards)
             {
                 await card.Effect.Damage(4, Card);

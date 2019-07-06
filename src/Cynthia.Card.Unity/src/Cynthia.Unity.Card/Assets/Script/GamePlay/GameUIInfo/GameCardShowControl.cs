@@ -19,6 +19,8 @@ public class GameCardShowControl : MonoBehaviour
     public Scrollbar Scroll;
     public GameObject CardSelectUI;
     public GameEvent GameEvent;
+
+    public ArtCard ArtCard;
     //-------
     public GameObject OpenButton;//显示卡牌
     public GameObject MulliganEndButton;
@@ -31,7 +33,6 @@ public class GameCardShowControl : MonoBehaviour
     //------
     public int NowSelectTotal { get; set; }
     public IList<int> NowSelect { get; set; }
-    //public int NowSelectCount { get; set; }
     //---------------------------------
     private (bool, bool, bool, bool) UseButtonShow { get; set; }
     private bool IsUseMenuShow { get; set; }
@@ -41,6 +42,7 @@ public class GameCardShowControl : MonoBehaviour
     public IList<CardStatus> UseCardList;
     public IList<CardStatus> MyCemetery;
     public IList<CardStatus> EnemyCemetery;
+    private int _nowIndex;
     //
     private ITubeInlet sender;
     private ITubeOutlet receiver;
@@ -71,11 +73,22 @@ public class GameCardShowControl : MonoBehaviour
     //------------------------------------------------------------------------------------------
     public void SelectCard(int index)
     {
-        if (index == -1) { }
-        else { }
+        //光标移动到某张卡牌上
+        _nowIndex = index;
+        if (index == -1)
+        {
+            //光标离开某张卡牌
+            ArtCard.gameObject.SetActive(false);
+        }
+        else
+        {
+            ArtCard.CurrentCore = UseCardList[index];
+            ArtCard.gameObject.SetActive(true);
+        }
     }
     public async void ClickCard(int index)
     {
+        //点击了卡牌
         switch (NowUseMenuType)
         {
             case UseCardShowType.Mulligan:
@@ -161,6 +174,7 @@ public class GameCardShowControl : MonoBehaviour
         //--------------------------
         mCard = GameEvent.MyHand.transform.GetChild(index).GetComponent<CardShowInfo>();
         mCard.CurrentCore = card;
+        SelectCard(_nowIndex);
         //mCard.SetCard();
     }
     //获取调度信息

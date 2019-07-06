@@ -14,7 +14,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await Card.Effect.Consume(target);
+            await Card.Effect.Consume(target, x => x.Status.Strength);
             return 0;
         }
     }

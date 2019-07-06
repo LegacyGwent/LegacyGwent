@@ -15,7 +15,6 @@ using System.Net;
 
 public class Bootstrapper : MonoBehaviour
 {
-    public InputField TestText;
     public void Awake()
     {
         //throw new Exception("!!!");
