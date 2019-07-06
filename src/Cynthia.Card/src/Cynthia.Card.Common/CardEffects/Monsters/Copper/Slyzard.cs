@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardId != Card.CardInfo().CardId);
             //筛选卡组还有同名卡的
             list = list.Where(x =>
-                Game.PlayersDeck[Card.PlayerIndex].Any(y => y.CardInfo().CardId != x.CardInfo().CardId));
+                Game.PlayersDeck[Card.PlayerIndex].Any(y => y.CardInfo().CardId == x.CardInfo().CardId));
 
             // 没有候选卡就返回
             if (list.Count() == 0)
