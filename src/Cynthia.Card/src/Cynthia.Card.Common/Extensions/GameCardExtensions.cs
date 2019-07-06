@@ -71,6 +71,15 @@ namespace Cynthia.Card
         {
             return !categories.Any(x => !card.Status.Categories.Contains(x));
         }
+        public static bool HasAnyCategorie(this CardStatus card, params Categorie[] categories)
+        {
+            return card.Categories.Intersect(categories).Any();
+        }
+
+        public static bool HasAllCategorie(this CardStatus card, params Categorie[] categories)
+        {
+            return !categories.Any(x => !card.Categories.Contains(x));
+        }
 
         public static void AddEffects(this GameCard card, params string[] effectIds)
         {

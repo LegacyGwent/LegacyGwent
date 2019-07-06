@@ -657,6 +657,7 @@ namespace Cynthia.Card
             if (!Card.Status.CardRow.IsOnPlace() || target.Status.CardRow == RowPosition.Banish) return;
             // var num = target.Status.Strength + target.Status.HealthStatus;
             //被吞噬的目标
+            var point = consumePoint(target);
             if (target.Status.CardRow.IsInCemetery())
             {//如果在墓地,放逐掉
                 await target.Effect.Banish();
@@ -669,7 +670,7 @@ namespace Cynthia.Card
             {
                 await target.Effect.ToCemetery();
             }
-            await Boost(consumePoint(target), target);
+            await Boost(point, target);
             await Game.ClientDelay(500);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //吞噬,应该触发对应事件<暂未定义,待补充>
@@ -680,7 +681,7 @@ namespace Cynthia.Card
         {//移动,只限于从场上移动到另一排
             //如果不在场上,返回
             var count = Game.RowToList(Card.PlayerIndex, location.RowPosition).Count;
-            if (!Card.Status.CardRow.IsOnPlace() || count >= 9) return;
+            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount) return;
             if (location.CardIndex > count)
             {
                 location.CardIndex = count;
@@ -697,7 +698,12 @@ namespace Cynthia.Card
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤
-            if (Game.RowToList(Card.PlayerIndex, location.RowPosition).Count >= Game.RowMaxCount) return;
+            var rowCards = Game.RowToList(Card.PlayerIndex, location.RowPosition);
+            if (rowCards.Count >= Game.RowMaxCount) return;
+            if (location.CardIndex > rowCards.Count)
+            {
+                location.CardIndex = rowCards.Count;
+            }
             var isSpyingChange = !location.RowPosition.IsMyRow();
             if (Card.Status.IsReveal) Card.Status.IsReveal = false;
             await Game.ShowCardMove(location, Card);
@@ -745,6 +751,16 @@ namespace Cynthia.Card
             }
             await Swap();
             await Game.PlayerDrawCard(Card.PlayerIndex, filter: x => x == target);
+        }
+
+        public virtual async Task Reply(int num, GameCard source)
+        {
+            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            num = Math.Abs(Card.Status.HealthStatus) < num ? Math.Abs(Card.Status.HealthStatus) : num;
+            if (Card.Status.HealthStatus < 0)
+                Card.Status.HealthStatus += num;
+            await Game.ShowSetCard(Card);
+            await Game.SetPointInfo();
         }
         //================================================================================
     }

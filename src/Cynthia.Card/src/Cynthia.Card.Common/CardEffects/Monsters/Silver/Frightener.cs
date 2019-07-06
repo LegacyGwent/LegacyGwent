@@ -18,7 +18,7 @@ namespace Cynthia.Card
 
             IsUse = true;
 
-            var card = await Game.GetSelectPlaceCards(Card, filter: (x => x.Status.CardRow != Card.Status.CardRow), selectMode: SelectModeType.MyRow);
+            var card = await Game.GetSelectPlaceCards(Card, isEnemySwitch: true, filter: (x => x.Status.CardRow != Card.Status.CardRow), selectMode: SelectModeType.MyRow);
             if (card.Count() == 0)
             {
                 return 0;
@@ -29,11 +29,6 @@ namespace Cynthia.Card
             var population = Game.RowToList(target.PlayerIndex, row).Count();
 
             //满了的话
-            if (population >= Game.RowMaxCount)
-            {
-                return 0;
-            }
-
             await target.Effect.Move(new CardLocation() { RowPosition = row, CardIndex = population }, Card);
 
             await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex));//抽卡
