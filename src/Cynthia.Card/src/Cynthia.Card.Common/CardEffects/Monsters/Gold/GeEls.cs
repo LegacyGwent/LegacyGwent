@@ -41,7 +41,7 @@ namespace Cynthia.Card
             //如果玩家一张牌都没选择, 两张都置于牌库顶
             if (result.Count() == 0)
             {
-                foreach(var cardToMove in list)
+                foreach (var cardToMove in list)
                 {
                     await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), cardToMove);
                 }
@@ -52,7 +52,7 @@ namespace Cynthia.Card
             //如果有另一张牌，先移动另一张牌到牌库顶
             if (list.Count() == 2)
             {
-                cardToMove = list.Where(x => x != result.Single()).Single();
+                var cardToMove = list.Where(x => x != result.Single()).Single();
                 await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), cardToMove);
             }
 

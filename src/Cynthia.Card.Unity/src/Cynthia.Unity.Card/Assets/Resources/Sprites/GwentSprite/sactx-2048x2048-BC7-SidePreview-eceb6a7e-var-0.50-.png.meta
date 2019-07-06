@@ -1,19 +1,63 @@
 fileFormatVersion: 2
 guid: bba55c97b537b754eb6dc5e7831360fb
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: SkelligeDeckHeadT
-    21300002: MonstersDeckHeadT
-    21300004: NilfgaardDeckHeadT
-    21300006: ScoiaTaelDeckHeadT
-    21300008: NorthernRealmsDeckHeadT
-    21300010: NorthernRealmsDeckHeadB
-    21300012: NilfgaardDeckHeadB
-    21300014: ScoiaTaelDeckHeadB
-    21300016: SkelligeDeckHeadB
-    21300018: MonstersDeckHeadB
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: SkelligeDeckHeadT
+  - first:
+      213: 21300002
+    second: MonstersDeckHeadT
+  - first:
+      213: 21300004
+    second: NilfgaardDeckHeadT
+  - first:
+      213: 21300006
+    second: ScoiaTaelDeckHeadT
+  - first:
+      213: 21300008
+    second: NorthernRealmsDeckHeadT
+  - first:
+      213: 21300010
+    second: NorthernRealmsDeckHeadB
+  - first:
+      213: 21300012
+    second: NilfgaardDeckHeadB
+  - first:
+      213: 21300014
+    second: ScoiaTaelDeckHeadB
+  - first:
+      213: 21300016
+    second: SkelligeDeckHeadB
+  - first:
+      213: 21300018
+    second: MonstersDeckHeadB
+  - first:
+      213: 329826175558273524
+    second: NeutralDeckHeadT
+  - first:
+      213: 8021585624469259523
+    second: NeutralContent
+  - first:
+      213: 3049218370957781489
+    second: NilfgaardContent
+  - first:
+      213: 7073490886797856328
+    second: MonstersContent
+  - first:
+      213: -7041269451093853714
+    second: ScoiaTaelContent
+  - first:
+      213: 7038072809058199792
+    second: NorthernRealmsContent
+  - first:
+      213: -4637417378590917363
+    second: SkelligeContent
+  - first:
+      213: 8193187522957414556
+    second: ContentButton
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -125,12 +169,13 @@ TextureImporter:
         height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 617d3e4f4d6509f429cc3530acea1e8d
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -145,12 +190,13 @@ TextureImporter:
         height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: d35b760fca4ee1a40960c3a2d7ef48e5
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -165,12 +211,13 @@ TextureImporter:
         height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: ba508de28ee61a145990f8e3e7227df2
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -185,12 +232,13 @@ TextureImporter:
         height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 72f07c835d8e62f46bc15d5c9a68c5bf
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -205,12 +253,13 @@ TextureImporter:
         height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 094d1621188ad884b8886c180610bd08
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -231,6 +280,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 575728aed6ae6dc4dbd63f505d3c2a14
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -251,6 +301,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 38cd3dcce1aceeb44968abe1b39ec4fa
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -271,6 +322,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4a5c1b5835c69934ba3a3b82a836bdc5
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -291,6 +343,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1f95a0aad02141743b526ef102a1e51e
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
@@ -311,6 +364,175 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c2363b1cbfe971240a2e53dd40dfdcdb
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeutralDeckHeadT
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 542
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b159671555fd2ed45bb0d0c0cbc91168
+      internalID: 329826175558273524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeutralContent
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 902
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f243baf013b5a07499679d3b660e9fc1
+      internalID: 8021585624469259523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NilfgaardContent
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 722
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e347a930d47f3d44a0ca295fa3bfd32
+      internalID: 3049218370957781489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MonstersContent
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 453
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a97289e97cb295a41b9f13aa0a48102d
+      internalID: 7073490886797856328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScoiaTaelContent
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 92
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b0dfdca01d3aa43a3af05b414ffb0c
+      internalID: -7041269451093853714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NorthernRealmsContent
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2486d380a58fb74498eaf9593d664c1
+      internalID: 7038072809058199792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkelligeContent
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 2
+        width: 278
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35786277e224cf54ba6bd14f1aaceca5
+      internalID: -4637417378590917363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ContentButton
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 291
+        width: 332
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5a83a4c0f88b0b4396d1de0819c7633
+      internalID: 8193187522957414556
       vertices: []
       indices: 
       edges: []
@@ -319,10 +541,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: d50d3ee405f0d5e4abc9e3f90d80795b
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

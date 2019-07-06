@@ -7,19 +7,19 @@ namespace Cynthia.Card
     [CardEffectId("23001")]//畏惧者
     public class Frightener : CardEffect
     {//间谍、力竭。 将1个敌军单位移至自身所在排，然后抽1张牌。
-        public Frightener(GameCard card) : base(card){ }
+        public Frightener(GameCard card) : base(card) { }
         public bool IsUse = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            if (IsUse){
+            if (IsUse)
+            {
                 return 0;
             }
 
             IsUse = true;
 
-            var card = await Game.GetSelectPlaceCards(Card,
-                filter: (x => x.Status.CardRow != Card.Status.CardRow), SelectModeType.MyRow);
-            if(card.Count() == 0)
+            var card = await Game.GetSelectPlaceCards(Card, filter: (x => x.Status.CardRow != Card.Status.CardRow), selectMode: SelectModeType.MyRow);
+            if (card.Count() == 0)
             {
                 return 0;
             }
