@@ -12,11 +12,14 @@ public class CardMoveInfo : MonoBehaviour
 {
     public CardShowInfo CardShowInfo;
     public Vector2 ResetPoint;//应该在的位置
-    public float ZPosition { get=>_zPosition; set
+    public float ZPosition
+    {
+        get => _zPosition; set
         {
             _zPosition = value;
-            transform.position = new Vector3(transform.position.x,transform.position.y,_zPosition);
-        }}
+            transform.position = new Vector3(transform.position.x, transform.position.y, _zPosition);
+        }
+    }
     private float _zPosition;
     public bool IsCanDrag = true;//是否能拖动
     public bool IsCanSelect = true;
@@ -75,7 +78,7 @@ public class CardMoveInfo : MonoBehaviour
     }
     void Update()
     {
-        
+
     }
     public bool SetNextPosition(Vector2 taget, float speed, Space relativeTo = Space.Self)
     {
@@ -91,14 +94,14 @@ public class CardMoveInfo : MonoBehaviour
         float distance = speed * Time.deltaTime;
         if (dir.magnitude <= distance)
         {
-            if(relativeTo == Space.World)
-                transform.position = new Vector3(taget.x,taget.y,transform.position.z);
+            if (relativeTo == Space.World)
+                transform.position = new Vector3(taget.x, taget.y, transform.position.z);
             else
                 transform.localPosition = new Vector3(taget.x, taget.y, transform.localPosition.z);
             return false;
         }
         var nextPoint = dir.normalized * distance;
-        transform.Translate(new Vector3(nextPoint.x,nextPoint.y,0));
+        transform.Translate(new Vector3(nextPoint.x, nextPoint.y, 0));
         return true;
     }
     public void SetResetPoint(Vector3 rPoint)

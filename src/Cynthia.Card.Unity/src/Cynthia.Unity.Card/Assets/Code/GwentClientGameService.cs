@@ -63,7 +63,7 @@ namespace Cynthia.Card.Client
         //响应指令
         private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
         {
-            Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
+            // Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
             foreach (var operaction in operations)
             {
                 if (!await ResponseOperation(operaction))
@@ -73,7 +73,7 @@ namespace Cynthia.Card.Client
         }
         private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
         {
-            Debug.Log($"执行了指令{operation.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
+            // Debug.Log($"执行了指令{operation.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {

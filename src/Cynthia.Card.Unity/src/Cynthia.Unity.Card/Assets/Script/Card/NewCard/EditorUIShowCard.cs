@@ -8,11 +8,11 @@ using UnityEngine.EventSystems;
 
 public class EditorUIShowCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    public GameCodeService GameCodeService { get; set; }
+    public MainCodeService MainCodeService { get; set; }
 
     private void Start()
     {
-        //GameCodeService = DependencyResolver.Container.Resolve<GameCodeService>();
+        MainCodeService = DependencyResolver.Container.Resolve<MainCodeService>();
     }
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
@@ -23,14 +23,14 @@ public class EditorUIShowCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerEnter(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f * 1.04f, 0.1f);
-        //.localScale *= 1.05f;
+        MainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
         //GameCodeService.SelectUICard(transform.GetSiblingIndex());
     }
     //鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f, 0.1f);
-        ///= 1.05f;
+        MainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore, false);
         //GameCodeService.SelectUICard(-1);
     }
 }

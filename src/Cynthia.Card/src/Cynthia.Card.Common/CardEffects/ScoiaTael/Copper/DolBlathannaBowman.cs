@@ -14,7 +14,7 @@ namespace Cynthia.Card
 
         private const int damage = 2;
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
             if (list.Count <= 0) return 0;
@@ -24,8 +24,8 @@ namespace Cynthia.Card
 
         private GameCard GetEnemyRandomCard()
         {
-            var list = Game.GetAllPlaceCard(Game.AnotherPlayer(Card.PlayerIndex));
-            return !list.Any() ? null : list.Mess().First();
+            var list = Game.GetPlaceCards(Game.AnotherPlayer(Card.PlayerIndex));
+            return !list.Any() ? null : list.Mess(Game.RNG).First();
         }
 
         public async Task HandleEvent(AfterCardMove @event)

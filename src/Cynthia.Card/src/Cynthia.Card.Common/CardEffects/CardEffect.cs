@@ -85,24 +85,24 @@ namespace Cynthia.Card
         //使卡牌"放置"
         public virtual async Task Play(CardLocation location)//放置
         {
-            var cardPlayInfo = await CardPlayStart(location);
+            var (isSpying, isReveal) = await CardPlayStart(location);
             //历史卡牌
-            Game.HistoryList.Add((cardPlayInfo.isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
+            Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 // count = await CardPlayEffect(isSpying);
                 await Game.AddTask(async () =>
                 {
-                    count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(cardPlayInfo.isSpying, cardPlayInfo.isReveal))).SearchCount;
+                    count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying, isReveal))).SearchCount;
                 });
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(cardPlayInfo.isSpying);
-            await PlayStayCard(count, cardPlayInfo.isSpying);
+                await CardDown(isSpying);
+            await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(isSpying);
                 await Game.AddTask(async () =>
                 {
-                    await Card.Effects.RaiseEvent(new CardDownEffect(cardPlayInfo.isSpying, cardPlayInfo.isReveal));
+                    await Card.Effects.RaiseEvent(new CardDownEffect(isSpying, isReveal));
                 });
         }
 
@@ -111,7 +111,7 @@ namespace Cynthia.Card
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
-            Func<Task> sendEventTask = async () =>
+            async Task sendEventTask()
             {
                 if (Card.Status.IsDoomed)//如果是佚亡,放逐
                 {
@@ -127,7 +127,7 @@ namespace Cynthia.Card
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 await Game.SetPointInfo();
                 await Game.SetCountInfo();
-            };
+            }
 
             //立刻执行,将卡牌视作僵尸卡
             if (Card.CardPoint() != 0)
@@ -149,7 +149,7 @@ namespace Cynthia.Card
                         var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
                         await Game.LogicCardMove(Card, target, 0);
                         Repair();
-                        await Game.AddTask(sendEventTask);
+                        await Game.AddTask((Func<Task>)sendEventTask);
                     });
                 }
                 //如果是移动进入墓地
@@ -172,7 +172,7 @@ namespace Cynthia.Card
                         await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
                         Repair();
                         //3.遗愿和事件
-                        await Game.AddTask(sendEventTask);
+                        await Game.AddTask((Func<Task>)sendEventTask);
                     });
                 }
                 // else //这是特殊死亡时的处理
@@ -243,7 +243,7 @@ namespace Cynthia.Card
             else
             {
                 await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
-                var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+                //var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
                 var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
                 await Game.LogicCardMove(Card, target, 0);
             }
@@ -423,7 +423,6 @@ namespace Cynthia.Card
                     //护甲值降低,应该触发对应事件<暂未定义,待补充>
                     await Game.SendEvent(new AfterCardSubArmor(Card, num, source));
                     //8888888888888888888888888888888888888888888888888888888888888888888888
-                    num = 0;
                     await Game.ShowSetCard(Card);//更新客户端的护甲值
                     return;
                 }
@@ -583,11 +582,13 @@ namespace Cynthia.Card
                 await Game.SendEvent(new AfterCardUnLock(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Transform(string cardId, GameCard source)//变为
+        public virtual async Task Transform(string cardId, GameCard source,Action<GameCard> setting = null)//变为
         {
+            setting ??= (x=>{ });
             if (Card.Status.CardRow == RowPosition.Banish) return;
             Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow };
             Card.Effect = Game.CreateEffectInstance(cardId, Card);
+            setting(Card);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -597,7 +598,6 @@ namespace Cynthia.Card
         public virtual async Task Resurrect(CardLocation location, GameCard source)//复活
         {
             if (Card.Status.CardRow == RowPosition.Banish && !Card.Status.CardRow.IsInCemetery()) return;
-            var cardCemetery = Card.PlayerIndex;
             await Game.ShowCardMove(location, Card, true);
             if (location.RowPosition.IsOnPlace())
             {
@@ -613,7 +613,7 @@ namespace Cynthia.Card
         public virtual async Task Charm(GameCard source)//被魅惑
         {
             if (!Card.Status.CardRow.IsOnPlace()) return;
-            if (Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count >= 9) return;
+            if (Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count >= Game.RowMaxCount) return;
             await Move(new CardLocation() { RowPosition = Card.Status.CardRow.Mirror(), CardIndex = Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count }, Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //魅惑,应该触发对应事件<暂未定义,待补充>
@@ -653,7 +653,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Consume(GameCard target, Func<GameCard, int> consumePoint = null)//吞噬
         {
-            consumePoint = consumePoint ?? (x => x.CardPoint());
+            consumePoint ??= (x => x.CardPoint());
             if (!Card.Status.CardRow.IsOnPlace() || target.Status.CardRow == RowPosition.Banish) return;
             // var num = target.Status.Strength + target.Status.HealthStatus;
             //被吞噬的目标

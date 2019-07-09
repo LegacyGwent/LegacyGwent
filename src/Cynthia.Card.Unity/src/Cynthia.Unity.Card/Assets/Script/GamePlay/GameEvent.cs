@@ -12,6 +12,7 @@ using Alsein.Extensions.IO;
 
 public class GameEvent : MonoBehaviour
 {
+    public ArtCard ShowCard;
     public float ArrowsZ = -6f;
     //可被拖上(6排,以及我方墓地)
     public CardsPosition[] AllCardsPosition;
@@ -170,12 +171,22 @@ public class GameEvent : MonoBehaviour
             if (_selectCard == value) return;
             if (_selectCard != null)
             {
+                //将之前选中的复原
                 //_selectCard.transform.localScale = new Vector3(1, 1, 1);
                 _selectCard.CardShowInfo.ScaleTo(1);
-                _selectCard.ZPosition += 1f;
+                _selectCard.ZPosition += 1f;//此复原有问题
             }
             _selectCard = value;
-            if (value == null) return;
+            if (value == null)
+            {
+                ShowCard.gameObject.SetActive(false);
+                return;
+            }
+            if (!_selectCard.IsTem)
+            {
+                ShowCard.CurrentCore = _selectCard.CardShowInfo.CurrentCore;
+                ShowCard.gameObject.SetActive(true);
+            }
             if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay || _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
             {
                 _selectCard = null;
