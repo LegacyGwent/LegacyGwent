@@ -582,12 +582,13 @@ namespace Cynthia.Card
                 await Game.SendEvent(new AfterCardUnLock(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Transform(string cardId, GameCard source,Action<GameCard> setting = null)//变为
+        public virtual async Task Transform(string cardId, GameCard source, Action<GameCard> setting = null)//变为
         {
-            setting ??= (x=>{ });
+            setting ??= (x => { });
             if (Card.Status.CardRow == RowPosition.Banish) return;
             Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow };
-            Card.Effect = Game.CreateEffectInstance(cardId, Card);
+            Card.Effects.Clear();
+            Card.Effects.Add(Game.CreateEffectInstance(cardId, Card));
             setting(Card);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
@@ -598,12 +599,20 @@ namespace Cynthia.Card
         public virtual async Task Resurrect(CardLocation location, GameCard source)//复活
         {
             if (Card.Status.CardRow == RowPosition.Banish && !Card.Status.CardRow.IsInCemetery()) return;
+            var rowCards = Game.RowToList(Card.PlayerIndex, location.RowPosition);
+            if (location.RowPosition.IsOnPlace() && rowCards.Count >= Game.RowMaxCount) return;
+            if (location.CardIndex > rowCards.Count)
+            {
+                location.CardIndex = rowCards.Count;
+            }
             await Game.ShowCardMove(location, Card, true);
             if (location.RowPosition.IsOnPlace())
             {
                 await Game.ShowCardOn(Card);
-                await Game.ClientDelay(200);
-                await CardDown(false);
+                await Game.AddTask(async () =>
+                {
+                    await CardDown(false);
+                });
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //复活,应该触发对应事件<暂未定义,待补充>
