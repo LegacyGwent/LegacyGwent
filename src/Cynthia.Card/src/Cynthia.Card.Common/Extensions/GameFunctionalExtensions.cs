@@ -7,11 +7,28 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
-        public static IEnumerable<GameCard> GetPlaceCards(this IGwentServerGame game, int playerIndex, bool isHasDead = false, bool isHasConceal = false)
+        public static IEnumerable<GameCard> GetPlaceCards(this IGwentServerGame game, int playerIndex, RowPosition? planceRow = null, bool isHasDead = false, bool isHasConceal = false)
         {
-            return game.PlayersPlace[playerIndex][0].Concat(game.PlayersPlace[playerIndex][1]).Concat(game.PlayersPlace[playerIndex][2])
-                   .Where(x => isHasDead ? true : !x.IsDead)
-                   .Where(x => isHasConceal ? true : !x.Status.Conceal);
+            if (planceRow != null && !planceRow.Value.IsOnPlace())
+            {
+                throw new InvalidOperationException();
+            }
+            if (planceRow != null && !planceRow.Value.IsMyRow())
+            {
+                playerIndex = game.AnotherPlayer(playerIndex);
+                planceRow = planceRow.Value.Mirror();
+            }
+            var result = default(IEnumerable<GameCard>);
+            if (planceRow == null)
+            {
+                result = game.PlayersPlace[playerIndex][0].Concat(game.PlayersPlace[playerIndex][1]).Concat(game.PlayersPlace[playerIndex][2]);
+            }
+            else
+            {
+                result = game.PlayersPlace[playerIndex][planceRow.Value.MyRowToIndex()];
+            }
+            return result.Where(x => isHasDead ? true : !x.IsDead)
+                    .Where(x => isHasConceal ? true : !x.Status.Conceal);
         }
         public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
         {

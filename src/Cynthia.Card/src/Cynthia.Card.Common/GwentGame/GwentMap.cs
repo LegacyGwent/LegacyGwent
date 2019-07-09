@@ -2809,7 +2809,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Mage,Categorie.Relict},
                     Flavor = "我将是你最美……与最后的体验。",
                     Info = "从牌组打出1张铜色/银色“有机”牌。",
-                    CardArtsId = "20022200",
+                    CardArtsId = "20022000",
                 }
             },
             {
@@ -2930,7 +2930,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Mage,Categorie.Relict},
                     Flavor = "我能感受到你的痛苦和恐惧。",
                     Info = "择一：使位于手牌、牌组和己方半场除自身外的所有“残物”单位获得2点强化；或从牌组打出1张铜色/银色“残物” 牌，并使其获得2点强化。",
-                    CardArtsId = "20022000",
+                    CardArtsId = "20022200",
                 }
             },
             {

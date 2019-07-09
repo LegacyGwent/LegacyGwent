@@ -72,6 +72,7 @@ public class CardsPosition : MonoBehaviour
     }
     public void ResetCards()//将所有卡牌定位到应有的位置
     {
+        Debug.Log("重置了单排");
         var size = XSize;
         var count = transform.childCount;
         if ((count - 1f) * size > Width)

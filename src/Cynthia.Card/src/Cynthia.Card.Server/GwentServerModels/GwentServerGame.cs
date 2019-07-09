@@ -10,7 +10,7 @@ namespace Cynthia.Card.Server
     public class GwentServerGame : IGwentServerGame
     {
         public Pipeline OperactionList { get; private set; } = new Pipeline();
-        private GwentCardTypeService _gwentCardTypeService;
+        private readonly GwentCardTypeService _gwentCardTypeService;
         public int _randomSeed;
         public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = 9;
@@ -58,7 +58,7 @@ namespace Cynthia.Card.Server
         }
 
 
-        private TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
+        private readonly TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
 
         public async Task PlayGame()
         {
@@ -280,7 +280,7 @@ namespace Cynthia.Card.Server
         //玩家抽卡
         public async Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count, Func<GameCard, bool> filter = null)
         {
-            filter = filter ?? (x => true);//或许应该播放抽卡动画和更新数值
+            filter ??= (x => true);//或许应该播放抽卡动画和更新数值
             if (count > PlayersDeck[playerIndex].Where(filter).Count()) count = PlayersDeck[playerIndex].Where(filter).Count();
             var list = new List<GameCard>();
             for (var i = 0; i < count; i++)
@@ -295,7 +295,7 @@ namespace Cynthia.Card.Server
         public async Task<(List<GameCard>, List<GameCard>)> DrawCard(int player1Count, int player2Count, Func<GameCard, bool> filter = null)
         {
             //过滤器
-            filter = filter ?? (x => true);
+            filter ??= (x => true);
             //抽卡限制,不至于抽空卡组
             if (player1Count > PlayersDeck[Player1Index].Where(filter).Count()) player1Count = PlayersDeck[Player1Index].Where(filter).Count();
             if (player2Count > PlayersDeck[Player2Index].Where(filter).Count()) player2Count = PlayersDeck[Player2Index].Where(filter).Count();
@@ -308,7 +308,7 @@ namespace Cynthia.Card.Server
         //只有一个玩家抽卡
         public async Task<List<GameCard>> PlayerDrawCard(int playerIndex, int count = 1, Func<GameCard, bool> filter = null)
         {
-            filter = filter ?? (x => true);
+            filter ??= (x => true);
             var result = default(List<GameCard>);
             if (playerIndex == Player1Index)
                 (result, _) = await DrawCard(count, 0, filter);
@@ -318,7 +318,7 @@ namespace Cynthia.Card.Server
         }
         public async Task<List<GameCard>> DrawCardAnimation(int myPlayerIndex, int myPlayerCount, int enemyPlayerIndex, int enemyPlayerCount, Func<GameCard, bool> filter = null)
         {
-            filter = filter ?? (x => true);
+            filter ??= (x => true);
             var list = new List<GameCard>();
             for (var i = 0; i < myPlayerCount; i++)
             {
@@ -709,23 +709,23 @@ namespace Cynthia.Card.Server
             if (selectMode.IsHaveMy())
             {
                 if (selectMode.IsHaveHand())
-                    PlayersHandCard[playerIndex].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyHandCards.Add(item.i));
+                    PlayersHandCard[playerIndex].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyHandCards.Add(item.i));
                 if (selectMode.IsHaveRow())
                 {
-                    PlayersPlace[playerIndex][0].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyRow1Cards.Add(item.i));
-                    PlayersPlace[playerIndex][1].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyRow2Cards.Add(item.i));
-                    PlayersPlace[playerIndex][2].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyRow3Cards.Add(item.i));
+                    PlayersPlace[playerIndex][0].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyRow1Cards.Add(item.i));
+                    PlayersPlace[playerIndex][1].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyRow2Cards.Add(item.i));
+                    PlayersPlace[playerIndex][2].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.MyRow3Cards.Add(item.i));
                 }
             }
             if (selectMode.IsHaveEnemy())
             {
                 if (selectMode.IsHaveHand())
-                    PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
+                    PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x,i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
                 if (selectMode.IsHaveRow())
                 {
-                    PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow1Cards.Add(item.i));
-                    PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow2Cards.Add(item.i));
-                    PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, i) => (x: x, i: i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow3Cards.Add(item.i));
+                    PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow1Cards.Add(item.i));
+                    PlayersPlace[AnotherPlayer(playerIndex)][1].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow2Cards.Add(item.i));
+                    PlayersPlace[AnotherPlayer(playerIndex)][2].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow3Cards.Add(item.i));
                 }
             }
             return cardsPart;
@@ -749,9 +749,11 @@ namespace Cynthia.Card.Server
         }
         public GameCardsPart MirrorGameCardsPart(GameCardsPart part)
         {
-            var cardsPart = new GameCardsPart();
-            cardsPart.IsSelectMyLeader = part.IsSelectEnemyLeader;
-            cardsPart.IsSelectEnemyLeader = part.IsSelectMyLeader;
+            var cardsPart = new GameCardsPart
+            {
+                IsSelectMyLeader = part.IsSelectEnemyLeader,
+                IsSelectEnemyLeader = part.IsSelectMyLeader
+            };
             part.MyHandCards.ForAll(cardsPart.EnemyHandCards.Add);
             part.MyRow1Cards.ForAll(cardsPart.EnemyRow1Cards.Add);
             part.MyRow2Cards.ForAll(cardsPart.EnemyRow2Cards.Add);
@@ -769,12 +771,6 @@ namespace Cynthia.Card.Server
             return RowToList(playerIndex, location.RowPosition)[location.CardIndex];
         }
 
-        public IList<GameCard> GetAllPlaceCard(int playerIndex)
-        {
-            return PlayersPlace[playerIndex][0]
-                .Concat(PlayersPlace[playerIndex][1])
-                .Concat(PlayersPlace[playerIndex][2]).ToList();
-        }
         public IList<GameCard> GetAllCard(int playerIndex, bool isContainDead = false)
         {
             return PlayersPlace[playerIndex][0]
@@ -1090,7 +1086,7 @@ namespace Cynthia.Card.Server
                 Target = new CardLocation() { RowPosition = location.RowPosition.Mirror(), CardIndex = location.CardIndex },
                 Card = isShowAnotherPlayerBack ? card.Status.CreateBackCard() : (refresh ? (card.TagetIsShowBack(location, card.PlayerIndex, AnotherPlayer(card.PlayerIndex)) ? card.Status.CreateBackCard() : card.Status) : (isFromHide ? card.Status.CreateBackCard() : null))
             });
-            var row = RowToList(card.PlayerIndex, card.Status.CardRow);
+            //var row = RowToList(card.PlayerIndex, card.Status.CardRow);
             var target = RowToList(card.PlayerIndex, location.RowPosition);
             await LogicCardMove(card, target, location.CardIndex);
             await SetCountInfo();
@@ -1361,8 +1357,7 @@ namespace Cynthia.Card.Server
                 return;
             //创造对应的卡
             var creatCard = new GameCard(this, playerIndex, new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.None), cardId);
-            if (setting != null)
-                setting(creatCard.Status);
+            setting?.Invoke(creatCard.Status);
             //将创造的卡以不显示的方式移动到目标位置!
             await LogicCardMove(creatCard, row, position.CardIndex);
             //发送信息,显示创造的卡
@@ -1395,7 +1390,7 @@ namespace Cynthia.Card.Server
         }
         public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
         {
-            Func<Task> task = async () =>
+            async Task task()
             {
                 foreach (var card in GetAllCard(Player1Index).ToList())
                 {
@@ -1406,14 +1401,14 @@ namespace Cynthia.Card.Server
                 {
                     await row.Effects.RaiseEvent(@event);
                 }
-            };
+            }
             if (OperactionList.IsRunning)
             {
                 await task();
             }
             else
             {
-                await AddTask(task);
+                await AddTask((Func<Task>)task);
             }
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)

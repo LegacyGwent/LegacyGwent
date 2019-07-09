@@ -38,6 +38,14 @@ namespace Cynthia.Card
             (filter == null ? true : filter(card)) &&
             (type == null ? true : card.Type == type);
         }
+        public static IEnumerable<CardStatus> FilterCards(this IEnumerable<CardStatus> cards, Group? group = null, CardType? type = null, Func<CardStatus, bool> filter = null, Faction? faction = null)
+        {
+            return cards.Where(x => x.Is(group, type, filter, faction));
+        }
+        public static IEnumerable<GameCard> FilterCards(this IEnumerable<GameCard> cards, Group? group = null, CardType? type = null, Func<GameCard, bool> filter = null, Faction? faction = null)
+        {
+            return cards.Where(x => x.Is(group, type, filter, faction));
+        }
         public static bool IsAnyGroup(this CardStatus card, params Group[] groups)
         {
             return groups.Any(x => card.Group == x);
