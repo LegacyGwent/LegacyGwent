@@ -10,13 +10,12 @@ namespace Cynthia.Card
         public CaranthirArFeiniel(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            if (!(await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow)).TrySingle(out var target))
+            if (!(await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.CardRow != Card.Status.CardRow)).TrySingle(out var target))
             {
                 return 0;
             }
-            var row = await Game.GetSelectRow(PlayerIndex, Card, TurnType.Enemy.GetRow().Where(row => row != target.Status.CardRow).ToList());
-            await target.Effect.Move(new CardLocation(row, int.MaxValue), Card);
-            await Game.GameRowEffect[AnotherPlayer][row.Mirror().MyRowToIndex()].SetStatus<BitingFrostStatus>();
+            await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+            await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<BitingFrostStatus>();
 
             return 0;
         }

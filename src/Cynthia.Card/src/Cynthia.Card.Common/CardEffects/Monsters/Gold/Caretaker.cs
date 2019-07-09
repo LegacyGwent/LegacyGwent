@@ -17,7 +17,7 @@ namespace Cynthia.Card
                 return 0;
             }
 
-            await target.Effect.Resurrect(new CardLocation(RowPosition.MyStay, 0), Card);
+            await target.Effect.Resurrect(new CardLocation(RowPosition.EnemyStay, 0), Card);
             return 1;
         }
     }
