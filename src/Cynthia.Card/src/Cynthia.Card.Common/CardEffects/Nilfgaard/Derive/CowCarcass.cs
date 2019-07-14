@@ -11,7 +11,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() || Card.Status.Countdown > 0)
+            if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown > 0)
             {
                 //await Game.Debug($"牛尸的cd减少啦,之前cd为:{Card.Status.Countdown},之后会在基础上减少1");
                 await Card.Effect.SetCountdown(offset: -1);
