@@ -211,14 +211,14 @@ namespace Cynthia.Card.Server
             {//如果没有手牌,强制pass
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
-                //888888888888888888888888888888888888888888888888888888888888888888888888
-                await SendEvent(new AfterPlayerPass(playerIndex));
-                //888888888888888888888888888888888888888888888888888888888888888888888888
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     //如果对方也pass,结束游戏
                     return false;
                 }
+                //888888888888888888888888888888888888888888888888888888888888888888888888
+                await SendEvent(new AfterPlayerPass(playerIndex));
+                //888888888888888888888888888888888888888888888888888888888888888888888888
                 return true;
             }
             //让玩家选择拖拽,或者Pass
@@ -229,14 +229,14 @@ namespace Cynthia.Card.Server
             {//Pass时候执行
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
-                //888888888888888888888888888888888888888888888888888888888888888888888888
-                await SendEvent(new AfterPlayerPass(playerIndex));
-                //888888888888888888888888888888888888888888888888888888888888888888888888
                 //判断对手是否pass
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     return false;
                 }
+                //888888888888888888888888888888888888888888888888888888888888888888888888
+                await SendEvent(new AfterPlayerPass(playerIndex));
+                //888888888888888888888888888888888888888888888888888888888888888888888888
             }
             else
             {//放置卡牌(单位和法术都是)时执行
@@ -720,7 +720,7 @@ namespace Cynthia.Card.Server
             if (selectMode.IsHaveEnemy())
             {
                 if (selectMode.IsHaveHand())
-                    PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x,i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
+                    PlayersHandCard[AnotherPlayer(playerIndex)].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyHandCards.Add(item.i));
                 if (selectMode.IsHaveRow())
                 {
                     PlayersPlace[AnotherPlayer(playerIndex)][0].Select((x, i) => (x, i)).Where(x => filter(x.x)).ForAll(item => cardsPart.EnemyRow1Cards.Add(item.i));
