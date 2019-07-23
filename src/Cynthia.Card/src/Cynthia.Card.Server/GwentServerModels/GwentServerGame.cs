@@ -1397,6 +1397,9 @@ namespace Cynthia.Card.Server
                     if (card.Status.IsLock || card.IsDead) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
                     await card.Effects.RaiseEvent(@event);
                 }
+            }
+            async Task task2()
+            {
                 foreach (var row in GameRowEffect.SelectMany(x => x))
                 {
                     await row.Effects.RaiseEvent(@event);
@@ -1409,6 +1412,14 @@ namespace Cynthia.Card.Server
             else
             {
                 await AddTask((Func<Task>)task);
+            }
+            if (OperactionList.IsRunning)
+            {
+                await task2();
+            }
+            else
+            {
+                await AddTask((Func<Task>)task2);
             }
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
