@@ -12,6 +12,8 @@ namespace Cynthia.Card.Server
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
             services.AddSignalR();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
@@ -25,19 +27,25 @@ namespace Cynthia.Card.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            // }
-            // app.UseSignalR(routes =>
-            // {
-            //     routes.MapHub<GwentHub>("/hub/gwent");
-            // });
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseStaticFiles();
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapBlazorHub();
+                // endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapHub<GwentHub>("/hub/gwent");
+                // endpoints.MapControllerRoute(
+                //     name: "default",
+                //     pattern: "{controller=Home}/{action=Index}/{id?}"
+                // );
             });
         }
     }
