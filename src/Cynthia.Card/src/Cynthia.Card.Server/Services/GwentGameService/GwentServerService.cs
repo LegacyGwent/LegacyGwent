@@ -172,9 +172,8 @@ namespace Cynthia.Card.Server
 
         }
 
-        public async Task<int> GetUserCount(string connectionId)
+        public int GetUserCount()
         {
-            await Task.CompletedTask;
             return _users.Count;
         }
 
