@@ -52,7 +52,7 @@ namespace Cynthia.Card.Server
             {
                 webBuilder.UseStartup<Startup>()
                 .UseNLog()
-                .UseUrls("http://*:5000");
+                .UseUrls("http://*:5001");
             });
     }
 }

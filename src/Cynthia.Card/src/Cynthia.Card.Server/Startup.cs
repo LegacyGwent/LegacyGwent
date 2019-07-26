@@ -40,7 +40,7 @@ namespace Cynthia.Card.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
-                // endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapHub<GwentHub>("/hub/gwent");
                 // endpoints.MapControllerRoute(
                 //     name: "default",
