@@ -1,0 +1,32 @@
+﻿@page "/"
+@using Cynthia.Card.Server
+@inject GwentServerService GwentService
+
+<h1>~游戏玩家状态~</h1>
+<h2>目前在线人数: @GwentService.GetUserCount() </h2>
+<ul>
+@foreach(var usergroup in users)
+{
+    <h3>@showMessage[usergroup.Key]</h3>
+    foreach(var user in usergroup)
+    {
+        <li>@user.PlayerName</li>
+    }
+}
+</ul>
+
+@code
+{
+    IList<IGrouping<UserState, User>> users;
+    IDictionary<UserState,string> showMessage = new Dictionary<UserState,string>()
+    {
+        {UserState.Match,"以下玩家正在匹配中~"},
+        {UserState.Play,"以下玩家正在对局中~"},
+        {UserState.Standby,"以下玩家正在闲置中~"}
+    };
+
+    protected override void OnInit()
+    {
+        users = GwentService.GetUsers();
+    }
+}

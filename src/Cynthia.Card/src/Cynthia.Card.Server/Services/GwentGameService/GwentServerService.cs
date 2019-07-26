@@ -177,6 +177,10 @@ namespace Cynthia.Card.Server
             return _users.Count;
         }
 
+        public IList<IGrouping<UserState, User>> GetUsers()
+        {
+            return _users.Select(x => x.Value).GroupBy(x => x.UserState).ToList();
+        }
         // public async Task<bool> WaitReconnect(string connectionId)
         // {   //等待重连
         //     if (!_users.ContainsKey(connectionId)) return false;
