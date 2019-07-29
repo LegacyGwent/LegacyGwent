@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: DefaultCompany
   productName: MyGwent
   defaultCursor: {fileID: 2800000, guid: 5c9b63facaf6ed14ebf77d2dbd9c0a75, type: 3}
-  cursorHotspot: {x: 8, y: 8}
+  cursorHotspot: {x: 7, y: 1}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
