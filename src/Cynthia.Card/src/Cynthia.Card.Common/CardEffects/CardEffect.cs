@@ -20,6 +20,7 @@ namespace Cynthia.Card
         //为了方便而添加的属性和方法
         public int AnotherPlayer { get => Game.AnotherPlayer(Card.PlayerIndex); }
         public int PlayerIndex { get => Card.PlayerIndex; }
+        public RowPosition MyRow { get => Card.Status.CardRow; }
         public int Countdown { get => Card.Status.Countdown; }
         public Random RNG { get => Game.RNG; }
         public async Task SetCountdown(int? value = default, int? offset = default)
