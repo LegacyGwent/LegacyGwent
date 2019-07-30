@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var deck = Game.PlayersDeck[PlayerIndex];
             var myId = Card.CardInfo().CardId;
@@ -22,7 +22,7 @@ namespace Cynthia.Card
             var position = Card.GetLocation();
             foreach (var it in list)
             {
-                await it.Effect.Summon(position, it);
+                await it.Effect.Summon(position + 1, it);
             }
 
             return 0;

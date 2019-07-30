@@ -1335,15 +1335,14 @@ namespace Cynthia.Card.Server
         }
         public CardLocation GetRandomCanPlayLocation(int playerIndex)
         {
-            Random rd = new Random();
             var a = new List<int>();
             if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
             if (PlayersPlace[playerIndex][1].Count < RowMaxCount) a.Add(1);
             if (PlayersPlace[playerIndex][2].Count < RowMaxCount) a.Add(2);
             if (a.Count == 0) return null;
-            var rowIndex = a[rd.Next(0, a.Count)];
+            var rowIndex = a[RNG.Next(0, a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;
-            return new CardLocation(rowIndex.IndexToMyRow(), rd.Next(0, count + 1));
+            return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
 
         }
         //====================================================================================
