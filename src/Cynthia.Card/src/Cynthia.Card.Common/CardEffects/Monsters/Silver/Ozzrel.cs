@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Ozzrel(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectList = Game.PlayersCemetery[PlayerIndex].Concat(Game.PlayersCemetery[AnotherPlayer]).Where(x => x.IsAnyGroup(Group.Copper, Group.Silver)).ToList();
+            var selectList = Game.PlayersCemetery[PlayerIndex].Concat(Game.PlayersCemetery[AnotherPlayer]).Where(x => x.IsAnyGroup(Group.Copper, Group.Silver) && x.Status.Type == CardType.Unit).ToList();
 
             var target = await Game.GetSelectMenuCards(PlayerIndex, selectList);
 
