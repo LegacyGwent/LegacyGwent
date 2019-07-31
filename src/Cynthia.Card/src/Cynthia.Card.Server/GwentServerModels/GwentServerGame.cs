@@ -1391,9 +1391,13 @@ namespace Cynthia.Card.Server
         {
             async Task task()
             {
+                if (@event is AfterCardDeath)
+                {
+                    await Debug("广播遗愿");
+                }
                 foreach (var card in GetAllCard(Player1Index).ToList())
                 {
-                    if (card.Status.IsLock || card.IsDead) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+                    if (card.Status.IsLock || (card.CardPoint() <= 0 && card.Status.Type == CardType.Unit && card.Status.CardRow.IsOnPlace())) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
                     await card.Effects.RaiseEvent(@event);
                 }
             }

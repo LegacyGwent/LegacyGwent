@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -124,7 +125,9 @@ namespace Cynthia.Card
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
                 if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
+                {
                     await Game.SendEvent(new AfterCardDeath(Card, deadposition));
+                }
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 await Game.SetPointInfo();
                 await Game.SetCountInfo();

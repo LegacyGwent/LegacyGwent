@@ -5,7 +5,7 @@ namespace Cynthia.Card
 {
     public class GameCard : IHasEffects
     {
-        public bool IsDead { get => this.CardPoint() <= 0 || Status.Type == CardType.Special||!Status.CardRow.IsOnPlace(); }
+        public bool IsDead { get => this.CardPoint() <= 0 && Status.Type == CardType.Unit; }
         public GameCard(IGwentServerGame game)
         {
             Effects = new EffectSet(this);
