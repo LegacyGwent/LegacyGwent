@@ -13,6 +13,10 @@ namespace Cynthia.Card
             //从我方墓地列出铜色“机械单位”
             var list = Game.PlayersCemetery[PlayerIndex]
             .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAllCategorie(Categorie.Machine)).Mess();
+            if (list.Count() == 0)
+            {
+                return 0;
+            }
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
