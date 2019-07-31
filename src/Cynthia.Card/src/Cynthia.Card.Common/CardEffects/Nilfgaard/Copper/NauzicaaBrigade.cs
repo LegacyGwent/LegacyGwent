@@ -14,7 +14,7 @@ namespace Cynthia.Card
             if (result.Count != 0)
             {
                 await result.Single().Effect.Damage(7, Card);
-                if (result.Single().IsDead)
+                if (!result.Single().IsAliveOnPlance())
                 {
                     await Card.Effect.Strengthen(4, Card);
                 }

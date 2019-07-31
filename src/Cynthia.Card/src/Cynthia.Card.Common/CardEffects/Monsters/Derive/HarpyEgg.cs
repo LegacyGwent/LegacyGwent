@@ -5,13 +5,13 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("25004")]//鹰身女妖蛋
-    public class HarpyEgg : CardEffect,IHandlesEvent<AfterCardDeath>,IHandlesEvent<AfterCardConsume>
+    public class HarpyEgg : CardEffect, IHandlesEvent<AfterCardDeath>, IHandlesEvent<AfterCardConsume>
     {//使吞噬自身的单位获得额外4点增益。 遗愿：在随机排生成1只“鹰身女妖幼崽”。
         public HarpyEgg(GameCard card) : base(card) { }
 
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            if(@event.Target != Card)
+            if (@event.Target != Card)
             {
                 return;
             }
@@ -24,7 +24,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardConsume @event)
         {
-            if(@event.Target!=Card||@event.Source.IsDead)
+            if (@event.Target != Card)
             {
                 return;
             }
