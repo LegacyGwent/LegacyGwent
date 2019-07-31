@@ -10,7 +10,14 @@ namespace Cynthia.Card
 		public Drowner(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+            if (!(await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.CardRow != Card.Status.CardRow)).TrySingle(out var target))
+            {
+                return 0;
+            }
+            await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+            var damagePoint = Game.GameRowEffect[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard() ? 4 : 2;
+            await target.Effect.Damage(damagePoint, Card);
+            return 0;
 		}
 	}
 }

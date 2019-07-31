@@ -1335,15 +1335,14 @@ namespace Cynthia.Card.Server
         }
         public CardLocation GetRandomCanPlayLocation(int playerIndex)
         {
-            Random rd = new Random();
             var a = new List<int>();
             if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
             if (PlayersPlace[playerIndex][1].Count < RowMaxCount) a.Add(1);
             if (PlayersPlace[playerIndex][2].Count < RowMaxCount) a.Add(2);
             if (a.Count == 0) return null;
-            var rowIndex = a[rd.Next(0, a.Count)];
+            var rowIndex = a[RNG.Next(0, a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;
-            return new CardLocation(rowIndex.IndexToMyRow(), rd.Next(0, count + 1));
+            return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
 
         }
         //====================================================================================
@@ -1392,11 +1391,18 @@ namespace Cynthia.Card.Server
         {
             async Task task()
             {
+                if (@event is AfterCardDeath)
+                {
+                    await Debug("广播遗愿");
+                }
                 foreach (var card in GetAllCard(Player1Index).ToList())
                 {
-                    if (card.Status.IsLock || card.IsDead) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+                    if (card.Status.IsLock || (card.CardPoint() <= 0 && card.Status.Type == CardType.Unit && card.Status.CardRow.IsOnPlace())) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
                     await card.Effects.RaiseEvent(@event);
                 }
+            }
+            async Task task2()
+            {
                 foreach (var row in GameRowEffect.SelectMany(x => x))
                 {
                     await row.Effects.RaiseEvent(@event);
@@ -1409,6 +1415,14 @@ namespace Cynthia.Card.Server
             else
             {
                 await AddTask((Func<Task>)task);
+            }
+            if (OperactionList.IsRunning)
+            {
+                await task2();
+            }
+            else
+            {
+                await AddTask((Func<Task>)task2);
             }
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
