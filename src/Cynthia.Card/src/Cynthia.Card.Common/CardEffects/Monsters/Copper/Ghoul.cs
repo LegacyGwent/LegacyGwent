@@ -10,6 +10,12 @@ namespace Cynthia.Card
 		public Ghoul(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+            var targets = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersCemetery[PlayerIndex]);
+            if(!targets.TrySingle(out var target))
+            {
+                return 0;
+            }
+            await Consume(target);
 			return 0;
 		}
 	}
