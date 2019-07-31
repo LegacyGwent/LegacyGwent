@@ -26,7 +26,7 @@ namespace Cynthia.Card.Server
             // Console.SetError(se);
             // try
             // {
-            //     var updateTask = TimingUpdate(20, sw, se);
+            // var updateTask = TimingUpdate(20, sw, se);
             CreateHostBuilder(args).Build().Run();
             // }
             // finally

@@ -10,6 +10,11 @@ namespace Cynthia.Card
 		public IceGiant(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+            var flag = Game.GameRowEffect.SelectMany(x => x.Select(x => x.RowStatus)).Any(x => x == RowStatus.BitingFrost);
+            if(flag)
+            {
+                await Boost(6, Card);
+            }
 			return 0;
 		}
 	}
