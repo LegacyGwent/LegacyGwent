@@ -10,7 +10,18 @@ namespace Cynthia.Card
 		public WildHuntNavigator(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+            var targets = await Game.GetSelectPlaceCards(Card, 1, false, x => x.Is(Group.Copper,CardType.Unit,x=>x.HasAllCategorie(Categorie.WildHunt)&&!x.HasAllCategorie(Categorie.Mage)&&Game.PlayersDeck[PlayerIndex].Any(t=>t.Status.CardId==x.Status.CardId)), SelectModeType.MyRow);
+
+            if(!targets.TrySingle(out var target))
+            {
+                return 0;
+            }
+            if(!Game.PlayersDeck[PlayerIndex].TryMessOne(out var card,Game.RNG))
+            {
+                return 0;
+            }
+            await card.MoveToCardStayFirst();
+			return 1;
 		}
 	}
 }
