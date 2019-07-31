@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return 0;
             }
             await targetCards.First().MoveToCardStayFirst();
-            return 0;
+            return 1;
         }
     }
 }
