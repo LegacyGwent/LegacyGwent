@@ -39,9 +39,9 @@ namespace Cynthia.Card
 
             var Hresult = await Game.GetSelectMenuCards(Card.PlayerIndex, Hlist.ToList(), 1, isCanOver: false);
 
-			await Hresult.Single().MoveToCardStayFirst();
+            await Hresult.Single().MoveToCardStayFirst();
 
-			return 1;
+            return 1;
         }
     }
 }
