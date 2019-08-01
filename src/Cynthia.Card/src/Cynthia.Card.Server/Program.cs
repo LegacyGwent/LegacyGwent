@@ -8,6 +8,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
@@ -52,6 +53,8 @@ namespace Cynthia.Card.Server
             {
                 webBuilder.UseStartup<Startup>()
                 .UseNLog()
+                .UseWebRoot(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")).Root)
+                .UseContentRoot(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory())).Root)
                 .UseUrls("http://*:5000");
             });
     }
