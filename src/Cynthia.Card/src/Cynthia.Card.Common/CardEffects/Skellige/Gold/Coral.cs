@@ -10,6 +10,9 @@ namespace Cynthia.Card
 		public Coral(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+			var result = await Game.GetSelectPlaceCards(Card,filter:x=>x.Status.Group==Group.Copper||x.Status.Group==Group.Silver);
+			if(result.Count<=0) return 0;
+			await result.Single().Effect.Transform(CardId.JadeFigurine,Card);
 			return 0;
 		}
 	}
