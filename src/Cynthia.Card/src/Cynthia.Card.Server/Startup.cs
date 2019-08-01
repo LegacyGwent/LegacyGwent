@@ -37,11 +37,7 @@ namespace Cynthia.Card.Server
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"))
-            });
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
