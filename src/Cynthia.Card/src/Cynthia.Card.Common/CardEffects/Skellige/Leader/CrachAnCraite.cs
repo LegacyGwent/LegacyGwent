@@ -11,11 +11,11 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //卡组中所有最强非间谍铜色/银色单位牌
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.isSpying = false && (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper) && (x.CardInfo().CardType == CardType.Unit)).WhereAllHighest();
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.isSpying() = false && (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper) && (x.CardInfo().CardType == CardType.Unit)).WhereAllHighest();
             //选一张
             if (!list.TryMessOne(out var target, Game.RNG))
             {
-                return;
+                return 0;
             }
 
             //强化并打出

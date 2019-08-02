@@ -10,13 +10,8 @@ namespace Cynthia.Card
         public EistTuirseach(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {   //图尔赛克家族，士兵，铜单位
-            var target = GwentMap.GetCards().Where(x => x.Is(Group.Copper, CardType.Unit, x => x.HasAllCategorie(Categorie.ClanTuirseach, Categorie.Soldier)).Select(x => x.CardId));
-            //创造,如果没选择,什么都不做
-            var count = (await Game.CreateAndMoveStay(PlayerIndex, target.ToArray()));
-            if (count == 0)
-            {
-                return 0;
-            }
+            var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Unit, x => x.HasAllCategorie(Categorie.ClanTuirseach, Categorie.Soldier)).Select(x => x.CardId);
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray());
         }
     }
 }
