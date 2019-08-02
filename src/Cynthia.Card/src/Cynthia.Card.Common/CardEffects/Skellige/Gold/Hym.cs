@@ -40,22 +40,21 @@ namespace Cynthia.Card
             //选择创造
             else if (switchCard == 1)
             {
-                //列出对方卡组初始牌组中的3张银色单位卡，如果没有,什么都不做
                 var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
-                    .Distinct()
-                    .Where(x => x.Is(type: CardType.Unit, filter: x => x.IsAnyGroup(Group.Copper, Group.Silver)))
-                    .Mess(Game.RNG)
-                    .Take(3)
-                    .Select(x => x.CardId);
-                if (cardsId.Count() == 0) return 0;
-
-                //创造，如果没选,什么都不做
-                if (await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray()) == 0)
+                   .Distinct()
+                   .Where(x => x.Is(type: CardType.Unit, filter: x => x.IsAnyGroup(Group.Copper, Group.Silver)))
+                   .Mess(Game.RNG)
+                   .Take(3)
+                   .Select(x => x.CardId).ToArray();
+                if (await Game.CreateAndMoveStay(PlayerIndex, cardsId) == 0)
                 {
                     return 0;
                 }
                 return 0;
+
             }
+
+            return 0;
         }
     }
 }
