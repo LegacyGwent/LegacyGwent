@@ -18,7 +18,9 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            return 0;
+
+            await Game.PlayersStay[PlayerIndex][0].Effect.Boost(1, Card);
+            return 1;
         }
     }
 }
