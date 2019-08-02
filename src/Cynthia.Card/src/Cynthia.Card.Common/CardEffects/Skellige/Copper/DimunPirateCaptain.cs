@@ -16,15 +16,15 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-			//选一张
+            //选一张
             var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
 
             if (cards.Count() == 0)
             {
                 return 0;
             }
-			//打出
-			await cards.Single().MoveToCardStayFirst();
+            //打出
+            await cards.Single().MoveToCardStayFirst();
 
             return 0;
 
