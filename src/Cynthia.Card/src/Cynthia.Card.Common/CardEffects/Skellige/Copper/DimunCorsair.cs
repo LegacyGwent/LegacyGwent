@@ -26,3 +26,5 @@ namespace Cynthia.Card
             return 1;
         }
     }
+
+}
