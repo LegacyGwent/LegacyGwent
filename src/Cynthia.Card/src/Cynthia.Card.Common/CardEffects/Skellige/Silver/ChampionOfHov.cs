@@ -13,7 +13,7 @@ namespace Cynthia.Card
 			
 			var target = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
 			//对决，target先受到伤害
-			await Duel(target, Card);
+			await Duel(target.Single(), Card);
 			return 0;
 		}
 	}

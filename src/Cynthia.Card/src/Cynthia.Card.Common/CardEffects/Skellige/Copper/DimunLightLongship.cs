@@ -16,15 +16,13 @@ namespace Cynthia.Card
             //如果右侧没有单位或者是伏击卡，不触发效果
             if (taget.Count() == 0 || taget.Single().Status.Conceal)
             {
-                return 0;
+                return;
             }
 
             await taget.Single().Effect.Damage(1, Card);
             await Card.Effect.Boost(2, Card);
-            return 0;
         }
 
 
     }
-}
 }

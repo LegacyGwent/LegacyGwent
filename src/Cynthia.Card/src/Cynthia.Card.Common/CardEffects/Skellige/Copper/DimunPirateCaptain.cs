@@ -26,6 +26,8 @@ namespace Cynthia.Card
 			//打出
 			await cards.Single().MoveToCardStayFirst();
 
+            return 0;
+
 
         }
     }

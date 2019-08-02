@@ -19,20 +19,18 @@ namespace Cynthia.Card
         {
 
             //如果左侧有单位且不是伏击卡，使其获得1点强化。
-            var Ltaget = Card.GetRangeCard(1, GetRangeType.HollowLight);
-            if (!Ltaget.Count() == 0 && !Ltaget.Single().Status.Conceal)
+            var Ltaget = Card.GetRangeCard(1, GetRangeType.HollowLeft);
+            if (Ltaget.Count() != 0 && !Ltaget.Single().Status.Conceal)
             {
-				await Ltaget.Single().Effect.Strengthen(1, Card);
+                await Ltaget.Single().Effect.Strengthen(1, Card);
             }
 
             //如果右侧有单位且不是伏击卡，使其受到1点伤害。
             var Rtaget = Card.GetRangeCard(1, GetRangeType.HollowRight);
-            if (!Rtaget.Count() == 0 && !Rtaget.Single().Status.Conceal)
+            if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
             {
                 await Rtaget.Single().Effect.Damage(1, Card);
             }
-
-            return 0;
         }
 
     }
