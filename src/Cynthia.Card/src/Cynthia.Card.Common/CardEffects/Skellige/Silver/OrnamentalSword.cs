@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public OrnamentalSword(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {	//创造
-            await Card.CreateAndMoveStay(GwentMap.GetCreateCardsId(x => x.Faction == Faction.Skellige && (x.Group == Group.Copper || x.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && x.HasAllCategorie(Categorie.Soldier), RNG));
+            await Card.CreateAndMoveStay(GwentMap.GetCreateCardsId(x => x.Faction == Faction.Skellige && (x.Group == Group.Copper || x.Group == Group.Silver) && x.HasAllCategorie(Categorie.Soldier), RNG).ToList());
             //强化玩家悬牌
             await Game.PlayersStay[PlayerIndex][0].Effect.Strengthen(3, Card);
             return 0;

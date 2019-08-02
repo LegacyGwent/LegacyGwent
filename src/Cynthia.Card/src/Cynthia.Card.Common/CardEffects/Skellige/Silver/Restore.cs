@@ -18,14 +18,14 @@ namespace Cynthia.Card
             }
 
             //选择一张，如果没有选，结束
-            var Cresult = await Game.GetSelectMenuCards(Card.PlayerIndex, Clist.ToList(), 1);
+            var Cresult = await Game.GetSelectMenuCards(Card.PlayerIndex, Clist, 1);
             if (Cresult.Count() == 0)
             {
                 return 0;
             }
             //回手
             Cresult.Single().Effect.Repair(true);
-            var offset = 8 - Cresult.Single().Status.Strength;
+            int offset = 8 - Cresult.Single().Status.Strength;
             if (offset > 0)
                 await Cresult.Single().Effect.Strengthen(offset, Card);
             else if (offset < 0)
