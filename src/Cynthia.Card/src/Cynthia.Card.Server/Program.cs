@@ -20,10 +20,6 @@ namespace Cynthia.Card.Server
     {
         public static void Main(string[] args)
         {
-            var a = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot");
-            var b = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var a1 = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")).Root;
-            var b1 = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory())).Root;
             // if (Directory.Exists("./logs")) Directory.CreateDirectory("./logs");
             // var name = DateTime.UtcNow.ToString("s").Replace(":", "");
             // var sw = new StreamWriter(new FileStream($"./{name}log.log", FileMode.Create));
@@ -58,8 +54,6 @@ namespace Cynthia.Card.Server
             {
                 webBuilder.UseStartup<Startup>()
                 .UseNLog()
-                .UseWebRoot(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot"))
-                .UseContentRoot(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
                 .UseUrls("http://*:5000");
             });
     }
