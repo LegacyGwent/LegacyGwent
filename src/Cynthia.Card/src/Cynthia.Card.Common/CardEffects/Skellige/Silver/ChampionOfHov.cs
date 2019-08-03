@@ -19,7 +19,7 @@ namespace Cynthia.Card
             }
             //对决，target先受到伤害
             await Duel(target, Card);
-            return 0;
+            return 1;
         }
     }
 }
