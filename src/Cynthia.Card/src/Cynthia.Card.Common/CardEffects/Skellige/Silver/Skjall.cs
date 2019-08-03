@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             //随机排列卡组中的诅咒生物
             var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => ((x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && (x.CardInfo().CardType == CardType.Unit) && x.HasAllCategorie(Categorie.Cursed))).Mess(Game.RNG).ToList();
-            if (list.Count() == 0) 
+            if (list.Count() == 0)
             {
                 return 0;
             }
