@@ -12,7 +12,10 @@ namespace Cynthia.Card
         {
             //选取至多两个单位，如果不选，什么都不做
             var targets = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.MyRow);
-            if (targets.Count() == 0) return 0;
+            if (targets.Count() == 0)
+            {
+                return 0;
+            }
             //同时造成伤害
             foreach (var target in targets)
             {

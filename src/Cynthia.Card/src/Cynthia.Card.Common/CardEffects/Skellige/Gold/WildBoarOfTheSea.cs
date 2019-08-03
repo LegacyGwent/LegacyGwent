@@ -31,6 +31,7 @@ namespace Cynthia.Card
             {
                 await Rtaget.Single().Effect.Damage(1, Card);
             }
+            return;
         }
 
     }
