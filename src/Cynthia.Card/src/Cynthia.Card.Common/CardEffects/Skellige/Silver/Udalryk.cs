@@ -19,7 +19,7 @@ namespace Cynthia.Card
             }
 
             IsUse = true;
-            //参考盖尔的写法,随机从我方卡组中选两张卡,如果没有卡,什么都不做
+            //参考盖尔的写法,随机从我方卡组中选两张卡
             var card1 = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).FirstOrDefault();
             var card2 = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).FirstOrDefault(x => x != card1);
 
