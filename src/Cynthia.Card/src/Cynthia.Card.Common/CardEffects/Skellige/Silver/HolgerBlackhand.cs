@@ -23,7 +23,7 @@ namespace Cynthia.Card
 				//列出我方最强墓地单位
 				 var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit).WhereAllHighest();	
             }
-            return 0;
+            return 1;
         }
     }
 }

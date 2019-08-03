@@ -37,7 +37,7 @@ namespace Cynthia.Card
             {
                 await card.Effect.Strengthen(3, Card);
             }
-            return 0;
+            return 1;
         }
     }
 }

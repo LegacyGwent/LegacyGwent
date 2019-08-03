@@ -40,15 +40,16 @@ namespace Cynthia.Card
                 //打出
                 var playCard = cards.Single();
                 await playCard.MoveToCardStayFirst();
-                return 0;
+                return 1;
             }
 
             //选择创造
             else if (switchCard == 1)
             {
+                //手动排除大间谍
                 var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
                    .Distinct()
-                   .Where(x => x.Is(type: CardType.Unit, filter: x => x.IsAnyGroup(Group.Copper, Group.Silver)))
+                   .Where(x => x.Is(type: CardType.Unit, filter: x => x.IsAnyGroup(Group.Silver) && x.CardId != "23001" && x.CardId != "33004" && x.CardId != "43001" && x.CardId != "53001" && x.CardId != "63002"))
                    .Mess(Game.RNG)
                    .Take(3)
                    .Select(x => x.CardId).ToArray();
@@ -56,7 +57,7 @@ namespace Cynthia.Card
                 {
                     return 0;
                 }
-                return 0;
+                return 1;
 
             }
 
