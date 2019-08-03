@@ -16,7 +16,12 @@ namespace Cynthia.Card
         }
 
         public async Task HandleEvent(AfterTurnOver @event)
-        {
+        {   
+            //不是自己的回合结束,或者不在场上,什么事情都不做
+            if(@event.PlayerIndex!=Card.PlayerIndex||!Card.Status.CardRow.IsOnPlace() )
+            {
+                return ;
+            }
 
             //如果左侧有单位且不是伏击卡，使其获得1点强化。
             var Ltaget = Card.GetRangeCard(1, GetRangeType.HollowLeft);
