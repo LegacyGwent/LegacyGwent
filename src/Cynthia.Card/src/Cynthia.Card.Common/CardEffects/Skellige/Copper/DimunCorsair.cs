@@ -22,7 +22,7 @@ namespace Cynthia.Card
             (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0) return 0;
-            await result.First().Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 }, Card);
+            await result.First().Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             return 1;
         }
     }
