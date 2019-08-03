@@ -51,7 +51,7 @@ namespace Cynthia.Card
             {
                 foreach (var card in list)
                 {
-                    if (card != result)
+                    if (card != dcard)
                     {
                         await card.Effect.Discard(Card);
                     }
