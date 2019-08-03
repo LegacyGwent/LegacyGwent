@@ -26,10 +26,16 @@ namespace Cynthia.Card
                     .Mess(Game.RNG)
                     .ToList();
 
-                if (list.Count() == 0) return 0;
+                if (list.Count() == 0)
+                {
+                    return 0;
+                }
                 //选一张，如果没选，什么都不做
                 var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
-                if (cards.Count() == 0) return 0;
+                if (cards.Count() == 0)
+                {
+                    return 0;
+                }
 
                 //打出
                 var playCard = cards.Single();
