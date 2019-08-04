@@ -10,10 +10,12 @@ namespace Cynthia.Card.Server
         public IList<GwentRoom> GwentRooms { get; set; } = new List<GwentRoom>();
         private Func<IHubContext<GwentHub>> _hub;
         private GwentCardTypeService _gwentCardTypeServic;
-        public GwentMatchs(Func<IHubContext<GwentHub>> hub, GwentCardTypeService gwentCardTypeService)
+        private GwentServerService _gwentService;
+        public GwentMatchs(Func<IHubContext<GwentHub>> hub, GwentCardTypeService gwentCardTypeService, GwentServerService gwentService)
         {
             _hub = hub;
             _gwentCardTypeServic = gwentCardTypeService;
+            _gwentService = gwentService;
         }
         public async void StartGame(GwentRoom room)
         {

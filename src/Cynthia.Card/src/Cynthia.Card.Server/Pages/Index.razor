@@ -1,8 +1,9 @@
 ﻿@page "/"
 @using Cynthia.Card.Server
 @inject GwentServerService GwentService
+@implements IDisposable
 
-<h1>~游戏玩家状态~</h1>
+<h1>~实时玩家状态查看~</h1>
 <h2>目前在线人数: @GwentService.GetUserCount() </h2>
 <ul>
 @foreach(var usergroup in users)
@@ -28,5 +29,21 @@
     protected override void OnInit()
     {
         users = GwentService.GetUsers();
+        GwentService.OnUserChanged += OnUserChanged;
+    }
+
+    private void OnUserChanged(IList<IGrouping<UserState, User>> newUser)
+    {
+        Invoke(() => {
+            users = newUser;
+            StateHasChanged();
+        });
+        //users = newUser;
+        //StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        GwentService.OnUserChanged -= OnUserChanged;
     }
 }
