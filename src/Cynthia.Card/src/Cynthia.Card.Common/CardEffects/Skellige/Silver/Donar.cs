@@ -31,8 +31,8 @@ namespace Cynthia.Card
             }
             //移动到我方墓地
             //不清楚refresh的含义
-            await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, MoveTarget.Single());
-            return 1;
+            await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.EnemyCemetery, CardIndex = 0 }, MoveTarget.Single());
+            return 0;
         }
     }
 }

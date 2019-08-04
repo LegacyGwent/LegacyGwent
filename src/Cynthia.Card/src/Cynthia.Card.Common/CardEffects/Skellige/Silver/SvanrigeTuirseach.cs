@@ -18,8 +18,8 @@ namespace Cynthia.Card
             }
             //抽卡
             await Game.PlayerDrawCard(Card.PlayerIndex);
-            //从手牌中选择一张弃牌
-            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, Game.PlayersHandCard[Card.PlayerIndex]);
+            //从手牌中选择一张弃牌,必须选
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, Game.PlayersHandCard[Card.PlayerIndex], isCanOver: false);
             if (!cards.TrySingle(out var target))
             {
                 return 0;
