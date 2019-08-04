@@ -15,8 +15,7 @@ namespace Cynthia.Card
             await Game.CreateCard(CardId.Wilhelm, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++));
             //对面同排同序号生成
             await Game.CreateCard(CardId.Wilmar, AnotherPlayer, Card.GetLocation());
-            //new CardLocation(Card.GetLocation().RowPosition.Mirror(), Card.GetLocation().CardIndex)
-            return 1;
+            return 0;
         }
     }
 }
