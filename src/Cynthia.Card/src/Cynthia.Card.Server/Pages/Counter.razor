@@ -1,16 +1,37 @@
 ﻿@page "/counter"
+@inject CounterService counterService
+@implements IDisposable
 
 <h1>计数器</h1>
 
-<p>戳了: @currentCount 次</p>
+<p>自本次服务器启动起,总共被戳: @currentCount 次</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">戳</button>
 
 @code {
-    int currentCount = 0;
+    int currentCount;
 
     void IncrementCount()
     {
-        currentCount++;
+        counterService.Click();
+    }
+
+    protected override void OnInit()
+    {
+        currentCount = counterService.GetValue();
+        counterService.OnValueChanged += OnValueChanged;
+    }
+
+    private void OnValueChanged(int newValue)
+    {
+        Invoke(() => {
+            currentCount = newValue;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        counterService.OnValueChanged  -= OnValueChanged;
     }
 }
