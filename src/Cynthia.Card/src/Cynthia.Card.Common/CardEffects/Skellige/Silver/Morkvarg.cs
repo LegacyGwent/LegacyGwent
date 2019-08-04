@@ -9,7 +9,7 @@ namespace Cynthia.Card
     {//进入墓场时，复活自身，但战力削弱一半。
         public Morkvarg(GameCard card) : base(card) { }
 
-        //以下代码基于:死亡时，本卡复活到原位。小局结束或丢弃时，本卡复活到随机我方位置
+        //以下代码基于:死亡时，本卡复活到原位。丢弃时，本卡复活到随机我方位置
 
         public async Task HandleEvent(AfterCardToCemetery @event)
         {
@@ -33,11 +33,12 @@ namespace Cynthia.Card
             if (@event.DeathLocation.RowPosition.IsOnPlace())
             {
                 await Card.Effect.Resurrect(@event.DeathLocation, Card);
-                return;
             }
             //第二类情况，丢弃，小局结束进入墓地，随机复活到任何位置
-            await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
-            return;
+            else
+            {
+                await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+            }
 
         }
 

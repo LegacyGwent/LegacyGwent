@@ -24,7 +24,7 @@ namespace Cynthia.Card
             //强化
             await Card.Effect.Strengthen(2 * targets.Count(), Card);
 
-            return 1;
+            return 0;
 
         }
     }
