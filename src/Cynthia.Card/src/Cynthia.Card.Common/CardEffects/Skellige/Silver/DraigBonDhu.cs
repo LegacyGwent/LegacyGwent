@@ -25,19 +25,32 @@ namespace Cynthia.Card
                 return 0;
             }
             //选择两张牌，如果不选，什么都不做
-            //不确定的提示语 var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2,"选择强化两张牌");
-
-            var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2);
+            var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, "选择强化两张牌");
             if (result.Count() == 0)
             {
                 return 0;
             }
             //强化
-            foreach (var card in result)
+            if (result.Count() >= 1)
             {
-                await card.Effect.Strengthen(3, Card);
+                await result[0].Effect.Strengthen(3, Card);
+                if (result.Count() == 2)
+                {
+                    await result[1].Effect.Strengthen(3, Card);
+                }
+
             }
-            return 1;
+
+
+
+
+
+            // foreach (var card in result)
+            // {
+            //     await card.Effect.Strengthen(3, Card);
+            // }
+            return 0;
+
         }
     }
 }

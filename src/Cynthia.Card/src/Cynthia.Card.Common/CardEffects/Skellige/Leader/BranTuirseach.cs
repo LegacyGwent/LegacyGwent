@@ -16,7 +16,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 3);
+            var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 3, "选择丢弃三张牌");
 
             if (result.Count() == 0)
             {
