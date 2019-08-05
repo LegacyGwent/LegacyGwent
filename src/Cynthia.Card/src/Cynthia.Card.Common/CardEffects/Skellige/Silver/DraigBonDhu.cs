@@ -30,6 +30,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
+            
             //强化
             if (result.Count() >= 1)
             {
