@@ -16,7 +16,7 @@ namespace Cynthia.Card.Server
 {
     public class Program
     {
-        public static void Main(string[] args)
+                public static void Main(string[] args)
         {
             // if (Directory.Exists("./logs")) Directory.CreateDirectory("./logs");
             // var name = DateTime.UtcNow.ToString("s").Replace(":", "");
