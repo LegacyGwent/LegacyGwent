@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Derran(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterCardHurt @event)
         {
-            if (@event.Target.PlayerIndex == Card.PlayerIndex)
+            if (@event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
