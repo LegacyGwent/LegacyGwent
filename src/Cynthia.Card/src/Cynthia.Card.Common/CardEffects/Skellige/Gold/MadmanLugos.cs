@@ -8,6 +8,7 @@ namespace Cynthia.Card
     public class MadmanLugos : CardEffect
     {//从牌组丢弃1张铜色单位牌，对1个敌军单位造成等同于被丢弃单位基础战力的伤害。
         public MadmanLugos(GameCard card) : base(card) { }
+        private int damagenum = 0;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //乱序列出牌库中铜色单位
@@ -23,7 +24,7 @@ namespace Cynthia.Card
                 return 0;
             }
             //先记录
-            int damagenum = result.First().Status.Strength;
+            damagenum = result.First().Status.Strength;
             //后丢弃
             await result.First().Effect.Discard(Card);
 

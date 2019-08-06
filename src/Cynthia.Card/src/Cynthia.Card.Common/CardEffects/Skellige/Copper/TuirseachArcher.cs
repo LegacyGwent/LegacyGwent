@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选取至多三个单位，如果不选，什么都不做
-            var targets = await Game.GetSelectPlaceCards(Card, 3, selectMode: SelectModeType.MyRow);
+            var targets = await Game.GetSelectPlaceCards(Card, 3, selectMode: SelectModeType.AllRow);
             if (targets.Count() == 0)
             {
                 return 0;
