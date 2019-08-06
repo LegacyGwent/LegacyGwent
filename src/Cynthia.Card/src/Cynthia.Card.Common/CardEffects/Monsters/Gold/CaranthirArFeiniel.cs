@@ -12,6 +12,7 @@ namespace Cynthia.Card
         {
             if (!(await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.CardRow != Card.Status.CardRow)).TrySingle(out var target))
             {
+                await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<BitingFrostStatus>();
                 return 0;
             }
             await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
