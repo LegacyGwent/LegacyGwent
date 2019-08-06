@@ -15,7 +15,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardHurt @event)
         {
-            if (@event.Target.PlayerIndex == Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace() || @event.Target.Status.CardRow != Card.Status.CardRow.Mirror())
+            if (@event.Target.PlayerIndex == Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace() || @event.Target.Status.CardRow != Card.Status.CardRow)
             {
                 return;
             }

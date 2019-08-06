@@ -115,4 +115,3 @@ namespace Cynthia.Card
 
 
 }
-}
