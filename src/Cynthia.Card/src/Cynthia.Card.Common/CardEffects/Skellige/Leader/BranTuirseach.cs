@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public BranTuirseach(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            //以下代码基于：本卡先强化再丢弃（莫克瓦格）
+            //以下代码基于：先强化再丢弃（莫克瓦格）
             var list = Game.PlayersDeck[Card.PlayerIndex].Mess(Game.RNG);
             if (list.Count() == 0)
             {
