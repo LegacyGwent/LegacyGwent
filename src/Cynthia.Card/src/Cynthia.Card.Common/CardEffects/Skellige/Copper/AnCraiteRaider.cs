@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public AnCraiteRaider(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterCardDiscard @event)
         {
-            //进入被丢弃的不是本卡，什么都不发生
+            //如果被丢弃的不是本卡，什么都不发生
             if (@event.Target != Card)
             {
                 return;
@@ -20,6 +20,7 @@ namespace Cynthia.Card
             //随机复活到任何位置
 
             await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+            return;
 
         }
     }

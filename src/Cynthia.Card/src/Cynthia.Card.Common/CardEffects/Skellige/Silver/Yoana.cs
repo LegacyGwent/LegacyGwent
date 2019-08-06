@@ -8,6 +8,7 @@ namespace Cynthia.Card
     public class Yoana : CardEffect
     {//治愈1个友军单位，随后使其获得等同于治疗量的增益。
         public Yoana(GameCard card) : base(card) { }
+        private int boostnum = 0;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选取一个我方场上单位
@@ -20,8 +21,9 @@ namespace Cynthia.Card
             {
                 return 0;
             }
+            boostnum = -target.Status.HealthStatus;
             await target.Effect.Heal(Card);
-            await target.Effect.Boost(-target.Status.HealthStatus, Card);
+            await target.Effect.Boost(boostnum, Card);
 
             return 0;
         }

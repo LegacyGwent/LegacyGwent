@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public GiantBoar(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.GetPlaceCards(PlayerIndex).Where(x => x != Card).Mess(Game.RNG).ToList();
+            var list = Game.GetPlaceCards(Card.PlayerIndex).Where(x => x != Card).Mess(Game.RNG).ToList();
             if (!list.TrySingle(out var target))
             {
                 return 0;
