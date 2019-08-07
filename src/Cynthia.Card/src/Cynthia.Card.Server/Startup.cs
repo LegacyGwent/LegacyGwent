@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -18,6 +20,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
             services.AddSingleton<GwentCardTypeService>();
+            services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             services.AddTransient<IMongoClient, MongoClient>((ctx) =>
             {
