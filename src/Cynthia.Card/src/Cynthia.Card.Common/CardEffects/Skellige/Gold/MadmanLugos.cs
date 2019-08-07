@@ -11,6 +11,7 @@ namespace Cynthia.Card
         private int damagenum = 0;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            //以下代码基于：先伤害 再丢弃 比较方便结算
             //乱序列出牌库中铜色单位
             var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Group == Group.Copper).Mess(Game.RNG);
             if (list.Count() == 0)
@@ -23,10 +24,6 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            //先记录
-            damagenum = result.First().Status.Strength;
-            //后丢弃
-            await result.First().Effect.Discard(Card);
 
             //选择一张场上的卡
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
@@ -34,7 +31,11 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Damage(damagenum, Card);
+
+            await target.Effect.Damage(result.First().Status.Strength, Card);
+
+            await result.First().Effect.Discard(Card);
+
 
 
             return 0;

@@ -17,7 +17,7 @@ namespace Cynthia.Card
                 await Card.Effect.SetCountdown(offset: -1);
                 if (Card.Effect.Countdown <= 0)
                 {
-                    await @event.Target.Effect.Resurrect(new CardLocation() { RowPosition = Game.GetRandomCanPlayLocation(Card.PlayerIndex).RowPosition, CardIndex = int.MaxValue }, Card);
+                    await Card.Effect.Resurrect(new CardLocation() { RowPosition = Game.GetRandomCanPlayLocation(Card.PlayerIndex).RowPosition, CardIndex = int.MaxValue }, Card);
                     //重置计数器，复活到随机排最右侧
                     await Card.Effect.SetCountdown(value: 4);
                 }
