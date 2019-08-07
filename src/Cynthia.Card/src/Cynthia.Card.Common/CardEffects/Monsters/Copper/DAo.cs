@@ -12,7 +12,6 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            await Game.Debug("地灵检测到了有卡牌死亡");
             if (@event.Target != Card) return;
             var row = @event.DeathLocation.RowPosition;
             var list = Game.RowToList(PlayerIndex, row);
