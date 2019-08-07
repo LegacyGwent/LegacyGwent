@@ -25,7 +25,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardDiscard @event)
         {
 
-            if (@event.Target.PlayerIndex == Card.PlayerIndex && @event.Source.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown == 1)
+            if (@event.Target.PlayerIndex == Card.PlayerIndex && @event.Source.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown == 1 && @event.Target.Status.CardRow.IsInCemetery() )
             {
                 await Card.Effect.SetCountdown(value: 0);
                 await @event.Target.Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
