@@ -8,28 +8,23 @@ namespace Cynthia.Card
     public class Wilhelm : CardEffect, IHandlesEvent<AfterCardDeath>
     {//遗愿：对对方同排所有单位造成1点伤害。
         public Wilhelm(GameCard card) : base(card) { }
-        // public async Task HandleEvent(AfterCardDeath @event)
-        // {
-        //     if (@event.Target != Card)
-        //     {
-        //         return;
-        //     }
-        //     //对方同排列表
-        //     var row = Game.RowToList(PlayerIndex, @event.DeathLocation.RowPosition.Mirror()).ToList();
-        //     //await Game.Debug($"对方排数量{row.Count()}");
-        //     foreach (var it in row)
-        //     {
-        //        // await Game.Debug($"准备伤害{it.Status.CardId}");
-        //         await it.Effect.Damage(1, Card);
-
-        //     }
-        // }
-
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            if (@event.Target != Card) return;
-            await Game.CreateCard(CardId.Chort, PlayerIndex, @event.DeathLocation);
-            return;
+            if (@event.Target != Card)
+            {
+                return;
+            }
+            //对方同排列表
+            var row = Game.RowToList(PlayerIndex, @event.DeathLocation.RowPosition.Mirror()).ToList();
+            //await Game.Debug($"对方排数量{row.Count()}");
+            foreach (var it in row)
+            {
+                // await Game.Debug($"准备伤害{it.Status.CardId}");
+                await it.Effect.Damage(1, Card);
+
+            }
         }
+
+
     }
 }
