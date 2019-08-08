@@ -16,15 +16,11 @@ namespace Cynthia.Card
             }
             //对方同排列表
             var row = Game.RowToList(PlayerIndex, @event.DeathLocation.RowPosition.Mirror()).ToList();
-            //await Game.Debug($"对方排数量{row.Count()}");
             foreach (var it in row)
             {
-                // await Game.Debug($"准备伤害{it.Status.CardId}");
                 await it.Effect.Damage(1, Card);
 
             }
         }
-
-
     }
 }

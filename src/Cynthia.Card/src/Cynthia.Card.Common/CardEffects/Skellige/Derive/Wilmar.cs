@@ -17,11 +17,11 @@ namespace Cynthia.Card
             //在回合交替时改变flag
             if (@event.PlayerIndex == Card.PlayerIndex)
             {
-                _summonflag = false;
+                _summonflag = true;
             }
             else
             {
-                _summonflag = true;
+                _summonflag = false;
             }
             await Task.CompletedTask;
         }
