@@ -8,7 +8,6 @@ namespace Cynthia.Card
     public class MadmanLugos : CardEffect
     {//从牌组丢弃1张铜色单位牌，对1个敌军单位造成等同于被丢弃单位基础战力的伤害。
         public MadmanLugos(GameCard card) : base(card) { }
-        private int damagenum = 0;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //以下代码基于：先伤害 再丢弃 比较方便结算
@@ -31,14 +30,25 @@ namespace Cynthia.Card
             {
                 return 0;
             }
+            var discardtarget = result.First();
+            await target.Effect.Damage(discardtarget.Status.Strength, Card);
 
-            await target.Effect.Damage(result.First().Status.Strength, Card);
-
-            await result.First().Effect.Discard(Card);
+            await discardtarget.Effect.Discard(Card);
 
 
 
             return 0;
         }
+
     }
 }
+
+
+// public override async Task CardDownEffect(bool isSpying, bool isReveal)
+// {
+//     if (_target == null)
+//     {
+//         return;
+//     }
+//     await Consume(_target, x => x.Status.Strength);
+// }        private GameCard discardtarget;
