@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public WhisperingHillock(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var ids = GwentMap.GetCreateCardsId(x => x.Is(Group.Copper, filter: x => x.HasAllCategorie(Categorie.Organic)), Game.RNG);
+            var ids = GwentMap.GetCreateCardsId(x => x.Is(filter: x => x.HasAllCategorie(Categorie.Organic) && x.IsAnyGroup(Group.Copper, Group.Silver)), Game.RNG);
             return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray());
         }
     }

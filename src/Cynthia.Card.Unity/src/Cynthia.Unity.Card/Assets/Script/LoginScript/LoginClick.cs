@@ -12,15 +12,47 @@ using Microsoft.AspNetCore.SignalR.Client;
 public class LoginClick : MonoBehaviour
 {
     private static bool IsLogining = false;
+
     public InputField Username;
+
     public InputField Password;
+
     public Text LogMessage;
+
+    public Toggle RecordStatus;
 
     private GwentClientService _client;
     //private GlobalUIService _guiservice;
 
     private void Start()
     {
+        void IsOnPreservation(bool isOn)
+        {
+            if (isOn)
+            {
+                PlayerPrefs.SetString("Username", Username.text);
+                PlayerPrefs.SetString("Password", Password.text);
+            }
+        }
+        RecordStatus.isOn = PlayerPrefs.GetInt("RecordBox", 0) != 0;
+        if (RecordStatus.isOn)
+        {
+            Username.text = PlayerPrefs.GetString("Username", "");
+            Password.text = PlayerPrefs.GetString("Password", "");
+        }
+        RecordStatus.onValueChanged.AddListener(x =>
+        {
+            PlayerPrefs.SetInt("RecordBox", x ? 1 : 0);
+            IsOnPreservation(x);
+        });
+        Username.onValueChanged.AddListener(x =>
+        {
+            IsOnPreservation(RecordStatus.isOn);
+        });
+        Password.onValueChanged.AddListener(x =>
+        {
+            IsOnPreservation(RecordStatus.isOn);
+        });
         if (_client != null)
             return;
         _client = DependencyResolver.Container.Resolve<GwentClientService>();

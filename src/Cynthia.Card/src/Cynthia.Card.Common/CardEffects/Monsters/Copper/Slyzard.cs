@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
             //从墓地选牌
             var list = Game.PlayersCemetery[PlayerIndex]
-                .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardId != Card.CardInfo().CardId);
+                .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardId != Card.CardInfo().CardId && x.Status.Type == CardType.Unit);
             //筛选卡组还有同名卡的
             list = list.Where(x =>
                 Game.PlayersDeck[Card.PlayerIndex].Any(y => y.CardInfo().CardId == x.CardInfo().CardId));

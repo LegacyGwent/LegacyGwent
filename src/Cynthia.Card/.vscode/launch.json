@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}/src/Cynthia.Card.Server/bin/Debug/netcoreapp3.0/Cynthia.Card.Server.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/Cynthia.Card.Server",
-            "console": "externalTerminal",
+            "console": "integratedTerminal",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"

@@ -1235,7 +1235,7 @@ namespace Cynthia.Card.Server
             PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
             PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
             //初始化游戏信息
-            GameRound = new Random().Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
+            GameRound = RNG.Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
             //随机个先后手
             PlayersRoundResult[0] = new int[2];
             PlayersRoundResult[1] = new int[2];
@@ -1301,7 +1301,7 @@ namespace Cynthia.Card.Server
                         PlayersFaction[Player1Index],
                         RowPosition.MyDeck
                     ), cardId))
-            .Mess().ToList();
+            .Mess(RNG).ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
             PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
                 new GameCard(this, Player2Index,
@@ -1311,7 +1311,7 @@ namespace Cynthia.Card.Server
                         RowPosition.MyDeck
                     ), cardId)
             )
-            .Mess().ToList();
+            .Mess(RNG).ToList();
         }
         public async Task SendBigRoundEndToCemetery()
         {
@@ -1335,15 +1335,14 @@ namespace Cynthia.Card.Server
         }
         public CardLocation GetRandomCanPlayLocation(int playerIndex)
         {
-            Random rd = new Random();
             var a = new List<int>();
             if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
             if (PlayersPlace[playerIndex][1].Count < RowMaxCount) a.Add(1);
             if (PlayersPlace[playerIndex][2].Count < RowMaxCount) a.Add(2);
             if (a.Count == 0) return null;
-            var rowIndex = a[rd.Next(0, a.Count)];
+            var rowIndex = a[RNG.Next(0, a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;
-            return new CardLocation(rowIndex.IndexToMyRow(), rd.Next(0, count + 1));
+            return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
 
         }
         //====================================================================================
@@ -1392,11 +1391,14 @@ namespace Cynthia.Card.Server
         {
             async Task task()
             {
-                foreach (var card in GetAllCard(Player1Index).ToList())
+                foreach (var card in GetAllCard(Player1Index, true).ToList())
                 {
-                    if (card.Status.IsLock || card.IsDead) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+                    if (card.Status.IsLock) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
                     await card.Effects.RaiseEvent(@event);
                 }
+            }
+            async Task task2()
+            {
                 foreach (var row in GameRowEffect.SelectMany(x => x))
                 {
                     await row.Effects.RaiseEvent(@event);
@@ -1409,6 +1411,14 @@ namespace Cynthia.Card.Server
             else
             {
                 await AddTask((Func<Task>)task);
+            }
+            if (OperactionList.IsRunning)
+            {
+                await task2();
+            }
+            else
+            {
+                await AddTask((Func<Task>)task2);
             }
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
