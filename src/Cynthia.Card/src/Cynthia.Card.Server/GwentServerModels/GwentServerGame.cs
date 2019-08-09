@@ -1235,7 +1235,7 @@ namespace Cynthia.Card.Server
             PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
             PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
             //初始化游戏信息
-            GameRound = new Random().Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
+            GameRound = RNG.Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
             //随机个先后手
             PlayersRoundResult[0] = new int[2];
             PlayersRoundResult[1] = new int[2];
@@ -1301,7 +1301,7 @@ namespace Cynthia.Card.Server
                         PlayersFaction[Player1Index],
                         RowPosition.MyDeck
                     ), cardId))
-            .Mess().ToList();
+            .Mess(RNG).ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
             PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
                 new GameCard(this, Player2Index,
@@ -1311,7 +1311,7 @@ namespace Cynthia.Card.Server
                         RowPosition.MyDeck
                     ), cardId)
             )
-            .Mess().ToList();
+            .Mess(RNG).ToList();
         }
         public async Task SendBigRoundEndToCemetery()
         {

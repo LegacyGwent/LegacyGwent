@@ -4,15 +4,15 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("13037")]//最后的愿望
-	public class TheLastWish : CardEffect
-	{//随机检视牌组的2张牌，打出1张。
-		public TheLastWish(GameCard card) : base(card){}
-		public override async Task<int> CardUseEffect()
-		{
-			//打乱己方卡组,并且取2张卡
+    [CardEffectId("13037")]//最后的愿望
+    public class TheLastWish : CardEffect
+    {//随机检视牌组的2张牌，打出1张。
+        public TheLastWish(GameCard card) : base(card) { }
+        public override async Task<int> CardUseEffect()
+        {
+            //打乱己方卡组,并且取2张卡
             var list = Game.PlayersDeck[PlayerIndex]
-            	.Mess().Take(2);
+                .Mess(RNG).Take(2);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (PlayerIndex, list.ToList(), 1, "选择打出一张牌");
@@ -20,6 +20,6 @@ namespace Cynthia.Card
             if (result.Count() == 0) return 0;
             await result.Single().MoveToCardStayFirst();
             return 1;
-		}
-	}
+        }
+    }
 }
