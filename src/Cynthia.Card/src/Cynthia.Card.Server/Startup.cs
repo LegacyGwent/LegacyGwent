@@ -22,10 +22,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentCardTypeService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
-            services.AddTransient<IMongoClient, MongoClient>((ctx) =>
-            {
-                return new MongoClient("mongodb://cynthia.ovyno.com:27017/gwent");
-            });
+            services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://cynthia.ovyno.com:27017/gwent"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)

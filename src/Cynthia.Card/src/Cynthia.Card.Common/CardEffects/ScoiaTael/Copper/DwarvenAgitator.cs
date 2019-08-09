@@ -12,13 +12,13 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var deck = Game.PlayersDeck[PlayerIndex];
             var myId = Card.CardInfo().CardId;
             var cardsToPlay = deck.Where(x =>
                 x.CardInfo().CardId != myId && x.CardInfo().Categories.Contains((Categorie.Dwarf)));
-            var list = cardsToPlay.Mess().ToList();
+            var list = cardsToPlay.Mess(RNG).ToList();
             if (!list.Any()) return 0;
             var card = list.First();
             await Card.CreateAndMoveStay(card.CardInfo().CardId);

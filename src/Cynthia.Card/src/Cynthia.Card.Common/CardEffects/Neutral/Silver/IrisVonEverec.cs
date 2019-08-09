@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardDeath @event)
         {
             if (@event.Target != Card) return;
-            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == AnotherPlayer).Mess().Take(5).ToList();
+            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == AnotherPlayer).Mess(RNG).Take(5).ToList();
             foreach (var card in cards)
             {
                 if (card.Status.CardRow.IsOnPlace())
