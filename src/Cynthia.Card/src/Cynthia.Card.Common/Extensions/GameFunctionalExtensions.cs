@@ -7,6 +7,25 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
+        public static bool GetRandomRow(this IGwentServerGame game, int playerIndex,out RowPosition? rowIndex)
+        {
+            
+            var a = new List<int>();
+            if (game.PlayersPlace[playerIndex][0].Count < game.RowMaxCount) a.Add(0);
+            if (game.PlayersPlace[playerIndex][1].Count < game.RowMaxCount) a.Add(1);
+            if (game.PlayersPlace[playerIndex][2].Count < game.RowMaxCount) a.Add(2);
+            if (a.Count == 0)
+            {
+                rowIndex = null;
+                return false;
+            }
+            rowIndex = a[game.RNG.Next(0, a.Count)].IndexToMyRow();
+            return true;
+            //var count = PlayersPlace[playerIndex][rowIndex].Count;
+            //return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
+
+        }
+
         public static IEnumerable<GameCard> GetPlaceCards(this IGwentServerGame game, int playerIndex, RowPosition? planceRow = null, bool isHasDead = false, bool isHasConceal = false)
         {
             if (planceRow != null && !planceRow.Value.IsOnPlace())
@@ -166,6 +185,7 @@ namespace Cynthia.Card
                     return false;
             }
         }
+
         public static bool IsRight(this GetRangeType type)
         {
             switch (type)
@@ -179,14 +199,17 @@ namespace Cynthia.Card
                     return false;
             }
         }
+
         public static IList<GameCard> GetRowList(this GameCard card)
         {//按照从左到右的顺序,选中卡牌
             return card.Effect.Game.RowToList(card.PlayerIndex, card.Status.CardRow);
         }
+
         public static int GetRowIndex(this GameCard card)
         {//按照从左到右的顺序,选中卡牌
             return card.Effect.Game.RowToList(card.PlayerIndex, card.Status.CardRow).IndexOf(card);
         }
+
         public static bool IsShowBack(this GameCard card, int playerIndex)
         {
             if (!card.Status.CardRow.IsOnRow()) return true;
@@ -201,6 +224,7 @@ namespace Cynthia.Card
             }
             return false;
         }
+
         public static bool TagetIsShowBack(this GameCard card, CardLocation target, int tagetPlayerIndex, int LookplayerIndex)
         {
             if (!target.RowPosition.IsOnRow()) return true;
@@ -244,6 +268,7 @@ namespace Cynthia.Card
                     return SelectModeType.All;
             }
         }
+
         public static async Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool refresh = true, bool isShowEnemyBack = false)//移动到卡牌移动区末尾
         {   //将卡牌移动到最开头
             var game = card.Effect.Game;
@@ -253,14 +278,17 @@ namespace Cynthia.Card
             }
             await game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, refresh, isShowEnemyBack: isShowEnemyBack);
         }
+
         public static IEnumerable<(int health, GameCard card)> SelectToHealth(this IEnumerable<GameCard> card)
         {   //将所有卡牌的有效战力列出来
             return card.Select(x => (health: x.Status.Strength + x.Status.HealthStatus, card: x));
         }
+
         public static (int health, GameCard card) ToHealth(this GameCard card)
         {   //将所有卡牌的有效战力列出来
             return (health: card.Status.Strength + card.Status.HealthStatus, card: card);
         }
+
         public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card)
         {
             //大到小
@@ -268,12 +296,14 @@ namespace Cynthia.Card
             var hight = card.SelectToHealth().OrderByDescending(x => x.health).First().health;
             return card.SelectToHealth().OrderByDescending(x => x.health).Where(x => x.health >= hight).Select(x => x.card);
         }
+
         public static IEnumerable<GameCard> WhereAllLowest(this IEnumerable<GameCard> card)
         {
             if (card == null || card.Count() == 0) return card;
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
             return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
         }
+
         public static IEnumerable<CardLocation> CardsPartToLocation(this GameCardsPart part)
         {
             var locations = part.MyRow1Cards.Select(x => new CardLocation() { CardIndex = x, RowPosition = RowPosition.MyRow1 }).

@@ -14,7 +14,7 @@ namespace Cynthia.Card
             .Where(x => ((x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) &&//铜色或者银色
                     x.CardInfo().CardType == CardType.Unit)).WhereAllLowest().ToList();//单位牌
             if (list.Count() == 0) return 0;
-            var moveCard = list.Mess().First();
+            var moveCard = list.Mess(RNG).First();
             await moveCard.MoveToCardStayFirst();
             await moveCard.Effect.Boost(2, Card);
             return 1;

@@ -20,9 +20,9 @@ namespace Cynthia.Card
                     var mycard = cards.Where(x => x.PlayerIndex == PlayerIndex).WhereAllHighest();
                     var enemycard = cards.Where(x => x.PlayerIndex != PlayerIndex).WhereAllLowest();
                     if (enemycard.Count() > 0)
-                        await enemycard.Mess().First().Effect.Damage(6, Card, BulletType.RedLight);
+                        await enemycard.Mess(RNG).First().Effect.Damage(6, Card, BulletType.RedLight);
                     if (mycard.Count() > 0)
-                        await mycard.Mess().First().Effect.Boost(6, Card);
+                        await mycard.Mess(RNG).First().Effect.Boost(6, Card);
                 }
             };
         }

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class VattierDeRideaux : CardEffect
     {//揭示最多2张己方手牌，再随机揭示相同数量的对方卡牌
         public VattierDeRideaux(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = Game.PlayersHandCard[Card.PlayerIndex].Where(x => !x.Status.IsReveal).ToList();
             var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, isCanOver: true);
@@ -19,7 +19,7 @@ namespace Cynthia.Card
                 {
                     await Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)]
                         .Where(x => !x.Status.IsReveal)
-                        .Mess().First().Effect.Reveal(Card);
+                        .Mess(RNG).First().Effect.Reveal(Card);
                 }
             }
             return 0;
