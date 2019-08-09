@@ -5,8 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("65007")]//威尔玛
-    public class Wilmar : CardEffect, IHandlesEvent<AfterCardDeath>
-    //, IHandlesEvent<AfterTurnStart>
+    public class Wilmar : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterCardDeath>
     {//遗愿：若为对方回合，则在对面此排生成1头“熊”。 间谍。
         public Wilmar(GameCard card) : base(card) { }
 
@@ -17,11 +16,11 @@ namespace Cynthia.Card
             //在回合交替时改变flag
             if (@event.PlayerIndex == Card.PlayerIndex)
             {
-                _summonflag = true;
+                _summonflag = false;
             }
             else
             {
-                _summonflag = false;
+                _summonflag = true;
             }
             await Task.CompletedTask;
         }
@@ -39,7 +38,6 @@ namespace Cynthia.Card
 
             await Game.CreateCardAtEnd("15010", AnotherPlayer, Card.Status.CardRow);
             return;
-
         }
 
 
