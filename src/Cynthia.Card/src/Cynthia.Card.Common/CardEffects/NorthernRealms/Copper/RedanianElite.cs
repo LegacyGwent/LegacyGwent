@@ -17,7 +17,7 @@ namespace Cynthia.Card
         {
             if (@event.Target == Card && Card.Status.CardRow.IsOnPlace())
             {
-                await Card.Effect.Boost(4, Card);
+                await Card.Effect.Boost(5, Card);
             }
             return;
         }
