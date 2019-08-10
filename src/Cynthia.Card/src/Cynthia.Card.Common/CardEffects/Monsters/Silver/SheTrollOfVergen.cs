@@ -13,7 +13,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             _target = null;
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.HideTags.Contains(HideTag.Deathwish)).ToList();
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.HideTags.Contains(HideTag.Deathwish) && x.Is(Group.Copper)).ToList();
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list, 1, isCanOver: false);

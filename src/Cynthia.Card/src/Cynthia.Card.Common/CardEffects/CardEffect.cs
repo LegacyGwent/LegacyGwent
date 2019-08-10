@@ -146,7 +146,7 @@ namespace Cynthia.Card
                     {
                         await Game.ShowCardOn(Card);
                         await Game.ClientDelay(50);
-                        if (Card.Status.Strength <= 0)
+                        if (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
                         {
                             await Banish();
                             return;
@@ -164,7 +164,7 @@ namespace Cynthia.Card
             });
             async Task sendEventTask()
             {
-                if (Card.Status.IsDoomed || Card.Status.Strength <= 0)//如果是佚亡,放逐
+                if (Card.Status.IsDoomed || (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
                     return;
@@ -480,7 +480,7 @@ namespace Cynthia.Card
             //重置,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardReset(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            if (Card.Status.Strength <= 0)
+            if (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
             {
                 await Banish();
             }

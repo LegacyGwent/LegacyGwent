@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             //从我方墓地列出铜色“机械单位”
             var list = Game.PlayersCemetery[PlayerIndex]
-            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAllCategorie(Categorie.Machine)).Mess();
+            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAllCategorie(Categorie.Machine)).Mess(Game.RNG);
             if (list.Count() == 0)
             {
                 return 0;

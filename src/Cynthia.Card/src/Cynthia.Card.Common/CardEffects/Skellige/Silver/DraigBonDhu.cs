@@ -13,43 +13,15 @@ namespace Cynthia.Card
         {
             //以下代码基于此卡可以选择双方墓地
             //显示我方墓地单位卡(顺序)
-            var mylist = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit).ToList();
-            //显示敌方墓地单位卡(顺序)
-            var enemylist = Game.PlayersCemetery[Game.AnotherPlayer(Card.PlayerIndex)].Where(x => x.CardInfo().CardType == CardType.Unit).ToList();
-            var list = new List<GameCard>();
-            //合并
-            list = mylist.Concat(enemylist).ToList();
-            //如果双方墓地都没有单位，什么都不做
-            if (list.Count() == 0)
-            {
-                return 0;
-            }
+            var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit).ToList();
+
             //选择两张牌，如果不选，什么都不做
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, "选择强化两张牌");
-            if (result.Count() == 0)
+
+            foreach (var card in result)
             {
-                return 0;
+                await card.Effect.Strengthen(3, Card);
             }
-            
-            //强化
-            if (result.Count() >= 1)
-            {
-                await result[0].Effect.Strengthen(3, Card);
-                if (result.Count() == 2)
-                {
-                    await result[1].Effect.Strengthen(3, Card);
-                }
-
-            }
-
-
-
-
-
-            // foreach (var card in result)
-            // {
-            //     await card.Effect.Strengthen(3, Card);
-            // }
             return 0;
 
         }
