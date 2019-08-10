@@ -7,9 +7,9 @@ namespace Cynthia.Card
 {
     public static class GameFunctionalExtensions
     {
-        public static bool GetRandomRow(this IGwentServerGame game, int playerIndex,out RowPosition? rowIndex)
+        public static bool GetRandomRow(this IGwentServerGame game, int playerIndex, out RowPosition? rowIndex)
         {
-            
+
             var a = new List<int>();
             if (game.PlayersPlace[playerIndex][0].Count < game.RowMaxCount) a.Add(0);
             if (game.PlayersPlace[playerIndex][1].Count < game.RowMaxCount) a.Add(1);
@@ -238,6 +238,17 @@ namespace Cynthia.Card
                     return true;
             }
             return false;
+        }
+        public static int ToPlayerIndex(this TwoPlayer twoPlayer, IGwentServerGame game)
+        {
+            if (twoPlayer == TwoPlayer.Player1)
+            {
+                return game.Player1Index;
+            }
+            else
+            {
+                return game.Player2Index;
+            }
         }
         public static CardStatus CreateBackCard(this CardStatus card) => new CardStatus(card.DeckFaction);// { IsCardBack = true, DeckFaction = card.DeckFaction };
         public static int CardPoint(this GameCard card) => card.Status.HealthStatus + card.Status.Strength;

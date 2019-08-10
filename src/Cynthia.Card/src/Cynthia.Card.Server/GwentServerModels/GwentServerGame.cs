@@ -471,11 +471,19 @@ namespace Cynthia.Card.Server
         }
         public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
+            if (info.SelectList.Count == 0)
+            {
+                return new List<int>();
+            }
             await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
             return (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<IList<int>>();
         }
         public async Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info)//指示器向边缘扩展格数
         {
+            if (info.CanSelect.CardsPartToLocation().Count() == 0)
+            {
+                return new List<CardLocation>();
+            }
             await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
             return (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<IList<CardLocation>>();
         }
@@ -1348,32 +1356,48 @@ namespace Cynthia.Card.Server
         //====================================================================================
         //====================================================================================
         //卡牌事件处理与转发
-        public async Task CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
+        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
         {
             //定位到这一排
             var row = RowToList(playerIndex, position.RowPosition);
             if (position.RowPosition.IsOnPlace() && row.Count >= RowMaxCount)
-                return;
+                return null;
             //创造对应的卡
             var creatCard = new GameCard(this, playerIndex, new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.None), cardId);
             setting?.Invoke(creatCard.Status);
             //将创造的卡以不显示的方式移动到目标位置!
             await LogicCardMove(creatCard, row, position.CardIndex);
             //发送信息,显示创造的卡
-            await Players[playerIndex].SendAsync(ServerOperationType.CreateCard, creatCard.Status, creatCard.GetLocation());
-            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
-            ((creatCard.IsShowBack(AnotherPlayer(playerIndex))) ? creatCard.Status.CreateBackCard() : creatCard.Status), creatCard.GetLocation().Mirror());
+            if (position.RowPosition.IsMyRow())
+            {
+                await Players[playerIndex].SendAsync(ServerOperationType.CreateCard, creatCard.Status, creatCard.GetLocation());
+                await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
+                ((creatCard.IsShowBack(AnotherPlayer(playerIndex))) ? creatCard.Status.CreateBackCard() : creatCard.Status), creatCard.GetLocation().Mirror());
+            }
+            else
+            {
+                await Players[playerIndex].SendAsync(ServerOperationType.CreateCard, creatCard.Status, creatCard.GetLocation().Mirror());
+                await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.CreateCard,
+                ((creatCard.IsShowBack(AnotherPlayer(playerIndex))) ? creatCard.Status.CreateBackCard() : creatCard.Status), creatCard.GetLocation());
+            }
             await AddTask(async () =>
             {
                 if (creatCard.Status.CardRow.IsOnPlace())
                 {
-                    await ShowCardOn(creatCard);
                     await AddTask(async () =>
                     {
-                        await creatCard.Effect.CardDown(false);
+                        if (position.RowPosition.IsMyRow())
+                        {
+                            await creatCard.Effect.Play(position);
+                        }
+                        else
+                        {
+                            await creatCard.Effect.Play(position.Mirror(), true);
+                        }
                     });
                 }
             });
+            return creatCard;
         }
         public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡")
         {

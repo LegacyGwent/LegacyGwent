@@ -85,9 +85,10 @@ namespace Cynthia.Card
         }
 
         //使卡牌"放置"
-        public virtual async Task Play(CardLocation location)//放置
+        public virtual async Task Play(CardLocation location, bool forceSpying = false)//放置
         {
             var (isSpying, isReveal) = await CardPlayStart(location);
+            isSpying |= forceSpying;
             //历史卡牌
             Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
             var count = 0;
@@ -278,9 +279,12 @@ namespace Cynthia.Card
             var isSpying = !location.RowPosition.IsMyRow();
             var IsReveal = Card.Status.IsReveal;
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
-            await Game.ShowCardOn(Card);
-            await Game.ShowCardMove(location, Card);
-            await Game.ClientDelay(400);
+            if (location.RowPosition != Card.Status.CardRow || Card.GetRowIndex() != location.CardIndex)
+            {
+                await Game.ShowCardOn(Card);
+                await Game.ShowCardMove(location, Card);
+                await Game.ClientDelay(400);
+            }
             await Game.SendEvent(new AfterUnitPlay(Card));
             return (isSpying, IsReveal);//有没有间谍呢
         }

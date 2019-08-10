@@ -12,9 +12,9 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await Game.CreateCard(CardId.Wilfred, PlayerIndex, Card.GetLocation());
-            await Game.CreateCard(CardId.Wilhelm, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++));
+            await Game.CreateCard(CardId.Wilhelm, PlayerIndex, Card.GetLocation() + 1);
             //对面同排同序号生成
-            await Game.CreateCard(CardId.Wilmar, AnotherPlayer, Card.GetLocation());
+            await Game.CreateCard(CardId.Wilmar, PlayerIndex, Card.GetLocation().Mirror());
             return 0;
         }
     }
