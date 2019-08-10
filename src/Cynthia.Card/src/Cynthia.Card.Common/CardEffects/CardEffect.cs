@@ -85,9 +85,10 @@ namespace Cynthia.Card
         }
 
         //使卡牌"放置"
-        public virtual async Task Play(CardLocation location)//放置
+        public virtual async Task Play(CardLocation location, bool forceSpying = false)//放置
         {
             var (isSpying, isReveal) = await CardPlayStart(location);
+            isSpying |= forceSpying;
             //历史卡牌
             Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
             var count = 0;
@@ -145,7 +146,7 @@ namespace Cynthia.Card
                     {
                         await Game.ShowCardOn(Card);
                         await Game.ClientDelay(50);
-                        if (Card.Status.Strength <= 0)
+                        if (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
                         {
                             await Banish();
                             return;
@@ -163,7 +164,7 @@ namespace Cynthia.Card
             });
             async Task sendEventTask()
             {
-                if (Card.Status.IsDoomed || Card.Status.Strength <= 0)//如果是佚亡,放逐
+                if (Card.Status.IsDoomed || (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
                     return;
@@ -278,9 +279,12 @@ namespace Cynthia.Card
             var isSpying = !location.RowPosition.IsMyRow();
             var IsReveal = Card.Status.IsReveal;
             Card.Status.IsReveal = false;//不管怎么样,都先设置成非揭示状态
-            await Game.ShowCardOn(Card);
-            await Game.ShowCardMove(location, Card);
-            await Game.ClientDelay(400);
+            if (location.RowPosition != Card.Status.CardRow || Card.GetRowIndex() != location.CardIndex)
+            {
+                await Game.ShowCardOn(Card);
+                await Game.ShowCardMove(location, Card);
+                await Game.ClientDelay(400);
+            }
             await Game.SendEvent(new AfterUnitPlay(Card));
             return (isSpying, IsReveal);//有没有间谍呢
         }
@@ -476,7 +480,7 @@ namespace Cynthia.Card
             //重置,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardReset(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            if (Card.Status.Strength <= 0)
+            if (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
             {
                 await Banish();
             }

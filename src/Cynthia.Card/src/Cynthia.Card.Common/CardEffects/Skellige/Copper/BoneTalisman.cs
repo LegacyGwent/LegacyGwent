@@ -14,7 +14,7 @@ namespace Cynthia.Card
             if (switchCard == 0)
             {
                 //从我方墓地列出铜色“野兽”或“呓语”单位
-                var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Beast, Categorie.Cultist)).Mess();
+                var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Beast, Categorie.Cultist)).Mess(Game.RNG);
                 if (list.Count() == 0)
                 {
                     return 0;
