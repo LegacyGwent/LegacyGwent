@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Foglet(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterWeatherApply @event)
         {
-
+            
             if ((@event.PlayerIndex == Card.PlayerIndex && @event.Type == RowStatus.BitingFrost)
 
             {
@@ -20,8 +20,8 @@ namespace Cynthia.Card
                 {
                     return;
                 }
-                //只召唤第一个
-                if (Card == list.First())
+                //只召唤最后一个
+                if (Card == list.Last())
                 {
                     await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
                 }
