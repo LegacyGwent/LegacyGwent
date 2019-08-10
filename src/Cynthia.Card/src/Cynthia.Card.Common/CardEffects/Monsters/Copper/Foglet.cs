@@ -10,8 +10,7 @@ namespace Cynthia.Card
         public Foglet(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterWeatherApply @event)
         {
-            
-            if ((@event.PlayerIndex == Card.PlayerIndex && @event.Type == RowStatus.BitingFrost)
+            if (@event.Type == RowStatus.ImpenetrableFog && @event.PlayerIndex == AnotherPlayer)
 
             {
                 //列出所有可以打出卡
@@ -20,10 +19,10 @@ namespace Cynthia.Card
                 {
                     return;
                 }
-                //只召唤最后一个
+                //只召唤最后一个，召唤到同排最右侧
                 if (Card == list.Last())
                 {
-                    await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+                    await Card.Effect.Summon(new CardLocation(@event.Row, int.MaxValue), Card);
                 }
             }
             return;
