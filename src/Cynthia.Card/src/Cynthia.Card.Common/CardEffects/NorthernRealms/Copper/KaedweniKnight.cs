@@ -10,7 +10,7 @@ namespace Cynthia.Card
 		public KaedweniKnight(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			 return 0;
 		}
 	}
 }

@@ -11,22 +11,22 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterUnitPlay @event)
         {
 
-            var target = @event.PlayedCard;
-            if (target.Status.CardId == Card.Status.CardId)
+
+            if (@event.PlayedCard.Status.CardId == Card.Status.CardId)
             {
                 return;
             }
-            int phealth = target.ToHealth().health;
+            int phealth = @event.PlayedCard.ToHealth().health;
             //获取可触发效果的本卡同名卡列表
             var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId && x.ToHealth().health == phealth);
             if (list.Count() == 0)
             {
                 return;
             }
-            //只召唤第一个
-            if (Card == list.First())
+            //只召唤最后一个
+            if (Card == list.ToList().Last())
             {
-                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+                await Card.Effect.Summon(new CardLocation(Game.GetRandomCanPlayLocation(Card.PlayerIndex).RowPosition, int.MaxValue), Card);
             }
 
             return;
