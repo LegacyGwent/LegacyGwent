@@ -32,7 +32,11 @@ namespace Cynthia.Card.Server
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
 
         //获取在线人数
-        public async Task<int> GetUserCount() => await _gwentServerService.GetUserCount(Context.ConnectionId);
+        public async Task<int> GetUserCount()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetUserCount();//(Context.ConnectionId);
+        }
 
         //游戏内玩家操作
         public Task GameOperation(Operation<UserOperationType> operation)

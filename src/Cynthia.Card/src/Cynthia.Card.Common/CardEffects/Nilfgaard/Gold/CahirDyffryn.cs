@@ -8,10 +8,10 @@ namespace Cynthia.Card
     public class CahirDyffryn : CardEffect
     {//复活1张领袖牌。
         public CahirDyffryn(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = Game.PlayersCemetery[PlayerIndex]
-            .Where(x => x.Status.Group == Group.Leader).Mess();
+            .Where(x => x.Status.Group == Group.Leader).Mess(RNG);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");

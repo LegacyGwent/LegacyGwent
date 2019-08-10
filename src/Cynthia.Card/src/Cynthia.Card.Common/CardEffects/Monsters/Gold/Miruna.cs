@@ -16,14 +16,15 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            if (@event.PlayerIndex != PlayerIndex || !Card.IsAliveOnPlance())
             {
                 return;
             }
-            if (Card.Status.IsCountdown)
+            if (!Card.Status.IsCountdown)
             {
-                await SetCountdown(offset: -1);
+                return;
             }
+            await SetCountdown(offset: -1);
             if (Countdown <= 0)
             {
                 Card.Status.IsCountdown = false;

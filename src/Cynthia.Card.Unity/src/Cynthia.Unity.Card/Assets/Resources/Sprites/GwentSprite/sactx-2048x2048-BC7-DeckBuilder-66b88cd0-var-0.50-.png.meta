@@ -1,15 +1,30 @@
 fileFormatVersion: 2
 guid: d29b9efa9b54b4d4588f3387b97779d9
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: EditorMenu
-    21300002: EditorAllGroupIcon
-    21300004: SwitchBorder
-    21300006: ShelfPart1
-    21300008: ShelfPart2
-    21300010: UICardCount
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: EditorMenu
+  - first:
+      213: 21300002
+    second: EditorAllGroupIcon
+  - first:
+      213: 21300004
+    second: SwitchBorder
+  - first:
+      213: 21300006
+    second: ShelfPart1
+  - first:
+      213: 21300008
+    second: ShelfPart2
+  - first:
+      213: 21300010
+    second: UICardCount
+  - first:
+      213: 2204844738466290435
+    second: OK2
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -127,6 +142,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c59699e4d35493945ae0f88b92222b67
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -147,6 +163,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: e6ca37c04136a0b42b26e64e86ea0b71
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -167,6 +184,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9eff1b5cc4c78bc498790bce1852294c
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -187,6 +205,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 01f35864369302f42a705f866933b10e
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -207,6 +226,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 172bf04eb41c4ef40af1817beb1243ae
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -220,13 +240,35 @@ TextureImporter:
         width: 63
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: f59fb55663232d744ba23a426023b2be
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OK2
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 773
+        width: 42
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ba1c4a068291874bb82f4e418360870
+      internalID: 2204844738466290435
       vertices: []
       indices: 
       edges: []
@@ -235,10 +277,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 299c258901c3fed479e3b4626398290b
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
