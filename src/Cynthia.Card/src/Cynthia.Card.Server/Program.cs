@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
@@ -26,7 +28,7 @@ namespace Cynthia.Card.Server
             // Console.SetError(se);
             // try
             // {
-            //     var updateTask = TimingUpdate(20, sw, se);
+            // var updateTask = TimingUpdate(20, sw, se);
             CreateHostBuilder(args).Build().Run();
             // }
             // finally

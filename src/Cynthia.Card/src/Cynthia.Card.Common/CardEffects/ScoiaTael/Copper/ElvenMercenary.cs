@@ -12,11 +12,11 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cards = Game.PlayersDeck[Card.PlayerIndex]
                 .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Special);
-            var list = cards.Mess().Take(2);
+            var list = cards.Mess(RNG).Take(2);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
                 (Card.PlayerIndex, list.ToList(), 1, "选择打出一张牌");

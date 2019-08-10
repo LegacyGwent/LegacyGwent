@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var list = GwentMap.GetCards()
                 .Where(x => (x.Categories.Contains(Categorie.Spell))
                         && (x.Group == Group.Copper || x.Group == Group.Silver))
-                .Mess().Take(3).Select(x => x.CardId)
+                .Mess(RNG).Take(3).Select(x => x.CardId)
                 .ToList();
             return await Card.CreateAndMoveStay(list);
         }
