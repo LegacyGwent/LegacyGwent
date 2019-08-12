@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
@@ -14,3 +13,4 @@ namespace Cynthia.Card
             return 0;
         }
     }
+}
