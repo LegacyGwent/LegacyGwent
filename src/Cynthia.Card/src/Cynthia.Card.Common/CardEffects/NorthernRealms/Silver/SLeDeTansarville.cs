@@ -10,6 +10,7 @@ namespace Cynthia.Card
 		public SLeDeTansarville(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+			
 			return 0;
 		}
 	}
