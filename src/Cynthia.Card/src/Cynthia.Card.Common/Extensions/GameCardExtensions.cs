@@ -27,7 +27,6 @@ namespace Cynthia.Card
         {
             if (!card.Status.CardRow.IsOnPlace())
             {
-                // return 0;
                 throw new InvalidOperationException("card is not on plance");
             }
             var count = 0;
