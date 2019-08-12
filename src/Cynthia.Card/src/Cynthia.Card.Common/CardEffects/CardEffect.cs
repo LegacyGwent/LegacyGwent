@@ -110,13 +110,17 @@ namespace Cynthia.Card
         }
 
         //使卡牌"进入墓地"
-        public virtual async Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        {
+            return ToCemetery((false, null), type);
+        }
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, CardBreakEffectType type = CardBreakEffectType.ToCemetery)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
 
             //立刻执行,将卡牌视作僵尸卡
-            if (Card.CardPoint() != 0)
+            if (Card.CardPoint() != 0 && Card.Status.CardRow.IsOnPlace())
             {
                 Card.Status.HealthStatus = -Card.Status.Strength;
             }
@@ -176,6 +180,10 @@ namespace Cynthia.Card
                 if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
                 {
                     await Game.SendEvent(new AfterCardDeath(Card, deadposition));
+                }
+                else if (discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
+                {
+                    await Game.SendEvent(new AfterCardDiscard(Card, discardInfo.discardSource));
                 }
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 if (Card.HasAnyCategorie(Categorie.Token))
@@ -559,10 +567,9 @@ namespace Cynthia.Card
         public virtual async Task Discard(GameCard source)//丢弃(未测试)
         {//如果在场上,墓地或者已被放逐,不触发
             if (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
-            await ToCemetery();
+            await ToCemetery((true, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            //丢弃,应该触发对应事件<暂未定义,待补充>
-            await Game.SendEvent(new AfterCardDiscard(Card, source));
+            //丢弃,应该触发对应事件(在ToCemetery内部触发)
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Lock(GameCard source)//锁定
@@ -602,7 +609,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Resurrect(CardLocation location, GameCard source)//复活
         {
-            if (Card.Status.CardRow == RowPosition.Banish && !Card.Status.CardRow.IsInCemetery()) return;
+            if (Card.Status.CardRow == RowPosition.Banish || !Card.Status.CardRow.IsInCemetery()) return;
             if (Card.Status.IsLock)
             {
                 await Card.Effect.Lock(source);
