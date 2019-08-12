@@ -33,6 +33,10 @@ namespace Cynthia.Card
             var count = 0;
             foreach (var target in card.GetRangeCard(1, GetRangeType.HollowAll))
             {
+                if (target.Status.IsLock)
+                {
+                    continue;
+                }
                 count += target.Status.CrewCount;
             }
             return count;
