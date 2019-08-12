@@ -10,7 +10,17 @@ namespace Cynthia.Card
 		public IbhearHattori(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
-		}
+            var cards = Game.PlayersCemetery[AnotherPlayer].FilterCards(type: CardType.Unit, filter: 
+                x => x.IsAnyGroup(Group.Copper, Group.Silver) && x.Status.Faction == Faction.ScoiaTael && x.Status.Strength <= Card.Status.Strength);
+
+            if (!(await Game.GetSelectMenuCards(PlayerIndex, cards.ToList())).TrySingle(out var target))
+            {
+                return 0;
+            }
+
+            await target.Effect.Resurrect(new CardLocation(RowPosition.MyStay, 0), Card);
+            return 1;
+
+        }
 	}
 }
