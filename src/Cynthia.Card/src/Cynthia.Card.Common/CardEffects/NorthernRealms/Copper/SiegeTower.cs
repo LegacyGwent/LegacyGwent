@@ -8,10 +8,16 @@ namespace Cynthia.Card
     public class SiegeTower : CardEffect
     {//获得2点增益。 驱动：再次触发此能力。
         public SiegeTower(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.Boost(2, Card);
-            return 0;
+            if (Card.GetLocation().RowPosition.IsOnPlace())
+            {
+                for (var i = 0; i < 1 + Card.GetCrewedCount(); i++)
+                {
+                    await Card.Effect.Boost(2, Card);
+                }
+
+            }
         }
     }
 }
