@@ -37,6 +37,7 @@ namespace Cynthia.Card
         private string _cardArtId;
         private Group? _group;
         private Faction? _faction;
+        private int? _crewCount;
         public GwentCard CardInfo { get; set; }
         public string CardId { get; set; }
         public string CardArtsId { get => _cardArtId ?? CardInfo.CardArtsId; set => _cardArtId = value; }
@@ -52,6 +53,7 @@ namespace Cynthia.Card
         public bool IsResilience { get; set; } = false;//是否坚韧 | 场地
         public int Armor { get; set; } = 0;//护甲 | 场地
         public int Strength { get => _strength ?? CardInfo.Strength; set => _strength = value; }//战力 | 手牌,场地,墓地
+        public int CrewCount { get => _crewCount ?? CardInfo.CrewCount; set => _crewCount = value; }
         public int HealthStatus { get; set; } = 0;//增益减益 | 手牌,场地
         public bool IsLock { get; set; } = false;//是否锁定 | 场地,墓地
         public bool Conceal { get; set; } = false;//是否盖牌 | 场地
