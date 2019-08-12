@@ -11,5 +11,6 @@ namespace Cynthia.Card
         public Yaevinn(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            return 0;
         }
     }
