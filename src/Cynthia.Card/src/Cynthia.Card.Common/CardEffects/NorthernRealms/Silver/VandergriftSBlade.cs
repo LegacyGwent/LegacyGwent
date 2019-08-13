@@ -21,6 +21,7 @@ namespace Cynthia.Card
                     return 0;
                 }
                 await target.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
+                return 0;
             }
 
             if (switchCard == 1)
@@ -30,13 +31,14 @@ namespace Cynthia.Card
                 {
                     return 0;
                 }
-                await target.Effect.Damage(6, Card);
+                await target.Effect.Damage(9, Card);
                 //如果目标没死，结束
                 if (!target.IsDead)
                 {
                     return 0;
                 }
-                await target.Effect.Banish();
+                target.Status.IsDoomed = true;
+                return 0;
 
             }
             return 0;

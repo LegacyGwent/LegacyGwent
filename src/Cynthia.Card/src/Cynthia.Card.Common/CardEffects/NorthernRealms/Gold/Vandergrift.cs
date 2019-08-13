@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 if (card.IsDead && !(Game.GameRowEffect[card.PlayerIndex][row.MyRowToIndex()].RowStatus == RowStatus.RaghNarRoog))
                 {
                     await Game.GameRowEffect[card.PlayerIndex][row.MyRowToIndex()].SetStatus<RaghNarRoogStatus>();
-                }
+                }	
             }
             return 0;
         }

@@ -23,7 +23,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterUnitPlay @event)
         {
-            if (@event.PlayedCard.Status.CardId == Card.Status.CardId && Card.Status.CardRow.IsOnPlace() && Card.PlayerIndex == @event.PlayedCard.PlayerIndex)
+            if (@event.PlayedCard.Status.CardId == Card.Status.CardId && Card.Status.CardRow.IsOnPlace() && Card.PlayerIndex == @event.PlayedCard.PlayerIndex && @event.PlayedCard != Card)
             {
                 var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId);
                 if (cards.Count() == 0)
