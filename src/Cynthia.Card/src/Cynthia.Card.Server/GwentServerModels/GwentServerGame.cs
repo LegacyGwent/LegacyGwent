@@ -1382,19 +1382,41 @@ namespace Cynthia.Card.Server
             }
             await AddTask(async () =>
             {
-                if (creatCard.Status.CardRow.IsOnPlace())
+            if (creatCard.Status.CardRow.IsOnPlace())
+            {
+                await AddTask(async () =>
                 {
-                    await AddTask(async () =>
+                    if (creatCard.Status.CardRow.IsOnPlace())
                     {
+                        // await ShowCardOn(creatCard);
                         if (position.RowPosition.IsMyRow())
                         {
-                            await creatCard.Effect.Play(position);
+                            await AddTask(async () =>
+                            {
+                                await creatCard.Effect.CardDown(false);
+                            });
                         }
                         else
                         {
-                            await creatCard.Effect.Play(position.Mirror(), true);
+                            await AddTask(async () =>
+                             {
+                                 await creatCard.Effect.CardDown(true);
+                                 if (creatCard.IsAliveOnPlance())
+                                 {
+                                     await creatCard.Effect.Spying(creatCard);
+                                 }
+                             });
                         }
-                    });
+                    }
+                    //     if (position.RowPosition.IsMyRow())
+                    //     {
+                    //         await creatCard.Effect.Play(position);
+                    //     }
+                    //     else
+                    //     {
+                    //         await creatCard.Effect.Play(position.Mirror(), true);
+                    //     }
+                    // });
                 }
             });
             return creatCard;
