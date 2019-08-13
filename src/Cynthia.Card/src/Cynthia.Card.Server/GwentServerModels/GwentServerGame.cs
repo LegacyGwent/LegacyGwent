@@ -1341,7 +1341,7 @@ namespace Cynthia.Card.Server
         {
             return ((player == TwoPlayer.Player1) ? Player1Index : Player2Index);
         }
-        public CardLocation GetRandomCanPlayLocation(int playerIndex)
+        public CardLocation GetRandomCanPlayLocation(int playerIndex, bool isAtEnd = false)
         {
             var a = new List<int>();
             if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
@@ -1350,6 +1350,10 @@ namespace Cynthia.Card.Server
             if (a.Count == 0) return null;
             var rowIndex = a[RNG.Next(0, a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;
+            if (isAtEnd)
+            {
+                return new CardLocation(rowIndex.IndexToMyRow(), count);
+            }
             return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
 
         }
