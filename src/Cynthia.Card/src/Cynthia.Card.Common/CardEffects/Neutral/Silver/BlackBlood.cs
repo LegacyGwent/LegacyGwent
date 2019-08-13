@@ -31,8 +31,7 @@ namespace Cynthia.Card
             else if (switchCard == 1)
             {
                 var target = await Game.GetSelectPlaceCards(Card, 1, false,
-                    x => x.Status.Categories.Contains(Categorie.Necrophage) ||
-                        x.Status.Categories.Contains(Categorie.Vampire));
+                x => x.HasAnyCategorie(Categorie.Necrophage, Categorie.Vampire) && x.IsAnyGroup(Group.Copper, Group.Silver));
                 if (target.Count == 0) return 0;
                 await target.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
             }
