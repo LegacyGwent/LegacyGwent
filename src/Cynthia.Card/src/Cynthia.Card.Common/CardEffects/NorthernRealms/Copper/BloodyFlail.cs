@@ -19,7 +19,7 @@ namespace Cynthia.Card
             await target.Effect.Damage(5, Card);
             //最右生成
 
-            await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, Game.GetRandomCanPlayLocation(Card.PlayerIndex).RowPosition);
+            await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, Game.GetRandomCanPlayLocation(Card.PlayerIndex,true).RowPosition);
             return 0;
         }
     }
