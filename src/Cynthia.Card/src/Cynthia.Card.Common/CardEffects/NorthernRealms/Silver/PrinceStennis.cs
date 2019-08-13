@@ -16,9 +16,10 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.MoveToCardStayFirst();
             await target.Effect.Armor(5, Card);
-            return 0;
+            await target.MoveToCardStayFirst();
+
+            return 1;
         }
 
     }

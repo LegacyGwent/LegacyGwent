@@ -12,13 +12,18 @@ namespace Cynthia.Card
         {
 
             //选择一张场上的卡
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.HasAnyCategorie(Categorie.Machine) && (x.Status.Group == Group.Silver || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit);
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.HasAnyCategorie(Categorie.Machine) && (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit);
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
             }
-            await target.Effect.Heal(Card);
+            if (target.Status.HealthStatus < 0)
+            {
+                await target.Effect.Heal(Card);
+            }
+
             await target.Effect.CardDownEffect(false, true);
+
             return 0;
         }
     }

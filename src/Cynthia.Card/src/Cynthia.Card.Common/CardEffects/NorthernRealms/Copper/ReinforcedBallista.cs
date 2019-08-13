@@ -22,7 +22,6 @@ namespace Cynthia.Card
                     await target.Effect.Damage(2, Card);
                 }
             }
-            return;
         }
     }
 }
