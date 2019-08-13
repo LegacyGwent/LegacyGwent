@@ -23,7 +23,12 @@ namespace Cynthia.Card
             var enemyPlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
             if (myPlacePoint + 25 < enemyPlacePoint)
             {
-                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+                //召唤全部
+                var cards = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
+                foreach (var card in cards)
+                {
+                    await card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+                }
 
             }
 
