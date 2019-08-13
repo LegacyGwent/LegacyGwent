@@ -14,7 +14,7 @@ namespace Cynthia.Card
         {
             if (Card.Status.CardRow != RowPosition.MyDeck || temp == @event.Target || @event.Target.PlayerIndex == Card.PlayerIndex || @event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex) return;
             temp = @event.Target;
-            await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), @event.Target);//(Game.GetRandomCanPlayLocation(Card.PlayerIndex));
+            await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), @event.Target);//(Game.GetRandomCanPlayLocation(Card.PlayerIndex));
         }
     }
 }
