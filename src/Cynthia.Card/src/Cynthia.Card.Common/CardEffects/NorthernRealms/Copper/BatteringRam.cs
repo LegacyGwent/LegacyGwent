@@ -22,17 +22,16 @@ namespace Cynthia.Card
             }
             await target.Effect.Damage(damagenum, Card);
             //如果目标没死，结束
-            if (!target.IsDead)
+            if (target.CardPoint() > 0)
             {
                 return;
             }
             var selectList2 = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (!selectList.TrySingle(out var target2))
+            if (!selectList2.TrySingle(out var target2))
             {
                 return;
             }
             await target2.Effect.Damage(3, Card);
-            return;
         }
     }
 }

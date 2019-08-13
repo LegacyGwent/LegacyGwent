@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
 
 
-            if (@event.PlayedCard.Status.CardId == Card.Status.CardId)
+            if (@event.PlayedCard.Status.CardId == Card.Status.CardId || @event.PlayedCard.PlayerIndex != Card.PlayerIndex)
             {
                 return;
             }

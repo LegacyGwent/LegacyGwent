@@ -35,7 +35,7 @@ namespace Cynthia.Card
                 list.Add(card2);
             }
             //对于抽取的卡
-            var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1, "选择抽一张牌", isCanOver: false);
+            var result = await Game.GetSelectMenuCards(AnotherPlayer, list, 1, "选择抽一张牌", isCanOver: false);
             var dcard = result.Single();
             var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);
             await Game.LogicCardMove(dcard, row, 0);//将选中的卡移动到最上方

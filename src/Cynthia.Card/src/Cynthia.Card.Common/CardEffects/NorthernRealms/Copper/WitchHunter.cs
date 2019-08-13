@@ -23,8 +23,10 @@ namespace Cynthia.Card
                     return 0;
                 }
                 await card.MoveToCardStayFirst();
+                return 1;
             }
             return 0;
         }
+
     }
 }
