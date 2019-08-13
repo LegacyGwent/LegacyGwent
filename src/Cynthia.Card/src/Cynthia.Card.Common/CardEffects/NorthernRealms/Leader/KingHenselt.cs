@@ -18,12 +18,11 @@ namespace Cynthia.Card
             }
             var list = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == target.Status.CardId);
 
-            ////两张打不行
-            // foreach (var card in list.ToList())
-            // {
-            //     await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, card);
-            // }
-            // await Card.Effect.PlayStayCard(list.Count(), false);
+            //两张打不行
+            foreach (var card in list.ToList())
+            {
+                await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, card);
+            }
 
 
             // //一张一张打可以
@@ -34,7 +33,7 @@ namespace Cynthia.Card
             // }
 
 
-            return list.Count();
+            return 2;
 
         }
     }
