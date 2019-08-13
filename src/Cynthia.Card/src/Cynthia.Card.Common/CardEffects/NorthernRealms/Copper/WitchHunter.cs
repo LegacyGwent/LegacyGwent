@@ -10,6 +10,7 @@ namespace Cynthia.Card
         public WitchHunter(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+<<<<<<< HEAD
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
             if (!selectList.TrySingle(out var target))
             {
@@ -28,5 +29,9 @@ namespace Cynthia.Card
             return 0;
         }
 
+=======
+            return 0;
+        }
+>>>>>>> cea249da5c3913f5dbcff10332b787bb9eea8260
     }
 }

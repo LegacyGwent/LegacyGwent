@@ -1341,7 +1341,7 @@ namespace Cynthia.Card.Server
         {
             return ((player == TwoPlayer.Player1) ? Player1Index : Player2Index);
         }
-        public CardLocation GetRandomCanPlayLocation(int playerIndex)
+        public CardLocation GetRandomCanPlayLocation(int playerIndex, bool isAtEnd = false)
         {
             var a = new List<int>();
             if (PlayersPlace[playerIndex][0].Count < RowMaxCount) a.Add(0);
@@ -1350,6 +1350,10 @@ namespace Cynthia.Card.Server
             if (a.Count == 0) return null;
             var rowIndex = a[RNG.Next(0, a.Count)];
             var count = PlayersPlace[playerIndex][rowIndex].Count;
+            if (isAtEnd)
+            {
+                return new CardLocation(rowIndex.IndexToMyRow(), count);
+            }
             return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
 
         }
@@ -1386,14 +1390,36 @@ namespace Cynthia.Card.Server
                 {
                     await AddTask(async () =>
                     {
-                        if (position.RowPosition.IsMyRow())
+                        if (creatCard.Status.CardRow.IsOnPlace())
                         {
-                            await creatCard.Effect.Play(position);
+                            // await ShowCardOn(creatCard);
+                            if (position.RowPosition.IsMyRow())
+                            {
+                                await AddTask(async () =>
+                                {
+                                    await creatCard.Effect.CardDown(false);
+                                });
+                            }
+                            else
+                            {
+                                await AddTask(async () =>
+                                 {
+                                     await creatCard.Effect.CardDown(true);
+                                     if (creatCard.IsAliveOnPlance())
+                                     {
+                                         await creatCard.Effect.Spying(creatCard);
+                                     }
+                                 });
+                            }
                         }
-                        else
-                        {
-                            await creatCard.Effect.Play(position.Mirror(), true);
-                        }
+                        //     if (position.RowPosition.IsMyRow())
+                        //     {
+                        //         await creatCard.Effect.Play(position);
+                        //     }
+                        //     else
+                        //     {
+                        //         await creatCard.Effect.Play(position.Mirror(), true);
+                        //     }
                     });
                 }
             });

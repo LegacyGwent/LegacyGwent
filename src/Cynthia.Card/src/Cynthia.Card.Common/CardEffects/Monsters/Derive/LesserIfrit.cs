@@ -8,10 +8,9 @@ namespace Cynthia.Card
     public class LesserIfrit : CardEffect
     {//对1个敌军随机单位造成1点伤害。
         public LesserIfrit(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
             await DamageRandomEnemy();
-            return 0;
         }
         private async Task DamageRandomEnemy()
         {
