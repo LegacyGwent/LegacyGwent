@@ -10,7 +10,6 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            if (Card.Status.IsLock) return;
             if (@event.Target == Card)
             {
                 var row = Game.RowToList(@event.Target.PlayerIndex, @event.DeathLocation.RowPosition);

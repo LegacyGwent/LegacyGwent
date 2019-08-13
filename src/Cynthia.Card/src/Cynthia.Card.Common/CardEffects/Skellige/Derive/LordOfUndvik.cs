@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex && x.CardInfo().CardId == "62002").Mess().ToList();
+            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex && x.CardInfo().CardId == "62002").Mess(Game.RNG).ToList();
             foreach (var card in cards)
             {
                 if (card.Status.CardRow.IsOnPlace())

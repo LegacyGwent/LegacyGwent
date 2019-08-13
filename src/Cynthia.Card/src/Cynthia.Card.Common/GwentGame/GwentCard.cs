@@ -57,5 +57,6 @@ namespace Cynthia.Card
 
         //是否是属于衍生卡池
         public bool IsDerive { get; set; }
+        public int CrewCount { get; set; }
     }
 }

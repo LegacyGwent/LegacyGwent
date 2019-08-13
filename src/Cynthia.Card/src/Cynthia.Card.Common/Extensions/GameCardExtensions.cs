@@ -23,6 +23,24 @@ namespace Cynthia.Card
             (type == null ? true : card.Status.Type == type);
         }
 
+        public static int GetCrewedCount(this GameCard card)
+        {
+            if (!card.Status.CardRow.IsOnPlace())
+            {
+                throw new InvalidOperationException("card is not on plance");
+            }
+            var count = 0;
+            foreach (var target in card.GetRangeCard(1, GetRangeType.HollowAll))
+            {
+                if (target.Status.IsLock)
+                {
+                    continue;
+                }
+                count += target.Status.CrewCount;
+            }
+            return count;
+        }
+
         public static bool Is(this GwentCard card, Group? group = null, CardType? type = null, Func<GwentCard, bool> filter = null, Faction? faction = null)
         {
             return (faction == null ? true : card.Faction == faction) &&

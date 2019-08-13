@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             //列出墓地的铜色/银色“史凯利格”单位牌,如果没有,什么都不做
-            var Clist = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && x.Status.Faction == Faction.Skellige).Mess();
+            var Clist = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && x.Status.Faction == Faction.Skellige).Mess(Game.RNG);
             if (Clist.Count() == 0)
             {
                 return 0;
