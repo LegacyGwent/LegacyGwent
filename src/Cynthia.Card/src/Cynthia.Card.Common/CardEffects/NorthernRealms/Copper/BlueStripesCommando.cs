@@ -26,7 +26,7 @@ namespace Cynthia.Card
             //只召唤最后一个
             if (Card == list.ToList().Last())
             {
-                await Card.Effect.Summon(new CardLocation(Game.GetRandomCanPlayLocation(Card.PlayerIndex).RowPosition, int.MaxValue), Card);
+                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
             }
 
             return;

@@ -27,7 +27,8 @@ namespace Cynthia.Card
                 var cards = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
                 foreach (var card in cards)
                 {
-                    await card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+                    //召唤到末尾
+                    await card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex,true), Card);
                 }
 
             }
