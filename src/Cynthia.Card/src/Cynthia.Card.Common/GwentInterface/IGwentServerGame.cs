@@ -74,7 +74,7 @@ namespace Cynthia.Card
         Task ShowCardOn(GameCard card);//抬起
         Task SendCardOn(int playerIndex, CardLocation location);
         //-----------------------
-        Task CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null);
+        Task<GameCard> CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null);
         Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡");
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
@@ -122,5 +122,6 @@ namespace Cynthia.Card
         Task ClientDelay(int millisecondsDelay, int? playerIndex = null);
         Task SendEvent<TEvent>(TEvent @event) where TEvent : Event;
         CardEffect CreateEffectInstance(string effectId, GameCard targetCard);
+        Task SendOperactionList();
     }
 }
