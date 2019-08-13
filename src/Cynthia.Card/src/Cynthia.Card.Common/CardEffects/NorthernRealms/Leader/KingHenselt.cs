@@ -16,24 +16,16 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            var list = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == target.Status.CardId);
+            var list = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == target.Status.CardId).ToList();
 
-            // //两张打不行
-            // foreach (var card in list.ToList())
-            // {
-            //     await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, card);
-            // }
-
-
-            // // //一张一张打可以
-            // // foreach (var card in list.ToList())
-            // // {
-            // //     await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, card);
-            // //     await Card.Effect.PlayStayCard(1, false);
-            // // }
+            //两张打不行
+            foreach (var card in list)
+            {
+                await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, card);
+            }
 
 
-            return 2;
+            return list.Count();
 
         }
     }
