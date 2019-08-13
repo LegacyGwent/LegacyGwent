@@ -11,7 +11,7 @@ namespace Cynthia.Card
     {//摧毁场上所有单位，并移除所有恩泽和灾厄。
         public Hemdall(GameCard card) : base(card) { }
 
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
             var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();
             foreach (var card in cards)
@@ -23,7 +23,6 @@ namespace Cynthia.Card
                 //将所有行设置为无效果
                 await row.SetStatus<NoneStatus>();
             }
-            return 0;
         }
     }
 }
