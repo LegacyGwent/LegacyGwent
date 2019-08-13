@@ -1382,41 +1382,41 @@ namespace Cynthia.Card.Server
             }
             await AddTask(async () =>
             {
-            if (creatCard.Status.CardRow.IsOnPlace())
-            {
-                await AddTask(async () =>
+                if (creatCard.Status.CardRow.IsOnPlace())
                 {
-                    if (creatCard.Status.CardRow.IsOnPlace())
+                    await AddTask(async () =>
                     {
-                        // await ShowCardOn(creatCard);
-                        if (position.RowPosition.IsMyRow())
+                        if (creatCard.Status.CardRow.IsOnPlace())
                         {
-                            await AddTask(async () =>
+                            // await ShowCardOn(creatCard);
+                            if (position.RowPosition.IsMyRow())
                             {
-                                await creatCard.Effect.CardDown(false);
-                            });
-                        }
-                        else
-                        {
-                            await AddTask(async () =>
-                             {
-                                 await creatCard.Effect.CardDown(true);
-                                 if (creatCard.IsAliveOnPlance())
+                                await AddTask(async () =>
+                                {
+                                    await creatCard.Effect.CardDown(false);
+                                });
+                            }
+                            else
+                            {
+                                await AddTask(async () =>
                                  {
-                                     await creatCard.Effect.Spying(creatCard);
-                                 }
-                             });
+                                     await creatCard.Effect.CardDown(true);
+                                     if (creatCard.IsAliveOnPlance())
+                                     {
+                                         await creatCard.Effect.Spying(creatCard);
+                                     }
+                                 });
+                            }
                         }
-                    }
-                    //     if (position.RowPosition.IsMyRow())
-                    //     {
-                    //         await creatCard.Effect.Play(position);
-                    //     }
-                    //     else
-                    //     {
-                    //         await creatCard.Effect.Play(position.Mirror(), true);
-                    //     }
-                    // });
+                        //     if (position.RowPosition.IsMyRow())
+                        //     {
+                        //         await creatCard.Effect.Play(position);
+                        //     }
+                        //     else
+                        //     {
+                        //         await creatCard.Effect.Play(position.Mirror(), true);
+                        //     }
+                    });
                 }
             });
             return creatCard;
