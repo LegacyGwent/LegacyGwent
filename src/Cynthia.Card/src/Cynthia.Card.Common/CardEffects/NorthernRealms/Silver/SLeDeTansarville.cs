@@ -21,9 +21,10 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await result.Single().MoveToCardStayFirst();
             await Game.PlayerDrawCard(Card.PlayerIndex, 1);
-            return 0;
+            await result.Single().MoveToCardStayFirst();
+
+            return 1;
         }
     }
 }

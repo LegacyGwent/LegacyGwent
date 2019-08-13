@@ -21,7 +21,7 @@ namespace Cynthia.Card
                 }
                 //获取所有敌方除了target以外的与target战力相同卡,从中随机取最多4个
                 //take方法超过上限会发生什么？
-                var enemycards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex && x != target && x.ToHealth().health == Card.ToHealth().health).Mess();
+                var enemycards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex && x != target && x.ToHealth().health == target.ToHealth().health).Mess();
                 if (enemycards.Count() == 0)
                 {
                     await target.Effect.Damage(1, Card);
@@ -29,11 +29,10 @@ namespace Cynthia.Card
                 }
                 int takenum = enemycards.Count() <= 4 ? enemycards.Count() : 4;
 
-                var damagelist = enemycards.Take(takenum).ToList().Concat(new List<GameCard>() { target });
+                var damagelist = enemycards.Take(takenum).Concat(new List<GameCard>() { target }).ToList();
                 foreach (var card in damagelist)
                 {
                     await card.Effect.Damage(1, Card);
-
                 }
             }
 

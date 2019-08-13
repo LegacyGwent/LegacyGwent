@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             //还没有摧毁护甲api，目前用伤害
             //选择一张场上的卡
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow, filter: x => x.Status.Armor <= 0);
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow, filter: x => x.Status.Armor >= 0);
             if (!selectList.TrySingle(out var target))
             {
                 return 0;

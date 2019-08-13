@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public RedanianKnight(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (Card.Status.CardRow.IsOnPlace() && Card.Status.Armor <= 0)
+            if (Card.Status.CardRow.IsOnPlace() && Card.Status.Armor <= 0 && @event.PlayerIndex == Card.PlayerIndex)
             {
                 await Card.Effect.Armor(2, Card);
                 await Card.Effect.Boost(2, Card);

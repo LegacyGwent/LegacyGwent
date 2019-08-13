@@ -15,7 +15,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Transform("65002", Card);
+            await target.Effect.Transform(CardId.CursedKnight, Card);
             return 0;
         }
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
