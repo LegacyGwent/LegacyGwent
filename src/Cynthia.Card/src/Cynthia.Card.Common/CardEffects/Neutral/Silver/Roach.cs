@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             if (@event.Target.Status.Group == Group.Gold && @event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
             {
-                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex), @event.Target);
+                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), @event.Target);
             }
         }
     }
