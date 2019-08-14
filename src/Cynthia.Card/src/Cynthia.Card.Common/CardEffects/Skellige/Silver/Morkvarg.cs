@@ -35,7 +35,7 @@ namespace Cynthia.Card
             //第二类情况，丢弃，随机复活到任何位置
             else
             {
-                await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+                await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
             }
             await Task.CompletedTask;
         }
