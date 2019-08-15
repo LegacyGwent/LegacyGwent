@@ -11,7 +11,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardResurrect @event)
         {
-            if (@event.Target == Card)
+            if (@event.Target != Card)
             {
                 return;
             }

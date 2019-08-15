@@ -16,7 +16,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex), Card);
+            await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
         }
     }
 }
