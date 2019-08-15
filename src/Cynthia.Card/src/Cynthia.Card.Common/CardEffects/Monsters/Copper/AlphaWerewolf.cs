@@ -24,9 +24,9 @@ namespace Cynthia.Card
             //以下代码基于 向满月上打出满月不会buff
 
             //如果不在场上
-            if(!Card.GetLocation().RowPosition.IsOnPlace())
+            if (!Card.GetLocation().RowPosition.IsOnPlace())
             {
-                return ;
+                return;
             }
             //如果特效没有放置到狼人排 什么事情都不做
             if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition) && !(@event.PlayerIndex != Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition.Mirror()))
