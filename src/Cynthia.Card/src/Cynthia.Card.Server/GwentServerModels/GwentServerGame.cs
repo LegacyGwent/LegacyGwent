@@ -781,6 +781,7 @@ namespace Cynthia.Card.Server
 
         public IList<GameCard> GetAllCard(int playerIndex, bool isContainDead = false)
         {
+            var anotherPlayer = AnotherPlayer(playerIndex);
             return PlayersPlace[playerIndex][0]
             .Concat(PlayersPlace[playerIndex][1])
             .Concat(PlayersPlace[playerIndex][2])
@@ -789,14 +790,14 @@ namespace Cynthia.Card.Server
             .Concat(PlayersStay[playerIndex])
             .Concat(PlayersCemetery[playerIndex])
             .Concat(PlayersDeck[playerIndex])
-            .Concat(PlayersPlace[AnotherPlayer(playerIndex)][0])
-            .Concat(PlayersPlace[AnotherPlayer(playerIndex)][1])
-            .Concat(PlayersPlace[AnotherPlayer(playerIndex)][2])
-            .Concat(PlayersHandCard[AnotherPlayer(playerIndex)])
-            .Concat(PlayersLeader[AnotherPlayer(playerIndex)])
-            .Concat(PlayersStay[playerIndex])
-            .Concat(PlayersCemetery[AnotherPlayer(playerIndex)])
-            .Concat(PlayersDeck[AnotherPlayer(playerIndex)])
+            .Concat(PlayersPlace[anotherPlayer][0])
+            .Concat(PlayersPlace[anotherPlayer][1])
+            .Concat(PlayersPlace[anotherPlayer][2])
+            .Concat(PlayersHandCard[anotherPlayer])
+            .Concat(PlayersLeader[anotherPlayer])
+            .Concat(PlayersStay[anotherPlayer])
+            .Concat(PlayersCemetery[anotherPlayer])
+            .Concat(PlayersDeck[anotherPlayer])
             .Where(x => isContainDead ? true : !x.IsDead)
             .ToList();
         }
@@ -1405,10 +1406,6 @@ namespace Cynthia.Card.Server
                                 await AddTask(async () =>
                                  {
                                      await creatCard.Effect.CardDown(true);
-                                     if (creatCard.IsAliveOnPlance())
-                                     {
-                                         await creatCard.Effect.Spying(creatCard);
-                                     }
                                  });
                             }
                         }
@@ -1441,10 +1438,16 @@ namespace Cynthia.Card.Server
         {
             async Task task()
             {
+                var list = new List<GameCard>();
                 foreach (var card in GetAllCard(Player1Index, true).ToList())
                 {
                     if (card.Status.IsLock) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
                     await card.Effects.RaiseEvent(@event);
+                    // if (list.Contains(card))
+                    // {
+                    //     throw new Exception();
+                    // }
+                    // list.Add(card);
                 }
             }
             async Task task2()
