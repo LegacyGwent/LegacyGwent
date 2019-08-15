@@ -460,12 +460,6 @@ namespace Cynthia.Card
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
                 // await Game.ClientDelay(150);
-                if ((Card.Status.HealthStatus + Card.Status.Strength) <= 0)
-                {
-                    await ToCemetery();
-                    // await Game.AddTask(() => ToCemetery());
-                    return;
-                }
             }
             if (Card.Status.Armor == 0 && isArmor && !die)
             {
@@ -480,6 +474,11 @@ namespace Cynthia.Card
                 //受伤并且没有进入墓地的话,应该触发对应事件<暂未定义,待补充>
                 await Game.SendEvent(new AfterCardHurt(Card, num, source));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
+            }
+            if ((Card.CardPoint()) <= 0)
+            {
+                await ToCemetery();
+                return;
             }
         }
         public virtual async Task Reset(GameCard source)//重置
