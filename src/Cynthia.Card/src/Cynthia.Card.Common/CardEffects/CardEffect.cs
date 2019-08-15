@@ -459,7 +459,6 @@ namespace Cynthia.Card
                 await Game.ClientDelay(50);
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
-                // await Game.ClientDelay(150);
             }
             if (Card.Status.Armor == 0 && isArmor && !die)
             {
