@@ -1396,17 +1396,25 @@ namespace Cynthia.Card.Server
                             // await ShowCardOn(creatCard);
                             if (position.RowPosition.IsMyRow())
                             {
-                                await AddTask(async () =>
-                                {
-                                    await creatCard.Effect.CardDown(false);
-                                });
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effect.CardDown(false);
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
+                                // });
+                                // });
                             }
                             else
                             {
-                                await AddTask(async () =>
-                                 {
-                                     await creatCard.Effect.CardDown(true);
-                                 });
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effect.CardDown(true);
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
+                                // });
+                                // });
                             }
                         }
                         //     if (position.RowPosition.IsMyRow())
