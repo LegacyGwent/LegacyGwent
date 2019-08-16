@@ -5,6 +5,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
+
     [CardEffectId("53001")] //亚伊文
     public class Yaevinn : CardEffect
     {
@@ -40,6 +41,7 @@ namespace Cynthia.Card
             var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);
             await Game.LogicCardMove(dcard, row, 0); //将选中的卡移动到最上方
             await Game.PlayerDrawCard(Game.AnotherPlayer(Card.PlayerIndex)); //抽卡
+
             return 0;
         }
     }

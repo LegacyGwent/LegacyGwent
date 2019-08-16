@@ -10,6 +10,7 @@ namespace Cynthia.Card
 		public Trollololo(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+			await Card.Effect.Armor(9,Card);
 			return 0;
 		}
 	}

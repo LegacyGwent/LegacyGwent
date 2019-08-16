@@ -11,7 +11,8 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //从我方墓地列出铜色“士兵单位”
-            var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAllCategorie(Categorie.Soldier)).Mess(Game.RNG);
+
+            var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAllCategorie(Categorie.Soldier)).ToList();
             if (list.Count() == 0)
             {
                 return 0;
@@ -19,7 +20,7 @@ namespace Cynthia.Card
 
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
-            (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
+            (Card.PlayerIndex, list, 1, "选择复活一张牌");
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0)
             {

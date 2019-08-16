@@ -112,9 +112,9 @@ namespace Cynthia.Card
         //使卡牌"进入墓地"
         public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
         {
-            return ToCemetery((false, null), type);
+            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
@@ -177,13 +177,16 @@ namespace Cynthia.Card
                     await Game.SendEvent(new AfterCardToCemetery(Card, deadposition));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
-                if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
+                if (!isRoundEnd)
                 {
-                    await Game.SendEvent(new AfterCardDeath(Card, deadposition));
-                }
-                else if (discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
-                {
-                    await Game.SendEvent(new AfterCardDiscard(Card, discardInfo.discardSource));
+                    if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
+                    {
+                        await Game.SendEvent(new AfterCardDeath(Card, deadposition));
+                    }
+                    else if (discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
+                    {
+                        await Game.SendEvent(new AfterCardDiscard(Card, discardInfo.discardSource));
+                    }
                 }
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 if (Card.HasAnyCategorie(Categorie.Token))
@@ -242,25 +245,26 @@ namespace Cynthia.Card
                 await Card.Effect.Resilience(Card);
                 return;
             }
-            Repair();
-            if (Card.Status.Strength > 0)
-            {
-                await Game.ShowCardOn(Card);
-                await Game.ShowSetCard(Card);
-                await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
-            }
-            else
-            {
-                await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
-                //var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
-                var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
-                await Game.LogicCardMove(Card, target, 0);
-            }
-            if (Card.Status.IsDoomed)//如果是佚亡,放逐
-            {
-                await Banish();
-                return;
-            }
+            await ToCemetery(discardInfo: (false, null), isRoundEnd: true);
+            // Repair();
+            // if (Card.Status.Strength > 0)
+            // {
+            //     await Game.ShowCardOn(Card);
+            //     await Game.ShowSetCard(Card);
+            //     await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
+            // }
+            // else
+            // {
+            //     await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
+            //     //var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
+            //     var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
+            //     await Game.LogicCardMove(Card, target, 0);
+            // }
+            // if (Card.Status.IsDoomed)//如果是佚亡,放逐
+            // {
+            //     await Banish();
+            //     return;
+            // }
         }
         //---------------------------------------------------------------------------
         //特殊卡使用的分布方法
@@ -455,13 +459,6 @@ namespace Cynthia.Card
                 await Game.ClientDelay(50);
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
-                // await Game.ClientDelay(150);
-                if ((Card.Status.HealthStatus + Card.Status.Strength) <= 0)
-                {
-                    await ToCemetery();
-                    // await Game.AddTask(() => ToCemetery());
-                    return;
-                }
             }
             if (Card.Status.Armor == 0 && isArmor && !die)
             {
@@ -476,6 +473,11 @@ namespace Cynthia.Card
                 //受伤并且没有进入墓地的话,应该触发对应事件<暂未定义,待补充>
                 await Game.SendEvent(new AfterCardHurt(Card, num, source));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
+            }
+            if ((Card.CardPoint()) <= 0)
+            {
+                await ToCemetery();
+                return;
             }
         }
         public virtual async Task Reset(GameCard source)//重置
@@ -567,7 +569,7 @@ namespace Cynthia.Card
         public virtual async Task Discard(GameCard source)//丢弃(未测试)
         {//如果在场上,墓地或者已被放逐,不触发
             if (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
-            await ToCemetery((true, source));
+            await ToCemetery(discardInfo: (true, source), isRoundEnd: false);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //丢弃,应该触发对应事件(在ToCemetery内部触发)
             //8888888888888888888888888888888888888888888888888888888888888888888888
