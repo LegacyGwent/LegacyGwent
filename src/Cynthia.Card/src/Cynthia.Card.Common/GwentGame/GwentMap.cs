@@ -31,6 +31,32 @@ namespace Cynthia.Card
             .ThenBy(x => x.Value.Strength)
             .Select(x => x.Key);
         }
+        public static RowEffect CreateRowEffect(RowStatus rowTag)
+        {
+            switch (rowTag)
+            {
+                case RowStatus.BitingFrost:
+                    return new BitingFrostStatus();
+                case RowStatus.BloodMoon:
+                    return new BloodMoonStatus();
+                case RowStatus.DragonDream:
+                    return new DragonDreamStatus();
+                case RowStatus.ImpenetrableFog:
+                    return new ImpenetrableFogStatus();
+                case RowStatus.KorathiHeatwave:
+                    return new KorathiHeatwaveStatus();
+                case RowStatus.PitTrap:
+                    return new PitTrapStatus();
+                case RowStatus.RaghNarRoog:
+                    return new RaghNarRoogStatus();
+                case RowStatus.SkelligeStorm:
+                    return new SkelligeStormStatus();
+                case RowStatus.TorrentialRain:
+                    return new TorrentialRainStatus();
+                default:
+                    return new NoneStatus();
+            }
+        }
         public static IDictionary<string, GwentCard> CardMap { get; } = new Dictionary<string, GwentCard>
         {
             //=========================================================================================================================================================================
@@ -3600,12 +3626,13 @@ namespace Cynthia.Card
                     CardId ="24010",
                     Name="蟹蜘蛛巨兽",
                     Strength=8,
+                    Countdown=4,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Insectoid},
                     Flavor = "看起来像螃蟹和蜘蛛的杂交……只是体型硕大无比。",
@@ -7139,12 +7166,13 @@ namespace Cynthia.Card
                     CardId ="44024",
                     Name="科德温亡魂",
                     Strength=4,
+                    Countdown =1,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cursed,Categorie.Kaedwen},
                     Flavor = "万劫不复的士兵日复一日地过着同一天，就好像奇安凡尼银行的职员一样。",

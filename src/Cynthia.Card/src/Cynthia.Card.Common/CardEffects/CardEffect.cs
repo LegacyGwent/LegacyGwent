@@ -440,7 +440,7 @@ namespace Cynthia.Card
                     await Game.SendEvent(new AfterCardSubArmor(Card, num, source));
                     //8888888888888888888888888888888888888888888888888888888888888888888888
                     await Game.ShowSetCard(Card);//更新客户端的护甲值
-                    return;
+                    num = 0;
                 }
                 else//如果伤害更高
                 {
@@ -451,6 +451,13 @@ namespace Cynthia.Card
             }
             //-------------------------------------------------------------
             //战力值处理
+            if (Card.Status.Armor == 0 && isArmor && !die)
+            {
+                //8888888888888888888888888888888888888888888888888888888888888888888888
+                //破甲并且之前判断一击不死,应该触发对应事件<暂未定义,待补充>
+                await Game.SendEvent(new AfterCardArmorBreak(Card, source));
+                //8888888888888888888888888888888888888888888888888888888888888888888888
+            }
             var isHurt = num > 0;
             if (num > 0)
             {
@@ -459,13 +466,6 @@ namespace Cynthia.Card
                 await Game.ClientDelay(50);
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
-            }
-            if (Card.Status.Armor == 0 && isArmor && !die)
-            {
-                //8888888888888888888888888888888888888888888888888888888888888888888888
-                //破甲并且之前判断一击不死,应该触发对应事件<暂未定义,待补充>
-                await Game.SendEvent(new AfterCardArmorBreak(Card, source));
-                //8888888888888888888888888888888888888888888888888888888888888888888888
             }
             if (isHurt && Card.Status.CardRow.IsOnPlace())
             {
