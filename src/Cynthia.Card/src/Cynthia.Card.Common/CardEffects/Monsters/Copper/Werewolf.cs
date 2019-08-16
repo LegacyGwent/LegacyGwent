@@ -12,6 +12,7 @@ namespace Cynthia.Card
         private bool isfullmoon = false;
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
+            Card.Status.IsImmue = true;
             if (Game.GameRowEffect[Card.PlayerIndex][Card.GetLocation().RowPosition.MyRowToIndex()].RowStatus == RowStatus.FullMoon)
             {
                 isfullmoon = true;
@@ -31,7 +32,7 @@ namespace Cynthia.Card
                 return;
             }
             //如果特效没有放置到狼人排 什么事情都不做
-            if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition) && !(@event.PlayerIndex != Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition.Mirror()))
+            if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition))
             {
                 return;
             }
