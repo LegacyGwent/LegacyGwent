@@ -26,7 +26,7 @@ namespace Cynthia.Card
 
         private bool NoMySelfRow(GameCard card)
         {
-            return !(card.PlayerIndex == Card.PlayerIndex && card.GetLocation().RowPosition == Card.GetLocation().RowPosition);
+            return card.GetLocation().RowPosition != Card.GetLocation().RowPosition;
         }
     }
 }
