@@ -16,12 +16,17 @@ namespace Cynthia.Card
         {
             if (Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard())
                 await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<NoneStatus>();
-            var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            var list = await Game.GetSelectPlaceCards(Card, filter: NoMySelfRow,selectMode: SelectModeType.AllRow);
             if (list.Count <= 0) return 0;
-            var location = Card.GetLocation();
+            var location = Card.GetLocation() + 1;
             var card = list.First();
             await card.Effect.Move(location, Card);
             return 0;
+        }
+
+        private bool NoMySelfRow(GameCard card)
+        {
+            return !(card.PlayerIndex == Card.PlayerIndex && card.GetLocation().RowPosition == Card.GetLocation().RowPosition);
         }
     }
 }

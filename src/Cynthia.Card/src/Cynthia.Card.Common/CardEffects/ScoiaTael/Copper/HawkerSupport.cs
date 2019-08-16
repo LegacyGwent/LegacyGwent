@@ -14,7 +14,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            var cards = Game.PlayersHandCard[Card.PlayerIndex];
+            var cards = Game.PlayersHandCard[Card.PlayerIndex].Where(x=>(x.Status.Type == CardType.Unit));
             var list = cards.ToList();
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
