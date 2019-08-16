@@ -34,59 +34,9 @@ namespace Cynthia.Card
             await Game.GameRowEffect[AnotherPlayer][row1.Mirror().MyRowToIndex()].SetStatus<NoneStatus>();
 
             //没找到简单的实现办法
-            if (moverowstatus == RowStatus.BitingFrost)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<BitingFrostStatus>();
-                return 0;
-            }
-            if (moverowstatus == RowStatus.BloodMoon)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<BloodMoonStatus>();
-                return 0;
-            }
-            if (moverowstatus == RowStatus.DragonDream)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<DragonDreamStatus>();
-                return 0;
-            }
-            if (moverowstatus == RowStatus.ImpenetrableFog)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<ImpenetrableFogStatus>();
-                return 0;
-            }
-            if (moverowstatus == RowStatus.KorathiHeatwave)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<KorathiHeatwaveStatus>();
-                return 0;
-            }
-            if (moverowstatus == RowStatus.PitTrap)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<PitTrapStatus>();
-                return 0;
-            }
-            if (moverowstatus == RowStatus.RaghNarRoog)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<RaghNarRoogStatus>();
+            await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus(GwentMap.CreateRowEffect(moverowstatus));
 
-                return 0;
-            }
-
-            if (moverowstatus == RowStatus.SkelligeStorm)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<SkelligeStormStatus>();
-                return 0;
-            }
-
-            if (moverowstatus == RowStatus.TorrentialRain)
-            {
-                await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus<TorrentialRainStatus>();
-                return 0;
-            }
             return 0;
-
-
-
-
         }
     }
 }

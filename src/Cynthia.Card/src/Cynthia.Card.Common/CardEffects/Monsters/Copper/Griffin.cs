@@ -16,7 +16,11 @@ namespace Cynthia.Card
                 return 0;
             }
             //不严格的写法 可能会触发除了选中卡遗愿以外的效果
-            await Game.SendEvent(new AfterCardDeath(target, target.GetLocation()));
+            if (target.Status.IsLock)
+            {
+                return 0;
+            }
+            await target.Effects.RaiseEvent(new AfterCardDeath(target, target.GetLocation()));
             return 0;
         }
     }
