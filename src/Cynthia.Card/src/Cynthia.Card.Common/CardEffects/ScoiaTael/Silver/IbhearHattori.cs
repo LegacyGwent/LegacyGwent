@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -14,9 +15,9 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.PlayersCemetery[PlayerIndex].FilterCards(type: CardType.Unit, filter:
-                x => x.IsAnyGroup(Group.Copper, Group.Silver) && x.Status.Faction == Faction.ScoiaTael &&
-                     (x.CardPoint()) <= (Card.CardPoint()));
+            var cards = Game.PlayersCemetery[PlayerIndex] .FilterCards(type: CardType.Unit, filter:
+                x => x.IsAnyGroup(Group.Copper, Group.Silver) &&
+                     (x.CardPoint()) <= (Card.CardPoint()),faction:Faction.ScoiaTael);
 
             if (!(await Game.GetSelectMenuCards(PlayerIndex, cards.ToList())).TrySingle(out var target))
             {
@@ -26,5 +27,6 @@ namespace Cynthia.Card
             await target.Effect.Resurrect(new CardLocation(RowPosition.MyStay, 0), Card);
             return 1;
         }
+
     }
 }
