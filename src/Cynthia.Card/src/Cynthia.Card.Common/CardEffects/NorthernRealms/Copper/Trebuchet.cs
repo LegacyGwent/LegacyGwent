@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Trebuchet : CardEffect
     {//对3个相邻敌军单位造成1点伤害。 驱动：伤害增加1点。
         public Trebuchet(GameCard card) : base(card) { }
-        public override async Task CardDownEffect(bool isSpying, bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             if (Card.GetLocation().RowPosition.IsOnPlace())
             {
@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 var result = await Game.GetSelectPlaceCards(Card, range: 1, selectMode: SelectModeType.EnemyRow);
                 if (result.Count <= 0)
                 {
-                    return;
+                    return 0;
                 }
                 foreach (var card in result.Single().GetRangeCard(1).ToList())
                 {
@@ -24,7 +24,7 @@ namespace Cynthia.Card
                         await card.Effect.Damage(damagenum, Card);
                 }
             }
-            return;
+            return 0;
         }
     }
 }
