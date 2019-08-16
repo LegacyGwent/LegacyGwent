@@ -10,8 +10,8 @@ namespace Cynthia.Card
         public BlueStripesScout(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var placecards = Game.GetPlaceCards(PlayerIndex).Where(x => x.HasAllCategorie(Categorie.Temeria));
-            var cards2 = Game.PlayersHandCard[PlayerIndex].Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.Temeria) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x.CardPoint() == Card.CardPoint());
+            var placecards = Game.GetPlaceCards(PlayerIndex).Where(x => x.HasAllCategorie(Categorie.Temeria)).ToList();
+            var cards2 = Game.PlayersHandCard[PlayerIndex].Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.Temeria) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x.CardPoint() == Card.CardPoint()).ToList();
             var result = placecards.Concat(cards2).ToList();
             if (result.Count() == 0)
             {

@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public FieldMedic(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.HasAllCategorie(Categorie.Soldier));
+            var cards = Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.HasAllCategorie(Categorie.Soldier)).ToList();
             if (cards.Count() == 0)
             {
                 return 0;
