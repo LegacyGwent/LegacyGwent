@@ -283,10 +283,6 @@ namespace Cynthia.Card
         public static async Task MoveToCardStayFirst(this GameCard card, bool isToEnemyStay = false, bool refresh = true, bool isShowEnemyBack = false)//移动到卡牌移动区末尾
         {   //将卡牌移动到最开头
             var game = card.Effect.Game;
-            if (isShowEnemyBack)
-            {
-                await game.Debug("MoveToCardStayFirst检测到需求对方看到卡背的指示");
-            }
             await game.ShowCardMove(new CardLocation() { RowPosition = (isToEnemyStay ? RowPosition.EnemyStay : RowPosition.MyStay), CardIndex = 0 }, card, refresh, isShowEnemyBack: isShowEnemyBack);
         }
 
