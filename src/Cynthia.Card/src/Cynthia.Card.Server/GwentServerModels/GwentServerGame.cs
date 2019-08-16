@@ -64,7 +64,7 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
-            await SendEvent(new GameStartEvent());
+            await SendEvent(new OnGameStart());
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
