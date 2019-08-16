@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public DimunSmuggler(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit).Mess(Game.RNG);
+            var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit);
             if (list.Count() == 0)
             {
                 return 0;

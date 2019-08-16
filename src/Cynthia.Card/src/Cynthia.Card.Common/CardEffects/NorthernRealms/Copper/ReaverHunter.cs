@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public ReaverHunter(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId);
+            var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId).ToList();
             if (cards.Count() == 0)
             {
                 return 0;
@@ -25,7 +25,7 @@ namespace Cynthia.Card
         {
             if (@event.PlayedCard.Status.CardId == Card.Status.CardId && Card.Status.CardRow.IsOnPlace() && Card.PlayerIndex == @event.PlayedCard.PlayerIndex && @event.PlayedCard != Card)
             {
-                var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId);
+                var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId).ToList();
                 if (cards.Count() == 0)
                 {
                     return;

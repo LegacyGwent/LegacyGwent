@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //从我方墓地列出铜色/银色非诅咒生物
-            var list = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && !x.HasAnyCategorie(Categorie.Cursed)).Mess(Game.RNG);
+            var list = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && !x.HasAnyCategorie(Categorie.Cursed)).ToList();
             if (list.Count() == 0)
             {
                 return 0;

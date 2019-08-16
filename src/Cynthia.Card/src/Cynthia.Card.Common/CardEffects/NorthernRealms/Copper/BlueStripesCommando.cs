@@ -18,13 +18,13 @@ namespace Cynthia.Card
             }
             int phealth = @event.PlayedCard.ToHealth().health;
             //获取可触发效果的本卡同名卡列表
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId && x.ToHealth().health == phealth);
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId && x.ToHealth().health == phealth).ToList();
             if (list.Count() == 0)
             {
                 return;
             }
             //只召唤最后一个
-            if (Card == list.ToList().Last())
+            if (Card == list.Last())
             {
                 await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
             }

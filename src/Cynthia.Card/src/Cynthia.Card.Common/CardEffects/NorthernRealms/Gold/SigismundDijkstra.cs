@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public SigismundDijkstra(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG);
+            var list = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).ToList();
             if (list.Count() == 0)
             {
                 return 0;
