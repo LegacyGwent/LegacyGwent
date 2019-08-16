@@ -10,6 +10,7 @@ namespace Cynthia.Card
         private bool isfullmoon = false;
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
+            
             if (Game.GameRowEffect[Card.PlayerIndex][Card.GetLocation().RowPosition.MyRowToIndex()].RowStatus == RowStatus.FullMoon)
             {
                 isfullmoon = true;
@@ -21,15 +22,15 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterWeatherApply @event)
         {
-            //以下代码基于 向满月上打出满月不会buff
+            //以下代码基于 向满月上打出满月不会再次生成狼
 
-            //如果不在场上
+            //如果本卡不在场上
             if (!Card.GetLocation().RowPosition.IsOnPlace())
             {
                 return;
             }
             //如果特效没有放置到狼人排 什么事情都不做
-            if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition) && !(@event.PlayerIndex != Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition.Mirror()))
+            if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition))
             {
                 return;
             }
