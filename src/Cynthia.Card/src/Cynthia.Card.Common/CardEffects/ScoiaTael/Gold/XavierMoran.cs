@@ -10,7 +10,18 @@ namespace Cynthia.Card
 		public XavierMoran(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+
+			var cards = Game.HistoryList
+				.Where(x=>(x.CardId.CardInfo().Categories.Contains(Categorie.Dwarf)))
+							.ToList();
+			if(cards.Count() <= 0) return 0;
+
+			var lastDwarfCardId = cards.Last().CardId;
+			var boostNum = GwentMap.CardMap[lastDwarfCardId].Strength;
+			await Card.Effect.Boost(boostNum, Card);
 			return 0;
+
+
 		}
 	}
 }

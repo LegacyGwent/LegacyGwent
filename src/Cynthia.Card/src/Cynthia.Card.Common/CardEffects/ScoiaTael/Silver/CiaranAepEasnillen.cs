@@ -10,7 +10,20 @@ namespace Cynthia.Card
 		public CiaranAepEasnillen(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+
+			if (Game.PlayersPlace[AnotherPlayer].Count() >= Game.RowMaxCount)
+            {
+                return 0;
+            }
+            if (!(await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.CardRow != Card.Status.CardRow)).TrySingle(out var target))
+            {
+				await target.Effect.Lock(Card);
+                return 0;
+            }
+			
+            await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+            await target.Effect.Lock(Card);
+            return 0;
 		}
 	}
 }
