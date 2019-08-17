@@ -10,7 +10,34 @@ namespace Cynthia.Card
 		public Braenn(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			
+			var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (!selectList.TrySingle(out var target))
+            {
+                return 0;
+            }
+			// 获取自身战斗力
+			var selfPoint = Card.CardPoint();
+            // var isBoost = Game.GameRowEffect[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()].RowStatus == RowStatus.BitingFrost;
+            await target.Effect.Damage(selfPoint, Card);
+
+			// 如果目标被杀
+			var isBoost = target.IsDead;
+            if (isBoost)
+            {
+
+                var cards = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => (x.HasAnyCategorie(Categorie.Dryad)||x.HasAnyCategorie(Categorie.Ambush)) && x != Card);
+
+				foreach (var card in cards)
+				{
+					await card.Effect.Boost(1, Card);
+				}
+				return 0;
+            }
+            return 0;
+
+
+			
 		}
 	}
 }

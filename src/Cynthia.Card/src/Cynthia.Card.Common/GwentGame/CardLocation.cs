@@ -22,5 +22,7 @@ namespace Cynthia.Card
             cardLocation.CardIndex -= offset;
             return cardLocation;
         }
+
+        public static CardLocation MyStayFirst { get => new CardLocation(RowPosition.MyStay, 0); }
     }
 }

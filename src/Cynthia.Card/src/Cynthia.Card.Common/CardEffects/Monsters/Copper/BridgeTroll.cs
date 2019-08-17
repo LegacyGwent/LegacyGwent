@@ -32,9 +32,7 @@ namespace Cynthia.Card
             var movelist = allenemylist.Except(nowpositon).ToList();
             var row2 = await Game.GetSelectRow(Card.PlayerIndex, Card, movelist);
             await Game.GameRowEffect[AnotherPlayer][row1.Mirror().MyRowToIndex()].SetStatus<NoneStatus>();
-
-            //没找到简单的实现办法
-            await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus(GwentMap.CreateRowEffect(moverowstatus));
+            await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus(moverowstatus);
 
             return 0;
         }

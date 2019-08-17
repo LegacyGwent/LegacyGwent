@@ -1443,20 +1443,15 @@ namespace Cynthia.Card.Server
             }
             return result.Count();
         }
-        public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
+        public async Task<TEvent> SendEvent<TEvent>(TEvent @event) where TEvent : Event
         {
             async Task task()
             {
                 var list = new List<GameCard>();
                 foreach (var card in GetAllCard(Player1Index, true).ToList())
                 {
-                    if (card.Status.IsLock) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+                    if (card.Status.IsLock) continue;
                     await card.Effects.RaiseEvent(@event);
-                    // if (list.Contains(card))
-                    // {
-                    //     throw new Exception();
-                    // }
-                    // list.Add(card);
                 }
             }
             async Task task2()
@@ -1482,6 +1477,7 @@ namespace Cynthia.Card.Server
             {
                 await AddTask((Func<Task>)task2);
             }
+            return @event;
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
         {

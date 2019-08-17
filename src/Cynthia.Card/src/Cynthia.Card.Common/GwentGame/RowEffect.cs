@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
-    public abstract class RowEffect : Effect
+    public abstract class RowEffect : Effect, ICloneable
     {
         public int PlayerIndex { get => Row.PlayerIndex; }
 
@@ -15,5 +16,10 @@ namespace Cynthia.Card
         public IGwentServerGame Game { get => Row?.Game; }
 
         public abstract RowStatus StatusType { get; }
+        public object Clone()
+        {
+            RowEffect copy =  (RowEffect)this.MemberwiseClone();
+            return copy;
+        }
     }
 }

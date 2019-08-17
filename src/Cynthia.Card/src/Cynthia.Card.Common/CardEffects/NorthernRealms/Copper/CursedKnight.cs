@@ -10,19 +10,16 @@ namespace Cynthia.Card
         public CursedKnight(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow);
+            await Card.Effect.Armor(2, Card);
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.HasAllCategorie(Categorie.Cursed));
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
             }
+            //妥协的一种方式
             await target.Effect.Transform(CardId.CursedKnight, Card);
+            await target.Effect.Armor(2, target);
             return 0;
         }
-        public override async Task CardDownEffect(bool isSpying, bool isReveal)
-        {
-            await Card.Effect.Armor(2, Card);
-            return;
-        }
     }
-
 }
