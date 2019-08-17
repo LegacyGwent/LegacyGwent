@@ -10,6 +10,10 @@ namespace Cynthia.Card
         public SabrinaGlevissig(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterCardDeath @event)
         {
+            if (@event.Target != Card)
+            {
+                return;
+            }
             var rowlist = Game.RowToList(Card.PlayerIndex, @event.DeathLocation.RowPosition).Where(x => x.GetLocation().RowPosition.IsOnPlace() && x != Card).ToList();
             if (rowlist.Count() <= 1)
             {

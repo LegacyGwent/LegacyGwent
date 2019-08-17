@@ -15,6 +15,10 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(BeforeSpecialPlay @event)
         {
+            if (!@event.Target.HasAnyCategorie(Categorie.Spell, Categorie.Item))
+            {
+                return;
+            }
             if (@event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown >= 1)
             {
                 await Card.Effect.SetCountdown(offset: -1);
