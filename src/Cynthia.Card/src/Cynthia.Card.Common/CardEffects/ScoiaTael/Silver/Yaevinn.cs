@@ -13,14 +13,14 @@ namespace Cynthia.Card
         public bool IsUse = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-             if (IsUse)
+            if (IsUse)
             {
                 return 0;
             }
             IsUse = true;
             //先选两张卡
-            var card1 = Game.PlayersDeck[AnotherPlayer].Where(x =>  x.CardInfo().CardType == CardType.Special).Mess(RNG).FirstOrDefault();
-            var card2 =Game.PlayersDeck[AnotherPlayer].Where(x =>  x.CardInfo().CardType == CardType.Unit).Mess(RNG).FirstOrDefault();
+            var card1 = Game.PlayersDeck[AnotherPlayer].Where(x => x.CardInfo().CardType == CardType.Special).Mess(RNG).FirstOrDefault();
+            var card2 = Game.PlayersDeck[AnotherPlayer].Where(x => x.CardInfo().CardType == CardType.Unit).Mess(RNG).FirstOrDefault();
 
             var list = new List<GameCard>();
 

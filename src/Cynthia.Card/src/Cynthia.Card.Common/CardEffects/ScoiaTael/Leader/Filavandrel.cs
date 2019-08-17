@@ -12,7 +12,7 @@ namespace Cynthia.Card
 		{
 				return await Card.CreateAndMoveStay(
                 GwentMap.GetCreateCardsId(
-                    x => (x.Group == Group.Silver),
+                    x => (x.Group == Group.Silver)&&(x.CardInfo().CardType == CardType.Special),
                     RNG
                 )
                 .ToList()

@@ -22,7 +22,7 @@ namespace Cynthia.Card
             {	
 
 				if (target.PlayerIndex == Card.PlayerIndex){
-					await target.Effect.Boost(Point, Card);
+					await target.Effect.Strengthen(Point, Card);
 				}
 				else{
 					await target.Effect.Damage(Point, Card);
