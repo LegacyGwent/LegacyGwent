@@ -31,6 +31,32 @@ namespace Cynthia.Card
             .ThenBy(x => x.Value.Strength)
             .Select(x => x.Key);
         }
+        public static RowEffect CreateRowEffect(RowStatus rowTag)
+        {
+            switch (rowTag)
+            {
+                case RowStatus.BitingFrost:
+                    return new BitingFrostStatus();
+                case RowStatus.BloodMoon:
+                    return new BloodMoonStatus();
+                case RowStatus.DragonDream:
+                    return new DragonDreamStatus();
+                case RowStatus.ImpenetrableFog:
+                    return new ImpenetrableFogStatus();
+                case RowStatus.KorathiHeatwave:
+                    return new KorathiHeatwaveStatus();
+                case RowStatus.PitTrap:
+                    return new PitTrapStatus();
+                case RowStatus.RaghNarRoog:
+                    return new RaghNarRoogStatus();
+                case RowStatus.SkelligeStorm:
+                    return new SkelligeStormStatus();
+                case RowStatus.TorrentialRain:
+                    return new TorrentialRainStatus();
+                default:
+                    return new NoneStatus();
+            }
+        }
         public static IDictionary<string, GwentCard> CardMap { get; } = new Dictionary<string, GwentCard>
         {
             //=========================================================================================================================================================================
