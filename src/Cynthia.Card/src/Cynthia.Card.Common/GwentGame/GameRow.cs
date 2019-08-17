@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cynthia.Card.Common.RowEffect;
 
 namespace Cynthia.Card
 {
@@ -27,8 +28,10 @@ namespace Cynthia.Card
             Effects = new EffectSet(this);
         }
 
-        public async Task SetStatus(RowEffect effect)
+        private async Task SetStatus(RowEffect effect)
         {
+            effect.Row = this;//重要
+
             if (Effects.Count != 0)
             {
                 Effects.Clear();
@@ -42,9 +45,15 @@ namespace Cynthia.Card
         public Task SetStatus<TRowEffect>() where TRowEffect : RowEffect, new()
         {
             var rowEffect = new TRowEffect();
-            rowEffect.Row = this;//重要
             return SetStatus(rowEffect);
         }
+
+        public Task SetStatus(RowStatus rowStatus)
+        {
+            var rowEffect = RowEffectFactory.Instance.GetRowEffectByRowStatus(rowStatus);
+            return SetStatus(rowEffect);
+        }
+
 
         // public async Task ApplyWeather(int playerIndex, int row, RowEffect status)
         // {
