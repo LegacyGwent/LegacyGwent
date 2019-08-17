@@ -8,9 +8,16 @@ namespace Cynthia.Card
 	public class MoranaRunestone : CardEffect
 	{//创造1张铜色/银色“松鼠党”牌。
 		public MoranaRunestone(GameCard card) : base(card){}
-		public override async Task<int> CardUseEffect()
-		{
-			return 0;
-		}
+		 public override async Task<int> CardUseEffect()
+        {
+            return await Card.CreateAndMoveStay(
+                GwentMap.GetCreateCardsId(
+                    x => x.Faction == Faction.ScoiaTael &&
+                    (x.Group == Group.Copper || x.Group == Group.Silver),
+                    RNG
+                )
+                .ToList()
+            );
+        }
 	}
 }

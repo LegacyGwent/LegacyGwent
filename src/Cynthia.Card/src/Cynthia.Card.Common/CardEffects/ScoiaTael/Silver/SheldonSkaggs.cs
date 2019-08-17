@@ -10,7 +10,22 @@ namespace Cynthia.Card
 		public SheldonSkaggs(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			var row = Card.Status.CardRow;
+            var cards = Game.RowToList(PlayerIndex, row).Where(x => x != Card).ToList();
+            var targetRow = TurnType.My.GetRow();
+            targetRow.Remove(row.IsMyRow() ? row : row.Mirror());
+            foreach (var card in cards)
+            {
+                var canMoveRow = targetRow.Where(x => Game.RowToList(card.PlayerIndex, x).Count < Game.RowMaxCount);
+                if (!canMoveRow.TryMessOne(out var target, Game.RNG))
+                {
+                    continue;
+                }
+                await card.Effect.Move(new CardLocation(target, Game.RowToList(card.PlayerIndex, target).Count), Card);
+            }
+			var listCount = cards.Count();
+			await Boost(listCount, Card);
+            return 0;
 		}
 	}
 }
