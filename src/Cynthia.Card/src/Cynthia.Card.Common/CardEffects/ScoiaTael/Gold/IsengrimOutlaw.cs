@@ -48,7 +48,7 @@ namespace Cynthia.Card
                 return await Card.CreateAndMoveStay(
                 GwentMap.GetCreateCardsId(
                     x => x.HasAnyCategorie(Categorie.Elf) &&
-                    (x.Group == Group.Copper || x.Group == Group.Silver),
+                    (x.Group == Group.Silver),
                     RNG
                 )
                 .ToList()
