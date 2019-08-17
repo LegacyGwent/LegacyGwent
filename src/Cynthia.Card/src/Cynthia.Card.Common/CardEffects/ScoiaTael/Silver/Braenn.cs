@@ -26,7 +26,7 @@ namespace Cynthia.Card
             if (isBoost)
             {
 
-                var cards = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.Dryad) && x != Card);
+                var cards = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => (x.HasAnyCategorie(Categorie.Dryad)||x.HasAnyCategorie(Categorie.Ambush)) && x != Card);
 
 				foreach (var card in cards)
 				{

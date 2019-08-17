@@ -15,14 +15,22 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            if (!(await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.CardRow != Card.Status.CardRow)).TrySingle(out var target))
+
+            var targets = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.MyRow);
+
+            foreach(var target in targets)
             {
-				await target.Effect.Lock(Card);
-                return 0;
+                if(target.Status.CardRow==Card.Status.CardRow){
+                    await target.Effect.Lock(Card);
+                    return 0;
+                }
+                else{
+                    await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+                    await target.Effect.Lock(Card);
+                    return 0;
+                }
             }
-			
-            await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
-            await target.Effect.Lock(Card);
+          
             return 0;
 		}
 	}

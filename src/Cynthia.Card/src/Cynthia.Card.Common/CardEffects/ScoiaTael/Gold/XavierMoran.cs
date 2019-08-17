@@ -12,7 +12,7 @@ namespace Cynthia.Card
 		{
 
 			var cards = Game.HistoryList
-				.Where(x=>(x.CardId.CardInfo().Categories.Contains(Categorie.Dwarf)))
+				.Where(x=>(x.CardId != Card.Status.CardId && x.CardId.CardInfo().Categories.Contains(Categorie.Dwarf)))
 							.ToList();
 			if(cards.Count() <= 0) return 0;
 
