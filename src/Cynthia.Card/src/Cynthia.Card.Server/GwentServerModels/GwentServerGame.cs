@@ -64,6 +64,7 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
+            await SendEvent(new OnGameStart());
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
@@ -1396,17 +1397,25 @@ namespace Cynthia.Card.Server
                             // await ShowCardOn(creatCard);
                             if (position.RowPosition.IsMyRow())
                             {
-                                await AddTask(async () =>
-                                {
-                                    await creatCard.Effect.CardDown(false);
-                                });
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effect.CardDown(false);
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
+                                // });
+                                // });
                             }
                             else
                             {
-                                await AddTask(async () =>
-                                 {
-                                     await creatCard.Effect.CardDown(true);
-                                 });
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effect.CardDown(true);
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
+                                // });
+                                // });
                             }
                         }
                         //     if (position.RowPosition.IsMyRow())
@@ -1434,20 +1443,15 @@ namespace Cynthia.Card.Server
             }
             return result.Count();
         }
-        public async Task SendEvent<TEvent>(TEvent @event) where TEvent : Event
+        public async Task<TEvent> SendEvent<TEvent>(TEvent @event) where TEvent : Event
         {
             async Task task()
             {
                 var list = new List<GameCard>();
                 foreach (var card in GetAllCard(Player1Index, true).ToList())
                 {
-                    if (card.Status.IsLock) continue;// || (card.Status.CardRow.IsOnPlace() && card.CardPoint() <= 0)) continue;
+                    if (card.Status.IsLock) continue;
                     await card.Effects.RaiseEvent(@event);
-                    // if (list.Contains(card))
-                    // {
-                    //     throw new Exception();
-                    // }
-                    // list.Add(card);
                 }
             }
             async Task task2()
@@ -1473,6 +1477,7 @@ namespace Cynthia.Card.Server
             {
                 await AddTask((Func<Task>)task2);
             }
+            return @event;
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -14,9 +15,9 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            var list = await Game.GetSelectPlaceCards(Card,filter:NoMySelfRow, selectMode: SelectModeType.AllRow);
             if (list.Count <= 0) return 0;
-            var location = Card.GetLocation();
+            var location = Card.GetLocation() + 1;
             var card = list.First();
             await card.Effect.Move(location, Card);
             if (card.PlayerIndex == Card.PlayerIndex)
@@ -25,6 +26,11 @@ namespace Cynthia.Card
             }
 
             return 0;
+        }
+
+        private bool NoMySelfRow(GameCard card)
+        {
+            return card.GetLocation().RowPosition != Card.GetLocation().RowPosition;
         }
     }
 }

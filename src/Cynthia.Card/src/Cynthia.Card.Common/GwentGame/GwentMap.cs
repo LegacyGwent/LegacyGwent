@@ -31,6 +31,32 @@ namespace Cynthia.Card
             .ThenBy(x => x.Value.Strength)
             .Select(x => x.Key);
         }
+        public static RowEffect CreateRowEffect(RowStatus rowTag)
+        {
+            switch (rowTag)
+            {
+                case RowStatus.BitingFrost:
+                    return new BitingFrostStatus();
+                case RowStatus.BloodMoon:
+                    return new BloodMoonStatus();
+                case RowStatus.DragonDream:
+                    return new DragonDreamStatus();
+                case RowStatus.ImpenetrableFog:
+                    return new ImpenetrableFogStatus();
+                case RowStatus.KorathiHeatwave:
+                    return new KorathiHeatwaveStatus();
+                case RowStatus.PitTrap:
+                    return new PitTrapStatus();
+                case RowStatus.RaghNarRoog:
+                    return new RaghNarRoogStatus();
+                case RowStatus.SkelligeStorm:
+                    return new SkelligeStormStatus();
+                case RowStatus.TorrentialRain:
+                    return new TorrentialRainStatus();
+                default:
+                    return new NoneStatus();
+            }
+        }
         public static IDictionary<string, GwentCard> CardMap { get; } = new Dictionary<string, GwentCard>
         {
             //=========================================================================================================================================================================
@@ -3600,12 +3626,13 @@ namespace Cynthia.Card
                     CardId ="24010",
                     Name="蟹蜘蛛巨兽",
                     Strength=8,
+                    Countdown=4,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Insectoid},
                     Flavor = "看起来像螃蟹和蜘蛛的杂交……只是体型硕大无比。",
@@ -7869,7 +7896,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Dryad},
+                    Categories = new Categorie[]{Categorie.Dryad,Categorie.Ambush},
                     Flavor = "艾思娜女士的女儿继承了她无与伦比的美貌，也同样极端仇视与人类有关的一切。",
                     Info = "伏击：在下个单位从任意方手牌打出至对方半场时翻开，对它造成7点伤害。",
                     CardArtsId = "14220800",
@@ -7969,7 +7996,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Elf,Categorie.Officer},
+                    Categories = new Categorie[]{Categorie.Elf,Categorie.Officer,Categorie.Ambush},
                     Flavor = "我很乐意站在你面前，直视你的双眼然后干掉你……但你臭死了，人类。",
                     Info = "伏击：对方放弃跟牌后翻开，使左右各2格内的单位获得2点增益。",
                     CardArtsId = "14220400",
@@ -8188,8 +8215,9 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
+                    Countdown = 2,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Soldier,Categorie.Elf},
+                    Categories = new Categorie[]{Categorie.Soldier,Categorie.Elf,Categorie.Ambush},
                     Flavor = "不管流言怎么说，精灵才不会碰人类的头皮。因为虱子太多了。",
                     Info = "伏击：2回合后，在回合开始时翻开。",
                     CardArtsId = "14230700",
