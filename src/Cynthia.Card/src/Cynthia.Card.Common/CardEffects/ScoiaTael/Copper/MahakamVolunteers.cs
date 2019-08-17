@@ -19,7 +19,7 @@ namespace Cynthia.Card
             var cardsToPlay = deck.Where(x => x.CardInfo().CardId == myId);
             var list = cardsToPlay.ToList();
             if (!list.Any()) return 0;
-            var position = Card.GetLocation();
+            var position = Card.GetLocation() + 1;
             foreach (var it in list)
             {
                 await it.Effect.Summon(position, it);

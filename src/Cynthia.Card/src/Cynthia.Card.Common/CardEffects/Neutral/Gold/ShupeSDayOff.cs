@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -10,7 +12,19 @@ namespace Cynthia.Card
 		public ShupeSDayOff(GameCard card) : base(card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
-		}
-	}
+            if (HaveRepeatedCopper())
+            {
+                return 0;
+            }
+            return await Card.CreateAndMoveStay(CardId.ShupeMage, CardId.ShupeHunter, CardId.ShupeKnight);
+
+        }
+
+        private bool HaveRepeatedCopper()
+        {
+            return (Game.PlayerBaseDeck[PlayerIndex].Deck
+                .GroupBy(x => x.CardId).Any(x => x.Count() != 1));
+
+        }
+    }
 }
