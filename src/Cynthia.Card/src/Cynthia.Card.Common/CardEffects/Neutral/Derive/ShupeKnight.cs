@@ -7,10 +7,14 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("15001")]//店店：骑士
-	public class ShupeKnight : AbstractShupe
-	{//派“店店”去帝国宫廷军事学院。 强化自身至25点；坚韧；与1个敌军单位对决；重置1个单位；摧毁所有战力低于4点的敌军单位。
-		public ShupeKnight(GameCard card) : base(card){}
+    [CardEffectId("15001")] //店店：骑士
+    public class ShupeKnight : AbstractShupe
+    {
+        //派“店店”去帝国宫廷军事学院。 强化自身至25点；坚韧；与1个敌军单位对决；重置1个单位；摧毁所有战力低于4点的敌军单位。
+        public ShupeKnight(GameCard card) : base(card)
+        {
+        }
+
         protected override async Task<int> UseMethodByChoice(int switchCard)
         {
             switch (switchCard)
@@ -32,7 +36,7 @@ namespace Cynthia.Card
 
         private async Task<int> DestroySmallUnit()
         {
-            var list = Game.GetPlaceCards(AnotherPlayer).Where(x=> x.CardPoint() < 4).ToList();
+            var list = Game.GetPlaceCards(AnotherPlayer).Where(x => x.CardPoint() < 4).ToList();
 
             foreach (var it in list)
             {
@@ -49,6 +53,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
+
             await target.Effect.Reset(Card);
             return 0;
         }
@@ -62,6 +67,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
+
             //对决，target先受到伤害
             await Duel(target, Card);
             return 0;
