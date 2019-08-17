@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return 0;
             }
 
-            var targets = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.MyRow);
+            var targets = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.AllRow);
 
             foreach(var target in targets)
             {

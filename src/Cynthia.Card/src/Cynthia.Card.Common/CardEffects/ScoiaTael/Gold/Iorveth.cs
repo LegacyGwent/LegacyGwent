@@ -27,7 +27,7 @@ namespace Cynthia.Card
 
 				foreach (var card in cards)
 				{
-					await card.Effect.Strengthen(1, Card);
+					await card.Effect.Boost(1, Card);
 				}
 				return 0;
             }
