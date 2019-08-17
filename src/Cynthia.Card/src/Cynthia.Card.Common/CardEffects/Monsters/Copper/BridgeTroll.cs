@@ -35,10 +35,6 @@ namespace Cynthia.Card
             await Game.GameRowEffect[AnotherPlayer][row2.Mirror().MyRowToIndex()].SetStatus(moverowstatus);
 
             return 0;
-
-
-
-
         }
     }
 }

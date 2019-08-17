@@ -64,6 +64,7 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
+            await SendEvent(new OnGameStart());
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
@@ -1396,17 +1397,25 @@ namespace Cynthia.Card.Server
                             // await ShowCardOn(creatCard);
                             if (position.RowPosition.IsMyRow())
                             {
-                                await AddTask(async () =>
-                                {
-                                    await creatCard.Effect.CardDown(false);
-                                });
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effect.CardDown(false);
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
+                                // });
+                                // });
                             }
                             else
                             {
-                                await AddTask(async () =>
-                                 {
-                                     await creatCard.Effect.CardDown(true);
-                                 });
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effect.CardDown(true);
+                                // await AddTask(async () =>
+                                // {
+                                await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
+                                // });
+                                // });
                             }
                         }
                         //     if (position.RowPosition.IsMyRow())
