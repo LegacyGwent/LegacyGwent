@@ -43,6 +43,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(CardPlayEffect @event)
         {
             @event.SearchCount += await CardPlayEffect(@event.IsSpying, @event.IsReveal);
+
         }
         public async Task HandleEvent(CardUseEffect @event)
         {
@@ -81,6 +82,7 @@ namespace Cynthia.Card
                 });
             if (Card.Status.CardRow.IsOnStay())
                 await CardUseEnd();
+            count = (await Game.SendEvent(new BeforePlayStayCard(Card, count))).PlayCount;
             await PlayStayCard(count, false);
         }
 
@@ -100,6 +102,7 @@ namespace Cynthia.Card
                 });
             if (Card.Status.CardRow.IsOnPlace())
                 await CardDown(isSpying);
+            count = (await Game.SendEvent(new BeforePlayStayCard(Card, count))).PlayCount;
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(isSpying);

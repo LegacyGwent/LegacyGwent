@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 
@@ -10,7 +11,12 @@ namespace Cynthia.Card
 		public PitTrap(GameCard card) : base(card){}
 		public override async Task<int> CardUseEffect()
 		{
-			return 0;
+			var result = await Game.GetSelectRow(Card.PlayerIndex, Card, new List<RowPosition>() { RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3});
+            // await Game.ApplyWeather(Card.PlayerIndex,result,RowStatus.TorrentialRain);
+            await Game.GameRowEffect[AnotherPlayer][result.Mirror().MyRowToIndex()]
+                .SetStatus<PitTrapStatus>();
+            return 0;
+			
 		}
 	}
 }

@@ -10,9 +10,7 @@ namespace Cynthia.Card
         public BlueStripesCommando(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterUnitPlay @event)
         {
-
-
-            if (@event.PlayedCard.Status.CardId == Card.Status.CardId || @event.PlayedCard.PlayerIndex != Card.PlayerIndex)
+            if (@event.PlayedCard.Status.CardId == Card.Status.CardId || @event.PlayedCard.PlayerIndex != Card.PlayerIndex || !@event.PlayedCard.HasAnyCategorie(Categorie.Temeria))
             {
                 return;
             }
@@ -30,8 +28,6 @@ namespace Cynthia.Card
             }
 
             return;
-
         }
-
     }
 }
