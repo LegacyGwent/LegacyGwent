@@ -13,7 +13,6 @@ namespace Cynthia.Card
             var target = GwentMap.GetCards().Where(x => (x.Group != Group.Leader) && x.CardInfo().CardType == CardType.Unit).Mess(RNG).First();
             var switchCard = await Card.GetMenuSwitch(("猜疑", "小于6."), ("警告", "等于6"), ("贪婪", "大于6"));
             int juggnum = target.Strength == 6 ? 6 : (target.Strength > 6 ? 7 : 5);
-            await Game.PlayersStay[PlayerIndex][0].Effect.Reveal(Card);
             if (switchCard != juggnum - 5)
             {
                 return 0;

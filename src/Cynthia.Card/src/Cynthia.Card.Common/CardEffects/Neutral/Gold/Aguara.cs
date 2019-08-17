@@ -11,7 +11,10 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //以下代码基于 本卡不会buff自己
-            var switchCard = await Card.GetMenuSwitch(2, ("超然之力", "使最弱的友军单位获得5点增益。"), ("狂热攻势", "对最强的1个敌军单位造成5点伤害。"), ("幻象", "使手牌中的1个随机单位获得5点增益。"), ("诱拐", "魅惑1个战力不高于5点的敌军“精灵”单位"));
+            var cards = new (string title, string message)[] { ("超然之力", "使最弱的友军单位获得5点增益。"), ("狂热攻势", "对最强的1个敌军单位造成5点伤害。"), ("幻象", "使手牌中的1个随机单位获得5点增益。"), ("诱拐", "魅惑1个战力不高于5点的敌军“精灵”单位") };
+            var cardList = cards.Select(x => new CardStatus(Card.Status.CardId) { Name = x.title, Info = x.message }).ToList();
+            var switchCard = await Card.Effect.Game.GetSelectMenuCards(Card.PlayerIndex, cardList, selectCount: 2, title: "选择两个选项");
+
             foreach (var i in switchCard)
             {
                 switch (i)
@@ -82,7 +85,7 @@ namespace Cynthia.Card
 
         private async Task<int> charmplace3()
         {
-            if (!Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex && x.HasAllCategorie(Categorie.Elf) && x.CardPoint()<=5).TryMessOne(out var target, Game.RNG))
+            if (!Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex && x.HasAllCategorie(Categorie.Elf) && x.CardPoint() <= 5).TryMessOne(out var target, Game.RNG))
             {
                 return 0;
             }
