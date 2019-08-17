@@ -11,10 +11,6 @@ namespace Cynthia.Card
 	public class ShupeMage : AbstractShupe
 	{//派“店店”去班·阿德学院，见见那里的小伙子们。 抽1张牌；随机魅惑1个敌军单位；在对方三排随机生成一种灾厄；对1个敌军造成10点伤害，再对其相邻单位造成5点；从牌组打出1张铜色/银色“特殊”牌。
 		public ShupeMage(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
-		{
-			return 0;
-		}
 
         protected override async Task<int> UseMethodByChoice(int switchCard)
         {
@@ -52,13 +48,22 @@ namespace Cynthia.Card
 
         private async Task<int> DamageThreeEnemy()
         {
-            var result = await Game.GetSelectPlaceCards(Card, range: 1);
+            var result = await Game.GetSelectPlaceCards(Card);
             if (!result.Any()) return 0;
-            int center = result.Count() / 2;
+            var target = result[0];
+            await target.Effect.Damage(10, Card);
+            var Ltaget = target.GetRangeCard(1, GetRangeType.HollowLeft);
+            if (Ltaget.Count() != 0 && !Ltaget.Single().Status.Conceal)
+            {
+                await Ltaget.Single().Effect.Damage(5, Card);
+            }
 
-            await result[center].Effect.Damage(10, Card);
-            if(center - 1 != 0) await result[center - 1].Effect.Damage(5, Card);
-            if(center + 1 != result.Count()) await result[center + 1].Effect.Damage(5, Card);
+            //如果右侧有单位且不是伏击卡
+            var Rtaget = target.GetRangeCard(1, GetRangeType.HollowRight);
+            if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
+            {
+                await Rtaget.Single().Effect.Damage(5, Card);
+            }
             return 0;
         }
 
@@ -73,7 +78,15 @@ namespace Cynthia.Card
                     realList.Add(it);
                 }
             }
+
+
             var allenemylist = new List<RowPosition>() { RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3 };
+            foreach (var row in allenemylist)
+            {
+                var hazard = realList.Mess(RNG).First();
+                await Game.GameRowEffect[AnotherPlayer][row.Mirror().MyRowToIndex()].SetStatus(hazard);
+            }
+
 
             return 0;
 
@@ -104,7 +117,7 @@ namespace Cynthia.Card
                 {1, "抽1张牌"},
                 {2, "随机魅惑1个敌军单位"},
                 {3, "在对方三排随机生成一种灾厄"},
-                {4, "再对其相邻单位造成5点"},
+                {4, "对1个敌军造成10点伤害，再对其相邻单位造成5点"},
                 {5, "从牌组打出1张铜色/银色“特殊”牌"}
             };
         }
