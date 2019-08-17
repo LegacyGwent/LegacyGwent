@@ -25,9 +25,12 @@ namespace Cynthia.Card
                 (row3 && x.Status.CardRow == RowPosition.MyRow3)
             ), selectMode: SelectModeType.EnemyRow)).Single();
 
-            var second = (await Game.GetSelectPlaceCards(Card, filter: x => x.PlayerIndex == first.PlayerIndex && x.Status.CardRow == first.Status.CardRow && x != first)).Single();
-
-            await first.Effect.Duel(second, Card);
+            var second = await Game.GetSelectPlaceCards(Card, filter: x => x.PlayerIndex == first.PlayerIndex && x.Status.CardRow == first.Status.CardRow && x != first && (x == first.GetRangeCard(1, GetRangeType.HollowLeft).FirstOrDefault() || x == Card.GetRangeCard(1, GetRangeType.HollowRight).FirstOrDefault()));
+            if (second.Count() == 0)
+            {
+                return 0;
+            }
+            await first.Effect.Duel(second.First(), Card);
 
             return 0;
         }
