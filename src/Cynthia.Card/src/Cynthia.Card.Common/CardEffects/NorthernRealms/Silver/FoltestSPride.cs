@@ -10,25 +10,25 @@ namespace Cynthia.Card
         public FoltestSPride(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            if (Card.GetLocation().RowPosition.IsOnPlace())
+            if (Card.Status.CardRow.IsOnPlace())
             {
                 for (var i = 0; i < 1 + Card.GetCrewedCount(); i++)
                 {
                     var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
                     if (result.Count <= 0)
                     {
-                        return 0;
+                        continue;
                     }
                     var target = result.Single();
                     await target.Effect.Damage(2, Card);
                     if (!target.Status.CardRow.IsOnPlace() || Card.Status.CardRow == RowPosition.MyRow3)
                     {
-                        return 0;
+                        continue;
                     }
                     var tagetRow = target.Status.CardRow == RowPosition.MyRow1 ? RowPosition.MyRow2 : RowPosition.MyRow3;
                     if (Game.RowToList(target.PlayerIndex, tagetRow).Count >= 9)
                     {
-                        return 0;
+                        continue;
                     }
                     else
                     {

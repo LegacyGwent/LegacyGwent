@@ -20,6 +20,7 @@ namespace Cynthia.Card
 
             var card2 = await Game.GetSelectPlaceCards(Card);
             if (!card2.Any()) return 0;
+            await card2.Single().Effect.Damage(1, Card);
             return 0;
         }
     }
