@@ -10,23 +10,16 @@ namespace Cynthia.Card
         public GaunterODimm(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-
-
-            await Game.CreateCard(CardId.ImperialManticore, PlayerIndex, new CardLocation(RowPosition.MyStay, 0), setting: ToConceal);
-            var switchCard = await Card.GetMenuSwitch(("mistrust", "小于6."), ("caution", "等于6"), ("greed", "大于6"));
-            int juggnum = GwentMap.CardMap[CardId.ImperialManticore].Strength == 6 ? 6 : (GwentMap.CardMap[CardId.ImperialManticore].Strength > 6 ? 7 : 5);
+            var target = GwentMap.GetCards().Where(x => (x.Group != Group.Leader) && x.CardInfo().CardType == CardType.Unit).Mess(RNG).First();
+            var switchCard = await Card.GetMenuSwitch(("猜疑", "小于6."), ("警告", "等于6"), ("贪婪", "大于6"));
+            int juggnum = target.Strength == 6 ? 6 : (target.Strength > 6 ? 7 : 5);
             await Game.PlayersStay[PlayerIndex][0].Effect.Reveal(Card);
             if (switchCard != juggnum - 5)
             {
-                await Game.PlayersStay[PlayerIndex][0].Effect.Banish();
                 return 0;
             }
+            await Game.CreateCard(target.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
             return 1;
-        }
-
-        private void ToConceal(CardStatus status)
-        {
-            status.Conceal = true;
         }
     }
 }
