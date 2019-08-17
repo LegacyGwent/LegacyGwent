@@ -13,22 +13,27 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            var player1Row1Point = Game.PlayersPlace[Card.PlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1Row2Point = Game.PlayersPlace[Card.PlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1Row3Point = Game.PlayersPlace[Card.PlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row1Point = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row2Point = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row3Point = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var myPlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
-            var enemyPlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
-            if (myPlacePoint + 25 < enemyPlacePoint)
+            if (@event.PlayerIndex != PlayerIndex)
+            {
+                return;
+            }
+            // var player1Row1Point = Game.PlayersPlace[Card.PlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            // var player1Row2Point = Game.PlayersPlace[Card.PlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            // var player1Row3Point = Game.PlayersPlace[Card.PlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            // var player2Row1Point = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            // var player2Row2Point = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            // var player2Row3Point = Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            // var myPlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
+            // var enemyPlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
+            // if (myPlacePoint + 25 < enemyPlacePoint)
+            if (Game.GetPlayersPoint(PlayerIndex) + 25 < Game.GetPlayersPoint(AnotherPlayer))
             {
                 //召唤全部
                 var cards = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
                 foreach (var card in cards)
                 {
                     //召唤到末尾
-                    await card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex,true), Card);
+                    await card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                 }
 
             }
