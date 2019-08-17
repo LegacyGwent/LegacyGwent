@@ -15,12 +15,12 @@ namespace Cynthia.Card
 
             foreach (var card in cards)
             {
-                var row = card.GetLocation().RowPosition;
+                var row = Card.Status.CardRow;
                 await card.Effect.Damage(1, Card);
                 if (card.IsDead && !(Game.GameRowEffect[card.PlayerIndex][row.MyRowToIndex()].RowStatus == RowStatus.RaghNarRoog))
                 {
                     await Game.GameRowEffect[card.PlayerIndex][row.MyRowToIndex()].SetStatus<RaghNarRoogStatus>();
-                }	
+                }
             }
             return 0;
         }

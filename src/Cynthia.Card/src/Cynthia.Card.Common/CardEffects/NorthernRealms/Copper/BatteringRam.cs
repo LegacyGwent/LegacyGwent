@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             int damagenum = 0;
-            if (Card.GetLocation().RowPosition.IsOnPlace())
+            if (Card.Status.CardRow.IsOnPlace())
             {
                 damagenum = 3 + Card.GetCrewedCount();
             }

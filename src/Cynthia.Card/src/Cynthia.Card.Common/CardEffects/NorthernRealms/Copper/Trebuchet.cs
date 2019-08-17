@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Trebuchet(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            if (Card.GetLocation().RowPosition.IsOnPlace())
+            if (Card.Status.CardRow.IsOnPlace())
             {
                 int damagenum = 1 + Card.GetCrewedCount();
                 var result = await Game.GetSelectPlaceCards(Card, range: 1, selectMode: SelectModeType.EnemyRow);

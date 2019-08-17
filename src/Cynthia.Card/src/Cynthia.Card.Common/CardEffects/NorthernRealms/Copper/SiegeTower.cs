@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public SiegeTower(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            if (Card.GetLocation().RowPosition.IsOnPlace())
+            if (Card.Status.CardRow.IsOnPlace())
             {
                 for (var i = 0; i < 1 + Card.GetCrewedCount(); i++)
                 {

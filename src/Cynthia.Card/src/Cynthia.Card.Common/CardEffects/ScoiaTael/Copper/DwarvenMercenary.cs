@@ -13,9 +13,9 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = await Game.GetSelectPlaceCards(Card,filter:NoMySelfRow, selectMode: SelectModeType.AllRow);
+            var list = await Game.GetSelectPlaceCards(Card, filter: NoMySelfRow, selectMode: SelectModeType.AllRow);
             if (list.Count <= 0) return 0;
             var location = Card.GetLocation() + 1;
             var card = list.First();
@@ -30,7 +30,7 @@ namespace Cynthia.Card
 
         private bool NoMySelfRow(GameCard card)
         {
-            return card.GetLocation().RowPosition != Card.GetLocation().RowPosition;
+            return Card.Status.CardRow != Card.Status.CardRow;
         }
     }
 }

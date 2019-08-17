@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public ReinforcedTrebuchet(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (@event.PlayerIndex != Card.PlayerIndex||!Card.GetLocation().RowPosition.IsOnPlace())
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }

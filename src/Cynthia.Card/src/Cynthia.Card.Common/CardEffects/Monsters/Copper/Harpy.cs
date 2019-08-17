@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Harpy(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            if (Game.GameRound.ToPlayerIndex(Game) == PlayerIndex && @event.Target.HasAllCategorie(Categorie.Beast) && @event.Target.PlayerIndex == Card.PlayerIndex && Card.GetLocation().RowPosition.IsInDeck())
+            if (Game.GameRound.ToPlayerIndex(Game) == PlayerIndex && @event.Target.HasAllCategorie(Categorie.Beast) && @event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
             {
                 var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
                 if (list.Count() == 0)

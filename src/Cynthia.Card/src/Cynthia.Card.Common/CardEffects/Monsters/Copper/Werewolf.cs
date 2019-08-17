@@ -13,7 +13,7 @@ namespace Cynthia.Card
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
             Card.Status.IsImmue = true;
-            if (Game.GameRowEffect[Card.PlayerIndex][Card.GetLocation().RowPosition.MyRowToIndex()].RowStatus == RowStatus.FullMoon)
+            if (Game.GameRowEffect[Card.PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus == RowStatus.FullMoon)
             {
                 isfullmoon = true;
                 await Card.Effect.Boost(7, Card);
@@ -27,12 +27,12 @@ namespace Cynthia.Card
 
 
             //如果不在场上
-            if (!Card.GetLocation().RowPosition.IsOnPlace())
+            if (!Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
             //如果特效没有放置到狼人排 什么事情都不做
-            if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.GetLocation().RowPosition))
+            if (!(@event.PlayerIndex == Card.PlayerIndex && @event.Row == Card.Status.CardRow))
             {
                 return;
             }

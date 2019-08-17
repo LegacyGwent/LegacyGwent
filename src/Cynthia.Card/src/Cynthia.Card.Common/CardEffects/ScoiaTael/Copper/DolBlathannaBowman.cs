@@ -40,7 +40,7 @@ namespace Cynthia.Card
                 var card = GetEnemyRandomCard();
                 if (card != null)
                 {
-                    await card.Effect.Damage(1, Card);
+                    await card.Effect.Damage(damage, Card);
                 }
             }
         }
