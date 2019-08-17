@@ -7,10 +7,13 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("15003")]//店店：法师
-	public class ShupeMage : AbstractShupe
-	{//派“店店”去班·阿德学院，见见那里的小伙子们。 抽1张牌；随机魅惑1个敌军单位；在对方三排随机生成一种灾厄；对1个敌军造成10点伤害，再对其相邻单位造成5点；从牌组打出1张铜色/银色“特殊”牌。
-		public ShupeMage(GameCard card) : base(card){}
+    [CardEffectId("15003")] //店店：法师
+    public class ShupeMage : AbstractShupe
+    {
+        //派“店店”去班·阿德学院，见见那里的小伙子们。 抽1张牌；随机魅惑1个敌军单位；在对方三排随机生成一种灾厄；对1个敌军造成10点伤害，再对其相邻单位造成5点；从牌组打出1张铜色/银色“特殊”牌。
+        public ShupeMage(GameCard card) : base(card)
+        {
+        }
 
         protected override async Task<int> UseMethodByChoice(int switchCard)
         {
@@ -64,6 +67,7 @@ namespace Cynthia.Card
             {
                 await Rtaget.Single().Effect.Damage(5, Card);
             }
+
             return 0;
         }
 
@@ -80,7 +84,8 @@ namespace Cynthia.Card
             }
 
 
-            var allenemylist = new List<RowPosition>() { RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3 };
+            var allenemylist = new List<RowPosition>()
+                {RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3};
             foreach (var row in allenemylist)
             {
                 var hazard = realList.Mess(RNG).First();
@@ -89,24 +94,21 @@ namespace Cynthia.Card
 
 
             return 0;
-
         }
 
         private async Task<int> CharmRNG()
         {
-
             var list = Game.GetPlaceCards(AnotherPlayer).ToList();
             if (!list.Any()) return 0;
             var target = list.Mess(RNG).First();
 
             await target.Effect.Charm(Card);
             return 0;
-
         }
 
         private async Task<int> DrawOneCard()
         {
-            await Game.PlayerDrawCard(PlayerIndex);//抽卡
+            await Game.PlayerDrawCard(PlayerIndex); //抽卡
             return 0;
         }
 
