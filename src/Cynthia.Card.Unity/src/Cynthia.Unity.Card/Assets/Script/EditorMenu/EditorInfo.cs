@@ -213,8 +213,8 @@ public class EditorInfo : MonoBehaviour
         });
         //----
         var count = decks.Count();
-        var height = (15 + 65 + 5) + (80 + 5) * count;//count <= 16 ? 780f : 
-        ShowDecksContext.sizeDelta = new Vector2(0, height);
+        // var height = (15 + 65 + 5 + 85) + (80 + 5) * count;//count <= 16 ? 780f : 
+        // ShowDecksContext.sizeDelta = new Vector2(0, height);
         ShowDeckScroll.value = 1;
     }
 
