@@ -18,11 +18,11 @@ namespace Cynthia.Card
             .Where(x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver).ToList();
             //让玩家选择
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, isCanOver: true);
-            result.ToList().ForAll(x =>
+            foreach (var x in result.ToList())
             {
                 var playerIndex = x.PlayerIndex;
-                Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[playerIndex].Count)), x);
-            });
+                await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[playerIndex].Count)), x);
+            }
             return 0;
         }
     }

@@ -12,15 +12,15 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
             if (!list.Any()) return 0;
             var card = list.Single();
-            await card.Effect.Damage(damage,Card);
-            if (card.Status.CardRow.IsOnPlace())
+            await card.Effect.Damage(damage, Card);
+            if (card.IsAliveOnPlance())
             {
-                await Card.Effect.Boost(boost,Card);
+                await Card.Effect.Boost(boost, Card);
             }
 
             return 0;
