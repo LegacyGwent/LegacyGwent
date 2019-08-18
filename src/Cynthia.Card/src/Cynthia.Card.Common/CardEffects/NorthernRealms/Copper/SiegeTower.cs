@@ -16,8 +16,6 @@ namespace Cynthia.Card
                 {
                     await Card.Effect.Boost(2, Card);
                 }
-                return 0;
-
             }
             return 0;
         }
