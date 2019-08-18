@@ -70,13 +70,6 @@ public class MatchInfo : MonoBehaviour
             ResetTextMenus.ForAll(x => x.TextReset());
         }
     }
-    void Start()
-    {
-        ResetMatch();
-        IsDoingMatch = false;
-        //_client = DependencyResolver.Container.Resolve<GwentClientService>();
-        //_UIService = DependencyResolver.Container.Resolve<GlobalUIService>();
-    }
     public void ResetMatch()
     {
         if (_client.User.Decks.Count() <= GlobalState.DefaultDeckIndex) GlobalState.DefaultDeckIndex = 0;
@@ -162,6 +155,11 @@ public class MatchInfo : MonoBehaviour
         MatchReset();
         DeckSwitch.GetComponent<Animator>().Play("SwitchDeckClose");
     }
+    void Start()
+    {
+        ResetMatch();
+        IsDoingMatch = false;
+    }
     public void SetDeckList(IList<DeckModel> decks)
     {
         var count = DecksContext.childCount;
@@ -177,6 +175,8 @@ public class MatchInfo : MonoBehaviour
             deck.GetComponent<SwitchMatchDeck>().SetId(DecksContext.childCount);
             deck.transform.SetParent(DecksContext, false);
         });
+        var height = decks.Count * 83 + 35;
+        DecksContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(419, height > 851 ? height : 831);
     }
 
     public void SetDeck(DeckModel deck, string id)
