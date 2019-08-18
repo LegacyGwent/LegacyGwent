@@ -112,25 +112,90 @@ public class EditorInfo : MonoBehaviour
         //---------------------------------------------------------------------------
     }
 
+    public void SetEditorCardInfo(IList<CardStatus> cards)
+    {   //设置已有卡牌
+        EditorCardsScroll.value = 1;
+        RemoveAllChild(EditorCardsContext);
+        var sc = 0;
+        AddCards(sc, 40, cards);
+        void AddCards(int skipCount, int pageCount, IList<CardStatus> showCards)
+        {
+            if (showCards.Count <= skipCount * pageCount)
+            {
+                return;
+            }
+            var newCards = showCards.Skip(skipCount * pageCount).Take(pageCount).ToList();
+            newCards.ForAll(x =>
+            {
+                var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
+                card.cardShowInfo.CurrentCore = x;
+                var canAdd = (x.Group == Group.Copper ? 3 : 1);
+                card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
+                card.transform.SetParent(EditorCardsContext, false);
+            });
+        }
+        //------------------------------------------------------------------------//276
+        // var count = cards.Count;
+        // var height = (50f + 267f * (count % 6 > 0 ? count / 6 + 1 : count / 6));//count <= 16 ? 780f : 
+        // EditorCardsContext.sizeDelta = new Vector2(500.96f, height);
+        //ShowCardsContent.GetComponent<GridLayoutGroup>().padding.top = 104;
+        EditorCardsScroll.onValueChanged.RemoveAllListeners();
+        EditorCardsScroll.onValueChanged.AddListener(x =>
+        {
+            if (x >= 0.3)
+            {
+                return;
+            }
+            Debug.Log("到达临界点,触发");
+
+            sc++;
+            AddCards(sc, 40, cards);
+        });
+    }
+
     public void SetShowCardInfo(IList<CardStatus> cards)
     {   //设置已有卡牌
-        RemoveAllChild(ShowCardsContent);
-        cards.ForAll(x =>
-        {
-            var card = Instantiate(UICardPrefab).GetComponent<CardShowInfo>();
-            card.CurrentCore = x;
-            card.transform.SetParent(ShowCardsContent, false);
-        });
-        //------------------------------------------------------------------------//276
-        var count = cards.Count;
-        var height = (50f + 267f * (count % 6 > 0 ? count / 6 + 1 : count / 6));//count <= 16 ? 780f : 
-        ShowCardsContent.sizeDelta = new Vector2(500.96f, height);
-        //ShowCardsContent.GetComponent<GridLayoutGroup>().padding.top = 104;
         ShowCardScroll.value = 1;
+        RemoveAllChild(ShowCardsContent);
+        var sc = 0;
+        AddCards(sc, 40, cards);
+        void AddCards(int skipCount, int pageCount, IList<CardStatus> showCards)
+        {
+            if (showCards.Count <= skipCount * pageCount)
+            {
+                return;
+            }
+            var newCards = showCards.Skip(skipCount * pageCount).Take(pageCount).ToList();
+            newCards.ForAll(x =>
+            {
+                var card = Instantiate(UICardPrefab).GetComponent<CardShowInfo>();
+                card.CurrentCore = x;
+                card.transform.SetParent(ShowCardsContent, false);
+            });
+        }
+        //------------------------------------------------------------------------//276
+        // var count = cards.Count;
+        // var height = (50f + 267f * (count % 6 > 0 ? count / 6 + 1 : count / 6));//count <= 16 ? 780f : 
+        // ShowCardsContent.sizeDelta = new Vector2(500.96f, height);
+        //ShowCardsContent.GetComponent<GridLayoutGroup>().padding.top = 104;
+        ShowCardScroll.onValueChanged.RemoveAllListeners();
+        ShowCardScroll.onValueChanged.AddListener(x =>
+        {
+            if (x >= 0.3)
+            {
+                return;
+            }
+            Debug.Log("到达临界点,触发");
+
+            sc++;
+            AddCards(sc, 40, cards);
+        });
     }
 
     public void OpenEditor(bool IsMoveLeftRight = true)
     {
+        ShowCardScroll.value = 1;
+        EditorCardsScroll.value = 1;
         EditorStatus = EditorStatus.ShowCards;
         _nowSwitchLeaderId = null;
         _nowEditorDeck = null;
@@ -174,6 +239,8 @@ public class EditorInfo : MonoBehaviour
 
     public void ShowFactionClick()
     {   //展示卡牌中,切换势力显示的按钮被点击
+        ShowCardScroll.value = 1;
+        ShowCardScroll.value = 1;
         if (!ShowButtons.Any(x => x.isOn)) return;
         var result = ShowButtons.Select((item, index) => (item, index)).First(x => x.item.isOn).index;
         if (result == _nowShow) return;
@@ -198,7 +265,8 @@ public class EditorInfo : MonoBehaviour
     }
 
     public void SetDeckList(IList<DeckModel> decks)
-    {   //设置已有卡组
+    {
+        //设置已有卡组
         RemoveAllChild(ShowDecksContext);
         var button = Instantiate(AddDeckButtonPrefab);
         button.transform.SetParent(ShowDecksContext, false);
@@ -303,8 +371,6 @@ public class EditorInfo : MonoBehaviour
         if (EditorStatus == EditorStatus.SwitchFaction)
         {   //如果目前正在选择势力
             _nowSwitchFaction = card.DeckFaction;
-            if (!card.IsCardBack)
-                Debug.Log("发生了一个超大的问题!!!!点击查看");
             SetSwitchList(_cards.Where(x => x.Group == Group.Leader && x.Faction == _nowSwitchFaction).ToList());
 
             EditorStatus = EditorStatus.SwitchLeader;
@@ -330,6 +396,7 @@ public class EditorInfo : MonoBehaviour
 
     public async void SwitchReturn()
     {
+
         switch (EditorStatus)
         {
             case EditorStatus.SwitchLeader://选择领袖阶段,变回选择势力
@@ -343,10 +410,6 @@ public class EditorInfo : MonoBehaviour
                 DeckName.text = "默认名称";
                 break;
             case EditorStatus.SwitchFaction://选择势力阶段,变为展示卡牌阶段
-                //_nowSwitchFaction = Faction.All;
-                //_nowSwitchLeaderId = null;
-                //EditorStatus = EditorStatus.ShowCards;
-                //需要补充,关闭预选模式的动画
                 OpenEditor(false);
                 DOTween.To(() => ShowCardsTitle.anchoredPosition, x => ShowCardsTitle.anchoredPosition = x,
                     new Vector2(0, 478.5f), 0.5f);//降下Title,设定标题 ********
@@ -563,24 +626,6 @@ public class EditorInfo : MonoBehaviour
         //EditorCListScroll.value = 1;
     }
 
-    public void SetEditorCardInfo(IList<CardStatus> cards)
-    {   //设置已有卡牌
-        RemoveAllChild(EditorCardsContext);
-        cards.ForAll(x =>
-        {
-            var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
-            card.cardShowInfo.CurrentCore = x;
-            var canAdd = (x.Group == Group.Copper ? 3 : 1);
-            card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
-            card.transform.SetParent(EditorCardsContext, false);
-        });
-        //------------------------------------------------------------------------//276
-        var count = cards.Count;
-        var height = (50f + 267f * (count % 6 > 0 ? count / 6 + 1 : count / 6));//count <= 16 ? 780f : 
-        EditorCardsContext.sizeDelta = new Vector2(500.96f, height);
-        //ShowCardsContent.GetComponent<GridLayoutGroup>().padding.top = 104;
-        EditorCardsScroll.value = 1;
-    }
 
     public int GetFactionIndex(Faction faction)
     {
