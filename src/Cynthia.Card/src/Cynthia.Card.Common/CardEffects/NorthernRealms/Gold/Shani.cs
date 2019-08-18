@@ -24,8 +24,8 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await result.First().Effect.Armor(2, Card);
             await result.First().Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
+            await result.First().Effect.Armor(2, Card);
             return 1;
         }
     }
