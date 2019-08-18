@@ -17,7 +17,7 @@ namespace Cynthia.Card
 
                 if (!selectList.TrySingle(out var target))
                 {
-                    return 0;
+                    continue;
                 }
                 //获取所有敌方除了target以外的与target战力相同卡,从中随机取最多4个
                 //take方法超过上限会发生什么？
@@ -25,7 +25,7 @@ namespace Cynthia.Card
                 if (enemycards.Count() == 0)
                 {
                     await target.Effect.Damage(1, Card);
-                    return 0;
+                    continue;
                 }
                 int takenum = enemycards.Count() <= 4 ? enemycards.Count() : 4;
 
