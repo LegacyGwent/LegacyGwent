@@ -18,7 +18,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardDiscard @event)
         {
-            if (Countdown <= 0)
+            if (Countdown <= 0 || !Card.IsAliveOnPlance())
             {
                 return;
             }
