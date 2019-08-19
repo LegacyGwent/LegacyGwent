@@ -10,13 +10,13 @@
 {
     <tr>
         <td>
-            投食人:@item.MasterName
+            投食人:@if(item.MasterName==""){<b><i>匿名</i></b>}else{@item.MasterName}
         </td>
         <td>
-            留言:@item.Message
+            留言: @if(@item.Message==""){<b><i>未留言</i></b>}else{@item.Message}
         </td>
         <td>
-            时间:@item.Time
+            时间:@item.Time.Year-@item.Time.Month-@item.Time.Day
         </td>
         <td>
             金额:@item.Money
@@ -57,7 +57,7 @@
     {
         _sponsorRecord = new List<SponsorInfo>(){
             new SponsorInfo("ShyN","加油",100,new DateTime(2019,8,19)),
-            new SponsorInfo("",19,new DateTime(2019,8,19)),
+            new SponsorInfo("","",19,new DateTime(2019,8,19)),
             new SponsorInfo("O Somerhalder","继续加油^ O ^~",50,new DateTime(2019,8,18)),
             new SponsorInfo("neal","支持支柱!",10,new DateTime(2019,8,15)),
             new SponsorInfo("John Constantine","",200,new DateTime(2019,8,15)),
