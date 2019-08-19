@@ -15744,6 +15744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146517509}
   - component: {fileID: 2146517510}
+  - component: {fileID: 2146517511}
   m_Layer: 0
   m_Name: MyDeck
   m_TagString: Untagged
@@ -15781,3 +15782,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.83, y: 2.24, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2146517511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146517508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f1561801ece7244a48336136eaf3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2

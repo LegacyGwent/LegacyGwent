@@ -1263,6 +1263,16 @@ PrefabInstance:
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114328364254096694, guid: 33216058cd3a26a4498c4d7001f48b48,
+        type: 3}
+      propertyPath: m_ContentType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328364254096694, guid: 33216058cd3a26a4498c4d7001f48b48,
+        type: 3}
+      propertyPath: m_InputType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224959426860126362, guid: 33216058cd3a26a4498c4d7001f48b48,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -3516,7 +3516,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "大狮鹫也是狮鹫，只是更加凶悍。",
                     Info = "移除所在排的灾厄。",
-                    CardArtsId = "13231200",
+                    CardArtsId = "13230700",
                 }
             },
             {
@@ -3596,7 +3596,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "狮鹫喜欢玩弄自己的猎物，将其一点一点地活生生啄食吞咽。",
                     Info = "触发1个铜色友军单位的遗愿效果。",
-                    CardArtsId = "13230700",
+                    CardArtsId = "13231200",
                 }
             },
             {
@@ -3921,7 +3921,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "有个迷信的家伙用蜡堵住耳朵，结果什么也听不到，包括警告——他的船直接撞上了礁石。",
                     Info = "对1个敌军单位造成4点伤害，若目标位于“血月”之下，则伤害变为7点。",
-                    CardArtsId = "20011300",
+                    CardArtsId = "13240900",
                 }
             },
             {
@@ -3981,7 +3981,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{Categorie.Beast,Categorie.Cursed},
                     Flavor = "他不喜欢你挠他的肚子。",
                     Info = "对1个敌军单位造成5点伤害，随后对位于“血月”之下的所有敌军单位造成1点伤害。",
-                    CardArtsId = "13240900",
+                    CardArtsId = "20011300",
                 }
             },
             {

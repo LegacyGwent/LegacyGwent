@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public CardShowInfo cardShowInfo;
-    public MainCodeService MainCodeService { get; set; }
+    private MainCodeService _mainCodeService;
     public GameObject CountIcon;
     public GameObject Gray;
     public Text CountText;
@@ -36,23 +36,23 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     private void Start()
     {
-        MainCodeService = DependencyResolver.Container.Resolve<MainCodeService>();
+        _mainCodeService = DependencyResolver.Container.Resolve<MainCodeService>();
     }
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
     {
-        MainCodeService.ClickEditorUICoreCard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
+        _mainCodeService.ClickEditorUICoreCard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
     }
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f * 1.05f, 0.1f);
-        MainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
+        _mainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
     }
     //鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f, 0.1f);
-        MainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore, false);
+        _mainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore, false);
     }
 }
