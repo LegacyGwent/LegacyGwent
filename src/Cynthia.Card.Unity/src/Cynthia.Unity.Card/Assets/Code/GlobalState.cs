@@ -7,16 +7,16 @@ public static class GlobalState
     public static bool IsToMatch = false;
 
     public static bool IsLoadGlobal = false;
-    public static int DefaultDeckIndex
+    public static string DefaultDeckId
     {
-        get => _defaultDeckIndex;
+        get => _defaultDeckId;
         set
         {
-            _defaultDeckIndex = value;
-            PlayerPrefs.SetInt("DefaultDeckIndex", value);
+            _defaultDeckId = value;
+            PlayerPrefs.SetString("DefaultDeckId", value);
         }
     }
-    private static int _defaultDeckIndex = 0;
+    private static string _defaultDeckId = PlayerPrefs.GetString("DefaultDeckId", "");
     public static readonly Color WinColor = new Color(255f / 255f, 220f / 255f, 0f / 255f, 255f / 255f);//黄色胜利文字
     public static readonly Color EnemyColor = new Color(212f / 255f, 0f / 255f, 4f / 255f, 255f / 255f);//敌方文字 红
     public static readonly Color MyColor = new Color(0f / 255f, 143f / 255f, 203f / 255f, 255f / 255f);//我方文字 蓝

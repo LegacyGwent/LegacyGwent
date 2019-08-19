@@ -369,7 +369,7 @@ public class GameEvent : MonoBehaviour
     //右键点击之类的
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             var items = GetMouseAllRaycast();
             var trueitem = items.Select(x => x.GetComponent<CanRightOn>()).Where(x => x != null);
@@ -378,14 +378,13 @@ public class GameEvent : MonoBehaviour
             switch (trueitem.First().Type)
             {
                 case RightOnType.MyCemetery:
-                    Debug.Log("展示了我方墓地");
                     GameCardShowControl.ShowMyCemetery();
                     break;
                 case RightOnType.EnemyCemetery:
-                    Debug.Log("展示了敌方墓地");
                     GameCardShowControl.ShowEnemyCemetery();
                     break;
                 case RightOnType.MyDeck:
+                    Debug.Log("点了卡组");
                     GameCardShowControl.ShowMyDeck();
                     break;
                 case RightOnType.Card:
