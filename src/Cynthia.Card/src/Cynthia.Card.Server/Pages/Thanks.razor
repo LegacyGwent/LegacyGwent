@@ -1,0 +1,71 @@
+@page "/thank"
+@using Cynthia.Card.Server
+
+<h1>特别感谢投食名单</h1>
+
+<h3>目前投食总量为:@_sponsorRecord.Sum(x=>x.Money)</h3>
+
+<table>
+@foreach (var item in _sponsorRecord)
+{
+    <tr>
+        <td>
+            投食人:@item.MasterName
+        </td>
+        <td>
+            留言:@item.Message
+        </td>
+        <td>
+            时间:@item.Time
+        </td>
+        <td>
+            金额:@item.Money
+        </td>
+    </tr>
+}
+</table>
+
+<br/><br/>
+<h2>以及感谢所有玩家和群友,感谢所有人的鼓励关注和支持~</h2>
+
+<p>由于完全不懂css,无法做的很漂亮qvq,还请见谅</p>
+
+@code
+{
+    private class SponsorInfo
+    {
+        public string MasterName{get;set;}
+
+        public string Message{get;set;}
+
+        public decimal Money{get;set;}
+
+        public DateTime Time{get;set;}
+
+        public SponsorInfo(string masterName,string message,decimal money,DateTime time)
+        {
+            MasterName = masterName;
+            Message = message;
+            Money = money;
+            Time = time;
+        }
+    }
+
+    private IList<SponsorInfo> _sponsorRecord;
+
+    protected override void OnInit()
+    {
+        _sponsorRecord = new List<SponsorInfo>(){
+            new SponsorInfo("O Somerhalder","继续加油^ O ^~",50,new DateTime(2019,8,18)),
+            new SponsorInfo("neal","支持支柱!",10,new DateTime(2019,8,15)),
+            new SponsorInfo("John Constantine","",200,new DateTime(2019,8,15)),
+            new SponsorInfo("Overfitting","支柱无敌! tale",10,new DateTime(2019,8,15)),
+            new SponsorInfo("","算是为服务器提供绵薄之力吧,总之,加油吧",100,new DateTime(2019,8,10)),
+            new SponsorInfo("","QAQ",20,new DateTime(2019,8,5)),
+            new SponsorInfo("SergioMenendez","",50,new DateTime(2019,7,16)),
+            new SponsorInfo("凉昆","群主加油,emmm么得多少钱,等我实习完才能整大一点",30,new DateTime(2019,7,16)),
+            new SponsorInfo("","",10,new DateTime(2019,6,14)),
+            new SponsorInfo("朽木难雕笨格子","我就是我,不一样的花火",1,new DateTime(2019,6,13)),
+        };
+    }
+}
