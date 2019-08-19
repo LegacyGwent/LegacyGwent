@@ -369,7 +369,12 @@ public class GameEvent : MonoBehaviour
     //右键点击之类的
     private void OnMouseOver()
     {
+#if UNITY_ANDROID
+        if (Input.GetMouseButtonDown(0))
+#endif
+#if UNITY_STANDALONE_WIN
         if (Input.GetMouseButtonDown(1))
+#endif
         {
             var items = GetMouseAllRaycast();
             var trueitem = items.Select(x => x.GetComponent<CanRightOn>()).Where(x => x != null);
