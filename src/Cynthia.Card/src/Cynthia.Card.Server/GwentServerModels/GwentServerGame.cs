@@ -178,7 +178,6 @@ namespace Cynthia.Card.Server
             await SendEvent(new AfterRoundOver(RoundCount, player1PlacePoint, player2PlacePoint, player1PlacePoint == player2PlacePoint ? (int?)null : (player1PlacePoint > player2PlacePoint ? Player1Index : Player2Index)));
             //888888888888888888888888888888888888888888888888888888888888888888888888
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
-            await SetCemeteryInfo();
             //清空所有场上的牌
         }
         //进行一轮回合
@@ -287,8 +286,9 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < count; i++)
             {
                 //将卡组顶端的卡牌抽到手牌
-                (await LogicCardMove(PlayersDeck[playerIndex].First(filter), PlayersHandCard[playerIndex], 0)).To(list.Add);
+                (await LogicCardMove(PlayersDeck[playerIndex].First(filter), PlayersHandCard[playerIndex], 0, autoUpdateDeck: false)).To(list.Add);
             }
+            await SetDeckInfo(playerIndex);
             return list;
         }
 
@@ -536,7 +536,7 @@ namespace Cynthia.Card.Server
             return result.Select(x => GetCard(card.PlayerIndex, x)).ToList();
         }
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        public async Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> target, int targetIndex)
+        public async Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> target, int targetIndex, bool autoUpdateCemetery = true, bool autoUpdateDeck = true)
         {
             var player1SoureRow = (source.PlayerIndex == Player1Index ? source.Status.CardRow : source.Status.CardRow.Mirror());
             var player1TagetRow = ListToRow(Player1Index, target);
@@ -558,11 +558,11 @@ namespace Cynthia.Card.Server
             source.Status.CardRow = ListToRow(WhoRow(target), target);
             source.PlayerIndex = WhoRow(target);
 
-            if (player1SoureRow.IsInCemetery() || player1TagetRow.IsInCemetery())
+            if (autoUpdateCemetery && (player1SoureRow.IsInCemetery() || player1TagetRow.IsInCemetery()))
             {
                 await SetCemeteryInfo();
             }
-            if (player1SoureRow.IsInDeck() || player1TagetRow.IsInDeck())
+            if (autoUpdateDeck && (player1SoureRow.IsInDeck() || player1TagetRow.IsInDeck()))
             {
                 await SetDeckInfo();
             }
@@ -816,7 +816,7 @@ namespace Cynthia.Card.Server
         }
         public async Task SetDeckInfo(int playerIndex)
         {
-            await Players[playerIndex].SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[playerIndex].Select(x => new CardStatus(x.Status.CardId)).OrderBy(x => x.Group).ThenBy(x => x.Strength).Distinct().ToList());
+            await Players[playerIndex].SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[playerIndex].Select(x => new CardStatus(x.Status.CardId)).OrderBy(x => x.CardId).OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).ToList());
         }
         public async Task SetDeckInfo()
         {
@@ -1095,7 +1095,7 @@ namespace Cynthia.Card.Server
             );
         }
 
-        public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false)
+        public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false, bool autoUpdateCemetery = true, bool autoUpdateDeck = true)
         {
             var isFromHide = card.Status.CardRow.IsInBack();
             var isShowPlayerIndexBack = !location.RowPosition.IsMyRow() && isShowEnemyBack;
@@ -1114,7 +1114,7 @@ namespace Cynthia.Card.Server
             });
             //var row = RowToList(card.PlayerIndex, card.Status.CardRow);
             var target = RowToList(card.PlayerIndex, location.RowPosition);
-            await LogicCardMove(card, target, location.CardIndex);
+            await LogicCardMove(card, target, location.CardIndex, autoUpdateCemetery, autoUpdateDeck);
             await SetCountInfo();
             if (refreshPoint)
                 await SetPointInfo();
