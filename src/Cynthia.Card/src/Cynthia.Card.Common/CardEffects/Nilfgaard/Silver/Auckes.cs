@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var result = await Game.GetSelectPlaceCards(Card, 2);
             foreach (var card in result)
             {
-                await card.Effect.Lock(Card)
+                await card.Effect.Lock(Card);
             }
             return 0;
         }
