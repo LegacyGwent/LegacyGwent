@@ -65,7 +65,6 @@ namespace Cynthia.Card.Server
             //###游戏开始###
             //双方抽牌10张
             await SendEvent(new OnGameStart());
-            await SetDeckInfo();
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
@@ -561,8 +560,11 @@ namespace Cynthia.Card.Server
 
             if (player1SoureRow.IsInCemetery() || player1TagetRow.IsInCemetery())
             {
-                await SetCemeteryInfo(Player1Index);
-                await SetCemeteryInfo(Player2Index);
+                await SetCemeteryInfo();
+            }
+            if (player1SoureRow.IsInDeck() || player1TagetRow.IsInDeck())
+            {
+                await SetDeckInfo();
             }
             return source;
         }
@@ -806,8 +808,10 @@ namespace Cynthia.Card.Server
         //----------------------------------------------------------------------------------------------
         public async Task SetAllInfo()
         {
-            await Players[Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
-            await Players[Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
+            var task1 = Players[Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
+            var task2 = Players[Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
+            await Task.WhenAll(task1, task2);
+            await SetDeckInfo();
             // await SendOperactionList();
         }
         public async Task SetDeckInfo(int playerIndex)
