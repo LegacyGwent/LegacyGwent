@@ -165,9 +165,10 @@ public class GameCardShowControl : MonoBehaviour
 
     public void ShowMyDeck()
     {
+        Debug.Log(MyDeck?.Count());
         if (MyDeck == null || MyDeck.Count() == 0)
             return;
-        ShowCardMessage.text = "我方卡组(乱序)";
+        ShowCardMessage.text = "我方卡组(原始状态,顺序)";
         _nowShowType = MenuShowType.MyDeck;
         SetCardInfo(MyDeck);
         SelectCard(-1);

@@ -73,8 +73,8 @@ public class MatchInfo : MonoBehaviour
     }
     public void ResetMatch()
     {
-        if (_client.User.Decks.Count() <= GlobalState.DefaultDeckIndex) GlobalState.DefaultDeckIndex = 0;
-        SetDeck(_client.User.Decks[GlobalState.DefaultDeckIndex], _client.User.Decks[GlobalState.DefaultDeckIndex].Id);
+        if (!_client.User.Decks.Any(x => x.Id == GlobalState.DefaultDeckId)) GlobalState.DefaultDeckId = _client.User.Decks.First().Id;
+        SetDeck(_client.User.Decks.Single(x => x.Id == GlobalState.DefaultDeckId), GlobalState.DefaultDeckId);
         SetDeckList(_client.User.Decks);
     }
     public void ShowMatch()/////待编辑
@@ -177,7 +177,7 @@ public class MatchInfo : MonoBehaviour
             deck.transform.SetParent(DecksContext, false);
         });
         var height = decks.Count * 83 + 35;
-        DecksContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(419, height > 851 ? height : 831);
+        DecksContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(370, height > 800 ? height : 800);
     }
 
     public void SetMatchArtCard(CardStatus card, bool isOver = true)

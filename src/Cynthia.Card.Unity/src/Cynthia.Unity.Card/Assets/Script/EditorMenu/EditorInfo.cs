@@ -452,6 +452,7 @@ public class EditorInfo : MonoBehaviour
                             {
                                 var i = _clientService.User.Decks.Select((item, index) => (item, index)).Single(x => x.item.Id == _nowEditorDeck.Id).index;
                                 _clientService.User.Decks[i] = _nowEditorDeck;
+                                GlobalState.DefaultDeckId = _nowEditorDeck.Id;
                             }
                             else
                             {
