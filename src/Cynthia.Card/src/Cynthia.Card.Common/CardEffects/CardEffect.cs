@@ -162,7 +162,7 @@ namespace Cynthia.Card
                     await Game.AddTask(async () =>
                     {
                         //2.移动到墓地并且恢复
-                        await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
+                        await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card, autoUpdateCemetery: !isRoundEnd);//如果是收场,进行统一处理,这里屏蔽掉更新墓地
                         Repair();
                         //3.遗愿和事件
                         await Game.AddTask((Func<Task>)sendEventTask);
@@ -249,25 +249,6 @@ namespace Cynthia.Card
                 return;
             }
             await ToCemetery(discardInfo: (false, null), isRoundEnd: true);
-            // Repair();
-            // if (Card.Status.Strength > 0)
-            // {
-            //     await Game.ShowCardOn(Card);
-            //     await Game.ShowSetCard(Card);
-            //     await Game.ShowCardMove(new CardLocation() { RowPosition = RowPosition.MyCemetery, CardIndex = 0 }, Card);
-            // }
-            // else
-            // {
-            //     await Game.ShowCardBreakEffect(Card, CardBreakEffectType.Banish);
-            //     //var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
-            //     var target = Game.RowToList(Card.PlayerIndex, RowPosition.MyCemetery);
-            //     await Game.LogicCardMove(Card, target, 0);
-            // }
-            // if (Card.Status.IsDoomed)//如果是佚亡,放逐
-            // {
-            //     await Banish();
-            //     return;
-            // }
         }
         //---------------------------------------------------------------------------
         //特殊卡使用的分布方法

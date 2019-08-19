@@ -48,7 +48,7 @@ namespace Cynthia.Card
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
         //将某个列表中的元素,移动到另一个列表的某个位置,然后返回被移动的元素     
-        Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> target, int tagetIndex);
+        Task<GameCard> LogicCardMove(GameCard source, IList<GameCard> target, int tagetIndex, bool autoUpdateCemetery = true, bool autoUpdateDeck = true);
         Task GameOverExecute();
         //----------------------------------------------------------------------------------------------
         //自动向玩家推送更新消息
@@ -67,7 +67,7 @@ namespace Cynthia.Card
         //Task SetCardTo(int playerIndex, RowPosition rowIndex, int cardIndex, RowPosition tagetRowIndex, int tagetCardIndex);
         //动画系
         Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type);
-        Task ShowCardMove(CardLocation tage, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false);//移动
+        Task ShowCardMove(CardLocation tage, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false, bool autoUpdateCemetery = true, bool autoUpdateDeck = true);//移动
         Task SendCardMove(int playerIndex, MoveCardInfo info);
         Task ShowCardDown(GameCard card);//落下(收到天气陷阱,或者其他卡牌)
         Task SendCardDown(int playerIndex, CardLocation location);
