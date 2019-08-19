@@ -43,6 +43,7 @@ public class GameCardShowControl : MonoBehaviour
     //---------------------------------
     public IList<CardStatus> UseCardList = new List<CardStatus>();
     public IList<CardStatus> MyCemetery = new List<CardStatus>();
+    public IList<CardStatus> MyDeck = new List<CardStatus>();
     public IList<CardStatus> EnemyCemetery = new List<CardStatus>();
     private int _nowIndex;
     //
@@ -95,6 +96,10 @@ public class GameCardShowControl : MonoBehaviour
             else if (_nowShowType == MenuShowType.MyCemetery)
             {
                 ArtCard.CurrentCore = MyCemetery[index];
+            }
+            else if (_nowShowType == MenuShowType.MyDeck)
+            {
+                ArtCard.CurrentCore = MyDeck[index];
             }
             ArtCard.gameObject.SetActive(true);
         }
@@ -152,6 +157,19 @@ public class GameCardShowControl : MonoBehaviour
         ShowCardMessage.text = "敌方墓地";
         _nowShowType = MenuShowType.EnemyCemetery;
         SetCardInfo(EnemyCemetery);
+        SelectCard(-1);
+        CardSelectUI.SetActive(true);
+        SetButtonShow(IsCloseShow: true);
+        IsUseMenuShow = false;
+    }
+
+    public void ShowMyDeck()
+    {
+        if (MyDeck == null || MyDeck.Count() == 0)
+            return;
+        ShowCardMessage.text = "我方卡组(乱序)";
+        _nowShowType = MenuShowType.MyDeck;
+        SetCardInfo(MyDeck);
         SelectCard(-1);
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);

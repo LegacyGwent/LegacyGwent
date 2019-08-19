@@ -72,6 +72,10 @@ namespace Cynthia.Card
         SetWinCountInfo,//更新胜场方面信息
         SetMyCemetery,//更新我方墓地
         SetEnemyCemetery,//更新敌方墓地
+        SetMyDeck,
         SetNameInfo,//更新名称方面信息(虽然感觉没什么意义)
+
+        //------------------------------
+        //预留一些指令
     }
 }

@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class MatchInfo : MonoBehaviour
 {
+    public ArtCard ShowArtCard;
     public GameObject LaderPrefab;
     public GameObject CardPrefab;
     public GameObject DeckPrefab;
@@ -179,6 +180,13 @@ public class MatchInfo : MonoBehaviour
         DecksContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(419, height > 851 ? height : 831);
     }
 
+    public void SetMatchArtCard(CardStatus card, bool isOver = true)
+    {
+
+        ShowArtCard.CurrentCore = card;
+        ShowArtCard.gameObject.SetActive(isOver);
+    }
+
     public void SetDeck(DeckModel deck, string id)
     {
         CurrentDeckId = id;
@@ -202,7 +210,7 @@ public class MatchInfo : MonoBehaviour
         cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.Name).ForAll(x =>
             {
                 var card = Instantiate(CardPrefab);
-                card.GetComponent<ListCardShowInfo>().SetCardInfo(x.First().Strength, x.Key, x.Count(), x.First().Group);
+                card.GetComponent<ListCardShowInfo>().SetCardInfo(x.First().CardId, x.Count());
                 card.transform.SetParent(CardsContext, false);
             });
         CopperCount.text = cards.Where(x => x.Group == Group.Copper).Count().ToString();

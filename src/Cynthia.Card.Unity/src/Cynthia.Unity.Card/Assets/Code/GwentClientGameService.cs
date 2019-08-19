@@ -193,6 +193,8 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.SetEnemyCemetery:
                     GameCodeService.SetEnemyCemeteryInfo(arguments[0].ToType<List<CardStatus>>());
                     break;
+                case ServerOperationType.SetMyDeck:
+                    GameCodeService.SetMyDeckInfo(arguments[0].ToType<List<CardStatus>>());
                 case ServerOperationType.SetAllInfo:
                     GameCodeService.SetAllInfo(arguments[0].ToType<GameInfomation>());
                     break;

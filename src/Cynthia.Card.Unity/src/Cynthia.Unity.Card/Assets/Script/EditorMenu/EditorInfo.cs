@@ -11,6 +11,8 @@ using Cynthia.Card.Client;
 using System;
 using DG.Tweening;
 using System.Threading.Tasks;
+using UnityEngine.Events;
+using static UnityEngine.UI.Scrollbar;
 
 public class EditorInfo : MonoBehaviour
 {
@@ -114,10 +116,11 @@ public class EditorInfo : MonoBehaviour
 
     public void SetEditorCardInfo(IList<CardStatus> cards)
     {   //设置已有卡牌
+        var pagenum = 30;
         EditorCardsScroll.value = 1;
         RemoveAllChild(EditorCardsContext);
         var sc = 0;
-        AddCards(sc, 40, cards);
+        AddCards(sc, pagenum, cards);
         void AddCards(int skipCount, int pageCount, IList<CardStatus> showCards)
         {
             if (showCards.Count <= skipCount * pageCount)
@@ -134,13 +137,11 @@ public class EditorInfo : MonoBehaviour
                 card.transform.SetParent(EditorCardsContext, false);
             });
         }
-        //------------------------------------------------------------------------//276
-        // var count = cards.Count;
-        // var height = (50f + 267f * (count % 6 > 0 ? count / 6 + 1 : count / 6));//count <= 16 ? 780f : 
-        // EditorCardsContext.sizeDelta = new Vector2(500.96f, height);
-        //ShowCardsContent.GetComponent<GridLayoutGroup>().padding.top = 104;
-        EditorCardsScroll.onValueChanged.RemoveAllListeners();
-        EditorCardsScroll.onValueChanged.AddListener(x =>
+        if (_editorCardScrollEvent != null)
+        {
+            EditorCardsScroll.onValueChanged.RemoveListener(_editorCardScrollEvent);
+        }
+        _editorCardScrollEvent = x =>
         {
             if (x >= 0.3)
             {
@@ -149,16 +150,20 @@ public class EditorInfo : MonoBehaviour
             Debug.Log("到达临界点,触发");
 
             sc++;
-            AddCards(sc, 40, cards);
-        });
+            AddCards(sc, pagenum, cards);
+        };
+        EditorCardsScroll.onValueChanged.AddListener(_editorCardScrollEvent);
     }
+    private UnityAction<float> _showCardScrollEvent = null;
+    private UnityAction<float> _editorCardScrollEvent = null;
 
     public void SetShowCardInfo(IList<CardStatus> cards)
     {   //设置已有卡牌
+        var pagenum = 30;
         ShowCardScroll.value = 1;
         RemoveAllChild(ShowCardsContent);
         var sc = 0;
-        AddCards(sc, 40, cards);
+        AddCards(sc, pagenum, cards);
         void AddCards(int skipCount, int pageCount, IList<CardStatus> showCards)
         {
             if (showCards.Count <= skipCount * pageCount)
@@ -173,13 +178,11 @@ public class EditorInfo : MonoBehaviour
                 card.transform.SetParent(ShowCardsContent, false);
             });
         }
-        //------------------------------------------------------------------------//276
-        // var count = cards.Count;
-        // var height = (50f + 267f * (count % 6 > 0 ? count / 6 + 1 : count / 6));//count <= 16 ? 780f : 
-        // ShowCardsContent.sizeDelta = new Vector2(500.96f, height);
-        //ShowCardsContent.GetComponent<GridLayoutGroup>().padding.top = 104;
-        ShowCardScroll.onValueChanged.RemoveAllListeners();
-        ShowCardScroll.onValueChanged.AddListener(x =>
+        if (_showCardScrollEvent != null)
+        {
+            ShowCardScroll.onValueChanged.RemoveListener(_showCardScrollEvent);
+        }
+        _showCardScrollEvent = x =>
         {
             if (x >= 0.3)
             {
@@ -188,8 +191,9 @@ public class EditorInfo : MonoBehaviour
             Debug.Log("到达临界点,触发");
 
             sc++;
-            AddCards(sc, 40, cards);
-        });
+            AddCards(sc, pagenum, cards);
+        };
+        ShowCardScroll.onValueChanged.AddListener(_showCardScrollEvent);
     }
 
     public void OpenEditor(bool IsMoveLeftRight = true)
