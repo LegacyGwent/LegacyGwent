@@ -118,7 +118,7 @@ namespace Cynthia.Card.Server
                 GameRound = TwoPlayer.Player1;
                 PlayersWinCount[Player1Index]++;
             }
-            if (player2PlacePoint > player1PlacePoint)
+            else if (player2PlacePoint > player1PlacePoint)
             {
                 GameRound = TwoPlayer.Player2;
                 PlayersWinCount[Player2Index]++;
