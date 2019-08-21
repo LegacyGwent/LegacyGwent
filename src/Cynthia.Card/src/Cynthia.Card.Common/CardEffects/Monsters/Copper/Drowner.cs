@@ -10,6 +10,7 @@ namespace Cynthia.Card
         public Drowner(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            //没有任何可以移动的情况
             if (Game.PlayersPlace[AnotherPlayer].Count() >= Game.RowMaxCount)
             {
                 return 0;
