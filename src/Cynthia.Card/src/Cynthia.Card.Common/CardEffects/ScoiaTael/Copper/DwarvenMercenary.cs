@@ -30,7 +30,7 @@ namespace Cynthia.Card
 
         private bool NoMySelfRow(GameCard card)
         {
-            return Card.Status.CardRow != Card.Status.CardRow;
+            return card.Status.CardRow != Card.Status.CardRow;
         }
     }
 }

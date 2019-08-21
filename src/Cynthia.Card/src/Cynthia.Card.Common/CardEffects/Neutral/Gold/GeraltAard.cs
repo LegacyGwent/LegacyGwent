@@ -13,10 +13,6 @@ namespace Cynthia.Card
             var cards = await Game.GetSelectPlaceCards(Card, 3, selectMode: SelectModeType.EnemyRow);
             foreach (var card in cards)
             {
-                await card.Effect.Damage(3, Card);
-            }
-            foreach (var card in cards)
-            {
                 var row = (card.Status.CardRow.MyRowToIndex() + 1).IndexToMyRow();
                 if (!row.IsOnPlace())
                 {
@@ -25,6 +21,10 @@ namespace Cynthia.Card
                 }
                 await Game.Debug($"产生位移,移动至目标:{row}");
                 await card.Effect.Move(new CardLocation(row, int.MaxValue), Card);
+            }
+            foreach (var card in cards)
+            {
+                await card.Effect.Damage(3, Card);
             }
             return 0;
         }
