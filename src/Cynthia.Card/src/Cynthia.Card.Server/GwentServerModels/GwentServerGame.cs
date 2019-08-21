@@ -412,7 +412,11 @@ namespace Cynthia.Card.Server
                 //如果卡组为空,随机选择黑名单卡池中一张卡进入卡组
                 if (PlayersDeck[playerIndex].Count == 0)
                 {
-                    var rCard = blackCardPool[RNG.Next(blackCardPool.Count())];
+                    var rCard = default(GameCard);
+                    lock (RNG)
+                    {
+                        rCard = blackCardPool[RNG.Next(blackCardPool.Count())];
+                    }
                     PlayersDeck[playerIndex].Add(rCard);
                     blackCardPool.Remove(rCard);
                 }
@@ -430,7 +434,10 @@ namespace Cynthia.Card.Server
             //将黑名单卡池中所有卡牌随机插入到卡组中
             foreach (var card in blackCardPool)
             {
-                PlayersDeck[playerIndex].Insert(RNG.Next(PlayersDeck[playerIndex].Count() + 1), card);
+                lock (RNG)
+                {
+                    PlayersDeck[playerIndex].Insert(RNG.Next(PlayersDeck[playerIndex].Count() + 1), card);
+                }
             }
             //++++++++++++++++++++++++++++++++++++++++
             await ClientDelay(500, playerIndex);
