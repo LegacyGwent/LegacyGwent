@@ -15,25 +15,16 @@ namespace Cynthia.Card
                 for (var i = 0; i < 1 + Card.GetCrewedCount(); i++)
                 {
                     var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
-                    if (result.Count() <= 0)
-                    {
-                        continue;
-                    }
-                    var target = result.Single();
-                    await target.Effect.Damage(2, Card);
-                    if (target.CardPoint()<=0 || target.Status.CardRow == RowPosition.MyRow3)
+                    if (!result.TrySingle(out var target))
                     {
                         continue;
                     }
                     var tagetRow = target.Status.CardRow == RowPosition.MyRow1 ? RowPosition.MyRow2 : RowPosition.MyRow3;
-                    if (Game.RowToList(target.PlayerIndex, tagetRow).Count() >= 9)
-                    {
-                        continue;
-                    }
-                    else
+                    if (target.Status.CardRow != RowPosition.MyRow3)
                     {
                         await target.Effect.Move(new CardLocation(tagetRow, 0), Card);
                     }
+                    await target.Effect.Damage(2, Card);
                 }
             }
             return 0;
