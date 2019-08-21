@@ -9,6 +9,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame
     {
+        public int[] RedCoin { get; private set; } = new int[3];
         public Pipeline OperactionList { get; private set; } = new Pipeline();
         private readonly GwentCardTypeService _gwentCardTypeService;
         public int _randomSeed;
@@ -112,18 +113,28 @@ namespace Cynthia.Card.Server
             var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
             PlayersRoundResult[CurrentRoundCount][Player1Index] = player1PlacePoint;
             PlayersRoundResult[CurrentRoundCount][Player2Index] = player2PlacePoint;
-            if (player1PlacePoint >= player2PlacePoint)
+            if (player1PlacePoint > player2PlacePoint)
             {
                 GameRound = TwoPlayer.Player1;
                 PlayersWinCount[Player1Index]++;
             }
-            if (player2PlacePoint >= player1PlacePoint)
+            if (player2PlacePoint > player1PlacePoint)
             {
                 GameRound = TwoPlayer.Player2;
                 PlayersWinCount[Player2Index]++;
             }
+            else
+            {
+                GameRound = AnotherPlayer(RedCoin[CurrentRoundCount]) == Player1Index ? TwoPlayer.Player1 : TwoPlayer.Player2;
+                PlayersWinCount[Player1Index]++;
+                PlayersWinCount[Player2Index]++;
+            }
             RoundCount++;//有效回合的总数
             CurrentRoundCount++;//当前回合
+            if (CurrentRoundCount <= 2)
+            {
+                RedCoin[CurrentRoundCount] = GameRound.ToPlayerIndex(this);
+            }
             IsPlayersPass[Player1Index] = false;
             IsPlayersPass[Player2Index] = false;
             await SetWinCountInfo();//设置小皇冠图标
@@ -1269,6 +1280,7 @@ namespace Cynthia.Card.Server
             PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
             //初始化游戏信息
             GameRound = RNG.Next(2) == 1 ? TwoPlayer.Player1 : TwoPlayer.Player2;
+            RedCoin[0] = GameRound.ToPlayerIndex(this);
             //随机个先后手
             PlayersRoundResult[0] = new int[2];
             PlayersRoundResult[1] = new int[2];
