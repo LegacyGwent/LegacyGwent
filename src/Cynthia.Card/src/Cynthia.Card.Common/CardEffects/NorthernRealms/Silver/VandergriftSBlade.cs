@@ -15,7 +15,7 @@ namespace Cynthia.Card
             if (switchCard == 0)
             {
                 var target = await Game.GetSelectPlaceCards(Card, 1, false,
-                    x => x.Status.Categories.Contains(Categorie.Cursed) && x.Status.Group == Group.Copper || x.Status.Group == Group.Silver);
+                    x => x.Status.Categories.Contains(Categorie.Cursed) && (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver));
                 if (target.Count == 0)
                 {
                     return 0;

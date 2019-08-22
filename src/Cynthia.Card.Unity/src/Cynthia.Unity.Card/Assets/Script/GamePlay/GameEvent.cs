@@ -77,12 +77,21 @@ public class GameEvent : MonoBehaviour
     //管道...
     private ITubeInlet sender;
     private ITubeOutlet receiver;
+    public GameObject ShowMyCemeteryButton;
     private void Awake() => (sender, receiver) = Tube.CreateSimplex();
     //状态信息
     //最开始
     private void Start()
     {
+
         NowOperationType = GameOperationType.None;
+
+#if UNITY_ANDROID
+        ShowMyCemeteryButton.SetActive(true);
+#endif
+#if UNITY_STANDALONE_WIN
+        ShowMyCemeteryButton.SetActive(false);
+#endif
 
         //某些信息,目前只是用来测试
         //var sc = GetCard(new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = 0 }).CardShowInfo.CurrentCore = new CardStatus("11210200");
