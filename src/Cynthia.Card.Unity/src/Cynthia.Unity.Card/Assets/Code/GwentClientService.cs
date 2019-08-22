@@ -24,15 +24,7 @@ namespace Cynthia.Card.Client
         {
             return receiver.ReceiveAsync<bool>();
         }
-        //public bool ResetPlayer()
-        //{
-        //    if (HubConnection != null && User != null)
-        //    {
-        //        Player = new LocalPlayer(HubConnection);
-        //        return true;
-        //    }
-        //    return false;
-        //}
+
         public GwentClientService(HubConnection hubConnection)
         {
             /*待修改*/
@@ -49,20 +41,9 @@ namespace Cynthia.Card.Client
             });
             hubConnection.Closed += (async x =>
             {
-                Debug.Log("断线!");
-                //var user = DependencyResolver.Container.Resolve<GwentClientService>().User;
-                //await Task.Delay(100);
-                //await DependencyResolver.Container.Resolve<HubConnection>().StartAsync();
-                //var result = await DependencyResolver.Container.Resolve<HubConnection>().InvokeAsync<bool>("Reconnect", user.UserName, user.PassWord);
-                //if (result) Debug.Log("尝试重连成功");
-                //else
-                //{
                 SceneManager.LoadScene("LoginSecen");
-                Debug.Log("跳转!");
                 await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆");
-                //}
             });
-            //////////////////////////////
             hubConnection.On<string>("Test", message => Debug.Log($"收到了服务端来自Debug的信息:{message}"));
             Player = new LocalPlayer(hubConnection);
             HubConnection = hubConnection;
