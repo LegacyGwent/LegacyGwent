@@ -16,7 +16,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterUnitDown @event)
         {
             if (@event.Target == Card) return;
-            if (PlayerIndex == @event.Target.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.HasAllCategorie(Categorie.Dwarf))
+            if (PlayerIndex == @event.Target.PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.Target.HasAllCategorie(Categorie.Dwarf))
             {
                 await Boost(1, Card);
             }

@@ -16,7 +16,7 @@
         counterService.Click();
     }
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         currentCount = counterService.GetValue();
         counterService.OnValueChanged += OnValueChanged;
@@ -24,7 +24,7 @@
 
     private void OnValueChanged(int newValue)
     {
-        Invoke(() => {
+        InvokeAsync(() => {
             currentCount = newValue;
             StateHasChanged();
         });

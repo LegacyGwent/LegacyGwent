@@ -37,7 +37,6 @@ namespace Cynthia.Card.Server
                 if (_users.Any(x => x.Value.UserName == user.UserName))//如果重复登录的话,触发"掉线"
                 {
                     var connectionId = _users.Single(x => x.Value.UserName == user.UserName).Value.ConnectionId;
-                    //await Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
                     await _hub.Clients.Client(connectionId).SendAsync("RepeatLogin");
                     await Disconnect(connectionId);
                 }
