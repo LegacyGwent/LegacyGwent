@@ -27,7 +27,7 @@ namespace Cynthia.Card
         private bool Filter(GameCard card)
         {
             var location = card.GetLocation();
-            var row = Game.RowToList(Card.PlayerIndex, location.RowPosition).ToList();
+            var row = Game.RowToList(card.PlayerIndex, location.RowPosition).ToList();
 
             return row.Count < 4;
         }

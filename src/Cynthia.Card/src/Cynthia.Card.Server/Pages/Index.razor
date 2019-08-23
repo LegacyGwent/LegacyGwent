@@ -25,7 +25,7 @@
         {UserState.Standby,"以下玩家正在闲置中~"}
     };
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         users = GwentService.GetUsers();
         GwentService.OnUserChanged += OnUserChanged;
@@ -33,7 +33,7 @@
 
     private void OnUserChanged(IList<IGrouping<UserState, User>> newUser)
     {
-        Invoke(() => {
+        InvokeAsync(() => {
             users = newUser;
             StateHasChanged();
         });

@@ -28,7 +28,7 @@ namespace Cynthia.Card
                 }
             }
 
-            await Card.Effect.Banish(); ;
+            await Card.Effect.Banish();
         }
     }
 }
