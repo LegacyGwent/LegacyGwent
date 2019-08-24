@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("65007")]//威尔玛
     public class Wilmar : CardEffect, IHandlesEvent<AfterCardDeath>
-    {//遗愿：若为对方回合，则在对面此排生成1头“熊”。 间谍。IHandlesEvent<AfterTurnStart>,
+    {//遗愿：若为对方回合，则在对面此排生成1头“熊”。
         public Wilmar(GameCard card) : base(card) { }
 
         public async Task HandleEvent(AfterCardDeath @event)
