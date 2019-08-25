@@ -25,7 +25,7 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic);
+            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, _gwentService.InvokeGameOver);
             //开始游戏改变玩家状态
             player1.CurrentUser.UserState = UserState.Play;
             player2.CurrentUser.UserState = UserState.Play;

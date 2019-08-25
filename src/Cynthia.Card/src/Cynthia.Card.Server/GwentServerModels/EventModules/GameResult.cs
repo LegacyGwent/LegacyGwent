@@ -1,7 +1,10 @@
+using System;
+
 namespace Cynthia.Card.Server
 {
     public class GameResult
     {
+        public DateTime Time { get; set; }
         public string RedPlayerName { get; set; }
         public string BluePlayerName { get; set; }
         public string RedDeckName { get; set; }
