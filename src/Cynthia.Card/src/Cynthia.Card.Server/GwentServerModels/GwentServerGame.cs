@@ -9,6 +9,7 @@ namespace Cynthia.Card.Server
 {
     public class GwentServerGame : IGwentServerGame
     {
+        public Action<GameResult> GameResultEvent{ get; set; }
         public int[] RedCoin { get; private set; } = new int[3];
         public Pipeline OperactionList { get; private set; } = new Pipeline();
         private readonly GwentCardTypeService _gwentCardTypeService;
@@ -95,8 +96,27 @@ namespace Cynthia.Card.Server
                 await MessageBox("对方已断开连接,比赛结束!");
             else
                 await MessageBox(exception.Message);
-            await SendGameResult(winPlayerIndex, GameStatus.Win);
-            await SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose);
+
+
+            var redIndex = RedCoin[0];
+            var blueIndex = AnotherPlayer(redIndex);
+            var result = new GameResult()
+            {
+                RedPlayerName = Players[redIndex].PlayerName,
+                BluePlayerName = Players[blueIndex].PlayerName,
+                RedLeaderId = PlayerBaseDeck[redIndex].Leader.CardId,
+                BlueLeaderId = PlayerBaseDeck[blueIndex].Leader.CardId,
+                RedDeckName = PlayerBaseDeck[redIndex].Name,
+                BlueDeckName = PlayerBaseDeck[blueIndex].Name,
+                Time = DateTime.UtcNow,
+                ValidCount = RoundCount,
+                RedPlayerGameResultStatus = redIndex==winPlayerIndex?GameStatus.Win:GameStatus.Lose,
+                RedScore = new int[] { PlayersRoundResult[0][redIndex], PlayersRoundResult[1][redIndex], PlayersRoundResult[2][redIndex] },
+                BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
+            };
+            GameResultEvent(result);
+
+            await Task.WhenAll(SendGameResult(winPlayerIndex, GameStatus.Win),SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose));
             _setGameEnd.SetResult(winPlayerIndex);
         }
 
@@ -603,7 +623,7 @@ namespace Cynthia.Card.Server
 
             var redIndex = RedCoin[0];
             var blueIndex = AnotherPlayer(redIndex);
-            new GameResult()
+            var result = new GameResult()
             {
                 RedPlayerName = Players[redIndex].PlayerName,
                 BluePlayerName = Players[blueIndex].PlayerName,
@@ -611,7 +631,13 @@ namespace Cynthia.Card.Server
                 BlueLeaderId = PlayerBaseDeck[blueIndex].Leader.CardId,
                 RedDeckName = PlayerBaseDeck[redIndex].Name,
                 BlueDeckName = PlayerBaseDeck[blueIndex].Name,
+                Time = DateTime.UtcNow,
+                ValidCount = RoundCount,
+                RedPlayerGameResultStatus = PlayersWinCount[redIndex]>PlayersWinCount[blueIndex]?GameStatus.Win:(PlayersWinCount[redIndex]==PlayersWinCount[blueIndex]?GameStatus.Draw:GameStatus.Lose),
+                RedScore = new int[]{PlayersRoundResult[0][redIndex],PlayersRoundResult[1][redIndex],PlayersRoundResult[2][redIndex]},
+                BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
             };
+            GameResultEvent(result);
 
             await Task.WhenAll(SendGameResult(Player1Index), SendGameResult(Player2Index));
     }
@@ -1283,8 +1309,9 @@ namespace Cynthia.Card.Server
             PlayersRoundResult[2][enemyPlayerIndex]
         ));
     }
-    public GwentServerGame(Player player1, Player player2, GwentCardTypeService gwentCardTypeService)
+    public GwentServerGame(Player player1, Player player2, GwentCardTypeService gwentCardTypeService,Action<GameResult> gameResultEvent)
     {
+        GameResultEvent = gameResultEvent;
         _gwentCardTypeService = gwentCardTypeService;
         _randomSeed = (int)DateTime.UtcNow.Ticks;
         RNG = new Random(_randomSeed);
@@ -1441,39 +1468,39 @@ namespace Cynthia.Card.Server
                 {
                     if (creatCard.Status.CardRow.IsOnPlace())
                     {
-                            // await ShowCardOn(creatCard);
-                            if (position.RowPosition.IsMyRow())
+                        // await ShowCardOn(creatCard);
+                        if (position.RowPosition.IsMyRow())
                         {
-                                // await AddTask(async () =>
-                                // {
-                                await creatCard.Effect.CardDown(false);
-                                // await AddTask(async () =>
-                                // {
-                                await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
-                                // });
-                                // });
-                            }
+                            // await AddTask(async () =>
+                            // {
+                            await creatCard.Effect.CardDown(false);
+                            // await AddTask(async () =>
+                            // {
+                            await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
+                            // });
+                            // });
+                        }
                         else
                         {
-                                // await AddTask(async () =>
-                                // {
-                                await creatCard.Effect.CardDown(true);
-                                // await AddTask(async () =>
-                                // {
-                                await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
-                                // });
-                                // });
-                            }
+                            // await AddTask(async () =>
+                            // {
+                            await creatCard.Effect.CardDown(true);
+                            // await AddTask(async () =>
+                            // {
+                            await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
+                            // });
+                            // });
+                        }
                     }
-                        //     if (position.RowPosition.IsMyRow())
-                        //     {
-                        //         await creatCard.Effect.Play(position);
-                        //     }
-                        //     else
-                        //     {
-                        //         await creatCard.Effect.Play(position.Mirror(), true);
-                        //     }
-                    });
+                    //     if (position.RowPosition.IsMyRow())
+                    //     {
+                    //         await creatCard.Effect.Play(position);
+                    //     }
+                    //     else
+                    //     {
+                    //         await creatCard.Effect.Play(position.Mirror(), true);
+                    //     }
+                });
             }
         });
         return creatCard;

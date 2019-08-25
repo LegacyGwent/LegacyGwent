@@ -169,10 +169,21 @@ namespace Cynthia.Card.Server
             OnUserChanged?.Invoke(GetUsers());
         }
 
+        public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
+
+        public void InvokeGameOver(GameResult result)
+        {
+            ResultList.Add(result);
+            OnGameOver?.Invoke(result);
+        }
+
         public IList<IGrouping<UserState, User>> GetUsers()
         {
             return _users.Select(x => x.Value).GroupBy(x => x.UserState).ToList();
         }
+
         public event Action<IList<IGrouping<UserState, User>>> OnUserChanged;
+
+        public event Action<GameResult> OnGameOver;
     }
 }
