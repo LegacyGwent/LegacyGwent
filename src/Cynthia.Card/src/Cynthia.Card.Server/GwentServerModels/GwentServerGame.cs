@@ -610,18 +610,18 @@ namespace Cynthia.Card.Server
         }
         public async Task GameOverExecute()
         {
-            if (PlayersRoundResult[0][Player1Index] >= PlayersRoundResult[0][Player2Index])
-                PlayersWinCount[Player1Index]++;
-            if (PlayersRoundResult[0][Player1Index] <= PlayersRoundResult[0][Player2Index])
-                PlayersWinCount[Player2Index]++;
-            if (PlayersRoundResult[1][Player1Index] >= PlayersRoundResult[1][Player2Index])
-                PlayersWinCount[Player1Index]++;
-            if (PlayersRoundResult[1][Player1Index] <= PlayersRoundResult[1][Player2Index])
-                PlayersWinCount[Player2Index]++;
-            if (PlayersRoundResult[2][Player1Index] >= PlayersRoundResult[2][Player2Index])
-                PlayersWinCount[Player1Index]++;
-            if (PlayersRoundResult[2][Player1Index] <= PlayersRoundResult[2][Player2Index])
-                PlayersWinCount[Player2Index]++;
+            // if (PlayersRoundResult[0][Player1Index] >= PlayersRoundResult[0][Player2Index])
+            //     PlayersWinCount[Player1Index]++;
+            // if (PlayersRoundResult[0][Player1Index] <= PlayersRoundResult[0][Player2Index])
+            //     PlayersWinCount[Player2Index]++;
+            // if (PlayersRoundResult[1][Player1Index] >= PlayersRoundResult[1][Player2Index])
+            //     PlayersWinCount[Player1Index]++;
+            // if (PlayersRoundResult[1][Player1Index] <= PlayersRoundResult[1][Player2Index])
+            //     PlayersWinCount[Player2Index]++;
+            // if (PlayersRoundResult[2][Player1Index] >= PlayersRoundResult[2][Player2Index])
+            //     PlayersWinCount[Player1Index]++;
+            // if (PlayersRoundResult[2][Player1Index] <= PlayersRoundResult[2][Player2Index])
+            //     PlayersWinCount[Player2Index]++;
 
             var redIndex = RedCoin[0];
             var blueIndex = AnotherPlayer(redIndex);
@@ -1477,7 +1477,7 @@ namespace Cynthia.Card.Server
                         {
                             // await AddTask(async () =>
                             // {
-                            await creatCard.Effect.CardDown(false);
+                            await creatCard.Effect.CardDown(false,false,true);
                             // await AddTask(async () =>
                             // {
                             await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
@@ -1488,7 +1488,7 @@ namespace Cynthia.Card.Server
                         {
                             // await AddTask(async () =>
                             // {
-                            await creatCard.Effect.CardDown(true);
+                            await creatCard.Effect.CardDown(true,false,true);
                             // await AddTask(async () =>
                             // {
                             await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
