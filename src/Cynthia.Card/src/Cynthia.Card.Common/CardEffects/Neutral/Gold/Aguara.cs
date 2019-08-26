@@ -74,7 +74,7 @@ namespace Cynthia.Card
 
         private async Task<int> buffhand2()
         {
-            var cards = Game.PlayersHandCard[Card.PlayerIndex].Mess(RNG).ToList();
+            var cards = Game.PlayersHandCard[Card.PlayerIndex].Where(x => x.Status.Type == CardType.Unit).Mess(RNG).ToList();
             if (cards.Count() == 0)
             {
                 return 0;

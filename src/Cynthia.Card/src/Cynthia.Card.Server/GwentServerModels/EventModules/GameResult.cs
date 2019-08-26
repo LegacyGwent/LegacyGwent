@@ -14,6 +14,9 @@ namespace Cynthia.Card.Server
         public string RedLeaderId { get; set; }
         public string BlueLeaderId { get; set; }
 
+        public int RedWinCount { get; set; }
+        public int BlueWinCount { get; set; }
+
         public int ValidCount { get; set; }
         public int[] RedScore { get; set; }
         public int[] BlueScore { get; set; }

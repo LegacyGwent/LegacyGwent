@@ -11,10 +11,13 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cardlist = Game.PlayersCemetery[PlayerIndex].Where(x => x.IsAnyGroup(Group.Copper, Group.Silver)).ToList();
+            var count = cardlist.Count();
             foreach (var target in cardlist)
             {
-                await Consume(target, x => 1);
+                await target.Effect.Banish();
             }
+            await Boost(count, Card);
+            await Game.SendEvent(new AfterCardConsume(null, Card));
             return 0;
         }
     }
