@@ -13,19 +13,18 @@
             <td>所用领袖</td>
             <td>对局结果</td>
             <td>总比分</td>
-            <td>对局时间</td>
         </tr>
         <tr>
             <td>先手方:</td>
             <td>@result.RedPlayerName</td>
-            <td>@GwentMap.CardMap[result.RedLeaderId]</td>
+            <td>@GwentMap.CardMap[result.RedLeaderId].Name</td>
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"胜":"败"))</td>
             <td>@result.RedWinCount</td>
         </tr>
         <tr>
             <td>后手方:</td>
             <td>@result.BluePlayerName</td>
-            <td>@GwentMap.CardMap[result.BlueLeaderId]</td>
+            <td>@GwentMap.CardMap[result.BlueLeaderId].Name</td>
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"败":"胜"))</td>
             <td>@result.BlueWinCount</td>
         </tr>

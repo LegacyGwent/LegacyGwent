@@ -256,7 +256,27 @@ public class GameEvent : MonoBehaviour
     //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
     //Unity事件
     //鼠标落下
+    // #if UNITY_ANDROID
+    //     private void ontouchstart()
+    //     {
+    //         DownEffect();
+    //     }
+    //     private void ontouchend()
+    //     {
+    //         UpEffect();
+    //     }
+    // #endif
+    // #if UNITY_STANDALONE_WIN
     private void OnMouseDown()
+    {
+        DownEffect();
+    }
+    private void OnMouseUp()
+    {
+        UpEffect();
+    }
+    // #endif
+    private void DownEffect()
     {
         switch (NowOperationType)
         {
@@ -287,7 +307,7 @@ public class GameEvent : MonoBehaviour
         }
     }
     //鼠标抬起
-    private void OnMouseUp()
+    private void UpEffect()
     {
         switch (NowOperationType)
         {
