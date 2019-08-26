@@ -2,18 +2,21 @@
 @inject GwentServerService GwentService
 @implements IDisposable
 
-<h1>~实时玩家状态查看~</h1>
-<h2>目前在线人数: @GwentService.GetUserCount() </h2>
+<h2>~实时玩家状态查看~</h2>
+<h3>目前在线人数: @GwentService.GetUserCount() </h3>
 <ul>
 @foreach(var usergroup in users.user)
 {
-    <h3>@showMessage[usergroup.Key]</h3>
+    <h4>@showMessage[usergroup.Key]</h4>
     @foreach(var user in usergroup)
     {
         <li>@user.PlayerName</li>
     }
 }
-<h3>@showMessage[UserState.Match]</h3>
+@if(users.player.Count()>0)
+{
+<h4>@showMessage[UserState.Play]</h4>
+}
     @foreach(var player in users.player)
     {
         <li>@player.player1 vs @player.player2</li>
