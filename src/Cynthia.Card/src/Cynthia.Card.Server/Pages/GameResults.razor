@@ -1,0 +1,58 @@
+﻿@page "/gameresults"
+@inject GwentServerService GwentService
+@implements IDisposable
+
+<h1>对局记录</h1>
+<ul>
+@foreach(var result in _resultList)
+{
+    <table>
+        <tr>
+            <td></td>
+            <td>玩家名</td>
+            <td>所用领袖</td>
+            <td>对局结果</td>
+            <td>总比分</td>
+            <td>对局时间</td>
+        </tr>
+        <tr>
+            <td>先手方:</td>
+            <td>@result.RedPlayerName</td>
+            <td>@GwentMap.CardMap[result.RedLeaderId]</td>
+            <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"胜":"败"))</td>
+            <td>@result.RedWinCount</td>
+        </tr>
+        <tr>
+            <td>后手方:</td>
+            <td>@result.BluePlayerName</td>
+            <td>@GwentMap.CardMap[result.BlueLeaderId]</td>
+            <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"败":"胜"))</td>
+            <td>@result.BlueWinCount</td>
+        </tr>
+    </table>
+}
+</ul>
+
+@code
+{
+    private IList<GameResult> _resultList;
+
+    protected override void OnInitialized()
+    {
+        _resultList = GwentService.ResultList.ToList();
+        GwentService.OnGameOver += OnGameOver;
+    }
+
+    private void OnGameOver(GameResult newResult)
+    {
+        InvokeAsync(() => {
+            _resultList.Add(newResult);
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        GwentService.OnGameOver -= OnGameOver;
+    }
+}
