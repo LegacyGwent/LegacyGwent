@@ -5,19 +5,24 @@
 <h1>~实时玩家状态查看~</h1>
 <h2>目前在线人数: @GwentService.GetUserCount() </h2>
 <ul>
-@foreach(var usergroup in users)
+@foreach(var usergroup in users.user)
 {
     <h3>@showMessage[usergroup.Key]</h3>
-    foreach(var user in usergroup)
+    @foreach(var user in usergroup)
     {
         <li>@user.PlayerName</li>
     }
 }
+<h3>@showMessage[UserState.Match]</h3>
+    @foreach(var player in users.player)
+    {
+        <li>@player.player1 vs @player.player2</li>
+    }
 </ul>
 
 @code
 {
-    IList<IGrouping<UserState, User>> users;
+    (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player) users;
     IDictionary<UserState,string> showMessage = new Dictionary<UserState,string>()
     {
         {UserState.Match,"以下玩家正在匹配中~"},
@@ -31,7 +36,7 @@
         GwentService.OnUserChanged += OnUserChanged;
     }
 
-    private void OnUserChanged(IList<IGrouping<UserState, User>> newUser)
+    private void OnUserChanged((IList<IGrouping<UserState, User>>user, IList<(string player1, string player2)>player) newUser)
     {
         InvokeAsync(() => {
             users = newUser;

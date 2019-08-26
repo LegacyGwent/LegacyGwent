@@ -5,8 +5,17 @@ namespace Cynthia.Card
     {
         public GameCard Target { get; set; }
 
-        public AfterUnitDown(GameCard target)
+        //是否来自场上
+        public bool IsFromPlance { get; set; }
+
+        public bool IsFromHand { get; set; }
+
+        public bool IsFromAnother { get => !IsFromHand && !IsFromPlance; }
+
+        public AfterUnitDown(GameCard target, bool isFromHand, bool isFromPlance)
         {
+            IsFromHand = isFromHand;
+            IsFromPlance = isFromPlance;
             Target = target;
         }
     }

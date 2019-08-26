@@ -2,11 +2,8 @@
 @inject GwentServerService GwentService
 @implements IDisposable
 
-<h1>对局记录</h1>
-<ul>
-@foreach(var result in _resultList)
-{
-    <table>
+<div class="table-responsive">
+    <table class="table table-bordered" style="width:500px">
         <tr>
             <td></td>
             <td>玩家名</td>
@@ -14,23 +11,32 @@
             <td>对局结果</td>
             <td>总比分</td>
         </tr>
-        <tr>
+@foreach(var result in _resultList)
+{
+        <tr class="table-danger">
             <td>先手方:</td>
             <td>@result.RedPlayerName</td>
             <td>@GwentMap.CardMap[result.RedLeaderId].Name</td>
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"胜":"败"))</td>
             <td>@result.RedWinCount</td>
         </tr>
-        <tr>
+        <tr class="table-info">
             <td>后手方:</td>
             <td>@result.BluePlayerName</td>
             <td>@GwentMap.CardMap[result.BlueLeaderId].Name</td>
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"败":"胜"))</td>
             <td>@result.BlueWinCount</td>
         </tr>
-    </table>
+        <tr>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+        </tr>
 }
-</ul>
+    </table>
+</div>
 
 @code
 {

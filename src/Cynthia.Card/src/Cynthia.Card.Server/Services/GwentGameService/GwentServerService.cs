@@ -8,6 +8,8 @@ using System;
 using Alsein.Extensions.IO;
 using System.Collections.Concurrent;
 using Alsein.Extensions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Cynthia.Card.Server
 {
@@ -18,14 +20,17 @@ namespace Cynthia.Card.Server
         private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService _databaseService;
         private readonly GwentMatchs _gwentMatchs;
+        public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
-        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService, IServiceProvider container)
+        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService, IServiceProvider container, IWebHostEnvironment env)
         {
             //Container = container;
             _databaseService = databaseService;
             _gwentMatchs = new GwentMatchs(() => hub, (GwentCardTypeService)container.GetService(typeof(GwentCardTypeService)), this);
             _hub = hub;
+            _env = env;
+            ResultList = _databaseService.GetAllGameResults();
         }
 
         public async Task<UserInfo> Login(User user, string password)
@@ -173,16 +178,26 @@ namespace Cynthia.Card.Server
 
         public void InvokeGameOver(GameResult result)
         {
-            ResultList.Add(result);
-            OnGameOver?.Invoke(result);
+            if (_env.IsProduction())
+            {
+                if (_databaseService.AddGameResult(result))
+                {
+                    lock (ResultList)
+                    {
+                        ResultList.Add(result);
+                    }
+                }
+                OnGameOver?.Invoke(result);
+            }
         }
 
-        public IList<IGrouping<UserState, User>> GetUsers()
+        public (IList<IGrouping<UserState, User>>, IList<(string, string)>) GetUsers()
         {
-            return _users.Select(x => x.Value).GroupBy(x => x.UserState).ToList();
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady).Select(x => (x.Player1.CurrentUser.PlayerName, x.Player2.CurrentUser.PlayerName)).ToList();
+            return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play).GroupBy(x => x.UserState).ToList(), list);
         }
 
-        public event Action<IList<IGrouping<UserState, User>>> OnUserChanged;
+        public event Action<(IList<IGrouping<UserState, User>>, IList<(string, string)>)> OnUserChanged;
 
         public event Action<GameResult> OnGameOver;
     }

@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public StribogRunestone(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            return await Card.CreateAndMoveStay(GwentMap.GetCreateCardsId(x => x.Faction == Faction.Skellige && (x.Group == Group.Copper || x.Group == Group.Silver), RNG).ToList());
+            return await Card.CreateAndMoveStay(GwentMap.GetCreateCardsId(x => x.Faction == Faction.Skellige && (x.Group == Group.Copper || x.Group == Group.Silver) && !x.HasAnyCategorie(Categorie.Agent), RNG).ToList());
         }
     }
 }

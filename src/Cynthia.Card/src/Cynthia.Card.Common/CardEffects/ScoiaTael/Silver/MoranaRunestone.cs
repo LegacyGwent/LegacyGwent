@@ -13,7 +13,8 @@ namespace Cynthia.Card
             return await Card.CreateAndMoveStay(
                 GwentMap.GetCreateCardsId(
                     x => x.Faction == Faction.ScoiaTael &&
-                    (x.Group == Group.Copper || x.Group == Group.Silver),
+                    (x.Group == Group.Copper || x.Group == Group.Silver) &&
+                    !x.HasAnyCategorie(Categorie.Agent),
                     RNG
                 )
                 .ToList()

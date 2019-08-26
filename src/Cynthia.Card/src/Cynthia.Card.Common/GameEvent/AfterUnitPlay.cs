@@ -5,9 +5,14 @@ namespace Cynthia.Card
     {
         public GameCard PlayedCard { get; set; }
 
-        public AfterUnitPlay(GameCard playedCard)
+        public bool IsFromHand { get; set; }
+
+        public bool IsFromAnother { get => !IsFromHand; }
+
+        public AfterUnitPlay(GameCard playedCard, bool isFromHand)
         {
             PlayedCard = playedCard;
+            IsFromHand = isFromHand;
         }
     }
 }

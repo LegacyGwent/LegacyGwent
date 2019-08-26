@@ -87,9 +87,9 @@ namespace Cynthia.Card
         }
 
         //使卡牌"放置"
-        public virtual async Task Play(CardLocation location, bool forceSpying = false)//放置
+        public virtual async Task Play(CardLocation location, bool forceSpying = false, bool isFromHand = true)//放置
         {
-            var (isSpying, isReveal) = await CardPlayStart(location);
+            var (isSpying, isReveal) = await CardPlayStart(location, isFromHand);
             isSpying |= forceSpying;
             //历史卡牌
             Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
@@ -101,7 +101,7 @@ namespace Cynthia.Card
                     count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying, isReveal))).SearchCount;
                 });
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(isSpying);
+                await CardDown(isSpying, isFromHand, false);
             count = (await Game.SendEvent(new BeforePlayStayCard(Card, count))).PlayCount;
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
@@ -270,7 +270,7 @@ namespace Cynthia.Card
         }
         //----------------------------------------------------------------------------
         //单位卡放置的分步方法
-        public virtual async Task<(bool isSpying, bool isReveal)> CardPlayStart(CardLocation location)//先是移动到目标地点
+        public virtual async Task<(bool isSpying, bool isReveal)> CardPlayStart(CardLocation location, bool isFromHand)//先是移动到目标地点
         {
             var isSpying = !location.RowPosition.IsMyRow();
             var IsReveal = Card.Status.IsReveal;
@@ -281,7 +281,7 @@ namespace Cynthia.Card
                 await Game.ShowCardMove(location, Card);
                 await Game.ClientDelay(400);
             }
-            await Game.SendEvent(new AfterUnitPlay(Card));
+            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand));
             return (isSpying, IsReveal);//有没有间谍呢
         }
         public virtual async Task PlayStayCard(int count, bool isSpying)
@@ -299,11 +299,11 @@ namespace Cynthia.Card
                     if (location.RowPosition.IsInCemetery())
                         await Game.PlayersStay[stayPlayer][0].Effect.ToCemetery();
                     else
-                        await Game.PlayersStay[stayPlayer][0].Effect.Play(location);
+                        await Game.PlayersStay[stayPlayer][0].Effect.Play(location, false, false);
                 }
             }
         }
-        public virtual async Task CardDown(bool isSpying)
+        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance)
         {
             await Game.ShowCardDown(Card);
             await Game.SetPointInfo();
@@ -311,7 +311,7 @@ namespace Cynthia.Card
                 await Spying(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
-            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card)));
+            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance)));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)(已经交给游戏事件处理)
@@ -612,7 +612,7 @@ namespace Cynthia.Card
                 await Game.ShowCardOn(Card);
                 await Game.AddTask(async () =>
                 {
-                    await CardDown(false);
+                    await CardDown(false, false, false);
                 });
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -655,7 +655,7 @@ namespace Cynthia.Card
                 await Game.SendEvent(new AfterCardAmbush(Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(false);
+                await CardDown(false, false, false);
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(false);
                 await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false, false)));
@@ -704,7 +704,7 @@ namespace Cynthia.Card
             //位移,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            await Game.AddTask(async () => await CardDown(isSpyingChange));
+            await Game.AddTask(async () => await CardDown(isSpyingChange, false, false));
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤
@@ -721,7 +721,7 @@ namespace Cynthia.Card
             await Game.AddTask(async () =>
             {
                 await Game.ClientDelay(200);
-                await CardDown(isSpyingChange);
+                await CardDown(isSpyingChange, false, false);
             });
         }
 

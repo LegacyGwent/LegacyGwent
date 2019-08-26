@@ -2,7 +2,7 @@ using System;
 
 namespace Cynthia.Card.Server
 {
-    public class GameResult
+    public class GameResult : ModelBase
     {
         public DateTime Time { get; set; }
         public string RedPlayerName { get; set; }
