@@ -413,7 +413,7 @@ namespace Cynthia.Card.Server
                 if (mulliganCardIndex == -1)
                     break;
                 //逻辑处理
-                //总总总之！先关掉揭示啦！
+                //先关掉揭示
                 PlayersHandCard[playerIndex][mulliganCardIndex].Status.IsReveal = false;
                 //当然调度走揭示单位,要给对手说一声啦
                 await Players[AnotherPlayer(playerIndex)].SendAsync
@@ -430,8 +430,8 @@ namespace Cynthia.Card.Server
                 //记录本次黑名单的卡牌Id
                 var bId = PlayersHandCard[playerIndex][mulliganCardIndex].CardInfo().CardId;
                 backList.Add(bId);
-                //将手牌中需要调度的牌,移动到卡组最后
-                await LogicCardMove(PlayersHandCard[playerIndex][mulliganCardIndex], PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count);
+                //将手牌中需要调度的牌,移动到卡组最后(因为下一步就会被抽出,所以暂时加入卡组没问题)
+                await LogicCardMove(PlayersHandCard[playerIndex][mulliganCardIndex], PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count,autoUpdateDeck:false);
 
                 //将调度走的卡牌加入卡池,并且从手牌移除这张卡
                 foreach (var deckCard in PlayersDeck[playerIndex].ToList())
@@ -456,7 +456,7 @@ namespace Cynthia.Card.Server
 
 
                 //将卡组中第一张牌抽到手牌调度走的位置
-                var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex));
+                var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex,autoUpdateDeck:false));
                 //----------------------------------------------------------------------
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
                 //每次调度
@@ -477,6 +477,7 @@ namespace Cynthia.Card.Server
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
             IsPlayersMulligan[playerIndex] = false;
             await SetMulliganInfo();
+            await SetDeckInfo(playerIndex);
             //调度结束立刻推送消息
             await SendOperactionList();
         }
@@ -1477,7 +1478,7 @@ namespace Cynthia.Card.Server
                         {
                             // await AddTask(async () =>
                             // {
-                            await creatCard.Effect.CardDown(false,false,true);
+                            await creatCard.Effect.CardDown(false,false,true,(false,false));
                             // await AddTask(async () =>
                             // {
                             await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
@@ -1488,7 +1489,7 @@ namespace Cynthia.Card.Server
                         {
                             // await AddTask(async () =>
                             // {
-                            await creatCard.Effect.CardDown(true,false,true);
+                            await creatCard.Effect.CardDown(true,false,true,(false,false));
                             // await AddTask(async () =>
                             // {
                             await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));

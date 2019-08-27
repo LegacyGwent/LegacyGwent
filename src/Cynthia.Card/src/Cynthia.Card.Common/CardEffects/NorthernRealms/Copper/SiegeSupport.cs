@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterUnitDown @event)
         {
             //以下代码基于 打入我方半场的间谍单位也会被buff
-            if (@event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.Target != Card)
+            if (@event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.Target != Card && (@event.IsMoveInfo.isMove && !@event.IsMoveInfo.isFromeEnemy))
             {
                 await @event.Target.Effect.Boost(1, Card);
                 if (@event.Target.HasAnyCategorie(Categorie.Machine))

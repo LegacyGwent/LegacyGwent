@@ -4,16 +4,16 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("52013")]//伊森格林：亡命徒
-	public class IsengrimOutlaw : CardEffect
-	{//择一：从牌组打出1张铜色/银色“特殊”牌；或创造1个银色“精灵”单位。
-		public IsengrimOutlaw(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
-		{
-			 var switchCard = await Card.GetMenuSwitch(
-                ("暴行", "从牌组打出1张铜色/银色“特殊”牌"),
-                ("后援", "创造1个银色“精灵”单位")
-            );
+    [CardEffectId("52013")]//伊森格林：亡命徒
+    public class IsengrimOutlaw : CardEffect
+    {//择一：从牌组打出1张铜色/银色“特殊”牌；或创造1个银色“精灵”单位。
+        public IsengrimOutlaw(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
+            var switchCard = await Card.GetMenuSwitch(
+               ("暴行", "从牌组打出1张铜色/银色“特殊”牌"),
+               ("后援", "创造1个银色“精灵”单位")
+           );
 
             //从牌组打出1张铜色/银色“特殊”牌
             if (switchCard == 0)
@@ -44,11 +44,11 @@ namespace Cynthia.Card
             //选择创造
             else if (switchCard == 1)
             {
-                
+
                 return await Card.CreateAndMoveStay(
                 GwentMap.GetCreateCardsId(
                     x => x.HasAnyCategorie(Categorie.Elf) &&
-                    (x.Group == Group.Silver),
+                    (x.Group == Group.Silver) && !x.HasAnyCategorie(Categorie.Agent),
                     RNG
                 )
                 .ToList()
@@ -56,6 +56,6 @@ namespace Cynthia.Card
             }
 
             return 0;
-		}
-	}
+        }
+    }
 }

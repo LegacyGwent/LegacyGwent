@@ -211,8 +211,8 @@ public class EditorInfo : MonoBehaviour
         {
             ShowCardsTitle.anchoredPosition = new Vector2(0, 478.5f);
             EditorCardsTitle.anchoredPosition = new Vector2(0, 630f);
-            LeftSwitchMenu.anchoredPosition = new Vector2(-1450, 0);
-            RightSwitchMenu.anchoredPosition = new Vector2(1450, 0);
+            LeftSwitchMenu.anchoredPosition = new Vector2(-1700, 0);
+            RightSwitchMenu.anchoredPosition = new Vector2(1700, 0);
         }
         ResetEditor();
     }
@@ -341,8 +341,8 @@ public class EditorInfo : MonoBehaviour
                 new Vector2(468, 0), 0.5f);//展开Right
                                            /*
                                            Titile x:0 | Y:478.5 true    Y: 605 false
-                                           Left y:0 | X:-470 true     X: -1450 false
-                                           Right y:0 | X: 468 true     X: 1450 false*/
+                                           Left y:0 | X:-470 true     X: -1700 false
+                                           Right y:0 | X: 468 true     X: 1700 false*/
             EditorStatus = EditorStatus.SwitchFaction;
             SetSwitchList(((Faction[])Enum.GetValues(typeof(Faction)))
                 .Where(x => x != Faction.All && x != Faction.Neutral)
@@ -392,9 +392,9 @@ public class EditorInfo : MonoBehaviour
             DOTween.To(() => EditorCardsTitle.anchoredPosition, x => EditorCardsTitle.anchoredPosition = x,
                     new Vector2(0, 478.5f), 0.5f);//降下Title,设定标题 ********
             DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
-                new Vector2(-1450, 0), 0.5f);//收回Left
+                new Vector2(-1700, 0), 0.5f);//收回Left
             DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
-                new Vector2(1450, 0), 0.5f);//收回Right
+                new Vector2(1700, 0), 0.5f);//收回Right
         }
     }
 
@@ -418,13 +418,13 @@ public class EditorInfo : MonoBehaviour
                 DOTween.To(() => ShowCardsTitle.anchoredPosition, x => ShowCardsTitle.anchoredPosition = x,
                     new Vector2(0, 478.5f), 0.5f);//降下Title,设定标题 ********
                 DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
-                    new Vector2(-1450, 0), 0.5f);//收回Left
+                    new Vector2(-1700, 0), 0.5f);//收回Left
                 DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
-                    new Vector2(1450, 0), 0.5f);//收回Right
+                    new Vector2(1700, 0), 0.5f);//收回Right
                 /*
                 Titile x:0 | Y:478.5 true    Y: 605 false
-                Left y:0 | X:-470 true     X: -1450 false
-                Right y:0 | X: 468 true     X: 1450 false*/
+                Left y:0 | X:-470 true     X: -1700 false
+                Right y:0 | X: 468 true     X: 1700 false*/
                 break;
             case EditorStatus.ShowCards://展示卡牌阶段,关闭编辑器
                 MainUI.SetActive(true);

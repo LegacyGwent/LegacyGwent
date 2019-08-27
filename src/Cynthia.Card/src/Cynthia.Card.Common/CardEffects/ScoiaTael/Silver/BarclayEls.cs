@@ -16,8 +16,7 @@ namespace Cynthia.Card
         {
             var deck = Game.PlayersDeck[PlayerIndex];
             var myId = Card.CardInfo().CardId;
-            var cardsToPlay = deck.Where(x =>
-                x.CardInfo().CardId != myId && x.CardInfo().Categories.Contains((Categorie.Dwarf)));
+            var cardsToPlay = deck.Where(x => x.IsAnyGroup(Group.Copper, Group.Silver) && x.CardInfo().Categories.Contains((Categorie.Dwarf)));
             var list = cardsToPlay.Mess(RNG).ToList();
             if (!list.Any()) return 0;
             var card = list.First();

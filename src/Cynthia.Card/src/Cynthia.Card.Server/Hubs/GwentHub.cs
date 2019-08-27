@@ -25,8 +25,11 @@ namespace Cynthia.Card.Server
         //修改卡组
         public bool ModifyDeck(string id, DeckModel deck) => _gwentServerService.ModifyDeck(Context.ConnectionId, id, deck);
 
-        //开始匹配
-        public bool Match(string deckId) => _gwentServerService.Match(Context.ConnectionId, deckId);
+        //开始匹配(老api),算作空密码匹配
+        public bool Match(string deckId) => MatchOfPassword(deckId, string.Empty);
+
+        //使用密码匹配
+        public bool MatchOfPassword(string deckId, string password) => _gwentServerService.Match(Context.ConnectionId, deckId, password);
 
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);

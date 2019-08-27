@@ -79,7 +79,7 @@ namespace Cynthia.Card.Server
         public IList<GameResult> GetAllGameResults(int count)
         {
             var temp = GetDatabase().GetCollection<GameResult>("gameresults");
-            return temp.AsQueryable<GameResult>().OrderBy(x => x.Time).Take(count).ToList();
+            return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Take(count).ToList();
         }
         public bool AddGameResult(GameResult data)
         {

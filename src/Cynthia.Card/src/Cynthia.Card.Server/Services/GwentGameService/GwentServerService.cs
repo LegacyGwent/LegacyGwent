@@ -59,7 +59,7 @@ namespace Cynthia.Card.Server
 
         public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
 
-        public bool Match(string connectionId, string deckId)//匹配
+        public bool Match(string connectionId, string deckId, string password)//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
             if (_users.ContainsKey(connectionId) && _users[connectionId].UserState == UserState.Standby)
@@ -74,9 +74,9 @@ namespace Cynthia.Card.Server
                 //设置玩家的卡组
                 player.Deck = user.Decks.Single(x => x.Id == deckId);
                 //将这个玩家加入到游戏匹配系统之中
-                _gwentMatchs.PlayerJoin(player);
+                _gwentMatchs.PlayerJoin(player, password);
                 InovkeUserChanged();
-                //成功匹配了哟
+                //成功进入匹配队列了哟
                 return true;
             }
             //玩家未在线,失败
@@ -85,7 +85,7 @@ namespace Cynthia.Card.Server
 
         public async Task<bool> StopMatch(string connectionId)
         {
-            if (_users[connectionId].UserState != UserState.Match)
+            if (_users[connectionId].UserState != UserState.Match && _users[connectionId].UserState != UserState.PasswordMatch)
             {
                 return false;
             }

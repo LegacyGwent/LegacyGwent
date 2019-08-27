@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 using Alsein.Extensions.IO;
 using UnityEngine.Audio;
+using System;
 
 public class GaneEntrance : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class GaneEntrance : MonoBehaviour
 
         SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
         SetQuality(PlayerPrefs.GetInt("quality", 2));
-        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
+        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 0));
         SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
         SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
     }
@@ -58,10 +59,12 @@ public class GaneEntrance : MonoBehaviour
     //屏幕分辨率
     public void SetResolution(int index)
     {
+#if !UNITY_ANDROID
         PlayerPrefs.SetInt("resolutionIndex", index);
         var screenResolution = IndexToResolution(index);
         var isFullScreen = ((PlayerPrefs.GetInt("isFull", 0) == 0) ? true : false);
         Screen.SetResolution(screenResolution.width, screenResolution.height, isFullScreen);
+#endif
     }
 
     //设置背景音乐大小

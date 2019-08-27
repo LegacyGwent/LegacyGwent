@@ -5676,7 +5676,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -9414,7 +9414,7 @@ PrefabInstance:
     - target: {fileID: 6503477936949636912, guid: 38d2279b189875d41b38948e516f872a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6503477936949636912, guid: 38d2279b189875d41b38948e516f872a,
         type: 3}
@@ -10195,7 +10195,7 @@ RectTransform:
   - {fileID: 209684831}
   - {fileID: 1533382670}
   m_Father: {fileID: 1788532325}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -13707,7 +13707,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -13744,8 +13744,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1225321752}
   - {fileID: 1378776999}
+  - {fileID: 1225321752}
   - {fileID: 1831157598}
   - {fileID: 679582475}
   - {fileID: 2041051981}
