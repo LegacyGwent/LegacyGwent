@@ -15,12 +15,14 @@ namespace Cynthia.Card
             var enemylist = Game.GetPlaceCards(Game.AnotherPlayer(Card.PlayerIndex)).Where(x => x.Status.Group == Group.Silver || x.Status.Group == Group.Copper).WhereAllLowest();
             if (mylist.TryMessOne(out var mycard, Game.RNG))
             {
-                await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), mycard,refreshPoint:true);
+                mycard.Effect.Repair(true);
+                await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), mycard, refreshPoint: true);
 
             }
             if (enemylist.TryMessOne(out var enemycard, Game.RNG))
             {
-                await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), enemycard,refreshPoint:true);
+                enemycard.Effect.Repair(true);
+                await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), enemycard, refreshPoint: true);
 
 
             }

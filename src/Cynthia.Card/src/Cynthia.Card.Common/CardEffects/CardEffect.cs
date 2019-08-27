@@ -101,7 +101,7 @@ namespace Cynthia.Card
                     count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying, isReveal))).SearchCount;
                 });
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(isSpying, isFromHand, false);
+                await CardDown(isSpying, isFromHand, false, (false, false));
             count = (await Game.SendEvent(new BeforePlayStayCard(Card, count))).PlayCount;
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
@@ -303,7 +303,7 @@ namespace Cynthia.Card
                 }
             }
         }
-        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance)
+        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo)
         {
             await Game.ShowCardDown(Card);
             await Game.SetPointInfo();
@@ -311,7 +311,7 @@ namespace Cynthia.Card
                 await Spying(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
-            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance)));
+            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo)));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)(已经交给游戏事件处理)
@@ -612,7 +612,7 @@ namespace Cynthia.Card
                 await Game.ShowCardOn(Card);
                 await Game.AddTask(async () =>
                 {
-                    await CardDown(false, false, false);
+                    await CardDown(false, false, false, (false, false));
                 });
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -655,7 +655,7 @@ namespace Cynthia.Card
                 await Game.SendEvent(new AfterCardAmbush(Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(false, false, false);
+                await CardDown(false, false, false, (false, false));
             if (Card.Status.CardRow.IsOnPlace())
                 // await CardDownEffect(false);
                 await Game.AddTask(async () => await Card.Effects.RaiseEvent(new CardDownEffect(false, false)));
@@ -704,7 +704,7 @@ namespace Cynthia.Card
             //位移,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            await Game.AddTask(async () => await CardDown(isSpyingChange, false, false));
+            await Game.AddTask(async () => await CardDown(isSpyingChange, false, false, (true, isSpyingChange)));
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤
@@ -721,7 +721,7 @@ namespace Cynthia.Card
             await Game.AddTask(async () =>
             {
                 await Game.ClientDelay(200);
-                await CardDown(isSpyingChange, false, false);
+                await CardDown(isSpyingChange, false, false, (false, false));
             });
         }
 

@@ -28,6 +28,7 @@ public class MatchInfo : MonoBehaviour
     public Sprite[] HeadBSprite;
 
     public Text DeckName;
+    public InputField MatchPassword;
     public Transform DeckNameBackground;
     public Transform DeckIcon;
     //-------------------------------------------
@@ -83,6 +84,7 @@ public class MatchInfo : MonoBehaviour
         SwitchButton.SetActive(false);
         MatchMessage.text = "寻找对手中";
         MatchButtonText.text = "停止匹配";
+        MatchPassword.readOnly = true;
     }
     public void ShowStopMatch()/////待编辑
     {
@@ -90,6 +92,7 @@ public class MatchInfo : MonoBehaviour
         SwitchButton.SetActive(true);
         MatchMessage.text = "牌组就绪";
         MatchButtonText.text = "开始战斗";
+        MatchPassword.readOnly = false;
     }
     public async void MatchButtonClick()/////点击匹配按钮的话
     {
@@ -101,7 +104,7 @@ public class MatchInfo : MonoBehaviour
             return;
         }
         //否则尝试开始匹配(目前不关注匹配结果)
-        _ = _client.Match(CurrentDeckId);
+        _ = _client.MatchOfPassword(CurrentDeckId, MatchPassword.text);
 
         // else if (!await _client.Match(CurrentDeckId))
         // {

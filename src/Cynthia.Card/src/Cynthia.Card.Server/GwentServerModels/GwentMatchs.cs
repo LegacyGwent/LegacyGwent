@@ -34,11 +34,14 @@ namespace Cynthia.Card.Server
             await gwentGame.Play();
             GameEnd(room);
         }
-        public void PlayerJoin(ClientPlayer player)
+
+        //以密码的方式进行匹配
+        public void PlayerJoin(ClientPlayer player, string password)
         {
             foreach (var room in GwentRooms)
             {
-                if (!room.IsReady)
+                //如果这个房间正在等待玩家加入,并且密匙成功配对
+                if (!room.IsReady && room.Password == password)
                 {
                     room.AddPlayer(player);
                     if (room.IsReady)
@@ -48,8 +51,17 @@ namespace Cynthia.Card.Server
                     }
                 }
             }
-            player.CurrentUser.UserState = UserState.Match;
-            GwentRooms.Add(new GwentRoom(player));
+            if (password == string.Empty)
+            {
+                //普通匹配(其实是以空白为密匙进行匹配)
+                player.CurrentUser.UserState = UserState.Match;
+            }
+            else
+            {
+                //以密匙模式进行匹配
+                player.CurrentUser.UserState = UserState.PasswordMatch;
+            }
+            GwentRooms.Add(new GwentRoom(player, password));
             return;
         }
         public async Task<bool> StopMatch(string ConnectionId)
@@ -58,7 +70,7 @@ namespace Cynthia.Card.Server
             {
                 //遍历所有的房间
                 //上下两个if效果等同,判断在未准备的房间中是否存在取消准备的玩家,如果有
-                if (!room.IsReady && room.Player1.CurrentUser.ConnectionId == ConnectionId)
+                if (!room.IsReady && room.Player1 != null && room.Player1.CurrentUser.ConnectionId == ConnectionId)
                 {
                     //将这个玩家的状态设置为 "闲置"
                     room.Player1.CurrentUser.UserState = UserState.Standby;
@@ -71,7 +83,7 @@ namespace Cynthia.Card.Server
                     //成功停止了匹配所以返回true
                     return true;
                 }
-                else if (!room.IsReady && room.Player2.CurrentUser.ConnectionId == ConnectionId)
+                else if (!room.IsReady && room.Player2 != null && room.Player2.CurrentUser.ConnectionId == ConnectionId)
                 {
                     room.Player2.CurrentUser.UserState = UserState.Standby;
                     GwentRooms.Remove(room);

@@ -10,13 +10,16 @@ namespace Cynthia.Card
 
         public bool IsFromHand { get; set; }
 
-        public bool IsFromAnother { get => !IsFromHand && !IsFromPlance; }
+        public (bool isMove, bool isFromeEnemy) IsMoveInfo { get; set; }
 
-        public AfterUnitDown(GameCard target, bool isFromHand, bool isFromPlance)
+        public bool IsFromAnother { get => !IsFromHand && !IsFromPlance && !IsMoveInfo.isMove; }
+
+        public AfterUnitDown(GameCard target, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo)
         {
             IsFromHand = isFromHand;
             IsFromPlance = isFromPlance;
             Target = target;
+            IsMoveInfo = isMoveInfo;
         }
     }
 }

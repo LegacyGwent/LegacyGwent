@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
                 .Distinct()
-                .Where(x => x.Is(type: CardType.Unit, filter: x => x.IsAnyGroup(Group.Copper, Group.Silver)))
+                .Where(x => x.Is(type: CardType.Unit, filter: x => x.IsAnyGroup(Group.Copper, Group.Silver) && !x.HasAnyCategorie(Categorie.Agent)))
                 .Mess(Game.RNG)
                 .Take(3)
                 .Select(x => x.CardId).ToArray();

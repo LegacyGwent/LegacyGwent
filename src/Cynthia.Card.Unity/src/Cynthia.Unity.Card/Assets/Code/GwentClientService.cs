@@ -59,10 +59,10 @@ namespace Cynthia.Card.Client
             return User;
         }
         //开始匹配与停止匹配
-        public Task<bool> Match(string deckId)
+        public Task<bool> MatchOfPassword(string deckId, string password)
         {
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
-            return HubConnection.InvokeAsync<bool>("Match", deckId);
+            return HubConnection.InvokeAsync<bool>("MatchOfPassword", deckId, password);
         }
         public Task<bool> StopMatch()
         {

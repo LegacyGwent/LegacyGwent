@@ -101,7 +101,10 @@ namespace Cynthia.Card
         {
             return card.Categories.Intersect(categories).Any();
         }
-
+        public static bool HasAnyCategorie(this GwentCard card, params Categorie[] categories)
+        {
+            return card.Categories.Intersect(categories).Any();
+        }
         public static bool HasAllCategorie(this CardStatus card, params Categorie[] categories)
         {
             return !categories.Any(x => !card.Categories.Contains(x));
