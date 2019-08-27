@@ -30,7 +30,7 @@ namespace Cynthia.Card.Server
             _gwentMatchs = new GwentMatchs(() => hub, (GwentCardTypeService)container.GetService(typeof(GwentCardTypeService)), this);
             _hub = hub;
             _env = env;
-            ResultList = _databaseService.GetAllGameResults();
+            ResultList = _databaseService.GetAllGameResults(50);
         }
 
         public async Task<UserInfo> Login(User user, string password)
