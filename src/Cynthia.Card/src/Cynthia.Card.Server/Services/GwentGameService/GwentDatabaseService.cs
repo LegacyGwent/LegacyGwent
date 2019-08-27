@@ -76,10 +76,10 @@ namespace Cynthia.Card.Server
             return user.Length > 0 ? user[0] : null;
         }
 
-        public IList<GameResult> GetAllGameResults()
+        public IList<GameResult> GetAllGameResults(int count)
         {
             var temp = GetDatabase().GetCollection<GameResult>("gameresults");
-            return temp.AsQueryable<GameResult>().ToList();
+            return temp.AsQueryable<GameResult>().OrderBy(x => x.Time).Take(count).ToList();
         }
         public bool AddGameResult(GameResult data)
         {

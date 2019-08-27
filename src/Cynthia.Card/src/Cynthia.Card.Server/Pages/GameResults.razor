@@ -3,26 +3,38 @@
 @implements IDisposable
 
 <div class="table-responsive">
-    <table class="table table-bordered" style="width:500px">
+    <table class="table table-bordered" style="width:590px">
         <tr>
-            <td></td>
-            <td>玩家名</td>
-            <td>所用领袖</td>
-            <td>对局结果</td>
-            <td>总比分</td>
+            <td style="width:80px"></td>
+            <td style="width:140px">玩家名</td>
+            <td style="width:150px">所用领袖</td>
+            <td style="width:90px">对局结果</td>
+            <td style="width:80px">总比分</td>
         </tr>
-@foreach(var result in _resultList)
+@foreach(var result in _resultList.OrderBy(x => x.Time).Take(50))
 {
         <tr class="table-danger">
             <td>先手方:</td>
-            <td>@result.RedPlayerName</td>
+            @if(result.RedPlayerName.Length>8)
+            {
+                <td style="font-size:8px">@result.RedPlayerName</td>
+            }else
+            {
+                <td>@result.RedPlayerName</td>
+            }    
             <td>@GwentMap.CardMap[result.RedLeaderId].Name</td>
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"胜":"败"))</td>
             <td>@result.RedWinCount</td>
         </tr>
         <tr class="table-info">
             <td>后手方:</td>
-            <td>@result.BluePlayerName</td>
+            @if(result.BluePlayerName.Length>8)
+            {
+                <td style="font-size:8px">@result.BluePlayerName</td>
+            }else
+            {
+                <td>@result.BluePlayerName</td>
+            }
             <td>@GwentMap.CardMap[result.BlueLeaderId].Name</td>
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"败":"胜"))</td>
             <td>@result.BlueWinCount</td>
