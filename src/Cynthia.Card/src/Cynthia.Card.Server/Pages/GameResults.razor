@@ -13,7 +13,7 @@
         </tr>
 @foreach(var result in _resultList.OrderByDescending(x => x.Time).Take(50))
 {
-        <tr class="table-danger">
+        <tr class="table-info">
             <td>先手方:</td>
             @if(result.RedPlayerName.Length>8)
             {
@@ -26,7 +26,7 @@
             <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw?"平":(result.RedPlayerGameResultStatus==GameStatus.Win?"胜":"败"))</td>
             <td>@result.RedWinCount</td>
         </tr>
-        <tr class="table-info">
+        <tr class="table-danger">
             <td>后手方:</td>
             @if(result.BluePlayerName.Length>8)
             {
