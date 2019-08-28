@@ -125,10 +125,13 @@ public class GameCardShowControl : MonoBehaviour
                 }
                 else
                 {
-                    card.IsSelect = true;
-                    NowSelect.Add(index);
                     if (NowSelect.Count >= NowSelectTotal)
                         await sender.SendAsync(NowSelect);
+                    else
+                    {
+                        card.IsSelect = true;
+                        NowSelect.Add(index);
+                    }
                 }
                 break;
             case UseCardShowType.None:
@@ -248,11 +251,15 @@ public class GameCardShowControl : MonoBehaviour
           (0.To(info.SelectCount - 1).Mess().Take(info.SelectCount).ToList());
         else
         {
+            //这里是正常的逻辑
+            //设置标题
             useCardTitle = info.Title;
+            //设置卡组列表
             UseCardList = info.SelectList;
             OpenButton.SetActive(true);//打开显示按钮
-                                       //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
+            //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
             UseButtonShow = (false, false, info.IsCanOver, true);
+            //现在选择卡牌的列表
             NowSelectTotal = info.SelectCount;
             NowSelect = new List<int>();//清空
             OpenNowUseMenu();
