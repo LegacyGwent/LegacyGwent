@@ -281,7 +281,7 @@ namespace Cynthia.Card
                 await Game.ShowCardMove(location, Card);
                 await Game.ClientDelay(400);
             }
-            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand));
+            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand, isSpying));
             return (isSpying, IsReveal);//有没有间谍呢
         }
         public virtual async Task PlayStayCard(int count, bool isSpying)
