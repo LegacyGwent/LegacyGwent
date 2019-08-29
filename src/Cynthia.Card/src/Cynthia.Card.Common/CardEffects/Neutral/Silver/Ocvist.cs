@@ -38,7 +38,7 @@ namespace Cynthia.Card
                 {
                     await card.Effect.Damage(1, Card, BulletType.FireBall);
                 }
-                // await Card.Effect.
+                Card.Effect.Repair(true);
                 await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), Card, refreshPoint: true);
             }
         }
