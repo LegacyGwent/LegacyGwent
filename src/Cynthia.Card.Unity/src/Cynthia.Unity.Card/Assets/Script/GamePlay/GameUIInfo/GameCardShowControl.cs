@@ -58,6 +58,10 @@ public class GameCardShowControl : MonoBehaviour
     }
     public async void MulliganEndButtonClick()//手牌调度完毕的按钮被点击
     {
+        if (_nowUseMenuType != UseCardShowType.Mulligan)
+        {
+            return;
+        }
         await sender.SendAsync<int>(-1);
     }
     public void CloseButtonClick()//关闭
@@ -113,24 +117,28 @@ public class GameCardShowControl : MonoBehaviour
                 if (IsUseMenuShow)
                     await sender.SendAsync<int>(index);
                 break;
+            //如果在选卡
             case UseCardShowType.Select:
-                if (!IsUseMenuShow)
+                //如果目前展示的并非选卡页面,返回
+                if (!IsUseMenuShow || NowSelect.Count >= NowSelectTotal)
                     break;
+                //获取到点击的这张卡
                 var card = CardsContent.transform.GetChild(index).GetComponent<SelectUICard>();
+                //如果这张卡是已选中状态,则将他设定为未选中
                 if (card.IsSelect)
                 {
                     card.IsSelect = false;
+                    //从下标列表中删除该项
                     var i = NowSelect.IndexOf(index);
                     NowSelect.RemoveAt(i);
                 }
                 else
                 {
+                    card.IsSelect = true;
+                    NowSelect.Add(index);
                     if (NowSelect.Count >= NowSelectTotal)
-                        await sender.SendAsync(NowSelect);
-                    else
                     {
-                        card.IsSelect = true;
-                        NowSelect.Add(index);
+                        await sender.SendAsync(NowSelect);
                     }
                 }
                 break;

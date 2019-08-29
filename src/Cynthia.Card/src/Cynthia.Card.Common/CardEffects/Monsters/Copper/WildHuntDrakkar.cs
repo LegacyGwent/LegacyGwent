@@ -21,7 +21,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (@event.Target == Card || !@event.Target.HasAllCategorie(Categorie.WildHunt) || !Card.IsAliveOnPlance() || @event.Target.PlayerIndex != PlayerIndex)
+            if (@event.Target == Card || !@event.Target.HasAllCategorie(Categorie.WildHunt) || !Card.IsAliveOnPlance() || @event.Target.PlayerIndex != PlayerIndex || (@event.IsMoveInfo.isMove && !@event.IsMoveInfo.isFromeEnemy))
             {
                 return;
             }
