@@ -45,12 +45,3 @@ git push -u origin <分支名称>
 
 <img src="https://github.com/DeusSeuca/Cynthia.Card/raw/master/assets/group.png" />
 
-## 友情捐助
-
-作者目前没有稳定的收入来源，服务器也是最便宜的VPS服务器，同时在线人数较多的情况下可能服务无法承受并随时有可能爆炸。
-如果您承认并支持作者在劳力财力上的努力，怀旧版玩得开心，可以扫描以下二维码，向作者进行赞助。
-+ 注：本项目开源免费，不需要任何付费即可使用。捐助以自愿为原则，作者不因此承担任何商业责任和义务。
-
-
-
-<img src="https://github.com/DeusSeuca/Cynthia.Card/raw/master/assets/donate.jpg" />
