@@ -12,7 +12,7 @@ namespace Cynthia.Card
         private bool _boostflag = true;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.Armor(3, Card);
+            await Card.Effect.Armor(2, Card);
             if (_boostflag)
             {
                 _boostflag = false;
