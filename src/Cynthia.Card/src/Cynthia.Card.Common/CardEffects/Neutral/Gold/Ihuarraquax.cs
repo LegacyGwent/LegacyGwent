@@ -17,7 +17,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace() || Card.Status.HealthStatus != 0 || Card.Status.Countdown > 0)
+            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace() || Card.Status.HealthStatus != 0 || !Card.Status.IsCountdown)
             {
                 return;
             }

@@ -28,7 +28,7 @@ namespace Cynthia.Card
         {
             Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
             await Game.ShowCardNumberChange(Card, Card.Status.Countdown, NumberType.Countdown);
-            if (Card.Status.Countdown == 0)
+            if (Card.Status.Countdown <= 0)
                 Card.Status.IsCountdown = false;
             else
                 Card.Status.IsCountdown = true;
@@ -311,7 +311,7 @@ namespace Cynthia.Card
                 await Spying(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
-            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo)));
+            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo, isSpying)));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)(已经交给游戏事件处理)
