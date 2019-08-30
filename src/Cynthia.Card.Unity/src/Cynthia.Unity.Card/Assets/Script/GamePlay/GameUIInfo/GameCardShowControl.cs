@@ -70,6 +70,10 @@ public class GameCardShowControl : MonoBehaviour
     }
     public async void AffirmButtonClick()//确认
     {
+        if (_nowUseMenuType != UseCardShowType.Select)
+        {
+            return;
+        }
         await sender.SendAsync(NowSelect);
     }
     public void HideButtonClick()//隐藏卡牌
@@ -229,15 +233,19 @@ public class GameCardShowControl : MonoBehaviour
     {
         _nowUseMenuType = UseCardShowType.Mulligan;
         if (IsAutoPlay) await sender.SendAsync<int>(-1);///////////自动调度22222222222222
-        var task = await receiver.ReceiveAsync<int>();
+        var result = await receiver.ReceiveAsync<int>();
         _nowUseMenuType = UseCardShowType.None;
-        if (task != -1)
+        if (result != -1)
             NowMulliganCount++;
         useCardTitle = $"选择1张卡重抽。[{NowMulliganCount}/{NowMulliganTotal}]";
         if (IsUseMenuShow)
             ShowCardMessage.text = useCardTitle;
         //Debug.Log("发送调度消息");
-        await player.SendAsync(UserOperationType.MulliganInfo, task);
+        if (result == -1)
+        {
+            OperationEnd();
+        }
+        await player.SendAsync(UserOperationType.MulliganInfo, result);
     }
     //-----------------------------------------
     public void OpenNowUseMenu()
@@ -273,9 +281,9 @@ public class GameCardShowControl : MonoBehaviour
             OpenNowUseMenu();
             _nowUseMenuType = UseCardShowType.Select;
         }
-        await player.SendAsync(UserOperationType.SelectMenuCardsInfo, await receiver.ReceiveAsync<IList<int>>());
-
+        var result = await receiver.ReceiveAsync<IList<int>>();
         OperationEnd();
+        await player.SendAsync(UserOperationType.SelectMenuCardsInfo, result);
         //NowUseMenuType = UseCardShowType.None;
         //NowSelect = new List<int>();//清空
     }

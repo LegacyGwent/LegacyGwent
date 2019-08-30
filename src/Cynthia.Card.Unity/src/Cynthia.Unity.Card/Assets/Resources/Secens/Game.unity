@@ -3679,6 +3679,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Password
       objectReference: {fileID: 0}
+    - target: {fileID: 3198956631423334570, guid: b406008435f9d174e9f4e20bcc0b1140,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3381605705623291142, guid: b406008435f9d174e9f4e20bcc0b1140,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3793,11 +3798,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 3198956631423334570, guid: b406008435f9d174e9f4e20bcc0b1140,
-        type: 3}
-      propertyPath: m_Text
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3198938767680577950, guid: b406008435f9d174e9f4e20bcc0b1140,
         type: 3}
@@ -10440,6 +10440,7 @@ MonoBehaviour:
   SilverCount: {fileID: 1502644352}
   CopperCount: {fileID: 1157991912}
   AllCount: {fileID: 1393681082}
+  AllCountText: {fileID: 1006046362}
   HeadT: {fileID: 2105598228}
   HeadB: {fileID: 357580713}
   HeadTSprite:
@@ -10457,7 +10458,7 @@ MonoBehaviour:
   DeckName: {fileID: 1498174579}
   MatchPassword: {fileID: 2097593936}
   DeckNameBackground: {fileID: 337767519}
-  DeckIcon: {fileID: 293337671}
+  DeckIcon: {fileID: 293337672}
   FactionIcon:
   - {fileID: 21300000, guid: b9a9b98cfe2e04440a6ad27f46061b08, type: 3}
   - {fileID: 21300000, guid: b9a9b98cfe2e04440a6ad27f46061b08, type: 3}
@@ -12058,6 +12059,7 @@ MonoBehaviour:
   SilverCount: {fileID: 960289885}
   CopperCount: {fileID: 724064194}
   AllCount: {fileID: 1581286083}
+  AllCountText: {fileID: 1408104468}
 --- !u!224 &1321477799 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224869811524353010, guid: 21c82e30dc0fb3b448540b634032b234,

@@ -78,11 +78,21 @@ public class GameEvent : MonoBehaviour
     private ITubeInlet sender;
     private ITubeOutlet receiver;
     public GameObject ShowMyCemeteryButton;
-    private void Awake() => (sender, receiver) = Tube.CreateSimplex();
+
+    private GlobalUIService _uiService;
+    private void Awake()
+    {
+        (sender, receiver) = Tube.CreateSimplex();
+        _uiService = DependencyResolver.Container.Resolve<GlobalUIService>();
+    }
     //状态信息
     //最开始
     private void Start()
     {
+        // CreateCard(new CardStatus("22014"), new CardLocation(RowPosition.MyRow1, 0));
+        // CreateCard(new CardStatus("22014"), new CardLocation(RowPosition.MyRow1, 0));
+        // CreateCard(new CardStatus("22014"), new CardLocation(RowPosition.MyRow1, 0));
+        // CreateCard(new CardStatus("22014"), new CardLocation(RowPosition.MyRow1, 0));
 
         NowOperationType = GameOperationType.None;
 
@@ -92,9 +102,8 @@ public class GameEvent : MonoBehaviour
 #if UNITY_STANDALONE_WIN
         ShowMyCemeteryButton.SetActive(false);
 #endif
-
         //某些信息,目前只是用来测试
-        //var sc = GetCard(new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = 0 }).CardShowInfo.CurrentCore = new CardStatus("11210200");
+        // var sc = GetCard(new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = 0 }).CardShowInfo.CurrentCore = new CardStatus("11210200");
         //sc.IsCountdown = true;
         //sc.Armor = 5;
         //GetCard(new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = 0 }).CardShowInfo.SetCard();
@@ -271,9 +280,9 @@ public class GameEvent : MonoBehaviour
     {
         DownEffect();
     }
-    private void OnMouseUp()
+    private async void OnMouseUp()
     {
-        UpEffect();
+        await UpEffect();
     }
     // #endif
     private void DownEffect()
@@ -307,7 +316,7 @@ public class GameEvent : MonoBehaviour
         }
     }
     //鼠标抬起
-    private void UpEffect()
+    private async Task UpEffect()
     {
         switch (NowOperationType)
         {
@@ -316,26 +325,36 @@ public class GameEvent : MonoBehaviour
                 CurrentPlace = CardUseInfo.ReSet;
                 if (IsOnCoin)//此方法会被改到其他地方(按住)
                 {   //直接pass信息并结束
-                    sender.SendAsync<RoundInfo>(new RoundInfo() { IsPass = true });
+                    await sender.SendAsync<RoundInfo>(new RoundInfo() { IsPass = true });
                     IsOnCoin = false;
                     return;
                 }
                 if (DragCard == null) return;//没有拖拽的话,就没有什么效果
                 if (DropTaget != null)
                 {
+                    var dropTaget = DropTaget;
+                    var dragCard = DragCard;
+                    dragCard.IsStay = true;
+                    if (dropTaget.Id == RowPosition.MyCemetery)
+                    {
+                        if (!await _uiService.YNMessageBox("确认弃牌?", "正在试图丢弃一张牌,是否确认?"))
+                        {
+                            dragCard.IsStay = false;
+                            break;
+                        }
+                    }
                     //----------------------------------------------------------------------------------
                     //回应服务器的请求
-                    DragCard.IsStay = true;
-                    if (GetIndex(DragCard.transform) == -1) MyLeader.IsCardCanUse = false;
-                    sender.SendAsync<RoundInfo>
+                    if (GetIndex(dragCard.transform) == -1) MyLeader.IsCardCanUse = false;
+                    await sender.SendAsync<RoundInfo>
                     (
                         new RoundInfo()
                         {
-                            HandCardIndex = GetIndex(DragCard.transform),
+                            HandCardIndex = GetIndex(dragCard.transform),
                             CardLocation = new CardLocation()
                             {
-                                RowPosition = DropTaget.Id,
-                                CardIndex = GetDropIndex(GetRelativePosition(DropTaget), DropTaget.CardsPosition)
+                                RowPosition = dropTaget.Id,
+                                CardIndex = GetDropIndex(GetRelativePosition(dropTaget), dropTaget.CardsPosition)
                             },
                             IsPass = false,
                         }
@@ -363,14 +382,14 @@ public class GameEvent : MonoBehaviour
                     NowSelectCards.Add(location);
                     if (NowSelectCards.Count == SelectPlaceCardsInfo.SelectCount)
                     {//选中单位符合目标数量,发送
-                        sender.SendAsync<IList<CardLocation>>(NowSelectCards);
+                        await sender.SendAsync<IList<CardLocation>>(NowSelectCards);
                     }
                 }
                 break;
             case GameOperationType.SelectRow:
                 if (DropTaget != null)
                 {
-                    sender.SendAsync<RowPosition>(DropTaget.Id);
+                    await sender.SendAsync<RowPosition>(DropTaget.Id);
                 }
                 break;
             case GameOperationType.PlayCard://松开之后,如果有目标发送未知
@@ -378,7 +397,7 @@ public class GameEvent : MonoBehaviour
                 {
                     //----------------------------------------------------------------------------------
                     //回应服务器的请求
-                    sender.SendAsync<CardLocation>
+                    await sender.SendAsync<CardLocation>
                     (
                         new CardLocation()
                         {
@@ -423,6 +442,8 @@ public class GameEvent : MonoBehaviour
                     break;
                 case RightOnType.Card:
                     Debug.Log("右键点击了卡牌");
+                    var card = trueitem.First();
+                    Debug.Log("卡牌起了?:" + card.GetComponent<CardMoveInfo>().IsOn);
                     break;
             }
         }

@@ -17,7 +17,7 @@ public class CardMoveInfo : MonoBehaviour
         get => _zPosition; set
         {
             _zPosition = value;
-            transform.position = new Vector3(transform.position.x, transform.position.y, _zPosition);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, _zPosition);
         }
     }
     private float _zPosition;
