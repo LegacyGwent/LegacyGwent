@@ -26,6 +26,8 @@ public class EnterGame : MonoBehaviour
     }
     private void Update()
     {
-        // AdaptiveResolution();
+#if !UNITY_ANDROID
+        AdaptiveResolution();
+#endif
     }
 }

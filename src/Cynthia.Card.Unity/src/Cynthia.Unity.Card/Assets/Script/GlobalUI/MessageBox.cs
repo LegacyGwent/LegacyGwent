@@ -19,7 +19,7 @@ public class MessageBox : MonoBehaviour
     {
         (sender, receiver) = Tube.CreateSimplex();
     }
-    public Task<bool> Show(string title,string message,string yes = "确定",string no = "取消")
+    public Task<bool> Show(string title, string message, string yes = "确定", string no = "取消")
     {
         gameObject.SetActive(true);
         TitleText.text = title;

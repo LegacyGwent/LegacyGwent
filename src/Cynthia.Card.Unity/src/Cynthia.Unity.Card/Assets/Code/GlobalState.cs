@@ -22,6 +22,8 @@ public static class GlobalState
     public static readonly Color MyColor = new Color(0f / 255f, 143f / 255f, 203f / 255f, 255f / 255f);//我方文字 蓝
     public static readonly Color NormalColor = new Color(255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);//白色
 
+    public static readonly Color ErrorColor = new Color(224 / 255f, 90 / 255f, 90 / 255f, 255 / 255f);//卡组错误
+
     public static readonly Color LoseBgColor = new Color(24f / 255f, 10f / 255f, 10f / 255f, 240f / 255f);
     public static readonly Color WinBgColor = new Color(10f / 255f, 10f / 255f, 24f / 255f, 240f / 255f);
     public static readonly Color DrawBgColor = new Color(24f / 255f, 24f / 255f, 24f / 255f, 240f / 255f);

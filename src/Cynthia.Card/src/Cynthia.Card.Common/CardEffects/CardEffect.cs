@@ -582,6 +582,10 @@ namespace Cynthia.Card
         public virtual async Task Transform(string cardId, GameCard source, Action<GameCard> setting = null)//变为
         {
             setting ??= (x => { });
+            if (Card.Status.CardId == cardId)
+            {
+                return;
+            }
             if (Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
             Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow };
             Card.Effects.Clear();

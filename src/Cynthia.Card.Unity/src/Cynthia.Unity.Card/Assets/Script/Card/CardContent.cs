@@ -71,11 +71,11 @@ public class CardContent : MonoBehaviour
         Bottom.sprite = ContentMap[cardStatus.Faction];
         CardInfoText.text = ToTrueString(cardStatus.Info);
         CardNameText.text = ToTrueString(cardStatus.Name);
-        TagsText.text = ToTrueString(cardStatus.Categories.Select(x => x.ToString()).Join(","));
+        TagsText.text = ToTrueString(cardStatus.Categories.Select(x => GwentMap.CategorieInfoMap[x]).Join(", "));
         if (cardStatus.IsImmue)
-            TagsText.text += ",免疫";
-        if (cardStatus.IsDoomed)
-            TagsText.text += ",佚亡";
+            TagsText.text += string.IsNullOrWhiteSpace(TagsText.text) ? "免疫" : ", 免疫";
+        if (cardStatus.IsDoomed && !TagsText.text.Contains("佚亡"))
+            TagsText.text += string.IsNullOrWhiteSpace(TagsText.text) ? "佚亡" : ", 佚亡";
         Content.sizeDelta = new Vector2(Content.sizeDelta.x, CardInfoText.preferredHeight + 115);
         // Debug.Log(CardInfoText.preferredHeight);
     }
