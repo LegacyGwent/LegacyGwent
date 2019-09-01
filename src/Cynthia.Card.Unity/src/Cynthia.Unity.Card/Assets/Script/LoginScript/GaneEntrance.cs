@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Net.Mime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Autofac;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Alsein.Extensions.IO;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.UI;
 
 public class GaneEntrance : MonoBehaviour
 {
@@ -14,7 +16,23 @@ public class GaneEntrance : MonoBehaviour
     public GameObject AudioSound;
     public AudioMixer AudioMixer;
 
+    public Text NowVersionText;
+    public Text LatestVersionText;
+    public Text NotesText;
+
     private void Start()
+    {
+        ConfigureGame();
+        LoadServerMessage();
+    }
+
+    public void LoadServerMessage()
+    {
+        LatestVersionText.text = "最新版本为：" + GlobalState.Version.ToString();
+
+    }
+
+    public void ConfigureGame()
     {
         if (GlobalState.IsLoadGlobal) return;
         GlobalState.IsLoadGlobal = true;
@@ -30,7 +48,9 @@ public class GaneEntrance : MonoBehaviour
         SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 0));
         SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
         SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
+        NowVersionText.text = "当前版本为：" + GlobalState.Version.ToString();
     }
+
     public Resolution IndexToResolution(int index)
     {
         Resolution resolution = new Resolution();

@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public MargaritaOfAretuza(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var Target = await Game.GetSelectPlaceCards(Card);
+            var Target = await Game.GetSelectPlaceCards(Card, isHasConceal: true);
             if (!(Target.Count() == 0))
             {
                 await Target.Single().Effect.Reset(Card);

@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选择一个锁定单位
-            var LockTarget = await Game.GetSelectPlaceCards(Card);
+            var LockTarget = await Game.GetSelectPlaceCards(Card, isHasConceal: true);
             if (!(LockTarget.Count() == 0))
             {
                 await LockTarget.Single().Effect.Lock(Card);

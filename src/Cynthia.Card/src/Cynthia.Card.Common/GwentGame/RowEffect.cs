@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,7 @@ namespace Cynthia.Card
         public RowPosition RowPosition { get => Row.RowPosition; }
 
         public IList<GameCard> RowCards { get => Row?.RowCards; }
+        public IList<GameCard> AliveNotConceal { get => Row?.RowCards.Where(x => x.IsAliveOnPlance() && !x.Status.Conceal).ToList(); }
 
         public GameRow Row { get; set; }
 
@@ -18,7 +20,7 @@ namespace Cynthia.Card
         public abstract RowStatus StatusType { get; }
         public object Clone()
         {
-            RowEffect copy =  (RowEffect)this.MemberwiseClone();
+            RowEffect copy = (RowEffect)this.MemberwiseClone();
             return copy;
         }
     }

@@ -13,13 +13,14 @@ namespace Cynthia.Card.Client
     public class GlobalUIService
     {
         private MessageBox _messageBox;
+
         public GlobalUIService()
         {
             _messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();
         }
-        public Task<bool> YNMessageBox(string title, string message, string yes = "确定", string no = "取消")
+        public Task<bool> YNMessageBox(string title, string message, string yes = "确定", string no = "取消", bool isOnlyYes = false)
         {
-            return _messageBox.Show(title, message, yes, no);
+            return _messageBox.Show(title.Replace("\\n", "\n"), message.Replace("\\n", "\n"), yes, no, isOnlyYes);
         }
     }
 }
