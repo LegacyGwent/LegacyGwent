@@ -13,6 +13,7 @@ public class MessageBox : MonoBehaviour
     public Text NoText;
     public GameObject YesButton;
     public GameObject NoButton;
+    public GameObject Buttons;
     private ITubeInlet sender;
     private ITubeOutlet receiver;
     //private IAsyncDataSender sender;
@@ -21,8 +22,21 @@ public class MessageBox : MonoBehaviour
     {
         (sender, receiver) = Tube.CreateSimplex();
     }
+    public void Wait(string title, string message)
+    {
+        Buttons.SetActive(false);
+        TitleText.text = title;
+        MessageText.text = message;
+        gameObject.SetActive(true);
+    }
+    public void Close()
+    {
+        gameObject.SetActive(false);
+        Buttons.SetActive(true);
+    }
     public Task<bool> Show(string title, string message, string yes = "确定", string no = "取消", bool isOnlyYes = false)
     {
+        Buttons.SetActive(true);
         if (isOnlyYes)
         {
             YesButton.SetActive(true);

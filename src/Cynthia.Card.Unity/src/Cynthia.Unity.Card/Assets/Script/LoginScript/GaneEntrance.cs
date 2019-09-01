@@ -9,6 +9,7 @@ using Alsein.Extensions.IO;
 using UnityEngine.Audio;
 using System;
 using UnityEngine.UI;
+using Cynthia.Card.Client;
 
 public class GaneEntrance : MonoBehaviour
 {
@@ -20,16 +21,39 @@ public class GaneEntrance : MonoBehaviour
     public Text LatestVersionText;
     public Text NotesText;
 
+    private GwentClientService _gwentClientService;
+
     private void Start()
     {
+        _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
         ConfigureGame();
         LoadServerMessage();
     }
 
-    public void LoadServerMessage()
+    public void ExitClick()
     {
-        LatestVersionText.text = "最新版本为：" + GlobalState.Version.ToString();
+        _gwentClientService.ExitGameClick();
+    }
 
+    public async void LoadServerMessage()
+    {
+        try
+        {
+            var version = new Version(await _gwentClientService.GetLatestVersion());
+            LatestVersionText.text = GlobalState.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
+        }
+        catch
+        {
+            LatestVersionText.text = "未获取到最新版本号";
+        }
+        try
+        {
+            NotesText.text = (await _gwentClientService.GetNotes()).Replace("\\n", "\n");
+        }
+        catch
+        {
+            NotesText.text = "暂未获取到公告。";
+        }
     }
 
     public void ConfigureGame()
@@ -45,7 +69,7 @@ public class GaneEntrance : MonoBehaviour
 
         SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
         SetQuality(PlayerPrefs.GetInt("quality", 2));
-        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 0));
+        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
         SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
         SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
         NowVersionText.text = "当前版本为：" + GlobalState.Version.ToString();

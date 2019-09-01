@@ -34,6 +34,10 @@ namespace Cynthia.Card.Server
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
 
+        public async Task<string> GetLatestVersion() => await _gwentServerService.GetLatestVersion(Context.ConnectionId);
+
+        public async Task<string> GetNotes() => await _gwentServerService.GetNotes(Context.ConnectionId);
+
         //获取在线人数
         public async Task<int> GetUserCount()
         {
