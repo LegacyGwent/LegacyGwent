@@ -42,7 +42,19 @@ namespace Cynthia.Card.Client
             hubConnection.Closed += (async x =>
             {
                 SceneManager.LoadScene("LoginSecen");
-                await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆");
+                await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对于或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote! In the current version, if you are disconnected when matching or Confrontation, you need to restart the client, otherwise the next game will start with an abnormal.");
+            });
+            hubConnection.On("ExitGame", () =>
+            {
+
+            });
+            hubConnection.On("ShowMessageBox", () =>
+            {
+
+            });
+            hubConnection.On("Close", () =>
+            {
+
             });
             hubConnection.On<string>("Test", message => Debug.Log($"收到了服务端来自Debug的信息:{message}"));
             Player = new LocalPlayer(hubConnection);

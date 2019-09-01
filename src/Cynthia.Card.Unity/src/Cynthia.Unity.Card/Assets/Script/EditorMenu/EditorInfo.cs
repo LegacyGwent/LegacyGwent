@@ -596,7 +596,9 @@ public class EditorInfo : MonoBehaviour
             .Where(x => ((_editorSearchMessage == "") ? true :
                 (x.CardInfo().Name.Contains(_editorSearchMessage) ||
                 x.CardInfo().Info.Contains(_editorSearchMessage) ||
-                x.CardInfo().Strength.ToString().Contains(_editorSearchMessage))))
+                x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
+                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_editorSearchMessage))
+                )))
             .Where(x => _nowEditorGroup == Group.Leader ? x.Group != Group.Leader : x.Group == _nowEditorGroup)
             .ToList()
         );

@@ -42,12 +42,12 @@ namespace Cynthia.Card.Server
         {
             get
             {
-                var player1Row1Point = PlayersPlace[Player1Index][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-                var player1Row2Point = PlayersPlace[Player1Index][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-                var player1Row3Point = PlayersPlace[Player1Index][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-                var player2Row1Point = PlayersPlace[Player2Index][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-                var player2Row2Point = PlayersPlace[Player2Index][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-                var player2Row3Point = PlayersPlace[Player2Index][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player2Row1Point = PlayersPlace[Player2Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player2Row2Point = PlayersPlace[Player2Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player2Row3Point = PlayersPlace[Player2Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
                 var player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
                 var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
                 if (player1PlacePoint > player2PlacePoint)
@@ -125,12 +125,12 @@ namespace Cynthia.Card.Server
         public async Task BigRoundEnd()//小局结束,进行收场
         {
             await ClientDelay(500);
-            var player1Row1Point = PlayersPlace[Player1Index][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1Row2Point = PlayersPlace[Player1Index][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1Row3Point = PlayersPlace[Player1Index][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row1Point = PlayersPlace[Player2Index][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row2Point = PlayersPlace[Player2Index][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row3Point = PlayersPlace[Player2Index][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player2Row1Point = PlayersPlace[Player2Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player2Row2Point = PlayersPlace[Player2Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+            var player2Row3Point = PlayersPlace[Player2Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
             var player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
             var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
             PlayersRoundResult[CurrentRoundCount][Player1Index] = player1PlacePoint;
@@ -546,7 +546,7 @@ namespace Cynthia.Card.Server
         //下面是发送数据包,或者进行一些初始化信息
         //根据当前信息,处理游戏结果
 
-        public async Task<IList<GameCard>> GetSelectPlaceCards(GameCard card, int count = 1, bool isEnemySwitch = false, Func<GameCard, bool> filter = null, SelectModeType SelectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0)
+        public async Task<IList<GameCard>> GetSelectPlaceCards(GameCard card, int count = 1, bool isEnemySwitch = false, Func<GameCard, bool> filter = null, SelectModeType SelectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0,bool isHasConceal = false)
         {
             //自定义规则, 是否过滤特殊卡, 过滤自身
             var canSelect = GetGameCardsPart(isEnemySwitch ? AnotherPlayer(card.PlayerIndex) : card.PlayerIndex,
@@ -556,12 +556,12 @@ namespace Cynthia.Card.Server
                 (!x.Status.IsImmue) &&//如果没有免疫
                 (selectType == CardType.Unit ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Unit) :
                 (selectType == CardType.Special ? (GwentMap.CardMap[x.Status.CardId].CardType == CardType.Special) : true)) &&
-                (x != card)
+                (x != card) &&
+                (isHasConceal ? true : !x.Status.Conceal)
             ), isEnemySwitch ? SelectMode.Mirror() : SelectMode);
             if (GameCardsPartCount(canSelect) < count) count = GameCardsPartCount(canSelect);
             if (count <= 0)
                 return new List<GameCard>();
-            //落雷术测试
             var target = await GetSelectPlaceCards
             (
                 isEnemySwitch ? AnotherPlayer(card.PlayerIndex) : card.PlayerIndex,
@@ -646,7 +646,7 @@ namespace Cynthia.Card.Server
 
             await Task.WhenAll(SendGameResult(Player1Index), SendGameResult(Player2Index));
     }
-    public IList<GameCard> RowToList(int myPlayerIndex, RowPosition row)
+    public IList<GameCard> RowToList(int myPlayerIndex, RowPosition row,bool isHasDead = false,bool isHasConceal = false)
     {
         var enemyPlayerIndex = (AnotherPlayer(myPlayerIndex));
         switch (row)
@@ -705,19 +705,19 @@ namespace Cynthia.Card.Server
         if (list == PlayersCemetery[enemyPlayerIndex])
             return RowPosition.EnemyCemetery;
         //
-        if (list == PlayersPlace[myPlayerIndex][0])
+        if (list == PlayersPlace[myPlayerIndex][0]||(!list.Any(x=>x.Status.CardRow!=RowPosition.MyRow1)&&!list.Any(x=>x.PlayerIndex!=myPlayerIndex)))
             return RowPosition.MyRow1;
-        if (list == PlayersPlace[enemyPlayerIndex][0])
+        if (list == PlayersPlace[enemyPlayerIndex][0]||(!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
             return RowPosition.EnemyRow1;
         //
-        if (list == PlayersPlace[myPlayerIndex][1])
+        if (list == PlayersPlace[myPlayerIndex][1]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != myPlayerIndex)))
             return RowPosition.MyRow2;
-        if (list == PlayersPlace[enemyPlayerIndex][1])
+        if (list == PlayersPlace[enemyPlayerIndex][1]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
             return RowPosition.EnemyRow2;
         //
-        if (list == PlayersPlace[myPlayerIndex][2])
+        if (list == PlayersPlace[myPlayerIndex][2]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != myPlayerIndex)))
             return RowPosition.MyRow3;
-        if (list == PlayersPlace[enemyPlayerIndex][2])
+        if (list == PlayersPlace[enemyPlayerIndex][2]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
             return RowPosition.EnemyRow3;
         //
         if (list == PlayersStay[myPlayerIndex])
@@ -844,7 +844,7 @@ namespace Cynthia.Card.Server
         return RowToList(playerIndex, location.RowPosition)[location.CardIndex];
     }
 
-    public IList<GameCard> GetAllCard(int playerIndex, bool isContainDead = false)
+    public IList<GameCard> GetAllCard(int playerIndex, bool isContainDead = false,bool isHasConceal = false)
     {
         var anotherPlayer = AnotherPlayer(playerIndex);
         return PlayersPlace[playerIndex][0]
@@ -864,6 +864,7 @@ namespace Cynthia.Card.Server
         .Concat(PlayersCemetery[anotherPlayer])
         .Concat(PlayersDeck[anotherPlayer])
         .Where(x => isContainDead ? true : !x.IsDead)
+        .Where(x => isHasConceal ? true : !x.Status.Conceal)
         .ToList();
     }
     //----------------------------------------------------------------------------------------------
@@ -952,12 +953,12 @@ namespace Cynthia.Card.Server
         var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
         return new GameInfomation()
         {
-            MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
             IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
             IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
             MyWinCount = PlayersWinCount[myPlayerIndex],
@@ -1001,12 +1002,12 @@ namespace Cynthia.Card.Server
         var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
         return new GameInfomation()
         {
-            MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus)
+            MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x=>!x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus)
         };
     }
     public GameInfomation GetCountInfo(TwoPlayer player)
@@ -1071,12 +1072,12 @@ namespace Cynthia.Card.Server
         var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
         var result = new GameInfomation()
         {
-            MyRow1Point = PlayersPlace[myPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            MyRow2Point = PlayersPlace[myPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            MyRow3Point = PlayersPlace[myPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
-            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow1Point = PlayersPlace[enemyPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow2Point = PlayersPlace[enemyPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+            EnemyRow3Point = PlayersPlace[enemyPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
             IsMyPlayerPass = IsPlayersPass[myPlayerIndex],
             IsEnemyPlayerPass = IsPlayersPass[enemyPlayerIndex],
             MyWinCount = PlayersWinCount[myPlayerIndex],
@@ -1145,7 +1146,7 @@ namespace Cynthia.Card.Server
         // await Debug($"卡牌名称是:{card.Status.Name},生命状态是:{card.Status.HealthStatus}");
         //如果处于敌方场地
         var isBack = (card.Status.CardRow.IsOnPlace() && card.Status.Conceal);
-        if (card.PlayerIndex != playerIndex) isBack = (card.Status.CardRow.IsInHand() && (!card.Status.IsReveal));
+        if (card.PlayerIndex != playerIndex) isBack |= (card.Status.CardRow.IsInHand() && (!card.Status.IsReveal));
         await Players[playerIndex].SendAsync
         (
             ServerOperationType.SetCard,
@@ -1159,8 +1160,8 @@ namespace Cynthia.Card.Server
     public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false, bool autoUpdateCemetery = true, bool autoUpdateDeck = true)
     {
         var isFromHide = card.Status.CardRow.IsInBack();
-        var isShowPlayerIndexBack = !location.RowPosition.IsMyRow() && isShowEnemyBack;
-        var isShowAnotherPlayerBack = location.RowPosition.IsMyRow() && isShowEnemyBack;
+        var isShowPlayerIndexBack = (!location.RowPosition.IsMyRow() && isShowEnemyBack)||card.Status.Conceal;
+        var isShowAnotherPlayerBack = (location.RowPosition.IsMyRow() && isShowEnemyBack)||card.Status.Conceal;
         await SendCardMove(card.PlayerIndex, new MoveCardInfo()
         {
             Source = GetCardLocation(card.PlayerIndex, card),
@@ -1213,7 +1214,7 @@ namespace Cynthia.Card.Server
     }
     public Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type = NumberType.Normal)
     {
-        if (card.IsShowBack(playerIndex))
+        if (card.IsShowBack(playerIndex)&&!(type==NumberType.Countdown&&playerIndex==card.PlayerIndex)&&!card.Status.CardRow.IsInCemetery()&&!(card.Status.CardRow.IsInDeck()&&card.PlayerIndex==playerIndex))
             return Task.CompletedTask;
         return Players[playerIndex].SendAsync
             (
@@ -1527,7 +1528,7 @@ namespace Cynthia.Card.Server
         async Task task()
         {
             var list = new List<GameCard>();
-            foreach (var card in GetAllCard(Player1Index, true).ToList())
+            foreach (var card in GetAllCard(Player1Index, true, true).ToList())
             {
                 if (card.Status.IsLock) continue;
                 await card.Effects.RaiseEvent(@event);

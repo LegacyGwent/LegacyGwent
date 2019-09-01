@@ -15,13 +15,16 @@ namespace Cynthia.Card
             var cards = RowCards.Take(3).ToList();
             if (cards.Count > 0)
             {
-                await cards[0].Effect.Damage(2, null);
+                if (!cards[0].Status.Conceal)
+                    await cards[0].Effect.Damage(2, null);
                 if (cards.Count > 1)
                 {
-                    await cards[1].Effect.Damage(1, null);
+                    if (!cards[1].Status.Conceal)
+                        await cards[1].Effect.Damage(1, null);
                     if (cards.Count > 2)
                     {
-                        await cards[2].Effect.Damage(1, null);
+                        if (!cards[2].Status.Conceal)
+                            await cards[2].Effect.Damage(1, null);
                     }
                 }
             }

@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Auckes(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = await Game.GetSelectPlaceCards(Card, 2);
+            var result = await Game.GetSelectPlaceCards(Card, 2, isHasConceal: true);
             foreach (var card in result)
             {
                 await card.Effect.Lock(Card);

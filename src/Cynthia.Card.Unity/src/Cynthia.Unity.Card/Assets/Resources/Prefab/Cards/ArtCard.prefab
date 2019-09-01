@@ -369,7 +369,7 @@ RectTransform:
   - {fileID: 6504286236436191382}
   - {fileID: 6504165456213685748}
   - {fileID: 6504650914947130722}
-  - {fileID: 2959700991242704773}
+  - {fileID: 6333374685599534052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20747ab9999d8be44a90d9f98e805f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Content: {fileID: 2959700991242700929}
+  Content: {fileID: 6333374685599534051}
   Strength: {fileID: 8325362157314392529}
   Armor: {fileID: 7806598557062764367}
   Countdown: {fileID: 4502610635295187163}
@@ -714,7 +714,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7041787686753643654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.85, y: 0.85, z: 1}
   m_Children:
   - {fileID: 5161422866626847380}
@@ -1141,13 +1141,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 548fb9f1d1ac1f745ad0fa8f0d929ad7, type: 3}
---- !u!224 &2959700991242704773 stripped
+--- !u!224 &6333374685599534052 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9148590842405458536, guid: 548fb9f1d1ac1f745ad0fa8f0d929ad7,
     type: 3}
   m_PrefabInstance: {fileID: 2959700991242705292}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2959700991242700929 stripped
+--- !u!114 &6333374685599534051 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9148590842405458543, guid: 548fb9f1d1ac1f745ad0fa8f0d929ad7,
     type: 3}

@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 6357180016800052306}
   - component: {fileID: 3571027329423858096}
   m_Layer: 5
-  m_Name: EditorUICard
+  m_Name: EditorUIShowCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardMoveInfo: {fileID: 0}
-  IsDead: 0
+  _isDead: 0
   Strength: {fileID: 8321350171004020417}
   Armor: {fileID: 7828491071812104287}
   Countdown: {fileID: 4507685024049039307}
@@ -1940,7 +1940,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7010850860004232086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 5139717552385017220}

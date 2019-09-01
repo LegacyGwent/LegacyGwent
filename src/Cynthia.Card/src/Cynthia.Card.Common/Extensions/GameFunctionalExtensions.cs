@@ -296,19 +296,20 @@ namespace Cynthia.Card
             return (health: card.Status.Strength + card.Status.HealthStatus, card: card);
         }
 
-        public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card)
+        public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card, bool isHasConceal = false)
         {
             //大到小
             if (card == null || card.Count() == 0) return card;
-            var hight = card.SelectToHealth().OrderByDescending(x => x.health).First().health;
-            return card.SelectToHealth().OrderByDescending(x => x.health).Where(x => x.health >= hight).Select(x => x.card);
+            var hight = card.Where(x => isHasConceal ? true : !x.Status.Conceal).SelectToHealth().OrderByDescending(x => x.health).First().health;
+            return card.SelectToHealth().OrderByDescending(x => x.health).Where(x => x.health >= hight).Select(x => x.card).ToList();
         }
 
-        public static IEnumerable<GameCard> WhereAllLowest(this IEnumerable<GameCard> card)
+        public static IEnumerable<GameCard> WhereAllLowest(this IEnumerable<GameCard> card, bool isHasConceal = false)
         {
+            card = card.Where(x => isHasConceal ? true : !x.Status.Conceal).ToList();
             if (card == null || card.Count() == 0) return card;
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
-            return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
+            return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card).ToList();
         }
 
         public static IEnumerable<CardLocation> CardsPartToLocation(this GameCardsPart part)

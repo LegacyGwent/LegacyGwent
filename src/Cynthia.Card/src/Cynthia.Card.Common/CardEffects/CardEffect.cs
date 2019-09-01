@@ -89,10 +89,22 @@ namespace Cynthia.Card
         //使卡牌"放置"
         public virtual async Task Play(CardLocation location, bool forceSpying = false, bool isFromHand = true)//放置
         {
+
+            await Game.AddTask(async () =>
+            {
+                await Game.SendEvent(new BeforeUnitPlay(Card, isFromHand));
+            });
             var (isSpying, isReveal) = await CardPlayStart(location, isFromHand);
             isSpying |= forceSpying;
             //历史卡牌
             Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card.Status.CardId));
+
+            if (Card.Status.Conceal)
+            {
+                //如果是伏击
+                await Game.ShowCardDown(Card);
+                return;
+            }
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 // count = await CardPlayEffect(isSpying);
@@ -105,7 +117,6 @@ namespace Cynthia.Card
             count = (await Game.SendEvent(new BeforePlayStayCard(Card, count))).PlayCount;
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
-                // await CardDownEffect(isSpying);
                 await Game.AddTask(async () =>
                 {
                     await Card.Effects.RaiseEvent(new CardDownEffect(isSpying, isReveal));
@@ -537,6 +548,18 @@ namespace Cynthia.Card
             await Game.SendEvent(new AfterCardConceal(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
+
+        public virtual async Task PlanceConceal(GameCard source)//伏击(未测试)
+        {
+            if (!(Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInHand()) || Card.Status.Conceal || Card.IsDead) return;
+            Card.Status.Conceal = true;
+            await Game.ShowSetCard(Card);
+            //8888888888888888888888888888888888888888888888888888888888888888888888
+            //隐匿,应该触发对应事件<暂未定义,待补充>
+            // await Game.SendEvent(new AfterCardPlanceConceal(Card, source));
+            //8888888888888888888888888888888888888888888888888888888888888888888888
+        }
+
         public virtual async Task Resilience(GameCard source)//坚韧
         {
             if (!Card.Status.CardRow.IsOnPlace() || Card.IsDead) return;

@@ -29,7 +29,6 @@ public class Bootstrapper : MonoBehaviour
         DependencyResolver.Container = AutoRegisterService(builder).Build();
     }
 
-
     public ContainerBuilder AutoRegisterService(ContainerBuilder builder)
     {
         var assembly = Assembly.GetExecutingAssembly();
