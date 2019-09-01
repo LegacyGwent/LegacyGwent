@@ -4922,6 +4922,7 @@ GameObject:
   - component: {fileID: 657656527}
   - component: {fileID: 657656526}
   - component: {fileID: 657656528}
+  - component: {fileID: 657656529}
   m_Layer: 5
   m_Name: GameResult
   m_TagString: Untagged
@@ -5030,6 +5031,19 @@ MonoBehaviour:
   GameLoseBgRight: {fileID: 21300000, guid: 146a894f6d540ba40a89c7dbc9425bca, type: 3}
   GameDrawBgLeft: {fileID: 21300000, guid: 099e44a2ee95c5f4db7c859eae247e72, type: 3}
   GameDrawBgRight: {fileID: 21300000, guid: 53e7127889d0a0941bb5bda5fd4a2107, type: 3}
+--- !u!65 &657656529
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657656524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5000, y: 5000, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &662942035
 GameObject:
   m_ObjectHideFlags: 0
@@ -9867,6 +9881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1322948918}
   - component: {fileID: 1322948919}
+  - component: {fileID: 1322948920}
   m_Layer: 5
   m_Name: CardsSelect
   m_TagString: Untagged
@@ -9921,6 +9936,19 @@ MonoBehaviour:
   CloseButton: {fileID: 264761653}
   AffirmButton: {fileID: 1594329658}
   HideButton: {fileID: 436587706}
+--- !u!65 &1322948920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322948917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5000, y: 5000, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1341238555
 GameObject:
   m_ObjectHideFlags: 0

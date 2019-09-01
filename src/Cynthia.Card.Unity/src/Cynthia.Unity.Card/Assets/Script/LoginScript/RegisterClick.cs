@@ -57,7 +57,7 @@ public class RegisterClick : MonoBehaviour
             IsRegistering = false;
             RegisterMessage.text = "注册成功~点击登陆切换到登录页面进行登陆~";
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             RegisterMessage.text = "发生异常,原因或许是服务器未开启,尝试重试或者联系作者";
             Debug.Log(e.Message);

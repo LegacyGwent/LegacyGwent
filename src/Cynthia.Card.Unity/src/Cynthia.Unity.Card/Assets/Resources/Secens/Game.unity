@@ -10460,7 +10460,7 @@ MonoBehaviour:
   DeckNameBackground: {fileID: 337767519}
   DeckIcon: {fileID: 293337672}
   FactionIcon:
-  - {fileID: 21300000, guid: b9a9b98cfe2e04440a6ad27f46061b08, type: 3}
+  - {fileID: 21300000, guid: c7864209d4c14734dbbc6826d83bb332, type: 3}
   - {fileID: 21300000, guid: b9a9b98cfe2e04440a6ad27f46061b08, type: 3}
   - {fileID: 21300000, guid: 461cbdc133077d04caae2f13a493d5f8, type: 3}
   - {fileID: 21300000, guid: 96282b589ea4b7a4ba06ecd443d7d137, type: 3}

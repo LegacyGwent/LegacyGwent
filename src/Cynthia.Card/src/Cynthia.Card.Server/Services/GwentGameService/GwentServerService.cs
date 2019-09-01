@@ -163,6 +163,18 @@ namespace Cynthia.Card.Server
             _users.Remove(connectionId);
             InovkeUserChanged();
         }
+
+        public async Task<string> GetLatestVersion(string connectionId)
+        {
+            await Task.CompletedTask;
+            return "0.1.0.0";
+        }
+
+        public async Task<string> GetNotes(string connectionId)
+        {
+            await Task.CompletedTask;
+            return "公告测试~";
+        }
         //-------------------------------------------------------------------------
         public int GetUserCount()
         {

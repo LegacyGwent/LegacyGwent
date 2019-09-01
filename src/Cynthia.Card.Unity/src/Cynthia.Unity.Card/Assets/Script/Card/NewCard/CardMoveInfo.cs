@@ -35,12 +35,12 @@ public class CardMoveInfo : MonoBehaviour
             {
                 //transform.localScale = Vector3.one * 1.15f;
                 CardShowInfo.ScaleTo(1.2f);
-                if (!_isOn) ZPosition -= 2;
+                if (!_isOn) ZPosition -= 3;
                 _isOn = value;
             }
             else
             {
-                if (_isOn) ZPosition += 2;
+                if (_isOn) ZPosition += 3;
                 _isOn = value;
                 var p = transform.parent.GetComponent<CardsPosition>();
                 if (p != null)

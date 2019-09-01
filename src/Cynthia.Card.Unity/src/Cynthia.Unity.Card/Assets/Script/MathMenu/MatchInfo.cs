@@ -210,7 +210,7 @@ public class MatchInfo : MonoBehaviour
         DeckNameBackground.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(25 * DeckName.text.Length + 150, 71);
         DeckName.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(25 * DeckName.text.Length, 40);
         DeckName.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-25 * DeckName.text.Length / 2 - 50, 0);
-        DeckIcon.sprite = FactionIcon[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
+        DeckIcon.overrideSprite = FactionIcon[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         //DeckIcon.sprite = Resources.Load<Sprite>("Sprites/Control/coin_northern");
         //////////////////////////////////////////////////
         var leader = Instantiate(LaderPrefab);

@@ -337,11 +337,13 @@ public class GameEvent : MonoBehaviour
                     dragCard.IsStay = true;
                     if (dropTaget.Id == RowPosition.MyCemetery)
                     {
+#if UNITY_ANDROID
                         if (!await _uiService.YNMessageBox("确认弃牌?", "正在试图丢弃一张牌,是否确认?"))
                         {
                             dragCard.IsStay = false;
                             break;
                         }
+#endif
                     }
                     //----------------------------------------------------------------------------------
                     //回应服务器的请求
@@ -443,7 +445,7 @@ public class GameEvent : MonoBehaviour
                 case RightOnType.Card:
                     Debug.Log("右键点击了卡牌");
                     var card = trueitem.First();
-                    Debug.Log("卡牌起了?:" + card.GetComponent<CardMoveInfo>().IsOn);
+                    Debug.Log("卡牌On?:" + card.GetComponent<CardMoveInfo>().IsOn);
                     break;
             }
         }
@@ -642,7 +644,12 @@ public class GameEvent : MonoBehaviour
     {
         var ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
         var ray = new Ray(ray1.origin, ray1.direction * 100000);
-        return Physics.RaycastAll(ray).Select(x => x.collider.gameObject);
+        var items = Physics.RaycastAll(ray).Select(x => x.collider.gameObject);
+        if (items.Any(x => "MessageBoxBgCardsSelectGameResult".Contains(x.name)))
+        {
+            return new GameObject[] { };
+        }
+        return items;
     }
     //获得某个物体在父物体中的位置
     // private int GetIndex(Transform obj)
