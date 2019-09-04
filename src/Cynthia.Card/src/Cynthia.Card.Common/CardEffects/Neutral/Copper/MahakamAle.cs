@@ -12,9 +12,9 @@ namespace Cynthia.Card
         {
             foreach (var row in Game.PlayersPlace[Card.PlayerIndex].ToList())
             {
-                if (row.Count() != 0)
+                if (row.IgnoreConcealAndDead().Count() != 0)
                 {
-                    await row.Mess(RNG).First().Effect.Boost(4, Card);
+                    await row.IgnoreConcealAndDead().Mess(RNG).First().Effect.Boost(4, Card);
                 }
             }
             return 0;

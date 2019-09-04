@@ -16,7 +16,7 @@ namespace Cynthia.Card.Server
         public int _randomSeed;
         public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = 9;
-        public IList<(int PlayerIndex, string CardId)> HistoryList { get; set; } = new List<(int, string)>();
+        public IList<(int PlayerIndex, GameCard CardId)> HistoryList { get; set; } = new List<(int, GameCard)>();
         public GameDeck[] PlayerBaseDeck { get; set; } = new GameDeck[2];
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
         public bool[] IsPlayersLeader { get; set; } = { true, true };//玩家领袖是否可用/
@@ -73,7 +73,7 @@ namespace Cynthia.Card.Server
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
-            await PlayerBigRound(2, 2);//双方轮流执行回合|第二小局
+            await PlayerBigRound(1, 1);//双方轮流执行回合|第二小局
             if (PlayersWinCount[Player1Index] < 2 && PlayersWinCount[Player2Index] < 2)//如果前两局没有分出结果
             {
                 await DrawCard(1, 1);
@@ -244,14 +244,14 @@ namespace Cynthia.Card.Server
             {//如果没有手牌,强制pass
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
+                //888888888888888888888888888888888888888888888888888888888888888888888888
+                await SendEvent(new AfterPlayerPass(playerIndex));
+                //888888888888888888888888888888888888888888888888888888888888888888888888
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     //如果对方也pass,结束游戏
                     return false;
                 }
-                //888888888888888888888888888888888888888888888888888888888888888888888888
-                await SendEvent(new AfterPlayerPass(playerIndex));
-                //888888888888888888888888888888888888888888888888888888888888888888888888
                 return true;
             }
             //让玩家选择拖拽,或者Pass
@@ -263,13 +263,13 @@ namespace Cynthia.Card.Server
                 IsPlayersPass[playerIndex] = true;
                 await SetPassInfo();
                 //判断对手是否pass
+                //888888888888888888888888888888888888888888888888888888888888888888888888
+                await SendEvent(new AfterPlayerPass(playerIndex));
+                //888888888888888888888888888888888888888888888888888888888888888888888888
                 if (IsPlayersPass[AnotherPlayer(playerIndex)] == true)
                 {
                     return false;
                 }
-                //888888888888888888888888888888888888888888888888888888888888888888888888
-                await SendEvent(new AfterPlayerPass(playerIndex));
-                //888888888888888888888888888888888888888888888888888888888888888888888888
             }
             else
             {//放置卡牌(单位和法术都是)时执行

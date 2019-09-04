@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //计算对面排的单位数量
-            var count = Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count();
+            var count = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead().Count();
             //如果对面单位数达到上限，不触发效果
             if (count >= Game.RowMaxCount)
             {

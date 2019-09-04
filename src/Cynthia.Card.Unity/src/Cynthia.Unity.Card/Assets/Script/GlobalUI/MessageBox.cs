@@ -18,6 +18,7 @@ public class MessageBox : MonoBehaviour
     private ITubeOutlet receiver;
     //private IAsyncDataSender sender;
     //private IAsyncDataReceiver receiver;
+    public RectTransform Context;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -52,6 +53,7 @@ public class MessageBox : MonoBehaviour
         MessageText.text = message;
         YesText.text = yes;
         NoText.text = no;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
         return receiver.ReceiveAsync<bool>();
     }
     public void YesClick()

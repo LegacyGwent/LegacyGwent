@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             foreach (var row in Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)].ToList())
             {
-                var cards = row.WhereAllHighest();
+                var cards = row.IgnoreConcealAndDead().WhereAllHighest();
                 if (cards.Count() != 0)
                 {
                     await cards.Mess(RNG).First().Effect.Damage(6, Card, BulletType.RedLight);

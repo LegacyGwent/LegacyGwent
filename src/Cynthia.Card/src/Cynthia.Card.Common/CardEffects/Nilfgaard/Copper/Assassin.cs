@@ -8,10 +8,9 @@ namespace Cynthia.Card
     public class Assassin : CardEffect
     {//间谍对左侧单位造成10点伤害。
         public Assassin(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var rowIndex = Card.GetLocation(Card.PlayerIndex).CardIndex;
-            var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).ToList();
             var target = Card.GetRangeCard(1, GetRangeType.HollowLeft);
             if (target.Count > 0)
             {

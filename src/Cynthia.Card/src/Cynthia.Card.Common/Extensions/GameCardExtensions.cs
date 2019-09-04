@@ -88,6 +88,10 @@ namespace Cynthia.Card
         {
             return item.Intersect(items).Any();
         }
+        public static IList<GameCard> IgnoreConcealAndDead(this IList<GameCard> cards)
+        {
+            return cards.Where(x => !x.Status.Conceal && !x.IsDead).ToList();
+        }
         public static bool HasAnyCategorie(this GameCard card, params Categorie[] categories)
         {
             return card.Status.Categories.Intersect(categories).Any();

@@ -13,12 +13,12 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: Filter);
             if (!cards.Any()) return 0;
             var card = cards.First();
-            await card.Effect.Damage(damage,Card);
+            await card.Effect.Damage(damage, Card);
             return 0;
         }
 
@@ -27,7 +27,7 @@ namespace Cynthia.Card
         private bool Filter(GameCard card)
         {
             var location = card.GetLocation();
-            var row = Game.RowToList(card.PlayerIndex, location.RowPosition).ToList();
+            var row = Game.RowToList(card.PlayerIndex, location.RowPosition).IgnoreConcealAndDead();
 
             return row.Count < 4;
         }

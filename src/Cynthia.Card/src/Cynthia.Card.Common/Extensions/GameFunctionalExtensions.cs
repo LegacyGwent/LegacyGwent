@@ -21,9 +21,6 @@ namespace Cynthia.Card
             }
             rowIndex = a[game.RNG.Next(0, a.Count)].IndexToMyRow();
             return true;
-            //var count = PlayersPlace[playerIndex][rowIndex].Count;
-            //return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
-
         }
 
         public static IEnumerable<GameCard> GetPlaceCards(this IGwentServerGame game, int playerIndex, RowPosition? planceRow = null, bool isHasDead = false, bool isHasConceal = false)
@@ -143,7 +140,7 @@ namespace Cynthia.Card
             }
             return result;
         }
-        public static IList<GameCard> GetRangeCard(this GameCard card, int range, GetRangeType type = GetRangeType.CenterAll)
+        public static IList<GameCard> GetRangeCard(this GameCard card, int range, GetRangeType type = GetRangeType.CenterAll, bool isHasDead = false, bool isHasConceal = false)
         {//按照从左到右的顺序,选中卡牌
             var rowList = card.GetRowList();
             var centerIndex = card.GetRowIndex();
@@ -155,6 +152,14 @@ namespace Cynthia.Card
                 (i == centerIndex && type.IsCenter()) ||
                 (i > centerIndex && type.IsRight())))
                 {
+                    if (!isHasDead && rowList[i].IsDead)
+                    {
+                        continue;
+                    }
+                    if (!isHasConceal && rowList[i].Status.Conceal)
+                    {
+                        continue;
+                    }
                     result.Add(rowList[i]);
                 }
             }

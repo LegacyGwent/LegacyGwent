@@ -210,8 +210,8 @@ public class EditorInfo : MonoBehaviour
         EditorBodyMian.SetActive(true);
         if (IsMoveLeftRight)
         {
-            ShowCardsTitle.anchoredPosition = new Vector2(0, 478.5f);
-            EditorCardsTitle.anchoredPosition = new Vector2(0, 630f);
+            ShowCardsTitle.anchoredPosition = new Vector2(0, -63f);
+            EditorCardsTitle.anchoredPosition = new Vector2(0, 150f);
             LeftSwitchMenu.anchoredPosition = new Vector2(-1700, 0);
             RightSwitchMenu.anchoredPosition = new Vector2(1700, 0);
         }
@@ -319,8 +319,8 @@ public class EditorInfo : MonoBehaviour
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
         //
         ResetEditorCore();
-        ShowCardsTitle.anchoredPosition = new Vector2(0, 630f);
-        EditorCardsTitle.anchoredPosition = new Vector2(0, 478.5f);
+        ShowCardsTitle.anchoredPosition = new Vector2(0, 150f);
+        EditorCardsTitle.anchoredPosition = new Vector2(0, -63f);
         EditorBodyCore.SetActive(true);
         EditorBodyMian.SetActive(false);
         EditorStatus = EditorStatus.EditorDeck;
@@ -337,7 +337,7 @@ public class EditorInfo : MonoBehaviour
         else
         {
             DOTween.To(() => ShowCardsTitle.anchoredPosition, x => ShowCardsTitle.anchoredPosition = x,
-                        new Vector2(0, 605), 0.5f);//收回Title
+                        new Vector2(0, 150), 0.5f);//收回Title
             DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
                 new Vector2(-470, 0), 0.5f);//展开Left
             DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
@@ -393,7 +393,7 @@ public class EditorInfo : MonoBehaviour
             ResetEditorCore();
             EditorStatus = EditorStatus.EditorDeck;
             DOTween.To(() => EditorCardsTitle.anchoredPosition, x => EditorCardsTitle.anchoredPosition = x,
-                    new Vector2(0, 478.5f), 0.5f);//降下Title,设定标题 ********
+                    new Vector2(0, -63f), 0.5f);//降下Title,设定标题 ********
             DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
                 new Vector2(-1700, 0), 0.5f);//收回Left
             DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
@@ -533,7 +533,7 @@ public class EditorInfo : MonoBehaviour
         EditorStatus = EditorStatus.SwitchLeader;
         SetSwitchList(_cards.Where(x => x.Group == Group.Leader && x.Faction == _nowSwitchFaction).ToList());
         DOTween.To(() => EditorCardsTitle.anchoredPosition, x => EditorCardsTitle.anchoredPosition = x,
-                    new Vector2(0, 605), 0.5f);//收回Title
+                    new Vector2(0, 150), 0.5f);//收回Title
         DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
             new Vector2(-470, 0), 0.5f);//展开Left
         DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,

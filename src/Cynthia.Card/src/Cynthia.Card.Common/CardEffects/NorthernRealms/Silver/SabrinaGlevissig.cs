@@ -14,7 +14,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            var rowlist = Game.RowToList(Card.PlayerIndex, @event.DeathLocation.RowPosition).Where(x => x.GetLocation().RowPosition.IsOnPlace() && x != Card).ToList();
+            var rowlist = Game.RowToList(Card.PlayerIndex, @event.DeathLocation.RowPosition).IgnoreConcealAndDead().Where(x => x.GetLocation().RowPosition.IsOnPlace() && x != Card).ToList();
             if (rowlist.Count() <= 1)
             {
                 return;

@@ -11,7 +11,7 @@ namespace Cynthia.Card
         Task AddTask(params Func<Task>[] task);
         int RowMaxCount { get; set; }
         Random RNG { get; }
-        IList<(int PlayerIndex, string CardId)> HistoryList { get; set; }
+        IList<(int PlayerIndex, GameCard CardId)> HistoryList { get; set; }
         GameDeck[] PlayerBaseDeck { get; set; }
         Player[] Players { get; set; }//玩家数据传输/
         //bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/

@@ -40,7 +40,7 @@ namespace Cynthia.Card
                 return;
             }
             var resultrow = movelist.Mess(Game.RNG).First();
-            var damagelist = Game.RowToList(Card.PlayerIndex, resultrow).ToList();
+            var damagelist = Game.RowToList(Card.PlayerIndex, resultrow).IgnoreConcealAndDead();
             await Card.Effect.Move(new CardLocation() { RowPosition = resultrow, CardIndex = int.MaxValue }, Card);
             foreach (var card in damagelist)
             {

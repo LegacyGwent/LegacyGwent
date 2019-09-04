@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 .Select(x => x.Key);
             foreach (var rowIndex in tagetRows)
             {
-                foreach (var card in Game.PlayersPlace[Card.PlayerIndex][rowIndex])
+                foreach (var card in Game.PlayersPlace[Card.PlayerIndex][rowIndex].IgnoreConcealAndDead())
                 {
                     if (card.Status.HealthStatus < 0)
                     {

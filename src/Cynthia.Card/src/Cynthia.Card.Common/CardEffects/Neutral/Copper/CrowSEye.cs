@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var damage = 4 + (Game.PlayersCemetery[Card.PlayerIndex].ToList().Where(x => x.Status.CardId == Card.Status.CardId).Count());
             foreach (var row in Game.PlayersPlace[Game.AnotherPlayer(Card.PlayerIndex)].ToList())
             {
-                var cards = row.WhereAllHighest();
+                var cards = row.IgnoreConcealAndDead().WhereAllHighest();
                 if (cards.Count() != 0)
                 {
                     await cards.Mess(Game.RNG).First().Effect.Damage(damage, Card, BulletType.RedLight);
