@@ -31,7 +31,7 @@ namespace Cynthia.Card
 
         private GameCard RandomChooseCard(RowPosition position)
         {
-            var row = Game.RowToList(Card.PlayerIndex, position).ToList();
+            var row = Game.RowToList(Card.PlayerIndex, position).IgnoreConcealAndDead();
             return !row.Any() ? null : row.Mess(RNG).First();
         }
     }

@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public DamnedSorceress(GameCard card) : base(card) { }
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.RowToList(PlayerIndex, Card.Status.CardRow).Where(x => x.HasAnyCategorie(Categorie.Cursed) && x != Card);
+            var list = Game.RowToList(PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.HasAnyCategorie(Categorie.Cursed) && x != Card);
             if (list.Count() >= 1)
             {
                 var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);

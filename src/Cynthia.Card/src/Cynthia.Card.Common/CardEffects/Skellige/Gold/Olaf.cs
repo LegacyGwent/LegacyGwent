@@ -22,7 +22,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterUnitPlay @event)
         {
             //必须是我方打出，所以间谍野兽不算（对面打出）
-            if (@event.PlayedCard.HasAllCategorie(Categorie.Beast) && @event.PlayedCard.PlayerIndex == Card.PlayerIndex && @event.PlayedCard.CardInfo().CardUseInfo == CardUseInfo.MyRow)
+            if (@event.PlayedCard.HasAllCategorie(Categorie.Beast) && @event.PlayedCard.PlayerIndex == Card.PlayerIndex && @event.PlayedCard.CardInfo().CardUseInfo == CardUseInfo.MyRow && @event.PlayedCard != Card)
             {
                 beastnum++;
             }

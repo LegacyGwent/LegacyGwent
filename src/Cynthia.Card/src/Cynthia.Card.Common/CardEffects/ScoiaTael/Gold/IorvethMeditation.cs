@@ -4,16 +4,16 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-	[CardEffectId("52012")]//伊欧菲斯：冥想
-	public class IorvethMeditation : CardEffect
-	{//迫使2个同排的敌军单位互相对决。
-		public IorvethMeditation(GameCard card) : base(card){}
-		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
-		{
+    [CardEffectId("52012")]//伊欧菲斯：冥想
+    public class IorvethMeditation : CardEffect
+    {//迫使2个同排的敌军单位互相对决。
+        public IorvethMeditation(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
 
-			bool row1 = Game.PlayersPlace[AnotherPlayer][0].Count > 1;
-            bool row2 = Game.PlayersPlace[AnotherPlayer][1].Count > 1;
-            bool row3 = Game.PlayersPlace[AnotherPlayer][2].Count > 1;
+            bool row1 = Game.PlayersPlace[AnotherPlayer][0].IgnoreConcealAndDead().Count > 1;
+            bool row2 = Game.PlayersPlace[AnotherPlayer][1].IgnoreConcealAndDead().Count > 1;
+            bool row3 = Game.PlayersPlace[AnotherPlayer][2].IgnoreConcealAndDead().Count > 1;
             if (!(row1 || row2 || row3))
             {
                 return 0;
@@ -29,6 +29,6 @@ namespace Cynthia.Card
             await first.Effect.Duel(second, Card);
 
             return 0;
-		}
-	}
+        }
+    }
 }

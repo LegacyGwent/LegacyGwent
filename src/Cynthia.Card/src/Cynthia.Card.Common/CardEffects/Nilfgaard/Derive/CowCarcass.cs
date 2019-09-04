@@ -17,7 +17,7 @@ namespace Cynthia.Card
                 await Card.Effect.SetCountdown(offset: -1);
                 if (Card.Effect.Countdown <= 0)
                 {//触发效果
-                    var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).Where(x => x != Card).WhereAllLowest().ToList();
+                    var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x != Card).WhereAllLowest().ToList();
                     foreach (var card in list)
                     {
                         await card.Effect.ToCemetery(CardBreakEffectType.Epidemic);

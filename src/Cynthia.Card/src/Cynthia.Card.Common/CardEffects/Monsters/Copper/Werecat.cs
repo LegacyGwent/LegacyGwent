@@ -25,7 +25,7 @@ namespace Cynthia.Card
             {
                 if (Game.GameRowEffect[AnotherPlayer][row.MyRowToIndex()].RowStatus == RowStatus.BloodMoon)
                 {
-                    damagelist=damagelist.Concat(Game.RowToList(AnotherPlayer, row).ToList()).ToList();
+                    damagelist = damagelist.Concat(Game.RowToList(AnotherPlayer, row).IgnoreConcealAndDead()).ToList();
                 }
             }
             if (damagelist.Count() == 0)

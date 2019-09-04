@@ -11,7 +11,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.IsCountdown && Card.Status.Conceal)
+            if (@event.PlayerIndex == Card.PlayerIndex && Card.IsAliveOnPlance() && Card.Status.IsCountdown && Card.Status.Conceal)
             {
                 await Card.Effect.SetCountdown(offset: -1);
                 if (Card.Effect.Countdown <= 0)

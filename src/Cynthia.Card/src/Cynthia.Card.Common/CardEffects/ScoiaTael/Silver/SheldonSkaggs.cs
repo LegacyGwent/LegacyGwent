@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var row = Card.Status.CardRow;
-            var cards = Game.RowToList(PlayerIndex, row).Where(x => x != Card).ToList();
+            var cards = Game.RowToList(PlayerIndex, row).IgnoreConcealAndDead().Where(x => x != Card).ToList();
             var targetRow = TurnType.My.GetRow();
             targetRow.Remove(row.IsMyRow() ? row : row.Mirror());
             foreach (var card in cards)
