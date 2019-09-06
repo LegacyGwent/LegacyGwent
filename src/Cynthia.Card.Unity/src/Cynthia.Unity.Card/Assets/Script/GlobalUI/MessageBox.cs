@@ -14,8 +14,8 @@ public class MessageBox : MonoBehaviour
     public GameObject YesButton;
     public GameObject NoButton;
     public GameObject Buttons;
-    private ITubeInlet sender;
-    private ITubeOutlet receiver;
+    public ITubeInlet sender;
+    public ITubeOutlet receiver;
     //private IAsyncDataSender sender;
     //private IAsyncDataReceiver receiver;
     public RectTransform Context;
@@ -48,12 +48,12 @@ public class MessageBox : MonoBehaviour
             YesButton.SetActive(true);
             NoButton.SetActive(true);
         }
-        gameObject.SetActive(true);
         TitleText.text = title;
         MessageText.text = message;
         YesText.text = yes;
         NoText.text = no;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
+        gameObject.SetActive(true);
+        // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
         return receiver.ReceiveAsync<bool>();
     }
     public void YesClick()
