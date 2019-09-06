@@ -226,6 +226,8 @@ namespace Cynthia.Card
                     return true;
                 if (card.Status.CardRow.IsOnPlace() && card.Status.Conceal)
                     return true;
+                if (card.Status.CardRow.IsOnStay() && card.Status.IsConcealCard)
+                    return true;
             }
             return false;
         }

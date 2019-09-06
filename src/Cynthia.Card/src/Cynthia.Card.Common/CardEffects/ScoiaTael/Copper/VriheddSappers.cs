@@ -27,8 +27,8 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await Card.Effect.SetCountdown(value: 2);
             await Card.Effect.PlanceConceal(Card);
+            await Card.Effect.SetCountdown(value: 2);
             return;
         }
     }

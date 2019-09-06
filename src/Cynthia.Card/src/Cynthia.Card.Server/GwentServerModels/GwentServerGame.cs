@@ -705,19 +705,19 @@ namespace Cynthia.Card.Server
         if (list == PlayersCemetery[enemyPlayerIndex])
             return RowPosition.EnemyCemetery;
         //
-        if (list == PlayersPlace[myPlayerIndex][0]||(!list.Any(x=>x.Status.CardRow!=RowPosition.MyRow1)&&!list.Any(x=>x.PlayerIndex!=myPlayerIndex)))
+        if (list == PlayersPlace[myPlayerIndex][0])//||(!list.Any(x=>x.Status.CardRow!=RowPosition.MyRow1)&&!list.Any(x=>x.PlayerIndex!=myPlayerIndex)))
             return RowPosition.MyRow1;
-        if (list == PlayersPlace[enemyPlayerIndex][0]||(!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
+        if (list == PlayersPlace[enemyPlayerIndex][0])//||(!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
             return RowPosition.EnemyRow1;
         //
-        if (list == PlayersPlace[myPlayerIndex][1]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != myPlayerIndex)))
+        if (list == PlayersPlace[myPlayerIndex][1])//|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow2)&& !list.Any(x => x.PlayerIndex != myPlayerIndex)))
             return RowPosition.MyRow2;
-        if (list == PlayersPlace[enemyPlayerIndex][1]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
+        if (list == PlayersPlace[enemyPlayerIndex][1])//|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow2)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
             return RowPosition.EnemyRow2;
         //
-        if (list == PlayersPlace[myPlayerIndex][2]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != myPlayerIndex)))
+        if (list == PlayersPlace[myPlayerIndex][2])//|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow3)&& !list.Any(x => x.PlayerIndex != myPlayerIndex)))
             return RowPosition.MyRow3;
-        if (list == PlayersPlace[enemyPlayerIndex][2]|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow1)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
+        if (list == PlayersPlace[enemyPlayerIndex][2])//|| (!list.Any(x => x.Status.CardRow != RowPosition.MyRow3)&& !list.Any(x => x.PlayerIndex != enemyPlayerIndex)))
             return RowPosition.EnemyRow3;
         //
         if (list == PlayersStay[myPlayerIndex])
@@ -1145,7 +1145,7 @@ namespace Cynthia.Card.Server
         // await Debug("刷新了卡牌设置");
         // await Debug($"卡牌名称是:{card.Status.Name},生命状态是:{card.Status.HealthStatus}");
         //如果处于敌方场地
-        var isBack = (card.Status.CardRow.IsOnPlace() && card.Status.Conceal);
+        var isBack = (card.Status.CardRow.IsOnPlace() && card.Status.Conceal)||(card.PlayerIndex!=playerIndex&&card.Status.CardRow.IsOnStay()&&card.Status.IsConcealCard);
         if (card.PlayerIndex != playerIndex) isBack |= (card.Status.CardRow.IsInHand() && (!card.Status.IsReveal));
         await Players[playerIndex].SendAsync
         (
@@ -1187,7 +1187,7 @@ namespace Cynthia.Card.Server
         if (!card.Status.CardRow.IsOnRow()) return;
         await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
     }
-    public async Task ShowCardDown(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+    public async Task ShowCardDown(GameCard card)//落下
     {
         if (!card.Status.CardRow.IsOnRow()) return;
         var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardDown, GetCardLocation(card.PlayerIndex, card));
@@ -1195,7 +1195,7 @@ namespace Cynthia.Card.Server
             GetCardLocation(AnotherPlayer(card.PlayerIndex), card));
         await Task.WhenAll(task1, task2);
     }
-    public async Task ShowCardOn(GameCard card)//落下(收到天气陷阱,或者其他卡牌)
+    public async Task ShowCardOn(GameCard card)//抬起
     {
         if (!card.Status.CardRow.IsOnRow()) return;
         var task1 = Players[card.PlayerIndex].SendAsync(ServerOperationType.CardOn, GetCardLocation(card.PlayerIndex, card));
@@ -1214,6 +1214,7 @@ namespace Cynthia.Card.Server
     }
     public Task SendCardNumberChange(int playerIndex, GameCard card, int num, NumberType type = NumberType.Normal)
     {
+    
         if (card.IsShowBack(playerIndex)&&!(type==NumberType.Countdown&&playerIndex==card.PlayerIndex)&&!card.Status.CardRow.IsInCemetery()&&!(card.Status.CardRow.IsInDeck()&&card.PlayerIndex==playerIndex))
             return Task.CompletedTask;
         return Players[playerIndex].SendAsync
