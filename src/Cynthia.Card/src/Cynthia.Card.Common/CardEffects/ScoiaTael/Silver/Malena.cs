@@ -18,7 +18,7 @@ namespace Cynthia.Card
                 {
                     await Ambush(async () =>
                     {
-                        var targets = Game.GetPlaceCards(AnotherPlayer).FilterCards(type: CardType.Unit, filter: x => x.CardPoint() <= 5 && x.IsAnyGroup(Group.Copper, Group.Silver));
+                        var targets = Game.GetPlaceCards(AnotherPlayer).FilterCards(type: CardType.Unit, filter: x => x.CardPoint() <= 5 && x.IsAnyGroup(Group.Copper, Group.Silver)).WhereAllHighest().ToList();
                         if (!targets.TryMessOne(out var target, Game.RNG))
                         {
                             return;
@@ -35,8 +35,8 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await Card.Effect.SetCountdown(value: 2);
             await Card.Effect.PlanceConceal(Card);
+            await Card.Effect.SetCountdown(value: 2);
             return;
         }
     }

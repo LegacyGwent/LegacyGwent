@@ -26,8 +26,8 @@ namespace Cynthia.Card
         public Random RNG { get => Game.RNG; }
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
-            Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
             await Game.ShowCardNumberChange(Card, Card.Status.Countdown, NumberType.Countdown);
+            Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
             if (Card.Status.Countdown <= 0)
                 Card.Status.IsCountdown = false;
             else
@@ -100,13 +100,13 @@ namespace Cynthia.Card
             isSpying |= forceSpying;
             //历史卡牌
             // Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card));
-
             if (Card.Status.Conceal)
             {
                 //如果是伏击
                 await Game.ShowCardDown(Card);
                 return;
             }
+            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand, isSpying));
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 // count = await CardPlayEffect(isSpying);
@@ -294,7 +294,6 @@ namespace Cynthia.Card
                 await Game.ShowCardMove(location, Card);
                 await Game.ClientDelay(400);
             }
-            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand, isSpying));
             return (isSpying, IsReveal);//有没有间谍呢
         }
         public virtual async Task PlayStayCard(int count, bool isSpying)
@@ -334,14 +333,14 @@ namespace Cynthia.Card
         //指令2
         public virtual async Task Strengthen(int num, GameCard source)//强化
         {
-            if (num <= 0 || Card.IsDead) return;
+            if (num <= 0 || Card.IsDead || Card.Status.Type == CardType.Special) return;
             if (source != null)
             {
                 await Game.ShowBullet(source, Card, BulletType.GreenLight);
             }
-            Card.Status.Strength += num;
             await Game.ShowCardNumberChange(Card, num, NumberType.White);
             await Game.ClientDelay(50);
+            Card.Status.Strength += num;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //await Game.ClientDelay(150);
@@ -352,7 +351,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Weaken(int num, GameCard source)//削弱
         {
-            if (num <= 0 || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (num <= 0 || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             //此为最大承受值
             var bear = Card.Status.Strength;
             if (num > bear) num = bear;
@@ -362,9 +361,9 @@ namespace Cynthia.Card
             }
             //最大显示的数字,不超过这个值
             var showBear = Card.Status.Strength + Card.Status.HealthStatus;
-            Card.Status.Strength -= num;
             await Game.ShowCardNumberChange(Card, num > showBear ? -showBear : -num, NumberType.White);
             await Game.ClientDelay(50);
+            Card.Status.Strength -= num;
             if (Card.Status.Strength < -Card.Status.HealthStatus) Card.Status.HealthStatus = -Card.Status.Strength;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
@@ -387,14 +386,14 @@ namespace Cynthia.Card
         }
         public virtual async Task Boost(int num, GameCard source)//增益
         {
-            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             if (source != null)
             {
                 await Game.ShowBullet(source, Card, BulletType.GreenLight);
             }
-            Card.Status.HealthStatus += num;
             await Game.ShowCardNumberChange(Card, num, NumberType.Normal);
             await Game.ClientDelay(50);
+            Card.Status.HealthStatus += num;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //await Game.ClientDelay(150);
@@ -405,7 +404,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Damage(int num, GameCard source, BulletType type = BulletType.Arrow, bool isPenetrate = false)//伤害
         {
-            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead) return;
+            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
             //最高承受伤害,如果穿透的话,不考虑护甲
             var die = false;
             var isArmor = Card.Status.Armor > 0;
@@ -432,11 +431,11 @@ namespace Cynthia.Card
                 await Game.ShowCardIconEffect(Card, CardIconEffectType.BreakArmor);
                 if (Card.Status.Armor >= num)//如果护甲更高的话
                 {
-                    Card.Status.Armor -= num;
                     //8888888888888888888888888888888888888888888888888888888888888888888888
                     //护甲值降低,应该触发对应事件<暂未定义,待补充>
                     await Game.SendEvent(new AfterCardSubArmor(Card, num, source));
                     //8888888888888888888888888888888888888888888888888888888888888888888888
+                    Card.Status.Armor -= num;
                     await Game.ShowSetCard(Card);//更新客户端的护甲值
                     num = 0;
                 }
@@ -459,9 +458,9 @@ namespace Cynthia.Card
             var isHurt = num > 0;
             if (num > 0)
             {
-                Card.Status.HealthStatus -= num;
                 await Game.ShowCardNumberChange(Card, -num, NumberType.Normal);
                 await Game.ClientDelay(50);
+                Card.Status.HealthStatus -= num;
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
             }
@@ -480,7 +479,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Reset(GameCard source)//重置
         {
-            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.HealthStatus = 0;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
@@ -495,7 +494,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Heal(GameCard source)//治愈
         {
-            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             if (Card.Status.HealthStatus < 0)
                 Card.Status.HealthStatus = 0;
             await Game.ShowSetCard(Card);
@@ -519,7 +518,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Spying(GameCard source)//间谍
         {
-            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.IsSpying = !Card.Status.IsSpying;
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -532,7 +531,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Armor(int num, GameCard source)//增加护甲
         {
-            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || num <= 0 || Card.IsDead) return;
+            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || num <= 0 || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.Armor += num;
             await Game.ShowCardIconEffect(Card, CardIconEffectType.MendArmor);
             await Game.ShowSetCard(Card);
@@ -554,7 +553,7 @@ namespace Cynthia.Card
 
         public virtual async Task PlanceConceal(GameCard source)//伏击(未测试)
         {
-            if (!(Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInHand() || Card.Status.CardRow.IsOnStay()) || Card.Status.Conceal || Card.IsDead) return;
+            if (!(Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInHand() || Card.Status.CardRow.IsOnStay()) || Card.Status.Conceal || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.Conceal = true;
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -565,7 +564,7 @@ namespace Cynthia.Card
 
         public virtual async Task Resilience(GameCard source)//坚韧
         {
-            if (!Card.Status.CardRow.IsOnPlace() || Card.IsDead) return;
+            if (!Card.Status.CardRow.IsOnPlace() || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.IsResilience = !Card.Status.IsResilience;
             await Game.ShowSetCard(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -586,7 +585,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Lock(GameCard source)//锁定
         {
-            if (Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.IsLock = !Card.Status.IsLock;
             await Game.ShowSetCard(Card);
             if (Card.Status.IsLock)
@@ -652,7 +651,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Charm(GameCard source)//被魅惑
         {
-            if (!Card.Status.CardRow.IsOnPlace() || Card.IsDead) return;
+            if (!Card.Status.CardRow.IsOnPlace() || Card.IsDead || Card.Status.Type == CardType.Special) return;
             if (Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count >= Game.RowMaxCount) return;
             await Move(new CardLocation() { RowPosition = Card.Status.CardRow.Mirror(), CardIndex = Game.RowToList(AnotherPlayer, Card.Status.CardRow).Count }, Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
@@ -675,7 +674,7 @@ namespace Cynthia.Card
         public virtual async Task Ambush(Func<Task> ambushEffect = null)//伏击
         {
             ambushEffect ??= async () => { await Task.CompletedTask; };
-            if (!(Card.Status.CardRow.IsOnPlace() && Card.Status.Conceal) || Card.IsDead) return;
+            if (!(Card.Status.CardRow.IsOnPlace() && Card.Status.Conceal) || Card.IsDead || Card.Status.Type == CardType.Special) return;
             Card.Status.Conceal = false;
             await Game.ShowSetCard(Card);
             await Game.ShowCardOn(Card);
@@ -725,7 +724,7 @@ namespace Cynthia.Card
         {//移动,只限于从场上移动到另一排
             //如果不在场上,返回
             var count = Game.RowToList(Card.PlayerIndex, location.RowPosition).Count;
-            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount || Card.IsDead) return;
+            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount || Card.IsDead || Card.Status.Type == CardType.Special) return;
             if (location.CardIndex > count)
             {
                 location.CardIndex = count;
@@ -799,7 +798,7 @@ namespace Cynthia.Card
 
         public virtual async Task Reply(int num, GameCard source)
         {
-            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
             num = Math.Abs(Card.Status.HealthStatus) < num ? Math.Abs(Card.Status.HealthStatus) : num;
             if (Card.Status.HealthStatus < 0)
                 Card.Status.HealthStatus += num;

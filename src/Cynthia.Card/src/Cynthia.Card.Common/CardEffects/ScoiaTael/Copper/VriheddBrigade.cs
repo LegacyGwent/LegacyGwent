@@ -20,6 +20,7 @@ namespace Cynthia.Card
             if (list.Count <= 0) return 0;
             var card = list.First();
             await card.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+
             return 0;
         }
 
