@@ -167,13 +167,13 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "0.1.0.0";
+            return "0.1.0.1";
         }
 
         public async Task<string> GetNotes(string connectionId)
         {
             await Task.CompletedTask;
-            return "公告测试~";
+            return "更新内容:\n1.5张伏击卡现在已经可以使用(现在只有艾雷亚斯无法使用)\n2.修复了冒牌希里己方先pass时无法触发效果\n3.修复了召唤法阵异常\n3.r2现在只能调度一次\n\n1. 5 ambush cards can now be used(Now only EleYas can't use it.)\n2. Fix SummoningCircle abnormal\n3. Fix FalseCiri can't trigger when first pass by our side\n4. Fix R2 mulligan count";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
