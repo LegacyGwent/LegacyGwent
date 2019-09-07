@@ -4,6 +4,7 @@
     {
         MyCemetery,
         EnemyCemetery,
+        MyDeck,
         Card
     }
 }

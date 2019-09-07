@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 222455853160329352}
   - component: {fileID: 114289209479276872}
   - component: {fileID: 114537736703015752}
+  - component: {fileID: 7780934671432623706}
   m_Layer: 5
   m_Name: MatchCard
   m_TagString: Untagged
@@ -340,17 +341,20 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1701843453307506896}
@@ -383,6 +387,18 @@ MonoBehaviour:
   CopperStar: {fileID: 21300020, guid: ec020eeb9bb17654e899d0ebc7297af5, type: 3}
   SilverStar: {fileID: 21300024, guid: ec020eeb9bb17654e899d0ebc7297af5, type: 3}
   GoldStar: {fileID: 21300026, guid: ec020eeb9bb17654e899d0ebc7297af5, type: 3}
+--- !u!114 &7780934671432623706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704831984537432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eee8ecb642954343918fc7992941fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1912052947871802
 GameObject:
   m_ObjectHideFlags: 0

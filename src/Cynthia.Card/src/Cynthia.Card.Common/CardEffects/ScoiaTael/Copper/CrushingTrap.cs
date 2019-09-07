@@ -21,9 +21,11 @@ namespace Cynthia.Card
                 return 0;
             var cardLeft = row.First();
             var cardRight = row.Last();
-            await cardLeft.Effect.Damage(damage, Card);
+            if (!cardLeft.Status.Conceal && cardLeft.IsAliveOnPlance())
+                await cardLeft.Effect.Damage(damage, Card);
             if (cardLeft == cardRight) return 0;
-            await cardRight.Effect.Damage(damage, Card);
+            if (!cardRight.Status.Conceal && cardRight.IsAliveOnPlance())
+                await cardRight.Effect.Damage(damage, Card);
             return 0;
         }
 

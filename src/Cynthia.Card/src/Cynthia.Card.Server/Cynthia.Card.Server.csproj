@@ -5,6 +5,10 @@
     <LangVersion>8.0</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Cynthia.Card.Common\Cynthia.Card.Common.csproj" />

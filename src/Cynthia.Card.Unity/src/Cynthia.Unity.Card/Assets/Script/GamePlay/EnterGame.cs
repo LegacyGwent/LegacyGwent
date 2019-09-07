@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnterGame : MonoBehaviour
 {
-	void Start ()
+    void Start()
     {
         AdaptiveResolution();
-	}
+    }
     public void AdaptiveResolution()
     {
         var scale = 1920f / Screen.width;
@@ -16,6 +16,13 @@ public class EnterGame : MonoBehaviour
     }
     private void Update()
     {
-        AdaptiveResolution();
+        if (((float)Screen.width / (float)Screen.height) <= (1920f / 1080f))
+        {
+            AdaptiveResolution();
+        }
+        else
+        {
+            transform.localScale = Vector3.one;
+        }
     }
 }

@@ -59,9 +59,11 @@ public class SettingPanel : MonoBehaviour
     //屏幕分辨率
     public void SetResolution(int index)
     {
+#if !UNITY_ANDROID
         PlayerPrefs.SetInt("resolutionIndex", index);
         screenResolution = IndexToResolution(index);
         Screen.SetResolution(screenResolution.width, screenResolution.height, isFullScreen);
+#endif
     }
 
     //设置背景音乐大小

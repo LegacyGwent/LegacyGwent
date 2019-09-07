@@ -12,12 +12,12 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = Game.PlayersCemetery[Card.PlayerIndex]
                 .Where(x => x.Status.Group == Group.Copper &&
                             (x.CardInfo().Categories.Contains(Categorie.Spell) ||
-                             x.CardInfo().Categories.Contains(Categorie.Alchemy))).Mess();
+                             x.CardInfo().Categories.Contains(Categorie.Alchemy))).Mess(RNG);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
                 (Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
@@ -26,7 +26,7 @@ namespace Cynthia.Card
             var card = result.Single();
             card.Status.IsDoomed = true;
             await card.Effect
-                .Resurrect(new CardLocation() {RowPosition = RowPosition.MyStay, CardIndex = 0}, Card);
+                .Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
             return 1;
         }
     }

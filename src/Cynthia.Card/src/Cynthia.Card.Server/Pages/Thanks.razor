@@ -1,0 +1,110 @@
+@page "/thank"
+@using Cynthia.Card.Server
+
+<h1>特别感谢投食名单</h1>
+
+<h3>目前投食总量为:@_sponsorRecord.Sum(x=>x.Money)</h3>
+
+<table>
+@foreach (var item in _sponsorRecord)
+{
+    <tr>
+        <td>
+            投食人:@if(item.MasterName==""){<b><i>匿名</i></b>}else{@item.MasterName}
+        </td>
+        <td>
+            留言: @if(@item.Message==""){<b><i>未留言</i></b>}else{@item.Message}
+        </td>
+        <td>
+            时间:@item.Time.Year-@item.Time.Month-@item.Time.Day
+        </td>
+        <td>
+            金额:@item.Money
+        </td>
+    </tr>
+}
+</table>
+
+<br/><br/>
+<h2>以及感谢所有玩家和群友,感谢所有人的鼓励关注和支持~</h2>
+
+<p>由于完全不懂css,无法做的很漂亮qvq,还请见谅</p>
+
+@code
+{
+    private class SponsorInfo
+    {
+        public string MasterName{get;set;}
+
+        public string Message{get;set;}
+
+        public decimal Money{get;set;}
+
+        public DateTime Time{get;set;}
+
+        public SponsorInfo(string masterName,string message,decimal money,DateTime time)
+        {
+            MasterName = masterName;
+            Message = message;
+            Money = money;
+            Time = time;
+        }
+    }
+
+    private IList<SponsorInfo> _sponsorRecord;
+
+    protected override void OnInitialized()
+    {
+        _sponsorRecord = new List<SponsorInfo>(){
+            new SponsorInfo("孙劲涛","",5, new DateTime(2019,9,3)),
+            new SponsorInfo("金玉成","赞美肝妹",50, new DateTime(2019,9,2)),
+            new SponsorInfo("Valar Morghulis","",10, new DateTime(2019,8,30)),
+            new SponsorInfo("o.o","",2, new DateTime(2019,8,30)),
+            new SponsorInfo("z先生丶","加油啊，声音版本的赶快抓紧制作，还会捐钱",10, new DateTime(2019,8,29)),
+            new SponsorInfo("徐曰","感谢大佬",50, new DateTime(2019,8,29)),
+            new SponsorInfo("邓","我口口口跑不快今天上电视啦",10, new DateTime(2019,8,29)),
+            new SponsorInfo("万古长春","",10, new DateTime(2019,8,29)),
+            new SponsorInfo("哈哈~快乐男孩","无名的昆特遗老",5, new DateTime(2019,8,29)),
+            new SponsorInfo("星蚊连啵","是时候吹一波支柱了。 --新闻联播",20, new DateTime(2019,8,29)),
+            new SponsorInfo("","虽然不多 加油~",10, new DateTime(2019,8,29)),
+            new SponsorInfo("wt","辛苦，加油！",(decimal)23.3,new DateTime(2019,8,28)),
+            new SponsorInfo("khz","老昆特玩家",50, new DateTime(2019,8,28)),
+            new SponsorInfo("孙基伦","A hero",10, new DateTime(2019,8,27)),
+            new SponsorInfo("下","兹词盟主",10, new DateTime(2019,8,27)),
+            new SponsorInfo("","支柱万岁,我想舔支柱脚怎么办",20, new DateTime(2019,8,27)),
+            new SponsorInfo("loaloa","",50, new DateTime(2019,8,27)),
+            new SponsorInfo("o.o","",1, new DateTime(2019,8,27)),
+            new SponsorInfo("Aegis","公测玩家泪流满面",50, new DateTime(2019,8,27)),
+            new SponsorInfo("口醒的老矛头","",120,new DateTime(2019,8,26)),
+            new SponsorInfo("Ch Sx","",33,new DateTime(2019,8,26)),
+            new SponsorInfo("wow","",10,new DateTime(2019,8,26)),
+            new SponsorInfo("猛猛","",50,new DateTime(2019,8,26)),
+            new SponsorInfo("","感谢./\\.",10,new DateTime(2019,8,26)),
+            new SponsorInfo("D","群主牛逼",3,new DateTime(2019,8,26)),
+            new SponsorInfo("海边的卡夫卡","支柱大佬,等你的卡牌语音啊,加油",10,new DateTime(2019,8,26)),
+            new SponsorInfo("南瓜","南瓜",10,new DateTime(2019,8,26)),
+            new SponsorInfo("北极星","",10,new DateTime(2019,8,26)),
+            new SponsorInfo("奥尔菲顿","",20,new DateTime(2019,8,26)),
+            new SponsorInfo("","赞助杯咖啡 辛苦了",50,new DateTime(2019,8,26)),
+            new SponsorInfo("晓风往事","",100,new DateTime(2019,8,26)),
+            new SponsorInfo("菲","加油!",(decimal)66.60,new DateTime(2019,8,26)),
+            new SponsorInfo("weiss","原谅我是个穷b",50,new DateTime(2019,8,26)),
+            new SponsorInfo("克克sir","辛苦辛苦",20,new DateTime(2019,8,25)),
+            new SponsorInfo("vegi","its小鸡炖蘑菇",5,new DateTime(2019,8,25)),
+            new SponsorInfo("","",50,new DateTime(2019,8,25)),
+            new SponsorInfo("Aulra","支柱txdy",50,new DateTime(2019,8,21)),
+            new SponsorInfo("ShyN","加油",100,new DateTime(2019,8,19)),
+            new SponsorInfo("","",19,new DateTime(2019,8,19)),
+            new SponsorInfo("O Somerhalder","继续加油^ O ^~",50,new DateTime(2019,8,18)),
+            new SponsorInfo("neal","支持支柱!",10,new DateTime(2019,8,15)),
+            new SponsorInfo("","",200,new DateTime(2019,8,15)),//John Constantine
+            new SponsorInfo("Overfitting","支柱无敌! tale",10,new DateTime(2019,8,15)),
+            new SponsorInfo("","算是为服务器提供绵薄之力吧,总之,加油吧",100,new DateTime(2019,8,10)),
+            new SponsorInfo("","QAQ",20,new DateTime(2019,8,5)),
+            new SponsorInfo("SergioMenendez","",50,new DateTime(2019,7,16)),
+            new SponsorInfo("凉昆","群主加油,emmm么得多少钱,等我实习完才能整大一点",30,new DateTime(2019,7,16)),
+            new SponsorInfo("","",10,new DateTime(2019,6,14)),
+            new SponsorInfo("朽木难雕笨格子","我就是我,不一样的花火",1,new DateTime(2019,6,13)),
+        };
+    }
+}

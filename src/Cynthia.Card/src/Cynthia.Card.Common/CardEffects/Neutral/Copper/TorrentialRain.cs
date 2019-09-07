@@ -12,7 +12,6 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var result = await Game.GetSelectRow(Card.PlayerIndex, Card, new List<RowPosition>() { RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3 });
-            // await Game.ApplyWeather(Card.PlayerIndex,result,RowStatus.TorrentialRain);
             await Game.GameRowEffect[AnotherPlayer][result.Mirror().MyRowToIndex()]
                 .SetStatus<TorrentialRainStatus>();
             return 0;

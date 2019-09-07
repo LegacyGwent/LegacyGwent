@@ -7,6 +7,7 @@ using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Cynthia.Card.Client
 {
@@ -17,6 +18,7 @@ namespace Cynthia.Card.Client
         public LocalPlayer Player { get; set; }
         public UserInfo User { get; set; }
         public bool IsAutoPlay { get; set; } = false;
+        private GlobalUIService _globalUIService;
         private ITubeInlet sender;/*待修改*/
         private ITubeOutlet receiver;/*待修改*/
         /*待修改*/
@@ -24,17 +26,10 @@ namespace Cynthia.Card.Client
         {
             return receiver.ReceiveAsync<bool>();
         }
-        //public bool ResetPlayer()
-        //{
-        //    if (HubConnection != null && User != null)
-        //    {
-        //        Player = new LocalPlayer(HubConnection);
-        //        return true;
-        //    }
-        //    return false;
-        //}
-        public GwentClientService(HubConnection hubConnection)
+
+        public GwentClientService(HubConnection hubConnection, GlobalUIService globalUIService)
         {
+            _globalUIService = globalUIService;
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
             /*待修改*/
@@ -49,25 +44,61 @@ namespace Cynthia.Card.Client
             });
             hubConnection.Closed += (async x =>
             {
-                Debug.Log("断线!");
-                //var user = DependencyResolver.Container.Resolve<GwentClientService>().User;
-                //await Task.Delay(100);
-                //await DependencyResolver.Container.Resolve<HubConnection>().StartAsync();
-                //var result = await DependencyResolver.Container.Resolve<HubConnection>().InvokeAsync<bool>("Reconnect", user.UserName, user.PassWord);
-                //if (result) Debug.Log("尝试重连成功");
-                //else
-                //{
                 SceneManager.LoadScene("LoginSecen");
-                Debug.Log("跳转!");
-                await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆");
-                //}
+                // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
+                await _globalUIService.YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
+                // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
+                // messageBox.Buttons.SetActive(true);
+                // messageBox.YesButton.SetActive(true);
+                // messageBox.NoButton.SetActive(false);
+                // messageBox.TitleText.text = "断开连接";
+                // messageBox.MessageText.text = "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n");
+                // messageBox.YesText.text = "确定";
+                // messageBox.gameObject.SetActive(true);
+                // await messageBox.receiver.ReceiveAsync<bool>();
+                // LayoutRebuilder.ForceRebuildLayoutImmediate(messageBox.Context);
             });
-            //////////////////////////////
+            hubConnection.On("ExitGame", () =>
+            {
+                Application.Quit();
+            });
+            hubConnection.On<string, string, string, string, bool>("ShowMessageBox", (string title, string message, string yes, string no, bool isyes) =>
+            {
+                _globalUIService.YNMessageBox(title, message, yes, no, isyes);
+            });
+            hubConnection.On<string, string>("Wait", (string title, string message) =>
+             {
+                 _globalUIService.Wait(title, message);
+             });
+            hubConnection.On("Close", () =>
+            {
+                _globalUIService.Close();
+            });
             hubConnection.On<string>("Test", message => Debug.Log($"收到了服务端来自Debug的信息:{message}"));
             Player = new LocalPlayer(hubConnection);
             HubConnection = hubConnection;
             hubConnection.StartAsync();
         }
+        public async void ExitGameClick()
+        {
+            if (await _globalUIService.YNMessageBox("退出游戏?", "是否退出游戏"))
+            // if (await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal."))
+            {
+                Application.Quit();
+                return;
+            }
+        }
+
+        public Task<string> GetLatestVersion()
+        {
+            return HubConnection.InvokeAsync<string>("GetLatestVersion");
+        }
+
+        public Task<string> GetNotes()
+        {
+            return HubConnection.InvokeAsync<string>("GetNotes");
+        }
+
         public Task<bool> Register(string username, string password, string playername) => HubConnection.InvokeAsync<bool>("Register", username, password, playername);
         public async Task<UserInfo> Login(string username, string password)
         {
@@ -78,10 +109,10 @@ namespace Cynthia.Card.Client
             return User;
         }
         //开始匹配与停止匹配
-        public Task<bool> Match(string deckId)
+        public Task<bool> MatchOfPassword(string deckId, string password)
         {
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
-            return HubConnection.InvokeAsync<bool>("Match", deckId);
+            return HubConnection.InvokeAsync<bool>("MatchOfPassword", deckId, password);
         }
         public Task<bool> StopMatch()
         {

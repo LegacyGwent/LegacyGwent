@@ -12,17 +12,15 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var deck = Game.PlayersDeck[PlayerIndex];
             var myId = Card.CardInfo().CardId;
-            var cardsToPlay = deck.Where(x => x.CardInfo().CardId == myId);
-            var list = cardsToPlay.ToList();
-            if (!list.Any()) return 0;
-            var position = Card.GetLocation();
-            foreach (var it in list)
+            var cardsToPlay = deck.Where(x => x.CardInfo().CardId == myId).ToList();
+            foreach (var it in cardsToPlay)
             {
-                await it.Effect.Summon(position, it);
+                var position = Card.GetLocation();
+                await it.Effect.Summon(position + 1, it);
             }
 
             return 0;

@@ -10,6 +10,10 @@ namespace Cynthia.Card
 		public CelaenoHarpy(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
+            for(var i = 0; i<2;i++)
+            {
+                await Game.CreateCard(CardId.HarpyEgg, PlayerIndex, Card.GetLocation());
+            }
 			return 0;
 		}
 	}

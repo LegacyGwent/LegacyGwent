@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var ids = Game.PlayerBaseDeck[AnotherPlayer].Deck
-                .Where(x => x.Is(filter: x => x.IsAnyGroup(Group.Gold, Group.Silver) && x.CardId != Card.Status.CardId, type: CardType.Unit))
+                .Where(x => x.Is(filter: x => x.IsAnyGroup(Group.Gold, Group.Silver) && !x.HasAnyCategorie(Categorie.Agent) && x.CardId != Card.Status.CardId, type: CardType.Unit))
                 .Select(x => x.CardId);
             if (!ids.TryMessOne(out var createId, Game.RNG))
             {

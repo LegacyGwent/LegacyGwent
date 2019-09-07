@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Lambert : CardEffect
     {//召唤“维瑟米尔”和“艾斯卡尔”。
         public Lambert(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var myDeck = Game.PlayersDeck[PlayerIndex].ToList();
             var eskels = myDeck.Where(x => x.Status.CardId == CardId.Eskel).ToList();

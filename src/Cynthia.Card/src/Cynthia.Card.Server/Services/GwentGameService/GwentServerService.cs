@@ -8,6 +8,8 @@ using System;
 using Alsein.Extensions.IO;
 using System.Collections.Concurrent;
 using Alsein.Extensions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Cynthia.Card.Server
 {
@@ -18,14 +20,17 @@ namespace Cynthia.Card.Server
         private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService _databaseService;
         private readonly GwentMatchs _gwentMatchs;
+        public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
-        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService, IServiceProvider container)
+        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService, IServiceProvider container, IWebHostEnvironment env)
         {
             //Container = container;
             _databaseService = databaseService;
-            _gwentMatchs = new GwentMatchs(() => hub, (GwentCardTypeService)container.GetService(typeof(GwentCardTypeService)));
+            _gwentMatchs = new GwentMatchs(() => hub, (GwentCardTypeService)container.GetService(typeof(GwentCardTypeService)), this);
             _hub = hub;
+            _env = env;
+            ResultList = _databaseService.GetAllGameResults(50);
         }
 
         public async Task<UserInfo> Login(User user, string password)
@@ -37,7 +42,6 @@ namespace Cynthia.Card.Server
                 if (_users.Any(x => x.Value.UserName == user.UserName))//如果重复登录的话,触发"掉线"
                 {
                     var connectionId = _users.Single(x => x.Value.UserName == user.UserName).Value.ConnectionId;
-                    //await Container.Resolve<IHubContext<GwentHub>>().Clients.Client(connectionId).SendAsync("RepeatLogin");
                     await _hub.Clients.Client(connectionId).SendAsync("RepeatLogin");
                     await Disconnect(connectionId);
                 }
@@ -48,13 +52,14 @@ namespace Cynthia.Card.Server
                 user.PlayerName = loginUser.PlayerName;
                 user.Decks = loginUser.Decks;
                 _users.Add(user.ConnectionId, user);
+                InovkeUserChanged();
             }
             return loginUser;
         }
 
         public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
 
-        public bool Match(string connectionId, string deckId)//匹配
+        public bool Match(string connectionId, string deckId, string password)//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
             if (_users.ContainsKey(connectionId) && _users[connectionId].UserState == UserState.Standby)
@@ -69,8 +74,9 @@ namespace Cynthia.Card.Server
                 //设置玩家的卡组
                 player.Deck = user.Decks.Single(x => x.Id == deckId);
                 //将这个玩家加入到游戏匹配系统之中
-                _gwentMatchs.PlayerJoin(player);
-                //成功匹配了哟
+                _gwentMatchs.PlayerJoin(player, password);
+                InovkeUserChanged();
+                //成功进入匹配队列了哟
                 return true;
             }
             //玩家未在线,失败
@@ -79,11 +85,13 @@ namespace Cynthia.Card.Server
 
         public async Task<bool> StopMatch(string connectionId)
         {
-            if (_users[connectionId].UserState != UserState.Match)
+            if (_users[connectionId].UserState != UserState.Match && _users[connectionId].UserState != UserState.PasswordMatch)
             {
                 return false;
             }
-            return await _gwentMatchs.StopMatch(connectionId);
+            var result = await _gwentMatchs.StopMatch(connectionId);
+            InovkeUserChanged();
+            return result;
         }
 
         public bool AddDeck(string connectionId, DeckModel deck)
@@ -148,72 +156,61 @@ namespace Cynthia.Card.Server
             {
                 _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
-            // if (isWaitReconnect)
-            // {
-            //     if (_users[connectionId].UserState == UserState.Play)
-            //     {
-            //         await _gwentMatchs.WaitReconnect(connectionId, () => WaitReconnect(connectionId));
-            //     }
-            //     else
-            //     {
-            //         await WaitReconnect(connectionId);
-            //     }
-            // }
-            // else
-            // {
             if (_users[connectionId].UserState == UserState.Play)//如果用户正在进行对局
             {
                 _gwentMatchs.PlayerLeave(connectionId, exception);
             }
             _users.Remove(connectionId);
-            // if (_waitReconnectList.ContainsKey(connectionId))
-            //     _waitReconnectList.Remove(connectionId);
-            // }
-
+            InovkeUserChanged();
         }
 
-        public async Task<int> GetUserCount(string connectionId)
+        public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
+            return "0.1.0.1";
+        }
+
+        public async Task<string> GetNotes(string connectionId)
+        {
+            await Task.CompletedTask;
+            return "更新内容:\n1.5张伏击卡现在已经可以使用(现在只有艾雷亚斯无法使用)\n2.修复了冒牌希里己方先pass时无法触发效果\n3.修复了召唤法阵异常\n4.r2现在只能调度一次\n\n1. 5 ambush cards can now be used(Now only EleYas can't use it.)\n2. Fix SummoningCircle abnormal\n3. Fix FalseCiri can't trigger when first pass by our side\n4. Fix R2 mulligan count";
+        }
+        //-------------------------------------------------------------------------
+        public int GetUserCount()
+        {
             return _users.Count;
         }
 
-        // public async Task<bool> WaitReconnect(string connectionId)
-        // {   //等待重连
-        //     if (!_users.ContainsKey(connectionId)) return false;
-        //     //如果没有发现链接,重连失败
-        //     _users[connectionId].IsWaitingReConnect = true;
-        //     _waitReconnectList[_users[connectionId].UserName] = Tube.CreateSimplex();
-        //     //建立管道,键为用户名
-        //     var timeOverTask = Task.Delay(10000);
-        //     var connectTask = _waitReconnectList[_users[connectionId].UserName].receiver.ReceiveAsync<bool>();
-        //     switch (await Task.WhenAny(timeOverTask, connectTask))
-        //     {
-        //         case Task<bool> task when task == connectTask:
-        //             return true;
-        //         case Task task when task == timeOverTask:
-        //         default://如果时间结束或者出现了奇怪的结果
-        //             _users.Remove(connectionId);
-        //             _waitReconnectList.Remove(connectionId);
-        //             return false;
-        //     }
-        // }
+        public void InovkeUserChanged()
+        {
+            OnUserChanged?.Invoke(GetUsers());
+        }
 
-        // public async Task<bool> Reconnect(string connectionId, string userName, string password)
-        // {
-        //     //如果等待重连列表里面没有的话,重连失败,请重新登陆游戏
-        //     if (!_waitReconnectList.ContainsKey(userName)) return false;
-        //     var user = DatabaseService.Login(userName, password);
-        //     if (user == null || !_users.Any(x => x.Value.UserName == userName)) return false; //如果重连身份验证失败,自然不允许
-        //     var nowUser = _users.Single(x => x.Value.UserName == userName).Value;
-        //     if (!nowUser.IsWaitingReConnect) return false;
-        //     nowUser.IsWaitingReConnect = false;
-        //     _users.Remove(_users.Single(x => x.Value.UserName == userName).Key);
-        //     nowUser.ConnectionId = connectionId;
-        //     _users[connectionId] = nowUser;
-        //     //替换链接
-        //     await _waitReconnectList[userName].sender.SendAsync<bool>(true);
-        //     return true;
-        // }
+        public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
+
+        public void InvokeGameOver(GameResult result)
+        {
+            if (_env.IsProduction())
+            {
+                if (_databaseService.AddGameResult(result))
+                {
+                    lock (ResultList)
+                    {
+                        ResultList.Add(result);
+                    }
+                }
+                OnGameOver?.Invoke(result);
+            }
+        }
+
+        public (IList<IGrouping<UserState, User>>, IList<(string, string)>) GetUsers()
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady).Select(x => (x.Player1.CurrentUser.PlayerName, x.Player2.CurrentUser.PlayerName)).ToList();
+            return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play).GroupBy(x => x.UserState).ToList(), list);
+        }
+
+        public event Action<(IList<IGrouping<UserState, User>>, IList<(string, string)>)> OnUserChanged;
+
+        public event Action<GameResult> OnGameOver;
     }
 }
