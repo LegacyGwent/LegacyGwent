@@ -598,7 +598,7 @@ public class GameEvent : MonoBehaviour
         // message += "|";
         //-------------------------------------
         // Debug.Log(location.RowPosition + "" + location.CardIndex);
-        Debug.Log($"{location.RowPosition}最初选中:{ti}");
+        // Debug.Log($"{location.RowPosition}最初选中:{ti}");
         for (var i = 0; i <= ti; i++)
         {
             if (row.transform.GetChild(i).GetComponent<CardShowInfo>().IsDead || row.transform.GetChild(i).GetComponent<CardMoveInfo>().IsTem)
@@ -606,7 +606,7 @@ public class GameEvent : MonoBehaviour
                 ti++;
             }
         }
-        Debug.Log($"{location.RowPosition}最终选中:{ti}");
+        // Debug.Log($"{location.RowPosition}最终选中:{ti}");
         return row.transform.GetChild(ti).GetComponent<CardMoveInfo>();
     }
 

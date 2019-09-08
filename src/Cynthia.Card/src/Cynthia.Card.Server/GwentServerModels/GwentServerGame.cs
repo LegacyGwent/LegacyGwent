@@ -218,9 +218,10 @@ namespace Cynthia.Card.Server
         {
             //判断这是谁的回合
             var playerIndex = GameRound == TwoPlayer.Player1 ? Player1Index : Player2Index;
+            // await Debug($"玩家{playerIndex}的回合开始!");
             //切换回合
             //----------------------------------------------------
-            //这里是回合开始卡牌(如剑船)的逻辑和动画<待补充>
+            //这里是回合开始的事件
             //888888888888888888888888888888888888888888888888888888888888888888888888
             await SendEvent(new AfterTurnStart(playerIndex));
             //888888888888888888888888888888888888888888888888888888888888888888888888
@@ -280,15 +281,22 @@ namespace Cynthia.Card.Server
             return true;
         }
 
+        //一小局的流程
         public async Task PlayerBigRound(int player1Mulligan = 0, int player2Mulligan = 0)
         {
+            //双方调度指定次数
             await Task.WhenAll(MulliganCard(Player1Index, player1Mulligan), MulliganCard(Player2Index, player2Mulligan));
-            // await Debug("Mulligan Start!");
+            //双方轮流进行游戏
+            //1.根据GamRound进行一次流程
             while (await PlayerRound())
             {
+                //2.处理回合结束
                 await SendEvent(new AfterTurnOver(TwoPlayerToPlayerIndex(GameRound)));
+                //3.切换回合
                 GameRound = ((GameRound == TwoPlayer.Player1) ? TwoPlayer.Player2 : TwoPlayer.Player1);
             }
+
+            //处理小局结束
             await BigRoundEnd();
         }
 
