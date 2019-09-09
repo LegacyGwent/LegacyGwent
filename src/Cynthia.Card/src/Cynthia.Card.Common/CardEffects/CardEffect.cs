@@ -325,7 +325,8 @@ namespace Cynthia.Card
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
             await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo, isSpying)));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card));
+            if (!isMoveInfo.isMove)
+                Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card));
             //-----------------------------------------
             //大概,判断天气陷阱一类的(血月坑陷)(已经交给游戏事件处理)
         }
