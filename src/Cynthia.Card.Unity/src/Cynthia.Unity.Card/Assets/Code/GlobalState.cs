@@ -17,7 +17,7 @@ public static class GlobalState
             PlayerPrefs.SetString("DefaultDeckId", value);
         }
     }
-    public static readonly Version Version = new Version(0, 1, 0, 1);
+    public static readonly Version Version = new Version(0, 1, 0, 2);
     private static string _defaultDeckId = PlayerPrefs.GetString("DefaultDeckId", "");
     public static readonly Color WinColor = new Color(255f / 255f, 220f / 255f, 0f / 255f, 255f / 255f);//黄色胜利文字
     public static readonly Color EnemyColor = new Color(212f / 255f, 0f / 255f, 4f / 255f, 255f / 255f);//敌方文字 红
