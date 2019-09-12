@@ -421,8 +421,8 @@ namespace Cynthia.Card.Server
                 if (mulliganCardIndex == -1)
                     break;
                 //逻辑处理
-                //先关掉揭示
                 PlayersHandCard[playerIndex][mulliganCardIndex].Status.IsReveal = false;
+                //先关掉揭示
                 //当然调度走揭示单位,要给对手说一声啦
                 await Players[AnotherPlayer(playerIndex)].SendAsync
                 (

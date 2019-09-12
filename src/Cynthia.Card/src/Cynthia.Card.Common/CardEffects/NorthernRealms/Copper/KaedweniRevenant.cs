@@ -10,6 +10,7 @@ namespace Cynthia.Card
         public KaedweniRevenant(GameCard card) : base(card) { }
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
+            await Card.Effect.SetCountdown(1);
             await Card.Effect.Armor(1, Card);
             return;
         }

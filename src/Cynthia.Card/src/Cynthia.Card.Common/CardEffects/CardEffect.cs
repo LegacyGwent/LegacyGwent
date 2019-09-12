@@ -783,6 +783,7 @@ namespace Cynthia.Card
             {
                 return;
             }
+            Card.Status.IsReveal = false;
             await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1)), Card);
             await Game.SendEvent(new AfterCardSwap(Card));
         }
