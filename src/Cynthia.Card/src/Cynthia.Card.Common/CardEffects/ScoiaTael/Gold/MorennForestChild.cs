@@ -21,6 +21,10 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(BeforeSpecialPlay @event)
         {
+            if (!@event.Target.IsAnyGroup(Group.Copper, Group.Silver))
+            {
+                return;
+            }
             if (Card.IsAliveOnPlance() && Card.Status.Conceal && PlayerIndex != @event.Target.PlayerIndex)
             {
                 await Ambush(async () =>
