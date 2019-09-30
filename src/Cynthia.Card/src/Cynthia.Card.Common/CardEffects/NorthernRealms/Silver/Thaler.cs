@@ -10,7 +10,7 @@ namespace Cynthia.Card
     public class Thaler : CardEffect
     {//间谍、力竭。 抽2张牌，保留1张，放回另1张。
         public Thaler(GameCard card) : base(card) { }
-        public bool IsUse = false;
+        public bool IsUse { get; set; } = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             if (IsUse)

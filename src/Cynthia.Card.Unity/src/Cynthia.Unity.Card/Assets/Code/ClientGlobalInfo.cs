@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
-public static class GlobalState
+public static class ClientGlobalInfo
 {
     public static bool IsToMatch = false;
 
@@ -34,4 +35,36 @@ public static class GlobalState
     public static readonly Color RedColor = new Color(255f / 255f, 50f / 255f, 50f / 255f, 255f / 255f);//减益文字
 
     public static readonly Color BlueColor = new Color(50f / 255f, 120f / 255f, 255f / 255f, 255f / 255f);//倒计时
+
+#if UNITY_STANDALONE_WIN
+    [DllImport("user32.dll")]
+    static extern IntPtr GetForegroundWindow();
+
+    [DllImport("User32.dll")]
+    private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    [DllImport("User32.dll")]
+    private static extern bool ShowWindowAsync(IntPtr hWnd, int cmdShow);
+
+    [DllImport("User32.dll")]
+    private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+    public static void OpenWindow(string lpClassName, string lpWindowName)
+    {
+        IntPtr hwnd = FindWindow(lpClassName, lpWindowName);
+
+        if (hwnd == IntPtr.Zero)
+        {
+            return;
+        }
+
+        IntPtr activeWndHwnd = GetForegroundWindow();
+
+        if (hwnd != activeWndHwnd)
+        {
+            ShowWindowAsync(hwnd, 1);
+            SetForegroundWindow(hwnd);
+        }
+    }
+#endif
 }

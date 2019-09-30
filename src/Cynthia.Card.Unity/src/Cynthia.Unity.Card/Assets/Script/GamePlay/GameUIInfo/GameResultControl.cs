@@ -68,27 +68,27 @@ public class GameResultControl : MonoBehaviour
             Round1.SetActive(false);
         if (gameResult.GameStatu == GameStatus.Win)
         {
-            BackgroundMain.color = GlobalState.WinBgColor;
+            BackgroundMain.color = ClientGlobalInfo.WinBgColor;
             BackgroundLeft.sprite = GameWinBgLeft;
             BackgroundRight.sprite = GameWinBgRight;
             TitleResult.text = "胜利";
-            TitleResult.color = GlobalState.MyColor;
+            TitleResult.color = ClientGlobalInfo.MyColor;
         }
         if (gameResult.GameStatu == GameStatus.Lose)
         {
-            BackgroundMain.color = GlobalState.LoseBgColor;
+            BackgroundMain.color = ClientGlobalInfo.LoseBgColor;
             BackgroundLeft.sprite = GameLoseBgLeft;
             BackgroundRight.sprite = GameLoseBgRight;
             TitleResult.text = "失败";
-            TitleResult.color = GlobalState.EnemyColor;
+            TitleResult.color = ClientGlobalInfo.EnemyColor;
         }
         if (gameResult.GameStatu == GameStatus.Draw)
         {
-            BackgroundMain.color = GlobalState.DrawBgColor;
+            BackgroundMain.color = ClientGlobalInfo.DrawBgColor;
             BackgroundLeft.sprite = GameDrawBgLeft;
             BackgroundRight.sprite = GameDrawBgRight;
             TitleResult.text = "平局";
-            TitleResult.color = GlobalState.NormalColor;
+            TitleResult.color = ClientGlobalInfo.NormalColor;
         }
         var myWinCount = 0;
         var enemyWinCount = 0;
@@ -99,22 +99,22 @@ public class GameResultControl : MonoBehaviour
             if (gameResult.MyR1Point > gameResult.EnemyR1Point)
             {
                 Round1ResultIcon.sprite = RoundWinIcon;
-                Round1MyPoint.color = GlobalState.WinColor;
-                Round1EnemyPoint.color = GlobalState.NormalColor;
+                Round1MyPoint.color = ClientGlobalInfo.WinColor;
+                Round1EnemyPoint.color = ClientGlobalInfo.NormalColor;
                 myWinCount++;
             }
             if (gameResult.MyR1Point < gameResult.EnemyR1Point)
             {
                 Round1ResultIcon.sprite = RoundLoseIcon;
-                Round1MyPoint.color = GlobalState.NormalColor;
-                Round1EnemyPoint.color = GlobalState.WinColor;
+                Round1MyPoint.color = ClientGlobalInfo.NormalColor;
+                Round1EnemyPoint.color = ClientGlobalInfo.WinColor;
                 enemyWinCount++;
             }
             if (gameResult.MyR1Point == gameResult.EnemyR1Point)
             {
                 Round1ResultIcon.sprite = RoundDrawIcon;
-                Round1MyPoint.color = GlobalState.NormalColor;
-                Round1EnemyPoint.color = GlobalState.NormalColor;
+                Round1MyPoint.color = ClientGlobalInfo.NormalColor;
+                Round1EnemyPoint.color = ClientGlobalInfo.NormalColor;
                 myWinCount++;
                 enemyWinCount++;
             }
@@ -126,22 +126,22 @@ public class GameResultControl : MonoBehaviour
             if (gameResult.MyR2Point > gameResult.EnemyR2Point)
             {
                 Round2ResultIcon.sprite = RoundWinIcon;
-                Round2MyPoint.color = GlobalState.WinColor;
-                Round2EnemyPoint.color = GlobalState.NormalColor;
+                Round2MyPoint.color = ClientGlobalInfo.WinColor;
+                Round2EnemyPoint.color = ClientGlobalInfo.NormalColor;
                 myWinCount++;
             }
             if (gameResult.MyR2Point < gameResult.EnemyR2Point)
             {
                 Round2ResultIcon.sprite = RoundLoseIcon;
-                Round2MyPoint.color = GlobalState.NormalColor;
-                Round2EnemyPoint.color = GlobalState.WinColor;
+                Round2MyPoint.color = ClientGlobalInfo.NormalColor;
+                Round2EnemyPoint.color = ClientGlobalInfo.WinColor;
                 enemyWinCount++;
             }
             if (gameResult.MyR2Point == gameResult.EnemyR2Point)
             {
                 Round2ResultIcon.sprite = RoundDrawIcon;
-                Round2MyPoint.color = GlobalState.NormalColor;
-                Round2EnemyPoint.color = GlobalState.NormalColor;
+                Round2MyPoint.color = ClientGlobalInfo.NormalColor;
+                Round2EnemyPoint.color = ClientGlobalInfo.NormalColor;
                 myWinCount++;
                 enemyWinCount++;
             }
@@ -153,22 +153,22 @@ public class GameResultControl : MonoBehaviour
             if (gameResult.MyR3Point > gameResult.EnemyR3Point)
             {
                 Round3ResultIcon.sprite = RoundWinIcon;
-                Round3MyPoint.color = GlobalState.WinColor;
-                Round3EnemyPoint.color = GlobalState.NormalColor;
+                Round3MyPoint.color = ClientGlobalInfo.WinColor;
+                Round3EnemyPoint.color = ClientGlobalInfo.NormalColor;
                 myWinCount++;
             }
             if (gameResult.MyR3Point < gameResult.EnemyR3Point)
             {
                 Round3ResultIcon.sprite = RoundLoseIcon;
-                Round3MyPoint.color = GlobalState.NormalColor;
-                Round3EnemyPoint.color = GlobalState.WinColor;
+                Round3MyPoint.color = ClientGlobalInfo.NormalColor;
+                Round3EnemyPoint.color = ClientGlobalInfo.WinColor;
                 enemyWinCount++;
             }
             if (gameResult.MyR3Point == gameResult.EnemyR3Point)
             {
                 Round3ResultIcon.sprite = RoundDrawIcon;
-                Round3MyPoint.color = GlobalState.NormalColor;
-                Round3EnemyPoint.color = GlobalState.NormalColor;
+                Round3MyPoint.color = ClientGlobalInfo.NormalColor;
+                Round3EnemyPoint.color = ClientGlobalInfo.NormalColor;
                 myWinCount++;
                 enemyWinCount++;
             }

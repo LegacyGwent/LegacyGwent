@@ -24,8 +24,8 @@ namespace Cynthia.Card
                 return 0;
             }
             //希里：冲刺的返回牌组机制，返回到随机位置
-            var range = new Random().Next(0, Game.PlayersHandCard[PlayerIndex].Count() + 1);
-            await Card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), Card);
+            var range = Game.RNG.Next(0, Game.PlayersHandCard[PlayerIndex].Count() + 1);
+            await Card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), result.Single());
             return 0;
         }
     }

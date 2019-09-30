@@ -17,6 +17,7 @@ namespace ConsoleTest
             await Task.CompletedTask;
             IDictionary<string, Type> _idDictionary = new ConcurrentDictionary<string, Type>();
             var assembly = typeof(CardEffect).Assembly;
+            Type
             var cardEffects = assembly.GetTypes().Where(x => x.GetCustomAttributes(true).Any(a => a.GetType() == typeof(CardEffectIdAttribute)));
             foreach (var cardEffect in cardEffects)
             {

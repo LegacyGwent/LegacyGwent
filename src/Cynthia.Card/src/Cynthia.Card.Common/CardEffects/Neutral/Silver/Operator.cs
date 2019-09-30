@@ -8,14 +8,22 @@ namespace Cynthia.Card
     public class Operator : CardEffect
     {//力竭。 休战：为双方各添加1张己方手牌1张铜色单位牌的原始同名牌。
         public Operator(GameCard card) : base(card) { }
+
+        public bool IsUse { get; set; } = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            if (IsUse)
+            {
+                return 0;
+            }
+
+            IsUse = true;
             if (Game.IsPlayersPass[AnotherPlayer])
             {
                 return 0;
             }
             var cards = Game.PlayersHandCard[PlayerIndex].Where(x => x.Is(Group.Copper, CardType.Unit)).ToList();
-            if(!(await Game.GetSelectMenuCards(PlayerIndex,cards)).TrySingle(out var target))
+            if (!(await Game.GetSelectMenuCards(PlayerIndex, cards)).TrySingle(out var target))
             {
                 return 0;
             }

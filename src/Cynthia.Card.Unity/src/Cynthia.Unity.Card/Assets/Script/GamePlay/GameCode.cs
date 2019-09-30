@@ -27,7 +27,7 @@ public class GameCode : MonoBehaviour
         // await DependencyResolver.Container.Resolve<GwentClientGameService>().Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
         // try
         // {
-            await new GwentClientGameService(DependencyResolver.Container.Resolve<GameCodeService>(), DependencyResolver.Container.Resolve<GlobalUIService>()).Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
+        await new GwentClientGameService(DependencyResolver.Container.Resolve<GameCodeService>(), DependencyResolver.Container.Resolve<GlobalUIService>()).Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
         // }
         // catch
         // {
@@ -36,7 +36,7 @@ public class GameCode : MonoBehaviour
     }
     public void LeaveGame()
     {
-        GlobalState.IsToMatch = true;
+        ClientGlobalInfo.IsToMatch = true;
         SceneManager.LoadScene("Game");
     }
 }
