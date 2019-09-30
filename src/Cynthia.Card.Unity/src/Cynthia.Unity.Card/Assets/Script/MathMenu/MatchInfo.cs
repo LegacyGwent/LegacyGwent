@@ -75,8 +75,8 @@ public class MatchInfo : MonoBehaviour
     }
     public void ResetMatch()
     {
-        if (!_client.User.Decks.Any(x => x.Id == GlobalState.DefaultDeckId)) GlobalState.DefaultDeckId = _client.User.Decks.First().Id;
-        SetDeck(_client.User.Decks.Single(x => x.Id == GlobalState.DefaultDeckId), GlobalState.DefaultDeckId);
+        if (!_client.User.Decks.Any(x => x.Id == ClientGlobalInfo.DefaultDeckId)) ClientGlobalInfo.DefaultDeckId = _client.User.Decks.First().Id;
+        SetDeck(_client.User.Decks.Single(x => x.Id == ClientGlobalInfo.DefaultDeckId), ClientGlobalInfo.DefaultDeckId);
         SetDeckList(_client.User.Decks);
     }
     public void ShowMatch()/////待编辑
@@ -127,7 +127,10 @@ public class MatchInfo : MonoBehaviour
         {
             //进入了游戏
             Debug.Log("成功匹配,进入游戏");
-            GlobalState.IsToMatch = false;
+            ClientGlobalInfo.IsToMatch = false;
+#if UNITY_STANDALONE_WIN
+            ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
+#endif
             SceneManager.LoadScene("GamePlay");
             return;
         }
@@ -227,8 +230,8 @@ public class MatchInfo : MonoBehaviour
         SilverCount.text = $"{cards.Where(x => x.Group == Group.Silver).Count().ToString()}/6";
         GoldCount.text = $"{cards.Where(x => x.Group == Group.Gold).Count().ToString()}/4";
         AllCount.text = $"{deck.Deck.Count()}";
-        AllCount.color = deck.IsBasicDeck() ? GlobalState.NormalColor : GlobalState.ErrorColor;
-        AllCountText.color = deck.IsBasicDeck() ? GlobalState.NormalColor : GlobalState.ErrorColor;
+        AllCount.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         HeadT.sprite = HeadTSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         HeadB.sprite = HeadBSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         //////////////////////////////////////////////////
@@ -242,7 +245,7 @@ public class MatchInfo : MonoBehaviour
 
     public void ReturnButtonClick()
     {
-        GlobalState.IsToMatch = false;
+        ClientGlobalInfo.IsToMatch = false;
     }
 }
 

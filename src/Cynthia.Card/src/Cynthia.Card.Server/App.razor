@@ -1,7 +1,7 @@
-﻿<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-    </Router>
-</CascadingAuthenticationState>
+﻿<Router AppAssembly="typeof(Startup).Assembly">
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p>这里没有任何东西哟qwq!</p>
+        </LayoutView>
+    </NotFound>
+</Router>

@@ -40,7 +40,7 @@ public class GaneEntrance : MonoBehaviour
         try
         {
             var version = new Version(await _gwentClientService.GetLatestVersion());
-            LatestVersionText.text = GlobalState.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
+            LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
         }
         catch
         {
@@ -58,8 +58,8 @@ public class GaneEntrance : MonoBehaviour
 
     public void ConfigureGame()
     {
-        if (GlobalState.IsLoadGlobal) return;
-        GlobalState.IsLoadGlobal = true;
+        if (ClientGlobalInfo.IsLoadGlobal) return;
+        ClientGlobalInfo.IsLoadGlobal = true;
         var globalUI = Instantiate(GlobalUI);
         var musicSource = Instantiate(AudioSound);
         globalUI.name = "GlobalUI";
@@ -72,7 +72,7 @@ public class GaneEntrance : MonoBehaviour
         SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
         SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
         SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
-        NowVersionText.text = "当前版本为：" + GlobalState.Version.ToString();
+        NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
     }
 
     public Resolution IndexToResolution(int index)

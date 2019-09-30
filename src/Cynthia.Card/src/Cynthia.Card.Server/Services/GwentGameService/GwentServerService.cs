@@ -173,7 +173,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetNotes(string connectionId)
         {
             await Task.CompletedTask;
-            return "更新内容:\n1.5张伏击卡现在已经可以使用(现在只有艾雷亚斯无法使用)\n2.修复了冒牌希里己方先pass时无法触发效果\n3.修复了召唤法阵异常\n4.r2现在只能调度一次\n\n1. 5 ambush cards can now be used(Now only EleYas can't use it.)\n2. Fix SummoningCircle abnormal\n3. Fix FalseCiri can't trigger when first pass by our side\n4. Fix R2 mulligan count";
+            return "更新内容: 修复以下卡牌bug\n1.操作者没有力竭\n2.范德格里夫特的效果无法正确触发\n3.迪门家族走私贩没有效果\n4.阿尔巴师装甲骑兵与阿尔巴师矛兵会将位移计算在内\n";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()

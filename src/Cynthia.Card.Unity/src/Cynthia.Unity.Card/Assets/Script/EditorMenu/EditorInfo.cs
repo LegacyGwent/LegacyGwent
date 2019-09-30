@@ -455,7 +455,7 @@ public class EditorInfo : MonoBehaviour
                     {
                         var i = _clientService.User.Decks.Select((item, index) => (item, index)).Single(x => x.item.Id == _nowEditorDeck.Id).index;
                         _clientService.User.Decks[i] = _nowEditorDeck;
-                        GlobalState.DefaultDeckId = _nowEditorDeck.Id;
+                        ClientGlobalInfo.DefaultDeckId = _nowEditorDeck.Id;
                     }
                     else
                     {
@@ -624,8 +624,8 @@ public class EditorInfo : MonoBehaviour
             card.transform.SetParent(EditorCListContext, false);
         });
         AllCount.text = _nowEditorDeck.Deck.Count().ToString();
-        AllCount.color = deck.IsBasicDeck() ? GlobalState.NormalColor : GlobalState.ErrorColor;
-        AllCountText.color = deck.IsBasicDeck() ? GlobalState.NormalColor : GlobalState.ErrorColor;
+        AllCount.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
         GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/4";
         SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}/6";

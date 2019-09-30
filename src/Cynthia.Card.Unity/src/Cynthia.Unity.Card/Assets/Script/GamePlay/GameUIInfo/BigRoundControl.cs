@@ -79,15 +79,15 @@ public class BigRoundControl : MonoBehaviour
     {
         MyPoint.text = data.MyPoint.ToString();
         EnemyPoint.text = data.EnemyPoint.ToString();
-        MyPoint.color = GlobalState.NormalColor;
-        EnemyPoint.color = GlobalState.NormalColor;
+        MyPoint.color = ClientGlobalInfo.NormalColor;
+        EnemyPoint.color = ClientGlobalInfo.NormalColor;
         if (data.MyPoint > data.EnemyPoint)
         {
-            MyPoint.color = GlobalState.WinColor;
+            MyPoint.color = ClientGlobalInfo.WinColor;
         }
         else if (data.EnemyPoint > data.MyPoint)
         {
-            EnemyPoint.color = GlobalState.WinColor;
+            EnemyPoint.color = ClientGlobalInfo.WinColor;
         }
         MyWinCountLeft.SetActive(false);
         MyWinCountRight.SetActive(false);

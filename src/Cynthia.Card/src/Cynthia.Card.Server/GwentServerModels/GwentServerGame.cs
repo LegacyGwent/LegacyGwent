@@ -1534,6 +1534,7 @@ namespace Cynthia.Card.Server
     }
     public async Task<TEvent> SendEvent<TEvent>(TEvent @event) where TEvent : Event
     {
+        //卡牌
         async Task task()
         {
             var list = new List<GameCard>();
@@ -1543,6 +1544,7 @@ namespace Cynthia.Card.Server
                 await card.Effects.RaiseEvent(@event);
             }
         }
+        //天气
         async Task task2()
         {
             foreach (var row in GameRowEffect.SelectMany(x => x))
