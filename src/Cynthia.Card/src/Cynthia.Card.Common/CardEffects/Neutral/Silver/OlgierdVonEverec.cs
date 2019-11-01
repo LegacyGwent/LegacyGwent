@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("13015")]//欧吉尔德·伊佛瑞克
-    public class OlgierdVonEverec : CardEffect, IHandlesEvent<AfterCardDeath>, IHandlesEvent<AfterTurnOver>
+    public class OlgierdVonEverec : CardEffect, IHandlesEvent<AfterCardDeath>, IHandlesEvent<AfterTurnOver>,IHandlesEvent<AfterRoundOver>
     {//遗愿：复活至原位。
         public OlgierdVonEverec(GameCard card) : base(card) { }
         private bool _resurrectFlag = false;
@@ -27,6 +27,12 @@ namespace Cynthia.Card
             _resurrectFlag = true;
             await Task.CompletedTask;
             return;
+        }
+
+        public async Task HandleEvent(AfterRoundOver @event)
+        {
+            _resurrectFlag = false;
+            await Task.CompletedTask;
         }
     }
 }

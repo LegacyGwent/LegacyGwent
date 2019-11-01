@@ -605,10 +605,10 @@ namespace Cynthia.Card
                 await Game.SendEvent(new AfterCardUnLock(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Transform(string cardId, GameCard source, Action<GameCard> setting = null)//变为
+        public virtual async Task Transform(string cardId, GameCard source, Action<GameCard> setting = null,bool isForce = false)//变为
         {
             setting ??= (x => { });
-            if (Card.Status.CardId == cardId)
+            if (Card.Status.CardId == cardId&&!isForce)
             {
                 return;
             }
@@ -795,7 +795,13 @@ namespace Cynthia.Card
                 return;
             }
             await Swap();
+            await GetDeckSwapCard(target);
+        }
+
+        public virtual async Task GetDeckSwapCard(GameCard target)
+        {
             await Game.PlayerDrawCard(Card.PlayerIndex, filter: x => x == target);
+            await Game.SendEvent(new AfterDrawSwapCard(Card));
         }
 
         public virtual async Task Reply(int num, GameCard source)

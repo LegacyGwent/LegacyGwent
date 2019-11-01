@@ -9040,7 +9040,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Machine,Categorie.ClanAnCraite},
+                    Categories = new Categorie[]{ Categorie.ClanAnCraite},
                     Flavor = "只消对尼弗迦德人提起这个名字，他们就会吓得尿裤子……",
                     Info = "回合结束时，使左侧单位获得1点强化，右侧单位收到1点伤害。5点护甲。",
                     CardArtsId = "15210900",
