@@ -10,7 +10,26 @@ namespace Cynthia.Card
 		public ZoltanChivay(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			var Point = 2;
+            var selectCard = await Game.GetSelectPlaceCards(Card, 3, selectMode: SelectModeType.AllRow, filter: x => x.Status.CardRow != Card.Status.CardRow);
+			// 先移动
+            foreach (var target in selectCard)
+            {
+                await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+            }
+			//造成伤害 提升友军
+            foreach (var target in selectCard)
+            {	
+
+				if (target.PlayerIndex == Card.PlayerIndex){
+					await target.Effect.Strengthen(Point, Card);
+				}
+				else{
+					await target.Effect.Damage(Point, Card);
+				}
+                
+            }
+            return 0;
 		}
 	}
 }

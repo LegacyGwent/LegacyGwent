@@ -1,0 +1,55 @@
+﻿@page "/"
+@inject GwentServerService GwentService
+@implements IDisposable
+
+<h2>~实时玩家状态查看~</h2>
+<h3>目前在线人数: @GwentService.GetUserCount() </h3>
+<ul>
+@foreach(var usergroup in users.user)
+{
+    <h4>@showMessage[usergroup.Key]</h4>
+    @foreach(var user in usergroup)
+    {
+        <li>@user.PlayerName</li>
+    }
+}
+@if(users.player.Count()>0)
+{
+<h4>@showMessage[UserState.Play]</h4>
+}
+    @foreach(var player in users.player)
+    {
+        <li>@player.player1 vs @player.player2</li>
+    }
+</ul>
+
+@code
+{
+    (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player) users;
+    IDictionary<UserState,string> showMessage = new Dictionary<UserState,string>()
+    {
+        {UserState.Match,"以下玩家正在进行无密匙匹配~"},
+        {UserState.PasswordMatch,"以下玩家正在进行密匙匹配~"},
+        {UserState.Play,"以下玩家正在对局中~"},
+        {UserState.Standby,"以下玩家正在闲置中~"}
+    };
+
+    protected override void OnInitialized()
+    {
+        users = GwentService.GetUsers();
+        GwentService.OnUserChanged += OnUserChanged;
+    }
+
+    private void OnUserChanged((IList<IGrouping<UserState, User>>user, IList<(string player1, string player2)>player) newUser)
+    {
+        InvokeAsync(() => {
+            users = newUser;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        GwentService.OnUserChanged -= OnUserChanged;
+    }
+}

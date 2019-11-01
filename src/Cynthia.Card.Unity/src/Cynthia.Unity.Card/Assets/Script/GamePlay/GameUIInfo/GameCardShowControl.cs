@@ -19,6 +19,8 @@ public class GameCardShowControl : MonoBehaviour
     public Scrollbar Scroll;
     public GameObject CardSelectUI;
     public GameEvent GameEvent;
+
+    public ArtCard ArtCard;
     //-------
     public GameObject OpenButton;//显示卡牌
     public GameObject MulliganEndButton;
@@ -30,17 +32,20 @@ public class GameCardShowControl : MonoBehaviour
     public int NowMulliganTotal { get; set; }
     //------
     public int NowSelectTotal { get; set; }
-    public IList<int> NowSelect { get; set; }
-    //public int NowSelectCount { get; set; }
+    public IList<int> NowSelect { get; set; } = new List<int>();
     //---------------------------------
     private (bool, bool, bool, bool) UseButtonShow { get; set; }
     private bool IsUseMenuShow { get; set; }
     private string useCardTitle { get; set; }
-    private UseCardShowType NowUseMenuType;
+    private UseCardShowType _nowUseMenuType;
+
+    private MenuShowType _nowShowType = MenuShowType.None;
     //---------------------------------
-    public IList<CardStatus> UseCardList;
-    public IList<CardStatus> MyCemetery;
-    public IList<CardStatus> EnemyCemetery;
+    public IList<CardStatus> UseCardList = new List<CardStatus>();
+    public IList<CardStatus> MyCemetery = new List<CardStatus>();
+    public IList<CardStatus> MyDeck = new List<CardStatus>();
+    public IList<CardStatus> EnemyCemetery = new List<CardStatus>();
+    private int _nowIndex;
     //
     private ITubeInlet sender;
     private ITubeOutlet receiver;
@@ -51,8 +56,12 @@ public class GameCardShowControl : MonoBehaviour
     {
         OpenNowUseMenu();
     }
-    public async void MulliganEndButtonClick()//手牌调度完毕
+    public async void MulliganEndButtonClick()//手牌调度完毕的按钮被点击
     {
+        if (_nowUseMenuType != UseCardShowType.Mulligan)
+        {
+            return;
+        }
         await sender.SendAsync<int>(-1);
     }
     public void CloseButtonClick()//关闭
@@ -61,6 +70,10 @@ public class GameCardShowControl : MonoBehaviour
     }
     public async void AffirmButtonClick()//确认
     {
+        if (_nowUseMenuType != UseCardShowType.Select)
+        {
+            return;
+        }
         await sender.SendAsync(NowSelect);
     }
     public void HideButtonClick()//隐藏卡牌
@@ -71,24 +84,55 @@ public class GameCardShowControl : MonoBehaviour
     //------------------------------------------------------------------------------------------
     public void SelectCard(int index)
     {
-        if (index == -1) { }
-        else { }
+        //光标移动到某张卡牌上
+        _nowIndex = index;
+        if (index == -1)
+        {
+            //光标离开某张卡牌
+            ArtCard.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (_nowShowType == MenuShowType.UseCard)
+            {
+                ArtCard.CurrentCore = UseCardList[index];
+            }
+            else if (_nowShowType == MenuShowType.EnemyCemetery)
+            {
+                ArtCard.CurrentCore = EnemyCemetery[index];
+            }
+            else if (_nowShowType == MenuShowType.MyCemetery)
+            {
+                ArtCard.CurrentCore = MyCemetery[index];
+            }
+            else if (_nowShowType == MenuShowType.MyDeck)
+            {
+                ArtCard.CurrentCore = MyDeck[index];
+            }
+            ArtCard.gameObject.SetActive(true);
+        }
     }
     public async void ClickCard(int index)
     {
-        switch (NowUseMenuType)
+        //点击了卡牌
+        switch (_nowUseMenuType)
         {
             case UseCardShowType.Mulligan:
                 if (IsUseMenuShow)
                     await sender.SendAsync<int>(index);
                 break;
+            //如果在选卡
             case UseCardShowType.Select:
-                if (!IsUseMenuShow)
+                //如果目前展示的并非选卡页面,返回
+                if (!IsUseMenuShow || NowSelect.Count >= NowSelectTotal)
                     break;
+                //获取到点击的这张卡
                 var card = CardsContent.transform.GetChild(index).GetComponent<SelectUICard>();
+                //如果这张卡是已选中状态,则将他设定为未选中
                 if (card.IsSelect)
                 {
                     card.IsSelect = false;
+                    //从下标列表中删除该项
                     var i = NowSelect.IndexOf(index);
                     NowSelect.RemoveAt(i);
                 }
@@ -97,7 +141,9 @@ public class GameCardShowControl : MonoBehaviour
                     card.IsSelect = true;
                     NowSelect.Add(index);
                     if (NowSelect.Count >= NowSelectTotal)
+                    {
                         await sender.SendAsync(NowSelect);
+                    }
                 }
                 break;
             case UseCardShowType.None:
@@ -112,7 +158,9 @@ public class GameCardShowControl : MonoBehaviour
         if (MyCemetery == null || MyCemetery.Count == 0)
             return;
         ShowCardMessage.text = "我方墓地";
+        _nowShowType = MenuShowType.MyCemetery;
         SetCardInfo(MyCemetery);
+        SelectCard(-1);
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);
         IsUseMenuShow = false;
@@ -122,7 +170,23 @@ public class GameCardShowControl : MonoBehaviour
         if (EnemyCemetery == null || EnemyCemetery.Count == 0)
             return;
         ShowCardMessage.text = "敌方墓地";
+        _nowShowType = MenuShowType.EnemyCemetery;
         SetCardInfo(EnemyCemetery);
+        SelectCard(-1);
+        CardSelectUI.SetActive(true);
+        SetButtonShow(IsCloseShow: true);
+        IsUseMenuShow = false;
+    }
+
+    public void ShowMyDeck()
+    {
+        Debug.Log(MyDeck?.Count());
+        if (MyDeck == null || MyDeck.Count() == 0)
+            return;
+        ShowCardMessage.text = "我方卡组(原始状态,顺序)";
+        _nowShowType = MenuShowType.MyDeck;
+        SetCardInfo(MyDeck);
+        SelectCard(-1);
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);
         IsUseMenuShow = false;
@@ -144,10 +208,10 @@ public class GameCardShowControl : MonoBehaviour
     //调度结束
     public void OperationEnd()
     {
-        NowUseMenuType = UseCardShowType.None;
+        _nowUseMenuType = UseCardShowType.None;
         useCardTitle = "错误";
-        NowSelect = null;
-        UseCardList = null;
+        NowSelect = new List<int>();
+        UseCardList = new List<CardStatus>();
         OpenButton.SetActive(false);//打开
         CardSelectUI.SetActive(false);
     }
@@ -161,31 +225,38 @@ public class GameCardShowControl : MonoBehaviour
         //--------------------------
         mCard = GameEvent.MyHand.transform.GetChild(index).GetComponent<CardShowInfo>();
         mCard.CurrentCore = card;
+        SelectCard(_nowIndex);
         //mCard.SetCard();
     }
     //获取调度信息
     public async Task GetMulliganInfo(LocalPlayer player)
     {
-        NowUseMenuType = UseCardShowType.Mulligan;
+        _nowUseMenuType = UseCardShowType.Mulligan;
         if (IsAutoPlay) await sender.SendAsync<int>(-1);///////////自动调度22222222222222
-        var task = await receiver.ReceiveAsync<int>();
-        NowUseMenuType = UseCardShowType.None;
-        if (task != -1)
+        var result = await receiver.ReceiveAsync<int>();
+        _nowUseMenuType = UseCardShowType.None;
+        if (result != -1)
             NowMulliganCount++;
         useCardTitle = $"选择1张卡重抽。[{NowMulliganCount}/{NowMulliganTotal}]";
         if (IsUseMenuShow)
             ShowCardMessage.text = useCardTitle;
         //Debug.Log("发送调度消息");
-        await player.SendAsync(UserOperationType.MulliganInfo, task);
+        if (result == -1)
+        {
+            OperationEnd();
+        }
+        await player.SendAsync(UserOperationType.MulliganInfo, result);
     }
     //-----------------------------------------
     public void OpenNowUseMenu()
     {
         //将存起来的标题和卡牌赋值
         ShowCardMessage.text = useCardTitle;
+        _nowShowType = MenuShowType.UseCard;
         SetCardInfo(UseCardList);
         SetButtonShow(UseButtonShow);
         IsUseMenuShow = true;
+        SelectCard(-1);
         CardSelectUI.SetActive(true);
     }
     //------------------------------------------------------------------------------------------------
@@ -196,19 +267,23 @@ public class GameCardShowControl : MonoBehaviour
           (0.To(info.SelectCount - 1).Mess().Take(info.SelectCount).ToList());
         else
         {
+            //这里是正常的逻辑
+            //设置标题
             useCardTitle = info.Title;
+            //设置卡组列表
             UseCardList = info.SelectList;
             OpenButton.SetActive(true);//打开显示按钮
-                                       //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
+            //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
             UseButtonShow = (false, false, info.IsCanOver, true);
+            //现在选择卡牌的列表
             NowSelectTotal = info.SelectCount;
             NowSelect = new List<int>();//清空
             OpenNowUseMenu();
-            NowUseMenuType = UseCardShowType.Select;
+            _nowUseMenuType = UseCardShowType.Select;
         }
-        await player.SendAsync(UserOperationType.SelectMenuCardsInfo, await receiver.ReceiveAsync<IList<int>>());
-
+        var result = await receiver.ReceiveAsync<IList<int>>();
         OperationEnd();
+        await player.SendAsync(UserOperationType.SelectMenuCardsInfo, result);
         //NowUseMenuType = UseCardShowType.None;
         //NowSelect = new List<int>();//清空
     }
@@ -238,7 +313,7 @@ public class GameCardShowControl : MonoBehaviour
         else
             CardsContent.GetComponent<GridLayoutGroup>().padding.top = 130;
         Scroll.value = 1;
-        if (IsUseMenuShow && NowUseMenuType == UseCardShowType.Select)
+        if (_nowShowType == MenuShowType.UseCard && NowSelect.Any())
         {
             NowSelect.ForAll(x =>
             {

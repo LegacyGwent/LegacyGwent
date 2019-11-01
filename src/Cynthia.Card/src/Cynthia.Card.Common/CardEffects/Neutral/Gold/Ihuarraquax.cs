@@ -17,12 +17,12 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace() || Card.Status.HealthStatus != 0 || Card.Status.Countdown > 0)
+            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace() || Card.Status.HealthStatus != 0 || !Card.Status.IsCountdown)
             {
                 return;
             }
             await Card.Effect.SetCountdown(offset: -1);
-            var cards = Game.GetPlanceCards(AnotherPlayer).Mess(Game.RNG).Take(3);
+            var cards = Game.GetPlaceCards(AnotherPlayer).Mess(Game.RNG).Take(3);
             foreach (var card in cards)
             {
                 await card.Effect.Damage(7, Card);

@@ -25,7 +25,14 @@ namespace Cynthia.Card.Server
             }
         }
 
-        public Type GetType(string effectId) => _idDictionary[effectId];
+        public Type GetType(string effectId)
+        {
+            if (_idDictionary.ContainsKey(effectId))
+            {
+                return _idDictionary[effectId];
+            }
+            return typeof(NoneEffect);
+        }
 
         public CardEffect CreateInstance(string effectId, GameCard targetCard)
             => (CardEffect)Activator.CreateInstance(GetType(effectId), targetCard);

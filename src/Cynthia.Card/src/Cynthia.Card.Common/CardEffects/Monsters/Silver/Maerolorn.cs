@@ -7,12 +7,12 @@ namespace Cynthia.Card
     [CardEffectId("23018")]//无骨者
     public class Maerolorn : CardEffect
     {//从牌组打出1张拥有遗愿能力的铜色单位牌。
-        public Maerolorn(GameCard card) : base(card){}
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public Maerolorn(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //打乱己方卡组并取出拥有遗愿能力的铜色单位牌
             var list = Game.PlayersDeck[Card.PlayerIndex]
-                .Where((x.HideTags == null ? false : x.HideTags.Contains(HideTag.Deathwish))
+                .Where(x => (x.Status.HideTags == null ? false : x.Status.HideTags.Contains(HideTag.Deathwish))
                     && (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper)
                     && (x.CardInfo().CardType == CardType.Unit))
                 .Mess(Game.RNG)

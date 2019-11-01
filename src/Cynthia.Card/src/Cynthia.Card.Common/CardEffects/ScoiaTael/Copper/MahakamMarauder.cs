@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("54012")] //玛哈坎劫掠者
-    public class MahakamMarauder : CardEffect, IHandlesEvent<AfterCardBoost>, IHandlesEvent<AfterCardHurt>
+    public class MahakamMarauder : CardEffect, IHandlesEvent<AfterCardBoost>, IHandlesEvent<AfterCardHurt>, IHandlesEvent<AfterCardStrengthen>, IHandlesEvent<AfterCardWeaken>
     {
         //战力改变时（被重置除外），获得2点增益。
         public MahakamMarauder(GameCard card) : base(card)
@@ -29,6 +29,16 @@ namespace Cynthia.Card
         }
 
         public async Task HandleEvent(AfterCardBoost @event)
+        {
+            await BoostMyself(@event.Target, @event.Source);
+        }
+
+        public async Task HandleEvent(AfterCardStrengthen @event)
+        {
+            await BoostMyself(@event.Target, @event.Source);
+        }
+
+        public async Task HandleEvent(AfterCardWeaken @event)
         {
             await BoostMyself(@event.Target, @event.Source);
         }

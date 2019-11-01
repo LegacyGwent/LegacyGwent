@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardMoveInfo: {fileID: 114372749201630046}
-  IsDead: 0
+  _isDead: 0
   Strength: {fileID: 114373612130709896}
   Armor: {fileID: 883898091}
   Countdown: {fileID: 1326492523}
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f1561801ece7244a48336136eaf3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  Type: 3
 --- !u!1 &1981594673917014
 GameObject:
   m_ObjectHideFlags: 0

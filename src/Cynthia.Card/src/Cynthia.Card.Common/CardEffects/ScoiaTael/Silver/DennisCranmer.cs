@@ -10,7 +10,13 @@ namespace Cynthia.Card
 		public DennisCranmer(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			var cards = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.Dwarf) && x != Card);
+
+            foreach (var card in cards)
+            {
+                await card.Effect.Strengthen(1, Card);
+            }
+            return 0;
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (@event.PlayerIndex != Card.PlayerIndex || _isUse || Card.Status.CardRow.IsOnPlace())
+            if (!(@event.PlayerIndex == PlayerIndex && !_isUse && Card.Status.CardRow.IsOnPlace()))
             {
                 return;
             }
@@ -38,7 +38,8 @@ namespace Cynthia.Card
                 {
                     await card.Effect.Damage(1, Card, BulletType.FireBall);
                 }
-                await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), Card);
+                Card.Effect.Repair(true);
+                await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), Card, refreshPoint: true);
             }
         }
     }

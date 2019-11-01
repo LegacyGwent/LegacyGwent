@@ -8,9 +8,5 @@ namespace Cynthia.Card
     public class WildHuntRider : CardEffect
     {//使对方同排的“刺骨冰霜”伤害提高1点。
         public WildHuntRider(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
-        {
-            return 0;
-        }
     }
 }

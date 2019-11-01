@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             if (@event.PlayerIndex != PlayerIndex) return;
 
-            var cards = RowCards.Where(x => x.Status.Categories.Contains(Categorie.Beast) || x.Status.Categories.Contains(Categorie.Vampire));
+            var cards = AliveNotConceal.Where(x => x.Status.Categories.Contains(Categorie.Beast) || x.Status.Categories.Contains(Categorie.Vampire));
             if (cards.Count() == 0) return;
             await cards.Mess(Game.RNG).First().Effect.Boost(2, null);
         }

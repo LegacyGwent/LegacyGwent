@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
         }
 
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = new List<GameCard>();
             list.Add(RandomChooseCard(RowPosition.EnemyRow1));
@@ -31,8 +31,8 @@ namespace Cynthia.Card
 
         private GameCard RandomChooseCard(RowPosition position)
         {
-            var row = Game.RowToList(Card.PlayerIndex, position).ToList();
-            return !row.Any() ? null : row.Mess().First();
+            var row = Game.RowToList(Card.PlayerIndex, position).IgnoreConcealAndDead();
+            return !row.Any() ? null : row.Mess(RNG).First();
         }
     }
 }

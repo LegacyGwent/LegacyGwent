@@ -16,6 +16,7 @@ public class LeaderShow : MonoBehaviour
     public Sprite SkelligeIcon;
     public Sprite NilfgaardIcon;
     private IDictionary<Faction, Sprite> _groupIconMap;
+    public string CurrentId { get; private set; } = null;
     public void Start()
     {
         _groupIconMap = new Dictionary<Faction, Sprite>
@@ -29,6 +30,7 @@ public class LeaderShow : MonoBehaviour
     }
     public void SetLeader(string id)
     {
+        CurrentId = id;
         if (_groupIconMap == null) Start();
         var card = GwentMap.CardMap[id];
         Name.text = card.Name;

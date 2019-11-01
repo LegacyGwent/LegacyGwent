@@ -13,7 +13,8 @@ namespace Cynthia.Card
         {
             //如果并非友军吞噬, 并且位于正确位置的话,不触发效果
             if (!(@event.Source.PlayerIndex == PlayerIndex &&
-                (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || Card.Status.CardRow.IsOnPlace())))
+                (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || Card.Status.CardRow.IsOnPlace()) &&
+                !Card.IsDead))
                 return;
             await Card.Effect.Boost(1, Card);
         }

@@ -75,5 +75,21 @@ namespace Cynthia.Card.Server
             var user = temp.AsQueryable<UserInfo>().Where(x => x.UserName == username && x.PassWord == password).ToArray();
             return user.Length > 0 ? user[0] : null;
         }
+
+        public IList<GameResult> GetAllGameResults(int count)
+        {
+            var temp = GetDatabase().GetCollection<GameResult>("gameresults");
+            return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Take(count).ToList();
+        }
+        public bool AddGameResult(GameResult data)
+        {
+            var temp = GetDatabase().GetCollection<GameResult>("gameresults");
+            if (temp.AsQueryable().Any(x => data.Id == x.Id))
+            {
+                return false;
+            }
+            temp.InsertOne(data);
+            return true;
+        }
     }
 }

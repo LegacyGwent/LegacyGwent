@@ -24,12 +24,12 @@ public class SwitchCardEvent : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerEnter(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f * 1.05f, 0.1f);
-        MainCodeService.SelectSwitchUICard(CardShowInfo.CurrentCore);
+        // MainCodeService.SelectSwitchUICard(CardShowInfo.CurrentCore);
     }
     //鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f, 0.1f);
-        MainCodeService.SelectSwitchUICard(CardShowInfo.CurrentCore, false);
+        // MainCodeService.SelectSwitchUICard(CardShowInfo.CurrentCore, false);
     }
 }

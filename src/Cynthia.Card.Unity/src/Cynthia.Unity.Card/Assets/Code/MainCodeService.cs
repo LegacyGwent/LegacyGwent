@@ -51,15 +51,18 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<MainCode>().EditorMenu.SelectSwitchUICard(card, isOver);
         }
-
+        public void SetMatchArtCard(CardStatus card, bool isOver = true)
+        {
+            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetMatchArtCard(card, isOver);
+        }
         public void SetMatchDeckList(IList<DeckModel> decks)
         {
             _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetDeckList(decks);
         }
 
-        public void SetDeck(DeckModel deck,string id)
+        public void SetDeck(DeckModel deck, string id)
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetDeck(deck,id);
+            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetDeck(deck, id);
         }
 
         public void SwitchDeckOpen()

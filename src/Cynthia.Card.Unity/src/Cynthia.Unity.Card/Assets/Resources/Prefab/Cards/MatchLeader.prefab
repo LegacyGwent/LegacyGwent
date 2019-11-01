@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 222377371194132212}
   - component: {fileID: 114947584512073092}
   - component: {fileID: 2792523650318865439}
+  - component: {fileID: 689389708144398590}
   m_Layer: 5
   m_Name: MatchLeader
   m_TagString: Untagged
@@ -74,17 +75,20 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4747712684069383674}
@@ -114,6 +118,18 @@ MonoBehaviour:
   MonsterIcon: {fileID: 21300000, guid: ec020eeb9bb17654e899d0ebc7297af5, type: 3}
   SkelligeIcon: {fileID: 21300008, guid: ec020eeb9bb17654e899d0ebc7297af5, type: 3}
   NilfgaardIcon: {fileID: 21300002, guid: ec020eeb9bb17654e899d0ebc7297af5, type: 3}
+--- !u!114 &689389708144398590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109254953662478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630f068d0c165f44993bb57676ddc9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1462968649208310
 GameObject:
   m_ObjectHideFlags: 0

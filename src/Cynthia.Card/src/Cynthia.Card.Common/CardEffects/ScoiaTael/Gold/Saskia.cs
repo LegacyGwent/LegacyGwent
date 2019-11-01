@@ -10,7 +10,36 @@ namespace Cynthia.Card
 		public Saskia(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			
+			var deckselectlist = Game.PlayersDeck[Card.PlayerIndex].Mess(RNG).Where(x =>(x.Status.Group == Group.Copper));
+			var deckCount = deckselectlist.Count();
+			if (deckCount == 0)
+            {
+                return 0;
+            }
+            var selectList = Game.PlayersHandCard[PlayerIndex].ToList();
+            var handresult = await Game.GetSelectMenuCards(PlayerIndex, selectList, deckCount<2?deckCount:2, "选择交换张牌", isCanOver: true);
+            int swapnum = handresult.ToList().Count();
+            if (swapnum == 0)
+            {
+                return 0;
+            }
+            foreach (var card in handresult)
+            {
+                await card.Effect.Swap();
+            }
+			var swapdeckcard = await Game.GetSelectMenuCards(Card.PlayerIndex, deckselectlist.ToList(), swapnum, isCanOver: false);
+
+
+
+            foreach(var card in swapdeckcard)
+			{
+				var row = Game.RowToList(card.PlayerIndex, card.Status.CardRow);
+				await Game.PlayerDrawCard(card.PlayerIndex,1,x=>x==card);
+			}
+
+
+			return 0 ;
 		}
 	}
 }

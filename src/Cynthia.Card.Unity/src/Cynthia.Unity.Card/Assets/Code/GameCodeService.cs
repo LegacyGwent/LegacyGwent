@@ -17,9 +17,9 @@ namespace Cynthia.Card.Client
         private GameObject _code;
         public GameCodeService()
         {
-            Debug.Log("尝试获取了Code!");
+            // Debug.Log("尝试获取了Code!");
             _code = GameObject.Find("Code");
-            Debug.Log(_code == null ? "没能成功获取" : "成功获取到了");
+            // Debug.Log(_code == null ? "没能成功获取" : "成功获取到了");
         }
         //-------------------------------------------------------------------------------------------
         public void SelectUICard(int index)
@@ -113,6 +113,10 @@ namespace Cynthia.Card.Client
         public void SetEnemyCemeteryInfo(IList<CardStatus> enemyCemetery)
         {
             _code.GetComponent<GameCode>().GameCardShowControl.EnemyCemetery = enemyCemetery;
+        }
+        public void SetMyDeckInfo(IList<CardStatus> myDeck)
+        {
+            _code.GetComponent<GameCode>().GameCardShowControl.MyDeck = myDeck;
         }
         //--
         public void SetGameInfo(GameInfomation gameInfomation)//更新数值+胜场数据

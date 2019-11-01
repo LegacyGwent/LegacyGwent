@@ -21,13 +21,17 @@ namespace Cynthia.Card
                 var cards = GwentMap.GetCreateCardsId(x => x.Group == Group.Copper &&
                         (x.Categories.Contains(Categorie.Necrophage) ||
                         x.Categories.Contains(Categorie.Vampire)), Game.RNG).ToArray();
-                return await Game.CreateAndMoveStay(PlayerIndex, cards, isCanOver: true);
+                if ((await Game.CreateAndMoveStay(PlayerIndex, cards, isCanOver: true)) == 1)
+                {
+                    await Game.PlayersStay[PlayerIndex].First().Effect.Boost(2, Card);
+                    return 1;
+                }
+                return 0;
             }
             else if (switchCard == 1)
             {
                 var target = await Game.GetSelectPlaceCards(Card, 1, false,
-                    x => x.Status.Categories.Contains(Categorie.Necrophage) ||
-                        x.Status.Categories.Contains(Categorie.Vampire));
+                x => x.HasAnyCategorie(Categorie.Necrophage, Categorie.Vampire) && x.IsAnyGroup(Group.Copper, Group.Silver));
                 if (target.Count == 0) return 0;
                 await target.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
             }

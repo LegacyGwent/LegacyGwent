@@ -18,9 +18,10 @@ public class ListCardShowInfo : MonoBehaviour
     public Sprite CopperStar;
     public Sprite SilverStar;
     public Sprite GoldStar;
-    public void SetCardInfo(int strength,string name,int count = 1,Group group = Group.Gold)
+    public CardStatus CardStatus;
+    private void SetCardInfo(int strength, string name, int count = 1, Group group = Group.Gold)
     {
-        Border.sprite = (group == Group.Gold ? Gold : (group==Group.Silver?Silver:Copper));
+        Border.sprite = (group == Group.Gold ? Gold : (group == Group.Silver ? Silver : Copper));
         Strength.text = strength.ToString();
         Name.text = name;
         if (strength <= 0)
@@ -35,13 +36,14 @@ public class ListCardShowInfo : MonoBehaviour
             CountText.text = $"x{count.ToString()}";
         }
     }
-    public void SetCardInfo(CardStatus card,int count = 1)
+    public void SetCardInfo(CardStatus card, int count = 1)
     {
-        SetCardInfo(card.Strength, card.CardInfo().Name, 1, card.Group);
+        CardStatus = card;
+        SetCardInfo(CardStatus.Strength, CardStatus.Name, count, CardStatus.Group);
     }
-    public void SetCardInfo(string id,int count = 1)
+    public void SetCardInfo(string id, int count = 1)
     {
-        var card = GwentMap.CardMap[id];
-        SetCardInfo(card.Strength,card.Name,count,card.Group);
+        CardStatus = new CardStatus(id);
+        SetCardInfo(CardStatus.Strength, CardStatus.Name, count, CardStatus.Group);
     }
 }
