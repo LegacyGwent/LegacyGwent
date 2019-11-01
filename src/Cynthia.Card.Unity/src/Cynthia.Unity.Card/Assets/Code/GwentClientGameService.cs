@@ -29,41 +29,16 @@ namespace Cynthia.Card.Client
         {
             Debug.Log($"游戏开始,Id:{_id}");
             _player = player;
-            while (await StartHandle(await _player.ReceiveAsync())) ;
-            if (_mustOver) return;
-            Debug.Log("预处理完毕");
+            // while (await StartHandle(await _player.ReceiveAsync())) ;
+            // if (_mustOver) return;
+            // Debug.Log("预处理完毕");
             while (await ResponseOperations(await _player.ReceiveAsync())) ;
-        }
-
-        private bool _mustOver = false;
-        private async Task<bool> StartHandle(IList<Operation<ServerOperationType>> operations)
-        {
-            Debug.Log($"(预处理)收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
-            bool isStart = false;
-            foreach (var operaction in operations)
-            {
-                if (operaction.OperationType == ServerOperationType.SetAllInfo)
-                {
-                    Debug.Log($"检测到开始指令");
-                    isStart = true;
-                }
-                if (!isStart)
-                {
-                    Debug.Log($"跳过了一个指令:{operaction.OperationType}");
-                }
-                else if (isStart)
-                {
-                    _mustOver = !(await ResponseOperation(operaction));
-                    if (_mustOver) return false;
-                }
-            }
-            return !isStart;
         }
         //-----------------------------------------------------------------------
         //响应指令
         private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
         {
-            Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
+            // Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
             foreach (var operaction in operations)
             {
                 if (!await ResponseOperation(operaction))
@@ -73,7 +48,7 @@ namespace Cynthia.Card.Client
         }
         private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
         {
-            Debug.Log($"执行了指令{operation.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
+            // Debug.Log($"执行了指令{operation.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
@@ -192,6 +167,9 @@ namespace Cynthia.Card.Client
                     break;
                 case ServerOperationType.SetEnemyCemetery:
                     GameCodeService.SetEnemyCemeteryInfo(arguments[0].ToType<List<CardStatus>>());
+                    break;
+                case ServerOperationType.SetMyDeck:
+                    GameCodeService.SetMyDeckInfo(arguments[0].ToType<List<CardStatus>>());
                     break;
                 case ServerOperationType.SetAllInfo:
                     GameCodeService.SetAllInfo(arguments[0].ToType<GameInfomation>());

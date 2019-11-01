@@ -22,7 +22,7 @@ public class SwitchMatchDeck : MonoBehaviour
     public void OnClick()
     {
         _codeService.SetDeck(_client.User.Decks[_id], _client.User.Decks[_id].Id);
-        GlobalState.DefaultDeckIndex = _id;
+        ClientGlobalInfo.DefaultDeckId = _client.User.Decks[_id].Id;
         _codeService.SwitchDeckClose();
     }
 }

@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             if (@event.PlayerIndex != PlayerIndex) return;
 
-            var cards = RowCards.Mess(Game.RNG).Take(2);
+            var cards = AliveNotConceal.Mess(Game.RNG).Take(2);
             foreach (var card in cards)
             {
                 await card.Effect.Damage(1, null);

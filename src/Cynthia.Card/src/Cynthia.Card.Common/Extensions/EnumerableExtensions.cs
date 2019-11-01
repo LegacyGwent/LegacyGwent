@@ -28,7 +28,7 @@ namespace Cynthia.Card
         public static bool TryMessOne<T>(this IEnumerable<T> items, out T result, Random rng)
         {
             result = items.Mess(rng).FirstOrDefault();
-            return result == default ? false : true;
+            return result == null ? false : true;
         }
         public static string ToJson(this object obj)
         {

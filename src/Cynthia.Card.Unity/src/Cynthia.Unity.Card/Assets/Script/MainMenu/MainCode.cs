@@ -34,7 +34,7 @@ public class MainCode : MonoBehaviour
         //_ = AutoTest();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
-        if (_client.IsAutoPlay || GlobalState.IsToMatch)
+        if (_client.IsAutoPlay || ClientGlobalInfo.IsToMatch)
         {
             MatchMenuButton.onClick.Invoke();
             //DoMatchButton.onClick.Invoke();

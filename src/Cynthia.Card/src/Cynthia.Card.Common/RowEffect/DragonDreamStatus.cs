@@ -9,7 +9,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(BeforeSpecialPlay @event)
         {
-            foreach (var card in RowCards)
+            foreach (var card in AliveNotConceal)
             {
                 await card.Effect.Damage(4, null);
             }

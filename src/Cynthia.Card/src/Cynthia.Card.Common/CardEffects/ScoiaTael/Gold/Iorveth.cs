@@ -10,7 +10,28 @@ namespace Cynthia.Card
 		public Iorveth(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+			
+			var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (!selectList.TrySingle(out var target))
+            {
+                return 0;
+            }
+			
+            await target.Effect.Damage(8, Card);
+
+			// 如果目标被杀
+			var isBoost = target.IsDead;
+            if (isBoost)
+            {
+                var cards = Game.PlayersHandCard[PlayerIndex].FilterCards(filter: x => x.HasAllCategorie(Categorie.Elf));
+
+				foreach (var card in cards)
+				{
+					await card.Effect.Boost(1, Card);
+				}
+				return 0;
+            }
+            return 0;
 		}
 	}
 }

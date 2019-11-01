@@ -17,12 +17,12 @@ namespace Cynthia.Card
                 if (Card.Effect.Countdown <= 0)
                 {//触发效果
                     var cards = Game.GetAllCard(PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace());
-                    var mycard = cards.Where(x => x.PlayerIndex == PlayerIndex).WhereAllHighest();
-                    var enemycard = cards.Where(x => x.PlayerIndex != PlayerIndex).WhereAllLowest();
+                    var mycard = cards.Where(x => x.PlayerIndex == PlayerIndex).WhereAllLowest();
+                    var enemycard = cards.Where(x => x.PlayerIndex != PlayerIndex).WhereAllHighest();
                     if (enemycard.Count() > 0)
-                        await enemycard.Mess().First().Effect.Damage(6, Card, BulletType.RedLight);
+                        await enemycard.Mess(RNG).First().Effect.Damage(6, Card, BulletType.RedLight);
                     if (mycard.Count() > 0)
-                        await mycard.Mess().First().Effect.Boost(6, Card);
+                        await mycard.Mess(RNG).First().Effect.Boost(6, Card);
                 }
             };
         }

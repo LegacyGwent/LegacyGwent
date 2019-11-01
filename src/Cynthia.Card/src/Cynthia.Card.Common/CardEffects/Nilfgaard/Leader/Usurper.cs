@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Usurper : CardEffect
     {//间谍。不限阵营地创造1张领袖牌，使其获得2点增益。
         public Usurper(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var createCards = GwentMap.GetCreateCardsId(x => x.Group == Group.Leader && x.CardId != CardId.Usurper, RNG);
             var count = await Game.CreateAndMoveStay(
@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 createCards.ToArray(),
                 1);
             if (count == 0) return 0;
-            await Game.RowToList(Card.PlayerIndex, RowPosition.MyStay).First().Effect.Boost(2, Card);
+            await Game.RowToList(AnotherPlayer, RowPosition.MyStay).First().Effect.Boost(2, Card);
             return 1;
         }
     }

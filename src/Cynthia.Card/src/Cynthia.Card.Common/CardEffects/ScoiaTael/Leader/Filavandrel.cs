@@ -10,7 +10,13 @@ namespace Cynthia.Card
 		public Filavandrel(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			return 0;
+				return await Card.CreateAndMoveStay(
+                GwentMap.GetCreateCardsId(
+                    x => (x.Group == Group.Silver)&&(x.CardInfo().CardType == CardType.Special),
+                    RNG
+                )
+                .ToList()
+            );
 		}
 	}
 }

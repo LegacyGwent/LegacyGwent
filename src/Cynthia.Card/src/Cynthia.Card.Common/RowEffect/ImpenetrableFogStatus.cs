@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterTurnStart @event)
         {
             if (@event.PlayerIndex != PlayerIndex) return;
-            var cards = Row.RowCards.WhereAllHighest();
+            var cards = AliveNotConceal.WhereAllHighest();
             if (cards.Count() == 0) return;
             await cards.Mess(Game.RNG).First().Effect.Damage(2, null);
         }

@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var result = await Game.GetSelectRow(Card.PlayerIndex, Card, TurnType.Enemy.GetRow());
-            var row = Game.RowToList(Card.PlayerIndex, result).ToList();
+            var row = Game.RowToList(Card.PlayerIndex, result).IgnoreConcealAndDead();
             foreach (var card in row)
             {
                 if (card.Status.CardRow.IsOnPlace())
