@@ -421,7 +421,8 @@ namespace Cynthia.Card.Server
                 if (mulliganCardIndex == -1)
                     break;
                 //逻辑处理
-                PlayersHandCard[playerIndex][mulliganCardIndex].Status.IsReveal = false;
+                var mulliganCard = PlayersHandCard[playerIndex][mulliganCardIndex];
+                mulliganCard.Status.IsReveal = false;
                 //先关掉揭示
                 //当然调度走揭示单位,要给对手说一声啦
                 await Players[AnotherPlayer(playerIndex)].SendAsync
@@ -432,15 +433,16 @@ namespace Cynthia.Card.Server
                         RowPosition = RowPosition.EnemyHand,
                         CardIndex = mulliganCardIndex
                     },
-                    new CardStatus(PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction)// { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
+                    new CardStatus(mulliganCard.Status.DeckFaction)// { IsCardBack = true, DeckFaction = PlayersHandCard[playerIndex][mulliganCardIndex].Status.DeckFaction }
                 );
                 //----------------------------------------------------------------------
                 //记录本次黑名单的卡牌Id
-                var bId = PlayersHandCard[playerIndex][mulliganCardIndex].CardInfo().CardId;
+                var bId = mulliganCard.CardInfo().CardId;
                 backList.Add(bId);
                 //将手牌中需要调度的牌,移动到卡组最后(因为下一步就会被抽出,所以暂时加入卡组没问题)
-                await LogicCardMove(PlayersHandCard[playerIndex][mulliganCardIndex], PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count,autoUpdateDeck:false);
-
+                await LogicCardMove(mulliganCard, PlayersDeck[playerIndex], PlayersDeck[playerIndex].Count,autoUpdateDeck:false);
+                await SendEvent(new AfterMulliganDraw(mulliganCard));
+                
                 //将调度走的卡牌加入卡池,并且从手牌移除这张卡
                 foreach (var deckCard in PlayersDeck[playerIndex].ToList())
                 {
@@ -465,6 +467,7 @@ namespace Cynthia.Card.Server
 
                 //将卡组中第一张牌抽到手牌调度走的位置
                 var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex,autoUpdateDeck:false));
+                await SendEvent(new AfterMulliganDraw(card));
                 //----------------------------------------------------------------------
                 await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
                 //每次调度
@@ -855,22 +858,22 @@ namespace Cynthia.Card.Server
     public IList<GameCard> GetAllCard(int playerIndex, bool isContainDead = false,bool isHasConceal = false)
     {
         var anotherPlayer = AnotherPlayer(playerIndex);
-        return PlayersPlace[playerIndex][0]
+        return PlayersHandCard[playerIndex]
+        .Concat(PlayersHandCard[anotherPlayer])
+        .Concat(PlayersLeader[playerIndex])
+        .Concat(PlayersLeader[anotherPlayer])
+        .Concat(PlayersStay[playerIndex])
+        .Concat(PlayersStay[anotherPlayer])
+        .Concat(PlayersCemetery[playerIndex])
+        .Concat(PlayersCemetery[anotherPlayer])
+        .Concat(PlayersDeck[playerIndex])
+        .Concat(PlayersDeck[anotherPlayer])
+        .Concat(PlayersPlace[playerIndex][0])
         .Concat(PlayersPlace[playerIndex][1])
         .Concat(PlayersPlace[playerIndex][2])
-        .Concat(PlayersHandCard[playerIndex])
-        .Concat(PlayersLeader[playerIndex])
-        .Concat(PlayersStay[playerIndex])
-        .Concat(PlayersCemetery[playerIndex])
-        .Concat(PlayersDeck[playerIndex])
         .Concat(PlayersPlace[anotherPlayer][0])
         .Concat(PlayersPlace[anotherPlayer][1])
         .Concat(PlayersPlace[anotherPlayer][2])
-        .Concat(PlayersHandCard[anotherPlayer])
-        .Concat(PlayersLeader[anotherPlayer])
-        .Concat(PlayersStay[anotherPlayer])
-        .Concat(PlayersCemetery[anotherPlayer])
-        .Concat(PlayersDeck[anotherPlayer])
         .Where(x => isContainDead ? true : !x.IsDead)
         .Where(x => isHasConceal ? true : !x.Status.Conceal)
         .ToList();
