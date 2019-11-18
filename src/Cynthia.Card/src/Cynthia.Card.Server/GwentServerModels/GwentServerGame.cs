@@ -66,10 +66,10 @@ namespace Cynthia.Card.Server
         {
             //###游戏开始###
             //双方抽牌10张
-            await SendEvent(new OnGameStart());
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
+            await SendEvent(new OnGameStart());
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
@@ -1358,15 +1358,15 @@ namespace Cynthia.Card.Server
         //---------------------------------------------------
         GameRowEffect[Player1Index] = new GameRow[3]
         {
-                    new GameRow(this, PlayersPlace[Player1Index][0], Player1Index, 0.IndexToMyRow()),
-                    new GameRow(this, PlayersPlace[Player1Index][1], Player1Index, 1.IndexToMyRow()),
-                    new GameRow(this, PlayersPlace[Player1Index][2], Player1Index, 2.IndexToMyRow())
+            new GameRow(this, PlayersPlace[Player1Index][0], Player1Index, 0.IndexToMyRow()),
+            new GameRow(this, PlayersPlace[Player1Index][1], Player1Index, 1.IndexToMyRow()),
+            new GameRow(this, PlayersPlace[Player1Index][2], Player1Index, 2.IndexToMyRow())
         };//玩家天气
         GameRowEffect[Player2Index] = new GameRow[3]
         {
-                    new GameRow(this, PlayersPlace[Player2Index][0], Player2Index, 0.IndexToMyRow()),
-                    new GameRow(this, PlayersPlace[Player2Index][1], Player2Index, 1.IndexToMyRow()),
-                    new GameRow(this, PlayersPlace[Player2Index][2], Player2Index, 2.IndexToMyRow())
+            new GameRow(this, PlayersPlace[Player2Index][0], Player2Index, 0.IndexToMyRow()),
+            new GameRow(this, PlayersPlace[Player2Index][1], Player2Index, 1.IndexToMyRow()),
+            new GameRow(this, PlayersPlace[Player2Index][2], Player2Index, 2.IndexToMyRow())
         };//玩家天气
           //---------------------------------------------------
         PlayersCemetery[Player1Index] = new List<GameCard>();
@@ -1378,23 +1378,23 @@ namespace Cynthia.Card.Server
         IsPlayersLeader[Player1Index] = true;
         IsPlayersLeader[Player2Index] = true;
         PlayersLeader[Player1Index] = new List<GameCard>()
-                {
-                    new GameCard(this,Player1Index,
-                        new CardStatus(
-                            player1.Deck.Leader,
-                            PlayersFaction[Player1Index],
-                            RowPosition.MyLeader
-                        ),player1.Deck.Leader)
-                }.ToList();
+        {
+            new GameCard(this,Player1Index,
+                new CardStatus(
+                    player1.Deck.Leader,
+                    PlayersFaction[Player1Index],
+                    RowPosition.MyLeader
+                ),player1.Deck.Leader)
+        }.ToList();
         PlayersLeader[Player2Index] = new List<GameCard>
-                {
-                    new GameCard(this,Player2Index,
-                        new CardStatus(
-                            player2.Deck.Leader,
-                            PlayersFaction[Player2Index],
-                            RowPosition.MyLeader
-                        ),player2.Deck.Leader)
-                }.ToList();
+        {
+            new GameCard(this,Player2Index,
+                new CardStatus(
+                    player2.Deck.Leader,
+                    PlayersFaction[Player2Index],
+                    RowPosition.MyLeader
+                ),player2.Deck.Leader)
+        }.ToList();
         //将卡组转化成实体,并且打乱牌组
         PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
             new GameCard(this, Player1Index,
