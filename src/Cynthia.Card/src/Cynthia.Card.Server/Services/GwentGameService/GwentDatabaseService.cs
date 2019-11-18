@@ -20,7 +20,7 @@ namespace Cynthia.Card.Server
         private IMongoDatabase GetDatabase() => GetMongoClient().GetDatabase(_dataBaseName);
         private IMongoCollection<UserInfo> GetCollection() => GetDatabase().GetCollection<UserInfo>(_repositoryName);
 
-        private const string _dataBaseName = "gwent";
+        private const string _dataBaseName = "gwentdiy";
         private const string _repositoryName = "user";
         public GwentDatabaseService(IServiceProvider provider)
         {
