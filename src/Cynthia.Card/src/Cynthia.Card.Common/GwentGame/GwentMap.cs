@@ -10513,6 +10513,66 @@ namespace Cynthia.Card
                     CardArtsId = "15110100",
                 }
             },
+            {
+                "64040",//diy_card1
+                new GwentCard()
+                {
+                    CardId ="64040",
+                    Name="diy_card1",
+                    Strength=2,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Leader,Categorie.ClanTuirseach},
+                    Flavor = "diy_card1_flavor",
+                    Info = "diy_card1_info",
+                    CardArtsId = "99999900",
+                }
+            },
+            {
+                "64041",//diy_card2
+                new GwentCard()
+                {
+                    CardId ="64041",
+                    Name="diy_card2",
+                    Strength=2,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Copper,Categorie.ClanTuirseach},
+                    Flavor = "diy_card2_flavor",
+                    Info = "diy_card2_info",
+                    CardArtsId = "99999900",
+                }
+            },
+            {
+                "64042",//diy_card3
+                new GwentCard()
+                {
+                    CardId ="64042",
+                    Name="diy_card3",
+                    Strength=2,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Copper,Categorie.ClanTuirseach},
+                    Flavor = "diy_card3_flavor",
+                    Info = "diy_card3_info",
+                    CardArtsId = "99999900",
+                }
+            },
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {

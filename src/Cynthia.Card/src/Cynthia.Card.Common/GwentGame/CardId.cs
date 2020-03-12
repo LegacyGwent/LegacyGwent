@@ -518,5 +518,8 @@ namespace Cynthia.Card
         public const string CrachAnCraite = "61002";
         public const string EistTuirseach = "61003";
         public const string BranTuirseach = "61004";
+        public const string DiyCard1 = "64040";
+        public const string DiyCard2 = "61041";
+        public const string DiyCard3 = "61042";
     }
 }
