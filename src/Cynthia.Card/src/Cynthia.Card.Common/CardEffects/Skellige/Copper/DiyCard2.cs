@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("64040")]//奎特家族盔甲匠
+    [CardEffectId("64041")]//奎特家族盔甲匠
     public class DiyCard2 : CardEffect
     {//治愈2个友军单位，并使其获得3点护甲。
         public DiyCard2(GameCard card) : base(card) { }
