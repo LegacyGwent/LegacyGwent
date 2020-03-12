@@ -330,9 +330,9 @@ public class EditorInfo : MonoBehaviour
 
     public void AddDeckClick()
     {   //点击新建按钮后
-        if (_clientService.User.Decks.Count >= 40)
+        if (_clientService.User.Decks.Count >= 100)
         {
-            _globalUIService.YNMessageBox("卡组数量已经达到40", "无法添加更多卡组,请删除或者编辑现有卡组");
+            _globalUIService.YNMessageBox("卡组数量已经达到100", "无法添加更多卡组,请删除或者编辑现有卡组");
         }
         else
         {
