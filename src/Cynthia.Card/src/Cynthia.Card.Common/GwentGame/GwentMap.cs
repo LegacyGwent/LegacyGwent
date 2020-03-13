@@ -10513,6 +10513,32 @@ namespace Cynthia.Card
                     CardArtsId = "15110100",
                 }
             },
+            // 从这里开始是diy的卡牌
+            // 序号标准：总共五位
+            // 第一位代表阵营，1:中立，2:怪兽，3:帝国，4:北方，5:松鼠，6:群岛
+            // 第二位代表品质，1:领袖，2:铜卡，3：银卡，4:金卡，5:衍生物
+            // 第三～五位为卡牌序号
+            // CardArtsId从40000100开始
+            {
+                "14040",//昆恩法印
+                new GwentCard()
+                {
+                    CardId ="14040",
+                    Name = "昆恩法印",
+                    Strength = 0,
+                    Group = Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Leader,Categorie.ClanTuirseach},
+                    Flavor = "昆恩法印的故事",
+                    Info = "目前还是白板，等会再写程序",
+                    CardArtsId = "40000100",
+                }
+            },
             {
                 "64040",//diy_card1
                 new GwentCard()
