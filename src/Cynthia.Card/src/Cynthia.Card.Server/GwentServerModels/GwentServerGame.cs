@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 using Alsein.Extensions.Extensions;
+using Cynthia.Card.Common.GwentGame;
 
 namespace Cynthia.Card.Server
 {
@@ -125,6 +126,9 @@ namespace Cynthia.Card.Server
         public async Task BigRoundEnd()//小局结束,进行收场
         {
             await ClientDelay(500);
+            var isPlayer1Blue = RedCoin[CurrentRoundCount] == Player1Index;
+            var needBalance = CurrentRoundCount == 0;
+            var balancePoint = Balance.BalanceConst;
             var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
             var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
             var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
@@ -133,6 +137,16 @@ namespace Cynthia.Card.Server
             var player2Row3Point = PlayersPlace[Player2Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
             var player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
             var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
+            if(needBalance)
+            {
+                if (isPlayer1Blue)
+                {
+                    player1PlacePoint += balancePoint;
+                }else
+                {
+                    player2PlacePoint += balancePoint;
+                }
+            }
             PlayersRoundResult[CurrentRoundCount][Player1Index] = player1PlacePoint;
             PlayersRoundResult[CurrentRoundCount][Player2Index] = player2PlacePoint;
             if (player1PlacePoint > player2PlacePoint)
