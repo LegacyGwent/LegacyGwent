@@ -10562,10 +10562,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70002",//哈蒙德
+                "70003",//哈蒙德
                 new GwentCard()
                 {
-                    CardId ="70002",
+                    CardId ="70003",
                     Name = "哈蒙德",
                     Strength = 5,
                     Group = Group.Gold,
@@ -10582,10 +10582,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70003",//格莱尼斯·爱普·洛纳克
+                "70004",//格莱尼斯·爱普·洛纳克
                 new GwentCard()
                 {
-                    CardId ="70001",
+                    CardId ="70004",
                     Name = "格莱尼斯·爱普·洛纳克",
                     Strength = 7,
                     Group = Group.Gold,
