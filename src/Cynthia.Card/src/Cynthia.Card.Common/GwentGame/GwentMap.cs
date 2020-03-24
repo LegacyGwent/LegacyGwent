@@ -10518,9 +10518,11 @@ namespace Cynthia.Card
             // 第一位代表阵营，1:中立，2:怪兽，3:帝国，4:北方，5:松鼠，6:群岛
             // 第二位代表品质，1:领袖，2:铜卡，3：银卡，4:金卡，5:衍生物
             // 第三～五位为卡牌序号
-            // CardArtsId从40000100开始
+            // 但是，diy卡牌现在编号从70001开始，无视上述规则
+            // 这是因为，diy卡牌改动很频繁，而暂时忽略规则可以在频繁改动品质等属性的情况下，
+            // 保持最小限度的修改
             {
-                "14040",//昆恩法印
+                "70001",//昆恩法印
                 new GwentCard()
                 {
                     CardId ="14040",
@@ -10537,66 +10539,6 @@ namespace Cynthia.Card
                     Flavor = "昆恩法印的故事",
                     Info = "目前还是白板，等会再写程序",
                     CardArtsId = "40000100",
-                }
-            },
-            {
-                "64040",//diy_card1
-                new GwentCard()
-                {
-                    CardId ="64040",
-                    Name="diy_card1",
-                    Strength=10,
-                    Group=Group.Copper,
-                    Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{Categorie.ClanTuirseach},
-                    Flavor = "diy_card1_flavor",
-                    Info = "diy_card1_info",
-                    CardArtsId = "99999900",
-                }
-            },
-            {
-                "64041",//diy_card2
-                new GwentCard()
-                {
-                    CardId ="64041",
-                    Name="diy_card2",
-                    Strength=10,
-                    Group=Group.Copper,
-                    Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
-                    Flavor = "diy_card2_flavor",
-                    Info = "diy_card2_info",
-                    CardArtsId = "99999900",
-                }
-            },
-            {
-                "64042",//diy_card3
-                new GwentCard()
-                {
-                    CardId ="64042",
-                    Name="diy_card3",
-                    Strength=10,
-                    Group=Group.Copper,
-                    Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
-                    Flavor = "diy_card3_flavor",
-                    Info = "diy_card3_info",
-                    CardArtsId = "99999900",
                 }
             },
         };
