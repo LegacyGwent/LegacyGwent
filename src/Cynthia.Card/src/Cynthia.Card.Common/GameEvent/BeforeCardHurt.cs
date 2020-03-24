@@ -1,7 +1,7 @@
 namespace Cynthia.Card
 {
     //发生"受伤"后
-    public class BeforeCardHurt : Event
+    public class BeforeCardDamage : Event
     {
         public GameCard Target { get; set; }
         public GameCard Source { get; set; }
@@ -9,7 +9,7 @@ namespace Cynthia.Card
         public bool IsCancel { get; set; } = false;
         public DamageType DamageType { get; set; }
 
-        public BeforeCardHurt(GameCard target, int num, GameCard source, DamageType damageType)
+        public BeforeCardDamage(GameCard target, int num, GameCard source, DamageType damageType)
         {
             Target = target;
             Num = num;
