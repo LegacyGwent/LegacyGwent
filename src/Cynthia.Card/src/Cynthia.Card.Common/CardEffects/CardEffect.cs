@@ -407,7 +407,7 @@ namespace Cynthia.Card
         {
             if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
 
-            var beforeEventPackage = await Game.SendEvent(new BeforeCardHurt(Card, num, source, damageType));
+            var beforeEventPackage = await Game.SendEvent(new BeforeCardDamage(Card, num, source, damageType));
 
             //可能因为某些卡牌效果取消
             if (beforeEventPackage.IsCancel)
