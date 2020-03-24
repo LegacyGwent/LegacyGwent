@@ -403,9 +403,25 @@ namespace Cynthia.Card
             await Game.SendEvent(new AfterCardBoost(Card, num, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Damage(int num, GameCard source, BulletType type = BulletType.Arrow, bool isPenetrate = false)//伤害
+        public virtual async Task Damage(int num, GameCard source, BulletType showType = BulletType.Arrow, bool isPenetrate = false, DamageType damageType = DamageType.Unit)//伤害
         {
             if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
+
+            var beforeEventPackage = await Game.SendEvent(new BeforeCardHurt(Card, num, source, damageType));
+
+            //可能因为某些卡牌效果取消
+            if (beforeEventPackage.IsCancel)
+            {
+                return;
+            }
+
+            //可能因为某些卡牌效果重定向目标,或改变伤害数值,伤害类型
+            num = beforeEventPackage.Num;
+            source = beforeEventPackage.Source;
+            damageType = beforeEventPackage.DamageType;
+
+            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
+
             //最高承受伤害,如果穿透的话,不考虑护甲
             var die = false;
             var isArmor = Card.Status.Armor > 0;
@@ -422,7 +438,7 @@ namespace Cynthia.Card
             }
             if (source != null)
             {
-                await Game.ShowBullet(source, Card, type);
+                await Game.ShowBullet(source, Card, showType);
             }
             //--------------------------------------------------------------
             //护甲处理
@@ -469,7 +485,7 @@ namespace Cynthia.Card
             {
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //受伤并且没有进入墓地的话,应该触发对应事件<暂未定义,待补充>
-                await Game.SendEvent(new AfterCardHurt(Card, num, source));
+                await Game.SendEvent(new AfterCardHurt(Card, num, source, damageType));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
             }
             if ((Card.CardPoint()) <= 0)
@@ -605,10 +621,10 @@ namespace Cynthia.Card
                 await Game.SendEvent(new AfterCardUnLock(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Transform(string cardId, GameCard source, Action<GameCard> setting = null,bool isForce = false)//变为
+        public virtual async Task Transform(string cardId, GameCard source, Action<GameCard> setting = null, bool isForce = false)//变为
         {
             setting ??= (x => { });
-            if (Card.Status.CardId == cardId&&!isForce)
+            if (Card.Status.CardId == cardId && !isForce)
             {
                 return;
             }

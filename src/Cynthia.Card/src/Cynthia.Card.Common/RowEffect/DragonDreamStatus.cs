@@ -11,7 +11,7 @@ namespace Cynthia.Card
         {
             foreach (var card in AliveNotConceal)
             {
-                await card.Effect.Damage(4, null);
+                await card.Effect.Damage(4, null, damageType: DamageType.DragonDream);
             }
             await Row.SetStatus<NoneStatus>();
         }
