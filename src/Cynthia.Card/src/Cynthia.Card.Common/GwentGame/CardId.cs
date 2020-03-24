@@ -519,5 +519,8 @@ namespace Cynthia.Card
         public const string EistTuirseach = "61003";
         public const string BranTuirseach = "61004";
         public const string Quen = "70001";
+        public const string CountCaldWell = "70002";
+        public const string Hammond = "70003";
+        public const string GlynnisAepLoernach = "70004";
     }
 }
