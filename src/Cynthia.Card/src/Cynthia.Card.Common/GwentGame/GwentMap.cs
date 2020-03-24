@@ -10525,7 +10525,7 @@ namespace Cynthia.Card
                 "70001",//昆恩法印
                 new GwentCard()
                 {
-                    CardId ="14040",
+                    CardId ="70001",
                     Name = "昆恩法印",
                     Strength = 0,
                     Group = Group.Copper,
