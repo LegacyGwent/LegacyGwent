@@ -10530,7 +10530,7 @@ namespace Cynthia.Card
                     Strength = 0,
                     Group = Group.Copper,
                     Faction = Faction.Neutral,
-                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
@@ -10539,6 +10539,66 @@ namespace Cynthia.Card
                     Flavor = "昆恩法印的故事",
                     Info = "目前还是白板，等会再写程序",
                     CardArtsId = "40000100",
+                }
+            },
+            {
+                "70002",//考德威尔伯爵
+                new GwentCard()
+                {
+                    CardId ="70002",
+                    Name = "考德威尔伯爵",
+                    Strength = 6,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "择一：从牌库中打出一张战力不高于自身的铜色单位，在回合结束把它送进墓地；或吞噬牌库中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
+                    CardArtsId = "14800000",
+                }
+            },
+            {
+                "70002",//哈蒙德
+                new GwentCard()
+                {
+                    CardId ="70002",
+                    Name = "哈蒙德",
+                    Strength = 5,
+                    Group = Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
+                    Flavor = "",
+                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；使战场上所有友方机械获得 3 点强化。",
+                    CardArtsId = "18840000",
+                }
+            },
+            {
+                "70003",//格莱尼斯·爱普·洛纳克
+                new GwentCard()
+                {
+                    CardId ="70001",
+                    Name = "格莱尼斯·爱普·洛纳克",
+                    Strength = 7,
+                    Group = Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Officer},
+                    Flavor = "",
+                    Info = "2 护甲。与一个敌军铜/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    CardArtsId = "19360000",
                 }
             },
         };
