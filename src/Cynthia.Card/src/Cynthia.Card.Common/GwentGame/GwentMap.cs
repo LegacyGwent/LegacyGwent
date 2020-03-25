@@ -10530,7 +10530,7 @@ namespace Cynthia.Card
                     Strength = 0,
                     Group = Group.Copper,
                     Faction = Faction.Neutral,
-                    CardUseInfo = CardUseInfo.AnyRow,
+                    CardUseInfo = CardUseInfo.AnyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
