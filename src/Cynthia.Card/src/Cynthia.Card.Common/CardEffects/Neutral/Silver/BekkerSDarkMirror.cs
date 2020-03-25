@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public BekkerSDarkMirror(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var list = Game.GetPlaceCards(PlayerIndex).ToList();
+            var list = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).Where(x=>x.Status.CardRow.IsOnPlace());
             if (list.Count() <= 0) return 0;
             //穿透伤害
             var damageCard = list.WhereAllHighest().Mess(RNG).First();
