@@ -288,6 +288,7 @@ namespace Cynthia.Card.Server
             await Task.WhenAll(MulliganCard(Player1Index, player1Mulligan), MulliganCard(Player2Index, player2Mulligan));
             //双方轮流进行游戏
             //1.根据GamRound进行一次流程
+            await SendEvent(new BeforeRoundStart(RoundCount));
             while (await PlayerRound())
             {
                 //2.处理回合结束
