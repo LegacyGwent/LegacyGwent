@@ -1379,7 +1379,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13020",
                     Name="多瑞加雷",
-                    Strength=1,
+                    Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9545,7 +9545,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support,Categorie.Doomed},
                     Flavor = "跪在我身边，向圣母低头。",
-                    Info = "复活1个铜色/银色“家族”单位。",
+                    Info = "复活1个铜色/银色单位。",
                     CardArtsId = "15221100",
                 }
             },
