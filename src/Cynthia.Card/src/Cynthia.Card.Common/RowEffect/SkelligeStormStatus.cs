@@ -16,15 +16,15 @@ namespace Cynthia.Card
             if (cards.Count > 0)
             {
                 if (!cards[0].Status.Conceal)
-                    await cards[0].Effect.Damage(2, null);
+                    await cards[0].Effect.Damage(2, null, damageType: DamageType.SkelligeStorm);
                 if (cards.Count > 1)
                 {
                     if (!cards[1].Status.Conceal)
-                        await cards[1].Effect.Damage(1, null);
+                        await cards[1].Effect.Damage(1, null, damageType: DamageType.SkelligeStorm);
                     if (cards.Count > 2)
                     {
                         if (!cards[2].Status.Conceal)
-                            await cards[2].Effect.Damage(1, null);
+                            await cards[2].Effect.Damage(1, null, damageType: DamageType.SkelligeStorm);
                     }
                 }
             }
