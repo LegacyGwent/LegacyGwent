@@ -2,6 +2,7 @@
 @inject GwentServerService GwentService
 @implements IDisposable
 
+<h5>群号:945408322,欢迎加入闲聊或约牌 </h5>
 <h2>~实时玩家状态查看~</h2>
 <h3>目前在线人数: @GwentService.GetUserCount() </h3>
 <ul>
@@ -26,12 +27,12 @@
 @code
 {
     (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player) users;
-    IDictionary<UserState,string> showMessage = new Dictionary<UserState,string>()
+    IDictionary<UserState, string> showMessage = new Dictionary<UserState, string>()
     {
-        {UserState.Match,"以下玩家正在进行无密匙匹配~"},
-        {UserState.PasswordMatch,"以下玩家正在进行密匙匹配~"},
-        {UserState.Play,"以下玩家正在对局中~"},
-        {UserState.Standby,"以下玩家正在闲置中~"}
+    {UserState.Match,"以下玩家正在进行无密匙匹配~"},
+    {UserState.PasswordMatch,"以下玩家正在进行密匙匹配~"},
+    {UserState.Play,"以下玩家正在对局中~"},
+    {UserState.Standby,"以下玩家正在闲置中~"}
     };
 
     protected override void OnInitialized()
@@ -40,9 +41,10 @@
         GwentService.OnUserChanged += OnUserChanged;
     }
 
-    private void OnUserChanged((IList<IGrouping<UserState, User>>user, IList<(string player1, string player2)>player) newUser)
+    private void OnUserChanged((IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player) newUser)
     {
-        InvokeAsync(() => {
+        InvokeAsync(() =>
+        {
             users = newUser;
             StateHasChanged();
         });
