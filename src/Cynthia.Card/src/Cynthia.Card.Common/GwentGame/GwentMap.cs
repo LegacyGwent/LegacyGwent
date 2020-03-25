@@ -1178,7 +1178,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13012",
                     Name="米尔加塔布雷克",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
