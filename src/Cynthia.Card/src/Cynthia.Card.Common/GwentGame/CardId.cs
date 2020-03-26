@@ -523,6 +523,7 @@ namespace Cynthia.Card
         public const string Hammond = "70003";
         public const string GlynnisAepLoernach = "70004";
         public const string VysogotaOfCorvo = "70005";
+        public const string LadyOfTheLake = "70006";
         public const string ProphetLebioda = "70007";
     }
 }
