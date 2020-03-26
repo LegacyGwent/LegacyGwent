@@ -10538,7 +10538,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "昆恩法印的故事",
                     Info = "目前还是白板，等会再写程序",
-                    CardArtsId = "40000100",
+                    CardArtsId = "c10000100",
                 }
             },
             {
