@@ -10577,7 +10577,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanTuirseach},
                     Flavor = "",
-                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；使战场上所有友方机械获得 3 点强化。",
+                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得3点强化。",
                     CardArtsId = "18840000",
                 }
             },
@@ -10597,8 +10597,28 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "",
-                    Info = "2 护甲。与一个敌军铜/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    Info = "2护甲。与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
                     CardArtsId = "19360000",
+                }
+            },
+            {
+                "70007",//先知雷比欧达
+                new GwentCard()
+                {
+                    CardId ="70007",
+                    Name = "先知雷比欧达",
+                    Strength = 8,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = true,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Doomed},
+                    Flavor = "",
+                    Info = "被放逐时，使场上所有友军单位获得1点增益。",
+                    CardArtsId = "d18600000",
                 }
             },
         };
