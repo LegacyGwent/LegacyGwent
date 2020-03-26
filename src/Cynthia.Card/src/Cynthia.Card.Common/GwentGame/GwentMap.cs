@@ -10597,8 +10597,28 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "",
-                    Info = "2护甲。与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    Info = "2护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
                     CardArtsId = "19360000",
+                }
+            },
+            {
+                "70005",//科沃的维索戈塔
+                new GwentCard()
+                {
+                    CardId ="70005",
+                    Name = "科沃的维索戈塔",
+                    Strength = 8,
+                    Group = Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Support},
+                    Flavor = "",
+                    Info = "部署：治愈1个友军单位，然后使其获得“免疫”。遗愿：所有友军单位失去“免疫”。",
+                    CardArtsId = "d17190000",
                 }
             },
             {
