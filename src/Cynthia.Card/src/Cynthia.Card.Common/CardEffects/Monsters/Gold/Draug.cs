@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var row = Card.Status.CardRow;
             while (!(Game.RowToList(PlayerIndex, row).Count >= Game.RowMaxCount || Game.PlayersCemetery[PlayerIndex].Count <= 0))
             {
-                if (!Game.PlayersCemetery[PlayerIndex].TryMessOne(out var target, Game.RNG))
+                if (!Game.PlayersCemetery[PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit).TryMessOne(out var target, Game.RNG))
                 {
                     return 0;
                 }
