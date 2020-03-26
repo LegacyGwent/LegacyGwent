@@ -22,7 +22,7 @@ namespace Cynthia.Card
                 {
                     await card.Effect.Boost(2, Card);
                 }
-                return 0;
+                return;
             }
         }
     }
