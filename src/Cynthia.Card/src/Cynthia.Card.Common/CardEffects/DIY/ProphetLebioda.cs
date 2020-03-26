@@ -9,6 +9,8 @@ namespace Cynthia.Card
     public class ProphetLebioda : CardEffect, IHandlesEvent<AfterCardBanish>
     {//"被放逐时，使场上所有友军单位获得1点增益。"
         public ProphetLebioda(GameCard card) : base(card) { }
+
+        private const int boostPoint = 1;
         public async Task HandleEvent(AfterCardBanish @event)
         {
             await Game.Debug("触发雷比欧达效果");
@@ -20,7 +22,7 @@ namespace Cynthia.Card
                     .Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).ToList();
                 foreach (var card in cards)
                 {
-                    await card.Effect.Boost(2, Card);
+                    await card.Effect.Boost(boostPoint, Card);
                 }
                 return;
             }

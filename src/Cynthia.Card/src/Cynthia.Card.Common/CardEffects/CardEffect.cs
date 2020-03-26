@@ -235,6 +235,7 @@ namespace Cynthia.Card
         public virtual async Task Banish()
         {
             var banishPosition = Game.GetCardLocation(Card);
+            await Game.SendEvent(new BeforeCardBanish(Card, banishPosition));
             //需要补充
             if (Card.Status.CardRow.IsOnRow())
             {
@@ -247,7 +248,6 @@ namespace Cynthia.Card
             await Game.SetCountInfo();
             await Game.SetPointInfo();
             await Game.SetCemeteryInfo(Card.PlayerIndex);
-            await Game.SendEvent(new AfterCardBanish(Card, banishPosition));
         }
 
         //使卡牌"小局结束"
