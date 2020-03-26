@@ -13,7 +13,8 @@ namespace Cynthia.Card
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow);
             if (!selectList.TrySingle(out var target)) { return 0; }
             await target.Effect.Heal(Card);
-            await target.Status.IsImmue = true;
+            target.Status.IsImmue = true;
+            return 0;
         }
         public async Task HandleEvent(AfterCardDeath @event)
         {
@@ -23,9 +24,12 @@ namespace Cynthia.Card
                         .Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).ToList();
                 foreach (var card in cards)
                 {
-                    await card.Status.IsImmue = true;
+                    card.Status.IsImmue = false;
                 }
             }
+
+            await Task.CompletedTask;
+            return;
         }
     }
 }
