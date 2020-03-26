@@ -10661,6 +10661,26 @@ namespace Cynthia.Card
                     CardArtsId = "d18600000",
                 }
             },
+            {
+                "70008",//薇薇恩：月下金莺 
+                new GwentCard()
+                {
+                    CardId ="70008",
+                    Name = "薇薇恩：月下金莺 ",
+                    Strength = 10,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "",
+                    Info = "部署：力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
+                    CardArtsId = "d13970000",
+                }
+            },
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {
