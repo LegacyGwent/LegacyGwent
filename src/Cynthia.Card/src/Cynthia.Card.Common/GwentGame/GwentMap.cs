@@ -10622,6 +10622,26 @@ namespace Cynthia.Card
                 }
             },
             {
+                "70006",//湖中仙女
+                new GwentCard()
+                {
+                    CardId ="70006",
+                    Name = "湖中仙女",
+                    Strength = 25,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = true,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
+                    CardArtsId = "c10000000",
+                }
+            },
+            {
                 "70007",//先知雷比欧达
                 new GwentCard()
                 {
