@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 
 namespace Cynthia.Card.Server
 {
@@ -33,6 +35,13 @@ namespace Cynthia.Card.Server
 
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
+
+        public Version GetCardMapVersion()
+        {
+            return GwentMap.CardMapVersion;
+        }
+
+        public string GetCardMap() => _gwentServerService.GetCardMap();
 
         public async Task<string> GetLatestVersion() => await _gwentServerService.GetLatestVersion(Context.ConnectionId);
 

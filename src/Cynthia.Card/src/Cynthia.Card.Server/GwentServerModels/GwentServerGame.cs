@@ -12,7 +12,7 @@ namespace Cynthia.Card.Server
         public Action<GameResult> GameResultEvent{ get; set; }
         public int[] RedCoin { get; private set; } = new int[3];
         public Pipeline OperactionList { get; private set; } = new Pipeline();
-        private readonly GwentCardTypeService _gwentCardTypeService;
+        private readonly GwentCardDataService _gwentCardTypeService;
         public int _randomSeed;
         public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = 9;
@@ -1327,7 +1327,7 @@ namespace Cynthia.Card.Server
             PlayersRoundResult[2][enemyPlayerIndex]
         ));
     }
-    public GwentServerGame(Player player1, Player player2, GwentCardTypeService gwentCardTypeService,Action<GameResult> gameResultEvent)
+    public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService,Action<GameResult> gameResultEvent)
     {
         GameResultEvent = gameResultEvent;
         _gwentCardTypeService = gwentCardTypeService;
