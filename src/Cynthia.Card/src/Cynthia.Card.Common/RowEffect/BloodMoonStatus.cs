@@ -20,7 +20,7 @@ namespace Cynthia.Card
         {
             foreach (var card in AliveNotConceal)
             {
-                await card.Effect.Damage(2, null);
+                await card.Effect.Damage(2, null, damageType: DamageType.BloodMoon);
             }
         }
     }
