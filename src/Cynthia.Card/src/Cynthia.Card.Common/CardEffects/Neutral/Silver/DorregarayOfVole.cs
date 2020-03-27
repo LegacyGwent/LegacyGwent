@@ -10,12 +10,7 @@ namespace Cynthia.Card
         public DorregarayOfVole(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = GwentMap.GetCards()
-                .Where(x => (x.Categories.Contains(Categorie.Draconid) || x.Categories.Contains(Categorie.Beast))
-                        && (x.Group == Group.Copper || x.Group == Group.Silver))
-                .Mess(RNG).Take(3).Select(x => x.CardId)
-                .ToList();
-            return await Card.CreateAndMoveStay(list);
+            return await Card.CreateAndMoveStay(CardId.SavageBear, CardId.Wyvern, CardId.Barbegazi, CardId.Drowner);
         }
     }
 }
