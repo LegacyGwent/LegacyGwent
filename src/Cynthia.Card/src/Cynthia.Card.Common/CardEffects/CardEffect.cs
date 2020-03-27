@@ -190,7 +190,7 @@ namespace Cynthia.Card
                     return;
                 }
                 if (Card.Status.CardRow != RowPosition.Banish)
-                    await Game.SendEvent(new AfterCardToCemetery(Card, deadposition));
+                    await Game.SendEvent(new AfterCardToCemetery(Card, deadposition, isRoundEnd));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
                 if (!isRoundEnd)
@@ -234,6 +234,8 @@ namespace Cynthia.Card
         //使卡牌"放逐"
         public virtual async Task Banish()
         {
+            var banishPosition = Game.GetCardLocation(Card);
+            await Game.SendEvent(new BeforeCardBanish(Card, banishPosition));
             //需要补充
             if (Card.Status.CardRow.IsOnRow())
             {

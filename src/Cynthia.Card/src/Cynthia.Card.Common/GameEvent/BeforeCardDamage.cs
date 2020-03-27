@@ -1,6 +1,6 @@
 namespace Cynthia.Card
 {
-    //发生"受伤"后
+    //发生"受伤"前
     public class BeforeCardDamage : Event
     {
         public GameCard Target { get; set; }

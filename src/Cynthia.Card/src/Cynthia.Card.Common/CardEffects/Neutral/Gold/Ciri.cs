@@ -17,7 +17,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterRoundOver @event)
         {
             if (@event.WinPlayerIndex != AnotherPlayer || !Card.Status.CardRow.IsOnPlace()) return;
-
+            Card.Effect.Repair(true);
             await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), Card);
 
         }
