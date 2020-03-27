@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             var cards = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.MyRow);
             if (cards.Count() == 0) return 0;
-            await cards.Single().Effect.Boost(5, Card);
+            await cards.Single().Effect.Resilience(Card);
             return 0;
         }
     }

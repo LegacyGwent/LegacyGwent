@@ -20,7 +20,7 @@ namespace Cynthia.Card
         public Task HandleEvent(AfterCardSpying @event)
         {
             //当对方场上出现间谍,并且自己在场,计数+1
-            if (@event.Target.PlayerIndex != Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
+            if (@event.Target.PlayerIndex != Card.PlayerIndex)
                 SpyingCount++;
             return Task.CompletedTask;
         }
