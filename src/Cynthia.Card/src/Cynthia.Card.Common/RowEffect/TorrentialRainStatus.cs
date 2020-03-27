@@ -15,7 +15,7 @@ namespace Cynthia.Card
             var cards = AliveNotConceal.Mess(Game.RNG).Take(2);
             foreach (var card in cards)
             {
-                await card.Effect.Damage(1, null);
+                await card.Effect.Damage(1, null, damageType: DamageType.TorrentialRain);
             }
         }
     }

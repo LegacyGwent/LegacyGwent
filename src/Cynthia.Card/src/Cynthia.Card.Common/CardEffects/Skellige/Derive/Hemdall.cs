@@ -13,7 +13,7 @@ namespace Cynthia.Card
 
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();
+            var cards = Game.GetAllCard(Card.PlayerIndex, isHasConceal: true).Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();
             foreach (var card in cards)
             {
                 await card.Effect.ToCemetery(CardBreakEffectType.Scorch);

@@ -52,7 +52,7 @@ public class GaneEntrance : MonoBehaviour
         }
         catch
         {
-            NotesText.text = "暂未获取到公告。";
+            NotesText.text = "暂未获取到公告。可能是由于服务器未打开或网络连接中断。";
         }
     }
 

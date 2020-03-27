@@ -194,7 +194,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "放逐所有手牌，抽同等数量的牌。",
+                    Info = "丢弃所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
@@ -1178,7 +1178,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13012",
                     Name="米尔加塔布雷克",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -1379,7 +1379,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13020",
                     Name="多瑞加雷",
-                    Strength=1,
+                    Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9545,7 +9545,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support,Categorie.Doomed},
                     Flavor = "跪在我身边，向圣母低头。",
-                    Info = "复活1个铜色/银色“家族”单位。",
+                    Info = "复活1个铜色/银色单位。",
                     CardArtsId = "15221100",
                 }
             },
@@ -10518,12 +10518,14 @@ namespace Cynthia.Card
             // 第一位代表阵营，1:中立，2:怪兽，3:帝国，4:北方，5:松鼠，6:群岛
             // 第二位代表品质，1:领袖，2:铜卡，3：银卡，4:金卡，5:衍生物
             // 第三～五位为卡牌序号
-            // CardArtsId从40000100开始
+            // 但是，diy卡牌现在编号从70001开始，无视上述规则
+            // 这是因为，diy卡牌改动很频繁，而暂时忽略规则可以在频繁改动品质等属性的情况下，
+            // 保持最小限度的修改
             {
-                "14040",//昆恩法印
+                "70001",//昆恩法印
                 new GwentCard()
                 {
-                    CardId ="14040",
+                    CardId ="70001",
                     Name = "昆恩法印",
                     Strength = 0,
                     Group = Group.Copper,
@@ -10536,57 +10538,37 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "昆恩法印的故事",
                     Info = "目前还是白板，等会再写程序",
-                    CardArtsId = "40000100",
+                    CardArtsId = "c10000100",
                 }
             },
             {
-                "64040",//diy_card1
+                "70002",//考德威尔伯爵
                 new GwentCard()
                 {
-                    CardId ="64040",
-                    Name="diy_card1",
-                    Strength=10,
-                    Group=Group.Copper,
-                    Faction = Faction.Skellige,
+                    CardId ="70002",
+                    Name = "考德威尔伯爵",
+                    Strength = 6,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.ClanTuirseach},
-                    Flavor = "diy_card1_flavor",
-                    Info = "diy_card1_info",
-                    CardArtsId = "99999900",
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "择一：从牌库中打出一张战力不高于自身的铜色单位，在回合结束把它送进墓地；或吞噬牌库中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
+                    CardArtsId = "14800000",
                 }
             },
             {
-                "64041",//diy_card2
+                "70003",//哈蒙德
                 new GwentCard()
                 {
-                    CardId ="64041",
-                    Name="diy_card2",
-                    Strength=10,
-                    Group=Group.Copper,
-                    Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
-                    Flavor = "diy_card2_flavor",
-                    Info = "diy_card2_info",
-                    CardArtsId = "99999900",
-                }
-            },
-            {
-                "64042",//diy_card3
-                new GwentCard()
-                {
-                    CardId ="64042",
-                    Name="diy_card3",
-                    Strength=10,
-                    Group=Group.Copper,
+                    CardId ="70003",
+                    Name = "哈蒙德",
+                    Strength = 5,
+                    Group = Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -10594,11 +10576,151 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanTuirseach},
-                    Flavor = "diy_card3_flavor",
-                    Info = "diy_card3_info",
-                    CardArtsId = "99999900",
+                    Flavor = "",
+                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得3点强化。",
+                    CardArtsId = "18840000",
                 }
             },
+            {
+                "70004",//格莱尼斯·爱普·洛纳克
+                new GwentCard()
+                {
+                    CardId ="70004",
+                    Name = "格莱尼斯·爱普·洛纳克",
+                    Strength = 7,
+                    Group = Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Officer},
+                    Flavor = "",
+                    Info = "2护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    CardArtsId = "19360000",
+                }
+            },
+            {
+                "70005",//科沃的维索戈塔
+                new GwentCard()
+                {
+                    CardId ="70005",
+                    Name = "科沃的维索戈塔",
+                    Strength = 8,
+                    Group = Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Support},
+                    Flavor = "",
+                    Info = "部署：治愈1个友军单位，然后使其获得“免疫”。遗愿：所有友军单位失去“免疫”。",
+                    CardArtsId = "d17190000",
+                }
+            },
+            {
+                "70006",//湖中仙女
+                new GwentCard()
+                {
+                    CardId ="70006",
+                    Name = "湖中仙女",
+                    Strength = 25,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = true,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
+                    CardArtsId = "c10000000",
+                }
+            },
+            {
+                "70007",//先知雷比欧达
+                new GwentCard()
+                {
+                    CardId ="70007",
+                    Name = "先知雷比欧达",
+                    Strength = 8,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = true,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Doomed},
+                    Flavor = "",
+                    Info = "被放逐时，使场上所有友军单位获得1点增益。",
+                    CardArtsId = "d18600000",
+                }
+            },
+            {
+                "70008",//薇薇恩：月下金莺 
+                new GwentCard()
+                {
+                    CardId ="70008",
+                    Name = "薇薇恩：月下金莺",
+                    Strength = 10,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "",
+                    Info = "力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
+                    CardArtsId = "d13970000",
+                }
+            },
+            {
+                "70009",//蝠翼魔
+                new GwentCard()
+                {
+                    CardId ="70009",
+                    Name = "蝠翼魔",
+                    Strength = 5,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vampire},
+                    Flavor = "",
+                    Info = "部署：从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。",
+                    CardArtsId = "d14110000",
+                }
+            },
+            {
+                "70010",//原蝠翼魔
+                new GwentCard()
+                {
+                    CardId ="70010",
+                    Name = "原蝠翼魔",
+                    Strength = 7,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vampire},
+                    Flavor = "",
+                    Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
+                    CardArtsId = "d16770000",
+                }
+            }
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {
