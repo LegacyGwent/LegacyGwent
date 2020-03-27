@@ -526,5 +526,7 @@ namespace Cynthia.Card
         public const string LadyOfTheLake = "70006";
         public const string ProphetLebioda = "70007";
         public const string VivienneOriole = "70008";
+        public const string Fleder = "70009";
+        public const string Protofleder = "70010";
     }
 }
