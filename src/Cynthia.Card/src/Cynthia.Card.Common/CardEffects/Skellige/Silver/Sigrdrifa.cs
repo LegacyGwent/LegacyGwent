@@ -10,8 +10,8 @@ namespace Cynthia.Card
         public Sigrdrifa(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            //从我方墓地列出铜色/银色“家族单位”
-            var list = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.ClanDrummond, Categorie.ClanTuirseach, Categorie.ClanDimun, Categorie.ClanTordarroch, Categorie.ClanHeymaey, Categorie.ClanAnCraite, Categorie.ClanBrokvar));
+            //从我方墓地列出铜色/银色单位
+            var list = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver));
             if (list.Count() == 0)
             {
                 return 0;
