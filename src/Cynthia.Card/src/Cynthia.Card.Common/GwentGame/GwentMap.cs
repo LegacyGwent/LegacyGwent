@@ -10666,7 +10666,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70008",
-                    Name = "薇薇恩：月下金莺 ",
+                    Name = "薇薇恩：月下金莺",
                     Strength = 10,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
@@ -10681,6 +10681,46 @@ namespace Cynthia.Card
                     CardArtsId = "d13970000",
                 }
             },
+            {
+                "70009",//蝠翼魔
+                new GwentCard()
+                {
+                    CardId ="70009",
+                    Name = "蝠翼魔",
+                    Strength = 5,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vampire},
+                    Flavor = "",
+                    Info = "部署：从牌库召唤1张同名牌至同排。每当有敌方单位转为受伤状态时，获得1点增益。",
+                    CardArtsId = "d14110000",
+                }
+            },
+            {
+                "70010",//原蝠翼魔
+                new GwentCard()
+                {
+                    CardId ="70010",
+                    Name = "原蝠翼魔",
+                    Strength = 7,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vampire},
+                    Flavor = "",
+                    Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有敌方单位转为受伤状态时，获得2点增益。",
+                    CardArtsId = "d16770000",
+                }
+            }
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {
