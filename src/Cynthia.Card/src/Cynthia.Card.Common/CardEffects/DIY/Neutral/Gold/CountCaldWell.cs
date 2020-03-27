@@ -50,12 +50,10 @@ namespace Cynthia.Card
                 await Card.Effect.Consume(result.Single());
                 return 0;
             }
-            await Game.Debug("end");
             return 0;
         }
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            await Game.Debug("turn");
             if (_needKill && Card.Status.CardRow.IsOnPlace())
             {
                 if (_target.Status.CardRow.IsOnPlace())
