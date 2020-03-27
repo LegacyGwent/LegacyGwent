@@ -21,7 +21,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(BeforeCardDamage @event)
         {
-            if (@event.Target.PlayerIndex != PlayerIndex && Card.Status.CardRow.IsOnPlace() && !Card.IsDead)
+            if (@event.Target.PlayerIndex != PlayerIndex && Card.Status.CardRow.IsOnPlace() &&  @event.Target.Status.CardRow == Card.Status.CardRow &&!Card.IsDead)
             {
                 if (@event.Target.Status.HealthStatus >= 0)
                 {
