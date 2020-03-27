@@ -194,7 +194,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "放逐所有手牌，抽同等数量的牌。",
+                    Info = "丢弃所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
@@ -10677,7 +10677,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "部署：力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
+                    Info = "力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
                     CardArtsId = "d13970000",
                 }
             },
