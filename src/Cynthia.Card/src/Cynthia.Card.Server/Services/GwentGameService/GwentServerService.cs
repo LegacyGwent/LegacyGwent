@@ -173,21 +173,17 @@ namespace Cynthia.Card.Server
         public async Task<string> GetNotes(string connectionId)
         {
             await Task.CompletedTask;
-            return @"这里是是测试服/diy服,祝大家玩得开心~
+            return @"这里是是DIY-PTR服务器,祝大家玩得开心~
 查看实时在线人数可查网站http://cynthia.ovyno.com:5005
 欢迎加群闲聊约战~关注第一消息
 群号:945408322
 本作永久免费开源,详细欢迎入群了解:)
-这里是DIY-PTR服务器
-本服务器仅供测试diy卡牌效果使用
 
 注意事项: 
 1. 账号密码与原服务器分开，需要重新注册
-2. 随时有可能断线、更新内容
-3. 并不是所有更新内容都会说明
-
-目前调整:
-1. r2调度变为两张
+2. 有可能断线、更新内容
+3. 更新内容请参照https://shimo.im/docs/TQdjjwpPwd9hJhK
+    （群公告中可直接点开链接）
 ";
         }
         //-------------------------------------------------------------------------
