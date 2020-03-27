@@ -10697,7 +10697,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "部署：从牌库召唤1张同名牌至同排。每当有敌方单位转为受伤状态时，获得1点增益。",
+                    Info = "部署：从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。",
                     CardArtsId = "d14110000",
                 }
             },
@@ -10717,7 +10717,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有敌方单位转为受伤状态时，获得2点增益。",
+                    Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
                     CardArtsId = "d16770000",
                 }
             }
