@@ -36,9 +36,9 @@ namespace Cynthia.Card.Server
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
 
-        public Version GetCardMapVersion()
+        public string GetCardMapVersion()
         {
-            return GwentMap.CardMapVersion;
+            return GwentMap.CardMapVersion.ToString();
         }
 
         public string GetCardMap() => _gwentServerService.GetCardMap();
