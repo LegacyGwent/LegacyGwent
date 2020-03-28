@@ -13,8 +13,9 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             int myHandCardCount = Game.PlayersHandCard[PlayerIndex].Count();
-            int opponentHandCardCount = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Count();
-            
+            int opponentHandCardCount = Game.PlayersHandCard[Game.AnotherPlayer(Card.PlayerIndex)].Count();
+            await Game.Debug(myHandCardCount.ToString());
+            await Game.Debug(opponentHandCardCount.ToString());
             int boostTimes = 0;
             if (opponentHandCardCount > myHandCardCount)
             {
