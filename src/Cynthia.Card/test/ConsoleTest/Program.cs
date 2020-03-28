@@ -23,6 +23,7 @@ namespace ConsoleTest
             var tempData = cardData;
             Console.WriteLine(tempData.GetHashCode());
             Console.ReadLine();
+            await Task.CompletedTask;
         }
 
         static void SaveCardMap()
