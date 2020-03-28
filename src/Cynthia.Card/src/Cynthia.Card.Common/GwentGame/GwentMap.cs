@@ -6401,7 +6401,7 @@ namespace Cynthia.Card
                 {
                     CardId ="43003",
                     Name="巨魔魔",
-                    Strength=11,
+                    Strength=10,
                     Group=Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
