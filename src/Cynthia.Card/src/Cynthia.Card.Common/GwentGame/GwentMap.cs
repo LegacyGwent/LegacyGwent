@@ -6411,7 +6411,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid},
                     Flavor = "我是拉多多德国王的兵兵。收到命令，看守船船。",
-                    Info = "10战力。4点护甲，每回合开始时增加2点护甲。",
+                    Info = "10战力。4点护甲，己方回合开始时增加2点护甲。",
                     CardArtsId = "12220900",
                 }
             },
