@@ -179,7 +179,6 @@ namespace Cynthia.Card.Client
             sw.Write(cardMapJson);
             sw.Close();
             Debug.Log("写入完成");
-            AssetDatabase.Refresh();
         }
 
         public Task<string> GetCardMap()
