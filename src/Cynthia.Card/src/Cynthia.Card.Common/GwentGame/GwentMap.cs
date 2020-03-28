@@ -1192,7 +1192,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "永远别想分开母龙和她的孩子。",
-                    Info = "造成2点伤害，再重复2次。",
+                    Info = "部署：造成 3、2、1 点伤害。",
                     CardArtsId = "11220500",
                 }
             },
@@ -1393,7 +1393,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。",
-                    Info = "不限阵营地创造1个铜色/银色“龙兽”或“野兽”单位。",
+                    Info = "生成 1 只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
                     CardArtsId = "20008700",
                 }
             },
@@ -5587,7 +5587,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Support},
                     CrewCount = 1,
                     Flavor = "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。",
-                    Info = "使1个友军单位获得5点增益。\n操控。",
+                    Info = "操控。\n部署：使1个友军单位获得坚韧。",
                     CardArtsId = "16231300",
                 }
             },
@@ -6411,7 +6411,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid},
                     Flavor = "我是拉多多德国王的兵兵。收到命令，看守船船。",
-                    Info = "9点护甲。",
+                    Info = "10战力。4点护甲，每回合开始时增加2点护甲。",
                     CardArtsId = "12220900",
                 }
             },
