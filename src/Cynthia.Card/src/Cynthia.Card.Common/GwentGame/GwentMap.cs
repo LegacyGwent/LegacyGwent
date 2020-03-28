@@ -136,7 +136,7 @@ namespace Cynthia.Card
         //更新CardMap内容请务必将CardMapVersion更新
         public static Version CardMapVersion { get; } = new Version(1, 0, 0, 1);
 
-        public static IDictionary<string, GwentCard> CardMap { get; } = new Dictionary<string, GwentCard>
+        public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {
             //=========================================================================================================================================================================
             //以下是自动导入的代码
