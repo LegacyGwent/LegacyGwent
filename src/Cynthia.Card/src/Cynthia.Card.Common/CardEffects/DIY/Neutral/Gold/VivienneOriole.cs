@@ -13,10 +13,10 @@ namespace Cynthia.Card
         private const int thresholdPoint = 25;
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (_isUse = false && @event.PlayerIndex == PlayerIndex && Card.Status.CardRow.IsOnPlace())
+            if (_isUse == false && @event.PlayerIndex == PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
                 var pointDiff = Game.GetPlayersPoint(Card.PlayerIndex) - Game.GetPlayersPoint(Game.AnotherPlayer(Card.PlayerIndex));
-                if (pointDiff > 25)
+                if (pointDiff > thresholdPoint)
                 {
                     _isUse = true;
                     Card.Effect.Repair(true);

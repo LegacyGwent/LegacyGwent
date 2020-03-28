@@ -39,21 +39,26 @@ public class GaneEntrance : MonoBehaviour
     {
         try
         {
-            var version = new Version(await _gwentClientService.GetLatestVersion());
-            LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
-        }
-        catch
-        {
-            LatestVersionText.text = "未获取到最新版本号";
-        }
-        try
-        {
+            Debug.Log($"试图获取公告");
             NotesText.text = (await _gwentClientService.GetNotes()).Replace("\\n", "\n");
         }
         catch
         {
             NotesText.text = "暂未获取到公告。可能是由于服务器未打开或网络连接中断。";
         }
+
+        try
+        {
+            //var version = new Version(await _gwentClientService.GetLatestVersion());
+            //LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
+            await _gwentClientService.AutoUpdateCardMapVersion(LatestVersionText);
+        }
+        catch
+        {
+            LatestVersionText.text = "发生异常错误,可能原因: 文件损坏或未连接到服务器";
+        }
+
+
     }
 
     public void ConfigureGame()

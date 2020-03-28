@@ -3,14 +3,19 @@ using System.Reflection;
 using System.Collections.Concurrent;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Cynthia.Card.Server
 {
-    public class GwentCardTypeService
+    public class GwentCardDataService
     {
         private IDictionary<string, Type> _idDictionary;
 
-        public GwentCardTypeService()
+        private string _cardMapData;
+
+        public GwentCardDataService()
         {
             _idDictionary = new ConcurrentDictionary<string, Type>();
             var assembly = typeof(CardEffect).Assembly;
@@ -23,6 +28,14 @@ namespace Cynthia.Card.Server
                     _idDictionary.Add(cardId.Id, cardEffect);
                 }
             }
+
+            var cardMapString = JsonConvert.SerializeObject(GwentMap.CardMap);
+            _cardMapData = cardMapString;
+        }
+
+        public string GetCardMap()
+        {
+            return _cardMapData;
         }
 
         public Type GetType(string effectId)

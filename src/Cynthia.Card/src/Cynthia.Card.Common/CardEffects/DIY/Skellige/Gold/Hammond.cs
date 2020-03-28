@@ -39,7 +39,6 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(BeforeCardDamage @event)
         {
-            await Game.Debug("触发哈蒙德效果");
             //不在场上，返回
             if (!Card.Status.CardRow.IsOnPlace())
             {
