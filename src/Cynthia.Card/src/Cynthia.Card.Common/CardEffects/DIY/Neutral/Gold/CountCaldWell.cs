@@ -13,7 +13,6 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选择
-            await Game.Debug("play");
             var switchCard = await Card.GetMenuSwitch
             (
                 ("借刀", "从牌库中打出一张战力不高于自身的铜色单位，在回合结束把它送进墓地。"),
@@ -23,7 +22,7 @@ namespace Cynthia.Card
             if (switchCard == 0)
             {
                 _target = null;
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => (x.CardPoint() <= Card.CardPoint()) && x.Is(Group.Copper)).Mess(Game.RNG).ToList();
+                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => (x.CardPoint() <= Card.CardPoint()) && x.Is(Group.Copper, CardType.Unit)).Mess(Game.RNG).ToList();
                 if (list.Count() == 0) { return 0; }
                 //选一张
                 var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
@@ -50,12 +49,10 @@ namespace Cynthia.Card
                 await Card.Effect.Consume(result.Single());
                 return 0;
             }
-            await Game.Debug("end");
             return 0;
         }
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            await Game.Debug("turn");
             if (_needKill && Card.Status.CardRow.IsOnPlace())
             {
                 if (_target.Status.CardRow.IsOnPlace())

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using Alsein.Extensions;
 using Cynthia.Card;
 using Cynthia.Card.Server;
+using Newtonsoft.Json;
+using System.IO;
+using System.Text.Encodings;
+using System.Security.Cryptography;
 
 namespace ConsoleTest
 {
@@ -14,25 +18,24 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
-            await Task.CompletedTask;
-            // IDictionary<string, Type> _idDictionary = new ConcurrentDictionary<string, Type>();
-            // var assembly = typeof(CardEffect).Assembly;
-            // Type
-            // var cardEffects = assembly.GetTypes().Where(x => x.GetCustomAttributes(true).Any(a => a.GetType() == typeof(CardEffectIdAttribute)));
-            // foreach (var cardEffect in cardEffects)
-            // {
-            //     foreach (CardEffectIdAttribute cardId in cardEffect.GetCustomAttributes(typeof(CardEffectIdAttribute), true))
-            //     {
-            //         if (_idDictionary.ContainsKey(cardId.Id)) continue;
-            //         _idDictionary.Add(cardId.Id, cardEffect);
-            //     }
-            // }
-            // Console.WriteLine($"程序集扫描完成,总共扫描到{_idDictionary.Count}个卡牌效果");
-            // foreach (var item in _idDictionary)
-            // {
-            //     Console.WriteLine($"Id:{item.Key}, Value:{item.Value}");
-            // }
-            // Console.ReadLine();
+            var cardData = GwentMap.CardMap;
+            Console.WriteLine(cardData.GetHashCode());
+            var tempData = cardData;
+            Console.WriteLine(tempData.GetHashCode());
+            Console.ReadLine();
+        }
+
+        static void SaveCardMap()
+        {
+            var cardData = GwentMap.CardMap;
+            var jsonString = JsonConvert.SerializeObject(cardData);
+            Console.WriteLine(jsonString);
+            Console.WriteLine("写入中...");
+            var file = new StreamWriter("D:\\a.txt", false);
+            file.WriteLine(jsonString);
+            file.Close();
+            Console.WriteLine("写入完成");
+            Console.ReadLine();
         }
     }
 }

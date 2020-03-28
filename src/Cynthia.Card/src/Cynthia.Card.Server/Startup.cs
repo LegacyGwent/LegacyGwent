@@ -24,7 +24,7 @@ namespace Cynthia.Card.Server
             services.AddSignalR();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
-            services.AddSingleton<GwentCardTypeService>();
+            services.AddSingleton<GwentCardDataService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             if (_env.IsDevelopment())
