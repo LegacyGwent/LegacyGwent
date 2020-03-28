@@ -10634,7 +10634,7 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{ },
                     Flavor = "",
                     Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
@@ -10719,6 +10719,26 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
                     CardArtsId = "d16770000",
+                }
+            },
+            {
+                "70011",//湖中仙女：降临
+                new GwentCard()
+                {
+                    CardId ="70011",
+                    Name = "湖中仙女：降临",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "生成一张湖中仙女（25战力，部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。）",
+                    CardArtsId = "c10000000",
                 }
             }
         };
