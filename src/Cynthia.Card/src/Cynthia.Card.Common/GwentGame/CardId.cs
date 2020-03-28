@@ -529,5 +529,7 @@ namespace Cynthia.Card
         public const string Fleder = "70009";
         public const string Protofleder = "70010";
         public const string LadyOfTheLakeAdvent = "70011";
+        public const string ToussaintKnightErrant = "70012";
+        public const string CorruptedFlaminca = "70013";
     }
 }

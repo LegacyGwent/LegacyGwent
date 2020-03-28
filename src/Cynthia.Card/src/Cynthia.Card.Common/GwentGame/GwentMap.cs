@@ -10744,6 +10744,46 @@ namespace Cynthia.Card
                     Info = "生成一张湖中仙女（25战力，部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。）",
                     CardArtsId = "c10000000",
                 }
+            },
+            {
+                "70012",//陶森特游侠骑士
+                new GwentCard()
+                {
+                    CardId ="70012",
+                    Name = "陶森特游侠骑士",
+                    Strength = 8,
+                    Group = Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "",
+                    Info = "部署：己方手牌每比对手少1张，便获得一次4点增益。",
+                    CardArtsId = "d14280000",
+                }
+            },
+            {
+                "70013",//堕落的佛兰明妮卡
+                new GwentCard()
+                {
+                    CardId ="70013",
+                    Name = "堕落的佛兰明妮卡",
+                    Strength = 6,
+                    Group = Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
+                    Flavor = "",
+                    Info = "部署：弃掉牌库里一张倾盆大雨，然后在敌我双方同排降下倾盆大雨。",
+                    CardArtsId = "d16740000",
+                }
             }
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
