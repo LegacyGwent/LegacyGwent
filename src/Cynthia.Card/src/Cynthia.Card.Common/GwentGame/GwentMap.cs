@@ -134,7 +134,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 1);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 2);
 
         public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {
@@ -1192,7 +1192,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "永远别想分开母龙和她的孩子。",
-                    Info = "造成2点伤害，再重复2次。",
+                    Info = "部署：造成 3、2、1 点伤害。",
                     CardArtsId = "11220500",
                 }
             },
@@ -1393,7 +1393,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。",
-                    Info = "不限阵营地创造1个铜色/银色“龙兽”或“野兽”单位。",
+                    Info = "生成 1 只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
                     CardArtsId = "20008700",
                 }
             },
@@ -5587,7 +5587,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Support},
                     CrewCount = 1,
                     Flavor = "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。",
-                    Info = "使1个友军单位获得5点增益。\n操控。",
+                    Info = "操控。\n部署：使1个友军单位获得坚韧。",
                     CardArtsId = "16231300",
                 }
             },
@@ -6401,7 +6401,7 @@ namespace Cynthia.Card
                 {
                     CardId ="43003",
                     Name="巨魔魔",
-                    Strength=11,
+                    Strength=10,
                     Group=Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6411,7 +6411,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid},
                     Flavor = "我是拉多多德国王的兵兵。收到命令，看守船船。",
-                    Info = "9点护甲。",
+                    Info = "10战力。4点护甲，每回合开始时增加2点护甲。",
                     CardArtsId = "12220900",
                 }
             },
@@ -10638,7 +10638,7 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{ },
                     Flavor = "",
                     Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
@@ -10681,7 +10681,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
+                    Info = "力竭，己方回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
                     CardArtsId = "d13970000",
                 }
             },
@@ -10723,6 +10723,66 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
                     CardArtsId = "d16770000",
+                }
+            },
+            {
+                "70011",//湖中仙女：降临
+                new GwentCard()
+                {
+                    CardId ="70011",
+                    Name = "湖中仙女：降临",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "生成一张湖中仙女（25战力，部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。）",
+                    CardArtsId = "c10000000",
+                }
+            },
+            {
+                "70012",//陶森特游侠骑士
+                new GwentCard()
+                {
+                    CardId ="70012",
+                    Name = "陶森特游侠骑士",
+                    Strength = 8,
+                    Group = Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "",
+                    Info = "部署：己方手牌每比对手少1张，便获得一次4点增益。",
+                    CardArtsId = "d14280000",
+                }
+            },
+            {
+                "70013",//堕落的佛兰明妮卡
+                new GwentCard()
+                {
+                    CardId ="70013",
+                    Name = "堕落的佛兰明妮卡",
+                    Strength = 6,
+                    Group = Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
+                    Flavor = "",
+                    Info = "部署：从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
+                    CardArtsId = "d16740000",
                 }
             }
         };
