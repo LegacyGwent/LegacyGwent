@@ -528,5 +528,6 @@ namespace Cynthia.Card
         public const string VivienneOriole = "70008";
         public const string Fleder = "70009";
         public const string Protofleder = "70010";
+        public const string LadyOfTheLakeAdvent = "70011";
     }
 }
