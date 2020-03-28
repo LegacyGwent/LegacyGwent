@@ -10681,7 +10681,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
+                    Info = "力竭，己方回合结束时，如果己方战力超过对方25点以上，则返回手牌。",
                     CardArtsId = "d13970000",
                 }
             },
