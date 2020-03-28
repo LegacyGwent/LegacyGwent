@@ -7,7 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("70008")]//薇薇恩：月下金莺
 
     public class VivienneOriole : CardEffect, IHandlesEvent<AfterTurnOver>
-    {//力竭，回合结束时，如果己方战力超过对方25点以上，则返回手牌。
+    {//力竭，己方回合结束时，如果己方战力超过对方25点以上，则返回手牌。
         public VivienneOriole(GameCard card) : base(card) { }
         private bool _isUse = false;
         private const int thresholdPoint = 25;
