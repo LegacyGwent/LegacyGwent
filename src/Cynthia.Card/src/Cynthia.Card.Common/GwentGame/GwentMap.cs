@@ -10781,7 +10781,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
                     Flavor = "",
-                    Info = "部署：弃掉牌库里一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
+                    Info = "部署：从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
                 }
             }
