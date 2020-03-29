@@ -38,7 +38,7 @@ namespace Cynthia.Card
             else if (switchCard == 1)
             {
                 Card.CardPoint();
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => (x.CardPoint() > Card.CardPoint()) && x.Is(Group.Copper)).Mess(Game.RNG).ToList();
+                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => (x.CardPoint() > Card.CardPoint()) && x.Is(Group.Copper, CardType.Unit)).Mess(Game.RNG).ToList();
                 if (list.Count() == 0) { return 0; }
 
                 //让玩家选择一张卡
