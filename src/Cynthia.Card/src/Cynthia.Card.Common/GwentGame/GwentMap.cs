@@ -10639,7 +10639,7 @@ namespace Cynthia.Card
                     IsDoomed = true,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
                     Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
                     CardArtsId = "c10000000",
