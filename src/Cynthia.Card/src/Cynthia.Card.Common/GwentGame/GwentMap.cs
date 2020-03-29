@@ -10591,7 +10591,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70004",
                     Name = "格莱尼斯·爱普·洛纳克",
-                    Strength = 7,
+                    Strength = 6,
                     Group = Group.Gold,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10601,7 +10601,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "",
-                    Info = "2护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    Info = "1护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
                     CardArtsId = "19360000",
                 }
             },
