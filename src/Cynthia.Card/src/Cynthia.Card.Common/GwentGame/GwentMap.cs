@@ -10541,7 +10541,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "昆恩法印的故事",
-                    Info = "目前还是白板，等会再写程序",
+                    Info = "选择手牌中的一个铜色/银色单位，给予其和其在手牌和牌组中的同名卡2点增益和护盾。护盾可以阻挡一次伤害效果。已经有护盾的不能被选中。",
                     CardArtsId = "c10000100",
                 }
             },
