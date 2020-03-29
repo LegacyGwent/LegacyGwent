@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 {
                     _isUse = true;
                     Card.Effect.Repair(true);
-                    await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), Card);
+                    await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), Card, refreshPoint:true);
                 }
                 return;
             }
