@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class Hammond : CardEffect, IHandlesEvent<BeforeCardDamage>
     {//己方半场同排单位免疫来自灾厄的伤害。择一：生成一张史凯利格铜色机械单位；或使战场上所有友方机械获得3点强化。
         public Hammond(GameCard card) : base(card) { }
-        private const int strengthenPoint = 3;
+        private const int strengthenPoint = 2;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选择选项,设置每个选项的名字和效果

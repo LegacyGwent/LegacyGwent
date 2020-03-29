@@ -10581,7 +10581,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanTuirseach},
                     Flavor = "",
-                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得3点强化。",
+                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得2点强化。",
                     CardArtsId = "18840000",
                 }
             },
