@@ -422,6 +422,13 @@ namespace Cynthia.Card
             source = beforeEventPackage.Source;
             damageType = beforeEventPackage.DamageType;
 
+            //如果有护盾，取消这一次的伤害
+            if(Card.Status.IsShield)
+            {
+                Card.Status.IsShield=false;
+                return;
+            }
+
             if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
 
             //最高承受伤害,如果穿透的话,不考虑护甲
