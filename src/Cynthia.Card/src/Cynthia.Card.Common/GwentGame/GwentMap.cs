@@ -134,7 +134,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 2);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 3);
 
         public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {
@@ -6411,7 +6411,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid},
                     Flavor = "我是拉多多德国王的兵兵。收到命令，看守船船。",
-                    Info = "10战力。4点护甲，每回合开始时增加2点护甲。",
+                    Info = "10战力。4点护甲，己方回合开始时增加2点护甲。",
                     CardArtsId = "12220900",
                 }
             },
@@ -10541,7 +10541,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "昆恩法印的故事",
-                    Info = "目前还是白板，等会再写程序",
+                    Info = "选择手牌中的一个铜色/银色单位，给予其和其在手牌和牌组中的同名卡2点增益和护盾。护盾可以阻挡一次伤害效果。已经有护盾的不能被选中。",
                     CardArtsId = "c10000100",
                 }
             },
@@ -10581,7 +10581,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanTuirseach},
                     Flavor = "",
-                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得3点强化。",
+                    Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得2点强化。",
                     CardArtsId = "18840000",
                 }
             },
@@ -10591,7 +10591,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70004",
                     Name = "格莱尼斯·爱普·洛纳克",
-                    Strength = 7,
+                    Strength = 6,
                     Group = Group.Gold,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10601,7 +10601,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "",
-                    Info = "2护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    Info = "1护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
                     CardArtsId = "19360000",
                 }
             },
@@ -10639,9 +10639,9 @@ namespace Cynthia.Card
                     IsDoomed = true,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
+                    Info = "部署：对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。",
                     CardArtsId = "c10000000",
                 }
             },
@@ -10739,9 +10739,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（25战力，部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。）",
+                    Info = "生成一张湖中仙女（25战力，部署：对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
                 }
             },
@@ -10771,7 +10771,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70013",
                     Name = "堕落的佛兰明妮卡",
-                    Strength = 6,
+                    Strength = 8,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,

@@ -6,12 +6,12 @@ namespace Cynthia.Card
 {
     [CardEffectId("63017")]//茜格德莉法
     public class Sigrdrifa : CardEffect
-    {//复活1个铜色/银色“家族”单位。
+    {//复活1个铜色/银色单位。
         public Sigrdrifa(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //从我方墓地列出铜色/银色单位
-            var list = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver));
+            var list = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit);
             if (list.Count() == 0)
             {
                 return 0;

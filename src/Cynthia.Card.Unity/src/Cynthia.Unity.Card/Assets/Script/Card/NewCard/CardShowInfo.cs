@@ -59,6 +59,7 @@ public class CardShowInfo : MonoBehaviour
     public GameObject SpyingIcon;//间谍
     public GameObject Resilience;//坚韧
     public GameObject RevealIcon;//揭示
+    public GameObject ShieldIcon;//护盾
     //-----------------------------
     public Sprite CopperBorder;
     public Sprite SilverBorder;
@@ -119,6 +120,7 @@ public class CardShowInfo : MonoBehaviour
         if (CurrentCore.IsCardBack)
         {
             RevealIcon.SetActive(false);
+            ShieldIcon.SetActive(false);
             LockIcon.SetActive(false);
             Resilience.SetActive(false);
             SpyingIcon.SetActive(false);
@@ -161,6 +163,8 @@ public class CardShowInfo : MonoBehaviour
         }
         //揭示
         RevealIcon.SetActive(CurrentCore.IsReveal);
+        //护盾
+        ShieldIcon.SetActive(CurrentCore.IsShield);
         if (CardInfo.CardType == CardType.Special)
         {
             Strength.gameObject.SetActive(false);
