@@ -10641,7 +10641,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。",
+                    Info = "部署：对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。",
                     CardArtsId = "c10000000",
                 }
             },
@@ -10741,7 +10741,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（25战力，部署：对自身造成等同于己方牌组中剩余牌数量与手牌数量之和的削弱。）",
+                    Info = "生成一张湖中仙女（25战力，部署：对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
                 }
             },
