@@ -25,13 +25,13 @@ namespace Cynthia.Card
             foreach (var card in handCardList)
             {
                 card.Status.IsShield = true;
-                await Game.ShowSetCard(card);
+                await card.Effect.Boost(2, Card);
             }
 
             foreach (var card in deckCardList)
             {
                 card.Status.IsShield = true;
-                await Game.ShowSetCard(card);
+                await card.Effect.Boost(2, Card);
             }
             return 0;
         }
