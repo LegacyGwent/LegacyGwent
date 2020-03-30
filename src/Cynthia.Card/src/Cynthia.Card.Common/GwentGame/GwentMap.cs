@@ -10771,7 +10771,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70013",
                     Name = "堕落的佛兰明妮卡",
-                    Strength = 6,
+                    Strength = 8,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
