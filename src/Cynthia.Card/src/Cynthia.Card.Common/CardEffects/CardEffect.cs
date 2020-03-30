@@ -134,6 +134,9 @@ namespace Cynthia.Card
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
+            
+            //进入墓地后撤销护盾
+            Card.Status.IsShield=false;
 
             //立刻执行,将卡牌视作僵尸卡
             if (Card.CardPoint() != 0 && Card.Status.CardRow.IsOnPlace())
@@ -421,6 +424,14 @@ namespace Cynthia.Card
             num = beforeEventPackage.Num;
             source = beforeEventPackage.Source;
             damageType = beforeEventPackage.DamageType;
+
+            //如果有护盾，取消这一次的伤害
+            if(Card.Status.IsShield)
+            {
+                await Game.ShowSetCard(Card);
+                Card.Status.IsShield=false;
+                return;
+            }
 
             if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
 

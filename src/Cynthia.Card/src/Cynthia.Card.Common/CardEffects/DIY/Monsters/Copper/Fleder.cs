@@ -30,6 +30,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(BeforeCardDamage @event)
         {
+            _targetIsHealth = false;
             if (@event.Target.PlayerIndex != PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.Target.IsAnyGroup(Group.Copper, Group.Silver) && !Card.IsDead)
             {
                 if (@event.Target.Status.HealthStatus >= 0)

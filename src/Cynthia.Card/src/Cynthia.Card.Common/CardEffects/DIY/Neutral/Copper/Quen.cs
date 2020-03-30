@@ -6,20 +6,34 @@ namespace Cynthia.Card
 {
     [CardEffectId("70001")]//昆恩护盾
     public class Quen : CardEffect
-    {//给予手牌中一个铜色单位及其牌组中的同名卡一层护盾，阻挡一次削弱/伤害/重置效果。
+    {//选择手牌中的一个铜色/银色单位，给予其和其在手牌和牌组中的同名卡2点增益和护盾。护盾可以阻挡一次伤害效果。已经有护盾的不能被选中。
         public Quen(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        public override async Task<int> CardUseEffect()
         {
-            //打乱己方卡组,并且取2张铜色卡
-            var list = Game.PlayersDeck[Card.PlayerIndex]
-            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit).Mess(RNG).Take(2);
-            //让玩家选择一张卡
-            var result = await Game.GetSelectMenuCards
-            (Card.PlayerIndex, list.ToList(), 1, "选择打出一张牌");
-            //如果玩家一张卡都没选择,没有效果
-            if (result.Count() == 0) return 0;
-            await result.First().MoveToCardStayFirst();
-            return 1;
+            var unitHandCard = Game.PlayersHandCard[PlayerIndex]
+                .Where(x => x.Status.Type == CardType.Unit &&
+                    x.IsAnyGroup(Group.Copper, Group.Silver) &&
+                    x.Status.IsShield == false).ToList();
+            if (unitHandCard.Count() == 0) { return 0; }
+
+            var targetcards = await Game.GetSelectMenuCards(PlayerIndex, unitHandCard, isCanOver: false);
+            if (!targetcards.TrySingle(out var target)) { return 0; }
+
+            var deckCardList = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardId == target.CardInfo().CardId);
+            var handCardList = Game.PlayersHandCard[Card.PlayerIndex].Where(x => x.CardInfo().CardId == target.CardInfo().CardId);
+
+            foreach (var card in handCardList)
+            {
+                card.Status.IsShield = true;
+                await Game.ShowSetCard(card);
+            }
+
+            foreach (var card in deckCardList)
+            {
+                card.Status.IsShield = true;
+                await Game.ShowSetCard(card);
+            }
+            return 0;
         }
     }
 }
