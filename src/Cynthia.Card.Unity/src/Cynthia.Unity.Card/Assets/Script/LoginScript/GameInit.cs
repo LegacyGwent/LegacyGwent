@@ -10,8 +10,9 @@ using UnityEngine.Audio;
 using System;
 using UnityEngine.UI;
 using Cynthia.Card.Client;
+using Cynthia.Card;
 
-public class GaneEntrance : MonoBehaviour
+public class GameInit : MonoBehaviour
 {
     public GameObject GlobalUI;
     public GameObject AudioSound;
@@ -20,6 +21,7 @@ public class GaneEntrance : MonoBehaviour
     public Text NowVersionText;
     public Text LatestVersionText;
     public Text NotesText;
+    public RectTransform NotesContext;
 
     private GwentClientService _gwentClientService;
 
@@ -41,6 +43,8 @@ public class GaneEntrance : MonoBehaviour
         {
             Debug.Log($"试图获取公告");
             NotesText.text = (await _gwentClientService.GetNotes()).Replace("\\n", "\n");
+            LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
+            NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
         }
         catch
         {
@@ -53,12 +57,12 @@ public class GaneEntrance : MonoBehaviour
             //LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
             await _gwentClientService.AutoUpdateCardMapVersion(LatestVersionText);
         }
-        catch
+        catch (Exception e)
         {
-            LatestVersionText.text = "发生异常错误,可能原因: 文件损坏或未连接到服务器";
+            Debug.Log(e);
+            LatestVersionText.text = $"发生异常错误,可能原因:文件损坏或未连接到服务器  异常信息:{e.Message}";
         }
-
-
+        NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
     }
 
     public void ConfigureGame()

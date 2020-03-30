@@ -145,6 +145,7 @@ namespace Cynthia.Card.Client
 
         public IDictionary<string,GwentCard> ReadCardMapData()
         {
+#if UNITY_WIN
             var path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
@@ -155,6 +156,18 @@ namespace Cynthia.Card.Client
                 Debug.Log("路径不存在,返回默认");
                 return GwentMap.CardMap;
             }
+#elif UNITY_ANDROID
+            var path = Application.persistentDataPath + "/CardData.json";
+            if (!Directory.Exists(Application.persistentDataPath))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath);
+            }
+            if (!File.Exists(path))
+            {
+                Debug.Log("路径不存在,返回默认");
+                return GwentMap.CardMap;
+            }
+#endif
             StreamReader sr = new StreamReader(path);
             var data = sr.ReadToEnd();
             sr.Close();
@@ -165,16 +178,29 @@ namespace Cynthia.Card.Client
 
         public void WriteCardMapData(string cardMapJson)
         {
+#if UNITY_WIN
             var path = Application.dataPath + "/StreamingFile" + "/CardData.json";
-            if(!Directory.Exists(Application.dataPath + "/StreamingFile"))
+            if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
                 Directory.CreateDirectory(Application.dataPath + "/StreamingFile");
+            }
+            if (!File.Exists(path))
+            {
+                Debug.Log("路径不存在,创造路径");
+                File.Create(path);
+            }
+#elif UNITY_ANDROID
+            var path = Application.persistentDataPath + "/CardData.json";
+            if(!Directory.Exists(Application.persistentDataPath))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath);
             }
             if(!File.Exists(path))
             {
                 Debug.Log("路径不存在,创造路径");
                 File.Create(path);
             }
+#endif
             StreamWriter sw = new StreamWriter(path);
             sw.Write(cardMapJson);
             sw.Close();
