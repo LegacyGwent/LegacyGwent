@@ -145,6 +145,7 @@ namespace Cynthia.Card.Client
 
         public IDictionary<string,GwentCard> ReadCardMapData()
         {
+            var path = Application.persistentDataPath;
 #if UNITY_WIN
             var path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
@@ -178,6 +179,7 @@ namespace Cynthia.Card.Client
 
         public void WriteCardMapData(string cardMapJson)
         {
+            var path = Application.persistentDataPath;
 #if UNITY_WIN
             var path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
