@@ -6,8 +6,8 @@ namespace Cynthia.Card.Common.GwentGame
 {
     public class Balance
     {
-        public const int ComparePointMin = 1;
-        public const int ComparePointMax = 10;
+        public const int ComparePointMin = -5;
+        public const int ComparePointMax = 30;
 
         public const string ShowCardId = "12004";
     }
