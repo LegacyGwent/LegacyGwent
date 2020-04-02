@@ -72,7 +72,7 @@ namespace Cynthia.Card.Server
             await LogicDrawCard(Player2Index, 10);
             await DecideRedCoin();
             await SetAllInfo();//更新玩家所有数据
-            await ClientDelay(500);
+            await ClientDelay(800);
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
