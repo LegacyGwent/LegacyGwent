@@ -10784,6 +10784,26 @@ namespace Cynthia.Card
                     Info = "部署：从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
                 }
+            },
+            {
+                "70014",//童话国度
+                new GwentCard()
+                {
+                    CardId ="70014",
+                    Name = "童话国度：公正女神",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Special},
+                    Flavor = "",
+                    Info = "双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。",
+                    CardArtsId = "d17010000",
+                }
             }
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
