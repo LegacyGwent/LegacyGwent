@@ -23,7 +23,7 @@ namespace Cynthia.Card
             {
                 await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                 Card.Status.IsDoomed = true;
-                await Game.ClientDelay(200);
+                await Game.ClientDelay(800);
             }
             return;
         }
