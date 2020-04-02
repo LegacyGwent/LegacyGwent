@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 using Alsein.Extensions.Extensions;
+using Cynthia.Card.Common.GwentGame;
 
 namespace Cynthia.Card.Server
 {
@@ -67,6 +68,7 @@ namespace Cynthia.Card.Server
             //###游戏开始###
             //双方抽牌10张
             await SendEvent(new OnGameStart());
+            await DecideRedCoin();
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
             await SetAllInfo();//更新玩家所有数据
@@ -81,6 +83,42 @@ namespace Cynthia.Card.Server
             }
             //-----------------------------------------------------------------------------------------
             await GameOverExecute();//发送游戏结束信息
+        }
+
+        private async Task DecideRedCoin()
+        {
+            var selectList = new List<CardStatus>();
+            var cardId = Balance.ShowCardId;
+            var playerIndex = RedCoin[0];
+            for (int i = Balance.ComparePointMin; i <= Balance.ComparePointMax; i++)
+            {
+                selectList.Add(new CardStatus(cardId) {Name = i.ToString(),Strength = i});
+            }
+            var task1 = GetSelectMenuCards(Player1Index, selectList, isCanOver: false, title: "请选择你认为后手价值的点数");
+            var task2 = GetSelectMenuCards(Player2Index, selectList, isCanOver: false, title: "请选择你认为后手价值的点数");
+            await Task.WhenAll(task1, task2);
+            var result1 = task1.Result[0];
+            var result2 = task2.Result[0];
+            if (result1 > result2)
+            {
+                GameRound = TwoPlayer.Player2;
+            }else if (result1 < result2)
+            {
+                GameRound = TwoPlayer.Player1;
+            }
+
+            playerIndex = GameRound.ToPlayerIndex(this);
+            RedCoin[0] = playerIndex;
+            var balancePoint = Math.Max(result2,result1);
+            if (balancePoint != 0)
+            {
+                var newCard = new GameCard(this,playerIndex,new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.MyRow2), cardId);
+                    
+                newCard.Status.Strength = balancePoint + 1;
+                newCard.Status.IsDoomed = true;
+                newCard.Status.IsImmue = true;
+                PlayersPlace[playerIndex][1].Add(newCard);
+            }
         }
 
         public async Task Play()
