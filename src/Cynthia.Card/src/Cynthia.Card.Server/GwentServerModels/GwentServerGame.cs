@@ -68,10 +68,11 @@ namespace Cynthia.Card.Server
             //###游戏开始###
             //双方抽牌10张
             await SendEvent(new OnGameStart());
-            await DecideRedCoin();
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
+            await DecideRedCoin();
             await SetAllInfo();//更新玩家所有数据
+            await ClientDelay(500);
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
@@ -97,8 +98,8 @@ namespace Cynthia.Card.Server
             var task1 = GetSelectMenuCards(Player1Index, selectList, isCanOver: false, title: "请选择你认为后手价值的点数");
             var task2 = GetSelectMenuCards(Player2Index, selectList, isCanOver: false, title: "请选择你认为后手价值的点数");
             await Task.WhenAll(task1, task2);
-            var result1 = task1.Result[0];
-            var result2 = task2.Result[0];
+            var result1 = task1.Result[0] + Balance.ComparePointMin;
+            var result2 = task2.Result[0] + Balance.ComparePointMin;
             if (result1 > result2)
             {
                 GameRound = TwoPlayer.Player2;
@@ -114,8 +115,8 @@ namespace Cynthia.Card.Server
             {
                 var newCard = new GameCard(this,playerIndex,new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.MyRow2), cardId);
                     
-                newCard.Status.Strength = balancePoint + 1;
-                newCard.Status.IsDoomed = true;
+                newCard.Status.Strength = balancePoint;
+                // 这里移走了佚亡，是因为需要卡牌在墓地触发效果。效果触发完后，再加上佚亡。
                 newCard.Status.IsImmue = true;
                 PlayersPlace[playerIndex][1].Add(newCard);
             }
