@@ -9,6 +9,6 @@ namespace Cynthia.Card.Common.GwentGame
         public const int ComparePointMin = -5;
         public const int ComparePointMax = 30;
 
-        public const string ShowCardId = "12004";
+        public const string ShowCardId = "70014";
     }
 }
