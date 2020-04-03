@@ -10786,7 +10786,8 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70014",//童话国度
+
+                "70014",//童话国度：公正女神
                 new GwentCard()
                 {
                     CardId ="70014",
@@ -10799,9 +10800,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Special},
+                    Categories = new Categorie[]{ },
                     Flavor = "",
-                    Info = "双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。",
+                    Info = "双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。\n免疫。无法被复活、强化、削弱、增益、伤害、魅惑。",
                     CardArtsId = "d17010000",
                 }
             }
