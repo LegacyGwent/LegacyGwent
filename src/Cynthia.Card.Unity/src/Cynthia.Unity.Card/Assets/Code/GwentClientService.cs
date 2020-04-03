@@ -147,7 +147,7 @@ namespace Cynthia.Card.Client
         {
             var path = Application.persistentDataPath;
 #if UNITY_WIN
-            var path = Application.dataPath + "/StreamingFile" + "/CardData.json";
+            path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
                 Directory.CreateDirectory(Application.dataPath + "/StreamingFile");
@@ -158,7 +158,7 @@ namespace Cynthia.Card.Client
                 return GwentMap.CardMap;
             }
 #elif UNITY_ANDROID
-            var path = Application.persistentDataPath + "/CardData.json";
+            path = Application.persistentDataPath + "/CardData.json";
             if (!Directory.Exists(Application.persistentDataPath))
             {
                 Directory.CreateDirectory(Application.persistentDataPath);
@@ -181,7 +181,7 @@ namespace Cynthia.Card.Client
         {
             var path = Application.persistentDataPath;
 #if UNITY_WIN
-            var path = Application.dataPath + "/StreamingFile" + "/CardData.json";
+            path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
                 Directory.CreateDirectory(Application.dataPath + "/StreamingFile");
@@ -192,7 +192,7 @@ namespace Cynthia.Card.Client
                 File.Create(path);
             }
 #elif UNITY_ANDROID
-            var path = Application.persistentDataPath + "/CardData.json";
+            path = Application.persistentDataPath + "/CardData.json";
             if(!Directory.Exists(Application.persistentDataPath))
             {
                 Directory.CreateDirectory(Application.persistentDataPath);
