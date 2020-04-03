@@ -126,11 +126,11 @@ namespace Cynthia.Card
         }
 
         //使卡牌"进入墓地"
-        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true)
         {
-            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type);
+            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish:isNeedBanish);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
@@ -139,7 +139,7 @@ namespace Cynthia.Card
             Card.Status.IsShield=false;
 
             //立刻执行,将卡牌视作僵尸卡
-            if (Card.CardPoint() != 0 && Card.Status.CardRow.IsOnPlace())
+            if (Card.CardPoint() > 0 && Card.Status.CardRow.IsOnPlace())
             {
                 Card.Status.HealthStatus = -Card.Status.Strength;
             }
@@ -169,7 +169,7 @@ namespace Cynthia.Card
                     {
                         await Game.ShowCardOn(Card);
                         await Game.ClientDelay(50);
-                        if (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
+                        if (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
                         {
                             await Banish();
                             return;
@@ -187,7 +187,7 @@ namespace Cynthia.Card
             });
             async Task sendEventTask()
             {
-                if (Card.Status.IsDoomed || (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
+                if (Card.Status.IsDoomed || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
                     return;
