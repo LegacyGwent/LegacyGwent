@@ -70,9 +70,8 @@ namespace Cynthia.Card.Server
             await SendEvent(new OnGameStart());
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
             await LogicDrawCard(Player2Index, 10);
+            await SetAllInfo();
             await DecideRedCoin();
-            await SetAllInfo();//更新玩家所有数据
-            await ClientDelay(800);
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
             await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
@@ -113,13 +112,17 @@ namespace Cynthia.Card.Server
             var balancePoint = Math.Max(result2,result1);
             if (balancePoint != 0)
             {
-                var newCard = new GameCard(this,playerIndex,new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.MyRow2), cardId);
-                    
+                var newCard = await CreateCard(cardId, playerIndex,new CardLocation(RowPosition.MyRow1, 0));
                 newCard.Status.Strength = balancePoint;
+                
                 // 这里移走了佚亡，是因为需要卡牌在墓地触发效果。效果触发完后，再加上佚亡。
                 newCard.Status.IsImmue = true;
-                PlayersPlace[playerIndex][1].Add(newCard);
+                await ShowCardNumberChange(newCard, balancePoint, NumberType.White);
+                await ClientDelay(50);
+                await ShowSetCard(newCard);
+                await SetPointInfo();
             }
+            await ClientDelay(1000);
         }
 
         public async Task Play()
