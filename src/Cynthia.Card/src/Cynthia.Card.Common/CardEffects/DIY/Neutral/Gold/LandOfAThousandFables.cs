@@ -5,7 +5,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70014")]//童话国度：公正女神
     public class LandOfAThousandFables : CardEffect, IHandlesEvent<AfterPlayerPass>, IHandlesEvent<BeforeRoundStart>
-    {//双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。免疫。
+    {//游戏开始时，将本卡置入墓地。\n双方都放弃跟牌后，给先手方增加自身战力的点数，然后放逐自身。\n免疫。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。
         public LandOfAThousandFables(GameCard card) : base(card) { }
         private int passedCount = 0;
         public async Task HandleEvent(BeforeRoundStart @event)
