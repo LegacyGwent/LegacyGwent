@@ -5,19 +5,25 @@ namespace Cynthia.Card
 {
     [CardEffectId("70014")]//童话国度：公正女神
     public class LandOfAThousandFables : CardEffect, IHandlesEvent<AfterPlayerPass>, IHandlesEvent<BeforeRoundStart>
-    {//双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。无法被复活、强化、削弱、增益、伤害、魅惑。免疫。
+    {//双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。免疫。
         public LandOfAThousandFables(GameCard card) : base(card) { }
         private int passedCount = 0;
         public async Task HandleEvent(BeforeRoundStart @event)
         {
+            // 游戏开始的时候，在场上让玩家看清楚战力，然后送入墓地
             Card.Status.IsImmue = true;
             await Game.ClientDelay(200);
             // 延迟是为了先在场上让玩家看清楚战力，然后移到墓地里。
-            await Card.Effect.ToCemetery(isNeedBanish:false);
+            
+            // 这里override ToCemetery比较麻烦，选择了加入两个新参数，取消banish和sendevent
+            await Card.Effect.ToCemetery(isNeedBanish:false, isNeedSentEvent:false);
             return;
         }
         public async Task HandleEvent(AfterPlayerPass @event)
         {
+            // 如果双方都pass，从墓地移动到场上（不算复活），如果场地满了，给场上任意一个单位加战力（不算增益）
+            // 考虑到“场地满了”，本身触发的几率就比较小（只有铺场吞有这个潜力）
+            // 并且此时游戏本身也会出bug，（比如吞噬鸟蛋），所以等游戏本身的bug修复了，再考虑本卡“如果场地满了”的效果的修订
             passedCount += 1;
             if (passedCount == 2)
             {
@@ -25,7 +31,6 @@ namespace Cynthia.Card
                 //如果场地没满，转移到场地上，不属于复活。
                 if (Game.GetRandomRow(PlayerIndex, out var rowIndex))
                 {
-                    await Game.Debug("RESSSSS");
                     var location = new CardLocation(rowIndex.Value, 0);
                     var rowCards = Game.RowToList(Card.PlayerIndex, location.RowPosition);
                     if (location.CardIndex > rowCards.Count)
@@ -71,7 +76,15 @@ namespace Cynthia.Card
             return;
         }
 
-        // 下面override一些方法，使得本卡无法被复活、强化、削弱、增益、伤害、魅惑
+        // 下面override一些方法，使得本卡无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形
+
+        public override async Task Summon(CardLocation location, GameCard source)//召唤
+        {
+            // 无法被召唤
+            await Task.CompletedTask;
+            return;
+        }
+
         public override async Task Resurrect(CardLocation location, GameCard source)//复活
         {
             // 无法被复活
@@ -110,6 +123,13 @@ namespace Cynthia.Card
         public override async Task Charm(GameCard source)//被魅惑
         {
             // 无法被魅惑
+            await Task.CompletedTask;
+            return;
+        }
+
+        public override async Task Transform(string cardId, GameCard source, System.Action<GameCard> setting = null, bool isForce = false)//变为
+        {
+            // 无法被变形
             await Task.CompletedTask;
             return;
         }

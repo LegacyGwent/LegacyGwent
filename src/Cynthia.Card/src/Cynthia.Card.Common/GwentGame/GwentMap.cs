@@ -10802,7 +10802,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ },
                     Flavor = "",
-                    Info = "双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。\n免疫。无法被复活、强化、削弱、增益、伤害、魅惑。",
+                    Info = "双方都放弃跟牌后，给先手方战力增加自身战力的点数，然后放逐自身。\n免疫。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。",
                     CardArtsId = "d17010000",
                 }
             }
