@@ -126,11 +126,11 @@ namespace Cynthia.Card
         }
 
         //使卡牌"进入墓地"
-        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true, bool isNeedSentEvent=false)
         {
-            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type);
+            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish:isNeedBanish, isNeedSentEvent:isNeedSentEvent);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery)
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true, bool isNeedSentEvent=true)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
@@ -139,7 +139,7 @@ namespace Cynthia.Card
             Card.Status.IsShield=false;
 
             //立刻执行,将卡牌视作僵尸卡
-            if (Card.CardPoint() != 0 && Card.Status.CardRow.IsOnPlace())
+            if (Card.CardPoint() > 0 && Card.Status.CardRow.IsOnPlace())
             {
                 Card.Status.HealthStatus = -Card.Status.Strength;
             }
@@ -169,7 +169,7 @@ namespace Cynthia.Card
                     {
                         await Game.ShowCardOn(Card);
                         await Game.ClientDelay(50);
-                        if (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
+                        if (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
                         {
                             await Banish();
                             return;
@@ -187,22 +187,22 @@ namespace Cynthia.Card
             });
             async Task sendEventTask()
             {
-                if (Card.Status.IsDoomed || (Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
+                if (Card.Status.IsDoomed || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
                     return;
                 }
-                if (Card.Status.CardRow != RowPosition.Banish)
+                if ((Card.Status.CardRow != RowPosition.Banish) && isNeedSentEvent)
                     await Game.SendEvent(new AfterCardToCemetery(Card, deadposition, isRoundEnd));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
                 if (!isRoundEnd)
                 {
-                    if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
+                    if (isNeedSentEvent && isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
                     {
                         await Game.SendEvent(new AfterCardDeath(Card, deadposition));
                     }
-                    else if (discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
+                    else if (isNeedSentEvent && discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
                     {
                         await Game.SendEvent(new AfterCardDiscard(Card, discardInfo.discardSource));
                     }
