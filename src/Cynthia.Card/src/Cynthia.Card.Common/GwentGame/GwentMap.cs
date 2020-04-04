@@ -10841,7 +10841,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "",
-                    Info = "部署：选择手牌中的一张同名牌，丢弃所有牌组中该牌的同名牌。",
+                    Info = "部署：选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "d18870000",
                 }
             }
