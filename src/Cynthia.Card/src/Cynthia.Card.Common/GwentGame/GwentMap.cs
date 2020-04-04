@@ -10784,6 +10784,27 @@ namespace Cynthia.Card
                     Info = "部署：从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
                 }
+            },
+            {
+
+                "70014",//童话国度：公正女神
+                new GwentCard()
+                {
+                    CardId ="70014",
+                    Name = "童话国度：公正女神",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ },
+                    Flavor = "",
+                    Info = "游戏开始时，将本卡置入墓地。\n双方都放弃跟牌后，给先手方增加自身战力的点数，然后放逐自身。\n免疫。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。",
+                    CardArtsId = "d17010000",
+                }
             }
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)

@@ -531,5 +531,6 @@ namespace Cynthia.Card
         public const string LadyOfTheLakeAdvent = "70011";
         public const string ToussaintKnightErrant = "70012";
         public const string CorruptedFlaminca = "70013";
+        public const string LandOfAThousandFables = "70014";
     }
 }
