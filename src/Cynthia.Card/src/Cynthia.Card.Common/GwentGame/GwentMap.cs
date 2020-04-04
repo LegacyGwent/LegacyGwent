@@ -10805,6 +10805,45 @@ namespace Cynthia.Card
                     Info = "游戏开始时，将本卡置入墓地。\n双方都放弃跟牌后，给先手方增加自身战力的点数，然后放逐自身。\n免疫。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。",
                     CardArtsId = "d17010000",
                 }
+            },{
+                "70015",//布洛克莱昂哨兵
+                new GwentCard()
+                {
+                    CardId ="70015",
+                    Name = "布洛克莱昂哨兵",
+                    Strength = 8,
+                    Group = Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Dryad},
+                    Flavor = "",
+                    Info = "己方回合结束时，如果对手同排单位数量正好为4个，则对对方同排所有单位造成1点伤害。",
+                    CardArtsId = "d14380000",
+                }
+            },
+            {
+                "70016",//苏克鲁斯
+                new GwentCard()
+                {
+                    CardId ="70016",
+                    Name = "苏克鲁斯",
+                    Strength = 8,
+                    Group = Group.Silver,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{},
+                    Flavor = "",
+                    Info = "部署：选择手牌中的一张同名牌，丢弃所有牌组中该牌的同名牌。",
+                    CardArtsId = "d18870000",
+                }
             }
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
