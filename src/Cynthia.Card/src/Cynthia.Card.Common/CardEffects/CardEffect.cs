@@ -130,7 +130,7 @@ namespace Cynthia.Card
         {
             return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish: isNeedBanish, isNeedSentEvent: isNeedSentEvent);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = false)
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = true)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
