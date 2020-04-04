@@ -126,11 +126,11 @@ namespace Cynthia.Card
         }
 
         //使卡牌"进入墓地"
-        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true)
+        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true, bool isNeedSentEvent=false)
         {
-            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish:isNeedBanish);
+            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish:isNeedBanish, isNeedSentEvent:isNeedSentEvent);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true)
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true, bool isNeedSentEvent=true)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
@@ -192,17 +192,17 @@ namespace Cynthia.Card
                     await Banish();
                     return;
                 }
-                if (Card.Status.CardRow != RowPosition.Banish)
+                if ((Card.Status.CardRow != RowPosition.Banish) && isNeedSentEvent)
                     await Game.SendEvent(new AfterCardToCemetery(Card, deadposition, isRoundEnd));
                 //8888888888888888888888888888888888888888888888888888888888888888888888
                 //进入墓地(遗愿),应该触发对应事件<暂未定义,待补充>
                 if (!isRoundEnd)
                 {
-                    if (isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
+                    if (isNeedSentEvent && isDead && Card.Status.CardRow != RowPosition.Banish)//如果从场上进入墓地,并且没有被放逐
                     {
                         await Game.SendEvent(new AfterCardDeath(Card, deadposition));
                     }
-                    else if (discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
+                    else if (isNeedSentEvent && discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
                     {
                         await Game.SendEvent(new AfterCardDiscard(Card, discardInfo.discardSource));
                     }
