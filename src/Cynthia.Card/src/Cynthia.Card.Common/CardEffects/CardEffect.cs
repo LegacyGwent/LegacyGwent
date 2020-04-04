@@ -126,17 +126,17 @@ namespace Cynthia.Card
         }
 
         //使卡牌"进入墓地"
-        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true, bool isNeedSentEvent=false)
+        public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = true)
         {
-            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish:isNeedBanish, isNeedSentEvent:isNeedSentEvent);
+            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish: isNeedBanish, isNeedSentEvent: isNeedSentEvent);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish=true, bool isNeedSentEvent=true)
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = false)
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
-            
+
             //进入墓地后撤销护盾
-            Card.Status.IsShield=false;
+            Card.Status.IsShield = false;
 
             //立刻执行,将卡牌视作僵尸卡
             if (Card.CardPoint() > 0 && Card.Status.CardRow.IsOnPlace())
@@ -426,10 +426,10 @@ namespace Cynthia.Card
             damageType = beforeEventPackage.DamageType;
 
             //如果有护盾，取消这一次的伤害
-            if(Card.Status.IsShield)
+            if (Card.Status.IsShield)
             {
                 await Game.ShowSetCard(Card);
-                Card.Status.IsShield=false;
+                Card.Status.IsShield = false;
                 return;
             }
 

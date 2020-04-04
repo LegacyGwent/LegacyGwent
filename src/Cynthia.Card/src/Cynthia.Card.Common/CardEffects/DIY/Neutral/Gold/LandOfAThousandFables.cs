@@ -14,9 +14,9 @@ namespace Cynthia.Card
             Card.Status.IsImmue = true;
             await Game.ClientDelay(200);
             // 延迟是为了先在场上让玩家看清楚战力，然后移到墓地里。
-            
+
             // 这里override ToCemetery比较麻烦，选择了加入两个新参数，取消banish和sendevent
-            await Card.Effect.ToCemetery(isNeedBanish:false, isNeedSentEvent:false);
+            await Card.Effect.ToCemetery(isNeedBanish: false, isNeedSentEvent: false);
             return;
         }
         public async Task HandleEvent(AfterPlayerPass @event)
@@ -105,7 +105,7 @@ namespace Cynthia.Card
             await Task.CompletedTask;
             return;
         }
-        
+
         public override async Task Boost(int num, GameCard source)
         {
             // 无法被增益
