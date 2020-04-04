@@ -112,6 +112,8 @@ namespace Cynthia.Card.Server
             var balancePoint = Math.Max(result2,result1);
             if (balancePoint != 0)
             {
+                // 这里使用CreateCard会sendEvent，但是全部剥离目前我做不到:(
+                // 但目前没有这个时间点发效果的卡牌，所以现阶段这样子应该没问题
                 var newCard = await CreateCard(cardId, playerIndex,new CardLocation(RowPosition.MyRow1, 0));
                 newCard.Status.Strength = balancePoint;
                 
