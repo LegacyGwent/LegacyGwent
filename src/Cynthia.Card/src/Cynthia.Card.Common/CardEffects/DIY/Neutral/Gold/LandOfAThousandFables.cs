@@ -41,10 +41,8 @@ namespace Cynthia.Card
                     if (location.RowPosition.IsOnPlace())
                     {
                         await Game.ShowCardOn(Card);
-                        await Game.AddTask(async () =>
-                        {
-                            await CardDown(false, false, false, (false, false));
-                        });
+                        await Game.ShowCardDown(Card);
+                        await Game.SetPointInfo();
                     }
                     // 清理战场时会被放逐
                     Card.Status.IsDoomed = true;
