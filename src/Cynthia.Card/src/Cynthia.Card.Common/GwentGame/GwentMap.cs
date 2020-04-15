@@ -33,6 +33,29 @@ namespace Cynthia.Card
             .Select(x => x.Key);
         }
 
+        public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
+        {
+            var step1 = deck.Select(x => CardMap[x]);
+            return step1.Select(x => new GwentCard()
+            {
+                Categories = x.Categories,
+                Faction = x.Faction,
+                Flavor = x.Flavor,
+                Group = x.Group,
+                Info = x.Info,
+                Name = x.Name,
+                Strength = x.Strength,
+                //-------
+                CardId = x.CardId,
+                IsCountdown = x.IsCountdown,
+                Countdown = x.Countdown,
+                IsDoomed = x.IsDoomed,
+                CardArtsId = x.CardArtsId,
+                CardType = x.CardType,
+                CardUseInfo = x.CardUseInfo,
+            });
+        }
+
         public static IDictionary<Categorie, string> CategorieInfoMap { get; } = new Dictionary<Categorie, string>()
         {
             { Categorie.DoubleAgent, "双面间谍" },
@@ -4818,12 +4841,12 @@ namespace Cynthia.Card
                     Strength=1,
                     Group=Group.Gold,
                     Faction = Faction.Nilfgaard,
-                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Categories = new Categorie[]{ Categorie.Witcher,Categorie.DoubleAgent},
                     Flavor = "猎魔人绝不会死在自己的床上。",
                     Info = "间谍。改变同排2个单位的锁定状态，随后汲食它们的所有战力。",
                     CardArtsId = "16210100",
@@ -5199,12 +5222,12 @@ namespace Cynthia.Card
                     Strength=1,
                     Group=Group.Silver,
                     Faction = Faction.Nilfgaard,
-                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardUseInfo = CardUseInfo.AnyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Mage},
+                    Categories = new Categorie[]{ Categorie.Mage,Categorie.DoubleAgent},
                     Flavor = "魔法的价值高于一切，高于所有争论和敌意。",
                     Info = "间谍。将左侧单位的战力复制给右侧单位。",
                     CardArtsId = "16220500",
@@ -10790,7 +10813,7 @@ namespace Cynthia.Card
                 "70014",//童话国度：公正女神
                 new GwentCard()
                 {
-                    CardId ="70014",
+                    CardId = "70014",
                     Name = "童话国度：公正女神",
                     Strength = 0,
                     Group = Group.Gold,
@@ -10809,7 +10832,7 @@ namespace Cynthia.Card
                 "70015",//布洛克莱昂哨兵
                 new GwentCard()
                 {
-                    CardId ="70015",
+                    CardId = "70015",
                     Name = "布洛克莱昂哨兵",
                     Strength = 8,
                     Group = Group.Copper,
@@ -10829,7 +10852,7 @@ namespace Cynthia.Card
                 "70016",//苏克鲁斯
                 new GwentCard()
                 {
-                    CardId ="70016",
+                    CardId = "70016",
                     Name = "苏克鲁斯",
                     Strength = 8,
                     Group = Group.Silver,
@@ -10839,34 +10862,32 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{},
+                    Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "",
                     Info = "部署：选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "d18870000",
                 }
-            }
-        };
-        public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
-        {
-            var step1 = deck.Select(x => CardMap[x]);
-            return step1.Select(x => new GwentCard()
+            },
             {
-                Categories = x.Categories,
-                Faction = x.Faction,
-                Flavor = x.Flavor,
-                Group = x.Group,
-                Info = x.Info,
-                Name = x.Name,
-                Strength = x.Strength,
-                //-------
-                CardId = x.CardId,
-                IsCountdown = x.IsCountdown,
-                Countdown = x.Countdown,
-                IsDoomed = x.IsDoomed,
-                CardArtsId = x.CardArtsId,
-                CardType = x.CardType,
-                CardUseInfo = x.CardUseInfo,
-            });
-        }
+                "70017",//辛特拉战地医师
+                new GwentCard()
+                {
+                    CardId = "70017",
+                    Name = "辛特拉战地医师",
+                    Strength = 5,
+                    Group = Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Support},
+                    Flavor = "",
+                    Info = "部署：将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。",
+                    CardArtsId = "d17110000",
+                }
+            },
+        };
     }
 }
