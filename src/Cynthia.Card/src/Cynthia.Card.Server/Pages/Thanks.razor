@@ -5,7 +5,8 @@
 
 <h3>目前投食总量为:@_sponsorRecord.Sum(x=>x.Money)</h3>
 <h4>因支付宝显示实名,所以支付宝投食保密,支付宝投食注意填写附加显示信息</h4>
-<h4>有意保密或者显示保密内容,可联系群主进行更新qwq,感谢大家的支持</h4>
+<h4>投食统计可能有遗漏,如有发现可联系作者进行补充</h4>
+<h4>有意保密或者显示保密内容,可联系群主进行更新,感谢大家的支持</h4>
 
 <table>
 @foreach (var item in _sponsorRecord)
@@ -28,10 +29,8 @@
 </table>
 
 <br/><br/>
-<h2>以及感谢所有玩家和群友,感谢所有人的鼓励关注和支持~</h2>
 
 <p>由于完全不懂css,无法做的很漂亮qvq,还请见谅</p>
-<p>(19年10月后的投食统计不完全,如果有遗漏可联系作者qq进行补充)</p>
 
 @code
 {
@@ -59,6 +58,20 @@
     protected override void OnInitialized()
     {
         _sponsorRecord = new List<SponsorInfo>(){
+    new SponsorInfo("","支柱杯第二届了，可以啊，加油加油！",100, new DateTime(2020,4,7)),
+    new SponsorInfo("","支柱加油",100, new DateTime(2020,3,28)),
+    new SponsorInfo("","",100, new DateTime(2020,3,22)),
+    new SponsorInfo("","",50, new DateTime(2020,3,9)),
+    new SponsorInfo("","加油，还是很喜欢老昆特的",5, new DateTime(2020,3,9)),
+    new SponsorInfo("","",30, new DateTime(2020,2,26)),
+    new SponsorInfo("孙基轮","精神支柱！",50, new DateTime(2019,11,28)),
+    new SponsorInfo("张了个航","支柱加油",100, new DateTime(2019,11,28)),
+    new SponsorInfo("","",5, new DateTime(2019,11,28)),
+    new SponsorInfo("","",50, new DateTime(2019,11,22)),
+    new SponsorInfo("","",20, new DateTime(2019,11,4)),
+//
+
+
     new SponsorInfo("","",100, new DateTime(2019,10,30)),
     new SponsorInfo("","",(decimal)6.66, new DateTime(2019,10,30)),
     new SponsorInfo("","",200, new DateTime(2019,10,30)),
