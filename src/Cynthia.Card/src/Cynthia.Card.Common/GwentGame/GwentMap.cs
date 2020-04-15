@@ -10569,11 +10569,11 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70002",//考德威尔伯爵
+                "70002",//狄拉夫：高等吸血鬼
                 new GwentCard()
                 {
                     CardId ="70002",
-                    Name = "考德威尔伯爵",
+                    Name = "狄拉夫：高等吸血鬼",
                     Strength = 6,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
@@ -10585,7 +10585,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ },
                     Flavor = "",
                     Info = "择一：从牌库中打出一张战力不高于自身的铜色单位，在回合结束把它送进墓地；或吞噬牌库中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
-                    CardArtsId = "14800000",
+                    CardArtsId = "d13720000",
                 }
             },
             {
