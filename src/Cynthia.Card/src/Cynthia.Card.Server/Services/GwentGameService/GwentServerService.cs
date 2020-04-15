@@ -188,7 +188,7 @@ namespace Cynthia.Card.Server
 3. 全部更新内容请参照https://shimo.im/docs/TQdjjwpPwd9hJhK
     （群公告中可直接点开链接）
 
-3.30日更新
+2020年4月16日更新
 薇薇安与雷索变为双面间谍(可以打出在己方半场)
 增加北方铜色新卡 辛特拉战地医师，
 将考德威尔伯爵 更名为 狄拉夫：高等吸血鬼，
