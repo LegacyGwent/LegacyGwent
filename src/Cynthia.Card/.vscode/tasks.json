@@ -9,7 +9,7 @@
                 "build",
                 "${workspaceFolder}/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
         },
         {
             "label": "build test",
