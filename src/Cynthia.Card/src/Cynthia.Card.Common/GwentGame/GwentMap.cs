@@ -10584,7 +10584,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "择一：从牌库中打出一张战力不高于自身的铜色单位，在回合结束把它送进墓地；或吞噬牌库中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
+                    Info = "择一：从牌库中打出一张战力不高于自身的铜色单位，在回合结束将它摧毁；或吞噬牌库中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
                     CardArtsId = "d13720000",
                 }
             },
