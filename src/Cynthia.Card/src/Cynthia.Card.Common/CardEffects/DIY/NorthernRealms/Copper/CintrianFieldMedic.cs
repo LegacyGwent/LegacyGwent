@@ -20,6 +20,7 @@ namespace Cynthia.Card
                 return 0;
             }
 
+            target.Effect.Repair(true);
             await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count)), target);
 
             if (!Game.PlayersDeck[PlayerIndex].Where(x => x.Is(Group.Copper, CardType.Unit)).TryMessOne(out var playCard, Game.RNG))
