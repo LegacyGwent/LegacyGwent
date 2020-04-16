@@ -14,7 +14,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选择一张场上的卡
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.Is(Group.Copper, CardType.Unit));
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.Is(Group.Copper, CardType.Unit, filter: x => x.Status.CardId != Card.Status.CardId));
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
@@ -22,7 +22,7 @@ namespace Cynthia.Card
 
             await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count)), target);
 
-            if (Game.PlayersDeck[PlayerIndex].Where(x => x.Is(Group.Copper, CardType.Unit)).TryMessOne(out var playCard, Game.RNG))
+            if (!Game.PlayersDeck[PlayerIndex].Where(x => x.Is(Group.Copper, CardType.Unit)).TryMessOne(out var playCard, Game.RNG))
             {
                 return 0;
             }

@@ -157,7 +157,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 5);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 6);
 
         public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {
@@ -4848,7 +4848,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher,Categorie.DoubleAgent},
                     Flavor = "猎魔人绝不会死在自己的床上。",
-                    Info = "间谍。改变同排2个单位的锁定状态，随后汲食它们的所有战力。",
+                    Info = "双面间谍。改变同排2个单位的锁定状态，随后汲食它们的所有战力。",
                     CardArtsId = "16210100",
                 }
             },
@@ -5229,7 +5229,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.DoubleAgent},
                     Flavor = "魔法的价值高于一切，高于所有争论和敌意。",
-                    Info = "间谍。将左侧单位的战力复制给右侧单位。",
+                    Info = "双面间谍。将左侧单位的战力复制给右侧单位。",
                     CardArtsId = "16220500",
                 }
             },
@@ -10582,7 +10582,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
                     Info = "择一：从牌库中打出一张战力不高于自身的铜色单位，在回合结束把它送进墓地；或吞噬牌库中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
                     CardArtsId = "d13720000",
