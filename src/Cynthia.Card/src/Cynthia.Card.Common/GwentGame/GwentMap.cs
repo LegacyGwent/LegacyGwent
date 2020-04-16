@@ -10882,7 +10882,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Support},
+                    Categories = new Categorie[] { Categorie.Support,Categorie.Cintra},
                     Flavor = "",
                     Info = "部署：将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。",
                     CardArtsId = "d17110000",
