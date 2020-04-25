@@ -10,6 +10,7 @@ using System.Collections.Concurrent;
 using Alsein.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Cynthia.Card.AI;
 
 namespace Cynthia.Card.Server
 {
@@ -210,27 +211,28 @@ namespace Cynthia.Card.Server
 
         public void InvokeGameOver(GameResult result, bool isOnlyShow)
         {
-            if (_env.IsProduction())
+            // if (_env.IsProduction())
+            // {
+            if (!isOnlyShow)
             {
-                if (!isOnlyShow)
-                {
-                    _databaseService.AddGameResult(result);
-                }
-                lock (ResultList)
-                {
-                    ResultList.Add(result);
-                }
-                OnGameOver?.Invoke(result);
+                _databaseService.AddGameResult(result);
             }
+            lock (ResultList)
+            {
+                ResultList.Add(result);
+            }
+            OnGameOver?.Invoke(result);
+            // }
         }
 
-        public (IList<IGrouping<UserState, User>>, IList<(string, string)>) GetUsers()
+        public (IList<IGrouping<UserState, User>>, IList<(string, string)>, IList<(string, string)>) GetUsers()
         {
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
-            return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play).GroupBy(x => x.UserState).ToList(), list);
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            var aiList = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play).GroupBy(x => x.UserState).ToList(), list, aiList);
         }
 
-        public event Action<(IList<IGrouping<UserState, User>>, IList<(string, string)>)> OnUserChanged;
+        public event Action<(IList<IGrouping<UserState, User>>, IList<(string, string)>, IList<(string, string)>)> OnUserChanged;
 
         public event Action<GameResult> OnGameOver;
 

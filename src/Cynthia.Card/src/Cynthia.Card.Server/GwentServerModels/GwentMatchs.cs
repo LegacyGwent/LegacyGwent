@@ -32,7 +32,7 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, player1 is ClientPlayer && player2 is ClientPlayer));
+            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer)));
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {

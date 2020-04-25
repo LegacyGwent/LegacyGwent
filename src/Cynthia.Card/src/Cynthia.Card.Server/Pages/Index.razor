@@ -16,24 +16,33 @@
 }
 @if(users.player.Count()>0)
 {
-<h4>@showMessage[UserState.Play]</h4>
-}
+    <h4>@showMessage[UserState.Play]</h4>
     @foreach(var player in users.player)
     {
         <li>@player.player1 vs @player.player2</li>
     }
+}
+
+@if(users.aiPlayer.Count()>0)
+{
+    <h4>@showMessage[UserState.PlayWithAI]</h4>
+    @foreach(var player in users.aiPlayer)
+    {
+        <li>@player.player1 vs @player.player2</li>
+    }
+}
 </ul>
 
 @code
 {
-    (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player) users;
+    (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player, IList<(string player1, string player2)> aiPlayer) users;
     IDictionary<UserState, string> showMessage = new Dictionary<UserState, string>()
     {
-    {UserState.Match,"以下玩家正在进行无密匙匹配~"},
-    {UserState.PasswordMatch,"以下玩家正在进行密匙匹配~"},
+    {UserState.Match,"以下玩家正在进行无密码匹配~"},
+    {UserState.PasswordMatch,"以下玩家正在进行密码匹配~"},
     {UserState.Play,"以下玩家正在对局中~"},
     {UserState.Standby,"以下玩家正在闲置中~"},
-    {UserState.PlayWithAI,"以下玩家正在和AI对局~"}
+    {UserState.PlayWithAI,"以下玩家正在和AI对战~"}
     };
 
     protected override void OnInitialized()
@@ -42,7 +51,7 @@
         GwentService.OnUserChanged += OnUserChanged;
     }
 
-    private void OnUserChanged((IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player) newUser)
+    private void OnUserChanged((IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player, IList<(string player1, string player2)> aiPlayer) newUser)
     {
         InvokeAsync(() =>
         {
