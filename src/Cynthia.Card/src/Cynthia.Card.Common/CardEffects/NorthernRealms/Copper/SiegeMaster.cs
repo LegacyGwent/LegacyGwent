@@ -22,9 +22,7 @@ namespace Cynthia.Card
                 await target.Effect.Heal(Card);
             }
 
-            await target.Effect.CardPlayEffect(false, true);
-
-            return 0;
+            return await target.Effect.CardPlayEffect(false, true);
         }
     }
 }

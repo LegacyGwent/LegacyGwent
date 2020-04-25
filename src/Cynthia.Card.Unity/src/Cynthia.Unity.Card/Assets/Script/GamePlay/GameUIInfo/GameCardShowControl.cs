@@ -264,7 +264,7 @@ public class GameCardShowControl : MonoBehaviour
     public async Task SelectMenuCards(MenuSelectCardInfo info, LocalPlayer player)
     {
         if (IsAutoPlay) await sender.SendAsync<IList<int>>///////////自动选卡22222222222222
-          (0.To(info.SelectCount - 1).Mess().Take(info.SelectCount).ToList());
+        (0.To(info.SelectCount - 1).Mess().Take(info.SelectCount).ToList());
         else
         {
             //这里是正常的逻辑

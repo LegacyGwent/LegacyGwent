@@ -56,7 +56,7 @@ namespace Cynthia.Card.Client
                 //新指令
                 case ServerOperationType.ClientDelay:
                     var dTime = arguments[0].ToType<int>();
-                    // Debug.Log($"延迟触发,延迟时常:{dTime}");
+                    Debug.Log($"延迟触发,延迟时常:{dTime}");
                     await Task.Delay(dTime);
                     break;
                 case ServerOperationType.SelectMenuCards:
