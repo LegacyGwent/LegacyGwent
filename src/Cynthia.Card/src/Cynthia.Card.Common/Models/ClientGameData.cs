@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alsein.Extensions;
@@ -95,6 +96,7 @@ namespace Cynthia.Card
 
         public void SetCard(CardLocation location, CardStatus card)
         {
+            Console.WriteLine($"SetCard:{location.RowPosition},{location.CardIndex}  {card.Name}");
             var row = GetRow(location.RowPosition);
             row[location.CardIndex] = card;
         }
@@ -209,6 +211,7 @@ namespace Cynthia.Card
         //-------------------------------------------------------------------------------------------
         public void CardMove(MoveCardInfo info)//卡牌移动
         {
+            Console.WriteLine($"进行了卡牌移动,从{info.Source.RowPosition},{info.Source.CardIndex}到{info.Target.RowPosition},{info.Target.CardIndex}");
             var card = default(CardStatus);
             if (!info.Source.RowPosition.IsOnRow())
             {
@@ -231,6 +234,14 @@ namespace Cynthia.Card
         {
             var list = GetRow(location.RowPosition);
             list.Remove(GetCard(location));
+        }
+
+        public void CardRemove(RowPosition row, CardStatus item)
+        {
+            var list = GetRow(row);
+            list.Remove(item);
+
+            Console.WriteLine("删除完毕了,病毒就关闭了");
         }
         //----------------------------------
         public void ShowWeatherApply(RowPosition row, RowStatus type)
