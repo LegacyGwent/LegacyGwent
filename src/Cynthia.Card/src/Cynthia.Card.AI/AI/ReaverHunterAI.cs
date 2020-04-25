@@ -22,19 +22,21 @@ namespace Cynthia.Card.AI
         {
             var pass = false;
 
-            //如果不是必须取胜的场合,并且对方不pass的话,点数领先40就pass
+            //如果不是必须取胜的场合
             if (!Data.IsMustWin)
             {
+                //对方不pass的话,点数领先40就pass
                 if (!Data.IsEnemyPlayerPass)
                 {
                     pass = Data.MyPoint - Data.EnemyPoint > 30;
                 }
+                //对方pass的话,点数领先就pass
                 else
                 {
                     pass = Data.MyPoint > Data.EnemyPoint;
                 }
             }
-            //如果这局必须赢, 在对方已经Pass的情况,如果没有三寒鸦并且点数领先的话
+            //如果这局必须赢,在对方已经Pass的情况,如果没有三寒鸦并,且点数领先的话
             else if (Data.IsMustWin &&
                 Data.IsEnemyPlayerPass &&
                 !Data.EnemyPlace.SelectMany(x => x).Any(x => x.CardId == CardId.Villentretenmerth && x.IsCountdown == true) &&
@@ -74,7 +76,14 @@ namespace Cynthia.Card.AI
             //先后手固定选0
             if (info.Title == "请选择你认为后手价值的点数")
             {
-                send(Operation.Create(UserOperationType.SelectMenuCardsInfo, new List<int>() { info.SelectList.IndexOf(x => x.Strength == 0) }));
+                var result = new List<int>()
+                    {
+                        info.SelectList.Indexed().First(x=>x.Value.Name=="0").Key
+                    };
+                send(
+                    Operation.Create(UserOperationType.SelectMenuCardsInfo,
+                    result
+                ));
             }
             else
             {
