@@ -12,7 +12,7 @@ namespace Cynthia.Card
             var target = @event.Target;
             if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
             {
-                await target.Effect.Damage(2, null);
+                await target.Effect.Damage(2, null, damageType: DamageType.BloodMoon);
             }
         }
 
