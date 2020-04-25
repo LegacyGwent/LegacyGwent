@@ -157,7 +157,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 6);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 7);
 
         public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {
@@ -9572,7 +9572,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support,Categorie.Doomed},
                     Flavor = "跪在我身边，向圣母低头。",
-                    Info = "复活1个铜色/银色单位。",
+                    Info = "复活1个史凯利杰铜色/银色单位。",
                     CardArtsId = "15221100",
                 }
             },
