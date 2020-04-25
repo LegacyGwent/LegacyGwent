@@ -345,7 +345,10 @@ namespace Cynthia.Card
                 await Game.ShowBullet(source, Card, BulletType.GreenLight);
             }
             await Game.ShowCardNumberChange(Card, num, NumberType.White);
-            await Game.ClientDelay(50);
+            if (Card.Status.CardRow.IsOnRow())
+            {
+                await Game.ClientDelay(50);
+            }
             Card.Status.Strength += num;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
@@ -368,7 +371,10 @@ namespace Cynthia.Card
             //最大显示的数字,不超过这个值
             var showBear = Card.Status.Strength + Card.Status.HealthStatus;
             await Game.ShowCardNumberChange(Card, num > showBear ? -showBear : -num, NumberType.White);
-            await Game.ClientDelay(50);
+            if (Card.Status.CardRow.IsOnRow())
+            {
+                await Game.ClientDelay(50);
+            }
             Card.Status.Strength -= num;
             if (Card.Status.Strength < -Card.Status.HealthStatus) Card.Status.HealthStatus = -Card.Status.Strength;
             await Game.ShowSetCard(Card);
@@ -398,7 +404,10 @@ namespace Cynthia.Card
                 await Game.ShowBullet(source, Card, BulletType.GreenLight);
             }
             await Game.ShowCardNumberChange(Card, num, NumberType.Normal);
-            await Game.ClientDelay(50);
+            if (Card.Status.CardRow.IsOnRow())
+            {
+                await Game.ClientDelay(50);
+            }
             Card.Status.HealthStatus += num;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
@@ -489,7 +498,10 @@ namespace Cynthia.Card
             if (num > 0)
             {
                 await Game.ShowCardNumberChange(Card, -num, NumberType.Normal);
-                await Game.ClientDelay(50);
+                if (Card.Status.CardRow.IsOnRow())
+                {
+                    await Game.ClientDelay(50);
+                }
                 Card.Status.HealthStatus -= num;
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();

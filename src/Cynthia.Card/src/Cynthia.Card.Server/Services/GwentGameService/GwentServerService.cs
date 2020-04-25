@@ -188,11 +188,10 @@ namespace Cynthia.Card.Server
 3. 全部更新内容请参照https://shimo.im/docs/TQdjjwpPwd9hJhK
     （群公告中可直接点开链接）
 
-2020年4月16日更新
-薇薇安与雷索变为双面间谍(可以打出在己方半场)
-增加北方铜色新卡 辛特拉战地医师，
-将考德威尔伯爵 更名为 狄拉夫：高等吸血鬼，
-为苏克鲁拉增加标签: 辅助。
+2020年4月25日更新
+添加AI掠夺者猎人团, 匹配密码输入AI(不区分大小写)即可对战。
+茜格德莉法改为仅能复活史凯利杰势力铜/银单位。
+
 详细更新内容请看上面的石墨文档链接
 ";
         }
@@ -209,16 +208,17 @@ namespace Cynthia.Card.Server
 
         public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
 
-        public void InvokeGameOver(GameResult result)
+        public void InvokeGameOver(GameResult result, bool isOnlyShow)
         {
             if (_env.IsProduction())
             {
-                if (_databaseService.AddGameResult(result))
+                if (!isOnlyShow)
                 {
-                    lock (ResultList)
-                    {
-                        ResultList.Add(result);
-                    }
+                    _databaseService.AddGameResult(result);
+                }
+                lock (ResultList)
+                {
+                    ResultList.Add(result);
                 }
                 OnGameOver?.Invoke(result);
             }
@@ -226,7 +226,7 @@ namespace Cynthia.Card.Server
 
         public (IList<IGrouping<UserState, User>>, IList<(string, string)>) GetUsers()
         {
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady).Select(x => (x.Player1.CurrentUser.PlayerName, x.Player2.CurrentUser.PlayerName)).ToList();
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
             return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play).GroupBy(x => x.UserState).ToList(), list);
         }
 

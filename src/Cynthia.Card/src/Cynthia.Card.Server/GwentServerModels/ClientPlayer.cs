@@ -19,16 +19,16 @@ namespace Cynthia.Card.Server
             CurrentUser = user;
             _hub = hub;
             Receive += async x =>
-             {
-                 // await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("Test", "debug尝试");
-                 lock (OperactionList)
-                 {
-                     OperactionList.Add(x.Result);
-                 }
-                 if (OperactionList.Count > 50)
-                     await SendOperactionList();
-                 //await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
-             };
+            {
+                // await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("Test", "debug尝试");
+                lock (OperactionList)
+                {
+                    OperactionList.Add(x.Result);
+                }
+                if (OperactionList.Count > 50)
+                    await SendOperactionList();
+                //await hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", x.Result);
+            };
         }
         public async Task SendOperactionList()
         {
