@@ -10888,6 +10888,27 @@ namespace Cynthia.Card
                     CardArtsId = "d17110000",
                 }
             },
+            {
+                "70018",//掠夺者猎人噩梦铠甲
+                new GwentCard()
+                {
+                    CardId = "70018",
+                    Name = "掠夺者猎人噩梦铠甲",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[] { Categorie.Special},
+                    Flavor = "来自噩梦....",
+                    Info = "游戏开始时,将这张卡置入墓地。\n若在墓地,己方卡组的单位无法从卡组移动至墓地,免疫决斗伤害,且打出时候获得1-2点伤害或1-2点增益。",
+                    CardArtsId = "d20470000",
+                }
+            },
+
         };
     }
 }

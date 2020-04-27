@@ -55,11 +55,17 @@ namespace Cynthia.Card.Server
             //判断是否是特殊密码
             switch (password.ToLower())
             {
-                case "ai":
+                case "ai1":
                     var room = new GwentRoom(player, password);
                     room.AddPlayer(new ReaverHunterAI());
                     GwentRooms.Add(room);
                     StartGame(room);
+                    return;
+                case "ai":
+                    var room1 = new GwentRoom(player, password);
+                    room1.AddPlayer(new GeraltNovaAI());
+                    GwentRooms.Add(room1);
+                    StartGame(room1);
                     return;
                 default:
                     break;
