@@ -160,7 +160,7 @@ namespace Cynthia.Card.Server
             {
                 _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
-            if (_users[connectionId].UserState == UserState.Play)//如果用户正在进行对局
+            if (_users[connectionId].UserState == UserState.Play || _users[connectionId].UserState == UserState.PlayWithAI)//如果用户正在进行对局
             {
                 _gwentMatchs.PlayerLeave(connectionId, exception);
             }
@@ -190,8 +190,13 @@ namespace Cynthia.Card.Server
     （群公告中可直接点开链接）
 
 2020年4月25日更新
-添加AI掠夺者猎人团, 匹配密码输入AI(不区分大小写)即可对战。
-茜格德莉法改为仅能复活史凯利杰势力铜/银单位。
+1.添加AI掠夺者猎人团, 匹配密码输入AI(不区分大小写)即可对战。
+2.茜格德莉法改为仅能复活史凯利杰势力铜/银单位。
+
+2020年4月27日更新
+1.修复主页AI强退导致显示游戏状态残留。
+2.修复AI对战中会卡住的bug。
+3.替换默认AI为杰洛特新星(密码AI),猎龙人团密码改为(AI1),不区分大小写。
 
 详细更新内容请看上面的石墨文档链接
 ";
