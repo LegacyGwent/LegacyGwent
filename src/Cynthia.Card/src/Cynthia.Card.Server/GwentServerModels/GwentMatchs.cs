@@ -53,28 +53,31 @@ namespace Cynthia.Card.Server
         public void PlayerJoin(ClientPlayer player, string password)
         {
             //判断是否是特殊密码
-            switch (password.ToLower())
+            if (password.ToLower().EndsWith("#f"))
             {
-                case "ai1":
-                    var room = new GwentRoom(player, password);
-                    room.AddPlayer(new ReaverHunterAI());
-                    GwentRooms.Add(room);
-                    StartGame(room);
-                    return;
-                case "ai":
-                    var room1 = new GwentRoom(player, password);
-                    room1.AddPlayer(new GeraltNovaAI());
-                    GwentRooms.Add(room1);
-                    StartGame(room1);
-                    return;
-                default:
-                    break;
+                switch (password.ToLower().Replace("#f", ""))
+                {
+                    case "ai1":
+                        var room = new GwentRoom(player, password);
+                        room.AddPlayer(new ReaverHunterAI());
+                        GwentRooms.Add(room);
+                        StartGame(room);
+                        return;
+                    case "ai":
+                        var room1 = new GwentRoom(player, password);
+                        room1.AddPlayer(new GeraltNovaAI());
+                        GwentRooms.Add(room1);
+                        StartGame(room1);
+                        return;
+                    default:
+                        break;
+                }
             }
 
             foreach (var room in GwentRooms)
             {
                 //如果这个房间正在等待玩家加入,并且密匙成功配对
-                if (!room.IsReady && room.Password == password)
+                if (!room.IsReady && (room.Password == password || (room.Password == string.Empty && password.ToLower().StartsWith("ai"))))
                 {
                     room.AddPlayer(player);
                     if (room.IsReady)
@@ -91,6 +94,23 @@ namespace Cynthia.Card.Server
             }
             else
             {
+                switch (password.ToLower().Replace("#f", ""))
+                {
+                    case "ai1":
+                        var room = new GwentRoom(player, password);
+                        room.AddPlayer(new ReaverHunterAI());
+                        GwentRooms.Add(room);
+                        StartGame(room);
+                        return;
+                    case "ai":
+                        var room1 = new GwentRoom(player, password);
+                        room1.AddPlayer(new GeraltNovaAI());
+                        GwentRooms.Add(room1);
+                        StartGame(room1);
+                        return;
+                    default:
+                        break;
+                }
                 //以密匙模式进行匹配
                 player.CurrentUser.UserState = UserState.PasswordMatch;
             }
