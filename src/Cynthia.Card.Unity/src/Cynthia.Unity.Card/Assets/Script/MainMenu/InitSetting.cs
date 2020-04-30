@@ -14,6 +14,7 @@ public class InitSetting : MonoBehaviour
     public GameObject MusicVolumPanel;
     public GameObject EffectVolumPanel;
     public GameObject QualityPanel;
+    public GameObject LanguagePanel;
 
     // Use this for initialization
     void Start()
@@ -21,6 +22,7 @@ public class InitSetting : MonoBehaviour
         ResolutionPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("resolutionIndex", 2);
         FullPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("isFull", 0);
         QualityPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("quality", 2);
+        LanguagePanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("Language",0);
         CloseSoundPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("isCloseSound", 1);
         MusicVolumPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("musicVolum", 5);
         EffectVolumPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("effectVolum", 5);

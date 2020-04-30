@@ -27,8 +27,8 @@ public class CardShowInfo : MonoBehaviour
             //_currentCore.CardInfo = GwentMap.CardMap[_currentCore.CardId];
             SetCard();
         }
-    }
-    public GwentCard CardInfo { get => GwentMap.CardMap[_currentCore.CardId]; }
+    }                       //卡id
+    public GwentCard CardInfo { get => GwentMap.CardMap[_currentCore.CardId]; }   //卡类型
     public bool IsGray
     {
         get => _isGray;
@@ -208,7 +208,67 @@ public class CardShowInfo : MonoBehaviour
         DOTween.Sequence().Append(transform.DOLocalRotate(new Vector3(0, 90, 0), 0.15f))
             .AppendCallback(SetCard)
             .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.15f));
+        if(AmbushType() && !_currentCore.IsCardBack)
+        {
+            if(CurrentCore.CardArtsId == "11221000")//Roach卡
+            {
+                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.PlayOneShoot);
+            }
+            else
+               AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        }
     }
+
+
+
+    public void PlayAudio()
+    {
+        if (CurrentCore == null)
+            return;
+        if (CardInfo.CardType == CardType.Unit && !AmbushType())
+        {
+            Debug.Log("播放Unit卡片声音" + CurrentCore.CardArtsId);
+            if (CurrentCore.CardArtsId == "11221000") //Roach卡
+            {
+                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.PlayOneShoot);
+            }
+            else
+                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        }
+        else if (CardInfo.CardType == CardType.Special && !SpecialCardID.isSpecialCard(CurrentCore.CardArtsId))
+        {
+            Debug.Log("播放特殊卡片声音" + CurrentCore.CardArtsId);
+            AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        }
+    }
+
+    public void SpecialAudioPlay()
+    {
+        if (CurrentCore == null)
+            return;
+        if (CardInfo.CardType == CardType.Special && SpecialCardID.isSpecialCard(CurrentCore.CardArtsId))
+        {
+            Debug.Log("播放特殊特殊卡片声音" + CurrentCore.CardArtsId);
+            AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        }
+    }
+
+    private bool AmbushType()
+    {
+        if (CurrentCore == null)
+            return true;
+        if (CurrentCore.Categories == null)
+            return false;
+        for (int i = 0; i < CurrentCore.Categories.Length; i++)
+        {
+            if(CurrentCore.Categories[i] == Categorie.Ambush)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void ScaleTo(float endValue, float duration = 0.25f, Ease ease = Ease.OutQuad)
     {
         transform.DOScale(endValue, duration).SetEase(ease);

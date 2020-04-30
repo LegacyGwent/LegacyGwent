@@ -282,6 +282,7 @@ public class GameCardShowControl : MonoBehaviour
             _nowUseMenuType = UseCardShowType.Select;
         }
         var result = await receiver.ReceiveAsync<IList<int>>();
+
         OperationEnd();
         await player.SendAsync(UserOperationType.SelectMenuCardsInfo, result);
         //NowUseMenuType = UseCardShowType.None;

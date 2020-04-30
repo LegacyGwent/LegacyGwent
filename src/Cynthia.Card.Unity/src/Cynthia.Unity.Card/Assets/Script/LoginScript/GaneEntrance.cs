@@ -72,7 +72,13 @@ public class GaneEntrance : MonoBehaviour
         SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
         SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
         SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
+
+        SetLanguage(PlayerPrefs.GetInt("Language", 0));
         NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
+
+        AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
+        AudioManager.Instance.SetLanguageType((LanguageType)PlayerPrefs.GetInt("Language", 0));
+
     }
 
     public Resolution IndexToResolution(int index)
@@ -145,5 +151,11 @@ public class GaneEntrance : MonoBehaviour
         }
         //AudioSource.GetComponent<AudioSource>().Play();
         AudioMixer.SetFloat("volum", 0);
+    }
+
+    //设置语言
+    public void SetLanguage(int index)
+    {
+        PlayerPrefs.SetInt("Language", index);
     }
 }
