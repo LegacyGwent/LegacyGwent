@@ -152,11 +152,11 @@ public class ArtCard : MonoBehaviour
             ArmorShow.SetActive(false);
         Strength.text = (CurrentCore.Strength + CurrentCore.HealthStatus).ToString();
         if (CurrentCore.HealthStatus > 0)
-            Strength.color = GlobalState.GreenColor;
+            Strength.color = ClientGlobalInfo.GreenColor;
         if (CurrentCore.HealthStatus == 0)
-            Strength.color = GlobalState.NormalColor;
+            Strength.color = ClientGlobalInfo.NormalColor;
         if (CurrentCore.HealthStatus < 0)
-            Strength.color = GlobalState.RedColor;
+            Strength.color = ClientGlobalInfo.RedColor;
         // FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50 + (iconCount == 0 ? 1 : iconCount) * 50);
         //-----------------------------------------------
     }

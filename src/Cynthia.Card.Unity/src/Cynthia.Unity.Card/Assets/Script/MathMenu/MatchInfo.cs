@@ -22,6 +22,7 @@ public class MatchInfo : MonoBehaviour
     public Text SilverCount;
     public Text CopperCount;
     public Text AllCount;
+    public Text AllCountText;
     public Image HeadT;
     public Image HeadB;
     public Sprite[] HeadTSprite;
@@ -30,7 +31,7 @@ public class MatchInfo : MonoBehaviour
     public Text DeckName;
     public InputField MatchPassword;
     public Transform DeckNameBackground;
-    public Transform DeckIcon;
+    public Image DeckIcon;
     //-------------------------------------------
     public Sprite[] FactionIcon;
     public Faction[] FactionIndex;
@@ -74,8 +75,8 @@ public class MatchInfo : MonoBehaviour
     }
     public void ResetMatch()
     {
-        if (!_client.User.Decks.Any(x => x.Id == GlobalState.DefaultDeckId)) GlobalState.DefaultDeckId = _client.User.Decks.First().Id;
-        SetDeck(_client.User.Decks.Single(x => x.Id == GlobalState.DefaultDeckId), GlobalState.DefaultDeckId);
+        if (!_client.User.Decks.Any(x => x.Id == ClientGlobalInfo.DefaultDeckId)) ClientGlobalInfo.DefaultDeckId = _client.User.Decks.First().Id;
+        SetDeck(_client.User.Decks.Single(x => x.Id == ClientGlobalInfo.DefaultDeckId), ClientGlobalInfo.DefaultDeckId);
         SetDeckList(_client.User.Decks);
     }
     public void ShowMatch()/////待编辑
@@ -103,6 +104,11 @@ public class MatchInfo : MonoBehaviour
             await _client.StopMatch();
             return;
         }
+        if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
+        {
+            await _UIService.YNMessageBox("该卡组无法用于匹配", "该卡组无法用于该匹配,请重新编辑或切换卡组。");
+            return;
+        }
         //否则尝试开始匹配(目前不关注匹配结果)
         _ = _client.MatchOfPassword(CurrentDeckId, MatchPassword.text);
 
@@ -121,7 +127,10 @@ public class MatchInfo : MonoBehaviour
         {
             //进入了游戏
             Debug.Log("成功匹配,进入游戏");
-            GlobalState.IsToMatch = false;
+            ClientGlobalInfo.IsToMatch = false;
+#if UNITY_STANDALONE_WIN
+            ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
+#endif
             SceneManager.LoadScene("GamePlay");
             return;
         }
@@ -204,7 +213,8 @@ public class MatchInfo : MonoBehaviour
         DeckNameBackground.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(25 * DeckName.text.Length + 150, 71);
         DeckName.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(25 * DeckName.text.Length, 40);
         DeckName.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-25 * DeckName.text.Length / 2 - 50, 0);
-        DeckIcon.GetComponent<Image>().sprite = FactionIcon[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
+        DeckIcon.overrideSprite = FactionIcon[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
+        //DeckIcon.sprite = Resources.Load<Sprite>("Sprites/Control/coin_northern");
         //////////////////////////////////////////////////
         var leader = Instantiate(LaderPrefab);
         leader.GetComponent<LeaderShow>().SetLeader(deck.Leader);
@@ -220,6 +230,8 @@ public class MatchInfo : MonoBehaviour
         SilverCount.text = $"{cards.Where(x => x.Group == Group.Silver).Count().ToString()}/6";
         GoldCount.text = $"{cards.Where(x => x.Group == Group.Gold).Count().ToString()}/4";
         AllCount.text = $"{deck.Deck.Count()}";
+        AllCount.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         HeadT.sprite = HeadTSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         HeadB.sprite = HeadBSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         //////////////////////////////////////////////////
@@ -233,7 +245,7 @@ public class MatchInfo : MonoBehaviour
 
     public void ReturnButtonClick()
     {
-        GlobalState.IsToMatch = false;
+        ClientGlobalInfo.IsToMatch = false;
     }
 }
 

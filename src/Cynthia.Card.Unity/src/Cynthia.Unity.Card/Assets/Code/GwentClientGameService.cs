@@ -34,31 +34,6 @@ namespace Cynthia.Card.Client
             // Debug.Log("预处理完毕");
             while (await ResponseOperations(await _player.ReceiveAsync())) ;
         }
-
-        // private bool _mustOver = false;
-        // private async Task<bool> StartHandle(IList<Operation<ServerOperationType>> operations)
-        // {
-        //     Debug.Log($"(预处理)收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
-        //     bool isStart = false;
-        //     foreach (var operaction in operations)
-        //     {
-        //         if (operaction.OperationType == ServerOperationType.SetAllInfo)
-        //         {
-        //             isStart = true;
-        //             Debug.Log($"检测到开始指令");
-        //         }
-        //         if (!isStart)
-        //         {
-        //             Debug.Log($"跳过了一个指令:{operaction.OperationType}");
-        //         }
-        //         else if (isStart)
-        //         {
-        //             _mustOver = !(await ResponseOperation(operaction));
-        //             if (_mustOver) return false;
-        //         }
-        //     }
-        //     return !isStart;
-        // }
         //-----------------------------------------------------------------------
         //响应指令
         private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
@@ -185,6 +160,7 @@ namespace Cynthia.Card.Client
                 //------------------------------------------------------------------------
                 //SET数值和墓地
                 case ServerOperationType.SetCoinInfo:
+                  
                     GameCodeService.SetCoinInfo(arguments[0].ToType<bool>());
                     break;
                 case ServerOperationType.SetMyCemetery:

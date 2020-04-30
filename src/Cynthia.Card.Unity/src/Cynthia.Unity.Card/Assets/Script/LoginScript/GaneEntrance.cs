@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Net.Mime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Autofac;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 using Alsein.Extensions.IO;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.UI;
+using Cynthia.Card.Client;
 
 public class GaneEntrance : MonoBehaviour
 {
@@ -14,10 +17,49 @@ public class GaneEntrance : MonoBehaviour
     public GameObject AudioSound;
     public AudioMixer AudioMixer;
 
+    public Text NowVersionText;
+    public Text LatestVersionText;
+    public Text NotesText;
+
+    private GwentClientService _gwentClientService;
+
     private void Start()
     {
-        if (GlobalState.IsLoadGlobal) return;
-        GlobalState.IsLoadGlobal = true;
+        _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
+        ConfigureGame();
+        LoadServerMessage();
+    }
+
+    public void ExitClick()
+    {
+        _gwentClientService.ExitGameClick();
+    }
+
+    public async void LoadServerMessage()
+    {
+        try
+        {
+            var version = new Version(await _gwentClientService.GetLatestVersion());
+            LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
+        }
+        catch
+        {
+            LatestVersionText.text = "未获取到最新版本号";
+        }
+        try
+        {
+            NotesText.text = (await _gwentClientService.GetNotes()).Replace("\\n", "\n");
+        }
+        catch
+        {
+            NotesText.text = "暂未获取到公告。";
+        }
+    }
+
+    public void ConfigureGame()
+    {
+        if (ClientGlobalInfo.IsLoadGlobal) return;
+        ClientGlobalInfo.IsLoadGlobal = true;
         var globalUI = Instantiate(GlobalUI);
         var musicSource = Instantiate(AudioSound);
         globalUI.name = "GlobalUI";
@@ -27,10 +69,16 @@ public class GaneEntrance : MonoBehaviour
 
         SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
         SetQuality(PlayerPrefs.GetInt("quality", 2));
-        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 0));
+        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
         SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
         SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
+        SetLanguage(PlayerPrefs.GetInt("Language", 0));
+        NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
+
+        AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
+        AudioManager.Instance.SetLanguageType((LanguageType)PlayerPrefs.GetInt("Language", 0));
     }
+
     public Resolution IndexToResolution(int index)
     {
         Resolution resolution = new Resolution();
@@ -101,5 +149,11 @@ public class GaneEntrance : MonoBehaviour
         }
         //AudioSource.GetComponent<AudioSource>().Play();
         AudioMixer.SetFloat("volum", 0);
+    }
+
+    //设置语言
+    public void SetLanguage(int index)
+    {
+        PlayerPrefs.SetInt("Language", index);
     }
 }

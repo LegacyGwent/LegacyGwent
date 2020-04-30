@@ -21,15 +21,15 @@ public class CardText : MonoBehaviour
         }
         var color = default(Color);
         if (type == NumberType.White)
-            color = GlobalState.NormalColor;
+            color = ClientGlobalInfo.NormalColor;
         else if (type == NumberType.Countdown)
         {
-            color = GlobalState.BlueColor;
+            color = ClientGlobalInfo.BlueColor;
             if (num >= 0)
                 transform.localPosition += new Vector3(0.15f, 0, 0);
         }
         else
-            color = num > 0 ? GlobalState.GreenColor : GlobalState.RedColor;
+            color = num > 0 ? ClientGlobalInfo.GreenColor : ClientGlobalInfo.RedColor;
         ShowMessage.color = color;
         ShowMessage.text = (type != NumberType.Countdown && num >= 0) ? "+" : "";
         ShowMessage.text += num.ToString();

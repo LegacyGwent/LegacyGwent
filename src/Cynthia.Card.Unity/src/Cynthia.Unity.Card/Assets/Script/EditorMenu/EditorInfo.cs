@@ -44,7 +44,7 @@ public class EditorInfo : MonoBehaviour
     public RectTransform RightSwitchMenu;
     //------------------------------------------------
     //公用
-    private IList<CardStatus> _cards { get => GwentMap.GetCards().ToList(); }//所有的卡牌
+    private IList<CardStatus> _cards { get => GwentMap.GetCards(isHasAgent: true).ToList(); }//所有的卡牌
     private GwentClientService _clientService;
     private GlobalUIService _globalUIService;
     public EditorStatus EditorStatus { get; private set; } = EditorStatus.Close;
@@ -88,6 +88,7 @@ public class EditorInfo : MonoBehaviour
     public Text SilverCount;//银色数量
     public Text CopperCount;//铜色数量
     public Text AllCount;   //全部数量
+    public Text AllCountText;
     //------------------------------------------------
     private void Awake()
     {
@@ -209,8 +210,8 @@ public class EditorInfo : MonoBehaviour
         EditorBodyMian.SetActive(true);
         if (IsMoveLeftRight)
         {
-            ShowCardsTitle.anchoredPosition = new Vector2(0, 478.5f);
-            EditorCardsTitle.anchoredPosition = new Vector2(0, 630f);
+            ShowCardsTitle.anchoredPosition = new Vector2(0, -63f);
+            EditorCardsTitle.anchoredPosition = new Vector2(0, 150f);
             LeftSwitchMenu.anchoredPosition = new Vector2(-1700, 0);
             RightSwitchMenu.anchoredPosition = new Vector2(1700, 0);
         }
@@ -226,7 +227,9 @@ public class EditorInfo : MonoBehaviour
             .Where(x => ((_showSearchMessage == "") ? true :
                 (x.CardInfo().Name.Contains(_showSearchMessage) ||
                 x.CardInfo().Info.Contains(_showSearchMessage) ||
-                x.CardInfo().Strength.ToString().Contains(_showSearchMessage))))
+                x.CardInfo().Strength.ToString().Contains(_showSearchMessage) ||
+                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_showSearchMessage))
+                )))
             .ToList()
         );
     }
@@ -316,8 +319,8 @@ public class EditorInfo : MonoBehaviour
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
         //
         ResetEditorCore();
-        ShowCardsTitle.anchoredPosition = new Vector2(0, 630f);
-        EditorCardsTitle.anchoredPosition = new Vector2(0, 478.5f);
+        ShowCardsTitle.anchoredPosition = new Vector2(0, 150f);
+        EditorCardsTitle.anchoredPosition = new Vector2(0, -63f);
         EditorBodyCore.SetActive(true);
         EditorBodyMian.SetActive(false);
         EditorStatus = EditorStatus.EditorDeck;
@@ -334,7 +337,7 @@ public class EditorInfo : MonoBehaviour
         else
         {
             DOTween.To(() => ShowCardsTitle.anchoredPosition, x => ShowCardsTitle.anchoredPosition = x,
-                        new Vector2(0, 605), 0.5f);//收回Title
+                        new Vector2(0, 150), 0.5f);//收回Title
             DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
                 new Vector2(-470, 0), 0.5f);//展开Left
             DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
@@ -390,7 +393,7 @@ public class EditorInfo : MonoBehaviour
             ResetEditorCore();
             EditorStatus = EditorStatus.EditorDeck;
             DOTween.To(() => EditorCardsTitle.anchoredPosition, x => EditorCardsTitle.anchoredPosition = x,
-                    new Vector2(0, 478.5f), 0.5f);//降下Title,设定标题 ********
+                    new Vector2(0, -63f), 0.5f);//降下Title,设定标题 ********
             DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
                 new Vector2(-1700, 0), 0.5f);//收回Left
             DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
@@ -436,53 +439,53 @@ public class EditorInfo : MonoBehaviour
                 //需要补充,保存并且提交
                 //###################################
                 //后续处理
-                if (!_nowEditorDeck.IsBasicDeck())
+                // if (!_nowEditorDeck.IsBasicDeck())
+                // {
+                //     _ = _globalUIService.YNMessageBox("卡组不符合标准", "目前不支持提交不合标准的卡组,请调整后提交");
+                //     break;
+                // }
+                // else
+                // {
+                _nowEditorDeck.Name = (DeckName.text == "" ? "默认名称" : DeckName.text);
+                if (_clientService.User.Decks.Any(x => x.Id == (_nowEditorDeck.Id == null ? "" : _nowEditorDeck.Id)))
                 {
-                    _ = _globalUIService.YNMessageBox("卡组不符合标准", "目前不支持提交不合标准的卡组,请调整后提交");
-                    break;
-                }
-                else
-                {
-                    _nowEditorDeck.Name = (DeckName.text == "" ? "默认名称" : DeckName.text);
-                    if (_clientService.User.Decks.Any(x => x.Id == (_nowEditorDeck.Id == null ? "" : _nowEditorDeck.Id)))
+                    // if (await _globalUIService.YNMessageBox("是否修改卡组?", $"是否修改卡组 {DeckName.text}"))
+                    // {
+                    if (await _clientService.ModifyDeck(_nowEditorDeck.Id, _nowEditorDeck))
                     {
-                        if (await _globalUIService.YNMessageBox("是否修改卡组?", $"是否修改卡组 {DeckName.text}"))
-                        {
-                            if (await _clientService.ModifyDeck(_nowEditorDeck.Id, _nowEditorDeck))
-                            {
-                                var i = _clientService.User.Decks.Select((item, index) => (item, index)).Single(x => x.item.Id == _nowEditorDeck.Id).index;
-                                _clientService.User.Decks[i] = _nowEditorDeck;
-                                GlobalState.DefaultDeckId = _nowEditorDeck.Id;
-                            }
-                            else
-                            {
-                                if (!(await _globalUIService.YNMessageBox("发生了一个错误", "因为不明原因,无法添加卡组,是否返回初始界面", "是", "否")))
-                                {
-                                    break;
-                                }
-                            }
-                        }
+                        var i = _clientService.User.Decks.Select((item, index) => (item, index)).Single(x => x.item.Id == _nowEditorDeck.Id).index;
+                        _clientService.User.Decks[i] = _nowEditorDeck;
+                        ClientGlobalInfo.DefaultDeckId = _nowEditorDeck.Id;
                     }
                     else
                     {
-                        if (await _globalUIService.YNMessageBox("是否新建卡组?", $"是否新建卡组 {DeckName.text}"))
+                        if (!(await _globalUIService.YNMessageBox("发生了一个错误", "因为不明原因,无法添加卡组,是否返回初始界面", "是", "否")))
                         {
-                            _nowEditorDeck.Id = Guid.NewGuid().ToString();
-                            if ((await _clientService.AddDeck(_nowEditorDeck)))
-                            {   //如果添加卡组通过验证
-                                //也在本地添加卡组
-                                _clientService.User.Decks.Add(_nowEditorDeck);
-                            }
-                            else
-                            {
-                                if (!(await _globalUIService.YNMessageBox("发生了一个错误", "因为不明原因,无法添加卡组,是否返回初始界面", "是", "否")))
-                                {
-                                    break;
-                                }
-                            }
+                            break;
                         }
                     }
+                    // }
                 }
+                else
+                {
+                    // if (await _globalUIService.YNMessageBox("是否新建卡组?", $"是否新建卡组 {DeckName.text}"))
+                    // {
+                    _nowEditorDeck.Id = Guid.NewGuid().ToString();
+                    if ((await _clientService.AddDeck(_nowEditorDeck)))
+                    {   //如果添加卡组通过验证
+                        //也在本地添加卡组
+                        _clientService.User.Decks.Add(_nowEditorDeck);
+                    }
+                    else
+                    {
+                        if (!(await _globalUIService.YNMessageBox("发生了一个错误", "因为不明原因,无法添加卡组,是否返回初始界面", "是", "否")))
+                        {
+                            break;
+                        }
+                    }
+                    // }
+                }
+                // }
                 OpenEditor();
                 break;
         }
@@ -530,12 +533,12 @@ public class EditorInfo : MonoBehaviour
         EditorStatus = EditorStatus.SwitchLeader;
         SetSwitchList(_cards.Where(x => x.Group == Group.Leader && x.Faction == _nowSwitchFaction).ToList());
         DOTween.To(() => EditorCardsTitle.anchoredPosition, x => EditorCardsTitle.anchoredPosition = x,
-                    new Vector2(0, 605), 0.5f);//收回Title
+                    new Vector2(0, 150), 0.5f);//收回Title
         DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
             new Vector2(-470, 0), 0.5f);//展开Left
         DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
             new Vector2(468, 0), 0.5f);//展开Right
-        //Debug.Log("点击了领袖");
+                                       //Debug.Log("点击了领袖");
     }
 
     public void ClickEditorListCard(string id)
@@ -593,7 +596,9 @@ public class EditorInfo : MonoBehaviour
             .Where(x => ((_editorSearchMessage == "") ? true :
                 (x.CardInfo().Name.Contains(_editorSearchMessage) ||
                 x.CardInfo().Info.Contains(_editorSearchMessage) ||
-                x.CardInfo().Strength.ToString().Contains(_editorSearchMessage))))
+                x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
+                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_editorSearchMessage))
+                )))
             .Where(x => _nowEditorGroup == Group.Leader ? x.Group != Group.Leader : x.Group == _nowEditorGroup)
             .ToList()
         );
@@ -619,6 +624,8 @@ public class EditorInfo : MonoBehaviour
             card.transform.SetParent(EditorCListContext, false);
         });
         AllCount.text = _nowEditorDeck.Deck.Count().ToString();
+        AllCount.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
         GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/4";
         SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}/6";
