@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Morvudd(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = await Game.GetSelectPlaceCards(Card, 1);
+            var result = await Game.GetSelectPlaceCards(Card, 1, isHasConceal: true);
             if (result.Count() == 0)
             {
                 return 0;

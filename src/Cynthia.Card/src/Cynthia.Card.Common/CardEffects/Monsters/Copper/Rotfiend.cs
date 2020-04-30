@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return;
             }
             //对方同排列表
-            var row = Game.RowToList(PlayerIndex, @event.DeathLocation.RowPosition.Mirror()).ToList();
+            var row = Game.RowToList(PlayerIndex, @event.DeathLocation.RowPosition.Mirror()).IgnoreConcealAndDead();
             foreach (var it in row)
             {
                 await it.Effect.Damage(2, Card);

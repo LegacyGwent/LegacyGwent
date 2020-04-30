@@ -10,13 +10,13 @@ namespace Cynthia.Card
         public BekkerSDarkMirror(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var list = Game.GetAllCard(PlayerIndex).ToList();
+            var list = Game.GetPlaceCards(PlayerIndex).ToList();
             if (list.Count() <= 0) return 0;
             //穿透伤害
-            await list.Where(x => x.Status.CardRow.IsOnPlace()).WhereAllHighest().Mess(RNG).First().Effect.Damage(10, Card, BulletType.RedLight, true);
-            list = Game.GetAllCard(PlayerIndex).ToList();
-            if (list.Count() <= 0) return 0;
-            await list.Where(x => x.Status.CardRow.IsOnPlace()).WhereAllLowest().Mess(RNG).First().Effect.Boost(10, Card);
+            var damageCard = list.WhereAllHighest().Mess(RNG).First();
+            var boostCard = list.WhereAllLowest().Mess(RNG).First();
+            await damageCard.Effect.Damage(10, Card, BulletType.RedLight, true);
+            await boostCard.Effect.Boost(10, Card);
             return 0;
         }
     }

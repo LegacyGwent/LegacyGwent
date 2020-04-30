@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             if (@event.Target == Card)
             {
-                var row = Game.RowToList(@event.Target.PlayerIndex, @event.DeathLocation.RowPosition);
+                var row = Game.RowToList(@event.Target.PlayerIndex, @event.DeathLocation.RowPosition).IgnoreConcealAndDead();
                 var cards = row.WhereAllLowest().ToList();
                 for (var i = 0; i < cards.Count; i++)
                 {

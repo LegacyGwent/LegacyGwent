@@ -11,11 +11,11 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //参考山崩
-            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex).Mess(Game.RNG).ToList();
+            var cards = Game.GetPlaceCards(AnotherPlayer).ToList();// Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex).ToList();
 
             foreach (var card in cards)
             {
-                var row = Card.Status.CardRow;
+                var row = card.Status.CardRow;
                 await card.Effect.Damage(1, Card);
                 if (card.IsDead && !(Game.GameRowEffect[card.PlayerIndex][row.MyRowToIndex()].RowStatus == RowStatus.RaghNarRoog))
                 {

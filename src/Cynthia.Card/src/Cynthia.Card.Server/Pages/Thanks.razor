@@ -4,6 +4,8 @@
 <h1>特别感谢投食名单</h1>
 
 <h3>目前投食总量为:@_sponsorRecord.Sum(x=>x.Money)</h3>
+<h4>因支付宝显示实名,所以支付宝投食保密,支付宝投食注意填写附加显示信息</h4>
+<h4>有意保密或者显示保密内容,可联系群主进行更新qwq,感谢大家的支持</h4>
 
 <table>
 @foreach (var item in _sponsorRecord)
@@ -56,6 +58,36 @@
     protected override void OnInitialized()
     {
         _sponsorRecord = new List<SponsorInfo>(){
+            new SponsorInfo("","",100, new DateTime(2019,10,30)),
+            new SponsorInfo("","",(decimal)6.66, new DateTime(2019,10,30)),
+            new SponsorInfo("","",200, new DateTime(2019,10,30)),
+
+            new SponsorInfo("Artanis","",50, new DateTime(2019,10,21)),
+
+            new SponsorInfo("路路","",(decimal)161.46, new DateTime(2019,10,16)),
+            new SponsorInfo("","",40, new DateTime(2019,10,6)),
+
+            new SponsorInfo("lwr","dead昆特不死!",10, new DateTime(2019,10,8)),
+            new SponsorInfo("平淡日子里的幸福","牛皮",10, new DateTime(2019,10,8)),
+            new SponsorInfo("平淡日子里的幸福","牛皮",20, new DateTime(2019,10,8)),
+
+            new SponsorInfo("包子","肝妹最萌",120, new DateTime(2019,9,10)),
+            new SponsorInfo("Artanis","",50, new DateTime(2019,9,8)),
+            new SponsorInfo("克克sir","",20, new DateTime(2019,9,8)),
+            new SponsorInfo("费尔南多","",50, new DateTime(2019,9,8)),
+            new SponsorInfo("孙劲涛","",5, new DateTime(2019,9,3)),
+            new SponsorInfo("金玉成","赞美肝妹",50, new DateTime(2019,9,2)),
+            new SponsorInfo("Valar Morghulis","",10, new DateTime(2019,8,30)),
+            new SponsorInfo("o.o","",2, new DateTime(2019,8,30)),
+            new SponsorInfo("z先生丶","加油啊，声音版本的赶快抓紧制作，还会捐钱",10, new DateTime(2019,8,29)),
+            new SponsorInfo("徐曰","感谢大佬",50, new DateTime(2019,8,29)),
+            new SponsorInfo("邓","我口口口跑不快今天上电视啦",10, new DateTime(2019,8,29)),
+            new SponsorInfo("万古长春","",10, new DateTime(2019,8,29)),
+            new SponsorInfo("哈哈~快乐男孩","无名的昆特遗老",5, new DateTime(2019,8,29)),
+            new SponsorInfo("星蚊连啵","是时候吹一波支柱了。 --新闻联播",20, new DateTime(2019,8,29)),
+            new SponsorInfo("","虽然不多 加油~",10, new DateTime(2019,8,29)),
+            new SponsorInfo("wt","辛苦，加油！",(decimal)23.3,new DateTime(2019,8,28)),
+            new SponsorInfo("khz","老昆特玩家",50, new DateTime(2019,8,28)),
             new SponsorInfo("孙基伦","A hero",10, new DateTime(2019,8,27)),
             new SponsorInfo("下","兹词盟主",10, new DateTime(2019,8,27)),
             new SponsorInfo("","支柱万岁,我想舔支柱脚怎么办",20, new DateTime(2019,8,27)),

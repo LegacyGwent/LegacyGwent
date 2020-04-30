@@ -17,7 +17,7 @@ namespace Cynthia.Card
                 return 0;
             }
             //妥协的一种方式
-            await target.Effect.Transform(CardId.CursedKnight, Card);
+            await target.Effect.Transform(CardId.CursedKnight, Card,isForce:true);
             await target.Effect.Armor(2, target);
             return 0;
         }

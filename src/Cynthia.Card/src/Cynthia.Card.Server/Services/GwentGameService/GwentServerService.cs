@@ -163,6 +163,36 @@ namespace Cynthia.Card.Server
             _users.Remove(connectionId);
             InovkeUserChanged();
         }
+
+        public async Task<string> GetLatestVersion(string connectionId)
+        {
+            await Task.CompletedTask;
+            return "0.1.0.1";
+        }
+
+        public async Task<string> GetNotes(string connectionId)
+        {
+            await Task.CompletedTask;
+            return @"2019/11/1更新内容:
+完成最后一张单卡(目前全卡可用):
+松鼠党银卡-艾雷亚斯
+
+调整1个机制:
+事件的触发顺序改为：手牌->领袖->待放置->墓地->卡组->场地->天气。
+(场地优先级变低,附子草等效果可以在场地事件产生之前触发)
+
+修复10个bug
+1.海上野猪视为机械单位 
+2.迪门家族走私贩白板 
+3.无头在小局结束前被杀死会在下局复活
+4.科德温骑士被召唤法阵召唤会增益
+5.扭曲之镜会在造成伤害之后再选择最弱单位
+6.装甲骑兵白板
+7.走私者(没有发现有无视创造的bug)
+8.萨琪亚无法选择交换走的单位
+9.法兰茜丝卡无法选择交换走的单位
+10.被诅咒的骑士现在可以将同名卡变化";
+        }
         //-------------------------------------------------------------------------
         public int GetUserCount()
         {

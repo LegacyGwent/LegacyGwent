@@ -21,6 +21,7 @@ namespace Cynthia.Card
             foreach (var x in result.ToList())
             {
                 var playerIndex = x.PlayerIndex;
+                x.Effect.Repair();
                 await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[playerIndex].Count)), x);
             }
             return 0;

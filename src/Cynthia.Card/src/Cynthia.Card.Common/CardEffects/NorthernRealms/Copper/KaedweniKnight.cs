@@ -9,10 +9,10 @@ namespace Cynthia.Card
     {//若从牌组打出，则获得5点增益。 2点护甲。
         public KaedweniKnight(GameCard card) : base(card) { }
         //妥协写法
-        private bool _boostflag = true;
+        private bool _boostflag = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.Armor(3, Card);
+            await Card.Effect.Armor(2, Card);
             if (_boostflag)
             {
                 _boostflag = false;

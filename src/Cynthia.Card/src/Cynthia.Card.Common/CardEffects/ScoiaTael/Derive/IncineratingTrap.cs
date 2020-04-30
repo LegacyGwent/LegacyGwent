@@ -19,7 +19,7 @@ namespace Cynthia.Card
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Effect.Countdown > 0) return;
-            var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).ToList();
+            var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead();
             foreach (var it in row)
             {
                 if (it != Card)

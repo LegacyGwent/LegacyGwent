@@ -13,10 +13,12 @@ namespace Cynthia.Card
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
             Card.Status.IsImmue = true;
+            await Card.Effect.SetCountdown(1);
             if (Game.GameRowEffect[Card.PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus == RowStatus.FullMoon)
             {
                 isfullmoon = true;
                 await Card.Effect.Boost(7, Card);
+                await SetCountdown(offset: -1);
             }
             return;
         }
@@ -24,9 +26,11 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterWeatherApply @event)
         {
             //以下代码基于 向满月上打出满月不会buff
-
-
             //如果不在场上
+            if (!Card.Status.IsCountdown)
+            {
+                return;
+            }
             if (!Card.Status.CardRow.IsOnPlace())
             {
                 return;
@@ -49,12 +53,10 @@ namespace Cynthia.Card
             {
                 isfullmoon = true;
                 await Card.Effect.Boost(7, Card);
+                await SetCountdown(offset: -1);
                 return;
             }
             return;
         }
-
-
-
     }
 }

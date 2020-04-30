@@ -38,6 +38,7 @@ namespace Cynthia.Card
         private Group? _group;
         private Faction? _faction;
         private int? _crewCount;
+        private bool? _isConcealCard;
         public GwentCard CardInfo { get; set; }
         public string CardId { get; set; }
         public string CardArtsId { get => _cardArtId ?? CardInfo.CardArtsId; set => _cardArtId = value; }
@@ -60,6 +61,7 @@ namespace Cynthia.Card
         public bool IsImmue { get; set; } = false;//是否免疫 | 场地
         //-----------------------------------------------------------------
         //显示相关
+        public bool IsConcealCard { get => _isConcealCard ?? CardInfo.IsConcealCard; set => _isConcealCard = value; }
         public bool IsCardBack { get; set; } = false;
         public Faction DeckFaction { get; set; } = Faction.Monsters;
         public Faction Faction { get => _faction ?? CardInfo.Faction; set => _faction = value; }

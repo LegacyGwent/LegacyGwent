@@ -11,7 +11,7 @@ namespace Cynthia.Card
         Task AddTask(params Func<Task>[] task);
         int RowMaxCount { get; set; }
         Random RNG { get; }
-        IList<(int PlayerIndex, string CardId)> HistoryList { get; set; }
+        IList<(int PlayerIndex, GameCard CardId)> HistoryList { get; set; }
         GameDeck[] PlayerBaseDeck { get; set; }
         Player[] Players { get; set; }//玩家数据传输/
         //bool[] IsPlayersLeader { get; set; }//玩家领袖是否可用/
@@ -96,7 +96,7 @@ namespace Cynthia.Card
         Task<IList<GameCard>> GetSelectMenuCards(int playerIndex, IList<GameCard> selectList, int selectCount = 1, string title = "选择一张卡牌", bool isEnemyBack = false, bool isCanOver = true);//返回点击列表卡牌的顺序
         Task<IList<int>> GetSelectMenuCards(int playerIndex, IList<CardStatus> selectList, int selectCount = 1, bool isCanOver = false, string title = "选择一张卡牌");//返回点击列表卡牌的顺序
         Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info);//返回点击列表卡牌的顺序
-        Task<IList<GameCard>> GetSelectPlaceCards(GameCard card, int count = 1, bool isEnemySwitch = false, Func<GameCard, bool> filter = null, SelectModeType selectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0);
+        Task<IList<GameCard>> GetSelectPlaceCards(GameCard card, int count = 1, bool isEnemySwitch = false, Func<GameCard, bool> filter = null, SelectModeType selectMode = SelectModeType.AllRow, CardType selectType = CardType.Unit, int range = 0, bool isHasConceal = false);
         Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info);//返回点击场上卡牌的顺序
         Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart);//返回选中的牌
         Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false);//告诉玩家要打出什么牌,获取玩家选择的位置
@@ -109,14 +109,14 @@ namespace Cynthia.Card
         Task SendBigRoundEndToCemetery();
         Task SetCemeteryInfo();
         RowPosition ListToRow(int myPlayerIndex, IList<GameCard> list);
-        IList<GameCard> RowToList(int myPlayerIndex, RowPosition row);
+        IList<GameCard> RowToList(int myPlayerIndex, RowPosition row, bool isHasDead = false, bool isHasConceal = false);
         int AnotherPlayer(int playerIndex);
         int GetPlayersPoint(int playerIndex);
         CardLocation GetCardLocation(int playerIndex, GameCard card);
         CardLocation GetRandomCanPlayLocation(int playerIndex, bool isAtEnd = false);
         CardLocation GetCardLocation(GameCard card);
         GameCard GetCard(int playerIndex, CardLocation location);
-        IList<GameCard> GetAllCard(int playerIndex, bool isContaiDead = false);
+        IList<GameCard> GetAllCard(int playerIndex, bool isContaiDead = false, bool isHasConceal = false);
         Task Debug(string msg);
         Task MessageBox(string msg);
         Task ClientDelay(int millisecondsDelay, int? playerIndex = null);

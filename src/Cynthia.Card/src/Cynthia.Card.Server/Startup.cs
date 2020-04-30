@@ -12,6 +12,11 @@ namespace Cynthia.Card.Server
 {
     public class Startup
     {
+        private IWebHostEnvironment _env;
+        public Startup(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -22,7 +27,14 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentCardTypeService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
-            services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://cynthia.ovyno.com:28020/gwent"));
+            if (_env.IsDevelopment())
+            {
+                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb+srv://cynthia:q123456@cluster0-n0gv4.mongodb.net/gwent"));
+            }
+            else
+            {
+                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent"));
+            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)

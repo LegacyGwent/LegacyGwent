@@ -19,6 +19,7 @@ namespace Cynthia.Card
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 3, "选则放回三张牌");
             foreach (var card in result)
             {
+                card.Effect.Repair();
                 await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), card);
             }
 

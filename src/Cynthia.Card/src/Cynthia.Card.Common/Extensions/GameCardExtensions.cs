@@ -10,9 +10,9 @@ namespace Cynthia.Card
 {
     public static class GameCardExtensions
     {
-        public static Task<IList<GameCard>> GetSelectPlanceCards(this GameCard card, Func<GameCard, bool> filter = null, SelectModeType selectMode = SelectModeType.AllRow, bool isEnemySwitch = false, CardType selectType = CardType.Unit, int count = 1, int range = 0)
+        public static Task<IList<GameCard>> GetSelectPlanceCards(this GameCard card, Func<GameCard, bool> filter = null, SelectModeType selectMode = SelectModeType.AllRow, bool isEnemySwitch = false, CardType selectType = CardType.Unit, int count = 1, int range = 0, bool isHasConceal = false)
         {
-            return card.Game.GetSelectPlaceCards(card, count, isEnemySwitch, filter, selectMode, selectType, range);
+            return card.Game.GetSelectPlaceCards(card, count, isEnemySwitch, filter, selectMode, selectType, range, isHasConceal);
         }
 
         public static bool Is(this GameCard card, Group? group = null, CardType? type = null, Func<GameCard, bool> filter = null, Faction? faction = null)
@@ -87,6 +87,10 @@ namespace Cynthia.Card
         public static bool HasAny<T>(this T[] item, params T[] items) where T : Enum
         {
             return item.Intersect(items).Any();
+        }
+        public static IList<GameCard> IgnoreConcealAndDead(this IList<GameCard> cards)
+        {
+            return cards.Where(x => !x.Status.Conceal && !x.IsDead).ToList();
         }
         public static bool HasAnyCategorie(this GameCard card, params Categorie[] categories)
         {

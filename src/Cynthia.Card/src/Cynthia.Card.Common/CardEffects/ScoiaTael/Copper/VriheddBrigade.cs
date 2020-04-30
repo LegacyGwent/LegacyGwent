@@ -18,9 +18,9 @@ namespace Cynthia.Card
                 await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<NoneStatus>();
             var list = await Game.GetSelectPlaceCards(Card, filter: NoMySelfRow, selectMode: SelectModeType.AllRow);
             if (list.Count <= 0) return 0;
-            var location = Card.GetLocation() + 1;
             var card = list.First();
-            await card.Effect.Move(location, Card);
+            await card.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+
             return 0;
         }
 

@@ -8,8 +8,12 @@ namespace Cynthia.Card
     public class Eskel : CardEffect
     {//召唤“维瑟米尔”和“兰伯特”。
         public Eskel(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            if (true)
+            {
+
+            }
             var myDeck = Game.PlayersDeck[PlayerIndex].ToList();
             var lamberts = myDeck.Where(x => x.Status.CardId == CardId.Lambert).ToList();
             var vesemirs = myDeck.Where(x => x.Status.CardId == CardId.Vesemir).ToList();

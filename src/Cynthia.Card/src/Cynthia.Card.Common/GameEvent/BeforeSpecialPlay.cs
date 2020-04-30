@@ -5,6 +5,8 @@ namespace Cynthia.Card
     {
         public GameCard Target { get; set; }
 
+        public bool IsUse { get; set; } = true;
+
         public BeforeSpecialPlay(GameCard target)
         {
             Target = target;

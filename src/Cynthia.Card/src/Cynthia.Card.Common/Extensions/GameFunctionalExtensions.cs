@@ -21,9 +21,6 @@ namespace Cynthia.Card
             }
             rowIndex = a[game.RNG.Next(0, a.Count)].IndexToMyRow();
             return true;
-            //var count = PlayersPlace[playerIndex][rowIndex].Count;
-            //return new CardLocation(rowIndex.IndexToMyRow(), RNG.Next(0, count + 1));
-
         }
 
         public static IEnumerable<GameCard> GetPlaceCards(this IGwentServerGame game, int playerIndex, RowPosition? planceRow = null, bool isHasDead = false, bool isHasConceal = false)
@@ -143,7 +140,7 @@ namespace Cynthia.Card
             }
             return result;
         }
-        public static IList<GameCard> GetRangeCard(this GameCard card, int range, GetRangeType type = GetRangeType.CenterAll)
+        public static IList<GameCard> GetRangeCard(this GameCard card, int range, GetRangeType type = GetRangeType.CenterAll, bool isHasDead = false, bool isHasConceal = false)
         {//按照从左到右的顺序,选中卡牌
             var rowList = card.GetRowList();
             var centerIndex = card.GetRowIndex();
@@ -155,6 +152,14 @@ namespace Cynthia.Card
                 (i == centerIndex && type.IsCenter()) ||
                 (i > centerIndex && type.IsRight())))
                 {
+                    if (!isHasDead && rowList[i].IsDead)
+                    {
+                        continue;
+                    }
+                    if (!isHasConceal && rowList[i].Status.Conceal)
+                    {
+                        continue;
+                    }
                     result.Add(rowList[i]);
                 }
             }
@@ -220,6 +225,8 @@ namespace Cynthia.Card
                 if (card.Status.CardRow.IsInHand() && !card.Status.IsReveal)
                     return true;
                 if (card.Status.CardRow.IsOnPlace() && card.Status.Conceal)
+                    return true;
+                if (card.Status.CardRow.IsOnStay() && card.Status.IsConcealCard)
                     return true;
             }
             return false;
@@ -296,19 +303,20 @@ namespace Cynthia.Card
             return (health: card.Status.Strength + card.Status.HealthStatus, card: card);
         }
 
-        public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card)
+        public static IEnumerable<GameCard> WhereAllHighest(this IEnumerable<GameCard> card, bool isHasConceal = false)
         {
             //大到小
             if (card == null || card.Count() == 0) return card;
-            var hight = card.SelectToHealth().OrderByDescending(x => x.health).First().health;
-            return card.SelectToHealth().OrderByDescending(x => x.health).Where(x => x.health >= hight).Select(x => x.card);
+            var hight = card.Where(x => isHasConceal ? true : !x.Status.Conceal).SelectToHealth().OrderByDescending(x => x.health).First().health;
+            return card.SelectToHealth().OrderByDescending(x => x.health).Where(x => x.health >= hight).Select(x => x.card).ToList();
         }
 
-        public static IEnumerable<GameCard> WhereAllLowest(this IEnumerable<GameCard> card)
+        public static IEnumerable<GameCard> WhereAllLowest(this IEnumerable<GameCard> card, bool isHasConceal = false)
         {
+            card = card.Where(x => isHasConceal ? true : !x.Status.Conceal).ToList();
             if (card == null || card.Count() == 0) return card;
             var low = card.SelectToHealth().OrderBy(x => x.health).First().health;
-            return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card);
+            return card.SelectToHealth().OrderBy(x => x.health).Where(x => x.health <= low).Select(x => x.card).ToList();
         }
 
         public static IEnumerable<CardLocation> CardsPartToLocation(this GameCardsPart part)
