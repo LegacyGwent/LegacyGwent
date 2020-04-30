@@ -16,6 +16,8 @@ public class SettingPanel : MonoBehaviour
     // public GameObject AudioSource;
     public AudioMixer AudioMixer;
 
+    private LanguageType type;
+
     private void Start()
     {
         //初始化值,(计划之后变成读取文件的方式初始化值
@@ -30,6 +32,8 @@ public class SettingPanel : MonoBehaviour
         musicVolum = PlayerPrefs.GetInt("musicVolum", 5);
         effectVolum = PlayerPrefs.GetInt("effectVolum", 5);
         quality = PlayerPrefs.GetInt("quality", 2);
+
+        type = (LanguageType)PlayerPrefs.GetInt("Language", 0);
     }
     public Resolution IndexToResolution(int index)
     {
@@ -80,6 +84,7 @@ public class SettingPanel : MonoBehaviour
         PlayerPrefs.SetInt("effectVolum", volum);
         effectVolum = volum;
         AudioMixer.SetFloat("effectVolum", (float)((effectVolum * 8) - 80));
+        AudioManager.Instance.SetVolume(volum);
     }
 
     //设置画质
@@ -113,4 +118,19 @@ public class SettingPanel : MonoBehaviour
         Screen.SetResolution(screenResolution.width, screenResolution.height, isFullScreen);
 
     }
+
+    //设置语言
+    public void SetLanguage(int index)
+    {
+        PlayerPrefs.SetInt("Language", index);
+        type = (LanguageType)index;
+        AudioManager.Instance.SetLanguageType((LanguageType)index);
+    }
+}
+
+public enum LanguageType
+{
+    English,
+    Chinese,
+    Japanese
 }
