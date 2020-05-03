@@ -12,6 +12,8 @@ namespace Cynthia.Card.Server
         public string Password { get; set; }
         public bool IsReady { get => Player2 != null && Player1 != null; }
 
+        public bool IsPopup { get; set; } = false;
+
         public GwentRoom(Player player, string password)
         {
             Player1 = player;

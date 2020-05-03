@@ -159,6 +159,19 @@ namespace Cynthia.Card
         //更新CardMap内容请务必将CardMapVersion更新
         public static Version CardMapVersion { get; } = new Version(1, 0, 0, 7);
 
+
+        public class MultilingualString
+        {
+            public IDictionary<LanguageType, string> Message { get; set; }
+        }
+
+        public enum LanguageType
+        {
+            Chinese,
+            English,
+        }
+
+
         public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {
             //=========================================================================================================================================================================
