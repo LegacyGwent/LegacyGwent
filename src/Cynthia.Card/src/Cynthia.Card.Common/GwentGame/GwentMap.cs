@@ -10921,6 +10921,106 @@ namespace Cynthia.Card
                     CardArtsId = "d20470000",
                 }
             },
+            {
+                "70019",//卓尔坦·矮人战士
+                new GwentCard()
+                {
+                    CardId ="70019",
+                    Name = "卓尔坦·矮人战士",
+                    Strength = 4,
+                    Group = Group.Silver,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Dwarf},
+                    Flavor = "",
+                    Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量的增益。",
+                    CardArtsId = "d19190000",
+                }
+            },
+            {
+                "70020",//菲吉斯·梅鲁佐
+                new GwentCard()
+                {
+                    CardId ="70020",
+                    Name = "菲吉斯·梅鲁佐",
+                    Strength = 3,
+                    Group = Group.Silver,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Dwarf},
+                    Flavor = "",
+                    Info = "召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量的增益。",
+                    CardArtsId = "d19220000",
+                }
+            },
+            {
+                "70021",//穆罗·布鲁伊斯
+                new GwentCard()
+                {
+                    CardId ="70021",
+                    Name = "穆罗·布鲁伊斯",
+                    Strength = 3,
+                    Group = Group.Silver,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Dwarf},
+                    Flavor = "",
+                    Info = "召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，使二者获得等同于自身增益量的增益。",
+                    CardArtsId = "d19210000",
+                }
+            },
+            {
+                "70022",//齐齐摩工兵
+                new GwentCard()
+                {
+                    CardId ="70022",
+                    Name = "齐齐摩工兵",
+                    Strength = 4,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Insectoid},
+                    Flavor = "",
+                    Info = "选择1个“类虫生物”单位，使其在手牌、牌组或己方半场所有同名牌获得2点增益。",
+                    CardArtsId = "d19140000",
+                }
+            },
+            {
+                "70023",//齐齐摩战士
+                new GwentCard()
+                {
+                    CardId ="70023",
+                    Name = "齐齐摩战士",
+                    Strength = 7,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Insectoid},
+                    Flavor = "",
+                    Info = "吞噬己方牌组中1个战力不大于自身的非同名铜色单位牌，获得等同于其基础战力的增益",
+                    CardArtsId = "d18430000",
+                }
+            },
 
         };
     }
