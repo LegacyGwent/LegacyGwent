@@ -12,7 +12,7 @@ using UnityEngine.UI;
 using Cynthia.Card.Client;
 using Cynthia.Card;
 
-public class GaneEntrance : MonoBehaviour
+public class GameEntrance : MonoBehaviour
 {
     public GameObject GlobalUI;
     public GameObject AudioSound;
