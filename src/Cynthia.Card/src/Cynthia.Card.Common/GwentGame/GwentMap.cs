@@ -11021,7 +11021,26 @@ namespace Cynthia.Card
                     CardArtsId = "d18430000",
                 }
             },
-
+            {
+                "70024",//被诅咒的不朽者
+                new GwentCard()
+                {
+                    CardId = "70024",
+                    Name = "被诅咒的不朽者",
+                    Strength = 10,
+                    Group = Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Cursed,Categorie.Aedirn},
+                    Flavor = "",
+                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，然后削弱自身3点。",
+                    CardArtsId = "d20010000",
+                }
+            },
         };
     }
 }
