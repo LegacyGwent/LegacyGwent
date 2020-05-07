@@ -7,7 +7,8 @@ namespace Cynthia.Card
 {
     [CardEffectId("14019")]//倾盆大雨
     public class TorrentialRain : CardEffect
-    {//在对方单排降下灾厄。回合开始时，对所在排最多2个随机单位造成1点伤害。
+    {   //在对方单排降下灾厄。回合开始时，对所在排的最强单位造成1点伤害，随后对最弱单位造成1点伤害
+        //在对方单排降下灾厄。回合开始时，对所在排最多2个随机单位造成1点伤害。
         public TorrentialRain(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {

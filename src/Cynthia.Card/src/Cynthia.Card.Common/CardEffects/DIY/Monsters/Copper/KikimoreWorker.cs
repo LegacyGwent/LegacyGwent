@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public KikimoreWorker(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var target = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow)).SingleOrDefault();
+            var target = (await Game.GetSelectPlaceCards(Card, filter: (x => x.HasAnyCategorie(Categorie.Insectoid)), selectMode: SelectModeType.MyRow)).SingleOrDefault();
             var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == target.Status.CardId).ToList();
             if (cards.Count() == 0)
             {

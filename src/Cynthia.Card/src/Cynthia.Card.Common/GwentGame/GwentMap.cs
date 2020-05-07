@@ -2270,7 +2270,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Hazard},
                     Flavor = "这儿连雨都带股尿骚味。",
-                    Info = "在对方单排降下灾厄。回合开始时，对所在排最多2个随机单位造成1点伤害。",
+                    Info = "在对方单排降下灾厄。回合开始时，对所在排的最强单位造成1点伤害，随后对最弱单位造成1点伤害",
                     CardArtsId = "11331200",
                 }
             },
