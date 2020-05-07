@@ -127,6 +127,13 @@ public class CardsPosition : MonoBehaviour
         card.transform.SetParent(transform);
         card.transform.SetSiblingIndex(cardIndex == -1 ? transform.childCount : cardIndex);
         card.IsCanDrag = IsCanDrag;
+        if(Id == RowPosition.EnemyRow1 || Id == RowPosition.EnemyRow2 || Id == RowPosition.EnemyRow3 
+            || Id == RowPosition.MyRow1 || Id == RowPosition.MyRow2 || Id == RowPosition.MyRow3
+            )
+        {
+            card.GetComponent<CardShowInfo>().PlayAudio();
+        }
+        
         if (card.IsOn)//测试
             card.IsOn = true;
         if (source != null)
