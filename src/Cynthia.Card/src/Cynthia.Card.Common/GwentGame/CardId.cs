@@ -532,6 +532,11 @@ namespace Cynthia.Card
         public const string ToussaintKnightErrant = "70012";
         public const string CorruptedFlaminca = "70013";
         public const string LandOfAThousandFables = "70014";
+        public const string ZoltanWarrior = "70019";
+        public const string FiggisMerluzzo = "70020";
+        public const string MunroBruys = "70021";
+        public const string KikimoreWorker = "70022";
+        public const string KikimoreWarrior = "70023";
         public const string CursedImmortals = "70024";
     }
 }
