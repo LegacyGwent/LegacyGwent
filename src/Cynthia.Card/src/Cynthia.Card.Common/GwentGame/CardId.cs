@@ -537,5 +537,6 @@ namespace Cynthia.Card
         public const string MunroBruys = "70021";
         public const string KikimoreWorker = "70022";
         public const string KikimoreWarrior = "70023";
+        public const string CursedImmortals = "70024";
     }
 }
