@@ -135,6 +135,8 @@ namespace Cynthia.Card
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
 
+            await Game.SendEvent(new BeforeCardToCemetery(Card, deadposition, isRoundEnd));
+
             //进入墓地后撤销护盾
             Card.Status.IsShield = false;
 
