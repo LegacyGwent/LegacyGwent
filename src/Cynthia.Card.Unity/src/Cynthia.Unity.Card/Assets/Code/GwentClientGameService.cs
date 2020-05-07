@@ -160,6 +160,7 @@ namespace Cynthia.Card.Client
                 //------------------------------------------------------------------------
                 //SET数值和墓地
                 case ServerOperationType.SetCoinInfo:
+                  
                     GameCodeService.SetCoinInfo(arguments[0].ToType<bool>());
                     break;
                 case ServerOperationType.SetMyCemetery:

@@ -912,14 +912,18 @@ public class GameEvent : MonoBehaviour
         if (IsAutoPlay)
             await sender.SendAsync(rowPart.Mess().First());
         var result = await receiver.ReceiveAsync<RowPosition>();
+        Debug.Log(_arrowSource);
+        if (_arrowSource != null)
+            _arrowSource.GetComponent<CardShowInfo>().SpecialAudioPlay();
         //收尾工作
         _arrowSource = null;
         _arrowTaget = null;//箭头处理
         DropTaget = null;//不需要的东西都清空
         NowOperationType = GameOperationType.None;//收工了
         CurrentPlace = CardUseInfo.ReSet;//熄灭
-        //发送讯息
+                                         //发送讯息
         await player.SendAsync(UserOperationType.RoundOperate, result);
+
     }
     public async Task SelectPlaceCards(PlaceSelectCardsInfo info, LocalPlayer player)
     {
@@ -938,6 +942,9 @@ public class GameEvent : MonoBehaviour
             await sender.SendAsync<IList<CardLocation>>
             (info.CanSelect.CardsPartToLocation().Mess().Take(info.SelectCount).ToList());
         var result = await receiver.ReceiveAsync<IList<CardLocation>>();
+        Debug.Log(_arrowSource);
+        if (_arrowSource != null)
+            _arrowSource.GetComponent<CardShowInfo>().SpecialAudioPlay();
         //收尾工作 
         _arrowSource = null;
         _arrowTaget = null;//箭头处理
@@ -946,8 +953,9 @@ public class GameEvent : MonoBehaviour
         SelectModeCard = null;
         AllCardsPosition.ForAll(row => row.GetCards().ForAll(card => card.CardShowInfo.SetSelect(false, false)));
         AllCardGray(false);//全卡亮
-        //发送讯息
+                           //发送讯息
         await player.SendAsync(UserOperationType.RoundOperate, result);
+
     }
     //让玩家使用一个卡牌,或者pass
     public async Task GetPlayerDrag(LocalPlayer player)//（RoundStart）
@@ -1034,6 +1042,7 @@ public class GameEvent : MonoBehaviour
         var soureCard = default(CardMoveInfo);
         var tagetRow = default(CardsPosition);
         //几个特殊的移动原始位置
+     
         switch (info.Source.RowPosition)
         {
             case RowPosition.MyLeader:
@@ -1149,6 +1158,7 @@ public class GameEvent : MonoBehaviour
     //设置硬币
     public void SetCoinInfo(bool isBlue)
     {
+        AudioManager.Instance.PlayAudio("Coin", AudioType.Effect, AudioPlayMode.PlayOneShoot);
         Coin.IsMyRound = isBlue;
     }
     //告诉玩家回合结束
