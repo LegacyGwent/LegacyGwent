@@ -15,7 +15,7 @@ using Cynthia.Card;
 public class GameInit : MonoBehaviour
 {
     public GameObject GlobalUI;
-    public GameObject AudioSound;
+    //public GameObject AudioSound;
     public AudioMixer AudioMixer;
 
     public Text NowVersionText;
@@ -70,17 +70,17 @@ public class GameInit : MonoBehaviour
         if (ClientGlobalInfo.IsLoadGlobal) return;
         ClientGlobalInfo.IsLoadGlobal = true;
         var globalUI = Instantiate(GlobalUI);
-        var musicSource = Instantiate(AudioSound);
+        //var musicSource = Instantiate(AudioSound);
         globalUI.name = "GlobalUI";
-        musicSource.name = "MusicSource";
+        //musicSource.name = "MusicSource";
         DontDestroyOnLoad(globalUI);
-        DontDestroyOnLoad(musicSource);
+        //DontDestroyOnLoad(musicSource);
 
         SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
         SetQuality(PlayerPrefs.GetInt("quality", 2));
         SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
-        SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
-        SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
+        SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
+        SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
         NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
     }
 
@@ -155,4 +155,6 @@ public class GameInit : MonoBehaviour
         //AudioSource.GetComponent<AudioSource>().Play();
         AudioMixer.SetFloat("volum", 0);
     }
+
+
 }
