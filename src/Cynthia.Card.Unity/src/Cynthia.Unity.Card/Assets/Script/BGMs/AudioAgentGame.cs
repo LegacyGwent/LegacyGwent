@@ -9,14 +9,14 @@ public class AudioAgentGame : MonoBehaviour
     public GameObject matchButton;
 
     private GameObject tempObject;
-    private AudioManager manager;
+    private BGMManager manager;
     // Start is called before the first frame update
     void Update()
     {
         tempObject = GameObject.Find("AudioManager");
         if(tempObject != null)
         {
-            manager = tempObject.GetComponent<AudioManager>();
+            manager = tempObject.GetComponent<BGMManager>();
             manager.SetObject(editorUI, 1);
             manager.SetObject(matchButton, 2);
         }

@@ -52,13 +52,13 @@ public class Sound
 }
 
 
-public class AudioManager : MonoBehaviour
+public class BGMManager : MonoBehaviour
 {
     [SerializeField]
     public Sound[] soundList;
 
 
-    public static AudioManager instance;
+    public static BGMManager instance;
     public AudioMixer audioMixer;
     public AudioMixerGroup groupMusic;
     public float bgmChangeSpeed = 0.01f;
