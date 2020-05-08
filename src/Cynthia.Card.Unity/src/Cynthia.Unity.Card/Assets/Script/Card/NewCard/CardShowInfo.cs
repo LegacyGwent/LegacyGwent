@@ -212,14 +212,16 @@ public class CardShowInfo : MonoBehaviour
         DOTween.Sequence().Append(transform.DOLocalRotate(new Vector3(0, 90, 0), 0.15f))
             .AppendCallback(SetCard)
             .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.15f));
-        if(AmbushType() && !_currentCore.IsCardBack)
+        if (AmbushType() && !_currentCore.IsCardBack)
         {
-            if(CurrentCore.CardArtsId == "11221000")//Roach卡
+            if (CurrentCore.CardArtsId == "11221000")//Roach卡
             {
                 AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.PlayOneShoot);
             }
             else
-               AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+            {
+                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+            }
         }
     }
 
@@ -227,7 +229,7 @@ public class CardShowInfo : MonoBehaviour
 
     public void PlayAudio()
     {
-        if (CurrentCore == null)
+        if (CurrentCore == null || CurrentCore.IsCardBack)
             return;
         if (CardInfo.CardType == CardType.Unit && !AmbushType())
         {
@@ -265,7 +267,7 @@ public class CardShowInfo : MonoBehaviour
             return false;
         for (int i = 0; i < CurrentCore.Categories.Length; i++)
         {
-            if(CurrentCore.Categories[i] == Categorie.Ambush)
+            if (CurrentCore.Categories[i] == Categorie.Ambush)
             {
                 return true;
             }
