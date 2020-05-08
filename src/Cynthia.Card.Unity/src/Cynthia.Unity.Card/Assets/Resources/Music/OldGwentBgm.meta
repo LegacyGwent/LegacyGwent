@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 557179561a1ce34468669f1b6ee80a77
+=======
+guid: df0cdb0a1f4815b45842bbc95e5b84e2
+>>>>>>> 3a8ddef5... 添加bgm
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
