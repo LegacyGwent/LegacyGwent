@@ -6,6 +6,7 @@ using Autofac;
 using Cynthia.Card.Client;
 using Cynthia.Card;
 using System.Threading.Tasks;
+using System;
 
 public class GameCode : MonoBehaviour
 {
@@ -29,9 +30,9 @@ public class GameCode : MonoBehaviour
         // {
         await new GwentClientGameService(DependencyResolver.Container.Resolve<GameCodeService>(), DependencyResolver.Container.Resolve<GlobalUIService>()).Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
         // }
-        // catch
+        // catch (Exception e)
         // {
-        //     Debug.Log("被我捉住了!");
+        //     Debug.Log($"被我捉住了!{e.Message}");
         // }
     }
     public void LeaveGame()

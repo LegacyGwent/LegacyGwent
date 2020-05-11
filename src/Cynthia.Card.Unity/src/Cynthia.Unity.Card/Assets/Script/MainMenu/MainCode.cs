@@ -16,7 +16,7 @@ public class MainCode : MonoBehaviour
 
     //async Task AutoTest()
     //{
-    //    var hub = DependencyResolver.Container.Resolve<HubConnection>();
+    //    var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
     //    while (true)
     //    {
     //        await Task.Delay(500);

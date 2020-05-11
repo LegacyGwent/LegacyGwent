@@ -157,7 +157,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 8);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 9);
 
 
         public class MultilingualString
@@ -11037,7 +11037,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed,Categorie.Aedirn},
                     Flavor = "",
-                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，然后削弱自身3点。",
+                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”。",
                     CardArtsId = "d20010000",
                 }
             },

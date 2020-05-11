@@ -20,6 +20,10 @@ namespace Cynthia.Card.Client
             {
                 await _upstream.SendAsync(x);
             });
+            hubConnection.Closed += async (e) =>
+            {
+                await _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
+            };
         }
 
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);

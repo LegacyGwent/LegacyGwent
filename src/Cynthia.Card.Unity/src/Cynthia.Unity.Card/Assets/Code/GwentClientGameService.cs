@@ -6,6 +6,8 @@ using Alsein.Extensions;
 using UnityEngine;
 using Alsein.Extensions.LifetimeAnnotations;
 using System.Threading;
+using Autofac;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Cynthia.Card.Client
 {
@@ -17,9 +19,25 @@ namespace Cynthia.Card.Client
         //--------------------------------
         public GameCodeService GameCodeService { get; set; }
         public GlobalUIService GlobalUIService { get; set; }
+
+        public HubConnection _hubConnection { get; set; }
+
+        // public TaskCompletionSource<bool> _disconnectTaskSource { get; set; }
+
+        // public Task<bool> ConnectTask { get => _disconnectTaskSource.Task; }
+
+
         //--------------------------------
         public GwentClientGameService(GameCodeService codeService, GlobalUIService globalUIService)
         {
+            Debug.Log("创造游戏");
+            // _disconnectTaskSource = new TaskCompletionSource<bool>();
+            _hubConnection = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
+            // _hubConnection.Closed += async e =>
+            // {
+            //     await Task.CompletedTask;
+            //     _disconnectTaskSource.SetException(e);
+            // };
             _id = DateTime.UtcNow.Ticks;
             GameCodeService = codeService;
             GlobalUIService = globalUIService;
@@ -29,36 +47,46 @@ namespace Cynthia.Card.Client
         {
             Debug.Log($"游戏开始,Id:{_id}");
             _player = player;
-            // while (await StartHandle(await _player.ReceiveAsync())) ;
-            // if (_mustOver) return;
-            // Debug.Log("预处理完毕");
-            while (await ResponseOperations(await _player.ReceiveAsync())) ;
+            // var game = Task.Run(async () =>
+            // {
+            Debug.Log("运行开始");
+            while (
+                await await Task.WhenAny<bool>(
+                    ResponseOperations(
+                        await _player.ReceiveAsync()
+                    ),
+                    ConnectTask
+                )
+            ) ;
+            // });
+            // await Task.WhenAny(game, ConnectTask);
         }
         //-----------------------------------------------------------------------
         //响应指令
         private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
         {
-            // Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
+            Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
             foreach (var operaction in operations)
             {
+                Debug.Log($"包含指令{operaction.OperationType}");
+            }
+            foreach (var operaction in operations)
+            {
+                Debug.Log($"执行了指令{operaction.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
                 if (!await ResponseOperation(operaction))
                     return false;
             }
+            Debug.Log($"处理完毕");
             return true;
         }
+
         private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
         {
-            // Debug.Log($"执行了指令{operation.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
                 //----------------------------------------------------------------------------------
                 //新指令
-                case ServerOperationType.ClientDelay:
-                    var dTime = arguments[0].ToType<int>();
-                    Debug.Log($"延迟触发,延迟时常:{dTime}");
-                    await Task.Delay(dTime);
-                    break;
                 case ServerOperationType.SelectMenuCards:
                     GameCodeService.SelectMenuCards(arguments[0].ToType<MenuSelectCardInfo>(), _player);
                     break;
@@ -70,6 +98,17 @@ namespace Cynthia.Card.Client
                     break;
                 case ServerOperationType.PlayCard:
                     GameCodeService.PlayCard(arguments[0].ToType<CardLocation>(), _player);
+                    break;
+                case ServerOperationType.GetMulliganInfo:
+                    GameCodeService.GetMulliganInfo(_player);
+                    break;
+                case ServerOperationType.GetDragOrPass:
+                    GameCodeService.GetPlayerDrag(_player);
+                    break;
+                case ServerOperationType.ClientDelay:
+                    var dTime = arguments[0].ToType<int>();
+                    Debug.Log($"延迟触发,延迟时常:{dTime}");
+                    await Task.WhenAny(Task.Delay(dTime), ConnectTask);
                     break;
                 //-------------------------
                 //小动画
@@ -102,9 +141,6 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.MessageBox:
                     _ = GlobalUIService.YNMessageBox("收到了一个来自服务器的消息", arguments[0].ToType<string>());
                     break;
-                case ServerOperationType.GetDragOrPass:
-                    GameCodeService.GetPlayerDrag(_player);
-                    break;
                 case ServerOperationType.RoundEnd://回合结束
                     GameCodeService.RoundEnd();
                     break;
@@ -130,9 +166,6 @@ namespace Cynthia.Card.Client
                     break;
                 case ServerOperationType.MulliganData:
                     GameCodeService.MulliganData(arguments[0].ToType<int>(), arguments[1].ToType<CardStatus>());
-                    break;
-                case ServerOperationType.GetMulliganInfo:
-                    GameCodeService.GetMulliganInfo(_player);
                     break;
                 case ServerOperationType.MulliganEnd:
                     GameCodeService.MulliganEnd();
@@ -160,7 +193,6 @@ namespace Cynthia.Card.Client
                 //------------------------------------------------------------------------
                 //SET数值和墓地
                 case ServerOperationType.SetCoinInfo:
-                  
                     GameCodeService.SetCoinInfo(arguments[0].ToType<bool>());
                     break;
                 case ServerOperationType.SetMyCemetery:
@@ -206,7 +238,7 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.EnemyCardEffectEnd://卡牌效果落下
                     GameCodeService.EnemyCardEffectEnd();
                     break;
-               case ServerOperationType.SetCardTo:
+                case ServerOperationType.SetCardTo:
                     GameCodeService.SetCardTo
                     (
                         arguments[0].ToType<RowPosition>(), 

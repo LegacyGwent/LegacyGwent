@@ -44,7 +44,7 @@ public class RegisterClick : MonoBehaviour
         RegisterMessage.text = "正在注册...请稍等片刻";
         try
         {
-            var hub = DependencyResolver.Container.Resolve<HubConnection>();
+            var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
             if (hub.State == HubConnectionState.Disconnected)
                 await hub.StartAsync();
             var result = await server.Register(Username.text, Password.text, Playername.text);

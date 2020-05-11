@@ -67,7 +67,7 @@ public class LoginClick : MonoBehaviour
         LogMessage.text = "正在登录...请稍等片刻";
         try
         {
-            var hub = DependencyResolver.Container.Resolve<HubConnection>();
+            var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
             if (hub.State == HubConnectionState.Disconnected)
                 await hub.StartAsync();
             await _client.Login(Username.text, Password.text);
@@ -85,7 +85,7 @@ public class LoginClick : MonoBehaviour
         }
         catch
         {
-            //await DependencyResolver.Container.Resolve<HubConnection>().StartAsync();
+            //await DependencyResolver.Container.ResolveNamed<HubConnection>().Named("game").StartAsync();
             //await _client.Login(Username.text, Password.text);
             //if (_client.User == null)
             //{

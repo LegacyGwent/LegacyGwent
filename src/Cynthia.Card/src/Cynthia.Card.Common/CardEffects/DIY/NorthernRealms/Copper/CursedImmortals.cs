@@ -7,11 +7,11 @@ namespace Cynthia.Card
 {
     [CardEffectId("70024")]//被诅咒的不朽者
     public class CursedImmortals : CardEffect, IHandlesEvent<AfterCardDeath>, IHandlesEvent<BeforeCardToCemetery>
-    {//相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，然后削弱自身3点。
+    {//相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”
 
         public CursedImmortals(GameCard card) : base(card) { }
 
-        private const int weakenPoint = 3;
+        // private const int weakenPoint = 3;
 
         private CardLocation myLoc;
 
@@ -41,7 +41,7 @@ namespace Cynthia.Card
                         if (Game.RowToList(PlayerIndex, deathLoc.RowPosition).Count < Game.RowMaxCount)
                         {
                             await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, deathLoc.RowPosition);
-                            await Card.Effect.Weaken(weakenPoint, Card);
+                            // await Card.Effect.Weaken(weakenPoint, Card);
                         }
                     }
                 }

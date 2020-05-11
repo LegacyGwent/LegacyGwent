@@ -31,16 +31,19 @@ namespace Cynthia.Card.Client
             return receiver.ReceiveAsync<bool>();
         }
 
-        public GwentClientService(HubConnection hubConnection, GlobalUIService globalUIService)
+        public GwentClientService(IContainer container, GlobalUIService globalUIService)
         {
             _globalUIService = globalUIService;
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
             /*待修改*/
+
+            var hubConnection = container.ResolveNamed<HubConnection>("game");
+            Debug.Log(hubConnection);
             hubConnection.On<bool>("MatchResult", async x =>
-             {
-                 await sender.SendAsync<bool>(x);
-             });
+            {
+                await sender.SendAsync<bool>(x);
+            });
             hubConnection.On("RepeatLogin", async () =>
             {
                 SceneManager.LoadScene("LoginSecen");
@@ -71,9 +74,9 @@ namespace Cynthia.Card.Client
                 _globalUIService.YNMessageBox(title, message, yes, no, isyes);
             });
             hubConnection.On<string, string>("Wait", (string title, string message) =>
-             {
-                 _globalUIService.Wait(title, message);
-             });
+            {
+                _globalUIService.Wait(title, message);
+            });
             hubConnection.On("Close", () =>
             {
                 _globalUIService.Close();
@@ -108,11 +111,11 @@ namespace Cynthia.Card.Client
 
         public async Task AutoUpdateCardMapVersion(Text text)
         {
-            var localVersion = new Version (PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
+            var localVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
             text.text = "正在验证卡牌数据...请稍等...";
             var serverVersion = new Version(await GetCardMapVersion());
             Debug.Log($"正在对比版本号...{localVersion},{serverVersion}");
-            if (localVersion!=serverVersion)
+            if (localVersion != serverVersion)
             //if(true)//强制更新测试
             {
                 Debug.Log($"发现不一致,更新");
@@ -120,7 +123,7 @@ namespace Cynthia.Card.Client
                 var newData = default(IDictionary<string, GwentCard>);
                 try
                 {
-                    newData = JsonConvert.DeserializeObject<IDictionary<string,GwentCard>>(await GetCardMap());
+                    newData = JsonConvert.DeserializeObject<IDictionary<string, GwentCard>>(await GetCardMap());
                     GwentMap.CardMap = newData;
                 }
                 catch (Exception e)
@@ -143,10 +146,10 @@ namespace Cynthia.Card.Client
             text.text = "卡牌数据为最新版本,游戏愉快";
         }
 
-        public IDictionary<string,GwentCard> ReadCardMapData()
+        public IDictionary<string, GwentCard> ReadCardMapData()
         {
             var path = Application.persistentDataPath;
-#if UNITY_WIN
+#if UNITY_WIN || UNITY_EDITOR
             path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
@@ -180,7 +183,7 @@ namespace Cynthia.Card.Client
         public void WriteCardMapData(string cardMapJson)
         {
             var path = Application.persistentDataPath;
-#if UNITY_WIN
+#if UNITY_WIN || UNITY_EDITOR
             path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
@@ -189,7 +192,7 @@ namespace Cynthia.Card.Client
             if (!File.Exists(path))
             {
                 Debug.Log("路径不存在,创造路径");
-                File.Create(path);
+                File.Create(path).Dispose();
             }
 #elif UNITY_ANDROID
             path = Application.persistentDataPath + "/CardData.json";
@@ -200,7 +203,7 @@ namespace Cynthia.Card.Client
             if(!File.Exists(path))
             {
                 Debug.Log("路径不存在,创造路径");
-                File.Create(path);
+                File.Create(path).Dispose();
             }
 #endif
             StreamWriter sw = new StreamWriter(path);
