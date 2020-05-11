@@ -51,11 +51,8 @@ namespace Cynthia.Card.Client
             // {
             Debug.Log("运行开始");
             while (
-                await await Task.WhenAny<bool>(
-                    ResponseOperations(
-                        await _player.ReceiveAsync()
-                    ),
-                    ConnectTask
+                await ResponseOperations(
+                    await _player.ReceiveAsync()
                 )
             ) ;
             // });
@@ -108,7 +105,7 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.ClientDelay:
                     var dTime = arguments[0].ToType<int>();
                     Debug.Log($"延迟触发,延迟时常:{dTime}");
-                    await Task.WhenAny(Task.Delay(dTime), ConnectTask);
+                    await Task.WhenAny(Task.Delay(dTime));
                     break;
                 //-------------------------
                 //小动画

@@ -23,6 +23,10 @@ namespace Cynthia.Card
             if (@event.Source == Card)
             {
                 var list = Game.GetPlaceCards(PlayerIndex).ToList();
+                if (list.Count == 0)
+                {
+                    return;
+                }
                 var boostCard = list.WhereAllLowest().Mess(RNG).First();
                 await boostCard.Effect.Boost(@event.Num, Card);
             }

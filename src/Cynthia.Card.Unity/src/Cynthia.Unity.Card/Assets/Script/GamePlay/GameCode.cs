@@ -26,14 +26,14 @@ public class GameCode : MonoBehaviour
     private async void GameStart()
     {
         // await DependencyResolver.Container.Resolve<GwentClientGameService>().Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
-        // try
-        // {
-        await new GwentClientGameService(DependencyResolver.Container.Resolve<GameCodeService>(), DependencyResolver.Container.Resolve<GlobalUIService>()).Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
-        // }
-        // catch (Exception e)
-        // {
-        //     Debug.Log($"被我捉住了!{e.Message}");
-        // }
+        try
+        {
+            await new GwentClientGameService(DependencyResolver.Container.Resolve<GameCodeService>(), DependencyResolver.Container.Resolve<GlobalUIService>()).Play(DependencyResolver.Container.Resolve<GwentClientService>().Player);
+        }
+        catch (Exception e)
+        {
+            Debug.Log($"被我捉住了!{e.Message}");
+        }
     }
     public void LeaveGame()
     {
