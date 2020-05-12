@@ -29,8 +29,8 @@ public class Sound
 
     [HideInInspector]
     public AudioSource source;
-    
-    
+
+
 
     public void SetSource(AudioSource _source)
     {
@@ -111,7 +111,7 @@ public class BGMManager : MonoBehaviour
 
     private string[,] BGMs =
     {
-       {
+        {
         "Cardselect01",
         "Cardselect02",
         "Cardselect03",
@@ -235,7 +235,7 @@ public class BGMManager : MonoBehaviour
 
     private void Update()
     {
-        
+
 
 
         if (playingSound != null && playingSound.source.isPlaying == false)//判断音乐停止
@@ -261,7 +261,7 @@ public class BGMManager : MonoBehaviour
         //检查是否进入卡组编辑器
         if (editorUI != null && editorUI.activeSelf == true)
         {
-            if(inCardselect == false)
+            if (inCardselect == false)
             {
                 //Debug.Log("进入【卡组编辑器】");
                 inCardselect = true;
@@ -279,7 +279,7 @@ public class BGMManager : MonoBehaviour
         }
 
         //检查是否进入匹配队列
-        if(matchButton != null && matchButton.activeSelf == true)//确保有button
+        if (matchButton != null && matchButton.activeSelf == true)//确保有button
         {
             tempText = matchButton.transform.Find("Text").GetComponent<Text>();
             tempString = tempText.text;
@@ -311,9 +311,9 @@ public class BGMManager : MonoBehaviour
             if (inGameplay == false)
             {
                 leaderCard = enenmyLeader.GetComponent<LeaderCard>();
-                if(leaderCard != null && leaderCard.TrueCard != null)
+                if (leaderCard != null && leaderCard.TrueCard != null)
                 {
-                    if(leaderCard.TrueCard != null)
+                    if (leaderCard.TrueCard != null)
                     {
                         faction = leaderCard.TrueCard.GetComponent<CardShowInfo>().CurrentCore.CardInfo.Faction.GetHashCode();
                         //Debug.Log("进入【战斗】");
@@ -328,8 +328,8 @@ public class BGMManager : MonoBehaviour
                             PlayBGM(faction);
                         }
                     }
-                    
-                } 
+
+                }
             }
         }
         else
@@ -419,10 +419,10 @@ public class BGMManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+
         if (lerpSound != null) //给一个短暂的声音淡出效果
         {
-            tempVolum = Mathf.Lerp(defaultVolum, -80,  countChangeSpeed);
+            tempVolum = Mathf.Lerp(defaultVolum, -80, countChangeSpeed);
             countChangeSpeed += bgmChangeSpeed;
             audioMixer.SetFloat("musicVolum", tempVolum);
             if (tempVolum < -70)
@@ -485,11 +485,11 @@ public class BGMManager : MonoBehaviour
             {
                 if (soundList[s].isBGM == true)  // stop all other BGM
                 {
-                    if(lerpSound != null)// 避免还有正在淡出的曲子
+                    if (lerpSound != null)// 避免还有正在淡出的曲子
                     {
                         lerpSound.Stop();
                     }
-                    if(soundList[s] != playingSound)// 避免连续播放同一首会杀死自己
+                    if (soundList[s] != playingSound)// 避免连续播放同一首会杀死自己
                     {
                         lerpSound = playingSound;
                     }
@@ -527,11 +527,11 @@ public class BGMManager : MonoBehaviour
     public void PlayBGM(int group)
     {
         int len = -1;
-        
-        for(int s = 0; s < 8; s++)
+
+        for (int s = 0; s < 8; s++)
         {
             len++;
-            if (BGMs[group,s]==" ")
+            if (BGMs[group, s] == " ")
             {
                 break;
             }
@@ -543,7 +543,7 @@ public class BGMManager : MonoBehaviour
             num = (num + 1) % len;
         }
         lastCardselctBgm = num;
-        PlaySound(BGMs[group,num]);
+        PlaySound(BGMs[group, num]);
     }
 
 

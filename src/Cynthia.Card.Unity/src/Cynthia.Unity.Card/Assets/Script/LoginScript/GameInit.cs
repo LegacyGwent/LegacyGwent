@@ -39,9 +39,34 @@ public class GameInit : MonoBehaviour
 
     public async void LoadServerMessage()
     {
+        var i = 0;
+        LatestVersionText.text = "正在连接服务器。。。";
+        NotesText.text = "正在与服务器连接。。。请稍等。。。";
+        while (true)
+        {
+            try
+            {
+                var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
+                if (hub.State == HubConnectionState.Disconnected)
+                {
+                    await hub.StartAsync();
+                }
+                break;
+            }
+            catch
+            {
+                i++;
+                if (i == 1)
+                {
+                    NotesText.text += "\n网络正常的情况下突然断线可能是由于服务器重启,通常会在1分钟以内完成重启,请稍等。。。";
+                }
+                NotesText.text += $"\n第{i}次连接失败,正在进行第{i + 1}次连接。。。";
+                LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
+                NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
+            }
+        }
         try
         {
-            Debug.Log($"试图获取公告");
             NotesText.text = (await _gwentClientService.GetNotes()).Replace("\\n", "\n");
             LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
             NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);

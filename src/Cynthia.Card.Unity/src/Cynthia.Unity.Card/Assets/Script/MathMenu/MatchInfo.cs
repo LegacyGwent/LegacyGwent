@@ -8,6 +8,7 @@ using System.Linq;
 using Autofac;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MatchInfo : MonoBehaviour
 {
@@ -97,49 +98,60 @@ public class MatchInfo : MonoBehaviour
     }
     public async void MatchButtonClick()/////点击匹配按钮的话
     {
-        //如果正在进行匹配
-        if (IsDoingMatch)
+        try
         {
-            //停止匹配
-            await _client.StopMatch();
-            return;
-        }
-        if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
-        {
-            await _UIService.YNMessageBox("该卡组无法用于匹配", "该卡组无法用于该匹配,请重新编辑或切换卡组。");
-            return;
-        }
-        //否则尝试开始匹配(目前不关注匹配结果)
-        _ = _client.MatchOfPassword(CurrentDeckId, MatchPassword.text);
+            //如果正在进行匹配
+            if (IsDoingMatch)
+            {
+                //停止匹配
+                await _client.StopMatch();
+                return;
+            }
+            if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
+            {
+                await _UIService.YNMessageBox("该卡组无法用于匹配", "该卡组无法用于该匹配,请重新编辑或切换卡组。");
+                return;
+            }
+            //否则尝试开始匹配(目前不关注匹配结果)
+            _ = _client.MatchOfPassword(CurrentDeckId, MatchPassword.text);
 
-        // else if (!await _client.Match(CurrentDeckId))
-        // {
-        //     //如果发生错误的话,匹配失败
-        //     Debug.Log("发送未知错误,匹配失败");
-        // }
+            // else if (!await _client.Match(CurrentDeckId))
+            // {
+            //     //如果发生错误的话,匹配失败
+            //     Debug.Log("发送未知错误,匹配失败");
+            // }
 
-        //将状态和显示都变成正在匹配
-        IsDoingMatch = true;
-        ShowMatch();
+            //将状态和显示都变成正在匹配
+            IsDoingMatch = true;
+            _client.ClientState = ClientState.Match;
+            ShowMatch();
 
-        //等待匹配的结果,如果是true代表成功匹配
-        if (await _client.MatchResult())
-        {
-            //进入了游戏
-            Debug.Log("成功匹配,进入游戏");
-            ClientGlobalInfo.IsToMatch = false;
+            //等待匹配的结果,如果是true代表成功匹配
+            if (await _client.MatchResult())
+            {
+                //进入了游戏
+                Debug.Log("成功匹配,进入游戏");
+                ClientGlobalInfo.IsToMatch = false;
 #if UNITY_STANDALONE_WIN
-            ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
+                ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
 #endif
-            SceneManager.LoadScene("GamePlay");
-            return;
+                SceneManager.LoadScene("GamePlay");
+                _client.ClientState = ClientState.Play;
+                return;
+            }
+            else
+            {
+                //否则代表取消了匹配
+                Debug.Log("成功停止匹配");
+                IsDoingMatch = false;
+                _client.ClientState = ClientState.Standby;
+                ShowStopMatch();
+            }
         }
-        else
+        catch
         {
-            //否则代表取消了匹配
-            Debug.Log("成功停止匹配");
-            IsDoingMatch = false;
-            ShowStopMatch();
+            SceneManager.LoadScene("LoginSecen");
+            _client.ClientState = ClientState.Standby;
         }
     }
     public void SwitchDeckOpen()
@@ -172,6 +184,7 @@ public class MatchInfo : MonoBehaviour
     {
         ResetMatch();
         IsDoingMatch = false;
+        _client.ClientState = ClientState.Standby;
     }
     public void SetDeckList(IList<DeckModel> decks)
     {

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Alsein.Extensions;
+using Autofac;
 
 namespace Cynthia.Card.Client
 {
@@ -22,7 +23,10 @@ namespace Cynthia.Card.Client
             });
             hubConnection.Closed += async (e) =>
             {
-                await _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
+                if (DependencyResolver.Container.Resolve<GwentClientService>().ClientState == ClientState.Play)
+                {
+                    await _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
+                }
             };
         }
 

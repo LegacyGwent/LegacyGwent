@@ -33,11 +33,14 @@ public class GameCode : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log($"被我捉住了!{e.Message}");
+            SceneManager.LoadScene("LoginSecen");
+            DependencyResolver.Container.Resolve<GwentClientService>().ClientState = ClientState.Standby;
         }
     }
     public void LeaveGame()
     {
         ClientGlobalInfo.IsToMatch = true;
         SceneManager.LoadScene("Game");
+        DependencyResolver.Container.Resolve<GwentClientService>().ClientState = ClientState.Standby;
     }
 }

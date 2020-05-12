@@ -80,6 +80,7 @@ public class LoginClick : MonoBehaviour
             //Debug.Log($"用户名是:{_client.User.UserName},密码是:{_client.User.PassWord}");
             LogMessage.text = $"登录成功,欢迎回来~{_client.User.PlayerName}";
             SceneManager.LoadScene("Game");
+            _client.ClientState = ClientState.Standby;
             // Debug.Log("执行了!跳转后");
             IsLogining = false;
         }

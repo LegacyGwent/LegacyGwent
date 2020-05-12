@@ -15,6 +15,12 @@ using UnityEditor;
 
 namespace Cynthia.Card.Client
 {
+    public enum ClientState
+    {
+        Match,
+        Play,
+        Standby
+    }
     [Singleton]
     public class GwentClientService
     {
@@ -25,6 +31,9 @@ namespace Cynthia.Card.Client
         private GlobalUIService _globalUIService;
         private ITubeInlet sender;/*待修改*/
         private ITubeOutlet receiver;/*待修改*/
+
+        public ClientState ClientState { get; set; } = ClientState.Standby;
+
         /*待修改*/
         public Task<bool> MatchResult()
         {
@@ -47,11 +56,14 @@ namespace Cynthia.Card.Client
             hubConnection.On("RepeatLogin", async () =>
             {
                 SceneManager.LoadScene("LoginSecen");
+                ClientState = ClientState.Standby;
                 await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("账号被其他人强制登陆", "账号被登陆,被挤下了线");
             });
             hubConnection.Closed += (async x =>
             {
+                (sender, receiver) = Tube.CreateSimplex();
                 SceneManager.LoadScene("LoginSecen");
+                ClientState = ClientState.Standby;
                 // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
                 await _globalUIService.YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
                 // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
@@ -242,6 +254,8 @@ namespace Cynthia.Card.Client
             return HubConnection.InvokeAsync<bool>("StopMatch");
         }
         //新建卡组,删除卡组,修改卡组
+        public Task JoinEditor() => HubConnection.InvokeAsync<bool>("JoinEditor");
+        public Task LeaveEditor() => HubConnection.InvokeAsync<bool>("LeaveEditor");
         public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", deck);
         public Task<bool> RemoveDeck(string deckId) => HubConnection.InvokeAsync<bool>("RemoveDeck", deckId);
         public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, deck);
