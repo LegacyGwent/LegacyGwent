@@ -64,6 +64,7 @@ namespace Cynthia.Card.Client
                 (sender, receiver) = Tube.CreateSimplex();
                 SceneManager.LoadScene("LoginSecen");
                 ClientState = ClientState.Standby;
+                Player.ResetTube();
                 // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
                 await _globalUIService.YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
                 // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
@@ -161,7 +162,7 @@ namespace Cynthia.Card.Client
         public IDictionary<string, GwentCard> ReadCardMapData()
         {
             var path = Application.persistentDataPath;
-#if UNITY_WIN || UNITY_EDITOR
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
             path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
@@ -188,14 +189,15 @@ namespace Cynthia.Card.Client
             var data = sr.ReadToEnd();
             sr.Close();
             Debug.Log("读取完成,大小为:" + data.Length);
-            Debug.Log(data);
+            // Debug.Log(data);
             return JsonConvert.DeserializeObject<IDictionary<string, GwentCard>>(data);
         }
 
         public void WriteCardMapData(string cardMapJson)
         {
             var path = Application.persistentDataPath;
-#if UNITY_WIN || UNITY_EDITOR
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+            Debug.Log("进入Win/Editor保存数据分支");
             path = Application.dataPath + "/StreamingFile" + "/CardData.json";
             if (!Directory.Exists(Application.dataPath + "/StreamingFile"))
             {
@@ -207,6 +209,7 @@ namespace Cynthia.Card.Client
                 File.Create(path).Dispose();
             }
 #elif UNITY_ANDROID
+            Debug.Log("进入Android保存数据分支");
             path = Application.persistentDataPath + "/CardData.json";
             if(!Directory.Exists(Application.persistentDataPath))
             {
@@ -218,6 +221,7 @@ namespace Cynthia.Card.Client
                 File.Create(path).Dispose();
             }
 #endif
+            Debug.Log("进入公共数据分支");
             StreamWriter sw = new StreamWriter(path);
             sw.Write(cardMapJson);
             sw.Close();

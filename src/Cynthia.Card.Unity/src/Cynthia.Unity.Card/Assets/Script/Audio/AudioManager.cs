@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
     private float volume;
 
     private LanguageType type;
-    
+
     private AudioSource _queueAudioSource;
 
     private List<AudioSource> onshotAudioSource = new List<AudioSource>();
@@ -44,7 +44,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if(!_queueAudioSource.isPlaying && audioClipbuffer.Count > 0)
+        if (!_queueAudioSource.isPlaying && audioClipbuffer.Count > 0)
         {
             _queueAudioSource.clip = audioClipbuffer[0];
             audioClipbuffer.RemoveAt(0);
@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour
         this.type = type;
     }
 
-    public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append )
+    public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append)
     {
         Object[] allclips = Resources.LoadAll(GetDirectory(type) + id);
         if (allclips.Length == 0)
@@ -91,7 +91,7 @@ public class AudioManager : MonoBehaviour
             else
                 audioClipbuffer.Add(clip);
         }
-        else if(mode == AudioPlayMode.PlayOneShoot)          //播放一次模式  不管之前的音频，总播放  75%音量如果同时播放
+        else if (mode == AudioPlayMode.PlayOneShoot)          //播放一次模式  不管之前的音频，总播放  75%音量如果同时播放
         {
             AudioSource source = GetOneShootAudioSource();
             source.volume = volume;
@@ -152,14 +152,13 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource GetOneShootAudioSource()
     {
-        for(int i =0;i< onshotAudioSource.Count;i++)
+        for (int i = 0; i < onshotAudioSource.Count; i++)
         {
-            if(!onshotAudioSource[i].isPlaying)
+            if (!onshotAudioSource[i].isPlaying)
             {
                 return onshotAudioSource[i];
             }
         }
-       
         AudioSource source = gameObject.AddComponent<AudioSource>();
         source.volume = volume;
         onshotAudioSource.Add(source);

@@ -15,7 +15,7 @@ public class DebugConsole : MonoBehaviour
         Application.logMessageReceived += (string condition, string stackTrace, LogType type) =>
         {
             _line++;
-            Text.text += condition + "\n";
+            Text.text = condition + "\n" + Text.text;
             Content.sizeDelta = new Vector2(0, 60 + 42 * _line);
             Scrollbar.value = 0;
         };

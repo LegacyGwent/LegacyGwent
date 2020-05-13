@@ -30,6 +30,11 @@ namespace Cynthia.Card.Client
             };
         }
 
+        public void ResetTube()
+        {
+            (_upstream, _downstream) = Tube.CreateDuplex();
+        }
+
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
 
         public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));

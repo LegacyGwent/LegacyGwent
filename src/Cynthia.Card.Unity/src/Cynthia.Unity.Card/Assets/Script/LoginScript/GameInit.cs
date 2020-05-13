@@ -17,6 +17,7 @@ public class GameInit : MonoBehaviour
     public GameObject GlobalUI;
     //public GameObject AudioSound;
     public AudioMixer AudioMixer;
+    public BGMManager AudioManager;
 
     public Text NowVersionText;
     public Text LatestVersionText;
@@ -92,21 +93,31 @@ public class GameInit : MonoBehaviour
 
     public void ConfigureGame()
     {
-        if (ClientGlobalInfo.IsLoadGlobal) return;
-        ClientGlobalInfo.IsLoadGlobal = true;
-        var globalUI = Instantiate(GlobalUI);
-        //var musicSource = Instantiate(AudioSound);
-        globalUI.name = "GlobalUI";
-        //musicSource.name = "MusicSource";
-        DontDestroyOnLoad(globalUI);
-        //DontDestroyOnLoad(musicSource);
+        if (!ClientGlobalInfo.IsLoadGlobal)
+        {
+            ClientGlobalInfo.IsLoadGlobal = true;
+            var globalUI = Instantiate(GlobalUI);
+            // var musicSource = Instantiate(AudioSound);
+            var audioManager = Instantiate(AudioManager);
+            DontDestroyOnLoad(globalUI);
+            // DontDestroyOnLoad(musicSource);
+            DontDestroyOnLoad(audioManager);
 
-        SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
-        SetQuality(PlayerPrefs.GetInt("quality", 2));
-        SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
-        SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
-        SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
-        NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
+            globalUI.name = "GlobalUI";
+            audioManager.name = "BGMManager";
+            // musicSource.name = "MusicSource";
+
+            SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
+            SetQuality(PlayerPrefs.GetInt("quality", 2));
+            SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
+            SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
+            SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
+            SetLanguage(PlayerPrefs.GetInt("Language", 0));
+            NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
+
+            // AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
+            // AudioManager.Instance.SetLanguageType((LanguageType)PlayerPrefs.GetInt("Language", 0));
+        }
     }
 
     public Resolution IndexToResolution(int index)
@@ -181,5 +192,9 @@ public class GameInit : MonoBehaviour
         AudioMixer.SetFloat("volum", 0);
     }
 
-
+    //设置语言
+    public void SetLanguage(int index)
+    {
+        PlayerPrefs.SetInt("Language", index);
+    }
 }

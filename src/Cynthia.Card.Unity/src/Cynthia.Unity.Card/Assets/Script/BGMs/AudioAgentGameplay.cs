@@ -17,7 +17,7 @@ public class AudioAgentGameplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempObject = GameObject.Find("AudioManager");
+        tempObject = GameObject.Find("BGMManager");
         if (tempObject != null)
         {
             manager = tempObject.GetComponent<BGMManager>();
