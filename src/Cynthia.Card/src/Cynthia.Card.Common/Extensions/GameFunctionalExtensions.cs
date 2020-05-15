@@ -46,6 +46,12 @@ namespace Cynthia.Card
             return result.Where(x => isHasDead ? true : !x.IsDead)
                     .Where(x => isHasConceal ? true : !x.Status.Conceal);
         }
+
+        public static IEnumerable<GameCard> GetAllPlaceCards(this IGwentServerGame game, RowPosition? planceRow = null, bool isHasDead = false, bool isHasConceal = false)
+        {
+            return game.GetPlaceCards(game.Player1Index, planceRow, isHasDead, isHasConceal).Concat(game.GetPlaceCards(game.Player2Index, planceRow, isHasDead, isHasConceal)
+        }
+
         public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting);
