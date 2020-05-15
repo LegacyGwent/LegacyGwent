@@ -13,7 +13,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
             // 因为在AfterCardDeath时，本卡的位置会移动，所以选择在BeforeCardToCemetery的时点触发
-            if (Card.Status.CardRow.IsOnPlace() && !@event.isRoundEnd)
+            if (Card.Status.CardRow.IsOnPlace() && !@event.isRoundEnd && @event.Target != Card)
             {
                 CardLocation myLoc = Card.GetLocation();
                 CardLocation deathLoc = @event.DeathLocation;
