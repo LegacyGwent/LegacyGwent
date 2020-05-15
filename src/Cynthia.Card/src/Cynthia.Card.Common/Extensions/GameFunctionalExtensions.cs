@@ -49,7 +49,7 @@ namespace Cynthia.Card
 
         public static IEnumerable<GameCard> GetAllPlaceCards(this IGwentServerGame game, RowPosition? planceRow = null, bool isHasDead = false, bool isHasConceal = false)
         {
-            return game.GetPlaceCards(game.Player1Index, planceRow, isHasDead, isHasConceal).Concat(game.GetPlaceCards(game.Player2Index, planceRow, isHasDead, isHasConceal)
+            return game.GetPlaceCards(game.Player1Index, planceRow, isHasDead, isHasConceal).Concat(game.GetPlaceCards(game.Player2Index, planceRow, isHasDead, isHasConceal));
         }
 
         public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)

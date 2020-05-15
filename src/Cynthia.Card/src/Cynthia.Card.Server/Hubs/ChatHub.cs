@@ -8,11 +8,13 @@ namespace Cynthia.Card.Server
 {
     public class ChatHub : Hub
     {
-        public GwentServerService _gwentServerService;
+        public ChatService _chatService;
+
+        public ChatHub(ChatService chatService) => _chatService = chatService;
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            return _gwentServerService.Disconnect(Context.ConnectionId, exception);//, true);
+            return _chatService.Disconnect(Context.ConnectionId, exception);
         }
     }
 }
