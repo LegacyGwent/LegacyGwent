@@ -30,7 +30,7 @@ namespace Cynthia.Card
                         if (Game.RowToList(PlayerIndex, deathLoc.RowPosition).Count < Game.RowMaxCount)
                         {
                             await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, deathLoc.RowPosition);
-                            // await Card.Effect.Weaken(weakenPoint, Card);
+                            await Card.Effect.Weaken(weakenPoint, Card);
                         }
                     }
                 }
