@@ -13,7 +13,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
             // 因为在AfterCardDeath时，本卡的位置会移动，所以选择在BeforeCardToCemetery的时点触发
-            if (Card.Status.CardRow.IsOnPlace() && !@event.isRoundEnd && @event.Target != Card)
+            if (Card.Status.CardRow.IsOnPlace() && !@event.isRoundEnd && @event.Target != Card && @event.Target.PlayerIndex == PlayerIndex)
             {
                 CardLocation myLoc = Card.GetLocation();
                 CardLocation deathLoc = @event.DeathLocation;
@@ -30,7 +30,7 @@ namespace Cynthia.Card
                         if (Game.RowToList(PlayerIndex, deathLoc.RowPosition).Count < Game.RowMaxCount)
                         {
                             await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, deathLoc.RowPosition);
-                            await Card.Effect.Weaken(weakenPoint, Card);
+                            // await Card.Effect.Weaken(weakenPoint, Card);
                         }
                     }
                 }
