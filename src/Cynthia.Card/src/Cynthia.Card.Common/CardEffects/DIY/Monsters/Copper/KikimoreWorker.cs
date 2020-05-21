@@ -12,6 +12,10 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var target = (await Game.GetSelectPlaceCards(Card, filter: (x => x.HasAnyCategorie(Categorie.Insectoid)), selectMode: SelectModeType.MyRow)).SingleOrDefault();
+            if (target == default)
+            {
+                return 0;
+            }
             var cards = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == target.Status.CardId).ToList();
             if (cards.Count() == 0)
             {
