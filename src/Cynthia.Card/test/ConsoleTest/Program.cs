@@ -1,30 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Alsein.Extensions;
-using Cynthia.Card;
+﻿using System.Threading.Tasks;
+using Cynthia.Card.AI;
 using Cynthia.Card.Server;
-using Newtonsoft.Json;
-using System.IO;
-using System.Text.Encodings;
-using System.Security.Cryptography;
 using System;
-using System.Dynamic;
+using Alsein.Extensions;
 
 namespace ConsoleTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var list = new List<int>() { 0, 1, 2 };
-            list.Insert(0, 10);
-            foreach (var item in list)
-            {
-                Console.WriteLine($"{item}");
-            }
+            var game = new GwentServerGame(new GeraltNovaAI(), new ReaverHunterAI());
+
+            Console.WriteLine("游戏开始~请稍等");
+            var gameResult = await game.Play();
+
+            Console.WriteLine("游戏结束,比分如下:\n");
+            Console.WriteLine($"{gameResult.BluePlayerName}:\t {gameResult.BlueScore.Join(",")}");
+            Console.WriteLine($"{gameResult.RedPlayerName}:\t {gameResult.RedScore.Join(",")}");
+            Console.WriteLine($"胜利者为:{(gameResult.BlueWinCount > gameResult.BlueWinCount ? gameResult.BluePlayerName : gameResult.RedPlayerName)}");
+
+            Console.WriteLine("\n\n按任意键退出游戏");
             Console.ReadLine();
         }
     }

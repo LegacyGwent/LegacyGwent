@@ -12,6 +12,8 @@ namespace Cynthia.Card.Server
 
         public ChatHub(ChatService chatService) => _chatService = chatService;
 
+        // public 
+
         public override Task OnDisconnectedAsync(Exception exception)
         {
             return _chatService.Disconnect(Context.ConnectionId, exception);

@@ -1,6 +1,6 @@
 using System;
 
-namespace Cynthia.Card.Server
+namespace Cynthia.Card
 {
     public class GameResult : ModelBase
     {

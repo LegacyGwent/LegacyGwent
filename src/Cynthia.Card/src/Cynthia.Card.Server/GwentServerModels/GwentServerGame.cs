@@ -12,6 +12,7 @@ namespace Cynthia.Card.Server
     public class GwentServerGame : IGwentServerGame
     {
         public Action<GameResult> GameResultEvent { get; set; }
+        public GameResult TempGameResult { get; set; } = new GameResult();
         public int[] RedCoin { get; private set; } = new int[3];
         public Pipeline OperactionList { get; private set; } = new Pipeline();
         private readonly GwentCardDataService _gwentCardTypeService;
@@ -129,10 +130,11 @@ namespace Cynthia.Card.Server
             await ClientDelay(1000);
         }
 
-        public async Task Play()
+        public async Task<GameResult> Play()
         {
             await Task.WhenAny(PlayGame(), _setGameEnd.Task);
             await SendOperactionList();
+            return TempGameResult;
         }
 
         public async Task GameEnd(int winPlayerIndex, Exception exception)
@@ -163,6 +165,7 @@ namespace Cynthia.Card.Server
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
             };
             GameResultEvent(result);
+            TempGameResult = result;
 
             await Task.WhenAll(SendGameResult(winPlayerIndex, GameStatus.Win), SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose));
             _setGameEnd.SetResult(winPlayerIndex);
@@ -670,19 +673,6 @@ namespace Cynthia.Card.Server
         }
         public async Task GameOverExecute()
         {
-            // if (PlayersRoundResult[0][Player1Index] >= PlayersRoundResult[0][Player2Index])
-            //     PlayersWinCount[Player1Index]++;
-            // if (PlayersRoundResult[0][Player1Index] <= PlayersRoundResult[0][Player2Index])
-            //     PlayersWinCount[Player2Index]++;
-            // if (PlayersRoundResult[1][Player1Index] >= PlayersRoundResult[1][Player2Index])
-            //     PlayersWinCount[Player1Index]++;
-            // if (PlayersRoundResult[1][Player1Index] <= PlayersRoundResult[1][Player2Index])
-            //     PlayersWinCount[Player2Index]++;
-            // if (PlayersRoundResult[2][Player1Index] >= PlayersRoundResult[2][Player2Index])
-            //     PlayersWinCount[Player1Index]++;
-            // if (PlayersRoundResult[2][Player1Index] <= PlayersRoundResult[2][Player2Index])
-            //     PlayersWinCount[Player2Index]++;
-
             var redIndex = RedCoin[0];
             var blueIndex = AnotherPlayer(redIndex);
             var result = new GameResult()
@@ -702,6 +692,7 @@ namespace Cynthia.Card.Server
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
             };
             GameResultEvent(result);
+            TempGameResult = result;
 
             await Task.WhenAll(SendGameResult(Player1Index), SendGameResult(Player2Index));
         }
@@ -1375,6 +1366,15 @@ namespace Cynthia.Card.Server
                 PlayersRoundResult[2][enemyPlayerIndex]
             ));
         }
+
+        public GwentServerGame(Player player1, Player player2) : this(player1, player2, new GwentCardDataService(), result => { })
+        {
+        }
+
+        public GwentServerGame(Player player1, Player player2, Action<GameResult> gameResultEvent) : this(player1, player2, new GwentCardDataService(), gameResultEvent)
+        {
+        }
+
         public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent)
         {
             GameResultEvent = gameResultEvent;

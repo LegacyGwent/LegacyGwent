@@ -8,6 +8,7 @@ namespace Cynthia.Card
     public interface IGwentServerGame
     {
         Pipeline OperactionList { get; }
+        GameResult TempGameResult { get; set; }
         Task AddTask(params Func<Task>[] task);
         int RowMaxCount { get; set; }
         Random RNG { get; }
@@ -34,7 +35,7 @@ namespace Cynthia.Card
         int Player1Index { get; }//玩家1的坐标
         int Player2Index { get; }//玩家2的坐标
         (int? PlayerIndex, int HPoint) WhoHeight { get; }
-        Task Play();
+        Task<GameResult> Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
         Task<IList<GameCard>> LogicDrawCard(int playerIndex, int count, Func<GameCard, bool> filter = null);//或许应该播放抽卡动画和更新数值
