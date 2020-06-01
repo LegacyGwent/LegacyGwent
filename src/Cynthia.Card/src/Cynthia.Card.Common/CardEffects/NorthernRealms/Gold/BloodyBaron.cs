@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public BloodyBaron(GameCard card) : base(card) { }
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
-            if (!@event.isRoundEnd && @event.Target.PlayerIndex != Card.PlayerIndex
+            if (!@event.isRoundEnd && @event.Target.PlayerIndex != Card.PlayerIndex && @event.Target.Status.Type == CardType.Unit
                 && (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand()))
             {
                 await Card.Effect.Boost(1, Card);
