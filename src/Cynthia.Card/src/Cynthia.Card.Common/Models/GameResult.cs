@@ -20,5 +20,9 @@ namespace Cynthia.Card
         public int ValidCount { get; set; }
         public int[] RedScore { get; set; }
         public int[] BlueScore { get; set; }
+
+        public string RedDeckCode { get; set; }
+
+        public string BlueDeckCode { get; set; }
     }
 }

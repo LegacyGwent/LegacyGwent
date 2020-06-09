@@ -163,6 +163,8 @@ namespace Cynthia.Card.Server
                 RedPlayerGameResultStatus = redIndex == winPlayerIndex ? GameStatus.Win : GameStatus.Lose,
                 RedScore = new int[] { PlayersRoundResult[0][redIndex], PlayersRoundResult[1][redIndex], PlayersRoundResult[2][redIndex] },
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
+                RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
+                BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -690,6 +692,8 @@ namespace Cynthia.Card.Server
                 RedPlayerGameResultStatus = PlayersWinCount[redIndex] > PlayersWinCount[blueIndex] ? GameStatus.Win : (PlayersWinCount[redIndex] == PlayersWinCount[blueIndex] ? GameStatus.Draw : GameStatus.Lose),
                 RedScore = new int[] { PlayersRoundResult[0][redIndex], PlayersRoundResult[1][redIndex], PlayersRoundResult[2][redIndex] },
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
+                RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
+                BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
             };
             GameResultEvent(result);
             TempGameResult = result;

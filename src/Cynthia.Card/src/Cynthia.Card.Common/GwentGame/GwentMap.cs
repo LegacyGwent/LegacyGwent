@@ -1,11 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
     public static class GwentMap
     {
+        public static IDictionary<string, ushort> CardIdMap { get; set; }
+        public static string[] CardIdIndexMap { get; set; }
+
+        static GwentMap()
+        {
+            CardIdMap = GwentMap.CardMap.Indexed().ToDictionary(x => x.Value.Key, x => (ushort)x.Key);
+            CardIdIndexMap = new string[CardIdMap.Count];
+            for (var i = 0; i < CardIdMap.Count; i++)
+            {
+                CardIdIndexMap[i] = CardIdMap.First(x => x.Value == i).Key;
+            }
+        }
         public static IEnumerable<CardStatus> GetCards(bool isHasDerive = false, bool isHasAgent = false)
         {
             return CardMap
