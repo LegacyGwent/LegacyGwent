@@ -5,11 +5,16 @@
     <ProjectReference Include="..\..\src\Cynthia.Card.Server\Cynthia.Card.Server.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.5" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- <PublishSingleFile>true</PublishSingleFile> -->
   </PropertyGroup>
 
 </Project>

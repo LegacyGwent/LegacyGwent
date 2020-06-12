@@ -7,12 +7,12 @@ namespace Cynthia.Card
 {
     public static class GwentMap
     {
-        public static IDictionary<string, ushort> CardIdMap { get; set; }
+        public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
         static GwentMap()
         {
-            CardIdMap = GwentMap.CardMap.Indexed().ToDictionary(x => x.Value.Key, x => (ushort)x.Key);
+            CardIdMap = GwentMap.CardMap.Indexed().ToDictionary(x => x.Value.Key, x => x.Key);
             CardIdIndexMap = new string[CardIdMap.Count];
             for (var i = 0; i < CardIdMap.Count; i++)
             {

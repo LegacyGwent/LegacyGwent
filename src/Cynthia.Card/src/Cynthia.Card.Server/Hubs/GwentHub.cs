@@ -18,6 +18,20 @@ namespace Cynthia.Card.Server
         //登录
         public async Task<UserInfo> Login(string username, string password) => await _gwentServerService.Login(new User(username, Context.ConnectionId), password);
 
+        //上传卡组码
+        public bool AddDeckCode(string deckCode) => _gwentServerService.AddDeck(Context.ConnectionId, deckCode.DeCompressToDeck());
+
+        //上传卡组码
+        public bool AddDeckCodeWithName(string deckCode, string deckName)
+        {
+            var deck = deckCode.DeCompressToDeck();
+            if (deckName != null)
+            {
+                deck.Name = deckName;
+            }
+            return _gwentServerService.AddDeck(Context.ConnectionId, deckCode.DeCompressToDeck());
+        }
+
         //上传卡组
         public bool AddDeck(DeckModel deck) => _gwentServerService.AddDeck(Context.ConnectionId, deck);
 
