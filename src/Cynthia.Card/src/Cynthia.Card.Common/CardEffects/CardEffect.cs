@@ -106,7 +106,7 @@ namespace Cynthia.Card
                 await Game.ShowCardDown(Card);
                 return;
             }
-            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand, isSpying));
+            await Game.SendEvent(new AfterUnitPlay(Card, isFromHand, isSpying, isReveal));
             var count = 0;
             if (Card.Status.CardRow.IsOnPlace())
                 // count = await CardPlayEffect(isSpying);
