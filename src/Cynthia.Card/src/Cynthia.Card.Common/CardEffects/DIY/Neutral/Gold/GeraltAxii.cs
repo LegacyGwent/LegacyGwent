@@ -15,13 +15,13 @@ namespace Cynthia.Card
         {
             var result = await Game.GetSelectPlaceCards(Card, filter: (x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow), selectMode: SelectModeType.EnemyRow);
 
-            if (result.TrySingle(out var targetCard))
+            if (!result.TrySingle(out var targetCard))
             {
                 return 0;
             }
 
             targetCard.Effect.Repair(true);
-            await targetCard.MoveToCardStayFirst();
+            await targetCard.MoveToCardStayFirst(true);
             await PlayStayCard(1, false);
             await targetCard.Effect.Charm(Card);
 

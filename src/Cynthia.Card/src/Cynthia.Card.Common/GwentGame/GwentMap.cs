@@ -11065,6 +11065,7 @@ namespace Cynthia.Card
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
+                    Countdown = 1,
                     IsDoomed = false,
                     IsCountdown = true,
                     IsDerive = false,
