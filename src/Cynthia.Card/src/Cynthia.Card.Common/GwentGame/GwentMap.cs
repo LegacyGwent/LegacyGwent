@@ -11054,6 +11054,66 @@ namespace Cynthia.Card
                     CardArtsId = "d20010000",
                 }
             },
+            {
+                "70025",//席安娜
+                new GwentCard()
+                {
+                    CardId = "70025",
+                    Name = "席安娜",
+                    Strength = 11,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Soldier},
+                    Flavor = "陛下……公主中的乃是暗日诅咒。只怕，无方可解……",
+                    Info = "力竭。使你的下一张银色/铜色忠诚单位卡额外触发一次部署效果。",
+                    CardArtsId = "d13680000",
+                }
+            },
+            {
+                "70026",//贝哈文的伊沃
+                new GwentCard()
+                {
+                    CardId = "70026",
+                    Name = "贝哈文的伊沃",
+                    Strength = 9,
+                    Group = Group.Silver,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher},
+                    Flavor = "变异剥夺了我们的情感，但不是脑子。",
+                    Info = "2护甲。回合开始时，若我方总战力大于对方，增益自身2点。遗愿，随机将卡组里一张稀有度最高的猎魔人单位移至卡组顶端。",
+                    CardArtsId = "d15780000",
+                }
+            },
+            {
+                "70027",//杰洛特：亚克席法印
+                new GwentCard()
+                {
+                    CardId = "70027",
+                    Name = "杰洛特：亚克席法印",
+                    Strength = 6,
+                    Group = Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher},
+                    Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
+                    Info = "重新打出对方场上的一张银色/铜色忠诚单位卡，随后将其移回对方半场。",
+                    CardArtsId = "d19160000",
+                }
+            },
         };
     }
 }

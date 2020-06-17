@@ -7,7 +7,6 @@ namespace Cynthia.Card
 {
     public class ClientGameData
     {
-
         public int MyRow1Point { get; set; }
         public int MyRow2Point { get; set; }
         public int MyRow3Point { get; set; }

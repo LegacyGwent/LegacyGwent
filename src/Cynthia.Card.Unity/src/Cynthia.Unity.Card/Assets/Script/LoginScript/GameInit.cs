@@ -10,6 +10,7 @@ using UnityEngine.Audio;
 using System;
 using UnityEngine.UI;
 using Cynthia.Card.Client;
+using Newtonsoft.Json;
 using Cynthia.Card;
 
 public class GameInit : MonoBehaviour
