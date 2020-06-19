@@ -1,17 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-using Alsein.Extensions.Extensions;
-using CompressTest;
-using Cynthia.Card;
 using Cynthia.Card.AI;
 using Cynthia.Card.Server;
-using Microsoft.AspNetCore.SignalR.Client;
-using MongoDB.Driver;
 
 namespace AITest
 {
