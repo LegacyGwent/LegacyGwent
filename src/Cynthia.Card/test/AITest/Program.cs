@@ -4,9 +4,13 @@ namespace AITest
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //AI战斗
+            await Tools.AIBattle();
+
+            //退出提示
+            await Tools.ConfirmExit();
         }
     }
 }
