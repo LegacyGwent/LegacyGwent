@@ -37,7 +37,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build ai",
-            "program": "${workspaceFolder}/test/AITest/bin/Debug/net5.0/AITest.dll",
+            "program": "${workspaceFolder}/test/AITest/bin/Debug/netcoreapp3.0/AITest.dll",
             "args": [],
             "cwd": "${workspaceFolder}/test/AITest",
             "console": "externalTerminal",
