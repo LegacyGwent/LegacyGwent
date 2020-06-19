@@ -102,7 +102,7 @@ namespace Cynthia.Card
             // Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card));
             if (Card.Status.Conceal)
             {
-                //如果是伏击
+                //如果是伏击,不触发事件
                 await Game.ShowCardDown(Card);
                 return;
             }

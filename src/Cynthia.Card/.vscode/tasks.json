@@ -20,6 +20,16 @@
                 "${workspaceFolder}/test/ConsoleTest/ConsoleTest.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build ai",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/test/AITest/AITest.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
