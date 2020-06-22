@@ -22,7 +22,7 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
-
+            Console.WriteLine();
 
             await GwentTest.ConfirmExit();
         }

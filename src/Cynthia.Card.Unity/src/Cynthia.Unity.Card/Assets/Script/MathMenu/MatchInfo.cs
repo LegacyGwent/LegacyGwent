@@ -76,7 +76,11 @@ public class MatchInfo : MonoBehaviour
     }
     public void ResetMatch()
     {
-        if (!_client.User.Decks.Any(x => x.Id == ClientGlobalInfo.DefaultDeckId)) ClientGlobalInfo.DefaultDeckId = _client.User.Decks.First().Id;
+        Debug.Log("重置");
+        if (!_client.User.Decks.Any(x => x.Id == ClientGlobalInfo.DefaultDeckId))
+        {
+            ClientGlobalInfo.DefaultDeckId = _client.User.Decks.First().Id;
+        }
         SetDeck(_client.User.Decks.Single(x => x.Id == ClientGlobalInfo.DefaultDeckId), ClientGlobalInfo.DefaultDeckId);
         SetDeckList(_client.User.Decks);
     }
@@ -160,7 +164,6 @@ public class MatchInfo : MonoBehaviour
         SwitchButton.SetActive(false);
         MatchButton.SetActive(false);
         CloseButton.SetActive(true);
-        MatchMessage.text = "选择牌组";
         DeckNameBackground.gameObject.SetActive(false);
         DecksScrollbar.GetComponent<Scrollbar>().value = 1;
         DeckSwitch.GetComponent<Animator>().Play("SwitchDeckOpen");
@@ -171,7 +174,6 @@ public class MatchInfo : MonoBehaviour
         SwitchButton.SetActive(true);
         MatchButton.SetActive(true);
         CloseButton.SetActive(false);
-        MatchMessage.text = "牌组就绪!";
         CardsScrollbar.GetComponent<Scrollbar>().value = 1;
         DeckNameBackground.gameObject.SetActive(true);
     }
@@ -189,11 +191,16 @@ public class MatchInfo : MonoBehaviour
     public void SetDeckList(IList<DeckModel> decks)
     {
         var count = DecksContext.childCount;
+        // Debug.Log($"数量为:{count}");
         for (var i = count - 1; i >= 0; i--)
         {
+            // Debug.Log($"消除{i}");
             Destroy(DecksContext.GetChild(i).gameObject);
         }
+        // Debug.Log($"完成消除,脱离");
         DecksContext.DetachChildren();
+        // Debug.Log("完成脱离,生成新实例");
+        Debug.Log(decks.Select(x => x.Name).Join(","));
         decks.ForAll(x =>
         {
             var deck = Instantiate(DeckPrefabs[GetFactionIndex(GwentMap.CardMap[x.Leader].Faction)]);
@@ -201,8 +208,10 @@ public class MatchInfo : MonoBehaviour
             deck.GetComponent<SwitchMatchDeck>().SetId(DecksContext.childCount);
             deck.transform.SetParent(DecksContext, false);
         });
+        // Debug.Log("生成完毕,设置高");
         var height = decks.Count * 83 + 35;
         DecksContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(370, height > 800 ? height : 800);
+        // Debug.Log("顺利完成");
     }
 
     public void SetMatchArtCard(CardStatus card, bool isOver = true)
@@ -214,6 +223,7 @@ public class MatchInfo : MonoBehaviour
 
     public void SetDeck(DeckModel deck, string id)
     {
+        Debug.Log($"设置");
         CurrentDeckId = id;
         var count = CardsContext.childCount;
         for (var i = count - 1; i >= 0; i--)

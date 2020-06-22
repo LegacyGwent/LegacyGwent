@@ -14,7 +14,7 @@ public class DeckShowInfo : MonoBehaviour
     public Image HeadIcon;
     public Image AvaliableShow;
 
-    public void SetDeckInfo(string name,bool isAvaliable)
+    public void SetDeckInfo(string name, bool isAvaliable)
     {
         AvaliableShow.sprite = isAvaliable ? AvaliableIcon : UnAvaliableIcon;
         DeckText.text = name;

@@ -1587,6 +1587,8 @@ namespace Cynthia.Card.Server
             }
             return result.Count();
         }
+
+        //发送事件时
         public async Task<TEvent> SendEvent<TEvent>(TEvent @event) where TEvent : Event
         {
             //卡牌
@@ -1607,14 +1609,19 @@ namespace Cynthia.Card.Server
                     await row.Effects.RaiseEvent(@event);
                 }
             }
+
+            //如果事件列表处于执行中途
             if (OperactionList.IsRunning)
             {
+                //直接执行事件
                 await task();
             }
             else
             {
+                //否则添加事件到准备区
                 await AddTask((Func<Task>)task);
             }
+
             if (OperactionList.IsRunning)
             {
                 await task2();

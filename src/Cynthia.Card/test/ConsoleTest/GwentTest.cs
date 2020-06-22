@@ -54,12 +54,12 @@ namespace ConsoleTest
             }
         }
 
-        public static void QueryMatches(DateTime time = default(DateTime), bool isAI = false)
+        public static void QueryMatches(DateTime time = default(DateTime), bool isAI = false, bool isHasCode = false)
         {
             var db = new MongoClient("mongodb://localhost:27017/gwent-diy").GetDatabase("gwentdiy");
             var resultCollection = isAI ? db.GetCollection<GameResult>("aigameresults") : db.GetCollection<GameResult>("gameresults");
             var isDefault = time == default(DateTime);
-            var result = resultCollection.AsQueryable().Where(x => isDefault || x.Time >= time).ToList();
+            var result = resultCollection.AsQueryable().Where(x => (isDefault || x.Time >= time) && (!isHasCode || (x.BlueDeckCode != null && x.RedDeckCode != null))).ToList();
             var badCount = result.Where(x => !x.IsEffective()).Count();
             var count = result.Count();
 
@@ -71,12 +71,40 @@ namespace ConsoleTest
                 .OrderByDescending(x => x.Count)
                 .ToList();
 
-            Console.WriteLine($"本数据为:{(isAI ? "PVE" : "PVP")}环境");
+            Console.WriteLine($"本数据为:{(isAI ? "PVE" : "PVP")}环境 {(isHasCode ? ",本数据仅包含已记录卡组码的对局。" : "")}");
             Console.WriteLine($"diy服{(isDefault ? "" : time + "后")}后共计对局{count}场\n共计玩家:{player.Count}名");
             Console.WriteLine($"其中无效对局{badCount}场[强退,掉线等],无效对局不计入以下统计\n");
             foreach (var item in player.OrderByDescending(x => x.WinCount))
             {
                 Console.WriteLine($"场数:{item.Count}  胜:{item.WinCount}  负:{item.LoseCount}  平：{item.DrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)} 玩家:{item.PlayerName}");
+            }
+        }
+
+        public static void QueryCard(DateTime time = default(DateTime), bool isAI = false)
+        {
+            var db = new MongoClient("mongodb://localhost:27017/gwent-diy").GetDatabase("gwentdiy");
+            var resultCollection = isAI ? db.GetCollection<GameResult>("aigameresults") : db.GetCollection<GameResult>("gameresults");
+            var isDefault = time == default(DateTime);
+            var result = resultCollection.AsQueryable().Where(x => (isDefault || x.Time >= time) && (x.BlueDeckCode != null && x.RedDeckCode != null)).ToList();
+            var badCount = result.Where(x => !x.IsEffective()).Count();
+            var count = result.Count();
+
+            var cards = result
+                .Where(x => x.IsEffective())
+                .SelectMany(x => x.BlueDeckCode.DeCompressToDeck().Deck.Select(card => (card, x.BluePlayerStatus()))
+                    .Concat(x.RedDeckCode.DeCompressToDeck().Deck.Select(card => (card, x.RedPlayerStatus()))))
+                // .SelectMany(x => new[] { (x.BluePlayerName, x.BluePlayerStatus()), (x.RedPlayerName, x.RedPlayerStatus()) })
+                .GroupBy(x => x.Item1)
+                .Select(x => new { Count = x.Count(), WinCount = x.Count(x => x.Item2 == GameStatus.Win), LoseCount = x.Count(x => x.Item2 == GameStatus.Lose), DrawCount = x.Count(x => x.Item2 == GameStatus.Draw), Card = GwentMap.CardMap[x.Key] })
+                .OrderByDescending(x => x.Count)
+                .ToList();
+
+            Console.WriteLine($"本数据为:{(isAI ? "PVE" : "PVP")}环境");
+            Console.WriteLine($"diy服{(isDefault ? "" : time + "后")}后共计对局{count}场\n共计使用卡牌:{cards.Count}种");
+            Console.WriteLine($"其中无效对局{badCount}场[强退,掉线等],无效对局不计入以下统计\n");
+            foreach (var item in cards.OrderByDescending(x => x.WinCount))
+            {
+                Console.WriteLine($"场数:{item.Count}  胜:{item.WinCount}  负:{item.LoseCount}  平：{item.DrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)} 卡牌:{item.Card.Name}");
             }
         }
 

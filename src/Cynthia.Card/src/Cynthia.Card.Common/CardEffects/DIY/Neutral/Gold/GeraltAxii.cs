@@ -11,6 +11,8 @@ namespace Cynthia.Card
 
         public GeraltAxii(GameCard card) : base(card) { }
 
+        private GameCard _targetCard = null;
+
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var result = await Game.GetSelectPlaceCards(Card, filter: (x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow), selectMode: SelectModeType.EnemyRow);
@@ -22,10 +24,21 @@ namespace Cynthia.Card
 
             targetCard.Effect.Repair(true);
             await targetCard.MoveToCardStayFirst(true);
-            await PlayStayCard(1, false);
-            await targetCard.Effect.Charm(Card);
+            // await PlayStayCard(1, false);
+            // await targetCard.Effect.Charm(TargetCard);
+            _targetCard = targetCard;
 
-            return 0;
+            return 1;
+        }
+
+        //临时效果
+        public override async Task CardDownEffect(bool isSpying, bool isReveal)
+        {
+            if (_targetCard == null)
+            {
+                return;
+            }
+            await _targetCard.Effect.Charm(Card);
         }
     }
 }
