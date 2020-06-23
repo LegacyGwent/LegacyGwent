@@ -91,8 +91,8 @@ namespace ConsoleTest
 
             var cards = result
                 .Where(x => x.IsEffective())
-                .SelectMany(x => x.BlueDeckCode.DeCompressToDeck().Deck.Select(card => (card, x.BluePlayerStatus()))
-                    .Concat(x.RedDeckCode.DeCompressToDeck().Deck.Select(card => (card, x.RedPlayerStatus()))))
+                .SelectMany(x => x.BlueDeckCode.DeCompressToDeck().Deck.Append(x.BlueLeaderId).Distinct().Select(card => (card, x.BluePlayerStatus()))
+                    .Concat(x.RedDeckCode.DeCompressToDeck().Deck.Append(x.RedLeaderId).Distinct().Select(card => (card, x.RedPlayerStatus()))))
                 // .SelectMany(x => new[] { (x.BluePlayerName, x.BluePlayerStatus()), (x.RedPlayerName, x.RedPlayerStatus()) })
                 .GroupBy(x => x.Item1)
                 .Select(x => new { Count = x.Count(), WinCount = x.Count(x => x.Item2 == GameStatus.Win), LoseCount = x.Count(x => x.Item2 == GameStatus.Lose), DrawCount = x.Count(x => x.Item2 == GameStatus.Draw), Card = GwentMap.CardMap[x.Key] })
@@ -102,9 +102,34 @@ namespace ConsoleTest
             Console.WriteLine($"本数据为:{(isAI ? "PVE" : "PVP")}环境");
             Console.WriteLine($"diy服{(isDefault ? "" : time + "后")}后共计对局{count}场\n共计使用卡牌:{cards.Count}种");
             Console.WriteLine($"其中无效对局{badCount}场[强退,掉线等],无效对局不计入以下统计\n");
-            foreach (var item in cards.OrderByDescending(x => x.WinCount))
+            foreach (var item in cards.GroupBy(x => x.Card.Faction).OrderBy(x => x.Key))//OrderBy(x => x.Card.Faction).ThenBy(x => x.Card.Group).ThenByDescending(x => x.WinCount))
             {
-                Console.WriteLine($"场数:{item.Count}  胜:{item.WinCount}  负:{item.LoseCount}  平：{item.DrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)} 卡牌:{item.Card.Name}");
+                Console.WriteLine($"{GwentMap.FactionInfoMap[item.Key]}");
+                foreach (var item2 in item.GroupBy(x => x.Card.Group).OrderBy(x => x.Key))
+                {
+                    Console.WriteLine($"\n{GwentMap.GroupInfoMap[item2.Key]}");
+                    foreach (var card in item2.OrderByDescending(x => x.WinCount))
+                    {
+                        Console.WriteLine($"场数:{$"{card.Count}".PadRight(3)}  胜:{$"{card.WinCount}".PadRight(3)}  负:{$"{card.LoseCount}".PadRight(3)}  平：{$"{card.DrawCount}".PadRight(3)} 胜率:{$"{Math.Round(((double)card.WinCount) / ((double)card.Count) * 100, 2)}".PadRight(5)} 卡牌名:{card.Card.Name}");
+                    }
+                }
+                Console.WriteLine("".PadLeft(100, '-'));
+            }
+
+            var noCard = GwentMap.CardMap.Select(x => x.Key).Except(cards.Select(x => x.Card.CardId)).Select(x => GwentMap.CardMap[x]);
+            Console.WriteLine("\n\n以下卡牌是该时间段未被使用的卡牌\n");
+            foreach (var item in noCard.GroupBy(x => x.Faction).OrderBy(x => x.Key))//OrderBy(x => x.Card.Faction).ThenBy(x => x.Card.Group).ThenByDescending(x => x.WinCount))
+            {
+                Console.WriteLine($"{GwentMap.FactionInfoMap[item.Key]}");
+                foreach (var item2 in item.GroupBy(x => x.Group).OrderBy(x => x.Key))
+                {
+                    Console.WriteLine($"\n{GwentMap.GroupInfoMap[item2.Key]}");
+                    foreach (var card in item2)
+                    {
+                        Console.WriteLine($"卡牌名:{card.Name}");
+                    }
+                }
+                Console.WriteLine("".PadLeft(100, '-'));
             }
         }
 

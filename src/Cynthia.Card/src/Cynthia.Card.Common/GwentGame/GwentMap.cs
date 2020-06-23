@@ -142,6 +142,25 @@ namespace Cynthia.Card
             { Categorie.ClanBrokvar, "布洛克瓦尔家族" },
             { Categorie.Test, "测试" },
         };
+
+        public static IDictionary<Group, string> GroupInfoMap { get; } = new Dictionary<Group, string>()
+        {
+            { Group.Copper, "铜色" },
+            { Group.Silver, "银色" },
+            { Group.Gold, "金色" },
+            { Group.Leader, "领袖" },
+        };
+
+        public static IDictionary<Faction, string> FactionInfoMap { get; } = new Dictionary<Faction, string>()
+        {
+            { Faction.Nilfgaard, "帝国" },
+            { Faction.Skellige, "群岛" },
+            { Faction.Monsters, "怪物" },
+            { Faction.Neutral, "中立" },
+            { Faction.NorthernRealms, "北方" },
+            { Faction.ScoiaTael, "松鼠" },
+        };
+
         public static RowEffect CreateRowEffect(RowStatus rowTag)
         {
             switch (rowTag)
