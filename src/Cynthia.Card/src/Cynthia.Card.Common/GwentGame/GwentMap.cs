@@ -10660,7 +10660,7 @@ namespace Cynthia.Card
                     CardId ="70004",
                     Name = "格莱尼斯·爱普·洛纳克",
                     Strength = 6,
-                    Group = Group.Gold,
+                    Group = Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
