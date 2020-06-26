@@ -189,7 +189,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 10);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 11);
 
 
         public class MultilingualString
@@ -10669,7 +10669,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "",
-                    Info = "1护甲。部署：与一个敌军铜色/银色单位对决。若自身初始战力高于对方，则改为将其魅惑。",
+                    Info = "回合结束时，如果位于牌组顶或底，则召唤自身至随机排。",
                     CardArtsId = "19360000",
                 }
             },
@@ -10679,7 +10679,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70005",
                     Name = "科沃的维索戈塔",
-                    Strength = 8,
+                    Strength = 9,
                     Group = Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10689,7 +10689,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "",
-                    Info = "部署：治愈1个友军单位，然后使其获得“免疫”。遗愿：所有友军单位失去“免疫”。",
+                    Info = "部署：治愈1个银/铜友军单位，然后使其获得“坚韧”。 遗愿：治愈所有友军。",
                     CardArtsId = "d17190000",
                 }
             },
@@ -10839,7 +10839,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70013",
                     Name = "堕落的佛兰明妮卡",
-                    Strength = 8,
+                    Strength = 10,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11069,7 +11069,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed,Categorie.Aedirn},
                     Flavor = "",
-                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”。",
+                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，并受到1点伤害。",
                     CardArtsId = "d20010000",
                 }
             },

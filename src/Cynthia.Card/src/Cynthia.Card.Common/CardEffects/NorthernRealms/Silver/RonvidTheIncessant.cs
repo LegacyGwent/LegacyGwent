@@ -31,7 +31,7 @@ namespace Cynthia.Card
                     await Card.Effect.Weaken(-offset, Card);
                 }
             }
-            await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex,false), Card);
+            await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
             return;
 
         }
