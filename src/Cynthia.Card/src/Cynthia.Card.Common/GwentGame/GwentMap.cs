@@ -11110,7 +11110,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher},
                     Flavor = "变异剥夺了我们的情感，但不是脑子。",
-                    Info = "2护甲。回合开始时，若我方总战力大于对方，增益自身2点。遗愿：随机将卡组里一张稀有度最高的猎魔人单位移至卡组顶端。",
+                    Info = "回合开始时，若我方总战力大于对方，强化自身2点。遗愿：随机将卡组里一张稀有度最高的猎魔人单位移至卡组顶端。",
                     CardArtsId = "d15780000",
                 }
             },
