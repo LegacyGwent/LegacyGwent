@@ -15,7 +15,7 @@ namespace Cynthia.Card
             if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck())
             {
                 var index = Card.GetLocation().CardIndex;
-                if (index == Game.PlayersDeck.Count() - 1 || index == 0)
+                if (index >= Game.PlayersDeck[PlayerIndex].Count() - 1 || index == 0)
                 {
                     var summonPosition = Game.GetRandomCanPlayLocation(Card.PlayerIndex, false);//, RowPosition.MyRow1);
                     await Summon(summonPosition, Card);

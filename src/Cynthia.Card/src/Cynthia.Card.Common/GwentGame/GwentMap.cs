@@ -189,7 +189,7 @@ namespace Cynthia.Card
         }
 
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 11);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 12);
 
 
         public class MultilingualString
@@ -10664,7 +10664,7 @@ namespace Cynthia.Card
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
@@ -10720,7 +10720,7 @@ namespace Cynthia.Card
                     CardId ="70007",
                     Name = "先知雷比欧达",
                     Strength = 8,
-                    Group = Group.Gold,
+                    Group = Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -11102,7 +11102,7 @@ namespace Cynthia.Card
                     Name = "贝哈文的伊沃",
                     Strength = 9,
                     Group = Group.Silver,
-                    Faction = Faction.Nilfgaard,
+                    Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
