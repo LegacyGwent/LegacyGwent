@@ -22,7 +22,7 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
-            GwentTest.QueryCard(DateTime.Now.AddDays(-7).AddHours(-13));
+            GwentTest.QueryMatches(DateTime.Now.AddMonths(-1));
 
             await GwentTest.ConfirmExit();
         }

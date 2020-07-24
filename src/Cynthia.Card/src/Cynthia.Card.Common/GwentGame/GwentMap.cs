@@ -7,6 +7,8 @@ namespace Cynthia.Card
 {
     public static class GwentMap
     {
+        //更新CardMap内容请务必将CardMapVersion更新
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 13);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -187,10 +189,6 @@ namespace Cynthia.Card
                     return new NoneStatus();
             }
         }
-
-        //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 12);
-
 
         public class MultilingualString
         {
@@ -10679,7 +10677,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70005",
                     Name = "科沃的维索戈塔",
-                    Strength = 9,
+                    Strength = 6,
                     Group = Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10689,7 +10687,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "",
-                    Info = "部署：治愈1个银/铜友军单位，然后使其获得“坚韧”。 遗愿：治愈所有友军。",
+                    Info = "回合开始时，左侧单位获得3点增益，自身受到1点伤害，并移至己方单位最少排。 遗愿：己方场上最弱单位获得6点增益。",
                     CardArtsId = "d17190000",
                 }
             },

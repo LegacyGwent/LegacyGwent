@@ -4,34 +4,48 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70005")]//科沃的维索戈塔
-    public class VysogotaOfCorvo : CardEffect, IHandlesEvent<AfterCardDeath>
-    {//部署：治愈一个银/铜友军单位并使其获得坚韧。遗愿:治愈我方所有单位。
+    public class VysogotaOfCorvo : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterCardDeath>
+    {//回合开始时，左侧单位获得3点增益，自身受到1点伤害，并移至己方单位最少排。遗愿：己方场上最弱单位获得6点增益。
         public VysogotaOfCorvo(GameCard card) : base(card) { }
 
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
-        {
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: card => card.IsAnyGroup(Group.Copper, Group.Silver));
-            if (!selectList.TrySingle(out var target)) { return 0; }
-            await target.Effect.Heal(Card);
-            await target.Effect.Resilience(Card);
-            // target.Status.IsImmue = true;
-            return 0;
-        }
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            if (@event.Target == Card)
+            if (@event.Target != Card)
             {
-                var cards = Game.GetPlaceCards(Card.PlayerIndex)
-                        .Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).ToList();
-                foreach (var card in cards)
-                {
-                    // card.Status.IsImmue = false;
-                    await card.Effect.Heal(Card);
-                }
+                return;
             }
 
-            await Task.CompletedTask;
+            var list = Game.GetAllPlaceCards().Where(x => x.PlayerIndex == PlayerIndex).ToList();
+
+            if (list.Count() <= 0)
+            {
+                return;
+            }
+
+            var target = list.WhereAllLowest().Mess(RNG).First();
+            await target.Effect.Boost(6, Card);
+
             return;
+        }
+
+        public async Task HandleEvent(AfterTurnStart @event)
+        {
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            {
+                return;
+            }
+
+            var rowIndex = Card.GetLocation(Card.PlayerIndex).CardIndex;
+            var target = Card.GetRangeCard(1, GetRangeType.HollowLeft);
+
+            if (target.Count > 0)
+            {
+                await target.Single().Effect.Boost(3, Card);
+            }
+
+            await Damage(1, Card);
+            var row = Game.PlayersPlace[PlayerIndex].Indexed().OrderBy(x => x.Value.Count).First().Key.IndexToMyRow();
+            await Move(new CardLocation(row, int.MaxValue), Card);
         }
     }
 }

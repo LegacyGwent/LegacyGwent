@@ -54,7 +54,7 @@ namespace ConsoleTest
             }
         }
 
-        public static void QueryMatches(DateTime time = default(DateTime), bool isAI = false, bool isHasCode = false)
+        public static void QueryMatches(DateTime time = default(DateTime), bool isAI = false, bool isHasCode = false, bool isSuccessively = false)
         {
             var db = new MongoClient("mongodb://localhost:27017/gwent-diy").GetDatabase("gwentdiy");
             var resultCollection = isAI ? db.GetCollection<GameResult>("aigameresults") : db.GetCollection<GameResult>("gameresults");
@@ -65,18 +65,33 @@ namespace ConsoleTest
 
             var player = result
                 .Where(x => x.IsEffective())
-                .SelectMany(x => new[] { (x.BluePlayerName, x.BluePlayerStatus()), (x.RedPlayerName, x.RedPlayerStatus()) })
+                .SelectMany(x => new[] { (x.BluePlayerName, false, x.BluePlayerStatus()), (x.RedPlayerName, true, x.RedPlayerStatus()) })
                 .GroupBy(x => x.Item1)
-                .Select(x => new { Count = x.Count(), WinCount = x.Count(x => x.Item2 == GameStatus.Win), LoseCount = x.Count(x => x.Item2 == GameStatus.Lose), DrawCount = x.Count(x => x.Item2 == GameStatus.Draw), PlayerName = x.Key })
+                .Select(x => new
+                {
+                    Count = x.Count(),
+                    FirstCount = x.Count(x => x.Item2),
+                    SecondCount = x.Count(x => !x.Item2),
+                    WinCount = x.Count(x => x.Item3 == GameStatus.Win),
+                    LoseCount = x.Count(x => x.Item3 == GameStatus.Lose),
+                    DrawCount = x.Count(x => x.Item3 == GameStatus.Draw),
+                    FirstWinCount = x.Count(x => x.Item3 == GameStatus.Win && x.Item2),
+                    FirstLoseCount = x.Count(x => x.Item3 == GameStatus.Lose && x.Item2),
+                    FirstDrawCount = x.Count(x => x.Item3 == GameStatus.Draw && x.Item2),
+                    SecondWinCount = x.Count(x => x.Item3 == GameStatus.Win && !x.Item2),
+                    SecondLoseCount = x.Count(x => x.Item3 == GameStatus.Lose && !x.Item2),
+                    SecondDrawCount = x.Count(x => x.Item3 == GameStatus.Draw && !x.Item2),
+                    PlayerName = x.Key
+                })
                 .OrderByDescending(x => x.Count)
                 .ToList();
 
             Console.WriteLine($"本数据为:{(isAI ? "PVE" : "PVP")}环境 {(isHasCode ? ",本数据仅包含已记录卡组码的对局。" : "")}");
             Console.WriteLine($"diy服{(isDefault ? "" : time + "后")}后共计对局{count}场\n共计玩家:{player.Count}名");
             Console.WriteLine($"其中无效对局{badCount}场[强退,掉线等],无效对局不计入以下统计\n");
-            foreach (var item in player.OrderByDescending(x => x.WinCount))
+            foreach (var item in player.OrderByDescending(x => x.Count))
             {
-                Console.WriteLine($"场数:{item.Count}  胜:{item.WinCount}  负:{item.LoseCount}  平：{item.DrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)} 玩家:{item.PlayerName}");
+                Console.WriteLine($"场数:{item.Count}/{item.FirstCount}/{item.SecondCount}  胜:{item.WinCount}/{item.FirstWinCount}/{item.SecondWinCount}  负:{item.LoseCount}/{item.FirstLoseCount}/{item.SecondLoseCount}  平：{item.DrawCount}/{item.FirstDrawCount}/{item.SecondDrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)}/{Math.Round(((double)item.FirstWinCount) / ((double)item.FirstCount) * 100, 2)}/{Math.Round(((double)item.SecondWinCount) / ((double)item.SecondCount) * 100, 2)} 玩家:{item.PlayerName}");
             }
         }
 
@@ -105,7 +120,7 @@ namespace ConsoleTest
             foreach (var item in cards.GroupBy(x => x.Card.Faction).OrderBy(x => x.Key))//OrderBy(x => x.Card.Faction).ThenBy(x => x.Card.Group).ThenByDescending(x => x.WinCount))
             {
                 Console.WriteLine($"{GwentMap.FactionInfoMap[item.Key]}");
-                foreach (var item2 in item.GroupBy(x => x.Card.Group).OrderBy(x => x.Key))
+                foreach (var item2 in item.GroupBy(x => x.Card.Group).OrderByDescending(x => x.Key))
                 {
                     Console.WriteLine($"\n{GwentMap.GroupInfoMap[item2.Key]}");
                     foreach (var card in item2.OrderByDescending(x => x.WinCount))
@@ -116,12 +131,12 @@ namespace ConsoleTest
                 Console.WriteLine("".PadLeft(100, '-'));
             }
 
-            var noCard = GwentMap.CardMap.Select(x => x.Key).Except(cards.Select(x => x.Card.CardId)).Select(x => GwentMap.CardMap[x]);
+            var noCard = GwentMap.CardMap.Select(x => x.Key).Except(cards.Select(x => x.Card.CardId)).Select(x => GwentMap.CardMap[x]).Where(x => !x.IsDerive);
             Console.WriteLine("\n\n以下卡牌是该时间段未被使用的卡牌\n");
             foreach (var item in noCard.GroupBy(x => x.Faction).OrderBy(x => x.Key))//OrderBy(x => x.Card.Faction).ThenBy(x => x.Card.Group).ThenByDescending(x => x.WinCount))
             {
                 Console.WriteLine($"{GwentMap.FactionInfoMap[item.Key]}");
-                foreach (var item2 in item.GroupBy(x => x.Group).OrderBy(x => x.Key))
+                foreach (var item2 in item.GroupBy(x => x.Group).OrderByDescending(x => x.Key))
                 {
                     Console.WriteLine($"\n{GwentMap.GroupInfoMap[item2.Key]}");
                     foreach (var card in item2)
