@@ -22,7 +22,16 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
-            GwentTest.QueryMatches(DateTime.Now.AddMonths(-1));
+            var list = new IList<int>[]
+            {
+                new List<int>{ 1, 2, 3 },
+                new List<int>{ 2 },
+                new List<int>{ 5 , 3},
+            };
+
+            var row = list.Indexed().OrderBy(x => x.Value.Count).First().Key.IndexToMyRow();
+
+            Console.WriteLine(row.ToString());
 
             await GwentTest.ConfirmExit();
         }

@@ -45,7 +45,10 @@ namespace Cynthia.Card
 
             await Damage(1, Card);
             var row = Game.PlayersPlace[PlayerIndex].Indexed().OrderBy(x => x.Value.Count).First().Key.IndexToMyRow();
-            await Move(new CardLocation(row, int.MaxValue), Card);
+            if (row != Card.Status.CardRow)
+            {
+                await Move(new CardLocation(row, int.MaxValue), Card);
+            }
         }
     }
 }
