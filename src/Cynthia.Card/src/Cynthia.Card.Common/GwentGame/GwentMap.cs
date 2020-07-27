@@ -6839,7 +6839,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。",
-                    Info = "择一：摧毁1个铜色/银色“诅咒单位”敌军单位；或造成10点伤害，放逐所摧毁的单位。",
+                    Info = "择一：摧毁1个铜色/银色“诅咒生物”敌军单位；或造成10点伤害，放逐所摧毁的单位。",
                     CardArtsId = "20163300",
                 }
             },
