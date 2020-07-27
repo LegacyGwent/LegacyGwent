@@ -6227,7 +6227,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42004",
                     Name="范德格里夫特",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7815,7 +7815,7 @@ namespace Cynthia.Card
                 {
                     CardId ="52008",
                     Name="米尔瓦",
-                    Strength=6,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -8199,7 +8199,7 @@ namespace Cynthia.Card
                 {
                     CardId ="53014",
                     Name="麦莉",
-                    Strength=4,
+                    Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9465,7 +9465,7 @@ namespace Cynthia.Card
                 {
                     CardId ="63010",
                     Name="德莱格·波·德乌",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Silver,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9525,7 +9525,7 @@ namespace Cynthia.Card
                 {
                     CardId ="63013",
                     Name="尤娜",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Silver,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9885,7 +9885,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64011",
                     Name="德拉蒙家族好战分子",
-                    Strength=8,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10225,7 +10225,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64028",
                     Name="迪门家族海贼",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11017,7 +11017,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70022",
                     Name = "齐齐摩工兵",
-                    Strength = 4,
+                    Strength = 5,
                     Group = Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
