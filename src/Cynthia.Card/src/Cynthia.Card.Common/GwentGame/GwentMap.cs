@@ -1600,7 +1600,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "士气加一分，听力减三分。",
-                    Info = "使5个相邻单位获得3点增益。",
+                    Info = "使7个相邻单位获得3点增益。",
                     CardArtsId = "11320700",
                 }
             },
@@ -3904,7 +3904,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Soldier},
                     Flavor = "白霜将至。",
-                    Info = "对1个敌军单位造成3点伤害。若目标位于“刺骨冰霜”之下或被摧毁，则获得2点增益。",
+                    Info = "对1个敌军单位造成4点伤害。若目标位于“刺骨冰霜”之下或被摧毁，则获得2点增益。",
                     CardArtsId = "13230900",
                 }
             },
@@ -4911,7 +4911,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”",
-                    Info = "对1个敌军单位造成8点伤害，再对1个敌军单位造成8点伤害。",
+                    Info = "对1个敌军单位造成9点伤害，再对1个敌军单位造成9点伤害。",
                     CardArtsId = "16310100",
                 }
             },
@@ -6558,7 +6558,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "正如弗尔泰斯特国王常说的那样，尺寸并不重要，关键要好用。",
-                    Info = "对1个敌军单位造成2点伤害，并将其上移一排。 驱动：再次触发此能力。",
+                    Info = "对1个敌军单位造成3点伤害，并将其上移一排。 驱动：再次触发此能力。",
                     CardArtsId = "20149400",
                 }
             },
@@ -6839,7 +6839,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。",
-                    Info = "择一：摧毁1个铜色/银色“诅咒单位”敌军单位；或造成9点伤害，放逐所摧毁的单位。",
+                    Info = "择一：摧毁1个铜色/银色“诅咒单位”敌军单位；或造成10点伤害，放逐所摧毁的单位。",
                     CardArtsId = "20163300",
                 }
             },
@@ -9495,7 +9495,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDimun,Categorie.Officer},
                     Flavor = "敬尼弗迦德皇帝，祝他不得善终！",
-                    Info = "造成6点伤害。若摧毁目标，则使己方墓场中最强的单位获得3点强化。",
+                    Info = "造成7点伤害。若摧毁目标，则使己方墓场中最强的单位获得3点强化。",
                     CardArtsId = "15220700",
                 }
             },
@@ -9915,7 +9915,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanTuirseach},
                     Flavor = "记好了：我们对朋友掏心窝，对敌人挥斧子。",
-                    Info = "被复活后获得3点强化。",
+                    Info = "被复活后获得4点强化。",
                     CardArtsId = "15231300",
                 }
             },

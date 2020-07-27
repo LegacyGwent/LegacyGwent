@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            await Strengthen(3, Card);
+            await Strengthen(4, Card);
         }
     }
 }
