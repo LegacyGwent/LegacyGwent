@@ -531,7 +531,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Witcher},
                     Flavor = "去往何处，何时动身，我自己说了算。",
-                    Info = "己方输掉小局时返回手牌。 2点护甲。",
+                    Info = "获得护盾。己方输掉小局时返回手牌。 2点护甲。",
                     CardArtsId = "11210100",
                 }
             },
@@ -2960,7 +2960,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
                     Flavor = "叫他们有来无回！",
-                    Info = "对1个敌军单位造成4点伤害，若目标位于“刺骨冰霜”之下，则伤害变为8点。",
+                    Info = "对1个敌军单位造成4点伤害，若目标位于“刺骨冰霜”之下，则将其摧毁。",
                     CardArtsId = "13210200",
                 }
             },
@@ -4006,7 +4006,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "我这辈子只当过一次逃兵，就是碰上寒冰巨人那次——我一点也没觉得丢人。",
-                    Info = "若场上任意位置有“刺骨冰霜”，则获得6点增益。",
+                    Info = "场上每有一个“刺骨冰霜“灾厄效果，便获得3点增益。每有一个“刺骨冰霜“灾厄效果出现在场上，便获得3点增益。",
                     CardArtsId = "13221200",
                 }
             },
@@ -5332,7 +5332,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "我不会拿自己的性命去碰运气。我会拿上一把长剑，厚厚地涂上一层吊死鬼之毒。",
-                    Info = "择一：对1个敌军单位以及所有与它同类型的单位造成2点伤害；或摧毁1个铜色/银色“中立”单位。",
+                    Info = "择一：对1个敌军单位以及所有与它同类型的单位造成3点伤害；或摧毁1个铜色/银色“中立”单位。",
                     CardArtsId = "20154000",
                 }
             },
@@ -6598,7 +6598,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Kaedwen},
                     Flavor = "喝酒少了欧德林，就像划船没带桨。",
-                    Info = "回合开始时，移至随机排，并使同排所有友军单位获得1点增益。",
+                    Info = "回合开始时，移至随机排，并使同排所有友军单位获得1点增益。遗愿：使同排所有友军单位获得1点增益。",
                     CardArtsId = "12221300",
                 }
             },
@@ -7504,7 +7504,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "就是一个绞盘。没什么可大惊小怪的。",
-                    Info = "使所有己方半场的“机械”单位获得3点增益。",
+                    Info = "绞盘：择一：从己方墓场中打出 1 张铜色“机械”牌，并使其获得佚亡。或所有己方机械+3增益。。",
                     CardArtsId = "20165900",
                 }
             },
@@ -7694,7 +7694,7 @@ namespace Cynthia.Card
                 {
                     CardId ="52002",
                     Name="萨琪亚萨司",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7704,7 +7704,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "增益自身等同于友军“矮人”单位数量；造成等同于友军“精灵”单位数量的伤害。",
+                    Info = "增益自身等同于友军和手牌中“矮人”单位数量；造成等同于友军和手牌中“精灵”单位数量的伤害。",
                     CardArtsId = "14210100",
                 }
             },
@@ -8711,7 +8711,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Support},
                     Flavor = "帮你包扎，没问题——只要你有钱。",
-                    Info = "使2个友军单位获得3点增益。",
+                    Info = "使2个友军单位获得3点增益，随后将他们治愈。",
                     CardArtsId = "14230100",
                 }
             },
@@ -9153,7 +9153,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "大家叫我小雀鹰，知道为什么吗？因为我专治你这种鼠辈。",
-                    Info = "位于墓场中时，在己方复活4个单位后，复活此单位。",
+                    Info = "位于墓场中时，在己方复活4个单位后，复活此单位，并获得1点强化。",
                     CardArtsId = "20017700",
                 }
             },

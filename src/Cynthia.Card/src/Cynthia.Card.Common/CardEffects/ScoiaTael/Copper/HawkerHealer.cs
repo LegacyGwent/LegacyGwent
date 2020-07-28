@@ -7,7 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("54018")] //私枭治疗者
     public class HawkerHealer : CardEffect
     {
-        //使2个友军单位获得3点增益。
+        //使2个友军单位获得3点增益，随后将他们治愈。
         public HawkerHealer(GameCard card) : base(card)
         {
         }
@@ -19,8 +19,11 @@ namespace Cynthia.Card
             foreach (var card in cards)
             {
                 await card.Effect.Boost(boost,Card);
+                if (card.Status.HealthStatus < 0)
+                {
+                    await card.Effect.Heal(card);
+                }
             }
-
             return 0;
         }
 

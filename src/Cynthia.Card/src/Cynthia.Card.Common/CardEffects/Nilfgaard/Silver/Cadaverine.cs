@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("33021")]//吊死鬼之毒
     public class Cadaverine : CardEffect
-    {//择一：对1个敌军单位以及所有与它同类型的单位造成2点伤害；或摧毁1个铜色/银色“中立”单位。
+    {//择一：对1个敌军单位以及所有与它同类型的单位造成3点伤害；或摧毁1个铜色/银色“中立”单位。
         public Cadaverine(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
@@ -29,7 +29,7 @@ namespace Cynthia.Card
                 await Game.Debug($"筛选出了{targetCards.Count()}个");
                 foreach (var card in targetCards)
                 {
-                    await card.Effect.Damage(2, Card, BulletType.RedLight);
+                    await card.Effect.Damage(3, Card, BulletType.RedLight);
                 }
             }
             else if (switchCard == 1)
