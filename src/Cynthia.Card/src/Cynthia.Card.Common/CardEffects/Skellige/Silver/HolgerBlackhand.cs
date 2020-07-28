@@ -7,7 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("63011")]//“黑手”霍格
     public class HolgerBlackhand : CardEffect
     {
-        //造成6点伤害。若摧毁目标，则使己方墓场中最强的单位获得3点强化。
+        //造成7点伤害。若摧毁目标，则使己方墓场中最强的单位获得3点强化。
         public HolgerBlackhand(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -21,7 +21,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Damage(6, Card);
+            await target.Effect.Damage(7, Card);
             //如果目标没死，结束
             if (!target.IsDead)
             {
