@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 13);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 14);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11130,6 +11130,25 @@ namespace Cynthia.Card
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
                     Info = "重新打出对方场上的一张银色/铜色忠诚单位卡，随后将其移回对方半场。",
                     CardArtsId = "d19160000",
+                }
+            },
+            {
+                "70038",//西格瓦尔德
+                new GwentCard()
+                {
+                    CardId ="70038",
+                    Name="西格瓦尔德",
+                    Strength=1,
+                    Group = Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed},
+                    Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
+                    Info = "回合结束时，复活至随机排，并获得1点强化。",
+                    CardArtsId = "d16710000",
                 }
             },
         };
