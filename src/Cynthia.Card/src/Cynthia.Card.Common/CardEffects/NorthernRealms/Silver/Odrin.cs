@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace Cynthia.Card
 {
     [CardEffectId("43009")]//欧德林
-    public class Odrin : CardEffect, IHandlesEvent<AfterTurnStart>
-    {//回合开始时，移至随机排，并使同排所有友军单位获得1点增益。
+    public class Odrin : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterCardDeath>
+    {//回合开始时，移至随机排，并使同排所有友军单位获得1点增益。遗愿：使同排所有友军单位获得1点增益。
         public Odrin(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterTurnStart @event)
         {
@@ -41,6 +41,24 @@ namespace Cynthia.Card
             var resultrow = movelist.Mess(Game.RNG).First();
             var boostlist = Game.RowToList(Card.PlayerIndex, resultrow).IgnoreConcealAndDead();
             await Card.Effect.Move(new CardLocation() { RowPosition = resultrow, CardIndex = int.MaxValue }, Card);
+            foreach (var card in boostlist)
+            {
+                await card.Effect.Boost(1, Card);
+            }
+            return;
+        }
+
+        public async Task HandleEvent(AfterCardDeath @event)
+        {
+            if (@event.Target != Card)
+            {
+                return;
+            }
+            var boostlist = Game.RowToList(Card.PlayerIndex, @event.DeathLocation.RowPosition).IgnoreConcealAndDead().Where(x => x.GetLocation().RowPosition.IsOnPlace() && x != Card).ToList();
+            if (boostlist.Count() <= 1)
+            {
+                return;
+            }
             foreach (var card in boostlist)
             {
                 await card.Effect.Boost(1, Card);
