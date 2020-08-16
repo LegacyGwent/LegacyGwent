@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70016")]//苏克鲁斯
     public class Sukrus : CardEffect
-    {//部署：选择手牌中的一张铜卡，丢弃所有牌组中该牌的同名牌。
+    {//选择手牌中的一张铜卡，丢弃所有牌组中该牌的同名牌。
         public Sukrus(GameCard card) : base(card)
         {
         }

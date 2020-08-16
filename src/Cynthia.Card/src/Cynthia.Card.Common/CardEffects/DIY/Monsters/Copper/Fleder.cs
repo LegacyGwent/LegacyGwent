@@ -7,7 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("70009")]//蝠翼魔
 
     public class Fleder : CardEffect, IHandlesEvent<BeforeCardDamage>, IHandlesEvent<AfterCardHurt>
-    {//部署：从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。
+    {//从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。
         public Fleder(GameCard card) : base(card) { }
 
         private const int boostPoint = 1;

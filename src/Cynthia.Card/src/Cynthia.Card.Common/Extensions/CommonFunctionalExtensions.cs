@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alsein.Extensions;
@@ -47,7 +48,19 @@ namespace Cynthia.Card
             return result;//.AsSpan().Encode();
         }
 
-        public static string Card64ToCardId(string cardCode) => GwentMap.CardIdIndexMap[cardCode.To10()];
+        public static string Card64ToCardId(string cardCode)
+        {
+            // try
+            // {
+            var index = cardCode.To10();
+            return GwentMap.CardIdIndexMap[index];
+            // }
+            // catch
+            // {
+            //     Console.WriteLine($"{cardCode}");
+            //     return "35002";
+            // }
+        }
         public static DeckModel DeCompressToDeck(this string stringDeck)
         {
             var deckResult = new DeckModel() { Name = "卡组码卡组(编辑卡组界面点击卡组名可改名哟)" };

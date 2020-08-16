@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70017")]//辛特拉战地医师
     public class CintrianFieldMedic : CardEffect
-    {//部署：将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。
+    {//将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。
 
         public CintrianFieldMedic(GameCard card) : base(card) { }
 

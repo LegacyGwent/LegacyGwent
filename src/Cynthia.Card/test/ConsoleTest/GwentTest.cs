@@ -104,6 +104,12 @@ namespace ConsoleTest
             var badCount = result.Where(x => !x.IsEffective()).Count();
             var count = result.Count();
 
+            var ww = result.Where(x => x.RedDeckCode.Contains("L") || x.BlueDeckCode.Contains("$L"));
+
+            foreach (var item in ww)
+            {
+                Console.WriteLine($"{item.RedDeckCode},{item.RedDeckName},{item.RedPlayerName}|{item.BlueDeckCode},{item.BlueDeckName},{item.BluePlayerName}");
+            }
             var cards = result
                 .Where(x => x.IsEffective())
                 .SelectMany(x => x.BlueDeckCode.DeCompressToDeck().Deck.Append(x.BlueLeaderId).Distinct().Select(card => (card, x.BluePlayerStatus()))
@@ -406,5 +412,6 @@ namespace ConsoleTest
                 }
             }
         }
+
     }
 }

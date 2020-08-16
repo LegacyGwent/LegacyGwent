@@ -1258,7 +1258,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "永远别想分开母龙和她的孩子。",
-                    Info = "部署：造成 3、2、1 点伤害。",
+                    Info = "造成 3、2、1 点伤害。",
                     CardArtsId = "11220500",
                 }
             },
@@ -5653,7 +5653,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Support},
                     CrewCount = 1,
                     Flavor = "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。",
-                    Info = "操控。\n部署：使1个友军单位获得坚韧。",
+                    Info = "操控。\n 使1个友军单位获得坚韧。",
                     CardArtsId = "16231300",
                 }
             },
@@ -9595,7 +9595,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "精通炼金术的大德鲁伊，也是群岛脾气最差的老混蛋。",
-                    Info = "部署：生成“倾盆大雨”、“晴空”或“惊悚咆哮”。",
+                    Info = "生成“倾盆大雨”、“晴空”或“惊悚咆哮”。",
                     CardArtsId = "15220600",
                 }
             },
@@ -10707,7 +10707,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "部署：对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。",
+                    Info = "对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。",
                     CardArtsId = "c10000000",
                 }
             },
@@ -10767,7 +10767,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "部署：从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。",
+                    Info = "从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。",
                     CardArtsId = "d14110000",
                 }
             },
@@ -10787,7 +10787,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "部署：生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
+                    Info = "生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
                     CardArtsId = "d16770000",
                 }
             },
@@ -10807,7 +10807,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（25战力，部署：对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。）",
+                    Info = "生成一张湖中仙女（25战力，对自身造成削弱，削弱数值等同于手牌和牌库剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
                 }
             },
@@ -10827,7 +10827,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "",
-                    Info = "部署：己方手牌每比对手少1张，便获得一次4点增益。",
+                    Info = "己方手牌每比对手少1张，便获得一次4点增益。",
                     CardArtsId = "d14280000",
                 }
             },
@@ -10847,7 +10847,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
                     Flavor = "",
-                    Info = "部署：从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
+                    Info = "从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
                 }
             },
@@ -10907,7 +10907,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "",
-                    Info = "部署：选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
+                    Info = "选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "d18870000",
                 }
             },
@@ -10927,7 +10927,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Support,Categorie.Cintra},
                     Flavor = "",
-                    Info = "部署：将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。",
+                    Info = "将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。",
                     CardArtsId = "d17110000",
                 }
             },
