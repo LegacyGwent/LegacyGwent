@@ -19,6 +19,7 @@ namespace Cynthia.Card.Server
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSignalR();
@@ -51,13 +52,10 @@ namespace Cynthia.Card.Server
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapHub<GwentHub>("/hub/gwent");
-                // endpoints.MapControllerRoute(
-                //     name: "default",
-                //     pattern: "{controller=Home}/{action=Index}/{id?}"
-                // );
             });
         }
     }
