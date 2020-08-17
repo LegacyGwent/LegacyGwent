@@ -107,7 +107,7 @@ namespace Cynthia.Card.Server
         {
             var db = GetDatabase();
             var gameResult = db.GetCollection<GameResult>("gameresults");
-            return gameResult.AsQueryable().ToList().Select(x => { x.BlueDeckCode = ""; x.RedDeckCode = ""; return x; }).ToList();
+            return gameResult.AsQueryable().Where(x => x.Time >= time).ToList().Select(x => { x.BlueDeckCode = ""; x.RedDeckCode = ""; return x; }).ToList();
         }
 
         public string QueryEnvironment(DateTime time)

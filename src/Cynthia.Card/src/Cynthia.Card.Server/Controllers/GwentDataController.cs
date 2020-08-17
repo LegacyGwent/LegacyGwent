@@ -41,10 +41,10 @@ namespace Cynthia.Card.Server.Controllers
             return _databaseService.QueryRanking(time);
         }
 
-        public IEnumerable<GameResult> GetAllGameResults()
-        {
-            return _databaseService.GetGameResults(DateTime.Now.AddYears(-10));
-        }
+        // public IEnumerable<GameResult> GetAllGameResults()
+        // {
+        //     return _databaseService.GetGameResults(DateTime.Now.AddYears(-10));
+        // }
 
         // public string QueryAllEnvironment()
         // {
