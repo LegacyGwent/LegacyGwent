@@ -5,9 +5,9 @@ using System;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70039")]//恐狼勇士
+    [CardEffectId("70040")]//恐狼勇士
     public class TerrorCrewPlunderer : CardEffect, IHandlesEvent<AfterCardDiscard>
-    {//对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将2张恐狼持斧者加入牌组。
+    {//对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组底部。
 
         public TerrorCrewPlunderer(GameCard card) : base(card) { }
 
@@ -21,10 +21,7 @@ namespace Cynthia.Card
         {
             await DamageRandomEnemy();
 
-            for (var i = 0; i < 2; i++)
-            {
-                await Game.CreateCardToRandom(CardId.TerrorCrewAxeWielder, PlayerIndex, RowPosition.MyDeck, Game.RNG);
-            }
+            await Game.CreateCardAtEnd(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck);
         }
 
         private async Task DamageRandomEnemy()

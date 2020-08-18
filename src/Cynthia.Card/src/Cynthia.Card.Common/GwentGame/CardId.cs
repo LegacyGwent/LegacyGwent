@@ -538,7 +538,8 @@ namespace Cynthia.Card
         public const string KikimoreWorker = "70022";
         public const string KikimoreWarrior = "70023";
         public const string CursedImmortals = "70024";
-        public const string TerrorCrewAxeWielder = "70040";
+        public const string TerrorCrewAxeWielder = "70039";
+        public const string TerrorCrewPlunderer = "70040";
         public const string BidensBipinnata = "70041";
         public const string AlbizziaJulibrissin = "70042";
     }
