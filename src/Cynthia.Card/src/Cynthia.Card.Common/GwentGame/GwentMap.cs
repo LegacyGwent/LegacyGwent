@@ -11162,12 +11162,12 @@ namespace Cynthia.Card
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier},
                     Flavor = "",
-                    Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将2张恐狼持斧者洗入牌组。",
+                    Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将2张恐狼持斧者加入牌组。",
                     CardArtsId = "d19640000",
                 }
             },
@@ -11187,7 +11187,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier},
                     Flavor = "",
-                    Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将1张恐狼持斧者洗入牌组。",
+                    Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将1张恐狼持斧者加入牌组底部。",
                     CardArtsId = "d19650000",
                 }
             },

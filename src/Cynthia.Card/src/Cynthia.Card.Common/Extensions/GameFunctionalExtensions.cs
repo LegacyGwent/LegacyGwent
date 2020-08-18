@@ -60,6 +60,12 @@ namespace Cynthia.Card
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);
         }
+
+        public static Task CreateCardToRandom(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Random rng, Action<CardStatus> setting = null)
+        {
+            return game.CreateCard(cardId, playerIndex, new CardLocation(row, rng.Next(0, game.RowToList(playerIndex, row).Count)), setting);
+        }
+
         public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> filter, bool isDistinct = false)
         {
             if (isDistinct)

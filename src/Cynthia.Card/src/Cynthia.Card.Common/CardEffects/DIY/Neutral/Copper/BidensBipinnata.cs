@@ -13,6 +13,17 @@ namespace Cynthia.Card
 
         public override async Task<int> CardUseEffect()
         {
+            var count = Game.PlayersCemetery[PlayerIndex].Count(x => x.Status.CardId == CardId.BidensBipinnata || x.Status.CardId == CardId.AlbizziaJulibrissin);
+
+            for (var i = 0; i < 4 + count; i++)
+            {
+                if (!Game.GetPlaceCards(AnotherPlayer).WhereAllLowest().TryMessOne(out var target, Game.RNG))
+                {
+                    break;
+                }
+                await target.Effect.Damage(2, Card);
+            }
+
             return 0;
         }
     }
