@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 14);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 15);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11128,7 +11128,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher},
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
-                    Info = "重新打出对方场上的一张银色/铜色忠诚单位卡，随后将其移回对方半场。",
+                    Info = "重新打出对方场上的一张非领袖忠诚单位卡，随后将其移回对方半场。",
                     CardArtsId = "d19160000",
                 }
             },
@@ -11149,6 +11149,86 @@ namespace Cynthia.Card
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
                     Info = "回合结束时，复活至随机排，并获得1点强化。",
                     CardArtsId = "d16710000",
+                }
+            },
+            {
+                "70039",//恐狼勇士
+                new GwentCard()
+                {
+                    CardId = "70039",
+                    Name = "恐狼勇士",
+                    Strength = 4,
+                    Group = Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Soldier},
+                    Flavor = "",
+                    Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将2张恐狼持斧者洗入牌组。",
+                    CardArtsId = "d19640000",
+                }
+            },
+            {
+                "70040",//恐狼持斧者
+                new GwentCard()
+                {
+                    CardId = "70040",
+                    Name = "恐狼持斧者",
+                    Strength = 8,
+                    Group = Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Soldier},
+                    Flavor = "",
+                    Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将1张恐狼持斧者洗入牌组。",
+                    CardArtsId = "d19650000",
+                }
+            },
+            {
+                "70041",//鬼针草煎药
+                new GwentCard()
+                {
+                    CardId = "70041",
+                    Name = "鬼针草煎药",
+                    Strength = 0,
+                    Group = Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy,Categorie.Item},
+                    Flavor = "有毒且致幻，它让你生不如死，却不致命。",
+                    Info = "伤害最强的敌军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”或“合欢茎魔药”，则额外重复1次。",
+                    CardArtsId = "d19710000",
+                }
+            },
+            {
+                "70042",//合欢茎魔药
+                new GwentCard()
+                {
+                    CardId = "70042",
+                    Name = "合欢茎魔药",
+                    Strength = 0,
+                    Group = Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy,Categorie.Item},
+                    Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
+                    Info = "增益最弱的友军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”或“合欢茎魔药”，则额外重复1次。",
+                    CardArtsId = "d16570000",
                 }
             },
         };
