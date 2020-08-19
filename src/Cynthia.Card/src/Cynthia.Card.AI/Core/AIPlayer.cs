@@ -203,6 +203,30 @@ namespace Cynthia.Card.AI
             return round;
         }
 
+        public (bool, RoundInfo) TryGetRandomPlay(string cardId)
+        {
+            var stayPlayCardIndex = HandCanPlay().Mess().First();
+            var card = default(CardStatus);
+            if (stayPlayCardIndex == -1)
+            {
+                card = Data.GetCard(new CardLocation() { CardIndex = 0, RowPosition = RowPosition.MyLeader });
+                Data.IsMyLeader = false;
+            }
+            else
+                card = Data.GetCard(new CardLocation() { CardIndex = stayPlayCardIndex, RowPosition = RowPosition.MyHand });
+            var cardCanUse = CardCanPlay(card.CardId.CardInfo().CardUseInfo);
+            var round = new RoundInfo()
+            {
+                IsPass = false,
+                HandCardIndex = stayPlayCardIndex,
+                CardLocation = (cardCanUse.Count() == 0 ? new CardLocation() { CardIndex = 0, RowPosition = RowPosition.MyCemetery } :
+                (
+                    cardCanUse.GroupBy(x => x.RowPosition).Mess().First().Mess().First()
+                ))
+            };
+            return round;
+        }
+
         public RoundInfo GetPassPlay()
         {
             return new RoundInfo()
