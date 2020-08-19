@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 17);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 18);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11184,8 +11184,8 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Soldier},
+                    IsDerive = true,
+                    Categories = new Categorie[] { Categorie.Soldier,Categorie.Token},
                     Flavor = "",
                     Info = "对一个敌军随机单位造成3点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组底部。",
                     CardArtsId = "d19620000",
@@ -11207,7 +11207,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy,Categorie.Item},
                     Flavor = "有毒且致幻，它让你生不如死，却不致命。",
-                    Info = "伤害最强的敌军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”或“合欢茎魔药”，则额外重复1次。",
+                    Info = "伤害最强的敌军单位2点，重复4次。 己方墓地每有一张“合欢茎魔药”，则额外重复1次。",
                     CardArtsId = "d19710000",
                 }
             },
@@ -11227,7 +11227,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy,Categorie.Item},
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
-                    Info = "增益最弱的友军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”或“合欢茎魔药”，则额外重复1次。",
+                    Info = "增益最弱的友军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”，则额外重复1次。",
                     CardArtsId = "d16570000",
                 }
             },

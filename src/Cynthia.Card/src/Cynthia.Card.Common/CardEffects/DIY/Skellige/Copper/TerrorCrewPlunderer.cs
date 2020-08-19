@@ -19,6 +19,10 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDiscard @event)
         {
+            if (@event.Target != Card)
+            {
+                return;
+            }
             await DamageRandomEnemy();
 
             await Game.CreateCardAtEnd(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck);

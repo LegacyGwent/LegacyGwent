@@ -19,6 +19,10 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDiscard @event)
         {
+            if (@event.Target != Card)
+            {
+                return;
+            }
             await DamageRandomEnemy();
 
             for (var i = 0; i < 2; i++)
