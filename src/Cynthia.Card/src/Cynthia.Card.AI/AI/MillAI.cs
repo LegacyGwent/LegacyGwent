@@ -66,7 +66,7 @@ namespace Cynthia.Card.AI
                 Name = "爆牌AI测试1",
                 Leader = CardId.AvallacH,
                 Deck = (CardId.AvallacH).Plural(20)
-                .Concat(CardId.AlbaSpearmen.Plural(20)).ToList()
+                .Concat(CardId.GeraltOfRivia.Plural(20)).ToList()
             };
         }
         // public override void SetDeckAndName()

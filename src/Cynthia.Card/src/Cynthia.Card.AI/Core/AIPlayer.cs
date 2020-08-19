@@ -203,7 +203,7 @@ namespace Cynthia.Card.AI
             return round;
         }
 
-        public (bool, RoundInfo) TryGetRandomPlay(string cardId)
+        public RoundInfo TryGetRandomPlay(string cardId)
         {
             var stayPlayCardIndex = HandCanPlay().Mess().First();
             var card = default(CardStatus);
