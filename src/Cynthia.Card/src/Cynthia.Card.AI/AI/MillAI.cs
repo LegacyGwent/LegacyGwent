@@ -50,6 +50,7 @@ namespace Cynthia.Card.AI
 
             if (pass)
             {
+                _nextPlay.Reset();
                 send(Operation.Create(UserOperationType.RoundOperate, GetPassPlay()));
             }
             else
@@ -63,12 +64,6 @@ namespace Cynthia.Card.AI
 
                 send(Operation.Create(UserOperationType.RoundOperate, context));
             }
-        }
-
-        //回合开始时,重置选择
-        public override void RoundStartShow()
-        {
-            _nextPlay.Reset();
         }
 
         //选择在阿瓦拉克和矛兵之间切换

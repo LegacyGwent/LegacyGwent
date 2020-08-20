@@ -14,7 +14,7 @@ namespace Cynthia.Card
 
         public void Switch()
         {
-            _currentIndex = (_currentIndex + 1) % _content.Count;
+            _currentIndex = (_currentIndex + 1) % (_content.Count);
         }
 
         public void Reset()
