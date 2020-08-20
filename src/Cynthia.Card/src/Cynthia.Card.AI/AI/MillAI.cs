@@ -72,7 +72,7 @@ namespace Cynthia.Card.AI
         }
 
         //选择在阿瓦拉克和矛兵之间切换
-        private Switcher<string> _nextPlay = new Switcher<string>() { CardId.GeraltOfRivia, CardId.AvallacH };
+        private Switcher<string> _nextPlay = new Switcher<string>() { CardId.AlbaSpearmen, CardId.AvallacH };
 
         public override void SetDeckAndName()
         {
@@ -82,7 +82,7 @@ namespace Cynthia.Card.AI
                 Name = "爆牌AI测试1",
                 Leader = CardId.AvallacH,
                 Deck = (CardId.AvallacH).Plural(20)
-                .Concat(CardId.GeraltOfRivia.Plural(20)).ToList()
+                .Concat(CardId.AlbaSpearmen.Plural(20)).ToList()
             };
         }
         // public override void SetDeckAndName()
