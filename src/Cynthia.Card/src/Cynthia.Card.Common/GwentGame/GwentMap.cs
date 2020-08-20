@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 19);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 20);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -6708,7 +6708,7 @@ namespace Cynthia.Card
                 {
                     CardId ="43015",
                     Name="帕薇塔公主",
-                    Strength=3,
+                    Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11128,7 +11128,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher},
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
-                    Info = "若对方某排单位不少于3个，则重新打出该排一张非领袖忠诚单位牌，随后将其移回对方半场。",
+                    Info = "若对方某排单位不少于3个，则重新打出该排一张非领袖非同名忠诚单位牌，随后将其移回对方半场。",
                     CardArtsId = "d19160000",
                 }
             },

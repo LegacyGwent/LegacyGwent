@@ -23,10 +23,10 @@ namespace Cynthia.Card.AI
                 //对方不pass的话,点数领先40就pass
                 if (!Data.IsEnemyPlayerPass)
                 {
-                    pass = Data.MyPoint - Data.EnemyPoint > 20;
+                    pass = Data.MyPoint - Data.EnemyPoint > 30;
                 }
                 //对方pass的话,点数差在40以内就追
-                else if (Data.EnemyPoint - Data.MyPoint < 30)
+                else if (Data.EnemyPoint - Data.MyPoint < 25)
                 {
                     pass = Data.MyPoint > Data.EnemyPoint;
                 }
@@ -71,7 +71,7 @@ namespace Cynthia.Card.AI
 
         public override void SetDeckAndName()
         {
-            PlayerName = "无情的爆牌机器一号";
+            PlayerName = "无情的爆牌机器伯约号1.0";
             Deck = new DeckModel()
             {
                 Name = "爆牌AI测试1",
