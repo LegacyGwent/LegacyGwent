@@ -7,8 +7,8 @@ using System.Collections.Generic;
 namespace Cynthia.Card
 {
     [CardEffectId("65004")]//幽灵鲸
-    public class SpectralWhale : CardEffect, IHandlesEvent<AfterTurnOver>
-    {//回合结束时移至随机排，对同排所有其他单位造成1点伤害。 间谍。
+    public class SpectralWhale : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>
+    {//回合结束时移至随机排，对同排所有其他单位造成1点伤害。遗愿：再次触发此能力。间谍。
         public SpectralWhale(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterTurnOver @event)
         {
@@ -47,9 +47,24 @@ namespace Cynthia.Card
                 await card.Effect.Damage(1, Card);
             }
             return;
+        }
 
-
-
+        public async Task HandleEvent(AfterCardDeath @event)
+        {
+            if (@event.Target != Card)
+            {
+                return;
+            }
+            var damagelist = Game.RowToList(Card.PlayerIndex, @event.DeathLocation.RowPosition).IgnoreConcealAndDead().Where(x => x.GetLocation().RowPosition.IsOnPlace() && x != Card).ToList();
+            if (damagelist.Count() <= 1)
+            {
+                return;
+            }
+            foreach (var card in damagelist)
+            {
+                await card.Effect.Damage(1, Card);
+            }
+            return;
         }
     }
 }
