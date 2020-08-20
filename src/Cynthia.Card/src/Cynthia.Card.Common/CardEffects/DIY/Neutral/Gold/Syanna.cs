@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70025")]//席安娜
     public class Syanna : CardEffect, IHandlesEvent<AfterUnitPlay>, IHandlesEvent<AfterUnitDown>
-    {//4护甲。力竭。使你的下一张银色/铜色忠诚单位卡额外触发一次部署效果。
+    {//4护甲。力竭。使你的下一张银色/铜色忠诚单位牌额外触发一次部署效果。
 
         private bool _isUse = false;
 

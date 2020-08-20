@@ -203,9 +203,9 @@ namespace Cynthia.Card.AI
             return round;
         }
 
-        public RoundInfo TryGetRandomPlay(string cardId)
+        public (string, RoundInfo) TryGetRandomPlay(string cardId)
         {
-            var stayPlayCardIndex = HandCanPlay().Mess().First();
+            var stayPlayCardIndex = HandCanPlay(cardId).Mess().First();
             var card = default(CardStatus);
             if (stayPlayCardIndex == -1)
             {
@@ -224,7 +224,7 @@ namespace Cynthia.Card.AI
                     cardCanUse.GroupBy(x => x.RowPosition).Mess().First().Mess().First()
                 ))
             };
-            return round;
+            return (card.CardId, round);
         }
 
         public RoundInfo GetPassPlay()
@@ -401,17 +401,39 @@ namespace Cynthia.Card.AI
 
         public abstract void PlayCard(CardLocation location, Action<Operation<UserOperationType>> send);
 
-        public IEnumerable<int> HandCanPlay()//当前可以打出的手牌
+        public IEnumerable<int> HandCanPlay(string inclinationId = "")//当前可以打出的手牌
         {
-            var result = 0.To(Data.MyHandCard.Count - 1);//0-数量-1
-            if (Data.IsMyLeader)
+            if (Data.MyHandCard.Any(x => x.CardId == inclinationId) || (Data.IsMyLeader && Data.MyLeader.First().CardId == inclinationId))
             {
-                if (Data.MyHandCard.Count > 0)
-                    return result.Append(-1);//
-                else
-                    return (-1).To(-1);
+                var result = new List<int>();
+                for (var i = 0; i < Data.MyHandCard.Count; i++)
+                {
+                    if (Data.MyHandCard[i].CardId == inclinationId)
+                    {
+                        result.Add(i);
+                    }
+                }
+                if (Data.IsMyLeader && Data.MyLeader.First().CardId == inclinationId)
+                {
+                    if (Data.MyHandCard.Count > 0)
+                        return result.Append(-1);//
+                    else
+                        return (-1).To(-1);
+                }
+                return result;
             }
-            return result;
+            else
+            {
+                var result = 0.To(Data.MyHandCard.Count - 1);//0-数量-1
+                if (Data.IsMyLeader)
+                {
+                    if (Data.MyHandCard.Count > 0)
+                        return result.Append(-1);//
+                    else
+                        return (-1).To(-1);
+                }
+                return result;
+            }
         }
 
         public IEnumerable<CardLocation> CardCanPlay(CardUseInfo range)//当前卡牌可以放置的所有位置(不包含弃牌)

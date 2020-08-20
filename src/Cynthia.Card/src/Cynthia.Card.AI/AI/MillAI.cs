@@ -54,9 +54,25 @@ namespace Cynthia.Card.AI
             }
             else
             {
-                send(Operation.Create(UserOperationType.RoundOperate, GetRandomPlay()));
+                var (id, context) = TryGetRandomPlay(_nextPlay.Current);
+
+                if (id == _nextPlay.Current)
+                {
+                    _nextPlay.Switch();
+                }
+
+                send(Operation.Create(UserOperationType.RoundOperate, context));
             }
         }
+
+        //回合开始时,重置选择
+        public override void RoundStartShow()
+        {
+            _nextPlay.Reset();
+        }
+
+        //选择在阿瓦拉克和矛兵之间切换
+        private Switcher<string> _nextPlay = new Switcher<string>() { CardId.GeraltOfRivia, CardId.AvallacH };
 
         public override void SetDeckAndName()
         {

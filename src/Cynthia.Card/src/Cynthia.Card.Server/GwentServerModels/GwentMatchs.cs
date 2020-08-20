@@ -57,18 +57,30 @@ namespace Cynthia.Card.Server
             {
                 switch (password.ToLower().Replace("#f", ""))
                 {
-                    case "ai1":
-                        var room = new GwentRoom(player, password);
-                        room.AddPlayer(new ReaverHunterAI());
-                        GwentRooms.Add(room);
-                        StartGame(room);
-                        return;
                     case "ai":
-                        var room1 = new GwentRoom(player, password);
-                        room1.AddPlayer(new GeraltNovaAI());
-                        GwentRooms.Add(room1);
-                        StartGame(room1);
-                        return;
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new GeraltNovaAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai1":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new ReaverHunterAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai2":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new MillAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
                     default:
                         break;
                 }
@@ -96,18 +108,30 @@ namespace Cynthia.Card.Server
             {
                 switch (password.ToLower().Replace("#f", ""))
                 {
-                    case "ai1":
-                        var room = new GwentRoom(player, password);
-                        room.AddPlayer(new ReaverHunterAI());
-                        GwentRooms.Add(room);
-                        StartGame(room);
-                        return;
                     case "ai":
-                        var room1 = new GwentRoom(player, password);
-                        room1.AddPlayer(new GeraltNovaAI());
-                        GwentRooms.Add(room1);
-                        StartGame(room1);
-                        return;
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new GeraltNovaAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai1":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new ReaverHunterAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai2":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new MillAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
                     default:
                         break;
                 }

@@ -41,9 +41,9 @@ namespace Cynthia.Card
             if (target.Count > 0)
             {
                 await target.Single().Effect.Boost(3, Card);
+                await Damage(1, Card);
             }
 
-            await Damage(1, Card);
             var row = Game.PlayersPlace[PlayerIndex].Indexed().OrderBy(x => x.Value.Count).First().Key.IndexToMyRow();
             if (row != Card.Status.CardRow)
             {
