@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 18);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 19);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -316,7 +316,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12009",
                     Name="先祖麦酒",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -326,7 +326,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "富克斯家族的传奇创始人波罗斯因为酗酒丢了性命。当时他的金戒指掉进了一条小溪，他去捞的时候晕了过去。",
-                    Info = "在所在排洒下“黄金酒沫”。",
+                    Info = "在所在排洒下“黄金酒沫”。被移动或受到伤害时重复此能力。",
                     CardArtsId = "20024400",
                 }
             },
@@ -3651,7 +3651,7 @@ namespace Cynthia.Card
                 {
                     CardId ="24004",
                     Name="大狮鹫",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -3661,7 +3661,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "大狮鹫也是狮鹫，只是更加凶悍。",
-                    Info = "移除所在排的灾厄。",
+                    Info = "移除所在排的灾厄。从对方墓场中1张铜色单位牌移至己方墓场。",
                     CardArtsId = "13230700",
                 }
             },
@@ -3996,7 +3996,7 @@ namespace Cynthia.Card
                 {
                     CardId ="24021",
                     Name="寒冰巨人",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -4057,7 +4057,7 @@ namespace Cynthia.Card
                 {
                     CardId ="24024",
                     Name="女蛇妖",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5803,7 +5803,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34024",
                     Name="阿尔巴师枪兵",
-                    Strength=3,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5813,7 +5813,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "宣誓效忠吾皇恩希尔·恩瑞斯……不然就受刑吧！",
-                    Info = "召唤所有同名牌。",
+                    Info = "回合开始时从卡组召唤1张同名牌。2点护甲。",
                     CardArtsId = "16231100",
                 }
             },
@@ -7343,7 +7343,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Cursed},
                     Flavor = "萨宾娜的诅咒谁也不放过，就连其他的女术士也难以幸免。",
-                    Info = "若同排有1个“诅咒生物”单位，则造成7点伤害。",
+                    Info = "若同排有“诅咒生物”单位，造成7点伤害。同排每有1个“诅咒生物”单位，伤害提高1点。",
                     CardArtsId = "20163000",
                 }
             },
@@ -7694,7 +7694,7 @@ namespace Cynthia.Card
                 {
                     CardId ="52002",
                     Name="萨琪亚萨司",
-                    Strength=9,
+                    Strength=10,
                     Group=Group.Gold,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7724,7 +7724,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "怎么了，公主？吃不惯野味吗？嗯？",
-                    Info = "增益自身等同于最后打出的非同名“矮人”单位牌的初始战力。",
+                    Info = "增益自身等同于本小局打出的“矮人”单位牌的最强基础战力。",
                     CardArtsId = "20008000",
                 }
             },
@@ -9110,7 +9110,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanAnCraite},
+                    Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Machine},
                     Flavor = "只消对尼弗迦德人提起这个名字，他们就会吓得尿裤子……",
                     Info = "回合结束时，使左侧单位获得1点强化，右侧单位收到1点伤害。5点护甲。",
                     CardArtsId = "15210900",
@@ -10195,7 +10195,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDrummond,Categorie.Soldier},
                     Flavor = "我们的敌人会像打上嶙峋海岸的波浪一样，倒在我们的盾前。",
-                    Info = "召唤所有同名牌。",
+                    Info = "对一个敌军单位造成2点伤害，若目标已受伤，从卡组打出1张自身同名牌。",
                     CardArtsId = "15231810",
                 }
             },
@@ -10436,7 +10436,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Token},
                     Flavor = "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”",
-                    Info = "回合结束时移至随机排，对同排所有其他单位造成1点伤害。 间谍。",
+                    Info = "回合结束时移至随机排，对同排所有其他单位造成1点伤害。遗愿：再次触发此能力。间谍。",
                     CardArtsId = "15240300",
                 }
             },
@@ -11133,6 +11133,26 @@ namespace Cynthia.Card
                 }
             },
             {
+                "70033",//战象
+                new GwentCard()
+                {
+                    CardId = "70033",
+                    Name = "战象",
+                    Strength = 10,
+                    Group = Group.Silver,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Beast },
+                    Flavor = "“样子有点像浑身没毛的鹿首魔，鼻子能拖到地上。”\n“什么？不，你这是在胡扯”",
+                    Info = "摧毁己方半场单排所有单位的护甲，并造成扣除护甲值的伤害。",
+                    CardArtsId = "d19990000",
+                }
+            },
+            {
                 "70038",//西格瓦尔德
                 new GwentCard()
                 {
@@ -11145,7 +11165,7 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed},
+                    Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
                     Info = "回合结束时，复活至随机排，并获得1点强化。",
                     CardArtsId = "d16710000",

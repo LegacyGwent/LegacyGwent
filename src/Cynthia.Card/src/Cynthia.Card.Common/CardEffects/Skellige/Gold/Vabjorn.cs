@@ -17,10 +17,11 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Damage(2, Card);
+
             //如果目标没受伤，结束
             if (target.Status.HealthStatus >= 0)
             {
+                await target.Effect.Damage(2, Card);
                 return 0;
             }
             await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
