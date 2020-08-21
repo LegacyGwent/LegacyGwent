@@ -180,6 +180,26 @@ namespace ConsoleTest
             }
         }
 
+        public static void QueryPlayerDeck(string playerName, bool isFullName = false)
+        {
+            var db = new MongoClient("mongodb://localhost:27017/gwent-diy").GetDatabase("gwentdiy");
+            var resultCollection = db.GetCollection<UserInfo>("user");
+
+            Console.WriteLine($"共计注册数:{resultCollection.AsQueryable().Count()}");
+
+            var users = isFullName ? resultCollection.AsQueryable().Where(x => x.PlayerName == playerName).ToList() : resultCollection.AsQueryable().Where(x => x.PlayerName.Contains(playerName)).ToList();
+            Console.WriteLine($"符合标准的玩家数:{users.Count()}\n");
+            foreach (var user in users)
+            {
+                Console.WriteLine($"".PadLeft(20, '-'));
+                Console.WriteLine($"玩家名:{user.PlayerName}\n");
+                foreach (var deck in user.Decks)
+                {
+                    Console.WriteLine($"卡组名:{deck.Name}\t 卡组码:{deck.CompressDeck()}");
+                }
+            }
+        }
+
         public static IMongoCollection<GameResult> GetLocalGameResultCollection()
         {
             return new MongoClient("mongodb://localhost:27017/gwent-diy").GetDatabase("gwentdiy").GetCollection<GameResult>("gameresults");

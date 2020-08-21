@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70027")]//杰洛特：亚克席法印
     public class GeraltAxii : CardEffect
-    {//若对方某排单位不少于3个，则重新打出该排一张非领袖忠诚单位牌，随后将其移回对方半场。
+    {//重新打出敌方半场一张银色/铜色忠诚单位牌，随后将其移回对方半场。
 
         public GeraltAxii(GameCard card) : base(card) { }
 
@@ -15,7 +15,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = await Game.GetSelectPlaceCards(Card, filter: (x => (x.GetRowList().Count >= 3) && ((x.Status.Group != Group.Leader) || x.Status.CardId != Card.Status.CardId) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow), selectMode: SelectModeType.EnemyRow);
+            var result = await Game.GetSelectPlaceCards(Card, filter: (x => ((x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) || x.Status.CardId != Card.Status.CardId) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow), selectMode: SelectModeType.EnemyRow);
 
             if (!result.TrySingle(out var targetCard))
             {

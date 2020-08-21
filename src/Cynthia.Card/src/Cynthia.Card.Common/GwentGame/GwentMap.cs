@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 21);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 22);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -326,7 +326,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "富克斯家族的传奇创始人波罗斯因为酗酒丢了性命。当时他的金戒指掉进了一条小溪，他去捞的时候晕了过去。",
-                    Info = "在所在排洒下“黄金酒沫”。被移动时重复此能力。遗愿：在所在排洒下“黄金酒沫”。",
+                    Info = "在所在排洒下“黄金酒沫”。被移动时重复此能力。",
                     CardArtsId = "20024400",
                 }
             },
@@ -11118,7 +11118,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70027",
                     Name = "杰洛特：亚克席法印",
-                    Strength = 6,
+                    Strength = 7,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11128,7 +11128,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher},
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
-                    Info = "若对方某排单位不少于3个，则重新打出该排一张非领袖非同名忠诚单位牌，随后将其移回对方半场。",
+                    Info = "重新打出敌方半场一张银色/铜色忠诚单位牌，随后将其移回对方半场。",
                     CardArtsId = "d19160000",
                 }
             },
