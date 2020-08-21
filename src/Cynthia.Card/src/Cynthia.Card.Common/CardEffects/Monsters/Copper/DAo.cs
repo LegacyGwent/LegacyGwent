@@ -15,9 +15,7 @@ namespace Cynthia.Card
             if (@event.Target != Card) return;
             var row = @event.DeathLocation.RowPosition;
             var list = Game.RowToList(PlayerIndex, row);
-            //await Game.Debug($"这里是dao的效果,目前这一排有:{list.Count()}个单位,计划生成到位置:{list.Count}");
             await Game.CreateCard(CardId.LesserDAl, PlayerIndex, new CardLocation(row, list.Count));
-            //await Game.Debug($"这里是dao的效果,目前这一排有:{list.Count()}个单位,计划生成到位置:{list.Count}");
             await Game.CreateCard(CardId.LesserDAl, PlayerIndex, new CardLocation(row, list.Count));
         }
     }

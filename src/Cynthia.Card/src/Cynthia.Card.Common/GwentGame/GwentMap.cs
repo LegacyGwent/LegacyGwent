@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 20);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 21);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -316,7 +316,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12009",
                     Name="先祖麦酒",
-                    Strength=9,
+                    Strength=10,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -326,7 +326,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "富克斯家族的传奇创始人波罗斯因为酗酒丢了性命。当时他的金戒指掉进了一条小溪，他去捞的时候晕了过去。",
-                    Info = "在所在排洒下“黄金酒沫”。被移动或受到伤害时重复此能力。",
+                    Info = "在所在排洒下“黄金酒沫”。被移动时重复此能力。遗愿：在所在排洒下“黄金酒沫”。",
                     CardArtsId = "20024400",
                 }
             },

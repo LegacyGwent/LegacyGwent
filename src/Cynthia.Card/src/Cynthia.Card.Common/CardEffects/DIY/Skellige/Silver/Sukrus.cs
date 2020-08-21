@@ -16,7 +16,7 @@ namespace Cynthia.Card
         {
             var unitHandCard = Game.PlayersHandCard[PlayerIndex]
                 .Where(x =>
-                    x.Status.Type == CardType.Unit &&
+                    // x.Status.Type == CardType.Unit &&
                     x.IsAnyGroup(Group.Copper)
                 )
                 .ToList();
