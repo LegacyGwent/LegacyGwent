@@ -15,7 +15,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = await Game.GetSelectPlaceCards(Card, filter: (x => ((x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) || x.Status.CardId != Card.Status.CardId) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow), selectMode: SelectModeType.EnemyRow);
+            var result = await Game.GetSelectPlaceCards(Card, filter: (x => ((x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.Status.CardId != Card.Status.CardId) && x.CardInfo().CardUseInfo == CardUseInfo.MyRow), selectMode: SelectModeType.EnemyRow);
 
             if (!result.TrySingle(out var targetCard))
             {
