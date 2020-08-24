@@ -46,6 +46,8 @@ namespace Cynthia.Card
 
             await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()]
                  .SetStatus<GoldenFrothStatus>();
+
+            await Card.Effect.Damage(4, Card);
         }
 
         // public async Task HandleEvent(AfterTurnOver @event)

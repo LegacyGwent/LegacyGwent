@@ -316,7 +316,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12009",
                     Name="先祖麦酒",
-                    Strength=10,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -326,7 +326,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "富克斯家族的传奇创始人波罗斯因为酗酒丢了性命。当时他的金戒指掉进了一条小溪，他去捞的时候晕了过去。",
-                    Info = "在所在排洒下“黄金酒沫”。被移动时重复此能力。",
+                    Info = "在所在排洒下“黄金酒沫”。被移动时重复此能力，并受到4点伤害。",
                     CardArtsId = "20024400",
                 }
             },
@@ -11172,11 +11172,11 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70039",//恐狼持斧者
+                "70039",//恐狼掷击
                 new GwentCard()
                 {
                     CardId = "70039",
-                    Name = "恐狼持斧者",
+                    Name = "恐狼掷击",
                     Strength = 4,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
@@ -11185,7 +11185,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Soldier,Categorie.Token},
+                    Categories = new Categorie[] { Categorie.Token, Categorie.Special},
                     Flavor = "",
                     Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将2张“恐狼勇士”加入牌组。",
                     CardArtsId = "d19640000",

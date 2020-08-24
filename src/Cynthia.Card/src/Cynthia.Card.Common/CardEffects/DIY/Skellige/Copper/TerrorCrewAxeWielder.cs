@@ -11,7 +11,13 @@ namespace Cynthia.Card
 
         public TerrorCrewAxeWielder(GameCard card) : base(card) { }
 
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        // public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        // {
+        //     await DamageRandomEnemy();
+        //     return 0;
+        // }
+
+        public override async Task<int> CardUseEffect()
         {
             await DamageRandomEnemy();
             return 0;
