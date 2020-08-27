@@ -26,8 +26,8 @@ namespace Cynthia.Card
         public Random RNG { get => Game.RNG; }
         public async Task SetCountdown(int? value = default, int? offset = default)
         {
-            await Game.ShowCardNumberChange(Card, Card.Status.Countdown, NumberType.Countdown);
             Card.Status.Countdown = (value ?? Card.Status.Countdown) + (offset ?? 0);
+            await Game.ShowCardNumberChange(Card, Card.Status.Countdown, NumberType.Countdown);
             if (Card.Status.Countdown <= 0)
                 Card.Status.IsCountdown = false;
             else

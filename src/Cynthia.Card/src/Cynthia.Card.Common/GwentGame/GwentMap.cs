@@ -11177,7 +11177,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70039",
                     Name = "恐狼掷击",
-                    Strength = 4,
+                    Strength = 0,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
