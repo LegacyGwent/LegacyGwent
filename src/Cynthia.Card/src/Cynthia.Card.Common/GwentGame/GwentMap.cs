@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 23);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 24);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11181,7 +11181,7 @@ namespace Cynthia.Card
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
+                    CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,

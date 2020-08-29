@@ -621,7 +621,7 @@ namespace Cynthia.Card
         }
         public virtual async Task Discard(GameCard source)//丢弃(未测试)
         {//如果在场上,墓地或者已被放逐,不触发
-            if (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
+            if (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || (Card.Status.Type == CardType.Unit && Card.IsDead)) return;
             await ToCemetery(discardInfo: (true, source), isRoundEnd: false);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //丢弃,应该触发对应事件(在ToCemetery内部触发)
@@ -804,6 +804,7 @@ namespace Cynthia.Card
 
         public virtual async Task Duel(GameCard target, GameCard source)
         {
+            //决斗
             if (target.IsDead || !target.Status.CardRow.IsOnPlace() || Card.IsDead || !Card.Status.CardRow.IsOnPlace() || target.Status.Type != CardType.Unit || Card.Status.Type != CardType.Unit || Card.IsDead)
                 return;
             int count = 0;
