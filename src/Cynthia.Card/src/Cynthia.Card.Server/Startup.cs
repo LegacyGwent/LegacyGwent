@@ -30,10 +30,12 @@ namespace Cynthia.Card.Server
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             if (_env.IsDevelopment())
             {
-                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:27017/gwent-diy"));
+                //services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:27017/gwent-diy"));
+                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb+srv://cynthia:q123456@cluster0-n0gv4.mongodb.net/gwent"));
             }
             else
             {
+                
                 services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent-diy"));
             }
         }

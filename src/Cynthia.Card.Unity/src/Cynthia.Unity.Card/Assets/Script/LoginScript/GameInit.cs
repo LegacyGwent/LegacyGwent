@@ -85,9 +85,17 @@ public class GameInit : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e);
-            LatestVersionText.text = string.Format(_translator.GetText("LoginMenu_LatestVersionError"), e.Message);
+            if (LatestVersionText != null)
+            {
+                LatestVersionText.text = string.Format(_translator.GetText("LoginMenu_LatestVersionError"), e.Message);
+            }
         }
-        NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
+
+        if (NotesContext != null)
+        {
+            NotesContext.sizeDelta =
+                new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
+        }
     }
 
     public void ConfigureGame()

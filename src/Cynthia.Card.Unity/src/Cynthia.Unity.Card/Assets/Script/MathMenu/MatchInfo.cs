@@ -9,6 +9,7 @@ using Autofac;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Cynthia.Card.Common.Models;
 
 public class MatchInfo : MonoBehaviour
 {
@@ -59,12 +60,14 @@ public class MatchInfo : MonoBehaviour
 
     private GwentClientService _client { get => DependencyResolver.Container.Resolve<GwentClientService>(); }
     private GlobalUIService _UIService { get => DependencyResolver.Container.Resolve<GlobalUIService>(); }
+    private ITranslator _translator {get => DependencyResolver.Container.Resolve<ITranslator>(); }
 
     public void MatchMenuClick()
     {
         if (_client.User.Decks.Count() <= 0)
         {
-            _UIService.YNMessageBox("当前没有卡组", "当前没有卡组,请添加卡组后再进行匹配");
+            _UIService.YNMessageBox(_translator.GetText("PopupWindow_NoDeckTitle"),
+                _translator.GetText("PopupWindow_NoDeckDesc"), isOnlyYes: true);
         }
         else
         {
@@ -88,16 +91,16 @@ public class MatchInfo : MonoBehaviour
     {
         ReturnButton.SetActive(false);
         SwitchButton.SetActive(false);
-        MatchMessage.text = "寻找对手中";
-        MatchButtonText.text = "停止匹配";
+        MatchMessage.text = _translator.GetText("MatchmakingMenu_LookingForOpponent");
+        MatchButtonText.text = _translator.GetText("MatchmakingMenu_CancelButton");
         MatchPassword.readOnly = true;
     }
     public void ShowStopMatch()/////待编辑
     {
         ReturnButton.SetActive(true);
         SwitchButton.SetActive(true);
-        MatchMessage.text = "牌组就绪";
-        MatchButtonText.text = "开始战斗";
+        MatchMessage.text = _translator.GetText("MatchmakingMenu_DeckReady");
+        MatchButtonText.text = _translator.GetText("MatchmakingMenu_PlayButton");
         MatchPassword.readOnly = false;
     }
     public async void MatchButtonClick()/////点击匹配按钮的话
@@ -113,7 +116,7 @@ public class MatchInfo : MonoBehaviour
             }
             if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
             {
-                await _UIService.YNMessageBox("该卡组无法用于匹配", "该卡组无法用于该匹配,请重新编辑或切换卡组。");
+                await _UIService.YNMessageBox("PopupWindow_IncompleteDeckTitle", "PopupWindow_IncompleteDeckDesc", "PopupWindow_OkButton", isOnlyYes: true);
                 return;
             }
             //否则尝试开始匹配(目前不关注匹配结果)
@@ -154,7 +157,7 @@ public class MatchInfo : MonoBehaviour
         }
         catch
         {
-            SceneManager.LoadScene("LoginSecen");
+            SceneManager.LoadScene("LoginScene");
             _client.ClientState = ClientState.Standby;
         }
     }

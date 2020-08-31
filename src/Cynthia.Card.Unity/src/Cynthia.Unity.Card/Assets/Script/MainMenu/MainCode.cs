@@ -1,6 +1,7 @@
 ﻿using Cynthia.Card.Client;
 using UnityEngine;
 using Autofac;
+using Cynthia.Card.Common.Models;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class MainCode : MonoBehaviour
 {
     private GlobalUIService _globalUIService;
     private GwentClientService _client;
+    private ITranslator _translator;
     public GameObject Context;
     public GameObject MatchUI;
     public EditorInfo EditorMenu;
@@ -39,11 +41,12 @@ public class MainCode : MonoBehaviour
             MatchMenuButton.onClick.Invoke();
             //DoMatchButton.onClick.Invoke();
         }
+        _translator = DependencyResolver.Container.Resolve<ITranslator>();
     }
     public async void ExitGameClick()
     {
         // SceneManager.LoadScene("LoginSecen");
-        if (await _globalUIService.YNMessageBox("退出游戏?", "是否退出游戏"))
+        if (await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_QuitTitle"), _translator.GetText("PopupWindow_QuitDesc")))
         {
             //进行一些处理
             Application.Quit();

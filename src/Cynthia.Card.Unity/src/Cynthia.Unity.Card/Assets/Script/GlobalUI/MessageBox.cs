@@ -42,6 +42,7 @@ public class MessageBox : MonoBehaviour
     }
     public Task<bool> Show(string title, string message, string yes = "PopupWindow_YesButton", string no = "PopupWindow_NoButton", bool isOnlyYes = false)
     {
+        gameObject.SetActive(true);
         Buttons.SetActive(true);
         if (isOnlyYes)
         {
@@ -57,7 +58,6 @@ public class MessageBox : MonoBehaviour
         MessageText.text = _translator.GetText(message);
         YesText.text = _translator.GetText(yes);
         NoText.text = _translator.GetText(no);
-        gameObject.SetActive(true);
         // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
         return receiver.ReceiveAsync<bool>();
     }

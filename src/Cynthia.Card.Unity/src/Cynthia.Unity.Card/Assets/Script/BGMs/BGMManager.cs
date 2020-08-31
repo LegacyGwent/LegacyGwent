@@ -281,7 +281,7 @@ public class BGMManager : MonoBehaviour
         //检查是否进入匹配队列
         if (matchButton != null && matchButton.activeSelf == true)//确保有button
         {
-            tempText = matchButton.transform.Find("Text").GetComponent<Text>();
+            tempText = matchButton.GetComponentInChildren<Text>();
             tempString = tempText.text;
             if (inLine == false)
             {
