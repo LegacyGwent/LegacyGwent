@@ -1,17 +1,14 @@
-﻿using System.Net.Mime;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Autofac;
-using Microsoft.AspNetCore.SignalR.Client;
-using System.Threading.Tasks;
-using Alsein.Extensions.IO;
-using UnityEngine.Audio;
-using System;
-using UnityEngine.UI;
+﻿using Autofac;
 using Cynthia.Card.Client;
-using Cynthia.Card;
+using Cynthia.Card.Common.Models;
+using System;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
+/// <summary>
+/// THIS CLASS SEEMS UNUSED! SHOULD BE DELETED?
+/// </summary>
 public class GameEntrance : MonoBehaviour
 {
     public GameObject GlobalUI;
@@ -25,10 +22,12 @@ public class GameEntrance : MonoBehaviour
     public RectTransform NotesContext;
 
     private GwentClientService _gwentClientService;
+    private ITranslator _translator;
 
     private void Start()
     {
         _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
+        _translator = DependencyResolver.Container.Resolve<ITranslator>();
         ConfigureGame();
         LoadServerMessage();
     }
@@ -49,7 +48,10 @@ public class GameEntrance : MonoBehaviour
         }
         catch
         {
-            NotesText.text = "暂未获取到公告。可能是由于服务器未打开或网络连接中断。";
+            if (NotesText != null)
+            {
+                NotesText.text = _translator.GetText("LoginMenu_NewsError");
+            }
         }
 
         try
@@ -61,7 +63,8 @@ public class GameEntrance : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e);
-            LatestVersionText.text = $"发生异常错误,可能原因:文件损坏或未连接到服务器  异常信息:{e.Message}";
+            LatestVersionText.text = string.Format(_translator.GetText("LoginMenu_LatestVersionError"), e.Message);
+            //LatestVersionText.text = $"发生异常错误,可能原因:文件损坏或未连接到服务器  异常信息:{e.Message}";
         }
         NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
     }
@@ -87,7 +90,7 @@ public class GameEntrance : MonoBehaviour
             SetMusic(PlayerPrefs.GetInt("musicVolum", 5));
             SetEffect(PlayerPrefs.GetInt("effectVolum", 5));
             SetLanguage(PlayerPrefs.GetInt("Language", 0));
-            NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
+            NowVersionText.text = string.Format(_translator.GetText("LoginMenu_CurrentVersionInfo"), ClientGlobalInfo.Version);
 
             AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
             AudioManager.Instance.SetLanguageType((LanguageType)PlayerPrefs.GetInt("Language", 0));
@@ -167,8 +170,9 @@ public class GameEntrance : MonoBehaviour
     }
 
     //设置语言
-    public void SetLanguage(int index)
+    public void SetLanguage(int languageIndex)
     {
-        PlayerPrefs.SetInt("Language", index);
+        _translator.GameLanguage = languageIndex;
+        PlayerPrefs.SetInt("Language", _translator.GameLanguage);
     }
 }

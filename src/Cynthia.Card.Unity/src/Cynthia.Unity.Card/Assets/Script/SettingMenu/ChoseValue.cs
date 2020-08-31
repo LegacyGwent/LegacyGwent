@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Autofac;
+using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -17,7 +19,8 @@ public class ChoseValue : MonoBehaviour {
         set
         {
             _index = value;
-            ShowText.text = ChoseList[Index];
+            if (_translator == null) { Start(); }
+            ShowText.text = _translator.GetText(ChoseList[Index]);
             onValueChanged.Invoke(Index);
         }
     }
@@ -28,9 +31,12 @@ public class ChoseValue : MonoBehaviour {
 
     public Text ShowText;
 
+    private ITranslator _translator;
+
     private void Start()
     {
-        ShowText.text = ChoseList[Index];
+        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        //ShowText.text = _translator.GetText(ChoseList[Index]);
     }
 
     public void LeftButtonClick()

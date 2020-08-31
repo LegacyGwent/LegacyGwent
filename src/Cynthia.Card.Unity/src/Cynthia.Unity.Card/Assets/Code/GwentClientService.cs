@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.IO;
+using Cynthia.Card.Common.Models;
 using UnityEditor;
 
 namespace Cynthia.Card.Client
@@ -32,6 +33,8 @@ namespace Cynthia.Card.Client
         private ITubeInlet sender;/*待修改*/
         private ITubeOutlet receiver;/*待修改*/
 
+        private ITranslator _translator;
+
         public ClientState ClientState { get; set; } = ClientState.Standby;
 
         /*待修改*/
@@ -42,6 +45,7 @@ namespace Cynthia.Card.Client
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
         {
+            _translator = container.Resolve<ITranslator>();
             _globalUIService = globalUIService;
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
@@ -55,18 +59,24 @@ namespace Cynthia.Card.Client
             });
             hubConnection.On("RepeatLogin", async () =>
             {
-                SceneManager.LoadScene("LoginSecen");
+                SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
-                await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("账号被其他人强制登陆", "账号被登陆,被挤下了线");
+                await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox(
+                    _translator.GetText("PopupWindow_LoggedOutTitle"), 
+                    _translator.GetText("PopupWindow_LoggedOutDesc"));
             });
             hubConnection.Closed += (async x =>
             {
                 (sender, receiver) = Tube.CreateSimplex();
-                SceneManager.LoadScene("LoginSecen");
+                SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
                 Player.ResetTube();
+
                 // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
-                await _globalUIService.YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
+                await _globalUIService.YNMessageBox(
+                    _translator.GetText("PopupWindow_DisconnectedTitle"), 
+                    _translator.GetText("PopupWindow_DisconnectedDesc"), 
+                    "PopupWindow_OkButton", isOnlyYes: true);
                 // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
                 // messageBox.Buttons.SetActive(true);
                 // messageBox.YesButton.SetActive(true);
@@ -101,7 +111,7 @@ namespace Cynthia.Card.Client
         }
         public async void ExitGameClick()
         {
-            if (await _globalUIService.YNMessageBox("退出游戏?", "是否退出游戏"))
+            if (await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_QuitTitle"), _translator.GetText("PopupWindow_QuitDesc")))
             // if (await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal."))
             {
                 Application.Quit();
@@ -125,14 +135,14 @@ namespace Cynthia.Card.Client
         public async Task AutoUpdateCardMapVersion(Text text)
         {
             var localVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
-            text.text = "正在验证卡牌数据...请稍等...";
+            text.text = _translator.GetText("LoginMenu_CardDataCheck");
             var serverVersion = new Version(await GetCardMapVersion());
             Debug.Log($"正在对比版本号...{localVersion},{serverVersion}");
             if (localVersion != serverVersion)
             //if(true)//强制更新测试
             {
                 Debug.Log($"发现不一致,更新");
-                text.text = "检测到更新卡牌数据,正在更新,请等待片刻...";
+                text.text = _translator.GetText("LoginMenu_CardDataUpdating");
                 var newData = default(IDictionary<string, GwentCard>);
                 try
                 {
@@ -156,7 +166,7 @@ namespace Cynthia.Card.Client
                 Debug.Log($"版本一致,不做变化");
                 GwentMap.CardMap = ReadCardMapData();
             }
-            text.text = "卡牌数据为最新版本,游戏愉快";
+            text.text = _translator.GetText("LoginMenu_CardDataUpdated");
         }
 
         public IDictionary<string, GwentCard> ReadCardMapData()

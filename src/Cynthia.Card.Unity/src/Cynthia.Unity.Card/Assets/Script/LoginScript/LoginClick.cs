@@ -1,28 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using Autofac;
 using Cynthia.Card.Client;
-using Autofac;
-using System.Threading.Tasks;
-using UnityEngine.SceneManagement;
-using System;
+using Cynthia.Card.Common.Models;
 using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoginClick : MonoBehaviour
 {
     private static bool IsLogining = false;
 
     public InputField Username;
-
     public InputField Password;
-
     public Text LogMessage;
-
     public Toggle RecordStatus;
 
     private GwentClientService _client;
-    //private GlobalUIService _guiservice;
+    private ITranslator _translator;
 
     private void Start()
     {
@@ -53,10 +47,11 @@ public class LoginClick : MonoBehaviour
         {
             IsOnPreservation(RecordStatus.isOn);
         });
+
         if (_client != null)
             return;
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
-        //_guiservice = DependencyResolver.Container.Resolve<GlobalUIService>();
+        _translator = DependencyResolver.Container.Resolve<ITranslator>();
     }
     public async void Login()
     {
@@ -64,7 +59,7 @@ public class LoginClick : MonoBehaviour
             Debug.Log("因为是true,所以登陆请求被本地拦截");
         if (IsLogining) return;
         IsLogining = true;
-        LogMessage.text = "正在登录...请稍等片刻";
+        LogMessage.text = _translator.GetText("LoginMenu_LoggingIn");
         try
         {
             var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
@@ -73,12 +68,12 @@ public class LoginClick : MonoBehaviour
             await _client.Login(Username.text, Password.text);
             if (_client.User == null)
             {
-                LogMessage.text = "验证失败,用户名或密码有误,如果反复失败请尝试重启客户端或联系作者确认服务器是否开启";
+                LogMessage.text = _translator.GetText("LoginMenu_WrongCredentials");
                 IsLogining = false;
                 return;
             }
             //Debug.Log($"用户名是:{_client.User.UserName},密码是:{_client.User.PassWord}");
-            LogMessage.text = $"登录成功,欢迎回来~{_client.User.PlayerName}";
+            LogMessage.text = string.Format(_translator.GetText("LoginMenu_WelcomeMessage"), _client.User.PlayerName);
             SceneManager.LoadScene("Game");
             _client.ClientState = ClientState.Standby;
             // Debug.Log("执行了!跳转后");
@@ -90,7 +85,8 @@ public class LoginClick : MonoBehaviour
             //await _client.Login(Username.text, Password.text);
             //if (_client.User == null)
             //{
-            LogMessage.text = "发生异常,原因或许是服务器未开启,尝试重试或者联系作者";
+            LogMessage.text = _translator.GetText("LoginMenu_LoginError");
+            //"发生异常,原因或许是服务器未开启,尝试重试或者联系作者";
             //    return;
             //}
         }

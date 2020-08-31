@@ -251,7 +251,7 @@ public class BGMManager : MonoBehaviour
         if (inGame == false)
         {
             scene = SceneManager.GetActiveScene();
-            if (scene.name == "LoginSecen")
+            if (scene.name == "LoginScene")
             {
                 PlaySound("Title");
                 inGame = true;

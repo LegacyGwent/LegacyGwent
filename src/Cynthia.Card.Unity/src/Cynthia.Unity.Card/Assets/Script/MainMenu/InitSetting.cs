@@ -5,9 +5,6 @@ using UnityEngine.Audio;
 
 public class InitSetting : MonoBehaviour
 {
-
-    // public GameObject AudioSource;
-    public AudioMixer AudioMixer;
     public GameObject ResolutionPanel;
     public GameObject FullPanel;
     public GameObject CloseSoundPanel;
