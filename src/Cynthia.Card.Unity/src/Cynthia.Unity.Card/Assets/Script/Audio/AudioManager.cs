@@ -1,13 +1,15 @@
 ﻿using Cynthia.Card;
 using System.Collections;
 using System.Collections.Generic;
+using Autofac;
+using Autofac.Core;
+using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
-
     public static AudioManager Instance
     {
         get
@@ -27,7 +29,7 @@ public class AudioManager : MonoBehaviour
 
     private float volume;
 
-    private LanguageType type;
+    private ITranslator _translator => DependencyResolver.Container.Resolve<ITranslator>();
 
     private AudioSource _queueAudioSource;
 
@@ -65,11 +67,6 @@ public class AudioManager : MonoBehaviour
         {
             audioSource.volume = volume;
         }
-    }
-
-    public void SetLanguageType(LanguageType type)
-    {
-        this.type = type;
     }
 
     public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append)
@@ -167,19 +164,8 @@ public class AudioManager : MonoBehaviour
 
     private string GetCardDirectory()
     {
-        string path = cardAudioDirectory;
-        switch (type)
-        {
-            case LanguageType.Chinese:
-                path += "CN/";
-                break;
-            case LanguageType.Japanese:
-                path += "JP/";
-                break;
-            case LanguageType.English:
-                path += "EN/";
-                break;
-        }
+        string languageFilename = _translator.LanguageFilenames[_translator.GameLanguage];
+        string path = $"{cardAudioDirectory}{languageFilename}/"; //CN, JP, EN
         return path;
     }
 }

@@ -138,22 +138,22 @@ namespace Cynthia.Card.Client
             text.text = _translator.GetText("LoginMenu_CardDataCheck");
             var serverVersion = new Version(await GetCardMapVersion());
             Debug.Log($"正在对比版本号...{localVersion},{serverVersion}");
+            var newData = default(IDictionary<string, GwentCard>);
             if (localVersion != serverVersion)
             //if(true)//强制更新测试
             {
                 Debug.Log($"发现不一致,更新");
                 text.text = _translator.GetText("LoginMenu_CardDataUpdating");
-                var newData = default(IDictionary<string, GwentCard>);
                 try
                 {
                     newData = JsonConvert.DeserializeObject<IDictionary<string, GwentCard>>(await GetCardMap());
+                    UnmodifyTexts(newData); //TODO: MAKE IT BETTER
                     GwentMap.CardMap = newData;
                 }
                 catch (Exception e)
                 {
                     Debug.Log("判断是否存在时出现问题:" + e.Message);
                 }
-                //var newData = GwentMap.CardMap;
                 Debug.Log($"成功获取到数据,进行缓存");
                 WriteCardMapData(JsonConvert.SerializeObject(newData));
                 Debug.Log($"更新本地版本号为:{serverVersion}");
@@ -164,9 +164,24 @@ namespace Cynthia.Card.Client
             else
             {
                 Debug.Log($"版本一致,不做变化");
-                GwentMap.CardMap = ReadCardMapData();
+                newData = ReadCardMapData();
+                UnmodifyTexts(newData); //TODO: MAKE IT BETTER
+                GwentMap.CardMap = newData;
             }
             text.text = _translator.GetText("LoginMenu_CardDataUpdated");
+        }
+
+        //TODO: think of a better solution
+        public void UnmodifyTexts(IDictionary<string, GwentCard> cardMap)
+        {
+            foreach (var id in cardMap.Keys)
+            {
+                var newCard = cardMap[id];
+                newCard.Name = GwentMap.CardMap[id].Name;
+                newCard.Info = GwentMap.CardMap[id].Info;
+                newCard.Flavor = GwentMap.CardMap[id].Flavor;
+                cardMap[id] = newCard;
+            }
         }
 
         public IDictionary<string, GwentCard> ReadCardMapData()

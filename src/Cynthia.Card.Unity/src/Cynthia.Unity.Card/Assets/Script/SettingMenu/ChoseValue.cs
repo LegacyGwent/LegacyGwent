@@ -8,8 +8,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ChoseValue : MonoBehaviour {
-    public string[] ChoseList;
-    private int _index=0;
+    public List<string> ChoseList;
+    private int _index = 0;
     public int Index
     {
         get
@@ -36,21 +36,20 @@ public class ChoseValue : MonoBehaviour {
     private void Start()
     {
         _translator = DependencyResolver.Container.Resolve<ITranslator>();
-        //ShowText.text = _translator.GetText(ChoseList[Index]);
     }
 
     public void LeftButtonClick()
     {
         if (Index-1 < 0)
         {
-            Index = ChoseList.Length - 1;
+            Index = ChoseList.Count - 1;
             return;
         }
         Index--;
     }
     public void RightButtonClick()
     {
-        if (Index+1 >= ChoseList.Length)
+        if (Index+1 >= ChoseList.Count)
         {
             Index = 0;
             return;

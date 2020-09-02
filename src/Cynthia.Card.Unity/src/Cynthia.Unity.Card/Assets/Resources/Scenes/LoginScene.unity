@@ -1114,7 +1114,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &642395643 stripped
 GameObject:
@@ -1653,7 +1653,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1084710923
 PrefabInstance:
@@ -1841,6 +1841,26 @@ PrefabInstance:
       propertyPath: ObjectsToTranslate.Array.size
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 7581707376418659519, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581707376418659519, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581707376418659519, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 225
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581707376418659519, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -82.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7693784123318575630, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1924,43 +1944,58 @@ PrefabInstance:
     - target: {fileID: 7693784124048559654, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124048559654, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124048559654, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124048559654, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -187.5
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124247395057, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124247395057, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124247395057, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 545
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124247395057, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -60.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: GameObjectTranslators.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: GameObjectTranslators.Array.data[0]
+      value: 
+      objectReference: {fileID: 1972367733}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: GameObjectTranslators.Array.data[1]
+      value: 
+      objectReference: {fileID: 2005096275}
     - target: {fileID: 7693784124340319718, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_Name
@@ -2079,22 +2114,22 @@ PrefabInstance:
     - target: {fileID: 7693784124559746290, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124559746290, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124559746290, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124559746290, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -292.5
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124829476806, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
@@ -3536,7 +3571,7 @@ RectTransform:
   - {fileID: 2130828645}
   - {fileID: 1085395098}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4520,6 +4555,96 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2138935325}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1972367732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1972367734}
+  - component: {fileID: 1972367733}
+  m_Layer: 0
+  m_Name: Translator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1972367733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972367732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e1d40e846f65c488ae8e669c747ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectsToTranslate:
+  - Id: LoginMenu_GameTitle
+    TextObject: {fileID: 774755383}
+  - Id: LoginMenu_RememberCredentials
+    TextObject: {fileID: 87743101}
+  - Id: LoginMenu_ExitButton
+    TextObject: {fileID: 1463345444}
+  - Id: LoginMenu_Message
+    TextObject: {fileID: 1228404403}
+  - Id: LoginMenu_NotesTitle
+    TextObject: {fileID: 684028788}
+  - Id: RegisterMenu_PasswordConfirmPlaceholder
+    TextObject: {fileID: 642773783}
+  - Id: LoginMenu_LoginTitle
+    TextObject: {fileID: 1942098232}
+  - Id: LoginMenu_LoginButton
+    TextObject: {fileID: 642395643}
+  - Id: LoginMenu_RegisterButton
+    TextObject: {fileID: 1691783712}
+  - Id: RegisterMenu_UserLoginPlaceholder
+    TextObject: {fileID: 1954109005}
+  - Id: RegisterMenu_PasswordPlaceholder
+    TextObject: {fileID: 1484627174}
+  - Id: RegisterMenu_RegisterTitle
+    TextObject: {fileID: 1450909220}
+  - Id: RegisterMenu_BackButton
+    TextObject: {fileID: 2026804717}
+  - Id: RegisterMenu_RegisterButton
+    TextObject: {fileID: 1173815096}
+  - Id: RegisterMenu_UserLoginPlaceholder
+    TextObject: {fileID: 528406682}
+  - Id: RegisterMenu_UsernamePlaceholder
+    TextObject: {fileID: 312935639}
+  - Id: RegisterMenu_PasswordPlaceholder
+    TextObject: {fileID: 965363050}
+--- !u!4 &1972367734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972367732}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2005096275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2466965296292491372, guid: 589cf6bc723b9204aa21ae14ed850586,
+    type: 3}
+  m_PrefabInstance: {fileID: 1085395097}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e1d40e846f65c488ae8e669c747ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2026804717 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1948117501509930, guid: 6be3854b80cfb9940b30c2d96ef0d090,
@@ -4574,7 +4699,6 @@ GameObject:
   - component: {fileID: 2118638944}
   - component: {fileID: 2118638943}
   - component: {fileID: 2118638942}
-  - component: {fileID: 2118638945}
   m_Layer: 0
   m_Name: Code
   m_TagString: Untagged
@@ -4643,53 +4767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d261239ea4640f47b05bfea683b6c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2118638945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118638940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e1d40e846f65c488ae8e669c747ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectsToTranslate:
-  - Id: LoginMenu_GameTitle
-    TextObject: {fileID: 774755383}
-  - Id: LoginMenu_RememberCredentials
-    TextObject: {fileID: 87743101}
-  - Id: LoginMenu_ExitButton
-    TextObject: {fileID: 1463345444}
-  - Id: LoginMenu_Message
-    TextObject: {fileID: 1228404403}
-  - Id: LoginMenu_NotesTitle
-    TextObject: {fileID: 684028788}
-  - Id: RegisterMenu_PasswordConfirmPlaceholder
-    TextObject: {fileID: 642773783}
-  - Id: LoginMenu_LoginTitle
-    TextObject: {fileID: 1942098232}
-  - Id: LoginMenu_LoginButton
-    TextObject: {fileID: 642395643}
-  - Id: LoginMenu_RegisterButton
-    TextObject: {fileID: 1691783712}
-  - Id: RegisterMenu_UserLoginPlaceholder
-    TextObject: {fileID: 1954109005}
-  - Id: RegisterMenu_PasswordPlaceholder
-    TextObject: {fileID: 1484627174}
-  - Id: RegisterMenu_RegisterTitle
-    TextObject: {fileID: 1450909220}
-  - Id: RegisterMenu_BackButton
-    TextObject: {fileID: 2026804717}
-  - Id: RegisterMenu_RegisterButton
-    TextObject: {fileID: 1173815096}
-  - Id: RegisterMenu_UserLoginPlaceholder
-    TextObject: {fileID: 528406682}
-  - Id: RegisterMenu_UsernamePlaceholder
-    TextObject: {fileID: 312935639}
-  - Id: RegisterMenu_PasswordPlaceholder
-    TextObject: {fileID: 965363050}
 --- !u!1 &2130828644
 GameObject:
   m_ObjectHideFlags: 0

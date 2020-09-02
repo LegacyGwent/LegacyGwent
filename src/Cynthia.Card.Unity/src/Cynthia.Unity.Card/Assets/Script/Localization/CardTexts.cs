@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.Localization
 {
-    [Serializable]
-    class GameLocale
+    class CardTexts
     {
-        public string Filename;
         public string Name;
+        public string Info;
+        public string Flavor;
     }
 }

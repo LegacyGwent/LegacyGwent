@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Assets.Script.Localization
@@ -24,8 +25,24 @@ namespace Assets.Script.Localization
                 }
                 _gameLanguage = _locales[value];
                 LoadTexts();
+                SaveCardsToJson();
             }
         }
+
+        public List<string> LanguageNames
+        {
+            get { return new List<string>(){"Chinese", "Japanese", "English", "Russian" };
+        }
+        }
+        public List<string> LanguageFilenames
+        {
+            get
+            {
+                return new List<string>() {"CN", "JP", "EN", "RU"};
+            }
+        }
+
+
 
         public LanguageManager()
         {
@@ -83,6 +100,57 @@ namespace Assets.Script.Localization
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
+        }
+
+        public void SaveCardsToJson()
+        {
+            var allCardTexts = new Dictionary<string, CardTexts>();
+            foreach (var key in Texts.Keys)
+            {
+                var value = Texts[key];
+                var compounds = key.Split('_');
+                if (!key.Contains("card") || key.Contains("tag"))
+                {
+                    continue;
+                }
+                if (compounds.Length != 3)
+                {
+                    continue;
+                }
+                try
+                {
+                    int a = int.Parse(compounds[1]);
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+
+                var id = compounds[1];
+                if (!allCardTexts.ContainsKey(id))
+                {
+                    allCardTexts.Add(id, new CardTexts());
+                }
+                switch (compounds[2])
+                {
+                    case "name":
+                        allCardTexts[id].Name = value; 
+                        break;
+                    case "info":
+                        allCardTexts[id].Info = value;
+                        break;
+                    case "flavor":
+                        allCardTexts[id].Flavor = value;
+                        break;
+                }
+                
+            }
+
+            var output = JsonConvert.SerializeObject(allCardTexts);
+            using (var writer = new StreamWriter($"{GameLanguage}.json"))
+            {
+                writer.Write(output);
+            }
         }
     }
 }

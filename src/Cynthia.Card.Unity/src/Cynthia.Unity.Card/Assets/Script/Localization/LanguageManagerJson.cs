@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cynthia.Card;
 using Cynthia.Card.Common.Models;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -26,13 +27,18 @@ namespace Assets.Script.Localization
                 }
                 _gameLanguage = _locales[value];
                 LoadTexts();
+                TranslateCards();
             }
         }
+
+        public List<string> LanguageNames => _locales.Select(l => l.Name).ToList();
+        public List<string> LanguageFilenames => _locales.Select(l => l.Filename).ToList();
+
 
         public LanguageManagerJson()
         {
             LoadAvailableLocales();
-            GameLanguage = PlayerPrefs.GetInt("language", 0);
+            GameLanguage = PlayerPrefs.GetInt("Language", 0);
         }
 
         public void LoadAvailableLocales()
@@ -46,12 +52,41 @@ namespace Assets.Script.Localization
             Texts.Clear();
 
             var localeFile = Resources.Load<TextAsset>($"Locales/{_gameLanguage.Filename}");
-            Texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(localeFile.text);
+            if (localeFile != null)
+            {
+                Texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(localeFile.text);
+            }
         }
 
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
+        }
+
+        public void TranslateCards()
+        {
+            var languageFile = Resources.Load<TextAsset>($"Locales/{_gameLanguage.Filename}-cards");
+            if (languageFile == null)
+            {
+                return;
+            }
+            var allCardTexts = JsonConvert.DeserializeObject<Dictionary<string, CardTexts>>(languageFile.text);
+            var newCardMap = new Dictionary<string, GwentCard>();
+
+            var ids= GwentMap.CardMap.Keys;
+            foreach (var id in ids)
+            {
+                var newCardData = GwentMap.CardMap[id];
+                if (allCardTexts.ContainsKey(id))
+                {
+                    var currentCardTexts = allCardTexts[id];
+                    newCardData.Name = currentCardTexts.Name;
+                    newCardData.Info = currentCardTexts.Info;
+                    newCardData.Flavor = currentCardTexts.Flavor;
+                }
+                newCardMap.Add(id, newCardData);
+            }
+            GwentMap.CardMap = newCardMap;
         }
     }
 }

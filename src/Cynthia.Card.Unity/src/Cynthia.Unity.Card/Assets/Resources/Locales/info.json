@@ -1,5 +1,18 @@
-[
-    { "Filename": "en" },
-    { "Filename": "zh" },
-    { "Filename": "ru" }
+﻿[
+  {
+    "Filename": "CN",
+    "Name": "中文"
+  },
+  {
+    "Filename": "JP",
+    "Name": "日本人"
+  },
+  {
+    "Filename": "EN",
+    "Name": "English"
+  },
+  {
+    "Filename": "RU",
+    "Name": "Pусский"
+  }
 ]

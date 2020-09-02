@@ -1,26 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Script.Localization;
+using Autofac;
+using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class SettingPanel : MonoBehaviour
 {
-
     private Resolution screenResolution; //分辨率
     private bool isFullScreen; //是否全屏
     private bool isCloseSound; //是否关闭所有声音
     private int musicVolum; //音乐大小
     private int effectVolum; //音效大小
     private int quality; //画质
+    private ITranslator languageManager => DependencyResolver.Container.Resolve<ITranslator>();
 
     // public GameObject AudioSource;
     public AudioMixer AudioMixer;
-
-    private LanguageType type;
+    public List<GameObjectTranslator> GameObjectTranslators;
 
     private void Start()
     {
-        //初始化值,(计划之后变成读取文件的方式初始化值
+        //初始化值,(计划之后变成读取文件的式初始化值
         Initialization();
     }
 
@@ -32,8 +34,6 @@ public class SettingPanel : MonoBehaviour
         musicVolum = PlayerPrefs.GetInt("musicVolum", 7);
         effectVolum = PlayerPrefs.GetInt("effectVolum", 7);
         quality = PlayerPrefs.GetInt("quality", 2);
-
-        type = (LanguageType)PlayerPrefs.GetInt("Language", 0);
     }
     public Resolution IndexToResolution(int index)
     {
@@ -129,14 +129,10 @@ public class SettingPanel : MonoBehaviour
     public void SetLanguage(int index)
     {
         PlayerPrefs.SetInt("Language", index);
-        type = (LanguageType)index;
-        AudioManager.Instance.SetLanguageType((LanguageType)index);
+        languageManager.GameLanguage = index;
+        foreach (var translator in GameObjectTranslators)
+        {
+            translator.TranslateAll();
+        }
     }
-}
-
-public enum LanguageType
-{
-    English,
-    Chinese,
-    Japanese
 }
