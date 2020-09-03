@@ -5,6 +5,7 @@ using Autofac;
 using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 public class SettingPanel : MonoBehaviour
 {
@@ -16,9 +17,8 @@ public class SettingPanel : MonoBehaviour
     private int quality; //画质
     private ITranslator languageManager => DependencyResolver.Container.Resolve<ITranslator>();
 
-    // public GameObject AudioSource;
     public AudioMixer AudioMixer;
-    public List<GameObjectTranslator> GameObjectTranslators;
+    public UnityEvent OnLanguageChange; 
 
     private void Start()
     {
@@ -130,9 +130,6 @@ public class SettingPanel : MonoBehaviour
     {
         PlayerPrefs.SetInt("Language", index);
         languageManager.GameLanguage = index;
-        foreach (var translator in GameObjectTranslators)
-        {
-            translator.TranslateAll();
-        }
+        OnLanguageChange.Invoke();
     }
 }

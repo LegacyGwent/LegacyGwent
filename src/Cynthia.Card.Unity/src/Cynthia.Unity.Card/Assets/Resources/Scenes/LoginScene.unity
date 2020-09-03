@@ -1988,6 +1988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
       propertyPath: GameObjectTranslators.Array.data[0]
       value: 
       objectReference: {fileID: 1972367733}
@@ -1996,6 +2001,56 @@ PrefabInstance:
       propertyPath: GameObjectTranslators.Array.data[1]
       value: 
       objectReference: {fileID: 2005096275}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1972367733}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2005096275}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TranslateAll
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TranslateAll
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7693784124340319718, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: m_Name

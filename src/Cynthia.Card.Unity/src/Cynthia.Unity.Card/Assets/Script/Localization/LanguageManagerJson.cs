@@ -16,6 +16,7 @@ namespace Assets.Script.Localization
         private Dictionary<string, string> Texts = new Dictionary<string, string>();
         private List<GameLocale> _locales;
         private GameLocale _gameLanguage;
+
         public int GameLanguage
         {
             get => _locales.IndexOf(_gameLanguage);
@@ -25,9 +26,10 @@ namespace Assets.Script.Localization
                 {
                     value = 0;
                 }
+
                 _gameLanguage = _locales[value];
                 LoadTexts();
-                TranslateCards();
+                LoadCards();
             }
         }
 
@@ -37,14 +39,9 @@ namespace Assets.Script.Localization
 
         public LanguageManagerJson()
         {
-            LoadAvailableLocales();
-            GameLanguage = PlayerPrefs.GetInt("Language", 0);
-        }
-
-        public void LoadAvailableLocales()
-        {
             var infoSerialized = Resources.Load<TextAsset>("Locales/info").text;
             _locales = JsonConvert.DeserializeObject<List<GameLocale>>(infoSerialized);
+            GameLanguage = PlayerPrefs.GetInt("Language", 0);
         }
 
         private void LoadTexts()
@@ -58,22 +55,18 @@ namespace Assets.Script.Localization
             }
         }
 
-        public string GetText(string id)
-        {
-            return Texts.ContainsKey(id) ? Texts[id] : id;
-        }
-
-        public void TranslateCards()
+        public void LoadCards()
         {
             var languageFile = Resources.Load<TextAsset>($"Locales/{_gameLanguage.Filename}-cards");
             if (languageFile == null)
             {
                 return;
             }
+
             var allCardTexts = JsonConvert.DeserializeObject<Dictionary<string, CardTexts>>(languageFile.text);
             var newCardMap = new Dictionary<string, GwentCard>();
 
-            var ids= GwentMap.CardMap.Keys;
+            var ids = GwentMap.CardMap.Keys;
             foreach (var id in ids)
             {
                 var newCardData = GwentMap.CardMap[id];
@@ -84,9 +77,15 @@ namespace Assets.Script.Localization
                     newCardData.Info = currentCardTexts.Info;
                     newCardData.Flavor = currentCardTexts.Flavor;
                 }
+
                 newCardMap.Add(id, newCardData);
             }
             GwentMap.CardMap = newCardMap;
+        }
+
+        public string GetText(string id)
+        {
+            return Texts.ContainsKey(id) ? Texts[id] : id;
         }
     }
 }
