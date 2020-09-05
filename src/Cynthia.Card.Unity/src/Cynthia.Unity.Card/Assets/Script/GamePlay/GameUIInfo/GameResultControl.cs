@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Autofac;
 using UnityEngine;
 using UnityEngine.UI;
 using Cynthia.Card.Client;
 using Cynthia.Card;
+using Cynthia.Card.Common.Models;
 
 public class GameResultControl : MonoBehaviour
 {
@@ -56,6 +58,8 @@ public class GameResultControl : MonoBehaviour
     public Sprite GameDrawBgLeft;
     public Sprite GameDrawBgRight;
 
+    private ITranslator _translator => DependencyResolver.Container.Resolve<ITranslator>();
+
     public void ShowGameResult(GameResultInfomation gameResult)
     {
         MyName.text = gameResult.MyName;
@@ -71,7 +75,7 @@ public class GameResultControl : MonoBehaviour
             BackgroundMain.color = ClientGlobalInfo.WinBgColor;
             BackgroundLeft.sprite = GameWinBgLeft;
             BackgroundRight.sprite = GameWinBgRight;
-            TitleResult.text = "胜利";
+            TitleResult.text = _translator.GetText("IngameMenu_VictoryTitle");
             TitleResult.color = ClientGlobalInfo.MyColor;
         }
         if (gameResult.GameStatu == GameStatus.Lose)
@@ -79,7 +83,7 @@ public class GameResultControl : MonoBehaviour
             BackgroundMain.color = ClientGlobalInfo.LoseBgColor;
             BackgroundLeft.sprite = GameLoseBgLeft;
             BackgroundRight.sprite = GameLoseBgRight;
-            TitleResult.text = "失败";
+            TitleResult.text = _translator.GetText("IngameMenu_DefeatTitle");
             TitleResult.color = ClientGlobalInfo.EnemyColor;
         }
         if (gameResult.GameStatu == GameStatus.Draw)
@@ -87,7 +91,7 @@ public class GameResultControl : MonoBehaviour
             BackgroundMain.color = ClientGlobalInfo.DrawBgColor;
             BackgroundLeft.sprite = GameDrawBgLeft;
             BackgroundRight.sprite = GameDrawBgRight;
-            TitleResult.text = "平局";
+            TitleResult.text = _translator.GetText("IngameMenu_DrawTitle");
             TitleResult.color = ClientGlobalInfo.NormalColor;
         }
         var myWinCount = 0;

@@ -181,7 +181,7 @@ namespace Cynthia.Card.Client
                     GameCodeService.BigRoundShowPoint(arguments[0].ToType<BigRoundInfomation>());
                     break;
                 case ServerOperationType.BigRoundSetMessage:
-                    GameCodeService.BigRoundSetMessage(arguments[0].ToType<string>());
+                    GameCodeService.BigRoundSetMessage();
                     break;
                 case ServerOperationType.BigRoundShowClose:
                     GameCodeService.BigRoundShowClose();

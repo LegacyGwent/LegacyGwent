@@ -35,9 +35,9 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().BigRoundControl.ShowPoint(data);
         }
-        public void BigRoundSetMessage(string message)
+        public void BigRoundSetMessage()
         {
-            _code.GetComponent<GameCode>().BigRoundControl.SetMessage(message);
+            _code.GetComponent<GameCode>().BigRoundControl.DisplayMessage();
         }
         public void BigRoundShowClose()
         {

@@ -147,7 +147,6 @@ namespace Cynthia.Card.Client
                 try
                 {
                     newData = JsonConvert.DeserializeObject<IDictionary<string, GwentCard>>(await GetCardMap());
-                    UnmodifyTexts(newData); //TODO: MAKE IT BETTER
                     GwentMap.CardMap = newData;
                 }
                 catch (Exception e)
@@ -165,23 +164,9 @@ namespace Cynthia.Card.Client
             {
                 Debug.Log($"版本一致,不做变化");
                 newData = ReadCardMapData();
-                UnmodifyTexts(newData); //TODO: MAKE IT BETTER
                 GwentMap.CardMap = newData;
             }
             text.text = _translator.GetText("LoginMenu_CardDataUpdated");
-        }
-
-        //TODO: think of a better solution
-        public void UnmodifyTexts(IDictionary<string, GwentCard> cardMap)
-        {
-            foreach (var id in cardMap.Keys)
-            {
-                var newCard = cardMap[id];
-                newCard.Name = GwentMap.CardMap[id].Name;
-                newCard.Info = GwentMap.CardMap[id].Info;
-                newCard.Flavor = GwentMap.CardMap[id].Flavor;
-                cardMap[id] = newCard;
-            }
         }
 
         public IDictionary<string, GwentCard> ReadCardMapData()

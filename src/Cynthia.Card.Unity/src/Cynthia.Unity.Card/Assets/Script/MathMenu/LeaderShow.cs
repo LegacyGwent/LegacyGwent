@@ -1,5 +1,6 @@
-﻿using Cynthia.Card;
-using System.Collections;
+﻿using Autofac;
+using Cynthia.Card;
+using Cynthia.Card.Common.Models;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +33,12 @@ public class LeaderShow : MonoBehaviour
     {
         CurrentId = id;
         if (_groupIconMap == null) Start();
+
         var card = GwentMap.CardMap[id];
+        var translator = DependencyResolver.Container.Resolve<ITranslator>();
+        card.Name = translator.GetCardName(id);
+        card.Info = translator.GetCardInfo(id);
+
         Name.text = card.Name;
         Streng.text = card.Strength.ToString();
         Title.sprite = _groupIconMap[card.Faction];
