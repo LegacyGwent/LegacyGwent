@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cynthia.Card;
-using DG.Tweening;
+﻿using Cynthia.Card;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -11,7 +11,7 @@
 	},
 	"12006": {
 		"Name": "Saesenthessis: Blaze",
-		"Info": "Banish your hand and draw that many cards.",
+		"Info": "Discard your hand and draw that many cards.",
 		"Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case. "
 	},
 	"12007": {
@@ -256,7 +256,7 @@
 	},
 	"13012": {
 		"Name": "Myrgtabrakke",
-		"Info": "Deal 2 damage 2 times. ",
+		"Info": "Deploy: Damage Units by 3, 2 and then 1. ",
 		"Flavor": "永远别想分开母龙和她的孩子。"
 	},
 	"13013": {
@@ -306,7 +306,7 @@
 	},
 	"13020": {
 		"Name": "Dorregaray of Vole",
-		"Info": "Create any Bronze or Silver Beast or Draconid. ",
+		"Info": "Spawn a Savage Bear, Wyvern, Ekimmara or Drowner.",
 		"Flavor": "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。"
 	},
 	"13021": {
@@ -1161,7 +1161,7 @@
 	},
 	"32014": {
 		"Name": "Letho of Gulet",
-		"Info": "Spying. Toggle 2 units' Lock on the row, then Drain all their power.",
+		"Info": "Toggle 2 units' Lock on the row, then Drain all their power.",
 		"Flavor": "猎魔人绝不会死在自己的床上。"
 	},
 	"32015": {
@@ -1185,7 +1185,7 @@
 		"Flavor": "石拳阻挡刀剑，逻辑战胜谎言。"
 	},
 	"33006": {
-		"Name": "亚伯力奇",
+		"Name": "Albrich",
 		"Info": "Truce: Each player draws a card. The opponent's card is Revealed.",
 		"Flavor": "火球？没问题。陛下想要什么都行。"
 	},
@@ -1256,7 +1256,7 @@
 	},
 	"33018": {
 		"Name": "Fringilla Vigo",
-		"Info": "Copy the power from the unit to the left to the unit to the right. Spying",
+		"Info": "Copy the power from the unit to the left to the unit to the right.",
 		"Flavor": "魔法的价值高于一切，高于所有争论和敌意。"
 	},
 	"33019": {
@@ -1351,7 +1351,7 @@
 	},
 	"34018": {
 		"Name": "Combat Engineer",
-		"Info": "Boost an ally by 5. Crew.",
+		"Info": "Toggle Resilience of a friendly unit. Crew.",
 		"Flavor": "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。"
 	},
 	"34003": {
@@ -1556,7 +1556,7 @@
 	},
 	"43003": {
 		"Name": "Trollololo",
-		"Info": "9 Armor.",
+		"Info": "4 Armor. At the start of your turn, gain 2 Armor.",
 		"Flavor": "我是拉多多德国王的兵兵。收到命令，看守船船。"
 	},
 	"43004": {
@@ -2336,7 +2336,7 @@
 	},
 	"63017": {
 		"Name": "Sigrdrifa",
-		"Info": "Resurrect a Bronze or Silver Clan unit.",
+		"Info": "Resurrect a Bronze or Silver Skellige unit.",
 		"Flavor": "跪在我身边，向圣母低头。"
 	},
 	"63018": {
@@ -2578,5 +2578,165 @@
 		"Name": "Bran Tuirseach",
 		"Info": "Discard up to 3 cards from your deck and Strengthen them by 1.",
 		"Flavor": "没人能取代布兰王，但后世定会努力尝试。"
+	},
+	"70001": {
+		"Name": "Quen",
+		"Info": "Choose a bronze/silver unit in your hand, boost it and all its copies in your hand and deck by 2 and give them shield. The shield can block any damage once.",
+		"Flavor": ""
+	},
+	"70002": {
+		"Name": "Detlaff: Higher Vampire",
+		"Info": "Choose one: Play a bronze unit from your deck with power equal to or less than this unit's. Send it to the graveyard at the end of the turn; or Consume a bronze unit from your deck with more power than this unit and gain its power.",
+		"Flavor": ""
+	},
+	"70003": {
+		"Name": "Hammond",
+		"Info": "Units in this unit's row are immune to damage from hazards. Deploy: Choose one: Create a Skellige bronze machine unit; or Boost all friendly machines on the board by 2.",
+		"Flavor": ""
+	},
+	"70004": {
+		"Name": "Glynnis Aep Loernach",
+		"Info": "At the end of the round, if at the top or bottom of the deck, summon it to a random row.",
+		"Flavor": ""
+	},
+	"70005": {
+		"Name": "Vysogota Of Corvo",
+		"Info": "At the beginning of the round, boost a unit to the left by 3, damage self by 1 and move to a row with the least number of units. \nDeathwish: Boost the weakest friendly unit by 6.",
+		"Flavor": ""
+	},
+	"70006": {
+		"Name": "Lady Of The Lake",
+		"Info": "Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck",
+		"Flavor": ""
+	},
+	"70007": {
+		"Name": "Prophet Lebioda",
+		"Info": "When banished, boost all friendly units by 1.",
+		"Flavor": ""
+	},
+	"70008": {
+		"Name": "Vivienne: Oriole",
+		"Info": "At the end of your turn, if your total power exceeds the opponent's power by 25 points or more, return to your hand.",
+		"Flavor": ""
+	},
+	"70009": {
+		"Name": "Fleder",
+		"Info": "Summon a card with the same name from your deck to the same row. Whenever a bronze/silver enemy unit becomes damaged, boost self by 1.",
+		"Flavor": ""
+	},
+	"70010": {
+		"Name": "Protofleder",
+		"Info": "Shuffle a \"Fleder\" to the top of your deck. Whenever a bronze/silver enemy unit becomes injured, boost self by 2.",
+		"Flavor": ""
+	},
+	"70011": {
+		"Name": "Lady Of The Lake: Advent",
+		"Info": "Spawn \"Lady Of The Lake\". (Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
+		"Flavor": ""
+	},
+	"70012": {
+		"Name": "Toussaint Knight Errant",
+		"Info": "Deploy: For each card advantage your opponent has, boost self by 4 points.",
+		"Flavor": ""
+	},
+	"70013": {
+		"Name": "Corrupted Flaminca",
+		"Info": "Discard a \"Torrential Rain\" from your deck, then spawn \"Torrential Rain\" on this unit's row and on the opposing row.",
+		"Flavor": ""
+	},
+	"70014": {
+		"Name": "The Goddess of Justice",
+		"Info": "Bid for the Red Coin. Choose how many points you are willing to give up to start the game second. At the end of the first round, this card is summoned to Blue Coin player's board from the graveyard.",
+		"Flavor": ""
+	},
+	"70015": {
+		"Name": "Brokilon Sentinel",
+		"Info": "At the end of the round, if the opponent has exactly 4 units in the same row, it will deal 1 damage to all enemy units in the same row.",
+		"Flavor": ""
+	},
+	"70016": {
+		"Name": "Sukrus",
+		"Info": "Choose 1 bronze card in the hand and discard all cards of the same name from the deck.",
+		"Flavor": ""
+	},
+	"70017": {
+		"Name": "Cintrian Field Medic",
+		"Info": "Shuffle a non-identical friendly bronze unit back to the deck, and then play a random bronze unit card from the deck.",
+		"Flavor": ""
+	},
+	"70019": {
+		"Name": "Zoltan: Warrior",
+		"Info": "Summon Figgis Merluzzo and Munro Bruys, boost them by the value of Zotan's boost.",
+		"Flavor": ""
+	},
+	"70020": {
+		"Name": "Figgis Merluzzo",
+		"Info": "Summon Zoltan Warrior and Munro Bruys, boost them by the value of Figgis' boost.",
+		"Flavor": ""
+	},
+	"70021": {
+		"Name": "Munro Bruys",
+		"Info": "Summon Zoltan: Warrior and Figgis Merluzzo, boost them by the value of Munro's boost.",
+		"Flavor": ""
+	},
+	"70022": {
+		"Name": "Kikimore Worker",
+		"Info": "Choose an \"Insectoid\" friendly unit, and boost all the cards with the same name on your side of the board, hand and deck by 2 points.",
+		"Flavor": ""
+	},
+	"70023": {
+		"Name": "Kikimore Warrior",
+		"Info": "Consume a non-identical bronze unit card in your own deck with current power no greater than its own, and boost self by its power.",
+		"Flavor": ""
+	},
+	"70024": {
+		"Name": "Cursed Immortals",
+		"Info": "When the adjacent cursed unit is destroyed, a \"Specter\" will be spawned on the right side of the same row.",
+		"Flavor": ""
+	},
+	"70025": {
+		"Name": "Syanna",
+		"Info": "4 Armor. Repeat the Deploy ability of the next unit you play.",
+		"Flavor": ""
+	},
+	"70026": {
+		"Name": "Ivo of Belhaven",
+		"Info": "At the beginning of the round, if you have more points than the opponent, strengthen self by 2 points. \nDeathwish: Move a random demon hunter in your deck to the top of your deck. ",
+		"Flavor": ""
+	},
+	"70027": {
+		"Name": "Geralt: Axii",
+		"Info": "Replay a silver/bronze loyal unit from your opponent's side of the board and then move it back to opponent's side of the board",
+		"Flavor": ""
+	},
+	"70033": {
+		"Name": "War Elephant",
+		"Info": "Deploy: Destroy the armor of all units in placed row and damage a unit by the value of armor destroyed.",
+		"Flavor": ""
+	},
+	"70038": {
+		"Name": "Siegwald",
+		"Info": "At the end of the round, ressurect to a random row and boost self by 1.",
+		"Flavor": ""
+	},
+	"70039": {
+		"Name": "Dire Wolf Claws",
+		"Info": "Deal 4 damage to a random enemy unit. When discarded, trigger this ability and shuffle 2 \"Dire Wolf Warriors\" in your deck.",
+		"Flavor": ""
+	},
+	"70040": {
+		"Name": "Dire Wolf Warrior",
+		"Info": "Deal 2 damage to a random enemy unit. When discarded, trigger this ability and shuffle a copy of this card to the bottom of your deck.",
+		"Flavor": ""
+	},
+	"70041": {
+		"Name": "Giga Scorpion Decoction",
+		"Info": "Damage the strongest enemy unit by 2 points. Repeat 4 times. For each \"White Raffard's Decoction\" in your graveyard, repeat once more.",
+		"Flavor": ""
+	},
+	"70042": {
+		"Name": "White Raffard's Decoction",
+		"Info": "Boost the weakest ally unit by 2 points. Repeat 4 times. For each \"Giga Scorpion Decoction\" in your graveyard, repeat once more.",
+		"Flavor": ""
 	}
 }

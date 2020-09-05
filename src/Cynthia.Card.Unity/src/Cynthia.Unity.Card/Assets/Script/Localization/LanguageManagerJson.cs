@@ -14,6 +14,8 @@ namespace Assets.Script.Localization
     class LanguageManagerJson : ITranslator
     {
         private Dictionary<string, string> Texts = new Dictionary<string, string>();
+        private Dictionary<string, CardTexts> CardTexts = new Dictionary<string, CardTexts>();
+
         private List<GameLocale> _locales;
         private GameLocale _gameLanguage;
 
@@ -63,10 +65,11 @@ namespace Assets.Script.Localization
                 return;
             }
 
-            var allCardTexts = JsonConvert.DeserializeObject<Dictionary<string, CardTexts>>(languageFile.text);
-            var newCardMap = new Dictionary<string, GwentCard>();
+            var loadedCardTexts = JsonConvert.DeserializeObject<Dictionary<string, CardTexts>>(languageFile.text);
+            CardTexts = loadedCardTexts;
 
-            var ids = GwentMap.CardMap.Keys;
+            //var newCardMap = new Dictionary<string, GwentCard>();
+            /*var ids = GwentMap.CardMap.Keys;
             foreach (var id in ids)
             {
                 var newCardData = GwentMap.CardMap[id];
@@ -80,12 +83,25 @@ namespace Assets.Script.Localization
 
                 newCardMap.Add(id, newCardData);
             }
-            GwentMap.CardMap = newCardMap;
+            GwentMap.CardMap = newCardMap;*/
         }
 
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
+        }
+
+        public string GetCardName(string cardId)
+        {
+            return CardTexts.ContainsKey(cardId) ? CardTexts[cardId].Name : $"{cardId}_Name";
+        }
+        public string GetCardInfo(string cardId)
+        {
+            return CardTexts.ContainsKey(cardId) ? CardTexts[cardId].Info : $"{cardId}_Info";
+        }
+        public string GetCardFlavor(string cardId)
+        {
+            return CardTexts.ContainsKey(cardId) ? CardTexts[cardId].Flavor : $"{cardId}_Flavor";
         }
     }
 }

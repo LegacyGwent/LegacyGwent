@@ -14,6 +14,11 @@ namespace Assets.Script.Localization
         private List<GameLocale> _locales;
         private GameLocale _gameLanguage;
 
+        public string GetCardFlavor(string cardId)
+        {
+            throw new NotImplementedException();
+        }
+
         public int GameLanguage
         {
             get => _locales.IndexOf(_gameLanguage);
@@ -100,6 +105,16 @@ namespace Assets.Script.Localization
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
+        }
+
+        public string GetCardName(string cardId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCardInfo(string cardId)
+        {
+            throw new NotImplementedException();
         }
 
         public void SaveCardsToJson()

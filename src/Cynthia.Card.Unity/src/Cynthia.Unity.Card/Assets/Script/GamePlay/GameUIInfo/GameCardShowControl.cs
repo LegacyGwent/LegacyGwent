@@ -56,8 +56,9 @@ public class GameCardShowControl : MonoBehaviour
     {
         (sender, receiver) = Tube.CreateSimplex();
     }
-    private ITranslator _translator { get => DependencyResolver.Container.Resolve<ITranslator>(); }
-    private bool IsAutoPlay { get => DependencyResolver.Container.Resolve<GwentClientService>().IsAutoPlay; }
+    private ITranslator _translator => DependencyResolver.Container.Resolve<ITranslator>();
+    private bool IsAutoPlay => DependencyResolver.Container.Resolve<GwentClientService>().IsAutoPlay;
+
     //------------------------------------------------------------------------------------------
     public void OpenButtonClick()//显示卡牌
     {

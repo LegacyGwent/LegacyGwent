@@ -70,10 +70,10 @@ public class CardContent : MonoBehaviour
         Head.sprite = HeadMap[cardStatus.Faction];
         Bottom.sprite = ContentMap[cardStatus.Faction];
 
-        CardInfoText.text = cardStatus.Info;
-        CardNameText.text = cardStatus.Name;
-
         var translator = DependencyResolver.Container.Resolve<ITranslator>();
+
+        CardInfoText.text = translator.GetCardInfo(cardStatus.CardId);
+        CardNameText.text = translator.GetCardName(cardStatus.CardId);
 
         TagsText.text = cardStatus.Categories.Select(x => GwentMap.CategorieInfoMap[x])
             .ForAll(t => t = translator.GetText($"CardTag_{t}")).Join(", ");
