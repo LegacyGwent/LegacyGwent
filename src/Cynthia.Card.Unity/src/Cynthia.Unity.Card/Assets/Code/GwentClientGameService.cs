@@ -135,7 +135,7 @@ namespace Cynthia.Card.Client
                     Debug.Log(arguments[0].ToType<string>());
                     break;
                 case ServerOperationType.MessageBox:
-                    _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>());
+                    _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), isOnlyYes: true);
                     break;
                 case ServerOperationType.RoundEnd://回合结束
                     GameCodeService.RoundEnd();

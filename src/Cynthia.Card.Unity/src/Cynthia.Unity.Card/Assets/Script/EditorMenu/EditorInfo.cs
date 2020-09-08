@@ -230,10 +230,10 @@ public class EditorInfo : MonoBehaviour
             _cards
             .Where(x => ((_showFaction == Faction.All) ? true : (x.Faction == _showFaction)))
             .Where(x => ((_showSearchMessage == "") ? true :
-                (x.CardInfo().Name.Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
-                x.CardInfo().Info.Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                (_translator.GetCardName(x.CardInfo().CardId).Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                _translator.GetCardInfo(x.CardInfo().CardId).Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
                 x.CardInfo().Strength.ToString().Contains(_showSearchMessage) ||
-                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase))
+                x.Categories.Select(tag => _translator.GetText($"CardTag_{GwentMap.CategorieInfoMap[tag]}")).Any(text => text.Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase))
                 )))
             .ToList()
         );
@@ -605,10 +605,10 @@ public class EditorInfo : MonoBehaviour
             _cards
             .Where(x => ((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction)))
             .Where(x => ((_editorSearchMessage == "") ? true :
-                (x.CardInfo().Name.Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
-                x.CardInfo().Info.Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
-                x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
-                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase))
+                (_translator.GetCardName(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                 _translator.GetCardInfo(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                 x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
+                 x.Categories.Select(tag => _translator.GetText($"CardTag_{GwentMap.CategorieInfoMap[tag]}")).Any(text => text.Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase))
                 )))
             .Where(x => _nowEditorGroup == Group.Leader ? x.Group != Group.Leader : x.Group == _nowEditorGroup)
             .ToList()

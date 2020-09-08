@@ -1,11 +1,8 @@
-﻿using Cynthia.Card;
-using System.Collections;
-using System.Collections.Generic;
-using Autofac;
-using Autofac.Core;
+﻿using Autofac;
 using Cynthia.Card.Common.Models;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -166,7 +163,11 @@ public class AudioManager : MonoBehaviour
     {
         string languageFilename = _translator.LanguageFilenames[_translator.GameLanguage];
         string path = $"{cardAudioDirectory}{languageFilename}/"; //CN, JP, EN
-        return path;
+        if (Directory.Exists(path))
+        {
+            return path;
+        }
+        return $"{cardAudioDirectory}EN/";
     }
 }
 

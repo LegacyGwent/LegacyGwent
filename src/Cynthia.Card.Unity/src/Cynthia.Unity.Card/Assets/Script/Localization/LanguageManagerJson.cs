@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cynthia.Card;
-using Cynthia.Card.Common.Models;
+﻿using Cynthia.Card.Common.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Script.Localization
@@ -28,7 +23,6 @@ namespace Assets.Script.Localization
                 {
                     value = 0;
                 }
-
                 _gameLanguage = _locales[value];
                 LoadTexts();
                 LoadCards();
@@ -41,7 +35,7 @@ namespace Assets.Script.Localization
 
         public LanguageManagerJson()
         {
-            var infoSerialized = Resources.Load<TextAsset>("Locales/info").text;
+            var infoSerialized = Resources.Load<TextAsset>("Locales/config").text;
             _locales = JsonConvert.DeserializeObject<List<GameLocale>>(infoSerialized);
             GameLanguage = PlayerPrefs.GetInt("Language", 0);
         }
@@ -67,23 +61,6 @@ namespace Assets.Script.Localization
 
             var loadedCardTexts = JsonConvert.DeserializeObject<Dictionary<string, CardTexts>>(languageFile.text);
             CardTexts = loadedCardTexts;
-
-            //var newCardMap = new Dictionary<string, GwentCard>();
-            /*var ids = GwentMap.CardMap.Keys;
-            foreach (var id in ids)
-            {
-                var newCardData = GwentMap.CardMap[id];
-                if (allCardTexts.ContainsKey(id))
-                {
-                    var currentCardTexts = allCardTexts[id];
-                    newCardData.Name = currentCardTexts.Name;
-                    newCardData.Info = currentCardTexts.Info;
-                    newCardData.Flavor = currentCardTexts.Flavor;
-                }
-
-                newCardMap.Add(id, newCardData);
-            }
-            GwentMap.CardMap = newCardMap;*/
         }
 
         public string GetText(string id)
