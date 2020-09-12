@@ -9,7 +9,7 @@ using Autofac;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-using Cynthia.Card.Common.Models;
+using Assets.Script.Localization;
 
 public class MatchInfo : MonoBehaviour
 {

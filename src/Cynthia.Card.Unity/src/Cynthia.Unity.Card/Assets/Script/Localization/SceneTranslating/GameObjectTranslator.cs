@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autofac;
-using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Script.Localization
+namespace Assets.Script.Localization.SceneTranslating
 {
     public class GameObjectTranslator : MonoBehaviour
     {

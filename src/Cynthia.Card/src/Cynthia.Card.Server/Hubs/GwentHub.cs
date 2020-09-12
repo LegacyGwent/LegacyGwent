@@ -56,6 +56,7 @@ namespace Cynthia.Card.Server
         }
 
         public string GetCardMap() => _gwentServerService.GetCardMap();
+        public string GetGameLocales() => _gwentServerService.GetGameLocales();
 
         public async Task<string> GetLatestVersion() => await _gwentServerService.GetLatestVersion(Context.ConnectionId);
 

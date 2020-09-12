@@ -1,19 +1,25 @@
 ﻿using System.Collections.Generic;
 using Assets.Script.Localization;
 using Autofac;
-using Cynthia.Card.Common.Models;
 using UnityEngine;
 
 namespace Assets.Script.SettingMenu
 {
     class LanguageValuesInit : MonoBehaviour
     {
+        private ITranslator _languageManager;
+
         private void Start()
         {
+            _languageManager = DependencyResolver.Container.Resolve<ITranslator>();
+            _languageManager.OnInit += InitLanguageOptions;
+            InitLanguageOptions();
+        }
+        public void InitLanguageOptions()
+        {
             var values = GetComponent<ChoseValue>();
-            var languageManager = DependencyResolver.Container.Resolve<ITranslator>();
-            values.ChoseList = languageManager.LanguageNames;
-            values.Index = languageManager.GameLanguage;
+            values.ChoseList = _languageManager.LanguageNames;
+            values.Index = _languageManager.GameLanguage;
         }
     }
 }

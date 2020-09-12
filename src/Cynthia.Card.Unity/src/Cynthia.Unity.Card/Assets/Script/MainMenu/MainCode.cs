@@ -1,7 +1,7 @@
-﻿using Cynthia.Card.Client;
+﻿using Assets.Script.Localization;
+using Cynthia.Card.Client;
 using UnityEngine;
 using Autofac;
-using Cynthia.Card.Common.Models;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 

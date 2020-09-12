@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Script.Localization;
 using Autofac;
 using UnityEngine;
 using UnityEngine.UI;
 using Cynthia.Card;
-using Cynthia.Card.Common.Models;
 
 public class BigRoundControl : MonoBehaviour
 {

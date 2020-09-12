@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Autofac;
 using System;
-using Cynthia.Card.Common.Models;
+using Assets.Script.Localization;
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class RegisterClick : MonoBehaviour

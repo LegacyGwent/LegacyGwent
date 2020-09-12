@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using Cynthia.Card.Common.Models;
 using System.Collections.Generic;
 using System.IO;
+using Assets.Script.Localization;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour

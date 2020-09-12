@@ -1,7 +1,6 @@
 ﻿using Alsein.Extensions.LifetimeAnnotations;
 using Assets.Script.Localization;
 using Autofac;
-using Cynthia.Card.Common.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Linq;
 using System.Net;

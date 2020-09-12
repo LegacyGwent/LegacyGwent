@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Script.Localization;
+﻿using Assets.Script.Localization;
 using Autofac;
-using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
@@ -18,7 +15,7 @@ public class SettingPanel : MonoBehaviour
     private ITranslator languageManager => DependencyResolver.Container.Resolve<ITranslator>();
 
     public AudioMixer AudioMixer;
-    public UnityEvent OnLanguageChange; 
+    public UnityEvent OnLanguageChange;
 
     private void Start()
     {

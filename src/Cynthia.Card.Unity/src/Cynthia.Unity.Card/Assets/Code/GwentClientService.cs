@@ -11,7 +11,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.IO;
-using Cynthia.Card.Common.Models;
+using Assets.Script.Localization;
+using Assets.Script.Localization.Serializables;
+using Microsoft.AspNetCore.Internal;
 using UnityEditor;
 
 namespace Cynthia.Card.Client
@@ -132,42 +134,94 @@ namespace Cynthia.Card.Client
             return version;
         }
 
-        public async Task AutoUpdateCardMapVersion(Text text)
+        public async Task AutoUpdateGame(Text infoText)
+        {
+            var clientVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
+            var serverVersion = new Version(await GetCardMapVersion());
+
+            infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
+
+            if (clientVersion != serverVersion)
+            {
+                infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
+                try
+                {
+                    var loadedCards = JsonConvert.DeserializeObject<IList<GwentCard>>(await GetCardMap());
+                    GwentMap.LoadCards(loadedCards);
+                }
+                catch (Exception e)
+                {
+                    Debug.Log($"Error loading card abilities: {e.Message}");
+                }
+            }
+
+            bool localeFilesNeedUpdating = _translator.FileHandler.AreFilesCorrupted();
+            if (clientVersion != serverVersion)
+            {
+                localeFilesNeedUpdating = true;
+            }
+            if (localeFilesNeedUpdating)
+            {
+                var loadedGameLocales = JsonConvert.DeserializeObject<IList<GameLocale>>(await GetGameLocales());
+                _translator.FileHandler.SaveGameLocales(loadedGameLocales);
+                _translator.Initialize(); //Load new files from the start
+            }
+
+            infoText.text = _translator.GetText("LoginMenu_CardDataUpdated");
+        }
+
+        /*public async Task AutoUpdateCardMapVersion(Text text)
         {
             var localVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
             text.text = _translator.GetText("LoginMenu_CardDataCheck");
             var serverVersion = new Version(await GetCardMapVersion());
             Debug.Log($"正在对比版本号...{localVersion},{serverVersion}");
-            var newData = default(IDictionary<string, GwentCard>);
+
+            var loadedCards = default(IDictionary<string, GwentCard>);
+
             if (localVersion != serverVersion)
-            //if(true)//强制更新测试
             {
-                Debug.Log($"发现不一致,更新");
+                //Debug.Log($"发现不一致,更新");
                 text.text = _translator.GetText("LoginMenu_CardDataUpdating");
                 try
                 {
-                    newData = JsonConvert.DeserializeObject<IDictionary<string, GwentCard>>(await GetCardMap());
-                    GwentMap.CardMap = newData;
+                    //Load card abilities from the server
+                    loadedCards = JsonConvert.DeserializeObject<IList<GwentCard>>(await GetCardMap());
+                    GwentMap.CardMap.LoadCards(loadedCards);
                 }
                 catch (Exception e)
                 {
                     Debug.Log("判断是否存在时出现问题:" + e.Message);
                 }
-                Debug.Log($"成功获取到数据,进行缓存");
-                WriteCardMapData(JsonConvert.SerializeObject(newData));
-                Debug.Log($"更新本地版本号为:{serverVersion}");
+                //Debug.Log($"成功获取到数据,进行缓存");
+
+                //WriteCardMapData(JsonConvert.SerializeObject(newData));
+                // WE DONT WANT PLAYERS TO EDIT CARD DATA
+
+                //Debug.Log($"更新本地版本号为:{serverVersion}");
+
                 PlayerPrefs.SetString("CardMapVersion", serverVersion.ToString());
-                var message = PlayerPrefs.GetString("CardMapVersion", "存储失败..?");
-                Debug.Log(message);
+
+                //var message = PlayerPrefs.GetString("CardMapVersion", "存储失败..?");
+                //Debug.Log(message);
             }
             else
             {
-                Debug.Log($"版本一致,不做变化");
-                newData = ReadCardMapData();
-                GwentMap.CardMap = newData;
+                //Debug.Log($"版本一致,不做变化");
+
+                //loadedCards = ReadCardMapData();
+                //GwentMap.CardMap = loadedCards;
+                //WE DONT WANT PLAYERS TO HAVE CUSTOM CARDS THAT THEY CAN EDIT
+
             }
+
+
+
+
+
+
             text.text = _translator.GetText("LoginMenu_CardDataUpdated");
-        }
+        }*/
 
         public IDictionary<string, GwentCard> ReadCardMapData()
         {
@@ -241,6 +295,11 @@ namespace Cynthia.Card.Client
         public Task<string> GetCardMap()
         {
             return HubConnection.InvokeAsync<string>("GetCardMap");
+        }
+
+        public Task<string> GetGameLocales()
+        {
+            return HubConnection.InvokeAsync<string>("GetGameLocales");
         }
 
         public Task<string> GetNotes()

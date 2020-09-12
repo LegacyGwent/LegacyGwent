@@ -11,7 +11,7 @@ using Cynthia.Card.Client;
 using System;
 using DG.Tweening;
 using System.Threading.Tasks;
-using Cynthia.Card.Common.Models;
+using Assets.Script.Localization;
 using UnityEngine.Events;
 using static UnityEngine.UI.Scrollbar;
 using Cynthia.Card.Common.Extensions;

@@ -201,6 +201,22 @@ namespace Cynthia.Card
             English,
         }
 
+        public static void LoadCards(IList<GwentCard> cards)
+        {
+            var loadedCardMap = new Dictionary<string, GwentCard>();
+            foreach (var card in cards)
+            {
+                var id = card.CardId;
+                var loadedCard = card;
+
+                loadedCard.Name = string.Empty;
+                loadedCard.Info = string.Empty;
+                loadedCard.Flavor = string.Empty;
+                
+                loadedCardMap[id] = loadedCard;
+            }
+            CardMap = loadedCardMap;
+        }
 
         public static IDictionary<string, GwentCard> CardMap { get; set; } = new Dictionary<string, GwentCard>
         {

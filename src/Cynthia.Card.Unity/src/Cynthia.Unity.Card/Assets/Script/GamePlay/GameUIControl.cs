@@ -6,8 +6,8 @@ using Cynthia.Card.Client;
 using Cynthia.Card;
 using System.Linq;
 using System;
+using Assets.Script.Localization;
 using Autofac;
-using Cynthia.Card.Common.Models;
 
 public class GameUIControl : MonoBehaviour
 {

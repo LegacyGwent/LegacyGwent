@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
 using Alsein.Extensions.IO;
+using Assets.Script.Localization;
 using Autofac;
-using Cynthia.Card.Common.Models;
 
 public class MessageBox : MonoBehaviour
 {

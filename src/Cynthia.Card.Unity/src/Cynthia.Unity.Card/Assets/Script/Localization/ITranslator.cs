@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Cynthia.Card.Common.Models
+namespace Assets.Script.Localization
 {
     public interface ITranslator
     {
+        event Action OnInit;
+        void Initialize();
         int GameLanguage { get; set; }
         List<string> LanguageNames { get; }
         List<string> LanguageFilenames { get; }
@@ -13,5 +14,6 @@ namespace Cynthia.Card.Common.Models
         string GetCardName(string cardId);
         string GetCardInfo(string cardId);
         string GetCardFlavor(string cardId);
+        LanguageFileHandler FileHandler { get; }
     }
 }

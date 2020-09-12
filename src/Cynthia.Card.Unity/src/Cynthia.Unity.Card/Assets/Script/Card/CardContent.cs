@@ -1,9 +1,9 @@
 ﻿using Alsein.Extensions;
 using Autofac;
 using Cynthia.Card;
-using Cynthia.Card.Common.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.UI;
 

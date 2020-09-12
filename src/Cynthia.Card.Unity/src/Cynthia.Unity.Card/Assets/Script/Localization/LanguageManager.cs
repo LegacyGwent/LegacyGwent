@@ -1,8 +1,8 @@
-﻿using Cynthia.Card.Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Assets.Script.Localization.Serializables;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -19,6 +19,17 @@ namespace Assets.Script.Localization
             throw new NotImplementedException();
         }
 
+        public LanguageFileHandler FileHandler { get; }
+
+        public void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public event EventHandler OnInitialize;
+
+        public event Action OnInit;
+
         public int GameLanguage
         {
             get => _locales.IndexOf(_gameLanguage);
@@ -29,7 +40,7 @@ namespace Assets.Script.Localization
                     value = 0;
                 }
                 _gameLanguage = _locales[value];
-                LoadTexts();
+                //FileHandler.LoadTexts();
                 SaveCardsToJson();
             }
         }
@@ -49,13 +60,13 @@ namespace Assets.Script.Localization
 
 
 
-        public LanguageManager()
+        /*public LanguageManager()
         {
             _locales = LoadLocales();
             GameLanguage = PlayerPrefs.GetInt("language", 0);
-        }
+        }*/
 
-        private List<GameLocale> LoadLocales()
+        /*private List<GameLocale> LoadLocales()
         {
             var output = new List<GameLocale>();
             var localeInfo = Resources.Load<TextAsset>("Locales/info");
@@ -71,9 +82,9 @@ namespace Assets.Script.Localization
             }
 
             return output;
-        }
+        }*/
 
-        private void LoadTexts()
+        /*private void LoadTexts()
         {
             Texts.Clear();
 
@@ -101,7 +112,7 @@ namespace Assets.Script.Localization
                     Texts.Add(id, val);
                 }
             }
-        }
+        }*/
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
@@ -119,7 +130,7 @@ namespace Assets.Script.Localization
 
         public void SaveCardsToJson()
         {
-            var allCardTexts = new Dictionary<string, CardTexts>();
+            var allCardTexts = new Dictionary<string, CardLocale>();
             foreach (var key in Texts.Keys)
             {
                 var value = Texts[key];
@@ -144,7 +155,7 @@ namespace Assets.Script.Localization
                 var id = compounds[1];
                 if (!allCardTexts.ContainsKey(id))
                 {
-                    allCardTexts.Add(id, new CardTexts());
+                    allCardTexts.Add(id, new CardLocale());
                 }
                 switch (compounds[2])
                 {

@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Cynthia.Card.Client;
-using Cynthia.Card.Common.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -80,7 +80,7 @@ public class GameInit : MonoBehaviour
         {
             //var version = new Version(await _gwentClientService.GetLatestVersion());
             //LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
-            await _gwentClientService.AutoUpdateCardMapVersion(LatestVersionText);
+            await _gwentClientService.AutoUpdateGame(LatestVersionText);
         }
         catch (Exception e)
         {
@@ -119,7 +119,7 @@ public class GameInit : MonoBehaviour
             SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
             SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
             SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
-            SetLanguage(PlayerPrefs.GetInt("Language", 0));
+            //SetLanguage(PlayerPrefs.GetInt("Language", 0));
             NowVersionText.text = string.Format(_translator.GetText("LoginMenu_CurrentVersionInfo"), ClientGlobalInfo.Version);
 
             // AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
@@ -200,9 +200,9 @@ public class GameInit : MonoBehaviour
     }
 
     //设置语言
-    public void SetLanguage(int languageIndex)
+    /*public void SetLanguage(int languageIndex)
     {
         _translator.GameLanguage = languageIndex;
         PlayerPrefs.SetInt("Language", _translator.GameLanguage);
-    }
+    }*/
 }

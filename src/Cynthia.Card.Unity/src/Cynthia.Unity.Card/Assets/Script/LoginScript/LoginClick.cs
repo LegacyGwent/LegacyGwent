@@ -1,6 +1,6 @@
-﻿using Autofac;
+﻿using Assets.Script.Localization;
+using Autofac;
 using Cynthia.Card.Client;
-using Cynthia.Card.Common.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
 using UnityEngine.SceneManagement;

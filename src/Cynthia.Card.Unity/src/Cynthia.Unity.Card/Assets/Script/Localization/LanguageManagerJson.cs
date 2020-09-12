@@ -1,73 +1,59 @@
-﻿using Cynthia.Card.Common.Models;
+﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Script.Localization.Serializables;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Script.Localization
 {
     class LanguageManagerJson : ITranslator
     {
-        private Dictionary<string, string> Texts = new Dictionary<string, string>();
-        private Dictionary<string, CardTexts> CardTexts = new Dictionary<string, CardTexts>();
+        private IDictionary<string, string> Texts = new Dictionary<string, string>();
+        private IDictionary<string, CardLocale> CardTexts = new Dictionary<string, CardLocale>();
+        public LanguageFileHandler FileHandler { get; } = new LanguageFileHandler();
 
-        private List<GameLocale> _locales;
-        private GameLocale _gameLanguage;
+        private List<LocaleInfo> _languages;
+        private LocaleInfo _currentLanguage;
 
         public int GameLanguage
         {
-            get => _locales.IndexOf(_gameLanguage);
+            get => _languages.IndexOf(_currentLanguage);
             set
             {
-                if (value >= _locales.Count || value < 0)
+                if (value >= _languages.Count || value < 0)
                 {
                     value = 0;
                 }
-                _gameLanguage = _locales[value];
-                LoadTexts();
-                LoadCards();
+                _currentLanguage = _languages[value];
+                var loadedLocale = FileHandler.LoadLocale(_currentLanguage.Filename);
+                Texts = loadedLocale.MenuLocales;
+                CardTexts = loadedLocale.CardLocales;
             }
         }
-
-        public List<string> LanguageNames => _locales.Select(l => l.Name).ToList();
-        public List<string> LanguageFilenames => _locales.Select(l => l.Filename).ToList();
-
+        public List<string> LanguageNames => _languages.Select(l => l.Name).ToList();
+        public List<string> LanguageFilenames => _languages.Select(l => l.Filename).ToList();
 
         public LanguageManagerJson()
         {
-            var infoSerialized = Resources.Load<TextAsset>("Locales/config").text;
-            _locales = JsonConvert.DeserializeObject<List<GameLocale>>(infoSerialized);
-            GameLanguage = PlayerPrefs.GetInt("Language", 0);
+            OnInit += () => {
+                _languages = FileHandler.LoadLanguagesConfig();
+                GameLanguage = PlayerPrefs.GetInt("Language", 0);
+            };
+            Initialize();
         }
-
-        private void LoadTexts()
+        public void Initialize()
         {
-            Texts.Clear();
-
-            var localeFile = Resources.Load<TextAsset>($"Locales/{_gameLanguage.Filename}");
-            if (localeFile != null)
-            {
-                Texts = JsonConvert.DeserializeObject<Dictionary<string, string>>(localeFile.text);
-            }
+            OnInit?.Invoke();
         }
 
-        public void LoadCards()
-        {
-            var languageFile = Resources.Load<TextAsset>($"Locales/{_gameLanguage.Filename}-cards");
-            if (languageFile == null)
-            {
-                return;
-            }
-
-            var loadedCardTexts = JsonConvert.DeserializeObject<Dictionary<string, CardTexts>>(languageFile.text);
-            CardTexts = loadedCardTexts;
-        }
+        public event Action OnInit;
 
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
         }
-
         public string GetCardName(string cardId)
         {
             return CardTexts.ContainsKey(cardId) ? CardTexts[cardId].Name : $"{cardId}_Name";
