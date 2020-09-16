@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Alsein.Extensions.LifetimeAnnotations;
-using UnityEngine;
+﻿using Alsein.Extensions.LifetimeAnnotations;
 
 namespace Assets.Script.Localization
 {

@@ -1,9 +1,7 @@
 ﻿using Alsein.Extensions.LifetimeAnnotations;
-using Assets.Script.Localization;
 using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using UnityEngine;
 

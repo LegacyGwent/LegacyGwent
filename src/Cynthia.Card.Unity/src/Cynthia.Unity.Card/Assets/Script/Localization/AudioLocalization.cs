@@ -1,7 +1,6 @@
-﻿using Assets.Script.Localization.Serializables;
-using System.Collections.Generic;
-using Assets.Script.ResourceManagement;
+﻿using Assets.Script.ResourceManagement;
 using Assets.Script.ResourceManagement.Serializables;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Script.Localization
@@ -10,11 +9,11 @@ namespace Assets.Script.Localization
     {
         private IList<ConfigEntry> _languages;
         public ConfigEntry ChosenLanguage { get; private set; }
-        private ResourceHandler _resourceHandler = new ResourceHandler("Voicelines");
+        private LocalizationResourceHandler _resourceHandler = new LocalizationResourceHandler("Voicelines");
 
         public AudioLocalization()
         {
-            _languages = _resourceHandler.LoadConfiguration<ConfigEntry>();
+            _languages = _resourceHandler.LoadConfiguration();
             ChooseLanguage(PlayerPrefs.GetInt("AudioLanguage", 0));
         }
         public int ChooseLanguage(int index)

@@ -1,5 +1,4 @@
 ﻿using Assets.Script.ResourceManagement;
-using Assets.Script.ResourceManagement.Serializables;
 using System.Linq;
 using UnityEngine;
 
@@ -12,8 +11,8 @@ namespace Assets.Script.SettingMenu
         public void LoadValues()
         {
             var values = GetComponent<ChoseValue>();
-            var resourceLoader = new ResourceHandler(ValuesPath);
-            values.ChoseList = resourceLoader.LoadConfiguration<ConfigEntry>().Select(c => c.Name).ToList();
+            var resourceLoader = new LocalizationResourceHandler(ValuesPath);
+            values.ChoseList = resourceLoader.LoadConfiguration().Select(c => c.Name).ToList();
         }
     }
 }

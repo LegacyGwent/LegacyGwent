@@ -1,43 +1,43 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.IO;
-using TMPro;
+using Assets.Script.Localization.Serializables;
+using Assets.Script.ResourceManagement.Serializables;
 using UnityEngine;
 
 namespace Assets.Script.ResourceManagement
 {
-    class ResourceHandler
+    class LocalizationResourceHandler : ILocalizationResourceHandler
     {
         private string _directoryPath;
-        public ResourceHandler(string dirPath)
+        public LocalizationResourceHandler(string dirPath)
         {
             _directoryPath = dirPath;
         }
 
-        public IList<T> LoadConfiguration<T>()
+        public IList<ConfigEntry> LoadConfiguration()
         {
-            List<T> output = null;
+            List<ConfigEntry> output = null;
             var filePath = $"{_directoryPath}/config";
             var file = Resources.Load<TextAsset>(filePath);
 
             if (file != null)
             {
                 var infoSerialized = file.text;
-                output = JsonConvert.DeserializeObject<List<T>>(infoSerialized);
+                output = JsonConvert.DeserializeObject<List<ConfigEntry>>(infoSerialized);
             }
             return output;
         }
 
-        public T LoadResource<T>(string filename)
+        public GameLocale LoadResource(string filename)
         {
-            T output = default(T);
+            GameLocale output = null;
             var filePath = $"{_directoryPath}/{filename}";
             var file = Resources.Load<TextAsset>(filePath);
 
             if (file != null)
             {
                 var infoSerialized = file.text;
-                output = JsonConvert.DeserializeObject<T>(infoSerialized);
+                output = JsonConvert.DeserializeObject<GameLocale>(infoSerialized);
             }
             return output;
         }

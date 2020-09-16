@@ -1,18 +1,32 @@
 ﻿using Assets.Script.Localization.Serializables;
+using Assets.Script.ResourceManagement.Serializables;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Assets.Script.ResourceManagement.Serializables;
 using UnityEngine;
 
-namespace Assets.Script.Localization
+namespace Assets.Script.ResourceManagement
 {
-    public class TextLocaleFileHandler : FileHandler
+    public class TextLocalizationFileHandler : ILocalizationResourceHandler
     {
-        public TextLocaleFileHandler(string dirPath) : base(dirPath) { }
-
-        public GameLocale LoadLocale(string filename)
+        private string _directoryPath;
+        public TextLocalizationFileHandler(string dirPath)
+        {
+            _directoryPath = $"{Application.dataPath}/StreamingFile/{dirPath}";
+        }
+        public IList<ConfigEntry> LoadConfiguration()
+        {
+            List<ConfigEntry> output = null;
+            var filePath = $"{_directoryPath}/config.json";
+            if (File.Exists(filePath))
+            {
+                var infoSerialized = File.ReadAllText(filePath);
+                output = JsonConvert.DeserializeObject<List<ConfigEntry>>(infoSerialized);
+            }
+            return output;
+        }
+        public GameLocale LoadResource(string filename)
         {
             GameLocale output = null;
 
@@ -45,10 +59,10 @@ namespace Assets.Script.Localization
             File.WriteAllText($"{_directoryPath}/config.json", serializedConfig);
         }
 
-        public bool AreFilesCorrupted()
+        public bool AreFilesDownloaded()
         {
-            var config = LoadConfig<ConfigEntry>();
-            return config == null || config.Any(c => !File.Exists($"{_directoryPath}/{c.Filename}"));
+            var config = LoadConfiguration();
+            return config != null && config.All(c => File.Exists($"{_directoryPath}/{c.Filename}"));
         }
     }
 }

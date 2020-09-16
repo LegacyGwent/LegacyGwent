@@ -1,6 +1,7 @@
 ﻿using Assets.Script.Localization.Serializables;
 using Assets.Script.ResourceManagement;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Assets.Script.ResourceManagement.Serializables;
 using UnityEngine;
 
@@ -11,23 +12,31 @@ namespace Assets.Script.Localization
         private IList<ConfigEntry> _languages;
         public ConfigEntry ChosenLanguage { get; private set; }
 
-        private ResourceHandler _resourceHandler = new ResourceHandler("Locales");
+        private ILocalizationResourceHandler _resourceHandler;
+        public ILocalizationResourceHandler ResourceHandler
+        {
+            get => _resourceHandler;
+            set
+            {
+                _resourceHandler = value;
+                _languages = _resourceHandler.LoadConfiguration();
+                ChooseLanguage(PlayerPrefs.GetInt("TextLanguage", 0));
+            }
+        }
 
         public IDictionary<string, string> Texts;
         public IDictionary<string, CardLocale> CardTexts;
 
         public TextLocalization()
         {
-            _languages = _resourceHandler.LoadConfiguration<ConfigEntry>();
-            ChooseLanguage(PlayerPrefs.GetInt("TextLanguage", 0));
-
+            ResourceHandler = new LocalizationResourceHandler("Locales");
         }
         public int ChooseLanguage(int index)
         {
             index %= _languages.Count;
             ChosenLanguage = _languages[index];
 
-            var loadedLocale = _resourceHandler.LoadResource<GameLocale>(ChosenLanguage.Filename);
+            var loadedLocale = ResourceHandler.LoadResource(ChosenLanguage.Filename);
             Texts = loadedLocale.MenuLocales;
             CardTexts = loadedLocale.CardLocales;
 

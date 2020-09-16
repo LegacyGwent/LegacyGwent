@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Assets.Script.Localization;
 using Assets.Script.Localization.Serializables;
+using Assets.Script.ResourceManagement;
 using Microsoft.AspNetCore.Internal;
 using UnityEditor;
 
@@ -155,17 +156,13 @@ namespace Cynthia.Card.Client
                 }
             }
 
-            /*bool localeFilesNeedUpdating = _translator.FileHandler.AreFilesCorrupted();
-            if (clientVersion != serverVersion)
-            {
-                localeFilesNeedUpdating = true;
-            }
-            if (localeFilesNeedUpdating)
+            var fileHandler = new TextLocalizationFileHandler("Locales");
+            if (clientVersion != serverVersion && !fileHandler.AreFilesDownloaded())
             {
                 var loadedGameLocales = JsonConvert.DeserializeObject<IList<GameLocale>>(await GetGameLocales());
-                _translator.FileHandler.SaveGameLocales(loadedGameLocales);
-                _translator.Initialize(); //Load new files from the start
-            }*/
+                fileHandler.SaveGameLocales(loadedGameLocales);
+                _translator.TextLocalization.ResourceHandler = fileHandler;
+            }
 
             infoText.text = _translator.GetText("LoginMenu_CardDataUpdated");
         }
