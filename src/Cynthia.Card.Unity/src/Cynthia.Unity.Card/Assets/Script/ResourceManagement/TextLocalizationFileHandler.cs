@@ -62,7 +62,7 @@ namespace Assets.Script.ResourceManagement
         public bool AreFilesDownloaded()
         {
             var config = LoadConfiguration();
-            return config != null && config.All(c => File.Exists($"{_directoryPath}/{c.Filename}"));
+            return config != null && config.All(c => File.Exists($"{_directoryPath}/{c.Filename}.json"));
         }
     }
 }

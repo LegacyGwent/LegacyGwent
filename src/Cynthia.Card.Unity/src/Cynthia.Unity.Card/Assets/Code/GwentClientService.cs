@@ -157,13 +157,16 @@ namespace Cynthia.Card.Client
             }
 
             var fileHandler = new TextLocalizationFileHandler("Locales");
-            if (clientVersion != serverVersion && !fileHandler.AreFilesDownloaded())
+            if (clientVersion != serverVersion && !fileHandler.AreFilesDownloaded()) 
             {
                 var loadedGameLocales = JsonConvert.DeserializeObject<IList<GameLocale>>(await GetGameLocales());
                 fileHandler.SaveGameLocales(loadedGameLocales);
-                _translator.TextLocalization.ResourceHandler = fileHandler;
             }
 
+            if (fileHandler.AreFilesDownloaded())
+            {
+                _translator.TextLocalization.ResourceHandler = fileHandler;
+            }
             infoText.text = _translator.GetText("LoginMenu_CardDataUpdated");
         }
 

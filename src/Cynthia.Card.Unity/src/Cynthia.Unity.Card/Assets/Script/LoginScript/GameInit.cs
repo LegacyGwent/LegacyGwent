@@ -201,11 +201,4 @@ public class GameInit : MonoBehaviour
         //AudioSource.GetComponent<AudioSource>().Play();
         AudioMixer.SetFloat("volum", 0);
     }
-
-    //设置语言
-    /*public void SetLanguage(int languageIndex)
-    {
-        _translator.GameLanguage = languageIndex;
-        PlayerPrefs.SetInt("Language", _translator.GameLanguage);
-    }*/
 }

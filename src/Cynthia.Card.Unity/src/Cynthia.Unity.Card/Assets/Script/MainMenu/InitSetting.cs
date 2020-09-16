@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
+using Assets.Script.Localization;
 using Assets.Script.SettingMenu;
-using Cynthia.Card;
+using Autofac;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class InitSetting : MonoBehaviour
 {
@@ -17,14 +16,12 @@ public class InitSetting : MonoBehaviour
     public GameObject QualityPanel;
     public GameObject GamePlayBGMsPanel;
 
-    // Use this for initialization
     void Start()
     {
-        TextLanguagePanel.GetComponent<ChooseValueInit>().LoadValues();
-        TextLanguagePanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("TextLanguage", 0);
+        Debug.Log("OBJ" + gameObject.name);
+        Debug.Log("PARENT" + gameObject.transform.parent.name);
 
-        AudioLanguagePanel.GetComponent<ChooseValueInit>().LoadValues();
-        AudioLanguagePanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("AudioLanguage", 0);
+        InitLanguageSettings();
 
         ResolutionPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("resolutionIndex", 2);
         FullPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("isFull", 0);
@@ -35,9 +32,18 @@ public class InitSetting : MonoBehaviour
         GamePlayBGMsPanel.GetComponent<ChoseValue>().Index = PlayerPrefs.GetInt("isWitcher", 0);
     }
 
-    // Update is called once per frame
-    void Update()
+    void InitLanguageSettings()
     {
+        var localizationService = DependencyResolver.Container.Resolve<LocalizationService>();
 
+        var textLocalization = localizationService.TextLocalization;
+        var textLangValues = textLocalization.ResourceHandler.LoadConfiguration().Select(c => c.Name).ToList();
+        TextLanguagePanel.GetComponent<ChoseValue>().ChoseList = textLangValues;
+        TextLanguagePanel.GetComponent<ChoseValue>().Index = textLocalization.ChosenLanguageIndex;
+
+        var audioLocalization = localizationService.AudioLocalization;
+        var audioLangValues = localizationService.AudioLocalization.ResourceHandler.LoadConfiguration().Select(c => c.Name).ToList();
+        AudioLanguagePanel.GetComponent<ChoseValue>().ChoseList = audioLangValues;
+        AudioLanguagePanel.GetComponent<ChoseValue>().Index = audioLocalization.ChosenLanguageIndex;
     }
 }

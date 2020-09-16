@@ -11,6 +11,7 @@ namespace Assets.Script.Localization
     {
         private IList<ConfigEntry> _languages;
         public ConfigEntry ChosenLanguage { get; private set; }
+        public int ChosenLanguageIndex => _languages.IndexOf(ChosenLanguage);
 
         private ILocalizationResourceHandler _resourceHandler;
         public ILocalizationResourceHandler ResourceHandler

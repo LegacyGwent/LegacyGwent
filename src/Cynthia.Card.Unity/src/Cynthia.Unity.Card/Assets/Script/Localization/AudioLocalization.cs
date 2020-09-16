@@ -9,11 +9,12 @@ namespace Assets.Script.Localization
     {
         private IList<ConfigEntry> _languages;
         public ConfigEntry ChosenLanguage { get; private set; }
-        private LocalizationResourceHandler _resourceHandler = new LocalizationResourceHandler("Voicelines");
+        public int ChosenLanguageIndex => _languages.IndexOf(ChosenLanguage);
+        public LocalizationResourceHandler ResourceHandler = new LocalizationResourceHandler("Voicelines");
 
         public AudioLocalization()
         {
-            _languages = _resourceHandler.LoadConfiguration();
+            _languages = ResourceHandler.LoadConfiguration();
             ChooseLanguage(PlayerPrefs.GetInt("AudioLanguage", 0));
         }
         public int ChooseLanguage(int index)
