@@ -1,18 +1,18 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Alsein.Extensions.LifetimeAnnotations;
+using Assets.Script.Localization.Serializables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Script.Localization.Serializables;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Script.Localization
 {
-    class LanguageManagerJson : ITranslator
+    [Singleton]
+    class LocalizationService
     {
         private IDictionary<string, string> Texts = new Dictionary<string, string>();
         private IDictionary<string, CardLocale> CardTexts = new Dictionary<string, CardLocale>();
-        public LanguageFileHandler FileHandler { get; } = new LanguageFileHandler();
+        public LocalizationFileHandler FileHandler { get; } = new LocalizationFileHandler();
 
         private List<LocaleInfo> _languages;
         private LocaleInfo _currentLanguage;
@@ -35,13 +35,13 @@ namespace Assets.Script.Localization
         public List<string> LanguageNames => _languages.Select(l => l.Name).ToList();
         public List<string> LanguageFilenames => _languages.Select(l => l.Filename).ToList();
 
-        public LanguageManagerJson()
+        public LocalizationService()
         {
-            OnInit += () => {
+            OnInit += () =>
+            {
                 _languages = FileHandler.LoadLanguagesConfig();
                 GameLanguage = PlayerPrefs.GetInt("Language", 0);
             };
-            Initialize();
         }
         public void Initialize()
         {

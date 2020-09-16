@@ -46,7 +46,7 @@ public class ListCardShowInfo : MonoBehaviour
     }
     public void SetCardInfo(string id, int count = 1)
     {
-        var translator = DependencyResolver.Container.Resolve<ITranslator>();
+        var translator = DependencyResolver.Container.Resolve<LocalizationService>();
         CardStatus = new CardStatus(id);
         CardStatus.Name = translator.GetCardName(id);
         CardStatus.Info = translator.GetCardInfo(id);

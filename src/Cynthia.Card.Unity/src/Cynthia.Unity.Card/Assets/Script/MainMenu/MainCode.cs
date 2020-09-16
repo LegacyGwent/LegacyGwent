@@ -9,7 +9,7 @@ public class MainCode : MonoBehaviour
 {
     private GlobalUIService _globalUIService;
     private GwentClientService _client;
-    private ITranslator _translator;
+    private LocalizationService _translator;
     public GameObject Context;
     public GameObject MatchUI;
     public EditorInfo EditorMenu;
@@ -41,7 +41,7 @@ public class MainCode : MonoBehaviour
             MatchMenuButton.onClick.Invoke();
             //DoMatchButton.onClick.Invoke();
         }
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     public async void ExitGameClick()
     {

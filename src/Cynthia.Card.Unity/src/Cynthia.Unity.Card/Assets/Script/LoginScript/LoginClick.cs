@@ -16,7 +16,7 @@ public class LoginClick : MonoBehaviour
     public Toggle RecordStatus;
 
     private GwentClientService _client;
-    private ITranslator _translator;
+    private LocalizationService _translator;
 
     private void Start()
     {
@@ -51,7 +51,7 @@ public class LoginClick : MonoBehaviour
         if (_client != null)
             return;
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     public async void Login()
     {

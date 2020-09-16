@@ -35,7 +35,7 @@ namespace Cynthia.Card.Client
         private ITubeInlet sender;/*待修改*/
         private ITubeOutlet receiver;/*待修改*/
 
-        private ITranslator _translator;
+        private LocalizationService _translator;
 
         public ClientState ClientState { get; set; } = ClientState.Standby;
 
@@ -47,7 +47,7 @@ namespace Cynthia.Card.Client
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
         {
-            _translator = container.Resolve<ITranslator>();
+            _translator = container.Resolve<LocalizationService>();
             _globalUIService = globalUIService;
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
@@ -139,15 +139,15 @@ namespace Cynthia.Card.Client
             var clientVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
             var serverVersion = new Version(await GetCardMapVersion());
 
-            infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
+            //infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
 
             if (clientVersion != serverVersion)
             {
-                infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
+                //infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
                 try
                 {
-                    var loadedCards = JsonConvert.DeserializeObject<IList<GwentCard>>(await GetCardMap());
-                    GwentMap.LoadCards(loadedCards);
+                    var loadedCardMap = JsonConvert.DeserializeObject<Dictionary<string, GwentCard>>(await GetCardMap());
+                    GwentMap.CardMap = loadedCardMap;
                 }
                 catch (Exception e)
                 {

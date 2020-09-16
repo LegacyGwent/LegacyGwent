@@ -40,11 +40,11 @@ public class GameUIControl : MonoBehaviour
     public Text MyShowMessage;//
     public Text EnemyShowMessage;//
 
-    private ITranslator _translator;
+    private LocalizationService _translator;
 
     private void Awake()
     {
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
     public void SetPointInfo(GameInfomation gameInfomation)

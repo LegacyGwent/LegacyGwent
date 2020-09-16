@@ -103,3 +103,11 @@ The following packages were updated:
   com.unity.xr.legacyinputhelpers from version 2.0.2 to 2.1.4
 The following packages were removed:
   com.unity.package-manager-ui@2.2.0
+
+=== Mon Sep 14 14:42:21 2020
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.ads from version 3.4.5 to 3.4.7

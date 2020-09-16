@@ -22,7 +22,7 @@ public class BigRoundControl : MonoBehaviour
     public GameObject EnemyWinCountLeft;
     public GameObject EnemyWinCountRight;
 
-    private ITranslator _translator => DependencyResolver.Container.Resolve<ITranslator>();
+    private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
 
     public void Test()
     {

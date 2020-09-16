@@ -22,11 +22,11 @@ public class MessageBox : MonoBehaviour
     //private IAsyncDataReceiver receiver;
     public RectTransform Context;
 
-    private ITranslator _translator;
+    private LocalizationService _translator;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     public void Wait(string title, string message)
     {

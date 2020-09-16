@@ -17,7 +17,8 @@ public class Bootstrapper : MonoBehaviour
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
         //builder.Register(x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
-        builder.Register(x => new HubConnectionBuilder().WithUrl("http://95.155.87.88:28003/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
+        //builder.Register(x => new HubConnectionBuilder().WithUrl("http://95.155.87.88:28003/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
+        builder.Register(x => new HubConnectionBuilder().WithUrl("http://localhost:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
 
         DependencyResolver.Container = AutoRegisterService(builder).Build();
     }
@@ -31,7 +32,6 @@ public class Bootstrapper : MonoBehaviour
         builder.RegisterTypes(services.Where(x => x.IsDefined(typeof(SingletonAttribute))).ToArray()).PropertiesAutowired().AsSelf().SingleInstance();
         builder.RegisterTypes(services.Where(x => x.IsDefined(typeof(ScopedAttribute))).ToArray()).PropertiesAutowired().AsSelf().InstancePerLifetimeScope();
         builder.RegisterTypes(services.Where(x => x.IsDefined(typeof(TransientAttribute))).ToArray()).PropertiesAutowired().AsSelf().InstancePerDependency();
-        builder.RegisterType<LanguageManagerJson>().As<ITranslator>().SingleInstance();
 
         return builder;
     }

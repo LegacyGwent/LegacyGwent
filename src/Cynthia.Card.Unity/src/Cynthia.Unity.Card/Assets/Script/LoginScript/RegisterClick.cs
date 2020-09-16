@@ -19,14 +19,14 @@ public class RegisterClick : MonoBehaviour
     public Text LoginMessage;
 
     private GwentClientService server;
-    private ITranslator _translator;
+    private LocalizationService _translator;
 
     private void Start()
     {
         if (server != null)
             return;
         server = DependencyResolver.Container.Resolve<GwentClientService>();
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     public async void Register()
     {

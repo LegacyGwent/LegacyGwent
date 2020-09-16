@@ -31,11 +31,11 @@ public class ChoseValue : MonoBehaviour {
 
     public Text ShowText;
 
-    private ITranslator _translator;
+    private LocalizationService _translator;
 
     private void Start()
     {
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
     public void LeftButtonClick()

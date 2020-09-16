@@ -60,7 +60,7 @@ public class MatchInfo : MonoBehaviour
 
     private GwentClientService _client { get => DependencyResolver.Container.Resolve<GwentClientService>(); }
     private GlobalUIService _UIService { get => DependencyResolver.Container.Resolve<GlobalUIService>(); }
-    private ITranslator _translator {get => DependencyResolver.Container.Resolve<ITranslator>(); }
+    private LocalizationService _translator {get => DependencyResolver.Container.Resolve<LocalizationService>(); }
 
     public void MatchMenuClick()
     {

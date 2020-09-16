@@ -12,7 +12,7 @@ public class SettingPanel : MonoBehaviour
     private int musicVolum; //音乐大小
     private int effectVolum; //音效大小
     private int quality; //画质
-    private ITranslator languageManager => DependencyResolver.Container.Resolve<ITranslator>();
+    private LocalizationService languageManager => DependencyResolver.Container.Resolve<LocalizationService>();
 
     public AudioMixer AudioMixer;
     public UnityEvent OnLanguageChange;

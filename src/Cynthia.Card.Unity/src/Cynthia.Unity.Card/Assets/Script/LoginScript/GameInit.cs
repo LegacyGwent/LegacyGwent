@@ -19,12 +19,12 @@ public class GameInit : MonoBehaviour
     public RectTransform NotesContext;
 
     private GwentClientService _gwentClientService;
-    private ITranslator _translator;
+    private LocalizationService _translator;
 
     private void Start()
     {
         _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         ConfigureGame();
         LoadServerMessage();
     }
@@ -52,14 +52,17 @@ public class GameInit : MonoBehaviour
             }
             catch
             {
-                i++;
-                if (i == 1)
+                if (NotesText != null)
                 {
-                    NotesText.text += $"\n{_translator.GetText("LoginMenu_DisconnectionInfo")}";
+                    i++;
+                    if (i == 1)
+                    {
+                        NotesText.text += $"\n{_translator.GetText("LoginMenu_DisconnectionInfo")}";
+                    }
+                    NotesText.text += "\n" + string.Format(_translator.GetText("LoginMenu_DisconnectionRetry"), i, i + 1);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
+                    NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
                 }
-                NotesText.text += "\n" + string.Format(_translator.GetText("LoginMenu_DisconnectionRetry"), i, i + 1);
-                LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
-                NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
             }
         }
         try

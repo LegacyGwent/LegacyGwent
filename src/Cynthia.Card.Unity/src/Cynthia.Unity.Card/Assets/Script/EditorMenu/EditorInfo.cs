@@ -92,13 +92,13 @@ public class EditorInfo : MonoBehaviour
     public Text AllCount;   //全部数量
     public Text AllCountText;
     //------------------------------------------------
-    private ITranslator _translator;
+    private LocalizationService _translator;
 
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
-        _translator = DependencyResolver.Container.Resolve<ITranslator>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
     void Start()

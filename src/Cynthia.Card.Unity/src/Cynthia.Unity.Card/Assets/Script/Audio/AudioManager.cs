@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
 
     private float volume;
 
-    private ITranslator _translator => DependencyResolver.Container.Resolve<ITranslator>();
+    private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
 
     private AudioSource _queueAudioSource;
 

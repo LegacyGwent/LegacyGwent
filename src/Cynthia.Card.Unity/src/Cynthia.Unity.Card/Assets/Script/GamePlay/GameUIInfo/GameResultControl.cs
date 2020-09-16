@@ -58,7 +58,7 @@ public class GameResultControl : MonoBehaviour
     public Sprite GameDrawBgLeft;
     public Sprite GameDrawBgRight;
 
-    private ITranslator _translator => DependencyResolver.Container.Resolve<ITranslator>();
+    private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
 
     public void ShowGameResult(GameResultInfomation gameResult)
     {

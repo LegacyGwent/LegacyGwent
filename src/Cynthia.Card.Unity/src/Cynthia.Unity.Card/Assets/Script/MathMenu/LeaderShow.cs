@@ -35,7 +35,7 @@ public class LeaderShow : MonoBehaviour
         if (_groupIconMap == null) Start();
 
         var card = GwentMap.CardMap[id];
-        var translator = DependencyResolver.Container.Resolve<ITranslator>();
+        var translator = DependencyResolver.Container.Resolve<LocalizationService>();
         card.Name = translator.GetCardName(id);
         card.Info = translator.GetCardInfo(id);
 

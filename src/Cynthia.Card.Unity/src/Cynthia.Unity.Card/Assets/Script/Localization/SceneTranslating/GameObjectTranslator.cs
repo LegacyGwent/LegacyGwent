@@ -8,11 +8,11 @@ namespace Assets.Script.Localization.SceneTranslating
 {
     public class GameObjectTranslator : MonoBehaviour
     {
-        private ITranslator _translationManager;
+        private LocalizationService _translationManager;
         public List<Translatable> ObjectsToTranslate;
         private void Start()
         {
-            _translationManager = DependencyResolver.Container.Resolve<ITranslator>();
+            _translationManager = DependencyResolver.Container.Resolve<LocalizationService>();
             TranslateAll();
         }
         public void TranslateAll()

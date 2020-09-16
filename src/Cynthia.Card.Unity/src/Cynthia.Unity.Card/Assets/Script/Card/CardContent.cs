@@ -70,7 +70,7 @@ public class CardContent : MonoBehaviour
         Head.sprite = HeadMap[cardStatus.Faction];
         Bottom.sprite = ContentMap[cardStatus.Faction];
 
-        var translator = DependencyResolver.Container.Resolve<ITranslator>();
+        var translator = DependencyResolver.Container.Resolve<LocalizationService>();
 
         CardInfoText.text = translator.GetCardInfo(cardStatus.CardId);
         CardNameText.text = translator.GetCardName(cardStatus.CardId);
