@@ -26,8 +26,6 @@ public class AudioManager : MonoBehaviour
 
     private float volume;
 
-    private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
-
     private AudioSource _queueAudioSource;
 
     private List<AudioSource> onshotAudioSource = new List<AudioSource>();
@@ -161,7 +159,8 @@ public class AudioManager : MonoBehaviour
 
     private string GetCardDirectory()
     {
-        string languageFilename = _translator.LanguageFilenames[_translator.GameLanguage];
+        var audioLanguageManager = DependencyResolver.Container.Resolve<LocalizationService>().AudioLocalization;
+        string languageFilename = audioLanguageManager.ChosenLanguage.Filename;
         string path = $"{cardAudioDirectory}{languageFilename}/"; //CN, JP, EN
         if (Directory.Exists(path))
         {

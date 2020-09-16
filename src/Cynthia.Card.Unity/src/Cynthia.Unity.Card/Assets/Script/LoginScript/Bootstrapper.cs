@@ -13,7 +13,7 @@ public class Bootstrapper : MonoBehaviour
     {
         if (DependencyResolver.Container != null)
             return;
-        var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
+        //var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
         //builder.Register(x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();

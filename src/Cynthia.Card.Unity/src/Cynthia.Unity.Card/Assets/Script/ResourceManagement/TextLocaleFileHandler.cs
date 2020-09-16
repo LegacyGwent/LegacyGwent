@@ -3,26 +3,14 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Assets.Script.ResourceManagement.Serializables;
 using UnityEngine;
 
 namespace Assets.Script.Localization
 {
-    public class LocalizationFileHandler
+    public class TextLocaleFileHandler : FileHandler
     {
-        private readonly string _directoryPath = $"{Application.dataPath}/StreamingFile/Locales";
-        public List<LocaleInfo> LoadLanguagesConfig()
-        {
-            List<LocaleInfo> output = null;
-
-            var filePath = $"{_directoryPath}/config.json";
-            if (File.Exists(filePath))
-            {
-                var infoSerialized = File.ReadAllText(filePath);
-                output = JsonConvert.DeserializeObject<List<LocaleInfo>>(infoSerialized);
-            }
-
-            return output;
-        }
+        public TextLocaleFileHandler(string dirPath) : base(dirPath) { }
 
         public GameLocale LoadLocale(string filename)
         {
@@ -34,13 +22,12 @@ namespace Assets.Script.Localization
                 var localeSerialized = File.ReadAllText(filePath);
                 output = JsonConvert.DeserializeObject<GameLocale>(localeSerialized);
             }
-
             return output;
         }
 
         public void SaveGameLocales(IList<GameLocale> locales)
         {
-            var config = new List<LocaleInfo>();
+            var config = new List<ConfigEntry>();
 
             if (!Directory.Exists(_directoryPath))
             {
@@ -60,7 +47,7 @@ namespace Assets.Script.Localization
 
         public bool AreFilesCorrupted()
         {
-            var config = LoadLanguagesConfig();
+            var config = LoadConfig<ConfigEntry>();
             return config == null || config.Any(c => !File.Exists($"{_directoryPath}/{c.Filename}"));
         }
     }

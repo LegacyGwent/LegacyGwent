@@ -139,11 +139,11 @@ namespace Cynthia.Card.Client
             var clientVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
             var serverVersion = new Version(await GetCardMapVersion());
 
-            //infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
+            infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
 
             if (clientVersion != serverVersion)
             {
-                //infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
+                infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
                 try
                 {
                     var loadedCardMap = JsonConvert.DeserializeObject<Dictionary<string, GwentCard>>(await GetCardMap());
@@ -155,7 +155,7 @@ namespace Cynthia.Card.Client
                 }
             }
 
-            bool localeFilesNeedUpdating = _translator.FileHandler.AreFilesCorrupted();
+            /*bool localeFilesNeedUpdating = _translator.FileHandler.AreFilesCorrupted();
             if (clientVersion != serverVersion)
             {
                 localeFilesNeedUpdating = true;
@@ -165,7 +165,7 @@ namespace Cynthia.Card.Client
                 var loadedGameLocales = JsonConvert.DeserializeObject<IList<GameLocale>>(await GetGameLocales());
                 _translator.FileHandler.SaveGameLocales(loadedGameLocales);
                 _translator.Initialize(); //Load new files from the start
-            }
+            }*/
 
             infoText.text = _translator.GetText("LoginMenu_CardDataUpdated");
         }

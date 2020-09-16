@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Assets.Script.Localization.Serializables
+namespace Assets.Script.ResourceManagement.Serializables
 {
     [Serializable]
-    public class LocaleInfo
+    public class ConfigEntry
     {
         public string Name;
         public string Filename;

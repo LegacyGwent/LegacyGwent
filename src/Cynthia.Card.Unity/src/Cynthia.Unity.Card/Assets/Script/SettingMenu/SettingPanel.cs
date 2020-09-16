@@ -15,7 +15,7 @@ public class SettingPanel : MonoBehaviour
     private LocalizationService languageManager => DependencyResolver.Container.Resolve<LocalizationService>();
 
     public AudioMixer AudioMixer;
-    public UnityEvent OnLanguageChange;
+    public UnityEvent OnTextLanguageChange;
 
     private void Start()
     {
@@ -123,10 +123,15 @@ public class SettingPanel : MonoBehaviour
     }
 
     //设置语言
-    public void SetLanguage(int index)
+    public void SetTextLanguage(int index)
     {
-        PlayerPrefs.SetInt("Language", index);
-        languageManager.GameLanguage = index;
-        OnLanguageChange.Invoke();
+        PlayerPrefs.SetInt("TextLanguage", index);
+        languageManager.AudioLocalization.ChooseLanguage(index);
+        OnTextLanguageChange.Invoke();
+    }
+    public void SetAudioLanguage(int index)
+    {
+        PlayerPrefs.SetInt("AudioLanguage", index);
+        languageManager.AudioLocalization.ChooseLanguage(index);
     }
 }

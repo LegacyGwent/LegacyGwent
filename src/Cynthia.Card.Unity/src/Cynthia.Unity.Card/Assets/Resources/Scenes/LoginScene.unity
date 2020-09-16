@@ -1806,6 +1806,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1543174440}
     m_Modifications:
+    - target: {fileID: 183453432905594662, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetAudioLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 183453432905594662, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078842765713547582, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: ValuesPath
+      value: Locales
+      objectReference: {fileID: 0}
     - target: {fileID: 6439736599886893564, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
       propertyPath: ObjectsToTranslate.Array.size
@@ -2220,6 +2235,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733257366411506080, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: ChoseList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733257366411506080, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTextLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733257366411506080, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7733569862317529370, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
@@ -4638,7 +4668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e1d40e846f65c488ae8e669c747ea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cf092c67e6cf9b4499867f65c143084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2036527410
