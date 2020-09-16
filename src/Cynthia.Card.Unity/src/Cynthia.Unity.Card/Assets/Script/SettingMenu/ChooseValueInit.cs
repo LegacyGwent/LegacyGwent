@@ -9,7 +9,7 @@ namespace Assets.Script.SettingMenu
     {
         public string ValuesPath;
 
-        private void Start()
+        public void LoadValues()
         {
             var values = GetComponent<ChoseValue>();
             var resourceLoader = new ResourceHandler(ValuesPath);

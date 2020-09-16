@@ -758,7 +758,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7693784124340319716}
-        m_MethodName: SetLanguage
+        m_MethodName: SetAudioLanguage
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1568,7 +1568,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7693784124340319716}
-        m_MethodName: SetLanguage
+        m_MethodName: SetTextLanguage
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3519,13 +3519,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f96a721a0e8feb47a746602714f3dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TextLanguagePanel: {fileID: 7693161908563673098}
+  AudioLanguagePanel: {fileID: 5748043441115969603}
   ResolutionPanel: {fileID: 7693161908952674046}
   FullPanel: {fileID: 7693161907114608659}
   CloseSoundPanel: {fileID: 7693161906840271043}
   MusicVolumPanel: {fileID: 7693161908250202382}
   EffectVolumPanel: {fileID: 7693161907377420024}
   QualityPanel: {fileID: 7693161906880671465}
-  LanguagePanel: {fileID: 7693161908563673098}
   GamePlayBGMsPanel: {fileID: 7693161907219545775}
 --- !u!1 &7693784124490320924
 GameObject:

@@ -17,7 +17,7 @@ namespace Assets.Script.ResourceManagement
         public IList<T> LoadConfiguration<T>()
         {
             List<T> output = null;
-            var filePath = $"{_directoryPath}/config.json";
+            var filePath = $"{_directoryPath}/config";
             var file = Resources.Load<TextAsset>(filePath);
 
             if (file != null)
@@ -31,7 +31,7 @@ namespace Assets.Script.ResourceManagement
         public T LoadResource<T>(string filename)
         {
             T output = default(T);
-            var filePath = $"{_directoryPath}/{filename}.json";
+            var filePath = $"{_directoryPath}/{filename}";
             var file = Resources.Load<TextAsset>(filePath);
 
             if (file != null)

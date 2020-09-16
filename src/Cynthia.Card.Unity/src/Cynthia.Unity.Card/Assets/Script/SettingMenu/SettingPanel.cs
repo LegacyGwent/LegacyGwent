@@ -123,15 +123,15 @@ public class SettingPanel : MonoBehaviour
     }
 
     //设置语言
-    public void SetTextLanguage(int index)
+    public void SetTextLanguage(int langIndex)
     {
-        PlayerPrefs.SetInt("TextLanguage", index);
-        languageManager.AudioLocalization.ChooseLanguage(index);
+        PlayerPrefs.SetInt("TextLanguage", langIndex);
+        languageManager.AudioLocalization.ChooseLanguage(langIndex);
         OnTextLanguageChange.Invoke();
     }
-    public void SetAudioLanguage(int index)
+    public void SetAudioLanguage(int langIndex)
     {
-        PlayerPrefs.SetInt("AudioLanguage", index);
-        languageManager.AudioLocalization.ChooseLanguage(index);
+        PlayerPrefs.SetInt("AudioLanguage", langIndex);
+        languageManager.AudioLocalization.ChooseLanguage(langIndex);
     }
 }

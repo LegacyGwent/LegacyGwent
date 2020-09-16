@@ -14,7 +14,7 @@ namespace Assets.Script.Localization
 
         public AudioLocalization()
         {
-            _languages = _resourceHandler.LoadResource<IList<ConfigEntry>>(ChosenLanguage.Filename);
+            _languages = _resourceHandler.LoadConfiguration<ConfigEntry>();
             ChooseLanguage(PlayerPrefs.GetInt("AudioLanguage", 0));
         }
         public int ChooseLanguage(int index)
