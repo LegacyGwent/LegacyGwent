@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 24);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 25);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11249,6 +11249,47 @@ namespace Cynthia.Card
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
                     Info = "增益最弱的友军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”，则额外重复1次。",
                     CardArtsId = "d16570000",
+                }
+            },
+            {
+                "70043",//弗妮希尔的突击队 Vernossiel's Commando
+                new GwentCard()
+                {
+                    CardId ="70043",
+                    Name="弗妮希尔的突击队",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    Countdown = 2,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.Elf},
+                    Flavor = "只听一阵呼啸……六个人颓然倒毙。",
+                    Info = "第2次被交换时自动打出至随机排。",
+                    CardArtsId = "d20150000",
+                }
+            },
+            {
+                "70044",//弗妮希尔 Vernossiel
+                new GwentCard()
+                {
+                    CardId ="70044",
+                    Name="弗妮希尔",
+                    Strength=4,
+                    Group=Group.Gold,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = true,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Officer,Categorie.Elf},
+                    Flavor = "原来住在森林里的东西，并非守卫队长所说的什么“毛茸茸的鬼玩意儿”，而是松鼠党突击队。领头的人名叫弗妮希尔……",
+                    Info = "将2张“弗妮希尔的突击队”加入牌组。触发1次牌组中所有“弗妮希尔的突击队”的交换效果。",
+                    CardArtsId = "d19900000",
                 }
             },
         };
