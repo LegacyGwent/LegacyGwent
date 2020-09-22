@@ -137,7 +137,7 @@ namespace Cynthia.Card.Client
 
         public async Task AutoUpdateGame(Text infoText)
         {
-            var clientVersion = new Version(PlayerPrefs.GetString("CardMapVersion", GwentMap.CardMapVersion.ToString()));
+            var clientVersion = new Version(GwentMap.CardMapVersion.ToString());
             var serverVersion = new Version(await GetCardMapVersion());
 
             infoText.text = _translator.GetText("LoginMenu_CardDataCheck");

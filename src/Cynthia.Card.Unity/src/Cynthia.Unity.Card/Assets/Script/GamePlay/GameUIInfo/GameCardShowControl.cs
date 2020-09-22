@@ -277,7 +277,6 @@ public class GameCardShowControl : MonoBehaviour
         {
             //这里是正常的逻辑
             //设置标题
-            // TODO: brainstorm whether you can do something better here
             // useCardTitle = info.Title;
             useCardTitle = _translator.GetText("IngameMenu_CardSelection");
             //设置卡组列表

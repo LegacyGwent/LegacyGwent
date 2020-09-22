@@ -3641,11 +3641,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1100401763415578, guid: 2093bb7923e7ed8469fce5c6542f103d, type: 3}
       propertyPath: m_Name
-      value: MatchDescText
+      value: Description
       objectReference: {fileID: 0}
     - target: {fileID: 1709186756193382, guid: 2093bb7923e7ed8469fce5c6542f103d, type: 3}
       propertyPath: m_Name
-      value: MatchTitleText
+      value: Title
       objectReference: {fileID: 0}
     - target: {fileID: 114614529372704794, guid: 2093bb7923e7ed8469fce5c6542f103d,
         type: 3}
@@ -3657,6 +3657,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.62352943
       objectReference: {fileID: 0}
     - target: {fileID: 114725017988812806, guid: 2093bb7923e7ed8469fce5c6542f103d,
         type: 3}
@@ -10594,7 +10624,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1360840384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e1d40e846f65c488ae8e669c747ea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cf092c67e6cf9b4499867f65c143084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectsToTranslate:
@@ -10614,30 +10644,30 @@ MonoBehaviour:
     TextObject: {fileID: 1498532530}
   - Id: MatchmakingMenu_Title
     TextObject: {fileID: 1923763975}
-  - Id: MatchmakingMenu_DeckReady
-    TextObject: {fileID: 2128066986}
-  - Id: MatchmakingMenu_PlayButton
-    TextObject: {fileID: 138314392}
   - Id: MatchmakingMenu_PasswordPlaceholder
     TextObject: {fileID: 406884269}
+  - Id: MatchmakingMenu_CloseButton
+    TextObject: {fileID: 1321912993}
+  - Id: MatchmakingMenu_PlayButton
+    TextObject: {fileID: 138314392}
   - Id: MatchmakingMenu_ReturnButton
     TextObject: {fileID: 978309195}
   - Id: MatchmakingMenu_SwitchButton
     TextObject: {fileID: 550528890}
-  - Id: MatchmakingMenu_CloseButton
-    TextObject: {fileID: 1321912993}
-  - Id: EditorMenu_Title
-    TextObject: {fileID: 845552609}
-  - Id: EditorMenu_SearchPlaceholder
-    TextObject: {fileID: 1563719041}
-  - Id: EditorMenu_BackButton
-    TextObject: {fileID: 978949556}
-  - Id: EditorMenu_CardCount
-    TextObject: {fileID: 1408104466}
   - Id: MatchmakingMenu_CardCount
     TextObject: {fileID: 1006046359}
+  - Id: MatchmakingMenu_DeckReady
+    TextObject: {fileID: 2128066986}
+  - Id: EditorMenu_CardCount
+    TextObject: {fileID: 1408104466}
+  - Id: EditorMenu_SearchPlaceholder
+    TextObject: {fileID: 1563719041}
   - Id: EditorMenu_SearchPlaceholder
     TextObject: {fileID: 97071113}
+  - Id: EditorMenu_BackButton
+    TextObject: {fileID: 978949556}
+  - Id: EditorMenu_Title
+    TextObject: {fileID: 845552609}
 --- !u!1 &1379239522
 GameObject:
   m_ObjectHideFlags: 0
@@ -11511,11 +11541,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1100401763415578, guid: 2093bb7923e7ed8469fce5c6542f103d, type: 3}
       propertyPath: m_Name
-      value: EditorDescText
+      value: Description
       objectReference: {fileID: 0}
     - target: {fileID: 1709186756193382, guid: 2093bb7923e7ed8469fce5c6542f103d, type: 3}
       propertyPath: m_Name
-      value: EditorTitleText
+      value: Title
       objectReference: {fileID: 0}
     - target: {fileID: 1818387459338940, guid: 2093bb7923e7ed8469fce5c6542f103d, type: 3}
       propertyPath: m_Name
@@ -11545,7 +11575,32 @@ PrefabInstance:
     - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 23
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657777561133268, guid: 2093bb7923e7ed8469fce5c6542f103d,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114725017988812806, guid: 2093bb7923e7ed8469fce5c6542f103d,
         type: 3}
@@ -16305,6 +16360,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
       propertyPath: GameObjectTranslators.Array.data[1]
       value: 
       objectReference: {fileID: 7693784123135047947}
@@ -16417,6 +16477,81 @@ PrefabInstance:
         type: 3}
       propertyPath: OnLanguageChange.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1360840386}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7693784123135047947}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TranslateAll
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TranslateAll
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1302469360}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: AutoSetShowCards
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693784124340319716, guid: 589cf6bc723b9204aa21ae14ed850586,
+        type: 3}
+      propertyPath: OnTextLanguageChange.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7693784124340319718, guid: 589cf6bc723b9204aa21ae14ed850586,
         type: 3}

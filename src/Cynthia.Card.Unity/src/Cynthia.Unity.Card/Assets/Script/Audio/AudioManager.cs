@@ -162,11 +162,7 @@ public class AudioManager : MonoBehaviour
         var audioLanguageManager = DependencyResolver.Container.Resolve<LocalizationService>().AudioLocalization;
         string languageFilename = audioLanguageManager.ChosenLanguage.Filename;
         string path = $"{cardAudioDirectory}{languageFilename}/"; //CN, JP, EN
-        if (Directory.Exists(path))
-        {
-            return path;
-        }
-        return $"{cardAudioDirectory}EN/";
+        return path;
     }
 }
 

@@ -126,7 +126,7 @@ public class SettingPanel : MonoBehaviour
     public void SetTextLanguage(int langIndex)
     {
         PlayerPrefs.SetInt("TextLanguage", langIndex);
-        languageManager.AudioLocalization.ChooseLanguage(langIndex);
+        languageManager.TextLocalization.ChooseLanguage(langIndex);
         OnTextLanguageChange.Invoke();
     }
     public void SetAudioLanguage(int langIndex)

@@ -3435,7 +3435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948117501509930, guid: 6be3854b80cfb9940b30c2d96ef0d090, type: 3}
       propertyPath: m_Name
-      value: CloseButtonText
+      value: CloseGameButtonText
       objectReference: {fileID: 0}
     - target: {fileID: 114533055442639346, guid: 6be3854b80cfb9940b30c2d96ef0d090,
         type: 3}
@@ -8890,24 +8890,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1120872386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e1d40e846f65c488ae8e669c747ea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cf092c67e6cf9b4499867f65c143084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectsToTranslate:
   - Id: IngameMenu_ShowButton
     TextObject: {fileID: 679582477}
-  - Id: IngameMenu_CloseButton
-    TextObject: {fileID: 264761654}
-  - Id: IngameMenu_ConfirmButton
-    TextObject: {fileID: 1594329659}
   - Id: IngameMenu_YourTurn
     TextObject: {fileID: 1848380670}
-  - Id: IngameMenu_HideButton
-    TextObject: {fileID: 436587707}
+  - Id: IngameMenu_MulliganTitle
+    TextObject: {fileID: 1709433568}
   - Id: IngameMenu_MulliganEndButton
     TextObject: {fileID: 650711252}
+  - Id: IngameMenu_ConfirmButton
+    TextObject: {fileID: 1594329659}
+  - Id: IngameMenu_HideButton
+    TextObject: {fileID: 436587707}
   - Id: IngameMenu_ScoreTitle
     TextObject: {fileID: 63025958}
+  - Id: IngameMenu_CloseButton
+    TextObject: {fileID: 264761654}
   - Id: IngameMenu_CloseButton
     TextObject: {fileID: 405791067}
 --- !u!1 &1136800736

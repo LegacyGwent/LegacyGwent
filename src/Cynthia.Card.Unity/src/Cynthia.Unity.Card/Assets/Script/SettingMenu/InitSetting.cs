@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using Assets.Script.Localization;
-using Assets.Script.SettingMenu;
+﻿using Assets.Script.Localization;
 using Autofac;
+using System.Linq;
 using UnityEngine;
 
 public class InitSetting : MonoBehaviour
