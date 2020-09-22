@@ -11180,7 +11180,7 @@ namespace Cynthia.Card
                     Strength = 0,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.MyRow,
+                    CardUseInfo = CardUseInfo.AnyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
