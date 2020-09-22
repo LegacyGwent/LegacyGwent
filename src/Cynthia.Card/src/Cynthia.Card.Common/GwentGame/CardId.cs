@@ -542,5 +542,6 @@ namespace Cynthia.Card
         public const string TerrorCrewPlunderer = "70040";
         public const string BidensBipinnata = "70041";
         public const string AlbizziaJulibrissin = "70042";
+        public const string VernossielsCommando = "70043";
     }
 }
