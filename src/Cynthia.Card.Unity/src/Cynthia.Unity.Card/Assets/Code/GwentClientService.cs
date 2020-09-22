@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.IO;
+using Alsein.Extensions.Extensions;
 using Assets.Script.Localization;
 using Assets.Script.Localization.Serializables;
 using Assets.Script.ResourceManagement;
@@ -138,36 +139,45 @@ namespace Cynthia.Card.Client
         public async Task AutoUpdateGame(Text infoText)
         {
             var clientVersion = new Version(GwentMap.CardMapVersion.ToString());
+            var localesWereLastUpdatedTo = new Version(PlayerPrefs.GetString("LocalizationVersion", GwentMap.CardMapVersion.ToString()));
             var serverVersion = new Version(await GetCardMapVersion());
 
             infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
-
-            if (clientVersion != serverVersion)
+            try
             {
-                infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
-                try
+                // If the client is outdated, load card abilities from the server
+                // (Don't save it, we don't want players to mess with card abilities)
+                if (clientVersion != serverVersion)
                 {
+                    infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
                     var loadedCardMap = JsonConvert.DeserializeObject<Dictionary<string, GwentCard>>(await GetCardMap());
                     GwentMap.CardMap = loadedCardMap;
                 }
-                catch (Exception e)
+
+                // Download locales from the server if:
+                // 1. Locales are not downloaded and the client is outdated
+                // 2. There came out a new version of locales since the last time we downloaded them
+                var fileHandler = new TextLocalizationFileHandler("Locales");
+                if (!fileHandler.AreFilesDownloaded() && clientVersion != serverVersion ||
+                    localesWereLastUpdatedTo != serverVersion)
                 {
-                    Debug.Log($"Error loading card abilities: {e.Message}");
+                    infoText.text = _translator.GetText("LoginMenu_LanguagesUpdating");
+                    var loadedGameLocales = JsonConvert.DeserializeObject<IList<GameLocale>>(await GetGameLocales());
+                    fileHandler.SaveGameLocales(loadedGameLocales);
+                    PlayerPrefs.SetString("LocalizationVersion", serverVersion.ToString());
                 }
-            }
+                // If there are locale files downloaded, use them instead of default game resources
+                if (fileHandler.AreFilesDownloaded())
+                {
+                    _translator.TextLocalization.ResourceHandler = fileHandler;
+                }
 
-            var fileHandler = new TextLocalizationFileHandler("Locales");
-            if (clientVersion != serverVersion && !fileHandler.AreFilesDownloaded()) 
-            {
-                var loadedGameLocales = JsonConvert.DeserializeObject<IList<GameLocale>>(await GetGameLocales());
-                fileHandler.SaveGameLocales(loadedGameLocales);
+                infoText.text = _translator.GetText("LoginMenu_GameUpdated");
             }
-
-            if (fileHandler.AreFilesDownloaded())
+            catch (Exception e)
             {
-                _translator.TextLocalization.ResourceHandler = fileHandler;
+                Debug.Log($"Error loading card abilities: {e.Message}");
             }
-            infoText.text = _translator.GetText("LoginMenu_CardDataUpdated");
         }
 
         /*public async Task AutoUpdateCardMapVersion(Text text)

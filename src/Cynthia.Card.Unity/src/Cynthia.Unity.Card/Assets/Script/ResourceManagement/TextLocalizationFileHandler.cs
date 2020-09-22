@@ -13,7 +13,11 @@ namespace Assets.Script.ResourceManagement
         private string _directoryPath;
         public TextLocalizationFileHandler(string dirPath)
         {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
             _directoryPath = $"{Application.dataPath}/StreamingFile/{dirPath}";
+#elif UNITY_ANDROID
+            _directoryPath = Application.persistentDataPath;
+#endif
         }
         public IList<ConfigEntry> LoadConfiguration()
         {
