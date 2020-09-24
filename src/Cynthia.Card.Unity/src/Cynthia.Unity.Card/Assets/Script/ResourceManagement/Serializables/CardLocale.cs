@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Script.Localization.Serializables
+namespace Assets.Script.ResourceManagement.Serializables
 {
     [Serializable]
     public class CardLocale

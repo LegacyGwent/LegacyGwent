@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Script.ResourceManagement.Serializables;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using Assets.Script.Localization.Serializables;
-using Assets.Script.ResourceManagement.Serializables;
 using UnityEngine;
 
 namespace Assets.Script.ResourceManagement

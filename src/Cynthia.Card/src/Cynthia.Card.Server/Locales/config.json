@@ -1,10 +1,14 @@
 ﻿[
+{
+    "Name": "English",
+    "Filename": "en"
+  },
   {
     "Name": "中文",
     "Filename": "cn"
   },
   {
-    "Name": "English",
-    "Filename": "en"
+    "Name": "Pусский",
+    "Filename": "ru"
   }
 ]

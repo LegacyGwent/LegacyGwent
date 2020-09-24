@@ -1,8 +1,6 @@
-﻿using Assets.Script.Localization.Serializables;
-using Assets.Script.ResourceManagement;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using Assets.Script.ResourceManagement;
 using Assets.Script.ResourceManagement.Serializables;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Script.Localization

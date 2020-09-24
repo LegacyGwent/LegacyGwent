@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Alsein.Extensions.IO;
+﻿using Alsein.Extensions.IO;
 using Alsein.Extensions.LifetimeAnnotations;
+using Assets.Script.Localization;
+using Assets.Script.ResourceManagement;
+using Assets.Script.ResourceManagement.Serializables;
 using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Newtonsoft.Json;
-using System.IO;
-using Alsein.Extensions.Extensions;
-using Assets.Script.Localization;
-using Assets.Script.Localization.Serializables;
-using Assets.Script.ResourceManagement;
-using Microsoft.AspNetCore.Internal;
-using UnityEditor;
 
 namespace Cynthia.Card.Client
 {
@@ -66,7 +63,7 @@ namespace Cynthia.Card.Client
                 SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
                 await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox(
-                    _translator.GetText("PopupWindow_LoggedOutTitle"), 
+                    _translator.GetText("PopupWindow_LoggedOutTitle"),
                     _translator.GetText("PopupWindow_LoggedOutDesc"));
             });
             hubConnection.Closed += (async x =>
@@ -78,8 +75,8 @@ namespace Cynthia.Card.Client
 
                 // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
                 await _globalUIService.YNMessageBox(
-                    _translator.GetText("PopupWindow_DisconnectedTitle"), 
-                    _translator.GetText("PopupWindow_DisconnectedDesc"), 
+                    _translator.GetText("PopupWindow_DisconnectedTitle"),
+                    _translator.GetText("PopupWindow_DisconnectedDesc"),
                     "PopupWindow_OkButton", isOnlyYes: true);
                 // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
                 // messageBox.Buttons.SetActive(true);
