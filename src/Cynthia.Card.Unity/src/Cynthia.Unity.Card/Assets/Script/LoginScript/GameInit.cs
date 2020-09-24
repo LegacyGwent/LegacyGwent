@@ -2,9 +2,11 @@
 using Cynthia.Card.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Collections.Generic;
 using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameInit : MonoBehaviour
@@ -12,6 +14,9 @@ public class GameInit : MonoBehaviour
     public GameObject GlobalUI;
     public AudioMixer AudioMixer;
     public BGMManager AudioManager;
+
+    public List<GameObject> ObjectLocks;
+    public UnityEvent OnGameLoad;
 
     public Text NowVersionText;
     public Text LatestVersionText;
@@ -99,6 +104,12 @@ public class GameInit : MonoBehaviour
             NotesContext.sizeDelta =
                 new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
         }
+
+        foreach (var objLock in ObjectLocks)
+        {
+            objLock.SetActive(false);
+        }
+        OnGameLoad?.Invoke();
     }
 
     public void ConfigureGame()
@@ -122,7 +133,6 @@ public class GameInit : MonoBehaviour
             SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
             SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
             SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
-            //SetLanguage(PlayerPrefs.GetInt("Language", 0));
             NowVersionText.text = string.Format(_translator.GetText("LoginMenu_CurrentVersionInfo"), ClientGlobalInfo.Version);
 
             // AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
