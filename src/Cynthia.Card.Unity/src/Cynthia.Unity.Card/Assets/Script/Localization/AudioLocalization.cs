@@ -1,6 +1,6 @@
 ﻿using Assets.Script.ResourceManagement;
-using Assets.Script.ResourceManagement.Serializables;
 using System.Collections.Generic;
+using Cynthia.Card.Common.Models.Localization;
 using UnityEngine;
 
 namespace Assets.Script.Localization

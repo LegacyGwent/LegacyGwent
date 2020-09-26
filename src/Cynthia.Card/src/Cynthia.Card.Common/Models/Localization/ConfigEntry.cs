@@ -3,7 +3,7 @@
 namespace Cynthia.Card.Common.Models.Localization
 {
     [Serializable]
-    public class LocaleInfo
+    public class ConfigEntry
     {
         public string Name;
         public string Filename;

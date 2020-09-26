@@ -2,7 +2,6 @@
 using Alsein.Extensions.LifetimeAnnotations;
 using Assets.Script.Localization;
 using Assets.Script.ResourceManagement;
-using Assets.Script.ResourceManagement.Serializables;
 using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cynthia.Card.Common.Models.Localization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

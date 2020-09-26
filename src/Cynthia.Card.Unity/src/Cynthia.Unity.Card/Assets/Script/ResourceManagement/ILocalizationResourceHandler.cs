@@ -1,5 +1,5 @@
-﻿using Assets.Script.ResourceManagement.Serializables;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Cynthia.Card.Common.Models.Localization;
 
 namespace Assets.Script.ResourceManagement
 {

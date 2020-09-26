@@ -10,12 +10,12 @@ namespace Cynthia.Card.Server.Services.GwentGameService
         private string _gameLocales;
         public GwentLocalizationService()
         {
-            var config = new List<LocaleInfo>();
+            var config = new List<ConfigEntry>();
             var currentDirectory = Directory.GetCurrentDirectory();
             using (var stream = new StreamReader($"{currentDirectory}/Locales/config.json"))
             {
                 var serializedConfig = stream.ReadToEnd();
-                config = JsonConvert.DeserializeObject<List<LocaleInfo>>(serializedConfig);
+                config = JsonConvert.DeserializeObject<List<ConfigEntry>>(serializedConfig);
             }
 
             var loadedLocales = new List<GameLocale>();

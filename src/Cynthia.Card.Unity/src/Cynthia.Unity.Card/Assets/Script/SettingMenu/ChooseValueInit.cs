@@ -7,8 +7,6 @@ namespace Assets.Script.SettingMenu
 {
     class ChooseValueInit : MonoBehaviour
     {
-        public string ValuesPath;
-
         public void LoadValues()
         {
             var values = GetComponent<ChoseValue>();

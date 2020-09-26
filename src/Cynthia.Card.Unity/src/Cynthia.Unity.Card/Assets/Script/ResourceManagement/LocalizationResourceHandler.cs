@@ -1,6 +1,6 @@
-﻿using Assets.Script.ResourceManagement.Serializables;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using Cynthia.Card.Common.Models.Localization;
 using UnityEngine;
 
 namespace Assets.Script.ResourceManagement
