@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Resources/Secens/Entrance.unity
+    path: Assets/Resources/Scenes/Entrance.unity
     guid: f5938d25ad5c460479dd229ec5821210
   - enabled: 1
-    path: Assets/Resources/Secens/LoginSecen.unity
+    path: Assets/Resources/Scenes/LoginScene.unity
     guid: 08643d24fe8a68d48880cd9778876045
   - enabled: 1
-    path: Assets/Resources/Secens/Game.unity
+    path: Assets/Resources/Scenes/Game.unity
     guid: 5aa0704cfadb67143a66ec9b6f4f9783
   - enabled: 1
-    path: Assets/Resources/Secens/GamePlay.unity
+    path: Assets/Resources/Scenes/GamePlay.unity
     guid: e01a149491d36be4da03742595ddfc32
   m_configObjects: {}

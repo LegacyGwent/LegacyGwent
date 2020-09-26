@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Net.Mime;
-using System.Collections;
+﻿using Alsein.Extensions;
+using Autofac;
+using Cynthia.Card;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.UI;
-using Cynthia.Card;
-using Alsein.Extensions;
 
 public class CardContent : MonoBehaviour
 {
@@ -69,19 +69,25 @@ public class CardContent : MonoBehaviour
         }
         Head.sprite = HeadMap[cardStatus.Faction];
         Bottom.sprite = ContentMap[cardStatus.Faction];
-        CardInfoText.text = ToTrueString(cardStatus.Info);
-        CardNameText.text = ToTrueString(cardStatus.Name);
-        TagsText.text = ToTrueString(cardStatus.Categories.Select(x => GwentMap.CategorieInfoMap[x]).Join(", "));
-        if (cardStatus.IsImmue)
-            TagsText.text += string.IsNullOrWhiteSpace(TagsText.text) ? "免疫" : ", 免疫";
-        if (cardStatus.IsDoomed && !TagsText.text.Contains("佚亡"))
-            TagsText.text += string.IsNullOrWhiteSpace(TagsText.text) ? "佚亡" : ", 佚亡";
-        Content.sizeDelta = new Vector2(Content.sizeDelta.x, CardInfoText.preferredHeight + 115);
-        // Debug.Log(CardInfoText.preferredHeight);
-    }
 
-    public string ToTrueString(string s)
-    {
-        return s.Replace(" ", "\u00A0");
+        var translator = DependencyResolver.Container.Resolve<LocalizationService>();
+
+        CardInfoText.text = translator.GetCardInfo(cardStatus.CardId);
+        CardNameText.text = translator.GetCardName(cardStatus.CardId);
+
+        TagsText.text = cardStatus.Categories.Select(x => GwentMap.CategorieInfoMap[x])
+            .ForAll(t => t = translator.GetText($"CardTag_{t}")).Join(", ");
+
+        var immuneTag = translator.GetText("CardTag_Immune");
+        if (cardStatus.IsImmue)
+        {
+            TagsText.text += string.IsNullOrWhiteSpace(TagsText.text) ? immuneTag : $", {immuneTag}";
+        }
+        var doomedTag = translator.GetText("CardTag_Doomed");
+        if (cardStatus.IsDoomed && !TagsText.text.Contains(doomedTag))
+        {
+            TagsText.text += string.IsNullOrWhiteSpace(TagsText.text) ? doomedTag : $", {doomedTag}";
+        }
+        Content.sizeDelta = new Vector2(Content.sizeDelta.x, CardInfoText.preferredHeight + 115);
     }
 }
