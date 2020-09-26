@@ -2,6 +2,7 @@
 using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using UnityEngine;
 
@@ -11,12 +12,11 @@ public class Bootstrapper : MonoBehaviour
     {
         if (DependencyResolver.Container != null)
             return;
-        //var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
+        var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
-        //builder.Register(x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
-        //builder.Register(x => new HubConnectionBuilder().WithUrl("http://95.155.87.88:28003/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
-        builder.Register(x => new HubConnectionBuilder().WithUrl("http://localhost:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
+        builder.Register(x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
+        //builder.Register(x => new HubConnectionBuilder().WithUrl("http://localhost:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
 
         DependencyResolver.Container = AutoRegisterService(builder).Build();
     }

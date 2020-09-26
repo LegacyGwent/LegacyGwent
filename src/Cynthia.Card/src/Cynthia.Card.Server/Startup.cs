@@ -1,13 +1,11 @@
-﻿using System;
-using System.IO;
-using Cynthia.Card.Server.Services.GwentGameService;
+﻿using Cynthia.Card.Server.Services.GwentGameService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using System;
 
 namespace Cynthia.Card.Server
 {
@@ -32,12 +30,10 @@ namespace Cynthia.Card.Server
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             if (_env.IsDevelopment())
             {
-                //services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:27017/gwent-diy"));
-                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb+srv://cynthia:q123456@cluster0-n0gv4.mongodb.net/gwent"));
+                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:27017/gwent-diy"));
             }
             else
             {
-                
                 services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent-diy"));
             }
         }
