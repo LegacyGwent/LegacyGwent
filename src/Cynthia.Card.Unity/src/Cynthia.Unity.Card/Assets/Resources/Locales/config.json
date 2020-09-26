@@ -1,5 +1,5 @@
 ﻿[
-{
+  {
     "Name": "English",
     "Filename": "en"
   },
@@ -9,6 +9,6 @@
   },
   {
     "Name": "Pусский",
-	"Filename": "ru"
+    "Filename": "ru"
   }
 ]
