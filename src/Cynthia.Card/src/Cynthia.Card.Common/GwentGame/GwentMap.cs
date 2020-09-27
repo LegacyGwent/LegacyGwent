@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 25);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 26);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11290,6 +11290,47 @@ namespace Cynthia.Card
                     Flavor = "原来住在森林里的东西，并非守卫队长所说的什么“毛茸茸的鬼玩意儿”，而是松鼠党突击队。领头的人名叫弗妮希尔……",
                     Info = "将2张“弗妮希尔的突击队”加入牌组。触发1次牌组中所有“弗妮希尔的突击队”的交换效果。",
                     CardArtsId = "d19900000",
+                }
+            },
+            {
+                "70045",//米薇 Mave
+                new GwentCard()
+                {
+                    CardId ="70045",
+                    Name="米薇",
+                    Strength=7,
+                    Group=Group.Leader,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Leader},
+                    CrewCount = 1,
+                    Flavor = "莱里亚女王米薇闷闷不乐地摆弄着项链上的硕大红宝石，美丽而丰满的嘴唇不时扭曲起来。",
+                    Info = "使己方半场、手牌、牌库各1个单位获得4点增益。操控。",
+                    CardArtsId = "d15660000",
+                }
+            },
+            {
+                "70046",//斯瓦勃洛狂信者 SvalblodFanatic
+                new GwentCard()
+                {
+                    CardId ="70046",
+                    Name="斯瓦勃洛狂信者",
+                    Strength=10,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
+                    Flavor = "并非所有人都配获得斯瓦勃洛的祝福。",
+                    Info = "回合结束时，对1个战力最低的敌军单位造成3点伤害，然后对自身造成3点伤害。",
+                    CardArtsId = "d16730000",
                 }
             },
         };
