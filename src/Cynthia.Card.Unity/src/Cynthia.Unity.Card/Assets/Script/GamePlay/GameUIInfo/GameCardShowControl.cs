@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,8 +50,15 @@ public class GameCardShowControl : MonoBehaviour
     //
     private ITubeInlet sender;
     private ITubeOutlet receiver;
-    private void Awake() => (sender, receiver) = Tube.CreateSimplex();
-    private bool IsAutoPlay { get => DependencyResolver.Container.Resolve<GwentClientService>().IsAutoPlay; }
+    //
+
+    private void Awake()
+    {
+        (sender, receiver) = Tube.CreateSimplex();
+    }
+    private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
+    private bool IsAutoPlay => DependencyResolver.Container.Resolve<GwentClientService>().IsAutoPlay;
+
     //------------------------------------------------------------------------------------------
     public void OpenButtonClick()//显示卡牌
     {
@@ -157,7 +165,7 @@ public class GameCardShowControl : MonoBehaviour
     {
         if (MyCemetery == null || MyCemetery.Count == 0)
             return;
-        ShowCardMessage.text = "我方墓地";
+        ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerGraveyard");
         _nowShowType = MenuShowType.MyCemetery;
         SetCardInfo(MyCemetery);
         SelectCard(-1);
@@ -169,7 +177,7 @@ public class GameCardShowControl : MonoBehaviour
     {
         if (EnemyCemetery == null || EnemyCemetery.Count == 0)
             return;
-        ShowCardMessage.text = "敌方墓地";
+        ShowCardMessage.text = _translator.GetText("IngameMenu_EnemyGraveyard");
         _nowShowType = MenuShowType.EnemyCemetery;
         SetCardInfo(EnemyCemetery);
         SelectCard(-1);
@@ -183,7 +191,7 @@ public class GameCardShowControl : MonoBehaviour
         Debug.Log(MyDeck?.Count());
         if (MyDeck == null || MyDeck.Count() == 0)
             return;
-        ShowCardMessage.text = "我方卡组(原始状态,顺序)";
+        ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerDeck");
         _nowShowType = MenuShowType.MyDeck;
         SetCardInfo(MyDeck);
         SelectCard(-1);
@@ -198,7 +206,7 @@ public class GameCardShowControl : MonoBehaviour
 
         NowMulliganCount = 0;
         NowMulliganTotal = total;
-        useCardTitle = $"选择1张卡重抽。[{NowMulliganCount}/{NowMulliganTotal}]";
+        useCardTitle = string.Format(_translator.GetText("IngameMenu_MulliganTitle"), NowMulliganCount, NowMulliganTotal);
         UseCardList = cards;
         OpenButton.SetActive(true);//打开显示按钮
                                    //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
@@ -209,7 +217,7 @@ public class GameCardShowControl : MonoBehaviour
     public void OperationEnd()
     {
         _nowUseMenuType = UseCardShowType.None;
-        useCardTitle = "错误";
+        useCardTitle = _translator.GetText("IngameMenu_ErrorTitle");
         NowSelect = new List<int>();
         UseCardList = new List<CardStatus>();
         OpenButton.SetActive(false);//打开
@@ -237,7 +245,7 @@ public class GameCardShowControl : MonoBehaviour
         _nowUseMenuType = UseCardShowType.None;
         if (result != -1)
             NowMulliganCount++;
-        useCardTitle = $"选择1张卡重抽。[{NowMulliganCount}/{NowMulliganTotal}]";
+        useCardTitle = string.Format(_translator.GetText("IngameMenu_MulliganTitle"), NowMulliganCount, NowMulliganTotal);
         if (IsUseMenuShow)
             ShowCardMessage.text = useCardTitle;
         //Debug.Log("发送调度消息");
@@ -269,7 +277,8 @@ public class GameCardShowControl : MonoBehaviour
         {
             //这里是正常的逻辑
             //设置标题
-            useCardTitle = info.Title;
+            // useCardTitle = info.Title;
+            useCardTitle = _translator.GetText("IngameMenu_CardSelection");
             //设置卡组列表
             UseCardList = info.SelectList;
             OpenButton.SetActive(true);//打开显示按钮

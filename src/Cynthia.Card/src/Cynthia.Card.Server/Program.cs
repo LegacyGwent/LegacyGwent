@@ -1,18 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NLog.Web;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Cynthia.Card.Server
 {

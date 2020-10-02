@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Script.Localization;
+using Autofac;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ChoseValue : MonoBehaviour {
-    public string[] ChoseList;
-    private int _index=0;
+    public List<string> ChoseList;
+    private int _index = 0;
     public int Index
     {
         get
@@ -17,7 +19,8 @@ public class ChoseValue : MonoBehaviour {
         set
         {
             _index = value;
-            ShowText.text = ChoseList[Index];
+            if (_translator == null) { Start(); }
+            ShowText.text = _translator.GetText(ChoseList[Index]);
             onValueChanged.Invoke(Index);
         }
     }
@@ -28,23 +31,25 @@ public class ChoseValue : MonoBehaviour {
 
     public Text ShowText;
 
+    private LocalizationService _translator;
+
     private void Start()
     {
-        ShowText.text = ChoseList[Index];
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
     public void LeftButtonClick()
     {
         if (Index-1 < 0)
         {
-            Index = ChoseList.Length - 1;
+            Index = ChoseList.Count - 1;
             return;
         }
         Index--;
     }
     public void RightButtonClick()
     {
-        if (Index+1 >= ChoseList.Length)
+        if (Index+1 >= ChoseList.Count)
         {
             Index = 0;
             return;

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Script.Localization;
+using Autofac;
 using UnityEngine;
 using UnityEngine.UI;
 using Cynthia.Card;
@@ -19,6 +21,7 @@ public class ListCardShowInfo : MonoBehaviour
     public Sprite SilverStar;
     public Sprite GoldStar;
     public CardStatus CardStatus;
+
     private void SetCardInfo(int strength, string name, int count = 1, Group group = Group.Gold)
     {
         Border.sprite = (group == Group.Gold ? Gold : (group == Group.Silver ? Silver : Copper));
@@ -43,7 +46,10 @@ public class ListCardShowInfo : MonoBehaviour
     }
     public void SetCardInfo(string id, int count = 1)
     {
+        var translator = DependencyResolver.Container.Resolve<LocalizationService>();
         CardStatus = new CardStatus(id);
+        CardStatus.Name = translator.GetCardName(id);
+        CardStatus.Info = translator.GetCardInfo(id);
         SetCardInfo(CardStatus.Strength, CardStatus.Name, count, CardStatus.Group);
     }
 }

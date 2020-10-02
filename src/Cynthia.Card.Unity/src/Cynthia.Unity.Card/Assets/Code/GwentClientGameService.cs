@@ -135,7 +135,7 @@ namespace Cynthia.Card.Client
                     Debug.Log(arguments[0].ToType<string>());
                     break;
                 case ServerOperationType.MessageBox:
-                    _ = GlobalUIService.YNMessageBox("收到了一个来自服务器的消息", arguments[0].ToType<string>());
+                    _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), "PopupWindow_OkButton", isOnlyYes: true);
                     break;
                 case ServerOperationType.RoundEnd://回合结束
                     GameCodeService.RoundEnd();
@@ -181,7 +181,7 @@ namespace Cynthia.Card.Client
                     GameCodeService.BigRoundShowPoint(arguments[0].ToType<BigRoundInfomation>());
                     break;
                 case ServerOperationType.BigRoundSetMessage:
-                    GameCodeService.BigRoundSetMessage(arguments[0].ToType<string>());
+                    GameCodeService.BigRoundSetMessage();
                     break;
                 case ServerOperationType.BigRoundShowClose:
                     GameCodeService.BigRoundShowClose();
