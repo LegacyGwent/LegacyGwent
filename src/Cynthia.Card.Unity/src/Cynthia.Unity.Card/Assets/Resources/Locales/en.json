@@ -2952,6 +2952,26 @@
 			"Name": "White Raffard's Decoction",
 			"Info": "Boost the weakest ally unit by 2 points. Repeat 4 times. For each \"Giga Scorpion Decoction\" in your graveyard, repeat once more.",
 			"Flavor": ""
+		},
+		"70043": {
+			"Name": "Vernossiel's Commando",
+			"Info": "After you Swap this unit two times, summon it to a random row.",
+			"Flavor": ""
+		},
+		"70044": {
+			"Name": "Vernossiel",
+			"Info": "Deploy: Add 2 \"Vernossiel's Commandos\" to your deck and reduce their counter by 1.",
+			"Flavor": ""
+		},
+		"70045": {
+			"Name": "Meve",
+			"Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4. Crew.",
+			"Flavor": ""
+		},
+		"70046": {
+			"Name": "Svalblod Fanatic",
+			"Info": "On round end, deal 3 damage to the weakest enemy unit, then deal 3 damage to self.",
+			"Flavor": ""
 		}
 	}
 }
