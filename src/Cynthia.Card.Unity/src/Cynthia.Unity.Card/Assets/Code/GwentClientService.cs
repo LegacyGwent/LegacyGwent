@@ -140,6 +140,7 @@ namespace Cynthia.Card.Client
             var serverVersion = new Version(await GetCardMapVersion());
 
             infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
+            var fileHandler = new TextLocalizationFileHandler("Locales");
             try
             {
                 // If the client is outdated, load card abilities from the server
@@ -150,11 +151,10 @@ namespace Cynthia.Card.Client
                     var loadedCardMap = JsonConvert.DeserializeObject<Dictionary<string, GwentCard>>(await GetCardMap());
                     GwentMap.CardMap = loadedCardMap;
                 }
-
                 // Download locales from the server if:
                 // 1. Locales are not downloaded and the client is outdated
                 // 2. There came out a new version of locales since the last time we downloaded them
-                var fileHandler = new TextLocalizationFileHandler("Locales");
+                
                 if (!fileHandler.AreFilesDownloaded() && clientVersion != serverVersion ||
                     localesWereLastUpdatedTo != serverVersion)
                 {
@@ -163,17 +163,18 @@ namespace Cynthia.Card.Client
                     fileHandler.SaveGameLocales(loadedGameLocales);
                     PlayerPrefs.SetString("LocalizationVersion", serverVersion.ToString());
                 }
-                // If there are locale files downloaded, use them instead of default game resources
-                if (fileHandler.AreFilesDownloaded())
-                {
-                    _translator.TextLocalization.ResourceHandler = fileHandler;
-                }
-
                 infoText.text = _translator.GetText("LoginMenu_GameUpdated");
             }
             catch (Exception e)
             {
                 Debug.Log($"Error loading card abilities: {e.Message}");
+                infoText.text = string.Format(_translator.GetText("LoginMenu_UpdateError"), e.Message);
+            }
+
+            // If there are locale files downloaded, use them instead of default game resources
+            if (fileHandler.AreFilesDownloaded())
+            {
+                _translator.TextLocalization.ResourceHandler = fileHandler;
             }
         }
 

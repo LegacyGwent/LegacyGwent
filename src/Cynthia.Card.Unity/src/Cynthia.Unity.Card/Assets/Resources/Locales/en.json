@@ -30,6 +30,7 @@
 		"LoginMenu_CardDataUpdating": "Updating card data... Please wait...",
 		"LoginMenu_LanguagesUpdating": "Updating game languages... Please wait...",
 		"LoginMenu_GameUpdated": "The game has been updated successfully.",
+		"LoginMenu_UpdateError": "The game couldn't be updated: {0}",
 		"RegisterMenu_RegisterTitle": "Register",
 		"RegisterMenu_BackButton": "BACK",
 		"RegisterMenu_RegisterButton": "REGISTER",

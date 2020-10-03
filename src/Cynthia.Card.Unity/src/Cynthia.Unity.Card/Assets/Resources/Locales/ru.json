@@ -30,6 +30,7 @@
 		"LoginMenu_CardDataUpdating": " Обновление данных карты ... Подождите ...",
 		"LoginMenu_LanguagesUpdating": "Обновление языкового пакета... Ожидайте...",
 		"LoginMenu_GameUpdated": "Игра обновлена успешно.",
+    "LoginMenu_UpdateError": "The game couldn't be updated: {0}",
 		"RegisterMenu_RegisterTitle": "Регистрация",
 		"RegisterMenu_BackButton": "Назад",
 		"RegisterMenu_RegisterButton": "Регистрация",

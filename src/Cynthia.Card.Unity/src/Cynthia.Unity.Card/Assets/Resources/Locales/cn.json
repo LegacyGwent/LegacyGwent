@@ -30,6 +30,7 @@
 		"LoginMenu_CardDataUpdating": "检测到更新卡牌数据,正在更新,请等待片刻...",
 		"LoginMenu_LanguagesUpdating": "正在更新语言,请等待片刻...",
 		"LoginMenu_GameUpdated": "更新成功",
+		"LoginMenu_UpdateError": "更新错误: {0}",
 		"RegisterMenu_RegisterTitle": "注册",
 		"RegisterMenu_BackButton": "登录",
 		"RegisterMenu_RegisterButton": "注册",
