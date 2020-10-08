@@ -11,8 +11,10 @@ using Cynthia.Card.Client;
 using System;
 using DG.Tweening;
 using System.Threading.Tasks;
+using Assets.Script.Localization;
 using UnityEngine.Events;
 using static UnityEngine.UI.Scrollbar;
+using Cynthia.Card.Common.Extensions;
 
 public class EditorInfo : MonoBehaviour
 {
@@ -90,10 +92,13 @@ public class EditorInfo : MonoBehaviour
     public Text AllCount;   //全部数量
     public Text AllCountText;
     //------------------------------------------------
+    private LocalizationService _translator;
+
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
     void Start()
@@ -204,7 +209,7 @@ public class EditorInfo : MonoBehaviour
         EditorStatus = EditorStatus.ShowCards;
         _nowSwitchLeaderId = null;
         _nowEditorDeck = null;
-        DeckName.text = "默认名称";
+        DeckName.text = _translator.GetText("EditorMenu_DefaultDeckname");
         _nowEditorGroup = Group.Leader;
         EditorBodyCore.SetActive(false);
         EditorBodyMian.SetActive(true);
@@ -225,10 +230,10 @@ public class EditorInfo : MonoBehaviour
             _cards
             .Where(x => ((_showFaction == Faction.All) ? true : (x.Faction == _showFaction)))
             .Where(x => ((_showSearchMessage == "") ? true :
-                (x.CardInfo().Name.Contains(_showSearchMessage) ||
-                x.CardInfo().Info.Contains(_showSearchMessage) ||
+                (_translator.GetCardName(x.CardInfo().CardId).Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                _translator.GetCardInfo(x.CardInfo().CardId).Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
                 x.CardInfo().Strength.ToString().Contains(_showSearchMessage) ||
-                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_showSearchMessage))
+                x.Categories.Select(tag => _translator.GetText($"CardTag_{GwentMap.CategorieInfoMap[tag]}")).Any(text => text.Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase))
                 )))
             .ToList()
         );
@@ -295,11 +300,13 @@ public class EditorInfo : MonoBehaviour
 
     public async void ShowDeckRemoveClick(string Id)
     {
-        if (await _globalUIService.YNMessageBox("是否要删除卡组", $"是否删除 {_clientService.User.Decks.Single(x => x.Id == Id).Name} 卡组"))
+        if (await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckTitle", 
+            string.Format(_translator.GetText("PopupWindow_DeleteDeckDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name)))
         {
             if (!(await _clientService.RemoveDeck(Id)))
             {
-                await _globalUIService.YNMessageBox("删除卡组失败", $"无法删除卡组 {_clientService.User.Decks.Single(x => x.Id == Id).Name}");
+                await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckErrorTitle",
+                    string.Format(_translator.GetText("PopupWindow_DeleteDeckErrorDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name));
             }
             else
             {
@@ -332,7 +339,7 @@ public class EditorInfo : MonoBehaviour
     {   //点击新建按钮后
         if (_clientService.User.Decks.Count >= 100)
         {
-            _globalUIService.YNMessageBox("卡组数量已经达到100", "无法添加更多卡组,请删除或者编辑现有卡组");
+            _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_DeckLimitTitle"), _translator.GetText("PopupWindow_DeckLimitDesc"));
         }
         else
         {
@@ -353,7 +360,7 @@ public class EditorInfo : MonoBehaviour
                 .ToList());
             _nowSwitchLeaderId = null;
             _nowEditorDeck = null;
-            DeckName.text = "默认名称";
+            DeckName.text = _translator.GetText("EditorMenu_DefaultDeckname");
         }
     }
 
@@ -414,7 +421,7 @@ public class EditorInfo : MonoBehaviour
                 EditorStatus = EditorStatus.SwitchFaction;
                 _nowSwitchLeaderId = null;
                 _nowEditorDeck = null;
-                DeckName.text = "默认名称";
+                DeckName.text = _translator.GetText("EditorMenu_DefaultDeckname");
                 break;
             case EditorStatus.SwitchFaction://选择势力阶段,变为展示卡牌阶段
                 OpenEditor(false);
@@ -446,7 +453,7 @@ public class EditorInfo : MonoBehaviour
                 // }
                 // else
                 // {
-                _nowEditorDeck.Name = (DeckName.text == "" ? "默认名称" : DeckName.text);
+                _nowEditorDeck.Name = (DeckName.text == "" ? _translator.GetText("EditorMenu_DefaultDeckname") : DeckName.text);
                 if (_clientService.User.Decks.Any(x => x.Id == (_nowEditorDeck.Id == null ? "" : _nowEditorDeck.Id)))
                 {
                     // if (await _globalUIService.YNMessageBox("是否修改卡组?", $"是否修改卡组 {DeckName.text}"))
@@ -459,11 +466,14 @@ public class EditorInfo : MonoBehaviour
                     }
                     else
                     {
-                        if (!(await _globalUIService.YNMessageBox("发生了一个错误", "因为不明原因,无法添加卡组,是否返回初始界面", "是", "否")))
+                        if (!(await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_AddDeckErrorTitle"),
+                            _translator.GetText("PopupWindow_AddDeckErrorDesc"))))
                         {
                             break;
                         }
                     }
+                    
+
                     // }
                 }
                 else
@@ -478,7 +488,8 @@ public class EditorInfo : MonoBehaviour
                     }
                     else
                     {
-                        if (!(await _globalUIService.YNMessageBox("发生了一个错误", "因为不明原因,无法添加卡组,是否返回初始界面", "是", "否")))
+                        if (!(await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_AddDeckErrorTitle"),
+                            _translator.GetText("PopupWindow_AddDeckErrorDesc"))))
                         {
                             break;
                         }
@@ -519,7 +530,7 @@ public class EditorInfo : MonoBehaviour
     public void ResetEditorCore()
     {//初始化
         EditorSearch.text = "";
-        DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? "默认名称" : _nowEditorDeck.Name;
+        DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? _translator.GetText("EditorMenu_DefaultDeckname") : _nowEditorDeck.Name;
         EditorHeadT.sprite = EditorSpriteHeadT[GetFactionIndex(_nowSwitchFaction)];
         EditorHeadB.sprite = EditorSpriteHeadB[GetFactionIndex(_nowSwitchFaction)];
         //
@@ -594,10 +605,10 @@ public class EditorInfo : MonoBehaviour
             _cards
             .Where(x => ((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction)))
             .Where(x => ((_editorSearchMessage == "") ? true :
-                (x.CardInfo().Name.Contains(_editorSearchMessage) ||
-                x.CardInfo().Info.Contains(_editorSearchMessage) ||
-                x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
-                x.Categories.Select(tag => GwentMap.CategorieInfoMap[tag]).Any(text => text.Contains(_editorSearchMessage))
+                (_translator.GetCardName(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                 _translator.GetCardInfo(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
+                 x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
+                 x.Categories.Select(tag => _translator.GetText($"CardTag_{GwentMap.CategorieInfoMap[tag]}")).Any(text => text.Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase))
                 )))
             .Where(x => _nowEditorGroup == Group.Leader ? x.Group != Group.Leader : x.Group == _nowEditorGroup)
             .ToList()

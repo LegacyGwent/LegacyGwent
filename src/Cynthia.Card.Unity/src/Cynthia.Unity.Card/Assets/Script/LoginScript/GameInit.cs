@@ -1,24 +1,22 @@
-﻿using System.Net.Mime;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Autofac;
-using Microsoft.AspNetCore.SignalR.Client;
-using System.Threading.Tasks;
-using Alsein.Extensions.IO;
-using UnityEngine.Audio;
-using System;
-using UnityEngine.UI;
+﻿using Autofac;
 using Cynthia.Card.Client;
-using Newtonsoft.Json;
-using Cynthia.Card;
+using Microsoft.AspNetCore.SignalR.Client;
+using System;
+using System.Collections.Generic;
+using Assets.Script.Localization;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameInit : MonoBehaviour
 {
     public GameObject GlobalUI;
-    //public GameObject AudioSound;
     public AudioMixer AudioMixer;
     public BGMManager AudioManager;
+
+    public List<GameObject> ObjectLocks;
+    public UnityEvent OnGameLoad;
 
     public Text NowVersionText;
     public Text LatestVersionText;
@@ -26,10 +24,12 @@ public class GameInit : MonoBehaviour
     public RectTransform NotesContext;
 
     private GwentClientService _gwentClientService;
+    private LocalizationService _translator;
 
     private void Start()
     {
         _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         ConfigureGame();
         LoadServerMessage();
     }
@@ -42,8 +42,8 @@ public class GameInit : MonoBehaviour
     public async void LoadServerMessage()
     {
         var i = 0;
-        LatestVersionText.text = "正在连接服务器。。。";
-        NotesText.text = "正在与服务器连接。。。请稍等。。。";
+        LatestVersionText.text = _translator.GetText("LoginMenu_LoadingLatestVersion");
+        NotesText.text = _translator.GetText("LoginMenu_LoadingNews");
         while (true)
         {
             try
@@ -57,14 +57,17 @@ public class GameInit : MonoBehaviour
             }
             catch
             {
-                i++;
-                if (i == 1)
+                if (NotesText != null)
                 {
-                    NotesText.text += "\n网络正常的情况下突然断线可能是由于服务器重启,通常会在1分钟以内完成重启,请稍等。。。";
+                    i++;
+                    if (i == 1)
+                    {
+                        NotesText.text += $"\n{_translator.GetText("LoginMenu_DisconnectionInfo")}";
+                    }
+                    NotesText.text += "\n" + string.Format(_translator.GetText("LoginMenu_DisconnectionRetry"), i, i + 1);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
+                    NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
                 }
-                NotesText.text += $"\n第{i}次连接失败,正在进行第{i + 1}次连接。。。";
-                LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
-                NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
             }
         }
         try
@@ -75,21 +78,38 @@ public class GameInit : MonoBehaviour
         }
         catch
         {
-            NotesText.text = "暂未获取到公告。可能是由于服务器未打开或网络连接中断。";
+            if (NotesText != null)
+            {
+                NotesText.text = _translator.GetText("LoginMenu_NewsError");
+            }
         }
 
         try
         {
             //var version = new Version(await _gwentClientService.GetLatestVersion());
             //LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
-            await _gwentClientService.AutoUpdateCardMapVersion(LatestVersionText);
+            await _gwentClientService.AutoUpdateGame(LatestVersionText);
         }
         catch (Exception e)
         {
             Debug.Log(e);
-            LatestVersionText.text = $"发生异常错误,可能原因:文件损坏或未连接到服务器  异常信息:{e.Message}";
+            if (LatestVersionText != null)
+            {
+                LatestVersionText.text = string.Format(_translator.GetText("LoginMenu_LatestVersionError"), e.Message);
+            }
         }
-        NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
+
+        if (NotesContext != null)
+        {
+            NotesContext.sizeDelta =
+                new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
+        }
+
+        foreach (var objLock in ObjectLocks)
+        {
+            objLock.SetActive(false);
+        }
+        OnGameLoad?.Invoke();
     }
 
     public void ConfigureGame()
@@ -113,8 +133,7 @@ public class GameInit : MonoBehaviour
             SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
             SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
             SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
-            SetLanguage(PlayerPrefs.GetInt("Language", 0));
-            NowVersionText.text = "当前版本为：" + ClientGlobalInfo.Version.ToString();
+            NowVersionText.text = string.Format(_translator.GetText("LoginMenu_CurrentVersionInfo"), ClientGlobalInfo.Version);
 
             // AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
             // AudioManager.Instance.SetLanguageType((LanguageType)PlayerPrefs.GetInt("Language", 0));
@@ -191,11 +210,5 @@ public class GameInit : MonoBehaviour
         }
         //AudioSource.GetComponent<AudioSource>().Play();
         AudioMixer.SetFloat("volum", 0);
-    }
-
-    //设置语言
-    public void SetLanguage(int index)
-    {
-        PlayerPrefs.SetInt("Language", index);
     }
 }

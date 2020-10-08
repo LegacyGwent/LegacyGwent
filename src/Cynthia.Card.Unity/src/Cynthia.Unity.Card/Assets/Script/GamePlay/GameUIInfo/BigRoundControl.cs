@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Script.Localization;
+using Autofac;
 using UnityEngine;
 using UnityEngine.UI;
 using Cynthia.Card;
@@ -20,61 +22,44 @@ public class BigRoundControl : MonoBehaviour
     public GameObject EnemyWinCountLeft;
     public GameObject EnemyWinCountRight;
 
+    private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
+
     public void Test()
     {
         //ShowPoint(false, "输掉啦!", 1, 99999, 0, 2);
     }
-    public void ShowMessage(BigRoundInfomation data)
-    {
-        //bool isWin,string title, string message
-        BigRound.SetActive(true);
-        Title.text = data.Title;
-        if (data.GameStatus == GameStatus.Win)
-        {
-            BigRoundBg.color = new Color32(10, 10, 24, 220);
-            TitleBg.color = new Color32(0, 130, 255, 255);
-        }
-        else if (data.GameStatus == GameStatus.Lose)
-        {
-            BigRoundBg.color = new Color32(24, 10, 10, 220);
-            TitleBg.color = new Color32(255, 0, 0, 255);
-        }
-        else
-        {
-            BigRoundBg.color = new Color32(10, 10, 10, 220);
-            TitleBg.color = new Color32(200, 130, 80, 255);
-        }
-        SetMessage(data.Message);
-        BigRound.SetActive(true);
-    }
     public void ShowPoint(BigRoundInfomation data)
-    {//bool isWin,string title, int myPoint, int enemyPoint, int myWinCount, int enemyWinCount
-        BigRound.SetActive(true);
-        Title.text = data.Title;
+    {
         if (data.GameStatus == GameStatus.Win)
         {
             BigRoundBg.color = new Color32(10, 10, 24, 220);
             TitleBg.color = new Color32(0, 130, 255, 255);
+            Title.text = _translator.GetText("IngameMenu_RoundWonTitle");
+
+            var roundCount = data.EnemyWinCount + data.MyWinCount;
+            Message.text = _translator.GetText(roundCount == 1 ? "IngameMenu_SecondRoundTitle" : "IngameMenu_LastRoundTitle");
         }
         else if (data.GameStatus == GameStatus.Lose)
         {
             BigRoundBg.color = new Color32(24, 10, 10, 220);
             TitleBg.color = new Color32(255, 0, 0, 255);
+            Title.text = _translator.GetText("IngameMenu_RoundLostTitle");
+
+            var roundCount = data.EnemyWinCount + data.MyWinCount;
+            Message.text = _translator.GetText(roundCount == 1 ? "IngameMenu_SecondRoundTitle" : "IngameMenu_LastRoundTitle");
         }
         else
         {
             BigRoundBg.color = new Color32(10, 10, 10, 220);
             TitleBg.color = new Color32(200, 130, 80, 255);
+            Title.text = _translator.GetText("IngameMenu_RoundDrawTitle");
+            Message.text = _translator.GetText("IngameMenu_LastRoundTitle");
         }
+
         SetPoint(data);
         BigRound.SetActive(true);
     }
-    public void SetMessage(string message)
-    {
-        Message.text = message;
-        PointShow.SetActive(false);
-        MessageShow.SetActive(true);
-    }
+
     public void SetPoint(BigRoundInfomation data)
     {
         MyPoint.text = data.MyPoint.ToString();
@@ -107,5 +92,11 @@ public class BigRoundControl : MonoBehaviour
     public void CloseBigRound()
     {
         BigRound.SetActive(false);
+    }
+
+    public void DisplayMessage()
+    {
+        PointShow.SetActive(false);
+        MessageShow.SetActive(true);
     }
 }

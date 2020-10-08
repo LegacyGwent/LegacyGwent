@@ -33,7 +33,7 @@ public class GameCode : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log($"被我捉住了!{e.Message}");
-            SceneManager.LoadScene("LoginSecen");
+            SceneManager.LoadScene("LoginScene");
             DependencyResolver.Container.Resolve<GwentClientService>().ClientState = ClientState.Standby;
         }
     }

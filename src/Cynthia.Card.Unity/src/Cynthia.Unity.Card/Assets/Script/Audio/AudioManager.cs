@@ -1,13 +1,12 @@
-﻿using Cynthia.Card;
-using System.Collections;
+﻿using Autofac;
 using System.Collections.Generic;
+using System.IO;
+using Assets.Script.Localization;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager instance;
-
     public static AudioManager Instance
     {
         get
@@ -26,8 +25,6 @@ public class AudioManager : MonoBehaviour
     private static string effectDirectory = "Music/Effect/";
 
     private float volume;
-
-    private LanguageType type;
 
     private AudioSource _queueAudioSource;
 
@@ -65,11 +62,6 @@ public class AudioManager : MonoBehaviour
         {
             audioSource.volume = volume;
         }
-    }
-
-    public void SetLanguageType(LanguageType type)
-    {
-        this.type = type;
     }
 
     public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append)
@@ -167,19 +159,9 @@ public class AudioManager : MonoBehaviour
 
     private string GetCardDirectory()
     {
-        string path = cardAudioDirectory;
-        switch (type)
-        {
-            case LanguageType.Chinese:
-                path += "CN/";
-                break;
-            case LanguageType.Japanese:
-                path += "JP/";
-                break;
-            case LanguageType.English:
-                path += "EN/";
-                break;
-        }
+        var audioLanguageManager = DependencyResolver.Container.Resolve<LocalizationService>().AudioLocalization;
+        string languageFilename = audioLanguageManager.ChosenLanguage.Filename;
+        string path = $"{cardAudioDirectory}{languageFilename}/"; //CN, JP, EN
         return path;
     }
 }

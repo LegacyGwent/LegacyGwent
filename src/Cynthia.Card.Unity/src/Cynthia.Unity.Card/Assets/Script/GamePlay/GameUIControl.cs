@@ -6,6 +6,8 @@ using Cynthia.Card.Client;
 using Cynthia.Card;
 using System.Linq;
 using System;
+using Assets.Script.Localization;
+using Autofac;
 
 public class GameUIControl : MonoBehaviour
 {
@@ -38,6 +40,13 @@ public class GameUIControl : MonoBehaviour
     public Text MyShowMessage;//
     public Text EnemyShowMessage;//
 
+    private LocalizationService _translator;
+
+    private void Awake()
+    {
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+    }
+
     public void SetPointInfo(GameInfomation gameInfomation)
     {
         MyAllPoint.color = ClientGlobalInfo.NormalColor;
@@ -69,9 +78,9 @@ public class GameUIControl : MonoBehaviour
     public void SetPassInfo(GameInfomation gameInfomation)
     {
         if (gameInfomation.IsMyPlayerPass)
-            MyShowMessage.text = "放弃跟牌";
+            MyShowMessage.text = _translator.GetText("IngameMenu_Passed");
         if (gameInfomation.IsEnemyPlayerPass)
-            EnemyShowMessage.text = "放弃跟牌";
+            EnemyShowMessage.text = _translator.GetText("IngameMenu_Passed");
         MyPass.SetActive(gameInfomation.IsMyPlayerPass);
         EnemyPass.SetActive(gameInfomation.IsEnemyPlayerPass);
     }
@@ -80,7 +89,7 @@ public class GameUIControl : MonoBehaviour
         //if (gameInfomation.IsMyPlayerPass)
         //MyShowMessage.text = "放弃跟牌";
         if (gameInfomation.IsEnemyPlayerMulligan)
-            EnemyShowMessage.text = "敌方正在调度手牌";
+            EnemyShowMessage.text = _translator.GetText("IngameMenu_EnemyRedrawing");
         //MyPass.SetActive(gameInfomation.IsMyPlayerMulligan);
         EnemyPass.SetActive(gameInfomation.IsEnemyPlayerMulligan);
     }

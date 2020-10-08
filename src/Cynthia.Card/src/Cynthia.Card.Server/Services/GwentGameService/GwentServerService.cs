@@ -11,6 +11,7 @@ using Alsein.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Cynthia.Card.AI;
+using Cynthia.Card.Server.Services.GwentGameService;
 
 namespace Cynthia.Card.Server
 {
@@ -23,18 +24,26 @@ namespace Cynthia.Card.Server
         private readonly GwentMatchs _gwentMatchs;
 
         private GwentCardDataService _gwentCardDataService;
+        private GwentLocalizationService _gwentLocalizationService;
+
         public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
-        public GwentServerService(IHubContext<GwentHub> hub, GwentDatabaseService databaseService, IServiceProvider container, IWebHostEnvironment env, GwentCardDataService gwentCardDataService)
-        {
-            //Container = container;
+        public GwentServerService(
+            IHubContext<GwentHub> hub, 
+            GwentDatabaseService databaseService, 
+            IServiceProvider container, 
+            IWebHostEnvironment env, 
+            GwentCardDataService gwentCardDataService,
+            GwentLocalizationService gwentLocalizationService
+        ){
             _databaseService = databaseService;
             _gwentMatchs = new GwentMatchs(() => hub, (GwentCardDataService)container.GetService(typeof(GwentCardDataService)), this);
             _hub = hub;
             _env = env;
             ResultList = _databaseService.GetAllGameResults(50);
             _gwentCardDataService = gwentCardDataService;
+            _gwentLocalizationService = gwentLocalizationService;
         }
 
         public async Task<UserInfo> Login(User user, string password)
@@ -270,6 +279,11 @@ ai密码后缀#f(如ai#f)即可强制挑战ai,不会进行玩家匹配
         public string GetCardMap()
         {
             return _gwentCardDataService.GetCardMap();
+        }
+
+        public string GetGameLocales()
+        {
+            return _gwentLocalizationService.GetGameLocales();
         }
     }
 }

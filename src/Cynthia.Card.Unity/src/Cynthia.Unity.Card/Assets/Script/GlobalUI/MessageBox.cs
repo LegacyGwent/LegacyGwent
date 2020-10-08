@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
 using Alsein.Extensions.IO;
+using Assets.Script.Localization;
+using Autofac;
 
 public class MessageBox : MonoBehaviour
 {
@@ -19,15 +21,18 @@ public class MessageBox : MonoBehaviour
     //private IAsyncDataSender sender;
     //private IAsyncDataReceiver receiver;
     public RectTransform Context;
+
+    private LocalizationService _translator;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     public void Wait(string title, string message)
     {
         Buttons.SetActive(false);
-        TitleText.text = title;
-        MessageText.text = message;
+        TitleText.text = _translator.GetText(title);
+        MessageText.text = _translator.GetText(message);
         gameObject.SetActive(true);
     }
     public void Close()
@@ -35,8 +40,9 @@ public class MessageBox : MonoBehaviour
         gameObject.SetActive(false);
         Buttons.SetActive(true);
     }
-    public Task<bool> Show(string title, string message, string yes = "确定", string no = "取消", bool isOnlyYes = false)
+    public Task<bool> Show(string title, string message, string yes = "PopupWindow_YesButton", string no = "PopupWindow_NoButton", bool isOnlyYes = false)
     {
+        gameObject.SetActive(true);
         Buttons.SetActive(true);
         if (isOnlyYes)
         {
@@ -48,11 +54,10 @@ public class MessageBox : MonoBehaviour
             YesButton.SetActive(true);
             NoButton.SetActive(true);
         }
-        TitleText.text = title;
-        MessageText.text = message;
-        YesText.text = yes;
-        NoText.text = no;
-        gameObject.SetActive(true);
+        TitleText.text = _translator.GetText(title);
+        MessageText.text = _translator.GetText(message);
+        YesText.text = _translator.GetText(yes);
+        NoText.text = _translator.GetText(no);
         // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
         return receiver.ReceiveAsync<bool>();
     }
