@@ -10,5 +10,9 @@
 	{
 		"Name": "日本語",
 		"Filename": "JP"
+	},
+	{
+		"Name": "Pусский",
+		"Filename": "RU"
 	}
 ]
