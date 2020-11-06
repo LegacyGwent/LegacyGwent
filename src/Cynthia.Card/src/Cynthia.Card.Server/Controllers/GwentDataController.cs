@@ -10,10 +10,12 @@ namespace Cynthia.Card.Server.Controllers
     public class GwentDataController : ControllerBase
     {
         private GwentDatabaseService _databaseService;
+        private GwentServerService _gwentServerService;
 
-        public GwentDataController(GwentDatabaseService databaseService)
+        public GwentDataController(GwentDatabaseService databaseService, GwentServerService gwentServerService)
         {
             _databaseService = databaseService;
+            _gwentServerService = gwentServerService;
         }
 
         public IEnumerable<GameResult> GetGameResults(DateTime time)
@@ -29,6 +31,11 @@ namespace Cynthia.Card.Server.Controllers
         public string QueryMatches(DateTime time)
         {
             return _databaseService.QueryMatches(time);
+        }
+
+        public string OnlineInfo()
+        {
+            return _gwentServerService.GetUsers().ToJson();
         }
 
         public string QueryCard(DateTime time)
