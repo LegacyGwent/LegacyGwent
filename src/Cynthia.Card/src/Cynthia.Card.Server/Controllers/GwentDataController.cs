@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cynthia.Card.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]/{time:DateTime}")]
+    [Route("api/[controller]/[action]")]
     public class GwentDataController : ControllerBase
     {
         private GwentDatabaseService _databaseService;
@@ -18,16 +18,19 @@ namespace Cynthia.Card.Server.Controllers
             _gwentServerService = gwentServerService;
         }
 
+        [Route("{time:DateTime}")]
         public IEnumerable<GameResult> GetGameResults(DateTime time)
         {
             return _databaseService.GetGameResults(time);
         }
 
+        [Route("{time:DateTime}")]
         public string QueryEnvironment(DateTime time)
         {
             return _databaseService.QueryEnvironment(time);
         }
 
+        [Route("{time:DateTime}")]
         public string QueryMatches(DateTime time)
         {
             return _databaseService.QueryMatches(time);
@@ -35,14 +38,23 @@ namespace Cynthia.Card.Server.Controllers
 
         public string OnlineInfo()
         {
-            return _gwentServerService.GetUsers().ToJson();
+            var info = _gwentServerService.GetUsers();
+            var json = new
+            {
+                user = info.Item1,
+                player = info.Item2,
+                aiplayer = info.Item3,
+            };
+            return json.ToJson();
         }
 
+        [Route("{time:DateTime}")]
         public string QueryCard(DateTime time)
         {
             return _databaseService.QueryCard(time);
         }
 
+        [Route("{time:DateTime}")]
         public string QueryRanking(DateTime time)
         {
             return _databaseService.QueryRanking(time);
