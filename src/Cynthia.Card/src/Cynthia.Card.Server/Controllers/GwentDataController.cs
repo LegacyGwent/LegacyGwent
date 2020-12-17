@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cynthia.Card.Server.Controllers
@@ -41,11 +42,20 @@ namespace Cynthia.Card.Server.Controllers
             var info = _gwentServerService.GetUsers();
             var json = new
             {
-                user = info.Item1,
-                player = info.Item2,
-                aiplayer = info.Item3,
+                Users = info.Item1.Select(user => new { UserState = user.Key, Users = user.Select(x => x.PlayerName).ToList() }),
+                Player = info.Item2.Select(p => new { Player1 = p.Item1, Player2 = p.Item2 }),
+                AiPlayer = info.Item3.Select(p => new
+                {
+                    Player1 = p.Item1,
+                    Player2 = p.Item2
+                }),
             };
             return json.ToJson();
+        }
+
+        public int OnlineCount()
+        {
+            return _gwentServerService.GetUserCount();
         }
 
         [Route("{time:DateTime}")]
