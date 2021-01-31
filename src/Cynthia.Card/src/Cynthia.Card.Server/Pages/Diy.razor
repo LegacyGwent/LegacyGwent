@@ -13,7 +13,7 @@
             <SpaceItem>
                 <AntDesign.Col>
                     <SpaceItem>
-                        <Card Style="width:300px;" Bordered Cover="coverTemplate"
+                        <Card Style="width:300px;" Bordered Cover="coverTemplate(num)"
                               Actions="@(new[] {
                                 actionEdit(()=>commitDrawerVisible = true),
                                 actionEllipsis(()=> detailPageVisible = true)})">
@@ -27,16 +27,18 @@
 </div>
 @*上传卡图相关代码*@
 @code {
-    byte[] bytes = new byte[0];
-    async Task HandleFileSelected(IFileListEntry[] s)
+    byte[] uploadImageData = new byte[0];
+    async Task HandleFileSelected(IFileListEntry[] files)
     {
-        Console.WriteLine(s);
-        Stream stream = s[0].Data;
-        bytes = new byte[stream.Length];
-        await stream.ReadAsync(bytes, 0, bytes.Length);
-        Directory.CreateDirectory("uploadImg");
-        File.WriteAllBytes("uploadImg/" + s[0].Name, bytes);
-        stream.Dispose();
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            var ms = new MemoryStream();
+            await file.Data.CopyToAsync(ms);
+            uploadImageData = ms.ToArray();
+            Info.uploadImageData = uploadImageData;
+            File.WriteAllBytes("uploadImg/" + file.Name, uploadImageData);
+        }
     }
 }
 @*上传抽屉页面相关代码*@
@@ -53,14 +55,15 @@
         <Input Placeholder="名字" @bind-Value="@newDiyCardName" />
         <Input Placeholder="描述" @bind-Value="@newDiyCardDescribe" />
         <Button @onclick="() => {
-                              Command.AddDiyCardInfos(newDiyCardName, newDiyCardDescribe);
+                              Command.AddDiyCardInfos(newDiyCardName, newDiyCardDescribe,Info.uploadImageData);
                               Command.GetDiyCardsInfo();
                           }">
             提交
         </Button>
         <div style="position:relative">
-            <img width="150px" height="210px" src=@("data:image/gif;base64,"+Convert.ToBase64String(bytes.Length==0?Info.defaultTexture.cardUploadImage:bytes)) style="position:absolute;left:15px;top:5px">
-            <img width="150px" height="210px" src=@("data:image/gif;base64,"+Convert.ToBase64String(bytes.Length==0?Info.defaultTexture.cardFramesImage:bytes)) style="position:absolute;left:15px;top:5px">
+            @*<img width="150px" height="210px" src=@("data:image/gif;base64,"+Convert.ToBase64String(uploadImageData.Length==0?Info.defaultTexture.cardUploadImage:uploadImageData)) style="position:absolute;left:15px;top:5px">*@
+            <img width="150px" height="210px" src=@("data:image/gif;base64,"+Convert.ToBase64String(uploadImageData)) style="position:absolute;left:15px;top:5px">
+            @*<img width="150px" height="210px" src=@("data:image/gif;base64,"+Convert.ToBase64String(Info.defaultTexture.cardFramesImage)) style="position:absolute;left:15px;top:5px">*@
         </div>
         <br />
 
@@ -155,11 +158,15 @@ return@<div>
 RenderFragment actionEdit(Action clickAction) =>@<Icon Type="edit" OnClick="@clickAction" />;
 RenderFragment actionEllipsis(Action clickAction) => @<Icon Type="ellipsis" OnClick="@clickAction" />;
 RenderFragment avatarTemplate = @<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></Avatar>;
-    //RenderFragment coverTemplate = @<img width="200" alt="example" src=@("data:image/jpeg;base64,"+Convert.ToBase64String(Info.defaultTexture.cardLoadImage)) />;
-    RenderFragment coverTemplate = @<div style="position:relative">
-    <img width="300"  src=@("data:image/gif;base64," + Convert.ToBase64String(Info.defaultTexture.cardLoadImage)) style="position:absolute">
-    <img width="300"  src=@("data:image/gif;base64," + Convert.ToBase64String(Info.defaultTexture.cardFramesImage)) style="position:absolute">
-</div>;
+//RenderFragment coverTemplate = @<img width="200" alt="example" src=@("data:image/jpeg;base64,"+Convert.ToBase64String(Info.defaultTexture.cardLoadImage)) />;
+public RenderFragment coverTemplate(int uid)
+{
+return @<img width="200" alt="example" src=@("data:image/jpeg;base64,"+Convert.ToBase64String(Command.GetDiyTexture(uid))) />;
+}
+@*RenderFragment coverTemplate = @<div style="position:relative">
+        <img width="300" src=@("data:image/gif;base64," + Convert.ToBase64String(Info.defaultTexture.cardLoadImage)) style="position:absolute">
+        <img width="300" src=@("data:image/gif;base64," + Convert.ToBase64String(Info.defaultTexture.cardFramesImage)) style="position:absolute">
+    </div>;*@
 }
 
 

@@ -36,18 +36,18 @@ public class DiyCardTextureInfo
     public int uid;
     public byte[] imagedata;
 
-    public DiyCardTextureInfo(int uid, Image image)
-    {
-        this.uid = uid;
-        MemoryStream mstream = new MemoryStream();
-        image.Save(mstream, ImageFormat.Gif);
-        imagedata = new Byte[mstream.Length];
-        mstream.Position = 0;
-        mstream.Read(imagedata, 0, imagedata.Length);
-        mstream.Close();
-        image.Dispose();
+    //public DiyCardTextureInfo(int uid, Image image)
+    //{
+    //    this.uid = uid;
+    //    MemoryStream mstream = new MemoryStream();
+    //    image.Save(mstream, ImageFormat.Gif);
+    //    imagedata = new Byte[mstream.Length];
+    //    mstream.Position = 0;
+    //    mstream.Read(imagedata, 0, imagedata.Length);
+    //    mstream.Close();
+    //    image.Dispose();
 
-    }
+    //}
 
     public Image GetImage()
     {

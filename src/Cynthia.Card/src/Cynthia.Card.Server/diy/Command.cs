@@ -25,15 +25,15 @@ public class Command
     }
     public static void InItDefaultTexture(DefaultTexture defaultTexture)
     {
-        defaultTextureCollection.InsertOne(defaultTexture);
+        //defaultTextureCollection.InsertOne(defaultTexture);
     }
     public static void InItDefaultTexture()
     {
-        Info.defaultTexture = defaultTextureCollection.AsQueryable().First();
+        //Info.defaultTexture = defaultTextureCollection.AsQueryable().First();
     }
     public static void InItDiyCardInfos()
     {
-       
+
 
         for (int i = 0; i < 10; i++)
         {
@@ -58,10 +58,12 @@ public class Command
             diyCardCollection.InsertOne(diyCard);
         }
     }
-    public static void AddDiyCardInfos(string name, string describe)
+    public static void AddDiyCardInfos(string name, string describe, byte[] uploadImageData)
     {
+        int uid = diyCardCollection.AsQueryable().Count();
         DiyCardInfo diyCard = new DiyCardInfo()
         {
+            uid= uid,
             cardName = name,
             describe = describe,
             commits = new List<DiyCardInfo.Commit>
@@ -78,13 +80,20 @@ public class Command
                         }
                     }
         };
+        DiyCardTextureInfo diyCardTextureInfo = new DiyCardTextureInfo()
+        {
+            uid = uid,
+            imagedata = uploadImageData,
+        };
         diyCardCollection.InsertOne(diyCard);
+        diyCardTextureCollection.InsertOne(diyCardTextureInfo);
     }
     public static void GetDiyCardsInfo()
     {
         Info.diyCardInfo = diyCardCollection.AsQueryable().ToList();
     }
-    public static void GetDefaultTexture()
+    public static byte[] GetDiyTexture(int uid)
     {
+       return diyCardTextureCollection.Find(info => info.uid == uid).First().imagedata;
     }
 }
