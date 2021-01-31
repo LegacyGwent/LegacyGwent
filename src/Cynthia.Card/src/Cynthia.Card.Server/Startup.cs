@@ -27,13 +27,15 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentCardTypeService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
+            services.AddAntDesign();
             if (_env.IsDevelopment())
             {
-                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb+srv://cynthia:q123456@cluster0-n0gv4.mongodb.net/gwent"));
+                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://106.15.38.165:28020/gwent"));
+                //services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb+srv://cynthia:q123456@cluster0-n0gv4.mongodb.net/gwent"));
             }
             else
             {
-                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent"));
+                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://106.15.38.165:28020/gwent"));
             }
         }
 

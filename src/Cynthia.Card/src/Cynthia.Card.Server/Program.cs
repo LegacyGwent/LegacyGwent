@@ -29,6 +29,18 @@ namespace Cynthia.Card.Server
             // try
             // {
             // var updateTask = TimingUpdate(20, sw, se);
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            Command.MongodbConnect();
+            //从数据库载入默认图片素材
+            Command.InItDefaultTexture();
+            //第一次初始化卡牌数据时使用
+            //Command.InItDefaultTexture(new DefaultTexture()
+            //{
+            //    cardLoadImage = File.ReadAllBytes("卡画.jpg"),
+            //    cardUploadImage = File.ReadAllBytes("卡画.jpg"),
+            //    cardFramesImage = File.ReadAllBytes("卡框.png"),
+            //}) ;
+
             CreateHostBuilder(args).Build().Run();
             // }
             // finally
