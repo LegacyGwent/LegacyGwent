@@ -17,7 +17,7 @@
 ### 贡献步骤
 
 1. 安装上述编译环境。
-2. <a href="https://github.com/LegacyGwent/LegacyGwent/fork">Fork本项目</a>
+2. [Fork本项目](https://github.com/LegacyGwent/LegacyGwent/fork)
 3. 将自己的fork克隆到本地并创建分支和空白提交
 ```
 git clone <fork项目地址>
@@ -40,5 +40,5 @@ git push -u origin <分支名称>
 
 ## 玩家社区
 
-<img src="https://github.com/DeusSeuca/Cynthia.Card/raw/master/assets/group.png" />
+![](https://github.com/DeusSeuca/Cynthia.Card/raw/master/assets/group.png)
 
