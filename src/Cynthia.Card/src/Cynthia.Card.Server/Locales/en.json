@@ -5,7 +5,7 @@
 	},
 	"MenuLocales": {
 		"LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
-		"LoginMenu_Message": "This project is open source and free of charge. You can contact Jiaqun on a Tencent QQ group 945408322 and help with the project.",
+		"LoginMenu_Message": "This project is open source and free of charge. You can contact LegacyGwent@GitHub or QQ group 945408322 to help with the project.",
 		"LoginMenu_NotesTitle": "News",
 		"LoginMenu_LoginTitle": "Log In",
 		"LoginMenu_LoginButton": "LOGIN",
@@ -191,7 +191,7 @@
 		"CardTag_Boon": "Boon",
 		"CardTag_Ambush": "Ambush",
 		"CardTag_Doomed": "Doomed",
-		"CardTag_Immune": "Immune", 
+		"CardTag_Immune": "Immune",
 		"CardTag_Bear": "Bear",
 		"CardTag_Ogroid": "Ogroid",
 		"CardTag_BlueStripes": "Blue Stripes",
@@ -240,7 +240,7 @@
 		},
 		"12009": {
 			"Name": "Ale of the Ancestors",
-			"Info": "Deploy: Apply Golden Froth to the row",
+			"Info": "Deploy: Apply Golden Froth to the row. Repeat this ability when moved, and then taken 4 damage.",
 			"Flavor": "Boros, the legendary founder of Clan Fuchs, died after overindulging in this beverage - he passed out while reaching for his golden ring, which had fallen into a brook."
 		},
 		"12010": {
@@ -290,7 +290,7 @@
 		},
 		"12019": {
 			"Name": "Ciri",
-			"Info": "Whenever you lose a round, return this unit to your hand.",
+			"Info": "Gain shield. Whenever you lose a round, return this unit to your hand.",
 			"Flavor": "I go wherever I please, whenever I please"
 		},
 		"12020": {
@@ -555,7 +555,7 @@
 		},
 		"13027": {
 			"Name": "Commander's Horn",
-			"Info": "Boost 5 adjacent units by 3.",
+			"Info": "Boost 7 adjacent units by 3.",
 			"Flavor": "士气加一分，听力减三分。"
 		},
 		"13028": {
@@ -730,7 +730,7 @@
 		},
 		"14019": {
 			"Name": "Torrential Rain",
-			"Info": "Apply a Hazard to an enemy row that deals 1 damage to 2 random units on turn start.",
+			"Info": "Apply a Hazard to an enemy row that on turn start, deals 1 damage to one strongest unit and one weakest unit.",
 			"Flavor": "这儿连雨都带股尿骚味。"
 		},
 		"14020": {
@@ -895,7 +895,7 @@
 		},
 		"22005": {
 			"Name": "Imlerith",
-			"Info": "Deploy: Damage an Enemy by 4. If the Enemy is under a Frost Hazard, Damage it by 8 instead. ",
+			"Info": "Deploy: Damage an Enemy by 4. If the Enemy is under a Frost Hazard, Destory it instead. ",
 			"Flavor": "叫他们有来无回！"
 		},
 		"22006": {
@@ -1070,7 +1070,7 @@
 		},
 		"24004": {
 			"Name": "Archgriffin",
-			"Info": "Deploy: Clear Hazards on its row.",
+			"Info": "Deploy: Clear Hazards on its row. Move a bronze unit card from the opponent's graveyard to your own graveyard.",
 			"Flavor": "大狮鹫也是狮鹫，只是更加凶悍。"
 		},
 		"24005": {
@@ -1130,7 +1130,7 @@
 		},
 		"24016": {
 			"Name": "Wild Hunt Warrior",
-			"Info": "Deploy: Deal 3 damage to an enemy. If the enemy is destroyed or is under Frost, boost self by 2.",
+			"Info": "Deploy: Deal 4 damage to an enemy. If the enemy is destroyed or is under Frost, boost self by 2.",
 			"Flavor": "白霜将至。"
 		},
 		"24017": {
@@ -1155,7 +1155,7 @@
 		},
 		"24021": {
 			"Name": "Ice Giant",
-			"Info": "If a Frost Hazard is anywhere on the Board, Boost self by 6.",
+			"Info": "Deploy: For every Biting Frost on the Board, gain 3 points. Every time a Biting Frost appears on the Board, gain 3 points.",
 			"Flavor": "我这辈子只当过一次逃兵，就是碰上寒冰巨人那次——我一点也没觉得丢人。"
 		},
 		"24022": {
@@ -1375,12 +1375,12 @@
 		},
 		"32014": {
 			"Name": "Letho of Gulet",
-			"Info": "Deploy: Toggle 2 units' Lock on the row, then Drain all their power.",
+			"Info": "Double agent. Deploy: Toggle 2 units' Lock on the row, then Drain all their power.",
 			"Flavor": "猎魔人绝不会死在自己的床上。"
 		},
 		"32015": {
 			"Name": "Treason",
-			"Info": "Damage Enemies by 8 and then 8",
+			"Info": "Damage Enemies by 9 and then 9",
 			"Flavor": "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”"
 		},
 		"33004": {
@@ -1470,7 +1470,7 @@
 		},
 		"33018": {
 			"Name": "Fringilla Vigo",
-			"Info": "Deploy: Copy the power from the unit to the left to the unit to the right.",
+			"Info": "Double agent. Deploy: Copy the power from the unit to the left to the unit to the right.",
 			"Flavor": "魔法的价值高于一切，高于所有争论和敌意。"
 		},
 		"33019": {
@@ -1485,7 +1485,7 @@
 		},
 		"33021": {
 			"Name": "Cadaverine",
-			"Info": "Deal 2 damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral unit.",
+			"Info": "Deal 3 damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral unit.",
 			"Flavor": "我不会拿自己的性命去碰运气。我会拿上一把长剑，厚厚地涂上一层吊死鬼之毒。"
 		},
 		"33022": {
@@ -1605,7 +1605,7 @@
 		},
 		"34024": {
 			"Name": "Alba Pikeman",
-			"Info": "Deploy: Summon all copies of this unit.",
+			"Info": "At the beginning of the round, summon one copy from the deck. 2 armor.",
 			"Flavor": "宣誓效忠吾皇恩希尔·恩瑞斯……不然就受刑吧！"
 		},
 		"34025": {
@@ -1790,7 +1790,7 @@
 		},
 		"43007": {
 			"Name": "Foltest's Pride",
-			"Info": "Deploy: Damage an enemy by 2 and move it to the row above. Crewed: Repeat its ability.",
+			"Info": "Deploy: Damage an enemy by 3 and move it to the row above. Crewed: Repeat its ability.",
 			"Flavor": "正如弗尔泰斯特国王常说的那样，尺寸并不重要，关键要好用。"
 		},
 		"43008": {
@@ -1800,7 +1800,7 @@
 		},
 		"43009": {
 			"Name": "Odrin",
-			"Info": "On turn start, move to a random row and boost all allies on it by 1.",
+			"Info": "On turn start, move to a random row and boost all allies on it by 1. \nDeathwish: boost all allies on the same row by 1.",
 			"Flavor": "喝酒少了欧德林，就像划船没带桨。"
 		},
 		"43010": {
@@ -1860,7 +1860,7 @@
 		},
 		"43021": {
 			"Name": "Vandergrift's Blade",
-			"Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or Deal 9 damage. If the unit was destroyed, Banish it.",
+			"Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or Deal 10 damage. If the unit was destroyed, Banish it.",
 			"Flavor": "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。"
 		},
 		"44001": {
@@ -1985,7 +1985,7 @@
 		},
 		"44025": {
 			"Name": "Damned Sorceress",
-			"Info": "Deploy: If there is a Cursed unit on this unit's row, deal 7 damage.",
+			"Info": "Deploy: If there is a Cursed unit on this unit's row, deal 7 damage. Increase the damage by 1 for each extra Cursed unit on the same row.",
 			"Flavor": "萨宾娜的诅咒谁也不放过，就连其他的女术士也难以幸免。"
 		},
 		"44026": {
@@ -2025,7 +2025,7 @@
 		},
 		"44033": {
 			"Name": "Winch",
-			"Info": "Boost all machines on your side of the board by 3.",
+			"Info": "Choose one: Play a bronze Mechanical card from your graveyard and make it Doomed; Or boost all machines on your side of the board by 3.",
 			"Flavor": "就是一个绞盘。没什么可大惊小怪的。"
 		},
 		"44034": {
@@ -2075,12 +2075,12 @@
 		},
 		"52002": {
 			"Name": "Saesenthessis",
-			"Info": "Deploy: Boost self by 1 for each Dwarf ally and deal 1 damage to an enemy for each Elf ally.",
+			"Info": "Deploy: Boost self by 1 for each Dwarf ally on the Board and in the Hand and deal 1 damage to an enemy for each Elf ally on the Board and in the Hand.",
 			"Flavor": "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。"
 		},
 		"52003": {
 			"Name": "Xavier Moran",
-			"Info": "Deploy: Boost this unit by the starting power of the last different Dwarf you played.",
+			"Info": "Deploy: Boost this unit by the starting power of the Dwarf with the strongest starting power you played this round.",
 			"Flavor": "怎么了，公主？吃不惯野味吗？嗯？"
 		},
 		"52004": {
@@ -2325,7 +2325,7 @@
 		},
 		"54018": {
 			"Name": "Hawker Healer",
-			"Info": "Deploy: Boost 2 Allies by 3.",
+			"Info": "Deploy: Boost 2 Allies by 3, and then Heal them.",
 			"Flavor": "帮你包扎，没问题——只要你有钱。"
 		},
 		"54019": {
@@ -2435,7 +2435,7 @@
 		},
 		"62007": {
 			"Name": "Cerys an Craite",
-			"Info": "When 4 units are Resurrected while this unit is in the graveyard, Resurrect it.",
+			"Info": "When 4 units are Resurrected while this unit is in the graveyard, Resurrect it and gain 1 strength",
 			"Flavor": "大家叫我小雀鹰，知道为什么吗？因为我专治你这种鼠辈。"
 		},
 		"62008": {
@@ -2520,7 +2520,7 @@
 		},
 		"63011": {
 			"Name": "Holger Blackhand",
-			"Info": "Deploy: Deal 6 damage. If the unit was destroyed, Strengthen the Highest unit in your graveyard by 3.",
+			"Info": "Deploy: Deal 7 damage. If the unit was destroyed, Strengthen the Highest unit in your graveyard by 3.",
 			"Flavor": "敬尼弗迦德皇帝，祝他不得善终！"
 		},
 		"63012": {
@@ -2625,7 +2625,7 @@
 		},
 		"64012": {
 			"Name": "Tuirseach Skirmisher",
-			"Info": "Whenever this unit is Resurrected, Strengthen it by 3.",
+			"Info": "Whenever this unit is Resurrected, Strengthen it by 4.",
 			"Flavor": "记好了：我们对朋友掏心窝，对敌人挥斧子。"
 		},
 		"64013": {
@@ -2695,7 +2695,7 @@
 		},
 		"64026": {
 			"Name": "Drummond Shieldmaid",
-			"Info": "Deploy: Summon all copies of this unit.",
+			"Info": "Deploy: Deal 2 damage to an enemy unit. If the target was already injured, play one copy from the deck.",
 			"Flavor": "我们的敌人会像打上嶙峋海岸的波浪一样，倒在我们的盾前。"
 		},
 		"64027": {
@@ -2755,7 +2755,7 @@
 		},
 		"65004": {
 			"Name": "Spectral Whale",
-			"Info": "Spying. On turn end, move to a random row and deal 1 damage to all units on it.",
+			"Info": "Spying. On turn end, move to a random row and deal 1 damage to all units on it. Deathwish: invoke this ability again.",
 			"Flavor": "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”"
 		},
 		"65005": {
