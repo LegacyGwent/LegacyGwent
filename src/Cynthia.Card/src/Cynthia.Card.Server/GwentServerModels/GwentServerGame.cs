@@ -89,6 +89,9 @@ namespace Cynthia.Card.Server
 
         private async Task DecideRedCoin()
         {
+            // send game start event to inform client to start timing for deciding coin
+            await Players[Player1Index].SendAsync(ServerOperationType.GameStart);
+            await Players[Player2Index].SendAsync(ServerOperationType.GameStart);
             var selectList = new List<CardStatus>();
             var cardId = Balance.ShowCardId;
             var playerIndex = RedCoin[0];
@@ -330,6 +333,9 @@ namespace Cynthia.Card.Server
                 await RoundPlayCard(playerIndex, roundInfo);
                 await ClientDelay(400);
             }
+            // send round end to ask client to restart timing
+            await Players[playerIndex].SendAsync(ServerOperationType.RoundEnd);
+            await Players[AnotherPlayer(playerIndex)].SendAsync(ServerOperationType.RoundEnd);
             return true;
         }
 
