@@ -77,6 +77,8 @@ namespace Cynthia.Card.Client
         //调度结束
         public void MulliganEnd()
         {
+            // start timer for first round in a big round
+            _code.GetComponent<GameCode>().GameUIControl.ropeController.StartRopeTimer();
             _code.GetComponent<GameCode>().GameCardShowControl.OperationEnd();
         }
         //更新信息(需要更改),动画之类的
@@ -205,7 +207,14 @@ namespace Cynthia.Card.Client
         }
         public void RoundEnd()
         {
+            // start timing for my and opponent's round
+            _code.GetComponent<GameCode>().GameUIControl.ropeController.StartRopeTimer();
             _code.GetComponent<GameCode>().GameEvent.RoundEnd();
+        }
+        public void GameStart()
+        {
+            // start timing for deciding red coin
+            _code.GetComponent<GameCode>().GameUIControl.ropeController.StartRopeTimer();
         }
         /*
         public void MyCardEffectEnd()//结束卡牌效果

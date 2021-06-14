@@ -39,6 +39,7 @@ public class GameUIControl : MonoBehaviour
     public GameObject EnemyPass;
     public Text MyShowMessage;//
     public Text EnemyShowMessage;//
+    public RopeController ropeController;
 
     private LocalizationService _translator;
 
