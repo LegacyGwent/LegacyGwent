@@ -30,13 +30,14 @@ namespace Cynthia.Card.Server
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
         public GwentServerService(
-            IHubContext<GwentHub> hub, 
-            GwentDatabaseService databaseService, 
-            IServiceProvider container, 
-            IWebHostEnvironment env, 
+            IHubContext<GwentHub> hub,
+            GwentDatabaseService databaseService,
+            IServiceProvider container,
+            IWebHostEnvironment env,
             GwentCardDataService gwentCardDataService,
             GwentLocalizationService gwentLocalizationService
-        ){
+        )
+        {
             _databaseService = databaseService;
             _gwentMatchs = new GwentMatchs(() => hub, (GwentCardDataService)container.GetService(typeof(GwentCardDataService)), this);
             _hub = hub;
@@ -103,6 +104,13 @@ namespace Cynthia.Card.Server
                 return false;
             }
             var result = await _gwentMatchs.StopMatch(connectionId);
+            InovkeUserChanged();
+            return result;
+        }
+
+        public bool Surrender(string connectionId) // 投降
+        {
+            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"));
             InovkeUserChanged();
             return result;
         }
