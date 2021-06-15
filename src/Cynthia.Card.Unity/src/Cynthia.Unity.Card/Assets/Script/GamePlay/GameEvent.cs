@@ -76,6 +76,7 @@ public class GameEvent : MonoBehaviour
     private ITubeInlet sender;
     private ITubeOutlet receiver;
     public GameObject ShowMyCemeteryButton;
+    public GameObject SurrenderButton;
 
     private GlobalUIService _uiService;
     public RopeController ropeController;
@@ -97,9 +98,11 @@ public class GameEvent : MonoBehaviour
 
 #if UNITY_ANDROID
         ShowMyCemeteryButton.SetActive(true);
+        SurrenderButton.SetActive(true);
 #endif
 #if UNITY_STANDALONE_WIN
         ShowMyCemeteryButton.SetActive(false);
+        SurrenderButton.SetActive(false);
 #endif
         //某些信息,目前只是用来测试
         // var sc = GetCard(new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = 0 }).CardShowInfo.CurrentCore = new CardStatus("11210200");
@@ -452,6 +455,11 @@ public class GameEvent : MonoBehaviour
     //每一帧
     private void Update()
     {
+        // check if surrender
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SendSurrender();
+        }
         var onObjects = GetMouseAllRaycast();//获取鼠标穿透的所有物体
         //画箭
         DrawArrows();
@@ -1258,5 +1266,14 @@ public class GameEvent : MonoBehaviour
     {
         var card = GetCard(location);
         card.CardShowInfo.IsGray = isGray;
+    }
+
+    public async void SendSurrender() // 发出投降信息
+    {
+        if (!await _uiService.YNMessageBox("确认投降?", "Are you sure to surrender?"))
+        {
+            return;
+        }
+        await DependencyResolver.Container.Resolve<GwentClientService>().Surrender();
     }
 }
