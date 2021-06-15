@@ -154,7 +154,7 @@ namespace Cynthia.Card.Client
                 // Download locales from the server if:
                 // 1. Locales are not downloaded and the client is outdated
                 // 2. There came out a new version of locales since the last time we downloaded them
-                
+
                 if (!fileHandler.AreFilesDownloaded() && clientVersion != serverVersion ||
                     localesWereLastUpdatedTo != serverVersion)
                 {
@@ -211,6 +211,10 @@ namespace Cynthia.Card.Client
         public Task<bool> StopMatch()
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");
+        }
+        public Task<bool> Surrender()
+        {
+            return HubConnection.InvokeAsync<bool>("Surrender");
         }
         //新建卡组,删除卡组,修改卡组
         public Task JoinEditor() => HubConnection.InvokeAsync<bool>("JoinEditor");
