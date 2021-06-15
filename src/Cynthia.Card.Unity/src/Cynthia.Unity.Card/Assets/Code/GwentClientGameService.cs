@@ -81,6 +81,9 @@ namespace Cynthia.Card.Client
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
+                case ServerOperationType.GameStart:
+                    GameCodeService.GameStart();
+                    break;
                 //----------------------------------------------------------------------------------
                 //新指令
                 case ServerOperationType.SelectMenuCards:

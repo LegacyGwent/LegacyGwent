@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Cynthia.Card.Client;
 using Autofac;
 using Cynthia.Card;
-using UnityEngine.EventSystems;
 using System.Linq;
 using Alsein.Extensions;
 using System.Threading.Tasks;
@@ -80,6 +78,7 @@ public class GameEvent : MonoBehaviour
     public GameObject ShowMyCemeteryButton;
 
     private GlobalUIService _uiService;
+    public RopeController ropeController;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -910,8 +909,14 @@ public class GameEvent : MonoBehaviour
         //得到讯息
         ///////////自动选排22222222222222
         if (IsAutoPlay)
+        {
             await sender.SendAsync(rowPart.Mess().First());
-        var result = await receiver.ReceiveAsync<RowPosition>();
+        }
+        Debug.Log(ropeController.remainingTime.ToString());
+        var result = await TimeLimitHandler.ReceiveWithTimeLimitAsync<RowPosition>(receiver, async () =>
+        {
+            await sender.SendAsync(rowPart.Mess().First());
+        }, ropeController.remainingTime);
         Debug.Log(_arrowSource);
         if (_arrowSource != null)
             _arrowSource.GetComponent<CardShowInfo>().SpecialAudioPlay();
@@ -939,9 +944,15 @@ public class GameEvent : MonoBehaviour
         //得到讯息
         ///////////自动选卡22222222222222
         if (IsAutoPlay)
+        {
             await sender.SendAsync<IList<CardLocation>>
             (info.CanSelect.CardsPartToLocation().Mess().Take(info.SelectCount).ToList());
-        var result = await receiver.ReceiveAsync<IList<CardLocation>>();
+        }
+        Debug.Log($"剩余时间还有{ropeController.remainingTime}");
+        var result = await TimeLimitHandler.ReceiveWithTimeLimitAsync<IList<CardLocation>>(receiver, async () =>
+        {
+            await sender.SendAsync<IList<CardLocation>>(info.CanSelect.CardsPartToLocation().Mess().Take(info.SelectCount).ToList());
+        }, ropeController.remainingTime);
         Debug.Log(_arrowSource);
         if (_arrowSource != null)
             _arrowSource.GetComponent<CardShowInfo>().SpecialAudioPlay();
@@ -960,6 +971,7 @@ public class GameEvent : MonoBehaviour
     //让玩家使用一个卡牌,或者pass
     public async Task GetPlayerDrag(LocalPlayer player)//（RoundStart）
     {
+        ropeController.StartRopeTimer();
         //预处理
         PassCoin.IsCanUse = true;//硬币可用
         MyHand.CardsCanDrag(true);
@@ -967,9 +979,9 @@ public class GameEvent : MonoBehaviour
         NowOperationType = GameOperationType.GetPassOrGrag;//状态!拖或者pass!
         //得到讯息
         ///////////自动出牌22222222222222
+        var stayPlayCardIndex = HandCanPlay().Mess().First();
         if (IsAutoPlay)
         {
-            var stayPlayCardIndex = HandCanPlay().Mess().First();
             //HandCanPlay().Mess().ForAll(x=>Debug.Log(x));////
             var card = default(CardUseInfo);
             if (stayPlayCardIndex == -1)
@@ -978,7 +990,9 @@ public class GameEvent : MonoBehaviour
                 MyLeader.IsCardCanUse = false;
             }
             else
+            {
                 card = GetCard(new CardLocation() { CardIndex = stayPlayCardIndex, RowPosition = RowPosition.MyHand }).CardUseInfo;
+            }
             var cardCanUse = CardCanPlay(card);
             await sender.SendAsync(new RoundInfo()
             {
@@ -990,7 +1004,22 @@ public class GameEvent : MonoBehaviour
                 ))
             });
         }
-        var result = await receiver.ReceiveAsync<RoundInfo>();
+        Debug.Log($"剩余时间还有{ropeController.remainingTime}");
+        var result = await TimeLimitHandler.ReceiveWithTimeLimitAsync<RoundInfo>(receiver, async () =>
+        {
+            var card = default(CardUseInfo);
+            if (stayPlayCardIndex == -1)
+            {
+                MyLeader.IsCardCanUse = false;
+            }
+            var cardCanUse = CardCanPlay(card);
+            await sender.SendAsync(new RoundInfo()
+            {
+                IsPass = false,
+                HandCardIndex = stayPlayCardIndex,
+                CardLocation = new CardLocation() { CardIndex = 0, RowPosition = RowPosition.MyCemetery }
+            });
+        }, ropeController.remainingTime);
         //事后
         NowOperationType = GameOperationType.None;//了
         PassCoin.IsCanUse = false;//硬币不可用
@@ -1010,9 +1039,14 @@ public class GameEvent : MonoBehaviour
         //得到讯息
         ///////////自动选位22222222222222
         if (IsAutoPlay)
+        {
             await sender.SendAsync(CardCanPlay(CurrentPlace).Mess().First());
-        var result = await receiver.ReceiveAsync<CardLocation>();
-
+        }
+        Debug.Log($"剩余时间还有{ropeController.remainingTime}");
+        var result = await TimeLimitHandler.ReceiveWithTimeLimitAsync<CardLocation>(receiver, async () =>
+        {
+            await sender.SendAsync(CardCanPlay(CurrentPlace).Mess().First());
+        }, ropeController.remainingTime);
         NowOperationType = GameOperationType.None;
         CurrentPlace = CardUseInfo.ReSet;
         CurrentPlayCard = null;
@@ -1042,7 +1076,7 @@ public class GameEvent : MonoBehaviour
         var soureCard = default(CardMoveInfo);
         var tagetRow = default(CardsPosition);
         //几个特殊的移动原始位置
-     
+
         switch (info.Source.RowPosition)
         {
             case RowPosition.MyLeader:

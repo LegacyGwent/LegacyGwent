@@ -203,7 +203,6 @@ public class GameCardShowControl : MonoBehaviour
     //调度开始
     public void MulliganStart(IList<CardStatus> cards, int total)//调度界面
     {
-
         NowMulliganCount = 0;
         NowMulliganTotal = total;
         useCardTitle = string.Format(_translator.GetText("IngameMenu_MulliganTitle"), NowMulliganCount, NowMulliganTotal);
@@ -212,6 +211,7 @@ public class GameCardShowControl : MonoBehaviour
                                    //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
         UseButtonShow = (true, false, false, true);
         OpenNowUseMenu();
+        GameEvent.ropeController.StartRopeTimer(); // timing mulligan
     }
     //调度结束
     public void OperationEnd()
@@ -240,8 +240,12 @@ public class GameCardShowControl : MonoBehaviour
     public async Task GetMulliganInfo(LocalPlayer player)
     {
         _nowUseMenuType = UseCardShowType.Mulligan;
-        if (IsAutoPlay) await sender.SendAsync<int>(-1);///////////自动调度22222222222222
-        var result = await receiver.ReceiveAsync<int>();
+        if (IsAutoPlay) { await sender.SendAsync<int>(-1); }
+        Debug.Log($"剩余时间还有{GameEvent.ropeController.remainingTime}");
+        var result = await TimeLimitHandler.ReceiveWithTimeLimitAsync<int>(receiver, async () =>
+        {
+            await sender.SendAsync<int>(-1);
+        }, GameEvent.ropeController.remainingTime);
         _nowUseMenuType = UseCardShowType.None;
         if (result != -1)
             NowMulliganCount++;
@@ -290,7 +294,11 @@ public class GameCardShowControl : MonoBehaviour
             OpenNowUseMenu();
             _nowUseMenuType = UseCardShowType.Select;
         }
-        var result = await receiver.ReceiveAsync<IList<int>>();
+        Debug.Log($"剩余时间还有{GameEvent.ropeController.remainingTime}");
+        var result = await TimeLimitHandler.ReceiveWithTimeLimitAsync<IList<int>>(receiver, async () =>
+        {
+            await sender.SendAsync<IList<int>>(0.To(info.SelectCount - 1).Mess().Take(info.SelectCount).ToList());
+        }, GameEvent.ropeController.remainingTime);
         OperationEnd();
         await player.SendAsync(UserOperationType.SelectMenuCardsInfo, result);
         //NowUseMenuType = UseCardShowType.None;
