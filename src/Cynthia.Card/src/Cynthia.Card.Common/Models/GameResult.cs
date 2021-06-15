@@ -24,5 +24,6 @@ namespace Cynthia.Card
         public string RedDeckCode { get; set; }
 
         public string BlueDeckCode { get; set; }
+        public bool isSurrender { get; set; }
     }
 }

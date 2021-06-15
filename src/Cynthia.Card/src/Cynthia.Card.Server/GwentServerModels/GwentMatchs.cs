@@ -188,20 +188,20 @@ namespace Cynthia.Card.Server
             //删除房间
             GwentRooms.Remove(room);
         }
-        public bool PlayerLeave(string connectionId, Exception exception = null)
+        public bool PlayerLeave(string connectionId, Exception exception = null, bool isSurrender = false)
         {   //对局中离开, 如果玩家没有正在对局,返回false
             foreach (var room in GwentRooms)
             {
                 if (room.IsReady && room.Player1 is ClientPlayer && (room.Player1 as ClientPlayer).CurrentUser.ConnectionId == connectionId)
                 {
                     //强制结束游戏,将获胜方设定为玩家2(待补充)
-                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player2Index, exception);
+                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player2Index, exception, isSurrender);
                     return true;
                 }
                 if (room.IsReady && room.Player2 is ClientPlayer && (room.Player2 as ClientPlayer).CurrentUser.ConnectionId == connectionId)
                 {
                     //强制结束游戏,将获胜方设定为玩家2(待补充)
-                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player1Index, exception);
+                    _ = room.CurrentGame.GameEnd(room.CurrentGame.Player1Index, exception, isSurrender);
                     return true;
                 }
             }

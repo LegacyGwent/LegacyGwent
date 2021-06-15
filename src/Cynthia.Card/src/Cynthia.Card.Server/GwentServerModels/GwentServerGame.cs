@@ -140,7 +140,7 @@ namespace Cynthia.Card.Server
             return TempGameResult;
         }
 
-        public async Task GameEnd(int winPlayerIndex, Exception exception)
+        public async Task GameEnd(int winPlayerIndex, Exception exception, bool isSurrender = false)
         {
             if (exception == null)
                 // await MessageBox("对方的账号被强制顶下线,比赛结束");
@@ -168,6 +168,7 @@ namespace Cynthia.Card.Server
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
                 RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
                 BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
+                isSurrender = isSurrender
             };
             GameResultEvent(result);
             TempGameResult = result;
