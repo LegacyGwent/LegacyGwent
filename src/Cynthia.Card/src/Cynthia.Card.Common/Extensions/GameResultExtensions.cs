@@ -23,7 +23,7 @@ namespace Cynthia.Card
 
         public static bool IsEffective(this GameResult gameResult)
         {
-            if (gameResult.RedWinCount != 2 && gameResult.BlueWinCount != 2)
+            if (!gameResult.isSurrender && gameResult.RedWinCount != 2 && gameResult.BlueWinCount != 2)
             {
                 return false;
             }

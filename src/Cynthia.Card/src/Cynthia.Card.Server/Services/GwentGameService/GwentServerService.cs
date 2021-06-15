@@ -110,7 +110,7 @@ namespace Cynthia.Card.Server
 
         public bool Surrender(string connectionId) // 投降
         {
-            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"));
+            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"), isSurrender:true);
             InovkeUserChanged();
             return result;
         }
