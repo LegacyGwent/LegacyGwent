@@ -547,5 +547,7 @@ namespace Cynthia.Card
         public const string LivingArmor = "70062";
         public const string Oneiromancy = "70091";
         public const string Highwaymen = "70070";
+        public const string StraysofSpalla = "70071";
+        public const string Radeyah = "70072";
     }
 }
