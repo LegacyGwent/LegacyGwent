@@ -39,11 +39,11 @@ namespace Cynthia.Card
         {
             methodDesDict = new Dictionary<int, string>()
             {
-                {1, "造成15点伤害"},
-                {2, "对一个敌军随机单位造成2点伤害，连续8次"},
-                {3, "重新打出1个铜色/银色单位，并使它获得5点增益"},
-                {4, "从牌组打出1张铜色/银色单位牌"},
-                {5, "移除己方半场的所有“灾厄”效果，并使友军单位获得1点增益"}
+                {1, "ShupeHunter_1_SingleDamage"},
+                {2, "ShupeHunter_2_RepeatedDamage"},
+                {3, "ShupeHunter_3_Replay"},
+                {4, "ShupeHunter_4_PlayFromDeck"},
+                {5, "ShupeHunter_5_ClearSky"}
             };
         }
 

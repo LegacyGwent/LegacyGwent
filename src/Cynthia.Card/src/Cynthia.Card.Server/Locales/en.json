@@ -210,7 +210,22 @@
         "CardTag_Token": "Token",
         "CardTag_Agent": "Agent",
         "CardTag_ClanBrokvar": "Clan Brokvar",
-        "CardTag_Test": "Test"
+        "CardTag_Test": "Test",
+        "ShupeKnight_1_Strengthen": "Strengthen self to 25.",
+        "ShupeKnight_2_Resilience": "Resilient.",
+        "ShupeKnight_3_Duel": "Duel an enemy. ",
+        "ShupeKnight_4_Reset": "Reset a unit.",
+        "ShupeKnight_5_Destroy": "Destroy enemies with less than 4 power.",
+        "ShupeHunter_1_SingleDamage": "Deal 15 damage.",
+        "ShupeHunter_2_RepeatedDamage": "Deal 2 damage to a random enemy. Repeat 8 times.",
+        "ShupeHunter_3_Replay": "Replay a Bronze or Silver ally and boost it by 5.",
+        "ShupeHunter_4_PlayFromDeck": "Play a Bronze or Silver unit from your deck",
+        "ShupeHunter_5_ClearSky": " Clear all Hazards from your side and boost allies by 1.",
+        "ShupeMage_1_DrawCard": "Draw a card.",
+        "ShupeMage_2_Charm": "Charm a random enemy.",
+        "ShupeMage_3_Hazard": "Spawn random Hazards on all enemy rows.",
+        "ShupeMage_4_Damage": "Deal 10 damage to an enemy and 5 to any adjacent to it.",
+        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck."
     },
     "CardLocales": {
         "12004": {

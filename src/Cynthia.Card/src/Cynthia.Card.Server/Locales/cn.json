@@ -75,7 +75,7 @@
         "MainMenu_MainTitle": "主菜单",
         "MainMenu_MatchTitle": "休闲模式",
         "MainMenu_MatchDesc": "轻松友好的牌局",
-        "MainMenu_EditorTitle": "卡组编辑器R",
+        "MainMenu_EditorTitle": "卡组编辑器",
         "MainMenu_EditorDesc": "创建或调整牌组",
         "MatchmakingMenu_Title": "休闲游戏",
         "MatchmakingMenu_DeckReady": "牌组就绪",
@@ -210,7 +210,22 @@
         "CardTag_Token": "退场",
         "CardTag_Agent": "密探",
         "CardTag_ClanBrokvar": "布洛克瓦尔家族",
-        "CardTag_Test": "测试"
+        "CardTag_Test": "测试",
+        "ShupeKnight_1_Strengthen": "强化自身至25点",
+        "ShupeKnight_2_Resilience": "坚韧",
+        "ShupeKnight_3_Duel": "与1个敌军单位对决",
+        "ShupeKnight_4_Reset": "重置1个单位",
+        "ShupeKnight_5_Destroy": "摧毁所有战力低于4点的敌军单位",
+        "ShupeHunter_1_SingleDamage": "造成15点伤害",
+        "ShupeHunter_2_RepeatedDamage": "对一个敌军随机单位造成2点伤害，连续8次",
+        "ShupeHunter_3_Replay": "重新打出1个铜色/银色单位，并使它获得5点增益",
+        "ShupeHunter_4_PlayFromDeck": "从牌组打出1张铜色/银色单位牌",
+        "ShupeHunter_5_ClearSky": "移除己方半场的所有“灾厄”效果，并使友军单位获得1点增益",
+        "ShupeMage_1_DrawCard": "抽1张牌",
+        "ShupeMage_2_Charm": "随机魅惑1个敌军单位",
+        "ShupeMage_3_Hazard": "在对方三排随机生成一种灾厄",
+        "ShupeMage_4_Damage": "对1个敌军造成10点伤害，再对其相邻单位造成5点",
+        "ShupeMage_5_Special": "从牌组打出1张铜色/银色“特殊”牌"
     },
     "CardLocales": {
         "12004": {

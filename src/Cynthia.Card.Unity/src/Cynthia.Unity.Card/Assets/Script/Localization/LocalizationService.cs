@@ -8,6 +8,10 @@ namespace Assets.Script.Localization
         public TextLocalization TextLocalization = new TextLocalization();
         public AudioLocalization AudioLocalization = new AudioLocalization();
 
+        public bool IsContainsKey(string id)
+        {
+            return TextLocalization.IsContainsKey(id);
+        }
         public string GetText(string id)
         {
             return TextLocalization.GetText(id);

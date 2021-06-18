@@ -72,7 +72,7 @@ public class CardContent : MonoBehaviour
 
         var translator = DependencyResolver.Container.Resolve<LocalizationService>();
 
-        CardInfoText.text = translator.GetCardInfo(cardStatus.CardId);
+        CardInfoText.text = translator.IsContainsKey(cardStatus.Info) ? translator.GetText(cardStatus.Info) : translator.GetCardInfo(cardStatus.CardId);
         CardNameText.text = translator.GetCardName(cardStatus.CardId);
 
         TagsText.text = cardStatus.Categories.Select(x => GwentMap.CategorieInfoMap[x])
