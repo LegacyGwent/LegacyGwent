@@ -18,11 +18,11 @@ namespace Cynthia.Card
                 selectList = Game.PlayersHandCard[PlayerIndex].Where(x => x.IsAnyGroup(deckGroup)).ToList();
                 if (!(await Game.GetSelectMenuCards(PlayerIndex, selectList)).TrySingle(out var swapHandCard))
                 {
-                    return 0;
+                    continue;
                 }
                 if (!Game.PlayersDeck[PlayerIndex].Where(x => x.Is(swapHandCard.Status.Group)).TryMessOne(out var swapDeckCard, Game.RNG))
                 {
-                    return 0;
+                    continue;
                 }
                 await swapHandCard.Effect.Swap(swapDeckCard);
             }

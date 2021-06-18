@@ -10,10 +10,15 @@ namespace Cynthia.Card
         public IrisCompanionsPro(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            if(Game.PlayersHandCard[PlayerIndex].Mess(RNG).Count()==0)
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, Game.PlayersHandCard[Card.PlayerIndex], 1, isCanOver: false);
+            if (cards.Count() == 0)
+            {
                 return 0;
-            await Game.PlayersHandCard[PlayerIndex].Mess(RNG).First().Effect.ToCemetery();
-            //己方卡组乱序呈现
+            }
+            foreach (var target in cards)
+            {
+                await target.Effect.Discard(Card);
+            }
             var list = Game.PlayersDeck[PlayerIndex].Mess(RNG).ToList();
             //让玩家选择一张卡,不能不选
             var result = await Game.GetSelectMenuCards(PlayerIndex, list, isCanOver: false);
