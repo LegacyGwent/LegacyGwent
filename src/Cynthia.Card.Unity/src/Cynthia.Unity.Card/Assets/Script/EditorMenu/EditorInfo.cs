@@ -15,6 +15,7 @@ using Assets.Script.Localization;
 using UnityEngine.Events;
 using static UnityEngine.UI.Scrollbar;
 using Cynthia.Card.Common.Extensions;
+using Microsoft.AspNetCore.SignalR.Client;
 
 public class EditorInfo : MonoBehaviour
 {
@@ -91,6 +92,9 @@ public class EditorInfo : MonoBehaviour
     public Text CopperCount;//铜色数量
     public Text AllCount;   //全部数量
     public Text AllCountText;
+    public GameObject DeckCodeInputBackGround;
+    public Text DeckCodeInputName;
+    public Text DeckCodeInputCode;
     //------------------------------------------------
     private LocalizationService _translator;
 
@@ -300,7 +304,7 @@ public class EditorInfo : MonoBehaviour
 
     public async void ShowDeckRemoveClick(string Id)
     {
-        if (await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckTitle", 
+        if (await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckTitle",
             string.Format(_translator.GetText("PopupWindow_DeleteDeckDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name)))
         {
             if (!(await _clientService.RemoveDeck(Id)))
@@ -349,10 +353,10 @@ public class EditorInfo : MonoBehaviour
                 new Vector2(-470, 0), 0.5f);//展开Left
             DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
                 new Vector2(468, 0), 0.5f);//展开Right
-                                           /*
-                                           Titile x:0 | Y:478.5 true    Y: 605 false
-                                           Left y:0 | X:-470 true     X: -1700 false
-                                           Right y:0 | X: 468 true     X: 1700 false*/
+            /*
+            Titile x:0 | Y:478.5 true    Y: 605 false
+            Left y:0 | X:-470 true     X: -1700 false
+            Right y:0 | X: 468 true     X: 1700 false*/
             EditorStatus = EditorStatus.SwitchFaction;
             SetSwitchList(((Faction[])Enum.GetValues(typeof(Faction)))
                 .Where(x => x != Faction.All && x != Faction.Neutral)
@@ -472,7 +476,7 @@ public class EditorInfo : MonoBehaviour
                             break;
                         }
                     }
-                    
+
 
                     // }
                 }
@@ -667,5 +671,59 @@ public class EditorInfo : MonoBehaviour
             }
         }
         return childs;
+    }
+    public async void CopyDeckCode()
+    {
+        var deckCode = _nowEditorDeck.CompressDeck();
+        await _globalUIService.YNMessageBox("Copied! 复制成功", "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+        Debug.Log(_nowEditorDeck.Name);
+        GUIUtility.systemCopyBuffer = deckCode;
+    }
+    public async Task<bool> AddDeckFromCode(string deckCode, string name = "Default")
+    {
+        var deck = deckCode.DeCompressToDeck();
+        deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetText("EditorMenu_DefaultDeckname")
+                                                    : (name.Length >= 20 ? name.Substring(0, 20) : name);
+        if (!deck.IsBasicDeck())
+        {
+            await _globalUIService.YNMessageBox("PopupWindow_AddDeckErrorTitle",
+                                               "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+            return false;
+        }
+        if (await _clientService.HubConnection.InvokeAsync<bool>("AddDeck", deck))
+        {
+            _nowEditorDeck = deck;
+            Debug.Log($"inner {_nowEditorDeck.Id }");
+            _clientService.User.Decks.Add(_nowEditorDeck);
+            await _globalUIService.YNMessageBox("Added! 添加成功", "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+            return true;
+        }
+        else
+        {
+            await _globalUIService.YNMessageBox("PopupWindow_AddDeckErrorTitle",
+                                                "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+            return false;
+        }
+    }
+    public void OpenDeckCodeInput()
+    {
+        DeckCodeInputBackGround.SetActive(true);
+    }
+    public async void ConfirmDeckCodeInput()
+    {
+        await AddDeckFromCode(DeckCodeInputCode.text, DeckCodeInputName.text);
+        CloseDeckCodeInput();
+        Debug.Log($"outer {_nowEditorDeck.Id }");
+        DOTween.To(() => ShowCardsTitle.anchoredPosition, x => ShowCardsTitle.anchoredPosition = x,
+            new Vector2(0, 478.5f), 0.5f);//降下Title,设定标题 ********
+        DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
+            new Vector2(-1700, 0), 0.5f);//收回Left
+        DOTween.To(() => RightSwitchMenu.anchoredPosition, x => RightSwitchMenu.anchoredPosition = x,
+            new Vector2(1700, 0), 0.5f);//收回Right
+        ShowDeckEditorClick(_nowEditorDeck.Id);
+    }
+    public void CloseDeckCodeInput()
+    {
+        DeckCodeInputBackGround.SetActive(false);
     }
 }

@@ -121,7 +121,7 @@ namespace Cynthia.Card.Server
             if (!_users.ContainsKey(connectionId))
                 return false;
             var user = _users[connectionId];
-            if (user.Decks.Count >= 40)
+            if (user.Decks.Count >= 100)
                 return false;
             //if (!deck.IsBasicDeck())
             //return false;
