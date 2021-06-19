@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 29);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 30);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11137,7 +11137,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70032",
                     Name = "加斯科",
-                    Strength = 7,
+                    Strength = 1,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11147,7 +11147,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Officer},
                     Flavor = "“你手下的人可就是史帕拉流亡军？你便是人称野狗公爵的那位？”",
-                    Info = "将所有单位移至随机排。每移动1个单位，便受到3点伤害。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。", 
+                    Info = "对自身造成2点伤害并随机移动一个未被移动的敌军单位，重复直至战力不足。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。",
                     CardArtsId = "d15200000",
                 }
             },
@@ -11353,6 +11353,46 @@ namespace Cynthia.Card
                 }
             },
             {
+                "70054",//假死 FeignDeath
+                new GwentCard()
+                {
+                    CardId ="70054",
+                    Name="假死",
+                    Strength=0,
+                    Group=Group.Silver,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
+                    Flavor = "设埋伏一般都得藏起来。不过……也有例外。",
+                    Info = "复活2个战力高于4点的铜色单位，并对它们各造成4点伤害。",
+                    CardArtsId = "d19720000",
+                }
+            },
+            {
+                "70058",//洞穴巨魔（2点） CaveTroll2
+                new GwentCard()
+                {
+                    CardId ="70058",
+                    Name="洞穴巨魔",
+                    Strength=10,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Ogroid},
+                    Flavor = "巨魔不仅没头脑，饿肚子时还容易不高兴。两样凑在一起，极其危险。",
+                    Info = "回合开始时，使1个战力最高的敌军单位获得2点增益，然后自身获得2点增益。",
+                    CardArtsId = "d19240000",
+                }
+            },
+            {
                 "70059",//独眼贝蒂 OneEyedBetsy
                 new GwentCard()
                 {
@@ -11438,7 +11478,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70072",
                     Name="雷蒂娅",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11491,6 +11531,26 @@ namespace Cynthia.Card
                     Flavor = "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”",
                     Info = "使一个单位的战力等同于自身战力。",
                     CardArtsId = "d19010000",
+                }
+            },
+            {
+                "70102",// 狄拉夫：猩红诅咒 DetlaffCrimsonCurse
+                new GwentCard()
+                {
+                    CardId = "70102",
+                    Name = "狄拉夫：猩红诅咒",
+                    Strength = 5,
+                    Group = Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vampire},
+                    Flavor = "“若是月亮一片血红，那就速速紧闭门窗，让宝宝快快上床……",
+                    Info = "放逐己方墓地中1张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
+                    CardArtsId = "d18350000",
                 }
             },
 
@@ -11606,7 +11666,7 @@ namespace Cynthia.Card
                 {
                     CardId ="130010",
                     Name="萝卜：晋升",
-                    Strength=5,
+                    Strength=4,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11937,7 +11997,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "我们的名字还是不说为好。就当我们是……主人家的朋友吧。",
-                    Info = "随机丢弃1张牌，然后将1张牌从牌组移至手牌。",
+                    Info = "丢弃1张牌，然后将1张牌从牌组移至手牌。",
                     CardArtsId = "20008300",
                 }
             },

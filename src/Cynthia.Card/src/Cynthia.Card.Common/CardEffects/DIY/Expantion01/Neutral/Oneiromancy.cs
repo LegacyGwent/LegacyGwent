@@ -18,7 +18,7 @@ namespace Cynthia.Card
             if (switchCard == 0)
             {
                 var list = Game.PlayerBaseDeck[PlayerIndex].Deck;
-                return await Card.CreateAndMoveStay(list.Where(x=>!x.HasAnyCategorie(Categorie.Agent)).Select(x => x.CardId).Mess(RNG).Take(4).ToArray());
+                return await Card.CreateAndMoveStay(list.Where(x=>!x.HasAnyCategorie(Categorie.Agent)).Select(x => x.CardId).Mess(RNG).Take(3).ToArray());
             }
             if (switchCard == 1)
             {
