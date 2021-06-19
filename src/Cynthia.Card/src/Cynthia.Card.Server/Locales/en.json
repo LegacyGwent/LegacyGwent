@@ -95,6 +95,9 @@
         "EditorMenu_RemoveButton": "REMOVE",
         "EditorMenu_AddDeck": "NEW DECK",
         "EditorMenu_DefaultDeckname": "Default",
+        "EditorMenu_AddDeckFromCodeButton": "Add Deck Code",
+        "EditorMenu_GetDeckCodeButton": "DeckCode",
+        "EditorMenu_EnterDeckCode": "Enter Deck Code",
         "PopupWindow_DeleteDeckTitle": "DELETE",
         "PopupWindow_DeleteDeckDesc": "Are you sure you want to delete the deck: '{0}'?",
         "PopupWindow_DeleteDeckErrorTitle": "ERROR",
@@ -2988,6 +2991,16 @@
             "Info": "On round end, deal 3 damage to the weakest enemy unit, then deal 3 damage to self.",
             "Flavor": ""
         },
+        "70054": {
+            "Name": "Feign Death",
+            "Info": "Resurrect 2 bronze units with power higher than 4 points, and deal 4 damage to each of them.",
+            "Flavor": ""
+        },
+        "70058": {
+            "Name": "Cave Troll",
+            "Info": "At the beginning of your round, a strongest enemy gains 2 points, and then this card gains 2 points.",
+            "Flavor": ""
+        },
         "70059": {
             "Name": "One-Eyed Betsy",
             "Info": "At the beginning of the round, gain 3 points, and then boost the strongest emeny by 3 points.",
@@ -3017,6 +3030,11 @@
             "Name": "Oneiromancy",
             "Info": "Choose one: create 1 non-spy card in your starting deck; or turn 4 random hand cards (not the same name) into 'Oneiromancy'.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
+        },
+        "70102": {
+            "Name": "Detlaff: CrimsonCurse",
+            "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
+            "Flavor": ""
         },
         "70105": {
             "Name": "Adalbertus Kalkstein",
