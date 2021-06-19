@@ -94,6 +94,9 @@
         "EditorMenu_EditButton": "编辑卡组",
         "EditorMenu_RemoveButton": "删除卡组",
         "EditorMenu_AddDeck": "新建牌组",
+        "EditorMenu_AddDeckFromCodeButton": "添加卡组码",
+        "EditorMenu_GetDeckCodeButton": "复制卡组码",
+        "EditorMenu_EnterDeckCode": "输入卡组码",
         "EditorMenu_DefaultDeckname": "默认卡组",
         "PopupWindow_DeleteDeckTitle": "是否要删除卡组",
         "PopupWindow_DeleteDeckDesc": "是否删除 {0} 卡组?",
@@ -2998,6 +3001,16 @@
             "Info": "回合结束时，对1个战力最低的敌军单位造成3点伤害，然后对自身造成3点伤害。",
             "Flavor": "并非所有人都配获得斯瓦勃洛的祝福。"
         },
+        "70054": {
+            "Name": "假死",
+            "Info": "复活2个战力高于4点的铜色单位，并对它们各造成4点伤害。",
+            "Flavor": ""
+        },
+        "70058": {
+            "Name": "洞穴巨魔",
+            "Info": "回合开始时，使1个战力最高的敌军单位获得2点增益，然后自身获得2点增益。",
+            "Flavor": ""
+        },
         "70059": {
             "Name": "独眼贝蒂",
             "Info": "回合开始时，自身获得3点增益，然后使1个战力最高的敌军单位获得3点增益。",
@@ -3032,6 +3045,11 @@
             "Name": "阿道伯图斯·卡尔克斯坦",
             "Info": "使一个单位的战力等同于自身战力。",
             "Flavor": "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”"
+        },
+        "70102": {
+            "Name": "狄拉夫：猩红诅咒",
+            "Info": "放逐己方墓地中1张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
+            "Flavor": ""
         },
         "130210": {
             "Name": "杜度：晋升",
