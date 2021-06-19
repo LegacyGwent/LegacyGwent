@@ -41,7 +41,10 @@ namespace Assets.Script.Localization
 
             return index;
         }
-
+        public bool IsContainsKey(string id)
+        {
+            return Texts.ContainsKey(id) ? true : false;
+        }
         public string GetText(string id)
         {
             return Texts.ContainsKey(id) ? Texts[id] : id;
