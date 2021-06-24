@@ -134,7 +134,6 @@ namespace Cynthia.Card
         {
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
-
             await Game.SendEvent(new BeforeCardToCemetery(Card, deadposition, isRoundEnd));
 
             //进入墓地后撤销护盾
@@ -192,6 +191,10 @@ namespace Cynthia.Card
                 if (Card.Status.IsDoomed || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
+                    if (isNeedSentEvent && discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
+                    {
+                        await Game.SendEvent(new AfterCardDiscard(Card, discardInfo.discardSource));
+                    }
                     return;
                 }
                 if ((Card.Status.CardRow != RowPosition.Banish) && isNeedSentEvent)
