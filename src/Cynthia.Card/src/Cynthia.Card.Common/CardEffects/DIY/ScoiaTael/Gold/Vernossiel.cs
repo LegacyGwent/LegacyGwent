@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70044")]//弗妮希尔
     public class Vernossiel : CardEffect
-    {//将3张“弗妮希尔的突击队”加入对方牌组。触发1次对方牌组中所有“弗妮希尔的突击队”的交换效果。
+    {//将2张“弗妮希尔的突击队”加入对方牌组。触发1次牌组中所有“弗妮希尔的突击队”的交换效果。
         public Vernossiel(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {

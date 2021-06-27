@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public DetlaffCrimsonCurse(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.HasAnyCategorie(Categorie.Blitz,Categorie.Vampire)).ToList();
+            var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.HasAnyCategorie(Categorie.Beast,Categorie.Vampire)).ToList();
             //如果没有单位，什么都不做
             if (list.Count() == 0)
             {

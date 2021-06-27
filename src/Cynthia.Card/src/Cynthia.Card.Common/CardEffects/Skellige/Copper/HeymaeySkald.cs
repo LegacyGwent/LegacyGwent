@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("64006")]//海玫家族诗人
     public class HeymaeySkald : CardEffect
-    {//使所选“家族”的所有友军单位获得1点增益。
+    {//使所选“家族”的所有友军单位获得2点增益。
         public HeymaeySkald(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -27,7 +27,7 @@ namespace Cynthia.Card
                 var list = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAnyCategorie(famcat) && x != Card);
                 foreach (var card in list)
                 {
-                    await card.Effect.Boost(1, Card);
+                    await card.Effect.Boost(2, Card);
                 }
             }
             return 0;
