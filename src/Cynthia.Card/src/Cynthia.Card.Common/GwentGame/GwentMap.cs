@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 31);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 32);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -315,7 +315,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12009",
                     Name="先祖麦酒",
-                    Strength=8,
+                    Strength=10,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9794,7 +9794,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey,Categorie.Support},
                     Flavor = "海玫家族的事迹将流芳千古。",
-                    Info = "使所选“家族”的所有友军单位获得1点增益。",
+                    Info = "使所选“家族”的所有友军单位获得2点增益。",
                     CardArtsId = "15230800",
                 }
             },
@@ -11297,7 +11297,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70044",
                     Name="弗妮希尔",
-                    Strength=4,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11418,7 +11418,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70062",
                     Name="活体盔甲",
-                    Strength=10,
+                    Strength=13,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11428,7 +11428,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Construct},
                     Flavor = "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！",
-                    Info = "己方同排单位单次最多受到5点伤害。", 
+                    Info = "己方同排其他单位单次最多受到5点伤害。2点护甲。", 
                     CardArtsId = "d19280000",
                 }
             },

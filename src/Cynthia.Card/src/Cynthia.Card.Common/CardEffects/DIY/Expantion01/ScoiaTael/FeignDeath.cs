@@ -16,10 +16,10 @@ namespace Cynthia.Card
             && x.Status.Strength > 4).ToList();
             //让玩家选择
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, isCanOver: true);
-            foreach (var x in result.ToList())
+            for(int i=result.Count()-1;i>=0;i++)
             {
-                await x.Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
-                await x.Effect.Damage(4, Card);
+                await result[i].Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
+                await result[i].Effect.Damage(4, Card);
             }
             return result.Count();
         }
