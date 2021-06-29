@@ -93,8 +93,8 @@ public class EditorInfo : MonoBehaviour
     public Text AllCount;   //全部数量
     public Text AllCountText;
     public GameObject DeckCodeInputBackGround;
-    public Text DeckCodeInputName;
-    public Text DeckCodeInputCode;
+    public InputField DeckCodeInputName;
+    public InputField DeckCodeInputCode;
     //------------------------------------------------
     private LocalizationService _translator;
 
@@ -681,6 +681,7 @@ public class EditorInfo : MonoBehaviour
     }
     public async Task<bool> AddDeckFromCode(string deckCode, string name = "Default")
     {
+        Debug.Log(deckCode);
         var deck = deckCode.DeCompressToDeck();
         deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetText("EditorMenu_DefaultDeckname")
                                                     : (name.Length >= 20 ? name.Substring(0, 20) : name);
