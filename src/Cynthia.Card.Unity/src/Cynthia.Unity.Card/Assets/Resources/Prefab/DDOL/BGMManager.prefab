@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8767404990111665715}
   - component: {fileID: 8767404990111665712}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: BGMManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: Northern01
+  - name: Northern Realms01
     clip: {fileID: 8300000, guid: cad6981eb56ff434c9ef4f224364004c, type: 3}
     volume: 1
     pitch: 1
@@ -107,7 +107,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: Northern02
+  - name: Northern Realms02
     clip: {fileID: 8300000, guid: f880447885405fd4da6850ea3f20f653, type: 3}
     volume: 1
     pitch: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: Northern03
+  - name: Northern Realms03
     clip: {fileID: 8300000, guid: 7e60a7d708e912a4e8a091c1676287b5, type: 3}
     volume: 1
     pitch: 1
@@ -251,7 +251,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: "Another\_Round"
+  - name: "Another\_Round\_For\_Everyone"
     clip: {fileID: 8300000, guid: 79edbbf230f6bea41b9e353017e66da8, type: 3}
     volume: 1
     pitch: 1
@@ -260,7 +260,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: "A\_Story"
+  - name: "A\_Story\_You\_Won't\_Believe"
     clip: {fileID: 8300000, guid: 90d6b9318c24195418067c0ab1d442fe, type: 3}
     volume: 1
     pitch: 1
@@ -269,7 +269,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: "Back\_On"
+  - name: "Back\_On\_the\_Path"
     clip: {fileID: 8300000, guid: 63cf56692d98a9e4daa9b694777bebc8, type: 3}
     volume: 1
     pitch: 1
@@ -278,7 +278,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: Drink Up
+  - name: "Drink Up, There\u2019s More!"
     clip: {fileID: 8300000, guid: b2b6aae39c77b5e438e75ff49aae4c13, type: 3}
     volume: 1
     pitch: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: Searching for
+  - name: Searching for Cecilia Bellant
     clip: {fileID: 8300000, guid: f1a7cbe8b23d19841a362338676cd5d2, type: 3}
     volume: 1
     pitch: 1
@@ -314,7 +314,7 @@ MonoBehaviour:
     loop: 0
     isBGM: 1
     source: {fileID: 0}
-  - name: The Musty
+  - name: "The Musty Scent of Fresh P\xE2t\xE9"
     clip: {fileID: 8300000, guid: bc74a1fa2ee4c5547b342166ab90894b, type: 3}
     volume: 1
     pitch: 1

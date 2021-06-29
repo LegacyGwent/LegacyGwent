@@ -9,12 +9,11 @@ using UnityEngine.SceneManagement;
 ////////////////////////////
 //Script added by Charli
 ///////////////////////////
-
 [System.Serializable]
 public class Sound
 {
     public string name;
-    public AudioClip clip;
+    private AudioClip clip;
 
     [Range(0f, 1f)]
     public float volume = 0.7f;
@@ -29,8 +28,8 @@ public class Sound
 
     [HideInInspector]
     public AudioSource source;
-
-
+    private static string Witcher3BgmDirectory = "Music/Witcher3Bgm/";
+    private static string OldGwentBgmDirectory = "Music/OldGwentBgm/";
 
     public void SetSource(AudioSource _source)
     {
@@ -41,6 +40,15 @@ public class Sound
     }
     public void Play()
     {
+        if (clip == null) // check Witcher3BgmDirectory
+        {
+            clip = Resources.Load<AudioClip>(Witcher3BgmDirectory + name);
+        }
+        if (clip == null) // check OldGwentBgmDirectory
+        {
+            clip = Resources.Load<AudioClip>(OldGwentBgmDirectory + name);
+        }
+        source.clip = clip;
         source.volume = volume * (1 + Random.Range(-randomVolum / 2f, randomVolum / 2f));
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
         source.Play();
@@ -56,7 +64,6 @@ public class BGMManager : MonoBehaviour
 {
     [SerializeField]
     public Sound[] soundList;
-
 
     public static BGMManager instance;
     public AudioMixer audioMixer;
@@ -121,14 +128,14 @@ public class BGMManager : MonoBehaviour
         " ",
         ""
         },{
-        "Another Round",
-        "A Story",
-        "Back On",
-        "Drink Up",
-        "Searching for",
+        "Another Round For Everyone",
+        "A Story You Won't Believe",
+        "Back On the Path",
+        "Drink Up, There’s More!",
+        "Searching for Cecilia Bellant",
         "The Mandragora",
         "The Nightingale",
-        "The Musty"
+        "The Musty Scent of Fresh Pâté"
         },{
         "Monsters01",
         "Monsters02",
@@ -148,9 +155,9 @@ public class BGMManager : MonoBehaviour
         " ",
         ""
         },{
-        "Northern01",
-        "Northern02",
-        "Northern03",
+        "Northern Realms01",
+        "Northern Realms02",
+        "Northern Realms03",
         " ",
         " ",
         " ",
