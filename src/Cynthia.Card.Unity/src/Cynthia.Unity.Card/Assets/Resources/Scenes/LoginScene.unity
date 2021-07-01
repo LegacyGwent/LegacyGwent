@@ -11080,17 +11080,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2008938978}
         m_MethodName: SetActive
         m_Mode: 6
@@ -12545,7 +12534,7 @@ MonoBehaviour:
   GlobalUI: {fileID: 8807961927885292087, guid: dcb346a65d1379848a0cdc10564106ef,
     type: 3}
   AudioMixer: {fileID: 24100000, guid: 03e57d7fad10be74cbae405b16166414, type: 2}
-  AudioManager: {fileID: 8767404990111665712, guid: 30b31cde7cf923748a2c2cf9cf925e95,
+  bgmManager: {fileID: 8767404990111665712, guid: 30b31cde7cf923748a2c2cf9cf925e95,
     type: 3}
   ObjectLocks:
   - {fileID: 1369793172}

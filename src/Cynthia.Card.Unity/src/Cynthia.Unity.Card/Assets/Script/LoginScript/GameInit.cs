@@ -13,7 +13,7 @@ public class GameInit : MonoBehaviour
 {
     public GameObject GlobalUI;
     public AudioMixer AudioMixer;
-    public BGMManager AudioManager;
+    public BGMManager bgmManager;
 
     public List<GameObject> ObjectLocks;
     public UnityEvent OnGameLoad;
@@ -119,13 +119,13 @@ public class GameInit : MonoBehaviour
             ClientGlobalInfo.IsLoadGlobal = true;
             var globalUI = Instantiate(GlobalUI);
             // var musicSource = Instantiate(AudioSound);
-            var audioManager = Instantiate(AudioManager);
+            var bgmManagerInstance = Instantiate(bgmManager);
             DontDestroyOnLoad(globalUI);
             // DontDestroyOnLoad(musicSource);
-            DontDestroyOnLoad(audioManager);
+            DontDestroyOnLoad(bgmManagerInstance);
 
             globalUI.name = "GlobalUI";
-            audioManager.name = "BGMManager";
+            bgmManagerInstance.name = "BGMManager";
             // musicSource.name = "MusicSource";
 
             SetResolution(PlayerPrefs.GetInt("resolutionIndex", 2));
@@ -180,14 +180,15 @@ public class GameInit : MonoBehaviour
     public void SetMusic(int volum)
     {
         PlayerPrefs.SetInt("musicVolum", volum);
-        AudioMixer.SetFloat("musicVolum", (float)((volum * 8) - 80));
+        AudioMixer.SetFloat("musicVolum", SettingPanel.LinearToDecibel(volum / 10f));
     }
 
     //设置音效大小
     public void SetEffect(int volum)
     {
         PlayerPrefs.SetInt("effectVolum", volum);
-        AudioMixer.SetFloat("effectVolum", (float)((volum * 8) - 80));
+        AudioMixer.SetFloat("effectVolum", SettingPanel.LinearToDecibel(volum / 10f));
+        AudioManager.Instance.SetVolume(volum);
     }
 
     //设置画质
