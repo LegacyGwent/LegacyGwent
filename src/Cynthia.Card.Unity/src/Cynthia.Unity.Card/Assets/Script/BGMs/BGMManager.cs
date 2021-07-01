@@ -242,9 +242,6 @@ public class BGMManager : MonoBehaviour
 
     private void Update()
     {
-
-
-
         if (playingSound != null && playingSound.source.isPlaying == false)//判断音乐停止
         {
             inCardselect = false;

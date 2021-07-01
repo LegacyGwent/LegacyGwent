@@ -35,6 +35,7 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        volume = PlayerPrefs.GetInt("effectVolum", 7);
         _queueAudioSource = gameObject.AddComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
     }
@@ -68,7 +69,9 @@ public class AudioManager : MonoBehaviour
     {
         Object[] allclips = Resources.LoadAll(GetDirectory(type) + id);
         if (allclips.Length == 0)
+        {
             return;
+        }
         AudioClip clip = (AudioClip)allclips[Random.Range(0, allclips.Length)];
         if (mode == AudioPlayMode.Append)     //追加模式  等之前同类型音频播放完
         {

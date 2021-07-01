@@ -4233,7 +4233,7 @@ MonoBehaviour:
   OnTextLanguageChange:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1972367733}
         m_MethodName: TranslateAll
         m_Mode: 1
         m_Arguments:
