@@ -94,6 +94,12 @@ public class GameUIControl : MonoBehaviour
         //MyPass.SetActive(gameInfomation.IsMyPlayerMulligan);
         EnemyPass.SetActive(gameInfomation.IsEnemyPlayerMulligan);
     }
+    public void SetDecideCoinInfo(bool isEnemyPlayerDecidingCoin)
+    {
+        if (isEnemyPlayerDecidingCoin)
+            EnemyShowMessage.text = _translator.GetText("IngameMenu_EnemyDecidingCoin");
+        EnemyPass.SetActive(isEnemyPlayerDecidingCoin);
+    }
     public void SetWinCountInfo(GameInfomation gameInfomation)
     {
         if (gameInfomation.MyWinCount == 0)

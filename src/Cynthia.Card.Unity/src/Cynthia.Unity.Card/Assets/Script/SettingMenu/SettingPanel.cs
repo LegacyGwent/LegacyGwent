@@ -72,7 +72,7 @@ public class SettingPanel : MonoBehaviour
     {
         PlayerPrefs.SetInt("musicVolum", volum);
         musicVolum = volum;
-        AudioMixer.SetFloat("musicVolum", (float)((musicVolum * 8) - 80));
+        AudioMixer.SetFloat("musicVolum", LinearToDecibel(volum / 10.0f));
     }
 
     //设置音效大小
@@ -80,7 +80,7 @@ public class SettingPanel : MonoBehaviour
     {
         PlayerPrefs.SetInt("effectVolum", volum);
         effectVolum = volum;
-        AudioMixer.SetFloat("effectVolum", (float)((effectVolum * 8) - 80));
+        AudioMixer.SetFloat("effectVolum", LinearToDecibel(volum / 10.0f));
         AudioManager.Instance.SetVolume(volum);
     }
 
@@ -133,5 +133,13 @@ public class SettingPanel : MonoBehaviour
     {
         PlayerPrefs.SetInt("AudioLanguage", langIndex);
         languageManager.AudioLocalization.ChooseLanguage(langIndex);
+    }
+    public static float LinearToDecibel(float linear)
+    {
+        return linear == 0 ? -80.0f : 20.0f * Mathf.Log10(linear);
+    }
+    public static float DecibelToLinear(float dB)
+    {
+        return Mathf.Pow(10.0f, dB / 20.0f);
     }
 }

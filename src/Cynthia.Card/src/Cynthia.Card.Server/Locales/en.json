@@ -134,6 +134,7 @@
         "IngameMenu_CardSelection": "CARD SELECTION",
         "IngameMenu_Passed": "PASSED",
         "IngameMenu_EnemyRedrawing": "Your opponent is replacing cards.",
+        "IngameMenu_EnemyDecidingCoin": "Your opponent is deciding coin point.",
         "IngameMenu_ScoreTitle": "SCORE",
         "IngameMenu_VictoryTitle": "VICTORY",
         "IngameMenu_DefeatTitle": "DEFEAT",

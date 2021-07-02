@@ -48,16 +48,13 @@ public class AudioManager : MonoBehaviour
             _queueAudioSource.Play();
         }
 
-
         OnShootAudioVolumeSetting();
     }
 
-    public void SetVolume(float volume)
+    public void SetVolume(float newVolume)
     {
-        this.volume = volume / 10;
-
+        volume = newVolume / 10;
         _queueAudioSource.volume = volume;
-
         foreach (var audioSource in onshotAudioSource)
         {
             audioSource.volume = volume;
@@ -66,11 +63,14 @@ public class AudioManager : MonoBehaviour
 
     public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append)
     {
-        Object[] allclips = Resources.LoadAll(GetDirectory(type) + id);
+        var allclips = Resources.LoadAll<AudioClip>(GetDirectory(type) + id);
         if (allclips.Length == 0)
+        {
             return;
-        AudioClip clip = (AudioClip)allclips[Random.Range(0, allclips.Length)];
-        if (mode == AudioPlayMode.Append)     //追加模式  等之前同类型音频播放完
+        }
+        var clip = allclips[Random.Range(0, allclips.Length)];
+        clip.name = id;
+        if (mode == AudioPlayMode.Append)//追加模式  等之前同类型音频播放完
         {
             if (audioClipbuffer.Count > 0 && audioClipbuffer[audioClipbuffer.Count - 1].name.Equals(id))
             {
@@ -81,9 +81,11 @@ public class AudioManager : MonoBehaviour
                 return;
             }
             else
+            {
                 audioClipbuffer.Add(clip);
+            }
         }
-        else if (mode == AudioPlayMode.PlayOneShoot)          //播放一次模式  不管之前的音频，总播放  75%音量如果同时播放
+        else if (mode == AudioPlayMode.PlayOneShoot) //播放一次模式 ；不管之前的音频，总播放；75%音量如果同时播放
         {
             AudioSource source = GetOneShootAudioSource();
             source.volume = volume;

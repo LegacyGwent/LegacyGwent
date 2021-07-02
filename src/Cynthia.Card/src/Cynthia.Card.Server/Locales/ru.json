@@ -134,6 +134,7 @@
         "IngameMenu_CardSelection": "Выбор карты",
         "IngameMenu_Passed": "Пас",
         "IngameMenu_EnemyRedrawing": "Оппонент меняет карты.",
+        "IngameMenu_EnemyDecidingCoin": "Оппонент решает точку.",
         "IngameMenu_ScoreTitle": "Очки",
         "IngameMenu_VictoryTitle": "Победа",
         "IngameMenu_DefeatTitle": "Поражение",

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using Cynthia.Card;
+using Autofac;
+using Assets.Script.Localization;
 using UnityEngine.SceneManagement;
 
 ////////////////////////////
@@ -24,7 +26,7 @@ public class Sound
     [Range(0f, 0.5f)]
     public float randomPitch = 0f;
     public bool loop = false;
-    public bool isBGM = false;  //will stop when other hintSound is palyed
+    public bool isBGM = false;  //will stop when other hintSound is played
 
     [HideInInspector]
     public AudioSource source;
@@ -72,7 +74,7 @@ public class BGMManager : MonoBehaviour
 
 
     private float countChangeSpeed = 0;
-    private int lastCardselctBgm = -1;
+    private int lastCardselectBgm = -1;
     //private GameObject tempObject = null;
     private LeaderCard leaderCard = null;
     //private CardShowInfo card = null;
@@ -101,6 +103,7 @@ public class BGMManager : MonoBehaviour
     private static float defaultVolum = 0.0f;
     private static float tempVolum = 0.0f;
     private bool inGame = false;
+    private LocalizationService translator;
     private Scene scene;
     /*
         All = 0, Cardselect
@@ -228,8 +231,8 @@ public class BGMManager : MonoBehaviour
 
     private void Start()
     {
-
         GameObject.DontDestroyOnLoad(gameObject);
+        translator = DependencyResolver.Container.Resolve<LocalizationService>();
         for (int s = 0; s < soundList.Length; s++)
         {
             GameObject _go = new GameObject("Sound_" + s + "_" + soundList[s].name);
@@ -242,9 +245,6 @@ public class BGMManager : MonoBehaviour
 
     private void Update()
     {
-
-
-
         if (playingSound != null && playingSound.source.isPlaying == false)//判断音乐停止
         {
             inCardselect = false;
@@ -292,7 +292,7 @@ public class BGMManager : MonoBehaviour
             tempString = tempText.text;
             if (inLine == false)
             {
-                if (tempString == "停止匹配")
+                if (tempString == translator.GetText("MatchmakingMenu_CancelButton"))
                 {
                     //Debug.Log("进入【匹配队列】");
                     inLine = true;
@@ -301,7 +301,7 @@ public class BGMManager : MonoBehaviour
             }
             else
             {
-                if (tempString == "开始战斗")
+                if (tempString == translator.GetText("MatchmakingMenu_PlayButton"))
                 {
                     //Debug.Log("退出【匹配队列】");
                     inLine = false;
@@ -389,22 +389,23 @@ public class BGMManager : MonoBehaviour
             faction = -1;
             tempText = resultUI.GetComponent<Text>();
             tempString = tempText.text;
+
             if (inResult == false)
             {
                 faction = -1;
-                if (tempString == "胜利")
+                if (tempString == translator.GetText("IngameMenu_VictoryTitle"))
                 {
                     //Debug.Log("进入【胜利】");
                     inResult = true;
                     PlayBGM(7);
                 }
-                else if (tempString == "失败")
+                else if (tempString == translator.GetText("IngameMenu_DefeatTitle"))
                 {
                     //Debug.Log("进入【失败】");
                     inResult = true;
                     PlayBGM(8);
                 }
-                else if (tempString == "平局")
+                else if (tempString == translator.GetText("IngameMenu_DrawTitle"))
                 {
                     //Debug.Log("进入【平局】");
                     inResult = true;
@@ -426,10 +427,12 @@ public class BGMManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (lerpSound != null) //给一个短暂的声音淡出效果
         {
-            tempVolum = Mathf.Lerp(defaultVolum, -80, countChangeSpeed);
+            tempVolum = SettingPanel.LinearToDecibel(
+                            Mathf.Lerp(SettingPanel.DecibelToLinear(defaultVolum),
+                                        SettingPanel.DecibelToLinear(-80),
+                                        countChangeSpeed));
             countChangeSpeed += bgmChangeSpeed;
             audioMixer.SetFloat("musicVolum", tempVolum);
             if (tempVolum < -70)
@@ -492,11 +495,11 @@ public class BGMManager : MonoBehaviour
             {
                 if (soundList[s].isBGM == true)  // stop all other BGM
                 {
-                    if (lerpSound != null)// 避免还有正在淡出的曲子
+                    if (lerpSound != null) // 避免还有正在淡出的曲子
                     {
                         lerpSound.Stop();
                     }
-                    if (soundList[s] != playingSound)// 避免连续播放同一首会杀死自己
+                    if (soundList[s] != playingSound) // 避免连续播放同一首会杀死自己
                     {
                         lerpSound = playingSound;
                     }
@@ -512,7 +515,7 @@ public class BGMManager : MonoBehaviour
             }
         }
 
-        if (findFlag == false)  //Not found
+        if (!findFlag)  //Not found
         {
             Debug.LogError("Sound missing" + _name);
         }
@@ -545,13 +548,11 @@ public class BGMManager : MonoBehaviour
         }
         int num = Random.Range(0, len); //0,1,2,3
 
-        if (num == lastCardselctBgm)//不连续重复
+        if (num == lastCardselectBgm) //不连续重复
         {
             num = (num + 1) % len;
         }
-        lastCardselctBgm = num;
+        lastCardselectBgm = num;
         PlaySound(BGMs[group, num]);
     }
-
-
 }
