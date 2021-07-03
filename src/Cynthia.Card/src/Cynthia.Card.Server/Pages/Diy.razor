@@ -2,29 +2,38 @@
 @using System.IO;
 @*@Command.GetDiyCardsInfo();*@
 @using Newtonsoft.Json;
-<div>
-    <Button @onclick="() => open()">上传设计</Button>
-    <Divider Orientation="left">diy卡牌设计</Divider>
-    <Row>
-        @for (int i = 0; i < Info.diyCardInfo.Count; i++)
-        {
-            int num = i;
-            var currentCard = Info.diyCardInfo[num];
-            <SpaceItem>
-                <AntDesign.Col>
-                    <SpaceItem>
-                        <Card Style="width:300px;" Bordered Cover="coverTemplate(num)"
-                              Actions="@(new[] {
+    <div>
+        <Button @onclick="() => open()">上传设计</Button>
+        <Divider Orientation="left">diy卡牌设计</Divider>
+        <Layout>
+            <Sider>筛选条件</Sider>
+            <Layout>
+                <Content>
+                    <Row>
+                        @for (int i = 0; i < Info.diyCardInfo.Count; i++)
+                        {
+                            int num = i;
+                            var currentCard = Info.diyCardInfo[num];
+                            <SpaceItem>
+                                <AntDesign.Col>
+                                    <SpaceItem>
+                                        <Card Style="width:300px;" Bordered Cover="coverTemplate(num)"
+                                              Actions="@(new[] {
                                 actionEdit(()=>commitDrawerVisible = true),
                                 actionEllipsis(()=> detailPageVisible = true)})">
-                            <CardMeta AvatarTemplate="@avatarTemplate" Title=@currentCard.cardName Description=@currentCard.describe />
-                        </Card>
-                    </SpaceItem>
-                </AntDesign.Col>
-            </SpaceItem>
-        }
-    </Row>
-</div>
+                                            <CardMeta AvatarTemplate="@avatarTemplate" Title=@currentCard.cardName Description=@currentCard.describe />
+                                        </Card>
+                                    </SpaceItem>
+                                </AntDesign.Col>
+                            </SpaceItem>
+                        }
+                    </Row>
+                </Content>
+                <Footer>Footer</Footer>
+            </Layout>
+        </Layout>
+      
+    </div>
 @*上传卡图相关代码*@
 @code {
     byte[] uploadImageData = new byte[0];
@@ -36,7 +45,6 @@
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
             uploadImageData = ms.ToArray();
-            Info.uploadImageData = uploadImageData;
             File.WriteAllBytes("uploadImg/" + file.Name, uploadImageData);
         }
     }
@@ -55,7 +63,7 @@
         <Input Placeholder="名字" @bind-Value="@newDiyCardName" />
         <Input Placeholder="描述" @bind-Value="@newDiyCardDescribe" />
         <Button @onclick="() => {
-                              Command.AddDiyCardInfos(newDiyCardName, newDiyCardDescribe,Info.uploadImageData);
+                              Command.AddDiyCardInfos(newDiyCardName, newDiyCardDescribe,uploadImageData);
                               Command.GetDiyCardsInfo();
                           }">
             提交

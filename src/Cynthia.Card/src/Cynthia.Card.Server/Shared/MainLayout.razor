@@ -4,9 +4,25 @@
     <NavMenu />
 </div>
 
+@code{
+    bool isLogin = false;
+    string user = "";
+    string password = "";
+}
 <div class="main">
-    <div class="top-row px-4">
-        <a href="https://shang.qq.com/wpa/qunwpa?idkey=131ac538a2dee688ba02f146df56a90b83a35182cd441081cfb26f9c080c3b89" target="_blank">我要入群</a>
+    <div class="top-row px">
+        @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
+        @if (!isLogin)
+        {
+            <Input style="width:150px" placeholder="账号" @bind-Value="user" />
+            <Input style="width:150px" placeholder="密码" @bind-Value="password" />
+            <Button @onclick="_=>isLogin=true">登录</Button>
+        }
+        else
+        {
+            <Button Type="link">欢迎你，陌生而可敬的 @user </Button>
+            <Button @onclick="_=>isLogin=false">登出</Button>
+        }
     </div>
 
     <div class="content px-4">

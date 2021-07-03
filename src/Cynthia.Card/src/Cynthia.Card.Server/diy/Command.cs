@@ -22,6 +22,7 @@ public class Command
         diyCardCollection = db.GetCollection<DiyCardInfo>("DiyCards");
         diyCardTextureCollection = db.GetCollection<DiyCardTextureInfo>("DiyCardTexture");
         defaultTextureCollection = db.GetCollection<DefaultTexture>("DefaultTexture");
+        Console.WriteLine("数据库初始化完成");
     }
     public static void InItDefaultTexture(DefaultTexture defaultTexture)
     {
