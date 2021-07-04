@@ -1,0 +1,60 @@
+name: tagged-release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  create_release:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.draft_release.outputs.upload_url }}
+    steps:
+      - name: Create release
+        id: draft_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+
+  buildForAllSupportedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
+    needs: create_release
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          - Android # Build an Android .apk standalone app.
+          - iOS # Build an iOS player.
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+      - uses: game-ci/unity-builder@main
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
+          buildName: DiyGwent-${{ matrix.targetPlatform }}
+      - uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_name: DiyGwent-${{ github.ref }}-${{ matrix.targetPlatform }}
+          asset_path: build/${{ matrix.targetPlatform }}
+          asset_content_type: application/zip
