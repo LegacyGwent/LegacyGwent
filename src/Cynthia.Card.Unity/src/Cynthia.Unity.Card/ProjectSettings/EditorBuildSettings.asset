@@ -20,4 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/GamePlay.unity
     guid: e01a149491d36be4da03742595ddfc32
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: f94070ef8e412f842a1bcf03563419f6,
+      type: 2}
