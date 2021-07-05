@@ -1,6 +1,7 @@
 ﻿using Cynthia.Card;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
 
 public class ArtCard : MonoBehaviour
 {
@@ -66,7 +67,15 @@ public class ArtCard : MonoBehaviour
         var use = this.GetComponent<CardMoveInfo>();
         if (use != null && !CurrentCore.IsCardBack)
             use.CardUseInfo = CardInfo.CardUseInfo;
-        CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
+        if (CurrentCore.CardArtsId != null)
+        {
+            Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).Completed += (obj) =>
+            {
+                CardImg.sprite = obj.Result;
+            };
+            // CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
+        }
+        // CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
         //设置卡牌是否灰(转移到属性)
         //如果卡牌是背面,设置背面并结束
         CardBack.gameObject.SetActive(false);
