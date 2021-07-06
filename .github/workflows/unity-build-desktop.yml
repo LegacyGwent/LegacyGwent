@@ -1,0 +1,38 @@
+name: Build Client for Computer
+
+on: [push, pull_request, workflow_dispatch]
+
+env:
+  UNITY_LICENSE: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>\n    <License id=\"Terms\">\n        <MachineBindings>\n            <Binding Key=\"1\" Value=\"576562626572264761624c65526f7578\"/>\n            <Binding Key=\"2\" Value=\"576562626572264761624c65526f7578\"/>\n        </MachineBindings>\n        <MachineID Value=\"D7nTUnjNAmtsUMcnoyrqkgIbYdM=\"/>\n        <SerialHash Value=\"7d306e7f435cf99fd03218060fe5ee13d95b146f\"/>\n        <Features>\n            <Feature Value=\"33\"/>\n            <Feature Value=\"1\"/>\n            <Feature Value=\"12\"/>\n            <Feature Value=\"2\"/>\n            <Feature Value=\"24\"/>\n            <Feature Value=\"3\"/>\n            <Feature Value=\"36\"/>\n            <Feature Value=\"17\"/>\n            <Feature Value=\"19\"/>\n            <Feature Value=\"62\"/>\n        </Features>\n        <DeveloperData Value=\"AQAAAEY0LUVLS0otVFdTUy1OSkZCLTVKTk0tWEpLUw==\"/>\n        <SerialMasked Value=\"F4-EKKJ-TWSS-NJFB-5JNM-XXXX\"/>\n        <StartDate Value=\"2021-06-30T00:00:00\"/>\n        <UpdateDate Value=\"2021-07-06T19:44:21\"/>\n        <InitialActivationDate Value=\"2021-06-30T03:45:35\"/>\n        <LicenseVersion Value=\"6.x\"/>\n        <ClientProvidedVersion Value=\"2019.2.11f1\"/>\n        <AlwaysOnline Value=\"false\"/>\n        <Entitlements>\n            <Entitlement Ns=\"unity_editor\" Tag=\"UnityPersonal\" Type=\"EDITOR\" ValidTo=\"9999-12-31T00:00:00\"/>\n            <Entitlement Ns=\"unity_editor\" Tag=\"DarkSkin\" Type=\"EDITOR_FEATURE\" ValidTo=\"9999-12-31T00:00:00\"/>\n        </Entitlements>\n    </License>\n<Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\"><SignedInfo><CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments\"/><SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"/><Reference URI=\"#Terms\"><Transforms><Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/></Transforms><DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/><DigestValue>OPR5P6uhiaB2UfIvDErAbXtMsEU=</DigestValue></Reference></SignedInfo><SignatureValue>ztgVNxaKhuGqLs4gu7ISF0fwk5uhn0xCNpa730tlgbraDoIGg+bWz0Gwk5T5XUZmSnTShokXmyIi\nZZdf7lHfW51FjPx2yBKJnjHYh0Cin4w5t3hKlLhAAxggzKXKxysvD3vaOJlRo0UGzo8FYqyFXOeG\nq69qU7vDGwAEgsmXxAXRvDonG+VEYWElUy476SoyhSbzHB8V+PuvhwNLWm50iMoua2rMN8bSXV2A\nF5ozSILK12zfgfmwiUKau2KI6XuhcDCSfGSw98MYDLX1DE4LuGe53PQ1r3s+y2/W9PJxHqDQwh1o\nZqZAtF9JpkfCVgZ31NnfBr+99HjgrTu2FqMwaA==</SignatureValue></Signature></root>"
+
+jobs:
+  buildForAllSupportedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          - WebGL # WebGL.
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+      - uses: game-ci/unity-builder@main
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
+          buildName: DiyGwent-${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: DiyGwent-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
