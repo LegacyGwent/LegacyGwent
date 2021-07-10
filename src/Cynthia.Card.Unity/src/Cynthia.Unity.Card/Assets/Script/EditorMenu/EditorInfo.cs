@@ -141,7 +141,7 @@ public class EditorInfo : MonoBehaviour
             newCards.ForAll(x =>
             {
                 var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
-                card.cardShowInfo.CurrentCore = x;
+                card.cardShowInfo.setCurrentCore(x, true);
                 var canAdd = (x.Group == Group.Copper ? 3 : 1);
                 card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
                 card.transform.SetParent(EditorCardsContext, false);
@@ -184,7 +184,7 @@ public class EditorInfo : MonoBehaviour
             newCards.ForAll(x =>
             {
                 var card = Instantiate(UICardPrefab).GetComponent<CardShowInfo>();
-                card.CurrentCore = x;
+                card.setCurrentCore(x, true);
                 card.transform.SetParent(ShowCardsContent, false);
             });
         }
@@ -512,7 +512,7 @@ public class EditorInfo : MonoBehaviour
         cards.ForAll(x =>
         {
             var card = Instantiate(SwitchCardPrefab).GetComponent<SwitchUICard>();
-            card.CardShowInfo.CurrentCore = x;
+            card.CardShowInfo.setCurrentCore(x, true);
             card.transform.SetParent(SwitchCardsContext, false);
         });
         //------------------------------------------------------------------------//276

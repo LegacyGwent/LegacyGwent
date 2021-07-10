@@ -18,15 +18,7 @@ public class CardShowInfo : MonoBehaviour
     {
         get => _currentCore; set
         {
-            if (_currentCore != null && (_currentCore.IsCardBack != value.IsCardBack))
-            {
-                _currentCore = value;
-                Reverse();//反转
-                return;
-            }
-            _currentCore = value;
-            //_currentCore.CardInfo = GwentMap.CardMap[_currentCore.CardId];
-            SetCard();
+            setCurrentCore(value);
         }
     }                       //卡id
     public GwentCard CardInfo { get => GwentMap.CardMap[_currentCore.CardId]; }   //卡类型
@@ -83,7 +75,7 @@ public class CardShowInfo : MonoBehaviour
     public Image SelectCenter;
     public Image SelectMargin;
     public GameObject SelectIcon;
-
+    private string _oldCardArtsId = null; // prevent repeated load
     //目前被CurrentCore属性取代
     //public CardShowInfo(CardStatus card) => CurrentCore = card;
 
@@ -104,9 +96,23 @@ public class CardShowInfo : MonoBehaviour
             SelectMargin.color = new Color(0, 180f / 255f, 1);
         }
     }
-
-    //根据CurrentCore来刷新卡面
+    public void setCurrentCore(CardStatus value, bool asyncLoadAsset = false)
+    {
+        if (_currentCore != null && (_currentCore.IsCardBack != value.IsCardBack))
+        {
+            _currentCore = value;
+            Reverse();//反转
+            return;
+        }
+        _currentCore = value;
+        SetCard(asyncLoadAsset);
+    }
     public void SetCard()
+    {
+        SetCard(true);
+    }
+    //根据CurrentCore来刷新卡面
+    public void SetCard(bool asyncLoadAsset = true)
     {
         // Debug.Log("刷新了卡牌设置");
         // Debug.Log($"卡牌名称是:{CurrentCore.Name},生命状态是:{CurrentCore.HealthStatus}");
@@ -114,13 +120,20 @@ public class CardShowInfo : MonoBehaviour
         var use = this.GetComponent<CardMoveInfo>();
         if (use != null && !CurrentCore.IsCardBack)
             use.CardUseInfo = CardInfo.CardUseInfo;
-        if (CurrentCore.CardArtsId != null)
+        if (CurrentCore.CardArtsId != null && _oldCardArtsId != CurrentCore.CardArtsId)
         {
-            Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).Completed += (obj) =>
+            if (asyncLoadAsset)
             {
-                CardImg.sprite = obj.Result;
-            };
-            // CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
+                Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).Completed += (obj) =>
+                {
+                    CardImg.sprite = obj.Result;
+                };
+            }
+            else
+            {
+                CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
+            }
+            _oldCardArtsId = CurrentCore.CardArtsId;
         }
         // CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
         //设置卡牌是否灰(转移到属性)

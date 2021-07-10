@@ -21,6 +21,7 @@ public class CardsPosition : MonoBehaviour
     public int MaxCards;
     public RowPosition Id;
     public bool IsCanPlay { get { return (MaxCards > GetTrueCardCount()); } }
+    private Stack<GameObject> tempCardPool = new Stack<GameObject>();  //临时卡牌池
     private void Start()
     {
         ResetCards();
@@ -46,21 +47,15 @@ public class CardsPosition : MonoBehaviour
     }
     public void AddTemCard(CardStatus cardInfo, int index)
     {
-        // if (index == _temCardIndex)//如果临时卡存在
-        // {
-        //     return;//返回
-        // }
         if (IsTem())
         {
             RemoveAllTemp();//删除现有临时卡
         }
         if (cardInfo == null || index == -1)
         {
-            // _temCardIndex = -1;
             return;
         }
-        // _temCardIndex = index;
-        var newCard = Instantiate(CardPrefab);
+        var newCard = tempCardPool.Count > 0 ? tempCardPool.Pop() : Instantiate(CardPrefab);
         newCard.GetComponent<CardShowInfo>().CurrentCore = cardInfo;
         newCard.GetComponent<CardShowInfo>().IsGray = true;
         newCard.GetComponent<CardMoveInfo>().IsCanSelect = false;
@@ -68,6 +63,7 @@ public class CardsPosition : MonoBehaviour
         newCard.transform.SetParent(transform);
         newCard.transform.SetSiblingIndex(index);
         newCard.transform.localPosition = new Vector3((IsLock ? 0 : (-(transform.childCount - 1f) * XSize / 2f)) + index * XSize, -YSize * index, -0.1f - 0.01f * index);
+        newCard.SetActive(true);
         ResetCards();
     }
     public void ResetCards()//将所有卡牌定位到应有的位置
@@ -127,13 +123,13 @@ public class CardsPosition : MonoBehaviour
         card.transform.SetParent(transform);
         card.transform.SetSiblingIndex(cardIndex == -1 ? transform.childCount : cardIndex);
         card.IsCanDrag = IsCanDrag;
-        if(Id == RowPosition.EnemyRow1 || Id == RowPosition.EnemyRow2 || Id == RowPosition.EnemyRow3 
+        if (Id == RowPosition.EnemyRow1 || Id == RowPosition.EnemyRow2 || Id == RowPosition.EnemyRow3
             || Id == RowPosition.MyRow1 || Id == RowPosition.MyRow2 || Id == RowPosition.MyRow3
             )
         {
             card.GetComponent<CardShowInfo>().PlayAudio();
         }
-        
+
         if (card.IsOn)//测试
             card.IsOn = true;
         if (source != null)
@@ -166,7 +162,8 @@ public class CardsPosition : MonoBehaviour
             if (card.IsTem)
             {
                 card.transform.SetParent(null);
-                Destroy(card.gameObject);
+                card.gameObject.SetActive(false);
+                tempCardPool.Push(card.gameObject); // 放入临时卡牌池
             }
         }
         ResetCards();
