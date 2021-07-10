@@ -1569,7 +1569,7 @@
         },
         "34015": {
             "Name": "Deithwen Arbalest",
-            "Info": "Deploy: Deal 3 damage to an enemy. If it is Spying, deal 6 damage instead.",
+            "Info": "Deploy: Deal 4 damage to an enemy. If it is Spying, deal 8 damage instead.",
             "Flavor": "我只瞄膝盖，一向如此。"
         },
         "34016": {
@@ -1764,7 +1764,7 @@
         },
         "42011": {
             "Name": "Priscilla",
-            "Info": "Deploy: Boost 5 random allies by 3.",
+            "Info": "Deploy: Boost 7 random allies by 3.",
             "Flavor": "想像一下穿裙子的丹德里恩，大概就是那副模样。"
         },
         "42012": {
@@ -2614,7 +2614,7 @@
         },
         "64006": {
             "Name": "Heymaey Skald",
-            "Info": "Deploy: Boost all allies from a Clan of your choice by 1.",
+            "Info": "Deploy: Boost all allies from a Clan of your choice by 2.",
             "Flavor": "海玫家族的事迹将流芳千古。"
         },
         "64007": {

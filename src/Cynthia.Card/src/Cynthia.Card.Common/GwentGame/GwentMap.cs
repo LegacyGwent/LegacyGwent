@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 32);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 33);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -5591,7 +5591,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "我只瞄膝盖，一向如此。",
-                    Info = "对1个敌军单位造成3点伤害。若它为间谍，则伤害提升至6点。",
+                    Info = "对1个敌军单位造成4点伤害。若它为间谍，则伤害提升至8点。",
                     CardArtsId = "16230500",
                 }
             },
@@ -6376,7 +6376,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "想像一下穿裙子的丹德里恩，大概就是那副模样。",
-                    Info = "随机使5个友军单位获得3点增益。",
+                    Info = "随机使7个友军单位获得3点增益。",
                     CardArtsId = "12220200",
                 }
             },
@@ -8580,7 +8580,7 @@ namespace Cynthia.Card
                 {
                     CardId ="54012",
                     Name="玛哈坎劫掠者",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11491,6 +11491,67 @@ namespace Cynthia.Card
                     Flavor = "“迷人的微笑背后可以潜藏许多秘密……”",
                     Info = "造成等同于手牌中立牌数量的伤害，并将手牌和牌组中2张核心系列中立银色单位牌变为金色晋升牌。",
                     CardArtsId = "d20020000",
+                }
+            },
+            {
+                "70076",//集会传教士 CongregationCleric
+                new GwentCard()
+                {
+                    CardId ="70076",
+                    Name="集会传教士",
+                    Strength=5,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Redania},
+                    Flavor = "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”",
+                    Info = "召唤所有被锁定的铜色单位的2战力的原始同名牌。己方回合中，每当铜色单位被锁定，在同排召唤其2战力的原始同名牌。",
+                    CardArtsId = "d18640000",
+                }
+            },
+            {
+                "70077",//火誓狂热者 FireswornZealot
+                new GwentCard()
+                {
+                    CardId ="70077",
+                    Name="火誓狂热者",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    Countdown = 4,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Redania},
+                    Flavor = "“我的信仰无人能敌，亦如我的怒火！”",
+                    Info = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有一个被锁定的的单位，减少1次回合计数。",
+                    CardArtsId = "d19100000",
+                }
+            },
+            {
+                "70078",//烈火责罚 Damnation
+                new GwentCard()
+                {
+                    CardId ="70078",
+                    Name="烈火责罚",
+                    Strength=0,
+                    Group=Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
+                    Flavor = "“呛死我了！就不能去别的地方烧吗？”",
+                    Info = "从牌组召唤2张最强铜色单位牌到同排，改变其锁定状态。",
+                    CardArtsId = "d18620000",
                 }
             },
             {
