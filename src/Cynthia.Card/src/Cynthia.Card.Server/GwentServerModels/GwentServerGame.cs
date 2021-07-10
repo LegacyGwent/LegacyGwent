@@ -1586,6 +1586,9 @@ namespace Cynthia.Card.Server
                     });
                 }
             });
+            //在操作完毕后及时更新效果
+            await SetCountInfo();
+            await SetPointInfo();
             return creatCard;
         }
         public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡")

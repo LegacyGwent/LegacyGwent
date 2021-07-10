@@ -549,5 +549,8 @@ namespace Cynthia.Card
         public const string Highwaymen = "70070";
         public const string StraysofSpalla = "70071";
         public const string Radeyah = "70072";
+        public const string CongregationCleric = "70076";
+        public const string FireswornZealot = "70077";
+        public const string Damnation = "70078";
     }
 }

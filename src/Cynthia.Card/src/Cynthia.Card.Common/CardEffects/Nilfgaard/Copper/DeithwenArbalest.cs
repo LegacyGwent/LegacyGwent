@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("34015")]//戴斯文强弩手
     public class DeithwenArbalest : CardEffect
-    {//对1个敌军单位造成3点伤害。若它为间谍，则伤害提升至6点。
+    {//对1个敌军单位造成4点伤害。若它为间谍，则伤害提升至8点。
         public DeithwenArbalest(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
@@ -15,11 +15,11 @@ namespace Cynthia.Card
             var card = cards.Single();
             if (card.Status.IsSpying)
             {
-                await card.Effect.Damage(6, Card);
+                await card.Effect.Damage(8, Card);
             }
             else
             {
-                await card.Effect.Damage(3, Card);
+                await card.Effect.Damage(4, Card);
             }
             return 0;
         }
