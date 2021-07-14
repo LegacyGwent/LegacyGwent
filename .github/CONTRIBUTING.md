@@ -8,9 +8,9 @@
 
 Windows, macOS, Linux均可。
 
-### 2. 客户端与服务端后台: .NET 5（最新版即可）
+### 2. 客户端与服务端后台: .NET Core 3.1（最新版即可）
 
-直接在[微软开发者官网](https://dotnet.microsoft.com/download)下载对应版本然后安装即可。
+直接在[微软开发者官网](https://dotnet.microsoft.com/download/dotnet/3.1)下载对应版本然后安装即可。
 
 ### 3. 客户端UI: Unity 2019.4.1f1（版本必须一样）
 

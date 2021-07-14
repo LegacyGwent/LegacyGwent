@@ -8,9 +8,9 @@
 
 Windows, macOS, Linux all Good.
 
-### 2. Server: .NET 5 (or the latest version)
+### 2. Server: .NET Core 3.1 (or the latest version)
 
-Download in [Microsoft Website](https://dotnet.microsoft.com/download)
+Download in [Microsoft Website](https://dotnet.microsoft.com/download/dotnet/3.1)
 
 ### 3. Database: MongoDB 4.2 (the exact version)
 

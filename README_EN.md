@@ -30,7 +30,7 @@ Check [here](.github/CONTRIBUTING_EN.md) for the detailed contribution guide.
 
 ## Development Environment
 
-+ Server side: .NET 5, Mongodb 4.2
++ Server side: .NET Core 3.1, Mongodb 4.2
 + Client side: Unity 2019.4.1f1
 
 ## Development Plan
