@@ -2314,7 +2314,7 @@
         },
         "54012": {
             "Name": "Mahakam Marauder",
-            "Info": "Whenever this Unit is Boosted, Damaged, Strengthened or Weakened, Boost it by 2.",
+            "Info": "Whenever this Unit is Boosted, Damaged, Strengthened or Weakened, Boost it by 3.",
             "Flavor": "在玛哈坎崎岖的悬崖峭壁上狩猎可不是件简单事……但矮人们也从不轻易向危险低头。"
         },
         "54013": {
@@ -3029,7 +3029,7 @@
         },
         "70091": {
             "Name": "Oneiromancy",
-            "Info": "Choose one: create 1 non-spy card in your starting deck; or turn 4 random hand cards (not the same name) into 'Oneiromancy'.",
+            "Info": "Choose one: create 1 non-spy and non-doom card in your starting deck; or turn 3 random hand cards (not the same name) into 'Oneiromancy'.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {

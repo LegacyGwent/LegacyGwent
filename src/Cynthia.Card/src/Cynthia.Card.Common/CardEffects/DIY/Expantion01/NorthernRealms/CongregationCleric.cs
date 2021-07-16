@@ -21,7 +21,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardLock @event)
         {
-            if ((@event.Source.PlayerIndex == PlayerIndex) && (Card.Status.CardRow.IsOnPlace()))
+            if ((@event.Source.PlayerIndex == PlayerIndex) && (Card.Status.CardRow.IsOnPlace()) && (Card.IsAnyGroup(Group.Copper)))
             {
                 await Game.CreateCardAtEnd(@event.Target.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
             }

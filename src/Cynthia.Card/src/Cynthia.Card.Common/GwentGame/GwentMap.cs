@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 33);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 34);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -8580,7 +8580,7 @@ namespace Cynthia.Card
                 {
                     CardId ="54012",
                     Name="玛哈坎劫掠者",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -8590,7 +8590,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "在玛哈坎崎岖的悬崖峭壁上狩猎可不是件简单事……但矮人们也从不轻易向危险低头。",
-                    Info = "战力改变时（被重置除外），获得2点增益。",
+                    Info = "战力改变时（被重置除外），获得3点增益。",
                     CardArtsId = "20004200",
                 }
             },
@@ -11478,7 +11478,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70072",
                     Name="雷蒂娅",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11499,7 +11499,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70076",
                     Name="集会传教士",
-                    Strength=5,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11509,7 +11509,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”",
-                    Info = "召唤所有被锁定的铜色单位的2战力的原始同名牌。己方回合中，每当铜色单位被锁定，在同排召唤其2战力的原始同名牌。",
+                    Info = "生成所有被锁定的铜色单位的2战力的原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力的原始同名牌。",
                     CardArtsId = "d18640000",
                 }
             },
@@ -11570,7 +11570,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。",
-                    Info = "择一：创造己方起始牌组中的1张非“密探”牌；或将4张随机非同名手牌变为“解梦术”。",
+                    Info = "择一：创造己方起始牌组非佚亡牌中的1张非“密探”牌；或将3张随机非同名手牌变为“解梦术”。",
                     CardArtsId = "d18520000",
                 }
             },
@@ -11580,7 +11580,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70105",
                     Name="阿道伯图斯·卡尔克斯坦",
-                    Strength=8,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11600,7 +11600,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70102",
                     Name = "狄拉夫：猩红诅咒",
-                    Strength = 5,
+                    Strength = 2,
                     Group = Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
