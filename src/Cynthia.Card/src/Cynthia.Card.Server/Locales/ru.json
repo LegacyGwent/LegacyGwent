@@ -2314,7 +2314,7 @@
         },
         "54012": {
             "Name": "Мародер из Махакама",
-            "Info": "Усиливайте этот отряд на 2 ед. каждый раз, когда его сила изменяется (но не когда отряд восстанавливается).",
+            "Info": "Усиливайте этот отряд на 3 ед. каждый раз, когда его сила изменяется (но не когда отряд восстанавливается).",
             "Flavor": "ењЁзЋ›е“€еќЋеґЋеІ–зљ„ж‚¬еґ–еі­еЈЃдёЉз‹©зЊЋеЏЇдёЌжЇд»¶з®ЂеЌ•дє‹вЂ¦вЂ¦дЅ†зџ®дєєд»¬д№џд»ЋдёЌиЅ»ж“еђ‘еЌ±й™©дЅЋе¤ґгЂ‚"
         },
         "54013": {
@@ -3029,7 +3029,7 @@
         },
         "70091": {
             "Name": "Oneiromancy",
-            "Info": "Choose one: create 1 non-spy card in your starting deck; or turn 4 random hand cards (not the same name) into 'Oneiromancy'.",
+            "Info": "Choose one: create 1 non-spy and non-doom card in your starting deck; or turn 3 random hand cards (not the same name) into 'Oneiromancy'.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
