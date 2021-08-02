@@ -17,7 +17,7 @@ namespace Cynthia.Card.Client
         {
             //接收到通讯层消息,发送到下游
             ((Player)this).Receive += async x => await hubConnection.SendAsync("GameOperation", x.Result);
-            hubConnection.On<IList<Operation<ServerOperationType>>>("GameOperation", async x =>
+            hubConnection.On<IList<Operation<int>>>("GameOperation", async x =>
             {
                 await _upstream.SendAsync(x);
             });
@@ -35,11 +35,25 @@ namespace Cynthia.Card.Client
             (_upstream, _downstream) = Tube.CreateDuplex();
         }
 
-        public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
+        public Task SendAsync(Operation<int> operation) => _downstream.SendAsync(operation);
 
-        public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));
+        public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create((int)type, objs));
 
-        public new Task<IList<Operation<ServerOperationType>>> ReceiveAsync() => _downstream.ReceiveAsync<IList<Operation<ServerOperationType>>>();
+        public new Task<IList<Operation<ServerOperationType>>> ReceiveAsync()
+        {
+            return _downstream.ReceiveAsync<IList<Operation<int>>>().ContinueWith(x =>
+            {
+                IList<Operation<ServerOperationType>> res = new List<Operation<ServerOperationType>>();
+                var ans = x.Result;
+                foreach (var p in ans)
+                {
+                    var temp = Operation.Create((ServerOperationType)p.OperationType);
+                    temp.Arguments = p.Arguments;
+                    res.Add(temp);
+                }
+                return res;
+            });
+        }
 
         public new event Func<TubeReceiveEventArgs, Task> Receive { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
     }
