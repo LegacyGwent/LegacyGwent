@@ -14,7 +14,7 @@ namespace Assets.Script.ResourceManagement
         {
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
             _directoryPath = $"{Application.dataPath}/StreamingFile/{dirPath}";
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID || UNITY_IOS
             _directoryPath = Application.persistentDataPath;
 #endif
         }

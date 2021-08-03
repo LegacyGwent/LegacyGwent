@@ -96,7 +96,7 @@ public class GameEvent : MonoBehaviour
 
         NowOperationType = GameOperationType.None;
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
         ShowMyCemeteryButton.SetActive(true);
         SurrenderButton.SetActive(true);
 #endif
@@ -339,7 +339,7 @@ public class GameEvent : MonoBehaviour
                     dragCard.IsStay = true;
                     if (dropTaget.Id == RowPosition.MyCemetery)
                     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
                         if (!await _uiService.YNMessageBox("确认弃牌?", "正在试图丢弃一张牌,是否确认?"))
                         {
                             dragCard.IsStay = false;
@@ -421,7 +421,7 @@ public class GameEvent : MonoBehaviour
     //右键点击之类的
     private void OnMouseOver()
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
         if (Input.GetMouseButtonDown(0))
 #endif
 #if UNITY_STANDALONE_WIN
