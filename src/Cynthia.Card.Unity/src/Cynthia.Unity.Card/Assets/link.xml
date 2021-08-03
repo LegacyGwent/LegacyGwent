@@ -5,6 +5,7 @@
   <assembly fullname="Microsoft.AspNetCore.SignalR.Client.Core"/>
   <assembly fullname="Microsoft.AspNetCore.SignalR.Client"/>
   <assembly fullname="Microsoft.AspNetCore.SignalR.Protocols.Json"/>
+  <assembly fullname="Newtonsoft.Json"/>
   <assembly fullname="Microsoft.Extensions.Logging"/>
   <assembly fullname="Microsoft.Extensions.Options"/>
   <assembly fullname="System.Core"/>

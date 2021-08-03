@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using Alsein.Extensions.LifetimeAnnotations;
-using System.Threading;
 using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -68,7 +67,7 @@ namespace Cynthia.Card.Client
             }
             foreach (var operaction in operations)
             {
-                Debug.Log($"执行了指令{operaction.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
+                // Debug.Log($"执行了指令{operaction.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
                 if (!await ResponseOperation(operaction))
                     return false;
             }

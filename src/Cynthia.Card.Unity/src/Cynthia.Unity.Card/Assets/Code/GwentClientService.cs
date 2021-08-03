@@ -136,8 +136,10 @@ namespace Cynthia.Card.Client
         public async Task AutoUpdateGame(Text infoText)
         {
             var clientVersion = new Version(GwentMap.CardMapVersion.ToString());
+            Debug.Log($"the client version is {GwentMap.CardMapVersion.ToString()}");
             var localesWereLastUpdatedTo = new Version(PlayerPrefs.GetString("LocalizationVersion", GwentMap.CardMapVersion.ToString()));
             var serverVersion = new Version(await GetCardMapVersion());
+            Debug.Log($"the server version is {serverVersion}");
 
             infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
             var fileHandler = new TextLocalizationFileHandler("Locales");
@@ -148,7 +150,9 @@ namespace Cynthia.Card.Client
                 if (clientVersion != serverVersion)
                 {
                     infoText.text = _translator.GetText("LoginMenu_CardDataUpdating");
+                    Debug.Log($"start loading new card map");
                     var loadedCardMap = JsonConvert.DeserializeObject<Dictionary<string, GwentCard>>(await GetCardMap());
+                    Debug.Log($"end loading new card map");
                     GwentMap.CardMap = loadedCardMap;
                 }
                 // Download locales from the server if:
