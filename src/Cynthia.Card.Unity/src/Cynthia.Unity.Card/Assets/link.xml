@@ -5,9 +5,13 @@
   <assembly fullname="Microsoft.AspNetCore.SignalR.Client.Core"/>
   <assembly fullname="Microsoft.AspNetCore.SignalR.Client"/>
   <assembly fullname="Microsoft.AspNetCore.SignalR.Protocols.Json"/>
+  <assembly fullname="Microsoft.AspNetCore.Http.Connections.Client"/>
   <assembly fullname="Newtonsoft.Json"/>
   <assembly fullname="Microsoft.Extensions.Logging"/>
   <assembly fullname="Microsoft.Extensions.Options"/>
-  <assembly fullname="System.Core"/>
+  <assembly fullname="Microsoft.Bcl.AsyncInterfaces"/>
+  <assembly fullname="System.Diagnostics.DiagnosticSource"/>
   <assembly fullname="System"/>
+  <assembly fullname="System.Core"/>
+  <assembly fullname="System.Text.Json"/>
 </linker>
