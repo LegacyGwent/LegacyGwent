@@ -19,6 +19,7 @@ public class Bootstrapper : MonoBehaviour
         builder.Register(
             x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent")
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new BoolConverter()))
+                    .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new ListOperationConverter()))
                     .Build()
                     ).Named<HubConnection>("game").SingleInstance();
         //builder.Register(x => new HubConnectionBuilder().WithUrl("http://localhost:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
