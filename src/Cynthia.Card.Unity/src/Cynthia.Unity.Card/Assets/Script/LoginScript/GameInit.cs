@@ -168,7 +168,7 @@ public class GameInit : MonoBehaviour
     //屏幕分辨率
     public void SetResolution(int index)
     {
-#if !UNITY_ANDROID
+#if !(UNITY_ANDROID || UNITY_IOS)
         PlayerPrefs.SetInt("resolutionIndex", index);
         var screenResolution = IndexToResolution(index);
         var isFullScreen = ((PlayerPrefs.GetInt("isFull", 0) == 0) ? true : false);

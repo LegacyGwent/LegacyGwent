@@ -60,7 +60,7 @@ public class SettingPanel : MonoBehaviour
     //屏幕分辨率
     public void SetResolution(int index)
     {
-#if !UNITY_ANDROID
+#if !(UNITY_ANDROID || UNITY_IOS)
         PlayerPrefs.SetInt("resolutionIndex", index);
         screenResolution = IndexToResolution(index);
         Screen.SetResolution(screenResolution.width, screenResolution.height, isFullScreen);
