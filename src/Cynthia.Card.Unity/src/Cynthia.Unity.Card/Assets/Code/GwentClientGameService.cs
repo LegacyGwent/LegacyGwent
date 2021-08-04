@@ -43,7 +43,7 @@ namespace Cynthia.Card.Client
 
         public async Task Play(LocalPlayer player)
         {
-            Debug.Log($"游戏开始,Id:{_id}");
+            Debug.Log(DateTime.Now.ToString("h:mm:ss tt")+$" 游戏开始,Id:{_id}");
             _player = player;
             // var game = Task.Run(async () =>
             // {
@@ -61,14 +61,14 @@ namespace Cynthia.Card.Client
         private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
         {
             Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
-            foreach (var operaction in operations)
+            foreach (var operation in operations)
             {
-                Debug.Log($"包含指令{operaction.OperationType}");
+                Debug.Log($"包含指令{operation.OperationType}");
             }
-            foreach (var operaction in operations)
+            foreach (var operation in operations)
             {
                 // Debug.Log($"执行了指令{operaction.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
-                if (!await ResponseOperation(operaction))
+                if (!await ResponseOperation(operation))
                     return false;
             }
             Debug.Log($"处理完毕");
@@ -77,6 +77,7 @@ namespace Cynthia.Card.Client
 
         private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
         {
+            Debug.Log(DateTime.Now.ToString("h:mm:ss tt") + $" 开始处理指令{operation.OperationType}");
             var arguments = operation.Arguments.ToArray();
             switch (operation.OperationType)
             {
