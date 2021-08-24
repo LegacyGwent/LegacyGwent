@@ -26,12 +26,12 @@ namespace Cynthia.Card
                         }
                     case 1:
                         {
-                            await damageplace1();
+                            await buffhand2();
                             break;
                         }
                     case 2:
                         {
-                            await buffhand2();
+                            await damageplace1();
                             break;
                         }
                     case 3:
