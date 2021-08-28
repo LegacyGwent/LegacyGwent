@@ -17,6 +17,7 @@ namespace Cynthia.Card
             {
                 return;
             }
+            Card.Status.IsImmue = true;
             _toRecurretLocation = @event.DeathLocation;
             if (@event.isRoundEnd)
             {
@@ -38,6 +39,7 @@ namespace Cynthia.Card
                 //第二类情况，丢弃，随机复活到任何位置
                 else
                 {
+                    Card.Status.IsImmue = true;
                     await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                 }
                 _resurrectFlag = false;
@@ -45,10 +47,17 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(BeforeRoundStart @event)
         {
+            Card.Status.IsImmue = true;
             if (Card.Status.CardRow.IsInCemetery() && _toRecurretLocation != null)
             {
                 await Card.Effect.Resurrect(_toRecurretLocation, Card);
             }
+        }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
+            await Card.Effect.Boost(0,Card);
+            Card.Status.IsImmue = true;
+            return 0;
         }
     }
 }

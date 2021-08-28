@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 35);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 36);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11757,7 +11757,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
                     Flavor = "至少你知道我的头不好砍了。",
-                    Info = "进入墓场时，复活至原位。",
+                    Info = "进入墓场时，复活至原位。免疫。",
                     CardArtsId = "11220700",
                 }
             },
