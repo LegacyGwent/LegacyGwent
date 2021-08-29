@@ -27,8 +27,8 @@ namespace Cynthia.Card
                 }
                 else
                 {
-                    await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
                     await target.Effect.Lock(Card);
+                    await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
                     return 0;
                 }
             }
