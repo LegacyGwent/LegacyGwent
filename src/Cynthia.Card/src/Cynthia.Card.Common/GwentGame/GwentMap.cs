@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 36);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 37);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11126,6 +11126,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher},
+                    HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
                     Info = "重新打出敌方半场一张银色/铜色忠诚单位牌，随后将其移回对方半场。",
                     CardArtsId = "d19160000",
@@ -11428,7 +11429,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Construct},
                     Flavor = "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！",
-                    Info = "己方同排其他单位单次最多受到5点伤害。2点护甲。", 
+                    Info = "己方同排其他单位单次最多受到5点伤害。2点护甲。",
                     CardArtsId = "d19280000",
                 }
             },
