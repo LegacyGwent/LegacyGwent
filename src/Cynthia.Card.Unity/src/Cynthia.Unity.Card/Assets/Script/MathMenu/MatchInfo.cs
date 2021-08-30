@@ -273,6 +273,7 @@ public class MatchInfo : MonoBehaviour
         return FactionIndex.Indexed().Single(x => x.Value == faction).Key;
     }
 
+
     public void ReturnButtonClick()
     {
         ClientGlobalInfo.IsToMatch = false;
