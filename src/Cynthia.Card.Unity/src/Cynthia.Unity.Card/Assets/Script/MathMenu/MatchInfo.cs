@@ -124,7 +124,7 @@ public class MatchInfo : MonoBehaviour
             }
             else
             //否则尝试开始匹配(目前不关注匹配结果)
-            _ = _client.MatchOfPassword(CurrentDeckId, MatchPassword.text);
+            _ = _client.MatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""));
 
             // else if (!await _client.Match(CurrentDeckId))
             // {
