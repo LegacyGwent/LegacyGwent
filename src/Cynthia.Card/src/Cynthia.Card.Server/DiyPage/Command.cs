@@ -11,8 +11,8 @@ public class Command
     public static IMongoCollection<DiyCardInfo> diyCardCollection;
     public static void MongodbConnect()
     {
-        // client = new MongoClient("mongodb://cynthia.ovyno.com:28020");
-        client = new MongoClient("mongodb://localhost:28020");
+        client = new MongoClient("mongodb://cynthia.ovyno.com:28020");
+        // client = new MongoClient("mongodb://localhost:28020");
         db = client.GetDatabase("Web");
         diyCardCollection = db.GetCollection<DiyCardInfo>("DiyCards");
         Console.WriteLine("数据库初始化完成");

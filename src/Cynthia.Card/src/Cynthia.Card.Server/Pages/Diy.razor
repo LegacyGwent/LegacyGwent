@@ -1,7 +1,6 @@
 @page "/diy"
 @using System.IO;
 @using Newtonsoft.Json;
-@using System;
 
 <div>
     <Button OnClick="() => diyDrawerVisible = true">上传设计</Button>
@@ -171,7 +170,20 @@
 
 
 @code {
-    protected override void OnInitialized() { Command.GetDiyCardsInfo(); newDiyCard.cardInfo = new GwentCard(); }
+    protected override void OnInitialized()
+    {
+        Command.GetDiyCardsInfo();
+        Info.diyCardInfo.Sort((e1, e2) => (-GetWeight(e1)).CompareTo(-GetWeight(e2)));
+        newDiyCard.cardInfo = new GwentCard();
+    }
+    int GetWeight(DiyCardInfo e)
+    {
+        if (e.likeList == null || e.dislikeList == null )
+        {
+            return -10000;
+        }
+        return e.likeList.Count() - e.dislikeList.Count();
+    }
     [CascadingParameter]
     string user { get; set; }
     string commentContent = "";
