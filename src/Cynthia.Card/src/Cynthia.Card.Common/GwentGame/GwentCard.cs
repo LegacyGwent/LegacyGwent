@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Cynthia.Card
 {
     //一个卡牌类型
-    public struct GwentCard
+    public class GwentCard
     {
         [Key]
         public string CardId { get; set; }
