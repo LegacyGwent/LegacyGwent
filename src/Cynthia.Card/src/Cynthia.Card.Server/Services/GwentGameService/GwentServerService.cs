@@ -70,6 +70,7 @@ namespace Cynthia.Card.Server
             }
             return loginUser;
         }
+        
 
         public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
 

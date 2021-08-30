@@ -57,6 +57,7 @@ namespace Cynthia.Card
                     return new DeckModel() { Leader = "31001", Deck = deck, Name = "帝国测试卡组", Id = Guid.NewGuid().ToString() };
             }
         }
+        
         public static bool IsBasicDeck(this DeckModel deck)
         {
             var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);     //将卡组编号集合,转换成对应的卡
