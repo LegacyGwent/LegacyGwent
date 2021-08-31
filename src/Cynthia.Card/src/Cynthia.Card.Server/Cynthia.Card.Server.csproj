@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="AntDesign" Version="0.9.3" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.2" />
   </ItemGroup>

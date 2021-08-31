@@ -12,7 +12,7 @@ namespace Cynthia.Card.Server
         private readonly IServiceProvider _provider;
         // public IDatabaseService Database { get; set; }
         // private IRepository<UserInfo> _collection;
-        private IMongoClient GetMongoClient()
+        public IMongoClient GetMongoClient()
         {
             var result = (IMongoClient)_provider.GetService(typeof(IMongoClient));
             return result;

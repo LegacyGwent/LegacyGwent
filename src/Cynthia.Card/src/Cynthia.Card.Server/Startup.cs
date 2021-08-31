@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using Blazored.LocalStorage;
 using System;
 
 namespace Cynthia.Card.Server
@@ -29,6 +30,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             services.AddAntDesign();
+            services.AddBlazoredLocalStorage();
             if (_env.IsDevelopment())
             {
                 services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent-diy"));
