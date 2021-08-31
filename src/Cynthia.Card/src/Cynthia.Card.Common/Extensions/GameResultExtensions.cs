@@ -10,15 +10,18 @@ namespace Cynthia.Card
     {
         public static GameStatus BluePlayerStatus(this GameResult gameResult)
         {
-            if (gameResult.BlueWinCount > gameResult.RedWinCount)
+            if (!gameResult.isSurrender && gameResult.BlueWinCount == gameResult.RedWinCount)
             {
-                return GameStatus.Win;
+                return GameStatus.Draw;
             }
-            if (gameResult.BlueWinCount < gameResult.RedWinCount)
+            if (gameResult.RedPlayerGameResultStatus == GameStatus.Win)
             {
                 return GameStatus.Lose;
             }
-            return GameStatus.Draw;
+            else
+            {
+                return GameStatus.Win;
+            }
         }
 
         public static bool IsEffective(this GameResult gameResult)
@@ -32,15 +35,11 @@ namespace Cynthia.Card
 
         public static GameStatus RedPlayerStatus(this GameResult gameResult)
         {
-            if (gameResult.BlueWinCount < gameResult.RedWinCount)
+            if (!gameResult.isSurrender && gameResult.BlueWinCount == gameResult.RedWinCount)
             {
-                return GameStatus.Win;
+                return GameStatus.Draw;
             }
-            if (gameResult.BlueWinCount > gameResult.RedWinCount)
-            {
-                return GameStatus.Lose;
-            }
-            return GameStatus.Draw;
+            return gameResult.RedPlayerGameResultStatus;
         }
     }
 }
