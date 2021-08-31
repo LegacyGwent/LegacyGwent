@@ -28,6 +28,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentLocalizationService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
+            services.AddAntDesign();
             if (_env.IsDevelopment())
             {
                 services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent-diy"));

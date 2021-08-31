@@ -4,17 +4,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>昆特小窝-diy服</title>
     <base href="~/" />
     <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css" />
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    @* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> *@
     <link href="~/css/site.css" rel="stylesheet" />
+    <link href="_content/AntDesign/css/ant-design-blazor.css" rel="stylesheet" />
 </head>
+
 <body>
     <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
+    <script src="_content/AntDesign/js/ant-design-blazor.js"></script>
+    <script src="_content/BlazorInputFile/inputfile.js"></script>
     <script src="_framework/blazor.server.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,399 @@
+@page "/diy"
+@using System.IO;
+@using Newtonsoft.Json;
+
+<div>
+    <Button OnClick="() => diyDrawerVisible = true">上传设计</Button>
+    <Divider Orientation="left">diy卡牌设计</Divider>
+
+    @foreach (var x in Info.diyCardInfo)
+    {
+        @if (x.cardInfo != null && x.CardType != null && x.Categories != null && x.author != null)
+        {
+            <Card Title="@x.cardInfo.Name">
+
+                <Body>
+                    <Row>
+                        <AntDesign.Col Span="4">
+                            <Image Width="75px" Height="115px" Src=@x.imageLink />
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="20">
+                            <Content>
+                                <p>
+                                    <Tag>@x.CardType</Tag>
+                                    <Tag>@x.Fraction</Tag>
+                                    <Tag>@x.Group</Tag>
+                                </p>
+                                <p>战力：<Tag>@x.cardInfo.Strength</Tag>，效果：@x.cardInfo.Info</p>
+                                <Divider />
+                                <span>
+                                    <Tooltip Title='@("Like")'>
+                                        <Icon Type="caret-up" OnClick="()=>SetLike(x)"
+                                    Style="color:#18A558;font-size:30px;cursor:pointer;" />
+                                    </Tooltip>
+                                    <span style="color:#18A558;font-size:20px;">@x.likeList.Count()</span>
+                                </span>
+                                <span>
+                                    <Tooltip Title='@("Dislike")'>
+                                        <Icon Type="caret-down" OnClick="()=>SetDislike(x)"
+                                    Style="color:red;font-size:30px;cursor:pointer;" />
+                                    </Tooltip>
+                                    <span style="color:red;font-size:20px;">@x.dislikeList.Count()</span>
+                                </span>
+                                <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
+                                <Button OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论</Button>
+                            </Content>
+                        </AntDesign.Col>
+                    </Row>
+                </Body>
+            </Card>
+            <br />
+        }
+    }
+</div>
+
+<div>
+    <Drawer Closable="true" Visible="diyDrawerVisible" Placement="right" Title='("diy设计")'
+        OnClose="() => diyDrawerVisible = false" Width="360">
+        <Input Placeholder="卡图网址链接" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="名字" @bind-Value="@newDiyCard.cardInfo.Name" />
+        <SimpleSelect Placeholder="类型" OnSelectedItemChanged="handleTypeChange">
+            <SelectOptions>
+                <SimpleSelectOption Value="单位卡" Label="单位卡"></SimpleSelectOption>
+                <SimpleSelectOption Value="特殊卡" Label="特殊卡"></SimpleSelectOption>
+            </SelectOptions>
+        </SimpleSelect>
+        <Input Placeholder="战力" @bind-Value="@newDiyCard.cardInfo.Strength">
+        <AddOnBefore>战力</AddOnBefore>
+        </Input>
+        <SimpleSelect Placeholder="阵营" OnSelectedItemChanged="handleFractionChange">
+            <SelectOptions>
+                <SimpleSelectOption Value="怪兽" Label="怪兽"></SimpleSelectOption>
+                <SimpleSelectOption Value="帝国" Label="帝国"></SimpleSelectOption>
+                <SimpleSelectOption Value="松鼠" Label="松鼠"></SimpleSelectOption>
+                <SimpleSelectOption Value="北方" Label="北方"></SimpleSelectOption>
+                <SimpleSelectOption Value="群岛" Label="群岛"></SimpleSelectOption>
+                <SimpleSelectOption Value="中立" Label="中立"></SimpleSelectOption>
+            </SelectOptions>
+        </SimpleSelect>
+        <SimpleSelect Placeholder="品质" OnSelectedItemChanged="handleGroupChange">
+            <SelectOptions>
+                <SimpleSelectOption Value="领袖" Label="领袖"></SimpleSelectOption>
+                <SimpleSelectOption Value="金色" Label="金色"></SimpleSelectOption>
+                <SimpleSelectOption Value="银色" Label="银色"></SimpleSelectOption>
+                <SimpleSelectOption Value="铜色" Label="铜色"></SimpleSelectOption>
+            </SelectOptions>
+        </SimpleSelect>
+        <SimpleSelect Placeholder="标签" Mode="multiple" OnSelectedItemsChanged="handleCategorieChange">
+            <SelectOptions>
+                @foreach (var item in string2Categorie)
+                {
+                    <SimpleSelectOption Value="@item.Key" Label="@item.Key"></SimpleSelectOption>
+                }
+            </SelectOptions>
+        </SimpleSelect>
+        <TextArea MinRows="4" Placeholder="效果描述" @bind-Value="@newDiyCard.cardInfo.Info" />
+        <Input Placeholder="背景故事(可选)" @bind-Value="@newDiyCard.cardInfo.Flavor" />
+        <img width="150px" height="210px" src=@newDiyCard.imageLink>
+        @if (user == "")
+        {
+            <Button>
+                请登录
+            </Button>
+        }
+        else
+        {
+            <Button OnClick="addNewCard">
+                提交
+            </Button>
+        }
+    </Drawer>
+</div>
+
+<div>
+    <Drawer Closable="true" Visible="commitDrawerVisible" Placement="right" Title='("卡片评论")'
+        OnClose="() => commitDrawerVisible = false" Width="360">
+        @if (currentDiyCard != null)
+        {
+            @foreach (var commit in currentDiyCard.commits)
+            {
+                <Comment Author=@commit.user Avatar=@avatar Content=@commit.text Datetime=@commit.commitDate.ToString()>
+                </Comment>
+            }
+            @if (user != "")
+            {
+                <Comment Avatar=@avatar>
+                    <ContentTemplate>
+                        <div>
+                            <TextArea MinRows="4" @bind-Value="commentContent" />
+                            <Button OnClick=@onSubmit type="primary">
+                                发表评论
+                            </Button>
+                        </div>
+                    </ContentTemplate>
+                </Comment>
+            }
+        }
+    </Drawer>
+</div>
+
+<div>
+    <Drawer Closable="true" Visible="detailPageVisible" Placement="right" Title='("详细信息")'
+        OnClose="() => detailPageVisible = false" Width="360">
+        @if (currentDiyCard != null)
+        {
+            <img width="150px" height="210px" src=@currentDiyCard.imageLink>
+            @if (currentDiyCard.cardInfo != null && currentDiyCard.CardType != null
+           && currentDiyCard.Categories != null && currentDiyCard.author != null)
+            {
+                <h2>@currentDiyCard.cardInfo.Name</h2>
+                <p>@currentDiyCard.CardType</p>
+                <p>战力：<Tag>@currentDiyCard.cardInfo.Strength</Tag>
+                    阵营：<Tag>@currentDiyCard.Fraction</Tag>
+                    品质：<Tag>@currentDiyCard.Group</Tag>
+                </p>
+                <p> 标签：
+            @foreach (var s in currentDiyCard.Categories)
+                    {
+                        <Tag>@s</Tag>
+                    }
+                </p>
+                <p>效果：@currentDiyCard.cardInfo.Info</p>
+                <p>@currentDiyCard.cardInfo.Flavor</p>
+                <Divider />
+                <p>设计师：@currentDiyCard.author</p>
+                <p>上次修改时间：@currentDiyCard.lastEditedDate</p>
+            }
+        }
+    </Drawer>
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        Command.GetDiyCardsInfo();
+        Info.diyCardInfo.Sort((e1, e2) => (-GetWeight(e1)).CompareTo(-GetWeight(e2)));
+        newDiyCard.cardInfo = new GwentCard();
+    }
+    int GetWeight(DiyCardInfo e)
+    {
+        if (e.likeList == null || e.dislikeList == null )
+        {
+            return -10000;
+        }
+        return e.likeList.Count() - e.dislikeList.Count();
+    }
+    [CascadingParameter]
+    string user { get; set; }
+    string commentContent = "";
+    DiyCardInfo newDiyCard = new DiyCardInfo();
+    DiyCardInfo currentDiyCard;
+    bool diyDrawerVisible = false;
+    string avatar = @"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png";
+    bool commitDrawerVisible = false;
+    bool detailPageVisible = false;
+
+    void SetLike(DiyCardInfo card)
+    {
+        if (user == "")
+        {
+            return;
+        }
+        else if (card.likeList.Contains(user))
+        {
+            card.likeList.Remove(user);
+            Command.UpdateDiyCardLikeList(card);
+
+        }
+        else
+        {
+            card.likeList.Add(user);
+            Command.UpdateDiyCardLikeList(card);
+        }
+    }
+    void SetDislike(DiyCardInfo card)
+    {
+        if (user == "")
+        {
+            return;
+        }
+        else if (card.dislikeList.Contains(user))
+        {
+            card.dislikeList.Remove(user);
+            Command.UpdateDiyCardDislikeList(card);
+
+        }
+        else
+        {
+            card.dislikeList.Add(user);
+            Command.UpdateDiyCardDislikeList(card);
+        }
+    }
+    void onSubmit()
+    {
+        if (currentDiyCard != null && commentContent != "")
+        {
+            if (currentDiyCard.commits == null)
+            {
+                currentDiyCard.commits = new List<DiyCardInfo.Commit>();
+            }
+            var newCommit = new DiyCardInfo.Commit();
+            newCommit.user = user;
+            newCommit.text = commentContent;
+            newCommit.commitDate = DateTime.Now;
+            currentDiyCard.commits.Add(newCommit);
+            commentContent = "";
+            Command.UpdateDiyCardComment(currentDiyCard);
+        }
+    }
+    void addNewCard()
+    {
+        newDiyCard.author = user;
+        Command.AddDiyCardInfos(newDiyCard);
+        Command.GetDiyCardsInfo();
+        diyDrawerVisible = false;
+    }
+
+    void handleTypeChange(string s)
+    {
+        newDiyCard.CardType = s;
+        switch (s)
+        {
+            case "单位卡":
+                newDiyCard.cardInfo.CardType = CardType.Unit;
+                break;
+            case "特殊卡":
+                newDiyCard.cardInfo.CardType = CardType.Special;
+                break;
+        }
+    }
+    void handleFractionChange(string s)
+    {
+        newDiyCard.Fraction = s;
+        switch (s)
+        {
+            case "怪兽":
+                newDiyCard.cardInfo.Faction = Faction.Monsters;
+                break;
+            case "帝国":
+                newDiyCard.cardInfo.Faction = Faction.Nilfgaard;
+                break;
+            case "松鼠":
+                newDiyCard.cardInfo.Faction = Faction.ScoiaTael;
+                break;
+            case "北方":
+                newDiyCard.cardInfo.Faction = Faction.NorthernRealms;
+                break;
+            case "群岛":
+                newDiyCard.cardInfo.Faction = Faction.Skellige;
+                break;
+            default:
+                newDiyCard.cardInfo.Faction = Faction.Neutral;
+                break;
+        }
+    }
+    void handleGroupChange(string s)
+    {
+        newDiyCard.Group = s;
+        switch (s)
+        {
+            case "金色":
+                newDiyCard.cardInfo.Group = Group.Gold;
+                break;
+            case "银色":
+                newDiyCard.cardInfo.Group = Group.Silver;
+                break;
+            case "铜色":
+                newDiyCard.cardInfo.Group = Group.Copper;
+                break;
+            default:
+                newDiyCard.cardInfo.Group = Group.Leader;
+                break;
+        }
+    }
+    void handleCategorieChange(IEnumerable<string> values)
+    {
+        newDiyCard.Categories = values.ToList();
+        List<Categorie> t = new List<Categorie>();
+        foreach (var s in values)
+        {
+            t.Add(string2Categorie[s]);
+        }
+        newDiyCard.cardInfo.Categories = t.ToArray();
+    }
+    Dictionary<string, Categorie> string2Categorie =
+    new Dictionary<string, Categorie>(){
+{"间谍", Categorie.DoubleAgent}, // 特殊处理一下间谍
+{"双面间谍", Categorie.DoubleAgent},
+{"狂猎", Categorie.WildHunt},
+{"谋略", Categorie.Tactic},
+{"野兽", Categorie.Beast},
+{"领袖牌", Categorie.Leader},
+{"法师", Categorie.Mage},
+{"首领", Categorie.Boss},
+{"吸血鬼", Categorie.Vampire},
+{"辛特拉", Categorie.Cintra},
+{"类虫生物", Categorie.Insectoid},
+{"流亡军", Categorie.Stray},
+{"构造体", Categorie.Construct},
+{"法术", Categorie.Spell},
+{"瑞达尼亚", Categorie.Redania},
+{"攻城支援", Categorie.SiegeSupport},
+{"德拉蒙家族", Categorie.ClanDrummond},
+{"鬼灵", Categorie.Specter},
+{"诅咒生物", Categorie.Cursed},
+{"士兵", Categorie.Soldier},
+{"科德温", Categorie.Kaedwen},
+{"水生", Categorie.Vodyanoi},
+{"图尔赛克家族", Categorie.ClanTuirseach},
+{"托达洛克家族", Categorie.ClanTordarroch},
+{"迪门家族", Categorie.ClanDimun},
+{"猎魔人", Categorie.Witcher},
+{"呓语", Categorie.Cultist},
+{"炼金", Categorie.Alchemy},
+{"鲁莽", Categorie.Reckless},
+{"海玫家族", Categorie.ClanHeymaey},
+{"闪击", Categorie.Blitz},
+{"树精", Categorie.Dryad},
+{"特殊", Categorie.Special},
+{"精灵", Categorie.Elf},
+{"莱里亚", Categorie.Lyria},
+{"食腐生物", Categorie.Necrophage},
+{"机械", Categorie.Machine},
+{"亚甸", Categorie.Aedirn},
+{"辅助", Categorie.Support},
+{"奎特家族", Categorie.ClanAnCraite},
+{"矮人", Categorie.Dwarf},
+{"龙兽", Categorie.Draconid},
+{"攻城器械", Categorie.SiegeEngine},
+{"泰莫利亚", Categorie.Temeria},
+{"军官", Categorie.Officer},
+{"天气", Categorie.Weather},
+{"有机", Categorie.Organic},
+{"道具", Categorie.Item},
+{"灾厄", Categorie.Hazard},
+{"恩泽", Categorie.Boon},
+{"伏击", Categorie.Ambush},
+{"佚亡", Categorie.Doomed},
+{"巨熊", Categorie.Bear},
+{"食人魔", Categorie.Ogroid},
+{"蓝衣铁卫", Categorie.BlueStripes},
+{"繁育", Categorie.Breedable},
+{"吞食者", Categorie.Devourer},
+{"巨龙", Categorie.Dragon},
+{"鹰身女妖", Categorie.Harpy},
+{"医生", Categorie.Medic},
+{"坚守", Categorie.Stubborn},
+{"永逝", Categorie.Permadeath},
+{"农民", Categorie.Peasant},
+{"药水", Categorie.Potion},
+{"残物", Categorie.Relict},
+{"回溯", Categorie.Regressing},
+{"变身", Categorie.Shapeshifter},
+{"退场", Categorie.Token},
+{"密探", Categorie.Agent},
+{"布洛克瓦尔家族", Categorie.ClanBrokvar},
+{"测试", Categorie.Test},
+    };
+}

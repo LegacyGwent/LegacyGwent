@@ -19,6 +19,7 @@ namespace Cynthia.Card.Server
             // try
             // {
             // var updateTask = TimingUpdate(20, sw, se);
+            Command.MongodbConnect();
             CreateHostBuilder(args).Build().Run();
             // }
             // finally

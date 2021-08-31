@@ -1,15 +1,74 @@
 ﻿@inherits LayoutComponentBase
+@using MongoDB.Driver;
 
 <div class="sidebar">
     <NavMenu />
 </div>
 
 <div class="main">
-    <div class="top-row px-4">
-        <a href="https://shang.qq.com/wpa/qunwpa?idkey=131ac538a2dee688ba02f146df56a90b83a35182cd441081cfb26f9c080c3b89" target="_blank">我要入群</a>
+    <div class="top-row px" style="z-index: 1000;">
+        @if (!isLogin)
+        {
+            <Input style="width:150px" placeholder="账号" @bind-Value="input_user" />
+            <Input style="width:150px" placeholder="密码" @bind-Value="input_password" />
+            @if (isLogining)
+            {
+                <Button>登录中...</Button>
+            }
+            else
+            {
+                <Button OnClick="CheckUserInfo">登录</Button>
+            }
+        }
+        else
+        {
+            <Button Type="link">欢迎你，陌生而可敬的 @user </Button>
+            <Button OnClick="() => isLogin = false">登出</Button>
+        }
     </div>
-
-    <div class="content px-4">
-        @Body
-    </div>
+    <CascadingValue Value=user>
+        <div class="content px-4">
+            @Body
+        </div>
+    </CascadingValue>
 </div>
+
+@code
+{
+    bool isLogin = false;
+    bool isLogining = false;
+    string input_user = "";
+    string input_password = "";
+    string user = "";
+    IMongoCollection<LoginUser> userCollection;
+    void CheckUserInfo()
+    {
+        isLogining = true;
+        if (userCollection == null)
+        {
+            MongoClient client = Command.client;
+            userCollection = client.GetDatabase("gwent").GetCollection<LoginUser>("user");
+            Console.WriteLine("数据库初始化完成");
+        }
+        var targetUser = userCollection.AsQueryable().
+        FirstOrDefault(user => user.UserName == input_user && user.PassWord == input_password);
+        if (targetUser != null)
+        {
+            user = targetUser.UserName;
+            isLogin = true;
+        }
+        else
+        {
+            Console.WriteLine("登陆失败");
+        }
+        isLogining = false;
+    }
+    public class LoginUser
+    {
+        public string _id { get; set; }
+        public string PlayerName { get; set; }
+        public string UserName { get; set; }
+        public string PassWord { get; set; }
+        public object[] Decks { get; set; }
+    }
+}
