@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using MongoDB.Driver;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <div class="sidebar">
     <NavMenu />
@@ -7,23 +8,27 @@
 
 <div class="main">
     <div class="top-row px" style="z-index: 1000;">
+        @if (loginFailed)
+        {
+            <Alert Message="登录失败，请重试" Type="@AlertType.Error" Closable />
+        }
         @if (!isLogin)
         {
-            <Input style="width:150px" placeholder="账号" @bind-Value="input_user" />
-            <Input style="width:150px" placeholder="密码" @bind-Value="input_password" />
             @if (isLogining)
             {
-                <Button>登录中...</Button>
+                <Button>尝试登录中</Button>
             }
             else
             {
-                <Button OnClick="CheckUserInfo">登录</Button>
+                <Input style="width:150px" placeholder="账号" type="text" @bind-Value="input_user" />
+                <Input style="width:150px" placeholder="密码" type="password" @bind-Value="input_password" />
+                <Button @onclick="Login">登录</Button>
             }
         }
         else
         {
             <Button Type="link">欢迎你，陌生而可敬的 @user </Button>
-            <Button OnClick="() => isLogin = false">登出</Button>
+            <Button OnClick="Logout">登出</Button>
         }
     </div>
     <CascadingValue Value=user>
@@ -36,17 +41,22 @@
 @code
 {
     bool isLogin = false;
-    bool isLogining = false;
+    bool isLogining = true;
+    bool loginFailed = false;
     string input_user = "";
     string input_password = "";
     string user = "";
+    string localStorageUserName = "USER_NAME";
     IMongoCollection<LoginUser> userCollection;
-    void CheckUserInfo()
+
+    async Task Login()
     {
         isLogining = true;
+        loginFailed = false;
+        await Task.Delay(10);
         if (userCollection == null)
         {
-            MongoClient client = Command.client;
+            var client = Command.client;
             userCollection = client.GetDatabase("gwent").GetCollection<LoginUser>("user");
             Console.WriteLine("数据库初始化完成");
         }
@@ -56,9 +66,11 @@
         {
             user = targetUser.UserName;
             isLogin = true;
+            await localStorage.SetItemAsync(localStorageUserName, user);
         }
         else
         {
+            loginFailed = true;
             Console.WriteLine("登陆失败");
         }
         isLogining = false;
@@ -70,5 +82,24 @@
         public string UserName { get; set; }
         public string PassWord { get; set; }
         public object[] Decks { get; set; }
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        isLogining = true;
+        var localName = await localStorage.GetItemAsync<string>(localStorageUserName);
+        if (localName != null && localName != "")
+        {
+            user = localName;
+            isLogin = true;
+        }
+        isLogining = false;
+        StateHasChanged();
+    }
+    async Task Logout()
+    {
+        await localStorage.SetItemAsync(localStorageUserName, "");
+        user = "";
+        isLogin = false;
     }
 }

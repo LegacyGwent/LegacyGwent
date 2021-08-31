@@ -2,20 +2,18 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cynthia.Card;
+using Cynthia.Card.Server;
 
 public class Command
 {
-    public static MongoClient client;
+    public static IMongoClient client;
     static IMongoDatabase db;
     public static IMongoCollection<DiyCardInfo> diyCardCollection;
-    public static void MongodbConnect()
+    public static void MongodbConnect(GwentDatabaseService dbServer)
     {
-        client = new MongoClient("mongodb://cynthia.ovyno.com:28020");
-        // client = new MongoClient("mongodb://localhost:28020");
+        client = dbServer.GetMongoClient();
         db = client.GetDatabase("Web");
         diyCardCollection = db.GetCollection<DiyCardInfo>("DiyCards");
-        Console.WriteLine("数据库初始化完成");
     }
     public static void AddDiyCardInfos(DiyCardInfo diyCard)
     {
