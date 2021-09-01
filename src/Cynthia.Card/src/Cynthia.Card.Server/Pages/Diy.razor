@@ -5,6 +5,19 @@
 <div>
     <Button OnClick="() => diyDrawerVisible = true">上传设计</Button>
     <Divider Orientation="left">diy卡牌设计</Divider>
+    @*//////////////演示下卡牌展示//////////////*@
+          <Row>
+			@for (int i = 0; i < images.Count; i++)
+			{
+				int num = i;
+				<AntDesign.Col Span="6">
+					<Card Hoverable Style="width: 240px" Cover=images[num]>
+						<CardMeta Title="Europe Street beat" Description="www.instagram.com" />
+					</Card>
+				</AntDesign.Col>
+			}
+		</Row>
+    @*//////////////演示下卡牌展示//////////////*@
 
     @foreach (var x in Info.diyCardInfo)
     {
@@ -13,6 +26,7 @@
             <Card Title="@x.cardInfo.Name">
 
                 <Body>
+              
                     <Row>
                         <AntDesign.Col Span="4">
                             <Image Width="75px" Height="115px" Src=@x.imageLink />
@@ -51,11 +65,41 @@
         }
     }
 </div>
+    @*//////////////卡牌上传存储和显示相关//////////////*@
+
+@code{
+    Random rand = new Random();
+	public async Task UpLoadImage(InputFileChangeEventArgs e)
+	{
+		await using FileStream fs =new FileStream("wwwroot/img/" +(rand.Next(65535)+".png"), FileMode.Create);
+		await e.File.OpenReadStream().CopyToAsync(fs);
+	}
+    public List<RenderFragment> images => ImageCommand.GetDireImages();
+    public class ImageCommand
+    {
+        public static List<RenderFragment> GetDireImages()
+        {
+            string direPath = Directory.GetCurrentDirectory() + @"\wwwroot";
+            var dire = new DirectoryInfo(direPath);
+            return dire.GetFiles("*.png", SearchOption.AllDirectories).Select(file =>
+            {
+                string path = file.FullName;
+                //Console.WriteLine("file:\\," + file.FullName);
+                //RenderFragment coverTemplate = @<img alt = "example" src =@(@"\1.png")/>;
+                Console.WriteLine(file.FullName.Replace(direPath, ""));
+                RenderFragment coverTemplate =@<img alt = "example" src =@(file.FullName.Replace(direPath,""))/> ;
+                return coverTemplate;
+            }).ToList();
+        }
+    }
+}
+    @*//////////////卡牌上传存储和显示相关//////////////*@
 
 <div>
     <Drawer Closable="true" Visible="diyDrawerVisible" Placement="right" Title='("diy设计")'
         OnClose="() => diyDrawerVisible = false" Width="360">
         <Input Placeholder="卡图网址链接" @bind-Value="@newDiyCard.imageLink" />
+        <InputFile OnChange="UpLoadImage" />
         <Input Placeholder="名字" @bind-Value="@newDiyCard.cardInfo.Name" />
         <SimpleSelect Placeholder="类型" OnSelectedItemChanged="handleTypeChange">
             <SelectOptions>
