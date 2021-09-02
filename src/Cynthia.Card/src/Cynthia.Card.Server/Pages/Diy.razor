@@ -174,7 +174,7 @@
     {
         Command.GetDiyCardsInfo();
         Info.diyCardInfo.Sort((e1, e2) => (-GetWeight(e1)).CompareTo(-GetWeight(e2)));
-        newDiyCard.cardInfo = new GwentCard();
+        newDiyCard.cardInfo = new DiyCardInfo.SavedGwentCard();
     }
     int GetWeight(DiyCardInfo e)
     {
