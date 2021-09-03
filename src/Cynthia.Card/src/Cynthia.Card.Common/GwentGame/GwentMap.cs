@@ -10224,7 +10224,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64028",
                     Name="迪门家族海贼",
-                    Strength=2,
+                    Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
