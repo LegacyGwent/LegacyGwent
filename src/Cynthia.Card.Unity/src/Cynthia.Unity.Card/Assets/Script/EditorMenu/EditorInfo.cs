@@ -91,6 +91,7 @@ public class EditorInfo : MonoBehaviour
     public Sprite[] EditorSpriteHeadT;
     public Sprite[] EditorSpriteHeadB;
     public Faction[] EditorFactionIndex;
+    public bool[] DeckMode;
     public Text GoldCount;  //金色数量
     public Text SilverCount;//银色数量
     public Text CopperCount;//铜色数量
@@ -334,6 +335,7 @@ public class EditorInfo : MonoBehaviour
         Debug.Log("点击了【" + _clientService.User.Decks.Single(x => x.Id == Id).Name + "】卡组的编辑按钮");
         var deck = _clientService.User.Decks.Single(x => x.Id == Id);
         _nowEditorDeck = deck;
+        isSpecial= deck.IsSpecialDeck();
         _nowSwitchLeaderId = deck.Leader;
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
         //
