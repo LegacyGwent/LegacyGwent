@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Cynthia.Card
 {
     //一个卡牌类型
-    public class GwentCard
+    public struct GwentCard
     {
         [Key]
         public string CardId { get; set; }
@@ -57,7 +57,7 @@ namespace Cynthia.Card
 
         //是否是属于衍生卡池
         public bool IsDerive { get; set; }
-        
+
         public int CrewCount { get; set; }
 
         public bool IsConcealCard { get; set; }
