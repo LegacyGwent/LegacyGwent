@@ -18,7 +18,7 @@ public class Bootstrapper : MonoBehaviour
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
         builder.Register(
-            x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent", HttpTransportType.WebSockets, options => { options.SkipNegotiation = true; })
+            x => new HubConnectionBuilder().WithUrl("http://localhost:5005/hub/gwent", HttpTransportType.WebSockets, options => { options.SkipNegotiation = true; })
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new BoolConverter()))
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new ListOperationConverter()))
                     .Build()

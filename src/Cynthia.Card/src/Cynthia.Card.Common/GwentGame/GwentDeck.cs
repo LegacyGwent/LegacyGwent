@@ -82,5 +82,30 @@ namespace Cynthia.Card
                 return false;
             return true;
         }
+        public static bool IsSpecialDeck(this DeckModel deck)//B(), my work
+        {
+            var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
+            var deckFaction = GwentMap.CardMap[deck.Leader].Faction;
+
+
+            if (decks.Any(x => x.Faction != Faction.Neutral && x.Faction != deckFaction))
+                return false;
+
+            if (decks.Count() < 25 || decks.Count() > 40)
+                return false;
+
+            if (decks.Where(x => x.Group == Group.Gold).Count() > 12 ||
+                decks.Where(x => x.Group == Group.Silver).Count() > 6 ||
+                decks.Any(x => x.Group == Group.Leader))
+                return false;
+
+            if (decks.Where(x => x.Group == Group.Gold).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3) ||
+               decks.Where(x => x.Group == Group.Silver).Distinct().Count() != decks.Where(x => x.Group == Group.Silver).Count())
+                return false;
+
+            if (decks.Where(x => x.Group == Group.Copper).Distinct().Count() != decks.Where(x => x.Group == Group.Copper).Count())
+                return false;
+            return true;
+        }
     }
 }
