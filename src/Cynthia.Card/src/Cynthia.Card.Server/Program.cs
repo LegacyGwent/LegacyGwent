@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using NLog.Web;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cynthia.Card.Server
 {
@@ -19,7 +20,14 @@ namespace Cynthia.Card.Server
             // try
             // {
             // var updateTask = TimingUpdate(20, sw, se);
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            using (var serviceScope = host.Services.CreateScope())
+            {
+                var services = serviceScope.ServiceProvider;
+                var myDependency = services.GetRequiredService<GwentDatabaseService>();
+                Command.MongodbConnect(myDependency);
+            }
+            host.Run();
             // }
             // finally
             // {
