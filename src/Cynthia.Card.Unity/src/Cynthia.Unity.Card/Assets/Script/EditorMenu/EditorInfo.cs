@@ -335,7 +335,7 @@ public class EditorInfo : MonoBehaviour
         Debug.Log("点击了【" + _clientService.User.Decks.Single(x => x.Id == Id).Name + "】卡组的编辑按钮");
         var deck = _clientService.User.Decks.Single(x => x.Id == Id);
         _nowEditorDeck = deck;
-        isSpecial= deck.IsSpecialDeck();
+        isSpecial= (!deck.IsHalfBasicDeck())&&deck.IsHalfSpecialDeck();
         _nowSwitchLeaderId = deck.Leader;
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
         //
