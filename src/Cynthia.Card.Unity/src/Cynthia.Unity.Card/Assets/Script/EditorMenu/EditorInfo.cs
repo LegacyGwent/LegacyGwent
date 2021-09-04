@@ -69,7 +69,7 @@ public class EditorInfo : MonoBehaviour
     private string _nowSwitchLeaderId = null;
     //乱斗模式禁止阿瓦拉克，希拉德，蒂博尔，大锤，店店
     private List<string> SpecialBanningList=new List<string>
-            { "12012", "32007", "32005", "22009", "12041" };
+            { "12011","12012", "32007", "32005", "22009", "12041" };
     //------------------------------------------------
     //卡组编辑相关
     private string _editorSearchMessage = "";

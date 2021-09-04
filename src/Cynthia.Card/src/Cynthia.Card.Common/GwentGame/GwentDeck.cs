@@ -128,7 +128,7 @@ namespace Cynthia.Card
                decks.Where(x => x.Group == Group.Silver).Distinct().Count() != decks.Where(x => x.Group == Group.Silver).Count())
                 return false;
 
-            if (decks.Where(x => x.Group == Group.Copper).Distinct().Count() != decks.Where(x => x.Group == Group.Copper).Count())
+            if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
             return true;
         }
@@ -153,7 +153,7 @@ namespace Cynthia.Card
                decks.Where(x => x.Group == Group.Silver).Distinct().Count() != decks.Where(x => x.Group == Group.Silver).Count())
                 return false;
 
-            if (decks.Where(x => x.Group == Group.Copper).Distinct().Count() != decks.Where(x => x.Group == Group.Copper).Count())
+            if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
             return true;
         }
