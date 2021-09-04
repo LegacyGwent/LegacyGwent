@@ -55,7 +55,7 @@ namespace Cynthia.Card.Server
             //判断是否是特殊密码
             if (password.ToLower().EndsWith("#f"))
             {
-                switch (password.ToLower().Replace("#f", ""))
+                switch (password.ToLower().Replace("#f", "").Replace("special", ""))
                 {
                     case "ai":
                         {
@@ -106,7 +106,7 @@ namespace Cynthia.Card.Server
             }
             else
             {
-                switch (password.ToLower().Replace("#f", ""))
+                switch (password.ToLower().Replace("#f", "").Replace("special", ""))
                 {
                     case "ai":
                         {

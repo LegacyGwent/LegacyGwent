@@ -39,6 +39,7 @@ public class EditorInfo : MonoBehaviour
     private IDictionary<Faction, GameObject> _deckPrefabMap;
     private int _nowShow = -1;
     private string _showSearchMessage = "";
+    private bool isSpecial=false;
     //------------------------------------------------
     //DOTween动画
     public RectTransform ShowCardsTitle;
@@ -66,6 +67,9 @@ public class EditorInfo : MonoBehaviour
     public Scrollbar SwitchCardsScroll;
     private Faction _nowSwitchFaction = Faction.All;
     private string _nowSwitchLeaderId = null;
+    //乱斗模式禁止阿瓦拉克，希拉德，蒂博尔，大锤，店店
+    private List<string> SpecialBanningList=new List<string>
+            { "12012", "32007", "32005", "22009", "12041" };
     //------------------------------------------------
     //卡组编辑相关
     private string _editorSearchMessage = "";
@@ -87,6 +91,7 @@ public class EditorInfo : MonoBehaviour
     public Sprite[] EditorSpriteHeadT;
     public Sprite[] EditorSpriteHeadB;
     public Faction[] EditorFactionIndex;
+    public bool[] DeckMode;
     public Text GoldCount;  //金色数量
     public Text SilverCount;//银色数量
     public Text CopperCount;//铜色数量
@@ -142,7 +147,11 @@ public class EditorInfo : MonoBehaviour
             {
                 var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
                 card.cardShowInfo.setCurrentCore(x, true);
-                var canAdd = (x.Group == Group.Copper ? 3 : 1);
+                var canAdd=0;
+                if(!isSpecial)
+                canAdd = (x.Group == Group.Copper ? 3 : 1);
+                else 
+                canAdd = (x.Group == Group.Gold ? 3 : 1);
                 card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
                 card.transform.SetParent(EditorCardsContext, false);
             });
@@ -291,7 +300,7 @@ public class EditorInfo : MonoBehaviour
         {
             if (_deckPrefabMap == null) Start();
             var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
-            deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck());
+            deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck()||x.IsSpecialDeck());
             deck.GetComponent<EditorShowDeck>().Id = x.Id;
             deck.transform.SetParent(ShowDecksContext, false);
         });
@@ -326,6 +335,7 @@ public class EditorInfo : MonoBehaviour
         Debug.Log("点击了【" + _clientService.User.Decks.Single(x => x.Id == Id).Name + "】卡组的编辑按钮");
         var deck = _clientService.User.Decks.Single(x => x.Id == Id);
         _nowEditorDeck = deck;
+        isSpecial= (!deck.IsHalfBasicDeck())&&deck.IsHalfSpecialDeck();
         _nowSwitchLeaderId = deck.Leader;
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
         //
@@ -338,6 +348,32 @@ public class EditorInfo : MonoBehaviour
     }
     //=============================================================================================================================
     //以上为展示卡牌相关的内容,以下为展示框选择相关内容
+    public void SwitchDeckClick(){
+         var decks =_nowEditorDeck.Deck;
+        isSpecial=!isSpecial;
+        if(!isSpecial)
+        {
+            var gold=decks.Where(x =>GwentMap.CardMap[x].Group == Group.Gold).Distinct().ToList().Take(4).ToList();
+            var silver=decks.Where(x => GwentMap.CardMap[x].Group == Group.Silver).ToList();
+            var copper=decks.Where(x => GwentMap.CardMap[x].Group == Group.Copper).ToList();
+            gold.AddRange(silver);
+            gold.AddRange(copper);
+            _nowEditorDeck.Deck=gold;
+        }
+        else
+        {
+            var gold=decks.Where(x =>  (!SpecialBanningList.Contains(GwentMap.CardMap[x].CardId))&&(GwentMap.CardMap[x].Group == Group.Gold)).ToList();
+            var silver=decks.Where(x => GwentMap.CardMap[x].Group == Group.Silver).ToList();
+            var copper=decks.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Distinct().ToList();
+            gold.AddRange(silver);
+            gold.AddRange(copper);
+            _nowEditorDeck.Deck=gold; 
+        }
+        
+        SetEditorDeck(_nowEditorDeck);
+    //=============================================================================================================================
+       AutoSetEditorCards();
+       } 
 
     public void AddDeckClick()
     {   //点击新建按钮后
@@ -345,7 +381,7 @@ public class EditorInfo : MonoBehaviour
         {
             _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_DeckLimitTitle"), _translator.GetText("PopupWindow_DeckLimitDesc"));
         }
-        else
+       else
         {
             DOTween.To(() => ShowCardsTitle.anchoredPosition, x => ShowCardsTitle.anchoredPosition = x,
                         new Vector2(0, 150), 0.5f);//收回Title
@@ -366,6 +402,7 @@ public class EditorInfo : MonoBehaviour
             _nowEditorDeck = null;
             DeckName.text = _translator.GetText("EditorMenu_DefaultDeckname");
         }
+    
     }
 
     public void SelectSwitchUICard(CardStatus card, bool isOver = true)
@@ -569,6 +606,8 @@ public class EditorInfo : MonoBehaviour
     public void ClickEditorUICoreCard(CardStatus card)
     {//点击了显示卡牌  应该判断是否应该添加卡牌,如果可以,添加并且更新显示,否则跳出消息提醒
         var count = _nowEditorDeck.Deck.Where(x => x == card.CardId).Count();
+          if(!isSpecial)
+       {
         if (!((card.Group == Group.Copper && count >= 3) ||
             (card.Group != Group.Copper && count >= 1) ||
             (_nowEditorDeck.Deck.Count >= 40) ||
@@ -580,6 +619,22 @@ public class EditorInfo : MonoBehaviour
             //**********************************************
             var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
             c.ForAll(x => { x.Count--; });
+        }
+        }
+        else
+        {
+            if(!((card.Group != Group.Gold && count >= 1) ||
+               (card.Group == Group.Gold && count >= 3)||
+               (_nowEditorDeck.Deck.Count >= 40) ||
+               (card.Group == Group.Silver && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Silver).Count() >= 6) ||
+               (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 12)))
+            {
+                _nowEditorDeck.Deck.Add(card.CardId);      
+                SetEditorDeck(_nowEditorDeck);
+                //**********************************************
+                var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
+                c.ForAll(x => { x.Count--; });
+            }
         }
         //Debug.Log("点击了菜单卡");
     }
@@ -606,8 +661,9 @@ public class EditorInfo : MonoBehaviour
     {   //按照筛选条件进行筛选
         SetEditorCardInfo
         (
+            //
             _cards
-            .Where(x => ((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction)))
+            .Where(x => (!(isSpecial&&SpecialBanningList.Contains(x.CardInfo().CardId))&&((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction))))
             .Where(x => ((_editorSearchMessage == "") ? true :
                 (_translator.GetCardName(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
                  _translator.GetCardInfo(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
@@ -639,9 +695,12 @@ public class EditorInfo : MonoBehaviour
             card.transform.SetParent(EditorCListContext, false);
         });
         AllCount.text = _nowEditorDeck.Deck.Count().ToString();
-        AllCount.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
-        AllCountText.color = deck.IsBasicDeck() ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+          AllCount.color =(deck.IsSpecialDeck()||deck.IsBasicDeck()) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = (deck.IsSpecialDeck()||deck.IsBasicDeck()) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
+         if(isSpecial)
+         GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/12";
+        else  
         GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/4";
         SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}/6";
         //*****************
@@ -685,7 +744,7 @@ public class EditorInfo : MonoBehaviour
         var deck = deckCode.DeCompressToDeck();
         deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetText("EditorMenu_DefaultDeckname")
                                                     : (name.Length >= 20 ? name.Substring(0, 20) : name);
-        if (!deck.IsBasicDeck())
+        if (!(deck.IsBasicDeck()|| deck.IsSpecialDeck()))
         {
             await _globalUIService.YNMessageBox("PopupWindow_AddDeckErrorTitle",
                                                "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
