@@ -151,7 +151,7 @@ public class EditorInfo : MonoBehaviour
                 if(!isSpecial)
                 canAdd = (x.Group == Group.Copper ? 3 : 1);
                 else 
-                canAdd = (x.Group == Group.Gold ? 3 : 1);
+                canAdd = ((x.Group == Group.Gold ||x.Group == Group.Copper)? 3 : 1);
                 card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
                 card.transform.SetParent(EditorCardsContext, false);
             });
@@ -623,8 +623,8 @@ public class EditorInfo : MonoBehaviour
         }
         else
         {
-            if(!((card.Group != Group.Gold && count >= 1) ||
-               (card.Group == Group.Gold && count >= 3)||
+            if(!((card.Group == Group.Silver && count >= 1) ||
+               ((card.Group == Group.Gold ||card.Group == Group.Copper)&& count >= 3)||
                (_nowEditorDeck.Deck.Count >= 40) ||
                (card.Group == Group.Silver && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Silver).Count() >= 6) ||
                (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 12)))
