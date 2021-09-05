@@ -114,17 +114,21 @@ public class MatchInfo : MonoBehaviour
                 await _client.StopMatch();
                 return;
             }
-            if(_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsSpecialDeck())
-            _ = _client.MatchOfPassword(CurrentDeckId, "special"+MatchPassword.text);
-            //if the deck is not special and not basic,stop matching
-            else if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
+            //如果是基础卡组（包括店店卡组）
+            if(_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
+             _ = _client.MatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""));
+           
+            //如果不是基础卡组和乱斗卡组，停止匹配
+            else if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsSpecialDeck())
             {
                 await _UIService.YNMessageBox("PopupWindow_IncompleteDeckTitle", "PopupWindow_IncompleteDeckDesc", "PopupWindow_OkButton", isOnlyYes: true);
                 return;
             }
+             //否则以乱斗卡组匹配(目前不关注匹配结果)
             else
-            //否则尝试开始匹配(目前不关注匹配结果)
-            _ = _client.MatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""));
+             _ = _client.MatchOfPassword(CurrentDeckId, "special"+MatchPassword.text);
+           
+           
 
             // else if (!await _client.Match(CurrentDeckId))
             // {
