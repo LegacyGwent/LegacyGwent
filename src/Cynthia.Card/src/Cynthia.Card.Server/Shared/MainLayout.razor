@@ -20,8 +20,8 @@
             }
             else
             {
-                <Input style="width:150px" placeholder="账号" type="text" @bind-Value="input_user" />
-                <Input style="width:150px" placeholder="密码" type="password" @bind-Value="input_password" />
+                <Input DefaultToEmptyString=true style="width:150px" placeholder="账号" type="text" @bind-Value="input_user" />
+                <Input DefaultToEmptyString=true style="width:150px" placeholder="密码" type="password" @bind-Value="input_password" />
                 <Button @onclick="Login">登录</Button>
             }
         }
