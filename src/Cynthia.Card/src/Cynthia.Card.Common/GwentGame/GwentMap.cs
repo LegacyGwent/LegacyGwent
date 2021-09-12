@@ -5912,7 +5912,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "但是……这样不对啊！两国交兵不斩来使！",
-                    Info = "间谍。随机检视牌组中2张铜色单位牌，打出1张。",
+                    Info = "间谍。随机检视牌组中3张铜色单位牌，打出1张。",
                     CardArtsId = "16231400",
                 }
             },
@@ -11459,7 +11459,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70071",
                     Name="史帕拉流亡军",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
