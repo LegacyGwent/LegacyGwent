@@ -20,8 +20,8 @@
             }
             else
             {
-                <Input style="width:150px" placeholder="账号" type="text" @bind-Value="input_user" />
-                <Input style="width:150px" placeholder="密码" type="password" @bind-Value="input_password" />
+                <Input DefaultToEmptyString=true style="width:150px" placeholder="账号" type="text" @bind-Value="input_user" />
+                <Input DefaultToEmptyString=true style="width:150px" placeholder="密码" type="password" @bind-Value="input_password" />
                 <Button @onclick="Login">登录</Button>
             }
         }
@@ -47,24 +47,14 @@
     string input_password = "";
     string user = "";
     string localStorageUserName = "USER_NAME";
-    IMongoCollection<LoginUser> userCollection;
-
     async Task Login()
     {
         isLogining = true;
         loginFailed = false;
         await Task.Delay(10);
-        if (userCollection == null)
+        if (Command.Login(input_user, input_password))
         {
-            var client = Command.client;
-            userCollection = client.GetDatabase("gwent").GetCollection<LoginUser>("user");
-            Console.WriteLine("数据库初始化完成");
-        }
-        var targetUser = userCollection.AsQueryable().
-        FirstOrDefault(user => user.UserName == input_user && user.PassWord == input_password);
-        if (targetUser != null)
-        {
-            user = targetUser.UserName;
+            user = input_user;
             isLogin = true;
             await localStorage.SetItemAsync(localStorageUserName, user);
         }

@@ -9,8 +9,10 @@ public class Command
     public static IMongoClient client;
     static IMongoDatabase db;
     public static IMongoCollection<DiyCardInfo> diyCardCollection;
+    public static GwentDatabaseService _dbServer;
     public static void MongodbConnect(GwentDatabaseService dbServer)
     {
+        _dbServer = dbServer;
         client = dbServer.GetMongoClient();
         db = client.GetDatabase("Web");
         diyCardCollection = db.GetCollection<DiyCardInfo>("DiyCards");
@@ -46,5 +48,10 @@ public class Command
         var filter = Builders<DiyCardInfo>.Filter.Eq("uid", diyCard.uid);
         var update = Builders<DiyCardInfo>.Update.Set("dislikeList", diyCard.dislikeList);
         diyCardCollection.UpdateOne(filter, update);
+    }
+    public static bool Login(string username, string password)
+    {
+        var user = _dbServer.Login(username, password);
+        return user != null;
     }
 }
