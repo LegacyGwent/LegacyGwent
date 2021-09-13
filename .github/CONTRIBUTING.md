@@ -105,7 +105,7 @@ dotnet watch --project src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Ser
 
 ><font color=red>__注意！__</font>
 >
->修改了GwentMap.cs后，需要重新进行编译，然后把 `src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll` 文件拷贝到 `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll` 。
+>修改了`src/Cynthia.Card/src/Cynthia.Card.Common`文件夹内的文件，如GwentMap.cs后，需要重新进行编译，然后把 `src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll` 文件拷贝到 `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll` 。
 >
 >如果你觉得太麻烦，`enviormentTools/refresh.sh` 文件可以帮你完成重新进行编译和拷贝的动作。
 >
