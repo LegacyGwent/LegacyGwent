@@ -22,8 +22,7 @@ namespace Cynthia.Card
                 {   //重复计数次效果,之后清空计数
                     var results = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
                     if (results.Count != 0) await results.Single().Effect.Damage(2, Card);
-                }
-            
+                }     
             return 0;
         }
 

@@ -9,10 +9,9 @@ namespace Cynthia.Card
         public Emissary(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            //打乱己方卡组,并且取2张铜色卡
-            var list = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)]
-            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit).Mess(Game.RNG).Take(2);
-            //让玩家选择一张卡
+            //打乱己方卡组,并且取2张非同名铜色卡
+           var list = Game.PlayersDeck[Card.PlayerIndex]
+            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.CardInfo().CardId != Card.CardInfo().CardId).Mess(RNG).Take(2);            //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Game.AnotherPlayer(Card.PlayerIndex), list.ToList(), 1, "选择打出一张牌");
             //如果玩家一张卡都没选择,没有效果

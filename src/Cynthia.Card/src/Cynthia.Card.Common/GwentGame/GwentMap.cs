@@ -5912,7 +5912,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "但是……这样不对啊！两国交兵不斩来使！",
-                    Info = "间谍。随机检视牌组中2张铜色单位牌，打出1张。",
+                    Info = "间谍。随机检视牌组中2张铜色非同名单位牌，打出1张。",
                     CardArtsId = "16231400",
                 }
             },
@@ -11469,7 +11469,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Doomed},
                     Flavor = "“嗷，嗷，嗷嗷！”",
-                    Info = "力竭。检视己方牌组中2张铜色非同名单位牌，随后打出1张。",
+                    Info = "力竭。检视己方牌组中3张铜色非同名单位牌，随后打出1张。",
                     CardArtsId = "d15190000",
                 }
             },
