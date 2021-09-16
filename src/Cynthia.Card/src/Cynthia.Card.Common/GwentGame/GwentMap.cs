@@ -11459,7 +11459,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70071",
                     Name="史帕拉流亡军",
-                    Strength=6,
+                    Strength=4,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
