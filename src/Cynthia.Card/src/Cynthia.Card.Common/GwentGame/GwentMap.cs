@@ -5692,7 +5692,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "皇帝最忠诚的贴身护卫，誓死保卫皇帝的安全。",
-                    Info = "场上每有1个敌军间谍单位，便对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
+                    Info = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
                     CardArtsId = "16230800",
                 }
             },
