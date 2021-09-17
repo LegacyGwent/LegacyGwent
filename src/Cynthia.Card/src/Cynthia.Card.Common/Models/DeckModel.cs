@@ -7,6 +7,6 @@ namespace Cynthia.Card
     {
         public string Name { get; set; } = "";      
         public List<string> Deck { get; set; } = new List<string>();
-        public string Leader { get; set; } = ""; 
+        public string Leader { get; set; } = "";
     }
 }
