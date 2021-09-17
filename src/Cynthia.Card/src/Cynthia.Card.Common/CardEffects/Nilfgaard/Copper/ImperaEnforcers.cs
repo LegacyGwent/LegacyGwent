@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
             //选择对方场上一张卡,如果目标不为空,对其造成2点伤害
             var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
-            if (result.Count != 0) await result.Single().Effect.Damage(2, Card);        
+            if (result.Count != 0) await result.Single().Effect.Damage(2, Card);
             return 0;
         }
 
