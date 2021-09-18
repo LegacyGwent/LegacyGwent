@@ -9,5 +9,5 @@ namespace Cynthia.Card
         public List<string> Deck { get; set; } = new List<string>();
         public string Leader { get; set; } = "";
     }
-    
+
 }
