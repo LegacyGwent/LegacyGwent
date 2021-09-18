@@ -109,7 +109,7 @@ namespace Cynthia.Card
         }
         public static bool IsSpecialDeck(this DeckModel deck)
         {
-           /* var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
+            var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
             var deckFaction = GwentMap.CardMap[deck.Leader].Faction;
 
 
@@ -130,8 +130,7 @@ namespace Cynthia.Card
 
             if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
-                */
-            return deck.IsSpecial==0?false:true;
+            return true;
         }
         public static bool IsHalfSpecialDeck(this DeckModel deck)
         {

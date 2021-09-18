@@ -1461,7 +1461,6 @@ namespace Cynthia.Card.Server
                 ),player2.Deck.Leader)
         }.ToList();
             //将卡组转化成实体,并且打乱牌组
-
             PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
                 new GameCard(this, Player1Index,
                     new CardStatus(
