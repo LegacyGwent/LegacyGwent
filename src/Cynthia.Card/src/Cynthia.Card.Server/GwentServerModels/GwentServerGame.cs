@@ -1378,16 +1378,22 @@ namespace Cynthia.Card.Server
             ));
         }
 
-        public GwentServerGame(Player player1, Player player2) : this(player1, player2, new GwentCardDataService(), result => { })
+        public GwentServerGame(Player player1, Player player2,bool isSpecial=false) : this(player1, player2, new GwentCardDataService(), result => { },isSpecial)
         {
         }
 
-        public GwentServerGame(Player player1, Player player2, Action<GameResult> gameResultEvent) : this(player1, player2, new GwentCardDataService(), gameResultEvent)
+        public GwentServerGame(Player player1, Player player2, Action<GameResult> gameResultEvent,bool isSpecial=false) : this(player1, player2, new GwentCardDataService(), gameResultEvent,isSpecial)
         {
         }
 
-        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent)
+        public GwentServerGame( Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent,bool isSpecial=false)
         {
+            if (isSpecial)
+            {
+                DeckModel temp = player1.Deck;
+                player1.Deck = player2.Deck;
+                player2.Deck = temp;
+            }
             GameResultEvent = gameResultEvent;
             _gwentCardTypeService = gwentCardTypeService;
             _randomSeed = (int)DateTime.UtcNow.Ticks;
@@ -1455,6 +1461,7 @@ namespace Cynthia.Card.Server
                 ),player2.Deck.Leader)
         }.ToList();
             //将卡组转化成实体,并且打乱牌组
+
             PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
                 new GameCard(this, Player1Index,
                     new CardStatus(
