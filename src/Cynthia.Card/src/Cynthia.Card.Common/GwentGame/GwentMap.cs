@@ -5692,7 +5692,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "皇帝最忠诚的贴身护卫，誓死保卫皇帝的安全。",
-                    Info = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点单位。",
+                    Info = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
                     CardArtsId = "16230800",
                 }
             },
@@ -5892,7 +5892,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{},
                     Flavor = "间谍？不，这么说就太过啦。我觉得自己不过是个观察员而已。",
-                    Info = "间谍。使1个友军单位获得12点增益。",
+                    Info = "间谍。使1个友军单位获得14点增益。",
                     CardArtsId = "16231500",
                 }
             },
@@ -11347,7 +11347,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
+                    Categories = new Categorie[]{ Categorie.Cursed,Categorie.Cultist},
                     Flavor = "并非所有人都配获得斯瓦勃洛的祝福。",
                     Info = "回合结束时，对1个战力最低的敌军单位造成3点伤害，然后对自身造成3点伤害。",
                     CardArtsId = "d16730000",
@@ -11459,7 +11459,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70071",
                     Name="史帕拉流亡军",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
