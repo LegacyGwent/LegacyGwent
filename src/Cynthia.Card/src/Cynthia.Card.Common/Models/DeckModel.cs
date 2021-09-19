@@ -10,5 +10,5 @@ namespace Cynthia.Card
         public string Leader { get; set; } = "";
         public int IsSpecial { get; set; } = 0;
     }
-    
+
 }

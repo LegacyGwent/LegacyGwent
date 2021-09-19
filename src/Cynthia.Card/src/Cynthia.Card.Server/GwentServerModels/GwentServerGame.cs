@@ -1378,15 +1378,15 @@ namespace Cynthia.Card.Server
             ));
         }
 
-        public GwentServerGame(Player player1, Player player2,bool isSpecial=false) : this(player1, player2, new GwentCardDataService(), result => { },isSpecial)
+        public GwentServerGame(Player player1, Player player2, bool isSpecial = false) : this(player1, player2, new GwentCardDataService(), result => { }, isSpecial)
         {
         }
 
-        public GwentServerGame(Player player1, Player player2, Action<GameResult> gameResultEvent,bool isSpecial=false) : this(player1, player2, new GwentCardDataService(), gameResultEvent,isSpecial)
+        public GwentServerGame(Player player1, Player player2, Action<GameResult> gameResultEvent, bool isSpecial = false) : this(player1, player2, new GwentCardDataService(), gameResultEvent, isSpecial)
         {
         }
 
-        public GwentServerGame( Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent,bool isSpecial=false)
+        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false)
         {
             if (isSpecial)
             {

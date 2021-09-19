@@ -18,7 +18,7 @@ namespace Cynthia.Card.Server
             _gwentCardTypeServic = gwentCardTypeService;
             _gwentService = gwentService;
         }
-        public async void StartGame(GwentRoom room,bool isSpecial=false)
+        public async void StartGame(GwentRoom room, bool isSpecial = false)
         {
             //通知玩家游戏开始
             if (room.Player1 is ClientPlayer)
@@ -32,7 +32,7 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer)),isSpecial);
+            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer)), isSpecial);
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {
@@ -67,11 +67,11 @@ namespace Cynthia.Card.Server
                         }
                     case "aild":
                     case "ldai":
-                     {
+                        {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new GeraltNovaAI());
                             GwentRooms.Add(room);
-                            StartGame(room,true);
+                            StartGame(room, true);
                             return;
                         }
                     case "ai1":
@@ -84,11 +84,11 @@ namespace Cynthia.Card.Server
                         }
                     case "ai1ld":
                     case "ldai1":
-                     {
+                        {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new GeraltNovaAI());
                             GwentRooms.Add(room);
-                            StartGame(room,true);
+                            StartGame(room, true);
                             return;
                         }
                     case "ai2":
@@ -101,11 +101,11 @@ namespace Cynthia.Card.Server
                         }
                     case "ai2ld":
                     case "ldai2":
-                     {
+                        {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new GeraltNovaAI());
                             GwentRooms.Add(room);
-                            StartGame(room,true);
+                            StartGame(room, true);
                             return;
                         }
                     default:
@@ -121,7 +121,7 @@ namespace Cynthia.Card.Server
                     room.AddPlayer(player);
                     if (room.IsReady)
                     {
-                        StartGame(room,password=="ld"||password=="LD");
+                        StartGame(room, password == "ld" || password == "LD");
                         return;
                     }
                 }
@@ -131,7 +131,7 @@ namespace Cynthia.Card.Server
                 //普通匹配(其实是以空白为密匙进行匹配)
                 player.CurrentUser.UserState = UserState.Match;
             }
-           
+
             else
             {
                 switch (password.ToLower().Replace("#f", "").Replace("special", ""))
@@ -146,11 +146,11 @@ namespace Cynthia.Card.Server
                         }
                     case "aild":
                     case "ldai":
-                     {
+                        {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new GeraltNovaAI());
                             GwentRooms.Add(room);
-                            StartGame(room,true);
+                            StartGame(room, true);
                             return;
                         }
                     case "ai1":
@@ -163,11 +163,11 @@ namespace Cynthia.Card.Server
                         }
                     case "ai1ld":
                     case "ldai1":
-                     {
+                        {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new GeraltNovaAI());
                             GwentRooms.Add(room);
-                            StartGame(room,true);
+                            StartGame(room, true);
                             return;
                         }
                     case "ai2":
@@ -180,11 +180,11 @@ namespace Cynthia.Card.Server
                         }
                     case "ai2ld":
                     case "ldai2":
-                     {
+                        {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new GeraltNovaAI());
                             GwentRooms.Add(room);
-                            StartGame(room,true);
+                            StartGame(room, true);
                             return;
                         }
                     default:
