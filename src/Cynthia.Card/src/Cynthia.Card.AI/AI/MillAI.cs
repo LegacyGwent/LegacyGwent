@@ -67,17 +67,23 @@ namespace Cynthia.Card.AI
         }
 
         //选择在阿瓦拉克和矛兵之间切换
-        private Switcher<string> _nextPlay = new Switcher<string>() { CardId.AlbaSpearmen, CardId.AvallacH };
+        private Switcher<string> _nextPlay = new Switcher<string>()
+         {
+          CardId.AlbaSpearmen, CardId.AlbaSpearmen, CardId.AvallacH,
+          CardId.RaghNarRoog,
+          CardId.AlbaSpearmen, CardId.AlbaSpearmen, CardId.AvallacH,
+          CardId.AlbaSpearmen, CardId.AlbaSpearmen, CardId.AvallacH,
+         };
 
         public override void SetDeckAndName()
         {
-            PlayerName = "无情的爆牌机器伯约号1.0";
+            PlayerName = "无情的爆牌机器伯约号1.1";
             Deck = new DeckModel()
             {
                 Name = "爆牌AI测试1",
                 Leader = CardId.AvallacH,
-                Deck = (CardId.AvallacH).Plural(20)
-                .Concat(CardId.AlbaSpearmen.Plural(20)).ToList()
+                Deck = (CardId.AvallacH).Plural(15)
+                .Concat(CardId.AlbaSpearmen.Plural(20)).Concat(CardId.RaghNarRoog.Plural(5)).ToList()
             };
         }
         // public override void SetDeckAndName()
