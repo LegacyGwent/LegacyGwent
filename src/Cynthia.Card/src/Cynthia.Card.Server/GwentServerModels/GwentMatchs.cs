@@ -86,7 +86,7 @@ namespace Cynthia.Card.Server
                     case "ldai1":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new GeraltNovaAI());
+                            room.AddPlayer(new ReaverHunterAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -103,7 +103,7 @@ namespace Cynthia.Card.Server
                     case "ldai2":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new GeraltNovaAI());
+                            room.AddPlayer(new MillAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -165,7 +165,7 @@ namespace Cynthia.Card.Server
                     case "ldai1":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new GeraltNovaAI());
+                            room.AddPlayer(new ReaverHunterAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -182,7 +182,7 @@ namespace Cynthia.Card.Server
                     case "ldai2":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new GeraltNovaAI());
+                            room.AddPlayer(new MillAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
