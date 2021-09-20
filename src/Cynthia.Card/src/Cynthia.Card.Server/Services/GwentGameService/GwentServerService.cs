@@ -81,7 +81,7 @@ namespace Cynthia.Card.Server
                 //获取这个玩家
                 var user = _users[connectionId];
                 //如果玩家不处于闲置状态,或玩家没有该Id的卡组,或者该卡组不符合标准,禁止匹配
-                if (user.UserState != UserState.Standby || !(user.Decks.Any(x => x.Id == deckId) && (user.Decks.Single(x => x.Id == deckId).IsSpecialDeck()||user.Decks.Single(x => x.Id == deckId).IsBasicDeck())))
+                if (user.UserState != UserState.Standby || !(user.Decks.Any(x => x.Id == deckId) && (user.Decks.Single(x => x.Id == deckId).IsSpecialDeck() || user.Decks.Single(x => x.Id == deckId).IsBasicDeck())))
                     return false;
                 //建立一个新的玩家
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
@@ -110,7 +110,7 @@ namespace Cynthia.Card.Server
 
         public bool Surrender(string connectionId) // 投降
         {
-            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"), isSurrender:true);
+            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"), isSurrender: true);
             InovkeUserChanged();
             return result;
         }
