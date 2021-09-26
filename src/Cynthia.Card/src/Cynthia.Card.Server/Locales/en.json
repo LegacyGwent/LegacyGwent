@@ -3037,6 +3037,11 @@
             "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
             "Flavor": ""
         },
+        "70103": {
+            "Name": "Artorius·Vigo",
+            "Info": "Discard a card, add a bronze unit card from your start deck to your hand, and then reveal it.",
+            "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
+        }, 
         "70105": {
             "Name": "Adalbertus Kalkstein",
             "Info": "Make a unit's strength equal to this card's strength.",
