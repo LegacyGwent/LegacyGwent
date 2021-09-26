@@ -1388,7 +1388,8 @@ namespace Cynthia.Card.Server
 
         public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false)
         {
-            if (isSpecial)
+            Random rnd = new Random();
+            if (isSpecial && rnd.Next(0, 2) == 0)
             {
                 DeckModel temp = player1.Deck;
                 player1.Deck = player2.Deck;

@@ -95,6 +95,7 @@
         "EditorMenu_RemoveButton": "Удалить",
         "EditorMenu_AddDeck": "Новая колода",
         "EditorMenu_DefaultDeckname": "Сброс",
+        "EditorMenu_DefaultBlacklistname": "Черный список (лидер не засчитывается)",
         "EditorMenu_AddDeckFromCodeButton": "Добавить код колоды",
         "EditorMenu_GetDeckCodeButton": "Код колоды",
         "EditorMenu_EnterDeckCode": "Введите код колоды",

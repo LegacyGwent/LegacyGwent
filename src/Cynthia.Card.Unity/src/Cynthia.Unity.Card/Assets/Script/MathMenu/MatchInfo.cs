@@ -60,7 +60,7 @@ public class MatchInfo : MonoBehaviour
 
     private GwentClientService _client { get => DependencyResolver.Container.Resolve<GwentClientService>(); }
     private GlobalUIService _UIService { get => DependencyResolver.Container.Resolve<GlobalUIService>(); }
-    private LocalizationService _translator {get => DependencyResolver.Container.Resolve<LocalizationService>(); }
+    private LocalizationService _translator { get => DependencyResolver.Container.Resolve<LocalizationService>(); }
 
     public void MatchMenuClick()
     {
@@ -115,20 +115,20 @@ public class MatchInfo : MonoBehaviour
                 return;
             }
             //如果是基础卡组（包括店店卡组）
-            if(_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
-             _ = _client.MatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""));
-           
+            if (_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
+                _ = _client.MatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""));
+
             //如果不是基础卡组和乱斗卡组，停止匹配
             else if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsSpecialDeck())
             {
                 await _UIService.YNMessageBox("PopupWindow_IncompleteDeckTitle", "PopupWindow_IncompleteDeckDesc", "PopupWindow_OkButton", isOnlyYes: true);
                 return;
             }
-             //否则以乱斗卡组匹配(目前不关注匹配结果)
+            //否则以乱斗卡组匹配(目前不关注匹配结果)
             else
-             _ = _client.MatchOfPassword(CurrentDeckId, "special"+MatchPassword.text);
-           
-           
+                _ = _client.MatchOfPassword(CurrentDeckId, "special" + MatchPassword.text);
+
+
 
             // else if (!await _client.Match(CurrentDeckId))
             // {
@@ -215,7 +215,7 @@ public class MatchInfo : MonoBehaviour
         decks.ForAll(x =>
         {
             var deck = Instantiate(DeckPrefabs[GetFactionIndex(GwentMap.CardMap[x.Leader].Faction)]);
-            deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck()||x.IsSpecialDeck());
+            deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck());
             deck.GetComponent<SwitchMatchDeck>().SetId(DecksContext.childCount);
             deck.transform.SetParent(DecksContext, false);
         });
@@ -264,8 +264,8 @@ public class MatchInfo : MonoBehaviour
         SilverCount.text = $"{cards.Where(x => x.Group == Group.Silver).Count().ToString()}/6";
         GoldCount.text = $"{cards.Where(x => x.Group == Group.Gold).Count().ToString()}/4";
         AllCount.text = $"{deck.Deck.Count()}";
-        AllCount.color = (deck.IsBasicDeck()|| deck.IsSpecialDeck()) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
-        AllCountText.color =(deck.IsBasicDeck()|| deck.IsSpecialDeck()) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCount.color = (deck.IsBasicDeck() || deck.IsSpecialDeck() || (deck.IsBlacklist() && deck.Id == "blacklist")) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = (deck.IsBasicDeck() || deck.IsSpecialDeck() || (deck.IsBlacklist() && deck.Id == "blacklist")) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         HeadT.sprite = HeadTSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         HeadB.sprite = HeadBSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         //////////////////////////////////////////////////

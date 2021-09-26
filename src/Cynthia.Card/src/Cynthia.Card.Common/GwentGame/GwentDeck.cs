@@ -38,6 +38,17 @@ namespace Cynthia.Card
                         Id = Guid.NewGuid().ToString()
                     };
                 //约翰
+                case 2:
+                    deck = "12004".Plural(1)//乞丐王
+                      .Concat("12007".Plural(1))//诗人
+                      .Concat("22009".Plural(1)).ToList();//12点
+                    return new DeckModel()
+                    {
+                        Leader = "31004",
+                        Deck = deck,
+                        Name = "黑名单（不计领袖）",
+                        Id = "blacklist"
+                    };
                 default:
                     deck = "12001".Plural(1)//乞丐王
                     .Concat("12002".Plural(1))//诗人
@@ -130,6 +141,16 @@ namespace Cynthia.Card
 
             if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
+            return true;
+        }
+        public static bool IsBlacklist(this DeckModel deck)
+        {
+            var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
+            var deckFaction = GwentMap.CardMap[deck.Leader].Faction;
+
+            if (decks.Count() > 3)
+                return false;
+
             return true;
         }
         public static bool IsHalfSpecialDeck(this DeckModel deck)

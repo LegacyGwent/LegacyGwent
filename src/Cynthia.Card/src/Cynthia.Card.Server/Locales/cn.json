@@ -98,6 +98,7 @@
         "EditorMenu_GetDeckCodeButton": "复制卡组码",
         "EditorMenu_EnterDeckCode": "输入卡组码",
         "EditorMenu_DefaultDeckname": "默认卡组",
+        "EditorMenu_DefaultBlacklistname": "黑名单（不计领袖）",
         "PopupWindow_DeleteDeckTitle": "是否要删除卡组",
         "PopupWindow_DeleteDeckDesc": "是否删除 {0} 卡组?",
         "PopupWindow_DeleteDeckErrorTitle": "删除卡组失败",

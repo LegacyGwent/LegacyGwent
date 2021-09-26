@@ -87,6 +87,7 @@ namespace Cynthia.Card.Server
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
                 player.Deck = user.Decks.Single(x => x.Id == deckId);
+                player.Blacklist = user.Decks.Single(x => x.Id == "blacklist").IsBlacklist() ? user.Decks.Single(x => x.Id == "blacklist") : null;
                 //将这个玩家加入到游戏匹配系统之中
                 _gwentMatchs.PlayerJoin(player, password);
                 InovkeUserChanged();

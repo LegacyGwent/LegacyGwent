@@ -95,6 +95,7 @@
         "EditorMenu_RemoveButton": "REMOVE",
         "EditorMenu_AddDeck": "NEW DECK",
         "EditorMenu_DefaultDeckname": "Default",
+        "EditorMenu_DefaultBlacklistname": "Blacklist(Leader not counted)",
         "EditorMenu_AddDeckFromCodeButton": "Add Deck Code",
         "EditorMenu_GetDeckCodeButton": "DeckCode",
         "EditorMenu_EnterDeckCode": "Enter Deck Code",
