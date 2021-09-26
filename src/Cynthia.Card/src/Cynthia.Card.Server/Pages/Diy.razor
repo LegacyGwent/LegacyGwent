@@ -15,7 +15,7 @@
                 <Body>
                     <Row>
                         <AntDesign.Col Span="4">
-                            <Image Width="75px" Height="115px" Src=@x.imageLink />
+                            <Image style="padding:5px" Src=@x.imageLink />
                         </AntDesign.Col>
                         <AntDesign.Col Span="20">
                             <Content>
@@ -41,7 +41,7 @@
                                     <span style="color:red;font-size:20px;">@x.dislikeList.Count()</span>
                                 </span>
                                 <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
-                                <Button OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论</Button>
+                                <Button OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
                             </Content>
                         </AntDesign.Col>
                     </Row>
@@ -111,7 +111,7 @@
 </div>
 
 <div>
-    <Drawer Closable="true" Visible="commitDrawerVisible" Placement="right" Title='("卡片评论")'
+    <Drawer Closable="true" Visible="commitDrawerVisible" Placement="right" Title='("卡牌评论")'
         OnClose="() => commitDrawerVisible = false" Width="360">
         @if (currentDiyCard != null)
         {
@@ -153,7 +153,7 @@
                     品质：<Tag>@currentDiyCard.Group</Tag>
                 </p>
                 <p> 标签：
-            @foreach (var s in currentDiyCard.Categories)
+                    @foreach (var s in currentDiyCard.Categories)
                     {
                         <Tag>@s</Tag>
                     }
@@ -178,11 +178,11 @@
     }
     int GetWeight(DiyCardInfo e)
     {
-        if (e.likeList == null || e.dislikeList == null )
+        if (e.likeList == null || e.dislikeList == null)
         {
             return -10000;
         }
-        return e.likeList.Count() - e.dislikeList.Count();
+        return (e.likeList.Count() - e.dislikeList.Count())*100 + (e.likeList.Count() + e.dislikeList.Count()) + e.commits.Count();
     }
     [CascadingParameter]
     string user { get; set; }
