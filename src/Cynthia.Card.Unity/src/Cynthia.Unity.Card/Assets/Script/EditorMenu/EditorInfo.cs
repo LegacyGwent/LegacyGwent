@@ -289,12 +289,18 @@ public class EditorInfo : MonoBehaviour
         father.DetachChildren();
     }
 
-    public void SetDeckList(IList<DeckModel> decks)
+    public async void SetDeckList(IList<DeckModel> decks)
     {
         //设置已有卡组
         RemoveAllChild(ShowDecksContext);
         var button = Instantiate(AddDeckButtonPrefab);
         button.transform.SetParent(ShowDecksContext, false);
+        if (!_clientService.User.Decks.Any(x => x.Id == "blacklist"))
+        {
+            if (await _clientService.AddDeck(GwentDeck.CreateBasicDeck(2)))
+                _clientService.User.Decks.Insert(0, GwentDeck.CreateBasicDeck(2));
+
+        }
         //-----
         decks.ForAll(x =>
         {
@@ -313,24 +319,24 @@ public class EditorInfo : MonoBehaviour
 
     public async void ShowDeckRemoveClick(string Id)
     {
-        if (_nowEditorDeck.Id != "blacklist")
+        // if (_nowEditorDeck.Id != "blacklist")
+        // {
+        if (await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckTitle",
+            string.Format(_translator.GetText("PopupWindow_DeleteDeckDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name)))
         {
-            if (await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckTitle",
-                string.Format(_translator.GetText("PopupWindow_DeleteDeckDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name)))
+            if (!(await _clientService.RemoveDeck(Id)))
             {
-                if (!(await _clientService.RemoveDeck(Id)))
-                {
-                    await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckErrorTitle",
-                        string.Format(_translator.GetText("PopupWindow_DeleteDeckErrorDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name));
-                }
-                else
-                {
-                    var i = _clientService.User.Decks.Select((item, index) => (item, index)).Single(x => x.item.Id == Id).index;
-                    _clientService.User.Decks.RemoveAt(i);
-                    SetDeckList(_clientService.User.Decks);
-                }
+                await _globalUIService.YNMessageBox("PopupWindow_DeleteDeckErrorTitle",
+                    string.Format(_translator.GetText("PopupWindow_DeleteDeckErrorDesc"), _clientService.User.Decks.Single(x => x.Id == Id).Name));
+            }
+            else
+            {
+                var i = _clientService.User.Decks.Select((item, index) => (item, index)).Single(x => x.item.Id == Id).index;
+                _clientService.User.Decks.RemoveAt(i);
+                SetDeckList(_clientService.User.Decks);
             }
         }
+        //  }
     }
 
     public void ShowDeckEditorClick(string Id)
