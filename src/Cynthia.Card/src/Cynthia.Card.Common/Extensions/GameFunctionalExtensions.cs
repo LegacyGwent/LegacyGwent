@@ -52,11 +52,11 @@ namespace Cynthia.Card
             return game.GetPlaceCards(game.Player1Index, planceRow, isHasDead, isHasConceal).Concat(game.GetPlaceCards(game.Player2Index, planceRow, isHasDead, isHasConceal));
         }
 
-        public static Task CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
+        public static Task<GameCard> CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting);
         }
-        public static Task CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null)
+        public static Task<GameCard> CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null)
         {
             return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);
         }
