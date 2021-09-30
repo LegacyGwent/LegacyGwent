@@ -6,11 +6,11 @@ namespace Cynthia.Card
 {
 	[CardEffectId("130110")]//卡罗“砍刀”凡瑞西：晋升
 	public class CleaverPro : CardEffect
-	{//造成等同于手牌数量的伤害。对目标相邻单位造成溢出的伤害。
+	{//造成9点伤害。对目标相邻单位造成溢出的伤害。
 		public CleaverPro(GameCard card) : base(card){}
 		public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
 		{
-			var point = Game.PlayersHandCard[PlayerIndex].Count();
+			var point = 9;
 			var result = await Game.GetSelectPlaceCards(Card);
 			if(result.Count<=0) 
             {

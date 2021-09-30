@@ -3039,7 +3039,7 @@
         },
         "70103": {
             "Name": "Artorius·Vigo",
-            "Info": "Discard a card, add a bronze unit card from your start deck to your hand, and then reveal it.",
+            "Info": "Discard a card, add a Bronze unit card from your start deck to your hand, and then reveal it.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
         "70105": {
@@ -3109,7 +3109,7 @@
         },
         "130110": {
             "Name": "Carlo Varese",
-            "Info": "Deploy: Deal 1 damage for each card in your hand. Deal overfolw damge to neighbors.",
+            "Info": "Deal 9 damage. Deal overfolw damge to neighbors.",
             "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
         },
         "130090": {

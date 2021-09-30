@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 38);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 39);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11631,7 +11631,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”",
-                    Info = "丢弃1张手牌，并在手牌中添加1张己方起始牌组中铜色单位牌，随后将其揭示。",
+                    Info = "丢弃1张手牌，并在手牌中添加1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。",
                     CardArtsId = "d16820000",
                 }
             },
@@ -11897,7 +11897,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。",
-                    Info = "造成等同于手牌数量的伤害。对其相邻单位造成溢出的伤害。",
+                    Info = "造成9点伤害。对其相邻单位造成溢出的伤害。",
                     CardArtsId = "12221600",
                 }
             },
