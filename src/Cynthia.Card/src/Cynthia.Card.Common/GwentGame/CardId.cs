@@ -543,6 +543,7 @@ namespace Cynthia.Card
         public const string BidensBipinnata = "70041";
         public const string AlbizziaJulibrissin = "70042";
         public const string VernossielsCommando = "70043";
+        public const string ArtoriusVigo = "70103";
 
         public const string LivingArmor = "70062";
         public const string Oneiromancy = "70091";

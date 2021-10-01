@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 37);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 38);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11615,7 +11615,26 @@ namespace Cynthia.Card
                     CardArtsId = "d18350000",
                 }
             },
-
+            {
+                "70103",// 亚托列司·薇歌 ArtoriusVigo
+                new GwentCard()
+                {
+                    CardId = "70103",
+                    Name = "亚托列司·薇歌",
+                    Strength = 11,
+                    Group = Group.Silver,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”",
+                    Info = "丢弃1张手牌，并在手牌中添加1张己方起始牌组中铜色单位牌，随后将其揭示。",
+                    CardArtsId = "d16820000",
+                }
+            },
 
 
 
