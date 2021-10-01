@@ -37,18 +37,6 @@ namespace Cynthia.Card
                         Name = "帝国测试卡组",
                         Id = Guid.NewGuid().ToString()
                     };
-                //约翰
-                case 2:
-                    deck = "12004".Plural(1)//乞丐王
-                      .Concat("12007".Plural(1))//诗人
-                      .Concat("22009".Plural(1)).ToList();//12点
-                    return new DeckModel()
-                    {
-                        Leader = "31004",
-                        Deck = deck,
-                        Name = "黑名单（不计领袖）",
-                        Id = "blacklist"
-                    };
                 default:
                     deck = "12001".Plural(1)//乞丐王
                     .Concat("12002".Plural(1))//诗人

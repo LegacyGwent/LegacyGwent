@@ -148,7 +148,9 @@ public class EditorInfo : MonoBehaviour
                 var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
                 card.cardShowInfo.setCurrentCore(x, true);
                 var canAdd = 0;
-                if (!isSpecial)
+                if (_nowEditorDeck.Id == "blacklist")
+                    canAdd = 1;
+                else if (!isSpecial)
                     canAdd = (x.Group == Group.Copper ? 3 : 1);
                 else
                     canAdd = ((x.Group == Group.Gold || x.Group == Group.Copper) ? 3 : 1);
@@ -305,10 +307,13 @@ public class EditorInfo : MonoBehaviour
         decks.ForAll(x =>
         {
             if (_deckPrefabMap == null) Start();
-            var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
-            deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck() || (x.IsBlacklist() && x.Id == "blacklist"));
-            deck.GetComponent<EditorShowDeck>().Id = x.Id;
-            deck.transform.SetParent(ShowDecksContext, false);
+            if (x.Id != "blacklist")
+            {
+                var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
+                deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck() || (x.IsBlacklist() && x.Id == "blacklist"));
+                deck.GetComponent<EditorShowDeck>().Id = x.Id;
+                deck.transform.SetParent(ShowDecksContext, false);
+            }
         });
         //----
         var count = decks.Count();
@@ -359,6 +364,8 @@ public class EditorInfo : MonoBehaviour
     //以上为展示卡牌相关的内容,以下为展示框选择相关内容
     public void SwitchDeckClick()
     {
+        if (_nowEditorDeck.Id == "blacklist")
+            return;
         var decks = _nowEditorDeck.Deck;
         isSpecial = !isSpecial;
         if (!isSpecial)
@@ -414,7 +421,30 @@ public class EditorInfo : MonoBehaviour
         }
 
     }
+    public void SetBlacklistClick()
+    {   //点击新建按钮后
+        if (_clientService.User.Decks.Count >= 100)
+        {
+            _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_DeckLimitTitle"), _translator.GetText("PopupWindow_DeckLimitDesc"));
+        }
+        else
+        {
+            /*
+            Titile x:0 | Y:478.5 true    Y: 605 false
+            Left y:0 | X:-470 true     X: -1700 false
+            Right y:0 | X: 468 true     X: 1700 false*/
+            EditorStatus = EditorStatus.EditorDeck;
+            _nowSwitchLeaderId = null;
+            _nowEditorDeck = new DeckModel() { Leader = _nowSwitchLeaderId, Deck = _clientService.User.Blacklist == null ? new List<string>() : _clientService.User.Blacklist, Id = "blacklist" };
 
+            EditorBodyCore.SetActive(true);
+            EditorBodyMian.SetActive(false);
+            ResetEditorCore();
+
+            DeckName.text = _translator.GetText("EditorMenu_DefaultDeckname");
+        }
+
+    }
     public void SelectSwitchUICard(CardStatus card, bool isOver = true)
     {
         //悬停在卡牌上,显示卡牌信息...但是目前没有做
@@ -504,10 +534,21 @@ public class EditorInfo : MonoBehaviour
                 // }
                 // else
                 // {
-                if (_nowEditorDeck.Id != "blacklist")
-                    _nowEditorDeck.Name = (DeckName.text == "" ? _translator.GetText("EditorMenu_DefaultDeckname") : DeckName.text);
-
-                if (_clientService.User.Decks.Any(x => x.Id == (_nowEditorDeck.Id == null ? "" : _nowEditorDeck.Id)))
+                _nowEditorDeck.Name = (DeckName.text == "" ? _translator.GetText("EditorMenu_DefaultDeckname") : DeckName.text);
+                if (_nowEditorDeck.Id == "blacklist")
+                {
+                    if (await _clientService.ModifyBlacklist(_nowEditorDeck.Deck.ToList()))
+                        _clientService.User.Blacklist = _nowEditorDeck.Deck.ToList();
+                    else
+                    {
+                        if (!(await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_AddDeckErrorTitle"),
+                           _translator.GetText("PopupWindow_AddDeckErrorDesc"))))
+                        {
+                            break;
+                        }
+                    }
+                }
+                else if (_clientService.User.Decks.Any(x => x.Id == (_nowEditorDeck.Id == null ? "" : _nowEditorDeck.Id)))
                 {
                     // if (await _globalUIService.YNMessageBox("是否修改卡组?", $"是否修改卡组 {DeckName.text}"))
                     // {
@@ -584,8 +625,11 @@ public class EditorInfo : MonoBehaviour
     {//初始化
         EditorSearch.text = "";
         DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? _translator.GetText("EditorMenu_DefaultDeckname") : _nowEditorDeck.Name;
-        EditorHeadT.sprite = EditorSpriteHeadT[GetFactionIndex(_nowSwitchFaction)];
-        EditorHeadB.sprite = EditorSpriteHeadB[GetFactionIndex(_nowSwitchFaction)];
+        if (_nowEditorDeck.Id != "blacklist")
+        {
+            EditorHeadT.sprite = EditorSpriteHeadT[GetFactionIndex(_nowSwitchFaction)];
+            EditorHeadB.sprite = EditorSpriteHeadB[GetFactionIndex(_nowSwitchFaction)];
+        }
         //
         SetEditorDeck(_nowEditorDeck);
         EditorGroupButtons[0].isOn = true;
@@ -702,11 +746,14 @@ public class EditorInfo : MonoBehaviour
     public void SetEditorDeck(DeckModel deck)
     {
         RemoveAllChild(EditorCListContext);
-        var factionIndex = GetFactionIndex(_nowSwitchFaction);
-        var leader = Instantiate(EditorLeadersPrefab[factionIndex]).GetComponent<LeaderShow>();
-        leader.SetLeader(_nowSwitchLeaderId);
-        leader.GetComponent<EditorListLeader>().Id = _nowSwitchLeaderId;
-        leader.transform.SetParent(EditorCListContext, false);
+        if (_nowEditorDeck.Id != "blacklist")
+        {
+            var factionIndex = GetFactionIndex(_nowSwitchFaction);
+            var leader = Instantiate(EditorLeadersPrefab[factionIndex]).GetComponent<LeaderShow>();
+            leader.SetLeader(_nowSwitchLeaderId);
+            leader.GetComponent<EditorListLeader>().Id = _nowSwitchLeaderId;
+            leader.transform.SetParent(EditorCListContext, false);
+        }
         deck.Deck.Select(x => GwentMap.CardMap[x])
             .OrderByDescending(x => x.Group)
             .ThenByDescending(x => x.Strength)
@@ -719,16 +766,24 @@ public class EditorInfo : MonoBehaviour
             card.transform.SetParent(EditorCListContext, false);
         });
         AllCount.text = _nowEditorDeck.Deck.Count().ToString();
-        bool valid = (!deck.IsBlacklist() && (deck.IsSpecialDeck() || deck.IsBasicDeck())
-        || deck.IsBlacklist() && deck.Id == "blacklist");
+        bool valid = deck.Id == "blacklist" || (deck.IsSpecialDeck() || deck.IsBasicDeck());
         AllCount.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         AllCountText.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
-        CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
-        if (isSpecial)
-            GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/12";
+        if (_nowEditorDeck.Id == "blacklist")
+        {
+            CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
+            GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}";
+            SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}";
+        }
         else
-            GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/4";
-        SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}/6";
+        {
+            CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
+            if (isSpecial)
+                GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/12";
+            else
+                GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/4";
+            SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}/6";
+        }
         //*****************
         //等待补充？？？
         //*****************

@@ -40,6 +40,8 @@ namespace Cynthia.Card.Server
 
         //修改卡组
         public bool ModifyDeck(string id, DeckModel deck) => _gwentServerService.ModifyDeck(Context.ConnectionId, id, deck);
+        public bool ModifyBlacklist(List<string> blacklist) => _gwentServerService.ModifyBlacklist(Context.ConnectionId, blacklist);
+
 
         //开始匹配(老api),算作空密码匹配
         public bool Match(string deckId) => MatchOfPassword(deckId, string.Empty);

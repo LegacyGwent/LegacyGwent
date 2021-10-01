@@ -48,6 +48,14 @@ namespace Cynthia.Card.Server
             temp.ReplaceOne(x => x.UserName == username, user);
             return true;
         }
+        public bool ModifyBlacklist(string username, List<string> blacklist)
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Single(x => x.UserName == username);
+            user.Blacklist = blacklist;
+            temp.ReplaceOne(x => x.UserName == username, user);
+            return true;
+        }
         public bool RemoveDeck(string username, string id)
         {
             var temp = GetUserInfo();
@@ -66,7 +74,6 @@ namespace Cynthia.Card.Server
             }
             var decks = new List<DeckModel>();
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            decks.Add(GwentDeck.CreateBasicDeck(2));
             temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks });
             return true;
         }
