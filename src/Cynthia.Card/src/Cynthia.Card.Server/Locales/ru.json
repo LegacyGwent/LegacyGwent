@@ -4,7 +4,7 @@
         "Filename": "ru"
     },
     "MenuLocales": {
-        "LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
+        "LoginMenu_GameTitle": "Гвинт: Наследие - фанатское издание",
         "LoginMenu_Message": "Это бесплатный проект с открытым исходным кодом. Вы можете связаться с Jiaqun по телефону 945408322 и помочь с проектом.",
         "LoginMenu_NotesTitle": "Новости",
         "LoginMenu_LoginTitle": "Логин",
@@ -155,15 +155,15 @@
         "CardTag_Cintra": "Цинтра",
         "CardTag_Insectoid": "Инсектоид",
         "CardTag_Stray": "Stray",
-        "CardTag_Construct": "Коснтрукт",
+        "CardTag_Construct": "Конcтрукт",
         "CardTag_Spell": "Заклятие",
         "CardTag_Redania": "Редания",
         "CardTag_SiegeSupport": "Осадная поддержка",
         "CardTag_ClanDrummond": "Клан Друммонд",
-        "CardTag_Specter": "Пизрак",
+        "CardTag_Specter": "Призрак",
         "CardTag_Cursed": "Проклятый",
         "CardTag_Soldier": "Солдат",
-        "CardTag_Kaedwen": "Каедвен",
+        "CardTag_Kaedwen": "Каэдвен",
         "CardTag_Vodyanoi": "Водяной",
         "CardTag_ClanTuirseach": "Клан Тиршах",
         "CardTag_ClanTordarroch": "Клан Тордаррох",
@@ -174,15 +174,15 @@
         "CardTag_Reckless": "Reckless",
         "CardTag_ClanHeymaey": "Клан Хеймей",
         "CardTag_Blitz": "Blitz",
-        "CardTag_Dryad": "Триада",
+        "CardTag_Dryad": "Дриада",
         "CardTag_Special": "Особая",
         "CardTag_Elf": "Эльф",
-        "CardTag_Lyria": "Lyria",
+        "CardTag_Lyria": "Лирия",
         "CardTag_Necrophage": "Трупоед",
         "CardTag_Machine": "Машина",
         "CardTag_Aedirn": "Аединр",
         "CardTag_Support": "Поддержка",
-        "CardTag_ClanAnCraite": "Клан Ан Крайт",
+        "CardTag_ClanAnCraite": "Клан ан Крайт",
         "CardTag_Dwarf": "Краснолюд",
         "CardTag_Draconid": "Драконид",
         "CardTag_SiegeEngine": "Осадный инженер",
@@ -394,7 +394,7 @@
         },
         "12034": {
             "Name": "Рагнарёк",
-            "Info": "Применить опасность к каждому вражескому ряду, который наносит 2 повреждения Высшему юниту в начале хода.",
+            "Info": "Сыграйте Бедствие в каждом ряду противника, которое в начале хода наносит 2 ед. урона его сильнейшему отряду.",
             "Flavor": "In the Final Age, Hemdall will come forth to face the evil issuing from the land of Morhogg вЂ“ the legions of wraiths, demons and specters of Chaos"
         },
         "12035": {
@@ -428,8 +428,8 @@
             "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this... monstrosity? "
         },
         "12040": {
-            "Name": "Испытание трав",
-            "Info": "Нанести 10 единиц урона, если это не Ведьмак. Если оно выживет, увеличьте его до 25.",
+            "Name": "Испытание Травами",
+            "Info": "Усильте ведьмака до 25 ед. или нанесите 10 ед. урона отряду, который не является ведьмаком. Если он выживет, усильте его до 25 ед.",
             "Flavor": "Imagine a lump of clay. In order to shape it, you must first moisten it or it will crumble. The Trial's initial part does just that. It opens the body to change, so to speak. Only then can the mutagens produce a witcher. "
         },
         "12041": {
@@ -3003,23 +3003,23 @@
             "Flavor": ""
         },
         "70059": {
-            "Name": "One-Eyed Betsy",
-            "Info": "At the beginning of the round, gain 3 points, and then boost the strongest emeny by 3 points.",
+            "Name": "Одноглазая Бетси",
+            "Info": "В начале раунда получите 3 ед., а затем усильте самого сильного юнита противника на 3 ед.",
             "Flavor": "准头是差了点，但力道确实没话说。"
         },
         "70062": {
-            "Name": "Living Armor",
-            "Info": "Units in the same row take at most 5 points per damage.",
+            "Name": "Живой доспех",
+            "Info": "Юниты в одном ряду получают не более 5 ед. урона за раз.",
             "Flavor": "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！"
         },
         "70070": {
-            "Name": "Highwaymen",
-            "Info": "Exhausted. If there are only bronze cards in your starting deck, spawn a 'Strays of Spalla' , and add two 'Strays of Spalla' to your deck.",
+            "Name": "Разбойники с большой дороги",
+            "Info": "Измученный. Если в вашей стартовой колоде есть только бронзовые карты, создайте 'Кобели из Спаллы' и добавьте в свою колоду два 'Кобели из Спаллы'.",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
-            "Name": "StraysofSpalla",
-            "Info": "Exhausted. Check the 2 bronze unit cards in your own deck, and then play 1 of them.",
+            "Name": "Кобели из Спаллы",
+            "Info": "Измученный. Посмотрите две карты бронзовых юнитов в вашей колоде, а затем сыграйте одну из них.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
