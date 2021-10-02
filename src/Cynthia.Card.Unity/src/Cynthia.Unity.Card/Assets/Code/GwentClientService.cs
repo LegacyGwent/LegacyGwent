@@ -207,10 +207,10 @@ namespace Cynthia.Card.Client
             return User;
         }
         //开始匹配与停止匹配
-        public Task<bool> MatchOfPassword(string deckId, string password)
+        public Task<bool> MatchOfPassword(string deckId, string password, string usingBlacklist = "true")
         {
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
-            return HubConnection.InvokeAsync<bool>("MatchOfPassword", deckId, password);
+            return HubConnection.InvokeAsync<bool>("MatchOfPassword", deckId, password, usingBlacklist);
         }
         public Task<bool> StopMatch()
         {
@@ -226,7 +226,7 @@ namespace Cynthia.Card.Client
         public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", deck);
         public Task<bool> RemoveDeck(string deckId) => HubConnection.InvokeAsync<bool>("RemoveDeck", deckId);
         public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, deck);
-        public Task<bool> ModifyBlacklist(List<string> blacklist) => HubConnection.InvokeAsync<bool>("ModifyBlacklist", blacklist);
+        public Task<bool> ModifyBlacklist(BlacklistModel blacklist) => HubConnection.InvokeAsync<bool>("ModifyBlacklist", blacklist);
 
         public Task SendOperation(Task<Operation<int>> operation) => HubConnection.SendAsync("GameOperation", operation);
 

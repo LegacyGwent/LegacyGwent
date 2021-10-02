@@ -11,7 +11,7 @@ namespace Cynthia.Card
 
         public string PlayerName { get; set; }//玩家名
         public DeckModel Deck { get; set; }//所用卡组
-        public List<String> Blacklist { get; set; }
+        public BlacklistModel Blacklist { get; set; }
         protected ITubeEndPoint _upstream;
         protected ITubeEndPoint _downstream;
         public Player()
@@ -20,10 +20,10 @@ namespace Cynthia.Card
         }
         public bool InBlacklist(Player player)
         {
-            if (Blacklist == null)
+            if (Blacklist == null || Blacklist.Blacklist == null)
                 return false;
             else
-                return Blacklist.Intersect(player.Deck.Deck).Any();
+                return Blacklist.Blacklist.Intersect(player.Deck.Deck).Any();
         }
         public Task SendAsync(Operation<ServerOperationType> operation) => _upstream.SendAsync(operation);
         public Task SendAsync(ServerOperationType type, params object[] data) => _upstream.SendAsync(Operation.Create(type, data));

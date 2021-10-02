@@ -16,7 +16,6 @@ using UnityEngine.Events;
 using static UnityEngine.UI.Scrollbar;
 using Cynthia.Card.Common.Extensions;
 using Microsoft.AspNetCore.SignalR.Client;
-
 public class EditorInfo : MonoBehaviour
 {
     //展示卡牌相关
@@ -97,6 +96,9 @@ public class EditorInfo : MonoBehaviour
     public Text CopperCount;//铜色数量
     public Text AllCount;   //全部数量
     public Text AllCountText;
+    public Text SwitchButtonText;
+    public Text BlacklistButtonText;
+    public Button SwitchDeckButton;
     public GameObject DeckCodeInputBackGround;
     public InputField DeckCodeInputName;
     public InputField DeckCodeInputCode;
@@ -126,6 +128,8 @@ public class EditorInfo : MonoBehaviour
         EditorSearch.onValueChanged.AddListener(x => EditorSearchChange(x));
         DeckName.onValueChanged.RemoveAllListeners();
         DeckName.onValueChanged.AddListener(x => DeckNameChanged(x));
+        SwitchButtonText.text = _translator.GetText("EditorMenu_SwitchDeckButton");
+        BlacklistButtonText.text = _translator.GetText("EditorMenu_BlacklistButton");
         //---------------------------------------------------------------------------
     }
 
@@ -291,18 +295,12 @@ public class EditorInfo : MonoBehaviour
         father.DetachChildren();
     }
 
-    public async void SetDeckList(IList<DeckModel> decks)
+    public void SetDeckList(IList<DeckModel> decks)
     {
         //设置已有卡组
         RemoveAllChild(ShowDecksContext);
         var button = Instantiate(AddDeckButtonPrefab);
         button.transform.SetParent(ShowDecksContext, false);
-        if (!_clientService.User.Decks.Any(x => x.Id == "blacklist"))
-        {
-            if (await _clientService.AddDeck(GwentDeck.CreateBasicDeck(2)))
-                _clientService.User.Decks.Insert(0, GwentDeck.CreateBasicDeck(2));
-
-        }
         //-----
         decks.ForAll(x =>
         {
@@ -435,7 +433,7 @@ public class EditorInfo : MonoBehaviour
             Right y:0 | X: 468 true     X: 1700 false*/
             EditorStatus = EditorStatus.EditorDeck;
             _nowSwitchLeaderId = null;
-            _nowEditorDeck = new DeckModel() { Leader = _nowSwitchLeaderId, Deck = _clientService.User.Blacklist == null ? new List<string>() : _clientService.User.Blacklist, Id = "blacklist" };
+            _nowEditorDeck = new DeckModel() { Leader = _nowSwitchLeaderId, Deck = _clientService.User.Blacklist == null ? new List<string>() : _clientService.User.Blacklist.Blacklist, Id = "blacklist" };
 
             EditorBodyCore.SetActive(true);
             EditorBodyMian.SetActive(false);
@@ -537,16 +535,13 @@ public class EditorInfo : MonoBehaviour
                 _nowEditorDeck.Name = (DeckName.text == "" ? _translator.GetText("EditorMenu_DefaultDeckname") : DeckName.text);
                 if (_nowEditorDeck.Id == "blacklist")
                 {
-                    if (await _clientService.ModifyBlacklist(_nowEditorDeck.Deck.ToList()))
-                        _clientService.User.Blacklist = _nowEditorDeck.Deck.ToList();
-                    else
+
+                    _clientService.User.Blacklist = new BlacklistModel()
                     {
-                        if (!(await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_AddDeckErrorTitle"),
-                           _translator.GetText("PopupWindow_AddDeckErrorDesc"))))
-                        {
-                            break;
-                        }
-                    }
+                        Blacklist = _nowEditorDeck.Deck.ToList(),
+                    };
+                    await _clientService.ModifyBlacklist(_clientService.User.Blacklist);
+
                 }
                 else if (_clientService.User.Decks.Any(x => x.Id == (_nowEditorDeck.Id == null ? "" : _nowEditorDeck.Id)))
                 {
@@ -627,8 +622,14 @@ public class EditorInfo : MonoBehaviour
         DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? _translator.GetText("EditorMenu_DefaultDeckname") : _nowEditorDeck.Name;
         if (_nowEditorDeck.Id != "blacklist")
         {
+            SwitchButtonText.text = _translator.GetText("EditorMenu_SwitchDeckButton");
             EditorHeadT.sprite = EditorSpriteHeadT[GetFactionIndex(_nowSwitchFaction)];
             EditorHeadB.sprite = EditorSpriteHeadB[GetFactionIndex(_nowSwitchFaction)];
+        }
+        else
+        {
+            SwitchButtonText.text = "";
+
         }
         //
         SetEditorDeck(_nowEditorDeck);

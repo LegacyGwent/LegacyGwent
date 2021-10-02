@@ -40,14 +40,14 @@ namespace Cynthia.Card.Server
 
         //修改卡组
         public bool ModifyDeck(string id, DeckModel deck) => _gwentServerService.ModifyDeck(Context.ConnectionId, id, deck);
-        public bool ModifyBlacklist(List<string> blacklist) => _gwentServerService.ModifyBlacklist(Context.ConnectionId, blacklist);
+        public bool ModifyBlacklist(BlacklistModel blacklist) => _gwentServerService.ModifyBlacklist(Context.ConnectionId, blacklist);
 
 
         //开始匹配(老api),算作空密码匹配
-        public bool Match(string deckId) => MatchOfPassword(deckId, string.Empty);
+        public bool Match(string deckId, string usingBlacklist = "true") => MatchOfPassword(deckId, string.Empty, usingBlacklist);
 
         //使用密码匹配
-        public bool MatchOfPassword(string deckId, string password) => _gwentServerService.Match(Context.ConnectionId, deckId, password);
+        public bool MatchOfPassword(string deckId, string password, string usingBlacklist = "true") => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
 
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
