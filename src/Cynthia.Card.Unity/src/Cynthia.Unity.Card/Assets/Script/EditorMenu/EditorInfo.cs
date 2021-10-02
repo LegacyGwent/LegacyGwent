@@ -732,7 +732,7 @@ public class EditorInfo : MonoBehaviour
         (
             //
             _cards
-            .Where(x => ((_nowEditorDeck.Id == "blacklist") || (!(isSpecial && SpecialBanningList.Contains(x.CardInfo().CardId)) && ((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction)))))
+            .Where(x => ((_nowEditorDeck.Id == "blacklist" && x.Faction != Faction.Neutral) || (_nowEditorDeck.Id != "blacklist" && (!(isSpecial && SpecialBanningList.Contains(x.CardInfo().CardId)) && ((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction))))))
             .Where(x => ((_editorSearchMessage == "") ? true :
                 (_translator.GetCardName(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
                  _translator.GetCardInfo(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
