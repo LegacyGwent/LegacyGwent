@@ -19,6 +19,8 @@ namespace Cynthia.Card.Server
         public int _randomSeed;
         public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = GwentGlobalSetting.RowMaxCount;
+        public int balancePoint { get; set; }
+        public bool isSpecialGame { get; set; }
         public IList<(int PlayerIndex, GameCard CardId)> HistoryList { get; set; } = new List<(int, GameCard)>();
         public GameDeck[] PlayerBaseDeck { get; set; } = new GameDeck[2];
         public Player[] Players { get; set; } = new Player[2]; //玩家数据传输/
@@ -115,7 +117,7 @@ namespace Cynthia.Card.Server
 
             playerIndex = GameRound.ToPlayerIndex(this);
             RedCoin[0] = playerIndex;
-            var balancePoint = Math.Max(result2, result1);
+            balancePoint = Math.Max(result2, result1);
             if (balancePoint != 0)
             {
                 // 这里使用CreateCard会sendEvent，但是全部剥离目前我做不到:(
@@ -168,7 +170,9 @@ namespace Cynthia.Card.Server
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
                 RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
                 BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
-                isSurrender = isSurrender
+                isSurrender = isSurrender,
+                BalancePoint = balancePoint,
+                isSpecial = isSpecialGame
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -701,6 +705,8 @@ namespace Cynthia.Card.Server
                 BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
                 RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
                 BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
+                BalancePoint = balancePoint,
+                isSpecial = isSpecialGame
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -1391,6 +1397,7 @@ namespace Cynthia.Card.Server
             Random rnd = new Random();
             if (isSpecial && rnd.Next(0, 2) == 0)
             {
+                isSpecialGame = isSpecial;
                 DeckModel temp = player1.Deck;
                 player1.Deck = player2.Deck;
                 player2.Deck = temp;

@@ -25,5 +25,7 @@ namespace Cynthia.Card
 
         public string BlueDeckCode { get; set; }
         public bool isSurrender { get; set; }
+        public bool isSpecial { get; set; }
+        public int BalancePoint { get; set; }
     }
 }
