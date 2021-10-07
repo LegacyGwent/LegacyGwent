@@ -78,6 +78,7 @@ namespace Cynthia.Card.Client
                     _translator.GetText("PopupWindow_DisconnectedTitle"),
                     _translator.GetText("PopupWindow_DisconnectedDesc"),
                     "PopupWindow_OkButton", isOnlyYes: true);
+                Application.Quit();
                 // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
                 // messageBox.Buttons.SetActive(true);
                 // messageBox.YesButton.SetActive(true);
