@@ -665,7 +665,7 @@ public class EditorInfo : MonoBehaviour
         var count = _nowEditorDeck.Deck.Where(x => x == card.CardId).Count();
         if (_nowEditorDeck.Id == "blacklist")
         {
-            if (!(count >= 1 || (_nowEditorDeck.Deck.Count >= 3)))
+            if (!(count >= 1 || (_nowEditorDeck.Deck.Count >= 2)))
             {   //如果超过上限,禁止加入卡牌
                 _nowEditorDeck.Deck.Add(card.CardId);
                 SetEditorDeck(_nowEditorDeck);
