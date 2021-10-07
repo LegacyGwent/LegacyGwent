@@ -48,6 +48,14 @@ namespace Cynthia.Card.Server
             temp.ReplaceOne(x => x.UserName == username, user);
             return true;
         }
+        public bool ModifyBlacklist(string username, BlacklistModel blacklist)
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Single(x => x.UserName == username);
+            user.Blacklist = blacklist;
+            temp.ReplaceOne(x => x.UserName == username, user);
+            return true;
+        }
         public bool RemoveDeck(string username, string id)
         {
             var temp = GetUserInfo();

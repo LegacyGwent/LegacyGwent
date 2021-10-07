@@ -33,5 +33,17 @@ namespace Cynthia.Card.Server
             }
             return false;
         }
+        public bool InBlacklist(Player player)
+        {
+            if (Player1 == null)
+            {
+                return false;
+            }
+            if (Player1.InBlacklist(player) || player.InBlacklist(Player1))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

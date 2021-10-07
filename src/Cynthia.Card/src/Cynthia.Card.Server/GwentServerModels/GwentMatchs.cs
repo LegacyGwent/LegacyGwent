@@ -116,12 +116,12 @@ namespace Cynthia.Card.Server
             foreach (var room in GwentRooms)
             {
                 //如果这个房间正在等待玩家加入,并且密匙成功配对
-                if (!room.IsReady && (room.Password == password || (room.Password == string.Empty && password.ToLower().StartsWith("ai"))))
+                if (!room.IsReady && ((room.Password.ToLower() == password.ToLower() && !room.InBlacklist(player)) || (room.Password == string.Empty && password.ToLower().StartsWith("ai"))))
                 {
                     room.AddPlayer(player);
                     if (room.IsReady)
                     {
-                        StartGame(room, password == "ld" || password == "LD");
+                        StartGame(room, password.ToLower() == "ld");
                         return;
                     }
                 }

@@ -65,6 +65,7 @@ namespace Cynthia.Card.Server
                 }
                 user.PlayerName = loginUser.PlayerName;
                 user.Decks = loginUser.Decks;
+                user.Blacklist = loginUser.Blacklist;
                 _users.Add(user.ConnectionId, user);
                 InovkeUserChanged();
             }
@@ -73,7 +74,7 @@ namespace Cynthia.Card.Server
 
         public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
 
-        public bool Match(string connectionId, string deckId, string password)//匹配
+        public bool Match(string connectionId, string deckId, string password, string usingBlacklist = "true")//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
             if (_users.ContainsKey(connectionId) && _users[connectionId].UserState == UserState.Standby)
@@ -87,6 +88,11 @@ namespace Cynthia.Card.Server
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
                 player.Deck = user.Decks.Single(x => x.Id == deckId);
+                if (usingBlacklist == "true")
+                    player.Blacklist = user.Blacklist;
+                else
+                    player.Blacklist = null;
+
                 //将这个玩家加入到游戏匹配系统之中
                 _gwentMatchs.PlayerJoin(player, password);
                 InovkeUserChanged();
@@ -159,6 +165,20 @@ namespace Cynthia.Card.Server
             if (!_databaseService.ModifyDeck(user.UserName, id, deck))
                 return false;
             user.Decks[user.Decks.Select((x, index) => (x, index)).Single(d => d.x.Id == id).index] = deck;
+            return true;
+        }
+
+        public bool ModifyBlacklist(string connectionId, BlacklistModel blacklist)
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.Decks.Count < 0)
+                return false;
+            //如果黑名单不合规范
+            if (!_databaseService.ModifyBlacklist(user.UserName, blacklist))
+                return false;
+            user.Blacklist = blacklist;
             return true;
         }
 
