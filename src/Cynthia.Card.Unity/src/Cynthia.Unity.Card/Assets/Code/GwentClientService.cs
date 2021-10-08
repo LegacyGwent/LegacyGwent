@@ -208,10 +208,10 @@ namespace Cynthia.Card.Client
             return User;
         }
         //开始匹配与停止匹配
-        public Task<bool> MatchOfPassword(string deckId, string password, string usingBlacklist = "true")
+        public Task<bool> NewMatchOfPassword(string deckId, string password, int usingBlacklist)
         {
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
-            return HubConnection.InvokeAsync<bool>("MatchOfPassword", deckId, password, usingBlacklist);
+            return HubConnection.InvokeAsync<bool>("NewMatchOfPassword", deckId, password, usingBlacklist);
         }
         public Task<bool> StopMatch()
         {

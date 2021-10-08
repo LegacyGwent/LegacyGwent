@@ -127,7 +127,7 @@ public class MatchInfo : MonoBehaviour
 
     public async void MatchButtonClick()/////点击匹配按钮的话
     {
-        string usingBlacklist = RecordStatus.isOn ? "true" : "false";
+        int usingBlacklist = RecordStatus.isOn ? 1 : 0;
 
         try
         {
@@ -140,7 +140,7 @@ public class MatchInfo : MonoBehaviour
             }
             //如果是基础卡组（包括店店卡组）
             if (_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
-                _ = _client.MatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""), usingBlacklist);
+                _ = _client.NewMatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""), usingBlacklist);
 
             //如果不是基础卡组和乱斗卡组，停止匹配
             else if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsSpecialDeck())
@@ -150,7 +150,7 @@ public class MatchInfo : MonoBehaviour
             }
             //否则以乱斗卡组匹配(目前不关注匹配结果)
             else
-                _ = _client.MatchOfPassword(CurrentDeckId, "special" + MatchPassword.text, usingBlacklist);
+                _ = _client.NewMatchOfPassword(CurrentDeckId, "special" + MatchPassword.text, usingBlacklist);
 
 
 
