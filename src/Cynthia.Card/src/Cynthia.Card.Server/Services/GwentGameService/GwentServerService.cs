@@ -74,7 +74,7 @@ namespace Cynthia.Card.Server
 
         public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
 
-        public bool Match(string connectionId, string deckId, string password, string usingBlacklist = "true")//匹配
+        public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
             if (_users.ContainsKey(connectionId) && _users[connectionId].UserState == UserState.Standby)
@@ -88,7 +88,7 @@ namespace Cynthia.Card.Server
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
                 player.Deck = user.Decks.Single(x => x.Id == deckId);
-                if (usingBlacklist == "true")
+                if (usingBlacklist == 1)
                     player.Blacklist = user.Blacklist;
                 else
                     player.Blacklist = null;

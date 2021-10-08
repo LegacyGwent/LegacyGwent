@@ -136,7 +136,7 @@ namespace Cynthia.Card
             var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
             var deckFaction = GwentMap.CardMap[deck.Leader].Faction;
 
-            if (decks.Count() > 3)
+            if (decks.Count() > 2)
                 return false;
 
             return true;
