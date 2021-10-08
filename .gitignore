@@ -6,9 +6,6 @@ project.lock.json
 .DS_Store
 *.pyc
 
-# Visual Studio Code
-.vscode
-
 # User-specific files
 *.suo
 *.user
@@ -31,5 +28,5 @@ msbuild.err
 msbuild.wrn
 
 # Visual Studio 2015
-.vs/
+.vs
 .vscode

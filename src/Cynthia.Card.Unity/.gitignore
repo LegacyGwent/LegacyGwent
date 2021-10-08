@@ -36,4 +36,4 @@ sysinfo.txt
 *.unitypackage
 
 # building files
-./src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll
+src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common*
