@@ -44,10 +44,13 @@ namespace Cynthia.Card.Server
 
 
         //开始匹配(老api),算作空密码匹配
-        public bool Match(string deckId, string usingBlacklist = "true") => MatchOfPassword(deckId, string.Empty, usingBlacklist);
+        public bool Match(string deckId) => NewMatch(deckId, 0);
+        public bool NewMatch(string deckId, int usingBlacklist) => NewMatchOfPassword(deckId, string.Empty, usingBlacklist);
 
         //使用密码匹配
-        public bool MatchOfPassword(string deckId, string password, string usingBlacklist = "true") => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
+        public bool MatchOfPassword(string deckId, string password) => NewMatchOfPassword(deckId, password, 0);
+
+        public bool NewMatchOfPassword(string deckId, string password, int usingBlacklist) => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
 
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
