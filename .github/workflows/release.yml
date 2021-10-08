@@ -61,6 +61,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
+          allowDirtyBuild: true
       - uses: montudor/action-zip@v1
         with:
           args: zip -qq -r build/DiyGwent-${{ matrix.targetPlatform }}.zip build/${{ matrix.targetPlatform }}
