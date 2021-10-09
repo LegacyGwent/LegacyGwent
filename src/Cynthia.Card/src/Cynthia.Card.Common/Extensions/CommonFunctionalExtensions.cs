@@ -18,6 +18,25 @@ namespace Cynthia.Card
             return deckResult;
         }
 
+        public static DeckModel ToDeckModel(this BlacklistModel blacklist)
+        {
+            var deckResult = new DeckModel();
+            deckResult.Name = blacklist.Name;
+            deckResult.Id = blacklist.Id;
+            deckResult.Leader = "12004"; // use geralt as a fake leader
+            deckResult.Deck = blacklist.Blacklist;
+            return deckResult;
+        }
+
+        public static BlacklistModel ToBlacklist(this DeckModel deck)
+        {
+            var blacklist = new BlacklistModel();
+            blacklist.Name = deck.Name;
+            blacklist.Id = deck.Id;
+            blacklist.Blacklist = deck.Deck;
+            return blacklist;
+        }
+
         public static string CompressDeck(this GameDeck deck) => deck.ToDeckModel().CompressDeck();
 
         public static string CompressDeck(this DeckModel deck)
@@ -44,7 +63,6 @@ namespace Cynthia.Card
                     result += cards.Select(x => x.Card62Id).Join();
                 }
             }
-
             return result;//.AsSpan().Encode();
         }
 
