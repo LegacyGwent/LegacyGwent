@@ -155,6 +155,7 @@ namespace Cynthia.Card.Client
                     var loadedCardMap = JsonConvert.DeserializeObject<Dictionary<string, GwentCard>>(await GetCardMap());
                     Debug.Log($"end loading new card map");
                     GwentMap.CardMap = loadedCardMap;
+                    GwentMap.InitializeCardMap();
                 }
                 // Download locales from the server if:
                 // 1. Locales are not downloaded and the client is outdated
