@@ -14,6 +14,10 @@ namespace Cynthia.Card
 
         static GwentMap()
         {
+            InitializeCardMap();
+        }
+        public static void InitializeCardMap()
+        {
             CardIdMap = GwentMap.CardMap.Indexed().ToDictionary(x => x.Value.Key, x => x.Key);
             CardIdIndexMap = new string[CardIdMap.Count];
             for (var i = 0; i < CardIdMap.Count; i++)
