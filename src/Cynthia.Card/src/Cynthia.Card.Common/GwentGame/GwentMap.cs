@@ -2841,7 +2841,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Leader},
+                    Categories = new Categorie[]{ Categorie.Leader,Categorie.WildHunt},
                     Flavor = "留点尊严吧，你的结局已然注定。",
                     Info = "生成1个铜色“狂猎”单位。",
                     CardArtsId = "13110100",
@@ -11317,7 +11317,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70045",//米薇 Mave
+                "70045",//米薇 Meve
                 new GwentCard()
                 {
                     CardId ="70045",
@@ -11330,7 +11330,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Leader},
+                    Categories = new Categorie[]{ Categorie.Leader,Categorie.Lyria},
                     CrewCount = 1,
                     Flavor = "莱里亚女王米薇闷闷不乐地摆弄着项链上的硕大红宝石，美丽而丰满的嘴唇不时扭曲起来。",
                     Info = "使己方半场、手牌、牌库各1个单位获得4点增益。操控。",
