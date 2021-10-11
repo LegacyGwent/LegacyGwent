@@ -174,7 +174,7 @@ namespace Cynthia.Card.Server
                 BalancePoint = balancePoint,
                 isSpecial = isSpecialGame,
                 RedBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
-                BlueBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
+                BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -710,7 +710,7 @@ namespace Cynthia.Card.Server
                 BalancePoint = balancePoint,
                 isSpecial = isSpecialGame,
                 RedBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
-                BlueBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? ""
+                BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? ""
             };
             GameResultEvent(result);
             TempGameResult = result;
