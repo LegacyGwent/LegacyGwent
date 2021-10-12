@@ -2998,12 +2998,12 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 bronze units with power higher than 4 points, and deal 4 damage to each of them.",
+            "Info": "Resurrect 2 bronze units with power higher than 5 points, and deal 4 damage to each of them.",
             "Flavor": ""
         },
         "70058": {
             "Name": "Cave Troll",
-            "Info": "At the beginning of your round, a strongest enemy gains 2 points, and then this card gains 2 points.",
+            "Info": "At the beginning of your round, a strongest enemy on the opposite row gains 2 points, and then this card gains 2 points.",
             "Flavor": ""
         },
         "70059": {

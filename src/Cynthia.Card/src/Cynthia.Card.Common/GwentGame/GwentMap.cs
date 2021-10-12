@@ -8594,7 +8594,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "在玛哈坎崎岖的悬崖峭壁上狩猎可不是件简单事……但矮人们也从不轻易向危险低头。",
-                    Info = "战力改变时（被重置除外），获得3点增益。",
+                    Info = "战力改变时（被重置除外），获得2点增益。",
                     CardArtsId = "20004200",
                 }
             },
@@ -11040,7 +11040,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70023",
                     Name = "齐齐摩战士",
-                    Strength = 7,
+                    Strength = 6,
                     Group = Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11281,7 +11281,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70043",
                     Name="弗妮希尔的突击队",
-                    Strength=8,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11373,7 +11373,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "设埋伏一般都得藏起来。不过……也有例外。",
-                    Info = "复活2个战力高于4点的铜色单位，并对它们各造成4点伤害。",
+                    Info = "复活2个战力高于5点的铜色单位，并对它们各造成4点伤害。",
                     CardArtsId = "d19720000",
                 }
             },
@@ -11610,7 +11610,7 @@ namespace Cynthia.Card
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},

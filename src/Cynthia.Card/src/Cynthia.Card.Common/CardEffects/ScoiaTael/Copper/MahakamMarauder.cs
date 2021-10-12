@@ -7,7 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("54012")] //玛哈坎劫掠者
     public class MahakamMarauder : CardEffect, IHandlesEvent<AfterCardBoost>, IHandlesEvent<AfterCardHurt>, IHandlesEvent<AfterCardStrengthen>, IHandlesEvent<AfterCardWeaken>
     {
-        //战力改变时（被重置除外），获得3点增益。
+        //战力改变时（被重置除外），获得2点增益。
         public MahakamMarauder(GameCard card) : base(card)
         {
         }
@@ -43,6 +43,6 @@ namespace Cynthia.Card
             await BoostMyself(@event.Target, @event.Source);
         }
 
-        private const int boost = 3;
+        private const int boost = 2;
     }
 }
