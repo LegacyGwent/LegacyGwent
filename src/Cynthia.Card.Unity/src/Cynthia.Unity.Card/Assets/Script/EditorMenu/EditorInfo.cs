@@ -826,7 +826,7 @@ public class EditorInfo : MonoBehaviour
         var deck = deckCode.DeCompressToDeck();
         deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetText("EditorMenu_DefaultDeckname")
                                                     : (name.Length >= 20 ? name.Substring(0, 20) : name);
-        if (!(deck.IsBasicDeck() || deck.IsSpecialDeck()))
+        if (!(deck.IsBasicDeck() || deck.IsSpecialDeck() || deck.IsHalfBasicDeck()))
         {
             await _globalUIService.YNMessageBox("PopupWindow_AddDeckErrorTitle",
                                                "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
