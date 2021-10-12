@@ -21,16 +21,6 @@ namespace Cynthia.Card
             if (result.Count() == 0) return 0;
             isPlayCard = true;
             await result.Single().MoveToCardStayFirst();
-            if (result.Single().Status.Group == Group.Gold&&result.Single().CardInfo().CardType == CardType.Unit)
-            {
-                var list2 = Game.PlayersDeck[Card.PlayerIndex]
-                  .Where(x => x.Status.CardId == "13001");
-                if (list2.Count() != 0)
-                {
-                    var location = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true);
-                    await list2.Single().Effect.Summon(location, list2.Single());
-                }
-            }
             return 1;
         }
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
