@@ -11383,7 +11383,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70058",
                     Name="洞穴巨魔",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11393,7 +11393,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "巨魔不仅没头脑，饿肚子时还容易不高兴。两样凑在一起，极其危险。",
-                    Info = "回合开始时，使1个战力最高的敌军单位获得2点增益，然后自身获得2点增益。",
+                    Info = "获得4点增益，然后使一个敌方单位获得4点增益",
                     CardArtsId = "d19240000",
                 }
             },
