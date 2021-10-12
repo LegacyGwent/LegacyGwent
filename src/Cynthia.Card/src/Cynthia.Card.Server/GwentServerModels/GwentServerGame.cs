@@ -120,9 +120,7 @@ namespace Cynthia.Card.Server
             balancePoint = Math.Max(result2, result1);
             if (balancePoint != 0)
             {
-                // 这里使用CreateCard会sendEvent，但是全部剥离目前我做不到:(
-                // 但目前没有这个时间点发效果的卡牌，所以现阶段这样子应该没问题
-                var newCard = await CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyRow1, 0));
+                var newCard = await CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyRow1, 0), false);
                 newCard.Status.Strength = balancePoint;
 
                 // 这里移走了佚亡，是因为需要卡牌在墓地触发效果。效果触发完后，再加上佚亡。
@@ -1539,6 +1537,10 @@ namespace Cynthia.Card.Server
         //卡牌事件处理与转发
         public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
         {
+            return await CreateCard(cardId, playerIndex, position, true, setting);
+        }
+        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, bool sentEvent, Action<CardStatus> setting = null)
+        {
             //定位到这一排
             var row = RowToList(playerIndex, position.RowPosition);
             if (position.RowPosition.IsOnPlace() && row.Count >= RowMaxCount)
@@ -1569,38 +1571,23 @@ namespace Cynthia.Card.Server
                     {
                         if (creatCard.Status.CardRow.IsOnPlace())
                         {
-                            // await ShowCardOn(creatCard);
                             if (position.RowPosition.IsMyRow())
                             {
-                                // await AddTask(async () =>
-                                // {
                                 await creatCard.Effect.CardDown(false, false, true, (false, false));
-                                // await AddTask(async () =>
-                                // {
-                                await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
-                                // });
-                                // });
+                                if (sentEvent)
+                                {
+                                    await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
+                                }
                             }
                             else
                             {
-                                // await AddTask(async () =>
-                                // {
                                 await creatCard.Effect.CardDown(true, false, true, (false, false));
-                                // await AddTask(async () =>
-                                // {
-                                await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
-                                // });
-                                // });
+                                if (sentEvent)
+                                {
+                                    await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
+                                }
                             }
                         }
-                        //     if (position.RowPosition.IsMyRow())
-                        //     {
-                        //         await creatCard.Effect.Play(position);
-                        //     }
-                        //     else
-                        //     {
-                        //         await creatCard.Effect.Play(position.Mirror(), true);
-                        //     }
                     });
                 }
             });
