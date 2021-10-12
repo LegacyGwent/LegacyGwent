@@ -19,7 +19,7 @@ namespace Cynthia.Card
                 {
                     return ;
                 }
-                await cards.Mess(RNG).First().Effect.Boost(2, Card);
+                await cards.Mess(RNG).First().Effect.Boost(1, Card);
                 await Card.Effect.Boost(2, Card);
             }
         }
