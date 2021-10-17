@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 39);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 40);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1421,7 +1421,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。",
-                    Info = "己方从手牌打出金色单位牌时，召唤此单位。",
+                    Info = "己方打出金色单位牌时，召唤此单位。",
                     CardArtsId = "11221000",
                 }
             },
