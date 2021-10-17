@@ -325,7 +325,7 @@ namespace Cynthia.Card
                 }
             }
         }
-        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo)
+        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo, bool sendEvent = true)
         {
             await Game.ShowCardDown(Card);
             await Game.SetPointInfo();
@@ -333,7 +333,10 @@ namespace Cynthia.Card
                 await Spying(Card);
             //8888888888888888888888888888888888888888888888888888888888888888888888
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
-            await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo, isSpying)));
+            if (sendEvent)
+            {
+                await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo, isSpying)));
+            }
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if (!isMoveInfo.isMove)
                 Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card));

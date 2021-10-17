@@ -1539,7 +1539,7 @@ namespace Cynthia.Card.Server
         {
             return await CreateCard(cardId, playerIndex, position, true, setting);
         }
-        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, bool sentEvent, Action<CardStatus> setting = null)
+        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, bool sendEvent, Action<CardStatus> setting = null)
         {
             //定位到这一排
             var row = RowToList(playerIndex, position.RowPosition);
@@ -1573,16 +1573,16 @@ namespace Cynthia.Card.Server
                         {
                             if (position.RowPosition.IsMyRow())
                             {
-                                await creatCard.Effect.CardDown(false, false, true, (false, false));
-                                if (sentEvent)
+                                await creatCard.Effect.CardDown(false, false, true, (false, false), sendEvent);
+                                if (sendEvent)
                                 {
                                     await creatCard.Effects.RaiseEvent(new CardDownEffect(false, false));
                                 }
                             }
                             else
                             {
-                                await creatCard.Effect.CardDown(true, false, true, (false, false));
-                                if (sentEvent)
+                                await creatCard.Effect.CardDown(true, false, true, (false, false), sendEvent);
+                                if (sendEvent)
                                 {
                                     await creatCard.Effects.RaiseEvent(new CardDownEffect(true, false));
                                 }

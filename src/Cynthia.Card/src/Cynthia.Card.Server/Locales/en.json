@@ -533,7 +533,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever you play a Gold unit from your hand, Summon this unit",
+            "Info": "Whenever you play a Gold unit, Summon this unit",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
