@@ -3046,6 +3046,11 @@
             "Info": "Сбросьте карту, сделайте копию карты бронзового отряда по умолчанию из вашей стартовой колоды в свою руку, а затем покажите ее.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
+        "70104": {
+            "Name": "LyrianLandsknecht",
+            "Info": "After round over，if this card is boosted，shuffle it back to the deck and keep most 10 boost.",
+            "Flavor": "“相信我，最好别去嘲笑他们傻里傻气的帽子。”"
+        },
         "70105": {
             "Name": "Adalbertus Kalkstein",
             "Info": "Make a unit's strength equal to this card's strength.",

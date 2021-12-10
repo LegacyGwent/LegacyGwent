@@ -11639,7 +11639,26 @@ namespace Cynthia.Card
                     CardArtsId = "d16820000",
                 }
             },
-
+            {
+                "70104",//莱里亚长矛兵 LyrianLandsknecht
+                new GwentCard()
+                {
+                    CardId ="70104",
+                    Name="莱里亚长矛兵",
+                    Strength=10,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.Lyria},
+                    Flavor = "“相信我，最好别去嘲笑他们傻里傻气的帽子。”",
+                    Info = "小局结束时，如果具有增益，则洗回牌组并保留至多10点增益。",
+                    CardArtsId = "d15210000",
+                }
+            },
 
 
             //中立银金色强力版本 原id后加一个0 原名加：晋升 原英文名加Pro
