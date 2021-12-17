@@ -14,7 +14,7 @@ namespace Cynthia.Card
             var FiggisMerluzzos = myDeck.Where(x => x.Status.CardId == CardId.FiggisMerluzzo).ToList();
             var ZoltanWarriors = myDeck.Where(x => x.Status.CardId == CardId.ZoltanWarrior).ToList();
             var targetcard = myDeck.Where(x => x.Status.CardId == CardId.FiggisMerluzzo || x.Status.CardId == CardId.ZoltanWarrior).ToList();
-            var point = Card.CardPoint()-Card.Status.Strength;
+            var point = (Card.CardPoint() - Card.Status.Strength) / 2;
             foreach (var FiggisMerluzzo in FiggisMerluzzos)
             {
                 await FiggisMerluzzo.Effect.Summon(Card.GetLocation() + 1, Card);
@@ -23,9 +23,9 @@ namespace Cynthia.Card
             {
                 await ZoltanWarrior.Effect.Summon(Card.GetLocation() + 1, Card);
             }
-            foreach(var Cards in targetcard)
+            foreach (var Cards in targetcard)
             {
-                await Cards.Effect.Boost(point, Card);
+                await Cards.Effect.Boost(point, Card);
             }
             return 0;
         }
