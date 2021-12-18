@@ -14,19 +14,19 @@ namespace Cynthia.Card
             var FiggisMerluzzos = myDeck.Where(x => x.Status.CardId == CardId.FiggisMerluzzo).ToList();
             var MunroBruyss = myDeck.Where(x => x.Status.CardId == CardId.MunroBruys).ToList();
             var targetcard = myDeck.Where(x => x.Status.CardId == CardId.MunroBruys || x.Status.CardId == CardId.FiggisMerluzzo).ToList();
-            var point = Card.CardPoint()-Card.Status.Strength;
-            
+            var point = (Card.CardPoint() - Card.Status.Strength) / 2;
+
             foreach (var FiggisMerluzzo in FiggisMerluzzos)
             {
-                await FiggisMerluzzo.Effect.Summon(Card.GetLocation()+ 1, Card);
+                await FiggisMerluzzo.Effect.Summon(Card.GetLocation() + 1, Card);
             }
             foreach (var MunroBruys in MunroBruyss)
             {
                 await MunroBruys.Effect.Summon(Card.GetLocation(), Card);
             }
-            foreach(var Cards in targetcard)
+            foreach (var Cards in targetcard)
             {
-                await Cards.Effect.Boost(point, Card);
+                await Cards.Effect.Boost(point, Card);
             }
             return 0;
         }

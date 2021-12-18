@@ -18,7 +18,7 @@ namespace Cynthia.Card
             var MunroBruyss = myDeck.Where(x => x.Status.CardId == CardId.MunroBruys).ToList();
             var ZoltanWarriors = myDeck.Where(x => x.Status.CardId == CardId.ZoltanWarrior).ToList();
             var targetcard = myDeck.Where(x => x.Status.CardId == CardId.MunroBruys || x.Status.CardId == CardId.ZoltanWarrior).ToList();
-            var point = Card.CardPoint()-Card.Status.Strength;
+            var point = (Card.CardPoint() - Card.Status.Strength) / 2;
             foreach (var MunroBruys in MunroBruyss)
             {
                 await MunroBruys.Effect.Summon(Card.GetLocation(), Card);
@@ -27,9 +27,9 @@ namespace Cynthia.Card
             {
                 await ZoltanWarrior.Effect.Summon(Card.GetLocation(), Card);
             }
-            foreach(var Cards in targetcard)
+            foreach (var Cards in targetcard)
             {
-                await Cards.Effect.Boost(point, Card);
+                await Cards.Effect.Boost(point, Card);
             }
             return 0;
         }

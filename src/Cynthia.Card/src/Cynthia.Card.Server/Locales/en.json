@@ -313,7 +313,7 @@
         },
         "12019": {
             "Name": "Ciri",
-            "Info": "Gain shield. Whenever you lose a round, return this unit to your hand.",
+            "Info": "Whenever you lose a round, return this unit to your hand. 2 armor.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
@@ -2903,17 +2903,17 @@
         },
         "70019": {
             "Name": "Zoltan: Warrior",
-            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, boost them by the value of Zotan's boost.",
+            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, boost them by the half value of Zotan's boost.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, boost them by the value of Figgis' boost.",
+            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, boost them by the half value of Figgis' boost.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, boost them by the value of Munro's boost.",
+            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, boost them by the half value of Munro's boost.",
             "Flavor": ""
         },
         "70022": {

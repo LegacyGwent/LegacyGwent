@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 40);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 41);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -524,7 +524,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12019",
                     Name="希里",
-                    Strength=8,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -534,7 +534,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Witcher},
                     Flavor = "去往何处，何时动身，我自己说了算。",
-                    Info = "获得护盾。己方输掉小局时返回手牌。 2点护甲。",
+                    Info = "己方输掉小局时返回手牌。  2点护甲。",
                     CardArtsId = "11210100",
                 }
             },
@@ -10970,7 +10970,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "",
-                    Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量的增益。",
+                    Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量一半的增益。",
                     CardArtsId = "d19190000",
                 }
             },
@@ -10990,7 +10990,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "",
-                    Info = "召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量的增益。",
+                    Info = "召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量一半的增益。",
                     CardArtsId = "d19220000",
                 }
             },
@@ -11010,7 +11010,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "",
-                    Info = "召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，使二者获得等同于自身增益量的增益。",
+                    Info = "召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，使二者获得等同于自身增益量一半的增益。",
                     CardArtsId = "d19210000",
                 }
             },
