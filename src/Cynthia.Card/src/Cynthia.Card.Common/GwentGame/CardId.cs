@@ -545,6 +545,9 @@ namespace Cynthia.Card
         public const string VernossielsCommando = "70043";
         public const string ArtoriusVigo = "70103";
         public const string LyrianLandsknecht = "70104";
+        public const string EndregaEggs = "70106";
+        public const string EndregaLarva = "70107";
+        public const string EndregaWarrior = "70108";
 
 
         public const string LivingArmor = "70062";
