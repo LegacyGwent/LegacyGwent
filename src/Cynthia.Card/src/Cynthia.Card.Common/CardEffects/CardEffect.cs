@@ -644,6 +644,7 @@ namespace Cynthia.Card
                     await Card.Effect.Resilience(source);
                 if (Card.Status.Conceal)
                     await Card.Effect.Ambush();
+                Card.Status.IsShield = false;
                 await Game.ShowSetCard(Card);
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
