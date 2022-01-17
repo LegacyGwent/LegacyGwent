@@ -11736,7 +11736,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Dwarf,Categorie.Machine},
+                    Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
                     Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
                     CardArtsId = "d19410000",
