@@ -45,5 +45,5 @@
 ## 玩家社区
 
 QQ群：![qq group](https://github.com/DeusSeuca/Cynthia.Card/raw/master/assets/group.png)
-Discord: [邀请链接](https://discord.gg/Dkzazmg)
+Discord: [邀请链接](https://discord.gg/VevbzbVEVa)
 开黑啦: [邀请链接](https://kaihei.co/TWGPsQ)
