@@ -45,5 +45,5 @@ Check [here](.github/CONTRIBUTING_EN.md) for the detailed contribution guide.
 ## Player Community
 
 QQ group: ![qq group](https://github.com/DeusSeuca/Cynthia.Card/raw/master/assets/group.png)
-Discord: [Link](https://discord.gg/Dkzazmg)
+Discord: [Link](https://discord.gg/VevbzbVEVa)
 Kaiheila: [Link](https://kaihei.co/TWGPsQ)
