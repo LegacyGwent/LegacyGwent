@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 41);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 43);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11720,6 +11720,26 @@ namespace Cynthia.Card
                     Flavor = "“在我老家，人们根本不怕什么大灰狼和老巫婆。因为村子外头就是安德莱格的巢穴。”",
                     Info = "没有特殊技能。",
                     CardArtsId = "d19530000",
+                }
+            },
+            {
+                "70109",//矮人战车 DwarvenChariot
+                new GwentCard()
+                {
+                    CardId ="70109",
+                    Name="矮人战车",
+                    Strength=9,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Dwarf,Categorie.Machine},
+                    Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
+                    Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
+                    CardArtsId = "d19410000",
                 }
             },
 
