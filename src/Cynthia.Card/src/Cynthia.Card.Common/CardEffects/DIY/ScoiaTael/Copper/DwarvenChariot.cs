@@ -18,21 +18,15 @@ namespace Cynthia.Card
             }
             return 0;
         }
-        private GameCard GetCurrentListRandomCard()
-        {//获取本卡牌当前所在排随机一个单位。
-            var list = Game.GetPlaceCards(Card.PlayerIndex);
-            return !list.Any() ? null : list.Mess(Game.RNG).First();
-        }
          public async Task HandleEvent(AfterCardMove @event)
          {
-             var card = GetCurrentListRandomCard();
-             if (@event.Target == Card)
-            {
-              if (card != null)
+             if (@event.Target != Card) return;
+             var row = Game.RowToList(PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead();
+             var card = row.Where(x => x.IsAliveOnPlance()).Mess(Game.RNG).Take(1);
+              if (card.Count() > 0)
                 {
-                    await Card.Effect.Boost(2, Card);
+                     await card.Single().Effect.Boost(2, Card);
                 }
-            }
          }
     }
 }
