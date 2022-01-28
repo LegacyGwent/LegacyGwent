@@ -215,18 +215,16 @@ namespace Cynthia.Card.Server
         {
             await Task.CompletedTask;
             return @"这里是是DIY-PTR服务器,祝大家玩得开心~
-查看实时在线人数可查网站http://cynthia.ovyno.com:5005
-欢迎加群闲聊约战~关注第一消息
-群号:945408322
-本作永久免费开源,详细欢迎入群了解
+查看实时在线人数可查网站 http://cynthia.ovyno.com:5005
+欢迎加群闲聊约战~关注第一消息，群号:945408322
+本作永久免费开源，详细欢迎入群了解
 
-输入密码ai/ai1/ai2即可挑战ai~(当有其他人匹配时优先玩家匹配)
-ai密码后缀#f(如ai#f)即可强制挑战ai,不会进行玩家匹配
+输入密码ai/ai1/ai2即可挑战ai~(优先玩家匹配，加后缀#f(如ai#f)强制挑战ai）
 
 注意事项: 
 1. 账号密码与原服务器分开，需要重新注册
 2. 游戏中有可能断线、更新内容
-3. 全部更新内容请参照https://shimo.im/docs/TQdjjwpPwd9hJhK
+3. 全部更新内容请参照 https://shimo.im/docs/TQdjjwpPwd9hJhK
     （群公告中可直接点开链接）
 
 2022年1月24日更新
