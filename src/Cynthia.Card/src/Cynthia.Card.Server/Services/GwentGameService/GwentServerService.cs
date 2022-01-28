@@ -229,6 +229,11 @@ ai密码后缀#f(如ai#f)即可强制挑战ai,不会进行玩家匹配
 3. 全部更新内容请参照https://shimo.im/docs/TQdjjwpPwd9hJhK
     （群公告中可直接点开链接）
 
+2022年1月24日更新
+删除雷蒂娅的晋升效果。雷蒂娅将重做。晋升卡可能会在以后以其他方式回归。
+Delete the promotion effect of Radeyah. Promotion cards
+may come back in the future.
+
 2020年8月21日更新(Charli)
 北方新卡: 战象
 10余项老卡平衡修改[详细见群公告]
