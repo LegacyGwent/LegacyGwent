@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 41);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 42);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11494,7 +11494,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "“迷人的微笑背后可以潜藏许多秘密……”",
-                    Info = "造成等同于手牌中立牌数量的伤害，并将手牌和牌组中2张核心系列中立银色单位牌变为金色晋升牌。",
+                    Info = "造成等同于手牌中立牌数量的伤害。",
                     CardArtsId = "d20020000",
                 }
             },
