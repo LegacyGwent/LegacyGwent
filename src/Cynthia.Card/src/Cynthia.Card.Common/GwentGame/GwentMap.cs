@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 41);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 43);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11657,6 +11657,89 @@ namespace Cynthia.Card
                     Flavor = "“相信我，最好别去嘲笑他们傻里傻气的帽子。”",
                     Info = "小局结束时，如果具有增益，则洗回牌组并保留至多10点增益。",
                     CardArtsId = "d15210000",
+                }
+            },
+            {
+                "70106",//安德莱格虫卵 EndregaEggs
+                new GwentCard()
+                {
+                    CardId ="70106",
+                    Name="安德莱格虫卵",
+                    Strength=2,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    Countdown=3,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Insectoid},
+                    HideTags = new HideTag[]{HideTag.Deathwish},
+                    Flavor = "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”",
+                    Info = "在左侧生成2张原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
+                    CardArtsId = "d19550000",
+                }
+            },
+              {
+                "70107",//安德莱格幼虫 EndregaLarva
+                new GwentCard()
+                {
+                    CardId ="70107",
+                    Name="安德莱格幼虫",
+                    Strength=4,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    Countdown=2,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Insectoid,Categorie.Token},
+                    Flavor = "“十分丰满……也十分危险。”",
+                    Info = "2回合后，回合结束时，转化为“安德莱格战士”。",
+                    CardArtsId = "d19520000",
+                }
+            },
+              {
+                "70108",//安德莱格战士 EndregaWarrior
+                new GwentCard()
+                {
+                    CardId ="70106",
+                    Name="安德莱格战士",
+                    Strength=6,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Insectoid,Categorie.Token},
+                    Flavor = "“在我老家，人们根本不怕什么大灰狼和老巫婆。因为村子外头就是安德莱格的巢穴。”",
+                    Info = "没有特殊技能。",
+                    CardArtsId = "d19530000",
+                }
+            },
+            {
+                "70109",//矮人战车 DwarvenChariot
+                new GwentCard()
+                {
+                    CardId ="70109",
+                    Name="矮人战车",
+                    Strength=9,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Machine},
+                    Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
+                    Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
+                    CardArtsId = "d19410000",
                 }
             },
 

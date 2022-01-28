@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70020")]//菲吉斯·梅鲁佐
     public class FiggisMerluzzo : CardEffect
-    {//召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，并将自身战力应用于这两个单位。
+    {//召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，并使其获得等同于自身增益点数一半的增益
         public FiggisMerluzzo(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {

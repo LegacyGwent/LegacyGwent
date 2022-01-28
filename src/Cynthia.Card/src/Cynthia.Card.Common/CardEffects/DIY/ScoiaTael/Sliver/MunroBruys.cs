@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70021")]//穆罗·布鲁伊斯
     public class MunroBruys : CardEffect
-    {//召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，并使其获得等同于自身增益点数的增益
+    {//召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，并使其获得等同于自身增益点数一半的增益
         public MunroBruys(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {

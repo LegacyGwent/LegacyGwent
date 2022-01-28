@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70104")]//莱里亚长矛兵
     public class LyrianLandsknecht : CardEffect, IHandlesEvent<AfterRoundOver>
-    {
+    {//小局结束时，如果具有增益，则洗回牌组并保留至多10点增益
         public LyrianLandsknecht(GameCard card) : base(card) { }
 
         public async Task HandleEvent(AfterRoundOver @event)
