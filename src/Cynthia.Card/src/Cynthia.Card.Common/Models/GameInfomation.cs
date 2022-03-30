@@ -20,8 +20,6 @@ namespace Cynthia.Card
         public CardStatus EnemyLeader { get; set; }//敌方领袖是?
         public string EnemyName { get; set; }//对手名称
         public string MyName { get; set; }//对手名称
-        public int MyMMR{get;set;}//我方mmr
-        public int EnemyMMR{get;set;}//敌方mmr
         public int MyHandCount { get; set; }//我方手牌数量
         public int EnemyHandCount { get; set; }//敌方手牌数量
         public int MyCemeteryCount { get; set; }//我方墓地数量
