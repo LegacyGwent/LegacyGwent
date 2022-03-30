@@ -152,6 +152,10 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().GameUIControl.SetNameInfo(gameInfomation);
         }
+        public void SetMMRInfo(int myMMR, int EnemyMMR)
+        {
+            _code.GetComponent<GameCode>().GameUIControl.SetMMRInfo(myMMR, EnemyMMR);
+        }
         //-------------------------------------------------------------------------------------------
         public void CardMove(MoveCardInfo info)//卡牌移动
         {

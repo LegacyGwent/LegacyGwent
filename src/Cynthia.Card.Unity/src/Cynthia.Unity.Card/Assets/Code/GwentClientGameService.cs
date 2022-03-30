@@ -19,6 +19,7 @@ namespace Cynthia.Card.Client
         public GlobalUIService GlobalUIService { get; set; }
 
         public HubConnection _hubConnection { get; set; }
+        public GwentClientService _server { get; set; }
 
         // public TaskCompletionSource<bool> _disconnectTaskSource { get; set; }
 
@@ -31,6 +32,7 @@ namespace Cynthia.Card.Client
             Debug.Log("创造游戏");
             // _disconnectTaskSource = new TaskCompletionSource<bool>();
             _hubConnection = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
+            _server = DependencyResolver.Container.Resolve<GwentClientService>();
             // _hubConnection.Closed += async e =>
             // {
             //     await Task.CompletedTask;
@@ -43,7 +45,7 @@ namespace Cynthia.Card.Client
 
         public async Task Play(LocalPlayer player)
         {
-            Debug.Log(DateTime.Now.ToString("h:mm:ss tt")+$" 游戏开始,Id:{_id}");
+            Debug.Log(DateTime.Now.ToString("h:mm:ss tt") + $" 游戏开始,Id:{_id}");
             _player = player;
             // var game = Task.Run(async () =>
             // {
@@ -204,7 +206,11 @@ namespace Cynthia.Card.Client
                     GameCodeService.SetMyDeckInfo(arguments[0].ToType<List<CardStatus>>());
                     break;
                 case ServerOperationType.SetAllInfo:
-                    GameCodeService.SetAllInfo(arguments[0].ToType<GameInfomation>());
+                    var info = arguments[0].ToType<GameInfomation>();
+                    GameCodeService.SetAllInfo(info);
+                    var myMMR = await _server.GetPalyernameMMR(info.MyName);
+                    var enemyMMR = await _server.GetPalyernameMMR(info.EnemyName);
+                    GameCodeService.SetMMRInfo(myMMR, enemyMMR);
                     break;
                 case ServerOperationType.SetCardsInfo:
                     GameCodeService.SetCardsInfo(arguments[0].ToType<GameInfomation>());

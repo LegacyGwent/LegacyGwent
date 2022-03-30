@@ -44,10 +44,12 @@ public class GameUIControl : MonoBehaviour
     public RopeController ropeController;
 
     private LocalizationService _translator;
+    private GwentClientService server;
 
     private void Awake()
     {
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        server = DependencyResolver.Container.Resolve<GwentClientService>();
     }
 
     public void SetPointInfo(GameInfomation gameInfomation)
@@ -140,10 +142,10 @@ public class GameUIControl : MonoBehaviour
         EnemyName.text = gameInfomation.EnemyName;
         MyName.text = gameInfomation.MyName;
     }
-    public void setMMRInfo(GameInfomation gameInfomation)
+    public void SetMMRInfo(int myMMR, int enemyMMR)
     {
-        MyMMR.text=Convert.ToString(gameInfomation.MyMMR);
-        EnemyMMR.text=Convert.ToString(gameInfomation.EnemyMMR);
+        MyMMR.text = Convert.ToString(myMMR);
+        EnemyMMR.text = Convert.ToString(enemyMMR);
     }
     //全部的信息
     public void SetGameInfo(GameInfomation gameInfomation)
@@ -166,7 +168,5 @@ public class GameUIControl : MonoBehaviour
         //-------------------------------------
         //调度
         SetMulliganInfo(gameInfomation);
-        //MMR
-        setMMRInfo(gameInfomation);
     }
 }

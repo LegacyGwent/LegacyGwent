@@ -346,5 +346,7 @@ may come back in the future.
         {
             return _gwentLocalizationService.GetGameLocales();
         }
+
+        public int GetPalyernameMMR(string playername) => _databaseService.QueryMMR(playername);
     }
 }
