@@ -14,6 +14,7 @@ namespace Cynthia.Card.Client
     {
         private LocalPlayer _player;
         private long _id;
+        private int myMMR;
         //--------------------------------
         public GameCodeService GameCodeService { get; set; }
         public GlobalUIService GlobalUIService { get; set; }
@@ -148,8 +149,11 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.CardsToCemetery:
                     GameCodeService.ShowCardsToCemetery(arguments[0].ToType<GameCardsPart>());
                     break;
-                case ServerOperationType.GameEnd://游戏结束,以及游戏结束信息
-                    GameCodeService.ShowGameResult(arguments[0].ToType<GameResultInfomation>());
+                case ServerOperationType.GameEnd://游戏结束,以及游戏结束信息l
+                    var info = arguments[0].ToType<GameResultInfomation>();
+                    GameCodeService.ShowGameResult(info);
+                    var newMMR = await _server.GetPalyernameMMR(info.MyName);
+                    GameCodeService.ShowMMRResult(myMMR, newMMR);
                     return false;
                 case ServerOperationType.CardMove:
                     GameCodeService.CardMove(arguments[0].ToType<MoveCardInfo>());
@@ -206,10 +210,10 @@ namespace Cynthia.Card.Client
                     GameCodeService.SetMyDeckInfo(arguments[0].ToType<List<CardStatus>>());
                     break;
                 case ServerOperationType.SetAllInfo:
-                    var info = arguments[0].ToType<GameInfomation>();
-                    GameCodeService.SetAllInfo(info);
-                    var myMMR = await _server.GetPalyernameMMR(info.MyName);
-                    var enemyMMR = await _server.GetPalyernameMMR(info.EnemyName);
+                    var gameInfo = arguments[0].ToType<GameInfomation>();
+                    GameCodeService.SetAllInfo(gameInfo);
+                    myMMR = await _server.GetPalyernameMMR(gameInfo.MyName);
+                    var enemyMMR = await _server.GetPalyernameMMR(gameInfo.EnemyName);
                     GameCodeService.SetMMRInfo(myMMR, enemyMMR);
                     break;
                 case ServerOperationType.SetCardsInfo:

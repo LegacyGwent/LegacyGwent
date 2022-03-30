@@ -23,6 +23,7 @@ public class GameResultControl : MonoBehaviour
     public Text Round2EnemyPoint;
     public Text Round3MyPoint;
     public Text Round3EnemyPoint;
+    public Text MMRChangeText;
 
     //三个回合的结果图标
     public Image Round1ResultIcon;
@@ -59,7 +60,10 @@ public class GameResultControl : MonoBehaviour
     public Sprite GameDrawBgRight;
 
     private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
-
+    public void ShowMMRResult(int oldMMR, int newMMR)
+    {
+        MMRChangeText.text = $"MMR: {oldMMR} → {newMMR}";
+    }
     public void ShowGameResult(GameResultInfomation gameResult)
     {
         MyName.text = gameResult.MyName;

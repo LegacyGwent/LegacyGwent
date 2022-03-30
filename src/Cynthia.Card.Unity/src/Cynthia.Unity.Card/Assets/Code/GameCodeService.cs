@@ -203,6 +203,10 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().GameResultControl.ShowGameResult(gameResult);
         }
+        public void ShowMMRResult(int oldMMR, int newMMR)//设定并展示MMR
+        {
+            _code.GetComponent<GameCode>().GameResultControl.ShowMMRResult(oldMMR, newMMR);
+        }
         public void GetPlayerDrag(LocalPlayer player)//玩家的回合到了
         {
             _ = _code.GetComponent<GameCode>().GameEvent.GetPlayerDrag(player);
