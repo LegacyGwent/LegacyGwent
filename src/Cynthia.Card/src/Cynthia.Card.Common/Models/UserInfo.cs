@@ -9,5 +9,6 @@ namespace Cynthia.Card
         public string PassWord { get; set; }
         public IList<DeckModel> Decks { get; set; }
         public BlacklistModel Blacklist { get; set; }
+        public int MMR {get;set;}//玩家天梯分数
     }
 }

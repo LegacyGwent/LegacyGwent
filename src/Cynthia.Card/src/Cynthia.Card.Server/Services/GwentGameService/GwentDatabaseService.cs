@@ -83,6 +83,20 @@ namespace Cynthia.Card.Server
             var user = temp.AsQueryable<UserInfo>().Where(x => x.UserName == username && x.PassWord == password).ToArray();
             return user.Length > 0 ? user[0] : null;
         }
+        public bool UpdateMMR(string playername, int MMR)//更新玩家天梯分数
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Single(x => x.PlayerName == playername);
+            user.MMR = MMR;
+            temp.ReplaceOne(x => x.PlayerName == playername, user);
+            return true;
+        }
+        public int QueryMMR(string playername)//计算玩家天梯分数
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Single(x => x.PlayerName == playername);
+            return user.MMR;
+        }
 
         public IList<GameResult> GetAllGameResults(int count)
         {

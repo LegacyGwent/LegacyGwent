@@ -181,7 +181,6 @@ namespace Cynthia.Card.Server
             user.Blacklist = blacklist;
             return true;
         }
-
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId)
         {
             var result = _users[connectionId].CurrentPlayer.SendAsync(operation);
@@ -278,7 +277,7 @@ may come back in the future.
 
         public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
 
-        public void InvokeGameOver(GameResult result, bool isOnlyShow)
+        public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
             // if (_env.IsProduction())
             // {
@@ -289,6 +288,35 @@ may come back in the future.
             else
             {
                 _databaseService.AddGameResult(result);
+            }
+
+            if (isCountMMR)
+            {
+                int RedMMR = _databaseService.QueryMMR(result.RedPlayerName);
+                int BlueMMR = _databaseService.QueryMMR(result.BluePlayerName);
+                if (result.RedPlayerGameResultStatus == GameStatus.Win)
+                {
+                    RedMMR += 100;
+                    BlueMMR += 50;
+                }
+                else if (result.RedPlayerGameResultStatus == GameStatus.Lose)
+                {
+                    RedMMR += 50;
+                    BlueMMR += 100;
+                }
+                else
+                {
+                    RedMMR += 0;
+                    BlueMMR += 0;
+                }
+                Console.WriteLine(RedMMR);
+                Console.WriteLine(BlueMMR);
+
+                _databaseService.UpdateMMR(result.RedPlayerName, Math.Max(RedMMR, 0));
+                _databaseService.UpdateMMR(result.BluePlayerName, Math.Max(BlueMMR, 0));
+
+                Console.WriteLine(RedMMR);
+                Console.WriteLine(BlueMMR);
             }
             lock (ResultList)
             {

@@ -29,6 +29,8 @@ public class GameUIControl : MonoBehaviour
     //-----------------------------------
     public Text MyName;//
     public Text EnemyName;//
+    public Text MyMMR;
+    public Text EnemyMMR;
     //-----------------------------------
     public GameObject MyCrownLeft;//
     public GameObject MyCrownRight;//
@@ -138,6 +140,11 @@ public class GameUIControl : MonoBehaviour
         EnemyName.text = gameInfomation.EnemyName;
         MyName.text = gameInfomation.MyName;
     }
+    public void setMMRInfo(GameInfomation gameInfomation)
+    {
+        MyMMR.text=Convert.ToString(gameInfomation.MyMMR);
+        EnemyMMR.text=Convert.ToString(gameInfomation.EnemyMMR);
+    }
     //全部的信息
     public void SetGameInfo(GameInfomation gameInfomation)
     {
@@ -159,5 +166,7 @@ public class GameUIControl : MonoBehaviour
         //-------------------------------------
         //调度
         SetMulliganInfo(gameInfomation);
+        //MMR
+        setMMRInfo(gameInfomation);
     }
 }
