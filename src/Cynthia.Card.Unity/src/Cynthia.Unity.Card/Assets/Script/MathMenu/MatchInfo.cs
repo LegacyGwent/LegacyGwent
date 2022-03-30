@@ -14,6 +14,7 @@ using Assets.Script.Localization;
 public class MatchInfo : MonoBehaviour
 {
     public ArtCard ShowArtCard;
+    public GameObject BlacklistObject;
     public Toggle RecordStatus;
     public Text BlacklistMessage;
 
@@ -35,6 +36,7 @@ public class MatchInfo : MonoBehaviour
 
     public Text DeckName;
     public InputField MatchPassword;
+    public GameObject MatchPasswordObject;
     public Transform DeckNameBackground;
     public Image DeckIcon;
     //-------------------------------------------
@@ -53,6 +55,7 @@ public class MatchInfo : MonoBehaviour
     //
     public Text MatchButtonText;
     public Text MatchMessage;
+    public Text MainMenu_MatchTitle;
     //-------------------------------------------
     public GameObject MainUI;
     public GameObject MatchUI;
@@ -60,6 +63,7 @@ public class MatchInfo : MonoBehaviour
     //-------------------------------------------
     public string CurrentDeckId { get; private set; }
     public bool IsDoingMatch { get; private set; }
+    public bool IsRankMatch { get; private set; }
 
     private GwentClientService _client { get => DependencyResolver.Container.Resolve<GwentClientService>(); }
     private GlobalUIService _UIService { get => DependencyResolver.Container.Resolve<GlobalUIService>(); }
@@ -97,6 +101,27 @@ public class MatchInfo : MonoBehaviour
             MatchUI.SetActive(true);
             ResetTextMenus.ForAll(x => x.TextReset());
         }
+        if (IsRankMatch)
+        {
+            MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
+            MatchPasswordObject.SetActive(false);
+            BlacklistObject.SetActive(false);
+        }else
+        {
+            MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle");
+            MatchPasswordObject.SetActive(true);
+            BlacklistObject.SetActive(true);
+        }
+    }
+    public void NormalMatchMenuClick()
+    {
+        IsRankMatch = false;
+        MatchMenuClick();
+    }
+    public void RankMatchMenuClick()
+    {
+        IsRankMatch = true;
+        MatchMenuClick();
     }
     public void ResetMatch()
     {
@@ -140,8 +165,11 @@ public class MatchInfo : MonoBehaviour
             }
             //如果是基础卡组（包括店店卡组）
             if (_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
-                _ = _client.NewMatchOfPassword(CurrentDeckId, (MatchPassword.text).Replace("special", ""), usingBlacklist);
-
+            {
+                var password = IsRankMatch ? "rank" : (MatchPassword.text).Replace("special", "");
+                var setBlacklist = IsRankMatch ? 0 : usingBlacklist;
+                _ = _client.NewMatchOfPassword(CurrentDeckId, password, setBlacklist);
+            }
             //如果不是基础卡组和乱斗卡组，停止匹配
             else if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsSpecialDeck())
             {
@@ -230,9 +258,6 @@ public class MatchInfo : MonoBehaviour
         _client.ClientState = ClientState.Standby;
         RecordStatus.isOn = PlayerPrefs.GetInt("RecordBlacklist", 0) != 0;
         BlacklistMessage.text = _translator.GetText("MatchmakingMenu_BlacklistCheckbox");
-
-
-
     }
     public void SetDeckList(IList<DeckModel> decks)
     {
@@ -262,7 +287,6 @@ public class MatchInfo : MonoBehaviour
 
     public void SetMatchArtCard(CardStatus card, bool isOver = true)
     {
-
         ShowArtCard.CurrentCore = card;
         ShowArtCard.gameObject.SetActive(isOver);
     }
@@ -316,4 +340,3 @@ public class MatchInfo : MonoBehaviour
         ClientGlobalInfo.IsToMatch = false;
     }
 }
-
