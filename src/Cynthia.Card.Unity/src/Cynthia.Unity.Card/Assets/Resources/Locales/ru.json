@@ -4,7 +4,7 @@
         "Filename": "ru"
     },
     "MenuLocales": {
-        "LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
+        "LoginMenu_GameTitle": "Гвинт: Наследие - фанатское издание",
         "LoginMenu_Message": "Это бесплатный проект с открытым исходным кодом. Вы можете связаться с Jiaqun по телефону 945408322 и помочь с проектом.",
         "LoginMenu_NotesTitle": "Новости",
         "LoginMenu_LoginTitle": "Логин",
@@ -75,21 +75,26 @@
         "MainMenu_MainTitle": "Играть",
         "MainMenu_MatchTitle": "Случайный матч",
         "MainMenu_MatchDesc": " Сыграйте в дружескую игру в Гвинт ",
+        "MainMenu_MatchTitle_Rank": "РЕЙТИНГОВЫЙ МАТЧ",
         "MainMenu_EditorTitle": "Собрать колоду",
         "MainMenu_EditorDesc": "Создать и изменить колоду",
+        "MainMenu_RankTitle": "РЕЙТИНГОВЫЙ МАТЧ",
+        "MainMenu_RankDesc": "соревновательная игра Гвинт",
+        "MainMenu_RankListTitle": "ТАБЛИЦА ЛИДЕРОВ",
+        "MainMenu_RankListDesc": "Показать лучших игроков",
         "MatchmakingMenu_Title": "Случайный матч",
         "MatchmakingMenu_DeckReady": "колода создана!",
         "MatchmakingMenu_PlayButton": "Играть",
         "MatchmakingMenu_PasswordPlaceholder": "Введите пароль",
         "MatchmakingMenu_ReturnButton": "Назад",
         "MatchmakingMenu_SwitchButton": "Сменить колоду",
-        "MatchmakingMenu_BlacklistCheckbox": "Включить черный список",
-        "EditorMenu_SwitchDeckButton": "Переключить режим",
-        "EditorMenu_BlacklistButton": "Черный список",
         "MatchmakingMenu_CloseButton": "Закрыть",
+        "MatchmakingMenu_BlacklistCheckbox": "Включить черный список",
         "MatchmakingMenu_CardCount": "Карты:",
         "MatchmakingMenu_LookingForOpponent": "Ищу соперника...",
         "MatchmakingMenu_CancelButton": "Отмена",
+        "EditorMenu_SwitchDeckButton": "Переключить режим",
+        "EditorMenu_BlacklistButton": "Черный список",
         "EditorMenu_Title": "Изменить",
         "EditorMenu_SearchPlaceholder": "Поиск",
         "EditorMenu_BackButton": "Назад",
@@ -159,15 +164,15 @@
         "CardTag_Cintra": "Цинтра",
         "CardTag_Insectoid": "Инсектоид",
         "CardTag_Stray": "Stray",
-        "CardTag_Construct": "Коснтрукт",
+        "CardTag_Construct": "Конcтрукт",
         "CardTag_Spell": "Заклятие",
         "CardTag_Redania": "Редания",
         "CardTag_SiegeSupport": "Осадная поддержка",
         "CardTag_ClanDrummond": "Клан Друммонд",
-        "CardTag_Specter": "Пизрак",
+        "CardTag_Specter": "Призрак",
         "CardTag_Cursed": "Проклятый",
         "CardTag_Soldier": "Солдат",
-        "CardTag_Kaedwen": "Каедвен",
+        "CardTag_Kaedwen": "Каэдвен",
         "CardTag_Vodyanoi": "Водяной",
         "CardTag_ClanTuirseach": "Клан Тиршах",
         "CardTag_ClanTordarroch": "Клан Тордаррох",
@@ -178,15 +183,15 @@
         "CardTag_Reckless": "Reckless",
         "CardTag_ClanHeymaey": "Клан Хеймей",
         "CardTag_Blitz": "Blitz",
-        "CardTag_Dryad": "Триада",
+        "CardTag_Dryad": "Дриада",
         "CardTag_Special": "Особая",
         "CardTag_Elf": "Эльф",
-        "CardTag_Lyria": "Lyria",
+        "CardTag_Lyria": "Лирия",
         "CardTag_Necrophage": "Трупоед",
         "CardTag_Machine": "Машина",
-        "CardTag_Aedirn": "Аединр",
+        "CardTag_Aedirn": "Аэдирн",
         "CardTag_Support": "Поддержка",
-        "CardTag_ClanAnCraite": "Клан Ан Крайт",
+        "CardTag_ClanAnCraite": "Клан ан Крайт",
         "CardTag_Dwarf": "Краснолюд",
         "CardTag_Draconid": "Драконид",
         "CardTag_SiegeEngine": "Осадный инженер",
@@ -278,7 +283,7 @@
         },
         "12012": {
             "Name": "Аваллак'х",
-            "Info": "Перемирие: каждый игрок берет 2 карты",
+            "Info": "Оба игрока берут по две карты, если ни один еще не спасовал.",
             "Flavor": "You humans have... unusual tastes."
         },
         "12013": {
@@ -298,42 +303,42 @@
         },
         "12016": {
             "Name": "Эскель: следопыт",
-            "Info": "Уничтожьте бронзового или серебряного врага, который не был усилен",
+            "Info": "Уничтожьте бронзовый или серебряный вражеский отряд, который не усилен.",
             "Flavor": "Heard you panting from three miles away. Just didn't wanna give up that vantage point. "
         },
         "12017": {
-            "Name": "Геральт: Профессионал",
-            "Info": "Нанести 4 урона вражескому юниту. Если это монстр, уничтожьте его.",
+            "Name": "Геральт: профессионал",
+            "Info": "Нанесите 4 ед. урона вражескому отряду. Если это отряд из фракции Чудовищ, уничтожьте его.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise. "
         },
         "12018": {
             "Name": "Иуарраквакс",
-            "Info": "Нанесите 5 урона себе. Когда текущая сила равна базовой силе, в конце хода нанесите 7 урона 3 случайным вражеским юнитам.",
+            "Info": "Нанесите 5 ед. урона этой карте. В следующий раз, когда текущая сила этой карты станет равна изначальной, нанесите в конце хода 7 ед. урона трём случайным вражеским отрядам.",
             "Flavor": "\"Inconceivable. Impossible\", Ciri thought, returning to her senses. \"Unicorns don't exist, not any more, not in this world. Unicorns are extinct.\" "
         },
         "12019": {
             "Name": "Цири",
-            "Info": "получить щит. Всякий раз, когда вы проигрываете раунд, верните этот блок в вашу руку. 2 ",
+            "Info": "Всякий раз, когда вы проигрываете раунд, верните этот блок в вашу руку. 2 броня.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
-            "Name": "Гюнтер О'Дим",
-            "Info": "Угадайте, имеет ли сила выбранной карты меньшую, равную или большую силу 6.",
+            "Name": "Гюнтер о'Дим",
+            "Info": "Заключите пари с Гюнтером о'Димом: угадайте, имеет ли сила карты, которую он выбрал, силу меньше, равно или больше 6.",
             "Flavor": "He always grants exactly what you wish for. That's the problem. "
         },
         "12021": {
             "Name": "Геральт: Аард",
-            "Info": "Нанесите 3 урона 3 врагам и переместите их в ряд выше.",
+            "Info": "Нанесите по 3 ед. урона 3 вражеским отрядам и переместите их в ряд выше.",
             "Flavor": "A blast of concentrated energy that pummels everything in its path. Great for when you forget your keys. "
         },
         "12022": {
-            "Name": "Редгис: Высший вампир",
-            "Info": "Посмотрите на 3 бронзовых юнита из колоды вашего противника. Поглотите 1, затем увеличьте себя своей базовой силой.",
+            "Name": "Регис: высший вампир",
+            "Info": "Посмотрите бронзовые отряды (всего 3) в колоде противника. Поглотите 1 отряд и усильте эту карту на изначальную силу поглощенного отряда.",
             "Flavor": "He becomes invisible at will. His glance hypnotizes into a deep sleep. He then drinks his fill, turns into a bat and flies off. Altogether uncouth. "
         },
         "12023": {
-            "Name": "Весемир: Наставник",
-            "Info": "Сыграйте бронзовую или серебряную карту алхимии из своей колоды.",
+            "Name": "Весемир: наставник",
+            "Info": "Сыграйте бронзовую или серебряную карту алхимии из вашей колоды.",
             "Flavor": "Killing monsters is not something to be taken lightly. Ciri must understand that if she's to become one of us. "
         },
         "12024": {
@@ -343,107 +348,107 @@
         },
         "12025": {
             "Name": "Геральт: Ирден",
-            "Info": "Сброс всех юнитов подряд и удаление их жетонов.",
+            "Info": "Восстановите все отряды в ряду и уберите их статусы.",
             "Flavor": "He lay down next to Adda's mummified remains, drawing the Yrden Sign on the inner side of her sarcophagus' lid. "
         },
         "12026": {
-            "Name": "Трисс: Телекинез",
-            "Info": "Создать и разыграть бронзовую специальную карту из текущей колоды любого игрока.",
+            "Name": "Трисс: телекинез",
+            "Info": "Создайте и сыграйте бронзовую особую карту из стартовых колод игроков (выбор одной из трёх случайных).",
             "Flavor": "Bindings won't suffice. Nor will a gag render her any less dangerous. No, dimeritium is the only solution."
         },
         "12002": {
             "Name": "Геральт: Игни",
-            "Info": "Уничтожьте Высшие юниты вражеского ряда, если в этом ряду всего 25 или более.",
+            "Info": "Уничтожьте все сильнейшие отряды в ряду противника, если суммарное значение силы этого ряда составляет не менее 25 ед.",
             "Flavor": "A twist of a witcher's fingers can light a lampвЂ¦ or incinerate a foe. "
         },
         "12027": {
             "Name": "Агуара",
-            "Info": "Выберите Два: Увеличьте самого низкого союзника на 5; Увеличить случайную единицу в вашей руке на 5; Нанести 5 урона Высшему врагу; Очарование вражеского эльфа силой 5 или меньше.",
+            "Info": "Выбор двух вариантов: усильте слабейший дружественный отряд на 5 ед.; усильте случайный отряд в вашей руке на 5 ед.; нанесите 5 ед. урона сильнейшему вражескому отряду; очаруйте случайного вражеского эльфа с силой 5 ед. или меньше.",
             "Flavor": "Smarten up right now, or it's off to an aguara with you! "
         },
         "12028": {
             "Name": "Феникс",
-            "Info": "Воскресить бронзового или серебряного драконида.",
+            "Info": "Воскресите бронзового или серебряного драконида.",
             "Flavor": "What came first, the chicken or the egg? Compared to the conundrum that is the phoenix, the question seems downright trivial. "
         },
         "12003": {
             "Name": "Лютик: поэт",
-            "Info": "Возьмите 1 карту, а затем разыграйте 1 карту.",
+            "Info": "Возьмите карту, затем сыграйте карту.",
             "Flavor": "The quill is mightier than the sword."
         },
         "12029": {
-            "Name": "Аваллак'х: знающий",
-            "Info": "Создайте копию случайного золотого или серебряного юнита из стартовой колоды вашего противника.",
+            "Name": "Аваллак'х: Знающий",
+            "Info": "Создайте базовую копию случайного золотого или серебряного отряда из стартовой колоды противника.",
             "Flavor": "Amongst the free elves were a handful of Aen Saevherne, or Sages. They were an enigma, bordering on a legend. "
         },
         "12030": {
             "Name": "Агуара: истинная форма",
-            "Info": "Создайте бронзовое или серебряное заклинание",
+            "Info": "Создайте бронзовое или серебряное заклятие (выбрать одну из трёх случайных).",
             "Flavor": "Ever heard of an \"anterion\"? Think of it as the opposite of a lycanthrope: a beast which can take on a human form. "
         },
         "12031": {
             "Name": "Регис",
-            "Info": "Слейте все бусты с юнита.",
+            "Info": "Истощите все усиления отряда.",
             "Flavor": "Men, the polite ones, at least, would call me a monster. A bloodвЂ“drinking freak."
         },
         "12032": {
             "Name": "Цири: нова",
-            "Info": "Если в вашей колоде ровно 2 копии каждой бронзы, базовая сила этой карты становится 22 очка.",
+            "Info": "Если в вашей стартовой колоде есть ровно по 2 копии каждой бронзовой карты, сделайте изначальную силу равной 22 ед.",
             "Flavor": "Zireael possesses a great power she cannot control. She is a danger - to herself, to others. Until she learns to control it, she should remain isolated."
         },
         "12033": {
             "Name": "Коратская жара",
-            "Info": "Применить опасность к каждому вражескому ряду, который наносит 2 урона низшему юниту при старте хода.",
+            "Info": "Сыграйте Бедствие в каждом ряду противника, которое в начале хода наносит 2 ед. урона его слабейшему отряду.",
             "Flavor": "Vicovaro scholars have determined that, in the absence of imperial aid, drought-stricken provinces lose half their population, two-thirds of their livestock and all their will to rebel."
         },
         "12034": {
             "Name": "Рагнарёк",
-            "Info": "Применить опасность к каждому вражескому ряду, который наносит 2 повреждения Высшему юниту в начале хода.",
+            "Info": "Сыграйте Бедствие в каждом ряду противника, которое в начале хода наносит 2 ед. урона его сильнейшему отряду.",
             "Flavor": "In the Final Age, Hemdall will come forth to face the evil issuing from the land of Morhogg вЂ“ the legions of wraiths, demons and specters of Chaos"
         },
         "12035": {
             "Name": "Возрождение",
-            "Info": "Воскресить золотую единицу.",
+            "Info": "Воскресите золотой отряд (но не лидера).",
             "Flavor": "Medicus curat, magicae sanat."
         },
         "12001": {
             "Name": "Королевский указ",
-            "Info": "Сыграйте золотой юнит из своей колоды и увеличьте его 2.",
+            "Info": "Сыграйте золотой отряд из вашей колоды и усильте его на 2 ед.",
             "Flavor": "We, Foltest, by divine right King of Temeria, Prince of Sodden, Senior Protector of Brugge, etcetera, etcetera, do hereby decree the following.."
         },
         "12036": {
             "Name": "Намордник",
-            "Info": "Переместите бронзового или серебряного противника с силой 8 или меньше в противоположный ряд.",
+            "Info": "Переместите бронзовый или серебряный отряд противника с силой 8 или меньше в противоположный ряд на своей стороне.",
             "Flavor": "Not every beast can be tamed. But all can be muzzled. "
         },
         "12037": {
             "Name": "Волкобой",
-            "Info": "После 3 ходов на кладбище нанесите 6 урона Высшему врагу и увеличьте самого Низшего союзника на 6.",
+            "Info": "После 3 ходов в сбросе нанесите в конце хода 6 ед. урона сильнейшему вражескому отряду и усильте слабейший дружественный отряд на 6 ед.",
             "Flavor": "Also known as 'the queen of poisons,' wolfsbane is used in many witcher Potions and alchemic brews"
         },
         "12038": {
-            "Name": "Голубой сон Ханмарвина",
-            "Info": "Создайте копию Золотого отряда с кладбища вашего противника и увеличьте его на 2.",
+            "Name": "Голубой Сон Ханмарвина",
+            "Info": "Создайте базовую копию золотого отряда из сброса противника (но не лидера) и усильте этот отряд на 2 ед.",
             "Flavor": "This spell lets you see the last moment's of a dead man's life... if you can survive its casting. "
         },
         "12039": {
             "Name": "Проклятие Умы",
-            "Info": "Создаёт золотую карту",
+            "Info": "Создайте золотой отряд (но не лидера). Выбор одного из трёх случайных.",
             "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this... monstrosity? "
         },
         "12040": {
-            "Name": "Испытание трав",
-            "Info": "Нанести 10 единиц урона, если это не Ведьмак. Если оно выживет, увеличьте его до 25.",
+            "Name": "Испытание Травами",
+            "Info": "Усильте ведьмака до 25 ед. или нанесите 10 ед. урона отряду, который не является ведьмаком. Если он выживет, усильте его до 25 ед.",
             "Flavor": "Imagine a lump of clay. In order to shape it, you must first moisten it or it will crumble. The Trial's initial part does just that. It opens the body to change, so to speak. Only then can the mutagens produce a witcher. "
         },
         "12041": {
             "Name": "Выходной день Лавка",
-            "Info": "Если в вашей стартовой колоде нет дубликатов, отправьте Лавка в приключение.",
+            "Info": "Если в вашей стартовой колоде нет дублей, отправьте Лавка в приключение.",
             "Flavor": "Other trolls always considered him a bit odd - after all, who in their right mind would prefer colorful scraps of paper to rocks?"
         },
         "12042": {
             "Name": "Сигилль",
-            "Info": "Выберите один: нанесите 3 урона всем врагам со странной силой; или нанесите 3 урона всем врагам с равной силой; или сыграйте случайного бронзового или серебряного юнита из вашей колоды.",
+            "Info": "Выбор: нанесите по 3 ед. урона всем вражеским отрядам с нечетным значением силы, или нанесите по 3 ед. урона всем вражеским отрядам с четным значением силы, или сыграйте из вашей колоды бронзовый или серебряный отряд.",
             "Flavor": "\"What's written on this blade? That a curse?\" \"No. An insult.\" "
         },
         "13003": {
@@ -533,7 +538,7 @@
         },
         "13001": {
             "Name": "Плотва",
-            "Info": "Всякий раз, когда вы разыгрываете золотую карту из своей руки, вызывайте эту карту",
+            "Info": "Всякий раз, когда вы разыгрываете золотую карту, вызывайте эту карту",
             "Flavor": "жќ°жґ›з‰№пјЊж€‘д»¬еѕ—жќҐењєдєєй©¬й—ґзљ„еЇ№иЇќгЂ‚жЃ•ж€‘з›ґиЁЂпјЊдЅ зљ„йЄ‘жњЇвЂ¦вЂ¦зњџзљ„жњ‰еѕ…жЏђй«пјЊдј™и®ЎгЂ‚"
         },
         "13019": {
@@ -887,9 +892,9 @@
             "Flavor": "е®ѓдјљењЁе…¶е®ѓж€‘д»¬ж‰Ђж— жі•и§¦еЏЉзљ„ењ°ж–№е†Ќж¬Ўеґ›иµ·гЂ‚еЋ„иїђдјље†Ќж¬Ўй™ЌдёґгЂ‚"
         },
         "21004": {
-            "Name": "Эредин",
+            "Name": "Эредин Бреакк Глас",
             "Info": "Создайте бронзовый отряд Дикой Охоты.",
-            "Flavor": "з•™з‚№е°ЉдёҐеђ§пјЊдЅ зљ„з»“е±Ђе·Із„¶жіЁе®љгЂ‚"
+            "Flavor": "Держи себя в руках. Ты же знаешь, чем это кончится."
         },
         "21005": {
             "Name": "Скрытый",
@@ -1648,7 +1653,7 @@
         },
         "34028": {
             "Name": "Посол",
-            "Info": "Шпион. Усильте дружественный отряд на 12 ед.",
+            "Info": "Шпион. Усильте дружественный отряд на 14 ед.",
             "Flavor": "й—ґи°ЌпјџдёЌпјЊиї™д№€иЇґе°±е¤Єиї‡е•¦гЂ‚ж€‘и§‰еѕ—и‡Єе·±дёЌиї‡жЇдёЄи§‚еЇџе‘иЂЊе·ІгЂ‚"
         },
         "34002": {
@@ -2823,7 +2828,7 @@
         },
         "70002": {
             "Name": "Детлафф: высший вампир",
-            "Info": "Выбор: сыграйте бронзовый отряд из вашый колоды с силой равно или меньшей чем у этого отряда. Отправьте его в сброс в конце хода. Поглотите бронзовый отряд из вашей колоды с большей силой чем этот отряд и получите его силу.",
+            "Info": "Выбор: сыграйте бронзовый отряд из вашей колоды с силой равной или меньшей, чем у этого отряда, а в конце хода отправьте этот отряд в сброс или поглотите бронзовый отряд из вашей колоды с большей, чем у этого отряда, силой и получите его силу.",
             "Flavor": ""
         },
         "70003": {
@@ -2842,7 +2847,7 @@
             "Flavor": ""
         },
         "70006": {
-            "Name": "Владычица озера",
+            "Name": "Владычица Озера",
             "Info": "Размещение: ослабьте себя на удвоенную величину оставшихся карт в руке и колоде.",
             "Flavor": ""
         },
@@ -2867,8 +2872,8 @@
             "Flavor": ""
         },
         "70011": {
-            "Name": "Владычица озера: прибытие",
-            "Info": "Запавните Владычицу озера (Размещение: ослабьте себя на удвоенную величину оставшихся карт в руке и колоде)",
+            "Name": "Владычица Озера: прибытие",
+            "Info": "Призовите Владычицу Озера (Размещение: ослабьте себя на удвоенную величину оставшихся карт в руке и колоде)",
             "Flavor": ""
         },
         "70012": {
@@ -2903,17 +2908,17 @@
         },
         "70019": {
             "Name": "Золтан: воин",
-            "Info": "Призовите Фиггиса Мерлуццо и Мурно Бруйса усильте их на значение усиления Золтана.",
+            "Info": "Размещение: вызовите Фиггиса Мерлуццо и Манро Бруйса, увеличьте их на половину значения усиления Зотана.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Фиггис Мерлуццо",
-            "Info": "Призовите Золтана воина и Мурно Бруйса усильте их на значение усиления Фиггиса.",
+            "Info": "Размещение: вызовите воина Золтана и Манро Бруйса, увеличьте их вдвое по сравнению с усилением Фиггиса.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Мурно Бруйс",
-            "Info": "Призовите Золтана воина и Фиггиса Мерлуццо усильте их на значение усиления Мурно.",
+            "Info": "Размещение: вызовите Золтана: Воина и Фиггиса Мерлуццо, усилите их на половину значения усиления Манро.",
             "Flavor": ""
         },
         "70022": {
@@ -2933,7 +2938,7 @@
         },
         "70025": {
             "Name": "Сианна",
-            "Info": "Повторите способность Размещения следующего отряда который вы с играете. 4 брони.",
+            "Info": "Повторно активируйте способность Размещение следующего отряда, который вы сыграете. 4 брони.",
             "Flavor": ""
         },
         "70026": {
@@ -2942,8 +2947,8 @@
             "Flavor": ""
         },
         "70027": {
-            "Name": "Геральт: аксий",
-            "Info": "Переиграйте лояльный бронзовый или серебряный отряд со стороны противника затем верните его",
+            "Name": "Геральт: Аксий",
+            "Info": "Переиграйте лояльный (не шпион) бронзовый или серебряный отряд со стороны противника, затем верните его на сторону противника.",
             "Flavor": ""
         },
         "70033": {
@@ -3007,33 +3012,33 @@
             "Flavor": ""
         },
         "70059": {
-            "Name": "One-Eyed Betsy",
-            "Info": "At the beginning of the round, gain 3 points, and then boost the strongest emeny by 3 points.",
+            "Name": "Одноглазая Бетси",
+            "Info": "В начале раунда получите 3 ед., а затем усильте самого сильного юнита противника на 3 ед.",
             "Flavor": "准头是差了点，但力道确实没话说。"
         },
         "70062": {
-            "Name": "Living Armor",
-            "Info": "Units in the same row take at most 5 points per damage.",
+            "Name": "Живой доспех",
+            "Info": "Юниты в одном ряду получают не более 5 ед. урона за раз.",
             "Flavor": "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！"
         },
         "70070": {
-            "Name": "Highwaymen",
-            "Info": "Exhausted. If there are only bronze cards in your starting deck, spawn a 'Strays of Spalla' , and add two 'Strays of Spalla' to your deck.",
+            "Name": "Разбойники с большой дороги",
+            "Info": "Однократность. Если в вашей стартовой колоде только бронзовые карты, создайте и сыграйте 'Кобели из Спаллы' и добавьте в свою колоду два 'Кобели из Спаллы' (Однократность. Посмотрите два бронзовых отряда в вашей колоде и сыграйте одного из них).",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
-            "Name": "StraysofSpalla",
-            "Info": "Exhausted. Check the 2 bronze unit cards in your own deck, and then play 1 of them.",
+            "Name": "Кобели из Спаллы",
+            "Info": "Однократность. Посмотрите два бронзовых отряда в вашей колоде и сыграйте одного из них.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deal damage equal to the number of neutral cards in your hand, and then promote the two original (not DIY) neutral silver unit cards in the hand or deck.",
+            "Info": "Deal damage equal to the number of neutral cards in your hand.",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
         "70091": {
-            "Name": "Oneiromancy",
-            "Info": "Choose one: create 1 non-spy and non-doom card in your starting deck; or turn 3 random hand cards (not the same name) into 'Oneiromancy'.",
+            "Name": "Онейромантия",
+            "Info": "Выбор: создайте и сыграйте 1 карту (из трёх случайных) из вашей стартовой колоды (не агента и не обречённую) или превратите 3 случайные карты в руке (с разными названиями) в 'Онейромантия'.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3041,10 +3046,40 @@
             "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
             "Flavor": ""
         },
+        "70103": {
+            "Name": "витториус·Виго",
+            "Info": "Сбросьте карту, сделайте копию карты бронзового отряда по умолчанию из вашей стартовой колоды в свою руку, а затем покажите ее.",
+            "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
+        },
+        "70104": {
+            "Name": "LyrianLandsknecht",
+            "Info": "After round over，if this card is boosted，shuffle it back to the deck and keep most 10 boost.",
+            "Flavor": "“相信我，最好别去嘲笑他们傻里傻气的帽子。”"
+        },
         "70105": {
             "Name": "Adalbertus Kalkstein",
             "Info": "Make a unit's strength equal to this card's strength.",
             "Flavor": "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”"
+        },
+        "70106": {
+            "Name": "EndregaEggs",
+            "Info": "Generate 2 original nameplates on the left.Deathwish：Generate 1 EndregaLarva in the same row.After 3 rounds, destroy yourself at the end of the round.",
+            "Flavor": "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”"
+        },
+        "70107": {
+            "Name": "EndregaLarva",
+            "Info": "After 2 rounds, at the end of the round, it is converted to 'EndregaWarrior'.",
+            "Flavor": "“十分丰满……也十分危险。”"
+        },
+        "70108": {
+            "Name": "EndregaWarrior",
+            "Info": "No special skill.",
+            "Flavor": "“在我老家，人们根本不怕什么大灰狼和老巫婆。因为村子外头就是安德莱格的巢穴。”"
+        },
+        "70109": {
+            "Name": "DwarvenChariot",
+            "Info": "Select 2 units and move them to this row in the half court. After self movement, make a random unit in the row obtain 2 boost.",
+            "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "130210": {
             "Name": "Dudu: Promoted",
@@ -3078,7 +3113,7 @@
         },
         "130150": {
             "Name": "Olgierd von Everec Promoted",
-            "Info": "Deathwish: Resurrect this unit on the same position",
+            "Info": "Deathwish: Resurrect this unit on the same position. Immune",
             "Flavor": "至少你知道我的头不好砍了。"
         },
         "130020": {
@@ -3108,7 +3143,7 @@
         },
         "130110": {
             "Name": "Carlo Varese",
-            "Info": "Deploy: Deal 1 damage for each card in your hand. Deal overfolw damge to neighbors.",
+            "Info": "Нанесите 9 ед. Нанесите урон соседям от переполнения.",
             "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
         },
         "130090": {
