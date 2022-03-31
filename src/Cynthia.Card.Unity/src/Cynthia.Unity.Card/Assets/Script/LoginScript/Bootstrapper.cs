@@ -23,7 +23,7 @@ public class Bootstrapper : MonoBehaviour
         //             .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new ListOperationConverter()))
         //             .Build()
         //             ).Named<HubConnection>("game").SingleInstance();
-        builder.Register(x => new HubConnectionBuilder().WithUrl("http://localhost:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
+        builder.Register(x => new HubConnectionBuilder().WithUrl("http://{ip}:5005/hub/gwent").Build()).Named<HubConnection>("game").SingleInstance();
 
         DependencyResolver.Container = AutoRegisterService(builder).Build();
     }
