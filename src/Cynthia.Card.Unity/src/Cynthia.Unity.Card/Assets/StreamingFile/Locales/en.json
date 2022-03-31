@@ -74,9 +74,14 @@
         "MainMenu_Message": "Welcome to the unofficial GWENT Nostalgia Edition! Enjoy the game and feel free to send us feedback on a Tencent QQ group 945408322.",
         "MainMenu_MainTitle": "PLAY",
         "MainMenu_MatchTitle": "CASUAL MATCH",
+        "MainMenu_MatchTitle_Rank": "RANKED MATCH",
         "MainMenu_MatchDesc": "Play a friendly game of Gwent",
         "MainMenu_EditorTitle": "DECK BUILDER",
         "MainMenu_EditorDesc": "Create and modify decks",
+        "MainMenu_RankTitle": "RANKED MATCH",
+        "MainMenu_RankDesc": "Play a Competitive game of Gwent",
+        "MainMenu_RankListTitle": "LEADERBOARD",
+        "MainMenu_RankListDesc": "Show the top players",
         "MatchmakingMenu_Title": "CASUAL MATCH",
         "MatchmakingMenu_DeckReady": "The deck is ready!",
         "MatchmakingMenu_PlayButton": "PLAY",
@@ -313,7 +318,7 @@
         },
         "12019": {
             "Name": "Ciri",
-            "Info": "Gain shield. Whenever you lose a round, return this unit to your hand.",
+            "Info": "Whenever you lose a round, return this unit to your hand. 2 armor.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
@@ -533,7 +538,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever you play a Gold unit from your hand, Summon this unit",
+            "Info": "Whenever you play a Gold unit, Summon this unit",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
@@ -2903,17 +2908,17 @@
         },
         "70019": {
             "Name": "Zoltan: Warrior",
-            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, boost them by the value of Zotan's boost.",
+            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, boost them by the half value of Zotan's boost.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, boost them by the value of Figgis' boost.",
+            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, boost them by the half value of Figgis' boost.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, boost them by the value of Munro's boost.",
+            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, boost them by the half value of Munro's boost.",
             "Flavor": ""
         },
         "70022": {
@@ -3028,7 +3033,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deal damage equal to the number of neutral cards in your hand, and then promote the two original (not DIY) neutral silver unit cards in the hand or deck.",
+            "Info": "Deal damage equal to the number of neutral cards in your hand.",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
         "70091": {
@@ -3046,10 +3051,35 @@
             "Info": "Discard a card, add a Bronze unit card from your start deck to your hand, and then reveal it.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
+        "70104": {
+            "Name": "LyrianLandsknecht",
+            "Info": "After round over，if this card is boosted，shuffle it back to the deck and keep most 10 boost.",
+            "Flavor": "“相信我，最好别去嘲笑他们傻里傻气的帽子。”"
+        },
         "70105": {
             "Name": "Adalbertus Kalkstein",
             "Info": "Make a unit's strength equal to this card's strength.",
             "Flavor": "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”"
+        },
+        "70106": {
+            "Name": "EndregaEggs",
+            "Info": "Generate 2 original nameplates on the left.Deathwish：Generate 1 EndregaLarva in the same row.After 3 rounds, destroy yourself at the end of the round.",
+            "Flavor": "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”"
+        },
+        "70107": {
+            "Name": "EndregaLarva",
+            "Info": "After 2 rounds, at the end of the round, it is converted to 'EndregaWarrior'.",
+            "Flavor": "“十分丰满……也十分危险。”"
+        },
+        "70108": {
+            "Name": "EndregaWarrior",
+            "Info": "No special skill.",
+            "Flavor": "“在我老家，人们根本不怕什么大灰狼和老巫婆。因为村子外头就是安德莱格的巢穴。”"
+        },
+        "70109": {
+            "Name": "DwarvenChariot",
+            "Info": "Select 2 units and move them to this row in the half court. After self movement, make a random unit in the row obtain 2 boost.",
+            "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "130210": {
             "Name": "Dudu: Promoted",

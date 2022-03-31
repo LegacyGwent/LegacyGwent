@@ -75,8 +75,13 @@
         "MainMenu_MainTitle": "Играть",
         "MainMenu_MatchTitle": "Случайный матч",
         "MainMenu_MatchDesc": " Сыграйте в дружескую игру в Гвинт ",
+        "MainMenu_MatchTitle_Rank": "РЕЙТИНГОВЫЙ МАТЧ",
         "MainMenu_EditorTitle": "Собрать колоду",
         "MainMenu_EditorDesc": "Создать и изменить колоду",
+        "MainMenu_RankTitle": "РЕЙТИНГОВЫЙ МАТЧ",
+        "MainMenu_RankDesc": "соревновательная игра Гвинт",
+        "MainMenu_RankListTitle": "ТАБЛИЦА ЛИДЕРОВ",
+        "MainMenu_RankListDesc": "Показать лучших игроков",
         "MatchmakingMenu_Title": "Случайный матч",
         "MatchmakingMenu_DeckReady": "колода создана!",
         "MatchmakingMenu_PlayButton": "Играть",
@@ -1648,7 +1653,7 @@
         },
         "34028": {
             "Name": "Посол",
-            "Info": "Шпион. Усильте дружественный отряд на 12 ед.",
+            "Info": "Шпион. Усильте дружественный отряд на 14 ед.",
             "Flavor": "й—ґи°ЌпјџдёЌпјЊиї™д№€иЇґе°±е¤Єиї‡е•¦гЂ‚ж€‘и§‰еѕ—и‡Єе·±дёЌиї‡жЇдёЄи§‚еЇџе‘иЂЊе·ІгЂ‚"
         },
         "34002": {

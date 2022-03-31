@@ -14,6 +14,7 @@ public class MainCode : MonoBehaviour
     public GameObject MatchUI;
     public EditorInfo EditorMenu;
     public Button MatchMenuButton;
+    public Button RankMatchMenuButton;
     public Button DoMatchButton;
 
     //async Task AutoTest()
@@ -38,7 +39,14 @@ public class MainCode : MonoBehaviour
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
         if (_client.IsAutoPlay || ClientGlobalInfo.IsToMatch)
         {
-            MatchMenuButton.onClick.Invoke();
+            if (ClientGlobalInfo.IsPreviousRankMatch)
+            {
+                RankMatchMenuButton.onClick.Invoke();
+            }
+            else
+            {
+                MatchMenuButton.onClick.Invoke();
+            }
             //DoMatchButton.onClick.Invoke();
         }
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();

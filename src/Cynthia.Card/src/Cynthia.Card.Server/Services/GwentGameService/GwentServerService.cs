@@ -181,7 +181,6 @@ namespace Cynthia.Card.Server
             user.Blacklist = blacklist;
             return true;
         }
-
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId)
         {
             var result = _users[connectionId].CurrentPlayer.SendAsync(operation);
@@ -278,7 +277,7 @@ may come back in the future.
 
         public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
 
-        public void InvokeGameOver(GameResult result, bool isOnlyShow)
+        public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
             // if (_env.IsProduction())
             // {
@@ -290,12 +289,86 @@ may come back in the future.
             {
                 _databaseService.AddGameResult(result);
             }
+
+            if (isCountMMR)
+            {
+                int RedMMR = _databaseService.QueryMMR(result.RedPlayerName);
+                int BlueMMR = _databaseService.QueryMMR(result.BluePlayerName);
+                RedMMR = CalculateMMR(RedMMR, BlueMMR,
+                    result.RedPlayerGameResultStatus == GameStatus.Win,
+                    result.RedPlayerGameResultStatus == GameStatus.Draw);
+                BlueMMR = CalculateMMR(BlueMMR, RedMMR,
+                    result.RedPlayerGameResultStatus == GameStatus.Lose,
+                    result.RedPlayerGameResultStatus == GameStatus.Draw);
+                _databaseService.UpdateMMR(result.RedPlayerName, Math.Max(RedMMR, 0));
+                _databaseService.UpdateMMR(result.BluePlayerName, Math.Max(BlueMMR, 0));
+            }
             lock (ResultList)
             {
                 ResultList.Add(result);
             }
             OnGameOver?.Invoke(result);
             // }
+        }
+
+        public int CalculateMMR(int myMMR, int enemyMMR, bool isWin, bool isDraw)
+        {
+            int k = CalculateK(myMMR);
+            double s = isDraw ? 0.5 : (isWin ? 1 : 0);
+            double e = 1 / (1.0 + Math.Pow(10, (enemyMMR - myMMR) / 400.0));
+            double eta = CalculateEta(s, e, myMMR);
+            int addon = myMMR < 2000 ? 50 : 0;
+            return (int)Math.Round(myMMR + eta * k * (s - e) + addon);
+        }
+
+        public int CalculateK(int MMR)
+        {
+            if (MMR < 3079)
+            {
+                return 100;
+            }
+            else if (MMR < 3439)
+            {
+                return 80;
+            }
+            else if (MMR < 3709)
+            {
+                return 70;
+            }
+            else if (MMR < 4029)
+            {
+                return 60;
+            }
+            else if (MMR < 4259)
+            {
+                return 45;
+            }
+            else
+            {
+                return 30;
+            }
+        }
+        public double CalculateEta(double s, double e, int MMR)
+        {
+            if (s > e)
+            {
+                return 1;
+            }
+            else
+            {
+                if (MMR < 1000)
+                {
+                    return 0;
+                }
+                else if (MMR < 4000)
+                {
+                    return 0.8 * (0.81 * ((MMR - 1000.0) / 3000) * ((MMR - 1000.0) / 3000) + 0.19 * ((MMR - 1000.0) / 3000));
+                }
+                else
+                {
+                    return 1;
+                }
+            }
         }
 
         public (IList<IGrouping<UserState, User>>, IList<(string, string)>, IList<(string, string)>) GetUsers()
@@ -318,5 +391,9 @@ may come back in the future.
         {
             return _gwentLocalizationService.GetGameLocales();
         }
+
+        public int GetPalyernameMMR(string playername) => _databaseService.QueryMMR(playername);
+
+        public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);
     }
 }

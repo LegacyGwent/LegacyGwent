@@ -29,6 +29,8 @@ public class GameUIControl : MonoBehaviour
     //-----------------------------------
     public Text MyName;//
     public Text EnemyName;//
+    public Text MyMMR;
+    public Text EnemyMMR;
     //-----------------------------------
     public GameObject MyCrownLeft;//
     public GameObject MyCrownRight;//
@@ -42,10 +44,12 @@ public class GameUIControl : MonoBehaviour
     public RopeController ropeController;
 
     private LocalizationService _translator;
+    private GwentClientService server;
 
     private void Awake()
     {
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        server = DependencyResolver.Container.Resolve<GwentClientService>();
     }
 
     public void SetPointInfo(GameInfomation gameInfomation)
@@ -137,6 +141,11 @@ public class GameUIControl : MonoBehaviour
     {
         EnemyName.text = gameInfomation.EnemyName;
         MyName.text = gameInfomation.MyName;
+    }
+    public void SetMMRInfo(int myMMR, int enemyMMR)
+    {
+        MyMMR.text = Convert.ToString(myMMR);
+        EnemyMMR.text = Convert.ToString(enemyMMR);
     }
     //全部的信息
     public void SetGameInfo(GameInfomation gameInfomation)

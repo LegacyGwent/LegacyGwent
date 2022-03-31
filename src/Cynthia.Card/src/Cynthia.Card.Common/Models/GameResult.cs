@@ -29,5 +29,8 @@ namespace Cynthia.Card
         public int BalancePoint { get; set; }
         public string RedBlacklistCode { get; set; }
         public string BlueBlacklistCode { get; set; }
+        public int RedMMR { get; set; }
+        public int BlueMMR { get; set; }
+
     }
 }

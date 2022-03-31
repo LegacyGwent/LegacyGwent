@@ -152,6 +152,10 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().GameUIControl.SetNameInfo(gameInfomation);
         }
+        public void SetMMRInfo(int myMMR, int EnemyMMR)
+        {
+            _code.GetComponent<GameCode>().GameUIControl.SetMMRInfo(myMMR, EnemyMMR);
+        }
         //-------------------------------------------------------------------------------------------
         public void CardMove(MoveCardInfo info)//卡牌移动
         {
@@ -198,6 +202,10 @@ namespace Cynthia.Card.Client
         public void ShowGameResult(GameResultInfomation gameResult)//设定并展示游戏结束画面
         {
             _code.GetComponent<GameCode>().GameResultControl.ShowGameResult(gameResult);
+        }
+        public void ShowMMRResult(int oldMMR, int newMMR)//设定并展示MMR
+        {
+            _code.GetComponent<GameCode>().GameResultControl.ShowMMRResult(oldMMR, newMMR);
         }
         public void GetPlayerDrag(LocalPlayer player)//玩家的回合到了
         {

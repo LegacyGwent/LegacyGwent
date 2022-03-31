@@ -75,6 +75,10 @@ namespace Cynthia.Card.Server
             return _gwentServerService.GetUserCount();//(Context.ConnectionId);
         }
 
+        public int GetPalyernameMMR(string Palyername) => _gwentServerService.GetPalyernameMMR(Palyername);
+
+        public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _gwentServerService.GetAllMMR(offset, limit);
+
         //游戏内玩家操作
         public Task GameOperation(Operation<UserOperationType> operation)
         {
