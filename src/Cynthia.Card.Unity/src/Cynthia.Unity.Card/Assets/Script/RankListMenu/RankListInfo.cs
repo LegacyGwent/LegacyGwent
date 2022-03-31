@@ -1,45 +1,77 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cynthia.Card;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using Alsein.Extensions;
-using Alsein.Extensions.Extensions;
 using Autofac;
 using Cynthia.Card.Client;
 using System;
-using DG.Tweening;
-using System.Threading.Tasks;
 using Assets.Script.Localization;
-using UnityEngine.Events;
-using static UnityEngine.UI.Scrollbar;
-using Cynthia.Card.Common.Extensions;
-using Microsoft.AspNetCore.SignalR.Client;
 public class RankListInfo : MonoBehaviour
 {
+    public GameObject RankListUI;
+    public GameObject RankListUIBody;
+    public GameObject RankListRowPrefab;
     private GwentClientService _clientService;
-    private GlobalUIService _globalUIService;
-    private LocalizationService _translator;
-
+    private IList<Tuple<string, int>> rankList;
+    private int currentIndex = 0;
+    private int totalCount = 0;
+    private const int PageRowCount = 10;
+    private int currentPageRowCount = 10;
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
-        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
-    void Start()
+    public async void OpenRankList()
     {
+        RankListUI.SetActive(true);
+
+        rankList = await _clientService.GetAllMMR(0, 50);
+        totalCount = rankList.Count;
+        currentIndex = 0;
+        GenerateRankListRow();
+    }
+    public void CleanUpRow()
+    {
+        foreach (Transform child in RankListUIBody.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+    public void CloseRankList()
+    {
+        CleanUpRow();
+        RankListUI.SetActive(false);
+    }
+    public void GenerateRankListRow()
+    {
+        currentPageRowCount = 0;
+        for (; currentIndex < totalCount && currentPageRowCount < PageRowCount; currentIndex++)
+        {
+            var item = rankList[currentIndex];
+            var row = Instantiate(RankListRowPrefab, RankListUIBody.transform);
+            row.GetComponent<RankListRow>().SetRankListRow(currentIndex + 1, item.Item1, item.Item2);
+            currentPageRowCount++;
+        }
     }
 
-    public void OpenRankList(bool IsMoveLeftRight = true)
+    public void PreviousPageClick()
     {
-        ResetEditor();
-    }
+        if (currentIndex - (PageRowCount + currentPageRowCount) < 0)
+        {
+            return;
+        }
+        CleanUpRow();
+        currentIndex -= PageRowCount + currentPageRowCount;
+        GenerateRankListRow();
 
-    public void ResetEditor()
+    }
+    public void NextPageClick()
     {
+        if (currentIndex == totalCount)
+        {
+            return;
+        }
+        CleanUpRow();
+        GenerateRankListRow();
 
     }
 }
