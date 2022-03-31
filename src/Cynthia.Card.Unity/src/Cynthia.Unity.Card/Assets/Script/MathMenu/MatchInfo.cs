@@ -70,23 +70,6 @@ public class MatchInfo : MonoBehaviour
     private LocalizationService _translator { get => DependencyResolver.Container.Resolve<LocalizationService>(); }
 
 
-
-
-
-    /*
-    Username.onValueChanged.AddListener(x =>
-    {
-        IsOnPreservation(RecordStatus.isOn);
-    });
-    Password.onValueChanged.AddListener(x =>
-    {
-        IsOnPreservation(RecordStatus.isOn);
-    });*/
-
-
-
-
-
     public void MatchMenuClick()
     {
         if (_client.User.Decks.Count() <= 0)
@@ -106,7 +89,8 @@ public class MatchInfo : MonoBehaviour
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
             MatchPasswordObject.SetActive(false);
             BlacklistObject.SetActive(false);
-        }else
+        }
+        else
         {
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle");
             MatchPasswordObject.SetActive(true);
@@ -121,7 +105,19 @@ public class MatchInfo : MonoBehaviour
     public void RankMatchMenuClick()
     {
         IsRankMatch = true;
-        MatchMenuClick();
+        // MatchMenuClick();
+        ResetMatch();
+        MainUI.SetActive(false);
+        MatchUI.SetActive(true);
+        Debug.Log("1");
+        // ResetTextMenus.ForAll(x => x.TextReset());
+        MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
+        Debug.Log(_translator.GetText("MainMenu_MatchTitle_Rank"));
+        MatchPasswordObject.SetActive(false);
+        BlacklistObject.SetActive(false);
+        Debug.Log("3");
+        Debug.Log(MainMenu_MatchTitle.text);
+
     }
     public void ResetMatch()
     {
@@ -199,6 +195,7 @@ public class MatchInfo : MonoBehaviour
                 //进入了游戏
                 Debug.Log("成功匹配,进入游戏");
                 ClientGlobalInfo.IsToMatch = false;
+                ClientGlobalInfo.IsPreviousRankMatch = IsRankMatch;
 #if UNITY_STANDALONE_WIN
                 ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
 #endif

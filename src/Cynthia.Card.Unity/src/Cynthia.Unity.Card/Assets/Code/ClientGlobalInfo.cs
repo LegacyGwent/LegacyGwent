@@ -7,6 +7,7 @@ using UnityEngine;
 public static class ClientGlobalInfo
 {
     public static bool IsToMatch = false;
+    public static bool IsPreviousRankMatch = false;
 
     public static bool IsLoadGlobal = false;
     public static string DefaultDeckId

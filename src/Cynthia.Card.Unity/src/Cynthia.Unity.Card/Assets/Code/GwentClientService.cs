@@ -204,6 +204,11 @@ namespace Cynthia.Card.Client
             return HubConnection.InvokeAsync<int>("GetPalyernameMMR", playername);
         }
 
+        public Task<IList<Tuple<string, int>>> GetAllMMR(int offset, int limit)
+        {
+            return HubConnection.InvokeAsync<IList<Tuple<string, int>>>("GetAllMMR", offset, limit);
+        }
+
         public Task<bool> Register(string username, string password, string playername) => HubConnection.InvokeAsync<bool>("Register", username, password, playername);
         public async Task<UserInfo> Login(string username, string password)
         {
