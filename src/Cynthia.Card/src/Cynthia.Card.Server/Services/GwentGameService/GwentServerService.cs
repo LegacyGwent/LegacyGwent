@@ -315,9 +315,10 @@ may come back in the future.
         {
             int k = CalculateK(myMMR);
             double s = isDraw ? 0.5 : (isWin ? 1 : 0);
-            double e = 1 / (1.0 + Math.Pow(10, (enemyMMR - myMMR) / 400.0));
+            int diff = Math.Max(enemyMMR - myMMR, -50);
+            double e = 1 / (1.0 + Math.Pow(10, diff / 400.0));
             double eta = CalculateEta(s, e, myMMR);
-            int addon = myMMR < 2000 ? 50 : 0;
+            int addon = myMMR < 2000 ? (isWin ? 70 : 50) : 0;
             return (int)Math.Round(myMMR + eta * k * (s - e) + addon);
         }
 
