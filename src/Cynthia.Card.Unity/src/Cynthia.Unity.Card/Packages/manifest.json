@@ -1,13 +1,4 @@
 {
-  "scopedRegistries": [
-    {
-      "name": "Packages from jillejr",
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
-      "scopes": [
-        "jillejr"
-      ]
-    }
-  ],
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
@@ -25,7 +16,7 @@
     "com.unity.timeline": "1.2.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.xr.legacyinputhelpers": "2.1.4",
-    "jillejr.newtonsoft.json-for-unity": "13.0.102",
+    "com.unity.nuget.newtonsoft-json": "3.0.1",
     "nuget.mono-cecil": "0.1.6-preview",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
