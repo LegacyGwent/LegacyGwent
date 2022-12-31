@@ -192,7 +192,7 @@ namespace Cynthia.Card.Server
             await Task.CompletedTask;
             if (!_users.ContainsKey(connectionId))//如果用户没有在线,无效果
                 return;
-            if (_users[connectionId].UserState == UserState.Match)//如果用户正在匹配
+            if (_users[connectionId].UserState == UserState.Match || _users[connectionId].UserState == UserState.PasswordMatch)//如果用户正在匹配
             {
                 _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
