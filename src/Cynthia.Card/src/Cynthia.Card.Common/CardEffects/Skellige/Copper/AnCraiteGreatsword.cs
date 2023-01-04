@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public AnCraiteGreatsword(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.SetCountdown(value: 3);
+            await Card.Effect.SetCountdown(value: 2);
             return 0;
         }
 
@@ -22,7 +22,7 @@ namespace Cynthia.Card
                 if (Card.Effect.Countdown <= 0)
                 {
                     //重新倒计时
-                    await Card.Effect.SetCountdown(value: 3);
+                    await Card.Effect.SetCountdown(value: 2);
                     //如果受伤，触发效果
                     if (Card.Status.HealthStatus < 0)
                     {
