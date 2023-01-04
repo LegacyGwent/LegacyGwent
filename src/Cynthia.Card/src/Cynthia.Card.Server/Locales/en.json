@@ -2638,7 +2638,7 @@
         },
         "64009": {
             "Name": "An Craite Greatsword",
-            "Info": "Every 3 turns, if damaged, on turn start, Heal self and Strengthen by 2.",
+            "Info": "Every 2 turns, if damaged, on turn start, Heal self and Strengthen by 2.",
             "Flavor": "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？"
         },
         "64010": {
@@ -3068,7 +3068,7 @@
         },
         "70107": {
             "Name": "EndregaLarva",
-            "Info": "After 2 rounds, at the end of the round, it is converted to 'EndregaWarrior'.",
+            "Info": "After 3 rounds, at the end of the round, it is converted to 'EndregaWarrior'.",
             "Flavor": "“十分丰满……也十分危险。”"
         },
         "70108": {

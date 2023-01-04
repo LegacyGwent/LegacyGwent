@@ -6,12 +6,12 @@ namespace Cynthia.Card
 {
     [CardEffectId("70107")]//安德莱格幼虫
     public class EndregaLarva : CardEffect, IHandlesEvent<AfterTurnOver>
-    {//2回合后，回合结束时，转化为“安德莱格战士”。
+    {//3回合后，回合结束时，转化为“安德莱格战士”。
         public EndregaLarva(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
 
-            await Card.Effect.SetCountdown(value: 2);
+            await Card.Effect.SetCountdown(value: 3);
             return 0;
         }
         public async Task HandleEvent(AfterTurnOver @event)

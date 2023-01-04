@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 44);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 45);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9848,7 +9848,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64009",
                     Name="奎特家族巨剑士",
-                    Strength=9,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9858,7 +9858,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？",
-                    Info = "每3回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
+                    Info = "每2回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
                     CardArtsId = "20004000",
                 }
             },
@@ -10228,7 +10228,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64028",
                     Name="迪门家族海贼",
-                    Strength=3,
+                    Strength=1,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11698,7 +11698,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Insectoid,Categorie.Token},
                     Flavor = "“十分丰满……也十分危险。”",
-                    Info = "2回合后，回合结束时，转化为“安德莱格战士”。",
+                    Info = "3回合后，回合结束时，转化为“安德莱格战士”。",
                     CardArtsId = "d19520000",
                 }
             },
