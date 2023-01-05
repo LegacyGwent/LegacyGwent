@@ -3036,6 +3036,21 @@
             "Info": "Deal damage equal to the number of neutral cards in your hand.",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
+        "70076": {
+            "Name": "Congregation Cleric",
+            "Info": "Generate copies of all locked bronze, and set the strength of copes to 2. Whenever any bronze unit are locked during your turn, generate a copy of it with 2 strength in the same row.",
+            "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
+        },
+        "70077": {
+            "Name": "Firesworn Zealot",
+            "Info": "Every 4 turns, deal 2 damages to 4 random enemies at the end of the turn. Reduce the countdown by 1 for each locked unit on the board when played.",
+            "Flavor": "“我的信仰无人能敌，亦如我的怒火！”"
+        },
+        "70078": {
+            "Name": "Damnation",
+            "Info": "Summon two strongest bronze units from the deck to the same row, and then change their lock status.",
+            "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
+        },
         "70091": {
             "Name": "Oneiromancy",
             "Info": "Choose one: create 1 non-spy and non-doom card in your starting deck; or turn 3 random hand cards (not the same name) into 'Oneiromancy'.",
