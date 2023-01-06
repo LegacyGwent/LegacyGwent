@@ -11,7 +11,7 @@
 
 This project is mainly divided into two versions: `master` and `diy`.
 
-+ The `mater` version is maintained in the `master` branch. It aims to be a complete replica of Beta Gwent (roughly the version in June 2018).
++ The `master` version is maintained in the `master` branch. It aims to be a complete replica of Beta Gwent (roughly the version in June 2018).
    You can download it from [here](https://github.com/LegacyGwent/LegacyGwent/releases/tag/v0.1.0.5). The relevant website is [LegacyGwent](http://legacygwent.com:5000/).
 + The `diy` version is maintained in the `diy` branch. It is a community continue development version based on the `master` version. It adds a Red Coin balance, some cards balances, and some new cards.
    You can download the latest version from [here](https://github.com/LegacyGwent/LegacyGwent/releases/). The relevant website is [DiyGwent](http://legacygwent.com:5005/). The current development is mainly in the `diy` version.
