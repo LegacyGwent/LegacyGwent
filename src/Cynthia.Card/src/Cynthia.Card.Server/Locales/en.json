@@ -243,18 +243,18 @@
     "CardLocales": {
         "12004": {
             "Name": "Geralt of Rivia",
-            "Info": "No effects",
+            "Info": "No ability.",
             "Flavor": "If that's what it takes to save the world, it's better to let that world die."
         },
         "12005": {
             "Name": "Ciri: Dash",
             "Info": "Whenever this unit enters the graveyard, return it to your deck and Strengthen it by 3.",
-            "Flavor": "Know when fairy tales cease to be tales? When people start believing them. "
+            "Flavor": "Know when fairy tales cease to be tales? When people start believing them."
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
             "Info": "Deploy: Discard your hand and draw that many cards.",
-            "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case. "
+            "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "12007": {
             "Name": "Triss Merigold",
@@ -263,27 +263,27 @@
         },
         "12008": {
             "Name": "Villentretenmerth",
-            "Info": "After 3 turns, destroy the Highest units. 3 Armor.",
-            "Flavor": "Also calls himself Borkh Three Jackdaws… he's not the best at names. "
+            "Info": "After 3 turns, on turn start, destroy the Highest units, excluding self. 3 Armor.",
+            "Flavor": "Also calls himself Borkh Three Jackdaws… he's not the best at names."
         },
         "12009": {
             "Name": "Ale of the Ancestors",
-            "Info": "Deploy: Apply Golden Froth to the row. Repeat this ability when moved, and then taken 4 damage.",
+            "Info": "Deploy: Apply Golden Froth to the row. Repeat this ability when moved, then deal 4 damage to self.",
             "Flavor": "Boros, the legendary founder of Clan Fuchs, died after overindulging in this beverage - he passed out while reaching for his golden ring, which had fallen into a brook."
         },
         "12010": {
             "Name": "Yennefer: Conjurer",
-            "Info": "On turn end, Deal 1 damage to the Highest enemies.",
-            "Flavor": "A good sorceress must know when to conjure ice... and when to conjure fire. "
+            "Info": "On turn end, deal 1 damage to the Highest enemies.",
+            "Flavor": "A good sorceress must know when to conjure ice... and when to conjure fire."
         },
         "12011": {
             "Name": "Dandelion: Vainglory",
-            "Info": "Deploy: For every Geralt, Yennefer, or Zoltan card in your own starting deck gain 3 points",
+            "Info": "Deploy: For every Geralt, Yennefer, Triss and Zoltan card in your starting deck, boost self by 3.",
             "Flavor": "Dandelion told me all about your adventures. How'd he ready you for battle with his songs, how he tamed the kayran by playin' his lute..."
         },
         "12012": {
             "Name": "Avallac'h",
-            "Info": "Deploy, Truce: Each player draws 2 cards",
+            "Info": "Deploy, Truce: Each player draws 2 cards.",
             "Flavor": "You humans have... unusual tastes."
         },
         "12013": {
@@ -292,28 +292,28 @@
             "Flavor": "Go teach your grandma to suck eggs."
         },
         "12014": {
-            "Name": "Triss: Butterfly Spell",
-            "Info": "On turn end, Boost the Lowest allies by 1.",
+            "Name": "Triss: Butterflies",
+            "Info": "On turn end, boost the Lowest allies by 1.",
             "Flavor": "Cap'n... our arrows, they've... they've got wings!"
         },
         "12015": {
             "Name": "Zoltan: Scoundrel",
-            "Info": "Deploy, Choose One: Spawn a Companion that boosts 2 adjacent units by 2; or Spawn an Agitator that deals 2 damage to 2 adjacent units.",
+            "Info": "Deploy, Choose One: Spawn a Duda: Companion that boosts 2 units on each side of it by 2; or Spawn a Duda: Agitator that deals 2 damage to 2 units on each side of it.",
             "Flavor": "Apologies. My exotic pet's a clever birdie, but a wee bit lewd. Paid ten thalers for the beaute."
         },
         "12016": {
             "Name": "Eskel: Pathfinder",
-            "Info": "Deploy: Destroy a Bronze or Silver enemy that is not boosted",
-            "Flavor": "Heard you panting from three miles away. Just didn't wanna give up that vantage point. "
+            "Info": "Deploy: Destroy a Bronze or Silver enemy that is not boosted.",
+            "Flavor": "Heard you panting from three miles away. Just didn't wanna give up that vantage point."
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Deal 4 damage to an enemy unit. If it's a monster unit, destroy it instead.",
-            "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise. "
+            "Info": "Deploy: Deal 4 damage to an enemy unit. If it's a Monster unit, destroy it instead.",
+            "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
             "Name": "Ihuarraquax",
-            "Info": "Deploy: Deal 5 damage to self.\nWhen the current power is equal to the base power, deal 7 damage to 3 random enemy units at the end of the turn.",
+            "Info": "Deploy: Deal 5 damage to self.\nThe first time this unit's current power is equal to its base power, on turn end, deal 7 damage to 3 random enemy units.",
             "Flavor": "\"Inconceivable. Impossible\", Ciri thought, returning to her senses. \"Unicorns don't exist, not any more, not in this world. Unicorns are extinct.\" "
         },
         "12019": {
@@ -323,53 +323,53 @@
         },
         "12020": {
             "Name": "Gaunter O'Dimm",
-            "Info": "Deploy, Gamble with Gaunter: Guess whether the power of the card he's picked has power lesser, equal or greater than 6.",
-            "Flavor": "He always grants exactly what you wish for. That's the problem. "
+            "Info": "Deploy, Gamble with Gaunter: Guess whether the power of the card he picked is less, equal or greater than 6.",
+            "Flavor": "He always grants exactly what you wish for. That's the problem."
         },
         "12021": {
             "Name": "Geralt: Aard",
             "Info": "Deploy: Deal 3 damage to 3 enemies and move them to the row above.",
-            "Flavor": "A blast of concentrated energy that pummels everything in its path. Great for when you forget your keys. "
+            "Flavor": "A blast of concentrated energy that pummels everything in its path. Great for when you forget your keys."
         },
         "12022": {
             "Name": "Regis: Higher Vampire",
             "Info": "Deploy: Look at 3 Bronze units from your opponent's deck. Consume 1, then boost self by its base power.",
-            "Flavor": "He becomes invisible at will. His glance hypnotizes into a deep sleep. He then drinks his fill, turns into a bat and flies off. Altogether uncouth. "
+            "Flavor": "He becomes invisible at will. His glance hypnotizes into a deep sleep. He then drinks his fill, turns into a bat and flies off. Altogether uncouth."
         },
         "12023": {
             "Name": "Vesemir: Mentor",
             "Info": "Deploy: Play a Bronze or Silver Alchemy card from your deck.",
-            "Flavor": "Killing monsters is not something to be taken lightly. Ciri must understand that if she's to become one of us. "
+            "Flavor": "Killing monsters is not something to be taken lightly. Ciri must understand that if she's to become one of us."
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Deploy, Choose One: Spawn a Unicorn that boosts all units by 2; or Spawn a Chironex that deals 2 damage to all units.",
-            "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression. "
+            "Info": "Deploy, Choose One: Spawn a Unicorn that boosts all other units by 2; or Spawn a Chironex that deals 2 damage to all other units.",
+            "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression."
         },
         "12025": {
             "Name": "Geralt: Yrden",
-            "Info": "Deploy: Reset all units on a row and remove thair tokens.",
-            "Flavor": "He lay down next to Adda's mummified remains, drawing the Yrden Sign on the inner side of her sarcophagus' lid. "
+            "Info": "Deploy: Reset all units on a row and remove their statuses.",
+            "Flavor": "He lay down next to Adda's mummified remains, drawing the Yrden Sign on the inner side of her sarcophagus' lid."
         },
         "12026": {
             "Name": "Triss: Telekinesis",
-            "Info": "Deploy: Create and play a bronze special card from either player's current deck.",
+            "Info": "Deploy: Create and play a bronze special card from either player's starting deck.",
             "Flavor": "Bindings won't suffice. Nor will a gag render her any less dangerous. No, dimeritium is the only solution."
         },
         "12002": {
             "Name": "Geralt: Igni",
             "Info": "Deploy: Destroy the Highest units on an enemy row if that row has a total of 25 or more.",
-            "Flavor": "A twist of a witcher's fingers can light a lamp… or incinerate a foe. "
+            "Flavor": "A twist of a witcher's fingers can light a lamp… or incinerate a foe."
         },
         "12027": {
             "Name": "Aguara",
-            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random unit in your hand by 5; Deal 5 damage to the Highest enemy; Charm an enemy Elf with 5 power or less.",
-            "Flavor": "Smarten up right now, or it's off to an aguara with you! "
+            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random unit in your hand by 5; Deal 5 damage to the Highest enemy; Charm a random enemy Elf with 5 power or less.",
+            "Flavor": "Smarten up right now, or it's off to an aguara with you!"
         },
         "12028": {
             "Name": "Phoenix",
             "Info": "Deploy: Resurrect a Bronze or Silver Draconid.",
-            "Flavor": "What came first, the chicken or the egg? Compared to the conundrum that is the phoenix, the question seems downright trivial. "
+            "Flavor": "What came first, the chicken or the egg? Compared to the conundrum that is the phoenix, the question seems downright trivial."
         },
         "12003": {
             "Name": "Dandelion: Poet",
@@ -379,12 +379,12 @@
         "12029": {
             "Name": "Avallac'h: Sage",
             "Info": "Deploy: Spawn a copy of a random Gold or Silver unit from your opponent's starting deck.",
-            "Flavor": "Amongst the free elves were a handful of Aen Saevherne, or Sages. They were an enigma, bordering on a legend. "
+            "Flavor": "Amongst the free elves were a handful of Aen Saevherne, or Sages. They were an enigma, bordering on a legend."
         },
         "12030": {
             "Name": "Aguara: True Form",
-            "Info": "Deploy: Create a Bronze or Silver Spell",
-            "Flavor": "Ever heard of an \"anterion\"? Think of it as the opposite of a lycanthrope: a beast which can take on a human form. "
+            "Info": "Deploy: Create a Bronze or Silver Spell.",
+            "Flavor": "Ever heard of an \"anterion\"? Think of it as the opposite of a lycanthrope: a beast which can take on a human form."
         },
         "12031": {
             "Name": "Regis",
@@ -393,7 +393,7 @@
         },
         "12032": {
             "Name": "Ciri: Nova",
-            "Info": "Deploy: If you have exactly 2 copies of each bronze in your deck, set the base power of this card to 22.",
+            "Info": "Deploy: If you have exactly 2 copies of each Bronze card in your starting deck, set the base power of this card to 22.",
             "Flavor": "Zireael possesses a great power she cannot control. She is a danger - to herself, to others. Until she learns to control it, she should remain isolated."
         },
         "12033": {
@@ -408,7 +408,7 @@
         },
         "12035": {
             "Name": "Renew",
-            "Info": "Resurrect a Gold unit.",
+            "Info": "Resurrect a non-Leader Gold unit.",
             "Flavor": "Medicus curat, magicae sanat."
         },
         "12001": {
@@ -418,31 +418,31 @@
         },
         "12036": {
             "Name": "Vigo's Muzzle",
-            "Info": "Move a Bronze or Silver enemy with 8 power or less to the opposite row.",
-            "Flavor": "Not every beast can be tamed. But all can be muzzled. "
+            "Info": "Charm a Bronze or Silver enemy with 8 power or less.",
+            "Flavor": "Not every beast can be tamed. But all can be muzzled."
         },
         "12037": {
             "Name": "Wolfsbane",
-            "Info": "After 3 turns in the graveyard, deal 6 damage to the Highest enemy and boost the Lowest ally by 6.",
-            "Flavor": "Also known as 'the queen of poisons,' wolfsbane is used in many witcher Potions and alchemic brews"
+            "Info": "After 3 turns in the graveyard, on turn end, deal 6 damage to the Highest enemy and boost the Lowest ally by 6.",
+            "Flavor": "Also known as 'the queen of poisons,' wolfsbane is used in many witcher Potions and alchemic brews."
         },
         "12038": {
             "Name": "Hanmarvyn's Blue Dream",
-            "Info": "Spawn a copy of a Gold unit from your opponent's graveyard and boost it by 2.",
-            "Flavor": "This spell lets you see the last moment's of a dead man's life... if you can survive its casting. "
+            "Info": "Spawn a copy of a non-Leader Gold unit from your opponent's graveyard and boost it by 2.",
+            "Flavor": "This spell lets you see the last moment's of a dead man's life... if you can survive its casting."
         },
         "12039": {
             "Name": "Uma's Curse",
-            "Info": "Create a Gold unit",
-            "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this... monstrosity? "
+            "Info": "Create a non-Leader Gold unit",
+            "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this... monstrosity?"
         },
         "12040": {
             "Name": "Trial of the Grasses",
             "Info": "Deal 10 damage to a unit, unless it's a Witcher. If it survives, boost it to 25 power.",
-            "Flavor": "Imagine a lump of clay. In order to shape it, you must first moisten it or it will crumble. The Trial's initial part does just that. It opens the body to change, so to speak. Only then can the mutagens produce a witcher. "
+            "Flavor": "Imagine a lump of clay. In order to shape it, you must first moisten it or it will crumble. The Trial's initial part does just that. It opens the body to change, so to speak. Only then can the mutagens produce a witcher."
         },
         "12041": {
-            "Name": "Shupe's Bizzarre Adventure",
+            "Name": "Shupe's Bizarre Adventure",
             "Info": "If your starting deck has no duplicates, send Shupe on an adventure.",
             "Flavor": "Other trolls always considered him a bit odd - after all, who in their right mind would prefer colorful scraps of paper to rocks?"
         },
@@ -463,12 +463,12 @@
         },
         "13005": {
             "Name": "Germain Piquant",
-            "Info": "Deploy: Spawn 2 Cows on each side of this unit. ",
+            "Info": "Deploy: Spawn 2 Cows on each side of this unit.",
             "Flavor": "陶森特需要这位英雄，但它不配。"
         },
         "13006": {
             "Name": "Nivellen",
-            "Info": "Deploy: Move all units on a row to random rows",
+            "Info": "Deploy: Move all units on a row to random rows.",
             "Flavor": "迷路了？要迷路到其它地方去，只要别在我这儿瞎逛就行。把你的左耳对准太阳，一直往前，没多久就能走上大路。怎么？你还在等什么？"
         },
         "13007": {
@@ -483,12 +483,12 @@
         },
         "13009": {
             "Name": "Cyprian Wiley",
-            "Info": "Deploy: Weaken a unit by 4",
+            "Info": "Deploy: Weaken a unit by 4.",
             "Flavor": "诺维格瑞的黑帮四巨头之一——另外三个是西吉·卢文、卡罗·“砍刀”·凡瑞西和乞丐王。"
         },
         "13010": {
             "Name": "Ocvist",
-            "Info": "Single-Use. After 4 turns, deal 1 damage to all enemies, then on round start, return to your hand.",
+            "Info": "Single-Use: After 4 turns, on turn start, deal 1 damage to all enemies, then return to your hand.",
             "Flavor": "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。"
         },
         "13011": {
@@ -498,47 +498,47 @@
         },
         "13012": {
             "Name": "Myrgtabrakke",
-            "Info": "Deploy: Damage Units by 3, 2 and then 1.",
+            "Info": "Deploy: Damage units by 3, 2 and then 1.",
             "Flavor": "永远别想分开母龙和她的孩子。"
         },
         "13013": {
             "Name": "Vesemir",
-            "Info": "Deploy: Summon Eskel and Lambert.",
+            "Info": "Deploy: Summon Eskel and Lambert to this row.",
             "Flavor": "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。"
         },
         "13014": {
             "Name": "Eskel",
-            "Info": "Deploy: Summon Vesemir and Lambert. ",
+            "Info": "Deploy: Summon Vesemir and Lambert to this row.",
             "Flavor": "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……"
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "Deathwish: Resurrect this unit on a random row",
+            "Info": "Deathwish: Resurrect this unit on a random row.",
             "Flavor": "至少你知道我的头不好砍了。"
         },
         "13002": {
             "Name": "Francis Bedlam",
-            "Info": "Deploy: If losing, Strengthen self up to a maximum of 15 until scores are tied",
+            "Info": "Deploy: If losing, Strengthen self up to a maximum of 15 until scores are tied.",
             "Flavor": "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。"
         },
         "13016": {
             "Name": "Operator",
-            "Info": "Single-Use. Deploy, Truce: Make a default copy of a Bronze unit in your hand for both players.",
+            "Info": "Deploy, Single-Use, Truce: Make a default copy of a Bronze unit in your hand for both players.",
             "Flavor": "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。"
         },
         "13017": {
             "Name": "Lambert",
-            "Info": "Deploy: Summon Eskel and Vesemir. ",
+            "Info": "Deploy: Summon Eskel and Vesemir to this row.",
             "Flavor": "这样的沟通方式才对路嘛！"
         },
         "13018": {
             "Name": "Vaedermakar",
-            "Info": "Deploy: Spawn Biting Frost, Impenetrable Fog or Alzur's Thunder",
+            "Info": "Deploy: Spawn Biting Frost, Impenetrable Fog or Alzur's Thunder.",
             "Flavor": "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。"
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever you play a Gold unit, Summon this unit",
+            "Info": "Whenever you play a Gold unit from your hand, Summon this unit to a random row.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
@@ -553,27 +553,27 @@
         },
         "13021": {
             "Name": "Dudu",
-            "Info": "Deploy: Choose an Enemy and copy its Power.",
+            "Info": "Deploy: Choose an enemy and copy its power.",
             "Flavor": "拟态怪有很多别名：易形怪、二重身、模仿怪……变形怪。"
         },
         "13022": {
             "Name": "Prize-Winning Cow",
-            "Info": "Deathwish: Spawn a Chort",
+            "Info": "Deathwish: Spawn a Chort on a random row.",
             "Flavor": "哞～～～"
         },
         "13023": {
             "Name": "Black Blood",
-            "Info": "Choose One: Create a Bronze Necrophage or Vampire and boost it by 2; or Destroy a Bronze or Silver Necrophage or Vampire. ",
+            "Info": "Choose One: Create a Bronze Necrophage or Vampire and boost it by 2; or Destroy a Bronze or Silver Necrophage or Vampire.",
             "Flavor": "吸血鬼们纷纷表示：使用这种药水有违体育精神。"
         },
         "13024": {
             "Name": "Alzur's Double–Cross",
-            "Info": "Boost the Highest Bronze or Silver Unit in your Deck by 2 and play it.",
+            "Info": "Boost the Highest Bronze or Silver unit in your deck by 2 and play it.",
             "Flavor": "阿尔祖创造的一些怪物仍在四处游荡，其中便有令人胆寒的巨蜈蚣——它杀掉了创造自己的法师，摧毁了半个马里波，然后逃进了河谷地区幽暗的森林。"
         },
         "13025": {
             "Name": "Artefact Compression",
-            "Info": "Transform a Bronze or Silver unit into a Jade Figurine. ",
+            "Info": "Transform a Bronze or Silver unit into a Jade Figurine.",
             "Flavor": "雕像瞬间爆开，颤动不已，犹如一道在地上爬行的烟雾，变换着自己的形状。道道光芒里，有东西上下纷飞，不断成形。片刻之后，魔法圈的正中间突然现出了一道人影。"
         },
         "13026": {
@@ -588,7 +588,7 @@
         },
         "13028": {
             "Name": "Decoy",
-            "Info": "Return a Bronze or Silver Ally to your Hand, Boost it by 3 and play it.",
+            "Info": "Return a Bronze or Silver ally to your hand, boost it by 3 and play it.",
             "Flavor": "如果拿来应急，假人也是不错的挡箭牌。"
         },
         "13029": {
@@ -598,12 +598,12 @@
         },
         "13030": {
             "Name": "Manticore Venom",
-            "Info": "Damage a unit by 13. ",
+            "Info": "Damage a unit by 13.",
             "Flavor": "剧毒致命的速度快得让你连尼弗迦德皇帝的头衔都念不完。"
         },
         "13031": {
             "Name": "Marching Orders",
-            "Info": "Boost the Lowest Bronze or Silver Unit in your Deck by 2 and play it.",
+            "Info": "Boost the Lowest Bronze or Silver unit in your deck by 2 and play it.",
             "Flavor": "我们只不过是老头子们的棋子，为他们腐朽的妄想命丧沙场……"
         },
         "13032": {
@@ -638,7 +638,7 @@
         },
         "13038": {
             "Name": "White Frost",
-            "Info": "Apply a Frost Hazard to 2 adjacent opposing rows. Frost Hazard: Every turn, at the start of your turn, Damage the Lowest Unit on the row by 2.",
+            "Info": "Apply Biting Frost to 2 adjacent enemy rows. Biting Frost: Every turn, on turn start, damage the Lowest unit on the row by 2.",
             "Flavor": "见证“泰德戴尔瑞”——终焉纪元——这被白霜摧毀的世界吧！"
         },
         "13039": {
@@ -683,7 +683,7 @@
         },
         "14004": {
             "Name": "Arachas Venom",
-            "Info": "Damage 3 adjacent Units by 4.",
+            "Info": "Damage 3 adjacent units by 4.",
             "Flavor": "“若不慎接触眼部，请立即用冷水冲洗，然后起草遗嘱。”"
         },
         "14005": {
@@ -693,12 +693,12 @@
         },
         "14006": {
             "Name": "Bloodcurdling Roar",
-            "Info": "Destroy a friendly unit. Spawn and play a bear.",
+            "Info": "Destroy an ally. Spawn and play a Bear.",
             "Flavor": "起初我们碰上了一头熊……悲剧就从那时开始了。"
         },
         "14007": {
             "Name": "Dimeritium Shackles",
-            "Info": "Lock a unit. If an enemy, deal 4 damage to it.",
+            "Info": "Toggle a unit's Lock status. If an enemy, deal 4 damage to it.",
             "Flavor": "瑞达尼亚人将巫师的手腕拧到背后，给他戴上镣铐，并使劲晃了晃。特拉诺瓦叫喊挣扎，还弯下腰呕吐呻吟——杰洛特这才明白手铐的材质。"
         },
         "14008": {
@@ -723,17 +723,17 @@
         },
         "14012": {
             "Name": "Lacerate",
-            "Info": "Damage all Units on a row by 3.",
+            "Info": "Damage all units on a row by 3.",
             "Flavor": "那绝对是你前所未见的恐怖场景——可怜的家伙……躺倒在地，任凭怪兽肆意摆布。"
         },
         "14013": {
-            "Name": "Spores",
-            "Info": "Choose one: reset a unit and strengthen it by 3; or reset a unit and weaken it by 3.",
-            "Flavor": "Carried by the wind across the Continent… Sowing madness and blight where they fall. "
+            "Name": "Mardroeme",
+            "Info": "Choose One: Reset a unit and Strengthen it by 3; or Reset a unit and Weaken it by 3.",
+            "Flavor": "Carried by the wind across the Continent… Sowing madness and blight where they fall."
         },
         "14014": {
             "Name": "Shrike",
-            "Info": "Damage up to 6 random Enemies by 2.",
+            "Info": "Damage up to 6 random enemies by 2.",
             "Flavor": "虽对人类致命，但药水的毒性对猎魔人来说却微乎其微。"
         },
         "14015": {
@@ -758,12 +758,12 @@
         },
         "14019": {
             "Name": "Torrential Rain",
-            "Info": "Apply a Hazard to an enemy row that on turn start, deals 1 damage to one strongest unit and one weakest unit.",
+            "Info": "Apply a Hazard to an enemy row that deals 1 damage to both the Highest and Lowest unit on turn start.",
             "Flavor": "这儿连雨都带股尿骚味。"
         },
         "14020": {
             "Name": "Mahakam Ale",
-            "Info": "Deploy: Boost a random Ally on each row by 4.",
+            "Info": "Deploy: Boost a random ally on each row by 4.",
             "Flavor": "无可争议是矮人们对世界文化所作出的最杰出贡献。"
         },
         "14021": {
@@ -788,7 +788,7 @@
         },
         "14001": {
             "Name": "Scout",
-            "Info": "Look at 2 Bronze units in your deck, then play 1.",
+            "Info": "Look at 2 random Bronze units in your deck, then play 1.",
             "Flavor": "如果斥候没有回来，我们就掉头。乡下的人说这些树林里全是松鼠。我指的可不是啃松果的那种。"
         },
         "14025": {
@@ -808,62 +808,62 @@
         },
         "15001": {
             "Name": "Shupe: Knight",
-            "Info": "Send Shupe to the Imperial Court Military Academy. Strengthen yourself to 25; Gain resilience; Dual a unit; Reset a unit; Destroy all enemy units with power less than 4 points.",
+            "Info": "Send Shupe to the Imperial Court Military Academy. Strengthen self to 25; Gain resilience; Duel a unit; Reset a unit; Destroy all enemies with 4 power or less.",
             "Flavor": "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？"
         },
         "15002": {
             "Name": "Shupe: Hunter",
-            "Info": "Send Shupe to the forests of Dol Blathanna. Deal 15 damage; Deal 2 damage to a random enemy 8 times; Replay a bronze or silver unit and give it 5 points; Play a bronze or silver unit from your deck; Remove hazards on your side of the board a give boost your units by 1",
+            "Info": "Send Shupe to the forests of Dol Blathanna. Deal 15 damage; Deal 2 damage to a random enemy 8 times; Replay a Bronze or Silver unit and boost it by 5; Play a Bronze or Silver unit from your deck; Remove Hazards on your side of the board and boost your units by 1.",
             "Flavor": "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？"
         },
         "15003": {
             "Name": "Shupe: Mage",
-            "Info": "Send Shupe to the Ban Ard Academy. Draw 1 card; Charm a random enemy unit; Spawn a random hazard on all opponent's rows; Deal 10 damage to an enemy unit, than 5 damage to adjacent units; Play a special card from your deck.",
+            "Info": "Send Shupe to the Ban Ard Academy. Draw 1 card; Charm a random enemy unit; Spawn a random Hazard on all enemy rows; Deal 10 damage to an enemy, then 5 damage to adjacent units; Play a special card from your deck.",
             "Flavor": "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？"
         },
         "15004": {
             "Name": "Chironex",
-            "Info": "Deploy: Remove 2 strength from all units on the battlefield",
+            "Info": "Deploy: Damage all other units on the battlefield by 2.",
             "Flavor": "“天呐，那根本不是独角兽！那是……”——著名奇珍收藏家崴尔玛的遗言。"
         },
         "15005": {
             "Name": "Artifact",
-            "Info": "No Ability.",
+            "Info": "No ability.",
             "Flavor": "雕像瞬间爆开，颤动不已，犹如一道在地上爬行的烟雾，变换着自己的形状。道道光芒里，有东西上下纷飞，不断成形。片刻之后，魔法圈的正中间突然现出了一道人影。"
         },
         "15006": {
             "Name": "Duda: Agitator",
-            "Info": "Deploy: Deal 2 damage to 2 adjacent units.",
+            "Info": "Deploy: Deal 2 damage to 2 units on each side of this card.",
             "Flavor": "卓尔坦的鹦鹉拥有一项超凡能力：能逼疯所有与它相处的人，包括卓尔坦本人。"
         },
         "15007": {
             "Name": "Duda: Companion",
-            "Info": "Deploy: Boost 2 adjacent units by 2",
+            "Info": "Deploy: Boost 2 units on each side of this card by 2.",
             "Flavor": "它会说一百个词，其中八十个是脏话，剩下的是脏话的语气词。"
         },
         "15008": {
             "Name": "Unicorn",
-            "Info": "Deploy: Add 2 strength to all units on the battlefield",
+            "Info": "Deploy: Boost all other units on the battlefield by 2.",
             "Flavor": "都说独角兽喜欢幼莲。但如今，幼莲跟独角兽一样稀缺，这理论也就难以证明了。"
         },
         "15009": {
             "Name": "Chort",
-            "Info": "No Ability.",
+            "Info": "No ability.",
             "Flavor": "牛牛防卫队的一员。永远忠诚！"
         },
         "15010": {
             "Name": "Elder Bear",
-            "Info": "No Ability.",
+            "Info": "No ability.",
             "Flavor": "去猎熊吧！去抓上一只——这、这只也太大了吧！快跑！！"
         },
         "15011": {
             "Name": "Peasant",
-            "Info": "No Ability.",
+            "Info": "No ability.",
             "Flavor": "瞧，我们是民兵。我们保卫和平"
         },
         "15012": {
             "Name": "Cow",
-            "Info": "No Ability.",
+            "Info": "No ability.",
             "Flavor": "在鲍克兰，什么东西都比其它地方的要棒：酒更甜美，牛儿更肥，而姑娘们则更加动人。"
         },
         "15013": {
