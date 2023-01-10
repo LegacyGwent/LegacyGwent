@@ -2957,8 +2957,8 @@
             "Flavor": ""
         },
         "70038": {
-            "Name": "Siegwald",
-            "Info": "On round end, resurrect to a random row and boost self by 1.",
+            "Name": "Sigvald",
+            "Info": "On turn end, resurrect to a random row and strengthen self by 1.",
             "Flavor": ""
         },
         "70039": {
