@@ -824,7 +824,7 @@ public class EditorInfo : MonoBehaviour
     {
         Debug.Log(deckCode);
         var deck = deckCode.DeCompressToDeck();
-        deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetText("EditorMenu_DefaultDeckname")
+        deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetCardName(deck.Leader.CardInfo().CardId) + " #" + (_clientService.User.Decks.Count + 1)
                                                     : (name.Length >= 20 ? name.Substring(0, 20) : name);
         if (!(deck.IsBasicDeck() || deck.IsSpecialDeck() || deck.IsHalfBasicDeck()))
         {
