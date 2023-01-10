@@ -2838,7 +2838,7 @@
         },
         "70004": {
             "Name": "Glynnis Aep Loernach",
-            "Info": "On round end, if at the top or bottom of the deck, summon it to a random row.",
+            "Info": "On turn end, if at the top or bottom of the deck, summon it to a random row.",
             "Flavor": ""
         },
         "70005": {
