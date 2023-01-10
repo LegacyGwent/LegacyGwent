@@ -849,6 +849,8 @@ public class EditorInfo : MonoBehaviour
     }
     public void OpenDeckCodeInput()
     {
+        DeckCodeInputName.text = "";
+        DeckCodeInputCode.text = "";
         DeckCodeInputBackGround.SetActive(true);
     }
     public async void ConfirmDeckCodeInput()
