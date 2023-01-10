@@ -32,7 +32,7 @@ namespace Cynthia.Card
             if (!(Card.Status.CardRow.IsOnPlace() &&
                 Card.Status.IsCountdown &&
                 @event.PlayedCard.PlayerIndex == PlayerIndex &&
-                @event.PlayedCard.IsAnyGroup(Group.Silver, Group.Copper) &&
+                @event.PlayedCard.IsAnyGroup(Group.Gold, Group.Silver, Group.Copper) &&
                 @event.PlayedCard.CardInfo().CardUseInfo == CardUseInfo.MyRow))
             {
                 return;
