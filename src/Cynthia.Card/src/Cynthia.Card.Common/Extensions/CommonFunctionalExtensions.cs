@@ -23,7 +23,7 @@ namespace Cynthia.Card
             var deckResult = new DeckModel();
             deckResult.Name = blacklist.Name;
             deckResult.Id = blacklist.Id;
-            deckResult.Leader = "12004"; // use geralt as a fake leader
+            deckResult.Leader = "41001"; // use King Radovid V as a fake leader
             deckResult.Deck = blacklist.Blacklist;
             return deckResult;
         }
