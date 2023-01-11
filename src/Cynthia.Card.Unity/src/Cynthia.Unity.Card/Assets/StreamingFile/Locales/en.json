@@ -699,7 +699,7 @@
         "14007": {
             "Name": "Dimeritium Shackles",
             "Info": "Lock a unit. If an enemy, deal 5 damage to it.",
-            "Flavor": "瑞达尼亚人将巫师的手腕拧到背后，给他戴上镣铐，并使劲晃了晃。特拉诺瓦叫喊挣扎，还弯下腰呕吐呻吟——杰洛特这才明白手铐的材质。"
+            "Flavor": "The mage's arms were twisted and bound behind his back. The Redanians gave the fetters a good shake. Terranova cried out, lurched, bent backwards, bowed forward, then retched and groaned. It was clear of what his manacles were made."
         },
         "14008": {
             "Name": "Epidemic",
@@ -2939,7 +2939,7 @@
         "70025": {
             "Name": "Syanna",
             "Info": "4 Armor. Repeat the Deploy ability of the next unit you play on your side of the board.",
-            "Flavor": ""
+            "Flavor": "Your Majesty... The princess has been touched by the curse o' the Black Sun. There's no hope, I'm afraid..."
         },
         "70026": {
             "Name": "Ivo of Belhaven",
@@ -2964,7 +2964,7 @@
         "70038": {
             "Name": "Sigvald",
             "Info": "On turn end, resurrect to a random row and strengthen self by 1.",
-            "Flavor": ""
+            "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
             "Name": "Dire Wolf Claws",
