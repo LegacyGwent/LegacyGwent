@@ -3087,14 +3087,14 @@
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
-            "Name": "EndregaLarva",
-            "Info": "After 3 rounds, at the end of the round, it is converted to 'EndregaWarrior'.",
-            "Flavor": "“十分丰满……也十分危险。”"
+            "Name": "Endrega Larva",
+            "Info": "After 3 turns, at the end of your turn, transform into Endrega Warrior.",
+            "Flavor": "Fat, plump… and bloodthirsty."
         },
         "70108": {
-            "Name": "EndregaWarrior",
-            "Info": "No special skill.",
-            "Flavor": "“在我老家，人们根本不怕什么大灰狼和老巫婆。因为村子外头就是安德莱格的巢穴。”"
+            "Name": "Endrega Warrior",
+            "Info": "No Ability.",
+            "Flavor": "“Where I come from no one was afraid of the Big Bad Wolf or Baba Yaga. Instead, we had an Endrega nest in the shrubs beyond the village.”"
         },
         "70109": {
             "Name": "DwarvenChariot",
