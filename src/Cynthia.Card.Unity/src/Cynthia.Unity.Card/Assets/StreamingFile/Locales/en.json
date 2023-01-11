@@ -2951,6 +2951,11 @@
             "Info": "Deploy: Replay a silver/bronze loyal unit from your opponent's side of the board and then move it back to opponent's side of the board",
             "Flavor": ""
         },
+        "70032": {
+            "Name": "Gascon",
+            "Info": "Deploy: Move all units to a random other row and damage self by 2 for each unit moved.\n\nWhen in your hand or deck, boost self by 1 whenever a unit moves during your turn.",
+            "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
+        },
         "70033": {
             "Name": "War Elephant",
             "Info": "Deploy: Destroy the armor of all units in placed row and damage a unit by the value of armor destroyed.",
