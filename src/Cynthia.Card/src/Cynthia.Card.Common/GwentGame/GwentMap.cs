@@ -11080,7 +11080,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70025",
                     Name = "席安娜",
-                    Strength = 6,
+                    Strength = 8,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11089,7 +11089,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = true,
                     IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Soldier},
+                    Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "陛下……公主中的乃是暗日诅咒。只怕，无方可解……",
                     Info = "4护甲。力竭。使你的下一张银色/铜色忠诚单位牌额外触发一次部署效果。",
                     CardArtsId = "d13680000",
