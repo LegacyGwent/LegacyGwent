@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 49);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 50);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11740,6 +11740,26 @@ namespace Cynthia.Card
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
                     Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
                     CardArtsId = "d19410000",
+                }
+            },
+            {
+                "70110",//Knickers
+                new GwentCard()
+                {
+                    CardId = "70110",
+                    Name = "Knickers",
+                    Strength = 4,
+                    Group = Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Beast },
+                    Flavor = "Leave it alone, Knickers! Damn it, leave it alone!",
+                    Info = "This unit may raid the battlefield to aid you in battle.",
+                    CardArtsId = "d16840000",
                 }
             },
 

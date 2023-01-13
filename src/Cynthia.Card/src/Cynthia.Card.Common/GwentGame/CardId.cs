@@ -549,6 +549,7 @@ namespace Cynthia.Card
         public const string EndregaLarva = "70107";
         public const string EndregaWarrior = "70108";
         public const string DwarvenChariot = "70109";
+        public const string Knickers = "70110";
 
 
         public const string LivingArmor = "70062";
