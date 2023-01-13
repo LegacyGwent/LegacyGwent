@@ -15,11 +15,15 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            if (!Game.PlayersDeck[PlayerIndex].TryMessOne(out var swapDeckCard, Game.RNG))
-            {
-                return 0;
-            }
-            await swapHandCard.Effect.Swap(swapDeckCard);
+            
+            // if (!Game.PlayersDeck[PlayerIndex].TryMessOne(out var swapDeckCard, Game.RNG))
+            // {
+            //     return 0;
+            // }
+            // await swapHandCard.Effect.Swap(swapDeckCard);
+
+            await swapHandCard.Effect.SwapWithDeck();
+
             return 0;
         }
     }
