@@ -851,6 +851,13 @@ namespace Cynthia.Card
 
         public virtual async Task SwapWithDeck()
         {
+            if (!Card.Status.CardRow.IsInHand())
+            {
+                return;
+            }
+            
+            Card.Status.IsReveal = false;
+
             // put the card to the deck
             await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1)), Card);
             await Game.SendEvent(new AfterCardSwap(Card));
