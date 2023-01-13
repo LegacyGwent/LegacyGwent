@@ -548,8 +548,8 @@
         },
         "13020": {
             "Name": "Dorregaray of Vole",
-            "Info": "Deploy: Spawn a Savage Bear, Wyvern, Ekimmara or Drowner.",
-            "Flavor": "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。"
+            "Info": "Deploy: Spawn a Savage Bear, Wyvern, Barbegazi or Drowner.",
+            "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
         },
         "13021": {
             "Name": "Dudu",
@@ -3098,8 +3098,8 @@
         },
         "130200": {
             "Name": "Dorregaray of Vole: Promoted",
-            "Info": "Deploy: Spawn a promoted version of Savage Bear, Wyvern, Ekimmara or Drowner.",
-            "Flavor": "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。"
+            "Info": "Deploy: Spawn a promoted version of Savage Bear, Wyvern, Barbegazi or Drowner.",
+            "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
         },
         "130180": {
             "Name": "Vaedermakar: Promoted",
