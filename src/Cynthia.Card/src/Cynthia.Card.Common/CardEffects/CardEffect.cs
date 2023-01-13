@@ -849,6 +849,23 @@ namespace Cynthia.Card
             await GetDeckSwapCard(target);
         }
 
+        public virtual async Task SwapWithDeck()
+        {
+            // put the card to the deck
+            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1)), Card);
+            await Game.SendEvent(new AfterCardSwap(Card));
+
+            // try to select a card from the new deck (example card could have come out from the deck)
+            if (!Game.PlayersDeck[PlayerIndex].TryMessOne(out var swapDeckCard, Game.RNG))
+            {
+                return;
+            }
+
+            // pull the selected card from the deck
+            await Game.PlayerDrawCard(Card.PlayerIndex, filter: x => x == swapDeckCard);
+            await Game.SendEvent(new AfterDrawSwapCard(swapDeckCard));
+        }
+
         public virtual async Task GetDeckSwapCard(GameCard target)
         {
             await Game.PlayerDrawCard(Card.PlayerIndex, filter: x => x == target);
