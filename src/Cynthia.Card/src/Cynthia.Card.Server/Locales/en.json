@@ -548,8 +548,8 @@
         },
         "13020": {
             "Name": "Dorregaray of Vole",
-            "Info": "Deploy: Spawn a Savage Bear, Wyvern, Ekimmara or Drowner.",
-            "Flavor": "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。"
+            "Info": "Deploy: Spawn a Savage Bear, Wyvern, Barbegazi or Drowner.",
+            "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
         },
         "13021": {
             "Name": "Dudu",
@@ -698,8 +698,8 @@
         },
         "14007": {
             "Name": "Dimeritium Shackles",
-            "Info": "Toggle a unit's Lock status. If an enemy, deal 4 damage to it.",
-            "Flavor": "瑞达尼亚人将巫师的手腕拧到背后，给他戴上镣铐，并使劲晃了晃。特拉诺瓦叫喊挣扎，还弯下腰呕吐呻吟——杰洛特这才明白手铐的材质。"
+            "Info": "Toggle a unit's Lock status. If an enemy, deal 5 damage to it.",
+            "Flavor": "The mage's arms were twisted and bound behind his back. The Redanians gave the fetters a good shake. Terranova cried out, lurched, bent backwards, bowed forward, then retched and groaned. It was clear of what his manacles were made."
         },
         "14008": {
             "Name": "Epidemic",
@@ -1117,9 +1117,9 @@
             "Flavor": "有人说，如果被狼人咬了，那么你就会被感染，也变成狼人。当然，猎魔人都知道这是胡说八道。只有强大的诅咒才能造成这种效果。"
         },
         "24008": {
-            "Name": "狮鹫",
+            "Name": "Griffin",
             "Info": "Deploy: Trigger the Deathwish of a Bronze Ally.",
-            "Flavor": "狮鹫喜欢玩弄自己的猎物，将其一点一点地活生生啄食吞咽。"
+            "Flavor": "Griffins like to toy with their prey. Eat 'em alive, piece by piece."
         },
         "24009": {
             "Name": "Nekker Warrior",
@@ -2838,7 +2838,7 @@
         },
         "70004": {
             "Name": "Glynnis Aep Loernach",
-            "Info": "On round end, if at the top or bottom of the deck, summon it to a random row.",
+            "Info": "On turn end, if at the top or bottom of the deck, summon it to a random row.",
             "Flavor": ""
         },
         "70005": {
@@ -2939,7 +2939,7 @@
         "70025": {
             "Name": "Syanna",
             "Info": "4 Armor. Repeat the Deploy ability of the next bronze or sliver loyal unit you play.",
-            "Flavor": ""
+            "Flavor": "Your Majesty... The princess has been touched by the curse o' the Black Sun. There's no hope, I'm afraid..."
         },
         "70026": {
             "Name": "Ivo of Belhaven",
@@ -2951,15 +2951,20 @@
             "Info": "Deploy: Replay a silver/bronze loyal unit from your opponent's side of the board and then move it back to opponent's side of the board",
             "Flavor": ""
         },
+        "70032": {
+            "Name": "Gascon",
+            "Info": "Deploy: Move all units to a random other row and damage self by 2 for each unit moved.\n\nWhen in your hand or deck, boost self by 1 whenever a unit moves during your turn.",
+            "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
+        },
         "70033": {
             "Name": "War Elephant",
             "Info": "Deploy: Destroy the armor of all units in placed row and damage a unit by the value of armor destroyed.",
             "Flavor": ""
         },
         "70038": {
-            "Name": "Siegwald",
-            "Info": "On round end, resurrect to a random row and boost self by 1.",
-            "Flavor": ""
+            "Name": "Sigvald",
+            "Info": "On turn end, resurrect to a random row and strengthen self by 1.",
+            "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
             "Name": "Dire Wolf Claws",
@@ -3077,19 +3082,19 @@
             "Flavor": "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”"
         },
         "70106": {
-            "Name": "EndregaEggs",
-            "Info": "Generate 2 original nameplates on the left.Deathwish：Generate 1 EndregaLarva in the same row.After 3 rounds, destroy yourself at the end of the round.",
-            "Flavor": "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”"
+            "Name": "Endrega Eggs",
+            "Info": "Deploy: Spawn 2 base copies on the left.\n\nDeathwish: Spawn an Endrega Larva in this row.\n\nAfter 3 turns, at the end of your turn, destroy self.",
+            "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
-            "Name": "EndregaLarva",
-            "Info": "After 3 rounds, at the end of the round, it is converted to 'EndregaWarrior'.",
-            "Flavor": "“十分丰满……也十分危险。”"
+            "Name": "Endrega Larva",
+            "Info": "After 3 turns, at the end of your turn, transform into Endrega Warrior.",
+            "Flavor": "Fat, plump… and bloodthirsty."
         },
         "70108": {
-            "Name": "EndregaWarrior",
-            "Info": "No special skill.",
-            "Flavor": "“在我老家，人们根本不怕什么大灰狼和老巫婆。因为村子外头就是安德莱格的巢穴。”"
+            "Name": "Endrega Warrior",
+            "Info": "No Ability.",
+            "Flavor": "“Where I come from no one was afraid of the Big Bad Wolf or Baba Yaga. Instead, we had an Endrega nest in the shrubs beyond the village.”"
         },
         "70109": {
             "Name": "DwarvenChariot",
@@ -3108,8 +3113,8 @@
         },
         "130200": {
             "Name": "Dorregaray of Vole: Promoted",
-            "Info": "Deploy: Spawn a promoted version of Savage Bear, Wyvern, Ekimmara or Drowner.",
-            "Flavor": "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。"
+            "Info": "Deploy: Spawn a promoted version of Savage Bear, Wyvern, Barbegazi or Drowner.",
+            "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
         },
         "130180": {
             "Name": "Vaedermakar: Promoted",
