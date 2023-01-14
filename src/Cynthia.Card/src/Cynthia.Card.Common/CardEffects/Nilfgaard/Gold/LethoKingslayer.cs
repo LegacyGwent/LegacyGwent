@@ -21,7 +21,7 @@ namespace Cynthia.Card
             if (switchCard == 0)
             {
                 //1的效果
-                var target = await Game.GetSelectPlaceCards(Card, filter: x => x.Status.Group == Group.Leader);
+                var target = await Game.GetSelectPlaceCards(Card, filter: x => x.Status.Group == Group.Leader && x.PlayerIndex != Card.PlayerIndex);
                 if (target.Count == 0) return 0;
                 await target.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
                 await Boost(5, Card);
