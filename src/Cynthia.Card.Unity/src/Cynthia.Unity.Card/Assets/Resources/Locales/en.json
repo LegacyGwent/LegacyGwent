@@ -453,7 +453,7 @@
         },
         "13003": {
             "Name": "Sarah",
-            "Info": "Deploy: Swap a card for one of the same color.",
+            "Info": "Deploy: Swap a card for a different one of the same color.",
             "Flavor": "来陪小莎拉玩游戏吧！"
         },
         "13004": {
@@ -3203,7 +3203,7 @@
         },
         "130030": {
             "Name": "Sarah: Promoted",
-            "Info": "Deploy: Swap 3 cards for ones of the same color.",
+            "Info": "Deploy: Swap 3 cards for different ones of the same color.",
             "Flavor": "来陪小莎拉玩游戏吧！"
         },
         "130040": {
