@@ -1,7 +1,6 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Alsein.Extensions;
-using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
@@ -20,17 +19,31 @@ namespace Cynthia.Card
             }
             var selectList = Game.PlayersHandCard[PlayerIndex].ToList();
             var handresult = await Game.GetSelectMenuCards(PlayerIndex, selectList, 2, "选择交换张牌", isCanOver: true);
-            int swapnum = handresult.ToList().Count();
+            int swapnum = handresult.Count();
             if (swapnum == 0)
             {
                 return 0;
             }
-            foreach (var card in handresult)
-            {
-                await card.Effect.Swap();
+
+            // pre-select swapnum cards from deck
+            if(!Game.PlayersDeck[PlayerIndex].TryMessN(out var cardsFromDeck, Game.RNG, swapnum)) {
+                return 0;
             }
-            await Game.PlayerDrawCard(Card.PlayerIndex, swapnum);
+
+            // swap cards based on the min cards between deck and swapnum
+            for (int i = 0; i < Math.Min(swapnum, cardsFromDeck.Count()); i++)
+            {
+                await handresult[i].Effect.Swap(cardsFromDeck.ElementAt(i));
+            }
+
             return 0;
+            
+            // foreach (var card in handresult)
+            // {
+            //     await card.Effect.Swap();
+            // }
+            // await Game.PlayerDrawCard(Card.PlayerIndex, swapnum);
+            // return 0;
 
 
 

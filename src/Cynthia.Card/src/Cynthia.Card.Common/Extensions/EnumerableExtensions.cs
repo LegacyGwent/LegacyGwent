@@ -30,6 +30,11 @@ namespace Cynthia.Card
             result = items.Mess(rng).FirstOrDefault();
             return result == null ? false : true;
         }
+        public static bool TryMessN<T>(this IEnumerable<T> items, out IEnumerable<T> result, Random rng, int count)
+        {
+            result = items.Mess(rng).Take(count).DefaultIfEmpty();
+            return result == null ? false : true;
+        }
         public static string ToJson(this object obj)
         {
             return JsonConvert.SerializeObject(obj);
