@@ -121,6 +121,34 @@ namespace Cynthia.Card.Server
             return result;
         }
 
+        public bool JoinViewList(string connectionId, string roomId)
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.UserState != UserState.Standby)
+                return false;
+            if (!_gwentMatchs.JoinViewList(user, roomId))
+                return false;
+            user.UserState = UserState.Viewing;
+            InovkeUserChanged();
+            return true;
+        }
+
+        public bool LeaveViewList(string connectionId, string roomId)
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.UserState != UserState.Viewing)
+                return false;
+            if (!_gwentMatchs.LeaveViewList(user, roomId))
+                return false;
+            user.UserState = UserState.Standby;
+            InovkeUserChanged();
+            return true;
+        }
+
         public bool AddDeck(string connectionId, DeckModel deck)
         {
             //添加卡组

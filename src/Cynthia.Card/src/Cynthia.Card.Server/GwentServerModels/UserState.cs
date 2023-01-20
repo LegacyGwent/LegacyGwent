@@ -7,5 +7,6 @@ namespace Cynthia.Card.Server
         PasswordMatch,
         Play,
         PlayWithAI,
+        Viewing
     }
 }

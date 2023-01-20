@@ -43,6 +43,7 @@ namespace Cynthia.Card.Server
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
         public int Player1Index { get; } = 0;
         public int Player2Index { get; } = 1;
+        public IList<Viewer> ViewList { get; set; } = new List<Viewer>();
         public (int? PlayerIndex, int HPoint) WhoHeight
         {
             get
@@ -1685,6 +1686,36 @@ namespace Cynthia.Card.Server
         public Task AddTask(params Func<Task>[] task)
         {
             return OperactionList.AddLast(task);
+        }
+
+        public bool JoinViewList(Viewer viewer)
+        {
+            if (ViewList.All(x => x.CurrentUser.UserName != viewer.CurrentUser.UserName))
+            {
+                ViewList.Add(viewer);
+                foreach (var player in Players)
+                {
+                    player.Receive += viewer.AddOperation;
+                }
+                _ = SetAllInfo();
+                return true;
+            }
+            return false;
+        }
+
+        public bool LeaveViewList(User user)
+        {
+            var found = ViewList.FirstOrDefault(x => x.CurrentUser.UserName == user.UserName);
+            if (found != null)
+            {
+                foreach (var player in Players)
+                {
+                    player.Receive -= found.AddOperation;
+                }
+                ViewList.Remove(found);
+                return true;
+            }
+            return false;
         }
     }
 }

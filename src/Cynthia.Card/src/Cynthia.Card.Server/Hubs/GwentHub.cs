@@ -56,6 +56,10 @@ namespace Cynthia.Card.Server
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
         public bool Surrender() => _gwentServerService.Surrender(Context.ConnectionId); // 投降
 
+        public bool JoinViewList(string roomId) => _gwentServerService.JoinViewList(Context.ConnectionId, roomId);
+
+        public bool LeaveViewList(string roomId) => _gwentServerService.LeaveViewList(Context.ConnectionId, roomId);
+
         public string GetCardMapVersion()
         {
             return GwentMap.CardMapVersion.ToString();
