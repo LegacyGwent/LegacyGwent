@@ -305,7 +305,7 @@ namespace Cynthia.Card.Server
                         return room.CurrentGame.LeaveViewList(user);
                     }
                 }
-                return false;
+                return true;
             }
 
             foreach (var room in GwentRooms)
@@ -315,7 +315,7 @@ namespace Cynthia.Card.Server
                     return room.CurrentGame.LeaveViewList(user);
                 }
             }
-            return false;
+            return true;
         }
     }
 }

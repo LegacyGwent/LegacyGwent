@@ -21,7 +21,6 @@ namespace Cynthia.Card.Server
             Player1 = player;
             Password = password;
             RoomId = Guid.NewGuid().ToString();
-            Console.WriteLine("Created Room:" + RoomId);
         }
         public bool AddPlayer(Player player)
         {
