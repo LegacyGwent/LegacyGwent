@@ -135,7 +135,7 @@ namespace Cynthia.Card.Server
             return true;
         }
 
-        public bool LeaveViewList(string connectionId, string roomId)
+        public bool LeaveViewList(string connectionId, string roomId = "")
         {
             if (!_users.ContainsKey(connectionId))
                 return false;
@@ -227,6 +227,10 @@ namespace Cynthia.Card.Server
             if (_users[connectionId].UserState == UserState.Play || _users[connectionId].UserState == UserState.PlayWithAI)//如果用户正在进行对局
             {
                 _gwentMatchs.PlayerLeave(connectionId, exception);
+            }
+            if (_users[connectionId].UserState == UserState.Viewing)//如果用户正在观战
+            {
+                _gwentMatchs.LeaveViewList(_users[connectionId], "");
             }
             _users.Remove(connectionId);
             InovkeUserChanged();

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
@@ -295,6 +296,18 @@ namespace Cynthia.Card.Server
 
         public bool LeaveViewList(User user, string roomId)
         {
+            if (roomId == "")
+            {
+                foreach (var room in GwentRooms)
+                {
+                    if (room.IsReady && room.CurrentGame.ViewList.Any(x => x.CurrentUser.ConnectionId == user.ConnectionId))
+                    {
+                        return room.CurrentGame.LeaveViewList(user);
+                    }
+                }
+                return false;
+            }
+
             foreach (var room in GwentRooms)
             {
                 if (room.RoomId == roomId && room.IsReady)

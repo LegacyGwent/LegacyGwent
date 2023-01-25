@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Cynthia.Card.Server
 {
-    public class Viewer
+    public class Viewer : Player
     {
         public User CurrentUser { get; set; }
         public IList<object> OperationList { get; set; }
@@ -18,6 +18,7 @@ namespace Cynthia.Card.Server
             CurrentUser = user;
             OperationList = new List<object>();
             Hub = hub;
+            Receive += AddOperation;
         }
 
         public async Task AddOperation(TubeReceiveEventArgs op)
@@ -26,11 +27,7 @@ namespace Cynthia.Card.Server
             {
                 OperationList.Add(op.Result);
             }
-            if (OperationList.Count > 50)
-            {
-                await SendOperationList();
-            }
-            await Task.CompletedTask;
+            await SendOperationList();
         }
 
         public async Task SendOperationList()
@@ -44,5 +41,10 @@ namespace Cynthia.Card.Server
             }
             await Hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("ViewerGameOperation", tempList);
         }
+
+        public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
+        public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));
+        public new Task<Operation<ServerOperationType>> ReceiveAsync() => _downstream.ReceiveAsync<Operation<ServerOperationType>>();
+        public new event Func<TubeReceiveEventArgs, Task> Receive { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }
     }
 }

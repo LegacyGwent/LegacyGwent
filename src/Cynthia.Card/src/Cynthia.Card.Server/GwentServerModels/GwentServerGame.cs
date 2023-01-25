@@ -1695,9 +1695,17 @@ namespace Cynthia.Card.Server
                 ViewList.Add(viewer);
                 foreach (var player in Players)
                 {
-                    player.Receive += viewer.AddOperation;
+                    if (player is ClientPlayer)
+                    {
+                        ((ClientPlayer)player).Receive += viewer.AddOperation;
+                    }
+                    if (player is AIPlayer)
+                    {
+                        ((AIPlayer)player).Receive += viewer.AddOperation;
+                    }
                 }
-                _ = SetAllInfo();
+                _ = viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
+                _ = viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
                 return true;
             }
             return false;
@@ -1705,14 +1713,21 @@ namespace Cynthia.Card.Server
 
         public bool LeaveViewList(User user)
         {
-            var found = ViewList.FirstOrDefault(x => x.CurrentUser.UserName == user.UserName);
-            if (found != null)
+            var viewer = ViewList.FirstOrDefault(x => x.CurrentUser.UserName == user.UserName);
+            if (viewer != null)
             {
                 foreach (var player in Players)
                 {
-                    player.Receive -= found.AddOperation;
+                    if (player is ClientPlayer)
+                    {
+                        ((ClientPlayer)player).Receive -= viewer.AddOperation;
+                    }
+                    if (player is AIPlayer)
+                    {
+                        ((AIPlayer)player).Receive -= viewer.AddOperation;
+                    }
                 }
-                ViewList.Remove(found);
+                ViewList.Remove(viewer);
                 return true;
             }
             return false;
