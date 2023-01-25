@@ -53,7 +53,7 @@ namespace Cynthia.Card.Client
             Debug.Log("运行开始");
             while (
                 await ResponseOperations(
-                    await _player.ReceiveAsync()
+                    await _player.ReceiveAsync(), ClientGlobalInfo.ViewingRoomId != ""
                 )
             ) ;
             // });
@@ -61,7 +61,7 @@ namespace Cynthia.Card.Client
         }
         //-----------------------------------------------------------------------
         //响应指令
-        private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations)
+        private async Task<bool> ResponseOperations(IList<Operation<ServerOperationType>> operations, bool isViewer = false)
         {
             Debug.Log($"收到了一个集合指令,其中包含{operations.Count}个指令,Id:{_id}");
             foreach (var operation in operations)
@@ -71,17 +71,43 @@ namespace Cynthia.Card.Client
             foreach (var operation in operations)
             {
                 // Debug.Log($"执行了指令{operaction.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
-                if (!await ResponseOperation(operation))
+                if (!await ResponseOperation(operation, isViewer))
+                {
                     return false;
+                }
             }
             Debug.Log($"处理完毕");
             return true;
         }
 
-        private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation)
+        private async Task<bool> ResponseOperation(Operation<ServerOperationType> operation, bool isViewer = false)
         {
             Debug.Log(DateTime.Now.ToString("h:mm:ss tt") + $" 开始处理指令{operation.OperationType}");
             var arguments = operation.Arguments.ToArray();
+            if (!isViewer)
+            {
+                switch (operation.OperationType)
+                {
+                    case ServerOperationType.SelectMenuCards:
+                        GameCodeService.SelectMenuCards(arguments[0].ToType<MenuSelectCardInfo>(), _player);
+                        return true;
+                    case ServerOperationType.SelectPlaceCards:
+                        GameCodeService.SelectPlaceCards(arguments[0].ToType<PlaceSelectCardsInfo>(), _player);
+                        return true;
+                    case ServerOperationType.SelectRow:
+                        GameCodeService.SelectRow(arguments[0].ToType<CardLocation>(), arguments[1].ToType<IList<RowPosition>>(), _player);
+                        return true;
+                    case ServerOperationType.PlayCard:
+                        GameCodeService.PlayCard(arguments[0].ToType<CardLocation>(), _player);
+                        return true;
+                    case ServerOperationType.GetMulliganInfo:
+                        GameCodeService.GetMulliganInfo(_player);
+                        return true;
+                    case ServerOperationType.GetDragOrPass:
+                        GameCodeService.GetPlayerDrag(_player);
+                        return true;
+                }
+            }
             switch (operation.OperationType)
             {
                 case ServerOperationType.GameStart:
@@ -89,24 +115,6 @@ namespace Cynthia.Card.Client
                     break;
                 //----------------------------------------------------------------------------------
                 //新指令
-                case ServerOperationType.SelectMenuCards:
-                    GameCodeService.SelectMenuCards(arguments[0].ToType<MenuSelectCardInfo>(), _player);
-                    break;
-                case ServerOperationType.SelectPlaceCards:
-                    GameCodeService.SelectPlaceCards(arguments[0].ToType<PlaceSelectCardsInfo>(), _player);
-                    break;
-                case ServerOperationType.SelectRow:
-                    GameCodeService.SelectRow(arguments[0].ToType<CardLocation>(), arguments[1].ToType<IList<RowPosition>>(), _player);
-                    break;
-                case ServerOperationType.PlayCard:
-                    GameCodeService.PlayCard(arguments[0].ToType<CardLocation>(), _player);
-                    break;
-                case ServerOperationType.GetMulliganInfo:
-                    GameCodeService.GetMulliganInfo(_player);
-                    break;
-                case ServerOperationType.GetDragOrPass:
-                    GameCodeService.GetPlayerDrag(_player);
-                    break;
                 case ServerOperationType.ClientDelay:
                     var dTime = arguments[0].ToType<int>();
                     Debug.Log($"延迟触发,延迟时常:{dTime}");

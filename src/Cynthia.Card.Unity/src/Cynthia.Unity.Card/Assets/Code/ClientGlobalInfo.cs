@@ -10,6 +10,9 @@ public static class ClientGlobalInfo
     public static bool IsPreviousRankMatch = false;
 
     public static bool IsLoadGlobal = false;
+
+    public static string ViewingRoomId { get; set; } = "";
+
     public static string DefaultDeckId
     {
         get => _defaultDeckId;
