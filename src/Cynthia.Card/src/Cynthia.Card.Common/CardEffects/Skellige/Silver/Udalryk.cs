@@ -19,6 +19,7 @@ namespace Cynthia.Card
             }
 
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             //参考盖尔的写法,随机从我方卡组中选两张卡
             var card1 = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).FirstOrDefault();
             var card2 = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).FirstOrDefault(x => x != card1);

@@ -549,10 +549,9 @@ namespace Cynthia.Card
         public const string EndregaLarva = "70107";
         public const string EndregaWarrior = "70108";
         public const string DwarvenChariot = "70109";
-
-
+        public const string MadCharge = "70050";
         public const string LivingArmor = "70062";
-        public const string Oneiromancy = "70091";
+        public const string MagicLamp = "70091";
         public const string Highwaymen = "70070";
         public const string StraysofSpalla = "70071";
         public const string Radeyah = "70072";

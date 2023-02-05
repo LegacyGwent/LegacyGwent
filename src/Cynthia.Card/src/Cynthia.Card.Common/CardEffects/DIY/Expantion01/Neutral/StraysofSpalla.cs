@@ -16,6 +16,7 @@ namespace Cynthia.Card
                 return 0;
             }
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             //打乱己方卡组,并且取2张铜色非同名单位牌
             var list = Game.PlayersDeck[Card.PlayerIndex]
             .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.CardInfo().CardId != Card.CardInfo().CardId).Mess(RNG).Take(2);

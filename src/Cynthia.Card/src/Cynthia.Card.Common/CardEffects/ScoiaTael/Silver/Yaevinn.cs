@@ -24,7 +24,7 @@ namespace Cynthia.Card
             }
 
             isUse = true;
-
+            await Card.Effect.SetCountdown(offset: -1);
             var card1 = Game.PlayersDeck[AnotherPlayer].FilterCards(type: CardType.Special).Mess(Game.RNG)
                 .FirstOrDefault();
             var card2 = Game.PlayersDeck[AnotherPlayer].FilterCards(type: CardType.Unit).Mess(Game.RNG)

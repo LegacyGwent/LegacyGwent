@@ -16,6 +16,7 @@ namespace Cynthia.Card
                 return 0;
             }
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             await Game.CreateCard(CardId.StraysofSpalla, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
             for (var i = 0; i < 2; i++)
             {
