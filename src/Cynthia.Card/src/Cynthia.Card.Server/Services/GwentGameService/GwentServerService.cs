@@ -121,6 +121,34 @@ namespace Cynthia.Card.Server
             return result;
         }
 
+        public bool JoinViewList(string connectionId, string roomId)
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.UserState != UserState.Standby)
+                return false;
+            if (!_gwentMatchs.JoinViewList(user, roomId))
+                return false;
+            user.UserState = UserState.Viewing;
+            InovkeUserChanged();
+            return true;
+        }
+
+        public bool LeaveViewList(string connectionId, string roomId = "")
+        {
+            if (!_users.ContainsKey(connectionId))
+                return false;
+            var user = _users[connectionId];
+            if (user.UserState != UserState.Viewing)
+                return false;
+            if (!_gwentMatchs.LeaveViewList(user, roomId))
+                return false;
+            user.UserState = UserState.Standby;
+            InovkeUserChanged();
+            return true;
+        }
+
         public bool AddDeck(string connectionId, DeckModel deck)
         {
             //添加卡组
@@ -199,6 +227,10 @@ namespace Cynthia.Card.Server
             if (_users[connectionId].UserState == UserState.Play || _users[connectionId].UserState == UserState.PlayWithAI)//如果用户正在进行对局
             {
                 _gwentMatchs.PlayerLeave(connectionId, exception);
+            }
+            if (_users[connectionId].UserState == UserState.Viewing)//如果用户正在观战
+            {
+                _gwentMatchs.LeaveViewList(_users[connectionId], "");
             }
             _users.Remove(connectionId);
             InovkeUserChanged();
@@ -376,6 +408,13 @@ may come back in the future.
         {
             var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
             var aiList = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play && x.UserState != UserState.PlayWithAI).GroupBy(x => x.UserState).ToList(), list, aiList);
+        }
+
+        public (IList<IGrouping<UserState, User>>, IList<(string, string, string)>, IList<(string, string, string)>) GetUsersWithRoomId()
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName, x.RoomId)).ToList();
+            var aiList = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName, x.RoomId)).ToList();
             return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play && x.UserState != UserState.PlayWithAI).GroupBy(x => x.UserState).ToList(), list, aiList);
         }
 

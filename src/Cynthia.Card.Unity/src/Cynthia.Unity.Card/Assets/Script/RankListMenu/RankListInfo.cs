@@ -3,7 +3,7 @@ using UnityEngine;
 using Autofac;
 using Cynthia.Card.Client;
 using System;
-using Assets.Script.Localization;
+
 public class RankListInfo : MonoBehaviour
 {
     public GameObject RankListUI;

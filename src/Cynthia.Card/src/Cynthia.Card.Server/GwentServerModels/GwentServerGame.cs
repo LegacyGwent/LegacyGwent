@@ -43,6 +43,11 @@ namespace Cynthia.Card.Server
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
         public int Player1Index { get; } = 0;
         public int Player2Index { get; } = 1;
+        public IList<Viewer> ViewList { get; set; } = new List<Viewer>();
+        public IList<Operation<ServerOperationType>>[] PlayerToResendToViewerInfo { get; set; } = new IList<Operation<ServerOperationType>>[2]
+        {
+            new List<Operation<ServerOperationType>>(), new List<Operation<ServerOperationType>>()
+        };
         public (int? PlayerIndex, int HPoint) WhoHeight
         {
             get
@@ -472,7 +477,9 @@ namespace Cynthia.Card.Server
         {
             if (PlayersDeck[playerIndex].Count <= 0)
                 return;
-            await Players[playerIndex].SendAsync(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status), count);
+            var mulliganStartOperation = Operation.Create(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status), count);
+            await Players[playerIndex].SendAsync(mulliganStartOperation);
+            PlayerToResendToViewerInfo[playerIndex].Add(mulliganStartOperation);
             IsPlayersMulligan[playerIndex] = true;
             await SetMulliganInfo();
             var backList = new List<string>();
@@ -480,6 +487,7 @@ namespace Cynthia.Card.Server
             for (var i = 0; i < count; i++)
             {
                 await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
+                PlayerToResendToViewerInfo[playerIndex].Add(Operation.Create(ServerOperationType.GetMulliganInfo));
                 var result = await ReceiveAsync(playerIndex);
                 var mulliganCardIndex = result.Arguments.ToArray()[0].ToType<int>();
                 if (mulliganCardIndex == -1)
@@ -533,7 +541,9 @@ namespace Cynthia.Card.Server
                 var card = (await LogicCardMove(PlayersDeck[playerIndex][0], PlayersHandCard[playerIndex], mulliganCardIndex, autoUpdateDeck: false));
                 await SendEvent(new AfterMulliganDraw(card));
                 //----------------------------------------------------------------------
-                await Players[playerIndex].SendAsync(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
+                var mulliganDataOperation = Operation.Create(ServerOperationType.MulliganData, mulliganCardIndex, card.Status);
+                await Players[playerIndex].SendAsync(mulliganDataOperation);
+                PlayerToResendToViewerInfo[playerIndex].Add(mulliganDataOperation);
                 //每次调度
                 //立刻推送消息
                 await SendOperactionList();
@@ -550,11 +560,13 @@ namespace Cynthia.Card.Server
             //++++++++++++++++++++++++++++++++++++++++
             await ClientDelay(500, playerIndex);
             await Players[playerIndex].SendAsync(ServerOperationType.MulliganEnd);
+            PlayerToResendToViewerInfo[playerIndex].Add(Operation.Create(ServerOperationType.MulliganEnd));
             IsPlayersMulligan[playerIndex] = false;
             await SetMulliganInfo();
             await SetDeckInfo(playerIndex);
             //调度结束立刻推送消息
             await SendOperactionList();
+            PlayerToResendToViewerInfo[playerIndex].Clear();
         }
         //----------------------------------------------------------------------------------------------------------------------
         //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -593,7 +605,10 @@ namespace Cynthia.Card.Server
                 return new List<int>();
             }
             await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
-            return (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<IList<int>>();
+            PlayerToResendToViewerInfo[playerIndex].Add(Operation.Create(ServerOperationType.SelectMenuCards, info));
+            var selected = (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<IList<int>>();
+            PlayerToResendToViewerInfo[playerIndex].Clear();
+            return selected;
         }
         public async Task<IList<CardLocation>> GetSelectPlaceCards(int playerIndex, PlaceSelectCardsInfo info)//指示器向边缘扩展格数
         {
@@ -1685,6 +1700,55 @@ namespace Cynthia.Card.Server
         public Task AddTask(params Func<Task>[] task)
         {
             return OperactionList.AddLast(task);
+        }
+
+        public bool JoinViewList(Viewer viewer)
+        {
+            if (ViewList.All(x => x.CurrentUser.UserName != viewer.CurrentUser.UserName))
+            {
+                ViewList.Add(viewer);
+                var player = Players[0];
+                if (player is ClientPlayer)
+                {
+                    ((ClientPlayer)player).Receive += viewer.AddOperation;
+                }
+                if (player is AIPlayer)
+                {
+                    ((AIPlayer)player).Receive += viewer.AddOperation;
+                }
+
+                var task = viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1)).ContinueWith(async x =>
+                {
+                    // send PlayerToResendToViewerInfo[0]
+                    foreach (var op in PlayerToResendToViewerInfo[0])
+                    {
+                        await viewer.SendAsync(op);
+                    }
+                });
+
+                return true;
+            }
+            return false;
+        }
+
+        public bool LeaveViewList(User user)
+        {
+            var viewer = ViewList.FirstOrDefault(x => x.CurrentUser.UserName == user.UserName);
+            if (viewer != null)
+            {
+                var player = Players[0];
+                if (player is ClientPlayer)
+                {
+                    ((ClientPlayer)player).Receive -= viewer.AddOperation;
+                }
+                if (player is AIPlayer)
+                {
+                    ((AIPlayer)player).Receive -= viewer.AddOperation;
+                }
+                ViewList.Remove(viewer);
+                return true;
+            }
+            return false;
         }
     }
 }

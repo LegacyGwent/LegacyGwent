@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
+using System.Linq;
 
 namespace Cynthia.Card.Server
 {
@@ -56,6 +56,10 @@ namespace Cynthia.Card.Server
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
         public bool Surrender() => _gwentServerService.Surrender(Context.ConnectionId); // 投降
 
+        public bool JoinViewList(string roomId) => _gwentServerService.JoinViewList(Context.ConnectionId, roomId);
+
+        public bool LeaveViewList(string roomId) => _gwentServerService.LeaveViewList(Context.ConnectionId, roomId);
+
         public string GetCardMapVersion()
         {
             return GwentMap.CardMapVersion.ToString();
@@ -78,6 +82,15 @@ namespace Cynthia.Card.Server
         public int GetPalyernameMMR(string Palyername) => _gwentServerService.GetPalyernameMMR(Palyername);
 
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _gwentServerService.GetAllMMR(offset, limit);
+
+        public Tuple<IList<Tuple<string, int>>, IList<Tuple<string, string, string>>, IList<Tuple<string, string, string>>> GetUsers()
+        {
+            var (notInGameUsers, vsHumanUsers, vsAiUsers) = _gwentServerService.GetUsersWithRoomId();
+            var notInGameUsersList = notInGameUsers.SelectMany(x => x.Select(y => new Tuple<string, int>(y.PlayerName, (int)x.Key))).ToList();
+            var vsHumanUsersList = vsHumanUsers.Select(x => new Tuple<string, string, string>(x.Item1, x.Item2, x.Item3)).ToList();
+            var vsAiUsersList = vsAiUsers.Select(x => new Tuple<string, string, string>(x.Item1, x.Item2, x.Item3)).ToList();
+            return new Tuple<IList<Tuple<string, int>>, IList<Tuple<string, string, string>>, IList<Tuple<string, string, string>>>(notInGameUsersList, vsHumanUsersList, vsAiUsersList);
+        }
 
         //游戏内玩家操作
         public Task GameOperation(Operation<UserOperationType> operation)
