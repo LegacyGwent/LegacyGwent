@@ -538,7 +538,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever you play a Gold unit from your hand, Summon this unit to a random row.",
+            "Info": "Whenever you play a Gold unit, Summon this unit to a random row.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
@@ -763,7 +763,7 @@
         },
         "14020": {
             "Name": "Mahakam Ale",
-            "Info": "Deploy: Boost a random ally on each row by 4.",
+            "Info": "Boost a random ally on each row by 4.",
             "Flavor": "无可争议是矮人们对世界文化所作出的最杰出贡献。"
         },
         "14021": {
@@ -1188,7 +1188,7 @@
         },
         "24022": {
             "Name": "Vran Warrior",
-            "Info": "Deploy: Consume the Unit to the right. Every 2 turns, at the start of your turn, Consume the Unit to the right.",
+            "Info": "Deploy: Consume the unit to the right and boost self by its power. Every 2 turns, on turn start, repeat its deploy ability.",
             "Flavor": "他们静静地骑在马上，看起来很放松，但全副武装：宽头短矛、剑柄独特的剑、战斧以及锯齿长斧。"
         },
         "24023": {
@@ -1218,7 +1218,7 @@
         },
         "24028": {
             "Name": "Foglet",
-            "Info": "Whenever you apply Fog to an enemy row, Summon a copy of this unit from your deck.",
+            "Info": "Whenever you apply Fog to an enemy row, Summon a copy of this unit from your deck to the oppoite row.",
             "Flavor": "浓雾悄然弥漫时，小雾妖便会出没，来享用它们的受害者。"
         },
         "24029": {
@@ -3013,7 +3013,7 @@
         },
         "70058": {
             "Name": "Cave Troll",
-            "Info": "Gain 4 points, and then boost an enemy by 4 points.",
+            "Info": "Deploy: Boost self by 4, and then boost an enemy by 4 points.",
             "Flavor": ""
         },
         "70059": {
@@ -3043,7 +3043,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Generate copies of all locked bronze, and set the strength of copes to 2. Whenever any bronze unit are locked during your turn, generate a copy of it with 2 strength in the same row.",
+            "Info": "Generate copies of all locked bronze, and set the strength of copies to 2. Whenever any bronze unit are locked during your turn, generate a copy of it with 2 strength in the same row.",
             "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
         },
         "70077": {
@@ -3067,8 +3067,8 @@
             "Flavor": ""
         },
         "70103": {
-            "Name": "Artorius·Vigo",
-            "Info": "Discard a card, add a Bronze unit card from your start deck to your hand, and then reveal it.",
+            "Name": "Artorius Vigo",
+            "Info": "Deploy: Discard a card, add a Bronze unit card from your start deck to your hand, and then reveal it.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
         "70104": {
@@ -3078,7 +3078,7 @@
         },
         "70105": {
             "Name": "Adalbertus Kalkstein",
-            "Info": "Make a unit's strength equal to this card's strength.",
+            "Info": "Deploy: Make a unit's strength equal to this card's strength.",
             "Flavor": "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”"
         },
         "70106": {
@@ -3097,8 +3097,8 @@
             "Flavor": "“Where I come from no one was afraid of the Big Bad Wolf or Baba Yaga. Instead, we had an Endrega nest in the shrubs beyond the village.”"
         },
         "70109": {
-            "Name": "DwarvenChariot",
-            "Info": "Select 2 units and move them to this row in the half court. After self movement, make a random unit in the row obtain 2 boost.",
+            "Name": "Dwarven Chariot",
+            "Info": "Select 2 units and move them to this unit row. When this unit moves, boost random unit in the same row by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "130210": {
