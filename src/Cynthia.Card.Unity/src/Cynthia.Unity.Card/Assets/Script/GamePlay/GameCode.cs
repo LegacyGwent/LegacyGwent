@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Autofac;
 using Cynthia.Card.Client;
-using Cynthia.Card;
-using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.SignalR.Client;
 
 public class GameCode : MonoBehaviour
 {
@@ -35,11 +32,22 @@ public class GameCode : MonoBehaviour
             Debug.Log($"被我捉住了!{e.Message}");
             SceneManager.LoadScene("LoginScene");
             DependencyResolver.Container.Resolve<GwentClientService>().ClientState = ClientState.Standby;
+            if (ClientGlobalInfo.ViewingRoomId != "")
+            {
+                await DependencyResolver.Container.ResolveNamed<HubConnection>("game").InvokeAsync<bool>("LeaveViewList", "");
+                ClientGlobalInfo.ViewingRoomId = "";
+            }
         }
     }
-    public void LeaveGame()
+    public async void LeaveGame()
     {
         ClientGlobalInfo.IsToMatch = true;
+        if (ClientGlobalInfo.ViewingRoomId != "")
+        {
+            ClientGlobalInfo.IsToMatch = false;
+            await DependencyResolver.Container.ResolveNamed<HubConnection>("game").InvokeAsync<bool>("LeaveViewList", "");
+            ClientGlobalInfo.ViewingRoomId = "";
+        }
         SceneManager.LoadScene("Game");
         DependencyResolver.Container.Resolve<GwentClientService>().ClientState = ClientState.Standby;
     }

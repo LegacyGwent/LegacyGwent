@@ -8,6 +8,8 @@ namespace Cynthia.Card.Server
         public Player Player2 { get; set; }
         public GwentServerGame CurrentGame { get; set; }
 
+        public string RoomId { get; set; }
+
         //该房间的密匙
         public string Password { get; set; }
         public bool IsReady { get => Player2 != null && Player1 != null; }
@@ -18,6 +20,7 @@ namespace Cynthia.Card.Server
         {
             Player1 = player;
             Password = password;
+            RoomId = Guid.NewGuid().ToString();
         }
         public bool AddPlayer(Player player)
         {

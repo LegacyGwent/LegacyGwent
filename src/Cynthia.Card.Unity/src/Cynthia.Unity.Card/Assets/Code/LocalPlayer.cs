@@ -21,6 +21,11 @@ namespace Cynthia.Card.Client
             {
                 await _upstream.SendAsync(x);
             });
+            ((Player)this).Receive += async x => await hubConnection.SendAsync("ViewerGameOperation", x.Result);
+            hubConnection.On<IList<Operation<int>>>("ViewerGameOperation", async x =>
+            {
+                await _upstream.SendAsync(x);
+            });
             hubConnection.Closed += async (e) =>
             {
                 if (DependencyResolver.Container.Resolve<GwentClientService>().ClientState == ClientState.Play)

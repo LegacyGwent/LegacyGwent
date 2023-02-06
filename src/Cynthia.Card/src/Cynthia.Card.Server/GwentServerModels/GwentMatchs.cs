@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
@@ -279,5 +280,42 @@ namespace Cynthia.Card.Server
         //     }
         //     return false;
         // }
+
+        // JoinViewList
+        public bool JoinViewList(User user, string roomId)
+        {
+            foreach (var room in GwentRooms)
+            {
+                if (room.RoomId == roomId && room.IsReady)
+                {
+                    return room.CurrentGame.JoinViewList(new Viewer(user, _hub));
+                }
+            }
+            return false;
+        }
+
+        public bool LeaveViewList(User user, string roomId)
+        {
+            if (roomId == "")
+            {
+                foreach (var room in GwentRooms)
+                {
+                    if (room.IsReady && room.CurrentGame.ViewList.Any(x => x.CurrentUser.ConnectionId == user.ConnectionId))
+                    {
+                        return room.CurrentGame.LeaveViewList(user);
+                    }
+                }
+                return true;
+            }
+
+            foreach (var room in GwentRooms)
+            {
+                if (room.RoomId == roomId && room.IsReady)
+                {
+                    return room.CurrentGame.LeaveViewList(user);
+                }
+            }
+            return true;
+        }
     }
 }

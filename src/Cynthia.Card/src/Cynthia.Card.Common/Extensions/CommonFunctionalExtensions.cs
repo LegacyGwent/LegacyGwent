@@ -85,7 +85,7 @@ namespace Cynthia.Card
             //如果没有任何一个数字,说明只有领袖
             if (!stringDeck.Any(x => (x >= '0' && x <= '9')))
             {
-                deckResult.Leader = Card64ToCardId(stringDeck);
+                deckResult.Leader = stringDeck.Length == 0 ? "41001" : Card64ToCardId(stringDeck);
                 return deckResult;
             }
             else
