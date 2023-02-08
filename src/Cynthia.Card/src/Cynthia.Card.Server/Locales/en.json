@@ -1503,7 +1503,7 @@
         },
         "33019": {
             "Name": "Dazhbog Runestone",
-            "Info": "Create and play a Bronze Nilfgaard card.",
+            "Info": "Create and play a Bronze or Silver Nilfgaard card.",
             "Flavor": "当心。还烫着呢。"
         },
         "33020": {
@@ -2248,7 +2248,7 @@
         },
         "53018": {
             "Name": "Morana Runestone",
-            "Info": "Create and play a bronze Scoia'tael card.",
+            "Info": "Create and play a Bronze or Silver Scoia'tael card.",
             "Flavor": "一看到它我就头晕……"
         },
         "53019": {
