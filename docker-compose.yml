@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.2'
 
 services:
   db:
@@ -7,8 +7,6 @@ services:
       - "28020:27017"
     volumes:
       - db-vloume:/data/db
-    networks:
-      - db
 
   server:
     build:
@@ -16,13 +14,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5005:5005"
-    networks:
-      - db
+    environment:
+      - MONGO_CONNECTION_STRING=mongodb://host.docker.internal:28020/gwent-diy
     depends_on:
       - db
 
 volumes:
   db-vloume:
-
-networks:
-  db:
