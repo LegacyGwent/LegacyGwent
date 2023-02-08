@@ -3083,7 +3083,7 @@
         },
         "70106": {
             "Name": "EndregaEggs",
-            "Info": "Deathwish: Destroy self, spawn 3 Endrega Larvas in this row.\n\nAfter 3 turns, at the end of your turn, trigger the Deathwish.",
+            "Info": "Deploy: Spawn 1 base copies on the left.\n\nDeathwish: Spawn an Endrega Larva in this row.\n\nAfter 3 turns, at the end of your turn, destroy self.",
             "Flavor": "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”"
         },
         "70107": {
