@@ -473,7 +473,7 @@
         },
         "13007": {
             "Name": "Stregobor",
-            "Info": "Deploy, Truce: Each player draws a unit and sets its power to 1.",
+            "Info": "Single-Use. Deploy, Truce: Each player draws a unit and sets its power to 1.",
             "Flavor": "猎魔人见过看上去像议员的贼，见过看上去像乞丐的议员，也见过看上去像贼的国王。不过斯崔葛布的样子，就和大众心目中法师的形象没什么两样。"
         },
         "13008": {
@@ -943,7 +943,7 @@
         },
         "22009": {
             "Name": "Imlerith: Sabbath",
-            "Info": "Every turn, on turn end, Duel the Highest enemy. If this unit survives, Heal it by 2 and give it 2 Armor. 2 Armor.",
+            "Info": "Every turn, on turn end, Duel the Highest enemy. If this unit survives, Heal it by 2 and give it 2 Armor. 2 Armor. Repeat up to 2 times.",
             "Flavor": "老巫妪说过你会来。她们在水面上预见了你的到来。"
         },
         "22010": {
@@ -1363,7 +1363,7 @@
         },
         "32007": {
             "Name": "Shilard",
-            "Info": "Deploy, Truce: Draw a card from both decks. Keep one and give the other to your opponent.",
+            "Info": "Single-Use. Deploy, Truce: Draw a card from both decks. Keep one and give the other to your opponent.",
             "Flavor": "所谓外交官，就是用华丽的辞藻，来透露一些只言片语。"
         },
         "32008": {
@@ -1428,7 +1428,7 @@
         },
         "33006": {
             "Name": "Albrich",
-            "Info": "Deploy, Truce: Each player draws a card. The opponent's card is Revealed.",
+            "Info": "Single-Use. Deploy, Truce: Each player draws a card. The opponent's card is Revealed.",
             "Flavor": "火球？没问题。陛下想要什么都行。"
         },
         "33007": {
@@ -1703,7 +1703,7 @@
         },
         "41001": {
             "Name": "King Radovid V",
-            "Info": "Deploy: Toggle 2 units' Lock statuses. If enemies, deal 4 damage to them. Crew.",
+            "Info": "Deploy: Toggle 2 units' Lock statuses. If enemies, deal 5 damage to them. Crew.",
             "Flavor": "身为国王，对待敌人应冷酷无情，对待朋友当慷慨大度。"
         },
         "41002": {
@@ -3006,6 +3006,11 @@
             "Info": "On round end, deal 3 damage to the weakest enemy unit, then deal 3 damage to self.",
             "Flavor": ""
         },
+        "70050": {
+            "Name": "MadCharge",
+            "Info": "Choose an ally that has Armor , Duel an enemy.",
+            "Flavor": ""
+        },
         "70054": {
             "Name": "Feign Death",
             "Info": "Resurrect 2 bronze units with power higher than 5 points, and deal 4 damage to each of them.",
@@ -3057,8 +3062,8 @@
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
         },
         "70091": {
-            "Name": "Oneiromancy",
-            "Info": "Choose one: create 1 non-spy and non-doom card in your starting deck; or turn 3 random hand cards (not the same name) into 'Oneiromancy'.",
+            "Name": "Magic Lamp",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3083,7 +3088,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 2 base copies on the left.\n\nDeathwish: Spawn an Endrega Larva in this row.\n\nAfter 3 turns, at the end of your turn, destroy self.",
+            "Info": "Deathwish: Destroy self, spawn 3 Endrega Larvas in this row.\n\nAfter 3 turns, at the end of your turn, trigger the Deathwish.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {

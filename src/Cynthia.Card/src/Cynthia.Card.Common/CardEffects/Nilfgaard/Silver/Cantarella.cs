@@ -13,6 +13,7 @@ namespace Cynthia.Card
             //这张卡只能用一次
             if (IsUse) return 0;
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             //选择卡组随机两张卡(另一半场玩家)
             var list = Game.PlayersDeck[Game.AnotherPlayer(Card.PlayerIndex)].Take(2).ToList();
             //让玩家(另一半场)选择一张卡,不能不选

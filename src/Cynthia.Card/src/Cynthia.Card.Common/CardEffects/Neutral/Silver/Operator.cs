@@ -18,6 +18,7 @@ namespace Cynthia.Card
             }
 
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             if (Game.IsPlayersPass[AnotherPlayer])
             {
                 return 0;

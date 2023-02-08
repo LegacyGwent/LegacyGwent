@@ -6,12 +6,12 @@ namespace Cynthia.Card
 {
     [CardEffectId("70106")]//安德莱格虫卵
     public class EndregaEggs : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>
-    {//在左侧生成2张原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。
+    {//在左侧生成1张原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。
         public EndregaEggs(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await Card.Effect.SetCountdown(value: 3);
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < 1; i++)
             {
                 await Game.CreateCard(CardId.EndregaEggs, PlayerIndex, Card.GetLocation()/*, card => card.IsDoomed = true*/);
             }

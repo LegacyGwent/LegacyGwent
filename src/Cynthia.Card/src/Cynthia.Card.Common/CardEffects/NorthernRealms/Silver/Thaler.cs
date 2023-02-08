@@ -18,6 +18,7 @@ namespace Cynthia.Card
                 return 0;
             }
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             //先选两张卡
             var card1 = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).FirstOrDefault();
             var card2 = Game.PlayersDeck[AnotherPlayer].Mess(Game.RNG).FirstOrDefault(x => x != card1);
