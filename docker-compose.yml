@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db:
+    image: mongo:4.2.24-rc0-bionic
+    ports:
+      - "28020:27017"
+    volumes:
+      - db-vloume:/data/db
+    networks:
+      - db
+
+  server:
+    build:
+      context: src/Cynthia.Card
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5005"
+    networks:
+      - db
+    depends_on:
+      - db
+
+volumes:
+  db-vloume:
+
+networks:
+  db:
