@@ -473,7 +473,7 @@
     },
     "13007": {
       "Name": "Stregobor",
-      "Info": "Rozmieszczenie: Rozejm: Każdy gracz dobiera jednostkę i zmienia jej siłę na 1.",
+      "Info": "Rozmieszczenie, Jednorazowa: Rozejm: Każdy gracz dobiera jednostkę i zmienia jej siłę na 1.",
       "Flavor": "Wiedźmin spotykał w życiu złodziei wyglądających jak rajcy miejscy, rajców wyglądających jak proszalne dziady, i królów wyglądających jak złodzieje. A Stregobor zawsze wyglądał tak, jak wedle wszystkich prawideł i wyobrażeń winien wyglądać czarodziej."
     },
     "13008": {
@@ -943,7 +943,7 @@
     },
     "22009": {
       "Name": "Imlerith Sabat",
-      "Info": "Co turę, na koniec tury stocz pojedynek z najsilniejszym wrogiem. Jeśli ta jednostka przeżyje, uzdrów ją o 2 i daj jej 2 pkt pancerza. 2 pkt pancerza.",
+      "Info": "Na koniec tury stocz pojedynek z najsilniejszym wrogiem. Jeśli ta jednostka przeżyje, uzdrów ją o 2 i daj jej 2 pkt pancerza. Powtórz w dwóch kolejnych rundach. 2 pkt pancerza.",
       "Flavor": "Siostry powiedziały, że przyjdziesz. Widziały twoje nadejście w lustrze wody."
     },
     "22010": {
@@ -1363,7 +1363,7 @@
     },
     "32007": {
       "Name": "Shilard",
-      "Info": "Rozmieszczenie, Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
+      "Info": "Rozmieszczenie, Jednorazowa, Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
       "Flavor": "Dyplomata to człowiek, który używa znacznie więcej słów niż potrzeba, aby wyrazić znacznie mniej niż wie."
     },
     "32008": {
@@ -1428,7 +1428,7 @@
     },
     "33006": {
       "Name": "Albrich",
-      "Info": "Rozmieszczenie, Rozejm: Obaj gracze dobierają po karcie. Karta przeciwnika zostaje ujawniona.",
+      "Info": "Rozmieszczenie, Jednorazowa, Rozejm: Obaj gracze dobierają po karcie. Karta przeciwnika zostaje ujawniona.",
       "Flavor": "Kula ognia? Oczywiście. Co tylko Wasza Cesarska Mość sobie życzy."
     },
     "33007": {
@@ -1703,7 +1703,7 @@
     },
     "41001": {
       "Name": "Król Radowid V",
-      "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie 2 jednostek. Jeśli to wrogowie, zadaj im 4 pkt obrażeń. Załoga.",
+      "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie 2 jednostek. Jeśli to wrogowie, zadaj im 5 pkt obrażeń. Załoga.",
       "Flavor": "Król powinien być surowy dla wrogów i szczodry dla przyjaciół."
     },
     "41002": {
@@ -3006,6 +3006,11 @@
       "Info": "Na koniec tury zadaj 3pkt obrażeń najsłabszemu wrogowi, następnie zadaj 3 obrażenia tej jednostce.",
       "Flavor": "Nie każdy jest w stanie przyjąć błogosławieństwo Svalbloda."
     },
+    "70050": {
+      "Name": "Szaleńcza szarża",
+      "Info": "Wybierz sojusznika z pancerzem i wroga z którym stoczy pojedynek.",
+      "Flavor": ""
+    },
     "70054": {
       "Name": "Fortel",
       "Info": "Wskrześ 2 brązowe jednostki o sile większej niż 5 i zadaj im po 4 pkt obrażeń.",
@@ -3057,9 +3062,9 @@
       "Flavor": ""
     },
     "70091": {
-      "Name": "Onejromancja",
-      "Info": "Wybierz: Utwórz 1 kopie karty w Twojej talii początkowej, lub zmień 3 losowe inne karty w Twojej ręce w Onejromancje.",
-      "Flavor": ""
+       "Name": "Magiczna Lampa",
+       "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.",
+       "Flavor": ""
     },
     "70102": {
       "Name": "Detlaff Krwawa Klątwa",
@@ -3083,7 +3088,7 @@
     },
     "70106": {
       "Name": "Jaja Endriagi",
-      "Info": "Stwórz 2 kopie tej karty po obu stronach tej jednostki.\nZemsta: Stwórz Larwe endriagi w tym rzędzie. Po 3 turach na początku tury zniszcz te jednostkę.",
+      "Info": "Rozmieszczeni: Stwórz kopie tej karty po lewej stronie.\nZemsta: Stwórz Larwe endriagi w tym rzędzie. Po 3 turach na początku tury zniszcz te jednostkę.",
       "Flavor": ""
     },
     "70107": {
