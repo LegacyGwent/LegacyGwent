@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Cynthia.Card;
 using UnityEngine;
+using UnityEngine.Video;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
@@ -11,17 +12,23 @@ using DG.Tweening;
 public class CardShowInfo : MonoBehaviour
 {
     public CardMoveInfo CardMoveInfo;
+
     //?
-    public bool IsDead { get => _isDead; set => _isDead = value; }
+    public bool IsDead
+    {
+        get => _isDead;
+        set => _isDead = value;
+    }
     public bool _isDead = false;
     public CardStatus CurrentCore
     {
-        get => _currentCore; set
-        {
-            setCurrentCore(value);
-        }
-    }                       //卡id
-    public GwentCard CardInfo { get => GwentMap.CardMap[_currentCore.CardId]; }   //卡类型
+        get => _currentCore;
+        set { setCurrentCore(value); }
+    } //卡id
+    public GwentCard CardInfo
+    {
+        get => GwentMap.CardMap[_currentCore.CardId];
+    } //卡类型
     public bool IsGray
     {
         get => _isGray;
@@ -35,6 +42,7 @@ public class CardShowInfo : MonoBehaviour
     }
     private bool _isGray = false;
     private CardStatus _currentCore;
+
     //---------------------------
     public Text Strength;
     public Text Armor;
@@ -42,40 +50,50 @@ public class CardShowInfo : MonoBehaviour
     public GameObject StrengthShow;
     public GameObject ArmorShow;
     public GameObject CountdownShow;
+
     //---------------------------
     public Image FactionIcon;
     public Image CardBorder;
     public Image CardImg;
     public Image CardBack;
     public GameObject CardStatus;
-    public GameObject LockIcon;//锁定
-    public GameObject SpyingIcon;//间谍
-    public GameObject Resilience;//坚韧
-    public GameObject RevealIcon;//揭示
-    public GameObject ShieldIcon;//护盾
+    public GameObject LockIcon; //锁定
+    public GameObject SpyingIcon; //间谍
+    public GameObject Resilience; //坚韧
+    public GameObject RevealIcon; //揭示
+    public GameObject ShieldIcon; //护盾
+    public GameObject FlashCard;
+
+    //---------------------------
+    public VideoPlayer FlashCardVideo;
+    public RawImage FlashCardTexture;
     //-----------------------------
     public Sprite CopperBorder;
     public Sprite SilverBorder;
     public Sprite GoldBorder;
+
     //--------
-    public Sprite NorthernRealmsIcon;//北方
-    public Sprite ScoiaTaelIcon;//松鼠党
-    public Sprite MonstersIcon;//怪物
-    public Sprite SkelligeIcon;//群岛
-    public Sprite NilfgaardIcon;//帝国
-    public Sprite NeutralIcon;//中立
+    public Sprite NorthernRealmsIcon; //北方
+    public Sprite ScoiaTaelIcon; //松鼠党
+    public Sprite MonstersIcon; //怪物
+    public Sprite SkelligeIcon; //群岛
+    public Sprite NilfgaardIcon; //帝国
+    public Sprite NeutralIcon; //中立
+
     //--------
-    public Sprite NorthernRealmsBack;//北方
-    public Sprite ScoiaTaelBack;//松鼠党
-    public Sprite MonstersBack;//怪物
-    public Sprite SkelligeBack;//群岛
-    public Sprite NilfgaardBack;//帝国
+    public Sprite NorthernRealmsBack; //北方
+    public Sprite ScoiaTaelBack; //松鼠党
+    public Sprite MonstersBack; //怪物
+    public Sprite SkelligeBack; //群岛
+    public Sprite NilfgaardBack; //帝国
+
     //----------------------------------
     //客户端相关
     public Image SelectCenter;
     public Image SelectMargin;
     public GameObject SelectIcon;
     private string _oldCardArtsId = null; // prevent repeated load
+
     //目前被CurrentCore属性取代
     //public CardShowInfo(CardStatus card) => CurrentCore = card;
 
@@ -96,21 +114,24 @@ public class CardShowInfo : MonoBehaviour
             SelectMargin.color = new Color(0, 180f / 255f, 1);
         }
     }
+
     public void setCurrentCore(CardStatus value, bool asyncLoadAsset = false)
     {
         if (_currentCore != null && (_currentCore.IsCardBack != value.IsCardBack))
         {
             _currentCore = value;
-            Reverse();//反转
+            Reverse(); //反转
             return;
         }
         _currentCore = value;
         SetCard(asyncLoadAsset);
     }
+
     public void SetCard()
     {
         SetCard(true);
     }
+
     //根据CurrentCore来刷新卡面
     public void SetCard(bool asyncLoadAsset = true)
     {
@@ -131,9 +152,23 @@ public class CardShowInfo : MonoBehaviour
             }
             else
             {
-                CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
+                CardImg.sprite = Addressables
+                    .LoadAssetAsync<Sprite>(CurrentCore.CardArtsId)
+                    .WaitForCompletion();
             }
             _oldCardArtsId = CurrentCore.CardArtsId;
+        }
+        if (FlashCardList.CardList.Exists(t => t == CurrentCore.CardArtsId))
+        {
+            RenderTexture rt = RenderTexture.GetTemporary(210,305,24);
+            FlashCardTexture.texture = rt;
+            FlashCardVideo.targetTexture = rt;
+            FlashCardVideo.clip = Resources.Load<VideoClip>("CardVideo/" + CurrentCore.CardArtsId);
+            FlashCard.SetActive(true);
+        }
+        else
+        {
+            FlashCard.SetActive(false);
         }
         // CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
         //设置卡牌是否灰(转移到属性)
@@ -214,7 +249,10 @@ public class CardShowInfo : MonoBehaviour
             Strength.color = ClientGlobalInfo.NormalColor;
         if (CurrentCore.HealthStatus < 0)
             Strength.color = ClientGlobalInfo.RedColor;
-        FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50 + (iconCount == 0 ? 1 : iconCount) * 50);
+        FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(
+            50,
+            50 + (iconCount == 0 ? 1 : iconCount) * 50
+        );
         //-----------------------------------------------
     }
 
@@ -226,28 +264,39 @@ public class CardShowInfo : MonoBehaviour
         //Debug.Log(IsDead);
         //GetComponent<Animator>().Play("DemoBreak");
         //CardMoveInfo.Destroy();
-        DOTween.Sequence().Append(transform.DOScale(0, 0.5f))
+        DOTween
+            .Sequence()
+            .Append(transform.DOScale(0, 0.5f))
             .AppendCallback(CardMoveInfo.Destroy);
     }
+
     public void Reverse()
     {
-        DOTween.Sequence().Append(transform.DOLocalRotate(new Vector3(0, 90, 0), 0.15f))
+        DOTween
+            .Sequence()
+            .Append(transform.DOLocalRotate(new Vector3(0, 90, 0), 0.15f))
             .AppendCallback(SetCard)
             .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.15f));
         if (AmbushType() && !_currentCore.IsCardBack)
         {
-            if (CurrentCore.CardArtsId == "11221000")//Roach卡
+            if (CurrentCore.CardArtsId == "11221000") //Roach卡
             {
-                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.PlayOneShoot);
+                AudioManager.Instance.PlayAudio(
+                    CurrentCore.CardArtsId,
+                    AudioType.Card,
+                    AudioPlayMode.PlayOneShoot
+                );
             }
             else
             {
-                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+                AudioManager.Instance.PlayAudio(
+                    CurrentCore.CardArtsId,
+                    AudioType.Card,
+                    AudioPlayMode.Append
+                );
             }
         }
     }
-
-
 
     public void PlayAudio()
     {
@@ -258,15 +307,30 @@ public class CardShowInfo : MonoBehaviour
             Debug.Log("播放Unit卡片声音" + CurrentCore.CardArtsId);
             if (CurrentCore.CardArtsId == "11221000") //Roach卡
             {
-                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.PlayOneShoot);
+                AudioManager.Instance.PlayAudio(
+                    CurrentCore.CardArtsId,
+                    AudioType.Card,
+                    AudioPlayMode.PlayOneShoot
+                );
             }
             else
-                AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+                AudioManager.Instance.PlayAudio(
+                    CurrentCore.CardArtsId,
+                    AudioType.Card,
+                    AudioPlayMode.Append
+                );
         }
-        else if (CardInfo.CardType == CardType.Special && !SpecialCardID.isSpecialCard(CurrentCore.CardArtsId))
+        else if (
+            CardInfo.CardType == CardType.Special
+            && !SpecialCardID.isSpecialCard(CurrentCore.CardArtsId)
+        )
         {
             Debug.Log("播放特殊卡片声音" + CurrentCore.CardArtsId);
-            AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+            AudioManager.Instance.PlayAudio(
+                CurrentCore.CardArtsId,
+                AudioType.Card,
+                AudioPlayMode.Append
+            );
         }
     }
 
@@ -274,10 +338,17 @@ public class CardShowInfo : MonoBehaviour
     {
         if (CurrentCore == null)
             return;
-        if (CardInfo.CardType == CardType.Special && SpecialCardID.isSpecialCard(CurrentCore.CardArtsId))
+        if (
+            CardInfo.CardType == CardType.Special
+            && SpecialCardID.isSpecialCard(CurrentCore.CardArtsId)
+        )
         {
             Debug.Log("播放特殊特殊卡片声音" + CurrentCore.CardArtsId);
-            AudioManager.Instance.PlayAudio(CurrentCore.CardArtsId, AudioType.Card, AudioPlayMode.Append);
+            AudioManager.Instance.PlayAudio(
+                CurrentCore.CardArtsId,
+                AudioType.Card,
+                AudioPlayMode.Append
+            );
         }
     }
 
