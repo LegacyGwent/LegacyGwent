@@ -160,7 +160,7 @@ public class CardShowInfo : MonoBehaviour
         }
         if (FlashCardList.CardList.Exists(t => t == CurrentCore.CardArtsId))
         {
-            RenderTexture rt = RenderTexture.GetTemporary(210,305,24);
+            RenderTexture rt = RenderTexture.GetTemporary(210,285,24);
             FlashCardTexture.texture = rt;
             FlashCardVideo.targetTexture = rt;
             FlashCardVideo.clip = Resources.Load<VideoClip>("CardVideo/" + CurrentCore.CardArtsId);

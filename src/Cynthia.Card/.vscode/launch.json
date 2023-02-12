@@ -14,6 +14,7 @@
             "cwd": "${workspaceFolder}/src/Cynthia.Card.Server",
             "console": "integratedTerminal",
             "stopAtEntry": false,
+            "requireExactSource": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },

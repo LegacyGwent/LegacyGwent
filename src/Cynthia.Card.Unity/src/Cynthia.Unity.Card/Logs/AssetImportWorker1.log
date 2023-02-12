@@ -15,7 +15,7 @@ D:/GwentGame/LegacyGwent/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-63689
+59318
 Successfully changed project path to: D:/GwentGame/LegacyGwent/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
 D:/GwentGame/LegacyGwent/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -48,7 +48,7 @@ D:/GwentGame/LegacyGwent/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
 AS: AutoStreaming module initializing.
-Refreshing native plugins compatible for Editor in 187.86 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 230.64 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.1f1c1 (0cb3bd085a01)
 [Subsystems] Discovering subsystems at path D:/2021.3.1f1c1/Editor/Data/Resources/UnitySubsystems
@@ -64,42 +64,2558 @@ Initialize mono
 Mono path[0] = 'D:/2021.3.1f1c1/Editor/Data/Managed'
 Mono path[1] = 'D:/2021.3.1f1c1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/2021.3.1f1c1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56612
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56508
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
+Register platform support module: D:/2021.3.1f1c1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: D:/2021.3.1f1c1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.006451 seconds.
+Registered in 0.008182 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 163.42 ms, found 2 plugins.
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 149.62 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.064 seconds
+- Completed reload, in  1.153 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1065ms)
-		BeginReloadAssembly (167ms)
+	ReloadAssembly (1154ms)
+		BeginReloadAssembly (185ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (720ms)
-			LoadAssemblies (157ms)
+			CreateAndSetChildDomain (2ms)
+		EndReloadAssembly (761ms)
+			LoadAssemblies (176ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (146ms)
+			SetupTypeCache (164ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (41ms)
-			SetupLoadedEditorAssemblies (437ms)
+			RebuildScriptCaches (40ms)
+			SetupLoadedEditorAssemblies (460ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (11ms)
+				InitializePlatformSupportModulesInManaged (76ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (164ms)
+				RefreshPlugins (150ms)
 				BeforeProcessingInitializeOnLoad (2ms)
-				ProcessInitializeOnLoadAttributes (172ms)
-				ProcessInitializeOnLoadMethodAttributes (88ms)
+				ProcessInitializeOnLoadAttributes (149ms)
+				ProcessInitializeOnLoadMethodAttributes (82ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.108919 seconds.
+Registered in 0.151644 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.96 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Package Manager log level set to [2]
+Mono: successfully reloaded assembly
+- Completed reload, in  2.442 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2444ms)
+		BeginReloadAssembly (288ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (125ms)
+		EndReloadAssembly (1906ms)
+			LoadAssemblies (241ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (462ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (85ms)
+			SetupLoadedEditorAssemblies (1032ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (23ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (147ms)
+				ProcessInitializeOnLoadAttributes (627ms)
+				ProcessInitializeOnLoadMethodAttributes (205ms)
+				AfterProcessingInitializeOnLoad (27ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 2.01 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2855 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 98 unused Assets / (59.3 KB). Loaded Objects now: 3264.
+Memory consumption went from 118.6 MB to 118.5 MB.
+Total: 9.039600 ms (FindLiveObjects: 0.284900 ms CreateObjectMapping: 0.189600 ms MarkObjects: 8.373700 ms  DeleteObjects: 0.189900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 260421.288173 seconds.
+  path: Assets/Resources/FountInfo/ValueTextureAtlas.png
+  artifactKey: Guid(fe4307a56d9b6d24e82f14c6e3305c89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/FountInfo/ValueTextureAtlas.png using Guid(fe4307a56d9b6d24e82f14c6e3305c89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc5c06546f945a2fa2576c109e5bd950') in 1.065991 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 208.709418 seconds.
+  path: Assets/Resources/CardVideo/20153900.mp4
+  artifactKey: Guid(ebee8353882be04429f31823782e6274) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20153900.mp4 using Guid(ebee8353882be04429f31823782e6274) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d49fa2613f90022255bbd66e29390d0') in 0.055741 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000066 seconds.
+  path: Assets/Resources/CardVideo/20162400.mp4
+  artifactKey: Guid(8838def1ba8cd9e40a018a8362263e85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162400.mp4 using Guid(8838def1ba8cd9e40a018a8362263e85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b607d56adf570094e77b6bf20e776b29') in 0.011588 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/Resources/CardVideo/20164700.mp4
+  artifactKey: Guid(ac65cfd33b586844e90645dd830d646d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20164700.mp4 using Guid(ac65cfd33b586844e90645dd830d646d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2a45c203737d5617dffaf669030b0b3') in 0.009808 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/CardVideo/20173700.mp4
+  artifactKey: Guid(6d86b139942036445a8162b74c406ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20173700.mp4 using Guid(6d86b139942036445a8162b74c406ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb42de28211ac7f199658ee99f9ff05a') in 0.023291 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20162100.mp4
+  artifactKey: Guid(70ae520967f54564fa0868ef91927693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162100.mp4 using Guid(70ae520967f54564fa0868ef91927693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1c2a24d82d96cd3c3c79fe60d8b5f9e') in 0.017918 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Resources/CardVideo/20158000.mp4
+  artifactKey: Guid(bc62c9e86e05f6a46b0c01ce7bab2880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158000.mp4 using Guid(bc62c9e86e05f6a46b0c01ce7bab2880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de5f6cdff873c7789ed2fc9fe390ffbf') in 0.011243 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/20170100.mp4
+  artifactKey: Guid(23e2fda827b631a47ac5cd45a8b978f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20170100.mp4 using Guid(23e2fda827b631a47ac5cd45a8b978f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20f1987bd89d14b56eb487c6016472e4') in 0.009666 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/20161800.mp4
+  artifactKey: Guid(7cc7beb79fb25964182936d2fe970a5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20161800.mp4 using Guid(7cc7beb79fb25964182936d2fe970a5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be589c08c33eaee4f187ba54a53921ac') in 0.009574 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/20154200.mp4
+  artifactKey: Guid(cceeb029ce70c674fb6e2512912b5805) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20154200.mp4 using Guid(cceeb029ce70c674fb6e2512912b5805) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8c04058559ad62b9d0d6440b949df76') in 0.009428 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20161500.mp4
+  artifactKey: Guid(37475203d211e234f9de2fa2bb58698d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20161500.mp4 using Guid(37475203d211e234f9de2fa2bb58698d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '431345c99b2b010e6f67d61727680798') in 0.023078 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/Resources/CardVideo/20157900.mp4
+  artifactKey: Guid(7d2e7259e0ea9d043824a161446daeca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20157900.mp4 using Guid(7d2e7259e0ea9d043824a161446daeca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4af3f51b4b30f2100becd3cc829dc452') in 0.011064 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/Resources/CardVideo/20173100.mp4
+  artifactKey: Guid(a2b6f8310460d6143a50ad164b71c41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20173100.mp4 using Guid(a2b6f8310460d6143a50ad164b71c41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f4225c024b7c743ac4de65b25d0999d') in 0.011942 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000105 seconds.
+  path: Assets/Resources/CardVideo/20177800.mp4
+  artifactKey: Guid(4c30aa56df72e7d47998d89bd7dc2ec8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20177800.mp4 using Guid(4c30aa56df72e7d47998d89bd7dc2ec8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79ecaf70a8bdb78240f97af6246eacdb') in 0.010229 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000064 seconds.
+  path: Assets/Resources/CardVideo/20177400.mp4
+  artifactKey: Guid(ec25cb2c881bf734e950050ab98ff694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20177400.mp4 using Guid(ec25cb2c881bf734e950050ab98ff694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61f7f22172125712d89c10d00870036e') in 0.020384 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/20169700.mp4
+  artifactKey: Guid(0f9b95af0db10274abd67860b3ebc1d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20169700.mp4 using Guid(0f9b95af0db10274abd67860b3ebc1d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79f07c373b1e18bc281c86b1ba036288') in 0.025378 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/Resources/CardVideo/20178100.mp4
+  artifactKey: Guid(b2185a92876df4c499d1686df755e900) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20178100.mp4 using Guid(b2185a92876df4c499d1686df755e900) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43b24e97c4f8a66a080a8bc5e4a8f3a0') in 0.014292 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20177700.mp4
+  artifactKey: Guid(6f785091146b1164b92142599f0e982b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20177700.mp4 using Guid(6f785091146b1164b92142599f0e982b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eab7f30d5d469a992702cc276a33a71c') in 0.016722 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/Resources/CardVideo/20164200.mp4
+  artifactKey: Guid(9ec08d22becf8da428a8900e8d7b7553) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20164200.mp4 using Guid(9ec08d22becf8da428a8900e8d7b7553) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e41fc8b84833118fd85a28f26b422a98') in 0.010247 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/20158400.mp4
+  artifactKey: Guid(c55e6299c051a2949b1cdccef4eed5e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158400.mp4 using Guid(c55e6299c051a2949b1cdccef4eed5e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd64cc68ade98798cb437f36819f42be3') in 0.011234 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/20161100.mp4
+  artifactKey: Guid(1c28a1fd0ffaf244aa030fa4a04bf53c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20161100.mp4 using Guid(1c28a1fd0ffaf244aa030fa4a04bf53c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd868b100bf4185da0c1cf4df9b417292') in 0.010585 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/CardVideo/20162000.mp4
+  artifactKey: Guid(ecf1579c7b0c0304ba5e5c36e2a45f1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162000.mp4 using Guid(ecf1579c7b0c0304ba5e5c36e2a45f1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0573fcb468201f88cde1d3eed6758773') in 0.011427 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/20158200.mp4
+  artifactKey: Guid(77c1bc03c6d40414f946f2e118270f26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158200.mp4 using Guid(77c1bc03c6d40414f946f2e118270f26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cee31a0b9cd823c36982df33a1cfbd02') in 0.011430 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/20162800.mp4
+  artifactKey: Guid(5045a9589d840874bba6447d50a0e9bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162800.mp4 using Guid(5045a9589d840874bba6447d50a0e9bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbd1f0fd65764421a122d3943e23f946') in 0.009827 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20163000.mp4
+  artifactKey: Guid(204e414acd1faab449d1e75648abbe90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20163000.mp4 using Guid(204e414acd1faab449d1e75648abbe90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29a3188b445437673551f58f7a9e0f32') in 0.009294 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Resources/CardVideo/20169600.mp4
+  artifactKey: Guid(be0efab747c73a543ab72dddc0e11a53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20169600.mp4 using Guid(be0efab747c73a543ab72dddc0e11a53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4fb2c660b6789dd747e2e8b771b2320') in 0.009120 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/20169800.mp4
+  artifactKey: Guid(2fe41a049ca69404c96a2119c3052341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20169800.mp4 using Guid(2fe41a049ca69404c96a2119c3052341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01c483dfd2998b42951db791d8e1f1af') in 0.010045 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/20177600.mp4
+  artifactKey: Guid(568f5afa218dc504dbde9237b562d992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20177600.mp4 using Guid(568f5afa218dc504dbde9237b562d992) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f62b313db9b8c924ccd17f7be5ec55d9') in 0.010614 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/20162300.mp4
+  artifactKey: Guid(b9f103a7b3a41b744af6615c2abc4239) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162300.mp4 using Guid(b9f103a7b3a41b744af6615c2abc4239) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9576f1d1918baa8fe2d13b3a22e20a14') in 0.010252 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.022101 seconds.
+  path: Assets/Resources/CardVideo/20136500.mp4
+  artifactKey: Guid(214428fc4d9c49b438e7df0d5e931a7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20136500.mp4 using Guid(214428fc4d9c49b438e7df0d5e931a7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85d1b3ee50e7d09af4bfd8d6e1f19e6c') in 0.012033 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000063 seconds.
+  path: Assets/Resources/CardVideo/20136700.mp4
+  artifactKey: Guid(029ff022baea5f94cba8b1bfcdce0132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20136700.mp4 using Guid(029ff022baea5f94cba8b1bfcdce0132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b8edaae60f416bd0ad3ced58ee54047') in 0.027810 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/20149000.mp4
+  artifactKey: Guid(d27b1d0091c5b2a4e99f95b7e410ad22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20149000.mp4 using Guid(d27b1d0091c5b2a4e99f95b7e410ad22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c1915f2728d5bf84c23954fc370b1df') in 0.009534 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/20143800.mp4
+  artifactKey: Guid(e2d896b9c35a42b44bf4e311d9859710) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20143800.mp4 using Guid(e2d896b9c35a42b44bf4e311d9859710) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3fce6de0cd2ee4a9dbab5c36b2f104f8') in 0.011699 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/20143900.mp4
+  artifactKey: Guid(e9ecca0a66f7b6c4bb1a3cca5ebe63f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20143900.mp4 using Guid(e9ecca0a66f7b6c4bb1a3cca5ebe63f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd627331752ec9b4d2458dd16c05c37ff') in 0.012826 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/20029900.mp4
+  artifactKey: Guid(6f3cb7fb73d9fab4cb7338577652a856) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20029900.mp4 using Guid(6f3cb7fb73d9fab4cb7338577652a856) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d735808e6869420e8eaab0ee5d4b4e9') in 0.041038 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Resources/CardVideo/20027500.mp4
+  artifactKey: Guid(854a7759e5fd98743abf9f9d501b6449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20027500.mp4 using Guid(854a7759e5fd98743abf9f9d501b6449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcf0ade7b6025f445963e58f995bf93b') in 0.050736 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20153200.mp4
+  artifactKey: Guid(e9c5fbaa3ea35e345be0001cc5e15be2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20153200.mp4 using Guid(e9c5fbaa3ea35e345be0001cc5e15be2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c4a6ae5236548d76276a855cab55e11') in 0.009281 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000059 seconds.
+  path: Assets/Resources/CardVideo/20129000.mp4
+  artifactKey: Guid(c6979ddd7b2a8e644877e1f6ead9dd4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20129000.mp4 using Guid(c6979ddd7b2a8e644877e1f6ead9dd4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25c9cf906059136d3f28f2dea0f3885d') in 0.010052 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/20029300.mp4
+  artifactKey: Guid(43847dba0d17e154d97308a0d1076239) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20029300.mp4 using Guid(43847dba0d17e154d97308a0d1076239) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b95bd635e6672a1c5194492e524b3744') in 0.037368 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/Resources/CardVideo/20051800.mp4
+  artifactKey: Guid(e1e708e2cbb39d44cb15fdf414b15bc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20051800.mp4 using Guid(e1e708e2cbb39d44cb15fdf414b15bc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3d10f6556489dcf8a9d19438f664d11') in 0.009073 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/Resources/CardVideo/20150200.mp4
+  artifactKey: Guid(464fc1c4aedce784884a0abe26ecd708) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20150200.mp4 using Guid(464fc1c4aedce784884a0abe26ecd708) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e62dd6497647477ea100121e58e1584a') in 0.010256 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/Resources/CardVideo/20046500.mp4
+  artifactKey: Guid(ec1e4d581339594489e2dd12d2276418) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20046500.mp4 using Guid(ec1e4d581339594489e2dd12d2276418) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f1aa27b88c8175720cfdf16fba84db8') in 0.152540 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/Resources/CardVideo/20024400.mp4
+  artifactKey: Guid(a159a5ab8f8053340844df7ee3536351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20024400.mp4 using Guid(a159a5ab8f8053340844df7ee3536351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93400d48e1c9961fd5859f63c9d1d16f') in 0.020902 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000053 seconds.
+  path: Assets/Resources/CardVideo/20017700.mp4
+  artifactKey: Guid(9ff7fee3e2a1f2643921d9d177f23f52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20017700.mp4 using Guid(9ff7fee3e2a1f2643921d9d177f23f52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f398e37e70f4737dc1c6515f7b6e46fa') in 0.029545 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/20012000.mp4
+  artifactKey: Guid(1c149d6ba0e8df249aeb54c46f1404c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20012000.mp4 using Guid(1c149d6ba0e8df249aeb54c46f1404c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b232e21344ed40455b1ed934eedd4eb9') in 0.010443 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/20010200.mp4
+  artifactKey: Guid(8fce6dd000118984892c08b5507528ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20010200.mp4 using Guid(8fce6dd000118984892c08b5507528ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81bb87e3af7c914ec00471b9fc9e5087') in 0.009677 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000088 seconds.
+  path: Assets/Resources/CardVideo/20014900.mp4
+  artifactKey: Guid(53a3e23e7a18ca34b87cb3533302e639) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20014900.mp4 using Guid(53a3e23e7a18ca34b87cb3533302e639) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8a66d85cdf0f102ac2c4d84b3921f3a') in 0.033883 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/20012400.mp4
+  artifactKey: Guid(13aeca17ae9f20c4fb1924653aa2aea5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20012400.mp4 using Guid(13aeca17ae9f20c4fb1924653aa2aea5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05644415c411c3b145db7f20357cc2b0') in 0.075212 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000091 seconds.
+  path: Assets/Resources/CardVideo/20003600.mp4
+  artifactKey: Guid(8d3b4b3254df9d84baf31698d0580f63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20003600.mp4 using Guid(8d3b4b3254df9d84baf31698d0580f63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4053408a312740e987d531f55ff18c3e') in 0.013832 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Resources/CardVideo/20006700.mp4
+  artifactKey: Guid(d07a88a3fcbf0d34a923bb3ae3496164) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20006700.mp4 using Guid(d07a88a3fcbf0d34a923bb3ae3496164) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '50f5bf3847a9a419f5e665a09836f7ef') in 0.019882 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/Resources/CardVideo/20008900.mp4
+  artifactKey: Guid(3488afbf8df21534bb4d614a081893b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20008900.mp4 using Guid(3488afbf8df21534bb4d614a081893b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e20ca8cf169ee97ca31a1e924815a16') in 0.008823 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/20020900.mp4
+  artifactKey: Guid(6d6239c758d0cd44390d5a0230f386b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20020900.mp4 using Guid(6d6239c758d0cd44390d5a0230f386b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1163aa67c62538435c22f763e7645770') in 0.042963 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Assets/Resources/CardVideo/20001900.mp4
+  artifactKey: Guid(5aa67bb99b69b17469d59981bf7af538) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20001900.mp4 using Guid(5aa67bb99b69b17469d59981bf7af538) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cccaea33fcce1c830405d950d7e738c8') in 0.028801 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Resources/CardVideo/15230100.mp4
+  artifactKey: Guid(62c3353ae11beb54c82e6d5496fdd24a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15230100.mp4 using Guid(62c3353ae11beb54c82e6d5496fdd24a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42412c999333e8e850d9cb7356863168') in 0.053819 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Resources/CardVideo/15240600.mp4
+  artifactKey: Guid(82346a3ed5f6111448f700561f3e2614) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15240600.mp4 using Guid(82346a3ed5f6111448f700561f3e2614) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '762ff19705c38c90b573c140c7718569') in 0.042019 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/CardVideo/16220900.mp4
+  artifactKey: Guid(ec480ed266343be4c88c08996ff36bab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16220900.mp4 using Guid(ec480ed266343be4c88c08996ff36bab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e91d7d4f7494f4bdc72df48dcae9fbf') in 0.012650 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/16210200.mp4
+  artifactKey: Guid(c9717d257e77d5a488defe0d1a68a048) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16210200.mp4 using Guid(c9717d257e77d5a488defe0d1a68a048) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f5c06eb95f10c24d006bf12f4d99afa') in 0.054315 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000116 seconds.
+  path: Assets/Resources/CardVideo/15330100.mp4
+  artifactKey: Guid(e984ded4c98fef94fbb3b23425291c4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15330100.mp4 using Guid(e984ded4c98fef94fbb3b23425291c4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41e1fd76bc0944b2896895b6e17ac7dc') in 0.022225 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/15210600.mp4
+  artifactKey: Guid(1d2b9b1dde3e0b34390ab7ec72176722) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15210600.mp4 using Guid(1d2b9b1dde3e0b34390ab7ec72176722) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '530221dd683ed97dc2053f5c9bdf947b') in 0.019868 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Resources/CardVideo/15220300.mp4
+  artifactKey: Guid(b0f260eabc11867478d7a819646f6800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15220300.mp4 using Guid(b0f260eabc11867478d7a819646f6800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c06589160d5f1c676154a4ce9fc1e29') in 0.056491 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/CardVideo/14231100.mp4
+  artifactKey: Guid(237e80930c3393f47a0a8dce431e75ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14231100.mp4 using Guid(237e80930c3393f47a0a8dce431e75ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '717c220eab2d3c1420e21ffb6a0de99c') in 0.048151 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/15210500.mp4
+  artifactKey: Guid(d88b5fe14c59869469a8fd34271da232) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15210500.mp4 using Guid(d88b5fe14c59869469a8fd34271da232) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92e4750446bc68a1e8de978b224b88de') in 0.035191 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000063 seconds.
+  path: Assets/Resources/CardVideo/16210800.mp4
+  artifactKey: Guid(081f45944e311f948b7b6ab7e2b24ffa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16210800.mp4 using Guid(081f45944e311f948b7b6ab7e2b24ffa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c78978463f471ec99238ba858950e5c1') in 0.011863 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000072 seconds.
+  path: Assets/Resources/CardVideo/16231300.mp4
+  artifactKey: Guid(a69b1c0cd6259134380af4116048455a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16231300.mp4 using Guid(a69b1c0cd6259134380af4116048455a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7660575d891a0a6db664561213d2b6db') in 0.028081 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000069 seconds.
+  path: Assets/Resources/CardVideo/20004000.mp4
+  artifactKey: Guid(5e5e039b48e5ece418509a6c4c7f9315) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20004000.mp4 using Guid(5e5e039b48e5ece418509a6c4c7f9315) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdcb15185bc69ab7ffe2fc44a05676df') in 0.040992 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/15231810.mp4
+  artifactKey: Guid(9d607cf1b2342574fad5ee1b567a39e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15231810.mp4 using Guid(9d607cf1b2342574fad5ee1b567a39e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a006bf2fdc0999e26910fb0aa96488c7') in 0.031938 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Resources/CardVideo/14240100.mp4
+  artifactKey: Guid(bdb2b25840bc1af4586e16088bd2b041) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14240100.mp4 using Guid(bdb2b25840bc1af4586e16088bd2b041) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6b6a10cea394befe79d2663a07e0357') in 0.033389 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/20013500.mp4
+  artifactKey: Guid(5797c7f1e5b6af34aa9d3f2e0b337f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20013500.mp4 using Guid(5797c7f1e5b6af34aa9d3f2e0b337f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed7239e593211c3558d2c0f744c749d0') in 0.011082 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/16310100.mp4
+  artifactKey: Guid(cef301f46314eb34bb2aea4ee5ccf628) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16310100.mp4 using Guid(cef301f46314eb34bb2aea4ee5ccf628) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cae052e4043b8bd209098f435191b7b7') in 0.010390 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/13230900.mp4
+  artifactKey: Guid(a434472469deee742b69dd30f5f1dce7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230900.mp4 using Guid(a434472469deee742b69dd30f5f1dce7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b3d8b856983723cc6706d2be5ae5a6c') in 0.032022 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Resources/CardVideo/13231600.mp4
+  artifactKey: Guid(046b9b5d27579a24b8c54e6dde115ae2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13231600.mp4 using Guid(046b9b5d27579a24b8c54e6dde115ae2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c97e15573c13104046846a7dac0b1480') in 0.037191 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000207 seconds.
+  path: Assets/Resources/CardVideo/14210700.mp4
+  artifactKey: Guid(c00a9178df428524e877efb7a0e31023) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14210700.mp4 using Guid(c00a9178df428524e877efb7a0e31023) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8276172075fa3c82671f8bdbca79e84f') in 0.040023 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000087 seconds.
+  path: Assets/Resources/CardVideo/13221500.mp4
+  artifactKey: Guid(914bc76713c600d43a7c2b7b2f88a9fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13221500.mp4 using Guid(914bc76713c600d43a7c2b7b2f88a9fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '481f5c9b639c250a43bc7fe8cb23b819') in 0.022405 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/14220600.mp4
+  artifactKey: Guid(07ae397e0c889de478503c7f9e69831e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14220600.mp4 using Guid(07ae397e0c889de478503c7f9e69831e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da5e8117ff8b6065d0da7359975beb5a') in 0.027876 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/13221400.mp4
+  artifactKey: Guid(5121d8a08833bf24d995d363413005d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13221400.mp4 using Guid(5121d8a08833bf24d995d363413005d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '021285fb348844f97d58aac226a5974f') in 0.020917 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/13230800.mp4
+  artifactKey: Guid(da62ca54b95b367449f13a8844df7586) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230800.mp4 using Guid(da62ca54b95b367449f13a8844df7586) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7de4f32a63f4162525d809ef4749a97b') in 0.047711 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/14110300.mp4
+  artifactKey: Guid(3077f757e8f3d0a4a9a8043ef59102be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14110300.mp4 using Guid(3077f757e8f3d0a4a9a8043ef59102be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a5de716b81c638283e5bcc8bbc4f7c1') in 0.023709 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/13240700.mp4
+  artifactKey: Guid(10a1b4a974159a942a1459619f4e37fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13240700.mp4 using Guid(10a1b4a974159a942a1459619f4e37fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74b78b22a5962a62d8cf472730049bb1') in 0.020488 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/Resources/CardVideo/13110100.mp4
+  artifactKey: Guid(d40208fe8f00f51499d0249245103e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13110100.mp4 using Guid(d40208fe8f00f51499d0249245103e51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96e5f2c7eba7c90f920e1e6c07225aae') in 0.042065 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000058 seconds.
+  path: Assets/Resources/CardVideo/13210500.mp4
+  artifactKey: Guid(9b4b9cc070c60f24e8a010348cee21e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13210500.mp4 using Guid(9b4b9cc070c60f24e8a010348cee21e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7073a6ad9733e34d8d7b3a31a5453ff5') in 0.020648 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/12210300.mp4
+  artifactKey: Guid(fbfa70957e31cf84a9c983923fb3040c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12210300.mp4 using Guid(fbfa70957e31cf84a9c983923fb3040c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd002097567b8da275e5068c2cc32f6c') in 0.030524 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/12220700.mp4
+  artifactKey: Guid(c7d7f605a2d7c544b85f3d9e53f39de1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12220700.mp4 using Guid(c7d7f605a2d7c544b85f3d9e53f39de1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbb46038fab85713a8d5002cabaec74b') in 0.026067 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/Resources/CardVideo/12231500.mp4
+  artifactKey: Guid(b41ec678d57697f4092b14f2b85870f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12231500.mp4 using Guid(b41ec678d57697f4092b14f2b85870f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e742327d4d49e5829218f6d2cebefaf7') in 0.039309 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/CardVideo/11340400.mp4
+  artifactKey: Guid(b003e41cb1f00ff489f4bdc9e3052b88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11340400.mp4 using Guid(b003e41cb1f00ff489f4bdc9e3052b88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e6f7e558d1ec7634cf2abf167f0b2b3') in 0.023382 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/14220800.mp4
+  artifactKey: Guid(abc2074fd27e4224c8b3bbb8035a1d94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14220800.mp4 using Guid(abc2074fd27e4224c8b3bbb8035a1d94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '292ff27a0bf765855e8e11deb20ab4d5') in 0.030162 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/13220800.mp4
+  artifactKey: Guid(11fee733f53e5cb4b8dfaf3c97401e28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13220800.mp4 using Guid(11fee733f53e5cb4b8dfaf3c97401e28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11f17b62ced1e426afc3aecfb014f7a4') in 0.027167 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/12230500.mp4
+  artifactKey: Guid(0468c7296b603384283f84eaf7413b58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230500.mp4 using Guid(0468c7296b603384283f84eaf7413b58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c18d665a05c06a032f145d8a70838aa') in 0.034410 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/Resources/CardVideo/20022000.mp4
+  artifactKey: Guid(f8f57f3a775a93643b9893849f5b313d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20022000.mp4 using Guid(f8f57f3a775a93643b9893849f5b313d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b675496760940954be8146c16a30ad3') in 0.039996 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/12220600.mp4
+  artifactKey: Guid(8193bf9b949fbb949a93b8fdf27fa492) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12220600.mp4 using Guid(8193bf9b949fbb949a93b8fdf27fa492) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6fa4c18ddee27983b252c8959bcb2d7') in 0.067345 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000081 seconds.
+  path: Assets/Resources/CardVideo/14230900.mp4
+  artifactKey: Guid(ce2448e3a43a8874b8751ba2965fe341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14230900.mp4 using Guid(ce2448e3a43a8874b8751ba2965fe341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1accb68ff3eda9d66e2e64d0ed4b4d6') in 0.041201 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/13220100.mp4
+  artifactKey: Guid(dbdd7eaecfe202c4e95f3208db9cd1dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13220100.mp4 using Guid(dbdd7eaecfe202c4e95f3208db9cd1dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe8baba0f5a3d38dd515ebfba1b17e38') in 0.023911 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/14230500.mp4
+  artifactKey: Guid(e008ec805bf08184b99498af0a1f3b23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14230500.mp4 using Guid(e008ec805bf08184b99498af0a1f3b23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4829bc47ae0f80d95ac9828036d74d10') in 0.041463 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/20022600.mp4
+  artifactKey: Guid(cc660410684567b45b2431e54256b1a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20022600.mp4 using Guid(cc660410684567b45b2431e54256b1a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01be41bae1e6e49f2ef6ef314a204edf') in 0.025284 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/12221600.mp4
+  artifactKey: Guid(0281096e1c55ec84cbe6aa8584153d58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12221600.mp4 using Guid(0281096e1c55ec84cbe6aa8584153d58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0377560d238c3b2287feab37099cfdd4') in 0.033287 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/CardVideo/15221400.mp4
+  artifactKey: Guid(6235f5ee98d9fe146b12d1e85a0728a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15221400.mp4 using Guid(6235f5ee98d9fe146b12d1e85a0728a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb2b3749d7c4e7608da9dbece4c8afd1') in 0.019926 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/20050200.mp4
+  artifactKey: Guid(ca44a82719d745745b1faccd54cbc446) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20050200.mp4 using Guid(ca44a82719d745745b1faccd54cbc446) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6adde1ef698b19fbd14b299c085b3f30') in 0.010454 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000058 seconds.
+  path: Assets/Resources/CardVideo/20004400.mp4
+  artifactKey: Guid(826af3461ed472643848fd40c315afcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20004400.mp4 using Guid(826af3461ed472643848fd40c315afcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eaf1022c84d5f835bc7f4a07e9d387bc') in 0.022017 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20003800.mp4
+  artifactKey: Guid(ce7f7ee50a6591f4ea40c540f81838e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20003800.mp4 using Guid(ce7f7ee50a6591f4ea40c540f81838e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1be911d85d77f5bf6f7c0777bcab5c5d') in 0.027371 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/15220900.mp4
+  artifactKey: Guid(bfbfc105976a53746a1d25c4c7ba5ae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15220900.mp4 using Guid(bfbfc105976a53746a1d25c4c7ba5ae0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfec54444d30e79d52fd7eb7776eb623') in 0.022836 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/13230300.mp4
+  artifactKey: Guid(8c40b98bed8f83842bc2f60bfcea462a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230300.mp4 using Guid(8c40b98bed8f83842bc2f60bfcea462a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '392ed77458f7e252f1690a4a6b5dfa06') in 0.034756 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Resources/CardVideo/15231100.mp4
+  artifactKey: Guid(c29e2487906457347b5161f98bb1a496) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15231100.mp4 using Guid(c29e2487906457347b5161f98bb1a496) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c405db581e653d9177b6a6d94c54e8c8') in 0.140101 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/14220700.mp4
+  artifactKey: Guid(f26948c89254ff24aa874ecdfd9f4af9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14220700.mp4 using Guid(f26948c89254ff24aa874ecdfd9f4af9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5e8c2809023d004225efeadfa926e2e') in 0.050377 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Resources/CardVideo/14220200.mp4
+  artifactKey: Guid(cd1fa4972519aa9498513c96205c9b5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14220200.mp4 using Guid(cd1fa4972519aa9498513c96205c9b5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41bdd4df2d39b0791374a860ecd18248') in 0.022403 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/20022700.mp4
+  artifactKey: Guid(21bd88fe673938d4eb54b02d3cb68418) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20022700.mp4 using Guid(21bd88fe673938d4eb54b02d3cb68418) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd361abcf9012556fc8ce51236f0cad2') in 0.049972 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/12230100.mp4
+  artifactKey: Guid(6ae2eff6c3d5b5143acd19bfebf8754b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230100.mp4 using Guid(6ae2eff6c3d5b5143acd19bfebf8754b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07822d61f7c913afdf1ba5c3e57579e3') in 0.039151 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/20004100.mp4
+  artifactKey: Guid(7229578fb12971e418c8775efcc4ed94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20004100.mp4 using Guid(7229578fb12971e418c8775efcc4ed94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aea762072937f305a6c862014b1cd51d') in 0.036390 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/Resources/CardVideo/15230500.mp4
+  artifactKey: Guid(7e375cca6845fdc4c851a1076fb824d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15230500.mp4 using Guid(7e375cca6845fdc4c851a1076fb824d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cbf3f960cbe5bfb0df41ec9d38cfa04') in 0.057558 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000066 seconds.
+  path: Assets/Resources/CardVideo/20022200.mp4
+  artifactKey: Guid(f35d022c48c157046bd2454aaf273496) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20022200.mp4 using Guid(f35d022c48c157046bd2454aaf273496) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c4838e9bd1c663fa7162a37016f3ec2') in 0.030406 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000079 seconds.
+  path: Assets/Resources/CardVideo/20013900.mp4
+  artifactKey: Guid(92680134d6facd3418938b1e9aadddfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20013900.mp4 using Guid(92680134d6facd3418938b1e9aadddfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59e3e5aa4d0f0da633492fa1501e5b22') in 0.036956 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/13230200.mp4
+  artifactKey: Guid(b77dd9a5d8139224da8e14b2c318dbb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230200.mp4 using Guid(b77dd9a5d8139224da8e14b2c318dbb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f984ea81e25989fb48135751a145d58') in 0.028668 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Resources/CardVideo/13220900.mp4
+  artifactKey: Guid(fcf4cf13ae6604c448f25bb83e3e4362) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13220900.mp4 using Guid(fcf4cf13ae6604c448f25bb83e3e4362) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a3e7977a57dbfe55c1d2eb9bc9ed27d') in 0.076980 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/CardVideo/14221000.mp4
+  artifactKey: Guid(b29a680699668464d9b00954bd0f820e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14221000.mp4 using Guid(b29a680699668464d9b00954bd0f820e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09a97bbfbd491470d0fb0a0f225ea9f7') in 0.125027 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/20002800.mp4
+  artifactKey: Guid(9178942aecfa6f84387887ba51fbbff1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20002800.mp4 using Guid(9178942aecfa6f84387887ba51fbbff1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd9e020435e3114058a0ee2e707a76d2') in 0.039711 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/Resources/CardVideo/12230400.mp4
+  artifactKey: Guid(363f62f56ee91e04599bd6c90feff85f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230400.mp4 using Guid(363f62f56ee91e04599bd6c90feff85f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f82256d1ef8cd9524e694e38b31786c') in 0.052863 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000060 seconds.
+  path: Assets/Resources/CardVideo/11320100.mp4
+  artifactKey: Guid(1380b7bb9a3f4114a8a270701719fb6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11320100.mp4 using Guid(1380b7bb9a3f4114a8a270701719fb6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '638f9ce4b5d36ca3b930470c6cfda765') in 0.090945 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/11320300.mp4
+  artifactKey: Guid(c79e62c5dd3384f4b9fee9baf79867d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11320300.mp4 using Guid(c79e62c5dd3384f4b9fee9baf79867d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3df5c275b0af5c5fab84df64847bc25d') in 0.055800 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/CardVideo/11220900.mp4
+  artifactKey: Guid(f4875c3cc37c2ee4ca65a625f0e44dc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220900.mp4 using Guid(f4875c3cc37c2ee4ca65a625f0e44dc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ed115f57f955b8adebfd4acafc60855') in 0.031527 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/11221100.mp4
+  artifactKey: Guid(2c4219fbb51c4c842bfd32f79c8c9c8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11221100.mp4 using Guid(2c4219fbb51c4c842bfd32f79c8c9c8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d81a94def8314e578cf2db1eea52ba0') in 0.052932 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/4010200.mp4
+  artifactKey: Guid(8cff374e6c0534d4d88789d66e9039c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/4010200.mp4 using Guid(8cff374e6c0534d4d88789d66e9039c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '100d77b415853b3d6e716d28e28d9d21') in 0.061893 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Resources/CardVideo/11330800.mp4
+  artifactKey: Guid(87d111ae0ef8fcf498219b7588208ef8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11330800.mp4 using Guid(87d111ae0ef8fcf498219b7588208ef8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e171e994dca0f320f0939daa77a25f4c') in 0.088966 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000060 seconds.
+  path: Assets/Resources/CardVideo/11330700.mp4
+  artifactKey: Guid(198f7bca77d3d94439e8c48c64ab1a64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11330700.mp4 using Guid(198f7bca77d3d94439e8c48c64ab1a64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52f87f5b9cb95a80b59cdc852fd81c69') in 0.048872 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000065 seconds.
+  path: Assets/Resources/CardVideo/11220500.mp4
+  artifactKey: Guid(ab7c8d522e7982646a423f75bd72df8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220500.mp4 using Guid(ab7c8d522e7982646a423f75bd72df8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60a2810613b873936e39c3ebc3653ce2') in 0.063237 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Resources/CardVideo/11331500.mp4
+  artifactKey: Guid(df63af8c4dbd484499eb5b1dc27472a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11331500.mp4 using Guid(df63af8c4dbd484499eb5b1dc27472a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d3807a12dbf09f6b10d8878042a776b') in 0.037419 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Resources/CardVideo/11320200.mp4
+  artifactKey: Guid(d044f0a81f12a6a43984b71a634a9610) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11320200.mp4 using Guid(d044f0a81f12a6a43984b71a634a9610) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06f5a621026fd3767834359489a01dff') in 0.058476 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/11320600.mp4
+  artifactKey: Guid(2d5c744a4e7828648a9e405d82916132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11320600.mp4 using Guid(2d5c744a4e7828648a9e405d82916132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3efd70097d8706a01da53e455aba25f7') in 0.109032 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Resources/CardVideo/11310200.mp4
+  artifactKey: Guid(d196d5ee8375fcb40b6bdbeefc0dfafa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11310200.mp4 using Guid(d196d5ee8375fcb40b6bdbeefc0dfafa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '165133c8863d4c7d21c2d3aa20157aa8') in 0.036212 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Resources/CardVideo/11211200.mp4
+  artifactKey: Guid(313d74f5a82021a408fb137b800ccc0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11211200.mp4 using Guid(313d74f5a82021a408fb137b800ccc0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c12276afbc9638fc8c007292a865dc7') in 0.058977 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000074 seconds.
+  path: Assets/Resources/CardVideo/11220300.mp4
+  artifactKey: Guid(6084c4eca3850bc46abe7cf3aa9b48a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220300.mp4 using Guid(6084c4eca3850bc46abe7cf3aa9b48a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec75dab2147738f51cb1ac421fa8afd1') in 0.110156 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Resources/CardVideo/16210600.mp4
+  artifactKey: Guid(0e59fe102dff00f4b884a8f163d7f6f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16210600.mp4 using Guid(0e59fe102dff00f4b884a8f163d7f6f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '809c04c78686fe6751e81d9434075e3a') in 0.059764 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000070 seconds.
+  path: Assets/Resources/CardVideo/15231600.mp4
+  artifactKey: Guid(84f784342c85d1f469566424491a4506) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15231600.mp4 using Guid(84f784342c85d1f469566424491a4506) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30af46c383107765c7c8cab7f6826332') in 0.043639 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/11210200.mp4
+  artifactKey: Guid(49b1c27c04463c544ae3bd708b66fb37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210200.mp4 using Guid(49b1c27c04463c544ae3bd708b66fb37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c697d511cd2f8fa604f2b5ad96be5bdf') in 0.103788 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000062 seconds.
+  path: Assets/Resources/CardVideo/16110300.mp4
+  artifactKey: Guid(eb5c30b255cbe7448a96383a32eb6c63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16110300.mp4 using Guid(eb5c30b255cbe7448a96383a32eb6c63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e58710a590a2a6354abe5442f81efcf') in 0.066620 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Resources/CardVideo/16221200.mp4
+  artifactKey: Guid(5d847d68b0a1d38478943a9ede216535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16221200.mp4 using Guid(5d847d68b0a1d38478943a9ede216535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '760694fca315f4d6faee342efb42a8eb') in 0.012006 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Resources/CardVideo/14330100.mp4
+  artifactKey: Guid(787031f4e6c5cc34bbe74c0bbb22de8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14330100.mp4 using Guid(787031f4e6c5cc34bbe74c0bbb22de8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aabe3cd9cc93592e767a50d2711af73d') in 0.076545 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/12210700.mp4
+  artifactKey: Guid(3b9330814e7c6a94e9e0e2e0281b5a7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12210700.mp4 using Guid(3b9330814e7c6a94e9e0e2e0281b5a7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '759d80ea8ee0441f81033e91a96c6cf5') in 0.042591 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/11221000.mp4
+  artifactKey: Guid(c7c937bc0420e1542a0087febce46b6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11221000.mp4 using Guid(c7c937bc0420e1542a0087febce46b6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21f12cbde1643a708e7935135c4b0459') in 0.056379 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/14230400.mp4
+  artifactKey: Guid(c63b1781bcef49a4cbd04de4f2238f0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14230400.mp4 using Guid(c63b1781bcef49a4cbd04de4f2238f0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c39147a979435e79754ea639e741ab1e') in 0.040079 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/11221500.mp4
+  artifactKey: Guid(22e7b530e488b474e9693e3e09fc5558) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11221500.mp4 using Guid(22e7b530e488b474e9693e3e09fc5558) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '618e51c6fa8b952828d69650564ece74') in 0.104212 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000061 seconds.
+  path: Assets/Resources/CardVideo/20013600.mp4
+  artifactKey: Guid(1c5ea0ea5c1ced049ba10b7a863bde6e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20013600.mp4 using Guid(1c5ea0ea5c1ced049ba10b7a863bde6e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bed33c3f1492cc7a22b37b9b96185ba') in 0.025395 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Resources/CardVideo/12230300.mp4
+  artifactKey: Guid(70c9ad7a52465664fb9ea7e81fb1a4e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230300.mp4 using Guid(70c9ad7a52465664fb9ea7e81fb1a4e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea1f0bd00b37573b9703f4e430441974') in 0.062731 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Resources/CardVideo/20007500.mp4
+  artifactKey: Guid(1aacc153e100c41448db08ff18e464ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20007500.mp4 using Guid(1aacc153e100c41448db08ff18e464ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '497659bc59f3c9692004e8776ae23e4d') in 0.094399 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/12110200.mp4
+  artifactKey: Guid(1497bb87e2b2f9c4ea697e1a51723805) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12110200.mp4 using Guid(1497bb87e2b2f9c4ea697e1a51723805) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8ccfd75130ee4bd3dcca215353d1615') in 0.083612 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000092 seconds.
+  path: Assets/Resources/CardVideo/20014600.mp4
+  artifactKey: Guid(8e25f069c0bfed94198fcd1d1d18748e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20014600.mp4 using Guid(8e25f069c0bfed94198fcd1d1d18748e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '575e6dc156f747e91835b88a7a58c426') in 0.046740 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/20017100.mp4
+  artifactKey: Guid(4650bc281d6dff84c8775be850aab2f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20017100.mp4 using Guid(4650bc281d6dff84c8775be850aab2f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42c07a70e0ffa0cf4acfd82ba1b7296a') in 0.030583 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Resources/CardVideo/20153400.mp4
+  artifactKey: Guid(f426b18f2d198e947a315e37a1d069a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20153400.mp4 using Guid(f426b18f2d198e947a315e37a1d069a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '003d04cff166395a6f6fc2f2d5c5336c') in 0.021019 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/Resources/CardVideo/20007800.mp4
+  artifactKey: Guid(ddf12512c83f89c4bbf49ae86a5a0d58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20007800.mp4 using Guid(ddf12512c83f89c4bbf49ae86a5a0d58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25a3f96b7bce55e069c17112dec024c2') in 0.074720 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/13210600.mp4
+  artifactKey: Guid(258ec858a8eaea54586d21d991cffc4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13210600.mp4 using Guid(258ec858a8eaea54586d21d991cffc4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a23f27d73e3c1702dfa24f6d71532031') in 0.073458 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000067 seconds.
+  path: Assets/Resources/CardVideo/12220300.mp4
+  artifactKey: Guid(18e183982a483684cb7a14aedc5fe71e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12220300.mp4 using Guid(18e183982a483684cb7a14aedc5fe71e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5ddd465440a5535b37451095a4f2b00') in 0.073671 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/20022400.mp4
+  artifactKey: Guid(c7ad531266096ab4a817e779b675426e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20022400.mp4 using Guid(c7ad531266096ab4a817e779b675426e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc32edca8d4ff49b3b78bfa2b025c697') in 0.053001 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/11320900.mp4
+  artifactKey: Guid(6069be4e11c84b845adfc20768ba850f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11320900.mp4 using Guid(6069be4e11c84b845adfc20768ba850f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc16e7aeb2102b8c2986d320caa0de34') in 0.048814 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000080 seconds.
+  path: Assets/Resources/CardVideo/11221200.mp4
+  artifactKey: Guid(097a24ffbc9133346ab928a4ae7f46b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11221200.mp4 using Guid(097a24ffbc9133346ab928a4ae7f46b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b51467d6e01414b41dff943de95ef06') in 0.049622 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/Resources/CardVideo/14210300.mp4
+  artifactKey: Guid(46424e00e5fb9fe439b657bae8f1af6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14210300.mp4 using Guid(46424e00e5fb9fe439b657bae8f1af6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc22713c08a7b12b2da4f1b8afd25794') in 0.102115 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Resources/CardVideo/12231800.mp4
+  artifactKey: Guid(cf92377f16b8516448af8abad27e1d58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12231800.mp4 using Guid(cf92377f16b8516448af8abad27e1d58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e9db2067cea3f7392db7662a0a22f2f') in 0.060811 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Resources/CardVideo/14110200.mp4
+  artifactKey: Guid(bc075acc231137848bc11d40e7a65e0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14110200.mp4 using Guid(bc075acc231137848bc11d40e7a65e0c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5542a5265f3c8a67923eb6b422712f0f') in 0.060989 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/13210200.mp4
+  artifactKey: Guid(666235ede4cec9d469a0282fa60f484b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13210200.mp4 using Guid(666235ede4cec9d469a0282fa60f484b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b00c51a0062258821e29c3002d14f4b') in 0.034986 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000078 seconds.
+  path: Assets/Resources/CardVideo/13230100.mp4
+  artifactKey: Guid(8227ff0985279cc409d268bad1d76242) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230100.mp4 using Guid(8227ff0985279cc409d268bad1d76242) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffd90fc8eacc0e649ea31623808e586b') in 0.050631 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Resources/CardVideo/14230300.mp4
+  artifactKey: Guid(9600072d2ed825a4db7810d12729548f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14230300.mp4 using Guid(9600072d2ed825a4db7810d12729548f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9ceedbec6268297d427772d5c0c4031') in 0.063772 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/11210800.mp4
+  artifactKey: Guid(915205dc89422b44fbe3cf5124e682be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210800.mp4 using Guid(915205dc89422b44fbe3cf5124e682be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9c4f8b09e1ff475c60065582bdca9b9') in 0.030405 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/Resources/CardVideo/13210700.mp4
+  artifactKey: Guid(1882acc6bfdc24442841fb6dcac6caa3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13210700.mp4 using Guid(1882acc6bfdc24442841fb6dcac6caa3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dceb951c22499d20c913f7b2cea970dd') in 0.048828 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/12220200.mp4
+  artifactKey: Guid(90e97caf4952c534386e2dbfa17b04b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12220200.mp4 using Guid(90e97caf4952c534386e2dbfa17b04b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36171e70f02cf5047ea96d069aeeb923') in 0.031080 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000084 seconds.
+  path: Assets/Resources/CardVideo/15110300.mp4
+  artifactKey: Guid(989333aa57a4cd146a0c2930fb4ec32b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15110300.mp4 using Guid(989333aa57a4cd146a0c2930fb4ec32b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1671517a467d9575b9996ea28196143f') in 0.038559 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/Resources/CardVideo/12221100.mp4
+  artifactKey: Guid(8ed390c97b4715f4fa340521e2b0ff89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12221100.mp4 using Guid(8ed390c97b4715f4fa340521e2b0ff89) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd78c8ecfd710b56b743800978901ab05') in 0.030492 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/12221400.mp4
+  artifactKey: Guid(24c8d849192532545b00330b3ca2dd3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12221400.mp4 using Guid(24c8d849192532545b00330b3ca2dd3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68f1bb29c6702afe4d90b84d7d132cbd') in 0.049629 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/12231700.mp4
+  artifactKey: Guid(dbc954e58205e6d47920b9cb7dc854b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12231700.mp4 using Guid(dbc954e58205e6d47920b9cb7dc854b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64c820091101a3e9f9a6c38c97365a22') in 0.039380 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000094 seconds.
+  path: Assets/Resources/CardVideo/11210300.mp4
+  artifactKey: Guid(d58d0c3516a29e54db9d7ddd4b4a945c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210300.mp4 using Guid(d58d0c3516a29e54db9d7ddd4b4a945c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5a16dde6d747237c1228c30d18cd45e') in 0.086871 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/11221400.mp4
+  artifactKey: Guid(4129d0b3b0f0e414f84586858834ca88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11221400.mp4 using Guid(4129d0b3b0f0e414f84586858834ca88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd547a6946bfd0069e4042a6d816212a') in 1.735823 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000086 seconds.
+  path: Assets/Resources/CardVideo/20010300.mp4
+  artifactKey: Guid(54f5d5df6d9232c498e5e14f583c8d24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20010300.mp4 using Guid(54f5d5df6d9232c498e5e14f583c8d24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09f7235d12140d67079373695c738bdd') in 0.013334 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000074 seconds.
+  path: Assets/Resources/CardVideo/13231400.mp4
+  artifactKey: Guid(90a1337820150614783baa7f6fcedc5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13231400.mp4 using Guid(90a1337820150614783baa7f6fcedc5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c55ec68b441c334d3c38976820bc6ceb') in 0.054366 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/20008100.mp4
+  artifactKey: Guid(abd61bc144933b64399b58c1b031172a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20008100.mp4 using Guid(abd61bc144933b64399b58c1b031172a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a4484f6432b513c52608bcec3577cfc') in 0.050887 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/CardVideo/12210800.mp4
+  artifactKey: Guid(ebde248f70e87e54792bfe5e560c3c19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12210800.mp4 using Guid(ebde248f70e87e54792bfe5e560c3c19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e475554a1f04aac95a689e8c623556f6') in 0.069920 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/11211100.mp4
+  artifactKey: Guid(1b50b88a7eb6fdb439ec95f8b47c057d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11211100.mp4 using Guid(1b50b88a7eb6fdb439ec95f8b47c057d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81538a4ace611f1ebca070457b4623aa') in 0.026795 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000069 seconds.
+  path: Assets/Resources/CardVideo/15230300.mp4
+  artifactKey: Guid(9ba839dea732c1a49812aee5946a4c5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15230300.mp4 using Guid(9ba839dea732c1a49812aee5946a4c5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b96e2375ff36034ea61109cecbf8c8eb') in 0.060354 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000095 seconds.
+  path: Assets/Resources/CardVideo/12221200.mp4
+  artifactKey: Guid(1fe891ea414702a46bc0b4c0ebb85630) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12221200.mp4 using Guid(1fe891ea414702a46bc0b4c0ebb85630) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e0d9b376ddcf86b5138c7ed92feb641') in 0.043812 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/15210700.mp4
+  artifactKey: Guid(36f1a0ea2bb1d74418849f07acbcb6b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15210700.mp4 using Guid(36f1a0ea2bb1d74418849f07acbcb6b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f80798b40849438b072c6213eef2eda9') in 0.025672 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/16220400.mp4
+  artifactKey: Guid(47d7d791777134742b60a72a63869117) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16220400.mp4 using Guid(47d7d791777134742b60a72a63869117) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bda7ed0f1fe1d1ed84786d835afcc444') in 0.028039 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/16210400.mp4
+  artifactKey: Guid(045de153a0ec238498f01e5ee9ab3314) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16210400.mp4 using Guid(045de153a0ec238498f01e5ee9ab3314) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61d21c4665020d11099f24323352dc6e') in 0.060159 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/Resources/CardVideo/15240300.mp4
+  artifactKey: Guid(0603540994e8f0a45a534be890545908) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15240300.mp4 using Guid(0603540994e8f0a45a534be890545908) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91af6440a4cec346ef18e35d54accf61') in 0.029221 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000066 seconds.
+  path: Assets/Resources/CardVideo/20023200.mp4
+  artifactKey: Guid(3374add7d35a87444852e23298e338ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20023200.mp4 using Guid(3374add7d35a87444852e23298e338ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e22eadcdb888135ea607a938ecfb6427') in 0.028640 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20015400.mp4
+  artifactKey: Guid(3ca4a59949f75434c8bb2fb1898ed7a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20015400.mp4 using Guid(3ca4a59949f75434c8bb2fb1898ed7a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'faec9a8ab469e6dec130797b14b17318') in 0.065249 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000160 seconds.
+  path: Assets/Resources/CardVideo/14210100.mp4
+  artifactKey: Guid(9e5f004d28a470b4798e664e9903f0bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14210100.mp4 using Guid(9e5f004d28a470b4798e664e9903f0bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4672dda91df4373ef6237339141ecfe9') in 0.102460 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/11221300.mp4
+  artifactKey: Guid(3d94e1d403e0e834e84a13007eb2f8a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11221300.mp4 using Guid(3d94e1d403e0e834e84a13007eb2f8a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6464d833799e4763cd877289b42cd3ac') in 0.035416 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/20022100.mp4
+  artifactKey: Guid(918b1b2d797427943885f0f67d69ea65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20022100.mp4 using Guid(918b1b2d797427943885f0f67d69ea65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed0b9acddc69b73e22508b761cc66aa5') in 0.063685 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/20005100.mp4
+  artifactKey: Guid(1eaaa0bf482589f4f87dbc04b65dd8d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20005100.mp4 using Guid(1eaaa0bf482589f4f87dbc04b65dd8d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4422e96b0045b95eb7a5d51cfb7fc7a') in 0.054232 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000072 seconds.
+  path: Assets/Resources/CardVideo/20007300.mp4
+  artifactKey: Guid(4f3a1d8bf57f49b439c9b3e14721d8e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20007300.mp4 using Guid(4f3a1d8bf57f49b439c9b3e14721d8e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '694cec146b0afeb5c0c036708f7d8e7e') in 0.064655 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000090 seconds.
+  path: Assets/Resources/CardVideo/14210200.mp4
+  artifactKey: Guid(bd5f3d9a06fe4964990095806f485690) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14210200.mp4 using Guid(bd5f3d9a06fe4964990095806f485690) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23e50afda6f967924872facee5512d3f') in 0.038244 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/CardVideo/12230700.mp4
+  artifactKey: Guid(c90e3cc77025ff84ba40fca37b6bac36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230700.mp4 using Guid(c90e3cc77025ff84ba40fca37b6bac36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '087f8a57195737f14c488e6c1cbfeb22') in 0.030760 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/20005200.mp4
+  artifactKey: Guid(c90221922732a554f9778415b502230f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20005200.mp4 using Guid(c90221922732a554f9778415b502230f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a13cc59d8c70e0b17f60b7fcb14f7775') in 0.034942 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/20010400.mp4
+  artifactKey: Guid(ab2549e011648dc47beee112896ddeed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20010400.mp4 using Guid(ab2549e011648dc47beee112896ddeed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '716b6bde21658b9f04306c1b7357936a') in 0.010466 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/Resources/CardVideo/12110300.mp4
+  artifactKey: Guid(3e0ce572674653b42b1010dab3f72b39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12110300.mp4 using Guid(3e0ce572674653b42b1010dab3f72b39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e916138c0d1f039ff7da915951accb74') in 0.029816 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/13230400.mp4
+  artifactKey: Guid(cb9708ada7ce0ca449d9eddd32ef944f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230400.mp4 using Guid(cb9708ada7ce0ca449d9eddd32ef944f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18ccd94a96a0ec7347f0a841dc10981f') in 0.077473 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/16220600.mp4
+  artifactKey: Guid(bb858b057ea21f740a208244d8e8d64e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16220600.mp4 using Guid(bb858b057ea21f740a208244d8e8d64e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57b7f83ec5b0d5810f4395781fda8208') in 0.011734 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/12231300.mp4
+  artifactKey: Guid(70b389882e0173c4aa4fb933c894d716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12231300.mp4 using Guid(70b389882e0173c4aa4fb933c894d716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d05285ebc2f34c6f3d55b26e1665a9b') in 0.048484 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/20005000.mp4
+  artifactKey: Guid(18145863e1f13754e8d19c23601d737a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20005000.mp4 using Guid(18145863e1f13754e8d19c23601d737a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fc8a12e73783a2af5e95d99c9ff9f52') in 0.048794 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Resources/CardVideo/13221100.mp4
+  artifactKey: Guid(22232b84d32920c478a9f4bc61c676d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13221100.mp4 using Guid(22232b84d32920c478a9f4bc61c676d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64f9b089d64c87b2a21bb33491380b6f') in 0.034333 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/CardVideo/14220300.mp4
+  artifactKey: Guid(8090c1290fc79b64399cd795922374ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14220300.mp4 using Guid(8090c1290fc79b64399cd795922374ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bdd1fa356c37646fbb32600904db8bb') in 0.057238 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/12221000.mp4
+  artifactKey: Guid(30b0a93ef861bb144b36fbc2c35e2dc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12221000.mp4 using Guid(30b0a93ef861bb144b36fbc2c35e2dc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6069bc083c2a9b2ead310eff16d23a55') in 0.026649 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/16210500.mp4
+  artifactKey: Guid(569e9430bbfdc5e4c956b70ca785f16a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16210500.mp4 using Guid(569e9430bbfdc5e4c956b70ca785f16a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30bd53e37ccd5cea96f471eb1f2f41c8') in 0.039984 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Resources/CardVideo/12230900.mp4
+  artifactKey: Guid(b66339423801e4b438a369da0282a267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230900.mp4 using Guid(b66339423801e4b438a369da0282a267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72754313247371423b5c818d7edbd625') in 0.089157 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/11330900.mp4
+  artifactKey: Guid(3ad1e5c81747ca740b3aa7691a7f6eb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11330900.mp4 using Guid(3ad1e5c81747ca740b3aa7691a7f6eb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25a82b3fda28a3fd9e5f077e668d9df2') in 0.044252 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Resources/CardVideo/15231400.mp4
+  artifactKey: Guid(327514a584b18c1479902174c5082510) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15231400.mp4 using Guid(327514a584b18c1479902174c5082510) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c46ba5c175916376732baecb9c6d6f0') in 0.044039 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/13240800.mp4
+  artifactKey: Guid(4169efc0733d1aa4785ee3475d95bc51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13240800.mp4 using Guid(4169efc0733d1aa4785ee3475d95bc51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '942eaa151491d695fbd5c9cc99ab31c0') in 0.060866 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Resources/CardVideo/14221100.mp4
+  artifactKey: Guid(14b180e1bebf9194ab9d0716acb83160) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14221100.mp4 using Guid(14b180e1bebf9194ab9d0716acb83160) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d0021dbe7e39a8487cf532d4a8a139b') in 0.032095 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/16240200.mp4
+  artifactKey: Guid(ca0afd3818f3b854daa2f8c5cffa4968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16240200.mp4 using Guid(ca0afd3818f3b854daa2f8c5cffa4968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2313155c5ed335ffce6ee1f335ef779d') in 0.017995 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/20005600.mp4
+  artifactKey: Guid(4181951dbcc37424cba15bb2209cf82e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20005600.mp4 using Guid(4181951dbcc37424cba15bb2209cf82e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcca3b8f7006c1eb643c2e96d8979b5b') in 0.043570 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000067 seconds.
+  path: Assets/Resources/CardVideo/12231400.mp4
+  artifactKey: Guid(3488f2fd3fc6c63479baadf5380af4e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12231400.mp4 using Guid(3488f2fd3fc6c63479baadf5380af4e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b626b0a327f6ca65b80674407a1e7a07') in 0.038180 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/14210400.mp4
+  artifactKey: Guid(84e0c11900db15f4e9866b82faf9ec4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14210400.mp4 using Guid(84e0c11900db15f4e9866b82faf9ec4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75d7b620b4f23ccedf22520fd3adcf11') in 0.058261 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000077 seconds.
+  path: Assets/Resources/CardVideo/16220300.mp4
+  artifactKey: Guid(7f96e6e5ed28f824bbfc1c238bcb7f80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16220300.mp4 using Guid(7f96e6e5ed28f824bbfc1c238bcb7f80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e141f867e3fce21a96b086bc8b12a98b') in 0.008842 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/15231300.mp4
+  artifactKey: Guid(902c7f4e64c6ef84d85ec8d3118510d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15231300.mp4 using Guid(902c7f4e64c6ef84d85ec8d3118510d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7a0bd5bdc7791751d70976e09b35983') in 0.047014 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/Resources/CardVideo/12210600.mp4
+  artifactKey: Guid(1629c09bcac4a174bb8b085bace6d1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12210600.mp4 using Guid(1629c09bcac4a174bb8b085bace6d1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18fd303f924a27f56783695c5e39577c') in 0.060073 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/12230800.mp4
+  artifactKey: Guid(256a00c00205670469b3b836467d5dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230800.mp4 using Guid(256a00c00205670469b3b836467d5dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfb7fad0256500ed486fd30dfafb87e6') in 0.075948 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Resources/CardVideo/15210300.mp4
+  artifactKey: Guid(f6b5cf0e0af8666499df9e2c33ec4c58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15210300.mp4 using Guid(f6b5cf0e0af8666499df9e2c33ec4c58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c65fea2a128976960de8232c1e93feaa') in 0.076558 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000090 seconds.
+  path: Assets/Resources/CardVideo/20005700.mp4
+  artifactKey: Guid(52e99202051756f43bd44edb1f6090dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20005700.mp4 using Guid(52e99202051756f43bd44edb1f6090dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22cecced74df820b2621c0e6771a52ee') in 0.048105 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Resources/CardVideo/15221000.mp4
+  artifactKey: Guid(0fdb1d081cfbfd840b8a540b49b81c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15221000.mp4 using Guid(0fdb1d081cfbfd840b8a540b49b81c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e71ed82091106fe1c9a775a22dc4b10a') in 0.013251 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/14220100.mp4
+  artifactKey: Guid(7b1382cd6de16ed4c918857e45dab62d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14220100.mp4 using Guid(7b1382cd6de16ed4c918857e45dab62d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29b1109f3eb8bf04d756f92225cbbf97') in 0.075918 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/14230100.mp4
+  artifactKey: Guid(85990372c1a573642a1c75c029031c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14230100.mp4 using Guid(85990372c1a573642a1c75c029031c36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '342f07073140e7bd72ee6a4fce497071') in 0.043829 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/14231500.mp4
+  artifactKey: Guid(94c4a27e740bf8442bf11b78f2b1f50f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14231500.mp4 using Guid(94c4a27e740bf8442bf11b78f2b1f50f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbe7625eede5de820b64544c555c87df') in 0.060045 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/14231200.mp4
+  artifactKey: Guid(44dcf38576dab8640bec3397c26132d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14231200.mp4 using Guid(44dcf38576dab8640bec3397c26132d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4c5c24d3d5e637daf1b300f350a4eb0') in 0.032097 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/Resources/CardVideo/15320100.mp4
+  artifactKey: Guid(576aabc6798662346a784873fa2b1437) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15320100.mp4 using Guid(576aabc6798662346a784873fa2b1437) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d1f6eaf6003ac60b3bf652faf4f2a8e') in 0.094371 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/Resources/CardVideo/13231500.mp4
+  artifactKey: Guid(978d7f4212b3fdc44bc8b6931a143c8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13231500.mp4 using Guid(978d7f4212b3fdc44bc8b6931a143c8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b36014be45da5df443e63062189bc296') in 0.032482 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Resources/CardVideo/11220600.mp4
+  artifactKey: Guid(7f5a5fe0fd1d39f4fb9d7bf58dd10122) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220600.mp4 using Guid(7f5a5fe0fd1d39f4fb9d7bf58dd10122) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f9adb48ad6d73898aad98647f607eddc') in 0.047377 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000065 seconds.
+  path: Assets/Resources/CardVideo/15220600.mp4
+  artifactKey: Guid(2fdc3e8d2688408458f7c4e365c169d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/15220600.mp4 using Guid(2fdc3e8d2688408458f7c4e365c169d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc094e336c383880b44df75d64b330a3') in 0.049461 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/20002000.mp4
+  artifactKey: Guid(320de90b6c8627444bcb659c84437f70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20002000.mp4 using Guid(320de90b6c8627444bcb659c84437f70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3460bc335e9e457f5815b93fa63e235d') in 0.033879 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/13221700.mp4
+  artifactKey: Guid(fe0e749d75d0de64c889910e11005d4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13221700.mp4 using Guid(fe0e749d75d0de64c889910e11005d4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71b81f1351ecefb1abb8beaea3986f52') in 0.048324 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/20006300.mp4
+  artifactKey: Guid(1603d1a29d492404795539a12049060c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20006300.mp4 using Guid(1603d1a29d492404795539a12049060c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdb672be1953d8d66be83fe93a3d55f3') in 0.057975 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Resources/CardVideo/13221000.mp4
+  artifactKey: Guid(eba7bb4e0ac344e498cca677f9d1f530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13221000.mp4 using Guid(eba7bb4e0ac344e498cca677f9d1f530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09716cf2f21f794c5e39fea5aea9282c') in 0.032399 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Resources/CardVideo/12220400.mp4
+  artifactKey: Guid(174c3f53c60a83d46b68678fd2a40233) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12220400.mp4 using Guid(174c3f53c60a83d46b68678fd2a40233) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88658a794543d5b6488b6d05d2c1d14c') in 0.032872 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/20004600.mp4
+  artifactKey: Guid(ba3981ef5b837ae4ca07078b2f41fe1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20004600.mp4 using Guid(ba3981ef5b837ae4ca07078b2f41fe1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21f002ce89caa91832788571643a5e2d') in 0.053303 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000204 seconds.
+  path: Assets/Resources/CardVideo/20048200.mp4
+  artifactKey: Guid(93b1eddeffe7ac24a9375a57f2f23894) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20048200.mp4 using Guid(93b1eddeffe7ac24a9375a57f2f23894) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d4dd868c09b28cea052bb8470085183') in 0.010825 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/11331300.mp4
+  artifactKey: Guid(c59658bf2aa575841a812dc4613a8e60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11331300.mp4 using Guid(c59658bf2aa575841a812dc4613a8e60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d59fc077b36f9e54721454ce22b2afc') in 0.082418 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/12230200.mp4
+  artifactKey: Guid(0e988c4b25e4b6a4ba10fcc2a50c2faf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12230200.mp4 using Guid(0e988c4b25e4b6a4ba10fcc2a50c2faf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '053882350539e25863e247cc5ca6ed9d') in 0.048095 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/11320400.mp4
+  artifactKey: Guid(0f91d319e3c0aa94e88c657a8b75a34c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11320400.mp4 using Guid(0f91d319e3c0aa94e88c657a8b75a34c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9fec03e1c922c580c365e4cdc7c4552') in 0.039743 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/13230600.mp4
+  artifactKey: Guid(61a90c82421a87c47907c5105d936b32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/13230600.mp4 using Guid(61a90c82421a87c47907c5105d936b32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b279951e97a34dca992ed1e55093e336') in 0.040965 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/16230800.mp4
+  artifactKey: Guid(1ef773f100f268242b015e880c7eb892) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16230800.mp4 using Guid(1ef773f100f268242b015e880c7eb892) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1ecdcdea03bacadb294e582c87e6078') in 0.008952 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/14231400.mp4
+  artifactKey: Guid(86c2daf62cc5f5647af44ab12c93f3e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/14231400.mp4 using Guid(86c2daf62cc5f5647af44ab12c93f3e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10e49c39d57c6f60a611dd552f02a37f') in 0.061838 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000058 seconds.
+  path: Assets/Resources/CardVideo/16231500.mp4
+  artifactKey: Guid(2e20c190e1440254b9ee9f32a7fc8924) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16231500.mp4 using Guid(2e20c190e1440254b9ee9f32a7fc8924) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ba2600696f939671ac4a3452dfe0d80') in 0.011044 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Resources/CardVideo/20006200.mp4
+  artifactKey: Guid(8d6df5315d943054884ca55848ac5195) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20006200.mp4 using Guid(8d6df5315d943054884ca55848ac5195) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16fc260dd8094d220e827cce58d0dceb') in 0.030752 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/11240400.mp4
+  artifactKey: Guid(7af4f446e7f37994480ca3859257a91d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11240400.mp4 using Guid(7af4f446e7f37994480ca3859257a91d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '504a49fed0c9159ad06afe721e64437a') in 0.043168 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/Resources/CardVideo/16231000.mp4
+  artifactKey: Guid(3f6988cf109affd4d9bcc10c7cad6a35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/16231000.mp4 using Guid(3f6988cf109affd4d9bcc10c7cad6a35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dac842fe453b5d55963b146f4a806bd5') in 0.099963 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/12210400.mp4
+  artifactKey: Guid(30f15ce5d031f9f44ae77995e2851a20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/12210400.mp4 using Guid(30f15ce5d031f9f44ae77995e2851a20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eb41bc2858d5c478d86e6ba0932ddaa') in 0.086528 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 16523.561425 seconds.
+  path: Assets/Resources/CardVideo/20153900.mp4
+  artifactKey: Guid(ebee8353882be04429f31823782e6274) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20153900.mp4 using Guid(ebee8353882be04429f31823782e6274) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9042eccc10abdad74c2b49eee55210c') in 0.032684 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000127 seconds.
+  path: Assets/Resources/CardVideo/20173700.mp4
+  artifactKey: Guid(6d86b139942036445a8162b74c406ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20173700.mp4 using Guid(6d86b139942036445a8162b74c406ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '139ef66a5cad7d1a74d8da319f0b1af3') in 0.007567 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Resources/CardVideo/20170100.mp4
+  artifactKey: Guid(23e2fda827b631a47ac5cd45a8b978f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20170100.mp4 using Guid(23e2fda827b631a47ac5cd45a8b978f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '014ef0ef5c4b3bfba3ddaaca27a004d0') in 0.081321 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/20174300.mp4
+  artifactKey: Guid(1b98010cb0193764b8bf504ca8d572c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20174300.mp4 using Guid(1b98010cb0193764b8bf504ca8d572c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23dca81f2d1c70b3b8ccb4ec58c7479b') in 0.004831 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20163200.mp4
+  artifactKey: Guid(66ce6d0f07b47074da1ac6d512cbe41c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20163200.mp4 using Guid(66ce6d0f07b47074da1ac6d512cbe41c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c7bef04519815ad810fe5dd3da4e6cb') in 0.032723 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/Resources/CardVideo/20163000.mp4
+  artifactKey: Guid(204e414acd1faab449d1e75648abbe90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20163000.mp4 using Guid(204e414acd1faab449d1e75648abbe90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20356ed6e5878ba6077540d5fa1573db') in 0.049525 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/20167700.mp4
+  artifactKey: Guid(ba226b00991508e49be67360dd52fe24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20167700.mp4 using Guid(ba226b00991508e49be67360dd52fe24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbbeacd92cbf94056f8a39398818af81') in 0.011349 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/20163100.mp4
+  artifactKey: Guid(9bcfe967d43004149bfbbd00bdd7b29d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20163100.mp4 using Guid(9bcfe967d43004149bfbbd00bdd7b29d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfa698cf6daae8e7f748101f7ec46ee3') in 0.007944 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/20178000.mp4
+  artifactKey: Guid(9bd7ffc1393856a44aebde31fee86a3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20178000.mp4 using Guid(9bd7ffc1393856a44aebde31fee86a3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7b5ace2f5ccfcb6fb3eb1448bb97241') in 0.007995 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/20166100.mp4
+  artifactKey: Guid(bfb39826f1cdac143bf5efb58d501356) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20166100.mp4 using Guid(bfb39826f1cdac143bf5efb58d501356) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ee8c5388e70639c2196b295b5b27e20') in 0.008644 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/20158000.mp4
+  artifactKey: Guid(bc62c9e86e05f6a46b0c01ce7bab2880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158000.mp4 using Guid(bc62c9e86e05f6a46b0c01ce7bab2880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f13249abaf6ebba19ed85edd50476c49') in 0.008832 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/CardVideo/20163300.mp4
+  artifactKey: Guid(9a9d1ff01833d3340847e37cc63fdd76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20163300.mp4 using Guid(9a9d1ff01833d3340847e37cc63fdd76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '539cb0a821ccd8324d98e0938c851f4f') in 0.008237 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/20167600.mp4
+  artifactKey: Guid(af848b129db099143b9bd5542fc12d2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20167600.mp4 using Guid(af848b129db099143b9bd5542fc12d2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '369ff148b89c4f0aec67ba2005c594e2') in 0.007822 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/20158500.mp4
+  artifactKey: Guid(c416844f29d04ea4e84aa9ef9c879998) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158500.mp4 using Guid(c416844f29d04ea4e84aa9ef9c879998) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a1f1a7da19b6e31a4226c20420fc37b') in 0.024494 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Resources/CardVideo/20162500.mp4
+  artifactKey: Guid(87e450452c8ee6c4885461e8ad07e380) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162500.mp4 using Guid(87e450452c8ee6c4885461e8ad07e380) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bde4277b0274329a91d6a7219f95bf8') in 0.192373 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/20158200.mp4
+  artifactKey: Guid(77c1bc03c6d40414f946f2e118270f26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158200.mp4 using Guid(77c1bc03c6d40414f946f2e118270f26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a8630549c60085f56e558df66ff3e6e') in 0.077083 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000067 seconds.
+  path: Assets/Resources/CardVideo/20163400.mp4
+  artifactKey: Guid(5be5857f3d1801d45870054f9d36dbb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20163400.mp4 using Guid(5be5857f3d1801d45870054f9d36dbb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '782cc9dbb1e0c9302390176a31ed1987') in 0.006592 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/CardVideo/20162100.mp4
+  artifactKey: Guid(70ae520967f54564fa0868ef91927693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162100.mp4 using Guid(70ae520967f54564fa0868ef91927693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bbab5bca5d53edaea4439d651f95079') in 0.054207 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardVideo/20173100.mp4
+  artifactKey: Guid(a2b6f8310460d6143a50ad164b71c41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20173100.mp4 using Guid(a2b6f8310460d6143a50ad164b71c41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcbc717d85ff947a63b264112eb91665') in 0.066289 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Resources/CardVideo/20161700.mp4
+  artifactKey: Guid(cead2ab072101d64ab76b9fe63a346cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20161700.mp4 using Guid(cead2ab072101d64ab76b9fe63a346cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78f61d386d7953d7605dfbde0f9c2597') in 0.043499 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Resources/CardVideo/20155900.mp4
+  artifactKey: Guid(41a1dc4b2d05402409618e950b056aca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20155900.mp4 using Guid(41a1dc4b2d05402409618e950b056aca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fa15b774dac73a7e7d30692f251d820') in 0.079393 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Resources/CardVideo/20162300.mp4
+  artifactKey: Guid(b9f103a7b3a41b744af6615c2abc4239) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162300.mp4 using Guid(b9f103a7b3a41b744af6615c2abc4239) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '488975f9834d438a6508793d50013dbd') in 0.010587 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Resources/CardVideo/20162400.mp4
+  artifactKey: Guid(8838def1ba8cd9e40a018a8362263e85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162400.mp4 using Guid(8838def1ba8cd9e40a018a8362263e85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f691ee004ca387639329a0a42e30c80f') in 0.077946 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/CardVideo/20172500.mp4
+  artifactKey: Guid(277dc379f17de334f991c947519cdae4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20172500.mp4 using Guid(277dc379f17de334f991c947519cdae4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97609590cdcf854ba97c54916c3eb55f') in 0.047651 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20157900.mp4
+  artifactKey: Guid(7d2e7259e0ea9d043824a161446daeca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20157900.mp4 using Guid(7d2e7259e0ea9d043824a161446daeca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25227794d092270fc04de621dcd802f0') in 0.009560 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Resources/CardVideo/20177900.mp4
+  artifactKey: Guid(373da8624ab049d4f982f38345394d14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20177900.mp4 using Guid(373da8624ab049d4f982f38345394d14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '908304bb7c23b9ed14816879c97d77f3') in 0.024507 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Resources/CardVideo/20177700.mp4
+  artifactKey: Guid(6f785091146b1164b92142599f0e982b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20177700.mp4 using Guid(6f785091146b1164b92142599f0e982b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a92a22c141a7669b18d4b1e5d5ccb78') in 0.008259 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000079 seconds.
+  path: Assets/Resources/CardVideo/20164200.mp4
+  artifactKey: Guid(9ec08d22becf8da428a8900e8d7b7553) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20164200.mp4 using Guid(9ec08d22becf8da428a8900e8d7b7553) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea9fa56f8a780706fab8ed4d2103bb4a') in 0.009592 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/20162600.mp4
+  artifactKey: Guid(8d94f400442161d4abf1e3e333624ee4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162600.mp4 using Guid(8d94f400442161d4abf1e3e333624ee4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd725ecf52fc346b1547a31fb0a694d72') in 0.009040 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/20162000.mp4
+  artifactKey: Guid(ecf1579c7b0c0304ba5e5c36e2a45f1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20162000.mp4 using Guid(ecf1579c7b0c0304ba5e5c36e2a45f1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '862e4a3aa7efca926ff915a5196887a8') in 0.009662 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/20158700.mp4
+  artifactKey: Guid(fe5106480a218da47ad59444fa3423e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/20158700.mp4 using Guid(fe5106480a218da47ad59444fa3423e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3168f06317f5e5b3d0c4e119d40fe4d3') in 0.013547 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 50.894176 seconds.
+  path: Assets/Resources/Sprites/GameCardInfo/GameGoldBorder.png
+  artifactKey: Guid(dcc77a28287f2064f8513607ae178cc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/GameCardInfo/GameGoldBorder.png using Guid(dcc77a28287f2064f8513607ae178cc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '319965a02b9fca659aa3dcc95a9d3d36') in 0.576137 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Assets/Resources/Sprites/GameCardInfo/ScoiataelShow2.png
+  artifactKey: Guid(d547f06c850d9e04ca8ad68ad1095112) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/GameCardInfo/ScoiataelShow2.png using Guid(d547f06c850d9e04ca8ad68ad1095112) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8645147dded7f640ed50f4248fede550') in 0.466795 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.157349 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 3.71 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in 28.167 seconds
+Domain Reload Profiling:
+	ReloadAssembly (28224ms)
+		BeginReloadAssembly (20005ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (2168ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (10786ms)
+		EndReloadAssembly (7476ms)
+			LoadAssemblies (5197ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (1405ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (81ms)
+			SetupLoadedEditorAssemblies (1281ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (229ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (4ms)
+				BeforeProcessingInitializeOnLoad (142ms)
+				ProcessInitializeOnLoadAttributes (490ms)
+				ProcessInitializeOnLoadMethodAttributes (388ms)
+				AfterProcessingInitializeOnLoad (26ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (338ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 128.76 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3339.
+Memory consumption went from 122.5 MB to 122.5 MB.
+Total: 78.376000 ms (FindLiveObjects: 0.375800 ms CreateObjectMapping: 0.247500 ms MarkObjects: 77.577500 ms  DeleteObjects: 0.172200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.166506 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.33 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.940 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2942ms)
+		BeginReloadAssembly (324ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (24ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (65ms)
+		EndReloadAssembly (2329ms)
+			LoadAssemblies (324ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (592ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (109ms)
+			SetupLoadedEditorAssemblies (1020ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (74ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (178ms)
+				ProcessInitializeOnLoadAttributes (450ms)
+				ProcessInitializeOnLoadMethodAttributes (283ms)
+				AfterProcessingInitializeOnLoad (33ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (91ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 37.18 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3342.
+Memory consumption went from 122.6 MB to 122.5 MB.
+Total: 19.362000 ms (FindLiveObjects: 0.488100 ms CreateObjectMapping: 0.740200 ms MarkObjects: 18.072600 ms  DeleteObjects: 0.058900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.194430 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 3.49 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.831 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2832ms)
+		BeginReloadAssembly (342ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (14ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (70ms)
+		EndReloadAssembly (2218ms)
+			LoadAssemblies (336ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (701ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (82ms)
+			SetupLoadedEditorAssemblies (901ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (52ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (4ms)
+				BeforeProcessingInitializeOnLoad (162ms)
+				ProcessInitializeOnLoadAttributes (373ms)
+				ProcessInitializeOnLoadMethodAttributes (277ms)
+				AfterProcessingInitializeOnLoad (32ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (88ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 26.11 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3345.
+Memory consumption went from 122.6 MB to 122.5 MB.
+Total: 9.567600 ms (FindLiveObjects: 0.273900 ms CreateObjectMapping: 0.175200 ms MarkObjects: 9.055300 ms  DeleteObjects: 0.061600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 480.675516 seconds.
+  path: Assets/Script/Card/FlashCardList.cs
+  artifactKey: Guid(a818772f03a0c484a9cbf9ef7792142e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Script/Card/FlashCardList.cs using Guid(a818772f03a0c484a9cbf9ef7792142e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e113b1cc59f8f06914d9ef35db1f262') in 0.132802 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.095812 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 3.41 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.529 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2531ms)
+		BeginReloadAssembly (317ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (15ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (84ms)
+		EndReloadAssembly (1982ms)
+			LoadAssemblies (263ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (492ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (94ms)
+			SetupLoadedEditorAssemblies (882ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (38ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (4ms)
+				BeforeProcessingInitializeOnLoad (132ms)
+				ProcessInitializeOnLoadAttributes (405ms)
+				ProcessInitializeOnLoadMethodAttributes (271ms)
+				AfterProcessingInitializeOnLoad (31ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (88ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 91.60 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3348.
+Memory consumption went from 122.6 MB to 122.6 MB.
+Total: 30.814200 ms (FindLiveObjects: 0.999700 ms CreateObjectMapping: 1.590000 ms MarkObjects: 28.136400 ms  DeleteObjects: 0.083800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 840.628938 seconds.
+  path: Assets/Resources/CardVideo/6010200.mp4
+  artifactKey: Guid(f58a0f6ff816ef541ad893014bf01728) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/6010200.mp4 using Guid(f58a0f6ff816ef541ad893014bf01728) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9a0d8bf1fa13603d052435c9fc34f51') in 0.742893 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/11220100.mp4
+  artifactKey: Guid(43478eb9ada012945a4261bcef98f747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220100.mp4 using Guid(43478eb9ada012945a4261bcef98f747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fef58b50e4553903e40271966b3b4609') in 0.106346 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Resources/CardVideo/11210400.mp4
+  artifactKey: Guid(4ee41c98d72658d40b1cd12a59c58024) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210400.mp4 using Guid(4ee41c98d72658d40b1cd12a59c58024) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aceb4d1fbc47517f0dd11dd39cf3dfda') in 0.065048 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/CardVideo/11210500.mp4
+  artifactKey: Guid(4af223c3da1894645a9eb3fc479b33b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210500.mp4 using Guid(4af223c3da1894645a9eb3fc479b33b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f643c8fb504e2f2f5edf0db154decb52') in 0.103681 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/11220400.mp4
+  artifactKey: Guid(a08a8219f4d9d7b4fab58d318009a401) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220400.mp4 using Guid(a08a8219f4d9d7b4fab58d318009a401) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b2fb78fc1caaff5c3ff5b3e7deee858') in 0.088120 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000084 seconds.
+  path: Assets/Resources/CardVideo/11220300.mp4
+  artifactKey: Guid(6084c4eca3850bc46abe7cf3aa9b48a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11220300.mp4 using Guid(6084c4eca3850bc46abe7cf3aa9b48a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4259bc6bcd8ffecaf646a6f34907020') in 0.269760 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Resources/CardVideo/11210200.mp4
+  artifactKey: Guid(49b1c27c04463c544ae3bd708b66fb37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210200.mp4 using Guid(49b1c27c04463c544ae3bd708b66fb37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0eb07331c16ed60a0cde636217290d0') in 0.157859 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/CardVideo/11210900.mp4
+  artifactKey: Guid(85c5fe0db013164458698155a333752a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210900.mp4 using Guid(85c5fe0db013164458698155a333752a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2aec44a50aaed3af374c3844e98e5723') in 0.151601 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Resources/CardVideo/11210300.mp4
+  artifactKey: Guid(d58d0c3516a29e54db9d7ddd4b4a945c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210300.mp4 using Guid(d58d0c3516a29e54db9d7ddd4b4a945c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95235d9b8452cbc6bbd9f020873b6277') in 0.029326 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Resources/CardVideo/11210600.mp4
+  artifactKey: Guid(24ec1dd24004d0c4c9c57dded15bb645) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210600.mp4 using Guid(24ec1dd24004d0c4c9c57dded15bb645) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca65f930767307daaf7a67fc23517529') in 0.090813 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Resources/CardVideo/11211000.mp4
+  artifactKey: Guid(39673b789fb813b45b577383c7ab8fc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11211000.mp4 using Guid(39673b789fb813b45b577383c7ab8fc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e17a81cda2f3c384db4c43fbe942e1fc') in 0.139276 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/Resources/CardVideo/11210100.mp4
+  artifactKey: Guid(2ac00c78e44260e41b8880dccfb49b3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardVideo/11210100.mp4 using Guid(2ac00c78e44260e41b8880dccfb49b3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3804ce9597760f20e2eed3659560d86b') in 0.091804 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.102767 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.79 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.809 seconds
+Domain Reload Profiling:
+	ReloadAssembly (3811ms)
+		BeginReloadAssembly (773ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (11ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (55ms)
+		EndReloadAssembly (2354ms)
+			LoadAssemblies (767ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (694ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (95ms)
+			SetupLoadedEditorAssemblies (889ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (50ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (150ms)
+				ProcessInitializeOnLoadAttributes (377ms)
+				ProcessInitializeOnLoadMethodAttributes (278ms)
+				AfterProcessingInitializeOnLoad (30ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (81ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 38.86 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3351.
+Memory consumption went from 122.6 MB to 122.6 MB.
+Total: 27.015900 ms (FindLiveObjects: 0.364400 ms CreateObjectMapping: 0.179600 ms MarkObjects: 26.420700 ms  DeleteObjects: 0.049700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.155269 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.95 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.943 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2944ms)
+		BeginReloadAssembly (551ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (12ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (289ms)
+		EndReloadAssembly (2118ms)
+			LoadAssemblies (304ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (461ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (83ms)
+			SetupLoadedEditorAssemblies (1086ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (274ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (135ms)
+				ProcessInitializeOnLoadAttributes (369ms)
+				ProcessInitializeOnLoadMethodAttributes (270ms)
+				AfterProcessingInitializeOnLoad (35ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (76ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 17.63 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3354.
+Memory consumption went from 122.7 MB to 122.6 MB.
+Total: 27.563200 ms (FindLiveObjects: 0.290500 ms CreateObjectMapping: 0.194700 ms MarkObjects: 27.019600 ms  DeleteObjects: 0.056200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 95.011972 seconds.
+  path: Assets/Resources/Sprites/GameUI/WolfMedalion_Player.png
+  artifactKey: Guid(5f24c0e7fde307c40bebfa023a3cdbf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sprites/GameUI/WolfMedalion_Player.png using Guid(5f24c0e7fde307c40bebfa023a3cdbf5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '540efada610e9f0de21045d0b1f80c1f') in 1.434809 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.114616 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.36 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.908 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2909ms)
+		BeginReloadAssembly (463ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (13ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (132ms)
+		EndReloadAssembly (2067ms)
+			LoadAssemblies (278ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (492ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (83ms)
+			SetupLoadedEditorAssemblies (941ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (42ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (145ms)
+				ProcessInitializeOnLoadAttributes (409ms)
+				ProcessInitializeOnLoadMethodAttributes (301ms)
+				AfterProcessingInitializeOnLoad (40ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (98ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 19.62 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3359.
+Memory consumption went from 122.7 MB to 122.6 MB.
+Total: 10.304600 ms (FindLiveObjects: 0.369000 ms CreateObjectMapping: 0.605100 ms MarkObjects: 9.277400 ms  DeleteObjects: 0.050200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.105762 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.92 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.112 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2113ms)
+		BeginReloadAssembly (269ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (12ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (63ms)
+		EndReloadAssembly (1632ms)
+			LoadAssemblies (239ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (392ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (82ms)
+			SetupLoadedEditorAssemblies (756ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (39ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (127ms)
+				ProcessInitializeOnLoadAttributes (317ms)
+				ProcessInitializeOnLoadMethodAttributes (229ms)
+				AfterProcessingInitializeOnLoad (41ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (81ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 17.51 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3362.
+Memory consumption went from 122.7 MB to 122.7 MB.
+Total: 14.321800 ms (FindLiveObjects: 0.464100 ms CreateObjectMapping: 0.263200 ms MarkObjects: 13.439600 ms  DeleteObjects: 0.149100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.156783 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 12.50 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  6.173 seconds
+Domain Reload Profiling:
+	ReloadAssembly (6175ms)
+		BeginReloadAssembly (720ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (58ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (131ms)
+		EndReloadAssembly (4816ms)
+			LoadAssemblies (716ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (1057ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (351ms)
+			SetupLoadedEditorAssemblies (2191ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (134ms)
+				SetLoadedEditorAssemblies (16ms)
+				RefreshPlugins (13ms)
+				BeforeProcessingInitializeOnLoad (432ms)
+				ProcessInitializeOnLoadAttributes (872ms)
+				ProcessInitializeOnLoadMethodAttributes (676ms)
+				AfterProcessingInitializeOnLoad (48ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (231ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 29.68 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3365.
+Memory consumption went from 122.7 MB to 122.7 MB.
+Total: 7.941100 ms (FindLiveObjects: 0.311900 ms CreateObjectMapping: 0.198400 ms MarkObjects: 7.376100 ms  DeleteObjects: 0.052900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.118097 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.52 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.007 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2008ms)
+		BeginReloadAssembly (270ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (9ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (53ms)
+		EndReloadAssembly (1521ms)
+			LoadAssemblies (232ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (360ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (66ms)
+			SetupLoadedEditorAssemblies (708ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (36ms)
+				SetLoadedEditorAssemblies (6ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (133ms)
+				ProcessInitializeOnLoadAttributes (300ms)
+				ProcessInitializeOnLoadMethodAttributes (205ms)
+				AfterProcessingInitializeOnLoad (25ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (65ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 16.68 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3368.
+Memory consumption went from 122.7 MB to 122.7 MB.
+Total: 10.198500 ms (FindLiveObjects: 0.258700 ms CreateObjectMapping: 0.127600 ms MarkObjects: 9.759800 ms  DeleteObjects: 0.050500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.093087 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.76 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.492 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2494ms)
+		BeginReloadAssembly (546ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (9ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (55ms)
+		EndReloadAssembly (1591ms)
+			LoadAssemblies (460ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (401ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (83ms)
+			SetupLoadedEditorAssemblies (720ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (33ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (3ms)
+				BeforeProcessingInitializeOnLoad (117ms)
+				ProcessInitializeOnLoadAttributes (323ms)
+				ProcessInitializeOnLoadMethodAttributes (216ms)
+				AfterProcessingInitializeOnLoad (26ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (61ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 48.33 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3371.
+Memory consumption went from 122.7 MB to 122.7 MB.
+Total: 8.852800 ms (FindLiveObjects: 0.265000 ms CreateObjectMapping: 0.141400 ms MarkObjects: 8.389000 ms  DeleteObjects: 0.055600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.102491 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 2.11 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.150 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2152ms)
+		BeginReloadAssembly (325ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (10ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (95ms)
+		EndReloadAssembly (1586ms)
+			LoadAssemblies (268ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (419ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (62ms)
+			SetupLoadedEditorAssemblies (721ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (35ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (120ms)
+				ProcessInitializeOnLoadAttributes (306ms)
+				ProcessInitializeOnLoadMethodAttributes (231ms)
+				AfterProcessingInitializeOnLoad (25ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (62ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 18.50 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3374.
+Memory consumption went from 122.7 MB to 122.7 MB.
+Total: 7.789400 ms (FindLiveObjects: 0.353000 ms CreateObjectMapping: 0.167600 ms MarkObjects: 7.205000 ms  DeleteObjects: 0.061900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.097190 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 1.70 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.890 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1891ms)
+		BeginReloadAssembly (289ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (12ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (81ms)
+		EndReloadAssembly (1394ms)
+			LoadAssemblies (243ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (379ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (63ms)
+			SetupLoadedEditorAssemblies (602ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (29ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (106ms)
+				ProcessInitializeOnLoadAttributes (247ms)
+				ProcessInitializeOnLoadMethodAttributes (195ms)
+				AfterProcessingInitializeOnLoad (23ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (57ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 16.67 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2835 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 87 unused Assets / (27.9 KB). Loaded Objects now: 3377.
+Memory consumption went from 122.7 MB to 122.7 MB.
+Total: 9.045000 ms (FindLiveObjects: 0.371400 ms CreateObjectMapping: 0.140400 ms MarkObjects: 8.486800 ms  DeleteObjects: 0.044800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 

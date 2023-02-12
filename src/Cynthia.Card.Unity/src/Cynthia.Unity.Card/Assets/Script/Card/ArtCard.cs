@@ -92,10 +92,10 @@ public class ArtCard : MonoBehaviour
             // CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
         }
         // CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
+        FlashCardVideo.targetTexture.Release();
         if (FlashCardList.CardList.Exists(t => t == CurrentCore.CardArtsId))
         {
             FlashCard.SetActive(false);
-            FlashCardVideo.targetTexture.Release();
             FlashCardVideo.clip = Resources.Load<VideoClip>("CardVideo/" + CurrentCore.CardArtsId);
             FlashCard.SetActive(true);
         }
