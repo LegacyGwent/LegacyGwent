@@ -2873,7 +2873,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn \"Lady Of The Lake\". (Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
+            "Info": "Spawn Lady Of The Lake. (Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
             "Flavor": ""
         },
         "70012": {
@@ -2883,7 +2883,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a \"Torrential Rain\" from your deck, then spawn \"Torrential Rain\" on this unit's row and on the opposing row.",
+            "Info": "Deploy: Discard a Torrential Rain from your deck, then spawn Torrential Rain on this unit's row and on the opposing row.",
             "Flavor": ""
         },
         "70014": {
@@ -2898,47 +2898,47 @@
         },
         "70016": {
             "Name": "Sukrus",
-            "Info": "Deploy: Choose 1 bronze card in the hand and discard all cards with the same name from the deck.",
+            "Info": "Deploy: Choose 1 Bronze card in your hand and discard all cards with the same name from the deck.",
             "Flavor": ""
         },
         "70017": {
             "Name": "Cintrian Field Medic",
-            "Info": "Deploy: Shuffle a non-identical friendly bronze unit back to the deck, and then play a random bronze unit card from the deck.",
+            "Info": "Deploy: Shuffle a non-identical friendly Bronze unit back to the deck, and then play a random Bronze unit from the deck.",
             "Flavor": ""
         },
         "70019": {
             "Name": "Zoltan: Warrior",
-            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, boost them by the half value of Zotan's boost.",
+            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, then boost them by half the value of Zotan's boost.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, boost them by the half value of Figgis' boost.",
+            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, then boost them by half the value of Figgis' boost.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, boost them by the half value of Munro's boost.",
+            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, then boost them by half the value of Munro's boost.",
             "Flavor": ""
         },
         "70022": {
             "Name": "Kikimore Worker",
-            "Info": "Deploy: Choose an \"Insectoid\" friendly unit, and boost all the cards with the same name on your side of the board, hand and deck by 2 points.",
+            "Info": "Deploy: Choose an Insectoid friendly unit, and boost all the cards with the same name on your side of the board, hand and deck by 2 points.",
             "Flavor": ""
         },
         "70023": {
             "Name": "Kikimore Warrior",
-            "Info": "Deploy: Consume a non-identical bronze unit card in your own deck with current power no greater than its own, and boost self by its power.",
+            "Info": "Deploy: Consume a non-identical Bronze unit in your own deck with current power no greater than its own, then boost self by its power.",
             "Flavor": ""
         },
         "70024": {
             "Name": "Cursed Immortals",
-            "Info": "When the adjacent cursed unit is destroyed, spawn a \"Specter\" on this row.",
+            "Info": "When an adjacent Cursed unit is destroyed, spawn a Specter on this row.",
             "Flavor": ""
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "4 Armor. Repeat the Deploy ability of the next bronze or sliver loyal unit you play.",
+            "Info": "Single-use. Repeat the Deploy ability of the next Bronze or Silver loyal unit you play. 4 Armor.",
             "Flavor": "Your Majesty... The princess has been touched by the curse o' the Black Sun. There's no hope, I'm afraid..."
         },
         "70026": {
@@ -2948,17 +2948,17 @@
         },
         "70027": {
             "Name": "Geralt: Axii",
-            "Info": "Deploy: Replay a silver/bronze loyal unit from your opponent's side of the board and then move it back to opponent's side of the board",
+            "Info": "Deploy: Replay a Bronze or Silver loyal unit from your opponent's side of the board and then move it back to the opponent's side of the board",
             "Flavor": ""
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Move all units to a random other row and damage self by 2 for each unit moved.\n\nWhen in your hand or deck, boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: Move all units to a random other row and damage self by 2 for each unit moved.\nWhen in your hand or deck, boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
             "Name": "War Elephant",
-            "Info": "Deploy: Destroy the armor of all units in placed row and damage a unit by the value of armor destroyed.",
+            "Info": "Deploy: Destroy the armor of all units in this row and damage a unit by the amount destroyed.",
             "Flavor": ""
         },
         "70038": {
@@ -2968,7 +2968,7 @@
         },
         "70039": {
             "Name": "Dire Wolf Claws",
-            "Info": "Deploy: Deal 4 damage to a random enemy unit. When discarded, trigger this ability and shuffle 2 \"Dire Wolf Warriors\" in your deck.",
+            "Info": "Deploy: Deal 4 damage to a random enemy unit. When discarded, trigger this ability and shuffle 2 Dire Wolf Warriors in your deck.",
             "Flavor": ""
         },
         "70040": {
@@ -2978,22 +2978,22 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the strongest enemy unit by 2 points. Repeat 4 times. For each \"White Raffard's Decoction\" in your graveyard, repeat once more.",
+            "Info": "Damage the strongest enemy unit by 2 points. Repeat 3 times. For each White Raffard's Decoction in your graveyard, repeat once more.",
             "Flavor": ""
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the weakest ally unit by 2 points. Repeat 4 times. For each \"Giga Scorpion Decoction\" in your graveyard, repeat once more.",
+            "Info": "Boost the weakest ally unit by 2 points. Repeat 3 times. For each Giga Scorpion Decoction in your graveyard, repeat once more.",
             "Flavor": ""
         },
         "70043": {
             "Name": "Vernossiel's Commando",
-            "Info": "After you Swap this unit two times, summon it to a random row.",
+            "Info": "After you Swap this unit twice, summon it to a random row.",
             "Flavor": ""
         },
         "70044": {
             "Name": "Vernossiel",
-            "Info": "Deploy: Add 2 \"Vernossiel's Commandos\" to your deck and reduce their counter by 1.",
+            "Info": "Deploy: Add 2 Vernossiel's Commandos to your deck and reduce their counter by 1.",
             "Flavor": ""
         },
         "70045": {
@@ -3008,37 +3008,37 @@
         },
         "70050": {
             "Name": "MadCharge",
-            "Info": "Choose an ally that has Armor , Duel an enemy.",
+            "Info": "Choose an ally with Armor, that unit then Duels an enemy.",
             "Flavor": ""
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 bronze units with power higher than 5 points, and deal 4 damage to each of them.",
+            "Info": "Resurrect 2 Bronze units with power higher than 5 points, then deal 4 damage to each of them.",
             "Flavor": ""
         },
         "70058": {
             "Name": "Cave Troll",
-            "Info": "Deploy: Boost self by 4, and then boost an enemy by 4 points.",
+            "Info": "Deploy: Boost self by 4, then boost an enemy by 4 points.",
             "Flavor": ""
         },
         "70059": {
             "Name": "One-Eyed Betsy",
-            "Info": "At the beginning of the round, gain 3 points, and then boost the strongest emeny by 3 points.",
+            "Info": "At the beginning of the round, boost self by 3 points, then boost the strongest enemy by 3 points.",
             "Flavor": "准头是差了点，但力道确实没话说。"
         },
         "70062": {
             "Name": "Living Armor",
-            "Info": "Units in the same row take at most 5 points per damage.",
+            "Info": "Units in the same row take at most 5 points of damage.",
             "Flavor": "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！"
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Exhausted. If there are only bronze cards in your starting deck, spawn a 'Strays of Spalla' , and add two 'Strays of Spalla' to your deck.",
+            "Info": "Single-use. If there are only Bronze cards in your starting deck, spawn a Strays of Spalla, then add two Strays of Spalla to your deck.",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
             "Name": "StraysofSpalla",
-            "Info": "Exhausted. Check the 2 bronze unit cards in your own deck, and then play 1 of them.",
+            "Info": "Single-use. Look at 2 random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
@@ -3048,37 +3048,37 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Generate copies of all locked bronze, and set the strength of copies to 2. Whenever any bronze unit are locked during your turn, generate a copy of it with 2 strength in the same row.",
+            "Info": "Deploy: Generate copies of all locked Bronze units, then set their base strenght to 2. Whenever any Bronze unit is locked during your turn, generate a copy of it with 2 base strength in the same row.",
             "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
         },
         "70077": {
             "Name": "Firesworn Zealot",
-            "Info": "Every 4 turns, deal 2 damages to 4 random enemies at the end of the turn. Reduce the countdown by 1 for each locked unit on the board when played.",
+            "Info": "Every 4 turns, deal 2 damage to 4 random enemies at the end of the turn. Reduce the countdown by 1 for each locked unit on the board when played.",
             "Flavor": "“我的信仰无人能敌，亦如我的怒火！”"
         },
         "70078": {
             "Name": "Damnation",
-            "Info": "Summon two strongest bronze units from the deck to the same row, and then change their lock status.",
+            "Info": "Summon the two Highest Bronze units from the deck to the same row, then change their lock status.",
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.",
+            "Info": "At the start of the game, add 3 The Last Wish to your deck, then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
-            "Name": "Detlaff: CrimsonCurse",
-            "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
+            "Name": "Detlaff: Crimson Curse",
+            "Info": "Deploy: Banish a Bronze Beast or Vampire unit from your graveyard, then Choose One: cast 3 rows of Full Moon on your side of the board; or cast 3 rows of Blood Moon on the opponent's side of the board.",
             "Flavor": ""
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Discard a card, add a Bronze unit card from your start deck to your hand, and then reveal it.",
+            "Info": "Deploy: Discard a card, then add a Bronze unit from your starting deck to your hand and reveal it.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
         "70104": {
-            "Name": "LyrianLandsknecht",
-            "Info": "After round over，if this card is boosted，shuffle it back to the deck and keep most 10 boost.",
+            "Name": "Lyrian Landsknecht",
+            "Info": "At the end of the round，if this card is boosted，shuffle it back to the deck and keep at most 10 boost.",
             "Flavor": "“相信我，最好别去嘲笑他们傻里傻气的帽子。”"
         },
         "70105": {
@@ -3088,7 +3088,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copies on the left.\n\nDeathwish: Spawn an Endrega Larva in this row.\n\nAfter 3 turns, at the end of your turn, destroy self.",
+            "Info": "Deploy: Spawn 1 base copy on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of your turn, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3103,7 +3103,7 @@
         },
         "70109": {
             "Name": "Dwarven Chariot",
-            "Info": "Select 2 units and move them to this unit row. When this unit moves, boost random unit in the same row by 2.",
+            "Info": "Select 2 units and move them to this unit's row. When this unit is moved, boost a random unit in the same row by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "130210": {
