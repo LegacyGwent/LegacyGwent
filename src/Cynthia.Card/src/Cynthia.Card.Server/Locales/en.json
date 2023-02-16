@@ -353,7 +353,7 @@
         },
         "12026": {
             "Name": "Triss: Telekinesis",
-            "Info": "Deploy: Create and play a bronze special card from either player's starting deck.",
+            "Info": "Deploy: Create and play a Bronze special card from either player's starting deck.",
             "Flavor": "Bindings won't suffice. Nor will a gag render her any less dangerous. No, dimeritium is the only solution."
         },
         "12002": {
@@ -513,7 +513,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "Deathwish: Resurrect this unit on a random row.",
+            "Info": "Deathwish: Resurrect this unit on the same location.",
             "Flavor": "至少你知道我的头不好砍了。"
         },
         "13002": {
@@ -1098,7 +1098,7 @@
         },
         "24004": {
             "Name": "Archgriffin",
-            "Info": "Deploy: Clear Hazards on its row. Move a bronze unit card from the opponent's graveyard to your own graveyard.",
+            "Info": "Deploy: Clear Hazards on its row. Move a Bronze unit from the opponent's graveyard to your own graveyard.",
             "Flavor": "大狮鹫也是狮鹫，只是更加凶悍。"
         },
         "24005": {
@@ -1118,7 +1118,7 @@
         },
         "24008": {
             "Name": "Griffin",
-            "Info": "Deploy: Trigger the Deathwish of a Bronze Ally.",
+            "Info": "Deploy: Trigger the Deathwish of a Bronze ally.",
             "Flavor": "Griffins like to toy with their prey. Eat 'em alive, piece by piece."
         },
         "24009": {
@@ -1163,7 +1163,7 @@
         },
         "24017": {
             "Name": "Werewolf",
-            "Info": "Boost by 7 on contact with Full Moon. Immune.",
+            "Info": "Boost by 7 on contact with Full Moon.\nImmune.",
             "Flavor": "有人说，如果被狼人咬了，那么你就会被感染，也变成狼人。当然，猎魔人都知道这是胡说八道。只有强大的诅咒才能造成这种效果。"
         },
         "24018": {
@@ -1292,7 +1292,7 @@
             "Flavor": "鹰身女妖蛋卷，真是美味佳肴啊，好先生。但它也非常昂贵，您可能料得到，这些可怜的鸟儿并不愿跟自己的蛋分离。"
         },
         "25005": {
-            "Name": "25005",
+            "Name": "Harpy Hatchling",
             "Info": "No ability.",
             "Flavor": "有时候，“年轻即是美”不过是大自然的谎言罢了。"
         },
@@ -1407,8 +1407,8 @@
             "Flavor": "猎魔人绝不会死在自己的床上。"
         },
         "32015": {
-            "Name": "Treason",
-            "Info": "Damage Enemies by 9 and then 9",
+            "Name": "Assassination",
+            "Info": "Deal 9 damage to an enemy.\nRepeat once.",
             "Flavor": "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”"
         },
         "33004": {
@@ -1448,12 +1448,12 @@
         },
         "33009": {
             "Name": "Hefty Helge",
-            "Info": "Deploy: If this Unit was Revealed, Damage all Enemies by 1. Otherwise, Damage all Enemies except those on opposite row by 1.",
+            "Info": "Deploy: If this unit was Revealed, Damage all Enemies by 1. Otherwise, Damage all enemies except those on opposite row by 1.",
             "Flavor": "并非攻城的最佳选择，却是毁城的行家里手。"
         },
         "33010": {
             "Name": "Auckes",
-            "Info": "Deploy: Lock 2 Units.",
+            "Info": "Deploy: Toggle 2 units' Lock statuses.",
             "Flavor": "雷索已有计划……还能出什么岔子？"
         },
         "33011": {
@@ -1468,7 +1468,7 @@
         },
         "33013": {
             "Name": "Cynthia",
-            "Info": "Deploy: Reveal the Highest Unit in your opponent's Hand and Boost self by its Power.",
+            "Info": "Deploy: Reveal the Highest unit in your opponent's Hand and Boost self by its Power.",
             "Flavor": "决不能轻视辛西亚，必须把她看紧点儿。"
         },
         "33001": {
@@ -1483,7 +1483,7 @@
         },
         "33015": {
             "Name": "Vanhemar",
-            "Info": "Deploy: Spawn Frost, Clear Skies or Overdose.",
+            "Info": "Deploy: Spawn Frost, Clear Skies or Shrike.",
             "Flavor": "作为火法师，他算不上……多么热烈。"
         },
         "33016": {
@@ -1503,7 +1503,7 @@
         },
         "33019": {
             "Name": "Dazhbog Runestone",
-            "Info": "Create and play a Bronze or Silver Nilfgaard card.",
+            "Info": "Create a Bronze or Silver Nilfgaard card.",
             "Flavor": "当心。还烫着呢。"
         },
         "33020": {
@@ -1513,7 +1513,7 @@
         },
         "33021": {
             "Name": "Cadaverine",
-            "Info": "Deal 3 damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral unit.",
+            "Info": "Choose One: Deal 3 damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral unit.",
             "Flavor": "我不会拿自己的性命去碰运气。我会拿上一把长剑，厚厚地涂上一层吊死鬼之毒。"
         },
         "33022": {
@@ -1613,12 +1613,12 @@
         },
         "34020": {
             "Name": "Nauzicaa Brigade",
-            "Info": "Deploy: Damage a Spying Unit by 7. If it was Destroyed, Strengthen self by 4.",
+            "Info": "Deploy: Damage a Spying unit by 7. If it was Destroyed, Strengthen self by 4.",
             "Flavor": "我们被称作死神头。想知道为什么吗？"
         },
         "34021": {
             "Name": "Spotter",
-            "Info": "Deploy: Choose a bronze or silver Revealed Unit in either Hand and Boost self by its base Power.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either Hand and boost self by its base Power.",
             "Flavor": "北方佬耍不出花招了。"
         },
         "34022": {
@@ -1698,7 +1698,7 @@
         },
         "35002": {
             "Name": "Cow Carcass",
-            "Info": "After 2 turns, destroy the weakest non-Gold unit(s) on the row (except self). Banish when moved to the graveyard.",
+            "Info": "Spying.\nAfter 2 turns, destroy all the other Lowest units on the row and destroy self on turn end.",
             "Flavor": "那是只鸟？还是头狮鹫？不对！那是……"
         },
         "41001": {
@@ -1798,7 +1798,7 @@
         },
         "43003": {
             "Name": "Trollololo",
-            "Info": "4 Armor. At the start of your turn, gain 2 Armor.",
+            "Info": "At the start of your turn, gain 2 Armor. 4 Armor.",
             "Flavor": "我是拉多多德国王的兵兵。收到命令，看守船船。"
         },
         "43004": {
@@ -1848,7 +1848,7 @@
         },
         "43013": {
             "Name": "Dethmold",
-            "Info": "Deploy: Spawn Rain, Clear Skies or Alzur's Thunder.",
+            "Info": "Deploy: Spawn Torrential Rain, Clear Skies or Alzur's Thunder.",
             "Flavor": "我曾让一个囚犯搜肠刮肚地狂吐……啊，好怀念……"
         },
         "43014": {
@@ -2053,12 +2053,12 @@
         },
         "44033": {
             "Name": "Winch",
-            "Info": "Choose one: Play a bronze Mechanical card from your graveyard and make it Doomed; Or boost all machines on your side of the board by 3.",
+            "Info": "Choose One: Resurrect a Bronze Machine and add the Doomed category to it; or boost all machines on your side of the board by 3.",
             "Flavor": "就是一个绞盘。没什么可大惊小怪的。"
         },
         "44034": {
             "Name": "Bloody Flail",
-            "Info": "Deal 5 damage and Spawn a Specter.",
+            "Info": "Deal 5 damage and Spawn a Specter on a random row.",
             "Flavor": "有些武器在整个北方领域都禁止使用。因为它们所造成的伤害超出了人们的想象。"
         },
         "45001": {
@@ -2248,7 +2248,7 @@
         },
         "53018": {
             "Name": "Morana Runestone",
-            "Info": "Create and play a Bronze or Silver Scoia'tael card.",
+            "Info": "Create a Bronze or Silver Scoia'tael card.",
             "Flavor": "一看到它我就头晕……"
         },
         "53019": {
@@ -2268,7 +2268,7 @@
         },
         "54001": {
             "Name": "Vrihedd Sappers",
-            "Info": "Ambush: After 2 turns, flip over. ",
+            "Info": "Ambush: After 2 turns, on turn start, flip over. ",
             "Flavor": "不管流言怎么说，精灵才不会碰人类的头皮。因为虱子太多了。"
         },
         "54002": {
@@ -2293,7 +2293,7 @@
         },
         "54006": {
             "Name": "Farseer",
-            "Info": "If a different Ally or Unit in your Hand is Boosted during your turn, Boost self by 2 at the end of the turn.",
+            "Info": "If a different Ally or unit in your hand is Boosted during your turn, boost self by 2 at the end of the turn.",
             "Flavor": "有时候，他的话语听似令人费解，但其中总是蕴藏着深邃的道理和惊人的智慧。"
         },
         "54007": {
@@ -2573,7 +2573,7 @@
         },
         "63016": {
             "Name": "Gremist",
-            "Info": "Deploy: Spawn Rain, Clear Skies or Roar.",
+            "Info": "Deploy: Spawn Torrential Rain, Clear Skies or Bloodcurdling Roar.",
             "Flavor": "精通炼金术的大德鲁伊，也是群岛脾气最差的老混蛋。"
         },
         "63017": {
@@ -2588,7 +2588,7 @@
         },
         "63019": {
             "Name": "Restore",
-            "Info": "Return a Bronze or Silver Skellige Unit from your Graveyard to your Hand and set its base Power to 8, then play a card from your Hand.",
+            "Info": "Return a Bronze or Silver Skellige unit from your graveyard to your hand, add the Doomed category to it, and set its base power to 8. Then play a card.",
             "Flavor": "那些该死的女术士又抢咱们的风头！只要几个年轻姑娘挥挥手就能解决的话，谁还选择这么费时费力的办法？"
         },
         "63020": {
@@ -2793,12 +2793,12 @@
         },
         "65006": {
             "Name": "Wilhelm",
-            "Info": "Deathwish: Damage all Unis on the opposite row by 1.",
+            "Info": "Deathwish: Damage all units on the opposite row by 1.",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Deathwish: The opposing player plays a random Bronze Cursed Unit from their Deck.",
+            "Info": "Spying.\nDeathwish: Spawn an Elder Bear on the opposite row.",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
         "61001": {
@@ -2823,17 +2823,17 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Choose a bronze/silver unit in your hand, boost it and all its copies in your hand and deck by 2 and give them shield. The shield can block any damage once.",
+            "Info": "Choose a Bronze or Silver unit in your hand, boost it and all its copies in your hand and deck by 2 and give them shield. The shield can block any damage once.",
             "Flavor": ""
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose one: Play a bronze unit from your deck with power equal to or less than this unit's. Send it to the graveyard at the end of the turn; or Consume a bronze unit from your deck with more power than this unit and gain its power.",
+            "Info": "Deploy, Choose one: Play a Bronze unit from your deck with power equal to or less than this unit's. Send it to the graveyard at the end of the turn; or Consume a bronze unit from your deck with more power than this unit and gain its power.",
             "Flavor": ""
         },
         "70003": {
             "Name": "Hammond",
-            "Info": "Deploy, Choose one: Create a Skellige bronze machine unit; or Boost all friendly machines on the board by 2.\nUnits in this row are immune to damage from hazards.",
+            "Info": "Deploy, Choose one: Spawn a Skellige Bronze Machine unit; or Boost all friendly machines on the board by 2.\nUnits in this row are immune to damage from hazards.",
             "Flavor": ""
         },
         "70004": {
@@ -2858,7 +2858,7 @@
         },
         "70008": {
             "Name": "Vivienne: Oriole",
-            "Info": "On turn end, if your total power exceeds the opponent's power by 25 points or more, return to your hand.",
+            "Info": "On turn end, if your total power exced nent's power by 25 points or more, return to your hand.",
             "Flavor": ""
         },
         "70009": {
@@ -2868,7 +2868,7 @@
         },
         "70010": {
             "Name": "Protofleder",
-            "Info": "Deploy: Shuffle a \"Fleder\" to the top of your deck.\nWhenever a bronze/silver enemy unit becomes injured, boost self by 2.",
+            "Info": "Deploy: Shuffle a Fleder to the top of your deck.\nWhenever a Bronze or Silver enemy comes injured, boot self by 2.",
             "Flavor": ""
         },
         "70011": {
