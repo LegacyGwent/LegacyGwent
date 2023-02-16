@@ -2858,17 +2858,17 @@
         },
         "70008": {
             "Name": "Vivienne: Oriole",
-            "Info": "On turn end, if your total power exced nent's power by 25 points or more, return to your hand.",
+            "Info": "On turn end, if your total power exceeds the opponent's power by 25 points or more, return to your hand.",
             "Flavor": ""
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Deploy: Summon a card with the same name from your deck to the same row.\nWhenever a bronze/silver enemy unit becomes damaged, boost self by 1.",
+            "Info": "Deploy: Summon a card with the same name from your deck to the same row.\nWhenever a Bronze or Silver enemy unit becomes damaged, boost self by 1.",
             "Flavor": ""
         },
         "70010": {
             "Name": "Protofleder",
-            "Info": "Deploy: Shuffle a Fleder to the top of your deck.\nWhenever a Bronze or Silver enemy comes injured, boot self by 2.",
+            "Info": "Deploy: Shuffle a Fleder to the top of your deck.\nWhenever a Bronze or Silver enemy becomes injured, boost self by 2.",
             "Flavor": ""
         },
         "70011": {
