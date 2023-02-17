@@ -288,7 +288,7 @@
         },
         "12013": {
             "Name": "Lambert: Swordmaster",
-            "Info": "Deploy: Deal 4 Damage to all copies of an enemy unit.",
+            "Info": "Deploy: Deal 4 Damage to all copies of an enemy.",
             "Flavor": "Go teach your grandma to suck eggs."
         },
         "12014": {
@@ -308,12 +308,12 @@
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Deal 4 Damage to an enemy unit.\nIf it's a Monster unit, destroy it instead.",
+            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it's a Monster unit, destroy it instead.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
             "Name": "Ihuarraquax",
-            "Info": "Deploy: Deal 5 Damage to self.\nThe first time this unit's current power is equal to its base power, on turn end, deal 7 Damage to 3 random enemy units.",
+            "Info": "Deploy: Deal 5 Damage to self.\nThe first time this unit's current power is equal to its base power, on turn end, deal 7 Damage to 3 random enemies.",
             "Flavor": "\"Inconceivable. Impossible\", Ciri thought, returning to her senses. \"Unicorns don't exist, not any more, not in this world. Unicorns are extinct.\" "
         },
         "12019": {
@@ -818,7 +818,7 @@
         },
         "15003": {
             "Name": "Shupe: Mage",
-            "Info": "Send Shupe to the Ban Ard Academy. Draw 1 card; Charm a random enemy unit; Spawn a random Hazard on all enemy rows; Deal 10 Damage to an enemy, then 5 Damage to adjacent units; Play a special card from your deck.",
+            "Info": "Send Shupe to the Ban Ard Academy. Draw 1 card; Charm a random enemy; Spawn a random Hazard on all enemy rows; Deal 10 Damage to an enemy, then 5 Damage to adjacent units; Play a special card from your deck.",
             "Flavor": "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？"
         },
         "15004": {
@@ -923,7 +923,7 @@
         },
         "22005": {
             "Name": "Imlerith",
-            "Info": "Deploy: Damage an Enemy by 4.\nIf the Enemy is under a Frost Hazard, Destory it instead. ",
+            "Info": "Deploy: Damage an enemy by 4.\nIf the enemy is under a Frost Hazard, Destory it instead. ",
             "Flavor": "叫他们有来无回！"
         },
         "22006": {
@@ -1598,7 +1598,7 @@
         },
         "34003": {
             "Name": "Impera Brigade",
-            "Info": "Deploy: Boost self by 2 for each Spying Enemy.\nWhenever a Spying Enemy appears, boost self by 2.",
+            "Info": "Deploy: Boost self by 2 for each Spying enemy.\nWhenever a Spying enemy appears, boost self by 2.",
             "Flavor": "近卫军绝不投降，绝不。"
         },
         "34005": {
@@ -1958,7 +1958,7 @@
         },
         "44014": {
             "Name": "Reinforced Ballista",
-            "Info": "Deploy: Damage an Enemy by 2. \nCrewed: Repeat its ability.",
+            "Info": "Deploy: Damage an enemy by 2. \nCrewed: Repeat its ability.",
             "Flavor": "从没两次命中同一处，仔细想想，真是个大问题。"
         },
         "44015": {
@@ -1973,7 +1973,7 @@
         },
         "44017": {
             "Name": "Ballista",
-            "Info": "Deploy: Damage an Enemy and up to 4 other random Enemies with the same Power by 1.\nCrewed: Repeat its ability.",
+            "Info": "Deploy: Damage an enemy and up to 4 other random Enemies with the same Power by 1.\nCrewed: Repeat its ability.",
             "Flavor": "成为弩炮是所有十字弩的终极梦想。"
         },
         "44018": {
@@ -2723,7 +2723,7 @@
         },
         "64026": {
             "Name": "Drummond Shieldmaid",
-            "Info": "Deploy: Deal 2 Damage to an enemy unit. If the target was already injured, play one copy from the deck.",
+            "Info": "Deploy: Deal 2 Damage to an enemy. If the target was already injured, play one copy from the deck.",
             "Flavor": "我们的敌人会像打上嶙峋海岸的波浪一样，倒在我们的盾前。"
         },
         "64027": {
@@ -2863,7 +2863,7 @@
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Deploy: Summon a card with the same name from your deck to the same row.\nWhenever a Bronze or Silver enemy unit becomes Damaged, boost self by 1.",
+            "Info": "Deploy: Summon a card with the same name from your deck to the same row.\nWhenever a Bronze or Silver enemy becomes Damaged, boost self by 1.",
             "Flavor": ""
         },
         "70010": {
@@ -2893,7 +2893,7 @@
         },
         "70015": {
             "Name": "Brokilon Sentinel",
-            "Info": "On round end, if the opponent has exactly 4 units in the opposing row, deal 1 Damage to all enemy units in that row.",
+            "Info": "On round end, if the opponent has exactly 4 units in the opposing row, deal 1 Damage to all enemies in that row.",
             "Flavor": ""
         },
         "70016": {
