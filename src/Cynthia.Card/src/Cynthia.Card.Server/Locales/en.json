@@ -333,7 +333,7 @@
         },
         "12022": {
             "Name": "Regis: Higher Vampire",
-            "Info": "Deploy: Look at 3 Bronze units from your opponent's deck.\nConsume 1, then Boost self by its base Power.",
+            "Info": "Deploy: Look at the top 3 Bronze units from your opponent's deck.\nConsume 1, then Boost self by its base Power.",
             "Flavor": "He becomes invisible at will. His glance hypnotizes into a deep sleep. He then drinks his fill, turns into a bat and flies off. Altogether uncouth."
         },
         "12023": {
@@ -1328,7 +1328,7 @@
         },
         "31001": {
             "Name": "Jan Calveit",
-            "Info": "Deploy: Look at 3 cards from your deck, then play 1.",
+            "Info": "Deploy: Look at the top 3 cards from your deck, then play 1.",
             "Flavor": "剑只是统治者的工具之一。"
         },
         "31004": {
@@ -1558,7 +1558,7 @@
         },
         "34011": {
             "Name": "Rot Tosser",
-            "Info": "Deploy: Spawn a Cow Carcass on an enemy row.",
+            "Info": "Deploy: Spawn a Cow Carcass on an enemy row.\n(After 2 turns, on turn end, destroy all the other Lowest units on the row and destroy self).",
             "Flavor": "向围城中散播瘟疫是否人道，这个话题还是留给史学家吧。我们只关心这法子有没有效。"
         },
         "34012": {
@@ -1663,7 +1663,7 @@
         },
         "34001": {
             "Name": "Vicovaro Novice",
-            "Info": "Deploy: Draw the top 2 Bronze Alchemy cards from your deck.\nPlay 1 and shuffle the other back.",
+            "Info": "Deploy: Look at 2 random Bronze Alchemy cards from your deck.\nPlay 1 and shuffle the other back.",
             "Flavor": "尼弗迦德的法师们就像手纸。一旦谁被皇帝厌倦，立刻有大把新人迫不及待地赶来补缺。"
         },
         "34029": {
@@ -1698,7 +1698,7 @@
         },
         "35002": {
             "Name": "Cow Carcass",
-            "Info": "Spying.\nAfter 2 turns, destroy all the other Lowest units on the row and destroy self on turn end.",
+            "Info": "Spying.\nAfter 2 turns, on turn end, destroy all the other Lowest units on the row and destroy self.",
             "Flavor": "那是只鸟？还是头狮鹫？不对！那是……"
         },
         "41001": {
@@ -1788,7 +1788,7 @@
         },
         "43001": {
             "Name": "Thaler",
-            "Info": "Spying. Single-Use.\nDeploy: Draw 2 cards, keep one and shuffle the other back to your deck.",
+            "Info": "Spying. Single-Use.\nDeploy: Draw 2 cards.\nKeep one and shuffle the other to your deck.",
             "Flavor": "滚开！我们中间不是每个人都那么轻浮、那么浅薄……"
         },
         "43002": {
@@ -2043,7 +2043,7 @@
         },
         "44031": {
             "Name": "Tormented Mage",
-            "Info": "Deploy: Look at 2 Bronze Spells or Items from your deck, then play 1.",
+            "Info": "Deploy: Look at 2 random Bronze Spells or Items from your deck, then play 1.",
             "Flavor": "萨宾娜·葛丽维希格的诅咒摧枯拉朽。面对这股怒火，就连法师们也束手无策。"
         },
         "44032": {
@@ -2938,7 +2938,7 @@
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "Single-use.\nRepeat the Deploy ability of the next Bronze or Silver loyal unit you play.\n4 Armor.",
+            "Info": "Single-Use.\nRepeat the Deploy ability of the next Bronze or Silver loyal unit you play.\n4 Armor.",
             "Flavor": "Your Majesty... The princess has been touched by the curse o' the Black Sun. There's no hope, I'm afraid..."
         },
         "70026": {
@@ -3033,12 +3033,12 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two copies of Strays of Spalla to your deck.",
+            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two copies of Strays of Spalla to your deck.",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
             "Name": "Strays Of Spalla",
-            "Info": "Single-use.\nLook at 2 random Bronze units in your deck, then play one.",
+            "Info": "Single-Use.\nLook at 2 random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
