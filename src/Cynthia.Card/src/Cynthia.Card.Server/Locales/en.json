@@ -2008,27 +2008,27 @@
         },
         "44024": {
             "Name": "Kaedweni Revenant",
-            "Info": "When you play your next Spell or Item, Spawn a Doomed default copy of this unit on its row. 1 Armor.",
+            "Info": "When you play your next Spell or Item, Spawn a doomed default copy of this unit on its row.\n1 Armor.",
             "Flavor": "万劫不复的士兵日复一日地过着同一天，就好像奇安凡尼银行的职员一样。"
         },
         "44025": {
             "Name": "Damned Sorceress",
-            "Info": "Deploy: If there is a Cursed unit on this unit's row, deal 7 damage. Increase the damage by 1 for each extra Cursed unit on the same row.",
+            "Info": "Deploy: If there is a Cursed unit on this unit's row, deal 7 damage.\nIncrease the damage by 1 for each extra Cursed unit on the same row.",
             "Flavor": "萨宾娜的诅咒谁也不放过，就连其他的女术士也难以幸免。"
         },
         "44026": {
             "Name": "Aretuza Adept",
-            "Info": "Deploy: Play a random Bronze Hazard card from your Deck.",
+            "Info": "Deploy: Play a random Bronze Hazard from your deck.",
             "Flavor": "这些女学员在艾瑞图萨活得像公主一样，任何怪诞的想法都能得到满足，同时半个城市都在服务于她们：裁缝、帽商、糖果商、贩夫走卒……"
         },
         "44027": {
             "Name": "Blue Stripe Commando",
-            "Info": "Whenever a different Temerian ally with the same power is played, Summon a copy of this unit from your deck.",
+            "Info": "Whenever a different Temerian ally with the same power is played, summon a copy of this unit from your deck.",
             "Flavor": "我愿为泰莫利亚赴汤蹈火，不过大多时候是在排除异己。"
         },
         "44028": {
             "Name": "Blue Stripe Scout",
-            "Info": "Deploy: Boost all Temerian allies and your non-Spying Temerian units in hand and deck with the same power as this unit by 1. Crew.",
+            "Info": "Deploy: Boost all Temerian allies and your non-Spying Temerian units in hand and deck with the same power as this unit by 1.\nCrew.",
             "Flavor": "蓝衣铁卫与松鼠党有个共通点——满心仇恨。"
         },
         "44029": {
@@ -2038,7 +2038,7 @@
         },
         "44030": {
             "Name": "Witch Hunter",
-            "Info": "Deploy: Reset a Unit. If it's a Mage, play another Witch Hunter from your Deck.",
+            "Info": "Deploy: Reset a unit.\nIf it's a Mage, play another Witch Hunter from your deck.",
             "Flavor": "女巫猎人都是些什么人？大部分都是流氓无赖、狂热分子。然而看到女术士集会所犯下的肮脏罪行，不少怒不可遏的体面人也加入了他们的行列……"
         },
         "44031": {
@@ -2053,7 +2053,7 @@
         },
         "44033": {
             "Name": "Winch",
-            "Info": "Choose One: Resurrect a Bronze Machine and add the Doomed category to it; or boost all machines on your side of the board by 3.",
+            "Info": "Choose One: Resurrect a Bronze Machine and add the doomed category to it; or boost all Machines on your side of the board by 3.",
             "Flavor": "就是一个绞盘。没什么可大惊小怪的。"
         },
         "44034": {
@@ -2083,12 +2083,12 @@
         },
         "51002": {
             "Name": "Eithné",
-            "Info": "Deploy: Resurrect a Bronze or Silver special card.",
+            "Info": "Deploy: Resurrect a Bronze or Silver Special card.",
             "Flavor": "树精女王眼似融银，心如冷钢。"
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Deploy: Create a Silver special card.",
+            "Info": "Deploy: Create a Silver Special card.",
             "Flavor": "虽然我们人数不多、四散分离，但我们的内心燃烧得比任何时候都要炽热。"
         },
         "51004": {
@@ -2103,7 +2103,7 @@
         },
         "52002": {
             "Name": "Saesenthessis",
-            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the Board and in the Hand and deal 1 damage to an enemy for each Elf ally on the Board and in the Hand.",
+            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal 1 damage to an enemy for each Elf ally on the board and in your hand.",
             "Flavor": "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。"
         },
         "52003": {
@@ -2118,17 +2118,17 @@
         },
         "52005": {
             "Name": "Zoltan Chivay",
-            "Info": "Deploy: Choose 3 units. Strengthen allies by 2 and move them to this unit's row. Damage enemies by 2 and move them to the opposite row.",
+            "Info": "Deploy: Choose 3 units.\nStrengthen allies by 2 and move them to this unit's row.\nDamage enemies by 2 and move them to the opposite row.",
             "Flavor": "一人单独喝酒的滋味，就好比俩人一起蹲坑。"
         },
         "52006": {
             "Name": "Isengrim Faoiltiarna",
-            "Info": "Deploy: Play a Bronze or Silver Ambush from your Deck.",
+            "Info": "Deploy: Play a Bronze or Silver Ambush from your deck.",
             "Flavor": "他们一见我的疤就知道：这下死定了。"
         },
         "52007": {
             "Name": "Iorveth",
-            "Info": "Deploy: Deal 8 damage to an enemy. If the unit was destroyed, boost all Elves in your hand by 1.",
+            "Info": "Deploy: Deal 8 damage to an enemy.\nIf the unit was destroyed, boost all Elves in your hand by 1.",
             "Flavor": "国王还是乞丐于我并无差别，人类少一个算一个。"
         },
         "52008": {
@@ -2138,7 +2138,7 @@
         },
         "52009": {
             "Name": "Morenn: Forest Child",
-            "Info": "Ambush: When your opponent plays a Bronze or Silver special card, flip over and cancel its ability.",
+            "Info": "Ambush: When your opponent plays a Bronze or Silver Special card, flip over and cancel its ability.",
             "Flavor": "布洛克莱昂的意义远高于我的生命。她是一位母亲，关怀着自己的孩子们。我至死都要捍卫她。"
         },
         "52010": {
@@ -2153,17 +2153,17 @@
         },
         "52012": {
             "Name": "Iorveth: Meditation",
-            "Info": "Deploy: Force 2 enemies on the same row to Duel each other.",
+            "Info": "Deploy: Force 2 enemies on the same row to duel each other.",
             "Flavor": "即使伊欧菲斯只剩一只眼睛，他内心的洞察力也无人能及。"
         },
         "52013": {
             "Name": "Isengrim: Outlaw",
-            "Info": "Deploy, Choose One: Play a Bronze or Silver special card from your deck; or Create a Silver Elf.",
+            "Info": "Deploy, Choose One: Play a Bronze or Silver Special card from your deck; or Create a Silver Elf.",
             "Flavor": "在我们眼前的便是艾尔斯克德格山道，再往前，就是瑟瑞卡尼亚和哈克兰。这将是一条漫长而危险的道路。要想一同走下去，我们就得摒除彼此的猜忌。"
         },
         "53001": {
             "Name": "Yaevinn",
-            "Info": "Spying. Single-Use. Deploy: Draw a special card and a unit. Keep one and return the other to your deck.",
+            "Info": "Spying. Single-Use.\nDeploy: Draw a special card and a unit.\nKeep one and shuffle the other to your deck.",
             "Flavor": "我们是汇成风暴的雨滴。"
         },
         "53002": {
@@ -2183,7 +2183,7 @@
         },
         "53005": {
             "Name": "Dennis Cranmer",
-            "Info": "Deploy: Strengthen all your Dwarves by 1, wherever they are.",
+            "Info": "Deploy: Strengthen all your other Dwarves in hand, deck, and on board by 1.",
             "Flavor": "我知道如何执行命令，冲别人去说教吧。"
         },
         "53006": {
@@ -2193,27 +2193,27 @@
         },
         "53007": {
             "Name": "Yarpen Zigrin",
-            "Info": "Resilience. Whenever a Dwarf ally appears, boost self by 1.",
+            "Info": "Whenever a Dwarf ally appears, boost self by 1.\nResilience.",
             "Flavor": "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。"
         },
         "53008": {
             "Name": "Malena",
-            "Info": "Ambush: After 2 turns, flip over and Charm the Highest Bronze or Silver enemy with 5 power or less.",
+            "Info": "Ambush: After 2 turns, on turn start, flip over and Charm the Highest Bronze or Silver enemy with 5 power or less.",
             "Flavor": "我恨你们，人类。你们全都一个样。"
         },
         "53009": {
             "Name": "Aelirenn",
-            "Info": "When 5 Elven allies are on the board, Summon this unit.",
+            "Info": "When 5 Elven allies are on the board, summon this unit.",
             "Flavor": "苟活不如好死。"
         },
         "53010": {
             "Name": "Braenn",
-            "Info": "Deploy: Deal damage equal to this unit's power. If a unit was destroyed, boost all your Dryad and Ambush units by 1, wherever they are.",
+            "Info": "Deploy: Deal damage equal to this unit's power to an enemy.\nIf a unit was destroyed, boost all your other Dryads and Ambush units in hand, deck, and on board by 1.",
             "Flavor": "莫娜？不，不。我是布蕾恩。布洛克莱昂的女儿。"
         },
         "53011": {
             "Name": "Toruviel",
-            "Info": "Ambush: When your opponent passes, turn this Unit over and Boost 2 Units on each side by 2.",
+            "Info": "Ambush: When your opponent passes, turn this unit over and boost 2 units on each side by 2.",
             "Flavor": "我很乐意站在你面前，直视你的双眼然后干掉你……但你臭死了，人类。"
         },
         "53012": {
@@ -2253,7 +2253,7 @@
         },
         "53019": {
             "Name": "Nature's Gift",
-            "Info": "Play a Bronze or Silver Special card from your Deck. Shuffle the others back.",
+            "Info": "Play a Bronze or Silver Special card from your deck.\nShuffle the others back.",
             "Flavor": "你们贪得无厌地榨干大地，野蛮强横地攫取它的财富。但在我们这儿，它生机勃勃，春华秋实，慷慨大方。因为它爱我们，正如我们爱它。"
         },
         "53020": {
@@ -2288,12 +2288,12 @@
         },
         "54005": {
             "Name": "Dwarven Mercenary",
-            "Info": "Deploy: Move a unit to this row on its side. If it's an ally, boost it by 3.",
+            "Info": "Deploy: Move a unit to this row on its side.\nIf it's an ally, boost it by 3.",
             "Flavor": "工作就该既有趣又赚钱——比如拿悬赏换金子。"
         },
         "54006": {
             "Name": "Farseer",
-            "Info": "If a different Ally or unit in your hand is Boosted during your turn, boost self by 2 at the end of the turn.",
+            "Info": "If a different ally or unit in your hand is boosted during your turn, boost self by 2 at the end of the turn.",
             "Flavor": "有时候，他的话语听似令人费解，但其中总是蕴藏着深邃的道理和惊人的智慧。"
         },
         "54007": {
@@ -2308,7 +2308,7 @@
         },
         "54009": {
             "Name": "Dol Blathanna Bowman",
-            "Info": "Deploy: Deal 2 damage to an enemy.\nWhenever an enemy moves, deal 2 damage to it. Whenever this unit moves, deal 2 damage to a random enemy.",
+            "Info": "Deploy: Deal 2 damage to an enemy.\nWhenever an enemy moves, deal 2 damage to it.\nWhenever this unit moves, deal 2 damage to a random enemy.",
             "Flavor": "也许你能躲过他们，但要被发现了，就别浪费时间逃跑了。"
         },
         "54010": {
@@ -2323,7 +2323,7 @@
         },
         "54012": {
             "Name": "Mahakam Marauder",
-            "Info": "Whenever this Unit is Boosted, Damaged, Strengthened or Weakened, Boost it by 2.",
+            "Info": "Whenever this unit is boosted, damaged, strengthened or weakened, boost it by 2.",
             "Flavor": "在玛哈坎崎岖的悬崖峭壁上狩猎可不是件简单事……但矮人们也从不轻易向危险低头。"
         },
         "54013": {
@@ -2338,7 +2338,7 @@
         },
         "54015": {
             "Name": "Dwarven Skirmisher",
-            "Info": "Deploy: Deal 3 damage to an enemy. If the unit was not destroyed, boost self by 3.",
+            "Info": "Deploy: Deal 3 damage to an enemy.\nIf the unit was not destroyed, boost self by 3.",
             "Flavor": "我跟十字镐打了一辈子交道，动动斧头算什么问题？"
         },
         "54016": {
@@ -2348,12 +2348,12 @@
         },
         "54017": {
             "Name": "Half-Elf Hunter",
-            "Info": "Deploy: Spawn a Doomed default copy of this unit.",
+            "Info": "Deploy: Spawn a doomed default copy of this unit.",
             "Flavor": "被人类痛恨，被精灵唾骂，而且学校操场上谁都不肯带他们玩。难怪半精灵一肚子委屈。"
         },
         "54018": {
             "Name": "Hawker Healer",
-            "Info": "Deploy: Boost 2 Allies by 3, and then Heal them.",
+            "Info": "Deploy: Boost 2 allies by 3, then heal them.",
             "Flavor": "帮你包扎，没问题——只要你有钱。"
         },
         "54019": {
@@ -2398,22 +2398,22 @@
         },
         "54027": {
             "Name": "Dol Blathanna Sentry",
-            "Info": "If in hand, deck or on board, boost self by 1 whenever you play a special card.",
+            "Info": "If in hand, deck or on board, boost self by 1 whenever you play a Special card.",
             "Flavor": "只要我们一息尚存，就绝不容许人类践踏多尔·布雷坦纳的绿荫。"
         },
         "54028": {
             "Name": "Sage",
-            "Info": "Deploy: Resurrect a Bronze Alchemy or Spell card, then Banish it.",
+            "Info": "Deploy: Resurrect a Bronze Alchemy or Spell card, then banish it.",
             "Flavor": "亲爱的，知识，乃是一种特权。而特权，只能被实力相当的人所分享。"
         },
         "54029": {
             "Name": "Dwarven Agitator",
-            "Info": "Deploy: Spawn a default copy of a random different Bronze Dwarf from your Deck.",
+            "Info": "Deploy: Spawn a default copy of a random different Bronze Dwarf from your deck.",
             "Flavor": "“记住我说的话，如果你们不行动起来，人类就会抢走我们的姑娘！”"
         },
         "54030": {
             "Name": "Elven Mercenary",
-            "Info": "Deploy: Look at 2 random Bronze special cards from your deck, then play 1.",
+            "Info": "Deploy: Look at 2 random Bronze Special cards from your deck, then play 1.",
             "Flavor": "我瞧不起松鼠党，但不讨厌他们的钱。"
         },
         "54031": {
@@ -2433,7 +2433,7 @@
         },
         "62001": {
             "Name": "Olaf",
-            "Info": "Deploy: Deal 10 damage to self. Reduce the damage inflicted by 2 for each Beast you played this match.",
+            "Info": "Deploy: Deal 10 damage to self.\nReduce the damage inflicted by 2 for each Beast you played this match.",
             "Flavor": "备受敬仰的小史凯利格岛竞技场十冠王。"
         },
         "62002": {
@@ -2443,7 +2443,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: Deal 2 damage. If the unit was already damaged , destroy it instead.",
+            "Info": "Deploy: Deal 2 damage.\nIf the unit was already damaged, destroy it instead.",
             "Flavor": "为了斯瓦勃洛！"
         },
         "62004": {
@@ -2453,7 +2453,7 @@
         },
         "62005": {
             "Name": "Wild Boar of the Sea",
-            "Info": "On turn end, Strengthen the unit to the left by 1, then deal 1 damage to the unit to the right. 5 Armor.",
+            "Info": "On turn end, strengthen the unit to the left by 1, then deal 1 damage to the unit to the right.\n5 Armor.",
             "Flavor": "只消对尼弗迦德人提起这个名字，他们就会吓得尿裤子……"
         },
         "62006": {
@@ -2463,22 +2463,22 @@
         },
         "62007": {
             "Name": "Cerys an Craite",
-            "Info": "When 4 units are Resurrected while this unit is in the graveyard, Resurrect it and gain 1 strength",
+            "Info": "When 4 units are resurrected while this unit is in the graveyard, resurrect it and strenghten it by 1.",
             "Flavor": "大家叫我小雀鹰，知道为什么吗？因为我专治你这种鼠辈。"
         },
         "62008": {
             "Name": "Madman Lugos",
-            "Info": "Deploy: Discard a Bronze Unit from your Deck and Damage a Unit by the Discarded Unit's base Power.",
+            "Info": "Deploy: Discard a Bronze unit from your deck and damage a unit by the Discarded unit's base power.",
             "Flavor": "哇哇哇哇哇哇啊！！！！"
         },
         "62009": {
             "Name": "Ulfhedinn",
-            "Info": "Deploy: Deal 1 damage to all enemies. If the enemies were damaged, deal 2 damage instead.",
+            "Info": "Deploy: Deal 1 damage to all enemies.\nIf the enemies were damaged, deal 2 damage instead.",
             "Flavor": "狼人？哦，不，不……比那要糟糕得多。"
         },
         "62010": {
             "Name": "Cerys: Fearless",
-            "Info": "Resurrect the next unit your Discard.",
+            "Info": "Resurrect the next unit you discard.",
             "Flavor": "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。"
         },
         "62011": {
@@ -2493,7 +2493,7 @@
         },
         "62013": {
             "Name": "Kambi",
-            "Info": "Spying. Deathwish: Spawn Hemdall.",
+            "Info": "Spying.\nDeathwish: Spawn Hemdall.",
             "Flavor": "终焉之刻来临时，金公鸡坎比便会叫醒沉睡的汉姆多尔。"
         },
         "63001": {
@@ -2503,12 +2503,12 @@
         },
         "63002": {
             "Name": "Udalryk",
-            "Info": "Spying. Single-Use. Deploy: Look at 2 cards from your deck. Draw one and Discard the other.",
+            "Info": "Spying. Single-Use.\nDeploy: Look at 2 cards from your deck.\nDraw one and discard the other.",
             "Flavor": "诸神已经发话，必须献上祭品。"
         },
         "63003": {
             "Name": "Djenge Frett",
-            "Info": "Deploy: Deal 1 damage to 2 allies and Strengthen self by 2 for each.",
+            "Info": "Deploy: Deal 1 damage to 2 allies and strengthen self by 2 for each.",
             "Flavor": "如果通缉令上写着“无论死活”，绝大多数赏金猎人会直接快刀斩乱麻。但我不会。如果被我抓到，我会把人吊起来挠痒，让他笑到岔气。"
         },
         "63004": {
@@ -2518,12 +2518,12 @@
         },
         "63005": {
             "Name": "Morkvarg",
-            "Info": "Whenever this unit enter the graveyard, Resurrect it and Weaken it by half.",
+            "Info": "Whenever this unit enter the graveyard, resurrect it and weaken it by half.",
             "Flavor": "史凯利格有史以来最大的恶人。"
         },
         "63006": {
             "Name": "Svanrige Tuirseach",
-            "Info": "Deploy: Draw a card, then Discard a card.",
+            "Info": "Deploy: Draw a card, then discard a card.",
             "Flavor": "皇帝最开始也认为自己登上皇位是出于偶然。"
         },
         "63007": {
@@ -2548,7 +2548,7 @@
         },
         "63011": {
             "Name": "Holger Blackhand",
-            "Info": "Deploy: Deal 7 damage. If the unit was destroyed, Strengthen the Highest unit in your graveyard by 3.",
+            "Info": "Deploy: Deal 7 damage.\nIf the unit was destroyed, strengthen the Highest unit in your graveyard by 3.",
             "Flavor": "敬尼弗迦德皇帝，祝他不得善终！"
         },
         "63012": {
@@ -2558,7 +2558,7 @@
         },
         "63013": {
             "Name": "Yoana",
-            "Info": "Deploy: Heal an ally, then boost it by the amount Healed.",
+            "Info": "Deploy: Heal an ally, then boost it by the amount healed.",
             "Flavor": "没人会把我当成一名老练的盔甲师傅。只是一个人类，而且还是个女人。可是矮人铁匠就不同了……"
         },
         "63014": {
@@ -2568,7 +2568,7 @@
         },
         "63015": {
             "Name": "Skjall",
-            "Info": "Deploy: Play a random Bronze or Silver Cursed Unit from your Deck.",
+            "Info": "Deploy: Play a random Bronze or Silver Cursed unit from your deck.",
             "Flavor": "把他剔出族谱！不许任何人给他食物和庇护！"
         },
         "63016": {
@@ -2588,12 +2588,12 @@
         },
         "63019": {
             "Name": "Restore",
-            "Info": "Return a Bronze or Silver Skellige unit from your graveyard to your hand, add the Doomed category to it, and set its base power to 8. Then play a card.",
+            "Info": "Return a Bronze or Silver Skellige unit from your graveyard to your hand, add the doomed category to it, and set its base power to 8.\nThen play a card.",
             "Flavor": "那些该死的女术士又抢咱们的风头！只要几个年轻姑娘挥挥手就能解决的话，谁还选择这么费时费力的办法？"
         },
         "63020": {
             "Name": "Ornamental Sword",
-            "Info": "Create a Bronze or Silver Skellige Soldier and Strengthen it by 3.",
+            "Info": "Create a Bronze or Silver Skellige Soldier and strengthen it by 3.",
             "Flavor": "看上去很精美，但顶多也就只能用来抹抹黄油。"
         },
         "64001": {
@@ -2638,7 +2638,7 @@
         },
         "64009": {
             "Name": "An Craite Greatsword",
-            "Info": "Every 2 turns, if damaged, on turn start, Heal self and Strengthen by 2.",
+            "Info": "Every 2 turns, on turn start, if damaged, heal self and strengthen by 2.",
             "Flavor": "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？"
         },
         "64010": {
@@ -2653,12 +2653,12 @@
         },
         "64012": {
             "Name": "Tuirseach Skirmisher",
-            "Info": "Whenever this unit is Resurrected, Strengthen it by 4.",
+            "Info": "Whenever this unit is resurrected, strengthen it by 4.",
             "Flavor": "记好了：我们对朋友掏心窝，对敌人挥斧子。"
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is damaged or Weakened, transform into a Raging Bear.",
+            "Info": "Whenever this unit is damaged or weakened, transform into a Raging Bear.",
             "Flavor": "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。"
         },
         "64014": {
@@ -2683,7 +2683,7 @@
         },
         "64018": {
             "Name": "An Craite Longship",
-            "Info": "Deploy: Deal 2 damage to a random enemy. Repeat this ability whenever you Discard a card.",
+            "Info": "Deploy: Deal 2 damage to a random enemy.\nRepeat this ability whenever you discard a card.",
             "Flavor": "据说只要有长船出海劫掠，汉姆多尔就会心潮澎湃。"
         },
         "64019": {
@@ -2693,7 +2693,7 @@
         },
         "64020": {
             "Name": "An Craite Marauder",
-            "Info": "Deploy: Deal 4 damage. If Resurrected, deal 6 damage instead.",
+            "Info": "Deploy: Deal 4 damage.\nIf resurrected, deal 6 damage instead.",
             "Flavor": "你疯了不成？你想去史凯利格？哪些野蛮人会让你吃大苦头的！"
         },
         "64021": {
@@ -2703,7 +2703,7 @@
         },
         "64022": {
             "Name": "Tuirseach Axeman",
-            "Info": "Whenever an enemy on the opposite row is damaged, boost self by 1. 2 Armor.",
+            "Info": "Whenever an enemy on the opposite row is damaged, boost self by 1.\n2 Armor.",
             "Flavor": "小姑娘才用剑，弄把斧头吧。"
         },
         "64023": {
@@ -2713,7 +2713,7 @@
         },
         "64024": {
             "Name": "An Craite Raider",
-            "Info": "Whenever you Discard this unit, Resurrect it.",
+            "Info": "Whenever you discard this unit, resurrect it.",
             "Flavor": "我们可是奎特家族！別人用金子购买，我们拿血汗交换。"
         },
         "64025": {
@@ -2758,12 +2758,12 @@
         },
         "64033": {
             "Name": "Tuirseach Bearmaster",
-            "Info": "Deploy: Spawn a Bear.",
+            "Info": "Deploy: Spawn an Elder Bear.",
             "Flavor": "别碰他。别盯着他的眼睛瞧。事实上……压根就别靠近他。"
         },
         "64034": {
             "Name": "Bone Talisman",
-            "Info": "Choose One: Resurrect a Bronze Beast or Cultist unit or Heal an ally and Strengthen it by 3.",
+            "Info": "Choose One: Resurrect a Bronze Beast or Cultist unit or heal an ally and strengthen it by 3.",
             "Flavor": "有时最普通不过的物件却拥有最为强大的威力。"
         },
         "65001": {
@@ -2778,17 +2778,17 @@
         },
         "65003": {
             "Name": "Lord of Undvik",
-            "Info": "Spying. Deathwish: Boost enemy Hjalmars by 10.",
+            "Info": "Spying.\nDeathwish: Boost enemy Hjalmars by 10.",
             "Flavor": "这个怪物将名门世族托达洛克家族的故乡——乌德维克岛变成了荒凉之地，昔日荣光一去不返……"
         },
         "65004": {
             "Name": "Spectral Whale",
-            "Info": "Spying. On turn end, move to a random row and deal 1 damage to all units on it. Deathwish: invoke this ability again.",
+            "Info": "Spying.\nOn turn end, move to a random row and deal 1 damage to all units on it.",
             "Flavor": "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”"
         },
         "65005": {
             "Name": "Wilfred",
-            "Info": "Deathwish: Strengthen a random Ally by 3.",
+            "Info": "Deathwish: Strengthen a random ally by 3.",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
         "65006": {
@@ -2818,22 +2818,22 @@
         },
         "61004": {
             "Name": "Bran Tuirseach",
-            "Info": "Deploy: Discard up to 3 cards from your deck and Strengthen them by 1.",
+            "Info": "Deploy: Discard up to 3 cards from your deck and strengthen them by 1.",
             "Flavor": "没人能取代布兰王，但后世定会努力尝试。"
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Choose a Bronze or Silver unit in your hand, boost it and all its copies in your hand and deck by 2 and give them shield. The shield can block any damage once.",
+            "Info": "Choose a Bronze or Silver unit in your hand, boost it and all its copies in your hand and deck by 2 and give them Shield. The Shield can block any damage once.",
             "Flavor": ""
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose one: Play a Bronze unit from your deck with power equal to or less than this unit's. Send it to the graveyard at the end of the turn; or Consume a bronze unit from your deck with more power than this unit and gain its power.",
+            "Info": "Deploy, Choose one: Play a Bronze unit from your deck with power equal to or less than this unit's, then send that unit to the graveyard at the end of the turn; or consume a bronze unit from your deck with more power than this unit and gain its power.",
             "Flavor": ""
         },
         "70003": {
             "Name": "Hammond",
-            "Info": "Deploy, Choose one: Spawn a Skellige Bronze Machine unit; or Boost all friendly machines on the board by 2.\nUnits in this row are immune to damage from hazards.",
+            "Info": "Deploy, Choose one: Spawn a Skellige Bronze Machine; or boost all friendly Machines on the board by 2.\nUnits in this row are immune to damage from Hazards.",
             "Flavor": ""
         },
         "70004": {
@@ -2843,7 +2843,7 @@
         },
         "70005": {
             "Name": "Vysogota Of Corvo",
-            "Info": "On round start, boost a unit to the left by 3, damage self by 1 and move to a row with the least number of units.\nDeathwish: Boost the weakest friendly unit by 6.",
+            "Info": "On round start, boost a unit to the left by 3, then damage self by 1 and move to the row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
             "Flavor": ""
         },
         "70006": {
@@ -2853,7 +2853,7 @@
         },
         "70007": {
             "Name": "Prophet Lebioda",
-            "Info": "When banished, boost all friendly units by 1.",
+            "Info": "When banished, boost all allies by 1.",
             "Flavor": ""
         },
         "70008": {
@@ -2903,7 +2903,7 @@
         },
         "70017": {
             "Name": "Cintrian Field Medic",
-            "Info": "Deploy: Shuffle a non-identical friendly Bronze unit back to the deck, and then play a random Bronze unit from the deck.",
+            "Info": "Deploy: Shuffle a non-identical Bronze ally back to your deck, then play a random Bronze unit from your deck.",
             "Flavor": ""
         },
         "70019": {
@@ -2923,12 +2923,12 @@
         },
         "70022": {
             "Name": "Kikimore Worker",
-            "Info": "Deploy: Choose an Insectoid friendly unit, and boost all the cards with the same name on your side of the board, hand and deck by 2 points.",
+            "Info": "Deploy: Choose an Insectoid ally, then boost all the cards with the same name on your side of the board, hand and deck by 2 points.",
             "Flavor": ""
         },
         "70023": {
             "Name": "Kikimore Warrior",
-            "Info": "Deploy: Consume a non-identical Bronze unit in your own deck with current power no greater than its own, then boost self by its power.",
+            "Info": "Deploy: Consume a non-identical Bronze unit in your deck with current power no greater than its own, then boost self by its power.",
             "Flavor": ""
         },
         "70024": {
@@ -2938,12 +2938,12 @@
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "Single-use. Repeat the Deploy ability of the next Bronze or Silver loyal unit you play. 4 Armor.",
+            "Info": "Single-use.\nRepeat the Deploy ability of the next Bronze or Silver loyal unit you play.\n4 Armor.",
             "Flavor": "Your Majesty... The princess has been touched by the curse o' the Black Sun. There's no hope, I'm afraid..."
         },
         "70026": {
             "Name": "Ivo of Belhaven",
-            "Info": "On round start, if you have more points than the opponent, strengthen self by 2 points.\nDeathwish: Move a random demon hunter in your deck to the top of your deck.",
+            "Info": "On round start, if you have more points than the opponent, strengthen self by 2 points.\nDeathwish: Move a random Bronze or Silver Witcher in your deck to the top of your deck.",
             "Flavor": ""
         },
         "70027": {
@@ -2958,7 +2958,7 @@
         },
         "70033": {
             "Name": "War Elephant",
-            "Info": "Deploy: Destroy the armor of all units in this row and damage a unit by the amount destroyed.",
+            "Info": "Deploy: Destroy the Armor of all units on a row on your side of the board, then damage a unit by the amount destroyed.",
             "Flavor": ""
         },
         "70038": {
@@ -2968,22 +2968,22 @@
         },
         "70039": {
             "Name": "Dire Wolf Claws",
-            "Info": "Deploy: Deal 4 damage to a random enemy unit. When discarded, trigger this ability and shuffle 2 Dire Wolf Warriors in your deck.",
+            "Info": "Deal 4 damage to a random enemy.\nWhen discarded, trigger its ability and add 2 copies of Dire Wolf Warrior in your deck.",
             "Flavor": ""
         },
         "70040": {
             "Name": "Dire Wolf Warrior",
-            "Info": "Deploy: Deal 2 damage to a random enemy unit. When discarded, trigger this ability and shuffle a copy of this card to the bottom of your deck.",
+            "Info": "Deploy: Deal 2 damage to a random enemy.\nWhen discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
             "Flavor": ""
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the strongest enemy unit by 2 points. Repeat 3 times. For each White Raffard's Decoction in your graveyard, repeat once more.",
+            "Info": "Damage the strongest enemy by 2. Repeat 3 times. For each White Raffard's Decoction in your graveyard, repeat once more.",
             "Flavor": ""
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the weakest ally unit by 2 points. Repeat 3 times. For each Giga Scorpion Decoction in your graveyard, repeat once more.",
+            "Info": "Boost the weakest ally by 2. Repeat 3 times. For each Giga Scorpion Decoction in your graveyard, repeat once more.",
             "Flavor": ""
         },
         "70043": {
@@ -2993,17 +2993,17 @@
         },
         "70044": {
             "Name": "Vernossiel",
-            "Info": "Deploy: Add 2 Vernossiel's Commandos to your deck and reduce their counter by 1.",
+            "Info": "Deploy: Add 2 copies of Vernossiel's Commando to your deck and reduce their counter by 1.",
             "Flavor": ""
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4. Crew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4.\nCrew.",
             "Flavor": ""
         },
         "70046": {
             "Name": "Svalblod Fanatic",
-            "Info": "On round end, deal 3 damage to the weakest enemy unit, then deal 3 damage to self.",
+            "Info": "On round end, deal 3 damage to the Lowest enemy, then deal 3 damage to self.",
             "Flavor": ""
         },
         "70050": {
@@ -3013,47 +3013,47 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 Bronze units with power higher than 5 points, then deal 4 damage to each of them.",
+            "Info": "Resurrect 2 Bronze units with power higher than 5, then deal 4 damage to each of them.",
             "Flavor": ""
         },
         "70058": {
             "Name": "Cave Troll",
-            "Info": "Deploy: Boost self by 4, then boost an enemy by 4 points.",
+            "Info": "Deploy: Boost self by 4, then boost an enemy by 4.",
             "Flavor": ""
         },
         "70059": {
             "Name": "One-Eyed Betsy",
-            "Info": "At the beginning of the round, boost self by 3 points, then boost the strongest enemy by 3 points.",
+            "Info": "At the beginning of the round, boost self by 3, then boost the Highest enemy by 3.",
             "Flavor": "准头是差了点，但力道确实没话说。"
         },
         "70062": {
             "Name": "Living Armor",
-            "Info": "Units in the same row take at most 5 points of damage.",
+            "Info": "Units in the same row as this unit take at most 5 damage at once.",
             "Flavor": "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！"
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-use. If there are only Bronze cards in your starting deck, spawn a Strays of Spalla, then add two Strays of Spalla to your deck.",
+            "Info": "Single-use.\nIf there are only Bronze cards in your starting deck, spawn a Strays of Spalla, then add two copy of Strays of Spalla to your deck.",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
-            "Name": "StraysofSpalla",
-            "Info": "Single-use. Look at 2 random Bronze units in your deck, then play one.",
+            "Name": "Strays Of Spalla",
+            "Info": "Single-use.\nLook at 2 random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deal damage equal to the number of neutral cards in your hand.",
+            "Info": "Deploy: Deal damage equal to the number of neutral cards in your hand.",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Generate copies of all locked Bronze units, then set their base strenght to 2. Whenever any Bronze unit is locked during your turn, generate a copy of it with 2 base strength in the same row.",
+            "Info": "Deploy: Generate copies of all locked Bronze units, then set their base strenght to 2. Whenever any Bronze unit is locked during your turn, generate a copy of it with 2 base strength in the same row as this unit.",
             "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
         },
         "70077": {
             "Name": "Firesworn Zealot",
-            "Info": "Every 4 turns, deal 2 damage to 4 random enemies at the end of the turn. Reduce the countdown by 1 for each locked unit on the board when played.",
+            "Info": "Every 4 turns, at the end of the turn, deal 2 damage to 4 random enemies. Reduce the countdown by 1 for each locked unit on the board when played.",
             "Flavor": "“我的信仰无人能敌，亦如我的怒火！”"
         },
         "70078": {
@@ -3063,7 +3063,7 @@
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 The Last Wish to your deck, then Discard self.",
+            "Info": "At the start of the game, add 3 copies of The Last Wish to your deck, then discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3088,7 +3088,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of your turn, destroy self.",
+            "Info": "Deploy: Spawn 1 base copy of this card on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of your turn, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3103,17 +3103,17 @@
         },
         "70109": {
             "Name": "Dwarven Chariot",
-            "Info": "Select 2 units and move them to this unit's row. When this unit is moved, boost a random unit in the same row by 2.",
+            "Info": "Choose 2 units and move them to this unit's row. When this unit is moved, boost a random unit in the same row as this unit by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "130210": {
             "Name": "Dudu: Promoted",
-            "Info": "Choose an Enemy and become its copy.",
+            "Info": "Choose an enemy and become its copy.",
             "Flavor": "拟态怪有很多别名：易形怪、二重身、模仿怪……变形怪。"
         },
         "130220": {
             "Name": "Prize-Winning Cow: Promoted",
-            "Info": "Deathwish: Spawn a 'Chort'，and then deal 2 damage to all emenies on the same row",
+            "Info": "Deathwish: Spawn a Chort，and then deal 2 damage to all emenies on the same row",
             "Flavor": "哞～～～"
         },
         "130200": {
@@ -3123,17 +3123,17 @@
         },
         "130180": {
             "Name": "Vaedermakar: Promoted",
-            "Info": "Deploy: Spawn a Netural brown/sliver hazard, Clear Skies, or Alzur's Thunder",
+            "Info": "Deploy: Spawn a Neutral Bronze or Silver Hazard, Clear Skies, or Alzur's Thunder",
             "Flavor": "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。"
         },
         "130190": {
             "Name": "Iris von Everec: Promoted",
-            "Info": "Spying. Deathwish: Boost 6 random units on the opposite side by 5.",
+            "Info": "Spying.\nDeathwish: Boost 6 random units on the opposite side by 5.",
             "Flavor": "我的回忆所剩无几……但每次想到我的玫瑰，记忆便会涌现。"
         },
         "130010": {
             "Name": "Roach: Promoted",
-            "Info": "Whenever you play a Gold unit from your hand, Summon this unit. If it is in your hand, summon it and draw one card. If it is in your graveyard, return to your deck.",
+            "Info": "Whenever you play a Gold unit from your hand, summon this unit.\nIf it is in your hand, summon it and draw one card.\nIf it is in your graveyard, return to your deck.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "130150": {
@@ -3143,32 +3143,32 @@
         },
         "130020": {
             "Name": "Francis Bedlam: Promoted",
-            "Info": "Deploy: If losing, Strengthen self up to a maximum of 20 until you outweight 1 scores",
+            "Info": "Deploy: If losing, strengthen self up to a maximum of 20 until you outweight 1 scores",
             "Flavor": "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。"
         },
         "130160": {
             "Name": "Operator: Promoted",
-            "Info": "Exhausted. Deploy, Truce: Make a default copy of a non-exhausted Bronze/Sliver unit in your hand for both players.",
+            "Info": "Single-Use\nDeploy, Truce: Make a default copy of a non-Single-Use Bronze or Silver unit in your hand for both players.",
             "Flavor": "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。"
         },
         "130130": {
             "Name": "Vesemir: Promoted",
-            "Info": "Deploy: Summon Eskel and Lambert, and promote them.",
+            "Info": "Deploy: Summon Eskel and Lambert, then promote them.",
             "Flavor": "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。"
         },
         "130140": {
             "Name": "Eskel: Promoted",
-            "Info": "Deploy: Summon Vesemir and Lambert, and promote them.",
+            "Info": "Deploy: Summon Vesemir and Lambert, then promote them.",
             "Flavor": "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……"
         },
         "130170": {
             "Name": "Lambert: Promoted",
-            "Info": "Deploy: Summon Eskel and Vesemir, and promote them.",
+            "Info": "Deploy: Summon Eskel and Vesemir, then promote them.",
             "Flavor": "这样的沟通方式才对路嘛！"
         },
         "130110": {
             "Name": "Carlo Varese",
-            "Info": "Deal 9 damage. Deal overfolw damge to neighbors.",
+            "Info": "Deal 9 damage.\nDeal overflowed damge to adjacent cards.",
             "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
         },
         "130090": {
@@ -3178,17 +3178,17 @@
         },
         "130100": {
             "Name": "Ocvist: Promoted",
-            "Info": "Exhaust. After 3 turns, deal 1 damage to all enemies, then on round start, return to your hand.",
+            "Info": "Single-Use.\nAfter 3 turns, deal 1 damage to all enemies, then on round start, return to your hand.",
             "Flavor": "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。"
         },
         "130120": {
             "Name": "Myrgtabrakke: Promoted",
-            "Info": "Deploy: Damage Units by 4, 3, 2 and then 1.",
+            "Info": "Deploy: Damage units by 4, 3, 2 and then 1.",
             "Flavor": "永远别想分开母龙和她的孩子。"
         },
         "130080": {
             "Name": "Johnny: Promoted",
-            "Info": "Deploy: Discard a card. Then create a copy of a card of the same color from your opponent's starting deck in your hand.",
+            "Info": "Deploy: Discard a card, then create a copy of a card of the same color from your opponent's starting deck in your hand.",
             "Flavor": "要是再也没办法亲口说出“狮子头上长虱子”，生活就真的太无趣啦。"
         },
         "130050": {
@@ -3203,7 +3203,7 @@
         },
         "130070": {
             "Name": "Stregobor: Promoted",
-            "Info": "Deploy, Truce: Check two unit card in opponent's deck, and place one on top of the deck. Each player draws a unit and sets its power to 1.",
+            "Info": "Deploy, Truce: Check two unit card in the opponent's deck, and place one on top of the deck.\nEach player draws a unit and sets its power to 1.",
             "Flavor": "猎魔人见过看上去像议员的贼，见过看上去像乞丐的议员，也见过看上去像贼的国王。不过斯崔葛布的样子，就和大众心目中法师的形象没什么两样。"
         },
         "130030": {
@@ -3213,7 +3213,7 @@
         },
         "130040": {
             "Name": "Iris' Companions: Promoted",
-            "Info": "Discard a random card, and move a card from your deck to your hand.",
+            "Info": "Discard a random card, then move a card from your deck to your hand.",
             "Flavor": "我们的名字还是不说为好。就当我们是……主人家的朋友吧。"
         },
         "640080": {
@@ -3223,7 +3223,7 @@
         },
         "240140": {
             "Name": "Drowner: Promoted",
-            "Info": "Deploy: Move 2 enemies to the opposite row and deal 2 damage to it. If that row is under a Hazard, deal 4 damage instead.",
+            "Info": "Deploy: Move 2 enemies to the opposite row and deal 2 damage to it.\nIf that row is under a Hazard, deal 4 damage instead.",
             "Flavor": "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。"
         },
         "240230": {
@@ -3233,7 +3233,7 @@
         },
         "240250": {
             "Name": "Barbegazi: Promoted",
-            "Info": "Consume an ally and boost self by its power. Resilient.",
+            "Info": "Consume an ally and boost self by its power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
         }
     }
