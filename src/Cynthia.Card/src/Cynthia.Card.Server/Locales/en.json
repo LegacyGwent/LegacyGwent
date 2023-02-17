@@ -2823,7 +2823,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Choose a Bronze or Silver unit in your hand, Boost it and all its copies in your hand and deck by 2 and give them Shield. The Shield can block any Damage once.",
+            "Info": "Choose a Bronze or Silver unit in your hand, then Boost it and all its copies in your hand and deck by 2 and give them Shield. The Shield can block any Damage once.",
             "Flavor": ""
         },
         "70002": {
@@ -2978,7 +2978,7 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the strongest enemy by 2\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
+            "Info": "Damage the strongest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
             "Flavor": ""
         },
         "70042": {
@@ -3033,7 +3033,7 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two copy of Strays of Spalla to your deck.",
+            "Info": "Single-use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two copies of Strays of Spalla to your deck.",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
