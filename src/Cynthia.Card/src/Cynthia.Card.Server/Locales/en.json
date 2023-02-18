@@ -903,7 +903,7 @@
         },
         "22001": {
             "Name": "Old Speartip: Asleep",
-            "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on board by 1.",
+            "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on the board by 1.",
             "Flavor": "别吵！"
         },
         "22002": {
@@ -923,7 +923,7 @@
         },
         "22005": {
             "Name": "Imlerith",
-            "Info": "Deploy: Damage an enemy by 4.\nIf the enemy is under a Frost Hazard, Destory it instead.",
+            "Info": "Deploy: Damage an enemy by 4.\nIf the enemy is under Biting Frost, Destroy it instead.",
             "Flavor": "叫他们有来无回！"
         },
         "22006": {
@@ -958,7 +958,7 @@
         },
         "22012": {
             "Name": "Weavess: Incantation",
-            "Info": "Deploy, Choose One: Strengthen allied Relicts by 2, wherever they are; or Play a Bronze or Silver Relict from your deck and Strengthen it by 2.",
+            "Info": "Deploy, Choose One: Strengthen all your Relicts in hand, deck and on the board by 2; or Play a Bronze or Silver Relict from your deck and Strengthen it by 2.",
             "Flavor": "我能感受到你的痛苦和恐惧。"
         },
         "22013": {
@@ -988,17 +988,17 @@
         },
         "23004": {
             "Name": "Brewess",
-            "Info": "Deploy: Summon Whispess and Weavess",
+            "Info": "Deploy: Summon Whispess and Weavess.",
             "Flavor": "切烂……剁碎……然后熬出……一锅好汤。"
         },
         "23005": {
             "Name": "Colossal Ifrit",
-            "Info": "Deploy: Spawn 3 Lesser Ifrits to the right of this unit.",
+            "Info": "Deploy: Spawn 3 copies of Lesser Ifrit to the right of this unit.\n(When Summoned, deal 1 Damage to a random enemy)",
             "Flavor": "受不了热浪？那就没生路了。"
         },
         "23006": {
             "Name": "Ruehin",
-            "Info": "Deploy: Strengthen all your Insectoid and Cursed units by 1, wherever they are.",
+            "Info": "Deploy: Strengthen all your Insectoid and Cursed units in hand, deck and on the board by 1.",
             "Flavor": "进入那片森林的人，没一个活着回来……"
         },
         "23007": {
@@ -1063,7 +1063,7 @@
         },
         "23019": {
             "Name": "She-Troll of Vergen",
-            "Info": "Deploy: Play a Bronze Deathwish unit from your deck, Consume it and Boost self by its base Power",
+            "Info": "Deploy: Play a Bronze Deathwish unit from your deck, Consume it and Boost self by its base Power.",
             "Flavor": "着迷于精灵洋葱汤。"
         },
         "23020": {
@@ -1218,7 +1218,7 @@
         },
         "24028": {
             "Name": "Foglet",
-            "Info": "Whenever you apply Fog to an enemy row, Summon a copy of this unit from your deck to the oppoite row.",
+            "Info": "Whenever you apply Impenetrable Fog to an enemy row, Summon a copy of this unit from your deck to the oppoite row.",
             "Flavor": "浓雾悄然弥漫时，小雾妖便会出没，来享用它们的受害者。"
         },
         "24029": {
@@ -1233,7 +1233,7 @@
         },
         "24031": {
             "Name": "Nekker",
-            "Info": "Whenever you Consume a card, Boost this unit by 1 if in hand, deck or on board.\nDeathwish: Play a copy of this unit from your deck.",
+            "Info": "Whenever you Consume a card, Boost this unit by 1 if in hand, deck or on the board.\nDeathwish: Play a copy of this unit from your deck.",
             "Flavor": "如果忽略它们会攻击人类的残酷事实，这些小家伙其实挺可爱的。"
         },
         "24032": {
@@ -1343,7 +1343,7 @@
         },
         "32003": {
             "Name": "Vattier de Rideaux",
-            "Info": "Deploy: Reveal up to 2 of your cards, then Reveal the same number of your opponent's randomly.",
+            "Info": "Deploy: Reveal up to 2 cards from your hand.\nFor each, Reveal 1 random card from your opponent's hand.",
             "Flavor": "精心策划的暗算能解决所有麻烦。"
         },
         "32004": {
@@ -1403,7 +1403,7 @@
         },
         "32014": {
             "Name": "Letho of Gulet",
-            "Info": "Double agent.\nDeploy: Toggle 2 units' Lock on the same row, then Drain all their Power.",
+            "Info": "Double Agent.\nDeploy: Toggle 2 units' Lock on the same row, then Drain all their Power.",
             "Flavor": "猎魔人绝不会死在自己的床上。"
         },
         "32015": {
@@ -1433,17 +1433,17 @@
         },
         "33007": {
             "Name": "Sweers",
-            "Info": "Deploy: Choose an enemy or a Revealed unit in your opponent's hand, then move all copies of it from from their deck to the graveyard.",
+            "Info": "Deploy: Choose an enemy or a Revealed unit in your opponent's hand, then move all copies of it from their deck to the graveyard.",
             "Flavor": "别碰那女孩！听明白没，你们这群乡巴佬？"
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost by 2.\nIf enemies, deal 2 Damage.",
+            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them.",
             "Flavor": "我在诺维格瑞驻守了十三年，什么我没见过？残忍、讥嘲、贪欲。可如今发生的事情却让我极度不安"
         },
         "33002": {
             "Name": "False Ciri",
-            "Info": "Spying.\nIf Spying, Boost self by 1 on turn start and when your opponent passes, move to the opposite row.\nDeathwish: Destroy the Lowest unit on the row.",
+            "Info": "Spying.\nIf Spying, on turn start, Boost self by 1.\nWhen your opponent passes, move to the opposite row.\nDeathwish: Destroy the Lowest unit on the row.",
             "Flavor": "“她来了，”他心想，“皇帝的联姻对象。冒牌公主、冒牌的辛特拉女王、冒牌的雅鲁加河口统治者，也是帝国未来的命脉。”"
         },
         "33009": {
@@ -1488,7 +1488,7 @@
         },
         "33016": {
             "Name": "Vreemde",
-            "Info": "Deploy: Create a Bronze Nilfgaard Soldier.",
+            "Info": "Deploy: Create a Bronze Nilfgaardian Soldier.",
             "Flavor": "即便要击败你们每一个人，我也要让伟大日轮照耀北境。"
         },
         "33017": {
@@ -1498,7 +1498,7 @@
         },
         "33018": {
             "Name": "Fringilla Vigo",
-            "Info": "Double agent.\nDeploy: Copy the Power from the unit to the left to the unit to the right.",
+            "Info": "Double Agent.\nDeploy: Copy the Power from the unit to the left to the unit to the right.",
             "Flavor": "魔法的价值高于一切，高于所有争论和敌意。"
         },
         "33019": {
@@ -1513,7 +1513,7 @@
         },
         "33021": {
             "Name": "Cadaverine",
-            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral unit.",
+            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral enemy.",
             "Flavor": "我不会拿自己的性命去碰运气。我会拿上一把长剑，厚厚地涂上一层吊死鬼之毒。"
         },
         "33022": {
@@ -1533,7 +1533,7 @@
         },
         "34006": {
             "Name": "Master of Disguise",
-            "Info": "Deploy: Conceal 2 cards.",
+            "Info": "Deploy: Conceal up to 2 cards.",
             "Flavor": "哦，高悬上苍的伟大日轮啊，把我们从裤腿里除之不尽的虱子中解救出来吧！"
         },
         "34007": {
@@ -1548,7 +1548,7 @@
         },
         "34009": {
             "Name": "Alchemist",
-            "Info": "Deploy: Reveal 2 cards.",
+            "Info": "Deploy: Reveal up to 2 cards.",
             "Flavor": "两盎司钙素，一盎司结合剂……"
         },
         "34010": {
@@ -1633,7 +1633,7 @@
         },
         "34024": {
             "Name": "Alba Pikeman",
-            "Info": "At the beginning of the round, Summon one copy from the deck.\n2 Armor.",
+            "Info": "After 1 turn, on turn start, Summon a copy of this unit on its row.\n2 Armor.",
             "Flavor": "宣誓效忠吾皇恩希尔·恩瑞斯……不然就受刑吧！"
         },
         "34025": {
@@ -1728,7 +1728,7 @@
         },
         "42002": {
             "Name": "Bloody Baron",
-            "Info": "Whenever an enemy is destroyed, if in hand, deck, or on board, Boost self by 1.",
+            "Info": "Whenever an enemy is destroyed, if in hand, deck, or on the board, Boost self by 1.",
             "Flavor": "我知道自己不是个好父亲，但……现在弥补或许还来得及。"
         },
         "42003": {
@@ -1798,7 +1798,7 @@
         },
         "43003": {
             "Name": "Trollololo",
-            "Info": "At the start of your turn, gain 2 Armor.\n4 Armor.",
+            "Info": "Every turn, at the start of the turn, gain 2 Armor.\n4 Armor.",
             "Flavor": "我是拉多多德国王的兵兵。收到命令，看守船船。"
         },
         "43004": {
@@ -1888,7 +1888,7 @@
         },
         "43021": {
             "Name": "Vandergrift's Blade",
-            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage.\nIf the unit was destroyed, Banish it.",
+            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage, If the unit was destroyed, Banish it.",
             "Flavor": "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。"
         },
         "44001": {
@@ -1943,7 +1943,7 @@
         },
         "44011": {
             "Name": "Siege Support",
-            "Info": "Whenever an ally appears, Boost it by 1. If it's a Machine, also give it 1 Armor.\nCrew.",
+            "Info": "Whenever an ally appears, Boost it by 1.\nIf it's a Machine, also give it 1 Armor.\nCrew.",
             "Flavor": "“你得把准星左校5度。”“把什么调多少？”"
         },
         "44012": {
@@ -1993,7 +1993,7 @@
         },
         "44021": {
             "Name": "Reaver Hunter",
-            "Info": "Deploy: Boost all copies of this unit by 1, if in hand, deck or on board. Repeat its ability whenever a copy of this unit is played.",
+            "Info": "Deploy: Boost all copies of this unit by 1, if in hand, deck or on the board.\nRepeat its ability whenever a copy of this unit is played.",
             "Flavor": "看见这纹身没？纹的是我在痛扁一条龙。一条龙哟，女士。"
         },
         "44022": {
@@ -2183,7 +2183,7 @@
         },
         "53005": {
             "Name": "Dennis Cranmer",
-            "Info": "Deploy: Strengthen all your other Dwarves in hand, deck and on board by 1.",
+            "Info": "Deploy: Strengthen all your other Dwarves in hand, deck and on the board by 1.",
             "Flavor": "我知道如何执行命令，冲别人去说教吧。"
         },
         "53006": {
@@ -2208,7 +2208,7 @@
         },
         "53010": {
             "Name": "Braenn",
-            "Info": "Deploy: Damage an enemy by this unit's power.\nIf the unit was destroyed, Boost all your other Dryads and Ambush units in hand, deck and on board by 1.",
+            "Info": "Deploy: Damage an enemy by this unit's power.\nIf the unit was destroyed, Boost all your other Dryads and Ambush units in hand, deck and on the board by 1.",
             "Flavor": "莫娜？不，不。我是布蕾恩。布洛克莱昂的女儿。"
         },
         "53011": {
@@ -2398,7 +2398,7 @@
         },
         "54027": {
             "Name": "Dol Blathanna Sentry",
-            "Info": "If in hand, deck or on board, Boost self by 1 whenever you play a special card.",
+            "Info": "If in hand, deck or on the board, Boost self by 1 whenever you play a special card.",
             "Flavor": "只要我们一息尚存，就绝不容许人类践踏多尔·布雷坦纳的绿荫。"
         },
         "54028": {
@@ -2673,7 +2673,7 @@
         },
         "64016": {
             "Name": "Tuirseach Veteran",
-            "Info": "Deploy: Strengthen all your other Clan Tuirseach units in hand, deck and on board by 1.",
+            "Info": "Deploy: Strengthen all your other Clan Tuirseach units in hand, deck and on the board by 1.",
             "Flavor": "我见人所未见，能人所不能。"
         },
         "64017": {
@@ -3048,12 +3048,12 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Generate copies of all locked Bronze units, then set their base Strenght to 2.\nWhenever any Bronze unit is locked during your turn, generate a copy of it with 2 base Strength in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
             "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
         },
         "70077": {
             "Name": "Firesworn Zealot",
-            "Info": "Every 4 turns, at the end of the turn, deal 2 Damage to 4 random enemies.\nReduce the countdown by 1 for each locked unit on the board when played.",
+            "Info": "Every 4 turns, at the end of the turn, deal 2 Damage to 4 random enemies.\nReduce the first countdown by 1 for each Locked unit on the board when played.",
             "Flavor": "“我的信仰无人能敌，亦如我的怒火！”"
         },
         "70078": {
@@ -3068,7 +3068,7 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish a Bronze Beast or Vampire unit from your graveyard, then Choose One: cast 3 rows of Full Moon on your side of the board; or cast 3 rows of Blood Moon on the opponent's side of the board.",
+            "Info": "Deploy: Banish a Bronze Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
             "Flavor": ""
         },
         "70103": {
@@ -3078,7 +3078,7 @@
         },
         "70104": {
             "Name": "Lyrian Landsknecht",
-            "Info": "At the end of the round，if this card is Boosted，shuffle it back to the deck and keep at most 10 Boost.",
+            "Info": "At the end of the round, if this card is Boosted, shuffle it back to the deck and keep at most 10 Boost.",
             "Flavor": "“相信我，最好别去嘲笑他们傻里傻气的帽子。”"
         },
         "70105": {
@@ -3088,12 +3088,12 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy of this card on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of your turn, destroy self.",
+            "Info": "Deploy: Spawn 1 base copy of this card on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of the turn, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
             "Name": "Endrega Larva",
-            "Info": "After 3 turns, at the end of your turn, transform into Endrega Warrior.",
+            "Info": "After 3 turns, at the end of the turn, transform into Endrega Warrior.",
             "Flavor": "Fat, plump… and bloodthirsty."
         },
         "70108": {
