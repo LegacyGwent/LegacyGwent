@@ -2333,7 +2333,7 @@
         },
         "54014": {
             "Name": "Dol Blathanna Bomber",
-            "Info": "Deploy: Spawn an Incinerating Trap on an enemy row.\n(Damage all units on this row by 2 on turn end)",
+            "Info": "Deploy: Spawn an Incinerating Trap on an enemy row.\n(Incinerating Trap; 1 Strength; Damage all units on this row by 2 on turn end)",
             "Flavor": "他们的追踪本领犹如猎犬，双腿健似矫鹿，残忍更胜恶魔。"
         },
         "54015": {
@@ -2858,7 +2858,7 @@
         },
         "70008": {
             "Name": "Vivienne: Oriole",
-            "Info": "On turn end, if your total Power exceeds the opponent's Power by 25 points or more, return to your hand.",
+            "Info": "Single-Use.\nOn turn end, if your total Power exceeds the opponent's Power by 25 points or more, return to your hand.",
             "Flavor": ""
         },
         "70009": {
