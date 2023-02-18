@@ -268,7 +268,7 @@
         },
         "12009": {
             "Name": "Ale of the Ancestors",
-            "Info": "Deploy: Apply Golden Froth to the row.\nRepeat its ability when moved, then deal 4 Damage to self.",
+            "Info": "Deploy: Apply Golden Froth to the row.\nWhen moved, repeat its ability, then deal 4 Damage to self.",
             "Flavor": "Boros, the legendary founder of Clan Fuchs, died after overindulging in this beverage - he passed out while reaching for his golden ring, which had fallen into a brook."
         },
         "12010": {
@@ -298,7 +298,7 @@
         },
         "12015": {
             "Name": "Zoltan: Scoundrel",
-            "Info": "Deploy, Choose One: Spawn a Duda: Companion that Boosts 2 units on each side of it by 2; or Spawn a Duda: Agitator that deals 2 Damage to 2 units on each side of it.",
+            "Info": "Deploy, Choose One: Spawn a Duda: Agitator that deals 2 Damage to 2 units on each side of it; or Spawn a Duda: Companion that Boosts 2 units on each side of it by 2.\n(Duda; 1 Strength)",
             "Flavor": "Apologies. My exotic pet's a clever birdie, but a wee bit lewd. Paid ten thalers for the beaute."
         },
         "12016": {
@@ -323,7 +323,7 @@
         },
         "12020": {
             "Name": "Gaunter O'Dimm",
-            "Info": "Deploy, Gamble with Gaunter: Guess whether the Power of the card he picked is less, equal or greater than 6.",
+            "Info": "Deploy, Gamble with Gaunter: Guess whether the Power of the random card he picked is lower, equal or higher than 6.\nIf guessed, you can play that card.",
             "Flavor": "He always grants exactly what you wish for. That's the problem."
         },
         "12021": {
@@ -343,7 +343,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Deploy, Choose One: Spawn a Unicorn that Boosts all other units by 2; or Spawn a Chironex that deals 2 Damage to all other units.",
+            "Info": "Deploy, Choose One: Spawn a Unicorn that Boosts all other units by 2; or Spawn a Chironex that deals 2 Damage to all other units.\n(Unicorn; 1 Strength)\n(Chironex; 4 Strength)",
             "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression."
         },
         "12025": {
@@ -353,7 +353,7 @@
         },
         "12026": {
             "Name": "Triss: Telekinesis",
-            "Info": "Deploy: Create and play a Bronze special card from either player's starting deck.",
+            "Info": "Deploy: Create a Bronze special card from either player's starting deck.",
             "Flavor": "Bindings won't suffice. Nor will a gag render her any less dangerous. No, dimeritium is the only solution."
         },
         "12002": {
@@ -433,7 +433,7 @@
         },
         "12039": {
             "Name": "Uma's Curse",
-            "Info": "Create a non-Leader Gold unit",
+            "Info": "Create a non-Leader Gold unit.",
             "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this... monstrosity?"
         },
         "12040": {
@@ -463,7 +463,7 @@
         },
         "13005": {
             "Name": "Germain Piquant",
-            "Info": "Deploy: Spawn 2 Cows on each side of this unit.",
+            "Info": "Deploy: Spawn 2 Cows on each side of this unit.\n(Cow; 1 Strength)",
             "Flavor": "陶森特需要这位英雄，但它不配。"
         },
         "13006": {
@@ -478,7 +478,7 @@
         },
         "13008": {
             "Name": "Johnny",
-            "Info": "Deploy: Discard a card, then make a copy of a card of the same color from your opponent's starting deck in your hand.",
+            "Info": "Deploy: Discard a card, then add a copy of a card of the same color from your opponent's starting deck in your hand.",
             "Flavor": "要是再也没办法亲口说出“狮子头上长虱子”，生活就真的太无趣啦。"
         },
         "13009": {
@@ -493,7 +493,7 @@
         },
         "13011": {
             "Name": "Carlo Varese",
-            "Info": "Deploy: Deal 1 Damage for each card in your hand.",
+            "Info": "Deploy: Deal 1 Damage for each card in your hand, to an enemy.",
             "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
         },
         "13012": {
@@ -523,7 +523,7 @@
         },
         "13016": {
             "Name": "Operator",
-            "Info": "Deploy, Single-Use, Truce: Make a default copy of a Bronze unit in your hand for both players.",
+            "Info": "Deploy, Single-Use, Truce: Add a default copy of a Bronze unit in your hand to both hands.",
             "Flavor": "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。"
         },
         "13017": {
@@ -558,7 +558,7 @@
         },
         "13022": {
             "Name": "Prize-Winning Cow",
-            "Info": "Deathwish: Spawn a Chort on a random row.",
+            "Info": "Deathwish: Spawn a Chort on a random row.\n(Chort; 14 Strength)",
             "Flavor": "哞～～～"
         },
         "13023": {
@@ -573,7 +573,7 @@
         },
         "13025": {
             "Name": "Artefact Compression",
-            "Info": "Transform a Bronze or Silver unit into a Jade Figurine.",
+            "Info": "Transform a Bronze or Silver unit into a Jade Figurine.\n(Jade Figurine; 2 Strength)",
             "Flavor": "雕像瞬间爆开，颤动不已，犹如一道在地上爬行的烟雾，变换着自己的形状。道道光芒里，有东西上下纷飞，不断成形。片刻之后，魔法圈的正中间突然现出了一道人影。"
         },
         "13026": {
@@ -633,7 +633,7 @@
         },
         "13037": {
             "Name": "The Last Wish",
-            "Info": "Draw your top 2 cards.\nPlay 1 and shuffle the other back.",
+            "Info": "Look at the top 2 cards from your deck.\nPlay 1 and shuffle the other back.",
             "Flavor": "亲爱的先生们，一只气灵三个愿望，随后它们就会跑回自己的界域去。"
         },
         "13038": {
@@ -693,7 +693,7 @@
         },
         "14006": {
             "Name": "Bloodcurdling Roar",
-            "Info": "Destroy an ally, then Spawn an Elder Bear",
+            "Info": "Destroy an ally, then Spawn an Elder Bear.\n(Elder Bear; 11 Strength)",
             "Flavor": "起初我们碰上了一头熊……悲剧就从那时开始了。"
         },
         "14007": {
@@ -793,7 +793,7 @@
         },
         "14025": {
             "Name": "Spores",
-            "Info": "Deal 2 Damage to all units on a row and clear a Boon from it.",
+            "Info": "Deal 2 Damage to all units on an enemy row and clear a Boon from it.",
             "Flavor": "吃够量，世界就会变个样……"
         },
         "14026": {
@@ -803,7 +803,7 @@
         },
         "14027": {
             "Name": "Peasant Militia",
-            "Info": "Spawn 3 Peasants on a row.",
+            "Info": "Spawn 3 Peasants on a row.\n(Peasant; 3 Strength)",
             "Flavor": "瞧，我们是民兵。我们保卫和平"
         },
         "15001": {
@@ -993,7 +993,7 @@
         },
         "23005": {
             "Name": "Colossal Ifrit",
-            "Info": "Deploy: Spawn 3 copies of Lesser Ifrit to the right of this unit.\n(When Summoned, deal 1 Damage to a random enemy)",
+            "Info": "Deploy: Spawn 3 Lesser Ifrits to the right of this unit.\n(Lesser Ifrit; 1 Strength; When Summoned, deal 1 Damage to a random enemy)",
             "Flavor": "受不了热浪？那就没生路了。"
         },
         "23006": {
@@ -1083,7 +1083,7 @@
         },
         "24001": {
             "Name": "Cyclops",
-            "Info": "Deploy: Destroy an ally and deal its Power as Damage.",
+            "Info": "Deploy: Destroy an ally and deal its Power as Damage to an enemy.",
             "Flavor": "别盯着它的眼睛，他不喜欢那样……"
         },
         "24002": {
@@ -1098,7 +1098,7 @@
         },
         "24004": {
             "Name": "Archgriffin",
-            "Info": "Deploy: Clear Hazards on its row.\nMove a Bronze unit from the opponent's graveyard to your own graveyard.",
+            "Info": "Deploy: Clear Hazards on its row.\nMove a Bronze unit from the opponent's graveyard to yours.",
             "Flavor": "大狮鹫也是狮鹫，只是更加凶悍。"
         },
         "24005": {
@@ -1128,7 +1128,7 @@
         },
         "24010": {
             "Name": "Arachas Behemoth",
-            "Info": "Whenever you Consume a unit, Spawn an Arachas Hatchling.\nRepeat up to 3 times.",
+            "Info": "Whenever you Consume a unit, Spawn an Arachas Hatchling.\nRepeat up to 3 times.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones)",
             "Flavor": "看起来像螃蟹和蜘蛛的杂交……只是体型硕大无比。"
         },
         "24011": {
@@ -1168,7 +1168,7 @@
         },
         "24018": {
             "Name": "Celaeno Harpy",
-            "Info": "Deploy: Spawn 2 Harpy Eggs.",
+            "Info": "Deploy: Spawn 2 Harpy Eggs to its left.\n(Harpy Egg; 1 Strength; When Consumed by another unit, Boost that unit by an additional 5.\nDeathwish: Spawn a Harpy Hatchling on a random row)\n(Harpy Hatchling; 1 Strength)",
             "Flavor": "一般的鹰身女妖以腐肉为食，赛尔伊诺鹰身女妖……则以梦境为食。"
         },
         "24019": {
@@ -1223,7 +1223,7 @@
         },
         "24029": {
             "Name": "Ghoul",
-            "Info": "Deploy: Consume a Bronze or Silver unit from your graveyard. ",
+            "Info": "Deploy: Consume a Bronze or Silver unit from your graveyard and Boost self by its Power. ",
             "Flavor": "如果食尸鬼也是生死循环的一环……那这循环也太残酷了。"
         },
         "24030": {
@@ -1277,8 +1277,8 @@
             "Flavor": "它很容易被误认作岩石，许多糊涂巨魔已痛彻心扉地领悟到这一点。"
         },
         "25002": {
-            "Name": "Arachas Drone",
-            "Info": "Deploy: Summon all copies of this unit.",
+            "Name": "Arachas Hatchling",
+            "Info": "Summon all Arachas Drones.",
             "Flavor": "有时候，“年轻即是美”不过是大自然的谎言罢了。"
         },
         "25003": {
@@ -1288,7 +1288,7 @@
         },
         "25004": {
             "Name": "Harpy Egg",
-            "Info": "When Consumed by another unit, Boost that unit by an additional 5.\nDeathwish: Spawn a Harpy Hatchling on a random row.",
+            "Info": "When Consumed by another unit, Boost that unit by an additional 5.\nDeathwish: Spawn a Harpy Hatchling on a random row.\n(Harpy Hatchling; 1 Strength)",
             "Flavor": "鹰身女妖蛋卷，真是美味佳肴啊，好先生。但它也非常昂贵，您可能料得到，这些可怜的鸟儿并不愿跟自己的蛋分离。"
         },
         "25005": {
@@ -1558,7 +1558,7 @@
         },
         "34011": {
             "Name": "Rot Tosser",
-            "Info": "Deploy: Spawn a Cow Carcass on an enemy row.\n(After 2 turns, on turn end, destroy all the other Lowest units on the row and destroy self)",
+            "Info": "Deploy: Spawn a Cow Carcass on an enemy row.\n(Cow Carcass; 1 Strength; After 2 turns, on turn end, destroy all the other Lowest units on the row and destroy self)",
             "Flavor": "向围城中散播瘟疫是否人道，这个话题还是留给史学家吧。我们只关心这法子有没有效。"
         },
         "34012": {
@@ -1593,7 +1593,7 @@
         },
         "34018": {
             "Name": "Combat Engineer",
-            "Info": "Deploy: Toggle Resilience of an ally.\nCrew.",
+            "Info": "Deploy: Toggle the Resilience status of an ally.\nCrew.",
             "Flavor": "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。"
         },
         "34003": {
@@ -2058,7 +2058,7 @@
         },
         "44034": {
             "Name": "Bloody Flail",
-            "Info": "Deal 5 Damage and Spawn a Specter on a random row.",
+            "Info": "Deal 5 Damage and Spawn a Specter on a random row.\n(Specter; 5 Strength)",
             "Flavor": "有些武器在整个北方领域都禁止使用。因为它们所造成的伤害超出了人们的想象。"
         },
         "45001": {
@@ -2438,7 +2438,7 @@
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Deploy: Spawn the Lord of Undvik on the opposite row.\n(Deathwish: Boost enemy Hjalmars by 10)",
+            "Info": "Deploy: Spawn the Lord of Undvik on the opposite row.\n(Lord of Undvik; 5 Strength; Deathwish: Boost enemy Hjalmars by 10)",
             "Flavor": "別为死者哭泣，敬他们一杯吧！"
         },
         "62003": {
@@ -2483,7 +2483,7 @@
         },
         "62011": {
             "Name": "Coral",
-            "Info": "Deploy: Transform a Bronze or Silver unit into a Jade Figurine.",
+            "Info": "Deploy: Transform a Bronze or Silver unit into a Jade Figurine\n(Jade Figurine; 2 Strength)",
             "Flavor": "她的真名是艾丝翠特·丽塔尼德·艾斯杰芬比约斯道提尔，这名字不管怎么念都拗口极了。"
         },
         "62012": {
@@ -2493,7 +2493,7 @@
         },
         "62013": {
             "Name": "Kambi",
-            "Info": "Spying.\nDeathwish: Spawn Hemdall.\n(Deploy: Destroy all units and clear all Boons and Hazards.",
+            "Info": "Spying.\nDeathwish: Spawn Hemdall.\n(Hemdall; 20 Strength; Deploy: Destroy all units and clear all Boons and Hazards)",
             "Flavor": "终焉之刻来临时，金公鸡坎比便会叫醒沉睡的汉姆多尔。"
         },
         "63001": {
@@ -2513,7 +2513,7 @@
         },
         "63004": {
             "Name": "Blueboy Lugos",
-            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(On turn end, move to a random row and deal 1 Damage to all units on it)",
+            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(Spectral Whale; 3 Strength; On turn end, move to a random row and deal 1 Damage to all units on it)",
             "Flavor": "我无聊得快吐了。"
         },
         "63005": {
@@ -2553,7 +2553,7 @@
         },
         "63012": {
             "Name": "Harald Houndsnout",
-            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.",
+            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn an Elder Bear on the opposite row.\n(Elder Bear; 11 Strength)",
             "Flavor": "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。"
         },
         "63013": {
@@ -2658,7 +2658,7 @@
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.",
+            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 12 Strength)",
             "Flavor": "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。"
         },
         "64014": {
@@ -2758,7 +2758,7 @@
         },
         "64033": {
             "Name": "Tuirseach Bearmaster",
-            "Info": "Deploy: Spawn an Elder Bear.",
+            "Info": "Deploy: Spawn an Elder Bear.\n(Elder Bear; 11 Strength)",
             "Flavor": "别碰他。别盯着他的眼睛瞧。事实上……压根就别靠近他。"
         },
         "64034": {
@@ -2798,7 +2798,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Spying.\nDeathwish: Spawn an Elder Bear on the opposite row.",
+            "Info": "Spying.\nDeathwish: Spawn an Elder Bear on the opposite row.\n(Elder Bear; 11 Strength)",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
         "61001": {
@@ -2828,7 +2828,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power equal to or less than this unit's, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and gain its Power.",
+            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power equal to or less than this unit's, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
             "Flavor": ""
         },
         "70003": {
@@ -2873,7 +2873,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn Lady Of The Lake. (Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
+            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 25 Power; Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
             "Flavor": ""
         },
         "70012": {
@@ -2903,7 +2903,7 @@
         },
         "70017": {
             "Name": "Cintrian Field Medic",
-            "Info": "Deploy: Shuffle a non-identical Bronze ally back to your deck, then play a random Bronze unit from your deck.",
+            "Info": "Deploy: Shuffle a different Bronze ally back to your deck, then play a random Bronze unit from your deck.",
             "Flavor": ""
         },
         "70019": {
@@ -2923,17 +2923,17 @@
         },
         "70022": {
             "Name": "Kikimore Worker",
-            "Info": "Deploy: Choose an Insectoid ally.\nBoost that unit and all copies of it on your side of the board, hand and deck by 2.",
+            "Info": "Deploy: Choose an Insectoid ally.\nBoost that unit and all copies of it in hand, deck and on the board by 2.",
             "Flavor": ""
         },
         "70023": {
             "Name": "Kikimore Warrior",
-            "Info": "Deploy: Consume a non-identical Bronze unit in your deck with current Power no greater than its own, then Boost self by its Power.",
+            "Info": "Deploy: Consume a different Bronze unit in your deck with current Power no greater than its own, then Boost self by its Power.",
             "Flavor": ""
         },
         "70024": {
             "Name": "Cursed Immortals",
-            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row.",
+            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row.\n(Specter; 5 Strength)",
             "Flavor": ""
         },
         "70025": {
@@ -2953,7 +2953,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Move all units to a random other row and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: Move all enemies to a random row and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
@@ -2968,7 +2968,7 @@
         },
         "70039": {
             "Name": "Dire Wolf Claws",
-            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 2 copies of Dire Wolf Warrior in your deck.",
+            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 2 Dire Wolf Warriors in your deck.\n(8 Strength; Deploy: Deal 2 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
             "Flavor": ""
         },
         "70040": {
@@ -2993,7 +2993,7 @@
         },
         "70044": {
             "Name": "Vernossiel",
-            "Info": "Deploy: Add 2 copies of Vernossiel's Commando to your deck and reduce their counter by 1.",
+            "Info": "Deploy: Add 2 Vernossiel's Commandos to your deck and reduce their counter by 1.",
             "Flavor": ""
         },
         "70045": {
@@ -3013,7 +3013,7 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 Bronze units with Power higher than 5, then deal 4 Damage to each of them.",
+            "Info": "Resurrect 2 Bronze units with 6 Power or more, then deal 4 Damage to each of them.",
             "Flavor": ""
         },
         "70058": {
@@ -3023,7 +3023,7 @@
         },
         "70059": {
             "Name": "One-Eyed Betsy",
-            "Info": "At the beginning of the round, Boost self by 3, then Boost the Highest enemy by 3.",
+            "Info": "Every turn, on turn start, Boost self by 3, then Boost the Highest enemy by 3.",
             "Flavor": "准头是差了点，但力道确实没话说。"
         },
         "70062": {
@@ -3033,7 +3033,7 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two copies of Strays of Spalla to your deck.",
+            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Look at 2 random Bronze units in your deck, then play one)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
@@ -3043,7 +3043,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deploy: Deal Damage equal to the number of neutral cards in your hand.",
+            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand.",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
         "70076": {
@@ -3063,7 +3063,7 @@
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 copies of The Last Wish to your deck, then Discard self.",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3088,12 +3088,12 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy of this card on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of the turn, destroy self.",
+            "Info": "Deploy: Spawn 1 base copy of this card on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of the turn, destroy self.\n(5 Strength; After 3 turns, at the end of the turn, transform into an Endrega Warrior)\n(Endrega Warrior; 7 Strength)",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
             "Name": "Endrega Larva",
-            "Info": "After 3 turns, at the end of the turn, transform into Endrega Warrior.",
+            "Info": "After 3 turns, at the end of the turn, transform into an Endrega Warrior.",
             "Flavor": "Fat, plump… and bloodthirsty."
         },
         "70108": {
@@ -3113,7 +3113,7 @@
         },
         "130220": {
             "Name": "Prize-Winning Cow: Promoted",
-            "Info": "Deathwish: Spawn a Chort, then deal 2 Damage to all emenies on the same row.",
+            "Info": "Deathwish: Spawn a Chort, then deal 2 Damage to all emenies on the same row.\n(Chort; 14 Strength)",
             "Flavor": "哞～～～"
         },
         "130200": {
@@ -3167,8 +3167,8 @@
             "Flavor": "这样的沟通方式才对路嘛！"
         },
         "130110": {
-            "Name": "Carlo Varese",
-            "Info": "Deal 9 Damage.\nDeal overflowed damge to adjacent cards.",
+            "Name": "Carlo Varese: Promoted",
+            "Info": "Deal 9 Damage.\nDeal overflowed damage to adjacent cards.",
             "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
         },
         "130090": {
@@ -3193,7 +3193,7 @@
         },
         "130050": {
             "Name": "Germain Piquant: Promoted",
-            "Info": "Deploy: Spawn 3 Cows on each side of this unit.",
+            "Info": "Deploy: Spawn 3 Cows on each side of this unit.\n(Cow; 1 Strength)",
             "Flavor": "陶森特需要这位英雄，但它不配。"
         },
         "130060": {
