@@ -514,6 +514,7 @@ namespace Cynthia.Card
         public const string Wilfred = "65005";
         public const string Wilhelm = "65006";
         public const string Wilmar = "65007";
+        public const string AnCrateWarlord = "65008";
         public const string HaraldTheCripple = "61001";
         public const string CrachAnCraite = "61002";
         public const string EistTuirseach = "61003";

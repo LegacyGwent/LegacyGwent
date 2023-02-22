@@ -10434,6 +10434,26 @@ namespace Cynthia.Card
                 }
             },
             {
+                "65008",//一个木箱战神
+                new GwentCard()
+                {
+                    CardId ="65008",
+                    Name="一个木箱战神WIP",
+                    Strength=6,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
+                    Flavor = "尼尔弗加德渔民的恐怖经历",
+                    Info = "在手牌、牌组或棋盘上时，你每丢弃一张牌就会提升1。",
+                    CardArtsId = "19650000",
+                }
+            },
+            {
                 "61001",//“瘸子”哈罗德
                 new GwentCard()
                 {
