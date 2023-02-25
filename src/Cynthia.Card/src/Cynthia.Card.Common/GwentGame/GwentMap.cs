@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 60);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 61);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12300,6 +12300,66 @@ namespace Cynthia.Card
                     Flavor = "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。",
                     Info = "坚韧。 吞噬1个友军单位，获得其战力作为增益。",
                     CardArtsId = "20170100",
+                }
+            },
+            {
+                "70079",//一个木箱战神
+                new GwentCard()
+                {
+                    CardId ="70079",
+                    Name="一个木箱战神",
+                    Strength=6,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
+                    Flavor = "尼尔弗加德渔民的恐怖经历",
+                    Info = "在手牌、牌组或棋盘上时，你每丢弃一张牌就会提升1。",
+                    CardArtsId = "d23010000",
+                }
+            },
+                        {
+                "70080",//冷酷无情的克努特
+                new GwentCard()
+                {
+                  CardId = "70080",
+                    Name = "冷酷无情的克努特",
+                    Strength = 7,
+                    Group = Group.Silver,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cultist},
+                    Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
+                    Info = "部署：从你的手牌中丢弃一张牌，然后从你的起始牌中生成一个青铜单位，使其强化1，并将其加入你的手牌。",
+                    CardArtsId = "16660000",
+                }
+            },
+                        {
+                "70081",//德拉蒙德-皮勒格
+                new GwentCard()
+                {
+                    CardId ="70081",
+                    Name="德拉蒙德-皮勒格",
+                    Strength=9,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
+                    Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
+                    Info = "弃置时，无论在哪里，都能使所有的鼓手部队加强1倍。",
+                    CardArtsId = "d23020000",
                 }
             },
         };
