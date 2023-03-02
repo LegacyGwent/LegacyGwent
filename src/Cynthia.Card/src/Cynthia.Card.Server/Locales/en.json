@@ -3247,9 +3247,9 @@
             "Flavor": "I kneel to Svalblod, and Svalblod alone!"
         },
         "70081": {
-            "Name": "AnDrummond Pillager",
+            "Name": "Drummond Pillager",
             "Info": "When discarded, strengthen all drummond units by 1 wherever they are.",
             "Flavor": "The only thing they like more than looting is killing."
-        },
+        }
     }
 }

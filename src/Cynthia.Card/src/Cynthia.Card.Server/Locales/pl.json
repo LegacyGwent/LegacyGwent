@@ -3231,6 +3231,10 @@
       "Info": "Deal 7 damage.",
       "Flavor": "想象一下在最可怕的噩梦中出现的长翅膀的蛇——翼手龙比这更可怕。"
     },
+    "240250": {
+      "Name": "Barbegazi:Promoted",
+      "Info": "Consume an ally and boost self by its power. Resilient.",
+    },
     "70079": {
       "Name": "An Craite Warlord",
       "Info": "gdy znajduje się w ręce, talii lub na planszy, zwiększa się o 1 za każdym razem, gdy odrzucasz kartę",
@@ -3245,6 +3249,6 @@
       "Name": "Drummondzki Pogromca",
       "Info": "Po odrzuceniu wzmocnij wszystkie jednostki drummondów o 1, gdziekolwiek się znajdują.",
       "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
-    },
+    }
   }
 }
