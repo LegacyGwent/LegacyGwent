@@ -27,7 +27,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDiscard @event)
         {
-            if (@event.HandCard != Card)
+            if (@event.Target != Card)
             {
                 return;
             }
