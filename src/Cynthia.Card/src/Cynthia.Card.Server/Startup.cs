@@ -31,14 +31,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
             services.AddAntDesign();
             services.AddBlazoredLocalStorage();
-            if (_env.IsDevelopment())
-            {
-                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent-diy"));
-            }
-            else
-            {
-                services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient("mongodb://localhost:28020/gwent-diy"));
-            }
+            services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient(GetConnectionString()));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
@@ -60,6 +53,17 @@ namespace Cynthia.Card.Server
                 endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapHub<GwentHub>("/hub/gwent");
             });
+        }
+        
+        private string GetConnectionString()
+        {
+            string variable = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING");
+            Console.WriteLine(variable);
+            if (string.IsNullOrEmpty(variable))
+            {
+                return "mongodb://localhost:28020/gwent-diy";
+            }
+            return variable;
         }
     }
 }
