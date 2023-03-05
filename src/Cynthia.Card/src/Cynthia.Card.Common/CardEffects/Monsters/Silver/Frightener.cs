@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public class Frightener : CardEffect
     {//间谍、力竭。 将1个敌军单位移至自身所在排，然后抽1张牌。
         public Frightener(GameCard card) : base(card) { }
-        public bool IsUse { get; set; } = false;
+        public bool IsUse = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             if (IsUse)
@@ -17,6 +17,7 @@ namespace Cynthia.Card
             }
 
             IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
 
             var card = await Game.GetSelectPlaceCards(Card, isEnemySwitch: true, filter: (x => x.Status.CardRow != Card.Status.CardRow), selectMode: SelectModeType.MyRow);
             if (card.Count() == 0)

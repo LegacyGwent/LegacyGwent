@@ -258,7 +258,7 @@
         },
         "12007": {
             "Name": "Трисс Меригольд",
-            "Info": "Наносит 5 урона.",
+            "Info": "Наносит 7 урона.",
             "Flavor": "I can take care of myself. Trust me."
         },
         "12008": {
@@ -318,7 +318,7 @@
         },
         "12019": {
             "Name": "Цири",
-            "Info": "Всякий раз, когда вы проигрываете раунд, верните этот блок в вашу руку. 2 броня.",
+            "Info": "Всякий раз, когда вы проигрываете раунд, верните этот блок в вашу руку.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
@@ -578,7 +578,7 @@
         },
         "13026": {
             "Name": "Зеркало Беккера",
-            "Info": "Передача до 10 мощности между самой сильной к самой низкой картой.",
+            "Info": "Передача до 13 мощности между самой сильной к самой низкой картой.",
             "Flavor": "еЅ“дЅ е‡ќи§†ж·±жёЉзљ„ж—¶еЂ™пјЊж·±жёЉд№џењЁе‡ќи§†зќЂдЅ гЂ‚"
         },
         "13027": {
@@ -2993,7 +2993,7 @@
         },
         "70045": {
             "Name": "Королева Мэва",
-            "Info": "Усильте на 4ед одну карту на столе, в руке и колоде.",
+            "Info": "Усильте на 5ед одну карту на столе, в руке и колоде.",
             "Flavor": ""
         },
         "70046": {
@@ -3052,13 +3052,13 @@
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
         },
         "70091": {
-            "Name": "Онейромантия",
-            "Info": "Выбор: создайте и сыграйте 1 карту (из трёх случайных) из вашей стартовой колоды (не агента и не обречённую) или превратите 3 случайные карты в руке (с разными названиями) в 'Онейромантия'.",
+            "Name": "Magic Lamp",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self. Your The Last Wish looks at 1 extra card, while this unit is in the graveyard.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
             "Name": "Detlaff: CrimsonCurse",
-            "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
+            "Info": "Banish a 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
             "Flavor": ""
         },
         "70103": {
@@ -3095,6 +3095,16 @@
             "Name": "DwarvenChariot",
             "Info": "Select 2 units and move them to this row in the half court. After self movement, make a random unit in the row obtain 2 boost.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
+        },
+        "70110": {
+            "Name": "Isbel of Hagge",
+            "Info": "Spawn a default copy of the card at the bottom of your opponent's deck. ",
+            "Flavor": "“于是我便发下誓言……永远不会使用魔法伤害他人。”"
+        },
+        "70111": {
+            "Name": "Thaw",
+            "Info": "Boost a random ally by 3. Repeat its ability for each card you have played this trun.",
+            "Flavor": "它带来了春天，也带来了战争。"
         },
         "130210": {
             "Name": "Dudu: Promoted",

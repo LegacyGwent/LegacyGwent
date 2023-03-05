@@ -68,7 +68,7 @@ namespace Cynthia.Card.Server
                     return (null, 0);
             }
         }
-
+        public int TurnCardPlayedNum { get; set; } = 0;//本回合打出牌的数量
 
         private readonly TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
 
@@ -281,6 +281,7 @@ namespace Cynthia.Card.Server
         public async Task<bool> PlayerRound()
         {
             //判断这是谁的回合
+            TurnCardPlayedNum = 0;
             var playerIndex = GameRound == TwoPlayer.Player1 ? Player1Index : Player2Index;
             // await Debug($"玩家{playerIndex}的回合开始!");
             //切换回合
