@@ -368,64 +368,27 @@ may come back in the future.
 
         public int CalculateMMR(int myMMR, int enemyMMR, bool isWin, bool isDraw)
         {
-            int k = CalculateK(myMMR);
-            double s = isDraw ? 0.5 : (isWin ? 1 : 0);
-            int diff = Math.Max(enemyMMR - myMMR, -50);
-            double e = 1 / (1.0 + Math.Pow(10, diff / 400.0));
-            double eta = CalculateEta(s, e, myMMR);
-            int addon = myMMR < 2000 ? (isWin ? 70 : 50) : 0;
-            return (int)Math.Round(myMMR + eta * k * (s - e) + addon);
+            scale=1000;
+            double diff = enemyMMR - myMMR;
+            double result = isDraw ? 0.5 : (isWin ? 1 : 0);
+            double k = CalculateK(diff);
+            double expected = 1 / (1.0 + Math.Pow(10, diff / scale));
+            return (int) Math.Round(myMMR + k * (result - expectred));
         }
 
-        public int CalculateK(int MMR)
+        public double CalculateK(double diff)
         {
-            if (MMR < 3079)
+            if (diff==0)
             {
-                return 100;
-            }
-            else if (MMR < 3439)
-            {
-                return 80;
-            }
-            else if (MMR < 3709)
-            {
-                return 70;
-            }
-            else if (MMR < 4029)
-            {
-                return 60;
-            }
-            else if (MMR < 4259)
-            {
-                return 45;
+                return 20;
             }
             else
             {
-                return 30;
+                return Math.Min(8000 / Math.Abs(diff) , 20);
             }
+            
         }
-        public double CalculateEta(double s, double e, int MMR)
-        {
-            if (s > e)
-            {
-                return 1;
-            }
-            else
-            {
-                if (MMR < 1000)
-                {
-                    return 0;
-                }
-                else if (MMR < 4000)
-                {
-                    return 0.8 * (0.81 * ((MMR - 1000.0) / 3000) * ((MMR - 1000.0) / 3000) + 0.19 * ((MMR - 1000.0) / 3000));
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-        }
+        
 
         public (IList<IGrouping<UserState, User>>, IList<(string, string)>, IList<(string, string)>) GetUsers()
         {
