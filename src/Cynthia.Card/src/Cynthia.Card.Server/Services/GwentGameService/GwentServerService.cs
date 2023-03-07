@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alsein.Extensions.LifetimeAnnotations;
 using Autofac;
-using Microsoft.AspNetCore.SignalR;
+using Microsofdata:whiteboard/copiedItems;["[\"Raster\",{\"applyMatrix\":false,\"matrix\":[1.56551,0,0,2.42436,-61.5,-260.5],\"selected\":true,\"data\":{},\"crossOrigin\":\"anonymous\",\"source\":\"https://bitpaper.s3.amazonaws.com/4711867195644164?cacheblock=true\",\"width\":625,\"height\":83,\"selectedColor\":[0,0,0,0]}]"]t.AspNetCore.SignalR;
 using System.Threading.Tasks;
 using System;
 using Alsein.Extensions.IO;
@@ -373,7 +373,7 @@ may come back in the future.
             double result = isDraw ? 0.5 : (isWin ? 1 : 0);
             double k = CalculateK(diff);
             double expected = 1 / (1.0 + Math.Pow(10, diff / scale));
-            return (int) Math.Round(myMMR + k * (result - expectred));
+            return (int) Math.Round(myMMR + k * (result - expected));
         }
 
         public double CalculateK(double diff)
