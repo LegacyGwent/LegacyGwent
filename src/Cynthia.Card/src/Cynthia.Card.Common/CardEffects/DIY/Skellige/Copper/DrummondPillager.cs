@@ -23,7 +23,6 @@ namespace Cynthia.Card
             }
         }
 
-        private const int Strengthen = 1;
 
         public async Task HandleEvent(AfterCardDiscard @event)
         {
