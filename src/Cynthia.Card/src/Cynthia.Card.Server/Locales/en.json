@@ -3248,7 +3248,7 @@
         },
         "70081": {
             "Name": "Drummond Pillager",
-            "Info": "When discarded, strengthen all drummond units by 1 wherever they are.",
+            "Info": "When discarded, strengthen all drummond units in hand, on the board or in the deck by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         }
     }
