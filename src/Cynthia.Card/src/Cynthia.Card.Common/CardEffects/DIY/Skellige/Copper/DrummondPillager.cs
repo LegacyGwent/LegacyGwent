@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
         }
 
-        private async Task StrengthenAllDrummond(int Strengthen)
+        private async Task StrengthenAllDrummond(int Strengthenpoint)
         {
             var targets = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.ClanDrummond) && x != Card);
 
@@ -23,7 +23,8 @@ namespace Cynthia.Card
             }
         }
 
-
+        private const int Strengthenpoint = 1;
+        
         public async Task HandleEvent(AfterCardDiscard @event)
         {
             if (@event.Target != Card)
@@ -31,7 +32,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            await StrengthenAllDrummond(Strengthen);
+            await StrengthenAllDrummond(Strengthenpoint);
         }
     }
 }
