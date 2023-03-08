@@ -55,6 +55,7 @@ namespace Cynthia.Card.Server
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
         public bool Surrender() => _gwentServerService.Surrender(Context.ConnectionId); // 投降
+        public async Task<bool> SendGG() =>await _gwentServerService.SendGG(Context.ConnectionId);
 
         public bool JoinViewList(string roomId) => _gwentServerService.JoinViewList(Context.ConnectionId, roomId);
 

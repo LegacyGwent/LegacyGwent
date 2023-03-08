@@ -39,6 +39,9 @@ public class GameCode : MonoBehaviour
             }
         }
     }
+    public void SendGG(){
+        GameEvent.SendGG();
+    }
     public async void LeaveGame()
     {
         ClientGlobalInfo.IsToMatch = true;

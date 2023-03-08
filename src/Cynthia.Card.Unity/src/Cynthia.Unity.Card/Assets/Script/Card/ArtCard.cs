@@ -1,22 +1,28 @@
 ﻿using Cynthia.Card;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using UnityEngine.AddressableAssets;
 
 public class ArtCard : MonoBehaviour
 {
     public CardStatus CurrentCore
     {
-        get => _currentCore; set
+        get => _currentCore;
+        set
         {
             _currentCore = value;
             Content.SetCard(_currentCore);
             SetCard();
         }
     }
-    public GwentCard CardInfo { get => GwentMap.CardMap[_currentCore.CardId]; }
+    public GwentCard CardInfo
+    {
+        get => GwentMap.CardMap[_currentCore.CardId];
+    }
     public CardContent Content;
     private CardStatus _currentCore;
+
     //---------------------------
     public Text Strength;
     public Text Armor;
@@ -24,35 +30,45 @@ public class ArtCard : MonoBehaviour
     public GameObject StrengthShow;
     public GameObject ArmorShow;
     public GameObject CountdownShow;
+    public GameObject FlashCard;
+
+    //---------------------------
+    public VideoPlayer FlashCardVideo;
+
     //---------------------------
     public Image FactionIcon;
     public Image CardBorder;
     public Image CardImg;
     public Image CardBack;
+
     //-----------------------------
     public Sprite CopperBorder;
     public Sprite SilverBorder;
     public Sprite GoldBorder;
+
     //--------
-    public Sprite NorthernRealmsNormalIcon;//北方
-    public Sprite ScoiaTaelNormalIcon;//松鼠党
-    public Sprite MonstersNormalIcon;//怪物
-    public Sprite SkelligeNormalIcon;//群岛
-    public Sprite NilfgaardNormalIcon;//帝国
-    public Sprite NeutralNormalIcon;//中立
+    public Sprite NorthernRealmsNormalIcon; //北方
+    public Sprite ScoiaTaelNormalIcon; //松鼠党
+    public Sprite MonstersNormalIcon; //怪物
+    public Sprite SkelligeNormalIcon; //群岛
+    public Sprite NilfgaardNormalIcon; //帝国
+    public Sprite NeutralNormalIcon; //中立
+
     //--------
-    public Sprite NorthernRealmsGoldIcon;//北方
-    public Sprite ScoiaTaelGoldIcon;//松鼠党
-    public Sprite MonstersGoldIcon;//怪物
-    public Sprite SkelligeGoldIcon;//群岛
-    public Sprite NilfgaardGoldIcon;//帝国
-    public Sprite NeutralGoldIcon;//中立
+    public Sprite NorthernRealmsGoldIcon; //北方
+    public Sprite ScoiaTaelGoldIcon; //松鼠党
+    public Sprite MonstersGoldIcon; //怪物
+    public Sprite SkelligeGoldIcon; //群岛
+    public Sprite NilfgaardGoldIcon; //帝国
+    public Sprite NeutralGoldIcon; //中立
+
     //--------
-    public Sprite NorthernRealmsBack;//北方
-    public Sprite ScoiaTaelBack;//松鼠党
-    public Sprite MonstersBack;//怪物
-    public Sprite SkelligeBack;//群岛
-    public Sprite NilfgaardBack;//帝国
+    public Sprite NorthernRealmsBack; //北方
+    public Sprite ScoiaTaelBack; //松鼠党
+    public Sprite MonstersBack; //怪物
+    public Sprite SkelligeBack; //群岛
+    public Sprite NilfgaardBack; //帝国
+
     //----------------------------------
 
     // public void Start()
@@ -76,6 +92,17 @@ public class ArtCard : MonoBehaviour
             // CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
         }
         // CardImg.sprite = Resources.Load<Sprite>("Sprites/Cards/" + CurrentCore.CardArtsId);
+        FlashCardVideo.targetTexture.Release();
+        if (FlashCardList.CardList.Exists(t => t == CurrentCore.CardArtsId))
+        {
+            FlashCard.SetActive(false);
+            FlashCardVideo.clip = Resources.Load<VideoClip>("CardVideo/" + CurrentCore.CardArtsId);
+            FlashCard.SetActive(true);
+        }
+        else
+        {
+            FlashCard.SetActive(false);
+        }
         //设置卡牌是否灰(转移到属性)
         //如果卡牌是背面,设置背面并结束
         CardBack.gameObject.SetActive(false);

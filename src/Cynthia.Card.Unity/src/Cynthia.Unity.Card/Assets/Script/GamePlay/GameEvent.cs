@@ -1276,4 +1276,11 @@ public class GameEvent : MonoBehaviour
         }
         await DependencyResolver.Container.Resolve<GwentClientService>().Surrender();
     }
+    public async void SendGG(){
+        if(!await _uiService.YNMessageBox("是否向对方发送GG?","Are you sure to send GG?"))
+        {
+            return;
+        }
+        await DependencyResolver.Container.Resolve<GwentClientService>().SendGG();
+    }
 }

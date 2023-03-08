@@ -80,6 +80,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -88,9 +90,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -111,9 +113,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -183,7 +188,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 19cb4986a4504c7b0800000000000000
-      internalID: -5205029452193153903
+      internalID: 5108601841118324724
       vertices: []
       indices: 
       edges: []
@@ -555,6 +560,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ezgif.com-gif-maker_1: 763718201113852716
+      ezgif.com-gif-maker_0: 5108601841118324724
+      ezgif.com-gif-maker_4: 7488926447407996787
+      ezgif.com-gif-maker_3: 6965229494165062650
+      ezgif.com-gif-maker_16: -5362691222513635890
+      ezgif.com-gif-maker_9: -5443729655699382175
+      ezgif.com-gif-maker_11: -1205740810681323922
+      ezgif.com-gif-maker_8: -8860312699811430183
+      ezgif.com-gif-maker_15: -3098221142656904999
+      ezgif.com-gif-maker_12: -2807913808948371079
+      ezgif.com-gif-maker_5: 1824921886515328041
+      ezgif.com-gif-maker_7: -966056320420023668
+      ezgif.com-gif-maker_17: 6326988287503335889
+      ezgif.com-gif-maker_6: 3779983321907253453
+      ezgif.com-gif-maker_14: 6085218192123517740
+      ezgif.com-gif-maker_13: -6210186659520421850
+      ezgif.com-gif-maker_10: -4415440932393464980
+      ezgif.com-gif-maker_2: 1037891125679955185
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

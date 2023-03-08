@@ -27,11 +27,13 @@ namespace Cynthia.Card.Server
             if (Player1 == null)
             {
                 Player1 = player;
+
                 return true;
             }
             if (Player2 == null)
             {
                 Player2 = player;
+
                 return true;
             }
             return false;

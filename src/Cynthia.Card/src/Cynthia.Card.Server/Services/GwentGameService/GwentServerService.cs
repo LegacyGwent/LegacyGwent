@@ -120,6 +120,17 @@ namespace Cynthia.Card.Server
             InovkeUserChanged();
             return result;
         }
+        public async Task<bool> SendGG(string connectionId) //GG
+        {
+            bool result = false;
+            var user = _users[connectionId];
+            if(user.LastOpponentId != null){
+                await _users[user.LastOpponentId].CurrentPlayer.SendAsync(ServerOperationType.MessageBox,_users[connectionId].PlayerName+"向您发送GG\nGG Well Played!");
+                result = true;
+            }
+
+            return result;
+        }
 
         public bool JoinViewList(string connectionId, string roomId)
         {

@@ -237,6 +237,10 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<bool>("Surrender");
         }
+        public Task<bool> SendGG()
+        {
+            return HubConnection.InvokeAsync<bool>("SendGG");
+        }
         //新建卡组,删除卡组,修改卡组
         public Task JoinEditor() => HubConnection.InvokeAsync<bool>("JoinEditor");
         public Task LeaveEditor() => HubConnection.InvokeAsync<bool>("LeaveEditor");
