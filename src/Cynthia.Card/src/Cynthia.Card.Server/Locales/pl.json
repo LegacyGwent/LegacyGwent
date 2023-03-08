@@ -3236,9 +3236,9 @@
       "Info": "Consume an ally and boost self by its power. Resilient.",
     },
     "70079": {
-      "Name": "An Craite Warlord",
-      "Info": "gdy znajduje się w ręce, talii lub na planszy, zwiększa się o 1 za każdym razem, gdy odrzucasz kartę",
-      "Flavor": "Groza nilfgaardzkiego fis"
+       "Name": "Watażka An Craite",
+       "Info": "Gdy znajduje się w ręce, talii lub na planszy, Ulepsz  o 1 za każdym razem, gdy odrzucasz kartę",
+       "Flavor": "Zmora nilfgaardzkiego rybaka"
     },
     "70080": {
       "Name": "Knut Waleczny",
@@ -3246,9 +3246,9 @@
       "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
     },
     "70081": {
-      "Name": "Drummondzki Pogromca",
-      "Info": "Po odrzuceniu wzmocnij wszystkie jednostki drummondów o 1, gdziekolwiek się znajdują.",
-      "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
+        "Name": "Drummondzki Pogromca",
+        "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
+        "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
     }
   }
 }
