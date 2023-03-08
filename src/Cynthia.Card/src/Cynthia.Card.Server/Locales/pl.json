@@ -1633,7 +1633,7 @@
     },
     "34024": {
       "Name": "Pikinierzy Alby",
-      "Info": "Na początku tury, wezwij jeden egzemplarz ze swojej talii do tego rzędu. 2 pkt panczerza.",
+      "Info": "Jednorazowa. Na początku tury, wezwij jeden egzemplarz ze swojej talii do tego rzędu. 2 pkt panczerza.",
       "Flavor": "Złóż przysięgę wierności naszemu cesarzowi albo zgiń."
     },
     "34025": {
@@ -2798,7 +2798,7 @@
     },
     "65007": {
       "Name": "Wilmar",
-      "Info": "Zemsta: Przeciwnik zagrywa losową brązową przeklętą jednostkę ze swojej talii",
+      "Info": "Zemsta: Stwórz niedźwiedzia w przecinym rzędzie.",
       "Flavor": "Brak"
     },
     "61001": {
@@ -2883,7 +2883,7 @@
     },
     "70013": {
       "Name": "Upadła Flaminika",
-      "Info": "Rozmieszczenie: Odrzuć deszcz z Twojej talii, następnie stwórz deszcz w przeciwnym rzędzie.",
+      "Info": "Rozmieszczenie: Odrzuć deszcz z Twojej talii, następnie stwórz deszcz w rzędzie tej jednostki i przeciwnym rzędzie.",
       "Flavor": ""
     },
     "70014": {
@@ -2898,7 +2898,7 @@
     },
     "70016": {
       "Name": "Sukrus",
-      "Info": "Rozmieszczenie: Wybierz brązową kartę w ręce. Odrzuć ją i wszystkie jej kopie w talii.",
+      "Info": "Rozmieszczenie: Wybierz brązową kartę w ręce. Odrzuć wszystkie karty o tej samej nazwie z Twojej talii.",
       "Flavor": ""
     },
     "70017": {
