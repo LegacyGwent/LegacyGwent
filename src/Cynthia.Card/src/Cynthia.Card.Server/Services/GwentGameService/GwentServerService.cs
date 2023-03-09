@@ -368,7 +368,7 @@ may come back in the future.
 
         public int CalculateMMR(int myMMR, int enemyMMR, bool isWin, bool isDraw)
         {
-            scale=1000;
+            scale=2000;
             double diff = enemyMMR - myMMR;
             double result = isDraw ? 0.5 : (isWin ? 1 : 0);
             double k = CalculateK(diff);
@@ -380,11 +380,11 @@ may come back in the future.
         {
             if (diff==0)
             {
-                return 20;
+                return 40;
             }
             else
             {
-                return Math.Min(8000 / Math.Abs(diff) , 20);
+                return Math.Min(8000 / Math.Abs(diff) , 40);
             }
             
         }
