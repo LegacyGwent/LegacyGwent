@@ -3230,6 +3230,21 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and boost self by its power. Resilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70079": {
+            "Name": "An Craite Warlord",
+            "Info": "While in hand, deck or on the board, boost by 1 every time you discard a card.",
+            "Flavor": "The terror of Nilfgaardian fishermen"
+        },
+        "70080": {
+            "Name": "Кнут Бессердечный",
+            "Info": "Развертывание: сбросьте карту из руки, затем создайте бронзовую единицу из стартовой колоды, усильте ее на 1 и добавьте в руку.",
+            "Flavor": "Я преклоняю колени перед Свальблодом, и только перед Свальблодом!"
+        },
+        "70081": {
+            "Name": "Драммондский пиллагер",
+            "Info": "когда выбрасывается, усиливает всех друммондских юнитов на 1, где бы они ни находились.",
+            "Flavor": "Единственное, что они любят больше, чем мародерствовать, - это убиватьing."
         }
     }
 }

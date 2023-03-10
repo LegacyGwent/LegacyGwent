@@ -3235,6 +3235,21 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and Boost self by its Power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70079": {
+            "Name": "An Craite Warlord",
+            "Info": "While in hand, deck or on the board, boost by 1 every time you discard a card.",
+            "Flavor": "The terror of Nilfgaardian fishermen"
+        },
+        "70080": {
+            "Name": "Knut the Callous",
+            "Info": "Deploy: discard a card from your hand, then generate a bronze unit from your starting deck, strengthen it by 1 and add it to your hand",
+            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
+        },
+        "70081": {
+            "Name": "Drummond Pillager",
+            "Info": "When discarded, strengthen all drummond units in hand, on the board or in the deck by 1.",
+            "Flavor": "The only thing they like more than looting is killing."
         }
     }
 }

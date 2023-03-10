@@ -3234,7 +3234,21 @@
     "240250": {
       "Name": "Barbegazi:Promoted",
       "Info": "Consume an ally and boost self by its power. Resilient.",
-      "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+    },
+    "70079": {
+       "Name": "Watażka An Craite",
+       "Info": "Gdy znajduje się w ręce, talii lub na planszy, Ulepsz  o 1 za każdym razem, gdy odrzucasz kartę",
+       "Flavor": "Zmora nilfgaardzkiego rybaka"
+    },
+    "70080": {
+      "Name": "Knut Waleczny",
+      "Info": "Rozmieszczenie: odrzuć kartę z ręki, a następnie wygeneruj brązową jednostkę z talii startowej, wzmocnij ją o 1 i dodaj do ręki.",
+      "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
+    },
+    "70081": {
+        "Name": "Drummondzki Pogromca",
+        "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
+        "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
     }
   }
 }

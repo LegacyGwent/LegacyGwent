@@ -558,5 +558,8 @@ namespace Cynthia.Card
         public const string CongregationCleric = "70076";
         public const string FireswornZealot = "70077";
         public const string Damnation = "70078";
+        public const string AnCraiteWarlord = "70079";
+        public const string KnutTheCallous = "70080";
+        public const string DrummondPillager = "70081";
     }
 }
