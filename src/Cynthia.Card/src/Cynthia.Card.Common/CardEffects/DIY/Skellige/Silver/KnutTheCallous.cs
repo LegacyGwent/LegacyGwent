@@ -9,8 +9,15 @@ namespace Cynthia.Card
     public class KnuttheCallous : CardEffect
     {//Deploy: discard a card from your hand, then generate a bronze unit from your starting deck, strengthen it by 1 and add it to your hand
         public KnuttheCallous(GameCard card) : base(card) { }
+        public bool IsUse { get; set; } = false;       
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
-        {
+        {    
+            if (IsUse)
+            {
+                return 0;
+            }
+            IsUse = true;
+            await Card.Effect.SetCountdown(offset: -1);
             //discard a card from your hand
             var cards = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex]);
             if (!cards.TrySingle(out var target))
