@@ -11803,7 +11803,7 @@ namespace Cynthia.Card
                     CardId ="70111",
                     Name="帕尔梅林·德·郎佛尔",
                     Strength=3,
-                    Group=Group.Silver,
+                    Group=Group.Gold,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
