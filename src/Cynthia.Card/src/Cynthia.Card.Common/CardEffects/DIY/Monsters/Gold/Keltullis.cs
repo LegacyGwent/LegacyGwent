@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70113")]//克尔图里斯
-    public class Keltullis : CardEffect, IHandlesEvent<AfterTurnOver>
+    public class Keltullis : CardEffect, IHandlesEvent<AfterTurnStart>
     {//6护甲，回合结束时随机摧毁1个场上战力最低且低于自身基础战力的单位。
         public Keltullis(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
@@ -14,7 +14,7 @@ namespace Cynthia.Card
             return 0;
         }
 
-        public async Task HandleEvent(AfterTurnOver @event)
+        public async Task HandleEvent(AfterTurnStart @event)
         {
             if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace())
             {
