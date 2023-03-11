@@ -3118,7 +3118,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "6 armor, at the end of the turn destroy 1 unit with the lowest battle power on the field and lower than its base battle power。",
+            "Info": "2 armor, at the end of the turn, destroy the lowest 1 of the units on the field with less than 6 battle power。",
             "Flavor": ""
         },
         "70114": {
