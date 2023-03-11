@@ -11842,7 +11842,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70113",
                     Name="克尔图里斯",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11852,7 +11852,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "6护甲，回合结束时，摧毁场上低于自身基础战力的单位中最低的1个。",
+                    Info = "6护甲，回合开始时，摧毁场上低于自身基础战力的单位中最低的1个。",
                     CardArtsId = "d15360000",
                 }
             },
