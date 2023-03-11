@@ -3241,9 +3241,9 @@
        "Flavor": "Zmora nilfgaardzkiego rybaka"
     },
     "70080": {
-      "Name": "Knut Waleczny",
-      "Info": "Rozmieszczenie: odrzuć kartę z ręki, a następnie wygeneruj brązową jednostkę z talii startowej, wzmocnij ją o 1 i dodaj do ręki.",
-      "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
+        "Name": "Knut Waleczny",
+        "Info": "Jednorazowa.\n Rozmieszczenie: odrzuć kartę z ręki, a następnie wygeneruj brązową jednostkę z talii startowej, wzmocnij ją o 1 i dodaj do ręki.",
+        "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
     },
     "70081": {
         "Name": "Drummondzki Pogromca",
