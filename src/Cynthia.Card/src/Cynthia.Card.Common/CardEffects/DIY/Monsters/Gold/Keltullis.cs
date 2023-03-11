@@ -20,7 +20,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if (!Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).FilterCards(filter: x => x.CardPoint() < Card.Status.Strength && x != Card).Where(x => x.Status.CardRow.IsOnPlace()).WhereAllLowest().TryMessOne(out var target, Game.RNG))
+            if (!Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).FilterCards(filter: x => x.CardPoint() < Card.Status.Strength).Where(x => x.Status.CardRow.IsOnPlace()).WhereAllLowest().TryMessOne(out var target, Game.RNG))
             {
                 return;
             }
