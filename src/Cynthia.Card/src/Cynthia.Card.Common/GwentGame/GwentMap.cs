@@ -12502,7 +12502,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "尼尔弗加德渔民的恐怖经历",
                     Info = "在手牌、牌组或棋盘上时，你每丢弃一张牌就会提升1。",
-                    CardArtsId = "d23010000",
+                    CardArtsId = "d22430000",
                 }
             },
                         {
@@ -12512,17 +12512,18 @@ namespace Cynthia.Card
                   CardId = "70080",
                     Name = "冷酷无情的克努特",
                     Strength = 7,
+                    Countdown = 1,
                     Group = Group.Silver,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
-                    Info = "部署：从你的手牌中丢弃一张牌，然后从你的起始牌中生成一个青铜单位，使其强化1，并将其加入你的手牌。",
-                    CardArtsId = "16660000",
+                    Info = "力竭。部署：从你的手牌中丢弃一张牌，然后从你的起始牌中生成一个青铜单位，使其强化1，并将其加入你的手牌。",
+                    CardArtsId = "d16660000",
                 }
             },
                         {
@@ -12531,7 +12532,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70081",
                     Name="德拉蒙德-皮勒格",
-                    Strength=9,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12542,7 +12543,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
                     Info = "弃置时，无论在哪里，都能使所有的鼓手部队加强1倍。",
-                    CardArtsId = "d23020000",
+                    CardArtsId = "d22400000",
                 }
             },
         };
