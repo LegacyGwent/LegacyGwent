@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             var cards = await Game.GetSelectPlaceCards
             (Card, filter: x => x.Status.Group == Group.Copper &&
-                x.PlayerIndex != PlayerIndex);
+                x.PlayerIndex != PlayerIndex && x.CardInfo().CardUseInfo == CardUseInfo.MyRow);
             if (cards.Count == 0) return 0;
             var targets = cards.Single();
             await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), targets, refreshPoint:true);
