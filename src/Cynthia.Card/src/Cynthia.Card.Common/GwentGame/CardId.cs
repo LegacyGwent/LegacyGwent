@@ -567,6 +567,8 @@ namespace Cynthia.Card
         public const string DeafeningSiren = "70116";
         public const string Fauve = "70117";
         public const string LyrianScytheman = "70118";
-
+        public const string AnCraiteWarlord = "70079";
+        public const string KnutTheCallous = "70080";
+        public const string DrummondPillager = "70081";
     }
 }
