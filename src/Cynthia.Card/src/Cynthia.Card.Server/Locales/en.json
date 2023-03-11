@@ -253,7 +253,7 @@
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
-            "Info": "Deploy: Discard your hand and draw that many cards.",
+            "Info": "Exile all cards in your hand and draw an equal number of cards.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "12007": {
@@ -2908,17 +2908,17 @@
         },
         "70019": {
             "Name": "Zoltan: Warrior",
-            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, then Boost them by half the value of Zotan's Boost.",
+            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, Gain 1 extra point of reinforcement when you are reinforced yourself.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, then Boost them by half the value of Figgis' Boost.",
+            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, Gain 1 extra point of reinforcement when you are reinforced yourself.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, then Boost them by half the value of Munro's Boost.",
+            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, Gain 1 extra point of reinforcement when you are reinforced yourself.",
             "Flavor": ""
         },
         "70022": {
@@ -3105,6 +3105,51 @@
             "Name": "Dwarven Chariot",
             "Info": "Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
+        },
+        "70110": {
+            "Name": "Crotch",
+            "Info": "If your battle power is not less than the number of cards in your hand, summon this unit.",
+            "Flavor": ""
+        },
+        "70111": {
+            "Name": "PalmerindeLaunfal",
+            "Info": "Play 1 Bronze Soldier card from the deck to gain 2 points on all cards of the same name in your hand, deck or your side's half of the field.",
+            "Flavor": ""
+        },
+        "70112": {
+            "Name": "Primitive Wildness",
+            "Info": "Deal 3 damage to a friendly unit, then play a random bronze ravishing unit from the library.",
+            "Flavor": ""
+        },
+        "70113": {
+            "Name": "Keltullis",
+            "Info": "6 armor, at the end of the turn destroy 1 unit with the lowest battle power on the field and lower than its base battle power。",
+            "Flavor": ""
+        },
+        "70114": {
+            "Name": "BowDryad",
+            "Info": "Destroy 1 enemy unit whose base combat power is not higher than your own。",
+            "Flavor": ""
+        },
+        "70115": {
+            "Name": "Amnesty",
+            "Info": "Return 1 copper/silver enemy unit to enemy's hand。",
+            "Flavor": ""
+        },
+        "70116": {
+            "Name": "DeafeningSiren",
+            "Info": "Whenever a downpour falls in the opponent's half of the field, resurrect yourself to a random row。",
+            "Flavor": ""
+        },
+        "70117": {
+            "Name": "Fauve",
+            "Info": "Summon yourself when your side plays a leader card. Last wish: Randomly place 1 tree spirit card from your library on top of your library。",
+            "Flavor": ""
+        },
+        "70118": {
+            "Name": "LyrianScytheman",
+            "Info": "Randomly give a unit in your library a gain of 3 points, then gain yourself a gain equal to that unit's gain。",
+            "Flavor": ""
         },
         "130210": {
             "Name": "Dudu: Promoted",

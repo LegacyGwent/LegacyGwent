@@ -558,5 +558,15 @@ namespace Cynthia.Card
         public const string CongregationCleric = "70076";
         public const string FireswornZealot = "70077";
         public const string Damnation = "70078";
+        public const string Crotch = "70110";
+        public const string PalmerindeLaunfal = "70111";
+        public const string PrimitiveWildness = "70112";
+        public const string Keltullis = "70113";
+        public const string BowDryad = "70114";
+        public const string Amnesty = "70115";
+        public const string DeafeningSiren = "70116";
+        public const string Fauve = "70117";
+        public const string LyrianScytheman = "70118";
+
     }
 }

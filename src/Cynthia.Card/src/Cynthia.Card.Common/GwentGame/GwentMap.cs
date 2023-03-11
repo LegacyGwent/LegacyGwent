@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 60);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 62);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -267,7 +267,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "丢弃所有手牌，抽同等数量的牌。",
+                    Info = "放逐所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
@@ -10971,7 +10971,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70019",
                     Name = "卓尔坦·矮人战士",
-                    Strength = 4,
+                    Strength = 6,
                     Group = Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10981,7 +10981,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "",
-                    Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量一半的增益。",
+                    Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "d19190000",
                 }
             },
@@ -10991,7 +10991,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70020",
                     Name = "菲吉斯·梅鲁佐",
-                    Strength = 3,
+                    Strength = 5,
                     Group = Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11001,7 +11001,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "",
-                    Info = "召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，使二者获得等同于自身增益量一半的增益。",
+                    Info = "召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "d19220000",
                 }
             },
@@ -11011,7 +11011,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70021",
                     Name = "穆罗·布鲁伊斯",
-                    Strength = 3,
+                    Strength = 5,
                     Group = Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11021,7 +11021,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "",
-                    Info = "召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，使二者获得等同于自身增益量一半的增益。",
+                    Info = "召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "d19210000",
                 }
             },
@@ -11775,6 +11775,188 @@ namespace Cynthia.Card
                     CardArtsId = "d19410000",
                 }
             },
+          {
+                "70110",//裤裆 Crotch
+                new GwentCard()
+                {
+                    CardId ="70110",
+                    Name="裤裆",
+                    Strength=3,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Beast},
+                    Flavor = "",
+                    Info = "自身战力不低于手牌数时，召唤此单位。",
+                    CardArtsId = "d16840000",
+                }
+            },
+            {
+                "70111",//帕尔梅林·德·郎佛尔 PalmerindeLaunfal
+                new GwentCard()
+                {
+                    CardId ="70111",
+                    Name="帕尔梅林·德·郎佛尔",
+                    Strength=3,
+                    Group=Group.Silver,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Officer},
+                    Flavor = "",
+                    Info = "从牌组打出1张铜色士兵牌，使其在手牌、牌组或己方半场所有同名牌获得2点增益。",
+                    CardArtsId = "d13960000",
+                }
+            },
+            {
+                "70112",//原始野性 PrimitiveWildness
+                new GwentCard()
+                {
+                    CardId = "70112",
+                    Name = "原始野性",
+                    Strength = 0,
+                    Group = Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
+                    Flavor = "",
+                    Info = "对一个友军单位造成3点伤害，然后随机从牌库打出一个铜色呓语单位。",
+                    CardArtsId = "d17750000",
+                }
+            },
+            {
+                "70113",//克尔图里斯 Keltullis
+                new GwentCard()
+                {
+                    CardId ="70113",
+                    Name="克尔图里斯",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Draconid},
+                    Flavor = "",
+                    Info = "6护甲，回合结束时摧毁1个场上战力最低且低于自身基础战力的单位。",
+                    CardArtsId = "d15360000",
+                }
+            },
+            {
+                "70114",//长弓树精 BowDryad
+                new GwentCard()
+                {
+                    CardId ="70114",
+                    Name="长弓树精",
+                    Strength=4,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Dryad},
+                    Flavor = "",
+                    Info = "摧毁1个基础战力不高于自身的敌军单位",
+                    CardArtsId = "d22110000",
+                }
+            },
+            {
+                "70115",//大赦 Amnesty
+                new GwentCard()
+                {
+                    CardId ="70115",
+                    Name="大赦",
+                    Strength=0,
+                    Group=Group.Silver,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Tactic,Categorie.Special},
+                    Flavor = "",
+                    Info = "使1个铜色/银色敌军单位返回敌方手牌",
+                    CardArtsId = "d20780000",
+                }
+            },
+            {
+                "70116",//尖啸女海妖 DeafeningSiren
+                new GwentCard()
+                {
+                    CardId ="70116",
+                    Name="尖啸女海妖",
+                    Strength=1,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Beast},
+                    Flavor = "",
+                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排",
+                    CardArtsId = "d17790000",
+                }
+            },
+           {
+                "70117",//法芙 Fauve
+                new GwentCard()
+                {
+                    CardId ="70117",
+                    Name="法芙",
+                    Strength=7,
+                    Group=Group.Gold,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Dryad},
+                    Flavor = "",
+                    Info = "己方打出领袖牌时召唤自身，遗愿：随机将牌库中的1张树精牌置于牌库顶。",
+                    CardArtsId = "d14030000",
+                }
+            },
+           {
+                "70118",//莱里亚镰刀手 LyrianScytheman
+                new GwentCard()
+                {
+                    CardId ="70118",
+                    Name="莱里亚镰刀手",
+                    Strength=5,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
+                    Flavor = "",
+                    Info = "随机使牌库一个单位获得3点增益，然后自身获得等同于该单位增益数的增益。",
+                    CardArtsId = "d14810000",
+                }
+            },
+
+
 
 
             //中立银金色强力版本 原id后加一个0 原名加：晋升 原英文名加Pro
