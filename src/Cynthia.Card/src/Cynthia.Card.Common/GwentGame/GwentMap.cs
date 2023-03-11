@@ -11792,7 +11792,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "",
-                    Info = "自身战力不低于手牌数时，召唤此单位。",
+                    Info = "自身战力不低于手牌数时，召唤此牌至随机排。",
                     CardArtsId = "d16840000",
                 }
             },
@@ -11812,7 +11812,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Officer},
                     Flavor = "",
-                    Info = "从牌组打出1张铜色士兵牌，使其在手牌、牌组或己方半场所有同名牌获得2点增益。",
+                    Info = "从牌组打出1张铜色“士兵”单位牌，使其在手牌、牌组或己方半场所有同名牌获得2点增益。",
                     CardArtsId = "d13960000",
                 }
             },
@@ -11832,7 +11832,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
                     Flavor = "",
-                    Info = "对一个友军单位造成3点伤害，然后随机从牌库打出一个铜色呓语单位。",
+                    Info = "对一个友军单位造成3点伤害，然后随机从牌库打出一个铜色“呓语”单位牌。",
                     CardArtsId = "d17750000",
                 }
             },
@@ -11852,7 +11852,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "6护甲，回合结束时摧毁1个场上战力最低且低于自身基础战力的单位。",
+                    Info = "6护甲，回合结束时，摧毁场上低于自身基础战力的单位中最低的1个。",
                     CardArtsId = "d15360000",
                 }
             },
@@ -11892,7 +11892,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Tactic,Categorie.Special},
                     Flavor = "",
-                    Info = "使1个非间谍铜色/银色敌军单位返回敌方手牌",
+                    Info = "使1个非间谍铜色/银色敌军单位返回对方手牌",
                     CardArtsId = "d20780000",
                 }
             },
@@ -11932,7 +11932,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "",
-                    Info = "己方打出领袖牌时召唤自身，遗愿：随机将牌库中的1张树精牌置于牌库顶。",
+                    Info = "己方打出领袖牌时，召唤自身。遗愿：随机将牌库中的1张“树精”单位置于牌组顶端。",
                     CardArtsId = "d14030000",
                 }
             },
@@ -11952,7 +11952,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "",
-                    Info = "随机使牌库一个单位获得3点增益，然后自身获得等同于该单位增益数的增益。",
+                    Info = "随机使牌组1个单位获得3点增益，然后自身获得等同于此单位增益量的增益。",
                     CardArtsId = "d14810000",
                 }
             },
