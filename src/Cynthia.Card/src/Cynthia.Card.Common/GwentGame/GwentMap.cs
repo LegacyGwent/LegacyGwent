@@ -12349,7 +12349,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70081",
                     Name="德拉蒙德-皮勒格",
-                    Strength=9,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
