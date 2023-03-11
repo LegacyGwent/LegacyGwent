@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow));
             if(result.Count!=0)
             {
-                if(result.Single().CardPoint() <= Card.Status.Strength)
+                if(result.Single().Status.Strength <= Card.Status.Strength)
                 {
                     await result.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
                 }

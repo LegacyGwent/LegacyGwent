@@ -11891,7 +11891,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Tactic,Categorie.Special},
                     Flavor = "",
-                    Info = "使1个铜色/银色敌军单位返回敌方手牌",
+                    Info = "使1个非间谍铜色/银色敌军单位返回敌方手牌",
                     CardArtsId = "d20780000",
                 }
             },
