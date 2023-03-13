@@ -503,12 +503,12 @@
         },
         "13013": {
             "Name": "Vesemir",
-            "Info": "Deploy: Summon Eskel and Lambert to this row.",
+            "Info": "Deploy: Summon Eskel and Lambert on this row.",
             "Flavor": "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。"
         },
         "13014": {
             "Name": "Eskel",
-            "Info": "Deploy: Summon Vesemir and Lambert to this row.",
+            "Info": "Deploy: Summon Vesemir and Lambert on this row.",
             "Flavor": "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……"
         },
         "13015": {
@@ -528,7 +528,7 @@
         },
         "13017": {
             "Name": "Lambert",
-            "Info": "Deploy: Summon Eskel and Vesemir to this row.",
+            "Info": "Deploy: Summon Eskel and Vesemir on this row.",
             "Flavor": "这样的沟通方式才对路嘛！"
         },
         "13018": {
@@ -538,7 +538,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever you play a Gold unit, Summon this unit to a random row.",
+            "Info": "Whenever you play a Gold unit, Summon this unit on a random row.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
@@ -988,7 +988,7 @@
         },
         "23004": {
             "Name": "Brewess",
-            "Info": "Deploy: Summon Whispess and Weavess.",
+            "Info": "Deploy: Summon Whispess and Weavess on this row.",
             "Flavor": "切烂……剁碎……然后熬出……一锅好汤。"
         },
         "23005": {
@@ -1003,12 +1003,12 @@
         },
         "23007": {
             "Name": "Weavess",
-            "Info": "Deploy: Summon Brewess and Whispess.",
+            "Info": "Deploy: Summon Brewess and Whispess on this row.",
             "Flavor": "我能感受到你的痛苦和恐惧。"
         },
         "23008": {
             "Name": "Whispess",
-            "Info": "Deploy: Summon Brewess and Weavess.",
+            "Info": "Deploy: Summon Brewess and Weavess on this row.",
             "Flavor": "我将是你最美……与最后的体验。"
         },
         "23009": {
@@ -1128,7 +1128,7 @@
         },
         "24010": {
             "Name": "Arachas Behemoth",
-            "Info": "Whenever you Consume a unit, Spawn an Arachas Hatchling.\nRepeat up to 3 times.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones)",
+            "Info": "Whenever you Consume a unit, Spawn an Arachas Hatchling.\nRepeat up to 3 times.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones on this row)",
             "Flavor": "看起来像螃蟹和蜘蛛的杂交……只是体型硕大无比。"
         },
         "24011": {
@@ -1143,7 +1143,7 @@
         },
         "24013": {
             "Name": "Archespore",
-            "Info": "On turn start, move to a random row and deal 1 Damage to a random enemy.\nDeathwish: Deal 4 Damage to a random enemy.",
+            "Info": "On turn start, move on a random row and deal 1 Damage to a random enemy.\nDeathwish: Deal 4 Damage to a random enemy.",
             "Flavor": "根据民间传说，它们会在亡者鲜血的浇灌下破土而出。因此在拥有黑暗过往的地方，它们长得特别茂盛。"
         },
         "24014": {
@@ -1228,12 +1228,12 @@
         },
         "24030": {
             "Name": "Harpy",
-            "Info": "Summon a copy of this unit whenever you destroy an allied Beast.",
+            "Info": "Summon a copy of this unit on a random row whenever you destroy an allied Beast.",
             "Flavor": "鹰身女妖有很多种，每种都有窃盗癖。"
         },
         "24031": {
             "Name": "Nekker",
-            "Info": "Whenever you Consume a card, Boost this unit by 1 if in hand, deck or on the board.\nDeathwish: Play a copy of this unit from your deck.",
+            "Info": "Whenever you Consume a card, Boost this unit by 1 if in hand, deck or on the board.\nDeathwish: Summon a copy of this unit from your deck in the same position.",
             "Flavor": "如果忽略它们会攻击人类的残酷事实，这些小家伙其实挺可爱的。"
         },
         "24032": {
@@ -1253,7 +1253,7 @@
         },
         "24035": {
             "Name": "Arachas Drone",
-            "Info": "Deploy: Summon all copies of this unit.",
+            "Info": "Deploy: Summon all copies of this unit on this row.",
             "Flavor": "丑陋的外表即是警告，叫你“离远点”。"
         },
         "24036": {
@@ -1278,7 +1278,7 @@
         },
         "25002": {
             "Name": "Arachas Hatchling",
-            "Info": "Summon all Arachas Drones.",
+            "Info": "Summon all Arachas Drones on this row.",
             "Flavor": "有时候，“年轻即是美”不过是大自然的谎言罢了。"
         },
         "25003": {
@@ -1638,7 +1638,7 @@
         },
         "34025": {
             "Name": "Imperial Golem",
-            "Info": "Summon a copy of this unit whenever you Reveal a card in your opponent's hand.",
+            "Info": "Summon a copy of this unit on a random row whenever you Reveal a card in your opponent's hand.",
             "Flavor": "尼弗迦德最强大的法师们终于成功掌握了制造魔像的方法。更棒的是，他们已经“偶尔”能让这些魔像为帝国而战了……"
         },
         "34026": {
@@ -1728,7 +1728,7 @@
         },
         "42002": {
             "Name": "Bloody Baron",
-            "Info": "Whenever an enemy is destroyed, if in hand, deck, or on the board, Boost self by 1.",
+            "Info": "Whenever an enemy is destroyed, if in hand, deck or on the board, Boost self by 1.",
             "Flavor": "我知道自己不是个好父亲，但……现在弥补或许还来得及。"
         },
         "42003": {
@@ -1808,7 +1808,7 @@
         },
         "43005": {
             "Name": "Botchling",
-            "Info": "Deploy: Summon a Lubberkin.",
+            "Info": "Deploy: Summon a Lubberkin on the same row.",
             "Flavor": "承认错误，妥善安葬——否则他们会回来缠着你不放。"
         },
         "43006": {
@@ -1828,7 +1828,7 @@
         },
         "43009": {
             "Name": "Odrin",
-            "Info": "On turn start, move to a random row and Boost all allies on it by 1.\nDeathwish: Boost all allies on the same row by 1.",
+            "Info": "On turn start, move on a random row and Boost all allies on it by 1.\nDeathwish: Boost all allies on the same row by 1.",
             "Flavor": "喝酒少了欧德林，就像划船没带桨。"
         },
         "43010": {
@@ -1843,7 +1843,7 @@
         },
         "43012": {
             "Name": "Lubberkin",
-            "Info": "Deploy: Summon a Botchling.",
+            "Info": "Deploy: Summon a Botchling on the same row.",
             "Flavor": "吾为汝取名蒂雅，收汝为吾女。"
         },
         "43013": {
@@ -2003,7 +2003,7 @@
         },
         "44023": {
             "Name": "Dun Banner Light Cavalry",
-            "Info": "On turn start, if you are losing by more than 25 points, Summon this unit to a random row.",
+            "Info": "On turn start, if you are losing by more than 25 points, Summon this unit on a random row.",
             "Flavor": "冷静，所有人保持警惕！这可能是那帮披斗篷戴海狸皮帽的家伙的陷阱……"
         },
         "44024": {
@@ -2023,7 +2023,7 @@
         },
         "44027": {
             "Name": "Blue Stripe Commando",
-            "Info": "Whenever a different Temerian ally with the same Power is played, Summon a copy of this unit from your deck.",
+            "Info": "Whenever a different Temerian ally with the same Power is played, Summon a copy of this unit from your deck on a random row.",
             "Flavor": "我愿为泰莫利亚赴汤蹈火，不过大多时候是在排除异己。"
         },
         "44028": {
@@ -2033,7 +2033,7 @@
         },
         "44029": {
             "Name": "Temerian Infantry",
-            "Info": "Deploy: Summon all copies of this unit.",
+            "Info": "Deploy: Summon all copies of this unit on this row.",
             "Flavor": "泰莫利亚！泰莫利亚！诸神恩赐汝等！降怒于敌，使其永世灾厄！"
         },
         "44030": {
@@ -2203,7 +2203,7 @@
         },
         "53009": {
             "Name": "Aelirenn",
-            "Info": "When 5 Elven allies are on the board, Summon this unit.",
+            "Info": "When 5 Elven allies are on the board, Summon this unit on a random row.",
             "Flavor": "苟活不如好死。"
         },
         "53010": {
@@ -2388,7 +2388,7 @@
         },
         "54025": {
             "Name": "Blue Mountain Elite",
-            "Info": "Deploy: Summon all copies of this unit.\nWhenever this unit moves, Boost self by 2.",
+            "Info": "Deploy: Summon all copies of this unit on this row.\nWhenever this unit moves, Boost self by 2.",
             "Flavor": "听到他们奔袭的动静时，想跑已来不及了……"
         },
         "54026": {
@@ -2513,7 +2513,7 @@
         },
         "63004": {
             "Name": "Blueboy Lugos",
-            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(Spectral Whale; 3 Strength; On turn end, move to a random row and deal 1 Damage to all units on it)",
+            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(Spectral Whale; 3 Strength; On turn end, move on a random row and deal 1 Damage to all units on it. Deathwish: Deal 1 damage to all units on this row)",
             "Flavor": "我无聊得快吐了。"
         },
         "63005": {
@@ -2713,7 +2713,7 @@
         },
         "64024": {
             "Name": "An Craite Raider",
-            "Info": "Whenever you Discard this unit, resurrect it.",
+            "Info": "Whenever you Discard this unit, resurrect it on a random row.",
             "Flavor": "我们可是奎特家族！別人用金子购买，我们拿血汗交换。"
         },
         "64025": {
@@ -2783,7 +2783,7 @@
         },
         "65004": {
             "Name": "Spectral Whale",
-            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.",
+            "Info": "Spying.\nOn turn end, move on a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 damage to all units on this row.",
             "Flavor": "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”"
         },
         "65005": {
@@ -2838,7 +2838,7 @@
         },
         "70004": {
             "Name": "Glynnis Aep Loernach",
-            "Info": "On turn end, if at the top or bottom of the deck, Summon it to a random row.",
+            "Info": "On turn end, if at the top or bottom of the deck, Summon it on a random row.",
             "Flavor": ""
         },
         "70005": {
@@ -2858,12 +2858,12 @@
         },
         "70008": {
             "Name": "Vivienne: Oriole",
-            "Info": "Single-Use.\nOn turn end, if your total Power exceeds the opponent's Power by 25 points or more, return to your hand.",
+            "Info": "Single-Use.\nOn turn end, if your total Power exceeds the opponent's Power by at least 26 points, return to your hand.",
             "Flavor": ""
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Deploy: Summon a copy of this unit from your deck to the same row.\nWhenever a Bronze or Silver enemy becomes Damaged, Boost self by 1.",
+            "Info": "Deploy: Summon a copy of this unit from your deck on its right.\nWhenever a Bronze or Silver enemy becomes Damaged, Boost self by 1.",
             "Flavor": ""
         },
         "70010": {
@@ -2908,17 +2908,17 @@
         },
         "70019": {
             "Name": "Zoltan: Warrior",
-            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, then Boost them by half the value of Zotan's Boost.",
+            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys on this row, then Boost them by half the value of Zotan's Boost.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, then Boost them by half the value of Figgis' Boost.",
+            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys on this row, then Boost them by half the value of Figgis' Boost.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, then Boost them by half the value of Munro's Boost.",
+            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo on this row, then Boost them by half the value of Munro's Boost.",
             "Flavor": ""
         },
         "70022": {
@@ -2933,7 +2933,7 @@
         },
         "70024": {
             "Name": "Cursed Immortals",
-            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row.\n(Specter; 5 Strength)",
+            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.\n(Specter; 5 Strength)",
             "Flavor": ""
         },
         "70025": {
@@ -2953,7 +2953,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Move all enemies to a random row and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: Move all enemies on random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
@@ -2963,7 +2963,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect to a random row and Strengthen self by 1.",
+            "Info": "On turn end, resurrect on a random row and Strengthen self by 1.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -2988,7 +2988,7 @@
         },
         "70043": {
             "Name": "Vernossiel's Commando",
-            "Info": "After you Swap this unit twice, Summon it to a random row.",
+            "Info": "After you Swap this unit twice, Summon it on a random row.",
             "Flavor": ""
         },
         "70044": {
@@ -3068,12 +3068,12 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish a Bronze Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
+            "Info": "Deploy: Banish a Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
             "Flavor": ""
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Discard a card, then add a Bronze unit from your starting deck to your hand and Reveal it.",
+            "Info": "Deploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Reveal it.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
         "70104": {
@@ -3088,7 +3088,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy of this card on the left.\nDeathwish: Spawn an Endrega Larva in this row.\nAfter 3 turns, at the end of the turn, destroy self.\n(5 Strength; After 3 turns, at the end of the turn, transform into an Endrega Warrior)\n(Endrega Warrior; 7 Strength)",
+            "Info": "Deploy: Spawn 1 base copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, at the end of the turn, destroy self.\n(5 Strength; After 3 turns, at the end of the turn, transform into an Endrega Warrior)\n(Endrega Warrior; 7 Strength)",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3238,17 +3238,17 @@
         },
         "70079": {
             "Name": "An Craite Warlord",
-            "Info": "While in hand, deck or on the board, boost by 1 every time you discard a card.",
-            "Flavor": "The terror of Nilfgaardian fishermen"
+            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
+            "Flavor": "The terror of Nilfgaardian fishermen."
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Single-Use.\nDeploy: discard a card from your hand, then generate a bronze unit from your starting deck, strengthen it by 1 and add it to your hand",
+            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
             "Flavor": "I kneel to Svalblod, and Svalblod alone!"
         },
         "70081": {
             "Name": "Drummond Pillager",
-            "Info": "When discarded, strengthen all drummond units in hand, on the board or in the deck by 1.",
+            "Info": "When Discarded, Strengthen all Drummond units in hand, deck and on the board by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         }
     }
