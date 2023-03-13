@@ -8,13 +8,6 @@ namespace Cynthia.Card
     public class Ciri : CardEffect, IHandlesEvent<AfterRoundOver>
     {//己方输掉小局时返回手牌。
         public Ciri(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
-        {
-            //await Card.Effect.Armor(2, Card);
-            //Card.Status.IsShield = true;          
-            return 0;
-        }
-
         public async Task HandleEvent(AfterRoundOver @event)
         {
             if (@event.WinPlayerIndex != AnotherPlayer || !Card.Status.CardRow.IsOnPlace()) return;
