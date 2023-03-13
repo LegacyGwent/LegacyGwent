@@ -21,8 +21,14 @@ namespace Cynthia.Card
             {
                 await target.Effect.Heal(Card);
             }
-
-            return await target.Effect.CardPlayEffect(false, true);
+            if(target.Status.IsLock)
+			{
+				return 0;
+			}
+            else
+            {
+                return await target.Effect.CardPlayEffect(false, true);
+            }
         }
     }
 }
