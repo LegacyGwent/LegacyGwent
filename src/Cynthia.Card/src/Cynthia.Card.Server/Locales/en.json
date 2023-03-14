@@ -2723,7 +2723,7 @@
         },
         "64026": {
             "Name": "Drummond Shieldmaid",
-            "Info": "Deploy: Deal 2 Damage.\nIf the target was already Damaged, play a copy of this unit from your deck.",
+            "Info": "Deploy: Deal 2 Damage.\nIf the unit was already Damaged, play a copy of this unit from your deck.",
             "Flavor": "我们的敌人会像打上嶙峋海岸的波浪一样，倒在我们的盾前。"
         },
         "64027": {
