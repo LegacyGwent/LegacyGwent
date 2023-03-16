@@ -368,40 +368,23 @@ may come back in the future.
 
         public int CalculateMMR(int myMMR, int enemyMMR, bool isWin, bool isDraw)
         {
-            int k = CalculateK(myMMR);
-            double s = isDraw ? 0.5 : (isWin ? 1 : 0);
-            int diff = Math.Max(enemyMMR - myMMR, -50);
-            double e = 1 / (1.0 + Math.Pow(10, diff / 400.0));
-            double eta = CalculateEta(s, e, myMMR);
-            int addon = myMMR < 2000 ? (isWin ? 70 : 50) : 0;
-            return (int)Math.Round(myMMR + eta * k * (s - e) + addon);
+             int scale=2000;
+            int diff = enemyMMR - myMMR;
+            double result = isDraw ? 0.5 : (isWin ? 1 : 0);
+            double k = CalculateK(diff);
+            double expected = 1 / (1.0 + Math.Pow(10, diff / scale));
+            return (int)Math.Round(myMMR + k * (result - expected));
         }
 
-        public int CalculateK(int MMR)
+        public int CalculateK(int diff)
         {
-            if (MMR < 3079)
+            if (diff==0)
             {
-                return 100;
-            }
-            else if (MMR < 3439)
-            {
-                return 80;
-            }
-            else if (MMR < 3709)
-            {
-                return 70;
-            }
-            else if (MMR < 4029)
-            {
-                return 60;
-            }
-            else if (MMR < 4259)
-            {
-                return 45;
+                return 40;
             }
             else
             {
-                return 30;
+                 return Math.Min(8000 / Math.Abs(diff) , 40);
             }
         }
         public double CalculateEta(double s, double e, int MMR)
