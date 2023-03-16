@@ -253,7 +253,7 @@
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
-            "Info": "Exile all cards in your hand and draw an equal number of cards.",
+            "Info": "Deploy: Discard your hand and draw that many cards.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case. "
         },
         "12007": {
