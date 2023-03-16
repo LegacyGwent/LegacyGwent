@@ -268,7 +268,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "放逐所有手牌，抽同等数量的牌。",
+                    Info = "丢弃所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
