@@ -1218,7 +1218,7 @@
         },
         "24028": {
             "Name": "Foglet",
-            "Info": "Whenever you apply Impenetrable Fog to an enemy row, Summon a copy of this unit from your deck to the oppoite row.",
+            "Info": "Whenever you apply Impenetrable Fog to an enemy row, Summon a copy of this unit from your deck to the opposite row.",
             "Flavor": "浓雾悄然弥漫时，小雾妖便会出没，来享用它们的受害者。"
         },
         "24029": {
@@ -2943,7 +2943,7 @@
         },
         "70026": {
             "Name": "Ivo of Belhaven",
-            "Info": "On turn start, if you are winning, Strengthen self by 2.\nDeathwish: Move a random Bronze or Silver Witcher in your deck to the top of your deck.",
+            "Info": "On turn start, if you are winning, Strengthen self by 2.\nDeathwish: Move a random Witcher in your deck to the top of your deck.",
             "Flavor": ""
         },
         "70027": {
@@ -3107,48 +3107,48 @@
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "70110": {
-            "Name": "Crotch",
-            "Info": "If your battle power is not less than the number of cards in your hand, summon this unit.",
+            "Name": "Knickers",
+            "Info": "If this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
             "Flavor": ""
         },
         "70111": {
-            "Name": "PalmerindeLaunfal",
-            "Info": "Play 1 Bronze Soldier card from the deck to gain 2 points on all cards of the same name in your hand, deck or your side's half of the field.",
+            "Name": "Palmerin de Launfal",
+            "Info": "Deploy: Boost a Bronze Soldier in your deck and all copies of it in hand, deck and on the board by 2, then play that unit.",
             "Flavor": ""
         },
         "70112": {
             "Name": "Primitive Wildness",
-            "Info": "Deal 3 damage to a friendly unit, then play a random bronze ravishing unit from the library.",
+            "Info": "Deal 3 Damage to an ally, then play a random Bronze Cultist from your deck.",
             "Flavor": ""
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "2 armor, at the end of the turn, destroy the lowest 1 of the units on the field with less than 6 battle power。",
+            "Info": "Every turn, at the end of your turn, destroy the lowest unit if its Strength is 5 or lower.\n2 Armor.",
             "Flavor": ""
         },
         "70114": {
-            "Name": "BowDryad",
-            "Info": "Destroy 1 enemy unit whose base combat power is not higher than your own。",
+            "Name": "Dryad Sharpshooter",
+            "Info": "Deploy: Destroy an enemy that has the same or lower base Strength as this unit.",
             "Flavor": ""
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return 1 copper/silver enemy unit to enemy's hand。",
+            "Info": "Return a Bronze loyal enemy to your opponent's hand.",
             "Flavor": ""
         },
         "70116": {
-            "Name": "DeafeningSiren",
-            "Info": "Whenever a downpour falls in the opponent's half of the field, resurrect yourself to a random row。",
+            "Name": "Deafening Siren",
+            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
             "Flavor": ""
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Summon yourself when your side plays a leader card. Last wish: Randomly place 1 tree spirit card from your library on top of your library。",
+            "Info": "Summon this unit whenever you play your Leader.\nDeathwish: Move a random Dryad in your deck to the top of your deck.",
             "Flavor": ""
         },
         "70118": {
-            "Name": "LyrianScytheman",
-            "Info": "Randomly give a unit in your library a gain of 3 points, then gain yourself a gain equal to that unit's gain。",
+            "Name": "Lyrian Scytheman",
+            "Info": "Deploy: Boost a random unit in your deck by 3, then Boost self by that unit's Boost.",
             "Flavor": ""
         },
         "130210": {
