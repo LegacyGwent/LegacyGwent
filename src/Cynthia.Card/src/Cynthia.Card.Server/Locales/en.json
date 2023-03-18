@@ -2908,17 +2908,17 @@
         },
         "70019": {
             "Name": "Zoltan: Warrior",
-            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys, Gain 1 extra point of reinforcement when you are reinforced yourself.",
+            "Info": "Deploy: Summon Figgis Merluzzo and Munro Bruys on this row.\nStrengthen self by 1 whenever this unit is Strengthened.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys, Gain 1 extra point of reinforcement when you are reinforced yourself.",
+            "Info": "Deploy: Summon Zoltan Warrior and Munro Bruys on this row.\nStrengthen self by 1 whenever this unit is Strengthened.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo, Gain 1 extra point of reinforcement when you are reinforced yourself.",
+            "Info": "Deploy: Summon Zoltan: Warrior and Figgis Merluzzo on this row.\nStrengthen self by 1 whenever this unit is Strengthened.",
             "Flavor": ""
         },
         "70022": {
