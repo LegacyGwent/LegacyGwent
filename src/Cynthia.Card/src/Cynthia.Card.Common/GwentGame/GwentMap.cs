@@ -216,7 +216,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12004",
                     Name="利维亚的杰洛特",
-                    Strength=15,
+                    Strength=17,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -288,7 +288,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Temeria},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "我能照顾自己，相信我。",
-                    Info = "造成5点伤害。",
+                    Info = "造成7点伤害。",
                     CardArtsId = "11210600",
                 }
             },
@@ -524,7 +524,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12019",
                     Name="希里",
-                    Strength=6,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -534,7 +534,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Witcher},
                     Flavor = "去往何处，何时动身，我自己说了算。",
-                    Info = "己方输掉小局时返回手牌。  2点护甲。",
+                    Info = "己方输掉小局时返回手牌。",
                     CardArtsId = "11210100",
                 }
             },
@@ -1352,7 +1352,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13016",
                     Name="操作者",
-                    Strength=5,
+                    Strength=7,
                     Countdown = 1,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
@@ -1585,7 +1585,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "当你凝视深渊的时候，深渊也在凝视着你。",
-                    Info = "对场上最强的单位造成最多10点伤害（无视护甲），并使场上最弱的单位获得相同数值的增益。",
+                    Info = "对场上最强的单位造成最多13点伤害（无视护甲），并使场上最弱的单位获得相同数值的增益。",
                     CardArtsId = "11331500",
                 }
             },
@@ -7605,7 +7605,7 @@ namespace Cynthia.Card
                 {
                     CardId ="51001",
                     Name="法兰茜丝卡",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Leader,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11292,7 +11292,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70043",
                     Name="弗妮希尔的突击队",
-                    Strength=6,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11344,7 +11344,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Lyria},
                     CrewCount = 1,
                     Flavor = "莱里亚女王米薇闷闷不乐地摆弄着项链上的硕大红宝石，美丽而丰满的嘴唇不时扭曲起来。",
-                    Info = "使己方半场、手牌、牌库各1个单位获得4点增益。操控。",
+                    Info = "使己方半场、手牌、牌库各1个单位获得5点增益。操控。",
                     CardArtsId = "d15660000",
                 }
             },
@@ -11608,7 +11608,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "有些脏了。稍微擦一擦就好。",
-                    Info = "对局开始时，将3张“最后的愿望”加入卡组，随后丢弃自身。",
+                    Info = "对局开始时，将3张“最后的愿望”加入卡组，随后丢弃自身。位于墓场中时，己方“最后的愿望”额外检视1张牌。",
                     CardArtsId = "d20400000",
                 }
             },
@@ -11773,6 +11773,26 @@ namespace Cynthia.Card
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
                     Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
                     CardArtsId = "d19410000",
+                }
+            },
+            {
+                "70119",//融雪 Thaw
+                new GwentCard()
+                {
+                    CardId ="70119",
+                    Name="融雪",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
+                    Flavor = "它带来了春天，也带来了战争。",
+                    Info = "随机使1个友军单位获得2点增益。重复一次。本回合中每打出过1张牌便额外重复1次。",
+                    CardArtsId = "d16780000",
                 }
             },
           {
@@ -11955,10 +11975,6 @@ namespace Cynthia.Card
                     CardArtsId = "d14810000",
                 }
             },
-
-
-
-
             //中立银金色强力版本 原id后加一个0 原名加：晋升 原英文名加Pro
             {
                 "130210",//杜度：晋升

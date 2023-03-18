@@ -10,9 +10,12 @@ namespace Cynthia.Card
         public TheLastWish(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            //打乱己方卡组,并且取2张卡
+            var cardNum = 2;
+            var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.MagicLamp).ToList();
+            cardNum += cards.Count();
+            //打乱己方卡组,并且取2+n张卡
             var list = Game.PlayersDeck[PlayerIndex]
-                .Mess(RNG).Take(2);
+                .Mess(RNG).Take(cardNum);
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (PlayerIndex, list.ToList(), 1, "选择打出一张牌");

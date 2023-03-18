@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70045")]//米薇
     public class Mave : CardEffect
-    {//使己方半场、手牌、牌库各1个单位获得4点增益。
+    {//使己方半场、手牌、牌库各1个单位获得5点增益。
         public Mave(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -14,7 +14,7 @@ namespace Cynthia.Card
             var cards = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.MyRow);
             if (cards.Count() > 0)
             {
-                await cards.Single().Effect.Boost(4, Card);
+                await cards.Single().Effect.Boost(5, Card);
             }
             
             //手牌
@@ -27,7 +27,7 @@ namespace Cynthia.Card
             if (result.Any()) 
             {
                 var card = result.Single();
-                await card.Effect.Boost(4, Card);
+                await card.Effect.Boost(5, Card);
             }
 
             //牌库
@@ -47,7 +47,7 @@ namespace Cynthia.Card
             }
             foreach (var card2 in deck_cards)
             {
-                await card2.Effect.Boost(4, Card);
+                await card2.Effect.Boost(5, Card);
             }
             return 0;
         }

@@ -35,6 +35,7 @@ namespace Cynthia.Card
         int Player1Index { get; }//玩家1的坐标
         int Player2Index { get; }//玩家2的坐标
         (int? PlayerIndex, int HPoint) WhoHeight { get; }
+        int TurnCardPlayedNum { get; set; }//本回合打出牌的数量
         Task<GameResult> Play();
         Task<bool> PlayerRound();
         Task RoundPlayCard(int playerIndex, RoundInfo cardInfo);//哪一位玩家,打出第几张手牌,打到了第几排,第几列
