@@ -9,7 +9,6 @@ namespace Cynthia.Card
     {
         //更新CardMap内容请务必将CardMapVersion更新
         public static Version CardMapVersion { get; } = new Version(1, 0, 0, 62);
-
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
