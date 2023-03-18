@@ -11776,10 +11776,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70111",//融雪 Thaw
+                "70119",//融雪 Thaw
                 new GwentCard()
                 {
-                    CardId ="70111",
+                    CardId ="70119",
                     Name="融雪",
                     Strength=0,
                     Group=Group.Copper,

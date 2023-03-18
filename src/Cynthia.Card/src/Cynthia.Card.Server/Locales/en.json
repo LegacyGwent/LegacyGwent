@@ -3106,7 +3106,7 @@
             "Info": "Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
-        "70111": {
+        "70119": {
             "Name": "Thaw",
             "Info": "Boost a random ally by 2. Repeat this ability. Then repeat this ability for each card you have played this trun.",
             "Flavor": "它带来了春天，也带来了战争。"

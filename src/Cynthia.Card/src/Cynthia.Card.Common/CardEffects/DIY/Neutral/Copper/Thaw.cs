@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70111")]//融雪 Thaw
+    [CardEffectId("70119")]//融雪 Thaw
     public class Thaw : CardEffect
     {//随机使1个友军单位获得2点增益。重复一次。本回合中每打出过1张牌便额外重复1次。
         public Thaw(GameCard card) : base(card) { }
