@@ -258,7 +258,7 @@
     },
     "12007": {
       "Name": "Triss Merigold",
-      "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń.",
+      "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń.",
       "Flavor": "Potrafię o siebie zadbać. Wierz mi."
     },
     "12008": {
@@ -318,7 +318,7 @@
     },
     "12019": {
       "Name": "Ciri",
-      "Info": "Gdy przegrasz rundę, cofnij tę jednostkę do swojej ręki. 2 pkt pancerza.",
+      "Info": "Gdy przegrasz rundę, cofnij tę jednostkę do swojej ręki.",
       "Flavor": "Ja mogę iść, gdzie chcę i kiedy chcę."
     },
     "12020": {
@@ -578,7 +578,7 @@
     },
     "13026": {
       "Name": "Zwierciadło Bekkera",
-      "Info": "Wymień do 10 pkt siły między najsilniejszą i najsłabszą jednostką.",
+      "Info": "Wymień do 13 pkt siły między najsilniejszą i najsłabszą jednostką.",
       "Flavor": "Gdy długo spoglądamy w otchłań, otchłań spogląda również w nas."
     },
     "13027": {
@@ -2998,7 +2998,7 @@
     },
     "70045": {
       "Name": "Meve",
-      "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 4. Załoga.",
+      "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 5. Załoga.",
       "Flavor": ""
     },
     "70046": {
@@ -3063,7 +3063,7 @@
     },
     "70091": {
        "Name": "Magiczna Lampa",
-       "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.",
+       "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę. Your The Last Wish looks at 1 extra card, while this unit is in the graveyard.",
        "Flavor": ""
     },
     "70102": {
@@ -3106,6 +3106,11 @@
       "Info": "Wybierz dwie jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika o 2.",
       "Flavor": ""
     },
+    "70119": {
+      "Name": "Thaw",
+      "Info": "Boost a random ally by 2. Repeat this ability. Then repeat this ability for each card you have played this trun.",
+      "Flavor": "它带来了春天，也带来了战争。"
+  },
     "130210": {
       "Name": "Dudu:Promoted",
       "Info": "Choose an Enemy and become its copy.",

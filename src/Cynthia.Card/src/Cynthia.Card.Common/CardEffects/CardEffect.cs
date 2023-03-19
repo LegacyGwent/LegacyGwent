@@ -74,6 +74,7 @@ namespace Cynthia.Card
             var result = await CardUseStart();
             //历史卡牌
             Game.HistoryList.Add((Card.PlayerIndex, Card));
+            Game.TurnCardPlayedNum ++;
             if (result)
             {
                 if (Card.Status.CardRow.IsOnStay())
@@ -96,6 +97,7 @@ namespace Cynthia.Card
             {
                 await Game.SendEvent(new BeforeUnitPlay(Card, isFromHand));
             });
+            Game.TurnCardPlayedNum ++;
             var (isSpying, isReveal) = await CardPlayStart(location, isFromHand);
             isSpying |= forceSpying;
             //历史卡牌

@@ -258,7 +258,7 @@
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Deploy: Deal 5 Damage.",
+            "Info": "Deploy: Deal 7 Damage.",
             "Flavor": "I can take care of myself. Trust me."
         },
         "12008": {
@@ -318,7 +318,7 @@
         },
         "12019": {
             "Name": "Ciri",
-            "Info": "Whenever you lose a round, return this unit to your hand.\n2 Armor.",
+            "Info": "Whenever you lose a round, return this unit to your hand.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
@@ -578,7 +578,7 @@
         },
         "13026": {
             "Name": "Bekker's Dark Mirror",
-            "Info": "Transfer up to 10 Power between the Highest and Lowest unit.",
+            "Info": "Transfer up to 13 Power between the Highest and Lowest unit.",
             "Flavor": "当你凝视深渊的时候，深渊也在凝视着你。"
         },
         "13027": {
@@ -2998,7 +2998,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
             "Flavor": ""
         },
         "70046": {
@@ -3063,7 +3063,7 @@
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self. Your The Last Wish looks at 1 extra card, while this unit is in the graveyard.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3105,6 +3105,11 @@
             "Name": "Dwarven Chariot",
             "Info": "Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
+        },
+        "70119": {
+            "Name": "Thaw",
+            "Info": "Boost a random ally by 2. Repeat this ability. Then repeat this ability for each card you have played this trun.",
+            "Flavor": "它带来了春天，也带来了战争。"
         },
         "70110": {
             "Name": "Crotch",

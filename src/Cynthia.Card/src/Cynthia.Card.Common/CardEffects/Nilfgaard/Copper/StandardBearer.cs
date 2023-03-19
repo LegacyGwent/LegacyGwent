@@ -19,7 +19,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (!Card.Status.CardRow.IsOnPlace() || @event.Target == Card || (@event.Target != _tempCard) || !@event.IsFromHand || @event.IsSpying)
+            if (!Card.Status.CardRow.IsOnPlace() || @event.Target == Card || (@event.Target != _tempCard)  || @event.IsSpying)
             {
                 return;
             }

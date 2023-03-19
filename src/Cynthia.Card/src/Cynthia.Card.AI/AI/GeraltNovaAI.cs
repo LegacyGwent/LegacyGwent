@@ -65,7 +65,7 @@ namespace Cynthia.Card.AI
             {
                 Name = "新星杰洛特",
                 Leader = CardId.CiriNova,
-                Deck = (CardId.CiriNova).Plural(20).Concat(CardId.GeraltOfRivia.Plural(20)).ToList()
+                Deck = (CardId.CiriNova).Plural(5).Concat(CardId.GeraltOfRivia.Plural(25)).ToList()
             };
         }
         // public override void SetDeckAndName()
