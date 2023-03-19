@@ -3060,10 +3060,25 @@
             "Name": "Damnation",
             "Info": "Summon the two Highest Bronze units from the deck to the same row, then change their Lock status.",
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
+		},
+        "70079": {
+            "Name": "An Craite Warlord",
+            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
+            "Flavor": "The terror of Nilfgaardian fishermen."
+        },
+        "70080": {
+            "Name": "Knut the Callous",
+            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
+            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
+        },
+        "70081": {
+            "Name": "Drummond Pillager",
+            "Info": "When Discarded, Strengthen all Drummond units in hand, deck and on the board by 1.",
+            "Flavor": "The only thing they like more than looting is killing."
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.\nWhile this card is in your graveyard, The Last Wish looks at 1 extra card.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3150,6 +3165,11 @@
             "Name": "Lyrian Scytheman",
             "Info": "Deploy: Boost a random unit in your deck by 3, then Boost self by that unit's Boost.",
             "Flavor": ""
+		},
+		"70119": {
+            "Name": "Thaw",
+            "Info": "Boost a random ally by 2. Repeat this ability. Then repeat this ability for each card you have played this trun.",
+            "Flavor": "它带来了春天，也带来了战争。"
         },
         "130210": {
             "Name": "Dudu: Promoted",
@@ -3280,21 +3300,6 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and Boost self by its Power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
-        },
-        "70079": {
-            "Name": "An Craite Warlord",
-            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
-            "Flavor": "The terror of Nilfgaardian fishermen."
-        },
-        "70080": {
-            "Name": "Knut the Callous",
-            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
-            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
-        },
-        "70081": {
-            "Name": "Drummond Pillager",
-            "Info": "When Discarded, Strengthen all Drummond units in hand, deck and on the board by 1.",
-            "Flavor": "The only thing they like more than looting is killing."
         }
     }
 }
