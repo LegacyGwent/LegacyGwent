@@ -258,7 +258,7 @@
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Deploy: Deal 7 Damage.",
+            "Info": "Deploy: Deal 5 Damage.",
             "Flavor": "I can take care of myself. Trust me."
         },
         "12008": {
@@ -318,7 +318,7 @@
         },
         "12019": {
             "Name": "Ciri",
-            "Info": "Whenever you lose a round, return this unit to your hand.",
+            "Info": "Whenever you lose a round, return this unit to your hand.\n2 Armor.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
@@ -578,7 +578,7 @@
         },
         "13026": {
             "Name": "Bekker's Dark Mirror",
-            "Info": "Transfer up to 13 Power between the Highest and Lowest unit.",
+            "Info": "Transfer up to 10 Power between the Highest and Lowest unit.",
             "Flavor": "当你凝视深渊的时候，深渊也在凝视着你。"
         },
         "13027": {
@@ -2998,7 +2998,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4.\nCrew.",
             "Flavor": ""
         },
         "70046": {
