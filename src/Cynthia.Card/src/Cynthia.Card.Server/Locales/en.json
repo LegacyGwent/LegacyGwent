@@ -513,7 +513,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "Deathwish: Resurrect this unit on the same location.",
+            "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
             "Flavor": "至少你知道我的头不好砍了。"
         },
         "13002": {
@@ -3048,7 +3048,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strength Doomed copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength Doomed copy of it in the same row as this unit.",
             "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
         },
         "70077": {
@@ -3168,7 +3168,7 @@
 		},
 		"70119": {
             "Name": "Thaw",
-            "Info": "Boost a random ally by 2. Repeat this ability. Then repeat this ability for each card you have played this trun.",
+            "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
             "Flavor": "它带来了春天，也带来了战争。"
         },
         "130210": {
