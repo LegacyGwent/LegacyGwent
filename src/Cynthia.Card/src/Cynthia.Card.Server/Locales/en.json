@@ -3168,7 +3168,7 @@
 	},
 	"70119": {
             "Name": "Thaw",
-            "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
+            "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this round.",
             "Flavor": "它带来了春天，也带来了战争。"
         },
         "130210": {
