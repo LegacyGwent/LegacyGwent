@@ -2003,7 +2003,7 @@
         },
         "44023": {
             "Name": "Dun Banner Light Cavalry",
-            "Info": "On turn start, if you are losing by more than 25 points, Summon this unit on a random row.",
+            "Info": "On turn start, if you are losing by at least 26 points, Summon this unit on a random row.",
             "Flavor": "冷静，所有人保持警惕！这可能是那帮披斗篷戴海狸皮帽的家伙的陷阱……"
         },
         "44024": {
