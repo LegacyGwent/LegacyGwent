@@ -693,7 +693,7 @@
         },
         "14006": {
             "Name": "Bloodcurdling Roar",
-            "Info": "Destroy an ally, then Spawn an Elder Bear.\n(Elder Bear; 11 Strength)",
+            "Info": "Destroy an ally, then Spawn a Bear.\n(Bear; 11 Strength)",
             "Flavor": "起初我们碰上了一头熊……悲剧就从那时开始了。"
         },
         "14007": {
@@ -852,7 +852,7 @@
             "Flavor": "牛牛防卫队的一员。永远忠诚！"
         },
         "15010": {
-            "Name": "Elder Bear",
+            "Name": "Bear",
             "Info": "No ability.",
             "Flavor": "去猎熊吧！去抓上一只——这、这只也太大了吧！快跑！！"
         },
@@ -2553,7 +2553,7 @@
         },
         "63012": {
             "Name": "Harald Houndsnout",
-            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn an Elder Bear on the opposite row.\n(Elder Bear; 11 Strength)",
+            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
             "Flavor": "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。"
         },
         "63013": {
@@ -2758,7 +2758,7 @@
         },
         "64033": {
             "Name": "Tuirseach Bearmaster",
-            "Info": "Deploy: Spawn an Elder Bear.\n(Elder Bear; 11 Strength)",
+            "Info": "Deploy: Spawn a Bear.\n(Bear; 11 Strength)",
             "Flavor": "别碰他。别盯着他的眼睛瞧。事实上……压根就别靠近他。"
         },
         "64034": {
@@ -2798,7 +2798,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Spying.\nDeathwish: Spawn an Elder Bear on the opposite row.\n(Elder Bear; 11 Strength)",
+            "Info": "Spying.\nDeathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
         "61001": {
@@ -3132,7 +3132,7 @@
             "Flavor": ""
         },
         "70112": {
-            "Name": "Primitive Wildness",
+            "Name": "Primal Savagery",
             "Info": "Deal 3 Damage to an ally, then play a random Bronze Cultist from your deck.",
             "Flavor": ""
         },
