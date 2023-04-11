@@ -9798,7 +9798,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64006",
                     Name="海玫家族诗人",
-                    Strength=9,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
