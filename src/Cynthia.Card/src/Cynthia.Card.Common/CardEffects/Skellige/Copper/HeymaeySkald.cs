@@ -27,7 +27,7 @@ namespace Cynthia.Card
                 var list = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAnyCategorie(famcat) && x != Card);
                 foreach (var card in list)
                 {
-                    await card.Effect.Boost(2, Card);
+                    await card.Effect.Boost(1, Card);
                 }
             }
             return 0;

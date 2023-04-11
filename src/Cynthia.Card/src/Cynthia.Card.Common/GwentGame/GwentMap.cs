@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 61);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 62);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -839,7 +839,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Witcher,Categorie.Doomed},
                     Flavor = "吉薇艾儿无法掌控自己所拥有的非凡力量。对她自己，对其他人来说，她都是个危险。除非她学会控制这份力量，否则不能把她放出来。",
-                    Info = "若每张铜色牌在己方初始牌组中刚好有2张，则基础战力变为22点。",
+                    Info = "若每张铜色牌在己方初始牌组中刚好有2张，则基础战力变为23点。",
                     CardArtsId = "20162600",
                 }
             },
@@ -9808,7 +9808,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey,Categorie.Support},
                     Flavor = "海玫家族的事迹将流芳千古。",
-                    Info = "使所选“家族”的所有友军单位获得2点增益。",
+                    Info = "使所选“家族”的所有友军单位获得1点增益。",
                     CardArtsId = "15230800",
                 }
             },
@@ -10710,7 +10710,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70006",
                     Name = "湖中仙女",
-                    Strength = 25,
+                    Strength = 23,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,

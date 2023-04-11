@@ -393,7 +393,7 @@
     },
     "12032": {
       "Name": "Ciri Erupcja Mocy",
-      "Info": "Rozmieszczenie: Jeśli posiadasz w swojej talii początkowej dokładnie 2 egzemplarze każdej brązowej karty, zmień siłę bazową tej jednostki na 22.",
+      "Info": "Rozmieszczenie: Jeśli posiadasz w swojej talii początkowej dokładnie 2 egzemplarze każdej brązowej karty, zmień siłę bazową tej jednostki na 23.",
       "Flavor": "Zireael ma wielką moc, której nie potrafi kontrolować. Dopóki nie nauczy się panowania nad sobą, powinna pozostać w izolacji."
     },
     "12033": {
@@ -2623,7 +2623,7 @@
     },
     "64006": {
       "Name": "Skald Heymaey",
-      "Info": "Rozmieszczenie: Wzmocnij wszystkich sojuszników z wybranego Klanu o 2.",
+      "Info": "Rozmieszczenie: Wzmocnij wszystkich sojuszników z wybranego Klanu o 1.",
       "Flavor": "Czyny wojowników klanu Heymaey przejdą do wieczności."
     },
     "64007": {
@@ -3247,7 +3247,7 @@
     },
     "70081": {
         "Name": "Drummondzki Pogromca",
-        "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
+        "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce i talii bitwy o 1.",
         "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
     }
   }

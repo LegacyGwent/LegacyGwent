@@ -393,7 +393,7 @@
         },
         "12032": {
             "Name": "Ciri: Nova",
-            "Info": "Deploy: If you have exactly 2 copies of each Bronze card in your starting deck, set the base Power of this card to 22.",
+            "Info": "Deploy: If you have exactly 2 copies of each Bronze card in your starting deck, set the base Power of this card to 23.",
             "Flavor": "Zireael possesses a great Power she cannot control. She is a danger - to herself, to others. Until she learns to control it, she should remain isolated."
         },
         "12033": {
@@ -2623,7 +2623,7 @@
         },
         "64006": {
             "Name": "Heymaey Skald",
-            "Info": "Deploy: Boost all allies from a Clan of your choice by 2.",
+            "Info": "Deploy: Boost all allies from a Clan of your choice by 1.",
             "Flavor": "海玫家族的事迹将流芳千古。"
         },
         "64007": {
@@ -2873,7 +2873,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 25 Power; Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
+            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 23 Power; Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
             "Flavor": ""
         },
         "70012": {
@@ -3248,7 +3248,7 @@
         },
         "70081": {
             "Name": "Drummond Pillager",
-            "Info": "When discarded, strengthen all drummond units in hand, on the board or in the deck by 1.",
+            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         }
     }
