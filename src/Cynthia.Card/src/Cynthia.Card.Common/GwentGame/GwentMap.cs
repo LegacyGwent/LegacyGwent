@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 63);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 65);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9808,7 +9808,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey,Categorie.Support},
                     Flavor = "海玫家族的事迹将流芳千古。",
-                    Info = "使所选“家族”的所有友军单位获得2点增益。",
+                    Info = "使所选“家族”的所有友军单位获得1点增益。",
                     CardArtsId = "15230800",
                 }
             },
@@ -11851,7 +11851,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
                     Flavor = "",
-                    Info = "对一个友军单位造成3点伤害，然后随机从牌库打出一个铜色“呓语”单位牌。",
+                    Info = "对一个友军单位造成点伤害，然后随机从牌库打出一个铜色“呓语”单位牌。",
                     CardArtsId = "d17750000",
                 }
             },
@@ -11871,7 +11871,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "2护甲，回合结束时，摧毁场上战力低于6的单位中最低的1个。",
+                    Info = "2护甲，回合结束时，摧毁场上战力低于5的单位中最低的1个。",
                     CardArtsId = "d15360000",
                 }
             },
@@ -11911,7 +11911,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Tactic,Categorie.Special},
                     Flavor = "",
-                    Info = "使1个非间谍铜色/银色敌军单位返回对方手牌",
+                    Info = "使1个铜色/银色敌军单位返回对方手牌，并将其战力设为1",
                     CardArtsId = "d20780000",
                 }
             },
