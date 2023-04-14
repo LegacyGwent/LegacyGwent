@@ -15,7 +15,7 @@ namespace Cynthia.Card
 
         private async Task StrengthenAllDrummond(int Strengthenpoint)
         {
-            var targets = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.ClanDrummond) && x != Card);            foreach (var target in targets)
+            var targets = Game.PlayersHandCard[PlayerIndex].Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.ClanDrummond) && x != Card);            foreach (var target in targets)
             {
                 await target.Effect.Strengthen(1, Card);
             }
