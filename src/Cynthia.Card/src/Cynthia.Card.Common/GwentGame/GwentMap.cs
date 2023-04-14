@@ -12505,7 +12505,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70079",
-                    Name="一个木箱战神",
+                    Name="奎特家族督军",
                     Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
@@ -12516,16 +12516,16 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "尼尔弗加德渔民的恐怖经历",
-                    Info = "在手牌、牌组或棋盘上时，你每丢弃一张牌就会提升1。",
+                    Info = "位于手牌、牌组和己方半场时，己方每丢弃1张牌便获得1点增益。",
                     CardArtsId = "d22430000",
                 }
             },
                         {
-                "70080",//冷酷无情的克努特
+                "70080",//无情者”克努特
                 new GwentCard()
                 {
                   CardId = "70080",
-                    Name = "冷酷无情的克努特",
+                    Name = "无情者”克努特",
                     Strength = 7,
                     Countdown = 1,
                     Group = Group.Silver,
@@ -12537,16 +12537,16 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
-                    Info = "力竭。部署：从你的手牌中丢弃一张牌，然后从你的起始牌中生成一个青铜单位，使其强化1，并将其加入你的手牌。",
+                    Info = "力竭：丢弃1张手牌，然后在手牌中添加1张己方初始牌组中铜色单位牌的原始同名牌，并使其获得1点强化。",
                     CardArtsId = "d16660000",
                 }
             },
                         {
-                "70081",//德拉蒙德-皮勒格
+                "70081",//德拉蒙家族掠夺者
                 new GwentCard()
                 {
                     CardId ="70081",
-                    Name="德拉蒙德-皮勒格",
+                    Name="德拉蒙家族掠夺者",
                     Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
@@ -12557,7 +12557,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
-                    Info = "弃置时，无论在哪里，都能使所有的鼓手部队加强1倍。",
+                    Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "d22400000",
                 }
             },
