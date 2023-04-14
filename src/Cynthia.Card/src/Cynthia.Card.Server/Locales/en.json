@@ -2623,7 +2623,7 @@
         },
         "64006": {
             "Name": "Heymaey Skald",
-            "Info": "Deploy: Boost all allies from a Clan of your choice by 2.",
+            "Info": "Deploy: Boost all allies from a Clan of your choice by 1.",
             "Flavor": "海玫家族的事迹将流芳千古。"
         },
         "64007": {
@@ -3138,7 +3138,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Every turn, at the end of your turn, destroy the lowest unit if its Strength is 5 or lower.\n2 Armor.",
+            "Info": "Every turn, at the end of your turn, destroy the lowest unit if its Strength is 4 or lower.\n2 Armor.",
             "Flavor": ""
         },
         "70114": {
@@ -3148,7 +3148,7 @@
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return a Bronze loyal enemy to your opponent's hand.",
+            "Info": "Return a Bronze/Silver enemy to opponent's hand and set its battle power to 1.",
             "Flavor": ""
         },
         "70116": {
