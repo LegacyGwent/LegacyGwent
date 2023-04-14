@@ -11851,7 +11851,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
                     Flavor = "",
-                    Info = "对一个友军单位造成点伤害，然后随机从牌库打出一个铜色“呓语”单位牌。",
+                    Info = "对一个友军单位造成3点伤害，然后随机从牌库打出一个铜色“呓语”单位牌。",
                     CardArtsId = "d17750000",
                 }
             },
