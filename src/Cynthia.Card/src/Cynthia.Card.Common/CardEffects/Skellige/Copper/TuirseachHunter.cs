@@ -11,11 +11,16 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            var damage = 4;
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
             }
-            await target.Effect.Damage(5, Card);
+            if (target.Status.HealthStatus < 0)
+                {
+                damage = 6;
+                }
+            await target.Effect.Damage(damage, Card);
 			return 0;
         }
     }

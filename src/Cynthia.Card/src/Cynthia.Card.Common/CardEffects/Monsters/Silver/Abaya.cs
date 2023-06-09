@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Abaya(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            return await Card.CreateAndMoveStay(CardId.TorrentialRain, CardId.ClearSkies, CardId.ArachasVenom);
+            return await Card.CreateAndMoveStay(CardId.ImpenetrableFog, CardId.ClearSkies, CardId.ArachasVenom);
         }
     }
 }

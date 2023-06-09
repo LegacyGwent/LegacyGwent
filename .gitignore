@@ -33,3 +33,11 @@ msbuild.wrn
 
 # Rider
 .idea
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL/1200200/12002_1.mp3.meta
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/d23010000.png.meta
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/d23020000.png.meta
+/src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Monsters - Raccourci.lnk
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/DiyGwent_Data
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/MonoBleedingEdge
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/DiyGwent.exe

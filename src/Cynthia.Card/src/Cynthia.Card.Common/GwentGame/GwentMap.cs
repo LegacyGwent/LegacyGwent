@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 64);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 66);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -400,7 +400,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12013",
                     Name="兰伯特：剑术大师",
-                    Strength=8,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -1191,7 +1191,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13009",
                     Name="赛浦利安·威利",
-                    Strength=8,
+                    Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -2995,7 +2995,7 @@ namespace Cynthia.Card
                 {
                     CardId ="22007",
                     Name="巨章鱼怪",
-                    Strength=5,
+                    Strength=4,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -3358,7 +3358,7 @@ namespace Cynthia.Card
                 {
                     CardId ="23011",
                     Name="尼斯里拉",
-                    Strength=7,
+                    Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -3368,7 +3368,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
                     Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
-                    Info = "对1个敌军单位造成6点伤害。手牌中每有1张“狂猎”单位牌，伤害提高1点。",
+                    Info = "对敌方单位造成7的伤害，如果被摧毁，在该行产生咬人的霜冻。",
                     CardArtsId = "13221400",
                 }
             },
@@ -3618,7 +3618,7 @@ namespace Cynthia.Card
                 {
                     CardId ="24002",
                     Name="鹿首魔",
-                    Strength=11,
+                    Strength=12,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -4910,7 +4910,7 @@ namespace Cynthia.Card
                     CardId ="32015",
                     Name="暗算",
                     Strength=0,
-                    Group=Group.Gold,
+                    Group=Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.AnyPlace,
                     CardType = CardType.Special,
@@ -6297,7 +6297,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42007",
                     Name="罗契：冷酷之心",
-                    Strength=6,
+                    Strength=4,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7162,7 +7162,7 @@ namespace Cynthia.Card
                 {
                     CardId ="44016",
                     Name="亚甸槌击者",
-                    Strength=7,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7303,7 +7303,7 @@ namespace Cynthia.Card
                 {
                     CardId ="44023",
                     Name="褐旗营",
-                    Strength=4,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7847,7 +7847,7 @@ namespace Cynthia.Card
                     CardId ="52009",
                     Name="莫丽恩：森林之女",
                     Strength=6,
-                    Group=Group.Gold,
+                    Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -8150,7 +8150,7 @@ namespace Cynthia.Card
                 {
                     CardId ="53011",
                     Name="托露薇尔",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -8371,7 +8371,7 @@ namespace Cynthia.Card
                 {
                     CardId ="54001",
                     Name="维里赫德旅工兵",
-                    Strength=11,
+                    Strength=12,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9966,7 +9966,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Machine,Categorie.ClanAnCraite},
+                    Categories = new Categorie[]{ Categorie.Machine,Categorie.ClanDimun},
                     Flavor = "无论是海上还是港口，他们盯上的目标永远是最漂亮的那个。",
                     Info = "将1个敌军单位移至其所在半场的同排，并使它受到等同于所在排单位数量的伤害。",
                     CardArtsId = "20030000",
@@ -10398,7 +10398,7 @@ namespace Cynthia.Card
                 {
                     CardId ="65002",
                     Name="狂暴的熊",
-                    Strength=12,
+                    Strength=14,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10851,7 +10851,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70013",
                     Name = "堕落的佛兰明妮卡",
-                    Strength = 10,
+                    Strength = 11,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11881,7 +11881,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70114",
                     Name="长弓树精",
-                    Strength=4,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12558,9 +12558,191 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
-                    CardArtsId = "d22400000",
+                    CardArtsId = "d22400000"
                 }
             },
+            {
+                "70082",//奥尔吉耶德： 不朽的
+                new GwentCard()
+                {
+                    CardId ="70082",
+                    Name="奥尔吉耶德： 不朽的",
+                    Strength=9,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "All of my dreams have come true. Unfortunately",
+                    Info = "在回合开始时恢复自我，并使其力量减半。",
+                    CardArtsId = "XXXX",
+                }
+            },
+            {
+                "70083",//孵化
+                new GwentCard()
+                {
+                    CardId ="70083",
+                    Name="孵化",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
+                    Flavor = "xxxx",
+                    Info ="连续生产3个阿拉查斯无人机，如果墓地里有一个孵化物，则再生产一个。",
+                    CardArtsId = "XXXXX",
+                }
+            },
+            {
+                "70084",//SelfEater
+                new GwentCard()
+                {
+                    CardId ="70084",
+                    Name="自食其力",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    Countdown = 2,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "xxxxx",
+                    Info = "xxxxx",
+                    CardArtsId = "xxxxxxxx",
+                }
+            },
+            {
+                "70085",//林妖
+                new GwentCard()
+                {
+                    CardId ="70085",
+                    Name="她知道的人",
+                    Strength=3,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "xxxxxxxxxx",
+                    Info = "xxxxx",
+                    CardArtsId = "xxxxx",
+                }
+            },
+            {
+                "70086",//SelfEaterHalf
+                new GwentCard()
+                {
+                    CardId ="70086",
+                    Name="自食其力的一半",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    Countdown = 2,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "xxxxx",
+                    Info = "xxxxx",
+                    CardArtsId = "xxxxxxxx",
+                }
+            },
+            {
+                "70087",//菲丽芭·艾哈特
+                new GwentCard()
+                {
+                    CardId ="70087",
+                    Name="艾勒的格哈特",
+                    Strength=3,
+                    Group=Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "xxxx",
+                    Info = "xxxxxxx",
+                    CardArtsId = "xxxxxx",
+                }
+            },
+            {
+                "70088",//TuirseachInvader
+                new GwentCard()
+                {
+                    CardId ="70088",
+                    Name="图尔萨赫入侵者",
+                    Strength=7,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanTuirseach},
+                    Flavor = "xxxxxx",
+                    Info = "xxxxxxxx",
+                    CardArtsId = "xxxxxxx",
+                }
+            },
+            {
+                "70089",//Temerian Besieger
+                new GwentCard()
+                {
+                    CardId ="70089",
+                    Name="  特梅里安-贝西格",
+                    Strength=3,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
+                    Flavor = "xxxxxx",
+                    Info = "xxxxxxxxxx",
+                    CardArtsId = "xxxxxx",
+                }
+            },
+            {
+                "70090",//VodyanoiShaman
+                new GwentCard()
+                {
+                    CardId ="70090",
+                    Name="沃迪亚诺伊萨满",
+                    Strength=2,
+                    Group=Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vodyanoi},
+                    Flavor = "xxxxxx",
+                    Info = "xxxxxxxxxx",
+                    CardArtsId = "xxxxxx",
+                }
+            }
         };
     }
 }

@@ -17,7 +17,7 @@ namespace Cynthia.Card
                 return 0;
             }
             //伤害四次
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < 5; i++)
             {
                 await target.Effect.Damage(1, Card, BulletType.FireBall);
             }

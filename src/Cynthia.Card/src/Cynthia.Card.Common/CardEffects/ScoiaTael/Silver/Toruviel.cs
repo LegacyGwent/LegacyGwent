@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 var cards = Card.GetRangeCard(2, GetRangeType.HollowAll);
                 foreach (var card in cards)
                 {
-                    await card.Effect.Boost(2, Card);
+                    await card.Effect.Boost(3, Card);
                 }
             });
         }

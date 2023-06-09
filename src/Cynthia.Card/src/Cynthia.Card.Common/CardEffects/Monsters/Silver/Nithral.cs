@@ -10,10 +10,18 @@ namespace Cynthia.Card
         public Nithral(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var point = Game.PlayersHandCard[PlayerIndex].Where(x => x.HasAllCategorie(Categorie.WildHunt)).Count();
-            var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
-            if (result.Count != 0) await result.Single().Effect.Damage(6 + point, Card);
+
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (!selectList.TrySingle(out var target))
+            {
+                return 0;
+            }
+            var row = target.Status.CardRow;
+            await target.Effect.Damage(7, Card);
+            await Game.GameRowEffect[target.PlayerIndex][row.MyRowToIndex()].SetStatus<BitingFrostStatus>();
+
             return 0;
+
         }
     }
 }

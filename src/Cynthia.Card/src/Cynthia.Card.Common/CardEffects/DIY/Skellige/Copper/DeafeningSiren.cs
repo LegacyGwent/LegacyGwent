@@ -17,7 +17,8 @@ namespace Cynthia.Card
                 {
                     await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
                 }
-                
+                if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsInDeck())
+                    await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
                 return;
             }
             return;

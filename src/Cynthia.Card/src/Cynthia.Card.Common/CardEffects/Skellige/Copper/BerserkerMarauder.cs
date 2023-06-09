@@ -30,9 +30,8 @@ namespace Cynthia.Card
             var listHurt = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x != Card && x.Status.HealthStatus < 0).ToList();
             var listCursed = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAllCategorie(Categorie.Cursed) && x != Card).ToList();
             //无交并
-            var result = listHurt.Union(listCursed);
 
-            int Boostnum = result.Count();
+            int Boostnum = listHurt.Count() + listCursed.Count();
             if (Boostnum == 0)
             {
                 return 0;

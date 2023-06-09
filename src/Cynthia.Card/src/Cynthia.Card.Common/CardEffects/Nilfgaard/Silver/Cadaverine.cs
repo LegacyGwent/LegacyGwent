@@ -34,14 +34,13 @@ namespace Cynthia.Card
             }
             else if (switchCard == 1)
             {
-                var cards = await Game.GetSelectPlaceCards(Card, filter:
-                    (x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.Status.Faction == Faction.Neutral)
-                    , selectMode: SelectModeType.EnemyRow);
-                if (cards.Count == 0)
-                {
-                    return 0;
-                }
-                await cards.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
+            var list = Game.PlayersDeck[Card.PlayerIndex]
+            .Where(x => ((x.Status.Group == Group.Copper) &&//铜色
+                    (x.CardInfo().CardType == CardType.Unit))).Mess(RNG).ToList();//单位牌
+            if (list.Count() == 0) return 0;
+            var moveCard = list.First();
+            await moveCard.MoveToCardStayFirst();
+            return 1;
             }
 
             return 0;

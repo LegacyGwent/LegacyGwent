@@ -18,10 +18,23 @@ namespace Cynthia.Card
             }
             //同时造成伤害
             foreach (var target in targets)
-            {
-                await target.Effect.Damage(1, Card);
-            }
-
+                {
+                await target.Effect.Damage(1,Card);
+                    if (target.IsDead)
+                    {
+                        var Ltaget = target.GetRangeCard(1, GetRangeType.HollowLeft);
+                        if (Ltaget.Count() != 0 && !Ltaget.Single().Status.Conceal)
+                            {
+                                await Ltaget.Single().Effect.Damage(1, Card);
+                            }
+                        //如果右侧有单位且不是伏击卡
+                        var Rtaget = target.GetRangeCard(1, GetRangeType.HollowRight);
+                            if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
+                            {
+                                await Rtaget.Single().Effect.Damage(1, Card);
+                            }
+                    }
+                }
             return 0;
         }
     }
