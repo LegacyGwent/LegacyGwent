@@ -5180,7 +5180,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Officer},
+                    Categories = new Categorie[]{ Categorie.Officer, Categorie.Soldier},
                     Flavor = "即便用“无能”来形容德·维特公爵对维登集团军的领导，都算给他面子",
                     Info = "间谍。从牌组顶端打出1张铜色/银色非间谍单位牌，并使它获得10点增益。",
                     CardArtsId = "16221100",
@@ -12741,6 +12741,26 @@ namespace Cynthia.Card
                     Flavor = "xxxxxx",
                     Info = "xxxxxxxxxx",
                     CardArtsId = "xxxxxx",
+                }
+            },
+            {
+                "70092",//NaglfarDeckOfficer
+                new GwentCard()
+                {
+                    CardId ="70092",
+                    Name="纳格法尔甲板军官",
+                    Strength=5,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Mage,Categorie.Officer},
+                    Flavor = "xxxxx",
+                    Info = "xxxxxxxx",
+                    CardArtsId = "xxxxx",
                 }
             }
         };

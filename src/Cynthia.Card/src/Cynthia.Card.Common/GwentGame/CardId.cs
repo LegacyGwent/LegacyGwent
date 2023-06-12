@@ -580,5 +580,6 @@ namespace Cynthia.Card
         public const string TuirseachInvader = "70088";
         public const string TemerianBesieger = "70089";
         public const string VoydanoiShaman = "70090";
+        public const string NaglfarDeckOfficer = "70092";
     }
 }
