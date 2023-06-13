@@ -3295,6 +3295,56 @@
             "Name": "Драммондский пиллагер",
             "Info": "когда выбрасывается, усиливает всех друммондских юнитов на 1, где бы они ни находились.",
             "Flavor": "Единственное, что они любят больше, чем мародерствовать, - это убиватьing."
+        },
+        "70082": {
+            "Name": "Olgierd Immortal",
+            "Info": "On Round start, resurrect it and Weaken it by half.",
+            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70083": {
+            "Name": "Hatching",
+            "Info": "Spawn 3 arachas drones on a row, spawn one more if you have a hatching in the graveyard",
+            "Flavor": ""
+        },
+        "70084": {
+            "Name": "Elder Leetch",
+            "Info": "When you play a relict, strengthen self by 1. Every 2 turns on turn end, if it doesn’t destroy itself, Halve this unit's base power, then Spawn a copy with the same base power on this row",
+            "Flavor": ""
+        },
+        "70085": {
+            "Name": "Velen Glow-Worm",
+            "Info": "Deploy: apply Impenetrable Fog to a row and move any foglets in your graveyard to your deck.",
+            "Flavor": "Do not follow the lights!"
+        },
+        "70086": {
+            "Name": "Elder Leetch",
+            "Info": "When you play a relict, strengthen self by 1. Every 2 turns on turn end, if it doesn’t destroy itself, Halve this unit's base power, then Spawn a copy with the same base power on this row",
+            "Flavor": ""
+        },
+        "70087": {
+            "Name": "Philippa: Mistress of the Lodge",
+            "Info": "xxxx",
+            "Flavor": ""
+        },
+        "70088": {
+            "Name": "Tuirseach Invader",
+            "Info": "On turn end, damage all damaged enemies on the opposite row by 1. \n2 Armor.",
+            "Flavor": ""
+        },
+        "70089": {
+            "Name": "Temerian Besieger",
+            "Info": "Deploy: Lock a Unit, if it's an Ally, Boost it by 2.",
+            "Flavor": ""
+        },
+        "70090": {
+            "Name": "Voydanoi Shaman",
+            "Info": "Choose one: Play a bronze hazard from your deck and spawn and play a copy of it; or remove all hazards from the opponent’s board and boost self by 6 for each hazard removed",
+            "Flavor": ""
+        },
+        "70092": {
+            "Name": "Naglfar Deck Officer",
+            "Info": "Deploy: Resurect a Bronze Hazard and Banish it.",
+            "Flavor": ""
         }
     }
 }
