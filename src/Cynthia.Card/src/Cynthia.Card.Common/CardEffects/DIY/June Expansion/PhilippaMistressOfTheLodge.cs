@@ -5,9 +5,9 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70087")]//艾勒的格哈特
-    public class GerhartofAelle : CardEffect
+    public class PhilippaMistressOfTheLodge : CardEffect
     {//play a bronze or silver mage from your deck, or generate and play a bronze spell
-        public GerhartofAelle(GameCard card) : base(card) { }
+        public PhilippaMistressOfTheLodge(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {//For some reason when I change the text server breaks, as this game doesn't appear in-game, I left it as-is
             var switchCard = await Card.GetMenuSwitch(
