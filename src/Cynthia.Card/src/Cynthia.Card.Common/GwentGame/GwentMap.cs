@@ -10658,7 +10658,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
+                    Categories = new Categorie[]{ Categorie.ClanTuirseach, Categorie.Cultist, Categorie.Cursed},
                     Flavor = "",
                     Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得2点强化。",
                     CardArtsId = "18840000",
@@ -10906,7 +10906,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70016",//苏克鲁斯
+                "70016",//苏克鲁斯 Sukrus
                 new GwentCard()
                 {
                     CardId = "70016",
@@ -10919,7 +10919,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Support},
+                    Categories = new Categorie[]{ Categorie.Support, Categorie.ClanTuirseach},
                     Flavor = "",
                     Info = "选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "d18870000",
@@ -12521,7 +12521,7 @@ namespace Cynthia.Card
                 }
             },
                         {
-                "70080",//无情者”克努特
+                "70080",//无情者”克努特 Knut the Callous
                 new GwentCard()
                 {
                   CardId = "70080",
@@ -12535,7 +12535,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = true,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist},
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
                     Info = "力竭：丢弃1张手牌，然后在手牌中添加1张己方初始牌组中铜色单位牌的原始同名牌，并使其获得1点强化。",
                     CardArtsId = "d16660000",
