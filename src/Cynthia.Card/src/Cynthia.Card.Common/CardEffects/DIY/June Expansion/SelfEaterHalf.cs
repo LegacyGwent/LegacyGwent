@@ -5,9 +5,9 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70086")]//exact copy of self-eater card to allow it not to proc himself when spawning the second half
-    public class ElderLeetchHalf : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterTurnOver>
+    public class SelfEaterHalf : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterTurnOver>
     {//
-        public ElderLeetchHalf(GameCard card) : base(card) { }
+        public SelfEaterHalf(GameCard card) : base(card) { }
         private bool used = false;
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {//Set countdown to 2
@@ -40,7 +40,7 @@ namespace Cynthia.Card
                         if (Card.Status.HealthStatus >= 0 && Card.Status.Strength > 1)
                         {
                             await Card.Effect.Weaken(unitdamage, Card);
-                            await Game.CreateCard(CardId.ElderLeetchHalf, PlayerIndex, Card.GetLocation() + 1, setting: Lesser);
+                            await Game.CreateCard(CardId.SelfEaterHalf, PlayerIndex, Card.GetLocation() + 1, setting: Lesser);
                         }
                         return;
                     }

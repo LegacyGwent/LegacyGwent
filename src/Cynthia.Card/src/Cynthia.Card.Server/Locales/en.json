@@ -288,7 +288,7 @@
         },
         "12013": {
             "Name": "Lambert: Swordmaster",
-            "Info": "Deploy: Deal 5 Damage to all copies of an enemy.",
+            "Info": "Deploy: Deal 4 Damage to all copies of an enemy.",
             "Flavor": "Go teach your grandma to suck eggs."
         },
         "12014": {
@@ -483,7 +483,7 @@
         },
         "13009": {
             "Name": "Cyprian Wiley",
-            "Info": "Deploy: Weaken a unit by 5 or weaken 2 units by 3.",
+            "Info": "Deploy: Weaken a unit by 4.",
             "Flavor": "诺维格瑞的黑帮四巨头之一——另外三个是西吉·卢文、卡罗·“砍刀”·凡瑞西和乞丐王。"
         },
         "13010": {
@@ -533,7 +533,7 @@
         },
         "13018": {
             "Name": "Vaedermakar",
-            "Info": "Deploy: Spawn Biting Frost, Torrential Rain or Alzur's Thunder.",
+            "Info": "Deploy: Spawn Biting Frost, Impenetrable Fog or Alzur's Thunder.",
             "Flavor": "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。"
         },
         "13001": {
@@ -898,7 +898,7 @@
         },
         "21005": {
             "Name": "Unseen Elder",
-            "Info": "Deploy: Drain a unit by half and lock it.",
+            "Info": "Deploy: Drain a unit by half.",
             "Flavor": "没有谁知道暗影长者的真实年龄，连高阶吸血鬼们也不知情。他们唯一清楚的是，无论如何也不能违背他的意愿。"
         },
         "22001": {
@@ -918,7 +918,7 @@
         },
         "22004": {
             "Name": "Caranthir Ar-Feiniel",
-            "Info": "Deploy: move two enemies to the opposite row and apply Biting Frost to it.",
+            "Info": "Deploy: Move an enemy to the opposite row and apply Biting Frost to it.",
             "Flavor": "宠儿偏偏堕落成逆子。"
         },
         "22005": {
@@ -933,7 +933,7 @@
         },
         "22007": {
             "Name": "Kayran",
-            "Info": "Deploy: Consume a unit with 8 Power or less and Boost self by its Power.",
+            "Info": "Deploy: Consume a unit with 7 Power or less and Boost self by its Power.",
             "Flavor": "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。"
         },
         "22008": {
@@ -1023,8 +1023,8 @@
         },
         "23011": {
             "Name": "Nithral",
-            "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
-            "Flavor": "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。"    
+            "Info": "Deploy: Deal 6 Damage to an enemy.\nIncrease Damage by 1 for each Wild Hunt unit in your hand.",
+            "Flavor": "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。"
         },
         "23012": {
             "Name": "Toad Prince",
@@ -1048,7 +1048,7 @@
         },
         "23016": {
             "Name": "Abaya",
-            "Info": "Deploy: Spawn Impenetrable Fog, Clear Skies or Arachas Venom.",
+            "Info": "Deploy: Spawn Torrential Rain, Clear Skies or Arachas Venom.",
             "Flavor": "丑东西我见得多了，海鳝、七鳃鳗、水滴鱼……但还没见过这么丑的！"
         },
         "23017": {
@@ -1088,7 +1088,7 @@
         },
         "24002": {
             "Name": "Fiend",
-            "Info": "Deploy: Damage self by 2 if it's the only relict on the row.",
+            "Info": "No Ability.",
             "Flavor": "鹿首魔长得有点像鹿，一只又大又邪恶的鹿。"
         },
         "24003": {
@@ -1408,7 +1408,7 @@
         },
         "32015": {
             "Name": "Assassination",
-            "Info": "Deal 7 Damage to an enemy.\nRepeat once.",
+            "Info": "Deal 9 Damage to an enemy.\nRepeat once.",
             "Flavor": "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”"
         },
         "33004": {
@@ -1513,7 +1513,7 @@
         },
         "33021": {
             "Name": "Cadaverine",
-            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or play a random bronze unit from your deck.",
+            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral enemy.",
             "Flavor": "我不会拿自己的性命去碰运气。我会拿上一把长剑，厚厚地涂上一层吊死鬼之毒。"
         },
         "33022": {
@@ -1708,7 +1708,7 @@
         },
         "41002": {
             "Name": "Princess Adda",
-            "Info": "Deploy: Spawn a Bronze Northern Realms Cursed Unit.",
+            "Info": "Deploy: Create a Bronze or Silver Cursed unit.",
             "Flavor": "她的诅咒被解除了……但是喜欢吃生肉的习惯却没改掉。"
         },
         "41003": {
@@ -1968,7 +1968,7 @@
         },
         "44016": {
             "Name": "Aedirnian Mauler",
-            "Info": "Deploy: Damage an enemy by 4, if it survives Damage another by 2.",
+            "Info": "Deploy: Deal 4 Damage to an enemy.",
             "Flavor": "呃，这些家伙真让人头疼。"
         },
         "44017": {
@@ -2193,7 +2193,7 @@
         },
         "53007": {
             "Name": "Yarpen Zigrin",
-            "Info": "Whenever a Dwarf ally appears, Boost self by 1.\nResilience.\n1 Armor.",
+            "Info": "Whenever a Dwarf ally appears, Boost self by 1.\nResilience.",
             "Flavor": "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。"
         },
         "53008": {
@@ -2208,12 +2208,12 @@
         },
         "53010": {
             "Name": "Braenn",
-            "Info": "Deploy: Damage an enemy by this unit's power.\nIf the unit was destroyed, Strengthen all your other Dryads and Ambush units in hand, deck and on the board by 1.",
+            "Info": "Deploy: Damage an enemy by this unit's power.\nIf the unit was destroyed, Boost all your other Dryads and Ambush units in hand, deck and on the board by 1.",
             "Flavor": "莫娜？不，不。我是布蕾恩。布洛克莱昂的女儿。"
         },
         "53011": {
             "Name": "Toruviel",
-            "Info": "Ambush: When your opponent passes, turn this unit over and Boost 2 units on each side by 3.",
+            "Info": "Ambush: When your opponent passes, turn this unit over and Boost 2 units on each side by 2.",
             "Flavor": "我很乐意站在你面前，直视你的双眼然后干掉你……但你臭死了，人类。"
         },
         "53012": {
@@ -2343,7 +2343,7 @@
         },
         "54016": {
             "Name": "Mahakam Defender",
-            "Info": "Resilient.\n2 Armor.",
+            "Info": "Resilient.",
             "Flavor": "听好了，我们是天生的战士——拳拳到肉，绝不留情！"
         },
         "54017": {
@@ -2613,7 +2613,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return two Bronze units from your graveyard to your deck.",
+            "Info": "Deploy: Return a Bronze unit from your graveyard to your deck.",
             "Flavor": "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。"
         },
         "64005": {
@@ -2643,7 +2643,7 @@
         },
         "64010": {
             "Name": "Tuirseach Archer",
-            "Info": "Deploy: Deal 1 Damage to 3 units, whenever it destroys a unit, damage adjacent units by 1.",
+            "Info": "Deploy: Deal 1 Damage to 3 units.",
             "Flavor": "你能射中两百步外的移动靶吗？我能，而且是在暴风雨中。"
         },
         "64011": {
@@ -2658,11 +2658,11 @@
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 14 Strength)",
+            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 12 Strength)",
             "Flavor": "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。"
         },
         "64014": {
-            "Name": "Dimun Whaler",
+            "Name": "An Craite Whaler",
             "Info": "Deploy: Move an enemy to the opposite row, then deal Damage equal to the number of units on that row.",
             "Flavor": "无论是海上还是港口，他们盯上的目标永远是最漂亮的那个。"
         },
@@ -2688,7 +2688,7 @@
         },
         "64019": {
             "Name": "Dimun Warship",
-            "Info": "Deploy: Deal 1 Damage to the same unit 5 times.",
+            "Info": "Deploy: Deal 1 Damage to the same unit 4 times.",
             "Flavor": "迪门家族的战船轻盈迅捷，最适合追逐缓慢笨重的商船。"
         },
         "64020": {
@@ -2698,7 +2698,7 @@
         },
         "64021": {
             "Name": "Tuirseach Hunter",
-            "Info": "Deploy: Deal 4 Damage, if the target was already damaged, deal 6 damage.",
+            "Info": "Deploy: Deal 5 Damage.",
             "Flavor": "别怀疑我们的狩猎本领，只恨史派克鲁格的猎物太少……"
         },
         "64022": {
@@ -2813,7 +2813,7 @@
         },
         "61003": {
             "Name": "Eist Tuirseach",
-            "Info": "Deploy: Spawn a Bronze Clan Tuirseach Unit.",
+            "Info": "Deploy: Spawn a Bronze Clan Tuirseach Soldier.",
             "Flavor": "埃斯特来到辛特拉，本想帮助克拉茨·奎特参加帕薇塔公主的选亲宴，结果自己却赢走了王后的芳心。"
         },
         "61004": {
@@ -2863,12 +2863,12 @@
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Deploy: Summon a copy of this unit from your deck on its right.\nWhenever an enemy becomes Damaged, Boost self by 1.",
+            "Info": "Deploy: Summon a copy of this unit from your deck on its right.\nWhenever a Bronze or Silver enemy becomes Damaged, Boost self by 1.",
             "Flavor": ""
         },
         "70010": {
             "Name": "Protofleder",
-            "Info": "Deploy: Add a Fleder to the top of your deck.\nWhenever an enemy becomes Damaged, Boost self by 2.",
+            "Info": "Deploy: Add a Fleder to the top of your deck.\nWhenever a Bronze or Silver enemy becomes Damaged, Boost self by 2.",
             "Flavor": ""
         },
         "70011": {
@@ -2883,7 +2883,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Spawn Torrential Rain on this unit's row and on the opposing row.",
+            "Info": "Deploy: Discard a Torrential Rain from your deck, then Spawn Torrential Rain on this unit's row and on the opposing row.",
             "Flavor": ""
         },
         "70014": {
@@ -3060,7 +3060,7 @@
             "Name": "Damnation",
             "Info": "Summon the two Highest Bronze units from the deck to the same row, then change their Lock status.",
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
-        },
+		},
         "70079": {
             "Name": "An Craite Warlord",
             "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
@@ -3153,7 +3153,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever you apply Torrential Rain to an enemy row, summon from deck or resurrect on a random row.",
+            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
             "Flavor": ""
         },
         "70117": {
@@ -3165,8 +3165,8 @@
             "Name": "Lyrian Scytheman",
             "Info": "Deploy: Boost a random unit in your deck by 3, then Boost self by that unit's Boost.",
             "Flavor": ""
-        },
-        "70119": {
+	},
+	"70119": {
             "Name": "Thaw",
             "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this round.",
             "Flavor": "它带来了春天，也带来了战争。"
@@ -3300,56 +3300,6 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and Boost self by its Power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
-        },
-        "70082": {
-            "Name": "Olgierd Immortal",
-            "Info": "On Round start, resurrect it and Weaken it by half.",
-            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
-        },
-        "70083": {
-            "Name": "Hatching",
-            "Info": "Spawn 3 arachas drones on a row, spawn one more if you have a hatching in the graveyard",
-            "Flavor": ""
-        },
-        "70084": {
-            "Name": "Elder Leetch",
-            "Info": "When you play a relict, strengthen self by 1. Every 2 turns on turn end, if it doesn’t destroy itself, Halve this unit's base power, then Spawn a copy with the same base power on this row",
-            "Flavor": ""
-        },
-        "70085": {
-            "Name": "Velen Glow-Worm",
-            "Info": "Deploy: apply Impenetrable Fog to a row and move any foglets in your graveyard to your deck.",
-            "Flavor": "Do not follow the lights!"
-        },
-        "70086": {
-            "Name": "Elder Leetch",
-            "Info": "When you play a relict, strengthen self by 1. Every 2 turns on turn end, if it doesn’t destroy itself, Halve this unit's base power, then Spawn a copy with the same base power on this row",
-            "Flavor": ""
-        },
-        "70087": {
-            "Name": "Philippa: Mistress of the Lodge",
-            "Info": "xxxx",
-            "Flavor": ""
-        },
-        "70088": {
-            "Name": "Tuirseach Invader",
-            "Info": "On turn end, damage all damaged enemies on the opposite row by 1. \n2 Armor.",
-            "Flavor": ""
-        },
-        "70089": {
-            "Name": "Temerian Besieger",
-            "Info": "Deploy: Lock a Unit, if it's an Ally, Boost it by 2.",
-            "Flavor": ""
-        },
-        "70090": {
-            "Name": "Voydanoi Shaman",
-            "Info": "Choose one: Play a bronze hazard from your deck and spawn and play a copy of it; or remove all hazards from the opponent’s board and boost self by 6 for each hazard removed",
-            "Flavor": ""
-        },
-        "70092": {
-            "Name": "Naglfar Deck Officer",
-            "Info": "Deploy: Resurect a Bronze Hazard and Banish it.",
-            "Flavor": ""
         }
     }
 }

@@ -486,7 +486,7 @@ namespace Cynthia.Card
         public const string DrummondWarmonger = "64011";
         public const string TuirseachSkirmisher = "64012";
         public const string RagingBerserker = "64013";
-        public const string DimunWhaler = "64014";
+        public const string AnCraiteWhaler = "64014";
         public const string AnCraiteArmorsmith = "64015";
         public const string TuirseachVeteran = "64016";
         public const string DimunLightLongship = "64017";
@@ -573,10 +573,10 @@ namespace Cynthia.Card
         public const string DrummondPillager = "70081";
         public const string OlgierdImmortal = "70082";
         public const string Hatching = "70083";
-        public const string ElderLeetch = "70084";
-        public const string VelenGlowWorm = "70085";
-        public const string ElderLeetchHalf = "70086";
-        public const string PhilippaMistressOfTheLodge = "70087";
+        public const string SelfEater = "70084";
+        public const string SheWhoKnows = "70085";
+        public const string SelfEaterHalf = "70086";
+        public const string GerhartofAelle = "70087";
         public const string TuirseachInvader = "70088";
         public const string TemerianBesieger = "70089";
         public const string VoydanoiShaman = "70090";

@@ -410,7 +410,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "不用外行人来教我！",
-                    Info = "展开： 对一个敌人的所有副本造成5点伤害。",
+                    Info = "对一个敌军单位的所有同名牌造成4点伤害。",
                     CardArtsId = "20023500",
                 }
             },
@@ -1201,7 +1201,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "诺维格瑞的黑帮四巨头之一——另外三个是西吉·卢文、卡罗·“砍刀”·凡瑞西和乞丐王。",
-                    Info = "展开： 削弱一个单位5分，或削弱两个单位3分。",
+                    Info = "对1个单位造成4点削弱。",
                     CardArtsId = "11221400",
                 }
             },
@@ -1403,7 +1403,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。",
-                    Info = "展开： 生成咬人的霜冻、暴雨或阿尔祖尔之雷",
+                    Info = "生成“刺骨冰霜”、“蔽日浓雾”或“阿尔祖落雷术”。",
                     CardArtsId = "11320800",
                 }
             },
@@ -2865,7 +2865,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Vampire},
                     Flavor = "没有谁知道暗影长者的真实年龄，连高阶吸血鬼们也不知情。他们唯一清楚的是，无论如何也不能违背他的意愿。",
-                    Info = "部署： 消耗一个单位一半的能量并锁定它。",
+                    Info = "汲食1个单位一半的战力。",
                     CardArtsId = "20005500",
                 }
             },
@@ -2945,7 +2945,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Mage,Categorie.Officer},
                     Flavor = "宠儿偏偏堕落成逆子。",
-                    Info = "部署：将两个敌人移到对面行，并对其施放咬人的霜冻。",
+                    Info = "将1个敌军单位移至对方同排，并在此排降下“刺骨冰霜”。",
                     CardArtsId = "13210400",
                 }
             },
@@ -3005,7 +3005,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。",
-                    Info = "吞噬1个战力不高于8点的单位，将其战力传化为自身增益。",
+                    Info = "吞噬1个战力不高于7点的单位，将其战力传化为自身增益。",
                     CardArtsId = "13210700",
                 }
             },
@@ -3368,7 +3368,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
                     Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
-                    Info = "对敌方单位造成7点伤害，如果被摧毁，则在该行生成咬人的冰霜。",
+                    Info = "对敌方单位造成7的伤害，如果被摧毁，在该行产生咬人的霜冻。",
                     CardArtsId = "13221400",
                 }
             },
@@ -3468,7 +3468,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Necrophage},
                     Flavor = "丑东西我见得多了，海鳝、七鳃鳗、水滴鱼……但还没见过这么丑的！",
-                    Info = "展开： 生成无坚不摧的雾、晴空万里或阿拉查斯毒液。",
+                    Info = "生成“倾盆大雨”、“晴空”或“蟹蜘蛛毒液”。",
                     CardArtsId = "13220300",
                 }
             },
@@ -3628,7 +3628,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "鹿首魔长得有点像鹿，一只又大又邪恶的鹿。",
-                    Info = "展开： 如果它是这一排唯一的冲突物，则对自己的伤害为2。",
+                    Info = "没有特殊技能。",
                     CardArtsId = "11240500",
                 }
             },
@@ -4919,7 +4919,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”",
-                    Info = "对一个敌人造成7点伤害。（重复一次。",
+                    Info = "对1个敌军单位造成9点伤害，再对1个敌军单位造成9点伤害。",
                     CardArtsId = "16310100",
                 }
             },
@@ -5342,7 +5342,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "我不会拿自己的性命去碰运气。我会拿上一把长剑，厚厚地涂上一层吊死鬼之毒。",
-                    Info = "选择一个：对一个敌人和所有与之同类别的单位造成3点伤害；或者从你的牌组中随机打出一个青铜单位。",
+                    Info = "择一：对1个敌军单位以及所有与它同类型的单位造成3点伤害；或摧毁1个铜色/银色“中立”单位。",
                     CardArtsId = "20154000",
                 }
             },
@@ -6125,7 +6125,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cursed},
                     Flavor = "她的诅咒被解除了……但是喜欢吃生肉的习惯却没改掉。",
-                    Info = "部署： 生成一个青铜色的北境诅咒单位。",
+                    Info = "创造1个铜色/银色“诅咒生物”单位。",
                     CardArtsId = "20006300",
                 }
             },
@@ -6307,7 +6307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。",
-                    Info = "展开： 对一个敌方单位造成2点伤害，如果其被摧毁，则重复该能力。游戏开始时，在你的卡组中加入一个蓝条突击队。",
+                    Info = "摧毁1个背面向上的伏击敌军单位。",
                     CardArtsId = "20177700",
                 }
             },
@@ -7172,7 +7172,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Aedirn},
                     Flavor = "呃，这些家伙真让人头疼。",
-                    Info = "部署： 对一个敌人造成4的伤害，如果它幸存下来，对另一个敌人造成2的伤害。",
+                    Info = "对1个敌军造成4点伤害。",
                     CardArtsId = "20167500",
                 }
             },
@@ -8079,7 +8079,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。",
-                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。\n 盔甲2.",
+                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。",
                     CardArtsId = "14221300",
                 }
             },
@@ -8140,7 +8140,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dryad},
                     Flavor = "莫娜？不，不。我是布蕾恩。布洛克莱昂的女儿。",
-                    Info = "展开： 如果该单位被摧毁，则将你手中、牌面和棋盘上的所有其他干尸和伏击单位加强1倍。",
+                    Info = "对1个敌军单位造成等同于自身战力的伤害。若目标被摧毁，则使位于手牌、牌组和己方半场除自身外所有“树精”和 伏击单位获得1点增益。",
                     CardArtsId = "14220900",
                 }
             },
@@ -8161,7 +8161,7 @@ namespace Cynthia.Card
                     IsConcealCard = true,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Officer,Categorie.Ambush},
                     Flavor = "我很乐意站在你面前，直视你的双眼然后干掉你……但你臭死了，人类。",
-                    Info = "伏击：对方放弃跟牌后翻开，使左右各2格内的单位获得3点增益。",
+                    Info = "伏击：对方放弃跟牌后翻开，使左右各2格内的单位获得2点增益。",
                     CardArtsId = "14220400",
                 }
             },
@@ -8683,7 +8683,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听好了，我们是天生的战士——拳拳到肉，绝不留情！",
-                    Info = "坚韧。\n 盔甲2.",
+                    Info = "坚韧。",
                     CardArtsId = "14230600",
                 }
             },
@@ -9768,7 +9768,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanDimun},
                     Flavor = "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。",
-                    Info = "展开： 将两个青铜单位从你的墓地返回你的卡组。",
+                    Info = "将1个铜色单位从己方墓场返回至牌组。",
                     CardArtsId = "20014600",
                 }
             },
@@ -9888,7 +9888,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanTuirseach},
                     Flavor = "你能射中两百步外的移动靶吗？我能，而且是在暴风雨中。",
-                    Info = "展开： 对3个单位造成1次伤害，每当它摧毁一个单位时，对相邻单位造成1次伤害。",
+                    Info = "对3个单位各造成1点伤害。",
                     CardArtsId = "15231500",
                 }
             },
@@ -9948,7 +9948,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Soldier,Categorie.Cultist},
                     Flavor = "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。",
-                    Info = "每当这个单位受到伤害或被削弱时，转化为一只狂暴熊。",
+                    Info = "受伤或被削弱时变为“狂暴的熊”。",
                     CardArtsId = "15230100",
                 }
             },
@@ -9957,7 +9957,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="64014",
-                    Name="迪蒙捕鲸者",
+                    Name="奎特家族捕鲸鱼叉手",
                     Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
@@ -10068,7 +10068,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDimun,Categorie.Machine},
                     Flavor = "迪门家族的战船轻盈迅捷，最适合追逐缓慢笨重的商船。",
-                    Info = "连续5次对同一个单位造成1点伤害。",
+                    Info = "连续4次对同一个单位造成1点伤害。",
                     CardArtsId = "20010500",
                 }
             },
@@ -10108,7 +10108,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanTuirseach},
                     Flavor = "别怀疑我们的狩猎本领，只恨史派克鲁格的猎物太少……",
-                    Info = "展开： 造成4点伤害，如果目标已经受到伤害，则造成6点伤害",
+                    Info = "造成5点伤害。",
                     CardArtsId = "15230400",
                 }
             },
@@ -10572,7 +10572,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.ClanTuirseach},
                     Flavor = "埃斯特来到辛特拉，本想帮助克拉茨·奎特参加帕薇塔公主的选亲宴，结果自己却赢走了王后的芳心。",
-                    Info = "展开： 生成一个青铜族的图尔萨奇单位。",
+                    Info = "生成1个铜色“图尔赛克家族”的“士兵”单位。",
                     CardArtsId = "20006000",
                 }
             },
@@ -10781,7 +10781,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "展开： 从你的卡组中召唤一个这个单位的副本到它的右边。",
+                    Info = "从牌库召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。",
                     CardArtsId = "d14110000",
                 }
             },
@@ -10801,7 +10801,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "展开： 每当一个敌人受到伤害时，使自己受到2点伤害。",
+                    Info = "生成1张“蝠翼魔”并将其置于你的牌库顶。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
                     CardArtsId = "d16770000",
                 }
             },
@@ -10861,7 +10861,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
                     Flavor = "",
-                    Info = "展开： 在这个单位所在的行和对方的行上产生暴雨。",
+                    Info = "从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
                 }
             },
@@ -11081,7 +11081,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed,Categorie.Aedirn},
                     Flavor = "",
-                    Info = "当一个相邻的被诅咒的单位被摧毁或转化时，在这一行产生一个幽灵，然后对自己造成2的伤害。",
+                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，并受到1点伤害。",
                     CardArtsId = "d20010000",
                 }
             },
@@ -11931,7 +11931,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "每当你对敌方一排施加暴雨时，从卡组中召唤或在随机一排复活。",
+                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排",
                     CardArtsId = "d17790000",
                 }
             },
@@ -12501,7 +12501,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70079",//An Craite Warlord
+                "70079",//一个木箱战神
                 new GwentCard()
                 {
                     CardId ="70079",
@@ -12517,7 +12517,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "尼尔弗加德渔民的恐怖经历",
                     Info = "位于手牌、牌组和己方半场时，己方每丢弃1张牌便获得1点增益。",
-                    CardArtsId = "d22400000",
+                    CardArtsId = "d22430000",
                 }
             },
                         {
@@ -12542,7 +12542,7 @@ namespace Cynthia.Card
                 }
             },
                         {
-                "70081",//DrummondPillager
+                "70081",//德拉蒙家族掠夺者
                 new GwentCard()
                 {
                     CardId ="70081",
@@ -12558,11 +12558,11 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
-                    CardArtsId = "d22430000"
+                    CardArtsId = "d22400000"
                 }
             },
             {
-                "70082",//Olgierd: Immortal
+                "70082",//奥尔吉耶德： 不朽的
                 new GwentCard()
                 {
                     CardId ="70082",
@@ -12577,12 +12577,12 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "All of my dreams have come true. Unfortunately",
-                    Info = "在回合开始时，复活它并将其削弱一半。",
-                    CardArtsId = "d17850000",
+                    Info = "在回合开始时恢复自我，并使其力量减半。",
+                    CardArtsId = "XXXX",
                 }
             },
             {
-                "70083",//hatching
+                "70083",//孵化
                 new GwentCard()
                 {
                     CardId ="70083",
@@ -12596,17 +12596,17 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
-                    Flavor = "",
-                    Info ="连续产生3个阿拉查斯无人机，如果你的墓地里有一个孵化物，则再产生一个。",
-                    CardArtsId = "d19550000",
+                    Flavor = "xxxx",
+                    Info ="连续生产3个阿拉查斯无人机，如果墓地里有一个孵化物，则再生产一个。",
+                    CardArtsId = "XXXXX",
                 }
             },
             {
-                "70084",//ElderLeetch
+                "70084",//SelfEater
                 new GwentCard()
                 {
                     CardId ="70084",
-                    Name="莱奇长老",
+                    Name="自食其力",
                     Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
@@ -12617,17 +12617,17 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
-                    Flavor = "",
-                    Info = "每2个回合结束时，如果它没有自我毁灭，则将这个单位的基本力量减半，然后在这一行生成一个基本力量相同的副本。",
-                    CardArtsId = "d18310000",
+                    Flavor = "xxxxx",
+                    Info = "xxxxx",
+                    CardArtsId = "xxxxxxxx",
                 }
             },
             {
-                "70085",//Velen Glow-Worm
+                "70085",//林妖
                 new GwentCard()
                 {
                     CardId ="70085",
-                    Name="维伦萤火虫",
+                    Name="她知道的人",
                     Strength=3,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
@@ -12637,17 +12637,17 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
-                    Flavor = "",
-                    Info = "部署：对一排施放 无坚不摧的雾，并将你墓地中的任何 雾 移至你的牌组",
-                    CardArtsId = "d22500000",
+                    Flavor = "xxxxxxxxxx",
+                    Info = "xxxxx",
+                    CardArtsId = "xxxxx",
                 }
             },
             {
-                "70086",//ElderLeetchHalf
+                "70086",//SelfEaterHalf
                 new GwentCard()
                 {
                     CardId ="70086",
-                    Name="莱奇长老",
+                    Name="自食其力的一半",
                     Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
@@ -12658,17 +12658,17 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Relict},
-                    Flavor = "",
-                    Info = "每2个回合结束时，如果它没有自我毁灭，则将这个单位的基本力量减半，然后在这一行生成一个基本力量相同的副本。",
-                    CardArtsId = "d18310000",
+                    Flavor = "xxxxx",
+                    Info = "xxxxx",
+                    CardArtsId = "xxxxxxxx",
                 }
             },
             {
-                "70087",//Philippa: Lodge Mistress
+                "70087",//菲丽芭·艾哈特
                 new GwentCard()
                 {
                     CardId ="70087",
-                    Name="菲利帕：小屋的女主人",
+                    Name="艾勒的格哈特",
                     Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
@@ -12678,9 +12678,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
-                    Flavor = "",
-                    Info = "展开： 从你的牌组中打出一个青铜或白银法师；或创造一个青铜法术。",
-                    CardArtsId = "d22410000",
+                    Flavor = "xxxx",
+                    Info = "xxxxxxx",
+                    CardArtsId = "xxxxxx",
                 }
             },
             {
@@ -12698,9 +12698,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanTuirseach},
-                    Flavor = "",
-                    Info = "在回合结束时，对对面行的所有受损敌人造成1的伤害。\n Armor.2.",
-                    CardArtsId = "d13770000",
+                    Flavor = "xxxxxx",
+                    Info = "xxxxxxxx",
+                    CardArtsId = "xxxxxxx",
                 }
             },
             {
@@ -12708,7 +12708,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70089",
-                    Name="特梅里安-贝西格",
+                    Name="  特梅里安-贝西格",
                     Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
@@ -12718,9 +12718,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
-                    Flavor = "",
-                    Info = "部署： 锁定一个单位，如果它是盟友，则提升其2。",
-                    CardArtsId = "d19810000",
+                    Flavor = "xxxxxx",
+                    Info = "xxxxxxxxxx",
+                    CardArtsId = "xxxxxx",
                 }
             },
             {
@@ -12738,9 +12738,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vodyanoi},
-                    Flavor = "",
-                    Info = "选择一个： 从你的牌组中打出一个青铜危险，并生成和打出它的一个副本；或者从对手的棋盘上移走所有危险，每移走一个危险就使自己增加6。",
-                    CardArtsId = "c10001400",
+                    Flavor = "xxxxxx",
+                    Info = "xxxxxxxxxx",
+                    CardArtsId = "xxxxxx",
                 }
             },
             {
@@ -12758,9 +12758,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Mage,Categorie.Officer},
-                    Flavor = "",
-                    Info = "部署： 恢复一个青铜危险并放逐它。",
-                    CardArtsId = "d21930000",
+                    Flavor = "xxxxx",
+                    Info = "xxxxxxxx",
+                    CardArtsId = "xxxxx",
                 }
             }
         };

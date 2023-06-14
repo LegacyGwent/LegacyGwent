@@ -4,10 +4,10 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70085")]//维伦萤火虫
-    public class VelenGlowWorm : CardEffect
+    [CardEffectId("70085")]//南尼克
+    public class SheWhoKnows : CardEffect
     {//将墓场3张铜色/银色单位牌放回牌组。
-        public VelenGlowWorm(GameCard card) : base(card) { }
+        public SheWhoKnows(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //参见issue#22，这里使用showcardmove
