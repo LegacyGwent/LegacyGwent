@@ -303,7 +303,12 @@ Dun Banners; 4 > 5
    Braenn: change to strength the dryads instead of boost
    Sharpshooter: 4 > 5
 
-4. Skellige
+5. Skellige
+- Lore fixes
+   Swapped the arts for Drummond Pillager & An Craite Warlord
+   Tuirseach tag added to Sukrus
+   Cultist and Cursed tags given to Hammond
+   Drummond tag given to Knut
 - Discard
    Allow to res doomed discarded units
    Discard mechanic is fixed: now cards discarded from hand or Iris Companions will count as discarded
@@ -323,7 +328,7 @@ Dun Banners; 4 > 5
 - Rain
    make Sirens summon from deck
 
-5. Nilfgaard
+6. Nilfgaard
 - Spies
    make Joachim a soldier
 - Cadaverine: (second ability) Play a random bronze unit from the deck
