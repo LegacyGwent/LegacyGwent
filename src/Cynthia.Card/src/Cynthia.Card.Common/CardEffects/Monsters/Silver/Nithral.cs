@@ -18,8 +18,10 @@ namespace Cynthia.Card
             }
             var row = target.Status.CardRow;
             await target.Effect.Damage(7, Card);
-            await Game.GameRowEffect[target.PlayerIndex][row.MyRowToIndex()].SetStatus<BitingFrostStatus>();
-
+            if (target.IsDead)
+            {
+                await Game.GameRowEffect[target.PlayerIndex][row.MyRowToIndex()].SetStatus<BitingFrostStatus>();
+            }
             return 0;
 
         }
