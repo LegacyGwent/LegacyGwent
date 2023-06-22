@@ -3322,13 +3322,13 @@
             "Flavor": "Do not follow the lights!"
         },
         "70086": {
-            "Name": "Elder Leetch",
+            "Name": "Elder Leetch Half",
             "Info": "When you play a relict, strengthen self by 1. Every 2 turns on turn end, if it doesn’t destroy itself, Halve this unit's base power, then Spawn a copy with the same base power on this row",
             "Flavor": ""
         },
         "70087": {
             "Name": "Philippa: Mistress of the Lodge",
-            "Info": "xxxx",
+            "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
             "Flavor": ""
         },
         "70088": {
