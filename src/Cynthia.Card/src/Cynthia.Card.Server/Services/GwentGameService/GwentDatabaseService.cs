@@ -74,7 +74,7 @@ namespace Cynthia.Card.Server
             }
             var decks = new List<DeckModel>();
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks });
+            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = 3400 });
             return true;
         }
         public UserInfo Login(string username, string password)
