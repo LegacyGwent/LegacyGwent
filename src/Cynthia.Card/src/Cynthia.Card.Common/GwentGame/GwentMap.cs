@@ -10513,6 +10513,26 @@ namespace Cynthia.Card
                     CardArtsId = "15110100",
                 }
             },
+                        {
+                "72043",//布兰王
+                new GwentCard()
+                {
+                    CardId ="72043",
+                    Name="席安娜：黄粱一梦",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Officer},
+                    Flavor = "席安娜的命运不像她的名字一样美丽，也不像她高贵出身一样顺利。一切都因为她出生在错误的时刻。",
+                    Info = "放逐场上所有战力最高的受增益单位。",
+                    CardArtsId = "******",
+                }
+            },
         };
         public static IEnumerable<GwentCard> DeckChange(IEnumerable<string> deck)
         {

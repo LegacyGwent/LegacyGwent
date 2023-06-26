@@ -518,5 +518,6 @@ namespace Cynthia.Card
         public const string CrachAnCraite = "61002";
         public const string EistTuirseach = "61003";
         public const string BranTuirseach = "61004";
+        public const string SyannagoldenmilleTDream = "72043";
     }
 }
