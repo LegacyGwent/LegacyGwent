@@ -10,16 +10,16 @@ namespace Cynthia.Card
       public SyannagoldenmilleTDream(GameCard card) : base(card) { }
       public override async Task<int> CardUseEffect()
           {
-             var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).where(x =>x.Status.CardRow.IsOnPlace()).whereAllHighest().ToList();
+             var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).Where(x =>x.Status.CardRow.IsOnPlace()).WhereAllHighest().ToList();
              foreach (var card in cards)
              {
-               if (card.status.Healthstatus > 0 )
+               if (card.Status.Healthstatus > 0 )
                 {
                   await card.Effect.Banish();
                 }
                else
                 {
-                  card.status.IsDoomed = true;
+                  card.Status.IsDoomed = true;
                 }
              }
             return 0;
