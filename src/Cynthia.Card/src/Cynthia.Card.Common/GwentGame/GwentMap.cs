@@ -12567,7 +12567,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70082",
                     Name="席安娜：黄粱一梦",
-                    Strength=7,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
