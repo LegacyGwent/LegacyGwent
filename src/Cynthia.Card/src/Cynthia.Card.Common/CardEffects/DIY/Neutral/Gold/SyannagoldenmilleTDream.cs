@@ -6,23 +6,21 @@ namespace Cynthia.Card
 {
      [CardEffectId("70082")]//席安娜:黄粱一梦
      public class SyannagoldenmilleTDream : CardEffect
-     {//使场上战力最高的牌获得“佚亡”效果。若其已被增益，则使其直接被放逐。
+     {//使所有最强的单位获得“佚亡”，然后放逐其中具有增益的单位。
           public SyannagoldenmilleTDream(GameCard card) : base(card) { }
-          public override async Task<int> CardUseEffect()
+          public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
           {
                var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).Where(x =>x.Status.CardRow.IsOnPlace()).WhereAllHighest().ToList();
                foreach (var card in cards)
                {
-                    if (Card.Status.HealthStatus > 0 )
+                    card.status.IsDoomed = true;
+                    if (card.Status.HealthStatus > 0 )
                     {
-                         await card.Effect.Banish();
+                         await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
                     }
-                    else
-                    {
-                         card.Status.IsDoomed = true;
-                    }
-               }
                return 0;
+               }
+              return 0; 
           }
      }
 }
