@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
      [CardEffectId("70082")]//席安娜:黄粱一梦
      public class SyannagoldenmilleTDream : CardEffect
-     {//使所有最强的单位获得“佚亡”，然后放逐其中具有增益的单位。
+     {//使所有最强的单位获得“佚亡”，然后摧毁其中具有增益的单位。
           public SyannagoldenmilleTDream(GameCard card) : base(card) { }
           public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
           {
