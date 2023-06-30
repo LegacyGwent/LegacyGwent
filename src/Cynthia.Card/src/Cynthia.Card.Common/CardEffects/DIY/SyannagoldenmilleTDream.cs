@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("72043")]//席安娜，“黄粱一梦”
+    [CardEffectId("72043")]//席安娜：黄粱一梦
     public class SyannagoldenmilleTDream : CardEffect
     {//摧毁场上战力最高的牌。若其已被增益，则使其被放逐。
         public SyannagoldenmilleTDream(GameCard card) : base(card) { }
