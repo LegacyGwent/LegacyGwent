@@ -13,7 +13,7 @@ namespace Cynthia.Card
              var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).Where(x =>x.Status.CardRow.IsOnPlace()).WhereAllHighest().ToList();
              foreach (var card in cards)
              {
-               if (card.Status.Healthstatus > 0 )
+               if (Card.Status.HealthStatus > 0 )
                 {
                   await card.Effect.Banish();
                 }
