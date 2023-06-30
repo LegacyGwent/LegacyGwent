@@ -12570,7 +12570,7 @@ namespace Cynthia.Card
                     Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
-                    CardUseInfo = CardUseInfo.Anyplace,
+                    CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
