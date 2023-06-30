@@ -15,8 +15,7 @@ namespace Cynthia.Card
              {
                if (card.status.Healthstatus > 0 )
                 {
-                  card.status.IsDoomed = true;
-                  await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
+                  await card.Effect.Banish();
                 }
                else
                 {
