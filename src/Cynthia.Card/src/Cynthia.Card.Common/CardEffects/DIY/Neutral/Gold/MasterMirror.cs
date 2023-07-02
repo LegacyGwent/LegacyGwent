@@ -13,7 +13,7 @@ namespace Cynthia.Card
                var cards = Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).Where(x =>x.Status.CardRow.IsOnPlace()).WhereAllHighest().ToList();
                foreach (var card in cards)
                {
-                    card.status.IsDoomed = true;
+                    card.Status.IsDoomed = true;
                     if (card.Status.HealthStatus > 0 )
                     {
                          await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
