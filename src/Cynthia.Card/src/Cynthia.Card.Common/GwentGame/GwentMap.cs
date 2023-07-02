@@ -12562,11 +12562,11 @@ namespace Cynthia.Card
                 }
             },
                           {
-                "70082",//席安娜：黄粱一梦
+                "70082",//镜子大师
                 new GwentCard()
                 {
                     CardId ="70082",
-                    Name="席安娜：黄粱一梦",
+                    Name="镜子大师",
                     Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
@@ -12575,10 +12575,10 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Officer},
-                    Flavor = "席安娜的命运不像她的名字一样美丽，也不像她的出身一样高贵。一切都因为她出生在错误的时刻。",
+                    Categories = new Categorie[]{ Categorie.Relict },
+                    Flavor = "……有些事情即将结束，有些事情却将开始。",
                     Info = "使所有最强的单位获得“佚亡”，然后摧毁其中具有增益的单位。",
-                    CardArtsId = "c10001500",
+                    CardArtsId = "d22290000",
                 }
             },
         };
