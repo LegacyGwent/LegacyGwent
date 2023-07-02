@@ -3076,6 +3076,11 @@
             "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         },
+	 "70082": {
+            "Name": "Master Mirror",
+            "Info": "Make all the card with the highest power on the field get the " doomed " tag. If they are boosted, let them be banished directly.",
+            "Flavor": "...... Some things are coming to an end, and some things are going to begin."
+        },
         "70091": {
             "Name": "Magic Lamp",
             "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.\nWhile this card is in your graveyard, The Last Wish looks at 1 extra card.",
