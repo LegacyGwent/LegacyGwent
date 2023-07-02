@@ -3295,11 +3295,6 @@
         "Name": "Drummondzki Pogromca",
         "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
         "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
-    },
-    "70082": {
-        "Name": "Główne lustro",
-        "Info": "Zrób wszystkie karty z największą mocą na polu uzyskać znacznik Zgłaszany na Zgładę. Jeśli zostaną wzmocnione, niech zostaną wygnani bezpośrednio.",
-        "Flavor": "... Niektóre rzeczy dopiero się skończyły, a inne dopiero się zaczęły."
-    }  
+    }
   }
 }
