@@ -18,9 +18,8 @@ namespace Cynthia.Card
                     {
                          await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
                     }
-               return 0;
                }
-              return 0; 
+               return 0; 
           }
      }
 }
