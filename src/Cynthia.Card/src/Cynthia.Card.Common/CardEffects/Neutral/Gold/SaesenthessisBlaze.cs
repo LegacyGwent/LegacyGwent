@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("12006")]//萨琪亚萨司：龙焰
     public class SaesenthessisBlaze : CardEffect
-    {//放逐 所有手牌，抽同等数量的牌。
+    {//放逐所有手牌，抽同等数量的牌。
         public SaesenthessisBlaze(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
