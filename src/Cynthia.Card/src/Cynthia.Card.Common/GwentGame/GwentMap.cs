@@ -12560,27 +12560,7 @@ namespace Cynthia.Card
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "d22400000",
                 }
-            },
-                          {
-                "70082",//镜子大师
-                new GwentCard()
-                {
-                    CardId ="70082",
-                    Name="镜子大师",
-                    Strength=3,
-                    Group=Group.Gold,
-                    Faction = Faction.Neutral,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = true,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Relict },
-                    Flavor = "……有些事情即将结束，有些事情却将开始。",
-                    Info = "使所有最强的单位获得“佚亡”，然后摧毁其中具有增益的单位。",
-                    CardArtsId = "d22290000",
-                }
-            },
+            }
         };
     }
 }
