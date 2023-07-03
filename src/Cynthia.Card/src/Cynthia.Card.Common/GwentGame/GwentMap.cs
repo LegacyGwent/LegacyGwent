@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 64);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 65);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -267,7 +267,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "丢弃所有手牌，抽同等数量的牌。",
+                    Info = "放逐所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
@@ -12560,7 +12560,7 @@ namespace Cynthia.Card
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "d22400000",
                 }
-            },
+            }
         };
     }
 }
