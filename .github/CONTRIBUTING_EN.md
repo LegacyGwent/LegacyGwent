@@ -73,6 +73,8 @@ After create your own branch, you can send a Pull Request:
 
 ### Running  Server
 
+- Method 1 Running locally
+
 In the terminal, go to the project folder
 
 ```bash
@@ -97,6 +99,19 @@ At the same time, open another terminal，run the Server side：
 
 ```bash
 dotnet watch --project src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj run
+```
+- Method 2 Running in docker
+
+In the terminal, go to the project folder
+
+```bash
+cd LegacyGwent
+```
+
+Running the Docker container
+
+```bash
+docker-compose up -d
 ```
 
 That's it!
