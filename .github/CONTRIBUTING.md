@@ -76,6 +76,7 @@ git push -u origin <新分支名称>
 ---
 
 ### 编译和运行服务端
+- 方法一：本地运行
 
 在terminal中，cd 到`LegacyGwent/`下
 
@@ -101,6 +102,19 @@ mongod命令执行后，如果没有任何反应和输出，这是正常的！�
 
 ```bash
 dotnet watch --project src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj run
+```
+- 方法二：使用docker运行服务器
+
+在terminal中，cd 到`LegacyGwent/`下
+
+```bash
+cd LegacyGwent
+```
+
+运行服务器容器
+
+```bash
+docker-compose up -d
 ```
 
 ><font color=red>__注意！__</font>
