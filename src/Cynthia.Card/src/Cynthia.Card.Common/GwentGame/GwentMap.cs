@@ -267,7 +267,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "丢弃所有手牌，抽同等数量的牌。",
+                    Info = "放逐所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
@@ -12560,6 +12560,7 @@ namespace Cynthia.Card
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "d22400000",
                 }
+<<<<<<< HEAD
             },
                         {
                 "70082",//弑亲者恩约夫
@@ -12580,6 +12581,8 @@ namespace Cynthia.Card
                     Info = "择一：丢弃手牌中重复的牌，直至没有重复的牌，抽等量的牌；丢弃手牌中战斗力高于自身的牌，直至没有战力高于自身的牌，抽等量的牌。",
                     CardArtsId = "d15060000",
                 }
+=======
+>>>>>>> parent of 94c1437a (Revert "Merge branch 'diy' into hdiy")
             }
         };
     }

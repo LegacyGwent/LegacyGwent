@@ -14,7 +14,7 @@ namespace Cynthia.Card
             var count = cards.Count();
             foreach(var card in cards)
             {
-                await card.Effect.Discard(Card);
+                await card.Effect.Banish();
             }
             await Game.PlayerDrawCard(PlayerIndex, count);
 
