@@ -3303,7 +3303,7 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards.; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
+            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
             "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
         }
     }
