@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 64);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 65);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12561,6 +12561,26 @@ namespace Cynthia.Card
                     CardArtsId = "d22400000",
                 }
             },
+                        {
+                "70082",//弑亲者恩约夫
+                new GwentCard()
+                {
+                    CardId ="70082",
+                    Name="弑亲者恩约夫",
+                    Strength = 8,
+                    Group = Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "择一：丢弃手牌中重复的牌，直至没有重复的牌，抽等量的牌；丢弃手牌中战斗力高于自身的牌，直至没有战力高于自身的牌，抽等量的牌。",
+                    CardArtsId = "d15060000",
+                }
+            }
         };
     }
 }
