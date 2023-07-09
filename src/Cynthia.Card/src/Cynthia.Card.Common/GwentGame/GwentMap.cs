@@ -12560,6 +12560,46 @@ namespace Cynthia.Card
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "d22400000",
                 }
+            },
+                        {
+                "70082",//弑亲者恩约夫
+                new GwentCard()
+                {
+                    CardId ="70082",
+                    Name="弑亲者恩约夫",
+                    Strength = 8,
+                    Group = Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "择一：丢弃手牌中重复的牌，直至没有重复的牌，抽等量的牌；丢弃手牌中战斗力高于自身的牌，直至没有战力高于自身的牌，抽等量的牌。",
+                    CardArtsId = "d15060000",
+                }
+            },
+            {
+                "70083",//红骑士
+                new GwentCard()
+                {
+                    CardId ="70083",
+                    Name="红骑士",
+                    Strength = 3,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.WildHunt },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张它的同名牌。",
+                    CardArtsId = "d21920000",
+                }
             }
         };
     }
