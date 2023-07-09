@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("24030")]//红骑士
+    [CardEffectId("70083")]//红骑士
     public class RedRider : CardEffect, IHandlesEvent<AfterCardHurt>
     {//每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张它的同名牌。
         public RedRider(GameCard card) : base(card) { }
