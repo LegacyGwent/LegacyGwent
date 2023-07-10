@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 65);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 66);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1307,11 +1307,11 @@ namespace Cynthia.Card
                 }
             },
             {
-                "13015",//欧吉尔德·伊佛瑞克
+                "70084",//欧吉尔德·伊佛瑞克
                 new GwentCard()
                 {
-                    CardId ="13015",
-                    Name="欧吉尔德·伊佛瑞克",
+                    CardId ="70084",
+                    Name="奥尔吉耶德： 不朽的",
                     Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
@@ -1321,9 +1321,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
-                    Flavor = "至少你知道我的头不好砍了。",
-                    Info = "遗愿：复活至原位。",
-                    CardArtsId = "11220700",
+                    Flavor = "All of my dreams have come true. Unfortunately",
+                    Info = "在回合开始时，复活它并将其削弱一半。",
+                    CardArtsId = "d17850000",
                 }
             },
             {
@@ -8079,7 +8079,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。",
-                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。",
+                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。\n 盔甲2.",
                     CardArtsId = "14221300",
                 }
             },
@@ -8371,7 +8371,7 @@ namespace Cynthia.Card
                 {
                     CardId ="54001",
                     Name="维里赫德旅工兵",
-                    Strength=11,
+                    Strength=12,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -8683,7 +8683,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听好了，我们是天生的战士——拳拳到肉，绝不留情！",
-                    Info = "坚韧。",
+                    Info = "坚韧。\n 盔甲2.",
                     CardArtsId = "14230600",
                 }
             },
@@ -10398,7 +10398,7 @@ namespace Cynthia.Card
                 {
                     CardId ="65002",
                     Name="狂暴的熊",
-                    Strength=12,
+                    Strength=14,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12541,7 +12541,7 @@ namespace Cynthia.Card
                     CardArtsId = "d16660000",
                 }
             },
-                        {
+            {
                 "70081",//德拉蒙家族掠夺者
                 new GwentCard()
                 {
@@ -12559,6 +12559,106 @@ namespace Cynthia.Card
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "d22400000",
+                }
+            },
+            {
+                "70082",//尼斯里拉
+                new GwentCard()
+                {
+                    CardId ="70082",
+                    Name="尼斯里拉",
+                    Strength=2,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
+                    Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
+                    Info = "对敌方单位造成7点伤害，如果被摧毁，则在该行生成咬人的冰霜。",
+                    CardArtsId = "13221400",
+                }
+            },
+            {
+                "70083",//Philippa: Lodge Mistress
+                new GwentCard()
+                {
+                    CardId ="70083",
+                    Name="菲利帕：小屋的女主人",
+                    Strength=3,
+                    Group=Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "",
+                    Info = "展开： 从你的牌组中打出一个青铜或白银法师；或创造一个青铜法术。",
+                    CardArtsId = "d22410000",
+                }
+            },
+            {
+                "13015",//Olgierd Von Everec
+                new GwentCard()
+                {
+                    CardId ="13015",
+                    Name="欧吉尔德·伊佛瑞克",
+                    Strength=9,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "至少你知道我的头不好砍了。",
+                    Info = "遗愿：复活至原位。",
+                    CardArtsId = "11220700",
+                }
+            },
+            {
+                "70085",//hatching
+                new GwentCard()
+                {
+                    CardId ="70085",
+                    Name="孵化",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
+                    Flavor = "",
+                    Info ="连续产生3个阿拉查斯无人机，如果你的墓地里有一个孵化物，则再产生一个。",
+                    CardArtsId = "d19550000",
+                }
+            },
+            {
+                "70086",//The Thing In The Swamp
+                new GwentCard()
+                {
+                    CardId ="70086",
+                    Name="沼泽中的怪兽",
+                    Strength=3,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "",
+                    Info = "部署：对一排施放 无坚不摧的雾，并将你墓地中的任何 雾 移至你的牌组",
+                    CardArtsId = "d22500000",
                 }
             }
         };

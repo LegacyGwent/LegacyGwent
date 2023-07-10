@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Kayran(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var targetCards = await Game.GetSelectPlaceCards(Card, filter: x => x.CardPoint() <= 7, selectMode: SelectModeType.AllRow);
+            var targetCards = await Game.GetSelectPlaceCards(Card, filter: x => x.CardPoint() <= 8, selectMode: SelectModeType.AllRow);
 
             if (!targetCards.TrySingle(out var target))
             {

@@ -571,5 +571,9 @@ namespace Cynthia.Card
         public const string AnCraiteWarlord = "70079";
         public const string KnutTheCallous = "70080";
         public const string DrummondPillager = "70081";
+        public const string TheApiarianPhantom = "70082";
+        public const string PhilippaLodgeMistress = "70083";
+        public const string OlgierdImmortal = "70084";
+        public const string Hatching = "70085";
     }
 }
