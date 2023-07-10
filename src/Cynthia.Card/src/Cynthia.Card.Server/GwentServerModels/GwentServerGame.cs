@@ -378,7 +378,7 @@ namespace Cynthia.Card.Server
                 IsPlayersLeader[playerIndex] = false;
             //如果是直接丢墓地,触发丢墓地方法
             if (cardInfo.CardLocation.RowPosition == RowPosition.MyCemetery)
-                await card.Effect.ToCemetery();
+                await card.Effect.Discard(card);
             else
             {   //如果是法术,使用,如果是单位,打出
                 if (cardInfo.CardLocation.RowPosition == RowPosition.SpecialPlace)

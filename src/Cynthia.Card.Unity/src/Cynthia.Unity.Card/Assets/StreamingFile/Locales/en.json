@@ -2998,12 +2998,12 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
             "Flavor": ""
         },
         "70046": {
             "Name": "Svalblod Fanatic",
-            "Info": "On round end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
+            "Info": "On turn end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
             "Flavor": ""
         },
         "70050": {
