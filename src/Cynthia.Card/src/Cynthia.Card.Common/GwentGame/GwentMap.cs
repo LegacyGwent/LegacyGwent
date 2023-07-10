@@ -12581,7 +12581,7 @@ namespace Cynthia.Card
                     CardArtsId = "d15060000",
                 }
             },
-            {
+                        {
                 "70083",//红骑士
                 new GwentCard()
                 {
