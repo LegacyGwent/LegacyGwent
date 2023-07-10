@@ -3300,6 +3300,16 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and Boost self by its Power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70082": {
+            "Name": "Arnjolf the Patricide",
+            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
+            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
+        },
+        "70083": {
+            "Name": "Red Rider",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Flavor": "当夜晚寒风骤降，浓雾悄然而至，大陆的居民就会从睡梦中惊醒，惊恐地将每一扇门窗拴死。因为他们知道，这是狂猎在附近徘徊的征兆。"
         }
     }
 }

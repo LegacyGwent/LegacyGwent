@@ -12562,6 +12562,45 @@ namespace Cynthia.Card
                 }
             },
             {
+                "70082",//弑亲者恩约夫
+                new GwentCard()
+                {
+                    CardId ="70082",
+                    Name="弑亲者恩约夫",
+                    Strength = 8,
+                    Group = Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "择一：丢弃手牌中重复的牌，直至没有重复的牌，抽等量的牌；丢弃手牌中战斗力高于自身的牌，直至没有战力高于自身的牌，抽等量的牌。",
+                    CardArtsId = "d15060000",
+                }
+            },
+            {
+                "70083",//红骑士
+                new GwentCard()
+                {
+                    CardId ="70083",
+                    Name="红骑士",
+                    Strength = 3,
+                    Group = Group.Copper,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.WildHunt },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张它的同名牌。",
+                    CardArtsId = "d21920000",
+                }
+            },
+            {
                 "70085",//尼斯里拉
                 new GwentCard()
                 {
@@ -12575,7 +12614,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
+                    Categories = new Categorie[]{ Categorie.WildHunt},
                     Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
                     Info = "对敌方单位造成7点伤害，如果被摧毁，则在该行生成咬人的冰霜。",
                     CardArtsId = "13221400",
@@ -12590,11 +12629,6 @@ namespace Cynthia.Card
                     Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "",
                     Info = "展开： 从你的牌组中打出一个青铜或白银法师；或创造一个青铜法术。",
@@ -12649,12 +12683,6 @@ namespace Cynthia.Card
                     Name="沼泽中的怪兽",
                     Strength=3,
                     Group=Group.Silver,
-                    Faction = Faction.Monsters,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
                     Info = "部署：对一排施放 无坚不摧的雾，并将你墓地中的任何 雾 移至你的牌组。",
