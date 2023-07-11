@@ -1311,7 +1311,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70084",
-                    Name="奥尔吉耶德： 不朽的",
+                    Name="欧吉尔德： 不朽",
                     Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
@@ -2865,7 +2865,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Vampire},
                     Flavor = "没有谁知道暗影长者的真实年龄，连高阶吸血鬼们也不知情。他们唯一清楚的是，无论如何也不能违背他的意愿。",
-                    Info = "部署： 消耗一个单位一半的能量并锁定它。",
+                    Info = "部署：汲食1个单位一半的战力并锁定它。",
                     CardArtsId = "20005500",
                 }
             },
@@ -2945,7 +2945,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Mage,Categorie.Officer},
                     Flavor = "宠儿偏偏堕落成逆子。",
-                    Info = "部署：将两个敌人移到对面行，并对其施放咬人的霜冻。",
+                    Info = "将2个敌军单位移至对方同排，并在此排降下“刺骨冰霜”。",
                     CardArtsId = "13210400",
                 }
             },
@@ -4919,7 +4919,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”",
-                    Info = "对1个敌军单位造成7点伤害，再对1个敌军单位造成9点伤害。",
+                    Info = "对一个敌军单位造成7点伤害。重复一次。",
                     CardArtsId = "16310100",
                 }
             },
@@ -6125,7 +6125,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cursed},
                     Flavor = "她的诅咒被解除了……但是喜欢吃生肉的习惯却没改掉。",
-                    Info = "部署： 生成一个青铜色的北境诅咒单位。",
+                    Info = "生成1个铜色北方“诅咒生物”单位",
                     CardArtsId = "20006300",
                 }
             },
@@ -7172,7 +7172,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Aedirn},
                     Flavor = "呃，这些家伙真让人头疼。",
-                    Info = "部署： 对一个敌人造成4的伤害，如果它幸存下来，对另一个敌人造成2的伤害。",
+                    Info = "部署：对一个敌军造成4点伤害，如果它存活，再对一个敌军造成2点伤害。",
                     CardArtsId = "20167500",
                 }
             },
@@ -8079,7 +8079,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。",
-                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。\n 盔甲2.",
+                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。\n 护甲2.",
                     CardArtsId = "14221300",
                 }
             },
@@ -8683,7 +8683,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听好了，我们是天生的战士——拳拳到肉，绝不留情！",
-                    Info = "坚韧。\n 盔甲2.",
+                    Info = "坚韧。\n护甲2.",
                     CardArtsId = "14230600",
                 }
             },
@@ -9768,7 +9768,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanDimun},
                     Flavor = "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。",
-                    Info = "展开： 将两个青铜单位从你的墓地返回你的卡组。",
+                    Info = "将2个铜色单位从己方墓场返回至牌组。",
                     CardArtsId = "20014600",
                 }
             },
@@ -9948,7 +9948,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Soldier,Categorie.Cultist},
                     Flavor = "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。",
-                    Info = "每当这个单位受到伤害或被削弱时，转化为一只狂暴熊。",
+                    Info = "受伤或被削弱时变为“狂暴的熊”。",
                     CardArtsId = "15230100",
                 }
             },
@@ -10572,7 +10572,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.ClanTuirseach},
                     Flavor = "埃斯特来到辛特拉，本想帮助克拉茨·奎特参加帕薇塔公主的选亲宴，结果自己却赢走了王后的芳心。",
-                    Info = "展开： 生成一个青铜族的图尔萨奇单位。",
+                    Info = "生成1个铜色“图尔赛克家族”单位。",
                     CardArtsId = "20006000",
                 }
             },
@@ -12605,7 +12605,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70085",
-                    Name="养蜂人魅影",
+                    Name="养蜂人：魅影",
                     Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
@@ -12616,7 +12616,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt},
                     Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
-                    Info = "对敌方单位造成7点伤害，如果被摧毁，则在该行生成咬人的冰霜。",
+                    Info = "对敌方单位造成7点伤害，如果其被摧毁，则在该行生成霜。",
                     CardArtsId = "13221400",
                 }
             },
@@ -12631,7 +12631,7 @@ namespace Cynthia.Card
                     Faction = Faction.NorthernRealms,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "",
-                    Info = "展开： 从你的牌组中打出一个青铜或白银法师；或创造一个青铜法术。",
+                    Info = "择一：从你的牌组中打出一个铜色或银色法师；或创造一个铜色法术。",
                     CardArtsId = "d22410000",
                 }
             },
@@ -12651,7 +12651,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "至少你知道我的头不好砍了。",
-                    Info = "遗愿：复活至原位。",
+                    Info = "在回合开始时，复活它并将其削弱一半。",
                     CardArtsId = "11220700",
                 }
             },
@@ -12685,7 +12685,7 @@ namespace Cynthia.Card
                     Group=Group.Silver,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "部署：对一排施放 无坚不摧的雾，并将你墓地中的任何 雾 移至你的牌组。",
+                    Info = "部署：对一排施放雾，然后将墓地中的所有小雾妖移至你的牌组。",
                     CardArtsId = "d22500000",
                 }
             }
