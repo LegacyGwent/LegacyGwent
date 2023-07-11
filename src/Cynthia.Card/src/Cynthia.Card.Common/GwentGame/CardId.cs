@@ -576,7 +576,6 @@ namespace Cynthia.Card
         public const string OlgierdImmortal = "70084";      
         public const string TheApiarianPhantom = "70085";
         public const string PhilippaLodgeMistress = "70086";
-        public const string Hatching = "70087";
         public const string TheThingInTheSwamp = "70088";
     }
 }

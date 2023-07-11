@@ -3311,14 +3311,9 @@
             "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
             "Flavor": ""
         },
-        "70087": {
-            "Name": "Hatching",
-            "Info": "Spawn 3 arachas drones on a row, spawn one more if you have a hatching in the graveyard",
-            "Flavor": ""
-        },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Deploy: apply Impenetrable Fog to the opposite row and move any foglets in your graveyard to your deck.",
+            "Info": "Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
             "Flavor": "Do not follow the lights!"
         }
     }

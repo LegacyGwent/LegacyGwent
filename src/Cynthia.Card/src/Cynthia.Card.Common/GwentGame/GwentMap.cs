@@ -12656,26 +12656,6 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70087",//hatching
-                new GwentCard()
-                {
-                    CardId ="70087",
-                    Name="孵化",
-                    Strength=0,
-                    Group=Group.Copper,
-                    Faction = Faction.Monsters,
-                    CardUseInfo = CardUseInfo.AnyPlace,
-                    CardType = CardType.Special,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
-                    Flavor = "",
-                    Info ="连续产生3个阿拉查斯无人机，如果你的墓地里有一个孵化物，则再产生一个。",
-                    CardArtsId = "d19550000",
-                }
-            },
-            {
                 "70088",//The Thing In The Swamp
                 new GwentCard()
                 {
@@ -12685,7 +12665,7 @@ namespace Cynthia.Card
                     Group=Group.Silver,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "部署：对一排施放雾，然后将墓地中的所有小雾妖移至你的牌组。",
+                    Info = "部署：将墓地中任意数量的小雾移动到你的卡组，并将不可穿透的雾应用到对面行。",
                     CardArtsId = "d22500000",
                 }
             }

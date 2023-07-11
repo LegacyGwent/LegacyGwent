@@ -3311,14 +3311,9 @@
             "Info": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
             "Flavor": ""
         },
-        "70087": {
-            "Name": "Wylęg",
-            "Info": "Stwórz 3 trutnie krabopająka pod rząd, stwórz jednego więcej, jeśli masz wylęg na cmentarzu. ",
-            "Flavor": ""
-        },
         "70088": {
             "Name": "Rzecz w bagnie",
-            "Info": "Rozmieszczenie: zastosuj Gęstą Mgłę w rzędzie i przenieś wszystkie mglaki z cmentarza do swojej talii.",
+            "Info": "Rozmieszczenie: przenieś wszystkie mgły z cmentarza do swojej talii i zastosuj Gęstą mgłę w przeciwległym rzędzie.",
             "Flavor": "Do not follow the lights!"
         }
     }

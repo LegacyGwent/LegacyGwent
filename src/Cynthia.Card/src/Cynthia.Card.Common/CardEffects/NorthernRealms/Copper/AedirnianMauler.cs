@@ -17,7 +17,6 @@ namespace Cynthia.Card
                 return 0;
             }
             await target.Effect.Damage(4, Card);
-            var TARGET = target;
             if (target.CardPoint() > 0)
             {
             var target2 = (await Game.GetSelectPlaceCards(Card, filter: (x => x != target), selectMode: SelectModeType.EnemyRow)).SingleOrDefault();

@@ -2998,12 +2998,12 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4.\nCrew.",
             "Flavor": ""
         },
         "70046": {
             "Name": "Svalblod Fanatic",
-            "Info": "On turn end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
+            "Info": "On round end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
             "Flavor": ""
         },
         "70050": {
@@ -3311,14 +3311,9 @@
             "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
             "Flavor": ""
         },
-        "70087": {
-            "Name": "Hatching",
-            "Info": "Spawn 3 arachas drones on a row, spawn one more if you have a hatching in the graveyard",
-            "Flavor": ""
-        },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Deploy: apply Impenetrable Fog to the opposite row and move any foglets in your graveyard to your deck.",
+            "Info": "Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
             "Flavor": "Do not follow the lights!"
         }
     }
