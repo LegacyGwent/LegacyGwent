@@ -190,7 +190,7 @@ namespace Cynthia.Card
             });
             async Task sendEventTask()
             {
-                if (Card.Status.IsDoomed || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
+                if ((Card.Status.IsDoomed && isDead) || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
                     if (isNeedSentEvent && discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())
@@ -672,7 +672,7 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            //变为,应该触发对应事件<暂未定义,待补充>
+                await Game.SendEvent(new AfterCardTransform(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Resurrect(CardLocation location, GameCard source)//复活

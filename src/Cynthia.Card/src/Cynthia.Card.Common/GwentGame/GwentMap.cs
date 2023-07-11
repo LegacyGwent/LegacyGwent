@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 65);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 67);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -10658,7 +10658,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
+                    Categories = new Categorie[]{ Categorie.ClanTuirseach, Categorie.Cursed, Categorie.Cultist},
                     Flavor = "",
                     Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得2点强化。",
                     CardArtsId = "18840000",
@@ -10906,7 +10906,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70016",//苏克鲁斯
+                "70016",//苏克鲁斯 Sukrus
                 new GwentCard()
                 {
                     CardId = "70016",
@@ -10919,7 +10919,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Support},
+                    Categories = new Categorie[]{ Categorie.Support,Categorie.ClanTuirseach},
                     Flavor = "",
                     Info = "选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "d18870000",
@@ -12517,7 +12517,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "尼尔弗加德渔民的恐怖经历",
                     Info = "位于手牌、牌组和己方半场时，己方每丢弃1张牌便获得1点增益。",
-                    CardArtsId = "d22430000",
+                    CardArtsId = "d22400000",
                 }
             },
                         {
@@ -12535,7 +12535,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = true,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist},
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
                     Info = "力竭：丢弃1张手牌，然后在手牌中添加1张己方初始牌组中铜色单位牌的原始同名牌，并使其获得1点强化。",
                     CardArtsId = "d16660000",
@@ -12558,7 +12558,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
                     Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
-                    CardArtsId = "d22400000",
+                    CardArtsId = "d22430000",
                 }
             },
                         {
