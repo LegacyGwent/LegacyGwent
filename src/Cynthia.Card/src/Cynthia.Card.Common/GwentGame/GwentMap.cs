@@ -12665,7 +12665,7 @@ namespace Cynthia.Card
                     Group=Group.Silver,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "部署：将墓地中任意数量的小雾移动到你的卡组，并将不可穿透的雾应用到对面行。",
+                    Info = "部署：选择一排，将墓地中的所有小雾妖移至你的牌组，然后对该排施放雾。",
                     CardArtsId = "d22500000",
                 }
             }
