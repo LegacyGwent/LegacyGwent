@@ -21,7 +21,7 @@ namespace Cynthia.Card
             await Game.PlayerDrawCard(PlayerIndex);//抽卡
                                                    //---------------------------------------------------------------------------
                                                    //随机弃掉一张
-            await Game.PlayersHandCard[PlayerIndex].Mess(RNG).First().Effect.ToCemetery();
+            await Game.PlayersHandCard[PlayerIndex].Mess(RNG).First().Effect.Discard(Card);
             return 0;
         }
     }
