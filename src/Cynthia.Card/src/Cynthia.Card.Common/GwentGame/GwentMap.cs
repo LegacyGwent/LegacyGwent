@@ -3005,7 +3005,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。",
-                    Info = "展开： 消耗一个力量在8以下的单位，以其力量提升自己。",
+                    Info = "吞噬1个战力不高于8点的单位，将其战力传化为自身增益。",
                     CardArtsId = "13210700",
                 }
             },
@@ -12589,6 +12589,7 @@ namespace Cynthia.Card
                     Name="红骑士",
                     Strength = 3,
                     Group = Group.Copper,
+                    Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
