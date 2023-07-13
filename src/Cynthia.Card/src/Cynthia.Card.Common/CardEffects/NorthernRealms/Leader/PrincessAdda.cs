@@ -10,8 +10,10 @@ namespace Cynthia.Card
         public PrincessAdda(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var ids = GwentMap.GetCreateCardsId(x => x.Is(filter: x => x.HasAllCategorie(Categorie.Cursed) && (x.Faction==Faction.Neutral||x.Faction==Faction.NorthernRealms) && x.IsAnyGroup(Group.Copper, Group.Silver) && !x.HasAnyCategorie(Categorie.Agent)), RNG);
-            return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray());
+            var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Unit, x => x.HasAllCategorie(Categorie.Cursed) && x.Faction==Faction.NorthernRealms)
+                .Select(x => x.CardId);
+
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray());
         }
     }
-}
+} 

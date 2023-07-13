@@ -253,7 +253,7 @@
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
-            "Info": "Deploy: Banish your hand and draw that many cards.",
+            "Info": "Deploy: Discard your hand and draw that many cards.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "12007": {
@@ -513,7 +513,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
+            "Info": "On turn start, resurrect itself and Weaken itself by half.",
             "Flavor": "至少你知道我的头不好砍了。"
         },
         "13002": {
@@ -898,7 +898,7 @@
         },
         "21005": {
             "Name": "Unseen Elder",
-            "Info": "Deploy: Drain a unit by half.",
+            "Info": "Deploy: Drain a unit by half and lock it.",
             "Flavor": "没有谁知道暗影长者的真实年龄，连高阶吸血鬼们也不知情。他们唯一清楚的是，无论如何也不能违背他的意愿。"
         },
         "22001": {
@@ -918,7 +918,7 @@
         },
         "22004": {
             "Name": "Caranthir Ar-Feiniel",
-            "Info": "Deploy: Move an enemy to the opposite row and apply Biting Frost to it.",
+            "Info": "Deploy: move two enemies to the opposite row and apply Biting Frost to it.",
             "Flavor": "宠儿偏偏堕落成逆子。"
         },
         "22005": {
@@ -933,7 +933,7 @@
         },
         "22007": {
             "Name": "Kayran",
-            "Info": "Deploy: Consume a unit with 7 Power or less and Boost self by its Power.",
+            "Info": "Deploy: Consume a unit with 8 Power or less and Boost self by its Power.",
             "Flavor": "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。"
         },
         "22008": {
@@ -1408,7 +1408,7 @@
         },
         "32015": {
             "Name": "Assassination",
-            "Info": "Deal 9 Damage to an enemy.\nRepeat once.",
+            "Info": "Deal 7 Damage to an enemy.\nRepeat once.",
             "Flavor": "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”"
         },
         "33004": {
@@ -1708,7 +1708,7 @@
         },
         "41002": {
             "Name": "Princess Adda",
-            "Info": "Deploy: Create a Bronze or Silver Cursed unit.",
+            "Info": "Deploy: Spawn a Bronze Northern Realms Cursed Unit.",
             "Flavor": "她的诅咒被解除了……但是喜欢吃生肉的习惯却没改掉。"
         },
         "41003": {
@@ -1968,7 +1968,7 @@
         },
         "44016": {
             "Name": "Aedirnian Mauler",
-            "Info": "Deploy: Deal 4 Damage to an enemy.",
+            "Info": "Deploy: Damage an enemy by 4, if it survives Damage another by 2",
             "Flavor": "呃，这些家伙真让人头疼。"
         },
         "44017": {
@@ -2193,7 +2193,7 @@
         },
         "53007": {
             "Name": "Yarpen Zigrin",
-            "Info": "Whenever a Dwarf ally appears, Boost self by 1.\nResilience.",
+            "Info": "Whenever a Dwarf ally appears, Boost self by 1.\nResilience.\n1 Armor.",
             "Flavor": "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。"
         },
         "53008": {
@@ -2343,7 +2343,7 @@
         },
         "54016": {
             "Name": "Mahakam Defender",
-            "Info": "Resilient.",
+            "Info": "Resilient.\n2 Armor.",
             "Flavor": "听好了，我们是天生的战士——拳拳到肉，绝不留情！"
         },
         "54017": {
@@ -2613,7 +2613,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return a Bronze unit from your graveyard to your deck.",
+            "Info": "Deploy: Return two Bronze units from your graveyard to your deck.",
             "Flavor": "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。"
         },
         "64005": {
@@ -2658,7 +2658,7 @@
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 12 Strength)",
+            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 14 Strength)",
             "Flavor": "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。"
         },
         "64014": {
@@ -2813,7 +2813,7 @@
         },
         "61003": {
             "Name": "Eist Tuirseach",
-            "Info": "Deploy: Spawn a Bronze Clan Tuirseach Soldier.",
+            "Info": "Deploy: Spawn a Bronze Clan Tuirseach Unit.",
             "Flavor": "埃斯特来到辛特拉，本想帮助克拉茨·奎特参加帕薇塔公主的选亲宴，结果自己却赢走了王后的芳心。"
         },
         "61004": {
@@ -3048,7 +3048,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strength Doomed copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength Doomed copy of it in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
             "Flavor": "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”"
         },
         "70077": {
@@ -3060,25 +3060,10 @@
             "Name": "Damnation",
             "Info": "Summon the two Highest Bronze units from the deck to the same row, then change their Lock status.",
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
-		},
-        "70079": {
-            "Name": "An Craite Warlord",
-            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
-            "Flavor": "The terror of Nilfgaardian fishermen."
-        },
-        "70080": {
-            "Name": "Knut the Callous",
-            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
-            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
-        },
-        "70081": {
-            "Name": "Drummond Pillager",
-            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
-            "Flavor": "The only thing they like more than looting is killing."
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.\nWhile this card is in your graveyard, The Last Wish looks at 1 extra card.",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70102": {
@@ -3301,15 +3286,40 @@
             "Info": "Consume an ally and Boost self by its Power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
         },
-        "70082": {
-            "Name": "Arnjolf the Patricide",
-            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
-            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
+        "70079": {
+            "Name": "An Craite Warlord",
+            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
+            "Flavor": "The terror of Nilfgaardian fishermen."
         },
-        "70083": {
-            "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
-            "Flavor": "当夜晚寒风骤降，浓雾悄然而至，大陆的居民就会从睡梦中惊醒，惊恐地将每一扇门窗拴死。因为他们知道，这是狂猎在附近徘徊的征兆。"
+        "70080": {
+            "Name": "Knut the Callous",
+            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
+            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
+        },
+        "70081": {
+            "Name": "Drummond Pillager",
+            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
+            "Flavor": "The only thing they like more than looting is killing."
+        },
+        "70084": {
+            "Name": "Olgierd Immortal",
+            "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
+            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70085": {
+            "Name": "The Apiarian Phantom",
+            "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
+            "Flavor": ""
+        },
+        "70086": {
+            "Name": "Philippa: Mistress of the Lodge",
+            "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
+            "Flavor": ""
+        },
+        "70088": {
+            "Name": "The Thing In The Swamp",
+            "Info": "Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
+            "Flavor": "Do not follow the lights!"
         }
     }
 }
