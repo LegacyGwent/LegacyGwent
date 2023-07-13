@@ -259,6 +259,19 @@ ai密码后缀#f(如ai#f)即可强制挑战ai,不会进行玩家匹配
 2. 游戏中有可能断线、更新内容
 3. 全部更新内容请参照https://shimo.im/docs/TQdjjwpPwd9hJhK
     （群公告中可直接点开链接）
+    
+    
+
+diy服2023年4月14日调整
+# 增强
+大赦：使1个非间谍铜色/银色敌军单位返回对方手牌 -> 使1个铜色/银色敌军单位返回对方手牌，并将其战力设为1
+
+# 削弱：
+海玫家族诗人：buff 2 -> buff 1
+克尔图里斯：低于6 -> 低于5
+德拉蒙突袭者：不再强化场上的单位
+
+
 
 diy服2023年3月13日调整
 增强：
@@ -391,11 +404,15 @@ may come back in the future.
         {
             int k = CalculateK(myMMR);
             double s = isDraw ? 0.5 : (isWin ? 1 : 0);
-            int diff = Math.Max(enemyMMR - myMMR, -50);
-            double e = 1 / (1.0 + Math.Pow(10, diff / 400.0));
+            int diff = enemyMMR - myMMR;
+            double e = 1 / (1.0 + Math.Pow(10, diff / 800.0));
             double eta = CalculateEta(s, e, myMMR);
-            int addon = myMMR < 2000 ? (isWin ? 70 : 50) : 0;
-            return (int)Math.Round(myMMR + eta * k * (s - e) + addon);
+            int newMMR = (int)Math.Round(myMMR + eta * k * (s - e));
+            if (isWin && newMMR == myMMR)
+            {
+                newMMR++;
+            }
+            return newMMR;
         }
 
         public int CalculateK(int MMR)

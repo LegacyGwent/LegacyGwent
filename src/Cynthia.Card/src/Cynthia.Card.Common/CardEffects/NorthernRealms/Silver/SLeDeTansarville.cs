@@ -8,6 +8,7 @@ namespace Cynthia.Card
     public class SLeDeTansarville : CardEffect
     {//从手牌打出1张铜色/银色“特殊”牌，随后抽1张牌。
         public SLeDeTansarville(GameCard card) : base(card) { }
+        private bool needdraw = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
 
@@ -21,10 +22,17 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await Game.PlayerDrawCard(Card.PlayerIndex, 1);
             await result.Single().MoveToCardStayFirst();
-
+            needdraw = true;
             return 1;
+        }
+        public override async Task CardDownEffect(bool isSpying, bool isReveal)
+        {
+            if(needdraw)
+            {
+            await Game.PlayerDrawCard(Card.PlayerIndex, 1);
+            }    
+                return;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 64);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 67);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -267,7 +267,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "丢弃所有手牌，抽同等数量的牌。",
+                    Info = "放逐所有手牌，抽同等数量的牌。",
                     CardArtsId = "20005700",
                 }
             },
@@ -9808,7 +9808,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey,Categorie.Support},
                     Flavor = "海玫家族的事迹将流芳千古。",
-                    Info = "使所选“家族”的所有友军单位获得2点增益。",
+                    Info = "使所选“家族”的所有友军单位获得1点增益。",
                     CardArtsId = "15230800",
                 }
             },
@@ -10658,7 +10658,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanTuirseach},
+                    Categories = new Categorie[]{ Categorie.ClanTuirseach, Categorie.Cursed, Categorie.Cultist},
                     Flavor = "",
                     Info = "己方半场同排单位免疫来自灾厄的伤害。择一：创造一张史凯利格铜色机械单位；或使战场上所有友方机械获得2点强化。",
                     CardArtsId = "18840000",
@@ -10906,7 +10906,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70016",//苏克鲁斯
+                "70016",//苏克鲁斯 Sukrus
                 new GwentCard()
                 {
                     CardId = "70016",
@@ -10919,7 +10919,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Support},
+                    Categories = new Categorie[]{ Categorie.Support,Categorie.ClanTuirseach},
                     Flavor = "",
                     Info = "选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "d18870000",
@@ -11871,7 +11871,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "2护甲，回合结束时，摧毁场上战力低于6的单位中最低的1个。",
+                    Info = "2护甲，回合结束时，摧毁场上战力低于5的单位中最低的1个。",
                     CardArtsId = "d15360000",
                 }
             },
@@ -11911,7 +11911,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Tactic,Categorie.Special},
                     Flavor = "",
-                    Info = "使1个非间谍铜色/银色敌军单位返回对方手牌",
+                    Info = "使1个铜色/银色敌军单位返回对方手牌，并将其战力设为1",
                     CardArtsId = "d20780000",
                 }
             },
@@ -12505,7 +12505,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70079",
-                    Name="一个木箱战神",
+                    Name="奎特家族督军",
                     Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
@@ -12516,16 +12516,16 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "尼尔弗加德渔民的恐怖经历",
-                    Info = "在手牌、牌组或棋盘上时，你每丢弃一张牌就会提升1。",
-                    CardArtsId = "d22430000",
+                    Info = "位于手牌、牌组和己方半场时，己方每丢弃1张牌便获得1点增益。",
+                    CardArtsId = "d22400000",
                 }
             },
                         {
-                "70080",//冷酷无情的克努特
+                "70080",//无情者”克努特
                 new GwentCard()
                 {
                   CardId = "70080",
-                    Name = "冷酷无情的克努特",
+                    Name = "无情者”克努特",
                     Strength = 7,
                     Countdown = 1,
                     Group = Group.Silver,
@@ -12535,18 +12535,18 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = true,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist},
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
-                    Info = "力竭。部署：从你的手牌中丢弃一张牌，然后从你的起始牌中生成一个青铜单位，使其强化1，并将其加入你的手牌。",
+                    Info = "力竭：丢弃1张手牌，然后在手牌中添加1张己方初始牌组中铜色单位牌的原始同名牌，并使其获得1点强化。",
                     CardArtsId = "d16660000",
                 }
             },
                         {
-                "70081",//德拉蒙德-皮勒格
+                "70081",//德拉蒙家族掠夺者
                 new GwentCard()
                 {
                     CardId ="70081",
-                    Name="德拉蒙德-皮勒格",
+                    Name="德拉蒙家族掠夺者",
                     Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
@@ -12557,10 +12557,50 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
-                    Info = "弃置时，无论在哪里，都能使所有的鼓手部队加强1倍。",
-                    CardArtsId = "d22400000",
+                    Info = "被丢弃时，使手牌、牌组所有“德拉蒙家族”单位获得1点强化。",
+                    CardArtsId = "d22430000",
                 }
             },
+                        {
+                "70082",//弑亲者恩约夫
+                new GwentCard()
+                {
+                    CardId ="70082",
+                    Name="弑亲者恩约夫",
+                    Strength = 8,
+                    Group = Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "择一：丢弃手牌中重复的牌，直至没有重复的牌，抽等量的牌；丢弃手牌中战斗力高于自身的牌，直至没有战力高于自身的牌，抽等量的牌。",
+                    CardArtsId = "d15060000",
+                }
+            },
+            {
+                "70083",//红骑士
+                new GwentCard()
+                {
+                    CardId ="70083",
+                    Name="红骑士",
+                    Strength = 3,
+                    Group = Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.WildHunt },
+                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
+                    Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张它的同名牌。",
+                    CardArtsId = "d21920000",
+                }
+            }
         };
     }
 }

@@ -15,7 +15,9 @@ services:
     ports:
       - "5005:5005"
     environment:
-      - MONGO_CONNECTION_STRING=mongodb://host.docker.internal:28020/gwent-diy
+      # host.docker.internal can be used only in MacOS and Windows, it doesn't work in Linux
+      # - MONGO_CONNECTION_STRING=mongodb://host.docker.internal:28020/gwent-diy
+      - MONGO_CONNECTION_STRING=mongodb://db:27017/gwent-diy
     depends_on:
       - db
 

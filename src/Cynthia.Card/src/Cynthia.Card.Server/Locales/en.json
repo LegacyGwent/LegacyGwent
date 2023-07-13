@@ -253,7 +253,7 @@
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
-            "Info": "Deploy: Discard your hand and draw that many cards.",
+            "Info": "Deploy: Banish your hand and draw that many cards.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "12007": {
@@ -2623,7 +2623,7 @@
         },
         "64006": {
             "Name": "Heymaey Skald",
-            "Info": "Deploy: Boost all allies from a Clan of your choice by 2.",
+            "Info": "Deploy: Boost all allies from a Clan of your choice by 1.",
             "Flavor": "海玫家族的事迹将流芳千古。"
         },
         "64007": {
@@ -3073,7 +3073,7 @@
         },
         "70081": {
             "Name": "Drummond Pillager",
-            "Info": "When Discarded, Strengthen all Drummond units in hand, deck and on the board by 1.",
+            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         },
         "70091": {
@@ -3138,7 +3138,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Every turn, at the end of your turn, destroy the lowest unit if its Strength is 5 or lower.\n2 Armor.",
+            "Info": "Every turn, at the end of your turn, destroy the lowest unit if its Strength is 4 or lower.\n2 Armor.",
             "Flavor": ""
         },
         "70114": {
@@ -3148,7 +3148,7 @@
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return a Bronze loyal enemy to your opponent's hand.",
+            "Info": "Return a Bronze/Silver enemy to opponent's hand and set its battle power to 1.",
             "Flavor": ""
         },
         "70116": {
@@ -3300,6 +3300,16 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and Boost self by its Power.\nResilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70082": {
+            "Name": "Arnjolf the Patricide",
+            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
+            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
+        },
+        "70083": {
+            "Name": "Red Rider",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Flavor": "当夜晚寒风骤降，浓雾悄然而至，大陆的居民就会从睡梦中惊醒，惊恐地将每一扇门窗拴死。因为他们知道，这是狂猎在附近徘徊的征兆。"
         }
     }
 }
