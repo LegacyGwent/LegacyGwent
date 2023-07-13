@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 68);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 69);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11668,7 +11668,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”",
-                    Info = "丢弃1张手牌，并在手牌中添加1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。",
+                    Info = "选择1张被揭示的手牌，并将其变形为1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。",
                     CardArtsId = "d16820000",
                 }
             },

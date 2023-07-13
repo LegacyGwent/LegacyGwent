@@ -7,12 +7,12 @@ namespace Cynthia.Card
 {
     [CardEffectId("70103")]//亚托列司·薇歌 ArtoriusVigo
     public class ArtoriusVigo : CardEffect
-    {//丢弃1张手牌，并在手牌中添加1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。
+    {//选择1张被揭示的手牌，并将其变形为1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。
         public ArtoriusVigo(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //丢弃1张手牌
-            var cards = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex]);
+            var cards = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex].Where(x => x.Status.IsReveal).ToList());
             if (!cards.TrySingle(out var target))
             {
                 return 0;
@@ -22,7 +22,6 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Discard(Card);
 
             //并在手牌中添加1张己方起始牌组中铜色单位牌的指定原始同名牌
             var list = Game.PlayerBaseDeck[PlayerIndex].Deck.Where(x => x.Is(Group.Copper, CardType.Unit));
@@ -33,10 +32,9 @@ namespace Cynthia.Card
                 return 0;
             }
             var id = selectList[targetIndex].CardId;
-            var createCard = await Game.CreateCardAtEnd(id, PlayerIndex, RowPosition.MyHand);
-
+            await target.Effect.Transform(id, Card);
             //随后将其揭示
-            await createCard.Effect.Reveal(Card);
+            await target.Effect.Reveal(Card);
 
             return 0;
         }
