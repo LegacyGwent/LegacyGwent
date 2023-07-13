@@ -11,11 +11,12 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var cards = await Game.GetSelectPlaceCards
-            (Card, filter: x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver && 
+            (Card, filter: x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver &&
                 x.PlayerIndex != PlayerIndex);
             if (cards.Count == 0) return 0;
             var targets = cards.Single();
-            await Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), targets, refreshPoint:true);
+            var targetRow = (targets.PlayerIndex == Card.PlayerIndex) ? RowPosition.EnemyHand : RowPosition.MyHand;
+            await Game.ShowCardMove(new CardLocation(targetRow, 0), targets, refreshPoint: true);
             await targets.Effect.Damage(targets.CardPoint() - 1, targets);
             return 0;
         }
