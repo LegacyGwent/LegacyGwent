@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 69);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 70);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12618,7 +12618,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.WildHunt},
                     Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
                     Info = "对敌方单位造成7点伤害，如果其被摧毁，则在该行生成霜。",
-                    CardArtsId = "13221400",
+                    CardArtsId = "d21910000",
                 }
             },
             {
@@ -12630,10 +12630,15 @@ namespace Cynthia.Card
                     Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "",
                     Info = "择一：从你的牌组中打出一个铜色或银色法师；或创造一个铜色法术。",
-                    CardArtsId = "d22410000",
+                    CardArtsId = "d13770000",
                 }
             },
             {
@@ -12664,6 +12669,12 @@ namespace Cynthia.Card
                     Name="沼泽中的怪兽",
                     Strength=3,
                     Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
                     Info = "部署：选择一排，将墓地中的所有小雾妖移至你的牌组，然后对该排施放雾。",
