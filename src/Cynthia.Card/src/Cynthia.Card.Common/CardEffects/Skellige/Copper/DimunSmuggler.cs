@@ -17,16 +17,24 @@ namespace Cynthia.Card
             }
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
-            (Card.PlayerIndex, list.ToList(), 1, "选择一张牌返回牌组");
+            (Card.PlayerIndex, list.ToList(), 2, "选择一张牌返回牌组");
             //如果玩家一张卡都没选择,没有效果
             if (result.Count() == 0)
             {
                 return 0;
             }
             //希里：冲刺的返回牌组机制，返回到随机位置
+
+
+
+            foreach (var card in result)
+            {
+
             var range = Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1);
-            await result.Single().Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), result.Single());
+            await card.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), card);
             return 0;
+            }
+        return 0;
         }
     }
 }
