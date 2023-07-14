@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70086")]
+    [CardEffectId("70088")]
     public class TheThingInTheSwamp : CardEffect
     {//将墓场3张铜色/银色单位牌放回牌组。
         public TheThingInTheSwamp(GameCard card) : base(card) { }

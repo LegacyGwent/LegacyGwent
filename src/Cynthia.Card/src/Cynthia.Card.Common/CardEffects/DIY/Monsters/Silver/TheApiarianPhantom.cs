@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70082")]//尼斯里拉
+    [CardEffectId("70085")]//尼斯里拉
     public class TheApiarianPhantom : CardEffect
     {//对1个敌军单位造成6点伤害。手牌中每有1张“狂猎”单位牌，伤害提高1点。
         public TheApiarianPhantom(GameCard card) : base(card) { }
