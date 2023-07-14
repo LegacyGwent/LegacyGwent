@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70083")]//艾勒的格哈特
+    [CardEffectId("70086")]//艾勒的格哈特
     public class PhilippaLodgeMistress : CardEffect
     {//play a bronze or silver mage from your deck, or generate and play a bronze spell
         public PhilippaLodgeMistress(GameCard card) : base(card) { }
