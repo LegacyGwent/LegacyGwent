@@ -33,3 +33,5 @@ msbuild.wrn
 
 # Rider
 .idea
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL/1200200/12002_2.mp3.meta
+/src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL/1200300/12003_4.mp3.meta
