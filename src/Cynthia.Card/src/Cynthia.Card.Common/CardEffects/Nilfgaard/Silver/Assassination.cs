@@ -14,7 +14,7 @@ namespace Cynthia.Card
             {
                 var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
                 if (result.Count <= 0) continue;
-                await result.Single().Effect.Damage(9, Card);
+                await result.Single().Effect.Damage(7, Card);
             }
             return 0;
         }
