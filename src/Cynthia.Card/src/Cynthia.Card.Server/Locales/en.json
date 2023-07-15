@@ -3150,8 +3150,8 @@
             "Name": "Lyrian Scytheman",
             "Info": "Deploy: Boost a random unit in your deck by 3, then Boost self by that unit's Boost.",
             "Flavor": ""
-	},
-	"70119": {
+        },
+        "70119": {
             "Name": "Thaw",
             "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
             "Flavor": "它带来了春天，也带来了战争。"
