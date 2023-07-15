@@ -19,7 +19,8 @@ namespace Cynthia.Card
                 {
                     var playerIndex = x.PlayerIndex;
                     x.Effect.Repair();
-                    await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[playerIndex].Count)), x);
+                    var range = Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1);
+                    await x.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), x);
                 }
                 return 0;
             }
