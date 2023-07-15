@@ -3301,6 +3301,16 @@
             "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         },
+        "70082": {
+            "Name": "Arnjolf the Patricide",
+            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
+            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
+        },
+        "70083": {
+            "Name": "Red Rider",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
+        },
         "70084": {
             "Name": "Olgierd Immortal",
             "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
@@ -3309,12 +3319,12 @@
         "70085": {
             "Name": "The Apiarian Phantom",
             "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
-            "Flavor": ""
+            "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
             "Name": "Philippa: Mistress of the Lodge",
             "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
-            "Flavor": ""
+            "Flavor": "Philippa Eilhart, though very attractive, was decidedly very unkind."
         },
         "70088": {
             "Name": "The Thing In The Swamp",
