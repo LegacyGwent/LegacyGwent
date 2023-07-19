@@ -1,245 +1,245 @@
 {
-    "Info": {
-        "Name": "Polski",
-        "Filename": "pl"
-    },
-    "MenuLocales": {
-        "LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
-        "LoginMenu_Message": "Ten program jest programem typu open source i jest darmowy. Skontaktuj się LegacyGwent@GitHub albo QQ grupa 945408322, jeśli chcesz pomóc w rozwoju projektu.",
-        "LoginMenu_NotesTitle": "Nowości",
-        "LoginMenu_LoginTitle": "Zaloguj",
-        "LoginMenu_LoginButton": "LOGIN",
-        "LoginMenu_RegisterButton": "REJESTRACJA",
-        "LoginMenu_UserLoginPlaceholder": "Login",
-        "LoginMenu_PasswordPlaceholder": "Hasło",
-        "LoginMenu_RememberCredentials": "Zapamiętaj mnie",
-        "LoginMenu_ExitButton": "WYJDŹ",
-        "LoginMenu_NewsError": "Nowości nie zostały załadowane",
-        "LoginMenu_LatestVersionError": "Nie można pobrać najnowszej wersji:{0}",
-        "LoginMenu_LatestVersionInfo": "Najnowszej wersja to {0}",
-        "LoginMenu_CurrentVersionInfo": "Aktualna wersja to {0}",
-        "LoginMenu_LoadingLatestVersion": "Ładuje informacje o wersji...",
-        "LoginMenu_LoadingNews": "Ładuje nowości... Proszę czekać...",
-        "LoginMenu_DisconnectionInfo": "Serwer mógł być zrestartowany... Ponowne połączenie może zając do 1 minuty... Proszę poczekać...",
-        "LoginMenu_DisconnectionRetry": "Próba połączenia numer {0} się nie udało. Próba połączenia numer {1} rozpoczęta.",
-        "LoginMenu_LoggingIn": "Loguje... Proszę czekać",
-        "LoginMenu_WrongCredentials": "Błędny login lub hasło",
-        "LoginMenu_WelcomeMessage": "Logowanie udane. Witaj ponownie {0}",
-        "LoginMenu_LoginError": "Nie można zalogować... Serwer może być wyłączony",
-        "LoginMenu_CardDataCheck": "Sprawdzam dane kart... Proszę czekać...",
-        "LoginMenu_CardDataUpdating": "Uaktualniam dane kart... Proszę czekać...",
-        "LoginMenu_LanguagesUpdating": "Uaktualniam języki... Proszę czekać...",
-        "LoginMenu_GameUpdated": "Gra zaktualizowana pomyślnie.",
-        "LoginMenu_UpdateError": "Gra nie może pobrać aktualizacji:{0}",
-        "RegisterMenu_RegisterTitle": "Zarejestruj",
-        "RegisterMenu_BackButton": "WRÓĆ",
-        "RegisterMenu_RegisterButton": "ZAREJESTRUJ",
-        "RegisterMenu_UserLoginPlaceholder": "Login",
-        "RegisterMenu_UsernamePlaceholder": "Login",
-        "RegisterMenu_PasswordPlaceholder": "Password",
-        "RegisterMenu_PasswordConfirmPlaceholder": "Potwierdź hasło",
-        "RegisterMenu_EmptyInput": "Pola nie mogą być puste",
-        "RegisterMenu_PasswordsNotIdentical": "Hasła nie są identyczne. Spróbuj ponownie",
-        "RegisterMenu_Registering": "Rejestruje-prosze czekać...",
-        "RegisterMenu_AlreadyRegistered": "Rejestracja nieudana. Istnieje użytkownik o tej samej nazwie.",
-        "RegisterMenu_RegistrationSuccessful": "Rejestracja udana. Naciśnij \\'back\\' żeby wrócić do strony logowania.",
-        "RegisterMenu_ErrorRegistering": "Wystąpił błąd. Serwer może być wyłączony.",
-        "SettingsMenu_SettingsTitle": "Ustawienia",
-        "SettingsMenu_GeneralSettingsButton": "OGÓLNE",
-        "SettingsMenu_VideoSettingsButton": "OBRAZ",
-        "SettingsMenu_AudioSettingsButton": "DŹWIĘK",
-        "SettingsMenu_GeneralSettingsTitle": "Ogólne",
-        "SettingsMenu_TextLanguage": "Text",
-        "SettingsMenu_AudioLanguage": "Audio",
-        "SettingsMenu_VideoSettingsTitle": "Ustawienia obrazu",
-        "SettingsMenu_Resolution": "Rozdzielczość",
-        "SettingsMenu_Fullscreen": "Pełen ekran",
-        "SettingsMenu_ImageQuality": "Jakość obrazu",
-        "SettingsMenu_AudioSettingsTitle": "Ustawienia dźwięku",
-        "SettingsMenu_MuteAll": "Wycisz wszystko",
-        "SettingsMenu_MusicVolume": "Głośność muzyki",
-        "SettingsMenu_SoundVolume": "Głośność dźwięku",
-        "SettingsMenu_WitcherMusic": "Muzyka z Wiedźmina",
-        "SettingsMenu_BackButton": "WRÓĆ",
-        "SettingsMenu_FullscreenEnabled": "Włączony",
-        "SettingsMenu_FullscreenDisabled": "Wyłączony",
-        "SettingsMenu_GraphicsLow": "Niskie",
-        "SettingsMenu_GraphicsMedium": "Średnie",
-        "SettingsMenu_GraphicsHigh": "Wysokie",
-        "SettingsMenu_MuteEnabled": "Włączony",
-        "SettingsMenu_MuteDisabled": "Wyłączony",
-        "SettingsMenu_WitcherMusicDefault": "Domyślna muzyka",
-        "SettingsMenu_WitcherMusicEnabled": "Muzyka z Wiedźmina",
-        "MainMenu_ExitButton": "WYJŚCIE",
-        "MainMenu_Message": "Witamy w nieoficjalnym GWENT edycja nostalgia!",
-        "MainMenu_MainTitle": "GRAJ",
-        "MainMenu_MatchTitle": "MECZ SWOBODNY",
-        "MainMenu_MatchTitle_Rank": "MECZ RANKINGOWY",
-        "MainMenu_MatchDesc": "Zagraj przyjacielską partię gwinta",
-        "MainMenu_EditorTitle": "TALIE",
-        "MainMenu_EditorDesc": "Twórz i edytuj talie",
-        "MainMenu_RankTitle": "MECZ RANKINGOWY",
-        "MainMenu_RankDesc": "Zagraj rankingową partie Gwenta",
-        "MainMenu_RankListTitle": "RANKING",
-        "MainMenu_RankListDesc": "Pokaż najlepszych graczy",
-        "MatchmakingMenu_Title": "MECZ SWOBODNY",
-        "MatchmakingMenu_DeckReady": "Talia gotowa!",
-        "MatchmakingMenu_PlayButton": "GRAJ",
-        "MatchmakingMenu_PasswordPlaceholder": "Wprowadź kod meczu",
-        "MatchmakingMenu_ReturnButton": "WRÓĆ",
-        "MatchmakingMenu_SwitchButton": "ZMIEŃ TALIE",
-        "MatchmakingMenu_CloseButton": "ZAMKNIJ",
-        "MatchmakingMenu_BlacklistCheckbox": "Włącz banowanie",
-        "MatchmakingMenu_CardCount": "Karty: ",
-        "MatchmakingMenu_LookingForOpponent": "Szukam przeciwnika...",
-        "MatchmakingMenu_CancelButton": "ANULUJ",
-        "EditorMenu_Title": "EDYTOR TALII",
-        "EditorMenu_SearchPlaceholder": "Szukaj",
-        "EditorMenu_BackButton": "WRÓĆ",
-        "EditorMenu_CardCount": "Karty: ",
-        "EditorMenu_EditButton": "EDYTUJ",
-        "EditorMenu_RemoveButton": "USUŃ",
-        "EditorMenu_SwitchDeckButton": "Zmień tryb",
-        "EditorMenu_BlacklistButton": "Lista banów",
-        "EditorMenu_AddDeck": "NOWA TALIA",
-        "EditorMenu_DefaultDeckname": "Domyślna",
-        "EditorMenu_DefaultBlacklistname": "Zbanowane karty (bez dowódców)",
-        "EditorMenu_AddDeckFromCodeButton": "Dodaj kod talii",
-        "EditorMenu_GetDeckCodeButton": "Kod talii",
-        "EditorMenu_EnterDeckCode": "Wprowadź kod talii",
-        "PopupWindow_DeleteDeckTitle": "USUŃ",
-        "PopupWindow_DeleteDeckDesc": "Czy na pewno chcesz usunąć talie",
-        "PopupWindow_DeleteDeckErrorTitle": "BŁĄD",
-        "PopupWindow_DeleteDeckErrorDesc": "Nie udało się usunąć tali",
-        "PopupWindow_DeckLimitTitle": "LIMIT",
-        "PopupWindow_DeckLimitDesc": "Nie można mieć więcej niż 100 tali!",
-        "PopupWindow_AddDeckErrorTitle": "BŁĄD",
-        "PopupWindow_AddDeckErrorDesc": "Nie można dodać nowej tali. Czy chcesz wrócić to menu głównego?",
-        "PopupWindow_YesButton": "TAK",
-        "PopupWindow_NoButton": "NIE",
-        "PopupWindow_OkButton": "OK",
-        "PopupWindow_LoggedOutTitle": "WYLOGOWANO",
-        "PopupWindow_LoggedOutDesc": "Ktoś inny zalogował się na Twoje konto!",
-        "PopupWindow_DisconnectedTitle": "ROZŁĄCZONO",
-        "PopupWindow_DisconnectedDesc": "Spróbuj sie zalogować ponownie!\nNote!\nIn obecna wersja, jeżeli zostałeś rozłączony w trakcie gry-zrestartuj klient.",
-        "PopupWindow_QuitTitle": "WYJDŹ",
-        "PopupWindow_QuitDesc": "Czy na pewno chcesz wyjść?",
-        "PopupWindow_ReceivedMessageTitle": "Otrzymałeś wiadomość z serwera",
-        "PopupWindow_NoDeckTitle": "BRAK TALII",
-        "PopupWindow_NoDeckDesc": "Nie masz dostępnej tali. Stwórz talie i wróć tutaj.",
-        "PopupWindow_IncompleteDeckTitle": "TALIA NIEKOMPLETNA",
-        "PopupWindow_IncompleteDeckDesc": "Ta talia nie jest kompletna. Zmień ją i wróć tutaj.",
-        "IngameMenu_ShowButton": "POKAŻ",
-        "IngameMenu_ConfirmButton": "POTWIERDŹ",
-        "IngameMenu_CloseButton": "ZAMKNIJ",
-        "IngameMenu_HideButton": "UKRYJ",
-        "IngameMenu_MulliganEndButton": "ZAKOŃCZ WYMIANĘ",
-        "IngameMenu_YourTurn": "Twoja tura",
-        "IngameMenu_PlayerGraveyard": "Twój cmentarz",
-        "IngameMenu_EnemyGraveyard": "Cmentarz przeciwnika",
-        "IngameMenu_PlayerDeck": "Twoja talia",
-        "IngameMenu_MulliganTitle": "Wybierz karty do wymiany [{0}/{1}]",
-        "IngameMenu_ErrorTitle": "BŁĄD",
-        "IngameMenu_CardSelection": "WYBÓR KART",
-        "IngameMenu_Passed": "GRACZ SPASOWAŁ",
-        "IngameMenu_EnemyRedrawing": "Przeciwnik wymienia karty.",
-        "IngameMenu_EnemyDecidingCoin": "Przeciwnik licytuje monetę.",
-        "IngameMenu_ScoreTitle": "WYNIK",
-        "IngameMenu_VictoryTitle": "ZWYCIĘSTWO",
-        "IngameMenu_DefeatTitle": "PORAŻKA",
-        "IngameMenu_DrawTitle": "REMIS",
-        "IngameMenu_SecondRoundTitle": "Początek rundy drugiej",
-        "IngameMenu_LastRoundTitle": "Początek rundy trzeciej!",
-        "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
-        "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
-        "IngameMenu_RoundDrawTitle": "REMIS!",
-        "CardTag_DoubleAgent": "Podwójny agent",
-        "CardTag_WildHunt": "Dziki gon",
-        "CardTag_Tactic": "Taktyka",
-        "CardTag_Beast": "Bestia",
-        "CardTag_Leader": "Dowódca",
-        "CardTag_Mage": "Mag",
-        "CardTag_Boss": "Boss",
-        "CardTag_Vampire": "Wampir",
-        "CardTag_Cintra": "Cintra",
-        "CardTag_Insectoid": "Insekt",
-        "CardTag_Stray": "Stray",
-        "CardTag_Construct": "Konstrukt",
-        "CardTag_Spell": "Zaklęcie",
-        "CardTag_Redania": "Redania",
-        "CardTag_SiegeSupport": "Wsparcie oblężnicze",
-        "CardTag_ClanDrummond": "Klan Drummond",
-        "CardTag_Specter": "Upiór",
-        "CardTag_Cursed": "Przeklęty",
-        "CardTag_Soldier": "Żołnierz",
-        "CardTag_Kaedwen": "Kaedwen",
-        "CardTag_Vodyanoi": "Wodjanoj",
-        "CardTag_ClanTuirseach": "Klan Tuirseach",
-        "CardTag_ClanTordarroch": "Klan Tordarroch",
-        "CardTag_ClanDimun": "Klan Dimun",
-        "CardTag_Witcher": "Wiedźmin",
-        "CardTag_Cultist": "Kultysta",
-        "CardTag_Alchemy": "Alchemia",
-        "CardTag_Reckless": "Reckless",
-        "CardTag_ClanHeymaey": "Klan Heymaey",
-        "CardTag_Blitz": "Blitz",
-        "CardTag_Dryad": "Driada",
-        "CardTag_Special": "Specjalna",
-        "CardTag_Elf": "Elf",
-        "CardTag_Lyria": "Lyria",
-        "CardTag_Necrophage": "Trupojad",
-        "CardTag_Machine": "Maszyna",
-        "CardTag_Aedirn": "Aedirn",
-        "CardTag_Support": "Wsparcie",
-        "CardTag_ClanAnCraite": "Klan An Craite",
-        "CardTag_Dwarf": "Krasnolud",
-        "CardTag_Draconid": "Drakonid",
-        "CardTag_SiegeEngine": "Siege Engine",
-        "CardTag_Temeria": "Temeria",
-        "CardTag_Officer": "Oficer",
-        "CardTag_Weather": "Pogoda",
-        "CardTag_Organic": "Organiczna",
-        "CardTag_Item": "Przedmiot",
-        "CardTag_Hazard": "Zagrożenie",
-        "CardTag_Boon": "Dar",
-        "CardTag_Ambush": "Zasadzka",
-        "CardTag_Doomed": "Fatum",
-        "CardTag_Immune": "Odporność",
-        "CardTag_Bear": "Niedźwiedź",
-        "CardTag_Ogroid": "Ogroid",
-        "CardTag_BlueStripes": "Niebieskie pasy",
-        "CardTag_Breedable": "Breedable",
-        "CardTag_Devourer": "Pożeracz",
-        "CardTag_Dragon": "Smok",
-        "CardTag_Harpy": "Harpia",
-        "CardTag_Medic": "Medyk",
-        "CardTag_Stubborn": "Uparty",
-        "CardTag_Permadeath": "Permadeath",
-        "CardTag_Peasant": "Chłop",
-        "CardTag_Potion": "Mikstura",
-        "CardTag_Relict": "Relikt",
-        "CardTag_Regressing": "Regressing",
-        "CardTag_Shapeshifter": "Zmiennokształtny",
-        "CardTag_Token": "Token",
-        "CardTag_Agent": "Agent",
-        "CardTag_ClanBrokvar": "Klan Brokvar",
-        "CardTag_Test": "Test",
-        "ShupeKnight_1_Strengthen": "Wzmocnij się do 25.",
-        "ShupeKnight_2_Resilience": "Wytrzymałość.",
-        "ShupeKnight_3_Duel": "Stocz pojedynek z wrogiem. ",
-        "ShupeKnight_4_Reset": "Zresetuj jednostkę.",
-        "ShupeKnight_5_Destroy": "Zniszcz wrogów z 4 lub mniej siły.",
-        "ShupeHunter_1_SingleDamage": "Zadaj 15 pkt. obrażeń.",
-        "ShupeHunter_2_RepeatedDamage": "Zadaj 2 pkt. obrażeń losowemu wrogowi. Powtórz 8 razy.",
-        "ShupeHunter_3_Replay": "Ponownie zagraj brązowego lub srebrnego sojusznika - wzmocnij go o 5.",
-        "ShupeHunter_4_PlayFromDeck": "Zagraj brązową lub srebrną jednostkę z Twojej tali.",
-        "ShupeHunter_5_ClearSky": "Usuń wszystkie zagrożenia z Twojej strony i wzmocnij sojuszników o 1.",
-        "ShupeMage_1_DrawCard": "Dobierz kartę.",
-        "ShupeMage_2_Charm": "Rzuć urok na losowego wroga.",
-        "ShupeMage_3_Hazard": "Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika.",
-        "ShupeMage_4_Damage": "Zadaj wrogowi 10 pkt. obrażeń i 5 pkt. obrażeń jednostkom z nim sąsiadującym.",
-        "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii."
-    },
+  "Info": {
+    "Name": "Polski",
+    "Filename": "pl"
+  },
+  "MenuLocales": {
+    "LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
+    "LoginMenu_Message": "Ten program jest programem typu open source i jest darmowy. Skontaktuj się LegacyGwent@GitHub albo QQ grupa 945408322, jeśli chcesz pomóc w rozwoju projektu.",
+    "LoginMenu_NotesTitle": "Nowości",
+    "LoginMenu_LoginTitle": "Zaloguj",
+    "LoginMenu_LoginButton": "LOGIN",
+    "LoginMenu_RegisterButton": "REJESTRACJA",
+    "LoginMenu_UserLoginPlaceholder": "Login",
+    "LoginMenu_PasswordPlaceholder": "Hasło",
+    "LoginMenu_RememberCredentials": "Zapamiętaj mnie",
+    "LoginMenu_ExitButton": "WYJDŹ",
+    "LoginMenu_NewsError": "Nowości nie zostały załadowane",
+    "LoginMenu_LatestVersionError": "Nie można pobrać najnowszej wersji:{0}",
+    "LoginMenu_LatestVersionInfo": "Najnowszej wersja to {0}",
+    "LoginMenu_CurrentVersionInfo": "Aktualna wersja to {0}",
+    "LoginMenu_LoadingLatestVersion": "Ładuje informacje o wersji...",
+    "LoginMenu_LoadingNews": "Ładuje nowości... Proszę czekać...",
+    "LoginMenu_DisconnectionInfo": "Serwer mógł być zrestartowany... Ponowne połączenie może zając do 1 minuty... Proszę poczekać...",
+    "LoginMenu_DisconnectionRetry": "Próba połączenia numer {0} się nie udało. Próba połączenia numer {1} rozpoczęta.",
+    "LoginMenu_LoggingIn": "Loguje... Proszę czekać",
+    "LoginMenu_WrongCredentials": "Błędny login lub hasło",
+    "LoginMenu_WelcomeMessage": "Logowanie udane. Witaj ponownie {0}",
+    "LoginMenu_LoginError": "Nie można zalogować... Serwer może być wyłączony",
+    "LoginMenu_CardDataCheck": "Sprawdzam dane kart... Proszę czekać...",
+    "LoginMenu_CardDataUpdating": "Uaktualniam dane kart... Proszę czekać...",
+    "LoginMenu_LanguagesUpdating": "Uaktualniam języki... Proszę czekać...",
+    "LoginMenu_GameUpdated": "Gra zaktualizowana pomyślnie.",
+    "LoginMenu_UpdateError": "Gra nie może pobrać aktualizacji:{0}",
+    "RegisterMenu_RegisterTitle": "Zarejestruj",
+    "RegisterMenu_BackButton": "WRÓĆ",
+    "RegisterMenu_RegisterButton": "ZAREJESTRUJ",
+    "RegisterMenu_UserLoginPlaceholder": "Login",
+    "RegisterMenu_UsernamePlaceholder": "Login",
+    "RegisterMenu_PasswordPlaceholder": "Password",
+    "RegisterMenu_PasswordConfirmPlaceholder": "Potwierdź hasło",
+    "RegisterMenu_EmptyInput": "Pola nie mogą być puste",
+    "RegisterMenu_PasswordsNotIdentical": "Hasła nie są identyczne. Spróbuj ponownie",
+    "RegisterMenu_Registering": "Rejestruje-prosze czekać...",
+    "RegisterMenu_AlreadyRegistered": "Rejestracja nieudana. Istnieje użytkownik o tej samej nazwie.",
+    "RegisterMenu_RegistrationSuccessful": "Rejestracja udana. Naciśnij \\'back\\' żeby wrócić do strony logowania.",
+    "RegisterMenu_ErrorRegistering": "Wystąpił błąd. Serwer może być wyłączony.",
+    "SettingsMenu_SettingsTitle": "Ustawienia",
+    "SettingsMenu_GeneralSettingsButton": "OGÓLNE",
+    "SettingsMenu_VideoSettingsButton": "OBRAZ",
+    "SettingsMenu_AudioSettingsButton": "DŹWIĘK",
+    "SettingsMenu_GeneralSettingsTitle": "Ogólne",
+    "SettingsMenu_TextLanguage": "Text",
+    "SettingsMenu_AudioLanguage": "Audio",
+    "SettingsMenu_VideoSettingsTitle": "Ustawienia obrazu",
+    "SettingsMenu_Resolution": "Rozdzielczość",
+    "SettingsMenu_Fullscreen": "Pełen ekran",
+    "SettingsMenu_ImageQuality": "Jakość obrazu",
+    "SettingsMenu_AudioSettingsTitle": "Ustawienia dźwięku",
+    "SettingsMenu_MuteAll": "Wycisz wszystko",
+    "SettingsMenu_MusicVolume": "Głośność muzyki",
+    "SettingsMenu_SoundVolume": "Głośność dźwięku",
+    "SettingsMenu_WitcherMusic": "Muzyka z Wiedźmina",
+    "SettingsMenu_BackButton": "WRÓĆ",
+    "SettingsMenu_FullscreenEnabled": "Włączony",
+    "SettingsMenu_FullscreenDisabled": "Wyłączony",
+    "SettingsMenu_GraphicsLow": "Niskie",
+    "SettingsMenu_GraphicsMedium": "Średnie",
+    "SettingsMenu_GraphicsHigh": "Wysokie",
+    "SettingsMenu_MuteEnabled": "Włączony",
+    "SettingsMenu_MuteDisabled": "Wyłączony",
+    "SettingsMenu_WitcherMusicDefault": "Wyłączona",
+    "SettingsMenu_WitcherMusicEnabled": "Włączona",
+    "MainMenu_ExitButton": "WYJŚCIE",
+    "MainMenu_Message": "Witamy w nieoficjalnym GWENT edycja nostalgia!",
+    "MainMenu_MainTitle": "GRAJ",
+    "MainMenu_MatchTitle": "MECZ SWOBODNY",
+    "MainMenu_MatchTitle_Rank": "MECZ RANKINGOWY",
+    "MainMenu_MatchDesc": "Zagraj przyjacielską partię gwinta",
+    "MainMenu_EditorTitle": "TALIE",
+    "MainMenu_EditorDesc": "Twórz i edytuj talie",
+    "MainMenu_RankTitle": "MECZ RANKINGOWY",
+    "MainMenu_RankDesc": "Zagraj rankingową partie Gwenta",
+    "MainMenu_RankListTitle": "RANKING",
+    "MainMenu_RankListDesc": "Pokaż najlepszych graczy",
+    "MatchmakingMenu_Title": "MECZ SWOBODNY",
+    "MatchmakingMenu_DeckReady": "Talia gotowa!",
+    "MatchmakingMenu_PlayButton": "GRAJ",
+    "MatchmakingMenu_PasswordPlaceholder": "Wprowadź kod meczu",
+    "MatchmakingMenu_ReturnButton": "WRÓĆ",
+    "MatchmakingMenu_SwitchButton": "ZMIEŃ TALIE",
+    "MatchmakingMenu_CloseButton": "ZAMKNIJ",
+    "MatchmakingMenu_BlacklistCheckbox": "Włącz banowanie",
+    "MatchmakingMenu_CardCount": "Karty: ",
+    "MatchmakingMenu_LookingForOpponent": "Szukam przeciwnika...",
+    "MatchmakingMenu_CancelButton": "ANULUJ",
+    "EditorMenu_Title": "EDYTOR TALII",
+    "EditorMenu_SearchPlaceholder": "Szukaj",
+    "EditorMenu_BackButton": "WRÓĆ",
+    "EditorMenu_CardCount": "Karty: ",
+    "EditorMenu_EditButton": "EDYTUJ",
+    "EditorMenu_RemoveButton": "USUŃ",
+    "EditorMenu_SwitchDeckButton": "Zmień tryb",
+    "EditorMenu_BlacklistButton": "Lista banów",
+    "EditorMenu_AddDeck": "NOWA TALIA",
+    "EditorMenu_DefaultDeckname": "Domyślna",
+    "EditorMenu_DefaultBlacklistname": "Zbanowane karty (bez dowódców)",
+    "EditorMenu_AddDeckFromCodeButton": "Dodaj kod talii",
+    "EditorMenu_GetDeckCodeButton": "Kod talii",
+    "EditorMenu_EnterDeckCode": "Wprowadź kod talii",
+    "PopupWindow_DeleteDeckTitle": "USUŃ",
+    "PopupWindow_DeleteDeckDesc": "Czy na pewno chcesz usunąć talie",
+    "PopupWindow_DeleteDeckErrorTitle": "BŁĄD",
+    "PopupWindow_DeleteDeckErrorDesc": "Nie udało się usunąć tali",
+    "PopupWindow_DeckLimitTitle": "LIMIT",
+    "PopupWindow_DeckLimitDesc": "Nie można mieć więcej niż 100 tali!",
+    "PopupWindow_AddDeckErrorTitle": "BŁĄD",
+    "PopupWindow_AddDeckErrorDesc": "Nie można dodać nowej tali. Czy chcesz wrócić to menu głównego?",
+    "PopupWindow_YesButton": "TAK",
+    "PopupWindow_NoButton": "NIE",
+    "PopupWindow_OkButton": "OK",
+    "PopupWindow_LoggedOutTitle": "WYLOGOWANO",
+    "PopupWindow_LoggedOutDesc": "Ktoś inny zalogował się na Twoje konto!",
+    "PopupWindow_DisconnectedTitle": "ROZŁĄCZONO",
+    "PopupWindow_DisconnectedDesc": "Spróbuj sie zalogować ponownie!\nNote!\nIn obecna wersja, jeżeli zostałeś rozłączony w trakcie gry-zrestartuj klient.",
+    "PopupWindow_QuitTitle": "WYJDŹ",
+    "PopupWindow_QuitDesc": "Czy na pewno chcesz wyjść?",
+    "PopupWindow_ReceivedMessageTitle": "Otrzymałeś wiadomość z serwera",
+    "PopupWindow_NoDeckTitle": "BRAK TALII",
+    "PopupWindow_NoDeckDesc": "Nie masz dostępnej tali. Stwórz talie i wróć tutaj.",
+    "PopupWindow_IncompleteDeckTitle": "TALIA NIEKOMPLETNA",
+    "PopupWindow_IncompleteDeckDesc": "Ta talia nie jest kompletna. Zmień ją i wróć tutaj.",
+    "IngameMenu_ShowButton": "POKAŻ",
+    "IngameMenu_ConfirmButton": "POTWIERDŹ",
+    "IngameMenu_CloseButton": "ZAMKNIJ",
+    "IngameMenu_HideButton": "UKRYJ",
+    "IngameMenu_MulliganEndButton": "ZAKOŃCZ WYMIANĘ",
+    "IngameMenu_YourTurn": "Twoja tura",
+    "IngameMenu_PlayerGraveyard": "Twój cmentarz",
+    "IngameMenu_EnemyGraveyard": "Cmentarz przeciwnika",
+    "IngameMenu_PlayerDeck": "Twoja talia",
+    "IngameMenu_MulliganTitle": "Wybierz karty do wymiany [{0}/{1}]",
+    "IngameMenu_ErrorTitle": "BŁĄD",
+    "IngameMenu_CardSelection": "WYBÓR KART",
+    "IngameMenu_Passed": "GRACZ SPASOWAŁ",
+    "IngameMenu_EnemyRedrawing": "Przeciwnik wymienia karty.",
+    "IngameMenu_EnemyDecidingCoin": "Przeciwnik licytuje monetę.",
+    "IngameMenu_ScoreTitle": "WYNIK",
+    "IngameMenu_VictoryTitle": "ZWYCIĘSTWO",
+    "IngameMenu_DefeatTitle": "PORAŻKA",
+    "IngameMenu_DrawTitle": "REMIS",
+    "IngameMenu_SecondRoundTitle": "Początek rundy drugiej",
+    "IngameMenu_LastRoundTitle": "Początek rundy trzeciej!",
+    "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
+    "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
+    "IngameMenu_RoundDrawTitle": "REMIS!",
+    "CardTag_DoubleAgent": "Podwójny agent",
+    "CardTag_WildHunt": "Dziki gon",
+    "CardTag_Tactic": "Taktyka",
+    "CardTag_Beast": "Bestia",
+    "CardTag_Leader": "Dowódca",
+    "CardTag_Mage": "Mag",
+    "CardTag_Boss": "Boss",
+    "CardTag_Vampire": "Wampir",
+    "CardTag_Cintra": "Cintra",
+    "CardTag_Insectoid": "Insekt",
+    "CardTag_Stray": "Stray",
+    "CardTag_Construct": "Konstrukt",
+    "CardTag_Spell": "Zaklęcie",
+    "CardTag_Redania": "Redania",
+    "CardTag_SiegeSupport": "Wsparcie oblężnicze",
+    "CardTag_ClanDrummond": "Klan Drummond",
+    "CardTag_Specter": "Upiór",
+    "CardTag_Cursed": "Przeklęty",
+    "CardTag_Soldier": "Żołnierz",
+    "CardTag_Kaedwen": "Kaedwen",
+    "CardTag_Vodyanoi": "Wodjanoj",
+    "CardTag_ClanTuirseach": "Klan Tuirseach",
+    "CardTag_ClanTordarroch": "Klan Tordarroch",
+    "CardTag_ClanDimun": "Klan Dimun",
+    "CardTag_Witcher": "Wiedźmin",
+    "CardTag_Cultist": "Kultysta",
+    "CardTag_Alchemy": "Alchemia",
+    "CardTag_Reckless": "Reckless",
+    "CardTag_ClanHeymaey": "Klan Heymaey",
+    "CardTag_Blitz": "Blitz",
+    "CardTag_Dryad": "Driada",
+    "CardTag_Special": "Specjalna",
+    "CardTag_Elf": "Elf",
+    "CardTag_Lyria": "Lyria",
+    "CardTag_Necrophage": "Trupojad",
+    "CardTag_Machine": "Maszyna",
+    "CardTag_Aedirn": "Aedirn",
+    "CardTag_Support": "Wsparcie",
+    "CardTag_ClanAnCraite": "Klan An Craite",
+    "CardTag_Dwarf": "Krasnolud",
+    "CardTag_Draconid": "Drakonid",
+    "CardTag_SiegeEngine": "Siege Engine",
+    "CardTag_Temeria": "Temeria",
+    "CardTag_Officer": "Oficer",
+    "CardTag_Weather": "Pogoda",
+    "CardTag_Organic": "Organiczna",
+    "CardTag_Item": "Przedmiot",
+    "CardTag_Hazard": "Zagrożenie",
+    "CardTag_Boon": "Dar",
+    "CardTag_Ambush": "Zasadzka",
+    "CardTag_Doomed": "Fatum",
+    "CardTag_Immune": "Odporność",
+    "CardTag_Bear": "Niedźwiedź",
+    "CardTag_Ogroid": "Ogroid",
+    "CardTag_BlueStripes": "Niebieskie pasy",
+    "CardTag_Breedable": "Breedable",
+    "CardTag_Devourer": "Pożeracz",
+    "CardTag_Dragon": "Smok",
+    "CardTag_Harpy": "Harpia",
+    "CardTag_Medic": "Medyk",
+    "CardTag_Stubborn": "Uparty",
+    "CardTag_Permadeath": "Permadeath",
+    "CardTag_Peasant": "Chłop",
+    "CardTag_Potion": "Mikstura",
+    "CardTag_Relict": "Relikt",
+    "CardTag_Regressing": "Regressing",
+    "CardTag_Shapeshifter": "Zmiennokształtny",
+    "CardTag_Token": "Token",
+    "CardTag_Agent": "Agent",
+    "CardTag_ClanBrokvar": "Klan Brokvar",
+    "CardTag_Test": "Test",
+    "ShupeKnight_1_Strengthen": "Wzmocnij się do 25.",
+    "ShupeKnight_2_Resilience": "Wytrzymałość.",
+    "ShupeKnight_3_Duel": "Stocz pojedynek z wrogiem. ",
+    "ShupeKnight_4_Reset": "Zresetuj jednostkę.",
+    "ShupeKnight_5_Destroy": "Zniszcz wrogów z 4 lub mniej siły.",
+    "ShupeHunter_1_SingleDamage": "Zadaj 15 pkt. obrażeń.",
+    "ShupeHunter_2_RepeatedDamage": "Zadaj 2 pkt. obrażeń losowemu wrogowi. Powtórz 8 razy.",
+    "ShupeHunter_3_Replay": "Ponownie zagraj brązowego lub srebrnego sojusznika - wzmocnij go o 5.",
+    "ShupeHunter_4_PlayFromDeck": "Zagraj brązową lub srebrną jednostkę z Twojej tali.",
+    "ShupeHunter_5_ClearSky": "Usuń wszystkie zagrożenia z Twojej strony i wzmocnij sojuszników o 1.",
+    "ShupeMage_1_DrawCard": "Dobierz kartę.",
+    "ShupeMage_2_Charm": "Rzuć urok na losowego wroga.",
+    "ShupeMage_3_Hazard": "Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika.",
+    "ShupeMage_4_Damage": "Zadaj wrogowi 10 pkt. obrażeń i 5 pkt. obrażeń jednostkom z nim sąsiadującym.",
+    "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii."
+  },
     "CardLocales": {
         "12004": {
             "Name": "Geralt z Rivii",
@@ -258,7 +258,7 @@
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń.",
             "Flavor": "Potrafię o siebie zadbać. Wierz mi."
         },
         "12008": {
@@ -298,7 +298,7 @@
         },
         "12015": {
             "Name": "Zoltan Szelma",
-            "Info": "Rozmieszczenie: Wybierz: Stwórz Dudę Towarzysza, który wzmocni 2 sąsiadujące jednostki o 2 lub Stwórz Dudę Mąciciela, który zada 2 sąsiadującym jednostkom 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Wybierz: Stwórz Dudę Towarzysza, który wzmocni 2 sąsiadujące jednostki o 2 lub Stwórz Dudę Mąciciela, który zada 2 sąsiadującym jednostkom 2 pkt obrażeń. (Duda; 1 siły)",
             "Flavor": "Wybaczcie. Mądre to zamorskie ptaszysko, ale nieobyczajne. Dziesięć talarów za cudaka dałem."
         },
         "12016": {
@@ -318,7 +318,7 @@
         },
         "12019": {
             "Name": "Ciri",
-            "Info": "Gdy przegrasz rundę, cofnij tę jednostkę do swojej ręki.",
+            "Info": "Gdy przegrasz rundę, cofnij tę jednostkę do swojej ręki. 2 pkt pancerza.",
             "Flavor": "Ja mogę iść, gdzie chcę i kiedy chcę."
         },
         "12020": {
@@ -343,7 +343,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Rozmieszczenie: Wybierz: Stwórz Jednorożca, który wzmacnia wszystkie inne jednostki o 2 lub Stwórz Chironexa, który zadaje wszystkim innym jednostkom 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Wybierz: Stwórz Jednorożca, który wzmacnia wszystkie inne jednostki o 2 lub Stwórz Chironexa, który zadaje wszystkim innym jednostkom 2 pkt obrażeń.\nJednorożec; 1 Siły)\n(Chirone; 4 Siły)",
             "Flavor": "Odziana w kompozycję czerni i bieli, przywodziła na myśl grudniowy poranek."
         },
         "12025": {
@@ -363,7 +363,7 @@
         },
         "12027": {
             "Name": "Aguara",
-            "Info": "Wybierz dwa: Wzmocnij najsłabszego sojusznika o 5; Wzmocnij losową jednostkę w swojej ręce o 5; Zadaj najsilniejszemu wrogowi 5 pkt obrażeń; Rzuć urok na losowego wrogiego Elfa o sile 5 lub mniejszej.",
+            "Info": "Rozmieszczenie: Wybierz dwa: Wzmocnij najsłabszego sojusznika o 5; Wzmocnij losową jednostkę w swojej ręce o 5; Zadaj najsilniejszemu wrogowi 5 pkt obrażeń; Rzuć urok na losowego wrogiego Elfa o sile 5 lub mniejszej.",
             "Flavor": "Uważaj, bo jak będziesz niegrzeczny oddam cię Aguarze!"
         },
         "12028": {
@@ -373,7 +373,7 @@
         },
         "12003": {
             "Name": "Jaskier Poeta",
-            "Info": "Rozmieszczenie: Dobierz kartę, a następnie zagraj kartę.",
+            "Info": "Rozmieszczenie: Dobierz 1 kartę, a następnie zagraj 1 kartę.",
             "Flavor": "Pióro jest potężniejsze od miecza."
         },
         "12029": {
@@ -438,7 +438,7 @@
         },
         "12040": {
             "Name": "Próba Traw",
-            "Info": "Wzmocnij siłę Wiedźmina do 25 lub Zadaj 10 pkt obrażeń jednostce, która nie jest Wiedźminem. Jeśli przeżyje, wzmocnij ją do 25.",
+            "Info": "Zadaj jednostce 10 pkt obrażeń, jeśli nie jest wiedźminem. Jeśli jednsotka przeżyje wzmocnij ją do 25 siły.",
             "Flavor": "Wyobraź sobie grudkę gliny. Żeby ją uformować, trzeba ją wpierw zwilżyć wodą, bo inaczej się skruszy. To właśnie robi pierwsza część Próby... Dopiero mutageny zmieniają w wiedźmina."
         },
         "12041": {
@@ -463,7 +463,7 @@
         },
         "13005": {
             "Name": "Maćko z Lisich Dołów",
-            "Info": "Rozmieszczenie: Stwórz po obu stronach tej jednostki 2 Krowy.",
+            "Info": "Rozmieszczenie: Stwórz po obu stronach tej jednostki 2 Krowy.\n(Krowa; 1 pkt siły)",
             "Flavor": "Bohater, którego Toussaint potrzebowało, ale na którego nie zasługiwało."
         },
         "13006": {
@@ -513,7 +513,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "Zemsta: Na koniec tury Wskrześ tę jednostkę w losowym rzędzie.",
+            "Info": "Na początku tury, wskrześ tę jednostkę w losowym rzędzie i osłab ją o połowę.",
             "Flavor": "Teraz przynajmniej wiesz, że łatwo nie tracę głowy."
         },
         "13002": {
@@ -523,7 +523,7 @@
         },
         "13016": {
             "Name": "Operator",
-            "Info": "Jednorazowa: Rozejm: Stwórz standardowy egzemplarz brązowej jednostki z twojej ręki w rękach obu graczy.",
+            "Info": "Rozmieszczenie Jednorazowa Rozejm: Stwórz standardowy egzemplarz brązowej jednostki z twojej ręki w rękach obu graczy.",
             "Flavor": "Gdy czas i przestrzeń przed nami się kurczą, to rozszerzają się za nami. W ten sposób idzie się naprzód w czasie i przestrzeni."
         },
         "13017": {
@@ -558,7 +558,7 @@
         },
         "13022": {
             "Name": "Krowa Czempionka",
-            "Info": "Zemsta: Stwórz Czarta w losowym rzędzie.",
+            "Info": "Zemsta: Stwórz Czarta w losowym rzędzie.\n(Czart; 14 pkt siły)",
             "Flavor": "Muuuuu."
         },
         "13023": {
@@ -573,12 +573,12 @@
         },
         "13025": {
             "Name": "Zaklęcie Kompresji",
-            "Info": "Przemień brązową lub srebrną jednostkę w Jadeitową Figurkę.",
+            "Info": "Przemień brązową lub srebrną jednostkę w Jadeitową Figurkę.\n(Jadeitowa Figurka; 2 pkt siły)",
             "Flavor": "Figurka rosła błyskawicznie, pulsując i tętniąc, zmieniała strukturę i kształt niczym pełzający po posadzce obłok dymu. W smugach blasku pojawiły się ruch i twardniejąca materia. Jeszcze moment, a w centrum magicznych kół pokazała się nagle postać ludzka."
         },
         "13026": {
             "Name": "Zwierciadło Bekkera",
-            "Info": "Wymień do 13 pkt siły między najsilniejszą i najsłabszą jednostką.",
+            "Info": "Wymień do 10 pkt siły między najsilniejszą i najsłabszą jednostką.",
             "Flavor": "Gdy długo spoglądamy w otchłań, otchłań spogląda również w nas."
         },
         "13027": {
@@ -693,7 +693,7 @@
         },
         "14006": {
             "Name": "Wściekły Ryk",
-            "Info": "Zniszcz sojusznika. Stwórz i zagraj niedźwiedzia.",
+            "Info": "Zniszcz sojusznika. Stwórz i zagraj niedźwiedzia.\n(Niedźwiedź; 11 pkt siły)",
             "Flavor": "Brak"
         },
         "14007": {
@@ -803,7 +803,7 @@
         },
         "14027": {
             "Name": "Chłopska Milicja",
-            "Info": "Stwórz 3 Chłopów w wybranym rzędzie.",
+            "Info": "Stwórz 3 Chłopów w wybranym rzędzie.\n(Chłopska milicja; 3 pkt siły)",
             "Flavor": "My jesteśmy milicja. Porządku pilnujem."
         },
         "15001": {
@@ -813,12 +813,12 @@
         },
         "15002": {
             "Name": "Sklep Łowca",
-            "Info": "Wyślij Sklepa do lasów Dol Blathanna. Zadaj 15pkt. obrażeń; Zadaj 2pkt. obrażeń losowemu wrogowi 8 razy; Zagraj ponownie brązową lub srebrną jednostkę i wzmocnij ją o 5; Zagraj brązową lub srebrną jednostkę z Twojej talii; Usuń zagrożenia ze swojej strony i wzmocnij sojuszników o 1",
+            "Info": "Wyślij Sklepa do lasów Dol Blathanna. Zadaj 15 pkt. obrażeń; Zadaj 2 pkt. obrażeń losowemu wrogowi 8 razy; Zagraj ponownie brązową lub srebrną jednostkę i wzmocnij ją o 5; Zagraj brązową lub srebrną jednostkę z Twojej talii; Usuń zagrożenia ze swojej strony i wzmocnij sojuszników o 1.",
             "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
         },
         "15003": {
             "Name": "Sklep Czarodziej",
-            "Info": "Wyślij Sklepa do akademii dla chłopców w Ban Ard. Dobierz kartę; Rzuć urok na losowego wroga; Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika; Zadaj 10 pkt. obrażeń jednostce i 5 pkt jej sąsiadom; Zagraj kartę specjalną z Twojej talii",
+            "Info": "Wyślij Sklepa do akademii dla chłopców w Ban Ard. Dobierz 1 kartę; Rzuć urok na losowego wroga; Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika; Zadaj 10 pkt. obrażeń jednostce i 5 pkt jej sąsiadom; Zagraj kartę specjalną z Twojej talii",
             "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
         },
         "15004": {
@@ -903,7 +903,7 @@
         },
         "22001": {
             "Name": "Stary Grot Sen",
-            "Info": "Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
+            "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
             "Flavor": "Nie przeszkadzać."
         },
         "22002": {
@@ -943,7 +943,7 @@
         },
         "22009": {
             "Name": "Imlerith Sabat",
-            "Info": "Na koniec tury stocz pojedynek z najsilniejszym wrogiem. Jeśli ta jednostka przeżyje, uzdrów ją o 2 i daj jej 2 pkt pancerza. Powtórz w dwóch kolejnych rundach. 2 pkt pancerza.",
+            "Info": "Na koniec tury stocz pojedynek z najsilniejszym wrogiem. Jeśli ta jednostka przeżyje, uzdrów ją o 2 i daj jej 2 pkt pancerza. Powtórz do 2 razy. 2 pkt pancerza.",
             "Flavor": "Siostry powiedziały, że przyjdziesz. Widziały twoje nadejście w lustrze wody."
         },
         "22010": {
@@ -993,7 +993,7 @@
         },
         "23005": {
             "Name": "Ifrit",
-            "Info": "Rozmieszczenie: Stwórz 3 Pomniejsze Ifirty po prawej stronie tej jednostki.",
+            "Info": "Rozmieszczenie: Stwórz 3 Pomniejsze Ifirty po prawej stronie tej jednostki.\n(Pomniejszy Ifryt; 1 pkt siły; Gdy przyzwany, zadaj 1 pkt obrażeń losowemu wrogowi)",
             "Flavor": "No, teraz to się zrobi gorąco."
         },
         "23006": {
@@ -1068,7 +1068,7 @@
         },
         "23020": {
             "Name": "Runa Dziewanna",
-            "Info": "Rozmieszczenie: Utwórz brązową lub srebrną kartę Potwora.",
+            "Info": "Utwórz brązową lub srebrną kartę Potwora.",
             "Flavor": "Moje ostrze tnie... Cóż, ostrzej."
         },
         "23021": {
@@ -1128,7 +1128,7 @@
         },
         "24010": {
             "Name": "Olbrzymi Krabopająk",
-            "Info": "Następne 4 razy, gdy pochłoniesz jednostkę, stwórz Młode Krabopająka w losowym rzędzie.",
+            "Info": "Gdy pochłoniesz jednostkę, stwórz Młode Krabopająka w losowym rzędzie.\nPowtórz do  3 razy.\n(Młode Krabopająka; 3 pkt siły; Przyzwij wszystkie Młode Pająka z Twojej talii do tego rzędu)",
             "Flavor": "To... To się rusza!"
         },
         "24011": {
@@ -1168,7 +1168,7 @@
         },
         "24018": {
             "Name": "Harpia Celaeno",
-            "Info": "Rozmieszczenie: Stwórz 2 Jaja Harpii.",
+            "Info": "Rozmieszczenie: Stwórz 2 Jaja Harpii.\n(Jajo harpii; 1 pkt siły; po pochłonięciu przez inną jednostkę wzmocnij tę jednostkę o dodatkowe 5.\nZemsta: stwórz Piskle Harpi w losowym rzędzie)\n(Piskle Harpi; 1 siła)",
             "Flavor": "Zwykłe harpie żywią się padliną. A Celaeno – snami."
         },
         "24019": {
@@ -1278,7 +1278,7 @@
         },
         "25002": {
             "Name": "Krabopająk Truteń",
-            "Info": "Rozmieszczenie: Wezwij do tego rzędu wszystkie egzemplarze tej jednostki.",
+            "Info": "Wezwij do tego rzędu wszystkie egzemplarze tej jednostki.",
             "Flavor": "Pół krab, pół pająk. Słowem, sukinsyn."
         },
         "25003": {
@@ -1288,12 +1288,12 @@
         },
         "25004": {
             "Name": "Jajo Harpii",
-            "Info": "Po pochłonięciu wzmocnij pochłaniającą jednostkę o 5.\nZemsta: Stwórz Harpię w losowym rzędzie.",
+            "Info": "Po pochłonięciu wzmocnij pochłaniającą jednostkę o 5.\nZemsta: Stwórz Piskle Harpi w losowym rzędzie.\n(Piskle Harpi; 1 siła)",
             "Flavor": "Omlet z jaj harpii to prawdziwy rarytas. Ale, jak waszmość może sobie wyobrazić, harpie nie dzielą się nimi zbyt ochoczo."
         },
         "25005": {
-            "Name": "25005",
-            "Info": "No ability.",
+            "Name": "Piskle Harpi",
+            "Info": "Brak umiejętności.",
             "Flavor": "Brak"
         },
         "25006": {
@@ -1343,7 +1343,7 @@
         },
         "32003": {
             "Name": "Vattier de Rideaux",
-            "Info": "Rozmieszczenie: Ujawnij do 2 swoich kart, a następnie ujawnij tyle samo losowych kart przeciwnika.",
+            "Info": "Rozmieszczenie: Ujawnij do 2 swoich kart. Za każdą ujawnioną tak kartę ujawnij 1 losową karte przeciwnika.",
             "Flavor": "Nie ma problemu, którego nie da się rozwiązać skrytobójstwem."
         },
         "32004": {
@@ -1403,7 +1403,7 @@
         },
         "32014": {
             "Name": "Letho z Gulety",
-            "Info": "Szpieg. Rozmieszczenie: Aktywuj status zablokowanie u 2 jednostek w tym rzędzie, a następnie wykradnij im całą siłę.",
+            "Info": "Podwójny agent, Rozmieszczenie: Aktywuj status zablokowanie u 2 jednostek w tym rzędzie, a następnie wykradnij im całą siłę.",
             "Flavor": "Czekam na tych, którzy chcą mnie zabić."
         },
         "32015": {
@@ -1498,7 +1498,7 @@
         },
         "33018": {
             "Name": "Fringilla Vigo",
-            "Info": "Szpieg. Rozmieszczenie: Zmień siłę jednostki po prawej stronie tej karty na siłę jednostki po lewej stronie tej karty.",
+            "Info": "Podwójny agent, Rozmieszczenie: Zmień siłę jednostki po prawej stronie tej karty na siłę jednostki po lewej stronie tej karty.",
             "Flavor": "Ach, miło rzucić wreszcie jakieś zaklęcie…"
         },
         "33019": {
@@ -1528,7 +1528,7 @@
         },
         "34004": {
             "Name": "Nilfgaardzki Rycerz",
-            "Info": "Rozmieszczenie: Ujawnij 1 losową kartę w swojej ręce. 2 pkt pancerza.",
+            "Info": "Rozmieszczenie: Ujawnij losową kartę w swojej ręce. 2 pkt pancerza.",
             "Flavor": "Synowie szlachetnych rodów, urodzeni w mieście Złotych Wież, tworzą prawdziwą elitę cesarskiej armii."
         },
         "34006": {
@@ -1558,7 +1558,7 @@
         },
         "34011": {
             "Name": "Siewca Zarazy",
-            "Info": "Rozmieszczenie: Stwórz Krowie truchło we wrogim rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz Krowie truchło we wrogim rzędzie.\n(Krowie truchło; 1 pkt siły; Po 2 turach, na koniec tury, zniszcz siebie i najsłabsze jednostki w tym rzędzie)",
             "Flavor": "Historycy mogą spierać się nad tym, czy sianie zarazy wśród obrońców jest etyczne. Dla nas istotna jest przede wszystkim efektywność."
         },
         "34012": {
@@ -1633,7 +1633,7 @@
         },
         "34024": {
             "Name": "Pikinierzy Alby",
-            "Info": "Jednorazowa. Na początku tury, wezwij jeden egzemplarz ze swojej talii do tego rzędu. 2 pkt panczerza.",
+            "Info": "Po 1 turze, na początku tury, wezwij jeden egzemplarz ze swojej talii do tego rzędu. 2 pkt panczerza.",
             "Flavor": "Złóż przysięgę wierności naszemu cesarzowi albo zgiń."
         },
         "34025": {
@@ -1663,7 +1663,7 @@
         },
         "34001": {
             "Name": "Nowicjusz z Vicovaro",
-            "Info": "Rozmieszczenie: Dobierz 2 wierzchnie brązowe karty Alchemii ze swojej talii. Zagraj jedną, a drugą wtasuj z powrotem.",
+            "Info": "Rozmieszczenie: Spójrz na 2 wierzchnie brązowe karty Alchemii ze swojej talii, a następnie zagraj 1 z nich.",
             "Flavor": "Czarodzieje w Nilfgaardzie nie cieszą się szczególnym poważaniem - gdy jeden z nich rozczaruje Cesarza, na jego miejsce czeka już dziesięciu innych."
         },
         "34029": {
@@ -1708,12 +1708,12 @@
         },
         "41002": {
             "Name": "Królewna Adda",
-            "Info": "Rozmieść: Stwórz brązową przeklętą jednostkę Królestw Północy.",
+            "Info": "Rozmieszczenie: Stwórz brązową przeklętą jednostkę Królestw Północy.",
             "Flavor": "Klątwę odczyniono... Ale apetyt na surowe mięso pozostał."
         },
         "41003": {
             "Name": "Król Foltest",
-            "Info": "Wzmocnij o 1 wszystkich innych sojuszników i swoje jednostki w ręku i talii, które nie są szpiegami. Załoga.",
+            "Info": "Rozmieszczenie: Wzmocnij o 1 wszystkich innych sojuszników i swoje jednostki w ręku i talii, które nie są szpiegami. Załoga.",
             "Flavor": "Cholerni doradcy i ich polityczne układanki. Na polu bitwy ufam sobie i swoim zbrojnym."
         },
         "41004": {
@@ -1723,7 +1723,7 @@
         },
         "42001": {
             "Name": "Jaskier",
-            "Info": "Wzmocnij 3 jednostki w swojej talii o 2.",
+            "Info": "Rozmieszczenie: Wzmocnij 3 jednostki w swojej talii o 2.",
             "Flavor": "Julian Alfred Pankratz wicehrabia de Lettenhove. Dla przyjaciół – Jaskier."
         },
         "42002": {
@@ -1763,7 +1763,7 @@
         },
         "42009": {
             "Name": "Shani",
-            "Info": "Wskrześ brązową lub srebrną jednostkę, która nie jest Przeklęta, i daj jej 2 pkt pancerza.",
+            "Info": "Rozmieszczenie: Wskrześ brązową lub srebrną jednostkę, która nie jest Przeklęta, i daj jej 2 pkt pancerza.",
             "Flavor": "Jestem medyczką, kiedy coś zalecam, zazwyczaj wiem, co robię."
         },
         "42010": {
@@ -1773,17 +1773,17 @@
         },
         "42011": {
             "Name": "Priscilla",
-            "Info": "Wzmocnij 7 losowych sojuszników o 3.",
+            "Info": "Rozmieszczenie: Wzmocnij 7 losowych sojuszników o 3.",
             "Flavor": "Wyobraź sobie, że Jaskier zmienił płeć i będziesz miał pełny obraz."
         },
         "42012": {
             "Name": "Vernon Roche",
-            "Info": "Zadaj wrogowi 7 pkt obrażeń. Na początku gry dodaj do swojej talii Niebieskie Pasy.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 7 pkt obrażeń.\nNa początku gry dodaj do swojej talii Niebieskie Pasy.",
             "Flavor": "Patriota, chociaż sukinsyn."
         },
         "42013": {
             "Name": "Filippa Eilhart",
-            "Info": "Rozmieszcznie: Zrań wroga o 5, a następnie zrań losowych wrogów o 4, 3, 2 i 1. Nie można zranić tego samego wroga dwa razy z rzędu.",
+            "Info": "Rozmieszczenie: Zrań wroga o 5, a następnie zrań losowych wrogów o 4, 3, 2 i 1. Nie można zranić tego samego wroga dwa razy z rzędu.",
             "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
         },
         "43001": {
@@ -1818,7 +1818,7 @@
         },
         "43007": {
             "Name": "Duma Foltesta",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 2 pkt obrażeń i przenieś go rząd wyżej. Obsadzenie:Powtórz tę umiejętność.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń i przenieś go rząd wyżej. Obsadzenie:Powtórz tę umiejętność.",
             "Flavor": "Król Foltest zwykł mawiać, że efektywność jest ważniejsza niźli rozmiar."
         },
         "43008": {
@@ -1828,7 +1828,7 @@
         },
         "43009": {
             "Name": "Odrin",
-            "Info": "Na początku tury przenieś tę jednostkę do losowego rzędu i wzmocnij wszystkich innych sojuszników w tym rzędzie o 1.",
+            "Info": "Na początku tury przenieś tę jednostkę do losowego rzędu i wzmocnij wszystkich innych sojuszników w tym rzędzie o 1.\nZemsta: Wzmocnij wszystkich sojuszników w tym rzędzie o 1.",
             "Flavor": "Picie bez Odrina jest jak kajakowanie bez wioseł."
         },
         "43010": {
@@ -1963,7 +1963,7 @@
         },
         "44015": {
             "Name": "Trebusz",
-            "Info": "Zadaj 1 pkt obrażeń 3 sąsiadującym wrogom. Obsadzenie:Zwiększ obrażenia o 1.",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń 3 sąsiadującym wrogom. Obsadzenie: Zwiększ obrażenia o 1.",
             "Flavor": "Jeden trebuszet jest wart stu piechurów. I trzystu takich łachudrów, jak ty."
         },
         "44016": {
@@ -2058,7 +2058,7 @@
         },
         "44034": {
             "Name": "Krwawy Korbacz",
-            "Info": "Zadaj 5 pkt obrażeń i stwórz Upiora.",
+            "Info": "Zadaj 5 pkt obrażeń i stwórz w losowym rzędzie Upiora.\n(Upiór 5 pkt siły)",
             "Flavor": "Niektóre rodzaje oręża zostały zakazane w Królestwach Północy, tak straszne były rany zadane przy ich pomocy."
         },
         "45001": {
@@ -2193,7 +2193,7 @@
         },
         "53007": {
             "Name": "Yarpen Zigrin",
-            "Info": "Za każdym razem, gdy pojawi się sojuszniczy krasnolud, wzmocnij siebie o 1.\nWytrzymałość.\n2 pkt. pancerza.",
+            "Info": "Za każdym razem, gdy pojawi się sojuszniczy krasnolud, wzmocnij siebie o 1.\nWytrzymałość.\n1 pkt. pancerza.",
             "Flavor": "O smoku Ocviście z Kwarcowej Góry słyszałeś? Wiedz, że właśnie Yarpen Zigrin i jego krasnoludy załatwiły Ocvista."
         },
         "53008": {
@@ -2288,7 +2288,7 @@
         },
         "54005": {
             "Name": "Krasnolud Najemnik",
-            "Info": "Przenieś jednostkę do rzędu tej jednostki po jej stronie. Jeśli to sojusznik, wzmocnij go o 3.",
+            "Info": "Rozmieszczenie: Przenieś jednostkę do rzędu tej jednostki po jej stronie. Jeśli to sojusznik, wzmocnij go o 3.",
             "Flavor": "Grunt to łączyć przyjemne z pożytecznym - lać po ryjach i dostawać za to pełną sakiewkę."
         },
         "54006": {
@@ -2308,7 +2308,7 @@
         },
         "54009": {
             "Name": "Strzelec Wyborowy",
-            "Info": "Zadaj wrogowi 2 pkt obrażeń. Za każdym razem, gdy wróg zostaje przeniesiony, zadaj mu 2 pkt obrażeń. Za każdym razem, gdy ta jednostka zostaje przeniesiona, zadaj 2 pkt obrażeń losowemu wrogowi.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 2 pkt obrażeń. Za każdym razem, gdy wróg zostaje przeniesiony, zadaj mu 2 pkt obrażeń. Za każdym razem, gdy ta jednostka zostaje przeniesiona, zadaj 2 pkt obrażeń losowemu wrogowi.",
             "Flavor": "Możesz się ukryć, ale uciec nie zdążysz."
         },
         "54010": {
@@ -2333,7 +2333,7 @@
         },
         "54014": {
             "Name": "Elfi Traper",
-            "Info": "Rozmieszczenie: Stwórz Pułapkę Zapalającą w wybranym wrogim rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz Pułapkę Zapalającą w wybranym wrogim rzędzie.\n(Pułapka Zapalająca; 1 pkt siły; Na koniec tury zadaj wszystkim jednostkom w tym rzędzie 2 pkt obrażeń.)",
             "Flavor": "Nosy mają jak psy gończe. Oczy jak sokoły. A serca z lodu."
         },
         "54015": {
@@ -2438,7 +2438,7 @@
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Władca Undvik; 5 pkt siły; Zemsta: Wzmonij wrogich Hjalmarów o 10)",
             "Flavor": "Zamiast użalać się nad poległymi, lepiej wypijmy za ich pamięć!"
         },
         "62003": {
@@ -2463,7 +2463,7 @@
         },
         "62007": {
             "Name": "Cerys an Craite",
-            "Info": "Po wskrzeszeniu 4 jednostek w czasie, gdy ta jednostka znajduje się na cmentarzu, wskrześ tę jednostkę w losowym rzędzie.",
+            "Info": "Po wskrzeszeniu 4 jednostek w czasie, gdy ta jednostka znajduje się na cmentarzu, wskrześ tę jednostkę w losowym rzędzie i ulepsz ją o 1.",
             "Flavor": "Chodź, już ja ci pokażę Przepióreczkę..."
         },
         "62008": {
@@ -2483,7 +2483,7 @@
         },
         "62011": {
             "Name": "Koral",
-            "Info": "Rozmieszczenie: Przemień brązową lub srebrną jednostkę w Jadeitową Figurkę.",
+            "Info": "Rozmieszczenie: Przemień brązową lub srebrną jednostkę w Jadeitową Figurkę.\n(Jadeitowa Figurka; 2 pkt siły)",
             "Flavor": "Jej prawdziwe imię to Astrid Lyttneyd Ásgeirrfinnbjornsdottir, ale miała już dosyć problemów w urzędach."
         },
         "62012": {
@@ -2493,7 +2493,7 @@
         },
         "62013": {
             "Name": "Kambi",
-            "Info": "Szpieg. Zemsta: Stwórz Hemdalla.",
+            "Info": "Szpieg. Zemsta: Stwórz Hemdalla.\n(Hemdal; 20 pkt siły; Rozmieszczenie: Zniszcz wszystkie jednostki, zagrożenia i korzyści)",
             "Flavor": "Kiedy przyjdzie czas, Kambi zapieje i ostrzeże Hemdalla."
         },
         "63001": {
@@ -2513,7 +2513,7 @@
         },
         "63004": {
             "Name": "Lugos Siny",
-            "Info": "Rozmieszczenie: Stwórz Widmowego Wieloryba w wybranym wrogim rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz Widmowego Wieloryba w wybranym wrogim rzędzie.\n(Widmowy wieloryb; 3 pkt siły; Na koniec tury przenieś się do losowego rzędu i zadaj 1 pkt obrażeń wszystkich jednostką w tym rzędzie. Zemsta: zadaj 1 pkt obrażeń wszystkich jednostką w tym rzędzie)",
             "Flavor": "Zaraz porzygam się z nudów."
         },
         "63005": {
@@ -2553,7 +2553,7 @@
         },
         "63012": {
             "Name": "Harald Psia Gęba",
-            "Info": "Stwórz Wilfreda po lewej stronie tej jednostki, Wilhelma po prawej stronie tej jednostki i Wilmara w przeciwnym rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz Wilfreda po lewej stronie tej jednostki, Wilhelma po prawej stronie tej jednostki i Wilmara w przeciwnym rzędzie./n(Zemsta: Ulepsz losowego sojusznika o 3)\n(Zemsta: Zadaj wszystkim jednostką w przeciwnym rzędzie 1 pkt obrażeń)\n(Zemsta: Stwórz Niedźwiedzia w przeciwnym rzędzie)\n(Niedźwiedź; 11 pkt siły)",
             "Flavor": "Niegdyś dumny jarl klanu Tordarroch, dziś bełkoczący szaleniec."
         },
         "63013": {
@@ -2623,7 +2623,7 @@
         },
         "64006": {
             "Name": "Skald Heymaey",
-            "Info": "Rozmieszczenie: Wzmocnij wszystkich sojuszników z wybranego Klanu o 2.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystkich sojuszników z wybranego Klanu o 1.",
             "Flavor": "Czyny wojowników klanu Heymaey przejdą do wieczności."
         },
         "64007": {
@@ -2688,7 +2688,7 @@
         },
         "64019": {
             "Name": "Drakkar Łupieżców",
-            "Info": "Zadaj jednej jednostce 1 pkt obrażeń 4 razy.",
+            "Info": "Rozmieszczenie: Zadaj jednej jednostce 1 pkt obrażeń 4 razy.",
             "Flavor": "Drakkary klanu Dimun są lekkie i szybkie, w sam raz do pościgów za powolnymi kupieckimi fregatami."
         },
         "64020": {
@@ -2758,7 +2758,7 @@
         },
         "64033": {
             "Name": "Treser Tuirseach",
-            "Info": "Rozmieszczenie: Stwórz Niedźwiedzia.",
+            "Info": "Rozmieszczenie: Stwórz Niedźwiedzia.\n(Niedźwiedź; 11 pkt siły)",
             "Flavor": "Nie dotykaj go. Nie patrz mu w oczy. Tak po prawdzie... Lepiej w ogóle nie podchodź."
         },
         "64034": {
@@ -2783,7 +2783,7 @@
         },
         "65004": {
             "Name": "Widmowy Wieloryb",
-            "Info": "Szpieg.  Przenieś do losowego rzędu i zadaj 1 pkt obrażeń wszystkim innym jednostkom w tym rzędzie na koniec tury.\nZemsta: Powtórz tę umiejętność",
+            "Info": "Szpieg.  Przenieś do losowego rzędu i zadaj 1 pkt obrażeń wszystkim innym jednostkom w tym rzędzie na koniec tury.\nZemsta: Zadaj 1 pkt obrażeń wszystkim jednostką w tym rzędzie.",
             "Flavor": "E, za duży jak na finwala. To płetwal. Płetwal? Z takim krótkim pyskiem? Chyba ci odbiło po tych ziołach!"
         },
         "65005": {
@@ -2798,12 +2798,12 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Zemsta: Stwórz niedźwiedzia w przecinym rzędzie.",
+            "Info": "Szpieg. Zemsta: Stwórz niedźwiedzia w przecinym rzędzie.\n(Niedźwiedź; 11 pkt siły)",
             "Flavor": "Brak"
         },
         "61001": {
             "Name": "Harald Chromy",
-            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń losowemu wrogowi w przeciwnym rzędzie. Powtórz 9 razy.",
+            "Info": "Rozmieszczenie: Rozdziel losowo 10 pkt obrażeń między wrogów z przeciwnego rzędu.",
             "Flavor": "Nikt nie wie skąd wziął się jego przydomek, nikt nie śmiał spytać."
         },
         "61002": {
@@ -2818,7 +2818,7 @@
         },
         "61004": {
             "Name": "Bran Tuirseach",
-            "Info": "Rozmieść: Stwórz brązową jednostkę Klanu Tuirseach.",
+            "Info": "Rozmieszczenie: Odrzuć do 3 kart z Twojej talii i ulepsz je o 1.",
             "Flavor": "Nikt nie zastąpi Brana. Mogą jedynie próbować."
         },
         "70001": {
@@ -2843,7 +2843,7 @@
         },
         "70005": {
             "Name": "Vysogota z Corvo",
-            "Info": "Na początku tury wzmocnij jednostkę po lewej o 3, zadaj sobie 1pkt obrażeń i przemieść się do rzędu z najmniejszą liczbą jednostek.\nZemsta: Wzmocnij najsłabszego sojusznika o 6.",
+            "Info": "Na początku tury wzmocnij jednostkę po lewej o 3, zadaj sobie 1 pkt obrażeń i przemieść się do rzędu z najmniejszą liczbą jednostek.\nZemsta: Wzmocnij najsłabszego sojusznika o 6.",
             "Flavor": ""
         },
         "70006": {
@@ -2858,7 +2858,7 @@
         },
         "70008": {
             "Name": "Vivienne Wilga",
-            "Info": "Na koniec tury jeśli wygrywasz o 25 lub więcej punktów cofnij tę jednostkę do Twojej ręki.",
+            "Info": "Jednorazowa.\nNa koniec tury jeśli wygrywasz o 26 lub więcej punktów cofnij tę jednostkę do Twojej ręki.",
             "Flavor": ""
         },
         "70009": {
@@ -2873,7 +2873,7 @@
         },
         "70011": {
             "Name": "Pani Jeziora Adwent",
-            "Info": "Stwórz Panią jeziora. (Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w Twojej ręce i tali.)",
+            "Info": "Stwórz Panią jeziora. (Pani Jeziora; 25 pkt siły; Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w Twojej ręce i tali.)",
             "Flavor": ""
         },
         "70012": {
@@ -2893,12 +2893,12 @@
         },
         "70015": {
             "Name": "Obrończyni Brokilonu",
-            "Info": "Na koniec tury, jeśli przeciwnik ma dokładnie 4 jednostki na przeciwnym rzędzie, zadaj 1pkt obrażeń tym jednostką.",
+            "Info": "Na koniec tury, jeśli przeciwnik ma dokładnie 4 jednostki na przeciwnym rzędzie, zadaj 1 pkt obrażeń tym jednostką.",
             "Flavor": ""
         },
         "70016": {
             "Name": "Sukrus",
-            "Info": "Rozmieszczenie: Wybierz brązową kartę w ręce. Odrzuć wszystkie karty o tej samej nazwie z Twojej talii.",
+            "Info": "Rozmieszczenie: Wybierz 1 brązową kartę w ręce. Odrzuć wszystkie karty o tej samej nazwie z Twojej talii.",
             "Flavor": ""
         },
         "70017": {
@@ -2908,17 +2908,17 @@
         },
         "70019": {
             "Name": "Zoltan Topornik",
-            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Munro Bruysa z Twojej tali i wzmocnij ich o połowe wzmocnienia tej karty.",
+            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Munro Bruysa z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
             "Flavor": ""
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Rozmieszczenie: Wezwij Zoltana Topornika i Munro Bruysa z Twojej tali i wzmocnij ich o połowe wzmocnienia tej karty.",
+            "Info": "Rozmieszczenie: Wezwij Zoltana Topornika i Munro Bruysa z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
             "Flavor": ""
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Zoltana Topornika z Twojej tali i wzmocnij ich o połowe wzmocnienia tej karty.",
+            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Zoltana Topornika z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
             "Flavor": ""
         },
         "70022": {
@@ -2933,12 +2933,12 @@
         },
         "70024": {
             "Name": "Przeklęty Nieśmiertelny",
-            "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz widmo w tym rzędzie.",
+            "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie i zadaj sobie 1 pkt obrażeń.\n(Upiór; 5 pkt siły)",
             "Flavor": ""
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "4 pkt pancerza. Powtórz umiejętność rozmieszczenia następnej jednostki którą zagrasz.",
+            "Info": "Jednorazowa. Powtórz umiejętność rozmieszczenia następnej jednostki którą zagrasz. 4 pkt pancerza",
             "Flavor": ""
         },
         "70026": {
@@ -2953,7 +2953,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Rozmieszczenie: Przenieś wszystkie jednostki do losowych rzędów. Za każdą przeniesioną jednostkę strać 3 pkt wzmocnienia. Gdy w talii lub w ręce, wzmocnij się o 1 za każdym razem gdy jednostka zostanie poruszona w trakcie Twojej tury.",
+            "Info": "Rozmieszczenie: Przenieś wszystkie wrogie jednostki do losowych rzędów. Za każdą przeniesioną jednostkę otrzymaj 2 pkt obrażeń. Wzmocnij się o 1 za każdym razem gdy jednostka zostanie poruszona w trakcie Twojej tury.",
             "Flavor": ""
         },
         "70033": {
@@ -2968,22 +2968,22 @@
         },
         "70039": {
             "Name": "Pazur Wilka",
-            "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej rozmieszczenie i wtasuj dwóch wilczych wojowników do Twojej talii.",
+            "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej rozmieszczenie i wtasuj 2 wilczych wojowników do Twojej talii./n(Wilczy Wojownik; 8 pkt siły; Rozmieszczenie: Zadaj 2 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
             "Flavor": ""
         },
         "70040": {
-            "Name": "Wilczy Wojownikr",
-            "Info": "Rozmieszczenie: Zadaj 2pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
+            "Name": "Wilczy Wojownik",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
             "Flavor": ""
         },
         "70041": {
             "Name": "Wyciąg z Gigaskorpiona",
-            "Info": "Zadaj 2 pkt obrażeń najsilnieszemu wrogowi. Powtórz 4 razy. Za każdy Odwar Raffarda Białego na Twoim cmetarzu powtórz jeszcze raz.",
+            "Info": "Zadaj 2 pkt obrażeń najsilnieszemu wrogowi. Powtórz 3 razy. Za każdy Odwar Raffarda Białego na Twoim cmetarzu powtórz jeszcze raz.",
             "Flavor": ""
         },
         "70042": {
             "Name": "Odwar Raffarda Białego",
-            "Info": "Wzmocnij najsłabszego sojusznika o 2. Powtórz 4 razy. Za każdy Wyciąg z gigaskorpiona na Twoim cmetarzu powtórz jeszcze raz.",
+            "Info": "Wzmocnij najsłabszego sojusznika o 2. Powtórz 3 razy. Za każdy Wyciąg z gigaskorpiona na Twoim cmetarzu powtórz jeszcze raz.",
             "Flavor": ""
         },
         "70043": {
@@ -2998,12 +2998,12 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 5. Załoga.",
+            "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 4. Załoga.",
             "Flavor": ""
         },
         "70046": {
             "Name": "Bękart Svalbloda",
-            "Info": "Na koniec tury zadaj 3pkt obrażeń najsłabszemu wrogowi, następnie zadaj 3 obrażenia tej jednostce.",
+            "Info": "Na koniec tury zadaj 3 pkt obrażeń najsłabszemu wrogowi, następnie zadaj 3 obrażenia tej jednostce.",
             "Flavor": "Nie każdy jest w stanie przyjąć błogosławieństwo Svalbloda."
         },
         "70050": {
@@ -3013,12 +3013,12 @@
         },
         "70054": {
             "Name": "Fortel",
-            "Info": "Wskrześ 2 brązowe jednostki o sile większej niż 5 i zadaj im po 4 pkt obrażeń.",
+            "Info": "Wskrześ 2 brązowe jednostki o sile 6 lub większej i zadaj im po 4 pkt obrażeń.",
             "Flavor": ""
         },
         "70058": {
             "Name": "Troll Jaskiniowy",
-            "Info": "Wzmocnij te jednostkę o 4 pkt, następnie wzmocnij wroga o 4pkt.",
+            "Info": "Rozmieszczenie: Wzmocnij te jednostkę o 4 pkt, następnie wzmocnij wroga o 4 pkt.",
             "Flavor": ""
         },
         "70059": {
@@ -3028,17 +3028,17 @@
         },
         "70062": {
             "Name": "Ożywiona Zbroja",
-            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5pkt obrażeń na raz.",
+            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5 pkt obrażeń na raz.",
             "Flavor": "Owszem, kosztowna. Ale biorąc pod uwagę oszczędności na wikcie i opierunku, inwestycja zwróci się jeszcze w tym stuleciu!"
         },
         "70070": {
             "Name": "Rezuni",
-            "Info": "Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj dwie kopie Kundli ze Spalli do Twojej talii.",
+            "Info": "Jednorazowa. Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj 2 kopie Kundli ze Spalli do Twojej talii.\n(Kundle ze Spalii; 5 pkt siły; Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
             "Name": "Kundle ze Spalli",
-            "Info": "Rozmieszczenie: Zobacz dwie brązowe jednostki z Twojej talii i zagraj jedną z nich.",
+            "Info": "Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich.",
             "Flavor": ""
         },
         "70072": {
@@ -3048,12 +3048,12 @@
         },
         "70076": {
             "Name": "Kleryk Kongregacji",
-            "Info": "Stwórz w tym rzędzie, kopie o sile 2 wszystkich zablokowanych brązowych sojuszników. Kiedy brązowy sojusznik zostanie zablokowany w Twojej turze, stwórz jego kopie o sile 2 w tym rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz w tym rzędzie, kopie o sile 2 wszystkich zablokowanych brązowych sojuszników. Kiedy brązowy sojusznik zostanie zablokowany w Twojej turze, stwórz jego kopie o sile 2 w tym rzędzie.",
             "Flavor": ""
         },
         "70077": {
             "Name": "Fanatyk Wybrańców",
-            "Info": "Co 4 tury na koniec tury zadaj 2pkt obrażeń 4 losowym wrogom. Zmniejsz licznik o 1 za każdą zablokowaną jednostkę na planszy kiedy zagrywasz tę jednostkę.",
+            "Info": "Co 4 tury na koniec tury zadaj 2 pkt obrażeń 4 losowym wrogom. Zmniejsz pierwszy licznik o 1 za każdą zablokowaną jednostkę na planszy kiedy zagrywasz tę jednostkę.",
             "Flavor": ""
         },
         "70078": {
@@ -3063,7 +3063,7 @@
         },
         "70091": {
             "Name": "Magiczna Lampa",
-            "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę. Your The Last Wish looks at 1 extra card, while this unit is in the graveyard.",
+            "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.",
             "Flavor": ""
         },
         "70102": {
@@ -3088,7 +3088,7 @@
         },
         "70106": {
             "Name": "Jaja Endriagi",
-            "Info": "Rozmieszczeni: Stwórz kopie tej karty po lewej stronie.\nZemsta: Stwórz Larwe endriagi w tym rzędzie. Po 3 turach na początku tury zniszcz te jednostkę.",
+            "Info": "Rozmieszczenie: Stwórz 1 bazową kopie tej karty po lewej stronie.\nZemsta: Stwórz Larwe endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.\n(Larwa Endriagi; 5 pkt siły; Po 3 rundach na koniec rundy, przemień się w Endriage Wojownika)\n(Endriaga Wojownik; 7 pkt siły)",
             "Flavor": ""
         },
         "70107": {
@@ -3103,7 +3103,7 @@
         },
         "70109": {
             "Name": "Krasnoludzki Rydwan",
-            "Info": "Wybierz dwie jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika o 2.",
+            "Info": "Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
             "Flavor": ""
         },
         "70110": {
@@ -3123,7 +3123,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
+            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 4 lub niższej. 2 pkt pancerza.",
             "Flavor": ""
         },
         "70114": {
@@ -3133,7 +3133,7 @@
         },
         "70115": {
             "Name": "Amnestia",
-            "Info": "Cofnij wroga brązową lojalną jednostkę do ręki przeciwnika.",
+            "Info": "Cofnij wroga brązową lojalną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
             "Flavor": ""
         },
         "70116": {
@@ -3158,7 +3158,7 @@
         },
         "130220": {
             "Name": "Prize-Winning Cow:Promoted",
-            "Info": "Deathwish:Spawn a 'Chort'，and then deal 2 damage to all emenies on the same row",
+            "Info": "Deathwish: Spawn a Chort, then deal 2 Damage to all emenies on the same row.\n(Chort; 14 Strength)",
             "Flavor": ""
         },
         "130200": {
@@ -3238,7 +3238,7 @@
         },
         "130050": {
             "Name": "Germain Piquant:Promoted",
-            "Info": "Deploy:Spawn 3 Cows on each side of this unit.",
+            "Info": "Deploy:Spawn 3 Cows on each side of this unit.\n(Cow; 1 Strength)",
             "Flavor": "陶森特需要这位英雄，但它不配。"
         },
         "130060": {
@@ -3296,18 +3296,8 @@
             "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
             "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
         },
-        "70082": {
-            "Name": "Arnjolf the Patricide",
-            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
-            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
-        },
-        "70083": {
-            "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
-            "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
-        },
         "70084": {
-            "Name": "Ольгерд Бессмертный",
+            "Name": "Olgierd Nieśmiertelny",
             "Info": "Zemsta: Na koniec tury Wskrześ tę jednostkę w losowym rzędzie.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
         },
@@ -3322,8 +3312,8 @@
             "Flavor": ""
         },
         "70088": {
-            "Name": "Rzecz w bagnie",
-            "Info": "Rozmieszczenie: przenieś wszystkie mgły z cmentarza do swojej talii i zastosuj Gęstą mgłę w przeciwległym rzędzie.",
+            "Name": "Potwór z bagien",
+            "Info": "Rozmieszczenie: przenieś wszystkie mglaki z cmentarza do swojej talii i stwórz Gęstą mgłę w przeciwległym rzędzie.",
             "Flavor": "Do not follow the lights!"
         }
     }
