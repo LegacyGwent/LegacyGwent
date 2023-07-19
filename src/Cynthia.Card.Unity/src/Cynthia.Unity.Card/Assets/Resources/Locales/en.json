@@ -258,7 +258,7 @@
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Deploy: Deal 5 Damage.",
+            "Info": "Deploy: Deal 7 Damage.",
             "Flavor": "I can take care of myself. Trust me."
         },
         "12008": {
@@ -318,7 +318,7 @@
         },
         "12019": {
             "Name": "Ciri",
-            "Info": "Whenever you lose a round, return this unit to your hand.\n2 Armor.",
+            "Info": "Whenever you lose a round, return this unit to your hand.",
             "Flavor": "I go wherever I please, whenever I please"
         },
         "12020": {
@@ -538,7 +538,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever you play a Gold unit, Summon this unit on a random row.",
+            "Info": "Whenever a loyal Gold unit appears on your side of the board, Summon this unit on a random row.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
@@ -578,7 +578,7 @@
         },
         "13026": {
             "Name": "Bekker's Dark Mirror",
-            "Info": "Transfer up to 10 Power between the Highest and Lowest unit.",
+            "Info": "Transfer up to 13 Power between the Highest and Lowest unit.",
             "Flavor": "当你凝视深渊的时候，深渊也在凝视着你。"
         },
         "13027": {
@@ -693,7 +693,7 @@
         },
         "14006": {
             "Name": "Bloodcurdling Roar",
-            "Info": "Destroy an ally, then Spawn an Elder Bear.\n(Elder Bear; 11 Strength)",
+            "Info": "Destroy an ally, then Spawn a Bear.\n(Bear; 11 Strength)",
             "Flavor": "起初我们碰上了一头熊……悲剧就从那时开始了。"
         },
         "14007": {
@@ -852,7 +852,7 @@
             "Flavor": "牛牛防卫队的一员。永远忠诚！"
         },
         "15010": {
-            "Name": "Elder Bear",
+            "Name": "Bear",
             "Info": "No ability.",
             "Flavor": "去猎熊吧！去抓上一只——这、这只也太大了吧！快跑！！"
         },
@@ -2003,7 +2003,7 @@
         },
         "44023": {
             "Name": "Dun Banner Light Cavalry",
-            "Info": "On turn start, if you are losing by more than 25 points, Summon this unit on a random row.",
+            "Info": "On turn start, if you are losing by at least 26 points, Summon this unit on a random row.",
             "Flavor": "冷静，所有人保持警惕！这可能是那帮披斗篷戴海狸皮帽的家伙的陷阱……"
         },
         "44024": {
@@ -2098,7 +2098,7 @@
         },
         "52001": {
             "Name": "Saskia",
-            "Info": "Deploy: Swap 2 cards with 2 Bronze cards.",
+            "Info": "Deploy: Swap up to 2 cards with Bronze cards.",
             "Flavor": "王权于我毫无意义，只有东方那位才配为尊。"
         },
         "52002": {
@@ -2553,7 +2553,7 @@
         },
         "63012": {
             "Name": "Harald Houndsnout",
-            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn an Elder Bear on the opposite row.\n(Elder Bear; 11 Strength)",
+            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
             "Flavor": "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。"
         },
         "63013": {
@@ -2758,7 +2758,7 @@
         },
         "64033": {
             "Name": "Tuirseach Bearmaster",
-            "Info": "Deploy: Spawn an Elder Bear.\n(Elder Bear; 11 Strength)",
+            "Info": "Deploy: Spawn a Bear.\n(Bear; 11 Strength)",
             "Flavor": "别碰他。别盯着他的眼睛瞧。事实上……压根就别靠近他。"
         },
         "64034": {
@@ -2798,7 +2798,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Spying.\nDeathwish: Spawn an Elder Bear on the opposite row.\n(Elder Bear; 11 Strength)",
+            "Info": "Spying.\nDeathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
         "61001": {
@@ -2848,7 +2848,7 @@
         },
         "70006": {
             "Name": "Lady Of The Lake",
-            "Info": "Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck.",
+            "Info": "Deploy: Weaken self by 2 for every card in your hand and deck.",
             "Flavor": ""
         },
         "70007": {
@@ -2873,7 +2873,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 25 Power; Deploy: Weaken self by the value equal to twice the number of the remaining cards in your hand and deck)",
+            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 25 Power; Deploy: Weaken self by 2 for every card in your hand and deck.)",
             "Flavor": ""
         },
         "70012": {
@@ -2988,7 +2988,7 @@
         },
         "70043": {
             "Name": "Vernossiel's Commando",
-            "Info": "After you Swap this unit twice, Summon it on a random row.",
+            "Info": "After you Swap this unit 2 times, Summon it on a random row.",
             "Flavor": ""
         },
         "70044": {
@@ -2998,7 +2998,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 4.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
             "Flavor": ""
         },
         "70046": {
@@ -3033,12 +3033,12 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add two Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Look at 2 random Bronze units in your deck, then play one)",
+            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Deploy: Look at 2 random Bronze units in your deck, then play one)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
             "Name": "Strays Of Spalla",
-            "Info": "Single-Use.\nLook at 2 random Bronze units in your deck, then play one.",
+            "Info": "Single-Use.\nDeploy: Look at 2 random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
@@ -3058,7 +3058,7 @@
         },
         "70078": {
             "Name": "Damnation",
-            "Info": "Summon the two Highest Bronze units from the deck to the same row, then change their Lock status.",
+            "Info": "Summon 2 Highest Bronze units from the deck to the same row, then change their Lock status.",
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
         },
         "70091": {
@@ -3117,7 +3117,7 @@
             "Flavor": ""
         },
         "70112": {
-            "Name": "Primitive Wildness",
+            "Name": "Primal Savagery",
             "Info": "Deal 3 Damage to an ally, then play a random Bronze Cultist from your deck.",
             "Flavor": ""
         },
@@ -3150,6 +3150,11 @@
             "Name": "Lyrian Scytheman",
             "Info": "Deploy: Boost a random unit in your deck by 3, then Boost self by that unit's Boost.",
             "Flavor": ""
+        },
+        "70119": {
+            "Name": "Thaw",
+            "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
+            "Flavor": "它带来了春天，也带来了战争。"
         },
         "130210": {
             "Name": "Dudu: Promoted",
@@ -3296,6 +3301,16 @@
             "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
             "Flavor": "The only thing they like more than looting is killing."
         },
+        "70082": {
+            "Name": "Arnjolf the Patricide",
+            "Info": "Deploy, Choose One: Discard all duplicate cards from your hand and draw that many cards; or discard all cards from your hand whose strenght is higher than this unit strenght and draw that many cards.",
+            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
+        },
+        "70083": {
+            "Name": "Red Rider",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
+        },
         "70084": {
             "Name": "Olgierd Immortal",
             "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
@@ -3304,16 +3319,16 @@
         "70085": {
             "Name": "The Apiarian Phantom",
             "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
-            "Flavor": ""
+            "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
             "Name": "Philippa: Mistress of the Lodge",
             "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
-            "Flavor": ""
+            "Flavor": "Philippa Eilhart, though very attractive, was decidedly very unkind."
         },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
+            "Info": "Deploy: Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
             "Flavor": "Do not follow the lights!"
         }
     }
