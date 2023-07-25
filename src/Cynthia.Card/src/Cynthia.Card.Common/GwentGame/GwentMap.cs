@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 69);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 70);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11613,21 +11613,21 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70105",//阿道伯图斯·卡尔克斯坦 AdalbertusKalkstein
+                "70105",//菲斯奈特与布雷恩 FreixenetAndBraine
                 new GwentCard()
                 {
                     CardId ="70105",
-                    Name="阿道伯图斯·卡尔克斯坦",
-                    Strength=9,
+                    Name="菲斯奈特与布雷恩",
+                    Strength=8,
                     Group=Group.Silver,
-                    Faction = Faction.Neutral,
+                    Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Mage},
-                    Flavor = "“在卡尔克斯坦临刑之际，他用魔法火焰在天空拼出一句话。我们宅心仁厚的国王陛下对此可不太高兴……”",
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "菲斯奈特留了下来，最后与布蕾恩成婚。",
                     Info = "使一个单位的战力等同于自身战力。",
                     CardArtsId = "d19010000",
                 }
