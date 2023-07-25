@@ -14,8 +14,8 @@ namespace Cynthia.Card
             foreach (var target in selectCard)
             {
                 await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
-                await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<BitingFrostStatus>();
             }
+            await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<BitingFrostStatus>();
             return 0;
         }
     }

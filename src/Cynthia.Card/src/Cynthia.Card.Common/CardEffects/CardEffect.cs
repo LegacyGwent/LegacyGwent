@@ -190,7 +190,7 @@ namespace Cynthia.Card
             });
             async Task sendEventTask()
             {
-                if ((Card.Status.IsDoomed && isDead) || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
+                if (Card.Status.IsDoomed || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
                     if (isNeedSentEvent && discardInfo.isDiscard && !deadposition.RowPosition.IsOnPlace())

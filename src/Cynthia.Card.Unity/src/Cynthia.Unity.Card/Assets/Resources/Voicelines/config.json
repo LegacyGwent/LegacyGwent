@@ -14,5 +14,9 @@
 	{
 		"Name": "Pусский",
 		"Filename": "RU"
+	},
+	{
+		"Name": "Polski",
+		"Filename": "PL"
 	}
 ]
