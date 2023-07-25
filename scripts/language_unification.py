@@ -37,7 +37,7 @@ def sort(path,languages):
         cards=source['CardLocales']
         ids = [int(x) for x in list(cards.keys())]
         ids.sort()
-        ids = [x for x in ids if x<130000]
+        #ids = [x for x in ids if x<130000]
         ids = [ str(x) for x in ids]
         sorted_cards = {i: cards[i] for i in ids}
         source['CardLocales']=sorted_cards
