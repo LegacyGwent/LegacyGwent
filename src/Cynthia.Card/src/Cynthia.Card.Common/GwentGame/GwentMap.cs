@@ -410,7 +410,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "不用外行人来教我！",
-                    Info = "对一个敌军单位的所有同名牌造成5点伤害。",
+                    Info = "对1个敌军单位的所有同名牌造成5点伤害。",
                     CardArtsId = "20023500",
                 }
             },
@@ -1311,7 +1311,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70084",
-                    Name="欧吉尔德： 不朽",
+                    Name="欧吉尔德：不死之身",
                     Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
@@ -1321,7 +1321,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
-                    Flavor = "All of my dreams have come true. Unfortunately",
+                    Flavor = "我所有的梦想都成真了。实属不幸。",
                     Info = "遗愿：复活至原位。",
                     CardArtsId = "d17850000",
                 }
@@ -2945,7 +2945,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Mage,Categorie.Officer},
                     Flavor = "宠儿偏偏堕落成逆子。",
-                    Info = "将2个敌军单位移至对方同排，并在此排降下“刺骨冰霜”。",
+                    Info = "将2个敌军单位移至对方同排，并在该排降下“刺骨冰霜”。",
                     CardArtsId = "13210400",
                 }
             },
@@ -4918,7 +4918,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
-                    Flavor = "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”",
+                    Flavor = "“请你出手要多少钱？” “看情况喽。比如说目标是你，大概100奥伦币左右。”",
                     Info = "对一个敌军单位造成7点伤害。重复一次。",
                     CardArtsId = "16310100",
                 }
@@ -6125,7 +6125,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cursed},
                     Flavor = "她的诅咒被解除了……但是喜欢吃生肉的习惯却没改掉。",
-                    Info = "生成1个铜色北方“诅咒生物”单位",
+                    Info = "生成1个铜色北方领域“诅咒生物”单位",
                     CardArtsId = "20006300",
                 }
             },
@@ -9768,7 +9768,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanDimun},
                     Flavor = "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。",
-                    Info = "将2个铜色单位从己方墓场返回至牌组。",
+                    Info = "将最多2个铜色单位从己方墓场放回牌组。",
                     CardArtsId = "20014600",
                 }
             },
@@ -12577,11 +12577,11 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
-                    Info = "择一：丢弃手牌中重复的牌，直至没有重复的牌，抽等量的牌；丢弃手牌中战斗力高于自身的牌，直至没有战力高于自身的牌，抽等量的牌。",
+                    Info = "择一：丢弃手牌中重复的牌，抽等量的牌；丢弃手牌中战力高于自身的牌，抽等量的牌。",
                     CardArtsId = "d15060000",
                 }
             },
-                        {
+            {
                 "70083",//红骑士
                 new GwentCard()
                 {
@@ -12596,8 +12596,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt },
-                    Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
-                    Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张它的同名牌。",
+                    Flavor = "白雪和烈火，是他们为天空和大地涂抹的颜色。",
+                    Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张同名牌。",
                     CardArtsId = "d21920000",
                 }
             },
@@ -12606,7 +12606,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70085",
-                    Name="养蜂人：魅影",
+                    Name="蜜蜂幽灵",
                     Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
@@ -12616,9 +12616,9 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt},
-                    Flavor = "每个狂猎战士都要经过严格筛选，而只有最残暴、最凶狠的那些才能加入艾瑞汀的骑兵队。",
-                    Info = "对敌方单位造成7点伤害，如果其被摧毁，则在该行生成霜。",
-                    CardArtsId = "13221400",
+                    Flavor = "谁算好孩子？唔，他肯定不算。",
+                    Info = "对1个敌方单位造成7点伤害，若其被摧毁，则在该排降下“刺骨冰霜”。",
+                    CardArtsId = "d21910000",
                 }
             },
             {
@@ -12626,14 +12626,19 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70086",
-                    Name="菲利帕：小屋的女主人",
+                    Name="菲丽芭：集会所之主",
                     Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
-                    Flavor = "",
-                    Info = "择一：从你的牌组中打出一个铜色或银色法师；或创造一个铜色法术。",
-                    CardArtsId = "d22410000",
+                    Flavor = "菲丽芭·艾哈特纵然姿色过人，但绝对不是什么软柿子。",
+                    Info = "择一：从牌组中打出1张铜色/银色“法师”牌；生成1张铜色“法术”牌。",
+                    CardArtsId = "d13770000",
                 }
             },
             {
@@ -12652,7 +12657,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "至少你知道我的头不好砍了。",
-                    Info = "在回合开始时，复活它并将其削弱一半。",
+                    Info = "小局开始时，复活自身并削弱一半战力。",
                     CardArtsId = "11220700",
                 }
             },
@@ -12664,9 +12669,15 @@ namespace Cynthia.Card
                     Name="沼泽中的怪兽",
                     Strength=3,
                     Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "部署：选择一排，将墓地中的所有小雾妖移至你的牌组，然后对该排施放雾。",
+                    Info = "将己方墓地中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "d22500000",
                 }
             }
