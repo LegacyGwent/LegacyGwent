@@ -11629,7 +11629,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "菲斯奈特留了下来，最后与布蕾恩成婚。",
                     Info = "使一个单位的战力等同于自身战力。",
-                    CardArtsId = "d19010000",
+                    CardArtsId = "d22100000",
                 }
             },
             {
