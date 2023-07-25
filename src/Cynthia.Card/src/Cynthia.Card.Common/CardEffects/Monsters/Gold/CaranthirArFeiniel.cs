@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public CaranthirArFeiniel(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectCard = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.AllRow, filter: x => x.Status.CardRow != Card.Status.CardRow);
+            var selectCard = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.CardRow != Card.Status.CardRow);
             foreach (var target in selectCard)
             {
                 await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
