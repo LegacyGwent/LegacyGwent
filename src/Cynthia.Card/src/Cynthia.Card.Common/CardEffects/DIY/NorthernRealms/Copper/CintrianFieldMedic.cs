@@ -14,7 +14,8 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选择一张场上的卡
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.Is(Group.Copper, CardType.Unit, filter: x => x.Status.CardId != Card.Status.CardId));
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.Is(Group.Copper, CardType.Unit, filter: x => x.Status.CardId != Card.Status.CardId &&
+                   !x.Status.Categories.Contains(Categorie.Support)));
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
@@ -30,5 +31,10 @@ namespace Cynthia.Card
             await playCard.MoveToCardStayFirst();
             return 1;
         }
+        // private bool CooperNoSupport(GameCard card)
+        // {
+        //     return card.Status.Group == Group.Copper &&
+        //            !card.Status.Categories.Contains(Categorie.Support);
+        // }
     }
 }
