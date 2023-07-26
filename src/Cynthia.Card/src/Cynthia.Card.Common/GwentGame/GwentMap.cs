@@ -10941,7 +10941,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Support,Categorie.Cintra},
                     Flavor = "",
-                    Info = "将 1 个非同名友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。",
+                    Info = "将 1 个非同名且非辅助友军铜色单位洗回牌组，然后从牌库打出 1 张随机铜色单位牌。",
                     CardArtsId = "d17110000",
                 }
             },
