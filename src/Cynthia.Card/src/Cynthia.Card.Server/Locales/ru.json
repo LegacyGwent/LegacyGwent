@@ -2903,7 +2903,7 @@
         },
         "70017": {
             "Name": "Цинрийский полевой медик",
-            "Info": "Замешай обратно в колоду копии бронзового отряда и сыграйте случайный бронзовый отрад из колоды.",
+            "Info": "Deploy: Shuffle a non-Support Bronze ally back to your deck, then play a random Bronze unit from your deck.",
             "Flavor": ""
         },
         "70019": {
