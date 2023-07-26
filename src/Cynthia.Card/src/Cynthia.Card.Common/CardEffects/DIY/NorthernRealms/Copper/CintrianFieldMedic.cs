@@ -16,6 +16,7 @@ namespace Cynthia.Card
             //选择一张场上的卡
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => x.Is(Group.Copper, CardType.Unit, filter: x => x.Status.CardId != Card.Status.CardId &&
                    !x.Status.Categories.Contains(Categorie.Support)));
+
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
