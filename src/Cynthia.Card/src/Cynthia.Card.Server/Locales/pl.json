@@ -2903,7 +2903,7 @@
           },
           "70017": {
               "Name": "Cyntryjski Medyk Polowy",
-              "Info": "Rozmieszczenie: Wtasuj nie identyczną przyjazną brązową jednostkę do Twojej talii i zagraj losową brązową jednostkę z talii.",
+              "Info": "Deploy: Shuffle a non-Support Bronze ally back to your deck, then play a random Bronze unit from your deck.",
               "Flavor": ""
           },
           "70019": {

@@ -2903,7 +2903,7 @@
         },
         "70017": {
             "Name": "Cintrian Field Medic",
-            "Info": "Deploy: Shuffle a different and non-Support Bronze ally back to your deck, then play a random Bronze unit from your deck.",
+            "Info": "Deploy: Shuffle a non-Support Bronze ally back to your deck, then play a random Bronze unit from your deck.",
             "Flavor": ""
         },
         "70019": {
