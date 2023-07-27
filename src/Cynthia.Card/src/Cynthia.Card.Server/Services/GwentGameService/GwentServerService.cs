@@ -405,6 +405,10 @@ may come back in the future.
             int k = CalculateK(myMMR);
             double s = isDraw ? 0.5 : (isWin ? 1 : 0);
             int diff = enemyMMR - myMMR;
+            if (!isWin)
+            {
+                diff = Math.Max(diff, -150);
+            }
             double e = 1 / (1.0 + Math.Pow(10, diff / 800.0));
             double eta = CalculateEta(s, e, myMMR);
             int newMMR = (int)Math.Round(myMMR + eta * k * (s - e));
