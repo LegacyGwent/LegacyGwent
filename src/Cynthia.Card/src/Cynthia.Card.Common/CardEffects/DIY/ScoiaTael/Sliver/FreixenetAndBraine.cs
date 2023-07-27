@@ -4,10 +4,10 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70105")]//阿道伯图斯·卡尔克斯坦 AdalbertusKalkstein
-    public class AdalbertusKalkstein : CardEffect
+    [CardEffectId("70105")]//菲斯奈特与布雷恩 FreixenetAndBraine
+    public class FreixenetAndBraine : CardEffect
     {//使一个单位的战力等同于自身战力。
-        public AdalbertusKalkstein(GameCard card) : base(card) { }
+        public FreixenetAndBraine(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             
