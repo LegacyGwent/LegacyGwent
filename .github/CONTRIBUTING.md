@@ -2,6 +2,8 @@
 
 [简体中文](CONTRIBUTING.md) | [English](CONTRIBUTING_EN.md)
 
+[参考文档](CardCodingTutorial.md)
+
 ## 开发环境
 
 ### 1. 操作系统
