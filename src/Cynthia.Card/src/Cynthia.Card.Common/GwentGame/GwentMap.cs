@@ -6297,7 +6297,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42007",
                     Name="罗契：冷酷之心",
-                    Strength=6,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6307,7 +6307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。",
-                    Info = "摧毁1个背面向上的伏击敌军单位。",
+                    Info = "“从手牌打出一张战力不高于自身的“泰莫利亚”单位，随后抽一张牌。对局开始时，将1个“蓝衣铁卫突击队”加入牌组”。",
                     CardArtsId = "20177700",
                 }
             },
