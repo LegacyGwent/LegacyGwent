@@ -3333,7 +3333,7 @@
         },
         "70089": {
             "Name": "Artis",
-            "Info": "Deploy: Deal 7 damage to an enemy, if the target is destoried, spawn a \"Cultist Oblation\" to the opposite row.",
+            "Info": "Deploy: Deal 7 damage to an enemy, if the target is destroyed, spawn a \"Cultist Oblation\" to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.)",
             "Flavor": "It is finished It is finished IT IS THE MERCY"
         },
         "70090": {
