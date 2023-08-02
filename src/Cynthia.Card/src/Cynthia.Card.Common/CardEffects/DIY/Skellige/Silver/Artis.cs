@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Artis(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectList = await Game.GetSelectPlaceCards(Card, filter: x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver || x.Status.Group == Group.Gold);
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
 
             if (!selectList.TrySingle(out var target))
             {
