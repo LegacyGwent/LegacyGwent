@@ -92,6 +92,10 @@ namespace Cynthia.Card.Server
                 return false;
             }
             user[0].MMR = MMR;
+            if (user[0].MMR > user[0].HighestMMR)
+            {
+                user[0].HighestMMR = MMR;
+            }
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
