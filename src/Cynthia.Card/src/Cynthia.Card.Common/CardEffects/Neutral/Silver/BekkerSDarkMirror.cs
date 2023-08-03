@@ -12,11 +12,11 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var list = Game.GetAllPlaceCards().ToList();
-            if (list.Count() <= 1) 
+            if (list.Count() <= 0) 
                 return 0;
             var damageCard = list.WhereAllHighest().Mess(RNG).First();
             boostCard = list.WhereAllLowest().Mess(RNG).First();
-            var damage_value = damageCard.CardPoint() - boostCard.CardPoint();
+            var damage_value = damageCard.CardPoint();
             if (damage_value >= 13)
             {
             damage_value = 13;
