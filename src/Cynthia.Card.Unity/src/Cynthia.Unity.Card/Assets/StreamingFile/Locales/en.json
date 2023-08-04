@@ -283,7 +283,7 @@
         },
         "12009": {
             "Name": "Ale of the Ancestors",
-            "Info": "Deploy: Apply Golden Froth to the row.\nWhen moved, repeat its ability, then deal 4 Damage to self.",
+            "Info": "Deploy: Apply Golden Froth to the row.\nWhen moved, repeat its ability, then deal 4 Damage to self.\n(Golden Froth; Boosts 2 random units by 1 on turn start)",
             "Flavor": "Boros, the legendary founder of Clan Fuchs, died after overindulging in this beverage - he passed out while reaching for his golden ring, which had fallen into a brook."
         },
         "12010": {
@@ -3118,7 +3118,7 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Deploy: Select a revealed card in your hand, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”"
         },
         "70104": {

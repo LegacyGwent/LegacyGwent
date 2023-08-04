@@ -283,7 +283,7 @@
         },
         "12009": {
             "Name": "Miód Przodków",
-            "Info": "Rozmieszczenie: Rzuć Złocistą Pianę na ten rząd. Powtórz tę zdolność gdy się przemieszcze i zadaj sobie 4 pkt obrażeń",
+            "Info": "Rozmieszczenie: Rzuć Złocistą Pianę na ten rząd. Powtórz tę zdolność gdy się przemieszcze i zadaj sobie 4 pkt obrażeń.\n(Złocista Piana; Wzmocnij 2 losowe jednostki o 1 na początku tury)",
             "Flavor": "Legendarny przodek klanu Fuchsów ponoć utopił się w górskim strumyku po spożyciu zbyt dużej ilości tego trunku."
         },
         "12010": {
@@ -638,7 +638,7 @@
         },
         "13038": {
             "Name": "Białe Zimno",
-            "Info": "Rzuć Trzaskający Mróz na 2 sąsiadujące wrogie rzędy.",
+            "Info": "Rzuć Trzaskający Mróz na 2 sąsiadujące wrogie rzędy./n(Trzaskający mróz;Zagrożenie, które zadaje najsłabszej jednostce 2 pkt obrażeń na początku tury)",
             "Flavor": "To Tedd Deireadh, Czas Końca. Świat zniszczony przez Białe Zimno."
         },
         "13039": {
@@ -3118,12 +3118,12 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Rozmieszczenie: Wybierz odkrytą kartę, następnie przekształć ją w brązową jednostkę ze swojej talii początkowej, a następnie ją Ujawnij.",
+            "Info": "Rozmieszczenie: Wybierz odkrytą kartę w Twojej ręce, następnie przekształć ją w brązową jednostkę ze swojej talii początkowej, a następnie ją Ujawnij.",
             "Flavor": ""
         },
         "70104": {
             "Name": "Lyrijski Knecht",
-            "Info": "Gdy obaj gracze spasują, jeśli ta karta jest wzmocniona, wtasuj ją do talii. Zachowuje wzmocnienie (maksymalnie 10).",
+            "Info": "Gdy obaj gracze spasują, jeśli ta karta jest wzmocniona, wtasuj ją do talii. Zachowuje do 10 pkt wzmocnienia.",
             "Flavor": ""
         },
         "70105": {
