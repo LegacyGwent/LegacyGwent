@@ -500,5 +500,7 @@ may come back in the future.
         public int GetPalyernameMMR(string playername) => _databaseService.QueryMMR(playername);
 
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);
+
+        public IList<Tuple<string, int>> GetAllHighestMMR(int offset, int limit) => _databaseService.QueryAllHighestMMR(offset, limit);
     }
 }
