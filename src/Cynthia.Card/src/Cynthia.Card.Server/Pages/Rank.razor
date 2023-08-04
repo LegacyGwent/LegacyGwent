@@ -1,0 +1,46 @@
+@page "/rank"
+@inject GwentServerService GwentService
+@implements IDisposable
+
+<div class="table-responsive">
+    <table class="table table-bordered" style="width:770px">
+        <tr>
+            <th>排名</th>
+            <th>玩家</th>
+            <th>MMR</th>
+        </tr>
+@foreach(var (index, result) in _resultList.Select((r, i) => (i + 1, r)))
+{
+        <tr>
+            <td>@index</td>
+            <td>@result.Item1</td>
+            <td>@result.Item2</td>
+        </tr>
+}
+    </table>
+</div>
+
+@code
+{
+    private IList<Tuple<string, int>> _resultList;
+
+    protected override void OnInitialized()
+    {
+        _resultList = GwentService.GetAllMMR(0, 500);
+        GwentService.OnGameOver += OnGameOver;
+    }
+
+    private void OnGameOver(GameResult newResult)
+    {
+        InvokeAsync(() =>
+        {
+            _resultList = GwentService.GetAllMMR(0, 500);
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        GwentService.OnGameOver -= OnGameOver;
+    }
+}
