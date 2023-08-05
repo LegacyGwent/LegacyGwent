@@ -8,10 +8,7 @@ namespace Cynthia.Card
     public class VernossielsCommando : CardEffect, IHandlesEvent<AfterCardSwap>, IHandlesEvent<AfterUnitDown>
     {
         //第2次被交换时自动打出至随机排。
-        public VernossielsCommando(GameCard card) : base(card)
-        {
-        }
-
+        public VernossielsCommando(GameCard card) : base(card){}
         public async Task HandleEvent(AfterCardSwap @event)
         {
             if (@event.HandCard != Card)
@@ -32,7 +29,7 @@ namespace Cynthia.Card
                 Card.Status.CardRow.IsInCemetery()) 
                 return;
             
-            if (Card.Effect.Countdown == 0)
+            if (Card.Effect.Countdown == 0 && Card.Status.CardRow.IsInDeck())
             {
                 var location = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true);
                 await Card.Effect.Summon(location, Card);
