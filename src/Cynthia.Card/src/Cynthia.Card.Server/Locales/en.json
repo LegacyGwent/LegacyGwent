@@ -241,6 +241,21 @@
         "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck."
     },
     "CardLocales": {
+        "12001": {
+            "Name": "Royal Decree",
+            "Info": "Play a Gold unit from your deck and Boost it by 2.",
+            "Flavor": "We, Foltest, by divine right King of Temeria, Prince of Sodden, Senior Protector of Brugge, etcetera, etcetera, do hereby decree the following.."
+        },
+        "12002": {
+            "Name": "Geralt: Igni",
+            "Info": "Deploy: Destroy the Highest units on an enemy row if that row has a total of 25 points or more.",
+            "Flavor": "A twist of a witcher's fingers can light a lamp… or incinerate a foe."
+        },
+        "12003": {
+            "Name": "Dandelion: Poet",
+            "Info": "Deploy: Draw 1 card, then play 1 card.",
+            "Flavor": "The quill is mightier than the sword."
+        },
         "12004": {
             "Name": "Geralt of Rivia",
             "Info": "No ability.",
@@ -356,11 +371,6 @@
             "Info": "Deploy: Create a Bronze special card from either player's starting deck.",
             "Flavor": "Bindings won't suffice. Nor will a gag render her any less dangerous. No, dimeritium is the only solution."
         },
-        "12002": {
-            "Name": "Geralt: Igni",
-            "Info": "Deploy: Destroy the Highest units on an enemy row if that row has a total of 25 points or more.",
-            "Flavor": "A twist of a witcher's fingers can light a lamp… or incinerate a foe."
-        },
         "12027": {
             "Name": "Aguara",
             "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
@@ -370,11 +380,6 @@
             "Name": "Phoenix",
             "Info": "Deploy: Resurrect a Bronze or Silver Draconid.",
             "Flavor": "What came first, the chicken or the egg? Compared to the conundrum that is the phoenix, the question seems downright trivial."
-        },
-        "12003": {
-            "Name": "Dandelion: Poet",
-            "Info": "Deploy: Draw 1 card, then play 1 card.",
-            "Flavor": "The quill is mightier than the sword."
         },
         "12029": {
             "Name": "Avallac'h: Sage",
@@ -411,11 +416,6 @@
             "Info": "Resurrect a non-Leader Gold unit.",
             "Flavor": "Medicus curat, magicae sanat."
         },
-        "12001": {
-            "Name": "Royal Decree",
-            "Info": "Play a Gold unit from your deck and Boost it by 2.",
-            "Flavor": "We, Foltest, by divine right King of Temeria, Prince of Sodden, Senior Protector of Brugge, etcetera, etcetera, do hereby decree the following.."
-        },
         "12036": {
             "Name": "Vigo's Muzzle",
             "Info": "Charm a Bronze or Silver enemy with 8 Power or less.",
@@ -450,6 +450,16 @@
             "Name": "Sihil",
             "Info": "Choose One: Deal 3 Damage to all enemies with odd Power; or Deal 3 Damage to all enemies with even Power; or Play a random Bronze or Silver unit from your deck.",
             "Flavor": "\"What's written on this blade? That a curse?\" \"No. An insult.\" "
+        },
+        "13001": {
+            "Name": "Roach",
+            "Info": "Whenever a loyal Gold unit appears on your side of the board, Summon this unit on a random row.",
+            "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
+        },
+        "13002": {
+            "Name": "Francis Bedlam",
+            "Info": "Deploy: If losing, Strengthen self up to a maximum of 15 until scores are tied.",
+            "Flavor": "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。"
         },
         "13003": {
             "Name": "Sarah",
@@ -516,11 +526,6 @@
             "Info": "On turn start, resurrect itself and Weaken itself by half.",
             "Flavor": "至少你知道我的头不好砍了。"
         },
-        "13002": {
-            "Name": "Francis Bedlam",
-            "Info": "Deploy: If losing, Strengthen self up to a maximum of 15 until scores are tied.",
-            "Flavor": "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。"
-        },
         "13016": {
             "Name": "Operator",
             "Info": "Deploy, Single-Use, Truce: Add a default copy of a Bronze unit in your hand to both hands.",
@@ -535,11 +540,6 @@
             "Name": "Vaedermakar",
             "Info": "Deploy: Spawn Biting Frost, Impenetrable Fog or Alzur's Thunder.",
             "Flavor": "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。"
-        },
-        "13001": {
-            "Name": "Roach",
-            "Info": "Whenever a loyal Gold unit appears on your side of the board, Summon this unit on a random row.",
-            "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13019": {
             "Name": "Iris von Everec",
@@ -671,6 +671,11 @@
             "Info": "Create a Bronze or Silver unit from your opponent's starting deck and Boost it by 2.",
             "Flavor": "咚咚咚，有人在家吗？"
         },
+        "14001": {
+            "Name": "Scout",
+            "Info": "Look at 2 random Bronze units in your deck, then play 1.",
+            "Flavor": "如果斥候没有回来，我们就掉头。乡下的人说这些树林里全是松鼠。我指的可不是啃松果的那种。"
+        },
         "14002": {
             "Name": "Adrenaline Rush",
             "Info": "Toggle a unit's Resilience status.",
@@ -785,11 +790,6 @@
             "Name": "Mastercrafted Spear",
             "Info": "Deal Damage equal to the base Power of a Bronze or Silver unit in your hand.",
             "Flavor": "把长矛立起来，懒虫！一匹马都不能放过去！"
-        },
-        "14001": {
-            "Name": "Scout",
-            "Info": "Look at 2 random Bronze units in your deck, then play 1.",
-            "Flavor": "如果斥候没有回来，我们就掉头。乡下的人说这些树林里全是松鼠。我指的可不是啃松果的那种。"
         },
         "14025": {
             "Name": "Spores",
@@ -1316,6 +1316,11 @@
             "Info": "Apply a Boon to an allied row that Boosts a random Beast or Vampire by 2 on turn start.",
             "Flavor": "满月的时候，梦魇便会从世界的各个角落匍匐而出。"
         },
+        "31001": {
+            "Name": "Jan Calveit",
+            "Info": "Deploy: Look at the top 3 cards from your deck, then play 1.",
+            "Flavor": "剑只是统治者的工具之一。"
+        },
         "31002": {
             "Name": "Emhyr var Emreis",
             "Info": "Deploy: Play a card from your hand, then return a Bronze or Silver ally to your hand.",
@@ -1326,15 +1331,15 @@
             "Info": "Deploy: Reveal up to 4 cards.",
             "Flavor": "夏日阳光在阿尔巴河平静的水面上熠熠生辉——我印象中的尼弗迦德就是这样啊。"
         },
-        "31001": {
-            "Name": "Jan Calveit",
-            "Info": "Deploy: Look at the top 3 cards from your deck, then play 1.",
-            "Flavor": "剑只是统治者的工具之一。"
-        },
         "31004": {
             "Name": "Usurper",
             "Info": "Spying.\nDeploy: Create any Leader and Boost it by 2.",
             "Flavor": "王权怎能单凭出身的贵贱来随便决定？"
+        },
+        "32001": {
+            "Name": "Rainfarn of Attre",
+            "Info": "Deploy: Play a Bronze or Silver Spying unit from your deck.",
+            "Flavor": "辛特拉沦陷后，亚特里随即告破，这里的守军若不听任尼弗迦德人驱策，就只能去死。"
         },
         "32002": {
             "Name": "Xarthisius",
@@ -1376,11 +1381,6 @@
             "Info": "Deploy: Reveal one of your units and deal Damage equal to its base Power to an enemy.",
             "Flavor": "他就坐在那里，死盯着我，一言不发。他的眼睛，好像……鱼眼，没有眉毛，没有睫毛……活脱脱两颗水球包裹的黑石头。一片死寂中，他就那样凝视着我，这却比被痛打我一顿更让我不寒而栗。"
         },
-        "32001": {
-            "Name": "Rainfarn of Attre",
-            "Info": "Deploy: Play a Bronze or Silver Spying unit from your deck.",
-            "Flavor": "辛特拉沦陷后，亚特里随即告破，这里的守军若不听任尼弗迦德人驱策，就只能去死。"
-        },
         "32010": {
             "Name": "Yennefer: Enchantress",
             "Info": "Deploy: Spawn the last Bronze or Silver Spell you played.",
@@ -1411,6 +1411,21 @@
             "Info": "Deal 7 Damage to an enemy.\nRepeat once.",
             "Flavor": "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”"
         },
+        "33001": {
+            "Name": "Joachim de Wett",
+            "Info": "Spying.\nDeploy: Play the top non-Spying Bronze or Silver unit from your deck and Boost it by 10.",
+            "Flavor": "即便用“无能”来形容德·维特公爵对维登集团军的领导，都算给他面子"
+        },
+        "33002": {
+            "Name": "False Ciri",
+            "Info": "Spying.\nIf Spying, on turn start, Boost self by 1.\nWhen your opponent passes, move to the opposite row.\nDeathwish: Destroy the Lowest unit on the row.",
+            "Flavor": "“她来了，”他心想，“皇帝的联姻对象。冒牌公主、冒牌的辛特拉女王、冒牌的雅鲁加河口统治者，也是帝国未来的命脉。”"
+        },
+        "33003": {
+            "Name": "The Guardian",
+            "Info": "Deploy: Add a Lesser Guardian to the top of your opponent's deck.",
+            "Flavor": "石拳阻挡刀剑，逻辑战胜谎言。"
+        },
         "33004": {
             "Name": "Cantarella",
             "Info": "Spying. Single-Use.\nDeploy: Look at the top 2 cards from your deck.\nDraw one and move the other to the bottom of your deck.",
@@ -1420,11 +1435,6 @@
             "Name": "Assire var Anahid",
             "Info": "Deploy: Return 2 Bronze or Silver cards from either graveyard to their respective decks.",
             "Flavor": "尼弗迦德法师也有选择：要么服从，要么上断头台。"
-        },
-        "33003": {
-            "Name": "The Guardian",
-            "Info": "Deploy: Add a Lesser Guardian to the top of your opponent's deck.",
-            "Flavor": "石拳阻挡刀剑，逻辑战胜谎言。"
         },
         "33006": {
             "Name": "Albrich",
@@ -1440,11 +1450,6 @@
             "Name": "Henry var Attre",
             "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them.",
             "Flavor": "我在诺维格瑞驻守了十三年，什么我没见过？残忍、讥嘲、贪欲。可如今发生的事情却让我极度不安"
-        },
-        "33002": {
-            "Name": "False Ciri",
-            "Info": "Spying.\nIf Spying, on turn start, Boost self by 1.\nWhen your opponent passes, move to the opposite row.\nDeathwish: Destroy the Lowest unit on the row.",
-            "Flavor": "“她来了，”他心想，“皇帝的联姻对象。冒牌公主、冒牌的辛特拉女王、冒牌的雅鲁加河口统治者，也是帝国未来的命脉。”"
         },
         "33009": {
             "Name": "Hefty Helge",
@@ -1470,11 +1475,6 @@
             "Name": "Cynthia",
             "Info": "Deploy: Reveal the Highest unit in your opponent's hand and Boost self by its Power.",
             "Flavor": "决不能轻视辛西亚，必须把她看紧点儿。"
-        },
-        "33001": {
-            "Name": "Joachim de Wett",
-            "Info": "Spying.\nDeploy: Play the top non-Spying Bronze or Silver unit from your deck and Boost it by 10.",
-            "Flavor": "即便用“无能”来形容德·维特公爵对维登集团军的领导，都算给他面子"
         },
         "33014": {
             "Name": "Vrygheff",
@@ -1526,10 +1526,30 @@
             "Info": "Deploy: Set an ally's Power to 1 and deal Damage to an enemy by the amount of Power lost.",
             "Flavor": "奴隶贩子只有一个追求：那就是把他的命令一丝不苟地执行下去。"
         },
+        "34001": {
+            "Name": "Vicovaro Novice",
+            "Info": "Deploy: Look at 2 random Bronze Alchemy cards from your deck, then play 1.",
+            "Flavor": "尼弗迦德的法师们就像手纸。一旦谁被皇帝厌倦，立刻有大把新人迫不及待地赶来补缺。"
+        },
+        "34002": {
+            "Name": "Emissary",
+            "Info": "Spying.\nDeploy: Look at 2 random Bronze units from your deck, then play 1.",
+            "Flavor": "但是……这样不对啊！两国交兵不斩来使！"
+        },
+        "34003": {
+            "Name": "Impera Brigade",
+            "Info": "Deploy: Boost self by 2 for each Spying enemy.\nWhenever a Spying enemy appears, Boost self by 2.",
+            "Flavor": "近卫军绝不投降，绝不。"
+        },
         "34004": {
             "Name": "Nilfgaardian Knight",
             "Info": "Deploy: Reveal a random card in your hand.\n2 Armor.",
             "Flavor": "出自名门望族，生于金塔之城，组成帝国的精锐部队。"
+        },
+        "34005": {
+            "Name": "Impera Enforcers",
+            "Info": "Deploy: Deal 2 Damage to an enemy.\nFor each Spying enemy that appears during your turn, deal 2 Damage to an enemy.",
+            "Flavor": "皇帝最忠诚的贴身护卫，誓死保卫皇帝的安全。"
         },
         "34006": {
             "Name": "Master of Disguise",
@@ -1596,16 +1616,6 @@
             "Info": "Deploy: Toggle the Resilience status of an ally.\nCrew.",
             "Flavor": "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。"
         },
-        "34003": {
-            "Name": "Impera Brigade",
-            "Info": "Deploy: Boost self by 2 for each Spying enemy.\nWhenever a Spying enemy appears, Boost self by 2.",
-            "Flavor": "近卫军绝不投降，绝不。"
-        },
-        "34005": {
-            "Name": "Impera Enforcers",
-            "Info": "Deploy: Deal 2 Damage to an enemy.\nFor each Spying enemy that appears during your turn, deal 2 Damage to an enemy.",
-            "Flavor": "皇帝最忠诚的贴身护卫，誓死保卫皇帝的安全。"
-        },
         "34019": {
             "Name": "Fire Scorpion",
             "Info": "Deploy: Deal 5 Damage to an enemy.\nWhenever you Reveal this unit, trigger its ability.",
@@ -1655,16 +1665,6 @@
             "Name": "Ambassador",
             "Info": "Spying.\nDeploy: Boost an ally by 14.",
             "Flavor": "间谍？不，这么说就太过啦。我觉得自己不过是个观察员而已。"
-        },
-        "34002": {
-            "Name": "Emissary",
-            "Info": "Spying.\nDeploy: Look at 2 random Bronze units from your deck, then play 1.",
-            "Flavor": "但是……这样不对啊！两国交兵不斩来使！"
-        },
-        "34001": {
-            "Name": "Vicovaro Novice",
-            "Info": "Deploy: Look at 2 random Bronze Alchemy cards from your deck, then play 1.",
-            "Flavor": "尼弗迦德的法师们就像手纸。一旦谁被皇帝厌倦，立刻有大把新人迫不及待地赶来补缺。"
         },
         "34029": {
             "Name": "Assassin",
@@ -2431,6 +2431,26 @@
             "Info": "Spying.\nDamage all units on this row by 2 on turn end",
             "Flavor": "小心……！再走一步，你就要被化成青烟了。"
         },
+        "61001": {
+            "Name": "Harald the Cripple",
+            "Info": "Deploy: Split 10 Damage randomly between enemies on the opposite row.",
+            "Flavor": "没人知道他的绰号从何而来，更没人敢问。"
+        },
+        "61002": {
+            "Name": "Crach an Craite",
+            "Info": "Deploy: Strengthen the Highest non-Spying Bronze or Silver unit in your deck by 2 and play it.",
+            "Flavor": "尼弗迦德人叫我“蒂斯·伊斯·穆瑞”，也就是海上野猪。他们还用我的名号来吓唬小孩！"
+        },
+        "61003": {
+            "Name": "Eist Tuirseach",
+            "Info": "Deploy: Spawn a Bronze Clan Tuirseach Unit.",
+            "Flavor": "埃斯特来到辛特拉，本想帮助克拉茨·奎特参加帕薇塔公主的选亲宴，结果自己却赢走了王后的芳心。"
+        },
+        "61004": {
+            "Name": "Bran Tuirseach",
+            "Info": "Deploy: Discard up to 3 cards from your deck and Strengthen them by 1.",
+            "Flavor": "没人能取代布兰王，但后世定会努力尝试。"
+        },
         "62001": {
             "Name": "Olaf",
             "Info": "Deploy: Deal 10 Damage to self.\nReduce the Damage inflicted by 2 for each Beast you played this match.",
@@ -2801,26 +2821,6 @@
             "Info": "Spying.\nDeathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
-        "61001": {
-            "Name": "Harald the Cripple",
-            "Info": "Deploy: Split 10 Damage randomly between enemies on the opposite row.",
-            "Flavor": "没人知道他的绰号从何而来，更没人敢问。"
-        },
-        "61002": {
-            "Name": "Crach an Craite",
-            "Info": "Deploy: Strengthen the Highest non-Spying Bronze or Silver unit in your deck by 2 and play it.",
-            "Flavor": "尼弗迦德人叫我“蒂斯·伊斯·穆瑞”，也就是海上野猪。他们还用我的名号来吓唬小孩！"
-        },
-        "61003": {
-            "Name": "Eist Tuirseach",
-            "Info": "Deploy: Spawn a Bronze Clan Tuirseach Unit.",
-            "Flavor": "埃斯特来到辛特拉，本想帮助克拉茨·奎特参加帕薇塔公主的选亲宴，结果自己却赢走了王后的芳心。"
-        },
-        "61004": {
-            "Name": "Bran Tuirseach",
-            "Info": "Deploy: Discard up to 3 cards from your deck and Strengthen them by 1.",
-            "Flavor": "没人能取代布兰王，但后世定会努力尝试。"
-        },
         "70001": {
             "Name": "Quen",
             "Info": "Choose a Bronze or Silver unit in your hand, then Boost it and all its copies in your hand and deck by 2 and give them Shield. The Shield can block any Damage once.",
@@ -3060,6 +3060,51 @@
             "Name": "Damnation",
             "Info": "Summon 2 Highest Bronze units from the deck to the same row, then change their Lock status.",
             "Flavor": "“呛死我了！就不能去别的地方烧吗？”"
+        },
+        "70079": {
+            "Name": "An Craite Warlord",
+            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
+            "Flavor": "The terror of Nilfgaardian fishermen."
+        },
+        "70080": {
+            "Name": "Knut the Callous",
+            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
+            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
+        },
+        "70081": {
+            "Name": "Drummond Pillager",
+            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
+            "Flavor": "The only thing they like more than looting is killing."
+        },
+        "70082": {
+            "Name": "Arnjolf the Patricide",
+            "Info": "Deploy, Choose One: Discard all duplicate cards from your hand and draw that many cards; or discard all cards from your hand whose strenght is higher than this unit strenght and draw that many cards.",
+            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
+        },
+        "70083": {
+            "Name": "Red Rider",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
+        },
+        "70084": {
+            "Name": "Olgierd Immortal",
+            "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
+            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
+        "70085": {
+            "Name": "The Apiarian Phantom",
+            "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
+            "Flavor": "Who's a good boy? Well, surely not him."
+        },
+        "70086": {
+            "Name": "Philippa: Mistress of the Lodge",
+            "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
+            "Flavor": "Philippa Eilhart, though very attractive, was decidedly very unkind."
+        },
+        "70088": {
+            "Name": "The Thing In The Swamp",
+            "Info": "Deploy: Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
+            "Flavor": "Do not follow the lights!"
         },
         "70091": {
             "Name": "Magic Lamp",

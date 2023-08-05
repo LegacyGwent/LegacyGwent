@@ -65,6 +65,7 @@ namespace Cynthia.Card.Server
             // _collection.Update(x => x.UserName == username, user);
             return true;
         }
+        const int initMMR = 3400;
         public bool Register(string username, string password, string playername)
         {
             var temp = GetUserInfo();
@@ -74,7 +75,7 @@ namespace Cynthia.Card.Server
             }
             var decks = new List<DeckModel>();
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = 3400 });
+            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR });
             return true;
         }
         public UserInfo Login(string username, string password)
@@ -92,6 +93,10 @@ namespace Cynthia.Card.Server
                 return false;
             }
             user[0].MMR = MMR;
+            if (user[0].MMR > user[0].HighestMMR)
+            {
+                user[0].HighestMMR = MMR;
+            }
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
@@ -105,8 +110,16 @@ namespace Cynthia.Card.Server
         public IList<Tuple<string, int>> QueryAllMMR(int offset, int limit)//所有玩家天梯分数
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().OrderByDescending(x => x.MMR).Skip(offset).Take(limit).ToList();
+            var user = temp.AsQueryable().Where(x => x.MMR != initMMR).OrderByDescending(x => x.MMR).Skip(offset).Take(limit).ToList();
             var pairs = user.Select(x => new Tuple<string, int>(x.PlayerName, x.MMR)).ToList();
+            return pairs;
+        }
+
+        public IList<Tuple<string, int>> QueryAllHighestMMR(int offset, int limit)//所有玩家天梯最高分数
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.HighestMMR != 0).OrderByDescending(x => x.HighestMMR).Skip(offset).Take(limit).ToList();
+            var pairs = user.Select(x => new Tuple<string, int>(x.PlayerName, x.HighestMMR)).ToList();
             return pairs;
         }
 
