@@ -6297,7 +6297,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42007",
                     Name="罗契：冷酷之心",
-                    Strength=3,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6307,7 +6307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。",
-                    Info = "“从手牌打出一张战力不高于自身的“泰莫利亚”单位，随后抽一张牌。对局开始时，将1个“蓝衣铁卫突击队”加入牌组”。",
+                    Info = "摧毁1个背面向上的伏击敌军单位。",
                     CardArtsId = "20177700",
                 }
             },
@@ -10859,7 +10859,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist},
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
                     Flavor = "",
                     Info = "从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
@@ -11626,7 +11626,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Soldier, Categorie.Dryad },
+                    Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "菲斯奈特留了下来，最后与布蕾恩成婚。",
                     Info = "使一个单位的战力等同于自身战力。",
                     CardArtsId = "d22100000",
@@ -12679,47 +12679,6 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "将己方墓地中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "d22500000",
-                }
-            },
-            {
-                "70089",//Artis
-                new GwentCard()
-                {
-                    CardId ="70089",
-                    Name="亚提斯",
-                    Strength=7,
-                    Group=Group.Silver,
-                    Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed },
-                    Flavor = "结束了，结束了，那是怜悯。",
-                    Info = "部署：对一个敌军单位造成7点伤害，若摧毁目标，则在对方同排生成一张“巨熊祭品”。",
-                    CardArtsId = "d16680000",
-                }
-            },
-            {
-                "70090",//Cultist Oblation
-                new GwentCard()
-                {
-                    CardId ="70090",
-                    Name="巨熊祭品",
-                    Strength=2,
-                    Group=Group.Copper,
-                    Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.AnyRow,
-                    CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = true,
-                    Countdown=2,
-                    IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Token },
-                    Flavor = "斯瓦勃洛唯一的戒律：杀戮",
-                    Info = "2回合后的回合开始时，放逐自身。遗愿：治愈对方半场的1个受伤量最大的单位，并使其获得1点强化。",
-                    CardArtsId = "d17740000",
                 }
             }
         };
