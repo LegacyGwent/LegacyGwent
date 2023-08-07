@@ -3106,6 +3106,16 @@
             "Info": "Deploy: Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
             "Flavor": "Do not follow the lights!"
         },
+        "70089": {
+            "Name": "Artis",
+            "Info": "Deploy: Deal 7 damage to an enemy, if the target is destroyed, spawn a Cultist Oblation to the opposite row.\n(Cultist Oblation; After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.)",
+            "Flavor": "It is finished It is finished IT IS THE MERCY"
+        },
+        "70090": {
+            "Name": "Cultist Oblation",
+            "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
+        },
         "70091": {
             "Name": "Magic Lamp",
             "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",

@@ -638,7 +638,7 @@
         },
         "13038": {
             "Name": "Białe Zimno",
-            "Info": "Rzuć Trzaskający Mróz na 2 sąsiadujące wrogie rzędy.",
+            "Info": "Rzuć Trzaskający Mróz na 2 sąsiadujące wrogie rzędy.\n(Trzaskający Mróz; Zagrożenie, które zadaje najsłabszej jednostce 2 pkt obrażeń na początku tury)",
             "Flavor": "To Tedd Deireadh, Czas Końca. Świat zniszczony przez Białe Zimno."
         },
         "13039": {
@@ -3106,6 +3106,16 @@
             "Info": "Rozmieszczenie: przenieś wszystkie mglaki z cmentarza do swojej talii i stwórz Gęstą mgłę w przeciwległym rzędzie.",
             "Flavor": "Do not follow the lights!"
         },
+        "70089": {
+            "Name": "Artis",
+            "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń wrogowi. Jeśli cel zostanie zniszczony, stwórz Ofiarowanie Kultysty w przeciwnym rzędzie. \n (Ofiarowanie Kultysty Po dwóch turach na początku tury wygnaj tę kartę. Zemsta: Wylecz najmocniej ranną jednostkę przeciwnika i wzmocnij ją o 1.)",
+            "Flavor": "It is finished It is finished IT IS THE MERCY"
+        },
+        "70090": {
+            "Name": "Ofiarowanie Kultysty",
+            "Info": "Po dwóch turach na początku tury wygnaj tę kartę. Zemsta: Wylecz najmocniej ranną jednostkę przeciwnika i wzmocnij ją o 1.",
+            "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
+        },
         "70091": {
             "Name": "Magiczna Lampa",
             "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.",
@@ -3123,11 +3133,11 @@
         },
         "70104": {
             "Name": "Lyrijski Knecht",
-            "Info": "Gdy obaj gracze spasują, jeśli ta karta jest wzmocniona, wtasuj ją do talii. Zachowuje wzmocnienie (maksymalnie 10).",
+            "Info": "Gdy obaj gracze spasują, jeśli ta karta jest wzmocniona, wtasuj ją do talii. Zachowuje do 10 pkt wzmocnienia wzmocnienia.",
             "Flavor": ""
         },
         "70105": {
-            "Name": "Freixenet i Braine",
+            "Name": "Freixenet And Braine",
             "Info": "Rozmieszczenie: Ustaw siłę wybranej jednostki na siłę tej karty.",
             "Flavor": ""
         },

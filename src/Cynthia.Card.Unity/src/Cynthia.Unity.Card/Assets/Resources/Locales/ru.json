@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Роше: беспощадный",
-            "Info": "Уничтожьте лежащий рубашкой вверх вражеский отряд засады.",
+            "Info": "Rozmieszczenie: Zniszcz zakrytego wroga z zasadzką.",
             "Flavor": "ж€‘д»¬е†…еїѓд»ЋдёЌз•Џжѓ§гЂ‚дёЌиї‡пјЊеЂ’жЇжњ‰дёЂдёЄдєєз±»вЂ¦вЂ¦еј—е†њВ·зЅ—еҐ‘гЂ‚еЌѓдё‡и¦ЃеЅ“еїѓд»–гЂ‚"
         },
         "42008": {
@@ -3101,6 +3101,16 @@
             "Info": "Переместите все туманы с кладбища в свою колоду и поместите туман в ряд. ",
             "Flavor": "Do not follow the lights!"
         },
+        "70089": {
+            "Name": "Artis",
+            "Info": "Deploy: Deal 7 damage to an enemy, if the target is destoried, spawn a \"Cultist Oblation\" to the opposite row.",
+            "Flavor": "It is finished It is finished IT IS THE MERCY"
+        },
+        "70090": {
+            "Name": "Cultist Oblation",
+            "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
+        },
         "70091": {
             "Name": "Лампа",
             "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.",
@@ -3190,11 +3200,6 @@
             "Name": "LyrianScytheman",
             "Info": "Случайным образом дайте единице из вашей библиотеки усиление в 3 очка, затем получите себе усиление, равное усилению этой единицы。",
             "Flavor": ""
-        },
-        "70119": {
-            "Name": "Thaw",
-            "Info": "Boost a random ally by 2. Repeat this ability. Then repeat this ability for each card you have played this trun.",
-            "Flavor": "它带来了春天，也带来了战争。"
         }
     }
 }
