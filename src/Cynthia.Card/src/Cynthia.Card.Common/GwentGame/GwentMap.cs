@@ -12685,7 +12685,7 @@ namespace Cynthia.Card
                 "80001",//奥贝伦王 AuberonKing
                 new GwentCard()
                 {
-                    CardId ="89001",
+                    CardId ="80001",
                     Name="奥贝伦王",
                     Strength=11,
                     Group=Group.Leader,
@@ -12705,7 +12705,7 @@ namespace Cynthia.Card
                 "80002",//入侵者奥贝伦 AuberonInvader
                 new GwentCard()
                 {
-                    CardId ="89002",
+                    CardId ="80002",
                     Name="入侵者奥贝伦",
                     Strength=11,
                     Group=Group.Leader,
@@ -12725,7 +12725,7 @@ namespace Cynthia.Card
                 "80003",//征服者奥贝伦 AuberonConqueror
                 new GwentCard()
                 {
-                    CardId ="89003",
+                    CardId ="80003",
                     Name="征服者奥贝伦",
                     Strength=11,
                     Group=Group.Leader,
