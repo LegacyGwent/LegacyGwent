@@ -12680,7 +12680,7 @@ namespace Cynthia.Card
                     Info = "将己方墓地中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "d22500000",
                 }
-            }
+            },
             {
                 "80001",//奥贝伦王 AuberonKing
                 new GwentCard()
@@ -12701,7 +12701,7 @@ namespace Cynthia.Card
                     CardArtsId = "d21850000",
                 }
             },
-                        {
+            {
                 "80002",//入侵者奥贝伦 AuberonInvader
                 new GwentCard()
                 {
@@ -12721,7 +12721,7 @@ namespace Cynthia.Card
                     CardArtsId = "d21860000",
                 }
             },
-                        {
+            {
                 "80003",//征服者奥贝伦 AuberonConqueror
                 new GwentCard()
                 {
