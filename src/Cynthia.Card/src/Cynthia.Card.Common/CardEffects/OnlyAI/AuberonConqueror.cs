@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("89003")]//征服者奥贝伦
+    [CardEffectId("80003")]//征服者奥贝伦
     public class AuberonConqueror : CardEffect, IHandlesEvent<AfterCardToCemetery>, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterUnitDown>
     {//
         public AuberonConqueror(GameCard card) : base(card) { }
