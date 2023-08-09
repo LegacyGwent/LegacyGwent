@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 75);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 76);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12679,6 +12679,66 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "将己方墓地中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "d22500000",
+                }
+            }
+            {
+                "80001",//奥贝伦王 AuberonKing
+                new GwentCard()
+                {
+                    CardId ="89001",
+                    Name="奥贝伦王",
+                    Strength=11,
+                    Group=Group.Leader,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.WildHunt},
+                    Flavor = "他将降下白霜。",
+                    Info = "一个世界终结，便有另一个世界开启。",
+                    CardArtsId = "d21850000",
+                }
+            },
+                        {
+                "80002",//入侵者奥贝伦 AuberonInvader
+                new GwentCard()
+                {
+                    CardId ="89002",
+                    Name="入侵者奥贝伦",
+                    Strength=11,
+                    Group=Group.Leader,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.WildHunt},
+                    Flavor = "他将唤醒狂猎。",
+                    Info = "不服从者，一律驱逐！",
+                    CardArtsId = "d21860000",
+                }
+            },
+                        {
+                "80003",//征服者奥贝伦 AuberonConqueror
+                new GwentCard()
+                {
+                    CardId ="89003",
+                    Name="征服者奥贝伦",
+                    Strength=11,
+                    Group=Group.Leader,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.WildHunt},
+                    Flavor = "他将征服世界",
+                    Info = "活了六百五十多年后，没什么能给我惊喜。",
+                    CardArtsId = "d21870000",
                 }
             }
         };
