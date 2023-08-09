@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("89002")]//入侵者奥贝伦
+    [CardEffectId("80002")]//入侵者奥贝伦
     public class AuberonInvader : CardEffect, IHandlesEvent<AfterCardToCemetery>, IHandlesEvent<BeforeRoundStart>, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterUnitDown>
     {//
         public AuberonInvader(GameCard card) : base(card) { }
