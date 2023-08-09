@@ -109,6 +109,23 @@ namespace Cynthia.Card.Server
                             StartGame(room, true);
                             return;
                         }
+                    case "aim1":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new AuberonKingAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "aim1ld":
+                    case "ldaim1":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new AuberonKingAI());
+                            GwentRooms.Add(room);
+                            StartGame(room, true);
+                            return;
+                        }
                     default:
                         break;
                 }
@@ -184,6 +201,23 @@ namespace Cynthia.Card.Server
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new MillAI());
+                            GwentRooms.Add(room);
+                            StartGame(room, true);
+                            return;
+                        }
+                    case "aim1":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new AuberonKingAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "aim1ld":
+                    case "ldaim1":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new AuberonKingAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
