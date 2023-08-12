@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy: play a bronze temerian unit from your hand with the same or less power and draw a card, add a Blue Stripes Commando to your deck.",
+            "Info": "Deploy: Destroy a face-down Ambush enemy.",
             "Flavor": "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。"
         },
         "42008": {
@@ -3385,6 +3385,21 @@
             "Name": "Cultist Oblation",
             "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
-        }        
+        },        
+        "80001": {
+            "Name": "Auberon:King",
+            "Info": "He'll drop a white frost.",
+            "Flavor": "The end of one world can be the beginning of another."
+        },
+        "80002": {
+            "Name": "Auberon:Invader",
+            "Info": "He will awaken the Wild Hunt.",
+            "Flavor": "If they will not submit, they shall be driven out!"
+        },
+        "80003": {
+            "Name": "Auberon:Conqueror",
+            "Info": "He will conquer the world.",
+            "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
+        }
     }
 }

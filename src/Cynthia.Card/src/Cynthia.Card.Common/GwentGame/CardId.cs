@@ -580,5 +580,8 @@ namespace Cynthia.Card
         public const string TheThingInTheSwamp = "70088";
         public const string Artis = "70089";
         public const string CultistOblation = "70090";
+        public const string AuberonKing = "80001";
+        public const string AuberonInvader = "80002";
+        public const string AuberonConqueror = "80003";
     }
 }
