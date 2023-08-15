@@ -6297,7 +6297,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42007",
                     Name="罗契：冷酷之心",
-                    Strength=6,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6307,7 +6307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。",
-                    Info = "摧毁1个背面向上的伏击敌军单位。",
+                    Info = "从手牌打出一张战力不高于自身的“泰莫利亚”单位，随后抽一张牌。对局开始时，将1个“蓝衣铁卫突击队”加入牌组。",
                     CardArtsId = "20177700",
                 }
             },
@@ -10859,7 +10859,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
                     Flavor = "",
                     Info = "从牌库弃掉一张倾盆大雨，然后在其敌我双方同排降下倾盆大雨。",
                     CardArtsId = "d16740000",
@@ -11626,7 +11626,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Categories = new Categorie[]{ Categorie.Soldier, Categorie.Dryad },
                     Flavor = "菲斯奈特留了下来，最后与布蕾恩成婚。",
                     Info = "使一个单位的战力等同于自身战力。",
                     CardArtsId = "d22100000",
@@ -11648,7 +11648,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "“若是月亮一片血红，那就速速紧闭门窗，让宝宝快快上床……",
-                    Info = "放逐己方墓地中1张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
+                    Info = "放逐己方墓地中3张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
                     CardArtsId = "d18350000",
                 }
             },
@@ -12595,14 +12595,14 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.WildHunt },
+                    Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Soldier },
                     Flavor = "白雪和烈火，是他们为天空和大地涂抹的颜色。",
                     Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张同名牌。",
                     CardArtsId = "d21920000",
                 }
             },
             {
-                "70085",//尼斯里拉
+                "70085",//蜜蜂幽灵
                 new GwentCard()
                 {
                     CardId ="70085",
@@ -12615,7 +12615,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.WildHunt},
+                    Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Construct },
                     Flavor = "谁算好孩子？唔，他肯定不算。",
                     Info = "对1个敌方单位造成7点伤害，若其被摧毁，则在该排降下“刺骨冰霜”。",
                     CardArtsId = "d21910000",
@@ -12723,10 +12723,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70091",//Havfrue Singer
+                "70092",//Havfrue Singer
                 new GwentCard()
                 {
-                    CardId ="70091",
+                    CardId ="70092",
                     Name="海之歌者",
                     Strength=10,
                     Group=Group.Copper,
