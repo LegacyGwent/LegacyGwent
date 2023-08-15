@@ -12682,6 +12682,67 @@ namespace Cynthia.Card
                 }
             },
             {
+                "70089",//Artis
+                new GwentCard()
+                {
+                    CardId ="70089",
+                    Name="亚提斯",
+                    Strength=7,
+                    Group=Group.Silver,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed },
+                    Flavor = "结束了，结束了，那是怜悯。",
+                    Info = "部署：对一个敌军单位造成7点伤害，若摧毁目标，则在对方同排生成一张“巨熊祭品”。",
+                    CardArtsId = "d16680000",
+                }
+            },
+            {
+                "70090",//Cultist Oblation
+                new GwentCard()
+                {
+                    CardId ="70090",
+                    Name="巨熊祭品",
+                    Strength=2,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.AnyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    Countdown=2,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Token },
+                    Flavor = "斯瓦勃洛唯一的戒律：杀戮",
+                    Info = "2回合后的回合开始时，放逐自身。遗愿：治愈对方半场的1个受伤量最大的单位，并使其获得1点强化。",
+                    CardArtsId = "d17740000",
+                }
+            }
+            {
+                "70091",//Cultist Oblation
+                new GwentCard()
+                {
+                    CardId ="70091",
+                    Name="海之歌者",
+                    Strength=10,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cultist,Categorie.Support },
+                    Flavor = "虽说女海妖的歌唱让人类望尘莫及，但仍有一些人天赋异禀，能让女海妖垂听。",
+                    Info = "若位于倾盆大雨或史凯利格风暴中，将两个敌方单位移至敌方半场同排。",
+                    CardArtsId = "d17740000",
+                }
+            }
+            {
                 "80001",//奥贝伦王 AuberonKing
                 new GwentCard()
                 {
