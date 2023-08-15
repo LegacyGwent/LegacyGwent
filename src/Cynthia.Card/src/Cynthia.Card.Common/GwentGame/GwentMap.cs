@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 77);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 78);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12721,9 +12721,9 @@ namespace Cynthia.Card
                     Info = "2回合后的回合开始时，放逐自身。遗愿：治愈对方半场的1个受伤量最大的单位，并使其获得1点强化。",
                     CardArtsId = "d17740000",
                 }
-            }
+            },
             {
-                "70091",//Cultist Oblation
+                "70091",//Havfrue Singer
                 new GwentCard()
                 {
                     CardId ="70091",
@@ -12736,12 +12736,12 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist,Categorie.Support },
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Support },
                     Flavor = "虽说女海妖的歌唱让人类望尘莫及，但仍有一些人天赋异禀，能让女海妖垂听。",
                     Info = "若位于倾盆大雨或史凯利格风暴中，将两个敌方单位移至敌方半场同排。",
                     CardArtsId = "d17740000",
                 }
-            }
+            },
             {
                 "80001",//奥贝伦王 AuberonKing
                 new GwentCard()
