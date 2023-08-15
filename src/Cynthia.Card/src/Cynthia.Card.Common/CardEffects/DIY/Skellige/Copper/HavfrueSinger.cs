@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70091")]//海之歌者
-    pubic class HavfrueSinger : CardEffect
+    public class HavfrueSinger : CardEffect
     {//若位于倾盆大雨或史凯利格风暴中，将两个敌方单位移至敌方半场同排。
         public HavfrueSinger(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
