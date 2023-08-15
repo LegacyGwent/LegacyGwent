@@ -13,12 +13,12 @@ namespace Cynthia.Card
         {
             var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.HasAnyCategorie(Categorie.Beast,Categorie.Vampire)).ToList();
             //如果没有单位，什么都不做
-            if (list.Count() == 0)
+            if (list.Count() < 3)
             {
                 return 0;
             }
             //选择一个单位，如果不选，什么都不做
-            var MoveTarget = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1);
+            var MoveTarget = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 3);
             if (MoveTarget.Count() == 0)
             {
                 return 0;
