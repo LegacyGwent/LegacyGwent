@@ -24,7 +24,7 @@ namespace Cynthia.Card
             foreach (var rowIndex in tagetRows)
             {
                 // await Game.ApplyWeather(Card.PlayerIndex, rowIndex.IndexToMyRow(), RowStatus.None);
-                await Game.GameRowEffect[PlayerIndex][rowIndex].SetStatus<TorrentialRain>();
+                await Game.GameRowEffect[PlayerIndex][rowIndex].SetStatus<TorrentialRainStatus>();
             }
             return 0;
         }
