@@ -11,17 +11,17 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var tagetRows = Game.GameRowEffect[Card.PlayerIndex].Indexed()
-                .Where(x => x.Value.RowStatus.TorrentialRainStatus())
+                .Where(x == x.RowStatus.TorrentialRainStatus())
                 .Select(x => x.Key);
             foreach (var rowIndex in tagetRows)
             {
                 // await Game.ApplyWeather(Card.PlayerIndex, rowIndex.IndexToMyRow(), RowStatus.None);
                 await Game.GameRowEffect[PlayerIndex][rowIndex].SetStatus<SkelligeStormStatus>();
             }
-            var tagetRows = Game.GameRowEffect[Card.PlayerIndex].Indexed()
+            var targetRows = Game.GameRowEffect[Card.PlayerIndex].Indexed()
                 .Where(x => !x.Value.RowStatus.SkelligeStormStatus())
                 .Select(x => x.Key);
-            foreach (var rowIndex in tagetRows)
+            foreach (var rowIndex in targetRows)
             {
                 // await Game.ApplyWeather(Card.PlayerIndex, rowIndex.IndexToMyRow(), RowStatus.None);
                 await Game.GameRowEffect[PlayerIndex][rowIndex].SetStatus<TorrentialRainStatus>();
