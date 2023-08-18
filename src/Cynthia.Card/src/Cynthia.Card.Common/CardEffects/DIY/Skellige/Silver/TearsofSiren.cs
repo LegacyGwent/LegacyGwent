@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var tagetRows = Game.GameRowEffect[Card.PlayerIndex].Indexed()
-                .Where(x == x.RowStatus.TorrentialRainStatus())
+                .Where(x => x.RowStatus==RowStatus.TorrentialRainStatus())
                 .Select(x => x.Key);
             foreach (var rowIndex in tagetRows)
             {
@@ -19,7 +19,7 @@ namespace Cynthia.Card
                 await Game.GameRowEffect[PlayerIndex][rowIndex].SetStatus<SkelligeStormStatus>();
             }
             var targetRows = Game.GameRowEffect[Card.PlayerIndex].Indexed()
-                .Where(x => !x.Value.RowStatus.SkelligeStormStatus())
+                .Where(x => x.RowStatus!=RowStatus.SkelligeStormStatus())
                 .Select(x => x.Key);
             foreach (var rowIndex in targetRows)
             {
