@@ -29,7 +29,7 @@ namespace Cynthia.Card
                 Card.Status.CardRow.IsInCemetery()) 
                 return;
             
-            if (Card.Effect.Countdown == 0 && Card.Status.CardRow.IsInDeck())
+            if (Card.Effect.Countdown == 0 && Card.Status.CardRow.IsInDeck() && @event.Target.Status.CardId == "70044")
             {
                 var location = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true);
                 await Card.Effect.Summon(location, Card);
