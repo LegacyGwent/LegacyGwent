@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy: Destroy a face-down Ambush enemy.",
+            "Info": "Deploy: play a bronze temerian unit from your hand with the same or less power and draw a card, add a Blue Stripes Commando to your deck.",
             "Flavor": "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。"
         },
         "42008": {
@@ -3013,7 +3013,7 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 Bronze units with 6 Power or more, then deal 4 Damage to each of them.",
+            "Info": "Resurrect 2 Bronze Soldier units with 5 Power or more, then deal 4 Damage to each of them.",
             "Flavor": ""
         },
         "70058": {
@@ -3083,7 +3083,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under 'BitingFrost' is destroyed.",
             "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
         },
         "70084": {
@@ -3093,7 +3093,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
+            "Info": "Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3123,7 +3123,7 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish a Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
             "Flavor": ""
         },
         "70103": {
