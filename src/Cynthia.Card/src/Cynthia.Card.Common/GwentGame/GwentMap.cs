@@ -11404,7 +11404,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "设埋伏一般都得藏起来。不过……也有例外。",
-                    Info = "复活2个战力高于5点的铜色单位，并对它们各造成4点伤害。",
+                    Info = "复活2个战力高于4点的铜色士兵单位，并对它们各造成4点伤害。",
                     CardArtsId = "d19720000",
                 }
             },
@@ -12597,7 +12597,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Soldier },
                     Flavor = "白雪和烈火，是他们为天空和大地涂抹的颜色。",
-                    Info = "每当有敌军单位被“刺骨冰霜”摧毁时，从牌组召唤1张同名牌。",
+                    Info = "每当有位于“刺骨冰霜”之下的敌军单位被摧毁时，从牌组召唤1张它的同名牌。",
                     CardArtsId = "d21920000",
                 }
             },
@@ -12695,7 +12695,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed },
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed},
                     Flavor = "结束了，结束了，那是怜悯。",
                     Info = "部署：对一个敌军单位造成7点伤害，若摧毁目标，则在对方同排生成一张“巨熊祭品”。",
                     CardArtsId = "d16680000",
@@ -12716,7 +12716,7 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     Countdown=2,
                     IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Token },
+                    Categories = new Categorie[]{ Categorie.Token},
                     Flavor = "斯瓦勃洛唯一的戒律：杀戮",
                     Info = "2回合后的回合开始时，放逐自身。遗愿：治愈对方半场的1个受伤量最大的单位，并使其获得1点强化。",
                     CardArtsId = "d17740000",
@@ -12736,10 +12736,30 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Support },
+                    Categories = new Categorie[]{ Categorie.Cultist, Categorie.Support},
                     Flavor = "虽说女海妖的歌唱让人类望尘莫及，但仍有一些人天赋异禀，能让女海妖垂听。",
                     Info = "若位于倾盆大雨或史凯利格风暴中，将两个敌方单位移至敌方半场同排。",
-                    CardArtsId = "d17740000",
+                    CardArtsId = "c10001000",
+                }
+            },
+                        {
+                "70093",//Tempest
+                new GwentCard()
+                {
+                    CardId ="70093",
+                    Name="暴风雨",
+                    Strength=0,
+                    Group=Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special ,Categorie.Hazard},
+                    Flavor = "即便以大师贝克尔的标准，也是十足的狂风暴雨。",
+                    Info = "在处于“倾盆大雨”下的排降下史凯利格风暴，随后在其他排降下“倾盆大雨”。",
+                    CardArtsId = "d16550000",
                 }
             },
             {

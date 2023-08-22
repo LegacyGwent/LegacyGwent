@@ -3111,6 +3111,16 @@
             "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
+        "70092": {
+            "Name": "Havfrue Singer",
+            "Info": "Deploy: If is under 'Torrential Rain' or 'Skellige Storm', move 2 enemy to the opposite row.",
+            "Flavor": "No human can match sirens in singing. Some, however, are talented enough to compel sirens to listen."
+        },
+        "70093": {
+            "Name": "Tempest",
+            "Info": "Spawn 'Skellige Storm' on rows that are under 'Torrential Rain', then spawn 'Torrential Rain' on the other rows.",
+            "Flavor": "A Category 10 on the Bekker scale."
+        },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
             "Info": "Deploy: Banish a Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
