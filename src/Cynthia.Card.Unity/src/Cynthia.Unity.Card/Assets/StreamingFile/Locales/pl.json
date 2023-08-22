@@ -3111,6 +3111,16 @@
             "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.",
             "Flavor": ""
         },
+        "70092": {
+            "Name": "Śpiewaczka Havfrue",
+            "Info": "Rozmieszczenie: Jeśli wpływem Ulewny Deszcz lub Skelligijski Sztorm, Przenieś 2 jednostkę do rzędu tej jednostki po jej stronie.",
+            "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
+        },
+        "70093": {
+            "Name": "Sztorm",
+            "Info": "Rzuć Skelligijski Sztorm na rzędy wpływem Ulewny Deszcz, a rzuć Ulewny Deszcz na pozostałych rzędy.",
+            "Flavor": "Dziesięć w skali Bekkera."
+        },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
             "Info": "Rozmieszczenie: Wygnaj brązową bestię lub wampira z Twojego cmentarza, następnie Wybierz: stwórz 3 krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz 3 pełnie we wszystkich Twoich rzędach.",
