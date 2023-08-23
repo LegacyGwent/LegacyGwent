@@ -3008,7 +3008,7 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 bronze units with power higher than 5 points, and deal 4 damage to each of them.",
+            "Info": "Resurrect 2 Bronze Soldier units with power higher than 4 points, and deal 4 damage to each of them.",
             "Flavor": ""
         },
         "70058": {
@@ -3078,7 +3078,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under 'BitingFrost' is destroyed..",
             "Flavor": "当夜晚寒风骤降，浓雾悄然而至，大陆的居民就会从睡梦中惊醒，惊恐地将每一扇门窗拴死。因为他们知道，这是狂猎在附近徘徊的征兆。"
         },
         "70084": {
@@ -3106,9 +3106,19 @@
             "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
+        "70092": {
+            "Name": "Поющая сиренам",
+            "Info": "Deploy: If is under 'Torrential Rain' or 'Skellige Storm', move 2 enemy to the opposite row.",
+            "Flavor": "В искусстве пения с сиренами не сравнится ни один человек. И все же некоторым хватает таланта, чтоб заставить сирен слушать."
+        },
+        "70093": {
+            "Name": "Шторм",
+            "Info": "Spawn 'Skellige Storm' on rows that are under 'Torrential Rain', then spawn 'Torrential Rain' on the other rows.",
+            "Flavor": "Десять по шкале Беккера."
+        },
         "70102": {
             "Name": "Detlaff: CrimsonCurse",
-            "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
+            "Info": "Banish 3 bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
             "Flavor": ""
         },
         "70103": {
@@ -3320,51 +3330,6 @@
             "Name": "Barbegazi: Promoted",
             "Info": "Consume an ally and boost self by its power. Resilient.",
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
-        },
-        "70079": {
-            "Name": "An Craite Warlord",
-            "Info": "While in hand, deck or on the board, boost by 1 every time you discard a card.",
-            "Flavor": "The terror of Nilfgaardian fishermen"
-        },
-        "70080": {
-            "Name": "Кнут Бессердечный",
-            "Info": "Однократность. Развертывание: сбросьте карту из руки, затем создайте бронзовую единицу из стартовой колоды, усильте ее на 1 и добавьте в руку.",
-            "Flavor": "Я преклоняю колени перед Свальблодом, и только перед Свальблодом!"
-        },
-        "70081": {
-            "Name": "Драммондский пиллагер",
-            "Info": "когда выбрасывается, усиливает всех друммондских юнитов на 1, где бы они ни находились.",
-            "Flavor": "Единственное, что они любят больше, чем мародерствовать, - это убиватьing."
-        },
-        "70082": {
-            "Name": "Arnjolf the Patricide",
-            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
-            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
-        },
-        "70083": {
-            "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
-            "Flavor": "当夜晚寒风骤降，浓雾悄然而至，大陆的居民就会从睡梦中惊醒，惊恐地将每一扇门窗拴死。因为他们知道，这是狂猎在附近徘徊的征兆。"
-        },
-        "70084": {
-            "Name": "Ольгерд Бессмертный",
-            "Info": "Воскресить этот отряд в случайном ряду",
-            "Flavor": ""
-        },
-        "70085": {
-            "Name": "Призрак пасечника",
-            "Info": "Повредите вражеский отряд на 7. Если он уничтожен, создайте Трескучий мороз в этом ряду.",
-            "Flavor": ""
-        },
-        "70086": {
-            "Name": "Филиппа: хозяйка ложи",
-            "Info": "Сыграйте бронзового или серебряного Чародея из своей колоды; или создайте бронзовое заклинание.",
-            "Flavor": ""
-        },
-        "70088": {
-            "Name": "Rzecz w bagnie",
-            "Info": "Переместите все туманы с кладбища в свою колоду и поместите туман в ряд. ",
-            "Flavor": "Do not follow the lights!"
         },
         "70089": {
             "Name": "Artis",
