@@ -86,6 +86,10 @@ namespace Cynthia.Card
             if (!stringDeck.Any(x => (x >= '0' && x <= '9')))
             {
                 deckResult.Leader = stringDeck.Length == 0 ? "41001" : Card64ToCardId(stringDeck);
+                if (deckResult.Leader == "12004")
+                {
+                    deckResult.Leader = "41001";
+                }
                 return deckResult;
             }
             else
@@ -133,7 +137,10 @@ namespace Cynthia.Card
                     }
                 }
             }
-
+            if (deckResult.Leader == "12004")
+            {
+                deckResult.Leader = "41001";
+            }
             return deckResult;
         }
     }

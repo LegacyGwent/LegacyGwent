@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy: Destroy a face-down Ambush enemy.",
+            "Info": "Deploy: play a bronze temerian unit from your hand with the same or less power and draw a card, add a Blue Stripes Commando to your deck.",
             "Flavor": "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。"
         },
         "42008": {
@@ -2821,6 +2821,136 @@
             "Info": "Spying.\nDeathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
             "Flavor": "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。"
         },
+        "130210": {
+            "Name": "Dudu: Promoted",
+            "Info": "Choose an enemy and become its copy.",
+            "Flavor": "拟态怪有很多别名：易形怪、二重身、模仿怪……变形怪。"
+        },
+        "130220": {
+            "Name": "Prize-Winning Cow: Promoted",
+            "Info": "Deathwish: Spawn a Chort, then deal 2 Damage to all emenies on the same row.\n(Chort; 14 Strength)",
+            "Flavor": "哞～～～"
+        },
+        "130200": {
+            "Name": "Dorregaray of Vole: Promoted",
+            "Info": "Deploy: Spawn a promoted version of Savage Bear, Wyvern, Barbegazi or Drowner.",
+            "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
+        },
+        "130180": {
+            "Name": "Vaedermakar: Promoted",
+            "Info": "Deploy: Spawn a Neutral Bronze or Silver Hazard, Clear Skies, or Alzur's Thunder.",
+            "Flavor": "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。"
+        },
+        "130190": {
+            "Name": "Iris von Everec: Promoted",
+            "Info": "Spying.\nDeathwish: Boost 6 random units on the opposite side by 5.",
+            "Flavor": "我的回忆所剩无几……但每次想到我的玫瑰，记忆便会涌现。"
+        },
+        "130010": {
+            "Name": "Roach: Promoted",
+            "Info": "Whenever you play a Gold unit from your hand, Summon this unit.\nIf it's in your hand, Summon it and draw one card.\nIf it's in your graveyard, return to your deck.",
+            "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
+        },
+        "130150": {
+            "Name": "Olgierd von Everec Promoted",
+            "Info": "Deathwish: Resurrect this unit on the same position.\nImmune.",
+            "Flavor": "至少你知道我的头不好砍了。"
+        },
+        "130020": {
+            "Name": "Francis Bedlam: Promoted",
+            "Info": "Deploy: If losing, Strengthen self up to a maximum of 20 until you have 1 more point than the opponent.",
+            "Flavor": "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。"
+        },
+        "130160": {
+            "Name": "Operator: Promoted",
+            "Info": "Single-Use\nDeploy, Truce: Make a default copy of a non-Single-Use Bronze or Silver unit in your hand for both players.",
+            "Flavor": "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。"
+        },
+        "130130": {
+            "Name": "Vesemir: Promoted",
+            "Info": "Deploy: Summon Eskel and Lambert, then promote them.",
+            "Flavor": "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。"
+        },
+        "130140": {
+            "Name": "Eskel: Promoted",
+            "Info": "Deploy: Summon Vesemir and Lambert, then promote them.",
+            "Flavor": "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……"
+        },
+        "130170": {
+            "Name": "Lambert: Promoted",
+            "Info": "Deploy: Summon Eskel and Vesemir, then promote them.",
+            "Flavor": "这样的沟通方式才对路嘛！"
+        },
+        "130110": {
+            "Name": "Carlo Varese: Promoted",
+            "Info": "Deal 9 Damage.\nDeal overflowed damage to adjacent cards.",
+            "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
+        },
+        "130090": {
+            "Name": "Cyprian Wiley: Promoted",
+            "Info": "Deploy: Weaken a unit by 8.",
+            "Flavor": "诺维格瑞的黑帮四巨头之一——另外三个是西吉·卢文、卡罗·“砍刀”·凡瑞西和乞丐王。"
+        },
+        "130100": {
+            "Name": "Ocvist: Promoted",
+            "Info": "Single-Use.\nAfter 3 turns, deal 1 Damage to all enemies, then on round start, return to your hand.",
+            "Flavor": "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。"
+        },
+        "130120": {
+            "Name": "Myrgtabrakke: Promoted",
+            "Info": "Deploy: Damage units by 4, 3, 2 and then 1.",
+            "Flavor": "永远别想分开母龙和她的孩子。"
+        },
+        "130080": {
+            "Name": "Johnny: Promoted",
+            "Info": "Deploy: Discard a card, then Create a copy of a card of the same color from your opponent's starting deck in your hand.",
+            "Flavor": "要是再也没办法亲口说出“狮子头上长虱子”，生活就真的太无趣啦。"
+        },
+        "130050": {
+            "Name": "Germain Piquant: Promoted",
+            "Info": "Deploy: Spawn 3 Cows on each side of this unit.\n(Cow; 1 Strength)",
+            "Flavor": "陶森特需要这位英雄，但它不配。"
+        },
+        "130060": {
+            "Name": "Nivellen: Promoted",
+            "Info": "Deploy: Move all units on a row of two sides to random rows.",
+            "Flavor": "迷路了？要迷路到其它地方去，只要别在我这儿瞎逛就行。把你的左耳对准太阳，一直往前，没多久就能走上大路。怎么？你还在等什么？"
+        },
+        "130070": {
+            "Name": "Stregobor: Promoted",
+            "Info": "Deploy, Truce: Look at two units in the opponent's deck, then place one on top of the deck.\nEach player draws a unit and sets its Power to 1.",
+            "Flavor": "猎魔人见过看上去像议员的贼，见过看上去像乞丐的议员，也见过看上去像贼的国王。不过斯崔葛布的样子，就和大众心目中法师的形象没什么两样。"
+        },
+        "130030": {
+            "Name": "Sarah: Promoted",
+            "Info": "Deploy: Swap 3 cards for ones of the same color.",
+            "Flavor": "来陪小莎拉玩游戏吧！"
+        },
+        "130040": {
+            "Name": "Iris' Companions: Promoted",
+            "Info": "Discard a random card, then move a card from your deck to your hand.",
+            "Flavor": "我们的名字还是不说为好。就当我们是……主人家的朋友吧。"
+        },
+        "640080": {
+            "Name": "Savage Bear: Promoted",
+            "Info": "Whenever a unit appears on your opponent's side, deal 1 Damage to it.",
+            "Flavor": "“驯服”？哈，小子，史凯利格人也许能训练它们，但那跟驯服完全不同……"
+        },
+        "240140": {
+            "Name": "Drowner: Promoted",
+            "Info": "Deploy: Move 2 enemies to the opposite row and deal 2 Damage to it.\nIf that row is under a Hazard, deal 4 Damage instead.",
+            "Flavor": "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。"
+        },
+        "240230": {
+            "Name": "Wyvern: Promoted",
+            "Info": "Deal 7 Damage.",
+            "Flavor": "想象一下在最可怕的噩梦中出现的长翅膀的蛇——翼手龙比这更可怕。"
+        },
+        "240250": {
+            "Name": "Barbegazi: Promoted",
+            "Info": "Consume an ally and Boost self by its Power.\nResilient.",
+            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+        },
         "70001": {
             "Name": "Quen",
             "Info": "Choose a Bronze or Silver unit in your hand, then Boost it and all its copies in your hand and deck by 2 and give them Shield. The Shield can block any Damage once.",
@@ -3013,7 +3143,7 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 Bronze units with 6 Power or more, then deal 4 Damage to each of them.",
+            "Info": "Resurrect 2 Bronze Soldier units with 5 Power or more, then deal 4 Damage to each of them.",
             "Flavor": ""
         },
         "70058": {
@@ -3083,7 +3213,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under 'BitingFrost' is destroyed.",
             "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
         },
         "70084": {
@@ -3093,7 +3223,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
+            "Info": "Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3111,9 +3241,19 @@
             "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
+        "70092": {
+            "Name": "Havfrue Singer",
+            "Info": "Deploy: If is under 'Torrential Rain' or 'Skellige Storm', move 2 enemy to the opposite row.",
+            "Flavor": "No human can match sirens in singing. Some, however, are talented enough to compel sirens to listen."
+        },
+        "70093": {
+            "Name": "Tempest",
+            "Info": "Spawn 'Skellige Storm' on rows that are under 'Torrential Rain', then spawn 'Torrential Rain' on the other rows.",
+            "Flavor": "A Category 10 on the Bekker scale."
+        },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish a Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
             "Flavor": ""
         },
         "70103": {
@@ -3200,181 +3340,6 @@
             "Name": "Thaw",
             "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
             "Flavor": "它带来了春天，也带来了战争。"
-        },
-        "130210": {
-            "Name": "Dudu: Promoted",
-            "Info": "Choose an enemy and become its copy.",
-            "Flavor": "拟态怪有很多别名：易形怪、二重身、模仿怪……变形怪。"
-        },
-        "130220": {
-            "Name": "Prize-Winning Cow: Promoted",
-            "Info": "Deathwish: Spawn a Chort, then deal 2 Damage to all emenies on the same row.\n(Chort; 14 Strength)",
-            "Flavor": "哞～～～"
-        },
-        "130200": {
-            "Name": "Dorregaray of Vole: Promoted",
-            "Info": "Deploy: Spawn a promoted version of Savage Bear, Wyvern, Barbegazi or Drowner.",
-            "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
-        },
-        "130180": {
-            "Name": "Vaedermakar: Promoted",
-            "Info": "Deploy: Spawn a Neutral Bronze or Silver Hazard, Clear Skies, or Alzur's Thunder.",
-            "Flavor": "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。"
-        },
-        "130190": {
-            "Name": "Iris von Everec: Promoted",
-            "Info": "Spying.\nDeathwish: Boost 6 random units on the opposite side by 5.",
-            "Flavor": "我的回忆所剩无几……但每次想到我的玫瑰，记忆便会涌现。"
-        },
-        "130010": {
-            "Name": "Roach: Promoted",
-            "Info": "Whenever you play a Gold unit from your hand, Summon this unit.\nIf it's in your hand, Summon it and draw one card.\nIf it's in your graveyard, return to your deck.",
-            "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
-        },
-        "130150": {
-            "Name": "Olgierd von Everec Promoted",
-            "Info": "Deathwish: Resurrect this unit on the same position.\nImmune.",
-            "Flavor": "至少你知道我的头不好砍了。"
-        },
-        "130020": {
-            "Name": "Francis Bedlam: Promoted",
-            "Info": "Deploy: If losing, Strengthen self up to a maximum of 20 until you have 1 more point than the opponent.",
-            "Flavor": "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。"
-        },
-        "130160": {
-            "Name": "Operator: Promoted",
-            "Info": "Single-Use\nDeploy, Truce: Make a default copy of a non-Single-Use Bronze or Silver unit in your hand for both players.",
-            "Flavor": "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。"
-        },
-        "130130": {
-            "Name": "Vesemir: Promoted",
-            "Info": "Deploy: Summon Eskel and Lambert, then promote them.",
-            "Flavor": "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。"
-        },
-        "130140": {
-            "Name": "Eskel: Promoted",
-            "Info": "Deploy: Summon Vesemir and Lambert, then promote them.",
-            "Flavor": "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……"
-        },
-        "130170": {
-            "Name": "Lambert: Promoted",
-            "Info": "Deploy: Summon Eskel and Vesemir, then promote them.",
-            "Flavor": "这样的沟通方式才对路嘛！"
-        },
-        "130110": {
-            "Name": "Carlo Varese: Promoted",
-            "Info": "Deal 9 Damage.\nDeal overflowed damage to adjacent cards.",
-            "Flavor": "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。"
-        },
-        "130090": {
-            "Name": "Cyprian Wiley: Promoted",
-            "Info": "Deploy: Weaken a unit by 8.",
-            "Flavor": "诺维格瑞的黑帮四巨头之一——另外三个是西吉·卢文、卡罗·“砍刀”·凡瑞西和乞丐王。"
-        },
-        "130100": {
-            "Name": "Ocvist: Promoted",
-            "Info": "Single-Use.\nAfter 3 turns, deal 1 Damage to all enemies, then on round start, return to your hand.",
-            "Flavor": "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。"
-        },
-        "130120": {
-            "Name": "Myrgtabrakke: Promoted",
-            "Info": "Deploy: Damage units by 4, 3, 2 and then 1.",
-            "Flavor": "永远别想分开母龙和她的孩子。"
-        },
-        "130080": {
-            "Name": "Johnny: Promoted",
-            "Info": "Deploy: Discard a card, then Create a copy of a card of the same color from your opponent's starting deck in your hand.",
-            "Flavor": "要是再也没办法亲口说出“狮子头上长虱子”，生活就真的太无趣啦。"
-        },
-        "130050": {
-            "Name": "Germain Piquant: Promoted",
-            "Info": "Deploy: Spawn 3 Cows on each side of this unit.\n(Cow; 1 Strength)",
-            "Flavor": "陶森特需要这位英雄，但它不配。"
-        },
-        "130060": {
-            "Name": "Nivellen: Promoted",
-            "Info": "Deploy: Move all units on a row of two sides to random rows.",
-            "Flavor": "迷路了？要迷路到其它地方去，只要别在我这儿瞎逛就行。把你的左耳对准太阳，一直往前，没多久就能走上大路。怎么？你还在等什么？"
-        },
-        "130070": {
-            "Name": "Stregobor: Promoted",
-            "Info": "Deploy, Truce: Look at two units in the opponent's deck, then place one on top of the deck.\nEach player draws a unit and sets its Power to 1.",
-            "Flavor": "猎魔人见过看上去像议员的贼，见过看上去像乞丐的议员，也见过看上去像贼的国王。不过斯崔葛布的样子，就和大众心目中法师的形象没什么两样。"
-        },
-        "130030": {
-            "Name": "Sarah: Promoted",
-            "Info": "Deploy: Swap 3 cards for ones of the same color.",
-            "Flavor": "来陪小莎拉玩游戏吧！"
-        },
-        "130040": {
-            "Name": "Iris' Companions: Promoted",
-            "Info": "Discard a random card, then move a card from your deck to your hand.",
-            "Flavor": "我们的名字还是不说为好。就当我们是……主人家的朋友吧。"
-        },
-        "640080": {
-            "Name": "Savage Bear: Promoted",
-            "Info": "Whenever a unit appears on your opponent's side, deal 1 Damage to it.",
-            "Flavor": "“驯服”？哈，小子，史凯利格人也许能训练它们，但那跟驯服完全不同……"
-        },
-        "240140": {
-            "Name": "Drowner: Promoted",
-            "Info": "Deploy: Move 2 enemies to the opposite row and deal 2 Damage to it.\nIf that row is under a Hazard, deal 4 Damage instead.",
-            "Flavor": "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。"
-        },
-        "240230": {
-            "Name": "Wyvern: Promoted",
-            "Info": "Deal 7 Damage.",
-            "Flavor": "想象一下在最可怕的噩梦中出现的长翅膀的蛇——翼手龙比这更可怕。"
-        },
-        "240250": {
-            "Name": "Barbegazi: Promoted",
-            "Info": "Consume an ally and Boost self by its Power.\nResilient.",
-            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
-        },
-        "70079": {
-            "Name": "An Craite Warlord",
-            "Info": "While in hand, deck or on the board, Boost by 1 every time you Discard a card.",
-            "Flavor": "The terror of Nilfgaardian fishermen."
-        },
-        "70080": {
-            "Name": "Knut the Callous",
-            "Info": "Single-Use.\nDeploy: Discard a card, then add a Bronze unit from your starting deck to your hand, then Strengthen it by 1.",
-            "Flavor": "I kneel to Svalblod, and Svalblod alone!"
-        },
-        "70081": {
-            "Name": "Drummond Pillager",
-            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
-            "Flavor": "The only thing they like more than looting is killing."
-        },
-        "70082": {
-            "Name": "Arnjolf the Patricide",
-            "Info": "Deploy, Choose One: Discard all duplicate cards from your hand and draw that many cards; or discard all cards from your hand whose strenght is higher than this unit strenght and draw that many cards.",
-            "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
-        },
-        "70083": {
-            "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
-            "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
-        },
-        "70084": {
-            "Name": "Olgierd Immortal",
-            "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
-            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
-        },
-        "70085": {
-            "Name": "The Apiarian Phantom",
-            "Info": "Damage an ennemy unit by 7. If destroyed, spawn Biting Frost on that row.",
-            "Flavor": "Who's a good boy? Well, surely not him."
-        },
-        "70086": {
-            "Name": "Philippa: Mistress of the Lodge",
-            "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell",
-            "Flavor": "Philippa Eilhart, though very attractive, was decidedly very unkind."
-        },
-        "70088": {
-            "Name": "The Thing In The Swamp",
-            "Info": "Deploy: Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
-            "Flavor": "Do not follow the lights!"
         },
         "70089": {
             "Name": "Artis",

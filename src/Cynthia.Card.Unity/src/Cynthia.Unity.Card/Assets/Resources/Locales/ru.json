@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Роше: беспощадный",
-            "Info": "Уничтожьте лежащий рубашкой вверх вражеский отряд засады.",
+            "Info": "Deploy: play a bronze temerian unit from your hand with the same or less power and draw a card, add a Blue Stripes Commando to your deck.",
             "Flavor": "ж€‘д»¬е†…еїѓд»ЋдёЌз•Џжѓ§гЂ‚дёЌиї‡пјЊеЂ’жЇжњ‰дёЂдёЄдєєз±»вЂ¦вЂ¦еј—е†њВ·зЅ—еҐ‘гЂ‚еЌѓдё‡и¦ЃеЅ“еїѓд»–гЂ‚"
         },
         "42008": {
@@ -3008,7 +3008,7 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 bronze units with power higher than 5 points, and deal 4 damage to each of them.",
+            "Info": "Resurrect 2 bronze Soldier units with power higher than 4 points, and deal 4 damage to each of them.",
             "Flavor": ""
         },
         "70058": {
@@ -3078,7 +3078,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit is destroyed by 'BitingFrost'.",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under 'BitingFrost' is destroyed.",
             "Flavor": "当夜晚寒风骤降，浓雾悄然而至，大陆的居民就会从睡梦中惊醒，惊恐地将每一扇门窗拴死。因为他们知道，这是狂猎在附近徘徊的征兆。"
         },
         "70084": {
@@ -3106,9 +3106,19 @@
             "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
+        "70092": {
+            "Name": "Поющая сиренам",
+            "Info": "Deploy: If is under 'Torrential Rain' or 'Skellige Storm', move 2 enemy to the opposite row.",
+            "Flavor": "В искусстве пения с сиренами не сравнится ни один человек. И все же некоторым хватает таланта, чтоб заставить сирен слушать."
+        },
+        "70093": {
+            "Name": "Шторм",
+            "Info": "Spawn 'Skellige Storm' on rows that are under 'Torrential Rain', then spawn 'Torrential Rain' on the other rows.",
+            "Flavor": "Десять по шкале Беккера."
+        },
         "70102": {
             "Name": "Detlaff: CrimsonCurse",
-            "Info": "Banish a bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
+            "Info": "Banish 3 bronze 'Beast' or 'Vampire' in your cemetery, and then choose one: cast 3 rows of 'Full Moon' in your field; or cast 3 rows of 'Blood Moon' in the opponent's field.",
             "Flavor": ""
         },
         "70103": {
