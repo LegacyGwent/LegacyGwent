@@ -33,6 +33,7 @@ namespace Cynthia.Card
             }
             var id = selectList[targetIndex].CardId;
             await target.Effect.Transform(id, Card);
+            await target.Effect.Conceal(Card);
             //随后将其揭示
             await target.Effect.Reveal(Card);
 
