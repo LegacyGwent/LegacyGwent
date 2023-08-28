@@ -38,6 +38,10 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardToCemetery @event)
         {
+            if (@event.Target != Card)
+            {
+                return;
+            }
             await @event.Target.Effect.SetCountdown(value: 2);
         }
     }
