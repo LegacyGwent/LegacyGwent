@@ -22,7 +22,9 @@ namespace ConsoleTest
     {
         static async Task Main(string[] args)
         {
-            GwentTest.QueryPlayerDeck("岁月");
+            var game = new GwentServerGame(new ConsolePlayer("!E40[!E", "普通玩家"), new ReaverHunterAI());
+
+            var gameResult = await game.Play();
 
             await GwentTest.ConfirmExit();
         }

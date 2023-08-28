@@ -13,7 +13,8 @@ namespace Cynthia.Card
             var list = Game.PlayersCemetery[Card.PlayerIndex]
             .Where(x => x.Status.Group == Group.Copper
             && x.CardInfo().CardType == CardType.Unit
-            && x.Status.Strength > 5).ToList();
+            && x.Status.Categories.Contains(Categorie.Soldier)
+            && x.Status.Strength > 4).ToList();
             //让玩家选择
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, isCanOver: true);
             for (int i = result.Count() - 1; i >= 0; i--)

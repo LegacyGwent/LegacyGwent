@@ -1,6 +1,6 @@
 namespace Cynthia.Card
 {
-    //进行了一次交换之后
+    //调度被抽到后
     public class AfterMulliganDraw : Event
     {
         public GameCard Target { get; set; }

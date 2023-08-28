@@ -86,7 +86,6 @@ namespace Cynthia.Card
         }
         public CardStatus GetCard(CardLocation location)
         {
-            var position = location.RowPosition;
             return GetRow(location.RowPosition)[location.CardIndex];
         }
 
