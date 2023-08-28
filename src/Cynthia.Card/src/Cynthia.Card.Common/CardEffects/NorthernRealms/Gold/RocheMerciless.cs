@@ -9,8 +9,8 @@ namespace Cynthia.Card
         public RocheMerciless(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.PlayersDeck[Card.PlayerIndex]
-                .Where(x => x.CardPoint() == Card.CardPoint() && x.CardInfo().Categories.Contains((Categorie.Temeria)));
+            var cards = Game.PlayersHandCard[Card.PlayerIndex]
+                .Where(x => x.CardPoint() <= Card.CardPoint() && x.CardInfo().Categories.Contains((Categorie.Temeria)));
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
                 (Card.PlayerIndex, cards.ToList(), 1, "选择打出一张牌");
