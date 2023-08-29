@@ -18,12 +18,15 @@ namespace Cynthia.Card
                 return 0;
             }
             //选择一个单位，如果不选，什么都不做
-            var MoveTarget = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 3);
-            if (MoveTarget.Count() == 0)
+            var MoveTarget = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 3, isCanOver: false);
+            if (MoveTarget.Count() < 3)
             {
                 return 0;
             }
-            await MoveTarget.Single().Effect.Banish();
+            foreach (var x in MoveTarget)
+            {
+                await x.Effect.Banish();
+            }
             
             //选择选项,设置每个选项的名字和效果
             var switchCard = await Card.GetMenuSwitch
