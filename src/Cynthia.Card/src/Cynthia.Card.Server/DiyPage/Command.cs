@@ -31,17 +31,28 @@ public class Command
     }
     public static void AddDiscussCardInfos(DiyCardInfo diyCard)
     {
-        int uid = discussAreaCollection.AsQueryable().Count();
-        diyCard.uid = uid;
-        diyCard.lastEditedDate = DateTime.Now;
-        diyCard.commits = new List<DiyCardInfo.Commit> { };
-        diyCard.likeList = new List<string> { };
-        diyCard.dislikeList = new List<string> { };
-        discussAreaCollection.InsertOne(diyCard);
+        var filter = Builders<DiyCardInfo>.Filter.Eq(x => x._id, diyCard._id);
+        var exists = discussAreaCollection.Find(filter).Any();
+        if (!exists)
+        {
+            int uid = diyCardCollection.AsQueryable().Count();
+            var update = Builders<DiyCardInfo>.Update
+                .Set(x => x.likeList, new List<string>())
+                .Set(x => x.dislikeList, new List<string>())
+                .Set(x => x.commits, new List<DiyCardInfo.Commit>())
+                .Set(x => x.uid, uid)
+                .Set(x => x.lastEditedDate, DateTime.Now);
+            discussAreaCollection.InsertOne(diyCard);
+            discussAreaCollection.UpdateOne(filter, update);
+        }
     }
     public static void GetDiyCardsInfo()
     {
         Info.diyCardInfo = diyCardCollection.AsQueryable().ToList();
+    }
+    public static void GetDiscussCardsInfo()
+    {
+        Info.diyCardInfo = discussAreaCollection.AsQueryable().ToList();
     }
     public static void UpdateDiyCardComment(DiyCardInfo diyCard)
     {
