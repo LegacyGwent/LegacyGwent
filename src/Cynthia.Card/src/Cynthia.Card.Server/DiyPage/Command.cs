@@ -46,6 +46,11 @@ public class Command
             discussAreaCollection.UpdateOne(filter, update);
         }
     }
+    public static void RemoveDiyCard(DiyCardInfo diyCard)
+    {
+        var filter = Builders<DiyCardInfo>.Filter.Eq(x => x._id, diyCard._id);
+        diyCardCollection.DeleteOne(filter);
+    }
     public static void GetDiyCardsInfo()
     {
         Info.diyCardInfo = diyCardCollection.AsQueryable().ToList();

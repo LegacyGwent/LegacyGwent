@@ -167,6 +167,7 @@
                 <Divider />
                 <p>设计师：@currentDiyCard.author</p>
                 <p>上次修改时间：@currentDiyCard.lastEditedDate</p>
+                <Button OnClick="(e) => removeDiyCard(currentDiyCard)" type="primary">删除</Button>
             }
         }
     </Drawer>
@@ -274,6 +275,12 @@
     {
         Command.AddDiscussCardInfos(card);
         @* Command.GetDiscussCardsInfo(); *@
+    }
+    void removeDiyCard(DiyCardInfo card)
+    {
+        Command.RemoveDiyCard(card);
+        Command.GetDiyCardsInfo();
+        detailPageVisible = false;
     }
     void handleTypeChange(string s)
     {
