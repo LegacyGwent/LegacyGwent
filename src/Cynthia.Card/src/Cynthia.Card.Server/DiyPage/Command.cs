@@ -9,6 +9,7 @@ public class Command
     public static IMongoClient client;
     static IMongoDatabase db;
     public static IMongoCollection<DiyCardInfo> diyCardCollection;
+    public static IMongoCollection<DiyCardInfo> discussAreaCollection;
     public static GwentDatabaseService _dbServer;
     public static void MongodbConnect(GwentDatabaseService dbServer)
     {
@@ -16,6 +17,7 @@ public class Command
         client = dbServer.GetMongoClient();
         db = client.GetDatabase("Web");
         diyCardCollection = db.GetCollection<DiyCardInfo>("DiyCards");
+        discussAreaCollection = db.GetCollection<DiyCardInfo>("DiscussArea");
     }
     public static void AddDiyCardInfos(DiyCardInfo diyCard)
     {
@@ -26,6 +28,16 @@ public class Command
         diyCard.likeList = new List<string> { };
         diyCard.dislikeList = new List<string> { };
         diyCardCollection.InsertOne(diyCard);
+    }
+    public static void AddDiscussCardInfos(DiyCardInfo diyCard)
+    {
+        int uid = discussAreaCollection.AsQueryable().Count();
+        diyCard.uid = uid;
+        diyCard.lastEditedDate = DateTime.Now;
+        diyCard.commits = new List<DiyCardInfo.Commit> { };
+        diyCard.likeList = new List<string> { };
+        diyCard.dislikeList = new List<string> { };
+        discussAreaCollection.InsertOne(diyCard);
     }
     public static void GetDiyCardsInfo()
     {

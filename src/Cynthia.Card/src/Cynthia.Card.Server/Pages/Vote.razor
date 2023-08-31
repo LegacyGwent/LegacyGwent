@@ -1,9 +1,12 @@
-@page "/diy"
+@page "/vote"
 @using System.IO;
 @using Newtonsoft.Json;
 
 <div>
     <Button OnClick="() => diyDrawerVisible = true">上传设计</Button>
+    <Divider Orientation="left">本届五老星</Divider>
+    <Button OnClick="() => committeeVisible = true">修改名单</Button>
+    <p>yfy yfy yfy yfy yfy</p>
     <Divider Orientation="left">diy卡牌设计</Divider>
 
     @foreach (var x in Info.diyCardInfo)
@@ -29,23 +32,21 @@
                                 <span>
                                     <Tooltip Title='@("Like")'>
                                         <Icon Type="caret-up" OnClick="()=>SetLike(x)"
-                                            Style="color:#18A558;font-size:30px;cursor:pointer;" />
+                                            Style="color:red;font-size:30px;cursor:pointer;" />
                                     </Tooltip>
-                                    <span style="color:#18A558;font-size:20px;">@x.likeList.Count()</span>
+                                    <span style="color:red;font-size:20px;">@x.likeList.Count()</span>
                                 </span>
                                 <span>
                                     <Tooltip Title='@("Dislike")'>
                                         <Icon Type="caret-down" OnClick="()=>SetDislike(x)"
-                                            Style="color:red;font-size:30px;cursor:pointer;" />
+                                            Style="color:#18A558;font-size:30px;cursor:pointer;" />
                                     </Tooltip>
-                                    <span style="color:red;font-size:20px;">@x.dislikeList.Count()</span>
+                                    <span style="color:#18A558;font-size:20px;">@x.dislikeList.Count()</span>
                                 </span>
                                 <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
                                 <Button
                                     OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
-                                <Button OnClick="(e) => moveToDiscuss(x)" type="primary">
-                                    票拟
-                                </Button>
+                                <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">添加</Button>
                             </Content>
                         </AntDesign.Col>
                     </Row>
@@ -166,11 +167,27 @@
                 <p>@currentDiyCard.cardInfo.Flavor</p>
                 <Divider />
                 <p>设计师：@currentDiyCard.author</p>
+                <p>赞同：@string.Join(",",currentDiyCard.likeList)</p>
+                <p>反对：@string.Join(",",currentDiyCard.dislikeList)</p>
                 <p>上次修改时间：@currentDiyCard.lastEditedDate</p>
             }
         }
     </Drawer>
 </div>
+
+<div>
+    <Drawer Closable="true" Visible="committeeVisible" Placement="right" Title='("详细信息")'
+        OnClose="() => committeeVisible = false" Width="360">
+        <Input Placeholder="华盖殿大学士" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="谨身殿大学士" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="文华殿大学士" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="武英殿大学士" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="文渊阁大学士" @bind-Value="@newDiyCard.imageLink" />
+        <Button OnClick="() => committeeVisible = true">修改名单</Button>
+    </Drawer>
+</div>
+
+
 
 
 @code {
@@ -195,13 +212,15 @@
     DiyCardInfo newDiyCard = new DiyCardInfo();
     DiyCardInfo currentDiyCard;
     bool diyDrawerVisible = false;
-    string avatar = @"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png";
+    string avatar = @"https://img1.imgtp.com/2023/08/31/Lg0dnIKd.png";
     bool commitDrawerVisible = false;
     bool detailPageVisible = false;
+    bool committeeVisible = false;
+
 
     void SetLike(DiyCardInfo card)
     {
-        if (user == "")
+        if (user == null)
         {
             return;
         }
@@ -215,11 +234,6 @@
         {
             card.likeList.Add(user);
             Command.UpdateDiyCardLikeList(card);
-            if (card.dislikeList.Contains(user))
-            {
-                card.dislikeList.Remove(user);
-                Command.UpdateDiyCardDislikeList(card);
-            }
         }
     }
     void SetDislike(DiyCardInfo card)
@@ -238,28 +252,26 @@
         {
             card.dislikeList.Add(user);
             Command.UpdateDiyCardDislikeList(card);
-            if (card.likeList.Contains(user))
-            {
-                card.likeList.Remove(user);
-                Command.UpdateDiyCardLikeList(card);
-            }
         }
     }
     void onSubmit()
     {
-        if (currentDiyCard != null && commentContent != "")
+        if (user == "2")
         {
-            if (currentDiyCard.commits == null)
+            if (currentDiyCard != null && commentContent != "")
             {
-                currentDiyCard.commits = new List<DiyCardInfo.Commit>();
+                if (currentDiyCard.commits == null)
+                {
+                    currentDiyCard.commits = new List<DiyCardInfo.Commit>();
+                }
+                var newCommit = new DiyCardInfo.Commit();
+                newCommit.user = user;
+                newCommit.text = commentContent;
+                newCommit.commitDate = DateTime.Now;
+                currentDiyCard.commits.Add(newCommit);
+                commentContent = "";
+                Command.UpdateDiyCardComment(currentDiyCard);
             }
-            var newCommit = new DiyCardInfo.Commit();
-            newCommit.user = user;
-            newCommit.text = commentContent;
-            newCommit.commitDate = DateTime.Now;
-            currentDiyCard.commits.Add(newCommit);
-            commentContent = "";
-            Command.UpdateDiyCardComment(currentDiyCard);
         }
     }
     void addNewCard()
@@ -270,11 +282,6 @@
         diyDrawerVisible = false;
     }
 
-    void moveToDiscuss(DiyCardInfo card)
-    {
-        Command.AddDiscussCardInfos(card);
-        Command.GetDiyCardsInfo();
-    }
     void handleTypeChange(string s)
     {
         newDiyCard.CardType = s;
