@@ -10,10 +10,15 @@ namespace Cynthia.Card
         public RedRider(GameCard card) : base(card) { }
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
-            if (@event.Target.Status.Type == CardType.Unit)
+            if (@event.Target.Status.Type == CardType.Unit && @event.Target.PlayerIndex == AnotherPlayer && Card.Status.CardRow.IsInDeck())
             {
-                bool isinFrost = Game.GameRowEffect[@event.Target.PlayerIndex][@event.DeathLocation.RowPosition.MyRowToIndex()].RowStatus == RowStatus.BitingFrost;
-                if (@event.Target.PlayerIndex == AnotherPlayer && isinFrost && Card.Status.CardRow.IsInDeck())
+                if (!@event.DeathLocation.RowPosition.IsOnPlace())
+                {
+                    return;
+                }
+
+                bool isInFrost = Game.GameRowEffect[@event.Target.PlayerIndex][@event.DeathLocation.RowPosition.MyRowToIndex()].RowStatus == RowStatus.BitingFrost;
+                if (isInFrost)
                 {
                     var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
                     if (list.Count() == 0)
@@ -25,9 +30,7 @@ namespace Cynthia.Card
                     {
                         await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                     }
-                    return;
                 }
-                return;
             }
         }
 
