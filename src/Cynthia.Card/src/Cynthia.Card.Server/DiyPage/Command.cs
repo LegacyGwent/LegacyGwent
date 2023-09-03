@@ -42,19 +42,16 @@ public class Command
                 .Set(x => x.commits, new List<DiyCardInfo.Commit>())
                 .Set(x => x.uid, uid)
                 .Set(x => x.lastEditedDate, DateTime.Now);
+            var updateIsInDiscuss = Builders<DiyCardInfo>.Update.Set(x => x.IsInDiscuss, true);
             discussAreaCollection.InsertOne(diyCard);
             discussAreaCollection.UpdateOne(filter, update);
+            diyCardCollection.UpdateOne(filter,updateIsInDiscuss);
         }
     }
-    public static void RemoveDiyCard(DiyCardInfo diyCard)
+    public static void RemoveDiyCard(DiyCardInfo diyCard, IMongoCollection<DiyCardInfo> collection)
     {
         var filter = Builders<DiyCardInfo>.Filter.Eq(x => x._id, diyCard._id);
-        diyCardCollection.DeleteOne(filter);
-    }
-    public static void RemoveDiscussCard(DiyCardInfo diyCard)
-    {
-        var filter = Builders<DiyCardInfo>.Filter.Eq(x => x._id, diyCard._id);
-        discussAreaCollection.DeleteOne(filter);
+        collection.DeleteOne(filter);
     }
     public static void GetDiyCardsInfo()
     {

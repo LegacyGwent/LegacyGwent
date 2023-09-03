@@ -8,7 +8,7 @@
 
     @foreach (var x in Info.diyCardInfo)
     {
-        @if (x.cardInfo != null && x.CardType != null && x.Categories != null && x.author != null)
+        @if (x.cardInfo != null && x.CardType != null && x.author != null)
         {
             <Card Title="@x.cardInfo.Name">
 
@@ -43,9 +43,12 @@
                                 <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
                                 <Button
                                     OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
-                                <Button OnClick="(e) => moveToDiscuss(x)" type="primary">
-                                    票拟
-                                </Button>
+                                @if (!@x.IsInDiscuss)
+                                {
+                                    <Button OnClick="(e) => moveToDiscuss(x)" type="primary">
+                                        票拟
+                                    </Button>
+                                }
                             </Content>
                         </AntDesign.Col>
                     </Row>
@@ -148,7 +151,7 @@
         {
             <img width="150px" height="210px" src=@currentDiyCard.imageLink>
             @if (currentDiyCard.cardInfo != null && currentDiyCard.CardType != null
-           && currentDiyCard.Categories != null && currentDiyCard.author != null)
+           && currentDiyCard.author != null)
             {
                 <h2>@currentDiyCard.cardInfo.Name</h2>
                 <p>@currentDiyCard.CardType</p>
@@ -156,12 +159,15 @@
                     阵营：<Tag>@currentDiyCard.Fraction</Tag>
                     品质：<Tag>@currentDiyCard.Group</Tag>
                 </p>
-                <p> 标签：
-                    @foreach (var s in currentDiyCard.Categories)
-                    {
-                        <Tag>@s</Tag>
-                    }
-                </p>
+                @if (currentDiyCard.Categories != null)
+                {
+                    <p> 标签：
+                        @foreach (var s in currentDiyCard.Categories)
+                        {
+                            <Tag>@s</Tag>
+                        }
+                    </p>
+                }
                 <p>效果：@currentDiyCard.cardInfo.Info</p>
                 <p>@currentDiyCard.cardInfo.Flavor</p>
                 <Divider />
@@ -274,11 +280,12 @@
     void moveToDiscuss(DiyCardInfo card)
     {
         Command.AddDiscussCardInfos(card);
+        card.IsInDiscuss = true;
         @* Command.GetDiscussCardsInfo(); *@
     }
     void removeDiyCard(DiyCardInfo card)
     {
-        Command.RemoveDiyCard(card);
+        Command.RemoveDiyCard(card, Command.diyCardCollection);
         Command.GetDiyCardsInfo();
         detailPageVisible = false;
     }
