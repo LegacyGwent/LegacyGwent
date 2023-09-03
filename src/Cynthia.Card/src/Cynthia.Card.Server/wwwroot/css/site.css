@@ -141,4 +141,15 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+.card {
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    border: none;
+}
+
+.card-text {
+    font-size: 10px;
+    margin-top: 5px;
+}
 }

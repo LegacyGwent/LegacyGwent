@@ -1,0 +1,27 @@
+@page "/cardart"
+@using System.IO;
+
+<div>
+    @foreach (var card in GetPngFileNames("./wwwroot/scale2"))
+    {
+        <div class="card">
+            <img src="@($"./scale2/{card}")" alt="example" />
+            <p class="card-text">@card.Replace(".png", "")</p>
+        </div>
+    }
+</div>
+
+@code
+{
+    public List<string> GetPngFileNames(string folderPath)
+    {
+        List<string> pngFileNames = new List<string>(); 
+        foreach (string filePath in Directory.GetFiles(folderPath, "*.png"))
+        {
+            string fileName = Path.GetFileName(filePath);
+            pngFileNames.Add(fileName);
+        }
+
+        return pngFileNames;
+    }
+}
