@@ -169,6 +169,7 @@
                     </p>
                 }
                 <p>效果：@currentDiyCard.cardInfo.Info</p>
+                <p>ArtID：@currentDiyCard.imageLink</p>
                 <p>@currentDiyCard.cardInfo.Flavor</p>
                 <Divider />
                 <p>设计师：@currentDiyCard.author</p>
@@ -215,17 +216,17 @@
         else if (card.likeList.Contains(user))
         {
             card.likeList.Remove(user);
-            Command.UpdateDiyCardLikeList(card);
+            Command.UpdateDiyCardLikeList(card, Command.diyCardCollection);
 
         }
         else
         {
             card.likeList.Add(user);
-            Command.UpdateDiyCardLikeList(card);
+            Command.UpdateDiyCardLikeList(card, Command.diyCardCollection);
             if (card.dislikeList.Contains(user))
             {
                 card.dislikeList.Remove(user);
-                Command.UpdateDiyCardDislikeList(card);
+                Command.UpdateDiyCardDislikeList(card, Command.diyCardCollection);
             }
         }
     }
@@ -238,17 +239,17 @@
         else if (card.dislikeList.Contains(user))
         {
             card.dislikeList.Remove(user);
-            Command.UpdateDiyCardDislikeList(card);
+            Command.UpdateDiyCardDislikeList(card, Command.diyCardCollection);
 
         }
         else
         {
             card.dislikeList.Add(user);
-            Command.UpdateDiyCardDislikeList(card);
+            Command.UpdateDiyCardDislikeList(card, Command.diyCardCollection);
             if (card.likeList.Contains(user))
             {
                 card.likeList.Remove(user);
-                Command.UpdateDiyCardLikeList(card);
+                Command.UpdateDiyCardLikeList(card, Command.diyCardCollection);
             }
         }
     }
@@ -266,7 +267,7 @@
             newCommit.commitDate = DateTime.Now;
             currentDiyCard.commits.Add(newCommit);
             commentContent = "";
-            Command.UpdateDiyCardComment(currentDiyCard);
+            Command.UpdateDiyCardComment(currentDiyCard, Command.diyCardCollection);
         }
     }
     void addNewCard()

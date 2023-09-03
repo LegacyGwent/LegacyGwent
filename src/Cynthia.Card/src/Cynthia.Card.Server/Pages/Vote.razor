@@ -166,6 +166,7 @@
                     </p>
                 }
                 <p>效果：@currentDiyCard.cardInfo.Info</p>
+                <p>ArtID：@currentDiyCard.imageLink</p>
                 <p>@currentDiyCard.cardInfo.Flavor</p>
                 <Divider />
                 <p>设计师：@currentDiyCard.author</p>
@@ -223,20 +224,25 @@
 
     void SetLike(DiyCardInfo card)
     {
-        if (user == null)
+        if (user == "")
         {
             return;
         }
         else if (card.likeList.Contains(user))
         {
             card.likeList.Remove(user);
-            Command.UpdateDiyCardLikeList(card);
+            Command.UpdateDiyCardLikeList(card, Command.discussAreaCollection);
 
         }
         else
         {
             card.likeList.Add(user);
-            Command.UpdateDiyCardLikeList(card);
+            Command.UpdateDiyCardLikeList(card, Command.discussAreaCollection);
+            if (card.dislikeList.Contains(user))
+            {
+                card.dislikeList.Remove(user);
+                Command.UpdateDiyCardDislikeList(card, Command.discussAreaCollection);
+            }
         }
     }
     void SetDislike(DiyCardInfo card)
@@ -248,13 +254,18 @@
         else if (card.dislikeList.Contains(user))
         {
             card.dislikeList.Remove(user);
-            Command.UpdateDiyCardDislikeList(card);
+            Command.UpdateDiyCardDislikeList(card, Command.discussAreaCollection);
 
         }
         else
         {
             card.dislikeList.Add(user);
-            Command.UpdateDiyCardDislikeList(card);
+            Command.UpdateDiyCardDislikeList(card, Command.discussAreaCollection);
+            if (card.likeList.Contains(user))
+            {
+                card.likeList.Remove(user);
+                Command.UpdateDiyCardLikeList(card, Command.discussAreaCollection);
+            }
         }
     }
     void onSubmit()
@@ -273,7 +284,7 @@
                 newCommit.commitDate = DateTime.Now;
                 currentDiyCard.commits.Add(newCommit);
                 commentContent = "";
-                Command.UpdateDiyCardComment(currentDiyCard);
+                Command.UpdateDiyCardComment(currentDiyCard, Command.discussAreaCollection);
             }
         }
     }

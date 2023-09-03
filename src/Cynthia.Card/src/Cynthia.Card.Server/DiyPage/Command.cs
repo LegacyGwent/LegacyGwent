@@ -61,23 +61,23 @@ public class Command
     {
         Info.diyCardInfo = discussAreaCollection.AsQueryable().ToList();
     }
-    public static void UpdateDiyCardComment(DiyCardInfo diyCard)
+    public static void UpdateDiyCardComment(DiyCardInfo diyCard, IMongoCollection<DiyCardInfo> collection)
     {
-        var filter = Builders<DiyCardInfo>.Filter.Eq("uid", diyCard.uid);
+        var filter = Builders<DiyCardInfo>.Filter.Eq("_id", diyCard._id);
         var update = Builders<DiyCardInfo>.Update.Set("commits", diyCard.commits);
-        diyCardCollection.UpdateOne(filter, update);
+        collection.UpdateOne(filter, update);
     }
-    public static void UpdateDiyCardLikeList(DiyCardInfo diyCard)
+    public static void UpdateDiyCardLikeList(DiyCardInfo diyCard, IMongoCollection<DiyCardInfo> collection)
     {
-        var filter = Builders<DiyCardInfo>.Filter.Eq("uid", diyCard.uid);
+        var filter = Builders<DiyCardInfo>.Filter.Eq("_id", diyCard._id);
         var update = Builders<DiyCardInfo>.Update.Set("likeList", diyCard.likeList);
-        diyCardCollection.UpdateOne(filter, update);
+        collection.UpdateOne(filter, update);
     }
-    public static void UpdateDiyCardDislikeList(DiyCardInfo diyCard)
+    public static void UpdateDiyCardDislikeList(DiyCardInfo diyCard, IMongoCollection<DiyCardInfo> collection)
     {
-        var filter = Builders<DiyCardInfo>.Filter.Eq("uid", diyCard.uid);
+        var filter = Builders<DiyCardInfo>.Filter.Eq("_id", diyCard._id);
         var update = Builders<DiyCardInfo>.Update.Set("dislikeList", diyCard.dislikeList);
-        diyCardCollection.UpdateOne(filter, update);
+        collection.UpdateOne(filter, update);
     }
     public static bool Login(string username, string password)
     {
