@@ -1,11 +1,12 @@
 @page "/cardart"
 @using System.IO;
+@using System.Collections.Generic;
 
 <div>
     @foreach (var card in GetPngFileNames("./wwwroot/scale"))
     {
         <div class="card">
-            <img src="@($"./scale/{card}")" alt="example" />
+            <img src="@($"./scale/{card}")" alt="card" />
             <p class="card-text">@card.Replace(".png", "")</p>
         </div>
     }
