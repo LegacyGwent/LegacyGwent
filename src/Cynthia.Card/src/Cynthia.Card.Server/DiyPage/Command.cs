@@ -35,7 +35,7 @@ public class Command
         var exists = discussAreaCollection.Find(filter).Any();
         if (!exists)
         {
-            int uid = diyCardCollection.AsQueryable().Count();
+            int uid = discussAreaCollection.AsQueryable().Count();
             var update = Builders<DiyCardInfo>.Update
                 .Set(x => x.likeList, new List<string>())
                 .Set(x => x.dislikeList, new List<string>())
@@ -50,6 +50,11 @@ public class Command
     {
         var filter = Builders<DiyCardInfo>.Filter.Eq(x => x._id, diyCard._id);
         diyCardCollection.DeleteOne(filter);
+    }
+    public static void RemoveDiscussCard(DiyCardInfo diyCard)
+    {
+        var filter = Builders<DiyCardInfo>.Filter.Eq(x => x._id, diyCard._id);
+        discussAreaCollection.DeleteOne(filter);
     }
     public static void GetDiyCardsInfo()
     {

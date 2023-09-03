@@ -46,7 +46,6 @@
                                 <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
                                 <Button
                                     OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
-                                <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">添加</Button>
                             </Content>
                         </AntDesign.Col>
                     </Row>
@@ -170,6 +169,7 @@
                 <p>赞同：@string.Join(",",currentDiyCard.likeList)</p>
                 <p>反对：@string.Join(",",currentDiyCard.dislikeList)</p>
                 <p>上次修改时间：@currentDiyCard.lastEditedDate</p>
+                <Button OnClick="(e) => removeDiyCard(currentDiyCard)" type="primary">删除</Button>
             }
         }
     </Drawer>
@@ -193,7 +193,7 @@
 @code {
     protected override void OnInitialized()
     {
-        Command.GetDiyCardsInfo();
+        Command.GetDiscussCardsInfo();
         Info.diyCardInfo.Sort((e1, e2) => (-GetWeight(e1)).CompareTo(-GetWeight(e2)));
         newDiyCard.cardInfo = new DiyCardInfo.SavedGwentCard();
     }
@@ -280,6 +280,13 @@
         Command.AddDiyCardInfos(newDiyCard);
         Command.GetDiyCardsInfo();
         diyDrawerVisible = false;
+    }
+
+    void removeDiyCard(DiyCardInfo card)
+    {
+        Command.RemoveDiscussCard(card);
+        Command.GetDiscussCardsInfo();
+        detailPageVisible = false;
     }
 
     void handleTypeChange(string s)
