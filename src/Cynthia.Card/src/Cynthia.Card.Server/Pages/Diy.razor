@@ -15,7 +15,7 @@
                 <Body>
                     <Row>
                         <AntDesign.Col Span="4">
-                            <Image style="padding:5px" Src=@x.imageLink />
+                            <Image style="padding:5px" Src="@($"./scale/{x.imageLink+".png"}")" />
                         </AntDesign.Col>
                         <AntDesign.Col Span="20">
                             <Content>
@@ -62,7 +62,7 @@
 <div>
     <Drawer Closable="true" Visible="diyDrawerVisible" Placement="right" Title='("diy设计")'
         OnClose="() => diyDrawerVisible = false" Width="360">
-        <Input Placeholder="卡图网址链接" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="卡图ID" @bind-Value="@newDiyCard.imageLink" />
         <Input Placeholder="名字" @bind-Value="@newDiyCard.cardInfo.Name" />
         <SimpleSelect Placeholder="类型" OnSelectedItemChanged="handleTypeChange">
             <SelectOptions>
@@ -149,7 +149,7 @@
         OnClose="() => detailPageVisible = false" Width="360">
         @if (currentDiyCard != null)
         {
-            <img width="150px" height="210px" src=@currentDiyCard.imageLink>
+            <img width="150px" height="210px" Src="@($"./scale/{currentDiyCard.imageLink+".png"}")">
             @if (currentDiyCard.cardInfo != null && currentDiyCard.CardType != null
            && currentDiyCard.author != null)
             {

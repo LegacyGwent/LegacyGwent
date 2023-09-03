@@ -11,14 +11,14 @@
 
     @foreach (var x in Info.diyCardInfo)
     {
-        @if (x.cardInfo != null && x.CardType != null && x.Categories != null && x.author != null)
+        @if (x.cardInfo != null && x.CardType != null && x.author != null)
         {
             <Card Title="@x.cardInfo.Name">
 
                 <Body>
                     <Row>
                         <AntDesign.Col Span="4">
-                            <Image style="padding:5px" Src=@x.imageLink />
+                            <Image style="padding:5px" Src="@($"./scale/{x.imageLink+".png"}")" />
                         </AntDesign.Col>
                         <AntDesign.Col Span="20">
                             <Content>
@@ -146,9 +146,9 @@
         OnClose="() => detailPageVisible = false" Width="360">
         @if (currentDiyCard != null)
         {
-            <img width="150px" height="210px" src=@currentDiyCard.imageLink>
+            <img width="150px" height="210px" Src="@($"./scale/{currentDiyCard.imageLink+".png"}")">
             @if (currentDiyCard.cardInfo != null && currentDiyCard.CardType != null
-           && currentDiyCard.Categories != null && currentDiyCard.author != null)
+           && currentDiyCard.author != null)
             {
                 <h2>@currentDiyCard.cardInfo.Name</h2>
                 <p>@currentDiyCard.CardType</p>
@@ -156,12 +156,15 @@
                     阵营：<Tag>@currentDiyCard.Fraction</Tag>
                     品质：<Tag>@currentDiyCard.Group</Tag>
                 </p>
-                <p> 标签：
-                    @foreach (var s in currentDiyCard.Categories)
-                    {
-                        <Tag>@s</Tag>
-                    }
-                </p>
+                @if (currentDiyCard.Categories != null)
+                {
+                    <p> 标签：
+                        @foreach (var s in currentDiyCard.Categories)
+                        {
+                            <Tag>@s</Tag>
+                        }
+                    </p>
+                }
                 <p>效果：@currentDiyCard.cardInfo.Info</p>
                 <p>@currentDiyCard.cardInfo.Flavor</p>
                 <Divider />
