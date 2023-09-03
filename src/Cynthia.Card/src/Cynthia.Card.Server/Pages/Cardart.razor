@@ -2,10 +2,10 @@
 @using System.IO;
 
 <div>
-    @foreach (var card in GetPngFileNames("./wwwroot/scale2"))
+    @foreach (var card in GetPngFileNames("./wwwroot/scale"))
     {
         <div class="card">
-            <img src="@($"./scale2/{card}")" alt="example" />
+            <img src="@($"./scale/{card}")" alt="example" />
             <p class="card-text">@card.Replace(".png", "")</p>
         </div>
     }
