@@ -10,6 +10,7 @@ public class Command
     static IMongoDatabase db;
     public static IMongoCollection<DiyCardInfo> diyCardCollection;
     public static IMongoCollection<DiyCardInfo> discussAreaCollection;
+    public static IMongoCollection<AdminInfo> adminCollection;
     public static GwentDatabaseService _dbServer;
     public static void MongodbConnect(GwentDatabaseService dbServer)
     {
@@ -18,6 +19,7 @@ public class Command
         db = client.GetDatabase("Web");
         diyCardCollection = db.GetCollection<DiyCardInfo>("DiyCards");
         discussAreaCollection = db.GetCollection<DiyCardInfo>("DiscussArea");
+        adminCollection = db.GetCollection<AdminInfo>("Admin");
     }
     public static void AddDiyCardInfos(DiyCardInfo diyCard)
     {
@@ -45,7 +47,7 @@ public class Command
             var updateIsInDiscuss = Builders<DiyCardInfo>.Update.Set(x => x.IsInDiscuss, true);
             discussAreaCollection.InsertOne(diyCard);
             discussAreaCollection.UpdateOne(filter, update);
-            diyCardCollection.UpdateOne(filter,updateIsInDiscuss);
+            diyCardCollection.UpdateOne(filter, updateIsInDiscuss);
         }
     }
     public static void RemoveDiyCard(DiyCardInfo diyCard, IMongoCollection<DiyCardInfo> collection)
@@ -83,5 +85,19 @@ public class Command
     {
         var user = _dbServer.Login(username, password);
         return user != null;
+    }
+    public static void SetAdmin()
+    {
+        var newAdmin = new AdminInfo();
+        int uid = adminCollection.AsQueryable().Count();
+        newAdmin.uid = uid;
+        adminCollection.InsertOne(newAdmin);
+    }
+    public static AdminInfo GetAdmin()
+    { 
+        var sort = Builders<AdminInfo>.Sort.Descending(a => a.uid);
+        var options = new FindOptions<AdminInfo> { Sort = sort, Limit = 1 };
+        var cursor = adminCollection.FindSync(FilterDefinition<AdminInfo>.Empty, options);
+        return cursor.FirstOrDefault();
     }
 }

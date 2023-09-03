@@ -86,3 +86,12 @@ public class DiyCardInfo
 
     }
 }
+public class AdminInfo
+{
+    public ObjectId _id;
+    public int uid;
+    // public int cabinetDate;
+    public int cabinetYear = DateTime.Now.Year;
+    public int cabinetMonth = DateTime.Now.Month;
+    public List<string> cabinetUserName = new List<string>{};
+}

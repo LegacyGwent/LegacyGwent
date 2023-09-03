@@ -3,11 +3,21 @@
 @using Newtonsoft.Json;
 
 <div>
-    <Button OnClick="() => diyDrawerVisible = true">上传设计</Button>
-    <Divider Orientation="left">本届五老星</Divider>
-    <Button OnClick="() => committeeVisible = true">修改名单</Button>
-    <p>yfy yfy yfy yfy yfy</p>
-    <Divider Orientation="left">diy卡牌设计</Divider>
+    <Divider Orientation="left">本届内阁</Divider>
+    @* <Button OnClick="() => committeeVisible = true">修改名单</Button> *@
+    <ul>
+    @foreach (var id in @currentAdminInfo.cabinetUserName)
+    {
+    @* <li>
+    <input @bind="todo.user" />
+    </li> *@
+    <p>@id</p>
+    }
+    </ul>
+    <input placeholder="Something todo" @bind="adminUser" />
+    <button @onclick="AddAdmin">Add todo</button>
+
+    <Divider Orientation="left">审核区</Divider>
 
     @foreach (var x in Info.diyCardInfo)
     {
@@ -56,63 +66,6 @@
     }
 </div>
 
-<div>
-    <Drawer Closable="true" Visible="diyDrawerVisible" Placement="right" Title='("diy设计")'
-        OnClose="() => diyDrawerVisible = false" Width="360">
-        <Input Placeholder="卡图网址链接" @bind-Value="@newDiyCard.imageLink" />
-        <Input Placeholder="名字" @bind-Value="@newDiyCard.cardInfo.Name" />
-        <SimpleSelect Placeholder="类型" OnSelectedItemChanged="handleTypeChange">
-            <SelectOptions>
-                <SimpleSelectOption Value="单位卡" Label="单位卡"></SimpleSelectOption>
-                <SimpleSelectOption Value="特殊卡" Label="特殊卡"></SimpleSelectOption>
-            </SelectOptions>
-        </SimpleSelect>
-        <Input Placeholder="战力" @bind-Value="@newDiyCard.cardInfo.Strength">
-        <AddOnBefore>战力</AddOnBefore>
-        @* </Input> *@
-        <SimpleSelect Placeholder="阵营" OnSelectedItemChanged="handleFractionChange">
-            <SelectOptions>
-                <SimpleSelectOption Value="怪兽" Label="怪兽"></SimpleSelectOption>
-                <SimpleSelectOption Value="帝国" Label="帝国"></SimpleSelectOption>
-                <SimpleSelectOption Value="松鼠" Label="松鼠"></SimpleSelectOption>
-                <SimpleSelectOption Value="北方" Label="北方"></SimpleSelectOption>
-                <SimpleSelectOption Value="群岛" Label="群岛"></SimpleSelectOption>
-                <SimpleSelectOption Value="中立" Label="中立"></SimpleSelectOption>
-            </SelectOptions>
-        </SimpleSelect>
-        <SimpleSelect Placeholder="品质" OnSelectedItemChanged="handleGroupChange">
-            <SelectOptions>
-                <SimpleSelectOption Value="领袖" Label="领袖"></SimpleSelectOption>
-                <SimpleSelectOption Value="金色" Label="金色"></SimpleSelectOption>
-                <SimpleSelectOption Value="银色" Label="银色"></SimpleSelectOption>
-                <SimpleSelectOption Value="铜色" Label="铜色"></SimpleSelectOption>
-            </SelectOptions>
-        </SimpleSelect>
-        <SimpleSelect Placeholder="标签" Mode="multiple" OnSelectedItemsChanged="handleCategorieChange">
-            <SelectOptions>
-                @foreach (var item in string2Categorie)
-                {
-                    <SimpleSelectOption Value="@item.Key" Label="@item.Key"></SimpleSelectOption>
-                }
-            </SelectOptions>
-        </SimpleSelect>
-        <TextArea MinRows="4" Placeholder="效果描述" @bind-Value="@newDiyCard.cardInfo.Info" />
-        <Input Placeholder="背景故事(可选)" @bind-Value="@newDiyCard.cardInfo.Flavor" />
-        <img width="150px" height="210px" src=@newDiyCard.imageLink>
-        @if (user == "")
-        {
-            <Button>
-                请登录
-            </Button>
-        }
-        else
-        {
-            <Button OnClick="addNewCard">
-                提交
-            </Button>
-        }
-    </Drawer>
-</div>
 
 <div>
     <Drawer Closable="true" Visible="commitDrawerVisible" Placement="right" Title='("卡牌评论")'
@@ -200,6 +153,7 @@
         Command.GetDiscussCardsInfo();
         Info.diyCardInfo.Sort((e1, e2) => (-GetWeight(e1)).CompareTo(-GetWeight(e2)));
         newDiyCard.cardInfo = new DiyCardInfo.SavedGwentCard();
+        currentAdminInfo = Command.GetAdmin();
     }
     int GetWeight(DiyCardInfo e)
     {
@@ -215,8 +169,9 @@
     string commentContent = "";
     DiyCardInfo newDiyCard = new DiyCardInfo();
     DiyCardInfo currentDiyCard;
-    bool diyDrawerVisible = false;
+    AdminInfo currentAdminInfo;
     string avatar = @"https://img1.imgtp.com/2023/08/31/Lg0dnIKd.png";
+    string adminUser { get; set; }
     bool commitDrawerVisible = false;
     bool detailPageVisible = false;
     bool committeeVisible = false;
@@ -288,20 +243,22 @@
             }
         }
     }
-    void addNewCard()
-    {
-        newDiyCard.author = user;
-        Command.AddDiyCardInfos(newDiyCard);
-        Command.GetDiyCardsInfo();
-        diyDrawerVisible = false;
-    }
 
     void removeDiyCard(DiyCardInfo card)
     {
-        Command.RemoveDiyCard(card,Command.discussAreaCollection);
+        Command.RemoveDiyCard(card, Command.discussAreaCollection);
         Command.GetDiscussCardsInfo();
         detailPageVisible = false;
     }
+
+    void AddAdmin()
+    {
+        Command.SetAdmin();
+    }
+    @* DiyCardInfo GetAdmin()
+    {
+        return 1;
+    } *@
 
     void handleTypeChange(string s)
     {
