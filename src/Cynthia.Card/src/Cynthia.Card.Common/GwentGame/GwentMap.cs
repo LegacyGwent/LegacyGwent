@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 78);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 79);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11961,7 +11961,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70118",
                     Name="莱里亚镰刀手",
-                    Strength=5,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12821,7 +12821,47 @@ namespace Cynthia.Card
                     Info = "活了六百五十多年后，没什么能给我惊喜。",
                     CardArtsId = "d21870000",
                 }
-            }
+            },
+            {
+                "70094",//XXXX Lyrian Cavalry
+                new GwentCard()
+                {
+                    CardId ="70094",
+                    Name="XXXXX",
+                    Strength=7,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
+                    Flavor = "",
+                    Info = "xxxxxxxx",
+                    CardArtsId = "d15590000",
+                }
+            },
+            {
+                "70095",//XXXX Lyrian Arbalest
+                new GwentCard()
+                {
+                    CardId ="70095",
+                    Name="XXXXX",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
+                    Flavor = "",
+                    Info = "xxxxxxxx",
+                    CardArtsId = "d15410000",
+                }
+            },
         };
     }
 }

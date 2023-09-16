@@ -5,11 +5,11 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70118")]//莱里亚镰刀手 LyrianScytheman
-    public class LyrianScytheman : CardEffect
-    {//随机使牌库一个单位获得2点增益，然后自身获得等同于该单位增益数的增益。
+    [CardEffectId("70094")]//莱里亚骑兵 LyrianCavalry
+    public class LyrianCavalry : CardEffect
+    {//xxxxxxx
 
-        public LyrianScytheman(GameCard card) : base(card) { }
+        public LyrianCavalry(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var deck_list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit)//乱序列出所有单位
@@ -20,15 +20,15 @@ namespace Cynthia.Card
                 return 0;
             }
             var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, deck_list, 1, "选择1张卡牌");
-
             if (cards.Count() == 0)
             {
                 return 0;
             }
-        
             foreach (var card in cards)
             {
-                await card.Effect.Boost(4, Card);
+                var targets = cards.Single();
+                var point = targets.CardPoint() - targets.Status.Strength;
+                await Card.Effect.Boost(point, Card);
             }
             return 0;
         }
