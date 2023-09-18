@@ -3366,12 +3366,12 @@
             "Info": "He will conquer the world.",
             "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
         },
-        "80004": {
+        "70094": {
             "Name": "Lyrian Cavalry",
             "Info": "Deploy: choose a unit from your deck and boost self by the amount that unit is boosted.",
             "Flavor": "A horseman's worth no less than his steed. And Lyrian horses are among the Continent's best."
         },
-        "80005": {
+        "70095": {
             "Name": "Lyrian Arbalest",
             "Info": "Deploy: Damage an Ennemy unit with lower Power than self, by the difference between the two card's Power.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."

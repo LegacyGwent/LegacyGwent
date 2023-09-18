@@ -12827,7 +12827,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70094",
-                    Name="XXXXX",
+                    Name="莱里亚骑兵",
                     Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
@@ -12837,8 +12837,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
-                    Flavor = "",
-                    Info = "xxxxxxxx",
+                    Flavor = "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。",
+                    Info = "自身获得卡组里一张单位卡增益数值等额的增益。",
                     CardArtsId = "d15590000",
                 }
             },
@@ -12847,7 +12847,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70095",
-                    Name="XXXXX",
+                    Name="莱里亚重弩手",
                     Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
@@ -12857,8 +12857,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
-                    Flavor = "",
-                    Info = "xxxxxxxx",
+                    Flavor = "我能在百步之外找到靶心！也许我的第一枪就打不准......",
+                    Info = "对一个战力低于自身的单位造成2者战力差的伤害，对大于等于自身战力的单位不造成伤害",
                     CardArtsId = "d15410000",
                 }
             },
