@@ -12823,7 +12823,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70094",//XXXX Lyrian Cavalry
+                "70094",//莱里亚骑兵 Lyrian Cavalry
                 new GwentCard()
                 {
                     CardId ="70094",
@@ -12843,7 +12843,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70095",//XXXX Lyrian Arbalest
+                "70095",//莱里亚重弩手 Lyrian Arbalest
                 new GwentCard()
                 {
                     CardId ="70095",
