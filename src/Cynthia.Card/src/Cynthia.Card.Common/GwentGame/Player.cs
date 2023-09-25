@@ -8,7 +8,6 @@ namespace Cynthia.Card
 {
     public abstract class Player
     {
-
         public string PlayerName { get; set; }//玩家名
         public DeckModel Deck { get; set; }//所用卡组
         public BlacklistModel Blacklist { get; set; }

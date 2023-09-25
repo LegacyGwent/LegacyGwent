@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cards = Game.PlayersHandCard[Card.PlayerIndex]
-                .Where(x => x.CardPoint() == Card.CardPoint() && x.CardInfo().Categories.Contains((Categorie.Temeria)));
+                .Where(x => x.CardPoint() <= Card.CardPoint() && x.CardInfo().Categories.Contains((Categorie.Temeria)));
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
                 (Card.PlayerIndex, cards.ToList(), 1, "选择打出一张牌");

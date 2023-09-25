@@ -1,6 +1,6 @@
 namespace Cynthia.Card
 {
-    //进行了一次交换之后
+    //调度换掉后
     public class AfterMulliganOut : Event
     {
         public GameCard Target { get; set; }

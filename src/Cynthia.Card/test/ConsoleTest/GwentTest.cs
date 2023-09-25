@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 using Alsein.Extensions.Extensions;
-using CompressTest;
 using Cynthia.Card;
 using Cynthia.Card.AI;
 using Cynthia.Card.Server;
@@ -247,46 +246,13 @@ namespace ConsoleTest
             return GameStatus.Draw;
         }
 
-        public static string TestCompressDeck(this DeckModel deck)
-        {
-            return CompressIdList(GwentMap.CardIdMap[deck.Leader], deck.Deck.Select(x => GwentMap.CardIdMap[x])).Encode();
-        }
-
-        public static byte[] CompressIdList(int leader, IEnumerable<int> list)
-        {
-            var query =
-            from item in list
-            group item by item into counting
-            select (count: counting.Count(), key: counting.Key) into counted
-            group counted by counted.count into gourping
-            orderby gourping.Key ascending
-            select (count: gourping.Key, values: (from v in gourping select v.key).ToList());
-
-            var data = query.ToList();
-
-            var length =
-                ByteSerializer.GetFlexibleLength(leader) +
-                ByteSerializer.GetFlexibleLength(data, item =>
-                    ByteSerializer.GetFlexibleLength(item.count) +
-                    ByteSerializer.GetFlexibleLength(item.values));
-
-            var result = new byte[(int)Math.Ceiling(length / 8d)];
-            new BitSpan(result)
-                .WriteFlexible(leader)
-                .WriteFlexible(data, (BitSpan span, in (int count, List<int> values) item) => span
-                    .WriteFlexible(item.count)
-                    .WriteFlexible(item.values));
-
-            return result;
-        }
-
         public static void ShowDeck(this DeckModel deck)
         {
             Console.WriteLine($"卡组:{deck.Name}");
             Console.WriteLine($"领袖:{GwentMap.CardMap[deck.Leader].Name}");
             Console.WriteLine($"卡组数量{deck.Deck.Count()}");
             var showDeck = deck.Deck.GroupBy(x => x)
-                .Select(x => new { Group = GwentMap.CardMap[x.Key].Group, Count = x.Count(), Name = GwentMap.CardMap[x.Key].Name })
+                .Select(x => new { GwentMap.CardMap[x.Key].Group, Count = x.Count(), Name = GwentMap.CardMap[x.Key].Name })
                 .OrderByDescending(x => x.Group)
                 .ThenBy(x => x.Count)
                 .GroupBy(x => x.Group);

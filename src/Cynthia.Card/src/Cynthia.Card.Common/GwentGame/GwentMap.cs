@@ -12687,7 +12687,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70089",
                     Name="亚提斯",
-                    Strength=7,
+                    Strength=4,
                     Group=Group.Silver,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
