@@ -2958,7 +2958,7 @@
         },
         "70033": {
             "Name": "Słoń Bojowy",
-            "Info": "Rozmieszczenie: Zniszcz pancerz wszystkich jednostek w tym rzędzie. Zadaj obrażenia równe ilości zniszczonego pancerza.",
+            "Info": "Rozmieszczenie: Zniszcz pancerz tej i jednostki sąsiadujące. Zadaj obrażenia równe ilości zniszczonego pancerza.",
             "Flavor": ""
         },
         "70038": {
