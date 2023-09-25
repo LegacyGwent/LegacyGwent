@@ -19,7 +19,10 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await Card.Effect.Strengthen(1, Card);
+            if (Card.Status.Strength < 13)
+            {
+                await Card.Effect.Strengthen(1, Card);
+            }
             await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
             return;
         }

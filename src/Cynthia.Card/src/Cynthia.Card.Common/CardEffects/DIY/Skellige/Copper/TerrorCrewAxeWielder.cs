@@ -31,7 +31,7 @@ namespace Cynthia.Card
             }
             await DamageRandomEnemy();
 
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < 1; i++)
             {
                 await Game.CreateCardToRandom(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck, Game.RNG);
             }
