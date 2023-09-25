@@ -14,16 +14,6 @@ namespace Cynthia.Card
             {
                 if (!@event.DeathLocation.RowPosition.IsOnPlace())
                 {
-                    var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
-                    if (list.Count() == 0)
-                    {
-                        return;
-                    }
-                    //只召唤最后一个
-                    if (Card == list.Last())
-                    {
-                        await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
-                    }
                     return;
                 }
 
