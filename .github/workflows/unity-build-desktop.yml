@@ -16,7 +16,6 @@ jobs:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          - WebGL # WebGL.
     steps:
       - uses: actions/checkout@v2
         with:
