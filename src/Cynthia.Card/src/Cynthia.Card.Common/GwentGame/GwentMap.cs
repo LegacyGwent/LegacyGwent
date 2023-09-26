@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 78);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 79);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11183,7 +11183,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Beast },
                     Flavor = "“样子有点像浑身没毛的鹿首魔，鼻子能拖到地上。”\n“什么？不，你这是在胡扯”",
-                    Info = "摧毁己方半场单排所有单位的护甲，并造成扣除护甲值的伤害。",
+                    Info = "摧毁自身及相邻单位的护甲，并造成扣除护甲值的伤害。",
                     CardArtsId = "d19990000",
                 }
             },
@@ -11202,7 +11202,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "回合结束时，复活至随机排，并获得1点强化。",
+                    Info = "回合结束时，复活至随机排，战力不高于13点时获得1点强化。",
                     CardArtsId = "d16710000",
                 }
             },
@@ -11222,7 +11222,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special },
                     Flavor = "",
-                    Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将2张“恐狼勇士”加入牌组。",
+                    Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组。",
                     CardArtsId = "d19640000",
                 }
             },
@@ -11232,7 +11232,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70040",
                     Name = "恐狼勇士",
-                    Strength = 8,
+                    Strength = 10,
                     Group = Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11242,7 +11242,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[] { Categorie.Soldier,Categorie.Token},
                     Flavor = "",
-                    Info = "对一个敌军随机单位造成2点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组底部。",
+                    Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组底部。",
                     CardArtsId = "d19620000",
                 }
             },
@@ -11344,7 +11344,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Lyria},
                     CrewCount = 1,
                     Flavor = "莱里亚女王米薇闷闷不乐地摆弄着项链上的硕大红宝石，美丽而丰满的嘴唇不时扭曲起来。",
-                    Info = "使己方半场、手牌、牌库各1个单位获得5点增益。操控。",
+                    Info = "使己方半场、手牌、牌库各1个单位获得5、4、3点增益。操控。",
                     CardArtsId = "d15660000",
                 }
             },

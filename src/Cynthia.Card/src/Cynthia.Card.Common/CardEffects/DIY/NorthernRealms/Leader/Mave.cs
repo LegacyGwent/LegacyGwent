@@ -27,7 +27,7 @@ namespace Cynthia.Card
             if (result.Any()) 
             {
                 var card = result.Single();
-                await card.Effect.Boost(5, Card);
+                await card.Effect.Boost(4, Card);
             }
 
             //牌库
@@ -47,7 +47,7 @@ namespace Cynthia.Card
             }
             foreach (var card2 in deck_cards)
             {
-                await card2.Effect.Boost(5, Card);
+                await card2.Effect.Boost(3, Card);
             }
             return 0;
         }

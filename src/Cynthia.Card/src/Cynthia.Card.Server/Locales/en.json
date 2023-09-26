@@ -3088,22 +3088,22 @@
         },
         "70033": {
             "Name": "War Elephant",
-            "Info": "Deploy: Destroy the Armor of all units on a row on your side of the board, then Damage a unit by the amount destroyed.",
+            "Info": "Deploy: Destroy the Armor of self and adjacent units, then Damage a unit by the amount destroyed.",
             "Flavor": ""
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and Strengthen self by 1.",
+            "Info": "On turn end, resurrect on a random row. If its Strength lower then 13, Strengthen self by 1.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
             "Name": "Dire Wolf Claws",
-            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 2 Dire Wolf Warriors in your deck.\n(8 Strength; Deploy: Deal 2 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
+            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 1 Dire Wolf Warriors in your deck.\n(10 Strength; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
             "Flavor": ""
         },
         "70040": {
             "Name": "Dire Wolf Warrior",
-            "Info": "Deploy: Deal 2 Damage to a random enemy.\nWhen Discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
+            "Info": "Deploy: Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
             "Flavor": ""
         },
         "70041": {
@@ -3128,7 +3128,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5,4,3.\nCrew.",
             "Flavor": ""
         },
         "70046": {

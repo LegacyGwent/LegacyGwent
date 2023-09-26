@@ -11,16 +11,24 @@ namespace Cynthia.Card
         public WarElephant(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = await Game.GetSelectRow(Card.PlayerIndex, Card, new List<RowPosition>() { RowPosition.MyRow1, RowPosition.MyRow2, RowPosition.MyRow3 });
-            var row = Game.RowToList(Card.PlayerIndex, result).IgnoreConcealAndDead();
             int damagenum = 0;
-            foreach (var card in row)
+            var list = Card.GetRangeCard(1, type: GetRangeType.HollowAll).ToList();
+            if (list.Count() == 0)
+            {
+                return 0;
+            }
+            foreach (var card in list)
             {
                 if (card.Status.Armor > 0)
                 {
                     damagenum = damagenum + card.Status.Armor;
                     await card.Effect.Damage(card.Status.Armor, Card);
                 }
+            }
+            if (Card.Status.Armor > 0)
+            {
+                damagenum = damagenum + Card.Status.Armor;
+                await Card.Effect.Damage(Card.Status.Armor, Card);
             }
             var result2 = await Game.GetSelectPlaceCards(Card);
             if (result2.Count <= 0) return 0;

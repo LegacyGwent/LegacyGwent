@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardConsume @event)
         {
             //如果并非友军吞噬, 并且位于正确位置的话,不触发效果
-            if ((@event.Source.PlayerIndex == PlayerIndex) && (Card.Status.CardRow.IsOnPlace()) && Card.Status.Countdown >= 1)
+            if ((@event.Source.PlayerIndex == PlayerIndex) && (Card.Status.CardRow.IsOnPlace()) && Card.Status.Countdown >= 1 && Game.GetRandomRow(PlayerIndex, out var rowIndex))
             {
                 await Card.Effect.SetCountdown(offset: -1);
                 //在随机排末尾生成

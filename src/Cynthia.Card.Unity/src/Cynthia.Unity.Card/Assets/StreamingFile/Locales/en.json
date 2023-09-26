@@ -453,7 +453,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever a loyal Gold unit appears on your side of the board, Summon this unit on a random row.",
+            "Info": "Whenever a loyal Gold unit played on your side of the board, Summon this unit on a random row.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13002": {
@@ -2958,22 +2958,22 @@
         },
         "70033": {
             "Name": "War Elephant",
-            "Info": "Deploy: Destroy the Armor of all units on a row on your side of the board, then Damage a unit by the amount destroyed.",
+            "Info": "Deploy: Destroy the Armor of self and adjacent units, then Damage a unit by the amount destroyed.",
             "Flavor": ""
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and Strengthen self by 1.",
+            "Info": "On turn end, resurrect on a random row. If its Strength lower then 13, Strengthen self by 1.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
             "Name": "Dire Wolf Claws",
-            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 2 Dire Wolf Warriors in your deck.\n(8 Strength; Deploy: Deal 2 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
+            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 1 Dire Wolf Warriors in your deck.\n(10 Strength; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
             "Flavor": ""
         },
         "70040": {
             "Name": "Dire Wolf Warrior",
-            "Info": "Deploy: Deal 2 Damage to a random enemy.\nWhen Discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
+            "Info": "Deploy: Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
             "Flavor": ""
         },
         "70041": {
@@ -2998,7 +2998,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5.\nCrew.",
+            "Info": "Deploy: Boost a unit on your side of the board, in your hand and in your deck each by 5,4,3.\nCrew.",
             "Flavor": ""
         },
         "70046": {
@@ -3210,6 +3210,31 @@
             "Name": "Thaw",
             "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
             "Flavor": "它带来了春天，也带来了战争。"
+        },
+        "70089": {
+            "Name": "Artis",
+            "Info": "Deploy: Deal 7 damage to an enemy, if the target is destroyed, spawn a \"Cultist Oblation\" to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.)",
+            "Flavor": "It is finished It is finished IT IS THE MERCY"
+        },
+        "70090": {
+            "Name": "Cultist Oblation",
+            "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
+        },        
+        "80001": {
+            "Name": "Auberon:King",
+            "Info": "He'll drop a white frost.",
+            "Flavor": "The end of one world can be the beginning of another."
+        },
+        "80002": {
+            "Name": "Auberon:Invader",
+            "Info": "He will awaken the Wild Hunt.",
+            "Flavor": "If they will not submit, they shall be driven out!"
+        },
+        "80003": {
+            "Name": "Auberon:Conqueror",
+            "Info": "He will conquer the world.",
+            "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
         }
     }
 }

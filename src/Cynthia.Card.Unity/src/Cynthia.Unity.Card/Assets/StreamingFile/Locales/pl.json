@@ -2958,7 +2958,7 @@
         },
         "70033": {
             "Name": "Słoń Bojowy",
-            "Info": "Rozmieszczenie: Zniszcz pancerz wszystkich jednostek w tym rzędzie. Zadaj obrażenia równe ilości zniszczonego pancerza.",
+            "Info": "Rozmieszczenie: Zniszcz pancerz tej i jednostki sąsiadujące. Zadaj obrażenia równe ilości zniszczonego pancerza.",
             "Flavor": ""
         },
         "70038": {
@@ -2968,12 +2968,12 @@
         },
         "70039": {
             "Name": "Pazur Wilka",
-            "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej Rozmieszczenie i wtasuj 2 wilczych wojowników do Twojej talii./n(Wilczy Wojownik; 8 pkt siły; Rozmieszczenie: Zadaj 2 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej Rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
+            "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej Rozmieszczenie i wtasuj 1 wilczych wojowników do Twojej talii./n(Wilczy Wojownik; 10 pkt siły; Rozmieszczenie: Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej Rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
             "Flavor": ""
         },
         "70040": {
             "Name": "Wilczy Wojownik",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej Rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
+            "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej Rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
             "Flavor": ""
         },
         "70041": {
@@ -2998,7 +2998,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 5. Załoga.",
+            "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 5,4,3. Załoga.",
             "Flavor": ""
         },
         "70046": {
