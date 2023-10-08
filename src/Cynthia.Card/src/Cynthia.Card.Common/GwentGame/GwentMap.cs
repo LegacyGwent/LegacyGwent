@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 79);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 80);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11971,7 +11971,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "",
-                    Info = "随机使牌组1个单位获得3点增益，然后自身获得等同于此单位增益量的增益。",
+                    Info = "使牌组1个单位获得4点增益。",
                     CardArtsId = "d14810000",
                 }
             },
