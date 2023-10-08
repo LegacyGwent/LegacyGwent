@@ -3198,7 +3198,7 @@
         },
         "70118": {
             "Name": "LyrianScytheman",
-            "Info": "Случайным образом дайте единице из вашей библиотеки усиление в 3 очка, затем получите себе усиление, равное усилению этой единицы。",
+            "Info": "Размещение: усильте отряд в вашей колоде на 4.",
             "Flavor": ""
         },
         "130210": {
@@ -3340,7 +3340,7 @@
             "Name": "Cultist Oblation",
             "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
-        },       
+        },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",
@@ -3355,6 +3355,16 @@
             "Name": "Auberon:Conqueror",
             "Info": "He will conquer the world.",
             "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
+        },
+        "70094": {
+            "Name": "Лирийская кавалерия",
+            "Info": "Развертывание: выберите единицу из своей колоды и усильте себя на величину усиления этой единицы.",
+            "Flavor": "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。"
+        },
+        "70095": {
+            "Name": "Лириан Арбалет",
+            "Info": "Развертывание: выберите единицу из своей колоды и усильте себя на величину усиления этой единицы.",
+            "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
         }
     }
 }

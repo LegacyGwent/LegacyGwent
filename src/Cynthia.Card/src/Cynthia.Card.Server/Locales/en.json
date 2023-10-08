@@ -3333,7 +3333,7 @@
         },
         "70118": {
             "Name": "Lyrian Scytheman",
-            "Info": "Deploy: Boost a random unit in your deck by 3, then Boost self by that unit's Boost.",
+            "Info": "Deploy: Boost a unit in your deck by 4.",
             "Flavor": ""
         },
         "70119": {
@@ -3350,7 +3350,7 @@
             "Name": "Cultist Oblation",
             "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
-        },        
+        },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",
@@ -3365,6 +3365,16 @@
             "Name": "Auberon:Conqueror",
             "Info": "He will conquer the world.",
             "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
+        },
+        "70094": {
+            "Name": "Lyrian Cavalry",
+            "Info": "Deploy: choose a unit from your deck and boost self by the amount that unit is boosted.",
+            "Flavor": "A horseman's worth no less than his steed. And Lyrian horses are among the Continent's best."
+        },
+        "70095": {
+            "Name": "Lyrian Arbalest",
+            "Info": "Deploy: Damage an Ennemy unit with lower Power than self, by the difference between the two card's Power.",
+            "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         }
     }
 }

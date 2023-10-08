@@ -3288,7 +3288,7 @@
           },
           "70118": {
               "Name": "Lyryjski Kosynier",
-              "Info": "Rozmieszczenie: Wzmocnij losową jednostę w Twojej tali o 3, następnie wzmocnij się o wartość wzmocnienia tej jednostki.",
+              "Info": "Rozmieszczenie: Wzmocnij jednostkę w talii o 4 pkt.",
               "Flavor": ""
           },
           "70119": {
@@ -3365,7 +3365,17 @@
               "Name": "Auberon:Conqueror",
               "Info": "He will conquer the world.",
               "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
-        }
+        },
+        "70094": {
+            "Name": "Lyriańska kawaleria",
+            "Info": "Rozmieszczenie: wybierz jednostkę ze swojej talii i wzmocnij się o wartość, o jaką wzmocniona jest ta jednostka.",
+            "Flavor": "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。"
+        },
+        "70095": {
+            "Name": "Lyrian Arbalest",
+            "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
+            "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
+        }  
       }
   }
   
