@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 80);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 81);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12820,6 +12820,86 @@ namespace Cynthia.Card
                     Flavor = "他将征服世界",
                     Info = "活了六百五十多年后，没什么能给我惊喜。",
                     CardArtsId = "d21870000",
+                }
+            },
+            {
+                "89004",//加斯科：铁隼之首 GasconIronFalcon
+                new GwentCard()
+                {
+                    CardId ="89004",
+                    Name="加斯科：铁隼之首",
+                    Strength=10,
+                    Group=Group.Leader,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "干的是驾轻就熟的老行当，而且居然还有钱拿！",
+                    Info = "不会受到任何效果影响，根据公正女神的点数增益卡组，保持双方手牌数接近，若牌组没有牌则将随机铁隼游击队牌加入牌组。",
+                    CardArtsId = "d19250000",
+                }
+            },
+            {
+                "89005",//铁隼步兵 IronFalconInfantry
+                new GwentCard()
+                {
+                    CardId ="89005",
+                    Name="铁隼步兵",
+                    Strength=12,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "就算上战场也可得好好打扮！",
+                    Info = "若具有增益，则使增益翻倍。",
+                    CardArtsId = "d19480000",
+                }
+            },
+            {
+                "89006",//铁隼吟游诗人 IronFalconTroubadour
+                new GwentCard()
+                {
+                    CardId ="89006",
+                    Name="铁隼吟游诗人",
+                    Strength=6,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "我的演奏甚至可以让丧事变喜事。",
+                    Info = "随机使1个友军单位获得1点增益，重复4次，牌组每有1张牌额外重复1次",
+                    CardArtsId = "d19490000",
+                }
+            },
+            {
+                "89007",//铁隼飞刀手 IronFalconKnifeJuggler
+                new GwentCard()
+                {
+                    CardId ="89007",
+                    Name="铁隼飞刀手",
+                    Strength=4,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "一寸短，一寸险。刀子轻，扔得远。",
+                    Info = "生成1个自身相同战力的佚亡复制，并使场上的同名牌获得1点增益。",
+                    CardArtsId = "d19470000",
                 }
             },
             {
