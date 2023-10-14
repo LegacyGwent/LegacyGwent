@@ -3366,6 +3366,26 @@
               "Info": "He will conquer the world.",
               "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
         },
+          "89004": {
+            "Name": "Gascon: Iron Falcon",
+            "Info": "There will be no impact on any effects. According to the Point Gain deck of the Just Goddess, keep the number of cards in both hands close. If there are no cards in the deck, randomly add a Iron Falcon Guerrilla card to the deck.",
+            "Flavor": "I'm doing what I used to do and they're paying me for it!"
+        },
+        "89005": {
+            "Name": "Iron Falcon Infantry",
+            "Info": "If there is boost, double the boost",
+            "Flavor": "You have to look good on the battlefield too.！"
+        },
+        "89006": {
+            "Name": "Iron Falcon Troubadour",
+            "Info": "Randomly give 1 point of gain to 1 allied unit, repeat 4 times, and repeat an additional time for each additional card in the deck.",
+            "Flavor": "When I play even dying's more pleasant."
+        },
+        "89007": {
+            "Name": "Iron Falcon Knife Juggler",
+            "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
+            "Flavor": "The weapon's short, but its range is long.。"
+        },
         "70094": {
             "Name": "Lyriańska kawaleria",
             "Info": "Rozmieszczenie: wybierz jednostkę ze swojej talii i wzmocnij się o wartość, o jaką wzmocniona jest ta jednostka.",
