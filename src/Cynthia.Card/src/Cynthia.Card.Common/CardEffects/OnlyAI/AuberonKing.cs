@@ -68,7 +68,7 @@ namespace Cynthia.Card
             {
                 var targetCards = Game.GetPlaceCards(AnotherPlayer).Where(x => x.Status.CardRow.IsOnPlace());
 
-                if (targetCards.Count() != 0 || targetRow.Count() != 0)
+                if (targetCards.Count() != 0 && targetRow.Count() != 0)
                 {
                     var targetCards1 = targetCards.Mess(RNG).First();
                     var targetRow1 = targetRow.Mess(Game.RNG).First().Mirror();

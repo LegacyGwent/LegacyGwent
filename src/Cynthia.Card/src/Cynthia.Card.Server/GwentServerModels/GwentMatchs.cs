@@ -109,7 +109,7 @@ namespace Cynthia.Card.Server
                             StartGame(room, true);
                             return;
                         }
-                    case "aim1":
+                    case "ai3":
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new AuberonKingAI());
@@ -117,11 +117,28 @@ namespace Cynthia.Card.Server
                             StartGame(room);
                             return;
                         }
-                    case "aim1ld":
-                    case "ldaim1":
+                    case "ai3ld":
+                    case "ldai3":
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new AuberonKingAI());
+                            GwentRooms.Add(room);
+                            StartGame(room, true);
+                            return;
+                        }
+                    case "ai4":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new IronFalconAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai4ld":
+                    case "ldai4":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new IronFalconAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -205,7 +222,7 @@ namespace Cynthia.Card.Server
                             StartGame(room, true);
                             return;
                         }
-                    case "aim1":
+                    case "ai3":
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new AuberonKingAI());
@@ -213,11 +230,28 @@ namespace Cynthia.Card.Server
                             StartGame(room);
                             return;
                         }
-                    case "aim1ld":
-                    case "ldaim1":
+                    case "ai3ld":
+                    case "ldai3":
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new AuberonKingAI());
+                            GwentRooms.Add(room);
+                            StartGame(room, true);
+                            return;
+                        }
+                    case "ai4":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new IronFalconAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai4ld":
+                    case "ldai4":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new IronFalconAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
