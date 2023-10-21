@@ -591,5 +591,8 @@ namespace Cynthia.Card
         public const string IronFalconKnifeJuggler = "89007";
         public const string LyrianCavalry = "70094";
         public const string LyrianArbalest = "70095";
+        public const string TuirseachWarship = "70096";
+        public const string DwarfMiner = "70097";
+        public const string VriheddSaboteur = "70098";
     }
 }

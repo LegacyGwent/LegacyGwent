@@ -11148,7 +11148,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70032",//加斯科
+                "70032",//加斯科 Gascon
                 new GwentCard()
                 {
                     CardId = "70032",
@@ -11163,7 +11163,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Officer},
                     Flavor = "“你手下的人可就是史帕拉流亡军？你便是人称野狗公爵的那位？”",
-                    Info = "对自身造成2点伤害并随机移动一个未被移动的敌军单位，重复直至战力不足。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。",
+                    Info = "选择一排，移动敌我双方这一排上的所有单位。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。",
                     CardArtsId = "d15200000",
                 }
             },
@@ -12940,6 +12940,66 @@ namespace Cynthia.Card
                     Flavor = "我能在百步之外找到靶心！也许我的第一枪就打不准......",
                     Info = "对一个战力低于自身的单位造成2者战力差的伤害，对大于等于自身战力的单位不造成伤害",
                     CardArtsId = "d15410000",
+                }
+            },
+            {
+                "70096",//图尔赛克战船 Tuirseach Warship
+                new GwentCard()
+                {
+                    CardId ="70096",
+                    Name="图尔赛克战船",
+                    Strength=3,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.ClanTuirseach,Categorie.Machine},
+                    Flavor = "xxxxx",
+                    Info = "选择一个单位，造成等同于自身基础战力的伤害",
+                    CardArtsId = "d19390000",
+                }
+            },
+            {
+                "70097",//矮人矿工 Dwarf Miner
+                new GwentCard()
+                {
+                    CardId ="70097",
+                    Name="矮人矿工",
+                    Strength=6,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Dwarf},
+                    Flavor = "xxxxx",
+                    Info = "手卡中每有一张矮人单位卡便获得1点强化",
+                    CardArtsId = "d19430000",
+                }
+            },
+            {
+                "70098",//维里赫德旅破坏者 Vrihedd Saboteur
+                new GwentCard()
+                {
+                    CardId ="70098",
+                    Name="维里赫德旅破坏者",
+                    Strength=1,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
+                    Flavor = "xxxxx",
+                    Info = "部署：剩余卡组中每有一张精灵标签单位卡便获得1点增益",
+                    CardArtsId = "d20160000",
                 }
             },
         };

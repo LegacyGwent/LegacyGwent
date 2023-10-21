@@ -13,7 +13,8 @@ namespace Cynthia.Card
         {
             int moveCount = (Card.Status.Strength + Card.Status.HealthStatus - 1)/2;
             int i = 0;
-            var cards = Game.GetPlaceCards(AnotherPlayer).ToList();
+            var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
+            var cards = Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead().Where(x => x != Card);
             foreach (var card in cards)
             {
                 var row = (card.Status.CardRow.MyRowToIndex()).IndexToMyRow();
@@ -31,7 +32,7 @@ namespace Cynthia.Card
                     break;
                 }
             }
-            await Card.Effect.Damage(2*i, Card);
+            await Card.Effect.Damage(i, Card);
             return 0;
         }
         public async Task HandleEvent(AfterCardMove @event)
