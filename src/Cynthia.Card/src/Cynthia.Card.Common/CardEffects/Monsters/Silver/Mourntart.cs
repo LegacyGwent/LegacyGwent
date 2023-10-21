@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Mourntart(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cardlist = Game.PlayersCemetery[PlayerIndex].Where(x => x.IsAnyGroup(Group.Copper, Group.Silver)).ToList();
+            var cardlist = Game.PlayersCemetery[PlayerIndex].FilterCards(type: CardType.Unit,filter: x => x.IsAnyGroup(Group.Copper, Group.Silver)).ToList();
             var count = cardlist.Count();
             foreach (var target in cardlist)
             {

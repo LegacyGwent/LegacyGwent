@@ -10,9 +10,9 @@ namespace Cynthia.Card
         public IronFalconTroubadour(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var count = Game.PlayersDeck[Card.PlayerIndex].Count();
+            var count = Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId).Count() * 4;
 
-            for (var i = 0; i < 4 + count; i++)
+            for (var i = 0; i < count; i++)
             {
                 if (!Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.Status.CardId != CardId.GasconIronFalcon).TryMessOne(out var target, Game.RNG))
                 {
