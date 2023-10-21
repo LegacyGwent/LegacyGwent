@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 81);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 82);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12828,7 +12828,7 @@ namespace Cynthia.Card
                 {
                     CardId ="89004",
                     Name="加斯科：铁隼之首",
-                    Strength=10,
+                    Strength=13,
                     Group=Group.Leader,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12838,7 +12838,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "干的是驾轻就熟的老行当，而且居然还有钱拿！",
-                    Info = "不会受到任何效果影响，根据公正女神的点数增益卡组，保持双方手牌数接近，若牌组没有牌则将随机铁隼游击队牌加入牌组。",
+                    Info = "无法被魅惑;根据公正女神点数改变效果（0-9牌组增益、10-19随机天气、20-29摧毁最强单位）;保持手牌数接近;牌组为空会添加牌。",
                     CardArtsId = "d19250000",
                 }
             },
@@ -12878,7 +12878,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "我的演奏甚至可以让丧事变喜事。",
-                    Info = "随机使1个友军单位获得1点增益，重复4次，牌组每有1张牌额外重复1次",
+                    Info = "随机使1个友军单位获得1点增益，重复4次，场上每有1张同名牌额外重复4次。",
                     CardArtsId = "d19490000",
                 }
             },
