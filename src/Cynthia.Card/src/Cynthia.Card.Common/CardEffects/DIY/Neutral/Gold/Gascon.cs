@@ -37,9 +37,9 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardMove @event)
         {
-            if (Game.GameRound.ToPlayerIndex(Game) == PlayerIndex 
-                && (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand())
-                && @event.Target != @event.Source)
+            if (
+                (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand())
+                )
             {
                 await Card.Effect.Boost(1, Card);
             }
