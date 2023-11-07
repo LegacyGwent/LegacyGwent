@@ -3386,6 +3386,11 @@
             "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
             "Flavor": "The weapon's short, but its range is long.。"
         },
+        "89008": {
+            "Name": "SoldierTrain",
+            "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
+            "Flavor": "The goddess occasionally protects some new recruits。"
+        },
         "70094": {
             "Name": "Lyrian Cavalry",
             "Info": "Deploy: choose a unit from your deck and boost self by the amount that unit is boosted.",
