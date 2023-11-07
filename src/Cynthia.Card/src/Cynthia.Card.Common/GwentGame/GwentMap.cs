@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 82);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 83);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12920,6 +12920,26 @@ namespace Cynthia.Card
                     Flavor = "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。",
                     Info = "自身获得卡组里一张单位卡增益数值等额的增益。",
                     CardArtsId = "d15590000",
+                }
+            },
+            {
+                "89008",//训练新兵 SoldierTrain
+                new GwentCard()
+                {
+                    CardId ="89008",
+                    Name="训练新兵",
+                    Strength=3,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "女神偶尔会庇护一些新兵。",
+                    Info = "对局开始时，获得等同于公正女神点数的强化。",
+                    CardArtsId = "c10003300",
                 }
             },
             {
