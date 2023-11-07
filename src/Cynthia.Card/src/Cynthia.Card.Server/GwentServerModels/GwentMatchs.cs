@@ -78,7 +78,7 @@ namespace Cynthia.Card.Server
                     case "ai1":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new ReaverHunterAI());
+                            room.AddPlayer(new SoldierTrainAI());
                             GwentRooms.Add(room);
                             StartGame(room);
                             return;
@@ -87,7 +87,7 @@ namespace Cynthia.Card.Server
                     case "ldai1":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new ReaverHunterAI());
+                            room.AddPlayer(new SoldierTrainAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -139,6 +139,23 @@ namespace Cynthia.Card.Server
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new IronFalconAI());
+                            GwentRooms.Add(room);
+                            StartGame(room, true);
+                            return;
+                        }
+                    case "ai5":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new ReaverHunterAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai5ld":
+                    case "ldai5":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new ReaverHunterAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -191,7 +208,7 @@ namespace Cynthia.Card.Server
                     case "ai1":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new ReaverHunterAI());
+                            room.AddPlayer(new SoldierTrainAI());
                             GwentRooms.Add(room);
                             StartGame(room);
                             return;
@@ -200,7 +217,7 @@ namespace Cynthia.Card.Server
                     case "ldai1":
                         {
                             var room = new GwentRoom(player, password);
-                            room.AddPlayer(new ReaverHunterAI());
+                            room.AddPlayer(new SoldierTrainAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
@@ -252,6 +269,23 @@ namespace Cynthia.Card.Server
                         {
                             var room = new GwentRoom(player, password);
                             room.AddPlayer(new IronFalconAI());
+                            GwentRooms.Add(room);
+                            StartGame(room, true);
+                            return;
+                        }
+                    case "ai5":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new ReaverHunterAI());
+                            GwentRooms.Add(room);
+                            StartGame(room);
+                            return;
+                        }
+                    case "ai5ld":
+                    case "ldai5":
+                        {
+                            var room = new GwentRoom(player, password);
+                            room.AddPlayer(new ReaverHunterAI());
                             GwentRooms.Add(room);
                             StartGame(room, true);
                             return;
