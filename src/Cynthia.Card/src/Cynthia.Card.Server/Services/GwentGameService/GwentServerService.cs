@@ -151,11 +151,15 @@ namespace Cynthia.Card.Server
 
         public bool AddDeck(string connectionId, DeckModel deck)
         {
+            if (deck.Leader == "12004")
+            {
+                return false;
+            }
             //添加卡组
             if (!_users.ContainsKey(connectionId))
                 return false;
             var user = _users[connectionId];
-            if (user.Decks.Count >= 100)
+            if (user.Decks.Count >= 1000)
                 return false;
             //if (!deck.IsBasicDeck())
             //return false;
