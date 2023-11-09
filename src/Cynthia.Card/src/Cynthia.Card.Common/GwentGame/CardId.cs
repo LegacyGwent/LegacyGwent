@@ -589,6 +589,7 @@ namespace Cynthia.Card
         public const string IronFalconInfantry = "89005";
         public const string IronFalconTroubadour = "89006";
         public const string IronFalconKnifeJuggler = "89007";
+        public const string SoldierTrain = "89008";
         public const string LyrianCavalry = "70094";
         public const string LyrianArbalest = "70095";
         public const string TuirseachWarship = "70096";
