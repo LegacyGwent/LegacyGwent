@@ -3083,7 +3083,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Move all enemies on random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: move the units on the row with most units on both sides to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
@@ -3394,6 +3394,21 @@
         "70095": {
             "Name": "Lyrian Arbalest",
             "Info": "Deploy: Damage an Ennemy unit with lower Power than self, by the difference between the two card's Power.",
+            "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
+        },
+        "70096": {
+            "Name": "Tuirseach Warship",
+            "Info": "Damage an ennemy unit by this card's base strength.",
+            "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
+        },
+        "70097": {
+            "Name": "Dwarf Miner",
+            "Info": "Deploy: Strengthen self by 1 for every Dwarf in your hand.",
+            "Flavor": "Which moron's whistling in the mine?!"
+        },
+        "70098": {
+            "Name": "Vrihedd Saboteur",
+            "Info": "Deploy: Boost self by 1 for each Elf remaining in your deck.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         }
     }

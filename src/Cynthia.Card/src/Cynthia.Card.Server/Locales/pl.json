@@ -3083,7 +3083,7 @@
           },
           "70032": {
               "Name": "Gascon",
-              "Info": "Rozmieszczenie: Przenieś wszystkie wrogie jednostki do losowych rzędów. Za każdą przeniesioną jednostkę otrzymaj 2 pkt obrażeń. Wzmocnij się o 1 za każdym razem gdy jednostka zostanie poruszona w trakcie Twojej tury.",
+              "Info": "Rozmieszczenie: Wybierz rząd i przenieś wszystkich znajdujących się w nim wrogów do losowych rzędów, zadając sobie obrażenia o 1 za każdą przeniesioną jednostkę.\nKiedy jednostka w twojej ręce lub talii poruszy się podczas twojej tury, zwiększ swoje obrażenia o 1.",
               "Flavor": ""
           },
           "70033": {
@@ -3395,7 +3395,22 @@
             "Name": "Lyrian Arbalest",
             "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
             "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
-        }  
+        },
+        "70096": {
+            "Name": "Okręt wojenny Tuirseach",
+            "Info": "Zadaj wrogiej jednostce obrażenia równe sile bazowej tej karty.",
+            "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
+        },
+        "70097": {
+            "Name": "Hawierz",
+            "Info": "Rozmieszczenie: Wzmocnij się o 1 za każdego Krasnoluda w twojej ręce.",
+            "Flavor": "Which moron's whistling in the mine?!"
+        },
+        "70098": {
+            "Name": "Sabotażysta Vrihedd",
+            "Info": "Rozmieszczenie: Wzmocnij siebie o 1 za każdego Elfa pozostałego w twojej talii.",
+            "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
+        }
       }
   }
   

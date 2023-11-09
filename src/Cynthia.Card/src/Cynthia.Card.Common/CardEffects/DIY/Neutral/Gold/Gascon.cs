@@ -7,13 +7,17 @@ namespace Cynthia.Card
 {
     [CardEffectId("70032")]//Gascon
     public class Gascon : CardEffect, IHandlesEvent<AfterCardMove>
-    {//将所有单位移至随机排，每移动1个单位，便受到2点伤害。若位于牌组或手牌：己方回合中，每有1个单位被改变所在排别时获得1点增益。
+    {//将所有单位移至随机排，每移动1个单位，便受到2点伤害。若位于牌组或手牌：己方回合中，每有1个单位被改变所在排别时获得1点增益
         public Gascon(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            int moveCount = (Card.Status.Strength + Card.Status.HealthStatus - 1)/2;
+            int moveCount = (Card.Status.Strength + Card.Status.HealthStatus - 1) / 2;
             int i = 0;
-            var cards = Game.GetPlaceCards(AnotherPlayer).ToList();
+            // var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
+            // var selectedrow = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
+            var selectedrow = Game.PlayersPlace[PlayerIndex].Indexed().OrderBy(x => x.Value.Count).Last().Key.IndexToMyRow();
+
+            var cards = Game.RowToList(AnotherPlayer, selectedrow).IgnoreConcealAndDead().Concat(Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead());
             foreach (var card in cards)
             {
                 var row = (card.Status.CardRow.MyRowToIndex()).IndexToMyRow();
@@ -31,14 +35,14 @@ namespace Cynthia.Card
                     break;
                 }
             }
-            await Card.Effect.Damage(2*i, Card);
+            await Card.Effect.Damage(i, Card);
             return 0;
         }
         public async Task HandleEvent(AfterCardMove @event)
         {
-            if (Game.GameRound.ToPlayerIndex(Game) == PlayerIndex 
-                && (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand())
-                && @event.Target != @event.Source)
+            if (
+                (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand())
+                )
             {
                 await Card.Effect.Boost(1, Card);
             }

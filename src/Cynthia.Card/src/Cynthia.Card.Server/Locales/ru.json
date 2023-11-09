@@ -3385,6 +3385,21 @@
             "Name": "Лириан Арбалет",
             "Info": "Развертывание: выберите единицу из своей колоды и усильте себя на величину усиления этой единицы.",
             "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
+        },
+        "70096": {
+            "Name": "Военный корабль Туирсих",
+            "Info": "Повредить вражескую единицу на базовую силу этой карты.",
+            "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
+        },
+        "70097": {
+            "Name": "Шахтер",
+            "Info": "Развернуть: Усильте себя на 1 за каждого гнома в вашей руке.",
+            "Flavor": "Which moron's whistling in the mine?!"
+        },
+        "70098": {
+            "Name": "Диверсант «Врихедд»",
+            "Info": "Развернуть: Увеличивает себя на 1 за каждого Эльфа, оставшегося в вашей колоде.",
+            "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         }
     }
 }
