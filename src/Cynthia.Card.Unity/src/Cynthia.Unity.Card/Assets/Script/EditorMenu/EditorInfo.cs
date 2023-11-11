@@ -392,7 +392,7 @@ public class EditorInfo : MonoBehaviour
 
     public void AddDeckClick()
     {   //点击新建按钮后
-        if (_clientService.User.Decks.Count >= 100)
+        if (_clientService.User.Decks.Count >= 1000)
         {
             _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_DeckLimitTitle"), _translator.GetText("PopupWindow_DeckLimitDesc"));
         }
@@ -421,7 +421,7 @@ public class EditorInfo : MonoBehaviour
     }
     public void SetBlacklistClick()
     {   //点击新建按钮后
-        if (_clientService.User.Decks.Count >= 100)
+        if (_clientService.User.Decks.Count >= 1000)
         {
             _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_DeckLimitTitle"), _translator.GetText("PopupWindow_DeckLimitDesc"));
         }
