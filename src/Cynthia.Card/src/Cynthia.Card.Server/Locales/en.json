@@ -3083,7 +3083,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Choose a row and move all enemies on it to random rows and Damage self by 1 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: Choose a row and move all enemies on it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
