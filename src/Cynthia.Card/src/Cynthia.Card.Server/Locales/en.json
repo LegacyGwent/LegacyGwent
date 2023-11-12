@@ -3083,7 +3083,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Choose a row and move all enemies on it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: move the units on the row with most units on both sides to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
@@ -3385,6 +3385,11 @@
             "Name": "Iron Falcon Knife Juggler",
             "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
             "Flavor": "The weapon's short, but its range is long.。"
+        },
+        "89008": {
+            "Name": "SoldierTrain",
+            "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
+            "Flavor": "The goddess occasionally protects some new recruits。"
         },
         "70094": {
             "Name": "Lyrian Cavalry",

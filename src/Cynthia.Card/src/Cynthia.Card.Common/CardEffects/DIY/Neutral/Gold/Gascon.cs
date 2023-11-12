@@ -15,7 +15,7 @@ namespace Cynthia.Card
             int i = 0;
             // var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
             // var selectedrow = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
-            var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
+            var selectedrow = Game.PlayersPlace[PlayerIndex].Indexed().OrderBy(x => x.Value.Count).Last().Key.IndexToMyRow();
 
             var cards = Game.RowToList(AnotherPlayer, selectedrow).IgnoreConcealAndDead().Concat(Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead());
             foreach (var card in cards)
@@ -35,7 +35,7 @@ namespace Cynthia.Card
                     break;
                 }
             }
-            await Card.Effect.Damage(2*i, Card);
+            await Card.Effect.Damage(i, Card);
             return 0;
         }
         public async Task HandleEvent(AfterCardMove @event)
