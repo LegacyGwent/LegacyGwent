@@ -14,9 +14,6 @@ namespace Cynthia.Card
             int moveCount = (Card.Status.Strength + Card.Status.HealthStatus - 1) / 2;
             int i = 0;
             var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
-            // var selectedrow = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
-/*            var result = await Game.GetSelectRow(Card.PlayerIndex, Card, TurnType.All.GetRow());
-            var selectedrow = Game.RowToList(Card.PlayerIndex, result).IgnoreConcealAndDead();*/
 
             var cards = Game.RowToList(AnotherPlayer, selectedrow).IgnoreConcealAndDead().Concat(Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead());
             foreach (var card in cards)
