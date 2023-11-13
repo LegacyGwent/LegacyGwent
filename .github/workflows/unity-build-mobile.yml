@@ -33,7 +33,7 @@ jobs:
         run: dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
       - name: Sync Cynthia.Card.Common.dll
         run: cp src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll
-      - uses: game-ci/unity-builder@main
+      - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
