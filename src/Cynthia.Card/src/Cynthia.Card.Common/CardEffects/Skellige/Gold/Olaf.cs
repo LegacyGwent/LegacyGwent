@@ -15,7 +15,7 @@ namespace Cynthia.Card
             //下面代码基于://必须是我方打出的野兽，吉尔曼召唤这种不行。间谍野兽也不算（对面打出）
             if (beastnum <= 5)
             {
-                await Card.Effect.Damage(10 - 2 * beastnum, Card);
+                await Card.Effect.Damage(12 - 2 * beastnum, Card);
             }
             return 0;
         }
