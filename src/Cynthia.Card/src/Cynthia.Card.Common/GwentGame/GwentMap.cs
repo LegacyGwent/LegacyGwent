@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 88);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 89);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9029,12 +9029,12 @@ namespace Cynthia.Card
                 }
             },
             {
-                "62001",//奥拉夫
+                "62001",//奥拉夫 Olaf
                 new GwentCard()
                 {
                     CardId ="62001",
                     Name="奥拉夫",
-                    Strength=20,
+                    Strength=22,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9069,12 +9069,12 @@ namespace Cynthia.Card
                 }
             },
             {
-                "62003",//维伯约恩
+                "62003",//维伯约恩 Vabjorn
                 new GwentCard()
                 {
                     CardId ="62003",
                     Name="维伯约恩",
-                    Strength=11,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9170,12 +9170,12 @@ namespace Cynthia.Card
                 }
             },
             {
-                "62008",//“疯子”卢戈
+                "62008",//“疯子”卢戈 Madman Kugos
                 new GwentCard()
                 {
                     CardId ="62008",
                     Name="“疯子”卢戈",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9190,12 +9190,12 @@ namespace Cynthia.Card
                 }
             },
             {
-                "62009",//乌弗海登
+                "62009",//乌弗海登 Ulfhedinn
                 new GwentCard()
                 {
                     CardId ="62009",
                     Name="乌弗海登",
-                    Strength=6,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9210,12 +9210,12 @@ namespace Cynthia.Card
                 }
             },
             {
-                "62010",//凯瑞丝：无所畏惧
+                "62010",//凯瑞丝：无所畏惧 CerysFearless
                 new GwentCard()
                 {
                     CardId ="62010",
                     Name="凯瑞丝：无所畏惧",
-                    Strength=6,
+                    Strength=10,
                     Countdown =1,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
