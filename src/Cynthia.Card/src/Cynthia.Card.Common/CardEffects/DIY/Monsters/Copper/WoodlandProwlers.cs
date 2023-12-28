@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70107")]//林地徘徊者 WoodlandProwlers
+    [CardEffectId("70124")]//林地徘徊者 WoodlandProwlers
     public class WoodlandProwlers : CardEffect
     {//
         public WoodlandProwlers(GameCard card) : base(card) { }
