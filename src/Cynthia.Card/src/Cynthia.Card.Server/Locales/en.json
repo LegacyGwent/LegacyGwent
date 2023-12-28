@@ -578,7 +578,7 @@
         },
         "13026": {
             "Name": "Bekker's Dark Mirror",
-            "Info": "Transfer up to 13 Power between the Highest and Lowest unit.",
+            "Info": "Transfer up to 11 Power between the Highest and Lowest unit.",
             "Flavor": "当你凝视深渊的时候，深渊也在凝视着你。"
         },
         "13027": {
@@ -1663,7 +1663,7 @@
         },
         "34028": {
             "Name": "Ambassador",
-            "Info": "Spying.\nDeploy: Boost an ally by 14.",
+            "Info": "Spying.\nDeploy: Boost an ally by 12.",
             "Flavor": "间谍？不，这么说就太过啦。我觉得自己不过是个观察员而已。"
         },
         "34029": {
@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy: play a bronze temerian unit from your hand with the same or less power and draw a card, add a Blue Stripes Commando to your deck.",
+            "Info": "Deploy: Choose One: Play 1 silver/copper Temoria card with a lower battle strength than your own; or destroy 1 back-up ambush enemy unit.",
             "Flavor": "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。"
         },
         "42008": {
@@ -3242,9 +3242,9 @@
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70092": {
-            "Name": "Havfrue Singer",
-            "Info": "Deploy: If is under 'Torrential Rain' or 'Skellige Storm', move 2 enemy to the opposite row.",
-            "Flavor": "No human can match sirens in singing. Some, however, are talented enough to compel sirens to listen."
+            "Name": "‎SvalblodBrawler",
+            "Info": "Deploy: "Damage an enemy by 4,if under a Hazard,deal 8 Damage instead.",
+            "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
         "70093": {
             "Name": "Tempest",
@@ -3303,7 +3303,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 3 Damage to an ally, then play a random Bronze Cultist from your deck.",
+            "Info": "Deal 3 Damage to an ally, then play a Bronze Cultist from your deck.",
             "Flavor": ""
         },
         "70113": {
@@ -3328,7 +3328,7 @@
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Summon this unit whenever you play your Leader.\nDeathwish: Move a random Dryad in your deck to the top of your deck.",
+            "Info": "Summon this unit whenever you play your Leader.On turn end, Boost ally as your own by 1 with the same as this unit's Power.",
             "Flavor": ""
         },
         "70118": {
@@ -3368,7 +3368,7 @@
         },
         "89004": {
             "Name": "Gascon: Iron Falcon",
-            "Info": "Cannot be Charmed & Locked; Changes effects based on Goddess of Justice points (0-9 Deck Gain, 10-19 Random Weather, 20-29 Destroy Strongest Units); Keeps hand counts close; Adds random Iron Falcon cards to deck if deck is empty.",
+            "Info": "Charm the Highest enemy on the opposite.[Can't be affected by status effects,Booat Deck by point.]",
             "Flavor": "I'm doing what I used to do and they're paying me for it!"
         },
         "89005": {
@@ -3403,7 +3403,7 @@
         },
         "70096": {
             "Name": "Tuirseach Warship",
-            "Info": "Damage an ennemy unit by this card's base strength.",
+            "Info": "On turn end,deal 1 Damage to a random enemy with Damaged.",
             "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
         },
         "70097": {
@@ -3413,8 +3413,75 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Deploy: Boost self by 1 for each Elf remaining in your deck.",
+            "Info": "Deploy: Play a random Bronze Item from your deck,if If the number of cards in your deck is lower than your Power,then change to Resurrect a Bronze Item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
-        }
+        },
+        "70099": {
+            "Name": "Svalblod",
+            "Info": "Damage all allies in deck by 2,and Strengthen by 2.",
+            "Flavor": "斯瓦勃洛唯一的戒律：屠戮。”"
+            
+        },
+        "70100": {
+            "Name": "ForestWhisperer",
+            "Info": "Damage all units on the row by 2.Except for Dryad.",
+            "Flavor": "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。"
+        },
+        "70101": {
+            "Name": "ImmortalCavalry",
+            "Info": "Lock self,On turn end,Boost a random ally by 2.",
+            "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
+        },
+        "70102": {
+            "Name": "Garkain",
+            "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it.。",
+            "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
+        },
+        "70120": {
+            "Name": "LonelyChampion",
+            "Info": "On turn end,if no other ally on the place,Boost self by 4.",
+            "Flavor": "只要他继续为正义而战，骑士团和烈焰就永不熄灭。"
+        },
+        "70121": {
+            "Name": "Otkell",
+            "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1,if Damaged,Increase 1 again.",
+            "Flavor": "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。"
+        },
+        "70122": {
+            "Name": "DryadMatron",
+            "Info": "Boost a random Lowest unit in your deck by 2,if it was Dryad,Strength 2.",
+            "Flavor": "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……"
+        },
+        "70123": {
+            "Name": "BattlePreparation",
+            "Info": "Play a Bronze soilder card from your hand and Boost it by 2,that draw a card.",
+            "Flavor": "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。"
+        },
+        "70124": {
+            "Name": "WoodlandProwlers",
+            "Info": "Weaken a enemy by 1,if the enemy is under Impenetrable Fog,Weaken by 3.",
+            "Flavor": "进入森林的人类最不想见到……"
+        },
+        "70125": {
+            "Name": "BarnabasBeckenbauer",
+            "Info": "Boost a other ally by 2,each type Bronze Item card in your gravetard repeat once more.",
+            "Flavor": "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！"
+        },
+        "70126": {
+            "Name": "CintrianRoyalGuard",
+            "Info": "if you are losing,Boost all copies of this unit by 3.",
+            "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
+        },
+        "70127": {
+            "Name": "VanMoorlehemServant",
+            "Info": "Boost self by 2 for each Gold from opponent's hand.",
+            "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
+        },
+        "70128": {
+            "Name": "MoonDust",
+            "Info": "Destroy a enemy with 5 Power or less,whenever you play a Tactics card,Resurrect self and banish. ",
+            "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
+        }	        
+    }
     }
 }
