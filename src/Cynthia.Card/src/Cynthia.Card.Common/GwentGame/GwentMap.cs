@@ -6307,7 +6307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。",
-                    Info = "择一：打出1张与自身战力相同的银色/铜色泰莫利亚单位牌；摧毁1个背面向上的伏击敌军单位。",
+                    Info = "择一：打出1张低于自身战力的银色/铜色泰莫利亚单位牌；摧毁1个背面向上的伏击敌军单位。",
                     CardArtsId = "20177700",
                 }
             },
