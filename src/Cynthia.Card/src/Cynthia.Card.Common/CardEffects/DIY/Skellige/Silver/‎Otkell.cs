@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70104")]//欧特克尔 ‎Otkell
+    [CardEffectId("70121")]//欧特克尔 ‎Otkell
     public class liaogen : CardEffect
     {//使对方同排的“倾盆大雨”伤害提高1点,若自身受伤则额外提升1点。
         public liaogen(GameCard card) : base(card) { }
