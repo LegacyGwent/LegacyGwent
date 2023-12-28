@@ -1585,7 +1585,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "当你凝视深渊的时候，深渊也在凝视着你。",
-                    Info = "对场上最强的单位造成最多13点伤害（无视护甲），并使场上最弱的单位获得相同数值的增益。",
+                    Info = "对场上最强的单位造成最多11点伤害（无视护甲），并使场上最弱的单位获得相同数值的增益。",
                     CardArtsId = "11331500",
                 }
             },
