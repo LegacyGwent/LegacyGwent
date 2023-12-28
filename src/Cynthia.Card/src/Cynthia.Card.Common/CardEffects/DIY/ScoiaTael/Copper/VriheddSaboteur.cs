@@ -4,17 +4,32 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70098")]//维里赫德旅破坏者
+    [CardEffectId("70098")] //维里赫德旅破坏者 VriheddSaboteu
     public class VriheddSaboteur : CardEffect
-    {//剩余卡组中每有一张精灵标签单位卡便获得1点增益
-        public VriheddSaboteur (GameCard card) : base(card) { }
+    {//随机打出1张铜色道具牌，若牌组数量低于自身战力，改为复活1张铜色道具牌。
+        public VriheddSaboteur(GameCard card) : base(card){}
+
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var listElf = Game.PlayersDeck[PlayerIndex].Where(x => x.HasAnyCategorie(Categorie.Elf)).ToList();
-            int boostNum = listElf.Count();
-
-            await Card.Effect.Boost(boostNum, Card);
-            return 0;
-        }
+            int DeckCount = Game.PlayersDeck[Card.PlayerIndex].Count();
+            if (DeckCount >= Card.CardPoint())
+            {
+                var list = Game.PlayersDeck[PlayerIndex].Where(x => ((x.Status.Group == Group.Copper) && x.Status.Categories.Contains(Categorie.Item) && x.CardInfo().CardType == CardType.Special)).ToList();
+                if (list.Count() == 0) return 0;
+                var moveCard = list.Mess(RNG).First();
+                await moveCard.MoveToCardStayFirst();
+                return 1;
+            }
+            else
+            {
+                var list = Game.PlayersCemetery[Card.PlayerIndex]
+                .Where(x => x.Status.Group == Group.Copper &&(x.CardInfo().Categories.Contains(Categorie.Item))).Mess(RNG);
+                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1, "选择复活一张牌");
+                if (!result.Any()) return 0;
+                var moveCard = result.Single();
+                await moveCard.Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
+                return 1;
+            }
+         }
     }
 }
