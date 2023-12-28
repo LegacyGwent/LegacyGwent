@@ -13103,10 +13103,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70103",//孤独的勇士 LonelyChampion
+                "70120",//孤独的勇士 LonelyChampion
                 new GwentCard()
                 {
-                    CardId ="70103",
+                    CardId ="70120",
                     Name="孤独的勇士",
                     Strength=9,
                     Group=Group.Silver,
@@ -13123,10 +13123,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70104",//欧特克尔 Otkell
+                "70121",//欧特克尔 Otkell
                 new GwentCard()
                 {
-                    CardId ="70104",
+                    CardId ="70121",
                     Name="欧特克尔",
                     Strength=8,
                     Group=Group.Silver,
@@ -13143,10 +13143,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70105",//树精族母 DryadMatron
+                "70122",//树精族母 DryadMatron
                 new GwentCard()
                 {
-                    CardId ="70105",
+                    CardId ="70122",
                     Name="树精族母",
                     Strength=10,
                     Group=Group.Copper,
@@ -13163,10 +13163,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70106",//战前准备 BattlePreparation
+                "70123",//战前准备 BattlePreparation
                 new GwentCard()
                 {
-                    CardId ="70106",
+                    CardId ="70123",
                     Name="战前准备",
                     Strength=0,
                     Group=Group.Copper,
@@ -13183,10 +13183,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70107",//林地徘徊者 WoodlandProwlers
+                "70124",//林地徘徊者 WoodlandProwlers
                 new GwentCard()
                 {
-                    CardId ="70107",
+                    CardId ="70124",
                     Name="林地徘徊者",
                     Strength=9,
                     Group=Group.Copper,
@@ -13203,10 +13203,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70108",//巴纳巴斯·贝肯鲍尔 BarnabasBeckenbauer
+                "70125",//巴纳巴斯·贝肯鲍尔 BarnabasBeckenbauer
                 new GwentCard()
                 {
-                    CardId ="70108",
+                    CardId ="70125",
                     Name="巴纳巴斯·贝肯鲍尔",
                     Strength=6,
                     Group=Group.Gold,
@@ -13223,10 +13223,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70109",//辛特拉皇家护卫 CintrianRoyalGuard
+                "70126",//辛特拉皇家护卫 CintrianRoyalGuard
                 new GwentCard()
                 {
-                    CardId ="70109",
+                    CardId ="70126",
                     Name="辛特拉皇家护卫",
                     Strength=8,
                     Group=Group.Copper,
@@ -13243,10 +13243,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70110",//莫拉汉姆家仆从 VanMoorlehemServant
+                "70127",//莫拉汉姆家仆从 VanMoorlehemServant
                 new GwentCard()
                 {
-                    CardId ="70110",
+                    CardId ="70127",
                     Name="莫拉汉姆家仆从",
                     Strength=8,
                     Group=Group.Copper,
@@ -13263,10 +13263,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70111",//月之尘炸弹 MoonDust
+                "70128",//月之尘炸弹 MoonDust
                 new GwentCard()
                 {
-                    CardId ="70111",
+                    CardId ="70128",
                     Name="月之尘炸弹",
                     Strength=0,
                     Group=Group.Copper,
