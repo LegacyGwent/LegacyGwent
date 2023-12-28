@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70106")]//战前准备 BattlePreparation
+    [CardEffectId("70123")]//战前准备 BattlePreparation
     public class BattlePreparation : CardEffect
     {//从手牌打出1张铜色“士兵”牌，随后抽1张牌。从手牌打出一张铜色士兵牌并使其获得2点增益，随后抽一张牌
         public BattlePreparation(GameCard card) : base(card) { }
