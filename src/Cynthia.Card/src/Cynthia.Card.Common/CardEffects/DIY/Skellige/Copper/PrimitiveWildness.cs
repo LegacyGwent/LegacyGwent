@@ -10,29 +10,31 @@ namespace Cynthia.Card
         public PrimitiveWildness(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => ((x.Status.Group == Group.Copper) && (x.CardInfo().CardType == CardType.Unit) && x.HasAllCategorie(Categorie.Cultist))).Mess(Game.RNG).ToList();
-            if (list.Count() == 0)
-            {
-                return 0;
-            }
-            var moveCard = list.First();
-            
-            
             var targets = await Game.GetSelectPlaceCards(Card, 1,  selectMode: SelectModeType.MyRow);
-
             if (!targets.TrySingle(out var target))
             {
                 return 0;
             }
 
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Cultist) &&
+                     x.Status.Group == Group.Copper).Mess(Game.RNG).ToList();
             
+            if (list.Count() == 0)
+            {
+                return 0;
+            }
+
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+            if (cards.Count() == 0)
+            {
+                return 0;
+            }
+            var playCard = cards.Single();
+
             await target.Effect.Damage(3, Card);
-
-            await moveCard.MoveToCardStayFirst();
+            await playCard.MoveToCardStayFirst();
             return 1;
-            
-
-
         }
+        
     }
 }
