@@ -5,7 +5,7 @@ using System;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70109")]//辛特拉皇家护卫 CintrianRoyalGuard
+    [CardEffectId("70126")]//辛特拉皇家护卫 CintrianRoyalGuard
     public class CintrianRoyalGuard : CardEffect
     {//己方总点数落后时，使同名牌获得3点增益。
         public CintrianRoyalGuard(GameCard card) : base(card) { }
