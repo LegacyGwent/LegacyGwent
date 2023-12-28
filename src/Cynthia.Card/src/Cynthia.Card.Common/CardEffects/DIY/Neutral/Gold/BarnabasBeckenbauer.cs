@@ -5,7 +5,7 @@ using System;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70108")]//巴纳巴斯·贝肯鲍尔 BarnabasBeckenbauer
+    [CardEffectId("70125")]//巴纳巴斯·贝肯鲍尔 BarnabasBeckenbauer
     public class BarnabasBeckenbauer : CardEffect
     {//使1个其它友军单位获得2点增益，墓地中每有1种铜色道具牌便重复1次。
         public BarnabasBeckenbauer(GameCard card) : base(card) { }
