@@ -5,7 +5,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70105")]//树精族母 DryadMatron
+    [CardEffectId("70122")]//树精族母 DryadMatron
     public class DryadMatron : CardEffect
     {//随机使牌组中战力最低的单位牌获得2点增益，若为树精则改为2点强化。
         public DryadMatron(GameCard card) : base(card) { }
