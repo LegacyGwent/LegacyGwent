@@ -580,7 +580,7 @@ namespace Cynthia.Card
         public const string TheThingInTheSwamp = "70088";
         public const string Artis = "70089";
         public const string CultistOblation = "70090";
-        public const string HavfrueSinger = "70092";
+        public const string SvalblodBrawler = "70092";
         public const string Tempest ="70093";
         public const string AuberonKing = "80001";
         public const string AuberonInvader = "80002";
@@ -595,5 +595,18 @@ namespace Cynthia.Card
         public const string TuirseachWarship = "70096";
         public const string DwarfMiner = "70097";
         public const string VriheddSaboteur = "70098";
+        public const string Svalblod = "70099";
+        public const string ForestWhisperer = "70100";
+        public const string ImmortalCavalry = "70101";
+        public const string Garkain = "70102";
+        public const string LonelyChampion = "70103";
+        public const string Otkell = "70104";
+        public const string DryadMatron = "70105";
+        public const string BattlePreparation = "70106";
+        public const string WoodlandProwlers = "70107";
+        public const string BarnabasBeckenbauer = "70108";
+        public const string CintrianRoyalGuard = "70109";
+        public const string VanMoorlehemServant = "70110";
+        public const string MoonDust = "70111";
     }
 }
