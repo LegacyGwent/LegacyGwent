@@ -22,8 +22,11 @@ namespace Cynthia.Card
             var LowestCard = AliveNotConceal.WhereAllLowest();
             var HighestCard = AliveNotConceal.WhereAllHighest();
             if (AliveNotConceal.Count() == 0) return;
-            await LowestCard.Mess(Game.RNG).First().Effect.Damage(1, null, damageType: DamageType.TorrentialRain);
-            await HighestCard.Mess(Game.RNG).First().Effect.Damage(1, null, damageType: DamageType.TorrentialRain);
+            var exDamage1 = Game.GetPlaceCards(Game.AnotherPlayer(PlayerIndex)).Where(x => x.Status.CardId == CardId.liaogen && !x.Status.IsLock && x.IsAliveOnPlance()).Count();
+            var exDamage2 = Game.GetPlaceCards(Game.AnotherPlayer(PlayerIndex)).Where(x => x.Status.CardId == CardId.liaogen && x.Status.HealthStatus < 0  && !x.Status.IsLock && x.IsAliveOnPlance()).Count();
+            var exDamage = exDamage1 + exDamage2;
+            await LowestCard.Mess(Game.RNG).First().Effect.Damage(1 + exDamage, null, damageType: DamageType.TorrentialRain);
+            await HighestCard.Mess(Game.RNG).First().Effect.Damage(1 + exDamage, null, damageType: DamageType.TorrentialRain);
             
         }
     }
