@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("80019")]//考德威尔伯爵 CountCaldwell
+    [CardEffectId("70131")]//考德威尔伯爵 CountCaldwell
     public class CountCaldwell : CardEffect
     {//交换2个敌军单位的基础战力
         public CountCaldwell(GameCard card) : base(card) { }
