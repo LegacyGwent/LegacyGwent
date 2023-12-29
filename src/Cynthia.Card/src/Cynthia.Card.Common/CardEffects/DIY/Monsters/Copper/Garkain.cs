@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70102")]//蝠翼脑魔 Garkain
-    public class Garkain : CardEffect
+    public class Garkain: CardEffect
     {//随机对敌军单位造成1点伤害5次，若目标受伤则改为汲取。
         public Garkain(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
