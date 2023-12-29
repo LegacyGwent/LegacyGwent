@@ -70,10 +70,8 @@ namespace Cynthia.Card.AI
         //选择切换
         private Switcher<string> _nextPlay = new Switcher<string>()
          {
-          CardId.GasconIronFalcon, CardId.IronFalconInfantry, CardId.IronFalconInfantry,
-          CardId.IronFalconTroubadour,
-          CardId.IronFalconKnifeJuggler, CardId.IronFalconKnifeJuggler,
-          CardId.IronFalconTroubadour, CardId.IronFalconTroubadour,
+          CardId.IronFalconInfantry,CardId.IronFalconKnifeJuggler,CardId.IronFalconKnifeJuggler,
+          CardId.IronFalconTroubadour,CardId.IronFalconInfantry,CardId.GasconIronFalcon
          };
 
         public override void SetDeckAndName()
@@ -86,6 +84,7 @@ namespace Cynthia.Card.AI
                 Deck = (CardId.IronFalconInfantry).Plural(5)
                 .Concat(CardId.IronFalconTroubadour.Plural(4))
                 .Concat(CardId.IronFalconKnifeJuggler.Plural(4))
+                .Concat(CardId.Muzzle.Plural(2))
                 .ToList()
             };
         }

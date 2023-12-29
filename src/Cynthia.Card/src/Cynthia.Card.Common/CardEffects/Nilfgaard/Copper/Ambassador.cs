@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             var result = await Game.GetSelectPlaceCards(Card, isEnemySwitch: true, selectMode: SelectModeType.EnemyRow);
             if (result.Count() == 0) return 0;
-            await result.Single().Effect.Boost(14, Card);
+            await result.Single().Effect.Boost(12, Card);
             return 0;
         }
     }

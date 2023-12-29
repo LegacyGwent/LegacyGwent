@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public LyrianScytheman(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var deck_list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit)//乱序列出所有单位
+            var deck_list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit && x.Status.Group == Group.Copper)//乱序列出所有单位
                 .Mess(Game.RNG)
                 .ToList();
             if (deck_list.Count() == 0)
@@ -28,7 +28,7 @@ namespace Cynthia.Card
         
             foreach (var card in cards)
             {
-                await card.Effect.Boost(4, Card);
+                await card.Effect.Boost(3, Card);
             }
             return 0;
         }
