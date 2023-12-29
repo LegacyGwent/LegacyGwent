@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public class ‎MoonDust : CardEffect,IHandlesEvent<BeforeSpecialPlay>, IHandlesEvent<BeforePlayStayCard>
     {//摧毁1个战力不高于5的敌军单位，己方打出谋略牌时，复活并放逐1张同名牌
 
-        public BasiliskVenom(GameCard card) : base(card) { }
+        public MoonDust(GameCard card) : base(card) { }
         private GameCard _discardSource = null;
         private int _resurrectCount = 0;
         private int _PlayCount = 0;
