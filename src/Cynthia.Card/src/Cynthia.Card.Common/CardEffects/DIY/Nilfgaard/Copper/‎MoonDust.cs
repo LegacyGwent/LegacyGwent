@@ -5,10 +5,9 @@ using System;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70128")]//月之尘炸弹 ‎MoonDust
-    public class ‎MoonDust : CardEffect,IHandlesEvent<BeforeSpecialPlay>, IHandlesEvent<BeforePlayStayCard>
+    [CardEffectId("70128")]//月之尘炸弹 MoonDust 
+    public class MoonDust : CardEffect,IHandlesEvent<BeforeSpecialPlay>, IHandlesEvent<BeforePlayStayCard>
     {//摧毁1个战力不高于5的敌军单位，己方打出谋略牌时，复活并放逐1张同名牌
-
         public MoonDust(GameCard card) : base(card) { }
         private GameCard _discardSource = null;
         private int _resurrectCount = 0;
@@ -38,7 +37,6 @@ namespace Cynthia.Card
                 await Card.Effect.Resurrect(CardLocation.MyStayFirst, Card);
                 _resurrectCount++;
                 _discardSource = Card;
-                //await Game.CreateCard(CardId.BasiliskVenom, PlayerIndex,  new CardLocation(RowPosition.MyStay, 0), x => x.IsDoomed = true);
             }
             return;
         }
