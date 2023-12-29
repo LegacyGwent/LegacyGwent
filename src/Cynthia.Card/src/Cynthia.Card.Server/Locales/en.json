@@ -3053,7 +3053,7 @@
         },
         "70022": {
             "Name": "Kikimore Worker",
-            "Info": "Deploy: Choose an Insectoid ally.\nBoost that unit and all copies of it in hand, deck and on the board by 2.",
+            "Info": "Deploy: Booat all Insectoid allies on its row by 2.",
             "Flavor": ""
         },
         "70023": {
@@ -3333,7 +3333,7 @@
         },
         "70118": {
             "Name": "Lyrian Scytheman",
-            "Info": "Deploy: Boost a unit in your deck by 4.",
+            "Info": "Deploy: Boost a Bronze unit in your deck by 3.",
             "Flavor": ""
         },
         "70119": {
@@ -3481,7 +3481,21 @@
             "Name": "MoonDust",
             "Info": "Destroy a enemy with 5 Power or less,whenever you play a Tactics card,Resurrect self and banish. ",
             "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
-        }	        
-    }
+        },
+        "70129": {
+            "Name": "NaturalSelection",
+            "Info": "Spawn 2 Arachas Hatchling on a raw,for each 1 copy in your graveyard repeat once more.",
+            "Flavor": "适者生存。所以你得被淘汰。"
+        },
+        "70130": {
+            "Name": "Mantlet",
+            "Info": "if no copy in your deck,add a default copy of self to your deck.Crewed: gain 4 Armor.",
+            "Flavor": "类似于盾牌和栅栏的杂交品种。"
+        },
+        "70131": {
+            "Name": "CountCaldwell",
+            "Info": "swap 2 enemy unit's Strength.",
+            "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
+        }
     }
 }
