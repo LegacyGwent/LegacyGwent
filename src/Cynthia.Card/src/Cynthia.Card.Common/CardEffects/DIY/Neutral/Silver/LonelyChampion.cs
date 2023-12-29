@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70120")]//孤独的勇士 LonelyChampion
+    [CardEffectId("70133")]//孤独的勇士 LonelyChampion
     public class LonelyChampion : CardEffect, IHandlesEvent<AfterTurnOver>
     {//回合结束时，若场上没有其它友军单位则获得4点增益。
         public LonelyChampion(GameCard card) : base(card) { }
