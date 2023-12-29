@@ -11031,7 +11031,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70022",
                     Name = "齐齐摩工兵",
-                    Strength = 5,
+                    Strength = 6,
                     Group = Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11041,7 +11041,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "",
-                    Info = "选择1个“类虫生物”单位，使其在手牌、牌组或己方半场所有同名牌获得2点增益。",
+                    Info = "使同排其它友军类虫生物单位获得2点增益。",
                     CardArtsId = "d19140000",
                 }
             },
@@ -11454,8 +11454,8 @@ namespace Cynthia.Card
                 {
                     CardId ="70062",
                     Name="活体盔甲",
-                    Strength=13,
-                    Group = Group.Gold,
+                    Strength=11,
+                    Group = Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -11971,7 +11971,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "",
-                    Info = "使牌组1个单位获得4点增益。",
+                    Info = "使牌组中的1个铜色单位牌获得3点增益。",
                     CardArtsId = "d14810000",
                 }
             },
@@ -13280,6 +13280,66 @@ namespace Cynthia.Card
                     Flavor = "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。",
                     Info = "摧毁1个战力不高于5的敌军单位，己方打出谋略牌时，复活并放逐1张同名牌。",
                     CardArtsId = "d16920000",
+                }
+            },
+            {
+                "70129",//物竞天择 NaturalSelection
+                new GwentCard()
+                {
+                    CardId ="70129",
+                    Name="物竞天择",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
+                    Flavor = "适者生存。所以你得被淘汰。",
+                    Info = "生成2个“蟹蜘蛛幼虫”，墓地中每有1张同名牌额外生成1个。",
+                    CardArtsId = "d19540000",
+                }
+            },
+            {
+                "70130",//防盾 Mantlet
+                new GwentCard()
+                {
+                    CardId ="70130",
+                    Name="防盾",
+                    Strength=10,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = true,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Machine},
+                    Flavor = "类似于盾牌和栅栏的杂交品种。",
+                    Info = "若牌组没有同名牌则添加一张，操控：获得4点护甲。",
+                    CardArtsId = "d15560000",
+                }
+            },
+            {
+                "70131",//考德威尔伯爵 CountCaldwell
+                new GwentCard()
+                {
+                    CardId ="70131",
+                    Name="考德威尔伯爵",
+                    Strength=10,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ },
+                    Flavor = "陛下……女王去向百姓问话。这，不妥呀。",
+                    Info = "交换2个敌军单位的基础战力。",
+                    CardArtsId = "d14800000",
                 }
             },
         };
