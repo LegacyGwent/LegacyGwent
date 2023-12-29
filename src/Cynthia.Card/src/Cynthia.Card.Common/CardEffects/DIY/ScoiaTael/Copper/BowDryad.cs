@@ -10,8 +10,8 @@ namespace Cynthia.Card
         public BowDryad(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow));
-            if(result.Count!=0)
+            var result = (await Game.GetSelectPlaceCards(Card,filter: x => x.PlayerIndex != Card.PlayerIndex && x.Status.Strength <= Card.Status.Strength));
+            if(result.Count() != 0)
             {
                 if(result.Single().Status.Strength <= Card.Status.Strength)
                 {
