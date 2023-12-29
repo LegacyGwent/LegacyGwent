@@ -29,8 +29,6 @@ namespace Cynthia.Card
                 
             }
             return 0;
-            
         }
-
     }
 }
