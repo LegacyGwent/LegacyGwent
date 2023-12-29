@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var switchCard = await Card.GetMenuSwitch(("", "打出1张与自身战力相同的银色/铜色泰莫利亚牌。。"), ("", "摧毁1个背面向上的伏击敌军单位。"));
             if (switchCard == 0)
             {
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Temeria) && x.CardPoint() == Card.CardPoint() &&
+                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Temeria) && x.CardPoint() <= Card.CardPoint() &&
                        (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper)).Mess(Game.RNG).ToList();
 
                 if (list.Count() == 0)
