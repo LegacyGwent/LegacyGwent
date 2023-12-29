@@ -13028,7 +13028,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098",
                     Name="斯瓦勃洛",
-                    Strength=8,
+                    Strength=9,
                     Group=Group.Leader,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13048,7 +13048,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70100",
                     Name="林语者",
-                    Strength=5,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13336,7 +13336,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{Categorie.Cintra },
                     Flavor = "陛下……女王去向百姓问话。这，不妥呀。",
                     Info = "交换2个敌军单位的基础战力。",
                     CardArtsId = "d14800000",
