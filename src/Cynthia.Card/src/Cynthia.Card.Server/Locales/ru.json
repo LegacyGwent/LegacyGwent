@@ -3421,12 +3421,12 @@
             "Info": "Lock self,On turn end,Boost a random ally by 2.",
             "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
         },
-        "70102": {
+        "70132": {
             "Name": "Garkain",
             "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it.。",
             "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
         },
-        "70120": {
+        "70133": {
             "Name": "LonelyChampion",
             "Info": "On turn end,if no other ally on the place,Boost self by 4.",
             "Flavor": "只要他继续为正义而战，骑士团和烈焰就永不熄灭。"
