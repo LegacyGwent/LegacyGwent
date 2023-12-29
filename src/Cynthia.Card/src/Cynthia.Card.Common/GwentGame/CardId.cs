@@ -600,6 +600,9 @@ namespace Cynthia.Card
         public const string CintrianRoyalGuard = "70126";
         public const string VanMoorlehemServant = "70127";
         public const string MoonDust = "70128";
+        public const string NaturalSelection = "70129";
+        public const string Mantlet = "70130";
+        public const string CountCaldwell = "70131";
         public const string AuberonKing = "80001";
         public const string AuberonInvader = "80002";
         public const string AuberonConqueror = "80003";
