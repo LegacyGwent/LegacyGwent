@@ -13068,7 +13068,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70101",
                     Name="不朽者骑兵",
-                    Strength=10,
+                    Strength=11,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
