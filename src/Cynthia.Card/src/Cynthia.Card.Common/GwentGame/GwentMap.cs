@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 89);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 91);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12739,7 +12739,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "史凯利格容不下罪犯和无赖……他们的罪行必须偿还。",
                     Info = "对1个敌军单位造成4点伤害，若位于灾厄下则改为造成8点伤害。",
-                    CardArtsId = "c10001000",
+                    CardArtsId = "d15900000",
                 }
             },
                         {
@@ -13026,9 +13026,9 @@ namespace Cynthia.Card
                 "70099",//斯瓦勃洛 Svalblod
                 new GwentCard()
                 {
-                    CardId ="70098",
+                    CardId ="70099",
                     Name="斯瓦勃洛",
-                    Strength=9,
+                    Strength=11,
                     Group=Group.Leader,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13036,7 +13036,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Beast},
+                    Categories = new Categorie[]{ Categorie.Leader,Categorie.Beast},
                     Flavor = "斯瓦勃洛唯一的戒律：屠戮。",
                     Info = "对牌组中的所有单位牌造成2点伤害，随后使其获得2点强化。",
                     CardArtsId = "d16650000",
@@ -13068,7 +13068,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70101",
                     Name="不朽者骑兵",
-                    Strength=11,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13078,7 +13078,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cursed,Categorie.Soldier},
                     Flavor = "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。",
-                    Info = "锁定自身，回合结束时使1个随机友军单位获得2点增益。",
+                    Info = "对局开始时，锁定自身。使己方下一张打出的单位牌获得2点增益。",
                     CardArtsId = "d20250000",
                 }
             },
@@ -13136,9 +13136,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.ClanAnCraite},
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey},
                     Flavor = "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。",
-                    Info = "使对方场上的“倾盆大雨”伤害提升1点，若自身受伤则额外提升1点。",
+                    Info = "使对方场上的“倾盆大雨”伤害提升1点。",
                     CardArtsId = "c10001000",
                 }
             },
@@ -13208,7 +13208,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70125",
                     Name="巴纳巴斯·贝肯鲍尔",
-                    Strength=6,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13216,7 +13216,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！",
                     Info = "使1个其它友军单位获得2点增益，墓地中每有1种铜色道具牌便重复1次。",
                     CardArtsId = "d15760000",
@@ -13228,7 +13228,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70126",
                     Name="辛特拉皇家护卫",
-                    Strength=8,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13256,7 +13256,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "据说她在莫拉汉姆家干了三十年，一点都不见老……",
                     Info = "对方手牌中每有1张金色牌则获得2点增益。",
                     CardArtsId = "d19790000",
@@ -13278,7 +13278,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。",
-                    Info = "摧毁1个战力不高于5的敌军单位，己方打出谋略牌时，复活并放逐1张同名牌。",
+                    Info = "摧毁1个战力不高于6的敌军单位，己方打出谋略牌时，复活并放逐自身。",
                     CardArtsId = "d16920000",
                 }
             },
@@ -13318,7 +13318,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "类似于盾牌和栅栏的杂交品种。",
-                    Info = "若牌组没有同名牌则添加一张，操控：获得4点护甲。",
+                    Info = "若牌组没有同名牌则添加一张，操控：获得6点护甲。",
                     CardArtsId = "d15560000",
                 }
             },
@@ -13336,7 +13336,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Cintra },
+                    Categories = new Categorie[]{ Categorie.Lyria},
                     Flavor = "陛下……女王去向百姓问话。这，不妥呀。",
                     Info = "交换2个敌军单位的基础战力。",
                     CardArtsId = "d14800000",
