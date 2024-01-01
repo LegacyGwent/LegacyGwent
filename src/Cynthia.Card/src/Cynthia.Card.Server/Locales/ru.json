@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Роше: беспощадный",
-            "Info": "Choose One: Play 1 silver/copper Temoria card with a lower battle strength than your own; or destroy 1 back-up ambush enemy unit.",
+            "Info": "Deploy: Choose one：Play 1 silver/copper Temoria card with less power then self；or destroy 1 back-up ambush enemy unit. ",
             "Flavor": "ж€‘д»¬е†…еїѓд»ЋдёЌз•Џжѓ§гЂ‚дёЌиї‡пјЊеЂ’жЇжњ‰дёЂдёЄдєєз±»вЂ¦вЂ¦еј—е†њВ·зЅ—еҐ‘гЂ‚еЌѓдё‡и¦ЃеЅ“еїѓд»–гЂ‚"
         },
         "42008": {
@@ -2923,7 +2923,7 @@
         },
         "70022": {
             "Name": "Кикимора рабочий",
-            "Info": "Booat all Insectoid allies on its row by 2.",
+            "Info": "Deploy: Boost all Insectoid allies on the same row by 2.",
             "Flavor": ""
         },
         "70023": {
@@ -3168,7 +3168,7 @@
         },
         "70112": {
             "Name": "Первобытная дикость",
-            "Info": "Deal 3 Damage to an ally, then play a Bronze Cultist from your deck.",
+            "Info": "Deal 3 Damage to an ally, then play a Bronze Cultist card from your deck.",
             "Flavor": ""
         },
         "70113": {
@@ -3193,7 +3193,7 @@
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Summon this unit whenever you play your Leader.On turn end, Boost ally as your own by 1 with the same as this unit's Power.",
+            "Info": "Summon this unit when ever you play the Leader.On turn end, boost all allies with the same power as self by 1.",
             "Flavor": ""
         },
         "70118": {
@@ -3393,7 +3393,7 @@
         },
         "70096": {
             "Name": "Военный корабль Туирсих",
-            "Info": "On turn end,deal 1 Damage to a random enemy with Damaged.",
+            "Info": "Every turn, on turn end, deal 1 Damage to a random undamaged enemy unit.  ",
             "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
         },
         "70097": {
@@ -3403,87 +3403,87 @@
         },
         "70098": {
             "Name": "Диверсант «Врихедд»",
-            "Info": "Play a random Bronze Item from your deck,if If the number of cards in your deck is lower than your Power,then change to Resurrect a Bronze Item.",
+            "Info": "Play a random Bronze Item from your deck. If the number of cards in your deck is lower than the power of this unit, Resurrect a bronze item instead.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damage all allies in deck by 2,and Strengthen by 2.",
+            "Info": "Damege all units in your deck by 2, then Strength them by 2",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。"
         },
         "70100": {
-            "Name": "ForestWhisperer",
-            "Info": "Damage all units on the row by 2.Except for Dryad.",
+            "Name": "Forest Whisperer",
+            "Info": "Damage all units on the same row of both sides by 2, except for Dryads.",
             "Flavor": "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。"
         },
         "70101": {
-            "Name": "ImmortalCavalry",
-            "Info": "Lock self,On turn end,Boost a random ally by 2.",
+            "Name": "Immortal Cavalry",
+            "Info": "At the start of the game,lock self.Next an ally appears Boost it by 2.",
             "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it.。",
+            "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it instead.",
             "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
         },
         "70133": {
-            "Name": "LonelyChampion",
-            "Info": "On turn end,if no other ally on the place,Boost self by 4.",
+            "Name": "Lonely Champion",
+            "Info": "Every turn, on turn end, if no other units on your side of the board, boost self by 4.",
             "Flavor": "只要他继续为正义而战，骑士团和烈焰就永不熄灭。"
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1,if Damaged,Increase 1 again.",
+            "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1.",
             "Flavor": "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。"
         },
         "70122": {
-            "Name": "DryadMatron",
-            "Info": "Boost a random Lowest unit in your deck by 2,if it was Dryad,Strength 2.",
+            "Name": "Dryad Matron",
+            "Info": "Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
             "Flavor": "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……"
         },
         "70123": {
-            "Name": "BattlePreparation",
-            "Info": "Play a Bronze soilder card from your hand and Boost it by 2,that draw a card.",
+            "Name": "Battle Preparation",
+            "Info": "Play a Bronze soilder unit from your hand and Boost it by 2,and then draw a card.",
             "Flavor": "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。"
         },
         "70124": {
-            "Name": "WoodlandProwlers",
-            "Info": "Weaken a enemy by 1,if the enemy is under Impenetrable Fog,Weaken by 3.",
+            "Name": "Woodland Prowlers",
+            "Info": "Weaken a enemy by 1,If it's under Impenetrable Fog,Weaken by 3.",
             "Flavor": "进入森林的人类最不想见到……"
         },
         "70125": {
-            "Name": "BarnabasBeckenbauer",
-            "Info": "Boost a other ally by 2,each type Bronze Item card in your gravetard repeat once more.",
+            "Name": "Barnabas Beckenbauer",
+            "Info": "Boost another ally unit by 2. For each bronze item in your grave yard, repeat once.",
             "Flavor": "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！"
         },
         "70126": {
-            "Name": "CintrianRoyalGuard",
-            "Info": "if you are losing,Boost all copies of this unit by 3.",
+            "Name": "Cintrian Royal Guard",
+            "Info": "If your total power is less then the opponent's, boost all copies of this unit by 3.",
             "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
         },
         "70127": {
-            "Name": "VanMoorlehemServant",
-            "Info": "Boost self by 2 for each Gold from opponent's hand.",
+            "Name": "VanMoorlehem Servant",
+            "Info": "Boost self by 2 for each Gold in opponent's hand.",
             "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
         },
         "70128": {
-            "Name": "MoonDust",
-            "Info": "Destroy a enemy with 5 Power or less,whenever you play a Tactics card,Resurrect self and banish. ",
+            "Name": "Moon Dust",
+            "Info": "Destroy an enemy with 6 Power or less,When ever you play a Tactic card, resurrect self and then get banished. ",
             "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
         },
         "70129": {
-            "Name": "NaturalSelection",
-            "Info": "Spawn 2 Arachas Hatchling on a raw,for each 1 copy in your graveyard repeat once more.",
+            "Name": "Natural Selection",
+            "Info": "Spawn 2 Arachas Hatchling on a raw, For each copy of this card in your graveyard,spawn an extra one.",
             "Flavor": "适者生存。所以你得被淘汰。"
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "if no copy in your deck,add a default copy of self to your deck.Crewed: gain 4 Armor.",
+            "Info": "If there is no copy of this unit in your deck, add a default copy of self in it. Crewed: gain 6 Armor.",
             "Flavor": "类似于盾牌和栅栏的杂交品种。"
         },
         "70131": {
-            "Name": "CountCaldwell",
-            "Info": "swap 2 enemy unit's Strength.",
+            "Name": "Count Caldwell",
+            "Info": "Swap the Strength of 2 enemy units.",
             "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
         }
     }
