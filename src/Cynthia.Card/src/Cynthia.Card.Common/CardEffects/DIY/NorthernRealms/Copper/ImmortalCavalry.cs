@@ -7,29 +7,47 @@ namespace Cynthia.Card
 {
     [CardEffectId("70101")]//不朽者骑兵 ImmortalCavalry
     public class ImmortalCavalry : CardEffect, IHandlesEvent<AfterTurnOver>
-    {//锁定自身，回合结束时使1个随机友军单位获得2点增益。
+    public class ImmortalCavalry : CardEffect, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterTurnStart>, IHandlesEvent<OnGameStart>
+    {//对局开始时锁定自身，己方打出下一张单位牌时，使其获得2点增益。
         public ImmortalCavalry(GameCard card) : base(card){}
+        
+        private bool isUse = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.Lock(Card);
+            await Card.Effect.SetCountdown(1);
             return 0;
         }
-
-        public async Task HandleEvent(AfterTurnOver @event)
+        public async Task HandleEvent(OnGameStart @event)
         {
-            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            if (Card.Status.CardRow.IsInDeck() && Card.Status.IsLock == false)
+            {
+                await Card.Effect.Lock(Card);
+            }
+            return;
+        }
+
+        public async Task HandleEvent(AfterTurnStart @event)
+        {
+            if (@event.PlayerIndex == PlayerIndex && Card.IsAliveOnPlance() && isUse == false)
+            {
+                isUse = true;
+            }
+            await Task.CompletedTask;
+        }
+
+        public async Task HandleEvent(AfterUnitDown @event)
+        {
+            if (@event.Target.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace() ||Card.Effect.Countdown != 1)
             {
                 return;
             }
-            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).Mess(RNG).Take(1).ToList();
-            foreach (var card in cards)
+
+            if (isUse == true)
             {
-                if (card.Status.CardRow.IsOnPlace())
-                    await card.Effect.Boost(2, Card);
+                await @event.Target.Effect.Boost(2, Card);
+                await SetCountdown(offset: -1);
             }
             return;
-
-            
         }
     }
 }
