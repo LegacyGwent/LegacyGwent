@@ -14,7 +14,7 @@ namespace Cynthia.Card
             {
                 if (Card.CardPoint() > Game.PlayersHandCard[Card.PlayerIndex].Count())
                 {
-                    await Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
+                    await Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                 }
             }
         }
