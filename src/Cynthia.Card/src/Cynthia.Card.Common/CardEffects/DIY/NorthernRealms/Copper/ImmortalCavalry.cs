@@ -6,7 +6,6 @@ using System;
 namespace Cynthia.Card
 {
     [CardEffectId("70101")]//不朽者骑兵 ImmortalCavalry
-    public class ImmortalCavalry : CardEffect, IHandlesEvent<AfterTurnOver>
     public class ImmortalCavalry : CardEffect, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterTurnStart>, IHandlesEvent<OnGameStart>
     {//对局开始时锁定自身，己方打出下一张单位牌时，使其获得2点增益。
         public ImmortalCavalry(GameCard card) : base(card){}
