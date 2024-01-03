@@ -3243,7 +3243,7 @@
         },
         "70092": {
             "Name": "SvalblodBrawler",
-            "Info": "Deploy: Damage an enemy by 4,if under a Hazard,deal 8 Damage instead.",
+            "Info": "Deploy: Damage an enemy by 4,if it is under a Hazard,deal 8 Damage instead.",
             "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
         "70093": {
