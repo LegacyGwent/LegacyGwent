@@ -32,13 +32,21 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(BeforeSpecialPlay @event)
         {
-            if (@event.Target.PlayerIndex == Card.PlayerIndex && @event.Target.Status.Group == Group.Copper && @event.Target.CardInfo().Categories.Contains(Categorie.Tactic) && Card.Status.CardRow.IsInCemetery())
+            if (@event.Target.PlayerIndex == Card.PlayerIndex && @event.Target.CardInfo().Categories.Contains(Categorie.Tactic) && Card.Status.CardRow.IsInCemetery())
             {
-                await Card.Effect.Resurrect(CardLocation.MyStayFirst, Card);
-                _resurrectCount++;
-                _discardSource = Card;
+                var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
+                if (list.Count() == 0)
+                {
+                    return;
+                }
+                if (Card == list.Last())
+                {   
+                    await Card.Effect.Resurrect(CardLocation.MyStayFirst, Card);
+                    _resurrectCount++;
+                    _discardSource = list.Last();
+                }
+                return;
             }
-            return;
         }
 
         public async Task HandleEvent(BeforePlayStayCard @event)
