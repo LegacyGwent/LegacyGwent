@@ -3108,7 +3108,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Damage an enemy by 4,if under a Hazard,deal 8 Damage instead.",
+            "Info": "Damage an enemy by 4,if it is under a Hazard,deal 8 Damage instead.",
             "Flavor": "В искусстве пения с сиренами не сравнится ни один человек. И все же некоторым хватает таланта, чтоб заставить сирен слушать."
         },
         "70093": {
