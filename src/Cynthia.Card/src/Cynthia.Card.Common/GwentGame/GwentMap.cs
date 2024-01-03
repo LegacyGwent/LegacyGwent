@@ -12738,7 +12738,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "史凯利格容不下罪犯和无赖……他们的罪行必须偿还。",
-                    Info = "对1个敌军单位造成4点伤害，若位于灾厄下则改为造成8点伤害。",
+                    Info = "对1个敌军单位造成4点伤害，若自身位于灾厄下则改为造成8点伤害。",
                     CardArtsId = "d15900000",
                 }
             },
