@@ -3198,7 +3198,7 @@
           },
           "70092": {
               "Name": "SvalblodBrawler",
-              "Info": "Damage an enemy by 4,if under a Hazard,deal 8 Damage instead.",
+              "Info": "Damage an enemy by 4,if it is under a Hazard,deal 8 Damage instead.",
               "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
           },
           "70093": {
