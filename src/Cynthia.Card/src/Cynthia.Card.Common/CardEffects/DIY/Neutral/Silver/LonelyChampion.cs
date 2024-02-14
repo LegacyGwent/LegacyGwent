@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterTurnOver @event)
         {
             var targets = Game.GetPlaceCards(PlayerIndex).Where(x => x != Card).ToList();
-            if (@event.PlayerIndex == PlayerIndex && targets.Count() == 0)
+            if (@event.PlayerIndex == PlayerIndex && targets.Count() == 0 && Card.Status.CardRow.IsOnPlace())
             {
                 await Card.Effect.Boost(4, Card);
             }
