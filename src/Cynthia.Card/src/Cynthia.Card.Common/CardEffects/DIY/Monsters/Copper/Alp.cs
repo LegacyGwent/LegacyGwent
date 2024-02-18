@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("80033")] //吸血鬼女 Alp
+    [CardEffectId("70148")] //吸血鬼女 Alp
     public class Alp : CardEffect, IHandlesEvent<AfterTurnOver>
     {
         public Alp(GameCard card) : base(card){}
