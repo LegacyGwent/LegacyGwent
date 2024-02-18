@@ -628,7 +628,7 @@ namespace Cynthia.Card
         public const string IrisShade = "70154";
         public const string IsbelofHagge = "70155";
         public const string PiercingMissile = "70156";
-        public const string wisteria = "70157";
+        public const string Wisteria = "70157";
         public const string AuberonKing = "80001";
         public const string AuberonInvader = "80002";
         public const string AuberonConqueror = "80003";
