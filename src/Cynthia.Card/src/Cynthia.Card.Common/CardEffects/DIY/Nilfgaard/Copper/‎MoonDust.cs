@@ -6,58 +6,24 @@ using System;
 namespace Cynthia.Card
 {
     [CardEffectId("70128")]//月之尘炸弹 MoonDust 
-    public class MoonDust : CardEffect,IHandlesEvent<BeforeSpecialPlay>, IHandlesEvent<BeforePlayStayCard>
-    {//摧毁1个战力不高于5的敌军单位，己方打出谋略牌时，复活并放逐1张同名牌
+    public class MoonDust : CardEffect
+    {//
         public MoonDust(GameCard card) : base(card) { }
-        private GameCard _discardSource = null;
-        private int _resurrectCount = 0;
-        private int _PlayCount = 0;
-
         public override async Task<int> CardUseEffect()
         {
-            var result = (await Game.GetSelectPlaceCards(Card,selectMode:SelectModeType.EnemyRow, filter: x => x.CardPoint() < 6));
-            if(result.Count() != 0)
+            var result = await Game.GetSelectPlaceCards(Card);
+			if(result.Count<=0) return 0;
+			await result.Single().Effect.Damage(6,Card);
+            for (var i = 0; i < 4; i++)
             {
-                await result.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
-            }
-            
-            if (_PlayCount == 1)
-            {
-                Card.Status.IsDoomed = true;
-            }
-            _PlayCount++;
-            
-            return 0;
-        }
-
-        public async Task HandleEvent(BeforeSpecialPlay @event)
-        {
-            if (@event.Target.PlayerIndex == Card.PlayerIndex && @event.Target.CardInfo().Categories.Contains(Categorie.Tactic) && Card.Status.CardRow.IsInCemetery())
-            {
-                var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
-                if (list.Count() == 0)
+                if (!Game.GetPlaceCards(AnotherPlayer).TryMessOne(out var target, Game.RNG))
                 {
-                    return;
+                    break;
                 }
-                if (Card == list.Last())
-                {   
-                    await Card.Effect.Resurrect(CardLocation.MyStayFirst, Card);
-                    _resurrectCount++;
-                    _discardSource = list.Last();
-                }
-                return;
+                await target.Effect.Damage(1, Card);
             }
-        }
-
-        public async Task HandleEvent(BeforePlayStayCard @event)
-        {
-            if (_discardSource == Card && _discardSource != null)
-            {
-                @event.PlayCount += _resurrectCount;
-                _discardSource = null;
-                _resurrectCount = 0;
-            }
-            await Task.CompletedTask;
+			return 0;
         }
     }
 }
+
