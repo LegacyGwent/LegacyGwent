@@ -43,7 +43,7 @@ namespace Cynthia.Card
 
             if (isUse == true)
             {
-                await @event.Target.Effect.Boost(2, Card);
+                await @event.Target.Effect.Boost(3, Card);
                 await SetCountdown(offset: -1);
             }
             return;
