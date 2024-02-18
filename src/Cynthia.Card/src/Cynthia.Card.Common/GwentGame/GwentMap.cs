@@ -11628,7 +11628,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier, Categorie.Dryad },
                     Flavor = "菲斯奈特留了下来，最后与布蕾恩成婚。",
-                    Info = "随机打出1张铜色士兵牌，若牌组数量低于自身战力，则改为打出1张铜色牌。",
+                    Info = "随机打出1张铜色士兵牌，若牌组剩余牌数量低于自身战力，则改为打出1张铜色牌。",
                     CardArtsId = "d22100000",
                 }
             },
