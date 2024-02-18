@@ -10,7 +10,6 @@ namespace Cynthia.Card
         public YarpenZigrin(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.Armor(1, Card);
             await Card.Effect.Resilience(Card);
             return 0;
         }
