@@ -13083,7 +13083,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70132",//蝠翼脑魔 Garkain
+                "70102",//蝠翼脑魔 Garkain
                 new GwentCard()
                 {
                     CardId ="70132",
@@ -13103,7 +13103,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70133",//孤独的勇士 LonelyChampion
+                "70120",//孤独的勇士 LonelyChampion
                 new GwentCard()
                 {
                     CardId ="70133",
