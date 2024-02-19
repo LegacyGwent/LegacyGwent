@@ -13438,7 +13438,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
-                    Info = "遗愿：随机对1个敌军单位造成4点伤害。",
+                    Info = "遗愿：随机对1个敌军单位造成3点伤害。",
                     CardArtsId = "d20430000",
                 }
             },
