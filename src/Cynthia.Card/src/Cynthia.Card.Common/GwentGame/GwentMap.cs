@@ -9768,7 +9768,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanDimun},
                     Flavor = "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。",
-                    Info = "将最多2个铜色单位从己方墓场放回牌组。",
+                    Info = "将1个铜色单位从己方墓场放回牌组。",
                     CardArtsId = "20014600",
                 }
             },
@@ -11628,7 +11628,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier, Categorie.Dryad },
                     Flavor = "菲斯奈特留了下来，最后与布蕾恩成婚。",
-                    Info = "随机打出1张铜色士兵牌，若牌组剩余牌数量低于自身战力，则改为打出1张铜色牌。",
+                    Info = "选择1个单位，使其战力与自身相同。",
                     CardArtsId = "d22100000",
                 }
             },
@@ -13007,7 +13007,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098",
                     Name="维里赫德旅破坏者",
-                    Strength=2,
+                    Strength=1,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13658,7 +13658,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Vampire},
                     Flavor = "一只构成不了什么威胁。要是有一群？那就很要命了。",
-                    Info = "友军吸血鬼单位摧毁单位时召唤一个同名牌。友军单位汲取时，汲取相同目标1点战力。",
+                    Info = "友军吸血鬼单位摧毁单位时召唤一个同名牌。友军非同名单位汲取时，汲取相同目标1点战力。",
                     CardArtsId = "d16600000",
                 }
             },
@@ -13798,7 +13798,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "和欧吉尔德的婚约犹如一场美梦……",
-                    Info = "向双方手牌中添加两张爱丽丝的伙伴。",
+                    Info = "休战：向双方手牌中添加两张爱丽丝的伙伴。",
                     CardArtsId = "d17420000",
                 }
             },
@@ -13860,6 +13860,26 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "选择2个单位，若为偶数使其获得6点增益，若为奇数对其造成6点伤害。",
                     CardArtsId = "d22120000",
+                }
+            },
+            {
+                "70158",//波维斯的柯恩 CoënofPoviss
+                new GwentCard()
+                {
+                    CardId ="80053",
+                    Name="波维斯的柯恩",
+                    Strength=7,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "",
+                    Info = "对1个敌军单位造成3点伤害，直至其战力低于自身。",
+                    CardArtsId = "c10000800",
                 }
             },
         };
