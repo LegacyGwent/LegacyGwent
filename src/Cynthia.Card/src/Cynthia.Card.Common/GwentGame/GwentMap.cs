@@ -10901,7 +10901,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dryad},
                     Flavor = "",
-                    Info = "己方回合结束时，如果对手同排单位数量正好为4个，则对对方同排所有单位造成1点伤害。",
+                    Info = "回合结束时，若同排敌军单位数量为4，则对同排所有敌军单位造成1点伤害。",
                     CardArtsId = "d14380000",
                 }
             },
@@ -13578,7 +13578,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra,Categorie.Soldier},
                     Flavor = "丧钟为谁鸣？",
-                    Info = "己方打出辛特拉单位时，使自身与打出的辛特拉单位获得1点增益与1点护甲。",
+                    Info = "己方打出辛特拉单位时，使自身与打出的辛特拉单位获得1点增益。",
                     CardArtsId = "d17130000",
                 }
             },
