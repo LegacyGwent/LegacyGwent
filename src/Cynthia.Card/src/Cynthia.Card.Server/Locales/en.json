@@ -3403,7 +3403,7 @@
         },
         "70096": {
             "Name": "Tuirseach Warship",
-            "Info": "On turn end, deal [1→2] Damages to a random undamaged unit.",
+            "Info": "On turn end, deal 2 Damages to a random undamaged unit.",
             "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
         },
         "70097": {
@@ -3413,7 +3413,7 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Play 2 random Items from your deck. Increase their Damages by 1 each.",
+            "Info": "Play a random Items from your deck. Increase their Damages by 1 each.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
