@@ -8,10 +8,11 @@ namespace Cynthia.Card
     [CardEffectId("70158")]//柯恩 CoënofPoviss
     public class CoënofPoviss : CardEffect
     {//对战力高于自身的单位造成4点伤害。
-        public Coën(GameCard card) : base(card) { }
+        public CoënofPoviss(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
