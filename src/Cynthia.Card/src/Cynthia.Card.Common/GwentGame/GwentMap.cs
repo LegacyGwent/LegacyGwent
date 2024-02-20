@@ -13086,7 +13086,7 @@ namespace Cynthia.Card
                 "70102",//蝠翼脑魔 Garkain
                 new GwentCard()
                 {
-                    CardId ="70132",
+                    CardId ="70102",
                     Name="蝠翼脑魔",
                     Strength=5,
                     Group=Group.Copper,
@@ -13106,7 +13106,7 @@ namespace Cynthia.Card
                 "70120",//孤独的勇士 LonelyChampion
                 new GwentCard()
                 {
-                    CardId ="70133",
+                    CardId ="70120",
                     Name="孤独的勇士",
                     Strength=9,
                     Group=Group.Silver,
