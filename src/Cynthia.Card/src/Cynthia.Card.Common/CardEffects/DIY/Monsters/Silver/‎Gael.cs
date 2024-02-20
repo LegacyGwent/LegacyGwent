@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public Gael(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-           var targets = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.AllRow);
+           var targets = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.EnemyRow);
             if (targets.Count() == 0)
             {
                 return 0;
