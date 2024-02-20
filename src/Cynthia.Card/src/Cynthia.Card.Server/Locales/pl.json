@@ -3603,7 +3603,7 @@
         },
         "70153": {
             "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If there are Gold strategy cards in your hand, make the unit Doomed.",
+            "Info": "Damage an enemy unit by 3. If there are Gold tactic cards in your hand, make the unit Doomed.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
         "70154": {
@@ -3623,7 +3623,7 @@
         },
         "70157": {
             "Name": "Wisteria",
-            "Info": "Choose two units，Boost it by 6 if the unit's Power is even，Damage it by 6 if the unit's Power is odd.",
+            "Info": "Choose two units，for each，Boost it by 6 if the unit's Power is even，Damage it by 6 if the unit's Power is odd.",
             "Flavor": "紫藤通过汲取尸体的营养而成长。"
         },
         "70158": {
