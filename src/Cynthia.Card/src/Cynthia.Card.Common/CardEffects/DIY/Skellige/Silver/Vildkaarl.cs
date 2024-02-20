@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70133")]//维尔卡战士 Vildkaarl
+    [CardEffectId("70120")]//维尔卡战士 Vildkaarl
     public class Vildkaarl : CardEffect
     {//
         public Vildkaarl(GameCard card) : base(card) { }
