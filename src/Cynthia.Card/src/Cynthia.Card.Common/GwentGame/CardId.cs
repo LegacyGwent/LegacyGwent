@@ -573,7 +573,7 @@ namespace Cynthia.Card
         public const string Svalblod = "70099";
         public const string ForestWhisperer = "70100";
         public const string ImmortalCavalry = "70101";
-        public const string Crowmother = "70102";
+        public const string DetlaffCrimsonCurse = "70102";
         public const string ArtoriusVigo = "70103";
         public const string LyrianLandsknecht = "70104";
         public const string FreixenetAndBraine = "70105";
@@ -591,7 +591,6 @@ namespace Cynthia.Card
         public const string Fauve = "70117";
         public const string LyrianScytheman = "70118";
         public const string Thaw = "70119";
-        public const string Vildkaarl = "70120";
         public const string Otkell = "70121";
         public const string DryadMatron = "70122";
         public const string BattlePreparation = "70123";
@@ -630,6 +629,8 @@ namespace Cynthia.Card
         public const string PiercingMissile = "70156";
         public const string Wisteria = "70157";
         public const string CoënofPoviss = "70158";
+        public const string Crowmother = "70159";
+        public const string Vildkaarl = "70160";
         public const string AuberonKing = "80001";
         public const string AuberonInvader = "80002";
         public const string AuberonConqueror = "80003";
