@@ -573,7 +573,7 @@ namespace Cynthia.Card
         public const string Svalblod = "70099";
         public const string ForestWhisperer = "70100";
         public const string ImmortalCavalry = "70101";
-        public const string Garkain = "70102";
+        public const string Crowmother = "70102";
         public const string ArtoriusVigo = "70103";
         public const string LyrianLandsknecht = "70104";
         public const string FreixenetAndBraine = "70105";
@@ -591,7 +591,7 @@ namespace Cynthia.Card
         public const string Fauve = "70117";
         public const string LyrianScytheman = "70118";
         public const string Thaw = "70119";
-        public const string LonelyChampion = "70120";
+        public const string Vildkaarl = "70120";
         public const string Otkell = "70121";
         public const string DryadMatron = "70122";
         public const string BattlePreparation = "70123";
@@ -603,8 +603,8 @@ namespace Cynthia.Card
         public const string NaturalSelection = "70129";
         public const string Mantlet = "70130";
         public const string CountCaldwell = "70131";
-        public const string Crowmother = "70132";
-        public const string Vildkaarl = "70133";
+        public const string Garkain = "70132";
+        public const string LonelyChampion = "70133";
         public const string CrowClanDruid = "70134";
         public const string SvalblodPriest = "70135";
         public const string Crow = "70136";
