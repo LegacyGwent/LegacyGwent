@@ -13083,10 +13083,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70102",//蝠翼脑魔 Garkain
+                "70132",//蝠翼脑魔 Garkain
                 new GwentCard()
                 {
-                    CardId ="70102",
+                    CardId ="70132",
                     Name="蝠翼脑魔",
                     Strength=5,
                     Group=Group.Copper,
@@ -13103,10 +13103,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70120",//孤独的勇士 LonelyChampion
+                "70133",//孤独的勇士 LonelyChampion
                 new GwentCard()
                 {
-                    CardId ="70120",
+                    CardId ="70133",
                     Name="孤独的勇士",
                     Strength=9,
                     Group=Group.Silver,
@@ -13343,10 +13343,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70132",//乌鸦之母 Crowmother
+                "70159",//乌鸦之母 Crowmother
                 new GwentCard()
                 {
-                    CardId ="70132",
+                    CardId ="70159",
                     Name="乌鸦之母",
                     Strength=7,
                     Group=Group.Gold,
@@ -13363,10 +13363,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70133",//维尔卡战士 Vildkaarl
+                "70160",//维尔卡战士 Vildkaarl
                 new GwentCard()
                 {
-                    CardId ="70133",
+                    CardId ="70160",
                     Name="维尔卡战士",
                     Strength=14,
                     Group=Group.Silver,
