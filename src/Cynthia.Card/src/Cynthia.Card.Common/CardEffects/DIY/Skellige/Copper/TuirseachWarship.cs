@@ -14,14 +14,12 @@ namespace Cynthia.Card
             {
                 return;
             }
-            var cards = Game.GetPlaceCards(AnotherPlayer).FilterCards(filter: x => x.Status.HealthStatus >= 0).ToList();
+            var cards = Game.GetPlaceCards(AnotherPlayer).Concat(Game.GetPlaceCards(PlayerIndex)).FilterCards(filter: x => x.Status.HealthStatus >= 0).ToList();
             if (cards.Count() == 0)
             {
                 return;
             }
-            await cards.Mess(RNG).First().Effect.Damage(1, Card);
+            await cards.Mess(RNG).First().Effect.Damage(2, Card);
         }
-
-
     }
 }

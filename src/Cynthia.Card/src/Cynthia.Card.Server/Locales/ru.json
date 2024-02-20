@@ -1408,7 +1408,7 @@
         },
         "32015": {
             "Name": "Убийство",
-            "Info": "Нанесите 7 повреждений отряду противика.\nПовторите ещё один раз.",
+            "Info": "Нанесите 9 повреждений отряду противика.\nПовторите ещё один раз.",
             "Flavor": "вЂњиЇ·дЅ е‡єж‰‹и¦Ѓе¤ље°‘й’±пјџвЂќ вЂњзњ‹жѓ…е†µе–ЅгЂ‚жЇ”е¦‚иЇґз›®ж ‡жЇдЅ пјЊе¤§ж”№100еҐҐдј¦еёЃе·¦еЏігЂ‚вЂќ"
         },
         "33001": {
@@ -2193,7 +2193,7 @@
         },
         "53007": {
             "Name": "Ярпен Зигрин",
-            "Info": "Каждый раз, когда появляется дружественный краснолюд, усильте себя на 1.\nСтойкость.\n1 Броня.",
+            "Info": "Каждый раз, когда появляется дружественный краснолюд, усильте себя на 1.\nСтойкость.",
             "Flavor": "еђ¬иЇґиї‡е·Ёйѕ™еҐҐе…‹з»ґж–ЇеЎ”еђ—пјџзџіи‹±е±±й‚ЈеЏЄпјџдєље°”жЅВ·йЅђж јжћ—дёЋд»–зљ„зџ®дєєеђЊдјґд»¬жЉЉе®ѓи§Је†ідє†гЂ‚"
         },
         "53008": {
@@ -2343,7 +2343,7 @@
         },
         "54016": {
             "Name": "Защитник Махакама",
-            "Info": "Стойкость.\n2 Броня.",
+            "Info": "Стойкость.",
             "Flavor": "еђ¬еҐЅдє†пјЊж€‘д»¬жЇе¤©з”џзљ„ж€еЈ«вЂ”вЂ”ж‹іж‹іе€°и‚‰пјЊз»ќдёЌз•™жѓ…пјЃ"
         },
         "54017": {
@@ -2993,7 +2993,7 @@
         },
         "70045": {
             "Name": "Королева Мэва",
-            "Info": "Усильте на 5,4,3ед одну карту на столе, в руке и колоде.",
+            "Info": "Усильте на 4 ед одну карту на столе, в руке и колоде.",
             "Flavor": ""
         },
         "70046": {
@@ -3073,7 +3073,7 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Deploy, Choose One: Discard any duplicate cards from your hand until there are no more duplicates and draw that many cards; or discard any cards from your hand whose point is higher than it until there are no more cards with higher point and draw that many cards.",
+            "Info": "Destroy all units with Strength less then 3 on both sides.",
             "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
         },
         "70083": {
@@ -3113,7 +3113,7 @@
         },
         "70093": {
             "Name": "Шторм",
-            "Info": "Spawn 'Skellige Storm' on rows that are under 'Torrential Rain', then spawn 'Torrential Rain' on the other rows.",
+            "Info": "Choose 4 rows, Spawn “Torrential Rain”on them. If it’s already under “Torrential Rain”, Spawn “Skellige Storm” on this row instead.",
             "Flavor": "Десять по шкале Беккера."
         },
         "70102": {
@@ -3393,7 +3393,7 @@
         },
         "70096": {
             "Name": "Военный корабль Туирсих",
-            "Info": "Every turn, on turn end, deal 1 Damage to a random undamaged enemy unit.  ",
+            "Info": "On turn end, deal 2 Damages to a random undamaged unit.",
             "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
         },
         "70097": {
@@ -3403,7 +3403,7 @@
         },
         "70098": {
             "Name": "Диверсант «Врихедд»",
-            "Info": "Play a random Bronze Item from your deck. If the number of cards in your deck is lower than the power of this unit, Resurrect a bronze item instead.",
+            "Info": "Play a random Items from your deck. Increase their Damages by 1 each.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
@@ -3418,7 +3418,7 @@
         },
         "70101": {
             "Name": "Immortal Cavalry",
-            "Info": "At the start of the game,lock self.Next an ally appears Boost it by 2.",
+            "Info": "At the start of the game,lock self.Next an ally appears Boost it by 3.",
             "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
         },
         "70132": {
@@ -3458,17 +3458,17 @@
         },
         "70126": {
             "Name": "Cintrian Royal Guard",
-            "Info": "If your total power is less then the opponent's, boost all copies of this unit by 3.",
+            "Info": "Boost self by 4. If your total power is less then the opponent, Boost the adjacent units by 4 each instead.",
             "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
         },
         "70127": {
             "Name": "VanMoorlehem Servant",
-            "Info": "Boost self by 2 for each Gold in opponent's hand.",
+            "Info": "Immune.Gain 6 Boost when Concealed.",
             "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
         },
         "70128": {
             "Name": "Moon Dust",
-            "Info": "Destroy an enemy with 6 Power or less,When ever you play a Tactic card, resurrect self and then get banished. ",
+            "Info": "Deal 5 Damages,then deal 1 Damage randomly 4 times.",
             "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
         },
         "70129": {
@@ -3478,13 +3478,148 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "If there is no copy of this unit in your deck, add a default copy of self in it. Crewed: gain 6 Armor.",
+            "Info": "When the unit on the right side is getting Damage, take the Damage with self's Armor first. Crewed: Gain 6 armor.",
             "Flavor": "类似于盾牌和栅栏的杂交品种。"
         },
         "70131": {
             "Name": "Count Caldwell",
             "Info": "Swap the Strength of 2 enemy units.",
             "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
-        }
+        },
+        "70134": {
+            "Name": "Crow Clan Druid",
+            "Info": "On turn end，if there is no Crow on this row, spawn a Crow on left side.",
+            "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
+        },
+        "70135": {
+            "Name": "Svalblod Priest",
+            "Info": "When damaged by allies，deal same amount of Damage to an enemy unit.",
+            "Flavor": "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。"
+        },
+        "70136": {
+            "Name": "Crow",
+            "Info": "Deathwish:Deal 3 Damage to a random enemy.",
+            "Flavor": "置身鸦群，你也必须鸦鸦做声。"
+        },
+        "70137": {
+            "Name": "The Great Oak",
+            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; Play a Bronze Dryad unit from your deck,then return it to the deck.",
+            "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
+        },
+        "70138": {
+            "Name": "Dryads Caress",
+            "Info": "Play a Bronze/Silver Dryad unit，then boost it by the number of Dryad units on your side.",
+            "Flavor": "嘘，嘘……伊芙莲会变成美丽的花……"
+        },
+        "70139": {
+            "Name": "Treant Boar",
+            "Info": "Deal 3 Damages, then move the adjacent units of the target unit to random rows. If the target is destroyed, repeat once.",
+            "Flavor": "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？"
+        },
+        "70140": {
+            "Name": "Dryad Grovekeeper",
+            "Info": "Boost an ally unit by 7. Whenever an ally unit with lower power is played, gain 1 Boost.",
+            "Flavor": "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？"
+        },
+        "70141": {
+            "Name": "Queen Adalia",
+            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, return this unit to the deck.",
+            "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
+        },
+        "70142": {
+            "Name": "Vissegerd",
+            "Info": "Deal 8 Damages,then deal Damages equal to self's Boosts.",
+            "Flavor": "我会不惜代价重建辛特拉。"
+        },
+        "70143": {
+            "Name": "Cintrian Knight",
+            "Info": "Whenever you play a Cintra unit, Boost the unit and self by 1 each.",
+            "Flavor": "丧钟为谁鸣？"
+        },
+        "70144": {
+            "Name": "Cintrian Envoy",
+            "Info": "Play a copy of this unit from your deck. If there is no copies, add a random Cintra card to the deck.",
+            "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
+        },
+        "70145": {
+            "Name": "Orianna",
+            "Info": "Choose one enemy unit，make all Vampire units on your own side drain it by 1 each.",
+            "Flavor": "奥莉安娜夫人真是咱们的福气……她救济穷人，资助画家。她还为那些可怜的孩子们开了一家孤儿院呢！"
+        },
+        "70146": {
+            "Name": "Gael",
+            "Info": "Deal 5 Damage to two enemy units each.",
+            "Flavor": "喜欢发光小玩意的不只有喜鹊。"
+        },
+        "70147": {
+            "Name": "Plumard",
+            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains, Drain the target unit by 1.",
+            "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
+        },
+        "70148": {
+            "Name": "Alp",
+            "Info": "On turn end，if there is no unit on the opposite row,Drain a random enemy unit by 1.",
+            "Flavor": "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。"
+        },
+        "70149": {
+            "Name": "Anna Henrietta",
+            "Info": "Sort the cards in your deck in descending order by their base Strength, then play a card from the top of your deck.",
+            "Flavor": "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……"
+        },
+        "70150": {
+            "Name": "Vincent Van Moorlehem",
+            "Info": "Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Flavor": "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。"
+        },
+        "70151": {
+            "Name": "Philippe Van Moorlehem",
+            "Info": "Damage an enemy by 4. If is in your hand on turn end,reveal self and trigger its ability.",
+            "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
+        },
+        "70152": {
+            "Name": "Van Moorlehem's Cupbearer",
+            "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.Companians",
+            "Flavor": "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……"
+        },
+        "70153": {
+            "Name": "Van Moorlehem's Hunter",
+            "Info": "Damage an enemy unit by 3. If there are Gold tactic cards in your hand, make the unit Doomed.",
+            "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
+        },
+        "70154": {
+            "Name": "Iris: Shade",
+            "Info": "Deploy,Truce:Add 2 Iris'Companions to both hands.",
+            "Flavor": "和欧吉尔德的婚约犹如一场美梦……"
+        },
+        "70155": {
+            "Name": "Isbel of Hagge",
+            "Info": "Reset an unit. If it's an ally, repeat once.",
+            "Flavor": "于是我便发下誓言……永远不会使用魔法伤害他人。"
+        },
+        "70156": {
+            "Name": "Piercing Missile",
+            "Info": "Deal 8 Damages to an enemy unit. If it's boosted, Damage it by 10 instead.",
+            "Flavor": "无坚不摧，无甲不破。"
+        },
+        "70157": {
+            "Name": "Wisteria",
+            "Info": "Choose two units，for each，Boost it by 6 if the unit's Power is even，Damage it by 6 if the unit's Power is odd.",
+            "Flavor": "紫藤通过汲取尸体的营养而成长。"
+        },
+        "70158": {
+            "Name": "Coën of Poviss",
+            "Info": "Damage an enemy by 3,until the unit's power lower self.",
+            "Flavor": ""
+        },
+        "70159": {
+            "Name": "Crow Mother",
+            "Info": "Discard 3 Special cards from you deck. For each special card discarded, spawn a Crow.",
+            "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
+        },
+        "70160": {
+            "Name": "Vildkaarl",
+            "Info": "Deal 4 Damages to adjacent units.",
+            "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
+        },
     }
 }

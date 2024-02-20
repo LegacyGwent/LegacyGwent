@@ -10,20 +10,23 @@ namespace Cynthia.Card
         public DimunSmuggler(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            var list = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit);
+            if (list.Count() == 0)
             {
-                var list = Game.PlayersCemetery[Card.PlayerIndex]
-                .Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit).ToList();
-                //让玩家选择
-                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, isCanOver: true);
-                foreach (var x in result.ToList())
-                {
-                    var playerIndex = x.PlayerIndex;
-                    x.Effect.Repair();
-                    var range = Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1);
-                    await x.Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), x);
-                }
                 return 0;
             }
+            //让玩家选择一张卡
+            var result = await Game.GetSelectMenuCards
+            (Card.PlayerIndex, list.ToList(), 1, "选择一张牌返回牌组");
+            //如果玩家一张卡都没选择,没有效果
+            if (result.Count() == 0)
+            {
+                return 0;
+            }
+            //希里：冲刺的返回牌组机制，返回到随机位置
+            var range = Game.RNG.Next(0, Game.PlayersDeck[PlayerIndex].Count() + 1);
+            await result.Single().Effect.Resurrect(new CardLocation(RowPosition.MyDeck, range), result.Single());
+            return 0;
         }
     }
 }
