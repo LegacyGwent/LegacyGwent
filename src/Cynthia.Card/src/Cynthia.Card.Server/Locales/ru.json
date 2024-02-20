@@ -3486,16 +3486,6 @@
             "Info": "Swap the Strength of 2 enemy units.",
             "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
         },
-        "70132": {
-            "Name": "Crow Mother",
-            "Info": "Discard 3 Special cards from you deck. For each special card discarded, spawn a Crow.",
-            "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
-        },
-        "70133": {
-            "Name": "Vildkaarl",
-            "Info": "Deal 4 Damages to adjacent units.",
-            "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
-        },
         "70134": {
             "Name": "Crow Clan Druid",
             "Info": "On turn end，if there is no Crow on this row, spawn a Crow on left side.",
@@ -3620,6 +3610,16 @@
             "Name": "Coën of Poviss",
             "Info": "Damage an enemy by 3,until the unit's power lower self.",
             "Flavor": ""
-        }
+        },
+        "70159": {
+            "Name": "Crow Mother",
+            "Info": "Discard 3 Special cards from you deck. For each special card discarded, spawn a Crow.",
+            "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
+        },
+        "70160": {
+            "Name": "Vildkaarl",
+            "Info": "Deal 4 Damages to adjacent units.",
+            "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
+        },
     }
 }
