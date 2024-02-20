@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70132")]//
+    [CardEffectId("70102")]//
     public class Crowmother : CardEffect, IHandlesEvent<AfterCardDiscard>
     {//
         public Crowmother(GameCard card) : base(card) { }
