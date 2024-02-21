@@ -1363,7 +1363,7 @@
           },
           "32007": {
               "Name": "Shilard",
-              "Info": "Rozmieszczenie, Jednorazowa, Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
+              "Info": "Rozmieszczenie,Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
               "Flavor": "Dyplomata to człowiek, który używa znacznie więcej słów niż potrzeba, aby wyrazić znacznie mniej niż wie."
           },
           "32008": {
@@ -3163,7 +3163,7 @@
           },
           "70070": {
               "Name": "Rezuni",
-              "Info": "Jednorazowa. Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj 2 kopie Kundli ze Spalli do Twojej talii.\n(Kundle ze Spalii; 5 pkt siły; Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich)",
+              "Info": "Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj 2 kopie Kundli ze Spalli do Twojej talii.\n(Kundle ze Spalii; 5 pkt siły; Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich)",
               "Flavor": "“商人？抹了。马匹？卖了。”"
           },
           "70071": {
