@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 92);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 93);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -13558,7 +13558,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Officer},
                     Flavor = "我会不惜代价重建辛特拉。",
-                    Info = "造成8点伤害，回合结束时,若自身具有增益则返回牌组，并获得2点强化。",
+                    Info = "造成8点伤害，再造成等同于自身增益的伤害。",
                     CardArtsId = "d17180000",
                 }
             },
@@ -13810,7 +13810,7 @@ namespace Cynthia.Card
                     Name="哈吉的伊斯贝尔",
                     Strength=9,
                     Group=Group.Silver,
-                    Faction = Faction.Nilfgaard,
+                    Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
@@ -13866,7 +13866,7 @@ namespace Cynthia.Card
                 "70158",//波维斯的柯恩 CoënofPoviss
                 new GwentCard()
                 {
-                    CardId ="80053",
+                    CardId ="70158",
                     Name="波维斯的柯恩",
                     Strength=7,
                     Group=Group.Gold,
@@ -13878,7 +13878,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "对1个敌军单位造成3点伤害，直至其战力低于自身。",
+                    Info = "对1个敌军单位造成3点伤害，重复直至其战力低于自身。",
                     CardArtsId = "c10000800",
                 }
             },
