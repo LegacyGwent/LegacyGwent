@@ -22,13 +22,13 @@ namespace Cynthia.Card
                 var Ltaget = Card.GetRangeCard(1, GetRangeType.HollowLeft);
                 if (Ltaget.Count() != 0 && !Ltaget.Single().Status.Conceal)
                 {
-                    await Ltaget.Single().Effect.Boost(4, Card); 
+                    await Ltaget.Single().Effect.Boost(3, Card); 
                 }
 
                 var Rtaget = Card.GetRangeCard(1, GetRangeType.HollowRight);
                 if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
                 {
-                        await Rtaget.Single().Effect.Boost(4, Card);
+                        await Rtaget.Single().Effect.Boost(3, Card);
                 }
             }
             return 0;
