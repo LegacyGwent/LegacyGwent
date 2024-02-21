@@ -1368,7 +1368,7 @@
         },
         "32007": {
             "Name": "Shilard",
-            "Info": "Single-Use.\nDeploy, Truce: Draw a card from both decks.\nKeep one and give the other to your opponent.",
+            "Info": "Deploy, Truce: Draw a card from both decks.\nKeep one and give the other to your opponent.",
             "Flavor": "所谓外交官，就是用华丽的辞藻，来透露一些只言片语。"
         },
         "32008": {
@@ -3163,7 +3163,7 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Deploy: Look at 2 random Bronze units in your deck, then play one)",
+            "Info": "If there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Deploy: Look at 2 random Bronze units in your deck, then play one)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
