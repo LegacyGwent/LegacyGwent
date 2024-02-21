@@ -19,11 +19,11 @@ namespace Cynthia.Card
             {
                 if(target.CardPoint()%2 == 0)
                 {
-                    await target.Effect.Damage(6, Card);
+                    await target.Effect.Boost(6, Card);
                 }
                 if(target.CardPoint()%2 == 1)
                 {
-                    await target.Effect.Boost(6, Card);
+                    await target.Effect.Damage(6, Card);
                 }
                 
             }
