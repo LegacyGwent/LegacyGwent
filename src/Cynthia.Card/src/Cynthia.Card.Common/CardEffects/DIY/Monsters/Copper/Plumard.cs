@@ -34,7 +34,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardToCemetery @event)
         {
-            if (vp == 1 )
+            if (vp == 1  && @event.Target.CardInfo().CardType == CardType.Unit)
             {
                 var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
                 if (list.Count() == 0)
