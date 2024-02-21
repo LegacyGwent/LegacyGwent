@@ -1368,7 +1368,7 @@
         },
         "32007": {
             "Name": "Shilard",
-            "Info": "Single-Use.\nDeploy, Truce: Draw a card from both decks.\nKeep one and give the other to your opponent.",
+            "Info": "Deploy, Truce: Draw a card from both decks.\nKeep one and give the other to your opponent.",
             "Flavor": "所谓外交官，就是用华丽的辞藻，来透露一些只言片语。"
         },
         "32008": {
@@ -3163,7 +3163,7 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-Use.\nIf there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Deploy: Look at 2 random Bronze units in your deck, then play one)",
+            "Info": "If there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use; Deploy: Look at 2 random Bronze units in your deck, then play one)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
@@ -3469,12 +3469,12 @@
         },
         "70126": {
             "Name": "Cintrian Royal Guard",
-            "Info": "Boost self by 4. If your total power is less then the opponent, Boost the adjacent units by 4 each instead.",
+            "Info": "Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
             "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
         },
         "70127": {
             "Name": "VanMoorlehem Servant",
-            "Info": "Immune.Gain 6 Boost when Concealed.",
+            "Info": "Immune.Gain 5 Boost when Concealed.",
             "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
         },
         "70128": {
@@ -3519,7 +3519,7 @@
         },
         "70138": {
             "Name": "Dryads Caress",
-            "Info": "Play a Bronze/Silver Dryad unit，then boost it by the number of Dryad units on your side.",
+            "Info": "Play a Bronze/Silver Dryad unit from your deck，then boost it by the number of Dryad units on your side.",
             "Flavor": "嘘，嘘……伊芙莲会变成美丽的花……"
         },
         "70139": {
@@ -3549,7 +3549,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Play a copy of this unit from your deck. If there is no copies, add a random Cintra card to the deck.",
+            "Info": "Play a copy of this unit from your deck. If there is no copies, add a random different Cintra card to the deck.",
             "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
         },
         "70145": {

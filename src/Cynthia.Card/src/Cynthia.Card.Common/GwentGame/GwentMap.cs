@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 92);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 93);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -4732,8 +4732,8 @@ namespace Cynthia.Card
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = false,
-                    IsCountdown = true,
+                    IsDoomed = true,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "所谓外交官，就是用华丽的辞藻，来透露一些只言片语。",
@@ -11475,13 +11475,12 @@ namespace Cynthia.Card
                     CardId ="70070",
                     Name="路途埋伏",
                     Strength=0,
-                    Countdown = 1,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.AnyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
-                    IsCountdown = true,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“商人？抹了。马匹？卖了。”",
@@ -12532,7 +12531,7 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
@@ -13017,7 +13016,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
                     Flavor = "上头有命令，要关上大门。可它们纹丝不动……",
-                    Info = "随机打出1张铜色道具牌，使其造成的伤害提升1点。",
+                    Info = "随机从牌组打出1张铜色道具牌，使其造成的伤害提升1点。",
                     CardArtsId = "d20160000",
                 }
             },
@@ -13238,7 +13237,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra,Categorie.Soldier},
                     Flavor = "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。",
-                    Info = "使自身获得4点增益，若己方落后则改为使相邻单位获得4点增益。",
+                    Info = "使自身获得3点增益，若己方落后则改为使相邻单位获得3点增益。",
                     CardArtsId = "d17140000",
                 }
             },
@@ -13258,7 +13257,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire,Categorie.Support},
                     Flavor = "据说她在莫拉汉姆家干了三十年，一点都不见老……",
-                    Info = "免疫，被隐匿时获得6点增益。",
+                    Info = "免疫，被隐匿时获得5点增益。",
                     CardArtsId = "d19790000",
                 }
             },
@@ -13478,7 +13477,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special},
                     Flavor = "嘘，嘘……伊芙莲会变成美丽的花……",
-                    Info = "打出1张银色/铜色树精牌，使其获得等同于场上友军树精单位数量的增益。",
+                    Info = "从牌组打出1张银色/铜色树精牌，使其获得等同于场上友军树精单位数量的增益。",
                     CardArtsId = "d17240000",
                 }
             },
@@ -13558,7 +13557,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Officer},
                     Flavor = "我会不惜代价重建辛特拉。",
-                    Info = "造成8点伤害，回合结束时,若自身具有增益则返回牌组，并获得2点强化。",
+                    Info = "造成8点伤害，再造成等同于自身增益的伤害。",
                     CardArtsId = "d17180000",
                 }
             },
@@ -13598,7 +13597,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra},
                     Flavor = "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……",
-                    Info = "打出1张同名牌，若牌组没有同名牌则随机将一张铜色辛特拉牌加入牌组。",
+                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则随机将一张非同名铜色辛特拉牌加入牌组。",
                     CardArtsId = "d17120000",
                 }
             },
@@ -13778,7 +13777,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "对一个敌军单位造成3点伤害，若手牌中有金色谋略牌则使其获得佚亡。",
+                    Info = "对一个敌军单位造成3点伤害，若手牌中有金色谋略牌则先使其获得佚亡。",
                     CardArtsId = "d20190000",
                 }
             },
@@ -13810,7 +13809,7 @@ namespace Cynthia.Card
                     Name="哈吉的伊斯贝尔",
                     Strength=9,
                     Group=Group.Silver,
-                    Faction = Faction.Nilfgaard,
+                    Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
@@ -13866,7 +13865,7 @@ namespace Cynthia.Card
                 "70158",//波维斯的柯恩 CoënofPoviss
                 new GwentCard()
                 {
-                    CardId ="80053",
+                    CardId ="70158",
                     Name="波维斯的柯恩",
                     Strength=7,
                     Group=Group.Gold,
@@ -13878,7 +13877,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "对1个敌军单位造成3点伤害，直至其战力低于自身。",
+                    Info = "对1个敌军单位造成3点伤害，重复直至其战力低于自身。",
                     CardArtsId = "c10000800",
                 }
             },

@@ -19,7 +19,7 @@ namespace Cynthia.Card
                 (Card.PlayerIndex, list.ToList(), 3, "选择打出一张牌");
             for (var i = 0; i < result.Count(); i++)
             {
-                await result.First().Effect.Discard(Card);
+                await result[i].Effect.Discard(Card);
                 if (result.Count() == 0)
                 {
                     return 0;

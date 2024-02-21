@@ -18,7 +18,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardConceal @event)
         {
             if (@event.Target != Card || @event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex) return;
-            await Card.Effect.Boost(6, Card);
+            await Card.Effect.Boost(5, Card);
             return;
         }
     }
