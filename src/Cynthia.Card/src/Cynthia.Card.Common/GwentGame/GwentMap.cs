@@ -13237,7 +13237,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra,Categorie.Soldier},
                     Flavor = "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。",
-                    Info = "使自身获得4点增益，若己方落后则改为使相邻单位获得4点增益。",
+                    Info = "使自身获得3点增益，若己方落后则改为使相邻单位获得3点增益。",
                     CardArtsId = "d17140000",
                 }
             },
@@ -13257,7 +13257,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire,Categorie.Support},
                     Flavor = "据说她在莫拉汉姆家干了三十年，一点都不见老……",
-                    Info = "免疫，被隐匿时获得6点增益。",
+                    Info = "免疫，被隐匿时获得5点增益。",
                     CardArtsId = "d19790000",
                 }
             },
@@ -13597,7 +13597,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra},
                     Flavor = "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……",
-                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则随机将一张铜色辛特拉牌加入牌组。",
+                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则随机将一张非同名铜色辛特拉牌加入牌组。",
                     CardArtsId = "d17120000",
                 }
             },
