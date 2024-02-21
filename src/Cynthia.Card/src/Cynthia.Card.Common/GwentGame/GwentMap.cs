@@ -13016,7 +13016,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
                     Flavor = "上头有命令，要关上大门。可它们纹丝不动……",
-                    Info = "随机打出1张铜色道具牌，使其造成的伤害提升1点。",
+                    Info = "随机从牌组打出1张铜色道具牌，使其造成的伤害提升1点。",
                     CardArtsId = "d20160000",
                 }
             },
@@ -13477,7 +13477,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special},
                     Flavor = "嘘，嘘……伊芙莲会变成美丽的花……",
-                    Info = "打出1张银色/铜色树精牌，使其获得等同于场上友军树精单位数量的增益。",
+                    Info = "从牌组打出1张银色/铜色树精牌，使其获得等同于场上友军树精单位数量的增益。",
                     CardArtsId = "d17240000",
                 }
             },
@@ -13597,7 +13597,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra},
                     Flavor = "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……",
-                    Info = "打出1张同名牌，若牌组没有同名牌则随机将一张铜色辛特拉牌加入牌组。",
+                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则随机将一张铜色辛特拉牌加入牌组。",
                     CardArtsId = "d17120000",
                 }
             },
@@ -13777,7 +13777,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "对一个敌军单位造成3点伤害，若手牌中有金色谋略牌则使其获得佚亡。",
+                    Info = "对一个敌军单位造成3点伤害，若手牌中有金色谋略牌则先使其获得佚亡。",
                     CardArtsId = "d20190000",
                 }
             },
