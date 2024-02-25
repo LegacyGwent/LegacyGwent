@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public KnuttheCallous(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x.Status.Group == Group.Copper && x.HasAnyCategorie(Categorie.Soldier) && (x.CardInfo().CardType == CardType.Unit));
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x.Status.Group == Group.Copper && (x.CardInfo().CardType == CardType.Unit));
             if (list.Count() == 0)
             {
                 return 0;
