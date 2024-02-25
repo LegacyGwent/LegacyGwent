@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Cynthia.Card
 {
     [CardEffectId("70158")]//柯恩 CoënofPoviss
-    public class Coën : CardEffect
+    public class CoënofPoviss : CardEffect
     {//对战力高于自身的单位造成4点伤害。
         public CoënofPoviss(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
