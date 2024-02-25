@@ -258,7 +258,7 @@
           },
           "12007": {
               "Name": "Triss Merigold",
-              "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń.",
+              "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń.",
               "Flavor": "Potrafię o siebie zadbać. Wierz mi."
           },
           "12008": {
@@ -3173,7 +3173,7 @@
           },
           "70072": {
               "Name": "Radeyah",
-              "Info": "Rozmieszczenie: Zadaj obrażenia równe ilości kart neutralnych w Twojej ręce.",
+              "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 time.",
               "Flavor": ""
           },
           "70076": {
@@ -3303,7 +3303,7 @@
           },
           "70080": {
               "Name": "Knut Waleczny",
-              "Info": "Jednorazowa.\n Rozmieszczenie: odrzuć kartę z ręki, a następnie wygeneruj brązową jednostkę z talii startowej, wzmocnij ją o 1 i dodaj do ręki.",
+              "Info": "Deploy:Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to an enemy unit and itself.",
               "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
           },
           "70081": {
@@ -3503,12 +3503,12 @@
         },
         "70135": {
             "Name": "Svalblod Priest",
-            "Info": "When damaged by allies，deal same amount of Damage to an enemy unit.",
+            "Info": "When damaged by allies，deal same amount of Damage to an enemy unit,On turn end,if this units's Power lower half,Heal Self.",
             "Flavor": "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。"
         },
         "70136": {
             "Name": "Crow",
-            "Info": "Deathwish:Deal 3 Damage to a random enemy.",
+            "Info": "Deathwish:Deal 4 Damage to a random enemy.",
             "Flavor": "置身鸦群，你也必须鸦鸦做声。"
         },
         "70137": {
@@ -3533,7 +3533,7 @@
         },
         "70141": {
             "Name": "Queen Adalia",
-            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, return this unit to the deck.",
+            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, add one each Bronze Cintra to your deck.",
             "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
         },
         "70142": {
@@ -3548,7 +3548,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Play a copy of this unit from your deck. If there is no copies, add a random different Cintra card to the deck.",
+            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to the deck.",
             "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
         },
         "70145": {
@@ -3563,7 +3563,7 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains, Drain the target unit by 1.",
+            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains on the same row, Drain the target unit by 1.",
             "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
         },
         "70148": {
@@ -3583,7 +3583,7 @@
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Damage an enemy by 4. If is in your hand on turn end,reveal self and trigger its ability.",
+            "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
             "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
         },
         "70152": {
@@ -3593,7 +3593,7 @@
         },
         "70153": {
             "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If there are Gold tactic cards in your hand, make the unit Doomed.",
+            "Info": "Damage an enemy unit by 3. If no Gold cards in your hand, repeat once and make the unit Doomed.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
         "70154": {
@@ -3608,7 +3608,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damages to an enemy unit. If it's boosted, Damage it by 10 instead.",
+            "Info": "Deal 8 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
@@ -3618,7 +3618,7 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Damage an enemy by 3,until the unit's power lower self.",
+            "Info": "Damage an enemy by 5,if it was destroyed.repeat once and Reduces damage by 1 point.",
             "Flavor": ""
         },
         "70159": {
