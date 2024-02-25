@@ -13357,7 +13357,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "丢弃牌组中的三张特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
+                    Info = "丢弃牌组中的三张铜色特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
                     CardArtsId = "d19850000",
                 }
             },
