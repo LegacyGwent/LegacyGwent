@@ -11,15 +11,9 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var list = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
-            var ids = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Unit, x => x.HasAllCategorie(Categorie.Cintra) && x.CardId != Card.Status.CardId)
-                    .Select(x => x.CardId);
-            if (!ids.TryMessOne(out var createId, Game.RNG))
-            {
-                return 0;
-            }
             if (list.Count() == 0)
             {
-                await Game.CreateCardAtEnd(createId, PlayerIndex, RowPosition.MyDeck);
+                await Game.CreateCardAtEnd(Card.Status.CardId, PlayerIndex, RowPosition.MyDeck);
                 return 0;
             }
             await list.First().MoveToCardStayFirst();
