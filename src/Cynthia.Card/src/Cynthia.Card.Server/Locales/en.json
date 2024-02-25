@@ -3619,7 +3619,7 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Damage an enemy by 5,if it was destroyed.repeat once and Reduces damage by 1 point.",
+            "Info": "Damage 5 Damages,if it was destroyed.repeat once and Reduces damage by 1 point.",
             "Flavor": ""
         },
         "70159": {
