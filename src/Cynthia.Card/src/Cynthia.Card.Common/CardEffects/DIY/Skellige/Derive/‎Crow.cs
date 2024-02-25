@@ -20,7 +20,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await enemycards.Mess(Game.RNG).First().Effect.Damage(3, Card);
+            await enemycards.Mess(Game.RNG).First().Effect.Damage(4, Card);
             return;
         }
     }
