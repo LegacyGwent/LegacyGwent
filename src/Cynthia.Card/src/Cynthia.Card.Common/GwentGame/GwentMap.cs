@@ -13357,7 +13357,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "随机丢弃牌组中的三张铜色特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
+                    Info = "丢弃牌组中的三张特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
                     CardArtsId = "d19850000",
                 }
             },
@@ -13437,7 +13437,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
-                    Info = "遗愿：随机对1个敌军单位造成4点伤害。",
+                    Info = "遗愿：随机对1个敌军单位造成3点伤害。",
                     CardArtsId = "d20430000",
                 }
             },
