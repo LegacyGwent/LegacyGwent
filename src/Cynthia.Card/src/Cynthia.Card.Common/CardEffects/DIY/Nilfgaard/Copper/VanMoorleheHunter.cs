@@ -10,16 +10,24 @@ namespace Cynthia.Card
         public VanMoorleheHunter(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (!selectList.TrySingle(out var target))
+            var hand = Game.PlayersHandCard[Card.PlayerIndex].Where(x=>(x.IsAnyGroup(Group.Gold)));
+            int rcount = 1;
+            for(var i = 0; i < rcount;i++)
             {
-                return 0;
-            }
-            var hand = Game.PlayersHandCard[Card.PlayerIndex].Where(x=>(x.IsAnyGroup(Group.Gold) && x.HasAnyCategorie(Categorie.Tactic)));
-            await target.Effect.Damage(3,Card);
-            if(hand.Count() > 0)
-            {
-                target.Status.IsDoomed = true;
+                var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+                if (!selectList.TrySingle(out var target))
+                {
+                    return 0;
+                }
+                await target.Effect.Damage(3,Card);
+                if(rcount == 2)
+                {
+                    target.Status.IsDoomed = true;
+                }
+                if(hand.Count() == 0)
+                {
+                    rcount = 2;
+                }
             }
             return 0;
         }
