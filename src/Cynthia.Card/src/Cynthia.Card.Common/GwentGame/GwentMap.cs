@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 93);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 94);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -288,7 +288,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Temeria},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "我能照顾自己，相信我。",
-                    Info = "造成7点伤害。",
+                    Info = "造成5点伤害。",
                     CardArtsId = "11210600",
                 }
             },
@@ -11526,7 +11526,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "“迷人的微笑背后可以潜藏许多秘密……”",
-                    Info = "造成等同于手牌中立牌数量的伤害，并将手牌和牌组中2张核心系列中立银色单位牌变为金色晋升牌。",
+                    Info = "造成等同于手牌中立牌数量的伤害2次。",
                     CardArtsId = "d20020000",
                 }
             },
@@ -11607,7 +11607,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "有些脏了。稍微擦一擦就好。",
-                    Info = "对局开始时，将3张“最后的愿望”加入卡组，随后丢弃自身。位于墓场中时，己方“最后的愿望”额外检视1张牌。",
+                    Info = "对局开始时，置于墓地，随后将3张“最后的愿望”加入卡组。位于墓地时，己方“最后的愿望”额外检视1张牌。",
                     CardArtsId = "d20400000",
                 }
             },
@@ -12535,7 +12535,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
-                    Info = "打出牌组中基础战力最高的铜色士兵牌，对其与一个敌军单位造成等同其战力一半的伤害",
+                    Info = "打出牌组中基础战力最高的铜色单位牌，对其与一个敌军单位造成等同其战力一半的伤害",
                     CardArtsId = "d16660000",
                 }
             },
@@ -13317,7 +13317,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "类似于盾牌和栅栏的杂交品种。",
-                    Info = "右侧单位受到伤害时，优先抵扣自身的护甲。驱动：获得6点护甲。",
+                    Info = "右侧相邻单位受到伤害时，优先抵扣自身的护甲。驱动：获得6点护甲。",
                     CardArtsId = "d15560000",
                 }
             },
@@ -13417,7 +13417,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。",
-                    Info = "受到己方伤害时，对1个敌军单位造成等额伤害。",
+                    Info = "受到己方伤害时，对1个敌军单位造成等额伤害，回合结束时，若自身战力低于一半则治愈自身。",
                     CardArtsId = "d14550000",
                 }
             },
@@ -13437,7 +13437,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
-                    Info = "遗愿：随机对1个敌军单位造成3点伤害。",
+                    Info = "遗愿：随机对1个敌军单位造成4点伤害。",
                     CardArtsId = "d20430000",
                 }
             },
@@ -13537,7 +13537,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra},
                     Flavor = "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。",
-                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌则返回牌组。",
+                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌则将每种各一张铜色辛特拉牌加入牌组。",
                     CardArtsId = "d17070000",
                 }
             },
@@ -13557,7 +13557,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Officer},
                     Flavor = "我会不惜代价重建辛特拉。",
-                    Info = "造成8点伤害，再造成等同于自身增益的伤害。",
+                    Info = "造成8点伤害，随后造成等同于自身增益的伤害。",
                     CardArtsId = "d17180000",
                 }
             },
@@ -13567,7 +13567,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70143",
                     Name="辛特拉骑士",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13597,7 +13597,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra},
                     Flavor = "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……",
-                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则随机将一张非同名铜色辛特拉牌加入牌组。",
+                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则将一张同名牌加入牌组。",
                     CardArtsId = "d17120000",
                 }
             },
@@ -13607,7 +13607,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70145",
                     Name="奥莉安娜",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13657,7 +13657,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Vampire},
                     Flavor = "一只构成不了什么威胁。要是有一群？那就很要命了。",
-                    Info = "友军吸血鬼单位摧毁单位时召唤一个同名牌。友军非同名单位汲取时，汲取相同目标1点战力。",
+                    Info = "友军吸血鬼单位摧毁单位时召唤一个同名牌。同排友军非同名单位汲取时，汲取相同目标1点战力。",
                     CardArtsId = "d16600000",
                 }
             },
@@ -13677,7 +13677,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。",
-                    Info = "回合结束时，若同排没有敌军单位则随机汲取1个敌军单位1点战力。",
+                    Info = "回合结束时，若同排没有战力高于自身的敌军单位，则汲取同排随机1个敌军单位1点战力。",
                     CardArtsId = "d13850000",
                 }
             },
@@ -13727,7 +13727,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70151",
                     Name="菲利普·凡·莫拉汉姆",
-                    Strength=9,
+                    Strength=8,
                     Group=Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13737,7 +13737,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。",
-                    Info = "对一个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身并触发此能力。",
+                    Info = "对一个敌军单位造成3点伤害，回合结束时，若位于手牌则揭示自身并触发此能力。",
                     CardArtsId = "d19730000",
                 }
             },
@@ -13767,7 +13767,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70153",
                     Name="莫拉汉姆家猎手",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13777,7 +13777,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "对一个敌军单位造成3点伤害，若手牌中有金色谋略牌则先使其获得佚亡。",
+                    Info = "对一个敌军单位造成3点伤害，若手牌中没有金色牌则重复1次，并使目标获得佚亡。",
                     CardArtsId = "d20190000",
                 }
             },
@@ -13837,7 +13837,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Item,Categorie.Special},
                     Flavor = "无坚不摧，无甲不破。",
-                    Info = "对一个敌军单位造成8点伤害，若其具有增益则改为10点。",
+                    Info = "对一个敌军单位造成8点伤害（无视护甲），若其具有增益则改为10点。",
                     CardArtsId = "d19500000",
                 }
             },
@@ -13867,7 +13867,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70158",
                     Name="波维斯的柯恩",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13877,7 +13877,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "对1个敌军单位造成3点伤害，重复直至其战力低于自身。",
+                    Info = "造成5点伤害，若摧毁目标单位则重复1次，并降低1点伤害。",
                     CardArtsId = "c10000800",
                 }
             },
