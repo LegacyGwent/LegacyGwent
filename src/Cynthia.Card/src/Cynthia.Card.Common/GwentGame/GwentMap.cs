@@ -11617,7 +11617,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70105",
                     Name="菲斯奈特与布雷恩",
-                    Strength=5,
+                    Strength=7,
                     Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13487,7 +13487,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70139",
                     Name="树人野猪",
-                    Strength=5,
+                    Strength=6,
                     Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
