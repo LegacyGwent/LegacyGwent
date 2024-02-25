@@ -32,7 +32,7 @@ namespace Cynthia.Card
             else if (switchCard == 1)
             {
                 var list = Game.PlayersDeck[Card.PlayerIndex]
-                .Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Dryad)).Mess(Game.RNG).ToList();
+                .Where(x => (x.Status.Group == Group.Copper) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Dryad)).Mess(Game.RNG).ToList();
                 if (list.Count() == 0)
                 {
                     return 0;
