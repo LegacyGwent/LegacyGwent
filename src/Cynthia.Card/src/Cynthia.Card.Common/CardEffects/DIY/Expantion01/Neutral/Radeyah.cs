@@ -12,11 +12,14 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cards = Game.PlayersHandCard[Card.PlayerIndex].Where(x => (x.Status.Faction == Faction.Neutral));
-
-            var result = await Game.GetSelectPlaceCards(Card);
-            if (result.Count > 0)
+            for (var i = 0; i < 2; i++)
             {
-                await result.Single().Effect.Damage(cards.Count(), Card);
+                var result = await Game.GetSelectPlaceCards(Card);
+                if (result.Count > 0)
+                {
+                    await result.Single().Effect.Damage(cards.Count(), Card);
+                }
+                
             }
             return 0;
         }
