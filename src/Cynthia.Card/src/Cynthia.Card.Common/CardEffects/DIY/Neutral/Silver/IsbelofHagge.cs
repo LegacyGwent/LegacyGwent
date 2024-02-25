@@ -10,16 +10,18 @@ namespace Cynthia.Card
         public IsbelofHagge(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            for (var i = 0; i < 2; i++)
+            int count = 1;
+            for (var i = 0; i < count; i++)
             {
                 var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
                 if (!selectList.TrySingle(out var target))
                 {
                     return 0;
                 }
+                await target.Effect.Reset(Card);
                 if (target.PlayerIndex == Card.PlayerIndex)
                 {
-                    await target.Effect.Reset(Card);
+                    count = 2;
                 }
             }       
             return 0;
