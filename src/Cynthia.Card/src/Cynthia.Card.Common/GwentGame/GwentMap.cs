@@ -13867,7 +13867,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70158",
                     Name="波维斯的柯恩",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
