@@ -12565,7 +12565,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70082",
                     Name="弑亲者恩约夫",
-                    Strength = 9,
+                    Strength = 11,
                     Group = Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
