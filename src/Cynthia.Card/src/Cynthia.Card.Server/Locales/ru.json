@@ -3498,7 +3498,7 @@
         },
         "70136": {
             "Name": "Crow",
-            "Info": "Deathwish:Deal 4 Damage to a random enemy.",
+            "Info": "Deathwish:Deal 3 Damage to a random enemy.",
             "Flavor": "置身鸦群，你也必须鸦鸦做声。"
         },
         "70137": {
@@ -3613,7 +3613,7 @@
         },
         "70159": {
             "Name": "Crow Mother",
-            "Info": "Discard 3 Special cards from you deck. For each special card discarded, spawn a Crow.",
+            "Info": "Discard 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
         "70160": {
