@@ -14,7 +14,7 @@ namespace Cynthia.Card
             var point = Game.GetPlayersPoint(Game.AnotherPlayer(Card.PlayerIndex)) - Game.GetPlayersPoint(Card.PlayerIndex);
             if (point <= 0) 
             {
-                await Card.Effect.Boost(4,Card);
+                await Card.Effect.Boost(3,Card);
             }
             
             if (point > 0) 
@@ -28,7 +28,7 @@ namespace Cynthia.Card
                 var Rtaget = Card.GetRangeCard(1, GetRangeType.HollowRight);
                 if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
                 {
-                        await Rtaget.Single().Effect.Boost(3, Card);
+                    await Rtaget.Single().Effect.Boost(3, Card);
                 }
             }
             return 0;
