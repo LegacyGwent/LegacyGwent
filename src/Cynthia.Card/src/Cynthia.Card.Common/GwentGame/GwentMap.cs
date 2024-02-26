@@ -13647,7 +13647,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70147",
                     Name="渴血鸟怪",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13867,7 +13867,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70158",
                     Name="波维斯的柯恩",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
