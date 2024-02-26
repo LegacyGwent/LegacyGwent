@@ -9226,7 +9226,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "复活己方下张丢弃的单位牌。",
+                    Info = "位于场上或墓场时，复活己方下一张丢弃的单位牌。",
                     CardArtsId = "20177800",
                 }
             },
