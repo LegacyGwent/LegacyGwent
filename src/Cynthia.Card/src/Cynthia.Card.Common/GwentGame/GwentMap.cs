@@ -13937,7 +13937,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "回合结束时，若至少具有4点增益，则重置自身并使同排友军单位获得1点增益。",
+                    Info = "回合结束时，若至少具有3点增益，则重置自身并使同排友军单位获得1点增益。",
                     CardArtsId = "d14790000",
                 }
             },
@@ -13967,7 +13967,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70165",
                     Name="薇薇恩·塔布里司",
-                    Strength=7,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13977,7 +13977,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "将一个友军单位转为起始卡组中的一张非同名金色单位牌。",
+                    Info = "将一个友军单位转为起始卡组中的一张非同名金色单位牌,随后使其获得2点增益。",
                     CardArtsId = "d13980000",
                 }
             },
