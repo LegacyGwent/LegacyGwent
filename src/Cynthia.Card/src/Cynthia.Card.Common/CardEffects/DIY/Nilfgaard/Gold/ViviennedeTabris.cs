@@ -25,6 +25,7 @@ namespace Cynthia.Card
             }
             var id = targetList[targetIndex].CardId;
             await target.Effect.Transform(id, Card);
+            await target.Effect.Boost(2, Card);
             return 0;
         }
     }
