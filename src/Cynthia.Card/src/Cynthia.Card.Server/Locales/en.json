@@ -3238,7 +3238,7 @@
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck, then Discard self.if in the graveyard,Last Wish checks 1 extra card",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70092": {
@@ -3504,7 +3504,7 @@
         },
         "70135": {
             "Name": "Svalblod Priest",
-            "Info": "When damaged by allies，deal same amount of Damage to an enemy unit.",
+            "Info": "When damaged by allies，deal same amount of Damage to a unit.",
             "Flavor": "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。"
         },
         "70136": {
