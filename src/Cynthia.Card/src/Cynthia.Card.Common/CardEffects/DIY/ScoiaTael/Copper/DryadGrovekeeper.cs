@@ -22,7 +22,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            var targetpoint = target.CardPoint();
+            var targetpoint = target.Status.Strength;
             await target.Effect.Transform(CardId.DryadGrovekeeper, Card, x => x.Status.Strength = targetpoint);
             return 0;
         }
