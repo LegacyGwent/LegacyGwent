@@ -20,10 +20,6 @@ namespace Cynthia.Card
                     return 0;
                 }
                 await target.Effect.Damage(3,Card);
-                if(rcount == 2)
-                {
-                    target.Status.IsDoomed = true;
-                }
                 if(hand.Count() == 0)
                 {
                     rcount = 2;
