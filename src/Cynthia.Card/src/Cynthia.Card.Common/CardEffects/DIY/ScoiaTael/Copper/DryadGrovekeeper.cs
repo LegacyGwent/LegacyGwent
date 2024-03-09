@@ -5,31 +5,28 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70140")]//树精林卫 DryadGrovekeeper
-    public class DryadGrovekeeper : CardEffect, IHandlesEvent<AfterUnitPlay>
+    public class DryadGrovekeeper : CardEffect
     {//
         public DryadGrovekeeper(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.MyRow);
-            if (cards.Count() == 0)
+            var BoostList = Game.GetPlaceCards(PlayerIndex)
+                .Where(x => x != Card && x.CardPoint() < Card.CardPoint()).ToList();
+
+            foreach (var targets in BoostList)
+            {
+                await targets.Effect.Boost(1, Card);
+            }
+
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow, filter: x => !x.HasAllCategorie(Categorie.Dryad));
+            if (!selectList.TrySingle(out var target))
             {
                 return 0;
             }
-            await cards.Single().Effect.Boost(7, Card);
+            var targetpoint = target.CardPoint();
+            await target.Effect.Transform(CardId.DryadGrovekeeper, Card, x => x.Status.Strength = targetpoint);
             return 0;
         }
-
-        public async Task HandleEvent(AfterUnitPlay @event)
-        {
-            if (@event.PlayedCard.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.PlayedCard != Card)
-            {
-                if(@event.PlayedCard.CardPoint() < Card.CardPoint())
-                {
-                    await Card.Effect.Boost(1, Card);
-                }
-            }
-            return;
-        }
-
+        
     }
 }
