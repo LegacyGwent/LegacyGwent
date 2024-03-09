@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70137")]//巨橡 TheGreatOak
     public class TheGreatOak : CardEffect
-    {//择一:削弱一个敌军单位一半的基础战力；打出1张铜色树精牌，随后将其放回牌组。
+    {//
         public TheGreatOak(GameCard card) : base(card) { }
         private GameCard DryadTarget = null;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
@@ -14,8 +14,8 @@ namespace Cynthia.Card
             //选择选项,设置每个选项的名字和效果
             var switchCard = await Card.GetMenuSwitch
             (
-                ("橡树之力", "削弱一个敌军单位一半的基础战力"),
-                ("树精召唤", "打出1张铜色树精牌，随后将其放回牌组")
+                ("橡树之力", "选择一个友军单位，造成等同其基础战力的伤害。"),
+                ("树精召唤", "重新打出1个银色/铜色友军树精单位。")
             );
 
             if (switchCard == 0)
@@ -31,16 +31,16 @@ namespace Cynthia.Card
 
             else if (switchCard == 1)
             {
-                var list = Game.PlayersDeck[Card.PlayerIndex]
-                .Where(x => (x.Status.Group == Group.Copper) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Dryad)).Mess(Game.RNG).ToList();
+                var list = Game.PlayersCemetery[Card.PlayerIndex]
+                .Where(x => (x.Status.Group == Group.Copper) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Dryad));
                 if (list.Count() == 0)
                 {
                     return 0;
                 }
-                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+                var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1);
                 if (result.Count() == 0) return 0;
                 DryadTarget = result.First();
-                await result.First().MoveToCardStayFirst();
+                await DryadTarget.Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
                 return 1;
             }
             return 0;
