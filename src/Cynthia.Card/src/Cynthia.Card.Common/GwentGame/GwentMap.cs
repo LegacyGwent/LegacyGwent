@@ -13777,7 +13777,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "对一个敌军单位造成3点伤害，若手牌中没有金色牌则重复1次，并使目标获得佚亡。",
+                    Info = "对一个敌军单位造成3点伤害，若手牌中没有金色牌则重复1次。",
                     CardArtsId = "d20190000",
                 }
             },
