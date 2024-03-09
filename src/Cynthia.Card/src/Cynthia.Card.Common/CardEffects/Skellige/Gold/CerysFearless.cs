@@ -26,15 +26,19 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await SetCountdown(offset: -1);
-            if (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || !@event.Target.Status.CardRow.IsInCemetery())
+            
+            if (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || !@event.Target.Status.CardRow.IsInCemetery() || @event.Target == Card)
             {
                 return;
             }
-
-            await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
-            _resurrectCount++;
-            _discardSource = @event.Source;
+            if(Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery())
+            {
+                await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
+                _resurrectCount++;
+                _discardSource = @event.Source;
+            }
+            await SetCountdown(offset: -1);
+        
         }
 
         public async Task HandleEvent(BeforePlayStayCard @event)
