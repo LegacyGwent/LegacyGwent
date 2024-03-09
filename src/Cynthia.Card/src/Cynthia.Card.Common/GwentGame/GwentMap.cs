@@ -13417,7 +13417,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。",
-                    Info = "受到己方伤害时，对1个敌军单位造成等额伤害。",
+                    Info = "受到己方伤害时，对1个单位造成等额伤害。",
                     CardArtsId = "d14550000",
                 }
             },
@@ -13882,10 +13882,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70159",// 阿扎·贾维德 AzarJaved
+                "70161",// 阿扎·贾维德 AzarJaved
                 new GwentCard()
                 {
-                    CardId ="70159",
+                    CardId ="70161",
                     Name="阿扎·贾维德",
                     Strength=11,
                     Group=Group.Silver,
@@ -13902,10 +13902,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70160",// 圣甲虫 Scarab
+                "70162",// 圣甲虫 Scarab
                 new GwentCard()
                 {
-                    CardId ="70160",
+                    CardId ="70162",
                     Name="圣甲虫",
                     Strength=1,
                     Group=Group.Copper,
@@ -13922,10 +13922,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70161",// 雷纳德·奥多 ReynardOdo
+                "70163",// 雷纳德·奥多 ReynardOdo
                 new GwentCard()
                 {
-                    CardId ="70161",
+                    CardId ="70163",
                     Name="雷纳德·奥多",
                     Strength=10,
                     Group=Group.Gold,
@@ -13942,10 +13942,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70162",// 残翼 Tatterwing
+                "70164",// 残翼 Tatterwing
                 new GwentCard()
                 {
-                    CardId ="70162",
+                    CardId ="70164",
                     Name="残翼",
                     Strength=11,
                     Group=Group.Gold,
@@ -13962,10 +13962,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70163",// 薇薇恩·塔布里司 ViviennedeTabris
+                "70165",// 薇薇恩·塔布里司 ViviennedeTabris
                 new GwentCard()
                 {
-                    CardId ="70163",
+                    CardId ="70165",
                     Name="薇薇恩·塔布里司",
                     Strength=7,
                     Group=Group.Gold,
@@ -13982,10 +13982,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70164",// 被诅咒的卷轴 CursedScroll
+                "70166",// 被诅咒的卷轴 CursedScroll
                 new GwentCard()
                 {
-                    CardId ="70164",
+                    CardId ="70166",
                     Name="被诅咒的卷轴",
                     Strength=0,
                     Group=Group.Gold,
@@ -14002,10 +14002,10 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70165",// 卓尔坦的伙伴 ZoltansCompany
+                "70167",// 卓尔坦的伙伴 ZoltansCompany
                 new GwentCard()
                 {
-                    CardId ="70165",
+                    CardId ="70167",
                     Name="卓尔坦的伙伴",
                     Strength=0,
                     Group=Group.Gold,
