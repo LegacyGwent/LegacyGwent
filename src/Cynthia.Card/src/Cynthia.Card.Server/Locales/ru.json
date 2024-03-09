@@ -3583,7 +3583,7 @@
         },
         "70153": {
             "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If there are Gold tactic cards in your hand, make the unit Doomed.",
+            "Info": "Damage an enemy unit by 3. If no Gold cards in your hand, repeat once.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
         "70154": {
@@ -3633,7 +3633,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if this unit has 4 Boost at least, Reset self and Boost all allies on the same row by 1.",
+            "Info": "On turn end, if this unit has 3 Boost at least, Reset self and Boost all allies on the same row by 1.",
             "Flavor": ""
         },
         "70164": {
@@ -3643,7 +3643,7 @@
         },
         "70165": {
             "Name": "Vivienne de Tabris",
-            "Info": "Transform an ally into a different Gold unit from your starting deck.",
+            "Info": "Transform an ally into a different Gold unit from your starting deck and Boost it by 2.",
             "Flavor": ""
         },
         "70166": {
