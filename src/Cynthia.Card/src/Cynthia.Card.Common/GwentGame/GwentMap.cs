@@ -9226,7 +9226,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "复活己方下一张被丢弃的单位牌。",
+                    Info = "位于场上或墓地时，复活己方下一张被丢弃的单位牌。",
                     CardArtsId = "20177800",
                 }
             },
@@ -11850,7 +11850,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
                     Flavor = "",
-                    Info = "对一个友军单位造成3点伤害，随后从牌组打出一张铜色“呓语”牌。",
+                    Info = "对一个友军单位造成4点伤害，随后从牌组打出一张铜色“呓语”牌并使其获得2点强化。",
                     CardArtsId = "d17750000",
                 }
             },
@@ -13407,7 +13407,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70135",
                     Name="斯瓦勃洛牧师",
-                    Strength=10,
+                    Strength=11,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13417,7 +13417,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。",
-                    Info = "受到己方伤害时，对1个敌军单位造成等额伤害，回合结束时，若自身战力低于一半则治愈自身。",
+                    Info = "受到己方伤害时，对1个敌军单位造成等额伤害。",
                     CardArtsId = "d14550000",
                 }
             },
@@ -13457,7 +13457,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。",
-                    Info = "择一，削弱一个敌军单位一半的基础战力；打出1张铜色树精牌，随后将其放回牌组。",
+                    Info = "择一，削弱一个敌军单位一半的基础战力；复活1张铜色树精牌，随后将其放回牌组。",
                     CardArtsId = "d13620000",
                 }
             },
@@ -13487,7 +13487,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70139",
                     Name="树人野猪",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13507,7 +13507,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70140",
                     Name="树精林卫",
-                    Strength=3,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13517,7 +13517,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？",
-                    Info = "使1个友军单位获得7点增益，己方打出战力低于自身的单位时，获得1点增益。",
+                    Info = "使战力低于自身的友军单位获得1点增益，随后将1个友军单位保留基础战力转化为自身的同名牌。",
                     CardArtsId = "d17220000",
                 }
             },
@@ -13537,7 +13537,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra},
                     Flavor = "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。",
-                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌则将每种各一张铜色辛特拉牌加入牌组。",
+                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌，则将每种各一张铜色辛特拉牌加入牌组。",
                     CardArtsId = "d17070000",
                 }
             },
@@ -13607,7 +13607,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70145",
                     Name="奥莉安娜",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13667,7 +13667,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70148",
                     Name="吸血鬼女",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13877,8 +13877,148 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "造成5点伤害，若摧毁目标单位则重复1次，并降低1点伤害。",
+                    Info = "造成5点伤害，若摧毁目标单位则降低1点伤害并重复此能力",
                     CardArtsId = "c10000800",
+                }
+            },
+            {
+                "70159",// 阿扎·贾维德 AzarJaved
+                new GwentCard()
+                {
+                    CardId ="70159",
+                    Name="阿扎·贾维德",
+                    Strength=11,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "",
+                    Info = "生成2张圣甲虫。",
+                    CardArtsId = "d17520000",
+                }
+            },
+            {
+                "70160",// 圣甲虫 Scarab
+                new GwentCard()
+                {
+                    CardId ="70160",
+                    Name="圣甲虫",
+                    Strength=1,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Insectoid},
+                    Flavor = "",
+                    Info = "对方放弃跟牌后，移至另一侧同排。",
+                    CardArtsId = "d19690000",
+                }
+            },
+            {
+                "70161",// 雷纳德·奥多 ReynardOdo
+                new GwentCard()
+                {
+                    CardId ="70161",
+                    Name="雷纳德·奥多",
+                    Strength=10,
+                    Group=Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
+                    Flavor = "",
+                    Info = "回合结束时，若至少具有4点增益，则重置自身并使同排友军单位获得1点增益。",
+                    CardArtsId = "d14790000",
+                }
+            },
+            {
+                "70162",// 残翼 Tatterwing
+                new GwentCard()
+                {
+                    CardId ="70162",
+                    Name="残翼",
+                    Strength=11,
+                    Group=Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Beast},
+                    Flavor = "",
+                    Info = "回合结束时，使同排随机一个敌军单位移至其它排，并对其造成1点伤害。",
+                    CardArtsId = "d18370000",
+                }
+            },
+            {
+                "70163",// 薇薇恩·塔布里司 ViviennedeTabris
+                new GwentCard()
+                {
+                    CardId ="70163",
+                    Name="薇薇恩·塔布里司",
+                    Strength=7,
+                    Group=Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "",
+                    Info = "将一个友军单位转为起始卡组中的一张非同名金色单位牌。",
+                    CardArtsId = "d13980000",
+                }
+            },
+            {
+                "70164",// 被诅咒的卷轴 CursedScroll
+                new GwentCard()
+                {
+                    CardId ="70164",
+                    Name="被诅咒的卷轴",
+                    Strength=0,
+                    Group=Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special},
+                    Flavor = "",
+                    Info = "检视3张不同稀有度的牌，打出1张，丢弃其余2张。",
+                    CardArtsId = "d20380000",
+                }
+            },
+            {
+                "70165",// 卓尔坦的伙伴 ZoltansCompany
+                new GwentCard()
+                {
+                    CardId ="70165",
+                    Name="卓尔坦的伙伴",
+                    Strength=0,
+                    Group=Group.Gold,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special},
+                    Flavor = "",
+                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张银色/铜色矮人牌。位于墓地时，使己方打出的矮人单位获得2点护甲。",
+                    CardArtsId = "d19230000",
                 }
             },
         };
