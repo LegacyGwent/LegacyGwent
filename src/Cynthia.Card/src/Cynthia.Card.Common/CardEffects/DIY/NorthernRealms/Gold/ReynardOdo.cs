@@ -14,7 +14,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if(Card.Status.HealthStatus >= 4)
+            if(Card.Status.HealthStatus >= 3)
             {   
                 var boostlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();;
                 foreach (var card in boostlist)
