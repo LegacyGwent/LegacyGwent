@@ -10,8 +10,7 @@ namespace Cynthia.Card
         public DryadGrovekeeper(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var BoostList = Game.GetPlaceCards(PlayerIndex)
-                .Where(x => x != Card && x.CardPoint() < Card.CardPoint()).ToList();
+            var BoostList = Game.GetPlaceCards(PlayerIndex).Where(x => x != Card && x.CardPoint() < Card.CardPoint()).ToList();
 
             foreach (var targets in BoostList)
             {
@@ -27,6 +26,5 @@ namespace Cynthia.Card
             await target.Effect.Transform(CardId.DryadGrovekeeper, Card, x => x.Status.Strength = targetpoint);
             return 0;
         }
-        
     }
 }
