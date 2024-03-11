@@ -631,6 +631,13 @@ namespace Cynthia.Card
         public const string CoënofPoviss = "70158";
         public const string Crowmother = "70159";
         public const string Vildkaarl = "70160";
+        public const string AzarJaved = "70161";
+        public const string Scarab = "70162";
+        public const string ReynardOdo = "70163";
+        public const string Tatterwing = "70164";
+        public const string ViviennedeTabris = "70165";
+        public const string CursedScroll = "70166";
+        public const string ZoltansCompany = "70167";
         public const string AuberonKing = "80001";
         public const string AuberonInvader = "80002";
         public const string AuberonConqueror = "80003";

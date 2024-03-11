@@ -31,7 +31,8 @@ namespace Cynthia.Card
             }
             var playCard = cards.Single();
 
-            await target.Effect.Damage(3, Card);
+            await target.Effect.Damage(4, Card);
+            await playCard.Effect.Strengthen(2,Card);
             await playCard.MoveToCardStayFirst();
             return 1;
         }

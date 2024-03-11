@@ -21,7 +21,7 @@ namespace Cynthia.Card
             {
                 damage=damage + 2;
             }
-            await target.Effect.Damage(damage, target);
+            await target.Effect.Damage(damage, target, BulletType.RedLight, true);
             
             return 0;
         }

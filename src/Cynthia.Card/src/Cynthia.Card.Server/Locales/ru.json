@@ -273,7 +273,7 @@
         },
         "12007": {
             "Name": "Трисс Меригольд",
-            "Info": "Наносит 7 урона.",
+            "Info": "Наносит 5 урона.",
             "Flavor": "I can take care of myself. Trust me."
         },
         "12008": {
@@ -2498,7 +2498,7 @@
         },
         "62010": {
             "Name": "Керис: неустрашимая",
-            "Info": "Воскресите следующий сброшенный отряд.",
+            "Info": "if on the place or in the graveyard, Resurrect the next unit you Discard.",
             "Flavor": "ж€‘еї…йЎ»и¦Ѓе›ўз»“еђ„е¤§е®¶ж—ЏгЂ‚ж€‘еёЊжњ›иѓЅе¤џйЃїе…ЌејЂж€гЂ‚дЅ†еЃ‡е¦‚е°јеј—иї¦еѕ·ж‰§ж„ЏжќҐзЉЇпјЊй‚Јж€‘д»¬е°±дёЂе®љи¦ЃеђЊд»‡ж•ЊеїѕгЂ‚"
         },
         "62011": {
@@ -3038,7 +3038,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deal damage equal to the number of neutral cards in your hand.",
+            "Info": "Deal damage equal to the number of neutral cards in your hand 2 time..",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
         "70076": {
@@ -3063,7 +3063,7 @@
         },
         "70080": {
             "Name": "Кнут Бессердечный",
-            "Info": "Однократность. Развертывание: сбросьте карту из руки, затем создайте бронзовую единицу из стартовой колоды, усильте ее на 1 и добавьте в руку.",
+            "Info": "Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to an enemy unit and itself.",
             "Flavor": "Я преклоняю колени перед Свальблодом, и только перед Свальблодом!"
         },
         "70081": {
@@ -3103,7 +3103,7 @@
         },
         "70091": {
             "Name": "Лампа",
-            "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.",
+            "Info": "At the start of the game, add 3 The Last Wishes to your deck ,then Discard self.if in the graveyard,Last Wish checks 1 extra card.",
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70092": {
@@ -3168,7 +3168,7 @@
         },
         "70112": {
             "Name": "Первобытная дикость",
-            "Info": "Deal 3 Damage to an ally, then play a Bronze Cultist card from your deck.",
+            "Info": "Deal 4 Damage to an ally, then play a Bronze Cultist card from your deck and Strengthen it by 2.",
             "Flavor": ""
         },
         "70113": {
@@ -3493,7 +3493,7 @@
         },
         "70135": {
             "Name": "Svalblod Priest",
-            "Info": "When damaged by allies，deal same amount of Damage to an enemy unit.",
+            "Info": "When damaged by allies,deal same amount of Damage to a unit.",
             "Flavor": "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。"
         },
         "70136": {
@@ -3503,7 +3503,7 @@
         },
         "70137": {
             "Name": "The Great Oak",
-            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; Play a Bronze Dryad unit from your deck,then return it to the deck.",
+            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; Resurrect a Bronze Dryad unit from your deck,then return it to the deck.",
             "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
         },
         "70138": {
@@ -3518,12 +3518,12 @@
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
-            "Info": "Boost an ally unit by 7. Whenever an ally unit with lower power is played, gain 1 Boost.",
+            "Info": "Boost all other allies by 1 with lower ,Transform an ally into a copy of this unit and keep base Strength.",
             "Flavor": "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？"
         },
         "70141": {
             "Name": "Queen Adalia",
-            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, return this unit to the deck.",
+            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, add one each Bronze Cintra to your deck.",
             "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
         },
         "70142": {
@@ -3538,7 +3538,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Play a copy of this unit from your deck. If there is no copies, add a random different Cintra card to the deck.",
+            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to the deck.",
             "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
         },
         "70145": {
@@ -3553,12 +3553,12 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains, Drain the target unit by 1.",
+            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains on the same row, Drain the target unit by 1.",
             "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end，if there is no unit on the opposite row,Drain a random enemy unit by 1.",
+            "Info": "On turn end，if there is no higher unit on the opposite row,Drain a random enemy unit on the same row by 1.",
             "Flavor": "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。"
         },
         "70149": {
@@ -3573,7 +3573,7 @@
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Damage an enemy by 4. If is in your hand on turn end,reveal self and trigger its ability.",
+            "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
             "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
         },
         "70152": {
@@ -3583,7 +3583,7 @@
         },
         "70153": {
             "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If there are Gold tactic cards in your hand, make the unit Doomed.",
+            "Info": "Damage an enemy unit by 3. If no Gold cards in your hand, repeat once.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
         "70154": {
@@ -3598,7 +3598,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damages to an enemy unit. If it's boosted, Damage it by 10 instead.",
+            "Info": "Deal 8 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
@@ -3608,12 +3608,12 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Damage an enemy by 3,until the unit's power lower self.",
+            "Info": "Damage 5 Damages,if it was destroyed.repeat once and Reduces damage by 1 point.",
             "Flavor": ""
         },
         "70159": {
             "Name": "Crow Mother",
-            "Info": "Discard 3 Special cards from you deck. For each special card discarded, spawn a Crow.",
+            "Info": "Discard 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
         "70160": {
@@ -3621,5 +3621,40 @@
             "Info": "Deal 4 Damages to adjacent units.",
             "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
         },
+        "70161": {
+            "Name": "Azar Javed",
+            "Info": "Spawn 2 Scarab.",
+            "Flavor": ""
+        },
+        "70162": {
+            "Name": "Scarab",
+            "Info": "when your opponent passes, move to the opposite row.",
+            "Flavor": ""
+        },
+        "70163": {
+            "Name": "Reynard Odo",
+            "Info": "On turn end, if this unit has 3 Boost at least, Reset self and Boost all allies on the same row by 1.",
+            "Flavor": ""
+        },
+        "70164": {
+            "Name": "Tatter wing",
+            "Info": "On turn end, Move all units on the same row to random rows and Deal 1 Damage to them.",
+            "Flavor": ""
+        },
+        "70165": {
+            "Name": "Vivienne de Tabris",
+            "Info": "Transform an ally into a different Gold unit from your starting deck and Boost it by 2.",
+            "Flavor": ""
+        },
+        "70166": {
+            "Name": "Cursed Scroll",
+            "Info": "Look  at 3 random cards of different color from your deck. Play one and Discard the other.",
+            "Flavor": ""
+        },
+        "70167": {
+            "Name": "Zoltans Company",
+            "Info": "Return 3 Bronze or Silver units from the graveyard to your deck and Play a Silver or Bronze Dwarf from your deck.if in the graveyard,Whenever you play a Dwarf unit, give it 2 Armor.",
+            "Flavor": ""
+        }
     }
 }

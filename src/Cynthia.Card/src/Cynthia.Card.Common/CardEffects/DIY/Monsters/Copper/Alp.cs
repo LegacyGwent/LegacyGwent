@@ -14,10 +14,14 @@ namespace Cynthia.Card
             {
                 return;
             }
-            var row = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror()).IgnoreConcealAndDead();
-            if(row.Count == 0)
+            var row = Card.Status.CardRow;
+            if (!Game.GetPlaceCards(AnotherPlayer,row).WhereAllHighest().TryMessOne(out var target, Game.RNG))
             {
-                var cards = Game.GetPlaceCards(AnotherPlayer);
+                return;
+            }
+            if(target.CardPoint() < Card.CardPoint())
+            {
+                var cards = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror()).IgnoreConcealAndDead();
                 if (cards.Count() == 0)
                 {
                     return;

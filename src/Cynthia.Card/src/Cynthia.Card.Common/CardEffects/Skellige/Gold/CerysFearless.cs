@@ -20,21 +20,25 @@ namespace Cynthia.Card
         {
             // 现在关于触发源的触发条件：触发源在己方半场且不是密探，或者触发源在对方半场且是密探；然后这里要取反
             // 出新卡时注意可能涉及bug
-            if (Countdown <= 0 || !Card.IsAliveOnPlance() || @event.Target.PlayerIndex != PlayerIndex
+            if (Countdown <= 0 || Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || @event.Target.PlayerIndex != PlayerIndex
             || (@event.Source.PlayerIndex == PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent))
             || (@event.Source.PlayerIndex != PlayerIndex && !@event.Source.HasAnyCategorie(Categorie.Agent)))
             {
                 return;
             }
-            await SetCountdown(offset: -1);
-            if (!Card.IsAliveOnPlance() || !@event.Target.Status.CardRow.IsInCemetery())
+            
+            if (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || !@event.Target.Status.CardRow.IsInCemetery() || @event.Target == Card)
             {
                 return;
             }
-
-            await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
-            _resurrectCount++;
-            _discardSource = @event.Source;
+            if(Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInCemetery())
+            {
+                await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
+                _resurrectCount++;
+                _discardSource = @event.Source;
+            }
+            await SetCountdown(offset: -1);
+        
         }
 
         public async Task HandleEvent(BeforePlayStayCard @event)

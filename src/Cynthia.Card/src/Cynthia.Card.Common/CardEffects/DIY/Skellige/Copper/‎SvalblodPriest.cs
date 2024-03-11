@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70135")]//斯瓦勃洛牧师 SvalblodPriest
     public class SvalblodPriest : CardEffect, IHandlesEvent<AfterCardHurt>
-    {//
+    {
         public SvalblodPriest(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterCardHurt @event)
         {
