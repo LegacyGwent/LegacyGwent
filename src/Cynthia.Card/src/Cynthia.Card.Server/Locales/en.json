@@ -2498,7 +2498,7 @@
         },
         "62010": {
             "Name": "Cerys: Fearless",
-            "Info": "if on the place or in the graveyard, Resurrect the next unit you Discard.",
+            "Info": "if on the place or in graveyard, Resurrect the next unit you Discard.",
             "Flavor": "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。"
         },
         "62011": {
@@ -3198,7 +3198,7 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to an enemy unit and itself.",
+            "Info": "Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to itself.",
             "Flavor": "I kneel to Svalblod, and Svalblod alone!"
         },
         "70081": {
@@ -3303,7 +3303,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 4 Damage to an ally, then play a Bronze Cultist card from your deck and Strengthen it by 2.",
+            "Info": "Deal 4 Damage to an ally, then play a Bronze Cultist card from your deck, then strengthen the unit played by 2.",
             "Flavor": ""
         },
         "70113": {
@@ -3529,12 +3529,12 @@
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
-            "Info": "Boost all other allies by 1 with lower ,Transform an ally into a copy of this unit and keep base Strength.",
+            "Info": "Transform a Bronze or Silver ally into a copy of this unit and keep base Strength,then Boost all other allies by 1 with lower.",
             "Flavor": "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？"
         },
         "70141": {
             "Name": "Queen Adalia",
-            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, add one each Bronze Cintra to your deck.",
+            "Info": "Spawn an Cintra card. If there are only Northern realm cards in your starting deck, add one Bronze Cintra cards each to your deck.",
             "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
         },
         "70142": {
@@ -3549,7 +3549,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to the deck.",
+            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
             "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
         },
         "70145": {
@@ -3564,12 +3564,12 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains on the same row, Drain the target unit by 1.",
+            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit on the same row Drains, Drain the target unit by 1.",
             "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end，if there is no higher unit on the opposite row,Drain a random enemy unit on the same row by 1.",
+            "Info": "On turn end，If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
             "Flavor": "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。"
         },
         "70149": {
@@ -3594,7 +3594,7 @@
         },
         "70153": {
             "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If no Gold cards in your hand, repeat once.",
+            "Info": "Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
         "70154": {
@@ -3619,7 +3619,7 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Damage 5 Damages,if it was destroyed.repeat once and Reduces damage by 1 point.",
+            "Info": "Deal 5 Damage.If the target is destroyed, Reduce the damage by 1 and repeat once.",
             "Flavor": ""
         },
         "70159": {
@@ -3634,7 +3634,7 @@
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Spawn 2 Scarab.",
+            "Info": "Spwan 2 Scarab. (Scarab:1-When your opponent passes, move to the opposite row.)",
             "Flavor": ""
         },
         "70162": {
@@ -3644,27 +3644,27 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if this unit has 3 Boost at least, Reset self and Boost all allies on the same row by 1.",
+            "Info": "On turn end，if it has at least 3 Boosts， Reset self and Boost all allies on the same row by 1.",
             "Flavor": ""
         },
         "70164": {
             "Name": "Tatter wing",
-            "Info": "On turn end, Move all units on the same row to random rows and Deal 1 Damage to them.",
+            "Info": "On turn end， move all units on the opposite row to random rows，then deal 1 damage to them each.",
             "Flavor": ""
         },
         "70165": {
             "Name": "Vivienne de Tabris",
-            "Info": "Transform an ally into a different Gold unit from your starting deck and Boost it by 2 .",
+            "Info": "Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2..",
             "Flavor": ""
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Look  at 3 random cards of different color from your deck. Play one and Discard the other.",
+            "Info": "Look at 3 random cards with different colors from your deck. Play one, discard the other two.",
             "Flavor": ""
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Return 3 Bronze or Silver units from the graveyard to your deck and Play a Silver or Bronze Dwarf from your deck.if in the graveyard,Whenever you play a Dwarf unit, give it 2 Armor.",
+            "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard， whenever you play a Dwarf unit, give it 1 Armors and Boost it by 1.",
             "Flavor": ""
         }
     }
