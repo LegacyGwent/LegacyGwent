@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 94);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 95);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11237,10 +11237,10 @@ namespace Cynthia.Card
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = false,
+                    IsDoomed = true,
                     IsCountdown = false,
-                    IsDerive = true,
-                    Categories = new Categorie[] { Categorie.Soldier,Categorie.Token},
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Soldier},
                     Flavor = "",
                     Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组底部。",
                     CardArtsId = "d19620000",
@@ -12535,7 +12535,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
-                    Info = "打出牌组中基础战力最高的铜色单位牌，对其与一个敌军单位造成等同其战力一半的伤害",
+                    Info = "打出牌组中基础战力最高的铜色单位牌，随后造成等同其战力一半的伤害。",
                     CardArtsId = "d16660000",
                 }
             },
@@ -13407,7 +13407,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70135",
                     Name="斯瓦勃洛牧师",
-                    Strength=11,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13517,7 +13517,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？",
-                    Info = "使战力低于自身的友军单位获得1点增益，随后将1个友军单位保留基础战力转化为自身的同名牌。",
+                    Info = "将1个银色/铜色友军单位保留基础战力转化为自身的同名牌，随后使战力低于自身的友军单位获得1点增益。",
                     CardArtsId = "d17220000",
                 }
             },
@@ -13867,7 +13867,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70158",
                     Name="波维斯的柯恩",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13887,7 +13887,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70161",
                     Name="阿扎·贾维德",
-                    Strength=11,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14017,7 +14017,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张银色/铜色矮人牌。位于墓地时，使己方打出的矮人单位获得2点护甲。",
+                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张铜色矮人牌。位于墓地时，使己方打出的矮人单位获得1点护甲与1点增益。",
                     CardArtsId = "d19230000",
                 }
             },
