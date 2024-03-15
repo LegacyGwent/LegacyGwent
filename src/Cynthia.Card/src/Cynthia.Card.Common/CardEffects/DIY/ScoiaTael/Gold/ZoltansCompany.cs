@@ -22,7 +22,7 @@ namespace Cynthia.Card
                 }
             }
 
-            var Plist = Game.PlayersDeck[Card.PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Dwarf)).Mess(RNG);
+            var Plist = Game.PlayersDeck[Card.PlayerIndex].Where(x => (x.Status.Group == Group.Copper) && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(Categorie.Dwarf)).Mess(RNG);
             var Presult = await Game.GetSelectMenuCards(Card.PlayerIndex, Plist.ToList(), 1, "选择打出一张牌");
             if (Presult.Count() == 0) return 0;
             await Presult.First().MoveToCardStayFirst();
@@ -35,7 +35,8 @@ namespace Cynthia.Card
             {
                 if (@event.PlayedCard.HasAnyCategorie(Categorie.Dwarf))
                 {
-                    await @event.PlayedCard.Effect.Armor(2, Card);
+                    await @event.PlayedCard.Effect.Armor(1, Card);
+                    await @event.PlayedCard.Effect.Boost(1, Card);
                 }
             }
             return;
