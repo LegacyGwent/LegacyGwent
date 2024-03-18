@@ -268,12 +268,12 @@
         },
         "12006": {
             "Name": "Saskia Smoczy Ogień",
-            "Info": "Rozmieszczenie: odrzuć karty ze swojej ręki i dobierz tyle samo kart.",
+            "Info": "Rozmieszczenie: banicja karty ze swojej ręki i dobierz tyle samo kart.",
             "Flavor": "Odziedziczyłam po ojcu zdolność polimorfii, choć potrafię przemieniać się jedynie w jedną postać."
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń.",
             "Flavor": "Potrafię o siebie zadbać. Wierz mi."
         },
         "12008": {
@@ -578,7 +578,7 @@
         },
         "13026": {
             "Name": "Zwierciadło Bekkera",
-            "Info": "Wymień do 13 pkt siły między najsilniejszą i najsłabszą jednostką.",
+            "Info": "Wymień do 11 pkt siły między najsilniejszą i najsłabszą jednostką.",
             "Flavor": "Gdy długo spoglądamy w otchłań, otchłań spogląda również w nas."
         },
         "13027": {
@@ -1368,7 +1368,7 @@
         },
         "32007": {
             "Name": "Shilard",
-            "Info": "Rozmieszczenie, Jednorazowa, Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
+            "Info": "Rozmieszczenie,Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
             "Flavor": "Dyplomata to człowiek, który używa znacznie więcej słów niż potrzeba, aby wyrazić znacznie mniej niż wie."
         },
         "32008": {
@@ -1408,7 +1408,7 @@
         },
         "32015": {
             "Name": "Zabójstwo",
-            "Info": "Zadaj 7 pkt. obrażeń przeciwnikowi.\nPowtórz raz.",
+            "Info": "Zadaj 9 pkt. obrażeń przeciwnikowi.\nPowtórz raz.",
             "Flavor": "Ile jest warte ludzkie życie? To zależy - twoje, przykładowo, około stu orenów."
         },
         "33001": {
@@ -1663,7 +1663,7 @@
         },
         "34028": {
             "Name": "Ambasador",
-            "Info": "Szpieg. Rozmieszczenie: Wzmocnij sojusznika o 14.",
+            "Info": "Szpieg. Rozmieszczenie: Wzmocnij sojusznika o 12.",
             "Flavor": "Szpieg to trochę zbyt dużo powiedziane. Jestem raczej obserwatorem."
         },
         "34029": {
@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Roche Bezlitosny",
-            "Info": "Zagraj brązową temerską jednostke z Twojej ręki o sile niższej lub równej sile tej jednostki i dobież kartę. Dodaj Niebieskie Pasy do Twojej talii.",
+            "Info": "Deploy: Choose one：Play 1 silver/copper Temoria card with less power then self；or destroy 1 back-up ambush enemy unit. ",
             "Flavor": "Strach nam nie przystoi, ale jest pewien d'hoine... Vernon Roche. Wystrzegaj się go."
         },
         "42008": {
@@ -2193,7 +2193,7 @@
         },
         "53007": {
             "Name": "Yarpen Zigrin",
-            "Info": "Za każdym razem, gdy pojawi się sojuszniczy krasnolud, wzmocnij siebie o 1.\nWytrzymałość.\n1 pkt. pancerza.",
+            "Info": "Za każdym razem, gdy pojawi się sojuszniczy krasnolud, wzmocnij siebie o 1.\nWytrzymałość.",
             "Flavor": "O smoku Ocviście z Kwarcowej Góry słyszałeś? Wiedz, że właśnie Yarpen Zigrin i jego krasnoludy załatwiły Ocvista."
         },
         "53008": {
@@ -2343,7 +2343,7 @@
         },
         "54016": {
             "Name": "Obrońcy Mahakamu",
-            "Info": "Odporny.,\n2 pkt. pancerza.",
+            "Info": "Odporny., pancerza.",
             "Flavor": "Walka z krasnoludami z Mahakamu... To jakby żużel żuć."
         },
         "54017": {
@@ -2498,7 +2498,7 @@
         },
         "62010": {
             "Name": "Cerys Nieustraszona",
-            "Info": "Wskrześ następną jednostkę, którą odrzucisz.",
+            "Info": "if on the place or in graveyard, Resurrect the next unit you Discard.",
             "Flavor": "Muszę zjednoczyć klany. Wolę uniknąć wojny, ale jeśli Nilfgaard rzeczywiście zamierza nas zaatakować, wspólnie damy mu odpór."
         },
         "62011": {
@@ -2923,7 +2923,7 @@
         },
         "70022": {
             "Name": "Kikimora Robotnica",
-            "Info": "Rozmieszczenie: Wybierz przyjaznego insekta i wzmocnij wszystkie karty z kopie tej karty po Twojej stronie planszy w ręce i w tali o 2.",
+            "Info": "Deploy: Boost all Insectoid allies on the same row by 2.",
             "Flavor": ""
         },
         "70023": {
@@ -2953,7 +2953,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Rozmieszczenie: Przenieś wszystkie wrogie jednostki do losowych rzędów. Za każdą przeniesioną jednostkę otrzymaj 2 pkt obrażeń. Wzmocnij się o 1 za każdym razem gdy jednostka zostanie poruszona w trakcie Twojej tury.",
+            "Info": "Rozmieszczenie: Wybierz rząd i przenieś wszystkich znajdujących się w nim wrogów do losowych rzędów, zadając sobie obrażenia o 2 za każdą przeniesioną jednostkę.\nKiedy jednostka w twojej ręce lub talii poruszy się podczas twojej tury, zwiększ swoje obrażenia o 1.",
             "Flavor": ""
         },
         "70033": {
@@ -2998,7 +2998,7 @@
         },
         "70045": {
             "Name": "Meve",
-            "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 5,4,3. Załoga.",
+            "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 4. Załoga.",
             "Flavor": ""
         },
         "70046": {
@@ -3033,7 +3033,7 @@
         },
         "70070": {
             "Name": "Rezuni",
-            "Info": "Jednorazowa. Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj 2 kopie Kundli ze Spalli do Twojej talii.\n(Kundle ze Spalii; 5 pkt siły; Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich)",
+            "Info": "Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj 2 kopie Kundli ze Spalli do Twojej talii.\n(Kundle ze Spalii; 5 pkt siły; Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
@@ -3043,7 +3043,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Rozmieszczenie: Zadaj obrażenia równe ilości kart neutralnych w Twojej ręce.",
+            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 time.",
             "Flavor": ""
         },
         "70076": {
@@ -3068,7 +3068,7 @@
         },
         "70080": {
             "Name": "Knut Waleczny",
-            "Info": "Jednorazowa.\n Rozmieszczenie: odrzuć kartę z ręki, a następnie wygeneruj brązową jednostkę z talii startowej, wzmocnij ją o 1 i dodaj do ręki.",
+            "Info": "Deploy:Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to itself.",
             "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
         },
         "70081": {
@@ -3078,12 +3078,12 @@
         },
         "70082": {
             "Name": "Arnjolf Ojcobójca",
-            "Info": "Rozmieszczenie: Wybierz jedno: Odrzuć wszystkie duplikaty kart w Twojej ręce i dobież tyle kart ile odrzuciłeś; lub odrzuć karty o sile większej niż ta karta i dobież tyle kart ile odrzuciłeś.",
+            "Info": "Destroy all units with Strength less then 3 on both sides.",
             "Flavor": ""
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
-            "Info": "Przyzwij kopie tej jednostki do losowego rzędu kiedy wróg zostanie zniszczony wpływem Trzaskający Mróz zostanie zniszczony.",
+            "Info": "Przyzwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskający Mróz zostanie zniszczony.",
             "Flavor": ""
         },
         "70084": {
@@ -3106,24 +3106,74 @@
             "Info": "Rozmieszczenie: przenieś wszystkie mglaki z cmentarza do swojej talii i stwórz Gęstą mgłę w przeciwległym rzędzie.",
             "Flavor": "Do not follow the lights!"
         },
+        "70089": {
+            "Name": "Artis",
+            "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń wrogowi. Jeśli cel zostanie zniszczony, stwórz Ofiarowanie Kultysty w przeciwnym rzędzie. \n (Ofiarowanie Kultysty Po dwóch turach na początku tury wygnaj tę kartę. Zemsta: Wylecz najmocniej ranną jednostkę przeciwnika i wzmocnij ją o 1.)",
+            "Flavor": "It is finished It is finished IT IS THE MERCY"
+        },
+        "70090": {
+            "Name": "Ofiarowanie Kultysty",
+            "Info": "Po dwóch turach na początku tury wygnaj tę kartę. Zemsta: Wylecz najmocniej ranną jednostkę przeciwnika i wzmocnij ją o 1.",
+            "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
+        },
         "70091": {
             "Name": "Magiczna Lampa",
-            "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.",
+            "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.if in the graveyard,Last Wish checks 1 extra card",
             "Flavor": ""
         },
         "70092": {
-            "Name": "Śpiewaczka Havfrue",
-            "Info": "Rozmieszczenie: Jeśli wpływem Ulewny Deszcz lub Skelligijski Sztorm, Przenieś 2 jednostkę do rzędu tej jednostki po jej stronie.",
+            "Name": "SvalblodBrawler",
+            "Info": "Damage an enemy by 4,if it is under a Hazard,deal 8 Damage instead.",
             "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
         },
         "70093": {
             "Name": "Sztorm",
-            "Info": "Rzuć Skelligijski Sztorm na rzędy wpływem Ulewny Deszcz, a rzuć Ulewny Deszcz na pozostałych rzędy.",
+            "Info": "Choose 4 rows, Spawn “Torrential Rain”on them. If it’s already under “Torrential Rain”, Spawn “Skellige Storm” on this row instead.",
             "Flavor": "Dziesięć w skali Bekkera."
+        },
+        "70094": {
+            "Name": "Lyriańska kawaleria",
+            "Info": "Rozmieszczenie: wybierz jednostkę ze swojej talii i wzmocnij się o wartość, o jaką wzmocniona jest ta jednostka.",
+            "Flavor": "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。"
+        },
+        "70095": {
+            "Name": "Lyrian Arbalest",
+            "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
+            "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
+        },
+        "70096": {
+            "Name": "Okręt wojenny Tuirseach",
+            "Info": "On turn end, deal 2 Damages to a random undamaged unit.",
+            "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
+        },
+        "70097": {
+            "Name": "Hawierz",
+            "Info": "Rozmieszczenie: Wzmocnij się o 1 za każdego Krasnoluda w twojej ręce.",
+            "Flavor": "Which moron's whistling in the mine?!"
+        },
+        "70098": {
+            "Name": "Sabotażysta Vrihedd",
+            "Info": "Play a random Items from your deck. Increase their Damages by 1 each.",
+            "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
+        },
+        "70099": {
+            "Name": "Svalblod",
+            "Info": "Damege all units in your deck by 2, then Strength them by 2",
+            "Flavor": "斯瓦勃洛唯一的戒律：屠戮。"
+        },
+        "70100": {
+            "Name": "Forest Whisperer",
+            "Info": "Damage all units on the same row of both sides by 2, except for Dryads.",
+            "Flavor": "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。"
+        },
+        "70101": {
+            "Name": "Immortal Cavalry",
+            "Info": "At the start of the game,lock self.Next an ally appears Boost it by 3.",
+            "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
         },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
-            "Info": "Rozmieszczenie: Wygnaj 3 brązową bestię lub wampira z Twojego cmentarza, następnie Wybierz: stwórz 3 krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz 3 pełnie we wszystkich Twoich rzędach.",
+            "Info": "Rozmieszczenie: Wygnaj 3 brązową bestię lub wampira 3 Twojego cmentarza, następnie Wybierz: stwórz z krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz 3 pełnie we wszystkich Twoich rzędach.",
             "Flavor": ""
         },
         "70103": {
@@ -3137,7 +3187,7 @@
             "Flavor": ""
         },
         "70105": {
-            "Name": "Freixenet i Braine",
+            "Name": "Freixenet And Braine",
             "Info": "Rozmieszczenie: Ustaw siłę wybranej jednostki na siłę tej karty.",
             "Flavor": ""
         },
@@ -3173,12 +3223,12 @@
         },
         "70112": {
             "Name": "Pierwotna Dzicz",
-            "Info": "Zadaj 3 pkt obrażeń sojusznikowi, następnie zagraj losowego brązowego kultystę z Twojej talii.",
+            "Info": "Deal 4 Damage to an ally, then play a Bronze Cultist card from your deck, then strengthen the unit played by 2.",
             "Flavor": ""
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 4 lub niższej. 2 pkt pancerza.",
+            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
             "Flavor": ""
         },
         "70114": {
@@ -3198,18 +3248,293 @@
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Przywij tę jednostkę gdy zagrasz kartę dowódcy. Zemsta: Przenieś losową Driadę na szczyt Twojej talii.",
+            "Info": "Summon this unit when ever you play the Leader.On turn end, boost all allies with the same power as self by 1.",
             "Flavor": ""
         },
         "70118": {
             "Name": "Lyryjski Kosynier",
-            "Info": "Rozmieszczenie: Wzmocnij losową jednostę w Twojej tali o 3, następnie wzmocnij się o wartość wzmocnienia tej jednostki.",
+            "Info": "Deploy: Boost a Bronze unit in your deck by 3.",
             "Flavor": ""
         },
         "70119": {
             "Name": "Odwilż",
             "Info": "Wzmocnij losowego sojusznika o 2. Powtórz raz. Następnie powtórze te umiejętność za każdą kartę zagraną w tej turze.",
             "Flavor": "Brak"
+        },
+        "70121": {
+            "Name": "Otkell",
+            "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1.",
+            "Flavor": "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。"
+        },
+        "70122": {
+            "Name": "Dryad Matron",
+            "Info": "Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
+            "Flavor": "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……"
+        },
+        "70123": {
+            "Name": "Battle Preparation",
+            "Info": "Play a Bronze soilder unit from your hand and Boost it by 2,and then draw a card.",
+            "Flavor": "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。"
+        },
+        "70124": {
+            "Name": "Woodland Prowlers",
+            "Info": "Weaken a enemy by 1,if the enemy is under Impenetrable Fog,Weaken by 3.",
+            "Flavor": "进入森林的人类最不想见到……"
+        },
+        "70125": {
+            "Name": "Barnabas Beckenbauer",
+            "Info": "Boost another ally unit by 2. For each bronze item in your grave yard, repeat once.",
+            "Flavor": "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！"
+        },
+        "70126": {
+            "Name": "Cintrian Royal Guard",
+            "Info": "Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
+            "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
+        },
+        "70127": {
+            "Name": "VanMoorlehem Servant",
+            "Info": "Immune.Gain 5 Boost when Concealed.",
+            "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
+        },
+        "70128": {
+            "Name": "Moon Dust",
+            "Info": "Deal 5 Damages,then deal 1 Damage randomly 4 times.",
+            "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
+        },
+        "70129": {
+            "Name": "Natural Selection",
+            "Info": "Spawn 2 Arachas Hatchling on a raw, For each copy of this card in your graveyard,spawn an extra one.",
+            "Flavor": "适者生存。所以你得被淘汰。"
+        },
+        "70130": {
+            "Name": "Mantlet",
+            "Info": "When the unit on the right side is getting Damage, take the Damage with self's Armor first. Crewed: Gain 6 armor.",
+            "Flavor": "类似于盾牌和栅栏的杂交品种。"
+        },
+        "70131": {
+            "Name": "Count Caldwell",
+            "Info": "Swap the Strength of 2 enemy units.",
+            "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
+        },
+        "70132": {
+            "Name": "Garkain",
+            "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it instead.",
+            "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
+        },
+        "70133": {
+            "Name": "Lonely Champion",
+            "Info": "Every turn, on turn end, if no other units on your side of the board, boost self by 4.",
+            "Flavor": "只要他继续为正义而战，骑士团和烈焰就永不熄灭。"
+        },
+        "70134": {
+            "Name": "Crow Clan Druid",
+            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.",
+            "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
+        },
+        "70135": {
+            "Name": "Svalblod Priest",
+            "Info": "When damaged by allies, deal same amount of Damage to a unit.",
+            "Flavor": "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。"
+        },
+        "70136": {
+            "Name": "Crow",
+            "Info": "Deathwish:Deal 3 Damage to a random enemy.",
+            "Flavor": "置身鸦群，你也必须鸦鸦做声。"
+        },
+        "70137": {
+            "Name": "The Great Oak",
+            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; Resurrect a Bronze Dryad unit from your deck,then return it to the deck.",
+            "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
+        },
+        "70138": {
+            "Name": "Dryads Caress",
+            "Info": "Play a Bronze/Silver Dryad unit from your deck, then boost it by the number of Dryad units on your side.",
+            "Flavor": "嘘，嘘……伊芙莲会变成美丽的花……"
+        },
+        "70139": {
+            "Name": "Treant Boar",
+            "Info": "Deal 3 Damages, then move the adjacent units of the target unit to random rows. If the target is destroyed, repeat once.",
+            "Flavor": "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？"
+        },
+        "70140": {
+            "Name": "Dryad Grovekeeper",
+            "Info": "Transform a Bronze or Silver ally into a copy of this unit and keep base Strength,then Boost all other allies by 1 with lower.",
+            "Flavor": "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？"
+        },
+        "70141": {
+            "Name": "Queen Adalia",
+            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, add one each Bronze Cintra cards to your deck.",
+            "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
+        },
+        "70142": {
+            "Name": "Vissegerd",
+            "Info": "Deal 8 Damages,then deal Damages equal to self's Boosts.",
+            "Flavor": "我会不惜代价重建辛特拉。"
+        },
+        "70143": {
+            "Name": "Cintrian Knight",
+            "Info": "Whenever you play a Cintra unit, Boost the unit and self by 1 each.",
+            "Flavor": "丧钟为谁鸣？"
+        },
+        "70144": {
+            "Name": "Cintrian Envoy",
+            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
+            "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
+        },
+        "70145": {
+            "Name": "Orianna",
+            "Info": "Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
+            "Flavor": "奥莉安娜夫人真是咱们的福气……她救济穷人，资助画家。她还为那些可怜的孩子们开了一家孤儿院呢！"
+        },
+        "70146": {
+            "Name": "Gael",
+            "Info": "Deal 5 Damage to two enemy units each.",
+            "Flavor": "喜欢发光小玩意的不只有喜鹊。"
+        },
+        "70147": {
+            "Name": "Plumard",
+            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains on the same row, Drain the target unit by 1.",
+            "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
+        },
+        "70148": {
+            "Name": "Alp",
+            "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
+            "Flavor": "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。"
+        },
+        "70149": {
+            "Name": "Anna Henrietta",
+            "Info": "Sort the cards in your deck in descending order by their base Strength, then play a card from the top of your deck.",
+            "Flavor": "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……"
+        },
+        "70150": {
+            "Name": "Vincent Van Moorlehem",
+            "Info": "Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Flavor": "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。"
+        },
+        "70151": {
+            "Name": "Philippe Van Moorlehem",
+            "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
+            "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
+        },
+        "70152": {
+            "Name": "Van Moorlehem's Cupbearer",
+            "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.Companians",
+            "Flavor": "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……"
+        },
+        "70153": {
+            "Name": "Van Moorlehem's Hunter",
+            "Info": "Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
+            "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
+        },
+        "70154": {
+            "Name": "Iris: Shade",
+            "Info": "Deploy,Truce:Add 2 Iris'Companions to both hands.",
+            "Flavor": "和欧吉尔德的婚约犹如一场美梦……"
+        },
+        "70155": {
+            "Name": "Isbel of Hagge",
+            "Info": "Reset an unit. If it's an ally, repeat once.",
+            "Flavor": "于是我便发下誓言……永远不会使用魔法伤害他人。"
+        },
+        "70156": {
+            "Name": "Piercing Missile",
+            "Info": "Deal 8 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
+            "Flavor": "无坚不摧，无甲不破。"
+        },
+        "70157": {
+            "Name": "Wisteria",
+            "Info": "Choose two units, for each, Boost it by 6 if the unit's Power is even, Damage it by 6 if the unit's Power is odd.",
+            "Flavor": "紫藤通过汲取尸体的营养而成长。"
+        },
+        "70158": {
+            "Name": "Coën of Poviss",
+            "Info": "Deal 5 Damage.If the target is destroyed, Reduce the damage by 1 and repeat once.",
+            "Flavor": ""
+        },
+        "70159": {
+            "Name": "Crow Mother",
+            "Info": "Discard 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.",
+            "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
+        },
+        "70160": {
+            "Name": "Vildkaarl",
+            "Info": "Deal 4 Damages to adjacent units.",
+            "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
+        },
+        "70161": {
+            "Name": "Azar Javed",
+            "Info": "Spwan 2 Scarab. (Scarab:1-When your opponent passes, move to the opposite row.)",
+            "Flavor": ""
+        },
+        "70162": {
+            "Name": "Scarab",
+            "Info": "when your opponent passes, move to the opposite row.",
+            "Flavor": ""
+        },
+        "70163": {
+            "Name": "Reynard Odo",
+            "Info": "On turn end, if it has at least 3 Boosts, Reset self and Boost all allies on the same row by 1.",
+            "Flavor": ""
+        },
+        "70164": {
+            "Name": "Tatter wing",
+            "Info": "On turn end, Move all units on the opposite row to random rows, then deal 1 damage to them each.",
+            "Flavor": ""
+        },
+        "70165": {
+            "Name": "Vivienne de Tabris",
+            "Info": "Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2.",
+            "Flavor": ""
+        },
+        "70166": {
+            "Name": "Cursed Scroll",
+            "Info": "Look at 3 random cards with different colors from your deck. Play one, Discard the other two.",
+            "Flavor": ""
+        },
+        "70167": {
+            "Name": "Zoltans Company",
+            "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armors and Boost it by 1.",
+            "Flavor": ""
+        },
+        "80001": {
+            "Name": "Auberon:King",
+            "Info": "He'll drop a white frost.",
+            "Flavor": "The end of one world can be the beginning of another."
+        },
+        "80002": {
+            "Name": "Auberon:Invader",
+            "Info": "He will awaken the Wild Hunt.",
+            "Flavor": "If they will not submit, they shall be driven out!"
+        },
+        "80003": {
+            "Name": "Auberon:Conqueror",
+            "Info": "He will conquer the world.",
+            "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
+        },
+        "89004": {
+            "Name": "Gascon: Iron Falcon",
+            "Info": "Charm the Highest enemy on the opposite.[Can't be affected by status effects,Booat Deck by point.]",
+            "Flavor": "I'm doing what I used to do and they're paying me for it!"
+        },
+        "89005": {
+            "Name": "Iron Falcon Infantry",
+            "Info": "If there is boost, double the boost",
+            "Flavor": "You have to look good on the battlefield too.！"
+        },
+        "89006": {
+            "Name": "Iron Falcon Troubadour",
+            "Info": "Randomly give 1 point of gain to 1 allied unit, repeat 4 times,  and repeat an additional 4 times for each card of the same name on the field.",
+            "Flavor": "When I play even dying's more pleasant."
+        },
+        "89007": {
+            "Name": "Iron Falcon Knife Juggler",
+            "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
+            "Flavor": "The weapon's short, but its range is long.。"
+        },
+        "89008": {
+            "Name": "SoldierTrain",
+            "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
+            "Flavor": "The goddess occasionally protects some new recruits。"
         }
     }
 }
