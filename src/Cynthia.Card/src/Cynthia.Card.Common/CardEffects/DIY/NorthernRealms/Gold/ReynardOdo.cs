@@ -16,12 +16,12 @@ namespace Cynthia.Card
             }
             if(Card.Status.HealthStatus >= 3)
             {   
-                var boostlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();;
+                await Card.Effect.Reset(Card);
+                var boostlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace()).ToList();;
                 foreach (var card in boostlist)
                 {
                     await card.Effect.Boost(1, Card);
                 }
-                await Card.Effect.Reset(Card);
                 return;
             }
             return;

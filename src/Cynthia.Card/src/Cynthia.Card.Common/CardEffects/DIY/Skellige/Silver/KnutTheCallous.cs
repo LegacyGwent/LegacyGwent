@@ -9,6 +9,7 @@ namespace Cynthia.Card
     public class KnuttheCallous : CardEffect
     {//
         public KnuttheCallous(GameCard card) : base(card) { }
+        private GameCard DTarget = null;
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x.Status.Group == Group.Copper && (x.CardInfo().CardType == CardType.Unit));
@@ -19,17 +20,22 @@ namespace Cynthia.Card
             var StrengthList = list.Select(x => (Strength: x.Status.Strength, card: x)).OrderByDescending(x => x.Strength);
             var StrengthMaximun = StrengthList.First().Strength;
             var result = StrengthList.Where(x => x.Strength >= StrengthMaximun).Select(x => x.card);
-            if (!result.TryMessOne(out var target, Game.RNG))
-            {
-                return 0;
-            }
-            var result1 = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (result1.Count == 0) return 0;
-           
-            await result1.Single().Effect.Damage(target.CardPoint()/2, Card);
-            await target.Effect.Damage(target.CardPoint()/2, Card);
-            await target.MoveToCardStayFirst();
+            if (result.Count() == 0) return 0;
+            DTarget = result.First();
+            await DTarget.MoveToCardStayFirst();
             return 1;
+        }
+
+        public override async Task CardDownEffect(bool isSpying, bool isReveal)
+        {
+            if (DTarget == null)
+            {
+                return;
+            }
+            await DTarget.Effect.Damage(DTarget.CardPoint()/2, Card);
+            return;
         }
     }
 }
+
+

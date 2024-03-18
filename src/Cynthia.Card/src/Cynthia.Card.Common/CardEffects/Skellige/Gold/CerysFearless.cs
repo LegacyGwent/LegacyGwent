@@ -21,7 +21,7 @@ namespace Cynthia.Card
             // 现在关于触发源的触发条件：触发源在己方半场且不是密探，或者触发源在对方半场且是密探；然后这里要取反
             // 出新卡时注意可能涉及bug
             if (Countdown <= 0 || Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand() || @event.Target.PlayerIndex != PlayerIndex
-            || (@event.Source.PlayerIndex == PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent))
+            || @event.Target.CardInfo().CardType != CardType.Unit || (@event.Source.PlayerIndex == PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent))
             || (@event.Source.PlayerIndex != PlayerIndex && !@event.Source.HasAnyCategorie(Categorie.Agent)))
             {
                 return;

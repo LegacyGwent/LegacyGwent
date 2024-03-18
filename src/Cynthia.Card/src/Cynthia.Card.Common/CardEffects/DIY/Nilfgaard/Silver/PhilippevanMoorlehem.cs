@@ -15,7 +15,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Damage(4,Card);
+            await target.Effect.Damage(3,Card);
             return 0;
         }
         public async Task HandleEvent(AfterTurnOver @event)

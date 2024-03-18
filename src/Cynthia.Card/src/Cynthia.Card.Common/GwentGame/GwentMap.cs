@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 94);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 95);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9226,7 +9226,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "位于场上或墓地时，复活己方下一张被丢弃的单位牌。",
+                    Info = "位于场上或墓场时，复活己方下一张被丢弃的单位牌。",
                     CardArtsId = "20177800",
                 }
             },
@@ -10882,7 +10882,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ },
                     Flavor = "",
-                    Info = "游戏开始时，将本卡置入墓地。\n双方都放弃跟牌后，给先手方增加自身战力的点数，然后放逐自身。\n免疫。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。",
+                    Info = "游戏开始时，将本卡置入墓场。\n双方都放弃跟牌后，给先手方增加自身战力的点数，然后放逐自身。\n免疫。无法被召唤、复活、强化、削弱、增益、伤害、魅惑、变形。",
                     CardArtsId = "d17010000",
                 }
             },{
@@ -10961,7 +10961,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[] { Categorie.Special},
                     Flavor = "来自噩梦....",
-                    Info = "游戏开始时,将这张卡置入墓地。\n若在墓地,己方卡组的单位无法从卡组移动至墓地,免疫决斗伤害,且打出时候获得1-2点伤害或1-2点增益。",
+                    Info = "游戏开始时,将这张卡置入墓场。\n若在墓场,己方卡组的单位无法从卡组移动至墓场,免疫决斗伤害,且打出时候获得1-2点伤害或1-2点增益。",
                     CardArtsId = "d20470000",
                 }
             },
@@ -11240,7 +11240,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[] { Categorie.Soldier,Categorie.Token},
+                    Categories = new Categorie[] { Categorie.Soldier},
                     Flavor = "",
                     Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组底部。",
                     CardArtsId = "d19620000",
@@ -11262,7 +11262,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Item},
                     Flavor = "有毒且致幻，它让你生不如死，却不致命。",
-                    Info = "伤害最强的敌军单位2点，重复4次。 己方墓地每有一张“合欢茎魔药”，则额外重复1次。",
+                    Info = "伤害最强的敌军单位2点，重复4次。 己方墓场每有一张“合欢茎魔药”，则额外重复1次。",
                     CardArtsId = "d19710000",
                 }
             },
@@ -11282,7 +11282,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Item},
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
-                    Info = "增益最弱的友军单位2点，重复4次。 己方墓地每有一张“鬼针草煎药”，则额外重复1次。",
+                    Info = "增益最弱的友军单位2点，重复4次。 己方墓场每有一张“鬼针草煎药”，则额外重复1次。",
                     CardArtsId = "d16570000",
                 }
             },
@@ -11607,7 +11607,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "有些脏了。稍微擦一擦就好。",
-                    Info = "对局开始时，置于墓地，随后将3张“最后的愿望”加入卡组。位于墓地时，己方“最后的愿望”额外检视1张牌。",
+                    Info = "对局开始时，置于墓场，随后将3张“最后的愿望”加入卡组。位于墓场时，己方“最后的愿望”额外检视1张牌。",
                     CardArtsId = "d20400000",
                 }
             },
@@ -11647,7 +11647,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "“若是月亮一片血红，那就速速紧闭门窗，让宝宝快快上床……",
-                    Info = "放逐己方墓地中3张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
+                    Info = "放逐己方墓场中3张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
                     CardArtsId = "d18350000",
                 }
             },
@@ -12093,7 +12093,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。",
-                    Info = "己方从手牌打出金色单位牌时，召唤此单位。若位于手牌，打出至随机排，然后抽1张牌。若位于墓地，返回牌组。",
+                    Info = "己方从手牌打出金色单位牌时，召唤此单位。若位于手牌，打出至随机排，然后抽1张牌。若位于墓场，返回牌组。",
                     CardArtsId = "11221000",
                 }
             },
@@ -12535,7 +12535,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.ClanDrummond},
                     Flavor = "我向斯瓦布洛德下跪，只向斯瓦布洛德下跪!",
-                    Info = "打出牌组中基础战力最高的铜色单位牌，对其与一个敌军单位造成等同其战力一半的伤害",
+                    Info = "打出牌组中基础战力最高的铜色单位牌，随后造成等同其战力一半的伤害。",
                     CardArtsId = "d16660000",
                 }
             },
@@ -12675,7 +12675,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "将己方墓地中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
+                    Info = "将己方墓场中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "d22500000",
                 }
             },
@@ -13217,7 +13217,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！",
-                    Info = "使1个其它友军单位获得2点增益，墓地中每有1种铜色道具牌便重复1次。",
+                    Info = "使1个其它友军单位获得2点增益，墓场中每有1种铜色道具牌便重复1次。",
                     CardArtsId = "d15760000",
                 }
             },
@@ -13297,7 +13297,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
                     Flavor = "适者生存。所以你得被淘汰。",
-                    Info = "生成2个“蟹蜘蛛幼虫”，墓地中每有1张同名牌额外生成1个。",
+                    Info = "生成2个“蟹蜘蛛幼虫”，墓场中每有1张同名牌额外生成1个。",
                     CardArtsId = "d19540000",
                 }
             },
@@ -13407,7 +13407,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70135",
                     Name="斯瓦勃洛牧师",
-                    Strength=11,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13517,7 +13517,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？",
-                    Info = "使战力低于自身的友军单位获得1点增益，随后将1个友军单位保留基础战力转化为自身的同名牌。",
+                    Info = "将1个银色/铜色友军单位保留基础战力转化为自身的同名牌，随后使战力低于自身的友军单位获得1点增益。",
                     CardArtsId = "d17220000",
                 }
             },
@@ -13867,7 +13867,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70158",
                     Name="波维斯的柯恩",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13887,7 +13887,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70161",
                     Name="阿扎·贾维德",
-                    Strength=11,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14017,7 +14017,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张银色/铜色矮人牌。位于墓地时，使己方打出的矮人单位获得2点护甲。",
+                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张铜色矮人牌。位于墓场时，使己方打出的矮人单位获得1点护甲与1点增益。",
                     CardArtsId = "d19230000",
                 }
             },
