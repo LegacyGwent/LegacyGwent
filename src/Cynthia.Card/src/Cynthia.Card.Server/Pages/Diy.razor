@@ -8,14 +8,14 @@
 
     @foreach (var x in Info.diyCardInfo)
     {
-        @if (x.cardInfo != null && x.CardType != null && x.Categories != null && x.author != null)
+        @if (x.cardInfo != null && x.CardType != null && x.author != null)
         {
             <Card Title="@x.cardInfo.Name">
 
                 <Body>
                     <Row>
                         <AntDesign.Col Span="4">
-                            <Image style="padding:5px" Src=@x.imageLink />
+                            <Image style="padding:5px" Src="@($"./scale/{x.imageLink+".png"}")" />
                         </AntDesign.Col>
                         <AntDesign.Col Span="20">
                             <Content>
@@ -29,19 +29,26 @@
                                 <span>
                                     <Tooltip Title='@("Like")'>
                                         <Icon Type="caret-up" OnClick="()=>SetLike(x)"
-                                    Style="color:#18A558;font-size:30px;cursor:pointer;" />
+                                            Style="color:#18A558;font-size:30px;cursor:pointer;" />
                                     </Tooltip>
                                     <span style="color:#18A558;font-size:20px;">@x.likeList.Count()</span>
                                 </span>
                                 <span>
                                     <Tooltip Title='@("Dislike")'>
                                         <Icon Type="caret-down" OnClick="()=>SetDislike(x)"
-                                    Style="color:red;font-size:30px;cursor:pointer;" />
+                                            Style="color:red;font-size:30px;cursor:pointer;" />
                                     </Tooltip>
                                     <span style="color:red;font-size:20px;">@x.dislikeList.Count()</span>
                                 </span>
                                 <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
-                                <Button OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
+                                <Button
+                                    OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
+                                @if (!@x.IsInDiscuss)
+                                {
+                                    <Button OnClick="(e) => moveToDiscuss(x)" type="primary">
+                                        票拟
+                                    </Button>
+                                }
                             </Content>
                         </AntDesign.Col>
                     </Row>
@@ -55,7 +62,7 @@
 <div>
     <Drawer Closable="true" Visible="diyDrawerVisible" Placement="right" Title='("diy设计")'
         OnClose="() => diyDrawerVisible = false" Width="360">
-        <Input Placeholder="卡图网址链接" @bind-Value="@newDiyCard.imageLink" />
+        <Input Placeholder="卡图ID" @bind-Value="@newDiyCard.imageLink" />
         <Input Placeholder="名字" @bind-Value="@newDiyCard.cardInfo.Name" />
         <SimpleSelect Placeholder="类型" OnSelectedItemChanged="handleTypeChange">
             <SelectOptions>
@@ -65,7 +72,7 @@
         </SimpleSelect>
         <Input Placeholder="战力" @bind-Value="@newDiyCard.cardInfo.Strength">
         <AddOnBefore>战力</AddOnBefore>
-        </Input>
+        @* </Input> *@
         <SimpleSelect Placeholder="阵营" OnSelectedItemChanged="handleFractionChange">
             <SelectOptions>
                 <SimpleSelectOption Value="怪兽" Label="怪兽"></SimpleSelectOption>
@@ -142,9 +149,9 @@
         OnClose="() => detailPageVisible = false" Width="360">
         @if (currentDiyCard != null)
         {
-            <img width="150px" height="210px" src=@currentDiyCard.imageLink>
+            <img width="150px" height="210px" Src="@($"./scale/{currentDiyCard.imageLink+".png"}")">
             @if (currentDiyCard.cardInfo != null && currentDiyCard.CardType != null
-           && currentDiyCard.Categories != null && currentDiyCard.author != null)
+           && currentDiyCard.author != null)
             {
                 <h2>@currentDiyCard.cardInfo.Name</h2>
                 <p>@currentDiyCard.CardType</p>
@@ -152,17 +159,22 @@
                     阵营：<Tag>@currentDiyCard.Fraction</Tag>
                     品质：<Tag>@currentDiyCard.Group</Tag>
                 </p>
-                <p> 标签：
-                    @foreach (var s in currentDiyCard.Categories)
-                    {
-                        <Tag>@s</Tag>
-                    }
-                </p>
+                @if (currentDiyCard.Categories != null)
+                {
+                    <p> 标签：
+                        @foreach (var s in currentDiyCard.Categories)
+                        {
+                            <Tag>@s</Tag>
+                        }
+                    </p>
+                }
                 <p>效果：@currentDiyCard.cardInfo.Info</p>
+                <p>ArtID：@currentDiyCard.imageLink</p>
                 <p>@currentDiyCard.cardInfo.Flavor</p>
                 <Divider />
                 <p>设计师：@currentDiyCard.author</p>
                 <p>上次修改时间：@currentDiyCard.lastEditedDate</p>
+                <Button OnClick="(e) => removeDiyCard(currentDiyCard)" type="primary">删除</Button>
             }
         }
     </Drawer>
@@ -182,7 +194,8 @@
         {
             return -10000;
         }
-        return (e.likeList.Count() - e.dislikeList.Count())*100 + (e.likeList.Count() + e.dislikeList.Count()) + e.commits.Count();
+        return (e.likeList.Count() - e.dislikeList.Count()) * 100 + (e.likeList.Count() + e.dislikeList.Count()) +
+        e.commits.Count();
     }
     [CascadingParameter]
     string user { get; set; }
@@ -203,13 +216,18 @@
         else if (card.likeList.Contains(user))
         {
             card.likeList.Remove(user);
-            Command.UpdateDiyCardLikeList(card);
+            Command.UpdateDiyCardLikeList(card, Command.diyCardCollection);
 
         }
         else
         {
             card.likeList.Add(user);
-            Command.UpdateDiyCardLikeList(card);
+            Command.UpdateDiyCardLikeList(card, Command.diyCardCollection);
+            if (card.dislikeList.Contains(user))
+            {
+                card.dislikeList.Remove(user);
+                Command.UpdateDiyCardDislikeList(card, Command.diyCardCollection);
+            }
         }
     }
     void SetDislike(DiyCardInfo card)
@@ -221,13 +239,18 @@
         else if (card.dislikeList.Contains(user))
         {
             card.dislikeList.Remove(user);
-            Command.UpdateDiyCardDislikeList(card);
+            Command.UpdateDiyCardDislikeList(card, Command.diyCardCollection);
 
         }
         else
         {
             card.dislikeList.Add(user);
-            Command.UpdateDiyCardDislikeList(card);
+            Command.UpdateDiyCardDislikeList(card, Command.diyCardCollection);
+            if (card.likeList.Contains(user))
+            {
+                card.likeList.Remove(user);
+                Command.UpdateDiyCardLikeList(card, Command.diyCardCollection);
+            }
         }
     }
     void onSubmit()
@@ -244,7 +267,7 @@
             newCommit.commitDate = DateTime.Now;
             currentDiyCard.commits.Add(newCommit);
             commentContent = "";
-            Command.UpdateDiyCardComment(currentDiyCard);
+            Command.UpdateDiyCardComment(currentDiyCard, Command.diyCardCollection);
         }
     }
     void addNewCard()
@@ -255,6 +278,18 @@
         diyDrawerVisible = false;
     }
 
+    void moveToDiscuss(DiyCardInfo card)
+    {
+        Command.AddDiscussCardInfos(card);
+        card.IsInDiscuss = true;
+        @* Command.GetDiscussCardsInfo(); *@
+    }
+    void removeDiyCard(DiyCardInfo card)
+    {
+        Command.RemoveDiyCard(card, Command.diyCardCollection);
+        Command.GetDiyCardsInfo();
+        detailPageVisible = false;
+    }
     void handleTypeChange(string s)
     {
         newDiyCard.CardType = s;
@@ -395,5 +430,5 @@
 {"密探", Categorie.Agent},
 {"布洛克瓦尔家族", Categorie.ClanBrokvar},
 {"测试", Categorie.Test},
-    };
+        };
 }

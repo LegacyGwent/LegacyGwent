@@ -18,6 +18,7 @@ public class DiyCardInfo
     public List<string> likeList;
     public List<string> dislikeList;
     public List<Commit> commits = new List<Commit>();
+    public bool IsInDiscuss { get; set; } = false;
     public class Commit
     {
         public string user;
@@ -78,9 +79,19 @@ public class DiyCardInfo
 
         //是否是属于衍生卡池
         public bool IsDerive { get; set; }
-        
+
         public int CrewCount { get; set; }
 
         public bool IsConcealCard { get; set; }
+
     }
+}
+public class AdminInfo
+{
+    public ObjectId _id;
+    public int uid;
+    // public int cabinetDate;
+    public int cabinetYear = DateTime.Now.Year;
+    public int cabinetMonth = DateTime.Now.Month;
+    public List<string> cabinetUserName = new List<string>{};
 }
