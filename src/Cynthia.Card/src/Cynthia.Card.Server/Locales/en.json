@@ -453,7 +453,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever a loyal Gold unit played on your side of the board, Summon this unit on a random row.",
+            "Info": "Whenever a loyal Gold unit is played on your side of the board, Summon this unit on a random row.",
             "Flavor": "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。"
         },
         "13002": {
@@ -2633,7 +2633,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return one Bronze units from your graveyard to your deck.",
+            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck.",
             "Flavor": "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。"
         },
         "64005": {
@@ -3098,7 +3098,7 @@
         },
         "70086": {
             "Name": "Philippa: Mistress of the Lodge",
-            "Info": "Deploy: Play a bronze or silver mage from your deck; or create a bronze spell.",
+            "Info": "Deploy, Choose One: Play a bronze or silver mage from your deck; or create a bronze spell.",
             "Flavor": "Philippa Eilhart, though very attractive, was decidedly very unkind."
         },
         "70088": {
@@ -3108,12 +3108,12 @@
         },
         "70089": {
             "Name": "Artis",
-            "Info": "Deploy: Deal 7 damage to an enemy, if the target is destroyed, spawn a \"Cultist Oblation\" to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.)",
+            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a \"Cultist Oblation\" to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
             "Flavor": "It is finished It is finished IT IS THE MERCY"
         },
         "70090": {
             "Name": "Cultist Oblation",
-            "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Info": "After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70091": {
@@ -3158,7 +3158,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damege all units in your deck by 2, then Strength them by 2.",
+            "Info": "Damege loyal units in your deck by 2 (doesn't trigger deathwishes), then Strength them by 2.",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。”"
         },
         "70100": {
@@ -3438,7 +3438,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
+            "Info": "Deal 8 Damage to an enemy unit ignoring Armour. If this unit is Boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
