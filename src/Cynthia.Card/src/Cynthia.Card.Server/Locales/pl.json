@@ -16,7 +16,7 @@
         "LoginMenu_ExitButton": "WYJDŹ",
         "LoginMenu_NewsError": "Nowości nie zostały załadowane",
         "LoginMenu_LatestVersionError": "Nie można pobrać najnowszej wersji:{0}",
-        "LoginMenu_LatestVersionInfo": "Najnowszej wersja to {0}",
+        "LoginMenu_LatestVersionInfo": "Najnowszej wersja to {0}" ,
         "LoginMenu_CurrentVersionInfo": "Aktualna wersja to {0}",
         "LoginMenu_LoadingLatestVersion": "Ładuje informacje o wersji...",
         "LoginMenu_LoadingNews": "Ładuje nowości... Proszę czekać...",
