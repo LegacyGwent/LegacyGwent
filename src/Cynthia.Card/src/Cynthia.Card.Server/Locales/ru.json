@@ -2497,7 +2497,7 @@
         },
         "62010": {
             "Name": "Керис: неустрашимая",
-            "Info": "if on the place or in graveyard, Resurrect the next unit you Discard.",
+            "Info": "Однократность: если эта карта на доске или в сбросе, воскресите свой следующий сброшенный отряд.",
             "Flavor": "ж€‘еї…йЎ»и¦Ѓе›ўз»“еђ„е¤§е®¶ж—ЏгЂ‚ж€‘еёЊжњ›иѓЅе¤џйЃїе…ЌејЂж€гЂ‚дЅ†еЃ‡е¦‚е°јеј—иї¦еѕ·ж‰§ж„ЏжќҐзЉЇпјЊй‚Јж€‘д»¬е°±дёЂе®љи¦ЃеђЊд»‡ж•ЊеїѕгЂ‚"
         },
         "62011": {
@@ -3107,7 +3107,7 @@
         },
         "70090": {
             "Name": "Жертвоприношение культиста",
-            "Info": "After 2 turn, on the turn starts, bannish itself.Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Info": "Спустя 2 хода, в начале своего хода, блокирует себя. Завещание: исцелите самый повреждённый отряд на половине противника и укрепите его на 1 ед.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70091": {
