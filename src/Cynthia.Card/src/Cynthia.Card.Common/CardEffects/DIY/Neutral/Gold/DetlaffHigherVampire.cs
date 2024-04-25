@@ -80,7 +80,7 @@ namespace Cynthia.Card
                 {
                     return;
                 }
-                plumard.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), plumard);
+                await plumard.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), plumard);
                 // end of plumard section
                 _needKill = false;
             }
