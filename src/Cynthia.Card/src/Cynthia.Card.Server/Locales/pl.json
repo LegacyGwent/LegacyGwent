@@ -2458,7 +2458,7 @@
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i uczyń ich odpornymi.)",
+            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.)",
             "Flavor": "Zamiast użalać się nad poległymi, lepiej wypijmy za ich pamięć!"
         },
         "62003": {
@@ -2798,7 +2798,7 @@
         },
         "65003": {
             "Name": "Władca Undvik",
-            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i uczyń ich odpornymi.",
+            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.",
             "Flavor": "Brak"
         },
         "65004": {
