@@ -2453,17 +2453,17 @@
         },
         "62001": {
             "Name": "Olaf",
-            "Info": "Deploy: Deal 10 Damage to self.\nReduce the Damage inflicted by 2 for each Beast you played this match.",
+            "Info": "Deploy: Deal 12 Damage to self.\nReduce the Damage inflicted by 2 for each Beast you played this match.",
             "Flavor": "备受敬仰的小史凯利格岛竞技场十冠王。"
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Deploy: Spawn the Lord of Undvik on the opposite row.\n(Lord of Undvik; 5 Strength; Deathwish: Boost enemy Hjalmars by 10)",
+            "Info": "Deploy: Spawn the Lord of Undvik on the opposite row.\n(Lord of Undvik; 5 Strength; Deathwish: Boost enemy Hjalmars by 14 and make them Immune.",
             "Flavor": "別为死者哭泣，敬他们一杯吧！"
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: Deal 2 Damage.\nIf the unit was already Damaged, destroy it instead.",
+            "Info": "Deploy: Deal 2 Damage to an ennemy and its adjacent units.\nIf a unit was already Damaged, destroy it instead.",
             "Flavor": "为了斯瓦勃洛！"
         },
         "62004": {
@@ -2488,17 +2488,17 @@
         },
         "62008": {
             "Name": "Madman Lugos",
-            "Info": "Deploy: Discard a Bronze unit from your deck and Damage a unit by the Discarded unit's base Power.",
+            "Info": "Deploy: Discard a Bronze or Silver unit from your deck and Damage a unit by the Discarded unit's base Power.",
             "Flavor": "哇哇哇哇哇哇啊！！！！"
         },
         "62009": {
             "Name": "Ulfhedinn",
-            "Info": "Deploy: Deal 1 Damage to all enemies.\nIf the enemies were Damaged, deal 2 Damage instead.",
+            "Info": "Deploy: Deal 1 Damage to all enemies.\nIf the enemies were Damaged, deal 3 Damage instead.",
             "Flavor": "狼人？哦，不，不……比那要糟糕得多。"
         },
         "62010": {
             "Name": "Cerys: Fearless",
-            "Info": "Single-Use. If on the board or in graveyard, Resurrect the next unit you Discard.",
+            "Info": "When you discard a Bronze or Silver unit, Damage self by 4 then resurect it.\nRepeat up to 1 time.",
             "Flavor": "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。"
         },
         "62011": {
@@ -2798,7 +2798,7 @@
         },
         "65003": {
             "Name": "Lord of Undvik",
-            "Info": "Spying.\nDeathwish: Boost enemy Hjalmars by 10.",
+            "Info": "Spying.\nDeathwish: Boost enemy Hjalmars by 14 and make them Immune.",
             "Flavor": "这个怪物将名门世族托达洛克家族的故乡——乌德维克岛变成了荒凉之地，昔日荣光一去不返……"
         },
         "65004": {

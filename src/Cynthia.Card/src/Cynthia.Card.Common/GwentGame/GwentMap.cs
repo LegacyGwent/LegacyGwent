@@ -9044,7 +9044,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed},
                     Flavor = "备受敬仰的小史凯利格岛竞技场十冠王。",
-                    Info = "对自身造成10点伤害。本次对局己方每打出过1只“野兽”，伤害便减少2点。",
+                    Info = "对自身造成12点伤害。本次对局己方每打出过1只“野兽”，伤害便减少2点。",
                     CardArtsId = "20010300",
                 }
             },
@@ -9064,7 +9064,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "別为死者哭泣，敬他们一杯吧！",
-                    Info = "在对方同排生成“乌德维克之主”。",
+                    Info = "在对方同排生成“乌德维克之主”。/n(遗愿：使“哈尔玛”获得14点增益并使其免疫。)",
                     CardArtsId = "15210100",
                 }
             },
@@ -9084,7 +9084,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Cultist},
                     Flavor = "为了斯瓦勃洛！",
-                    Info = "对1个单位造成2点伤害。若目标已受伤，则将其摧毁。",
+                    Info = "“部署： 对敌人及其相邻单位造成 2 点伤害。如果某个单位已经受到伤害，则摧毁该单位。",
                     CardArtsId = "20002800",
                 }
             },
@@ -9185,7 +9185,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDrummond,Categorie.Officer},
                     Flavor = "哇哇哇哇哇哇啊！！！！",
-                    Info = "从牌组丢弃1张铜色单位牌，对1个敌军单位造成等同于被丢弃单位基础战力的伤害。",
+                    Info = "从牌组丢弃1张铜或银色单位牌，对1个敌军单位造成等同于被丢弃单位基础战力的伤害。",
                     CardArtsId = "15210600",
                 }
             },
@@ -9205,7 +9205,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed},
                     Flavor = "狼人？哦，不，不……比那要糟糕得多。",
-                    Info = "对所有敌军单位造成1点伤害，已受伤单位则承受2点伤害。",
+                    Info = "对所有敌军单位造成1点伤害，已受伤单位则承受3点伤害。",
                     CardArtsId = "20010400",
                 }
             },
@@ -9216,7 +9216,7 @@ namespace Cynthia.Card
                     CardId ="62010",
                     Name="凯瑞丝：无所畏惧",
                     Strength=10,
-                    Countdown =1,
+                    Countdown =2,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9226,7 +9226,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "位于场上或墓场时，复活己方下一张被丢弃的单位牌。",
+                    Info = "当你丢弃一个青铜或白银单位时，伤害自身 4，然后复活它。最多重复 1 次。",
                     CardArtsId = "20177800",
                 }
             },
@@ -10429,7 +10429,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Ogroid,Categorie.Token},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "这个怪物将名门世族托达洛克家族的故乡——乌德维克岛变成了荒凉之地，昔日荣光一去不返……",
-                    Info = "遗愿：使“哈尔玛”获得10点增益。",
+                    Info = "遗愿：使“哈尔玛”获得14点增益并使其免疫。",
                     CardArtsId = "15240100",
                 }
             },
