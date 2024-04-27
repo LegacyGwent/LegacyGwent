@@ -15,7 +15,6 @@ namespace Cynthia.Card
                 return 0;
             }
             await Card.Effect.Drain((target.CardPoint() + 1) / 2, target);
-            await target.Effect.Lock(Card);
             return 0;
         }
     }

@@ -6,7 +6,7 @@ using System;
 namespace Cynthia.Card
 {
     [CardEffectId("70117")]//法芙 Fauve
-    public class Fauve : CardEffect, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterCardDeath>
+    public class Fauve : CardEffect, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterTurnOver>
     {
         public Fauve(GameCard card) : base(card) { }
 
@@ -19,18 +19,20 @@ namespace Cynthia.Card
             }
         }
 
-         public async Task HandleEvent(AfterCardDeath @event)
+        public async Task HandleEvent(AfterTurnOver @event)
         {
-            var deck = Game.PlayersDeck[PlayerIndex]
-                .Where(card => card.Status.Categories.Contains(Categorie.Dryad))
-                .ToList();
-
-            if (deck.Count() == 0)
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
+            var targets = Game.GetPlaceCards(PlayerIndex)
+            .FilterCards(type: CardType.Unit, filter: x => x.CardPoint() == Card.CardPoint() && x != Card);
 
-            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), deck.First());
+            foreach (var target in targets)
+            {
+                await target.Effect.Boost(1, Card);
+            }
+            return;
         }
     }
 }

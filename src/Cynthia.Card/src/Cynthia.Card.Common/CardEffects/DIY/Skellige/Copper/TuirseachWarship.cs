@@ -4,27 +4,22 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70096")] //图尔赛克战船
-    public class TuirseachWarship : CardEffect
-    {
-        //选择一个单位，造成等同于自身基础战力的伤害
-        public TuirseachWarship (GameCard card) : base(card)
+    [CardEffectId("70096")]//图尔赛克战船 TuirseachWarship
+    public class TuirseachWarship : CardEffect, IHandlesEvent<AfterTurnOver>
+    {//回合结束时，对1个未受伤的敌军随机单位造成1点伤害。
+        public TuirseachWarship(GameCard card) : base(card) { }
+        public async Task HandleEvent(AfterTurnOver @event)
         {
-        }
-
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
-        {
-            var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (list.Count <= 0) return 0;
-            var card = list.Single();
-            await card.Effect.Damage(damage,Card);
-
-            return 0;
-        }
-
-        private int damage
-        {
-            get { return Card.Status.Strength; }
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            {
+                return;
+            }
+            var cards = Game.GetPlaceCards(AnotherPlayer).Concat(Game.GetPlaceCards(PlayerIndex)).FilterCards(filter: x => x.Status.HealthStatus >= 0).ToList();
+            if (cards.Count() == 0)
+            {
+                return;
+            }
+            await cards.Mess(RNG).First().Effect.Damage(2, Card);
         }
     }
 }

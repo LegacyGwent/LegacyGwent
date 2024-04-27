@@ -13,7 +13,7 @@ namespace Cynthia.Card
             //己方卡组乱序呈现
             var list = Game.PlayersDeck[PlayerIndex].Mess(RNG).ToList();
             //让玩家选择一张卡,不能不选
-            var result = await Game.GetSelectMenuCards(PlayerIndex, list, isCanOver: false);
+            var result = await Game.GetSelectMenuCards(PlayerIndex, list, isCanOver: true);
             if (result.Count == 0) return 0;//如果没有任何符合标准的牌,返回
             var dcard = result.Single();
             var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);

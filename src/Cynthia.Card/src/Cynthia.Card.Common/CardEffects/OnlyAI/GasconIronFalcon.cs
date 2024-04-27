@@ -13,7 +13,7 @@ namespace Cynthia.Card
     {//无法被魅惑与锁定，根据公正女神点数改变效果（0-9牌组增益、10-19随机天气、20-29摧毁最强单位），保持手牌数接近，牌组不为空。
         /*
         1.允许效果不生效,保留不被魅惑与锁定。
-        2.若手牌数少于对方2张，抽牌直至双方手牌数相同。
+        2.部署魅惑最强的敌军单位。
         3.抽牌时若牌组没有牌，则将9张随机铁隼牌加入牌组。
         4.选点0-9，加斯科会使全卡组获得等额增益。
         5.选点10-19，加斯科会使全卡组获得个位数等额增益，并在回合开始时在对方全排降下随机灾厄。
@@ -21,9 +21,18 @@ namespace Cynthia.Card
         */
         private int LCount = 0;
         private int LCountBoost = 0;
-        private int DCount = 0;
         
         public GasconIronFalcon(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
+            if (!Game.GetPlaceCards(AnotherPlayer).WhereAllHighest().TryMessOne(out var target, Game.RNG))
+                {
+                    return 0;
+                }
+            await target.Effect.Charm(Card);
+            return 0;
+        }
+        
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
             var cards = Game.PlayersHandCard[PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow).Concat(Game.PlayersDeck[PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow)).FilterCards(filter: x => x != Card).ToList();
@@ -60,23 +69,6 @@ namespace Cynthia.Card
             if (@event.PlayerIndex != Card.PlayerIndex)
             {
                 return;
-            }
-
-            DCount = 0;
-            if (Game.IsPlayersPass[Game.AnotherPlayer(Card.PlayerIndex)])
-            {
-                DCount = 1;
-            }
-
-            var HandCard1 = Game.PlayersHandCard[PlayerIndex].Count();
-            var HandCard2 = Game.PlayersHandCard[AnotherPlayer].Count();
-            
-            if(HandCard2 - HandCard1 > 1 && DCount == 0)
-            {
-                for (var i = 0; i < HandCard2 - HandCard1; i++)
-                {   
-                    await Game.PlayerDrawCard(PlayerIndex);
-                }
             }
 
             if(LCount > 9 && LCount < 20)
