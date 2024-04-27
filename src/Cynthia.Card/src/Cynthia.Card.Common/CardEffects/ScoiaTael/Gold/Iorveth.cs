@@ -23,7 +23,7 @@ namespace Cynthia.Card
 			var isBoost = target.IsDead;
             if (isBoost)
             {
-                var cards = Game.PlayersHandCard[PlayerIndex].FilterCards(filter: x => x.HasAllCategorie(Categorie.Elf));
+		var cards = Game.PlayersHandCard[PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow).FilterCards(filter: x => x.HasAllCategorie(Categorie.Elf));
 
 				foreach (var card in cards)
 				{
