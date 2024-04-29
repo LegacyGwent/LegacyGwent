@@ -2128,7 +2128,7 @@
         },
         "52007": {
             "Name": "Iorweth",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 8 pkt obrażeń. Jeśli został zniszczony, wzmocnij wszystkie Elfy w swojej ręce o 1.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 8 pkt obrażeń. Jeśli został zniszczony, wzmocnij wszystkie niebędącą szpiegiem Elfy w swojej ręce o 1.",
             "Flavor": "Cholernie celny jak na faceta z jednym okiem."
         },
         "52008": {

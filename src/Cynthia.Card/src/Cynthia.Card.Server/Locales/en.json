@@ -1123,7 +1123,7 @@
         },
         "24009": {
             "Name": "Nekker Warrior",
-            "Info": "Deploy: Choose a Bronze ally and add 2 copies of it to your deck.",
+            "Info": "Deploy: Choose a Bronze ally and add 2 copies of it to the bottom of your deck.",
             "Flavor": "各位小心，这座桥下有孽鬼出没。"
         },
         "24010": {
@@ -2128,7 +2128,7 @@
         },
         "52007": {
             "Name": "Iorveth",
-            "Info": "Deploy: Deal 8 Damage to an enemy.\nIf the unit was destroyed, Boost all Elves in your hand by 1.",
+            "Info": "Deploy: Deal 8 Damage to an enemy.\nIf the unit was destroyed, Boost all loyal Elves in your hand by 1.",
             "Flavor": "国王还是乞丐于我并无差别，人类少一个算一个。"
         },
         "52008": {
@@ -3393,7 +3393,7 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit on the same row Drains, Drain the target unit by 1.",
+            "Info": "Whenever an ally Vampire destroys a unit, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit on the same row Drains, Drain the target unit by 1.",
             "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
         },
         "70148": {
