@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 97);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 98);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -7816,7 +7816,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Officer},
                     Flavor = "国王还是乞丐于我并无差别，人类少一个算一个。",
-                    Info = "对1个敌军单位造成8点伤害。若目标被摧毁，则使手牌中所有“精灵”单位获得1点增益。",
+                    Info = "对1个敌军单位造成8点伤害。若目标被摧毁，则使手牌中所有非间“精灵”单位获得1点增益。",
                     CardArtsId = "14210300",
                 }
             },
