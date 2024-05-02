@@ -13,11 +13,11 @@ namespace Cynthia.Card
         {
             if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && Card.Status.Countdown > 0)
             {
-                //await Game.Debug($"The cd of the cow corpse is reduced, before the cd was: {Card.Status.Countdown}, after that it will be reduced by 1").
-                await Card.Effect.SetCountdown(offset: -1 );
-                if (Card.Status.CardRow.IsOnPlace()) return;
+                //await Game.Debug($"牛尸的cd减少啦,之前cd为:{Card.Status.Countdown},之后会在基础上减少1");
+                await Card.Effect.SetCountdown(offset: -1);
+                if (Card.Status.CardRow.IsOnPlace()) return; // we need to chek if it's still alive after updating the countdown
                 if (Card.Effect.Countdown <= 0)
-                {//trigger effect
+                {//触发效果
                     var list = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x != Card).WhereAllLowest().ToList();
                     foreach (var card in list)
                     {

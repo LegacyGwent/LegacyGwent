@@ -20,7 +20,7 @@ namespace Cynthia.Card
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Effect.Countdown > 0) return;
             var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead();
-            if (Card.Status.CardRow.IsOnPlace()) return;
+            if (Card.Status.CardRow.IsOnPlace()) return; // we need to chek if it's still alive after updating the countdown
             foreach (var it in row)
             {
                 if (it != Card)
