@@ -20,6 +20,7 @@ namespace Cynthia.Card
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Effect.Countdown > 0) return;
             var row = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead();
+            if (Card.Status.CardRow.IsOnPlace()) return;
             foreach (var it in row)
             {
                 if (it != Card)
@@ -27,7 +28,6 @@ namespace Cynthia.Card
                     await it.Effect.Damage(damage, Card);
                 }
             }
-
             await Card.Effect.Banish();
         }
     }
