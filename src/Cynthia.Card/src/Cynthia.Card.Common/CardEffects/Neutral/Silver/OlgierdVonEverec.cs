@@ -18,17 +18,6 @@ namespace Cynthia.Card
                 return;
             }
 
-            //削弱值向上取整     //Weakness value is rounded up /
-            var WeakenValue = (Card.Status.Strength + 1) / 2;
-            //放逐，不复活    //Exile, no resurrection 
-            if (Card.Status.Strength == WeakenValue)
-            {
-                await Card.Effect.Weaken(WeakenValue, Card);
-                return;
-            }
-            await Card.Effect.Weaken(WeakenValue, Card);
-
-
             if (@event.isRoundEnd)
             {
                 _toRecurretLocation = @event.DeathLocation;
@@ -38,8 +27,16 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(BeforeRoundStart @event)
         {
+            //削弱值向上取整     //Weakness value is rounded up /
+            var WeakenValue = (Card.Status.Strength + 1) / 2;
             if (Card.Status.CardRow.IsInCemetery())
+            //放逐，不复活    //Exile, no resurrection 
             {
+                if (Card.Status.Strength == WeakenValue)
+                {
+                    await Card.Effect.Weaken(WeakenValue, Card);
+                    return;
+                }
                 if (_toRecurretLocation != null)
                 {
                 await Card.Effect.Resurrect(_toRecurretLocation, Card);
@@ -48,6 +45,7 @@ namespace Cynthia.Card
                 {
                 await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                 }
+                await Card.Effect.Weaken(WeakenValue, Card);
             }
         }
     }
