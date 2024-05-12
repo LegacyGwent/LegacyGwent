@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             //以下代码基于：先伤害 再丢弃 比较方便结算
             //乱序列出牌库中铜色单位
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Group == Group.Copper).Mess(Game.RNG);
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Group != Group.Gold || NotSliverSpy(x)).Mess(Game.RNG);
             if (list.Count() == 0)
             {
                 return 0;
@@ -38,6 +38,11 @@ namespace Cynthia.Card
 
 
             return 0;
+        }
+        private bool NotSliverSpy(GameCard gameCard)
+        {
+            return gameCard.Status.Group == Group.Silver && gameCard.CardInfo().CardType == CardType.Unit &&
+                   gameCard.CardInfo().CardUseInfo == CardUseInfo.MyRow;
         }
 
     }

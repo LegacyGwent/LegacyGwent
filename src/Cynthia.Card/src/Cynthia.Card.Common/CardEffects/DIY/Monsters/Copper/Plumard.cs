@@ -5,16 +5,11 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70147")] //渴血鸟怪 Plumard
-    public class Plumard : CardEffect,IHandlesEvent<AfterCardDrain>, IHandlesEvent<AfterUnitPlay>, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterCardToCemetery>
+    public class Plumard : CardEffect,IHandlesEvent<AfterCardDrain>, IHandlesEvent<AfterCardHurt>, IHandlesEvent<AfterCardConsume> //, IHandlesEvent<BeforeCardDamage>
     {
         public Plumard(GameCard card) : base(card){}
-        private int vr = 0;
         public async Task HandleEvent(AfterCardDrain @event)
         {
-            if (@event.Target.HasAnyCategorie(Categorie.Vampire))
-            {
-                vr = 1;
-            }
             if (@event.Target.Status.CardId != Card.Status.CardId && @event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.Target.Status.CardRow == Card.Status.CardRow)
             {
                 await Card.Effect.Drain(1, @event.Source);
@@ -22,42 +17,36 @@ namespace Cynthia.Card
             
             return;
         }
-
-        public async Task HandleEvent(AfterUnitPlay @event)
+        private async Task SummonMyself() // task to be called to summon self
         {
-            if (@event.PlayedCard.PlayerIndex == Card.PlayerIndex && @event.PlayedCard != Card && @event.PlayedCard.HasAnyCategorie(Categorie.Vampire))
-            {
-                vr = 1;
-            }
-            await Task.CompletedTask;
-            return;
-
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
+                    if (list.Count() == 0)
+                    {
+                        return;
+                    }
+                    if (Card == list.Last())
+                    {
+                        await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
+                    }
         }
-
-        public async Task HandleEvent(AfterCardToCemetery @event)
+        public async Task HandleEvent(AfterCardHurt @event) // trigger the summon if a card is destroyed through drain or damage
         {
-            if ((vr == 1) && @event.Target.CardInfo().CardType == CardType.Unit && !@event.isRoundEnd && Game.GameRound.ToPlayerIndex(Game) == PlayerIndex)
-            {
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
-                if (list.Count() == 0)
+            if (Game.GameRound.ToPlayerIndex(Game) != PlayerIndex || !@event.Target.IsDead || @event.DamageType.IsHazard())
                 {
                     return;
                 }
-                if (Card == list.Last())
-                {
-                    await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
+            if (@event.Source.HasAnyCategorie(Categorie.Vampire)) // this check doesn't work if the previous ones aren't done before
+                { 
+                        await SummonMyself(); 
                 }
-            }
             return;
         }
-        public async Task HandleEvent(AfterTurnStart @event)
+        public async Task HandleEvent (AfterCardConsume @event) // handle consume cases i.e. Detlaff Higher Vampire 2nd effect & Regis Higher
         {
-            if (@event.PlayerIndex != Card.PlayerIndex)
-            {
-                return;
-            }
-            vr = 0;
-            await Task.CompletedTask;
+            if (@event.Source.PlayerIndex == PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Vampire))
+                { 
+                        await SummonMyself(); 
+                }
             return;
         }
     }
