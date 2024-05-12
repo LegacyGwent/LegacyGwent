@@ -2453,17 +2453,17 @@
         },
         "62001": {
             "Name": "Olaf",
-            "Info": "Rozmieszczenie: Zadaj 10 pkt obrażeń tej jednostce. Zmniejsz zadane jej obrażenia o 2 za każdą Bestię zagraną przez ciebie podczas tej gry.",
+            "Info": "Rozmieszczenie: Zadaj 12 pkt obrażeń tej jednostce. Zmniejsz zadane jej obrażenia o 2 za każdą Bestię zagraną przez ciebie podczas tej gry.",
             "Flavor": "Dziesięciokrotny zdobywca zaszczytnego tytułu czempiona areny na An Skellig."
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Władca Undvik; 5 pkt siły; Zemsta: Wzmonij wrogich Hjalmarów o 10)",
+            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.)",
             "Flavor": "Zamiast użalać się nad poległymi, lepiej wypijmy za ich pamięć!"
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 2 pkt obrażeń. Jeśli cel był już ranny, zamiast tego zniszcz go.",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń wrogowi i sąsiadującym z nim jednostkom. Jeśli jednostka była już uszkodzona, zniszcz ją.",
             "Flavor": "Krew dla Svalbloda! Czaszki na jego tron!"
         },
         "62004": {
@@ -2488,17 +2488,17 @@
         },
         "62008": {
             "Name": "Lugos Szalony",
-            "Info": "Rozmieszczenie: Odrzuć brązową jednostkę ze swojej talii, a następnie zadaj wrogowi tyle pkt obrażeń, ile wynosi jej siła bazowa.",
+            "Info": "Rozmieszczenie: Odrzuć brązową lub srebrną jednostkę ze swojej talii, a następnie zadaj wrogowi tyle pkt obrażeń, ile wynosi jej siła bazowa.",
             "Flavor": "WAAAAAAAAAAGH!!!!"
         },
         "62009": {
             "Name": "Ulfhedinn",
-            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom. Jeśli byli ranni, zamiast tego zadaj im 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom. Jeśli byli ranni, zamiast tego zadaj im 3 pkt obrażeń.",
             "Flavor": "Wilkołak? O nie, nie... To coś dużo, dużo gorszego."
         },
         "62010": {
             "Name": "Cerys Nieustraszona",
-            "Info": "if on the place or in graveyard, Resurrect the next unit you Discard.",
+            "Info": "Kiedy odrzucisz brązową lub srebrną jednostkę, zadaj sobie obrażenia równe 4, a następnie wskrześ ją. Powtórz maksymalnie 1 raz.",
             "Flavor": "Muszę zjednoczyć klany. Wolę uniknąć wojny, ale jeśli Nilfgaard rzeczywiście zamierza nas zaatakować, wspólnie damy mu odpór."
         },
         "62011": {
@@ -2798,7 +2798,7 @@
         },
         "65003": {
             "Name": "Władca Undvik",
-            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 10.",
+            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.",
             "Flavor": "Brak"
         },
         "65004": {
