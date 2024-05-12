@@ -75,12 +75,11 @@ namespace Cynthia.Card
                 }
                 // modifications to accomodate plumard's effect
                 var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == "70147").ToList();
-                var plumard = list.Last();
-                if (list.Count() == 0)
+                if (list.Count() > 0)
                 {
-                    return;
+                    var plumard = list.Last();
+                    await plumard.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), plumard);
                 }
-                await plumard.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), plumard);
                 // end of plumard section
                 _needKill = false;
             }
