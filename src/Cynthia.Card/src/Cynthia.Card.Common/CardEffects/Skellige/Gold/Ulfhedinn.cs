@@ -21,7 +21,7 @@ namespace Cynthia.Card
                 }
                 else if (card.Status.CardRow.IsOnPlace() && card.Status.HealthStatus < 0)
                 {
-                    await card.Effect.Damage(2, Card);
+                    await card.Effect.Damage(3, Card);
                 }
 
             }

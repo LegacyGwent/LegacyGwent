@@ -71,7 +71,16 @@ namespace Cynthia.Card
                     await Game.Debug("伯爵送入墓地");
                     await _target.Effect.ToCemetery(CardBreakEffectType.Scorch);
                     await Game.Debug("伯爵送入墓地完成");
+
                 }
+                // modifications to accomodate plumard's effect
+                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == "70147").ToList();
+                if (list.Count() > 0)
+                {
+                    var plumard = list.Last();
+                    await plumard.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), plumard);
+                }
+                // end of plumard section
                 _needKill = false;
             }
         }
