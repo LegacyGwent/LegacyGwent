@@ -1872,7 +1872,7 @@
             "Flavor": "科德温荒野之女。"
         },
         "43018": {
-            "Name": "Sabrina's Specter",
+            "Name": "Sabrina's Inferno",
             "Info": "Deploy: Resurrect a Bronze Cursed unit.",
             "Flavor": "萨宾娜·葛丽维希格用尽最后一口气，释放出一道强大的诅咒，不但处刑人遭了殃，留在附近的所有人也都没能幸免。"
         },
@@ -2742,7 +2742,7 @@
             "Flavor": "史凯利格的女王向来由最勇猛、最凶悍的持盾女卫保护。"
         },
         "64026": {
-            "Name": "Drummond Shieldmaid",
+            "Name": "Drummond Shieldmaiden",
             "Info": "Deploy: Deal 2 Damage.\nIf the unit was already Damaged, play a copy of this unit from your deck.",
             "Flavor": "我们的敌人会像打上嶙峋海岸的波浪一样，倒在我们的盾前。"
         },
@@ -2837,7 +2837,7 @@
             "Flavor": ""
         },
         "70004": {
-            "Name": "Glynnis Aep Loernach",
+            "Name": "Glynnis aep Loernach",
             "Info": "On turn end, if at the top or bottom of the deck, Summon it on a random row.",
             "Flavor": ""
         },
@@ -2877,7 +2877,7 @@
             "Flavor": ""
         },
         "70012": {
-            "Name": "Toussaint Knight Errant",
+            "Name": "Toussaint Knight-Errant",
             "Info": "Deploy: For each card advantage your opponent has, Boost self by 4.",
             "Flavor": ""
         },
@@ -2902,7 +2902,7 @@
             "Flavor": ""
         },
         "70017": {
-            "Name": "Cintrian Field Medic",
+            "Name": "Cintrian Enchantress",
             "Info": "Deploy: Shuffle a non-Support Bronze ally back to your deck, then play a random Bronze unit from your deck.",
             "Flavor": ""
         },
@@ -2968,7 +2968,7 @@
         },
         "70039": {
             "Name": "Dire Wolf Claws",
-            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 1 Dire Wolf Warriors in your deck.\n(10 Strength; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
+            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 1 Dire Wolf Warriors to your deck.\n(10 Strength; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
             "Flavor": ""
         },
         "70040": {
@@ -3007,7 +3007,7 @@
             "Flavor": ""
         },
         "70050": {
-            "Name": "MadCharge",
+            "Name": "Mad Charge",
             "Info": "Choose an ally with Armor, that unit then Duels an enemy.",
             "Flavor": ""
         },
@@ -3037,7 +3037,7 @@
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
-            "Name": "Strays Of Spalla",
+            "Name": "Strays of Spalla",
             "Info": "Single-Use.\nDeploy: Look at 2 random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
@@ -3122,7 +3122,7 @@
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70092": {
-            "Name": "SvalblodBrawler",
+            "Name": "Svalblod Brawler",
             "Info": "Deploy: Damage an enemy by 4. If it is under a Hazard, deal 8 Damage instead.",
             "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
@@ -3292,7 +3292,7 @@
             "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
         },
         "70127": {
-            "Name": "VanMoorlehem Servant",
+            "Name": "Van Moorlehem Servant",
             "Info": "Immune.Gain 5 Boost when Concealed.",
             "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
         },
@@ -3407,12 +3407,12 @@
             "Flavor": "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……"
         },
         "70150": {
-            "Name": "Vincent Van Moorlehem",
+            "Name": "Vincent van Moorlehem",
             "Info": "Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
             "Flavor": "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。"
         },
         "70151": {
-            "Name": "Philippe Van Moorlehem",
+            "Name": "Philippe van Moorlehem",
             "Info": "Damage an enemy by 3. If is in your hand on turn end, reveal self and trigger its ability.",
             "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
         },
@@ -3422,7 +3422,7 @@
             "Flavor": "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……"
         },
         "70153": {
-            "Name": "Van Moorlehem's Hunter",
+            "Name": "Van Moorlehem Hunter",
             "Info": "Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
@@ -3452,7 +3452,7 @@
             "Flavor": ""
         },
         "70159": {
-            "Name": "Crow Mother",
+            "Name": "Crowmother",
             "Info": "Discard up to 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.\n(Crow; 3 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
@@ -3477,7 +3477,7 @@
             "Flavor": ""
         },
         "70164": {
-            "Name": "Tatter wing",
+            "Name": "Tatterwing",
             "Info": "On turn end, move all units on the opposite row to random rows, then deal 1 damage to them each.",
             "Flavor": ""
         },
@@ -3532,7 +3532,7 @@
             "Flavor": "The weapon's short, but its range is long.。"
         },
         "89008": {
-            "Name": "Soldier Train",
+            "Name": "Fresh Recruit",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power.",
             "Flavor": "The goddess occasionally protects some new recruits。"
         }
