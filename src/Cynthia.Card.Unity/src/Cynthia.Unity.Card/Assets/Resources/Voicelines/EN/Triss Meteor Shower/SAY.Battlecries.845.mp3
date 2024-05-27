@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head >
+ <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content=" You linked the wrong page!!!!!">
+ <meta property="og:title" content="SOMETHING WENT WRONG"/>
+ <meta property="og:type" content="website"/>
+ <meta property="og:image" content="https://gwent.one/image/favicon/favicon-512x512.png" />
+ <meta property="og:url" content="https://gwent.one/"/>
+ <meta property="og:site_name" content="ERROR - gwent.one"/>
+ <meta property="og:description" content=" You linked the wrong page!!!!!">
+
+<link rel="icon" type="image/png" href="https://gwent.one/image/favicon/favicon-16x16.png"          sizes="16x16">
+<link rel="icon" type="image/png" href="https://gwent.one/image/favicon/favicon-32x32.png"          sizes="32x32">
+<link rel="icon" type="image/png" href="https://gwent.one/image/favicon/favicon-96x96.png"          sizes="96x96">
+<link rel="icon" type="image/png" href="https://gwent.one/image/favicon/favicon-512x512.png"        sizes="512x512">
+
+<link rel="icon" type="image/png" href="https://gwent.one/image/favicon/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="https://gwent.one/image/favicon/android-chrome-512x512.png" sizes="512x512">
+
+<link rel="apple-touch-icon" sizes="114x114" href="https://gwent.one/image/favicon/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://gwent.one/image/favicon/apple-touch-icon-180x180.png">
+<link rel="mask-icon" href="https://gwent.one/image/favicon/safari-pinned-tab.svg" color="#dc050d">
+
+<link rel="shortcut icon" href="https://gwent.one/image/favicon/favicon.ico">
+
+
+<!-- bootstrap 4.1.1 -->
+<script src="/ss/jquery-3.3.1.min.js"></script>
+<script src="/ss/bootstrap.min.js"></script>
+<script type="text/javascript" src="/ss/rebuild.js"></script>
+<link rel="stylesheet" type="text/css" href="/ss/rebuild_sy.css">
+<title>SOMETHING WENT WRONG</title>
+</head>
+<body >
+
+
+<nav class="navbar navbar-expand-xl Neutral">
+  <a class="navbar-brand fancy" href="https://gwent.one/en/">The Voice of Gwent</a>
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <i class="material-icons md-24">menu</i>
+  </button>
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a href="https://gwent.one/en/"        class="nav-link" ><img src="https://gwent.one/image/icon/nav/cardshc.png"> Cards</a></li>
+      <li class="nav-item"><a href="https://gwent.one/en/taunts/" class="nav-link" ><img src="https://gwent.one/image/icon/nav/taunts.png" > Taunts</a></li>
+      <li class="nav-item"><a href="https://gwent.one/en/cards/"  class="nav-link" ><img src="https://gwent.one/image/icon/nav/hc.png"     >Card Database</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><img src="https://gwent.one/image/icon/nav/ob.png"     > Public Beta</a>
+        <div class="dropdown-menu p-0">
+          <a class="dropdown-item" href="https://gwent.one/en/beta/"               ><img src="https://gwent.one/image/icon/nav/cards.png"  > Cards</a>
+          <a class="dropdown-item" href="https://gwent.one/en/beta/taunts/"        ><img src="https://gwent.one/image/icon/nav/taunts.gif" > Taunts</a>
+        </div>
+      </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+   <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+     <img style="height:30px" src="https://gwent.one/image/icon/language/s/en.png">Language
+    </a>
+
+    <div class="dropdown-menu">
+     <a class="dropdown-item" href="/en/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/en.png">English</a>
+     <a class="dropdown-item" href="/pl/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/pl.png">Polski</a>
+     <a class="dropdown-item" href="/ru/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/ru.png">Русский</a>
+     <a class="dropdown-item" href="/de/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/de.png">Deutsch</a>
+     <a class="dropdown-item" href="/fr/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/fr.png">Français</a>
+     <a class="dropdown-item" href="/es/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/es.png">Español</a>
+     <a class="dropdown-item" href="/mx/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/mx.png">Español (AL)</a>
+     <a class="dropdown-item" href="/it/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/it.png">Italiano</a>
+     <a class="dropdown-item" href="/jp/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/jp.png">日本語</a>
+     <a class="dropdown-item" href="/pt/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/pt.png">Português (BR)</a>
+     <a class="dropdown-item" href="/cn/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/cn.png">简体中文</a>
+     <a class="dropdown-item" href="/kr/card/current/en/SAY.Battlecries.845.mp3"><img style="height:40px" src="https://gwent.one/image/icon/language/s/kr.png">한국어</a>
+    </div>
+
+   </li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><img src="https://gwent.one/image/icon/nav/extras.png"     > Extras</a>
+  <div class="dropdown-menu dropdown-menu-right p-0">
+    <a class="dropdown-item" href="https://gwent.one/en/cards/changelog/" ><img src="https://gwent.one/image/icon/nav/changelog.png"> Card History</a>
+    <a class="dropdown-item" href="https://gwent.one/en/rewards/seasonal" ><img src="https://gwent.one/image/icon/nav/seasonal.png" > Seasonal modes</a>
+    <a class="dropdown-item" href="https://gwent.one/en/rewards/prestige" ><img src="https://gwent.one/image/icon/nav/prestige.png" > Prestige rewards</a>
+    <a class="dropdown-item" href="https://gwent.one/en/quiz/"            ><img src="https://gwent.one/image/icon/nav/quiz.png"     > Quiz</a>
+    <a class="dropdown-item" href="https://gwent.one/en/random"           ><img src="https://gwent.one/image/icon/nav/random.png"   > Random Cards</a>
+    <a class="dropdown-item" href="https://gwent.one/en/donate"           ><img src="https://gwent.one/image/icon/nav/heart.png"    > Support</a>
+    <a class="dropdown-item" href="https://gwent.one/en/about"            ><img src="https://gwent.one/image/icon/nav/about.png"    > About</a>
+  </div>
+</li>
+
+</ul>
+ </div>
+</nav><br>
+
+<div class="container-fluid">
+<div class="d-flex justify-content-center pt-2"><h1>ʕ ˵ ͒ ʖ̯ ͒ ˵ ʔ</h1></div>
+<div class="d-flex justify-content-center pb-1"><h4>Something went wrong<h2></div>
+<div class="d-flex flex-wrap justify-content-center">
+  
+<div class="p-3"><a href="https://gwent.one/en/card/200320"><img src="https://gwent.one/image/gwent/assets/card/art/low/1498.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202446"><img src="https://gwent.one/image/gwent/assets/card/art/low/1933.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202983"><img src="https://gwent.one/image/gwent/assets/card/art/low/3361.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/200209"><img src="https://gwent.one/image/gwent/assets/card/art/low/1461.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202401"><img src="https://gwent.one/image/gwent/assets/card/art/low/1926.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202435"><img src="https://gwent.one/image/gwent/assets/card/art/low/1913.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/152406"><img src="https://gwent.one/image/gwent/assets/card/art/low/1279.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202629"><img src="https://gwent.one/image/gwent/assets/card/art/low/2197.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202815"><img src="https://gwent.one/image/gwent/assets/card/art/low/2348.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/201595"><img src="https://gwent.one/image/gwent/assets/card/art/low/5175.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/203125"><img src="https://gwent.one/image/gwent/assets/card/art/low/2192.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202483"><img src="https://gwent.one/image/gwent/assets/card/art/low/2005.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202406"><img src="https://gwent.one/image/gwent/assets/card/art/low/1930.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/203058"><img src="https://gwent.one/image/gwent/assets/card/art/low/3396.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/203104"><img src="https://gwent.one/image/gwent/assets/card/art/low/3934.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202984"><img src="https://gwent.one/image/gwent/assets/card/art/low/1966.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/203278"><img src="https://gwent.one/image/gwent/assets/card/art/low/5619.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202238"><img src="https://gwent.one/image/gwent/assets/card/art/low/1395.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/203282"><img src="https://gwent.one/image/gwent/assets/card/art/low/5623.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202305"><img src="https://gwent.one/image/gwent/assets/card/art/low/1853.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202151"><img src="https://gwent.one/image/gwent/assets/card/art/low/1000.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202942"><img src="https://gwent.one/image/gwent/assets/card/art/low/1102.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/200040"><img src="https://gwent.one/image/gwent/assets/card/art/low/1344.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202450"><img src="https://gwent.one/image/gwent/assets/card/art/low/1956.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/142202"><img src="https://gwent.one/image/gwent/assets/card/art/low/1197.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202786"><img src="https://gwent.one/image/gwent/assets/card/art/low/2366.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202787"><img src="https://gwent.one/image/gwent/assets/card/art/low/2304.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/112104"><img src="https://gwent.one/image/gwent/assets/card/art/low/1010.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/202832"><img src="https://gwent.one/image/gwent/assets/card/art/low/2315.jpg" style="border:2px #111 solid;border-radius:5px"></a></div>  
+<div class="p-3"><a href="https://gwent.one/en/card/132406"><img src="https://gwent.one/image/gwent/assets/card/art/low/1179.jpg" style="border:2px #111 solid;border-radius:5px"></a></div></div>
+</div>
+</body >
+</html >
