@@ -373,7 +373,7 @@
         },
         "12027": {
             "Name": "Aguara",
-            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
+            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random loyal unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
             "Flavor": "Smarten up right now, or it's off to an aguara with you!"
         },
         "12028": {
