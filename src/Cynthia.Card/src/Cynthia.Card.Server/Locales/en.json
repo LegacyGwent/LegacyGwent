@@ -3083,7 +3083,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under 'BitingFrost' is destroyed.",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
             "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
         },
         "70084": {
@@ -3328,7 +3328,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 3 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
         },
         "70135": {
@@ -3453,7 +3453,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Discard up to 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.\n(Crow; 3 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "Discard up to 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
         "70160": {
@@ -3519,7 +3519,7 @@
         "89005": {
             "Name": "Iron Falcon Infantry",
             "Info": "If there is boost, double the boost.",
-            "Flavor": "You have to look good on the battlefield too.！"
+            "Flavor": "You have to look good on the battlefield too."
         },
         "89006": {
             "Name": "Iron Falcon Troubadour",
