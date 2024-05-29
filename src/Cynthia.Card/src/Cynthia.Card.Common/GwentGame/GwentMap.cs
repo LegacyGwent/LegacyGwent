@@ -12620,7 +12620,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70086",//Philippa: Lodge Mistress  
+                "70086",  
                 new GwentCard()  
                 {  
                     CardId ="70086", // Philippa: Mistress of the Lodge 
@@ -12640,7 +12640,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "13015",//Olgierd Von Everec  
+                "13015",
                 new GwentCard()  
                 {  
                     CardId ="13015", // Olgierd von Everec 
@@ -12660,7 +12660,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70088",//The Thing In The Swamp  
+                "70088", 
                 new GwentCard()  
                 {  
                     CardId ="70088", // The Thing In The Swamp 
@@ -12680,7 +12680,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70089",//Artis  
+                "70089", 
                 new GwentCard()  
                 {  
                     CardId ="70089", // Artis 
@@ -12700,7 +12700,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70090",//Cultist Oblation  
+                "70090",
                 new GwentCard()  
                 {  
                     CardId ="70090", // Cultist Oblation 
@@ -12721,7 +12721,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70092",//斯瓦勃洛争斗者 SvalblodBrawler  
+                "70092",//斯瓦勃洛争斗者
                 new GwentCard()  
                 {  
                     CardId ="70092", // SvalblodBrawler 
@@ -12741,7 +12741,7 @@ namespace Cynthia.Card
                 }  
             },  
                         {  
-                "70093",//Tempest  
+                "70093",
                 new GwentCard()  
                 {  
                     CardId ="70093", // Tempest 
@@ -12761,7 +12761,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "80001",//奥贝伦王 AuberonKing  
+                "80001",//奥贝伦王
                 new GwentCard()  
                 {  
                     CardId ="80001", // Auberon: King 
@@ -12781,7 +12781,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "80002",//入侵者奥贝伦 AuberonInvader  
+                "80002",//入侵者奥贝伦
                 new GwentCard()  
                 {  
                     CardId ="80002", // Auberon: Invader 
@@ -12801,7 +12801,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "80003",//征服者奥贝伦 AuberonConqueror  
+                "80003",//征服者奥贝伦
                 new GwentCard()  
                 {  
                     CardId ="80003", // Auberon: Conqueror 
@@ -12821,7 +12821,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "89004",//加斯科：铁隼之首 GasconIronFalcon  
+                "89004",//加斯科：铁隼之首
                 new GwentCard()  
                 {  
                     CardId ="89004", // Gascon: Iron Falcon 
@@ -12841,7 +12841,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "89005",//铁隼步兵 IronFalconInfantry  
+                "89005",//铁隼步兵
                 new GwentCard()  
                 {  
                     CardId ="89005", // Iron Falcon Infantry 
@@ -12861,7 +12861,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "89006",//铁隼吟游诗人 IronFalconTroubadour  
+                "89006",//铁隼吟游诗人
                 new GwentCard()  
                 {  
                     CardId ="89006", // Iron Falcon Troubadour 
@@ -12881,7 +12881,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "89007",//铁隼飞刀手 IronFalconKnifeJuggler  
+                "89007",//铁隼飞刀手
                 new GwentCard()  
                 {  
                     CardId ="89007", // Iron Falcon Knife Juggler 
@@ -12901,7 +12901,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70094",//莱里亚骑兵 Lyrian Cavalry  
+                "70094",//莱里亚骑兵
                 new GwentCard()  
                 {  
                     CardId ="70094", // Lyrian Cavalry 
@@ -12921,7 +12921,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "89008",//训练新兵 SoldierTrain  
+                "89008",//训练新兵
                 new GwentCard()  
                 {  
                     CardId ="89008", // Soldier Train 
@@ -12941,7 +12941,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70095",//莱里亚重弩手 Lyrian Arbalest  
+                "70095",//莱里亚重弩手 
                 new GwentCard()  
                 {  
                     CardId ="70095", // Lyrian Arbalest 
@@ -12961,7 +12961,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70096",//图尔赛克战船 TuirseachWarship  
+                "70096",//图尔赛克战船  
                 new GwentCard()  
                 {  
                     CardId ="70096", // Tuirseach Warship 
@@ -12981,7 +12981,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70097",//矮人矿工 Dwarf Miner  
+                "70097",//矮人矿工
                 new GwentCard()  
                 {  
                     CardId ="70097", // Dwarf Miner 
@@ -13001,7 +13001,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70098",//维里赫德旅破坏者 Vrihedd Saboteur  
+                "70098",//维里赫德旅破坏者
                 new GwentCard()  
                 {  
                     CardId ="70098", // Vrihedd Saboteur 
@@ -13021,7 +13021,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70099",//斯瓦勃洛 Svalblod  
+                "70099",//斯瓦勃洛 
                 new GwentCard()  
                 {  
                     CardId ="70099", // Svalblod 
@@ -13041,7 +13041,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70100",//林语者 ForestWhisperer  
+                "70100",//林语者
                 new GwentCard()  
                 {  
                     CardId ="70100", // Forest Whisperer 
@@ -13061,7 +13061,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70101",//不朽者骑兵 ImmortalCavalry  
+                "70101",//不朽者骑兵 
                 new GwentCard()  
                 {  
                     CardId ="70101", // Immortal Cavalry 
@@ -13082,7 +13082,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70132",//蝠翼脑魔 Garkain  
+                "70132",//蝠翼脑魔  
                 new GwentCard()  
                 {  
                     CardId ="70132", // Garkain 
@@ -13102,7 +13102,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70133",//孤独的勇士 LonelyChampion  
+                "70133",//孤独的勇士  
                 new GwentCard()  
                 {  
                     CardId ="70133", // Lonely Champion 
@@ -13122,7 +13122,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70121",//欧特克尔 Otkell  
+                "70121",//欧特克尔  
                 new GwentCard()  
                 {  
                     CardId ="70121", // Otkell 
@@ -13142,7 +13142,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70122",//树精族母 DryadMatron  
+                "70122",//树精族母
                 new GwentCard()  
                 {  
                     CardId ="70122", // Dryad Matron 
@@ -13162,7 +13162,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70123",//战前准备 BattlePreparation  
+                "70123",//战前准备
                 new GwentCard()  
                 {  
                     CardId ="70123", // Battle Preparation 
@@ -13182,7 +13182,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70124",//林地徘徊者 WoodlandProwlers  
+                "70124",//林地徘徊者
                 new GwentCard()  
                 {  
                     CardId ="70124", // Woodland Prowlers 
@@ -13202,7 +13202,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70125",//巴纳巴斯·贝肯鲍尔 BarnabasBeckenbauer  
+                "70125",//巴纳巴斯·贝肯鲍尔  
                 new GwentCard()  
                 {  
                     CardId ="70125", // Barnabas Beckenbauer 
@@ -13222,7 +13222,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70126",//辛特拉皇家护卫 CintrianRoyalGuard  
+                "70126",//辛特拉皇家护卫 
                 new GwentCard()  
                 {  
                     CardId ="70126", // Cintrian Royal Guard 
@@ -13242,7 +13242,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70127",//莫拉汉姆家仆从 VanMoorlehemServant  
+                "70127",//莫拉汉姆家仆从 
                 new GwentCard()  
                 {  
                     CardId ="70127", // VanMoorlehem Servant 
@@ -13262,7 +13262,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70128",//月之尘炸弹 MoonDust  
+                "70128",//月之尘炸弹 
                 new GwentCard()  
                 {  
                     CardId ="70128", // Moon Dust 
@@ -13282,7 +13282,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70129",//物竞天择 NaturalSelection  
+                "70129",//物竞天择 
                 new GwentCard()  
                 {  
                     CardId ="70129", // Natural Selection 
@@ -13302,7 +13302,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70130",//防盾 Mantlet  
+                "70130",//防盾
                 new GwentCard()  
                 {  
                     CardId ="70130", // Mantlet 
@@ -13322,7 +13322,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70131",//考德威尔伯爵 CountCaldwell  
+                "70131",//考德威尔伯爵  
                 new GwentCard()  
                 {  
                     CardId ="70131", // Count Caldwell 
@@ -13342,7 +13342,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70159",//乌鸦之母 Crowmother  
+                "70159",//乌鸦之母 
                 new GwentCard()  
                 {  
                     CardId ="70159", // Crow Mother 
@@ -13362,7 +13362,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70160",//维尔卡战士 Vildkaarl  
+                "70160",//维尔卡战士  
                 new GwentCard()  
                 {  
                     CardId ="70160", // Vildkaarl 
@@ -13382,7 +13382,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70134",//鸦母德鲁伊 CrowClanDruid  
+                "70134",//鸦母德鲁伊
                 new GwentCard()  
                 {  
                     CardId ="70134", // Crow Clan Druid 
@@ -13402,7 +13402,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70135",//斯瓦勃洛牧师 SvalblodPriest  
+                "70135",//斯瓦勃洛牧师 
                 new GwentCard()  
                 {  
                     CardId ="70135", // Svalblod Priest 
@@ -13422,7 +13422,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70136",//乌鸦 Crow  
+                "70136",//乌鸦 
                 new GwentCard()  
                 {  
                     CardId ="70136", // Crow 
@@ -13442,7 +13442,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70137",//巨橡 TheGreatOak  
+                "70137",//巨橡
                 new GwentCard()  
                 {  
                     CardId ="70137", // The Great Oak 
@@ -13462,7 +13462,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70138",//树精的呵护 DryadsCaress  
+                "70138",//树精的呵护  
                 new GwentCard()  
                 {  
                     CardId ="70138", // Dryads Caress 
@@ -13482,7 +13482,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70139",//树人野猪 TreantBoar  
+                "70139",//树人野猪
                 new GwentCard()  
                 {  
                     CardId ="70139", // Treant Boar 
@@ -13502,7 +13502,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70140",//树精林卫 DryadGrovekeeper  
+                "70140",//树精林卫 
                 new GwentCard()  
                 {  
                     CardId ="70140", // Dryad Grovekeeper 
@@ -13522,7 +13522,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70141",//阿德莉亚女王 QueenAdalia  
+                "70141",//阿德莉亚女王  
                 new GwentCard()  
                 {  
                     CardId ="70141", // Queen Adalia 
@@ -13542,7 +13542,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70142",//维赛基德 Vissegerd  
+                "70142",//维赛基德
                 new GwentCard()  
                 {  
                     CardId ="70142", // Vissegerd 
@@ -13562,7 +13562,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70143",//辛特拉骑士 CintrianKnight  
+                "70143",//辛特拉骑士  
                 new GwentCard()  
                 {  
                     CardId ="70143", // Cintrian Knight 
@@ -13582,7 +13582,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70144",//辛特拉使者 CintrianEnvoy  
+                "70144",//辛特拉使者 
                 new GwentCard()  
                 {  
                     CardId ="70144", // Cintrian Envoy 
@@ -13602,7 +13602,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70145",//奥莉安娜 Orianna  
+                "70145",//奥莉安娜 
                 new GwentCard()  
                 {  
                     CardId ="70145", // Orianna 
@@ -13622,7 +13622,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70146",//加尔 Gael  
+                "70146",//加尔 
                 new GwentCard()  
                 {  
                     CardId ="70146", // Gael 
@@ -13642,7 +13642,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70147",//渴血鸟怪 Plumard  
+                "70147",//渴血鸟怪 
                 new GwentCard()  
                 {  
                     CardId ="70147", // Plumard 
@@ -13662,7 +13662,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70148",//吸血鬼女 Alp  
+                "70148",//吸血鬼女
                 new GwentCard()  
                 {  
                     CardId ="70148", // Alp 
@@ -13682,7 +13682,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70149",//安娜·亨利叶塔 AnnaHenrietta  
+                "70149",//安娜·亨利叶塔 
                 new GwentCard()  
                 {  
                     CardId ="70149", // Anna Henrietta 
@@ -13702,7 +13702,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70150",//文森特·凡·莫拉汉姆 VincentvanMoorlehem  
+                "70150",//文森特·凡·莫拉汉姆 
                 new GwentCard()  
                 {  
                     CardId ="70150", // Vincent Van Moorlehem 
@@ -13722,7 +13722,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70151",//菲利普·凡·莫拉汉姆 PhilippevanMoorlehem  
+                "70151",//菲利普·凡·莫拉汉姆 
                 new GwentCard()  
                 {  
                     CardId ="70151", // Philippe Van Moorlehem 
@@ -13742,7 +13742,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70152",//莫拉汉姆家斟酒侍者 VanMoorlehemsCupbearer  
+                "70152",//莫拉汉姆家斟酒侍者 
                 new GwentCard()  
                 {  
                     CardId ="70152", // Van Moorlehem's Cupbearer 
@@ -13762,7 +13762,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70153",//莫拉汉姆家猎手 VanMoorleheHunter  
+                "70153",//莫拉汉姆家猎手
                 new GwentCard()  
                 {  
                     CardId ="70153", // Van Moorlehem's Hunter 
@@ -13782,7 +13782,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70154",//爱丽丝：庄园幽影 IrisShade  
+                "70154",//爱丽丝：庄园幽影
                 new GwentCard()  
                 {  
                     CardId ="70154", // Iris: Shade 
@@ -13802,7 +13802,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70155",//哈吉的伊斯贝尔 IsbelofHagge  
+                "70155",//哈吉的伊斯贝尔 
                 new GwentCard()  
                 {  
                     CardId ="70155", // Isbel of Hagge 
@@ -13822,7 +13822,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70156",//穿甲弹 PiercingMissile  
+                "70156",//穿甲弹 
                 new GwentCard()  
                 {  
                     CardId ="70156", // Piercing Missile 
@@ -13842,7 +13842,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70157",//紫藤花 wisteria  
+                "70157",//紫藤花 
                 new GwentCard()  
                 {  
                     CardId ="70157", // Wisteria 
@@ -13862,7 +13862,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70158",//波维斯的柯恩 CoënofPoviss  
+                "70158",//波维斯的柯恩 
                 new GwentCard()  
                 {  
                     CardId ="70158", // Coën of Poviss 
@@ -13882,7 +13882,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70161",// 阿扎·贾维德 AzarJaved  
+                "70161",// 阿扎·贾维德
                 new GwentCard()  
                 {  
                     CardId ="70161", // Azar Javed 
@@ -13902,7 +13902,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70162",// 圣甲虫 Scarab  
+                "70162",// 圣甲虫 
                 new GwentCard()  
                 {  
                     CardId ="70162", // Scarab 
@@ -13922,7 +13922,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70163",// 雷纳德·奥多 ReynardOdo  
+                "70163",// 雷纳德·奥多
                 new GwentCard()  
                 {  
                     CardId ="70163", // Reynard Odo 
@@ -13942,7 +13942,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70164",// 残翼 Tatterwing  
+                "70164",// 残翼
                 new GwentCard()  
                 {  
                     CardId ="70164", // Tatter wing 
@@ -13962,7 +13962,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70165",// 薇薇恩·塔布里司 ViviennedeTabris  
+                "70165",// 薇薇恩·塔布里司  
                 new GwentCard()  
                 {  
                     CardId ="70165", // Vivienne de Tabris 
@@ -13982,7 +13982,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70166",// 被诅咒的卷轴 CursedScroll  
+                "70166",// 被诅咒的卷轴
                 new GwentCard()  
                 {  
                     CardId ="70166", // Cursed Scroll 
@@ -14002,7 +14002,7 @@ namespace Cynthia.Card
                 }  
             },  
             {  
-                "70167",// 卓尔坦的伙伴 ZoltansCompany  
+                "70167",// 卓尔坦的伙伴 
                 new GwentCard()  
                 {  
                     CardId ="70167", // Zoltans Company 
