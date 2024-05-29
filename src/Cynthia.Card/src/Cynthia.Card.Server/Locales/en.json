@@ -2378,7 +2378,7 @@
         },
         "54023": {
             "Name": "Panther",
-            "Info": "Deploy: Deal 7 Damage to an enemy on a row with less than 4 units.",
+            "Info": "Deploy: Deal 7 Damage to an enemy on a row with 3 or less units.",
             "Flavor": "曾经有位牛堡学者在观察一只黑豹后，宣称它不过是颜色不同的花豹而已。黑豹貌似对这一说法毫不关心。他还没等学者完成研究，就把他狼吞虎咽地吃下了肚。"
         },
         "54024": {
@@ -3078,7 +3078,7 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Destroy all units with Strength less then 3 on both sides.",
+            "Info": "Destroy all units with Strength 2 or less on both sides.",
             "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
         },
         "70083": {
@@ -3377,7 +3377,7 @@
             "Flavor": "丧钟为谁鸣？"
         },
         "70144": {
-            "Name": "Cintrian Envoy",
+            "Name": "Cintrian Envoy",
             "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
             "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
         },
