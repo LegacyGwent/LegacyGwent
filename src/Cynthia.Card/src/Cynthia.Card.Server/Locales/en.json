@@ -3108,7 +3108,7 @@
         },
         "70089": {
             "Name": "Artis",
-            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a \"Cultist Oblation\" to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
+            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a Cultist Oblation to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
             "Flavor": "It is finished It is finished IT IS THE MERCY"
         },
         "70090": {
@@ -3128,7 +3128,7 @@
         },
         "70093": {
             "Name": "Tempest",
-            "Info": "Choose 4 rows, Spawn “Torrential Rain”on them. If it’s already under “Torrential Rain”, Spawn “Skellige Storm” on this row instead.",
+            "Info": "Choose 4 rows, Spawn “Torrential Rain”on them. If it's already under Torrential Rain, Spawn Skellige Storm on this row instead.",
             "Flavor": "A Category 10 on the Bekker scale."
         },
         "70094": {
@@ -3453,7 +3453,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Discard up to 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "Discard up to three Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
         "70160": {
@@ -3463,12 +3463,12 @@
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Spawn 2 Scarabs.\n(Scarab: 1 Strength. When your opponent passes, move to the opposite row.)",
+            "Info": "Spawn 2 Scarabs.\n(Scarab: 1 Strength. If spying move to oposite row after you pass.)",
             "Flavor": ""
         },
         "70162": {
             "Name": "Scarab",
-            "Info": "When your opponent passes, move to the opposite row.",
+            "Info": "If spying move to oposite row after you pass.",
             "Flavor": ""
         },
         "70163": {
