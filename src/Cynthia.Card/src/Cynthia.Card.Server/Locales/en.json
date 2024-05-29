@@ -2138,7 +2138,7 @@
         },
         "52009": {
             "Name": "Morenn: Forest Child",
-            "Info": "Ambush: When your opponent plays a Bronze or Silver special card, flip over and cancel its ability.",
+            "Info": "Ambush: When your opponent plays a Bronze or Silver special card, flip over and cancel its effect.",
             "Flavor": "布洛克莱昂的意义远高于我的生命。她是一位母亲，关怀着自己的孩子们。我至死都要捍卫她。"
         },
         "52010": {
@@ -3273,7 +3273,7 @@
         },
         "70123": {
             "Name": "Battle Preparation",
-            "Info": "Play a Bronze soilder unit from your hand and Boost it by 2, then draw a card.",
+            "Info": "Play a Bronze soldier unit from your hand and Boost it by 2, then draw a card.",
             "Flavor": "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。"
         },
         "70124": {
@@ -3298,7 +3298,7 @@
         },
         "70128": {
             "Name": "Moon Dust",
-            "Info": "Deal 5 Damages, then deal 1 Damage to random enemy 4 times.",
+            "Info": "Deal 5 Damage, then deal 1 Damage to random enemy 4 times.",
             "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
         },
         "70129": {
@@ -3343,7 +3343,7 @@
         },
         "70137": {
             "Name": "The Great Oak",
-            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; or Resurrect a Bronze Dryad unit from your deck, then return it to the deck.",
+            "Info": "Deploy, Choose one: Weaken an enemy unit by half of its base Strength; or Resurrect a Bronze Dryad unit from your deck, then return it to the deck.",
             "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
         },
         "70138": {
@@ -3428,7 +3428,7 @@
         },
         "70154": {
             "Name": "Iris: Shade",
-            "Info": "Deploy, Truce: Add 2 Iris'Companions to both hands.",
+            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
             "Flavor": "和欧吉尔德的婚约犹如一场美梦……"
         },
         "70155": {
@@ -3488,7 +3488,7 @@
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Look at 3 random cards with different colors from your deck.Play one, discard the other two.",
+            "Info": "Look at 3 random cards with different colors from your deck. Play one, discard the other two.",
             "Flavor": ""
         },
         "70167": {
