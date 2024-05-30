@@ -13,8 +13,8 @@ namespace Cynthia.Card
         {
             var switchCard = await Card.GetMenuSwitch
             (
-                ("Discard Torrential Rain from your deck, then Spawn Torrential Rain in this and the opposite row"),
-                ("Damage self by 4 and Spawn Torrential Rain in this and the opposite row.")
+                ("Discard" , "Discard Torrential Rain from your deck, then Spawn Torrential Rain in this and the opposite row"),
+                ("SelfWound" , "Damage self by 4 and Spawn Torrential Rain in this and the opposite row.")
             );
             if (switchCard == 0)
             // start old effect
@@ -38,7 +38,9 @@ namespace Cynthia.Card
                 await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
                 await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
                 await Card.Effect.Damage(4, Card);
+                return 0;
             }
+        return 0;
         }
     }
 }
