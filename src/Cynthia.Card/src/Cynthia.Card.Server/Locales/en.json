@@ -2278,7 +2278,7 @@
         },
         "54003": {
             "Name": "Vrihedd Neophyte",
-            "Info": "Deploy: Boost 2 random units in your hand by 1.",
+            "Info": "Deploy: Boost 2 leftmost loyal units in your hand by 1.",
             "Flavor": "许多非人种族在城市里饱受歧视和排斥，于是决定加入松鼠党。"
         },
         "54004": {
