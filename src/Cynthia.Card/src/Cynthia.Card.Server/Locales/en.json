@@ -658,7 +658,7 @@
         },
         "13042": {
             "Name": "Glorious Hunt",
-            "Info": "If losing, Spawn an Imperial Manticore.\nIf winning or tied, Spawn Manticore Venom.(Imperial Manticore; 13 Strength)",
+            "Info": "If losing, Spawn an Imperial Manticore.\nIf winning or tied, Spawn Manticore Venom.\n(Imperial Manticore; 13 Strength)\n(Manticore Venom: Damage a unit by 13)",
             "Flavor": "以诸神的名义，猎魔人，你把这鬼东西拿来干嘛？！“我要那畜生的脑袋！”这句话不过是打个比方！"
         },
         "13043": {
