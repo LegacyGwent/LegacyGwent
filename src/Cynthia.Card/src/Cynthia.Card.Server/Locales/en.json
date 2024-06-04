@@ -2828,7 +2828,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power equal to or less than this unit's, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
+            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power not greater than self, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
             "Flavor": ""
         },
         "70003": {
@@ -2843,7 +2843,7 @@
         },
         "70005": {
             "Name": "Vysogota Of Corvo",
-            "Info": "On round start, Boost a unit to the left by 3, then Damage self by 1 and move to the row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
+            "Info": "On round start, if there is a unit to the right Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
             "Flavor": ""
         },
         "70006": {
@@ -3008,7 +3008,7 @@
         },
         "70050": {
             "Name": "Mad Charge",
-            "Info": "Choose an ally with Armor, that unit then Duels an enemy.",
+            "Info": "Choose an ally with Armor, that unit then Duels chosen enemy.",
             "Flavor": ""
         },
         "70054": {
@@ -3308,7 +3308,7 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right side of this unit takes Damage, take the Damage with self's Armor instead. Crewed: Gain 6 armor.",
+            "Info": "When the unit on the right takes Damage, if this unit has armor, Damage this unit until it has no more armor instead then transfer the excess damage to the unit on the right. Crewed: Gain 6 armor.",
             "Flavor": "类似于盾牌和栅栏的杂交品种。"
         },
         "70131": {
@@ -3353,7 +3353,7 @@
         },
         "70139": {
             "Name": "Treant Boar",
-            "Info": "Deploy: Deal 3 Damage, then move the adjacent units of the target unit to random rows. If the target is destroyed, repeat once.",
+            "Info": "Deploy: Deal 3 Damage to a unit, then move units adjacent to the target to random rows. If the target is destroyed, repeat once.",
             "Flavor": "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？"
         },
         "70140": {
