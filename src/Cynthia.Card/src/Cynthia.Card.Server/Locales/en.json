@@ -2932,7 +2932,7 @@
             "Flavor": ""
         },
         "70024": {
-            "Name": "Cursed Immortals",
+            "Name": "Immortals",
             "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.\n(Specter; 5 Strength)",
             "Flavor": ""
         },
@@ -2967,12 +2967,12 @@
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
-            "Name": "Dire Wolf Claws",
-            "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Dire Wolf Warriors to your deck. (10 Str; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
+            "Name": "Terror Crew",
+            "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Terror Crew Plunderers to your deck. (10 Str; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
             "Flavor": ""
         },
         "70040": {
-            "Name": "Dire Wolf Warrior",
+            "Name": "Terror Crew Plunderer",
             "Info": "Deploy: Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
             "Flavor": ""
         },
