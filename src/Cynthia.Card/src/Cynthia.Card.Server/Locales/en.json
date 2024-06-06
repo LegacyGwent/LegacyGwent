@@ -313,7 +313,7 @@
         },
         "12015": {
             "Name": "Zoltan: Scoundrel",
-            "Info": "Deploy, Choose One: Spawn a Duda: Agitator that deals 2 Damage to 2 units on each side of it; or Spawn a Duda: Companion that Boosts 2 units on each side of it by 2.\n(Duda; 1 Strength)",
+            "Info": "Deploy: Spawn a Duda: Agitator, or Duda: Campanion. \n(Duda: Agitator; 1 Strength. Deal 2 Damage to 2 units on each side)\n(Duda: Companion; 1 Strength. Boost 2 units on each side by 2)",
             "Flavor": "Apologies. My exotic pet's a clever birdie, but a wee bit lewd. Paid ten thalers for the beaute."
         },
         "12016": {
@@ -358,7 +358,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Deploy, Choose One: Spawn a Unicorn that Boosts all other units by 2; or Spawn a Chironex that deals 2 Damage to all other units.\n(Unicorn; 1 Strength)\n(Chironex; 4 Strength)",
+            "Info": "Deploy: Spawn Unicorn or Chironex./n(Unicorn; 1 Strength. Boost all other units by 2)/n(Chironex; 4 Strength. Deal 2 Damage to all other units)",
             "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression."
         },
         "12025": {
@@ -1078,7 +1078,7 @@
         },
         "23022": {
             "Name": "Parasite",
-            "Info": "Choose One: Deal 12 Damage to an enemy; or Boost an ally by 12.",
+            "Info": "Choose a unit. If it's an enemy, deal 12 Damage to it. If it's an ally, Boost it by 12.",
             "Flavor": "确实引人注目。"
         },
         "24001": {
@@ -1268,7 +1268,7 @@
         },
         "24038": {
             "Name": "Moonlight",
-            "Info": "Choose One: Apply a Full Moon Boon; or apply a Blood Moon Hazard.",
+            "Info": "Spawn Full Moon, or Blood Moon./n(Full Moon; Apply a Boon to an allied row that Boosts a random Beast or Vampire by 2 on turn start) /n(Blood Moon; Apply a Hazard to an enemy row that deals 2 Damage to all units on contact)",
             "Flavor": "满月的时候，梦魇便会从世界的各个角落匍匐而出。"
         },
         "25001": {
@@ -1463,12 +1463,12 @@
         },
         "33011": {
             "Name": "Peter Saar Gwynleve",
-            "Info": "Deploy, Choose One: Reset an ally and Strengthen it by 3; or Reset an enemy and Weaken it by 3.",
+            "Info": "Deploy: Choose a unit. Reset it. If its an ally Strengthen it by 3. If its enemy Weaken it by 3.",
             "Flavor": "这双手不属于什么“阁下”，只属于一介农夫。所以这是农夫与农夫间的对话。"
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Deploy, Choose One: Deal 7 Damage to an enemy or set a Revealed opposing unit to 1.",
+            "Info": "Deploy: Choose an enemy or a Revealed opposing unit. If its on board Deal 7 Damage. If its a Revealed card set it to 1.",
             "Flavor": "这是我们必须做的，我并不为此感到羞愧。"
         },
         "33013": {
@@ -1753,7 +1753,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy: Choose one: Play 1 Silver or Bronze Temeria card with less power then self; or destroy conceled ambush enemy unit.",
+            "Info": "Deploy, Choose one: Play 1 Silver or Bronze Temeria card with less power then self; or destroy conceled ambush enemy unit.",
             "Flavor": "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。"
         },
         "42008": {
@@ -3173,7 +3173,7 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all enemy rows; or apply Blood Moon on all friendly rows.",
             "Flavor": ""
         },
         "70103": {
@@ -3403,7 +3403,7 @@
         },
         "70149": {
             "Name": "Anna Henrietta",
-            "Info": "Deploy: Sort the cards in your deck in descending order by their base Strength, then play a card from the top of your deck.",
+            "Info": "Deploy: Sort the cards in your deck in ascending order by their base Strength, then play a card from the top of your deck.",
             "Flavor": "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……"
         },
         "70150": {
