@@ -238,7 +238,9 @@
         "ShupeMage_2_Charm": "Rzuć urok na losowego wroga.",
         "ShupeMage_3_Hazard": "Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika.",
         "ShupeMage_4_Damage": "Zadaj wrogowi 10 pkt. obrażeń i 5 pkt. obrażeń jednostkom z nim sąsiadującym.",
-        "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii."
+        "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii.",
+        "Hym_1_Playcursed": "Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii.",
+        "Hym_2_Playsilver": "Utwórz srebrną kartę jednostki z talii początkowej przeciwnika."
     },
     "CardLocales": {
         "12001": {

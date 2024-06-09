@@ -238,7 +238,9 @@
         "ShupeMage_2_Charm": "Charm a random enemy.",
         "ShupeMage_3_Hazard": "Spawn random Hazards on all enemy rows.",
         "ShupeMage_4_Damage": "Deal 10 Damage to an enemy and 5 to any adjacent to it.",
-        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck."
+        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck.",
+        "Hym_1_Playcursed": "Play a Bronze or Silver Cursed unit from your deck.",
+        "Hym_2_Playsilver": "Create a Silver unit from your opponent's deck."
     },
     "CardLocales": {
         "12001": {
