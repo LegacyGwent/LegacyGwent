@@ -3092,8 +3092,8 @@
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
         },
         "70085": {
-            "Name": "Pszczelarz Fantom",
-            "Info": "Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, w tym rzędzie pojawi się Trzaskający Mróz.",
+            "Name": "Barciowe Widziadło",
+            "Info": "Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
             "Flavor": ""
         },
         "70086": {
@@ -3122,8 +3122,8 @@
             "Flavor": ""
         },
         "70092": {
-            "Name": "SvalblodBrawler",
-            "Info": "Damage an enemy by 4,if it is under a Hazard,deal 8 Damage instead.",
+            "Name": "Zawiadiaka Svalbloda",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli jest pod wływem zagrożenia, zadaj zamiast tego 8 pkt obrażeń.",
             "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
         },
         "70093": {
@@ -3137,28 +3137,28 @@
             "Flavor": "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。"
         },
         "70095": {
-            "Name": "Lyrian Arbalest",
+            "Name": "Lyrijski kusznik",
             "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
             "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
         },
         "70096": {
             "Name": "Okręt wojenny Tuirseach",
-            "Info": "On turn end, deal 2 Damages to a random undamaged unit.",
+            "Info": "Na koniec tury zadaj 2 pkt obrażeń, losowej niezranionej jednostce.",
             "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
         },
         "70097": {
-            "Name": "Hawierz",
+            "Name": "Krasnoludzki Hawierz",
             "Info": "Rozmieszczenie: Wzmocnij się o 1 za każdego Krasnoluda w twojej ręce.",
             "Flavor": "Which moron's whistling in the mine?!"
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Play a random Items from your deck. Increase their Damages by 1 each.",
+            "Info": "Zagraj losowy przedmiot z Twojej talii. Zwiększ wszystkie obrażenia tego przedmiotu o 1.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damege all units in your deck by 2, then Strength them by 2",
+            "Info": "Zadaj wszystkim jednostką w Twojej talii 2pkt obrażeń, następnie wzmocnij je o 2pkt.",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。"
         },
         "70100": {
