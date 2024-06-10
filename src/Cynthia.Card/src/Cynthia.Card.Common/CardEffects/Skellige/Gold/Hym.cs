@@ -7,10 +7,10 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("62012")] //店店：猎人
+    [CardEffectId("62012")] //希姆
     public class Hym : Choose
     {
-        //派“店店”去多尔·布雷坦纳的森林。 造成15点伤害；对一个敌军随机单位造成2点伤害，连续8次；重新打出1个铜色/银色单位，并使它获得5点增益；从牌组打出1张铜色/银色单位牌；移除己方半场的所有“灾厄”效果，并使友军单位获得1点增益。
+        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
         public Hym(GameCard card) : base(card)
         {
         }
@@ -23,12 +23,10 @@ namespace Cynthia.Card
                     return await Playcursed();
                 case 2:
                     return await Playsilver();
-                
             }
 
             return 0;
         }
-
 
         protected override void RealInitDict()
         {
@@ -38,11 +36,6 @@ namespace Cynthia.Card
                 {2, "Hym_2_Playsilver"}
             };
         }
-
-
-       
-
-
 
         private async Task<int> Playcursed()
         {
