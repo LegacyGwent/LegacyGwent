@@ -238,7 +238,9 @@
         "ShupeMage_2_Charm": "随机魅惑1个敌军单位",
         "ShupeMage_3_Hazard": "在对方三排随机生成一种灾厄",
         "ShupeMage_4_Damage": "对1个敌军造成10点伤害，再对其相邻单位造成5点",
-        "ShupeMage_5_Special": "从牌组打出1张铜色/银色“特殊”牌"
+        "ShupeMage_5_Special": "从牌组打出1张铜色/银色“特殊”牌",
+        "Hym_1_Playcursed": "从牌组打出1张铜色或银色“诅咒”单位",
+        "Hym_2_Playsilver": "从对手的牌组创建1张银色单位"
     },
     "CardLocales": {
         "12001": {

@@ -1,26 +1,45 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
+using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
     [CardEffectId("62012")] //希姆
-    public class Hym : CardEffect
-    { //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
-        public Hym(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+    public class Hym : Choose
+    {
+        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+        public Hym(GameCard card) : base(card)
         {
-            //选择选项,设置每个选项的名字和效果
-            //选项名来源 https://vmobile.douyu.com/show/a4Jj7lZXpoqWDk01?share_source=2 5分钟往后一点
-            var switchCard = await Card.GetMenuSwitch(
-                ("寄生之缚", "从牌组打出1张铜色/银色“诅咒生物”牌"),
-                ("低语", "创造对方初始牌组中1张银色单位牌")
-            );
+        }
 
-            //选择了打诅咒生物的话
-            if (switchCard == 0)
+        protected override async Task<int> UseMethodByChoice(int switchCard)
+        {
+            switch (switchCard)
             {
-                //乱序列出诅咒生物，如果没有，什么都不做
+                case 1:
+                    return await Playcursed();
+                case 2:
+                    return await Playsilver();
+            }
+
+            return 0;
+        }
+
+        protected override void RealInitDict()
+        {
+            methodDesDict = new Dictionary<int, string>()
+            {
+                {1, "Hym_1_Playcursed"},
+                {2, "Hym_2_Playsilver"}
+            };
+        }
+
+        private async Task<int> Playcursed()
+        {
+            //乱序列出诅咒生物，如果没有，什么都不做
                 var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Cursed) &&
                        (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
                     .Mess(Game.RNG)
@@ -41,12 +60,11 @@ namespace Cynthia.Card
                 var playCard = cards.Single();
                 await playCard.MoveToCardStayFirst();
                 return 1;
-            }
+        }
 
-            //选择创造
-            else if (switchCard == 1)
-            {
-                //手动排除大间谍
+        private async Task<int> Playsilver()
+        {
+           //手动排除大间谍
                 var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
                    .Select(x => x.CardId)
                    .Distinct()
@@ -54,10 +72,6 @@ namespace Cynthia.Card
                    .Mess(Game.RNG)
                    .Take(3).ToArray();
                 return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
-
-            }
-
-            return 0;
         }
     }
 }

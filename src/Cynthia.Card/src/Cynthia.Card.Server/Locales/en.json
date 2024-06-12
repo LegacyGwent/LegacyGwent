@@ -238,7 +238,9 @@
         "ShupeMage_2_Charm": "Charm a random enemy.",
         "ShupeMage_3_Hazard": "Spawn random Hazards on all enemy rows.",
         "ShupeMage_4_Damage": "Deal 10 Damage to an enemy and 5 to any adjacent to it.",
-        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck."
+        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck.",
+        "Hym_1_Playcursed": "Play a Bronze or Silver Cursed unit from your deck.",
+        "Hym_2_Playsilver": "Create a Silver unit from your opponent's deck."
     },
     "CardLocales": {
         "12001": {
@@ -313,7 +315,7 @@
         },
         "12015": {
             "Name": "Zoltan: Scoundrel",
-            "Info": "Deploy, Choose One: Spawn a Duda: Agitator that deals 2 Damage to 2 units on each side of it; or Spawn a Duda: Companion that Boosts 2 units on each side of it by 2.\n(Duda; 1 Strength)",
+            "Info": "Deploy: Spawn a Duda: Agitator, or Duda: Campanion. \n(Duda: Agitator; 1 Strength. Deal 2 Damage to 2 units on each side)\n(Duda: Companion; 1 Strength. Boost 2 units on each side by 2)",
             "Flavor": "Apologies. My exotic pet's a clever birdie, but a wee bit lewd. Paid ten thalers for the beaute."
         },
         "12016": {
@@ -358,7 +360,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Deploy, Choose One: Spawn a Unicorn that Boosts all other units by 2; or Spawn a Chironex that deals 2 Damage to all other units.\n(Unicorn; 1 Strength)\n(Chironex; 4 Strength)",
+            "Info": "Deploy: Spawn Unicorn or Chironex./n(Unicorn; 1 Strength. Boost all other units by 2)/n(Chironex; 4 Strength. Deal 2 Damage to all other units)",
             "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression."
         },
         "12025": {
@@ -658,7 +660,7 @@
         },
         "13042": {
             "Name": "Glorious Hunt",
-            "Info": "If losing, Spawn an Imperial Manticore.\nIf winning or tied, Spawn Manticore Venom.",
+            "Info": "If losing, Spawn an Imperial Manticore.\nIf winning or tied, Spawn Manticore Venom.\n(Imperial Manticore; 13 Strength)\n(Manticore Venom: Damage a unit by 13)",
             "Flavor": "以诸神的名义，猎魔人，你把这鬼东西拿来干嘛？！“我要那畜生的脑袋！”这句话不过是打个比方！"
         },
         "13043": {
@@ -898,7 +900,7 @@
         },
         "21005": {
             "Name": "Unseen Elder",
-            "Info": "Deploy: Drain a unit by half.",
+            "Info": "Deploy: Drain a unit by half (rounded up).",
             "Flavor": "没有谁知道暗影长者的真实年龄，连高阶吸血鬼们也不知情。他们唯一清楚的是，无论如何也不能违背他的意愿。"
         },
         "22001": {
@@ -1078,7 +1080,7 @@
         },
         "23022": {
             "Name": "Parasite",
-            "Info": "Choose One: Deal 12 Damage to an enemy; or Boost an ally by 12.",
+            "Info": "Choose a unit. If it's an enemy, deal 12 Damage to it. If it's an ally, Boost it by 12.",
             "Flavor": "确实引人注目。"
         },
         "24001": {
@@ -1168,7 +1170,7 @@
         },
         "24018": {
             "Name": "Celaeno Harpy",
-            "Info": "Deploy: Spawn 2 Harpy Eggs to its left.\n(Harpy Egg; 1 Strength; When Consumed by another unit, Boost that unit by an additional 5.\nDeathwish: Spawn a Harpy Hatchling on a random row)\n(Harpy Hatchling; 1 Strength)",
+            "Info": "Deploy: Spawn 2 Harpy Eggs to its left. (Harpy Egg; 1 Strength; When Consumed by another unit, Boost that unit by an additional 5. Deathwish: Spawn a Harpy Hatchling on a random row) (Harpy Hatchling; 1 Strength)",
             "Flavor": "一般的鹰身女妖以腐肉为食，赛尔伊诺鹰身女妖……则以梦境为食。"
         },
         "24019": {
@@ -1268,7 +1270,7 @@
         },
         "24038": {
             "Name": "Moonlight",
-            "Info": "Choose One: Apply a Full Moon Boon; or apply a Blood Moon Hazard.",
+            "Info": "Spawn Full Moon, or Blood Moon./n(Full Moon; Apply a Boon to an allied row that Boosts a random Beast or Vampire by 2 on turn start) /n(Blood Moon; Apply a Hazard to an enemy row that deals 2 Damage to all units on contact)",
             "Flavor": "满月的时候，梦魇便会从世界的各个角落匍匐而出。"
         },
         "25001": {
@@ -1418,7 +1420,7 @@
         },
         "33002": {
             "Name": "False Ciri",
-            "Info": "Spying.\nIf Spying, on turn start, Boost self by 1.\nWhen your opponent passes, move to the opposite row.\nDeathwish: Destroy the Lowest unit on the row.",
+            "Info": "Spying.\nIf Spying, on turn start, Boost self by 1. If spying move to oposite row after you pass.\nDeathwish: Destroy the Lowest unit on the row.",
             "Flavor": "“她来了，”他心想，“皇帝的联姻对象。冒牌公主、冒牌的辛特拉女王、冒牌的雅鲁加河口统治者，也是帝国未来的命脉。”"
         },
         "33003": {
@@ -1463,12 +1465,12 @@
         },
         "33011": {
             "Name": "Peter Saar Gwynleve",
-            "Info": "Deploy, Choose One: Reset an ally and Strengthen it by 3; or Reset an enemy and Weaken it by 3.",
+            "Info": "Deploy: Choose a unit. Reset it. If its an ally Strengthen it by 3. If its enemy Weaken it by 3.",
             "Flavor": "这双手不属于什么“阁下”，只属于一介农夫。所以这是农夫与农夫间的对话。"
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Deploy, Choose One: Deal 7 Damage to an enemy or set a Revealed opposing unit to 1.",
+            "Info": "Deploy: Choose an enemy or a Revealed opposing unit. If its on board Deal 7 Damage. If its a Revealed card set it to 1.",
             "Flavor": "这是我们必须做的，我并不为此感到羞愧。"
         },
         "33013": {
@@ -1753,7 +1755,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy: Choose one: Play 1 Silver or Bronze Temeria card with less power then self; or destroy conceled ambush enemy unit.",
+            "Info": "Deploy, Choose one: Play 1 Silver or Bronze Temeria card with less power then self; or destroy conceled ambush enemy unit.",
             "Flavor": "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。"
         },
         "42008": {
@@ -1872,7 +1874,7 @@
             "Flavor": "科德温荒野之女。"
         },
         "43018": {
-            "Name": "Sabrina's Specter",
+            "Name": "Sabrina: Inferno",
             "Info": "Deploy: Resurrect a Bronze Cursed unit.",
             "Flavor": "萨宾娜·葛丽维希格用尽最后一口气，释放出一道强大的诅咒，不但处刑人遭了殃，留在附近的所有人也都没能幸免。"
         },
@@ -1933,7 +1935,7 @@
         },
         "44009": {
             "Name": "Kaedweni Knight",
-            "Info": "Boost this unit by 5 if played from the deck.\n2 Armor.",
+            "Info": "Deploy: If played from deck Boost self by 5.\n2 Armor.",
             "Flavor": "科德温军队里并非所有人都认同国王的政治手段。然而谁都不敢说出来。"
         },
         "44010": {
@@ -2138,7 +2140,7 @@
         },
         "52009": {
             "Name": "Morenn: Forest Child",
-            "Info": "Ambush: When your opponent plays a Bronze or Silver special card, flip over and cancel its ability.",
+            "Info": "Ambush: When your opponent plays a Bronze or Silver special card, flip over and cancel its effect.",
             "Flavor": "布洛克莱昂的意义远高于我的生命。她是一位母亲，关怀着自己的孩子们。我至死都要捍卫她。"
         },
         "52010": {
@@ -2378,7 +2380,7 @@
         },
         "54023": {
             "Name": "Panther",
-            "Info": "Deploy: Deal 7 Damage to an enemy on a row with less than 4 units.",
+            "Info": "Deploy: Deal 7 Damage to an enemy on a row with 3 or less units.",
             "Flavor": "曾经有位牛堡学者在观察一只黑豹后，宣称它不过是颜色不同的花豹而已。黑豹貌似对这一说法毫不关心。他还没等学者完成研究，就把他狼吞虎咽地吃下了肚。"
         },
         "54024": {
@@ -2573,7 +2575,7 @@
         },
         "63012": {
             "Name": "Harald Houndsnout",
-            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
+            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn a Bear on the opposite row).\n(Bear; 11 Strength)",
             "Flavor": "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。"
         },
         "63013": {
@@ -2742,7 +2744,7 @@
             "Flavor": "史凯利格的女王向来由最勇猛、最凶悍的持盾女卫保护。"
         },
         "64026": {
-            "Name": "Drummond Shieldmaid",
+            "Name": "Drummond Shieldmaiden",
             "Info": "Deploy: Deal 2 Damage.\nIf the unit was already Damaged, play a copy of this unit from your deck.",
             "Flavor": "我们的敌人会像打上嶙峋海岸的波浪一样，倒在我们的盾前。"
         },
@@ -2828,7 +2830,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power equal to or less than this unit's, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
+            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power not greater than self, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
             "Flavor": ""
         },
         "70003": {
@@ -2837,13 +2839,13 @@
             "Flavor": ""
         },
         "70004": {
-            "Name": "Glynnis Aep Loernach",
+            "Name": "Glynnis aep Loernach",
             "Info": "On turn end, if at the top or bottom of the deck, Summon it on a random row.",
             "Flavor": ""
         },
         "70005": {
             "Name": "Vysogota Of Corvo",
-            "Info": "On round start, Boost a unit to the left by 3, then Damage self by 1 and move to the row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
+            "Info": "On round start, if there is a unit to the right Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
             "Flavor": ""
         },
         "70006": {
@@ -2877,7 +2879,7 @@
             "Flavor": ""
         },
         "70012": {
-            "Name": "Toussaint Knight Errant",
+            "Name": "Toussaint Knight-Errant",
             "Info": "Deploy: For each card advantage your opponent has, Boost self by 4.",
             "Flavor": ""
         },
@@ -2898,11 +2900,11 @@
         },
         "70016": {
             "Name": "Sukrus",
-            "Info": "Deploy: Choose 1 Bronze card in your hand and Discard all copies of it from your deck.",
+            "Info": "Deploy: Choose a Bronze card in your hand and Discard all copies of it from your deck.",
             "Flavor": ""
         },
         "70017": {
-            "Name": "Cintrian Field Medic",
+            "Name": "Cintrian Enchantress",
             "Info": "Deploy: Shuffle a non-Support Bronze ally back to your deck, then play a random Bronze unit from your deck.",
             "Flavor": ""
         },
@@ -2932,7 +2934,7 @@
             "Flavor": ""
         },
         "70024": {
-            "Name": "Cursed Immortals",
+            "Name": "Immortals",
             "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.\n(Specter; 5 Strength)",
             "Flavor": ""
         },
@@ -2953,7 +2955,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: choose a row, Move all units on both sides of it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Deploy: Choose a row, move all units on both sides of it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
             "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
         },
         "70033": {
@@ -2967,12 +2969,12 @@
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
-            "Name": "Dire Wolf Claws",
-            "Info": "Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add 1 Dire Wolf Warriors in your deck.\n(10 Strength; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
+            "Name": "Terror Crew",
+            "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Terror Crew Plunderers to your deck. (10 Str; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
             "Flavor": ""
         },
         "70040": {
-            "Name": "Dire Wolf Warrior",
+            "Name": "Terror Crew Plunderer",
             "Info": "Deploy: Deal 4 Damage to a random enemy.\nWhen Discarded, trigger its ability and add a copy of this card to the bottom of your deck.",
             "Flavor": ""
         },
@@ -3007,8 +3009,8 @@
             "Flavor": ""
         },
         "70050": {
-            "Name": "MadCharge",
-            "Info": "Choose an ally with Armor, that unit then Duels an enemy.",
+            "Name": "Mad Charge",
+            "Info": "Choose an ally with Armor, that unit then Duels chosen enemy.",
             "Flavor": ""
         },
         "70054": {
@@ -3037,7 +3039,7 @@
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
-            "Name": "Strays Of Spalla",
+            "Name": "Strays of Spalla",
             "Info": "Single-Use.\nDeploy: Look at 2 random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
@@ -3068,7 +3070,7 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to itself.",
+            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to itself.",
             "Flavor": "I kneel to Svalblod, and Svalblod alone!"
         },
         "70081": {
@@ -3078,12 +3080,12 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Destroy all units with Strength less then 3 on both sides.",
+            "Info": "Deploy: Destroy all units with Strength 2 or less on both sides.",
             "Flavor": "他杀死了自己的亲人，还有什么是不能丢弃的？"
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under 'BitingFrost' is destroyed.",
+            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
             "Flavor": "白雪和烈火，是他们为天空和大地涂抹的颜色。"
         },
         "70084": {
@@ -3093,7 +3095,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
+            "Info": "Deploy: Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3108,7 +3110,7 @@
         },
         "70089": {
             "Name": "Artis",
-            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a \"Cultist Oblation\" to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
+            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a Cultist Oblation to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
             "Flavor": "It is finished It is finished IT IS THE MERCY"
         },
         "70090": {
@@ -3122,13 +3124,13 @@
             "Flavor": "破译梦境中的过去和未来是非常困难的，即使对大师也是如此。"
         },
         "70092": {
-            "Name": "SvalblodBrawler",
+            "Name": "Svalblod Brawler",
             "Info": "Deploy: Damage an enemy by 4. If it is under a Hazard, deal 8 Damage instead.",
             "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
         "70093": {
             "Name": "Tempest",
-            "Info": "Choose 4 rows, Spawn “Torrential Rain”on them. If it’s already under “Torrential Rain”, Spawn “Skellige Storm” on this row instead.",
+            "Info": "Choose 4 rows, Spawn Torrential Rain on them. If it's already under Torrential Rain, Spawn Skellige Storm on this row instead.",
             "Flavor": "A Category 10 on the Bekker scale."
         },
         "70094": {
@@ -3153,27 +3155,27 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Play a random Items from your deck. Increase their Damages by 1 each.",
+            "Info": "Deploy: Play a random Items from your deck. Increase their Damages by 1 each.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damege loyal units in your deck by 2 (doesn't trigger deathwishes), then Strength them by 2.",
+            "Info": "Deploy: Damage loyal units in your deck by 2 (doesn't trigger deathwishes), then Strengthen them by 2.",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。”"
         },
         "70100": {
             "Name": "Forest Whisperer",
-            "Info": "Damage all units on the same row of both sides by 2, except for Dryads.",
+            "Info": "Deploy: Damage all units on the same row on both sides by 2, except for Dryads.",
             "Flavor": "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。"
         },
         "70101": {
             "Name": "Immortal Cavalry",
-            "Info": "At the start of the game, lock self. Next time an ally appears Boost it by 3.",
+            "Info": "Single-Use.\nAt the start of the game, lock self. Next time an ally appears Boost it by 3.",
             "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply 3 rows of Full Moon; or apply 3 rows of Blood Moon.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all enemy rows; or apply Blood Moon on all friendly rows.",
             "Flavor": ""
         },
         "70103": {
@@ -3208,7 +3210,7 @@
         },
         "70109": {
             "Name": "Dwarven Chariot",
-            "Info": "Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
+            "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
             "Flavor": "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”"
         },
         "70110": {
@@ -3263,42 +3265,42 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1.",
+            "Info": "Increase the Damage dealt by Torrential rain on the opposite side by 1.",
             "Flavor": "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。"
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
+            "Info": "Deploy: Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
             "Flavor": "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……"
         },
         "70123": {
             "Name": "Battle Preparation",
-            "Info": "Play a Bronze soilder unit from your hand and Boost it by 2, then draw a card.",
+            "Info": "Play a Bronze soldier unit from your hand and Boost it by 2, then draw a card.",
             "Flavor": "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。"
         },
         "70124": {
             "Name": "Woodland Prowlers",
-            "Info": "Weaken a enemy by 1. If it's under Impenetrable Fog, Weaken by 3.",
+            "Info": "Deploy: Weaken a enemy by 1. If it's under Impenetrable Fog, Weaken by 3.",
             "Flavor": "进入森林的人类最不想见到……"
         },
         "70125": {
             "Name": "Barnabas Beckenbauer",
-            "Info": "For each unique bronze item in your graveyard, Boost another ally unit by 2.",
+            "Info": "Deploy: Boost another ally unit by 2, for each unique bronze item in your graveyard",
             "Flavor": "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！"
         },
         "70126": {
             "Name": "Cintrian Royal Guard",
-            "Info": "Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
+            "Info": "Deploy: Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
             "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
         },
         "70127": {
-            "Name": "VanMoorlehem Servant",
+            "Name": "Van Moorlehem Servant",
             "Info": "Immune.Gain 5 Boost when Concealed.",
             "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
         },
         "70128": {
             "Name": "Moon Dust",
-            "Info": "Deal 5 Damages, then deal 1 Damage to random enemy 4 times.",
+            "Info": "Deal 5 Damage, then deal 1 Damage to random enemy 4 times.",
             "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
         },
         "70129": {
@@ -3308,17 +3310,17 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right side is getting Damage, take the Damage with self's Armor first. Crewed: Gain 6 armor.",
+            "Info": "When the unit on the right takes Damage, if this unit has armor, Damage this unit until it has no more armor instead then transfer the excess damage to the unit on the right. Crewed: Gain 6 armor.",
             "Flavor": "类似于盾牌和栅栏的杂交品种。"
         },
         "70131": {
             "Name": "Count Caldwell",
-            "Info": "Swap the Strength of 2 enemy units.",
+            "Info": "Deploy: Swap the Strength of 2 enemy units.",
             "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Deal 1 Damage to a random enemy 5 time. If it was already Damaged, Drain it instead.",
+            "Info": "Deploy: Deal 1 Damage to a random enemy 5 time. If it was already Damaged, Drain it instead.",
             "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
         },
         "70133": {
@@ -3328,7 +3330,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 3 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
         },
         "70135": {
@@ -3343,52 +3345,52 @@
         },
         "70137": {
             "Name": "The Great Oak",
-            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; or Resurrect a Bronze Dryad unit from your deck, then return it to the deck.",
+            "Info": "Deploy, Choose one: Weaken an enemy unit by half of its base Strength; or resurrect a Bronze Dryad and then return it to the deck.",
             "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
         },
         "70138": {
-            "Name": "Dryads Caress",
+            "Name": "Dryad's Caress",
             "Info": "Play a Bronze or Silver Dryad unit from your deck, then boost it by the number of Dryad units on your side.",
             "Flavor": "嘘，嘘……伊芙莲会变成美丽的花……"
         },
         "70139": {
             "Name": "Treant Boar",
-            "Info": "Deal 3 Damage, then move the adjacent units of the target unit to random rows. If the target is destroyed, repeat once.",
+            "Info": "Deploy: Deal 3 Damage to a unit, then move units adjacent to the target to random rows. If the target is destroyed, repeat once.",
             "Flavor": "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？"
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
-            "Info": "Transform a Bronze or Silver ally into a copy of this unit, keeping its base Strength. Then, boost all allies with strength lower than this unit's strength by 1.",
+            "Info": "Deploy: Transform a Bronze or Silver ally into a copy of this unit, keeping its base Strength. Then, boost all allies with strength lower than this unit's strength by 1.",
             "Flavor": "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？"
         },
         "70141": {
             "Name": "Queen Adalia",
-            "Info": "Spawn a Bronze Cintra card. If there are only Northern Realm cards in your starting deck, add one copy of every Bronze Cintra card to your deck.",
+            "Info": "Deploy: Spawn a Bronze Cintra card. If there are only Northern Realm cards in your starting deck, add one copy of every Bronze Cintra card to your deck.",
             "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
         },
         "70142": {
             "Name": "Vissegerd",
-            "Info": "Deal 8 Damage, then deal Damage equal to self's Boosts.",
+            "Info": "Deploy: Deal 8 Damage, then deal Damage equal to self's Boosts.",
             "Flavor": "我会不惜代价重建辛特拉。"
         },
         "70143": {
             "Name": "Cintrian Knight",
-            "Info": "Whenever you play a Cintra unit, Boost the unit and self by 1 each.",
+            "Info": "Whenever you play a Cintra unit, Boost it and self by 1 each.",
             "Flavor": "丧钟为谁鸣？"
         },
         "70144": {
-            "Name": "Cintrian Envoy",
-            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
+            "Name": "Cintrian Envoy",
+            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
             "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
         },
         "70145": {
             "Name": "Orianna",
-            "Info": "Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
+            "Info": "Deploy: Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
             "Flavor": "奥莉安娜夫人真是咱们的福气……她救济穷人，资助画家。她还为那些可怜的孩子们开了一家孤儿院呢！"
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Deal 5 Damage to two enemy units each.",
+            "Info": "Deploy: Deal 5 Damage to two enemy units each.",
             "Flavor": "喜欢发光小玩意的不只有喜鹊。"
         },
         "70147": {
@@ -3403,17 +3405,17 @@
         },
         "70149": {
             "Name": "Anna Henrietta",
-            "Info": "Sort the cards in your deck in descending order by their base Strength, then play a card from the top of your deck.",
+            "Info": "Deploy: Sort the cards in your deck in ascending order by their base Strength, then play a card from the top of your deck.",
             "Flavor": "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……"
         },
         "70150": {
-            "Name": "Vincent Van Moorlehem",
-            "Info": "Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Name": "Vincent van Moorlehem",
+            "Info": "Deploy: Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
             "Flavor": "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。"
         },
         "70151": {
-            "Name": "Philippe Van Moorlehem",
-            "Info": "Damage an enemy by 3. If is in your hand on turn end, reveal self and trigger its ability.",
+            "Name": "Philippe van Moorlehem",
+            "Info": "Deploy: Damage an enemy by 3. If is in your hand on turn end, reveal self and trigger its ability.",
             "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
         },
         "70152": {
@@ -3422,18 +3424,18 @@
             "Flavor": "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……"
         },
         "70153": {
-            "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
+            "Name": "Van Moorlehem Hunter",
+            "Info": "Deploy: Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
             "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
         },
         "70154": {
             "Name": "Iris: Shade",
-            "Info": "Deploy, Truce: Add 2 Iris'Companions to both hands.",
+            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
             "Flavor": "和欧吉尔德的婚约犹如一场美梦……"
         },
         "70155": {
             "Name": "Isbel of Hagge",
-            "Info": "Reset a unit. If it's an ally, repeat once.",
+            "Info": "Deploy: Reset a unit. If it's an ally, repeat once.",
             "Flavor": "于是我便发下誓言……永远不会使用魔法伤害他人。"
         },
         "70156": {
@@ -3448,27 +3450,27 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Deal 5 Damage.If the target is destroyed, Reduce the damage by 1 and repeat once.",
+            "Info": "Deploy: Deal 5 Damage. If the target is destroyed, Reduce the damage by 1 and repeat once.",
             "Flavor": ""
         },
         "70159": {
-            "Name": "Crow Mother",
-            "Info": "Discard up to 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.\n(Crow; 3 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Name": "Crowmother",
+            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
         "70160": {
             "Name": "Vildkaarl",
-            "Info": "Deal 4 Damages to adjacent units.",
+            "Info": "Deploy: Deal 4 Damage to adjacent units.",
             "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Spawn 2 Scarabs.\n(Scarab: 1 Strength. When your opponent passes, move to the opposite row.)",
+            "Info": "Deploy: Spawn 2 Scarabs.\n(Scarab: 1 Strength. If spying move to oposite row after you pass.)",
             "Flavor": ""
         },
         "70162": {
             "Name": "Scarab",
-            "Info": "When your opponent passes, move to the opposite row.",
+            "Info": "If spying move to oposite row after you pass.",
             "Flavor": ""
         },
         "70163": {
@@ -3477,18 +3479,18 @@
             "Flavor": ""
         },
         "70164": {
-            "Name": "Tatter wing",
-            "Info": "On turn end, move all units on the opposite row to random rows, then deal 1 damage to them each.",
+            "Name": "Tatterwing",
+            "Info": "At the end of each turn, move all units on the opposite row to random rows, then deal 1 damage to each of them.",
             "Flavor": ""
         },
         "70165": {
             "Name": "Vivienne de Tabris",
-            "Info": "Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2.",
+            "Info": "Deploy: Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2.",
             "Flavor": ""
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Look at 3 random cards with different colors from your deck.Play one, discard the other two.",
+            "Info": "Look at 3 random cards with different colors from your deck. Play one, discard the other two.",
             "Flavor": ""
         },
         "70167": {
@@ -3519,7 +3521,7 @@
         "89005": {
             "Name": "Iron Falcon Infantry",
             "Info": "If there is boost, double the boost.",
-            "Flavor": "You have to look good on the battlefield too.！"
+            "Flavor": "You have to look good on the battlefield too."
         },
         "89006": {
             "Name": "Iron Falcon Troubadour",
@@ -3532,7 +3534,7 @@
             "Flavor": "The weapon's short, but its range is long.。"
         },
         "89008": {
-            "Name": "Soldier Train",
+            "Name": "Fresh Recruit",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power.",
             "Flavor": "The goddess occasionally protects some new recruits。"
         }
