@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 99);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 100);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -10861,7 +10861,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
                     Flavor = "",
-                    Info = "丢弃牌组中的一张倾盆大雨，随后在双方同排降下倾盆大雨。",
+                    Info = "丢弃一场暴雨并在两侧各下一场暴雨，如果卡组中没有暴雨，则对自己造成 4 点伤害并在两侧下暴雨。",
                     CardArtsId = "d16740000",
                 }
             },
@@ -11930,7 +11930,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排",
+                    Info = "在你的回合结束时，如果对面有雨，将自己复活到随机的盟军行列。",
                     CardArtsId = "d17790000",
                 }
             },

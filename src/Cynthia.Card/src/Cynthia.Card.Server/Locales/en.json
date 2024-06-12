@@ -2885,7 +2885,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a Torrential Rain from your deck, then Spawn Torrential Rain on this unit's row and on the opposing row.",
+            "Info": "Discard a torrential rain and apply a torrential rain on both sides, if there are no torrential rains in your deck, damage self by 4 and apply Torrential Rain on both sides.",
             "Flavor": ""
         },
         "70014": {
@@ -3245,7 +3245,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
+            "Info": "At the end of your turn, if there is Rain on the opposite side, ressurect self to a random allied row.",
             "Flavor": ""
         },
         "70117": {
