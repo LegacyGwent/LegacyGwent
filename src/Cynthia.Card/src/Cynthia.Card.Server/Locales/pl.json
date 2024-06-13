@@ -239,8 +239,45 @@
         "ShupeMage_3_Hazard": "Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika.",
         "ShupeMage_4_Damage": "Zadaj wrogowi 10 pkt. obrażeń i 5 pkt. obrażeń jednostkom z nim sąsiadującym.",
         "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii.",
-        "Hym_1_Playcursed": "Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii.",
-        "Hym_2_Playsilver": "Utwórz srebrną kartę jednostki z talii początkowej przeciwnika."
+        "Hym_1_PlayCursed": "Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii.",
+        "Hym_2_PlaySilver": "Utwórz srebrną kartę jednostki z talii początkowej przeciwnika.",
+        "DetlaffCrimsonCurse_1_Boon": "Wygnaj 3 brązowe bestię lub wampiry z Twojego cmentarza, następnie stwórz 3 krwawe księżyce we wszystkich rzędach przeciwnika.",
+        "DetlaffCrimsonCurse_2_Hazard": "Wygnaj 3 brązowe bestię lub wampiry z Twojego cmentarza, następnie stwórz 3 pełnie we wszystkich Twoich rzędach.",
+        "WeavessIncantation_1_Strenghten": "Ulepsz wszystkie inne swoje Relikty gdziekolwiek są o 2.",
+        "WeavessIncantation_2_PlayRelict": "Zagraj brązowy lub srebrny Relikt ze swojej talii i ulepsz go o 2.",
+        "LethoKingslayer_1_Destroy": "Zniszcz wrogiego Dowódcę i wzmocnij tę jednostkę o 5.",
+        "LethoKingslayer_2_PlayTactic": "Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
+        "Kiyan_1_CreateAlchemy": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+        "Kiyan_2_PlayItem": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+        "PhilippaLodgeMistress_1_PlayMage": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
+        "PhilippaLodgeMistress_2_CreateSpell": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
+        "RocheMerciless_1_PlayTemeria": "Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta.",
+        "RocheMerciless_2_DestroyAmbush": "Zniszcz zakrytą wrogą zasadzke.",
+        "IsengrimOutlaw_1_PlaySpecial": "Zagraj brązową lub srebrną kartę specjalną.",
+        "IsengrimOutlaw_2_CreateElf": "Utwórz srebrnego Elfa.",
+        "TheGreatOak_1_Weaken": "Osłab jednostkę o połowe jej podstawowej siły.",
+        "TheGreatOak_2_Resurrect": "Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
+        "Hammond_1_SpawnMachine": "Stwórz Skelligijską brązową maszynę.",
+        "Hammond_2_BoostMachines": "Wzmocnij wszystkie przyjazne maszyny na planszy o 2.",
+        "BoneTalisman_1_ResurectBeast": "Wskrześ brązową Bestię lub Kultystę.",
+        "BoneTalisman_2_Strenghten": "Uzdrów sojusznika i ulepsz go o 3.",
+        "Winch_1_Resurect": "Zagraj brązową maszyne ze swojego cmentarza i daj jej Fatum.",
+        "Winch_2_Boost": "Wzmocnij wszystkie maszyny po Twojej stronie o 3.",
+        "Mardroeme_1_Strenghten": "Zresetuj jednostkę i ulepsz ją o 3.",
+        "Mardroeme_2_Weaken": "Zresetuj jednostkę i osłab ją o 3.",
+        "MahakamHorn_1_CreateDwarf": "Utwórz brązowego lub srebrnego Krasnoluda.",
+        "MahakamHorn_2_Strenghten": "Ulepsz jednostkę o 7.",
+        "VandergriftSBlade_1_DestroyCursed": "Zniszcz brązowego lub srebrnego Przeklętego wroga.",
+        "VandergriftSBlade_2_Damage": "Zadaj 10 pkt obrażeń i jeśli jednostka została zniszczona, wygnaj ją.",
+        "Cadaverine_1_DamegeCategory": "Zadaj 3 pkt obrażeń wrogowi i wszystkim jednostkom z jego kategorii.",
+        "Cadaverine_2_DestroyNeutral": "Zniszcz brązową lub srebrną jednostkę neutralną.",
+        "Mandrake_1_Strenghten": "Uzdrów jednostkę i ulepsz ją o 6.",
+        "Mandrake_2_Weaken": "Zresetuj jednostkę i osłab ją o 6.",
+        "BlackBlood_1_CreateVampire": "Utwórz brązową kartę Trupojada albo Wampira i wzmocnij ją o 2.",
+        "BlackBlood_2_DestroyVampire": "Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
+        "Sihil_1_DamageOdd": "Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile.",
+        "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
+        "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii."
     },
     "CardLocales": {
         "12001": {
@@ -715,7 +752,7 @@
         },
         "14009": {
             "Name": "Brzask",
-            "Info": "Wybierz: Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie lub Zagraj losową brązową jednostkę ze swojej talii.",
+            "Info": "Stwórz Czyte Niebo lub Rajd. (Czyste niebo: Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie)\n(Rajd: Zagraj losową brązową jednostkę ze swojej talii)",
             "Flavor": "Piękny dzień, żeby umrzeć."
         },
         "14010": {
@@ -1755,7 +1792,7 @@
         },
         "42007": {
             "Name": "Roche Bezlitosny",
-            "Info": "Deploy: Choose one：Play 1 silver/copper Temoria card with less power then self；or destroy 1 back-up ambush enemy unit. ",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta; lub zniszcz zakrytą wrogą zasadzke.",
             "Flavor": "Strach nam nie przystoi, ale jest pewien d'hoine... Vernon Roche. Wystrzegaj się go."
         },
         "42008": {
@@ -2265,7 +2302,7 @@
         },
         "53021": {
             "Name": "Mahakamski Róg",
-            "Info": "Wybierz: Utwórz brązową lub srebrną kartę Krasnoluda lub Ulepsz jednostkę o 7.",
+            "Info": "Wybierz: Utwórz brązowego lub srebrnego Krasnoluda lub Ulepsz jednostkę o 7.",
             "Flavor": "Pewnego razu w Mahakamie urządzono konkurs gry na rogu. Krasnoludy odkryły wtedy że głośne dźwięki i ośnieżone szczyty nie są szczęśliwym zestawieniem."
         },
         "54001": {
@@ -3344,8 +3381,8 @@
             "Flavor": "置身鸦群，你也必须鸦鸦做声。"
         },
         "70137": {
-            "Name": "The Great Oak",
-            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; Resurrect a Bronze Dryad unit from your deck,then return it to the deck.",
+            "Name": "Wielki Dąb",
+            "Info": "Rozmieszczenie, Wybierz: Osłab jednostkę o połowe jej podstawowej siły, lub Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
             "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
         },
         "70138": {
