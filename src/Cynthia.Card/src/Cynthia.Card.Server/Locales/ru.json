@@ -238,7 +238,9 @@
         "ShupeMage_2_Charm": "Charm a random enemy.",
         "ShupeMage_3_Hazard": "Spawn random Hazards on all enemy rows.",
         "ShupeMage_4_Damage": "Deal 10 damage to an enemy and 5 to any adjacent to it.",
-        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck."
+        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck.",
+        "Hym_1_Playcursed": "Сыграйте бронзовый или серебряный проклятый отряд из вашей колоды.",
+        "Hym_2_Playsilver": "Сотворите серебряный отряд из стартовой колоды противника."
     },
     "CardLocales": {
         "12001": {
@@ -2950,6 +2952,11 @@
             "Info": "Переиграйте лояльный (не шпион) бронзовый или серебряный отряд со стороны противника, затем верните его на сторону противника.",
             "Flavor": ""
         },
+        "70032": {
+            "Name": "Гаскон",
+            "Info": "Усиливайте себя на 1 ед., каждый раз, когда любой отряд перемещается. Размещение: выберите ряд, переместите все своюзные и вражеские отряды, в противоположном ряду, в случайные ряды и ослабьте себя на 2 ед. за каждый перемещённый отряд.",
+            "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
+        },
         "70033": {
             "Name": "Боевой слон",
             "Info": "Уничтожьте броню этой карты и броню двух смежных отрядов, после чего нанесите урон, равный поглощённой броне.",
@@ -3250,6 +3257,11 @@
             "Info": "Усильте бронзовый отряд в вашей колоде на 3 ед.",
             "Flavor": ""
         },
+        "70119": {
+            "Name": "Оттепель",
+            "Info": "Усильте союзника на 2 ед., повторите один раз. Затем повторите способность для всех союзных отрядов, сыгранных вами в этом раунде.",
+            "Flavor": "它带来了春天，也带来了战争。"
+        },
         "70121": {
             "Name": "Откелль",
             "Info": "Увеличьте урон наносимый «Ливнем» в противоположном ряду на 1 ед.",
@@ -3519,16 +3531,6 @@
             "Name": "Iron Falcon Knife Juggler",
             "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
             "Flavor": "The weapon's short, but its range is long.。"
-        },
-        "70032": {
-            "Name": "Гаскон",
-            "Info": "Усиливайте себя на 1 ед., каждый раз, когда любой отряд перемещается. Размещение: выберите ряд, переместите все своюзные и вражеские отряды, в противоположном ряду, в случайные ряды и ослабьте себя на 2 ед. за каждый перемещённый отряд.",
-            "Flavor": "“Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?”"
-        },
-        "70119": {
-            "Name": "Оттепель",
-            "Info": "Усильте союзника на 2 ед., повторите один раз. Затем повторите способность для всех союзных отрядов, сыгранных вами в этом раунде.",
-            "Flavor": "它带来了春天，也带来了战争。"
         },
         "89008": {
             "Name": "SoldierTrain",
