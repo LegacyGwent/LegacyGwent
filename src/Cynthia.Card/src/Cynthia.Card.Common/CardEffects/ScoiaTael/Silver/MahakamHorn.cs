@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("53021")] //希姆
+    [CardEffectId("53021")]//玛哈坎号角
     public class MahakamHorn : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：创造1张铜色/银色“矮人”牌；或使1个单位获得7点强化。
         public MahakamHorn(GameCard card) : base(card)
         {
         }

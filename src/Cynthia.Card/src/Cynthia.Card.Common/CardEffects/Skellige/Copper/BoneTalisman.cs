@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("64034")] //希姆
+    [CardEffectId("64034")]//骨制护符
     public class BoneTalisman : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：复活1个铜色“野兽”或“呓语”单位；或治愈1名友军单位，并使其获得3点强化。
         public BoneTalisman(GameCard card) : base(card)
         {
         }

@@ -7,10 +7,10 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("32011")] //希姆
+    [CardEffectId("32011")]//雷索：弑王者
     public class LethoKingslayer : Choose
     {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+        //择一：摧毁1名敌军领袖，自身获得5点增益；或从牌组打出1张铜色/银色“谋略”牌。
         public LethoKingslayer(GameCard card) : base(card)
         {
         }

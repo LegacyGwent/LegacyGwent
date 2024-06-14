@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("44033")] //希姆
+    [CardEffectId("44033")]//绞盘
     public class Winch : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//使所有己方半场的“机械”单位获得3点增益。 从墓场复活1个铜色“机械”单位。
         public Winch(GameCard card) : base(card)
         {
         }

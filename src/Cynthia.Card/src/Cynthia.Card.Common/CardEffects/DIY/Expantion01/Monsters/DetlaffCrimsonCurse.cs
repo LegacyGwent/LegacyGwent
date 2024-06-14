@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70102")] //希姆
+    [CardEffectId("70102")] //狄拉夫：猩红诅咒 DetlaffCrimsonCurse
     public class DetlaffCrimsonCurse : Choose
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//放逐己方墓地中1张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。
         public DetlaffCrimsonCurse(GameCard card) : base(card)
         {
         }
@@ -71,7 +70,3 @@ namespace Cynthia.Card
         }
     }
 }
-
-
-
-

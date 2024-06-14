@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("13040")] //希姆
+    [CardEffectId("13040")] //曼德拉草
     public class Mandrake : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：治愈1个单位，使其获得6点强化；或重置1个单位，使其受到6点削弱。
         public Mandrake(GameCard card) : base(card)
         {
         }

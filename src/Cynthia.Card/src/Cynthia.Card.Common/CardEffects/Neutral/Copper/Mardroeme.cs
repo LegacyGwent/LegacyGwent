@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("14013")] //希姆
+    [CardEffectId("14013")] //致幻菌菇
     public class Mardroeme : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：重置1个单位，并使其获得3点强化；或重置1个单位，使其受到3点削弱。
         public Mardroeme(GameCard card) : base(card)
         {
         }

@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("42007")] //希姆
+    [CardEffectId("42007")]//罗契：冷酷之心
     public class RocheMerciless : Choose
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//摧毁1个背面向上的伏击敌军单位
         public RocheMerciless(GameCard card) : base(card)
         {
         }
@@ -71,4 +70,3 @@ namespace Cynthia.Card
         }
     }
 }
-

@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("42010")] //希姆
+    [CardEffectId("42010")]//凯亚恩
     public class Kiyan : Choose
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：创造1张铜色/银色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。
         public Kiyan(GameCard card) : base(card)
         {
         }

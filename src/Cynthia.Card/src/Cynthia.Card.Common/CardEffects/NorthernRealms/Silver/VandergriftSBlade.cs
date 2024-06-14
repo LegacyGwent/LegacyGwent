@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("43021")] //希姆
+    [CardEffectId("43021")]//伊森格林：亡命徒
     public class VandergriftSBlade : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：从牌组打出1张铜色/银色“特殊”牌；或创造1个银色“精灵”单位。
         public VandergriftSBlade(GameCard card) : base(card)
         {
         }

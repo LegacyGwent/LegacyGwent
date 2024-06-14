@@ -40,38 +40,38 @@ namespace Cynthia.Card
         private async Task<int> FUNCTION1()
         {
             //乱序列出诅咒生物，如果没有，什么都不做
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Cursed) &&
-                       (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
-                    .Mess(Game.RNG)
-                    .ToList();
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Cursed) &&
+                   (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
+                .Mess(Game.RNG)
+                .ToList();
 
-                if (list.Count() == 0)
-                {
-                    return 0;
-                }
-                //选一张，如果没选，什么都不做
-                var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
-                if (cards.Count() == 0)
-                {
-                    return 0;
-                }
+            if (list.Count() == 0)
+            {
+                return 0;
+            }
+            //选一张，如果没选，什么都不做
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+            if (cards.Count() == 0)
+            {
+                return 0;
+            }
 
-                //打出
-                var playCard = cards.Single();
-                await playCard.MoveToCardStayFirst();
-                return 1;
+            //打出
+            var playCard = cards.Single();
+            await playCard.MoveToCardStayFirst();
+            return 1;
         }
 
         private async Task<int> FUNCTION2()
         {
-           //手动排除大间谍
-                var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
-                   .Select(x => x.CardId)
-                   .Distinct()
-                   .Where(x => !GwentMap.CardMap[x].HasAnyCategorie(Categorie.Agent) && GwentMap.CardMap[x].Is(Group.Silver, CardType.Unit))
-                   .Mess(Game.RNG)
-                   .Take(3).ToArray();
-                return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
+            //手动排除大间谍
+            var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
+               .Select(x => x.CardId)
+               .Distinct()
+               .Where(x => !GwentMap.CardMap[x].HasAnyCategorie(Categorie.Agent) && GwentMap.CardMap[x].Is(Group.Silver, CardType.Unit))
+               .Mess(Game.RNG)
+               .Take(3).ToArray();
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
         }
     }
 }

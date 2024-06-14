@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("22012")] //希姆
+    [CardEffectId("22012")]//织婆：咒文
     public class WeavessIncantation : Choose
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：使位于手牌、牌组和己方半场除自身外的所有“残物”单位获得2点强化；或从牌组打出1张铜色/银色“残物”牌，并使其获得2点强化。
         public WeavessIncantation(GameCard card) : base(card)
         {
         }

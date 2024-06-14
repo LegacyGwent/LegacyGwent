@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("33021")] //希姆
+    [CardEffectId("33021")]//吊死鬼之毒
     public class Cadaverine : Choosespell
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//择一：对1个敌军单位以及所有与它同类型的单位造成3点伤害；或摧毁1个铜色/银色“中立”单位。
         public Cadaverine(GameCard card) : base(card)
         {
         }

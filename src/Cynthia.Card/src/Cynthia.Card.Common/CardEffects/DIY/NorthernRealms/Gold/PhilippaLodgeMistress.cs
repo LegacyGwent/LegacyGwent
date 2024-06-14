@@ -7,10 +7,9 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70086")] //希姆
+    [CardEffectId("70086")]//艾勒的格哈特
     public class PhilippaLodgeMistress : Choose
-    {
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+    {//play a bronze or silver mage from your deck, or generate and play a bronze spell
         public PhilippaLodgeMistress(GameCard card) : base(card)
         {
         }
@@ -62,8 +61,8 @@ namespace Cynthia.Card
 
         private async Task<int> FUNCTION2()
         {
-           var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Special, x => x.HasAllCategorie(Categorie.Spell))
-                .Select(x => x.CardId);
+            var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Special, x => x.HasAllCategorie(Categorie.Spell))
+                 .Select(x => x.CardId);
 
             return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray());
         }

@@ -7,11 +7,10 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70137")] //希姆
+    [CardEffectId("70137")]//巨橡 TheGreatOak
     public class TheGreatOak : Choose
     {
         private GameCard DryadTarget = null;
-        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
         public TheGreatOak(GameCard card) : base(card)
         {
         }
@@ -45,7 +44,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await Dtarget.Effect.Weaken(Dtarget.Status.Strength/2, Card);
+            await Dtarget.Effect.Weaken(Dtarget.Status.Strength / 2, Card);
             return 0;
         }
 
