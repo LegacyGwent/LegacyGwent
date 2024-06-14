@@ -238,7 +238,46 @@
         "ShupeMage_2_Charm": "随机魅惑1个敌军单位",
         "ShupeMage_3_Hazard": "在对方三排随机生成一种灾厄",
         "ShupeMage_4_Damage": "对1个敌军造成10点伤害，再对其相邻单位造成5点",
-        "ShupeMage_5_Special": "从牌组打出1张铜色/银色“特殊”牌"
+        "ShupeMage_5_Special": "从牌组打出1张铜色/银色“特殊”牌",
+        "Hym_1_PlayCursed": "从牌组打出1张铜色或银色“诅咒”单位",
+        "Hym_2_PlaySilver": "从对手的牌组创建1张银色单位",
+        "DetlaffCrimsonCurse_1_Boon": "从你的墓地中放逐3个兽类或吸血鬼单位，然后在所有敌方排上施加满月状态。",
+        "DetlaffCrimsonCurse_2_Hazard": "从你的墓地中放逐3个兽类或吸血鬼单位，然后在所有友方排上施加血月状态。",
+        "WeavessIncantation_1_Strenghten": "将你手牌、牌库和场上的所有遗物强化2点。",
+        "WeavessIncantation_2_PlayRelict": "从你的牌库中打出1张铜色或银色遗物牌并将其强化2点。",
+        "LethoKingslayer_1_Destroy": "摧毁一个敌方领袖单位，然后使自身增强5点。",
+        "LethoKingslayer_2_PlayTactic": "从你的牌库中打出1张铜色或银色战术牌。",
+        "Kiyan_1_CreateAlchemy": "创造1张铜色或银色炼金牌。",
+        "Kiyan_2_PlayItem": "从你的牌库中打出1张铜色或银色物品牌。",
+        "PhilippaLodgeMistress_1_PlayMage": "从你的牌库中打出1张铜色或银色法师牌。",
+        "PhilippaLodgeMistress_2_CreateSpell": "生成1张铜色法术牌。",
+        "RocheMerciless_1_PlayTemeria": "打出1张力量低于自身的银色或铜色泰莫利亚牌。",
+        "RocheMerciless_2_DestroyAmbush": "摧毁一个隐蔽的伏击敌方单位。",
+        "IsengrimOutlaw_1_PlaySpecial": "从你的牌库中打出1张铜色或银色特殊牌。",
+        "IsengrimOutlaw_2_CreateElf": "创造1个银色精灵单位。",
+        "TheGreatOak_1_Weaken": "削弱一个敌方单位的基础力量的一半。",
+        "TheGreatOak_2_Resurrect": "复活一个铜色树精并将其返回牌库。",
+        "Hammond_1_SpawnMachine": "生成1个史凯利格铜色机械单位。",
+        "Hammond_2_BoostMachines": "使场上所有友方机械单位增强2点。",
+        "BoneTalisman_1_ResurectBeast": "复活一个青铜兽或崇拜者。",
+        "BoneTalisman_2_Strenghten": "治疗一个盟友并使其强化3点。",
+        "Winch_1_Resurect": "复活一个青铜机器并添加末日类别。",
+        "Winch_2_Boost": "使你方所有机器强化3点。",
+        "Mardroeme_1_Strenghten": "重置一个单位并使其强化3点。",
+        "Mardroeme_2_Weaken": "重置一个单位并使其削弱3点。",
+        "MahakamHorn_1_CreateDwarf": "创建一个青铜或白银矮人。",
+        "MahakamHorn_2_Strenghten": "使一个单位强化7点。",
+        "VandergriftSBlade_1_DestroyCursed": "摧毁一个青铜或白银诅咒敌人。",
+        "VandergriftSBlade_2_Damage": "造成10点伤害，如果该单位被摧毁，则将其放逐。",
+        "Cadaverine_1_DamegeCategory": "对一个敌人及所有同类别单位造成3点伤害。",
+        "Cadaverine_2_DestroyNeutral": "摧毁一个青铜或白银中立敌人。",
+        "Mandrake_1_Strenghten": "治疗一个单位并使其强化6点。",
+        "Mandrake_2_Weaken": "重置一个单位并使其削弱6点。",
+        "BlackBlood_1_CreateVampire": "创建一个青铜尸食者或吸血鬼并使其强化2点。",
+        "BlackBlood_2_DestroyVampire": "摧毁一个青铜或白银尸食者或吸血鬼。",
+        "Sihil_1_DamageOdd": "对所有战力为奇数的敌人造成3点伤害。",
+        "Sihil_2_DamageEven": "对所有战力为偶数的敌人造成3点伤害。",
+        "Sihil_3_PlayUnit": "从你的牌组中随机打出一张铜色或银色单位牌。"
     },
     "CardLocales": {
         "12001": {
@@ -2128,7 +2167,7 @@
         },
         "52007": {
             "Name": "伊欧菲斯",
-            "Info": "对1个敌军单位造成8点伤害。若目标被摧毁，则使手牌中所有“精灵”单位获得1点增益。",
+            "Info": "对1个敌军单位造成8点伤害。若目标被摧毁，则使手牌中所有非间“精灵”单位获得1点增益。",
             "Flavor": "国王还是乞丐于我并无差别，人类少一个算一个。"
         },
         "52008": {
@@ -2453,17 +2492,17 @@
         },
         "62001": {
             "Name": "奥拉夫",
-            "Info": "对自身造成10点伤害。本次对局己方每打出过1只“野兽”，伤害便减少2点。",
+            "Info": "对自身造成12点伤害。本次对局己方每打出过1只“野兽”，伤害便减少2点。",
             "Flavor": "备受敬仰的小史凯利格岛竞技场十冠王。"
         },
         "62002": {
             "Name": "哈尔玛·奎特",
-            "Info": "在对方同排生成“乌德维克之主”。",
+            "Info": "在对方同排生成“乌德维克之主”。/n(遗愿：使“哈尔玛”获得14点增益并使其免疫。)",
             "Flavor": "別为死者哭泣，敬他们一杯吧！"
         },
         "62003": {
             "Name": "维伯约恩",
-            "Info": "对1个单位造成2点伤害。若目标已受伤，则将其摧毁。",
+            "Info": "部署： 对敌人及其相邻单位造成 2 点伤害。如果某个单位已经受到伤害，则摧毁该单位。",
             "Flavor": "为了斯瓦勃洛！"
         },
         "62004": {
@@ -2488,17 +2527,17 @@
         },
         "62008": {
             "Name": "“疯子”卢戈",
-            "Info": "从牌组丢弃1张铜色单位牌，对1个敌军单位造成等同于被丢弃单位基础战力的伤害。",
+            "Info": "从牌组丢弃1张铜或银色单位牌，对1个敌军单位造成等同于被丢弃单位基础战力的伤害。",
             "Flavor": "哇哇哇哇哇哇啊！！！！"
         },
         "62009": {
             "Name": "乌弗海登",
-            "Info": "对所有敌军单位造成1点伤害，已受伤单位则承受2点伤害。",
+            "Info": "对所有敌军单位造成1点伤害，已受伤单位则承受3点伤害。",
             "Flavor": "狼人？哦，不，不……比那要糟糕得多。"
         },
         "62010": {
             "Name": "凯瑞丝：无所畏惧",
-            "Info": "位于场上或墓场时，复活己方下一张被丢弃的单位牌。",
+            "Info": "当你丢弃一个青铜或白银单位时，伤害自身 4，然后复活它。最多重复 1 次。",
             "Flavor": "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。"
         },
         "62011": {
@@ -2798,7 +2837,7 @@
         },
         "65003": {
             "Name": "乌德维克之主",
-            "Info": "遗愿：使“哈尔玛”获得10点增益。",
+            "Info": "遗愿：使“哈尔玛”获得14点增益并使其免疫。",
             "Flavor": "这个怪物将名门世族托达洛克家族的故乡——乌德维克岛变成了荒凉之地，昔日荣光一去不返……"
         },
         "65004": {
