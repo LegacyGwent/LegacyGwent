@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70116")]//尖啸女海妖 DeafeningSiren
     public class DeafeningSiren : CardEffect, IHandlesEvent<AfterWeatherApply>, IHandlesEvent<AfterTurnOver>
-    {//每On turn end, if there is rain on the opposite side of the board, resurect it
+    {//On turn end, if there is rain on the opposite side of the board, resurect it
         public DeafeningSiren(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterWeatherApply @event)
         {
