@@ -15,10 +15,10 @@ namespace Cynthia.Card
         var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == CardId.TorrentialRain).Mess(Game.RNG);
         if (list.Count() == 0) // if there is no rain in the deck
             {
-            await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
-            await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
-            await Card.Effect.Damage(4, Card);
-            return 0;
+                await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
+                await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
+                await Card.Effect.Damage(4, Card);
+                return 0;
             }
         // rain in deck
         var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1, "选择丢弃一张牌");

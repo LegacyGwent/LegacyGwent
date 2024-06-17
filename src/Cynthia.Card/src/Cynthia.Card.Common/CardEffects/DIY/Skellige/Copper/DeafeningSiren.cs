@@ -11,14 +11,12 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterWeatherApply @event)
         {
             if (@event.Type == RowStatus.TorrentialRain && @event.PlayerIndex == AnotherPlayer)
-
             {
                 if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsInCemetery())
                 {
                     await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
                 }
                 
-                return;
             }
             return;
         }
@@ -26,14 +24,15 @@ namespace Cynthia.Card
         {
             var count = 0;
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsInCemetery())
-                {return;}
+            {return;}
             if (Game.GameRowEffect[AnotherPlayer][RowPosition.EnemyRow1.Mirror().MyRowToIndex()].RowStatus == RowStatus.TorrentialRain)
-                {count += 1;}
+            {count += 1;}
             if (Game.GameRowEffect[AnotherPlayer][RowPosition.EnemyRow2.Mirror().MyRowToIndex()].RowStatus == RowStatus.TorrentialRain)
-                {count += 1;}
+            {count += 1;}
             if (Game.GameRowEffect[AnotherPlayer][RowPosition.EnemyRow3.Mirror().MyRowToIndex()].RowStatus == RowStatus.TorrentialRain)
-                {count += 1;}
-                {return;}
+            {count += 1;}
+            if (count == 0)
+            {return;}
             await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
             return;
         }
