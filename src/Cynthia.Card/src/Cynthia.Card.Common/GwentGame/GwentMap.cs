@@ -5753,7 +5753,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34021",
                     Name="侦察员",
-                    Strength=5,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5853,7 +5853,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34026",
                     Name="马格尼师",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10398,7 +10398,7 @@ namespace Cynthia.Card
                 {
                     CardId ="65002",
                     Name="狂暴的熊",
-                    Strength=14,
+                    Strength=13,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10710,7 +10710,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70006",
                     Name = "湖中仙女",
-                    Strength = 25,
+                    Strength = 24,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
