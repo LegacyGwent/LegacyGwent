@@ -2867,7 +2867,7 @@
         },
         "70002": {
             "Name": "Detlaff Wampir Wyższy",
-            "Info": "Rozmieszczenie: Wybierz: Zagraj brązową jednostkę z Twojej talii z siłą równą lub mniejszą sile tej karty i wyślij ją na cmentarz na koniec Twojej tury; lub pochłoń brązową jednostkę z Twojej talii i wzmocnij się o jej siłę.",
+            "Info": "Rozmieszczenie: Wybierz brązową jednostke w Twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
             "Flavor": ""
         },
         "70003": {

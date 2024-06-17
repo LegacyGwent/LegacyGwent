@@ -2867,7 +2867,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power not greater than self, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
+            "Info": "Deploy: Choose a Bronze unit in your deck. If it has more Power than this unit, consume it and boost self by its power. Otherwise, play that unit and send it to the graveyard at the end of the turn.",
             "Flavor": ""
         },
         "70003": {
