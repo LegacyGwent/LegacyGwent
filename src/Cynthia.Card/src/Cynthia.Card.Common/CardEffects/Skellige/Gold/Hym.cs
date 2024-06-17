@@ -20,9 +20,9 @@ namespace Cynthia.Card
             switch (switchCard)
             {
                 case 1:
-                    return await Playcursed();
+                    return await FUNCTION1();
                 case 2:
-                    return await Playsilver();
+                    return await FUNCTION2();
             }
 
             return 0;
@@ -32,46 +32,46 @@ namespace Cynthia.Card
         {
             methodDesDict = new Dictionary<int, string>()
             {
-                {1, "Hym_1_Playcursed"},
-                {2, "Hym_2_Playsilver"}
+                {1, "Hym_1_PlayCursed"},
+                {2, "Hym_2_PlaySilver"}
             };
         }
 
-        private async Task<int> Playcursed()
+        private async Task<int> FUNCTION1()
         {
             //乱序列出诅咒生物，如果没有，什么都不做
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Cursed) &&
-                       (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
-                    .Mess(Game.RNG)
-                    .ToList();
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Categories.Contains(Categorie.Cursed) &&
+                   (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
+                .Mess(Game.RNG)
+                .ToList();
 
-                if (list.Count() == 0)
-                {
-                    return 0;
-                }
-                //选一张，如果没选，什么都不做
-                var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
-                if (cards.Count() == 0)
-                {
-                    return 0;
-                }
+            if (list.Count() == 0)
+            {
+                return 0;
+            }
+            //选一张，如果没选，什么都不做
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+            if (cards.Count() == 0)
+            {
+                return 0;
+            }
 
-                //打出
-                var playCard = cards.Single();
-                await playCard.MoveToCardStayFirst();
-                return 1;
+            //打出
+            var playCard = cards.Single();
+            await playCard.MoveToCardStayFirst();
+            return 1;
         }
 
-        private async Task<int> Playsilver()
+        private async Task<int> FUNCTION2()
         {
-           //手动排除大间谍
-                var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
-                   .Select(x => x.CardId)
-                   .Distinct()
-                   .Where(x => !GwentMap.CardMap[x].HasAnyCategorie(Categorie.Agent) && GwentMap.CardMap[x].Is(Group.Silver, CardType.Unit))
-                   .Mess(Game.RNG)
-                   .Take(3).ToArray();
-                return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
+            //手动排除大间谍
+            var cardsId = Game.PlayerBaseDeck[AnotherPlayer].Deck
+               .Select(x => x.CardId)
+               .Distinct()
+               .Where(x => !GwentMap.CardMap[x].HasAnyCategorie(Categorie.Agent) && GwentMap.CardMap[x].Is(Group.Silver, CardType.Unit))
+               .Mess(Game.RNG)
+               .Take(3).ToArray();
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
         }
     }
 }

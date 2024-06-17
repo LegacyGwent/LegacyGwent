@@ -1,51 +1,70 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
+using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("52013")]//伊森格林：亡命徒
-    public class IsengrimOutlaw : CardEffect
-    {//择一：从牌组打出1张铜色/银色“特殊”牌；或创造1个银色“精灵”单位。
-        public IsengrimOutlaw(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+    [CardEffectId("52013")] //希姆
+    public class IsengrimOutlaw : Choose
+    {
+        //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。
+        public IsengrimOutlaw(GameCard card) : base(card)
         {
-            var switchCard = await Card.GetMenuSwitch(
-               ("暴行", "从牌组打出1张铜色/银色“特殊”牌"),
-               ("后援", "创造1个银色“精灵”单位")
-           );
+        }
 
-            //从牌组打出1张铜色/银色“特殊”牌
-            if (switchCard == 0)
+        protected override async Task<int> UseMethodByChoice(int switchCard)
+        {
+            switch (switchCard)
             {
-                //乱序列出铜色/银色“特殊”牌
-                var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Special &&
-                       (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
-                    .Mess(Game.RNG)
-                    .ToList();
-
-                if (list.Count() == 0)
-                {
-                    return 0;
-                }
-                //选一张，如果没选，什么都不做
-                var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
-                if (cards.Count() == 0)
-                {
-                    return 0;
-                }
-
-                //打出
-                var playCard = cards.Single();
-                await playCard.MoveToCardStayFirst();
-                return 1;
+                case 1:
+                    return await FUNCTION1();
+                case 2:
+                    return await FUNCTION2();
             }
 
-            //选择创造
-            else if (switchCard == 1)
-            {
+            return 0;
+        }
 
-                return await Card.CreateAndMoveStay(
+        protected override void RealInitDict()
+        {
+            methodDesDict = new Dictionary<int, string>()
+            {
+                {1, "IsengrimOutlaw_1_PlaySpecial"},
+                {2, "IsengrimOutlaw_2_CreateElf"}
+            };
+        }
+
+        private async Task<int> FUNCTION1()
+        {
+            //乱序列出铜色/银色“特殊”牌
+            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Special &&
+                    (x.Status.Group == Group.Silver || x.Status.Group == Group.Copper))
+                .Mess(Game.RNG)
+                .ToList();
+
+            if (list.Count() == 0)
+            {
+                return 0;
+            }
+            //选一张，如果没选，什么都不做
+            var cards = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 1);
+            if (cards.Count() == 0)
+            {
+                return 0;
+            }
+
+            //打出
+            var playCard = cards.Single();
+            await playCard.MoveToCardStayFirst();
+            return 1;
+        }
+
+        private async Task<int> FUNCTION2()
+        {
+            return await Card.CreateAndMoveStay(
                 GwentMap.GetCreateCardsId(
                     x => x.HasAnyCategorie(Categorie.Elf) &&
                     (x.Group == Group.Silver) && !x.HasAnyCategorie(Categorie.Agent),
@@ -53,9 +72,6 @@ namespace Cynthia.Card
                 )
                 .ToList()
             );
-            }
-
-            return 0;
         }
     }
 }
