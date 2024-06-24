@@ -228,7 +228,7 @@
         "ShupeKnight_2_Resilience": "Resilient.",
         "ShupeKnight_3_Duel": "Duel an enemy.",
         "ShupeKnight_4_Reset": "Reset a unit.",
-        "ShupeKnight_5_Destroy": "Destroy enemies with less than 4 Power.",
+        "ShupeKnight_5_Destroy": "Destroy all enemies with 3 Power or less.",
         "ShupeHunter_1_SingleDamage": "Deal 15 Damage.",
         "ShupeHunter_2_RepeatedDamage": "Deal 2 Damage to a random enemy.\nRepeat 8 times.",
         "ShupeHunter_3_Replay": "Replay a Bronze or Silver ally and Boost it by 5.",
@@ -238,7 +238,7 @@
         "ShupeMage_2_Charm": "Charm a random enemy.",
         "ShupeMage_3_Hazard": "Spawn random Hazards on all enemy rows.",
         "ShupeMage_4_Damage": "Deal 10 Damage to an enemy and 5 to any adjacent to it.",
-        "ShupeMage_5_Special": "Play a Bronze or Silver special card from your deck.",
+        "ShupeMage_5_Special": "Play a non Gold special card from your deck.",
         "Hym_1_PlayCursed": "Play a Bronze or Silver Cursed unit from your deck.",
         "Hym_2_PlaySilver": "Create a Silver unit from your opponent's starting deck.",
         "DetlaffCrimsonCurse_1_Boon": "Banish 3 Beast or Vampire from your graveyard, then apply  Full Moon on all enemy rows.",
@@ -847,7 +847,7 @@
         },
         "15001": {
             "Name": "Shupe: Knight",
-            "Info": "Send Shupe to the Imperial Court Military Academy. Strengthen self to 25; Gain Resilience; Duel a unit; Reset a unit; Destroy all enemies with 4 Power or less.",
+            "Info": "Send Shupe to the Imperial Court Military Academy. Strengthen self to 25; Gain Resilience; Duel a unit; Reset a unit; Destroy all enemies with 3 Power or less.",
             "Flavor": "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？"
         },
         "15002": {
@@ -857,7 +857,7 @@
         },
         "15003": {
             "Name": "Shupe: Mage",
-            "Info": "Send Shupe to the Ban Ard Academy. Draw 1 card; Charm a random enemy; Spawn a random Hazard on all enemy rows; Deal 10 Damage to an enemy, then 5 Damage to adjacent units; Play a special card from your deck.",
+            "Info": "Send Shupe to the Ban Ard Academy. Draw 1 card; Charm a random enemy; Spawn a random Hazard on all enemy rows; Deal 10 Damage to an enemy, then 5 Damage to adjacent units; Play a non Gold special card from your deck.",
             "Flavor": "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？"
         },
         "15004": {
@@ -2527,7 +2527,7 @@
         },
         "62008": {
             "Name": "Madman Lugos",
-            "Info": "Deploy: Discard a Bronze or Silver unit from your deck and Damage a unit by the Discarded unit's base Power.",
+            "Info": "Deploy: Discard a Bronze or Silver loyal unit from your deck and Damage a unit by the Discarded unit's base Power.",
             "Flavor": "哇哇哇哇哇哇啊！！！！"
         },
         "62009": {
