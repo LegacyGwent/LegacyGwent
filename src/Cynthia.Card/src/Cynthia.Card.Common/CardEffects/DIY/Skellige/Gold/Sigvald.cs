@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            await Card.Effect.Weaken(9 - Card.Status.Strength ,Card);
+            await Card.Effect.Weaken(Card.Status.Strength-9,Card);
         }
         public async Task HandleEvent(AfterTurnOver @event)
         {
@@ -32,6 +32,7 @@ namespace Cynthia.Card
             {
                 await Card.Effect.Strengthen(1, Card);
             }
+
             await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
             return;
         }
