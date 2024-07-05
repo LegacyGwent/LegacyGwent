@@ -2680,7 +2680,7 @@
         },
         "64013": {
             "Name": "Wściekły Berserker",
-            "Info": "Za każdym razem, gdy ta jednostka zostanie zraniona lub osłabiona, przemień ją we Wściekłego Niedźwiedzia (Wściekły Niedźwiedź; 14 pkt siły).",
+            "Info": "Za każdym razem, gdy ta jednostka zostanie zraniona lub osłabiona, przemień ją we Wściekłego Niedźwiedzia (Wściekły Niedźwiedź; 13 pkt siły).",
             "Flavor": "Chcesz dostać toporkiem?"
         },
         "64014": {
@@ -2875,7 +2875,7 @@
         },
         "70011": {
             "Name": "Pani Jeziora Adwent",
-            "Info": "Stwórz Panią jeziora. (Pani Jeziora; 25 pkt siły; Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w Twojej ręce i tali.)",
+            "Info": "Stwórz Panią jeziora. (Pani Jeziora; 24 pkt siły; Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w Twojej ręce i tali.)",
             "Flavor": ""
         },
         "70012": {
@@ -2965,7 +2965,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "Na koniec rundy, wskrześ tę jednostkę do losowego rzędu i ulepsz ją o 1.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 9.",
             "Flavor": ""
         },
         "70039": {
@@ -3155,7 +3155,7 @@
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Zagraj losowy przedmiot z Twojej talii. Zwiększ wszystkie obrażenia tego przedmiotu o 1.",
+            "Info": "Play a random item or choose and play a Scoia'tael item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
@@ -3440,7 +3440,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
+            "Info": "Deal 7 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {

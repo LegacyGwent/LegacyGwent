@@ -10821,7 +10821,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（25战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
+                    Info = "生成一张湖中仙女（24战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
                 }
             },
@@ -11202,7 +11202,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "回合结束时，复活至随机排，战力不高于13点时获得1点强化。",
+                    Info = "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 9.",
                     CardArtsId = "d16710000",
                 }
             },
@@ -13006,7 +13006,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098",
                     Name="维里赫德旅破坏者",
-                    Strength=1,
+                    Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13016,7 +13016,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
                     Flavor = "上头有命令，要关上大门。可它们纹丝不动……",
-                    Info = "随机从牌组打出1张铜色道具牌，使其造成的伤害提升1点。",
+                    Info = "Play a random item or choose and play a Scoia'tael item.",
                     CardArtsId = "d20160000",
                 }
             },
@@ -13437,7 +13437,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
-                    Info = "遗愿：随机对1个敌军单位造成3点伤害。",
+                    Info = "遗愿：随机对1个敌军单位造成2点伤害。",
                     CardArtsId = "d20430000",
                 }
             },
@@ -14017,7 +14017,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张铜色矮人牌。位于墓场时，使己方打出的矮人单位获得1点护甲与1点增益。",
+                    Info = "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck.",
                     CardArtsId = "d19230000",
                 }
             },
