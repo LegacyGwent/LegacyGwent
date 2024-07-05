@@ -238,7 +238,46 @@
         "ShupeMage_2_Charm": "Rzuć urok na losowego wroga.",
         "ShupeMage_3_Hazard": "Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika.",
         "ShupeMage_4_Damage": "Zadaj wrogowi 10 pkt. obrażeń i 5 pkt. obrażeń jednostkom z nim sąsiadującym.",
-        "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii."
+        "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii.",
+        "Hym_1_PlayCursed": "Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii.",
+        "Hym_2_PlaySilver": "Utwórz srebrną kartę jednostki z talii początkowej przeciwnika.",
+        "DetlaffCrimsonCurse_1_Boon": "Wygnaj 3 brązowe bestię lub wampiry z Twojego cmentarza, następnie stwórz 3 krwawe księżyce we wszystkich rzędach przeciwnika.",
+        "DetlaffCrimsonCurse_2_Hazard": "Wygnaj 3 brązowe bestię lub wampiry z Twojego cmentarza, następnie stwórz 3 pełnie we wszystkich Twoich rzędach.",
+        "WeavessIncantation_1_Strenghten": "Ulepsz wszystkie inne swoje Relikty gdziekolwiek są o 2.",
+        "WeavessIncantation_2_PlayRelict": "Zagraj brązowy lub srebrny Relikt ze swojej talii i ulepsz go o 2.",
+        "LethoKingslayer_1_Destroy": "Zniszcz wrogiego Dowódcę i wzmocnij tę jednostkę o 5.",
+        "LethoKingslayer_2_PlayTactic": "Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
+        "Kiyan_1_CreateAlchemy": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+        "Kiyan_2_PlayItem": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+        "PhilippaLodgeMistress_1_PlayMage": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
+        "PhilippaLodgeMistress_2_CreateSpell": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
+        "RocheMerciless_1_PlayTemeria": "Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta.",
+        "RocheMerciless_2_DestroyAmbush": "Zniszcz zakrytą wrogą zasadzke.",
+        "IsengrimOutlaw_1_PlaySpecial": "Zagraj brązową lub srebrną kartę specjalną.",
+        "IsengrimOutlaw_2_CreateElf": "Utwórz srebrnego Elfa.",
+        "TheGreatOak_1_Weaken": "Osłab jednostkę o połowe jej podstawowej siły.",
+        "TheGreatOak_2_Resurrect": "Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
+        "Hammond_1_SpawnMachine": "Stwórz Skelligijską brązową maszynę.",
+        "Hammond_2_BoostMachines": "Wzmocnij wszystkie przyjazne maszyny na planszy o 2.",
+        "BoneTalisman_1_ResurectBeast": "Wskrześ brązową Bestię lub Kultystę.",
+        "BoneTalisman_2_Strenghten": "Uzdrów sojusznika i ulepsz go o 3.",
+        "Winch_1_Resurect": "Zagraj brązową maszyne ze swojego cmentarza i daj jej Fatum.",
+        "Winch_2_Boost": "Wzmocnij wszystkie maszyny po Twojej stronie o 3.",
+        "Mardroeme_1_Strenghten": "Zresetuj jednostkę i ulepsz ją o 3.",
+        "Mardroeme_2_Weaken": "Zresetuj jednostkę i osłab ją o 3.",
+        "MahakamHorn_1_CreateDwarf": "Utwórz brązowego lub srebrnego Krasnoluda.",
+        "MahakamHorn_2_Strenghten": "Ulepsz jednostkę o 7.",
+        "VandergriftSBlade_1_DestroyCursed": "Zniszcz brązowego lub srebrnego Przeklętego wroga.",
+        "VandergriftSBlade_2_Damage": "Zadaj 10 pkt obrażeń i jeśli jednostka została zniszczona, wygnaj ją.",
+        "Cadaverine_1_DamegeCategory": "Zadaj 3 pkt obrażeń wrogowi i wszystkim jednostkom z jego kategorii.",
+        "Cadaverine_2_DestroyNeutral": "Zniszcz brązową lub srebrną jednostkę neutralną.",
+        "Mandrake_1_Strenghten": "Uzdrów jednostkę i ulepsz ją o 6.",
+        "Mandrake_2_Weaken": "Zresetuj jednostkę i osłab ją o 6.",
+        "BlackBlood_1_CreateVampire": "Utwórz brązową kartę Trupojada albo Wampira i wzmocnij ją o 2.",
+        "BlackBlood_2_DestroyVampire": "Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
+        "Sihil_1_DamageOdd": "Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile.",
+        "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
+        "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii."
     },
     "CardLocales": {
         "12001": {
@@ -713,7 +752,7 @@
         },
         "14009": {
             "Name": "Brzask",
-            "Info": "Wybierz: Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie lub Zagraj losową brązową jednostkę ze swojej talii.",
+            "Info": "Stwórz Czyte Niebo lub Rajd. (Czyste niebo: Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie)\n(Rajd: Zagraj losową brązową jednostkę ze swojej talii)",
             "Flavor": "Piękny dzień, żeby umrzeć."
         },
         "14010": {
@@ -1753,7 +1792,7 @@
         },
         "42007": {
             "Name": "Roche Bezlitosny",
-            "Info": "Deploy: Choose one：Play 1 silver/copper Temoria card with less power then self；or destroy 1 back-up ambush enemy unit. ",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta; lub zniszcz zakrytą wrogą zasadzke.",
             "Flavor": "Strach nam nie przystoi, ale jest pewien d'hoine... Vernon Roche. Wystrzegaj się go."
         },
         "42008": {
@@ -2128,7 +2167,7 @@
         },
         "52007": {
             "Name": "Iorweth",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 8 pkt obrażeń. Jeśli został zniszczony, wzmocnij wszystkie Elfy w swojej ręce o 1.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 8 pkt obrażeń. Jeśli został zniszczony, wzmocnij wszystkie niebędącą szpiegiem Elfy w swojej ręce o 1.",
             "Flavor": "Cholernie celny jak na faceta z jednym okiem."
         },
         "52008": {
@@ -2263,7 +2302,7 @@
         },
         "53021": {
             "Name": "Mahakamski Róg",
-            "Info": "Wybierz: Utwórz brązową lub srebrną kartę Krasnoluda lub Ulepsz jednostkę o 7.",
+            "Info": "Wybierz: Utwórz brązowego lub srebrnego Krasnoluda lub Ulepsz jednostkę o 7.",
             "Flavor": "Pewnego razu w Mahakamie urządzono konkurs gry na rogu. Krasnoludy odkryły wtedy że głośne dźwięki i ośnieżone szczyty nie są szczęśliwym zestawieniem."
         },
         "54001": {
@@ -2453,17 +2492,17 @@
         },
         "62001": {
             "Name": "Olaf",
-            "Info": "Rozmieszczenie: Zadaj 10 pkt obrażeń tej jednostce. Zmniejsz zadane jej obrażenia o 2 za każdą Bestię zagraną przez ciebie podczas tej gry.",
+            "Info": "Rozmieszczenie: Zadaj 12 pkt obrażeń tej jednostce. Zmniejsz zadane jej obrażenia o 2 za każdą Bestię zagraną przez ciebie podczas tej gry.",
             "Flavor": "Dziesięciokrotny zdobywca zaszczytnego tytułu czempiona areny na An Skellig."
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Władca Undvik; 5 pkt siły; Zemsta: Wzmonij wrogich Hjalmarów o 10)",
+            "Info": "Rozmieszczenie: Stwórz Władcę Undvik w przeciwnym rzędzie.\n(Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.)",
             "Flavor": "Zamiast użalać się nad poległymi, lepiej wypijmy za ich pamięć!"
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 2 pkt obrażeń. Jeśli cel był już ranny, zamiast tego zniszcz go.",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń wrogowi i sąsiadującym z nim jednostkom. Jeśli jednostka była już uszkodzona, zniszcz ją.",
             "Flavor": "Krew dla Svalbloda! Czaszki na jego tron!"
         },
         "62004": {
@@ -2488,17 +2527,17 @@
         },
         "62008": {
             "Name": "Lugos Szalony",
-            "Info": "Rozmieszczenie: Odrzuć brązową jednostkę ze swojej talii, a następnie zadaj wrogowi tyle pkt obrażeń, ile wynosi jej siła bazowa.",
+            "Info": "Rozmieszczenie: Odrzuć brązową lub srebrną jednostkę ze swojej talii, a następnie zadaj wrogowi tyle pkt obrażeń, ile wynosi jej siła bazowa.",
             "Flavor": "WAAAAAAAAAAGH!!!!"
         },
         "62009": {
             "Name": "Ulfhedinn",
-            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom. Jeśli byli ranni, zamiast tego zadaj im 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom. Jeśli byli ranni, zamiast tego zadaj im 3 pkt obrażeń.",
             "Flavor": "Wilkołak? O nie, nie... To coś dużo, dużo gorszego."
         },
         "62010": {
             "Name": "Cerys Nieustraszona",
-            "Info": "if on the place or in graveyard, Resurrect the next unit you Discard.",
+            "Info": "Kiedy odrzucisz brązową lub srebrną jednostkę, zadaj sobie obrażenia równe 4, a następnie wskrześ ją. Powtórz maksymalnie 1 raz.",
             "Flavor": "Muszę zjednoczyć klany. Wolę uniknąć wojny, ale jeśli Nilfgaard rzeczywiście zamierza nas zaatakować, wspólnie damy mu odpór."
         },
         "62011": {
@@ -2798,7 +2837,7 @@
         },
         "65003": {
             "Name": "Władca Undvik",
-            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 10.",
+            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.",
             "Flavor": "Brak"
         },
         "65004": {
@@ -3092,8 +3131,8 @@
             "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
         },
         "70085": {
-            "Name": "Pszczelarz Fantom",
-            "Info": "Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, w tym rzędzie pojawi się Trzaskający Mróz.",
+            "Name": "Barciowe Widziadło",
+            "Info": "Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
             "Flavor": ""
         },
         "70086": {
@@ -3122,8 +3161,8 @@
             "Flavor": ""
         },
         "70092": {
-            "Name": "SvalblodBrawler",
-            "Info": "Damage an enemy by 4,if it is under a Hazard,deal 8 Damage instead.",
+            "Name": "Zawiadiaka Svalbloda",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli jest pod wływem zagrożenia, zadaj zamiast tego 8 pkt obrażeń.",
             "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
         },
         "70093": {
@@ -3137,28 +3176,28 @@
             "Flavor": "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。"
         },
         "70095": {
-            "Name": "Lyrian Arbalest",
+            "Name": "Lyrijski kusznik",
             "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
             "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
         },
         "70096": {
             "Name": "Okręt wojenny Tuirseach",
-            "Info": "On turn end, deal 2 Damages to a random undamaged unit.",
+            "Info": "Na koniec tury zadaj 2 pkt obrażeń, losowej niezranionej jednostce.",
             "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
         },
         "70097": {
-            "Name": "Hawierz",
+            "Name": "Krasnoludzki Hawierz",
             "Info": "Rozmieszczenie: Wzmocnij się o 1 za każdego Krasnoluda w twojej ręce.",
             "Flavor": "Which moron's whistling in the mine?!"
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Play a random Items from your deck. Increase their Damages by 1 each.",
+            "Info": "Zagraj losowy przedmiot z Twojej talii. Zwiększ wszystkie obrażenia tego przedmiotu o 1.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damege all units in your deck by 2, then Strength them by 2",
+            "Info": "Zadaj wszystkim jednostką w Twojej talii 2pkt obrażeń, następnie wzmocnij je o 2pkt.",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。"
         },
         "70100": {
@@ -3342,8 +3381,8 @@
             "Flavor": "置身鸦群，你也必须鸦鸦做声。"
         },
         "70137": {
-            "Name": "The Great Oak",
-            "Info": "Choose one: Weaken an enemy unit by half of its base Strength; Resurrect a Bronze Dryad unit from your deck,then return it to the deck.",
+            "Name": "Wielki Dąb",
+            "Info": "Rozmieszczenie, Wybierz: Osłab jednostkę o połowe jej podstawowej siły, lub Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
             "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
         },
         "70138": {
