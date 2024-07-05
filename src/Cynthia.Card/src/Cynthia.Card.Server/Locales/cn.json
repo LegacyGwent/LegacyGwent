@@ -277,7 +277,9 @@
         "BlackBlood_2_DestroyVampire": "摧毁一个青铜或白银尸食者或吸血鬼。",
         "Sihil_1_DamageOdd": "对所有战力为奇数的敌人造成3点伤害。",
         "Sihil_2_DamageEven": "对所有战力为偶数的敌人造成3点伤害。",
-        "Sihil_3_PlayUnit": "从你的牌组中随机打出一张铜色或银色单位牌。"
+        "Sihil_3_PlayUnit": "从你的牌组中随机打出一张铜色或银色单位牌。",
+        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
     },
     "CardLocales": {
         "12001": {

@@ -277,7 +277,9 @@
         "BlackBlood_2_DestroyVampire": "Destroy a Bronze or Silver Necrophage or Vampire.",
         "Sihil_1_DamageOdd": "Deal 3 Damage to all enemies with odd Power.",
         "Sihil_2_DamageEven": "Deal 3 Damage to all enemies with even Power.",
-        "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck."
+        "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck.",
+        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
     },
     "CardLocales": {
         "12001": {

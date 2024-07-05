@@ -277,7 +277,9 @@
         "BlackBlood_2_DestroyVampire": "Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
         "Sihil_1_DamageOdd": "Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile.",
         "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
-        "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii."
+        "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii.",
+        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
     },
     "CardLocales": {
         "12001": {
