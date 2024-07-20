@@ -1187,7 +1187,7 @@
         },
         "24014": {
             "Name": "Drowner",
-            "Info": "Deploy: Move an enemy to the opposite row and deal 2 Damage to it.\nIf that row is under a Hazard, deal 4 Damage instead.",
+            "Info": "Deploy: Move an enemy to the opposite row and deal 2 Damage to it.\nIf that row is under a Hazard, deal 5 Damage instead.",
             "Flavor": "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。"
         },
         "24015": {
