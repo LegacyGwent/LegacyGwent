@@ -1,5 +1,6 @@
 #!/bin/bash
 # refresh Cynthia.Card.Common.dll after modifying Cynthia.Card.Common
+python language.py
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd "$parent_path/.."
 dotnet build ./src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
