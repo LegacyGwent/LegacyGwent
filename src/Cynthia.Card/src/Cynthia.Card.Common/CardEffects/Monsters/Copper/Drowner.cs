@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 return 0;
             }
             await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
-            var damagePoint = Game.GameRowEffect[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard() ? 4 : 2;
+            var damagePoint = Game.GameRowEffect[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard() ? 5 : 2;
             await target.Effect.Damage(damagePoint, Card);
             return 0;
         }

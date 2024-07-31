@@ -1189,7 +1189,7 @@
         },
         "24014": {
             "Name": "Utopiec",
-            "Info": "Rozmieszczenie: Przenieś wroga do rzędu przeciwnego wobec tej jednostki i zadaj mu 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Zagrożenia, zamiast tego zadaj 4 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Przenieś wroga do rzędu przeciwnego wobec tej jednostki i zadaj mu 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Zagrożenia, zamiast tego zadaj 5 pkt obrażeń.",
             "Flavor": "Chociaż wiedźmak wielce chciwy a na złoto łasy, nie dać onemu za utopca więcej jak srebrny grosz albo półtorak."
         },
         "24015": {
@@ -2869,7 +2869,7 @@
         },
         "70002": {
             "Name": "Detlaff Wampir Wyższy",
-            "Info": "Rozmieszczenie: Wybierz: Zagraj brązową jednostkę z Twojej talii z siłą równą lub mniejszą sile tej karty i wyślij ją na cmentarz na koniec Twojej tury; lub pochłoń brązową jednostkę z Twojej talii i wzmocnij się o jej siłę.",
+            "Info": "Rozmieszczenie: Wybierz brązową jednostke w Twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
             "Flavor": ""
         },
         "70003": {
@@ -2924,7 +2924,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Odrzuć deszcz z Twojej talii, następnie stwórz deszcz w rzędzie tej jednostki i przeciwnym rzędzie.",
+            "Info": "Odrzuć Ulewny Deszcz i zastosuj Ulewny Deszcz po obu stronach, jeśli w twojej talii nie ma Ulewnych Deszczy, zadaj sobie obrażenia o 4 i zastosuj Ulewny Deszcz po obu stronach.",
             "Flavor": ""
         },
         "70014": {
@@ -3284,7 +3284,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Za każdym razem, gdy stworzysz ulewny deszcz, wskrześ tę jednostkę w losowym rzędzie.",
+            "Info": "Na koniec swojej tury, jeśli po przeciwnej stronie jest Deszcz, przenieś siebie do losowego sojuszniczego rzędu.",
             "Flavor": ""
         },
         "70117": {

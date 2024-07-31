@@ -2922,7 +2922,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Odrzuć deszcz z Twojej talii, następnie stwórz deszcz w rzędzie tej jednostki i przeciwnym rzędzie.",
+            "Info": "Odrzuć Ulewny Deszcz i zastosuj Ulewny Deszcz po obu stronach, jeśli w twojej talii nie ma Ulewnych Deszczy, zadaj sobie obrażenia o 4 i zastosuj Ulewny Deszcz po obu stronach.",
             "Flavor": ""
         },
         "70014": {
@@ -3282,7 +3282,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Za każdym razem, gdy stworzysz ulewny deszcz, wskrześ tę jednostkę w losowym rzędzie.",
+            "Info": "Na koniec swojej tury, jeśli po przeciwnej stronie jest Deszcz, przenieś siebie do losowego sojuszniczego rzędu.",
             "Flavor": ""
         },
         "70117": {
