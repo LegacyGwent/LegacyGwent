@@ -15,7 +15,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardStrengthen @event)
         {
-            if (Card.Status.Strength <= 9) 
+            if (Card.Status.Strength <= 10) 
             {
                 return;
             }
@@ -28,7 +28,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if (Card.Status.Strength < 9)
+            if (Card.Status.Strength < 10)
             {
                 await Card.Effect.Strengthen(1, Card);
             }

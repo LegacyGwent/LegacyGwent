@@ -1669,7 +1669,7 @@
         },
         "34021": {
             "Name": "Spotter",
-            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by its base Power.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
             "Flavor": "北方佬耍不出花招了。"
         },
         "34022": {
@@ -3004,7 +3004,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 9.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3369,7 +3369,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 2 Strength. Deathwish: Deal 2 Damage to a random enemy)",
+            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
         },
         "70135": {
@@ -3379,7 +3379,7 @@
         },
         "70136": {
             "Name": "Crow",
-            "Info": "Deathwish: Deal 2 Damage to a random enemy.",
+            "Info": "Deathwish: Deal 3 Damage to a random enemy.",
             "Flavor": "置身鸦群，你也必须鸦鸦做声。"
         },
         "70137": {
@@ -3494,7 +3494,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.\n(Crow; 2 Strength. Deathwish: Deal 2 Damage to a random enemy)",
+            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
         },
         "70160": {

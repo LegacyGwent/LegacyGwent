@@ -1669,7 +1669,7 @@
         },
         "34021": {
             "Name": "Zwiadowca",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o siłę bazową wybranej ujawnionej brązowej lub srebrnej jednostki.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
             "Flavor": "Północ nie posiada niczego, czym mogłaby nas zaskoczyć."
         },
         "34022": {
@@ -3004,7 +3004,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 9.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
             "Flavor": ""
         },
         "70039": {

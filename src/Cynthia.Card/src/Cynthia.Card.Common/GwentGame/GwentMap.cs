@@ -5753,7 +5753,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34021",
                     Name="侦察员",
-                    Strength=2,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5763,7 +5763,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "北方佬耍不出花招了。",
-                    Info = "获得等同于1张被揭示铜色/银色单位牌基础战力的增益。",
+                    Info = "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
                     CardArtsId = "16230300",
                 }
             },
@@ -5853,7 +5853,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34026",
                     Name="马格尼师",
-                    Strength=2,
+                    Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10398,7 +10398,7 @@ namespace Cynthia.Card
                 {
                     CardId ="65002",
                     Name="狂暴的熊",
-                    Strength=13,
+                    Strength=14,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10710,7 +10710,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70006",
                     Name = "湖中仙女",
-                    Strength = 24,
+                    Strength = 25,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11202,7 +11202,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 9.",
+                    Info = "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
                     CardArtsId = "d16710000",
                 }
             },
@@ -13006,7 +13006,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098",
                     Name="维里赫德旅破坏者",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13437,7 +13437,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
-                    Info = "遗愿：随机对1个敌军单位造成2点伤害。",
+                    Info = "遗愿：随机对1个敌军单位造成3点伤害。",
                     CardArtsId = "d20430000",
                 }
             },

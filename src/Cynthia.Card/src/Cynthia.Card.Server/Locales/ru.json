@@ -1668,7 +1668,7 @@
         },
         "34021": {
             "Name": "Разведчик",
-            "Info": "Усильте эту карту на изначальную силу вскрытого бронзового или серебряного отряда.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
             "Flavor": "еЊ—ж–№дЅ¬иЂЌдёЌе‡єиЉ±ж‹›дє†гЂ‚"
         },
         "34022": {
@@ -3003,7 +3003,7 @@
         },
         "70038": {
             "Name": "Зигвальд",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 9.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
             "Flavor": ""
         },
         "70039": {
