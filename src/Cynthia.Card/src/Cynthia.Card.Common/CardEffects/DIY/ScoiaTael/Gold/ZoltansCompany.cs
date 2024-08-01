@@ -6,10 +6,10 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70167")]//卓尔坦的伙伴 ZoltansCompany
-    public class ZoltansCompany : CardEffect
+    public class ZoltansCompany : CardEffect, IHandlesEvent<AfterUnitPlay>
     {//put back up to 3 non-gold dwarves in your deck THEN play a non-gold dwarf from your deck. Whenever this card is in the graveyard, give 1 armor to each dwarf you play
         public ZoltansCompany(GameCard card) : base(card) { }
-        public override async Task<int> CardUseEffect(), IHandlesEvent<AfterUnitPlay>
+        public override async Task<int> CardUseEffect()
         {
             var Rlist = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.HasAnyCategorie(Categorie.Dwarf) && x.CardInfo().CardType == CardType.Unit);
             if (Rlist.Count() == 0) 
