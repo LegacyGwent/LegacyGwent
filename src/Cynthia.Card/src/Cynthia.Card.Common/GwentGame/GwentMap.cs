@@ -14017,7 +14017,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck.",
+                    Info = "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
                     CardArtsId = "d19230000",
                 }
             },

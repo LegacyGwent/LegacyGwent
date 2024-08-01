@@ -7,9 +7,9 @@ namespace Cynthia.Card
 {
     [CardEffectId("70167")]//卓尔坦的伙伴 ZoltansCompany
     public class ZoltansCompany : CardEffect
-    {//put back up to 3 non-gold dwarves in your deck THEN play a non-gold dwarf from your deck
+    {//put back up to 3 non-gold dwarves in your deck THEN play a non-gold dwarf from your deck. Whenever this card is in the graveyard, give 1 armor to each dwarf you play
         public ZoltansCompany(GameCard card) : base(card) { }
-        public override async Task<int> CardUseEffect()
+        public override async Task<int> CardUseEffect(), IHandlesEvent<AfterUnitPlay>
         {
             var Rlist = Game.PlayersCemetery[PlayerIndex].Where(x => (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver) && x.HasAnyCategorie(Categorie.Dwarf) && x.CardInfo().CardType == CardType.Unit);
             if (Rlist.Count() == 0) 
@@ -28,5 +28,17 @@ namespace Cynthia.Card
             await Presult.First().MoveToCardStayFirst();
             return 1;
         }
+        public async Task HandleEvent(AfterUnitPlay @event)
+            {
+                if (@event.PlayedCard.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInCemetery() && @event.PlayedCard != Card )
+                {
+                    if (@event.PlayedCard.HasAnyCategorie(Categorie.Dwarf))
+                    {
+                        await @event.PlayedCard.Effect.Armor(1, Card);
+                    }
+                }
+                return;
+            }
     }
+    
 }
