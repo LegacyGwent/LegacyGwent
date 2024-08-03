@@ -1669,7 +1669,7 @@
         },
         "34021": {
             "Name": "侦察员",
-            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
+            "Info": "侦察兵:获得等同于1张被揭示铜色/银色单位牌基础战力一半（向下取整）的增益。",
             "Flavor": "北方佬耍不出花招了。"
         },
         "34022": {
@@ -3009,7 +3009,7 @@
         },
         "70038": {
             "Name": "西格瓦尔德",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
+            "Info": "西格瓦尔德:回合结束时，复活至随机排。当基础战力高于10时，削弱自身至10点。",
             "Flavor": "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。"
         },
         "70039": {
@@ -3199,7 +3199,7 @@
         },
         "70098": {
             "Name": "维里赫德旅破坏者",
-            "Info": "Play a random item or choose and play a Scoia'tael item.",
+            "Info": "维里赫德旅破坏者:择一:随机打出1张铜色道具牌:或从牌组中打出1张铜色松鼠党道具牌。",
             "Flavor": "“上头有命令，要关上大门。可它们纹丝不动……”"
         },
         "70099": {
@@ -3484,7 +3484,7 @@
         },
         "70156": {
             "Name": "穿甲弹",
-            "Info": "对一个敌军单位造成7点伤害（无视护甲），若其具有增益则改为10点。",
+            "Info": "穿甲弹:对1个敌军单位造成造成7点伤害（无视护甲)，若其具有增益则改为造成10点伤害。",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
@@ -3539,7 +3539,7 @@
         },
         "70167": {
             "Name": "卓尔坦的伙伴",
-            "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
+            "Info": "卓尔坦的伙伴:将墓场3张铜色/银色矮人牌返回牌组，随后从牌组中打出1张铜色矮人牌。位于墓场时，使已方打出的矮人单位获得1点护甲。",
             "Flavor": ""
         },
         "80001": {
