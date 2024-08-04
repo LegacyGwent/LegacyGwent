@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 101);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 102);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -5753,7 +5753,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34021",
                     Name="侦察员",
-                    Strength=5,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5763,7 +5763,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "北方佬耍不出花招了。",
-                    Info = "获得等同于1张被揭示铜色/银色单位牌基础战力的增益。",
+                    Info = "侦察兵:获得等同于1张被揭示铜色/银色单位牌基础战力一半（向下取整）的增益。",
                     CardArtsId = "16230300",
                 }
             },
@@ -10821,7 +10821,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（25战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
+                    Info = "生成一张湖中仙女（24战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
                 }
             },
@@ -11202,7 +11202,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "回合结束时，复活至随机排，战力不高于13点时获得1点强化。",
+                    Info = "西格瓦尔德:回合结束时，复活至随机排。当基础战力高于10时，削弱自身至10点。",
                     CardArtsId = "d16710000",
                 }
             },
@@ -13006,7 +13006,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098",
                     Name="维里赫德旅破坏者",
-                    Strength=1,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13016,7 +13016,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
                     Flavor = "上头有命令，要关上大门。可它们纹丝不动……",
-                    Info = "随机从牌组打出1张铜色道具牌，使其造成的伤害提升1点。",
+                    Info = "维里赫德旅破坏者:择一:随机打出1张铜色道具牌:或从牌组中打出1张铜色松鼠党道具牌。",
                     CardArtsId = "d20160000",
                 }
             },
@@ -13837,7 +13837,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Item,Categorie.Special},
                     Flavor = "无坚不摧，无甲不破。",
-                    Info = "对一个敌军单位造成8点伤害（无视护甲），若其具有增益则改为10点。",
+                    Info = "穿甲弹:对1个敌军单位造成造成7点伤害（无视护甲)，若其具有增益则改为造成10点伤害。",
                     CardArtsId = "d19500000",
                 }
             },
@@ -14017,7 +14017,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张铜色矮人牌。位于墓场时，使己方打出的矮人单位获得1点护甲与1点增益。",
+                    Info = "卓尔坦的伙伴:将墓场3张铜色/银色矮人牌返回牌组，随后从牌组中打出1张铜色矮人牌。位于墓场时，使已方打出的矮人单位获得1点护甲。",
                     CardArtsId = "d19230000",
                 }
             },

@@ -277,7 +277,9 @@
         "BlackBlood_2_DestroyVampire": "Destroy a Bronze or Silver Necrophage or Vampire.",
         "Sihil_1_DamageOdd": "Deal 3 Damage to all enemies with odd Power.",
         "Sihil_2_DamageEven": "Deal 3 Damage to all enemies with even Power.",
-        "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck."
+        "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck.",
+        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
     },
     "CardLocales": {
         "12001": {
@@ -1667,7 +1669,7 @@
         },
         "34021": {
             "Name": "Spotter",
-            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by its base Power.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
             "Flavor": "北方佬耍不出花招了。"
         },
         "34022": {
@@ -2717,7 +2719,7 @@
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 14 Strength)",
+            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 13 Strength)",
             "Flavor": "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。"
         },
         "64014": {
@@ -2912,7 +2914,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 25 Power; Deploy: Weaken self by 2 for every card in your hand and deck.)",
+            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 24 Power; Deploy: Weaken self by 2 for every card in your hand and deck.)",
             "Flavor": ""
         },
         "70012": {
@@ -3002,7 +3004,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row. If its Strength lower then 13, Strengthen self by 1.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3192,7 +3194,7 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Deploy: Play a random Items from your deck. Increase their Damages by 1 each.",
+            "Info": "Play a random item or choose and play a Scoia'tael item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
@@ -3477,7 +3479,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damage to an enemy unit ignoring Armour. If this unit is Boosted, Damage it by 10 instead.",
+            "Info": "Deal 7 Damage to an enemy unit ignoring Armour. If this unit is Boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
@@ -3532,7 +3534,7 @@
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Return 3 Silver or Bronze Dwarf unit from graveyard to your deck, then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armors and Boost it by 1.",
+            "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
             "Flavor": ""
         },
         "80001": {

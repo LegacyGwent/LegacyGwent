@@ -16,12 +16,12 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            var damage = 8;
+            var damage = 7;
             if(target.Status.HealthStatus > 0)
             {
-                damage=damage + 2;
+                damage=damage + 3;
             }
-            await target.Effect.Damage(damage, target, BulletType.RedLight, true);
+            await target.Effect.Damage  (damage, target, BulletType.RedLight, true);
             
             return 0;
         }
