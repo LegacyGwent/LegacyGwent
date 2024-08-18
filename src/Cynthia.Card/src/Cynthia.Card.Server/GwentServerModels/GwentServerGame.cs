@@ -411,11 +411,22 @@ namespace Cynthia.Card.Server
             //抽卡限制,不至于抽空卡组
             if (player1Count > PlayersDeck[Player1Index].Where(filter).Count()) player1Count = PlayersDeck[Player1Index].Where(filter).Count();
             if (player2Count > PlayersDeck[Player2Index].Where(filter).Count()) player2Count = PlayersDeck[Player2Index].Where(filter).Count();
-            var player1Task = DrawCardAnimation(Player1Index, player1Count, Player2Index, player2Count, filter);
-            var player2Task = DrawCardAnimation(Player2Index, player2Count, Player1Index, player1Count, filter);
-            await Task.WhenAll(player1Task, player2Task);
-            await SetCountInfo();
-            return (player1Task.Result, player2Task.Result);
+            
+            // current round player draws first
+            if (GameRound == TwoPlayer.Player1)
+            {
+                var player1Result = await DrawCardAnimation(Player1Index, player1Count, Player2Index, player2Count, filter);
+                var player2Result = await DrawCardAnimation(Player2Index, player2Count, Player1Index, player1Count, filter);
+                await SetCountInfo();
+                return (player1Result, player2Result);
+            }
+            else
+            {
+                var player2Result = await DrawCardAnimation(Player2Index, player2Count, Player1Index, player1Count, filter);
+                var player1Result = await DrawCardAnimation(Player1Index, player1Count, Player2Index, player2Count, filter);
+                await SetCountInfo();
+                return (player1Result, player2Result);
+            }
         }
         //只有一个玩家抽卡
         public async Task<List<GameCard>> PlayerDrawCard(int playerIndex, int count = 1, Func<GameCard, bool> filter = null)
@@ -432,6 +443,28 @@ namespace Cynthia.Card.Server
         {
             filter ??= (x => true);
             var list = new List<GameCard>();
+
+            // tell opponent client I am going to draw cards
+            // it is necessary to tell opponent client first
+            // because AfterPlayerDraw must be call after all client update
+            for (var i = 0; i < myPlayerCount; i++)
+            {
+                await SendCardMove(enemyPlayerIndex, new MoveCardInfo()
+                {
+                    Source = new CardLocation() { RowPosition = RowPosition.EnemyDeck },
+                    Target = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
+                    Card = new CardStatus(PlayersFaction[myPlayerIndex])// { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
+                });
+                await ClientDelay(400, enemyPlayerIndex);
+                await SendCardMove(enemyPlayerIndex, new MoveCardInfo()
+                {
+                    Source = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
+                    Target = new CardLocation() { RowPosition = RowPosition.EnemyHand, CardIndex = 0 },
+                });
+                await ClientDelay(300, enemyPlayerIndex);
+            }
+
+            // tell my client I am going to draw cards
             for (var i = 0; i < myPlayerCount; i++)
             {
                 await SendCardMove(myPlayerIndex, new MoveCardInfo()
@@ -453,22 +486,6 @@ namespace Cynthia.Card.Server
                 //88888888888888888888888888888888888888888888888888888
                 await SendEvent(new AfterPlayerDraw(myPlayerIndex, drawcard, null));
                 //88888888888888888888888888888888888888888888888888888
-            }
-            for (var i = 0; i < enemyPlayerCount; i++)
-            {
-                await SendCardMove(myPlayerIndex, new MoveCardInfo()
-                {
-                    Source = new CardLocation() { RowPosition = RowPosition.EnemyDeck },
-                    Target = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
-                    Card = new CardStatus(PlayersFaction[enemyPlayerIndex])// { IsCardBack = true, DeckFaction = PlayersFaction[enemyPlayerIndex] }
-                });
-                await ClientDelay(400, myPlayerIndex);
-                await SendCardMove(myPlayerIndex, new MoveCardInfo()
-                {
-                    Source = new CardLocation() { RowPosition = RowPosition.EnemyStay, CardIndex = 0 },
-                    Target = new CardLocation() { RowPosition = RowPosition.EnemyHand, CardIndex = 0 },
-                });
-                await ClientDelay(300, myPlayerIndex);
             }
             return list;
         }
