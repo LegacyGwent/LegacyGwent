@@ -9778,7 +9778,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64005",
                     Name="狂战士掠夺者",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10398,7 +10398,7 @@ namespace Cynthia.Card
                 {
                     CardId ="65002",
                     Name="狂暴的熊",
-                    Strength=14,
+                    Strength=13,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11930,7 +11930,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "在你的回合结束时，如果对面有雨，将自己复活到随机的盟军行列。",
+                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排。",
                     CardArtsId = "d17790000",
                 }
             },

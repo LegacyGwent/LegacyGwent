@@ -3284,7 +3284,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "At the end of your turn, if there is Rain on the opposite side, ressurect self to a random allied row.",
+            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
             "Flavor": ""
         },
         "70117": {

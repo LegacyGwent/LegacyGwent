@@ -3284,7 +3284,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Na koniec swojej tury, jeśli po przeciwnej stronie jest Deszcz, przenieś siebie do losowego sojuszniczego rzędu.",
+            "Info": "Za każdym razem, gdy stworzysz ulewny deszcz, wskrześ tę jednostkę w losowym rzędzie.",
             "Flavor": ""
         },
         "70117": {
