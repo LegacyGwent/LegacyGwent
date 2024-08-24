@@ -29,7 +29,7 @@ namespace Cynthia.Card
                     if (card.CardPoint() >=3)
                         await card.Effect.Damage(2, Card);
                         await card.Effect.Strengthen(2, Card);
-                    await card.Effect.Strengthen(2, Card)
+                    await card.Effect.Strengthen(2, Card);
                     await card.Effect.Damage(2, Card);
                 } 
             return 0;
