@@ -3199,7 +3199,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, set it's power to 1 instead",
+            "Info": "Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。”"
         },
         "70100": {
