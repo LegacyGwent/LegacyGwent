@@ -1,18 +1,1 @@
-﻿[
-  {
-    "Name": "English",
-    "Filename": "en"
-  },
-  {
-    "Name": "中文",
-    "Filename": "cn"
-  },
-  {
-    "Name": "Pусский",
-    "Filename": "ru"
-  },
-  {
-    "Name": "Polski",
-    "Filename": "pl"
-  }
-]
+[{"Name":"English","Filename":"en"},{"Name":"中文","Filename":"cn"},{"Name":"Pусский","Filename":"ru"},{"Name":"Polski","Filename":"pl"}]
