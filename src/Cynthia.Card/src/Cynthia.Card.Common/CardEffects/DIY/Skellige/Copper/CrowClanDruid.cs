@@ -19,7 +19,7 @@ namespace Cynthia.Card
             var rowlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
             if(crowlist.Count() == 0 && rowlist.Count < Game.RowMaxCount)
             {
-                await Game.CreateCard(CardId.Crow, PlayerIndex, Card.GetLocation());
+                await Game.CreateCard(CardId.Crow, PlayerIndex, Card.GetLocation()+1);
             }
         }
     }

@@ -8,7 +8,7 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 namespace Cynthia.Card
 {
     [CardEffectId("70003")] //哈蒙德
-    public class Hammond : Choose
+    public class Hammond : Choose, IHandlesEvent<BeforeCardDamage>
     {//己方半场同排单位免疫来自灾厄的伤害。择一：生成一张史凯利格铜色机械单位；或使战场上所有友方机械获得3点强化。
         private const int StrengthenPoint = 2;
         //择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。

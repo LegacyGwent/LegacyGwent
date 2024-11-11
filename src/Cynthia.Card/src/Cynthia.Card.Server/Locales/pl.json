@@ -223,6 +223,29 @@
         "CardTag_Token": "Token",
         "CardTag_Agent": "Agent",
         "CardTag_ClanBrokvar": "Klan Brokvar",
+        "CardTag_Human": "Human",
+        "CardTag_Bomb": "Bomb",
+        "CardTag_Druid": "Druid",
+        "CardTag_Nature": "Nature",
+        "CardTag_Warfare": "Warfare",
+        "CardTag_Bandit": "Bandit",
+        "CardTag_Demon": "Demon",
+        "CardTag_Mutant": "Mutant",
+        "CardTag_Aristocrat": "Aristocrat",
+        "CardTag_Plant": "Plant",
+        "CardTag_Halfling": "Halfling",
+        "CardTag_Knight": "Knight",
+        "CardTag_Location": "Location",
+        "CardTag_Scenario": "Scenario",
+        "CardTag_Cleric": "Cleric",
+        "CardTag_Pirate": "Pirate",
+        "CardTag_Firesworn": "Firesworn",
+        "CardTag_Trap": "Trap",
+        "CardTag_Gnome": "Gnome",
+        "CardTag_Treant": "Treant",
+        "CardTag_Naiad": "Naiad",
+        "CardTag_Raid": "Raid",
+        "CardTag_Crime": "Crime",
         "CardTag_Test": "Test",
         "ShupeKnight_1_Strengthen": "Wzmocnij się do 25.",
         "ShupeKnight_2_Resilience": "Wytrzymałość.",
@@ -277,7 +300,9 @@
         "BlackBlood_2_DestroyVampire": "Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
         "Sihil_1_DamageOdd": "Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile.",
         "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
-        "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii."
+        "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii.",
+        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
     },
     "CardLocales": {
         "12001": {
@@ -1187,7 +1212,7 @@
         },
         "24014": {
             "Name": "Utopiec",
-            "Info": "Rozmieszczenie: Przenieś wroga do rzędu przeciwnego wobec tej jednostki i zadaj mu 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Zagrożenia, zamiast tego zadaj 4 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Przenieś wroga do rzędu przeciwnego wobec tej jednostki i zadaj mu 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Zagrożenia, zamiast tego zadaj 5 pkt obrażeń.",
             "Flavor": "Chociaż wiedźmak wielce chciwy a na złoto łasy, nie dać onemu za utopca więcej jak srebrny grosz albo półtorak."
         },
         "24015": {
@@ -1667,7 +1692,7 @@
         },
         "34021": {
             "Name": "Zwiadowca",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o siłę bazową wybranej ujawnionej brązowej lub srebrnej jednostki.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
             "Flavor": "Północ nie posiada niczego, czym mogłaby nas zaskoczyć."
         },
         "34022": {
@@ -2502,7 +2527,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń wrogowi i sąsiadującym z nim jednostkom. Jeśli jednostka była już uszkodzona, zniszcz ją.",
+            "Info": "Rozmieszczenie: Wybierz jednostke. Jeśli jest zraniona zniszcz ją. Jeśli nie zadawaj 2pkt obrażeń aż będzie zraniona.",
             "Flavor": "Krew dla Svalbloda! Czaszki na jego tron!"
         },
         "62004": {
@@ -2677,7 +2702,7 @@
         },
         "64005": {
             "Name": "Berserker Maruder",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 1 za każdego rannego lub Przeklętego sojusznika.",
+            "Info": "Rozmieszczenie: Wzmocnij te jednostkę o 1 za każdego rannego sojusznika, następnie wzmocnij ją o 1 za każdego przeklętego sojusznika.",
             "Flavor": "Nie lekceważ ich, nawet młodsze osobniki są niebezpieczne."
         },
         "64006": {
@@ -2717,7 +2742,7 @@
         },
         "64013": {
             "Name": "Wściekły Berserker",
-            "Info": "Za każdym razem, gdy ta jednostka zostanie zraniona lub osłabiona, przemień ją we Wściekłego Niedźwiedzia (Wściekły Niedźwiedź; 14 pkt siły).",
+            "Info": "Za każdym razem, gdy ta jednostka zostanie zraniona lub osłabiona, przemień ją we Wściekłego Niedźwiedzia (Wściekły Niedźwiedź; 13 pkt siły).",
             "Flavor": "Chcesz dostać toporkiem?"
         },
         "64014": {
@@ -2867,7 +2892,7 @@
         },
         "70002": {
             "Name": "Detlaff Wampir Wyższy",
-            "Info": "Rozmieszczenie: Wybierz: Zagraj brązową jednostkę z Twojej talii z siłą równą lub mniejszą sile tej karty i wyślij ją na cmentarz na koniec Twojej tury; lub pochłoń brązową jednostkę z Twojej talii i wzmocnij się o jej siłę.",
+            "Info": "Rozmieszczenie: Wybierz brązową jednostke w Twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
             "Flavor": ""
         },
         "70003": {
@@ -2922,7 +2947,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Odrzuć deszcz z Twojej talii, następnie stwórz deszcz w rzędzie tej jednostki i przeciwnym rzędzie.",
+            "Info": "Odrzuć Ulewny Deszcz i zastosuj Ulewny Deszcz po obu stronach, jeśli w twojej talii nie ma Ulewnych Deszczy, zadaj sobie obrażenia o 4 i zastosuj Ulewny Deszcz po obu stronach.",
             "Flavor": ""
         },
         "70014": {
@@ -3002,7 +3027,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "Na koniec rundy, wskrześ tę jednostkę do losowego rzędu i ulepsz ją o 1.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
             "Flavor": ""
         },
         "70039": {
@@ -3192,7 +3217,7 @@
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Zagraj losowy przedmiot z Twojej talii. Zwiększ wszystkie obrażenia tego przedmiotu o 1.",
+            "Info": "Play a random item or choose and play a Scoia'tael item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
@@ -3262,7 +3287,7 @@
         },
         "70112": {
             "Name": "Pierwotna Dzicz",
-            "Info": "Deal 4 Damage to an ally, then play a Bronze Cultist card from your deck, then strengthen the unit played by 2.",
+            "Info": "Zadaj 4pkt obrażeń sojusznikowi, następnie zagraj jedną z dwóch brązowych jednostek kultystów z Twojej talii. Wzmocnij ją o 1.",
             "Flavor": ""
         },
         "70113": {
@@ -3366,8 +3391,8 @@
             "Flavor": "只要他继续为正义而战，骑士团和烈焰就永不熄灭。"
         },
         "70134": {
-            "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.",
+            "Name": "Adeptka Klanu Kruka",
+            "Info": "Rozmieszczenie: Na koniec tury, jeśli w tym rzędzie nie ma wrony stwórz wrone po prawej stronie (Wrona; 2 siły; Zemsta: Zadaj 3pkt obrażeń losowemu wrogowi)",
             "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
         },
         "70135": {
@@ -3477,7 +3502,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
+            "Info": "Deal 7 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
@@ -3532,7 +3557,7 @@
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armors and Boost it by 1.",
+            "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armor.",
             "Flavor": ""
         },
         "80001": {

@@ -223,6 +223,30 @@
         "CardTag_Token": "Token",
         "CardTag_Agent": "Agent",
         "CardTag_ClanBrokvar": "Klan Brokvar",
+        "CardTag_Human": "Human",
+        "CardTag_Bomb": "Bomb",
+        "CardTag_Druid": "Druid",
+        "CardTag_Nature": "Nature",
+        "CardTag_Warfare": "Warfare",
+        "CardTag_Specter": "Specter",
+        "CardTag_Bandit": "Bandit",
+        "CardTag_Demon": "Demon",
+        "CardTag_Mutant": "Mutant",
+        "CardTag_Aristocrat": "Aristocrat",
+        "CardTag_Plant": "Plant",
+        "CardTag_Halfling": "Halfling",
+        "CardTag_Knight": "Knight",
+        "CardTag_Location": "Location",
+        "CardTag_Scenario": "Scenario",
+        "CardTag_Cleric": "Cleric",
+        "CardTag_Pirate": "Pirate",
+        "CardTag_Firesworn": "Firesworn",
+        "CardTag_Trap": "Trap",
+        "CardTag_Gnome": "Gnome",
+        "CardTag_Treant": "Treant",
+        "CardTag_Naiad": "Naiad",
+        "CardTag_Raid": "Raid",
+        "CardTag_Crime": "Crime",
         "CardTag_Test": "Test",
         "ShupeKnight_1_Strengthen": "Wzmocnij się do 25.",
         "ShupeKnight_2_Resilience": "Wytrzymałość.",
@@ -2922,7 +2946,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Odrzuć deszcz z Twojej talii, następnie stwórz deszcz w rzędzie tej jednostki i przeciwnym rzędzie.",
+            "Info": "Odrzuć Ulewny Deszcz i zastosuj Ulewny Deszcz po obu stronach, jeśli w twojej talii nie ma Ulewnych Deszczy, zadaj sobie obrażenia o 4 i zastosuj Ulewny Deszcz po obu stronach.",
             "Flavor": ""
         },
         "70014": {
@@ -3282,7 +3306,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Za każdym razem, gdy stworzysz ulewny deszcz, wskrześ tę jednostkę w losowym rzędzie.",
+            "Info": "Na koniec swojej tury, jeśli po przeciwnej stronie jest Deszcz, przenieś siebie do losowego sojuszniczego rzędu.",
             "Flavor": ""
         },
         "70117": {
