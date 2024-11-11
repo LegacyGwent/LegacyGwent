@@ -223,6 +223,29 @@
         "CardTag_Token": "退场",
         "CardTag_Agent": "密探",
         "CardTag_ClanBrokvar": "布洛克瓦尔家族",
+        "CardTag_Human": "人类",
+        "CardTag_Bomb": "炸弹",
+        "CardTag_Druid": "德鲁伊",
+        "CardTag_Nature": "自然",
+        "CardTag_Warfare": "战争",
+        "CardTag_Bandit": "匪徒",
+        "CardTag_Demon": "恶魔",
+        "CardTag_Mutant": "突变",
+        "CardTag_Aristocrat": "望族",
+        "CardTag_Plant": "植物",
+        "CardTag_Halfling": "半身人",
+        "CardTag_Knight": "骑士",
+        "CardTag_Location": "地点",
+        "CardTag_Scenario": "剧情",
+        "CardTag_Cleric": "传教士",
+        "CardTag_Pirate": "水手",
+        "CardTag_Firesworn": "火誓者",
+        "CardTag_Trap": "陷阱",
+        "CardTag_Gnome": "侏儒",
+        "CardTag_Treant": "树人",
+        "CardTag_Naiad": "水精",
+        "CardTag_Raid": "征战",
+        "CardTag_Crime": "罪行",
         "CardTag_Test": "测试",
         "ShupeKnight_1_Strengthen": "强化自身至25点",
         "ShupeKnight_2_Resilience": "坚韧",
@@ -2922,7 +2945,7 @@
         },
         "70013": {
             "Name": "堕落的佛兰明妮卡",
-            "Info": "丢弃牌组中的一张“倾盆大雨”，随后在自身双方同排降下“倾盆大雨”。",
+            "Info": "丢弃一场暴雨并在两侧各下一场暴雨，如果卡组中没有暴雨，则对自己造成 4 点伤害并在两侧下暴雨。",
             "Flavor": ""
         },
         "70014": {
@@ -3287,7 +3310,7 @@
         },
         "70116": {
             "Name": "尖啸女海妖",
-            "Info": "每当在对方半场降下“倾盆大雨”，复活自身至随机排。",
+            "Info": "在你的回合结束时，如果对面有雨，将自己复活到随机的盟军行列。",
             "Flavor": ""
         },
         "70117": {

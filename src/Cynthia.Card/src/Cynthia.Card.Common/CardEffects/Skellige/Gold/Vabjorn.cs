@@ -10,19 +10,24 @@ namespace Cynthia.Card
         public Vabjorn(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var result = await Game.GetSelectPlaceCards(Card, range: 1);
-            if (result.Count <= 0) return 0;
-                foreach (var card in result.Single().GetRangeCard(1).ToList())
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            if (!selectList.TrySingle(out var target))
+            {
+                return 0;
+            }
+            if (target.Status.HealthStatus >= 0)
+                {
+                    while (target.Status.HealthStatus >= 0)           
                     {
-                        if (card.Status.HealthStatus >= 0)
-                        {
-                            await card.Effect.Damage(2, Card);
-                        }
-                        else if (card.Status.HealthStatus < 0)
-                        {
-                        await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
-                        }
+                        await target.Effect.Damage(2, Card, BulletType.FireBall);
                     }
+                    return 0;
+                }
+
+            else if (target.Status.HealthStatus < 0)
+            {
+                await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            }
             return 0;
         }
     }

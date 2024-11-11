@@ -44,7 +44,7 @@ namespace Cynthia.Card
             if (target.Count == 0) return 0;
             await target.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
             await Boost(5, Card);
-            return 1;
+            return 0;
         }
 
         private async Task<int> FUNCTION2()

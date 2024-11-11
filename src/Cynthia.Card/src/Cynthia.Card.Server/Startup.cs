@@ -22,7 +22,10 @@ namespace Cynthia.Card.Server
             services.AddControllers();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSignalR();
+            services.AddSignalR().AddHubOptions<GwentHub>(options =>
+            {
+                options.ClientTimeoutInterval = TimeSpan.FromSeconds(90);
+            });
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
             services.AddSingleton<GwentCardDataService>();
@@ -54,7 +57,7 @@ namespace Cynthia.Card.Server
                 endpoints.MapHub<GwentHub>("/hub/gwent");
             });
         }
-        
+
         private string GetConnectionString()
         {
             string variable = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING");

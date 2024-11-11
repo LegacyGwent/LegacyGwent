@@ -72,6 +72,29 @@ namespace Cynthia.Card
         Token,          //退场
         Agent,          //密探
         ClanBrokvar,    //布洛克瓦尔家族
+        Human,          //人类 
+        Bomb,           //炸弹
+        Druid,          //德鲁伊
+        Nature,         //自然
+        Warfare,        //战争
+        Bandit,         //匪徒
+        Demon,          //恶魔
+        Mutant,         //突变
+        Aristocrat,     //望族
+        Plant,          //植物
+        Halfling,       //半身人
+        Knight,         //骑士
+        Location,       //地点
+        Scenario,       //剧情
+        Cleric,         //传教士
+        Pirate,         //水手
+        Firesworn,      //火誓者
+        Trap,           //陷阱
+        Gnome,          //侏儒
+        Treant,         //树人
+        Naiad,          //水精
+        Raid,           //征战
+        Crime,          //罪行
         Test,           //测试
     }
 }

@@ -14,7 +14,7 @@ namespace Cynthia.Card
                 (Card, filter: x => x.Status.IsReveal && (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver), selectMode: SelectModeType.AllHand);
             if (result.Count() == 0) return 0;
             var point = result.Single().Status.Strength;
-            await Card.Effect.Boost(point, Card);
+            await Card.Effect.Boost(point/2, Card);
             return 0;
         }
     }

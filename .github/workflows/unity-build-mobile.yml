@@ -39,7 +39,7 @@ jobs:
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
           allowDirtyBuild: true
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: DiyGwent-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 101);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 106);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -146,6 +146,29 @@ namespace Cynthia.Card
             { Categorie.Token, "Token" },
             { Categorie.Agent, "Agent" },
             { Categorie.ClanBrokvar, "ClanBrovkar" },
+            { Categorie.Human, "Human" },
+            { Categorie.Bomb, "Bomb" },
+            { Categorie.Druid, "Druid" },
+            { Categorie.Nature, "Nature" },
+            { Categorie.Warfare, "Warfare" },
+            { Categorie.Bandit, "Bandit" },
+            { Categorie.Demon, "Demon" },
+            { Categorie.Mutant, "Mutant" },
+            { Categorie.Aristocrat, "Aristocrat" },
+            { Categorie.Plant, "Plant" },
+            { Categorie.Halfling, "Halfling" },
+            { Categorie.Knight, "Knight" },
+            { Categorie.Location, "Location" },
+            { Categorie.Scenario, "Scenario" },
+            { Categorie.Cleric, "Cleric" },
+            { Categorie.Pirate, "Pirate" },
+            { Categorie.Firesworn, "Firesworn" },
+            { Categorie.Trap, "Trap" },
+            { Categorie.Gnome, "Gnome" },
+            { Categorie.Treant, "Treant" },
+            { Categorie.Naiad, "Naiad" },
+            { Categorie.Raid, "Raid" },
+            { Categorie.Crime, "Crime" },
             { Categorie.Test, "Test" },
         };
 
@@ -3871,7 +3894,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Necrophage},
                     Flavor = "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。",
-                    Info = "将1个敌军单位拖至对方同排，对其造成2点伤害，若目标排处于灾厄之下，则伤害提高至4点。",
+                    Info = "将1个敌军单位拖至对方同排，对其造成2点伤害，若目标排处于灾厄之下，则伤害提高至5点。",
                     CardArtsId = "13231400",
                 }
             },
@@ -5753,7 +5776,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34021",
                     Name="侦察员",
-                    Strength=5,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5763,7 +5786,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "北方佬耍不出花招了。",
-                    Info = "获得等同于1张被揭示铜色/银色单位牌基础战力的增益。",
+                    Info = "侦察兵:获得等同于1张被揭示铜色/银色单位牌基础战力一半（向下取整）的增益。",
                     CardArtsId = "16230300",
                 }
             },
@@ -9074,7 +9097,7 @@ namespace Cynthia.Card
                 {
                     CardId ="62003",
                     Name="维伯约恩",
-                    Strength=8,
+                    Strength=11,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9084,7 +9107,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Cultist},
                     Flavor = "为了斯瓦勃洛！",
-                    Info = "“部署： 对敌人及其相邻单位造成 2 点伤害。如果某个单位已经受到伤害，则摧毁该单位。",
+                    Info = "选择一个敌方单位，如果其已经受伤，则直接摧毁它，否则对其造成2点伤害直至其受伤。",
                     CardArtsId = "20002800",
                 }
             },
@@ -9778,7 +9801,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64005",
                     Name="狂战士掠夺者",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9788,7 +9811,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Soldier,Categorie.Cultist},
                     Flavor = "把汤乖乖喝完，不然狂战士就会过来，把你给掳走。",
-                    Info = "场上每有1个受伤、或为“诅咒生物”的友军单位，便获得1点增益。",
+                    Info = "场上每有一个受伤单位或“诅咒生物”则获得1点增益，若该受伤单位为“诅咒生物”，则获得2点增益。",
                     CardArtsId = "15230200",
                 }
             },
@@ -10398,7 +10421,7 @@ namespace Cynthia.Card
                 {
                     CardId ="65002",
                     Name="狂暴的熊",
-                    Strength=14,
+                    Strength=13,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10821,7 +10844,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（25战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
+                    Info = "生成一张湖中仙女（24战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
                 }
             },
@@ -10861,7 +10884,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
                     Flavor = "",
-                    Info = "丢弃牌组中的一张倾盆大雨，随后在双方同排降下倾盆大雨。",
+                    Info = "丢弃一场暴雨并在两侧各下一场暴雨，如果卡组中没有暴雨，则对自己造成 4 点伤害并在两侧下暴雨。",
                     CardArtsId = "d16740000",
                 }
             },
@@ -10899,7 +10922,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Dryad},
+                    Categories = new Categorie[]{ Categorie.Dryad,Categorie.Soldier},
                     Flavor = "",
                     Info = "回合结束时，若同排敌军单位数量为4，则对同排所有敌军单位造成1点伤害。",
                     CardArtsId = "d14380000",
@@ -11202,7 +11225,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "回合结束时，复活至随机排，战力不高于13点时获得1点强化。",
+                    Info = "西格瓦尔德:回合结束时，复活至随机排。当基础战力高于10时，削弱自身至10点。",
                     CardArtsId = "d16710000",
                 }
             },
@@ -11850,7 +11873,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
                     Flavor = "",
-                    Info = "对一个友军单位造成4点伤害，随后从牌组打出一张铜色“呓语”牌并使其获得2点强化。",
+                    Info = "对一个非“呓语”友方单位造成3点伤害，随后检视牌组中2张“呓语”牌，选择打出其中1张，并使其获得1点强化。",
                     CardArtsId = "d17750000",
                 }
             },
@@ -11930,7 +11953,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排",
+                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排。",
                     CardArtsId = "d17790000",
                 }
             },
@@ -13006,7 +13029,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098",
                     Name="维里赫德旅破坏者",
-                    Strength=1,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13016,7 +13039,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
                     Flavor = "上头有命令，要关上大门。可它们纹丝不动……",
-                    Info = "随机从牌组打出1张铜色道具牌，使其造成的伤害提升1点。",
+                    Info = "维里赫德旅破坏者:择一:随机打出1张铜色道具牌:或从牌组中打出1张铜色松鼠党道具牌。",
                     CardArtsId = "d20160000",
                 }
             },
@@ -13026,7 +13049,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70099",
                     Name="斯瓦勃洛",
-                    Strength=11,
+                    Strength=9,
                     Group=Group.Leader,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13036,7 +13059,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Beast},
                     Flavor = "斯瓦勃洛唯一的戒律：屠戮。",
-                    Info = "对牌组中的所有单位牌造成2点伤害，随后使其获得2点强化。",
+                    Info = "对牌组中所有单位造成2点伤害，随后强化2点。若该单位位于牌组中且战力不大于2，直接进入墓地；若该单位位于手牌且战力不大于2，战力被设为1.",
                     CardArtsId = "d16650000",
                 }
             },
@@ -13335,7 +13358,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Lyria},
+                    Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "陛下……女王去向百姓问话。这，不妥呀。",
                     Info = "交换2个敌军单位的基础战力。",
                     CardArtsId = "d14800000",
@@ -13397,7 +13420,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "先贤声称动物愚昧无知——纯属胡说八道。",
-                    Info = "回合结束时，若同排没有乌鸦则在左侧生成一个乌鸦。",
+                    Info = "回合结束时，若同排没有乌鸦，则在右侧生成一个乌鸦。",
                     CardArtsId = "d20110000",
                 }
             },
@@ -13837,7 +13860,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Item,Categorie.Special},
                     Flavor = "无坚不摧，无甲不破。",
-                    Info = "对一个敌军单位造成8点伤害（无视护甲），若其具有增益则改为10点。",
+                    Info = "穿甲弹:对1个敌军单位造成造成7点伤害（无视护甲)，若其具有增益则改为造成10点伤害。",
                     CardArtsId = "d19500000",
                 }
             },
@@ -14015,9 +14038,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special},
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
                     Flavor = "",
-                    Info = "将墓场3张银色/铜色矮人牌返回牌组，随后打出1张铜色矮人牌。位于墓场时，使己方打出的矮人单位获得1点护甲与1点增益。",
+                    Info = "卓尔坦的伙伴:将墓场3张铜色/银色矮人牌返回牌组，随后从牌组中打出1张铜色矮人牌。位于墓场时，使已方打出的矮人单位获得1点护甲。",
                     CardArtsId = "d19230000",
                 }
             },

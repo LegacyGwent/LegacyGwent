@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-
 namespace Cynthia.Card
 {
     [CardEffectId("70116")]//尖啸女海妖 DeafeningSiren
@@ -17,7 +16,7 @@ namespace Cynthia.Card
                 {
                     await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
                 }
-                
+
                 return;
             }
             return;
