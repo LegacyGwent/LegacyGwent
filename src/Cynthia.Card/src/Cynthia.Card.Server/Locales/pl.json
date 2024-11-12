@@ -312,7 +312,7 @@
         },
         "12002": {
             "Name": "Geralt Igni",
-            "Info": "Rozmieszczenie: Zniszcz najsilniejsze jednostki we wrogim rzędzie, jeśli jego całkowita siła wynosi 25 lub więcej.",
+            "Info": "Rozmieszczenie: Zniszcz najsilniejsze jednostki we wrogim rzędzie, jeśli całkowita siła rzędu wynosi 25 lub więcej.",
             "Flavor": "Było wielu takich, którzy lekceważyli wiedźmińskie znaki. Każdy, kto poczuł na swojej skórze Znak Igni, szybko zmienił zdanie na ten temat."
         },
         "12003": {
@@ -332,7 +332,7 @@
         },
         "12006": {
             "Name": "Saskia Smoczy Ogień",
-            "Info": "Rozmieszczenie: banicja karty ze swojej ręki i dobierz tyle samo kart.",
+            "Info": "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart.",
             "Flavor": "Odziedziczyłam po ojcu zdolność polimorfii, choć potrafię przemieniać się jedynie w jedną postać."
         },
         "12007": {
@@ -347,7 +347,7 @@
         },
         "12009": {
             "Name": "Miód Przodków",
-            "Info": "Rozmieszczenie: Rzuć Złocistą Pianę na ten rząd. Powtórz tę zdolność gdy się przemieszcze i zadaj sobie 4 pkt obrażeń",
+            "Info": "Rozmieszczenie: Rzuć Złocistą Pianę na ten rząd. Powtórz tę zdolność gdy ta karta się przemieści i zadaj jej 4 pkt obrażeń",
             "Flavor": "Legendarny przodek klanu Fuchsów ponoć utopił się w górskim strumyku po spożyciu zbyt dużej ilości tego trunku."
         },
         "12010": {
@@ -357,7 +357,7 @@
         },
         "12011": {
             "Name": "Jaskier Przechwałki",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 3 pkt za każdą kartę Geralta, Yennefer, Triss i Zoltana w twojej talii początkowej.",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 3 pkt za każdą złotą kartę Geralta, Yennefer, Triss i Zoltana w twojej talii początkowej.",
             "Flavor": "Jaskier opowiadał mi o waszych przygodach. Jak zagrzewał cię śpiewem do walki, jak okiełznał kejrana grą na lutni..."
         },
         "12012": {
@@ -372,7 +372,7 @@
         },
         "12014": {
             "Name": "Triss Motyle",
-            "Info": "Wzmocnij najsłabszych sojuszników o 1 na koniec tury.",
+            "Info": "Na koniec tury Wzmocnij najsłabszych sojuszników o 1.",
             "Flavor": "Kapitanie... nasze strzały, one... mają skrzydła!"
         },
         "12015": {
@@ -422,7 +422,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Rozmieszczenie: Wybierz: Stwórz Jednorożca, który wzmacnia wszystkie inne jednostki o 2 lub Stwórz Chironexa, który zadaje wszystkim innym jednostkom 2 pkt obrażeń.\nJednorożec; 1 Siły)\n(Chirone; 4 Siły)",
+            "Info": "Rozmieszczenie: Wybierz: Stwórz Jednorożca, który wzmacnia wszystkie inne jednostki o 2 lub Stwórz Chironexa, który zadaje wszystkim innym jednostkom 2 pkt obrażeń.\nJednorożec; 1 Siły)\n(Chironex; 4 Siły)",
             "Flavor": "Odziana w kompozycję czerni i bieli, przywodziła na myśl grudniowy poranek."
         },
         "12025": {
@@ -432,7 +432,7 @@
         },
         "12026": {
             "Name": "Triss Telekineza",
-            "Info": "Rozmieszczenie: Utwórz brązową kartę specjalną z talii początkowej dowolnego gracza.",
+            "Info": "Rozmieszczenie: Utwórz brązową kartę specjalną z talii początkowych obu graczy.",
             "Flavor": "Nie wystarczy, że ją zwiążesz... Możesz nawet zakneblować wiedźmę, a i tak jest niebezpieczna. Dwimeryt to jedyne rozwiązanie."
         },
         "12027": {
@@ -452,7 +452,7 @@
         },
         "12030": {
             "Name": "Aguara Lisica",
-            "Info": "Rozmieszczenie: Utwórz dowolną brązową lub srebrną kartę Zaklęcia.",
+            "Info": "Rozmieszczenie: Utwórz brązową lub srebrną kartę Zaklęcia.",
             "Flavor": "Wiesz, co to jest anterion? To jakby przeciwieństwo likantropa, bestia która przyjmuje ludzką postać."
         },
         "12031": {
