@@ -497,7 +497,7 @@
         },
         "12039": {
             "Name": "Klątwa Umy",
-            "Info": "Utwórz dowolną złotą jednostkę, która nie jest Dowódcą.",
+            "Info": "Utwórz złotą jednostkę, która nie jest Dowódcą.",
             "Flavor": "Daję ci trzy świeże tropy. Oferuję pomoc wywiadu i nadwornej czarodziejki. A ty zamiast córki przywozisz mi jakąś... Pokrakę?"
         },
         "12040": {
@@ -517,7 +517,7 @@
         },
         "13001": {
             "Name": "Płotka",
-            "Info": "Za każdym razem, gdy zagrasz złotą jednostkę, wezwij tę jednostkę do losowego rzędu.",
+            "Info": "Za każdym razem, gdy zagrasz lojalną złotą jednostkę, wezwij tę jednostkę do losowego rzędu po Twojej stronie.",
             "Flavor": "Bez urazy, Geralt, ale musimy porozmawiać na temat tego, jak mną kierujesz."
         },
         "13002": {
@@ -547,12 +547,12 @@
         },
         "13007": {
             "Name": "Stregobor",
-            "Info": "Rozmieszczenie, Jednorazowa: Rozejm: Każdy gracz dobiera jednostkę i zmienia jej siłę na 1.",
+            "Info": "Rozmieszczenie, Jednorazowa, Rozejm: Każdy gracz dobiera jednostkę i zmienia jej siłę na 1.",
             "Flavor": "Wiedźmin spotykał w życiu złodziei wyglądających jak rajcy miejscy, rajców wyglądających jak proszalne dziady, i królów wyglądających jak złodzieje. A Stregobor zawsze wyglądał tak, jak wedle wszystkich prawideł i wyobrażeń winien wyglądać czarodziej."
         },
         "13008": {
             "Name": "Janek",
-            "Info": "Rozmieszczenie: Odrzuć kartę, a następnie wytwórz w swojej ręce standardowy egzemplarz losowej karty tego samego koloru z początkowej talii przeciwnika.",
+            "Info": "Rozmieszczenie: Odrzuć kartę, a następnie dodaj do Twojej ręki standardowy egzemplarz losowej karty tego samego koloru z początkowej talii przeciwnika.",
             "Flavor": "Życie bez napawania się brzmieniem bisiora racicznicy jest jak lizanie ślimaków przez sukno."
         },
         "13009": {
@@ -562,7 +562,7 @@
         },
         "13010": {
             "Name": "Ocvist",
-            "Info": "Jednorazowa: Po 4 turach zadaj wszystkim wrogom 1 pkt obrażeń, a następnie cofnij tę jednostkę do ręki na początku tury.",
+            "Info": "Jednorazowa: Po 4 turach na początku tury zadaj wszystkim wrogom 1 pkt obrażeń, a następnie cofnij tę jednostkę do Twojej ręki.",
             "Flavor": "Pan na Kwarcowej Górze, Niszczyciel, Zagłada Traiana. Prywatnie lubi długie spacery i rozmowy przy świetle księżyca."
         },
         "13011": {
@@ -592,7 +592,7 @@
         },
         "13016": {
             "Name": "Operator",
-            "Info": "Rozmieszczenie Jednorazowa Rozejm: Stwórz standardowy egzemplarz brązowej jednostki z twojej ręki w rękach obu graczy.",
+            "Info": "Rozmieszczenie, Jednorazowa, Rozejm: Stwórz standardowy egzemplarz brązowej jednostki z twojej ręki w rękach obu graczy.",
             "Flavor": "Gdy czas i przestrzeń przed nami się kurczą, to rozszerzają się za nami. W ten sposób idzie się naprzód w czasie i przestrzeni."
         },
         "13017": {
@@ -612,7 +612,7 @@
         },
         "13020": {
             "Name": "Dorregaray z Vole",
-            "Info": "Rozmieszczenie: stwórz Zdziczałego niedźwiedzia, Wiwerne, Barbegazi, lub Utopca.",
+            "Info": "Rozmieszczenie: Stwórz Zdziczałego niedźwiedzia, Wiwerne, Barbegazi, lub Utopca.",
             "Flavor": "Dorregaray prześciga w fanaberiach nawet wiedźminów. Nie poprzestaje na dzieleniu potworów na dobre i złe. Uważa, że wszystkie są dobre."
         },
         "13021": {
@@ -642,7 +642,7 @@
         },
         "13026": {
             "Name": "Zwierciadło Bekkera",
-            "Info": "Wymień do 11 pkt siły między najsilniejszą i najsłabszą jednostką.",
+            "Info": "Przenieś do 11 pkt siły między najsilniejszą i najsłabszą jednostką.",
             "Flavor": "Gdy długo spoglądamy w otchłań, otchłań spogląda również w nas."
         },
         "13027": {
