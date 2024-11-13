@@ -58,7 +58,7 @@ namespace Cynthia.Card
                 return;
             }
             // weaken/strengthen is there to update the immune tag
-            await Card.Effect.Strength(1,Card);
+            await Card.Effect.Strengthen(1,Card);
             await Card.Effect.Weaken(1,Card);
             Card.Status.IsImmue = false;
             return;
