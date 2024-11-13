@@ -14044,6 +14044,87 @@ namespace Cynthia.Card
                     CardArtsId = "d19230000",
                 }
             },
+            {
+                "70168",// OgreWarrior
+                new GwentCard()
+                {
+                    CardId ="70168",
+                    Name="食人魔战士",
+                    Strength=13,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Ogroid},
+                    Flavor = "你！蠢货！肉排！",
+                    Info = "xx",
+                    CardArtsId = "203267",
+                }
+            },
+            {
+                "70169",// NekkerSwarm
+                new GwentCard()
+                {
+                    CardId ="70169",
+                    Name="xxxx",
+                    Strength=2,
+                    Countdown=2,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Ogroid},
+                    Flavor = "",
+                    Info = "xxxx",
+                    CardArtsId = "r10100000",
+                }
+            },
+            {
+                "70170",// CloudGiant
+                new GwentCard()
+                {
+                    CardId ="70170",
+                    Name="xxxxx",
+                    Strength=10,
+                    Group=Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Ogroid},
+                    Flavor = "",
+                    Info = "xxx",
+                    CardArtsId = "c10000900",
+                }
+            },
+            {
+                "70171",// GiantsBelt
+                new GwentCard()
+                {
+                    CardId ="70171",
+                    Name="巨人力量腰带",
+                    Strength=0,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
+                    Flavor = "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。",
+                    Info = "xxx",
+                    CardArtsId = "203266",
+                }
+            },
         };
     }
 }

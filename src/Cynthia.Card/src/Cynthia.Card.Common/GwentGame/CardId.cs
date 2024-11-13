@@ -646,5 +646,9 @@ namespace Cynthia.Card
         public const string IronFalconTroubadour = "89006";
         public const string IronFalconKnifeJuggler = "89007";
         public const string SoldierTrain = "89008";
+        public const string OgreWarrior = "70168";
+        public const string NekkerSwarm = "70169";
+        public const string CloudGiant = "70170";
+        public const string GiantsBelt = "70171";
     }
 }
