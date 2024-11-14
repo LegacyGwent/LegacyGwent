@@ -3599,6 +3599,26 @@
             "Name": "SoldierTrain",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
             "Flavor": "The goddess occasionally protects some new recruits。"
+        },
+        "70168": {
+            "Name": "Огр-воин",
+            "Info": "В конце хода, если союзный отряд не является самым сильным на поле, нанесите себе половину урона от своей текущей силы.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Рой Накеров",
+            "Info": "В конце хода, если ни один вражеский отряд не сильнее союзного  огроида, уменьшите счетчик первой копии этого отряда на 1. Когда он достигнет 0, вызовите себя в случайном ряду и усильте случайного союзника на 1.",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Облачный Великан",
+            "Info": "Стойкость. Размещение: если союзный отряд является самым сильным на поле, получите иммунитет. Если отряд противника сильнее, вы теряете иммунитет. В начале хода повторите способность «Размещение.».",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Пояс великаньей силищи",
+            "Info": "Усильте союзый отряд на его базовую силу. Если это Огроид, помимо усиления укрепите его на 2 ед.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         }
     }
 }

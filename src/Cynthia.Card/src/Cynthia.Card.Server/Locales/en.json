@@ -3599,6 +3599,26 @@
             "Name": "Fresh Recruit",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power.",
             "Flavor": "The goddess occasionally protects some new recruits。"
+        },
+        "70168": {
+            "Name": "Ogre Warrior",
+            "Info": "On turn end, damage self by half on turn end if you don't have the higest unit.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Nekker Swarm",
+            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the first copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Cloud Giant",
+            "Info": "if you control the highest unit, gain Immunity. If you don't, loose Immunity. On turn start repeat Deploy ability./nResilient",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Gient's Belt",
+            "Info": "Boost an ally by its base Power,if it is an Ogroid, strengthen it by 2 before.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         }
     }
 }

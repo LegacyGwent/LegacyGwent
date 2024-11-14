@@ -14060,7 +14060,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "你！蠢货！肉排！",
-                    Info = "xx",
+                    Info = "回合结束时，如果未控制最高战力单位，则对自身造成一半战力的伤害。",
                     CardArtsId = "203267",
                 }
             },
@@ -14069,7 +14069,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70169",
-                    Name="xxxx",
+                    Name="水生孽鬼",
                     Strength=2,
                     Countdown=2,
                     Group=Group.Copper,
@@ -14081,7 +14081,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "",
-                    Info = "xxxx",
+                    Info = "计数2：回合结束时如果你拥有最高战力单位且是食人魔，位于牌组顺序最靠前的水生孽鬼计数-1，当计数为0时从卡组召唤自身到随机排，并随机增益友方单位1点。",
                     CardArtsId = "r10100000",
                 }
             },
@@ -14090,7 +14090,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70170",
-                    Name="xxxxx",
+                    Name="云顶巨人",
                     Strength=10,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
@@ -14101,7 +14101,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "",
-                    Info = "xxx",
+                    Info = "坚韧。部署：如果你拥有最高战力单位，则获得免疫，否则失去免疫。回合开始时重复部署效果。",
                     CardArtsId = "c10000900",
                 }
             },
@@ -14110,7 +14110,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70171",
-                    Name="巨人力量腰带",
+                    Name="巨人腰带",
                     Strength=0,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
@@ -14121,7 +14121,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
                     Flavor = "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。",
-                    Info = "xxx",
+                    Info = "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先强化2点。",
                     CardArtsId = "203266",
                 }
             },

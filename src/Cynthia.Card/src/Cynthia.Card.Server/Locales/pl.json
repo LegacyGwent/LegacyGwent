@@ -3599,6 +3599,26 @@
             "Name": "SoldierTrain",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
             "Flavor": "The goddess occasionally protects some new recruits。"
+        },
+        "70168": {
+            "Name": "Ogr Wojownik",
+            "Info": "Na koniec tury, jeśli nie kontrolujesz najsilniejszej jednostki, zadaj sobie obrażenia równe połowie swojej siły.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Rój Nekkerów",
+            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik pierwszej kopii tej jednostki w Twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Gigant z Chmur",
+            "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Pas Olbrzyma",
+            "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         }
     }
 }
