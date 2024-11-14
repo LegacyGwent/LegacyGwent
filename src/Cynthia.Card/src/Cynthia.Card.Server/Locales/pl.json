@@ -731,13 +731,13 @@
             "Flavor": "Kult Smoków jest ważną częścią codziennego życia w Zerrikani, nic więc dziwnego, że nazywają swoje uzbrojenie na ich cześć."
         },
         "13044": {
-            "Name": "Obsadzony Garnizon",
+            "Name": "Garnizon",
             "Info": "Utwórz brązową lub srebrną jednostkę z talii początkowej przeciwnika i wzmocnij ją o 2.",
             "Flavor": "Puk, puk, jest tam kto ?"
         },
         "14001": {
             "Name": "Rekonesans",
-            "Info": "Zobacz 2 brązowe jednostki ze swojej talii, a następnie zagraj 1 z nich.",
+            "Info": "Zobacz 2 losowe brązowe jednostki ze swojej talii, a następnie zagraj 1 z nich.",
             "Flavor": "Jeśli zwiadowcy nie wrócą, zawracamy. Parobkowie gadali, że w tym lesie wiewiórcy grasują..."
         },
         "14002": {
@@ -867,12 +867,12 @@
         },
         "14027": {
             "Name": "Chłopska Milicja",
-            "Info": "Stwórz 3 Chłopów w wybranym rzędzie.\n(Chłopska milicja; 3 pkt siły)",
+            "Info": "Stwórz 3 Chłopskie milicje w wybranym rzędzie.\n(Chłopska milicja; 3 pkt siły)",
             "Flavor": "My jesteśmy milicja. Porządku pilnujem."
         },
         "15001": {
             "Name": "Sklep Paladyn",
-            "Info": "Wyślij Sklepa do Cesarskiej Akademii Wojskowej. Ulepsz się do 25; Otrzymaj wytrzymałość; Stocz pojedynek z wrogiem; Zresetuj jednostkę; Zniszcz wszystkich wrogów z siłą 4 lub mniejszą",
+            "Info": "Wyślij Sklepa do Cesarskiej Akademii Wojskowej. Ulepsz się do 25; Otrzymaj wytrzymałość; Stocz pojedynek z wrogiem; Zresetuj jednostkę; Zniszcz wszystkich wrogów z siłą 3 lub mniejszą",
             "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
         },
         "15002": {
