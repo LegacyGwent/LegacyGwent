@@ -947,7 +947,7 @@
         },
         "21002": {
             "Name": "Królowa Krabopająków",
-            "Info": "Odporność. Rozmieszczenie: Pochłoń 3 sojuszników i wzmocnij tę jednostkę o ich siłę.",
+            "Info": "Rozmieszczenie: Pochłoń 3 sojuszników i wzmocnij tę jednostkę o ich siłę.\nOdporność.",
             "Flavor": "Dzieci odziedziczyły po niej urodę."
         },
         "21003": {
@@ -962,7 +962,7 @@
         },
         "21005": {
             "Name": "Ukryty",
-            "Info": "Rozmieszczenie: Wykradnij jednostce połowę siły i zablokuj ją.",
+            "Info": "Rozmieszczenie: Wykradnij jednostce połowę siły.",
             "Flavor": "Nikt, nawet inne wampiry wyższe, nie wie dokładnie jak stary jest Ukryty. Wiadomo jedynie, że nigdy, przenigdy, nie należy wchodzić mu w drogę."
         },
         "22001": {
@@ -982,7 +982,7 @@
         },
         "22004": {
             "Name": "Caranthir Ar-Feiniel",
-            "Info": "Rozmieszczenie: przenieś dwóch wrogów do przeciwległego rzędu i nałóż na nich Gryzący Mróz.",
+            "Info": "Rozmieszczenie: Przenieś dwóch wrogów do przeciwległego rzędu i nałóż na ten rząd Trzaskający Mróz.",
             "Flavor": "Złote dziecko, które wyrosło na zbrodniarza."
         },
         "22005": {
@@ -1022,12 +1022,12 @@
         },
         "22012": {
             "Name": "Prządka Inkantacja",
-            "Info": "Rozmieszczenie, Wybierz:Ulepsz wszystkie inne swoje Relikty gdziekolwiek są o 2 lub Zagraj brązowy lub srebrny Relikt ze swojej talii i ulepsz go o 2.",
+            "Info": "Rozmieszczenie, Wybierz: Ulepsz wszystkie sojusznicze Relikty gdziekolwiek są o 2, lub Zagraj brązowy lub srebrny Relikt ze swojej talii i ulepsz go o 2.",
             "Flavor": "Czuję twój ból, widzę twój strach."
         },
         "22013": {
             "Name": "Ge'els",
-            "Info": "Rozmieszczenie: Dobierz ze szczytu talii złotą i srebrną kartę. Zagraj jedną, a drugą przenieś na szczyt talii.",
+            "Info": "Rozmieszczenie: Dobierz złotą i srebrną kartę. Zagraj jedną, a drugą przenieś na szczyt talii.",
             "Flavor": "Obrazy służą przekazywaniu emocji, nie słów."
         },
         "22014": {
@@ -1037,7 +1037,7 @@
         },
         "23001": {
             "Name": "Przeraza",
-            "Info": "Szpieg. Jednorazowa: Rozmieszczenie: Przenieś wybranego wroga do tego rzędu i dobierz kartę.",
+            "Info": "Szpieg. Jednorazowa, Rozmieszczenie: Przenieś wybranego wroga do rzędu tej jednostki i dobierz kartę.",
             "Flavor": "Skąd ta nazwa? Poczekaj, aż ją zobaczysz."
         },
         "23002": {
@@ -1047,7 +1047,7 @@
         },
         "23003": {
             "Name": "Goliat",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 7.Za każdym razem, gdy ta jednostka odnosi obrażenia, zadaj jej 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 7. Za każdym razem, gdy ta jednostka odnosi obrażenia, zadaj jej 2 pkt obrażeń.",
             "Flavor": "Niektórzy mówią, że Goliat był niegdyś sławnym rycerzem. Niestety, któregoś dnia rozgniewał Panią Jeziora... A ta zmieniła go w potwora."
         },
         "23004": {
@@ -1057,7 +1057,7 @@
         },
         "23005": {
             "Name": "Ifrit",
-            "Info": "Rozmieszczenie: Stwórz 3 Pomniejsze Ifirty po prawej stronie tej jednostki.\n(Pomniejszy Ifryt; 1 pkt siły; Gdy przyzwany, zadaj 1 pkt obrażeń losowemu wrogowi)",
+            "Info": "Rozmieszczenie: Stwórz 3 Pomniejsze Ifirty po prawej stronie tej jednostki.\n(Pomniejszy Ifryt; 1 pkt siły; Gdy zostanie przyzwany, zadaj 1 pkt obrażeń losowemu wrogowi)",
             "Flavor": "No, teraz to się zrobi gorąco."
         },
         "23006": {
@@ -1077,7 +1077,7 @@
         },
         "23009": {
             "Name": "Jotunn",
-            "Info": "Rozmieszczenie: Przenieś 3 wrogów do rzędu przeciwnego wobec tej jednostki i zadaj im 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Trzaskającego Mrozu, zamiast tego zadaj im 3 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Przenieś 3 wrogów do przeciwnego rzędu i zadaj im 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Trzaskającego Mrozu, zamiast tego zadaj im 3 pkt obrażeń.",
             "Flavor": "Według starych skelligijskich legend, wyspami władał niegdyś straszliwy Król Gigantów - Jotunn. Zgładzony przez Hemdalla poprzysiągł powrócić, gdy nadejdzie Ragh Nar Rog."
         },
         "23010": {
@@ -1092,7 +1092,7 @@
         },
         "23012": {
             "Name": "Królewicz Ropuch",
-            "Info": "Rozmieszczenie: Dobierz jednostkę, a następnie pochłoń jednostkę ze swojej ręki i wzmocnij tę jednostkę o siłę pochłoniętej.",
+            "Info": "Rozmieszczenie: Dobierz jednostkę, a następnie pochłoń jednostkę ze swojej ręki i wzmocnij tę jednostkę o jej siłę.",
             "Flavor": "Duży. Zły. Paskudny. W kanałach siedzi."
         },
         "23013": {
@@ -1126,13 +1126,13 @@
             "Flavor": "Bój się nie ciemności, lecz światła."
         },
         "23019": {
-            "Name": "Trollica",
+            "Name": "Trollica z Vergen",
             "Info": "Rozmieszczenie: Zagraj brązową jednostkę z umiejętnością Zemsty ze swojej talii. Pochłoń ją i wzmocnij tę jednostkę o siłę bazową pochłoniętej jednostki.",
             "Flavor": "Koneserka zupy cebulowej na wywarze z elfa."
         },
         "23020": {
             "Name": "Runa Dziewanna",
-            "Info": "Utwórz brązową lub srebrną kartę Potwora.",
+            "Info": "Utwórz brązową lub srebrną kartę Potworów.",
             "Flavor": "Moje ostrze tnie... Cóż, ostrzej."
         },
         "23021": {
@@ -1142,7 +1142,7 @@
         },
         "23022": {
             "Name": "Pasożyt",
-            "Info": "Wybierz jedno:Zadaj wrogowi 12 pkt obrażeń lub Wzmocnij sojusznika o 12.",
+            "Info": "Wybierz jednostkę. Jeśli to wróg zadaj mu 12 pkt obrażeń, a jeśli sojusznik Wzmocnij go o 12.",
             "Flavor": "Łatwo wpada w oko."
         },
         "24001": {
@@ -1182,37 +1182,37 @@
         },
         "24008": {
             "Name": "Gryf",
-            "Info": "Rozmieszczenie: Aktywuj umiejętność zemsty wybranego brązowego sojusznika.",
+            "Info": "Rozmieszczenie: Aktywuj umiejętność zemsty brązowego sojusznika.",
             "Flavor": "Gryfy lubią pomęczyć. Jeść żywcem po kawałku."
         },
         "24009": {
             "Name": "Nekker Wojownik",
-            "Info": "Rozmieszczenie: Wybierz brązowego sojusznika i dodaj 2 jego egzemplarze do swojej talii.",
+            "Info": "Rozmieszczenie: Wybierz brązowego sojusznika i dodaj 2 jego kopie do swojej talii.",
             "Flavor": "Uważajcie panowie, pod tym mostem żyją nekkery."
         },
         "24010": {
             "Name": "Olbrzymi Krabopająk",
-            "Info": "Gdy pochłoniesz jednostkę, stwórz Młode Krabopająka w losowym rzędzie.\nPowtórz do  3 razy.\n(Młode Krabopająka; 3 pkt siły; Przyzwij wszystkie Młode Pająka z Twojej talii do tego rzędu)",
+            "Info": "Gdy pochłoniesz jednostkę, stwórz Młode Krabopająka w losowym rzędzie.\nPowtórz do  3 razy.\n(Młode Krabopająka; 3 pkt siły; Wezwij do tego rzędu wszystkie Krabopająki.)",
             "Flavor": "To... To się rusza!"
         },
         "24011": {
             "Name": "Zgnilec",
-            "Info": "Zemsta: Zadaj jednostkom w przeciwnym rzędzie 2 pkt obrażeń.",
+            "Info": "Zemsta: Zadaj wszystkim jednostkom w przeciwnym rzędzie 2 pkt obrażeń.",
             "Flavor": "Poczujesz je na długo zanim je zobaczysz."
         },
         "24012": {
             "Name": "Widłogon",
-            "Info": "Rozmieszczenie: Pochłoń 2 sojuszników i wzmocnij tę jednostkę o sumę ich siły.",
+            "Info": "Rozmieszczenie: Pochłoń 2 sojuszników i wzmocnij tę jednostkę o ich siłę.",
             "Flavor": "Ażeby widłogona zwabić, kozę powrozem do palika przywiąż i wśród listowia czem prędzej skryj się."
         },
         "24013": {
             "Name": "Archespor",
-            "Info": "Przenieś tę jednostkę do losowego rzędu i zadaj 1 pkt obrażeń losowemu wrogowi na początku tury. Zemsta: Zadaj losowemu wrogowi 4 pkt obrażeń.",
+            "Info": "Na początku tury przenieś tę jednostkę do losowego rzędu i zadaj 1 pkt obrażeń losowemu wrogowi. Zemsta: Zadaj losowemu wrogowi 4 pkt obrażeń.",
             "Flavor": "Wedle popularnego wierzenia, wyrastają w ziemi użyźnionej krwią umierających. Kwitną wszędzie tam, gdzie w przeszłości doszło do pogromów, krwawych rytuałów i okrutnych mordów."
         },
         "24014": {
             "Name": "Utopiec",
-            "Info": "Rozmieszczenie: Przenieś wroga do rzędu przeciwnego wobec tej jednostki i zadaj mu 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Zagrożenia, zamiast tego zadaj 5 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Przenieś wroga do przeciwnego rzędu i zadaj mu 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Zagrożenia, zamiast tego zadaj 5 pkt obrażeń.",
             "Flavor": "Chociaż wiedźmak wielce chciwy a na złoto łasy, nie dać onemu za utopca więcej jak srebrny grosz albo półtorak."
         },
         "24015": {
@@ -1316,8 +1316,8 @@
             "Flavor": "Istnieje wiele różnych odmian trolli. Jednakże wciąż nie udało się znaleźć jednego, który nie byłby durny jak wiadro gwoździ."
         },
         "24035": {
-            "Name": "Krabopająk Truteń",
-            "Info": "Rozmieszczenie: Wezwij do tego rzędu wszystkie egzemplarze tej jednostki.",
+            "Name": "Krabopająk",
+            "Info": "Rozmieszczenie: Wezwij do tego rzędu wszystkie Krabopająki.",
             "Flavor": "Pół krab, pół pająk. Słowem, sukinsyn."
         },
         "24036": {
@@ -1341,8 +1341,8 @@
             "Flavor": "Łatwo je pomylić z kamieniami, co jest przyczyną wielu przykrych w skutkach pomyłek ze strony Trolli."
         },
         "25002": {
-            "Name": "Krabopająk Truteń",
-            "Info": "Wezwij do tego rzędu wszystkie egzemplarze tej jednostki.",
+            "Name": "Młode Krabopająka",
+            "Info": "Wezwij do tego rzędu wszystkie Krabopająki.",
             "Flavor": "Pół krab, pół pająk. Słowem, sukinsyn."
         },
         "25003": {
@@ -2902,7 +2902,7 @@
         },
         "70004": {
             "Name": "Glynnis Aep Loernach",
-            "Info": "Na koniec rundy jeśli ta karta znajduje się na szczycie lub spodzie talii, przyzwij ją do losowego rzędu.",
+            "Info": "Na koniec rundy jeśli ta karta znajduje się na szczycie lub spodzie talii, wezwij ją do losowego rzędu.",
             "Flavor": ""
         },
         "70005": {
@@ -3052,7 +3052,7 @@
         },
         "70043": {
             "Name": "Komando Vernossiel",
-            "Info": "Gdy wymienisz tę jednostkę 2 razy przyzwij ją do losowego rzędu.",
+            "Info": "Gdy wymienisz tę jednostkę 2 razy wezwij ją do losowego rzędu.",
             "Flavor": ""
         },
         "70044": {
@@ -3122,7 +3122,7 @@
         },
         "70078": {
             "Name": "Potępienie",
-            "Info": "Przyzwij z Twojej talii 2 najsilniejsze brązowe jednostki do tego samego rzędu i zmień ich status zablokowania.",
+            "Info": "Wezwij z Twojej talii 2 najsilniejsze brązowe jednostki do tego samego rzędu i zmień ich status zablokowania.",
             "Flavor": ""
         },
         "70079": {
@@ -3147,7 +3147,7 @@
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
-            "Info": "Przyzwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskający Mróz zostanie zniszczony.",
+            "Info": "Wezwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskający Mróz zostanie zniszczony.",
             "Flavor": ""
         },
         "70084": {
@@ -3277,7 +3277,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "Jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, przyzwij tę jednostkę z talii.",
+            "Info": "Jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, Wezwij tę jednostkę z talii.",
             "Flavor": ""
         },
         "70111": {
