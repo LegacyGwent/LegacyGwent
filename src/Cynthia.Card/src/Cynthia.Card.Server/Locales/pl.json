@@ -251,7 +251,7 @@
         "ShupeKnight_2_Resilience": "Wytrzymałość.",
         "ShupeKnight_3_Duel": "Stocz pojedynek z wrogiem. ",
         "ShupeKnight_4_Reset": "Zresetuj jednostkę.",
-        "ShupeKnight_5_Destroy": "Zniszcz wrogów z 4 lub mniej siły.",
+        "ShupeKnight_5_Destroy": "Zniszcz wrogów z 3 lub mniej siły.",
         "ShupeHunter_1_SingleDamage": "Zadaj 15 pkt. obrażeń.",
         "ShupeHunter_2_RepeatedDamage": "Zadaj 2 pkt. obrażeń losowemu wrogowi. Powtórz 8 razy.",
         "ShupeHunter_3_Replay": "Ponownie zagraj brązowego lub srebrnego sojusznika - wzmocnij go o 5.",
@@ -867,7 +867,7 @@
         },
         "14027": {
             "Name": "Chłopska Milicja",
-            "Info": "Stwórz 3 Chłopskie milicje w wybranym rzędzie.\n(Chłopska milicja; 3 pkt siły)",
+            "Info": "Stwórz 3 Chłopów w wybranym rzędzie.\n(Chłop; 3 pkt siły)",
             "Flavor": "My jesteśmy milicja. Porządku pilnujem."
         },
         "15001": {
@@ -1267,7 +1267,7 @@
         },
         "24025": {
             "Name": "Barbegazi",
-            "Info": "Wytrzymałość. Rozmieszczenie: Pochłoń sojusznika i wzmocnij tę jednostkę o jego siłę.",
+            "Info": "Rozmieszczenie: Pochłoń sojusznika i wzmocnij tę jednostkę o jego siłę.\nWytrzymałość",
             "Flavor": "To, co jeszcze przed chwilą brał za leżące u podnóży stalagmitów okrągłe głazy, teraz wybałuszało na niego wielkie, jarzące się ślepia."
         },
         "24026": {
@@ -2407,7 +2407,7 @@
         },
         "54016": {
             "Name": "Obrońcy Mahakamu",
-            "Info": "Odporny., pancerza.",
+            "Info": "Wytrzymałość.",
             "Flavor": "Walka z krasnoludami z Mahakamu... To jakby żużel żuć."
         },
         "54017": {
