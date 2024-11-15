@@ -44,7 +44,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            if (Card == list.First())
+            if (Card == list.Last())
             {
                 // decrease counter
                 await Card.Effect.SetCountdown(offset: -1);

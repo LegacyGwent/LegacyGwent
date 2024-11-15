@@ -3607,7 +3607,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the first copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
