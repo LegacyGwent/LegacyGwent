@@ -254,6 +254,8 @@ namespace Cynthia.Card.Server
 群号: 949112936/945408322
 查看实时在线人数: http://cynthia.ovyno.com:5005
 
+To dowload the latest version of the game and interact with the community, please visit our Discord at https://discord.gg/Dw9sKgaUZN
+
 #[AI匹配] 输入密码ai/ai1即可挑战ai~
 当有其他人匹配时优先玩家匹配,ai密码后缀添加#f(如ai#f)即可强制挑战ai
 ai列表：[ai:杰洛特希里]、[ai1：新兵训练]、[ai2：阿瓦拉克]、[ai3：奥贝伦王]、[ai4：铁隼佣兵团]、[ai5：猎龙人]
