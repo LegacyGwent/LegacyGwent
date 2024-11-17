@@ -14080,7 +14080,7 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
-                    Flavor = "",
+                    Flavor = "r600000",
                     Info = "计数2：回合结束时如果你拥有最高战力单位且是食人魔，位于牌组顺序最靠前的水生孽鬼计数-1，当计数为0时从卡组召唤自身到随机排，并随机增益友方单位1点。",
                     CardArtsId = "r10100000",
                 }
