@@ -422,7 +422,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Deploy: Spawn Unicorn or Chironex./n(Unicorn; 1 Strength. Boost all other units by 2)/n(Chironex; 4 Strength. Deal 2 Damage to all other units)",
+            "Info": "Deploy: Spawn Unicorn or Chironex.\n(Unicorn; 1 Strength. Boost all other units by 2)\n(Chironex; 4 Strength. Deal 2 Damage to all other units)",
             "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression."
         },
         "12025": {
@@ -1332,7 +1332,7 @@
         },
         "24038": {
             "Name": "Moonlight",
-            "Info": "Spawn Full Moon, or Blood Moon./n(Full Moon; Apply a Boon to an allied row that Boosts a random Beast or Vampire by 2 on turn start) /n(Blood Moon; Apply a Hazard to an enemy row that deals 2 Damage to all units on contact)",
+            "Info": "Spawn Full Moon, or Blood Moon.\n(Full Moon; Apply a Boon to an allied row that Boosts a random Beast or Vampire by 2 on turn start) \n(Blood Moon; Apply a Hazard to an enemy row that deals 2 Damage to all units on contact)",
             "Flavor": "满月的时候，梦魇便会从世界的各个角落匍匐而出。"
         },
         "25001": {
@@ -3202,7 +3202,7 @@
         },
         "70095": {
             "Name": "Lyrian Arbalest",
-            "Info": "Deploy: Damage an Ennemy unit with lower Power than self, by the difference between the two card's Power.",
+            "Info": "Deploy: Damage an Enemy unit with lower Power than self, by the difference between the two card's Power.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70096": {
@@ -3332,7 +3332,7 @@
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Deploy: Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
+            "Info": "Deploy: Boost a random unit with the lowest power in your deck by 2. If it is a Dyad, Strenthen it instead.",
             "Flavor": "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……"
         },
         "70123": {
@@ -3560,6 +3560,26 @@
             "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
             "Flavor": ""
         },
+        "70168": {
+            "Name": "Ogre Warrior",
+            "Info": "On turn end, damage self by half on turn end if you don't have the higest unit.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Nekker Swarm",
+            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Cloud Giant",
+            "Info": "if you control the highest unit, gain Immunity. If you don't, loose Immunity. On turn start repeat Deploy ability.\nResilient",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Giant's Belt",
+            "Info": "Boost an ally by its base Power,if it is an Ogroid, strengthen it by 2 before.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
+        },
         "80001": {
             "Name": "Auberon: King",
             "Info": "He'll drop a white frost.",
@@ -3599,26 +3619,6 @@
             "Name": "Fresh Recruit",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power.",
             "Flavor": "The goddess occasionally protects some new recruits。"
-        },
-        "70168": {
-            "Name": "Ogre Warrior",
-            "Info": "On turn end, damage self by half on turn end if you don't have the higest unit.",
-            "Flavor": "You is idiot steak!"
-        },
-        "70169": {
-            "Name": "Nekker Swarm",
-            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
-            "Flavor": ""
-        },
-        "70170": {
-            "Name": "Cloud Giant",
-            "Info": "if you control the highest unit, gain Immunity. If you don't, loose Immunity. On turn start repeat Deploy ability./nResilient",
-            "Flavor": ""
-        },
-        "70171": {
-            "Name": "Gient's Belt",
-            "Info": "Boost an ally by its base Power,if it is an Ogroid, strengthen it by 2 before.",
-            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         }
     }
 }
