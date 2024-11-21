@@ -3562,7 +3562,7 @@
         },
         "70168": {
             "Name": "Ogre Warrior",
-            "Info": "On turn end, damage self by half if you don't have the higest unit.",
+            "Info": "On turn end, damage self by half if you don't have the highest unit.",
             "Flavor": "You is idiot steak!"
         },
         "70169": {
@@ -3577,7 +3577,7 @@
         },
         "70171": {
             "Name": "Giant's Belt",
-            "Info": "Boost an ally by its base Power,if it is an Ogroid, strengthen it by 2 before.",
+            "Info": "Boost an ally by its base Power, if it is an Ogroid, strengthen it by 2 before.",
             "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         },
         "80001": {
