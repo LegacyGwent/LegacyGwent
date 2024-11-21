@@ -3562,7 +3562,7 @@
         },
         "70168": {
             "Name": "Ogre Warrior",
-            "Info": "On turn end, damage self by half on turn end if you don't have the higest unit.",
+            "Info": "On turn end, damage self by half if you don't have the higest unit.",
             "Flavor": "You is idiot steak!"
         },
         "70169": {
@@ -3572,7 +3572,7 @@
         },
         "70170": {
             "Name": "Cloud Giant",
-            "Info": "if you control the highest unit, gain Immunity. If you don't, loose Immunity. On turn start repeat Deploy ability.\nResilient",
+            "Info": "Deploy: If you control the highest unit, gain Immunity. If you don't, loose Immunity. On turn start repeat Deploy ability.\nResilient",
             "Flavor": ""
         },
         "70171": {
