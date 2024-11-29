@@ -17,8 +17,7 @@ namespace Cynthia.Card
            {
                 damages = 6;
            }
-            var result = await Game.GetSelectRow(Card.PlayerIndex, Card, new List<RowPosition>() { RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3 });
-            var row = Game.RowToList(Card.PlayerIndex, result).IgnoreConcealAndDead();
+            var row = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
             for (var i = 0; i < damages; i++)
             {
                 var card = row.Where(x => x.IsAliveOnPlance()).Mess(Game.RNG).Take(1);
