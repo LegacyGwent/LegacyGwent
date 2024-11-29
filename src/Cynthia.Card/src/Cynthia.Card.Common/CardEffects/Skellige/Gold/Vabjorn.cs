@@ -20,7 +20,10 @@ namespace Cynthia.Card
                     while (target.Status.HealthStatus >= 0)           
                     {
                         await target.Effect.Damage(2, Card, BulletType.FireBall);
+
                     }
+                    var WeakenValue = (Card.Status.Strength + 1) / 2;
+                    await Card.Effect.Weaken(WeakenValue, Card);
                     return 0;
                 }
 

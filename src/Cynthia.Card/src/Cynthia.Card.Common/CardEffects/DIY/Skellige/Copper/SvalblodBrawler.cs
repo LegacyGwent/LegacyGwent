@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -7,25 +8,24 @@ namespace Cynthia.Card
 {
     [CardEffectId("70092")]//斯瓦勃洛争斗者 SvalblodBrawler
     public class SvalblodBrawler : CardEffect
-    {//对1个敌军单位与自身造成4点伤害，若自身位于灾厄下则改为8点。
+    {//xx
         public SvalblodBrawler(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-           var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
-           if (!selectList.TrySingle(out var target))
-           {
-                return 0;
-           }
-
            var damages = 4;
            if (Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard())
            {
-                damages = 8;
+                damages = 6;
            }
-
-           await target.Effect.Damage(damages, Card);
-
-           return 0;
+            var result = await Game.GetSelectRow(Card.PlayerIndex, Card, new List<RowPosition>() { RowPosition.EnemyRow1, RowPosition.EnemyRow2, RowPosition.EnemyRow3 });
+            var row = Game.RowToList(Card.PlayerIndex, result).IgnoreConcealAndDead();
+            for (var i = 0; i < damages; i++)
+            {
+                var card = row.Where(x => x.IsAliveOnPlance()).Mess(Game.RNG).Take(1);
+                if (card.Count() > 0)
+                    await card.Single().Effect.Damage(1, Card);
+            }
+            return 0;
         }
     }
 }
