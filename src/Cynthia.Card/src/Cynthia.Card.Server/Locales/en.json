@@ -3097,12 +3097,12 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "If there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use: Deploy: Look at 2 random Bronze units in your deck, then play one)",
+            "Info": "If there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use: Deploy: Look at 2 different random Bronze units in your deck, then play one)",
             "Flavor": "“商人？抹了。马匹？卖了。”"
         },
         "70071": {
             "Name": "Strays of Spalla",
-            "Info": "Single-Use.\nDeploy: Look at 2 random Bronze units in your deck, then play one.",
+            "Info": "Single-Use.\nDeploy: Look at 2 diferent random Bronze units in your deck, then play one.",
             "Flavor": "“嗷，嗷，嗷嗷！”"
         },
         "70072": {
@@ -3172,12 +3172,12 @@
         },
         "70089": {
             "Name": "Artis",
-            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a Cultist Oblation to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
+            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a Cultist Oblation to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, banish itself. Deathwish: Heal a random unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
             "Flavor": "It is finished It is finished IT IS THE MERCY"
         },
         "70090": {
             "Name": "Cultist Oblation",
-            "Info": "After 2 turn, on the turn starts, bannish itself. Deathwish: Heal 1 unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Info": "After 2 turn, on the turn starts, bannish itself. Deathwish: Heal a random unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70091": {
@@ -3187,7 +3187,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: Damage an enemy by 4. If it is under a Hazard, deal 8 Damage instead.",
+            "Info": "Deploy: Damage an enemy by 4. If this unit is under a Hazard, deal 8 Damage instead.",
             "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
         "70093": {
@@ -3217,7 +3217,7 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Play a random item or choose and play a Scoia'tael item.",
+            "Info": "Choose one: Play a random item; or play a Scoia'tael item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
