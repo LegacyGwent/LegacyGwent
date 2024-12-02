@@ -188,6 +188,13 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<string>("GetCardMap");
         }
+        // Player Count 
+        public async Task<int> GetUserCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUserCount");
+            return playercount;
+            // return HubConnection.InvokeAsync<int>("GetUserCount");
+        }        
 
         public Task<string> GetGameLocales()
         {
