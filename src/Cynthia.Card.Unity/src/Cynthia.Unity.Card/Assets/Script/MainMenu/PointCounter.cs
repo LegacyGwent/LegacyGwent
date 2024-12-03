@@ -67,7 +67,9 @@ public class PointCounter : MonoBehaviour
     }
     private async void GetUsersvsAICount()
     {
-            int usercount =  await server.GetUsersvsAICount();
+            // int usercount =  await server.GetUsersvsAICount();
+            int usercount =  await server.GetIsRankQueue();
+            
             // await Task.Delay(5);
             counterHUD.UsersvsAI = usercount;
             await Task.CompletedTask;

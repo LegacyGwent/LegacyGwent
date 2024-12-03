@@ -475,7 +475,6 @@ may come back in the future.
         public int GetUsersInMatchCount()
         {
             var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
-            // var aiList = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
             return list.Count*2;
         }
         public int GetUsersInRankedCount()
@@ -492,6 +491,12 @@ may come back in the future.
         {
             var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
             return list.Count*2;
+        }
+        
+        public int GetIsRankQueue() // including playing vs friend
+        {            
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "rank" ).Select(x => (x.Player1.PlayerName)).ToList();
+            return list.Count();
         }
 
         public void InovkeUserChanged()
