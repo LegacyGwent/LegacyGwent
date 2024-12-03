@@ -471,6 +471,28 @@ may come back in the future.
         {
             return _users.Count;
         }
+        // Display count in game
+        public int GetUsersInMatchCount()
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            // var aiList = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count*2;
+        }
+        public int GetUsersInRankedCount()
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password == "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count*2;
+        }
+        public int GetUsersvsAICount()
+        {
+            var ailist = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return ailist.Count;
+        }
+        public int GetUsersInCasualCount() // including playing vs friend
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count*2;
+        }
 
         public void InovkeUserChanged()
         {

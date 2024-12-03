@@ -193,7 +193,26 @@ namespace Cynthia.Card.Client
         {
             int playercount = await HubConnection.InvokeAsync<int>("GetUserCount");
             return playercount;
-            // return HubConnection.InvokeAsync<int>("GetUserCount");
+        }
+        public async Task<int> GetUsersInMatchCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersInMatchCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersInRankedCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersInRankedCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersInCasualCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersInCasualCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersvsAICount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersvsAICount");
+            return playercount;
         }        
 
         public Task<string> GetGameLocales()

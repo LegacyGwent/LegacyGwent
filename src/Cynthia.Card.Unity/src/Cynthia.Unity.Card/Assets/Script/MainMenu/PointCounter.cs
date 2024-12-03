@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cynthia.Card.Client;
 using System.Linq;
+using System;
 using Assets.Script.Localization;
+using Autofac;
+using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 
 
@@ -17,6 +20,8 @@ public class PointCounter : MonoBehaviour
     //-----------------------------------
     private LocalizationService _translator;
     private GwentClientService server;
+
+
     public float timer=-0;
     public float interval=-5;
     void Update()
@@ -27,7 +32,11 @@ public class PointCounter : MonoBehaviour
         }
         else
         {
-            CountPoints();
+            CountUsers();
+            GetUsersInMatchCount();
+            GetUsersvsAICount();
+            GetUsersInRankedCount();
+            GetUsersInCasualCount();
             timer=0;
         }
     }
@@ -39,11 +48,44 @@ public class PointCounter : MonoBehaviour
         
     }
 
-    private async void CountPoints()
+    private async void CountUsers()
     {
-            int HUD =  await server.GetUserCount();
-            await Task.Delay(5);
-            counterHUD.Points = HUD;
+            int usercount =  await server.GetUserCount();
+            // await Task.Delay(5);
+            counterHUD.Users = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    
+    private async void GetUsersInMatchCount()
+    {
+            int usercount =  await server.GetUsersInMatchCount();
+            // await Task.Delay(5);
+            counterHUD.UsersInMatch = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetUsersvsAICount()
+    {
+            int usercount =  await server.GetUsersvsAICount();
+            // await Task.Delay(5);
+            counterHUD.UsersvsAI = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetUsersInRankedCount()
+    {
+            int usercount =  await server.GetUsersInRankedCount();
+            // await Task.Delay(5);
+            counterHUD.UsersInRanked = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetUsersInCasualCount()
+    {
+            int usercount =  await server.GetUsersInCasualCount();
+            // await Task.Delay(5);
+            counterHUD.UsersInCasual = usercount;
             await Task.CompletedTask;
             return;
     }
