@@ -493,12 +493,16 @@ may come back in the future.
             return list.Count*2;
         }
         
-        public int GetIsRankQueue() // including playing vs friend
+        public int GetIsRankQueue()
         {            
             var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "rank" ).Select(x => (x.Player1.PlayerName)).ToList();
             return list.Count();
         }
-
+        public int GetIsCasualQueue()
+        {            
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "" ).Select(x => (x.Player1.PlayerName)).ToList();
+            return list.Count();
+        }
         public void InovkeUserChanged()
         {
             OnUserChanged?.Invoke(GetUsers());

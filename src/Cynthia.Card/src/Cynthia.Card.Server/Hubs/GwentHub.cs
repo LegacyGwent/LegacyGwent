@@ -104,6 +104,11 @@ namespace Cynthia.Card.Server
             await Task.CompletedTask;
             return _gwentServerService.GetIsRankQueue();
         }
+        public async Task<int> GetIsCasualQueue()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetIsCasualQueue();
+        }
 
         public int GetPalyernameMMR(string Palyername) => _gwentServerService.GetPalyernameMMR(Palyername);
 

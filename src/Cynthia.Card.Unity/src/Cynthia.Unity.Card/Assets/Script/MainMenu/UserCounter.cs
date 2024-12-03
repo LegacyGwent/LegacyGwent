@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 
 
-public class PointCounter : MonoBehaviour
+public class UserCounter : MonoBehaviour
 {
     
     [SerializeField] counterHUD counterHUD;
-    public Text PlayerCounttNum;
+    [SerializeField] displayflag displayflag;
     //-----------------------------------
     private LocalizationService _translator;
     private GwentClientService server;
@@ -37,6 +37,7 @@ public class PointCounter : MonoBehaviour
             GetUsersvsAICount();
             GetUsersInRankedCount();
             GetUsersInCasualCount();
+            GetIsCasualQueue();
             timer=0;
         }
     }
@@ -68,7 +69,7 @@ public class PointCounter : MonoBehaviour
     private async void GetUsersvsAICount()
     {
             // int usercount =  await server.GetUsersvsAICount();
-            int usercount =  await server.GetIsRankQueue();
+            int usercount =  await server.GetUsersvsAICount();
             
             // await Task.Delay(5);
             counterHUD.UsersvsAI = usercount;
@@ -88,6 +89,19 @@ public class PointCounter : MonoBehaviour
             int usercount =  await server.GetUsersInCasualCount();
             // await Task.Delay(5);
             counterHUD.UsersInCasual = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetIsCasualQueue()
+    {
+            int usercount =  await server.GetIsCasualQueue();
+                Debug.Log(usercount);
+            bool iscasualqueue = false;
+            Debug.Log(usercount);
+            if (usercount == 1) {iscasualqueue = true;}
+            else {iscasualqueue = false;}
+            // await Task.Delay(5);
+            displayflag.IsCasualFlag = iscasualqueue;
             await Task.CompletedTask;
             return;
     }

@@ -218,7 +218,12 @@ namespace Cynthia.Card.Client
         {
             int playercount = await HubConnection.InvokeAsync<int>("GetIsRankQueue");
             return playercount;
-        }         
+        }
+        public async Task<int> GetIsCasualQueue()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetIsCasualQueue");
+            return playercount;
+        }              
 
         public Task<string> GetGameLocales()
         {
