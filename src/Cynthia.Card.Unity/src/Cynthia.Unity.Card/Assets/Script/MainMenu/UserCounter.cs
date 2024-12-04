@@ -38,6 +38,9 @@ public class UserCounter : MonoBehaviour
             GetUsersInRankedCount();
             GetUsersInCasualCount();
             GetIsCasualQueue();
+            GetMatchmakingIsCasualQueue();
+            GetMatchmakingUsersInCasualCount();
+            GetMatchmakingUsersInRankedCount();
             timer=0;
         }
     }
@@ -68,9 +71,7 @@ public class UserCounter : MonoBehaviour
     }
     private async void GetUsersvsAICount()
     {
-            // int usercount =  await server.GetUsersvsAICount();
             int usercount =  await server.GetUsersvsAICount();
-            
             // await Task.Delay(5);
             counterHUD.UsersvsAI = usercount;
             await Task.CompletedTask;
@@ -93,6 +94,35 @@ public class UserCounter : MonoBehaviour
             return;
     }
     private async void GetIsCasualQueue()
+    {
+            int usercount =  await server.GetIsCasualQueue();
+                Debug.Log(usercount);
+            bool iscasualqueue = false;
+            Debug.Log(usercount);
+            if (usercount == 1) {iscasualqueue = true;}
+            else {iscasualqueue = false;}
+            // await Task.Delay(5);
+            displayflag.IsCasualFlag = iscasualqueue;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetMatchmakingUsersInRankedCount()
+    {
+            int usercount =  await server.GetUsersInRankedCount();
+            // await Task.Delay(5);
+            counterHUD.UsersInRanked = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetMatchmakingUsersInCasualCount()
+    {
+            int usercount =  await server.GetUsersInCasualCount();
+            // await Task.Delay(5);
+            counterHUD.UsersInCasual = usercount;
+            await Task.CompletedTask;
+            return;
+    }
+    private async void GetMatchmakingIsCasualQueue()
     {
             int usercount =  await server.GetIsCasualQueue();
                 Debug.Log(usercount);
