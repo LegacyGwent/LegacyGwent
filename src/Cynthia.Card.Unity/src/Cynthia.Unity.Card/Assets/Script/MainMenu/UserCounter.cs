@@ -38,6 +38,7 @@ public class UserCounter : MonoBehaviour
             GetUsersInRankedCount();
             GetUsersInCasualCount();
             GetIsCasualQueue();
+            GetIsRankQueue();
             GetMatchmakingIsCasualQueue();
             GetMatchmakingUsersInCasualCount();
             GetMatchmakingUsersInRankedCount();
@@ -103,6 +104,19 @@ public class UserCounter : MonoBehaviour
             else {iscasualqueue = false;}
             // await Task.Delay(5);
             displayflag.IsCasualFlag = iscasualqueue;
+            await Task.CompletedTask;
+            return;
+    }
+        private async void GetIsRankQueue()
+    {
+            int usercount =  await server.GetIsRankQueue();
+                Debug.Log(usercount);
+            bool isrankqueue = false;
+            Debug.Log(usercount);
+            if (usercount == 1) {isrankqueue = true;}
+            else {isrankqueue = false;}
+            // await Task.Delay(5);
+            displayflag.IsRankFlag = isrankqueue;
             await Task.CompletedTask;
             return;
     }
