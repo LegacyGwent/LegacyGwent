@@ -20,18 +20,14 @@ public class UserCounter : MonoBehaviour
     //-----------------------------------
     private LocalizationService _translator;
     private GwentClientService server;
-
-
-    public float timer=-0;
-    public float interval=-5;
-    void Update()
-    {
-        if (timer<interval)
+        void StartTimer()
         {
-            timer=timer+Time.deltaTime;
+                Update();
+
         }
-        else
-        {
+    private async void Update()
+    {
+        await Task.Delay(1000);
             CountUsers();
             GetUsersInMatchCount();
             GetUsersvsAICount();
@@ -42,8 +38,6 @@ public class UserCounter : MonoBehaviour
             GetMatchmakingIsCasualQueue();
             GetMatchmakingUsersInCasualCount();
             GetMatchmakingUsersInRankedCount();
-            timer=0;
-        }
     }
     
     private async void Start ()
