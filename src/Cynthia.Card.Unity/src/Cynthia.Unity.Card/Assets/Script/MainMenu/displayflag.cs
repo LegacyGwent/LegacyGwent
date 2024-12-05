@@ -57,16 +57,14 @@ public class displayflag : MonoBehaviour
         if (iscasualflag) {
             IsCasualQueue.SetActive(true);
             IsRankQueue.SetActive(false);
-            if (IsInMatchCasualQueue.active == true)
-            {IsInMatchCasualQueue.SetActive(true);
-            IsInMatchRankQueue.SetActive(false);}
+            IsInMatchCasualQueue.SetActive(true);
+            IsInMatchRankQueue.SetActive(false);
             }
         else if (isrankflag){
             IsCasualQueue.SetActive(false);
             IsRankQueue.SetActive(true);
-            if (IsInMatchCasualQueue.active == false)
-            {IsInMatchRankQueue.SetActive(true);
-            IsInMatchCasualQueue.SetActive(false);}
+            IsInMatchRankQueue.SetActive(true);
+            IsInMatchCasualQueue.SetActive(false);
             }
         else
             {IsCasualQueue.SetActive(false);

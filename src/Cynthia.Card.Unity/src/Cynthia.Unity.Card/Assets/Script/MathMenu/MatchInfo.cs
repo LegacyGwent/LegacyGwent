@@ -39,11 +39,6 @@ public class MatchInfo : MonoBehaviour
     public GameObject MatchPasswordObject;
     public Transform DeckNameBackground;
     public Image DeckIcon;
-    // counters and flags
-    public GameObject UserPlayingRankCount;
-    public GameObject UserPlayingCasualCount;
-    public GameObject RankOpponentFound;
-    public GameObject CasualOpponentFound;
     //-------------------------------------------
     public Sprite[] FactionIcon;
     public Faction[] FactionIndex;
@@ -94,30 +89,17 @@ public class MatchInfo : MonoBehaviour
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
             MatchPasswordObject.SetActive(false);
             BlacklistObject.SetActive(false);
-            UserPlayingRankCount.SetActive(true);
-            RankOpponentFound.SetActive(true);
-            UserPlayingCasualCount.SetActive(false);
-            CasualOpponentFound.SetActive(false);
-            
         }
         else
         {
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle");
             MatchPasswordObject.SetActive(true);
             BlacklistObject.SetActive(true);
-            UserPlayingRankCount.SetActive(false);
-            RankOpponentFound.SetActive(false);
-            UserPlayingCasualCount.SetActive(true);
-            CasualOpponentFound.SetActive(true);
         }
     }
     public void NormalMatchMenuClick()
     {
         IsRankMatch = false;
-        UserPlayingRankCount.SetActive(false);
-        RankOpponentFound.SetActive(false);
-        UserPlayingCasualCount.SetActive(true);
-        CasualOpponentFound.SetActive(true);
         MatchMenuClick();
     }
     public void RankMatchMenuClick()
@@ -133,10 +115,6 @@ public class MatchInfo : MonoBehaviour
         Debug.Log(_translator.GetText("MainMenu_MatchTitle_Rank"));
         MatchPasswordObject.SetActive(false);
         BlacklistObject.SetActive(false);
-        UserPlayingRankCount.SetActive(true);
-        RankOpponentFound.SetActive(true);
-        UserPlayingCasualCount.SetActive(false);
-        CasualOpponentFound.SetActive(false);
         Debug.Log("3");
         Debug.Log(MainMenu_MatchTitle.text);
 
