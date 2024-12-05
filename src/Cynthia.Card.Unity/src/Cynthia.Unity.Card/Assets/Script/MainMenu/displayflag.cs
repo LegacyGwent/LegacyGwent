@@ -10,7 +10,6 @@ public class displayflag : MonoBehaviour
     public GameObject IsRankQueue;
     public GameObject IsInMatchRankQueue;
     public GameObject IsInMatchCasualQueue;
-    public GameObject IsRankMatch;
     bool iscasualflag = false;
     bool isrankflag = false;
     bool isinmatchcasualflag = false;
