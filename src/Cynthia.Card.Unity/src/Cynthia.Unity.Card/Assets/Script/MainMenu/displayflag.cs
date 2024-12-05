@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// using MatchInfo;
 public class displayflag : MonoBehaviour
 {
+
     public GameObject IsCasualQueue;
     public GameObject IsRankQueue;
+    public GameObject IsInMatchRankQueue;
+    public GameObject IsInMatchCasualQueue;
+    public GameObject IsRankMatch;
     bool iscasualflag = false;
     bool isrankflag = false;
+    bool isinmatchcasualflag = false;
+    bool isinmatchrankflag = false;
     private void Awake ()
     {
         UpdateFlag();
@@ -29,12 +35,43 @@ public class displayflag : MonoBehaviour
             UpdateFlag();
             }
     }
+        public bool IsInMatchCasualFlag
+    {
+        get {return isinmatchcasualflag;}
+        set {
+            isinmatchcasualflag = value;
+            UpdateFlag();
+            }
+    }
+        public bool IsInMatchRankFlag
+    {
+        get {return isinmatchrankflag;}
+        set {
+            isinmatchrankflag = value;
+            UpdateFlag();
+            }
+    }
     void UpdateFlag()
     {
     //Trigger
-    if (iscasualflag) {IsCasualQueue.SetActive(true);}
-    else {IsCasualQueue.SetActive(false);}
-    if (isrankflag) {IsRankQueue.SetActive(true);}
-    else {IsRankQueue.SetActive(false);}
+        if (iscasualflag) {
+            IsCasualQueue.SetActive(true);
+            IsRankQueue.SetActive(false);
+            if (IsInMatchCasualQueue.active == true)
+            {IsInMatchCasualQueue.SetActive(true);
+            IsInMatchRankQueue.SetActive(false);}
+            }
+        else if (isrankflag){
+            IsCasualQueue.SetActive(false);
+            IsRankQueue.SetActive(true);
+            if (IsInMatchCasualQueue.active == false)
+            {IsInMatchRankQueue.SetActive(true);
+            IsInMatchCasualQueue.SetActive(false);}
+            }
+        else
+            {IsCasualQueue.SetActive(false);
+            IsInMatchCasualQueue.SetActive(false);
+            IsRankQueue.SetActive(false);
+            IsInMatchRankQueue.SetActive(false);}
     }
 }

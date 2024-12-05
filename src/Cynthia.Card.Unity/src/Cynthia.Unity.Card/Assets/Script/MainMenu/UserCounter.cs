@@ -20,8 +20,21 @@ public class UserCounter : MonoBehaviour
     //-----------------------------------
     private LocalizationService _translator;
     private GwentClientService server;
+    //-----------------------------------   
+    public Text MainMenu_PlayersOnlineText;
+    public Text MainMenu_PlayingPvpText;
+    public Text MainMenu_PlayingvsAIText;
+    public Text MainMenu_PlayingCasualText;
+    public Text MainMenu_PlayingRankText;
+    public Text MainMenu_CasualFlagText;
+    public Text MainMenu_RankFlagText;
+    public Text Matchmaking_Menu_CasualText;
+    public Text Matchmaking_Menu_RankText;
+    public Text Matchmaking_Menu_CasualFlagText;
+    public Text Matchmaking_Menu_RankFlagText;
         void StartTimer()
         {
+
                 Update();
 
         }
@@ -44,6 +57,19 @@ public class UserCounter : MonoBehaviour
     {
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         server = DependencyResolver.Container.Resolve<GwentClientService>();
+        MainMenu_PlayersOnlineText.text = _translator.GetText("MainMenu_PlayersOnlineText");
+        MainMenu_PlayingPvpText.text = _translator.GetText("MainMenu_PlayingPvpText");
+        MainMenu_PlayingvsAIText.text = _translator.GetText("MainMenu_PlayingvsAIText");
+        MainMenu_PlayingCasualText.text = _translator.GetText("MainMenu_PlayingCasualText");
+        MainMenu_PlayingRankText.text = _translator.GetText("MainMenu_PlayingRankText");
+        MainMenu_CasualFlagText.text = _translator.GetText("MainMenu_CasualFlagText");
+        MainMenu_RankFlagText.text = _translator.GetText("MainMenu_RankFlagText");
+        Matchmaking_Menu_CasualFlagText.text = _translator.GetText("Matchmaking_Menu_CasualFlagText");
+        Matchmaking_Menu_RankFlagText.text = _translator.GetText("Matchmaking_Menu_RankFlagText");
+        Matchmaking_Menu_CasualText.text = _translator.GetText("Matchmaking_Menu_CasualText");
+        Matchmaking_Menu_RankText.text = _translator.GetText("Matchmaking_Menu_RankText");
+
+        
         
     }
 
@@ -93,7 +119,6 @@ public class UserCounter : MonoBehaviour
             int usercount =  await server.GetIsCasualQueue();
                 Debug.Log(usercount);
             bool iscasualqueue = false;
-            Debug.Log(usercount);
             if (usercount == 1) {iscasualqueue = true;}
             else {iscasualqueue = false;}
             // await Task.Delay(5);
@@ -106,7 +131,6 @@ public class UserCounter : MonoBehaviour
             int usercount =  await server.GetIsRankQueue();
                 Debug.Log(usercount);
             bool isrankqueue = false;
-            Debug.Log(usercount);
             if (usercount == 1) {isrankqueue = true;}
             else {isrankqueue = false;}
             // await Task.Delay(5);
@@ -133,14 +157,25 @@ public class UserCounter : MonoBehaviour
     private async void GetMatchmakingIsCasualQueue()
     {
             int usercount =  await server.GetIsCasualQueue();
-                Debug.Log(usercount);
             bool iscasualqueue = false;
-            Debug.Log(usercount);
-            if (usercount == 1) {iscasualqueue = true;}
-            else {iscasualqueue = false;}
+            if (usercount != 1) {iscasualqueue =false;}
+            else {iscasualqueue = true;}
             // await Task.Delay(5);
-            displayflag.IsCasualFlag = iscasualqueue;
-            await Task.CompletedTask;
+            if (iscasualqueue)
+           { displayflag.IsCasualFlag = iscasualqueue;
+            await Task.CompletedTask;}
+            return;
+    }
+    private async void GetMatchmakingIsRankQueue()
+    {
+            int usercount =  await server.GetIsRankQueue();
+            bool isrankqueue = false;
+            if (usercount != 1) {isrankqueue =false;}
+            else {isrankqueue = true;}
+            if (isrankqueue)
+            // await Task.Delay(5);
+            {displayflag.IsRankFlag = isrankqueue;
+            await Task.CompletedTask;}
             return;
     }
 }
