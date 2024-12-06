@@ -32,15 +32,16 @@ public class UserCounter : MonoBehaviour
     public Text Matchmaking_Menu_RankText;
     public Text Matchmaking_Menu_CasualFlagText;
     public Text Matchmaking_Menu_RankFlagText;
-        void StartTimer()
-        {
-
-                Update();
-
-        }
-    private async void Update()
+    public float timer=0;
+    public float interval=1;
+    void Update()
     {
-        await Task.Delay(1000);
+        if (timer<interval)
+        {
+            timer=timer+Time.deltaTime;
+        }
+        else
+        {
             CountUsers();
             GetUsersInMatchCount();
             GetUsersvsAICount();
@@ -51,6 +52,8 @@ public class UserCounter : MonoBehaviour
             GetMatchmakingIsCasualQueue();
             GetMatchmakingUsersInCasualCount();
             GetMatchmakingUsersInRankedCount();
+            timer=0;
+        }
     }
     
     private async void Start ()
