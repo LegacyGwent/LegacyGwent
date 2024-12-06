@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
@@ -61,5 +62,7 @@ namespace Cynthia.Card
         public int CrewCount { get; set; }
 
         public bool IsConcealCard { get; set; }
+
+        public List<string> LinkedCards { get; set; }
     }
 }
