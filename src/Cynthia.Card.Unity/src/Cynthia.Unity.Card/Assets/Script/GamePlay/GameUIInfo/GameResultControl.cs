@@ -15,6 +15,10 @@ public class GameResultControl : MonoBehaviour
     //显示敌我玩家名
     public Text MyName;
     public Text EnemyName;
+    public Text GGEnemyName;
+    public string ggenemyname;
+    public string myname;
+    public GameObject GGObject;
 
     //三个回合的结果数字
     public Text Round1MyPoint;
@@ -58,16 +62,20 @@ public class GameResultControl : MonoBehaviour
     public Sprite GameLoseBgRight;
     public Sprite GameDrawBgLeft;
     public Sprite GameDrawBgRight;
+    // public GameObject GGObject;
 
     private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
     public void ShowMMRResult(int oldMMR, int newMMR)
     {
         MMRChangeText.text = $"MMR: {oldMMR} → {newMMR}";
     }
+
     public void ShowGameResult(GameResultInfomation gameResult)
     {
         MyName.text = gameResult.MyName;
         EnemyName.text = gameResult.EnemyName;
+        ggenemyname = gameResult.EnemyName;
+        myname = gameResult.MyName;
         if (gameResult.RoundCount < 3)
             Round3.SetActive(false);
         if (gameResult.RoundCount < 2)
@@ -193,6 +201,28 @@ public class GameResultControl : MonoBehaviour
             if (enemyWinCount >= 2)
                 EnemyWinIconRight.SetActive(true);
         }
+        UpdateGGText();
         gameObject.SetActive(true);
+        // DisplayGGObject();
+    }
+    public async void UpdateGGText() // 发出投降信息
+    {
+        // await DependencyResolver.Container.Resolve<GwentClientService>().SendGG();
+        GGEnemyName.text = $"GOOD GAME! YOUR OPPONENT {ggenemyname} SENT GG!";
+    }
+    // private void Update()
+    // {
+    //     DisplayGGObject();
+    // }
+    public async void SendGGToServer()
+    {
+        await DependencyResolver.Container.Resolve<GwentClientService>().GGSent(ggenemyname);
+    }
+    public async void DisplayGGObject()
+    {
+        bool issendgg = false;
+        issendgg = await DependencyResolver.Container.Resolve<GwentClientService>().SendGG(myname);
+        // issendgg = false;
+        if (issendgg) {GGObject.SetActive(true);}
     }
 }

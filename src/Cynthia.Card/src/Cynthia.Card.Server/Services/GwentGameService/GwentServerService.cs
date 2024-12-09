@@ -114,6 +114,23 @@ namespace Cynthia.Card.Server
             return result;
         }
 
+        public bool SendGG(string playername)
+        {
+            // private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
+            //             {
+            // var result = _gwentMatchs.SendGG(connectionId);
+            Console.WriteLine($"SendGG{playername}");
+            return (GGSent(playername));
+        }
+        
+        public bool GGSent(string username)
+        {
+           if(_users.Any(x => x.Value.UserName == username))
+                Console.WriteLine($"SendGG{username}");
+                return true;
+            return false;
+        }
+
         public bool Surrender(string connectionId) // 投降
         {
             var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"), isSurrender: true);

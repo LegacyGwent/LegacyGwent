@@ -233,6 +233,13 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");
         }
+        // gg feature
+        public Task<bool> SendGG(string playername) => HubConnection.InvokeAsync<bool>("SendGG", playername);
+        public Task<bool> GGSent(string playername) => HubConnection.InvokeAsync<bool>("GGSent", playername);
+        // public Task<bool> GGSent()
+        // {
+        //     return HubConnection.InvokeAsync<bool>("GGSent");
+        // }
         public Task<bool> Surrender()
         {
             return HubConnection.InvokeAsync<bool>("Surrender");
