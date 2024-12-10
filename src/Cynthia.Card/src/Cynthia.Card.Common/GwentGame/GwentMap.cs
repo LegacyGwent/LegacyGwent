@@ -360,7 +360,7 @@ namespace Cynthia.Card
                     Flavor = "富克斯家族的传奇创始人波罗斯因为酗酒丢了性命。当时他的金戒指掉进了一条小溪，他去捞的时候晕了过去。",
                     Info = "在所在排洒下“黄金酒沫”。被移动时重复此能力，并受到4点伤害。",
                     CardArtsId = "20024400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14026"},
                 }
             },
             {
@@ -489,7 +489,7 @@ namespace Cynthia.Card
                     Flavor = "请原谅，这只外国鸟儿聪明归聪明，就是太粗俗，可花了我十个塔勒呢。",
                     Info = "择一：生成“话篓子：伙伴”：使2个相邻单位获得2点增益；或生成“话篓子：捣蛋鬼”：对2个相邻单位造成2点伤害。",
                     CardArtsId = "11210900",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15006","15007"},
                 }
             },
             {
@@ -682,7 +682,7 @@ namespace Cynthia.Card
                     Flavor = "魔法是混沌，是艺术，也是科学。它是诅咒，是祝福，也是进步",
                     Info = "择一：生成“独角兽”：使除自身外所有单位获得2点增益；或生成“梦魇独角兽”：对除自身外所有单位造成2点伤害。",
                     CardArtsId = "11210800",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15008","15004"},
                 }
             },
             {
@@ -1106,7 +1106,7 @@ namespace Cynthia.Card
                     Flavor = "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？",
                     Info = "若己方起始牌组没有重复牌，则派“店店”去冒险。",
                     CardArtsId = "20027500",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15001","15002","15003"},
                 }
             },
             {
@@ -1190,7 +1190,7 @@ namespace Cynthia.Card
                     Flavor = "陶森特需要这位英雄，但它不配。",
                     Info = "在两侧各生成2头“牛”。",
                     CardArtsId = "20129000",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15012"},
                 }
             },
             {
@@ -1360,7 +1360,7 @@ namespace Cynthia.Card
                     Flavor = "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。",
                     Info = "召唤“艾斯卡尔”和“兰伯特”。",
                     CardArtsId = "11220300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13014","13017"},
                 }
             },
             {
@@ -1381,7 +1381,7 @@ namespace Cynthia.Card
                     Flavor = "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……",
                     Info = "召唤“维瑟米尔”和“兰伯特”。",
                     CardArtsId = "11220200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13013","13017"},
                 }
             },
             {
@@ -1466,7 +1466,7 @@ namespace Cynthia.Card
                     Flavor = "这样的沟通方式才对路嘛！",
                     Info = "召唤“维瑟米尔”和“艾斯卡尔”。",
                     CardArtsId = "11220400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13013","13014"},
                 }
             },
             {
@@ -1487,7 +1487,7 @@ namespace Cynthia.Card
                     Flavor = "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。",
                     Info = "生成“刺骨冰霜”、“蔽日浓雾”或“阿尔祖落雷术”。",
                     CardArtsId = "11320800",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005","14011","14003"},
                 }
             },
             {
@@ -1551,7 +1551,7 @@ namespace Cynthia.Card
                     Flavor = "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。",
                     Info = "生成 1 只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
                     CardArtsId = "20008700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"64008","24014","24023","24025"},
                 }
             },
             {
@@ -1594,7 +1594,7 @@ namespace Cynthia.Card
                     Flavor = "哞～～～",
                     Info = "遗愿：在同排生成1个“羊角魔”。",
                     CardArtsId = "11220900",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15009"},
                 }
             },
             {
@@ -1657,7 +1657,7 @@ namespace Cynthia.Card
                     Flavor = "雕像瞬间爆开，颤动不已，犹如一道在地上爬行的烟雾，变换着自己的形状。道道光芒里，有东西上下纷飞，不断成形。片刻之后，魔法圈的正中间突然现出了一道人影。",
                     Info = "将1个铜色/银色单位变为“翡翠人偶”。",
                     CardArtsId = "20005300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15005"},
                 }
             },
             {
@@ -1930,7 +1930,7 @@ namespace Cynthia.Card
                     Flavor = "见证“泰德戴尔瑞”——终焉纪元——这被白霜摧毀的世界吧！",
                     Info = "在对方相邻两排降下灾厄。回合开始时，对所在排最弱的单位造成2点伤害。",
                     CardArtsId = "11320600",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -2014,7 +2014,7 @@ namespace Cynthia.Card
                     Flavor = "以诸神的名义，猎魔人，你把这鬼东西拿来干嘛？！“我要那畜生的脑袋！”这句话不过是打个比方！",
                     Info = "如果落后，生成1只“帝国蝎尾狮”；如果领先，生成“蝎尾狮毒液”。",
                     CardArtsId = "20153200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"23002","13030"},
                 }
             },
             {
@@ -2161,7 +2161,7 @@ namespace Cynthia.Card
                     Flavor = "起初我们碰上了一头熊……悲剧就从那时开始了。",
                     Info = "摧毁1个友军单位。 生成1头“熊”。",
                     CardArtsId = "15240600",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15010"},
                 }
             },
             {
@@ -2224,7 +2224,7 @@ namespace Cynthia.Card
                     Flavor = "太阳出来了，德洛米！太阳出来了！也许我们命不该绝……",
                     Info = "择一：使灾厄下的所有受伤友军单位获得2点增益，并清除己方半场所有灾厄；或从牌组随机打出1张铜色单位牌。",
                     CardArtsId = "11330300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15013","15014"},
                 }
             },
             {
@@ -2623,7 +2623,7 @@ namespace Cynthia.Card
                     Flavor = "瞧，我们是民兵。我们保卫和平",
                     Info = "在己方单排生成3个“农民”单位。",
                     CardArtsId = "20167700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15011"},
                 }
             },
             {
@@ -3106,7 +3106,7 @@ namespace Cynthia.Card
                     Flavor = "宠儿偏偏堕落成逆子。",
                     Info = "将2个敌军单位移至对方同排，并在该排降下“刺骨冰霜”。",
                     CardArtsId = "13210400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -3127,7 +3127,7 @@ namespace Cynthia.Card
                     Flavor = "叫他们有来无回！",
                     Info = "对1个敌军单位造成4点伤害，若目标位于“刺骨冰霜”之下，则将其摧毁。",
                     CardArtsId = "13210200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -3190,7 +3190,7 @@ namespace Cynthia.Card
                     Flavor = "即便全村人都饿肚子，我们也绝不去这片树林打猎。",
                     Info = "在近战排生成3只“狼”，并在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "13210300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14011","25007"},
                 }
             },
             {
@@ -3403,7 +3403,7 @@ namespace Cynthia.Card
                     Flavor = "切烂……剁碎……然后熬出……一锅好汤。",
                     Info = "召唤“呢喃婆”和“织婆”。",
                     CardArtsId = "13220700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"23007","23008"},
                 }
             },
             {
@@ -3424,7 +3424,7 @@ namespace Cynthia.Card
                     Flavor = "受不了热浪？那就没生路了。",
                     Info = "在右侧生成3个“次级伊夫利特”。",
                     CardArtsId = "13221000",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25006"},
                 }
             },
             {
@@ -3466,7 +3466,7 @@ namespace Cynthia.Card
                     Flavor = "我能感受到你的痛苦和恐惧。",
                     Info = "召唤“呢喃婆”和“煮婆”。",
                     CardArtsId = "13220800",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"23004","23008"},
                 }
             },
             {
@@ -3487,7 +3487,7 @@ namespace Cynthia.Card
                     Flavor = "我将是你最美……与最后的体验。",
                     Info = "召唤“煮婆”和“织婆”。",
                     CardArtsId = "13220600",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"23007","23004"},
                 }
             },
             {
@@ -3508,7 +3508,7 @@ namespace Cynthia.Card
                     Flavor = "在史凯利格的传说中，强大而恐怖的巨人之王约顿是群岛在上古时期的统治者。他最终死于汉姆多尔的剑下，但在弥留之际，他发誓要在终末之战时重返人间。",
                     Info = "将3个敌军单位移至对方同排，并对它们造成2点伤害。若该排上有“刺骨冰霜”生效，则将伤害提高至3点。",
                     CardArtsId = "20021800",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -3613,7 +3613,7 @@ namespace Cynthia.Card
                     Flavor = "天球交汇后，这些以鲜血为食的怪物便来到了我们的世界。",
                     Info = "生成“月光”。",
                     CardArtsId = "13222000",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"24038"},
                 }
             },
             {
@@ -3655,7 +3655,7 @@ namespace Cynthia.Card
                     Flavor = "丑东西我见得多了，海鳝、七鳃鳗、水滴鱼……但还没见过这么丑的！",
                     Info = "生成“倾盆大雨”、“晴空”或“蟹蜘蛛毒液”。",
                     CardArtsId = "13220300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14019","15013","14004"},
                 }
             },
             {
@@ -3844,7 +3844,7 @@ namespace Cynthia.Card
                     Flavor = "人类心中潜藏着许多原始的恐惧。对迷雾的恐惧更是根深蒂固……",
                     Info = "回合结束时，若场上任意位置有“蔽日浓雾”，则获得1点增益。",
                     CardArtsId = "13230200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14011"},
                 }
             },
             {
@@ -3886,7 +3886,7 @@ namespace Cynthia.Card
                     Flavor = "首先映入眼帘的是头盔旁的两只水牛角，接着是牛角间的头冠，最后是面甲下白骨般的脸。",
                     Info = "使对方同排的“刺骨冰霜”伤害提高1点。",
                     CardArtsId = "13231010",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -3928,7 +3928,7 @@ namespace Cynthia.Card
                     Flavor = "有人说，如果被狼人咬了，那么你就会被感染，也变成狼人。当然，猎魔人都知道这是胡说八道。只有强大的诅咒才能造成这种效果。",
                     Info = "接触“满月”效果时，在自身两侧各生成1只“狼”。",
                     CardArtsId = "20011400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25009","25007"},
                 }
             },
             {
@@ -3992,7 +3992,7 @@ namespace Cynthia.Card
                     Flavor = "看起来像螃蟹和蜘蛛的杂交……只是体型硕大无比。",
                     Info = "每当友军单位吞噬1个单位，便在随机排生成1只“蟹蜘蛛幼虫”。 一共可生效4次。",
                     CardArtsId = "13220100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25002"},
                 }
             },
             {
@@ -4120,7 +4120,7 @@ namespace Cynthia.Card
                     Flavor = "白霜将至。",
                     Info = "对1个敌军单位造成4点伤害。若目标位于“刺骨冰霜”之下或被摧毁，则获得2点增益。",
                     CardArtsId = "13230900",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -4142,7 +4142,7 @@ namespace Cynthia.Card
                     Flavor = "有人说，如果被狼人咬了，那么你就会被感染，也变成狼人。当然，猎魔人都知道这是胡说八道。只有强大的诅咒才能造成这种效果。",
                     Info = "接触“满月”后获得7点增益。 免疫。",
                     CardArtsId = "20009900",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25009"},
                 }
             },
             {
@@ -4163,7 +4163,7 @@ namespace Cynthia.Card
                     Flavor = "一般的鹰身女妖以腐肉为食，赛尔伊诺鹰身女妖……则以梦境为食。",
                     Info = "在左侧生成2枚“鹰身女妖蛋”。",
                     CardArtsId = "13221700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25004"},
                 }
             },
             {
@@ -4206,7 +4206,7 @@ namespace Cynthia.Card
                     Flavor = "怎么跟土元素打？別想了，跑吧，能跑多快跑多快。",
                     Info = "遗愿：在同排生成2个“次级地灵”。",
                     CardArtsId = "13221300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25001"},
                 }
             },
             {
@@ -4227,7 +4227,7 @@ namespace Cynthia.Card
                     Flavor = "我这辈子只当过一次逃兵，就是碰上寒冰巨人那次——我一点也没觉得丢人。",
                     Info = "场上每有一个“刺骨冰霜“灾厄效果，便获得3点增益。每有一个“刺骨冰霜“灾厄效果出现在场上，便获得3点增益。",
                     CardArtsId = "13221200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -4291,7 +4291,7 @@ namespace Cynthia.Card
                     Flavor = "有个迷信的家伙用蜡堵住耳朵，结果什么也听不到，包括警告——他的船直接撞上了礁石。",
                     Info = "对1个敌军单位造成4点伤害，若目标位于“血月”之下，则伤害变为7点。",
                     CardArtsId = "13240900",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25008"},
                 }
             },
             {
@@ -4354,7 +4354,7 @@ namespace Cynthia.Card
                     Flavor = "他不喜欢你挠他的肚子。",
                     Info = "对1个敌军单位造成5点伤害，随后对位于“血月”之下的所有敌军单位造成1点伤害。",
                     CardArtsId = "20011300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25008"},
                 }
             },
             {
@@ -4375,7 +4375,7 @@ namespace Cynthia.Card
                     Flavor = "浓雾悄然弥漫时，小雾妖便会出没，来享用它们的受害者。",
                     Info = "每当在对方半场降下“蔽日浓雾”，便召唤1张同名牌至己方同排。",
                     CardArtsId = "13230100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14011"},
                 }
             },
             {
@@ -4460,7 +4460,7 @@ namespace Cynthia.Card
                     Flavor = "下令出动，放狗开战。",
                     Info = "从牌组打出“刺骨冰霜”。",
                     CardArtsId = "13240200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -4481,7 +4481,7 @@ namespace Cynthia.Card
                     Flavor = "传说她们会用诱人的歌声引水手们上钩……倒不如说，是她们身上一些更加诱人的地方迷住了水手。",
                     Info = "从牌组打出“月光”。",
                     CardArtsId = "20011210",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"24038"},
                 }
             },
             {
@@ -4502,7 +4502,7 @@ namespace Cynthia.Card
                     Flavor = "巨魔形形色色，身材、嗜好各有不同。不过它们的脑子都和一桶锈钉子差不了多少。",
                     Info = "与1个敌军单位对决。若它位于“刺骨冰霜”之下，则己方伤害翻倍。",
                     CardArtsId = "20050200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -4586,7 +4586,7 @@ namespace Cynthia.Card
                     Flavor = "满月的时候，梦魇便会从世界的各个角落匍匐而出。",
                     Info = "择一：降下“满月”恩泽；或降下“血月”灾厄。",
                     CardArtsId = "20006700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25008","25009"},
                 }
             },
             {
@@ -4671,7 +4671,7 @@ namespace Cynthia.Card
                     Flavor = "鹰身女妖蛋卷，真是美味佳肴啊，好先生。但它也非常昂贵，您可能料得到，这些可怜的鸟儿并不愿跟自己的蛋分离。",
                     Info = "使吞噬自身的单位获得额外4点增益。 遗愿：在随机排生成1只“鹰身女妖幼崽”。",
                     CardArtsId = "13231600",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25005"},
                 }
             },
             {
@@ -5242,7 +5242,7 @@ namespace Cynthia.Card
                     Flavor = "石拳阻挡刀剑，逻辑战胜谎言。",
                     Info = "将1个“次级魔像守卫”置于对方牌组顶端。",
                     CardArtsId = "16240100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"35001"},
                 }
             },
             {
@@ -5496,7 +5496,7 @@ namespace Cynthia.Card
                     Flavor = "作为火法师，他算不上……多么热烈。",
                     Info = "生成“刺骨冰霜”、“晴空”或“复仇”。",
                     CardArtsId = "16220700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005","15013","14014"},
                 }
             },
             {
@@ -5538,7 +5538,7 @@ namespace Cynthia.Card
                     Flavor = "“陛下……”皇家总管呜咽着说。直到刚才为止，根本没人留意他。“求您发发慈悲……卡西尔……我的儿子……”",
                     Info = "生成1个“大使”、“刺客”或“特使”。",
                     CardArtsId = "16221300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"34028","34029","34002"},
                 }
             },
             {
@@ -5811,7 +5811,7 @@ namespace Cynthia.Card
                     Flavor = "向围城中散播瘟疫是否人道，这个话题还是留给史学家吧。我们只关心这法子有没有效。",
                     Info = "在对方单排生成1个“牛尸”。",
                     CardArtsId = "16230200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"35002"},
                 }
             },
             {
@@ -6614,7 +6614,7 @@ namespace Cynthia.Card
                     Flavor = "即便今天死，我也要死得光鲜亮丽。",
                     Info = "生成“阿尔祖落雷术”、“雷霆”或“蟹蜘蛛毒液”。",
                     CardArtsId = "12210800",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14003","14018","14004"},
                 }
             },
             {
@@ -6868,7 +6868,7 @@ namespace Cynthia.Card
                     Flavor = "承认错误，妥善安葬——否则他们会回来缠着你不放。",
                     Info = "召唤1只“家事妖精”。",
                     CardArtsId = "12240100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"43012"},
                 }
             },
             {
@@ -7015,7 +7015,7 @@ namespace Cynthia.Card
                     Flavor = "吾为汝取名蒂雅，收汝为吾女。",
                     Info = "召唤1只“异婴”。",
                     CardArtsId = "12240200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"43005"},
                 }
             },
             {
@@ -7036,7 +7036,7 @@ namespace Cynthia.Card
                     Flavor = "我曾让一个囚犯搜肠刮肚地狂吐……啊，好怀念……",
                     Info = "生成“倾盆大雨”、“晴空”或“阿尔祖落雷术”。",
                     CardArtsId = "12220700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14019","15013","14003"},
                 }
             },
             {
@@ -7184,7 +7184,7 @@ namespace Cynthia.Card
                     Flavor = "吹号撤退！重新集结！等待增援！",
                     Info = "从牌组打出1张铜色/银色“士兵”、“机械”、“军官”或“辅助”单位牌。",
                     CardArtsId = "12320100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"45002","45003"},
                 }
             },
             {
@@ -7924,7 +7924,7 @@ namespace Cynthia.Card
                     Flavor = "有些武器在整个北方领域都禁止使用。因为它们所造成的伤害超出了人们的想象。",
                     Info = "造成5点伤害，并在随机排生成1只“鬼灵”。",
                     CardArtsId = "20150300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"45001"},
                 }
             },
             {
@@ -8283,7 +8283,7 @@ namespace Cynthia.Card
                     Flavor = "直面死神的时候到了。",
                     Info = "生成“烧灼”或“瘟疫”。",
                     CardArtsId = "14210800",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13034","14008"},
                 }
             },
             {
@@ -8623,7 +8623,7 @@ namespace Cynthia.Card
                     Flavor = "我是名贤者。我的力量源于占有知识，而非传播知识。",
                     Info = "生成“蔽日浓雾”、“晴空”或“阿尔祖落雷术”。",
                     CardArtsId = "14220200",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14011","15013","14003"},
                 }
             },
             {
@@ -9087,7 +9087,7 @@ namespace Cynthia.Card
                     Flavor = "他们的追踪本领犹如猎犬，双腿健似矫鹿，残忍更胜恶魔。",
                     Info = "在对方单排生成1个“焚烧陷阱”。",
                     CardArtsId = "14230400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"55001"},
                 }
             },
             {
@@ -9529,7 +9529,7 @@ namespace Cynthia.Card
                     Flavor = "別为死者哭泣，敬他们一杯吧！",
                     Info = "在对方同排生成“乌德维克之主”。/n(遗愿：使“哈尔玛”获得14点增益并使其免疫。)",
                     CardArtsId = "15210100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"65003"},
                 }
             },
             {
@@ -9613,7 +9613,7 @@ namespace Cynthia.Card
                     Flavor = "史凯利格需要一位强大的国王，无论付出何等代价。",
                     Info = "在对方单排降下“史凯利格风暴”。",
                     CardArtsId = "15210500",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13035"},
                 }
             },
             {
@@ -9720,7 +9720,7 @@ namespace Cynthia.Card
                     Flavor = "她的真名是艾丝翠特·丽塔尼德·艾斯杰芬比约斯道提尔，这名字不管怎么念都拗口极了。",
                     Info = "将1个铜色/银色单位变为“翡翠人偶”。",
                     CardArtsId = "15210700",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15005"},
                 }
             },
             {
@@ -9763,7 +9763,7 @@ namespace Cynthia.Card
                     Flavor = "终焉之刻来临时，金公鸡坎比便会叫醒沉睡的汉姆多尔。",
                     Info = "间谍。遗愿：生成“汉姆多尔”。",
                     CardArtsId = "15210400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"65001"},
                 }
             },
             {
@@ -9848,7 +9848,7 @@ namespace Cynthia.Card
                     Flavor = "我无聊得快吐了。",
                     Info = "在对方单排生成1只“幽灵鲸”。",
                     CardArtsId = "15220100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"65004"},
                 }
             },
             {
@@ -10016,7 +10016,7 @@ namespace Cynthia.Card
                     Flavor = "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。",
                     Info = "生成“威尔弗雷德”，“威尔海姆”，“威尔玛”。",
                     CardArtsId = "20004300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"65005","65006","65005"},
                 }
             },
             {
@@ -10457,7 +10457,7 @@ namespace Cynthia.Card
                     Flavor = "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。",
                     Info = "受伤或被削弱时变为“狂暴的熊”。",
                     CardArtsId = "15230100",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"65002"},
                 }
             },
             {
@@ -10877,7 +10877,7 @@ namespace Cynthia.Card
                     Flavor = "别碰他。别盯着他的眼睛瞧。事实上……压根就别靠近他。",
                     Info = "生成1头“熊”。",
                     CardArtsId = "20014400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"15010"},
                 }
             },
             {
@@ -11352,7 +11352,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "生成1张“蝠翼魔”并将其置于你的牌组顶端。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
                     CardArtsId = "202223",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70009"},
                 }
             },
             {
@@ -11373,7 +11373,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "生成一张湖中仙女（24战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
                     CardArtsId = "c10000000",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70006"},
                 }
             },
             {
@@ -11415,7 +11415,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "丢弃一场暴雨并在两侧各下一场暴雨，如果卡组中没有暴雨，则对自己造成 4 点伤害并在两侧下暴雨。",
                     CardArtsId = "202283",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14019"},
                 }
             },
             {
@@ -11520,7 +11520,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "202467",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70020","70021"},
                 }
             },
             {
@@ -11541,7 +11541,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "召唤“卓尔坦·矮人战士”和“穆罗·布鲁伊斯”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "202470",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70019","70021"},
                 }
             },
             {
@@ -11562,7 +11562,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "召唤“卓尔坦·矮人战士”和“菲吉斯·梅鲁佐”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "202469",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70019","70020"},
                 }
             },
             {
@@ -11625,7 +11625,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，并受到1点伤害。",
                     CardArtsId = "202506",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"45001"},
                 }
             },
             {
@@ -11773,7 +11773,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组。",
                     CardArtsId = "202462",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70040"},
                 }
             },
             {
@@ -11879,7 +11879,7 @@ namespace Cynthia.Card
                     Flavor = "原来住在森林里的东西，并非守卫队长所说的什么“毛茸茸的鬼玩意儿”，而是松鼠党突击队。领头的人名叫弗妮希尔……",
                     Info = "将2张“弗妮希尔的突击队”加入牌组。触发1次牌组中所有“弗妮希尔的突击队”的交换效果。",
                     CardArtsId = "202535",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70043"},
                 }
             },
             {
@@ -12048,7 +12048,7 @@ namespace Cynthia.Card
                     Flavor = "“商人？抹了。马匹？卖了。”",
                     Info = "力竭。若己方起始牌组仅有铜色牌，则生成1张“史帕拉流亡军”，并将2张“史帕拉流亡军”加入牌组。",
                     CardArtsId = "202415",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70071"},
                 }
             },
             {
@@ -12177,7 +12177,7 @@ namespace Cynthia.Card
                     Flavor = "有些脏了。稍微擦一擦就好。",
                     Info = "对局开始时，置于墓场，随后将3张“最后的愿望”加入卡组。位于墓场时，己方“最后的愿望”额外检视1张牌。",
                     CardArtsId = "202501",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13037"},
                 }
             },
             {
@@ -12219,7 +12219,7 @@ namespace Cynthia.Card
                     Flavor = "“若是月亮一片血红，那就速速紧闭门窗，让宝宝快快上床……",
                     Info = "放逐己方墓场中3张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
                     CardArtsId = "202185",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25009","25008"},
                 }
             },
             {
@@ -12284,7 +12284,7 @@ namespace Cynthia.Card
                     Flavor = "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”",
                     Info = "在左侧生成1张原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
                     CardArtsId = "202444",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70107"},
                 }
             },
               {
@@ -12516,7 +12516,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排。",
                     CardArtsId = "202181",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14019"},
                 }
             },
            {
@@ -12684,7 +12684,7 @@ namespace Cynthia.Card
                     Flavor = "谁算好孩子？唔，他肯定不算。",
                     Info = "对1个敌方单位造成7点伤害，若其被摧毁，则在该排降下“刺骨冰霜”。",
                     CardArtsId = "202609",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -12747,7 +12747,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "将己方墓场中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "202599",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14011"},
                 }
             },
             {
@@ -12768,7 +12768,7 @@ namespace Cynthia.Card
                     Flavor = "结束了，结束了，那是怜悯。",
                     Info = "部署：对一个敌军单位造成7点伤害，若摧毁目标，则在对方同排生成一张“巨熊祭品”。",
                     CardArtsId = "202279",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70090"},
                 }
             },
             {
@@ -12832,7 +12832,7 @@ namespace Cynthia.Card
                     Flavor = "即便以大师贝克尔的标准，也是十足的狂风暴雨。",
                     Info = "选择4排降下倾盆大雨，若其上有倾盆大雨则改为降下史凯利杰风暴。",
                     CardArtsId = "202203",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14019","13035"},
                 }
             },
             {
@@ -12853,7 +12853,7 @@ namespace Cynthia.Card
                     Flavor = "他将降下白霜。",
                     Info = "一个世界终结，便有另一个世界开启。",
                     CardArtsId = "202603",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14005"},
                 }
             },
             {
@@ -13232,7 +13232,7 @@ namespace Cynthia.Card
                     Flavor = "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。",
                     Info = "使对方场上的“倾盆大雨”伤害提升1点。",
                     CardArtsId = "c10001000",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14019"},
                 }
             },
             {
@@ -13295,7 +13295,7 @@ namespace Cynthia.Card
                     Flavor = "进入森林的人类最不想见到……",
                     Info = "对1个敌军单位造成1点削弱，若目标位于“蔽日浓雾”下则改为3点。",
                     CardArtsId = "c10002400",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"14011"},
                 }
             },
             {
@@ -13400,7 +13400,7 @@ namespace Cynthia.Card
                     Flavor = "适者生存。所以你得被淘汰。",
                     Info = "生成2个“蟹蜘蛛幼虫”，墓场中每有1张同名牌额外生成1个。",
                     CardArtsId = "202442",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"25002"},
                 }
             },
             {
@@ -13463,7 +13463,7 @@ namespace Cynthia.Card
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
                     Info = "丢弃牌组中的三张铜色特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
                     CardArtsId = "202514",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70136"},
                 }
             },
             {
@@ -13505,7 +13505,7 @@ namespace Cynthia.Card
                     Flavor = "先贤声称动物愚昧无知——纯属胡说八道。",
                     Info = "回合结束时，若同排没有乌鸦，则在右侧生成一个乌鸦。",
                     CardArtsId = "202517",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70136"},
                 }
             },
             {
@@ -13925,7 +13925,7 @@ namespace Cynthia.Card
                     Flavor = "和欧吉尔德的婚约犹如一场美梦……",
                     Info = "休战：向双方手牌中添加两张爱丽丝的伙伴。",
                     CardArtsId = "202399",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13004"},
                 }
             },
             {
@@ -14030,7 +14030,7 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "生成2张圣甲虫。",
                     CardArtsId = "202425",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70162"},
                 }
             },
             {
