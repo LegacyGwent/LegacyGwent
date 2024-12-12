@@ -7,6 +7,8 @@ namespace Cynthia.Card
         public int MyRow1Point { get; set; }
         public int MyRow2Point { get; set; }
         public int MyRow3Point { get; set; }
+        public int myland { get; set; }
+        public int enemyland { get; set; }
         public int EnemyRow1Point { get; set; }
         public int EnemyRow2Point { get; set; }
         public int EnemyRow3Point { get; set; }

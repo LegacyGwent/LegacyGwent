@@ -43,6 +43,8 @@ namespace Cynthia.Card.Server
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
         public int Player1Index { get; } = 0;
         public int Player2Index { get; } = 1;
+        public int myland = 0;
+        public int enemyland = 0;
         public IList<Viewer> ViewList { get; set; } = new List<Viewer>();
         public IList<Operation<ServerOperationType>>[] PlayerToResendToViewerInfo { get; set; } = new IList<Operation<ServerOperationType>>[2]
         {
@@ -52,6 +54,9 @@ namespace Cynthia.Card.Server
         {
             get
             {
+                myland = PlayersCemetery[0].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength);
+                enemyland = PlayersCemetery[1].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength);
+                // myland = balancePoint;
                 var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
                 var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
                 var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
@@ -1059,6 +1064,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             return new GameInfomation()
             {
+                myland = PlayersCemetery[0].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
+                enemyland = PlayersCemetery[1].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
                 MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
@@ -1108,6 +1115,8 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             return new GameInfomation()
             {
+                myland = PlayersCemetery[0].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
+                enemyland = PlayersCemetery[1].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
                 MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
