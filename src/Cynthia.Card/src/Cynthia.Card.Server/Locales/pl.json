@@ -2527,7 +2527,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Rozmieszczenie: Wybierz jednostke. Jeśli jest zraniona zniszcz ją. Jeśli nie zadawaj 2pkt obrażeń aż będzie zraniona.",
+            "Info": "Rozmieszczenie: Wybierz wroga. Jeżeli jest zraniony, zniszcz go. W przeciwnym wypadku zadawaj mu 2pkt obrażeń dopóki nie będzie zraniony i zadaj sobie obrażenia równe połowie siły tej jednostki",
             "Flavor": "Krew dla Svalbloda! Czaszki na jego tron!"
         },
         "62004": {
@@ -3187,7 +3187,7 @@
         },
         "70092": {
             "Name": "Zawiadiaka Svalbloda",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli jest pod wływem zagrożenia, zadaj zamiast tego 8 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi obrażenia równe dwukrotności liczby rzędów znajdujących się pod wpływem Ulewnego Deszczu.",
             "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
         },
         "70093": {
