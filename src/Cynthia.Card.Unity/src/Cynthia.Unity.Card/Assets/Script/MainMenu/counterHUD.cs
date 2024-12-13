@@ -26,6 +26,7 @@ public class counterHUD : MonoBehaviour
     public Text Matchmaking_Menu_RankText;
     public Text Matchmaking_Menu_CasualFlagText;
     public Text Matchmaking_Menu_RankFlagText;
+    public Text Matchmaking_Menu_PlayersOnlineText;
     private LocalizationService _translator;
     int points = 0;
     int usersinmatch = 0;
@@ -49,7 +50,8 @@ public class counterHUD : MonoBehaviour
         Matchmaking_Menu_CasualFlagText.text = _translator.GetText("Matchmaking_Menu_CasualFlagText");
         Matchmaking_Menu_RankFlagText.text = _translator.GetText("Matchmaking_Menu_RankFlagText");
         Matchmaking_Menu_CasualText.text = _translator.GetText("Matchmaking_Menu_CasualText");
-        Matchmaking_Menu_RankText.text = _translator.GetText("Matchmaking_Menu_RankText"); 
+        Matchmaking_Menu_RankText.text = _translator.GetText("Matchmaking_Menu_RankText");
+        Matchmaking_Menu_PlayersOnlineText.text = _translator.GetText("Matchmaking_Menu_PlayersOnlineText"); 
     }
     private void Awake ()
     {
