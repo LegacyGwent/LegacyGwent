@@ -43,6 +43,10 @@ namespace Cynthia.Card.Client
         {
             return receiver.ReceiveAsync<bool>();
         }
+        public Task<bool> DisplayGG()
+        {
+            return receiver.ReceiveAsync<bool>();
+        }
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
         {
@@ -55,6 +59,10 @@ namespace Cynthia.Card.Client
             var hubConnection = container.ResolveNamed<HubConnection>("game");
             Debug.Log(hubConnection);
             hubConnection.On<bool>("MatchResult", async x =>
+            {
+                await sender.SendAsync<bool>(x);
+            });
+            hubConnection.On<bool>("DisplayGG", async x =>
             {
                 await sender.SendAsync<bool>(x);
             });
@@ -229,6 +237,10 @@ namespace Cynthia.Card.Client
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
             return HubConnection.InvokeAsync<bool>("NewMatchOfPassword", deckId, password, usingBlacklist);
         }
+        public Task<bool> SendGG(string playername)
+        {
+            return HubConnection.InvokeAsync<bool>("SendGG", playername);
+        }        
         public Task<bool> StopMatch()
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");

@@ -102,7 +102,21 @@ namespace Cynthia.Card.Server
             //玩家未在线,失败
             return false;
         }
-
+        public async Task<bool> SendGG(string UserName)
+        {
+            if (_users.Any(x => x.Value.UserName == UserName))
+            {
+                var connectionId = _users.Single(x => x.Value.UserName == UserName).Value.ConnectionId;
+                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", true);
+                // await DisplayGG(connectionId)
+                return true;
+            }
+            return false;
+        }
+        // public bool DisplayGG(string ConnectionId)
+        // {
+        //     return true;
+        // }
         public async Task<bool> StopMatch(string connectionId)
         {
             if (_users[connectionId].UserState != UserState.Match && _users[connectionId].UserState != UserState.PasswordMatch)

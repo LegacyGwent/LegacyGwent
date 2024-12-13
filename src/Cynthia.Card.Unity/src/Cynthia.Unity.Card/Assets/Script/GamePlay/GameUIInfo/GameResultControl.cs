@@ -15,7 +15,9 @@ public class GameResultControl : MonoBehaviour
     //显示敌我玩家名
     public Text MyName;
     public Text EnemyName;
-
+    private string enemyname;
+    private float timer=0;
+    private float interval=1;
     //三个回合的结果数字
     public Text Round1MyPoint;
     public Text Round1EnemyPoint;
@@ -40,6 +42,7 @@ public class GameResultControl : MonoBehaviour
     public GameObject MyWinIconRight;
     public GameObject EnemyWinIconLeft;
     public GameObject EnemyWinIconRight;
+    public GameObject GGObject;
 
     //背景相关,主背景色,左背景,右背景
     public Image BackgroundMain;
@@ -68,6 +71,7 @@ public class GameResultControl : MonoBehaviour
     {
         MyName.text = gameResult.MyName;
         EnemyName.text = gameResult.EnemyName;
+        enemyname = gameResult.EnemyName;
         if (gameResult.RoundCount < 3)
             Round3.SetActive(false);
         if (gameResult.RoundCount < 2)
@@ -194,5 +198,25 @@ public class GameResultControl : MonoBehaviour
                 EnemyWinIconRight.SetActive(true);
         }
         gameObject.SetActive(true);
+    }
+    public async void SendGG()
+    {
+        await DependencyResolver.Container.Resolve<GwentClientService>().SendGG(enemyname);
+    }
+    void Update()
+    {
+        if (timer<interval)
+        {
+            timer=timer+Time.deltaTime;
+        }
+        else
+        {
+            DisplayGGObject();
+        }
+    }
+    public async void DisplayGGObject()
+    {        
+        if (await DependencyResolver.Container.Resolve<GwentClientService>().DisplayGG())
+            {GGObject.SetActive(true);}
     }
 }
