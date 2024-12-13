@@ -2527,7 +2527,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: select a unit, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged.",
+            "Info": "Deploy: select a unit, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged and damage self by half strength.",
             "Flavor": "为了斯瓦勃洛！"
         },
         "62004": {
@@ -3187,7 +3187,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: Damage an enemy by 4. If it is under a Hazard, deal 8 Damage instead.",
+            "Info": "Deploy: Damage an enemy twice the number of Torrential Rains on the board.",
             "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
         "70093": {

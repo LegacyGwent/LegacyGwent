@@ -8,22 +8,14 @@ namespace Cynthia.Card
 {
     [CardEffectId("70092")]//斯瓦勃洛争斗者 SvalblodBrawler
     public class SvalblodBrawler : CardEffect
-    {//xx
+    {//Deploy: Damage an enemy by twice the number of Torrential Rains on the board.
         public SvalblodBrawler(GameCard card) : base(card) { }
+        private const int increment = 2;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-           var damages = 4;
-           if (Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard())
-           {
-                damages = 6;
-           }
-            var row = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
-            for (var i = 0; i < damages; i++)
-            {
-                var card = row.Where(x => x.IsAliveOnPlance()).Mess(Game.RNG).Take(1);
-                if (card.Count() > 0)
-                    await card.Single().Effect.Damage(1, Card);
-            }
+            var count = Game.GameRowEffect.SelectMany(x => x.Select(x => x.RowStatus)).Where(x => x == RowStatus.TorrentialRain).Count();
+            var result = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow));
+            if (result.Count != 0) await result.Single().Effect.Damage(increment * count, Card);
             return 0;
         }
     }

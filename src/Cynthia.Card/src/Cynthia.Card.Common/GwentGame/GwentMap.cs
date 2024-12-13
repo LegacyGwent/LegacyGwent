@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 108);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 109);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9107,7 +9107,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Cultist},
                     Flavor = "为了斯瓦勃洛！",
-                    Info = "选择一个敌方单位，如果其已经受伤，则直接摧毁它，否则对其造成2点伤害直至其受伤。",
+                    Info = "部署：选择一个单位，如果其已受伤则摧毁它；否则对其造成2点伤害直至其受伤并对自身造成基础战力一半的伤害。",
                     CardArtsId = "20002800",
                 }
             },
@@ -11983,7 +11983,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70118",
                     Name="莱里亚镰刀手",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12749,7 +12749,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70092",
                     Name="斯瓦勃洛争斗者",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12759,7 +12759,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "史凯利格容不下罪犯和无赖……他们的罪行必须偿还。",
-                    Info = "对1个敌军单位造成4点伤害，若自身位于灾厄下则改为造成8点伤害。",
+                    Info = "部署：对一个敌军单位造成两倍于场上“倾盆大雨”数量的伤害。",
                     CardArtsId = "202288",
                 }
             },
