@@ -15,7 +15,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            if (target.Status.HealthStatus >= 0)
+            if (target.Status.HealthStatus >= 0 && target.CardInfo().CardId != "54012")
                 {
                     while (target.Status.HealthStatus >= 0)           
                     {
