@@ -108,15 +108,11 @@ namespace Cynthia.Card.Server
             {
                 var connectionId = _users.Single(x => x.Value.UserName == UserName).Value.ConnectionId;
                 await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", true);
-                // await DisplayGG(connectionId)
-                return true;
+                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", false);
+                return false;
             }
             return false;
         }
-        // public bool DisplayGG(string ConnectionId)
-        // {
-        //     return true;
-        // }
         public async Task<bool> StopMatch(string connectionId)
         {
             if (_users[connectionId].UserState != UserState.Match && _users[connectionId].UserState != UserState.PasswordMatch)

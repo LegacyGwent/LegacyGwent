@@ -43,10 +43,6 @@ namespace Cynthia.Card.Client
         {
             return receiver.ReceiveAsync<bool>();
         }
-        public Task<bool> DisplayGG()
-        {
-            return receiver.ReceiveAsync<bool>();
-        }
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
         {
@@ -59,10 +55,6 @@ namespace Cynthia.Card.Client
             var hubConnection = container.ResolveNamed<HubConnection>("game");
             Debug.Log(hubConnection);
             hubConnection.On<bool>("MatchResult", async x =>
-            {
-                await sender.SendAsync<bool>(x);
-            });
-            hubConnection.On<bool>("DisplayGG", async x =>
             {
                 await sender.SendAsync<bool>(x);
             });

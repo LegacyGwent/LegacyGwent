@@ -10,14 +10,15 @@ using Cynthia.Card;
 public class GameResultControl : MonoBehaviour
 {
     //胜利?失败?
+    [SerializeField] GameObject popup_prefab;
     public Text TitleResult;
 
     //显示敌我玩家名
     public Text MyName;
     public Text EnemyName;
     private string enemyname;
-    private float timer=0;
-    private float interval=1;
+    private float timer=4;
+    private float interval=6;
     //三个回合的结果数字
     public Text Round1MyPoint;
     public Text Round1EnemyPoint;
@@ -42,7 +43,7 @@ public class GameResultControl : MonoBehaviour
     public GameObject MyWinIconRight;
     public GameObject EnemyWinIconLeft;
     public GameObject EnemyWinIconRight;
-    public GameObject GGObject;
+    // public GameObject GGObject;
 
     //背景相关,主背景色,左背景,右背景
     public Image BackgroundMain;
@@ -197,7 +198,9 @@ public class GameResultControl : MonoBehaviour
             if (enemyWinCount >= 2)
                 EnemyWinIconRight.SetActive(true);
         }
+        // UpdateGGBool();
         gameObject.SetActive(true);
+
     }
     public async void SendGG()
     {
@@ -205,6 +208,7 @@ public class GameResultControl : MonoBehaviour
     }
     void Update()
     {
+
         if (timer<interval)
         {
             timer=timer+Time.deltaTime;
@@ -214,9 +218,12 @@ public class GameResultControl : MonoBehaviour
             DisplayGGObject();
         }
     }
-    public async void DisplayGGObject()
-    {        
-        if (await DependencyResolver.Container.Resolve<GwentClientService>().DisplayGG())
-            {GGObject.SetActive(true);}
+    private async void DisplayGGObject()
+    {
+        bool isdisplaygg = await DependencyResolver.Container.Resolve<GwentGGService>().DisplayGG();
+        if (isdisplaygg)
+        {
+            GameObject popupobject = Instantiate(popup_prefab);
+        }
     }
 }
