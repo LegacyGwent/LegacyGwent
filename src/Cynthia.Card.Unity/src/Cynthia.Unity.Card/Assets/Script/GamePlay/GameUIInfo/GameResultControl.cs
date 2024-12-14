@@ -16,7 +16,7 @@ public class GameResultControl : MonoBehaviour
     //显示敌我玩家名
     public Text MyName;
     public Text EnemyName;
-    private string enemyname;
+    public string enemyname;
     private float timer=4;
     private float interval=6;
     //三个回合的结果数字
