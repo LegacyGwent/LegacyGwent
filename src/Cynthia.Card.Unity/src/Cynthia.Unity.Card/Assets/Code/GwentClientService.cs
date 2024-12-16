@@ -229,9 +229,9 @@ namespace Cynthia.Card.Client
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
             return HubConnection.InvokeAsync<bool>("NewMatchOfPassword", deckId, password, usingBlacklist);
         }
-        public Task<bool> SendGG(string playername)
+        public Task<bool> SendGG(string myname, string enemyname)
         {
-            return HubConnection.InvokeAsync<bool>("SendGG", playername);
+            return HubConnection.InvokeAsync<bool>("SendGG", myname, enemyname);
         }        
         public Task<bool> StopMatch()
         {

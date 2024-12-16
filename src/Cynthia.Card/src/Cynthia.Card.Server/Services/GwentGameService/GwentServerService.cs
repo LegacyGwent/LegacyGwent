@@ -102,13 +102,13 @@ namespace Cynthia.Card.Server
             //玩家未在线,失败
             return false;
         }
-        public async Task<bool> SendGG(string UserName)
+        public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
         {
-            if (_users.Any(x => x.Value.UserName == UserName))
+            if (_users.Any(x => x.Value.UserName == EnemyName))
             {
-                var connectionId = _users.Single(x => x.Value.UserName == UserName).Value.ConnectionId;
-                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", true);
-                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", false);
+                var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
+                Console.WriteLine(MyName);
+                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
                 return false;
             }
             return false;

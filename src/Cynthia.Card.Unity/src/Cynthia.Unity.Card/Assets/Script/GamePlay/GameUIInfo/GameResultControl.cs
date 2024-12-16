@@ -17,6 +17,7 @@ public class GameResultControl : MonoBehaviour
     public Text MyName;
     public Text EnemyName;
     public string enemyname;
+    public string myname;
     private float timer=4;
     private float interval=6;
     //三个回合的结果数字
@@ -73,6 +74,7 @@ public class GameResultControl : MonoBehaviour
         MyName.text = gameResult.MyName;
         EnemyName.text = gameResult.EnemyName;
         enemyname = gameResult.EnemyName;
+        myname = gameResult.MyName;
         if (gameResult.RoundCount < 3)
             Round3.SetActive(false);
         if (gameResult.RoundCount < 2)
@@ -204,7 +206,7 @@ public class GameResultControl : MonoBehaviour
     }
     public async void SendGG()
     {
-        await DependencyResolver.Container.Resolve<GwentClientService>().SendGG(enemyname);
+        await DependencyResolver.Container.Resolve<GwentClientService>().SendGG(myname, enemyname);
         GGButton.SetActive(false);
     }
     void Update()
@@ -221,7 +223,9 @@ public class GameResultControl : MonoBehaviour
     }
     private async void DisplayGGObject()
     {
-        bool isdisplaygg = await DependencyResolver.Container.Resolve<GwentGGService>().DisplayGG();
+        string sender = await DependencyResolver.Container.Resolve<GwentGGService>().DisplayGG();
+        GGSender.ggsender = sender;
+        bool isdisplaygg = sender.Length >=1;
         if (isdisplaygg)
         {
             AudioManager.Instance.PlayAudio("GG", AudioType.Effect, AudioPlayMode.PlayOneShoot);

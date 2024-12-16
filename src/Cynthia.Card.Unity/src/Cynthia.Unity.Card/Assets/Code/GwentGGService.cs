@@ -28,29 +28,22 @@ namespace Cynthia.Card.Client
         private LocalizationService _translator;
 
         public ClientState ClientState { get; set; } = ClientState.Standby;
+        public Task<string> DisplayGG()
+        {
+            return receiver.ReceiveAsync<string>();
+        }
 
-        /*待修改*/
-        public Task<bool> MatchResult()
-        {
-            return receiver.ReceiveAsync<bool>();
-        }
-        public Task<bool> DisplayGG()
-        {
-            return receiver.ReceiveAsync<bool>();
-        }
         public GwentGGService(IContainer container, GlobalUIService globalUIService)
         {
             _translator = container.Resolve<LocalizationService>();
             _globalUIService = globalUIService;
-            /*待修改*/
+            // Receive the name of the sender of GG
             (sender, receiver) = Tube.CreateSimplex();
             var hubConnection = container.ResolveNamed<HubConnection>("game");
-            hubConnection.On<bool>("DisplayGG", async x =>
+            hubConnection.On<string>("DisplayGG", async x =>
             {
-                await sender.SendAsync<bool>(x);
+                await sender.SendAsync<string>(x);
             });
-            // HubConnection = hubConnection;
-            // hubConnection.StartAsync();
         }
     }
 }
