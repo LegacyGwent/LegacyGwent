@@ -107,7 +107,6 @@ namespace Cynthia.Card.Server
             if (_users.Any(x => x.Value.UserName == EnemyName))
             {
                 var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
-                Console.WriteLine(MyName);
                 await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
                 return false;
             }
