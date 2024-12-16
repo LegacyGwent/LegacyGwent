@@ -264,8 +264,8 @@
         "ShupeMage_5_Special": "Play a non Gold special card from your deck.",
         "Hym_1_PlayCursed": "Play a Bronze or Silver Cursed unit from your deck.",
         "Hym_2_PlaySilver": "Create a Silver unit from your opponent's starting deck.",
-        "DetlaffCrimsonCurse_1_Boon": "Banish 3 Beast or Vampire from your graveyard, then apply  Full Moon on all enemy rows.",
-        "DetlaffCrimsonCurse_2_Hazard": "Banish 3 Beast or Vampire from your graveyard, then apply Blood Moon on all friendly rows.",
+        "DetlaffCrimsonCurse_1_Boon": "Banish 3 Beast or Vampire from your graveyard, then apply  Full Moon on all friendly rows.",
+        "DetlaffCrimsonCurse_2_Hazard": "Banish 3 Beast or Vampire from your graveyard, then apply Blood Moon on all enemy rows.",
         "WeavessIncantation_1_Strenghten": "Strengthen all your Relicts in hand, deck and on the board by 2.",
         "WeavessIncantation_2_PlayRelict": "Play a Bronze or Silver Relict from your deck and Strengthen it by 2.",
         "LethoKingslayer_1_Destroy": "Destroy an enemy Leader, then Boost self by 5.",
@@ -300,7 +300,9 @@
         "BlackBlood_2_DestroyVampire": "Destroy a Bronze or Silver Necrophage or Vampire.",
         "Sihil_1_DamageOdd": "Deal 3 Damage to all enemies with odd Power.",
         "Sihil_2_DamageEven": "Deal 3 Damage to all enemies with even Power.",
-        "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck."
+        "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck.",
+        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
     },
     "CardLocales": {
         "12001": {
@@ -1210,7 +1212,7 @@
         },
         "24014": {
             "Name": "Drowner",
-            "Info": "Deploy: Move an enemy to the opposite row and deal 2 Damage to it.\nIf that row is under a Hazard, deal 4 Damage instead.",
+            "Info": "Deploy: Move an enemy to the opposite row and deal 2 Damage to it.\nIf that row is under a Hazard, deal 5 Damage instead.",
             "Flavor": "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。"
         },
         "24015": {
@@ -1690,7 +1692,7 @@
         },
         "34021": {
             "Name": "Spotter",
-            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by its base Power.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
             "Flavor": "北方佬耍不出花招了。"
         },
         "34022": {
@@ -2525,7 +2527,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: Deal 2 Damage to an enemy and its adjacent units.\nIf a unit was already Damaged, destroy it instead.",
+            "Info": "Deploy: select a unit, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged.",
             "Flavor": "为了斯瓦勃洛！"
         },
         "62004": {
@@ -2700,7 +2702,7 @@
         },
         "64005": {
             "Name": "Berserker Marauder",
-            "Info": "Deploy: Boost self by 1 for each Damaged or Cursed ally.",
+            "Info": "Deploy: Boost self by 1 for each Damaged ally and by 1 for each Cursed ally.",
             "Flavor": "把汤乖乖喝完，不然狂战士就会过来，把你给掳走。"
         },
         "64006": {
@@ -2740,7 +2742,7 @@
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 14 Strength)",
+            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 13 Strength)",
             "Flavor": "在诗人的歌谣里，鏖战中变身的狂战士跟野熊没两样。"
         },
         "64014": {
@@ -2890,7 +2892,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy, Choose One: Play a Bronze unit from your deck with Power not greater than self, then send that unit to the graveyard at the end of the turn; or Consume a Bronze unit from your deck with more Power than this unit and Boost self by its Power.",
+            "Info": "Deploy: Choose a Bronze unit in your deck. If it has more Power than this unit, consume it and boost self by its power. Otherwise, play that unit and send it to the graveyard at the end of the turn.",
             "Flavor": ""
         },
         "70003": {
@@ -3025,7 +3027,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row. If its Strength lower then 13, Strengthen self by 1.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3215,12 +3217,12 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Deploy: Play a random Items from your deck. Increase their Damages by 1 each.",
+            "Info": "Play a random item or choose and play a Scoia'tael item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Deploy: Damage loyal units in your deck by 2 (doesn't trigger deathwishes), then Strengthen them by 2.",
+            "Info": "Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
             "Flavor": "斯瓦勃洛唯一的戒律：屠戮。”"
         },
         "70100": {
@@ -3285,7 +3287,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 4 Damage to an ally, then play a Bronze Cultist card from your deck, then strengthen the unit played by 2.",
+            "Info": "Deal 4 Damage to an ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
             "Flavor": ""
         },
         "70113": {
@@ -3305,7 +3307,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "At the end of your turn, if there is Rain on the opposite side, ressurect self to a random allied row.",
+            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
             "Flavor": ""
         },
         "70117": {
@@ -3390,7 +3392,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on left side.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on the right side.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
             "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
         },
         "70135": {
@@ -3500,7 +3502,7 @@
         },
         "70156": {
             "Name": "Piercing Missile",
-            "Info": "Deal 8 Damage to an enemy unit ignoring Armour. If this unit is Boosted, Damage it by 10 instead.",
+            "Info": "Deal 7 Damage to an enemy unit ignoring Armour. If this unit is Boosted, Damage it by 10 instead.",
             "Flavor": "无坚不摧，无甲不破。"
         },
         "70157": {
@@ -3555,7 +3557,7 @@
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Return 3 Silver or Bronze Dwarf unit from graveyard to your deck, then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armors and Boost it by 1.",
+            "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
             "Flavor": ""
         },
         "80001": {

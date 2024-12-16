@@ -156,13 +156,8 @@ public class ArtCard : MonoBehaviour
         }
         else
             ArmorShow.SetActive(false);
-        Strength.text = (CurrentCore.Strength + CurrentCore.HealthStatus).ToString();
-        if (CurrentCore.HealthStatus > 0)
-            Strength.color = ClientGlobalInfo.GreenColor;
-        if (CurrentCore.HealthStatus == 0)
-            Strength.color = ClientGlobalInfo.NormalColor;
-        if (CurrentCore.HealthStatus < 0)
-            Strength.color = ClientGlobalInfo.RedColor;
+        Strength.text = (CurrentCore.Strength).ToString();
+        Strength.color = ClientGlobalInfo.NormalColor;
         // FactionIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50 + (iconCount == 0 ? 1 : iconCount) * 50);
         //-----------------------------------------------
     }
