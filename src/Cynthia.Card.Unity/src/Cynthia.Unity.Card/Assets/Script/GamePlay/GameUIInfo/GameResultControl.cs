@@ -44,7 +44,7 @@ public class GameResultControl : MonoBehaviour
     public GameObject EnemyWinIconLeft;
     public GameObject EnemyWinIconRight;
     // public GameObject GGObject;
-
+    public GameObject GGButton;
     //背景相关,主背景色,左背景,右背景
     public Image BackgroundMain;
     public Image BackgroundLeft;
@@ -205,6 +205,7 @@ public class GameResultControl : MonoBehaviour
     public async void SendGG()
     {
         await DependencyResolver.Container.Resolve<GwentClientService>().SendGG(enemyname);
+        GGButton.SetActive(false);
     }
     void Update()
     {
@@ -223,6 +224,7 @@ public class GameResultControl : MonoBehaviour
         bool isdisplaygg = await DependencyResolver.Container.Resolve<GwentGGService>().DisplayGG();
         if (isdisplaygg)
         {
+            AudioManager.Instance.PlayAudio("GG", AudioType.Effect, AudioPlayMode.PlayOneShoot);
             GameObject popupobject = Instantiate(popup_prefab);
         }
     }

@@ -5363,6 +5363,7 @@ MonoBehaviour:
   TitleResult: {fileID: 1686351665}
   MyName: {fileID: 894874650}
   EnemyName: {fileID: 1965887010}
+  enemyname: 
   Round1MyPoint: {fileID: 360876131}
   Round1EnemyPoint: {fileID: 247461925}
   Round2MyPoint: {fileID: 1071318746}
@@ -5380,6 +5381,7 @@ MonoBehaviour:
   MyWinIconRight: {fileID: 1862233803}
   EnemyWinIconLeft: {fileID: 831332014}
   EnemyWinIconRight: {fileID: 1661359820}
+  GGButton: {fileID: 1822414149}
   BackgroundMain: {fileID: 657656526}
   BackgroundLeft: {fileID: 1559530513}
   BackgroundRight: {fileID: 918440132}
@@ -9430,6 +9432,8 @@ MonoBehaviour:
     TextObject: {fileID: 264761654}
   - Id: IngameMenu_CloseButton
     TextObject: {fileID: 405791067}
+  - Id: IngameMenu_GGButton
+    TextObject: {fileID: 1822414150}
 --- !u!1 &1136800736
 GameObject:
   m_ObjectHideFlags: 0
@@ -15255,7 +15259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948117501509930, guid: 6be3854b80cfb9940b30c2d96ef0d090, type: 3}
       propertyPath: m_Name
-      value: CloseGameButtonText
+      value: GGButtonText
       objectReference: {fileID: 0}
     - target: {fileID: 114533055442639346, guid: 6be3854b80cfb9940b30c2d96ef0d090,
         type: 3}
@@ -15417,6 +15421,18 @@ PrefabInstance:
 --- !u!224 &1822414148 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224151824304099934, guid: 6be3854b80cfb9940b30c2d96ef0d090,
+    type: 3}
+  m_PrefabInstance: {fileID: 1822414147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1822414149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1738123559089934, guid: 6be3854b80cfb9940b30c2d96ef0d090,
+    type: 3}
+  m_PrefabInstance: {fileID: 1822414147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1822414150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1948117501509930, guid: 6be3854b80cfb9940b30c2d96ef0d090,
     type: 3}
   m_PrefabInstance: {fileID: 1822414147}
   m_PrefabAsset: {fileID: 0}
