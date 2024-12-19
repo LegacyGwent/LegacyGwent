@@ -11503,6 +11503,27 @@ namespace Cynthia.Card
                 }
             },
             {
+                "70018",//掠夺者猎人噩梦铠甲
+                new GwentCard()
+                {
+                    CardId = "70018",//Not used
+                    Name = "掠夺者猎人噩梦铠甲",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[] { Categorie.Special},
+                    Flavor = "来自噩梦....",
+                    Info = "游戏开始时,将这张卡置入墓场。\n若在墓场,己方卡组的单位无法从卡组移动至墓场,免疫决斗伤害,且打出时候获得1-2点伤害或1-2点增益。",
+                    CardArtsId = "d20470000",
+					LinkedCards=new List<String> {},
+                }
+            },
+            {
                 "70019",//卓尔坦·矮人战士
                 new GwentCard()
                 {
@@ -12558,6 +12579,556 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "使牌组中的1个铜色单位牌获得3点增益。",
                     CardArtsId = "202161",
+					LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130210",//杜度：晋升
+                new GwentCard()
+                {
+                    CardId ="130210",//Not used
+                    Name="杜度：晋升",
+                    Strength=1,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "拟态怪有很多别名：易形怪、二重身、模仿怪……变形怪。",
+                    Info = "变为一个单位的复制。",
+                    CardArtsId = "11220100",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130220",//获奖奶牛：晋升
+                new GwentCard()
+                {
+                    CardId ="130220",//Not used
+                    Name="获奖奶牛：晋升",
+                    Strength=1,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Beast},
+                    HideTags = new HideTag[]{HideTag.Deathwish},
+                    Flavor = "哞～～～",
+                    Info = "遗愿：在同排生成1个“羊角魔”，并对对方同排所有单位造成2点伤害。",
+                    CardArtsId = "11220900",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130200",//多瑞加雷：晋升
+                new GwentCard()
+                {
+                    CardId ="130200",//Not used
+                    Name="多瑞加雷：晋升",
+                    Strength=2,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。",
+                    Info = "生成1只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”的银色晋升牌。",
+                    CardArtsId = "20008700",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130180",//德鲁伊控天者：晋升
+                new GwentCard()
+                {
+                    CardId ="130180",//Not used
+                    Name="德鲁伊控天者：晋升",
+                    Strength=5,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "控天者德鲁伊能操控各种元素之力，让狂风暴雨化为绕指柔风，降下毁天灭地的雹暴，还能拖雷掣电让敌军灰飞烟灭……所以我给你个忠告：面对他，一定要毕恭毕敬。",
+                    Info = "生成1张中立铜色/银色“灾厄”牌、“晴空”或“阿尔祖落雷术”。",
+                    CardArtsId = "11320800",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130190",//爱丽丝·伊佛瑞克：晋升
+                new GwentCard()
+                {
+                    CardId ="130190",//Not used
+                    Name="爱丽丝·伊佛瑞克：晋升",
+                    Strength=1,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
+                    HideTags = new HideTag[]{HideTag.Deathwish},
+                    Flavor = "我的回忆所剩无几……但每次想到我的玫瑰，记忆便会涌现。",
+                    Info = "间谍。 遗愿：使对面半场6个随机单位获得5点增益。",
+                    CardArtsId = "11221500",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130010",//萝卜：晋升
+                new GwentCard()
+                {
+                    CardId ="130010",//Not used
+                    Name="萝卜：晋升",
+                    Strength=4,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Beast},
+                    Flavor = "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。",
+                    Info = "己方从手牌打出金色单位牌时，召唤此单位。若位于手牌，打出至随机排，然后抽1张牌。若位于墓场，返回牌组。",
+                    CardArtsId = "11221000",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130150",//欧吉尔德·伊佛瑞克：晋升
+                new GwentCard()
+                {
+                    CardId ="130150",//Not used
+                    Name="欧吉尔德·伊佛瑞克：晋升",
+                    Strength=6,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
+                    Flavor = "至少你知道我的头不好砍了。",
+                    Info = "在回合开始时，复活它并将其削弱一半。",
+                    CardArtsId = "11220700",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130020",//乞丐王：晋升
+                new GwentCard()
+                {
+                    CardId ="130020",//Not used
+                    Name="乞丐王：晋升",
+                    Strength=7,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Support},
+                    Flavor = "要是我缺鼻子或者断手了，那显然，乞丐王接受这两种付款方式。",
+                    Info = "获得强化，直至战力超过对方1点或最多到20点。",
+                    CardArtsId = "11221300",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130160",//操作者：晋升
+                new GwentCard()
+                {
+                    CardId ="130160",//Not used
+                    Name="操作者：晋升",
+                    Strength=7,
+                    Countdown=1,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。",
+                    Info = "力竭。 休战：为双方各添加1张己方手牌1张非“力竭”铜色/银色牌的原始同名牌。",
+                    CardArtsId = "11220800",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130130",//维瑟米尔：晋升
+                new GwentCard()
+                {
+                    CardId ="130130",//Not used
+                    Name="维瑟米尔：晋升",
+                    Strength=9,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "就算上了绞架也别放弃——让他们给你拿点水，毕竟没人知道水拿来前会发生什么。",
+                    Info = "召唤“艾斯卡尔”和“兰伯特”，并将其变为金色晋升牌。",
+                    CardArtsId = "11220300",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130140",//艾斯卡尔：晋升
+                new GwentCard()
+                {
+                    CardId ="130140",//Not used
+                    Name="艾斯卡尔：晋升",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……",
+                    Info = "召唤“维瑟米尔”和“兰伯特”，并将其变为金色晋升牌。",
+                    CardArtsId = "11220200",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130170",//兰伯特：晋升
+                new GwentCard()
+                {
+                    CardId ="130170",//Not used
+                    Name="兰伯特：晋升",
+                    Strength=7,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "这样的沟通方式才对路嘛！",
+                    Info = "召唤“维瑟米尔”和“艾斯卡尔”，并将其变为金色晋升牌。",
+                    CardArtsId = "11220400",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130110",//卡罗“砍刀”凡瑞西：晋升
+                new GwentCard()
+                {
+                    CardId ="130110",//Not used
+                    Name="卡罗“砍刀”凡瑞西",
+                    Strength = 9,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Dwarf},
+                    Flavor = "每个想要在诺维格瑞做生意的都很清楚——要么同意卡罗的条件，要么就夹着尾巴滚出去。",
+                    Info = "造成9点伤害。对其相邻单位造成溢出的伤害。",
+                    CardArtsId = "12221600",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130090",//赛浦利安·威利：晋升
+                new GwentCard()
+                {
+                    CardId ="130090",//Not used
+                    Name="赛浦利安·威利：晋升",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Redania},
+                    Flavor = "诺维格瑞的黑帮四巨头之一——另外三个是西吉·卢文、卡罗·“砍刀”·凡瑞西和乞丐王。",
+                    Info = "对一个单位造成8点削弱。",
+                    CardArtsId = "11221400",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130100",//奥克维斯塔：晋升
+                new GwentCard()
+                {
+                    CardId ="130100",//Not used
+                    Name="奥克维斯塔：晋升",
+                    Strength=10,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    Countdown = 3,
+                    IsDoomed = false,
+                    IsCountdown = true,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Draconid},
+                    Flavor = "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。",
+                    Info = "力竭。 3回合后的回合开始时：对所有敌军单位造成1点伤害，随后返回手牌。",
+                    CardArtsId = "11220600",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130120",//米尔加塔布雷克：晋升
+                new GwentCard()
+                {
+                    CardId ="130120",//Not used
+                    Name="米尔加塔布雷克：晋升",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Draconid},
+                    Flavor = "永远别想分开母龙和她的孩子。",
+                    Info = "造成 4、3、2、1 点伤害。",
+                    CardArtsId = "11220500",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130080",//乔尼：晋升
+                new GwentCard()
+                {
+                    CardId ="130080",//Not used
+                    Name="乔尼：晋升",
+                    Strength=11,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "要是再也没办法亲口说出“狮子头上长虱子”，生活就真的太无趣啦。",
+                    Info = "丢弃1张手牌，并在手牌中创造1张对方起始牌组中颜色相同的原始同名牌。",
+                    CardArtsId = "11221100",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130050",//吉尔曼：晋升
+                new GwentCard()
+                {
+                    CardId ="130050",//Not used
+                    Name="吉尔曼：晋升",
+                    Strength=12,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Officer},
+                    Flavor = "陶森特需要这位英雄，但它不配。",
+                    Info = "在两侧各生成3头“牛”。",
+                    CardArtsId = "20129000",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130060",//纳威伦：晋升
+                new GwentCard()
+                {
+                    CardId ="130060",//Not used
+                    Name="纳威伦：晋升",
+                    Strength=12,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "迷路了？要迷路到其它地方去，只要别在我这儿瞎逛就行。把你的左耳对准太阳，一直往前，没多久就能走上大路。怎么？你还在等什么？",
+                    Info = "将单排以及对方同排的所有单位移至随机排。",
+                    CardArtsId = "20008900",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130070",//斯崔葛布：晋升
+                new GwentCard()
+                {
+                    CardId ="130070",//Not used
+                    Name="斯崔葛布：晋升",
+                    Strength=12,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "猎魔人见过看上去像议员的贼，见过看上去像乞丐的议员，也见过看上去像贼的国王。不过斯崔葛布的样子，就和大众心目中法师的形象没什么两样。",
+                    Info = "休战：检视对方卡组2张单位牌选择1张置于顶端。双方各抽1张单位牌，将其战力设为1。",
+                    CardArtsId = "20009100",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130030",//莎拉：晋升
+                new GwentCard()
+                {
+                    CardId ="130030",//Not used
+                    Name="莎拉：晋升",
+                    Strength=13,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "来陪小莎拉玩游戏吧！",
+                    Info = "交换3张颜色相同的牌。",
+                    CardArtsId = "11221200",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "130040",//爱丽丝的同伴：晋升
+                new GwentCard()
+                {
+                    CardId ="130040",//Not used
+                    Name="爱丽丝的同伴：晋升",
+                    Strength=13,
+                    Group=Group.Gold,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Relict},
+                    Flavor = "我们的名字还是不说为好。就当我们是……主人家的朋友吧。",
+                    Info = "丢弃1张牌，然后将1张牌从牌组移至手牌。",
+                    CardArtsId = "20008300",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "640080",//恶熊：晋升
+                new GwentCard()
+                {
+                    CardId ="640080",//Not used
+                    Name="恶熊：晋升",
+                    Strength=11,
+                    Group=Group.Silver,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed},
+                    Flavor = "“驯服”？哈，小子，史凯利格人也许能训练它们，但那跟驯服完全不同……",
+                    Info = "对后续出现在对方半场的单位造成1点伤害。",
+                    CardArtsId = "15221000",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "240140",//水鬼：晋升
+                new GwentCard()
+                {
+                    CardId ="240140",//Not used
+                    Name="水鬼：晋升",
+                    Strength=7,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Necrophage},
+                    Flavor = "尽管猎魔人想多赚些金币，但杀水鬼这活儿只值一枚银币，或者三个铜板——不能再多了。",
+                    Info = "将2个敌军单位拖至对方同排，对其造成2点伤害，若目标排处于灾厄之下，则伤害提高至4点。",
+                    CardArtsId = "13231400",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "240230",//翼手龙
+                new GwentCard()
+                {
+                    CardId ="240230",//Not used
+                    Name="翼手龙",
+                    Strength=8,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Draconid},
+                    Flavor = "想象一下在最可怕的噩梦中出现的长翅膀的蛇——翼手龙比这更可怕。",
+                    Info = "对1个敌军单位造成7点伤害。",
+                    CardArtsId = "13230300",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "240250",//须岩怪
+                new GwentCard()
+                {
+                    CardId ="240250",//Not used
+                    Name="须岩怪",
+                    Strength=8,
+                    Group=Group.Silver,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{ Categorie.Insectoid},
+                    Flavor = "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。",
+                    Info = "坚韧。 吞噬1个友军单位，获得其战力作为增益。",
+                    CardArtsId = "20170100",
 					LinkedCards=new List<String> {},
                 }
             },
