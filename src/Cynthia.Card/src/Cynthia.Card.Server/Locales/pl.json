@@ -2947,7 +2947,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Odrzuć Ulewny Deszcz i zastosuj Ulewny Deszcz po obu stronach, jeśli w twojej talii nie ma Ulewnych Deszczy, zadaj sobie obrażenia o 4 i zastosuj Ulewny Deszcz po obu stronach.",
+            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z Twojej talii. Jeśi nie masz deszczu w tali osłab te jednostkę o 4pkt siły.",
             "Flavor": ""
         },
         "70014": {
@@ -3317,7 +3317,7 @@
         },
         "70118": {
             "Name": "Lyryjski Kosynier",
-            "Info": "Deploy: Boost a Bronze unit in your deck by 3.",
+            "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
             "Flavor": ""
         },
         "70119": {
