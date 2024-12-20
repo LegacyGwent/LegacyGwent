@@ -14119,7 +14119,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。",
                     Info = "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先强化2点。",
                     CardArtsId = "203266",

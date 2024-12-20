@@ -270,8 +270,8 @@
         "WeavessIncantation_2_PlayRelict": "Zagraj brązowy lub srebrny Relikt ze swojej talii i ulepsz go o 2.",
         "LethoKingslayer_1_Destroy": "Zniszcz wrogiego Dowódcę i wzmocnij tę jednostkę o 5.",
         "LethoKingslayer_2_PlayTactic": "Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
-        "Kiyan_1_CreateAlchemy": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
-        "Kiyan_2_PlayItem": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+        "Kiyan_1_CreateAlchemy": "Utwórz brązową lub srebrną kartę Alchemii",
+        "Kiyan_2_PlayItem": "Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
         "PhilippaLodgeMistress_1_PlayMage": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
         "PhilippaLodgeMistress_2_CreateSpell": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
         "RocheMerciless_1_PlayTemeria": "Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta.",
@@ -517,7 +517,7 @@
         },
         "13001": {
             "Name": "Płotka",
-            "Info": "Za każdym razem, gdy zagrasz lojalną złotą jednostkę, wezwij tę jednostkę do losowego rzędu po Twojej stronie.",
+            "Info": "Gdy zagrasz złotą jednostkę, wezwij tę jednostkę do losowego rzędu.",
             "Flavor": "Bez urazy, Geralt, ale musimy porozmawiać na temat tego, jak mną kierujesz."
         },
         "13002": {
@@ -727,7 +727,7 @@
         },
         "13043": {
             "Name": "Smoczy Sen",
-            "Info": "Rzuć na wrogi rząd Zagrożenie, które wybuchnie, gdy zagrana zostanie inna karta specjalna, zadając wszystkim jednostkom w tym rzędzie 4 pkt obrażeń.",
+            "Info": "Rzuć na wrogi rząd Zagrożenie, które wybuchnie, gdy zagrana zostanie kolejna karta specjalna, zadając wszystkim jednostkom w tym rzędzie 4 pkt obrażeń.",
             "Flavor": "Kult Smoków jest ważną częścią codziennego życia w Zerrikani, nic więc dziwnego, że nazywają swoje uzbrojenie na ich cześć."
         },
         "13044": {
@@ -891,7 +891,7 @@
             "Flavor": "Bogowie… to nie jest jednorożec! To… - ostatnie słowa Vilemara, słynnego kolekcjonera osobliwości."
         },
         "15005": {
-            "Name": "Artefakt",
+            "Name": "Jadeitowa Figurka",
             "Info": "Brak umiejętności.",
             "Flavor": "Brak"
         },
@@ -3277,7 +3277,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "Jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, Wezwij tę jednostkę z talii.",
+            "Info": "Na koniec tury jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, przyzwij tę jednostkę z talii.",
             "Flavor": ""
         },
         "70111": {
