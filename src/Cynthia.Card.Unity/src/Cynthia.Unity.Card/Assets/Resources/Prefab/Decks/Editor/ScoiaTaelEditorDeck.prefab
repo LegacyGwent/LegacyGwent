@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a511111408ed39c46b60c0903102009e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeckLeaderArt: {fileID: 989268964554218843}
+  Miniature: {fileID: 989268964554218843}
 --- !u!1 &796079059323108657
 GameObject:
   m_ObjectHideFlags: 0
