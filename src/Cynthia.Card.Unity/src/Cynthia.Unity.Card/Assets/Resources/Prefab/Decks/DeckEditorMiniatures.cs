@@ -10,9 +10,8 @@ public class DeckEditorMiniatures : MonoBehaviour
     public Image Miniature;
     public void SetMiniatureArt(string artid)
     {
-        Addressables.LoadAssetAsync<Sprite>(artid + "_slot").Completed += (obj) =>
-        {
-            Miniature.sprite = obj.Result;
-        };
+        var op = Addressables.LoadAssetAsync<Sprite>(artid + "_slot");
+        Sprite go = op.WaitForCompletion();
+        Miniature.sprite = go;
     }
 }
