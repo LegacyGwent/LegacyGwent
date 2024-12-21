@@ -10884,7 +10884,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
                     Flavor = "",
-                    Info = "丢弃一场暴雨并在两侧各下一场暴雨，如果卡组中没有暴雨，则对自己造成 4 点伤害并在两侧下暴雨。",
+                    Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身4点后各降下一排“倾盆大雨”。",
                     CardArtsId = "202283",
                 }
             },
