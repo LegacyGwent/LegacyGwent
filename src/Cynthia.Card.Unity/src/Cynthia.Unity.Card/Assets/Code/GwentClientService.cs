@@ -188,6 +188,42 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<string>("GetCardMap");
         }
+        // Player Count 
+        public async Task<int> GetUserCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUserCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersInMatchCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersInMatchCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersInRankedCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersInRankedCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersInCasualCount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersInCasualCount");
+            return playercount;
+        }
+        public async Task<int> GetUsersvsAICount()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetUsersvsAICount");
+            return playercount;
+        }
+        public async Task<int> GetIsRankQueue()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetIsRankQueue");
+            return playercount;
+        }
+        public async Task<int> GetIsCasualQueue()
+        {
+            int playercount = await HubConnection.InvokeAsync<int>("GetIsCasualQueue");
+            return playercount;
+        }              
 
         public Task<string> GetGameLocales()
         {
@@ -229,6 +265,10 @@ namespace Cynthia.Card.Client
             Player.Deck = User.Decks.Single(x => x.Id == deckId);
             return HubConnection.InvokeAsync<bool>("NewMatchOfPassword", deckId, password, usingBlacklist);
         }
+        public Task<bool> SendGG(string myname, string enemyname)
+        {
+            return HubConnection.InvokeAsync<bool>("SendGG", myname, enemyname);
+        }        
         public Task<bool> StopMatch()
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");

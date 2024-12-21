@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using System.Linq;
-
+using Cynthia.Card.AI;
 namespace Cynthia.Card.Server
 {
     public class GwentHub : Hub
@@ -52,6 +52,8 @@ namespace Cynthia.Card.Server
 
         public bool NewMatchOfPassword(string deckId, string password, int usingBlacklist) => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
 
+        public Task<bool> SendGG(string MyName, string EnemyName)  => _gwentServerService.SendGG(MyName,EnemyName);
+
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
         public bool Surrender() => _gwentServerService.Surrender(Context.ConnectionId); // 投降
@@ -77,6 +79,37 @@ namespace Cynthia.Card.Server
         {
             await Task.CompletedTask;
             return _gwentServerService.GetUserCount();//(Context.ConnectionId);
+        }
+        public async Task<int> GetUsersInMatchCount()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetUsersInMatchCount();
+        }
+        
+        public async Task<int> GetUsersInRankedCount()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetUsersInRankedCount();
+        }
+        public async Task<int> GetUsersInCasualCount()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetUsersInCasualCount();
+        }
+        public async Task<int> GetUsersvsAICount()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetUsersvsAICount();
+        }
+        public async Task<int> GetIsRankQueue()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetIsRankQueue();
+        }
+        public async Task<int> GetIsCasualQueue()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetIsCasualQueue();
         }
 
         public int GetPalyernameMMR(string Palyername) => _gwentServerService.GetPalyernameMMR(Palyername);
