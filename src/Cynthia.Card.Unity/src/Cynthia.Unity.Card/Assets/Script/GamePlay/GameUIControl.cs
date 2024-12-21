@@ -21,6 +21,8 @@ public class GameUIControl : MonoBehaviour
     public Text MyRow1Point;
     public Text MyRow2Point;
     public Text MyRow3Point;
+    public Text MyLand;
+    public Text EnemyLand;
     public Text MyAllPoint;
     public Text EnemyRow1Point;
     public Text EnemyRow2Point;
@@ -36,6 +38,8 @@ public class GameUIControl : MonoBehaviour
     public GameObject MyCrownRight;//
     public GameObject EnemyCrownLeft;//
     public GameObject EnemyCrownRight;//
+    public GameObject MyLandObject;
+    public GameObject EnemyLandObject;
     //----------------------------------
     public GameObject MyPass;
     public GameObject EnemyPass;
@@ -62,6 +66,8 @@ public class GameUIControl : MonoBehaviour
         EnemyRow1Point.text = gameInfomation.EnemyRow1Point.ToString();
         EnemyRow2Point.text = gameInfomation.EnemyRow2Point.ToString();
         EnemyRow3Point.text = gameInfomation.EnemyRow3Point.ToString();
+        MyLand.text  = "+ " + gameInfomation.myland.ToString();
+        EnemyLand.text  = "+ " + gameInfomation.enemyland.ToString(); 
         var myAllPoint = (gameInfomation.MyRow1Point + gameInfomation.MyRow2Point + gameInfomation.MyRow3Point);
         var enemyAllPoint = (gameInfomation.EnemyRow1Point + gameInfomation.EnemyRow2Point + gameInfomation.EnemyRow3Point);
         MyAllPoint.text = myAllPoint.ToString();
@@ -70,6 +76,14 @@ public class GameUIControl : MonoBehaviour
             MyAllPoint.color = ClientGlobalInfo.WinColor;
         else if (myAllPoint < enemyAllPoint)
             EnemyAllPoint.color = ClientGlobalInfo.WinColor;
+        if (gameInfomation.myland == 0)
+            MyLandObject.SetActive(false);
+        else
+            MyLandObject.SetActive(true);
+        if (gameInfomation.enemyland == 0)
+            EnemyLandObject.SetActive(false);
+        else
+            EnemyLandObject.SetActive(true);
     }
     public void SetCountInfo(GameInfomation gameInfomation)
     {

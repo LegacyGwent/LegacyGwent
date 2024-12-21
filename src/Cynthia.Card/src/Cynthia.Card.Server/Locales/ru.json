@@ -82,6 +82,18 @@
         "MainMenu_RankDesc": "соревновательная игра Гвинт",
         "MainMenu_RankListTitle": "ТАБЛИЦА ЛИДЕРОВ",
         "MainMenu_RankListDesc": "Показать лучших игроков",
+        "MainMenu_PlayersOnlineText": "Игроки онлайн:",
+        "MainMenu_PlayingPvpText": "Играют (pvp):",
+        "MainMenu_PlayingvsAIText": "Играют (против AI):",
+        "MainMenu_PlayingCasualText": "Играют:",
+        "MainMenu_PlayingRankText": "Играют:",
+        "MainMenu_CasualFlagText": "Соперник найден",
+        "MainMenu_RankFlagText": "Соперник найден",
+        "Matchmaking_Menu_CasualFlagText": "Соперник найден",
+        "Matchmaking_Menu_RankFlagText": "Соперник найден",
+        "Matchmaking_Menu_CasualText": "Играют случайный матч:",
+        "Matchmaking_Menu_RankText": "Играют рейтинг:",
+        "Matchmaking_Menu_PlayersOnlineText": "Игроки онлайн:",
         "MatchmakingMenu_Title": "Случайный матч",
         "MatchmakingMenu_DeckReady": "колода создана!",
         "MatchmakingMenu_PlayButton": "Играть",
@@ -3562,6 +3574,26 @@
             "Info": "Размещение: верните 3 бронзовых или серебрянных отряда краснолюдов из своего сброса, затем сыграйте бронзового краснолюда из своей колоды. Находясь в сбросе, каждый раз, как играете краснолюда, добавьте ему 1 ед. брони.",
             "Flavor": ""
         },
+        "70168": {
+            "Name": "Огр-воин",
+            "Info": "В конце хода, если союзный отряд не является самым сильным на поле, нанесите себе половину урона от своей текущей силы.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Рой Накеров",
+            "Info": "Стойкость. Размещение: если союзный отряд является самым сильным на поле, получите иммунитет. Если отряд противника сильнее, вы теряете иммунитет. В начале хода повторите способность «Размещение.».",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Облачный Великан",
+            "Info": "В конце хода, если ни один вражеский отряд не сильнее союзного  огроида, уменьшите счетчик последней копии этого отряда на 1. Когда он достигнет 0, вызовите себя в случайном ряду и усильте случайного союзника на 1.",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Пояс великаньей силищи",
+            "Info": "Усильте союзый отряд на его базовую силу. Если это Огроид, помимо усиления укрепите его на 2 ед.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
+        },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",
@@ -3601,26 +3633,6 @@
             "Name": "SoldierTrain",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
             "Flavor": "The goddess occasionally protects some new recruits。"
-        },
-        "70168": {
-            "Name": "Огр-воин",
-            "Info": "В конце хода, если союзный отряд не является самым сильным на поле, нанесите себе половину урона от своей текущей силы.",
-            "Flavor": "You is idiot steak!"
-        },
-        "70169": {
-            "Name": "Рой Накеров",
-            "Info": "Стойкость. Размещение: если союзный отряд является самым сильным на поле, получите иммунитет. Если отряд противника сильнее, вы теряете иммунитет. В начале хода повторите способность «Размещение.».",
-            "Flavor": ""
-        },
-        "70170": {
-            "Name": "Облачный Великан",
-            "Info": "В конце хода, если ни один вражеский отряд не сильнее союзного  огроида, уменьшите счетчик последней копии этого отряда на 1. Когда он достигнет 0, вызовите себя в случайном ряду и усильте случайного союзника на 1.",
-            "Flavor": ""
-        },
-        "70171": {
-            "Name": "Пояс великаньей силищи",
-            "Info": "Усильте союзый отряд на его базовую силу. Если это Огроид, помимо усиления укрепите его на 2 ед.",
-            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         }
     }
 }
