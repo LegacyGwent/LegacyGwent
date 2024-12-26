@@ -5364,6 +5364,7 @@ MonoBehaviour:
   MyName: {fileID: 894874650}
   EnemyName: {fileID: 1965887010}
   enemyname: 
+  myname: 
   Round1MyPoint: {fileID: 360876131}
   Round1EnemyPoint: {fileID: 247461925}
   Round2MyPoint: {fileID: 1071318746}
@@ -9800,7 +9801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1170565694
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14394,7 +14395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1682210046
 RectTransform:
   m_ObjectHideFlags: 0
