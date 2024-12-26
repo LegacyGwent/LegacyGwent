@@ -66,8 +66,6 @@ public class GameUIControl : MonoBehaviour
         EnemyRow1Point.text = gameInfomation.EnemyRow1Point.ToString();
         EnemyRow2Point.text = gameInfomation.EnemyRow2Point.ToString();
         EnemyRow3Point.text = gameInfomation.EnemyRow3Point.ToString();
-        MyLand.text  = "+ " + gameInfomation.myland.ToString();
-        EnemyLand.text  = "+ " + gameInfomation.enemyland.ToString(); 
         var myAllPoint = (gameInfomation.MyRow1Point + gameInfomation.MyRow2Point + gameInfomation.MyRow3Point);
         var enemyAllPoint = (gameInfomation.EnemyRow1Point + gameInfomation.EnemyRow2Point + gameInfomation.EnemyRow3Point);
         MyAllPoint.text = myAllPoint.ToString();
@@ -76,14 +74,6 @@ public class GameUIControl : MonoBehaviour
             MyAllPoint.color = ClientGlobalInfo.WinColor;
         else if (myAllPoint < enemyAllPoint)
             EnemyAllPoint.color = ClientGlobalInfo.WinColor;
-        if (gameInfomation.myland == 0)
-            MyLandObject.SetActive(false);
-        else
-            MyLandObject.SetActive(true);
-        if (gameInfomation.enemyland == 0)
-            EnemyLandObject.SetActive(false);
-        else
-            EnemyLandObject.SetActive(true);
     }
     public void SetCountInfo(GameInfomation gameInfomation)
     {
@@ -161,6 +151,24 @@ public class GameUIControl : MonoBehaviour
         MyMMR.text = Convert.ToString(myMMR);
         EnemyMMR.text = Convert.ToString(enemyMMR);
     }
+    public void SetMyLandInfo(int land)
+    {
+        MyLand.text  = "+ " + land.ToString();
+        Debug.Log("my land is"+ land.ToString());
+        if (land == 0)
+            MyLandObject.SetActive(false);
+        else
+            MyLandObject.SetActive(true);
+    }
+    public void SetEnemyLandInfo(int land)
+    {
+        EnemyLand.text  = "+ " + land.ToString();
+        Debug.Log("enemy land is"+ land.ToString());
+        if (land == 0)
+            EnemyLandObject.SetActive(false);
+        else
+            EnemyLandObject.SetActive(true);
+    }
     //全部的信息
     public void SetGameInfo(GameInfomation gameInfomation)
     {
@@ -182,5 +190,6 @@ public class GameUIControl : MonoBehaviour
         //-------------------------------------
         //调度
         SetMulliganInfo(gameInfomation);
+        //-------------------------------------
     }
 }

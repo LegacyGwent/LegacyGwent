@@ -132,6 +132,18 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().GameEvent.SetCoinInfo(isBlueCoin);
         }
+        public void SetMyLand(int coinpoint)
+        {
+            Debug.Log("my coin points are "  + coinpoint.ToString());
+            _code.GetComponent<GameCode>().GameUIControl.SetMyLandInfo(coinpoint);
+
+        }
+        public void SetEnemyLand(int coinpoint)
+        {
+            Debug.Log("enemy coin points are "  + coinpoint.ToString());
+            _code.GetComponent<GameCode>().GameUIControl.SetEnemyLandInfo(coinpoint);
+            
+        }
         public void SetPointInfo(GameInfomation gameInfomation)
         {
             _code.GetComponent<GameCode>().GameUIControl.SetPointInfo(gameInfomation);

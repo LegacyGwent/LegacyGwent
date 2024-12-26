@@ -43,8 +43,7 @@ namespace Cynthia.Card.Server
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
         public int Player1Index { get; } = 0;
         public int Player2Index { get; } = 1;
-        public int myland = 0;
-        public int enemyland = 0;
+        public int BalancePoint;
         public IList<Viewer> ViewList { get; set; } = new List<Viewer>();
         public IList<Operation<ServerOperationType>>[] PlayerToResendToViewerInfo { get; set; } = new IList<Operation<ServerOperationType>>[2]
         {
@@ -54,9 +53,6 @@ namespace Cynthia.Card.Server
         {
             get
             {
-                myland = PlayersCemetery[0].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength);
-                enemyland = PlayersCemetery[1].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength);
-                // myland = balancePoint;
                 var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
                 var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
                 var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
@@ -128,11 +124,12 @@ namespace Cynthia.Card.Server
             playerIndex = GameRound.ToPlayerIndex(this);
             RedCoin[0] = playerIndex;
             balancePoint = Math.Max(result2, result1);
+            BalancePoint = balancePoint;
             if (balancePoint != 0)
             {
+                // Console.WriteLine("land set to" + balancePoint);
                 var newCard = await CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyRow1, 0), false);
                 newCard.Status.Strength = balancePoint;
-
                 // 这里移走了佚亡，是因为需要卡牌在墓地触发效果。效果触发完后，再加上佚亡。
                 newCard.Status.IsImmue = true;
                 await ShowCardNumberChange(newCard, balancePoint, NumberType.White);
@@ -280,6 +277,12 @@ namespace Cynthia.Card.Server
             await SendEvent(new AfterRoundOver(RoundCount, player1PlacePoint, player2PlacePoint, player1PlacePoint == player2PlacePoint ? (int?)null : (player1PlacePoint > player2PlacePoint ? Player1Index : Player2Index)));
             //888888888888888888888888888888888888888888888888888888888888888888888888
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
+            // if not round 1 do not display coin points
+            // Console.WriteLine("reset coin to 0");
+            await Players[Player1Index].SendAsync(ServerOperationType.SetMyLand, 0);
+            await Players[Player1Index].SendAsync(ServerOperationType.SetEnemyLand, 0);
+            await Players[Player2Index].SendAsync(ServerOperationType.SetMyLand, 0);
+            await Players[Player2Index].SendAsync(ServerOperationType.SetEnemyLand, 0);
             //清空所有场上的牌
         }
         //进行一轮回合
@@ -363,6 +366,14 @@ namespace Cynthia.Card.Server
             //双方轮流进行游戏
             //1.根据GamRound进行一次流程
             await SendEvent(new BeforeRoundStart(RoundCount));
+            if (player1Mulligan == 3 & player2Mulligan == 3)
+            {
+                await Players[Player1Index].SendAsync(ServerOperationType.SetMyLand, 0);
+                await Players[Player1Index].SendAsync(ServerOperationType.SetEnemyLand, balancePoint);
+                await Players[Player2Index].SendAsync(ServerOperationType.SetMyLand, balancePoint);
+                await Players[Player2Index].SendAsync(ServerOperationType.SetEnemyLand, 0);
+            }
+
             while (await PlayerRound())
             {
                 //2.处理回合结束
@@ -1064,8 +1075,6 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             return new GameInfomation()
             {
-                myland = PlayersCemetery[0].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
-                enemyland = PlayersCemetery[1].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
                 MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
@@ -1115,8 +1124,6 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             return new GameInfomation()
             {
-                myland = PlayersCemetery[0].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
-                enemyland = PlayersCemetery[1].FilterCards(filter: x => x.CardInfo().CardId == "70014").Select(x => x.Status).Sum(x => x.Strength),
                 MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow2Point = PlayersPlace[myPlayerIndex][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
                 MyRow3Point = PlayersPlace[myPlayerIndex][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),

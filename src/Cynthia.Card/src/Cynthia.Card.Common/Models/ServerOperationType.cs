@@ -63,6 +63,8 @@ namespace Cynthia.Card
         //应该不需要大改,更新信息
         SetMulliganInfo,//更新调度信息
         SetCoinInfo,//更新硬币
+        SetMyLand,
+        SetEnemyLand,
         SetAllInfo, //更新所有信息
         SetGameInfo,//更新非卡牌相关信息
         SetCardsInfo,//更新卡牌相关信息
