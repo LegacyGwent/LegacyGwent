@@ -368,10 +368,12 @@ namespace Cynthia.Card.Server
             await SendEvent(new BeforeRoundStart(RoundCount));
             if (player1Mulligan == 3 & player2Mulligan == 3)
             {
-                await Players[Player1Index].SendAsync(ServerOperationType.SetMyLand, 0);
-                await Players[Player1Index].SendAsync(ServerOperationType.SetEnemyLand, balancePoint);
-                await Players[Player2Index].SendAsync(ServerOperationType.SetMyLand, balancePoint);
-                await Players[Player2Index].SendAsync(ServerOperationType.SetEnemyLand, 0);
+                var redIndex = RedCoin[0];
+                var blueIndex = AnotherPlayer(redIndex);
+                await Players[blueIndex].SendAsync(ServerOperationType.SetMyLand, 0);
+                await Players[blueIndex].SendAsync(ServerOperationType.SetEnemyLand, balancePoint);
+                await Players[redIndex].SendAsync(ServerOperationType.SetMyLand, balancePoint);
+                await Players[redIndex].SendAsync(ServerOperationType.SetEnemyLand, 0);
             }
 
             while (await PlayerRound())
