@@ -82,6 +82,18 @@
         "MainMenu_RankDesc": "Zagraj rankingową partie Gwenta",
         "MainMenu_RankListTitle": "RANKING",
         "MainMenu_RankListDesc": "Pokaż najlepszych graczy",
+        "MainMenu_PlayersOnlineText": "Liczba Graczy Online:",
+        "MainMenu_PlayingPvpText": "Liczba Graczy (PvP):",
+        "MainMenu_PlayingvsAIText": "Liczba Graczy (vs AI):",
+        "MainMenu_PlayingCasualText": "Liczba Graczy:",
+        "MainMenu_PlayingRankText": "Liczba Graczy:",
+        "MainMenu_CasualFlagText": "Przeciwnik Znaleziony",
+        "MainMenu_RankFlagText": "Przeciwnik Znaleziony",
+        "Matchmaking_Menu_CasualFlagText": "Przeciwnik Znaleziony",
+        "Matchmaking_Menu_RankFlagText": "Przeciwnik Znaleziony",
+        "Matchmaking_Menu_CasualText": "Graczy w trybie swobodnym:",
+        "Matchmaking_Menu_RankText": "Graczy w trybie rankingowym:",
+        "Matchmaking_Menu_PlayersOnlineText": "Liczba Graczy Online:",
         "MatchmakingMenu_Title": "MECZ SWOBODNY",
         "MatchmakingMenu_DeckReady": "Talia gotowa!",
         "MatchmakingMenu_PlayButton": "GRAJ",
@@ -153,6 +165,9 @@
         "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
         "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
         "IngameMenu_RoundDrawTitle": "REMIS!",
+        "IngameMenu_GGButton": "GG!",
+        "GG_Message1": "Good Game! Twój przeciwnik ",
+        "GG_Message2": " wysłał GG!",
         "CardTag_DoubleAgent": "Podwójny agent",
         "CardTag_WildHunt": "Dziki gon",
         "CardTag_Tactic": "Taktyka",
@@ -270,8 +285,8 @@
         "WeavessIncantation_2_PlayRelict": "Zagraj brązowy lub srebrny Relikt ze swojej talii i ulepsz go o 2.",
         "LethoKingslayer_1_Destroy": "Zniszcz wrogiego Dowódcę i wzmocnij tę jednostkę o 5.",
         "LethoKingslayer_2_PlayTactic": "Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
-        "Kiyan_1_CreateAlchemy": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
-        "Kiyan_2_PlayItem": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+        "Kiyan_1_CreateAlchemy": "Utwórz brązową lub srebrną kartę Alchemii",
+        "Kiyan_2_PlayItem": "Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
         "PhilippaLodgeMistress_1_PlayMage": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
         "PhilippaLodgeMistress_2_CreateSpell": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
         "RocheMerciless_1_PlayTemeria": "Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta.",
@@ -517,7 +532,7 @@
         },
         "13001": {
             "Name": "Płotka",
-            "Info": "Za każdym razem, gdy zagrasz lojalną złotą jednostkę, wezwij tę jednostkę do losowego rzędu po Twojej stronie.",
+            "Info": "Gdy zagrasz złotą jednostkę, wezwij tę jednostkę do losowego rzędu.",
             "Flavor": "Bez urazy, Geralt, ale musimy porozmawiać na temat tego, jak mną kierujesz."
         },
         "13002": {
@@ -727,7 +742,7 @@
         },
         "13043": {
             "Name": "Smoczy Sen",
-            "Info": "Rzuć na wrogi rząd Zagrożenie, które wybuchnie, gdy zagrana zostanie inna karta specjalna, zadając wszystkim jednostkom w tym rzędzie 4 pkt obrażeń.",
+            "Info": "Rzuć na wrogi rząd Zagrożenie, które wybuchnie, gdy zagrana zostanie kolejna karta specjalna, zadając wszystkim jednostkom w tym rzędzie 4 pkt obrażeń.",
             "Flavor": "Kult Smoków jest ważną częścią codziennego życia w Zerrikani, nic więc dziwnego, że nazywają swoje uzbrojenie na ich cześć."
         },
         "13044": {
@@ -891,7 +906,7 @@
             "Flavor": "Bogowie… to nie jest jednorożec! To… - ostatnie słowa Vilemara, słynnego kolekcjonera osobliwości."
         },
         "15005": {
-            "Name": "Artefakt",
+            "Name": "Jadeitowa Figurka",
             "Info": "Brak umiejętności.",
             "Flavor": "Brak"
         },
@@ -1217,7 +1232,7 @@
         },
         "24015": {
             "Name": "Okręt Dzikiego Gonu",
-            "Info": "Aura:Wzmocnij wszystkich sojuszników Dzikiego Gonu o 1.",
+            "Info": "Aura: Wzmocnij wszystkich sojuszników Dzikiego Gonu o 1.",
             "Flavor": "Fala bije o brzeg, pchana dziobem upiornego Naglfara. Rozbrzmiewa róg Hemdalla stojącego twarzą ku wrogom na tęczowym łuku Bifrostu. Nadciąga Białe Zimno, nadciąga wichura i zamieć..."
         },
         "24016": {
@@ -1227,7 +1242,7 @@
         },
         "24017": {
             "Name": "Wilkołak",
-            "Info": "Odporność. Wzmocnij tę jednostkę o 7, gdy znajdzie się pierwszy raz pod wpływem Pełni.",
+            "Info": "Wzmocnij tę jednostkę o 7, gdy znajdzie się pierwszy raz pod wpływem Pełni. Odporność.",
             "Flavor": "Niektórzy mawiają, iż wilkołactwo jest zaraźliwe - wystarczy jedno ugryzienie by się przemienić. Wiedźmini wiedzą oczywiście, że to bzdury - jedynie potężna klątwa może być źródłem tego stanu rzeczy."
         },
         "24018": {
@@ -1247,7 +1262,7 @@
         },
         "24021": {
             "Name": "Lodowy Gigant",
-            "Info": "Rozmieszczenie: Za każdy Trzaskający Mróz na polu bitwy zyskaj 3 punkty. Za każdym razem gdy na polu bitwy pojawia się Trzaskający mróz, zyskaj 3 punkty.",
+            "Info": "Rozmieszczenie: Za każdy Trzaskający Mróz na polu Wzmocnij się o 3 punkty. Za każdym razem gdy na polu bitwy pojawi się Trzaskający mróz, Wzmocnij się o 3 punkty.",
             "Flavor": "Uciekłem w życiu jeden raz. Przed lodowym gigantem. I nawet się tego nie wstydzę."
         },
         "24022": {
@@ -1262,7 +1277,7 @@
         },
         "24024": {
             "Name": "Lamia",
-            "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń wybranemu wrogowi. Jeśli znajduje się on pod wpływem Krwawego Księżyca, zamiast tego zadaj mu 7 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń wrogowi. Jeśli znajduje się on pod wpływem Krwawego Księżyca, zamiast tego zadaj mu 7 pkt obrażeń.",
             "Flavor": "Głupiec nasłuchał się bajań, napchał do uszu wosku i nie słyszał ostrzeżeń. Wpakował okręt prosto na skały."
         },
         "24025": {
@@ -1297,7 +1312,7 @@
         },
         "24031": {
             "Name": "Nekker",
-            "Info": "Za każdym razem gdy pochłaniasz sojusznika wzmocnij te jednostkę o 1, gdziekolwiek się znajduję.\nZemsta: Zagraj egzemplarz tej karty ze swojej talii.",
+            "Info": "Za każdym razem gdy pochłaniasz sojusznika wzmocnij te jednostkę o 1, gdziekolwiek się znajduję.\nZemsta: Wezwij egzemplarz tej karty ze swojej talii.",
             "Flavor": "Małe, szybkie i wredne."
         },
         "24032": {
@@ -1312,7 +1327,7 @@
         },
         "24034": {
             "Name": "Lodowy Troll",
-            "Info": "Rozmieszczenie: Stocz pojedynek z wybranym wrogiem. Jeśli znajduje się pod wpływem Trzaskającego Mrozu, zadaj mu podwójne obrażenia.",
+            "Info": "Rozmieszczenie: Stocz pojedynek z wrogiem. Jeśli wróg znajduje się pod wpływem Trzaskającego Mrozu, zadaj mu podwójne obrażenia.",
             "Flavor": "Istnieje wiele różnych odmian trolli. Jednakże wciąż nie udało się znaleźć jednego, który nie byłby durny jak wiadro gwoździ."
         },
         "24035": {
@@ -3277,7 +3292,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "Jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, Wezwij tę jednostkę z talii.",
+            "Info": "Na koniec tury jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, przyzwij tę jednostkę z talii.",
             "Flavor": ""
         },
         "70111": {
@@ -3559,6 +3574,26 @@
             "Name": "Zoltans Company",
             "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armor.",
             "Flavor": ""
+        },
+        "70168": {
+            "Name": "Ogr Wojownik",
+            "Info": "Na koniec tury, jeśli nie kontrolujesz najsilniejszej jednostki, zadaj sobie obrażenia równe połowie swojej siły.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Rój Nekkerów",
+            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik ostatniej kopii tej jednostki w Twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Gigant z Chmur",
+            "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Pas Olbrzyma",
+            "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         },
         "80001": {
             "Name": "Auberon:King",

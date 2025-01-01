@@ -308,7 +308,9 @@ public class EditorInfo : MonoBehaviour
             if (x.Id != "blacklist")
             {
                 var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
+                string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
                 deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck() || (x.IsBlacklist() && x.Id == "blacklist"));
+                deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
                 deck.GetComponent<EditorShowDeck>().Id = x.Id;
                 deck.transform.SetParent(ShowDecksContext, false);
             }

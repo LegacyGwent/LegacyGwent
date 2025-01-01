@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
 
 public class LeaderShow : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class LeaderShow : MonoBehaviour
     public Text Name;
     public Image CardShow;
     public Image Title;
+    public Image Miniature;
     public Sprite NorthernreaIcon;
     public Sprite ScoiataelIcon;
     public Sprite MonsterIcon;
@@ -42,5 +44,13 @@ public class LeaderShow : MonoBehaviour
         Name.text = card.Name;
         Streng.text = card.Strength.ToString();
         Title.sprite = _groupIconMap[card.Faction];
+        string miniatureid = card.CardArtsId + "_slot";
+        var op = Addressables.LoadAssetAsync<Sprite>(miniatureid);
+        Sprite go = op.WaitForCompletion();
+        Miniature.sprite = go;
+        // Addressables.LoadAssetAsync<Sprite>(miniatureid).Completed += (obj) =>
+        // {
+        //     Miniature.sprite = obj.Result;
+        // };
     }
 }

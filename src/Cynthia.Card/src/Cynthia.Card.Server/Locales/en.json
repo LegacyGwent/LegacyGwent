@@ -82,6 +82,18 @@
         "MainMenu_RankDesc": "Play a Competitive game of Gwent",
         "MainMenu_RankListTitle": "LEADERBOARD",
         "MainMenu_RankListDesc": "Show the top players",
+        "MainMenu_PlayersOnlineText": "Players Online:",
+        "MainMenu_PlayingPvpText": "Playing (pvp):",
+        "MainMenu_PlayingvsAIText": "Playing (vs AI):",
+        "MainMenu_PlayingCasualText": "Playing:",
+        "MainMenu_PlayingRankText": "Playing:",
+        "MainMenu_CasualFlagText": "Opponent Found",
+        "MainMenu_RankFlagText": "Opponent Found",
+        "Matchmaking_Menu_CasualFlagText": "Opponent Found",
+        "Matchmaking_Menu_RankFlagText": "Opponent Found",
+        "Matchmaking_Menu_CasualText": "Playing Casual:",
+        "Matchmaking_Menu_RankText": "Playing Ranked:",
+        "Matchmaking_Menu_PlayersOnlineText": "Players Online:",
         "MatchmakingMenu_Title": "CASUAL MATCH",
         "MatchmakingMenu_DeckReady": "The deck is ready!",
         "MatchmakingMenu_PlayButton": "PLAY",
@@ -153,6 +165,9 @@
         "IngameMenu_RoundWonTitle": "YOU WON THE ROUND!",
         "IngameMenu_RoundLostTitle": "YOU LOST THE ROUND!",
         "IngameMenu_RoundDrawTitle": "DRAW!",
+        "IngameMenu_GGButton": "Send GG!",
+        "GG_Message1": "Good Game! Your opponent ",
+        "GG_Message2": " Sent GG!",
         "CardTag_DoubleAgent": "Double Agent",
         "CardTag_WildHunt": "Wild Hunt",
         "CardTag_Tactic": "Tactic",
@@ -437,7 +452,7 @@
         },
         "12027": {
             "Name": "Aguara",
-            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
+            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random loyal unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
             "Flavor": "Smarten up right now, or it's off to an aguara with you!"
         },
         "12028": {
@@ -2342,7 +2357,7 @@
         },
         "54003": {
             "Name": "Vrihedd Neophyte",
-            "Info": "Deploy: Boost 2 random units in your hand by 1.",
+            "Info": "Deploy: Boost 2 random loyal units in your hand by 1.",
             "Flavor": "许多非人种族在城市里饱受歧视和排斥，于是决定加入松鼠党。"
         },
         "54004": {

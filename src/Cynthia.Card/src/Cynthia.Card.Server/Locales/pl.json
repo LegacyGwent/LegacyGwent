@@ -82,6 +82,18 @@
         "MainMenu_RankDesc": "Zagraj rankingową partie Gwenta",
         "MainMenu_RankListTitle": "RANKING",
         "MainMenu_RankListDesc": "Pokaż najlepszych graczy",
+        "MainMenu_PlayersOnlineText": "Liczba Graczy Online:",
+        "MainMenu_PlayingPvpText": "Liczba Graczy (PvP):",
+        "MainMenu_PlayingvsAIText": "Liczba Graczy (vs AI):",
+        "MainMenu_PlayingCasualText": "Liczba Graczy:",
+        "MainMenu_PlayingRankText": "Liczba Graczy:",
+        "MainMenu_CasualFlagText": "Przeciwnik Znaleziony",
+        "MainMenu_RankFlagText": "Przeciwnik Znaleziony",
+        "Matchmaking_Menu_CasualFlagText": "Przeciwnik Znaleziony",
+        "Matchmaking_Menu_RankFlagText": "Przeciwnik Znaleziony",
+        "Matchmaking_Menu_CasualText": "Graczy w trybie swobodnym:",
+        "Matchmaking_Menu_RankText": "Graczy w trybie rankingowym:",
+        "Matchmaking_Menu_PlayersOnlineText": "Liczba Graczy Online:",
         "MatchmakingMenu_Title": "MECZ SWOBODNY",
         "MatchmakingMenu_DeckReady": "Talia gotowa!",
         "MatchmakingMenu_PlayButton": "GRAJ",
@@ -153,6 +165,9 @@
         "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
         "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
         "IngameMenu_RoundDrawTitle": "REMIS!",
+        "IngameMenu_GGButton": "GG!",
+        "GG_Message1": "Good Game! Twój przeciwnik ",
+        "GG_Message2": " wysłał GG!",
         "CardTag_DoubleAgent": "Podwójny agent",
         "CardTag_WildHunt": "Dziki gon",
         "CardTag_Tactic": "Taktyka",
@@ -437,7 +452,7 @@
         },
         "12027": {
             "Name": "Aguara",
-            "Info": "Rozmieszczenie: Wybierz dwa: Wzmocnij najsłabszego sojusznika o 5; Wzmocnij losową jednostkę w swojej ręce o 5; Zadaj najsilniejszemu wrogowi 5 pkt obrażeń; Rzuć urok na losowego wrogiego Elfa o sile 5 lub mniejszej.",
+            "Info": "Rozmieszczenie: Wybierz dwa: Wzmocnij najsłabszego sojusznika o 5; Wzmocnij losową lojalną jednostkę w swojej ręce o 5; Zadaj najsilniejszemu wrogowi 5 pkt obrażeń; Rzuć urok na losowego wrogiego Elfa o sile 5 lub mniejszej.",
             "Flavor": "Uważaj, bo jak będziesz niegrzeczny oddam cię Aguarze!"
         },
         "12028": {
@@ -2342,7 +2357,7 @@
         },
         "54003": {
             "Name": "Neofita Vrihedd",
-            "Info": "Rozmieszczenie: Wzmocnij 2 losowe jednostki w swojej ręce o 1.",
+            "Info": "Rozmieszczenie: Wzmocnij 2 losowe lojalne jednostki w Twojej ręce o 1.",
             "Flavor": "Doznawszy rasizmu i ksenofobii,  wielu nieludzi z miast decyduje się na dołączenie do Scoia'tael."
         },
         "54004": {
@@ -3560,6 +3575,26 @@
             "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armor.",
             "Flavor": ""
         },
+        "70168": {
+            "Name": "Ogr Wojownik",
+            "Info": "Na koniec tury, jeśli nie kontrolujesz najsilniejszej jednostki, zadaj sobie obrażenia równe połowie swojej siły.",
+            "Flavor": "You is idiot steak!"
+        },
+        "70169": {
+            "Name": "Rój Nekkerów",
+            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik ostatniej kopii tej jednostki w Twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "Gigant z Chmur",
+            "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "Pas Olbrzyma",
+            "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
+            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
+        },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",
@@ -3599,26 +3634,6 @@
             "Name": "SoldierTrain",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
             "Flavor": "The goddess occasionally protects some new recruits。"
-        },
-        "70168": {
-            "Name": "Ogr Wojownik",
-            "Info": "Na koniec tury, jeśli nie kontrolujesz najsilniejszej jednostki, zadaj sobie obrażenia równe połowie swojej siły.",
-            "Flavor": "You is idiot steak!"
-        },
-        "70169": {
-            "Name": "Rój Nekkerów",
-            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik ostatniej kopii tej jednostki w Twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
-            "Flavor": ""
-        },
-        "70170": {
-            "Name": "Gigant z Chmur",
-            "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
-            "Flavor": ""
-        },
-        "70171": {
-            "Name": "Pas Olbrzyma",
-            "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
-            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         }
     }
 }

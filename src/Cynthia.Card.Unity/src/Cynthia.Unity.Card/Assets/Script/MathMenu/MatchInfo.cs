@@ -272,7 +272,9 @@ public class MatchInfo : MonoBehaviour
         decks.ForAll(x =>
         {
             var deck = Instantiate(DeckPrefabs[GetFactionIndex(GwentMap.CardMap[x.Leader].Faction)]);
+            string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
             deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck());
+            deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
             deck.GetComponent<SwitchMatchDeck>().SetId(DecksContext.childCount);
             deck.transform.SetParent(DecksContext, false);
         });

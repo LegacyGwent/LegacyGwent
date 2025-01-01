@@ -74,6 +74,8 @@ namespace Cynthia.Card
         SetEnemyCemetery,//更新敌方墓地
         SetMyDeck,
         SetNameInfo,//更新名称方面信息(虽然感觉没什么意义)
+        SetMyLand,
+        SetEnemyLand,
 
         //------------------------------
         //预留一些指令
