@@ -3322,7 +3322,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
+            "Info": "Whenever you apply Torrential Rain to an enemy row, summon from the graveyard on a random row.",
             "Flavor": ""
         },
         "70117": {
