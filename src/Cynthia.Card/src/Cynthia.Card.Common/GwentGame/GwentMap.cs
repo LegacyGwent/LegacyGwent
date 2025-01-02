@@ -11953,7 +11953,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排。",
+                    Info = "当你在敌方场上降下 '倾盆大雨'，从墓地召唤到己方场上随机排",
                     CardArtsId = "202181",
                 }
             },
