@@ -21,6 +21,8 @@ public class GameUIControl : MonoBehaviour
     public Text MyRow1Point;
     public Text MyRow2Point;
     public Text MyRow3Point;
+    public Text MyLand;
+    public Text EnemyLand;
     public Text MyAllPoint;
     public Text EnemyRow1Point;
     public Text EnemyRow2Point;
@@ -36,6 +38,8 @@ public class GameUIControl : MonoBehaviour
     public GameObject MyCrownRight;//
     public GameObject EnemyCrownLeft;//
     public GameObject EnemyCrownRight;//
+    public GameObject MyLandObject;
+    public GameObject EnemyLandObject;
     //----------------------------------
     public GameObject MyPass;
     public GameObject EnemyPass;
@@ -147,6 +151,24 @@ public class GameUIControl : MonoBehaviour
         MyMMR.text = Convert.ToString(myMMR);
         EnemyMMR.text = Convert.ToString(enemyMMR);
     }
+    public void SetMyLandInfo(int land)
+    {
+        MyLand.text  = "+ " + land.ToString();
+        Debug.Log("my land is"+ land.ToString());
+        if (land == 0)
+            MyLandObject.SetActive(false);
+        else
+            MyLandObject.SetActive(true);
+    }
+    public void SetEnemyLandInfo(int land)
+    {
+        EnemyLand.text  = "+ " + land.ToString();
+        Debug.Log("enemy land is"+ land.ToString());
+        if (land == 0)
+            EnemyLandObject.SetActive(false);
+        else
+            EnemyLandObject.SetActive(true);
+    }
     //全部的信息
     public void SetGameInfo(GameInfomation gameInfomation)
     {
@@ -168,5 +190,6 @@ public class GameUIControl : MonoBehaviour
         //-------------------------------------
         //调度
         SetMulliganInfo(gameInfomation);
+        //-------------------------------------
     }
 }

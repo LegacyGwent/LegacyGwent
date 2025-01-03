@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var list = Game.PlayersCemetery[PlayerIndex]
-            .Where(x => x.Status.Group == Group.Gold && x.CardInfo().CardType == CardType.Unit).ToList();
+            .Where(x => x.Status.Group == Group.Gold && x.CardInfo().CardType == CardType.Unit && x.CardInfo().CardId != "70014").ToList();
             //让玩家选择一张卡
             var result = await Game.GetSelectMenuCards
             (Card.PlayerIndex, list, 1, "选择复活一张牌");

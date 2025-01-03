@@ -25,7 +25,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsInDeck())
+            if (@event.PlayerIndex != Card.PlayerIndex)
             {
                 return;
             }

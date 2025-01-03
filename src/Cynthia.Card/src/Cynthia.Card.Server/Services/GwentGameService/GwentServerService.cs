@@ -102,7 +102,16 @@ namespace Cynthia.Card.Server
             //玩家未在线,失败
             return false;
         }
-
+        public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
+        {
+            if (_users.Any(x => x.Value.UserName == EnemyName))
+            {
+                var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
+                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
+                return false;
+            }
+            return false;
+        }
         public async Task<bool> StopMatch(string connectionId)
         {
             if (_users[connectionId].UserState != UserState.Match && _users[connectionId].UserState != UserState.PasswordMatch)
@@ -471,7 +480,38 @@ may come back in the future.
         {
             return _users.Count;
         }
-
+        // Display count in game
+        public int GetUsersInMatchCount()
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count*2;
+        }
+        public int GetUsersInRankedCount()
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password == "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count*2;
+        }
+        public int GetUsersvsAICount()
+        {
+            var ailist = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return ailist.Count;
+        }
+        public int GetUsersInCasualCount() // including playing vs friend
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count*2;
+        }
+        
+        public int GetIsRankQueue()
+        {            
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "rank" ).Select(x => (x.Player1.PlayerName)).ToList();
+            return list.Count();
+        }
+        public int GetIsCasualQueue()
+        {            
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "" ).Select(x => (x.Player1.PlayerName)).ToList();
+            return list.Count();
+        }
         public void InovkeUserChanged()
         {
             OnUserChanged?.Invoke(GetUsers());

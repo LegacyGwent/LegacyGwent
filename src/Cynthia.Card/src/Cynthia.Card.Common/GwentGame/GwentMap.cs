@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 108);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 111);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9548,7 +9548,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Cultist},
                     Flavor = "为了斯瓦勃洛！",
-                    Info = "选择一个敌方单位，如果其已经受伤，则直接摧毁它，否则对其造成2点伤害直至其受伤。",
+                    Info = "部署：选择一个单位，如果其已受伤则摧毁它；否则对其造成2点伤害直至其受伤并对自身造成基础战力一半的伤害。",
                     CardArtsId = "20002800",
 					LinkedCards=new List<String> {},
                 }
@@ -11413,7 +11413,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
                     Flavor = "",
-                    Info = "丢弃一场暴雨并在两侧各下一场暴雨，如果卡组中没有暴雨，则对自己造成 4 点伤害并在两侧下暴雨。",
+                    Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身4点后各降下一排“倾盆大雨”。",
                     CardArtsId = "202283",
 					LinkedCards=new List<String> {"14019"},
                 }
@@ -12535,7 +12535,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "每当在对方半场降下“倾盆大雨”，复活自身至随机排。",
+                    Info = "当你在敌方场上降下 '倾盆大雨'，从墓地召唤到己方场上随机排",
                     CardArtsId = "202181",
 					LinkedCards=new List<String> {"14019"},
                 }
@@ -12567,7 +12567,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70118", //Lyrian Scytheman
                     Name="莱里亚镰刀手",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12577,7 +12577,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "",
-                    Info = "使牌组中的1个铜色单位牌获得3点增益。",
+                    Info = "使牌组中的1个铜色单位牌获得2点增益。",
                     CardArtsId = "202161",
 					LinkedCards=new List<String> {},
                 }
@@ -13370,7 +13370,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70092", //Svalblod Brawler
                     Name="斯瓦勃洛争斗者",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13380,7 +13380,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "史凯利格容不下罪犯和无赖……他们的罪行必须偿还。",
-                    Info = "对1个敌军单位造成4点伤害，若自身位于灾厄下则改为造成8点伤害。",
+                    Info = "部署：对一个敌军单位造成两倍于场上“倾盆大雨”数量的伤害。",
                     CardArtsId = "202288",
 					LinkedCards=new List<String> {},
                 }
@@ -13685,7 +13685,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70099", //Svalblod
                     Name="斯瓦勃洛",
-                    Strength=9,
+                    Strength=3,
                     Group=Group.Leader,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14808,7 +14808,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。",
                     Info = "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先强化2点。",
                     CardArtsId = "203266",

@@ -82,6 +82,18 @@
         "MainMenu_RankDesc": "竞技的牌局",
         "MainMenu_RankListTitle": "天梯排行榜",
         "MainMenu_RankListDesc": "查看排名",
+        "MainMenu_PlayersOnlineText": "在线人数:",
+        "MainMenu_PlayingPvpText": "对战中 (pvp):",
+        "MainMenu_PlayingvsAIText": "对战中 (vs AI):",
+        "MainMenu_PlayingCasualText": "正在对战:",
+        "MainMenu_PlayingRankText": "正在对战:",
+        "MainMenu_CasualFlagText": "已找到对手",
+        "MainMenu_RankFlagText": "已找到对手",
+        "Matchmaking_Menu_CasualFlagText": "已找到对手",
+        "Matchmaking_Menu_RankFlagText": "已找到对手",
+        "Matchmaking_Menu_CasualText": "正在休闲对战:",
+        "Matchmaking_Menu_RankText": "正在天梯对战:",
+        "Matchmaking_Menu_PlayersOnlineText": "在线人数:",
         "MatchmakingMenu_BlacklistCheckbox": "启用黑名单",
         "MatchmakingMenu_Title": "休闲游戏",
         "MatchmakingMenu_DeckReady": "牌组就绪",
@@ -153,6 +165,9 @@
         "IngameMenu_RoundWonTitle": "本局胜利!",
         "IngameMenu_RoundLostTitle": "本局失败!",
         "IngameMenu_RoundDrawTitle": "本局平局",
+        "IngameMenu_GGButton": "送出GG！",
+        "GG_Message1": "打得不错！你的对手 ",
+        "GG_Message2": " 送出了GG！",
         "CardTag_DoubleAgent": "双面间谍",
         "CardTag_WildHunt": "狂猎",
         "CardTag_Tactic": "谋略",
@@ -3564,6 +3579,26 @@
             "Name": "卓尔坦的伙伴",
             "Info": "将墓场3张铜色/银色矮人牌返回牌组，随后从牌组中打出1张铜色矮人牌。位于墓场时，使已方打出的矮人单位获得1点护甲。",
             "Flavor": ""
+        },
+        "70168": {
+            "Name": "食人魔战士",
+            "Info": "回合结束时，如果未控制最高战力单位，则对自身造成一半战力的伤害。",
+            "Flavor": "你！蠢货！肉排！"
+        },
+        "70169": {
+            "Name": "水生孽鬼",
+            "Info": "计数2：回合结束时如果你拥有最高战力单位且是食人魔，位于牌组顺序最靠前的水生孽鬼计数-1，当计数为0时从卡组召唤自身到随机排，并随机增益友方单位1点。",
+            "Flavor": ""
+        },
+        "70170": {
+            "Name": "云顶巨人",
+            "Info": "坚韧。部署：如果你拥有最高战力单位，则获得免疫，否则失去免疫。回合开始时重复部署效果。",
+            "Flavor": ""
+        },
+        "70171": {
+            "Name": "巨人腰带",
+            "Info": "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先强化2点。",
+            "Flavor": "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。"
         },
         "80001": {
             "Name": "奥贝伦王",
