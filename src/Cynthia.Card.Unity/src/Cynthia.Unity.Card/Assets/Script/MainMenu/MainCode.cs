@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class MainCode : MonoBehaviour
 {
+    public GameObject UserCount;
     private GlobalUIService _globalUIService;
     private GwentClientService _client;
     private LocalizationService _translator;
@@ -50,6 +51,11 @@ public class MainCode : MonoBehaviour
             //DoMatchButton.onClick.Invoke();
         }
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+    }
+    void Awake()
+    {
+        RectTransform rectTransform = UserCount.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
     }
     public async void ExitGameClick()
     {
