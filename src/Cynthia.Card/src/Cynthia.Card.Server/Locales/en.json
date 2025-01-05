@@ -82,6 +82,18 @@
         "MainMenu_RankDesc": "Play a Competitive game of Gwent",
         "MainMenu_RankListTitle": "LEADERBOARD",
         "MainMenu_RankListDesc": "Show the top players",
+        "MainMenu_PlayersOnlineText": "Players Online:",
+        "MainMenu_PlayingPvpText": "Playing (pvp):",
+        "MainMenu_PlayingvsAIText": "Playing (vs AI):",
+        "MainMenu_PlayingCasualText": "Playing:",
+        "MainMenu_PlayingRankText": "Playing:",
+        "MainMenu_CasualFlagText": "Opponent Found",
+        "MainMenu_RankFlagText": "Opponent Found",
+        "Matchmaking_Menu_CasualFlagText": "Opponent Found",
+        "Matchmaking_Menu_RankFlagText": "Opponent Found",
+        "Matchmaking_Menu_CasualText": "Playing Casual:",
+        "Matchmaking_Menu_RankText": "Playing Ranked:",
+        "Matchmaking_Menu_PlayersOnlineText": "Players Online:",
         "MatchmakingMenu_Title": "CASUAL MATCH",
         "MatchmakingMenu_DeckReady": "The deck is ready!",
         "MatchmakingMenu_PlayButton": "PLAY",
@@ -153,6 +165,9 @@
         "IngameMenu_RoundWonTitle": "YOU WON THE ROUND!",
         "IngameMenu_RoundLostTitle": "YOU LOST THE ROUND!",
         "IngameMenu_RoundDrawTitle": "DRAW!",
+        "IngameMenu_GGButton": "Send GG!",
+        "GG_Message1": "Good Game! Your opponent ",
+        "GG_Message2": " Sent GG!",
         "CardTag_DoubleAgent": "Double Agent",
         "CardTag_WildHunt": "Wild Hunt",
         "CardTag_Tactic": "Tactic",
@@ -437,7 +452,7 @@
         },
         "12027": {
             "Name": "Aguara",
-            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
+            "Info": "Deploy, Choose Two: Boost the Lowest ally by 5; Boost a random loyal unit in your hand by 5; Deal 5 Damage to the Highest enemy; Charm a random enemy Elf with 5 Power or less.",
             "Flavor": "Smarten up right now, or it's off to an aguara with you!"
         },
         "12028": {
@@ -727,7 +742,7 @@
         },
         "13043": {
             "Name": "Dragon's Dream",
-            "Info": "Apply a Hazard to an enemy row that will explode and deal 4 Damage to all units when a different special card is played.",
+            "Info": "Apply a Hazard to an enemy row that will explode and deal 4 Damage to all units when next special card is played.",
             "Flavor": "在瑟瑞卡尼亚，龙神崇拜体现在日常生活的各个方面。因此也难怪他们会以此为武器命名了。"
         },
         "13044": {
@@ -891,7 +906,7 @@
             "Flavor": "“天呐，那根本不是独角兽！那是……”——著名奇珍收藏家崴尔玛的遗言。"
         },
         "15005": {
-            "Name": "Artifact",
+            "Name": "Jade Figurine",
             "Info": "No ability.",
             "Flavor": "雕像瞬间爆开，颤动不已，犹如一道在地上爬行的烟雾，变换着自己的形状。道道光芒里，有东西上下纷飞，不断成形。片刻之后，魔法圈的正中间突然现出了一道人影。"
         },
@@ -972,7 +987,7 @@
         },
         "22002": {
             "Name": "Draug",
-            "Info": "Deploy: Resurrect units as 1-Power Draugirs until you fill this unit's row.",
+            "Info": "Deploy: Resurrect random units to this unit's row as 1-Power Draugirs until you fill the row.",
             "Flavor": "有些人就是不服输，死了还要继续打。"
         },
         "22003": {
@@ -1002,7 +1017,7 @@
         },
         "22008": {
             "Name": "Woodland Spirit",
-            "Info": "Deploy: Spawn 3 Wolves and apply Impenetrable Fog to the opposite row.",
+            "Info": "Deploy: Spawn 3 Rabid Wolves and apply Impenetrable Fog to the opposite row.",
             "Flavor": "即便全村人都饿肚子，我们也绝不去这片树林打猎。"
         },
         "22009": {
@@ -1177,7 +1192,7 @@
         },
         "24007": {
             "Name": "Alpha Werewolf",
-            "Info": "Spawn a Wolf on either side on contact with Full Moon.",
+            "Info": "Spawn a Rabid Wolf on either side on contact with Full Moon.",
             "Flavor": "有人说，如果被狼人咬了，那么你就会被感染，也变成狼人。当然，猎魔人都知道这是胡说八道。只有强大的诅咒才能造成这种效果。"
         },
         "24008": {
@@ -1207,7 +1222,7 @@
         },
         "24013": {
             "Name": "Archespore",
-            "Info": "On turn start, move on a random row and deal 1 Damage to a random enemy.\nDeathwish: Deal 4 Damage to a random enemy.",
+            "Info": "On turn start, move to a random row and deal 1 Damage to a random enemy.\nDeathwish: Deal 4 Damage to a random enemy.",
             "Flavor": "根据民间传说，它们会在亡者鲜血的浇灌下破土而出。因此在拥有黑暗过往的地方，它们长得特别茂盛。"
         },
         "24014": {
@@ -1722,7 +1737,7 @@
         },
         "34027": {
             "Name": "Slave Infantry",
-            "Info": "Deploy: Spawn a Doomed default copy of this unit on your other rows.",
+            "Info": "Deploy: Spawn a Doomed default copies of this unit on your other rows.",
             "Flavor": "自由人可以选择。奴隶只能由别人替他们决定。"
         },
         "34028": {
@@ -1892,7 +1907,7 @@
         },
         "43009": {
             "Name": "Odrin",
-            "Info": "On turn start, move on a random row and Boost all allies on it by 1.\nDeathwish: Boost all allies on the same row by 1.",
+            "Info": "On turn start, move to a random row and Boost all allies on it by 1.\nDeathwish: Boost all allies on the same row by 1.",
             "Flavor": "喝酒少了欧德林，就像划船没带桨。"
         },
         "43010": {
@@ -2142,7 +2157,7 @@
         },
         "51001": {
             "Name": "Francesca Findabair",
-            "Info": "Deploy: Swap a card with one of your choice and Boost it by 3.",
+            "Info": "Deploy: Swap a card with one of your choice. Boost choosen card by 3.",
             "Flavor": "世上没有轻而易举的和平，人类的压迫终将画下残酷的句点。"
         },
         "51002": {
@@ -2292,7 +2307,7 @@
         },
         "53014": {
             "Name": "Milaen",
-            "Info": "Deploy: Deal 6 Damage to the units at the end of an enemy row.",
+            "Info": "Deploy: Deal 6 Damage to the units at the ends of an enemy row.",
             "Flavor": "老男爵对待偷猎者向来毫不留情。幸亏麦莉运气够好，老男爵已经死了，他的手下也成了亡命之徒。"
         },
         "53015": {
@@ -2342,7 +2357,7 @@
         },
         "54003": {
             "Name": "Vrihedd Neophyte",
-            "Info": "Deploy: Boost 2 random units in your hand by 1.",
+            "Info": "Deploy: Boost 2 random loyal units in your hand by 1.",
             "Flavor": "许多非人种族在城市里饱受歧视和排斥，于是决定加入松鼠党。"
         },
         "54004": {
@@ -2527,7 +2542,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: select a unit, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged.",
+            "Info": "Deploy: select an enemy, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged and damage self by half strength.",
             "Flavor": "为了斯瓦勃洛！"
         },
         "62004": {
@@ -2597,7 +2612,7 @@
         },
         "63004": {
             "Name": "Blueboy Lugos",
-            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(Spectral Whale; 3 Strength; On turn end, move on a random row and deal 1 Damage to all units on it. Deathwish: Deal 1 damage to all units on this row)",
+            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(Spectral Whale; 3 Strength; On turn end, move to a random row and deal 1 Damage to all units on it. Deathwish: Deal 1 damage to all units on this row)",
             "Flavor": "我无聊得快吐了。"
         },
         "63005": {
@@ -2867,7 +2882,7 @@
         },
         "65004": {
             "Name": "Spectral Whale",
-            "Info": "Spying.\nOn turn end, move on a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 damage to all units on this row.",
+            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 damage to all units on this row.",
             "Flavor": "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”"
         },
         "65005": {
@@ -2947,7 +2962,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Discard a torrential rain and apply a torrential rain on both sides, if there are no torrential rains in your deck, damage self by 4 and apply Torrential Rain on both sides.",
+            "Info": "Deploy: Discard a torrential rain from deck and apply a torrential rain on both sides, if there are no torrential rains in your deck, weaken self by 4 and apply Torrential Rain on both sides.",
             "Flavor": ""
         },
         "70014": {
@@ -3027,7 +3042,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
+            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its base strength cannot be over 10.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3107,7 +3122,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 time.",
+            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 times.",
             "Flavor": "“迷人的微笑背后可以潜藏许多秘密……”"
         },
         "70076": {
@@ -3187,7 +3202,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: Damage an enemy by 4. If this unit is under a Hazard, deal 8 Damage instead.",
+            "Info": "Deploy: damage an enemy by twice the number of Torrential Rains on the board.",
             "Flavor": "史凯利格容不下罪犯和无赖……他们的罪行必须偿还."
         },
         "70093": {
@@ -3277,7 +3292,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "If this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
+            "Info": "On round end if this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
             "Flavor": ""
         },
         "70111": {
@@ -3302,12 +3317,12 @@
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return a Bronze or Silver enemy to opponent's hand and set its battle power to 1.",
+            "Info": "Return a Bronze or Silver enemy to opponent's hand and set its power to 1.",
             "Flavor": ""
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever you apply Torrential Rain to an enemy row, resurrect on a random row.",
+            "Info": "Whenever you apply Torrential Rain to an enemy row, summon from the graveyard on a random row.",
             "Flavor": ""
         },
         "70117": {
@@ -3317,7 +3332,7 @@
         },
         "70118": {
             "Name": "Lyrian Scytheman",
-            "Info": "Deploy: Boost a Bronze unit in your deck by 3.",
+            "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
             "Flavor": ""
         },
         "70119": {
@@ -3357,7 +3372,7 @@
         },
         "70127": {
             "Name": "Van Moorlehem Servant",
-            "Info": "Immune.Gain 5 Boost when Concealed.",
+            "Info": "Immune. Gain 5 Boost when Concealed.",
             "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
         },
         "70128": {
@@ -3367,7 +3382,7 @@
         },
         "70129": {
             "Name": "Natural Selection",
-            "Info": "Spawn 2 Arachas Hatchling on a row. For each copy of this card in your graveyard, spawn an extra one.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones on this row)",
+            "Info": "Spawn 2 Arachas Hatchlings on a row. For each copy of this card in your graveyard, spawn an extra one.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones on this row)",
             "Flavor": "适者生存。所以你得被淘汰。"
         },
         "70130": {
@@ -3382,7 +3397,7 @@
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Deploy: Deal 1 Damage to a random enemy 5 time. If it was already Damaged, Drain it instead.",
+            "Info": "Deploy: Deal 1 Damage to a random enemy 5 times. If an enemy was already Damaged, Drain it instead.",
             "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
         },
         "70133": {
@@ -3477,7 +3492,7 @@
         },
         "70151": {
             "Name": "Philippe van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 3. If is in your hand on turn end, reveal self and trigger its ability.",
+            "Info": "Deploy: Damage an enemy by 3. On turn end if in hand, reveal self and trigger its deploy ability.",
             "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
         },
         "70152": {

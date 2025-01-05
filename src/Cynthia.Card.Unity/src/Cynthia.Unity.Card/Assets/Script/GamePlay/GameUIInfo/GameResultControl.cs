@@ -10,12 +10,16 @@ using Cynthia.Card;
 public class GameResultControl : MonoBehaviour
 {
     //胜利?失败?
+    [SerializeField] GameObject popup_prefab;
     public Text TitleResult;
 
     //显示敌我玩家名
     public Text MyName;
     public Text EnemyName;
-
+    public string enemyname;
+    public string myname;
+    private float timer=4;
+    private float interval=6;
     //三个回合的结果数字
     public Text Round1MyPoint;
     public Text Round1EnemyPoint;
@@ -40,7 +44,8 @@ public class GameResultControl : MonoBehaviour
     public GameObject MyWinIconRight;
     public GameObject EnemyWinIconLeft;
     public GameObject EnemyWinIconRight;
-
+    // public GameObject GGObject;
+    public GameObject GGButton;
     //背景相关,主背景色,左背景,右背景
     public Image BackgroundMain;
     public Image BackgroundLeft;
@@ -68,6 +73,8 @@ public class GameResultControl : MonoBehaviour
     {
         MyName.text = gameResult.MyName;
         EnemyName.text = gameResult.EnemyName;
+        enemyname = gameResult.EnemyName;
+        myname = gameResult.MyName;
         if (gameResult.RoundCount < 3)
             Round3.SetActive(false);
         if (gameResult.RoundCount < 2)
@@ -193,6 +200,36 @@ public class GameResultControl : MonoBehaviour
             if (enemyWinCount >= 2)
                 EnemyWinIconRight.SetActive(true);
         }
+        // UpdateGGBool();
         gameObject.SetActive(true);
+
+    }
+    public async void SendGG()
+    {
+        await DependencyResolver.Container.Resolve<GwentClientService>().SendGG(myname, enemyname);
+        GGButton.SetActive(false);
+    }
+    void Update()
+    {
+
+        if (timer<interval)
+        {
+            timer=timer+Time.deltaTime;
+        }
+        else
+        {
+            DisplayGGObject();
+        }
+    }
+    private async void DisplayGGObject()
+    {
+        string sender = await DependencyResolver.Container.Resolve<GwentGGService>().DisplayGG();
+        GGSender.ggsender = sender;
+        bool isdisplaygg = sender.Length >=1;
+        if (isdisplaygg)
+        {
+            AudioManager.Instance.PlayAudio("GG", AudioType.Effect, AudioPlayMode.PlayOneShoot);
+            GameObject popupobject = Instantiate(popup_prefab);
+        }
     }
 }

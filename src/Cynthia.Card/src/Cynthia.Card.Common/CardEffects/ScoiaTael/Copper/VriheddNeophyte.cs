@@ -15,7 +15,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cards = Game.PlayersHandCard[Card.PlayerIndex];
-            var list = cards.Where(x => x.CardInfo().CardType == CardType.Unit).ToList().Take(2);
+            var list = cards.Where(x => x.CardInfo().CardType == CardType.Unit && x.CardInfo().CardUseInfo == CardUseInfo.MyRow).Mess(RNG).ToList().Take(2);
             if (!list.Any()) return 0;
 
             foreach (var it in list)

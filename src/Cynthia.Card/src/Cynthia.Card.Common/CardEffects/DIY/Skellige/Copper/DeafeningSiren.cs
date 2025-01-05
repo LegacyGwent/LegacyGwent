@@ -14,7 +14,7 @@ namespace Cynthia.Card
             {
                 if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsInCemetery())
                 {
-                    await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
+                    await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
                 }
 
                 return;

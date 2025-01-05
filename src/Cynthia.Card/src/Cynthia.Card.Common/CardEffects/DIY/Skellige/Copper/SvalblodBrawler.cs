@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -7,25 +8,15 @@ namespace Cynthia.Card
 {
     [CardEffectId("70092")]//斯瓦勃洛争斗者 SvalblodBrawler
     public class SvalblodBrawler : CardEffect
-    {//对1个敌军单位与自身造成4点伤害，若自身位于灾厄下则改为8点。
+    {//Deploy: Damage an enemy by twice the number of Torrential Rains on the board.
         public SvalblodBrawler(GameCard card) : base(card) { }
+        private const int increment = 2;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-           var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
-           if (!selectList.TrySingle(out var target))
-           {
-                return 0;
-           }
-
-           var damages = 4;
-           if (Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus.IsHazard())
-           {
-                damages = 8;
-           }
-
-           await target.Effect.Damage(damages, Card);
-
-           return 0;
+            var count = Game.GameRowEffect.SelectMany(x => x.Select(x => x.RowStatus)).Where(x => x == RowStatus.TorrentialRain).Count();
+            var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (result.Count != 0) await result.Single().Effect.Damage(increment * count, Card);
+            return 0;
         }
     }
 }
