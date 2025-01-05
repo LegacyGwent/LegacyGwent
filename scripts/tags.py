@@ -23,7 +23,10 @@ def filtrmany(conditions):
     for line in content:
         if 'CardId' in line:
             ID=line.split('"')[1]
-            good_cards[ID]=True
+            if ID in ['33004',"63002","23001","43001","53001"]:#Remove agents
+                good_cards[ID]=False
+            else:
+                good_cards[ID]=True
     for condition in conditions:
         good_cards=filtr(good_cards, condition[0], condition[1])
     return good_cards
@@ -78,7 +81,7 @@ cards=[\
 #Usurper
 ['31004',[['isderive',['false']],['group',['leader']]]],\
 #Vreemde
-['33016',[['isderive',['false']],['group',['Copper',]],['categorie',['soldier']],['faction',['nilfgard']]]],\
+['33016',[['isderive',['false']],['group',['Copper',]],['categorie',['soldier']],['faction',['nilfgaard']]]],\
 #Princess Adda
 ['41002',[['isderive',['false']],['group',['Copper']],['categorie',['cursed']],['faction',['NorthernRealms']]]],\
 #Kiyan
@@ -100,21 +103,23 @@ cards=[\
 #MOrune
 ['23020',[['isderive',['false']],['group',['Copper','silver']],['faction',['monster']]]],\
 #NGrune
-['33019',[['isderive',['false']],['group',['Copper','silver']],['faction',['nilfgard']]]],\
+['33019',[['isderive',['false']],['group',['Copper','silver']],['faction',['nilfgaard']]]],\
 #NRrune
 ['43019',[['isderive',['false']],['group',['Copper','silver']],['faction',['NorthernRealms']]]],\
 #SCrune
 ['53018',[['isderive',['false']],['group',['Copper','silver']],['faction',['ScoiaTael']]]],\
 #SKrune
-['63018',[['isderive',['false']],['group',['Copper','silver']],['faction',['Skellige']]]]\
+['63018',[['isderive',['false']],['group',['Copper','silver']],['faction',['Skellige']]]],\
+#Uma
+['12039',[['isderive',['false']],['group',['gold']]]]\
 ]
         
 for el in cards:
      should=lst_to_string(dict_to_lst(filtrmany(el[1])))
      inmap=linked(el[0])
      if should != inmap:
-         print('Card: '+el[0])
-         print("In map: "+inmap)
-         print("should: "+should)
+        print('Card: '+el[0])
+        print("In map: "+inmap)
+        print("should: "+should)
         
         
