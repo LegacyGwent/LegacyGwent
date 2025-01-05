@@ -11983,7 +11983,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70118",
                     Name="莱里亚镰刀手",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,

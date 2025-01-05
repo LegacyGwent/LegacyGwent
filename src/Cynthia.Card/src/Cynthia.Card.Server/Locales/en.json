@@ -2577,7 +2577,7 @@
         },
         "62010": {
             "Name": "Cerys: Fearless",
-            "Info": "When you discard a Bronze or Silver unit, Damage self by 4 then resurect it.\nRepeat up to 1 time.",
+            "Info": "When you discard a Bronze or Silver unit, Damage self by 4 then resurrect it.\nRepeat up to 1 time.",
             "Flavor": "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。"
         },
         "62011": {
@@ -3082,7 +3082,7 @@
         },
         "70046": {
             "Name": "Svalblod Fanatic",
-            "Info": "On round end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
+            "Info": "On turn end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
             "Flavor": ""
         },
         "70050": {
@@ -3232,7 +3232,7 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Choose one: Play a random item; or play a Scoia'tael item.",
+            "Info": "Choose one: Play a random Bronze item; or play a Bronze Scoia'tael item.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {

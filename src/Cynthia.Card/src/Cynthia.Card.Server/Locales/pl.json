@@ -133,7 +133,7 @@
         "PopupWindow_LoggedOutTitle": "WYLOGOWANO",
         "PopupWindow_LoggedOutDesc": "Ktoś inny zalogował się na Twoje konto!",
         "PopupWindow_DisconnectedTitle": "ROZŁĄCZONO",
-        "PopupWindow_DisconnectedDesc": "Spróbuj sie zalogować ponownie!\nNote!\nIn obecna wersja, jeżeli zostałeś rozłączony w trakcie gry-zrestartuj klient.",
+        "PopupWindow_DisconnectedDesc": "Spróbuj zalogować się ponownie! \nJeżeli zostałeś rozłączony w trakcie gry-zrestartuj klient.",
         "PopupWindow_QuitTitle": "WYJDŹ",
         "PopupWindow_QuitDesc": "Czy na pewno chcesz wyjść?",
         "PopupWindow_ReceivedMessageTitle": "Otrzymałeś wiadomość z serwera",
@@ -316,8 +316,8 @@
         "Sihil_1_DamageOdd": "Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile.",
         "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
         "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii.",
-        "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
-        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
+        "VriheddSaboteur_1_RandomItem": "Zagraj losowy brązowy przedmiot.",
+        "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael."
     },
     "CardLocales": {
         "12001": {
@@ -3232,7 +3232,7 @@
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Play a random item or choose and play a Scoia'tael item.",
+            "Info": "Wybierz jedno: Zagraj losowy brązowy przedmiot, lub Zagraj przedmiot Scoia'tael.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70099": {

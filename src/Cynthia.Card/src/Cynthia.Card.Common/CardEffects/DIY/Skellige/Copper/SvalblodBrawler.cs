@@ -14,8 +14,11 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var count = Game.GameRowEffect.SelectMany(x => x.Select(x => x.RowStatus)).Where(x => x == RowStatus.TorrentialRain).Count();
-            var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (result.Count != 0) await result.Single().Effect.Damage(increment * count, Card);
+            if (count>0)
+            {
+                var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+                if (result.Count != 0) await result.Single().Effect.Damage(increment * count, Card);
+            }
             return 0;
         }
     }
