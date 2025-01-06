@@ -37,3 +37,11 @@ msbuild.wrn
 /src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL/1200300/12003_4.mp3.meta
 /src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL/1200200/12002_1.mp3.meta
 /src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Voicelines/PL/1200200/12002_5.mp3.meta
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales/cn.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales/en.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales/pl.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales/ru.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/cn.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/en.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/pl.json
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/ru.json
