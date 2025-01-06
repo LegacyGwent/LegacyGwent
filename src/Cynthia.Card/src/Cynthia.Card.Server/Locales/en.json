@@ -322,7 +322,7 @@
     "CardLocales": {
         "12001": {
             "Name": "Royal Decree",
-            "Info": "Play a Gold unit from your deck and Boost it by 2 or win the game.",
+            "Info": "Play a Gold unit from your deck and Boost it by 2.",
             "Flavor": "We, Foltest, by divine right King of Temeria, Prince of Sodden, Senior Protector of Brugge, etcetera, etcetera, do hereby decree the following.."
         },
         "12002": {
