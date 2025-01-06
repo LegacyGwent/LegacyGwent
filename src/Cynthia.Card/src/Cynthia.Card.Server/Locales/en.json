@@ -3132,7 +3132,7 @@
         },
         "70077": {
             "Name": "Firesworn Zealot",
-            "Info": "Every 4 turns, at the end of the turn, deal 2 Damage to 4 random enemies.\nReduce the first countdown by 1 for each Locked unit on the board when played.",
+            "Info": "Every 4 turns, on turn end, deal 2 Damage to 4 random enemies.\nReduce the first countdown by 1 for each Locked unit on the board when played.",
             "Flavor": "“我的信仰无人能敌，亦如我的怒火！”"
         },
         "70078": {
@@ -3262,7 +3262,7 @@
         },
         "70104": {
             "Name": "Lyrian Landsknecht",
-            "Info": "At the end of the round, if this card is Boosted, shuffle it back to the deck and keep at most 10 Boost.",
+            "Info": "On round end, if this card is Boosted, shuffle it back to the deck and keep at most 10 Boost.",
             "Flavor": "“相信我，最好别去嘲笑他们傻里傻气的帽子。”"
         },
         "70105": {
@@ -3272,12 +3272,12 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, at the end of the turn, destroy self.\n(5 Strength; After 3 turns, at the end of the turn, transform into an Endrega Warrior)\n(Endrega Warrior; 7 Strength)",
+            "Info": "Deploy: Spawn 1 base copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.\n(5 Strength; After 3 turns, on turn end, transform into an Endrega Warrior)\n(Endrega Warrior; 7 Strength)",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
             "Name": "Endrega Larva",
-            "Info": "After 3 turns, at the end of the turn, transform into an Endrega Warrior.",
+            "Info": "After 3 turns, on turn end, transform into an Endrega Warrior.",
             "Flavor": "Fat, plump… and bloodthirsty."
         },
         "70108": {
@@ -3307,7 +3307,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Every turn, at the end of your turn, destroy the lowest unit if its Strength is 5 or lower.\n2 Armor.",
+            "Info": "Every turn, on turn end, destroy the lowest unit if its Strength is 5 or lower.\n2 Armor.",
             "Flavor": ""
         },
         "70114": {
@@ -3557,7 +3557,7 @@
         },
         "70164": {
             "Name": "Tatterwing",
-            "Info": "At the end of each turn, move all units on the opposite row to random rows, then deal 1 damage to each of them.",
+            "Info": "On turn end, move all units on the opposite row to random rows, then deal 1 damage to each of them.",
             "Flavor": ""
         },
         "70165": {
