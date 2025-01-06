@@ -1877,7 +1877,7 @@
         },
         "43003": {
             "Name": "Trollololo",
-            "Info": "Every turn, at the start of the turn, gain 2 Armor.\n4 Armor.",
+            "Info": "Every turn, on turn start, gain 2 Armor.\n4 Armor.",
             "Flavor": "我是拉多多德国王的兵兵。收到命令，看守船船。"
         },
         "43004": {
