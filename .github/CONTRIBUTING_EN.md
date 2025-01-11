@@ -121,7 +121,7 @@ That's it!
 >
 >If you change anything in `src/Cynthia.Card/src/Cynthia.Card.Common`, you need to rebuild the project, then copy `src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll` to `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll`.
 >
->`enviormentTools/refresh.sh` (in `diy` branch) can help you rebuild the project and the copy-paste.
+>`scripts/refresh.sh` (in `diy` branch) can help you rebuild the project and the copy-paste.
 
 ### Build the client in Unity
 
