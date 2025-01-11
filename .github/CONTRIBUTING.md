@@ -89,7 +89,7 @@ cd LegacyGwent
 先进行编译：
 
 ```bash
-dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+sh scripts/refresh.sh
 ```
 
 运行数据库：
@@ -123,7 +123,7 @@ docker-compose up -d
 >
 >修改了`src/Cynthia.Card/src/Cynthia.Card.Common`文件夹内的文件，如GwentMap.cs后，需要重新进行编译，然后把 `src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll` 文件拷贝到 `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll` 。
 >
->如果你觉得太麻烦，`enviormentTools/refresh.sh` 文件可以帮你完成重新进行编译和拷贝的动作。
+>如果你觉得太麻烦，`scripts/refresh.sh` 文件可以帮你完成重新进行编译和拷贝的动作。
 >
 >重新编译完服务端后，Unity也需要再次build新的客户端。
 >
