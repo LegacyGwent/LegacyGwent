@@ -7,6 +7,7 @@ using Autofac;
 using UnityEngine.AddressableAssets;
 using Cynthia.Card;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 //using TMPro;
 
 public class righclickLogic : MonoBehaviour
@@ -64,16 +65,21 @@ public class righclickLogic : MonoBehaviour
         string DisplayID = GameEvent.RightClickedCardID;
         UpdateCard(DisplayID);
     }
+    public static string RemoveContentInParentheses(string input)
+    {
+        // Use Regex to find and remove content within parentheses
+        return System.Text.RegularExpressions.Regex.Replace(input, @"\s*\([^)]*\)", "").Trim();
+    }
     public void UpdateCard(string CardId)
     {
         DisplayID=CardId;
         History.Add(DisplayID);
         CardInfo = GwentMap.CardMap[CardId];
-        if (CardInfo.Group == Group.Gold || CardInfo.Group == Group.Leader)
+        if (CardInfo.Group == Cynthia.Card.Group.Gold || CardInfo.Group == Cynthia.Card.Group.Leader)
             CardBorder.sprite = GoldBorder;
-        if (CardInfo.Group == Group.Silver)
+        if (CardInfo.Group == Cynthia.Card.Group.Silver)
             CardBorder.sprite = SilverBorder;
-        if (CardInfo.Group == Group.Copper)
+        if (CardInfo.Group == Cynthia.Card.Group.Copper)
             CardBorder.sprite = CopperBorder;
 
         
@@ -83,7 +89,7 @@ public class righclickLogic : MonoBehaviour
         };
 
 
-        if (CardInfo.Group == Group.Gold || CardInfo.Group == Group.Leader)
+        if (CardInfo.Group == Cynthia.Card.Group.Gold || CardInfo.Group == Cynthia.Card.Group.Leader)
         {
             if (CardInfo.Faction == Faction.Monsters)
                 FactionIcon.sprite = MonstersGoldIcon;
@@ -140,7 +146,7 @@ public class righclickLogic : MonoBehaviour
         }
         TagsDisplay.text=tagtext;
 
-        AbilityDisplay.text=translator.GetCardInfo(CardInfo.CardId);
+        AbilityDisplay.text=RemoveContentInParentheses(translator.GetCardInfo(CardInfo.CardId));
         FlavourDisplay.text=translator.GetCardFlavor(CardInfo.CardId);
         LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
 

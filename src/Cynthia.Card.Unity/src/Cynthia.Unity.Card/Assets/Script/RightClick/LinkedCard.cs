@@ -91,7 +91,7 @@ public class LinkedCard : MonoBehaviour
         }
         else
         {
-            rectTransform.sizeDelta = new Vector2(currentSize.x, 120);
+            rectTransform.sizeDelta = new Vector2(currentSize.x, 140);
         }
         //
         Countdown.text = CardInfo.Countdown.ToString();
@@ -106,7 +106,8 @@ public class LinkedCard : MonoBehaviour
             tagtext = tagtext.Remove(tagtext.Length - 2);
         }
         TagsDisplay.text=tagtext;
-        AbilityDisplay.text=translator.GetCardInfo(CardInfo.CardId);
+        AbilityDisplay.text = righclickLogic.RemoveContentInParentheses(translator.GetCardInfo(CardInfo.CardId));
+
     }
 
 }
