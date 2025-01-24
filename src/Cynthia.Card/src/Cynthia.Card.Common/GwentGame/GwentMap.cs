@@ -12327,7 +12327,7 @@ namespace Cynthia.Card
                     Flavor = "“十分丰满……也十分危险。”",
                     Info = "3回合后，回合结束时，转化为“安德莱格战士”。",
                     CardArtsId = "202440",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70108"},
                 }
             },
               {
