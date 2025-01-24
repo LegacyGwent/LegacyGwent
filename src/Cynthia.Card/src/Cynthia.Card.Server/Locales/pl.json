@@ -418,7 +418,7 @@
         "12020": {
             "Name": "Gaunter O'Dimm",
             "Info": "Rozmieszczenie: Załóż się z Gaunterem:Zgadnij czy siła karty, którą wybrał do zagrania jest mniejsza od 6.",
-            "Flavor": "Życzenia twe zawsze spełni z ochotą, da ci brylanty i srebro, i złoto."
+            "Flavor": "Życzenia twe spełni zawsze z ochotą, da ci brylanty i srebro, i złoto."
         },
         "12021": {
             "Name": "Geralt Aard",
@@ -428,7 +428,7 @@
         "12022": {
             "Name": "Regis Wampir Wyższy",
             "Info": "Rozmieszczenie: Zobacz 3 brązowe jednostki z talii przeciwnika. Pochłoń 1, a następnie wzmocnij o jej siłę bazową tę jednostkę.",
-            "Flavor": "Może, gdy zechce, stać się niewidzialny. Może spojrzeniem zauroczyć, wprawić w głęboki sen. Przybierać postać nietoperza i latać jak nietoperz."
+            "Flavor": "Może, gdy tylko zechce, stać się niewidzialny. Może spojrzeniem zauroczyć, wprawić w głęboki sen. Przybierać postać nietoperza i latać jak nietoperz."
         },
         "12023": {
             "Name": "Vesemir Mentor",
@@ -458,7 +458,7 @@
         "12028": {
             "Name": "Feniks",
             "Info": "Rozmieszczenie: Wskrześ brązowego lub srebrnego Drakonida.",
-            "Flavor": "Pytanie co było pierwsze, jajko czy kura, nabiera nowego wydźwięku w przypadku Feniksów."
+            "Flavor": "Co było pierwsze, jajko czy feniks?"
         },
         "12029": {
             "Name": "Avallac'h Wiedzący",
@@ -488,7 +488,7 @@
         "12034": {
             "Name": "Ragh Nar Roog",
             "Info": "Rzuć na wszystkie wrogie rzędy Zagrożenie, które zadaje najsilniejszej jednostce 2 pkt obrażeń na początku tury.",
-            "Flavor": "Gdy nadejdzie Czas Końca, Hemdall stawi czoło złym mocom z krainy Morhogg - upiorom, demonom i widmom Chaosu."
+            "Flavor": "Gdy nadejdzie Czas Końca, Hemdall stawi czoło złym mocom z krainy Morhogg – upiorom, demonom i widmom Chaosu."
         },
         "12035": {
             "Name": "Uzdrowienie",
@@ -498,7 +498,7 @@
         "12036": {
             "Name": "Kaganiec",
             "Info": "Rzuć urok na brązowego lub srebrnego wroga o sile 8 lub mniejszej.",
-            "Flavor": "Nie ma takiej bestii, której nie dałoby się ujarzmić."
+            "Flavor": "Nie ma takiej bestii, której Fringilla Vigo nie potrafiłaby ujarzmić."
         },
         "12037": {
             "Name": "Tojad",
@@ -523,17 +523,17 @@
         "12041": {
             "Name": "Przygody Sklepa",
             "Info": "Jeśli w twojej talii początkowej nie ma duplikatów, wyślij Sklepa na spotkanie przygody.",
-            "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
+            "Flavor": ""
         },
         "12042": {
             "Name": "Sihil",
             "Info": "Wybierz: Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile lub Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile lub Zagraj losową brązową lub srebrną jednostkę ze swojej talii.",
-            "Flavor": "Co jest napisane na klindze? Jakieś zaklęcie? Nie, przekleństwa."
+            "Flavor": "„Co jest napisane na klindze? Jakieś zaklęcie?” „Nie, przekleństwa”."
         },
         "13001": {
             "Name": "Płotka",
             "Info": "Gdy zagrasz złotą jednostkę, wezwij tę jednostkę do losowego rzędu.",
-            "Flavor": "Bez urazy, Geralt, ale musimy porozmawiać na temat tego, jak mną kierujesz."
+            "Flavor": "„Bez urazy, Geralt, ale musimy porozmawiać na temat tego, jak mną kierujesz”."
         },
         "13002": {
             "Name": "Król Żebraków",
@@ -568,12 +568,12 @@
         "13008": {
             "Name": "Janek",
             "Info": "Rozmieszczenie: Odrzuć kartę, a następnie dodaj do Twojej ręki standardowy egzemplarz losowej karty tego samego koloru z początkowej talii przeciwnika.",
-            "Flavor": "Życie bez napawania się brzmieniem bisiora racicznicy jest jak lizanie ślimaków przez sukno."
+            "Flavor": "Życie bez napawania się brzmieniem „bisiora racicznicy” jest jak lizanie ślimaków przez sukno."
         },
         "13009": {
             "Name": "Cyprian Willey",
             "Info": "Rozmieszczenie: Osłab jednostkę o 4.",
-            "Flavor": "Należy do czwórki ludzi, którzy trzęsą miejscowym półświatkiem – razem z Sigim Reuvenem, Tasakiem i Królem Żebraków."
+            "Flavor": "Po śmierci ojca został prawdziwym Skurwielem."
         },
         "13010": {
             "Name": "Ocvist",
@@ -583,7 +583,7 @@
         "13011": {
             "Name": "Tasak",
             "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń za każdą kartę w twojej ręce.",
-            "Flavor": "Każdy, kto chce handlować w Novigradzie, wie, że wybór jest prosty - ułożyć się z Tasakiem lub pożegnać się z kolanami."
+            "Flavor": "Każdy, kto chce handlować w Novigradzie, wie, że wybór jest prosty – ułożyć się z Tasakiem lub pożegnać się z kolanami."
         },
         "13012": {
             "Name": "Myrgtabrakke",
@@ -618,7 +618,7 @@
         "13018": {
             "Name": "Vaedermakar",
             "Info": "Rozmieszczenie: Stwórz Trzaskający Mróz, Gęstą Mgłę lub Piorun Alzura.",
-            "Flavor": "Vaedermakar to druid, który potrafi wpływać na pogodę. Przerwać sztorm. Wywołać gradobicie. Sprawić, by wroga spopielił piorun. Więc dobrze radzę... Zwracaj się do niego z szacunkiem."
+            "Flavor": "Druidzi Vaedermakar potrafią wpływać na pogodę. Przerwać sztorm. Wywołać gradobicie. Sprawić, by wroga spopielił piorun. Więc dobrze radzę... Zwracaj się do nich z szacunkiem."
         },
         "13019": {
             "Name": "Iris von Everec",
@@ -633,7 +633,7 @@
         "13021": {
             "Name": "Dudu",
             "Info": "Rozmieszczenie: Skopiuj siłę wroga.",
-            "Flavor": "Mimik. Ma zresztą wiele nazw - Mieniak, podwójniak, vexling, bedak. Lub doppler."
+            "Flavor": "Mimik. Ma zresztą wiele nazw – mieniak, podwójniak, vexling, bedak. Lub doppler."
         },
         "13022": {
             "Name": "Krowa Czempionka",
@@ -653,7 +653,7 @@
         "13025": {
             "Name": "Zaklęcie Kompresji",
             "Info": "Przemień brązową lub srebrną jednostkę w Jadeitową Figurkę.\n(Jadeitowa Figurka; 2 pkt siły)",
-            "Flavor": "Figurka rosła błyskawicznie, pulsując i tętniąc, zmieniała strukturę i kształt niczym pełzający po posadzce obłok dymu. W smugach blasku pojawiły się ruch i twardniejąca materia. Jeszcze moment, a w centrum magicznych kół pokazała się nagle postać ludzka."
+            "Flavor": ""
         },
         "13026": {
             "Name": "Zwierciadło Bekkera",
@@ -673,7 +673,7 @@
         "13029": {
             "Name": "Bomba Dwimerytowa",
             "Info": "Zresetuj wszystkie wzmocnione jednostki w wybranym rzędzie.",
-            "Flavor": "Podstawowy element wyposażenia Łowców Czarownic - w ułamku sekundy zamienia najpotężniejszego czarodzieja w bezbronną ofiarę."
+            "Flavor": "Podstawowy element wyposażenia Łowców Czarownic – w ułamku sekundy zamienia najpotężniejszego czarodzieja w bezbronną ofiarę."
         },
         "13030": {
             "Name": "Jad Mantikory",
@@ -688,7 +688,7 @@
         "13032": {
             "Name": "Gradobicie Merigold",
             "Info": "Zmniejsz siłę wszystkich brązowych i srebrnych jednostek w rzędzie o połowę.",
-            "Flavor": "Niebo ściemniało nagle, nad miastem zakłębiły się chmury. Zrobiło się diabelnie mroczno. I powiało zimnem."
+            "Flavor": "Niebo ściemniało nagle, nad miastem zakłębiły się chmury. Zrobiło się diabelnie mroczno. I powiało zimnem.\\n– Jej – stęknęła Yennefer. – Zdaje się, żeśmy narozrabiały."
         },
         "13033": {
             "Name": "Nekromancja",
@@ -738,7 +738,7 @@
         "13042": {
             "Name": "Udane Łowy",
             "Info": "Jeśli przegrywasz, stwórz Mantikorę Cesarską. Jeśli wygrywasz lub remisujesz, stwórz Jad Mantikory.",
-            "Flavor": "Na cholerę mi to szkaradziejstwo przywlokłeś, wiedźminie?! Przynieś mi głowę potwora to była tylko chędożona figura retoryczna!"
+            "Flavor": "Na cholerę mi to szkaradziejstwo przywlokłeś, wiedźminie?! „Przynieś mi głowę potwora” to była tylko chędożona figura retoryczna!"
         },
         "13043": {
             "Name": "Smoczy Sen",
@@ -763,7 +763,7 @@
         "14003": {
             "Name": "Piorun Alzura",
             "Info": "Zadaj 9 pkt obrażeń.",
-            "Flavor": "Nie mamy szans, by wyskandować zaklęcie tak skomplikowane, jak Piorun Alzura. Alzur, jak się twierdzi, miał głos jak dzwon i dykcję oratora."
+            "Flavor": "Nie mamy szans, by wyskandować zaklęcie tak skomplikowane, jak Piorun Alzura. Według kronikarzy Alzur miał głos jak dzwon i dykcję oratora."
         },
         "14004": {
             "Name": "Toksyna Krabopająka",
@@ -778,7 +778,7 @@
         "14006": {
             "Name": "Wściekły Ryk",
             "Info": "Zniszcz sojusznika. Stwórz i zagraj niedźwiedzia.\n(Niedźwiedź; 11 pkt siły)",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "14007": {
             "Name": "Kajdany z Dwimerytu",
@@ -793,12 +793,12 @@
         "14009": {
             "Name": "Brzask",
             "Info": "Stwórz Czyte Niebo lub Rajd. (Czyste niebo: Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie)\n(Rajd: Zagraj losową brązową jednostkę ze swojej talii)",
-            "Flavor": "Piękny dzień, żeby umrzeć."
+            "Flavor": ""
         },
         "14010": {
             "Name": "Filtr Petriego",
             "Info": "Wzmocnij 6 losowych sojuszników o 2.",
-            "Flavor": "Ale tej nocy księżyc miał barwę krwi."
+            "Flavor": "Mag stojący za kilkudziesięcioma genialnymi wynalazkami. Umysł przerastający współczesnych... a i tak zwykle mówią o nim „ten gość od szalki”."
         },
         "14011": {
             "Name": "Gęsta Mgła",
@@ -818,7 +818,7 @@
         "14014": {
             "Name": "Dzierzba",
             "Info": "Zadaj 2 pkt obrażeń 6 losowym wrogom.",
-            "Flavor": "Dla ludzi eliksiry są zabójcze, dla wiedźminów jedynie toksyczne. Jednak nawet wiedźmin musi być ostrożny, gdy idzie o dawkowanie."
+            "Flavor": ""
         },
         "14015": {
             "Name": "Tarcza z Łusek",
@@ -838,12 +838,12 @@
         "14018": {
             "Name": "Grom",
             "Info": "Wzmocnij 3 sąsiadujące jednostki o 3 i daj im 2 pkt pancerza.",
-            "Flavor": "Twarz wiedźmina zmieniła się - było w niej coś nieludzkiego, przerażającego."
+            "Flavor": "Twarz wiedźmina zmieniła się – było w niej coś nieludzkiego, przerażającego."
         },
         "14019": {
             "Name": "Ulewny Deszcz",
             "Info": "Rzuć na wrogi rząd Zagrożenie, które zadaje 1 pkt. obrażeń najsłabszej i najsilniejszej jednostce na początku tury.",
-            "Flavor": "„Wieża oblężnicza utknęła w błocie!”„Widzę, idioto. Trąb na odwrót”."
+            "Flavor": "„Wieża oblężnicza utknęła w błocie!” „Widzę, idioto. Trąb na odwrót”."
         },
         "14020": {
             "Name": "Mahakamski Dwójniak",
@@ -853,7 +853,7 @@
         "14021": {
             "Name": "Wronie Oko",
             "Info": "Zadaj 4 pkt obrażeń najsilniejszemu wrogowi w każdym rzędzie. Zwiększ zadawane obrażenia o 1 za każdy egzemplarz tej karty na swoim cmentarzu.",
-            "Flavor": "Pewien słynny pirat ponoć tak bardzo umiłował sobie narkotyzujące właściwości tego ziela, że zyskał przydomek Wronie Oko."
+            "Flavor": "Pewien słynny pirat ponoć tak bardzo umiłował sobie narkotyzujące właściwości tego ziela, że zyskał przydomek „Wronie Oko”."
         },
         "14022": {
             "Name": "Doppler",
@@ -873,7 +873,7 @@
         "14025": {
             "Name": "Zarodniki",
             "Info": "Zadaj 2 pkt obrażeń wszystkim jednostkom w wybranym rzędzie i usuń z niego Korzyść.",
-            "Flavor": "Zjedz ich odpowiednio dużo, a świat już nigdy nie będzie taki sam..."
+            "Flavor": "Podróżują przez Kontynent niesione wiatrem... A ich śladem idzie szaleństwo."
         },
         "14026": {
             "Name": "Złocista Piana",
@@ -888,27 +888,27 @@
         "15001": {
             "Name": "Sklep Paladyn",
             "Info": "Wyślij Sklepa do Cesarskiej Akademii Wojskowej. Ulepsz się do 25; Otrzymaj wytrzymałość; Stocz pojedynek z wrogiem; Zresetuj jednostkę; Zniszcz wszystkich wrogów z siłą 3 lub mniejszą",
-            "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
+            "Flavor": "Sklep jest znany z tego, że ma niezłą wyobraźnię. Jaki inny troll patrzyłby na czerwone ptaki i widział wiwerny?"
         },
         "15002": {
             "Name": "Sklep Łowca",
             "Info": "Wyślij Sklepa do lasów Dol Blathanna. Zadaj 15 pkt. obrażeń; Zadaj 2 pkt. obrażeń losowemu wrogowi 8 razy; Zagraj ponownie brązową lub srebrną jednostkę i wzmocnij ją o 5; Zagraj brązową lub srebrną jednostkę z Twojej talii; Usuń zagrożenia ze swojej strony i wzmocnij sojuszników o 1.",
-            "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
+            "Flavor": "Sklep jest znany z tego, że ma niezłą wyobraźnię. Jaki inny troll patrzyłby na patyki i widział bełty do kuszy?"
         },
         "15003": {
             "Name": "Sklep Czarodziej",
             "Info": "Wyślij Sklepa do akademii dla chłopców w Ban Ard. Dobierz 1 kartę; Rzuć urok na losowego wroga; Stwórz losowe zagrożenia na wszystkich rzędach przeciwnika; Zadaj 10 pkt. obrażeń jednostce i 5 pkt jej sąsiadom; Zagraj kartę specjalną z Twojej talii",
-            "Flavor": "Inne trolle zawsze uważały go za dziwaka - w końcu kto przy zdrowych zmysłach woli kolorowe papierki od kamieni?"
+            "Flavor": "Sklep jest znany z tego, że ma niezłą wyobraźnię. Jaki inny troll patrzyłby na dziury w ziemi i widział portale?"
         },
         "15004": {
             "Name": "Chironex",
             "Info": "Rozmieszczenie: Zadaj wszystkim innym jednostkom 2 pkt obrażeń.",
-            "Flavor": "Bogowie… to nie jest jednorożec! To… - ostatnie słowa Vilemara, słynnego kolekcjonera osobliwości."
+            "Flavor": "„Bogowie… to nie jest jednorożec! To…” – ostatnie słowa Vilemara, słynnego kolekcjonera osobliwości."
         },
         "15005": {
             "Name": "Jadeitowa Figurka",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": "Figurka rosła błyskawicznie, pulsując i tętniąc, zmieniała strukturę i kształt niczym pełzający po posadzce obłok dymu. W smugach blasku pojawiły się ruch i twardniejąca materia. Jeszcze moment, a w centrum magicznych kół pokazała się nagle postać ludzka."
         },
         "15006": {
             "Name": "Duda Mąciciel",
@@ -918,7 +918,7 @@
         "15007": {
             "Name": "Duda Towarzysz",
             "Info": "Rozmieszczenie: Wzmocnij 2 jednostki po obu stronach tej jednostki o 2.",
-            "Flavor": "Zna sto słów - osiemdziesiąt z nich to przekleństwa, reszta to łączniki."
+            "Flavor": "Zna sto słów – osiemdziesiąt z nich to przekleństwa, reszta to łączniki."
         },
         "15008": {
             "Name": "Jednorożec",
@@ -928,37 +928,37 @@
         "15009": {
             "Name": "Czort",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": "Członek Bydlęcych Sił Zbrojnych. „Semper fi”!"
         },
         "15010": {
             "Name": "Niedźwiedź",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": "Aghrrrr!"
         },
         "15011": {
             "Name": "Chłop",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "15012": {
             "Name": "Krowa",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": "W Beauclair wszystko jest lepsze - Winogrona są słodsze, krowy większe, a dziewczęta... mądrzejsze."
         },
         "15013": {
             "Name": "Czyste Niebo",
             "Info": "Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "15014": {
             "Name": "Zwiad",
             "Info": "Zagraj losową brązową jednostkę ze swojej talii.",
-            "Flavor": "Brak"
+            "Flavor": "Piękny dzień, żeby umrzeć."
         },
         "21001": {
             "Name": "Dagon",
             "Info": "Rozmieszczenie: Stwórz Gęstą Mgłę lub Ulewny Deszcz.",
-            "Flavor": "Nie jest umarłym ten, który spoczywa wiekami, nawet śmierć może umrzeć wraz z dziwnymi eonami."
+            "Flavor": ""
         },
         "21002": {
             "Name": "Królowa Krabopająków",
@@ -973,7 +973,7 @@
         "21004": {
             "Name": "Eredin Bréacc Glas",
             "Info": "Rozmieszczenie: Utwórz brązową jednostkę Dzikiego Gonu.",
-            "Flavor": "Król Gonu śmieje się, kłapią przegniłe zęby nad zardzewiałym kołnierzem zbroi."
+            "Flavor": "Jakieś ostatnie słowa?"
         },
         "21005": {
             "Name": "Ukryty",
@@ -983,7 +983,7 @@
         "22001": {
             "Name": "Stary Grot Sen",
             "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
-            "Flavor": "Nie przeszkadzać."
+            "Flavor": "„Nie przeszkadzać”."
         },
         "22002": {
             "Name": "Draug",
@@ -1003,7 +1003,7 @@
         "22005": {
             "Name": "Imlerith",
             "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń wybranemu wrogowi. Jeśli znajduje się on pod wpływem Trzaskającego Mrozu, zamiast tego zniszcz go.",
-            "Flavor": "Imlerith...? Lepiej od razu się poddajmy."
+            "Flavor": "Chwalił się, że jego zbroi nie przebije żadna broń. Miał rację – ale i tak nie przeżył."
         },
         "22006": {
             "Name": "Szepciucha Trybut",
@@ -1093,12 +1093,12 @@
         "23009": {
             "Name": "Jotunn",
             "Info": "Rozmieszczenie: Przenieś 3 wrogów do przeciwnego rzędu i zadaj im 2 pkt obrażeń. Jeśli rząd ten znajduje się pod wpływem Trzaskającego Mrozu, zamiast tego zadaj im 3 pkt obrażeń.",
-            "Flavor": "Według starych skelligijskich legend, wyspami władał niegdyś straszliwy Król Gigantów - Jotunn. Zgładzony przez Hemdalla poprzysiągł powrócić, gdy nadejdzie Ragh Nar Rog."
+            "Flavor": "Według starych skelligijskich legend, wyspami władał niegdyś straszliwy Król Gigantów – Jotunn. Zgładzony przez Hemdalla poprzysiągł powrócić, gdy nadejdzie Ragh Nar Rog."
         },
         "23010": {
             "Name": "Morvudd",
             "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie jednostki. Jeśli była wrogiem, zmniejsz jej siłę o połowę.",
-            "Flavor": "Wyjątkowy okaz biesa znaleziony na Ard Skellig, wyjątkowo wybredny jeśli idzie o pokarm."
+            "Flavor": "Zjadł tylko wnętrzności... Wybredny."
         },
         "23011": {
             "Name": "Nithral",
@@ -1138,7 +1138,7 @@
         "23018": {
             "Name": "Bezkost",
             "Info": "Rozmieszczenie: Zagraj brązową jednostkę z umiejętnością Zemsty ze swojej talii.",
-            "Flavor": "Bój się nie ciemności, lecz światła."
+            "Flavor": "Żadna brama go nie powstrzyma, przeciśnie się przez każdą szczelinę…"
         },
         "23019": {
             "Name": "Trollica z Vergen",
@@ -1168,17 +1168,17 @@
         "24002": {
             "Name": "Bies",
             "Info": "Brak umiejętności.",
-            "Flavor": "Członek Bydlęcych Sił Zbrojnych. Semper fi!"
+            "Flavor": "Bies wygląda trochę jak jeleń. Wielki, wściekły jeleń."
         },
         "24003": {
             "Name": "Starożytny Mglak",
             "Info": "Wzmocnij o 1, jeśli na koniec tury na polu bitwy znajduje się Gęsta Mgła.",
-            "Flavor": "Ludzie posiadają wiele głęboko zakorzenionych lęków. Lęk przed mgłą jest uzasadniony..."
+            "Flavor": "Ludzie posiadają wiele głęboko zakorzenionych lęków. Lęk przed mgłą jest uzasadniony…"
         },
         "24004": {
             "Name": "Arcygryf",
             "Info": "Rozmieszczenie: Usuń Zagrożenia z rzędu tej jednostki. Przenieś brązową kartę z cmentarza przeciwnika do twojego cmentarza.",
-            "Flavor": "To taki gryf, tylko arcyniebezpieczny."
+            "Flavor": "Uważany za ucieleśnienie odwagi, lojalności i ducha walki – wartości, z których słyną Gryfici. Nazwa Szkoły Gryfa wywodzi się jednak nie od mitycznej bestii, a od przydomku pewnego błędnego rycerza, który zaszczepił te ideały w sercu jej założyciela."
         },
         "24005": {
             "Name": "Jeździec Gonu",
@@ -1193,12 +1193,12 @@
         "24007": {
             "Name": "Wilkołak Alfa",
             "Info": "Stwórz Wilka po obu stronach tej jednostki przy zetknięciu z Pełnią.",
-            "Flavor": "Niektórzy mawiają, iż wilkołactwo jest zaraźliwe - wystarczy jedno ugryzienie by się przemienić. Gdyby tak było, na świecie byłyby już same wilkołaki."
+            "Flavor": "Najbardziej dzikich spośród tych przeklętych nie odstrasza nawet srebro i bolesny ogień alchemii."
         },
         "24008": {
             "Name": "Gryf",
             "Info": "Rozmieszczenie: Aktywuj umiejętność zemsty brązowego sojusznika.",
-            "Flavor": "Gryfy lubią pomęczyć. Jeść żywcem po kawałku."
+            "Flavor": "Przerażeni mieszkańcy Hengfors schowali się za murami… I na niewiele im się to zdało."
         },
         "24009": {
             "Name": "Nekker Wojownik",
@@ -1268,7 +1268,7 @@
         "24022": {
             "Name": "Vran Wojownik",
             "Info": "Rozmieszczenie: Pochłoń jednostkę z prawej i wzmocnij się o jej siłę. Powtórz tę umiejętność po każdych 2 turach na początku tury.",
-            "Flavor": "Siedzieli na koniach nieruchomo, jakby niedbale. Widział ich broń - krótkie dzidy o szerokim ostrzu. Miecze z dziwacznie wykutą gardą. Berdysze. Zębate gizarmy."
+            "Flavor": "Siedzieli na koniach nieruchomo, jakby niedbale. Widział ich broń – krótkie dzidy o szerokim ostrzu. Miecze z dziwacznie wykutą gardą. Berdysze. Zębate gizarmy."
         },
         "24023": {
             "Name": "Wiwerna",
@@ -1283,7 +1283,7 @@
         "24025": {
             "Name": "Barbegazi",
             "Info": "Rozmieszczenie: Pochłoń sojusznika i wzmocnij tę jednostkę o jego siłę.\nWytrzymałość",
-            "Flavor": "To, co jeszcze przed chwilą brał za leżące u podnóży stalagmitów okrągłe głazy, teraz wybałuszało na niego wielkie, jarzące się ślepia."
+            "Flavor": ""
         },
         "24026": {
             "Name": "Ekimma",
@@ -1318,7 +1318,7 @@
         "24032": {
             "Name": "Ogar Dzikiego Gonu",
             "Info": "Rozmieszczenie: Zagraj ze swojej talii Trzaskający Mróz.",
-            "Flavor": "Walecznych jedna tylko śmierć spotyka. Wołać będzie:mordować! I spuści psy wojny."
+            "Flavor": "Walecznych jedna tylko śmierć spotyka. Wołać będzie: mordować! I spuści psy wojny."
         },
         "24033": {
             "Name": "Syrena",
@@ -1348,7 +1348,7 @@
         "24038": {
             "Name": "Blask Księżyca",
             "Info": "Wybierz: Rzuć Korzyść - Pełnię lub Rzuć Zagrożenie - Krwawy Księżyc.",
-            "Flavor": "Gdy księzyc jest w pełni, koszmary wychodzą z ciemnych zakamarków świata."
+            "Flavor": ""
         },
         "25001": {
             "Name": "Pomniejszy D'ao",
@@ -1358,12 +1358,12 @@
         "25002": {
             "Name": "Młode Krabopająka",
             "Info": "Wezwij do tego rzędu wszystkie Krabopająki.",
-            "Flavor": "Pół krab, pół pająk. Słowem, sukinsyn."
+            "Flavor": "Natura czasem zadaje kłam twierdzeniu, że „wszystko co młode, jest piękne”."
         },
         "25003": {
             "Name": "Draugir",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "25004": {
             "Name": "Jajo Harpii",
@@ -1373,32 +1373,32 @@
         "25005": {
             "Name": "Piskle Harpi",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "25006": {
             "Name": "Pomniejszy Ifrit",
             "Info": "Gdy ta karta zostaję wezwana zadaj 1 pkt obrażeń losowemu wrogowi.",
-            "Flavor": "Pewien czarodziej uważał, że są urocze - jego los dał początek powiedzeniu, aby nie igrać z ogniem…"
+            "Flavor": "Pewien czarodziej uważał, że są urocze – jego los dał początek powiedzeniu, aby nie igrać z ogniem…"
         },
         "25007": {
             "Name": "Wilk",
             "Info": "Brak umiejętności.",
-            "Flavor": "Spokojnie... wiem jak oswoić wilka - ostatnie słowa łowcy Dunbara."
+            "Flavor": "„Spokojnie… wiem jak oswoić wilka” – ostatnie słowa łowcy Dunbara."
         },
         "25008": {
             "Name": "Krwawy Księżyc",
             "Info": "Rzuć Zagrożenie na wybrany przeciwny rząd, które zadaję 2 pkt obrażeń wszystkim wrogom przy kontakcie.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "25009": {
             "Name": "Pełnia",
             "Info": "Rzuć Korzyść na wybrany sojuszniczy rząd, która wzmacnia losową Bestię lub Wampira o 2 na początku tury.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "31001": {
             "Name": "Jan Calveit",
             "Info": "Rozmieszczenie: Zobacz 3 karty ze swojej talii, a następnie zagraj 1 z nich.",
-            "Flavor": "Siła jest tylko jedną z opcji dostępnych władcy."
+            "Flavor": "„By przygotować się na przyszłość, lepiej najpierw ją poznać”."
         },
         "31002": {
             "Name": "Emhyr var Emreis",
@@ -1408,7 +1408,7 @@
         "31003": {
             "Name": "Morvran Voorhis",
             "Info": "Rozmieszczenie: Ujawnij do 4 kart.",
-            "Flavor": "„A ty kto? Też jakiś balwierz?” „Nie. Morvran Voorhis. Dowódca dywizji Alba."
+            "Flavor": "„A ty kto? Też jakiś balwierz?” „Nie. Morvran Voorhis. Dowódca dywizji Alba”."
         },
         "31004": {
             "Name": "Uzurpator",
@@ -1473,7 +1473,7 @@
         "32012": {
             "Name": "Yennefer Nekromancja",
             "Info": "Rozmieszczenie: Wsrześ brązowego lub srebrnego Żołnierza z cmentarza przeciwnika.",
-            "Flavor": "Proces gnilny zaszedł już daleko... Ale struny głosowe są jeszcze całe. Może coś z niego wyciągniemy."
+            "Flavor": "Tak, widzę przyszłość. I ciebie tam już nie ma."
         },
         "32013": {
             "Name": "Cahir Mawr Dyffryn",
@@ -1488,12 +1488,12 @@
         "32015": {
             "Name": "Zabójstwo",
             "Info": "Zadaj 9 pkt. obrażeń przeciwnikowi.\nPowtórz raz.",
-            "Flavor": "Ile jest warte ludzkie życie? To zależy - twoje, przykładowo, około stu orenów."
+            "Flavor": "Ufni ludzie to w Nilfgaardzie gatunek zagrożony wyginięciem."
         },
         "33001": {
             "Name": "Joachim de Wett",
             "Info": "Szpieg. Rozmieszczenie: Zagraj ze szczytu swojej talii brązową lub srebrną jednostkę niebędącą szpiegiem i wzmocnij ją o 10.",
-            "Flavor": "Diuk de Wett dowodził grupą Verden w sposób, dla którego określenie nieudolny jest wybitnie za delikatne."
+            "Flavor": "Diuk de Wett dowodził grupą „Verden” w sposób, dla którego określenie „nieudolny” jest wybitnie za delikatne."
         },
         "33002": {
             "Name": "Fałszywa Cirilla",
@@ -1503,7 +1503,7 @@
         "33003": {
             "Name": "Strażnik",
             "Info": "Rozmieszczenie: Dodaj Pomniejszego Strażnika na szczycie talii przeciwnika.",
-            "Flavor": "Przed intruzami uzbrojonymi w miecze chronią mnie kamienne pięści. Przed uzbrojonymi w kłamstwa, żelazna logika."
+            "Flavor": ""
         },
         "33004": {
             "Name": "Cantarella",
@@ -1528,7 +1528,7 @@
         "33008": {
             "Name": "Henry var Attre",
             "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Jeśli są sojusznikami, wzmocnij je o 2. Jeśli są wrogami, zrań je o 2.",
-            "Flavor": "Jestem na placówce w Novigradzie od trzynastu lat. Wiele widziałem. Okrucieństwo, cynizm, chciwość. Ale to, co tam się teraz dzieje, przyprawia o dreszcze."
+            "Flavor": "Linia między dyplomacją a szpiegostwem jest cienka. Zwłaszcza w Nilfgaardzie."
         },
         "33009": {
             "Name": "Gruba Helga",
@@ -1598,7 +1598,7 @@
         "33022": {
             "Name": "Nilfgaardzkie Bramy",
             "Info": "Zagraj brązowego lub srebrnego Oficera ze swojej talii i wzmocnij go o 1.",
-            "Flavor": "Chyba nie przyjmują gości..."
+            "Flavor": ""
         },
         "33023": {
             "Name": "Nadzorca Niewolników",
@@ -1608,7 +1608,7 @@
         "34001": {
             "Name": "Nowicjusz z Vicovaro",
             "Info": "Rozmieszczenie: Spójrz na 2 wierzchnie brązowe karty Alchemii ze swojej talii, a następnie zagraj 1 z nich.",
-            "Flavor": "Czarodzieje w Nilfgaardzie nie cieszą się szczególnym poważaniem - gdy jeden z nich rozczaruje Cesarza, na jego miejsce czeka już dziesięciu innych."
+            "Flavor": "Czarodzieje w Nilfgaardzie nie cieszą się szczególnym poważaniem – gdy jeden z nich rozczaruje Cesarza, na jego miejsce czeka już dziesięciu innych."
         },
         "34002": {
             "Name": "Emisariusz",
@@ -1653,7 +1653,7 @@
         "34010": {
             "Name": "Nilfgaardzki Oficer",
             "Info": "Wzmocnij sojusznika o 2 za każdym razem, gdy zagrywasz Żołnierza.",
-            "Flavor": "Będziecie bronić tego sztandaru za cenę waszego życia! Gloir aen Ard Feain!"
+            "Flavor": "Będziecie bronić tego sztandaru za cenę waszego życia! Gloir aen Ard Feainn!"
         },
         "34011": {
             "Name": "Siewca Zarazy",
@@ -1668,7 +1668,7 @@
         "34013": {
             "Name": "Wartownik",
             "Info": "Rozmieszczenie: Wzmocnij wszystkie sojusznicze egzemplarze Żołnierza o 2.",
-            "Flavor": "Budujcie mosty, nie mury."
+            "Flavor": "Dobry stróż ma sokoli wzrok, końskie zdrowie i pieski los."
         },
         "34014": {
             "Name": "Konnica Dywizji Alba",
@@ -1683,7 +1683,7 @@
         "34016": {
             "Name": "Mangonela",
             "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń losowemu wrogowi. Powtórz za każdym razem, gdy ujawniasz kartę.",
-            "Flavor": "„To badziewie jeszcze działa?!” „Zależy co przez to rozumiesz…"
+            "Flavor": "„To badziewie jeszcze działa?!” „Zależy co przez to rozumiesz…”."
         },
         "34017": {
             "Name": "Sierżant Nauzikai",
@@ -1703,7 +1703,7 @@
         "34020": {
             "Name": "Brygada Nauzicaa",
             "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń szpiegowi. Jeśli został zniszczony, ulepsz tę jednostkę o 4.",
-            "Flavor": "Ci jeźdźcy... to Dziki Gon? Nie. Brygada Kawalerii Nauzicaa."
+            "Flavor": "„Ci jeźdźcy... to Dziki Gon?” „Nie. Brygada Kawalerii Nauzicaa”."
         },
         "34021": {
             "Name": "Zwiadowca",
@@ -1713,7 +1713,7 @@
         "34022": {
             "Name": "Wiedźmin Szkoły Żmii",
             "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń za każdą kartę Alchemii w twojej talii początkowej.",
-            "Flavor": "Szkoła Żmii się odrodzi... Letho o to zadbał."
+            "Flavor": "Żmije są szkolone do walki z dwoma ostrzami, potocznie zwanymi „kłami”. Ich styl koncentruje się na szybkich, agresywnych ciosach, których celem jest zdominowanie przeciwnika – czy to potwora, czy to człowieka."
         },
         "34023": {
             "Name": "Daerlańscy Piechurzy",
@@ -1748,12 +1748,12 @@
         "34029": {
             "Name": "Skrytobójca",
             "Info": "Szpieg.\nRozmieszczenie: Zadaj 10 pkt obrażeń jednostce po lewej stronie.",
-            "Flavor": "Jedna z najpopularniejszych profesji na cesarskim dworze, zaraz obok urzędników i kurtyzan."
+            "Flavor": "Asasyn to jedna z najpopularniejszych profesji na cesarskim dworze, zaraz obok urzędników i kurtyzan."
         },
         "34030": {
             "Name": "Medyk z Vicovaro",
             "Info": "Rozmieszczenie: Wskrześ brązową jednostkę z cmentarza przeciwnika.",
-            "Flavor": "Na świecie było tyle dżum co wojen. Mimo to dżumy i wojny zastają ludzi zawsze tak samo zaskoczonych."
+            "Flavor": "Tobie nic już nie może zaszkodzić, więc…"
         },
         "34031": {
             "Name": "Dywizja Venendal",
@@ -1773,7 +1773,7 @@
         "35001": {
             "Name": "Pomniejszy Strażnik",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak."
+            "Flavor": "Przed intruzami uzbrojonymi w miecze chronią mnie kamienne pięści. Przed uzbrojonymi w kłamstwa, żelazna logika."
         },
         "35002": {
             "Name": "Krowie Truchło",
@@ -1783,12 +1783,12 @@
         "41001": {
             "Name": "Król Radowid V",
             "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie 2 jednostek. Jeśli to wrogowie, zadaj im 5 pkt obrażeń. Załoga.",
-            "Flavor": "Król powinien być surowy dla wrogów i szczodry dla przyjaciół."
+            "Flavor": "„Mówią, że to gra królów. Te szachy uczą strategicznego myślenia. Co za stek bzdur! Obie strony mają identyczne figury, zasady pozostają niezmiennie takie same. Jak ma to odzwierciedlać prawdziwe życie?”"
         },
         "41002": {
             "Name": "Królewna Adda",
             "Info": "Rozmieszczenie: Stwórz brązową przeklętą jednostkę Królestw Północy.",
-            "Flavor": "Klątwę odczyniono... Ale apetyt na surowe mięso pozostał."
+            "Flavor": "Uwolniona od klątwy rzuconej z zazdrości, by powrócić na dwór wypełniony dokładnie tym samym."
         },
         "41003": {
             "Name": "Król Foltest",
@@ -1798,7 +1798,7 @@
         "41004": {
             "Name": "Król Henselt",
             "Info": "Rozmieszczenie: Wybierz brązową Maszynę lub sojusznika z Kaedwen i zagraj wszystkie jego egzemplarze ze swojej talii. Załoga.",
-            "Flavor": "Gdyby policzyć bękarty, które spłodziłem, to mógłbym nimi obsadzić wszystkie trony Północy."
+            "Flavor": "Jeśli zadzierasz z jednorożcem, lepiej uważaj na róg."
         },
         "42001": {
             "Name": "Jaskier",
@@ -1838,12 +1838,12 @@
         "42008": {
             "Name": "Sigismund Dijkstra",
             "Info": "Szpieg. Rozmieszczenie: Zagraj 2 karty ze szczytu swojej talii.",
-            "Flavor": "Naprawdę myślisz, że nabiorę się na tę wyjętą z dupy historyjkę?"
+            "Flavor": "Szach-mat… Wasza Wysokość."
         },
         "42009": {
             "Name": "Shani",
             "Info": "Rozmieszczenie: Wskrześ brązową lub srebrną jednostkę, która nie jest Przeklęta, i daj jej 2 pkt pancerza.",
-            "Flavor": "Jestem medyczką, kiedy coś zalecam, zazwyczaj wiem, co robię."
+            "Flavor": "Jestem medyczką. Kiedy coś zalecam, zazwyczaj wiem, co robię."
         },
         "42010": {
             "Name": "Kiyan",
@@ -1863,7 +1863,7 @@
         "42013": {
             "Name": "Filippa Eilhart",
             "Info": "Rozmieszczenie: Zrań wroga o 5, a następnie zrań losowych wrogów o 4, 3, 2 i 1. Nie można zranić tego samego wroga dwa razy z rzędu.",
-            "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
+            "Flavor": ""
         },
         "43001": {
             "Name": "Talar",
@@ -1973,7 +1973,7 @@
         "44001": {
             "Name": "Tridamski Piechur",
             "Info": "4 pkt pancerza.",
-            "Flavor": "Żołnierze lojalni wobec starego barona Tridam opuścili miasto wraz Faliborem, aby stać się renegatami poszukiwanymi przez prawo."
+            "Flavor": "Żołnierze lojalni wobec starego barona Tridam opuścili miasto wraz z Faliborem, aby stać się renegatami poszukiwanymi przez prawo."
         },
         "44002": {
             "Name": "Wykładowca z Ban Ard",
@@ -2008,7 +2008,7 @@
         "44008": {
             "Name": "Wzmocniony Trebusz",
             "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi na koniec tury.",
-            "Flavor": "Czujesz to? Ziemia drży, gdy Gruba Berta wystrzeliwuje pocisk."
+            "Flavor": "Czujesz to? Ziemia drży, gdy „Gruba Berta” wystrzeliwuje pocisk."
         },
         "44009": {
             "Name": "Rycerz z Kaedwen",
@@ -2033,7 +2033,7 @@
         "44013": {
             "Name": "Redański Aspirant",
             "Info": "Jeśli ta jednostka posiada pancerz na koniec tury, wzmocnij sąsiadujące jednostki o 1. 2 pkt pancerza.",
-            "Flavor": "Nie pieniądze, lecz chęć szczera zrobi z ciebie bohatera!"
+            "Flavor": ""
         },
         "44014": {
             "Name": "Wzmocniona Balista",
@@ -2048,7 +2048,7 @@
         "44016": {
             "Name": "Aedirnski Rębajło",
             "Info": "Rozmieszczenie: Zadaj wrogowi obrażenia równe 4, a jeśli przeżyje, zadaj innemu obrażenia równe 2.",
-            "Flavor": "Brak"
+            "Flavor": "A gdybym był młotkowym, to co byś powiedziała?"
         },
         "44017": {
             "Name": "Balista",
@@ -2073,7 +2073,7 @@
         "44021": {
             "Name": "Rębacze z Crinfrid",
             "Info": "Rozmieszczenie: Wzmocnij wszystkie egzemplarze tej jednostki w ręce, talii oraz na polu bitwy o 1. Powtórz tę umiejętność za każdym razem, gdy zagrany zostanie inny egzemplarz tej jednostki.",
-            "Flavor": "Widzisz ten tatuaż, panienko? To ja, jak walczyłem ze smokiem. Ze SMOKIEM."
+            "Flavor": ""
         },
         "44022": {
             "Name": "Temerski Werblista",
@@ -2108,7 +2108,7 @@
         "44028": {
             "Name": "Zwiadowcy Niebieskich Pasów",
             "Info": "Rozmieszczenie: Wzmocnij o 1 wszystkich sojuszników z Temerii i wszystkie jednostki z Temerii w ręce i talii, które nie są szpiegami, o sile równej sile tej jednostki. Załoga.",
-            "Flavor": "Niebieskie Pasy i Scoia'tael łączy jedno - jednych i drugich napędza nienawiść."
+            "Flavor": "Niebieskie Pasy i Scoia'tael mają ze sobą coś wspólnego – jednych i drugich napędza nienawiść."
         },
         "44029": {
             "Name": "Temerski Piechur",
@@ -2118,12 +2118,12 @@
         "44030": {
             "Name": "Łowcy Czarownic",
             "Info": "Rozmieszczenie: Zresetuj jednostkę. Jeśli jest Czarodziejem, zagraj inny jej egzemplarz ze swojej talii.",
-            "Flavor": "Kim są łowcy czarownic? W większości to szelmy i fanatycy, ale w obliczu niegodziwości dokonanych przez Lożę Czarodziejek dołączyło do nich również wielu porządnych ludzi..."
+            "Flavor": "Rozpoznać ich można po długich płaszczach, kapeluszach z szerokim rondem i złych uśmiechach."
         },
         "44031": {
             "Name": "Udręczony Czarodziej",
             "Info": "Rozmieszczenie: Zobacz 2 brązowe Zaklęcia lub Przedmioty ze swojej talii, a następnie zagraj 1 z nich.",
-            "Flavor": "Nawet czarodziejom nie udało się umknąć przed niszczycielską klątwą Sabriny Glevissig."
+            "Flavor": "Zakazana? Owszem. Wytępiona? Bynajmniej."
         },
         "44032": {
             "Name": "Zwiadowca Rębaczy",
@@ -2138,37 +2138,37 @@
         "44034": {
             "Name": "Krwawy Korbacz",
             "Info": "Zadaj 5 pkt obrażeń i stwórz w losowym rzędzie Upiora.\n(Upiór 5 pkt siły)",
-            "Flavor": "Niektóre rodzaje oręża zostały zakazane w Królestwach Północy, tak straszne były rany zadane przy ich pomocy."
+            "Flavor": ""
         },
         "45001": {
             "Name": "Upiór",
             "Info": "Brak umiejętności.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "45002": {
             "Name": "Lewa Flanka",
             "Info": "Brak umiejętności.",
-            "Flavor": "Z werbunku? Dawać papiery! Czego zaraza, stoisz jeden z drugim? W lewo zwrot!"
+            "Flavor": ""
         },
         "45003": {
             "Name": "Prawa Flanka",
             "Info": "Brak umiejętności.",
-            "Flavor": "Z werbunku? Dawać papiery! Czego zaraza, stoisz jeden z drugim? W lewo zwrot!"
+            "Flavor": ""
         },
         "51001": {
             "Name": "Francesca Findabair",
             "Info": "Rozmieszczenie: Wymień kartę na inną wybraną kartę i wzmocnij ją o 3.",
-            "Flavor": "Wszystko ma swoją cenę. Wojna wymaga ofiar. Pokój, jak się okazuje, również."
+            "Flavor": "Błękitne elfie oczy Franceski Findabair były nieprzeniknione i twarde jak szkło. Gdy go jej przedstawiano, Stokrotka z Dolin uśmiechnęła się. Uśmiech, choć niesamowicie piękny, przejął wiedźmina grozą."
         },
         "51002": {
             "Name": "Eithné",
             "Info": "Rozmieszczenie: Wskrześ brązową lub srebrną kartę specjalną.",
-            "Flavor": "Bądź pozdrowiona, Srebrnooka Eithné, Pani Brokilonu!"
+            "Flavor": ""
         },
         "51003": {
             "Name": "Filavandrel",
             "Info": "Rozmieszczenie: Utwórz srebrną kartę specjalną.",
-            "Flavor": "Jestem Filavandrel aen Fidhail ze Srebrnych Wież, z rodu Feleaornów z Białych Okrętów."
+            "Flavor": ""
         },
         "51004": {
             "Name": "Brouver Hoog",
@@ -2208,7 +2208,7 @@
         "52007": {
             "Name": "Iorweth",
             "Info": "Rozmieszczenie: Zadaj wrogowi 8 pkt obrażeń. Jeśli został zniszczony, wzmocnij wszystkie niebędącą szpiegiem Elfy w swojej ręce o 1.",
-            "Flavor": "Cholernie celny jak na faceta z jednym okiem."
+            "Flavor": "Żebrak czy król, co za różnica? Ot, jednego dh'oine mniej."
         },
         "52008": {
             "Name": "Milva",
@@ -2308,7 +2308,7 @@
         "53014": {
             "Name": "Milaen",
             "Info": "Rozmieszczenie: Zadaj 6 pkt obrażeń jednostkom przy krawędzi rzędu.",
-            "Flavor": "Stary baron nie miał litości dla kłusowników, na szczęście dla Milaen stary baron był już martwy a jego ludzie zdesperowani."
+            "Flavor": "Stary baron nie miał litości dla kłusowników, na szczęście dla Milaen stary baron był już martwy, a jego ludzie zdesperowani."
         },
         "53015": {
             "Name": "Éibhear Hattori",
@@ -2333,17 +2333,17 @@
         "53019": {
             "Name": "Dar Natury",
             "Info": "Zagraj brązową lub srebrną kartę specjalną ze swojej talii.",
-            "Flavor": "Wam ziemia płaci krwawy haracz. Nas obdarowywała. Wy wydzieracie ziemi jej skarby siłą. Dla nas ziemia rodziła i kwitła, bo kochała nas."
+            "Flavor": "Wszystko ma swoją cenę. Wojna wymaga ofiar. Pokój, jak się okazuje, również."
         },
         "53020": {
             "Name": "Wilczy Dół",
             "Info": "Rzuć na wrogi rząd Zagrożenie, które zadaje jednostkom 3 pkt obrażeń przy zetknięciu. ",
-            "Flavor": "Prosta, tania a zarazem skuteczna - jedna z ulubionych pułapek Scoia'tael."
+            "Flavor": ""
         },
         "53021": {
             "Name": "Mahakamski Róg",
             "Info": "Wybierz: Utwórz brązowego lub srebrnego Krasnoluda lub Ulepsz jednostkę o 7.",
-            "Flavor": "Pewnego razu w Mahakamie urządzono konkurs gry na rogu. Krasnoludy odkryły wtedy że głośne dźwięki i ośnieżone szczyty nie są szczęśliwym zestawieniem."
+            "Flavor": "Pewnego razu w Mahakamie urządzono konkurs gry na rogu. Krasnoludy odkryły wtedy, że głośne dźwięki i ośnieżone szczyty nie są najszczęśliwszym zestawieniem."
         },
         "54001": {
             "Name": "Saperzy Vrihedd",
@@ -2358,7 +2358,7 @@
         "54003": {
             "Name": "Neofita Vrihedd",
             "Info": "Rozmieszczenie: Wzmocnij 2 losowe lojalne jednostki w Twojej ręce o 1.",
-            "Flavor": "Doznawszy rasizmu i ksenofobii,  wielu nieludzi z miast decyduje się na dołączenie do Scoia'tael."
+            "Flavor": "Doznawszy rasizmu i ksenofobii, wielu nieludzi z miast decyduje się na dołączenie do Scoia'tael."
         },
         "54004": {
             "Name": "Brygada Vrihedd",
@@ -2478,7 +2478,7 @@
         "54027": {
             "Name": "Elfi Obrońca",
             "Info": "Wzmocnij te kartę o 1 za każdym razem, gdy zagrasz kartę specjalną, gdziekolwiek znajduje się ta jednostka.",
-            "Flavor": "Póki trwamy, ludzka stopa nie stanie w Dol Blathanna."
+            "Flavor": "Póki trwamy, póty ludzka stopa nie stanie w Dol Blathanna."
         },
         "54028": {
             "Name": "Wiedzący",
@@ -2488,7 +2488,7 @@
         "54029": {
             "Name": "Agitator Scoia'tael",
             "Info": "Rozmieszczenie: Stwórz standardowy egzemplarz innego losowego brązowego Krasnoluda ze swojej talii.",
-            "Flavor": "Zważcie moje słowa:jeśli nie ruszycie dupy, ludzie tu przyjdą i zabiorą nasze baby!"
+            "Flavor": "Zważcie moje słowa: jeśli nie ruszycie dupy, ludzie tu przyjdą i zabiorą nasze baby!"
         },
         "54030": {
             "Name": "Elfi Najemnik",
@@ -2513,7 +2513,7 @@
         "61001": {
             "Name": "Harald Chromy",
             "Info": "Rozmieszczenie: Rozdziel losowo 10 pkt obrażeń między wrogów z przeciwnego rzędu.",
-            "Flavor": "Nikt nie wie skąd wziął się jego przydomek, nikt nie śmiał spytać."
+            "Flavor": "Nie zatrzymał się przed niczym, dopóki nie podbił wysp, a głowa poprzedniego jarla nie potoczyła się u jego stóp."
         },
         "61002": {
             "Name": "Crach an Craite",
@@ -2528,7 +2528,7 @@
         "61004": {
             "Name": "Bran Tuirseach",
             "Info": "Rozmieszczenie: Odrzuć do 3 kart z Twojej talii i ulepsz je o 1.",
-            "Flavor": "Nikt nie zastąpi Brana. Mogą jedynie próbować."
+            "Flavor": ""
         },
         "62001": {
             "Name": "Olaf",
@@ -2563,7 +2563,7 @@
         "62007": {
             "Name": "Cerys an Craite",
             "Info": "Po wskrzeszeniu 4 jednostek w czasie, gdy ta jednostka znajduje się na cmentarzu, wskrześ tę jednostkę w losowym rzędzie i ulepsz ją o 1.",
-            "Flavor": "Chodź, już ja ci pokażę Przepióreczkę..."
+            "Flavor": "Chodź, już ja ci pokażę „Przepióreczkę”..."
         },
         "62008": {
             "Name": "Lugos Szalony",
@@ -2578,7 +2578,7 @@
         "62010": {
             "Name": "Cerys Nieustraszona",
             "Info": "Kiedy odrzucisz brązową lub srebrną jednostkę, zadaj sobie obrażenia równe 4, a następnie wskrześ ją. Powtórz maksymalnie 1 raz.",
-            "Flavor": "Muszę zjednoczyć klany. Wolę uniknąć wojny, ale jeśli Nilfgaard rzeczywiście zamierza nas zaatakować, wspólnie damy mu odpór."
+            "Flavor": "„Jeśli chcesz coś załatwić, wyślij najlepszego ze swoich poddanych. Jeśli chcesz coś załatwić dobrze, wyślij kobietę”."
         },
         "62011": {
             "Name": "Koral",
@@ -2598,7 +2598,7 @@
         "63001": {
             "Name": "Jutta Dimun",
             "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń tej jednostce.",
-            "Flavor": "Przez niektórych nazywana Żelazną Dziewicą."
+            "Flavor": "Przez niektórych nazywana „Żelazną Dziewicą”."
         },
         "63002": {
             "Name": "Udalryk",
@@ -2608,7 +2608,7 @@
         "63003": {
             "Name": "Djenge Frett",
             "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń 2 sojusznikom i ulepsz tę jednostkę o 2 za każdego z nich.",
-            "Flavor": "Kiedy list gończy mówi żywy lub martwy większość łowców po prostu by cię zabiła… ale nie ja. Jeśli ja cię złapię, zawiśniesz."
+            "Flavor": "Kiedy list gończy mówi „żywy lub martwy”, większość łowców po prostu by cię zabiła… ale nie ja. Jeśli ja cię złapię, zawiśniesz."
         },
         "63004": {
             "Name": "Lugos Siny",
@@ -2638,7 +2638,7 @@
         "63009": {
             "Name": "Czempion Areny",
             "Info": "Rozmieszczenie: Stocz pojedynek z wybranym wrogiem.",
-            "Flavor": "Nie zdradzi imienia, dopóki nie zostanie pokonany. To błędny troll."
+            "Flavor": "Trolle nie używają broni. Nie potrzebują."
         },
         "63010": {
             "Name": "Draig Bon-Dhu",
@@ -2683,7 +2683,7 @@
         "63018": {
             "Name": "Runa Strzybóg",
             "Info": "Utwórz i zagraj brązową lub srebrną kartę Skellige.",
-            "Flavor": "brak"
+            "Flavor": "Ofirscy mistrzowie run potrafią układać je w najróżniejsze słowa, dodając im przy tym mocy."
         },
         "63019": {
             "Name": "Odnowa",
@@ -2693,7 +2693,7 @@
         "63020": {
             "Name": "Ozdobny Miecz",
             "Info": "Utwórz brązową lub srebrną kartę Żołnierza ze Skellige i ulepsz ją o 3.",
-            "Flavor": "Wygląda wspaniale, ale można nim co najwyżej posmarować chleb."
+            "Flavor": ""
         },
         "64001": {
             "Name": "Wojownik an Craite",
@@ -2713,12 +2713,12 @@
         "64004": {
             "Name": "Przemytnik Dimun",
             "Info": "Rozmieszczenie: Przywróć dwie brązowe jednostki z cmentarza do twojej talii.",
-            "Flavor": "Spikeroog to zapyziała dziura, ale nie szkodzi - wszystko czego potrzebujemy weźmiemy sobie od was."
+            "Flavor": "Spikeroog to zapyziała dziura, ale nie szkodzi – wszystko czego potrzebujemy weźmiemy sobie od was."
         },
         "64005": {
             "Name": "Berserker Maruder",
             "Info": "Rozmieszczenie: Wzmocnij te jednostkę o 1 za każdego rannego sojusznika, następnie wzmocnij ją o 1 za każdego przeklętego sojusznika.",
-            "Flavor": "Nie lekceważ ich, nawet młodsze osobniki są niebezpieczne."
+            "Flavor": "Złoto go nie interesuje. Tylko krew."
         },
         "64006": {
             "Name": "Skald Heymaey",
@@ -2733,7 +2733,7 @@
         "64008": {
             "Name": "Zdziczały Niedźwiedź",
             "Info": "Za każdym razem, gdy z dowolnej ręki na stronę twojego przeciwnika zostaje zagrana jednostka, zadaj jej 1 pkt obrażeń.",
-            "Flavor": "Oswojony? Mój drogi chłopcze, fakt że Skelligijczycy tresują niedźwiedzie wcale nie oznacza, że są one oswojone…"
+            "Flavor": "„Oswojony”? Mój drogi chłopcze, fakt że Skelligijczycy tresują niedźwiedzie wcale nie oznacza, że są one „oswojone”…"
         },
         "64009": {
             "Name": "Rębacz an Craite",
@@ -2758,12 +2758,12 @@
         "64013": {
             "Name": "Wściekły Berserker",
             "Info": "Za każdym razem, gdy ta jednostka zostanie zraniona lub osłabiona, przemień ją we Wściekłego Niedźwiedzia (Wściekły Niedźwiedź; 13 pkt siły).",
-            "Flavor": "Chcesz dostać toporkiem?"
+            "Flavor": "Mówisz, że ten topór jest oburęczny? Może dla ciebie."
         },
         "64014": {
             "Name": "Okręt Wielorybników",
             "Info": "Rozmieszczenie: Przenieś wroga do rzędu przeciwnego wobec tej jednostki, a następnie zadaj mu obrażenia równe liczbie jednostek w tym rzędzie.",
-            "Flavor": "Brak"
+            "Flavor": "Mieszkańcy Skellige szybko odkryli, że harpun można stosować nie tylko przeciw wielorybom..."
         },
         "64015": {
             "Name": "Płatnerz an Craite",
@@ -2778,7 +2778,7 @@
         "64017": {
             "Name": "Drakkar Dimun",
             "Info": "Na konieć tury zadaj 1 pkt obrażeń jednostce po prawej, a następnie wzmocnij te jednostkę o 2.",
-            "Flavor": "Brak"
+            "Flavor": "Uciec im? Na wodach Skellige? Powodzenia."
         },
         "64018": {
             "Name": "Drakkar Bojowy",
@@ -2798,7 +2798,7 @@
         "64021": {
             "Name": "Łowca Tuirseach",
             "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń.",
-            "Flavor": "Polujemy, a jakże. Tylko zwierzyna na Undvik licha…"
+            "Flavor": "Polujemy, a jakże. Tylko zwierzyna na Spikeroog licha…"
         },
         "64022": {
             "Name": "Topornik Tuirseach",
@@ -2808,12 +2808,12 @@
         "64023": {
             "Name": "Ochotnicy an Craite",
             "Info": "Rozmieszczenie: Wzmocnij sojusznika o połowę jego siły.",
-            "Flavor": "Każdy mężczyzna i każda kobieta na Skellige umie posługiwać się toporem - gdy zajdzie potrzeba, chwycą za nie aby stanąć w obronie Wysp."
+            "Flavor": "Każdy mężczyzna i każda kobieta na Skellige umie posługiwać się toporem – gdy zajdzie potrzeba, chwycą za nie aby stanąć w obronie Wysp."
         },
         "64024": {
             "Name": "Harcownik an Craite",
             "Info": "Za każdym razem, kiedy odrzucasz tę kartę, wskrześ ją w losowym rzędzie.",
-            "Flavor": "Jesteśmy an Craite! Za co inni płacą złotem, my płacimy życiem i krwią."
+            "Flavor": "Człowiek, drzewo, dla skelligijskiego topora wszystko jedno."
         },
         "64025": {
             "Name": "Straż Królowej",
@@ -2828,7 +2828,7 @@
         "64027": {
             "Name": "Zielarka Heymaey",
             "Info": "Rozmieszczenie: Zagraj losową brązową kartę Organiczną lub Zagrożenia ze swojej talii.",
-            "Flavor": "Na Skellige nie palimy mądrych kobiet - tylko słuchamy ich porad."
+            "Flavor": "Na Skellige nie palimy mądrych kobiet – tylko słuchamy ich porad."
         },
         "64028": {
             "Name": "Korsarz Dimun",
@@ -2838,7 +2838,7 @@
         "64029": {
             "Name": "Włóczniczka Heymaey",
             "Info": "Rozmieszczenie: Zrań sojuszniczą brązową Maszynę lub Żołnierza o 1, a następnie zagraj inny egzemplarz zranionej jednostki ze swojej talii.",
-            "Flavor": "Kobiety na Skellige są dzikie i nieobliczalne, wszystkim oddziałom zaleca się szczególną ostrożność i nie lekceważenie ich możliwości. - z generalnej dyrektywy dla Sił Inwazyjnych Floty Cesarskiej."
+            "Flavor": "„Kobiety na Skellige są dzikie i nieobliczalne, wszystkim oddziałom zaleca się szczególną ostrożność i nie lekceważenie ich możliwości” – z generalnej dyrektywy dla Sił Inwazyjnych Floty Cesarskiej."
         },
         "64030": {
             "Name": "Obrońca Heymaey",
@@ -2873,32 +2873,32 @@
         "65002": {
             "Name": "Wściekły Niedźwiedź",
             "Info": "Brak umiejętności.",
-            "Flavor": "Aghrrrr!"
+            "Flavor": "Pierwsza godzina niedźwiedź śpi, druga godzina niedźwiedź chrapie, trzecia godzina niedźwiedź łapie!"
         },
         "65003": {
             "Name": "Władca Undvik",
             "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "65004": {
             "Name": "Widmowy Wieloryb",
             "Info": "Szpieg.  Przenieś do losowego rzędu i zadaj 1 pkt obrażeń wszystkim innym jednostkom w tym rzędzie na koniec tury.\nZemsta: Zadaj 1 pkt obrażeń wszystkim jednostką w tym rzędzie.",
-            "Flavor": "E, za duży jak na finwala. To płetwal. Płetwal? Z takim krótkim pyskiem? Chyba ci odbiło po tych ziołach!"
+            "Flavor": "„E, za duży jak na finwala. To płetwal” „Płetwal? Z takim krótkim pyskiem? Chyba ci odbiło po tych ziołach!”."
         },
         "65005": {
             "Name": "Wilfred",
             "Info": "Zemsta: Ulepsz losowego sojusznika o 3.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "65006": {
             "Name": "Wilhelm",
             "Info": "Zemsta: Zadaj wszystkim wrogom w przeciwnym rzędzie 1 pkt obrażeń.",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "65007": {
             "Name": "Wilmar",
             "Info": "Szpieg. Zemsta: Stwórz niedźwiedzia w przecinym rzędzie.\n(Niedźwiedź; 11 pkt siły)",
-            "Flavor": "Brak"
+            "Flavor": ""
         },
         "70001": {
             "Name": "Quen",
@@ -2908,22 +2908,22 @@
         "70002": {
             "Name": "Detlaff Wampir Wyższy",
             "Info": "Rozmieszczenie: Wybierz brązową jednostke w Twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
-            "Flavor": ""
+            "Flavor": "Na jego widok nawet wiedźminom miękną kolana."
         },
         "70003": {
             "Name": "Hammond",
             "Info": "Rozmieszczenie: Wyberz: Stwórz Skelligijską brązową maszynę; lub wzmocnij wszystkie przyjazne maszyny na stole o 2. Jednostki w tym rzędzie nie otrzymują obrażeń od zagrożeń.",
-            "Flavor": ""
+            "Flavor": "Bydlak waży tyle, co cielę wieloryba. I tyle samo żre."
         },
         "70004": {
             "Name": "Glynnis Aep Loernach",
             "Info": "Na koniec rundy jeśli ta karta znajduje się na szczycie lub spodzie talii, wezwij ją do losowego rzędu.",
-            "Flavor": ""
+            "Flavor": "Każdego żołnierza kochała jak syna. Po każdym płakała."
         },
         "70005": {
             "Name": "Vysogota z Corvo",
             "Info": "Na początku tury wzmocnij jednostkę po lewej o 3, zadaj sobie 1 pkt obrażeń i przemieść się do rzędu z najmniejszą liczbą jednostek.\nZemsta: Wzmocnij najsłabszego sojusznika o 6.",
-            "Flavor": ""
+            "Flavor": "Niechże zapisane zostanie, że minęło blisko pół wieku, od kiedy zajmowałem się praktyką medyczną, czuję, jak lata te ciążą na mej pamięci i na zręczności mych palców."
         },
         "70006": {
             "Name": "Pani Jeziora",
@@ -2933,22 +2933,22 @@
         "70007": {
             "Name": "Prorok Lebioda",
             "Info": "Gdy ta jednostka zostanie wygnana, wzmocnij wszystkich sojuszników o 1.",
-            "Flavor": ""
+            "Flavor": "Powiada prorok Lebioda: zaprawdę, ubogiego datkiem wesprzyj. Ale miast dać ubogiemu całego arbuza, daj mu pół arbuza, bo się gotowo ubogiemu we łbie przewrócić od szczęścia."
         },
         "70008": {
             "Name": "Vivienne Wilga",
             "Info": "Jednorazowa.\nNa koniec tury jeśli wygrywasz o 26 lub więcej punktów cofnij tę jednostkę do Twojej ręki.",
-            "Flavor": ""
+            "Flavor": "Któż nie chciałby być jak ptak? Otóż, Vivienne de Tabris."
         },
         "70009": {
             "Name": "Fleder",
             "Info": "Rozmieszczenie: Wezwij kartę z tą samą nazwą z Twojej talii do tego rzędu. Za każdym razem gdy brązowy lub srebrny wróg staje się ranny, wzmocnij się o 1.",
-            "Flavor": ""
+            "Flavor": "Dzieci nocy przybywają do nas jako kara od bogów! Obraziliśmy ich tolerując magików i nieludzi wśród nas! Nawróćcie się, nim będzie za późno..."
         },
         "70010": {
             "Name": "Protofleder",
             "Info": "Rozmieszczenie: Umieść Fledera na szczycie Twojej tali. Za każdym razem gdy brązowy lub srebrny wróg staje się ranny, wzmocnij się o 2.",
-            "Flavor": ""
+            "Flavor": "Występują tylko w jednym miejscu na Kontynencie. I całe szczęście."
         },
         "70011": {
             "Name": "Pani Jeziora Adwent",
@@ -2958,12 +2958,12 @@
         "70012": {
             "Name": "Błędny Rycerz z Toussaint",
             "Info": "Rozmieszczenie: Za każdą kartę przewagi przeciwnika wzmocnij tę jednostkę o 4.",
-            "Flavor": ""
+            "Flavor": "Biały rumak, lśniąca zbroja, no i ta lanca... Ta, chyba mamy błędnego rycerza. Szykujcie trumnę!"
         },
         "70013": {
             "Name": "Upadła Flaminika",
             "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z Twojej talii. Jeśi nie masz deszczu w tali osłab te jednostkę o 4pkt siły.",
-            "Flavor": ""
+            "Flavor": "Czasem nawet druidzi ulegają podszeptom Svalbloda..."
         },
         "70014": {
             "Name": "Bogini Sprawiedliwości",
@@ -2973,77 +2973,77 @@
         "70015": {
             "Name": "Obrończyni Brokilonu",
             "Info": "Na koniec tury, jeśli przeciwnik ma dokładnie 4 jednostki na przeciwnym rzędzie, zadaj 1 pkt obrażeń tym jednostką.",
-            "Flavor": ""
+            "Flavor": "Tam gdzie są wasze pola i miasta, wciąż jest Brokilon. Odzyskamy coście zagrabili puszczy."
         },
         "70016": {
             "Name": "Sukrus",
             "Info": "Rozmieszczenie: Wybierz 1 brązową kartę w ręce. Odrzuć wszystkie karty o tej samej nazwie z Twojej talii.",
-            "Flavor": ""
+            "Flavor": "Jeden z wielu, który chciał zbić w Novigradzie fortunę. Jeden z wielu, którym się to nie udało."
         },
         "70017": {
             "Name": "Cyntryjski Medyk Polowy",
             "Info": "Rozmieszczenie: Wtasuj przyjazną brązową jednostkę nie będącą wsparciem do Twojej talii i zagraj losową brązową jednostkę z talii.",
-            "Flavor": ""
+            "Flavor": "Cintryjskie damy dworu słyną z elegancji – i talentu do magii."
         },
         "70019": {
             "Name": "Zoltan Topornik",
             "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Munro Bruysa z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
-            "Flavor": ""
+            "Flavor": "Postanowiłem czynić dobro konkretne, takie, które nie idzie na marne. Jestem dobry dla siebie i dla mego bezpośredniego otoczenia."
         },
         "70020": {
             "Name": "Figgis Merluzzo",
             "Info": "Rozmieszczenie: Wezwij Zoltana Topornika i Munro Bruysa z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
-            "Flavor": ""
+            "Flavor": "Ja prosty chłop jestem. Wypić lubię, najeść się, pośpiewać sprośne piosenki… A jak impreza się kończy, wysikać się na gasnące ognisko."
         },
         "70021": {
             "Name": "Munro Bruys",
             "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Zoltana Topornika z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
-            "Flavor": ""
+            "Flavor": "Munro marzył, że założy hemernię parowo-wodną. A skończył jako wykidajło w najpodlejszej knajpie w Wyzimie…"
         },
         "70022": {
             "Name": "Kikimora Robotnica",
             "Info": "Deploy: Boost all Insectoid allies on the same row by 2.",
-            "Flavor": ""
+            "Flavor": "Mówią, że potrafi ogryźć zakutego w zbroję człowieka do białej kości w minutę. Wolałbym nie sprawdzać, czy to prawda."
         },
         "70023": {
             "Name": "Kikimora Wojownik",
             "Info": "Rozmieszczenie: Pochnoń nie identyczną brązową kartę w Twojej talii o sile nie większej niż siła tej jednostki i wzmocnij się o jego siłę.",
-            "Flavor": ""
+            "Flavor": "Jej ugryzienia nie są jadowite... Ale kurewsko bolesne."
         },
         "70024": {
             "Name": "Przeklęty Nieśmiertelny",
             "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie i zadaj sobie 1 pkt obrażeń.\n(Upiór; 5 pkt siły)",
-            "Flavor": ""
+            "Flavor": "Gdzie jeden padnie, tam zaraz drugi stanie."
         },
         "70025": {
             "Name": "Syanna",
             "Info": "Jednorazowa. Powtórz umiejętność rozmieszczenia następnej jednostki którą zagrasz. 4 pkt pancerza",
-            "Flavor": ""
+            "Flavor": "Wasza książęca mość... Księżniczka została dotknięta przekleństwem Czarnego Słońca. Obawiam się, że nie ma dla niej nadziei..."
         },
         "70026": {
             "Name": "Ivo z Belhaven",
             "Info": "Na początku tury, jeśli masz więcej punktów niż przeciwnik, ulepsz się o 2.\nZemsta: Przemieść losowego łowcę demonów w Twojej talii na jej szczyt.",
-            "Flavor": ""
+            "Flavor": "Jestem pozbawiony emocji, nie rozumu."
         },
         "70027": {
             "Name": "Geralt Axii",
             "Info": "Rozmieszczenie: Zagraj po swojej stronie srebną lub brązową lojalną jednostkę ze strony przeciwnika, a następnie przenieś ją na drugą stronę.",
-            "Flavor": ""
+            "Flavor": "Geralt, oplatając szyję konia lewym ramieniem, dłonią prawej ręki, złożywszy palce w Znak Aksji, wodził nad łbem wierzchowca, szepcząc zaklęcie."
         },
         "70032": {
             "Name": "Gascon",
             "Info": "Rozmieszczenie: Wybierz rząd i przenieś wszystkich znajdujących się w nim wrogów do losowych rzędów, zadając sobie obrażenia o 2 za każdą przeniesioną jednostkę.\nKiedy jednostka w twojej ręce lub talii poruszy się podczas twojej tury, zwiększ swoje obrażenia o 1.",
-            "Flavor": ""
+            "Flavor": "To ty przewodzisz Kundlom ze Spalli? Ciebie wołają Księciem Psów?"
         },
         "70033": {
             "Name": "Słoń Bojowy",
             "Info": "Rozmieszczenie: Zniszcz pancerz tej i jednostki sąsiadujące. Zadaj obrażenia równe ilości zniszczonego pancerza.",
-            "Flavor": ""
+            "Flavor": "Coś jakby bies, tylko taki łysy i z nosem, co do ziemi zwisa. Co? Sam zmyślasz!"
         },
         "70038": {
             "Name": "Siegwald",
             "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
-            "Flavor": ""
+            "Flavor": "Vildkaarl, który dożywa starości, cieszy się ogromnym szacunkiem reszty stada. Tak, jak Sigvald."
         },
         "70039": {
             "Name": "Pazur Wilka",
@@ -3053,32 +3053,32 @@
         "70040": {
             "Name": "Wilczy Wojownik",
             "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz tę kartę aktywuj jej Rozmieszczenie i wtasuj kopie tej karty na spód Twojej talii.",
-            "Flavor": ""
+            "Flavor": "Mówią, że najlepszym przyjacielem kobiety są diamenty. Ale moim najlepszym przyjacielem jest nóż. Z jego pomocą mogę zdobyć wszystko inne."
         },
         "70041": {
             "Name": "Wyciąg z Gigaskorpiona",
             "Info": "Zadaj 2 pkt obrażeń najsilnieszemu wrogowi. Powtórz 3 razy. Za każdy Odwar Raffarda Białego na Twoim cmetarzu powtórz jeszcze raz.",
-            "Flavor": ""
+            "Flavor": "Śmiertelna dawka? Każda."
         },
         "70042": {
             "Name": "Odwar Raffarda Białego",
             "Info": "Wzmocnij najsłabszego sojusznika o 2. Powtórz 3 razy. Za każdy Wyciąg z gigaskorpiona na Twoim cmetarzu powtórz jeszcze raz.",
-            "Flavor": ""
+            "Flavor": "Raczyć się nim może jedynie księżna. Robi to nad wyraz często."
         },
         "70043": {
             "Name": "Komando Vernossiel",
             "Info": "Gdy wymienisz tę jednostkę 2 razy wezwij ją do losowego rzędu.",
-            "Flavor": ""
+            "Flavor": "Usłyszałem tylko świst… I sześciu chłopa padło martwych na ziemię."
         },
         "70044": {
             "Name": "Vernossiel",
             "Info": "Rozmieszczenie: Dodaj 2 kopie Komando Vernossiel do Twojej talii i zmniejsz ich licznik o 1.",
-            "Flavor": ""
+            "Flavor": "Okazało się, że w lesie nie mieszka żadne, by zacytować kapitana straży – „kudłate chuj wie co” – ale komando Scoia'tael. Dowodziła nim niejaka Vernossiel…"
         },
         "70045": {
             "Name": "Meve",
             "Info": "Rozmieszczenie: Wzmocnij sojusznika, jednostkę w ręcę i w talii o 4. Załoga.",
-            "Flavor": ""
+            "Flavor": "Jest wojna. Król się wtedy nie stara, nie wybiera. Król chwyta za miecz i broni poddanych."
         },
         "70046": {
             "Name": "Bękart Svalbloda",
@@ -3088,22 +3088,22 @@
         "70050": {
             "Name": "Szaleńcza szarża",
             "Info": "Wybierz sojusznika z pancerzem i wroga z którym stoczy pojedynek.",
-            "Flavor": ""
+            "Flavor": "Rozpędzonego konia kawalerysjkiego nie da się zatrzymać. Jeśli więc rzeczy idą nie po myśli, jedyne, co można zrobić, to opuścić kopię, zamknąć oczy i polecić się bogom."
         },
         "70054": {
             "Name": "Fortel",
             "Info": "Wskrześ 2 brązowe Żołnierz jednostki o sile 5 lub większej i zadaj im po 4 pkt obrażeń.",
-            "Flavor": ""
+            "Flavor": "Żeby zastawić pułapkę, zwykle trzeba się schować. Ale… Są wyjątki od tej zasady."
         },
         "70058": {
             "Name": "Troll Jaskiniowy",
             "Info": "Rozmieszczenie: Wzmocnij te jednostkę o 4 pkt, następnie wzmocnij wroga o 4 pkt.",
-            "Flavor": ""
+            "Flavor": "Trolle mają bardzo małe mózgi i ogromne żołądki. To wielce niebezpieczna kombinacja."
         },
         "70059": {
             "Name": "Jednooka Baśka",
             "Info": "Na początku tury wzmocnij się o 3, a następnie wzmocnij najsilniejszego wroga o 3.",
-            "Flavor": "Może nie ma widzenia głębi, ale przypierdolić to umie."
+            "Flavor": "Może nie widzi głębi, ale przypierdolić to umie."
         },
         "70062": {
             "Name": "Ożywiona Zbroja",
@@ -3113,97 +3113,97 @@
         "70070": {
             "Name": "Rezuni",
             "Info": "Jeśli w Twojej startowej talii są wyłącznie brązowe karty, stwórz Kundli ze Spalli i wtasuj 2 kopie Kundli ze Spalli do Twojej talii.\n(Kundle ze Spalii; 5 pkt siły; Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich)",
-            "Flavor": "“商人？抹了。马匹？卖了。”"
+            "Flavor": "Kupca weźmiem na męki, a kobyły na targ."
         },
         "70071": {
             "Name": "Kundle ze Spalli",
             "Info": "Jednorazowa. Rozmieszczenie: Zobacz 2 brązowe jednostki z Twojej talii i zagraj jedną z nich.",
-            "Flavor": ""
+            "Flavor": "Hau, hau, hauuuuu!"
         },
         "70072": {
             "Name": "Radeyah",
             "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 time.",
-            "Flavor": ""
+            "Flavor": "Wiele można schować za pięknym uśmiechem."
         },
         "70076": {
             "Name": "Kleryk Kongregacji",
             "Info": "Rozmieszczenie: Stwórz w tym rzędzie, kopie o sile 2 wszystkich zablokowanych brązowych sojuszników. Kiedy brązowy sojusznik zostanie zablokowany w Twojej turze, stwórz jego kopie o sile 2 w tym rzędzie.",
-            "Flavor": ""
+            "Flavor": "Kościół to nie świątynie, to nie święta pisma - tylko wierni."
         },
         "70077": {
             "Name": "Fanatyk Wybrańców",
             "Info": "Co 4 tury na koniec tury zadaj 2 pkt obrażeń 4 losowym wrogom. Zmniejsz pierwszy licznik o 1 za każdą zablokowaną jednostkę na planszy kiedy zagrywasz tę jednostkę.",
-            "Flavor": ""
+            "Flavor": "Wielka jest moja wiara i wielki jest mój gniew!"
         },
         "70078": {
             "Name": "Potępienie",
             "Info": "Wezwij z Twojej talii 2 najsilniejsze brązowe jednostki do tego samego rzędu i zmień ich status zablokowania.",
-            "Flavor": ""
+            "Flavor": "Przez te wszystkie stosy w Novigradzie nie da się oddychać!"
         },
         "70079": {
             "Name": "Watażka An Craite",
             "Info": "Gdy znajduje się w ręce, talii lub na planszy, Ulepsz  o 1 za każdym razem, gdy odrzucasz kartę",
-            "Flavor": "Zmora nilfgaardzkiego rybaka"
+            "Flavor": "Kapusta? Najgorzej, gdy nie ma czego plądrować."
         },
         "70080": {
             "Name": "Knut Waleczny",
             "Info": "Deploy:Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to itself.",
-            "Flavor": "Klękam przed Svalblodem, i tylko przed Svalblodem!"
+            "Flavor": "Knut, syn Olufa? Zasłużył na swój przydomek jak mało kto."
         },
         "70081": {
             "Name": "Drummondzki Pogromca",
             "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
-            "Flavor": "Jedyne, co lubią bardziej od grabieży, to zabijanie."
+            "Flavor": "E tam, to tylko draśnięcie."
         },
         "70082": {
             "Name": "Arnjolf Ojcobójca",
             "Info": "Destroy all units with Strength less then 3 on both sides.",
-            "Flavor": ""
+            "Flavor": "Moją hańbę można zmazać tylko krwią."
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
             "Info": "Wezwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskający Mróz zostanie zniszczony.",
-            "Flavor": ""
+            "Flavor": "Malują niebo bielą śniegu i szarością zamieci, a ziemię czerwienią ognia i krwi."
         },
         "70084": {
             "Name": "Olgierd Nieśmiertelny",
             "Info": "Zemsta: Na koniec tury Wskrześ tę jednostkę w losowym rzędzie.",
-            "Flavor": "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。"
+            "Flavor": ""
         },
         "70085": {
             "Name": "Barciowe Widziadło",
             "Info": "Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
-            "Flavor": ""
+            "Flavor": "No, kto jest dobrym psem? Kto jest dobrym psem? Cóż, na pewno nie on."
         },
         "70086": {
             "Name": "Philippa: Mistrzyni Loży",
             "Info": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
-            "Flavor": ""
+            "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
         },
         "70088": {
             "Name": "Potwór z bagien",
             "Info": "Rozmieszczenie: przenieś wszystkie mglaki z cmentarza do swojej talii i stwórz Gęstą mgłę w przeciwległym rzędzie.",
-            "Flavor": "Do not follow the lights!"
+            "Flavor": "Przypominają zwykłe świetliki, lecz w rzeczywistości te małe lśniące cholerstwa zaprowadzą cię do pewnej zguby."
         },
         "70089": {
             "Name": "Artis",
             "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń wrogowi. Jeśli cel zostanie zniszczony, stwórz Ofiarowanie Kultysty w przeciwnym rzędzie. \n (Ofiarowanie Kultysty Po dwóch turach na początku tury wygnaj tę kartę. Zemsta: Wylecz najmocniej ranną jednostkę przeciwnika i wzmocnij ją o 1.)",
-            "Flavor": "It is finished It is finished IT IS THE MERCY"
+            "Flavor": "Nie wszystkich kapłanów Svalbloda udało się przegnać. Niestety."
         },
         "70090": {
             "Name": "Ofiarowanie Kultysty",
             "Info": "Po dwóch turach na początku tury wygnaj tę kartę. Zemsta: Wylecz najmocniej ranną jednostkę przeciwnika i wzmocnij ją o 1.",
-            "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
+            "Flavor": "Oni... Składali o-ofiary z l-ludzi, kapitanie. M-musimy stąd uciekać!"
         },
         "70091": {
             "Name": "Magiczna Lampa",
             "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.if in the graveyard,Last Wish checks 1 extra card",
-            "Flavor": ""
+            "Flavor": "Lekko zaśniedziała. Wystarczy potrzeć, a odzyska dawny blask."
         },
         "70092": {
             "Name": "Zawiadiaka Svalbloda",
             "Info": "Rozmieszczenie: Zadaj wrogowi obrażenia równe dwukrotności liczby rzędów znajdujących się pod wpływem Ulewnego Deszczu.",
-            "Flavor": "Żaden człowiek nie jest w stanie dorównać syrenom w śpiewie. Niektórzy jednak są na tyle utalentowani, aby zwabić je swym głosem."
+            "Flavor": "Na Skellige nie ma miejsca dla morderców i zwyrodnialców... Ich zbrodnie może zmazać jedynie ich własna krew."
         },
         "70093": {
             "Name": "Sztorm",
@@ -3213,72 +3213,72 @@
         "70094": {
             "Name": "Lyriańska kawaleria",
             "Info": "Rozmieszczenie: wybierz jednostkę ze swojej talii i wzmocnij się o wartość, o jaką wzmocniona jest ta jednostka.",
-            "Flavor": "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。"
+            "Flavor": "Kawalerzysta jest wart tyle, co jego koń. A lyrijskie konie należą do najlepszych na Kontynencie."
         },
         "70095": {
             "Name": "Lyrijski kusznik",
             "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
-            "Flavor": "我能在百步之外找到靶心！也许我的第一枪就打不准......"
+            "Flavor": "Trafię w jabłko ze stu kroków! Może nie za pierwszym razem... Ale w końcu na pewno!"
         },
         "70096": {
             "Name": "Okręt wojenny Tuirseach",
             "Info": "Na koniec tury zadaj 2 pkt obrażeń, losowej niezranionej jednostce.",
-            "Flavor": "The rocky Skellige lands, battered by cold winds, give life only to nettles and moss. But the islanders know that there is fertile soil on the other side of the sea…"
+            "Flavor": "Chłostana zimnymi wiatrami skalista skelligijska ziemia rodzi tylko pokrzywy i mech. Ale wyspiarze wiedzą, że po drugiej stronie morza rozciągają się żyzne krainy…"
         },
         "70097": {
             "Name": "Krasnoludzki Hawierz",
             "Info": "Rozmieszczenie: Wzmocnij się o 1 za każdego Krasnoluda w twojej ręce.",
-            "Flavor": "Which moron's whistling in the mine?!"
+            "Flavor": "Który bęcwał gwiżdże w kopalni?!"
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
             "Info": "Wybierz jedno: Zagraj losowy brązowy przedmiot, lub Zagraj przedmiot Scoia'tael.",
-            "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
+            "Flavor": "Padł rozkaz, żeby zamknąć bramy… Ale te ani drgnęły."
         },
         "70099": {
             "Name": "Svalblod",
             "Info": "Zadaj wszystkim jednostką w Twojej talii 2pkt obrażeń, następnie wzmocnij je o 2pkt.",
-            "Flavor": "斯瓦勃洛唯一的戒律：屠戮。"
+            "Flavor": "Dał swym wiernym tylko jedno przykazanie: zabijaj."
         },
         "70100": {
             "Name": "Forest Whisperer",
             "Info": "Damage all units on the same row of both sides by 2, except for Dryads.",
-            "Flavor": "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。"
+            "Flavor": "Driady z Brokilonu opanowały wyjątkową sztukę – potrafią kształtować drzewa wedle woli, a nawet tchnąć w nie świadomość."
         },
         "70101": {
             "Name": "Immortal Cavalry",
             "Info": "At the start of the game,lock self.Next an ally appears Boost it by 3.",
-            "Flavor": "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。"
+            "Flavor": "Wielbłądy nie są może tak rącze, jak konie… Ale za to nie zdychają po dwóch dniach na pustyni."
         },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
             "Info": "Rozmieszczenie: Wygnaj 3 brązową bestię lub wampira 3 Twojego cmentarza, następnie Wybierz: stwórz z krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz 3 pełnie we wszystkich Twoich rzędach.",
-            "Flavor": ""
+            "Flavor": "On nie kochał jak człowiek, tylko jak zwierzę. Na zabój, bezwarunkowo. Dziko."
         },
         "70103": {
             "Name": "Artorius Vigo",
             "Info": "Rozmieszczenie: Wybierz odkrytą kartę, następnie przekształć ją w brązową jednostkę ze swojej talii początkowej, a następnie ją Ujawnij.",
-            "Flavor": ""
+            "Flavor": "Ponoć tworzył iluzje tak przekonujące, że sam zaczynał w nie wierzyć..."
         },
         "70104": {
             "Name": "Lyrijski Knecht",
             "Info": "Gdy obaj gracze spasują, jeśli ta karta jest wzmocniona, wtasuj ją do talii. Zachowuje wzmocnienie (maksymalnie 10).",
-            "Flavor": ""
+            "Flavor": "Nie śmiej się z ich beretów. Dobrze radzę."
         },
         "70105": {
             "Name": "Freixenet And Braine",
             "Info": "Rozmieszczenie: Ustaw siłę wybranej jednostki na siłę tej karty.",
-            "Flavor": ""
+            "Flavor": "Miał być tylko narzędziem do osiągnięcia celu, lecz wbrew rozsądkowi zakochali się w sobie."
         },
         "70106": {
             "Name": "Jaja Endriagi",
             "Info": "Rozmieszczenie: Stwórz 1 bazową kopie tej karty po lewej stronie.\nZemsta: Stwórz Larwe endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.\n(Larwa Endriagi; 5 pkt siły; Po 3 rundach na koniec rundy, przemień się w Endriage Wojownika)\n(Endriaga Wojownik; 7 pkt siły)",
-            "Flavor": ""
+            "Flavor": "Kiedy się je znajdzie, na wszelki wypadek lepiej puścić z dymem cały las. A potem uciekać, gdzie pieprz rośnie."
         },
         "70107": {
             "Name": "Larwa Endriagi",
             "Info": "Po 3 rundach na koniec rundy, przemień się w Endriage Wojownika.",
-            "Flavor": ""
+            "Flavor": "Pulchna, tłuściutka... i krwiożercza."
         },
         "70108": {
             "Name": "Endriaga Wojownik",
@@ -3288,242 +3288,242 @@
         "70109": {
             "Name": "Krasnoludzki Rydwan",
             "Info": "Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
-            "Flavor": ""
+            "Flavor": "Na papierze to wszystko można wyrysować, mości krasnoludy. Ale zbudować to tego nie zbudujecie, miarkujcie moje słowa."
         },
         "70110": {
             "Name": "Knickers",
             "Info": "Na koniec tury jeżeli siła tej jednostki jest większa niż ilość kard w Twojej ręce, przyzwij tę jednostkę z talii.",
-            "Flavor": ""
+            "Flavor": "Hajdawer, nie ruszaj! Nie ruszaj, do cholery!"
         },
         "70111": {
             "Name": "Palmerin de Launfal",
             "Info": "Rozmieszczenie: Wzmocnij brązowego żołnierza w Twojej tali i wszystkie jego kopie w talii ręce i na polu bitwy o 2, następnie zagraj tę jednostkę.",
-            "Flavor": ""
+            "Flavor": "Plotka głosi, że szlachetny Palmerin de Launfal wdał się w bluźnierczy związek z sukkubem, który nawiedził miasto. Księżna jednak nie dała tym pomówieniom wiary."
         },
         "70112": {
             "Name": "Pierwotna Dzicz",
             "Info": "Zadaj 4pkt obrażeń sojusznikowi, następnie zagraj jedną z dwóch brązowych jednostek kultystów z Twojej talii. Wzmocnij ją o 1.",
-            "Flavor": ""
+            "Flavor": "Wyznawcy Svalbloda zwykle nie noszą broni. Nie muszą."
         },
         "70113": {
             "Name": "Keltullis",
             "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
-            "Flavor": ""
+            "Flavor": "Kiedy się tu sprowadziła, sto lat się z nią tłukli. Ale w końcu gadzina się zmęczyła, a oni zrozumieli, że łatwo jej nie wypędzą... Więc poszli na układ. Ona im nie bruździ, a w zamian dostaje czego jej trzeba."
         },
         "70114": {
             "Name": "Driadzia Łuczniczka",
             "Info": "Rozmieszczenie: Zniszcz wroga z siłą mniejszą lub równą sile tej jednostki.",
-            "Flavor": ""
+            "Flavor": "Nie strzelała po to, by kogokolwiek ostrzec. Bez litości, nawet dla najmłodszych."
         },
         "70115": {
             "Name": "Amnestia",
             "Info": "Cofnij wroga brązową lojalną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
-            "Flavor": ""
+            "Flavor": "Zrobiłeś, co komu? Szczerze mówiąc, już nawet nie pamiętam szczegółów."
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
             "Info": "Za każdym razem kiedy rzucisz Ulewny Desz na rząd przeciwnika przyzwij tę jednostkę z cmentarza",
-            "Flavor": ""
+            "Flavor": "Spokojnie, syreny nigdy nie atakują, kiedy... Aaaa! W nogi!"
         },
         "70117": {
             "Name": "Fauve",
             "Info": "Summon this unit when ever you play the Leader.On turn end, boost all allies with the same power as self by 1.",
-            "Flavor": ""
+            "Flavor": "Na skraju lasu czekała na nich samotna draida. Jaskier poznał ją od razu - to była ta o zielonkawych włosach, która nocą przyniosła im światło i chciała go nakłonić do dalszego śpiewania."
         },
         "70118": {
             "Name": "Lyryjski Kosynier",
             "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
-            "Flavor": ""
+            "Flavor": "Żywią i bronią."
         },
         "70119": {
             "Name": "Odwilż",
             "Info": "Wzmocnij losowego sojusznika o 2. Powtórz raz. Następnie powtórze te umiejętność za każdą kartę zagraną w tej turze.",
-            "Flavor": "Brak"
+            "Flavor": "Zwiastuje nadejście wiosny. A wiosna - nadejście wojny."
         },
         "70121": {
             "Name": "Otkell",
             "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1.",
-            "Flavor": "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。"
+            "Flavor": "W godzinie grozy Wszechmatka Freya ukazała się Otkellowi na jego statku i pozwoliła mu uciszyć szalejący sztorm, gdyż wiedziała już, że Otkell, podobnie jak jego bracia, miał do opowiedzenia większą historię."
         },
         "70122": {
             "Name": "Dryad Matron",
             "Info": "Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
-            "Flavor": "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……"
+            "Flavor": "Przyucza młode driady: pokazuje im, jak robić strzały, kształtować rośliny, podrzynać gardła..."
         },
         "70123": {
             "Name": "Battle Preparation",
             "Info": "Play a Bronze soilder unit from your hand and Boost it by 2,and then draw a card.",
-            "Flavor": "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。"
+            "Flavor": "Niejeden rycerz przedwcześnie śmierć spotkał, bo poluzował mu się niedbale związany napierśnik…"
         },
         "70124": {
             "Name": "Woodland Prowlers",
             "Info": "Weaken a enemy by 1,if the enemy is under Impenetrable Fog,Weaken by 3.",
-            "Flavor": "进入森林的人类最不想见到……"
+            "Flavor": ""
         },
         "70125": {
             "Name": "Barnabas Beckenbauer",
             "Info": "Boost another ally unit by 2. For each bronze item in your grave yard, repeat once.",
-            "Flavor": "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！"
+            "Flavor": "Przyjechał tu z całym kramem wynalazków, łaził po domach, wychwalał je pod niebiosa. I co nam sprzedał? Petardy, co wybuchają w rękach! Płyn na porost brody, od którego włosy stawały w ogniu!"
         },
         "70126": {
             "Name": "Cintrian Royal Guard",
             "Info": "Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
-            "Flavor": "卡兰瑟女王的贴身护卫都由她本人精挑细选。每个人都身长六尺挂零、对她忠诚无比、而且帅得一塌糊涂。"
+            "Flavor": "Calanthe starannie dobiera strażników. Wszyscy mierzą ponad sześć stóp, są fanatycznie wierni - i zabójczo przystojni."
         },
         "70127": {
             "Name": "VanMoorlehem Servant",
             "Info": "Immune.Gain 5 Boost when Concealed.",
-            "Flavor": "据说她在莫拉汉姆家干了三十年，一点都不见老……"
+            "Flavor": "Mówią, że służy u Moorlehemów już trzydziesty rok. I nic, ale to nic się nie postarzała…"
         },
         "70128": {
             "Name": "Moon Dust",
             "Info": "Deal 5 Damages,then deal 1 Damage randomly 4 times.",
-            "Flavor": "狼人抬起头，困惑地看着空气中银白的粉尘……随后痛苦地嚎叫起来。"
+            "Flavor": "Wilkołak uniósł głowę, zaintrygowany widokiem srebrzystego pyłu... A potem zaczął wyć z bólu."
         },
         "70129": {
             "Name": "Natural Selection",
             "Info": "Spawn 2 Arachas Hatchling on a raw, For each copy of this card in your graveyard,spawn an extra one.",
-            "Flavor": "适者生存。所以你得被淘汰。"
+            "Flavor": "Przeżyje najsilniejszy. Czyli nie ty."
         },
         "70130": {
             "Name": "Mantlet",
             "Info": "When the unit on the right side is getting Damage, take the Damage with self's Armor first. Crewed: Gain 6 armor.",
-            "Flavor": "类似于盾牌和栅栏的杂交品种。"
+            "Flavor": "Coś jak nieślubne dziecko tarczy i palisady."
         },
         "70131": {
             "Name": "Count Caldwell",
             "Info": "Swap the Strength of 2 enemy units.",
-            "Flavor": "陛下……女王去向百姓问话。这，不妥呀。"
+            "Flavor": "Wasza Wysokość... Nie godzi się, żeby królowa plebs indagowała..."
         },
         "70132": {
             "Name": "Garkain",
             "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it instead.",
-            "Flavor": "如此恐怖的现场……显然是蝠翼脑魔所为。"
+            "Flavor": "Krew na suficie, flaki na ścianie... To musiał być garkain."
         },
         "70133": {
             "Name": "Lonely Champion",
             "Info": "Every turn, on turn end, if no other units on your side of the board, boost self by 4.",
-            "Flavor": "只要他继续为正义而战，骑士团和烈焰就永不熄灭。"
+            "Flavor": "Póki czempion walczy dla świętej sprawy, póty Zakon i jego płomienie wciąż trwają w nim."
         },
         "70134": {
             "Name": "Adeptka Klanu Kruka",
             "Info": "Rozmieszczenie: Na koniec tury, jeśli w tym rzędzie nie ma wrony stwórz wrone po prawej stronie (Wrona; 2 siły; Zemsta: Zadaj 3pkt obrażeń losowemu wrogowi)",
-            "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
+            "Flavor": "Uczeni mężowie twierdzą, że zwierzęta to bezrozumne automatony. Uczeni mężowie pieprzą od rzeczy."
         },
         "70135": {
             "Name": "Svalblod Priest",
             "Info": "When damaged by allies, deal same amount of Damage to a unit.",
-            "Flavor": "斯瓦勃洛牧师的无情、凶残的行径人神共愤。一旦邪教倒台，他们便被定下死罪，丢上无帆无桨的长船，任凭大海发落。"
+            "Flavor": "Kapłani Svalbloda byli tak okrutni, że po upadku kultu związano ich i wypchnięto w morze na drakkarze bez wioseł i żagli."
         },
         "70136": {
             "Name": "Crow",
             "Info": "Deathwish:Deal 3 Damage to a random enemy.",
-            "Flavor": "置身鸦群，你也必须鸦鸦做声。"
+            "Flavor": "Jeśli wejdziesz między kruki, to sztuczka z krakaniem też się sprawdzi."
         },
         "70137": {
             "Name": "Wielki Dąb",
             "Info": "Rozmieszczenie, Wybierz: Osłab jednostkę o połowe jej podstawowej siły, lub Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
-            "Flavor": "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。"
+            "Flavor": "Drzewa Brokilonu szumią między sobą o starym dębie, którego serce na wskroś przeżarła nienawiść."
         },
         "70138": {
             "Name": "Dryads Caress",
             "Info": "Play a Bronze/Silver Dryad unit from your deck, then boost it by the number of Dryad units on your side.",
-            "Flavor": "嘘，嘘……伊芙莲会变成美丽的花……"
+            "Flavor": "Tsst, tsst, evelienn va maeth, elaine blath..."
         },
         "70139": {
             "Name": "Treant Boar",
             "Info": "Deal 3 Damages, then move the adjacent units of the target unit to random rows. If the target is destroyed, repeat once.",
-            "Flavor": "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？"
+            "Flavor": "Driady potrafią nadawać drzewcom najróżniejsze formy – chociażby gigantycznego odyńca."
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
             "Info": "Transform a Bronze or Silver ally into a copy of this unit and keep base Strength,then Boost all other allies by 1 with lower.",
-            "Flavor": "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？"
+            "Flavor": "To prawda, że rośliny Brokilonu kwitną siedem razy w roku? Ale jak to możliwe?"
         },
         "70141": {
             "Name": "Queen Adalia",
             "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, add one each Bronze Cintra cards to your deck.",
-            "Flavor": "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。"
+            "Flavor": "Adalia podnosiła most zwodzony ruchem brwi. Strach pomyśleć, co się działo, gdy ruszyła ręką."
         },
         "70142": {
             "Name": "Vissegerd",
             "Info": "Deal 8 Damages,then deal Damages equal to self's Boosts.",
-            "Flavor": "我会不惜代价重建辛特拉。"
+            "Flavor": "Podniosę Cintrę z popiołów. Cena nie gra roli."
         },
         "70143": {
             "Name": "Cintrian Knight",
             "Info": "Whenever you play a Cintra unit, Boost the unit and self by 1 each.",
-            "Flavor": "丧钟为谁鸣？"
+            "Flavor": "Komu bije dzwon...?"
         },
         "70144": {
             "Name": "Cintrian Envoy",
             "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
-            "Flavor": "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……"
+            "Flavor": "Myślała, że angaż w korpusie dyplomatycznym oznacza pracę przy biurku. Srogo się zawiodła."
         },
         "70145": {
             "Name": "Orianna",
             "Info": "Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
-            "Flavor": "奥莉安娜夫人真是咱们的福气……她救济穷人，资助画家。她还为那些可怜的孩子们开了一家孤儿院呢！"
+            "Flavor": "Pani Orianna jest dla nas bardzo dobra... Wspiera artystów, pomaga biednym. Nawet dom dla sierot ufundowała!"
         },
         "70146": {
             "Name": "Gael",
             "Info": "Deal 5 Damage to two enemy units each.",
-            "Flavor": "喜欢发光小玩意的不只有喜鹊。"
+            "Flavor": "Nie tylko sroki lubią błyskotki."
         },
         "70147": {
             "Name": "Plumard",
             "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains on the same row, Drain the target unit by 1.",
-            "Flavor": "一只构成不了什么威胁。要是有一群？那就很要命了。"
+            "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
             "Name": "Alp",
             "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
-            "Flavor": "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。"
+            "Flavor": "Ludzie w miasteczku cierpieli na nawracające koszmary... Wiedźmin był prawie pewien, że grasował tam Alp."
         },
         "70149": {
             "Name": "Anna Henrietta",
             "Info": "Sort the cards in your deck in descending order by their base Strength, then play a card from the top of your deck.",
-            "Flavor": "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……"
+            "Flavor": "Jako głowa państwa muszę ją sprawiedliwie osądzić, ale, na bogów... przecież to jest moja siostra."
         },
         "70150": {
             "Name": "Vincent Van Moorlehem",
             "Info": "Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
-            "Flavor": "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。"
+            "Flavor": "Wszyscy omijają włości Moorlehemów szerokim łukiem. Nawet poborcy podatkowi."
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
             "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
-            "Flavor": "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。"
+            "Flavor": "Mówią, że Vincent Van Moorlehem boi się tylko jednego człowieka. Nie jest to Emhyr var Emreis ani Geralt z Rivii - tylko jego własny syn."
         },
         "70152": {
             "Name": "Van Moorlehem's Cupbearer",
             "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.Companians",
-            "Flavor": "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……"
+            "Flavor": "Moja specjalność? Tatar. Z czego? Ach, zależy od humoru jaśniepaństwa…"
         },
         "70153": {
             "Name": "Van Moorlehem's Hunter",
             "Info": "Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
-            "Flavor": "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……"
+            "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
             "Name": "Iris: Shade",
             "Info": "Deploy,Truce:Add 2 Iris'Companions to both hands.",
-            "Flavor": "和欧吉尔德的婚约犹如一场美梦……"
+            "Flavor": "Olgierd narzeczoną miał jak sen…"
         },
         "70155": {
             "Name": "Isbel of Hagge",
             "Info": "Reset an unit. If it's an ally, repeat once.",
-            "Flavor": "于是我便发下誓言……永远不会使用魔法伤害他人。"
+            "Flavor": "Obiecałam sobie, że nigdy więcej nie użyję magii do krzywdzenia innych."
         },
         "70156": {
             "Name": "Piercing Missile",
             "Info": "Deal 7 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
-            "Flavor": "无坚不摧，无甲不破。"
+            "Flavor": "Nie ma zbroi nie do przebicia."
         },
         "70157": {
             "Name": "Wisteria",
             "Info": "Choose two units, for each, Boost it by 6 if the unit's Power is even, Damage it by 6 if the unit's Power is odd.",
-            "Flavor": "紫藤通过汲取尸体的营养而成长。"
+            "Flavor": "Ci, którzy chcą zniszczyć Brokilon, którzy próbują spalić jego drzewa i zabić wszystkie żyjące w nim stworzenia, w końcu nakarmią jego ziemię."
         },
         "70158": {
             "Name": "Coën of Poviss",
@@ -3533,52 +3533,52 @@
         "70159": {
             "Name": "Crow Mother",
             "Info": "Discard 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.",
-            "Flavor": "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。"
+            "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
             "Name": "Vildkaarl",
             "Info": "Deal 4 Damages to adjacent units.",
-            "Flavor": "来打我呀！再使点劲儿！你管这叫疼？！"
+            "Flavor": "Uderz! No uderz mnie! Tak, żeby bolało!"
         },
         "70161": {
             "Name": "Azar Javed",
             "Info": "Spwan 2 Scarab. (Scarab:1-When your opponent passes, move to the opposite row.)",
-            "Flavor": ""
+            "Flavor": "Specjalnością Azara Javeda jest żywioł ognia. Czarodziej nie tylko włada mocami płomieni z wielką biegłością – można rzec, że ogień stał się częścią jego istoty."
         },
         "70162": {
             "Name": "Scarab",
             "Info": "when your opponent passes, move to the opposite row.",
-            "Flavor": ""
+            "Flavor": "W Zerrikanii są symbolem zmartwychwstania. Ale żeby się ponownie narodzić, trzeba najpierw umrzeć."
         },
         "70163": {
             "Name": "Reynard Odo",
             "Info": "On turn end, if it has at least 3 Boosts, Reset self and Boost all allies on the same row by 1.",
-            "Flavor": ""
+            "Flavor": "Dziesięć lat służyłem pod waszym mężem, potem osiem pod tobą, pani... I nigdy nie walczyłem o słuszniejszą sprawę."
         },
         "70164": {
             "Name": "Tatter wing",
             "Info": "On turn end, Move all units on the opposite row to random rows, then deal 1 damage to them each.",
-            "Flavor": ""
+            "Flavor": "Ospała jakaś. Weź ją dźgnij parę razy w kuper, to się ożywi."
         },
         "70165": {
             "Name": "Vivienne de Tabris",
             "Info": "Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2.",
-            "Flavor": ""
+            "Flavor": "Osobliwa dwórka... Ale nie sposób odmówić jej uroku."
         },
         "70166": {
             "Name": "Cursed Scroll",
             "Info": "Look at 3 random cards with different colors from your deck. Play one, Discard the other two.",
-            "Flavor": ""
+            "Flavor": "Na pieczęci stoi jasno: nie otwierać. Ale wiadomo… Ciekawość w końcu zwycięży."
         },
         "70167": {
             "Name": "Zoltans Company",
             "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armor.",
-            "Flavor": ""
+            "Flavor": "Skoczyliby za sobą w ogień. I jeszcze by się z tego śmiali."
         },
         "70168": {
             "Name": "Ogr Wojownik",
             "Info": "Na koniec tury, jeśli nie kontrolujesz najsilniejszej jednostki, zadaj sobie obrażenia równe połowie swojej siły.",
-            "Flavor": "You is idiot steak!"
+            "Flavor": "Ty być głupi kotlet"
         },
         "70169": {
             "Name": "Rój Nekkerów",
@@ -3593,47 +3593,47 @@
         "70171": {
             "Name": "Pas Olbrzyma",
             "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
-            "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
+            "Flavor": "Wytrzymały skórzany pas, najwyraźniej uszyty dla tytana, a jednak pasuje każdemu, kto go przymierzy. Choć powoduje, że noszący go staje się silny niczym gigant, nie zwiększa jego postury."
         },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",
-            "Flavor": "The end of one world can be the beginning of another."
+            "Flavor": "Koniec jednego świata może być początkiem drugiego."
         },
         "80002": {
             "Name": "Auberon:Invader",
             "Info": "He will awaken the Wild Hunt.",
-            "Flavor": "If they will not submit, they shall be driven out!"
+            "Flavor": "Jeśli nie poddadzą się naszej woli, zostaną wypędzeni!"
         },
         "80003": {
             "Name": "Auberon:Conqueror",
             "Info": "He will conquer the world.",
-            "Flavor": "After having lived over six hundred and fifty years, little remains to excite."
+            "Flavor": "Gdy ktoś żyje sześćset pięćdziesiąt lat, niewiele jest go w stanie poruszyć."
         },
         "89004": {
             "Name": "Gascon: Iron Falcon",
             "Info": "Charm the Highest enemy on the opposite.[Can't be affected by status effects,Booat Deck by point.]",
-            "Flavor": "I'm doing what I used to do and they're paying me for it!"
+            "Flavor": "Robię, to co wcześniej, i jeszcze mi za to płacą!"
         },
         "89005": {
             "Name": "Iron Falcon Infantry",
             "Info": "If there is boost, double the boost",
-            "Flavor": "You have to look good on the battlefield too.！"
+            "Flavor": "I na polu bitwy trzeba się zacnie prezentować."
         },
         "89006": {
             "Name": "Iron Falcon Troubadour",
             "Info": "Randomly give 1 point of gain to 1 allied unit, repeat 4 times,  and repeat an additional 4 times for each card of the same name on the field.",
-            "Flavor": "When I play even dying's more pleasant."
+            "Flavor": "Jak ja zagram, to i umierać milej."
         },
         "89007": {
             "Name": "Iron Falcon Knife Juggler",
             "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
-            "Flavor": "The weapon's short, but its range is long.。"
+            "Flavor": "Broń krótka, ale zasięg daleki."
         },
         "89008": {
             "Name": "SoldierTrain",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
-            "Flavor": "The goddess occasionally protects some new recruits。"
+            "Flavor": ""
         }
     }
 }

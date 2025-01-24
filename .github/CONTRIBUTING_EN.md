@@ -62,7 +62,7 @@ git checkout diy
 git checkout -b <newBranchName>
 
 # after some commits, sync the local branch to remote branch
-git push -u origin <新分支名称>
+git push -u origin <newBranchName>
 ```
 
 After create your own branch, you can send a Pull Request:
@@ -71,7 +71,7 @@ After create your own branch, you can send a Pull Request:
 2. When your development is finished, delete the `[WIP]`, convert the Draft PR into Normal PR, and request a reviewer to review.
 3. If there is no (too much) problem, the PR can be merged!.
 
-### Running  Server
+### Running Server
 
 - Method 1 Running locally
 
@@ -84,7 +84,7 @@ cd LegacyGwent
 Build the project first:
 
 ```bash
-dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+sh scripts/refresh.sh
 ```
 
 Run database:
@@ -100,6 +100,7 @@ At the same time, open another terminal，run the Server side：
 ```bash
 dotnet watch --project src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj run
 ```
+
 - Method 2 Running in docker
 
 In the terminal, go to the project folder
@@ -120,7 +121,7 @@ That's it!
 >
 >If you change anything in `src/Cynthia.Card/src/Cynthia.Card.Common`, you need to rebuild the project, then copy `src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll` to `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll`.
 >
->`enviormentTools/refresh.sh` (in `diy` branch) can help you rebuild the project and the copy-paste.
+>`scripts/refresh.sh` (in `diy` branch) can help you rebuild the project and the copy-paste.
 
 ### Build the client in Unity
 
