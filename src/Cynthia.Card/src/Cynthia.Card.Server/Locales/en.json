@@ -1442,7 +1442,7 @@
         },
         "32006": {
             "Name": "Vilgefortz",
-            "Info": "Deploy: Destroy an ally, then play a card from your deck; or Truce: Destroy an enemy, then your opponent draws a Revealed Bronze card.",
+            "Info": "Deploy: Destroy an ally, then play top card from your deck; or Truce: Destroy an enemy, then your opponent draws a Revealed Bronze card.",
             "Flavor": "We are all pawns on his board. Playing a game whose rules we do not know."
         },
         "32007": {
