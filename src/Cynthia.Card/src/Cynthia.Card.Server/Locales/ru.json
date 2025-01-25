@@ -136,6 +136,8 @@
         "PopupWindow_DisconnectedDesc": " Пожалуйста, попробуйте войти снова!\nNПримечание!\nNВ текущей версии, если вы отключились во время сопоставления или игры, вам необходимо перезапустить клиент, иначе в следующей игре будут ошибки",
         "PopupWindow_QuitTitle": "Выйти",
         "PopupWindow_QuitDesc": "Вы уверены что хотите выйти?",
+        "PopupWindow_Surrender_title": "Хотите сдаться?",
+        "PopupWindow_Surrender_content": "Вы действительно хотите сдаться?",
         "PopupWindow_ReceivedMessageTitle": "Получено сообщение от сервера",
         "PopupWindow_NoDeckTitle": "Нет колод",
         "PopupWindow_NoDeckDesc": " У вас нет доступных колод. Пожалуйста, создайте и вернитесь.",

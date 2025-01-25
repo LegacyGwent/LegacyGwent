@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using Alsein.Extensions.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Assets.Script.Localization;
 
 public class GameEvent : MonoBehaviour
 {
+    private LocalizationService translator;
     static public bool RighClickActive;
     public static string RightClickedCardID;
     public ArtCard ShowCard;
@@ -93,6 +95,7 @@ public class GameEvent : MonoBehaviour
     //最开始
     private void Start()
     {
+        translator = DependencyResolver.Container.Resolve<LocalizationService>();
         RighClickActive=false;
         NowOperationType = GameOperationType.None;
 
@@ -1289,7 +1292,7 @@ public class GameEvent : MonoBehaviour
 
     public async void SendSurrender() // 发出投降信息
     {
-        if (!await _uiService.YNMessageBox("确认投降?", "Are you sure to surrender?"))
+        if (!await _uiService.YNMessageBox(translator.GetText("PopupWindow_Surrender_title"), translator.GetText("PopupWindow_Surrender_content")))
         {
             return;
         }

@@ -136,6 +136,8 @@
         "PopupWindow_DisconnectedDesc": "Spróbuj zalogować się ponownie! \nJeżeli zostałeś rozłączony w trakcie gry-zrestartuj klient.",
         "PopupWindow_QuitTitle": "WYJDŹ",
         "PopupWindow_QuitDesc": "Czy na pewno chcesz wyjść?",
+        "PopupWindow_Surrender_title": "Rezygnacja?",
+        "PopupWindow_Surrender_content": "Czy napewno chcesz się poddać?",
         "PopupWindow_ReceivedMessageTitle": "Otrzymałeś wiadomość z serwera",
         "PopupWindow_NoDeckTitle": "BRAK TALII",
         "PopupWindow_NoDeckDesc": "Nie masz dostępnej tali. Stwórz talie i wróć tutaj.",

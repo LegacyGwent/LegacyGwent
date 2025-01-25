@@ -136,6 +136,8 @@
         "PopupWindow_DisconnectedDesc": "Please try to log in again!\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will be buggy",
         "PopupWindow_QuitTitle": "QUIT",
         "PopupWindow_QuitDesc": "Are you sure you want to quit?",
+        "PopupWindow_Surrender_title": "Surrender?",
+        "PopupWindow_Surrender_content": "Are you sure you want to surrender?",
         "PopupWindow_ReceivedMessageTitle": "Received message from the server",
         "PopupWindow_NoDeckTitle": "NO DECK",
         "PopupWindow_NoDeckDesc": "You have no available decks. Please create one and come back.",
