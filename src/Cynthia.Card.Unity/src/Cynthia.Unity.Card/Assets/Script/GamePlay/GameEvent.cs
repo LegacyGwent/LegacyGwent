@@ -1297,6 +1297,9 @@ public class GameEvent : MonoBehaviour
             return;
         }
         await DependencyResolver.Container.Resolve<GwentClientService>().Surrender();
-        SceneManager.UnloadSceneAsync("RightClick");
+        if (SceneManager.GetSceneByName("RightClick").isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("RightClick");
+        }
     }
 }
