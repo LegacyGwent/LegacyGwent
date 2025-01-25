@@ -3527,7 +3527,7 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Deploy: Deal 5 Damage. If the target is destroyed, Reduce the damage by 1 and repeat once.",
+            "Info": "Deploy: Deal 5 Damage. If the target is destroyed, Reduce the damage by 1 and repeat this ability.",
             "Flavor": ""
         },
         "70159": {
