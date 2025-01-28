@@ -33,8 +33,29 @@ public class Debuger : EditorWindow
         {
             FindMissingPrefabReferencesInPrefabs();
         }
+        if (GUILayout.Button("Print All Objects in Current Scene"))
+        {
+            PrintAllObjectsInScene();
+        }
     }
+     private static void PrintAllObjectsInScene()
+    {
+        Debug.Log("Listing all objects in the current scene...");
 
+        GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        int objectCount = 0;
+
+        foreach (GameObject go in allGameObjects)
+        {
+            if (go == null || string.IsNullOrEmpty(go.scene.name)) continue; // Ignore objects not part of the scene
+
+            string hierarchyPath = GetFullHierarchyPath(go);
+            Debug.Log($"[SCENE OBJECT] Name: {go.name} | Hierarchy Path: {hierarchyPath} | Active: {go.activeInHierarchy}");
+            objectCount++;
+        }
+
+        Debug.Log($"Scene object listing complete! Found {objectCount} objects.");
+    }
     private static void FindMissingFontsInScene()
     {
         Debug.Log("Checking scene for missing fonts...");
