@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 112);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 113);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12328,7 +12328,7 @@ namespace Cynthia.Card
                     Flavor = "“十分丰满……也十分危险。”",
                     Info = "3回合后，回合结束时，转化为“安德莱格战士”。",
                     CardArtsId = "202440",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"70108"},
                 }
             },
               {

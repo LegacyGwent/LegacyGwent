@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 94814100d89538b4c9097b0999461f6a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HalisGR-Bold
+  fontNames:
+  - HalisGR-Bold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d6d5197d8905d3b40a5f0bedf3a80b17, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

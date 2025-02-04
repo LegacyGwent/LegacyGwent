@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 6ac310f75fe741f4f9efe76ccbf4d8fc
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HalisGR-Medium
+  fontNames:
+  - HalisGR-Medium
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4927b0601f00fdd4d968c4eec193537f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

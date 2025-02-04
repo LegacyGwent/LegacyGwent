@@ -27,7 +27,15 @@ public class SelectUICard : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameCodeService.ClickUICard(transform.GetSiblingIndex());
+        #if UNITY_ANDROID || UNITY_IOS
+            GameCodeService.ClickUICard(transform.GetSiblingIndex());
+        #endif
+        #if UNITY_STANDALONE_WIN
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                GameCodeService.ClickUICard(transform.GetSiblingIndex());
+            }
+        #endif
     }
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)

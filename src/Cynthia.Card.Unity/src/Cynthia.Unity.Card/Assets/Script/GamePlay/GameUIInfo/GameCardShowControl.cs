@@ -10,9 +10,13 @@ using System.Threading.Tasks;
 using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameCardShowControl : MonoBehaviour
 {
+    public string ClickedId;
+    public GameObject ArtCardIsShowed;
+    public int LastHoveredCard;
     public GameObject UICardPrefab;
     public GameObject NullCardPrefab;
     public RectTransform CardsContent;
@@ -51,6 +55,41 @@ public class GameCardShowControl : MonoBehaviour
     private ITubeInlet sender;
     private ITubeOutlet receiver;
     //
+
+    //TEST
+    private void OnMouseOver()
+    {
+#if UNITY_STANDALONE_WIN
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (ArtCardIsShowed.activeSelf)
+            {
+                if (_nowShowType == MenuShowType.UseCard)
+                {
+                    ClickedId = UseCardList[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.EnemyCemetery)
+                {
+                    ClickedId  = EnemyCemetery[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.MyCemetery)
+                {
+                    ClickedId  = MyCemetery[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.MyDeck)
+                {
+                    ClickedId  = MyDeck[LastHoveredCard].CardId;
+                }
+                Debug.Log("RightClicked Card of ID: "+ClickedId);
+                GameEvent.RighClickActive=true;
+                GameEvent.RightClickedCardID=ClickedId;
+                SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+            }
+            
+        }
+#endif
+    }
+        //END TEST
 
     private void Awake()
     {
@@ -101,6 +140,8 @@ public class GameCardShowControl : MonoBehaviour
         }
         else
         {
+            LastHoveredCard=index;
+            
             if (_nowShowType == MenuShowType.UseCard)
             {
                 ArtCard.CurrentCore = UseCardList[index];
