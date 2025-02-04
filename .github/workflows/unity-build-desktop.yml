@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
           key: Library-${{ matrix.targetPlatform }}
