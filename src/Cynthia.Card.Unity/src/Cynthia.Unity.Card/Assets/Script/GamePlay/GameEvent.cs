@@ -509,7 +509,22 @@ public class GameEvent : MonoBehaviour
                         if (coin.Count() != 0 && coin.First().GetComponent<PassCoin>().IsCanUse)//当鼠标移动到硬币上的时候
                         {
                             if (!IsOnCoin)//如果没有按在硬币上
+                            {
+#if UNITY_ANDROID || UNITY_IOS
+                                if (Input.touchCount > 0)
+                                {
+                                    IsSelectCoin = true;//选中的硬币
+                                    IsOnCoin = true;//按住硬币
+                                }
+                                else
+                                {
+                                    IsSelectCoin = false;
+                                    IsOnCoin = false;
+                                }
+#else
                                 IsSelectCoin = true;//选中的硬币
+#endif
+                            }
                         }
                         else//如果没有移动在硬币上
                         {
