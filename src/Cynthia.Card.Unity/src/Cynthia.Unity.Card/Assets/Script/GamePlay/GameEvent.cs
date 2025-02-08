@@ -1078,6 +1078,7 @@ public class GameEvent : MonoBehaviour
         CurrentPlace = GetCard(location).CardUseInfo;
         CloseAllRowMaxCanDrop();
         NowOperationType = GameOperationType.PlayCard;//放置牌模式
+        DropTaget = null;
 
         //得到讯息
         ///////////自动选位22222222222222
