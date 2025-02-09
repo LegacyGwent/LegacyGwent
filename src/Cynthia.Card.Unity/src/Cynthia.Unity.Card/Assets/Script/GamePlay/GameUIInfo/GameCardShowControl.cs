@@ -59,7 +59,7 @@ public class GameCardShowControl : MonoBehaviour
     //TEST
     private void OnMouseOver()
     {
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
         if (Input.GetMouseButtonDown(1))
         {
             if (ArtCardIsShowed.activeSelf)
@@ -89,7 +89,7 @@ public class GameCardShowControl : MonoBehaviour
         }
 #endif
     }
-        //END TEST
+    //END TEST
 
     private void Awake()
     {
@@ -140,8 +140,8 @@ public class GameCardShowControl : MonoBehaviour
         }
         else
         {
-            LastHoveredCard=index;
-            
+            LastHoveredCard = index;
+
             if (_nowShowType == MenuShowType.UseCard)
             {
                 ArtCard.CurrentCore = UseCardList[index];

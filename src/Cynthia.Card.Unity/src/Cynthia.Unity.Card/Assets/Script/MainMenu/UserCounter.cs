@@ -117,7 +117,6 @@ public class UserCounter : MonoBehaviour
     private async void GetIsCasualQueue()
     {
             int usercount =  await server.GetIsCasualQueue();
-                Debug.Log(usercount);
             bool iscasualqueue = false;
             if (usercount == 1) {iscasualqueue = true;}
             else {iscasualqueue = false;}
@@ -129,7 +128,6 @@ public class UserCounter : MonoBehaviour
         private async void GetIsRankQueue()
     {
             int usercount =  await server.GetIsRankQueue();
-                Debug.Log(usercount);
             bool isrankqueue = false;
             if (usercount == 1) {isrankqueue = true;}
             else {isrankqueue = false;}

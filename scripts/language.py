@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+r"""
 @author: Kajtek
 
 1) LegacyGwent\src\Cynthia.Card.Unity\src\Cynthia.Unity.Card\Assets\Resources\Locales
@@ -57,6 +57,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-

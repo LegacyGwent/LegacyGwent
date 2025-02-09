@@ -29,8 +29,7 @@ public class SelectUICard : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
     {
         #if UNITY_ANDROID || UNITY_IOS
             GameCodeService.ClickUICard(transform.GetSiblingIndex());
-        #endif
-        #if UNITY_STANDALONE_WIN
+        #else
             if (eventData.button == PointerEventData.InputButton.Left)
             {
                 GameCodeService.ClickUICard(transform.GetSiblingIndex());

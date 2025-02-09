@@ -102,8 +102,7 @@ public class GameEvent : MonoBehaviour
 #if UNITY_ANDROID || UNITY_IOS
         ShowMyCemeteryButton.SetActive(true);
         SurrenderButton.SetActive(true);
-#endif
-#if UNITY_STANDALONE_WIN
+#else
         ShowMyCemeteryButton.SetActive(false);
         SurrenderButton.SetActive(false);
 #endif
@@ -436,8 +435,7 @@ public class GameEvent : MonoBehaviour
     {
 #if UNITY_ANDROID || UNITY_IOS
         if (Input.GetMouseButtonDown(0))
-#endif
-#if UNITY_STANDALONE_WIN
+#else
         if (Input.GetMouseButtonDown(1))
 #endif
         {
