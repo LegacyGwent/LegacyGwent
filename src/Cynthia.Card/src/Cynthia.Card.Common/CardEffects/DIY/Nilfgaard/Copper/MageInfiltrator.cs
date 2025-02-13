@@ -17,11 +17,10 @@ namespace Cynthia.Card
             {
                 await card.Effect.Reveal(Card);
             }
-
+            var enemycards = await Game.GetSelectPlaceCards(Card, filter: x => (x.Status.IsReveal && x.IsAnyGroup(Group.Copper)), selectMode: SelectModeType.Enemy);
+            var targetCard = enemycards.Single();
+            await Game.CreateCard(targetCard.Status.CardId, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
             return 0;
-            var enemycard = await Game.GetSelectPlaceCards(Card, filter: x => x.Status.IsReveal, filter: x=>(x.IsAnyGroup(Group.Coper)), selectMode: SelectModeType.Enemy);
-            await Game.CreateCard(enemycard.CardId.Status.CardId, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
-
         }
     }
 }
