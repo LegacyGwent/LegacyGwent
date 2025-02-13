@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public Ifrit(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < 4; i++)
             {
                 await Game.CreateCard(CardId.LesserIfrit, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++));
             }

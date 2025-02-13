@@ -3412,7 +3412,7 @@ namespace Cynthia.Card
                 {
                     CardId ="23005", //Colossal Ifrit
                     Name="伊夫利特",
-                    Strength=9,
+                    Strength=8,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
