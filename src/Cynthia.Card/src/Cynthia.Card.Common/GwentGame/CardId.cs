@@ -650,5 +650,8 @@ namespace Cynthia.Card
         public const string NekkerSwarm = "70169";
         public const string CloudGiant = "70170";
         public const string GiantsBelt = "70171";
+        public const string Princess = "70172";
+        public const string DeadeyeAmbush = "70173";
+        public const string MageInfiltrator = "70174";
     }
 }

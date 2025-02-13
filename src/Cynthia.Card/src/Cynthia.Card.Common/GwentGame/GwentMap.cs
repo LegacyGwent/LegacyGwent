@@ -14816,6 +14816,69 @@ namespace Cynthia.Card
 					LinkedCards=new List<String> {},
                 }
             },
+                        {
+                "70172",
+                new GwentCard()
+                {
+                    CardId ="70172", //Princess
+                    Name="xx",
+                    Strength=3,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Beast},
+                    Flavor = "xx",
+                    Info = "xxx",
+                    CardArtsId = "c10004000",
+					LinkedCards=new List<String> {"15010","65002"},
+                }
+            },
+            {
+                "70173",
+                new GwentCard()
+                {
+                    CardId ="70173", //DeadeyeAmbush
+                    Name="xxxx",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
+                    Flavor = "xxx",
+                    Info = "xxx",
+                    CardArtsId = "202184",
+					LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70174",
+                new GwentCard()
+                {
+                    CardId ="70174", //MageInfiltrator
+                    Name="法师渗透者",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Mage},
+                    Flavor = "在闲暇时间，她喜欢恶作剧。她最爱的就是把绑腿和头巾换个个儿。",
+                    Info = "",
+                    CardArtsId = "202666",
+					LinkedCards=new List<String> {},
+                }
+            },
         };
     }
 }
