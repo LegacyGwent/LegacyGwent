@@ -319,7 +319,9 @@
         "Sihil_2_DamageEven": "Deal 3 Damage to all enemies with even Power.",
         "Sihil_3_PlayUnit": "Play a random Bronze or Silver unit from your deck.",
         "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
-        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item"
+        "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item",
+        "Gael_1_Damage2Units": "Deal 5 Damage to two enemy units each.",
+        "Gael_1_Damage1Unit": "Damage an enemy by 8."
     },
     "CardLocales": {
         "12001": {
@@ -1074,7 +1076,7 @@
         },
         "23005": {
             "Name": "Colossal Ifrit",
-            "Info": "Deploy: Spawn 3 Lesser Ifrits to the right of this unit.\n(Lesser Ifrit; 1 Strength; When Summoned, deal 1 Damage to a random enemy)",
+            "Info": "Deploy: Spawn 4 Lesser Ifrits to the right of this unit.\n(Lesser Ifrit; 1 Strength; When Summoned, deal 1 Damage to a random enemy)",
             "Flavor": "Can't stand the heat? Then you don't stand a chance."
         },
         "23006": {
@@ -3469,7 +3471,7 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Deploy: Deal 5 Damage to two enemy units each.",
+            "Info": "Deploy, Choose One: Deal 5 Damage to two enemy units each or Damage an enemy by 8.",
             "Flavor": "A fondness for shiny trinkets is not a trait unique to magpies."
         },
         "70147": {
@@ -3596,6 +3598,21 @@
             "Name": "Giant's Belt",
             "Info": "Boost an ally by its base Power, if it is an Ogroid, strengthen it by 2 before.",
             "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
+        },
+        "70172": {
+            "Name": "Princess",
+            "Info": "Spawn a Bear. If there is a Wither on this row, spawn a Raging Bear instead.",
+            "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
+        },
+        "70173": {
+            "Name": "Deadeye Ambush",
+            "Info": "Select an ally, boost it by 5 and move it to the row below, select an enemy, damage it by 5 and move it to the melee row.",
+            "Flavor": ""
+        },
+        "70174": {
+            "Name": "Mage Infiltrator",
+            "Info": "Spying.\nReveal two enemy cards, then Spawn and Play a copy of a different bronze unit in your opponent's hand.",
+            "Flavor": ""
         },
         "80001": {
             "Name": "Auberon: King",

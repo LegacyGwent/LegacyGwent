@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 115);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 116);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -14780,7 +14780,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70170", //Cloud Giant
                     Name="云顶巨人",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14821,7 +14821,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70172", //Princess
-                    Name="xx",
+                    Name="公主",
                     Strength=3,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
@@ -14831,8 +14831,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
-                    Flavor = "xx",
-                    Info = "xxx",
+                    Flavor = "你有萝卜所具备的一切美德一沉默寡言",
+                    Info = "生成一-头“熊”，同排存在猎魔人时，改为生成“狂暴的熊”",
                     CardArtsId = "c10004000",
 					LinkedCards=new List<String> {"15010","65002"},
                 }
@@ -14842,7 +14842,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70173", //DeadeyeAmbush
-                    Name="xxxx",
+                    Name="诱敌深入",
                     Strength=0,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
@@ -14852,8 +14852,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
-                    Flavor = "xxx",
-                    Info = "xxx",
+                    Flavor = "慢点.....人类快把你追丢了",
+                    Info = "选择一个己方单位向下移动一排并增益5点，选择一个敌方单位,将其移至敌方近战排并造成5点伤害",
                     CardArtsId = "202184",
 					LinkedCards=new List<String> {},
                 }
@@ -14864,7 +14864,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70174", //MageInfiltrator
                     Name="法师渗透者",
-                    Strength=0,
+                    Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.EnemyRow,
@@ -14873,8 +14873,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
-                    Flavor = "在闲暇时间，她喜欢恶作剧。她最爱的就是把绑腿和头巾换个个儿。",
-                    Info = "",
+                    Flavor = "据说她以前曾在帝国选美中夺得冠军",
+                    Info = "间谍。揭示两张对方卡牌，选择一张已揭示的对方铜色牌，生成具有佚亡的原始同名牌",
                     CardArtsId = "202666",
 					LinkedCards=new List<String> {},
                 }

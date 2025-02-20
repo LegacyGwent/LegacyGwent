@@ -319,7 +319,9 @@
         "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
         "Sihil_3_PlayUnit": "Zagraj losową brązową lub srebrną jednostkę ze swojej talii.",
         "VriheddSaboteur_1_RandomItem": "Zagraj losowy brązowy przedmiot.",
-        "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael."
+        "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael.",
+        "Gael_1_Damage2Units": "Zadaj 5 pkt obrażeń dwóm wrogom.",
+        "Gael_1_Damage1Unit": "Zadaj wrogowi 8pkt obrażeń."
     },
     "CardLocales": {
         "12001": {
@@ -1074,7 +1076,7 @@
         },
         "23005": {
             "Name": "Ifrit",
-            "Info": "Rozmieszczenie: Stwórz 3 Pomniejsze Ifirty po prawej stronie tej jednostki.\n(Pomniejszy Ifryt; 1 pkt siły; Gdy zostanie przyzwany, zadaj 1 pkt obrażeń losowemu wrogowi)",
+            "Info": "Rozmieszczenie: Stwórz 4 Pomniejsze Ifirty po prawej stronie tej jednostki.\n(Pomniejszy Ifryt; 1 pkt siły; Gdy zostanie przyzwany, zadaj 1 pkt obrażeń losowemu wrogowi)",
             "Flavor": "No, teraz to się zrobi gorąco."
         },
         "23006": {
@@ -3469,7 +3471,7 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Deal 5 Damage to two enemy units each.",
+            "Info": "Rozmieszczenie, Wybierz: Zadaj 5 pkt obrażeń dwóm wrogom ,lub zadaj wrogowi 8pkt obrażeń.",
             "Flavor": "Nie tylko sroki lubią błyskotki."
         },
         "70147": {
@@ -3596,6 +3598,21 @@
             "Name": "Pas Olbrzyma",
             "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
             "Flavor": "Wytrzymały skórzany pas, najwyraźniej uszyty dla tytana, a jednak pasuje każdemu, kto go przymierzy. Choć powoduje, że noszący go staje się silny niczym gigant, nie zwiększa jego postury."
+        },
+        "70172": {
+            "Name": "Księżniczka",
+            "Info": "Rozmieszczenie: Stwórz Niedźwiedzia. Jeśli w tym rzędzie jest Wiedźmin zamiast tego stwórz Wściekłego Niedźwiedzia. ",
+            "Flavor": "Masz najważniejszą ceche, jakie powinna mieć każda Płotka - niewiele mówisz. "
+        },
+        "70173": {
+            "Name": "Czatownicza Zasadzka",
+            "Info": "Wybierz sojusznika. Wzmonij go o 5 pkt I przenieś do rzędu poniżej. Wybierz wroga zadaj mu 5 pjt obrażeń I przenieś go do rzędu walki wręcz.",
+            "Flavor": ""
+        },
+        "70174": {
+            "Name": "Mag Infiltrator",
+            "Info": "Szpieg \nRozmieszczenie: Odkryj dwie karty w ręce przeciwnika, następnie stwórz I zagraj kopie innej brązowej jednostki w ręce przeciwnika. ",
+            "Flavor": ""
         },
         "80001": {
             "Name": "Auberon:King",
