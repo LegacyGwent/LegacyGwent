@@ -653,5 +653,6 @@ namespace Cynthia.Card
         public const string Princess = "70172";
         public const string DeadeyeAmbush = "70173";
         public const string MageInfiltrator = "70174";
+        public const string Trapmaker = "70175";
     }
 }

@@ -14879,6 +14879,27 @@ namespace Cynthia.Card
 					LinkedCards=new List<String> {},
                 }
             },
+            {
+                "70175",
+                new GwentCard()
+                {
+                    CardId ="70175", //Trapmaker
+                    Name="xxx",
+                    Strength=3,
+                    Group=Group.Copper,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Elf, Categorie.Support},
+                    Flavor = "xx",
+                    Info = "xxxx",
+                    CardArtsId = "203256",
+					LinkedCards=new List<String> {},
+                }
+            },
         };
     }
 }

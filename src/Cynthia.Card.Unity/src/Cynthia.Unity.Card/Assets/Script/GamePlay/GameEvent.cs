@@ -475,8 +475,8 @@ public class GameEvent : MonoBehaviour
                             RighClickActive = true;
                             SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
                         }
-                        break;
 #endif
+                break;
                 }
             }
         }
