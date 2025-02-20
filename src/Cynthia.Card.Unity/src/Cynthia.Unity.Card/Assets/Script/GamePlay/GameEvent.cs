@@ -86,6 +86,7 @@ public class GameEvent : MonoBehaviour
 
     private GlobalUIService _uiService;
     public RopeController ropeController;
+    public bool IsMobileClickDown = false;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -96,7 +97,7 @@ public class GameEvent : MonoBehaviour
     private void Start()
     {
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        RighClickActive=false;
+        RighClickActive = false;
         NowOperationType = GameOperationType.None;
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -165,7 +166,7 @@ public class GameEvent : MonoBehaviour
             }
             MyCemetery.IsCanDrop = true;
         }
-        
+
     }
     //当前正在拖拽的卡牌
     public CardMoveInfo DragCard
@@ -301,6 +302,11 @@ public class GameEvent : MonoBehaviour
     // #endif
     private void DownEffect()
     {
+#if UNITY_ANDROID || UNITY_IOS
+        IsMobileClickDown = true;
+        Update();
+        IsMobileClickDown = false;
+#endif
         switch (NowOperationType)
         {
             case GameOperationType.GetPassOrGrag:
@@ -341,6 +347,7 @@ public class GameEvent : MonoBehaviour
                 {   //直接pass信息并结束
                     await sender.SendAsync<RoundInfo>(new RoundInfo() { IsPass = true });
                     IsOnCoin = false;
+                    IsSelectCoin = false;
                     return;
                 }
                 if (DragCard == null) return;//没有拖拽的话,就没有什么效果
@@ -461,15 +468,15 @@ public class GameEvent : MonoBehaviour
                         Debug.Log("右键点击了卡牌");
                         var card = trueitem.First();
                         Debug.Log("卡牌On?:" + card.GetComponent<CardMoveInfo>().IsOn);
-                        #if !UNITY_ANDROID
-                            RightClickedCardID=card.GetComponent<CardShowInfo>().CurrentCore.CardId;
-                            if (!string.IsNullOrEmpty(RightClickedCardID))
-                            {
-                                RighClickActive=true;
-                                SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
-                            }
-                        #endif
+#if !UNITY_ANDROID && !UNITY_IOS
+                        RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
+                        if (!string.IsNullOrEmpty(RightClickedCardID))
+                        {
+                            RighClickActive = true;
+                            SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+                        }
                         break;
+#endif
                 }
             }
         }
@@ -495,6 +502,7 @@ public class GameEvent : MonoBehaviour
         }
         var rows = onObjects.Where(x => x.GetComponent<CanDrop>() != null && x.GetComponent<CanDrop>().IsCanDrop);
         var dropTaget = rows.Count() != 0 ? rows.First().GetComponent<CanDrop>() : null;
+        var allRows = onObjects.Where(x => x.GetComponent<CanDrop>() != null);
         //----------------------------------------------
         switch (NowOperationType)
         {
@@ -503,7 +511,10 @@ public class GameEvent : MonoBehaviour
                 //if (IsOnCoin)按住硬币会执行的
                 if (DragCard == null)
                 {
-                    SelectCard = selectCard;
+                    if (!(IsMobileClickDown && allRows.Count() > 0))
+                    {
+                        SelectCard = selectCard;
+                    }
                     //如果没有在拖拽的卡牌
                     if (SelectCard == null && PassCoin.IsCanUse)
                     {
