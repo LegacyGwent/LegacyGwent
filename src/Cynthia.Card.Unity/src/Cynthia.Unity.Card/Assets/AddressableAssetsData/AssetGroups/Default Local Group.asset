@@ -5365,6 +5365,14 @@ MonoBehaviour:
     m_Address: 202184
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 21bfbd3e8fa7fb242a91f39a637b38a9
+    m_Address: 18840000_slot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3dbf9a2c0d6e1fb4c9100a50569e3c6c
+    m_Address: c10001000_slot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5906503ae4b1e438db91b29a26dbfb, type: 2}
   m_SchemaSet:

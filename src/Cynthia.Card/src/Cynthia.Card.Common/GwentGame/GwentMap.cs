@@ -11793,7 +11793,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Special },
                     Flavor = "",
                     Info = "对一个敌军随机单位造成4点伤害。被丢弃时，再次触发此能力，并将1张“恐狼勇士”加入牌组。",
-                    CardArtsId = "202462",
+                    CardArtsId = "202464",
 					LinkedCards=new List<String> {"70040"},
                 }
             },

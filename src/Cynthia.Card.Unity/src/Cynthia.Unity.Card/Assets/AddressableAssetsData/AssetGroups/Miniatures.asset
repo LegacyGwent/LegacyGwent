@@ -5209,10 +5209,6 @@ MonoBehaviour:
     m_Address: 202883_slot
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 3dbf9a2c0d6e1fb4c9100a50569e3c6c
-    m_Address: 203277_slot
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: c0da5c93fd012b6499dc1f522bd0809d
     m_Address: 202907_slot
     m_ReadOnly: 0
