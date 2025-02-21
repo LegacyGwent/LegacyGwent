@@ -524,7 +524,11 @@ public class GameEvent : MonoBehaviour
                             if (!IsOnCoin)//如果没有按在硬币上
                             {
 #if UNITY_ANDROID || UNITY_IOS
+#if UNITY_EDITOR
+                                if (Input.GetMouseButtonDown(0))
+#else
                                 if (Input.touchCount > 0)
+#endif
                                 {
                                     IsSelectCoin = true;//选中的硬币
                                     IsOnCoin = true;//按住硬币
