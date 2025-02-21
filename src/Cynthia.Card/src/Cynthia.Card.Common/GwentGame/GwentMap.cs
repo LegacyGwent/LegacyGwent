@@ -14884,7 +14884,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70175", //Trapmaker
-                    Name="xxx",
+                    Name="陷阱制造者",
                     Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
@@ -14894,8 +14894,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf, Categorie.Support},
-                    Flavor = "xx",
-                    Info = "xxxx",
+                    Flavor = "手艺是厉害，可没谁会夸上一句，这些人就只会“啊啊啊，我的腿！”",
+                    Info = "当一张己方“伏击”单位触发，召唤一张本单位到己方同排。",
                     CardArtsId = "203256",
 					LinkedCards=new List<String> {},
                 }

@@ -3614,6 +3614,11 @@
             "Info": "Szpieg \nRozmieszczenie: Odkryj dwie karty w ręce przeciwnika, następnie stwórz I zagraj kopie innej brązowej jednostki w ręce przeciwnika. ",
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce – tylko po jednej z każdej pary – i podmieniając część ubrań na mniejsze."
         },
+        "70175": {
+            "Name": "Wnykarz",
+            "Info": "Wezwij kopię tej jednostki do tego rzędu kiedy zostanie aktywowana sojusznicza zasadzka. ",
+            "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
+        },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",
