@@ -18,7 +18,21 @@ namespace Cynthia.Card
             // select an ally, boost it by 5 and move it to the row below
             if (cards.TrySingle(out var friend))
             {
+<<<<<<< HEAD
                 var row = (friend.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();       
+=======
+                return 0;
+            }
+            
+            var row = (friend.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();
+            if (enemy.Status.CardRow != RowPosition.MyRow1)
+            {            
+                await enemy.Effect.Move(new CardLocation(RowPosition.MyRow1, int.MaxValue), Card);
+                await enemy.Effect.Damage(5, Card);
+            }
+            if (friend.Status.CardRow != RowPosition.MyRow1)
+            {            
+>>>>>>> 6dd51bd839cb3102699363ac723d2f42ad0a4890
                 await friend.Effect.Move(new CardLocation(row, int.MaxValue), Card);
                 await friend.Effect.Boost(5, Card);
             }
