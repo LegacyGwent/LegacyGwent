@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 116);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 117);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -14851,7 +14851,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
+                    Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
                     Flavor = "慢点.....人类快把你追丢了",
                     Info = "选择一个己方单位向下移动一排并增益5点，选择一个敌方单位,将其移至敌方近战排并造成5点伤害",
                     CardArtsId = "202184",

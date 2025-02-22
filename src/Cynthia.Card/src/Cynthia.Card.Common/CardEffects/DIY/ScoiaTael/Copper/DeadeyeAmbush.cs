@@ -10,30 +10,23 @@ namespace Cynthia.Card
         public DeadeyeAmbush(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var cards = await Game.GetSelectPlaceCards(Card, filter: x => x.PlayerIndex == PlayerIndex);
-    
-            if (!cards.TrySingle(out var friend))
+            var cards = await Game.GetSelectPlaceCards(Card, filter: x => ((x.Status.CardRow == RowPosition.MyRow2 || x.Status.CardRow == RowPosition.MyRow3) && x.PlayerIndex == PlayerIndex));
+            var list = await Game.GetSelectPlaceCards(Card, filter: x => ((x.Status.CardRow != RowPosition.MyRow1) && x.PlayerIndex != PlayerIndex));
             {
                 return 0;
             }
-
-            var list = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (!list.TrySingle(out var enemy))
+            // select an ally, boost it by 5 and move it to the row below
+            if (cards.TrySingle(out var friend))
             {
-                return 0;
-            }
-
-
-            var row = (friend.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();
-            if (enemy.Status.CardRow != RowPosition.MyRow1)
-            {            
-                await enemy.Effect.Move(new CardLocation(RowPosition.MyRow1, int.MaxValue), Card);
-                await enemy.Effect.Damage(5, Card);
-            }
-            if (friend.Status.CardRow != RowPosition.MyRow1)
-            {            
+                var row = (friend.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();       
                 await friend.Effect.Move(new CardLocation(row, int.MaxValue), Card);
                 await friend.Effect.Boost(5, Card);
+            }
+            // select an enemy, damage it by 5 and move it to the melee row
+            if (list.TrySingle(out var enemy))
+            {
+                await enemy.Effect.Move(new CardLocation(RowPosition.MyRow1, int.MaxValue), Card);
+                await enemy.Effect.Damage(5, Card);
             }
             return 0;
         }
