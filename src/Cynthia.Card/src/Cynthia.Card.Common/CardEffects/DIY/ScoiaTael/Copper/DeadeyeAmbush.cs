@@ -24,11 +24,17 @@ namespace Cynthia.Card
             }
 
 
-            var row = (enemy.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();
-            await enemy.Effect.Move(new CardLocation(RowPosition.EnemyRow1, int.MaxValue), Card);
-            await enemy.Effect.Damage(5, Card);
-            await friend.Effect.Move(new CardLocation(row, int.MaxValue), Card);
-            await friend.Effect.Boost(5, Card);
+            var row = (friend.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();
+            if (enemy.Status.CardRow != RowPosition.MyRow1)
+            {            
+                await enemy.Effect.Move(new CardLocation(RowPosition.MyRow1, int.MaxValue), Card);
+                await enemy.Effect.Damage(5, Card);
+            }
+            if (friend.Status.CardRow != RowPosition.MyRow1)
+            {            
+                await friend.Effect.Move(new CardLocation(row, int.MaxValue), Card);
+                await friend.Effect.Boost(5, Card);
+            }
             return 0;
         }
     }

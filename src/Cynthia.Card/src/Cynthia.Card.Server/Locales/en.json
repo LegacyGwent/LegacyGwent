@@ -3601,7 +3601,7 @@
         },
         "70172": {
             "Name": "Princess",
-            "Info": "Spawn a Bear. If there is a Wither on this row, spawn a Raging Bear instead.",
+            "Info": "Spawn a Bear. If there is a Witcher on this row, spawn a Raging Bear instead.",
             "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
         },
         "70173": {
