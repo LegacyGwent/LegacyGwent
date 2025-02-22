@@ -22,8 +22,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-
-
+            
             var row = (friend.Status.CardRow.MyRowToIndex() - 1).IndexToMyRow();
             if (enemy.Status.CardRow != RowPosition.MyRow1)
             {            
