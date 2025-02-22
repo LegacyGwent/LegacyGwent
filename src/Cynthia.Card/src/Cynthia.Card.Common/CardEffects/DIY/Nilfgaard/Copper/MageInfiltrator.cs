@@ -18,7 +18,7 @@ namespace Cynthia.Card
                 await card.Effect.Reveal(Card);
             }
             // then spawn and play a copy of a different bronze unit in your opponent's hand
-            var enemycards = await Game.GetSelectPlaceCards(Card,1, true, filter: x => (x.Status.IsReveal && x.IsAnyGroup(Group.Copper) && x.Status.CardId != Card.Status.CardId && x.CardInfo().CardType == CardType.Unit), selectMode: SelectModeType.MyHand);
+            var enemycards = await Game.GetSelectPlaceCards(Card,1, true, filter: x => (x.Status.IsReveal && x.IsAnyGroup(Group.Copper) && x.Status.CardId != Card.Status.CardId), selectMode: SelectModeType.MyHand);
             if (enemycards.Count() == 0) return 0;
             var targetCard = enemycards.Single();
             await Game.CreateToStayFirst(targetCard.Status.CardId, Game.AnotherPlayer(Card.PlayerIndex));
