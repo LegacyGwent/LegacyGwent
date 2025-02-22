@@ -12,9 +12,6 @@ namespace Cynthia.Card
         {
             var cards = await Game.GetSelectPlaceCards(Card, filter: x => ((x.Status.CardRow == RowPosition.MyRow2 || x.Status.CardRow == RowPosition.MyRow3) && x.PlayerIndex == PlayerIndex));
             var list = await Game.GetSelectPlaceCards(Card, filter: x => ((x.Status.CardRow != RowPosition.MyRow1) && x.PlayerIndex != PlayerIndex));
-            {
-                return 0;
-            }
             // select an ally, boost it by 5 and move it to the row below
             if (cards.TrySingle(out var friend))
             {
