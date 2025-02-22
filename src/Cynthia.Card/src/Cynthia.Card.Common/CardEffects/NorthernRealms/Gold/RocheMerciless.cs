@@ -60,7 +60,7 @@ namespace Cynthia.Card
 
         private async Task<int> FUNCTION2()
         {
-           var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.Conceal == true);
+           var selectList = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.EnemyRow, filter: x => x.Status.Conceal == true);
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
