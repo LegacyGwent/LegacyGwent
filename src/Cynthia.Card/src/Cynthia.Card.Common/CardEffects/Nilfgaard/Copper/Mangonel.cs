@@ -16,7 +16,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardReveal @event)
         {
-            if (@event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
+            if (@event.Source == null || (@event.Source.PlayerIndex != Card.PlayerIndex && @event.Source.Status.CardId != "70174") || !Card.Status.CardRow.IsOnPlace()) return;
             await DamageRandomEnemy();
         }
 
