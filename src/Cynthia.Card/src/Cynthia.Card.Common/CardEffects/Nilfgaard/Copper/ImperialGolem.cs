@@ -12,6 +12,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardReveal @event)
         {
+
             if (Card.Status.CardRow != RowPosition.MyDeck || temp == @event.Target || (@event.Target.PlayerIndex == Card.PlayerIndex) || @event.Source == null || Game.GameRound.ToPlayerIndex(Game) != PlayerIndex) return;
             temp = @event.Target;
             await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), @event.Target);//(Game.GetRandomCanPlayLocation(Card.PlayerIndex));
