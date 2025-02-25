@@ -54,8 +54,10 @@ public class GameCardShowControl : MonoBehaviour
     //
     private ITubeInlet sender;
     private ITubeOutlet receiver;
-    //
-
+    // mobile right click
+    private float pressTime = 0;
+    private bool IsRightClickMobile = false;
+    private bool DisableClickCard = false;
     //TEST
     private void OnMouseOver()
     {
@@ -87,6 +89,34 @@ public class GameCardShowControl : MonoBehaviour
             }
             
         }
+#elif UNITY_ANDROID || UNITY_IOS
+        if (IsRightClickMobile)
+        {
+            if (ArtCardIsShowed.activeSelf)
+            {
+                if (_nowShowType == MenuShowType.UseCard)
+                {
+                    ClickedId = UseCardList[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.EnemyCemetery)
+                {
+                    ClickedId  = EnemyCemetery[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.MyCemetery)
+                {
+                    ClickedId  = MyCemetery[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.MyDeck)
+                {
+                    ClickedId  = MyDeck[LastHoveredCard].CardId;
+                }
+                Debug.Log("RightClicked Card of ID: "+ClickedId);
+                GameEvent.RighClickActive=true;
+                GameEvent.RightClickedCardID=ClickedId;
+                IsRightClickMobile = false;
+                SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+            }            
+        }        
 #endif
     }
     //END TEST
@@ -97,7 +127,54 @@ public class GameCardShowControl : MonoBehaviour
     }
     private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
     private bool IsAutoPlay => DependencyResolver.Container.Resolve<GwentClientService>().IsAutoPlay;
+#if UNITY_ANDROID || UNITY_IOS    
+    private void Update()
+    {
 
+        if (Input.touchCount <= 0) return;
+    
+        var touch = Input.GetTouch(0);
+
+        switch(touch.phase)
+        {
+
+            case TouchPhase.Began:
+                pressTime = 0;
+                IsRightClickMobile = false;
+                break;
+            case TouchPhase.Stationary:
+                // if (pressTime > 0.5f)
+                // {
+                //     DisableClickCard = true;
+                // }
+                pressTime += Time.deltaTime;
+                if (pressTime >0.9f)
+                {
+                    DisableClickCard = true;
+                }
+                if (pressTime > 1f)
+                {
+                    IsRightClickMobile = true;
+                    pressTime = 0;
+                }
+                break;
+            case TouchPhase.Moved:
+                pressTime = 0;
+                IsRightClickMobile = false;
+                break;
+            case TouchPhase.Ended:
+                IsRightClickMobile = false;
+                pressTime = 0;
+                DisableClickCard = false;
+                break;
+            case TouchPhase.Canceled:
+                IsRightClickMobile = false;
+                pressTime = 0;
+                DisableClickCard = false;
+                break;
+        }
+    }
+#endif
     //------------------------------------------------------------------------------------------
     public void OpenButtonClick()//显示卡牌
     {
@@ -187,6 +264,7 @@ public class GameCardShowControl : MonoBehaviour
                 }
                 else
                 {
+                    if (DisableClickCard == true) break;
                     card.IsSelect = true;
                     NowSelect.Add(index);
                     if (NowSelect.Count >= NowSelectTotal)

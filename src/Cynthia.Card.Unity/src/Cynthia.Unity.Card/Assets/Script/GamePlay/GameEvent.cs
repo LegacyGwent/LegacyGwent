@@ -87,9 +87,6 @@ public class GameEvent : MonoBehaviour
     private GlobalUIService _uiService;
     public RopeController ropeController;
     public bool IsMobileClickDown = false;
-    // private float holdTime = 2f; // Time to consider if a longtap on mobile
-    // private bool isTapped = false;
-    // private float timeSinceLastTap = 0f;
     private float pressTime = 0;
     private bool IsRightClickMobile = false;
     private void Awake()
@@ -486,7 +483,6 @@ public class GameEvent : MonoBehaviour
                             RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
                             if (!string.IsNullOrEmpty(RightClickedCardID))
                             {
-                                // SelectCard = null;
                                 RighClickActive = true;
                                 SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
                             }
@@ -521,7 +517,7 @@ public class GameEvent : MonoBehaviour
                 break;
             case TouchPhase.Stationary:
                 pressTime += Time.deltaTime;
-                if (pressTime > 0,75f)
+                if (pressTime > 0.75f)
                 {
                     IsRightClickMobile = true;
                     pressTime = 0;
@@ -539,6 +535,7 @@ public class GameEvent : MonoBehaviour
                 IsRightClickMobile = false;
                 pressTime = 0;
                 break;
+        }
         # endif
         var onObjects = GetMouseAllRaycast();//获取鼠标穿透的所有物体
         //画箭
