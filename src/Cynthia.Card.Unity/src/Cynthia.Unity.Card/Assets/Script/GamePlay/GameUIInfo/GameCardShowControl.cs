@@ -143,17 +143,10 @@ public class GameCardShowControl : MonoBehaviour
                 IsRightClickMobile = false;
                 break;
             case TouchPhase.Stationary:
-                // if (pressTime > 0.5f)
-                // {
-                //     DisableClickCard = true;
-                // }
                 pressTime += Time.deltaTime;
-                if (pressTime >0.9f)
-                {
-                    DisableClickCard = true;
-                }
                 if (pressTime > 1f)
                 {
+                    DisableClickCard = true; // disable click to avoid mulliganing when keeping a card pressed
                     IsRightClickMobile = true;
                     pressTime = 0;
                 }
@@ -244,6 +237,7 @@ public class GameCardShowControl : MonoBehaviour
         switch (_nowUseMenuType)
         {
             case UseCardShowType.Mulligan:
+                if (DisableClickCard == true) break;
                 if (IsUseMenuShow)
                     await sender.SendAsync<int>(index);
                 break;
