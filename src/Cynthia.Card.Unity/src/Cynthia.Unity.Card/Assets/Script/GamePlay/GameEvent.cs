@@ -483,6 +483,12 @@ public class GameEvent : MonoBehaviour
                             RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
                             if (!string.IsNullOrEmpty(RightClickedCardID))
                             {
+                                DragCard = null;
+                                // SelectModeCard = null;
+                                // DropTaget = null;
+                                CurrentPlace = CardUseInfo.ReSet;
+                                CurrentPlayCard = null;
+                                ResetAllTem();
                                 RighClickActive = true;
                                 SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
                             }
