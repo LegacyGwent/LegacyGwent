@@ -87,7 +87,7 @@ public class GameEvent : MonoBehaviour
     private GlobalUIService _uiService;
     public RopeController ropeController;
     public bool IsMobileClickDown = false;
-    private float pressTime = 0;
+    private float pressTime = 0; // time pressed on mobile
     private bool IsRightClickMobile = false;
     private void Awake()
     {
@@ -484,8 +484,6 @@ public class GameEvent : MonoBehaviour
                             if (!string.IsNullOrEmpty(RightClickedCardID))
                             {
                                 DragCard = null;
-                                // SelectModeCard = null;
-                                // DropTaget = null;
                                 CurrentPlace = CardUseInfo.ReSet;
                                 CurrentPlayCard = null;
                                 ResetAllTem();
@@ -523,7 +521,7 @@ public class GameEvent : MonoBehaviour
                 break;
             case TouchPhase.Stationary:
                 pressTime += Time.deltaTime;
-                if (pressTime > 0.75f)
+                if (pressTime > 0.75f && DropTaget == null)
                 {
                     IsRightClickMobile = true;
                     pressTime = 0;
@@ -532,6 +530,7 @@ public class GameEvent : MonoBehaviour
             case TouchPhase.Moved:
                 pressTime = 0;
                 IsRightClickMobile = false;
+                
                 break;
             case TouchPhase.Ended:
                 IsRightClickMobile = false;
