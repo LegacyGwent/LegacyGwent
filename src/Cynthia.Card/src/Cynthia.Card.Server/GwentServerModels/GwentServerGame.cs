@@ -1285,7 +1285,7 @@ namespace Cynthia.Card.Server
         {
             var isFromHide = card.Status.CardRow.IsInBack();
             var isShowPlayerIndexBack = (!location.RowPosition.IsMyRow() && isShowEnemyBack) || card.Status.Conceal;
-            var isShowAnotherPlayerBack = (location.RowPosition.IsMyRow() && isShowEnemyBack) || card.Status.Conceal || card.Status.IsConcealCard;
+            var isShowAnotherPlayerBack = (location.RowPosition.IsMyRow() && isShowEnemyBack) || card.Status.Conceal;
             await SendCardMove(card.PlayerIndex, new MoveCardInfo()
             {
                 Source = GetCardLocation(card.PlayerIndex, card),
