@@ -20,6 +20,12 @@ namespace Cynthia.Card
         public CardStatus EnemyLeader { get; set; }//敌方领袖是?
         public string EnemyName { get; set; }//对手名称
         public string MyName { get; set; }//对手名称
+        public string MyAvatar { get; set; } // My Avatar Cosmetic
+        public string EnemyAvatar { get; set; } // The ennemy's  Avatar Cosmetic
+        public string MyBorder { get; set; } // My Border Cosmetic
+        public string EnemyBorder { get; set; } // The ennemy's Border Cosmetic
+        public string MyTitle { get; set; } // My Title Cosmetic
+        public string EnemyTitle { get; set; } // The ennemy's Title Cosmetic
         public int MyHandCount { get; set; }//我方手牌数量
         public int EnemyHandCount { get; set; }//敌方手牌数量
         public int MyCemeteryCount { get; set; }//我方墓地数量

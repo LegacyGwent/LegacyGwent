@@ -17,7 +17,9 @@ namespace Cynthia.Card.Server
 
         //登录
         public async Task<UserInfo> Login(string username, string password) => await _gwentServerService.Login(new User(username, Context.ConnectionId), password);
-
+        // update the userinfo when loading GameScene to update the avatars/borders/titles
+        public async Task<UserInfo> QueryUserInfo(string username, string password) => await _gwentServerService.QueryUserInfo(username, password);
+        
         //上传卡组码
         public bool AddDeckCode(string deckCode) => _gwentServerService.AddDeck(Context.ConnectionId, deckCode.DeCompressToDeck());
 
@@ -54,6 +56,21 @@ namespace Cynthia.Card.Server
 
         public Task<bool> SendGG(string MyName, string EnemyName)  => _gwentServerService.SendGG(MyName,EnemyName);
 
+        public Task<bool> SendTaunt(string EnemyName, string tauntID)  => _gwentServerService.SendTaunt(EnemyName, tauntID);
+        
+        public Task<bool> UpdateAvatar(string playername, string AvatarID) // set Current Avatar
+        {           
+            return _gwentServerService.UpdateAvatar(playername, AvatarID);
+        }
+        public Task<bool> UpdateBorder(string playername, string BorderID) // set Current Border
+        {           
+            return _gwentServerService.UpdateBorder(playername, BorderID);
+        }
+        public Task<bool> UpdateTitle(string playername, string TitleID) // Set Current Title
+        {           
+            return _gwentServerService.UpdateTitle(playername, TitleID);
+        }
+        //
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
         public bool Surrender() => _gwentServerService.Surrender(Context.ConnectionId); // 投降
@@ -66,8 +83,15 @@ namespace Cynthia.Card.Server
         {
             return GwentMap.CardMapVersion.ToString();
         }
+        public string GetTrinketMapVersion() // get the version of the Trinket Map to decide if it needs an update
+        {
+            return TrinketMap.TrinketMapVersion.ToString();
+        }
 
         public string GetCardMap() => _gwentServerService.GetCardMap();
+        public string GetAvatarMap() => _gwentServerService.GetAvatarMap(); // retreive avatar info from server
+        public string GetBorderMap() => _gwentServerService.GetBorderMap(); // retreive border info from server
+        public string GetTitleMap() => _gwentServerService.GetTitleMap(); // retreive title info from server
         public string GetGameLocales() => _gwentServerService.GetGameLocales();
 
         public async Task<string> GetLatestVersion() => await _gwentServerService.GetLatestVersion(Context.ConnectionId);

@@ -4,6 +4,8 @@ using System.Linq;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Cynthia.Card;
+
 
 namespace Cynthia.Card.Server
 {
@@ -74,8 +76,14 @@ namespace Cynthia.Card.Server
                 return false;
             }
             var decks = new List<DeckModel>();
+            var ownedavatars = new List<string>();
+            ownedavatars.Add("GeraltOfRivia");
+            var ownedborders = new List<string>();
+            ownedborders.Add("NoBorder");
+            var ownedtitles = new List<string>();
+            ownedtitles.Add("NoBorder");
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR });
+            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
             return true;
         }
         public UserInfo Login(string username, string password)
@@ -98,6 +106,97 @@ namespace Cynthia.Card.Server
                 user[0].HighestMMR = MMR;
             }
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+            return true;
+        }
+        // add an avatar to the user's owned avatars
+        public bool AddAvatar(string username, string AvatarID)
+        {
+            // add safeguard check if AvatarID exists before adding
+            if (!TrinketMap.GetAvatarsId().Any(x => x == AvatarID)) {return false;}
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();
+            if (user[0].OwnedAvatars == null)
+            {
+                user[0].OwnedAvatars = new List<string>();
+            }
+            if (!user[0].OwnedAvatars.Any(x => x == AvatarID))
+            {
+                user[0].OwnedAvatars.Add(AvatarID);
+                temp.ReplaceOne(x => x.UserName == username, user[0]);
+            }
+            return true;
+        }
+        // add a border to the user's owned borders
+        public bool AddBorder(string username, string BorderID)
+        {
+            // check if BorderID exists before adding
+            if (!TrinketMap.GetBordersId().Any(x => x == BorderID)) {return false;}
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();
+            if (user[0].OwnedBorders == null)
+            {
+                user[0].OwnedBorders = new List<string>();
+            }
+            if (!user[0].OwnedBorders.Any(x => x == BorderID))
+            {   
+                user[0].OwnedBorders.Add(BorderID);
+                temp.ReplaceOne(x => x.UserName == username, user[0]);
+            }
+            return true;
+        }
+
+        public bool AddTitle(string username, string TitleID)
+        {
+            // check if TitleID exists before adding
+            if (!TrinketMap.GetTitlesId().Any(x => x == TitleID)) {return false;}
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();
+            if (user[0].OwnedTitles == null)
+            {
+                user[0].OwnedTitles = new List<string>();
+            }
+            if (!user[0].OwnedTitles.Any(x => x == TitleID))
+            {   
+                user[0].OwnedTitles.Add(TitleID);
+                temp.ReplaceOne(x => x.UserName == username, user[0]);
+            }
+            return true;
+        }
+
+        public bool UpdateAvatar(string playername, string AvatarID) // Set the avatar of the user
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            if (user.Length == 0)
+            {
+                return false;
+            }
+            user[0].CurrentAvatar = AvatarID;
+            temp.ReplaceOne(x => x.UserName == playername, user[0]);
+            return true;
+        }
+        public bool UpdateBorder(string playername, string BorderID) // Set the border of the user
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            if (user.Length == 0)
+            {
+                return false;
+            }
+            user[0].CurrentBorder = BorderID;
+            temp.ReplaceOne(x => x.UserName == playername, user[0]);
+            return true;
+        }
+        public bool UpdateTitle(string playername, string TitleID) // Set the title of the user
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            if (user.Length == 0)
+            {
+                return false;
+            }
+            user[0].CurrentTitle = TitleID;
+            temp.ReplaceOne(x => x.UserName == playername, user[0]);
             return true;
         }
         public int QueryMMR(string playername)//计算玩家天梯分数

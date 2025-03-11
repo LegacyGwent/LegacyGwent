@@ -11,6 +11,12 @@ namespace Cynthia.Card.Server
         public BlacklistModel Blacklist { get; set; }
         public ClientPlayer CurrentPlayer { get; set; }
         public UserState UserState { get; set; }
+        public string CurrentAvatar { get; set; }
+        public string CurrentBorder { get; set; }
+        public string CurrentTitle { get; set; }
+        public IList<string> OwnedAvatars { get; set; }
+        public IList<string> OwnedBorders { get; set; }
+        public IList<string> OwnedTitles { get; set; }
         public User(string userName, string connectionId, UserState userState = UserState.Standby)
         {
             UserName = userName;

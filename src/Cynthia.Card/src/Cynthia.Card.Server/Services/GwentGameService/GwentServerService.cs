@@ -47,6 +47,13 @@ namespace Cynthia.Card.Server
             _gwentLocalizationService = gwentLocalizationService;
         }
 
+
+        public async Task<UserInfo> QueryUserInfo(string username, string password)
+        {
+            var loginUser = _databaseService.Login(username, password);
+            return loginUser;
+        }
+
         public async Task<UserInfo> Login(User user, string password)
         {
             //判断用户名与密码
@@ -66,7 +73,35 @@ namespace Cynthia.Card.Server
                 user.PlayerName = loginUser.PlayerName;
                 user.Decks = loginUser.Decks;
                 user.Blacklist = loginUser.Blacklist;
+                user.CurrentAvatar = loginUser.CurrentAvatar;
+                user.CurrentBorder = loginUser.CurrentBorder;
+                user.CurrentTitle = loginUser.CurrentTitle;
+                user.OwnedAvatars = loginUser.OwnedAvatars;
+                user.OwnedBorders = loginUser.OwnedBorders;
+                user.OwnedTitles = loginUser.OwnedTitles;
                 _users.Add(user.ConnectionId, user);
+                // give all default avatars
+                AddAvatar(user.UserName, "NoAvatar");
+                AddAvatar(user.UserName, "GeraltOfRivia");
+                AddAvatar(user.UserName, "TrissMerigold");
+                AddAvatar(user.UserName, "Yennefer");
+                // give all default borders
+                AddBorder(user.UserName, "NoBorder");
+                // give all default titles
+                AddTitle(user.UserName, "CARDSMITH");
+                if (user.CurrentBorder == null)
+                {
+                    UpdateBorder(user.UserName, "NoBorder");
+                }
+                if (user.CurrentAvatar == null)
+                {
+                    UpdateAvatar(user.UserName, "NoAvatar");
+                }
+                // if no title is set, set the Cardsmith avatar
+                if (user.CurrentTitle == null)
+                {
+                    UpdateTitle(user.UserName, "CARDSMITH");
+                }
                 InovkeUserChanged();
             }
             return loginUser;
@@ -88,6 +123,9 @@ namespace Cynthia.Card.Server
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
                 player.Deck = user.Decks.Single(x => x.Id == deckId);
+                player.CurrentAvatar = user.CurrentAvatar;
+                player.CurrentBorder = user.CurrentBorder;
+                player.CurrentTitle = user.CurrentTitle;
                 if (usingBlacklist == 1)
                     player.Blacklist = user.Blacklist;
                 else
@@ -102,6 +140,81 @@ namespace Cynthia.Card.Server
             //玩家未在线,失败
             return false;
         }
+        public async Task<bool> UpdateAvatar(string playername, string AvatarID) // updates the avatar of the user
+        {
+        var connectionId = _users.Single(x => x.Value.UserName == playername).Value.ConnectionId;
+        if (!_users.ContainsKey(connectionId))
+        {
+            return true;
+        }
+        var user = _users[connectionId];
+        _databaseService.UpdateAvatar(_users[connectionId].UserName, AvatarID);
+        user.CurrentAvatar = AvatarID;
+        return true;
+        }
+
+        // adds an avatar to the list of owned avatars of a user
+        public async Task<bool> AddAvatar(string username, string AvatarID)
+        {
+        var connectionId = _users.Single(x => x.Value.UserName == username).Value.ConnectionId;
+        if (!_users.ContainsKey(connectionId))
+            {
+                return false;
+            }
+        _databaseService.AddAvatar(_users[connectionId].UserName, AvatarID);
+        return true;
+        }
+        // updates the border of the user
+        public async Task<bool> UpdateBorder(string playername, string BorderID) 
+        {
+        var connectionId = _users.Single(x => x.Value.UserName == playername).Value.ConnectionId;
+        if (!_users.ContainsKey(connectionId))
+        {
+            return true;
+        }
+        var user = _users[connectionId];
+        _databaseService.UpdateBorder(_users[connectionId].UserName, BorderID);
+        user.CurrentBorder = BorderID;
+        return true;
+        }
+        // updates the title of the user
+        public async Task<bool> UpdateTitle(string playername, string TitleID) 
+        {
+        var connectionId = _users.Single(x => x.Value.UserName == playername).Value.ConnectionId;
+        if (!_users.ContainsKey(connectionId))
+        {
+            return true;
+        }
+        var user = _users[connectionId];
+        _databaseService.UpdateTitle(_users[connectionId].UserName, TitleID);
+        user.CurrentTitle = TitleID;
+        return true;
+        }
+
+        // adds a border to the list of owned borders of a user
+        public async Task<bool> AddBorder(string username, string BorderID)
+        {
+        var connectionId = _users.Single(x => x.Value.UserName == username).Value.ConnectionId;
+        if (!_users.ContainsKey(connectionId))
+            {
+                return false;
+            }
+        _databaseService.AddBorder(_users[connectionId].UserName, BorderID);
+        return true;
+        }
+
+        // adds a title to the list of owned titles of a user
+        public async Task<bool> AddTitle(string username, string TitleID)
+        {
+        var connectionId = _users.Single(x => x.Value.UserName == username).Value.ConnectionId;
+        if (!_users.ContainsKey(connectionId))
+            {
+                return false;
+            }
+        _databaseService.AddTitle(_users[connectionId].UserName, TitleID);
+        return true;
+        }
+
         public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
         {
             if (_users.Any(x => x.Value.UserName == EnemyName))
@@ -111,6 +224,16 @@ namespace Cynthia.Card.Server
                 return false;
             }
             return false;
+        }
+        public async Task<bool> SendTaunt(string EnemyName, string TauntID) // 
+        {
+            var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
+            if (!_users.ContainsKey(connectionId))
+            {
+                return false;
+            }
+            await _hub.Clients.Client(connectionId).SendAsync("PlayTaunt", TauntID);
+            return true;
         }
         public async Task<bool> StopMatch(string connectionId)
         {
@@ -519,6 +642,38 @@ may come back in the future.
 
         public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
 
+        public void MMRTrinkets(string PlayerName, int mymmr) // add trinkets when a certain MMR is reached
+        {
+            string rank = null; 
+                switch (mymmr) 
+                {
+                    case int i when i < 3500:
+                        break;
+                    case int i when i >= 3500 && i < 3650:
+                        rank = "Rank3Border";
+                        break;                        
+                    case int i when i >= 3650 && i < 3800:
+                        rank = "Rank6Border";
+                        break;
+                    case int i when i >= 3800 && i < 3950:
+                        rank = "Rank9Border";
+                        break;
+                    case int i when i >= 3950 && i < 4100:
+                        rank = "Rank12Border";
+                        break;
+                    case int i when i >= 4100 && i < 4250:
+                        rank = "Rank15Border";
+                        break;
+                    case int i when i >= 4250 && i < 4400:
+                        rank = "Rank18Border";
+                        break;
+                    default:
+                        rank = "Rank21border";
+                        break;
+                }
+                AddBorder(PlayerName, rank);
+        }
+        
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
             // if (_env.IsProduction())
@@ -544,6 +699,11 @@ may come back in the future.
                     result.RedPlayerGameResultStatus == GameStatus.Draw);
                 _databaseService.UpdateMMR(result.RedPlayerName, Math.Max(RedMMR, 0));
                 _databaseService.UpdateMMR(result.BluePlayerName, Math.Max(BlueMMR, 0));
+
+                // add trinkets when a certain MMR is reached
+                MMRTrinkets(result.RedPlayerName, RedMMR);
+                MMRTrinkets(result.BluePlayerName, BlueMMR);
+                //
             }
             lock (ResultList)
             {
@@ -643,6 +803,18 @@ may come back in the future.
         public string GetCardMap()
         {
             return _gwentCardDataService.GetCardMap();
+        }
+        public string GetAvatarMap()
+        {
+            return _gwentCardDataService.GetAvatarMap();
+        }
+        public string GetTitleMap()
+        {
+            return _gwentCardDataService.GetTitleMap();
+        }
+        public string GetBorderMap()
+        {
+            return _gwentCardDataService.GetBorderMap();
         }
 
         public string GetGameLocales()

@@ -29,6 +29,9 @@ namespace Cynthia.Card.Client
         public HubConnection HubConnection { get; set; }
         public LocalPlayer Player { get; set; }
         public UserInfo User { get; set; }
+        public UserInfo Avatars { get; set; }
+        public UserInfo Borders { get; set; }
+        public UserInfo Titles { get; set; }
         public bool IsAutoPlay { get; set; } = false;
         private GlobalUIService _globalUIService;
         private ITubeInlet sender;/*待修改*/
@@ -43,6 +46,10 @@ namespace Cynthia.Card.Client
         {
             return receiver.ReceiveAsync<bool>();
         }
+        public Task<string> PlayTaunt()
+        {
+            return receiver.ReceiveAsync<string>();
+        }
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
         {
@@ -54,6 +61,11 @@ namespace Cynthia.Card.Client
 
             var hubConnection = container.ResolveNamed<HubConnection>("game");
             Debug.Log(hubConnection);
+            hubConnection.On<string>("PlayTaunt", async x =>
+            {
+                // (sender, receiver) = Tube.CreateSimplex();
+                await sender.SendAsync<string>(x);
+            });
             hubConnection.On<bool>("MatchResult", async x =>
             {
                 await sender.SendAsync<bool>(x);
@@ -133,15 +145,46 @@ namespace Cynthia.Card.Client
             Debug.Log($"成功获取CardMap版本号:{version}");
             return version;
         }
+        public async Task<string> GetTrinketMapVersion() // get the version of the Trinket Map to decide if it needs an update
+        {
+            Debug.Log("getting trinket map version");
+            var version = await HubConnection.InvokeAsync<string>("GetTrinketMapVersion");
+            Debug.Log($"the version is:{version}");
+            return version;
+        }
 
         public async Task AutoUpdateGame(Text infoText)
         {
             var clientVersion = new Version(GwentMap.CardMapVersion.ToString());
+            var clientTrinketMapVersion = new Version(TrinketMap.TrinketMapVersion.ToString());
+            Debug.Log($"the client trinket map version is {TrinketMap.TrinketMapVersion.ToString()}");
             Debug.Log($"the client version is {GwentMap.CardMapVersion.ToString()}");
             var localesWereLastUpdatedTo = new Version(PlayerPrefs.GetString("LocalizationVersion", GwentMap.CardMapVersion.ToString()));
             var serverVersion = new Version(await GetCardMapVersion());
             Debug.Log($"the server version is {serverVersion}");
-
+            // If the client is outdated, load cosmetics information from the server
+            var severTrinketMapVersion = new Version(await GetTrinketMapVersion());
+            try
+            {
+                if (clientTrinketMapVersion != severTrinketMapVersion)
+                {
+                    infoText.text = "loading trinkets information";
+                    var loadedAvatarMap = JsonConvert.DeserializeObject<Dictionary<string, TrinketAvatar>>(await GetAvatarMap());
+                    TrinketMap.AvatarMap = loadedAvatarMap;
+                    TrinketMap.InitializeAvatarMap();
+                    var loadedBorderMap = JsonConvert.DeserializeObject<Dictionary<string, Border>>(await GetBorderMap());
+                    TrinketMap.BorderMap = loadedBorderMap;
+                    TrinketMap.InitializeBorderMap();
+                    var loadedTitleMap = JsonConvert.DeserializeObject<Dictionary<string, Title>>(await GetTitleMap());
+                    TrinketMap.TitleMap = loadedTitleMap;
+                    TrinketMap.InitializeTitleMap();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Error loading cosmetics: {e.Message}");
+                infoText.text = string.Format(_translator.GetText("LoginMenu_UpdateError"), e.Message);
+            }
             infoText.text = _translator.GetText("LoginMenu_CardDataCheck");
             var fileHandler = new TextLocalizationFileHandler("Locales");
             try
@@ -187,6 +230,18 @@ namespace Cynthia.Card.Client
         public Task<string> GetCardMap()
         {
             return HubConnection.InvokeAsync<string>("GetCardMap");
+        }
+        public Task<string> GetAvatarMap()
+        {
+            return HubConnection.InvokeAsync<string>("GetAvatarMap");
+        }
+        public Task<string> GetBorderMap()
+        {
+            return HubConnection.InvokeAsync<string>("GetBorderMap");
+        }
+        public Task<string> GetTitleMap()
+        {
+            return HubConnection.InvokeAsync<string>("GetTitleMap");
         }
         // Player Count 
         public async Task<int> GetUserCount()
@@ -259,6 +314,13 @@ namespace Cynthia.Card.Client
                 Player.PlayerName = User.PlayerName;
             return User;
         }
+        // get the version of the Trinket Map to decide if it needs an update
+        public async Task<UserInfo> QueryUserInfo(string username, string password)
+        {
+            
+            User = await HubConnection.InvokeAsync<UserInfo>("QueryUserInfo", username, password);
+            return User;
+        }
         //开始匹配与停止匹配
         public Task<bool> NewMatchOfPassword(string deckId, string password, int usingBlacklist)
         {
@@ -268,7 +330,18 @@ namespace Cynthia.Card.Client
         public Task<bool> SendGG(string myname, string enemyname)
         {
             return HubConnection.InvokeAsync<bool>("SendGG", myname, enemyname);
-        }        
+        }
+        public Task<bool> SendTaunt(string enemyName, string tauntid)
+        {
+            return HubConnection.InvokeAsync<bool>("SendTaunt", enemyName, tauntid);
+        }
+        // Set the current Avatar of the User
+        public Task<bool> UpdateAvatar(string playername, string AvatarID) => HubConnection.InvokeAsync<bool>("UpdateAvatar", playername, AvatarID);        
+        // Set the current Border of the User
+        public Task<bool> UpdateBorder(string playername, string BorderID) => HubConnection.InvokeAsync<bool>("UpdateBorder", playername, BorderID);
+        // Set the current Title of the User
+        public Task<bool> UpdateTitle(string playername, string TitleID) => HubConnection.InvokeAsync<bool>("UpdateTitle", playername, TitleID);
+        //
         public Task<bool> StopMatch()
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");

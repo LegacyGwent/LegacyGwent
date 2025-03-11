@@ -11,6 +11,12 @@ namespace Cynthia.Card.Server
         private IDictionary<string, Type> _idDictionary;
 
         private string _cardMapData;
+        private string _avatarMapData; // stores the data for the avatar cosmetics
+        private string _borderMapData; // stores the data for the border cosmetics
+        private string _titleMapData; // stores the data for the titles cosmetics
+        private string avatarMapString;
+        private string cardMapString;
+        private string titleMapString;
 
         public GwentCardDataService()
         {
@@ -28,11 +34,29 @@ namespace Cynthia.Card.Server
 
             var cardMapString = JsonConvert.SerializeObject(GwentMap.CardMap);
             _cardMapData = cardMapString;
+            var avatarMapString = JsonConvert.SerializeObject(TrinketMap.AvatarMap);
+            _avatarMapData = avatarMapString;
+            var boderMapString = JsonConvert.SerializeObject(TrinketMap.BorderMap);
+            _borderMapData = cardMapString;
+            var titleMapString = JsonConvert.SerializeObject(TrinketMap.TitleMap);
+            _titleMapData = titleMapString;
         }
 
         public string GetCardMap()
         {
             return _cardMapData;
+        }
+        public string GetAvatarMap()
+        {
+            return _avatarMapData;
+        }
+        public string GetBorderMap()
+        {
+            return _borderMapData;
+        }
+        public string GetTitleMap()
+        {
+            return _titleMapData;
         }
 
         public Type GetType(string effectId)

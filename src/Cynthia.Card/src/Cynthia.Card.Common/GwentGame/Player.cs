@@ -9,6 +9,9 @@ namespace Cynthia.Card
     public abstract class Player
     {
         public string PlayerName { get; set; }//玩家名
+        public string CurrentAvatar { get; set; } // the avatar cosmetic of the Player
+        public string CurrentBorder { get; set; } // the border cosmetic of the Player
+        public string CurrentTitle { get; set; } // the title cosmetic of the Player
         public DeckModel Deck { get; set; }//所用卡组
         public BlacklistModel Blacklist { get; set; }
         protected ITubeEndPoint _upstream;

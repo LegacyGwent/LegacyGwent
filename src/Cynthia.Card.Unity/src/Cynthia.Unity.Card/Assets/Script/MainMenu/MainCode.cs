@@ -50,7 +50,12 @@ public class MainCode : MonoBehaviour
             }
             //DoMatchButton.onClick.Invoke();
         }
+        UpdateUserInfo();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+    }
+    private async void UpdateUserInfo()
+    {
+       _client.User = await _client.QueryUserInfo(_client.User.UserName, _client.User.PassWord);
     }
     void Awake()
     {

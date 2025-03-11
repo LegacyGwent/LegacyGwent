@@ -16,6 +16,9 @@ namespace Cynthia.Card.Server
         public ClientPlayer(User user, Func<IHubContext<GwentHub>> hub) : base()
         {
             PlayerName = user.PlayerName;
+            CurrentAvatar = user.CurrentAvatar;
+            CurrentBorder = user.CurrentBorder;
+            CurrentTitle = user.CurrentTitle;
             CurrentUser = user;
             _hub = hub;
             Receive += async x =>

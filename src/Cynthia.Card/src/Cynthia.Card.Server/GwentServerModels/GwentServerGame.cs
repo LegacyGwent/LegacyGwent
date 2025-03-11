@@ -1089,6 +1089,12 @@ namespace Cynthia.Card.Server
                 EnemyWinCount = PlayersWinCount[enemyPlayerIndex],
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
                 MyName = Players[myPlayerIndex].PlayerName,
+                MyAvatar = Players[myPlayerIndex].CurrentAvatar, 
+                EnemyAvatar = Players[enemyPlayerIndex].CurrentAvatar,
+                MyBorder = Players[myPlayerIndex].CurrentBorder,
+                EnemyBorder = Players[enemyPlayerIndex].CurrentBorder,
+                MyTitle = Players[myPlayerIndex].CurrentTitle,
+                EnemyTitle = Players[enemyPlayerIndex].CurrentTitle,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
                 MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),
@@ -1184,8 +1190,14 @@ namespace Cynthia.Card.Server
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
             return new GameInfomation()
             {
-                EnemyName = Players[enemyPlayerIndex].PlayerName,
-                MyName = Players[myPlayerIndex].PlayerName
+                EnemyName = Players[enemyPlayerIndex].PlayerName, 
+                MyName = Players[myPlayerIndex].PlayerName,
+                EnemyAvatar = Players[enemyPlayerIndex].CurrentAvatar,
+                MyAvatar = Players[myPlayerIndex].CurrentAvatar,
+                EnemyBorder = Players[enemyPlayerIndex].CurrentBorder,
+                MyBorder = Players[myPlayerIndex].CurrentBorder,
+                EnemyTitle = Players[enemyPlayerIndex].CurrentTitle,
+                MyTitle = Players[myPlayerIndex].CurrentTitle,
             };
         }
 
@@ -1194,6 +1206,14 @@ namespace Cynthia.Card.Server
         {
             var myPlayerIndex = (player == TwoPlayer.Player1 ? Player1Index : Player2Index);
             var enemyPlayerIndex = (player == TwoPlayer.Player1 ? Player2Index : Player1Index);
+            Console.WriteLine("Getallinfo");
+            // if a player has no avatar, title or border, display the default ones to avoid errors
+            if (Players[enemyPlayerIndex].CurrentAvatar == null) {Players[enemyPlayerIndex].CurrentAvatar = "NoAvatar";}
+            if (Players[myPlayerIndex].CurrentAvatar == null) {Players[myPlayerIndex].CurrentAvatar = "NoAvatar";}
+            if (Players[myPlayerIndex].CurrentBorder == null) {Players[myPlayerIndex].CurrentBorder = "NoBorder";}
+            if (Players[enemyPlayerIndex].CurrentBorder == null) {Players[enemyPlayerIndex].CurrentBorder = "NoBorder";}
+            if (Players[myPlayerIndex].CurrentTitle == null) {Players[myPlayerIndex].CurrentTitle = "CARDSMITH";}
+            if (Players[enemyPlayerIndex].CurrentTitle == null) {Players[enemyPlayerIndex].CurrentTitle = "CARDSMITH";}
             var result = new GameInfomation()
             {
                 MyRow1Point = PlayersPlace[myPlayerIndex][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
@@ -1212,6 +1232,12 @@ namespace Cynthia.Card.Server
                 EnemyLeader = PlayersLeader[enemyPlayerIndex][0].Status,
                 EnemyName = Players[enemyPlayerIndex].PlayerName,
                 MyName = Players[myPlayerIndex].PlayerName,
+                EnemyAvatar = Players[enemyPlayerIndex].CurrentAvatar,
+                MyAvatar = Players[myPlayerIndex].CurrentAvatar,
+                MyBorder = Players[myPlayerIndex].CurrentBorder,
+                EnemyBorder= Players[enemyPlayerIndex].CurrentBorder,
+                MyTitle = Players[myPlayerIndex].CurrentTitle,
+                EnemyTitle = Players[enemyPlayerIndex].CurrentTitle,
                 MyDeckCount = PlayersDeck[myPlayerIndex].Count(),
                 EnemyDeckCount = PlayersDeck[enemyPlayerIndex].Count(),
                 MyHandCount = PlayersHandCard[myPlayerIndex].Count() + (IsPlayersLeader[myPlayerIndex] ? 1 : 0),

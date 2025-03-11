@@ -23,6 +23,12 @@ namespace Cynthia.Card
         public IList<CardStatus> EnemyLeader { get; set; } = new List<CardStatus>();//敌方领袖是?
         public string EnemyName { get; set; }//对手名称
         public string MyName { get; set; }//对手名称
+        public string MyAvatar { get; set; } // My Avatar Cosmetic
+        public string EnemyAvatar { get; set; } // The ennemy's  Avatar Cosmetic
+        public string MyBorder { get; set; } // My Border Cosmetic
+        public string EnemyBorder { get; set; } // The ennemy's Border Cosmetic
+        public string MyTitle { get; set; } // My Title Cosmetic
+        public string EnemyTitle { get; set; } // The ennemy's Title Cosmetic
         public int MyHandCount { get; set; }//我方手牌数量
         public int EnemyHandCount { get; set; }//敌方手牌数量
         public int MyCemeteryCount { get; set; }//我方墓地数量
@@ -146,6 +152,12 @@ namespace Cynthia.Card
             EnemyWinCount = gameInfomation.EnemyWinCount;
             EnemyName = gameInfomation.EnemyName;
             MyName = gameInfomation.MyName;
+            MyAvatar = gameInfomation.MyAvatar;
+            EnemyAvatar = gameInfomation.EnemyAvatar;
+            MyBorder = gameInfomation.MyBorder;
+            EnemyBorder = gameInfomation.EnemyBorder;
+            MyTitle = gameInfomation.MyTitle;
+            EnemyTitle = gameInfomation.EnemyTitle;
             MyDeckCount = gameInfomation.MyDeckCount;
             EnemyDeckCount = gameInfomation.EnemyDeckCount;
             MyHandCount = gameInfomation.MyHandCount;
@@ -204,6 +216,12 @@ namespace Cynthia.Card
         {
             MyName = gameInfomation.MyName;
             EnemyName = gameInfomation.EnemyName;
+            MyAvatar = gameInfomation.MyAvatar;
+            EnemyAvatar = gameInfomation.EnemyAvatar;
+            MyBorder = gameInfomation.MyBorder;
+            EnemyBorder = gameInfomation.EnemyBorder;
+            MyTitle = gameInfomation.MyTitle;
+            EnemyTitle = gameInfomation.EnemyTitle;
         }
         //-------------------------------------------------------------------------------------------
         public void CardMove(MoveCardInfo info)//卡牌移动
