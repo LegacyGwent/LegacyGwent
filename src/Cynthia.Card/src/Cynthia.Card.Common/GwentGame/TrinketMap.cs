@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 0);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 1);
         public static IDictionary<string, int> AvatarIdMap { get; set; }
         public static string[] AvatarIdIndexMap { get; set; }
         public static IDictionary<string, int> BorderIdMap { get; set; }
@@ -992,6 +992,96 @@ namespace Cynthia.Card
                     ID = "JOURNEYMAN",
                     IsReleased = true,
                     TitleColor = "white",
+                }
+            },
+            { 
+                "ADEPT",
+                new Title()
+                {
+                    ID = "ADEPT",
+                    IsReleased = true,
+                    TitleColor = "white",
+                }
+            },
+            { 
+                "CARDSHARP",
+                new Title()
+                {
+                    ID = "CARDSHARP",
+                    IsReleased = true,
+                    TitleColor = "white",
+                }
+            },
+            { 
+                "MASTER",
+                new Title()
+                {
+                    ID = "MASTER",
+                    IsReleased = true,
+                    TitleColor = "white",
+                }
+            },
+            { 
+                "GRANDMASTER",
+                new Title()
+                {
+                    ID = "GRANDMASTER",
+                    IsReleased = true,
+                    TitleColor = "white",
+                }
+            },
+            { 
+                "MAN-AT-ARMS",
+                new Title()
+                {
+                    ID = "MAN-AT-ARMS",
+                    IsReleased = true,
+                    TitleColor = "darkyellow",
+                }
+            },
+            { 
+                "MERCENARY",
+                new Title()
+                {
+                    ID = "MERCENARY",
+                    IsReleased = true,
+                    TitleColor = "darkyellow",
+                }
+            },
+            { 
+                "BOUNTYHUNTER",
+                new Title()
+                {
+                    ID = "BOUNTY HUNTER",
+                    IsReleased = true,
+                    TitleColor = "darkyellow",
+                }
+            },
+            { 
+                "VETERAN",
+                new Title()
+                {
+                    ID = "VETERAN",
+                    IsReleased = true,
+                    TitleColor = "darkyellow",
+                }
+            },
+                        { 
+                "CHAMPION",
+                new Title()
+                {
+                    ID = "CHAMPION",
+                    IsReleased = true,
+                    TitleColor = "darkyellow",
+                }
+            },
+            { 
+                "HERO",
+                new Title()
+                {
+                    ID = "HERO",
+                    IsReleased = true,
+                    TitleColor = "darkyellow",
                 }
             },
         };
