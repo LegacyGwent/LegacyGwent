@@ -81,30 +81,30 @@ namespace Cynthia.Card.Server
                 user.OwnedTitles = loginUser.OwnedTitles;
                 _users.Add(user.ConnectionId, user);
                 // give all default avatars
-                AddAvatar(user.UserName, "NoAvatar");
-                AddAvatar(user.UserName, "GeraltOfRivia");
-                AddAvatar(user.UserName, "TrissMerigold");
-                AddAvatar(user.UserName, "Yennefer");
+                await AddAvatar(user.UserName, "NoAvatar");
+                await AddAvatar(user.UserName, "GeraltOfRivia");
+                await AddAvatar(user.UserName, "TrissMerigold");
+                await AddAvatar(user.UserName, "Yennefer");
                 // give the seasonal avatars - delete section after season
-                AddAvatar(user.UserName, "ClassicGeralt");
+                await AddAvatar(user.UserName, "ClassicGeralt");
                 // give all default borders
-                AddBorder(user.UserName, "NoBorder");
+                await AddBorder(user.UserName, "NoBorder");
                 // give all default titles
-                AddTitle(user.UserName, "CARDSMITH");
+                await AddTitle(user.UserName, "CARDSMITH");
                 // give the seasonal titles - delete section after season
-                AddTitle(user.UserName, "PIONEER");
+                await AddTitle(user.UserName, "PIONEER");
                 if (user.CurrentBorder == null)
                 {
-                    UpdateBorder(user.UserName, "NoBorder");
+                    await UpdateBorder(user.UserName, "NoBorder");
                 }
                 if (user.CurrentAvatar == null)
                 {
-                    UpdateAvatar(user.UserName, "NoAvatar");
+                    await UpdateAvatar(user.UserName, "NoAvatar");
                 }
                 // if no title is set, set the Cardsmith avatar
                 if (user.CurrentTitle == null)
                 {
-                    UpdateTitle(user.UserName, "CARDSMITH");
+                   await UpdateTitle(user.UserName, "CARDSMITH");
                 }
                 InovkeUserChanged();
             }
@@ -646,7 +646,7 @@ may come back in the future.
 
         public IList<GameResult> ResultList { get; private set; } = new List<GameResult>();
 
-        public void MMRTrinkets(string PlayerName, int mymmr) // add trinkets when a certain MMR is reached
+        public async void MMRTrinkets(string PlayerName, int mymmr) // add trinkets when a certain MMR is reached
         {
             string rank = null; 
             string ranktitle = null;
@@ -686,9 +686,9 @@ may come back in the future.
                         ranktitle = "GRANDMASTER";
                         break;
                 }
-                AddBorder(PlayerName, rank);
-                AddTitle(PlayerName, ranktitle);
-                AddAvatar(PlayerName, rankavatar);
+                await AddBorder(PlayerName, rank);
+                await AddTitle(PlayerName, ranktitle);
+                await AddAvatar(PlayerName, rankavatar);
         }
         
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
