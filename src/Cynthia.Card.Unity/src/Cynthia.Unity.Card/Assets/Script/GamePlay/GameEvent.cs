@@ -442,11 +442,11 @@ public class GameEvent : MonoBehaviour
     //右键点击之类的
     private void OnMouseOver()
     {
-// #if UNITY_ANDROID || UNITY_IOS
-//         if (Input.GetMouseButtonDown(0))
-// #else
-//         if (Input.GetMouseButtonDown(1))
-// #endif
+#if UNITY_ANDROID || UNITY_IOS
+        if (Input.GetMouseButtonDown(0))
+#else
+        if (Input.GetMouseButtonDown(1))
+ #endif
         {
             if (!RighClickActive)
             {
