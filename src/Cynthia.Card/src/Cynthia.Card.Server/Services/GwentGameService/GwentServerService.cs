@@ -650,7 +650,7 @@ may come back in the future.
         {
             string rank = null; 
             string ranktitle = null;
-            string rankavatar; // for seasonal avatars
+            string rankavatar = null; // for seasonal avatars
                 switch (mymmr) 
                 {
                     case int i when i < 3500:
@@ -674,7 +674,7 @@ may come back in the future.
                         break;
                     case int i when i >= 4100 && i < 4250:
                         rank = "Rank15Border";
-                        title = "CARDSHARP";
+                        ranktitle = "CARDSHARP";
                         break;
                     case int i when i >= 4250 && i < 4400:
                         rank = "Rank18Border";
@@ -687,8 +687,8 @@ may come back in the future.
                         break;
                 }
                 AddBorder(PlayerName, rank);
-                AddTitle(Playername, ranktitle);
-                AddAvatar(Playername, rankavatar);
+                AddTitle(PlayerName, ranktitle);
+                AddAvatar(PlayerName, rankavatar);
         }
         
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
