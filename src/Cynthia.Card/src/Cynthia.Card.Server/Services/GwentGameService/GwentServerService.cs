@@ -85,10 +85,14 @@ namespace Cynthia.Card.Server
                 AddAvatar(user.UserName, "GeraltOfRivia");
                 AddAvatar(user.UserName, "TrissMerigold");
                 AddAvatar(user.UserName, "Yennefer");
+                // give the seasonal avatars - delete section after season
+                AddAvatar(user.UserName, "ClassicGeralt");
                 // give all default borders
                 AddBorder(user.UserName, "NoBorder");
                 // give all default titles
                 AddTitle(user.UserName, "CARDSMITH");
+                // give the seasonal titles - delete section after season
+                AddTitle(user.UserName, "PIONEER");
                 if (user.CurrentBorder == null)
                 {
                     UpdateBorder(user.UserName, "NoBorder");
@@ -645,33 +649,46 @@ may come back in the future.
         public void MMRTrinkets(string PlayerName, int mymmr) // add trinkets when a certain MMR is reached
         {
             string rank = null; 
+            string ranktitle = null;
+            string rankavatar; // for seasonal avatars
                 switch (mymmr) 
                 {
                     case int i when i < 3500:
                         break;
                     case int i when i >= 3500 && i < 3650:
                         rank = "Rank3Border";
+                        ranktitle = "NOVICE";
                         break;                        
                     case int i when i >= 3650 && i < 3800:
                         rank = "Rank6Border";
+                        ranktitle = "APPRENTICE";
                         break;
                     case int i when i >= 3800 && i < 3950:
                         rank = "Rank9Border";
+                        ranktitle = "JOURNEYMAN";
                         break;
                     case int i when i >= 3950 && i < 4100:
                         rank = "Rank12Border";
+                        ranktitle = "ADEPT";
+                        rankavatar = "Dandelionthewitcher2"; // remove after season 1
                         break;
                     case int i when i >= 4100 && i < 4250:
                         rank = "Rank15Border";
+                        title = "CARDSHARP";
                         break;
                     case int i when i >= 4250 && i < 4400:
                         rank = "Rank18Border";
+                        rank = "MASTER";
+                        rankavatar = "TrissSorceress"; // remove after season 1
                         break;
                     default:
                         rank = "Rank21border";
+                        ranktitle = "GRANDMASTER";
                         break;
                 }
                 AddBorder(PlayerName, rank);
+                AddTitle(Playername, ranktitle);
+                AddAvatar(Playername, rankavatar);
         }
         
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)

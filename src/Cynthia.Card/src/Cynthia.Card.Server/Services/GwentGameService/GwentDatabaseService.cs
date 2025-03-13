@@ -111,7 +111,7 @@ namespace Cynthia.Card.Server
         // add an avatar to the user's owned avatars
         public bool AddAvatar(string username, string AvatarID)
         {
-            // add safeguard check if AvatarID exists before adding
+            //check if AvatarID exists before adding
             if (!TrinketMap.GetAvatarsId().Any(x => x == AvatarID)) {return false;}
             var temp = GetUserInfo();
             var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();

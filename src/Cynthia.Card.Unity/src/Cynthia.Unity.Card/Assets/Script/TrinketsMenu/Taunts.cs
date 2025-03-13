@@ -163,7 +163,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     public void TauntButtonClicked()
     {
-        if(IsTauntNotOnCoolDown)
+        if(IsTauntNotOnCoolDown && myavatar != "NoAvatar")
         {
             TauntUI.SetActive(true);
         }
