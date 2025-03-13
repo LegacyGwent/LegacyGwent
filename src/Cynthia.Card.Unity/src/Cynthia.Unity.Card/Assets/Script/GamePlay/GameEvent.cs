@@ -87,6 +87,8 @@ public class GameEvent : MonoBehaviour
     private GlobalUIService _uiService;
     public RopeController ropeController;
     public bool IsMobileClickDown = false;
+    private float pressTime = 0; // time pressed on mobile
+    private bool IsRightClickMobile = false;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -440,11 +442,11 @@ public class GameEvent : MonoBehaviour
     //右键点击之类的
     private void OnMouseOver()
     {
-#if UNITY_ANDROID || UNITY_IOS
-        if (Input.GetMouseButtonDown(0))
-#else
-        if (Input.GetMouseButtonDown(1))
-#endif
+// #if UNITY_ANDROID || UNITY_IOS
+//         if (Input.GetMouseButtonDown(0))
+// #else
+//         if (Input.GetMouseButtonDown(1))
+// #endif
         {
             if (!RighClickActive)
             {
@@ -468,12 +470,26 @@ public class GameEvent : MonoBehaviour
                         Debug.Log("右键点击了卡牌");
                         var card = trueitem.First();
                         Debug.Log("卡牌On?:" + card.GetComponent<CardMoveInfo>().IsOn);
-#if !UNITY_ANDROID && !UNITY_IOS
-                        RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
-                        if (!string.IsNullOrEmpty(RightClickedCardID))
-                        {
-                            RighClickActive = true;
-                            SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+#if !UNITY_ANDROID && !UNITY_IOS                           
+                            RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
+                            if (!string.IsNullOrEmpty(RightClickedCardID))
+                            {
+                                RighClickActive = true;
+                                SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+                            }
+#elif UNITY_ANDROID || UNITY_IOS
+                        if(IsRightClickMobile)
+                        {            
+                            RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
+                            if (!string.IsNullOrEmpty(RightClickedCardID))
+                            {
+                                DragCard = null;
+                                CurrentPlace = CardUseInfo.ReSet;
+                                CurrentPlayCard = null;
+                                ResetAllTem();
+                                RighClickActive = true;
+                                SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+                            }
                         }
 #endif
                         break;
@@ -491,6 +507,41 @@ public class GameEvent : MonoBehaviour
         {
             SendSurrender();
         }
+        #if UNITY_ANDROID || UNITY_IOS
+            if (Input.touchCount <= 0) return;
+    
+        var touch = Input.GetTouch(0);
+
+        switch(touch.phase)
+        {
+
+            case TouchPhase.Began:
+                pressTime = 0;
+                IsRightClickMobile = false;
+                break;
+            case TouchPhase.Stationary:
+                pressTime += Time.deltaTime;
+                if (pressTime > 0.75f && DropTaget == null)
+                {
+                    IsRightClickMobile = true;
+                    pressTime = 0;
+                }
+                break;
+            case TouchPhase.Moved:
+                pressTime = 0;
+                IsRightClickMobile = false;
+                
+                break;
+            case TouchPhase.Ended:
+                IsRightClickMobile = false;
+                pressTime = 0;
+                break;
+            case TouchPhase.Canceled:
+                IsRightClickMobile = false;
+                pressTime = 0;
+                break;
+        }
+        # endif
         var onObjects = GetMouseAllRaycast();//获取鼠标穿透的所有物体
         //画箭
         DrawArrows();

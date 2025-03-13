@@ -106,6 +106,9 @@ public class EditorInfo : MonoBehaviour
     public GameObject DeckCodeInputBackGround;
     public InputField DeckCodeInputName;
     public InputField DeckCodeInputCode;
+    // mobile right click
+    private float pressTime = 0;
+    private bool IsRightClickMobile = false;
     //------------------------------------------------
     private LocalizationService _translator;
 
@@ -469,7 +472,38 @@ public class EditorInfo : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+#if UNITY_ANDROID || UNITY_IOS
+        if (Input.touchCount <= 0) return;
+        var touch = Input.GetTouch(0);
+        switch(touch.phase)
+        {
+            case TouchPhase.Began:
+                pressTime = 0;
+                IsRightClickMobile = false;
+                break;
+            case TouchPhase.Stationary:
+                pressTime += Time.deltaTime;
+                if (pressTime > 1f)
+                {
+                    IsRightClickMobile = true;
+                    pressTime = 0;
+                }
+                break;
+            case TouchPhase.Moved:
+                pressTime = 0;
+                IsRightClickMobile = false;
+                break;
+            case TouchPhase.Ended:
+                IsRightClickMobile = false;
+                pressTime = 0;
+                break;
+            case TouchPhase.Canceled:
+                IsRightClickMobile = false;
+                pressTime = 0;
+                break;
+        }
+#endif
+        if (Input.GetMouseButtonDown(1) || IsRightClickMobile)
         {
             if (EditorArtCard.gameObject.activeSelf || ShowArtCard.gameObject.activeSelf)
             {
@@ -478,7 +512,7 @@ public class EditorInfo : MonoBehaviour
                 //RighClickActive=true;
                 SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
             }
-        }
+        }        
     }
             
     public void ClickSwitchUICard(CardStatus card)
