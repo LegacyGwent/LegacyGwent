@@ -147,7 +147,7 @@ namespace Cynthia.Card
                     Taunt4 = "Ciri4",
                     Taunt5 = "Ciri5",
                     Taunt6 = "Ciri6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -161,7 +161,7 @@ namespace Cynthia.Card
                     Taunt4 = "Dandelion4",
                     Taunt5 = "Dandelion5",
                     Taunt6 = "Dandelion6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -175,7 +175,7 @@ namespace Cynthia.Card
                     Taunt4 = "Zoltan4",
                     Taunt5 = "Zoltan5",
                     Taunt6 = "Zoltan6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -203,10 +203,10 @@ namespace Cynthia.Card
                     Taunt4 = "Roche4",
                     Taunt5 = "Roche5",
                     Taunt6 = "Roche6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
-                        {
+            {
                 "TrissSorceress",
                 new TrinketAvatar()
                 {
@@ -217,7 +217,7 @@ namespace Cynthia.Card
                     Taunt4 = "Triss4",
                     Taunt5 = "Triss5",
                     Taunt6 = "Triss6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -231,7 +231,7 @@ namespace Cynthia.Card
                     Taunt4 = "Regis4",
                     Taunt5 = "Regis5",
                     Taunt6 = "Regis6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -245,7 +245,7 @@ namespace Cynthia.Card
                     Taunt4 = "Radovid4",
                     Taunt5 = "Radovid5",
                     Taunt6 = "Radovid6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -259,7 +259,7 @@ namespace Cynthia.Card
                     Taunt4 = "Phoenix4",
                     Taunt5 = "Phoenix5",
                     Taunt6 = "Phoenix6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -273,7 +273,7 @@ namespace Cynthia.Card
                     Taunt4 = "Odrin4",
                     Taunt5 = "Odrin5",
                     Taunt6 = "Odrin6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -287,7 +287,7 @@ namespace Cynthia.Card
                     Taunt4 = "Letho4",
                     Taunt5 = "Letho5",
                     Taunt6 = "Letho6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -301,7 +301,7 @@ namespace Cynthia.Card
                     Taunt4 = "Bran4",
                     Taunt5 = "Bran5",
                     Taunt6 = "Bran6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -315,7 +315,7 @@ namespace Cynthia.Card
                     Taunt4 = "Iorveth4",
                     Taunt5 = "Iorveth5",
                     Taunt6 = "Iorveth6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -329,7 +329,7 @@ namespace Cynthia.Card
                     Taunt4 = "Iorveth4",
                     Taunt5 = "Iorveth5",
                     Taunt6 = "Iorveth6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -357,7 +357,7 @@ namespace Cynthia.Card
                     Taunt4 = "Imlerith4",
                     Taunt5 = "Imlerith5",
                     Taunt6 = "Imlerith6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -371,7 +371,7 @@ namespace Cynthia.Card
                     Taunt4 = "Geralt4",
                     Taunt5 = "Geralt5",
                     Taunt6 = "Geralt6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -385,7 +385,7 @@ namespace Cynthia.Card
                     Taunt4 = "Francesca4",
                     Taunt5 = "Francesca5",
                     Taunt6 = "Francesca6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -399,7 +399,7 @@ namespace Cynthia.Card
                     Taunt4 = "Eredin4",
                     Taunt5 = "Eredin5",
                     Taunt6 = "Eredin6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -413,7 +413,7 @@ namespace Cynthia.Card
                     Taunt4 = "Dandelion4",
                     Taunt5 = "Dandelion5",
                     Taunt6 = "Dandelion6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },            
             {
@@ -427,7 +427,7 @@ namespace Cynthia.Card
                     Taunt4 = "Dagon4",
                     Taunt5 = "Dagon5",
                     Taunt6 = "Dagon6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -455,7 +455,7 @@ namespace Cynthia.Card
                     Taunt4 = "Ciri4",
                     Taunt5 = "Ciri5",
                     Taunt6 = "Ciri6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -469,7 +469,7 @@ namespace Cynthia.Card
                     Taunt4 = "Maerolorn4",
                     Taunt5 = "Maerolorn5",
                     Taunt6 = "Maerolorn6",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },            
         };
@@ -556,7 +556,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionMO",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -564,7 +564,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionNG",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -572,7 +572,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionNR",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -580,7 +580,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionSK",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -588,7 +588,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionST",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -596,7 +596,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "G_Bat",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -604,7 +604,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "G_Beer",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -612,7 +612,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "G_Phoenix",
-                    IsReleased = true,
+                    IsReleased = false,
                 }
             },
             {
@@ -1052,7 +1052,7 @@ namespace Cynthia.Card
                 "BOUNTYHUNTER",
                 new Title()
                 {
-                    ID = "BOUNTY HUNTER",
+                    ID = "BOUNTYHUNTER",
                     IsReleased = true,
                     TitleColor = "darkyellow",
                 }
@@ -1082,6 +1082,15 @@ namespace Cynthia.Card
                     ID = "HERO",
                     IsReleased = true,
                     TitleColor = "darkyellow",
+                }
+            },
+            { 
+                "PIONEER",
+                new Title()
+                {
+                    ID = "PIONEER",
+                    IsReleased = true,
+                    TitleColor = "darkgreen",
                 }
             },
         };
