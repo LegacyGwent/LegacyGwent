@@ -1,0 +1,261 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Borders
+  m_EditorClassIdentifier: 
+  m_GroupName: Borders
+  m_Data:
+    m_SerializedData: []
+  m_GUID: fcfd87b0dd4823b4fb15ca26996e9ca8
+  m_SerializeEntries:
+  - m_GUID: 99964e16a7d3ec64495267c1f14f431d
+    m_Address: FactionMO
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ffbb2fe0fc2fc8445b0074d903e09d7e
+    m_Address: FactionNG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5502564ec30c23f4899f7a1d929c1ecf
+    m_Address: FactionNR
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 03b3eec658c087948be3f5be1033648a
+    m_Address: FactionSK
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 11ab86301086f3741be1be4dfdac79d3
+    m_Address: FactionST
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7f7db7da3ce4ccd44911e2b7f09ffdf8
+    m_Address: G_Bat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 28ab1307308a2a04bbcbecdb2da7e6ef
+    m_Address: G_Beer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: da0d513ece8c19d4c809e5f3fae1bab8
+    m_Address: G_Phoenix
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ac1108e46a1ae8c4490167daf23635a3
+    m_Address: NoBorder
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 465613809bf332e4081ecabf354eae8b
+    m_Address: Rank3border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 87d6bb059988eba4b8949a946d521ead
+    m_Address: Rank6border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 731f8a62a97282949b22cb5f7c044835
+    m_Address: Rank9border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9a73ec416e8f2774aa5076b444ad4f45
+    m_Address: Rank12border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 92fe5df8a4e26a740ab2ee85b963decd
+    m_Address: Rank15border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0bee8442d31791546864515d7a71d2b2
+    m_Address: Rank18border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4f41a56fc55d9e645a140f3e5663e22a
+    m_Address: Rank21border
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5ccf589625261624aa567d4dac9761eb
+    m_Address: Rank21Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c1b2f5ad58ed4a44fb459acae847bd37
+    m_Address: Season1Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e25416e871b14e84694e3d819cfc661f
+    m_Address: Season1Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 49e6e5143121f3847a86c5808225028b
+    m_Address: Season1Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 78689963ba903ea49b512628b8ed63a6
+    m_Address: Season1Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c79a4fdce8575244db95210125a02ff6
+    m_Address: Season1Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc00393a8a7f4b64dbebad3bdbb62cb6
+    m_Address: Season1Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a72bbd8512821374991166d603f29885
+    m_Address: Season2Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 20508eb91a269a3429c061dd4fb59822
+    m_Address: Season2Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0a8ac35567f9d92478764c7148a25b0a
+    m_Address: Season2Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a3e23dc78bfec0c41bef442204b26464
+    m_Address: Season2Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6ec17f43488318b4ab608b95b7dc37b6
+    m_Address: Season2Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 780baf0164a70644ab874f56740f1511
+    m_Address: Season2Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c3218023cf969e9459a01122c3d9d74c
+    m_Address: Season3Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6bf5d0fa8748763449f36e1b79b9e0bb
+    m_Address: Season3Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 75529058ffce81a468968adb4b904301
+    m_Address: Season3Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6749e04bebdae264c934798cef3e5fda
+    m_Address: Season3Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 51db72e3a0411ee4dbcdf70a3114fc68
+    m_Address: Season3Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 172f9d7943e78a540aa74e3c6d4a8731
+    m_Address: Season3Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a62ce1ac2435eb4f9ec35cc55cf1d8c
+    m_Address: Season4Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6e4f45db7bbfd8d40b96d0e5bc767491
+    m_Address: Season4Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cc2008d10579b83428058dd71d2d8cd7
+    m_Address: Season4Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e844fdfdc92b63b499b5f28f34246762
+    m_Address: Season4Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c6e7250f169a8e24f976733acc7ca9a6
+    m_Address: Season4Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b53127ada6464f94297b9e251f374475
+    m_Address: Season4Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2908068328c3b064d84c030c61a21604
+    m_Address: Season5Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1bd38014017683c4090d87a9ff95fbd6
+    m_Address: Season5Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: aa5071d8ce399a84a937e007cd84deee
+    m_Address: Season5Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a3ecdacbfd2ad59469f4a3909e274766
+    m_Address: Season5Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0b5265d3f31b2504baaaece2deaa01ae
+    m_Address: Season5Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a110db3ac27a8d4e84a230adbb40b21
+    m_Address: Season5Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e51852f4c8b687a46aa14880ec08f6e6
+    m_Address: Season6Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d3e51f59f32ce53469897ac71081b27b
+    m_Address: Season6Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf57b5b76b2b612498c492b30a8ee861
+    m_Address: Season6Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c98e9b5e6acf3a7488f5722b1adb5af0
+    m_Address: Season6Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b7a67d2cbf6b32b45a7af7f398b104bb
+    m_Address: Season6Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f18158d3d67b4cf439146f752e9904d0
+    m_Address: Season6Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e53063d7c79d90641839499ae6eafd2f
+    m_Address: Season7Border1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2cea255ea1add7043967e0bb5a9f5fe3
+    m_Address: Season7Border2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 68cf9d846817157469d08a0b7b77638c
+    m_Address: Season7Border3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 512ee91db1cfda847b8577c9914f180b
+    m_Address: Season7Border4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d0eb553b2b42c724eaab8aecd4196617
+    m_Address: Season7Border5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d6be51a116eea5f4ba27f08674881ce6
+    m_Address: Season7Border6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3c5906503ae4b1e438db91b29a26dbfb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 671e04a213ac2704493a16afae3d1f21, type: 2}
+    - {fileID: 11400000, guid: 4e0b3711bdf14ae448c8269f060e04b1, type: 2}
