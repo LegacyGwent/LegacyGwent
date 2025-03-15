@@ -936,7 +936,7 @@ RectTransform:
   m_Children:
   - {fileID: 546882706}
   m_Father: {fileID: 1657212376}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1140,7 +1140,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 375184612}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -1412,7 +1412,7 @@ RectTransform:
   m_Children:
   - {fileID: 288087836}
   m_Father: {fileID: 1657212376}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1616,7 +1616,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1037341383}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -2156,7 +2156,7 @@ RectTransform:
   m_Children:
   - {fileID: 1911307058}
   m_Father: {fileID: 1657212376}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2360,7 +2360,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1509277226}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -2660,7 +2660,7 @@ RectTransform:
   m_Children:
   - {fileID: 1439811174}
   m_Father: {fileID: 1657212376}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2864,7 +2864,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 164357391}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -3428,7 +3428,7 @@ GameObject:
   - component: {fileID: 288087838}
   - component: {fileID: 288087837}
   m_Layer: 5
-  m_Name: WatchThisText
+  m_Name: Dammit!Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6973,6 +6973,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589035119}
   m_CullTransparentMesh: 0
+--- !u!1 &605293046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605293047}
+  m_Layer: 5
+  m_Name: Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &605293047
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605293046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9094725911080764240}
+  - {fileID: 636303476}
+  - {fileID: 854332010}
+  - {fileID: 916640376}
+  - {fileID: 1657212376}
+  m_Father: {fileID: 1039419583}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &613487900
 GameObject:
   m_ObjectHideFlags: 0
@@ -7176,7 +7216,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636303475}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7188,7 +7228,7 @@ RectTransform:
   - {fileID: 2144302431}
   - {fileID: 1107033606}
   - {fileID: 1698981272}
-  m_Father: {fileID: 1039419583}
+  m_Father: {fileID: 605293047}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9036,7 +9076,7 @@ RectTransform:
   m_Children:
   - {fileID: 1229321546}
   m_Father: {fileID: 1657212376}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9240,7 +9280,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1852062150}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -10005,7 +10045,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1039419584}
+      - m_Target: {fileID: 0}
         m_MethodName: MuteButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -10084,11 +10124,11 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854332009}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1039419583}
+  m_Father: {fileID: 605293047}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11007,12 +11047,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916640375}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1929478871}
-  m_Father: {fileID: 1039419583}
+  m_Father: {fileID: 605293047}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11891,7 +11931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1039419583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11903,11 +11943,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 9094725911080764240}
-  - {fileID: 636303476}
-  - {fileID: 854332010}
-  - {fileID: 916640376}
-  - {fileID: 1657212376}
+  - {fileID: 605293047}
   m_Father: {fileID: 720365333}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11929,7 +11965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameUI: {fileID: 1831157597}
-  TauntUI: {fileID: 1039419582}
+  TauntUI: {fileID: 605293046}
   MyTaunt: {fileID: 1328274054}
   EnemyTaunt: {fileID: 711958270}
   RoundAvatar: {fileID: 854332011}
@@ -11937,6 +11973,8 @@ MonoBehaviour:
   LightGray: {fileID: 2100000, guid: 85082adf60eb0ee47925d7de5231cc04, type: 2}
   MyTauntText: {fileID: 1428940005}
   EnemyTauntText: {fileID: 3836102}
+  myavatar: 
+  enemyname: 
   mute: {fileID: 21300000, guid: cb5482fdeab423c438e274db3cdcdb35, type: 3}
   unmute: {fileID: 21300000, guid: 831cc90d8ce61e948979820c9fb2e574, type: 3}
   targetButton: {fileID: 841590117}
@@ -12700,6 +12738,18 @@ MonoBehaviour:
     TextObject: {fileID: 405791067}
   - Id: IngameMenu_GGButton
     TextObject: {fileID: 1822414150}
+  - Id: Taunt1
+    TextObject: {fileID: 546882705}
+  - Id: Taunt2
+    TextObject: {fileID: 288087835}
+  - Id: Taunt3
+    TextObject: {fileID: 1911307057}
+  - Id: Taunt4
+    TextObject: {fileID: 1439811173}
+  - Id: Taunt5
+    TextObject: {fileID: 1213936371}
+  - Id: Taunt6
+    TextObject: {fileID: 1229321545}
 --- !u!1 &1136800736
 GameObject:
   m_ObjectHideFlags: 0
@@ -13490,7 +13540,7 @@ GameObject:
   - component: {fileID: 1213936374}
   - component: {fileID: 1213936373}
   m_Layer: 5
-  m_Name: WatchThisText
+  m_Name: WellPlayedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13753,7 +13803,7 @@ GameObject:
   - component: {fileID: 1229321548}
   - component: {fileID: 1229321547}
   m_Layer: 5
-  m_Name: WatchThisText
+  m_Name: ThanksText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15594,7 +15644,7 @@ GameObject:
   - component: {fileID: 1439811176}
   - component: {fileID: 1439811175}
   m_Layer: 5
-  m_Name: WatchThisText
+  m_Name: BadMoveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18644,7 +18694,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2081421514}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -18997,17 +19047,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657212375}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 190965950}
   - {fileID: 112080844}
-  - {fileID: 211376966}
-  - {fileID: 798777227}
-  - {fileID: 1616362833}
   - {fileID: 154354137}
-  m_Father: {fileID: 1039419583}
+  - {fileID: 190965950}
+  - {fileID: 211376966}
+  - {fileID: 1616362833}
+  - {fileID: 798777227}
+  m_Father: {fileID: 605293047}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -20794,8 +20844,8 @@ MonoBehaviour:
   EnemyAvatar: {fileID: 925212195}
   MyBorder: {fileID: 1750933980}
   EnemyBorder: {fileID: 613487902}
-  myavatar: 
-  enemyname: 
+  Myavatar: 
+  Enemyname: 
   MyPass: {fileID: 2038595853}
   EnemyPass: {fileID: 161685037}
   MyShowMessage: {fileID: 500894968}
@@ -21830,7 +21880,7 @@ GameObject:
   - component: {fileID: 1911307060}
   - component: {fileID: 1911307059}
   m_Layer: 5
-  m_Name: WatchThisText
+  m_Name: You're going downText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24266,7 +24316,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1039419582}
+      - m_Target: {fileID: 605293046}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -24360,7 +24410,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9094597170511812642}
-  m_Father: {fileID: 1039419583}
+  m_Father: {fileID: 605293047}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

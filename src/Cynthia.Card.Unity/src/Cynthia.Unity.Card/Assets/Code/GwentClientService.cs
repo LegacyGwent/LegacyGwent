@@ -63,7 +63,7 @@ namespace Cynthia.Card.Client
             Debug.Log(hubConnection);
             hubConnection.On<string>("PlayTaunt", async x =>
             {
-                // (sender, receiver) = Tube.CreateSimplex();
+                (sender, receiver) = Tube.CreateSimplex();
                 await sender.SendAsync<string>(x);
             });
             hubConnection.On<bool>("MatchResult", async x =>

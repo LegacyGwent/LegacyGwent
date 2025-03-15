@@ -15,7 +15,8 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     private GlobalUIService _globalUIService;
     private LocalizationService _translator;
     //-------------------------------------------------------------------------------------------------------------------
-    [SerializeField] GameObject GameUI; // import game UI object to access GameUIControl script
+    //[SerializeField] GameObject GameUI; // import game UI object to access GameUIControl script
+    public GameObject GameUI;
     GameUIControl gameUIControl; // access GameUIControl script to retreive GameInformation
     public GameObject TauntUI; // the taunt menu
     public GameObject MyTaunt; // my taunt panel where the taunt text is displayed
@@ -26,8 +27,8 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     public Text MyTauntText;
     public Text EnemyTauntText;
     //-------------------------------------------------------------------------------------------------------------------
-    private string myavatar;
-    private string enemyname;
+    public string myavatar; // revert public after test
+    public string enemyname;
     private float timer=4;
     private float interval=6; // every 2 sec check if a taunt was sent by the opponent
     private bool IsEnemyNotMute; // if the ennemy is not mute, play the taunts he sends
@@ -44,18 +45,28 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         gameUIControl = GameUI.GetComponent<GameUIControl>();
-        myavatar = gameUIControl.myavatar;
-        enemyname = gameUIControl.enemyname;
+        
+        
     }
     private void Start() // set the round avatar in the avatar UI
     {
-        var op =Addressables.LoadAssetAsync<Sprite>(myavatar+"Round");
-        Sprite go = op.WaitForCompletion();
-        RoundAvatar.sprite = go;
         IsTauntNotOnCoolDown = true;
+        IsEnemyNotMute = true;
     }
     void Update()
     {
+        if (myavatar.Length <1)
+        {
+            gameUIControl = GameUI.GetComponent<GameUIControl>();
+            myavatar = gameUIControl.Myavatar;
+            enemyname = gameUIControl.Enemyname;
+            if (myavatar.Length >1)
+            {
+                var op =Addressables.LoadAssetAsync<Sprite>(myavatar+"Round");
+                Sprite go = op.WaitForCompletion();
+                RoundAvatar.sprite = go;
+            }
+        }
         if (timer<interval)
         {
             timer=timer+Time.deltaTime;
@@ -83,13 +94,19 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     public async void ReceiveTaunt() // when you receive an enemytaunt from server, play its audio and write its text
     {
+        
         if (IsEnemyNotMute)
         {
+            
             string tauntID = await DependencyResolver.Container.Resolve<GwentClientService>().PlayTaunt();
-            EnemyTaunt.SetActive(true);
-            PlayTaunt(tauntID);
-            WriteEnemyTaunt(tauntID);
-            InvokeRepeating("CloseEnemyTaunt", 3, 0);
+            if (tauntID.Length > 1)
+            {
+                EnemyTaunt.SetActive(true);
+                PlayTaunt(tauntID);
+                WriteEnemyTaunt(tauntID);
+                InvokeRepeating("CloseEnemyTaunt", 3, 0);
+            }
+            
         }
     }
     public void PlayMyTaunt(string mytaunt) // play my taunt, write its text and send it to the server
@@ -103,6 +120,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     public void WatchThis() // taunt 1
     {
+        
         string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt1.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
@@ -162,7 +180,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
         AudioManager.Instance.PlayAudio(tauntID + audioLanguageManager.ChosenLanguage.Filename, AudioType.Effect, AudioPlayMode.PlayOneShoot);
     }
     public void TauntButtonClicked()
-    {
+    {   
         if(IsTauntNotOnCoolDown && myavatar != "NoAvatar")
         {
             TauntUI.SetActive(true);

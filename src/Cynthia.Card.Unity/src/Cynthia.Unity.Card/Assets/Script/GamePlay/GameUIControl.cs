@@ -48,8 +48,8 @@ public class GameUIControl : MonoBehaviour
     public Image EnemyAvatar;
     public Image MyBorder;
     public Image EnemyBorder;
-    public string myavatar;
-    public string enemyname;
+    public string Myavatar;
+    public string Enemyname;
     //----------------------------------
     public GameObject MyPass;
     public GameObject EnemyPass;
@@ -159,8 +159,8 @@ public class GameUIControl : MonoBehaviour
         EnemyName.text = gameInfomation.EnemyName;
         MyName.text = gameInfomation.MyName;
         MyTitle.text = gameInfomation.MyTitle;
-        myavatar = gameInfomation.MyAvatar;
-        enemyname = gameInfomation.EnemyName;
+        Myavatar = gameInfomation.MyAvatar;
+        Enemyname = gameInfomation.EnemyName;
         EnemyTitle.text = gameInfomation.EnemyTitle;
         string mycolor = _titles.Where(x => x.ID == gameInfomation.MyTitle).Single().TitleColor;
         MyTitle.color= mycolormap[mycolor];
