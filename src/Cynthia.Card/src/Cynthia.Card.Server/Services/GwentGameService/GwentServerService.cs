@@ -478,7 +478,7 @@ may come back in the future.
         public async Task<string> GetNotesEN(string connectionId)
         {
             await Task.CompletedTask;
-            return @"NOTES EN"
+            return @"NOTES EN";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
