@@ -475,6 +475,11 @@ may come back in the future.
 详细更新内容请看上面的石墨文档链接
 ";
         }
+        public async Task<string> GetNotesEN(string connectionId)
+        {
+            await Task.CompletedTask;
+            return @"NOTES EN"
+        }
         //-------------------------------------------------------------------------
         public int GetUserCount()
         {
