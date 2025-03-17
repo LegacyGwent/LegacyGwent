@@ -33,6 +33,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     private float interval=6; // every 2 sec check if a taunt was sent by the opponent
     private bool IsEnemyNotMute; // if the ennemy is not mute, play the taunts he sends
     private bool IsTauntNotOnCoolDown = true; // check if you have to wait before sending another taunt
+    private bool DisableReceiveTaunt = true; // we have to disable receiving taunts for the first sec of the game to let the gaminfo the time to update when restarting the game
     private IList<TrinketAvatar> _avatars { get => TrinketMap.GetAvatars().ToList(); } // lists all avatar cosmetics
     [SerializeField] private Sprite mute;
     [SerializeField] private Sprite unmute;
@@ -45,6 +46,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         gameUIControl = GameUI.GetComponent<GameUIControl>();
+        DisableReceiveTaunt = true;
         
         
     }
@@ -52,9 +54,14 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     {
         IsTauntNotOnCoolDown = true;
         IsEnemyNotMute = true;
+        DisableReceiveTaunt = true;
     }
     void Update()
     {
+        if (DisableReceiveTaunt = true) // if receiving taunts is disabled, wait 1 sec and enable it
+        {
+            InvokeRepeating("EnableReceiveTaunt", 1, 0);
+        }
         if (myavatar.Length <1)
         {
             gameUIControl = GameUI.GetComponent<GameUIControl>();
@@ -76,6 +83,10 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
             ReceiveTaunt();
         }
     }
+    private void EnableReceiveTaunt() // after 1 sec enable receive taunts
+    {
+        DisableReceiveTaunt = false;
+    }
     private void DisableSendTaunt() // Reenable sending taunts
     {
         IsTauntNotOnCoolDown = true;
@@ -95,7 +106,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     public async void ReceiveTaunt() // when you receive an enemytaunt from server, play its audio and write its text
     {
         
-        if (IsEnemyNotMute)
+        if (IsEnemyNotMute && DisableReceiveTaunt == false)
         {
             
             string tauntID = await DependencyResolver.Container.Resolve<GwentClientService>().PlayTaunt();
