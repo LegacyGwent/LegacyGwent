@@ -85,14 +85,7 @@ public class GameInit : MonoBehaviour
         {
             UpToDateVersion = "x";
         }
-
-        var x1=_translator.GetText("Local_version");
-        var x2=CurrentVersion;
-        var x3=_translator.GetText("Latest_version");
-        var x4=UpToDateVersion;
-        Debug.Log($"{x1}: {x2}\n{x3}: {x4}");
-        //Debug.Log($"VersionText is {(VersionText == null ? "NULL" : "Assigned")}");
-        VersionText.text = $"{x1}: {x2}\n{x3}: {x4}";
+        VersionText.text = $"{_translator.GetText("Local_version")}: {CurrentVersion}\n{_translator.GetText("Latest_version")}: {UpToDateVersion}";
 
         try
         {
