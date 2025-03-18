@@ -264,6 +264,9 @@
         "CardTag_Raid": "Raid",
         "CardTag_Crime": "Crime",
         "CardTag_Test": "Test",
+        "Local_version": "Lokalna wersja",
+        "Latest_version": "Najnowsza wersja",
+      
         "ShupeKnight_1_Strengthen": "Wzmocnij się do 25.",
         "ShupeKnight_2_Resilience": "Wytrzymałość.",
         "ShupeKnight_3_Duel": "Stocz pojedynek z wrogiem. ",

@@ -264,6 +264,9 @@
         "CardTag_Raid": "征战",
         "CardTag_Crime": "罪行",
         "CardTag_Test": "测试",
+        "Local_version": "Локальная версия",
+        "Latest_version": "Последняя версия",
+
         "ShupeKnight_1_Strengthen": "强化自身至25点",
         "ShupeKnight_2_Resilience": "坚韧",
         "ShupeKnight_3_Duel": "与1个敌军单位对决",

@@ -21,7 +21,10 @@ public class GameInit : MonoBehaviour
     public Text NowVersionText;
     public Text LatestVersionText;
     public Text NotesText;
+    public Text VersionText;
     public RectTransform NotesContext;
+    private string UpToDateVersion;
+    private string CurrentVersion="1.0.0";
 
     private GwentClientService _gwentClientService;
     private LocalizationService _translator;
@@ -32,6 +35,10 @@ public class GameInit : MonoBehaviour
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         ConfigureGame();
         LoadServerMessage();
+    }
+    public void OpenDownloadLink()
+    {
+        Application.OpenURL("https://drive.google.com/drive/folders/1rQgMARdEzL1Tn8GC3XIEcsL1Zcv0IYbu?usp=sharing");
     }
 
     public void ExitClick()
@@ -70,6 +77,22 @@ public class GameInit : MonoBehaviour
                 }
             }
         }
+        try
+        {
+            UpToDateVersion = (await _gwentClientService.GetLatestClientVersion());
+        }
+        catch
+        {
+            UpToDateVersion = "x";
+        }
+
+        var x1=_translator.GetText("Local_version");
+        var x2=CurrentVersion;
+        var x3=_translator.GetText("Latest_version");
+        var x4=UpToDateVersion;
+        Debug.Log($"{x1}: {x2}\n{x3}: {x4}");
+        VersionText.text = $"{x1}: {x2}\n{x3}: {x4}";
+
         try
         {
             var textLanguageManager = DependencyResolver.Container.Resolve<LocalizationService>().TextLocalization;

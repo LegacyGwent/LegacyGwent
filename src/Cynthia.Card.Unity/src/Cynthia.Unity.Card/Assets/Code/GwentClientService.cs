@@ -230,6 +230,10 @@ namespace Cynthia.Card.Client
             return HubConnection.InvokeAsync<string>("GetGameLocales");
         }
 
+        public Task<string> GetLatestClientVersion()
+        {
+            return HubConnection.InvokeAsync<string>("GetLatestClientVersion");
+        }
         public Task<string> GetNotes()
         {
             return HubConnection.InvokeAsync<string>("GetNotes");

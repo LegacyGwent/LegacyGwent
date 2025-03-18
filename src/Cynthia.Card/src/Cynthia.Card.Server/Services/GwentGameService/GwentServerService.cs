@@ -491,6 +491,11 @@ When other players are available, player matchmaking will be prioritized. Add #f
 AI List:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter";
         }
+        public async Task<string> GetLatestClientVersion(string connectionId)
+        {
+            await Task.CompletedTask;
+            return @"1.0.0";
+        }
         //-------------------------------------------------------------------------
         public int GetUserCount()
         {
