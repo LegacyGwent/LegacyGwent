@@ -494,7 +494,7 @@ AI List:
 [ai2: Avallac'h]
 [ai3: King Oberon]
 [ai4: Iron Falcon Mercenary]
-[ai5: Dragon Hunter]"
+[ai5: Dragon Hunter]";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
