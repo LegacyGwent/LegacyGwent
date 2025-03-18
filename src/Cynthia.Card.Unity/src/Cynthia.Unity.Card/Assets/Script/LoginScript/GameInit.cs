@@ -82,6 +82,8 @@ public class GameInit : MonoBehaviour
             }
             if (Array.Exists(new[] { "en", "ru", "pl" }, element => element == language))
             {
+                Debug.Log("loading en news");
+                Debug.Log(await _gwentClientService.GetNotes());
                 NotesText.text = (await _gwentClientService.GetNotesEN()).Replace("\\n", "\n");
                 LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
                 NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
