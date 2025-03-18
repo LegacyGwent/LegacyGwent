@@ -91,6 +91,7 @@ public class GameInit : MonoBehaviour
         var x3=_translator.GetText("Latest_version");
         var x4=UpToDateVersion;
         Debug.Log($"{x1}: {x2}\n{x3}: {x4}");
+        //Debug.Log($"VersionText is {(VersionText == null ? "NULL" : "Assigned")}");
         VersionText.text = $"{x1}: {x2}\n{x3}: {x4}";
 
         try
