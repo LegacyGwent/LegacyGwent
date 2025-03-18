@@ -489,12 +489,7 @@ Enter the password ai/ai1 to challenge the AI.
 When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f).
 
 AI List:
-[ai: Geralt Ciri]
-[ai1: Recruit Training]
-[ai2: Avallac'h]
-[ai3: King Oberon]
-[ai4: Iron Falcon Mercenary]
-[ai5: Dragon Hunter]";
+ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
