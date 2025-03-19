@@ -95,7 +95,7 @@ namespace Cynthia.Card.AI
         // }
         public override void SetDeckAndName()
         {
-            PlayerName = "掠夺者猎人团";
+            PlayerName = "ai5_name";
             Deck = new DeckModel()
             {
                 Name = "团结的力量",

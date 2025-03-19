@@ -76,7 +76,7 @@ namespace Cynthia.Card.AI
 
         public override void SetDeckAndName()
         {
-            PlayerName = "铁隼佣兵团 IronFalcon ";
+            PlayerName = "ai4_name";
             Deck = new DeckModel()
             {
                 Name = "铁隼佣兵团卡组",
