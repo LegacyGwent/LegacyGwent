@@ -143,7 +143,7 @@ public class GameUIControl : MonoBehaviour
     }
     public void SetNameInfo(GameInfomation gameInfomation)
     {
-        EnemyName.text = gameInfomation.EnemyName;
+        EnemyName.text = _translator.GetText(gameInfomation.EnemyName);
         MyName.text = gameInfomation.MyName;
     }
     public void SetMMRInfo(int myMMR, int enemyMMR)
