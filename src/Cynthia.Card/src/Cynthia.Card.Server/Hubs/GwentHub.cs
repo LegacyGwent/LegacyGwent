@@ -73,6 +73,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion() => await _gwentServerService.GetLatestVersion(Context.ConnectionId);
 
         public async Task<string> GetNotes() => await _gwentServerService.GetNotes(Context.ConnectionId);
+        public async Task<string> GetNotesEN() => await _gwentServerService.GetNotesEN(Context.ConnectionId);
 
         //获取在线人数
         public async Task<int> GetUserCount()

@@ -475,6 +475,22 @@ may come back in the future.
 详细更新内容请看上面的石墨文档链接
 ";
         }
+        public async Task<string> GetNotesEN(string connectionId)
+        {
+            await Task.CompletedTask;
+            return @"This is the DIY server, have fun playing!
+
+This game is permanently free and open-source. Join the community chat and battles! Stay tuned for updates.
+
+To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
+
+[AI Matchmaking]
+Enter the password ai/ai1 to challenge the AI.
+When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f).
+
+AI List:
+ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter";
+        }
         //-------------------------------------------------------------------------
         public int GetUserCount()
         {
