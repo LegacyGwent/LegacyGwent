@@ -75,26 +75,23 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
             case int i when i >= 3750 && i < 3800:
                 rank = "rank_8";
                 break;
-            case int i when i >= 3750 && i < 3800:
+            case int i when i >= 3800 && i < 3850:
                 rank = "rank_9";
                 break;
-            case int i when i >= 3800 && i < 3850:
+            case int i when i >= 3850 && i < 3900:
                 rank = "rank_10";
                 break;
-            case int i when i >= 3850 && i < 3900:
+            case int i when i >= 3900 && i < 3950:
                 rank = "rank_11";
                 break;
-            case int i when i >= 3900 && i < 3950:
+            case int i when i >= 3950 && i < 4000:
                 rank = "rank_12";
                 break;
-            case int i when i >= 3950 && i < 4000:
+            case int i when i >= 4000 && i < 4050:
                 rank = "rank_13";
                 break;
-            case int i when i >= 4000 && i < 4050:
-                rank = "rank_14";
-                break;
             case int i when i >= 4050 && i < 4100:
-                rank = "rank_2";
+                rank = "rank_14";
                 break;
             case int i when i >= 4100 && i < 4150:
                 rank = "rank_15";

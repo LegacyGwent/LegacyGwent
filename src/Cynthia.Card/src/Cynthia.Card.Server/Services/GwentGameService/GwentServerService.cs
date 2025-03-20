@@ -656,28 +656,30 @@ may come back in the future.
                     case int i when i < 3500:
                         break;
                     case int i when i >= 3500 && i < 3650:
-                        rank = "Rank3Border";
+                        rank = "Rank3border";
                         ranktitle = "NOVICE";
                         break;                        
                     case int i when i >= 3650 && i < 3800:
-                        rank = "Rank6Border";
+                        rank = "Rank6border";
                         ranktitle = "APPRENTICE";
                         break;
                     case int i when i >= 3800 && i < 3950:
-                        rank = "Rank9Border";
+                        rank = "Rank9border";
                         ranktitle = "JOURNEYMAN";
                         break;
-                    case int i when i >= 3950 && i < 4100:
-                        rank = "Rank12Border";
+                    case int i when i >= 3950 && i < 4000:
+                        rank = "Rank12border";
                         ranktitle = "ADEPT";
-                        rankavatar = "Dandelionthewitcher2"; // remove after season 1
+                        break;
+                    case int i when i >= 4000 && i < 4100: // remove after season 1
+                        rankavatar = "Dandelionthewitcher2";
                         break;
                     case int i when i >= 4100 && i < 4250:
-                        rank = "Rank15Border";
+                        rank = "Rank15border";
                         ranktitle = "CARDSHARP";
                         break;
                     case int i when i >= 4250 && i < 4400:
-                        rank = "Rank18Border";
+                        rank = "Rank18border";
                         rank = "MASTER";
                         rankavatar = "TrissSorceress"; // remove after season 1
                         break;

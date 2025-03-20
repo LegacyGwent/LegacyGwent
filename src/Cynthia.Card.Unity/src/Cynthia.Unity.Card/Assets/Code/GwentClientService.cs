@@ -36,7 +36,8 @@ namespace Cynthia.Card.Client
         private GlobalUIService _globalUIService;
         private ITubeInlet sender;/*待修改*/
         private ITubeOutlet receiver;/*待修改*/
-
+        private ITubeInlet Sender;//sender for taunts
+        private ITubeOutlet Receiver;// receiver for taunts
         private LocalizationService _translator;
 
         public ClientState ClientState { get; set; } = ClientState.Standby;
@@ -48,7 +49,7 @@ namespace Cynthia.Card.Client
         }
         public Task<string> PlayTaunt()
         {
-            return receiver.ReceiveAsync<string>();
+            return Receiver.ReceiveAsync<string>();
         }
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
@@ -63,8 +64,8 @@ namespace Cynthia.Card.Client
             Debug.Log(hubConnection);
             hubConnection.On<string>("PlayTaunt", async x =>
             {
-                (sender, receiver) = Tube.CreateSimplex();
-                await sender.SendAsync<string>(x);
+                (Sender, Receiver) = Tube.CreateSimplex();
+                await Sender.SendAsync<string>(x);
             });
             hubConnection.On<bool>("MatchResult", async x =>
             {
