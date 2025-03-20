@@ -413,7 +413,7 @@ namespace Cynthia.Card
                     Taunt4 = "Dandelion4",
                     Taunt5 = "Dandelion5",
                     Taunt6 = "Dandelion6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },            
             {
