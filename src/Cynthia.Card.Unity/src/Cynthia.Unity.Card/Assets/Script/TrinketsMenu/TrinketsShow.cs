@@ -10,7 +10,6 @@ using Autofac;
 public class TrinketsShow : MonoBehaviour // this script controls the avatar trinket prefab in the trinket select
 {
     private GwentClientService _clientService;
-    private GlobalUIService _globalUIService;
     private LocalizationService _translator;
     public Image AvatarArt;
     public Image BorderArt;
@@ -26,7 +25,6 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
 
     }

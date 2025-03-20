@@ -36,8 +36,6 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
     public GameObject TitlePrefab;
     // services
     private GwentClientService _clientService;
-    private GlobalUIService _globalUIService;
-    private LocalizationService _translator;
     // data
     private IList<TrinketAvatar> _avatars_released { get => TrinketMap.GetAvatars().Where(x => x.IsReleased).ToList(); }
     private IList<Border> _borders_released { get => TrinketMap.GetBorders().Where(x => x.IsReleased).ToList(); }
@@ -47,21 +45,12 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
-        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
 
     void Start()
     {
         AutoSetAvatars();
-        // Debug.Log(_clientService.User.OwnedAvatars);
-        // foreach( var x in _clientService.User.OwnedAvatars) {
-        // Debug.Log( x.ToString());
-        // }
         AutoSetBorders();
-        // foreach( var x in _clientService.User.OwnedBorders) {
-        // Debug.Log( x.ToString());
-        // }
         AutoSetTitles();
     }
 

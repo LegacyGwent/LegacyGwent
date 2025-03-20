@@ -12,7 +12,6 @@ using UnityEngine.UI;
 public class Taunts : MonoBehaviour // This script controls the behaviour of the TauntUI in the Game scene
 {
     private GwentClientService _clientService;
-    private GlobalUIService _globalUIService;
     private LocalizationService _translator;
     //-------------------------------------------------------------------------------------------------------------------
     //[SerializeField] GameObject GameUI; // import game UI object to access GameUIControl script
@@ -42,7 +41,6 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         gameUIControl = GameUI.GetComponent<GameUIControl>();
         
@@ -98,7 +96,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
         if (IsEnemyNotMute)
         {
             
-            string tauntID = await DependencyResolver.Container.Resolve<GwentClientService>().PlayTaunt();
+            string tauntID = await _clientService.PlayTaunt();
             if (tauntID.Length > 1)
             {
                 EnemyTaunt.SetActive(true);
@@ -163,7 +161,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     public async void SendTaunt(string tauntID) // send taunt to server
     {
-        await DependencyResolver.Container.Resolve<GwentClientService>().SendTaunt(enemyname, tauntID);
+        await _clientService.SendTaunt(enemyname, tauntID);
     }
     public void WriteMyTaunt(string tauntID) // write my taunt text
     {

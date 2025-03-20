@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 public class TrinketsContext : MonoBehaviour // this script generates a prefab of the show/select trinket menu on the righthand panel
 {
     private GwentClientService _clientService;
-    private GlobalUIService _globalUIService;
     private LocalizationService _translator;
     public Text AvatarName;
     public Text AvatarsContext;
@@ -33,7 +32,6 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         
     }
