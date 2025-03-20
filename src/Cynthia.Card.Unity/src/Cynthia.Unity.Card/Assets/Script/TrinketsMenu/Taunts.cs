@@ -30,6 +30,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     public string enemyname;
     private float timer=4;
     private float interval=6; // every 2 sec check if a taunt was sent by the opponent
+    public bool IsAwaiting;
     private bool IsEnemyNotMute; // if the ennemy is not mute, play the taunts he sends
     private bool IsTauntNotOnCoolDown = true; // check if you have to wait before sending another taunt
     private IList<TrinketAvatar> _avatars { get => TrinketMap.GetAvatars().ToList(); } // lists all avatar cosmetics
@@ -50,6 +51,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     {
         IsTauntNotOnCoolDown = true;
         IsEnemyNotMute = true;
+        IsAwaiting = false;
     }
     void Update()
     {
@@ -92,7 +94,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     public async void ReceiveTaunt() // when you receive an enemytaunt from server, play its audio and write its text
     {
-        
+        IsAwaiting = true;
         if (IsEnemyNotMute)
         {
             
@@ -106,6 +108,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
             }
             
         }
+        IsAwaiting = false;
     }
     public void PlayMyTaunt(string mytaunt) // play my taunt, write its text and send it to the server
     {

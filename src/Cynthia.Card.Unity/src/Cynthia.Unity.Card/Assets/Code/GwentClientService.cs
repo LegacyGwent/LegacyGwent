@@ -49,7 +49,14 @@ namespace Cynthia.Card.Client
         }
         public Task<string> PlayTaunt()
         {
-            return Receiver.ReceiveAsync<string>();
+            try
+            {
+                return Receiver.ReceiveAsync<string>();
+            }
+            catch
+            {
+                return Task.Delay(1).ContinueWith(t => ""); // if no taunt was received yet, return "" to avoid errors
+            }
         }
 
         public GwentClientService(IContainer container, GlobalUIService globalUIService)
