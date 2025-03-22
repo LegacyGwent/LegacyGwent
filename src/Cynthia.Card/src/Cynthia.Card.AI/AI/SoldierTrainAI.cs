@@ -72,7 +72,7 @@ namespace Cynthia.Card.AI
          };
         public override void SetDeckAndName()
         {
-            PlayerName = "新兵训练";
+            PlayerName = "ai1_name";
             Deck = new DeckModel()
             {
                 Name = "新兵训练",
