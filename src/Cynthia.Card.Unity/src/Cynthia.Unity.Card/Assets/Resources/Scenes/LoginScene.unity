@@ -12439,7 +12439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1998848344
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12965,6 +12965,7 @@ MonoBehaviour:
   NotesText: {fileID: 847789412}
   VersionText: {fileID: 812750184}
   NotesContext: {fileID: 1751460486}
+  Download_Button: {fileID: 1998848343}
 --- !u!114 &2118638943
 MonoBehaviour:
   m_ObjectHideFlags: 0

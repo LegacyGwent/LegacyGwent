@@ -25,6 +25,7 @@ public class GameInit : MonoBehaviour
     public RectTransform NotesContext;
     private string UpToDateVersion;
     private string CurrentVersion="1.0.0";
+    public GameObject Download_Button;
 
     private GwentClientService _gwentClientService;
     private LocalizationService _translator;
@@ -83,10 +84,17 @@ public class GameInit : MonoBehaviour
         }
         catch
         {
-            UpToDateVersion = "x";
+            UpToDateVersion = "Unknown";
         }
         VersionText.text = $"{_translator.GetText("Local_version")}: {CurrentVersion}\n{_translator.GetText("Latest_version")}: {UpToDateVersion}";
-
+        if (CurrentVersion != UpToDateVersion)
+        {
+            Download_Button.SetActive(true);
+        }
+        else 
+        {
+            Download_Button.SetActive(false);
+        }
         try
         {
             var textLanguageManager = DependencyResolver.Container.Resolve<LocalizationService>().TextLocalization;
