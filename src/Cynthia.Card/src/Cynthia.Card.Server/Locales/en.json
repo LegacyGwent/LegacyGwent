@@ -402,7 +402,7 @@
         },
         "12015": {
             "Name": "Zoltan: Scoundrel",
-            "Info": "Deploy: Spawn a Duda: Agitator, or Duda: Campanion. \n(Duda: Agitator; 1 Strength. Deal 2 Damage to 2 units on each side)\n(Duda: Companion; 1 Strength. Boost 2 units on each side by 2)",
+            "Info": "Deploy: Spawn a Duda: Agitator, or Duda: Campanion.",
             "Flavor": "Apologies. My exotic pet's a clever birdie, but a wee bit lewd. Paid ten thalers for the beaute."
         },
         "12016": {
@@ -447,7 +447,7 @@
         },
         "12024": {
             "Name": "Yennefer",
-            "Info": "Deploy: Spawn Unicorn or Chironex.\n(Unicorn; 1 Strength. Boost all other units by 2)\n(Chironex; 4 Strength. Deal 2 Damage to all other units)",
+            "Info": "Deploy: Spawn Unicorn or Chironex.",
             "Flavor": "Magic is Chaos, Art and Science. It is a curse, a blessing and a progression."
         },
         "12025": {
@@ -562,7 +562,7 @@
         },
         "13005": {
             "Name": "Germain Piquant",
-            "Info": "Deploy: Spawn 2 Cows on each side of this unit.\n(Cow; 1 Strength)",
+            "Info": "Deploy: Spawn 2 Cows on each side of this unit.",
             "Flavor": "The hero Toussaint needs, but not the one it deserves."
         },
         "13006": {
@@ -647,7 +647,7 @@
         },
         "13022": {
             "Name": "Prize-Winning Cow",
-            "Info": "Deathwish: Spawn a Chort on a random row.\n(Chort; 14 Strength)",
+            "Info": "Deathwish: Spawn a Chort on a random row.",
             "Flavor": "Mooooo."
         },
         "13023": {
@@ -662,7 +662,7 @@
         },
         "13025": {
             "Name": "Artefact Compression",
-            "Info": "Transform a Bronze or Silver unit into a Jade Figurine.\n(Jade Figurine; 2 Strength)",
+            "Info": "Transform a Bronze or Silver unit into a Jade Figurine.",
             "Flavor": ""
         },
         "13026": {
@@ -727,7 +727,7 @@
         },
         "13038": {
             "Name": "White Frost",
-            "Info": "Apply Biting Frost to a row and the one above it.\n(Every turn, on turn start, Damage the Lowest unit on the row by 2).",
+            "Info": "Apply Biting Frost to a row and the one above it.",
             "Flavor": "Behold Tedd Deireadh, the Final Age. The world destroyed by the White Frost."
         },
         "13039": {
@@ -747,7 +747,7 @@
         },
         "13042": {
             "Name": "Glorious Hunt",
-            "Info": "If losing, Spawn an Imperial Manticore.\nIf winning, Spawn Manticore Venom.\n(Imperial Manticore; 13 Strength)\n(Manticore Venom: Damage a unit by 13)",
+            "Info": "If losing, Spawn an Imperial Manticore.\nIf winning, Spawn Manticore Venom.",
             "Flavor": "By the gods' gonads, witcher, why'd you bring me this filth?! I want that beast's head! - that was a ploughin' figure of ploughin' speech!"
         },
         "13043": {
@@ -787,7 +787,7 @@
         },
         "14006": {
             "Name": "Bloodcurdling Roar",
-            "Info": "Destroy an ally, then Spawn a Bear.\n(Bear; 11 Strength)",
+            "Info": "Destroy an ally, then Spawn a Bear.",
             "Flavor": ""
         },
         "14007": {
@@ -802,7 +802,7 @@
         },
         "14009": {
             "Name": "First Light",
-            "Info": "Spawn Clear Skies or Rally. \n(Clear skies: Boost all Damaged allies under Hazards by 2 and clear all Hazards from your side)\n(Rally: Play a random Bronze unit from your deck)",
+            "Info": "Spawn Clear Skies or Rally.",
             "Flavor": ""
         },
         "14010": {
@@ -892,7 +892,7 @@
         },
         "14027": {
             "Name": "Peasant Militia",
-            "Info": "Spawn 3 Peasants on a row.\n(Peasant; 3 Strength)",
+            "Info": "Spawn 3 Peasants on a row.",
             "Flavor": "We's the militia. We keep the peace."
         },
         "15001": {
@@ -1082,7 +1082,7 @@
         },
         "23005": {
             "Name": "Colossal Ifrit",
-            "Info": "Deploy: Spawn 4 Lesser Ifrits to the right of this unit.\n(Lesser Ifrit; 1 Strength; When Summoned, deal 1 Damage to a random enemy)",
+            "Info": "Deploy: Spawn 4 Lesser Ifrits to the right of this unit.",
             "Flavor": "Can't stand the heat? Then you don't stand a chance."
         },
         "23006": {
@@ -1217,7 +1217,7 @@
         },
         "24010": {
             "Name": "Arachas Behemoth",
-            "Info": "Whenever you Consume a unit, Spawn an Arachas Hatchling.\nRepeat up to 3 times.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones on this row)",
+            "Info": "Whenever you Consume a unit, Spawn an Arachas Hatchling.\nRepeat up to 3 times.",
             "Flavor": "Like a cross between a crab, a spider… and a mountain."
         },
         "24011": {
@@ -1257,7 +1257,7 @@
         },
         "24018": {
             "Name": "Celaeno Harpy",
-            "Info": "Deploy: Spawn 2 Harpy Eggs to its left. (Harpy Egg; 1 Strength; When Consumed by another unit, Boost that unit by an additional 4. Deathwish: Spawn a Harpy Hatchling on a random row) (Harpy Hatchling; 1 Strength)",
+            "Info": "Deploy: Spawn 2 Harpy Eggs to its left.",
             "Flavor": "Common harpies feed on carrion. Celaeno harpies… they feed on dreams."
         },
         "24019": {
@@ -1357,7 +1357,7 @@
         },
         "24038": {
             "Name": "Moonlight",
-            "Info": "Spawn Full Moon, or Blood Moon.\n(Full Moon; Apply a Boon to an allied row that Boosts a random Beast or Vampire by 2 on turn start) \n(Blood Moon; Apply a Hazard to an enemy row that deals 2 Damage to all units on contact)",
+            "Info": "Spawn Full Moon, or Blood Moon.",
             "Flavor": ""
         },
         "25001": {
@@ -1377,7 +1377,7 @@
         },
         "25004": {
             "Name": "Harpy Egg",
-            "Info": "When Consumed by another unit, Boost that unit by an additional 4.\nDeathwish: Spawn a Harpy Hatchling on a random row.\n(Harpy Hatchling; 1 Strength)",
+            "Info": "When Consumed by another unit, Boost that unit by an additional 4.\nDeathwish: Spawn a Harpy Hatchling on a random row.",
             "Flavor": "A harpy egg omelet - a delicious delicacy, good sir. Quite dear, too, for as you might surmise, the wretches don't part with their eggs willingly."
         },
         "25005": {
@@ -1667,7 +1667,7 @@
         },
         "34011": {
             "Name": "Rot Tosser",
-            "Info": "Deploy: Spawn a Cow Carcass on an enemy row.\n(Cow Carcass; 1 Strength; After 2 turns, on turn end, destroy all the other Lowest units on the row and destroy self)",
+            "Info": "Deploy: Spawn a Cow Carcass on an enemy row.",
             "Flavor": "Let historians debate whether spreading plague in a besieged city is ethical. We just care if it's effective."
         },
         "34012": {
@@ -2147,7 +2147,7 @@
         },
         "44034": {
             "Name": "Bloody Flail",
-            "Info": "Deal 5 Damage and Spawn a Specter on a random row.\n(Specter; 5 Strength)",
+            "Info": "Deal 5 Damage and Spawn a Specter on a random row.",
             "Flavor": ""
         },
         "45001": {
@@ -2422,7 +2422,7 @@
         },
         "54014": {
             "Name": "Dol Blathanna Bomber",
-            "Info": "Deploy: Spawn an Incinerating Trap on an enemy row.\n(Incinerating Trap; 1 Strength; Damage all units on this row by 2 on turn end)",
+            "Info": "Deploy: Spawn an Incinerating Trap on an enemy row.",
             "Flavor": "They track like hounds, run like deer and kill like heartless demons."
         },
         "54015": {
@@ -2547,7 +2547,7 @@
         },
         "62002": {
             "Name": "Hjalmar an Craite",
-            "Info": "Deploy: Spawn the Lord of Undvik on the opposite row.\n(Lord of Undvik; 5 Strength; Deathwish: Boost enemy Hjalmars by 14 and make them Immune.",
+            "Info": "Deploy: Spawn the Lord of Undvik on the opposite row.",
             "Flavor": "Instead of mournin' the fallen, let's drink to their memory!"
         },
         "62003": {
@@ -2592,7 +2592,7 @@
         },
         "62011": {
             "Name": "Coral",
-            "Info": "Deploy: Transform a Bronze or Silver unit into a Jade Figurine\n(Jade Figurine; 2 Strength)",
+            "Info": "Deploy: Transform a Bronze or Silver unit into a Jade Figurine",
             "Flavor": "Her true name's Astrid Lyttneyd Ásgeirrfinnbjornsdottir, but that never fit on any forms."
         },
         "62012": {
@@ -2602,7 +2602,7 @@
         },
         "62013": {
             "Name": "Kambi",
-            "Info": "Spying.\nDeathwish: Spawn Hemdall.\n(Hemdall; 20 Strength; Deploy: Destroy all units and clear all Boons and Hazards)",
+            "Info": "Spying.\nDeathwish: Spawn Hemdall.",
             "Flavor": "When the time comes, the cockerel Kambi shall crow and awaken Hemdall."
         },
         "63001": {
@@ -2622,7 +2622,7 @@
         },
         "63004": {
             "Name": "Blueboy Lugos",
-            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.\n(Spectral Whale; 3 Strength; On turn end, move to a random row and deal 1 Damage to all units on it. Deathwish: Deal 1 damage to all units on this row)",
+            "Info": "Deploy: Spawn a Spectral Whale on an enemy row.",
             "Flavor": "I'm near ready to puke from boredom."
         },
         "63005": {
@@ -2662,7 +2662,7 @@
         },
         "63012": {
             "Name": "Harald Houndsnout",
-            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.\n(Deathwish: Strengthen a random ally by 3)\n(Deathwish: Damage all units on the opposite row by 1)\n(Deathwish: Spawn a Bear on the opposite row).\n(Bear; 11 Strength)",
+            "Info": "Deploy: Spawn Wilfred to the left, Wilhelm to the right and Wilmar on the opposite row.",
             "Flavor": "Once proud jarl of Clan Tordarroch, now a muttering madman."
         },
         "63013": {
@@ -2767,7 +2767,7 @@
         },
         "64013": {
             "Name": "Svalblod Ravager",
-            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.\n(Raging Bear; 13 Strength)",
+            "Info": "Whenever this unit is Damaged or Weakened, transform into a Raging Bear.",
             "Flavor": "A two-handed axe? Seems no one told him that."
         },
         "64014": {
@@ -2867,7 +2867,7 @@
         },
         "64033": {
             "Name": "Tuirseach Bearmaster",
-            "Info": "Deploy: Spawn a Bear.\n(Bear; 11 Strength)",
+            "Info": "Deploy: Spawn a Bear.",
             "Flavor": "Don't touch him. Don't look him in the eyes. In fact… don't go anywhere near him."
         },
         "64034": {
@@ -2907,7 +2907,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Spying.\nDeathwish: If its opponent turn, Spawn a Bear on the opposite row.\n(Bear; 11 Strength)",
+            "Info": "Spying.\nDeathwish: If its opponent turn, Spawn a Bear on the opposite row.",
             "Flavor": ""
         },
         "70001": {
@@ -2962,7 +2962,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn Lady Of The Lake.\n(Lady of The Lake; 25 Power; Deploy: Weaken self by 2 for every card in your hand and deck.)",
+            "Info": "Spawn Lady Of The Lake.",
             "Flavor": ""
         },
         "70012": {
@@ -3022,7 +3022,7 @@
         },
         "70024": {
             "Name": "Immortals",
-            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.\n(Specter; 5 Strength)",
+            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.",
             "Flavor": "Where one falls, another will take his place."
         },
         "70025": {
@@ -3057,7 +3057,7 @@
         },
         "70039": {
             "Name": "Terror Crew",
-            "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Terror Crew Plunderers to your deck. (10 Str; Deploy: Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add a copy of this card to the bottom of your deck)",
+            "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Terror Crew Plunderers to your deck.",
             "Flavor": ""
         },
         "70040": {
@@ -3122,7 +3122,7 @@
         },
         "70070": {
             "Name": "Highwaymen",
-            "Info": "Single-Use: If there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.\n(Strays of Spalla; 5 Strength; Single-Use: Deploy: Look at 2 different random Bronze units in your deck, then play one)",
+            "Info": "Single-Use: If there are only Bronze cards in your starting deck, Spawn a Strays of Spalla, then add 2 Strays of Spalla to your deck.",
             "Flavor": "We'll torture the merchant and sell the horses."
         },
         "70071": {
@@ -3197,7 +3197,7 @@
         },
         "70089": {
             "Name": "Artis",
-            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a Cultist Oblation to the opposite row.\nCultist Oblation (After 2 turn, on the turn starts, banish itself. Deathwish: Heal a random unit in the opponent's half of the field with the most injuries and strengthen it by 1)",
+            "Info": "Deploy: Deal 7 damage to an enemy. If the target is destroyed, spawn a Cultist Oblation to the opposite row.",
             "Flavor": "Not all Svalblod priests were forced from the isles... Unfortunately."
         },
         "70090": {
@@ -3282,7 +3282,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.\n(5 Strength; After 3 turns, on turn end, transform into an Endrega Warrior)\n(Endrega Warrior; 7 Strength)",
+            "Info": "Deploy: Spawn 1 base copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3392,7 +3392,7 @@
         },
         "70129": {
             "Name": "Natural Selection",
-            "Info": "Spawn 2 Arachas Hatchlings on a row. For each copy of this card in your graveyard, spawn an extra one.\n(Arachas Hatchling; 3 Strength; Summon all Arachas Drones on this row)",
+            "Info": "Spawn 2 Arachas Hatchlings on a row. For each copy of this card in your graveyard, spawn an extra one.",
             "Flavor": "The strongest will survive. So not you."
         },
         "70130": {
@@ -3417,7 +3417,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on the right side.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on the right side.",
             "Flavor": "Wise men claim that animals are mindless automatons. Wise men don't know what they're talking about."
         },
         "70135": {
@@ -3542,7 +3542,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.\n(Crow; 2 Strength. Deathwish: Deal 3 Damage to a random enemy)",
+            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -3552,7 +3552,7 @@
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Deploy: Spawn 2 Scarabs.\n(Scarab: 1 Strength. If spying move to oposite row after you pass.)",
+            "Info": "Deploy: Spawn 2 Scarabs.",
             "Flavor": "Azar Javed's specialty is the element of fire. The sorcerer not only deftly manipulates the power of fire, it can be said that fire has become a part of his very being."
         },
         "70162": {
