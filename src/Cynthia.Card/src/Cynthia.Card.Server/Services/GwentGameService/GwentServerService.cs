@@ -483,13 +483,12 @@ may come back in the future.
 This game is permanently free and open-source. Join the community chat and battles! Stay tuned for updates.
 
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
+AI Matchmaking:
+ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
+Enter the corresponding password to challenge the AI.
+When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f)."
+;
 
-[AI Matchmaking]
-Enter the password ai/ai1 to challenge the AI.
-When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f).
-
-AI List:
-ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
