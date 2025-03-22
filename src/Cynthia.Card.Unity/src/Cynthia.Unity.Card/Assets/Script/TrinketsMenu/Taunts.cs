@@ -28,8 +28,6 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     //-------------------------------------------------------------------------------------------------------------------
     public string myavatar; // revert public after test
     public string enemyname;
-    private float timer=4;
-    private float interval=6; // every 2 sec check if a taunt was sent by the opponent
     public bool IsAwaiting;
     private bool IsEnemyNotMute; // if the ennemy is not mute, play the taunts he sends
     private bool IsTauntNotOnCoolDown = true; // check if you have to wait before sending another taunt
@@ -47,7 +45,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
         
         
     }
-    private void Start() // set the round avatar in the avatar UI
+    private void Start() 
     {
         IsTauntNotOnCoolDown = true;
         IsEnemyNotMute = true;
@@ -55,26 +53,16 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     void Update()
     {
-        if (myavatar.Length <1)
+        if (myavatar.Length <1) // set the round avatar in the avatar UI
         {
             gameUIControl = GameUI.GetComponent<GameUIControl>();
             myavatar = gameUIControl.Myavatar;
             enemyname = gameUIControl.Enemyname;
-            if (myavatar.Length >1)
-            {
-                var op =Addressables.LoadAssetAsync<Sprite>(myavatar+"Round");
-                Sprite go = op.WaitForCompletion();
-                RoundAvatar.sprite = go;
-            }
+            var op =Addressables.LoadAssetAsync<Sprite>(myavatar+"Round");
+            Sprite go = op.WaitForCompletion();
+            RoundAvatar.sprite = go;
         }
-        if (timer<interval)
-        {
-            timer=timer+Time.deltaTime;
-        }
-        else
-        {
-            ReceiveTaunt();
-        }
+        ReceiveTaunt();
     }
     private void DisableSendTaunt() // Reenable sending taunts
     {
