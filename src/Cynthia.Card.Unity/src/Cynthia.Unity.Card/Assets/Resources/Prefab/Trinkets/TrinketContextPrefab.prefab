@@ -979,6 +979,8 @@ MonoBehaviour:
   TitlesButtonText: {fileID: 4314104958021499699}
   OwnedText: {fileID: 6875727741903398113}
   TitleText: {fileID: 6981554662813596035}
+  Progress: {fileID: 6875727742871331958}
+  ProgresObject: {fileID: 6875727742871331956}
   AvatarArt: {fileID: 6875727741101134916}
   LightGray: {fileID: 2100000, guid: 85082adf60eb0ee47925d7de5231cc04, type: 2}
   SetAvatarButton: {fileID: 6429682359102093995}
@@ -1095,10 +1097,10 @@ RectTransform:
   m_Father: {fileID: 7867276658958466780}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25.979889, y: -30}
-  m_SizeDelta: {x: 87.84279, y: 27.57166}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 58.921387, y: -146}
+  m_SizeDelta: {x: 87.84277, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6875727742871331945
 CanvasRenderer:
@@ -1107,7 +1109,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6875727742871331956}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &6875727742871331958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,7 +1136,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 8
+    m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1154,7 +1156,7 @@ GameObject:
   - component: {fileID: 2611137356742902991}
   - component: {fileID: 1917197914822337444}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: TopInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

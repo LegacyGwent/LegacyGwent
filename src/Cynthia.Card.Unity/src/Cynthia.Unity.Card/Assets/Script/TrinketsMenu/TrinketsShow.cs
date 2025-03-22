@@ -41,7 +41,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
         }
         TrinketContext = Instantiate(TrinketContextPrefab, Vector3.zero, Quaternion.identity, transform.root);
         TrinketContext.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedAvatars"); // sets the art in the preview
-        TrinketContext.GetComponent<TrinketsContext>().SetTrinketContext(trinketID);
+        TrinketContext.GetComponent<TrinketsContext>().SetAvatarContext(trinketID);
     }
     public void BorderClicked()
     {
@@ -55,7 +55,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
         }
         TrinketContext = Instantiate(TrinketContextPrefab, Vector3.zero, Quaternion.identity, transform.root);
         TrinketContext.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedBorders"); // sets the art in the preview
-        TrinketContext.GetComponent<TrinketsContext>().SetTrinketContext(trinketID);
+        TrinketContext.GetComponent<TrinketsContext>().SetBorderContext(trinketID);
     }
 
     public void TitleClicked()
@@ -70,7 +70,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
         }
         TrinketContext = Instantiate(TrinketContextPrefab, Vector3.zero, Quaternion.identity, transform.root);
         TrinketContext.GetComponent<TrinketsContext>().SetTitleLook(trinketID, titleColor); // sets the look in the preview
-        TrinketContext.GetComponent<TrinketsContext>().SetTrinketContext(trinketID);
+        TrinketContext.GetComponent<TrinketsContext>().SetTitleContext(trinketID);
     }
 
     public void SetAvatarArt(string avatar) // set the art of the avatar in the avatar list

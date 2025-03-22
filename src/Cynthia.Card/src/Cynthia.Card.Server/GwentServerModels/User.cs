@@ -23,5 +23,6 @@ namespace Cynthia.Card.Server
             ConnectionId = connectionId;
             UserState = userState;
         }
+        public int GGsReceived { get; set; }
     }
 }

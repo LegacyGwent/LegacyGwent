@@ -12,6 +12,8 @@ namespace Cynthia.Card
         public string Taunt5 { get; set; }
         public string Taunt6 { get; set; }
         public bool IsReleased { get; set; }
+        public int UnlockCounter { get; set; }
+        public string UnlockStat { get; set; }
     }
 
 }

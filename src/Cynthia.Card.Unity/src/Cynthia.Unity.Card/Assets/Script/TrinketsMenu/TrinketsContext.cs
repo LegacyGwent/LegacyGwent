@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using Cynthia.Card.Client;
+using Cynthia.Card;
 using Assets.Script.Localization;
 using Autofac;
 using UnityEngine.SceneManagement;
+using System.Linq;
+
 
 public class TrinketsContext : MonoBehaviour // this script generates a prefab of the show/select trinket menu on the righthand panel
 {
@@ -19,6 +22,8 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     public Text TitlesButtonText;
     public Text OwnedText;
     public Text TitleText;
+    public Text Progress;
+    public GameObject ProgresObject;
     public Image AvatarArt;
     public Material LightGray;
     public GameObject SetAvatarButton;
@@ -28,6 +33,9 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     private string avatarID;
     private string borderID;
     private string titleID;
+    private IList<TrinketAvatar> _avatars { get => TrinketMap.GetAvatars().ToList(); } // lists all avatar cosmetics
+    private IList<Border> _borders { get => TrinketMap.GetBorders().ToList(); } // lists all title cosmetics
+    private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
     
     private void Awake()
     {
@@ -90,10 +98,38 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
         }
         titleID = title;
     }
-    public void SetTrinketContext(string avatar)
+    public void SetAvatarContext(string avatar) // set name, decription and if necessary, the progress towards unlock
     {
         AvatarName.text = _translator.GetText(avatar+"Name");
         AvatarsContext.text = _translator.GetText(avatar+"Description");
+        if (_avatars.Where(x => x.ID == avatar).Single().UnlockStat != null)
+        {
+            ProgresObject.SetActive(true);
+            var mystat = _avatars.Where(x => x.ID == avatar).Single().UnlockStat;
+            Progress.text = _clientService.User[mystat] + "/" + _avatars.Where(x => x.ID == avatar).Single().UnlockCounter.ToString();
+        } 
+    }
+    public void SetBorderContext(string border) // set name, decription and if necessary, the progress towards unlock
+    {
+        AvatarName.text = _translator.GetText(border+"Name");
+        AvatarsContext.text = _translator.GetText(border+"Description");
+        if (_borders.Where(x => x.ID == border).Single().UnlockStat != null)
+        {
+            ProgresObject.SetActive(true);
+            var mystat = _borders.Where(x => x.ID == border).Single().UnlockStat;
+            Progress.text = _clientService.User[mystat] + "/" + _borders.Where(x => x.ID == border).Single().UnlockCounter.ToString();
+        } 
+    }
+    public void SetTitleContext(string title) // set name, decription and if necessary, the progress towards unlock
+    {
+        AvatarName.text = _translator.GetText(title+"Name");
+        AvatarsContext.text = _translator.GetText(title+"Description");
+        if (_titles.Where(x => x.ID == title).Single().UnlockStat != null)
+        {
+            ProgresObject.SetActive(true);
+            var mystat = _titles.Where(x => x.ID == title).Single().UnlockStat;
+            Progress.text = _clientService.User[mystat] + "/" + _titles.Where(x => x.ID == title).Single().UnlockCounter.ToString();
+        } 
     }
     // When the SetAvatarButton is clicked, set the current avatar of the user
     public async void SetAvatar()

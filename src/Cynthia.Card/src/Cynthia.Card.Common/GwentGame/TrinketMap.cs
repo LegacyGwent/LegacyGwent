@@ -259,7 +259,9 @@ namespace Cynthia.Card
                     Taunt4 = "Phoenix4",
                     Taunt5 = "Phoenix5",
                     Taunt6 = "Phoenix6",
-                    IsReleased = false,
+                    IsReleased = true,
+                    UnlockCounter = 200,
+                    UnlockStat = "GGsReceived",
                 }
             },
             {
@@ -612,7 +614,9 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "G_Phoenix",
-                    IsReleased = false,
+                    IsReleased = true,
+                    UnlockCounter = 100,
+                    UnlockStat = "GGsReceived",
                 }
             },
             {
@@ -1091,6 +1095,17 @@ namespace Cynthia.Card
                     ID = "PIONEER",
                     IsReleased = true,
                     TitleColor = "darkgreen",
+                }
+            },
+            { 
+                "GOODGAMER",
+                new Title()
+                {
+                    ID = "GOODGAMER",
+                    IsReleased = true,
+                    TitleColor = "blue",
+                    UnlockCounter = 500,
+                    UnlockStat = "GGsReceived",
                 }
             },
         };

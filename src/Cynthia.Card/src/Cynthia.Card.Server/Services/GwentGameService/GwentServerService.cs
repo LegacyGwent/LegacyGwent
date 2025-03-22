@@ -106,6 +106,10 @@ namespace Cynthia.Card.Server
                 {
                    await UpdateTitle(user.UserName, "CARDSMITH");
                 }
+                if (user.GGsReceived == null)
+                {
+                   user.GGsReceived = 0;
+                }
                 InovkeUserChanged();
             }
             return loginUser;
@@ -225,6 +229,21 @@ namespace Cynthia.Card.Server
             {
                 var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
                 await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
+                
+                _databaseService.UpdateGGCounter(EnemyName); // update the GG couter and if relevant give cosmetics
+                var user = _users[connectionId];
+                if (user.GGsReceived >=100 )
+                {
+                    AddBorder(EnemyName, "G_Phoenix");
+                }
+                if (user.GGsReceived >=200 )
+                {
+                    AddAvatar(EnemyName, "Phoenix");
+                }
+                if (user.GGsReceived >=500 )
+                {
+                    AddTitle(EnemyName, "GOODGAMER");
+                }
                 return false;
             }
             return false;
