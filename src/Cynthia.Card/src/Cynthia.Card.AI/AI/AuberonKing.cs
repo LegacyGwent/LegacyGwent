@@ -78,7 +78,7 @@ namespace Cynthia.Card.AI
 
         public override void SetDeckAndName()
         {
-            PlayerName = "奥贝伦王 Auberon: King ";
+            PlayerName = "ai3_name";
             Deck = new DeckModel()
             {
                 Name = "奥贝伦王的卡组",

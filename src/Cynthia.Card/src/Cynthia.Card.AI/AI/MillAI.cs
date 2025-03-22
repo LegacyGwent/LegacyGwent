@@ -77,7 +77,7 @@ namespace Cynthia.Card.AI
 
         public override void SetDeckAndName()
         {
-            PlayerName = "无情的爆牌机器伯约号1.1";
+            PlayerName = "ai2_name";
             Deck = new DeckModel()
             {
                 Name = "爆牌AI测试1",

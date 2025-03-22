@@ -155,8 +155,17 @@ public class GameUIControl : MonoBehaviour
         }
     }
     public async void SetNameInfo(GameInfomation gameInfomation)
-    {   
-        EnemyName.text = gameInfomation.EnemyName;
+    {
+        var Enemy = gameInfomation.EnemyName;
+        List<string> botnames = new List<string> { "ai0_name", "ai1_name", "ai2_name", "ai3_name", "ai4_name", "ai5_name"};
+        if (botnames.Contains(Enemy))
+        {
+            EnemyName.text = _translator.GetText(Enemy);
+        }
+        else
+        {
+            EnemyName.text = Enemy;
+        }
         MyName.text = gameInfomation.MyName;
         MyTitle.text = gameInfomation.MyTitle;
         Myavatar = gameInfomation.MyAvatar;
