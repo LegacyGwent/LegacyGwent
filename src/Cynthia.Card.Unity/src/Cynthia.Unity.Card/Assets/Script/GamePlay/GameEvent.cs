@@ -103,12 +103,14 @@ public class GameEvent : MonoBehaviour
         NowOperationType = GameOperationType.None;
 
 #if UNITY_ANDROID || UNITY_IOS
-        ShowMyCemeteryButton.SetActive(true);
+        ShowMyCemeteryButton.SetActive(false);
         SurrenderButton.SetActive(true);
 #else
         ShowMyCemeteryButton.SetActive(false);
         SurrenderButton.SetActive(false);
 #endif
+        Text buttonText = SurrenderButton.GetComponentInChildren<Text>();
+        buttonText.text = translator.GetText("Surrender_button"); 
         //某些信息,目前只是用来测试
         // var sc = GetCard(new CardLocation() { RowPosition = RowPosition.MyRow1, CardIndex = 0 }).CardShowInfo.CurrentCore = new CardStatus("11210200");
         //sc.IsCountdown = true;

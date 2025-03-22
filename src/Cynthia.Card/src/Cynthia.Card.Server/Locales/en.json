@@ -270,6 +270,7 @@
         "ai3_name": "King Oberon",
         "ai4_name": "Iron Falcon Mercenary Group",
         "ai5_name": "Dragon Hunter",
+        "Surrender_button":"Surrender",
         "ShupeKnight_1_Strengthen": "Strengthen self to 25.",
         "ShupeKnight_2_Resilience": "Resilient.",
         "ShupeKnight_3_Duel": "Duel an enemy.",
