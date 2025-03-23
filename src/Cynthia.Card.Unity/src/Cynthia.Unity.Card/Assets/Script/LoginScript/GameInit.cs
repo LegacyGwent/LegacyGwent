@@ -80,7 +80,7 @@ public class GameInit : MonoBehaviour
                 LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
                 NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
             }
-            if (Array.Exists(new[] { "en", "ru", "pl" }, element => element == language))
+            if (Array.Exists(new[] { "en", "ru", "pl","cn" }, element => element == language))
             {
                 NotesText.text = (await _gwentClientService.GetNotesEN()).Replace("\\n", "\n");
                 LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
