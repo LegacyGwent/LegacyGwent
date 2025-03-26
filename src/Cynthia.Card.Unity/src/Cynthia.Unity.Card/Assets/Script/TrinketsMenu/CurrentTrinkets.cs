@@ -16,7 +16,6 @@ using UnityEngine.AddressableAssets;
 public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/border/id in the profile whenever they are changed
 {
     private GwentClientService _clientService;
-    private GlobalUIService _globalUIService;
     private LocalizationService _translator;
     public Image AvatarArt;
     public Image BorderArt;
@@ -33,7 +32,6 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
     private void Awake()
     {
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-        _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     private void Start()
