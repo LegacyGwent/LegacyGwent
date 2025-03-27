@@ -242,6 +242,10 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<string>("GetNotesEN");
         }
+        public Task<string> GetDownloadLink()
+        {
+            return HubConnection.InvokeAsync<string>("GetDownloadLink");
+        }
 
         public Task<int> GetPalyernameMMR(string playername)
         {

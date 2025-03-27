@@ -26,6 +26,7 @@ public class GameInit : MonoBehaviour
     private string UpToDateVersion;
     private string CurrentVersion="1.0.0";
     public GameObject Download_Button;
+    string link;
 
     private GwentClientService _gwentClientService;
     private LocalizationService _translator;
@@ -34,12 +35,13 @@ public class GameInit : MonoBehaviour
     {
         _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        link = await _gwentClientService.GetNotesEN();
         ConfigureGame();
         LoadServerMessage();
     }
     public void OpenDownloadLink()
     {
-        Application.OpenURL("https://drive.google.com/drive/folders/1rQgMARdEzL1Tn8GC3XIEcsL1Zcv0IYbu?usp=sharing");
+        Application.OpenURL(link);
     }
 
     public void ExitClick()
