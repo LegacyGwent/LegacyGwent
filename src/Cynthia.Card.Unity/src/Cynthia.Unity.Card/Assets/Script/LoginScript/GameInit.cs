@@ -35,7 +35,7 @@ public class GameInit : MonoBehaviour
     {
         _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        link = await _gwentClientService.GetNotesEN();
+        link = await _gwentClientService.GetDownloadLink();
         ConfigureGame();
         LoadServerMessage();
     }
