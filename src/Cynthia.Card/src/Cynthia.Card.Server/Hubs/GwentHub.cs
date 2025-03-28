@@ -78,6 +78,7 @@ namespace Cynthia.Card.Server
 
         public async Task<string> GetDownloadLink() => await _gwentServerService.GetDownloadLink(Context.ConnectionId);   
 
+
         public async Task<string> GetLatestClientVersion() => await _gwentServerService.GetLatestClientVersion(Context.ConnectionId);
 
         //获取在线人数

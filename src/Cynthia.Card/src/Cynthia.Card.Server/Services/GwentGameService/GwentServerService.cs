@@ -490,13 +490,13 @@ When other players are available, player matchmaking will be prioritized. Add #f
 ;
 
         }
+
         public async Task<string> GetDownloadLink(string connectionId)
         {
             await Task.CompletedTask;
-            return "link"
-;
-
+            return "link";
         }
+
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;

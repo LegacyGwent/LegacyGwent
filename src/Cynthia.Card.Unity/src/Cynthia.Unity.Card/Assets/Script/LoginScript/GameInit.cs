@@ -41,7 +41,9 @@ public class GameInit : MonoBehaviour
     }
     public void OpenDownloadLink()
     {
+
         Application.OpenURL(link);
+
     }
 
     public void ExitClick()
