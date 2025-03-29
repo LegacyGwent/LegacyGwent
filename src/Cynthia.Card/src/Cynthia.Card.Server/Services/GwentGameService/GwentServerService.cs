@@ -150,13 +150,7 @@ namespace Cynthia.Card.Server
         }
         public async Task<bool> UpdateAvatar(string playername, string AvatarID) // updates the avatar of the user
         {
-        var connectionId = _users.Single(x => x.Value.UserName == playername).Value.ConnectionId;
-        if (!_users.ContainsKey(connectionId))
-        {
-            return true;
-        }
-        var user = _users[connectionId];
-        _databaseService.UpdateAvatar(_users[connectionId].UserName, AvatarID);
+        _databaseService.UpdateAvatar(playername, AvatarID);
         user.CurrentAvatar = AvatarID;
         return true;
         }
