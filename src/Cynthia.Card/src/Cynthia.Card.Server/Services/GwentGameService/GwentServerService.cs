@@ -217,13 +217,18 @@ namespace Cynthia.Card.Server
         }
         public async Task<bool> SendTaunt(string EnemyName, string TauntID) // 
         {
-            var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
-            if (!_users.ContainsKey(connectionId))
+            if (_users.Any(x => x.Value.PlayerName == EnemyName))
             {
-                return false;
+
+                var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
+                if (!_users.ContainsKey(connectionId))
+                {
+                    return false;
+                }
+                await _hub.Clients.Client(connectionId).SendAsync("PlayTaunt", TauntID);
+                return true;
             }
-            await _hub.Clients.Client(connectionId).SendAsync("PlayTaunt", TauntID);
-            return true;
+            return false;
         }
         public async Task<bool> StopMatch(string connectionId)
         {
