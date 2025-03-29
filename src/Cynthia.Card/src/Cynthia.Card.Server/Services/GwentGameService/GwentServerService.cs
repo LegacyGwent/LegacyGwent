@@ -203,6 +203,7 @@ namespace Cynthia.Card.Server
                 {
                     return false;
                 }
+                var user = _users[connectionId];
                 await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
                 _databaseService.UpdateGGCounter(EnemyName); // update the GG couter and if relevant give cosmetics      
                 if (user.GGsReceived >=100 )
