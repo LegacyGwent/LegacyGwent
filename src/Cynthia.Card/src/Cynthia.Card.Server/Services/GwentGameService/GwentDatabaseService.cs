@@ -203,7 +203,7 @@ namespace Cynthia.Card.Server
         public bool UpdateGGCounter(string playername) // increase the gg count of a player
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user.Length == 0)
             {
                 return false;
