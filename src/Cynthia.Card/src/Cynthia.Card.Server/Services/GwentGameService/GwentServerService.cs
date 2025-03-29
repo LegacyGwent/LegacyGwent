@@ -164,85 +164,56 @@ namespace Cynthia.Card.Server
         // adds an avatar to the list of owned avatars of a user
         public async Task<bool> AddAvatar(string username, string AvatarID)
         {
-        var connectionId = _users.Single(x => x.Value.UserName == username).Value.ConnectionId;
-        if (!_users.ContainsKey(connectionId))
-            {
-                return false;
-            }
-        _databaseService.AddAvatar(_users[connectionId].UserName, AvatarID);
+        _databaseService.AddAvatar(username, AvatarID);
         return true;
         }
         // updates the border of the user
-        public async Task<bool> UpdateBorder(string playername, string BorderID) 
+        public async Task<bool> UpdateBorder(string username, string BorderID) 
         {
-        var connectionId = _users.Single(x => x.Value.UserName == playername).Value.ConnectionId;
-        if (!_users.ContainsKey(connectionId))
-        {
-            return true;
-        }
-        var user = _users[connectionId];
-        _databaseService.UpdateBorder(_users[connectionId].UserName, BorderID);
-        user.CurrentBorder = BorderID;
+        _databaseService.UpdateBorder(username, BorderID);
         return true;
         }
         // updates the title of the user
-        public async Task<bool> UpdateTitle(string playername, string TitleID) 
+        public async Task<bool> UpdateTitle(string username, string TitleID) 
         {
-        var connectionId = _users.Single(x => x.Value.UserName == playername).Value.ConnectionId;
-        if (!_users.ContainsKey(connectionId))
-        {
-            return true;
-        }
-        var user = _users[connectionId];
-        _databaseService.UpdateTitle(_users[connectionId].UserName, TitleID);
-        user.CurrentTitle = TitleID;
+        _databaseService.UpdateTitle(username, TitleID);
         return true;
         }
 
         // adds a border to the list of owned borders of a user
         public async Task<bool> AddBorder(string username, string BorderID)
         {
-        var connectionId = _users.Single(x => x.Value.UserName == username).Value.ConnectionId;
-        if (!_users.ContainsKey(connectionId))
-            {
-                return false;
-            }
-        _databaseService.AddBorder(_users[connectionId].UserName, BorderID);
+        _databaseService.AddBorder(username, BorderID);
         return true;
         }
 
         // adds a title to the list of owned titles of a user
         public async Task<bool> AddTitle(string username, string TitleID)
         {
-        var connectionId = _users.Single(x => x.Value.UserName == username).Value.ConnectionId;
-        if (!_users.ContainsKey(connectionId))
-            {
-                return false;
-            }
-        _databaseService.AddTitle(_users[connectionId].UserName, TitleID);
+        _databaseService.AddTitle(username, TitleID);
         return true;
         }
 
         public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
         {
-            if (_users.Any(x => x.Value.UserName == EnemyName))
+            if (_users.Any(x => x.Value.PlayerName == EnemyName))
             {
-                var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
+                var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
                 await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
-                
-                _databaseService.UpdateGGCounter(EnemyName); // update the GG couter and if relevant give cosmetics
                 var user = _users[connectionId];
+                var enemyname = user.UserName;
+                _databaseService.UpdateGGCounter(enemyname); // update the GG couter and if relevant give cosmetics      
                 if (user.GGsReceived >=100 )
                 {
-                    AddBorder(EnemyName, "G_Phoenix");
+                    AddBorder(enemyname, "G_Phoenix");
                 }
                 if (user.GGsReceived >=200 )
                 {
-                    AddAvatar(EnemyName, "Phoenix");
+                    AddAvatar(enemyname, "Phoenix");
                 }
                 if (user.GGsReceived >=500 )
                 {
-                    AddTitle(EnemyName, "GOODGAMER");
+                    AddTitle(enemyname, "GOODGAMER");
                 }
                 return false;
             }
@@ -250,7 +221,7 @@ namespace Cynthia.Card.Server
         }
         public async Task<bool> SendTaunt(string EnemyName, string TauntID) // 
         {
-            var connectionId = _users.Single(x => x.Value.UserName == EnemyName).Value.ConnectionId;
+            var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
             if (!_users.ContainsKey(connectionId))
             {
                 return false;
@@ -736,9 +707,12 @@ When other players are available, player matchmaking will be prioritized. Add #f
                         ranktitle = "GRANDMASTER";
                         break;
                 }
-                await AddBorder(PlayerName, rank);
-                await AddTitle(PlayerName, ranktitle);
-                await AddAvatar(PlayerName, rankavatar);
+                var connectionId = _users.Single(x => x.Value.PlayerName == PlayerName).Value.ConnectionId;
+                var user = _users[connectionId];
+                var username = user.UserName;
+                await AddBorder(username, rank);
+                await AddTitle(username, ranktitle);
+                await AddAvatar(username, rankavatar);
         }
         
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
