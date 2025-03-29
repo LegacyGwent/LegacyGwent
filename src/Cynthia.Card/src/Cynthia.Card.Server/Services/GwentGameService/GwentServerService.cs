@@ -81,30 +81,30 @@ namespace Cynthia.Card.Server
                 user.OwnedTitles = loginUser.OwnedTitles;
                 _users.Add(user.ConnectionId, user);
                 // give all default avatars
-                await AddAvatar(user.UserName, "NoAvatar");
-                await AddAvatar(user.UserName, "GeraltOfRivia");
-                await AddAvatar(user.UserName, "TrissMerigold");
-                await AddAvatar(user.UserName, "Yennefer");
+                await AddAvatar(user.PlayerName, "NoAvatar");
+                await AddAvatar(user.PlayerName, "GeraltOfRivia");
+                await AddAvatar(user.PlayerName, "TrissMerigold");
+                await AddAvatar(user.PlayerName, "Yennefer");
                 // give the seasonal avatars - delete section after season
-                await AddAvatar(user.UserName, "ClassicGeralt");
+                await AddAvatar(user.PlayerName, "ClassicGeralt");
                 // give all default borders
-                await AddBorder(user.UserName, "NoBorder");
+                await AddBorder(user.PlayerName, "NoBorder");
                 // give all default titles
-                await AddTitle(user.UserName, "CARDSMITH");
+                await AddTitle(user.PlayerName, "CARDSMITH");
                 // give the seasonal titles - delete section after season
-                await AddTitle(user.UserName, "PIONEER");
+                await AddTitle(user.PlayerName, "PIONEER");
                 if (user.CurrentBorder == null)
                 {
-                    await UpdateBorder(user.UserName, "NoBorder");
+                    await UpdateBorder(user.PlayerName, "NoBorder");
                 }
                 if (user.CurrentAvatar == null)
                 {
-                    await UpdateAvatar(user.UserName, "NoAvatar");
+                    await UpdateAvatar(user.PlayerName, "NoAvatar");
                 }
                 // if no title is set, set the Cardsmith avatar
                 if (user.CurrentTitle == null)
                 {
-                   await UpdateTitle(user.UserName, "CARDSMITH");
+                   await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
                 if (user.GGsReceived == null)
                 {
@@ -199,21 +199,23 @@ namespace Cynthia.Card.Server
             if (_users.Any(x => x.Value.PlayerName == EnemyName))
             {
                 var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
+                if (!_users.ContainsKey(connectionId))
+                {
+                    return false;
+                }
                 await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
-                var user = _users[connectionId];
-                var enemyname = user.UserName;
-                _databaseService.UpdateGGCounter(enemyname); // update the GG couter and if relevant give cosmetics      
+                _databaseService.UpdateGGCounter(EnemyName); // update the GG couter and if relevant give cosmetics      
                 if (user.GGsReceived >=100 )
                 {
-                    AddBorder(enemyname, "G_Phoenix");
+                    AddBorder(EnemyName, "G_Phoenix");
                 }
                 if (user.GGsReceived >=200 )
                 {
-                    AddAvatar(enemyname, "Phoenix");
+                    AddAvatar(EnemyName, "Phoenix");
                 }
                 if (user.GGsReceived >=500 )
                 {
-                    AddTitle(enemyname, "GOODGAMER");
+                    AddTitle(EnemyName, "GOODGAMER");
                 }
                 return false;
             }
@@ -707,12 +709,9 @@ When other players are available, player matchmaking will be prioritized. Add #f
                         ranktitle = "GRANDMASTER";
                         break;
                 }
-                var connectionId = _users.Single(x => x.Value.PlayerName == PlayerName).Value.ConnectionId;
-                var user = _users[connectionId];
-                var username = user.UserName;
-                await AddBorder(username, rank);
-                await AddTitle(username, ranktitle);
-                await AddAvatar(username, rankavatar);
+                await AddBorder(PlayerName, rank);
+                await AddTitle(PlayerName, ranktitle);
+                await AddAvatar(PlayerName, rankavatar);
         }
         
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)

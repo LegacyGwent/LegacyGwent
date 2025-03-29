@@ -110,12 +110,12 @@ namespace Cynthia.Card.Server
             return true;
         }
         // add an avatar to the user's owned avatars
-        public bool AddAvatar(string username, string AvatarID)
+        public bool AddAvatar(string playername, string AvatarID)
         {
             //check if AvatarID exists before adding
             if (!TrinketMap.GetAvatarsId().Any(x => x == AvatarID)) {return false;}
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user[0].OwnedAvatars == null)
             {
                 user[0].OwnedAvatars = new List<string>();
@@ -123,17 +123,17 @@ namespace Cynthia.Card.Server
             if (!user[0].OwnedAvatars.Any(x => x == AvatarID))
             {
                 user[0].OwnedAvatars.Add(AvatarID);
-                temp.ReplaceOne(x => x.UserName == username, user[0]);
+                temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             }
             return true;
         }
         // add a border to the user's owned borders
-        public bool AddBorder(string username, string BorderID)
+        public bool AddBorder(string playername, string BorderID)
         {
             // check if BorderID exists before adding
             if (!TrinketMap.GetBordersId().Any(x => x == BorderID)) {return false;}
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user[0].OwnedBorders == null)
             {
                 user[0].OwnedBorders = new List<string>();
@@ -141,17 +141,17 @@ namespace Cynthia.Card.Server
             if (!user[0].OwnedBorders.Any(x => x == BorderID))
             {   
                 user[0].OwnedBorders.Add(BorderID);
-                temp.ReplaceOne(x => x.UserName == username, user[0]);
+                temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             }
             return true;
         }
 
-        public bool AddTitle(string username, string TitleID)
+        public bool AddTitle(string playername, string TitleID)
         {
             // check if TitleID exists before adding
             if (!TrinketMap.GetTitlesId().Any(x => x == TitleID)) {return false;}
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == username).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user[0].OwnedTitles == null)
             {
                 user[0].OwnedTitles = new List<string>();
@@ -159,7 +159,7 @@ namespace Cynthia.Card.Server
             if (!user[0].OwnedTitles.Any(x => x == TitleID))
             {   
                 user[0].OwnedTitles.Add(TitleID);
-                temp.ReplaceOne(x => x.UserName == username, user[0]);
+                temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             }
             return true;
         }
