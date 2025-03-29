@@ -208,6 +208,10 @@ namespace Cynthia.Card.Server
             {
                 return false;
             }
+            if  (user[0].GGsReceived == null)
+            {
+                user[0].GGsReceived = 0;
+            }
             user[0].GGsReceived +=1 ;
             temp.ReplaceOne(x => x.UserName == playername, user[0]);
             return true;
