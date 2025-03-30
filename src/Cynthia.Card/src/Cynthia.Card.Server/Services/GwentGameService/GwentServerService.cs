@@ -370,7 +370,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "0.1.0.1";
+            return "1.0.2";
         }
 
         public async Task<string> GetNotes(string connectionId)
