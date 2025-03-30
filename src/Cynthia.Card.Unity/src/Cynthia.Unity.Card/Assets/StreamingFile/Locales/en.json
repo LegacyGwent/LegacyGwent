@@ -510,6 +510,8 @@
         "CardTag_Raid": "Raid",
         "CardTag_Crime": "Crime",
         "CardTag_Test": "Test",
+        "Local_version": "Local version",
+        "Latest_version": "Latest version",
         "ai0_name": "Geralt and Ciri",
         "ai1_name": "Fresh Recruit",
         "ai2_name": "Avallac'h",
