@@ -138,7 +138,7 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
         {
             return;
         }
-        await DependencyResolver.Container.Resolve<GwentClientService>().UpdateAvatar(_clientService.User.UserName, avatarID);
+        await DependencyResolver.Container.Resolve<GwentClientService>().UpdateAvatar(_clientService.User.PlayerName, avatarID);
         _clientService.User.CurrentAvatar = avatarID;
     }
     // When the SetBorderButton is clicked, set the current border of the user
@@ -148,7 +148,7 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
         {
             return;
         }
-        await DependencyResolver.Container.Resolve<GwentClientService>().UpdateBorder(_clientService.User.UserName, borderID);
+        await DependencyResolver.Container.Resolve<GwentClientService>().UpdateBorder(_clientService.User.PlayerName, borderID);
         _clientService.User.CurrentBorder = borderID;
     }
     // When the SetTitleButton is clicked, set the current title of the user
@@ -158,7 +158,7 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
         {
             return;
         }
-        await DependencyResolver.Container.Resolve<GwentClientService>().UpdateTitle(_clientService.User.UserName, titleID);
+        await DependencyResolver.Container.Resolve<GwentClientService>().UpdateTitle(_clientService.User.PlayerName, titleID);
         _clientService.User.CurrentTitle = titleID;
     }
 }
