@@ -167,7 +167,7 @@ namespace Cynthia.Card.Server
         public bool UpdateAvatar(string playername, string AvatarID) // Set the avatar of the user
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.¨PlayerName == playername).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user.Length == 0)
             {
                 return false;
