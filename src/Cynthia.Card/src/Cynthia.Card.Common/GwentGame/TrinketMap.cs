@@ -95,7 +95,7 @@ namespace Cynthia.Card
                 }
             },
             {
-                "GeraltofRivia",
+                "GeraltOfRivia",
                 new TrinketAvatar()
                 {
                     ID = "GeraltOfRivia",
