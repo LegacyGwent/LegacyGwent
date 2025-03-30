@@ -167,37 +167,37 @@ namespace Cynthia.Card.Server
         public bool UpdateAvatar(string playername, string AvatarID) // Set the avatar of the user
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            var user = temp.AsQueryable().Where(x => x.¨PlayerName == playername).ToArray();
             if (user.Length == 0)
             {
                 return false;
             }
             user[0].CurrentAvatar = AvatarID;
-            temp.ReplaceOne(x => x.UserName == playername, user[0]);
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
         public bool UpdateBorder(string playername, string BorderID) // Set the border of the user
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user.Length == 0)
             {
                 return false;
             }
             user[0].CurrentBorder = BorderID;
-            temp.ReplaceOne(x => x.UserName == playername, user[0]);
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
         public bool UpdateTitle(string playername, string TitleID) // Set the title of the user
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.UserName == playername).ToArray();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user.Length == 0)
             {
                 return false;
             }
             user[0].CurrentTitle = TitleID;
-            temp.ReplaceOne(x => x.UserName == playername, user[0]);
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
         public bool UpdateGGCounter(string playername) // increase the gg count of a player
@@ -213,7 +213,7 @@ namespace Cynthia.Card.Server
                 user[0].GGsReceived = 0;
             }
             user[0].GGsReceived +=1 ;
-            temp.ReplaceOne(x => x.UserName == playername, user[0]);
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
         public int QueryMMR(string playername)//计算玩家天梯分数
