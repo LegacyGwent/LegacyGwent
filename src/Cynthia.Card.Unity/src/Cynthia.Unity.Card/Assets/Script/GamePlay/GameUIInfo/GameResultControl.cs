@@ -72,7 +72,17 @@ public class GameResultControl : MonoBehaviour
     public void ShowGameResult(GameResultInfomation gameResult)
     {
         MyName.text = gameResult.MyName;
-        EnemyName.text = gameResult.EnemyName;
+        var Enemy = gameResult.EnemyName;
+        List<string> botnames = new List<string> { "ai0_name", "ai1_name", "ai2_name", "ai3_name", "ai4_name", "ai5_name"};
+        if (botnames.Contains(Enemy))
+        {
+            EnemyName.text = _translator.GetText(Enemy);
+        }
+        else
+        {
+            EnemyName.text = Enemy;
+        }
+
         enemyname = gameResult.EnemyName;
         myname = gameResult.MyName;
         if (gameResult.RoundCount < 3)
