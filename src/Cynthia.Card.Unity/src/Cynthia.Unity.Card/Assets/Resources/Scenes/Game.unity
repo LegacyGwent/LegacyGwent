@@ -9243,7 +9243,7 @@ GameObject:
   - component: {fileID: 513407846}
   - component: {fileID: 513407845}
   m_Layer: 5
-  m_Name: AudioSettingsButtonText
+  m_Name: TitlesButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9736,7 +9736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 332.9651, y: 0}
+  m_AnchoredPosition: {x: 335.41064, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &534679602
@@ -12659,7 +12659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 543.5359, y: 0}
+  m_AnchoredPosition: {x: 544.8511, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &743923664
@@ -12869,7 +12869,7 @@ GameObject:
   - component: {fileID: 752544971}
   - component: {fileID: 752544970}
   m_Layer: 5
-  m_Name: VideoSettingsButtonText
+  m_Name: BordersButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13762,7 +13762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 71.64356, y: 0}
+  m_AnchoredPosition: {x: 70, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799385621
@@ -18973,7 +18973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 80.19802, y: 0}
+  m_AnchoredPosition: {x: 81, y: 0}
   m_SizeDelta: {x: 0, y: 33.31115}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067679771
@@ -21437,7 +21437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 163.9802, y: 0}
+  m_AnchoredPosition: {x: 164.5, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1258103795
@@ -23433,7 +23433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 181.08911, y: 0}
+  m_AnchoredPosition: {x: 183.5, y: 0}
   m_SizeDelta: {x: 0, y: 33.311142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350113265
@@ -23854,6 +23854,12 @@ MonoBehaviour:
     TextObject: {fileID: 461559832}
   - Id: EditorMenu_BackButton
     TextObject: {fileID: 568418417}
+  - Id: TrinketsMenu_Avatars
+    TextObject: {fileID: 1687369939}
+  - Id: TrinketsMenu_Borders
+    TextObject: {fileID: 752544968}
+  - Id: TrinketsMenu_Titles
+    TextObject: {fileID: 513407843}
 --- !u!1001 &1366845292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27441,7 +27447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 71.64356, y: 0}
+  m_AnchoredPosition: {x: 71.5, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506212384
@@ -29212,7 +29218,7 @@ GameObject:
   - component: {fileID: 1687369942}
   - component: {fileID: 1687369941}
   m_Layer: 5
-  m_Name: GeneralSettingsButtonText
+  m_Name: AvatarsButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34606,7 +34612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 113.83985, y: 0}
+  m_AnchoredPosition: {x: 114.970215, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1961457357
@@ -35951,7 +35957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 163.9802, y: 0}
+  m_AnchoredPosition: {x: 161.5, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084319555
