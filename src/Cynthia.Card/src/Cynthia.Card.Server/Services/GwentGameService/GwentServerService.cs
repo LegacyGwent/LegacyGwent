@@ -151,25 +151,52 @@ namespace Cynthia.Card.Server
         public async Task<bool> UpdateAvatar(string playername, string AvatarID) // updates the avatar of the user
         {
         _databaseService.UpdateAvatar(playername, AvatarID);
+        if (_users.Any(x => x.Value.PlayerName == playername))
+            {
+                var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
+                if (!_users.ContainsKey(connectionId))
+                {
+                    return false;
+                }
+                _users[connectionId].CurrentAvatar = AvatarID;
+            }
         return true;
         }
 
         // adds an avatar to the list of owned avatars of a user
-        public async Task<bool> AddAvatar(string username, string AvatarID)
+        public async Task<bool> AddAvatar(string playername, string AvatarID)
         {
-        _databaseService.AddAvatar(username, AvatarID);
+        _databaseService.AddAvatar(playername, AvatarID);
         return true;
         }
         // updates the border of the user
-        public async Task<bool> UpdateBorder(string username, string BorderID) 
+        public async Task<bool> UpdateBorder(string playername, string BorderID) 
         {
-        _databaseService.UpdateBorder(username, BorderID);
+        _databaseService.UpdateBorder(playername, BorderID);
+        if (_users.Any(x => x.Value.PlayerName == playername))
+            {
+                var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
+                if (!_users.ContainsKey(connectionId))
+                {
+                    return false;
+                }
+               _users[connectionId].CurrentBorder = BorderID;
+            }
         return true;
         }
         // updates the title of the user
-        public async Task<bool> UpdateTitle(string username, string TitleID) 
+        public async Task<bool> UpdateTitle(string playername, string TitleID) 
         {
-        _databaseService.UpdateTitle(username, TitleID);
+        _databaseService.UpdateTitle(playername, TitleID);
+        if (_users.Any(x => x.Value.PlayerName == playername))
+            {
+                var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
+                if (!_users.ContainsKey(connectionId))
+                {
+                    return false;
+                }
+                _users[connectionId].CurrentTitle = TitleID;
+            }
         return true;
         }
 
