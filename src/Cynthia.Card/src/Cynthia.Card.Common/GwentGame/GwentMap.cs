@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 119);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 120);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -10760,7 +10760,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64028", //Dimun Corsair
                     Name="迪门家族海贼",
-                    Strength=1,
+                    Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11931,7 +11931,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70046", //Svalblod Fanatic
                     Name="斯瓦勃洛狂信者",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13371,7 +13371,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70092", //Svalblod Brawler
                     Name="斯瓦勃洛争斗者",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
