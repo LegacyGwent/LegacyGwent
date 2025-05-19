@@ -228,15 +228,15 @@ namespace Cynthia.Card.Server
                 _databaseService.UpdateGGCounter(EnemyName); // update the GG couter and if relevant give cosmetics      
                 if (user.GGsReceived >=100 )
                 {
-                    AddBorder(EnemyName, "G_Phoenix");
+                    await AddBorder(EnemyName, "G_Phoenix");
                 }
                 if (user.GGsReceived >=200 )
                 {
-                    AddAvatar(EnemyName, "Phoenix");
+                    await AddAvatar(EnemyName, "Phoenix");
                 }
                 if (user.GGsReceived >=500 )
                 {
-                    AddTitle(EnemyName, "GOODGAMER");
+                    await AddTitle(EnemyName, "GOODGAMER");
                 }
                 return false;
             }
@@ -727,7 +727,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
                         break;
                     case int i when i >= 4250 && i < 4400:
                         rank = "Rank18border";
-                        rank = "MASTER";
+                        ranktitle = "MASTER";
                         rankavatar = "TrissSorceress"; // remove after season 1
                         break;
                     default:
