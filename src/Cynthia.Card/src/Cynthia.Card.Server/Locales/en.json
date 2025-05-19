@@ -3461,7 +3461,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: damage an enemy by twice the number of Torrential Rains on the board.",
+            "Info": "Deploy: For each Torrential Rain on the board, damage an enemy by two and boost self by one.",
             "Flavor": "Skellige's no home to murderers and rogues... Their crimes must be repaid in blood."
         },
         "70093": {
@@ -3591,7 +3591,7 @@
         },
         "70118": {
             "Name": "Lyrian Scytheman",
-            "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
+            "Info": "Deploy: Boost a Bronze or Silver unit in your deck by 2.",
             "Flavor": "Our folk they feed, and our foes they bleed."
         },
         "70119": {

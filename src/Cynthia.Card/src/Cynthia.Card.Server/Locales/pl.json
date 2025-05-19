@@ -3458,7 +3458,7 @@
         },
         "70092": {
             "Name": "Zawiadiaka Svalbloda",
-            "Info": "Rozmieszczenie: Zadaj wrogowi obrażenia równe dwukrotności liczby rzędów znajdujących się pod wpływem Ulewnego Deszczu.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi obrażenia równe podwojonej liczbie Ulewnych Deszczy i wzmocnij się o liczbe Ulewnych Deszczy",
             "Flavor": "Na Skellige nie ma miejsca dla morderców i zwyrodnialców... Ich zbrodnie może zmazać jedynie ich własna krew."
         },
         "70093": {
@@ -3588,7 +3588,7 @@
         },
         "70118": {
             "Name": "Lyryjski Kosynier",
-            "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
+            "Info": "Rozmieszczenie: Wzmocnij Brązową lub Srebrną jednostkę w Twojej talii o 2",
             "Flavor": "Żywią i bronią."
         },
         "70119": {
