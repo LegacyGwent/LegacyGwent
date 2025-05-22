@@ -89,6 +89,7 @@ public class GameEvent : MonoBehaviour
     public bool IsMobileClickDown = false;
     private float pressTime = 0; // time pressed on mobile
     private bool IsRightClickMobile = false;
+    public bool shorterTimer=false;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -1086,7 +1087,15 @@ public class GameEvent : MonoBehaviour
     //让玩家使用一个卡牌,或者pass
     public async Task GetPlayerDrag(LocalPlayer player)//（RoundStart）
     {
-        ropeController.StartRopeTimer();
+        if (shorterTimer)
+        {
+            ropeController.StartRopeTimer(15f);
+        }
+        else
+        {
+            ropeController.StartRopeTimer();
+        }
+        shorterTimer=false;
         //预处理
         PassCoin.IsCanUse = true;//硬币可用
         MyHand.CardsCanDrag(true);

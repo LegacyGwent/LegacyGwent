@@ -647,7 +647,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"1.0.0";
+            return @"2.0.2";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
