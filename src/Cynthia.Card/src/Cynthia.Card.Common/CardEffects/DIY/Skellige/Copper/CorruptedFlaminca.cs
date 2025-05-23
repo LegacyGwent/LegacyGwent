@@ -21,8 +21,7 @@ namespace Cynthia.Card
                 return 0;
             }
         // rain in deck
-        var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1, "选择丢弃一张牌");
-        await result.First().Effect.Discard(Card);
+        await list.First().Effect.Discard(Card);
         await Game.GameRowEffect[PlayerIndex][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
         await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<TorrentialRainStatus>();
         return 0;
