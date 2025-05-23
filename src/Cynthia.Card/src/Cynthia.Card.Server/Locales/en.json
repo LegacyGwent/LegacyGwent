@@ -1786,7 +1786,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them.",
+            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them (can't kill)",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
@@ -1851,7 +1851,7 @@
         },
         "33021": {
             "Name": "Cadaverine",
-            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral enemy.",
+            "Info": "Choose One: Deal 3 Damage to an enemy and all enemies that share its categories; or destroy a Bronze or Silver Neutral enemy.",
             "Flavor": "I don't trust my life to chance. I trust it to a thick coating of Cadaverine on my blade."
         },
         "33022": {
