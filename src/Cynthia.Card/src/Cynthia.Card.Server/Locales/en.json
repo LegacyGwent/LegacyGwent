@@ -2971,7 +2971,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck.",
+            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck. This effect counts as resurection.",
             "Flavor": "Spikeroog's a barren backwater, but that don't bother us - everythin' we need, we take from you."
         },
         "64005": {
