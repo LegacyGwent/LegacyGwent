@@ -2843,12 +2843,12 @@
         },
         "62012": {
             "Name": "Him",
-            "Info": "Rozmieszczenie: Wybierz: Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii lub Utwórz srebrną kartę jednostki z talii początkowej przeciwnika.",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii lub Utwórz srebrną kartę jednostki z talii początkowej przeciwnika.",
             "Flavor": "Bogowie przemawiają do mnie. Słyszę ich szepty z cieni..."
         },
         "62013": {
             "Name": "Kambi",
-            "Info": "Szpieg. Zemsta: Stwórz Hemdalla.",
+            "Info": "Szpieg.\nZemsta: Stwórz Hemdalla.",
             "Flavor": "Kiedy przyjdzie czas, Kambi zapieje i ostrzeże Hemdalla."
         },
         "63001": {
@@ -2858,7 +2858,7 @@
         },
         "63002": {
             "Name": "Udalryk",
-            "Info": "Szpieg. Jednorazowa: Rozmieszczenie: Zobacz 2 karty ze swojej talii. Dobierz jedną z nich, a drugą odrzuć.",
+            "Info": "Szpieg. Jednorazowa.\nRozmieszczenie: Zobacz 2 karty ze swojej talii. Dobierz jedną z nich, a drugą odrzuć.",
             "Flavor": "Haaaa! Za mną, kto odważny!"
         },
         "63003": {
@@ -2883,7 +2883,7 @@
         },
         "63007": {
             "Name": "Donar an Hindar",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie jednostki, a następnie przenieś brązową jednostkę z cmentarza przeciwnika na swój.",
+            "Info": "Rozmieszczenie: Przełącz zablokowanie jednostki, a następnie przenieś brązową jednostkę z cmentarza przeciwnika na swój.",
             "Flavor": "Zwołałem radę jarlów na Twoje żądanie. Przedstaw swoje racje."
         },
         "63008": {
@@ -3033,7 +3033,7 @@
         },
         "64017": {
             "Name": "Drakkar Dimun",
-            "Info": "Na konieć tury zadaj 1 pkt obrażeń jednostce po prawej, a następnie wzmocnij te jednostkę o 2.",
+            "Info": "Na konieć tury zadaj 1 pkt obrażeń jednostce po prawej, a następnie wzmocnij się o 2.",
             "Flavor": "Uciec im? Na wodach Skellige? Powodzenia."
         },
         "64018": {
@@ -3108,7 +3108,7 @@
         },
         "64032": {
             "Name": "Kapłanka Freyi",
-            "Info": "Rozmieszczenie: Wskrześ wybranego brązowego Żołnierza.",
+            "Info": "Rozmieszczenie: Wskrześ brązowego Żołnierza.",
             "Flavor": "Modron Freya, Wielka Matka, jest boginią miłości, urody i urodzaju."
         },
         "64033": {
@@ -3133,12 +3133,12 @@
         },
         "65003": {
             "Name": "Władca Undvik",
-            "Info": "Szpieg. Zemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.",
+            "Info": "Szpieg.\nZemsta: Wzmocnij wrogich Hjalmarów o 14 i daj im odporność.",
             "Flavor": ""
         },
         "65004": {
             "Name": "Widmowy Wieloryb",
-            "Info": "Szpieg.  Przenieś do losowego rzędu i zadaj 1 pkt obrażeń wszystkim innym jednostkom w tym rzędzie na koniec tury.\nZemsta: Zadaj 1 pkt obrażeń wszystkim jednostką w tym rzędzie.",
+            "Info": "Szpieg. \nPrzenieś do losowego rzędu i zadaj 1 pkt obrażeń wszystkim innym jednostkom w tym rzędzie na koniec tury.\nZemsta: Zadaj 1 pkt obrażeń wszystkim jednostką w tym rzędzie.",
             "Flavor": "„E, za duży jak na finwala. To płetwal” „Płetwal? Z takim krótkim pyskiem? Chyba ci odbiło po tych ziołach!”."
         },
         "65005": {
@@ -3153,7 +3153,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Szpieg. Zemsta: Jeśli jest tura przeciwnika, Stwórz niedźwiedzia w przecinym rzędzie.",
+            "Info": "Szpieg.\nZemsta: Jeśli jest tura przeciwnika, Stwórz niedźwiedzia w przecinym rzędzie.",
             "Flavor": ""
         },
         "70001": {
