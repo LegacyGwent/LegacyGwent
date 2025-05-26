@@ -3168,7 +3168,7 @@
         },
         "70003": {
             "Name": "Hammond",
-            "Info": "Rozmieszczenie: Wyberz: Stwórz Skelligijską brązową maszynę; lub wzmocnij wszystkie przyjazne maszyny na stole o 2. Jednostki w tym rzędzie nie otrzymują obrażeń od zagrożeń.",
+            "Info": "Rozmieszczenie, Wyberz: Stwórz Skelligijską brązową maszynę; lub wzmocnij wszystkie przyjazne maszyny na planszy o 2. Jednostki w tym rzędzie nie otrzymują obrażeń od zagrożeń.",
             "Flavor": "Bydlak waży tyle, co cielę wieloryba. I tyle samo żre."
         },
         "70004": {
@@ -3178,7 +3178,7 @@
         },
         "70005": {
             "Name": "Vysogota z Corvo",
-            "Info": "Na początku tury wzmocnij jednostkę po lewej o 3, zadaj sobie 1 pkt obrażeń i przemieść się do rzędu z najmniejszą liczbą jednostek.\nZemsta: Wzmocnij najsłabszego sojusznika o 6.",
+            "Info": "Na początku tury wzmocnij jednostkę po lewej o 3, następnie zadaj sobie 1 pkt obrażeń i przemieść się do sojuszniczego rzędu z najmniejszą liczbą jednostek.\nZemsta: Wzmocnij najsłabszego sojusznika o 6.",
             "Flavor": "Niechże zapisane zostanie, że minęło blisko pół wieku, od kiedy zajmowałem się praktyką medyczną, czuję, jak lata te ciążą na mej pamięci i na zręczności mych palców."
         },
         "70006": {
