@@ -3508,7 +3508,7 @@
         },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
-            "Info": "Rozmieszczenie: Wygnaj 3 brązową bestię lub wampira 3 Twojego cmentarza, następnie Wybierz: stwórz z krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz 3 pełnie we wszystkich Twoich rzędach.",
+            "Info": "Rozmieszczenie: Wygnaj 3 brązową bestię lub wampiry z Twojego cmentarza, następnie Wybierz: stwórz krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz pełnie we wszystkich Twoich rzędach.",
             "Flavor": "On nie kochał jak człowiek, tylko jak zwierzę. Na zabój, bezwarunkowo. Dziko."
         },
         "70103": {
@@ -3543,7 +3543,7 @@
         },
         "70109": {
             "Name": "Krasnoludzki Rydwan",
-            "Info": "Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
+            "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
             "Flavor": "Na papierze to wszystko można wyrysować, mości krasnoludy. Ale zbudować to tego nie zbudujecie, miarkujcie moje słowa."
         },
         "70110": {
@@ -3573,7 +3573,7 @@
         },
         "70115": {
             "Name": "Amnestia",
-            "Info": "Cofnij wroga brązową lojalną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
+            "Info": "Cofnij wrogą brązową lojalną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
             "Flavor": "Zrobiłeś, co komu? Szczerze mówiąc, już nawet nie pamiętam szczegółów."
         },
         "70116": {
@@ -3583,12 +3583,12 @@
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Summon this unit when ever you play the Leader.On turn end, boost all allies with the same power as self by 1.",
+            "Info": "Przyzwij tę jednostkę gdy zagrasz dowódce. Na koniec tury, wzmocnij wszystkich sojuszników o tej samej sile co ta jednostka o 1pkt.",
             "Flavor": "Na skraju lasu czekała na nich samotna draida. Jaskier poznał ją od razu - to była ta o zielonkawych włosach, która nocą przyniosła im światło i chciała go nakłonić do dalszego śpiewania."
         },
         "70118": {
             "Name": "Lyryjski Kosynier",
-            "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
+            "Info": "Rozmieszczenie: Wzmocnij Brązową jednostkę w Twojej talii o 2ptk.",
             "Flavor": "Żywią i bronią."
         },
         "70119": {
@@ -3598,27 +3598,27 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential rain on the opposite by 1.",
+            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz po przeciwnej stronie o 1.",
             "Flavor": "W godzinie grozy Wszechmatka Freya ukazała się Otkellowi na jego statku i pozwoliła mu uciszyć szalejący sztorm, gdyż wiedziała już, że Otkell, podobnie jak jego bracia, miał do opowiedzenia większą historię."
         },
         "70122": {
-            "Name": "Dryad Matron",
-            "Info": "Boost a random unit with the lowest power in your dek by 2. If it is a Dyad, Strenthen it instead.",
+            "Name": "Driada Piastunka",
+            "Info": "Rozmieszczenie: Ulepsz losową jednostkę o najniższej sile w Twojej talii o 2. Jeśli to driada zamiast tego ulepsz ja o 2.",
             "Flavor": "Przyucza młode driady: pokazuje im, jak robić strzały, kształtować rośliny, podrzynać gardła..."
         },
         "70123": {
-            "Name": "Battle Preparation",
-            "Info": "Play a Bronze soilder unit from your hand and Boost it by 2,and then draw a card.",
+            "Name": "Ostatnie przygotowania",
+            "Info": "Zagraj Brązowego żołnierza z ręki, następnie dobież kartę.",
             "Flavor": "Niejeden rycerz przedwcześnie śmierć spotkał, bo poluzował mu się niedbale związany napierśnik…"
         },
         "70124": {
-            "Name": "Woodland Prowlers",
-            "Info": "Weaken a enemy by 1,if the enemy is under Impenetrable Fog,Weaken by 3.",
+            "Name": "Leśny Drapieżca",
+            "Info": "Osłab wroga o 1. Jeśli jest pod wpływem Gęstej mgły zamiast tego osłab go o 3.",
             "Flavor": ""
         },
         "70125": {
-            "Name": "Barnabas Beckenbauer",
-            "Info": "Boost another ally unit by 2. For each bronze item in your grave yard, repeat once.",
+            "Name": "Barnaba Beckenbauer",
+            "Info": "Rozmieszczenie: Wzmocnij innego sojusznika o 2. Za każy Brązowy przedmiot na Twoim cmentarzu powtórz raz.",
             "Flavor": "Przyjechał tu z całym kramem wynalazków, łaził po domach, wychwalał je pod niebiosa. I co nam sprzedał? Petardy, co wybuchają w rękach! Płyn na porost brody, od którego włosy stawały w ogniu!"
         },
         "70126": {
