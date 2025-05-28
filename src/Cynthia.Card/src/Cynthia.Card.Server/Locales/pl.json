@@ -3198,7 +3198,7 @@
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Rozmieszczenie: Wezwij kartę z tą samą nazwą z Twojej talii do tego rzędu. Za każdym razem gdy brązowy lub srebrny wróg staje się ranny, wzmocnij się o 1.",
+            "Info": "Rozmieszczenie: Wezwij jedną kopię tej karty z Twojej talii do tego rzędu. Za każdym razem gdy brązowy lub srebrny wróg staje się ranny, wzmocnij się o 1.",
             "Flavor": "Dzieci nocy przybywają do nas jako kara od bogów! Obraziliśmy ich tolerując magików i nieludzi wśród nas! Nawróćcie się, nim będzie za późno..."
         },
         "70010": {
@@ -3218,7 +3218,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z Twojej talii. Jeśi nie masz deszczu w tali osłab te jednostkę o 4pkt siły.",
+            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z Twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 4pkt siły.",
             "Flavor": "Czasem nawet druidzi ulegają podszeptom Svalbloda..."
         },
         "70014": {
@@ -3228,46 +3228,46 @@
         },
         "70015": {
             "Name": "Obrończyni Brokilonu",
-            "Info": "Na koniec tury, jeśli przeciwnik ma dokładnie 4 jednostki na przeciwnym rzędzie, zadaj 1 pkt obrażeń tym jednostką.",
+            "Info": "Na koniec tury, jeśli przeciwnik ma dokładnie 4 jednostki na przeciwnym rzędzie, zadaj 1 pkt obrażeń tym jednostkom.",
             "Flavor": "Tam gdzie są wasze pola i miasta, wciąż jest Brokilon. Odzyskamy coście zagrabili puszczy."
         },
         "70016": {
             "Name": "Sukrus",
-            "Info": "Rozmieszczenie: Wybierz 1 brązową kartę w ręce. Odrzuć wszystkie karty o tej samej nazwie z Twojej talii.",
+            "Info": "Rozmieszczenie: Wybierz 1 brązową kartę w ręce. Odrzuć wszystkie kopie tej karty z Twojej talii.",
             "Flavor": "Jeden z wielu, który chciał zbić w Novigradzie fortunę. Jeden z wielu, którym się to nie udało."
         },
         "70017": {
             "Name": "Cyntryjski Medyk Polowy",
             "Info": "Rozmieszczenie: Wtasuj przyjazną brązową jednostkę nie będącą wsparciem do Twojej talii i zagraj losową brązową jednostkę z talii.",
-            "Flavor": "Cintryjskie damy dworu słyną z elegancji – i talentu do magii."
+            "Flavor": "Cintryjskie damy dworu słyną z elegancji - i talentu do magii."
         },
         "70019": {
             "Name": "Zoltan Topornik",
-            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Munro Bruysa z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
+            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Munro Bruysa z Twojej tali \nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
             "Flavor": "Postanowiłem czynić dobro konkretne, takie, które nie idzie na marne. Jestem dobry dla siebie i dla mego bezpośredniego otoczenia."
         },
         "70020": {
             "Name": "Figgis Merluzzo",
-            "Info": "Rozmieszczenie: Wezwij Zoltana Topornika i Munro Bruysa z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
+            "Info": "Rozmieszczenie: Wezwij Zoltana Topornika i Munro Bruysa z Twojej tali \nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
             "Flavor": "Ja prosty chłop jestem. Wypić lubię, najeść się, pośpiewać sprośne piosenki… A jak impreza się kończy, wysikać się na gasnące ognisko."
         },
         "70021": {
             "Name": "Munro Bruys",
-            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Zoltana Topornika z Twojej tali /nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
+            "Info": "Rozmieszczenie: Wezwij Figgisa Merluzzo i Zoltana Topornika z Twojej tali \nWzmocnij te jednostkę o 1 zawsze gdy zostaje wzmocniona.",
             "Flavor": "Munro marzył, że założy hemernię parowo-wodną. A skończył jako wykidajło w najpodlejszej knajpie w Wyzimie…"
         },
         "70022": {
             "Name": "Kikimora Robotnica",
-            "Info": "Deploy: Boost all Insectoid allies on the same row by 2.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystie insekty w tym rzędzie o 2pkt.",
             "Flavor": "Mówią, że potrafi ogryźć zakutego w zbroję człowieka do białej kości w minutę. Wolałbym nie sprawdzać, czy to prawda."
         },
         "70023": {
             "Name": "Kikimora Wojownik",
-            "Info": "Rozmieszczenie: Pochnoń nie identyczną brązową kartę w Twojej talii o sile nie większej niż siła tej jednostki i wzmocnij się o jego siłę.",
+            "Info": "Rozmieszczenie: Pochnoń inną brązową kartę w Twojej talii o sile nie większej niż siła tej jednostki i wzmocnij się o jej siłę.",
             "Flavor": "Jej ugryzienia nie są jadowite... Ale kurewsko bolesne."
         },
         "70024": {
-            "Name": "Przeklęty Nieśmiertelny",
+            "Name": "Nieśmiertelny",
             "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie i zadaj sobie 1 pkt obrażeń.",
             "Flavor": "Gdzie jeden padnie, tam zaraz drugi stanie."
         },
@@ -3278,7 +3278,7 @@
         },
         "70026": {
             "Name": "Ivo z Belhaven",
-            "Info": "Na początku tury, jeśli masz więcej punktów niż przeciwnik, ulepsz się o 2.\nZemsta: Przemieść losowego łowcę demonów w Twojej talii na jej szczyt.",
+            "Info": "Na początku tury, jeśli masz więcej punktów niż przeciwnik, ulepsz się o 2.\nZemsta: Przemieść losowego Wiedźmina w Twojej talii na jej szczyt.",
             "Flavor": "Jestem pozbawiony emocji, nie rozumu."
         },
         "70027": {
@@ -3288,22 +3288,22 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Rozmieszczenie: Wybierz rząd i przenieś wszystkich znajdujących się w nim wrogów do losowych rzędów, zadając sobie obrażenia o 2 za każdą przeniesioną jednostkę.\nKiedy jednostka w twojej ręce lub talii poruszy się podczas twojej tury, zwiększ swoje obrażenia o 1.",
+            "Info": "Rozmieszczenie: Wybierz rząd i przenieś wszystkich znajdujących się w nim wrogów do losowych rzędów, zadając sobie 2 pkt obrażeń za każdą przeniesioną jednostkę.\nKiedy jednostka w twojej ręce lub talii poruszy się podczas twojej tury, zwiększ swoje obrażenia o 1.",
             "Flavor": "To ty przewodzisz Kundlom ze Spalli? Ciebie wołają Księciem Psów?"
         },
         "70033": {
             "Name": "Słoń Bojowy",
-            "Info": "Rozmieszczenie: Zniszcz pancerz tej i jednostki sąsiadujące. Zadaj obrażenia równe ilości zniszczonego pancerza.",
+            "Info": "Rozmieszczenie: Zniszcz pancerz tej jednostki i jednostek sąsiadujących. Zadaj obrażenia równe ilości zniszczonego pancerza.",
             "Flavor": "Coś jakby bies, tylko taki łysy i z nosem, co do ziemi zwisa. Co? Sam zmyślasz!"
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its strength cannot be over 10.",
+            "Info": "Na koniec tury wskrześ tę jednostkę do losowego rzędu i ulepsz o 1. Siła bazowa tej jednostki nie może być większa niż 10.",
             "Flavor": "Vildkaarl, który dożywa starości, cieszy się ogromnym szacunkiem reszty stada. Tak, jak Sigvald."
         },
         "70039": {
             "Name": "Pazur Wilka",
-            "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej Rozmieszczenie i wtasuj wilczego wojownika do Twojej talii.",
+            "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej efekt i wtasuj wilczego wojownika do Twojej talii.",
             "Flavor": ""
         },
         "70040": {
@@ -3329,7 +3329,7 @@
         "70044": {
             "Name": "Vernossiel",
             "Info": "Rozmieszczenie: Dodaj 2 kopie Komando Vernossiel do Twojej talii i zmniejsz ich licznik o 1.",
-            "Flavor": "Okazało się, że w lesie nie mieszka żadne, by zacytować kapitana straży – „kudłate chuj wie co” – ale komando Scoia'tael. Dowodziła nim niejaka Vernossiel…"
+            "Flavor": "Okazało się, że w lesie nie mieszka żadne, by zacytować kapitana straży - „kudłate chuj wie co” – ale komando Scoia'tael. Dowodziła nim niejaka Vernossiel…"
         },
         "70045": {
             "Name": "Meve",
@@ -3348,7 +3348,7 @@
         },
         "70054": {
             "Name": "Fortel",
-            "Info": "Wskrześ 2 brązowe Żołnierz jednostki o sile 5 lub większej i zadaj im po 4 pkt obrażeń.",
+            "Info": "Wskrześ 2 brązowych Żołnierzy o sile 5 lub większej i zadaj im po 4 pkt obrażeń.",
             "Flavor": "Żeby zastawić pułapkę, zwykle trzeba się schować. Ale… Są wyjątki od tej zasady."
         },
         "70058": {
