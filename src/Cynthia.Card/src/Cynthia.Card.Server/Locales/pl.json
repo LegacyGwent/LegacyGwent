@@ -3223,7 +3223,7 @@
         },
         "70014": {
             "Name": "Bogini Sprawiedliwości",
-            "Info": "Zalicytuj czerwoną monetę. Wybierz ile punktów dać przeciwnikowi, żeby grać jako drugi. Na koniec pierwszej tury ta karta zostanie przyzwana na strone gracza z niebieską monetą.",
+            "Info": "Wybierz, ile punktów jesteś gotów poświęcić, aby rozpocząć grę jako drugi. Na koniec rundy przyzwij tę kartę na planszę gracza z Niebieską Monetą z cmentarza i daj jej fatum.",
             "Flavor": ""
         },
         "70015": {
@@ -3378,7 +3378,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 time.",
+            "Info": "Rozmieszczenie: Zadaj obrażenia równe liczbie neutralnych kart w Twojej ręce. Powtórz raz",
             "Flavor": "Wiele można schować za pięknym uśmiechem."
         },
         "70076": {
@@ -3393,7 +3393,7 @@
         },
         "70078": {
             "Name": "Potępienie",
-            "Info": "Wezwij z Twojej talii 2 najsilniejsze brązowe jednostki do tego samego rzędu i zmień ich status zablokowania.",
+            "Info": "Wezwij z Twojej talii 2 najsilniejsze brązowe jednostki do wybranego rzędu i zmień ich status zablokowania.",
             "Flavor": "Przez te wszystkie stosy w Novigradzie nie da się oddychać!"
         },
         "70079": {
@@ -3403,22 +3403,22 @@
         },
         "70080": {
             "Name": "Knut Waleczny",
-            "Info": "Deploy:Play a Bronze unit with the highest base Strength from your deck, then deal Damages equal to half of this unit's Strength to itself.",
+            "Info": "Rozieszczeni: Zagraj Brązową jednostkę z Twojej talii o najwyższej sile bazowej,następnie zadaj sobie obrażenia równe połowie siły tej jednostki.",
             "Flavor": "Knut, syn Olufa? Zasłużył na swój przydomek jak mało kto."
         },
         "70081": {
             "Name": "Drummondzki Pogromca",
-            "Info": "Po odrzuceniu ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
+            "Info": "Kiedy odrzucisz tę kartę ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
             "Flavor": "E tam, to tylko draśnięcie."
         },
         "70082": {
             "Name": "Arnjolf Ojcobójca",
-            "Info": "Destroy all units with Strength less then 3 on both sides.",
+            "Info": "Zniszcz wszystkie jednostki o sile mniejszej niż 3 po obu stronach planszy.",
             "Flavor": "Moją hańbę można zmazać tylko krwią."
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
-            "Info": "Wezwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskający Mróz zostanie zniszczony.",
+            "Info": "Wezwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskającego Mrózu zostanie zniszczony.",
             "Flavor": "Malują niebo bielą śniegu i szarością zamieci, a ziemię czerwienią ognia i krwi."
         },
         "70084": {
@@ -3428,12 +3428,12 @@
         },
         "70085": {
             "Name": "Barciowe Widziadło",
-            "Info": "Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
+            "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
             "Flavor": "No, kto jest dobrym psem? Kto jest dobrym psem? Cóż, na pewno nie on."
         },
         "70086": {
             "Name": "Philippa: Mistrzyni Loży",
-            "Info": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
             "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
         },
         "70088": {
@@ -3453,7 +3453,7 @@
         },
         "70091": {
             "Name": "Magiczna Lampa",
-            "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę.if in the graveyard,Last Wish checks 1 extra card",
+            "Info": "Na początku gry wtasuj 3 Ostatnie Życzenia do Twojej tali i odrzuć tę kartę. Kiedy ta karta jest na cmentarzu, Ostatnie życzenie widzi dodatkową kartę.",
             "Flavor": "Lekko zaśniedziała. Wystarczy potrzeć, a odzyska dawny blask."
         },
         "70092": {
@@ -3463,17 +3463,17 @@
         },
         "70093": {
             "Name": "Sztorm",
-            "Info": "Choose 4 rows, Spawn “Torrential Rain”on them. If it’s already under “Torrential Rain”, Spawn “Skellige Storm” on this row instead.",
+            "Info": "Wybierz 4 rzędy. Stwórz w nich Ulewny Deszcz. Jeżeli na rzędzie był już Ulewny Deszcz lub Gęsta Mgła Stwórz zamiast tego Skeligijski Sztorm.",
             "Flavor": "Dziesięć w skali Bekkera."
         },
         "70094": {
             "Name": "Lyriańska kawaleria",
-            "Info": "Rozmieszczenie: wybierz jednostkę ze swojej talii i wzmocnij się o wartość, o jaką wzmocniona jest ta jednostka.",
+            "Info": "Rozmieszczenie: Wybierz jednostkę ze swojej talii i wzmocnij się o wartość, o jaką wzmocniona jest ta jednostka.",
             "Flavor": "Kawalerzysta jest wart tyle, co jego koń. A lyrijskie konie należą do najlepszych na Kontynencie."
         },
         "70095": {
             "Name": "Lyrijski kusznik",
-            "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o Sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
+            "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
             "Flavor": "Trafię w jabłko ze stu kroków! Może nie za pierwszym razem... Ale w końcu na pewno!"
         },
         "70096": {
@@ -3488,22 +3488,22 @@
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Wybierz jedno: Zagraj losowy brązowy przedmiot, lub Zagraj przedmiot Scoia'tael.",
+            "Info": "Wybierz: Zagraj losowy brązowy przedmiot, lub Zagraj przedmiot Scoia'tael.",
             "Flavor": "Padł rozkaz, żeby zamknąć bramy… Ale te ani drgnęły."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Zadaj wszystkim jednostką w Twojej talii 2pkt obrażeń, następnie wzmocnij je o 2pkt.",
+            "Info": "Rozmieszczenie: Zadaj wszystkim jednostką w Twojej talii 2pkt obrażeń, następnie wzmocnij je o 2pkt.",
             "Flavor": "Dał swym wiernym tylko jedno przykazanie: zabijaj."
         },
         "70100": {
-            "Name": "Forest Whisperer",
-            "Info": "Damage all units on the same row of both sides by 2, except for Dryads.",
-            "Flavor": "Driady z Brokilonu opanowały wyjątkową sztukę – potrafią kształtować drzewa wedle woli, a nawet tchnąć w nie świadomość."
+            "Name": "Zaklinaczka Puszczy",
+            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom z wyjątkiem driad na tym i przeciwnym rzędzie 2pkt obrażeń.",
+            "Flavor": "Driady z Brokilonu opanowały wyjątkową sztukę - potrafią kształtować drzewa wedle woli, a nawet tchnąć w nie świadomość."
         },
         "70101": {
-            "Name": "Immortal Cavalry",
-            "Info": "At the start of the game,lock self.Next an ally appears Boost it by 3.",
+            "Name": "Kawaleria Nieśmiertelnych",
+            "Info": "Na początku gry, zablokuj tę kartę. Następnym razem kiedy pojawi się sojusznik wzmocnij go o 3.",
             "Flavor": "Wielbłądy nie są może tak rącze, jak konie… Ale za to nie zdychają po dwóch dniach na pustyni."
         },
         "70102": {
