@@ -411,6 +411,8 @@
         "Season1Border6Name": "Sezon 1 Ramka 6",
         "Season1Border6Description": "Ukończ sezon pierwszy jako najlepszy gracz.",
         "IngameMenu_GGButton": "GG!",
+        "G_PhoenixName": "Feniks",
+        "G_PhoenixDescription": "Otrzymaj GG 100 razy.",
         "GG_Message1": "Good Game! Twój przeciwnik ",
         "GG_Message2": " wysłał GG!",
         "CardTag_DoubleAgent": "Podwójny agent",
@@ -3622,58 +3624,58 @@
             "Flavor": "Przyjechał tu z całym kramem wynalazków, łaził po domach, wychwalał je pod niebiosa. I co nam sprzedał? Petardy, co wybuchają w rękach! Płyn na porost brody, od którego włosy stawały w ogniu!"
         },
         "70126": {
-            "Name": "Cintrian Royal Guard",
-            "Info": "Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
+            "Name": "Straż Cintry",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 3. Jeśli obecnie przegrywasz zamiast tego wzmocnij obie sąsiadujące jednostki o 3.",
             "Flavor": "Calanthe starannie dobiera strażników. Wszyscy mierzą ponad sześć stóp, są fanatycznie wierni - i zabójczo przystojni."
         },
         "70127": {
-            "Name": "VanMoorlehem Servant",
-            "Info": "Immune.Gain 5 Boost when Concealed.",
+            "Name": "Służka Van Moorlehemów",
+            "Info": "Odporność. Gdy zakryjesz tę kartę wzmocnij ją o 5.",
             "Flavor": "Mówią, że służy u Moorlehemów już trzydziesty rok. I nic, ale to nic się nie postarzała…"
         },
         "70128": {
-            "Name": "Moon Dust",
-            "Info": "Deal 5 Damages,then deal 1 Damage randomly 4 times.",
+            "Name": "Proch Księżycowy",
+            "Info": "Zadaj 5pkt obrażeń. Potem zadaj 1pkt obrażeń losowemu wrogowi 4 razy.",
             "Flavor": "Wilkołak uniósł głowę, zaintrygowany widokiem srebrzystego pyłu... A potem zaczął wyć z bólu."
         },
         "70129": {
-            "Name": "Natural Selection",
-            "Info": "Spawn 2 Arachas Hatchling on a raw, For each copy of this card in your graveyard,spawn an extra one.",
+            "Name": "Dobór naturalny",
+            "Info": "Stwórz 2 Młode Krabopająka w wybranym rzędzie. Za każdą kopie tej karty na Twoim cmentarzu stwórz dodatkowego.",
             "Flavor": "Przeżyje najsilniejszy. Czyli nie ty."
         },
         "70130": {
-            "Name": "Mantlet",
-            "Info": "When the unit on the right side is getting Damage, take the Damage with self's Armor first. Crewed: Gain 6 armor.",
+            "Name": "Pluteje",
+            "Info": "Kiedy jednostka po prawej otrzymuje obrażenia - najpierw przyjmij te obrażenia na swoją zbroję. Obsadzenie: 6pkt pancerza.",
             "Flavor": "Coś jak nieślubne dziecko tarczy i palisady."
         },
         "70131": {
-            "Name": "Count Caldwell",
-            "Info": "Swap the Strength of 2 enemy units.",
+            "Name": "Hrabia Caldwell",
+            "Info": "Zamień siłę dwóch wrogich jednostek.",
             "Flavor": "Wasza Wysokość... Nie godzi się, żeby królowa plebs indagowała..."
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Deal 1 Damage to a random enemy 5 time,if it was already Damaged,Drain it instead.",
+            "Info": "Zadaj 1pkt obrażeń losowemu wrogowi 5 razy. Jeśli byli już zranieni zamiast tego Drain ",
             "Flavor": "Krew na suficie, flaki na ścianie... To musiał być garkain."
         },
         "70133": {
-            "Name": "Lonely Champion",
-            "Info": "Every turn, on turn end, if no other units on your side of the board, boost self by 4.",
+            "Name": "Samotny czempion",
+            "Info": "Na koniec każdej tury, jeśli po Twojej stronie ma innych jednostek, wzmocnij się o 4.",
             "Flavor": "Póki czempion walczy dla świętej sprawy, póty Zakon i jego płomienie wciąż trwają w nim."
         },
         "70134": {
             "Name": "Adeptka Klanu Kruka",
-            "Info": "Rozmieszczenie: Na koniec tury, jeśli w tym rzędzie nie ma wrony stwórz wrone po prawej stronie.",
+            "Info": "Na koniec tury, jeśli w tym rzędzie nie ma wrony stwórz wrone po prawej stronie.",
             "Flavor": "Uczeni mężowie twierdzą, że zwierzęta to bezrozumne automatony. Uczeni mężowie pieprzą od rzeczy."
         },
         "70135": {
-            "Name": "Svalblod Priest",
-            "Info": "When damaged by allies, deal same amount of Damage to a unit.",
+            "Name": "Kapłan Svalbloda",
+            "Info": "Kiedy ta jednostka zostanie zraniano przez sojusznika zadaj tyle samo obrażeń.",
             "Flavor": "Kapłani Svalbloda byli tak okrutni, że po upadku kultu związano ich i wypchnięto w morze na drakkarze bez wioseł i żagli."
         },
         "70136": {
-            "Name": "Crow",
-            "Info": "Deathwish:Deal 3 Damage to a random enemy.",
+            "Name": "Wrona",
+            "Info": "Zemsta: Zadaj 3pkt obrażeń losowemu wrogowi.",
             "Flavor": "Jeśli wejdziesz między kruki, to sztuczka z krakaniem też się sprawdzi."
         },
         "70137": {
