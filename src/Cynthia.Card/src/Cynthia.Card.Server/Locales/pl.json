@@ -3524,7 +3524,7 @@
             "Flavor": "Nie śmiej się z ich beretów. Dobrze radzę."
         },
         "70105": {
-            "Name": "Freixenet And Braine",
+            "Name": "Freixenet i Braine",
             "Info": "Rozmieszczenie: Ustaw siłę wybranej jednostki na siłę tej karty.",
             "Flavor": "Miał być tylko narzędziem do osiągnięcia celu, lecz wbrew rozsądkowi zakochali się w sobie."
         },
@@ -3680,47 +3680,47 @@
         },
         "70137": {
             "Name": "Wielki Dąb",
-            "Info": "Rozmieszczenie, Wybierz: Osłab jednostkę o połowe jej podstawowej siły, lub Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
+            "Info": "Rozmieszczenie, Wybierz: Osłab jednostkę o połowe jej podstawowej siły, lub Wskrześ Brązową Driade i wtasuj ją do Twojej talii na koniec tury.",
             "Flavor": "Drzewa Brokilonu szumią między sobą o starym dębie, którego serce na wskroś przeżarła nienawiść."
         },
         "70138": {
-            "Name": "Dryads Caress",
-            "Info": "Play a Bronze/Silver Dryad unit from your deck, then boost it by the number of Dryad units on your side.",
+            "Name": "Troska driad",
+            "Info": "Zagraj Brązową lub Srebrną kartę z Twojej talii, następnie wzmocnij ją o ilość driad po Twojej stronie planszy.",
             "Flavor": "Tsst, tsst, evelienn va maeth, elaine blath..."
         },
         "70139": {
-            "Name": "Treant Boar",
-            "Info": "Deal 3 Damages, then move the adjacent units of the target unit to random rows. If the target is destroyed, repeat once.",
+            "Name": "Drzewiec: Odyniec",
+            "Info": "Rozmieszczeni: Zadaj 3pkt obrażeń, następnie przenieś sąsiadów celu do losowych rzędów. Jeśli cel został zniszczony powtórz raz.",
             "Flavor": "Driady potrafią nadawać drzewcom najróżniejsze formy – chociażby gigantycznego odyńca."
         },
         "70140": {
-            "Name": "Dryad Grovekeeper",
-            "Info": "Transform a Bronze or Silver ally into a copy of this unit and keep base Strength,then Boost all other allies by 1 with lower.",
+            "Name": "Driada opiekunka",
+            "Info": "Rozmieszczenie: Przemień Brązowego lub Srebrnego sojusznika w kopie tej jednostki bez zmieniania siły. Następnie Wzmocnij wszystkich sojuszników z siłą niższa niż siła tej jednostki o 1.",
             "Flavor": "To prawda, że rośliny Brokilonu kwitną siedem razy w roku? Ale jak to możliwe?"
         },
         "70141": {
-            "Name": "Queen Adalia",
-            "Info": "Spawn an Cintra card. If there are only Northern Realm cards in your starting deck, add one each Bronze Cintra cards to your deck.",
+            "Name": "Królowa Adalia",
+            "Info": "Rozieszczenie: Stwórz karte Cintry. Jeśli w Twojej talii startowej są tylko karty królestw północy, dodaj po jednej kopii każdej Cintryjskiej Brązowej jednostki do Twojej talii.",
             "Flavor": "Adalia podnosiła most zwodzony ruchem brwi. Strach pomyśleć, co się działo, gdy ruszyła ręką."
         },
         "70142": {
             "Name": "Vissegerd",
-            "Info": "Deal 8 Damages,then deal Damages equal to self's Boosts.",
+            "Info": "Rozmieszczenie: Zadaj 8pkt obrażeń, następnie zadaj obrażenia równe swojemu wzmocnieniu.",
             "Flavor": "Podniosę Cintrę z popiołów. Cena nie gra roli."
         },
         "70143": {
-            "Name": "Cintrian Knight",
-            "Info": "Whenever you play a Cintra unit, Boost the unit and self by 1 each.",
+            "Name": "Rycerz z Cintry",
+            "Info": "Za każdym razem kiedy zagrasz kartę Cintry wzmocnij ją i tę jednostkę o 1.",
             "Flavor": "Komu bije dzwon...?"
         },
         "70144": {
-            "Name": "Cintrian Envoy",
-            "Info": "Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
+            "Name": "Wysłanniczka z Cintry",
+            "Info": "Rozmieszczenie: Zagraj kopie tej karty z Twojej talii. Jeśli w talii nie ma kopi tej karty zamiast tego dodaj jedną kopie do talii.",
             "Flavor": "Myślała, że angaż w korpusie dyplomatycznym oznacza pracę przy biurku. Srogo się zawiodła."
         },
         "70145": {
             "Name": "Orianna",
-            "Info": "Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
+            "Info": "Rozmieszczenie: Wybierz wroga. Wszystkie sojusznicze Wampiry wykradną mu po 1pkt.",
             "Flavor": "Pani Orianna jest dla nas bardzo dobra... Wspiera artystów, pomaga biednym. Nawet dom dla sierot ufundowała!"
         },
         "70146": {
