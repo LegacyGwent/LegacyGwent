@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Timers;
+using Cynthia.Card.Client;
+using Autofac;
 
 public class RopeController : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class RopeController : MonoBehaviour
     private int shakeRange = 1;
     public bool isRunning = false;
     public float remainingTime = 120f;
+    public int skipedTurns=0;
+    public async void Surrender()
+    {
+        await DependencyResolver.Container.Resolve<GwentClientService>().Surrender();
+    }
     public void StartRopeTimer(float totalTime = 120f)
     {
         rope.gameObject.SetActive(false); // is not active until ropeTime
@@ -23,6 +30,15 @@ public class RopeController : MonoBehaviour
     }
     public void StopRopeTimer()
     {
+        GameEvent gameEvent = FindObjectOfType<GameEvent>();
+        gameEvent.shorterTimer = true;
+        Debug.Log("TIMED-OUT");
+        skipedTurns = skipedTurns + 1;
+        Debug.Log("Skipped Turns: " + skipedTurns);
+        if (skipedTurns >=3)
+        {
+            Surrender();
+        }
         rope.gameObject.SetActive(false);
         remainingTime = 0;
         isRunning = false;

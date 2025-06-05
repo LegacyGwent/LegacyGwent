@@ -1786,7 +1786,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them.",
+            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them (can't kill)",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
@@ -1851,7 +1851,7 @@
         },
         "33021": {
             "Name": "Cadaverine",
-            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral enemy.",
+            "Info": "Choose One: Deal 3 Damage to an enemy and all enemies that share its categories; or destroy a Bronze or Silver Neutral enemy.",
             "Flavor": "I don't trust my life to chance. I trust it to a thick coating of Cadaverine on my blade."
         },
         "33022": {
@@ -2346,7 +2346,7 @@
         },
         "44024": {
             "Name": "Kaedweni Revenant",
-            "Info": "When you play your next Spell or Item, Spawn a Doomed default copy of this unit on its row.\n1 Armor.",
+            "Info": "Single-Use.\nWhen you play your next Spell or Item, Spawn a Doomed default copy of this unit on its row.\n1 Armor.",
             "Flavor": "Doomed to repeat the same day over and over again, just like the employees of Cianfanelli Bank."
         },
         "44025": {
@@ -2422,12 +2422,12 @@
         "51002": {
             "Name": "Eithné",
             "Info": "Deploy: Resurrect a Bronze or Silver special card.",
-            "Flavor": ""
+            "Flavor": "The dryad queen has eyes of molten silver, and a heart of cold-forged steel."
         },
         "51003": {
             "Name": "Filavandrel",
             "Info": "Deploy: Create a Silver special card.",
-            "Flavor": ""
+            "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
             "Name": "Brouver Hoog",
@@ -2631,7 +2631,7 @@
         },
         "54006": {
             "Name": "Farseer",
-            "Info": "If a different ally or unit in your hand is Boosted during your turn, Boost self by 2 at the end of the turn.",
+            "Info": "If a different ally or unit in your hand was Boosted during your turn, Boost self by 2 at the end of the turn.",
             "Flavor": "Her words might seem unintelligible at times, but they always contain hidden meanings and tremendous wisdom."
         },
         "54007": {
@@ -3561,7 +3561,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 4 Damage to an ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
+            "Info": "Deal 3 Damage to a non cursed ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
             "Flavor": "Not all of Svalblod's worshippers wield bow and blade. They've simply no need."
         },
         "70113": {

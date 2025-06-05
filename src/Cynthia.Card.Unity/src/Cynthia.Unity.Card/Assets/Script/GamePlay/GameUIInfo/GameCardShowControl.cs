@@ -324,7 +324,17 @@ public class GameCardShowControl : MonoBehaviour
                                    //IsMulliganEndShow,IsCloseShow,IsAffirmShow,IsHideShow
         UseButtonShow = (true, false, false, true);
         OpenNowUseMenu();
-        GameEvent.ropeController.StartRopeTimer(); // timing mulligan
+        // timing mulligan
+        GameEvent gameevent = GameObject.Find("GameEvent").GetComponent<GameEvent>();
+        if (gameevent.shorterTimer)
+        {
+            GameEvent.ropeController.StartRopeTimer(20f);
+        }
+        else
+        {
+            GameEvent.ropeController.StartRopeTimer();
+        }
+        GameEvent.shorterTimer=false;
     }
     //调度结束
     public void OperationEnd()

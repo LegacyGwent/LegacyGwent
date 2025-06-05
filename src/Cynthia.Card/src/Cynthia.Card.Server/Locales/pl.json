@@ -1643,12 +1643,12 @@
         },
         "25008": {
             "Name": "Krwawy Księżyc",
-            "Info": "Rzuć Zagrożenie na wybrany przeciwny rząd, które zadaję 2 pkt obrażeń wszystkim wrogom przy kontakcie.",
+            "Info": "Rzuć Zagrożenie na wybrany rząd przeciwnika, które zadaję 2 pkt obrażeń wszystkim wrogom przy kontakcie.",
             "Flavor": ""
         },
         "25009": {
             "Name": "Pełnia",
-            "Info": "Rzuć Korzyść na wybrany sojuszniczy rząd, która wzmacnia losową Bestię lub Wampira o 2 na początku tury.",
+            "Info": "Rzuć Korzyść na wybrany sojuszniczy rząd, która wzmacnia losową Bestię lub Wampira w tym rzędzie o 2 na początku tury.",
             "Flavor": ""
         },
         "31001": {
@@ -1668,7 +1668,7 @@
         },
         "31004": {
             "Name": "Uzurpator",
-            "Info": "Szpieg. Rozmieszczenie: Utwórz dowolnego Dowódcę i wzmocnij go o 2.",
+            "Info": "Szpieg \nRozmieszczenie: Utwórz dowolnego Dowódcę i wzmocnij go o 2.",
             "Flavor": "Czemu urodzenie ma decydować o tym, kto nam przewodzi?"
         },
         "32001": {
@@ -1703,7 +1703,7 @@
         },
         "32007": {
             "Name": "Shilard",
-            "Info": "Rozmieszczenie,Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
+            "Info": "Rozmieszczenie, Rozejm: Dobierz po karcie z obu talii. Zatrzymaj jedną z nich, a drugą oddaj swojemu przeciwnikowi.",
             "Flavor": "Dyplomata to człowiek, który używa znacznie więcej słów niż potrzeba, aby wyrazić znacznie mniej niż wie."
         },
         "32008": {
@@ -1723,7 +1723,7 @@
         },
         "32011": {
             "Name": "Letho Królobójca",
-            "Info": "Rozmieszczenie, Wybierz jedno:Zniszcz wrogiego Dowódcę i wzmocnij tę jednostkę o 5 lub Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
+            "Info": "Rozmieszczenie, Wybierz jedno: Zniszcz wrogiego Dowódcę i wzmocnij tę jednostkę o 5 lub Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
             "Flavor": "Czemu ten mnich ma ćwiekowane rękawice...?"
         },
         "32012": {
@@ -1738,7 +1738,7 @@
         },
         "32014": {
             "Name": "Letho z Gulety",
-            "Info": "Podwójny agent, Rozmieszczenie: Aktywuj status zablokowanie u 2 jednostek w tym rzędzie, a następnie wykradnij im całą siłę.",
+            "Info": "Podwójny agent, Rozmieszczenie: Przełącz status zablokowania u 2 jednostek w tym rzędzie, a następnie wykradnij im całą siłę.",
             "Flavor": "Czekam na tych, którzy chcą mnie zabić."
         },
         "32015": {
@@ -1753,7 +1753,7 @@
         },
         "33002": {
             "Name": "Fałszywa Cirilla",
-            "Info": "Szpieg. Jeśli ta jednostka szpieguje, wzmocnij ją o 1 na początku tury, a kiedy ten gracz spasuje, przenieś ją do przeciwnego rzędu.\nZemsta: Zniszcz najsłabszą jednostkę w tym rzędzie.",
+            "Info": "Szpieg. Jeśli ta jednostka szpieguje, wzmocnij ją o 1 na początku tury. Kiedy ta jednostka szpieguje, po pasie przenieś tę jednostkę do przeciwnego rzędu.\nZemsta: Zniszcz najsłabszą jednostkę w tym rzędzie.",
             "Flavor": "Oto nadchodzi interes cesarstwa, pomyślał. Fałszywa princessa, fałszywa królowa Cintry. Fałszywa władczyni ujścia rzeki Yarry, na której tak zależy cesarstwu."
         },
         "33003": {
@@ -1763,7 +1763,7 @@
         },
         "33004": {
             "Name": "Cantarella",
-            "Info": "Szpieg. Jednorazowa: Rozmieszczenie: Dobierz 2 karty. Zatrzymaj jedną, a drugą przenieś na spód swojej talii.",
+            "Info": "Szpieg. Jednorazowa, Rozmieszczenie: Zobacz 2 karty ze szczytu talii. Dobierz jedną, a drugą przenieś na spód swojej talii.",
             "Flavor": "Mężczyznę trzeba stale uwodzić tajemniczością i wyrafinowaniem."
         },
         "33005": {
@@ -1783,17 +1783,17 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Jeśli są sojusznikami, wzmocnij je o 2. Jeśli są wrogami, zrań je o 2.",
+            "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Jeśli są sojusznikami, wzmocnij je o 2. Jeśli są wrogami, zrań je o 2 (nie może zabić).",
             "Flavor": "Linia między dyplomacją a szpiegostwem jest cienka. Zwłaszcza w Nilfgaardzie."
         },
         "33009": {
             "Name": "Gruba Helga",
-            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom oprócz tych w przeciwnym rzędzie. Jeśli ta jednostka została ujawniona, zamiast tego zadaj 1 pkt obrażeń wszystkim wrogom.",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom oprócz tych w przeciwnym rzędzie. Jeśli ta jednostka była ujawniona, zamiast tego zadaj 1 pkt obrażeń wszystkim wrogom.",
             "Flavor": "Nie nadaje się zbytnio do zdobywania miast, ale jest doskonała gdy potrzebujesz zrównać je z ziemią."
         },
         "33010": {
             "Name": "Egan",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie 2 jednostek.",
+            "Info": "Rozmieszczenie: Przełącz zablokowanie 2 jednostek.",
             "Flavor": "Letho ma plan… co mogłoby pójść źle?"
         },
         "33011": {
@@ -1848,7 +1848,7 @@
         },
         "33021": {
             "Name": "Jad Wisielców",
-            "Info": "Wybierz jedno:Zadaj 3 pkt obrażeń wrogowi i wszystkim jednostkom z jego kategorii lub Zniszcz brązową lub srebrną jednostkę neutralną.",
+            "Info": "Wybierz jedno: Zadaj 3 pkt obrażeń wrogowi i wszystkim wrogom dzięlacym z nim kategorię lub Zniszcz brązową lub srebrną jednostkę neutralną.",
             "Flavor": "Nie pozostawiam mojego losu przypadkowi, zawsze pokrywam ostrze Jadem Wisielców."
         },
         "33022": {
@@ -1898,7 +1898,7 @@
         },
         "34008": {
             "Name": "Infiltrator",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj status szpiega u wybranej jednostki.",
+            "Info": "Rozmieszczenie: Przełącz status szpiega u wybranej jednostki.",
             "Flavor": "Możesz uciekać, ale się nie ukryjesz."
         },
         "34009": {
@@ -1923,7 +1923,7 @@
         },
         "34013": {
             "Name": "Wartownik",
-            "Info": "Rozmieszczenie: Wzmocnij wszystkie sojusznicze egzemplarze Żołnierza o 2.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystkie sojusznicze egzemplarze wybranego Żołnierza o 2.",
             "Flavor": "Dobry stróż ma sokoli wzrok, końskie zdrowie i pieski los."
         },
         "34014": {
@@ -1948,12 +1948,12 @@
         },
         "34018": {
             "Name": "Saper",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj status wytrzymałości sojusznika. Załoga.",
+            "Info": "Rozmieszczenie: Przełącz status wytrzymałości sojusznika. Załoga.",
             "Flavor": "Nie można twierdzić, że cywilizacja się nie rozwija. Wszak w każdej nowej wojnie zabijają ludzi w ulepszony sposób."
         },
         "34019": {
             "Name": "Ognisty Skorpion",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 5 pkt obrażeń. Za każdym razem, gdy ujawnisz tę jednostkę, użyj jej umiejętności.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 5 pkt obrażeń. Za każdym razem, gdy ujawnisz tę jednostkę, użyj jej umiejętności rozmieszczenia.",
             "Flavor": "Nie wiem skąd ta nazwa, nigdy nie widziałem skorpiona, który miota wybuchowe pociski na odległość tysiąca kroków..."
         },
         "34020": {
@@ -1963,7 +1963,7 @@
         },
         "34021": {
             "Name": "Zwiadowca",
-            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
+            "Info": "Rozmieszczenie: Wybierz Brązową lub Srebrną Odkrytą jednostkę w dowolnej ręce i wzmocnij się o połowe jej siły bazowej.",
             "Flavor": "Północ nie posiada niczego, czym mogłaby nas zaskoczyć."
         },
         "34022": {
@@ -2038,7 +2038,7 @@
         },
         "41001": {
             "Name": "Król Radowid V",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie 2 jednostek. Jeśli to wrogowie, zadaj im 5 pkt obrażeń. Załoga.",
+            "Info": "Rozmieszczenie: Przełącz zablokowanie 2 jednostek. Jeśli to wrogowie, zadaj im 5 pkt obrażeń. Załoga.",
             "Flavor": "„Mówią, że to gra królów. Te szachy uczą strategicznego myślenia. Co za stek bzdur! Obie strony mają identyczne figury, zasady pozostają niezmiennie takie same. Jak ma to odzwierciedlać prawdziwe życie?”"
         },
         "41002": {
@@ -2063,7 +2063,7 @@
         },
         "42002": {
             "Name": "Krwawy Baron",
-            "Info": "Wzmocnij te jednostkę o 1 za każdym razem, gdy zostanie zniszczony wróg.",
+            "Info": "Wzmocnij te jednostkę o 1 za każdym razem, gdy jest w ręce talii lub na planszy i zniszczony zostanie wróg.",
             "Flavor": "Wiem, że nie byłem dobrym ojcem, ale... może jeszcze nie jest za późno."
         },
         "42003": {
@@ -2103,7 +2103,7 @@
         },
         "42010": {
             "Name": "Kiyan",
-            "Info": "Rozmieszczenie: Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+            "Info": "Rozmieszczenie, Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
             "Flavor": "Żyjemy sobie na spokojnej wysepce niewiedzy śród czarnych mórz nieskończoności i nie powinniśmy wypuszczać się za daleko."
         },
         "42011": {
@@ -2123,7 +2123,7 @@
         },
         "43001": {
             "Name": "Talar",
-            "Info": "Szpieg. Jednorazowa: Rozmieszczenie: Dobierz 2 karty, zatrzymaj jedną, a drugą wtasuj z powrotem do talii.",
+            "Info": "Szpieg. Jednorazowa.\nRozmieszczenie: Dobierz 2 karty, zatrzymaj jedną, a drugą wtasuj z powrotem do talii.",
             "Flavor": "No, to jak będzie? Robimy interes?"
         },
         "43002": {
@@ -2153,7 +2153,7 @@
         },
         "43007": {
             "Name": "Duma Foltesta",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń i przenieś go rząd wyżej. Obsadzenie:Powtórz tę umiejętność.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń i przenieś go rząd wyżej. Obsadzenie: Powtórz tę umiejętność.",
             "Flavor": "Król Foltest zwykł mawiać, że efektywność jest ważniejsza niźli rozmiar."
         },
         "43008": {
@@ -2218,7 +2218,7 @@
         },
         "43020": {
             "Name": "Posiłki",
-            "Info": "Zagraj wybranego brązowego lub srebrnego Żołnierza, Maszynę, Oficera lub Wsparcie ze swojej talii.",
+            "Info": "Zagraj brązowego lub srebrnego Żołnierza, Maszynę, Oficera lub Wsparcie ze swojej talii.",
             "Flavor": "Trąbić do odwrotu! Przegrupować się, musimy czekać na posiłki!"
         },
         "43021": {
@@ -2258,7 +2258,7 @@
         },
         "44007": {
             "Name": "Wieża Oblężnicza",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 2. Obsadzenie:Powtórz tę umiejętność.",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 2. Obsadzenie: Powtórz tę umiejętność.",
             "Flavor": "Najnowszy krzyk mody w dziedzinie zdobywania murów."
         },
         "44008": {
@@ -2293,7 +2293,7 @@
         },
         "44014": {
             "Name": "Wzmocniona Balista",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 2 pkt obrażeń. Obsadzenie:Powtórz tę umiejętność.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 2 pkt obrażeń. Obsadzenie: Powtórz tę umiejętność.",
             "Flavor": "Nigdy nie trafia dwa razy w to samo miejsce, co po dłuższym zastanowieniu może stanowić duży problem."
         },
         "44015": {
@@ -2308,12 +2308,12 @@
         },
         "44017": {
             "Name": "Balista",
-            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wybranemu wrogowi oraz 4 innym losowym wrogom o tej samej sile. Obsadzenie:Powtórz tę umiejętność.",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wybranemu wrogowi oraz 4 innym losowym wrogom o tej samej sile. Obsadzenie: Powtórz tę umiejętność.",
             "Flavor": "Zwykle dajemy im jakieś dźwięczne kobiece imiona. Jak Helga."
         },
         "44018": {
             "Name": "Taran",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń. Jeśli został zniszczony, zadaj 3 pkt obrażeń innemu wrogowi. Obsadzenie:Zwiększ obrażenia, które otrzyma pierwszy cel, o 1.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń. Jeśli został zniszczony, zadaj 3 pkt obrażeń innemu wrogowi. Obsadzenie: Zwiększ obrażenia, które otrzyma pierwszy cel, o 1.",
             "Flavor": "Nie chcą otworzyć? To zapukamy."
         },
         "44019": {
@@ -2343,7 +2343,7 @@
         },
         "44024": {
             "Name": "Kaedweński Upiór",
-            "Info": "Gdy zagrasz następne Zaklęcie lub Przedmiot, stwórz standardowy egzemplarz tej jednostki z Fatum w jej rzędzie. 1 pkt pancerza.",
+            "Info": "Jednorazowa.\nGdy zagrasz następne Zaklęcie lub Przedmiot, stwórz standardowy egzemplarz tej jednostki z Fatum w jej rzędzie. 1 pkt pancerza.",
             "Flavor": "Skazany na powtarzanie tego samego dnia znów i znów od nowa, zupełnie jak pracownicy banku Cianfanellich."
         },
         "44025": {
@@ -2358,7 +2358,7 @@
         },
         "44027": {
             "Name": "Niebieskie Pasy",
-            "Info": "Kiedy zagrany zostaje inny sojusznik z Temerii o takiej samej sile, wezwij inny egzemplarz tej jednostki do losowego rzędu.",
+            "Info": "Kiedy zagrany zostaje inny sojusznik z Temerii o takiej samej sile, wezwij jeden egzemplarz tej jednostki do losowego rzędu.",
             "Flavor": "Dla Temerii zrobiłbym wszystko. Ale głównie zabijam."
         },
         "44028": {
@@ -2419,16 +2419,16 @@
         "51002": {
             "Name": "Eithné",
             "Info": "Rozmieszczenie: Wskrześ brązową lub srebrną kartę specjalną.",
-            "Flavor": ""
+            "Flavor": "Królowa driad ma oczy z roztopionego srebra i serce z zimno kutej stali."
         },
         "51003": {
             "Name": "Filavandrel",
             "Info": "Rozmieszczenie: Utwórz srebrną kartę specjalną.",
-            "Flavor": ""
+            "Flavor": "Choć jest nas teraz niewielu i jesteśmy rozproszeni, nasze serca płoną jaśniej niż kiedykolwiek."
         },
         "51004": {
             "Name": "Brouver Hoog",
-            "Info": "Rozmieszczenie: Zagraj wybraną niebędącą Szpiegiem srebrną jednostkę lub brązowego Krasnoluda ze swojej talii.",
+            "Info": "Rozmieszczenie: Zagraj niebędącą Szpiegiem srebrną jednostkę lub brązowego Krasnoluda ze swojej talii.",
             "Flavor": "Stary grzyb! Spojrzysz i nie wiesz, żywy czy wypchany."
         },
         "52001": {
@@ -2473,7 +2473,7 @@
         },
         "52009": {
             "Name": "Morenn Córa Puszczy",
-            "Info": "Zasadzka: Kiedy twój przeciwnik zagra brązową lub srebrną kartę specjalną, odwróć ją i anuluj jej umiejętność.",
+            "Info": "Zasadzka: Kiedy twój przeciwnik zagra brązową lub srebrną kartę specjalną, anuluj jej umiejętność.",
             "Flavor": "Kocham Brokilon bardziej niż swoje życie, jest jak matka, która dba o swoje dzieci. Dlatego będę jej broniła do ostatniego tchu."
         },
         "52010": {
@@ -2493,12 +2493,12 @@
         },
         "52013": {
             "Name": "Isengrim Uciekinier",
-            "Info": "Rozmieszczenie: Wybierz: Zagraj brązową lub srebrną kartę specjalną lub Utwórz srebrnego Elfa.",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj brązową lub srebrną kartę specjalną lub Utwórz srebrnego Elfa.",
             "Flavor": "Przed nami przełęcz Elskerdeg, a za przełęczą Zerrikania i Hakland. Przed nami daleka i niebezpieczna droga. Jeżeli mamy iść nią razem... Porzućmy nieufność."
         },
         "53001": {
             "Name": "Yaevinn",
-            "Info": "Szpieg Jednorazowa: Rozmieszczenie: Dobierz kartę specjalną i jednostkę. Zatrzymaj jedną z tych kart, a drugą wtasuj z powrotem do swojej talii.",
+            "Info": "Szpieg. Jednorazowa.\nRozmieszczenie: Zobacz kartę specjalną i jednostkę. Dobierz jedną z tych kart, a drugą wtasuj z powrotem do swojej talii.",
             "Flavor": "Znam ludzi na wylot – jesteście równie skomplikowani jak konstrukcja cepa."
         },
         "53002": {
@@ -2508,7 +2508,7 @@
         },
         "53003": {
             "Name": "Ciaran",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie jednostki i przenieś ją do tego rzędu po jej stronie.",
+            "Info": "Rozmieszczenie: Przełącz zablokowanie jednostki i przenieś ją do tego rzędu po jej stronie.",
             "Flavor": "Bloede dh'oine!"
         },
         "53004": {
@@ -2523,7 +2523,7 @@
         },
         "53006": {
             "Name": "Morenn",
-            "Info": "Zasadzka: Gdy jednostka zostanie zagrana po stronie przeciwnika, odwróć się i zadaj jej 7 pkt obrażeń.",
+            "Info": "Zasadzka: Gdy jednostka zostanie zagrana po stronie przeciwnika zadaj jej 7 pkt obrażeń.",
             "Flavor": "Córka pani Eithné odziedziczyła po niej nieziemską urodę oraz dziką nienawiść do wszystkiego, co ludzkie."
         },
         "53007": {
@@ -2533,7 +2533,7 @@
         },
         "53008": {
             "Name": "Malena",
-            "Info": "Zasadzka: Po upływie 2 tur, na początku tury odkryj tę jednostkę i rzuć urok na najsilniejszą brązową lub srebrną jednostkę wroga o sile 5 lub mniejszej.",
+            "Info": "Zasadzka: Po upływie 2 tur, na początku tury rzuć urok na najsilniejszą brązową lub srebrną jednostkę wroga o sile 5 lub mniejszej.",
             "Flavor": "Nienawidzę was, dh'oine. Wszyscy jesteście tacy sami."
         },
         "53009": {
@@ -2548,7 +2548,7 @@
         },
         "53011": {
             "Name": "Toruviel",
-            "Info": "Zasadzka: Gdy przeciwnik spasuje, odkryj tę jednostkę i wzmocnij 2 jednostki po obu jej stronach o 2.",
+            "Info": "Zasadzka: Gdy przeciwnik spasuje, wzmocnij 2 jednostki po obu jej stronach o 2.",
             "Flavor": "Chętnie pchnęłabym cię z bliska, patrząc w oczy. Ale śmierdzisz, człowieku."
         },
         "53012": {
@@ -2618,7 +2618,7 @@
         },
         "54004": {
             "Name": "Brygada Vrihedd",
-            "Info": "Rozmieszczenie: Usuń Zagrożenia z rzędu tej jednostki i przenieś wybraną jednostkę do tego rzędu po jej stronie.",
+            "Info": "Rozmieszczenie: Usuń Zagrożenie z rzędu tej jednostki i przenieś wybraną jednostkę do tego rzędu po jej stronie.",
             "Flavor": "Jak przetłumaczyć słowo Vrihedd? Nie wiem. Ale oznacza kłopoty."
         },
         "54005": {
@@ -2628,7 +2628,7 @@
         },
         "54006": {
             "Name": "Wyrocznia",
-            "Info": "Jeśli inny twój sojusznik lub jednostka w ręku lub na polu bitwy zostanie wzmocniona podczas twojej tury, wzmocnij tę jednostkę o 2 na koniec tury.",
+            "Info": "Jeśli inny twój sojusznik lub jednostka w ręku lub na polu bitwy została wzmocniona podczas twojej tury, wzmocnij tę jednostkę o 2 na koniec tury.",
             "Flavor": "Jej słowa czasem mogą być niezrozumiałe, ale zawsze stoją za nimi ukryte znaczenia i wielka mądrość."
         },
         "54007": {
@@ -2688,7 +2688,7 @@
         },
         "54018": {
             "Name": "Havekarski Medyk",
-            "Info": "Rozmieszczenie: Wzmocnij 2 sojuszników o 3,potem wylecz ich.",
+            "Info": "Rozmieszczenie: Wzmocnij 2 sojuszników o 3, następnie wylecz ich.",
             "Flavor": "Opatrzę was, opatrzę. Ale za odpowiednią opłatą."
         },
         "54019": {
@@ -2763,7 +2763,7 @@
         },
         "55001": {
             "Name": "Pułapka Zapalająca",
-            "Info": "Szpieg. Zadaj wszystkim innym jednostkom w rzędzie tej jednostki 2 pkt obrażeń i wygnaj ją na koniec tury.",
+            "Info": "Szpieg. Na koniec tury zadaj wszystkim innym jednostkom w tym rzędzie 2 pkt obrażeń i wygnaj tę jednostke.",
             "Flavor": "Ostrożnie… tylko jeden krok dzieli was od stopienia na szkliwo."
         },
         "61001": {
@@ -3558,7 +3558,7 @@
         },
         "70112": {
             "Name": "Pierwotna Dzicz",
-            "Info": "Zadaj 4pkt obrażeń sojusznikowi, następnie zagraj jedną z dwóch brązowych jednostek kultystów z Twojej talii. Wzmocnij ją o 1.",
+            "Info": "Zadaj 3 pkt obrażeń nie przeklętemu sojusznikowi, następnie zagraj jedną z dwóch brązowych jednostek kultystów z Twojej talii. Wzmocnij ją o 1.",
             "Flavor": "Wyznawcy Svalbloda zwykle nie noszą broni. Nie muszą."
         },
         "70113": {
