@@ -60,7 +60,7 @@ namespace Cynthia.Card.Server
             {
                 await AddAvatar(loginUser.PlayerName, "Phoenix");
             }
-            if (user.GGsReceived >=500 )
+            if (loginUser.GGsReceived >=500 )
             {
                 await AddTitle(loginUser.PlayerName, "GOODGAMER");
             }
