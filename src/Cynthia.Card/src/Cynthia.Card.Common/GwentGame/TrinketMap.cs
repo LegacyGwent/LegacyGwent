@@ -189,7 +189,7 @@ namespace Cynthia.Card
                     Taunt4 = "Yennefer4",
                     Taunt5 = "Yennefer5",
                     Taunt6 = "Yennefer6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -331,7 +331,7 @@ namespace Cynthia.Card
                     Taunt4 = "Iorveth4",
                     Taunt5 = "Iorveth5",
                     Taunt6 = "Iorveth6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -457,7 +457,7 @@ namespace Cynthia.Card
                     Taunt4 = "Ciri4",
                     Taunt5 = "Ciri5",
                     Taunt6 = "Ciri6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -672,7 +672,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season2Border1",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -680,7 +680,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season2Border2",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -688,7 +688,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season2Border3",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -696,7 +696,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season2Border4",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -704,7 +704,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season2Border5",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -712,7 +712,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season2Border6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -1106,6 +1106,60 @@ namespace Cynthia.Card
                     TitleColor = "blue",
                     UnlockCounter = 500,
                     UnlockStat = "GGsReceived",
+                }
+            },
+            { 
+                "RANGER",
+                new Title()
+                {
+                    ID = "RANGER",
+                    IsReleased = true,
+                    TitleColor = "emerald",
+                }
+            },
+            { 
+                "TRAPPER",
+                new Title()
+                {
+                    ID = "TRAPPER",
+                    IsReleased = true,
+                    TitleColor = "emerald",
+                }
+            },
+            { 
+                "HUNTER",
+                new Title()
+                {
+                    ID = "HUNTER",
+                    IsReleased = true,
+                    TitleColor = "emerald",
+                }
+            },
+            { 
+                "REBEL",
+                new Title()
+                {
+                    ID = "REBEL",
+                    IsReleased = true,
+                    TitleColor = "emerald",
+                }
+            },
+                        { 
+                "DEFENDER",
+                new Title()
+                {
+                    ID = "DEFENDER",
+                    IsReleased = true,
+                    TitleColor = "emerald",
+                }
+            },
+            { 
+                "PROTECTOR",
+                new Title()
+                {
+                    ID = "PROTECTOR",
+                    IsReleased = true,
+                    TitleColor = "emerald",
                 }
             },
         };

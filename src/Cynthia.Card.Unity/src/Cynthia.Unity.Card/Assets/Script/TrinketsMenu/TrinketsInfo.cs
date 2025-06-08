@@ -217,8 +217,9 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
             }
         }
     }
-    public void TrinketsButtonClicked()
+    public async void TrinketsButtonClicked()
     {
+        _clientService.User = await _clientService.QueryUserInfo(_clientService.User.UserName, _clientService.User.PassWord); // refresh user info from server
         MainUI.SetActive(false);
         TrinketsUI.SetActive(true);
         GameProfile.SetActive(false);
