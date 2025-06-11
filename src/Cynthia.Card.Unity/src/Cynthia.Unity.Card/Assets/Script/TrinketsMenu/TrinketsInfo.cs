@@ -219,7 +219,7 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
     }
     public async void TrinketsButtonClicked()
     {
-        _clientService.User = await _clientService.QueryUserInfo(_clientService.User.UserName, _clientService.User.PassWord); // refresh user info from server
+        UpdateUserInfo();
         MainUI.SetActive(false);
         TrinketsUI.SetActive(true);
         GameProfile.SetActive(false);
@@ -231,5 +231,11 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
         TrinketsUI.SetActive(false);
         GameProfile.SetActive(true);
     }
+
+    private async void UpdateUserInfo() // refresh user info from server
+    {
+       _clientService.User = await _clientService.QueryUserInfo(_clientService.User.UserName, _clientService.User.PassWord); 
+    }
+    
 
 }
