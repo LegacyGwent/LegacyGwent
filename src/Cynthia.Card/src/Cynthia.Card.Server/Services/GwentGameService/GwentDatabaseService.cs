@@ -5,7 +5,7 @@ using MongoDB.Driver.Linq;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Cynthia.Card;
-using System.Threading.Tasks;
+
 
 namespace Cynthia.Card.Server
 {
@@ -67,7 +67,7 @@ namespace Cynthia.Card.Server
             // _collection.Update(x => x.UserName == username, user);
             return true;
         }
-        public int initMMR = 3400;
+        const int initMMR = 3400;
         public bool Register(string username, string password, string playername)
         {
             var temp = GetUserInfo();
@@ -84,7 +84,7 @@ namespace Cynthia.Card.Server
             int GGsReceived = 0;
             ownedtitles.Add("NoBorder");
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = 4400, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
+            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
             return true;
         }
         public UserInfo Login(string username, string password)
@@ -437,20 +437,6 @@ namespace Cynthia.Card.Server
             }
 
             return str;
-        }
-
-        public IEnumerable<UserInfo> GetAllPlayers()
-        {
-            return GetUserInfo().Find(_ => true).ToList();
-        }
-
-        public async Task ResetPlayerMMR(string username, int baseMMR)
-        {
-            var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
-            var update = Builders<UserInfo>.Update
-                .Set(x => x.MMR, baseMMR);
-
-            await GetUserInfo().UpdateOneAsync(filter, update);
         }
     }
 }

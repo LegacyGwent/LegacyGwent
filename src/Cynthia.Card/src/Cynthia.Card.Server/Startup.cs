@@ -32,8 +32,6 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentLocalizationService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<Random>(x => new Random((int)DateTime.UtcNow.Ticks));
-            // Add the scheduled event service
-            services.AddHostedService<ScheduledEventService>();
             services.AddAntDesign();
             services.AddBlazoredLocalStorage();
             services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient(GetConnectionString()));
