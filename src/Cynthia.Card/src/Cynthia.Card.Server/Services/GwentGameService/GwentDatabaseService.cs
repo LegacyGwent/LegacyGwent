@@ -84,7 +84,7 @@ namespace Cynthia.Card.Server
             int GGsReceived = 0;
             ownedtitles.Add("NoBorder");
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = 4400, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
+            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
             return true;
         }
         public UserInfo Login(string username, string password)
