@@ -3461,7 +3461,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: For each Torrential Rain on the board, damage an enemy by two and boost self by one.",
+            "Info": "Deploy: Choose an enemy, for each Torrential Rain on the board, damage it by two and gain 1 armor.",
             "Flavor": "Skellige's no home to murderers and rogues... Their crimes must be repaid in blood."
         },
         "70093": {
