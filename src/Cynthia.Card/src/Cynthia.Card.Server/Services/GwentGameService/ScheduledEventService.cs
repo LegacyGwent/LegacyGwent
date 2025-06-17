@@ -31,7 +31,7 @@ namespace Cynthia.Card.Server
                     var now = DateTime.UtcNow;
                     
                     // Check if it's the date of the season end
-                    if (now.Month == 6 && now.Day == 21 && now.Hour == 0 && now.Minute == 0)
+                    if (now.Month == 6 && now.Day == 23 && now.Hour == 0 && now.Minute == 0)
                     {
                         Console.WriteLine("Executing monthly rank reset and seasonal rewards...");
                         _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
