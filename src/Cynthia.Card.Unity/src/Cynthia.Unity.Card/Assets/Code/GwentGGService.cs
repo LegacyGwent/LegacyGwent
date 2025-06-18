@@ -30,7 +30,14 @@ namespace Cynthia.Card.Client
         public ClientState ClientState { get; set; } = ClientState.Standby;
         public Task<string> DisplayGG()
         {
-            return receiver.ReceiveAsync<string>();
+            try
+            {
+                return receiver.ReceiveAsync<string>();
+            }
+            catch
+            {
+                return Task.Delay(1).ContinueWith(t => ""); // if no taunt was received yet, return "" to avoid errors
+            }
         }
 
         public GwentGGService(IContainer container, GlobalUIService globalUIService)

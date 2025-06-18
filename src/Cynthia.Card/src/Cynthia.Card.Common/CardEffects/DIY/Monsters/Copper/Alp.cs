@@ -19,7 +19,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if(target.CardPoint() < Card.CardPoint())
+            if(target.CardPoint() <= Card.CardPoint())
             {
                 var cards = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror()).IgnoreConcealAndDead();
                 if (cards.Count() == 0)

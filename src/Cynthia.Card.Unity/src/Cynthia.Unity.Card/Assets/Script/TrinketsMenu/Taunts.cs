@@ -82,12 +82,11 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     public async void ReceiveTaunt() // when you receive an enemytaunt from server, play its audio and write its text
     {
-        IsAwaiting = true;
         if (IsEnemyNotMute)
         {
             
-            string tauntID = await _clientService.PlayTaunt();
-            if (tauntID.Length > 1)
+            string tauntID = await _clientService.PlayTaunt(); // if no taunt is received, tauntID will be ""
+            if (tauntID.Length > 1) 
             {
                 EnemyTaunt.SetActive(true);
                 PlayTaunt(tauntID);
@@ -96,7 +95,6 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
             }
             
         }
-        IsAwaiting = false;
     }
     public void PlayMyTaunt(string mytaunt) // play my taunt, write its text and send it to the server
     {

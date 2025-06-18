@@ -2971,7 +2971,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck.",
+            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck. This effect counts as resurection.",
             "Flavor": "Spikeroog's a barren backwater, but that don't bother us - everythin' we need, we take from you."
         },
         "64005": {
@@ -3496,13 +3496,13 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
+            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70100": {
             "Name": "Forest Whisperer",
             "Info": "Deploy: Damage all units on the same row on both sides by 2, except for Dryads.",
-            "Flavor": "The dryads of Brokilon mastered a unique craft – to shape trees at will... And breathe into them life."
+            "Flavor": "The dryads of Brokilon mastered a unique craft - to shape trees at will... And breathe into them life."
         },
         "70101": {
             "Name": "Immortal Cavalry",
@@ -3716,7 +3716,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
+            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck instead.",
             "Flavor": "She thought service in the diplomatic corps would mean a quiet life behind a desk. She and her blistered feet were sorely mistaken..."
         },
         "70145": {
