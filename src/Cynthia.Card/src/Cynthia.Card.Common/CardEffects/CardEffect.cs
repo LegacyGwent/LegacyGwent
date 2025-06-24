@@ -790,7 +790,7 @@ namespace Cynthia.Card
             //位移,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            await Game.AddTask(async () => await CardDown(isSpyingChange, false, false, (true, isSpyingChange)));
+            await Game.AddTask(async () => await CardDown(isSpyingChange, false, false, (true, isSpyingChange), false));
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤

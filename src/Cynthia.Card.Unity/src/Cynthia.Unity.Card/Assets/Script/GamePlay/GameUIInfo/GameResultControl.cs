@@ -18,8 +18,6 @@ public class GameResultControl : MonoBehaviour
     public Text EnemyName;
     public string enemyname;
     public string myname;
-    private float timer=4;
-    private float interval=6;
     //三个回合的结果数字
     public Text Round1MyPoint;
     public Text Round1EnemyPoint;
@@ -221,15 +219,7 @@ public class GameResultControl : MonoBehaviour
     }
     void Update()
     {
-
-        if (timer<interval)
-        {
-            timer=timer+Time.deltaTime;
-        }
-        else
-        {
             DisplayGGObject();
-        }
     }
     private async void DisplayGGObject()
     {

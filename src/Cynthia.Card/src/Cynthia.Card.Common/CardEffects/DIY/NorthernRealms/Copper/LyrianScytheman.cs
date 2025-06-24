@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public LyrianScytheman(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var deck_list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit && x.Status.Group == Group.Copper)//乱序列出所有单位
+            var deck_list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit && x.Status.Group != Group.Gold)//bronze or silver
                 .Mess(Game.RNG)
                 .ToList();
             if (deck_list.Count() == 0)
