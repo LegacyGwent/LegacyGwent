@@ -630,7 +630,12 @@ may come back in the future.
 This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
 
-Welcome to DIY Gwent Season 1! Send taunts, customize your Avatar, Border and Title and unlock the exlusive seasonal cosmetics!
+Welcome to DIY Gwent Season 2!
+
+Patch notes:
+- Svalblod brawler: -1 str, gain one armor for each rain on the board
+- Lyrian Scyntmen: can now buff silvers
+- Svalblod Fanatic: -1
 
 AI Matchmaking:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
