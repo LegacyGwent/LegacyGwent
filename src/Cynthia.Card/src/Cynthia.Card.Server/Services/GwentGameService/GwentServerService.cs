@@ -712,17 +712,17 @@ When other players are available, player matchmaking will be prioritized. Add #f
                         rank = "Rank6border";
                         ranktitle = "APPRENTICE";
                         break;
-                    case int i when i >= 3800 && i < 3950:
+                    case int i when i >= 3800 && i < 3850:
                         rank = "Rank9border";
                         ranktitle = "JOURNEYMAN";
                         break;
-                    case int i when i >= 3950 && i < 4000:
+                    case int i when i >= 3850 && i < 3950:
+                    // remove after season 2
+                        rankavatar = "CirALt";
+                        break;
+                    case int i when i >= 3950 && i < 4100:
                         rank = "Rank12border";
                         ranktitle = "ADEPT";
-                        break;
-                    case int i when i >= 4000 && i < 4100: 
-                        // remove after season 2
-                        rankavatar = "CirALt";
                         break;
                     case int i when i >= 4100 && i < 4250:
                         rank = "Rank15border";
@@ -731,7 +731,6 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     case int i when i >= 4250 && i < 4400:
                         rank = "Rank18border";
                         ranktitle = "MASTER";
-                        // remove after season 2
                         rankavatar = "YenneferFury"; 
                         break;
                     default:
