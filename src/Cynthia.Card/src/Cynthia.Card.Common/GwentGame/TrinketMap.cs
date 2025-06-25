@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 2);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 3);
         public static IDictionary<string, int> AvatarIdMap { get; set; }
         public static string[] AvatarIdIndexMap { get; set; }
         public static IDictionary<string, int> BorderIdMap { get; set; }
