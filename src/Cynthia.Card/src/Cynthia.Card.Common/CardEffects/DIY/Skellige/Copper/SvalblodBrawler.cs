@@ -20,7 +20,7 @@ namespace Cynthia.Card
                 if (result.Count != 0) 
                 {
                     await result.Single().Effect.Damage(increment * count, Card);
-                    await Card.Effect.Armor(increment, Card);
+                    await Card.Effect.Armor(count, Card);
                 }
             }
             return 0;
