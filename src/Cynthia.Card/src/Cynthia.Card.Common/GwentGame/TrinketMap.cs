@@ -8,14 +8,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 3);
-        public static IDictionary<string, int> AvatarIdMap { get; set; }
-        public static string[] AvatarIdIndexMap { get; set; }
-        public static IDictionary<string, int> BorderIdMap { get; set; }
-        public static string[] BorderIdIndexMap { get; set; }
-        public static IDictionary<string, int> TitleIdMap { get; set; }
-        public static string[] TitleIdIndexMap { get; set; }
-
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 4);
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -25,15 +18,6 @@ namespace Cynthia.Card
         {
             return AvatarMap
             .Select(x => x.Key);
-        }
-        public static void InitializeAvatarMap()
-        {
-            AvatarIdMap = TrinketMap.AvatarMap.Indexed().ToDictionary(x => x.Value.Key, x => x.Key);
-            AvatarIdIndexMap = new string[AvatarIdMap.Count];
-            for (var i = 0; i < TitleIdMap.Count; i++)
-            {
-                AvatarIdIndexMap[i] = AvatarIdMap.First(x => x.Value == i).Key;
-            }
         }
         public static IEnumerable<Border> GetBorders()
         {
@@ -45,15 +29,6 @@ namespace Cynthia.Card
             return BorderMap
             .Select(x => x.Key);
         }
-        public static void InitializeBorderMap()
-        {
-            BorderIdMap = TrinketMap.BorderMap.Indexed().ToDictionary(x => x.Value.Key, x => x.Key);
-            BorderIdIndexMap = new string[BorderIdMap.Count];
-            for (var i = 0; i < TitleIdMap.Count; i++)
-            {
-                BorderIdIndexMap[i] = BorderIdMap.First(x => x.Value == i).Key;
-            }
-        }
         public static IEnumerable<Title> GetTitles()
         {
             return TitleMap
@@ -63,15 +38,6 @@ namespace Cynthia.Card
         {
             return TitleMap
             .Select(x => x.Key);
-        }
-        public static void InitializeTitleMap()
-        {
-            TitleIdMap = TrinketMap.TitleMap.Indexed().ToDictionary(x => x.Value.Key, x => x.Key);
-            TitleIdIndexMap = new string[TitleIdMap.Count];
-            for (var i = 0; i < TitleIdMap.Count; i++)
-            {
-                TitleIdIndexMap[i] = TitleIdMap.First(x => x.Value == i).Key;
-            }
         }
 
 

@@ -36,8 +36,8 @@ namespace Cynthia.Card.Server
             _cardMapData = cardMapString;
             var avatarMapString = JsonConvert.SerializeObject(TrinketMap.AvatarMap);
             _avatarMapData = avatarMapString;
-            var boderMapString = JsonConvert.SerializeObject(TrinketMap.BorderMap);
-            _borderMapData = cardMapString;
+            var borderMapString = JsonConvert.SerializeObject(TrinketMap.BorderMap);
+            _borderMapData = borderMapString;
             var titleMapString = JsonConvert.SerializeObject(TrinketMap.TitleMap);
             _titleMapData = titleMapString;
         }

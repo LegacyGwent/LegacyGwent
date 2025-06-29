@@ -179,13 +179,10 @@ namespace Cynthia.Card.Client
                     infoText.text = "loading trinkets information";
                     var loadedAvatarMap = JsonConvert.DeserializeObject<Dictionary<string, TrinketAvatar>>(await GetAvatarMap());
                     TrinketMap.AvatarMap = loadedAvatarMap;
-                    TrinketMap.InitializeAvatarMap();
                     var loadedBorderMap = JsonConvert.DeserializeObject<Dictionary<string, Border>>(await GetBorderMap());
                     TrinketMap.BorderMap = loadedBorderMap;
-                    TrinketMap.InitializeBorderMap();
                     var loadedTitleMap = JsonConvert.DeserializeObject<Dictionary<string, Title>>(await GetTitleMap());
                     TrinketMap.TitleMap = loadedTitleMap;
-                    TrinketMap.InitializeTitleMap();
                 }
             }
             catch (Exception e)
