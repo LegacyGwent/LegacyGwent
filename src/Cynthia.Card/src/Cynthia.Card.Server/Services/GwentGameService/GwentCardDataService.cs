@@ -14,9 +14,6 @@ namespace Cynthia.Card.Server
         private string _avatarMapData; // stores the data for the avatar cosmetics
         private string _borderMapData; // stores the data for the border cosmetics
         private string _titleMapData; // stores the data for the titles cosmetics
-        private string avatarMapString;
-        private string cardMapString;
-        private string titleMapString;
 
         public GwentCardDataService()
         {
