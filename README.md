@@ -1,4 +1,4 @@
-# 巫师之昆特牌 怀旧版 LegacyGwent
+# 巫师之昆特牌 怀旧版 LegacyGwent a
 
 简体中文 | [English](README_EN.md)
 
