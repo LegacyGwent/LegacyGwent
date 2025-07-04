@@ -1,5 +1,5 @@
 # LegacyGwent: Replica of Beta Gwent
-
+ 
 [简体中文](README_EN.md) | English
 
 ## Copyright Statement
