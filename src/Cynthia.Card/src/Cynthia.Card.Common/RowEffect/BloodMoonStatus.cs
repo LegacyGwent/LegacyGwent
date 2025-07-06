@@ -23,5 +23,14 @@ namespace Cynthia.Card
                 await card.Effect.Damage(2, null, damageType: DamageType.BloodMoon);
             }
         }
+
+        public async Task HandleEvent(AfterCardMove @event)
+        {
+            var card = @event.Target;
+            if (card.Status.CardRow == RowPosition)
+            {
+                await card.Effect.Damage(2, null, damageType: DamageType.BloodMoon);
+            }
+        }
     }
 }
