@@ -81,7 +81,6 @@ namespace Cynthia.Card.Server
             var ownedborders = new List<string>();
             ownedborders.Add("NoBorder");
             var ownedtitles = new List<string>();
-            int GGsReceived = 0;
             ownedtitles.Add("NoBorder");
             decks.Add(GwentDeck.CreateBasicDeck(1));
             temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
@@ -207,10 +206,6 @@ namespace Cynthia.Card.Server
             if (user.Length == 0)
             {
                 return false;
-            }
-            if  (user[0].GGsReceived == null)
-            {
-                user[0].GGsReceived = 0;
             }
             user[0].GGsReceived +=1 ;
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);

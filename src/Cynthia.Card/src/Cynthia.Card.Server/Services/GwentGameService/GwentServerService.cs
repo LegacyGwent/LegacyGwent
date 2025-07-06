@@ -52,15 +52,15 @@ namespace Cynthia.Card.Server
         {
             var loginUser = _databaseService.Login(username, password);
             // give trinkets linked to a counter such as GG
-            if (loginUser.GGsReceived >=100 )
+            if (loginUser.GGsReceived >= 100)
             {
                 await AddBorder(loginUser.PlayerName, "G_Phoenix");
             }
-            if (loginUser.GGsReceived >=200 )
+            if (loginUser.GGsReceived >= 200)
             {
                 await AddAvatar(loginUser.PlayerName, "Phoenix");
             }
-            if (loginUser.GGsReceived >=500 )
+            if (loginUser.GGsReceived >= 500)
             {
                 await AddTitle(loginUser.PlayerName, "GOODGAMER");
             }
@@ -100,13 +100,13 @@ namespace Cynthia.Card.Server
                 await AddAvatar(user.PlayerName, "TrissMerigold");
                 await AddAvatar(user.PlayerName, "Yennefer");
                 // give the seasonal avatars - delete section after season
-                    // await AddAvatar(user.PlayerName, "ClassicGeralt");
+                // await AddAvatar(user.PlayerName, "ClassicGeralt");
                 // give all default borders
                 await AddBorder(user.PlayerName, "NoBorder");
                 // give all default titles
                 await AddTitle(user.PlayerName, "CARDSMITH");
                 // give the seasonal titles - delete section after season
-                    // await AddTitle(user.PlayerName, "PIONEER");
+                // await AddTitle(user.PlayerName, "PIONEER");
 
                 // if no title, avatar or border is set, set the default ones
                 if (user.CurrentBorder == null)
@@ -119,11 +119,7 @@ namespace Cynthia.Card.Server
                 }
                 if (user.CurrentTitle == null)
                 {
-                   await UpdateTitle(user.PlayerName, "CARDSMITH");
-                }
-                if (user.GGsReceived == null)
-                {
-                   user.GGsReceived = 0;
+                    await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
                 InovkeUserChanged();
             }
@@ -165,8 +161,8 @@ namespace Cynthia.Card.Server
         }
         public async Task<bool> UpdateAvatar(string playername, string AvatarID) // updates the avatar of the user
         {
-        _databaseService.UpdateAvatar(playername, AvatarID);
-        if (_users.Any(x => x.Value.PlayerName == playername))
+            _databaseService.UpdateAvatar(playername, AvatarID);
+            if (_users.Any(x => x.Value.PlayerName == playername))
             {
                 var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
                 if (!_users.ContainsKey(connectionId))
@@ -175,35 +171,38 @@ namespace Cynthia.Card.Server
                 }
                 _users[connectionId].CurrentAvatar = AvatarID;
             }
-        return true;
+            await Task.CompletedTask;
+            return true;
         }
 
         // adds an avatar to the list of owned avatars of a user
         public async Task<bool> AddAvatar(string playername, string AvatarID)
         {
-        _databaseService.AddAvatar(playername, AvatarID);
-        return true;
+            _databaseService.AddAvatar(playername, AvatarID);
+            await Task.CompletedTask;
+            return true;
         }
         // updates the border of the user
-        public async Task<bool> UpdateBorder(string playername, string BorderID) 
+        public async Task<bool> UpdateBorder(string playername, string BorderID)
         {
-        _databaseService.UpdateBorder(playername, BorderID);
-        if (_users.Any(x => x.Value.PlayerName == playername))
+            _databaseService.UpdateBorder(playername, BorderID);
+            if (_users.Any(x => x.Value.PlayerName == playername))
             {
                 var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
                 if (!_users.ContainsKey(connectionId))
                 {
                     return false;
                 }
-               _users[connectionId].CurrentBorder = BorderID;
+                _users[connectionId].CurrentBorder = BorderID;
             }
-        return true;
+            await Task.CompletedTask;
+            return true;
         }
         // updates the title of the user
-        public async Task<bool> UpdateTitle(string playername, string TitleID) 
+        public async Task<bool> UpdateTitle(string playername, string TitleID)
         {
-        _databaseService.UpdateTitle(playername, TitleID);
-        if (_users.Any(x => x.Value.PlayerName == playername))
+            _databaseService.UpdateTitle(playername, TitleID);
+            if (_users.Any(x => x.Value.PlayerName == playername))
             {
                 var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
                 if (!_users.ContainsKey(connectionId))
@@ -212,21 +211,24 @@ namespace Cynthia.Card.Server
                 }
                 _users[connectionId].CurrentTitle = TitleID;
             }
-        return true;
+            await Task.CompletedTask;
+            return true;
         }
 
         // adds a border to the list of owned borders of a user
         public async Task<bool> AddBorder(string username, string BorderID)
         {
-        _databaseService.AddBorder(username, BorderID);
-        return true;
+            _databaseService.AddBorder(username, BorderID);
+            await Task.CompletedTask;
+            return true;
         }
 
         // adds a title to the list of owned titles of a user
         public async Task<bool> AddTitle(string username, string TitleID)
         {
-        _databaseService.AddTitle(username, TitleID);
-        return true;
+            _databaseService.AddTitle(username, TitleID);
+            await Task.CompletedTask;
+            return true;
         }
 
         public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
@@ -665,12 +667,12 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public int GetUsersInMatchCount()
         {
             var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
-            return list.Count*2;
+            return list.Count * 2;
         }
         public int GetUsersInRankedCount()
         {
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password == "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
-            return list.Count*2;
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password == "rank").Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count * 2;
         }
         public int GetUsersvsAICount()
         {
@@ -679,18 +681,18 @@ When other players are available, player matchmaking will be prioritized. Add #f
         }
         public int GetUsersInCasualCount() // including playing vs friend
         {
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank" ).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
-            return list.Count*2;
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank").Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            return list.Count * 2;
         }
-        
+
         public int GetIsRankQueue()
-        {            
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "rank" ).Select(x => (x.Player1.PlayerName)).ToList();
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "rank").Select(x => (x.Player1.PlayerName)).ToList();
             return list.Count();
         }
         public int GetIsCasualQueue()
-        {            
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "" ).Select(x => (x.Player1.PlayerName)).ToList();
+        {
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "").Select(x => (x.Player1.PlayerName)).ToList();
             return list.Count();
         }
         public void InovkeUserChanged()
@@ -702,52 +704,52 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public async void MMRTrinkets(string PlayerName, int mymmr) // add trinkets when a certain MMR is reached
         {
-            string rank = null; 
+            string rank = null;
             string ranktitle = null;
             string rankavatar = null; // for seasonal avatars
-                switch (mymmr) 
-                {
-                    case int i when i < 3500:
-                        break;
-                    case int i when i >= 3500 && i < 3650:
-                        rank = "Rank3border";
-                        ranktitle = "NOVICE";
-                        break;                        
-                    case int i when i >= 3650 && i < 3800:
-                        rank = "Rank6border";
-                        ranktitle = "APPRENTICE";
-                        break;
-                    case int i when i >= 3800 && i < 3850:
-                        rank = "Rank9border";
-                        ranktitle = "JOURNEYMAN";
-                        break;
-                    case int i when i >= 3850 && i < 3950:
+            switch (mymmr)
+            {
+                case int i when i < 3500:
+                    break;
+                case int i when i >= 3500 && i < 3650:
+                    rank = "Rank3border";
+                    ranktitle = "NOVICE";
+                    break;
+                case int i when i >= 3650 && i < 3800:
+                    rank = "Rank6border";
+                    ranktitle = "APPRENTICE";
+                    break;
+                case int i when i >= 3800 && i < 3850:
+                    rank = "Rank9border";
+                    ranktitle = "JOURNEYMAN";
+                    break;
+                case int i when i >= 3850 && i < 3950:
                     // remove after season 2
-                        rankavatar = "CirALt";
-                        break;
-                    case int i when i >= 3950 && i < 4100:
-                        rank = "Rank12border";
-                        ranktitle = "ADEPT";
-                        break;
-                    case int i when i >= 4100 && i < 4250:
-                        rank = "Rank15border";
-                        ranktitle = "CARDSHARP";
-                        break;
-                    case int i when i >= 4250 && i < 4400:
-                        rank = "Rank18border";
-                        ranktitle = "MASTER";
-                        rankavatar = "YenneferFury"; 
-                        break;
-                    default:
-                        rank = "Rank21border";
-                        ranktitle = "GRANDMASTER";
-                        break;
-                }
-                await AddBorder(PlayerName, rank);
-                await AddTitle(PlayerName, ranktitle);
-                await AddAvatar(PlayerName, rankavatar);
+                    rankavatar = "CirALt";
+                    break;
+                case int i when i >= 3950 && i < 4100:
+                    rank = "Rank12border";
+                    ranktitle = "ADEPT";
+                    break;
+                case int i when i >= 4100 && i < 4250:
+                    rank = "Rank15border";
+                    ranktitle = "CARDSHARP";
+                    break;
+                case int i when i >= 4250 && i < 4400:
+                    rank = "Rank18border";
+                    ranktitle = "MASTER";
+                    rankavatar = "YenneferFury";
+                    break;
+                default:
+                    rank = "Rank21border";
+                    ranktitle = "GRANDMASTER";
+                    break;
+            }
+            await AddBorder(PlayerName, rank);
+            await AddTitle(PlayerName, ranktitle);
+            await AddAvatar(PlayerName, rankavatar);
         }
-        
+
         public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
             // if (_env.IsProduction())
