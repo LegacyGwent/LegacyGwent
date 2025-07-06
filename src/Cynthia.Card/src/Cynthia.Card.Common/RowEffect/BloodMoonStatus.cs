@@ -3,11 +3,20 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     //血月
-    public class BloodMoonStatus : RowEffect, IHandlesEvent<SetStatusEffect>, IHandlesEvent<AfterUnitDown>
+    public class BloodMoonStatus : RowEffect, IHandlesEvent<SetStatusEffect>, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterCardMove>
     {
         public override RowStatus StatusType => RowStatus.BloodMoon;
 
         public async Task HandleEvent(AfterUnitDown @event)
+        {
+            var target = @event.Target;
+            if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
+            {
+                await target.Effect.Damage(2, null, damageType: DamageType.BloodMoon);
+            }
+        }
+
+        public async Task HandleEvent(AfterCardMove @event)
         {
             var target = @event.Target;
             if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)

@@ -3,11 +3,20 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     //坑陷
-    public class PitTrapStatus : RowEffect, IHandlesEvent<SetStatusEffect>, IHandlesEvent<AfterUnitDown>
+    public class PitTrapStatus : RowEffect, IHandlesEvent<SetStatusEffect>, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterCardMove>
     {
         public override RowStatus StatusType => RowStatus.PitTrap;
 
         public async Task HandleEvent(AfterUnitDown @event)
+        {
+            var target = @event.Target;
+            if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
+            {
+                await target.Effect.Damage(3, null, damageType: DamageType.PitTrap);
+            }
+        }
+
+        public async Task HandleEvent(AfterCardMove @event)
         {
             var target = @event.Target;
             if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
