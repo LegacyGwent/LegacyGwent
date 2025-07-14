@@ -654,5 +654,8 @@ namespace Cynthia.Card
         public const string DeadeyeAmbush = "70173";
         public const string MageInfiltrator = "70174";
         public const string Trapmaker = "70175";
+        public const string Hybrid = "70176";
+        public const string SirScratchALot = "70177";
+        public const string Ulle = "70178";
     }
 }

@@ -14900,6 +14900,70 @@ namespace Cynthia.Card
 					LinkedCards=new List<String> {},
                 }
             },
+            {
+                "70176",
+                new GwentCard()
+                {
+                    CardId ="70176", //Hybrid
+                    Name="",
+                    Strength=7,
+                    Group=Group.Copper,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Beast},
+                    HideTags = new HideTag[]{HideTag.Deathwish},
+                    Flavor = "",
+                    Info = "",
+                    CardArtsId = "202856",
+					LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70177",
+                new GwentCard()
+                {
+                    CardId ="70177", //SirScratchALot
+                    Name="",
+                    Strength=8,
+                    Group=Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Beast, Categorie.Cursed},
+                    Flavor = "",
+                    Info = "",
+                    CardArtsId = "203081",
+					LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70178",
+                new GwentCard()
+                {
+                    CardId ="70178", //Ulle
+                    Name="",
+                    Strength=3,
+                    Group=Group.Silver,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
+                    Flavor = "",
+                    Info = "",
+                    CardArtsId = "202615",
+					LinkedCards=new List<String> {},
+                }
+            },
         };
     }
 }
