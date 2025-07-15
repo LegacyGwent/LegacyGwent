@@ -346,14 +346,13 @@
         "ClassicGeraltName": "Classic Geralt",
         "ClassicGeraltDescription": "Partecipate in Season One.",
         "CirALtName": "Ciri Elder Blood",
-        "CiriAltDescription": "Reach Rank 10 in Season 2.",
+        "CirAltDescription": "Reach Rank 10 in Season 2.",
         "Taunt1": "WATCH THIS",
         "Taunt2": "DAMMIT!",
         "Taunt3": "YOU'RE GOING DOWN",
         "Taunt4": "BAD MOVE",
         "Taunt5": "WELL PLAYED",
         "Taunt6": "THANKS",
-        "CirALtDescription": "",
         "NOVICEName": "NOVICE",
         "NOVICEDescription": "Reach Rank 3.",
         "APPRENTICEName": "APPRENTICE",
@@ -3903,11 +3902,13 @@
             "Name": "Hybrid",
             "Info": "Deploy: Boost a Beast in your deck by 2. Deathwish: Boost the lowest Beast in your deck by 4.",
             "Flavor": "When one head just isn’t enough."
-        },"70177": {
+        },
+        "70177": {
             "Name": "Sir Scratch-a-Lot",
             "Info": "Deploy: strengthen all allied beasts by 1 wherever they are, then boost them by 1 if they are under full moon.",
             "Flavor": "If you value your eyesight... Don't call him a pussy."
-        },"70178": {
+        },
+        "70178": {
             "Name": "Ulle the Unlucky",
             "Info": "On turn start, if this card is in the graveyard, resurrect self. On turn end, duel the lowest enemy, if you win, banish self.",
             "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
