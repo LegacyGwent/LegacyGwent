@@ -5373,6 +5373,10 @@ MonoBehaviour:
     m_Address: c10001000_slot
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: bd04715c3f0908e4e982e7d66b480ff8
+    m_Address: c10006000
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5906503ae4b1e438db91b29a26dbfb, type: 2}
   m_SchemaSet:
