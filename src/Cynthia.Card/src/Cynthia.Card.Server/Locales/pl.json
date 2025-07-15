@@ -3898,6 +3898,21 @@
             "Info": "Wezwij kopię tej jednostki do tego rzędu kiedy zostanie aktywowana sojusznicza zasadzka. ",
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
+        "70176": {
+            "Name": "Hybryda",
+            "Info": "Rozmieszczenie: Wzmocnij bestie w Twojej talii o 2.\nZemsta:Wzmocnij najsłabszą bestie w Twojej talii o 4.",
+            "Flavor": "Co dwie głowy to nie jedna."
+        },
+        "70177": {
+            "Name": "Pan Drapak",
+            "Info": "Rozmieszczenie: Ulepsz wszystkie sojsznicze bestie o 1 gdziekolwiek są, następnie Wzmocnij je o 1 jeśli są pod wpływem pełni księżyca.",
+            "Flavor": "Jeśli cenisz gałki oczne, nie drocz się z nim."
+        },
+        "70178": {
+            "Name": "Ulle",
+            "Info": "Na początku tury, jeśli ta karta jest na cmentarzu, wskrześ ją. Na koniec tury stocz pojedynek z najsłabszym wrogiem, jeśli wygrasz wygnaj tę jednostkę.",
+            "Flavor": "Obyś po wiek wieków przegrywał."
+        },
         "80001": {
             "Name": "Auberon:King",
             "Info": "He'll drop a white frost.",

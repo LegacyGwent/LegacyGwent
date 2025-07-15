@@ -3899,6 +3899,19 @@
             "Info": "When an allied ambush is activated, Summon a copy of self on the same row.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
+        "70176": {
+            "Name": "Hybrid",
+            "Info": "Deploy: Boost a Beast in your deck by 2. Deathwish: Boost the lowest Beast in your deck by 4.",
+            "Flavor": "When one head just isn’t enough."
+        },"70177": {
+            "Name": "Sir Scratch-a-Lot",
+            "Info": "Deploy: strengthen all allied beasts by 1 wherever they are, then boost them by 1 if they are under full moon.",
+            "Flavor": "If you value your eyesight... Don't call him a pussy."
+        },"70178": {
+            "Name": "Ulle the Unlucky",
+            "Info": "On turn start, if this card is in the graveyard, resurrect self. On turn end, duel the lowest enemy, if you win, banish self.",
+            "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
+        },
         "80001": {
             "Name": "Auberon: King",
             "Info": "He'll drop a white frost.",
