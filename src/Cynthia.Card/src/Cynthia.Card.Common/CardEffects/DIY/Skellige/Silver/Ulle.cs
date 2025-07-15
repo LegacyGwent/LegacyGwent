@@ -7,6 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("70178")]//西格瓦尔德
     public class Ulle : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterTurnStart>
     {//On turn start, if this card is in the graveyard, resurrect self. On turn end, duel the lowest enemy, if you win, banish self.
+    // 回合开始时，复活自身到随机排，回合结束时，与最弱的敌方单位决斗，如果获胜，则放逐自身。
         public Ulle(GameCard card) : base(card) { }
         public async Task HandleEvent(AfterTurnStart @event)
         // On turn start, if this card is in the graveyard, resurrect self.

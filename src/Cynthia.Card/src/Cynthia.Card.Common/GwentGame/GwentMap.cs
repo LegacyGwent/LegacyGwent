@@ -14905,7 +14905,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70176", //Hybrid
-                    Name="",
+                    Name="杂交兽",
                     Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
@@ -14916,8 +14916,8 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     HideTags = new HideTag[]{HideTag.Deathwish},
-                    Flavor = "",
-                    Info = "",
+                    Flavor = "当一个头不够时。",
+                    Info = "部署：使卡组中的一个野兽单位获得2点增益。遗愿：使卡组中战力最低的野兽获得4点增益。",
                     CardArtsId = "202856",
 					LinkedCards=new List<String> {},
                 }
@@ -14927,7 +14927,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70177", //SirScratchALot
-                    Name="",
+                    Name="挠挠爵士",
                     Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
@@ -14937,8 +14937,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast, Categorie.Cursed},
-                    Flavor = "",
-                    Info = "",
+                    Flavor = "不想少只眼睛的话……就别叫他小猫咪。",
+                    Info = "部署：使所有野兽友方获得1点强化，无论他们身在何处，若他们处于满月下，则额外获得1点增益。",
                     CardArtsId = "203081",
 					LinkedCards=new List<String> {},
                 }
@@ -14947,8 +14947,8 @@ namespace Cynthia.Card
                 "70178",
                 new GwentCard()
                 {
-                    CardId ="70178", //Ulle
-                    Name="",
+                    CardId ="70178", //Ulle The Unlucky
+                    Name="倒霉乌雷",
                     Strength=3,
                     Group=Group.Silver,
                     Faction = Faction.Skellige,
@@ -14958,8 +14958,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
-                    Flavor = "",
-                    Info = "",
+                    Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
+                    Info = "回合开始时，复活自身到随机排，回合结束时，与最弱的敌方单位决斗，如果获胜，则放逐自身。",
                     CardArtsId = "202615",
 					LinkedCards=new List<String> {},
                 }

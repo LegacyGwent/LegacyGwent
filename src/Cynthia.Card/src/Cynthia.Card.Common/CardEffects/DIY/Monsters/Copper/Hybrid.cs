@@ -7,6 +7,7 @@ namespace Cynthia.Card
     [CardEffectId("70176")]//杂交兽
     public class Hybrid : CardEffect, IHandlesEvent<AfterCardDeath>
     {//Deploy: Boost a non-Gold Beast in your deck by 2. Deathwish: Boost the smallest non-Gold Beast in your deck by 4.
+    // 部署：使卡组中的一个野兽单位获得2点增益。遗愿：使卡组中战力最低的野兽获得4点增益。
         public Hybrid(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {

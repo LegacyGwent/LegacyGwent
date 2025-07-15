@@ -8,6 +8,7 @@ namespace Cynthia.Card
     [CardEffectId("70177")]//挠挠先生
     public class SirScratchALot : CardEffect
     {//Deploy: strengthen all allied beasts by 1 wherever they are, then boost them by 1 if they are under full moon.
+    // 部署：使所有野兽友方获得1点强化，无论他们身在何处，若他们处于满月下，则额外获得1点增益。
         public SirScratchALot(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
