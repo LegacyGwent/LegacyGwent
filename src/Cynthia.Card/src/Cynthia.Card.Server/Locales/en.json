@@ -3456,7 +3456,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Deploy: Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
+            "Info": "Deploy: Damage an enemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3536,7 +3536,7 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all enemy rows; or apply Blood Moon on all friendly rows.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all friendly rows; or apply Blood Moon on all enemy rows.",
             "Flavor": "He did not love like a man, but like an animal. Madly, deeply, unconditionally. Wildly."
         },
         "70103": {
@@ -3761,7 +3761,7 @@
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
+            "Info": "On turn end, if there is no stronger unit on the opposite row, Drain a random enemy on that row.",
             "Flavor": "The townsfolk, long plagued with horrific nightmares, posted a desperate plea for help... Hmm. An alp, gotta be, the witcher grumbled to himself."
         },
         "70149": {
@@ -3866,7 +3866,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Info": "On turn end, if no enemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
