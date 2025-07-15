@@ -3750,17 +3750,17 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Rozmieszczenie, Wybierz: Zadaj 5 pkt obrażeń dwóm wrogom ,lub zadaj wrogowi 8pkt obrażeń.",
+            "Info": "Rozmieszczenie, Wybierz: Zadaj 5 pkt obrażeń dwóm wrogom, lub zadaj wrogowi 8 pkt obrażeń.",
             "Flavor": "Nie tylko sroki lubią błyskotki."
         },
         "70147": {
-            "Name": "Plumard",
-            "Info": "Whenever an ally Vampire unit is destroyed, Summon a copy of this unit from your deck to this row. Whenever a non-copies ally unit Drains on the same row, Drain the target unit by 1.",
+            "Name": "Wąpierz",
+            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy sojusznik z tegp samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
             "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
+            "Info": "Na koniec tury jeśli w przeciwnym rzędzie nie ma silniejszej jednostki, wykradnij 1 losowej jednostce z przeciwnego rzędu.",
             "Flavor": "Ludzie w miasteczku cierpieli na nawracające koszmary... Wiedźmin był prawie pewien, że grasował tam Alp."
         },
         "70149": {
