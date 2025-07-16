@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 121);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 122);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -13317,7 +13317,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "将己方墓场中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”。",
+                    Info = "将己方墓场中的最多3张的“小雾妖”放回牌库底，随后在对方同排降下“蔽日浓雾”。",
                     CardArtsId = "202599",
 					LinkedCards=new List<String> {"14011"},
                 }
