@@ -3411,7 +3411,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strength copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
