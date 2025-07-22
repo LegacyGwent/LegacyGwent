@@ -530,7 +530,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "我曾经完成过一份委托。对方要我选择奖赏，我便依照意外率向他索要回报。",
-                    Info = "对1个敌军单位造成4点伤害。若它为“怪兽”单位，则直接将其摧毁。",
+                    Info = "杰洛特：猎魔大师：改变一名敌方单位的锁定状态并造成4点伤害，如果目标是怪兽单位，则改变锁定状态并摧毁它。",
                     CardArtsId = "20175900",
 					LinkedCards=new List<String> {},
                 }
@@ -594,7 +594,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "他会一字不差地实现你的愿望，但往往问题就在于此。",
-                    Info = "发牌员随机创造一张单位牌，你猜测其战力是大于、等于或小于6。如果你猜对了打出该牌。",
+                    Info = "刚特·欧迪姆：如果己方牌组顶的3张牌中有战力高于自身的单位牌，从中选择一张打出，将其余的牌置于牌组底端。",
                     CardArtsId = "13221500",
 					LinkedCards=new List<String> {},
                 }
@@ -1157,7 +1157,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13004", //Iris' Companions
                     Name="爱丽丝的同伴",
-                    Strength=11,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -1169,7 +1169,7 @@ namespace Cynthia.Card
                     Flavor = "我们的名字还是不说为好。就当我们是……主人家的朋友吧。",
                     Info = "将1张牌从牌组移至手牌，然后随机丢弃1张牌。",
                     CardArtsId = "20008300",
-					LinkedCards=new List<String> {},
+					LinkedCards=new List<String> {"13019", "70154", "70084", "13015"},
                 }
             },
             {

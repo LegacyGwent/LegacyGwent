@@ -1,12 +1,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
+using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
     [CardEffectId("13004")]//爱丽丝的同伴
     public class IrisCompanions : CardEffect
-    {//将1张牌从牌组移至手牌，然后随机丢弃1张牌。
+    {//Draw a card, then discard a random card. If you have Iris or Olgierd in your hand choose the card to discard instead.
         public IrisCompanions(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -21,7 +22,16 @@ namespace Cynthia.Card
             await Game.PlayerDrawCard(PlayerIndex);//抽卡
                                                    //---------------------------------------------------------------------------
                                                    //随机弃掉一张
-            await Game.PlayersHandCard[PlayerIndex].Mess(RNG).First().Effect.Discard(Card);
+            if (Game.PlayersHandCard[PlayerIndex].Any(x => new List<string> { "13019", "70154", "70084", "13015" }.Contains(x.Status.CardId)))
+            {
+                var discardcard = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex], isCanOver: true);
+                await discardcard.Single().Effect.Discard(Card);
+            }
+            else
+            {
+                var discardcard = Game.PlayersHandCard[PlayerIndex].Mess(RNG).First();
+                await discardcard.Effect.Discard(Card);
+            }
             return 0;
         }
     }
