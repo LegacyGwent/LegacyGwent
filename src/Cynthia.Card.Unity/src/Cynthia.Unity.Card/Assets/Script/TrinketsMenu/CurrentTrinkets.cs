@@ -36,7 +36,7 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
     }
     private void Start()
     {
-        if (SceneManager.GetSceneByName("GamePlay").isLoaded == true)
+        if (SceneManager.GetSceneByName("GamePlay").isLoaded == true || RankIcon == null)
         {
             return;
         }
