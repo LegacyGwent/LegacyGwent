@@ -81,7 +81,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     private void CloseEnemyTaunt() // Set Taunt Inactive After Animation
     {
-        MyTaunt.SetActive(false);
+        MyTaunt.SetActive(false); 
         EnemyTaunt.SetActive(false);
     }
     public async void ReceiveTaunt() // when you receive an enemytaunt from server, play its audio and write its text
