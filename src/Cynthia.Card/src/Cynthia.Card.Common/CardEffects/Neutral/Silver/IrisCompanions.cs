@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("13004")]//爱丽丝的同伴
     public class IrisCompanions : CardEffect
-    {//Draw a card, then discard a random card. If you have Iris or Olgierd in your hand choose the card to discard instead.
+    {//Draw a card, then discard a random card. If you Iris: Shade is on the board, choose the card to discard instead.
         public IrisCompanions(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -22,7 +22,9 @@ namespace Cynthia.Card
             await Game.PlayerDrawCard(PlayerIndex);//抽卡
                                                    //---------------------------------------------------------------------------
                                                    //随机弃掉一张
-            if (Game.PlayersHandCard[PlayerIndex].Any(x => new List<string> { "13019", "70154", "70084", "13015" }.Contains(x.Status.CardId)))
+            var IrisCount = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x.Status.CardId == "70154" && x.Status.IsLock == false).ToList().Count();
+            if (IrisCount > 0)
+                //如果有爱丽丝,则让玩家选择要弃掉的牌
             {
                 var discardcard = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex], isCanOver: true);
                 await discardcard.Single().Effect.Discard(Card);

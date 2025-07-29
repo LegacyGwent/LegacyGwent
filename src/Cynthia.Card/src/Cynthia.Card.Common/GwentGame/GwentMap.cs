@@ -1157,7 +1157,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13004", //Iris' Companions
                     Name="爱丽丝的同伴",
-                    Strength=9,
+                    Strength=12,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -1167,9 +1167,9 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "我们的名字还是不说为好。就当我们是……主人家的朋友吧。",
-                    Info = "将1张牌从牌组移至手牌，然后随机丢弃1张牌。",
+                    Info = "xxx",
                     CardArtsId = "20008300",
-					LinkedCards=new List<String> {"13019", "70154", "70084", "13015"},
+					LinkedCards=new List<String> {"70154"},
                 }
             },
             {
