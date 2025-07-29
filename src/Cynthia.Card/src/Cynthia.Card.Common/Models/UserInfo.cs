@@ -23,5 +23,6 @@ namespace Cynthia.Card
         public string CurrentBorder { get; set; }
         public string CurrentTitle { get; set; }
         public int GGsReceived { get; set; }
+        public int GamesOver200 { get; set; }
     }
 }

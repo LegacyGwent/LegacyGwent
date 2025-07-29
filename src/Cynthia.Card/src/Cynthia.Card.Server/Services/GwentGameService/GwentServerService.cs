@@ -64,6 +64,18 @@ namespace Cynthia.Card.Server
             {
                 await AddTitle(loginUser.PlayerName, "GOODGAMER");
             }
+            if (loginUser.GamesOver200 >= 1)
+            {
+                await AddTitle(loginUser.PlayerName, "OCCASIONALDRINKER");
+            }
+            if (loginUser.GamesOver200 >= 5)
+            {
+                await AddBorder(loginUser.PlayerName, "G_Beer");
+            }
+            if (loginUser.GamesOver200 >= 10)
+            {
+                await AddAvatar(loginUser.PlayerName, "Odrin");
+            }
             //
             return loginUser;
         }
@@ -773,13 +785,32 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 BlueMMR = CalculateMMR(BlueMMR, RedMMR,
                     result.RedPlayerGameResultStatus == GameStatus.Lose,
                     result.RedPlayerGameResultStatus == GameStatus.Draw);
+                    
+                // if a player won a the game with 200+ points in any round, increase User.GamesOver200 by 1
+                if (result.RedWinCount == 2 && result.RedScore.Any(x => x >= 200))
+                {
+                    _databaseService.UpdateGamesOver200(result.RedPlayerName);
+                }
+                if (result.BlueWinCount == 2 && result.BlueScore.Any(x => x >= 200))
+                {
+                    _databaseService.UpdateGamesOver200(result.BluePlayerName);
+                }
+                // update MMR for both players
                 _databaseService.UpdateMMR(result.RedPlayerName, Math.Max(RedMMR, 0));
                 _databaseService.UpdateMMR(result.BluePlayerName, Math.Max(BlueMMR, 0));
 
                 // add trinkets when a certain MMR is reached
                 MMRTrinkets(result.RedPlayerName, RedMMR);
                 MMRTrinkets(result.BluePlayerName, BlueMMR);
-                //
+            }
+            else
+            {
+                // if any player score more than a million points in a casual match, give to both the title "$$$MILLIONAIRE$$$"
+                if (result.RedScore.Any(x => x >= 1000000) || result.BlueScore.Any(x => x >= 1000000))
+                {
+                    _databaseService.AddTitle(result.RedPlayerName, "$$$MILLIONAIRE$$$");
+                    _databaseService.AddTitle(result.BluePlayerName, "$$$MILLIONAIRE$$$");
+                }
             }
             lock (ResultList)
             {
