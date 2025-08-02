@@ -16,13 +16,13 @@ public class RopeController : MonoBehaviour
     private float endWaitTime = 0.5f;
     private int shakeRange = 1;
     public bool isRunning = false;
-    public float remainingTime = 120f;
+    public float remainingTime = 90f;
     public int skipedTurns=0;
     public async void Surrender()
     {
         await DependencyResolver.Container.Resolve<GwentClientService>().Surrender();
     }
-    public void StartRopeTimer(float totalTime = 120f)
+    public void StartRopeTimer(float totalTime = 90f)
     {
         rope.gameObject.SetActive(false); // is not active until ropeTime
         remainingTime = totalTime;
