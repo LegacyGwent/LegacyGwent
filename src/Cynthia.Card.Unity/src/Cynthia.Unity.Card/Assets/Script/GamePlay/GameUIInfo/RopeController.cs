@@ -31,11 +31,23 @@ public class RopeController : MonoBehaviour
     public void StopRopeTimer()
     {
         GameEvent gameEvent = FindObjectOfType<GameEvent>();
-        gameEvent.shorterTimer = true;
+        
+        
+        // Check if it's the local player's turn by checking the coin state
+        bool isLocalPlayerTurn = gameEvent.Coin.IsMyRound;
+        
+        if (isLocalPlayerTurn)
+        {
+            Debug.Log("Local player triggered the rope timer timeout");
+            skipedTurns = skipedTurns + 1;
+            Debug.Log("Skipped Turns: " + skipedTurns);
+
+            // Handle local player timeout
+            gameEvent.shorterTimer = true;
+        }        
         Debug.Log("TIMED-OUT");
-        skipedTurns = skipedTurns + 1;
-        Debug.Log("Skipped Turns: " + skipedTurns);
-        if (skipedTurns >=3)
+        
+        if (skipedTurns >= 3)
         {
             Surrender();
         }
