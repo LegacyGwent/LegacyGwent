@@ -209,10 +209,8 @@ namespace Cynthia.Card.Client
                     GameCodeService.SetCoinInfo(arguments[0].ToType<bool>());
                     break;
                 case ServerOperationType.SetMyLand:
-                    GameCodeService.SetMyLand(arguments[0].ToType<int>());
                     break;
-                case ServerOperationType.SetEnemyLand:
-                    GameCodeService.SetEnemyLand(arguments[0].ToType<int>());                  
+                case ServerOperationType.SetEnemyLand:              
                     break;
                 case ServerOperationType.SetMyCemetery:
                     GameCodeService.SetMyCemeteryInfo(arguments[0].ToType<List<CardStatus>>());
