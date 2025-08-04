@@ -124,7 +124,6 @@ namespace Cynthia.Card.Server
             playerIndex = GameRound.ToPlayerIndex(this);
             RedCoin[0] = playerIndex;
             balancePoint = Math.Max(result2, result1);
-            BalancePoint = balancePoint;
             if (balancePoint != 0)
             {
                 // Console.WriteLine("land set to" + balancePoint);
@@ -279,10 +278,6 @@ namespace Cynthia.Card.Server
             await SendBigRoundEndToCemetery();//将所有牌移到墓地
             // if not round 1 do not display coin points
             // Console.WriteLine("reset coin to 0");
-            await Players[Player1Index].SendAsync(ServerOperationType.SetMyLand, 0);
-            await Players[Player1Index].SendAsync(ServerOperationType.SetEnemyLand, 0);
-            await Players[Player2Index].SendAsync(ServerOperationType.SetMyLand, 0);
-            await Players[Player2Index].SendAsync(ServerOperationType.SetEnemyLand, 0);
             //清空所有场上的牌
         }
         //进行一轮回合
@@ -370,10 +365,6 @@ namespace Cynthia.Card.Server
             {
                 var redIndex = RedCoin[0];
                 var blueIndex = AnotherPlayer(redIndex);
-                await Players[blueIndex].SendAsync(ServerOperationType.SetMyLand, 0);
-                await Players[blueIndex].SendAsync(ServerOperationType.SetEnemyLand, balancePoint);
-                await Players[redIndex].SendAsync(ServerOperationType.SetMyLand, balancePoint);
-                await Players[redIndex].SendAsync(ServerOperationType.SetEnemyLand, 0);
             }
 
             while (await PlayerRound())

@@ -228,7 +228,7 @@
         "Zoltan5": "Ha! How aboot that!",
         "Zoltan6": "Thanks for that, pal!",
         "YenneferFuryName": "Yennefer Fury",
-        "YenneferFuryDescription": "",
+        "YenneferFuryDescription": "Finish Season 2 in the top 30 players.",
         "Vernon_RocheName": "Vernon Roche",
         "Vernon_RocheDescription": "",
         "Roche1": "We shall strike swiftly and precisely.",
@@ -290,7 +290,7 @@
         "IorvethScarfName": "Iorveth Scarf",
         "IorvethScarfDescription": "",
         "IorvethName": "Iorveth",
-        "IorvethDescription": "",
+        "IorvethDescription": "Reach Rank 18 in Season 2.",
         "Iorveth1": "Not bravery, but brains. That’s how you win.",
         "Iorveth2": "Bloede arse!",
         "Iorveth3": "Lackeys like you we coat in honey, then tie you down on an anthill.",
@@ -346,6 +346,7 @@
         "ClassicGeraltName": "Classic Geralt",
         "ClassicGeraltDescription": "Partecipate in Season One.",
         "CirALtName": "Ciri Elder Blood",
+        "CiriAltDescription": "Reach Rank 10 in Season 2.",
         "Taunt1": "WATCH THIS",
         "Taunt2": "DAMMIT!",
         "Taunt3": "YOU'RE GOING DOWN",
@@ -370,9 +371,9 @@
         "MAN-AT-ARMSName": "MAN-AT-ARMS",
         "MAN-AT-ARMSDescription": "Finish Season One in the top 100 players.",
         "MERCENARYName": "MERCENARY",
-        "BOUNTYHUNTERDescription": "Finish Season One in the top 50 players.",
+        "MERCENARYDescription": "Finish Season One in the top 50 players.",
         "BOUNTYHUNTERName": "BOUNTY HUNTER",
-        "BOUNTY HUNTERDescription": "Finish Season One in the top 20 players.",
+        "BOUNTYHUNTERDescription": "Finish Season One in the top 20 players.",
         "VETERANName": "VETERAN",
         "VETERANDescription": "Finish Season One in the top 10 players.",
         "CARDSMITHName": "CARDSMITH",
@@ -413,6 +414,30 @@
         "Season1Border6Description": "Finish Season One as the top player.",
         "G_PhoenixName": "Phoenix Border",
         "G_PhoenixDescription": "Receive GG 100 times.",
+        "Season2Border1Name": "Season 2 Border 1",
+        "Season2Border1Description": "Finish Season 2 in the top 100 players.",
+        "Season2Border2Name": "Season 2 Border 2",
+        "Season2Border2Description": "Finish Season 2 in the top 50 players.",
+        "Season2Border3Name": "Season 2 Border 3",
+        "Season2Border3Description": "Finish Season 2 in the top 20 players.",
+        "Season2Border4Name": "Season 2 Border 4",
+        "Season2Border4Description": "Finish Season 2 in the top 10 players.",
+        "Season2Border5Name": "Season 2 Border 5",
+        "Season2Border5Description": "Finish Season 2 in the top 5 of Players.",
+        "Season2Border6Name": "Season 2 Border 6",
+        "Season2Border6Description": "Finish Season 2 as the top player.",
+        "RANGERName": "RANGER",
+        "RANGERDescription": "Finish Season 2 in the top 100 players.",
+        "TRAPPERName": "TRAPPER",
+        "TRAPPERDescription": "Finish Season 2 in the top 50 players.",
+        "HUNTERName": "HUNTER",
+        "HUNTERDescription": "Finish Season 2 in the top 20 players.",
+        "REBELName": "REBEL",
+        "REBELDescription": "Finish Season 2 in the top 10 players.",
+        "DEFENDERName": "DEFENDER",
+        "DEFENDERDescription": "Finish Season 2 in the top 5 of Players.",
+        "PROTECTORName": "PROTECTOR",
+        "PROTECTORDescription": "Finish Season 2 as the top player.",
         "IngameMenu_GGButton": "Send GG!",
         "GG_Message1": "Good Game! Your opponent ",
         "GG_Message2": " Sent GG!",
@@ -1786,7 +1811,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them.",
+            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them (can't kill)",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
@@ -1851,7 +1876,7 @@
         },
         "33021": {
             "Name": "Cadaverine",
-            "Info": "Choose One: Deal 3 Damage to an enemy and all units that share its categories; or destroy a Bronze or Silver Neutral enemy.",
+            "Info": "Choose One: Deal 3 Damage to an enemy and all enemies that share its categories; or destroy a Bronze or Silver Neutral enemy.",
             "Flavor": "I don't trust my life to chance. I trust it to a thick coating of Cadaverine on my blade."
         },
         "33022": {
@@ -2346,7 +2371,7 @@
         },
         "44024": {
             "Name": "Kaedweni Revenant",
-            "Info": "When you play your next Spell or Item, Spawn a Doomed default copy of this unit on its row.\n1 Armor.",
+            "Info": "Single-Use.\nWhen you play your next Spell or Item, Spawn a Doomed default copy of this unit on its row.\n1 Armor.",
             "Flavor": "Doomed to repeat the same day over and over again, just like the employees of Cianfanelli Bank."
         },
         "44025": {
@@ -2422,12 +2447,12 @@
         "51002": {
             "Name": "Eithné",
             "Info": "Deploy: Resurrect a Bronze or Silver special card.",
-            "Flavor": ""
+            "Flavor": "The dryad queen has eyes of molten silver, and a heart of cold-forged steel."
         },
         "51003": {
             "Name": "Filavandrel",
             "Info": "Deploy: Create a Silver special card.",
-            "Flavor": ""
+            "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
             "Name": "Brouver Hoog",
@@ -2631,7 +2656,7 @@
         },
         "54006": {
             "Name": "Farseer",
-            "Info": "If a different ally or unit in your hand is Boosted during your turn, Boost self by 2 at the end of the turn.",
+            "Info": "If a different ally or unit in your hand was Boosted during your turn, Boost self by 2 at the end of the turn.",
             "Flavor": "Her words might seem unintelligible at times, but they always contain hidden meanings and tremendous wisdom."
         },
         "54007": {
@@ -2971,7 +2996,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck.",
+            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck. This effect counts as resurection.",
             "Flavor": "Spikeroog's a barren backwater, but that don't bother us - everythin' we need, we take from you."
         },
         "64005": {
@@ -3441,7 +3466,7 @@
         },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Deploy: Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
+            "Info": "Deploy: Move any number of foglets in your graveyard to the bottom of your deck and apply fog to the opposing row.",
             "Flavor": "Fool's fires... those little shiny thingies that shall lead thee to certain doom."
         },
         "70089": {
@@ -3461,7 +3486,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: damage an enemy by twice the number of Torrential Rains on the board.",
+            "Info": "Deploy: Choose an enemy, for each Torrential Rain on the board, damage it by two and gain 1 armor.",
             "Flavor": "Skellige's no home to murderers and rogues... Their crimes must be repaid in blood."
         },
         "70093": {
@@ -3496,13 +3521,13 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
+            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70100": {
             "Name": "Forest Whisperer",
             "Info": "Deploy: Damage all units on the same row on both sides by 2, except for Dryads.",
-            "Flavor": "The dryads of Brokilon mastered a unique craft – to shape trees at will... And breathe into them life."
+            "Flavor": "The dryads of Brokilon mastered a unique craft - to shape trees at will... And breathe into them life."
         },
         "70101": {
             "Name": "Immortal Cavalry",
@@ -3561,7 +3586,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 4 Damage to an ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
+            "Info": "Deal 3 Damage to a non cursed ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
             "Flavor": "Not all of Svalblod's worshippers wield bow and blade. They've simply no need."
         },
         "70113": {
@@ -3591,7 +3616,7 @@
         },
         "70118": {
             "Name": "Lyrian Scytheman",
-            "Info": "Deploy: Boost a Bronze unit in your deck by 2.",
+            "Info": "Deploy: Boost a Bronze or Silver unit in your deck by 2.",
             "Flavor": "Our folk they feed, and our foes they bleed."
         },
         "70119": {
@@ -3716,7 +3741,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck.",
+            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck instead.",
             "Flavor": "She thought service in the diplomatic corps would mean a quiet life behind a desk. She and her blistered feet were sorely mistaken..."
         },
         "70145": {

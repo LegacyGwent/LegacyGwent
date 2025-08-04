@@ -264,7 +264,7 @@
         "Phoenix5": "...",
         "Phoenix6": "...",
         "OdrinName": "Odrin",
-        "OdrinDescription": "",
+        "OdrinDescription": "Win 10 ranked matches by scoring more than 200 points in any round.",
         "Odrin1": "Gonna go now… or should I shtay?",
         "Odrin2": "Oh, you shnivelin' shack o'… sho that'sh how it'sh gonna be?!",
         "Odrin3": "I'm gonna kick yer arsh so hard…",
@@ -438,6 +438,12 @@
         "DEFENDERDescription": "Finish Season 2 in the top 5 of Players.",
         "PROTECTORName": "PROTECTOR",
         "PROTECTORDescription": "Finish Season 2 as the top player.",
+        "OCCASIONALDRINKERName": "OCCASIONAL DRINKER",
+        "OCCASIONALDRINKERDescription": "Win a ranked match by scoring more than 200 points in any round.",
+        "$$$MILLIONAIRE$$$Name": "$$$MILLIONAIRE$$$",
+        "$$$MILLIONAIRE$$$Description": "In a casual match, have either player have more than a million points in a single round.",
+        "G_BeerName": "Beer Border",
+        "G_BeerDescription": "Win 5 ranked matches by scoring more than 200 points in any round.",
         "IngameMenu_GGButton": "Send GG!",
         "GG_Message1": "Good Game! Your opponent ",
         "GG_Message2": " Sent GG!",
@@ -3411,7 +3417,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strength copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3456,7 +3462,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Deploy: Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
+            "Info": "Deploy: Damage an enemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3536,7 +3542,7 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all enemy rows; or apply Blood Moon on all friendly rows.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all friendly rows; or apply Blood Moon on all enemy rows.",
             "Flavor": "He did not love like a man, but like an animal. Madly, deeply, unconditionally. Wildly."
         },
         "70103": {
@@ -3761,7 +3767,7 @@
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
+            "Info": "On turn end, if there is no stronger unit on the opposite row, Drain a random enemy on that row.",
             "Flavor": "The townsfolk, long plagued with horrific nightmares, posted a desperate plea for help... Hmm. An alp, gotta be, the witcher grumbled to himself."
         },
         "70149": {
@@ -3866,7 +3872,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Info": "On turn end, if no enemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {

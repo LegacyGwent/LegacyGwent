@@ -58,6 +58,10 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
             gameUIControl = GameUI.GetComponent<GameUIControl>();
             myavatar = gameUIControl.Myavatar;
             enemyname = gameUIControl.Enemyname;
+            if (myavatar == "")
+            {
+                return;
+            }
             var op =Addressables.LoadAssetAsync<Sprite>(myavatar+"Round");
             Sprite go = op.WaitForCompletion();
             RoundAvatar.sprite = go;

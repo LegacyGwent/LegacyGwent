@@ -59,6 +59,8 @@ public class GameUIControl : MonoBehaviour
 
     private LocalizationService _translator;
     private GwentClientService server;
+    private int myoldland;
+    private int enemyoldland;
     //----------------------------------    
     private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
     private static Dictionary<string, Color> mycolormap { get => ColorMap.colormap; } // stores the color of the title cosmetics
@@ -69,7 +71,7 @@ public class GameUIControl : MonoBehaviour
         server = DependencyResolver.Container.Resolve<GwentClientService>();
     }
 
-    public void SetPointInfo(GameInfomation gameInfomation)
+    public void SetPointInfo(GameInfomation gameInfomation, int myland = 0, int enemyland = 0)
     {
         MyAllPoint.color = ClientGlobalInfo.NormalColor;
         EnemyAllPoint.color = ClientGlobalInfo.NormalColor;
@@ -87,6 +89,18 @@ public class GameUIControl : MonoBehaviour
             MyAllPoint.color = ClientGlobalInfo.WinColor;
         else if (myAllPoint < enemyAllPoint)
             EnemyAllPoint.color = ClientGlobalInfo.WinColor;
+        if (myland != myoldland && myland != null)
+        {
+            Debug.Log("my land is" + myland.ToString());
+            SetMyLand(myland);
+            myoldland = myland;
+        }
+        if (enemyland != enemyoldland && enemyland != null)
+        {
+            Debug.Log("enemy land is" + enemyland.ToString());
+            SetEnemyLand(enemyland);
+            enemyoldland = enemyland;
+        }
     }
     public void SetCountInfo(GameInfomation gameInfomation)
     {
@@ -195,7 +209,7 @@ public class GameUIControl : MonoBehaviour
         MyMMR.text = Convert.ToString(myMMR);
         EnemyMMR.text = Convert.ToString(enemyMMR);
     }
-    public void SetMyLandInfo(int land)
+    public void SetMyLand(int land)
     {
         MyLand.text  = "+ " + land.ToString();
         Debug.Log("my land is"+ land.ToString());
@@ -204,7 +218,7 @@ public class GameUIControl : MonoBehaviour
         else
             MyLandObject.SetActive(true);
     }
-    public void SetEnemyLandInfo(int land)
+    public void SetEnemyLand(int land)
     {
         EnemyLand.text  = "+ " + land.ToString();
         Debug.Log("enemy land is"+ land.ToString());

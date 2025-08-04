@@ -211,6 +211,19 @@ namespace Cynthia.Card.Server
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
+        public bool UpdateGamesOver200(string playername) // increase the games over 200 points count of a player
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
+            if (user.Length == 0)
+            {
+                return false;
+            }
+            user[0].GamesOver200 +=1 ;
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+            return true;
+        }
+
         public int QueryMMR(string playername)//计算玩家天梯分数
         {
             var temp = GetUserInfo();
