@@ -3466,7 +3466,7 @@
         },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Deploy: Move any number of foglets in your graveyard to your deck and apply fog to the opposing row.",
+            "Info": "Deploy: Move any number of foglets in your graveyard to the bottom of your deck and apply fog to the opposing row.",
             "Flavor": "Fool's fires... those little shiny thingies that shall lead thee to certain doom."
         },
         "70089": {
