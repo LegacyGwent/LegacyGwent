@@ -1911,7 +1911,7 @@
         },
         "34004": {
             "Name": "Nilfgaardzki Rycerz",
-            "Info": "Rozmieszczenie: Odkryj losową kartę w swojej ręce, preferując najpierw brązowe, potem srebrne, a na końcu złote karty. 2 pkt pancerza.",
+            "Info": "Rozmieszczenie: Ujawnij losową kartę w swojej ręce, preferując najpierw brązowe, potem srebrne, a na końcu złote karty. 2 pkt pancerza.",
             "Flavor": "Synowie szlachetnych rodów, urodzeni w mieście Złotych Wież, tworzą prawdziwą elitę cesarskiej armii."
         },
         "34005": {
@@ -3896,7 +3896,7 @@
         },
         "70174": {
             "Name": "Mag Infiltrator",
-            "Info": "Szpieg \nRozmieszczenie: Odkryj dwie karty w ręce przeciwnika, następnie stwórz I zagraj kopie innej brązowej karty i w ręce przeciwnika. ",
+            "Info": "Szpieg \nRozmieszczenie: Ujawnij dwie karty w ręce przeciwnika, następnie stwórz I zagraj kopie innej brązowej karty i w ręce przeciwnika. ",
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce – tylko po jednej z każdej pary – i podmieniając część ubrań na mniejsze."
         },
         "70175": {
