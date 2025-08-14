@@ -3764,98 +3764,98 @@
             "Flavor": "Ludzie w miasteczku cierpieli na nawracające koszmary... Wiedźmin był prawie pewien, że grasował tam Alp."
         },
         "70149": {
-            "Name": "Anna Henrietta",
-            "Info": "Sort the cards in your deck in descending order by their base Strength, then play a card from the top of your deck.",
+            "Name": "Anna Henrietta",
+            "Info": "Rozmieszczenie: Posortuj karty w Twojej talii w rosnące wed lug siły bazowej, następnie zagraj kartę ze szczytu talii.",
             "Flavor": "Jako głowa państwa muszę ją sprawiedliwie osądzić, ale, na bogów... przecież to jest moja siostra."
         },
         "70150": {
-            "Name": "Vincent Van Moorlehem",
-            "Info": "Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Name": "Vincent Van Moorlehem",
+            "Info": "Rozmieszczenie: Zniszcz wrogą jednostkę. Wzmocnij sąsiadujące z nią jednostki i połowe siły zniszczonej jednostki każdą.",
             "Flavor": "Wszyscy omijają włości Moorlehemów szerokim łukiem. Nawet poborcy podatkowi."
         },
         "70151": {
-            "Name": "Philippe Van Moorlehem",
+            "Name": "Philippe Van Moorlehem",
             "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
             "Flavor": "Mówią, że Vincent Van Moorlehem boi się tylko jednego człowieka. Nie jest to Emhyr var Emreis ani Geralt z Rivii - tylko jego własny syn."
         },
         "70152": {
-            "Name": "Van Moorlehem's Cupbearer",
-            "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.Companians",
+            "Name": "Podczaszy Van Moorlehemów",
+            "Info": "Na koniec tury, jeśli po przeciwnej stronie nie ma złotych jednoste, wzmocnij się o 1.",
             "Flavor": "Moja specjalność? Tatar. Z czego? Ach, zależy od humoru jaśniepaństwa…"
         },
         "70153": {
-            "Name": "Van Moorlehem's Hunter",
-            "Info": "Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
+            "Name": "Łowca Van Moorlehemów",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 3pkt obrażeń. Jeśli w Twojej ręce nie ma złotych kart powtórz raz.",
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
             "Name": "Iris: Shade",
-            "Info": "Deploy,Truce:Add 2 Iris'Companions to both hands.",
+            "Info": "Rozmieszczenie, Rozejm: Dodaj 2 Towarzyszy Iris do ręki obu graczy.",
             "Flavor": "Olgierd narzeczoną miał jak sen…"
         },
         "70155": {
-            "Name": "Isbel of Hagge",
-            "Info": "Reset an unit. If it's an ally, repeat once.",
+            "Name": "Isbel z Hagge",
+            "Info": "Rozmieszczenie: Zresetuj jednostkę. Jeśli był to sojusznik powtórz raz.",
             "Flavor": "Obiecałam sobie, że nigdy więcej nie użyję magii do krzywdzenia innych."
         },
         "70156": {
-            "Name": "Piercing Missile",
-            "Info": "Deal 7 Damages to an enemy unit(Ignore Armour). If it's boosted, Damage it by 10 instead.",
+            "Name": "Zabójczy pocisk",
+            "Info": "Zadaj wrogowi 7pkt obrażeń (ignoruje pancerz). Jeśli jednostka jest wzmocniona zamiast tego zadaj 10pkt obrażeń.",
             "Flavor": "Nie ma zbroi nie do przebicia."
         },
         "70157": {
             "Name": "Wisteria",
-            "Info": "Choose two units, for each, Boost it by 6 if the unit's Power is even, Damage it by 6 if the unit's Power is odd.",
+            "Info": "Wybierz dwie jednostki. Dla każdej jeśli jej siła jest parzysta wzmocnij ją o 6. W przeciwnym wypadku zadaj 6pkt obrażeń.",
             "Flavor": "Ci, którzy chcą zniszczyć Brokilon, którzy próbują spalić jego drzewa i zabić wszystkie żyjące w nim stworzenia, w końcu nakarmią jego ziemię."
         },
         "70158": {
-            "Name": "Coën of Poviss",
-            "Info": "Zadaj 5 pkt obrażeń. Jeśli cel został zniszczony obnirz obrażenia o 1 i powtórz tę umiejętność.",
+            "Name": "Coën z Poviss",
+            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń. Jeśli cel został zniszczony obnirz obrażenia o 1 i powtórz tę umiejętność.",
             "Flavor": ""
         },
         "70159": {
-            "Name": "Crow Mother",
-            "Info": "Discard 3 Bronze Special cards from you deck. For each special card discarded, spawn a Crow.",
+            "Name": "Krucza Matka",
+            "Info": "Tymczasowy nerf: brak efektu",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
             "Name": "Vildkaarl",
-            "Info": "Deal 4 Damages to adjacent units.",
+            "Info": "Rozmieszczenie: Zadaj sąsiadującym jednostkom 4pkt obrażeń.",
             "Flavor": "Uderz! No uderz mnie! Tak, żeby bolało!"
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Spwan 2 Scarab.",
+            "Info": "Rozmieszczenie: Stwórz dwa skarebeusze po stronie przeciwnika.",
             "Flavor": "Specjalnością Azara Javeda jest żywioł ognia. Czarodziej nie tylko włada mocami płomieni z wielką biegłością – można rzec, że ogień stał się częścią jego istoty."
         },
         "70162": {
-            "Name": "Scarab",
-            "Info": "when your opponent passes, move to the opposite row.",
+            "Name": "Skarabeusz",
+            "Info": "Jeśli ta jednostka jest szpiegiem, przenieś na drugą strone gdy spasujesz.",
             "Flavor": "W Zerrikanii są symbolem zmartwychwstania. Ale żeby się ponownie narodzić, trzeba najpierw umrzeć."
         },
         "70163": {
-            "Name": "Reynard Odo",
-            "Info": "On turn end, if it has at least 3 Boosts, Reset self and Boost all allies on the same row by 1.",
+            "Name": "Raynard Odo",
+            "Info": "Na koniec rundy, jeśli ta jednostka jest wzmocniona przynajmniej o 3, zresetuj się i wzmocnij wszystkich sojuszników w tym rzędzie o 1.",
             "Flavor": "Dziesięć lat służyłem pod waszym mężem, potem osiem pod tobą, pani... I nigdy nie walczyłem o słuszniejszą sprawę."
         },
         "70164": {
-            "Name": "Tatter wing",
-            "Info": "On turn end, Move all units on the opposite row to random rows, then deal 1 damage to them each.",
+            "Name": "Szarpiskrzydło",
+            "Info": "Na koniec tury przenieś wszystkie jednostki z przeciwnego rzędu do losowego rzędu i zadaj im po 1pkt obrażeń.",
             "Flavor": "Ospała jakaś. Weź ją dźgnij parę razy w kuper, to się ożywi."
         },
         "70165": {
             "Name": "Vivienne de Tabris",
-            "Info": "Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2.",
+            "Info": "Rozmieszczenie: Przemień sojusznika w kopie innej złotej jednostki z Twojej talii startowej i wzmocnij ją o 2.",
             "Flavor": "Osobliwa dwórka... Ale nie sposób odmówić jej uroku."
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Look at 3 random cards with different colors from your deck. Play one, Discard the other two.",
+            "Info": "Spójrz na 3 karty róznych kolorów z Twojej talii. Zagraj jedną i odrzuć pozostałe dwie.",
             "Flavor": "Na pieczęci stoi jasno: nie otwierać. Ale wiadomo… Ciekawość w końcu zwycięży."
         },
         "70167": {
-            "Name": "Zoltans Company",
-            "Info": "Return 3 Silver/Bronze Dwarf unit from graveyard to your deck,then play a Bronze Dwarf unit from deck. When in graveyard, whenever you play a Dwarf unit, give it 1 Armor.",
+            "Name": "Kompania Zoltana",
+            "Info": "Wtasuj do 3 brązowych lub srebrnych krasnoludów do Twojej talii, następnie zagraj nie złotego krasnoluda z Twojej talii. Kiedy ta karta jest na cmentarzu daj 1pkt pancerza każdemu zagranemu krasnoludowi.",
             "Flavor": "Skoczyliby za sobą w ogień. I jeszcze by się z tego śmiali."
         },
         "70168": {
@@ -3899,43 +3899,43 @@
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
         "80001": {
-            "Name": "Auberon:King",
-            "Info": "He'll drop a white frost.",
+            "Name": "Auberon Król",
+            "Info": "Przywoła białe zimno.",
             "Flavor": "Koniec jednego świata może być początkiem drugiego."
         },
         "80002": {
-            "Name": "Auberon:Invader",
-            "Info": "He will awaken the Wild Hunt.",
+            "Name": "Auberon Najeźdzca",
+            "Info": "Obudzi dziki gon.",
             "Flavor": "Jeśli nie poddadzą się naszej woli, zostaną wypędzeni!"
         },
         "80003": {
-            "Name": "Auberon:Conqueror",
-            "Info": "He will conquer the world.",
+            "Name": "Auberon Zdobywca",
+            "Info": "Podbije świat.",
             "Flavor": "Gdy ktoś żyje sześćset pięćdziesiąt lat, niewiele jest go w stanie poruszyć."
         },
         "89004": {
-            "Name": "Gascon: Iron Falcon",
-            "Info": "Charm the Highest enemy on the opposite.[Can't be affected by status effects,Booat Deck by point.]",
+            "Name": "Gascon Kondotier",
+            "Info": "Rzuuć urok na najsilniejszego wroga z przeciwnego rzędu. (???)",
             "Flavor": "Robię, to co wcześniej, i jeszcze mi za to płacą!"
         },
         "89005": {
-            "Name": "Iron Falcon Infantry",
-            "Info": "If there is boost, double the boost",
+            "Name": "Kondotier piechur",
+            "Info": "Jeśli jest wzmocniona podwój wzmocnienie.",
             "Flavor": "I na polu bitwy trzeba się zacnie prezentować."
         },
         "89006": {
-            "Name": "Iron Falcon Troubadour",
-            "Info": "Randomly give 1 point of gain to 1 allied unit, repeat 4 times,  and repeat an additional 4 times for each card of the same name on the field.",
+            "Name": "Kondotier trubadur",
+            "Info": "Wzmocnij losowego sojusznika o 1. Powtórz 4 razy. Powtórz dodatkowe 4 razy za każdą kopie tej karty już na planszy.",
             "Flavor": "Jak ja zagram, to i umierać milej."
         },
         "89007": {
-            "Name": "Iron Falcon Knife Juggler",
-            "Info": "Generate a copy of oneself with the same power, and give 1 point of gain to cards with the same name on the field.",
+            "Name": "Kondotier nożownik",
+            "Info": "Stwórz kopie tej jednostki z tą samą siłą. Wzmocnij wszystkie kopie tej jednostki na planszy o 1.",
             "Flavor": "Broń krótka, ale zasięg daleki."
         },
         "89008": {
-            "Name": "SoldierTrain",
-            "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power。",
+            "Name": "Świeży rekrut",
+            "Info": "Na początku gry ulepsz tę jednostkę o siłę Bogini Sprawiedliwości.",
             "Flavor": ""
         }
     }
