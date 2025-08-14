@@ -228,7 +228,7 @@
         "Zoltan5": "哈！真了不起！",
         "Zoltan6": "多谢啦，伙计！",
         "YenneferFuryName": "叶奈法-发怒",
-        "YenneferFuryDescription": "",
+        "YenneferFuryDescription": "在第2赛季达到天梯前30排名。",
         "Vernon_RocheName": "弗农·罗契",
         "Vernon_RocheDescription": "",
         "Roche1": "我们出手稳准狠。",
@@ -290,7 +290,7 @@
         "IorvethScarfName": "伊欧菲斯",
         "IorvethScarfDescription": "",
         "IorvethName": "伊欧菲斯",
-        "IorvethDescription": "",
+        "IorvethDescription": "在第2赛季达到段位18。",
         "Iorveth1": "智取胜于强攻。如此方能获胜。",
         "Iorveth2": "该死的！",
         "Iorveth3": "你这走狗，我们会给你抹上蜂蜜，绑在蚂蚁窝上。",
@@ -346,6 +346,7 @@
         "ClassicGeraltName": "Classic Geralt",
         "ClassicGeraltDescription": "Partecipate in Season One.",
         "CirALtName": "希里-长者之血",
+        "CiriAltDescription": "在第2赛季达到段位10",
         "Taunt1": "瞧好了。",
         "Taunt2": "该死!",
         "Taunt3": "你将万劫不复！",
@@ -370,9 +371,9 @@
         "MAN-AT-ARMSName": "重骑兵",
         "MAN-AT-ARMSDescription": "以天梯前100名完成第1赛季。",
         "MERCENARYName": "雇佣兵",
-        "BOUNTYHUNTERDescription": "以天梯前50名完成第1赛季。.",
+        "MERCENARYDescription": "以天梯前50名完成第1赛季。.",
         "BOUNTYHUNTERName": "赏金猎人",
-        "BOUNTY HUNTERDescription": "以天梯前20名完成第1赛季。",
+        "BOUNTYHUNTERDescription": "以天梯前20名完成第1赛季。",
         "VETERANName": "老兵",
         "VETERANDescription": "以天梯前10名完成第1赛季。",
         "CARDSMITHName": "卡牌大师",
@@ -399,20 +400,44 @@
         "Rank18borderDescription": "达到段位18。",
         "Rank21borderName": "Rank 21",
         "Rank21borderDescription": "达到段位21。",
-        "Season1Border1Name": "Season 1 Border 1",
+        "Season1Border1Name": "第1赛季 头像框1",
         "Season1Border1Description": "以天梯前100名完成第1赛季。",
-        "Season1Border2Name": "Season 1 Border 2",
+        "Season1Border2Name": "第1赛季 头像框2",
         "Season1Border2Description": "以天梯前50名完成第1赛季。",
-        "Season1Border3Name": "Season 1 Border 3",
+        "Season1Border3Name": "第1赛季 头像框3",
         "Season1Border3Description": "以天梯前20名完成第1赛季。",
-        "Season1Border4Name": "Season 1 Border 4",
+        "Season1Border4Name": "第1赛季 头像框4",
         "Season1Border4Description": "以天梯前10名完成第1赛季。",
-        "Season1Border5Name": "Season 1 Border 5",
+        "Season1Border5Name": "第1赛季 头像框5",
         "Season1Border5Description": "以天梯前5名完成第1赛季。",
-        "Season1Border6Name": "Season 1 Border 6",
+        "Season1Border6Name": "第1赛季 头像框6",
         "Season1Border6Description": "以天梯第一完成第1赛季。",
         "G_PhoenixName": "凤凰边框",
         "G_PhoenixDescription": "收到100次GG。",
+        "Season2Border1Name": "第2赛季 头像框1",
+        "Season2Border1Description": "以天梯前100名完成第2赛季。",
+        "Season2Border2Name": "第2赛季 头像框2",
+        "Season2Border2Description": "以天梯前50名完成第2赛季。",
+        "Season2Border3Name": "第2赛季 头像框3",
+        "Season2Border3Description": "以天梯前20名完成第2赛季。",
+        "Season2Border4Name": "第2赛季 头像框4",
+        "Season2Border4Description": "以天梯前10名完成第2赛季。",
+        "Season2Border5Name": "第2赛季 头像框5",
+        "Season2Border5Description": "以天梯前5名完成第2赛季。",
+        "Season2Border6Name": "第2赛季 头像框6",
+        "Season2Border6Description": "以天梯第一完成第2赛季。",
+        "RANGERName": "游侠",
+        "RANGERDescription": "以天梯前100名完成第2赛季。",
+        "TRAPPERName": "捕兽人",
+        "TRAPPERDescription": "以天梯前50名完成第2赛季。",
+        "HUNTERName": "猎人",
+        "HUNTERDescription": "以天梯前20名完成第2赛季。",
+        "REBELName": " 反叛者",
+        "REBELDescription": "以天梯前10名完成第2赛季。",
+        "DEFENDERName": "捍卫者",
+        "DEFENDERDescription": "以天梯前5名完成第2赛季。",
+        "PROTECTORName": "保护者",
+        "PROTECTORDescription": "以天梯第一完成第2赛季。",
         "IngameMenu_GGButton": "送出GG！",
         "GG_Message1": "打得不错！你的对手 ",
         "GG_Message2": " 送出了GG！",
@@ -2422,12 +2447,12 @@
         "51002": {
             "Name": "艾思娜",
             "Info": "复活1张铜色/银色“特殊”牌。",
-            "Flavor": ""
+            "Flavor": "树精女王有着熔银般的双眼，和一颗冷锻钢铸的心。"
         },
         "51003": {
             "Name": "菲拉凡德芮",
             "Info": "创造1张银色“特殊”牌。",
-            "Flavor": ""
+            "Flavor": "尽管我们如今人数稀少，四散各地，我们的心却比以往更加炽热。"
         },
         "51004": {
             "Name": "布罗瓦尔·霍格",
@@ -2971,7 +2996,7 @@
         },
         "64004": {
             "Name": "迪门家族走私贩",
-            "Info": "将1个铜色单位从己方墓场放回牌组。",
+            "Info": "将1个铜色单位从己方墓场放回牌组。该效果视为复活。",
             "Flavor": "“史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。”"
         },
         "64005": {
@@ -3446,7 +3471,7 @@
         },
         "70088": {
             "Name": "沼泽中的怪兽",
-            "Info": "将己方墓场中的最多3张的“小雾妖”放回牌组，随后在对方同排降下“蔽日浓雾”",
+            "Info": "将己方墓场中的最多3张的“小雾妖”放回牌库底，随后在对方同排降下“蔽日浓雾”",
             "Flavor": "“愚者之火……汝之末日。”"
         },
         "70089": {
@@ -3466,7 +3491,7 @@
         },
         "70092": {
             "Name": "斯瓦勃洛争斗者",
-            "Info": "部署：对一个敌军单位造成两倍于场上“倾盆大雨”数量的伤害。",
+            "Info": "部署：对一个敌军单位造成两倍于场上“倾盆大雨”数量的伤害，并获得两倍于场上“倾盆大雨”数量的护甲。",
             "Flavor": "“史凯利格容不下罪犯和无赖……他们的罪行必须偿还。”"
         },
         "70093": {
@@ -3596,7 +3621,7 @@
         },
         "70118": {
             "Name": "莱里亚镰刀手",
-            "Info": "使卡组中的一张铜色单位牌获得2点增益。",
+            "Info": "部署：使牌组中1个铜色/银色单位获得2点增益。",
             "Flavor": "“喂饱乡亲，割倒仇敌。”"
         },
         "70119": {

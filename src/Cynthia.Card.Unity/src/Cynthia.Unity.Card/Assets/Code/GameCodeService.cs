@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Alsein.Extensions;
 using System.Collections.Generic;
+using System.Linq;
+
 
 namespace Cynthia.Card.Client
 {
@@ -132,21 +134,12 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().GameEvent.SetCoinInfo(isBlueCoin);
         }
-        public void SetMyLand(int coinpoint)
-        {
-            Debug.Log("my coin points are "  + coinpoint.ToString());
-            _code.GetComponent<GameCode>().GameUIControl.SetMyLandInfo(coinpoint);
-
-        }
-        public void SetEnemyLand(int coinpoint)
-        {
-            Debug.Log("enemy coin points are "  + coinpoint.ToString());
-            _code.GetComponent<GameCode>().GameUIControl.SetEnemyLandInfo(coinpoint);
-            
-        }
         public void SetPointInfo(GameInfomation gameInfomation)
         {
-            _code.GetComponent<GameCode>().GameUIControl.SetPointInfo(gameInfomation);
+            int myland = _code.GetComponent<GameCode>().GameCardShowControl.MyCemetery.Where(x => x.CardId == "70014").Select(x => x.Strength).FirstOrDefault();
+            int enemyland = _code.GetComponent<GameCode>().GameCardShowControl.EnemyCemetery.Where(x => x.CardId == "70014").Select(x => x.Strength).FirstOrDefault();
+            _code.GetComponent<GameCode>().GameUIControl.SetPointInfo(gameInfomation, myland, enemyland);
+
         }
         public void SetCountInfo(GameInfomation gameInfomation)
         {
