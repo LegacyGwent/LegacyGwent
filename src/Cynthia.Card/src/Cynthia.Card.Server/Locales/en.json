@@ -3547,7 +3547,7 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Deploy: Select a revealed card in your hand, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "It is said he created an illusion so realistic that he began to believe it himself..."
         },
         "70104": {
