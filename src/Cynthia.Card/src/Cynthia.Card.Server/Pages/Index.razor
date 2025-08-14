@@ -2,52 +2,29 @@
 @inject GwentServerService GwentService
 @implements IDisposable
 
-<h4>群号:<a href=@addGroupLink>945408322</a>,欢迎加入闲聊或约牌
-    本站为测试服,正式服切换端口号至5000</h4>
-<h2>~实时玩家状态查看~</h2>
-<h3>目前在线人数: @GwentService.GetUserCount() </h3>
-<ul>
-    @foreach (var usergroup in users.user)
-    {
-        <h4>@showMessage[usergroup.Key]</h4>
-        @foreach (var user in usergroup)
-        {
-            <li>@user.PlayerName</li>
-        }
-    }
-    @if (users.player.Count() > 0)
-    {
-        <h4>@showMessage[UserState.Play]</h4>
-        @foreach (var player in users.player)
-        {
-            <li>@player.player1 vs @player.player2</li>
-        }
-    }
+<h4>
+    群号 / QQ Group: <a href="@addGroupLink">945408322</a>, 欢迎加入闲聊或约牌 / Feel free to chat or arrange matches
+    <br />
+    本站为测试服 / This is a test server, 正式服切换端口号至5000 / official server: change port to 5000
+</h4>
 
-    @if (users.aiPlayer.Count() > 0)
-    {
-        <h4>@showMessage[UserState.PlayWithAI]</h4>
-        @foreach (var player in users.aiPlayer)
-        {
-            <li>@player.player1 vs @player.player2</li>
-        }
-    }
+<h2>~ 实时玩家状态查看 / Live Player Status ~</h2>
+
+<h3>玩家在线 / Players Online: @GwentService.GetUserCount()</h3>
+
+<ul>
+    <li>闲置中 / Idle: @users.user.Where(g => g.Key == UserState.Standby).SelectMany(g => g).Count()</li>
+    <li>对局中 / Player vs Player: @users.player.Count()</li>
+    <li>对战AI / Player vs AI: @users.aiPlayer.Count()</li>
 </ul>
 
-@code
-{
+@code {
     string addGroupLink =
         "https://shang.qq.com/wpa/qunwpa?idkey=131ac538a2dee688ba02f146df56a90b83a35182cd441081cfb26f9c080c3b89";
-    (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player, IList<(string player1, string
-    player2)> aiPlayer) users;
-    IDictionary<UserState, string> showMessage = new Dictionary<UserState, string>()
-{
-{UserState.Match,"以下玩家正在进行无密码匹配~"},
-{UserState.PasswordMatch,"以下玩家正在进行密码匹配~"},
-{UserState.Play,"以下玩家正在对局中~"},
-{UserState.Standby,"以下玩家正在闲置中~"},
-{UserState.PlayWithAI,"以下玩家正在和AI对战~"}
-};
+
+    (IList<IGrouping<UserState, User>> user, 
+     IList<(string player1, string player2)> player, 
+     IList<(string player1, string player2)> aiPlayer) users;
 
     protected override void OnInitialized()
     {
@@ -55,8 +32,9 @@
         GwentService.OnUserChanged += OnUserChanged;
     }
 
-    private void OnUserChanged((IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player,
-    IList<(string player1, string player2)> aiPlayer) newUser)
+    private void OnUserChanged((IList<IGrouping<UserState, User>> user, 
+                                IList<(string player1, string player2)> player,
+                                IList<(string player1, string player2)> aiPlayer) newUser)
     {
         InvokeAsync(() =>
         {
