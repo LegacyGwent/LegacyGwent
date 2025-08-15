@@ -210,39 +210,32 @@ public class GameEvent : MonoBehaviour
         set
         {
             if (_selectCard == value) return;
+
+            // Restore previous selection
             if (_selectCard != null)
             {
-                //将之前选中的复原
-                //_selectCard.transform.localScale = new Vector3(1, 1, 1);
                 _selectCard.CardShowInfo.ScaleTo(1);
-                _selectCard.ZPosition += 1f;//此复原有问题
+                _selectCard.ZPosition += 1f;
             }
 
-
-           // BEFORE overwriting _selectCard, keep the old one
+            // Keep old selection for comparison
             var previous = _selectCard;
 
-            // If nothing changed, do nothing
-            if (ReferenceEquals(previous, value))
-            {
-                return;
-            }
+            if (ReferenceEquals(previous, value)) return;
 
-            // Close the currently animated instance (if any)
+            // Close current animated card if exists
             if (_activeAnimatedCard != null)
             {
-                _activeAnimatedCard.PlayExit(); 
+                _activeAnimatedCard.PlayExit();
                 _activeAnimatedCard = null;
             }
 
-            // Now commit the new selection
+            // Commit new selection
             _selectCard = value;
 
-            // If selection cleared, we’re done
-            if (_selectCard == null)
-                return;
+            if (_selectCard == null) return;
 
-            // If the new selection is valid, spawn a fresh animated card
+            // Spawn animated prefab for non-temporary cards
             if (!_selectCard.IsTem)
             {
                 if (cardPrefab == null || cardParent == null)
@@ -252,22 +245,35 @@ public class GameEvent : MonoBehaviour
                 }
 
                 GameObject newObj = Instantiate(cardPrefab);
+                newObj.transform.SetParent(cardParent, false);
+                newObj.transform.SetSiblingIndex(0);
 
-                // Put it behind all current cards in hierarchy
-                newObj.transform.SetParent(cardParent, false); 
-                newObj.transform.SetSiblingIndex(0); // move to first position
-
-                // Normalize transform so animator math is predictable
+                // Normalize transform
                 newObj.transform.localPosition = Vector3.zero;
                 newObj.transform.localRotation = Quaternion.identity;
-                newObj.transform.localScale    = Vector3.one;
+                newObj.transform.localScale = Vector3.one;
 
-                // Animator might be on a child
-                CardArtAnimator anim = newObj.GetComponentInChildren<CardArtAnimator>();
-                if (anim != null)
+                // Set ArtCard info
+                ArtCard artCardComp = newObj.GetComponentInChildren<ArtCard>(true); // search inactive children
+                if (artCardComp != null)
                 {
-                    anim.PlayEnter();
-                    _activeAnimatedCard = anim; // remember it so we can close it next time
+                    Debug.Log($"_selectCard type: {_selectCard.GetType().FullName}, Assembly: {_selectCard.GetType().Assembly.FullName}");
+                    artCardComp.CurrentCore = _selectCard.CardShowInfo.CurrentCore;
+                    artCardComp.SetCard(); // ensure visuals refresh
+                }
+                else
+                {
+                    Debug.LogWarning("Instantiated prefab has no ArtCard component.");
+                }
+
+                // Set CardArtAnimator
+                CardArtAnimator animComp = newObj.GetComponentInChildren<CardArtAnimator>(true);
+                if (animComp != null)
+                {
+                    _activeAnimatedCard = animComp;
+                    // Optionally trigger animations here:
+                    // animComp.SetTo12();
+                    animComp.PlayEnter();
                 }
                 else
                 {
@@ -275,18 +281,20 @@ public class GameEvent : MonoBehaviour
                 }
             }
 
-
-
-            if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay || _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
+            // Check if card can be selected
+            if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay ||
+                _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
             {
                 _selectCard = null;
                 return;
             }
-            //_selectCard.transform.localScale = new Vector3(1.05f, 1.05f, 1);
+
+            // Highlight selected card
             _selectCard.CardShowInfo.ScaleTo(1.1f);
             _selectCard.ZPosition -= 1f;
         }
     }
+
     public CardShowInfo SelectModeCard
     {
         get => _selectModeCard;
