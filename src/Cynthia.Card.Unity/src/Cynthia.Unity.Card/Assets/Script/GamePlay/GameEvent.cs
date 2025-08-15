@@ -90,6 +90,15 @@ public class GameEvent : MonoBehaviour
     private float pressTime = 0; // time pressed on mobile
     private bool IsRightClickMobile = false;
     public bool shorterTimer=false;
+
+    //CardArt animation
+    public GameObject cardPrefab;   // assign your prefab in the inspector
+    public Transform cardParent;    // assign the parent transform where new cards appear
+    private CardArtAnimator currentCard; // track the currently displayed card
+    //private CardMoveInfo _selectCard;           // your existing selection
+    private CardArtAnimator _activeAnimatedCard; // the spawned animated instance
+
+
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -208,17 +217,66 @@ public class GameEvent : MonoBehaviour
                 _selectCard.CardShowInfo.ScaleTo(1);
                 _selectCard.ZPosition += 1f;//此复原有问题
             }
-            _selectCard = value;
-            if (value == null)
+
+
+           // BEFORE overwriting _selectCard, keep the old one
+            var previous = _selectCard;
+
+            // If nothing changed, do nothing
+            if (ReferenceEquals(previous, value))
             {
-                ShowCard.gameObject.SetActive(false);
                 return;
             }
+
+            // Close the currently animated instance (if any)
+            if (_activeAnimatedCard != null)
+            {
+                _activeAnimatedCard.PlayExit(); 
+                _activeAnimatedCard = null;
+            }
+
+            // Now commit the new selection
+            _selectCard = value;
+
+            // If selection cleared, we’re done
+            if (_selectCard == null)
+                return;
+
+            // If the new selection is valid, spawn a fresh animated card
             if (!_selectCard.IsTem)
             {
-                ShowCard.CurrentCore = _selectCard.CardShowInfo.CurrentCore;
-                ShowCard.gameObject.SetActive(true);
+                if (cardPrefab == null || cardParent == null)
+                {
+                    Debug.LogWarning("cardPrefab or cardParent is not assigned.");
+                    return;
+                }
+
+                GameObject newObj = Instantiate(cardPrefab);
+
+                // Put it behind all current cards in hierarchy
+                newObj.transform.SetParent(cardParent, false); 
+                newObj.transform.SetSiblingIndex(0); // move to first position
+
+                // Normalize transform so animator math is predictable
+                newObj.transform.localPosition = Vector3.zero;
+                newObj.transform.localRotation = Quaternion.identity;
+                newObj.transform.localScale    = Vector3.one;
+
+                // Animator might be on a child
+                CardArtAnimator anim = newObj.GetComponentInChildren<CardArtAnimator>();
+                if (anim != null)
+                {
+                    anim.PlayEnter();
+                    _activeAnimatedCard = anim; // remember it so we can close it next time
+                }
+                else
+                {
+                    Debug.LogWarning("Instantiated prefab has no CardArtAnimator component.");
+                }
             }
+
+
+
             if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay || _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
             {
                 _selectCard = null;
