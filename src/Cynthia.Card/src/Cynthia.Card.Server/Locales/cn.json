@@ -386,6 +386,8 @@
         "PIONEERDescription": "参与第一赛季。",
         "GOODGAMERName": "优秀玩家",
         "GOODGAMERDescription": "收到500次GG。",
+        "NoBorderName":"无边框",
+        "NoBorderDescription":"默认解锁。",
         "Rank3borderName": "Rank 3",
         "Rank3borderDescription": "达到段位3。",
         "Rank6borderName": "Rank 6",
