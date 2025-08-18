@@ -89,6 +89,12 @@ public class GameUIControl : MonoBehaviour
             MyAllPoint.color = ClientGlobalInfo.WinColor;
         else if (myAllPoint < enemyAllPoint)
             EnemyAllPoint.color = ClientGlobalInfo.WinColor;
+
+        if (myland == 0)
+            MyLandObject.SetActive(false);
+        if (enemyland == 0)
+            EnemyLandObject.SetActive(false);
+
         if (myland != myoldland && myland != null)
         {
             Debug.Log("my land is" + myland.ToString());
