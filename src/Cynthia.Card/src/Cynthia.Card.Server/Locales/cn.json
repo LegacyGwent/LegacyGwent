@@ -386,6 +386,8 @@
         "PIONEERDescription": "参与第一赛季。",
         "GOODGAMERName": "优秀玩家",
         "GOODGAMERDescription": "收到500次GG。",
+        "NoBorderName":"无边框",
+        "NoBorderDescription":"默认解锁。",
         "Rank3borderName": "Rank 3",
         "Rank3borderDescription": "达到段位3。",
         "Rank6borderName": "Rank 6",
@@ -3552,7 +3554,7 @@
         },
         "70103": {
             "Name": "亚托列司·薇歌",
-            "Info": "选择1张被揭示的手牌，并将其变形为1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。",
+            "Info": "选择1张在你手牌中被揭示的牌，并将其变形为1张己方起始牌组中铜色单位牌的指定原始同名牌，随后将其揭示。",
             "Flavor": "据说他创造出的幻象栩栩如生，连他自己都开始信了……"
         },
         "70104": {

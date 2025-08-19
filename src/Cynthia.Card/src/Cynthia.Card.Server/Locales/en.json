@@ -42,7 +42,7 @@
         "RegisterMenu_PasswordsNotIdentical": "The passwords are not identical. Try again.",
         "RegisterMenu_Registering": "Registering... Please wait...",
         "RegisterMenu_AlreadyRegistered": "Registration failed. A user with the same username or nickname already exists.",
-        "RegisterMenu_RegistrationSuccessful": "Registration successful. Press the \\'back\\' button to return to the login page.",
+        "RegisterMenu_RegistrationSuccessful": "Registration successful. Press the back button to return to the login page.",
         "RegisterMenu_ErrorRegistering": "There's been an error. The server may have been shut down.",
         "SettingsMenu_SettingsTitle": "Settings",
         "SettingsMenu_GeneralSettingsButton": "GENERAL",
@@ -344,7 +344,7 @@
         "Dagon5": "Vulgtmnah mgehye'btnk. (Well Played.)",
         "Dagon6": "(Our pact is sealed.)",
         "ClassicGeraltName": "Classic Geralt",
-        "ClassicGeraltDescription": "Partecipate in Season One.",
+        "ClassicGeraltDescription": "Participate in Season One.",
         "CirALtName": "Ciri Elder Blood",
         "CiriAltDescription": "Reach Rank 10 in Season 2.",
         "Taunt1": "WATCH THIS",
@@ -386,6 +386,8 @@
         "PIONEERDescription": "Partecipate in Season One.",
         "GOODGAMERName": "GOOD GAMER",
         "GOODGAMERDescription": "Receive GG 500 times.",
+        "NoBorderName":"No Border",
+        "NoBorderDescription":"Unlocked by default.",
         "Rank3borderName": "Rank 3",
         "Rank3borderDescription": "Reach Rank 3.",
         "Rank6borderName": "Rank 6",
@@ -892,7 +894,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "On turn start, resurrect itself and Weaken itself by half.",
+            "Info": "On round start, resurrect itself and Weaken itself by half.",
             "Flavor": "At least you now know I don't easily lose my head."
         },
         "13016": {
@@ -2472,7 +2474,7 @@
         },
         "52002": {
             "Name": "Saesenthessis",
-            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal 1 Damage for each Elf ally on the board and in your hand.",
+            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal Damage equal to number of Elf allies on the board and in your hand.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "52003": {
@@ -3212,7 +3214,7 @@
         },
         "70005": {
             "Name": "Vysogota Of Corvo",
-            "Info": "On round start, if there is a unit to the right Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
+            "Info": "On turn start, if there is a unit to the left Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
             "Flavor": "It's been near half a century since I last practiced medicine. The years haven't been kind to my memory... Nor the dexterity of my fingers."
         },
         "70006": {
@@ -3323,7 +3325,7 @@
         "70032": {
             "Name": "Gascon",
             "Info": "Deploy: Choose a row, move all units on both sides of it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
-            "Flavor": "Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
+            "Flavor": "Th' Strays of Spalla - 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
         },
         "70033": {
             "Name": "War Elephant",
@@ -3437,7 +3439,7 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to that unit equal to half of it's Strength.",
+            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to played unit equal to half of it's Strength.",
             "Flavor": "Knut, son of Oluf? Aye, never has a jarl's moniker fit so well."
         },
         "70081": {
@@ -3547,7 +3549,7 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Deploy: Select a revealed card in your hand, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "It is said he created an illusion so realistic that he began to believe it himself..."
         },
         "70104": {
@@ -3897,8 +3899,8 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying.\nReveal two enemy cards, then Spawn and Play a copy of a different bronze card in your opponent's hand.",
-            "Flavor": "In her spare time, she likes playing practical jokes on others. Her favorite gag is switching footwraps and headwear."
+            "Info": "Spying.\nReveal two enemy cards, then choose a revealed card in oponent hand that is not ca copy of this unit and Spawn a base copy of it.",
+            "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
             "Name": "Trapmaker",
