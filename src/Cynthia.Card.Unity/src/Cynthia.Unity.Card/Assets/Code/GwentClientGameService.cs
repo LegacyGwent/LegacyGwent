@@ -50,6 +50,7 @@ namespace Cynthia.Card.Client
             _player = player;
             // var game = Task.Run(async () =>
             // {
+            AudioManager.Instance.PlayAudio("11320700", AudioType.Card); // play commander's horn sound to notify the player that the game has started
             Debug.Log("运行开始");
             while (
                 await ResponseOperations(
@@ -207,12 +208,6 @@ namespace Cynthia.Card.Client
                 //SET数值和墓地
                 case ServerOperationType.SetCoinInfo:
                     GameCodeService.SetCoinInfo(arguments[0].ToType<bool>());
-                    break;
-                case ServerOperationType.SetMyLand:
-                    GameCodeService.SetMyLand(arguments[0].ToType<int>());
-                    break;
-                case ServerOperationType.SetEnemyLand:
-                    GameCodeService.SetEnemyLand(arguments[0].ToType<int>());                  
                     break;
                 case ServerOperationType.SetMyCemetery:
                     GameCodeService.SetMyCemeteryInfo(arguments[0].ToType<List<CardStatus>>());

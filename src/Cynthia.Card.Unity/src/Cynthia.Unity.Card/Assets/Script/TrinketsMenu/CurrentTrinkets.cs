@@ -23,10 +23,11 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
     public Text TitleText;
     public Text PlayerName;
     public Text MMR;
-    private string mmr;
+    private int mmr;
     private string OldAvatar;
     private string OldBorder;
     private string OldTitle;
+    private int OldMMR;
     private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
     private static Dictionary<string, Color> mycolormap { get => ColorMap.colormap; } // stores the color of the title cosmetics
     private void Awake()
@@ -34,19 +35,25 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
-    private void Start()
+    private void Start() 
     {
-        if (SceneManager.GetSceneByName("GamePlay").isLoaded == true)
+        PlayerName.text = _clientService.User.PlayerName;
+        mmr = _clientService.User.MMR;
+        OldMMR = mmr;
+        if (SceneManager.GetSceneByName("GamePlay").isLoaded == true || RankIcon == null)
         {
             return;
         }
-        PlayerName.text = _clientService.User.PlayerName;
-        mmr = _clientService.User.MMR.ToString();
+
         if (MMR != null)
         {
-            MMR.text = mmr;
+            MMR.text = mmr.ToString();
         }
-        int mymmr = Convert.ToInt32(_clientService.User.MMR);
+        SwitchRankIcon(mmr);
+        
+    }
+private void SwitchRankIcon(int mymmr)    
+    {
         string rank; 
         switch (mymmr) {
             case int i when i < 3450:
@@ -131,7 +138,7 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         var currentavatar = _clientService.User.CurrentAvatar;
         if (currentavatar != OldAvatar)
         {
-            var op =Addressables.LoadAssetAsync<Sprite>(currentavatar);
+            var op = Addressables.LoadAssetAsync<Sprite>(currentavatar);
             Sprite go = op.WaitForCompletion();
             AvatarArt.sprite = go;
             OldAvatar = currentavatar;
@@ -139,19 +146,28 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         var currentborder = _clientService.User.CurrentBorder;
         if (currentborder != OldBorder)
         {
-            var op =Addressables.LoadAssetAsync<Sprite>(currentborder);
+            var op = Addressables.LoadAssetAsync<Sprite>(currentborder);
             Sprite go = op.WaitForCompletion();
             BorderArt.sprite = go;
             OldBorder = currentborder;
-        }    
+        }
         var user = _clientService.User;
         var currenttitle = user.CurrentTitle;
         string color = _titles.Where(x => x.ID == currenttitle).Single().TitleColor;
         if (currentborder != OldTitle)
         {
-            TitleText.text = _translator.GetText(currenttitle+"Name");
-            TitleText.color= mycolormap[color];
+            TitleText.text = _translator.GetText(currenttitle + "Name");
+            TitleText.color = mycolormap[color];
             OldTitle = currenttitle;
+        }
+        if (MMR != null)
+        {
+            MMR.text = user.MMR.ToString();
+        }
+        if (mmr != OldMMR)
+        {
+            OldMMR = user.MMR;
+            SwitchRankIcon(mmr);
         }
     }
 }

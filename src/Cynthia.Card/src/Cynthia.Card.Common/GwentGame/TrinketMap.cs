@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 4);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 5);
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -241,7 +241,9 @@ namespace Cynthia.Card
                     Taunt4 = "Odrin4",
                     Taunt5 = "Odrin5",
                     Taunt6 = "Odrin6",
-                    IsReleased = false,
+                    IsReleased = true,
+                    UnlockCounter = 10,
+                    UnlockStat = "GamesOver200",
                 }
             },
             {
@@ -572,7 +574,9 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "G_Beer",
-                    IsReleased = false,
+                    IsReleased = true,
+                    UnlockCounter = 5,
+                    UnlockStat = "GamesOver200",
                 }
             },
             {
@@ -928,7 +932,7 @@ namespace Cynthia.Card
             //=========================================================================================================================================================================
             //Titles
             //=========================================================================================================================================================================
-            { 
+            {
                 "CARDSMITH",
                 new Title()
                 {
@@ -937,7 +941,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "NOVICE",
                 new Title()
                 {
@@ -946,7 +950,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "APPRENTICE",
                 new Title()
                 {
@@ -955,7 +959,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "JOURNEYMAN",
                 new Title()
                 {
@@ -964,7 +968,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "ADEPT",
                 new Title()
                 {
@@ -973,7 +977,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "CARDSHARP",
                 new Title()
                 {
@@ -982,7 +986,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "MASTER",
                 new Title()
                 {
@@ -991,7 +995,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "GRANDMASTER",
                 new Title()
                 {
@@ -1000,7 +1004,7 @@ namespace Cynthia.Card
                     TitleColor = "white",
                 }
             },
-            { 
+            {
                 "MAN-AT-ARMS",
                 new Title()
                 {
@@ -1009,7 +1013,7 @@ namespace Cynthia.Card
                     TitleColor = "darkyellow",
                 }
             },
-            { 
+            {
                 "MERCENARY",
                 new Title()
                 {
@@ -1018,7 +1022,7 @@ namespace Cynthia.Card
                     TitleColor = "darkyellow",
                 }
             },
-            { 
+            {
                 "BOUNTYHUNTER",
                 new Title()
                 {
@@ -1027,7 +1031,7 @@ namespace Cynthia.Card
                     TitleColor = "darkyellow",
                 }
             },
-            { 
+            {
                 "VETERAN",
                 new Title()
                 {
@@ -1036,7 +1040,7 @@ namespace Cynthia.Card
                     TitleColor = "darkyellow",
                 }
             },
-                        { 
+                        {
                 "CHAMPION",
                 new Title()
                 {
@@ -1045,7 +1049,7 @@ namespace Cynthia.Card
                     TitleColor = "darkyellow",
                 }
             },
-            { 
+            {
                 "HERO",
                 new Title()
                 {
@@ -1054,7 +1058,7 @@ namespace Cynthia.Card
                     TitleColor = "darkyellow",
                 }
             },
-            { 
+            {
                 "PIONEER",
                 new Title()
                 {
@@ -1063,7 +1067,7 @@ namespace Cynthia.Card
                     TitleColor = "darkgreen",
                 }
             },
-            { 
+            {
                 "GOODGAMER",
                 new Title()
                 {
@@ -1074,7 +1078,7 @@ namespace Cynthia.Card
                     UnlockStat = "GGsReceived",
                 }
             },
-            { 
+            {
                 "RANGER",
                 new Title()
                 {
@@ -1083,7 +1087,7 @@ namespace Cynthia.Card
                     TitleColor = "emerald",
                 }
             },
-            { 
+            {
                 "TRAPPER",
                 new Title()
                 {
@@ -1092,7 +1096,7 @@ namespace Cynthia.Card
                     TitleColor = "emerald",
                 }
             },
-            { 
+            {
                 "HUNTER",
                 new Title()
                 {
@@ -1101,7 +1105,7 @@ namespace Cynthia.Card
                     TitleColor = "emerald",
                 }
             },
-            { 
+            {
                 "REBEL",
                 new Title()
                 {
@@ -1110,7 +1114,7 @@ namespace Cynthia.Card
                     TitleColor = "emerald",
                 }
             },
-                        { 
+                        {
                 "DEFENDER",
                 new Title()
                 {
@@ -1119,13 +1123,33 @@ namespace Cynthia.Card
                     TitleColor = "emerald",
                 }
             },
-            { 
+            {
                 "PROTECTOR",
                 new Title()
                 {
                     ID = "PROTECTOR",
                     IsReleased = true,
                     TitleColor = "emerald",
+                }
+            },
+            {
+                "OCCASIONALDRINKER",
+                new Title()
+                {
+                    ID = "OCCASIONALDRINKER",
+                    IsReleased = true,
+                    TitleColor = "blue",
+                    UnlockCounter = 1,
+                    UnlockStat = "GamesOver200",
+                }
+            },
+            { 
+                "$$$MILLIONAIRE$$$",
+                new Title()
+                {
+                    ID = "$$$MILLIONAIRE$$$",
+                    IsReleased = true,
+                    TitleColor = "yellow",
                 }
             },
         };

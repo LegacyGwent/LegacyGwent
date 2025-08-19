@@ -42,7 +42,7 @@
         "RegisterMenu_PasswordsNotIdentical": "The passwords are not identical. Try again.",
         "RegisterMenu_Registering": "Registering... Please wait...",
         "RegisterMenu_AlreadyRegistered": "Registration failed. A user with the same username or nickname already exists.",
-        "RegisterMenu_RegistrationSuccessful": "Registration successful. Press the \\'back\\' button to return to the login page.",
+        "RegisterMenu_RegistrationSuccessful": "Registration successful. Press the back button to return to the login page.",
         "RegisterMenu_ErrorRegistering": "There's been an error. The server may have been shut down.",
         "SettingsMenu_SettingsTitle": "Settings",
         "SettingsMenu_GeneralSettingsButton": "GENERAL",
@@ -264,7 +264,7 @@
         "Phoenix5": "...",
         "Phoenix6": "...",
         "OdrinName": "Odrin",
-        "OdrinDescription": "",
+        "OdrinDescription": "Win 10 ranked matches by scoring more than 200 points in any round.",
         "Odrin1": "Gonna go now… or should I shtay?",
         "Odrin2": "Oh, you shnivelin' shack o'… sho that'sh how it'sh gonna be?!",
         "Odrin3": "I'm gonna kick yer arsh so hard…",
@@ -344,7 +344,7 @@
         "Dagon5": "Vulgtmnah mgehye'btnk. (Well Played.)",
         "Dagon6": "(Our pact is sealed.)",
         "ClassicGeraltName": "Classic Geralt",
-        "ClassicGeraltDescription": "Partecipate in Season One.",
+        "ClassicGeraltDescription": "Participate in Season One.",
         "CirALtName": "Ciri Elder Blood",
         "CirAltDescription": "Reach Rank 10 in Season 2.",
         "Taunt1": "WATCH THIS",
@@ -385,6 +385,8 @@
         "PIONEERDescription": "Partecipate in Season One.",
         "GOODGAMERName": "GOOD GAMER",
         "GOODGAMERDescription": "Receive GG 500 times.",
+        "NoBorderName":"No Border",
+        "NoBorderDescription":"Unlocked by default.",
         "Rank3borderName": "Rank 3",
         "Rank3borderDescription": "Reach Rank 3.",
         "Rank6borderName": "Rank 6",
@@ -437,6 +439,12 @@
         "DEFENDERDescription": "Finish Season 2 in the top 5 of Players.",
         "PROTECTORName": "PROTECTOR",
         "PROTECTORDescription": "Finish Season 2 as the top player.",
+        "OCCASIONALDRINKERName": "OCCASIONAL DRINKER",
+        "OCCASIONALDRINKERDescription": "Win a ranked match by scoring more than 200 points in any round.",
+        "$$$MILLIONAIRE$$$Name": "$$$MILLIONAIRE$$$",
+        "$$$MILLIONAIRE$$$Description": "In a casual match, have either player have more than a million points in a single round.",
+        "G_BeerName": "Beer Border",
+        "G_BeerDescription": "Win 5 ranked matches by scoring more than 200 points in any round.",
         "IngameMenu_GGButton": "Send GG!",
         "GG_Message1": "Good Game! Your opponent ",
         "GG_Message2": " Sent GG!",
@@ -885,7 +893,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "On turn start, resurrect itself and Weaken itself by half.",
+            "Info": "On round start, resurrect itself and Weaken itself by half.",
             "Flavor": "At least you now know I don't easily lose my head."
         },
         "13016": {
@@ -2465,7 +2473,7 @@
         },
         "52002": {
             "Name": "Saesenthessis",
-            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal 1 Damage for each Elf ally on the board and in your hand.",
+            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal Damage equal to number of Elf allies on the board and in your hand.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "52003": {
@@ -3205,7 +3213,7 @@
         },
         "70005": {
             "Name": "Vysogota Of Corvo",
-            "Info": "On round start, if there is a unit to the right Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
+            "Info": "On turn start, if there is a unit to the left Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
             "Flavor": "It's been near half a century since I last practiced medicine. The years haven't been kind to my memory... Nor the dexterity of my fingers."
         },
         "70006": {
@@ -3316,7 +3324,7 @@
         "70032": {
             "Name": "Gascon",
             "Info": "Deploy: Choose a row, move all units on both sides of it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
-            "Flavor": "Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
+            "Flavor": "Th' Strays of Spalla - 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
         },
         "70033": {
             "Name": "War Elephant",
@@ -3410,7 +3418,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strength copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3430,7 +3438,7 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to that unit equal to half of it's Strength.",
+            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to played unit equal to half of it's Strength.",
             "Flavor": "Knut, son of Oluf? Aye, never has a jarl's moniker fit so well."
         },
         "70081": {
@@ -3455,7 +3463,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Deploy: Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
+            "Info": "Deploy: Damage an enemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3535,12 +3543,12 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all enemy rows; or apply Blood Moon on all friendly rows.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all friendly rows; or apply Blood Moon on all enemy rows.",
             "Flavor": "He did not love like a man, but like an animal. Madly, deeply, unconditionally. Wildly."
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Deploy: Select a revealed card in your hand, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "It is said he created an illusion so realistic that he began to believe it himself..."
         },
         "70104": {
@@ -3760,7 +3768,7 @@
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
+            "Info": "On turn end, if there is no stronger unit on the opposite row, Drain a random enemy on that row.",
             "Flavor": "The townsfolk, long plagued with horrific nightmares, posted a desperate plea for help... Hmm. An alp, gotta be, the witcher grumbled to himself."
         },
         "70149": {
@@ -3815,7 +3823,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.",
+            "Info": "TEMPORARY NERF",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -3825,7 +3833,7 @@
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Deploy: Spawn 2 Scarabs.",
+            "Info": "Deploy: Spawn 2 Scarabs on oponent side.",
             "Flavor": "Azar Javed's specialty is the element of fire. The sorcerer not only deftly manipulates the power of fire, it can be said that fire has become a part of his very being."
         },
         "70162": {
@@ -3865,7 +3873,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Info": "On turn end, if no enemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
@@ -3890,8 +3898,8 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying.\nReveal two enemy cards, then Spawn and Play a copy of a different bronze card in your opponent's hand.",
-            "Flavor": "In her spare time, she likes playing practical jokes on others. Her favorite gag is switching footwraps and headwear."
+            "Info": "Spying.\nReveal two enemy cards, then choose a revealed card in oponent hand that is not ca copy of this unit and Spawn a base copy of it.",
+            "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
             "Name": "Trapmaker",

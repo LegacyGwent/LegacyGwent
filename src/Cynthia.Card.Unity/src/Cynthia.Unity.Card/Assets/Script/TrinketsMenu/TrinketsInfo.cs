@@ -42,11 +42,6 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
     private IList<Title> _titles_released { get => TrinketMap.GetTitles().Where(x => x.IsReleased).ToList(); }
     
 
-    private void Awake()
-    {
-        _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
-    }
-
     void Start()
     {
         AutoSetAvatars();
@@ -234,7 +229,8 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
 
     private async void UpdateUserInfo() // refresh user info from server
     {
-       _clientService.User = await _clientService.QueryUserInfo(_clientService.User.UserName, _clientService.User.PassWord); 
+        _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
+        _clientService.User = await _clientService.QueryUserInfo(_clientService.User.UserName, _clientService.User.PassWord); 
     }
     
 

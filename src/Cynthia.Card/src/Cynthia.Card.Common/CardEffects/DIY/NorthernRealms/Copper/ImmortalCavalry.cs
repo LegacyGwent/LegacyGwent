@@ -36,7 +36,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (@event.Target.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace() ||Card.Effect.Countdown != 1)
+            if (@event.Target.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace() ||Card.Effect.Countdown != 1  || @event.Target == Card)
             {
                 return;
             }

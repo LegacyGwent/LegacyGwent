@@ -111,7 +111,9 @@ cards=[\
 #SKrune
 ['63018',[['isderive',['false']],['group',['Copper','silver']],['faction',['Skellige']]]],\
 #Uma
-['12039',[['isderive',['false']],['group',['gold']]]]\
+['12039',[['isderive',['false']],['group',['gold']],['cardtype',['unit']]]],\
+#Ornamental
+['63020',[['isderive',['false']],['group',['Copper','silver']],['faction',['Skellige']],['categorie',['soldier']]]]\
 ]
         
 for el in cards:
