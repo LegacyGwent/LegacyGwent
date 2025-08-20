@@ -109,22 +109,24 @@ namespace Cynthia.Card
                         Name = "Greatswords",
                         Id = Guid.NewGuid().ToString()
                     };
-                case 5://
-                    deck = "x".Plural(1)//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3)).ToList();//
+                case 5://Foltest
+                    deck = "42003".Plural(1)//Seltkirk of Gulet
+                    .Concat("42006".Plural(1))//Keira Metz
+                    .Concat("42008".Plural(1))//Sigismund Dijkstra
+                    .Concat("42009".Plural(1))//Shani
+                    .Concat("13005".Plural(1))//Germain Piquant
+                    .Concat("43011".Plural(1))//Margarita of Aretuza
+                    .Concat("43016".Plural(1))//Prince Stennis
+                    .Concat("13024".Plural(1))//Alzur's Double–Cross
+                    .Concat("13031".Plural(1))//Marching Orders
+                    .Concat("43020".Plural(1))//Reinforcements
+                    .Concat("44009".Plural(3))//Kaedweni Knight
+                    .Concat("44013".Plural(3))//Redanian Knight-Elect
+                    .Concat("44030".Plural(3))//Witch Hunter
+                    .Concat("44031".Plural(2))//Tormented Mage
+                    .Concat("44032".Plural(1))//Reaver Scout
+                    .Concat("14003".Plural(1))//Alzur's Thunder
+                    .Concat("14018".Plural(2)).ToList();//Thunderbolt
                     return new DeckModel()
                     {
                         Leader = "x",
