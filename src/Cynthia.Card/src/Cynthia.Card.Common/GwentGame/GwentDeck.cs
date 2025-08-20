@@ -129,9 +129,9 @@ namespace Cynthia.Card
                     .Concat("14018".Plural(2)).ToList();//Thunderbolt
                     return new DeckModel()
                     {
-                        Leader = "x",
+                        Leader = "41003",//King Foltest
                         Deck = deck,
-                        Name = "x",
+                        Name = "Foltes Tempo",
                         Id = Guid.NewGuid().ToString()
                     };
                 default://old default alchemy
