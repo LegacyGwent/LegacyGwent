@@ -86,26 +86,27 @@ namespace Cynthia.Card
                         Id = Guid.NewGuid().ToString()
                     };
                 case 4://Great swords
-                    deck = "12026".Plural(1)//Triss: Telekinesis
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(1))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3))//
-                    .Concat("x".Plural(3)).ToList();//
+                    deck = "12002".Plural(1)//Geralt: Igni
+                    .Concat("12003".Plural(1))//Dandelion: Poet
+                    .Concat("62011".Plural(1))//Coral
+                    .Concat("62012".Plural(1))//Hym
+                    .Concat("63002".Plural(1))//Udalryk
+                    .Concat("63003".Plural(1))//Djenge Frett
+                    .Concat("63012".Plural(1))//Harald Houndsnout
+                    .Concat("63015".Plural(1))//Skjall
+                    .Concat("63017".Plural(1))//Sigrdrifa
+                    .Concat("63019".Plural(1))//Restore
+                    .Concat("64009".Plural(3))//An Craite Greatsword
+                    .Concat("64017".Plural(3))//Dimun Light Longship
+                    .Concat("64029".Plural(1))//Heymaey Spearmaiden
+                    .Concat("64028".Plural(3))//Dimun Corsair
+                    .Concat("64031".Plural(2))//Dimun Pirate Captain
+                    .Concat("64032".Plural(3)).ToList();//Priestess of Freya
                     return new DeckModel()
                     {
-                        Leader = "x",
+                        Leader = "61002",//Crach an Craite
                         Deck = deck,
-                        Name = "x",
+                        Name = "Greatswords",
                         Id = Guid.NewGuid().ToString()
                     };
                 case 5://
@@ -131,7 +132,7 @@ namespace Cynthia.Card
                         Name = "x",
                         Id = Guid.NewGuid().ToString()
                     };
-                default:
+                default://old default alchemy
                     deck = "12001".Plural(1)//乞丐王
                     .Concat("12002".Plural(1))//诗人
                     .Concat("12003".Plural(1))//皇家
