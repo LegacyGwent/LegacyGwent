@@ -121,7 +121,10 @@ public class GameUIControl : MonoBehaviour
     }
     public void SetCountInfo(GameInfomation gameInfomation)
     {
-        //MyHandCount.text = gameInfomation.MyHandCount.ToString();
+        MyHandCount.text = gameInfomation.MyHandCount.ToString();
+        EnemyHandCount.text = gameInfomation.EnemyHandCount.ToString();
+
+
         int myDeck = gameInfomation.MyDeckCount;
         if (myDeck == 0)
         {
@@ -137,7 +140,7 @@ public class GameUIControl : MonoBehaviour
             MyDeckIcon.SetActive(true);
         }
 
-        //EnemyHandCount.text = gameInfomation.EnemyHandCount.ToString();\
+
         int EnemyDeck = gameInfomation.EnemyDeckCount;
         if (EnemyDeck == 0)
         {
@@ -183,8 +186,8 @@ public class GameUIControl : MonoBehaviour
             EnemyGraveyardIcon.SetActive(true);
         }
 
-        MyDeckCount.text = gameInfomation.MyDeckCount.ToString();
-        EnemyDeckCount.text = gameInfomation.EnemyDeckCount.ToString();
+        //MyDeckCount.text = gameInfomation.MyDeckCount.ToString();
+        //EnemyDeckCount.text = gameInfomation.EnemyDeckCount.ToString();
     }
     public void SetPassInfo(GameInfomation gameInfomation)
     {
