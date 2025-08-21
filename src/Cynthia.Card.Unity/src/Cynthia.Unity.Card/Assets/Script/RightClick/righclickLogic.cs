@@ -208,4 +208,8 @@ public class righclickLogic : MonoBehaviour
             Closerightclick();
         }
     }
+    public void PlaySound()
+    {
+        AudioManager.Instance.PlayAudio(GwentMap.CardMap[DisplayID].CardArtsId, AudioType.Card);
+    }
 }
