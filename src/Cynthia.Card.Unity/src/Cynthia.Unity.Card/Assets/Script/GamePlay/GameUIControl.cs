@@ -62,6 +62,9 @@ public class GameUIControl : MonoBehaviour
     private int myoldland;
     private int enemyoldland;
     //----------------------------------    
+    private int myAllPoint;
+    private int enemyAllPoint;
+    //----------------------------------    
     private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
     private static Dictionary<string, Color> mycolormap { get => ColorMap.colormap; } // stores the color of the title cosmetics
 
@@ -81,8 +84,8 @@ public class GameUIControl : MonoBehaviour
         EnemyRow1Point.text = gameInfomation.EnemyRow1Point.ToString();
         EnemyRow2Point.text = gameInfomation.EnemyRow2Point.ToString();
         EnemyRow3Point.text = gameInfomation.EnemyRow3Point.ToString();
-        var myAllPoint = (gameInfomation.MyRow1Point + gameInfomation.MyRow2Point + gameInfomation.MyRow3Point);
-        var enemyAllPoint = (gameInfomation.EnemyRow1Point + gameInfomation.EnemyRow2Point + gameInfomation.EnemyRow3Point);
+        myAllPoint = (gameInfomation.MyRow1Point + gameInfomation.MyRow2Point + gameInfomation.MyRow3Point);
+        enemyAllPoint = (gameInfomation.EnemyRow1Point + gameInfomation.EnemyRow2Point + gameInfomation.EnemyRow3Point);
         MyAllPoint.text = myAllPoint.ToString();
         EnemyAllPoint.text = enemyAllPoint.ToString();
         if (myAllPoint > enemyAllPoint)
@@ -90,23 +93,14 @@ public class GameUIControl : MonoBehaviour
         else if (myAllPoint < enemyAllPoint)
             EnemyAllPoint.color = ClientGlobalInfo.WinColor;
 
-        if (myland == 0)
-            MyLandObject.SetActive(false);
-        if (enemyland == 0)
-            EnemyLandObject.SetActive(false);
+        //if (myland == 0)
+        //    MyLandObject.SetActive(false);
+        //if (enemyland == 0)
+        //    EnemyLandObject.SetActive(false);
 
-        if (myland != myoldland && myland != null)
-        {
-            Debug.Log("my land is" + myland.ToString());
-            SetMyLand(myland);
-            myoldland = myland;
-        }
-        if (enemyland != enemyoldland && enemyland != null)
-        {
-            Debug.Log("enemy land is" + enemyland.ToString());
-            SetEnemyLand(enemyland);
-            enemyoldland = enemyland;
-        }
+        SetMyLand(myland);
+        SetEnemyLand(enemyland);
+            
     }
     public void SetCountInfo(GameInfomation gameInfomation)
     {
@@ -217,8 +211,20 @@ public class GameUIControl : MonoBehaviour
     }
     public void SetMyLand(int land)
     {
-        MyLand.text  = "+ " + land.ToString();
+        string mode = SettingPanel.GetCoinDisplayMode(); //move to awake later
+        Debug.Log("Coin mode currently is: " + mode);
+
+        if (mode == "CoinAdded")
+        {
+            MyLand.text  =  (land+myAllPoint).ToString();
+        }
+        else
+        {
+            MyLand.text  = "+ " + land.ToString();
+        }
+
         Debug.Log("my land is"+ land.ToString());
+
         if (land == 0)
             MyLandObject.SetActive(false);
         else
@@ -226,8 +232,20 @@ public class GameUIControl : MonoBehaviour
     }
     public void SetEnemyLand(int land)
     {
-        EnemyLand.text  = "+ " + land.ToString();
-        Debug.Log("enemy land is"+ land.ToString());
+        string mode = SettingPanel.GetCoinDisplayMode(); //move to awake later
+        Debug.Log("Coin mode currently is: " + mode);
+
+        if (mode == "CoinAdded")
+        {
+            EnemyLand.text  = (land+enemyAllPoint).ToString();
+        }
+        else
+        {
+            EnemyLand.text  = "+ " + land.ToString();
+        }
+
+        Debug.Log("enemy land is "+ land.ToString());
+
         if (land == 0)
             EnemyLandObject.SetActive(false);
         else
