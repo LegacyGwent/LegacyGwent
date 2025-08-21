@@ -654,7 +654,9 @@ Patch notes:
 AI Matchmaking:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
 Enter the corresponding password to challenge the AI.
-When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f)."
+When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f).
+
+"
 ;
 
         }
