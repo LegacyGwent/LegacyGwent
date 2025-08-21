@@ -3684,7 +3684,7 @@
         },
         "70131": {
             "Name": "Count Caldwell",
-            "Info": "Deploy: Swap the Strength of 2 enemy units.",
+            "Info": "Deploy: Swap the Base Strength of 2 enemy units.",
             "Flavor": "Your Majesty… For the queen to question commoners, why, it's simply not proper…"
         },
         "70132": {
@@ -3899,7 +3899,7 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying.\nReveal two enemy cards, then choose a revealed card in oponent hand that is not ca copy of this unit and Spawn a base copy of it.",
+            "Info": "Spying.\nDeploy: Reveal two enemy cards, then choose a revealed card in oponent hand that is not ca copy of this unit and Spawn a base copy of it.",
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {

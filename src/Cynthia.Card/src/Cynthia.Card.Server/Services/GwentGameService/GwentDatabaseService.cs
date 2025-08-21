@@ -83,6 +83,10 @@ namespace Cynthia.Card.Server
             var ownedtitles = new List<string>();
             ownedtitles.Add("NoBorder");
             decks.Add(GwentDeck.CreateBasicDeck(1));
+            decks.Add(GwentDeck.CreateBasicDeck(2));
+            decks.Add(GwentDeck.CreateBasicDeck(3));
+            decks.Add(GwentDeck.CreateBasicDeck(4));
+            decks.Add(GwentDeck.CreateBasicDeck(5));
             temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
             return true;
         }
