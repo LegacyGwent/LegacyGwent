@@ -231,8 +231,15 @@ public class righclickLogic : MonoBehaviour
     }
     public void PlaySound()
     {
-        Debug.Log("Playing sound " + (SoundIndex % SoundCount).ToString() + " of a card " + GwentMap.CardMap[DisplayID].CardArtsId);
-        AudioManager.Instance.PlayAudio(GwentMap.CardMap[DisplayID].CardArtsId, AudioType.Card, AudioPlayMode.Append, SoundIndex);
-        SoundIndex++;
+        Debug.Log("Trying to play sound " + (SoundIndex % SoundCount) + " of card " + GwentMap.CardMap[DisplayID].CardArtsId);
+
+        if (AudioManager.Instance.PlayAudio(GwentMap.CardMap[DisplayID].CardArtsId, AudioType.Card, AudioPlayMode.Append, SoundIndex))
+        {
+            SoundIndex++;
+        }
+        else
+        {
+            Debug.Log("Sound skipped because one is already playing.");
+        }
     }
 }

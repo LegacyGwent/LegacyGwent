@@ -67,12 +67,12 @@ public class AudioManager : MonoBehaviour
         return allclips.Length;
     }
 
-    public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append, int clipIndex = -1)
+    public bool PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append, int clipIndex = -1)
     {
         var allclips = Resources.LoadAll<AudioClip>(GetDirectory(type) + id);
         if (allclips.Length == 0)
         {
-            return;
+            return false;
         }
 
         AudioClip clip;
@@ -94,15 +94,16 @@ public class AudioManager : MonoBehaviour
         {
             if (audioClipbuffer.Count > 0 && audioClipbuffer[audioClipbuffer.Count - 1].name.Equals(id))
             {
-                return;
+                return false;
             }
             else if (_queueAudioSource.isPlaying && _queueAudioSource.clip.name.Equals(id) && _queueAudioSource.clip.length - _queueAudioSource.time > 1)
             {
-                return;
+                return false;
             }
             else
             {
                 audioClipbuffer.Add(clip);
+                return true;
             }
         }
         else if (mode == AudioPlayMode.PlayOneShoot) // fire instantly
@@ -111,7 +112,9 @@ public class AudioManager : MonoBehaviour
             source.volume = volume;
             source.clip = clip;
             source.Play();
+            return true;
         }
+        return false;
     }
 
     private string GetDirectory(AudioType type)
