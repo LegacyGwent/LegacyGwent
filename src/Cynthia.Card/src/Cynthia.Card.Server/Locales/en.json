@@ -3529,7 +3529,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. If that would kil unit in your hand set its power to 1 instead.",
+            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. If that would kill unit in your hand set its power to 1 instead.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70100": {
