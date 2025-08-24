@@ -167,6 +167,9 @@
         "IngameMenu_RoundWonTitle": "YOU WON THE ROUND!",
         "IngameMenu_RoundLostTitle": "YOU LOST THE ROUND!",
         "IngameMenu_RoundDrawTitle": "DRAW!",
+        "CoinSeparate":"Separate 20 (+8)",
+        "CoinAdded":"Added 20 (28)",
+        "CoinStyle":"Coin style",
         "TrinketsMenu_SetAvatarButton": "Set Avatar",
         "TrinketsMenu_SetBorderButton": "Set Border",
         "TrinketsMenu_SetTitleButton": "Set Title",
@@ -3614,7 +3617,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever you apply Torrential Rain to an enemy row, summon from the graveyard on a random row.",
+            "Info": "Whenever  Torrential Rain is aplied to an enemy row, summon from the graveyard on a random row.",
             "Flavor": "Easy, mates! Sirens never attack when... Huh? What d'yous mean Right above me?"
         },
         "70117": {

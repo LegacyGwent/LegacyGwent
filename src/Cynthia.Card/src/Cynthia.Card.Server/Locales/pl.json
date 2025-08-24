@@ -167,6 +167,9 @@
         "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
         "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
         "IngameMenu_RoundDrawTitle": "REMIS!",
+        "CoinSeparate":"Oddzielna 20 (+8)",
+        "CoinAdded":"Dodana 20 (28)",
+        "CoinStyle":"Styl monety",
         "TrinketsMenu_SetAvatarButton": "Ustaw Awatar",
         "TrinketsMenu_SetBorderButton": "Ustaw Ramke",
         "TrinketsMenu_SetTitleButton": "Ustaw Tytuł",
@@ -3614,7 +3617,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Za każdym razem kiedy rzucisz Ulewny Desz na rząd przeciwnika przyzwij tę jednostkę z cmentarza",
+            "Info": "Za każdym razem kiedy Ulewny Desz zostanie zagrany na rząd przeciwnika przyzwij tę jednostkę z cmentarza",
             "Flavor": "Spokojnie, syreny nigdy nie atakują, kiedy... Aaaa! W nogi!"
         },
         "70117": {

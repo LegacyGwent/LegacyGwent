@@ -17,6 +17,9 @@ public class righclickLogic : MonoBehaviour
     private LocalizationService translator;
     public List<string> History;
     public string DisplayID;
+    private int SoundIndex;
+    private int SoundCount;
+
     //fields
     public GameObject LinkedCard;
     public Transform ScrollContent;
@@ -34,6 +37,7 @@ public class righclickLogic : MonoBehaviour
     public Text TagsDisplay;
     public Text FlavourDisplay;
     public Text AbilityDisplay;
+    public GameObject SoundButton;
     
     
     //sprites
@@ -83,9 +87,26 @@ public class righclickLogic : MonoBehaviour
     }
     public void UpdateCard(string CardId)
     {
+        
+
         DisplayID=CardId;
         History.Add(DisplayID);
         CardInfo = GwentMap.CardMap[CardId];
+
+        SoundIndex=0;
+        SoundCount=AudioManager.Instance.GetVoiceLineCount(CardInfo.CardArtsId);
+        Debug.Log("There are "+SoundCount.ToString()+" sounds available for this card");
+
+        if (SoundCount==0)
+        {
+            SoundButton.SetActive(false);
+        }
+        else
+        {
+            SoundButton.SetActive(true);
+        }
+
+
         if (CardInfo.Group == Cynthia.Card.Group.Gold || CardInfo.Group == Cynthia.Card.Group.Leader)
             CardBorder.sprite = GoldBorder;
         if (CardInfo.Group == Cynthia.Card.Group.Silver)
@@ -206,6 +227,19 @@ public class righclickLogic : MonoBehaviour
         else
         {
             Closerightclick();
+        }
+    }
+    public void PlaySound()
+    {
+        Debug.Log("Trying to play sound " + (SoundIndex % SoundCount) + " of card " + GwentMap.CardMap[DisplayID].CardArtsId);
+
+        if (AudioManager.Instance.PlayAudio(GwentMap.CardMap[DisplayID].CardArtsId, AudioType.Card, AudioPlayMode.Append, SoundIndex))
+        {
+            SoundIndex++;
+        }
+        else
+        {
+            Debug.Log("Sound skipped because one is already playing.");
         }
     }
 }

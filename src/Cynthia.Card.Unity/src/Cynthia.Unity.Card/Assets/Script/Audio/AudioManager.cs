@@ -61,37 +61,60 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append)
+    public int GetVoiceLineCount(string id)
+    {
+        var allclips = Resources.LoadAll<AudioClip>(GetDirectory(AudioType.Card) + id);
+        return allclips.Length;
+    }
+
+    public bool PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append, int clipIndex = -1)
     {
         var allclips = Resources.LoadAll<AudioClip>(GetDirectory(type) + id);
         if (allclips.Length == 0)
         {
-            return;
+            return false;
         }
-        var clip = allclips[Random.Range(0, allclips.Length)];
+
+        AudioClip clip;
+        if (clipIndex < 0)
+        {
+            // default: pick random
+            clip = allclips[Random.Range(0, allclips.Length)];
+        }
+        else
+        {
+            // pick specific index, safe modulo wrap
+            int safeIndex = clipIndex % allclips.Length;
+            clip = allclips[safeIndex];
+        }
+
         clip.name = id;
-        if (mode == AudioPlayMode.Append)//追加模式  等之前同类型音频播放完
+
+        if (mode == AudioPlayMode.Append) // queue mode
         {
             if (audioClipbuffer.Count > 0 && audioClipbuffer[audioClipbuffer.Count - 1].name.Equals(id))
             {
-                return;
+                return false;
             }
             else if (_queueAudioSource.isPlaying && _queueAudioSource.clip.name.Equals(id) && _queueAudioSource.clip.length - _queueAudioSource.time > 1)
             {
-                return;
+                return false;
             }
             else
             {
                 audioClipbuffer.Add(clip);
+                return true;
             }
         }
-        else if (mode == AudioPlayMode.PlayOneShoot) //播放一次模式 ；不管之前的音频，总播放；75%音量如果同时播放
+        else if (mode == AudioPlayMode.PlayOneShoot) // fire instantly
         {
             AudioSource source = GetOneShootAudioSource();
             source.volume = volume;
             source.clip = clip;
             source.Play();
+            return true;
         }
+        return false;
     }
 
     private string GetDirectory(AudioType type)

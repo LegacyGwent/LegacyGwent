@@ -134,6 +134,17 @@ public class SettingPanel : MonoBehaviour
         PlayerPrefs.SetInt("AudioLanguage", langIndex);
         languageManager.AudioLocalization.ChooseLanguage(langIndex);
     }
+    public void SetCoinDisplayMode(string option)
+    {
+        
+        Debug.Log("[SettingPanel] Coin mode changed to: " + option);
+        PlayerPrefs.SetString("CoinDisplayMode", option);
+    }
+
+    public static string GetCoinDisplayMode()
+    {
+        return PlayerPrefs.GetString("CoinDisplayMode", "CoinSeparate");
+    }
     public static float LinearToDecibel(float linear)
     {
         return linear == 0 ? -80.0f : 20.0f * Mathf.Log10(linear);
