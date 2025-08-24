@@ -9,6 +9,7 @@ using Autofac;
 public class CoinStyleChooser : MonoBehaviour
 {
     public Text ShowText;
+    public Text MenuTitle;
     private LocalizationService translator;
 
     private List<string> _coinOptions = new List<string> { "CoinSeparate", "CoinAdded" };
@@ -22,6 +23,7 @@ public class CoinStyleChooser : MonoBehaviour
     {
         _selectedOption = PlayerPrefs.GetString("CoinDisplayMode", _coinOptions[0]);
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        MenuTitle.text = translator.GetText("CoinStyle");
         ShowText.text = translator.GetText(_selectedOption);
         onValueChanged.Invoke(_selectedOption);
     }

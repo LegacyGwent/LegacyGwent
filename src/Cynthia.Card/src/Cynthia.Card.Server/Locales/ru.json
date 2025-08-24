@@ -169,6 +169,7 @@
         "IngameMenu_RoundDrawTitle": "Ничья!",
         "CoinSeparate":"Раздельно 20 (+8)",
         "CoinAdded":"Добавлено 20 (28)",
+        "CoinStyle":"Стиль монеты",
         "TrinketsMenu_SetAvatarButton": "Установить аватар",
         "TrinketsMenu_SetBorderButton": "Установить рамку",
         "TrinketsMenu_SetTitleButton": "Установить титул",
