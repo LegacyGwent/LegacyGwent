@@ -167,6 +167,8 @@
         "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
         "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
         "IngameMenu_RoundDrawTitle": "REMIS!",
+        "CoinSeparate":"Oddzielna 20 (+8)",
+        "CoinAdded":"Dodana 20 (28)",
         "TrinketsMenu_SetAvatarButton": "Ustaw Awatar",
         "TrinketsMenu_SetBorderButton": "Ustaw Ramke",
         "TrinketsMenu_SetTitleButton": "Ustaw Tytuł",

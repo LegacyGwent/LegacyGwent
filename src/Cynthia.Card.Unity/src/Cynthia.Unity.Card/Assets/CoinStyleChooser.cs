@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Assets.Script.Localization;
+using Autofac;
 
 public class CoinStyleChooser : MonoBehaviour
 {
     public Text ShowText;
+    private LocalizationService translator;
 
     private List<string> _coinOptions = new List<string> { "CoinSeparate", "CoinAdded" };
     private string _selectedOption;
@@ -17,9 +20,9 @@ public class CoinStyleChooser : MonoBehaviour
 
     private void Start()
     {
-        // Initialize with the first option or saved option
         _selectedOption = PlayerPrefs.GetString("CoinDisplayMode", _coinOptions[0]);
-        ShowText.text = _selectedOption;
+        translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        ShowText.text = translator.GetText(_selectedOption);
         onValueChanged.Invoke(_selectedOption);
     }
 
@@ -41,7 +44,7 @@ public class CoinStyleChooser : MonoBehaviour
     {
         _selectedOption = option;
         if (ShowText != null)
-            ShowText.text = _selectedOption;
+            ShowText.text = translator.GetText(_selectedOption);
 
         Debug.Log("[CoinStyleChooser] Selected: " + _selectedOption);
         onValueChanged.Invoke(_selectedOption);

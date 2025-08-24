@@ -167,6 +167,8 @@
         "IngameMenu_RoundWonTitle": "YOU WON THE ROUND!",
         "IngameMenu_RoundLostTitle": "YOU LOST THE ROUND!",
         "IngameMenu_RoundDrawTitle": "DRAW!",
+        "CoinSeparate":"Separate 20 (+8)",
+        "CoinAdded":"Added 20 (28)",
         "TrinketsMenu_SetAvatarButton": "Set Avatar",
         "TrinketsMenu_SetBorderButton": "Set Border",
         "TrinketsMenu_SetTitleButton": "Set Title",
