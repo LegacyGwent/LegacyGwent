@@ -83,9 +83,12 @@ namespace Cynthia.Card.Server
             await SetAllInfo();
             await DecideRedCoin();
             //----------------------------------------------------------------------------------------
-            await PlayerBigRound(3, 3);//双方轮流执行回合|第一小局 (传入双方可进行的调度次数)
-            await DrawCard(2, 2);//同时抽牌的动画,双方都看到自己先抽牌
-            await PlayerBigRound(2, 2);//双方轮流执行回合|第二小局
+            await PlayerBigRound(3, 3); // 双方轮流执行回合 | 第一小局 (传入双方可进行的调度次数) Both players take turns executing rounds | First small round (passes in the number of available actions for both players)
+
+            await DrawCard(2, 2);      // 同时抽牌的动画, 双方都看到自己先抽牌Simultaneous card draw animation, both players see themselves draw first
+
+            await PlayerBigRound(2, 2); // 双方轮流执行回合 | 第二小局 Both players take turns executing rounds | Second small round
+
             if (PlayersWinCount[Player1Index] < 2 && PlayersWinCount[Player2Index] < 2)//如果前两局没有分出结果
             {
                 await DrawCard(1, 1);

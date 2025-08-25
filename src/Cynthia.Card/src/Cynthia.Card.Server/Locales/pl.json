@@ -167,6 +167,9 @@
         "IngameMenu_RoundWonTitle": "Wygrałeś TĘ RUNDĘ!",
         "IngameMenu_RoundLostTitle": "PRZECIWNIK WYGRAŁ TĘ RUNDĘ!",
         "IngameMenu_RoundDrawTitle": "REMIS!",
+        "CoinSeparate":"Oddzielna 20 (+8)",
+        "CoinAdded":"Dodana 20 (28)",
+        "CoinStyle":"Styl monety",
         "TrinketsMenu_SetAvatarButton": "Ustaw Awatar",
         "TrinketsMenu_SetBorderButton": "Ustaw Ramke",
         "TrinketsMenu_SetTitleButton": "Ustaw Tytuł",
@@ -3529,7 +3532,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom w twojej talii 2pkt obrażeń, następnie ulepsz je o 2pkt.",
+            "Info": "Rozmieszczenie: Zadaj wszystkim lojalnym jednostkom w twojej talii i ręce 2pkt obrażeń, następnie ulepsz je o 2pkt. Jeśli to miałoby zabić jednostkę w Twojej ręce, zamiast tego ustaw jej siłę na 1.",
             "Flavor": "Dał swym wiernym tylko jedno przykazanie: zabijaj."
         },
         "70100": {
@@ -3599,7 +3602,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
+            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2pkt pancerza.",
             "Flavor": "Kiedy się tu sprowadziła, sto lat się z nią tłukli. Ale w końcu gadzina się zmęczyła, a oni zrozumieli, że łatwo jej nie wypędzą... Więc poszli na układ. Ona im nie bruździ, a w zamian dostaje czego jej trzeba."
         },
         "70114": {
