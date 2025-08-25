@@ -50,8 +50,8 @@ namespace Cynthia.Card.Client
             _player = player;
             // var game = Task.Run(async () =>
             // {
-            AudioManager.Instance.PlayAudio("11320700", AudioType.Card); // play commander's horn sound to notify the player that the game has started
-            Debug.Log("运行开始");
+            //AudioManager.Instance.PlayAudio("11320700", AudioType.Card); // play commander's horn sound to notify the player that the game has started
+            Debug.Log("运行开始 - Game Start");
             while (
                 await ResponseOperations(
                     await _player.ReceiveAsync(), ClientGlobalInfo.ViewingRoomId != ""
