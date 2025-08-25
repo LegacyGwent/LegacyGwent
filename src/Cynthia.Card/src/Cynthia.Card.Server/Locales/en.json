@@ -1822,7 +1822,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them (can't kill)",
+            "Info": "Deploy: Conceal any number of units.Boost allies you concealed by 2 and deal 2 Damage to enemies. Can't kill a unit.",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
@@ -3442,7 +3442,7 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to played unit equal to half of it's Strength.",
+            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to played unit equal to half of its Strength.",
             "Flavor": "Knut, son of Oluf? Aye, never has a jarl's moniker fit so well."
         },
         "70081": {
@@ -3587,7 +3587,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "On round end if this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
+            "Info": "On turn end if this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
             "Flavor": "Leave it alone, Knickers! Damn it, leave it alone!"
         },
         "70111": {

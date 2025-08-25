@@ -1822,7 +1822,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Jeśli są sojusznikami, wzmocnij je o 2. Jeśli są wrogami, zrań je o 2 (nie może zabić).",
+            "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Wzmocnij zakrytych sojuszników o 2. Jeśli są wrogami, zadaj im 2 punkty obrażeń. Ta karta nie może zabić.",
             "Flavor": "Linia między dyplomacją a szpiegostwem jest cienka. Zwłaszcza w Nilfgaardzie."
         },
         "33009": {
@@ -2662,7 +2662,7 @@
         },
         "54005": {
             "Name": "Krasnolud Najemnik",
-            "Info": "Rozmieszczenie: Przenieś jednostkę do rzędu tej jednostki po jej stronie. Jeśli to sojusznik, wzmocnij go o 3.",
+            "Info": "Rozmieszczenie: Przenieś sojusznika do rzędu tej jednostki i wzmocnij go o 3, lub przenieś wroga do przeciwnego rzędu.",
             "Flavor": "Grunt to łączyć przyjemne z pożytecznym - lać po ryjach i dostawać za to pełną sakiewkę."
         },
         "54006": {
@@ -2817,7 +2817,7 @@
         },
         "61003": {
             "Name": "Eist Tuirseach",
-            "Info": "Rozmieszczenie: Utwórz brązowego Żołnierza Klanu Tuirseach.",
+            "Info": "Rozmieszczenie: Stwórz brązowego Żołnierza Klanu Tuirseach.",
             "Flavor": "Eist przyjechał do Cintry by pomóc Crachowi an Craite zdobyć rękę królewny Pavetty, zamiast tego sam zdobył serce Królowej."
         },
         "61004": {
