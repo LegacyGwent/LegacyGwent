@@ -1822,7 +1822,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.Boost allies you concealed by 2 and deal 2 Damage to enemies. Can't kill a unit.",
+            "Info": "Deploy: Conceal any number of units. Boost allies you Concealed by 2 and deal 2 Damage to enemies you Concealed. Can't kill a unit.",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
