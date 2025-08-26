@@ -2127,7 +2127,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose one: Play 1 Silver or Bronze Temeria card from your deck with power less or equal then self; or destroy conceled ambush enemy unit.",
+            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with power less or equal then self; or destroy conceled Ambush enemy unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -2837,7 +2837,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: select an enemy, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged and damage self by half strength.",
+            "Info": "Deploy: select an enemy, if it is Damaged, destroy it, otherwise Damage it by 2 until it is Damaged and Damage self by half Strength.",
             "Flavor": "Blood for Svalblod! Skulls for his throne!"
         },
         "62004": {
@@ -3302,7 +3302,7 @@
         },
         "70023": {
             "Name": "Kikimore Warrior",
-            "Info": "Deploy: Consume a different Bronze unit in your deck with current Power no greater than its own, then Boost self by its Power.",
+            "Info": "Deploy: Consume a different Bronze unit in your deck with Strenght no greater than this unit Strenght, then Boost self by its Power.",
             "Flavor": "Come spring, the buggers start to burst through the woodwork. Literally."
         },
         "70024": {
@@ -3337,7 +3337,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its base strength cannot be over 10.",
+            "Info": "On turn end, resurrect on a random row and Strengthen self by 1. Its base Strength cannot be over 10.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3497,7 +3497,7 @@
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: Choose an enemy, for each Torrential Rain on the board, damage it by two and gain 1 armor.",
+            "Info": "Deploy: Choose an enemy, for each Torrential Rain on the board, Damage it by two and gain 1 Armor.",
             "Flavor": "Skellige's no home to murderers and rogues... Their crimes must be repaid in blood."
         },
         "70093": {
@@ -3527,7 +3527,7 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Choose one: Play a random Bronze item; or play a Bronze Scoia'tael item.",
+            "Info": "Deploy, Choose One: Play a random Bronze item; or play a Bronze Scoia'tael item.",
             "Flavor": "The gates were ordered to be closed… But they didn't budge."
         },
         "70099": {
@@ -3552,7 +3552,7 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card in your hand, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Deploy: Select a revealed card in your hand, then transform it to a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "It is said he created an illusion so realistic that he began to believe it himself..."
         },
         "70104": {
@@ -3597,7 +3597,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 3 Damage to a non cursed ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
+            "Info": "Deal 3 Damage to a non-Cursed ally, then choose and play one of two Bronze Cultist card from your deck, then Strenghten the unit played by 1.",
             "Flavor": "Not all of Svalblod's worshippers wield bow and blade. They've simply no need."
         },
         "70113": {
@@ -3617,7 +3617,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever  Torrential Rain is aplied to an enemy row, summon from the graveyard on a random row.",
+            "Info": "Whenever  Torrential Rain is applied to an enemy row, Summon from the graveyard on a random row.",
             "Flavor": "Easy, mates! Sirens never attack when... Huh? What d'yous mean Right above me?"
         },
         "70117": {
@@ -3682,7 +3682,7 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right takes Damage, if this unit has armor, Damage this unit until it has no more armor instead then transfer the excess damage to the unit on the right. Crewed: Gain 6 armor.",
+            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right. Crewed: Gain 6 Armor.",
             "Flavor": "Something like the bastard child of a shield and a palisade."
         },
         "70131": {
@@ -3717,7 +3717,7 @@
         },
         "70137": {
             "Name": "The Great Oak",
-            "Info": "Deploy, Choose one: Weaken an enemy unit by half of its base Strength; or resurrect a Bronze Dryad and then return it to the deck.",
+            "Info": "Deploy, Choose One: Weaken an enemy unit by half of its base Strength; or resurrect a Bronze Dryad and then return it to the deck.",
             "Flavor": "The trees of Brokilon oft rustle amongst themselves, despairing of the ancient oak whose heart now rots with hatred."
         },
         "70138": {
@@ -3732,7 +3732,7 @@
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
-            "Info": "Deploy: Transform a Bronze or Silver ally into a copy of this unit, keeping its base Strength. Then, boost all allies with strength lower than this unit's strength by 1.",
+            "Info": "Deploy: Transform a Bronze or Silver ally into a copy of this unit, keeping its base Strength. Then, boost all allies with Strength lower than this unit's Strength by 1.",
             "Flavor": "Is it true? That flowers in Brokilon bloom seven times a year? But... How can that be?"
         },
         "70141": {
@@ -3782,12 +3782,12 @@
         },
         "70150": {
             "Name": "Vincent van Moorlehem",
-            "Info": "Deploy: Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Info": "Deploy: Destroy an enemy unit, then Boost its adjacent units by half of its Strength each.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
             "Name": "Philippe van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 3. On turn end if in hand, reveal self and trigger its deploy ability.",
+            "Info": "Deploy: Damage an enemy by 3. On turn end, if in hand, Reveal self and trigger its Deploy ability.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
@@ -3867,7 +3867,7 @@
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
+            "Info": "Put back up to 3 non-gold Dwarves in your deck then play a non-Gold Dwarf from your deck. When this card is in the graveyard, give 1 Armor to each Dwarf you play.",
             "Flavor": "They'd follow each other into the fire. And laugh about it."
         },
         "70168": {
@@ -3877,7 +3877,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no enemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Info": "On turn end, if no enemy is stronger than the strongest Ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
@@ -3902,7 +3902,7 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying.\nDeploy: Reveal two enemy cards, then choose a revealed card in oponent hand that is not ca copy of this unit and Spawn a base copy of it.",
+            "Info": "Spying.\nDeploy: Reveal two enemy cards, then choose a Revealed card in oponent hand that is not a copy of this unit and Spawn a base copy of it.",
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
