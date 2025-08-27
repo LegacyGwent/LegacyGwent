@@ -3587,7 +3587,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "On round end if this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
+            "Info": "On turn end, if this unit's Power is higher than the number of cards in your hand, Summon this unit from your deck.",
             "Flavor": "Leave it alone, Knickers! Damn it, leave it alone!"
         },
         "70111": {
@@ -3602,7 +3602,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Every turn, on turn end, destroy the Lowest unit if its Strength is 5 or lower.\n2 Armor.",
+            "Info": "Every turn, on turn end, destroy the Lowest unit if its Power is 5 or lower.\n2 Armor.",
             "Flavor": "When she took roost here, they fought 'er for near a century. Then the dragon got weary o' fightin' and they realized she weren't goin' nowheres, so… they cut a deal. She dinnae bother 'em, they give 'er what she needs."
         },
         "70114": {
@@ -3782,7 +3782,7 @@
         },
         "70150": {
             "Name": "Vincent van Moorlehem",
-            "Info": "Deploy: Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Info": "Deploy: Destroy an enemy unit, then Boost its adjacent units by half of its Power each.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
