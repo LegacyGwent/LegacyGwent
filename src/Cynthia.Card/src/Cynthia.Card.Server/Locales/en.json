@@ -3442,7 +3442,7 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Deploy: Play a Bronze unit with the Highest base Strength from your deck, then deal Damage to played unit equal to half of it's Strength.",
+            "Info": "Deploy: Play a Bronze unit with the Highest base Strength from your deck, then deal Damage to played unit equal to half of its Power.",
             "Flavor": "Knut, son of Oluf? Aye, never has a jarl's moniker fit so well."
         },
         "70081": {
@@ -3452,7 +3452,7 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Deploy: Destroy all units with Strength 2 or less on both sides.",
+            "Info": "Deploy: Destroy all units with 2 Power or less on both sides.",
             "Flavor": "Only death can cleanse me o' shame."
         },
         "70083": {
@@ -3562,7 +3562,7 @@
         },
         "70105": {
             "Name": "Freixenet And Braine",
-            "Info": "Deploy: Make a unit's Strength equal to this card's Strength.",
+            "Info": "Deploy: Make a unit's Power equal to this card's Power.",
             "Flavor": "He was only meant to be a breeding stud to her. But in the end, they fell in love regardless."
         },
         "70106": {
@@ -3732,7 +3732,7 @@
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
-            "Info": "Deploy: Transform a Bronze or Silver ally into a copy of this unit, keeping its base Strength. Then, boost all allies with strength lower than this unit's strength by 1.",
+            "Info": "Deploy: Transform a non-Gold ally into this card without changing its Power, then set its Power into base Strength. Boost all Dryad allies with Power lower than this unit by 1.",
             "Flavor": "Is it true? That flowers in Brokilon bloom seven times a year? But... How can that be?"
         },
         "70141": {
@@ -3867,7 +3867,7 @@
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
+            "Info": "Put back up to 3 non-Gold Dwarves in your deck then play a non-Gold Dwarf from your deck. When this card is in the graveyard, give 1 Armor to each Dwarf you play.",
             "Flavor": "They'd follow each other into the fire. And laugh about it."
         },
         "70168": {
