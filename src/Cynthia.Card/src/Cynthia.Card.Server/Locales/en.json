@@ -696,7 +696,7 @@
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it's a Monster unit, destroy it instead.",
+            "Info": "Deploy: Toggle an enemy's lock. Then damage it by 4 . If it's a monster,destroy it instead.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
@@ -841,7 +841,7 @@
         },
         "13004": {
             "Name": "Iris' Companions",
-            "Info": "Deploy: Move a card from your deck to your hand, then Discard a random card.",
+            "Info": "Deploy: Draw a card, then discard a random card. If you Iris: Shade is on the board, choose the card to discard instead.",
             "Flavor": "We'd rather keep our names to ourselves. Think of us as… friends of the house."
         },
         "13005": {
@@ -1261,7 +1261,7 @@
         },
         "21003": {
             "Name": "Whispering Hillock",
-            "Info": "Deploy: Create a Bronze or Silver Organic card.",
+            "Info": "Deploy: Create a Silver Organic card.",
             "Flavor": "It will rise again. Elsewhere, beyond our reach. Blood will flow once more."
         },
         "21004": {
@@ -3891,7 +3891,7 @@
         },
         "70172": {
             "Name": "Princess",
-            "Info": "Spawn a Bear. If there is a Witcher on this row, spawn a Raging Bear instead.",
+            "Info": "Deploy: Spawn a  Bear. On the start of next turn, transform a Giant Bear on the same row into a Raging Bear.",
             "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
         },
         "70173": {
@@ -3923,6 +3923,46 @@
             "Name": "Ulle the Unlucky",
             "Info": "On turn start, if this card is in the graveyard, resurrect self. On turn end, duel the lowest enemy, if you win, banish self.",
             "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
+        },
+        "70179": {
+            "Name": "Queen Calanthe",
+            "Info": "Deploy: shuffle a non-gold ally back to your deck without changing its power, then play the lowest non-gold unit from your deck.",
+            "Flavor": "They call her the Lioness of Cintra. And not without good reason."
+        },
+        "70180": {
+            "Name": "AlbastraTheWhiteDragon",
+            "Info": "Immune - 4 power - deploy: spawn left and right wing, if they get destroyed, destroy self. Every turn, on turn start, boost self by 3. ",
+            "Flavor": "That was no avalanche, that was a dragon!"
+        },
+        "70181": {
+            "Name": "Right Wing",
+            "Info": "2 Armor.",
+            "Flavor": "That was no avalanche, that was a dragon!"
+        },
+        "70182": {
+            "Name": "Left wing",
+            "Info": "2 Armor.",
+            "Flavor": "That was no avalanche, that was a dragon!"
+        },
+        "70183": {
+            "Name": "Feast of Blood",
+            "Info": "Choose a Vampire ally, make it drain an ennemy by 4, if it survives, spawn a plumard on its right.",
+            "Flavor": "Vampires have been known to fast for years at a time. Yet once the hunt resumes, they feed and feed until frenzied and drunk on blood."
+        },
+        "70184": {
+            "Name": "Ard Feainn Heavy Cavalry",
+            "Info": "Boost self by 4 when a leader is played. Decrease the boost by 1 for each time this card has been boosted by its own ability previously this round.\n3 Armor.",
+            "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
+        },
+        "70185": {
+            "Name": "NoonWraith",
+            "Info": "Deathwish: Spawn 3 Rats on the opposing row. ",
+            "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
+        },
+        "70186": {
+            "Name": "Rat",
+            "Info": "No ability.",
+            "Flavor": "I call the tiny one Yersinia. She's cute, isn't she?"
         },
         "80001": {
             "Name": "Auberon: King",
