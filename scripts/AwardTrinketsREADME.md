@@ -1,29 +1,34 @@
-# Gwent Trinket Award Script
+# Gwent Trinket Award Script (Shell Version)
 
-This Python script automates sending requests to award avatars, titles, and borders to users in the Gwent server.
+This bash script automates sending requests to award avatars, titles, and borders to users in the Gwent server.
 
 ## Prerequisites
 
-- Python 3.6 or higher
-- `requests` library
+- Bash shell (Linux, macOS, or Windows with WSL/Git Bash)
+- `curl` command-line tool
 
 ## Installation
 
-1. Install the required dependencies:
+1. Make the script executable (Linux/macOS):
 ```bash
-pip install -r requirements.txt
+chmod +x award_trinkets.sh
+```
+
+2. On Windows with Git Bash or WSL, you can run it directly:
+```bash
+./award_trinkets.sh
 ```
 
 ## Usage
 
 ### Basic Usage
 ```bash
-python award_trinkets.py
+./award_trinkets.sh
 ```
 
 ### Custom Server URL
 ```bash
-python award_trinkets.py http://your-server:5005
+./award_trinkets.sh ./award_trinkets.sh http://localhost:5005
 ```
 
 ## Interactive Mode
@@ -82,7 +87,7 @@ Enter Avatar ID:
 
 Proceed? (y/N): y
 
-🔄 Sending request...
+📤 Sending request...
 
 === Results ===
 📊 Summary:
@@ -97,6 +102,26 @@ Proceed? (y/N): y
   ✅ TrissFan: Success
   ✅ YenneferLover: Success
 ```
+
+## Features
+
+### Color-coded Output
+- ✅ Green: Success messages
+- ❌ Red: Error messages
+- ⚠️ Yellow: Warning messages
+- 📤 Blue: Information messages
+
+### Error Handling
+- Validates curl availability
+- Handles network timeouts
+- Parses JSON responses
+- Graceful error display
+
+### Input Validation
+- Validates usernames (removes empty entries)
+- Validates trinket type selection
+- Validates trinket ID input
+- Confirms action before sending
 
 ## Common Trinket IDs
 
@@ -120,17 +145,49 @@ Proceed? (y/N): y
 - `Rank3border` - Rank 3 border
 - `Rank6border` - Rank 6 border
 
-## Error Handling
+## Technical Details
 
-The script handles various error scenarios:
-- Network connection issues
-- Invalid server responses
-- Missing or invalid input
-- Server errors
+### Dependencies
+- **curl**: For HTTP requests
+- **bash**: Shell environment
+- **sed/grep**: For text processing
+
+### JSON Handling
+The script manually constructs JSON payloads and parses JSON responses using:
+- String manipulation for JSON construction
+- `grep` and `sed` for JSON parsing
+- Array handling for usernames
+
+### Network Settings
+- Connection timeout: 30 seconds
+- Request timeout: 60 seconds
+- Content-Type: application/json
 
 ## Notes
 
-- The script defaults to the production server `http://cynthia.ovyno.com:5005` if no server URL is provided
+- The script defaults to the production server `http://cynthia.ovyno.com:5005`
 - You can cancel the operation at any time with `Ctrl+C`
 - The script validates input before sending requests
 - Results show both summary statistics and individual user results
+- Works on Linux, macOS, and Windows (with WSL/Git Bash)
+
+## Troubleshooting
+
+### "curl is not installed"
+Install curl on your system:
+- **Ubuntu/Debian**: `sudo apt-get install curl`
+- **CentOS/RHEL**: `sudo yum install curl`
+- **macOS**: `brew install curl`
+- **Windows**: Download from https://curl.se/windows/
+
+### Permission Denied
+Make the script executable:
+```bash
+chmod +x award_trinkets.sh
+```
+
+### Network Issues
+Check your internet connection and server availability:
+```bash
+curl -I http://cynthia.ovyno.com:5005
+```

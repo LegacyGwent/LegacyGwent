@@ -30,10 +30,23 @@ print_info() {
     echo -e "${BLUE}📤 $1${NC}"
 }
 
+# Function to pause and wait for user input
+pause() {
+    echo ""
+    read -p "Press Enter to continue..."
+}
+
 # Function to check if curl is available
 check_curl() {
     if ! command -v curl &> /dev/null; then
         print_error "curl is not installed. Please install curl to use this script."
+        echo ""
+        echo "Installation instructions:"
+        echo "- Ubuntu/Debian: sudo apt-get install curl"
+        echo "- CentOS/RHEL: sudo yum install curl"
+        echo "- macOS: brew install curl"
+        echo "- Windows: Download from https://curl.se/windows/"
+        pause
         exit 1
     fi
 }
@@ -52,6 +65,7 @@ get_user_input() {
     
     if [ -z "$usernames" ]; then
         print_error "No valid usernames provided."
+        pause
         return 1
     fi
 
@@ -67,7 +81,11 @@ get_user_input() {
         1) trinket_type="Avatar"; trinket_type_enum=0 ;;
         2) trinket_type="Title"; trinket_type_enum=1 ;;
         3) trinket_type="Border"; trinket_type_enum=2 ;;
-        *) print_error "Invalid trinket type selection."; return 1 ;;
+        *) 
+            print_error "Invalid trinket type selection."
+            pause
+            return 1 
+            ;;
     esac
 
     # Get trinket ID
@@ -77,6 +95,7 @@ get_user_input() {
 
     if [ -z "$trinket_id" ]; then
         print_error "No trinket ID provided."
+        pause
         return 1
     fi
 
@@ -108,6 +127,9 @@ send_request() {
         \"trinketId\": \"$trinket_id\"
     }"
 
+    echo "Debug: Sending request to $server_url/api/GwentData/AwardTrinketToUsers"
+    echo "Debug: JSON payload: $json_payload"
+
     # Send request
     local response=$(curl -s -w "\n%{http_code}" \
         -X POST \
@@ -115,11 +137,20 @@ send_request() {
         -d "$json_payload" \
         --connect-timeout 30 \
         --max-time 60 \
-        "$server_url/api/GwentData/AwardTrinketToUsers")
+        "$server_url/api/GwentData/AwardTrinketToUsers" 2>&1)
+
+    # Check if curl command failed
+    if [ $? -ne 0 ]; then
+        echo "{\"error\": true, \"message\": \"curl command failed: $response\"}"
+        return
+    fi
 
     # Extract status code and response body
     local http_code=$(echo "$response" | tail -n1)
     local response_body=$(echo "$response" | head -n -1)
+
+    echo "Debug: HTTP Status Code: $http_code"
+    echo "Debug: Response Body: $response_body"
 
     if [ "$http_code" = "200" ]; then
         echo "$response_body"
@@ -143,6 +174,7 @@ display_results() {
         if [ -n "$status_code" ]; then
             echo "Status Code: $status_code"
         fi
+        pause
         return
     fi
 
@@ -194,6 +226,8 @@ display_results() {
             esac
         done
     fi
+    
+    pause
 }
 
 # Function to confirm action
@@ -218,6 +252,23 @@ confirm_action() {
     esac
 }
 
+# Function to test server connectivity
+test_server() {
+    local server_url="$1"
+    echo "Testing connection to $server_url..."
+    
+    local test_response=$(curl -s -w "\n%{http_code}" --connect-timeout 10 --max-time 15 "$server_url" 2>/dev/null)
+    local http_code=$(echo "$test_response" | tail -n1)
+    
+    if [ "$http_code" = "200" ] || [ "$http_code" = "404" ] || [ "$http_code" = "405" ]; then
+        print_status "Server is reachable (HTTP $http_code)"
+        return 0
+    else
+        print_error "Cannot reach server (HTTP $http_code)"
+        return 1
+    fi
+}
+
 # Main function
 main() {
     # Check for curl
@@ -226,15 +277,24 @@ main() {
     # Get server URL from command line or use default
     local server_url="${1:-$DEFAULT_SERVER}"
     
+    echo "Using server: $server_url"
+    
+    # Test server connectivity
+    if ! test_server "$server_url"; then
+        print_warning "Server connectivity test failed. The script will continue but may fail."
+        pause
+    fi
+    
     # Get user input
     if ! get_user_input; then
-        exit 1
+        return 1
     fi
     
     # Confirm action
     if ! confirm_action "$usernames" "$trinket_type" "$trinket_id" "$server_url"; then
         print_warning "Request cancelled."
-        exit 0
+        pause
+        return 0
     fi
     
     # Send request
@@ -247,7 +307,11 @@ main() {
 }
 
 # Handle script interruption
-trap 'echo ""; print_warning "Operation cancelled by user."; exit 1' INT
+trap 'echo ""; print_warning "Operation cancelled by user."; pause; exit 1' INT
 
-# Run main function
-main "$@"
+# Run main function and catch any errors
+if ! main "$@"; then
+    print_error "Script execution failed."
+    pause
+    exit 1
+fi
