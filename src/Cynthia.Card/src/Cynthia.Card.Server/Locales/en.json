@@ -405,6 +405,8 @@
         "Rank18borderDescription": "Reach Rank 18.",
         "Rank21borderName": "Rank 21",
         "Rank21borderDescription": "Reach Rank 21.",
+        "Rank21border2Name": "Champion",
+        "Rank21border2Description": "Win a tournament.",
         "Season1Border1Name": "Season 1 Border 1",
         "Season1Border1Description": "Finish Season One in the top 100 players.",
         "Season1Border2Name": "Season 1 Border 2",
@@ -449,6 +451,10 @@
         "$$$MILLIONAIRE$$$Description": "In a casual match, have either player have more than a million points in a single round.",
         "G_BeerName": "Beer Border",
         "G_BeerDescription": "Win 5 ranked matches by scoring more than 200 points in any round.",
+        "CompetitorName": "COMPETITOR",
+        "CompetitorDescription": "Participate in a tournament.",
+        "DeveloperName": "DEVELOPER",
+        "DeveloperDescription": "Contribute to the development of the game.",
         "IngameMenu_GGButton": "Send GG!",
         "GG_Message1": "Good Game! Your opponent ",
         "GG_Message2": " Sent GG!",
@@ -2127,7 +2133,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit."
+            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -3800,7 +3806,7 @@
             "Info": "Deploy: Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
             "Flavor": "Rather than beasts, he prefers to stalk poachers. But they don't come as often anymore into the woods surrounding the palace…"
         },
-        "70154": 
+        "70154": {
             "Name": "Iris: Shade",
             "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
             "Flavor": "Olgierd's betrothed was like a dream…"
