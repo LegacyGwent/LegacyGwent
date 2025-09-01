@@ -22,7 +22,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterTurnStart @event)
         {
             // On turn start, if you have at least one wing, Boost self by 3, otherwise Destroy self.
-            if (@event.PlayerIndex != Card.PlayerIndex && !Card.Status.CardRow.IsOnPlace()) return;
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
 
             int wingcount = Game.GetPlaceCards(PlayerIndex).Concat(Game.PlayersHandCard[PlayerIndex]).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.Status.CardId == CardId.AlbastraLeftWing || x.Status.CardId == CardId.AlbastraRightWing).ToList().Count();
             if (wingcount > 0)

@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70172")]//图尔赛克家族驯兽师
     public class Princess : CardEffect, IHandlesEvent<AfterTurnStart>
-    {// Deploy: Spawn and Play a Giant Bear. On the start of next turn, transform a Giant Bear on the same row into a Raging Bear.
+    {// Deploy: Spawn and Play a Bear. On the start of next turn, transform a random Bear on the same row into a Raging Bear.
         public Princess(GameCard card) : base(card) { }
         private bool _isTransformed = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
@@ -19,11 +19,13 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterTurnStart @event)
         {
             // On the start of next turn, transform a Giant Bear on the same row into a Raging Bear.
-            if (Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).Any(x => x.Status.CardId == "15011") && !_isTransformed)
+            var target = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).Where(x => x.Status.CardId == "15010").FirstOrDefault();
+            if (target != null && !_isTransformed && @event.PlayerIndex == Card.PlayerIndex)
             {
-                await Game.CreateCard("65002", Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+                await target.Effect.Transform(CardId.RagingBear, Card, isForce: true);
                 _isTransformed = true;
             }
+            return;
         }
     }
 }

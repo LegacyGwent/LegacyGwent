@@ -2968,7 +2968,7 @@ namespace Cynthia.Card
                 {
                     CardId ="21003", //Whispering Hillock
                     Name="呢喃山丘",
-                    Strength=5,
+                    Strength=3,
                     Group=Group.Leader,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14485,7 +14485,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70154", //Iris: Shade
                     Name="爱丽丝：庄园幽影",
-                    Strength=13,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14981,38 +14981,38 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "xxxxx",
+                    Info = "保留一个银色/铜色友方单位的战力不变，并将其收回牌组，然后从牌组打出一个最弱的银色/铜色单位牌。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
             },
             {
-                "70180",//xxx Albastra
+                "70180",//阿尔芭丝塔 Albastra
                 new GwentCard()
                 {
                     CardId ="70180", //Albastra
-                    Name="xxxxx",
+                    Name="阿尔芭丝塔",
                     Strength=4,
                     Group=Group.Gold,
-                    Faction = Faction.Monsters,
+                    Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
-                    Flavor = "",
-                    Info = "xx",
+                    Flavor = "快跑！那不是雪崩，是龙！",
+                    Info = "选择一个友方吸血鬼，使其汲取一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
                     CardArtsId = "r9900000",
                     LinkedCards=new List<String> {},
                 }
             },
             {
-                "70181",//xxxx AlbastraRightWing
+                "70181",//左翼 AlbastraRightWing
                 new GwentCard()
                 {
                     CardId ="70181", //AlbastraRightWing
-                    Name="xxxx",
+                    Name="左翼",
                     Strength=2,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
@@ -15022,18 +15022,18 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid,Categorie.Token},
-                    Flavor = "xxxxxx",
+                    Flavor = "快跑！那不是雪崩，是龙！",
                     Info = "xxxx",
                     CardArtsId = "r10300000",
                     LinkedCards=new List<String> {},
                 }
             },
             {
-                "70182",//xxxx AlbastraLeftWing
+                "70182",//右翼 AlbastraLeftWing
                 new GwentCard()
                 {
                     CardId ="70182", //AlbastraLeftWing
-                    Name="xxx",
+                    Name="右翼",
                     Strength=2,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
@@ -15043,7 +15043,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid,Categorie.Token},
-                    Flavor = "xxxxxx",
+                    Flavor = "快跑！那不是雪崩，是龙！",
                     Info = "xxxx",
                     CardArtsId = "r10200000",
                     LinkedCards=new List<String> {},
@@ -15059,36 +15059,77 @@ namespace Cynthia.Card
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.AnyPlace,
-                    CardType = CardType.Unit,
+                    CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = true,
+                    IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "xxxx",
+                    Info = "选择一个友方吸血鬼，使其汲取一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }
             },
             {
-                "70184",//替罪羊 Scapegoat
+                "70184",// Ard Feainn Heavy Cavalry
                 new GwentCard()
                 {
-                    CardId ="70184", //Scapegoat
-                    Name="替罪羊",
-                    Strength=5,
-                    Countdown =1,
+                    CardId ="70184", //ArdFeainnHeavyCavalry
+                    Name="日轮之师重骑兵",
+                    Strength=9,
                     Group=Group.Copper,
-                    Faction = Faction.NorthernRealms,
+                    Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
+                    IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Support},
-                    Flavor = "xxxxxx",
-                    Info = "xxxx",
-                    CardArtsId = "",
+                    Categories = new Categorie[]{ Categorie.Soldier},
+                    Flavor = "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。",
+                    Info = "Boost self by 4 when a leader is played. Decrease the boost by 1 for each time this card has been boosted by its own ability previously this round - 2 armor.",
+                    CardArtsId = "202453",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70185",//日间妖灵 NoonWraith
+                new GwentCard()
+                {
+                    CardId ="70185", //Noon Wraith
+                    Name="日间妖灵",
+                    Strength=4,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Specter},
+                    Flavor = "和常识相反，农夫白天不干活，不是为了躲太阳。是为了躲日间妖灵。",
+                    Info = "遗愿，在对方同排生成3只老鼠。",
+                    CardArtsId = "202530",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70186",//老鼠 Rat
+                new GwentCard()
+                {
+                    CardId ="70186", //Rat
+                    Name="老鼠",
+                    Strength=3,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{Categorie.Beast},
+                    Flavor = "“我叫她小小鼠疫，很可爱，是不是？”",
+                    Info = "没有特殊技能。",
+                    CardArtsId = "202530",
                     LinkedCards=new List<String> {},
                 }
             },

@@ -662,6 +662,8 @@ namespace Cynthia.Card
         public const string AlbastraRightWing = "70181";
         public const string AlbastraLeftWing = "70182";
         public const string FeastOfBlood = "70183";
-        public const string Scapegoat = "70184";
+        public const string ArdFeainnHeavyCavalry = "70184";
+        public const string NoonWraith = "70185";
+        public const string Rat = "70186";
     }
 }
