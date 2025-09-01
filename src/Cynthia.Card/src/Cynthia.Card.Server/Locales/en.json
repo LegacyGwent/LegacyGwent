@@ -2126,7 +2126,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit."
+            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -3799,7 +3799,7 @@
             "Info": "Deploy: Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
             "Flavor": "Rather than beasts, he prefers to stalk poachers. But they don't come as often anymore into the woods surrounding the palace…"
         },
-        "70154": 
+        "70154": {
             "Name": "Iris: Shade",
             "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
             "Flavor": "Olgierd's betrothed was like a dream…"
