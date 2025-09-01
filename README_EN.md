@@ -33,6 +33,10 @@ Check [here](.github/CONTRIBUTING_EN.md) for the detailed contribution guide.
 + Server side: .NET Core 3.1, Mongodb 4.2
 + Client side: Unity 2019.4.1f1
 
+## Development Guides
+
++ [Trinket Release Guide](TRINKET_RELEASE_README.md) - Complete guide for developing and releasing new trinkets (avatars, titles, borders)
+
 ## Development Plan
 
 [GitHub Projects](https://github.com/LegacyGwent/LegacyGwent/projects)
