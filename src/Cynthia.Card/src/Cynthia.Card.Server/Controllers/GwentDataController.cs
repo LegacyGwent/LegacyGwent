@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Cynthia.Card.Server.Controllers
 {
@@ -68,6 +69,72 @@ namespace Cynthia.Card.Server.Controllers
         public string QueryRanking(DateTime time)
         {
             return _databaseService.QueryRanking(time);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AwardTrinketToUsers([FromBody] AwardTrinketRequest request)
+        {
+            if (request == null || request.Usernames == null || request.Usernames.Count == 0 || string.IsNullOrEmpty(request.TrinketId))
+            {
+                return BadRequest("Invalid request. Usernames list and TrinketId are required.");
+            }
+
+            var results = new List<object>();
+            var successCount = 0;
+            var failureCount = 0;
+
+            foreach (var username in request.Usernames)
+            {
+                try
+                {
+                    bool result = false;
+                    
+                    switch (request.TrinketType)
+                    {
+                        case TrinketType.Avatar:
+                            result = await _gwentServerService.AddAvatar(username, request.TrinketId);
+                            break;
+                        case TrinketType.Title:
+                            result = await _gwentServerService.AddTitle(username, request.TrinketId);
+                            break;
+                        case TrinketType.Border:
+                            result = await _gwentServerService.AddBorder(username, request.TrinketId);
+                            break;
+                        default:
+                            results.Add(new { Username = username, Status = "Error", Message = "Invalid trinket type" });
+                            failureCount++;
+                            continue;
+                    }
+
+                    if (result)
+                    {
+                        successCount++;
+                        results.Add(new { Username = username, Status = "Success" });
+                    }
+                    else
+                    {
+                        failureCount++;
+                        results.Add(new { Username = username, Status = "Failed" });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    failureCount++;
+                    results.Add(new { Username = username, Status = "Error", Message = ex.Message });
+                }
+            }
+
+            var response = new
+            {
+                TotalUsers = request.Usernames.Count,
+                SuccessCount = successCount,
+                FailureCount = failureCount,
+                TrinketType = request.TrinketType.ToString(),
+                TrinketId = request.TrinketId,
+                Results = results
+            };
+
+            return Ok(response);
         }
 
         // public IEnumerable<GameResult> GetAllGameResults()
