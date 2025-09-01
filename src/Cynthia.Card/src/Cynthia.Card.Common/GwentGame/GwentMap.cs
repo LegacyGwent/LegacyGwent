@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 127);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 128);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -14023,7 +14023,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70159", //Crowmother
                     Name="乌鸦之母",
-                    Strength=7,
+                    Strength=2,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14033,7 +14033,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "临时削弱",
+                    Info = "丢弃牌组中的三张铜色特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
