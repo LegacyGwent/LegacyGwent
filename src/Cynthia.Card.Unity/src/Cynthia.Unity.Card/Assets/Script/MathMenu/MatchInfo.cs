@@ -88,13 +88,13 @@ public class MatchInfo : MonoBehaviour
         {
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
             MatchPasswordObject.SetActive(false);
-            //BlacklistObject.SetActive(false);
+            BlacklistObject.SetActive(false);
         }
         else
         {
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle");
             MatchPasswordObject.SetActive(true);
-            //BlacklistObject.SetActive(true);
+            BlacklistObject.SetActive(true);
         }
     }
     public void NormalMatchMenuClick()
