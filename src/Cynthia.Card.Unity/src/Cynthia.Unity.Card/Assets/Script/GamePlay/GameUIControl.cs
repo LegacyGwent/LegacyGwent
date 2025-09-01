@@ -253,10 +253,10 @@ public class GameUIControl : MonoBehaviour
             EnemyName.text = Enemy;
         }
         MyName.text = gameInfomation.MyName;
-        MyTitle.text = gameInfomation.MyTitle;
+        MyTitle.text = _translator.GetText(gameInfomation.MyTitle + "Name");
         Myavatar = gameInfomation.MyAvatar;
         Enemyname = gameInfomation.EnemyName;
-        EnemyTitle.text = gameInfomation.EnemyTitle;
+        EnemyTitle.text = _translator.GetText(gameInfomation.EnemyTitle + "Name");
         string mycolor = _titles.Where(x => x.ID == gameInfomation.MyTitle).Single().TitleColor;
         MyTitle.color= mycolormap[mycolor];
         string enemycolor = _titles.Where(x => x.ID == gameInfomation.EnemyTitle).Single().TitleColor;
