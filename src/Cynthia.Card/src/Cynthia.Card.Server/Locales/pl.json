@@ -1821,7 +1821,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Jeśli są sojusznikami, wzmocnij je o 2. Jeśli są wrogami, zrań je o 2 (nie może zabić).",
+            "Info": "Rozmieszczenie: Zakryj dowolną liczbę jednostek. Wzmocnij zakrytych sojuszników o 2. Jeśli są wrogami, zadaj im 2 punkty obrażeń. Ta karta nie może zabić.",
             "Flavor": "Linia między dyplomacją a szpiegostwem jest cienka. Zwłaszcza w Nilfgaardzie."
         },
         "33009": {
@@ -2476,7 +2476,7 @@
         },
         "52002": {
             "Name": "Saesenthessis",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 1 za każdego sojuszniczego  Krasnoluda na planszy i w ręcę i zadaj wrogowi obrażenia równe liczbie sojuszniczych Elfów na planszy i w ręcę.",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 1 za każdego sojuszniczego  Krasnoluda na planszy i w ręcę i zadaj obrażenia równe liczbie sojuszniczych Elfów na planszy i w ręcę.",
             "Flavor": "Odziedziczyłam po ojcu zdolność polimorfii, choć potrafię przemieniać się jedynie w jedną postać."
         },
         "52003": {
@@ -2661,7 +2661,7 @@
         },
         "54005": {
             "Name": "Krasnolud Najemnik",
-            "Info": "Rozmieszczenie: Przenieś jednostkę do rzędu tej jednostki po jej stronie. Jeśli to sojusznik, wzmocnij go o 3.",
+            "Info": "Rozmieszczenie: Przenieś sojusznika do rzędu tej jednostki i wzmocnij go o 3, lub przenieś wroga do przeciwnego rzędu.",
             "Flavor": "Grunt to łączyć przyjemne z pożytecznym - lać po ryjach i dostawać za to pełną sakiewkę."
         },
         "54006": {
@@ -2816,7 +2816,7 @@
         },
         "61003": {
             "Name": "Eist Tuirseach",
-            "Info": "Rozmieszczenie: Utwórz brązowego Żołnierza Klanu Tuirseach.",
+            "Info": "Rozmieszczenie: Stwórz brązowego Żołnierza Klanu Tuirseach.",
             "Flavor": "Eist przyjechał do Cintry by pomóc Crachowi an Craite zdobyć rękę królewny Pavetty, zamiast tego sam zdobył serce Królowej."
         },
         "61004": {
@@ -3531,7 +3531,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom w twojej talii 2pkt obrażeń, następnie ulepsz je o 2pkt.",
+            "Info": "Rozmieszczenie: Zadaj wszystkim lojalnym jednostkom w twojej talii i ręce 2pkt obrażeń, następnie ulepsz je o 2pkt. Jeśli to miałoby zabić jednostkę w Twojej ręce, zamiast tego ustaw jej siłę na 1.",
             "Flavor": "Dał swym wiernym tylko jedno przykazanie: zabijaj."
         },
         "70100": {
@@ -3601,7 +3601,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
+            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2pkt pancerza.",
             "Flavor": "Kiedy się tu sprowadziła, sto lat się z nią tłukli. Ale w końcu gadzina się zmęczyła, a oni zrozumieli, że łatwo jej nie wypędzą... Więc poszli na układ. Ona im nie bruździ, a w zamian dostaje czego jej trzeba."
         },
         "70114": {

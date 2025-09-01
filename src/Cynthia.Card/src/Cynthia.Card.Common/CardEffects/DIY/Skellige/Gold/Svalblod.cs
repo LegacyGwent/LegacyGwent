@@ -19,7 +19,7 @@ namespace Cynthia.Card
                     await card.Effect.Strengthen(2, Card);
                 }  
             }
-            var handcards = Game.PlayersHandCard[Card.PlayerIndex].Where(x=>(x.Status.Type == CardType.Unit));
+            var handcards = Game.PlayersHandCard[Card.PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow);
             if (handcards.Count() == 0)
             {
                 return 0;

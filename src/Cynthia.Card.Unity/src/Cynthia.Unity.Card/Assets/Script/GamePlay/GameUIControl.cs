@@ -62,9 +62,20 @@ public class GameUIControl : MonoBehaviour
     private int myoldland;
     private int enemyoldland;
     //----------------------------------    
+    public GameObject MyCrossIcon;
+    public GameObject MyGraveyardIcon;
+    public GameObject EnemyCrossIcon;
+    public GameObject EnemyGraveyardIcon;
+    public GameObject MyCardsIcon;
+    public GameObject MyDeckIcon;
+    public GameObject EnemyCardsIcon;
+    public GameObject EnemyDeckIcon;
+
+
+    //---------------------------------- 
     private int myAllPoint;
     private int enemyAllPoint;
-    //----------------------------------    
+    //----------------------------------   
     private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
     private static Dictionary<string, Color> mycolormap { get => ColorMap.colormap; } // stores the color of the title cosmetics
 
@@ -106,10 +117,71 @@ public class GameUIControl : MonoBehaviour
     {
         MyHandCount.text = gameInfomation.MyHandCount.ToString();
         EnemyHandCount.text = gameInfomation.EnemyHandCount.ToString();
-        MyCemeteryCount.text = gameInfomation.MyCemeteryCount.ToString();
-        EnemyCemeteryCount.text = gameInfomation.EnemyCemeteryCount.ToString();
-        MyDeckCount.text = gameInfomation.MyDeckCount.ToString();
-        EnemyDeckCount.text = gameInfomation.EnemyDeckCount.ToString();
+
+
+        int myDeck = gameInfomation.MyDeckCount;
+        if (myDeck == 0)
+        {
+            MyDeckCount.gameObject.SetActive(false);
+            MyCardsIcon.SetActive(false);
+            MyDeckIcon.SetActive(false);
+        }
+        else
+        {
+            MyDeckCount.gameObject.SetActive(true);
+            MyDeckCount.text = myDeck.ToString();
+            MyCardsIcon.SetActive(true);
+            MyDeckIcon.SetActive(true);
+        }
+
+
+        int EnemyDeck = gameInfomation.EnemyDeckCount;
+        if (EnemyDeck == 0)
+        {
+            EnemyDeckCount.gameObject.SetActive(false);
+            EnemyCardsIcon.SetActive(false);
+            EnemyDeckIcon.SetActive(false);
+        }
+        else
+        {
+            EnemyDeckCount.gameObject.SetActive(true);
+            EnemyDeckCount.text = EnemyDeck.ToString();
+            EnemyCardsIcon.SetActive(true);
+            EnemyDeckIcon.SetActive(true);
+        }
+
+        int myCemetery = gameInfomation.MyCemeteryCount;
+        if (myCemetery == 0)
+        {
+            MyCemeteryCount.gameObject.SetActive(false);
+            MyCrossIcon.SetActive(false);
+            MyGraveyardIcon.SetActive(false);
+        }
+        else
+        {
+            MyCemeteryCount.text = myCemetery.ToString();
+            MyCemeteryCount.gameObject.SetActive(true);
+            MyCrossIcon.SetActive(true);
+            MyGraveyardIcon.SetActive(true);
+        }
+
+        int enemyCemetery = gameInfomation.EnemyCemeteryCount;
+        if (enemyCemetery == 0)
+        {
+            EnemyCemeteryCount.gameObject.SetActive(false);
+            EnemyCrossIcon.SetActive(false);
+            EnemyGraveyardIcon.SetActive(false);
+        }
+        else
+        {
+            EnemyCemeteryCount.text = enemyCemetery.ToString();
+            EnemyCemeteryCount.gameObject.SetActive(true);
+            EnemyCrossIcon.SetActive(true);
+            EnemyGraveyardIcon.SetActive(true);
+        }
+
+        //MyDeckCount.text = gameInfomation.MyDeckCount.ToString();
+        //EnemyDeckCount.text = gameInfomation.EnemyDeckCount.ToString();
     }
     public void SetPassInfo(GameInfomation gameInfomation)
     {

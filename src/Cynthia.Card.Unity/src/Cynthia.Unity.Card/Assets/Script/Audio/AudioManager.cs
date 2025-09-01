@@ -22,6 +22,8 @@ public class AudioManager : MonoBehaviour
 
     private static string cardAudioDirectory = "Voicelines/";
 
+     private static string cardAudioCommonDirectory = "Voicelines/Common/";
+
     private static string effectDirectory = "Music/Effect/";
 
     private float volume;
@@ -63,17 +65,29 @@ public class AudioManager : MonoBehaviour
 
     public int GetVoiceLineCount(string id)
     {
-        var allclips = Resources.LoadAll<AudioClip>(GetDirectory(AudioType.Card) + id);
+        var allclips = Resources.LoadAll<AudioClip>(cardAudioCommonDirectory + id);
+        if (allclips.Length == 0)//if no common look in language specyfic
+        {
+            allclips = Resources.LoadAll<AudioClip>(GetDirectory(AudioType.Card) + id);
+        }
         return allclips.Length;
     }
 
     public bool PlayAudio(string id, AudioType type, AudioPlayMode mode = AudioPlayMode.Append, int clipIndex = -1)
     {
-        var allclips = Resources.LoadAll<AudioClip>(GetDirectory(type) + id);
-        if (allclips.Length == 0)
+        var allclips = Resources.LoadAll<AudioClip>(cardAudioCommonDirectory + id);//take voicelines from common
+        if (allclips.Length == 0)//if no common look in language specyfic
         {
-            return false;
+            allclips = Resources.LoadAll<AudioClip>(GetDirectory(type) + id);
+            if (allclips.Length == 0)
+            {
+                return false;
+            }
         }
+
+        
+
+        
 
         AudioClip clip;
         if (clipIndex < 0)

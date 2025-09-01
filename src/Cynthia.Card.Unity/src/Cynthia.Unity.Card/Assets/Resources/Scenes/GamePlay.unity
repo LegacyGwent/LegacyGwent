@@ -3319,7 +3319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &270774287
 Transform:
   m_ObjectHideFlags: 0
@@ -4767,7 +4767,7 @@ PrefabInstance:
     - target: {fileID: 224164510164102220, guid: 21c82e30dc0fb3b448540b634032b234,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.000000059604645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224164510164102220, guid: 21c82e30dc0fb3b448540b634032b234,
         type: 3}
@@ -17107,7 +17107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1536130827
 Transform:
   m_ObjectHideFlags: 0
@@ -20920,6 +20920,14 @@ MonoBehaviour:
   MyShowMessage: {fileID: 500894968}
   EnemyShowMessage: {fileID: 1386960253}
   ropeController: {fileID: 1831157600}
+  MyCrossIcon: {fileID: 1673660541}
+  MyGraveyardIcon: {fileID: 270774286}
+  EnemyCrossIcon: {fileID: 1695546585}
+  EnemyGraveyardIcon: {fileID: 1536130826}
+  MyCardsIcon: {fileID: 535375295}
+  MyDeckIcon: {fileID: 1378649134}
+  EnemyCardsIcon: {fileID: 817574523}
+  EnemyDeckIcon: {fileID: 168799433}
 --- !u!114 &1831157600
 MonoBehaviour:
   m_ObjectHideFlags: 0
