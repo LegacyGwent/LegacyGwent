@@ -818,7 +818,7 @@
         "12041": {
             "Name": "Przygody Sklepa",
             "Info": "Jeśli w twojej talii początkowej nie ma duplikatów, wyślij Sklepa na spotkanie przygody.",
-            "Flavor": ""
+            "Flavor": "Sklep jest znany z tego, że ma niezłą wyobraźnię. Jaki inny troll patrzyłby na skrawki papieru i widział kamienie?"
         },
         "12042": {
             "Name": "Sihil",
@@ -1253,7 +1253,7 @@
         "21001": {
             "Name": "Dagon",
             "Info": "Rozmieszczenie: Stwórz Gęstą Mgłę lub Ulewny Deszcz.",
-            "Flavor": ""
+            "Flavor": "Nie jest umarłym ten, który spoczywa wiekami, nawet śmierć może umrzeć wraz z dziwnymi eonami."
         },
         "21002": {
             "Name": "Królowa Krabopająków",
@@ -2158,7 +2158,7 @@
         "42013": {
             "Name": "Filippa Eilhart",
             "Info": "Rozmieszczenie: Zrań wroga o 5, a następnie zrań losowych wrogów o 4, 3, 2 i 1. Nie można zranić tego samego wroga dwa razy z rzędu.",
-            "Flavor": ""
+            "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
         },
         "43001": {
             "Name": "Talar",
@@ -2823,7 +2823,7 @@
         "61004": {
             "Name": "Bran Tuirseach",
             "Info": "Rozmieszczenie: Odrzuć do 3 kart z twojej talii i ulepsz je o 1.",
-            "Flavor": ""
+            "Flavor": "Żył na swoich własnych warunkach – i tak też umarł."
         },
         "62001": {
             "Name": "Olaf",

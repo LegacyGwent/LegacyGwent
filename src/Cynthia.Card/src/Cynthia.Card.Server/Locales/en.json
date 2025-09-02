@@ -818,7 +818,7 @@
         "12041": {
             "Name": "Shupe's Bizarre Adventure",
             "Info": "If your starting deck has no duplicates, send Shupe on an adventure.",
-            "Flavor": ""
+            "Flavor": "Shupe is known to have quite the imagination. What other troll would look at scraps of paper and see rocks?"
         },
         "12042": {
             "Name": "Sihil",
@@ -1253,7 +1253,7 @@
         "21001": {
             "Name": "Dagon",
             "Info": "Deploy: Spawn Impenetrable Fog or Torrential Rain.",
-            "Flavor": ""
+            "Flavor": "That is not dead which can eternal lie, and with strange aeons even death may die."
         },
         "21002": {
             "Name": "Arachas Queen",
@@ -2158,7 +2158,7 @@
         "42013": {
             "Name": "Philippa Eilhart",
             "Info": "Deploy: Deal 5 Damage to an enemy, then deal 4, 3, 2 and 1 Damage to random enemies.",
-            "Flavor": ""
+            "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "43001": {
             "Name": "Thaler",
@@ -2823,7 +2823,7 @@
         "61004": {
             "Name": "Bran Tuirseach",
             "Info": "Deploy: Discard up to 3 cards from your deck and Strengthen them by 1.",
-            "Flavor": ""
+            "Flavor": "He lived life on his own terms—died on them, too."
         },
         "62001": {
             "Name": "Olaf",
