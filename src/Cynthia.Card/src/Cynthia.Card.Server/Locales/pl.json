@@ -2367,7 +2367,7 @@
         },
         "44021": {
             "Name": "Rębacze z Crinfrid",
-            "Info": "Rozmieszczenie: Wzmocnij wszystkie egzemplarze tej jednostki w ręce, talii oraz na polu bitwy o 1. Powtórz tę umiejętność za każdym razem, gdy zagrany zostanie inny egzemplarz tej jednostki.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystkie sojusznicze egzemplarze tej jednostki w ręce, talii oraz na polu bitwy o 1. Powtórz tę umiejętność za każdym razem, gdy zagrany zostanie inny sojuszniczy egzemplarz tej jednostki.",
             "Flavor": ""
         },
         "44022": {
@@ -3252,7 +3252,7 @@
         },
         "70012": {
             "Name": "Błędny Rycerz z Toussaint",
-            "Info": "Rozmieszczenie: Za każdą kartę przewagi przeciwnika wzmocnij tę jednostkę o 4.",
+            "Info": "Rozmieszczenie: Za każdą kartę przewagi przeciwnika (nie licząc dowódców) wzmocnij tę jednostkę o 4.",
             "Flavor": "Biały rumak, lśniąca zbroja, no i ta lanca... Ta, chyba mamy błędnego rycerza. Szykujcie trumnę!"
         },
         "70013": {
@@ -3522,7 +3522,7 @@
         },
         "70097": {
             "Name": "Krasnoludzki Hawierz",
-            "Info": "Rozmieszczenie: Wzmocnij się o 1 za każdego Krasnoluda w twojej ręce.",
+            "Info": "Rozmieszczenie: Ulepsz się o 1 za każdego Krasnoluda w twojej ręce.",
             "Flavor": "Który bęcwał gwiżdże w kopalni?!"
         },
         "70098": {
@@ -3722,7 +3722,7 @@
         },
         "70138": {
             "Name": "Troska driad",
-            "Info": "Zagraj Brązową lub Srebrną kartę z twojej talii, następnie wzmocnij ją o ilość driad po twojej stronie planszy.",
+            "Info": "Wybierz Brązową lub Srebrną kartę z twojej talii, następnie wzmocnij ją o liczbę driad po twojej stronie planszy i zagraj ją.",
             "Flavor": "Tsst, tsst, evelienn va maeth, elaine blath..."
         },
         "70139": {

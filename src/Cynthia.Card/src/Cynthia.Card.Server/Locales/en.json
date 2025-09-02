@@ -677,7 +677,7 @@
         },
         "12013": {
             "Name": "Lambert: Swordmaster",
-            "Info": "Deploy: Deal 4 Damage to all copies of an enemy.",
+            "Info": "Deploy: Deal 5 Damage to all copies of an enemy.",
             "Flavor": "Go teach your grandma to suck eggs."
         },
         "12014": {
@@ -2127,7 +2127,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit."
+            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -2367,7 +2367,7 @@
         },
         "44021": {
             "Name": "Reaver Hunter",
-            "Info": "Deploy: Boost all copies of this unit by 1, if in hand, deck or on the board.\nRepeat its ability whenever a copy of this unit is played.",
+            "Info": "Deploy: Boost all friendly copies of this unit by 1, if in hand, deck or on the board.\nRepeat its ability whenever a friendly copy of this unit is played.",
             "Flavor": ""
         },
         "44022": {
@@ -3252,7 +3252,7 @@
         },
         "70012": {
             "Name": "Toussaint Knight-Errant",
-            "Info": "Deploy: For each card advantage your opponent has, Boost self by 4.",
+            "Info": "Deploy: Boost self by 4 for each additional non leader card your opponent has in hand compared to you.",
             "Flavor": "White steed, shiny-arse armor... Aye, 'tis a knight-errant alright. Fetch the coffin maker!"
         },
         "70013": {
@@ -3722,7 +3722,7 @@
         },
         "70138": {
             "Name": "Dryad's Caress",
-            "Info": "Play a Bronze or Silver Dryad unit from your deck, then Boost it by the number of Dryad units on your side.",
+            "Info": "Choose a Bronze or Silver Dryad unit from your deck, then Boost it by the number of Dryad units on your side and play it.",
             "Flavor": "Shh, shh... Evelienn va maeth, elaine blath..."
         },
         "70139": {
@@ -3800,7 +3800,7 @@
             "Info": "Deploy: Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
             "Flavor": "Rather than beasts, he prefers to stalk poachers. But they don't come as often anymore into the woods surrounding the palace…"
         },
-        "70154": 
+        "70154": {
             "Name": "Iris: Shade",
             "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
             "Flavor": "Olgierd's betrothed was like a dream…"
@@ -3877,7 +3877,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no enemy is stronger than the strongest Ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
+            "Info": "When in deck, on turn end, if this is the bottom copy of this unit, and if no enemy is stronger than the strongest ogroid ally, reduce self's counter by 1. When it reaches 0, summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
