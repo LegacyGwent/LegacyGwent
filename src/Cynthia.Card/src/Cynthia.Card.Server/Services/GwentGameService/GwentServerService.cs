@@ -133,6 +133,10 @@ namespace Cynthia.Card.Server
                 {
                     await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
+                
+                // Copy newly unlocked trinkets to the returned UserInfo
+                loginUser.NewlyUnlockedTrinkets = user.NewlyUnlockedTrinkets;
+                
                 InovkeUserChanged();
             }
             return loginUser;
@@ -190,9 +194,18 @@ namespace Cynthia.Card.Server
         // adds an avatar to the list of owned avatars of a user
         public async Task<bool> AddAvatar(string playername, string AvatarID)
         {
-            _databaseService.AddAvatar(playername, AvatarID);
+            var wasAdded = _databaseService.AddAvatar(playername, AvatarID);
+            if (wasAdded)
+            {
+                // Track newly unlocked avatar for online users
+                var onlineUser = _users.Values.FirstOrDefault(x => x.PlayerName == playername);
+                if (onlineUser != null)
+                {
+                    onlineUser.NewlyUnlockedTrinkets.NewAvatars.Add(AvatarID);
+                }
+            }
             await Task.CompletedTask;
-            return true;
+            return wasAdded;
         }
         // updates the border of the user
         public async Task<bool> UpdateBorder(string playername, string BorderID)
@@ -230,17 +243,35 @@ namespace Cynthia.Card.Server
         // adds a border to the list of owned borders of a user
         public async Task<bool> AddBorder(string username, string BorderID)
         {
-            _databaseService.AddBorder(username, BorderID);
+            var wasAdded = _databaseService.AddBorder(username, BorderID);
+            if (wasAdded)
+            {
+                // Track newly unlocked border for online users
+                var onlineUser = _users.Values.FirstOrDefault(x => x.PlayerName == username);
+                if (onlineUser != null)
+                {
+                    onlineUser.NewlyUnlockedTrinkets.NewBorders.Add(BorderID);
+                }
+            }
             await Task.CompletedTask;
-            return true;
+            return wasAdded;
         }
 
         // adds a title to the list of owned titles of a user
         public async Task<bool> AddTitle(string username, string TitleID)
         {
-            _databaseService.AddTitle(username, TitleID);
+            var wasAdded = _databaseService.AddTitle(username, TitleID);
+            if (wasAdded)
+            {
+                // Track newly unlocked title for online users
+                var onlineUser = _users.Values.FirstOrDefault(x => x.PlayerName == username);
+                if (onlineUser != null)
+                {
+                    onlineUser.NewlyUnlockedTrinkets.NewTitles.Add(TitleID);
+                }
+            }
             await Task.CompletedTask;
-            return true;
+            return wasAdded;
         }
 
         public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
@@ -810,8 +841,8 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 // if any player score more than a million points in a casual match, give to both the title "$$$MILLIONAIRE$$$"
                 if (result.RedScore.Any(x => x >= 1000000) || result.BlueScore.Any(x => x >= 1000000))
                 {
-                    _databaseService.AddTitle(result.RedPlayerName, "$$$MILLIONAIRE$$$");
-                    _databaseService.AddTitle(result.BluePlayerName, "$$$MILLIONAIRE$$$");
+                    await AddTitle(result.RedPlayerName, "$$$MILLIONAIRE$$$");
+                    await AddTitle(result.BluePlayerName, "$$$MILLIONAIRE$$$");
                 }
             }
             lock (ResultList)
@@ -936,5 +967,14 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);
 
         public IList<Tuple<string, int>> GetAllHighestMMR(int offset, int limit) => _databaseService.QueryAllHighestMMR(offset, limit);
+
+        public void ClearNewlyUnlockedTrinkets(string username)
+        {
+            var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
+            if (onlineUser != null)
+            {
+                onlineUser.NewlyUnlockedTrinkets.Clear();
+            }
+        }
     }
 }

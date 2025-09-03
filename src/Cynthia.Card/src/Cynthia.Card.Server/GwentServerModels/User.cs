@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cynthia.Card.Server.Models;
 
 namespace Cynthia.Card.Server
 {
@@ -17,6 +18,8 @@ namespace Cynthia.Card.Server
         public IList<string> OwnedAvatars { get; set; }
         public IList<string> OwnedBorders { get; set; }
         public IList<string> OwnedTitles { get; set; }
+        public NewlyUnlockedTrinkets NewlyUnlockedTrinkets { get; set; } = new NewlyUnlockedTrinkets();
+        
         public User(string userName, string connectionId, UserState userState = UserState.Standby)
         {
             UserName = userName;

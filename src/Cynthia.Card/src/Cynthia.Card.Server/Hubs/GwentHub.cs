@@ -105,6 +105,17 @@ namespace Cynthia.Card.Server
 
         public async Task<string> GetLatestClientVersion() => await _gwentServerService.GetLatestClientVersion(Context.ConnectionId);
 
+        // Clear newly unlocked trinkets for the current user
+        public async Task ClearNewlyUnlockedTrinkets()
+        {
+            await Task.CompletedTask;
+            var user = _gwentServerService._users.Values.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            if (user != null)
+            {
+                _gwentServerService.ClearNewlyUnlockedTrinkets(user.UserName);
+            }
+        }
+
         //获取在线人数
         public async Task<int> GetUserCount()
         {

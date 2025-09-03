@@ -127,8 +127,9 @@ namespace Cynthia.Card.Server
             {
                 user[0].OwnedAvatars.Add(AvatarID);
                 temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+                return true;
             }
-            return true;
+            return false;
         }
         // add a border to the user's owned borders
         public bool AddBorder(string playername, string BorderID)
@@ -145,8 +146,9 @@ namespace Cynthia.Card.Server
             {   
                 user[0].OwnedBorders.Add(BorderID);
                 temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+                return true;
             }
-            return true;
+            return false;
         }
 
         public bool AddTitle(string playername, string TitleID)
@@ -163,8 +165,9 @@ namespace Cynthia.Card.Server
             {   
                 user[0].OwnedTitles.Add(TitleID);
                 temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+                return true;
             }
-            return true;
+            return false;
         }
 
         public bool UpdateAvatar(string playername, string AvatarID) // Set the avatar of the user
