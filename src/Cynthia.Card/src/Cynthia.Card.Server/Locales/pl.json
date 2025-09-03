@@ -1243,7 +1243,7 @@
         "15013": {
             "Name": "Czyste Niebo",
             "Info": "Wzmocnij wszystkich rannych sojuszników znajdujących się pod wpływem Zagrożeń o 2 i usuń wszystkie Zagrożenia po swojej stronie.",
-            "Flavor": ""
+            "Flavor": "Piękny dzień, żeby umrzeć."
         },
         "15014": {
             "Name": "Zwiad",
@@ -1578,7 +1578,7 @@
         "24025": {
             "Name": "Barbegazi",
             "Info": "Rozmieszczenie: Pochłoń sojusznika i wzmocnij tę jednostkę o jego siłę.\nWytrzymałość",
-            "Flavor": ""
+            "Flavor": "To, co jeszcze przed chwilą brał za leżące u podnóży stalagmitów okrągłe głazy, teraz wybałuszało na niego wielkie, jarzące się ślepia."
         },
         "24026": {
             "Name": "Ekimma",
@@ -1643,7 +1643,7 @@
         "24038": {
             "Name": "Blask Księżyca",
             "Info": "Wybierz: Rzuć Korzyść - Pełnię lub Rzuć Zagrożenie - Krwawy Księżyc.",
-            "Flavor": ""
+            "Flavor": "Gdy księzyc jest w pełni, koszmary wychodzą z ciemnych zakamarków świata."
         },
         "25001": {
             "Name": "Pomniejszy D'ao",
@@ -2368,7 +2368,7 @@
         "44021": {
             "Name": "Rębacze z Crinfrid",
             "Info": "Rozmieszczenie: Wzmocnij wszystkie sojusznicze egzemplarze tej jednostki w ręce, talii oraz na polu bitwy o 1. Powtórz tę umiejętność za każdym razem, gdy zagrany zostanie inny sojuszniczy egzemplarz tej jednostki.",
-            "Flavor": ""
+            "Flavor": "Widzisz ten tatuaż, panienko? To ja, jak walczyłem ze smokiem. Ze SMOKIEM."
         },
         "44022": {
             "Name": "Temerski Werblista",
@@ -2433,7 +2433,7 @@
         "44034": {
             "Name": "Krwawy Korbacz",
             "Info": "Zadaj 5 pkt obrażeń i stwórz w losowym rzędzie Upiora.",
-            "Flavor": ""
+            "Flavor": "Niektóre rodzaje oręża zostały zakazane w Królestwach Północy, tak straszne były rany zadane przy ich pomocy."
         },
         "45001": {
             "Name": "Upiór",
@@ -3343,7 +3343,7 @@
         "70039": {
             "Name": "Pazur Wilka",
             "Info": "Zadaj 4 pkt obrażeń losowemu wrogowi. Kiedy odrzucisz te kartę, aktywuj jej efekt i wtasuj wilczego wojownika do twojej talii.",
-            "Flavor": ""
+            "Flavor": "Ale po co wam te siekiery, mości Skellgijczycy? Na morzu wszak drzew nie ma…"
         },
         "70040": {
             "Name": "Wilczy Wojownik",

@@ -1073,7 +1073,7 @@
         "14006": {
             "Name": "Bloodcurdling Roar",
             "Info": "Destroy an ally, then Spawn a Bear.",
-            "Flavor": ""
+            "Flavor": "First we ran into a bear... things just got worse from there."
         },
         "14007": {
             "Name": "Dimeritium Shackles",
@@ -1243,7 +1243,7 @@
         "15013": {
             "Name": "Clear Skies",
             "Info": "Boost all Damaged allies under Hazards by 2 and clear all Hazards from your side.",
-            "Flavor": ""
+            "Flavor": "The sun's shinin', Dromle! The sun's shinin'! Maybe there's hope after all…"
         },
         "15014": {
             "Name": "Rally",
@@ -1578,7 +1578,7 @@
         "24025": {
             "Name": "Barbegazi",
             "Info": "Deploy: Consume an ally and Boost self by its Power.\nResilience.",
-            "Flavor": ""
+            "Flavor": "What moments before looked like round rocks among the stalagmites now stared at him with enormous, bright, menacing eyes."
         },
         "24026": {
             "Name": "Ekimmara",
@@ -1643,7 +1643,7 @@
         "24038": {
             "Name": "Moonlight",
             "Info": "Spawn Full Moon, or Blood Moon.",
-            "Flavor": ""
+            "Flavor": "When the moon is full, nightmares crawl out of all the dark nooks and crannies of the world."
         },
         "25001": {
             "Name": "Lesser D'ao",
@@ -2328,7 +2328,7 @@
         "44013": {
             "Name": "Redanian Knight-Elect",
             "Info": "On turn end, if this unit has Armor, Boost adjacent units by 1.\n2 Armor.",
-            "Flavor": ""
+            "Flavor": "Not wealth or fame but intentions true -- that’s what makes a hero of you!"
         },
         "44014": {
             "Name": "Reinforced Ballista",
@@ -2368,7 +2368,7 @@
         "44021": {
             "Name": "Reaver Hunter",
             "Info": "Deploy: Boost all friendly copies of this unit by 1, if in hand, deck or on the board.\nRepeat its ability whenever a friendly copy of this unit is played.",
-            "Flavor": ""
+            "Flavor": "See this here tattoo? 'At's me, hackin' at a dragon. A DRAGON, m'lady."
         },
         "44022": {
             "Name": "Temerian Drummer",
@@ -2433,7 +2433,7 @@
         "44034": {
             "Name": "Bloody Flail",
             "Info": "Deal 5 Damage and Spawn a Specter on a random row.",
-            "Flavor": ""
+            "Flavor": "There are weapons banned in all the Northern Realms, for the wounds they deal are horrible beyond all imagining."
         },
         "45001": {
             "Name": "Specter",
@@ -3343,7 +3343,7 @@
         "70039": {
             "Name": "Terror Crew",
             "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Terror Crew Plunderers to your deck.",
-            "Flavor": ""
+            "Flavor": "But dear Skelligers, what use do you have for axes? There are no trees in the sea…"
         },
         "70040": {
             "Name": "Terror Crew Plunderer",
