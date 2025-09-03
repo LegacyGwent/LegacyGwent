@@ -948,7 +948,7 @@
         "13025": {
             "Name": "Zaklęcie Kompresji",
             "Info": "Przemień brązową lub srebrną jednostkę w Jadeitową Figurkę.",
-            "Flavor": ""
+            "Flavor": "Figurka rosła błyskawicznie, pulsując i tętniąc, zmieniała strukturę i kształt niczym pełzający po posadzce obłok dymu. W smugach blasku pojawiły się ruch i twardniejąca materia. Jeszcze moment, a w centrum magicznych kół pokazała się nagle postać ludzka."
         },
         "13026": {
             "Name": "Zwierciadło Bekkera",
@@ -1798,7 +1798,7 @@
         "33003": {
             "Name": "Strażnik",
             "Info": "Rozmieszczenie: Dodaj Pomniejszego Strażnika na szczycie talii przeciwnika.",
-            "Flavor": ""
+            "Flavor": "Przed intruzami uzbrojonymi w miecze chronią mnie kamienne pięści. Przed uzbrojonymi w kłamstwa, żelazna logika."
         },
         "33004": {
             "Name": "Cantarella",
@@ -1893,7 +1893,7 @@
         "33022": {
             "Name": "Nilfgaardzkie Bramy",
             "Info": "Zagraj brązowego lub srebrnego Oficera ze swojej talii i wzmocnij go o 1.",
-            "Flavor": ""
+            "Flavor": "Chyba nie wpuszczają turystów..."
         },
         "33023": {
             "Name": "Nadzorca Niewolników",
@@ -2012,7 +2012,7 @@
         },
         "34023": {
             "Name": "Daerlańscy Piechurzy",
-            "Info": "Za każdym razem, gdy ujawnisz tę jednostkę, zagraj ją automatycznie w losowym rzędzie i dobierz kartę.",
+            "Info": "Za każdym razem, gdy ujawnisz tę jednostkę, przyzwij ją dolosowego rzędu i dobierz kartę.",
             "Flavor": "Zatruć studnie? Ależ... To by było niehonorowe!"
         },
         "34024": {
@@ -2633,7 +2633,7 @@
         "53020": {
             "Name": "Wilczy Dół",
             "Info": "Rzuć na wrogi rząd Zagrożenie, które zadaje jednostkom 3 pkt obrażeń przy zetknięciu. ",
-            "Flavor": ""
+            "Flavor": "Prosta, tania a zarazem skuteczna – jedna z ulubionych pułapek Scoia'tael."
         },
         "53021": {
             "Name": "Mahakamski Róg",
@@ -3463,7 +3463,7 @@
         "70084": {
             "Name": "Olgierd Nieśmiertelny",
             "Info": "Zemsta: Na koniec tury Wskrześ tę jednostkę w losowym rzędzie.",
-            "Flavor": ""
+            "Flavor": "Wszystkie moje marzenia się spełniły. Niestety."
         },
         "70085": {
             "Name": "Barciowe Widziadło",
