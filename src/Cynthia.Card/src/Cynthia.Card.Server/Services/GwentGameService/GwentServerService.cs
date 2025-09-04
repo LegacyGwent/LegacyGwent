@@ -644,12 +644,15 @@ may come back in the future.
 This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
 
-Welcome to DIY Gwent Season 2!
 
 Patch notes:
-- Svalblod brawler: -1 str, gain one armor for each rain on the board
-- Lyrian Scyntmen: can now buff silvers
-- Svalblod Fanatic: -1
+- New cards: Hybrid, Sir Scract-A-Lot, Ulle the Unlucky, Calanthe, Albastra The White Dragon, Feast of Bloo, Ard Feainn Heavy Cavalry 
+- Buffed cards: Princess, Filavandrel, Whispering Hillock, Iris's Companions
+- Accessibility improvements: you can now log in with ENTER key, you can go from login to password with a TAB, When queuing in casual you can use ENTER to hit play after typing the code
+- You can now choose the style of coin display
+- Various bug fixes to Cosmetics, Coinflip display and translations (thanks to the community!)
+- Hidden the unused buttons
+- Various improvements to the 'right-click' menu
 
 AI Matchmaking:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
