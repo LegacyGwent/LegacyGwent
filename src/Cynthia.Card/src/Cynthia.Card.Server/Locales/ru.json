@@ -170,6 +170,8 @@
         "CoinSeparate":"Раздельно 20 (+8)",
         "CoinAdded":"Добавлено 20 (28)",
         "CoinStyle":"Стиль монеты",
+        "DiscardConfirmTitle":"Подтвердить сброс?",
+        "DiscardConfirmContent":"Вы пытаетесь сбросить карту, хотите подтвердить?",
         "TrinketsMenu_SetAvatarButton": "Установить аватар",
         "TrinketsMenu_SetBorderButton": "Установить рамку",
         "TrinketsMenu_SetTitleButton": "Установить титул",

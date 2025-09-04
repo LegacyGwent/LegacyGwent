@@ -170,6 +170,8 @@
         "CoinSeparate":"Oddzielna 20 (+8)",
         "CoinAdded":"Dodana 20 (28)",
         "CoinStyle":"Styl monety",
+        "DiscardConfirmTitle":"Potwierdzasz odrzucenie?",
+        "DiscardConfirmContent":"Próbujesz odrzucić kartę?",
         "TrinketsMenu_SetAvatarButton": "Ustaw Awatar",
         "TrinketsMenu_SetBorderButton": "Ustaw Ramke",
         "TrinketsMenu_SetTitleButton": "Ustaw Tytuł",

@@ -364,7 +364,7 @@ public class GameEvent : MonoBehaviour
                     if (dropTaget.Id == RowPosition.MyCemetery)
                     {
 #if UNITY_ANDROID || UNITY_IOS
-                        if (!await _uiService.YNMessageBox("确认弃牌?", "正在试图丢弃一张牌,是否确认?"))
+                        if (!await _uiService.YNMessageBox(translator.GetText("DiscardConfirmTitle"), translator.GetText("DiscardConfirmContent")))
                         {
                             dragCard.IsStay = false;
                             break;
