@@ -106,14 +106,15 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestClientVersion() => await _gwentServerService.GetLatestClientVersion(Context.ConnectionId);
 
         // Clear newly unlocked trinkets for the current user
-        public async Task ClearNewlyUnlockedTrinkets()
+        public async Task<bool> ClearNewlyUnlockedTrinkets(string username)
         {
-            await Task.CompletedTask;
-            var user = _gwentServerService._users.Values.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (user != null)
+            // await Task.CompletedTask;
+            // var user = _gwentServerService._users.Values.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            if (username != null)
             {
-                _gwentServerService.ClearNewlyUnlockedTrinkets(user.UserName);
+                await _gwentServerService.ClearNewlyUnlockedTrinkets(username);
             }
+            return true;
         }
 
         //获取在线人数

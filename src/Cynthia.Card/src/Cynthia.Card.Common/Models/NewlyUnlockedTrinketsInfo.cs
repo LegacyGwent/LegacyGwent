@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace Cynthia.Card.Server
+namespace Cynthia.Card
 {
-    public class NewlyUnlockedTrinketsBuffer
+    public class NewlyUnlockedTrinkets: ModelBase
     {
         public List<string> NewAvatars { get; set; } = new List<string>();
         public List<string> NewBorders { get; set; } = new List<string>();

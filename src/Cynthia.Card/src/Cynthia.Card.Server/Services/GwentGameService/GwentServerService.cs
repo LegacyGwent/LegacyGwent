@@ -51,6 +51,19 @@ namespace Cynthia.Card.Server
         public async Task<UserInfo> QueryUserInfo(string username, string password)
         {
             var loginUser = _databaseService.Login(username, password);
+            if (loginUser == null) return null;
+
+            // if user is online, attach any pending newly unlocked trinkets
+            var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
+            if (onlineUser != null && onlineUser.NewlyUnlockedTrinkets != null)
+            {
+                loginUser.NewlyUnlockedTrinkets = new NewlyUnlockedTrinkets
+                {
+                    NewAvatars = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewAvatars),
+                    NewBorders = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewBorders),
+                    NewTitles = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewTitles)
+                };
+            }
             // give trinkets linked to a counter such as GG
             if (loginUser.GGsReceived >= 100)
             {
@@ -134,8 +147,16 @@ namespace Cynthia.Card.Server
                     await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
                 
-                // Copy newly unlocked trinkets to the returned UserInfo
-                loginUser.NewlyUnlockedTrinkets = user.NewlyUnlockedTrinkets;
+                // Copy newly unlocked trinkets to the returned UserInfo (map buffer -> DTO)
+                if (user.NewlyUnlockedTrinkets != null)
+                {
+                    loginUser.NewlyUnlockedTrinkets = new NewlyUnlockedTrinkets
+                    {
+                        NewAvatars = new List<string>(user.NewlyUnlockedTrinkets.NewAvatars),
+                        NewBorders = new List<string>(user.NewlyUnlockedTrinkets.NewBorders),
+                        NewTitles = new List<string>(user.NewlyUnlockedTrinkets.NewTitles)
+                    };
+                }
                 
                 InovkeUserChanged();
             }
@@ -795,7 +816,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
             await AddAvatar(PlayerName, rankavatar);
         }
 
-        public void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
+        public async void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
             // if (_env.IsProduction())
             // {
@@ -968,13 +989,12 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public IList<Tuple<string, int>> GetAllHighestMMR(int offset, int limit) => _databaseService.QueryAllHighestMMR(offset, limit);
 
-        public void ClearNewlyUnlockedTrinkets(string username)
+        public async Task<bool> ClearNewlyUnlockedTrinkets(string username)
         {
             var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
-            if (onlineUser != null)
-            {
-                onlineUser.NewlyUnlockedTrinkets.Clear();
-            }
+            onlineUser?.NewlyUnlockedTrinkets.Clear();
+            await Task.CompletedTask;
+            return true;
         }
     }
 }

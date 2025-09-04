@@ -46,30 +46,41 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
 
     public void SetTrinketArt(string trinket, string trinkettype)
     {
-        OwnedText.text = _translator.GetText("TrinketsMenu_TrinketOwned");
+        if (OwnedText != null) // avoid triggering the update when in prefab mode
+        {
+            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketOwned");
+        }
         if (trinkettype == "OwnedAvatars")
         {
-            AvatarsButtonText.text = _translator.GetText("TrinketsMenu_SetAvatarButton");
-            SetAvatarButton.SetActive(true);
-            SetBorderButton.SetActive(false);
-            if (!_clientService.User.OwnedAvatars.Contains(trinket))
+
+            if (SetAvatarButton != null) // do not trigger in prefab mode
+            {
+                AvatarsButtonText.text = _translator.GetText("TrinketsMenu_SetAvatarButton");
+                SetAvatarButton.SetActive(true);
+                SetBorderButton.SetActive(false);
+                if (!_clientService.User.OwnedAvatars.Contains(trinket))
                 {
                     AvatarArt.material = LightGray;
                     SetAvatarButton.SetActive(false);
                     OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
                 }
+            }
+            
             avatarID = trinket;
         }
         if (trinkettype == "OwnedBorders")
         {
-            BordersButtonText.text = _translator.GetText("TrinketsMenu_SetBorderButton");
-            SetAvatarButton.SetActive(false);
-            SetBorderButton.SetActive(true);
-            if (!_clientService.User.OwnedBorders.Contains(trinket))
+            if (SetBorderButton != null) // do not trigger in prefab mode
                 {
-                    AvatarArt.material = LightGray;
-                    SetBorderButton.SetActive(false);
-                    OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
+                    BordersButtonText.text = _translator.GetText("TrinketsMenu_SetBorderButton");
+                    SetAvatarButton.SetActive(false);
+                    SetBorderButton.SetActive(true);
+                    if (!_clientService.User.OwnedBorders.Contains(trinket))
+                        {
+                            AvatarArt.material = LightGray;
+                            SetBorderButton.SetActive(false);
+                            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
+                        }
                 }
             borderID = trinket;
         }
@@ -79,23 +90,23 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     }
     public void SetTitleLook(string title, Color color)
     {
-        Debug.Log(title);
-        OwnedText.text = _translator.GetText("TrinketsMenu_TrinketOwned");
-        SetTitleButton.SetActive(true);
-        TitlesButtonText.text = _translator.GetText("TrinketsMenu_SetTitleButton");
+        if (OwnedText != null) // avoid triggering the update when in prefab mode
+        {
+            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketOwned");
+            SetTitleButton.SetActive(true);
+            TitlesButtonText.text = _translator.GetText("TrinketsMenu_SetTitleButton");
+            SetAvatarButton.SetActive(false);
+            if (!_clientService.User.OwnedTitles.Contains(title))
+                {
+                    TitlesBackground.GetComponent<Image>().material = LightGray;
+                    SetTitleButton.SetActive(false);
+                    OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
+                }
+        }
         TitleText.text = _translator.GetText(title+"Name");
         TitleText.color= color;
         TitlesBackground.SetActive(true);
         AvatarArt.gameObject.SetActive(false);
-        SetAvatarButton.SetActive(false);
-        
-        
-        if (!_clientService.User.OwnedTitles.Contains(title))
-        {
-            TitlesBackground.GetComponent<Image>().material = LightGray;
-            SetTitleButton.SetActive(false);
-            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
-        }
         titleID = title;
     }
     public void SetAvatarContext(string avatar) // set name, decription and if necessary, the progress towards unlock

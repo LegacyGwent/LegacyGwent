@@ -359,6 +359,10 @@ namespace Cynthia.Card.Client
         // Set the current Title of the User
         public Task<bool> UpdateTitle(string playername, string TitleID) => HubConnection.InvokeAsync<bool>("UpdateTitle", playername, TitleID);
         //
+        public Task<bool> ClearNewlyUnlockedTrinkets(string username)
+        {
+            return HubConnection.InvokeAsync<bool>("ClearNewlyUnlockedTrinkets", username);
+        }
         public Task<bool> StopMatch()
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");

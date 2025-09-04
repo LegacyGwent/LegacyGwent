@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Cynthia.Card.Server.Models;
 
 namespace Cynthia.Card
 {
@@ -25,6 +24,6 @@ namespace Cynthia.Card
         public string CurrentTitle { get; set; }
         public int GGsReceived { get; set; }
         public int GamesOver200 { get; set; }
-        public NewlyUnlockedTrinkets NewlyUnlockedTrinkets { get; set; } = new NewlyUnlockedTrinkets();
+        public NewlyUnlockedTrinkets NewlyUnlockedTrinkets { get; set; }
     }
 }
