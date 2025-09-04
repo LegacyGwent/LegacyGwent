@@ -893,7 +893,7 @@ public class EditorInfo : MonoBehaviour
             _nowEditorDeck = deck;
             Debug.Log($"inner {_nowEditorDeck.Id }");
             _clientService.User.Decks.Add(_nowEditorDeck);
-            await _globalUIService.YNMessageBox("Added! 添加成功", "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+            await _globalUIService.YNMessageBox(_translator.GetText("Added"), _translator.GetText("Code") + ": " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
             return true;
         }
         else
