@@ -14960,7 +14960,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
                     Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
                     Info = "回合开始时，复活自身到随机排，回合结束时，与最弱的敌方单位决斗，如果获胜，则放逐自身。",
-                    CardArtsId = "202615",
+                    CardArtsId = "c10006000",
                     LinkedCards=new List<String> {},
                 }
             },

@@ -3806,7 +3806,7 @@
         },
         "70154": {
             "Name": "爱丽丝：庄园幽影",
-            "Info": "休战：向双方手牌中添加两张爱丽丝的伙伴。",
+            "Info": "休战：向双方手牌中添加两张爱丽丝的伙伴。爱丽丝：庄园幽影在场时，己方的爱丽丝的伙伴可以选择丢弃的牌。",
             "Flavor": "“和欧吉尔德的婚约犹如一场美梦……”"
         },
         "70155": {
@@ -3956,7 +3956,7 @@
         },
         "70184": {
             "Name": "日轮之师重骑兵",
-            "Info": "Boost self by 4 when a leader is played. Decrease the boost by 1 for each time this card has been boosted by its own ability previously this round - 2 armor.",
+            "Info": "2点护甲。领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1.",
             "Flavor": "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。"
         },
         "70185": {
