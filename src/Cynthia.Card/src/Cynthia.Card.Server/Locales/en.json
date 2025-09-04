@@ -172,6 +172,8 @@
         "CoinStyle":"Coin style",
         "DiscardConfirmTitle":"Confirm Discard?",
         "DiscardConfirmContent":"You are attempting to discard a card, do you want to confirm?",
+        "Copied":"Copied!",
+        "Code":"Code",
         "TrinketsMenu_SetAvatarButton": "Set Avatar",
         "TrinketsMenu_SetBorderButton": "Set Border",
         "TrinketsMenu_SetTitleButton": "Set Title",

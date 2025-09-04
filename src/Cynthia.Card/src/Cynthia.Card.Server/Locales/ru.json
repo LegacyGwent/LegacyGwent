@@ -172,6 +172,8 @@
         "CoinStyle":"Стиль монеты",
         "DiscardConfirmTitle":"Подтвердить сброс?",
         "DiscardConfirmContent":"Вы пытаетесь сбросить карту, хотите подтвердить?",
+        "Copied":"Скопировано!",
+        "Code":"Код",
         "TrinketsMenu_SetAvatarButton": "Установить аватар",
         "TrinketsMenu_SetBorderButton": "Установить рамку",
         "TrinketsMenu_SetTitleButton": "Установить титул",
