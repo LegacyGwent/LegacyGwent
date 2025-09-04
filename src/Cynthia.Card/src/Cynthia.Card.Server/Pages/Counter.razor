@@ -2,11 +2,11 @@
 @inject CounterService counterService
 @implements IDisposable
 
-<h1>计数器</h1>
+<h1>计数器 / Counter</h1>
 
-<p>自本次服务器启动起,总共被戳: @currentCount 次</p>
+<p>自本次服务器启动起,总共被戳 / Since this server started, total clicks: @currentCount 次 / times</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">戳</button>
+<button class="btn btn-primary" @onclick="IncrementCount">戳 / Click</button>
 
 @code {
     int currentCount;

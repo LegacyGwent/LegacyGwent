@@ -5,18 +5,18 @@
 <div class="table-responsive">
     <table class="table table-bordered" style="width:770px">
         <tr>
-            <th>排名</th>
-            <th>玩家</th>
+            <th>排名 / Rank</th>
+            <th>玩家 / Player</th>
             <th>MMR</th>
         </tr>
-@foreach(var (index, result) in _resultList.Select((r, i) => (i + 1, r)))
-{
-        <tr>
-            <td>@index</td>
-            <td>@result.Item1</td>
-            <td>@result.Item2</td>
-        </tr>
-}
+        @foreach(var (index, result) in _resultList.Select((r, i) => (i + 1, r)))
+        {
+            <tr>
+                <td>@index</td>
+                <td>@result.Item1</td>
+                <td>@result.Item2</td>
+            </tr>
+        }
     </table>
 </div>
 
