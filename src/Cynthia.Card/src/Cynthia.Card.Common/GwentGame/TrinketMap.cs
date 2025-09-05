@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 5);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 6);
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -518,7 +518,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Rank21Border2",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -1150,6 +1150,24 @@ namespace Cynthia.Card
                     ID = "$$$MILLIONAIRE$$$",
                     IsReleased = true,
                     TitleColor = "yellow",
+                }
+            },
+            { 
+                "COMPETITOR",
+                new Title()
+                {
+                    ID = "COMPETITOR",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            { 
+                "DEVELOPER",
+                new Title()
+                {
+                    ID = "DEVELOPER",
+                    IsReleased = true,
+                    TitleColor = "purple",
                 }
             },
         };

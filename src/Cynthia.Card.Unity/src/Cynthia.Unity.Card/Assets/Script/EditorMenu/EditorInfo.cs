@@ -872,7 +872,7 @@ public class EditorInfo : MonoBehaviour
     public async void CopyDeckCode()
     {
         var deckCode = _nowEditorDeck.CompressDeck();
-        await _globalUIService.YNMessageBox("Copied! 复制成功", "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+        await _globalUIService.YNMessageBox(_translator.GetText("Copied"), _translator.GetText("Code") +": "+ deckCode, "PopupWindow_OkButton", isOnlyYes: true);
         Debug.Log(_nowEditorDeck.Name);
         GUIUtility.systemCopyBuffer = deckCode;
     }
@@ -893,7 +893,7 @@ public class EditorInfo : MonoBehaviour
             _nowEditorDeck = deck;
             Debug.Log($"inner {_nowEditorDeck.Id }");
             _clientService.User.Decks.Add(_nowEditorDeck);
-            await _globalUIService.YNMessageBox("Added! 添加成功", "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
+            await _globalUIService.YNMessageBox(_translator.GetText("Added"), _translator.GetText("Code") + ": " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
             return true;
         }
         else

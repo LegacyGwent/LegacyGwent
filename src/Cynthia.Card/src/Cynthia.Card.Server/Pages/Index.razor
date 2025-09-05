@@ -2,35 +2,19 @@
 @inject GwentServerService GwentService
 @implements IDisposable
 
-<h4>群号:<a href=@addGroupLink>945408322</a>,欢迎加入闲聊或约牌
-    本站为测试服,正式服切换端口号至5000</h4>
-<h2>~实时玩家状态查看~</h2>
-<h3>目前在线人数: @GwentService.GetUserCount() </h3>
-<ul>
-    @foreach (var usergroup in users.user)
-    {
-        <h4>@showMessage[usergroup.Key]</h4>
-        @foreach (var user in usergroup)
-        {
-            <li>@user.PlayerName</li>
-        }
-    }
-    @if (users.player.Count() > 0)
-    {
-        <h4>@showMessage[UserState.Play]</h4>
-        @foreach (var player in users.player)
-        {
-            <li>@player.player1 vs @player.player2</li>
-        }
-    }
+<h4>
+    群号 / Group: <a href=@addGroupLink>945408322</a>, 欢迎加入闲聊或约牌 / Welcome to chat or match
+    <br />
+    本站为测试服 / This is a test server, 正式服切换端口号至5000 / official server uses port 5000
+</h4>
 
-    @if (users.aiPlayer.Count() > 0)
+<h2>~实时玩家状态查看 / Live Player Status~</h2>
+<h3>目前在线人数 / Currently Online: @onlinePlayers.Count </h3>
+
+<ul>
+    @foreach (var player in onlinePlayers)
     {
-        <h4>@showMessage[UserState.PlayWithAI]</h4>
-        @foreach (var player in users.aiPlayer)
-        {
-            <li>@player.player1 vs @player.player2</li>
-        }
+        <li>@player</li>
     }
 </ul>
 
@@ -38,31 +22,67 @@
 {
     string addGroupLink =
         "https://shang.qq.com/wpa/qunwpa?idkey=131ac538a2dee688ba02f146df56a90b83a35182cd441081cfb26f9c080c3b89";
-    (IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player, IList<(string player1, string
-    player2)> aiPlayer) users;
-    IDictionary<UserState, string> showMessage = new Dictionary<UserState, string>()
-{
-{UserState.Match,"以下玩家正在进行无密码匹配~"},
-{UserState.PasswordMatch,"以下玩家正在进行密码匹配~"},
-{UserState.Play,"以下玩家正在对局中~"},
-{UserState.Standby,"以下玩家正在闲置中~"},
-{UserState.PlayWithAI,"以下玩家正在和AI对战~"}
-};
+
+    HashSet<string> onlinePlayers = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
     protected override void OnInitialized()
     {
-        users = GwentService.GetUsers();
+        UpdatePlayers(GwentService.GetUsers());
         GwentService.OnUserChanged += OnUserChanged;
     }
 
-    private void OnUserChanged((IList<IGrouping<UserState, User>> user, IList<(string player1, string player2)> player,
-    IList<(string player1, string player2)> aiPlayer) newUser)
+    private void OnUserChanged(
+        (IList<IGrouping<UserState, User>> user,
+        IList<(string player1, string player2)> player,
+        IList<(string player1, string player2)> aiPlayer) newUser)
     {
         InvokeAsync(() =>
         {
-            users = newUser;
+            UpdatePlayers(newUser);
             StateHasChanged();
         });
+    }
+
+    private void UpdatePlayers(
+        (IList<IGrouping<UserState, User>> user,
+        IList<(string player1, string player2)> player,
+        IList<(string player1, string player2)> aiPlayer) users)
+    {
+        var players = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // all grouped users
+        foreach (var group in users.user)
+        {
+            foreach (var u in group)
+                players.Add(u.PlayerName);
+        }
+
+        // players in PvP matches
+        foreach (var match in users.player)
+        {
+            players.Add(match.player1);
+            players.Add(match.player2);
+        }
+
+        // players in AI matches (skip AI names)
+        foreach (var match in users.aiPlayer)
+        {
+            if (!IsAiName(match.player1))
+                players.Add(match.player1);
+            if (!IsAiName(match.player2))
+                players.Add(match.player2);
+        }
+
+        onlinePlayers = players;
+    }
+
+    private bool IsAiName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return false;
+
+        return System.Text.RegularExpressions.Regex.IsMatch(
+            name, @"^ai\d+_name$", System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
     }
 
     public void Dispose()

@@ -5,20 +5,27 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70172")]//图尔赛克家族驯兽师
-    public class Princess : CardEffect
-    {// Spawn a Giant Bear. If there is a Wither on this row, spawn a Raging Bear instead.
+    public class Princess : CardEffect, IHandlesEvent<AfterTurnStart>
+    {// Deploy: Spawn and Play a Bear. On the start of next turn, transform a random Bear on the same row into a Raging Bear.
         public Princess(GameCard card) : base(card) { }
+        private bool _isTransformed = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var witchercount = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x.HasAllCategorie(Categorie.Witcher) && x != Card).ToList().Count();
-            if (witchercount == 0) // if no witcher spawn a giant bear
-            { 
-                await Game.CreateCard("15010", Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
-                return 1;
-            }
-            // otherwise spawn a raging bear
-            await Game.CreateCard("65002", Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            // Deploy: Spawn and Play a Giant Bear.
+            await Game.CreateCard("15010", Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            _isTransformed = false;
             return 1;
+        }
+        public async Task HandleEvent(AfterTurnStart @event)
+        {
+            // On the start of next turn, transform a Giant Bear on the same row into a Raging Bear.
+            var target = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).Where(x => x.Status.CardId == "15010").FirstOrDefault();
+            if (target != null && !_isTransformed && @event.PlayerIndex == Card.PlayerIndex)
+            {
+                await target.Effect.Transform(CardId.RagingBear, Card, isForce: true);
+                _isTransformed = true;
+            }
+            return;
         }
     }
 }

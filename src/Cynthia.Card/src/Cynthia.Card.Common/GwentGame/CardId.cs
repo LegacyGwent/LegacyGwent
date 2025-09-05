@@ -556,7 +556,7 @@ namespace Cynthia.Card
         public const string DrummondPillager = "70081";
         public const string ArnjolfThePatricide = "70082";
         public const string RedRider = "70083";
-        public const string OlgierdImmortal = "70084";      
+        public const string OlgierdImmortal = "70084";
         public const string TheApiarianPhantom = "70085";
         public const string PhilippaLodgeMistress = "70086";
         public const string TheThingInTheSwamp = "70088";
@@ -564,7 +564,7 @@ namespace Cynthia.Card
         public const string CultistOblation = "70090";
         public const string MagicLamp = "70091";
         public const string SvalblodBrawler = "70092";
-        public const string Tempest ="70093";
+        public const string Tempest = "70093";
         public const string LyrianCavalry = "70094";
         public const string LyrianArbalest = "70095";
         public const string TuirseachWarship = "70096";
@@ -654,5 +654,16 @@ namespace Cynthia.Card
         public const string DeadeyeAmbush = "70173";
         public const string MageInfiltrator = "70174";
         public const string Trapmaker = "70175";
+        public const string Hybrid = "70176";
+        public const string SirScratchALot = "70177";
+        public const string Ulle = "70178";
+        public const string QueenCalanthe = "70179";
+        public const string Albastra = "70180";
+        public const string AlbastraRightWing = "70181";
+        public const string AlbastraLeftWing = "70182";
+        public const string FeastOfBlood = "70183";
+        public const string ArdFeainnHeavyCavalry = "70184";
+        public const string NoonWraith = "70185";
+        public const string Rat = "70186";
     }
 }
