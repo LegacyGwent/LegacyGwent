@@ -295,7 +295,7 @@ public class GameUIControl : MonoBehaviour
             MyLand.text  = "+ " + land.ToString();
         }
 
-        Debug.Log("my land is"+ land.ToString());
+        //Debug.Log("my land is"+ land.ToString());
 
         if (land == 0)
             MyLandObject.SetActive(false);
@@ -305,7 +305,7 @@ public class GameUIControl : MonoBehaviour
     public void SetEnemyLand(int land)
     {
         string mode = SettingPanel.GetCoinDisplayMode(); //move to awake later
-        Debug.Log("Coin mode currently is: " + mode);
+        //Debug.Log("Coin mode currently is: " + mode);
 
         if (mode == "CoinAdded")
         {
@@ -316,7 +316,7 @@ public class GameUIControl : MonoBehaviour
             EnemyLand.text  = "+ " + land.ToString();
         }
 
-        Debug.Log("enemy land is "+ land.ToString());
+        //Debug.Log("enemy land is "+ land.ToString());
 
         if (land == 0)
             EnemyLandObject.SetActive(false);
