@@ -708,7 +708,7 @@
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Toggle an enemy's lock. Then damage it by 4 . If it's a monster,destroy it instead.",
+            "Info": "Deploy: Toggle an enemy's lock. Then damage it by 4 . If it's a monster, destroy it instead.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
@@ -853,7 +853,7 @@
         },
         "13004": {
             "Name": "Iris' Companions",
-            "Info": "Deploy: Draw a card, then discard a random card. If you Iris: Shade is on the board, choose the card to discard instead.",
+            "Info": "Deploy: Draw a card, then discard a random card. If your Iris: Shade is on the board, choose the card to discard instead.",
             "Flavor": "We'd rather keep our names to ourselves. Think of us as… friends of the house."
         },
         "13005": {
@@ -2473,7 +2473,7 @@
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Deploy: Create a Silver special card.",
+            "Info": "Deploy, Choose One: Create a neutral Silver special card; or Create a Scoia'tael Silver special card.",
             "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
@@ -3903,7 +3903,7 @@
         },
         "70172": {
             "Name": "Princess",
-            "Info": "Deploy: Spawn a  Bear. On the start of next turn, transform a Giant Bear on the same row into a Raging Bear.",
+            "Info": "Deploy: Spawn a  Bear. On the start of next turn, transform a Bear on the same row into a Raging Bear.",
             "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
         },
         "70173": {
@@ -3923,12 +3923,12 @@
         },
         "70176": {
             "Name": "Hybrid",
-            "Info": "Deploy: Boost a Beast in your deck by 2. Deathwish: Boost the lowest Beast in your deck by 4.",
+            "Info": "Deploy: Boost a non-Gold Beast in your deck by 2. \nDeathwish: Boost the lowest non-Gold Beast in your deck by 4.",
             "Flavor": "When one head just isn’t enough."
         },
         "70177": {
             "Name": "Sir Scratch-a-Lot",
-            "Info": "Deploy: strengthen all allied beasts by 1 wherever they are, then boost them by 1 if they are under full moon.",
+            "Info": "Deploy: Strengthen all allied beasts by 1 wherever they are, then Boost them by 1 if they are under full moon.",
             "Flavor": "If you value your eyesight... Don't call him a pussy."
         },
         "70178": {
@@ -3938,12 +3938,12 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: shuffle a non-gold ally back to your deck without changing its power, then play the lowest non-gold unit from your deck.",
+            "Info": "Deploy: Shuffle a non-gold ally back to your deck without changing its power, then play the lowest non-gold unit from your deck.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
-            "Name": "AlbastraTheWhiteDragon",
-            "Info": "Immune - 4 power - deploy: spawn left and right wing, if they get destroyed, destroy self. Every turn, on turn start, boost self by 3. ",
+            "Name": "Albastra The White Dragon",
+            "Info": "Deploy: Spawn Left Wing and Right Wing. Every turn on turn start, if neither Left Wing nor Right Wing is on your side of the board, destroy self, otherwise, boost self by 3.  Immune.",
             "Flavor": "That was no avalanche, that was a dragon!"
         },
         "70181": {
@@ -3967,8 +3967,8 @@
             "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
         },
         "70185": {
-            "Name": "NoonWraith",
-            "Info": "Deathwish: Spawn 3 Rats on the opposing row. ",
+            "Name": "Noon Wraith",
+            "Info": "Deathwish: Spawn 3 Rats on the opposing row.",
             "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
         },
         "70186": {

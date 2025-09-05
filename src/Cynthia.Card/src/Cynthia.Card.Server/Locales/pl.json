@@ -688,7 +688,7 @@
         },
         "12013": {
             "Name": "Lambert Fechmistrz",
-            "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń wszystkim egzemplarzom wrogiej jednostki.",
+            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń wszystkim egzemplarzom wrogiej jednostki.",
             "Flavor": "Nie ucz ojca dzieci robić."
         },
         "12014": {
@@ -3838,7 +3838,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Odrzuć 3 brązowe specjalne karty z twojej talii. Za każdą odrzuconą kartę przyzwij kruka.",
+            "Info": "Odrzuć 3 brązowe karty specjalne z twojej talii. Za każdą odrzuconą kartę przyzwij kruka.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -3923,7 +3923,7 @@
         },
         "70176": {
             "Name": "Hybryda",
-            "Info": "Rozmieszczenie: Wzmocnij bestie w Twojej talii o 2.\nZemsta:Wzmocnij najsłabszą bestie w Twojej talii o 4.",
+            "Info": "Rozmieszczenie: Wzmocnij nie Złotą bestię w Twojej talii o 2.\nZemsta:Wzmocnij najsłabszą nie Złotą bestię w Twojej talii o 4.",
             "Flavor": "Co dwie głowy to nie jedna."
         },
         "70177": {
@@ -3958,7 +3958,7 @@
         },
         "70183": {
             "Name": "Krwawa uczta",
-            "Info": "Wybierz sojuszniczego wampira, który wykradnie 4 siły z wroga. A jeśli przeżyje, stwórz Wąpierza po prawej stronie wybranego wcześniej wampira. ",
+            "Info": "Wybierz sojuszniczego wampira, który wykradnie 4 siły wrogowi. Jeśli wróg przeżyje, stwórz Wąpierza po prawej stronie tej jednostki. ",
             "Flavor": "Wampir potrafi nie jeść nawet trzy lata. Ale kiedy już rusza na łowy... Nie spocznie, dopóki nie opije się krwią."
         },
         "70184": {

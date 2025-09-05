@@ -73,7 +73,7 @@ cards=[\
 #Black Blood
 ['13023',[['isderive',['false']],['group',['Copper']],['categorie',['necrophage','vampire']]]],\
 #Whispering Hillock
-['21003',[['isderive',['false']],['group',['Copper','silver']],['categorie',['organic']]]],\
+['21003',[['isderive',['false']],['group',['silver']],['categorie',['organic']]]],\
 #Eredin Bréacc Glas
 ['21004',[['isderive',['false']],['group',['Copper',]],['categorie',['WildHunt']]]],\
 #Monster Nest
@@ -87,7 +87,7 @@ cards=[\
 #Kiyan
 ['42010',[['isderive',['false']],['group',['Copper','silver']],['categorie',['alchemy']]]],\
 #Filavandrel
-['51003',[['isderive',['false']],['group',['silver']],['cardtype',['special']]]],\
+['51003',[['isderive',['false']],['group',['silver']],['cardtype',['special']],['faction',['ScoiaTael','Neutral']]]],\
 #Isengrim: Outlaw
 ['52013',[['isderive',['false']],['group',['silver']],['categorie',['elf']]]],\
 #Mahakam Horn
