@@ -10,12 +10,14 @@ namespace Cynthia.Card
         public Albastra(GameCard card) : base(card) { }
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
-        {   // Deploy: Spawn Left and Right Wings. Immune.
+        {   // Deploy: Spawn Left and Right Wings and give them 2 armor. Immune.
             // Gain immune status.
             Card.Status.IsImmue = true;
             // Spawn Left and Right Wings.
-            await Game.CreateCard(CardId.AlbastraLeftWing, PlayerIndex, Card.GetLocation());
-            await Game.CreateCard(CardId.AlbastraRightWing, PlayerIndex, Card.GetLocation() + 1);
+            var wing1 = await Game.CreateCard(CardId.AlbastraLeftWing, PlayerIndex, Card.GetLocation());
+            await wing1.Effect.Armor(2, Card);
+            var wing2 = await Game.CreateCard(CardId.AlbastraRightWing, PlayerIndex, Card.GetLocation() + 1);
+            await wing2.Effect.Armor(2, Card);
             return 0;
         }
 

@@ -11,7 +11,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Default server URL
-DEFAULT_SERVER="http://cynthia.ovyno.com:5005"
+DEFAULT_SERVER="http://106.15.38.165:5005"
 
 # Function to print colored output
 print_status() {
