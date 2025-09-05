@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 129);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 130);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -15106,6 +15106,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Specter},
+                    HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "和常识相反，农夫白天不干活，不是为了躲太阳。是为了躲日间妖灵。",
                     Info = "遗愿，在对方同排生成3只老鼠。",
                     CardArtsId = "202530",
