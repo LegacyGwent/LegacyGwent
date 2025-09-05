@@ -15097,9 +15097,9 @@ namespace Cynthia.Card
                 {
                     CardId ="70185", //Noon Wraith
                     Name="日间妖灵",
-                    Strength=4,
+                    Strength=14,
                     Group=Group.Copper,
-                    Faction = Faction.Neutral,
+                    Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
