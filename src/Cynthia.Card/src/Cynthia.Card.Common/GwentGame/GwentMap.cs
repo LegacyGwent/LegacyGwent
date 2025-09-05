@@ -15127,7 +15127,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{Categorie.Beast},
+                    Categories = new Categorie[]{Categorie.Beast, Categorie.Token},
                     Flavor = "“我叫她小小鼠疫，很可爱，是不是？”",
                     Info = "没有特殊技能。",
                     CardArtsId = "202567",
