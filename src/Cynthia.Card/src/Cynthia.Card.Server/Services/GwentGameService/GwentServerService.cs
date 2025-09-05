@@ -705,6 +705,7 @@ Patch notes:
 - Various bug fixes to Cosmetics, Coinflip display and translations (thanks to the community!)
 - Hidden the unused buttons
 - Various improvements to the 'right-click' menu
+- Thousands of new Polish voicelines added
 
 AI Matchmaking:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
