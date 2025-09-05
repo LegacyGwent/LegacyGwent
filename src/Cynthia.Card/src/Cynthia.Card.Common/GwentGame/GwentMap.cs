@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 130);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 131);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -15013,7 +15013,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70181", //AlbastraRightWing
                     Name="左翼",
-                    Strength=2,
+                    Strength=1,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15023,7 +15023,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid,Categorie.Token},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "xxxx",
+                    Info = "2点护甲。",
                     CardArtsId = "r10300000",
                     LinkedCards=new List<String> {},
                 }
@@ -15034,7 +15034,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70182", //AlbastraLeftWing
                     Name="右翼",
-                    Strength=2,
+                    Strength=1,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15044,7 +15044,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid,Categorie.Token},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "xxxx",
+                    Info = "2点护甲。",
                     CardArtsId = "r10200000",
                     LinkedCards=new List<String> {},
                 }
