@@ -15004,7 +15004,7 @@ namespace Cynthia.Card
                     Flavor = "快跑！那不是雪崩，是龙！",
                     Info = "选择一个友方吸血鬼，使其汲取一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
                     CardArtsId = "r9900000",
-                    LinkedCards=new List<String> {},
+                    LinkedCards=new List<String> {"70181"},
                 }
             },
             {
