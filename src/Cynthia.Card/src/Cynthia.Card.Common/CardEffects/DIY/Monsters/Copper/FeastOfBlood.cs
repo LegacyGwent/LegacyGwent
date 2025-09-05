@@ -31,7 +31,7 @@ namespace Cynthia.Card
             {
                 // if it survives, spawn a plumard on its right
                 //如果敌人死亡则不触发
-                await Game.CreateCard(CardId.Plumard, PlayerIndex, enemy.GetLocation() + 1);
+                await Game.CreateCard(CardId.Plumard, PlayerIndex, friend.GetLocation() + 1);
             }
             return 0;
         }
