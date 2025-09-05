@@ -462,7 +462,7 @@ namespace Cynthia.Card.Server
             InovkeUserChanged();
         }
 
-        public async Task<string> GetLatestVersion(string connectionId)
+        public async Task<string> GetLatestVersion(string connectionId) // unused function
         {
             await Task.CompletedTask;
             return "2.1.0";

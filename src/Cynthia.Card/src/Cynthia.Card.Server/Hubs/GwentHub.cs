@@ -103,7 +103,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetDownloadLink() => await _gwentServerService.GetDownloadLink(Context.ConnectionId);   
 
 
-        public async Task<string> GetLatestClientVersion() => await _gwentServerService.GetLatestClientVersion(Context.ConnectionId);
+        public async Task<string> GetLatestClientVersion() => await _gwentServerService.GetLatestClientVersion(Context.ConnectionId); // unused function
 
         // Clear newly unlocked trinkets for the current user
         public async Task<bool> ClearNewlyUnlockedTrinkets(string username)
