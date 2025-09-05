@@ -3413,7 +3413,7 @@
         },
         "70062": {
             "Name": "Living Armor",
-            "Info": "Units in the same row as this unit take at most 5 Damage at once.",
+            "Info": "Units in the same row as this unit take at most 5 Damage at once. 2 Armor.",
             "Flavor": "Sure it's expensive. But considering how much you'll save on room and board, you'll get a return on the investment by the end of this century!"
         },
         "70070": {
@@ -3838,7 +3838,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "TEMPORARY NERF",
+            "Info": "Deploy: Discard 3 Bronze special cards from your deck. For each summon o crow.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
