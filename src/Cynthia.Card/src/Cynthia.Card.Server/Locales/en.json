@@ -3660,7 +3660,7 @@
         },
         "70123": {
             "Name": "Battle Preparation",
-            "Info": "Boost a Bronze Soldier unit from your hand by 2.\nDraw a card, then play the unit that was Boosted by this card.",
+            "Info": "Boost a Bronze Soldier unit in your hand by 2.\nDraw a card, then play the unit that was Boosted by this card.",
             "Flavor": "Many a knight met an untimely death because of his shoddily tied breastplate coming undone."
         },
         "70124": {
