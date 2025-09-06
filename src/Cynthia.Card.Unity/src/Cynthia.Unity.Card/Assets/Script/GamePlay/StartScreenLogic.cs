@@ -1,53 +1,65 @@
 using UnityEngine;
 using Cynthia.Card;
 using UnityEngine.UI;
+using TMPro;
 
 public class StartScreenLogic : MonoBehaviour
 {
     [Header("Link these in the Inspector")]
     public LeaderCard MyLeader;
     public LeaderCard EnemyLeader;
-    
-    [Header("Text Fields (Link these in the Inspector)")]
-    public Text MyName;
-    public Text EnemyName;
-    public Text MyMMR;
-    public Text EnemyMMR;
-    public Text MyTitle;
-    public Text EnemyTitle;
-    
-    [Header("Source Images (Link these in the Inspector)")]
+
+    [Header("Read Fields (source of truth)")]
+    public Text MyNameReadField;   // legacy Text field to read from
+    public Text MyMMRReadField;
+    public Text MyTitleReadField;
+
+    public Text EnemyNameReadField;
+    public Text EnemyMMRReadField;
+    public Text EnemyTitleReadField;
+
+    [Header("TextMeshPro Fields (where we set values)")]
+    public TextMeshProUGUI MyNameField;
+    public TextMeshProUGUI MyMMRField;
+    public TextMeshProUGUI MyTitleField;
+
+    public TextMeshProUGUI EnemyNameField;
+    public TextMeshProUGUI EnemyMMRField;
+    public TextMeshProUGUI EnemyTitleField;
+
+    [Header("Source Images")]
     public Image SourceMyAvatar;
     public Image SourceEnemyAvatar;
     public Image SourceMyBorder;
     public Image SourceEnemyBorder;
-    
-    [Header("Target Images (Link these in the Inspector)")]
-    public Image MyAvatar;
-    public Image MyBorder;
-    public Image EnemyAvatar;
-    public Image EnemyBorder;
 
-    // Private variables to store loaded information
-    private Cynthia.Card.CardStatus myLeaderStatus;
-    private Cynthia.Card.CardStatus enemyLeaderStatus;
+    [Header("Target Images")]
+    public Image MyAvatarTarget;
+    public Image MyBorderTarget;
+    public Image EnemyAvatarTarget;
+    public Image EnemyBorderTarget;
+
+    // Private loaded info
+    private CardStatus myLeaderStatus;
+    private CardStatus enemyLeaderStatus;
+
     private string myNameValue = "N/A";
-    private string enemyNameValue = "N/A";
     private string myMMRValue = "N/A";
-    private string enemyMMRValue = "N/A";
     private string myTitleValue = "N/A";
+
+    private string enemyNameValue = "N/A";
+    private string enemyMMRValue = "N/A";
     private string enemyTitleValue = "N/A";
 
-    // Default sprites for comparison
-    private Sprite defaultAvatarSprite;
-    private Sprite defaultBorderSprite;
+    // Loaded sprites (not yet applied to UI)
+    private Sprite loadedMyAvatar;
+    private Sprite loadedEnemyAvatar;
+    private Sprite loadedMyBorder;
+    private Sprite loadedEnemyBorder;
 
     private void Start()
     {
-        if (SourceMyAvatar != null)
-            defaultAvatarSprite = SourceMyAvatar.sprite;
-        if (SourceMyBorder != null)
-            defaultBorderSprite = SourceMyBorder.sprite;
+        
 
         StartCoroutine(WaitForAllInfoWithRetry());
     }
@@ -59,31 +71,36 @@ public class StartScreenLogic : MonoBehaviour
 
         for (int attempt = 1; attempt <= maxRetries; attempt++)
         {
+            // Read leaders
             bool myLeaderReady = CheckLeader(MyLeader, out myLeaderStatus);
             bool enemyLeaderReady = CheckLeader(EnemyLeader, out enemyLeaderStatus);
-            bool myNameReady = CheckText(MyName, ref myNameValue, "啊啊啊啊啊啊");
-            bool enemyNameReady = CheckText(EnemyName, ref enemyNameValue, "啊啊啊啊啊啊");
-            bool myMMRReady = CheckText(MyMMR, ref myMMRValue, "1000");
-            bool enemyMMRReady = CheckText(EnemyMMR, ref enemyMMRValue, "1000");
-            bool myTitleReady = CheckText(MyTitle, ref myTitleValue, "CARDSMITHx");
-            bool enemyTitleReady = CheckText(EnemyTitle, ref enemyTitleValue, "CARDSMITHx");
 
-            // Check images
-            bool myAvatarReady = AssignImageIfReady(SourceMyAvatar, MyAvatar, defaultAvatarSprite);
-            bool enemyAvatarReady = AssignImageIfReady(SourceEnemyAvatar, EnemyAvatar, defaultAvatarSprite);
-            bool myBorderReady = AssignImageIfReady(SourceMyBorder, MyBorder, defaultBorderSprite);
-            bool enemyBorderReady = AssignImageIfReady(SourceEnemyBorder, EnemyBorder, defaultBorderSprite);
+            // Read from source fields
+            bool myNameReady = ReadField(MyNameReadField, ref myNameValue, "啊啊啊啊啊啊");
+            bool myMMRReady = ReadField(MyMMRReadField, ref myMMRValue, "1000");
+            bool myTitleReady = ReadField(MyTitleReadField, ref myTitleValue, "CARDSMITHx");
 
-            Debug.Log($"Attempt {attempt}: Leaders={myLeaderReady}/{enemyLeaderReady}, Names={myNameReady}/{enemyNameReady}, MMR={myMMRReady}/{enemyMMRReady}, Titles={myTitleReady}/{enemyTitleReady}, Avatars={myAvatarReady}/{enemyAvatarReady}, Borders={myBorderReady}/{enemyBorderReady}");
+            bool enemyNameReady = ReadField(EnemyNameReadField, ref enemyNameValue, "啊啊啊啊啊啊");
+            bool enemyMMRReady = ReadField(EnemyMMRReadField, ref enemyMMRValue, "1000");
+            bool enemyTitleReady = ReadField(EnemyTitleReadField, ref enemyTitleValue, "CARDSMITHx");
 
+            // Load images into private variables
+            bool myAvatarReady = LoadImage(SourceMyAvatar, ref loadedMyAvatar);
+            bool myBorderReady = LoadImage(SourceMyBorder, ref loadedMyBorder);
+            bool enemyAvatarReady = LoadImage(SourceEnemyAvatar, ref loadedEnemyAvatar);
+            bool enemyBorderReady = LoadImage(SourceEnemyBorder, ref loadedEnemyBorder);
+
+            Debug.Log($"Attempt {attempt}: Leaders={myLeaderReady}/{enemyLeaderReady}, MyDataReady={myNameReady && myMMRReady && myTitleReady}, EnemyDataReady={enemyNameReady && enemyMMRReady && enemyTitleReady}, ImagesReady={myAvatarReady && myBorderReady && enemyAvatarReady && enemyBorderReady}");
+
+            // Apply once everything loaded
             if (myLeaderReady && enemyLeaderReady &&
-                myNameReady && enemyNameReady &&
-                myMMRReady && enemyMMRReady &&
-                myTitleReady && enemyTitleReady &&
-                myAvatarReady && enemyAvatarReady &&
-                myBorderReady && enemyBorderReady)
+                myNameReady && myMMRReady && myTitleReady &&
+                enemyNameReady && enemyMMRReady && enemyTitleReady &&
+                myAvatarReady && myBorderReady &&
+                enemyAvatarReady && enemyBorderReady)
             {
-                OnAllInfoLoaded();
+                Debug.Log("All data loaded, applying my UI elements now.");
+                ApplyDataToUI(); // only my fields/images
                 yield break;
             }
 
@@ -109,33 +126,35 @@ public class StartScreenLogic : MonoBehaviour
         return false;
     }
 
-    private bool CheckText(Text textField, ref string value, string defaultFilter)
+    private bool ReadField(Text sourceField, ref string targetValue, string defaultFilter)
     {
-        if (textField == null) return true;
-        if (!string.IsNullOrEmpty(textField.text) && textField.text != defaultFilter)
+        if (sourceField == null) return true;
+
+        targetValue = sourceField.text;
+        return !string.IsNullOrEmpty(targetValue) && targetValue != defaultFilter;
+    }
+
+    private bool LoadImage(Image source, ref Sprite targetVar)
+    {
+        if (source == null) return true;
+        if (source.sprite != null && source.sprite != null)
         {
-            value = textField.text;
+            targetVar = source.sprite;
             return true;
         }
         return false;
     }
 
-    private bool AssignImageIfReady(Image source, Image target, Sprite defaultSprite)
+    // Apply loaded data to TMP fields (my elements only)
+    public void ApplyDataToUI()
     {
-        if (source == null || target == null) return true;
-        if (source.sprite != null && source.sprite != defaultSprite)
-        {
-            target.sprite = source.sprite;
-            return true;
-        }
-        return false;
-    }
+        if (MyNameField != null) MyNameField.text = myNameValue;
+        if (MyMMRField != null) MyMMRField.text = myMMRValue;
+        if (MyTitleField != null) MyTitleField.text = myTitleValue;
 
-    private void OnAllInfoLoaded()
-    {
-        string myLeaderId = myLeaderStatus != null ? myLeaderStatus.CardId : "N/A";
-        string enemyLeaderId = enemyLeaderStatus != null ? enemyLeaderStatus.CardId : "N/A";
+        if (MyAvatarTarget != null) MyAvatarTarget.sprite = loadedMyAvatar;
+        if (MyBorderTarget != null) MyBorderTarget.sprite = loadedMyBorder;
 
-        Debug.Log($"xxxGAME INFO - My: Leader={myLeaderId}, Name={myNameValue}, MMR={myMMRValue}, Title={myTitleValue} | Enemy: Leader={enemyLeaderId}, Name={enemyNameValue}, MMR={enemyMMRValue}, Title={enemyTitleValue}");
+        // Enemy fields are read internally but NOT applied
     }
 }
