@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using Assets.Script.Localization;
 using Autofac;
+using System.Collections.Generic;
 
 public class StartScreenLogic : MonoBehaviour
 {
@@ -46,8 +47,14 @@ public class StartScreenLogic : MonoBehaviour
     [Header("Target Images")]
     public Image MyAvatarTarget;
     public Image MyBorderTarget;
+    public Image MyFactionBackground;
+
     public Image EnemyAvatarTarget;
     public Image EnemyBorderTarget;
+    public Image EnemyFactionBackground;
+
+    //[Header("Sprites")]
+    
 
     // Private loaded info
     private CardStatus myLeaderStatus;
@@ -69,10 +76,13 @@ public class StartScreenLogic : MonoBehaviour
 
     private void Start()
     {
-        translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        init();
         StartCoroutine(WaitForAllInfoWithRetry());
     }
-
+    public void init()
+    {
+        translator = DependencyResolver.Container.Resolve<LocalizationService>();
+    }
     private System.Collections.IEnumerator WaitForAllInfoWithRetry()
     {
         int maxRetries = 6;
@@ -160,27 +170,32 @@ public class StartScreenLogic : MonoBehaviour
         MyNameField.text = myNameValue;
         MyMMRField.text = myMMRValue;
         MyTitleField.text = myTitleValue;
-        
-        Debug.Log(translator.GetCardName(myLeaderStatus.CardId));
 
         MyLeaderNameField.text=translator.GetCardName(myLeaderStatus.CardId);
+        MyLeaderTagsField.text=TagToString(myLeaderStatus);
+
+        MyAvatarTarget.sprite = loadedMyAvatar;
+        MyBorderTarget.sprite = loadedMyBorder;
 
 
+
+        // Enemy fields are read internally but NOT applied
+    }
+
+
+
+
+    public string TagToString(CardStatus CardStatus)
+    {
         string tagtext="";
-        if (myLeaderStatus.Categories.Length > 0)
+        if (CardStatus.Categories.Length > 0)
         {
-            foreach (Categorie categorie in myLeaderStatus.Categories)
+            foreach (Categorie categorie in CardStatus.Categories)
             {
                 tagtext=tagtext+translator.GetText($"CardTag_"+categorie)+", ";
             }
             tagtext = tagtext.Remove(tagtext.Length - 2);
         }
-        MyLeaderTagsField.text=tagtext;
-
-
-        MyAvatarTarget.sprite = loadedMyAvatar;
-        MyBorderTarget.sprite = loadedMyBorder;
-
-        // Enemy fields are read internally but NOT applied
+        return tagtext;
     }
 }
