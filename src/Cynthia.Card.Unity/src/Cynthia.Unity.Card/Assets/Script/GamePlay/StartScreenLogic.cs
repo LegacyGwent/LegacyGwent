@@ -59,7 +59,7 @@ public class StartScreenLogic : MonoBehaviour
 
     private System.Collections.IEnumerator WaitForAllInfoWithRetry()
     {
-        int maxRetries = 20;
+        int maxRetries = 6;
         float retryDelay = 0.5f;
         
         for (int attempt = 1; attempt <= maxRetries; attempt++)
@@ -251,6 +251,9 @@ public class StartScreenLogic : MonoBehaviour
                 enemyBorderReady = true; // Don't retry if not linked
             }
 
+            // Debug: Print what's ready and what's not
+            Debug.Log($"Attempt {attempt}: Leaders={myLeaderReady}/{enemyLeaderReady}, Names={myNameReady}/{enemyNameReady}, MMR={myMMRReady}/{enemyMMRReady}, Titles={myTitleReady}/{enemyTitleReady}, Avatars={myAvatarReady}/{enemyAvatarReady}, Borders={myBorderReady}/{enemyBorderReady}");
+
             // If all info is ready (or not linked), we're done
             if (myLeaderReady && enemyLeaderReady && myNameReady && enemyNameReady && myMMRReady && enemyMMRReady && myTitleReady && enemyTitleReady && myAvatarReady && enemyAvatarReady && myBorderReady && enemyBorderReady)
             {
@@ -284,7 +287,7 @@ public class StartScreenLogic : MonoBehaviour
         }
         
         // Print all information in one line
-        Debug.Log($"GAME INFO - My: Leader={myLeaderId}, Name={myNameValue}, MMR={myMMRValue}, Title={myTitleValue} | Enemy: Leader={enemyLeaderId}, Name={enemyNameValue}, MMR={enemyMMRValue}, Title={enemyTitleValue}");
+        Debug.Log($"xxxGAME INFO - My: Leader={myLeaderId}, Name={myNameValue}, MMR={myMMRValue}, Title={myTitleValue} | Enemy: Leader={enemyLeaderId}, Name={enemyNameValue}, MMR={enemyMMRValue}, Title={enemyTitleValue}");
         
         // Copy images to target objects
         CopyImages();
@@ -301,11 +304,59 @@ public class StartScreenLogic : MonoBehaviour
     
     private void CopyImages()
     {
+        Debug.Log("=== COPY IMAGES DEBUG ===");
+        
+        // Debug source components
+        if (SourceMyAvatar != null)
+        {
+            Debug.Log($"SourceMyAvatar type: {SourceMyAvatar.GetType()}");
+            Debug.Log($"SourceMyAvatar sprite: {SourceMyAvatar.sprite}");
+            Debug.Log($"SourceMyAvatar sprite type: {SourceMyAvatar.sprite?.GetType()}");
+        }
+        else
+        {
+            Debug.Log("SourceMyAvatar is null");
+        }
+        
+        if (SourceMyBorder != null)
+        {
+            Debug.Log($"SourceMyBorder type: {SourceMyBorder.GetType()}");
+            Debug.Log($"SourceMyBorder sprite: {SourceMyBorder.sprite}");
+            Debug.Log($"SourceMyBorder sprite type: {SourceMyBorder.sprite?.GetType()}");
+        }
+        else
+        {
+            Debug.Log("SourceMyBorder is null");
+        }
+        
+        // Debug target components
+        if (MyAvatar != null)
+        {
+            Debug.Log($"MyAvatar type: {MyAvatar.GetType()}");
+        }
+        else
+        {
+            Debug.Log("MyAvatar is null");
+        }
+        
+        if (MyBorder != null)
+        {
+            Debug.Log($"MyBorder type: {MyBorder.GetType()}");
+        }
+        else
+        {
+            Debug.Log("MyBorder is null");
+        }
+        
         // Copy My Avatar
         if (SourceMyAvatar != null && SourceMyAvatar.sprite != null && MyAvatar != null)
         {
             MyAvatar.sprite = SourceMyAvatar.sprite;
             Debug.Log("Copied My Avatar image");
+        }
+        else
+        {
+            Debug.Log("Failed to copy My Avatar - missing components or sprite");
         }
         
         // Copy My Border
@@ -313,6 +364,10 @@ public class StartScreenLogic : MonoBehaviour
         {
             MyBorder.sprite = SourceMyBorder.sprite;
             Debug.Log("Copied My Border image");
+        }
+        else
+        {
+            Debug.Log("Failed to copy My Border - missing components or sprite");
         }
         
         // Note: Enemy images not copied as requested - only My images for now
