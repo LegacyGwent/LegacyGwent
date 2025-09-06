@@ -15,19 +15,45 @@ public class StartScreenLogic : MonoBehaviour
     public Text EnemyMMR;
     public Text MyTitle;
     public Text EnemyTitle;
+    
+    [Header("Source Images (Link these in the Inspector)")]
+    public Image SourceMyAvatar;
+    public Image SourceEnemyAvatar;
+    public Image SourceMyBorder;
+    public Image SourceEnemyBorder;
+    
+    [Header("Target Images (Link these in the Inspector)")]
+    public Image MyAvatar;
+    public Image MyBorder;
 
     // Private variables to store loaded information
-    private string myLeaderId = "N/A";
-    private string enemyLeaderId = "N/A";
+    private Cynthia.Card.CardStatus myLeaderStatus;
+    private Cynthia.Card.CardStatus enemyLeaderStatus;
     private string myNameValue = "N/A";
     private string enemyNameValue = "N/A";
     private string myMMRValue = "N/A";
     private string enemyMMRValue = "N/A";
     private string myTitleValue = "N/A";
     private string enemyTitleValue = "N/A";
+    
+    // Image loading variables
+    private bool myAvatarReady = false;
+    private bool enemyAvatarReady = false;
+    private bool myBorderReady = false;
+    private bool enemyBorderReady = false;
+    
+    // Default sprites to compare against
+    private Sprite defaultAvatarSprite;
+    private Sprite defaultBorderSprite;
 
     private void Start()
     {
+        // Store default sprites for comparison
+        if (SourceMyAvatar != null)
+            defaultAvatarSprite = SourceMyAvatar.sprite;
+        if (SourceMyBorder != null)
+            defaultBorderSprite = SourceMyBorder.sprite;
+            
         StartCoroutine(WaitForAllInfoWithRetry());
     }
 
@@ -46,6 +72,12 @@ public class StartScreenLogic : MonoBehaviour
             bool enemyMMRReady = false;
             bool myTitleReady = false;
             bool enemyTitleReady = false;
+            
+            // Reset image ready flags
+            myAvatarReady = false;
+            enemyAvatarReady = false;
+            myBorderReady = false;
+            enemyBorderReady = false;
 
             // Check My Leader
             if (MyLeader != null)
@@ -53,9 +85,9 @@ public class StartScreenLogic : MonoBehaviour
                 if (MyLeader.TrueCard != null)
                 {
                     var myCard = MyLeader.TrueCard.GetComponent<CardShowInfo>();
-                    if (myCard != null)
+                    if (myCard != null && myCard.CurrentCore != null)
                     {
-                        myLeaderId = myCard.CurrentCore.CardId;
+                        myLeaderStatus = myCard.CurrentCore;
                         myLeaderReady = true;
                     }
                 }
@@ -71,9 +103,9 @@ public class StartScreenLogic : MonoBehaviour
                 if (EnemyLeader.TrueCard != null)
                 {
                     var enemyCard = EnemyLeader.TrueCard.GetComponent<CardShowInfo>();
-                    if (enemyCard != null)
+                    if (enemyCard != null && enemyCard.CurrentCore != null)
                     {
-                        enemyLeaderId = enemyCard.CurrentCore.CardId;
+                        enemyLeaderStatus = enemyCard.CurrentCore;
                         enemyLeaderReady = true;
                     }
                 }
@@ -167,8 +199,60 @@ public class StartScreenLogic : MonoBehaviour
                 enemyTitleReady = true; // Don't retry if not linked
             }
 
+            // Check My Avatar (wait for it to change from default)
+            if (SourceMyAvatar != null)
+            {
+                if (SourceMyAvatar.sprite != null && SourceMyAvatar.sprite != defaultAvatarSprite)
+                {
+                    myAvatarReady = true;
+                }
+            }
+            else
+            {
+                myAvatarReady = true; // Don't retry if not linked
+            }
+
+            // Check Enemy Avatar (wait for it to change from default)
+            if (SourceEnemyAvatar != null)
+            {
+                if (SourceEnemyAvatar.sprite != null && SourceEnemyAvatar.sprite != defaultAvatarSprite)
+                {
+                    enemyAvatarReady = true;
+                }
+            }
+            else
+            {
+                enemyAvatarReady = true; // Don't retry if not linked
+            }
+
+            // Check My Border (wait for it to change from default)
+            if (SourceMyBorder != null)
+            {
+                if (SourceMyBorder.sprite != null && SourceMyBorder.sprite != defaultBorderSprite)
+                {
+                    myBorderReady = true;
+                }
+            }
+            else
+            {
+                myBorderReady = true; // Don't retry if not linked
+            }
+
+            // Check Enemy Border (wait for it to change from default)
+            if (SourceEnemyBorder != null)
+            {
+                if (SourceEnemyBorder.sprite != null && SourceEnemyBorder.sprite != defaultBorderSprite)
+                {
+                    enemyBorderReady = true;
+                }
+            }
+            else
+            {
+                enemyBorderReady = true; // Don't retry if not linked
+            }
+
             // If all info is ready (or not linked), we're done
-            if (myLeaderReady && enemyLeaderReady && myNameReady && enemyNameReady && myMMRReady && enemyMMRReady && myTitleReady && enemyTitleReady)
+            if (myLeaderReady && enemyLeaderReady && myNameReady && enemyNameReady && myMMRReady && enemyMMRReady && myTitleReady && enemyTitleReady && myAvatarReady && enemyAvatarReady && myBorderReady && enemyBorderReady)
             {
                 OnAllInfoLoaded();
                 yield break;
@@ -185,16 +269,53 @@ public class StartScreenLogic : MonoBehaviour
     // This method is called when all information is loaded
     private void OnAllInfoLoaded()
     {
+        // Get leader IDs for printing only
+        string myLeaderId = "N/A";
+        string enemyLeaderId = "N/A";
+        
+        if (myLeaderStatus != null)
+        {
+            myLeaderId = myLeaderStatus.CardId;
+        }
+        
+        if (enemyLeaderStatus != null)
+        {
+            enemyLeaderId = enemyLeaderStatus.CardId;
+        }
+        
         // Print all information in one line
         Debug.Log($"GAME INFO - My: Leader={myLeaderId}, Name={myNameValue}, MMR={myMMRValue}, Title={myTitleValue} | Enemy: Leader={enemyLeaderId}, Name={enemyNameValue}, MMR={enemyMMRValue}, Title={enemyTitleValue}");
         
+        // Copy images to target objects
+        CopyImages();
+        
         // EXAMPLE: Your code goes here
         // This is where you can safely access all game information using the private variables:
-        // - myLeaderId, enemyLeaderId
+        // - myLeaderStatus, enemyLeaderStatus (Cynthia.Card.CardStatus objects)
         // - myNameValue, enemyNameValue  
         // - myMMRValue, enemyMMRValue
         // - myTitleValue, enemyTitleValue
         
         // Your custom logic here...
+    }
+    
+    private void CopyImages()
+    {
+        // Copy My Avatar
+        if (SourceMyAvatar != null && SourceMyAvatar.sprite != null && MyAvatar != null)
+        {
+            MyAvatar.sprite = SourceMyAvatar.sprite;
+            Debug.Log("Copied My Avatar image");
+        }
+        
+        // Copy My Border
+        if (SourceMyBorder != null && SourceMyBorder.sprite != null && MyBorder != null)
+        {
+            MyBorder.sprite = SourceMyBorder.sprite;
+            Debug.Log("Copied My Border image");
+        }
+        
+        // Note: Enemy images not copied as requested - only My images for now
+        Debug.Log("Image copying completed");
     }
 }
