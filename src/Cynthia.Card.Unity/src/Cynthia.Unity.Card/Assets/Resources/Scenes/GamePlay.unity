@@ -20468,9 +20468,13 @@ MonoBehaviour:
   MyNameField: {fileID: 474183628}
   MyMMRField: {fileID: 917133237}
   MyTitleField: {fileID: 318607154}
+  MyLeaderNameField: {fileID: 1633867856}
+  MyLeaderTagsField: {fileID: 1678917401}
   EnemyNameField: {fileID: 0}
   EnemyMMRField: {fileID: 0}
   EnemyTitleField: {fileID: 0}
+  EnemyyLeaderNameField: {fileID: 0}
+  EnemyLeaderTagsField: {fileID: 0}
   SourceMyAvatar: {fileID: 1942814348}
   SourceEnemyAvatar: {fileID: 925212195}
   SourceMyBorder: {fileID: 1750933980}

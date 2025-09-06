@@ -2,15 +2,21 @@ using UnityEngine;
 using Cynthia.Card;
 using UnityEngine.UI;
 using TMPro;
+using Assets.Script.Localization;
+using Autofac;
 
 public class StartScreenLogic : MonoBehaviour
 {
+
+    private LocalizationService translator;
+
+
     [Header("Link these in the Inspector")]
     public LeaderCard MyLeader;
     public LeaderCard EnemyLeader;
 
     [Header("Read Fields (source of truth)")]
-    public Text MyNameReadField;   // legacy Text field to read from
+    public Text MyNameReadField;
     public Text MyMMRReadField;
     public Text MyTitleReadField;
 
@@ -22,10 +28,14 @@ public class StartScreenLogic : MonoBehaviour
     public TextMeshProUGUI MyNameField;
     public TextMeshProUGUI MyMMRField;
     public TextMeshProUGUI MyTitleField;
+    public TextMeshProUGUI MyLeaderNameField;
+    public TextMeshProUGUI MyLeaderTagsField;
 
     public TextMeshProUGUI EnemyNameField;
     public TextMeshProUGUI EnemyMMRField;
     public TextMeshProUGUI EnemyTitleField;
+    public TextMeshProUGUI EnemyyLeaderNameField;
+    public TextMeshProUGUI EnemyLeaderTagsField;
 
     [Header("Source Images")]
     public Image SourceMyAvatar;
@@ -59,8 +69,7 @@ public class StartScreenLogic : MonoBehaviour
 
     private void Start()
     {
-        
-
+        translator = DependencyResolver.Container.Resolve<LocalizationService>();
         StartCoroutine(WaitForAllInfoWithRetry());
     }
 
@@ -148,12 +157,29 @@ public class StartScreenLogic : MonoBehaviour
     // Apply loaded data to TMP fields (my elements only)
     public void ApplyDataToUI()
     {
-        if (MyNameField != null) MyNameField.text = myNameValue;
-        if (MyMMRField != null) MyMMRField.text = myMMRValue;
-        if (MyTitleField != null) MyTitleField.text = myTitleValue;
+        MyNameField.text = myNameValue;
+        MyMMRField.text = myMMRValue;
+        MyTitleField.text = myTitleValue;
+        
+        Debug.Log(translator.GetCardName(myLeaderStatus.CardId));
 
-        if (MyAvatarTarget != null) MyAvatarTarget.sprite = loadedMyAvatar;
-        if (MyBorderTarget != null) MyBorderTarget.sprite = loadedMyBorder;
+        MyLeaderNameField.text=translator.GetCardName(myLeaderStatus.CardId);
+
+
+        string tagtext="";
+        if (myLeaderStatus.Categories.Length > 0)
+        {
+            foreach (Categorie categorie in myLeaderStatus.Categories)
+            {
+                tagtext=tagtext+translator.GetText($"CardTag_"+categorie)+", ";
+            }
+            tagtext = tagtext.Remove(tagtext.Length - 2);
+        }
+        MyLeaderTagsField.text=tagtext;
+
+
+        MyAvatarTarget.sprite = loadedMyAvatar;
+        MyBorderTarget.sprite = loadedMyBorder;
 
         // Enemy fields are read internally but NOT applied
     }
