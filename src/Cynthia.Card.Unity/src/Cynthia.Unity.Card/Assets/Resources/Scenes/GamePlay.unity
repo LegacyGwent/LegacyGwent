@@ -9427,7 +9427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CARDSMITH
+  m_Text: CARDSMITHx
 --- !u!222 &803887251
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17653,6 +17653,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyLeader: {fileID: 858670469}
   EnemyLeader: {fileID: 1101418533}
+  MyName: {fileID: 2126779625}
+  EnemyName: {fileID: 2139806451}
+  MyMMR: {fileID: 706946507}
+  EnemyMMR: {fileID: 488748327}
+  MyTitle: {fileID: 1981845292}
+  EnemyTitle: {fileID: 803887250}
+  SourceMyAvatar: {fileID: 1942814348}
+  SourceEnemyAvatar: {fileID: 925212195}
+  SourceMyBorder: {fileID: 1750933980}
+  SourceEnemyBorder: {fileID: 613487902}
+  MyAvatar: {fileID: 0}
+  MyBorder: {fileID: 0}
 --- !u!114 &1571154394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23018,7 +23030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CARDSMITH
+  m_Text: CARDSMITHx
 --- !u!222 &1981845293
 CanvasRenderer:
   m_ObjectHideFlags: 0
