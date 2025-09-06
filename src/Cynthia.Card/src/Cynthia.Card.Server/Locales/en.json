@@ -710,7 +710,7 @@
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Toggle an enemy's lock. Then damage it by 4 . If it's a monster, destroy it instead.",
+            "Info": "Deploy: Toggle an enemy's Lock status.\nIf it is a Monster, destroy it, otherwise, Damage it by 4.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
@@ -855,7 +855,7 @@
         },
         "13004": {
             "Name": "Iris' Companions",
-            "Info": "Deploy: Draw a card, then discard a random card. If your Iris: Shade is on the board, choose the card to discard instead.",
+            "Info": "Deploy: Draw a card, then Discard a random card. If you have Iris: Shade on your side of the board, choose the card to Discard instead.",
             "Flavor": "We'd rather keep our names to ourselves. Think of us as… friends of the house."
         },
         "13005": {
@@ -1020,7 +1020,7 @@
         },
         "13037": {
             "Name": "The Last Wish",
-            "Info": "Look at the top 2 cards from your deck.\nPlay 1 and shuffle the other back.",
+            "Info": "Look at the top 2 cards from your deck. Play 1 and shuffle the other back.\nIf you have Magic Lamp in the graveyard, look at the top 3 cards instead.",
             "Flavor": "A djinn, good sirs, fulfills but three wishes. Thus freed, it flees to dimensions unknown."
         },
         "13038": {
@@ -1855,7 +1855,7 @@
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Deploy: Choose an enemy or a Revealed opposing unit. If its on board Deal 7 Damage. If its a Revealed card set it to 1.",
+            "Info": "Deploy: Choose an enemy or a Revealed enemy unit.\nIf it is on board, Deal 7 Damage. If it is a Revealed card, set it to 1.",
             "Flavor": "We do what we must. I am not ashamed of that."
         },
         "33013": {
@@ -2365,7 +2365,7 @@
         },
         "44018": {
             "Name": "Battering Ram",
-            "Info": "Deploy: Deal 3 Damage to an enemy.\nIf the unit was destroyed, deal 3 Damage to another unit.\nCrewed: Increase initial Damage by 1.",
+            "Info": "Deploy: Deal 3 Damage to an enemy.\nIf the unit was destroyed, deal 3 Damage to another enemy.\nCrewed: Increase initial Damage by 1.",
             "Flavor": "Not gonna open up, eh? Guess we gotta knock harder."
         },
         "44019": {
@@ -2475,7 +2475,7 @@
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Deploy, Choose One: Create a neutral Silver special card; or Create a Scoia'tael Silver special card.",
+            "Info": "Deploy, Choose One: Create a Neutral Silver special card; or Create a Scoia'tael Silver special card.",
             "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
@@ -3280,7 +3280,7 @@
         },
         "70015": {
             "Name": "Brokilon Sentinel",
-            "Info": "On turn end, if the opponent has exactly 4 units in the opposing row, deal 1 Damage to all enemies in that row.",
+            "Info": "On turn end, if the opponent has exactly 4 units on the opposite row, deal 1 Damage to all enemies in that row.",
             "Flavor": "Brokilon is not merely the forest you see before you. She yet lives on in the cities, villages, and fields you so callously carved from her flesh. We shall yet reclaim what you have stolen from her."
         },
         "70016": {
@@ -3365,12 +3365,12 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the strongest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
+            "Info": "Damage the Highest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
             "Flavor": "How much of a dose would be lethal? Any."
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the weakest ally by 2.\nRepeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat once more.",
+            "Info": "Boost the Lowest ally by 2.\nRepeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat once more.",
             "Flavor": "It is the duchess's exclusive privilege to delight in the prized, oaky flavor of Sangreal... A pleasure she partakes in very, very often."
         },
         "70043": {
@@ -3490,7 +3490,7 @@
         },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Deploy: Move any number of foglets in your graveyard to the bottom of your deck and apply fog to the opposing row.",
+            "Info": "Deploy: Move any number of Foglets in your graveyard to the bottom of your deck and apply Impenetrable Fog on the opposite row.",
             "Flavor": "Fool's fires... those little shiny thingies that shall lead thee to certain doom."
         },
         "70089": {
@@ -3775,7 +3775,7 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Deploy, Choose One: Deal 5 Damage to two enemy units each or Damage an enemy by 8.",
+            "Info": "Deploy, Choose One: Deal 5 Damage to two enemy units each; or Damage an enemy by 8.",
             "Flavor": "A fondness for shiny trinkets is not a trait unique to magpies."
         },
         "70147": {
@@ -3785,7 +3785,7 @@
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end, if there is no stronger unit on the opposite row, Drain a random enemy on that row.",
+            "Info": "On turn end, if there is no unit with higher Power on the opposite row, Drain a random enemy on that row.",
             "Flavor": "The townsfolk, long plagued with horrific nightmares, posted a desperate plea for help... Hmm. An alp, gotta be, the witcher grumbled to himself."
         },
         "70149": {
@@ -3815,7 +3815,7 @@
         },
         "70154": {
             "Name": "Iris: Shade",
-            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
+            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands. If this card is on your side of the board, your Iris' Companions will Discard a chosen card instead of a random one.",
             "Flavor": "Olgierd's betrothed was like a dream…"
         },
         "70155": {
@@ -3840,7 +3840,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard 3 Bronze special cards from your deck. For each summon o crow.",
+            "Info": "Deploy: Discard 3 Bronze special cards from your deck.\nFor each, Summon a Crow.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -3890,7 +3890,7 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "When in deck, on turn end, if this is the bottom copy of this unit, and if no enemy is stronger than the strongest ogroid ally, reduce self's counter by 1. When it reaches 0, summon self on a random row and Boost a random ally by 1.",
+            "Info": "When in deck, on turn end, if this is the bottom copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
@@ -3900,12 +3900,12 @@
         },
         "70171": {
             "Name": "Giant's Belt",
-            "Info": "Boost an ally by its base Strength, if it is an Ogroid, Strengthen it by 2 before.",
+            "Info": "Boost an ally by its base Strength.\nIf it is an Ogroid, Strengthen it by 2 before applying Boost.",
             "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         },
         "70172": {
             "Name": "Princess",
-            "Info": "Deploy: Spawn a  Bear. On the start of next turn, transform a Bear on the same row into a Raging Bear.",
+            "Info": "Deploy: Spawn a Bear.\nAt the start of your next turn, transform a Bear on the same row into a Raging Bear.",
             "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
         },
         "70173": {
@@ -3925,27 +3925,27 @@
         },
         "70176": {
             "Name": "Hybrid",
-            "Info": "Deploy: Boost a non-Gold Beast in your deck by 2. \nDeathwish: Boost the lowest non-Gold Beast in your deck by 4.",
+            "Info": "Deploy: Boost a non-Gold Beast in your deck by 2.\nDeathwish: Boost the Lowest non-Gold Beast in your deck by 4.",
             "Flavor": "When one head just isn’t enough."
         },
         "70177": {
             "Name": "Sir Scratch-a-Lot",
-            "Info": "Deploy: Strengthen all allied beasts by 1 wherever they are, then Boost them by 1 if they are under full moon.",
+            "Info": "Deploy: Strengthen all allied Beasts by 1 wherever they are, then Boost them by 1 if they are under Full Moon.",
             "Flavor": "If you value your eyesight... Don't call him a pussy."
         },
         "70178": {
             "Name": "Ulle the Unlucky",
-            "Info": "On turn start, if this card is in the graveyard, resurrect self. On turn end, duel the lowest enemy, if you win, banish self.",
+            "Info": "On turn start, if this card is in the graveyard, Resurrect self.\nOn turn end, Duel the Lowest enemy, if you win, Banish self.",
             "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: Shuffle a non-gold ally back to your deck without changing its power, then play the lowest non-gold unit from your deck.",
+            "Info": "Deploy: Shuffle a non-Gold ally back to your deck without changing its Power, then play the Lowest non-Gold unit from your deck.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
             "Name": "Albastra The White Dragon",
-            "Info": "Deploy: Spawn Left Wing and Right Wing. Every turn on turn start, if neither Left Wing nor Right Wing is on your side of the board, destroy self, otherwise, boost self by 3.  Immune.",
+            "Info": "Deploy: Spawn Left Wing and Right Wing. Every turn, on turn start, if neither Left Wing nor Right Wing is on your side of the board, destroy self, otherwise, Boost self by 3.\nImmune.",
             "Flavor": "That was no avalanche, that was a dragon!"
         },
         "70181": {
@@ -3960,17 +3960,17 @@
         },
         "70183": {
             "Name": "Feast of Blood",
-            "Info": "Choose a Vampire ally, make it drain an ennemy by 4, if it survives, spawn a plumard on its right.",
+            "Info": "Choose a Vampire ally and make it drain an enemy by 4.\nIf it survives, Spawn a Plumard on its right.",
             "Flavor": "Vampires have been known to fast for years at a time. Yet once the hunt resumes, they feed and feed until frenzied and drunk on blood."
         },
         "70184": {
             "Name": "Ard Feainn Heavy Cavalry",
-            "Info": "Boost self by 4 when a leader is played. Decrease the boost by 1 for each time this card has been boosted by its own ability previously this round.\n3 Armor.",
+            "Info": "Boost self by 4 when a Leader is played. Decrease the Boost by 1 for each time this card has been Boosted by its own ability previously this round.\n3 Armor.",
             "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
         },
         "70185": {
             "Name": "Noon Wraith",
-            "Info": "Deathwish: Spawn 3 Rats on the opposing row.",
+            "Info": "Deathwish: Spawn 3 Rats on the opposite row.",
             "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
         },
         "70186": {
