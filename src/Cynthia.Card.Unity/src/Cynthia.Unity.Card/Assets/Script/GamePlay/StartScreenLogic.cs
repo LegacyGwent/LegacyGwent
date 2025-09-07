@@ -53,8 +53,13 @@ public class StartScreenLogic : MonoBehaviour
     public Image EnemyBorderTarget;
     public Image EnemyFactionBackground;
 
-    //[Header("Sprites")]
-    
+    [Header("Sprites")]
+    public Sprite NorthernRealmsContent;//北方
+    public Sprite ScoiaTaelContent;//松鼠党
+    public Sprite MonstersContent;//怪物
+    public Sprite SkelligeContent;//群岛
+    public Sprite NilfgaardContent;//帝国
+    public Sprite NeutralContent;//中立
 
     // Private loaded info
     private CardStatus myLeaderStatus;
@@ -68,7 +73,7 @@ public class StartScreenLogic : MonoBehaviour
     private string enemyMMRValue = "N/A";
     private string enemyTitleValue = "N/A";
 
-    // Loaded sprites (not yet applied to UI)
+    // Loaded sprites
     private Sprite loadedMyAvatar;
     private Sprite loadedEnemyAvatar;
     private Sprite loadedMyBorder;
@@ -176,7 +181,7 @@ public class StartScreenLogic : MonoBehaviour
 
         MyAvatarTarget.sprite = loadedMyAvatar;
         MyBorderTarget.sprite = loadedMyBorder;
-
+        SetBackground(myLeaderStatus,MyFactionBackground);
 
 
         // Enemy fields are read internally but NOT applied
@@ -197,5 +202,29 @@ public class StartScreenLogic : MonoBehaviour
             tagtext = tagtext.Remove(tagtext.Length - 2);
         }
         return tagtext;
+    }
+    public void SetBackground(CardStatus Card, Image target)
+    {
+        switch (GwentMap.CardMap[myLeaderStatus.CardId].Faction)
+        {
+            case Faction.Monsters:
+                target.sprite = MonstersContent;
+                break;
+            case Faction.Nilfgaard:
+                target.sprite = NilfgaardContent;
+                break;
+            case Faction.NorthernRealms:
+                target.sprite = NorthernRealmsContent;
+                break;
+            case Faction.ScoiaTael:
+                target.sprite = ScoiaTaelContent;
+                break;
+            case Faction.Skellige:
+                target.sprite = SkelligeContent;
+                break;
+            case Faction.Neutral:
+                target.sprite = NeutralContent;
+                break;
+        }
     }
 }

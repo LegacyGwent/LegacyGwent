@@ -20515,6 +20515,14 @@ MonoBehaviour:
   EnemyAvatarTarget: {fileID: 0}
   EnemyBorderTarget: {fileID: 0}
   EnemyFactionBackground: {fileID: 0}
+  NorthernRealmsContent: {fileID: 21300008, guid: bba55c97b537b754eb6dc5e7831360fb,
+    type: 3}
+  ScoiaTaelContent: {fileID: 21300006, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
+  MonstersContent: {fileID: 21300002, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
+  SkelligeContent: {fileID: 21300000, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
+  NilfgaardContent: {fileID: 21300004, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
+  NeutralContent: {fileID: 8021585624469259523, guid: bba55c97b537b754eb6dc5e7831360fb,
+    type: 3}
 --- !u!223 &1566285535
 Canvas:
   m_ObjectHideFlags: 0
