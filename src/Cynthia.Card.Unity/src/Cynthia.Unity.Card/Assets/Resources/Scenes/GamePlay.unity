@@ -17102,6 +17102,14 @@ MonoBehaviour:
   CopperBorder: {fileID: 21300000, guid: e5e25077a7d34894b88ce4526f8c1ded, type: 3}
   SilverBorder: {fileID: 21300000, guid: 801e15a3d111a6244926726b6c6d3563, type: 3}
   GoldBorder: {fileID: 21300000, guid: dcc77a28287f2064f8513607ae178cc1, type: 3}
+  NorthernRealmsNormalIcon: {fileID: 21300000, guid: fc7f70def72bdc44a8eccbee1f98571a,
+    type: 3}
+  ScoiaTaelNormalIcon: {fileID: 21300000, guid: 7911fefde8f57394d883bce97701ab66,
+    type: 3}
+  MonstersNormalIcon: {fileID: 21300000, guid: 248dea354da8187468487c80caccec0e, type: 3}
+  SkelligeNormalIcon: {fileID: 21300000, guid: 8579857593c70af40b952d32b729bd5f, type: 3}
+  NilfgaardNormalIcon: {fileID: 21300000, guid: f01039ef2e82cc148b24ca6995c40063,
+    type: 3}
   NeutralNormalIcon: {fileID: 21300000, guid: 7ade3b0198f3e324c8d1a38f75d3b426, type: 3}
   NorthernRealmsGoldIcon: {fileID: 21300000, guid: c76b41a184c7f1a40a5e27a51a171255,
     type: 3}
@@ -20850,6 +20858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3b71047a014554a822a436a90819bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyCards: {fileID: 1348117544}
   MyLeader: {fileID: 858670469}
   EnemyLeader: {fileID: 1101418533}
   MyNameReadField: {fileID: 2126779625}

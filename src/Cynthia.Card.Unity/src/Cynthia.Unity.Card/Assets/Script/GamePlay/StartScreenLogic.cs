@@ -11,16 +11,16 @@ public class StartScreenLogic : MonoBehaviour
 
     private LocalizationService translator;
 
+    [Header("Scripts")]
+    public MyCards MyCards;
 
-    [Header("Link these in the Inspector")]
-    public LeaderCard MyLeader;
-    public LeaderCard EnemyLeader;
 
     [Header("Read Fields (source of truth)")]
+    public LeaderCard MyLeader;
+    public LeaderCard EnemyLeader;
     public Text MyNameReadField;
     public Text MyMMRReadField;
     public Text MyTitleReadField;
-
     public Text EnemyNameReadField;
     public Text EnemyMMRReadField;
     public Text EnemyTitleReadField;
@@ -184,7 +184,7 @@ public class StartScreenLogic : MonoBehaviour
         SetBackground(myLeaderStatus,MyFactionBackground);
 
 
-        // Enemy fields are read internally but NOT applied
+        MyCards.SetCard(myLeaderStatus.CardId);
     }
 
 
