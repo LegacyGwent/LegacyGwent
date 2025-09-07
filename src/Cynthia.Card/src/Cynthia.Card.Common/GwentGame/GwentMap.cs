@@ -530,7 +530,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "我曾经完成过一份委托。对方要我选择奖赏，我便依照意外率向他索要回报。",
-                    Info = "杰洛特：猎魔大师：改变一名敌方单位的锁定状态并造成4点伤害，如果目标是怪兽单位，则改变锁定状态并摧毁它。",
+                    Info = "改变一名敌方单位的锁定状态并造成4点伤害，如果目标是怪兽单位，则改变锁定状态并摧毁它。",
                     CardArtsId = "20175900",
                     LinkedCards=new List<String> {},
                 }
@@ -2978,7 +2978,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Relict},
                     Flavor = "它会在其它我们所无法触及的地方再次崛起。厄运会再次降临。",
-                    Info = "创造1张铜色/银色“有机”牌。",
+                    Info = "创造1张银色“有机”牌。",
                     CardArtsId = "20158700",
                     LinkedCards=new List<String> {"13030","13040","23021","23022"},
                 }
@@ -14495,7 +14495,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "和欧吉尔德的婚约犹如一场美梦……",
-                    Info = "休战：向双方手牌中添加两张爱丽丝的伙伴。",
+                    Info = "休战：向双方手牌中添加两张爱丽丝的同伴。爱丽丝：庄园幽影在场时，己方的爱丽丝的同伴可以选择丢弃的牌。",
                     CardArtsId = "202399",
                     LinkedCards=new List<String> {"13004"},
                 }
@@ -14832,7 +14832,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "你有萝卜所具备的一切美德一沉默寡言",
-                    Info = "生成一-头“熊”，同排存在猎魔人时，改为生成“狂暴的熊”",
+                    Info = "生成一只熊。下个回合开始时，将同排的一只熊转化为狂暴的熊。",
                     CardArtsId = "c10004000",
                     LinkedCards=new List<String> {"15010","65002"},
                 }
@@ -15002,7 +15002,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "选择一个友方吸血鬼，使其汲取一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
+                    Info = "免疫，生成左翼和右翼。回合开始时，获得3点增益，若己方场上没有左右翼，改为摧毁自身。",
                     CardArtsId = "r9900000",
                     LinkedCards=new List<String> {"70181","70182"},
                 }
@@ -15086,7 +15086,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。",
-                    Info = "Boost self by 4 when a leader is played. Decrease the boost by 1 for each time this card has been boosted by its own ability previously this round - 2 armor.",
+                    Info = "2点护甲。领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
                     CardArtsId = "202453",
                     LinkedCards=new List<String> {},
                 }
