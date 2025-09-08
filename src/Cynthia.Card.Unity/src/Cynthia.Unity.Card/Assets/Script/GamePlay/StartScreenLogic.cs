@@ -52,6 +52,12 @@ public class StartScreenLogic : MonoBehaviour
     public Image EnemyAvatarTarget;
     public Image EnemyBorderTarget;
     public Image EnemyFactionBackground;
+    [Header("Bacground Fields")]
+    public Image MyLeft;
+    public Image MyRight;
+    public Image EnemyLeft;
+    public Image EnemyRight;
+
 
     [Header("Card Sprites")]
     public Sprite NorthernRealmsContent;
@@ -74,6 +80,7 @@ public class StartScreenLogic : MonoBehaviour
     public Sprite NRRight;
     public Sprite MOLeft;
     public Sprite MORight;
+
 
 
 
@@ -191,16 +198,14 @@ public class StartScreenLogic : MonoBehaviour
         MyNameField.text = myNameValue;
         MyMMRField.text = myMMRValue;
         MyTitleField.text = myTitleValue;
-
         MyLeaderNameField.text=translator.GetCardName(myLeaderStatus.CardId);
         MyLeaderTagsField.text=TagToString(myLeaderStatus);
-
         MyAvatarTarget.sprite = loadedMyAvatar;
         MyBorderTarget.sprite = loadedMyBorder;
-        SetBackground(myLeaderStatus,MyFactionBackground);
-
-
+        SetTextBackground(myLeaderStatus,MyFactionBackground);
+        SetBackground(myLeaderStatus,MyLeft,MyRight);
         MyCards.SetCard(myLeaderStatus.CardId);
+
     }
 
 
@@ -219,7 +224,7 @@ public class StartScreenLogic : MonoBehaviour
         }
         return tagtext;
     }
-    public void SetBackground(CardStatus Card, Image target)
+    public void SetTextBackground(CardStatus Card, Image target)
     {
         switch (GwentMap.CardMap[myLeaderStatus.CardId].Faction)
         {
@@ -242,5 +247,41 @@ public class StartScreenLogic : MonoBehaviour
                 target.sprite = NeutralContent;
                 break;
         }
+    }
+    public void SetBackground(CardStatus Card, Image Left, Image Right)
+    {
+        switch (GwentMap.CardMap[myLeaderStatus.CardId].Faction)
+        {
+            case Faction.Monsters:
+                Left.sprite = MOLeft;
+                Right.sprite = MORight;
+                break;
+            case Faction.Nilfgaard:
+                Left.sprite = NGLeft;
+                Right.sprite = NGRight;
+                break;
+            case Faction.NorthernRealms:
+                Left.sprite = NRLeft;
+                Right.sprite = NRRight;
+                break;
+            case Faction.ScoiaTael:
+                Left.sprite = STLeft;
+                Right.sprite = STRight;
+                break;
+            case Faction.Skellige:
+                Left.sprite = SKLeft;
+                Right.sprite = SKRight;
+                break;
+            case Faction.Neutral:
+                Left.sprite = NeutralLeft;
+                Right.sprite = NeutralRight;
+                break;
+        }
+    }
+    public void SetRank(int MMR,  Image Image, Text RangField)
+    {
+        int rang = min(max((MMR-3400)/50,0),21);
+        RangField.text =r ang.ToString();
+        
     }
 }
