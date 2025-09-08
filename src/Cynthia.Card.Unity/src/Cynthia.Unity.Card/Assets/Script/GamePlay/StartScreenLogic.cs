@@ -53,13 +53,29 @@ public class StartScreenLogic : MonoBehaviour
     public Image EnemyBorderTarget;
     public Image EnemyFactionBackground;
 
-    [Header("Sprites")]
-    public Sprite NorthernRealmsContent;//北方
-    public Sprite ScoiaTaelContent;//松鼠党
-    public Sprite MonstersContent;//怪物
-    public Sprite SkelligeContent;//群岛
-    public Sprite NilfgaardContent;//帝国
-    public Sprite NeutralContent;//中立
+    [Header("Card Sprites")]
+    public Sprite NorthernRealmsContent;
+    public Sprite ScoiaTaelContent;
+    public Sprite MonstersContent;
+    public Sprite SkelligeContent;
+    public Sprite NilfgaardContent;
+    public Sprite NeutralContent;
+
+    [Header("BackGround Sprites")]
+    public Sprite NeutralLeft;
+    public Sprite NeutralRight;
+    public Sprite SKLeft;
+    public Sprite SKRight;
+    public Sprite STLeft;
+    public Sprite STRight;
+    public Sprite NGLeft;
+    public Sprite NGRight;
+    public Sprite NRLeft;
+    public Sprite NRRight;
+    public Sprite MOLeft;
+    public Sprite MORight;
+
+
 
     // Private loaded info
     private CardStatus myLeaderStatus;
