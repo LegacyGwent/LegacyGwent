@@ -3695,7 +3695,7 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right. Crewed: Gain 6 Armor.",
+            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right.\nCrewed: Gain 6 Armor.",
             "Flavor": "Something like the bastard child of a shield and a palisade."
         },
         "70131": {
