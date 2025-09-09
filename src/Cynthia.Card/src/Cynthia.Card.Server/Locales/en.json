@@ -3190,7 +3190,7 @@
         },
         "65004": {
             "Name": "Spectral Whale",
-            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 damage to all units on this row.",
+            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 Damage to all units on this row.",
             "Flavor": "Ehh, too big for a humpback. That's a finback. A finback? With a snout that short? Those herbs've gone to your head!"
         },
         "65005": {
@@ -3485,7 +3485,7 @@
         },
         "70086": {
             "Name": "Philippa: Mistress of the Lodge",
-            "Info": "Deploy, Choose One: Play a bronze or silver mage from your deck; or spawn a bronze spell.",
+            "Info": "Deploy, Choose One: Play a Bronze or Silver Mage from your deck; or Spawn a Bronze Spell.",
             "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "70088": {
