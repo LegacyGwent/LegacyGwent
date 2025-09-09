@@ -17,6 +17,7 @@ public class MyCards : MonoBehaviour
     public Image FactionIcon;
     public Image CardBorder;
     public Image CardImg;
+    public Image BackCard;
 
     [Header("Sprites")]
     public Sprite CopperBorder;
@@ -34,6 +35,13 @@ public class MyCards : MonoBehaviour
     public Sprite SkelligeGoldIcon;
     public Sprite NilfgaardGoldIcon;
     public Sprite NeutralGoldIcon;
+
+    public Sprite NorthernRealmsBack;
+    public Sprite ScoiaTaelBack;
+    public Sprite MonstersBack;
+    public Sprite SkelligeBack;
+    public Sprite NilfgaardBack;
+    public Sprite NeutralBack;
 
     void Start()
     {
@@ -59,32 +67,68 @@ public class MyCards : MonoBehaviour
         if (CardInfo.Group == Cynthia.Card.Group.Gold || CardInfo.Group == Cynthia.Card.Group.Leader)
         {
             if (CardInfo.Faction == Faction.Monsters)
+            {
                 FactionIcon.sprite = MonstersGoldIcon;
-            if (CardInfo.Faction == Faction.Nilfgaard)
+                BackCard.sprite = MonstersBack;
+            }
+            else if (CardInfo.Faction == Faction.Nilfgaard)
+            {
                 FactionIcon.sprite = NilfgaardGoldIcon;
-            if (CardInfo.Faction == Faction.NorthernRealms)
+                BackCard.sprite = NilfgaardBack;
+            }
+            else if (CardInfo.Faction == Faction.NorthernRealms)
+            {
                 FactionIcon.sprite = NorthernRealmsGoldIcon;
-            if (CardInfo.Faction == Faction.ScoiaTael)
+                BackCard.sprite = NorthernRealmsBack;
+            }
+            else if (CardInfo.Faction == Faction.ScoiaTael)
+            {
                 FactionIcon.sprite = ScoiaTaelGoldIcon;
-            if (CardInfo.Faction == Faction.Skellige)
+                BackCard.sprite = ScoiaTaelBack;
+            }
+            else if (CardInfo.Faction == Faction.Skellige)
+            {
                 FactionIcon.sprite = SkelligeGoldIcon;
-            if (CardInfo.Faction == Faction.Neutral)
+                BackCard.sprite = SkelligeBack;
+            }
+            else if (CardInfo.Faction == Faction.Neutral)
+            {
                 FactionIcon.sprite = NeutralGoldIcon;
+                BackCard.sprite = NeutralBack;
+            }
         }
         else
         {
             if (CardInfo.Faction == Faction.Monsters)
+            {
                 FactionIcon.sprite = MonstersNormalIcon;
-            if (CardInfo.Faction == Faction.Nilfgaard)
+                BackCard.sprite = MonstersBack;
+            }
+            else if (CardInfo.Faction == Faction.Nilfgaard)
+            {
                 FactionIcon.sprite = NilfgaardNormalIcon;
-            if (CardInfo.Faction == Faction.NorthernRealms)
+                BackCard.sprite = NilfgaardBack;
+            }
+            else if (CardInfo.Faction == Faction.NorthernRealms)
+            {
                 FactionIcon.sprite = NorthernRealmsNormalIcon;
-            if (CardInfo.Faction == Faction.ScoiaTael)
+                BackCard.sprite = NorthernRealmsBack;
+            }
+            else if (CardInfo.Faction == Faction.ScoiaTael)
+            {
                 FactionIcon.sprite = ScoiaTaelNormalIcon;
-            if (CardInfo.Faction == Faction.Skellige)
+                BackCard.sprite = ScoiaTaelBack;
+            }
+            else if (CardInfo.Faction == Faction.Skellige)
+            {
                 FactionIcon.sprite = SkelligeNormalIcon;
-            if (CardInfo.Faction == Faction.Neutral)
+                BackCard.sprite = SkelligeBack;
+            }
+            else if (CardInfo.Faction == Faction.Neutral)
+            {
                 FactionIcon.sprite = NeutralNormalIcon;
+                BackCard.sprite = NeutralBack;
+            }
         }
     }
     private void SetBorder(Image CardBorder, GwentCard CardInfo)

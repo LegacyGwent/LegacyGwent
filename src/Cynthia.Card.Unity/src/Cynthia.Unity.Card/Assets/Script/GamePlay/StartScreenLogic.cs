@@ -5,6 +5,8 @@ using TMPro;
 using Assets.Script.Localization;
 using Autofac;
 using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using System;
 
 public class StartScreenLogic : MonoBehaviour
 {
@@ -48,10 +50,13 @@ public class StartScreenLogic : MonoBehaviour
     public Image MyAvatarTarget;
     public Image MyBorderTarget;
     public Image MyFactionBackground;
+    public Image MyRank;
 
     public Image EnemyAvatarTarget;
     public Image EnemyBorderTarget;
     public Image EnemyFactionBackground;
+    public Image EnemyRank;
+
     [Header("Bacground Fields")]
     public Image MyLeft;
     public Image MyRight;
@@ -205,6 +210,7 @@ public class StartScreenLogic : MonoBehaviour
         SetTextBackground(myLeaderStatus,MyFactionBackground);
         SetBackground(myLeaderStatus,MyLeft,MyRight);
         MyCards.SetCard(myLeaderStatus.CardId);
+        SetRank(myMMRValue,MyRank);
 
     }
 
@@ -278,10 +284,12 @@ public class StartScreenLogic : MonoBehaviour
                 break;
         }
     }
-    public void SetRank(int MMR,  Image Image, Text RangField)
+    public void SetRank(string MMR, Image myRank)
     {
-        int rang = min(max((MMR-3400)/50,0),21);
-        RangField.text =r ang.ToString();
-        
+        int mmrInt = int.Parse(MMR);
+        int rank = Math.Min(Math.Max((mmrInt - 3400) / 50, 0), 21);
+        var op = Addressables.LoadAssetAsync<Sprite>($"rank_{rank}");
+        Sprite sprite = op.WaitForCompletion();
+        myRank.sprite = sprite;
     }
 }
