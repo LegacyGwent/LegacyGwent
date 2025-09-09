@@ -18835,6 +18835,7 @@ MonoBehaviour:
   MyBackground: {fileID: 987557688}
   EnemyBackground: {fileID: 17129805}
   WholeBackground: {fileID: 1563844904}
+  VS: {fileID: 1062205827}
   MyLeader: {fileID: 858670469}
   EnemyLeader: {fileID: 1101418533}
   MyNameReadField: {fileID: 2126779625}

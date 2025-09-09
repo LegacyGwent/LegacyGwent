@@ -22,7 +22,7 @@ public class StartScreenLogic : MonoBehaviour
     public Animator MyBackground;
     public Animator EnemyBackground;
     public Animator WholeBackground;
-
+    public Animator VS;
     [Header("Read Fields (source of truth)")]
     public LeaderCard MyLeader;
     public LeaderCard EnemyLeader;
@@ -342,6 +342,8 @@ public class StartScreenLogic : MonoBehaviour
         EnemyCards.EnemyCardMoveIn();
         EnemyInfo.FadeIn();
         yield return new WaitForSeconds(3f); 
+        VS.Play("VS_In", 0, 0f);
+        yield return new WaitForSeconds(1f); 
         MyBackground.Play("MyBackgroundFadeIn", 0, 0f);
         MyCards.MyCardMoveIn();
         MyInfo.FadeIn();
