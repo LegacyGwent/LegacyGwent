@@ -15,7 +15,7 @@ public class StartScreenLogic : MonoBehaviour
 
     [Header("Scripts")]
     public MyCards MyCards;
-
+    public MyCards EnemyCards;
 
     [Header("Read Fields (source of truth)")]
     public LeaderCard MyLeader;
@@ -37,7 +37,7 @@ public class StartScreenLogic : MonoBehaviour
     public TextMeshProUGUI EnemyNameField;
     public TextMeshProUGUI EnemyMMRField;
     public TextMeshProUGUI EnemyTitleField;
-    public TextMeshProUGUI EnemyyLeaderNameField;
+    public TextMeshProUGUI EnemyLeaderNameField;
     public TextMeshProUGUI EnemyLeaderTagsField;
 
     [Header("Source Images")]
@@ -111,6 +111,7 @@ public class StartScreenLogic : MonoBehaviour
     {
         init();
         StartCoroutine(WaitForAllInfoWithRetry());
+        //StartCoroutine(CloseAfterSeconds(8f));
     }
     public void init()
     {
@@ -118,7 +119,7 @@ public class StartScreenLogic : MonoBehaviour
     }
     private System.Collections.IEnumerator WaitForAllInfoWithRetry()
     {
-        int maxRetries = 6;
+        int maxRetries = 10;
         float retryDelay = 0.5f;
 
         for (int attempt = 1; attempt <= maxRetries; attempt++)
@@ -200,6 +201,7 @@ public class StartScreenLogic : MonoBehaviour
     // Apply loaded data to TMP fields (my elements only)
     public void ApplyDataToUI()
     {
+        //my
         MyNameField.text = myNameValue;
         MyMMRField.text = myMMRValue;
         MyTitleField.text = myTitleValue;
@@ -211,6 +213,18 @@ public class StartScreenLogic : MonoBehaviour
         SetBackground(myLeaderStatus,MyLeft,MyRight);
         MyCards.SetCard(myLeaderStatus.CardId);
         SetRank(myMMRValue,MyRank);
+        //Enemy
+        EnemyNameField.text = enemyNameValue; //works
+        EnemyMMRField.text = enemyMMRValue; //works
+        EnemyTitleField.text = enemyTitleValue; //works
+        EnemyLeaderNameField.text=translator.GetCardName(enemyLeaderStatus.CardId);//works
+        EnemyLeaderTagsField.text=TagToString(enemyLeaderStatus);//works
+        EnemyAvatarTarget.sprite = loadedEnemyAvatar;//works
+        EnemyBorderTarget.sprite = loadedEnemyBorder;//works
+        SetTextBackground(enemyLeaderStatus,EnemyFactionBackground);//works
+        SetBackground(enemyLeaderStatus,EnemyLeft,EnemyRight);
+        EnemyCards.SetCard(enemyLeaderStatus.CardId);//works
+        SetRank(enemyMMRValue,EnemyRank);//?
 
     }
 
@@ -232,7 +246,7 @@ public class StartScreenLogic : MonoBehaviour
     }
     public void SetTextBackground(CardStatus Card, Image target)
     {
-        switch (GwentMap.CardMap[myLeaderStatus.CardId].Faction)
+        switch (GwentMap.CardMap[Card.CardId].Faction)
         {
             case Faction.Monsters:
                 target.sprite = MonstersContent;
@@ -256,7 +270,8 @@ public class StartScreenLogic : MonoBehaviour
     }
     public void SetBackground(CardStatus Card, Image Left, Image Right)
     {
-        switch (GwentMap.CardMap[myLeaderStatus.CardId].Faction)
+        Debug.Log($"Faction: {GwentMap.CardMap[Card.CardId].Faction}");
+        switch (GwentMap.CardMap[Card.CardId].Faction)
         {
             case Faction.Monsters:
                 Left.sprite = MOLeft;
@@ -287,9 +302,14 @@ public class StartScreenLogic : MonoBehaviour
     public void SetRank(string MMR, Image myRank)
     {
         int mmrInt = int.Parse(MMR);
-        int rank = Math.Min(Math.Max((mmrInt - 3400) / 50, 0), 21);
+        int rank = Math.Min(Math.Max((mmrInt - 3400) / 50, 1), 21);
         var op = Addressables.LoadAssetAsync<Sprite>($"rank_{rank}");
         Sprite sprite = op.WaitForCompletion();
         myRank.sprite = sprite;
+    }
+    private System.Collections.IEnumerator CloseAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        gameObject.SetActive(false);
     }
 }

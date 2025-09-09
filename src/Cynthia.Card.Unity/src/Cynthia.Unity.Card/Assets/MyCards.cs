@@ -49,7 +49,7 @@ public class MyCards : MonoBehaviour
     }
     public void SetCard(string CardId)
     {
-        Debug.Log("xxxxxxx "+CardId);
+        //Debug.Log("xxxxxxx "+CardId);
         
         var CardInfo = GwentMap.CardMap[CardId];
 

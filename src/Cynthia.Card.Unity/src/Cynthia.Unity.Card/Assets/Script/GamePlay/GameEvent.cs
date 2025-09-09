@@ -90,6 +90,7 @@ public class GameEvent : MonoBehaviour
     private float pressTime = 0; // time pressed on mobile
     private bool IsRightClickMobile = false;
     public bool shorterTimer=false;
+    public GameObject StartScreen;
     private void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
@@ -1396,5 +1397,7 @@ public class GameEvent : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync("RightClick");
         }
+        StartScreen.SetActive(false);
+
     }
 }
