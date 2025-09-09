@@ -11,7 +11,8 @@ public class MyCards : MonoBehaviour
 {
     //logic
     //private LocalizationService translator;
-
+    [Header ("Animations")]
+    public Animator animator;
     [Header("Fields")]
     public Text Strength;
     public Image FactionIcon;
@@ -45,6 +46,8 @@ public class MyCards : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+        //animator.speed = 0.5f;
         //translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     public void SetCard(string CardId)
@@ -139,5 +142,21 @@ public class MyCards : MonoBehaviour
             CardBorder.sprite = SilverBorder;
         if (CardInfo.Group == Cynthia.Card.Group.Copper)
             CardBorder.sprite = CopperBorder;
+    }
+    public void MyCardMoveOut()
+    {
+        animator.Play("MyCardMoveOut", 0, 0f);
+    }
+    public void EnemyCardMoveOut()
+    {
+        animator.Play("EnemyCardMoveOut", 0, 0f);
+    }
+    public void MyCardMoveIn()
+    {
+        animator.Play("MyCardMoveIn", 0, 0f);
+    }
+    public void EnemyCardMoveIn()
+    {
+        animator.Play("EnemyCardMoveIn", 0, 0f);
     }
 }

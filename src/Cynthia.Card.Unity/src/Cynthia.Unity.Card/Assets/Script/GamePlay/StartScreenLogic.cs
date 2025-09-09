@@ -7,6 +7,7 @@ using Autofac;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using System;
+using System.Collections;
 
 public class StartScreenLogic : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class StartScreenLogic : MonoBehaviour
     [Header("Scripts")]
     public MyCards MyCards;
     public MyCards EnemyCards;
+    public StartingInfo MyInfo;
+    public StartingInfo EnemyInfo;
 
     [Header("Read Fields (source of truth)")]
     public LeaderCard MyLeader;
@@ -110,8 +113,9 @@ public class StartScreenLogic : MonoBehaviour
     private void Start()
     {
         init();
-        StartCoroutine(WaitForAllInfoWithRetry());
-        //StartCoroutine(CloseAfterSeconds(8f));
+        //StartCoroutine(WaitForAllInfoWithRetry());
+        //StartCoroutine(CloseAfterSeconds(2f));
+        StartCoroutine(PlayAnimations());
     }
     public void init()
     {
@@ -307,9 +311,34 @@ public class StartScreenLogic : MonoBehaviour
         Sprite sprite = op.WaitForCompletion();
         myRank.sprite = sprite;
     }
+
     private System.Collections.IEnumerator CloseAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator PlayAnimations()
+    {
+        //yield return new WaitForSeconds(1f); 
+        //MyCards.CardsSlideIn();
+        //EnemyCards.CardsSlideIn();
+        //yield return new WaitForSeconds(1f); 
+        //MyCards.CardsSlideOut();
+        //EnemyCards.CardsSlideOut();
+        //yield return new WaitForSeconds(1f); 
+        //MyInfo.FadeOut();
+        //EnemyInfo.FadeOut();
+        //yield return new WaitForSeconds(1f); 
+        //MyInfo.FadeIn();
+        //EnemyInfo.FadeIn();
+        yield return new WaitForSeconds(1f); 
+
+        //MyCards.MyCardMoveOut();
+        EnemyCards.EnemyCardMoveIn();
+        MyCards.MyCardMoveIn();
+        yield return new WaitForSeconds(3f); 
+        EnemyCards.EnemyCardMoveOut();
+        MyCards.MyCardMoveOut();
     }
 }
