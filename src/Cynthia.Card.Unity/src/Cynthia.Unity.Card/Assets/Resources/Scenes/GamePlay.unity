@@ -385,6 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17129803}
   - component: {fileID: 17129804}
+  - component: {fileID: 17129805}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -425,6 +426,25 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &17129805
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17129802}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf56c53aa5e2d5f44a395d1c2505a416, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &31303364
 GameObject:
   m_ObjectHideFlags: 0
@@ -12282,6 +12302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987557686}
   - component: {fileID: 987557687}
+  - component: {fileID: 987557688}
   m_Layer: 5
   m_Name: My
   m_TagString: Untagged
@@ -12322,6 +12343,25 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &987557688
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987557685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c79857d9e7b34b546a11ebe29cb4f9c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1021681531
 GameObject:
   m_ObjectHideFlags: 0
@@ -18668,6 +18708,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1563844903}
+  - component: {fileID: 1563844905}
+  - component: {fileID: 1563844904}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -18700,6 +18742,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1563844904
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563844902}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ed975f227d0b364f998151bd734590b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &1563844905
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563844902}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1566285532
 GameObject:
   m_ObjectHideFlags: 0
@@ -18759,6 +18832,9 @@ MonoBehaviour:
   EnemyCards: {fileID: 649411809}
   MyInfo: {fileID: 1338540845}
   EnemyInfo: {fileID: 1851936973}
+  MyBackground: {fileID: 987557688}
+  EnemyBackground: {fileID: 17129805}
+  WholeBackground: {fileID: 1563844904}
   MyLeader: {fileID: 858670469}
   EnemyLeader: {fileID: 1101418533}
   MyNameReadField: {fileID: 2126779625}
@@ -26598,6 +26674,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351069252603820964, guid: a177a7981c1fb534c81b947ac4ac6622,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351069252603820964, guid: a177a7981c1fb534c81b947ac4ac6622,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351069252603820964, guid: a177a7981c1fb534c81b947ac4ac6622,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351069252603820964, guid: a177a7981c1fb534c81b947ac4ac6622,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a177a7981c1fb534c81b947ac4ac6622, type: 3}

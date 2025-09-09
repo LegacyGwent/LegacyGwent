@@ -19,6 +19,9 @@ public class StartScreenLogic : MonoBehaviour
     public MyCards EnemyCards;
     public StartingInfo MyInfo;
     public StartingInfo EnemyInfo;
+    public Animator MyBackground;
+    public Animator EnemyBackground;
+    public Animator WholeBackground;
 
     [Header("Read Fields (source of truth)")]
     public LeaderCard MyLeader;
@@ -335,10 +338,18 @@ public class StartScreenLogic : MonoBehaviour
         yield return new WaitForSeconds(1f); 
 
         //MyCards.MyCardMoveOut();
+        EnemyBackground.Play("EnemyBackgroundFadeIn", 0, 0f);
         EnemyCards.EnemyCardMoveIn();
+        EnemyInfo.FadeIn();
+        yield return new WaitForSeconds(3f); 
+        MyBackground.Play("MyBackgroundFadeIn", 0, 0f);
         MyCards.MyCardMoveIn();
+        MyInfo.FadeIn();
         yield return new WaitForSeconds(3f); 
         EnemyCards.EnemyCardMoveOut();
         MyCards.MyCardMoveOut();
+        WholeBackground.Play("BackgroundFadeOut", 0, 0f);
+        MyInfo.FadeOut();
+        EnemyInfo.FadeOut();
     }
 }
