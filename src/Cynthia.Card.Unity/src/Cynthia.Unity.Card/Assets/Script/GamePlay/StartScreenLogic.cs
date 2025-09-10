@@ -341,7 +341,7 @@ public class StartScreenLogic : MonoBehaviour
         MyCards.MyCardMoveIn();
         MyInfo.FadeIn();
         AudioManager.Instance.PlayAudio(GwentMap.CardMap[myLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
-        yield return new WaitForSeconds(2f); 
+        yield return new WaitForSeconds(3f); 
         EnemyCards.EnemyCardMoveOut();
         MyCards.MyCardMoveOut();
         WholeBackground.Play("BackgroundFadeOut", 0, 0f);
