@@ -166,6 +166,10 @@ public class StartScreenLogic : MonoBehaviour
 
             if (attempt < maxRetries)
                 yield return new WaitForSeconds(retryDelay);
+            if (attempt >= maxRetries)
+            {
+                StartCoroutine(CloseAfterSeconds(0f));
+            }
         }
     }
 
