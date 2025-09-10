@@ -15023,7 +15023,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid,Categorie.Token},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "2点护甲。",
+                    Info = "3点护甲。",
                     CardArtsId = "r10300000",
                     LinkedCards=new List<String> {},
                 }
@@ -15044,7 +15044,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid,Categorie.Token},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "2点护甲。",
+                    Info = "3点护甲。",
                     CardArtsId = "r10200000",
                     LinkedCards=new List<String> {},
                 }
