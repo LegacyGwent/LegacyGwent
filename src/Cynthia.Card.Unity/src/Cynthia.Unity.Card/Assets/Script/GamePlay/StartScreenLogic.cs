@@ -116,9 +116,9 @@ public class StartScreenLogic : MonoBehaviour
     private void Start()
     {
         init();
-        //StartCoroutine(WaitForAllInfoWithRetry());
+        StartCoroutine(WaitForAllInfoWithRetry());
         //StartCoroutine(CloseAfterSeconds(2f));
-        StartCoroutine(PlayAnimations());
+        //StartCoroutine(PlayAnimations());
     }
     public void init()
     {
@@ -160,7 +160,7 @@ public class StartScreenLogic : MonoBehaviour
                 enemyAvatarReady && enemyBorderReady)
             {
                 Debug.Log("All data loaded, applying my UI elements now.");
-                ApplyDataToUI(); // only my fields/images
+                ApplyDataToUI();
                 yield break;
             }
 
@@ -233,6 +233,7 @@ public class StartScreenLogic : MonoBehaviour
         EnemyCards.SetCard(enemyLeaderStatus.CardId);//works
         SetRank(enemyMMRValue,EnemyRank);//?
 
+        StartCoroutine(PlayAnimations());
     }
 
 
@@ -323,21 +324,8 @@ public class StartScreenLogic : MonoBehaviour
 
     private IEnumerator PlayAnimations()
     {
+        Debug.Log("Start Animations");
         //yield return new WaitForSeconds(1f); 
-        //MyCards.CardsSlideIn();
-        //EnemyCards.CardsSlideIn();
-        //yield return new WaitForSeconds(1f); 
-        //MyCards.CardsSlideOut();
-        //EnemyCards.CardsSlideOut();
-        //yield return new WaitForSeconds(1f); 
-        //MyInfo.FadeOut();
-        //EnemyInfo.FadeOut();
-        //yield return new WaitForSeconds(1f); 
-        //MyInfo.FadeIn();
-        //EnemyInfo.FadeIn();
-        yield return new WaitForSeconds(1f); 
-
-        //MyCards.MyCardMoveOut();
         EnemyBackground.Play("EnemyBackgroundFadeIn", 0, 0f);
         EnemyCards.EnemyCardMoveIn();
         EnemyInfo.FadeIn();
@@ -353,5 +341,7 @@ public class StartScreenLogic : MonoBehaviour
         WholeBackground.Play("BackgroundFadeOut", 0, 0f);
         MyInfo.FadeOut();
         EnemyInfo.FadeOut();
+
+        
     }
 }
