@@ -116,9 +116,9 @@ public class StartScreenLogic : MonoBehaviour
     private void Start()
     {
         init();
-        //StartCoroutine(WaitForAllInfoWithRetry());
+        StartCoroutine(WaitForAllInfoWithRetry());
         //StartCoroutine(CloseAfterSeconds(2f));
-        StartCoroutine(PlayAnimations());
+        //StartCoroutine(PlayAnimations());
     }
     public void init()
     {
@@ -333,14 +333,14 @@ public class StartScreenLogic : MonoBehaviour
         EnemyBackground.Play("EnemyBackgroundFadeIn", 0, 0f);
         EnemyCards.EnemyCardMoveIn();
         EnemyInfo.FadeIn();
-        //AudioManager.Instance.PlayAudio(GwentMap.CardMap[enemyLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        AudioManager.Instance.PlayAudio(GwentMap.CardMap[enemyLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
         yield return new WaitForSeconds(2f); 
         VS.Play("VS_In", 0, 0f);
         yield return new WaitForSeconds(0.5f); 
         MyBackground.Play("MyBackgroundFadeIn", 0, 0f);
         MyCards.MyCardMoveIn();
         MyInfo.FadeIn();
-        //AudioManager.Instance.PlayAudio(GwentMap.CardMap[myLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        AudioManager.Instance.PlayAudio(GwentMap.CardMap[myLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
         yield return new WaitForSeconds(2f); 
         EnemyCards.EnemyCardMoveOut();
         MyCards.MyCardMoveOut();
