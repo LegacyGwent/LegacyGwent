@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 132);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 133);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1157,7 +1157,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13004", //Iris' Companions
                     Name="爱丽丝的同伴",
-                    Strength=12,
+                    Strength=11,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15076,7 +15076,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70184", //Ard Feainn Heavy Cavalry
                     Name="日轮之师重骑兵",
-                    Strength=9,
+                    Strength=10,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15097,7 +15097,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70185", //Noon Wraith
                     Name="日间妖灵",
-                    Strength=14,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15106,20 +15106,19 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Specter},
-                    HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "和常识相反，农夫白天不干活，不是为了躲太阳。是为了躲日间妖灵。",
-                    Info = "遗愿，在对方同排生成3只老鼠。",
+                    Info = "部署：在本排和对方同排各生成一个“镜像”。\n回合结束时，重复部署效果，然后将自身转化为夜之妖灵，战力不变。",
                     CardArtsId = "202530",
-                    LinkedCards=new List<String> {},
+                    LinkedCards=new List<String> {"70186", "70187"},
                 }
             },
             {
-                "70186",//老鼠 Rat
+                "70186",//老鼠
                 new GwentCard()
                 {
-                    CardId ="70186", //Rat
+                    CardId ="70186", //Mirror Image
                     Name="老鼠",
-                    Strength=3,
+                    Strength=1,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15127,11 +15126,32 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{Categorie.Beast, Categorie.Token},
-                    Flavor = "“我叫她小小鼠疫，很可爱，是不是？”",
-                    Info = "没有特殊技能。",
-                    CardArtsId = "202567",
-                    LinkedCards=new List<String> {},
+                    Categories = new Categorie[]{Categorie.Specter, Categorie.Token},
+                    Flavor = "无特殊效果",
+                    Info = "他们散发出这般深重的悲哀，这般无助的幽灵……我惧怕他们，如同惧怕任何人。但我最同情他们。",
+                    CardArtsId = "c10002700",
+                    LinkedCards=new List<String> {"70185", "70187"},
+                }
+            },
+            {
+                "70187",//夜之妖灵 Nightwraith
+                new GwentCard()
+                {
+                    CardId ="70187", //Nightwraith
+                    Name="老鼠",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = true,
+                    Categories = new Categorie[]{Categorie.Specter, Categorie.Token},
+                    Flavor = "一个苍白憔悴，衣衫褴褛的女人，能有多大危害？危害可大了。",
+                    Info = "回合结束时，提升己方同排所有镜像战力1点，然后将自己转换为日间妖灵，不改变其战力。",
+                    CardArtsId = "202531",
+                    LinkedCards=new List<String> {"70185", "70186"},
                 }
             },
         };

@@ -3970,13 +3970,18 @@
         },
         "70185": {
             "Name": "Południca",
-            "Info": "Zemsta: Przyzwij 3 Szczury do wrogiego rzędu.",
+            "Info": "Rozmieszcznie: Stwórz Widmowe odbicie w tym i przeciwnym rzędzie. Na koniec tury powtórz efekt Rozmieszczenia i przemień się w Północnice bez zmieniania siły.",
             "Flavor": "Wbrew temu, co się powszechnie sądzi, chłopi nie przerywają pracy w środku dnia, żeby się schronić przed upałem – tylko przed południcami."
         },
         "70186": {
-            "Name": "Szczur",
-            "Info": "Brak umiejętności.",
-            "Flavor": "Nazwałam tę malutką Yersinia. Słodka jest, nieprawdaż?"
+            "Name": "Widmowe Odbicie",
+            "Info": "Brak umiejętności",
+            "Flavor": ""
+        },
+        "70187": {
+            "Name": "Północnica",
+            "Info": "Na koniec tury Wzmocnij wszystkie Widmowe Odbicia w tym i przeciwnym rzędzie i przemień się w Południce bez zmieniania siły.",
+            "Flavor": "Ile szkody zdoła w końcu wyrządzić blada, zasuszona kobieta zaplątana w podarte suknie? Otóż dużo."
         },
         "80001": {
             "Name": "Auberon Król",

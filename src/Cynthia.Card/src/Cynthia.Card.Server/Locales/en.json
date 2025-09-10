@@ -3969,14 +3969,19 @@
             "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
         },
         "70185": {
-            "Name": "Noon Wraith",
-            "Info": "Deathwish: Spawn 3 Rats on the opposite row.",
+            "Name": "Noonwraith",
+            "Info": "Deploy: Spawn a Mirror Image on this and the opposing row.\nOn turn end, repeat Deploy ability, then transform self into a Nightwraith without changing its power.",
             "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
         },
         "70186": {
-            "Name": "Rat",
+            "Name": "Mirror Image",
             "Info": "No ability.",
-            "Flavor": "I call the tiny one Yersinia. She's cute, isn't she?"
+            "Flavor": "They exude this immense sadness, this helpless wraith... I fear them, same as anyone. But most of all I feel sorry for them."
+        },
+        "70187": {
+            "Name": "Nightwraith",
+            "Info": "On turn end Boost all Mirror Images on this and oposing row by 1, then  Transform self into a Noonwraith without changing its power.",
+            "Flavor": "How much damage can a pale, emaciated woman, entangled in a ripped dress, do? A lot, it turns out."
         },
         "80001": {
             "Name": "Auberon: King",
