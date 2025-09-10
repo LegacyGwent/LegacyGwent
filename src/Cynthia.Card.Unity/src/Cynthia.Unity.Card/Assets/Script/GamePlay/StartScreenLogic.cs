@@ -126,7 +126,7 @@ public class StartScreenLogic : MonoBehaviour
     }
     private System.Collections.IEnumerator WaitForAllInfoWithRetry()
     {
-        int maxRetries = 10;
+        int maxRetries = 16;
         float retryDelay = 0.5f;
 
         for (int attempt = 1; attempt <= maxRetries; attempt++)
