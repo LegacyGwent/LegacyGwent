@@ -664,6 +664,7 @@ namespace Cynthia.Card
         public const string FeastOfBlood = "70183";
         public const string ArdFeainnHeavyCavalry = "70184";
         public const string NoonWraith = "70185";
-        public const string Rat = "70186";
+        public const string MirrorImage = "70186";
+        public const string NightWraith = "70187";
     }
 }
