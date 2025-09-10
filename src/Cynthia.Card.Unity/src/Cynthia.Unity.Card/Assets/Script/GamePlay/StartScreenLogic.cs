@@ -329,12 +329,14 @@ public class StartScreenLogic : MonoBehaviour
         EnemyBackground.Play("EnemyBackgroundFadeIn", 0, 0f);
         EnemyCards.EnemyCardMoveIn();
         EnemyInfo.FadeIn();
+        AudioManager.Instance.PlayAudio(GwentMap.CardMap[enemyLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
         yield return new WaitForSeconds(3f); 
         VS.Play("VS_In", 0, 0f);
         yield return new WaitForSeconds(1f); 
         MyBackground.Play("MyBackgroundFadeIn", 0, 0f);
         MyCards.MyCardMoveIn();
         MyInfo.FadeIn();
+        AudioManager.Instance.PlayAudio(GwentMap.CardMap[myLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
         yield return new WaitForSeconds(3f); 
         EnemyCards.EnemyCardMoveOut();
         MyCards.MyCardMoveOut();
