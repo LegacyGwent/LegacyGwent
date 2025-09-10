@@ -3765,7 +3765,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck instead.",
+            "Info": "Deploy: Play a copy of this unit from your deck.\nIf there is no copy of this card in your deck, add a copy instead.",
             "Flavor": "She thought service in the diplomatic corps would mean a quiet life behind a desk. She and her blistered feet were sorely mistaken..."
         },
         "70145": {
