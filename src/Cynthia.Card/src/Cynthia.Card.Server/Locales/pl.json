@@ -453,12 +453,14 @@
         "OCCASIONALDRINKERDescription": "Wygraj mecz rankingowy, zdobywając więcej niż 200 pkt w jednej rundzie.",
         "$$$MILLIONAIRE$$$Name": "$$$MILIONER$$$",
         "$$$MILLIONAIRE$$$Description": "W swobodnym meczu, jeden z graczy musi zdobyć 1 000 000 pkt lub więcej.",
-        "CompetitorName": "KONKURENTA",
-        "CompetitorDescription": "Uczestnicz w turnieju.",
-        "DeveloperName": "DEWELOPER",
-        "DeveloperDescription": "Wspomagaj rozwój gry.",
         "G_BeerName": "Piwna Ramka",
         "G_BeerDescription": "Wygraj 5 meczy rankingowych, zdobywając więcej niż 200 pkt w jednej rundzie.",
+        "COMPETITORName": "KONKURENTA",
+        "CCOMPETITORDescription": "Uczestnicz w turnieju.",
+        "DEVELOPERName": "DEWELOPER",
+        "DEVELOPERDescription": "Wspomagaj rozwój gry.",
+        "Rank21Border2Name" : "CZEMPION TURNIEJU",
+        "Rank21Border2Description" : "Wygraj turniej.",
         "IngameMenu_GGButton": "GG!",
         "GG_Message1": "Good Game! Twój przeciwnik ",
         "GG_Message2": " wysłał GG!",
@@ -688,7 +690,7 @@
         },
         "12013": {
             "Name": "Lambert Fechmistrz",
-            "Info": "Rozmieszczenie: Zadaj 4 pkt obrażeń wszystkim egzemplarzom wrogiej jednostki.",
+            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń wszystkim egzemplarzom wrogiej jednostki.",
             "Flavor": "Nie ucz ojca dzieci robić."
         },
         "12014": {
@@ -3413,7 +3415,7 @@
         },
         "70062": {
             "Name": "Ożywiona Zbroja",
-            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5 pkt obrażeń na raz.",
+            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5 pkt obrażeń na raz. 2pkt pancerza.",
             "Flavor": "Owszem, kosztowna. Ale biorąc pod uwagę oszczędności na wikcie i opierunku, inwestycja zwróci się jeszcze w tym stuleciu!"
         },
         "70070": {
@@ -3812,7 +3814,7 @@
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
-            "Name": "Iris: Shade",
+            "Name": "Iris Upiór",
             "Info": "Rozmieszczenie, Rozejm: Dodaj 2 Towarzyszy Iris do ręki obu graczy.",
             "Flavor": "Olgierd narzeczoną miał jak sen…"
         },
@@ -3838,7 +3840,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Odrzuć 3 brązowe specjalne karty z twojej talii. Za każdą odrzuconą kartę przyzwij kruka.",
+            "Info": "Rozmieszczenie: Odrzuć 3 brązowe karty specjalne z twojej talii. Za każdą odrzuconą kartę przyzwij kruka.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -3923,7 +3925,7 @@
         },
         "70176": {
             "Name": "Hybryda",
-            "Info": "Rozmieszczenie: Wzmocnij bestie w Twojej talii o 2.\nZemsta:Wzmocnij najsłabszą bestie w Twojej talii o 4.",
+            "Info": "Rozmieszczenie: Wzmocnij nie Złotą bestię w Twojej talii o 2.\nZemsta:Wzmocnij najsłabszą nie Złotą bestię w Twojej talii o 4.",
             "Flavor": "Co dwie głowy to nie jedna."
         },
         "70177": {
@@ -3958,7 +3960,7 @@
         },
         "70183": {
             "Name": "Krwawa uczta",
-            "Info": "Wybierz sojuszniczego wampira, który wykradnie 4 siły z wroga. A jeśli przeżyje, stwórz Wąpierza po prawej stronie wybranego wcześniej wampira. ",
+            "Info": "Wybierz sojuszniczego wampira, który wykradnie 4 siły wrogowi. Jeśli wróg przeżyje, stwórz Wąpierza po prawej stronie tej jednostki. ",
             "Flavor": "Wampir potrafi nie jeść nawet trzy lata. Ale kiedy już rusza na łowy... Nie spocznie, dopóki nie opije się krwią."
         },
         "70184": {

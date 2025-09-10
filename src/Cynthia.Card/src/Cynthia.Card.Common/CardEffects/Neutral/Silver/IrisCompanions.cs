@@ -22,9 +22,9 @@ namespace Cynthia.Card
             await Game.PlayerDrawCard(PlayerIndex);//抽卡
                                                    //---------------------------------------------------------------------------
                                                    //随机弃掉一张
-            var IrisCount = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x.Status.CardId == "70154" && x.Status.IsLock == false).ToList().Count();
+            var IrisCount = Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.Status.CardId == "70154" && x.Status.IsLock == false).ToList().Count();
             if (IrisCount > 0)
-                //如果有爱丽丝,则让玩家选择要弃掉的牌
+            //如果有爱丽丝,则让玩家选择要弃掉的牌
             {
                 var discardcard = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex], isCanOver: true);
                 await discardcard.Single().Effect.Discard(Card);
