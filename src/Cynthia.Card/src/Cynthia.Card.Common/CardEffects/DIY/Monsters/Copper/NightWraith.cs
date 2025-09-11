@@ -19,7 +19,10 @@ namespace Cynthia.Card
                     await card.Effect.Boost(1, Card);
                 }
                 //transform self into a Noonwraith.
-                await Card.Effect.Transform(CardId.NoonWraith, Card, isForce: true);
+                await Card.Effect.Transform(CardId.NoonWraith, Card, x => {
+                    x.Status.Strength = Card.Status.Strength;
+                    x.Status.HealthStatus = Card.Status.HealthStatus;
+                });
                 return;
             }
         }

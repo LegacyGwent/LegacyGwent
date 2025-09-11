@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public GeraltProfessional(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow, isHasConceal: true );
             if (cards.Count == 0) return 0;
             var card = cards.Single();
             await card.Effect.Lock(Card);

@@ -23,7 +23,10 @@ namespace Cynthia.Card
                 await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow);
                 await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow);
                 //and transform into a Nightwraith.
-                await Card.Effect.Transform(CardId.NightWraith, Card, isForce: true);
+                await Card.Effect.Transform(CardId.NightWraith, Card, x => {
+                    x.Status.Strength = Card.Status.Strength;
+                    x.Status.HealthStatus = Card.Status.HealthStatus;
+                });
             }
             return;
         }
