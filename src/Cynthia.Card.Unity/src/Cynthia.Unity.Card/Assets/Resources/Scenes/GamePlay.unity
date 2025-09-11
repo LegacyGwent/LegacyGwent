@@ -18828,6 +18828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3b71047a014554a822a436a90819bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 31303366}
   MyCards: {fileID: 1348117544}
   EnemyCards: {fileID: 649411809}
   MyInfo: {fileID: 1338540845}

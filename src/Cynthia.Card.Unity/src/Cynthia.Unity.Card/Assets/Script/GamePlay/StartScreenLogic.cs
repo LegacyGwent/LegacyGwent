@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using System;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class StartScreenLogic : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class StartScreenLogic : MonoBehaviour
     private LocalizationService translator;
 
     [Header("Scripts")]
+    public EventSystem eventSystem;
+
     public MyCards MyCards;
     public MyCards EnemyCards;
     public StartingInfo MyInfo;
@@ -115,6 +118,7 @@ public class StartScreenLogic : MonoBehaviour
 
     private void Start()
     {
+        DisableMouseInput();
         init();
         StartCoroutine(WaitForAllInfoWithRetry());
         //StartCoroutine(CloseAfterSeconds(2f));
@@ -123,6 +127,16 @@ public class StartScreenLogic : MonoBehaviour
     public void init()
     {
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
+    }
+    private void Awake()
+    {
+        // Try to find EventSystem automatically
+        eventSystem = EventSystem.current;
+
+        if (eventSystem == null)
+        {
+            Debug.LogWarning("No EventSystem found in the scene!");
+        }
     }
     private System.Collections.IEnumerator WaitForAllInfoWithRetry()
     {
@@ -351,7 +365,22 @@ public class StartScreenLogic : MonoBehaviour
         WholeBackground.Play("BackgroundFadeOut", 0, 0f);
         MyInfo.FadeOut();
         EnemyInfo.FadeOut();
+        yield return new WaitForSeconds(0.5f); 
+        EnableMouseInput();
+    
+    }
 
-        
+    public void DisableMouseInput()
+    {
+        if (eventSystem != null)
+            eventSystem.enabled = false;
+    }
+
+    // Enable mouse input
+    public void EnableMouseInput()
+    {
+        if (eventSystem != null)
+            eventSystem.enabled = true;
     }
 }
+ 
