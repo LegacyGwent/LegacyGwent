@@ -49,6 +49,8 @@ public class StartScreenLogic : MonoBehaviour
     public TextMeshProUGUI EnemyLeaderNameField;
     public TextMeshProUGUI EnemyLeaderTagsField;
 
+    public TextMeshProUGUI LoadingTextField;
+
     [Header("Source Images")]
     public Image SourceMyAvatar;
     public Image SourceEnemyAvatar;
@@ -125,7 +127,9 @@ public class StartScreenLogic : MonoBehaviour
     }
     public void init()
     {
+        
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        LoadingTextField.text = translator.GetText("Loading_game_info");
     }
     private void Awake()
     {
@@ -173,6 +177,7 @@ public class StartScreenLogic : MonoBehaviour
                 enemyAvatarReady && enemyBorderReady)
             {
                 Debug.Log("All data loaded, applying my UI elements now.");
+                LoadingTextField.gameObject.SetActive(false);
                 ApplyDataToUI();
                 yield break;
             }
@@ -367,7 +372,7 @@ public class StartScreenLogic : MonoBehaviour
         EnemyInfo.FadeOut();
         yield return new WaitForSeconds(0.5f); 
         EnableMouseInput();
-    
+        yield return new WaitForSeconds(5f); 
     }
 
     public void DisableMouseInput()
