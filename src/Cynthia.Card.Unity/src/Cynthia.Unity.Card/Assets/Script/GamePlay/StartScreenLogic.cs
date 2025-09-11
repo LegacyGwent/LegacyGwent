@@ -121,7 +121,6 @@ public class StartScreenLogic : MonoBehaviour
         DisableMouseInput();
         init();
         StartCoroutine(WaitForAllInfoWithRetry());
-        //StartCoroutine(CloseAfterSeconds(2f));
         //StartCoroutine(PlayAnimations());
     }
     public void init()
@@ -344,6 +343,7 @@ public class StartScreenLogic : MonoBehaviour
     {
         Debug.Log("Start Animations");
         //yield return new WaitForSeconds(1f); 
+        WholeBackground.Play("LineFadeIn", 0, 0f);
         EnemyBackground.Play("EnemyBackgroundFadeIn", 0, 0f);
         EnemyCards.EnemyCardMoveIn();
         EnemyInfo.FadeIn();
