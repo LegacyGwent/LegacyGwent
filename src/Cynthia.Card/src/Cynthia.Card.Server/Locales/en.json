@@ -1930,7 +1930,7 @@
         },
         "34004": {
             "Name": "Nilfgaardian Knight",
-            "Info": "Deploy: Reveal a random card in your hand of the Lowest colour possible.\n2 Armor.",
+            "Info": "Deploy: Reveal a random card in your hand of the Lowest color possible.\n2 Armor.",
             "Flavor": "Sons of noble houses, born in the City of the Golden Towers, form the elite backbone of the Imperial Army."
         },
         "34005": {
@@ -3190,7 +3190,7 @@
         },
         "65004": {
             "Name": "Spectral Whale",
-            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 damage to all units on this row.",
+            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 Damage to all units on this row.",
             "Flavor": "Ehh, too big for a humpback. That's a finback. A finback? With a snout that short? Those herbs've gone to your head!"
         },
         "65005": {
@@ -3485,7 +3485,7 @@
         },
         "70086": {
             "Name": "Philippa: Mistress of the Lodge",
-            "Info": "Deploy, Choose One: Play a bronze or silver mage from your deck; or spawn a bronze spell.",
+            "Info": "Deploy, Choose One: Play a Bronze or Silver Mage from your deck; or Spawn a Bronze Spell.",
             "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "70088": {
@@ -3545,7 +3545,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. If that would kill unit in your hand set its Power to 1 instead.",
+            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. If a unit has 2 Power or less, move it to the graveyard if in deck, and Damage it by 1 if in hand.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70100": {
@@ -3695,7 +3695,7 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right. Crewed: Gain 6 Armor.",
+            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right.\nCrewed: Gain 6 Armor.",
             "Flavor": "Something like the bastard child of a shield and a palisade."
         },
         "70131": {
@@ -3765,7 +3765,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck instead.",
+            "Info": "Deploy: Play a copy of this unit from your deck.\nIf there are no copies of this card in your deck, add a default copy of this card to your deck instead.",
             "Flavor": "She thought service in the diplomatic corps would mean a quiet life behind a desk. She and her blistered feet were sorely mistaken..."
         },
         "70145": {
