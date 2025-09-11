@@ -333,14 +333,18 @@ public class StartScreenLogic : MonoBehaviour
         EnemyBackground.Play("EnemyBackgroundFadeIn", 0, 0f);
         EnemyCards.EnemyCardMoveIn();
         EnemyInfo.FadeIn();
-        AudioManager.Instance.PlayAudio(GwentMap.CardMap[enemyLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        bool EnemyPlayedAudio=AudioManager.Instance.PlayAudio(GwentMap.CardMap[enemyLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
         yield return new WaitForSeconds(2f); 
         VS.Play("VS_In", 0, 0f);
         yield return new WaitForSeconds(0.5f); 
         MyBackground.Play("MyBackgroundFadeIn", 0, 0f);
         MyCards.MyCardMoveIn();
         MyInfo.FadeIn();
-        AudioManager.Instance.PlayAudio(GwentMap.CardMap[myLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        bool MinePlayedAudio=AudioManager.Instance.PlayAudio(GwentMap.CardMap[myLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        if (!EnemyPlayedAudio && !MinePlayedAudio) //plays horn if both leaders are silent
+        {
+            AudioManager.Instance.PlayAudio(GwentMap.CardMap["13027"].CardArtsId, AudioType.Card, AudioPlayMode.Append);
+        }
         yield return new WaitForSeconds(3f); 
         EnemyCards.EnemyCardMoveOut();
         MyCards.MyCardMoveOut();
