@@ -10016,7 +10016,7 @@ namespace Cynthia.Card
                     Flavor = "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。",
                     Info = "生成“威尔弗雷德”，“威尔海姆”，“威尔玛”。",
                     CardArtsId = "20004300",
-                    LinkedCards=new List<String> {"65005","65006","65005"},
+                    LinkedCards=new List<String> {"65005","65006","65007"},
                 }
             },
             {
