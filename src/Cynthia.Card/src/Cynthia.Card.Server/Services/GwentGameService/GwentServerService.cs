@@ -146,7 +146,7 @@ namespace Cynthia.Card.Server
                 {
                     await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
-                
+
                 // Copy newly unlocked trinkets to the returned UserInfo (map buffer -> DTO)
                 if (user.NewlyUnlockedTrinkets != null)
                 {
@@ -157,7 +157,7 @@ namespace Cynthia.Card.Server
                         NewTitles = new List<string>(user.NewlyUnlockedTrinkets.NewTitles)
                     };
                 }
-                
+
                 InovkeUserChanged();
             }
             return loginUser;
@@ -822,28 +822,20 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public async void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
-            // if (_env.IsProduction())
-            // {
-            if (isOnlyShow)
-            {
-                _databaseService.AddAIGameResult(result);
-            }
-            else
-            {
-                _databaseService.AddGameResult(result);
-            }
-
             if (isCountMMR)
             {
                 int RedMMR = _databaseService.QueryMMR(result.RedPlayerName);
                 int BlueMMR = _databaseService.QueryMMR(result.BluePlayerName);
+                result.RedMMR = RedMMR;
+                result.BlueMMR = BlueMMR;
+
                 RedMMR = CalculateMMR(RedMMR, BlueMMR,
                     result.RedPlayerGameResultStatus == GameStatus.Win,
                     result.RedPlayerGameResultStatus == GameStatus.Draw);
                 BlueMMR = CalculateMMR(BlueMMR, RedMMR,
                     result.RedPlayerGameResultStatus == GameStatus.Lose,
                     result.RedPlayerGameResultStatus == GameStatus.Draw);
-                    
+
                 // if a player won a the game with 200+ points in any round, increase User.GamesOver200 by 1
                 if (result.RedWinCount == 2 && result.RedScore.Any(x => x >= 200))
                 {
@@ -870,6 +862,16 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     await AddTitle(result.BluePlayerName, "$$$MILLIONAIRE$$$");
                 }
             }
+
+            if (isOnlyShow)
+            {
+                _databaseService.AddAIGameResult(result);
+            }
+            else
+            {
+                _databaseService.AddGameResult(result);
+            }
+
             lock (ResultList)
             {
                 ResultList.Add(result);
