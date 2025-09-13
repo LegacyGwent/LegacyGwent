@@ -10,7 +10,7 @@ namespace Cynthia.Card
     {//己方半场同排其他单位一次最多受到5点伤害。
         public LivingArmor(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
-        {
+        {    
             await Card.Effect.Armor(2,Card);
             return 0;
         }
@@ -27,7 +27,7 @@ namespace Cynthia.Card
             {
                 if(@event.Num>5)
                 {
-                    @event.Num=5;
+                    @event.Num=50000;
                 }
             }
 
