@@ -1,8 +1,10 @@
-name: Path-Specific Approver Rules
+name: Check Approvers
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review, edited, review_requested, review_request_removed]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   check-approvers:
@@ -28,6 +30,31 @@ jobs:
           APPROVED_USERS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
             --jq '[.[] | select(.state=="APPROVED") | .user.login] | unique | map(ascii_downcase)')
           echo "APPROVED_USERS=$APPROVED_USERS" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Request reviews from required users
+        run: |
+          SPECIAL_PATH="src/secure/"
+          REQUIRED_USERS=("alice" "bob")
+
+          # Determine if special path is touched
+          NEED_RULE=0
+          for f in $CHANGED_FILES; do
+            if [[ "$f" == $SPECIAL_PATH* ]]; then
+              NEED_RULE=1
+              break
+            fi
+          done
+
+          if [ "$NEED_RULE" -eq 1 ]; then
+            echo "Requesting reviews from: ${REQUIRED_USERS[*]}"
+            gh api \
+              repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
+              -f reviewers="$(printf '["%s","%s"]' "${REQUIRED_USERS[@]}")"
+          else
+            echo "✅ No restricted path changed. Skipping review request."
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -65,12 +92,17 @@ jobs:
           done
 
           # Check that all required users approved
+          MISSING_USERS=()
           for u in "${REQUIRED_USERS[@]}"; do
             if ! echo "$APPROVED_USERS" | grep -qi "$u"; then
-              echo "❌ Missing approval from required user: $u"
-              exit 1
+              MISSING_USERS+=("$u")
             fi
           done
+
+          if [ ${#MISSING_USERS[@]} -gt 0 ]; then
+            echo "❌ Missing approval from required users: ${MISSING_USERS[*]}"
+            exit 1
+          fi
 
           echo "✅ All required users approved. Merge allowed."
         env:
