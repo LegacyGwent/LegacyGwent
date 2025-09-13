@@ -31,7 +31,9 @@ public class KeyListener : MonoBehaviour
             }
 
             // Focus first field at start
+#if !UNITY_ANDROID            
             StartCoroutine(FocusFirstField());
+#endif
         }
     }
 
