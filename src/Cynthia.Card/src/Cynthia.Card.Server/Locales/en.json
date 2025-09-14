@@ -176,6 +176,7 @@
         "Code":"Code",
         "Added":"Added!",
         "Loading_game_info":"Loading...",
+        "Enter_deck_name":"Enter deck name",
         "TrinketsMenu_SetAvatarButton": "Set Avatar",
         "TrinketsMenu_SetBorderButton": "Set Border",
         "TrinketsMenu_SetTitleButton": "Set Title",

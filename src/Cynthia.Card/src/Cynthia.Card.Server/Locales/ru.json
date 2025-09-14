@@ -176,6 +176,7 @@
         "Code":"Код",
         "Added":"Добавлено",
         "Loading_game_info":"Загрузка...",
+        "Enter_deck_name_RU":"Введите название колоды",
         "TrinketsMenu_SetAvatarButton": "Установить аватар",
         "TrinketsMenu_SetBorderButton": "Установить рамку",
         "TrinketsMenu_SetTitleButton": "Установить титул",
