@@ -10301,7 +10301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 335.41064, y: 0}
+  m_AnchoredPosition: {x: 333.01624, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &534679602
@@ -13302,7 +13302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 544.8511, y: 0}
+  m_AnchoredPosition: {x: 543.5529, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &743923664
@@ -14403,7 +14403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 70, y: 0}
+  m_AnchoredPosition: {x: 72.07172, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799385621
@@ -19816,7 +19816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 81, y: 0}
+  m_AnchoredPosition: {x: 80.67729, y: 0}
   m_SizeDelta: {x: 0, y: 33.31115}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067679771
@@ -22801,7 +22801,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 164.5, y: 0}
+  m_AnchoredPosition: {x: 164.9004, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1258103795
@@ -25175,7 +25175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 183.5, y: 0}
+  m_AnchoredPosition: {x: 182.11156, y: 0}
   m_SizeDelta: {x: 0, y: 33.311142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350113265
@@ -25655,6 +25655,18 @@ MonoBehaviour:
     TextObject: {fileID: 568418417}
   - Id: Enter_deck_name
     TextObject: {fileID: 501314523}
+  - Id: Avatars_button
+    TextObject: {fileID: 1687369939}
+  - Id: Borders_button
+    TextObject: {fileID: 752544968}
+  - Id: Titles_button
+    TextObject: {fileID: 513407843}
+  - Id: Avatars_button
+    TextObject: {fileID: 1307325616}
+  - Id: Borders_button
+    TextObject: {fileID: 152873779}
+  - Id: Titles_button
+    TextObject: {fileID: 425965431}
 --- !u!1 &1362820516
 GameObject:
   m_ObjectHideFlags: 0
@@ -29332,7 +29344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 71.5, y: 0}
+  m_AnchoredPosition: {x: 72.07172, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506212384
@@ -30655,7 +30667,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -31456,8 +31468,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: 0}
-  m_SizeDelta: {x: 360.7105, y: 40}
+  m_AnchoredPosition: {x: -0.000013113, y: 0}
+  m_SizeDelta: {x: 177.92615, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687369941
 MonoBehaviour:
@@ -36935,7 +36947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 114.970215, y: 0}
+  m_AnchoredPosition: {x: 113.87393, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1961457357
@@ -38280,7 +38292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 161.5, y: 0}
+  m_AnchoredPosition: {x: 164.9004, y: 0}
   m_SizeDelta: {x: 0, y: 34.27362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084319555
