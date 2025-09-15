@@ -24,7 +24,7 @@ public class GameInit : MonoBehaviour
     public Text VersionText;
     public RectTransform NotesContext;
     private string UpToDateVersion;
-    private string CurrentVersion="2.1.2";
+    private string CurrentVersion="2.1.3";
     public GameObject Download_Button;
     string link;
 
