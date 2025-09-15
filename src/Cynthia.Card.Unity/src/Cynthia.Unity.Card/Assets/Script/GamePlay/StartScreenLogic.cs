@@ -187,6 +187,7 @@ public class StartScreenLogic : MonoBehaviour
             if (attempt >= maxRetries)
             {
                 StartCoroutine(CloseAfterSeconds(0f));
+                EnableMouseInput();
             }
         }
     }
