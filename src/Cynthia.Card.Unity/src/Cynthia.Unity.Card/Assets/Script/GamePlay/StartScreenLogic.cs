@@ -333,7 +333,7 @@ public class StartScreenLogic : MonoBehaviour
     public void SetRank(string MMR, Image myRank)
     {
         int mmrInt = int.Parse(MMR);
-        int rank = Math.Min(Math.Max((mmrInt - 3400) / 50, 1), 21);
+        int rank = Math.Min(Math.Max((mmrInt - 3350) / 50, 1), 21);
         var op = Addressables.LoadAssetAsync<Sprite>($"rank_{rank}");
         Sprite sprite = op.WaitForCompletion();
         myRank.sprite = sprite;
