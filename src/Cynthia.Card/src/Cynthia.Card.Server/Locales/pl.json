@@ -954,7 +954,7 @@
         },
         "13023": {
             "Name": "Czarna Krew",
-            "Info": "Wybierz: Utwórz brązową kartę Trupojada albo Wampira i wzmocnij ją o 2 lub Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
+            "Info": "Wybierz: Utwórz brązową kartę Trupojada albo Wampira i wzmocnij ją o 2, lub Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
             "Flavor": "Wszystkie wampiry zgodnie uważają, że korzystanie z tego eliksiru jest niesportowym zachowaniem."
         },
         "13024": {
@@ -3254,7 +3254,7 @@
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Rozmieszczenie: Wezwij jedną kopię tej karty z twojej talii do tego rzędu. Za każdym razem gdy brązowy lub srebrny wróg staje się ranny, wzmocnij się o 1.",
+            "Info": "Rozmieszczenie: Wezwij jedną kopię tej karty do tego rzędu. Za każdym razem gdy brązowy lub srebrny wróg staje się ranny, wzmocnij się o 1.",
             "Flavor": "Dzieci nocy przybywają do nas jako kara od bogów! Obraziliśmy ich tolerując magików i nieludzi wśród nas! Nawróćcie się, nim będzie za późno..."
         },
         "70010": {
@@ -3564,7 +3564,7 @@
         },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
-            "Info": "Rozmieszczenie: Wygnaj 3 brązową bestię lub wampiry z Twojego cmentarza, następnie Wybierz: stwórz krwawe księżyce we wszystkich rzędach przeciwnika, lub stwórz pełnie we wszystkich Twoich rzędach.",
+            "Info": "Rozmieszczenie: Wygnaj 3 brązowe bestie lub wampiry z Twojego cmentarza, następnie Wybierz: Stwórz Krwawe księżyce we wszystkich rzędach przeciwnika, lub Stwórz Pełnie we wszystkich Twoich rzędach.",
             "Flavor": "On nie kochał jak człowiek, tylko jak zwierzę. Na zabój, bezwarunkowo. Dziko."
         },
         "70103": {
@@ -3709,7 +3709,7 @@
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Zadaj 1pkt obrażeń losowemu wrogowi 5 razy. Jeśli byli już zranieni zamiast tego Drain ",
+            "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi 5 razy. Jeśli był już zraniony zamiast tego Wykradnij 1 pkt.",
             "Flavor": "Krew na suficie, flaki na ścianie... To musiał być garkain."
         },
         "70133": {
@@ -3784,12 +3784,12 @@
         },
         "70147": {
             "Name": "Wąpierz",
-            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy sojusznik z tegp samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
+            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy sojusznik z tego samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
             "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
             "Name": "Alp",
-            "Info": "Na koniec tury jeśli w przeciwnym rzędzie nie ma silniejszej jednostki, wykradnij 1 losowej jednostce z przeciwnego rzędu.",
+            "Info": "Na koniec tury jeśli w przeciwnym rzędzie nie ma silniejszej jednostki, wykradnij 1 pkt losowej jednostce z przeciwnego rzędu.",
             "Flavor": "Ludzie w miasteczku cierpieli na nawracające koszmary... Wiedźmin był prawie pewien, że grasował tam Alp."
         },
         "70149": {
