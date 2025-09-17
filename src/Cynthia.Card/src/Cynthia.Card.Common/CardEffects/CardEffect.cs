@@ -421,12 +421,27 @@ namespace Cynthia.Card
             Card.Status.HealthStatus += num;
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
-            //await Game.ClientDelay(150);
-            //8888888888888888888888888888888888888888888888888888888888888888888888
-            //有卡牌增益,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardBoost(Card, num, source));
-            //8888888888888888888888888888888888888888888888888888888888888888888888
         }
+
+        public virtual async Task Boost_Quiet(int num, GameCard source)
+        {
+            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;
+            //if (source != null)
+            //{
+            //    await Game.ShowBullet(source, Card, BulletType.GreenLight);
+            //}
+            //await Game.ShowCardNumberChange(Card, num, NumberType.Normal);
+            //if (Card.Status.CardRow.IsOnRow())
+            //{
+            //    await Game.ClientDelay(50);
+            //}
+            Card.Status.HealthStatus += num;
+            //await Game.ShowSetCard(Card);
+            await Game.SetPointInfo();
+            //await Game.SendEvent(new AfterCardBoost(Card, num, source));
+        }
+
         public virtual async Task Damage(int num, GameCard source, BulletType showType = BulletType.Arrow, bool isPenetrate = false, DamageType damageType = DamageType.Unit)//伤害
         {
             if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
@@ -529,6 +544,21 @@ namespace Cynthia.Card
                 return;
             }
         }
+
+        public virtual async Task Lower_Power_By(int num, GameCard source)
+        {
+            if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
+
+            var die = false;
+            Card.Status.HealthStatus -= num;
+            if ((Card.CardPoint()) <= 0)
+            {
+                await ToCemetery();
+                return;
+            }
+            await Game.SetPointInfo();
+        }
+
         public virtual async Task Reset(GameCard source)//重置
         {
             if (Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.IsDead || Card.Status.Type == CardType.Special) return;

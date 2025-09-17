@@ -22,8 +22,20 @@ namespace Cynthia.Card
                 //On turn end, repeat deploy ability
                 await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow);
                 await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow);
+                int Power=Card.CardPoint();
+                int Strength = Card.Status.Strength;
+                int Change = Power - Strength;
                 //and transform into a Nightwraith.
-                await Card.Effect.Transform(CardId.NightWraith, Card, isForce: true);
+                await Card.Effect.Transform(CardId.NightWraith, Card, x => x.Status.Strength = Strength, isForce: true);
+                if (Change>0)
+                {
+                    await Boost_Quiet(Change, Card);
+                }
+                if (Change<0)
+                {
+                    await Lower_Power_By(-Change, Card);
+                }
+                return;
             }
             return;
         }

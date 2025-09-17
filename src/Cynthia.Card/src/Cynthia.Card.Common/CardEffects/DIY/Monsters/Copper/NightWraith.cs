@@ -18,10 +18,27 @@ namespace Cynthia.Card
                 {
                     await card.Effect.Boost(1, Card);
                 }
+                
+                int Power=Card.CardPoint();
+                int Strength = Card.Status.Strength;
+                int Change = Power - Strength;
                 //transform self into a Noonwraith.
-                await Card.Effect.Transform(CardId.NoonWraith, Card, isForce: true);
+                await Card.Effect.Transform(CardId.NoonWraith, Card, x => x.Status.Strength = Strength, isForce: true);
+
+                if (Change>0)
+                {
+                    await Boost_Quiet(Change, Card);
+                }
+                if (Change<0)
+                {
+                    await Lower_Power_By(-Change, Card);
+                }
                 return;
+
+                
             }
+
+            
         }
     }
 }
