@@ -16,7 +16,7 @@ namespace Cynthia.Card
             var targets = cards.Single();
             var targetRow = (targets.PlayerIndex == Card.PlayerIndex) ? RowPosition.EnemyHand : RowPosition.MyHand;
             await Game.ShowCardMove(new CardLocation(targetRow, 0), targets, refreshPoint: true);
-            await targets.Effect.Damage(targets.CardPoint() - 1, targets);
+            await targets.Effect.Lower_Power_By(targets.CardPoint() - 1, targets);
             return 0;
         }
     }

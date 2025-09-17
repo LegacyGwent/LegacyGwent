@@ -437,6 +437,7 @@ namespace Cynthia.Card
             //    await Game.ClientDelay(50);
             //}
             Card.Status.HealthStatus += num;
+            await Game.ShowSetCard(Card);
             //await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //await Game.SendEvent(new AfterCardBoost(Card, num, source));
@@ -556,6 +557,7 @@ namespace Cynthia.Card
                 await ToCemetery();
                 return;
             }
+            await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
         }
 

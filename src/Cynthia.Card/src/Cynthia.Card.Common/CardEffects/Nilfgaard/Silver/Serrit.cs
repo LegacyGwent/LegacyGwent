@@ -15,7 +15,7 @@ namespace Cynthia.Card
             var targetCard = cards.Single();
             if (targetCard.Status.CardRow.IsInHand())
             {
-                await targetCard.Effect.Damage(targetCard.CardPoint() - 1, Card);
+                await targetCard.Effect.Lower_Power_By(targetCard.CardPoint() - 1, Card);
             }
             else
             {
