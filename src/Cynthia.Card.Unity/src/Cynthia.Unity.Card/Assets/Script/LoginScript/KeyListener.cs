@@ -10,7 +10,8 @@ public class KeyListener : MonoBehaviour
 
     [Header("Submit button (pressed on Enter)")]
     public Button submitButton;
-
+    [Header("Button blocker")]
+    public GameObject blocker;
     void Start()
     {
         if (fields != null && fields.Length > 0)
@@ -31,7 +32,9 @@ public class KeyListener : MonoBehaviour
             }
 
             // Focus first field at start
+#if !UNITY_ANDROID            
             StartCoroutine(FocusFirstField());
+#endif
         }
     }
 
@@ -51,10 +54,15 @@ public class KeyListener : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            if (submitButton != null)
+            if (!blocker.activeInHierarchy)
+            {
                 submitButton.onClick.Invoke();
-
-            EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+            else
+            {
+                StartCoroutine(WaitAndLogin());
+            }
         }
     }
 
@@ -78,5 +86,15 @@ public class KeyListener : MonoBehaviour
                 break;
             }
         }
+    }
+    IEnumerator WaitAndLogin()
+    {
+        while (blocker.activeInHierarchy)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        submitButton.onClick.Invoke();
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

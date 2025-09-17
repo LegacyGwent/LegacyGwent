@@ -4471,7 +4471,8 @@ MonoBehaviour:
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
   fallbackFontAssets: []
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 800dd368fcb9c394c8457028245049c7, type: 2}
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: f65f73fc391ac514d93be29ad21a54a2

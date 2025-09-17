@@ -175,6 +175,11 @@
         "Copied":"Copied!",
         "Code":"Code",
         "Added":"Added!",
+        "Loading_game_info":"Loading...",
+        "Enter_deck_name":"Enter deck name",
+        "Avatars_button":"Avatars",
+        "Borders_button":"Borders",
+        "Titles_button":"Titles",
         "TrinketsMenu_SetAvatarButton": "Set Avatar",
         "TrinketsMenu_SetBorderButton": "Set Border",
         "TrinketsMenu_SetTitleButton": "Set Title",
@@ -1615,7 +1620,7 @@
         },
         "24030": {
             "Name": "Harpy",
-            "Info": "Summon a copy of this unit on a random row whenever you destroy an allied Beast.",
+            "Info": "Summon a copy of this unit on a random row whenever an allied Beast is destroyed during your turn.",
             "Flavor": "There are many species of harpy, and all are kleptomaniacs."
         },
         "24031": {
@@ -3205,7 +3210,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Spying.\nDeathwish: If its opponent turn, Spawn a Bear on the opposite row.",
+            "Info": "Spying.\nDeathwish: If destroyed during your opponent's turn, Spawn a Bear on the opposite row.",
             "Flavor": ""
         },
         "70001": {
@@ -3270,7 +3275,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, weaken self by 4 and apply Torrential Rain on both sides.",
+            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, Weaken self by 4 and apply Torrential Rain on both sides.",
             "Flavor": "At times, even druids succumb to Svalblod's whispers..."
         },
         "70014": {
@@ -3630,7 +3635,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever  Torrential Rain is applied to an enemy row, Summon from the graveyard on a random row.",
+            "Info": "Whenever Torrential Rain is applied to an enemy row, Summon from the graveyard on a random row.",
             "Flavor": "Easy, mates! Sirens never attack when... Huh? What d'yous mean Right above me?"
         },
         "70117": {
@@ -3660,7 +3665,7 @@
         },
         "70123": {
             "Name": "Battle Preparation",
-            "Info": "Boost a Bronze Soldier unit in your hand by 2.\nDraw a card, then play the unit that was Boosted by this card.",
+            "Info": "Boost a Bronze Soldier unit in your hand by 2. Then draw a card and play the unit that was Boosted by this card.",
             "Flavor": "Many a knight met an untimely death because of his shoddily tied breastplate coming undone."
         },
         "70124": {

@@ -23,6 +23,7 @@ namespace Cynthia.Card
                 int Strength = Card.Status.Strength;
                 int Change = Power - Strength;
                 //transform self into a Noonwraith.
+                
                 await Card.Effect.Transform(CardId.NoonWraith, Card, x => x.Status.Strength = Strength, isForce: true);
 
                 if (Change>0)
@@ -33,6 +34,7 @@ namespace Cynthia.Card
                 {
                     await Lower_Power_By(-Change, Card);
                 }
+
                 return;
 
                 

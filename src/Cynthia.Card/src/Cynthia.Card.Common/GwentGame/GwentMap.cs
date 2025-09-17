@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 133);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 135);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -10016,7 +10016,7 @@ namespace Cynthia.Card
                     Flavor = "曾经是托达洛克家族的首领，如今只是一个喋喋不休的疯子。",
                     Info = "生成“威尔弗雷德”，“威尔海姆”，“威尔玛”。",
                     CardArtsId = "20004300",
-                    LinkedCards=new List<String> {"65005","65006","65005"},
+                    LinkedCards=new List<String> {"65005","65006","65007"},
                 }
             },
             {

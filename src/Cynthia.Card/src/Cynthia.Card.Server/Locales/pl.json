@@ -175,6 +175,10 @@
         "Copied":"Skopiowano!",
         "Code":"Kod",
         "Added":"Dodano!",
+        "Loading_game_info":"Ładowanie...",
+        "Avatars_button":"Awatary",
+        "Borders_button":"Obramowania",
+        "Titles_button":"Tytuły",
         "TrinketsMenu_SetAvatarButton": "Ustaw Awatar",
         "TrinketsMenu_SetBorderButton": "Ustaw Ramke",
         "TrinketsMenu_SetTitleButton": "Ustaw Tytuł",
@@ -455,8 +459,8 @@
         "$$$MILLIONAIRE$$$Description": "W swobodnym meczu, jeden z graczy musi zdobyć 1 000 000 pkt lub więcej.",
         "G_BeerName": "Piwna Ramka",
         "G_BeerDescription": "Wygraj 5 meczy rankingowych, zdobywając więcej niż 200 pkt w jednej rundzie.",
-        "COMPETITORName": "KONKURENTA",
-        "CCOMPETITORDescription": "Uczestnicz w turnieju.",
+        "COMPETITORName": "ZAWODNIK",
+        "COMPETITORDescription": "Uczestnicz w turnieju.",
         "DEVELOPERName": "DEWELOPER",
         "DEVELOPERDescription": "Wspomagaj rozwój gry.",
         "Rank21Border2Name" : "CZEMPION TURNIEJU",
@@ -1615,7 +1619,7 @@
         },
         "24030": {
             "Name": "Harpia",
-            "Info": "Za każdym razem, gdy zniszczysz sojuszniczą Bestię, wezwij egzemplarz tej jednostki.",
+            "Info": "Za każdym razem, gdy sojusznicza Bestia zostanie zniszczona w trakcie Twojej tury, wezwij egzemplarz tej jednostki do losowego rzędu.",
             "Flavor": "Schowajcie te błyskotki, pani. Bo jeszcze harpie się zlecą."
         },
         "24031": {
@@ -3325,7 +3329,7 @@
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "Jednorazowa. Powtórz umiejętność rozmieszczenia następnej jednostki którą zagrasz. 4 pkt pancerza",
+            "Info": "Jednorazowa. Powtórz umiejętność rozmieszczenia następnej Brązowej lub Srebrnej jednostki którą zagrasz. 4 pkt pancerza",
             "Flavor": "Wasza książęca mość... Księżniczka została dotknięta przekleństwem Czarnego Słońca. Obawiam się, że nie ma dla niej nadziei..."
         },
         "70026": {
@@ -3660,7 +3664,7 @@
         },
         "70123": {
             "Name": "Ostatnie przygotowania",
-            "Info": "Zagraj Brązowego żołnierza z ręki i wzmocnij go o 2, następnie dobierz kartę.",
+            "Info": "Wzmocnij Brązowego żołnierza w Twojej ręce o 2, następnie dobierz kartę i zagraj żółnierza którego wzmocniłeś.",
             "Flavor": "Niejeden rycerz przedwcześnie śmierć spotkał, bo poluzował mu się niedbale związany napierśnik…"
         },
         "70124": {
@@ -3710,7 +3714,7 @@
         },
         "70133": {
             "Name": "Samotny czempion",
-            "Info": "Na koniec każdej tury, jeśli po twojej stronie ma innych jednostek, wzmocnij się o 4.",
+            "Info": "Na koniec każdej tury, jeśli po twojej stronie nie ma innych jednostek, wzmocnij się o 4.",
             "Flavor": "Póki czempion walczy dla świętej sprawy, póty Zakon i jego płomienie wciąż trwają w nim."
         },
         "70134": {
@@ -3909,8 +3913,8 @@
             "Flavor": "Masz najważniejszą ceche, jakie powinna mieć każda Płotka - niewiele mówisz. "
         },
         "70173": {
-            "Name": "Czatownicza Zasadzka",
-            "Info": "Wybierz sojusznika. Wzmonij go o 5 pkt I przenieś do rzędu poniżej. Wybierz wroga zadaj mu 5 pjt obrażeń i przenieś go do rzędu walki wręcz.",
+            "Name": "Zasadzka Czatownika",
+            "Info": "Wybierz sojusznika. Wzmonij go o 5 pkt i przenieś do rzędu poniżej. Wybierz wroga zadaj mu 5 pkt obrażeń i przenieś go do rzędu walki wręcz.",
             "Flavor": "Jedzie, jedzie pan, na koniku hyc, hyc, elf go trafił, bo potrafił, na gościńcu nic, nic."
         },
         "70174": {
@@ -3945,7 +3949,7 @@
         },
         "70180": {
             "Name": "Albastra Biała smoczyca",
-            "Info": "Odporność - 4 siły Rozmieszczenie: Stwórz lewe i prawe skrzydło, jeśli zostaną zniszczone zniszcz tę jednostkę. Na początku każdej tury wzmocnij tę jednostkę o 3.",
+            "Info": "Rozmieszczenie: Stwórz lewe i prawe skrzydło. Na początku tury jeśli lewe i prawe skrzydło nie jest po Twojej stronie planszy zniszcz tę jednostkę. W przeciwnym wypadku wzmocnij tę jednostkę o 3. Odporność",
             "Flavor": "To nie była lawina, to był smok!"
         },
         "70181": {
