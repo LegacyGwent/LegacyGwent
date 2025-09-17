@@ -3604,7 +3604,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "Na koniec tury jeżeli siła tej jednostki jest większa niż ilość kard w twojej ręce, przyzwij tę jednostkę z talii.",
+            "Info": "Na koniec tury jeżeli siła tej jednostki jest większa niż ilość kard w twojej ręce, przyzwij tę jednostkę.",
             "Flavor": "Hajdawer, nie ruszaj! Nie ruszaj, do cholery!"
         },
         "70111": {

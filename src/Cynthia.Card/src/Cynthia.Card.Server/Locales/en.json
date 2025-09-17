@@ -3605,7 +3605,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "On turn end, if this unit's Power is higher than the number of cards in your hand, Summon this unit from your deck.",
+            "Info": "On turn end, if this unit's Power is higher than the number of cards in your hand, Summon this unit.",
             "Flavor": "Leave it alone, Knickers! Damn it, leave it alone!"
         },
         "70111": {
