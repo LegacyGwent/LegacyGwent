@@ -629,7 +629,7 @@
         "VriheddSaboteur_1_RandomItem": "Zagraj losowy brązowy przedmiot.",
         "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael.",
         "Gael_1_Damage2Units": "Zadaj 5 pkt obrażeń dwóm wrogom.",
-        "Gael_1_Damage1Unit": "Zadaj wrogowi 8pkt obrażeń."
+        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń."
     },
     "CardLocales": {
         "12001": {
@@ -2854,7 +2854,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Rozmieszczenie: Wybierz wroga. Jeżeli jest zraniony, zniszcz go. W przeciwnym wypadku zadawaj mu 2pkt obrażeń dopóki nie będzie zraniony i zadaj sobie obrażenia równe połowie siły tej jednostki",
+            "Info": "Rozmieszczenie: Wybierz wroga. Jeżeli jest zraniony, zniszcz go. W przeciwnym wypadku zadawaj mu 2 pkt obrażeń dopóki nie będzie zraniony i zadaj sobie obrażenia równe połowie siły tej jednostki",
             "Flavor": "Krew dla Svalbloda! Czaszki na jego tron!"
         },
         "62004": {
@@ -3274,7 +3274,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 4pkt siły.",
+            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 4 pkt siły.",
             "Flavor": "Czasem nawet druidzi ulegają podszeptom Svalbloda..."
         },
         "70014": {
@@ -3314,7 +3314,7 @@
         },
         "70022": {
             "Name": "Kikimora Robotnica",
-            "Info": "Rozmieszczenie: Wzmocnij wszystie insekty w tym rzędzie o 2pkt.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystie insekty w tym rzędzie o 2 pkt.",
             "Flavor": "Mówią, że potrafi ogryźć zakutego w zbroję człowieka do białej kości w minutę. Wolałbym nie sprawdzać, czy to prawda."
         },
         "70023": {
@@ -3419,7 +3419,7 @@
         },
         "70062": {
             "Name": "Ożywiona Zbroja",
-            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5 pkt obrażeń na raz. 2pkt pancerza.",
+            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5 pkt obrażeń na raz. 2 pkt pancerza.",
             "Flavor": "Owszem, kosztowna. Ale biorąc pod uwagę oszczędności na wikcie i opierunku, inwestycja zwróci się jeszcze w tym stuleciu!"
         },
         "70070": {
@@ -3549,12 +3549,12 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Rozmieszczenie: Zadaj wszystkim lojalnym jednostkom w twojej talii i ręce 2pkt obrażeń, następnie ulepsz je o 2pkt. Jeśli to miałoby zabić jednostkę w Twojej ręce, zamiast tego ustaw jej siłę na 1.",
+            "Info": "Rozmieszczenie: Zadaj wszystkim lojalnym jednostkom w twojej talii i ręce 2 pkt obrażeń, następnie ulepsz je o 2 pkt. Jeśli to miałoby zabić jednostkę w Twojej ręce, zamiast tego ustaw jej siłę na 1.",
             "Flavor": "Dał swym wiernym tylko jedno przykazanie: zabijaj."
         },
         "70100": {
             "Name": "Zaklinaczka Puszczy",
-            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom z wyjątkiem driad na tym i przeciwnym rzędzie 2pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom z wyjątkiem driad na tym i przeciwnym rzędzie 2 pkt obrażeń.",
             "Flavor": "Driady z Brokilonu opanowały wyjątkową sztukę - potrafią kształtować drzewa wedle woli, a nawet tchnąć w nie świadomość."
         },
         "70101": {
@@ -3619,7 +3619,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2pkt pancerza.",
+            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
             "Flavor": "Kiedy się tu sprowadziła, sto lat się z nią tłukli. Ale w końcu gadzina się zmęczyła, a oni zrozumieli, że łatwo jej nie wypędzą... Więc poszli na układ. Ona im nie bruździ, a w zamian dostaje czego jej trzeba."
         },
         "70114": {
@@ -3639,7 +3639,7 @@
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Przyzwij tę jednostkę gdy zagrasz dowódce. Na koniec tury, wzmocnij wszystkich sojuszników o tej samej sile co ta jednostka o 1pkt.",
+            "Info": "Przyzwij tę jednostkę gdy zagrasz dowódce. Na koniec tury, wzmocnij wszystkich sojuszników o tej samej sile co ta jednostka o 1 pkt.",
             "Flavor": "Na skraju lasu czekała na nich samotna draida. Jaskier poznał ją od razu - to była ta o zielonkawych włosach, która nocą przyniosła im światło i chciała go nakłonić do dalszego śpiewania."
         },
         "70118": {
@@ -3689,7 +3689,7 @@
         },
         "70128": {
             "Name": "Proch Księżycowy",
-            "Info": "Zadaj 5pkt obrażeń. Potem zadaj 1pkt obrażeń losowemu wrogowi 4 razy.",
+            "Info": "Zadaj 5 pkt obrażeń. Potem zadaj 1 pkt obrażeń losowemu wrogowi 4 razy.",
             "Flavor": "Wilkołak uniósł głowę, zaintrygowany widokiem srebrzystego pyłu... A potem zaczął wyć z bólu."
         },
         "70129": {
@@ -3699,7 +3699,7 @@
         },
         "70130": {
             "Name": "Pluteje",
-            "Info": "Kiedy jednostka po prawej otrzymuje obrażenia - najpierw przyjmij te obrażenia na swoją zbroję. Obsadzenie: 6pkt pancerza.",
+            "Info": "Kiedy jednostka po prawej otrzymuje obrażenia - najpierw przyjmij te obrażenia na swoją zbroję. Obsadzenie: 6 pkt pancerza.",
             "Flavor": "Coś jak nieślubne dziecko tarczy i palisady."
         },
         "70131": {
@@ -3729,7 +3729,7 @@
         },
         "70136": {
             "Name": "Wrona",
-            "Info": "Zemsta: Zadaj 3pkt obrażeń losowemu wrogowi.",
+            "Info": "Zemsta: Zadaj 3 pkt obrażeń losowemu wrogowi.",
             "Flavor": "Jeśli wejdziesz między kruki, to sztuczka z krakaniem też się sprawdzi."
         },
         "70137": {
@@ -3744,7 +3744,7 @@
         },
         "70139": {
             "Name": "Drzewiec: Odyniec",
-            "Info": "Rozmieszczeni: Zadaj 3pkt obrażeń, następnie przenieś sąsiadów celu do losowych rzędów. Jeśli cel został zniszczony powtórz raz.",
+            "Info": "Rozmieszczeni: Zadaj 3 pkt obrażeń, następnie przenieś sąsiadów celu do losowych rzędów. Jeśli cel został zniszczony powtórz raz.",
             "Flavor": "Driady potrafią nadawać drzewcom najróżniejsze formy - chociażby gigantycznego odyńca."
         },
         "70140": {
@@ -3759,7 +3759,7 @@
         },
         "70142": {
             "Name": "Vissegerd",
-            "Info": "Rozmieszczenie: Zadaj 8pkt obrażeń, następnie zadaj obrażenia równe swojemu wzmocnieniu.",
+            "Info": "Rozmieszczenie: Zadaj 8 pkt obrażeń, następnie zadaj obrażenia równe swojemu wzmocnieniu.",
             "Flavor": "Podniosę Cintrę z popiołów. Cena nie gra roli."
         },
         "70143": {
@@ -3774,7 +3774,7 @@
         },
         "70145": {
             "Name": "Orianna",
-            "Info": "Rozmieszczenie: Wybierz wroga. Wszystkie sojusznicze Wampiry wykradną mu po 1pkt.",
+            "Info": "Rozmieszczenie: Wybierz wroga. Wszystkie sojusznicze Wampiry wykradną mu po 1 pkt.",
             "Flavor": "Pani Orianna jest dla nas bardzo dobra... Wspiera artystów, pomaga biednym. Nawet dom dla sierot ufundowała!"
         },
         "70146": {
@@ -3814,7 +3814,7 @@
         },
         "70153": {
             "Name": "Łowca Van Moorlehemów",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 3pkt obrażeń. Jeśli w Twojej ręce nie ma złotych kart powtórz raz.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń. Jeśli w Twojej ręce nie ma złotych kart powtórz raz.",
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
@@ -3829,12 +3829,12 @@
         },
         "70156": {
             "Name": "Zabójczy pocisk",
-            "Info": "Zadaj wrogowi 7pkt obrażeń (ignoruje pancerz). Jeśli jednostka jest wzmocniona zamiast tego zadaj 10pkt obrażeń.",
+            "Info": "Zadaj wrogowi 7 pkt obrażeń (ignoruje pancerz). Jeśli jednostka jest wzmocniona zamiast tego zadaj 10 pkt obrażeń.",
             "Flavor": "Nie ma zbroi nie do przebicia."
         },
         "70157": {
             "Name": "Wisteria",
-            "Info": "Wybierz dwie jednostki. Dla każdej jeśli jej siła jest parzysta wzmocnij ją o 6. W przeciwnym wypadku zadaj 6pkt obrażeń.",
+            "Info": "Wybierz dwie jednostki. Dla każdej jeśli jej siła jest parzysta wzmocnij ją o 6. W przeciwnym wypadku zadaj 6 pkt obrażeń.",
             "Flavor": "Ci, którzy chcą zniszczyć Brokilon, którzy próbują spalić jego drzewa i zabić wszystkie żyjące w nim stworzenia, w końcu nakarmią jego ziemię."
         },
         "70158": {
@@ -3849,7 +3849,7 @@
         },
         "70160": {
             "Name": "Vildkaarl",
-            "Info": "Rozmieszczenie: Zadaj sąsiadującym jednostkom 4pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj sąsiadującym jednostkom 4 pkt obrażeń.",
             "Flavor": "Uderz! No uderz mnie! Tak, żeby bolało!"
         },
         "70161": {
@@ -3869,7 +3869,7 @@
         },
         "70164": {
             "Name": "Szarpiskrzydło",
-            "Info": "Na koniec tury przenieś wszystkie jednostki z przeciwnego rzędu do losowego rzędu i zadaj im po 1pkt obrażeń.",
+            "Info": "Na koniec tury przenieś wszystkie jednostki z przeciwnego rzędu do losowego rzędu i zadaj im po 1 pkt obrażeń.",
             "Flavor": "Ospała jakaś. Weź ją dźgnij parę razy w kuper, to się ożywi."
         },
         "70165": {
@@ -3884,7 +3884,7 @@
         },
         "70167": {
             "Name": "Kompania Zoltana",
-            "Info": "Wtasuj do 3 brązowych lub srebrnych krasnoludów do Twojej talii, następnie zagraj nie złotego krasnoluda z Twojej talii. Kiedy ta karta jest na cmentarzu daj 1pkt pancerza każdemu zagranemu krasnoludowi.",
+            "Info": "Wtasuj do 3 brązowych lub srebrnych krasnoludów do Twojej talii, następnie zagraj nie złotego krasnoluda z Twojej talii. Kiedy ta karta jest na cmentarzu daj 1 pkt pancerza każdemu zagranemu krasnoludowi.",
             "Flavor": "Skoczyliby za sobą w ogień. I jeszcze by się z tego śmiali."
         },
         "70168": {
