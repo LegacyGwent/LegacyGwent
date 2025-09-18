@@ -1470,7 +1470,7 @@
         },
         "23022": {
             "Name": "Parasite",
-            "Info": "Choose a unit. If it's an enemy, deal 12 Damage to it. If it's an ally, Boost it by 12.",
+            "Info": "Choose a unit.\nIf it is an enemy, deal 12 Damage to it.\nIf it is an ally, Boost it by 12.",
             "Flavor": "A real eye-catcher."
         },
         "24001": {
@@ -1765,7 +1765,7 @@
         },
         "32008": {
             "Name": "Menno Coehoorn",
-            "Info": "Deploy: Damage an enemy by 4.\nIf it's Spying, destroy it.",
+            "Info": "Deploy: Damage an enemy by 4.\nIf it is Spying, destroy it.",
             "Flavor": "I'll take an attentive reconnaissance unit over a fine brigade any day."
         },
         "32009": {
@@ -1840,7 +1840,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units. Boost allies you Concealed by 2 and deal 2 Damage to enemies you Concealed. Can't kill a unit.",
+            "Info": "Deploy: Conceal any number of units.\nBoost allies you Concealed by 2 and deal 2 Damage to enemies you Concealed.\nCan't destroy a unit.",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
@@ -1990,7 +1990,7 @@
         },
         "34015": {
             "Name": "Deithwen Arbalest",
-            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it's Spying, deal 8 Damage instead.",
+            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it is Spying, deal 8 Damage instead.",
             "Flavor": "I aim for the knees. Always."
         },
         "34016": {
@@ -2145,7 +2145,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal then self; or destroy conceled Ambush enemy unit.",
+            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal than self; or destroy a face-down Ambush enemy unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -2335,7 +2335,7 @@
         },
         "44011": {
             "Name": "Siege Support",
-            "Info": "Whenever an ally appears, Boost it by 1.\nIf it's a Machine, also give it 1 Armor.\nCrew.",
+            "Info": "Whenever an ally appears, Boost it by 1.\nIf it is a Machine, also give it 1 Armor.\nCrew.",
             "Flavor": "You gotta recalibrate the arm by five degrees.\\nDo what by the what now?"
         },
         "44012": {
@@ -2430,7 +2430,7 @@
         },
         "44030": {
             "Name": "Witch Hunter",
-            "Info": "Deploy: Reset a unit.\nIf it's a Mage, play another Witch Hunter from your deck.",
+            "Info": "Deploy: Reset a unit.\nIf it is a Mage, play another Witch Hunter from your deck.",
             "Flavor": "Long coats, wide-brimmed hats, and crooked grins – witch hunters are hard to miss."
         },
         "44031": {
@@ -2680,7 +2680,7 @@
         },
         "54005": {
             "Name": "Dwarven Mercenary",
-            "Info": "Deploy: Move a unit to this row on its side.\nIf it's an ally, Boost it by 3.",
+            "Info": "Deploy: Move a unit to this row on its side.\nIf it is an ally, Boost it by 3.",
             "Flavor": "The key's mixin' pleasure an' business – like smackin' foes and gettin' coin for it."
         },
         "54006": {
@@ -3270,7 +3270,7 @@
         },
         "70012": {
             "Name": "Toussaint Knight-Errant",
-            "Info": "Deploy: Boost self by 4 for each additional non leader card your opponent has in hand compared to you.",
+            "Info": "Deploy: Boost self by 4 for each additional non-Leader card your opponent has in hand compared to you.",
             "Flavor": "White steed, shiny-arse armor... Aye, 'tis a knight-errant alright. Fetch the coffin maker!"
         },
         "70013": {
@@ -3520,12 +3520,12 @@
         },
         "70093": {
             "Name": "Tempest",
-            "Info": "Choose 4 rows, Spawn Torrential Rain on them. If it's already under Torrential Rain, Spawn Skellige Storm on this row instead.",
+            "Info": "Choose 4 rows, Spawn Torrential Rain on them.\nIf it is already under Torrential Rain, Spawn Skellige Storm on its row instead.",
             "Flavor": "A Category 10 on the Bekker scale."
         },
         "70094": {
             "Name": "Lyrian Cavalry",
-            "Info": "Deploy: choose a unit from your deck and boost self by the amount that unit is boosted.",
+            "Info": "Deploy: Choose a unit from your deck and Boost self by the amount that unit is Boosted.",
             "Flavor": "A horseman's worth no less than his steed. And Lyrian horses are among the Continent's best."
         },
         "70095": {
@@ -3605,7 +3605,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "On turn end, if this unit's Power is higher than the number of cards in your hand, Summon this unit.",
+            "Info": "On turn end, if this unit's Power is higher than the number of cards in your hand, Summon this unit on a random row.",
             "Flavor": "Leave it alone, Knickers! Damn it, leave it alone!"
         },
         "70111": {
@@ -3660,7 +3660,7 @@
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Deploy: Boost a random unit with the Lowest Power in your deck by 2. If it is a Dyad, Strenthen it instead.",
+            "Info": "Deploy: Boost a random unit with the Lowest Power in your deck by 2.\nIf it is a Dryad, Strenthen it instead.",
             "Flavor": "She teaches young dryads many useful skills: fletching arrows, communing with the forest, slitting the throats of men..."
         },
         "70123": {
@@ -3670,7 +3670,7 @@
         },
         "70124": {
             "Name": "Woodland Prowlers",
-            "Info": "Deploy: Weaken a enemy by 1. If it's under Impenetrable Fog, Weaken by 3.",
+            "Info": "Deploy: Weaken an enemy by 1.\nIf it is under Impenetrable Fog, Weaken by 3 instead.",
             "Flavor": ""
         },
         "70125": {
@@ -3695,7 +3695,7 @@
         },
         "70129": {
             "Name": "Natural Selection",
-            "Info": "Spawn 2 Arachas Hatchlings on a row. For each copy of this card in your graveyard, spawn an extra one.",
+            "Info": "Spawn 2 Arachas Hatchlings on a row.\nFor each copy of this card in your graveyard, Spawn an extra one.",
             "Flavor": "The strongest will survive. So not you."
         },
         "70130": {
@@ -3775,7 +3775,7 @@
         },
         "70145": {
             "Name": "Orianna",
-            "Info": "Deploy: Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
+            "Info": "Deploy: Choose one enemy unit, make all Vampire units on your side Drain it by 1 each.",
             "Flavor": "Lady Orianna's been a blessin' for us... She 'elps the beggarly, supports the arts – why, she even runs a home for them poor orphans!"
         },
         "70146": {
@@ -3785,7 +3785,7 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire destroys a unit, Summon a copy of this unit from your deck on a random row. Whenever a different ally unit on the same row Drains, Drain the target by 1.",
+            "Info": "Whenever an ally Vampire destroys a unit, Summon a copy of this unit on a random row. Whenever a different ally unit on the same row Drains, Drain the target by 1.",
             "Flavor": "One alone poses no great threat. But a dozen? Gods be with you."
         },
         "70148": {
@@ -3805,7 +3805,7 @@
         },
         "70151": {
             "Name": "Philippe van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 3. On turn end, if in hand, Reveal self and trigger its Deploy ability.",
+            "Info": "Deploy: Damage an enemy by 3.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
@@ -3825,7 +3825,7 @@
         },
         "70155": {
             "Name": "Isbel of Hagge",
-            "Info": "Deploy: Reset a unit. If it's an ally, repeat once.",
+            "Info": "Deploy: Reset a unit.\nIf it is an ally, repeat once.",
             "Flavor": "I promised I would never again use magic to harm others."
         },
         "70156": {
@@ -3900,7 +3900,7 @@
         },
         "70170": {
             "Name": "Cloud Giant",
-            "Info": "Deploy: If you control the Highest unit, gain Immunity. If you don't, lose Immunity. On turn start, repeat Deploy ability.\nResilience.",
+            "Info": "Deploy: If you control the Highest unit, gain Immunity.\nIf you don't, lose Immunity.\nOn turn start, repeat its ability.\nResilience.",
             "Flavor": ""
         },
         "70171": {
@@ -3915,7 +3915,7 @@
         },
         "70173": {
             "Name": "Deadeye Ambush",
-            "Info": "Select an ally, boost it by 5 and move it to the row below, select an enemy, damage it by 5 and move it to the melee row.",
+            "Info": "Select an ally, Boost it by 5 and move it to the row below.\nThen select an enemy, Damage it by 5 and move it to the melee row.",
             "Flavor": "One, two, come into view; Three, four, hide 'hind the door; Five, six, this'll be quick; Seven, eight, come meet your fate!"
         },
         "70174": {
@@ -3965,7 +3965,7 @@
         },
         "70183": {
             "Name": "Feast of Blood",
-            "Info": "Choose a Vampire ally and make it drain an enemy by 4.\nIf it survives, Spawn a Plumard on its right.",
+            "Info": "Choose a Vampire ally and make it Drain an enemy by 4.\nIf it survives, Spawn a Plumard on its right.",
             "Flavor": "Vampires have been known to fast for years at a time. Yet once the hunt resumes, they feed and feed until frenzied and drunk on blood."
         },
         "70184": {
@@ -3975,7 +3975,7 @@
         },
         "70185": {
             "Name": "Noonwraith",
-            "Info": "Deploy: Spawn a Mirror Image on this and the opposing row.\nOn turn end, repeat Deploy ability, then transform self into a Nightwraith without changing its power.",
+            "Info": "Deploy: Spawn a Mirror Image on this and the opposite row.\nOn turn end, repeat its ability, then transform self into a Nightwraith without changing its Power.",
             "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
         },
         "70186": {
@@ -3985,7 +3985,7 @@
         },
         "70187": {
             "Name": "Nightwraith",
-            "Info": "On turn end Boost all Mirror Images on this and oposing row by 1, then  Transform self into a Noonwraith without changing its power.",
+            "Info": "On turn end, Boost all Mirror Images on this and the opposite row by 1, then transform self into a Noonwraith without changing its Power.",
             "Flavor": "How much damage can a pale, emaciated woman, entangled in a ripped dress, do? A lot, it turns out."
         },
         "80001": {
