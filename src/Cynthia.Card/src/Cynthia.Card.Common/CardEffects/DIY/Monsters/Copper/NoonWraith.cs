@@ -21,6 +21,8 @@ namespace Cynthia.Card
         {//On turn end, repeat deploy ability and transform into a Nightwraith.
             if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
+                mystrength = Card.Status.Strength;
+                myhealth = Card.Status.HealthStatus;
                 //On turn end, repeat deploy ability
                 await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow);
                 await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow);
