@@ -3705,7 +3705,7 @@
         },
         "70131": {
             "Name": "Count Caldwell",
-            "Info": "Deploy: Swap the Base Strength of 2 enemy units.",
+            "Info": "Deploy: Swap the Base Strength of 2 enemy units on the same row.",
             "Flavor": "Your Majesty… For the queen to question commoners, why, it's simply not proper…"
         },
         "70132": {

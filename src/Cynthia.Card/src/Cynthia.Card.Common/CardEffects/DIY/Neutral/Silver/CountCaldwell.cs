@@ -10,27 +10,31 @@ namespace Cynthia.Card
         public CountCaldwell(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var select1 = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (!select1.TrySingle(out var target1))
+            bool row1 = Game.PlayersPlace[AnotherPlayer][0].IgnoreConcealAndDead().Count > 1;
+            bool row2 = Game.PlayersPlace[AnotherPlayer][1].IgnoreConcealAndDead().Count > 1;
+            bool row3 = Game.PlayersPlace[AnotherPlayer][2].IgnoreConcealAndDead().Count > 1;
+            if (!(row1 || row2 || row3))
             {
                 return 0;
             }
-            var select2 = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
-            if (!select2.TrySingle(out var target2))
-            {
-                return 0;
-            }
+            var first = (await Game.GetSelectPlaceCards(Card, filter: x => (
+                (row1 && x.Status.CardRow == RowPosition.MyRow1) ||
+                (row2 && x.Status.CardRow == RowPosition.MyRow2) ||
+                (row3 && x.Status.CardRow == RowPosition.MyRow3)
+            ), selectMode: SelectModeType.EnemyRow)).Single();
 
-            int offset = select1.Single().Status.Strength - select2.Single().Status.Strength;
-            if (select1.Single().Status.Strength > select2.Single().Status.Strength)
+            var second = (await Game.GetSelectPlaceCards(Card, filter: x => x.PlayerIndex == first.PlayerIndex && x.Status.CardRow == first.Status.CardRow && x != first)).Single();
+
+            int offset = first.Status.Strength - second.Status.Strength;
+            if (first.Status.Strength > second.Status.Strength)
             {
-                await select1.Single().Effect.Weaken(offset, Card);
-                await select2.Single().Effect.Strengthen(offset, Card);
+                await first.Effect.Weaken(offset, Card);
+                await second.Effect.Strengthen(offset, Card);
             }
-            if (select1.Single().Status.Strength < select2.Single().Status.Strength)
+            if (first.Status.Strength < second.Status.Strength)
             {
-                await select2.Single().Effect.Weaken(-offset, Card);
-                await select1.Single().Effect.Strengthen(-offset, Card);
+                await second.Effect.Weaken(-offset, Card);
+                await first.Effect.Strengthen(-offset, Card);
             }
             return 0;
         }
