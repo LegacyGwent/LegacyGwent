@@ -2003,6 +2003,7 @@ MonoBehaviour:
   MonstersBack: {fileID: 21300000, guid: 230fa3f8d100a4b4e9b43c733c979cb8, type: 3}
   SkelligeBack: {fileID: 21300000, guid: 494368b65bb50114b9380bb522d56f5f, type: 3}
   NilfgaardBack: {fileID: 21300000, guid: 4f7c035c1c97780428fe199cb1618705, type: 3}
+  NeutralBack: {fileID: 21300000, guid: d4ebfebc5dd8bee4ea75ebc61bef536b, type: 3}
   SelectCenter: {fileID: 78764764}
   SelectMargin: {fileID: 1447587406}
   SelectIcon: {fileID: 74180627}

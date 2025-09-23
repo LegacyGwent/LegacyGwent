@@ -53,6 +53,7 @@ public class ArtCard : MonoBehaviour
     public Sprite MonstersBack;//怪物
     public Sprite SkelligeBack;//群岛
     public Sprite NilfgaardBack;//帝国
+    public Sprite NeutralBack;
     //----------------------------------
 
     // public void Start()
@@ -91,6 +92,8 @@ public class ArtCard : MonoBehaviour
                 CardBack.sprite = ScoiaTaelBack;
             if (CurrentCore.DeckFaction == Faction.Skellige)
                 CardBack.sprite = SkelligeBack;
+            if (CurrentCore.DeckFaction == Faction.Neutral)
+                CardBack.sprite = NeutralBack;            
             CardBack.gameObject.SetActive(true);
             FactionIcon.gameObject.SetActive(false);
             return;
