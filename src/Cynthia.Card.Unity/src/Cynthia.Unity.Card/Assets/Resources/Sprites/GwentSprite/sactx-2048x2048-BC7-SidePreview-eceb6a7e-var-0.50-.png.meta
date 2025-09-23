@@ -441,8 +441,8 @@ TextureImporter:
       name: MonstersContent
       rect:
         serializedVersion: 2
-        x: 5
-        y: 456
+        x: 2
+        y: 453
         width: 278
         height: 83
       alignment: 0
