@@ -915,7 +915,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "On round start, Resurrect itself and Weaken itself by half.",
+            "Info": "On round start, Resurrect self and Weaken self by half.",
             "Flavor": "At least you now know I don't easily lose my head."
         },
         "13016": {
@@ -3025,7 +3025,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck. This effect counts as resurection.",
+            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck.\nThis effect counts as resurrection.",
             "Flavor": "Spikeroog's a barren backwater, but that don't bother us - everythin' we need, we take from you."
         },
         "64005": {
@@ -3505,7 +3505,7 @@
         },
         "70090": {
             "Name": "Cultist Oblation",
-            "Info": "After 2 turn, on the turn starts, bannish itself. Deathwish: Heal a random unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Info": "After 2 turns, on turn start, Banish self. Deathwish: Heal a random enemy unit with the most injuries and Strengthen it by 1.",
             "Flavor": "They... They's butcherin' folk, Captain! S-sacrifices to a bear god or some such!"
         },
         "70091": {
@@ -3680,7 +3680,7 @@
         },
         "70126": {
             "Name": "Cintrian Royal Guard",
-            "Info": "Deploy: Boost self by 3. If your total Power is less then the opponent, Boost the adjacent units by 3 each instead.",
+            "Info": "Deploy: Boost self by 3.\nIf you are losing, Boost adjacent units by 3 instead.",
             "Flavor": "Queen Calanthe handpicked her personal guard with meticulous care. Each must serve with unconditional loyalty, stand more than six feet tall, and possess a devilishly handsome jawline."
         },
         "70127": {
