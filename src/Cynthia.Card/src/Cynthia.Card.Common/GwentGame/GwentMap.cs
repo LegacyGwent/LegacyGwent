@@ -146,7 +146,7 @@ namespace Cynthia.Card
             { Categorie.Shapeshifter, "Shapeshifter" },
             { Categorie.Token, "Token" },
             { Categorie.Agent, "Agent" },
-            { Categorie.ClanBrokvar, "ClanBrovkar" },
+            { Categorie.ClanBrokvar, "ClanBrokvar" },
             { Categorie.Human, "Human" },
             { Categorie.Bomb, "Bomb" },
             { Categorie.Druid, "Druid" },
