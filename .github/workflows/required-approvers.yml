@@ -3,107 +3,69 @@ name: Check Approvers
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review, edited, review_requested, review_request_removed]
-  pull_request_review:
-    types: [submitted]
 
 jobs:
   check-approvers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Get changed files
-        id: files
         run: |
-          # Fetch list of changed files in the PR
-          CHANGED_FILES=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files \
-            --paginate --jq '.[].filename')
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          FILES=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files \
+            --paginate --jq '.[].filename' | jq -R -s -c 'split("\n")[:-1]')
+          echo "CHANGED_FILES=$FILES" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get approvals
-        id: approvals
         run: |
-          # Fetch unique list of users who approved the PR
-          APPROVED_USERS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
+          USERS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
             --jq '[.[] | select(.state=="APPROVED") | .user.login] | unique | map(ascii_downcase)')
-          echo "APPROVED_USERS=$APPROVED_USERS" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Request reviews from required users
-        run: |
-          SPECIAL_PATH="src/secure/"
-          REQUIRED_USERS=("alice" "bob")
-
-          # Determine if special path is touched
-          NEED_RULE=0
-          for f in $CHANGED_FILES; do
-            if [[ "$f" == $SPECIAL_PATH* ]]; then
-              NEED_RULE=1
-              break
-            fi
-          done
-
-          if [ "$NEED_RULE" -eq 1 ]; then
-            echo "Requesting reviews from: ${REQUIRED_USERS[*]}"
-            gh api \
-              repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
-              -f reviewers="$(printf '["%s","%s"]' "${REQUIRED_USERS[@]}")"
-          else
-            echo "✅ No restricted path changed. Skipping review request."
-          fi
+          echo "APPROVED_USERS=$USERS" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enforce approval rules
         run: |
-          # === Configuration ===
-          SPECIAL_PATH="src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects"         # Path that requires strict approval
-          REQUIRED_USERS=("The-last-Iris" "Pippow")     # Both users must approve if path is touched
-          # =====================
+          SPECIAL_PATH="src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects"
+          REQUIRED_BOTH=("The-last-Iris" "Pippow")
+          REQUIRED_ANY=("The-last-Iris" "Pippow" "kajtek14102")
 
-          echo "Changed files: $CHANGED_FILES"
-          echo "Approved users: $APPROVED_USERS"
+          PR_AUTHOR=$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH" | ascii_downcase)
 
-          # Check if PR touches the special path
-          NEED_RULE=0
-          for f in $CHANGED_FILES; do
-            if [[ "$f" == $SPECIAL_PATH* ]]; then
-              NEED_RULE=1
-              break
-            fi
+          NEED_SPECIAL=0
+          for f in $(echo "$CHANGED_FILES" | jq -r '.[]'); do
+            [[ "$f" == $SPECIAL_PATH* ]] && NEED_SPECIAL=1
           done
 
-          if [ "$NEED_RULE" -eq 0 ]; then
-            echo "✅ No restricted path changed. Skipping extra checks."
-            exit 0
+          APPROVERS=$(echo "$APPROVED_USERS" | jq -r '.[]')
+
+          if [ "$NEED_SPECIAL" -eq 1 ]; then
+            MISSING=()
+            for u in "${REQUIRED_BOTH[@]}"; do
+              if [ "$u" != "$PR_AUTHOR" ] && ! echo "$APPROVERS" | grep -qi "$u"; then
+                MISSING+=("$u")
+              fi
+            done
+            if [ ${#MISSING[@]} -gt 0 ]; then
+              echo "❌ Missing approvals from required users for SPECIAL_PATH: ${MISSING[*]}"
+              exit 1
+            fi
+          else
+            ANY_APPROVED=0
+            for u in "${REQUIRED_ANY[@]}"; do
+              if [ "$u" != "$PR_AUTHOR" ] && echo "$APPROVERS" | grep -qi "$u"; then
+                ANY_APPROVED=1
+                break
+              fi
+            done
+            if [ "$ANY_APPROVED" -eq 0 ]; then
+              echo "❌ Missing approval from any of the required users: ${REQUIRED_ANY[*]}"
+              exit 1
+            fi
           fi
 
-          # Check if any approver has write/admin permission (super-user)
-          for u in $(echo "$APPROVED_USERS" | jq -r '.[]'); do
-            PERM=$(gh api repos/${{ github.repository }}/collaborators/$u/permission --jq .permission || echo "none")
-            if [[ "$PERM" == "admin" || "$PERM" == "write" ]]; then
-              echo "✅ Super-user '$u' (permission: $PERM) approved. Merge allowed."
-              exit 0
-            fi
-          done
-
-          # Check that all required users approved
-          MISSING_USERS=()
-          for u in "${REQUIRED_USERS[@]}"; do
-            if ! echo "$APPROVED_USERS" | grep -qi "$u"; then
-              MISSING_USERS+=("$u")
-            fi
-          done
-
-          if [ ${#MISSING_USERS[@]} -gt 0 ]; then
-            echo "❌ Missing approval from required users: ${MISSING_USERS[*]}"
-            exit 1
-          fi
-
-          echo "✅ All required users approved. Merge allowed."
+          echo "✅ Approval rules passed — merge allowed."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
