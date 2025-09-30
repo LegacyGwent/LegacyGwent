@@ -3615,7 +3615,7 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 3 Damage to a non-Cursed ally, then choose and play one of two Bronze Cultist card from your deck, then Strenghten the unit played by 1.",
+            "Info": "Deal 3 Damage to a non-Cultist ally, then choose and play one of two Bronze Cultist card from your deck, then Strenghten the unit played by 1.",
             "Flavor": "Not all of Svalblod's worshippers wield bow and blade. They've simply no need."
         },
         "70113": {
