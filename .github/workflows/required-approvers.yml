@@ -47,3 +47,24 @@ jobs:
                 MISSING+=("$u")
               fi
             done
+            if [ ${#MISSING[@]} -gt 0 ]; then
+              echo "❌ Missing approvals from required users for SPECIAL_PATH: ${MISSING[*]}"
+              exit 1
+            fi
+          else
+            ANY_APPROVED=0
+            for u in "${REQUIRED_ANY[@]}"; do
+              if [ "$u" != "$PR_AUTHOR" ] && echo "$APPROVERS" | grep -qi "$u"; then
+                ANY_APPROVED=1
+                break
+              fi
+            done
+            if [ "$ANY_APPROVED" -eq 0 ]; then
+              echo "❌ Missing approval from any of the required users: ${REQUIRED_ANY[*]}"
+              exit 1
+            fi
+          fi
+
+          echo "✅ Approval rules passed — merge allowed."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
