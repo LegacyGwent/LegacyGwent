@@ -25,6 +25,16 @@ namespace Cynthia.Card.Server
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            // Load season from DB on startup
+            try
+            {
+                season = _databaseService.GetCurrentSeason();
+                SeasonProvider.CurrentSeason = season;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to load current season from database; falling back to default");
+            }
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
@@ -44,6 +54,14 @@ namespace Cynthia.Card.Server
                         await ResetPlayerRanks();
                         season++;
                         SeasonProvider.CurrentSeason = season;
+                        try
+                        {
+                            _databaseService.SetCurrentSeason(season);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Failed to persist new season to database");
+                        }
                     }
 
                     // Wait for 1 minute before next check

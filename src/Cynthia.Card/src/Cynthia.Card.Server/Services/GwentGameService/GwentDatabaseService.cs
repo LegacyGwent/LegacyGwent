@@ -21,6 +21,7 @@ namespace Cynthia.Card.Server
         }
         private IMongoDatabase GetDatabase() => GetMongoClient().GetDatabase(_dataBaseName);
         private IMongoCollection<UserInfo> GetUserInfo() => GetDatabase().GetCollection<UserInfo>(_repositoryName);
+        private IMongoCollection<BsonDocument> GetSettings() => GetDatabase().GetCollection<BsonDocument>("settings");
 
         private const string _dataBaseName = "gwentdiy";
         private const string _repositoryName = "user";
@@ -29,6 +30,23 @@ namespace Cynthia.Card.Server
             _provider = provider;
             // Database = database;
             // _collection = Database[_dataBaseName].GetRepository<UserInfo>(_repositoryName);
+        }
+        public int GetCurrentSeason()
+        {
+            var settings = GetSettings();
+            var doc = settings.AsQueryable().FirstOrDefault(x => x["key"] == "season");
+            if (doc == null)
+            {
+                return 2; // fallback default
+            }
+            return doc.Contains("value") ? doc["value"].AsInt32 : 2;
+        }
+        public void SetCurrentSeason(int season)
+        {
+            var settings = GetSettings();
+            var filter = Builders<BsonDocument>.Filter.Eq("key", "season");
+            var update = Builders<BsonDocument>.Update.Set("key", "season").Set("value", season);
+            settings.UpdateOne(filter, update, new UpdateOptions { IsUpsert = true });
         }
         public bool AddDeck(string username, DeckModel deck)
         {
