@@ -794,8 +794,8 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     ranktitle = "JOURNEYMAN";
                     break;
                 case int i when i >= 3850 && i < 3950:
-                    // remove after season 2
-                    rankavatar = "CirALt";
+                    // Seasonal avatar tier 1
+                    rankavatar = SeasonProvider.CurrentSeason == 2 ? "CirALt" : "Zoltan_Animal_Tamer";
                     break;
                 case int i when i >= 3950 && i < 4100:
                     rank = "Rank12border";
@@ -808,7 +808,8 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 case int i when i >= 4250 && i < 4400:
                     rank = "Rank18border";
                     ranktitle = "MASTER";
-                    rankavatar = "YenneferFury";
+                    // Seasonal avatar tier 2
+                    rankavatar = SeasonProvider.CurrentSeason == 2 ? "YenneferFury" : "Eredin_Unmasked" ;
                     break;
                 default:
                     rank = "Rank21border";

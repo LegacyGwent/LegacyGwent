@@ -21,6 +21,7 @@ namespace Cynthia.Card.Server
             _gwentServerService = gwentServerService;
             _databaseService = databaseService;
         }
+        public int season = SeasonProvider.CurrentSeason; // Current season number
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -29,18 +30,20 @@ namespace Cynthia.Card.Server
                 try
                 {
                     var now = DateTime.UtcNow;
-                    
+
                     // Check if it's the date of the season end
-                    if (now.Month == 6 && now.Day == 23 && now.Hour == 0 && now.Minute == 0)
+                    if (now.Month == 10 && now.Day == 23 && now.Hour == 0 && now.Minute == 0)
                     {
                         Console.WriteLine("Executing monthly rank reset and seasonal rewards...");
                         _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
-                        
+
                         // First award seasonal rewards
                         await AwardSeasonalRewards();
-                        
+
                         // Then reset ranks
                         await ResetPlayerRanks();
+                        season++;
+                        SeasonProvider.CurrentSeason = season;
                     }
 
                     // Wait for 1 minute before next check
@@ -72,59 +75,59 @@ namespace Cynthia.Card.Server
                     // Award borders
                     if (rank <= 100)
                     {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season1Border1");
+                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border1");
                     }
                     if (rank <= 50)
                     {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season1Border2");
+                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border2");
                     }
                     if (rank <= 20)
                     {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season1Border3");
+                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border3");
                     }
                     if (rank <= 10)
                     {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season1Border4");
+                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border4");
                     }
                     if (rank <= 5)
                     {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season1Border5");
+                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border5");
                     }
                     if (rank == 1)
                     {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season1Border6");
+                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border6");
                     }
 
                     // Award titles
                     if (rank <= 100)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "MAN-AT-ARMS");
+                        await _gwentServerService.AddTitle(player.PlayerName, "RANGER");
                     }
                     if (rank <= 50)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "MERCENARY");
+                        await _gwentServerService.AddTitle(player.PlayerName, "TRAPPER");
                     }
                     if (rank <= 20)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "BOUNTYHUNTER");
+                        await _gwentServerService.AddTitle(player.PlayerName, "HUNTER");
                     }
                     if (rank <= 10)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "VETERAN");
+                        await _gwentServerService.AddTitle(player.PlayerName, "REBEL");
                     }
                     if (rank <= 5)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "CHAMPION");
+                        await _gwentServerService.AddTitle(player.PlayerName, "DEFENDER");
                     }
                     if (rank == 1)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "HERO");
+                        await _gwentServerService.AddTitle(player.PlayerName, "PROTECTOR");
                     }
 
                     // Award avatar to top 10
                     if (rank <= 10)
                     {
-                        await _gwentServerService.AddAvatar(player.PlayerName, "Imlerith_Unmasked");
+                        await _gwentServerService.AddAvatar(player.PlayerName, "Iorveth");
                     }
                 }
                 

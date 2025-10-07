@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 6);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 7);
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -141,7 +140,7 @@ namespace Cynthia.Card
                     Taunt4 = "Zoltan4",
                     Taunt5 = "Zoltan5",
                     Taunt6 = "Zoltan6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -341,7 +340,7 @@ namespace Cynthia.Card
                     Taunt4 = "Geralt4",
                     Taunt5 = "Geralt5",
                     Taunt6 = "Geralt6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -369,7 +368,7 @@ namespace Cynthia.Card
                     Taunt4 = "Eredin4",
                     Taunt5 = "Eredin5",
                     Taunt6 = "Eredin6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -690,7 +689,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season3Border1",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -698,7 +697,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season3Border2",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -706,7 +705,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season3Border3",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -714,7 +713,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season3Border4",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -722,7 +721,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season3Border5",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -730,7 +729,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season3Border6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -1143,7 +1142,7 @@ namespace Cynthia.Card
                     UnlockStat = "GamesOver200",
                 }
             },
-            { 
+            {
                 "$$$MILLIONAIRE$$$",
                 new Title()
                 {
@@ -1152,7 +1151,7 @@ namespace Cynthia.Card
                     TitleColor = "yellow",
                 }
             },
-            { 
+            {
                 "COMPETITOR",
                 new Title()
                 {
@@ -1161,7 +1160,7 @@ namespace Cynthia.Card
                     TitleColor = "orange",
                 }
             },
-            { 
+            {
                 "DEVELOPER",
                 new Title()
                 {
@@ -1170,6 +1169,60 @@ namespace Cynthia.Card
                     TitleColor = "purple",
                 }
             },
+            {
+                "DRAGONHATCHLING",
+                new Title()
+                {
+                    ID = "DRAGONHATCHLING",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "YOUNGDRAKE",
+                new Title()
+                {
+                    ID = "YOUNGDRAKE",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "SLYZARD",
+                new Title()
+                {
+                    ID = "SLYZARD",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WYVERN",
+                new Title()
+                {
+                    ID = "WYVERN",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "GREATWYRM",
+                new Title()
+                {
+                    ID = "GREATWYRM",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "GOLDENDRAGON",
+                new Title()
+                {
+                    ID = "GOLDENDRAGON",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },            
         };
     }
 }
