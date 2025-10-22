@@ -48,12 +48,26 @@ jobs:
           echo "=== Available Disk Space ==="
           df -h
       
-      - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
+      # Linux-specific Unity import fix
+      - name: Linux Unity Import Fix
+        if: matrix.targetPlatform == 'StandaloneLinux64'
+        run: |
+          cd src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
+          # Force Unity to reimport packages by removing import cache
+          rm -rf Library/Artifacts/ 2>/dev/null || true
+          rm -rf Library/ScriptAssemblies/ 2>/dev/null || true
+          # Remove potentially corrupted package cache
+          rm -rf Library/PackageCache/ 2>/dev/null || true
+          echo "=== Unity Library cleaned for Linux build ==="
+      
+      - name: Unity Build
+        uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
           allowDirtyBuild: true
+        timeout-minutes: 60
       - uses: actions/upload-artifact@v4
         with:
           name: DiyGwent-${{ matrix.targetPlatform }}
