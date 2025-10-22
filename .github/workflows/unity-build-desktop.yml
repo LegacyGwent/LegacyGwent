@@ -21,86 +21,26 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      
-      # Clean up disk space before starting (safe for mobile workflows)
-      - name: Clean up disk space
-        run: |
-          # Safe cleanup - only removes cached files, preserves mobile build tools
-          sudo apt-get clean
-          # Remove cached GitHub Actions tools (will be re-downloaded if needed)
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          # Clean up Unity temporary files from previous runs
-          find . -name "Temp" -type d -exec rm -rf {} + 2>/dev/null || true
-          find . -name "Logs" -type d -exec rm -rf {} + 2>/dev/null || true
-          # Show available disk space
-          df -h
-      
-      # Cache Unity Library with more specific key and cleanup
       - uses: actions/cache@v4
         with:
-          path: |
-            src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
-            src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/obj
-          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('**/Cynthia.Card.Common.dll') }}
-          restore-keys: |
-            Library-${{ matrix.targetPlatform }}-
-            Library-
-      
-      # Cache .NET build artifacts
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.nuget/packages
-            src/Cynthia.Card/src/Cynthia.Card.Common/bin
-            src/Cynthia.Card/src/Cynthia.Card.Server/bin
-          key: dotnet-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            dotnet-
-      
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.301
-      
       - name: Build .NET Core
-        run: |
-          dotnet restore src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
-          dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj --configuration Release
-      
+        run: dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
       - name: Sync Cynthia.Card.Common.dll
-        run: cp src/Cynthia.Card/src/Cynthia.Card.Common/bin/Release/netstandard2.0/Cynthia.Card.Common.dll src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll
-      
-      # Minimal cleanup before Unity build
-      - name: Clean Unity project before build
-        run: |
-          cd src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
-          # Only remove temporary directories, preserve Unity cache
-          rm -rf Temp/
-          rm -rf Logs/
-          rm -rf obj/
-          df -h
-      
+        run: cp src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
           allowDirtyBuild: true
-      
-      # Clean up after build to free space
-      - name: Clean up after build
-        run: |
-          cd src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
-          rm -rf Temp/
-          rm -rf Logs/
-          rm -rf obj/
-          # Clean Unity Library cache
-          find Library -name "*.tmp" -delete
-          find Library -name "*.log" -delete
-          df -h
-      
       - uses: actions/upload-artifact@v4
         with:
           name: DiyGwent-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
-          retention-days: 7
