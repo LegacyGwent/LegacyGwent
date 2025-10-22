@@ -18,6 +18,223 @@
 
 <body>
     <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.drawTestChart = (chartData, canvasId, type = 'bar', _labels = [], tooltips_off = false, title = "", tooltip_type = "") => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+            console.error('Canvas not found: ' + canvasId);
+            return;
+        }
+            const ctx = canvas.getContext('2d');
+            const showgrid = _labels.length > 0 ? false : true;
+            
+            
+            const sumLabels = chartData[0].data.map((_, index) => {
+            const sum = chartData.reduce((sum, dataset) => sum + dataset.data[index], 0) / 2; 
+
+            const date = new Date(chartData[0].date[index]);
+            
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            
+            const formattedDate = `${day}-${month}`;
+
+            return `${formattedDate}\nGames:${sum}`;
+        });
+
+            const datasets = chartData.map(dataset => ({
+                label: dataset.label,
+                data: dataset.data,
+                backgroundColor: dataset.backgroundColor,
+                borderColor: "black",
+                borderWidth: 0.7
+            }));
+
+            new Chart(ctx, {
+        type: type,
+        data: {
+            labels: _labels.length > 0 ? _labels : sumLabels,
+            datasets: datasets
+        },
+        options: {
+            animation: {
+                duration: 1000,
+                easing: 'easeInOutQuad'
+            },
+            responsive: false,
+            plugins: {
+                title: {
+                    display: title != "",
+                    text: title,
+                    font: {
+                        size: 24,
+                    },
+                    padding: {
+                        top: 20,
+                        bottom: 10
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                        const datasetIndex = tooltipItem.datasetIndex;
+                        const value = tooltipItem.raw;
+        
+                        if(tooltips_off == true){
+                            return``;
+                        }
+                        else if(_labels.length > 0){
+
+                            const dataset = tooltipItem.chart.data.datasets[datasetIndex];
+                            const totalValue = dataset.data.reduce((sum, currentValue) => sum + currentValue, 0);
+
+                            if(tooltip_type == "games"){
+                                return ` ${value} Games (${((value/totalValue)*100).toFixed(2)}%)`;
+                            }
+
+                            return `${value} (${((value/totalValue)*100).toFixed(2)}%)`;                        
+                        }
+
+                        }
+                    }
+                    
+                },
+                legend: {
+                    position: 'top'
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 0,
+                        display: showgrid
+                    },
+                    grid: {
+                        display: showgrid
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    stacked: true,
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 0,
+                        display: showgrid
+                    },
+                    grid: {
+                        display: showgrid
+                    }
+                }
+            }
+        }
+    });
+
+        };
+
+
+
+        function openChartInNewWindow(canvasId, headerText = "") {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas not found: ' + canvasId);
+                return;
+            }
+
+            const chart = Chart.getChart(canvas);
+            if (!chart) {
+                console.error('Chart not found for canvas: ' + canvasId);
+                return;
+            }
+
+            const overlay = document.getElementById("chartOverlay");
+            overlay.style.display = "flex";
+
+            const container = document.getElementById("multiChartContainer");
+            container.style.display = "none";
+
+            const newCanvas = document.getElementById("overlayCanvas");
+            newCanvas.style.display = "block";
+            newCanvas.width = window.innerWidth * 0.8;
+            newCanvas.height = window.innerHeight * 0.8;
+
+            const ctx = newCanvas.getContext("2d");
+
+            const oldChart = Chart.getChart(newCanvas);
+            if (oldChart) {
+                oldChart.destroy();
+            }
+
+            document.getElementById("canvasheader").innerText = headerText;
+
+            new Chart(ctx, {
+                type: chart.config.type,
+                data: chart.config.data,
+                options: chart.config.options
+            });
+        }
+        
+        function closeOverlay() {
+            const overlay = document.getElementById("chartOverlay");
+            const newCanvas = document.getElementById("overlayCanvas");
+
+            const container = document.getElementById("multiChartContainer");
+            container.style.display = "none";
+
+            newCanvas.style.display = "none";
+
+            overlay.style.display = "none";
+
+           
+
+        }
+
+        function openMultipleChartsInOverlay(canvasIdArray, headerText = "") {
+            const overlay = document.getElementById("chartOverlay");
+            const container = document.getElementById("multiChartContainer");
+            const overlayCanvas = document.getElementById("overlayCanvas");
+
+            overlayCanvas.style.display = "none";
+            container.innerHTML = "";
+
+            container.style.display = "flex";
+
+            canvasIdArray.forEach((canvasId, index) => {
+                const sourceCanvas = document.getElementById(canvasId);
+                if (!sourceCanvas) {
+                    console.error('Canvas not found: ' + canvasId);
+                    return;
+                }
+
+                const sourceChart = Chart.getChart(sourceCanvas);
+                if (!sourceChart) {
+                    console.error('Chart not found for canvas: ' + canvasId);
+                    return;
+                }
+
+
+                const newCanvas = document.createElement("canvas");
+                newCanvas.width = 400;
+                newCanvas.height = 400;
+                newCanvas.style.border = "1px solid #ccc";
+                newCanvas.id = `multiChart_${index}`;
+                container.appendChild(newCanvas);
+
+
+                const ctx = newCanvas.getContext("2d");
+                new Chart(ctx, {
+                    type: sourceChart.config.type,
+                    data: sourceChart.config.data,
+                    options: sourceChart.config.options
+                });
+            });
+
+            document.getElementById("canvasheader").innerText = headerText;
+            overlay.style.display = "flex";
+        }
+    </script>
     <script src="_content/AntDesign/js/ant-design-blazor.js"></script>
     <script src="_framework/blazor.server.js"></script>
 </body>
