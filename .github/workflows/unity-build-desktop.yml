@@ -70,21 +70,14 @@ jobs:
       - name: Sync Cynthia.Card.Common.dll
         run: cp src/Cynthia.Card/src/Cynthia.Card.Common/bin/Release/netstandard2.0/Cynthia.Card.Common.dll src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll
       
-      # Clean up before Unity build
+      # Minimal cleanup before Unity build
       - name: Clean Unity project before build
         run: |
           cd src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
+          # Only remove temporary directories, preserve Unity cache
           rm -rf Temp/
           rm -rf Logs/
           rm -rf obj/
-          # Clean Library directory if it exists
-          if [ -d "Library" ]; then
-            find Library -name "*.tmp" -delete 2>/dev/null || true
-            find Library -name "*.log" -delete 2>/dev/null || true
-            # Remove potentially corrupted import cache
-            rm -rf Library/Artifacts/ 2>/dev/null || true
-            rm -rf Library/ScriptAssemblies/ 2>/dev/null || true
-          fi
           df -h
       
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
@@ -93,9 +86,6 @@ jobs:
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
           allowDirtyBuild: true
-          # Add timeout and force reimport to prevent hanging
-          customParameters: '-batchmode -quit -projectPath . -buildTarget ${{ matrix.targetPlatform }} -executeMethod UnityEditor.BuildPlayerWindow+DefaultBuildMethods.BuildPlayer_StandaloneLinux64 -logFile - -force-free -no-graphics'
-        timeout-minutes: 60
       
       # Clean up after build to free space
       - name: Clean up after build
