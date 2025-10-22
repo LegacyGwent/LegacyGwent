@@ -81,6 +81,9 @@ jobs:
           if [ -d "Library" ]; then
             find Library -name "*.tmp" -delete 2>/dev/null || true
             find Library -name "*.log" -delete 2>/dev/null || true
+            # Remove potentially corrupted import cache
+            rm -rf Library/Artifacts/ 2>/dev/null || true
+            rm -rf Library/ScriptAssemblies/ 2>/dev/null || true
           fi
           df -h
       
@@ -90,6 +93,9 @@ jobs:
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
           allowDirtyBuild: true
+          # Add timeout and force reimport to prevent hanging
+          customParameters: '-batchmode -quit -projectPath . -buildTarget ${{ matrix.targetPlatform }} -executeMethod UnityEditor.BuildPlayerWindow+DefaultBuildMethods.BuildPlayer_StandaloneLinux64 -logFile - -force-free -no-graphics'
+        timeout-minutes: 60
       
       # Clean up after build to free space
       - name: Clean up after build
