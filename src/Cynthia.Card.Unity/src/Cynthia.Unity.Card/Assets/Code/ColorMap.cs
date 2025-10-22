@@ -18,5 +18,6 @@ public static class ColorMap // store the colors of the title cosmetics
             { "red", new Color(0.8f,0.125490196f,0.125490196f,1f) }, // monster and midwinter title
             { "nrblue", new Color(0.37254902f,0.62745098f,0.91372549f,1f) }, // nr title
             { "darkgreen", new Color(0.074509804f,0.545098039f,0.439215686f,1f) }, // pioneer
+            { "lightgray", new Color(0.4622642f,0.4622642f,0.4622642f,1f) }, // nilfgaard title
         };
 }

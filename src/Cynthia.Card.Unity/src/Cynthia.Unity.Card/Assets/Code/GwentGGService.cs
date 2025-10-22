@@ -40,6 +40,7 @@ namespace Cynthia.Card.Client
             }
         }
 
+
         public GwentGGService(IContainer container, GlobalUIService globalUIService)
         {
             _translator = container.Resolve<LocalizationService>();

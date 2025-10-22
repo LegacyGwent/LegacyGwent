@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Cynthia.Card.Common.Models.Localization;
+using Cynthia.Card.Common.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -39,10 +40,41 @@ namespace Cynthia.Card.Client
         private ITubeInlet Sender;//sender for taunts
         private ITubeOutlet Receiver;// receiver for taunts
         private LocalizationService _translator;
+        private ClientMessagesReaderService _messagesReaderService;
 
-        public ClientState ClientState { get; set; } = ClientState.Standby;
+        private readonly object _lock = new object();
+        private ClientState _clientState = ClientState.Standby;
+        public ClientState ClientState
+        {
+             get { return _clientState; }
+            set
+            {
+                _clientState = value;
+                OnClientStateChanged();
+            }
+        }
+
+        public event Action ClientStateChanged;
+
+        private void OnClientStateChanged()
+        {
+            ClientStateChanged?.Invoke();
+        }
+
 
         /*待修改*/
+        public Task<IList<string>> CheckUserMessages(string playername)
+        {
+            return HubConnection.InvokeAsync<IList<string>>("GetUserMessages", playername);
+        }
+
+        public Task<bool> RemoveUserMessage(int messageId)
+        {
+            return HubConnection.InvokeAsync<bool>("RemoveUserMessage", User.UserName, messageId);
+        }
+
+
+
         public Task<bool> MatchResult()
         {
             return receiver.ReceiveAsync<bool>();
@@ -63,6 +95,7 @@ namespace Cynthia.Card.Client
         {
             _translator = container.Resolve<LocalizationService>();
             _globalUIService = globalUIService;
+
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
             /*待修改*/
@@ -131,6 +164,7 @@ namespace Cynthia.Card.Client
             HubConnection = hubConnection;
             hubConnection.StartAsync();
         }
+        
         public async void ExitGameClick()
         {
             if (await _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_QuitTitle"), _translator.GetText("PopupWindow_QuitDesc")))
@@ -312,9 +346,30 @@ namespace Cynthia.Card.Client
             return HubConnection.InvokeAsync<int>("GetPalyernameMMR", playername);
         }
 
-        public Task<IList<Tuple<string, int>>> GetAllMMR(int offset, int limit)
+        public Task<Tuple<int, int>> GetPalyernameMMRandPeak(string playername)
         {
-            return HubConnection.InvokeAsync<IList<Tuple<string, int>>>("GetAllMMR", offset, limit);
+            return HubConnection.InvokeAsync<Tuple<int, int>>("GetPalyernameMMRandPeak", playername);
+        }
+
+
+        public Task<int[]> GetPlayernameStreak(string playername)
+        {
+            return HubConnection.InvokeAsync<int[]>("GetPlayernameStreak", playername);
+        }
+        
+        public Task<List<SeasonReward>> GetSeasonRewards(int seasonID, string type) 
+        {
+            return HubConnection.InvokeAsync<List<SeasonReward>>("GetSeasonRewards", seasonID, type);
+        }
+
+        public Task<Tuple<string, DateTime, string, int, string>> GetSeasonData(bool active = true, int id = 0)
+        {
+            return HubConnection.InvokeAsync<Tuple<string, DateTime, string, int, string>>("GetSeasonData", active, id);
+        }
+
+        public Task<IList<Tuple<string, string, string, string, int, int, IList<int[]>>>> GetAllMMR(int offset, int limit)
+        {
+            return HubConnection.InvokeAsync<IList<Tuple<string, string, string, string, int, int, IList<int[]>>>>("GetAllMMRExtended", offset, limit);
         }
 
         public Task<Tuple<IList<Tuple<string, int>>, IList<Tuple<string, string, string>>, IList<Tuple<string, string, string>>>> GetUsers()

@@ -5,7 +5,17 @@ using MongoDB.Driver.Linq;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Cynthia.Card;
+using Cynthia.Card.Common.Models;
 using System.Threading.Tasks;
+
+
+
+
+
+
+
+
+
 
 namespace Cynthia.Card.Server
 {
@@ -21,33 +31,198 @@ namespace Cynthia.Card.Server
         }
         private IMongoDatabase GetDatabase() => GetMongoClient().GetDatabase(_dataBaseName);
         private IMongoCollection<UserInfo> GetUserInfo() => GetDatabase().GetCollection<UserInfo>(_repositoryName);
-        private IMongoCollection<BsonDocument> GetSettings() => GetDatabase().GetCollection<BsonDocument>("settings");
+
+        public IMongoCollection<SeasonInfo> GetSeasonInfo() => GetDatabase().GetCollection<SeasonInfo>(_seasonRepositoryName);
 
         private const string _dataBaseName = "gwentdiy";
         private const string _repositoryName = "user";
+
+        private const string _seasonRepositoryName = "season";
         public GwentDatabaseService(IServiceProvider provider)
         {
             _provider = provider;
             // Database = database;
             // _collection = Database[_dataBaseName].GetRepository<UserInfo>(_repositoryName);
         }
-        public int GetCurrentSeason()
+
+        public async Task UpdateSeasons(List<Season> seasonsList)
         {
-            var settings = GetSettings();
-            var doc = settings.AsQueryable().FirstOrDefault(x => x["key"] == "season");
-            if (doc == null)
+            var temp = GetSeasonInfo();
+            foreach (var season in seasonsList)
             {
-                return 2; // fallback default
+                var filter = Builders<SeasonInfo>.Filter.Eq(x => x.SeasonId, season.id);
+                bool isIdPresent = await temp.Find(filter).AnyAsync();
+
+                if (!isIdPresent)
+                {
+                    await temp.InsertOneAsync(new SeasonInfo
+                    {
+                        isActive = false,
+                        SeasonId = season.id,
+                        SeasonName = season.name,
+                        SeasonColor = season.color,
+                        SeasonEndTime = season.endTime,
+                        seasonalRewards = season.seasonalRewards
+                    });
+                }
+                else
+                {
+                    var update = Builders<SeasonInfo>.Update
+                        .Set(x => x.SeasonName, season.name)
+                        .Set(x => x.SeasonEndTime, season.endTime)
+                        .Set(x => x.seasonalRewards, season.seasonalRewards);
+
+                    await temp.UpdateOneAsync(filter, update);
+                }
             }
-            return doc.Contains("value") ? doc["value"].AsInt32 : 2;
         }
-        public void SetCurrentSeason(int season)
+
+        public async Task RefreshSeasons()
         {
-            var settings = GetSettings();
-            var filter = Builders<BsonDocument>.Filter.Eq("key", "season");
-            var update = Builders<BsonDocument>.Update.Set("key", "season").Set("value", season);
-            settings.UpdateOne(filter, update, new UpdateOptions { IsUpsert = true });
+            string[] SeasonsColorsList = {"darkyellow", "emerald", "orange", "lightblue", "blue", "yellow", "lightgreen", "red", "nrblue", "darkgreen"};
+            var temp = GetSeasonInfo();
+            var filter = Builders<SeasonInfo>.Filter.Eq(x => x.isActive, true);
+            var sortById = Builders<SeasonInfo>.Sort.Ascending(x => x.SeasonId);
+
+            SeasonInfo nextSeason = null;
+            TimeSpan _autoSeasonDuration = TimeSpan.FromDays(50);
+
+            try
+            {
+                var all_seasons = await temp.Find(_ => true).Sort(sortById).ToListAsync();
+                var last_index = all_seasons.Last().SeasonId;
+
+                var firstActiveSeason = await temp.Find(filter).Sort(sortById).FirstOrDefaultAsync();
+
+
+                if (firstActiveSeason != null)
+                {
+                    var filterNextInactive = Builders<SeasonInfo>.Filter.And(
+                        Builders<SeasonInfo>.Filter.Eq(x => x.isActive, false),
+                        Builders<SeasonInfo>.Filter.Gt(x => x.SeasonId, firstActiveSeason.SeasonId)
+                    );
+
+                    var nextInactiveSeason = await temp.Find(filterNextInactive).Sort(sortById).FirstOrDefaultAsync();
+
+                    if (nextInactiveSeason != null)
+                    {
+                        nextSeason = nextInactiveSeason;
+                    }
+
+                    //NO SEASON WITH BIGGER INDEX
+                    else
+                    {
+                        /*nextSeason = new SeasonInfo
+                        {
+                            isActive = false,
+                            SeasonId = last_index + 1,
+                            SeasonName = "Season_CreaturesSeason",
+                            SeasonColor = SeasonsColorsList[new Random().Next(SeasonsColorsList.Length)],
+                            SeasonStartTime = DateTime.UtcNow,
+                            SeasonEndTime = DateTime.UtcNow + _autoSeasonDuration,
+                            seasonalRewards = firstActiveSeason.seasonalRewards
+                        };
+                        await temp.InsertOneAsync(nextSeason);*/
+                    }
+                    //SET THE OLD TO INACTIVE IF ITS DATE PAST
+                    if (firstActiveSeason.areRewardsGranted && DateTime.UtcNow > firstActiveSeason.SeasonEndTime)
+                    {
+                        var OldSeasonFilter = Builders<SeasonInfo>.Filter.Eq(x => x.SeasonId, firstActiveSeason.SeasonId);
+                        var OldSeasonUpdate = Builders<SeasonInfo>.Update.Set(x => x.isActive, false);
+                        firstActiveSeason.isActive = false;
+
+                        await GetSeasonInfo().UpdateOneAsync(OldSeasonFilter, OldSeasonUpdate);
+                    }
+
+                }
+
+                if (firstActiveSeason == null || !firstActiveSeason.isActive) //Means None is active at the moment
+                {
+                    int baseSeasonId = firstActiveSeason?.SeasonId ?? 0;
+                    var seasons = await temp.Find(s => s.SeasonId > baseSeasonId).Sort(sortById).ToListAsync();
+                    
+                    if (seasons.Count > 0)
+                    {
+                        nextSeason = seasons.First();
+                    }
+                    else
+                    {
+                        var seasonsWithRewardsSeted = await temp.Find(s => s.seasonalRewards.Count > 0).Sort(sortById).ToListAsync();
+                        var lastElementWithRewardsSeted = seasonsWithRewardsSeted.LastOrDefault();
+                        nextSeason = new SeasonInfo
+                        {
+                            isActive = false,
+                            SeasonId = last_index + 1,
+                            SeasonName = "Season_CreaturesSeason",
+                            SeasonColor = SeasonsColorsList[new Random().Next(SeasonsColorsList.Length)],
+                            SeasonStartTime = DateTime.UtcNow,
+                            SeasonEndTime = DateTime.UtcNow + _autoSeasonDuration,
+                            seasonalRewards = lastElementWithRewardsSeted.seasonalRewards
+                        };
+                        await temp.InsertOneAsync(nextSeason);
+                    }
+
+                    if (nextSeason != null)
+                    {
+                        var filterSameId = Builders<SeasonInfo>.Filter.Eq(x => x.SeasonId, nextSeason.SeasonId);
+                        var update = Builders<SeasonInfo>.Update
+                            .Set(x => x.isActive, true)
+                            .Set(x => x.SeasonStartTime, DateTime.UtcNow);
+                        await temp.UpdateOneAsync(filterSameId, update);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
         }
+
+        public void SeasonRewardsGranted()
+        {
+            var temp = GetSeasonInfo();
+            var activeSeason = temp.AsQueryable().Where(x => x.isActive == true).OrderByDescending(x => x.SeasonId).FirstOrDefault();
+
+            if (activeSeason != null)
+            {
+                var filter = Builders<SeasonInfo>.Filter.Eq(x => x.SeasonId, activeSeason.SeasonId);
+                var update = Builders<SeasonInfo>.Update.Set(x => x.areRewardsGranted, true);
+                var result = temp.UpdateOne(filter, update);
+            }
+        }
+
+        public List<SeasonReward> QuerySeasonRewards(int seasonID, string type)
+        {
+            SeasonInfo season;
+            if (seasonID < 0)
+                season = GetSeasonInfo().AsQueryable().Where(x => x.isActive).OrderByDescending(x => x.SeasonId).FirstOrDefault();
+            else
+                season = GetSeasonInfo().AsQueryable().Where(x => x.SeasonId == seasonID).FirstOrDefault();
+            return season.seasonalRewards;
+
+        }
+        public Tuple<string, DateTime, string, int, string> QuerySeasonData(bool active = true, int id = 0)
+        {
+            var activeSeason = GetSeasonInfo().AsQueryable().Where(x => x.isActive).OrderBy(x => x.SeasonId).FirstOrDefault();
+            if (active)
+            {
+                if (activeSeason != null)
+                    return new Tuple<string, DateTime, string, int, string>(activeSeason.SeasonName, activeSeason.SeasonEndTime, activeSeason.SeasonColor, activeSeason.SeasonId, "");
+                else return new Tuple<string, DateTime, string, int, string>("", DateTime.MinValue, "purple", -1, "");
+            }
+            else
+            {
+                var searchedSeason = GetSeasonInfo().AsQueryable().Where(x => x.SeasonId == id).FirstOrDefault();
+                if (searchedSeason != null)
+                {
+                    var _date = activeSeason.SeasonId < searchedSeason.SeasonId ? searchedSeason.SeasonStartTime : searchedSeason.SeasonEndTime;
+                    return new Tuple<string, DateTime, string, int, string>(searchedSeason.SeasonName, _date, searchedSeason.SeasonColor, searchedSeason.SeasonId, searchedSeason.rankingHistory);
+                }
+                else return new Tuple<string, DateTime, string, int, string>("Not existing season with given id", DateTime.MinValue, "purple", -1, "");
+            }
+        }
+
         public bool AddDeck(string username, DeckModel deck)
         {
             var temp = GetUserInfo();
@@ -101,18 +276,23 @@ namespace Cynthia.Card.Server
             var ownedtitles = new List<string>();
             ownedtitles.Add("NoBorder");
             decks.Add(GwentDeck.CreateBasicDeck(1));
-            decks.Add(GwentDeck.CreateBasicDeck(2));
-            decks.Add(GwentDeck.CreateBasicDeck(3));
-            decks.Add(GwentDeck.CreateBasicDeck(4));
-            decks.Add(GwentDeck.CreateBasicDeck(5));
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, OwnedAvatars =ownedavatars, OwnedBorders = ownedborders});
+
+            var emptyStreak = new List<int[]>() { new int[3], new int[3], new int[3], new int[3], new int[3] };
+
+            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, HighestMMR = initMMR, OwnedAvatars = ownedavatars, OwnedBorders = ownedborders });
             return true;
         }
         public UserInfo Login(string username, string password)
         {
             var temp = GetUserInfo();
             var user = temp.AsQueryable<UserInfo>().Where(x => x.UserName == username && x.PassWord == password).ToArray();
-            return user.Length > 0 ? user[0] : null;
+
+            if (user.Length <= 0)
+            {
+                return null;
+            }
+
+            return user[0];
         }
         public bool UpdateMMR(string playername, int MMR)//更新玩家天梯分数
         {
@@ -134,7 +314,7 @@ namespace Cynthia.Card.Server
         public bool AddAvatar(string playername, string AvatarID)
         {
             //check if AvatarID exists before adding
-            if (!TrinketMap.GetAvatarsId().Any(x => x == AvatarID)) {return false;}
+            if (!TrinketMap.GetAvatarsId().Any(x => x == AvatarID)) { return false; }
             var temp = GetUserInfo();
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user[0].OwnedAvatars == null)
@@ -147,13 +327,17 @@ namespace Cynthia.Card.Server
                 temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
+            
         }
         // add a border to the user's owned borders
         public bool AddBorder(string playername, string BorderID)
         {
             // check if BorderID exists before adding
-            if (!TrinketMap.GetBordersId().Any(x => x == BorderID)) {return false;}
+            if (!TrinketMap.GetBordersId().Any(x => x == BorderID)) { return false; }
             var temp = GetUserInfo();
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user[0].OwnedBorders == null)
@@ -161,18 +345,22 @@ namespace Cynthia.Card.Server
                 user[0].OwnedBorders = new List<string>();
             }
             if (!user[0].OwnedBorders.Any(x => x == BorderID))
-            {   
+            {
                 user[0].OwnedBorders.Add(BorderID);
                 temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
+            
         }
 
         public bool AddTitle(string playername, string TitleID)
         {
             // check if TitleID exists before adding
-            if (!TrinketMap.GetTitlesId().Any(x => x == TitleID)) {return false;}
+            if (!TrinketMap.GetTitlesId().Any(x => x == TitleID)) { return false; }
             var temp = GetUserInfo();
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             if (user[0].OwnedTitles == null)
@@ -180,12 +368,16 @@ namespace Cynthia.Card.Server
                 user[0].OwnedTitles = new List<string>();
             }
             if (!user[0].OwnedTitles.Any(x => x == TitleID))
-            {   
+            {
                 user[0].OwnedTitles.Add(TitleID);
                 temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
+            
         }
 
         public bool UpdateAvatar(string playername, string AvatarID) // Set the avatar of the user
@@ -232,7 +424,31 @@ namespace Cynthia.Card.Server
             {
                 return false;
             }
-            user[0].GGsReceived +=1 ;
+            user[0].GGsReceived += 1;
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+            return true;
+        }
+        public bool UpdateStreak(string playername, int result, int factionIndex)
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
+            if (user.Length == 0)
+            {
+                return false;
+            }
+            user[0].Streak[factionIndex][result] += 1;
+            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
+            return true;
+        }
+        public bool SetStreak(string playername, IList<int[]> streak)
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
+            if (user.Length == 0 || streak == null || streak.Count == 0)
+            {
+                return false;
+            }
+            user[0].Streak = streak;
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
@@ -244,7 +460,7 @@ namespace Cynthia.Card.Server
             {
                 return false;
             }
-            user[0].GamesOver200 +=1 ;
+            user[0].GamesOver200 += 1;
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
@@ -255,12 +471,60 @@ namespace Cynthia.Card.Server
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             return user.Length > 0 ? user[0].MMR : 0;
         }
+        public Tuple<int, int> QueryMMRandPeak(string playername)//计算玩家天梯分数
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
+            return user.Length > 0 ? new Tuple<int, int>(user[0].MMR, user[0].HighestMMR) : new Tuple<int, int>(0, 0);
+        }
+        public IList<string> QueryUserMessages(string playername)
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
+            return user.Length > 0 ? user[0].UserMessages : new List<string>();
+        }
 
+        public int[] QueryStreak(string playername, int factionId = -1)
+        {
+            var temp = GetUserInfo();
+            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
+
+            if (user.Length > 0)
+            {
+                if (factionId == -1)
+                {
+                    var totalStreak = new int[3];
+                    foreach (var factionStreak in user[0].Streak)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            totalStreak[i] += factionStreak[i];
+                        }
+                    }
+                    return totalStreak;
+                }
+                return user[0].Streak[factionId];
+            }
+            return new int[3];
+        }
         public IList<Tuple<string, int>> QueryAllMMR(int offset, int limit)//所有玩家天梯分数
         {
             var temp = GetUserInfo();
             var user = temp.AsQueryable().Where(x => x.MMR != initMMR).OrderByDescending(x => x.MMR).Skip(offset).Take(limit).ToList();
             var pairs = user.Select(x => new Tuple<string, int>(x.PlayerName, x.MMR)).ToList();
+            return pairs;
+        }
+        public IList<Tuple<string, string, string, string, int, int, IList<int[]>>> QueryAllMMRExtended(int offset, int limit)//所有玩家天梯分数
+        {
+            var temp = GetUserInfo();
+            var users = temp.AsQueryable().OrderByDescending(x => x.MMR).Skip(offset).Take(limit).ToList();
+            //var user = temp.AsQueryable().Where(x => x.MMR != initMMR).OrderByDescending(x => x.MMR).Skip(offset).Take(limit).ToList();
+
+            var pairs = users.Select(x =>
+            {
+                return new Tuple<string, string, string, string, int, int, IList<int[]>>(x.PlayerName, x.CurrentAvatar, x.CurrentBorder, x.CurrentTitle, x.MMR, x.HighestMMR, x.Streak);
+            }).ToList();
+
             return pairs;
         }
 
@@ -272,9 +536,17 @@ namespace Cynthia.Card.Server
             return pairs;
         }
 
-        public IList<GameResult> GetAllGameResults(int count)
+        public IList<GameResult> GetAllGameResults(int count, bool rankedOnly = false)
         {
             var temp = GetDatabase().GetCollection<GameResult>("gameresults");
+            if (count == -1)
+            {
+                if (rankedOnly)
+                    return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Where(x => x.isRanked == true).Take(100000).ToList();
+                return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Take(100000).ToList();
+            }
+            if (rankedOnly)
+                return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Where(x => x.isRanked == true).Take(count).ToList();
             return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Take(count).ToList();
         }
         public bool AddGameResult(GameResult data)
@@ -466,10 +738,15 @@ namespace Cynthia.Card.Server
             str += $"其中无效对局{badCount}场[强退,掉线等],无效对局不计入以下统计\n\n";
             foreach (var item in player.OrderByDescending(x => x.WinCount))
             {
-                str += $"场数:{item.Count}  胜:{item.WinCount}  负:{item.LoseCount}  平：{item.DrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)} 玩家:{item.PlayerName}\n";
+                str += $"场数:{item.Count}  胜:{item.WinCount}  负:{item.LoseCount}  平:{item.DrawCount} 胜率:{Math.Round(((double)item.WinCount) / ((double)item.Count) * 100, 2)} 玩家:{item.PlayerName}\n";
             }
 
             return str;
+        }
+
+        public IList<SeasonInfo> QuerySeasons()
+        {
+            return GetSeasonInfo().Find(_ => true).ToList();
         }
 
         public IEnumerable<UserInfo> GetAllPlayers()
@@ -481,9 +758,82 @@ namespace Cynthia.Card.Server
         {
             var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
             var update = Builders<UserInfo>.Update
-                .Set(x => x.MMR, baseMMR);
+                .Set(x => x.MMR, baseMMR)
+                .Set(x => x.HighestMMR, baseMMR);
 
             await GetUserInfo().UpdateOneAsync(filter, update);
         }
+        public async Task ResetPlayerStreak(string username)
+        {
+            var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
+            var update = Builders<UserInfo>.Update
+                .Set(x => x.Streak, new List<int[]>(){
+                                                new int[3] { 0, 0, 0 },
+                                                new int[3] { 0, 0, 0 },
+                                                new int[3] { 0, 0, 0 },
+                                                new int[3] { 0, 0, 0 },
+                                                new int[3] { 0, 0, 0 }
+                                                });
+
+            await GetUserInfo().UpdateOneAsync(filter, update);
+        }
+
+        public async Task<bool> SaveUserMessage(string username, UserMessage message)
+        {
+            var temp = GetUserInfo();
+            var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
+            var user = await temp.Find(filter).FirstOrDefaultAsync();
+
+            if (user != null)
+            {
+                int newMessageId;
+                if (user.UserMessages == null || !user.UserMessages.Any())
+                {
+                    user.UserMessages = new List<string>();
+                    newMessageId = 1;
+                }
+                else
+                {
+                    newMessageId = UserMessage.ReCreateMessage(user.UserMessages.Last()).MessageId + 1;
+                }
+                message.MessageId = newMessageId;
+
+                if (message is UserSeasonEndMessage seasondEndMsg)
+                {
+                    string condensedMessage = $"UserSeasonEndMessage|{seasondEndMsg.MessageId.ToString()}|{string.Join(",", seasondEndMsg.avatars)}|{string.Join(",", seasondEndMsg.borders)}|{string.Join(",", seasondEndMsg.titles)}|{seasondEndMsg.mmrBeforeReset}|{seasondEndMsg.rank}|{seasondEndMsg.seasonName}";
+
+                    user.UserMessages.Add(condensedMessage);
+                    var update = Builders<UserInfo>.Update.Set(x => x.UserMessages, user.UserMessages);
+                    await temp.UpdateOneAsync(filter, update);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> RemoveUserMessage(string username, int messageToRemoveId)
+        {
+            var temp = GetUserInfo();
+            var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
+            var user = await temp.Find(filter).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                var messages = user.UserMessages;
+
+                foreach (var codedMessage in messages)
+                {
+                    if (UserMessage.ReCreateMessage(codedMessage).MessageId == messageToRemoveId)
+                    {
+                        messages.Remove(codedMessage);
+                        var update = Builders<UserInfo>.Update.Set(x => x.UserMessages, messages);
+                        await temp.UpdateOneAsync(filter, update);
+                        break;
+                    }
+                }
+            }
+            return false;
+        }
+        
     }
+    
 }

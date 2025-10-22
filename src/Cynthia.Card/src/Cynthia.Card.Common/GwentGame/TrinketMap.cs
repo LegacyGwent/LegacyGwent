@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 7);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 8);
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -525,7 +526,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionMO",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -533,7 +534,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionNG",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -541,7 +542,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionNR",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -549,7 +550,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionSK",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -557,7 +558,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "FactionST",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -1222,7 +1223,52 @@ namespace Cynthia.Card
                     IsReleased = true,
                     TitleColor = "orange",
                 }
-            },            
+            },
+            {
+                "MONSTER",
+                new Title()
+                {
+                    ID = "MONSTER",
+                    IsReleased = true,
+                    TitleColor = "red",
+                }
+            },
+            {
+                "NILFGAARDIAN",
+                new Title()
+                {
+                    ID = "NILFGAARDIAN",
+                    IsReleased = true,
+                    TitleColor = "lightgray",
+                }
+            },
+            {
+                "NORTHERNER",
+                new Title()
+                {
+                    ID = "NORTHERNER",
+                    IsReleased = true,
+                    TitleColor = "nrblue",
+                }
+            },
+            {
+                "SCOIA'TAEL",
+                new Title()
+                {
+                    ID = "SCOIA'TAEL",
+                    IsReleased = true,
+                    TitleColor = "lightgreen",
+                }
+            },
+            { 
+                "SKELLIGER",
+                new Title()
+                {
+                    ID = "SKELLIGER",
+                    IsReleased = true,
+                    TitleColor = "purple",
+                }
+            },
         };
     }
 }

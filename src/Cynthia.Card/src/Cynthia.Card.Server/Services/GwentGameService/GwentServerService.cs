@@ -11,6 +11,7 @@ using Alsein.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Cynthia.Card.AI;
+using Cynthia.Card.Common.Models;
 using Cynthia.Card.Server.Services.GwentGameService;
 
 namespace Cynthia.Card.Server
@@ -28,6 +29,7 @@ namespace Cynthia.Card.Server
 
         public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
+
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
         public GwentServerService(
             IHubContext<GwentHub> hub,
@@ -45,6 +47,267 @@ namespace Cynthia.Card.Server
             ResultList = _databaseService.GetAllGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
+            UpdateAndSaveSeasons();
+            CreatePlayersStreaksFromGameResults(minDate: new DateTime(2025, 6, 23, 0, 0, 0, DateTimeKind.Utc));
+            
+        }
+
+        //for ongoing season
+        private void CreatePlayersStreaksFromGameResults(DateTime minDate, DateTime? maxDate = null)
+        {
+            Dictionary<Faction, int> factionIndexMap = new Dictionary<Faction, int>
+            {
+                { Faction.Monsters, 0 },
+                { Faction.Nilfgaard, 1 },
+                { Faction.NorthernRealms, 2 },
+                { Faction.ScoiaTael, 3 },
+                { Faction.Skellige, 4 },
+            };
+
+            const int WINS = 0;
+            const int DEFEATS = 1;
+            const int DRAWS = 2;
+
+            var results = _databaseService.GetAllGameResults(30000).OrderByDescending(result => result.Time).ToList();
+
+            var players = _databaseService.GetAllPlayers();
+
+            var playersStreaks = new Dictionary<string, List<int[]>>();
+
+            foreach (var gameresult in results)
+            {
+
+                if (!gameresult.IsEffective())
+                    continue;
+
+                if (maxDate.HasValue && gameresult.Time > maxDate)
+                    continue;
+
+                if (gameresult.Time < minDate)
+                    break;
+
+
+                string redPlayer = gameresult.RedPlayerName;
+                int redPlayerFaction = factionIndexMap.ContainsKey(GwentMap.CardMap[gameresult.RedLeaderId].Faction)
+                    ? factionIndexMap[GwentMap.CardMap[gameresult.RedLeaderId].Faction]
+                    : -1;  
+                string bluePlayer = gameresult.BluePlayerName;
+                int bluePlayerFaction = factionIndexMap.ContainsKey(GwentMap.CardMap[gameresult.BlueLeaderId].Faction)
+                    ? factionIndexMap[GwentMap.CardMap[gameresult.BlueLeaderId].Faction]
+                    : -1;
+
+                if (redPlayerFaction == -1 || bluePlayerFaction == -1)
+                    continue;
+
+                if (!playersStreaks.ContainsKey(redPlayer))
+                    {
+                        playersStreaks[redPlayer] = new List<int[]>();
+                        for (int i = 0; i < 5; i++)
+                        {
+                            playersStreaks[redPlayer].Add(new int[] { 0, 0, 0 });
+                        }
+                    }
+                if (!playersStreaks.ContainsKey(bluePlayer))
+                {
+                    playersStreaks[bluePlayer] = new List<int[]>();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        playersStreaks[bluePlayer].Add(new int[] { 0, 0, 0 });
+                    }
+                }
+
+                switch (gameresult.RedPlayerGameResultStatus)
+                {
+                    case GameStatus.Win:
+                        playersStreaks[redPlayer][redPlayerFaction][WINS]++;
+                        playersStreaks[bluePlayer][bluePlayerFaction][DEFEATS]++;
+                        break;
+                    case GameStatus.Lose:
+                        playersStreaks[redPlayer][redPlayerFaction][DEFEATS]++;
+                        playersStreaks[bluePlayer][bluePlayerFaction][WINS]++;
+                        break;
+                    default:
+                        playersStreaks[redPlayer][redPlayerFaction][DRAWS]++;
+                        playersStreaks[bluePlayer][bluePlayerFaction][DRAWS]++;
+                        break;
+                }
+            }
+            
+            foreach (var _playerStreak in playersStreaks)
+            {
+                _databaseService.SetStreak(_playerStreak.Key, _playerStreak.Value);
+            }
+
+        }
+
+        public IList<SeasonInfo> GetSeasons()
+        {
+            var c = _databaseService.QuerySeasons();
+            return c;
+        }
+        
+        /// <summary>Updates only: { NAME, ENDTIME, REWARDS } of season with existing ID or creates new.</summary>
+        private async Task UpdateAndSaveSeasons()
+        {
+
+            List<SeasonReward> season2Rewards = new List<SeasonReward>()
+            {
+                new SeasonReward(minimalPosition: 1, border: "Season2Border6", title: "PROTECTOR"),
+                new SeasonReward(minimalPosition: 5, border: "Season2Border5", title: "DEFENDER"),
+                new SeasonReward(minimalPosition: 10, border: "Season2Border4", title: "REBEL"),
+                new SeasonReward(minimalPosition: 20, border: "Season2Border3", title: "HUNTER"),
+                new SeasonReward(minimalPosition: 30, avatar: "Iorveth"),
+                new SeasonReward(minimalPosition: 50, border: "Season2Border2", title: "TRAPPER"),
+                new SeasonReward(minimalPosition: 100, border: "Season2Border1", title: "RANGER")
+            };
+            List<SeasonReward> season3Rewards = new List<SeasonReward>()
+            {
+                new SeasonReward(minimalPosition: 1, border: "Season3Border6", title: "DRAGONHATCHLING"),
+                new SeasonReward(minimalPosition: 5, border: "Season3Border5", title: "YOUNGDRAKE"),
+                new SeasonReward(minimalPosition: 10, border: "Season3Border4", title: "SLYZARD"),
+                new SeasonReward(minimalPosition: 20, border: "Season3Border3", title: "WYVERN"),
+                new SeasonReward(minimalPosition: 30, avatar: "Geralt_Intoxicated"),
+                new SeasonReward(minimalPosition: 50, border: "Season3Border2", title: "GREATWYRM"),
+                new SeasonReward(minimalPosition: 100, border: "Season3Border1", title: "GOLDENDRAGON")
+            };
+
+
+            List<Season> seasonsList = new List<Season>
+            {
+                new Season() { id = 1, name = "Season_MahakamSeason", endTime = new DateTime(2025, 10, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season2Rewards },
+                new Season() { id = 2, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards }
+            };
+            await _databaseService.UpdateSeasons(seasonsList);
+        }
+
+        public async Task<bool> GiveAwaySeasonalRewards()
+        {
+            // Get top players by MMR
+            var topPlayers = _databaseService.GetAllPlayers()
+                .OrderByDescending(p => p.MMR)
+                .ToList();
+
+
+
+            // Faction ranking awards
+            var rankList = GetAllMMRExtended(0, 300);
+            var factionsRankList = Season.CalculateFactions(rankList, 300);
+
+            var playerFactionsRankRewardsBorders = new Dictionary<string, List<string>>();
+            var playerFactionsRankRewardsTitles = new Dictionary<string, List<string>>();
+
+
+            var seasonRewards = GetSeasonRewards(-1);
+            
+            var factionBorders = new List<string>() { "FactionMO", "FactionNG", "FactionNR", "FactionST", "FactionSK" };
+            var factionTitles = new List<string>() { "MONSTER", "NILFGAARDIAN", "NORTHERNER", "SCOIA'TAEL", "SKELLIGER" };
+
+            foreach (var factionRanking in factionsRankList)
+            {
+                int bordersRewardsLeft = 3;
+                int titlesRewardsLeft = 10;
+
+                for (int i = 0; i < factionRanking.Value.Count; i++)
+                {
+                    if (bordersRewardsLeft < 1 && titlesRewardsLeft < 1)
+                        break;
+
+                    var playerRank = i + 1;
+                    var player = factionRanking.Value[i].Item1;
+
+                    if (bordersRewardsLeft > 0)
+                    {
+                        string _borderReward = factionBorders[factionRanking.Key];
+                        bool newTrinket = await AddBorder(player, _borderReward);
+                        if (newTrinket)
+                        {
+                            bordersRewardsLeft--;
+                            if (!playerFactionsRankRewardsBorders.ContainsKey(player))
+                                playerFactionsRankRewardsBorders[player] = new List<string>();
+                            playerFactionsRankRewardsBorders[player].Add(_borderReward);
+
+                        }
+                    }
+                    
+                    if (titlesRewardsLeft > 0)
+                    {
+                        string _titleReward = factionTitles[factionRanking.Key];
+                        bool newTrinket = await AddTitle(player, _titleReward);
+                        if (newTrinket)
+                        {
+                            titlesRewardsLeft--;
+                            if (!playerFactionsRankRewardsTitles.ContainsKey(player))
+                                playerFactionsRankRewardsTitles[player] = new List<string>();
+                            playerFactionsRankRewardsTitles[player].Add(_titleReward);
+                        }
+                    }
+
+
+                }
+            }
+
+            // Award rewards to top players
+            for (int i = 0; i < topPlayers.Count; i++)
+            {
+                var player = topPlayers[i];
+                var rank = i + 1;
+
+                List<string> avatarRewards = new List<string>();
+                List<string> borderRewards = new List<string>(playerFactionsRankRewardsBorders.GetValueOrDefault(player.PlayerName) ?? new List<string>());
+                List<string> titleRewards = new List<string>(playerFactionsRankRewardsTitles.GetValueOrDefault(player.PlayerName) ?? new List<string>());
+
+                
+
+
+                var playerSeasonsRewards = seasonRewards.Where(x => x.minimalPosition > 0).ToList();
+
+                foreach (var seasonReward in playerSeasonsRewards)
+                {
+                    if (rank > seasonReward.minimalPosition)
+                        continue;
+                    if (seasonReward.avatar != null)
+                        {
+                            avatarRewards.Add(seasonReward.avatar);
+                            await AddAvatar(player.PlayerName, seasonReward.avatar);
+                        }
+                    if (seasonReward.border != null)
+                    {
+                        borderRewards.Add(seasonReward.border);
+                        await AddBorder(player.PlayerName, seasonReward.border);
+                    }
+                    if (seasonReward.title != null)
+                    {
+                        titleRewards.Add(seasonReward.title);
+                        await AddTitle(player.PlayerName, seasonReward.title);
+                    }
+                }
+
+                await SendSeasonEndMessage(player.PlayerName, avatarRewards, borderRewards, titleRewards, player.MMR, rank, GetSeasonData().Item1);
+            }
+
+            return true;
+        }
+
+        public async Task<bool> SendSeasonEndMessage(string username, IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName)
+        {
+            if (_users.Any(x => x.Value.PlayerName == username))
+            {
+                var connectionId = _users.Single(x => x.Value.PlayerName == username).Value.ConnectionId;
+                if (!_users.ContainsKey(connectionId))
+                {
+                    return false;
+                }
+                var user = _users[connectionId];
+                await _hub.Clients.Client(connectionId).SendAsync("DisplaySeasonEndMessage", avatars, borders, titles, mmrBeforeReset, rank, seasonName);
+            }
+            else
+            {
+                //not logged
+                var message = new UserSeasonEndMessage("DisplaySeasonEndMessage", avatars, borders, titles, mmrBeforeReset, rank, seasonName);
+                await _databaseService.SaveUserMessage(username, message);
+                
+            }
+            return false;
         }
 
 
@@ -119,9 +382,10 @@ namespace Cynthia.Card.Server
                 user.OwnedBorders = loginUser.OwnedBorders;
                 user.OwnedTitles = loginUser.OwnedTitles;
                 _users.Add(user.ConnectionId, user);
+
                 // give all default avatars
                 await AddAvatar(user.PlayerName, "NoAvatar");
-                await AddAvatar(user.PlayerName, "GeraltOfRivia");
+                await AddAvatar(user.PlayerName, "GeraltOfRivia"); 
                 await AddAvatar(user.PlayerName, "TrissMerigold");
                 await AddAvatar(user.PlayerName, "Yennefer");
                 // give the seasonal avatars - delete section after season
@@ -462,10 +726,10 @@ namespace Cynthia.Card.Server
             InovkeUserChanged();
         }
 
-        public async Task<string> GetLatestVersion(string connectionId) // unused function
+        public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.3";
+            return "2.1.4";
         }
 
         public async Task<string> GetNotes(string connectionId)
@@ -696,23 +960,16 @@ may come back in the future.
 This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
 
-
+Welcome to DIY Gwent Season 2!
 Patch notes:
-- New cards: Hybrid, Sir Scract-A-Lot, Ulle the Unlucky, Calanthe, Albastra The White Dragon, Feast of Bloo, Ard Feainn Heavy Cavalry 
-- Buffed cards: Princess, Filavandrel, Whispering Hillock, Iris's Companions
-- Accessibility improvements: you can now log in with ENTER key, you can go from login to password with a TAB, When queuing in casual you can use ENTER to hit play after typing the code
-- You can now choose the style of coin display
-- Various bug fixes to Cosmetics, Coinflip display and translations (thanks to the community!)
-- Hidden the unused buttons
-- Various improvements to the 'right-click' menu
-- Thousands of new Polish voicelines added
+- Svalblod brawler: -1 str, gain one armor for each rain on the board
+- Lyrian Scyntmen: can now buff silvers
+- Svalblod Fanatic: -1
 
 AI Matchmaking:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
 Enter the corresponding password to challenge the AI.
-When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f).
-
-"
+When other players are available, player matchmaking will be prioritized. Add #f as a suffix to force an AI battle (e.g., ai#f)."
 ;
 
         }
@@ -726,7 +983,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.3";
+            return @"2.1.4";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
@@ -777,6 +1034,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
             string rank = null;
             string ranktitle = null;
             string rankavatar = null; // for seasonal avatars
+            int seasonId = _databaseService.QuerySeasonData().Item4;
             switch (mymmr)
             {
                 case int i when i < 3500:
@@ -794,8 +1052,10 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     ranktitle = "JOURNEYMAN";
                     break;
                 case int i when i >= 3850 && i < 3950:
-                    // Seasonal avatar tier 1
-                    rankavatar = SeasonProvider.CurrentSeason == 2 ? "CirALt" : "Zoltan_Animal_Tamer";
+                    if (seasonId == 1)
+                        rankavatar = "CirALt";
+                    else
+                        rankavatar = "Zoltan_Animal_Tamer";
                     break;
                 case int i when i >= 3950 && i < 4100:
                     rank = "Rank12border";
@@ -808,8 +1068,10 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 case int i when i >= 4250 && i < 4400:
                     rank = "Rank18border";
                     ranktitle = "MASTER";
-                    // Seasonal avatar tier 2
-                    rankavatar = SeasonProvider.CurrentSeason == 2 ? "YenneferFury" : "Eredin_Unmasked" ;
+                    if (seasonId == 1)
+                        rankavatar = "YenneferFury";
+                    else
+                        rankavatar = "EredinUnmasked";
                     break;
                 default:
                     rank = "Rank21border";
@@ -823,20 +1085,29 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public async void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
         {
+            result.isRanked = isCountMMR;
+            // if (_env.IsProduction())
+            // {
+            if (isOnlyShow)
+            {
+                _databaseService.AddAIGameResult(result);
+            }
+            else
+            {
+                _databaseService.AddGameResult(result);
+            }
+
             if (isCountMMR)
             {
                 int RedMMR = _databaseService.QueryMMR(result.RedPlayerName);
                 int BlueMMR = _databaseService.QueryMMR(result.BluePlayerName);
-                result.RedMMR = RedMMR;
-                result.BlueMMR = BlueMMR;
-
                 RedMMR = CalculateMMR(RedMMR, BlueMMR,
                     result.RedPlayerGameResultStatus == GameStatus.Win,
                     result.RedPlayerGameResultStatus == GameStatus.Draw);
                 BlueMMR = CalculateMMR(BlueMMR, RedMMR,
                     result.RedPlayerGameResultStatus == GameStatus.Lose,
                     result.RedPlayerGameResultStatus == GameStatus.Draw);
-
+                    
                 // if a player won a the game with 200+ points in any round, increase User.GamesOver200 by 1
                 if (result.RedWinCount == 2 && result.RedScore.Any(x => x >= 200))
                 {
@@ -849,6 +1120,31 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 // update MMR for both players
                 _databaseService.UpdateMMR(result.RedPlayerName, Math.Max(RedMMR, 0));
                 _databaseService.UpdateMMR(result.BluePlayerName, Math.Max(BlueMMR, 0));
+
+                // update streak for both players
+
+                int GetFactionIndex(string leaderId){
+                    Dictionary<Faction, int> factionIndexMap = new Dictionary<Faction, int>
+                    {
+                        { Faction.Monsters, 0 },
+                        { Faction.Nilfgaard, 1 },
+                        { Faction.NorthernRealms, 2 },
+                        { Faction.ScoiaTael, 3 },
+                        { Faction.Skellige, 4 }
+                    };
+
+                    var leaderFaction = GwentMap.CardMap[leaderId].Faction;
+                    int factionIndex = -1;
+
+                    if (factionIndexMap.ContainsKey(leaderFaction))
+                        factionIndex = factionIndexMap[leaderFaction];
+
+                    return factionIndex;                     
+                }
+               
+
+                _databaseService.UpdateStreak(result.RedPlayerName, result.RedPlayerGameResultStatus == GameStatus.Win ? 0 : (result.RedPlayerGameResultStatus == GameStatus.Lose ? 1 : 2), GetFactionIndex(result.RedLeaderId));
+                _databaseService.UpdateStreak(result.BluePlayerName, result.RedPlayerGameResultStatus == GameStatus.Win ? 1 : (result.RedPlayerGameResultStatus == GameStatus.Lose ? 0 : 2), GetFactionIndex(result.BlueLeaderId));
 
                 // add trinkets when a certain MMR is reached
                 MMRTrinkets(result.RedPlayerName, RedMMR);
@@ -863,16 +1159,6 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     await AddTitle(result.BluePlayerName, "$$$MILLIONAIRE$$$");
                 }
             }
-
-            if (isOnlyShow)
-            {
-                _databaseService.AddAIGameResult(result);
-            }
-            else
-            {
-                _databaseService.AddGameResult(result);
-            }
-
             lock (ResultList)
             {
                 ResultList.Add(result);
@@ -992,7 +1278,16 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public int GetPalyernameMMR(string playername) => _databaseService.QueryMMR(playername);
 
+        public Tuple<int,int> GetPalyernameMMRandPeak(string playername) => _databaseService.QueryMMRandPeak(playername);
+
+        public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
+
+        public Tuple<string, DateTime, string, int, string> GetSeasonData(bool active = true, int id = 0) => _databaseService.QuerySeasonData(active, id);
+        public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
+        public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
+        public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);
+        public IList<Tuple<string, string, string, string, int, int, IList<int[]>>> GetAllMMRExtended(int offset, int limit) => _databaseService.QueryAllMMRExtended(offset, limit);
 
         public IList<Tuple<string, int>> GetAllHighestMMR(int offset, int limit) => _databaseService.QueryAllHighestMMR(offset, limit);
 

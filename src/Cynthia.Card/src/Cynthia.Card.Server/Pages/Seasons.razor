@@ -1,0 +1,913 @@
+@page "/seasons"
+@inject GwentServerService GwentService
+
+@inject IJSRuntime JS
+
+
+<div id="chartOverlay" style="
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+">
+  <div style="
+      background:#fff;
+      padding:20px;
+      padding-top:20px;
+      border-radius:10px;
+      position:relative;
+      max-width:90%;
+      max-height:90%;
+      overflow:auto;
+  ">
+    <center><h6 id="canvasheader" style="padding-bottom:1vh">tekst</h6></center>
+    <button onclick="document.getElementById('chartOverlay').style.display='none'" 
+            style="position:absolute; top:10px; right:10px; background-color:rgb(175, 36, 36); width: 6.5vh; color: white; border-radius:3px">X</button>
+
+    <canvas id="overlayCanvas" style="width:100%; height:100%; max-width:100%; max-height:80vh;"></canvas>
+
+    <div id="multiChartContainer" style="display:flex; flex-wrap:wrap; gap:20px;"></div>
+
+  </div>
+</div>
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered" style="width:770px">
+        <tr style="background-color:rgb(235, 144, 83)">
+            <td style="width:140px">ID</td>
+            <td style="width:150px">Name</td>
+            <td style="width:90px">isActive</td>
+            <td style="width:80px">StartDate</td>
+            <td style="width:60px">EndDate</td>
+            <td style="width:60px"><center>Player picks</center></td>
+            <td style="width:220px">Rewards</td>
+        </tr>
+@foreach(var season in _seasonsList.Where(s => s.isActive))
+{       
+        <tr class="table-info">
+            <td style="background-color:pink">@season.SeasonId</td>   
+            <td style="background-color:pink">@season.SeasonName</td>
+            <td style="background-color:pink">@(season.isActive==true?"Active":"-")</td>
+            <td style="background-color:pink">@season.SeasonStartTime</td>
+            <td style="background-color:pink">@season.SeasonEndTime</td>
+            <td style="background-color:pink">
+                <canvas id="activeSeasonChart" width="800" height="300" onclick="openChartInNewWindow('activeSeasonChart', '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')"></canvas>
+                <center>
+                    <h6>Factions stats</h6>
+                    <button onclick="openMultipleChartsInOverlay(['factionsgames', 'factionscompared'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        All Factions
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_0', 'activefactionstats_1', 'activefactionstats_2', 'activefactionstats_3'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Northern Realms
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_4', 'activefactionstats_5', 'activefactionstats_6', 'activefactionstats_7'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Nilfgaard
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_8', 'activefactionstats_9', 'activefactionstats_10', 'activefactionstats_11'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Skellige
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_12', 'activefactionstats_13', 'activefactionstats_14', 'activefactionstats_15'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Scoia'tael
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_16', 'activefactionstats_17', 'activefactionstats_18', 'activefactionstats_19'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Monsters
+                    </button>
+                </center>
+                <div style="display:none;">
+                    <canvas id="factionscompared" width="800" height="300"></canvas>
+                    <canvas id="factionsgames" width="800" height="300"></canvas>
+                    @for(int canvasID = 0; canvasID < 20; canvasID++){
+                        <canvas id="activefactionstats_@canvasID" width="800" height="300"></canvas>  
+                    }
+                </div>
+                
+                
+            </td>
+            <td style="background-color:pink; font-size:13px">
+                @if (season.seasonalRewards != null && season.seasonalRewards.Any())
+                {
+                    <ul>
+                        @foreach (var reward in season.seasonalRewards)
+                        {
+                            <li>
+                                <strong>Top: @reward.minimalPosition</strong> @reward.avatar @reward.border @reward.title
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>-</span>
+                }
+            </td>
+        </tr>
+
+        <tr>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+        </tr>
+}
+@for(int canvasID = 0; canvasID < _seasonsList.Count; canvasID++)
+{
+    var season = _seasonsList[canvasID];
+
+        <tr class="table-info">
+            <td>@season.SeasonId</td>   
+            <td >@season.SeasonName</td>
+            <td>@(season.isActive==true?"Active":"-")</td>
+
+            <td>@season.SeasonStartTime</td>
+            <td>
+                @season.SeasonEndTime
+                <p style="font-style: italic; font-family: serif; color: darkred; background-color: darkkhaki;">
+                    @(season.areRewardsGranted==true?"Rewards Granted":"")
+                </p>
+            </td>
+            <td><canvas id="myChart_@canvasID" width="800" height="300" onclick="openChartInNewWindow('myChart_@canvasID', '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')"></canvas>
+                <center>
+                    <h6>Factions stats</h6>
+                    <button onclick="openMultipleChartsInOverlay(['factionsgames_@canvasID', 'factionscompared_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        All Factions
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_0_@canvasID', 'activefactionstats_1_@canvasID', 'activefactionstats_2_@canvasID', 'activefactionstats_3_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Northern Realms
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_4_@canvasID', 'activefactionstats_5_@canvasID', 'activefactionstats_6_@canvasID', 'activefactionstats_7_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Nilfgaard
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_8_@canvasID', 'activefactionstats_9_@canvasID', 'activefactionstats_10_@canvasID', 'activefactionstats_11_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Skellige
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_12_@canvasID', 'activefactionstats_13_@canvasID', 'activefactionstats_14_@canvasID', 'activefactionstats_15_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Scoia'tael
+                    </button>
+                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_16_@canvasID', 'activefactionstats_17_@canvasID', 'activefactionstats_18_@canvasID', 'activefactionstats_19_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
+                        Monsters
+                    </button>
+                </center>
+                <div style="display:none;">
+                    <canvas id="factionscompared_@canvasID" width="800" height="300"></canvas>
+                    <canvas id="factionsgames_@canvasID" width="800" height="300"></canvas>
+                    @for(int innercanvasID = 0; innercanvasID < 20; innercanvasID++){
+                        string c = innercanvasID.ToString() + "_" + canvasID.ToString();
+                        <canvas id="activefactionstats_@c" width="800" height="300"></canvas>  
+                    }
+                </div>
+            </td>
+            <td style="font-size:13px">
+                @if (season.seasonalRewards != null && season.seasonalRewards.Any())
+                {
+                    <ul>
+                        @foreach (var reward in season.seasonalRewards)
+                        {
+                            <li>
+                                <strong>Top: @reward.minimalPosition</strong> @reward.avatar @reward.border @reward.title
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>-</span>
+                }
+            </td>
+        </tr>
+
+        <tr>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+            <td style="padding:3px"></td>
+        </tr>
+}
+    </table>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    window.drawTestChart = (chartData, canvasId, type = 'bar', _labels = [], tooltips_off = false, title = "", tooltip_type = "") => {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) {
+        console.error('Canvas not found: ' + canvasId);
+        return;
+    }
+        const ctx = canvas.getContext('2d');
+        const showgrid = _labels.length > 0 ? false : true;
+        
+        
+        const sumLabels = chartData[0].data.map((_, index) => {
+        const sum = chartData.reduce((sum, dataset) => sum + dataset.data[index], 0) / 2; 
+
+        const date = new Date(chartData[0].date[index]);
+        
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        
+        const formattedDate = `${day}-${month}`;
+
+        return `${formattedDate}\nGames:${sum}`;
+    });
+
+        const datasets = chartData.map(dataset => ({
+            label: dataset.label,
+            data: dataset.data,
+            backgroundColor: dataset.backgroundColor,
+            borderColor: "black",
+            borderWidth: 0.7
+        }));
+
+        new Chart(ctx, {
+    type: type,
+    data: {
+        labels: _labels.length > 0 ? _labels : sumLabels,
+        datasets: datasets
+    },
+    options: {
+        animation: {
+            duration: 1000,
+            easing: 'easeInOutQuad'
+        },
+        responsive: false,
+        plugins: {
+            title: {
+                display: title != "",
+                text: title,
+                font: {
+                    size: 24,
+                },
+                padding: {
+                    top: 20,
+                    bottom: 10
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                    const datasetIndex = tooltipItem.datasetIndex;
+                    const value = tooltipItem.raw;
+    
+                    if(tooltips_off == true){
+                        return``;
+                    }
+                    else if(_labels.length > 0){
+
+                        const dataset = tooltipItem.chart.data.datasets[datasetIndex];
+                        const totalValue = dataset.data.reduce((sum, currentValue) => sum + currentValue, 0);
+
+                        if(tooltip_type == "games"){
+                            return ` ${value} Games (${((value/totalValue)*100).toFixed(2)}%)`;
+                        }
+
+                        return `${value} (${((value/totalValue)*100).toFixed(2)}%)`;                        
+                    }
+
+                    }
+                }
+                
+            },
+            legend: {
+                position: 'top'
+            }
+        },
+        scales: {
+            x: {
+                stacked: true,
+                ticks: {
+                    maxRotation: 90,
+                    minRotation: 0,
+                    display: showgrid
+                },
+                grid: {
+                    display: showgrid
+                }
+            },
+            y: {
+                beginAtZero: true,
+                stacked: true,
+                ticks: {
+                    maxRotation: 90,
+                    minRotation: 0,
+                    display: showgrid
+                },
+                grid: {
+                    display: showgrid
+                }
+            }
+        }
+    }
+});
+
+    };
+
+
+
+
+    function openChartInNewWindow(canvasId, headerText = "") {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) {
+            console.error('Canvas not found: ' + canvasId);
+            return;
+        }
+
+        const chart = Chart.getChart(canvas);
+        if (!chart) {
+            console.error('Chart not found for canvas: ' + canvasId);
+            return;
+        }
+
+        const overlay = document.getElementById("chartOverlay");
+        overlay.style.display = "flex";
+
+        const container = document.getElementById("multiChartContainer");
+        container.style.display = "none";
+
+        const newCanvas = document.getElementById("overlayCanvas");
+        newCanvas.style.display = "block";
+        newCanvas.width = window.innerWidth * 0.8;
+        newCanvas.height = window.innerHeight * 0.8;
+
+        const ctx = newCanvas.getContext("2d");
+
+        const oldChart = Chart.getChart(newCanvas);
+        if (oldChart) {
+            oldChart.destroy();
+        }
+
+        document.getElementById("canvasheader").innerText = headerText;
+
+        new Chart(ctx, {
+            type: chart.config.type,
+            data: chart.config.data,
+            options: chart.config.options
+        });
+    }
+    
+    function closeOverlay() {
+        const overlay = document.getElementById("chartOverlay");
+        const newCanvas = document.getElementById("overlayCanvas");
+
+        const container = document.getElementById("multiChartContainer");
+        container.style.display = "none";
+
+        newCanvas.style.display = "none";
+
+        overlay.style.display = "none";
+
+       
+
+    }
+
+    function openMultipleChartsInOverlay(canvasIdArray, headerText = "") {
+        const overlay = document.getElementById("chartOverlay");
+        const container = document.getElementById("multiChartContainer");
+        const overlayCanvas = document.getElementById("overlayCanvas");
+
+        overlayCanvas.style.display = "none";
+        container.innerHTML = "";
+
+        container.style.display = "flex";
+
+        canvasIdArray.forEach((canvasId, index) => {
+            const sourceCanvas = document.getElementById(canvasId);
+            if (!sourceCanvas) {
+                console.error('Canvas not found: ' + canvasId);
+                return;
+            }
+
+            const sourceChart = Chart.getChart(sourceCanvas);
+            if (!sourceChart) {
+                console.error('Chart not found for canvas: ' + canvasId);
+                return;
+            }
+
+
+            const newCanvas = document.createElement("canvas");
+            newCanvas.width = 400;
+            newCanvas.height = 400;
+            newCanvas.style.border = "1px solid #ccc";
+            newCanvas.id = `multiChart_${index}`;
+            container.appendChild(newCanvas);
+
+
+            const ctx = newCanvas.getContext("2d");
+            new Chart(ctx, {
+                type: sourceChart.config.type,
+                data: sourceChart.config.data,
+                options: sourceChart.config.options
+            });
+        });
+
+        document.getElementById("canvasheader").innerText = headerText;
+        overlay.style.display = "flex";
+    }
+
+</script>
+@code
+{
+    
+
+    private IList<SeasonInfo> _seasonsList;
+    private IList<GameResult> _resultsList;
+    private Dictionary<Faction, string> factionsColorMap = new Dictionary<Faction, string>(){
+                    { Faction.NorthernRealms, "rgb(6, 106, 222, 1)" },
+                    { Faction.Nilfgaard,      "rgb(84, 84, 83, 1)" },
+                    { Faction.Skellige,       "rgb(66, 39, 82, 1)" },
+                    { Faction.ScoiaTael,      "rgb(132, 159, 53, 1)" },
+                    { Faction.Monsters,       "rgb(124, 39, 36, 1)" },
+                    { Faction.Neutral,        "rgb(175, 147, 7, 1)" }
+                };
+    private Dictionary<SeasonInfo, Dictionary<Faction, Dictionary<Faction, int[]>>> _seasonFactionsStats  = new Dictionary<SeasonInfo, Dictionary<Faction, Dictionary<Faction, int[]>>>();
+
+    private List<string> canvasIdList = new List<string>();
+    private bool _chartDrawn = false;
+
+    protected override void OnInitialized()
+    {
+        _seasonsList = GwentService.GetSeasons();
+        _resultsList = GwentService._databaseService.GetAllGameResults(-1, rankedOnly: true);
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !_chartDrawn)
+        {
+            _chartDrawn = true;
+
+
+            var charDataAllSeasons = new List<List<ChartInfo>>();
+
+            var seasonsDailyData = await GetDayResultsMapping(_resultsList, _seasonsList);
+
+            foreach (var seasonDaysData in seasonsDailyData)
+            {
+                var allGamesData = new List<List<float>>(){new List<float>(), new List<float>(), new List<float>(), new List<float>(), new List<float>(), new List<float>()};
+                var chartData = new List<ChartInfo>();
+                var dates = new List<DateTime>();
+
+                
+                foreach (var dayData in seasonDaysData.Value.OrderBy(x => x.Key)){
+                    
+                    if(dayData.Value.Sum() == 0)
+                        continue;
+
+                    dates.Add(dayData.Key);
+                    bool hide = false;
+                    if(dayData.Key.Date >= DateTime.UtcNow.Date.AddDays(-1)){
+                        hide = true;
+                    }
+                    if(hide){
+                        allGamesData[0].Add(dayData.Value[0]);
+                        for (int index = 1; index < 6; index++){
+                            allGamesData[index].Add(0);
+                        }
+                    }
+                    else{
+                        allGamesData[0].Add(0);
+                        for (int index = 1; index < 6; index++){
+                            allGamesData[index].Add(dayData.Value[index]);
+                        }
+                    }                    
+                }
+
+                var chart0 = new ChartInfo{
+                    label = "All Factions",
+                    date = dates,
+                    data = allGamesData[0],
+                    backgroundColor = new List<string>(){"rgb(175, 147, 7, 1)"},
+                    borderColor = "rgba(175, 147, 72, 0.5)",
+                    borderWidth = 12
+                };
+                
+                chartData.Add(chart0); 
+
+                var chart = new ChartInfo{
+                    label = "Northern Realms",
+                    date = dates,
+                    data = allGamesData[1],
+                    backgroundColor = new List<string>(){"rgb(6, 106, 222, 1)"},
+                    borderColor = "rgba(6, 106, 222, 0.5)",
+                    borderWidth = 12
+                };
+                chartData.Add(chart); 
+
+                var chart2 = new ChartInfo{
+                    label = "Nilfgaard",
+                    date = dates,
+                    data = allGamesData[2],
+                    backgroundColor = new List<string>(){"rgb(84, 84, 83, 1)"},
+                    borderColor = "rgba(84, 84, 83, 0.5)",
+                    borderWidth = 12
+                };
+                chartData.Add(chart2);
+                var chart3 = new ChartInfo{
+                    label = "Skellige",
+                    date = dates,
+                    data = allGamesData[3],
+                    backgroundColor = new List<string>(){"rgb(66, 39, 82, 1)"},
+                    borderColor = "rgba(66, 39, 82, 0.5)",
+                    borderWidth = 12
+                };
+                chartData.Add(chart3);   
+
+                var chart4 = new ChartInfo{
+                    label = "Scoia'tael",
+                    date = dates,
+                    data = allGamesData[4],
+                    backgroundColor = new List<string>(){"rgb(132, 159, 53, 1)"},
+                    borderColor = "rgba(132, 159, 53, 0.5)",
+                    borderWidth = 12
+                };
+                chartData.Add(chart4);  
+
+                var chart5 = new ChartInfo{
+                    label = "Monsters",
+                    date = dates,
+                    data = allGamesData[5],
+                    backgroundColor = new List<string>(){"rgb(124, 39, 36, 1)"},
+                    borderColor = "rgba(124, 39, 36, 0.5)",
+                    borderWidth = 12
+                };
+                chartData.Add(chart5); 
+
+                charDataAllSeasons.Add(chartData);
+
+                if(seasonDaysData.Key.isActive)
+                    await JS.InvokeVoidAsync("drawTestChart", charDataAllSeasons.Last(), "activeSeasonChart");
+                }
+
+                for(int i = 0; i < _seasonsList.Count; i++)
+                {
+                    var canvasId = "myChart_" + i;
+                    await JS.InvokeVoidAsync("drawTestChart", charDataAllSeasons[i], canvasId);
+                }
+            }
+            
+            var seasonsFactionsChartsData = new Dictionary<SeasonInfo, List<ChartInfo>>();
+            var  seasonsFactionsWinrateCharts = new Dictionary<SeasonInfo, ChartInfo>();
+
+            var  seasonsFactionsGamesCharts = new Dictionary<SeasonInfo, ChartInfo>();
+
+            foreach(var season in _seasonFactionsStats){
+                
+                var factionsChartData = new List<ChartInfo>();
+                var factionsWinrateData = new List<float>();
+
+                var factionsGamesAmount = new List<int[]>();
+
+                List<float[]> seasonFactionStats = new List<float[]>();
+
+                foreach(var factionStats in season.Value){
+                    if(factionStats.Key == Faction.Neutral)
+                        continue;
+
+                    var totalFactionGames = new int[3];
+
+                    foreach(var facedFaction in factionStats.Value){
+                        if(facedFaction.Key == Faction.Neutral || facedFaction.Key == factionStats.Key)
+                            continue;
+
+
+                        for(int i = 0; i < 3; i++){
+                            totalFactionGames[i] += facedFaction.Value[i];
+                        }
+
+                        var copy = Array.ConvertAll(facedFaction.Value, item => (float)item);
+
+                        Array.Copy(facedFaction.Value, copy, facedFaction.Value.Length);
+                        seasonFactionStats.Add(copy);
+                        factionsChartData.Add(new ChartInfo{
+                            label = factionStats.Key.ToString() + " vs " + facedFaction.Key.ToString(),
+                            date = new List<DateTime>(){},
+                            data = copy.ToList(),
+                            backgroundColor = new List<string>(){factionsColorMap[factionStats.Key], factionsColorMap[Faction.Neutral], factionsColorMap[facedFaction.Key]},
+                            borderColor = "rgba(156,104,60,0.5)",
+                            borderWidth = 1,
+                            tooltips = new List<string>(){factionStats.Key.ToString(), facedFaction.Key.ToString()}
+                        });
+                    }
+
+
+                    int totalGames = totalFactionGames.Sum();
+                    float winrate = 0.0f;
+                    
+                    if (totalGames != 0)
+                    {
+                        winrate = ((float)totalFactionGames[0] / (float)totalGames) * 100; 
+                    }
+
+                    factionsWinrateData.Add(winrate);
+                    factionsGamesAmount.Add(totalFactionGames);
+
+
+                    seasonsFactionsChartsData[season.Key] = factionsChartData;
+
+                }
+
+                var colors_base = new List<string>(){factionsColorMap[Faction.NorthernRealms], factionsColorMap[Faction.Nilfgaard], factionsColorMap[Faction.Skellige], factionsColorMap[Faction.ScoiaTael], factionsColorMap[Faction.Monsters]};
+                var tooltips_base = new List<string>(){Faction.NorthernRealms.ToString(), Faction.Nilfgaard.ToString(), Faction.Skellige.ToString(), Faction.ScoiaTael.ToString(), Faction.Monsters.ToString()};
+
+                List<int> indices = Enumerable.Range(0, factionsWinrateData.Count).ToList();
+
+                var sortedIndices = indices.OrderByDescending(i => factionsWinrateData[i]).ToList();
+
+                factionsWinrateData = sortedIndices.Select(i => factionsWinrateData[i]).ToList();
+                
+                var colors = new List<string>(colors_base);
+                colors = sortedIndices.Select(i => colors[i]).ToList();
+                var tooltips = new List<string>(tooltips_base);
+                tooltips = sortedIndices.Select(i => tooltips[i]).ToList();
+                for (int i = 0; i < tooltips.Count; i++)
+                {
+                    tooltips[i] = tooltips[i] + " " + factionsWinrateData[i].ToString("F2") + "%";
+                }
+
+
+
+                seasonsFactionsWinrateCharts[season.Key] = new ChartInfo{
+                    label = "factions comparison",
+                    date = new List<DateTime>(),
+                    data = new List<float>(factionsWinrateData),
+                    backgroundColor = new List<string>(colors),
+                    borderColor = "rgba(156,104,60,0.5)",
+                    borderWidth = 1,
+                    tooltips = new List<string>(tooltips)
+                };
+
+
+
+
+                var indices2 = Enumerable.Range(0, factionsWinrateData.Count).ToList();
+
+                var sortedIndices2 = indices2.OrderByDescending(i => factionsGamesAmount[i].Sum()).ToList();
+
+                factionsGamesAmount = sortedIndices2.Select(i => factionsGamesAmount[i]).ToList();
+                var colors2 =new List<string>(colors_base);
+                var tooltips2 = new List<string>(tooltips_base);
+                colors2 = sortedIndices2.Select(i => colors2[i]).ToList();
+                tooltips2 = sortedIndices2.Select(i => tooltips2[i]).ToList();
+                for (int i = 0; i < tooltips2.Count; i++)
+                {
+                    tooltips2[i] = tooltips2[i] + " (" + factionsGamesAmount[i].Sum().ToString() + ")";
+                }
+
+
+                seasonsFactionsGamesCharts[season.Key] = new ChartInfo{
+                    label = "factions comparison",
+                    date = new List<DateTime>(){ DateTime.Now },
+                    data = factionsGamesAmount.Select(sublist => (float)sublist.Sum()).ToList(),
+                    backgroundColor = new List<string>(colors2),
+                    borderColor = "rgba(156,104,60,0.5)",
+                    borderWidth = 1,
+                    tooltips = new List<string>(tooltips2)
+                };
+
+            }
+            
+            for(int season_i = 0; season_i < seasonsFactionsChartsData.Count; season_i++){
+
+                var factionData = seasonsFactionsChartsData.ElementAt(season_i);
+                var factionchart = factionData.Value;
+
+                if(factionData.Key.isActive){
+                    await JS.InvokeVoidAsync("drawTestChart",
+                        new List<ChartInfo> { seasonsFactionsWinrateCharts[factionData.Key]},
+                        "factionscompared",
+                        "pie",
+                        seasonsFactionsWinrateCharts[factionData.Key].tooltips,
+                        true,
+                        "Factions WinRate"
+                    );
+                    await JS.InvokeVoidAsync("drawTestChart",
+                        new List<ChartInfo> { seasonsFactionsGamesCharts[factionData.Key]},
+                        "factionsgames",
+                        "pie",
+                        seasonsFactionsGamesCharts[factionData.Key].tooltips,
+                        false,
+                        "Factions Games",
+                        "games"
+                    );
+                    for(int i = 0; i < factionchart.Count; i++){
+                        var chart = factionchart[i];
+                        await JS.InvokeVoidAsync("drawTestChart", new List<ChartInfo> { factionchart[i] }, "activefactionstats_" + i.ToString(), "pie", new List<string>(){chart.tooltips[0], "Draws", chart.tooltips[1]}, false, chart.tooltips[0] + " vs " + chart.tooltips[1]);
+                    }  
+                }
+
+                await JS.InvokeVoidAsync("drawTestChart",
+                    new List<ChartInfo> { seasonsFactionsWinrateCharts[factionData.Key]},
+                    "factionscompared_" + season_i.ToString(),
+                    "pie",
+                    seasonsFactionsWinrateCharts[factionData.Key].tooltips,
+                    true,
+                    "Factions WinRate"
+                );
+                    
+                await JS.InvokeVoidAsync("drawTestChart", new List<ChartInfo> { seasonsFactionsGamesCharts[factionData.Key]}, "factionsgames_" + season_i.ToString(), "pie", seasonsFactionsGamesCharts[factionData.Key].tooltips, false, "Factions Games", "games");
+
+                for(int i = 0; i < factionchart.Count; i++){
+                    var chart = factionchart[i];
+                    await JS.InvokeVoidAsync("drawTestChart", new List<ChartInfo> { factionchart[i] }, "activefactionstats_" + i.ToString() + "_" + season_i.ToString(), "pie", new List<string>(){chart.tooltips[0], "Draws", chart.tooltips[1]}, false, chart.tooltips[0] + " vs " + chart.tooltips[1]);
+                }                     
+               
+            }
+
+    }
+
+
+
+    public async Task<Dictionary<SeasonInfo, Dictionary<DateTime, int[]>>> GetDayResultsMapping(IList<GameResult> resultsList, IList<SeasonInfo> seasonsList)
+    {
+        var factionStatsTemplate = new Dictionary<Faction, Dictionary<Faction, int[]>>
+        {
+            { Faction.NorthernRealms, new Dictionary<Faction, int[]>
+                {
+                    { Faction.NorthernRealms, new int[3] },
+                    { Faction.Nilfgaard,      new int[3] },
+                    { Faction.Skellige,       new int[3] },
+                    { Faction.ScoiaTael,      new int[3] },
+                    { Faction.Monsters,       new int[3] },
+                    { Faction.Neutral,        new int[3] }
+                }
+            },
+            { Faction.Nilfgaard, new Dictionary<Faction, int[]>
+                {
+                    { Faction.NorthernRealms, new int[3] },
+                    { Faction.Nilfgaard,      new int[3] },
+                    { Faction.Skellige,       new int[3] },
+                    { Faction.ScoiaTael,      new int[3] },
+                    { Faction.Monsters,       new int[3] },
+                    { Faction.Neutral,        new int[3] }
+                }
+            },
+            { Faction.Skellige, new Dictionary<Faction, int[]>
+                {
+                    { Faction.NorthernRealms, new int[3] },
+                    { Faction.Nilfgaard,      new int[3] },
+                    { Faction.Skellige,       new int[3] },
+                    { Faction.ScoiaTael,      new int[3] },
+                    { Faction.Monsters,       new int[3] },
+                    { Faction.Neutral,        new int[3] }
+                }
+            },
+            { Faction.ScoiaTael, new Dictionary<Faction, int[]>
+                {
+                    { Faction.NorthernRealms, new int[3] },
+                    { Faction.Nilfgaard,      new int[3] },
+                    { Faction.Skellige,       new int[3] },
+                    { Faction.ScoiaTael,      new int[3] },
+                    { Faction.Monsters,       new int[3] },
+                    { Faction.Neutral,        new int[3] }
+                }
+            },
+            { Faction.Monsters, new Dictionary<Faction, int[]>
+                {
+                    { Faction.NorthernRealms, new int[3] },
+                    { Faction.Nilfgaard,      new int[3] },
+                    { Faction.Skellige,       new int[3] },
+                    { Faction.ScoiaTael,      new int[3] },
+                    { Faction.Monsters,       new int[3] },
+                    { Faction.Neutral,        new int[3] }
+                }
+            },
+            { Faction.Neutral, new Dictionary<Faction, int[]>
+                {
+                    { Faction.NorthernRealms, new int[3] },
+                    { Faction.Nilfgaard,      new int[3] },
+                    { Faction.Skellige,       new int[3] },
+                    { Faction.ScoiaTael,      new int[3] },
+                    { Faction.Monsters,       new int[3] },
+                    { Faction.Neutral,        new int[3] }
+                }
+            }
+        };
+
+        void UpdateSeasonGamesMap(int[] array, string redLeaderId, string blueLeaderId, GameStatus redPlayerGameStatus, SeasonInfo season)
+        {
+            Dictionary<Faction, int> factionIndexMap = new Dictionary<Faction, int>
+            {
+                { Faction.NorthernRealms, 1 },
+                { Faction.Nilfgaard, 2 },
+                { Faction.Skellige, 3 },
+                { Faction.ScoiaTael, 4 },
+                { Faction.Monsters, 5 }
+            };
+
+            foreach(var leader in new string[]{redLeaderId, blueLeaderId}){
+                var leaderFaction = GwentMap.CardMap[leader].Faction;
+                if (factionIndexMap.ContainsKey(leaderFaction))
+                {
+                    int factionIndex = factionIndexMap[leaderFaction];
+                    array[factionIndex] += 1;
+                }
+            }
+            const int WINS = 0;
+            const int DEFEATS = 2;
+            const int DRAWS = 1;
+
+            switch(redPlayerGameStatus){
+                case GameStatus.Win:
+                    _seasonFactionsStats[season][GwentMap.CardMap[redLeaderId].Faction][GwentMap.CardMap[blueLeaderId].Faction][WINS] += 1;
+                    _seasonFactionsStats[season][GwentMap.CardMap[blueLeaderId].Faction][GwentMap.CardMap[redLeaderId].Faction][DEFEATS] += 1;
+                    break;
+                case GameStatus.Lose:
+                    _seasonFactionsStats[season][GwentMap.CardMap[redLeaderId].Faction][GwentMap.CardMap[blueLeaderId].Faction][DEFEATS] += 1;
+                    _seasonFactionsStats[season][GwentMap.CardMap[blueLeaderId].Faction][GwentMap.CardMap[redLeaderId].Faction][WINS] += 1;
+                    break;
+                case GameStatus.Draw:
+                    _seasonFactionsStats[season][GwentMap.CardMap[redLeaderId].Faction][GwentMap.CardMap[blueLeaderId].Faction][DRAWS] += 1;
+                    _seasonFactionsStats[season][GwentMap.CardMap[blueLeaderId].Faction][GwentMap.CardMap[redLeaderId].Faction][DRAWS] += 1;
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        var seasonResultsMap = new Dictionary<SeasonInfo, Dictionary<DateTime, int[]>>();
+
+
+        foreach (var season in seasonsList)
+        {
+            var seasonDays = GetDatesBetween(season.SeasonStartTime, season.SeasonEndTime)
+                .ToDictionary(d => d, d => new int[6]);
+            seasonResultsMap[season] = seasonDays;
+
+            _seasonFactionsStats[season] = factionStatsTemplate.ToDictionary(
+                outer => outer.Key,
+                outer => outer.Value.ToDictionary(
+                    inner => inner.Key,
+                    inner => (int[])inner.Value.Clone()
+                )
+            );
+        }
+
+        foreach (var result in resultsList)
+        {
+            var resultDate = result.Time.Date;
+
+            var season = seasonsList.FirstOrDefault(s =>
+                result.Time >= s.SeasonStartTime &&
+                result.Time < s.SeasonEndTime);
+
+            if (season == null) continue;
+
+            var seasonDays = seasonResultsMap[season];
+
+            if (seasonDays.TryGetValue(resultDate, out var counts))
+            {
+                UpdateSeasonGamesMap(counts, result.RedLeaderId, result.BlueLeaderId, result.RedPlayerGameResultStatus, season);
+                counts[0] += 2;
+            }
+        }
+
+        return seasonResultsMap;
+
+    }
+
+    public class ChartInfo
+    {
+        public string label { get; set; }
+        public List<DateTime> date { get; set; }
+        public List<float> data { get; set; }
+        public List<string> backgroundColor { get; set; }
+        public string borderColor { get; set; }
+        public int borderWidth { get; set; }
+        public List<string> tooltips;
+    }
+
+    private List<DateTime> GetDatesBetween(DateTime start, DateTime end)
+    {
+        List<DateTime> dates = new List<DateTime>();
+
+        DateTime startDate = start.Date;
+        DateTime endDate = end.Date;
+
+        for (DateTime current = startDate; current <= endDate; current = current.AddDays(1))
+            dates.Add(current);
+
+        return dates;
+    }
+    
+}

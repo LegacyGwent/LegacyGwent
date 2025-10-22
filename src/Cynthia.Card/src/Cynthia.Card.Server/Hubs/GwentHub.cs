@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using System.Linq;
+using Cynthia.Card.Common.Models;
 using Cynthia.Card.AI;
 namespace Cynthia.Card.Server
 {
@@ -53,8 +54,7 @@ namespace Cynthia.Card.Server
         public bool MatchOfPassword(string deckId, string password) => NewMatchOfPassword(deckId, password, 0);
 
         public bool NewMatchOfPassword(string deckId, string password, int usingBlacklist) => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
-
-        public Task<bool> SendGG(string MyName, string EnemyName)  => _gwentServerService.SendGG(MyName,EnemyName);
+        public Task<bool> SendGG(string MyName, string EnemyName) => _gwentServerService.SendGG(MyName, EnemyName);
 
         public Task<bool> SendTaunt(string EnemyName, string tauntID)  => _gwentServerService.SendTaunt(EnemyName, tauntID);
         
@@ -108,8 +108,6 @@ namespace Cynthia.Card.Server
         // Clear newly unlocked trinkets for the current user
         public async Task<bool> ClearNewlyUnlockedTrinkets(string username)
         {
-            // await Task.CompletedTask;
-            // var user = _gwentServerService._users.Values.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             if (username != null)
             {
                 await _gwentServerService.ClearNewlyUnlockedTrinkets(username);
@@ -157,7 +155,18 @@ namespace Cynthia.Card.Server
 
         public int GetPalyernameMMR(string Palyername) => _gwentServerService.GetPalyernameMMR(Palyername);
 
+        public Tuple<int,int> GetPalyernameMMRandPeak(string Palyername) => _gwentServerService.GetPalyernameMMRandPeak(Palyername);
+
+
+        public int[] GetPlayernameStreak(string Palyername) => _gwentServerService.GetPlayernameStreak(Palyername);
+
+        public Tuple<string, DateTime, string, int, string> GetSeasonData(bool active, int id) => _gwentServerService.GetSeasonData(active, id);
+        public IList<string> GetUserMessages(string playername) => _gwentServerService.GetUserMessages(playername);
+        public Task<bool> RemoveUserMessage(string username, int messageId) => _gwentServerService.RemoveUserMessage(username, messageId);
+        public IList<SeasonReward> GetSeasonRewards(int seasonID, string type) => _gwentServerService.GetSeasonRewards(seasonID, type);
+
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _gwentServerService.GetAllMMR(offset, limit);
+        public IList<Tuple<string, string, string, string, int, int, IList<int[]>>> GetAllMMRExtended(int offset, int limit) => _gwentServerService.GetAllMMRExtended(offset, limit);
 
         public Tuple<IList<Tuple<string, int>>, IList<Tuple<string, string, string>>, IList<Tuple<string, string, string>>> GetUsers()
         {

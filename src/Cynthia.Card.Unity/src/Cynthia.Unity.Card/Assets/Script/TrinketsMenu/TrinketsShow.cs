@@ -40,6 +40,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
             }
         }
         TrinketContext = Instantiate(TrinketContextPrefab, Vector3.zero, Quaternion.identity, transform.root);
+        TrinketContext.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         TrinketContext.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedAvatars"); // sets the art in the preview
         TrinketContext.GetComponent<TrinketsContext>().SetAvatarContext(trinketID);
     }
@@ -54,6 +55,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
             }
         }
         TrinketContext = Instantiate(TrinketContextPrefab, Vector3.zero, Quaternion.identity, transform.root);
+        TrinketContext.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         TrinketContext.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedBorders"); // sets the art in the preview
         TrinketContext.GetComponent<TrinketsContext>().SetBorderContext(trinketID);
     }
@@ -69,6 +71,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
             }
         }
         TrinketContext = Instantiate(TrinketContextPrefab, Vector3.zero, Quaternion.identity, transform.root);
+        TrinketContext.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         TrinketContext.GetComponent<TrinketsContext>().SetTitleLook(trinketID, titleColor); // sets the look in the preview
         TrinketContext.GetComponent<TrinketsContext>().SetTitleContext(trinketID);
     }

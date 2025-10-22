@@ -5,6 +5,8 @@ using UnityEngine;
 public class GlobalUI : MonoBehaviour
 {
     public DebugConsole DebugConsole;
+    public GameObject EnhancedMessageBoxPrefab;
+    private EnhancedMessageBox enhancedMessageBoxScript;
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,6 +19,21 @@ public class GlobalUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.BackQuote))
         {
             DebugConsole.gameObject.SetActive(!DebugConsole.gameObject.activeSelf);
+        }
+    }
+    public EnhancedMessageBox GetEnhancedMessageBox()
+    {
+        if (enhancedMessageBoxScript != null)
+            return enhancedMessageBoxScript;
+        else
+        {
+            if (EnhancedMessageBoxPrefab != null)
+            {
+                GameObject window = Instantiate(EnhancedMessageBoxPrefab, transform);
+                enhancedMessageBoxScript = window.GetComponent<EnhancedMessageBox>();
+                return enhancedMessageBoxScript;
+            }
+            return null;
         }
     }
 }

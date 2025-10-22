@@ -4,10 +4,12 @@ using UnityEngine;
 using Autofac;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Cynthia.Card.Common.Models;
 using Cynthia.Card;
 using System.Linq;
+using System.Collections.Generic;
 
 public class MainCode : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class MainCode : MonoBehaviour
     private static Dictionary<string, Color> mycolormap { get => ColorMap.colormap; } // stores the color of the title cosmetics
     private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
 
+    private ClientMessagesReaderService _messagesReaderService;
+
+
     //async Task AutoTest()
     //{
     //    var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
@@ -42,11 +47,16 @@ public class MainCode : MonoBehaviour
     //        }
     //    }
     //}
-    void Start()
+    async Task Start()
     {
         //_ = AutoTest();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
+        _messagesReaderService = DependencyResolver.Container.Resolve<ClientMessagesReaderService>();
+
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
+
+
+
         if (_client.IsAutoPlay || ClientGlobalInfo.IsToMatch)
         {
             if (ClientGlobalInfo.IsPreviousRankMatch)
@@ -59,8 +69,8 @@ public class MainCode : MonoBehaviour
             }
             //DoMatchButton.onClick.Invoke();
         }
-        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         UpdateUserInfo();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     private async void UpdateUserInfo()
     {
@@ -99,9 +109,8 @@ public class MainCode : MonoBehaviour
                 }
 
             }
-            // // Clear the notifications after displaying them
-            // await _client.ClearNewlyUnlockedTrinkets(_client.User.UserName);
-            // // await hubConnection.InvokeAsync("ClearNewlyUnlockedTrinkets");
+            // Clear the notifications after displaying them
+            await _client.ClearNewlyUnlockedTrinkets(_client.User.UserName);
         }
     }
     void Awake()
@@ -109,6 +118,7 @@ public class MainCode : MonoBehaviour
         RectTransform rectTransform = UserCount.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
     }
+
     public async void ExitGameClick()
     {
         // SceneManager.LoadScene("LoginSecen");

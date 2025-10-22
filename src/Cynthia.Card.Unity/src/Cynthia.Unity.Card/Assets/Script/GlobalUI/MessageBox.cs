@@ -22,8 +22,8 @@ public class MessageBox : MonoBehaviour
     //private IAsyncDataReceiver receiver;
     public RectTransform Context;
 
-    private LocalizationService _translator;
-    private void Awake()
+    internal  LocalizationService _translator;
+    protected void Awake()
     {
         (sender, receiver) = Tube.CreateSimplex();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
@@ -61,12 +61,12 @@ public class MessageBox : MonoBehaviour
         // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
         return receiver.ReceiveAsync<bool>();
     }
-    public void YesClick()
+    public virtual void YesClick()
     {
         sender.SendAsync<bool>(true);
         gameObject.SetActive(false);
     }
-    public void NoClick()
+    public virtual void NoClick()
     {
         sender.SendAsync<bool>(false);
         gameObject.SetActive(false);

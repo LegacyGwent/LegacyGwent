@@ -8,6 +8,7 @@ public class RankListRow : MonoBehaviour
     public Text RankNumber;
     public Text Playername;
     public Text MMR;
+    public Text Stats;
 
     public void SetRankListRow(int rankNumber, string playername, int mmr)
     {
@@ -15,11 +16,26 @@ public class RankListRow : MonoBehaviour
         Playername.text = playername;
         MMR.text = mmr.ToString();
     }
+    public void SetRankListRow(int rankNumber, string playername, int mmr, string stats)
+    {
+        RankNumber.text = "Rank " + rankNumber;
+        Playername.text = playername;
+        MMR.text = mmr.ToString();
+        Stats.text = stats;
+    }
     public void SetRankListRowString(string rankNumber, string playername, int mmr)
     {
         RankNumber.text = "Rank " + rankNumber;
         Playername.text = playername;
         MMR.text = mmr.ToString();
+    }
+
+    public void SetRankListRowString(string rankNumber, string playername, int mmr, string stats)
+    {
+        RankNumber.text = "Rank " + rankNumber;
+        Playername.text = playername;
+        MMR.text = mmr.ToString();
+        Stats.text = stats;
     }
     public void SetHighlight()
     {
@@ -30,5 +46,6 @@ public class RankListRow : MonoBehaviour
         RankNumber.color = Color.clear;
         Playername.color = Color.clear;
         MMR.color = Color.clear;
+        Stats.color = Color.clear;
     }
 }

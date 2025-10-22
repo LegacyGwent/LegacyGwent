@@ -74,10 +74,18 @@ public class LoginClick : MonoBehaviour
             }
             //Debug.Log($"用户名是:{_client.User.UserName},密码是:{_client.User.PassWord}");
             LogMessage.text = string.Format(_translator.GetText("LoginMenu_WelcomeMessage"), _client.User.PlayerName);
-            SceneManager.LoadScene("Game");
-            _client.ClientState = ClientState.Standby;
+
+            //SceneManager.LoadScene("Game");
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Game");
+            asyncLoad.completed += (AsyncOperation op) => {
+                _client.ClientState = ClientState.Standby;
+                // Debug.Log("执行了!跳转后");
+                IsLogining = false;
+            };
+
+            
             // Debug.Log("执行了!跳转后");
-            IsLogining = false;
         }
         catch
         {
@@ -102,4 +110,5 @@ public class LoginClick : MonoBehaviour
         Password.text = "";
         LogMessage.text = "";
     }
+    
 }

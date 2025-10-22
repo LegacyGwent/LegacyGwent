@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using Cynthia.Card.Common.Models;
 
 namespace Cynthia.Card.Server
 {
@@ -21,51 +25,35 @@ namespace Cynthia.Card.Server
             _gwentServerService = gwentServerService;
             _databaseService = databaseService;
         }
-        public int season = SeasonProvider.CurrentSeason; // Current season number
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // Load season from DB on startup
-            try
-            {
-                season = _databaseService.GetCurrentSeason();
-                SeasonProvider.CurrentSeason = season;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to load current season from database; falling back to default");
-            }
+            await _databaseService.RefreshSeasons();
+            var seasonData = _databaseService.QuerySeasonData();
+            
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
                     var now = DateTime.UtcNow;
-
-                    // Check if it's the date of the season end
-                    if (now.Month == 10 && now.Day == 23 && now.Hour == 0 && now.Minute == 0)
+                    if (seasonData != null)
                     {
-                        Console.WriteLine("Executing monthly rank reset and seasonal rewards...");
-                        _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
-
-                        // First award seasonal rewards
-                        await AwardSeasonalRewards();
-
-                        // Then reset ranks
-                        await ResetPlayerRanks();
-                        season++;
-                        SeasonProvider.CurrentSeason = season;
-                        try
+                        if (seasonData.Item2 != DateTime.MinValue)
                         {
-                            _databaseService.SetCurrentSeason(season);
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Failed to persist new season to database");
+                            if (now >= seasonData.Item2)
+                            {
+                                Console.WriteLine("Executing monthly rank reset and seasonal rewards...");
+                                _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
+
+                                await ResetSeason();
+                                seasonData = _databaseService.QuerySeasonData();
+                            }
                         }
                     }
 
+
                     // Wait for 1 minute before next check
-                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                    await Task.Delay(TimeSpan.FromMinutes(1.0f), stoppingToken);
                 }
                 catch (Exception ex)
                 {
@@ -75,88 +63,77 @@ namespace Cynthia.Card.Server
             }
         }
 
+        private async Task ResetSeason(){
+
+            // First award seasonal rewards
+            await AwardSeasonalRewards();
+
+            await SaveSeasonRanks();
+                        
+            // Then reset ranks(with stats)
+            await ResetPlayerRanks();
+
+            await _databaseService.RefreshSeasons();
+            
+            while (DateTime.UtcNow > _databaseService.QuerySeasonData().Item2)
+            {
+                await ResetSeason();
+            }
+        }
+
+        private async Task SaveSeasonRanks()
+        {
+            var temp = _databaseService.GetSeasonInfo();
+
+            var activeSeason = await temp.AsQueryable()
+                .Where(x => x.isActive == true)
+                .OrderByDescending(x => x.SeasonId)
+                .FirstOrDefaultAsync();
+
+            if (activeSeason != null)
+            {
+                var standings =  _databaseService.QueryAllMMRExtended(0, 100);
+                var standingsString = Season.EncodeRanklist(standings);
+
+                var result = await temp.UpdateOneAsync(
+                    Builders<SeasonInfo>.Filter.Eq(x => x.SeasonId, activeSeason.SeasonId),
+                    Builders<SeasonInfo>.Update.Set(x => x.rankingHistory, standingsString)
+                );
+            }
+
+        }
+
         private async Task AwardSeasonalRewards()
         {
             try
             {
-                // Get top players by MMR
-                var topPlayers = _databaseService.GetAllPlayers()
-                    .OrderByDescending(p => p.MMR)
-                    .ToList();
-
-                // Award rewards to top players
-                for (int i = 0; i < topPlayers.Count; i++)
+                bool granted = await _gwentServerService.GiveAwaySeasonalRewards();
+                if (granted)
                 {
-                    var player = topPlayers[i];
-                    var rank = i + 1;
+                    _logger.LogInformation("Successfully awarded seasonal rewards");
+                    var temp = _databaseService.GetSeasonInfo();
 
-                    // Award borders
-                    if (rank <= 100)
-                    {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border1");
-                    }
-                    if (rank <= 50)
-                    {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border2");
-                    }
-                    if (rank <= 20)
-                    {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border3");
-                    }
-                    if (rank <= 10)
-                    {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border4");
-                    }
-                    if (rank <= 5)
-                    {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border5");
-                    }
-                    if (rank == 1)
-                    {
-                        await _gwentServerService.AddBorder(player.PlayerName, "Season2Border6");
-                    }
+                    var activeSeason = await temp.AsQueryable()
+                        .Where(x => x.isActive == true)
+                        .OrderByDescending(x => x.SeasonId)
+                        .FirstOrDefaultAsync();
 
-                    // Award titles
-                    if (rank <= 100)
+                    if (activeSeason != null)
                     {
-                        await _gwentServerService.AddTitle(player.PlayerName, "RANGER");
-                    }
-                    if (rank <= 50)
-                    {
-                        await _gwentServerService.AddTitle(player.PlayerName, "TRAPPER");
-                    }
-                    if (rank <= 20)
-                    {
-                        await _gwentServerService.AddTitle(player.PlayerName, "HUNTER");
-                    }
-                    if (rank <= 10)
-                    {
-                        await _gwentServerService.AddTitle(player.PlayerName, "REBEL");
-                    }
-                    if (rank <= 5)
-                    {
-                        await _gwentServerService.AddTitle(player.PlayerName, "DEFENDER");
-                    }
-                    if (rank == 1)
-                    {
-                        await _gwentServerService.AddTitle(player.PlayerName, "PROTECTOR");
-                    }
-
-                    // Award avatar to top 10
-                    if (rank <= 10)
-                    {
-                        await _gwentServerService.AddAvatar(player.PlayerName, "Iorveth");
+                        var result = await temp.UpdateOneAsync(
+                            Builders<SeasonInfo>.Filter.Eq(x => x.SeasonId, activeSeason.SeasonId),
+                            Builders<SeasonInfo>.Update.Set(x => x.areRewardsGranted, true)
+                        );
                     }
                 }
-                
-                _logger.LogInformation("Successfully awarded seasonal rewards");
+
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while awarding seasonal rewards");
                 throw;
             }
-        }
+        } 
 
         private async Task ResetPlayerRanks()
         {
@@ -167,6 +144,7 @@ namespace Cynthia.Card.Server
                 foreach (var player in players)
                 {
                     await _databaseService.ResetPlayerMMR(player.UserName, _databaseService.initMMR);
+                    await _databaseService.ResetPlayerStreak(player.UserName);
                 }
                 
                 _logger.LogInformation("Successfully reset ranks for all players");

@@ -35,7 +35,7 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
-    private void Start() 
+    private void Start()
     {
         PlayerName.text = _clientService.User.PlayerName;
         mmr = _clientService.User.MMR;
@@ -50,12 +50,68 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
             MMR.text = mmr.ToString();
         }
         SwitchRankIcon(mmr);
-        
+
     }
-private void SwitchRankIcon(int mymmr)    
+
+    private void SwitchRankIcon(int mymmr)
     {
-        string rank; 
-        switch (mymmr) {
+        string rank = GetRankIcon(mymmr);
+        var op = Addressables.LoadAssetAsync<Sprite>(rank);
+        Sprite go = op.WaitForCompletion();
+        RankIcon.sprite = go;
+    }
+
+    public void Update()
+    {
+        if (SceneManager.GetSceneByName("GamePlay").isLoaded == true)
+        {
+            return;
+        }
+        if (SceneManager.GetSceneByName("Game").isLoaded == false)
+        {
+            return;
+        }
+        var currentavatar = _clientService.User.CurrentAvatar;
+        if (currentavatar != OldAvatar)
+        {
+            var op = Addressables.LoadAssetAsync<Sprite>(currentavatar);
+            Sprite go = op.WaitForCompletion();
+            AvatarArt.sprite = go;
+            OldAvatar = currentavatar;
+        }
+        var currentborder = _clientService.User.CurrentBorder;
+        if (currentborder != OldBorder)
+        {
+            var op = Addressables.LoadAssetAsync<Sprite>(currentborder);
+            Sprite go = op.WaitForCompletion();
+            BorderArt.sprite = go;
+            OldBorder = currentborder;
+        }
+        var user = _clientService.User;
+        var currenttitle = user.CurrentTitle;
+        string color = _titles.Where(x => x.ID == currenttitle).Single().TitleColor;
+        if (currentborder != OldTitle)
+        {
+            TitleText.text = _translator.GetText(currenttitle + "Name");
+            TitleText.color = mycolormap[color];
+            OldTitle = currenttitle;
+        }
+        if (MMR != null)
+        {
+            MMR.text = user.MMR.ToString();
+        }
+        if (mmr != OldMMR)
+        {
+            OldMMR = user.MMR;
+            SwitchRankIcon(mmr);
+        }
+    }
+    
+    static public string GetRankIcon(int mmr)
+    {
+        string rank;
+        switch (mmr)
+        {
             case int i when i < 3450:
                 rank = "rank_1";
                 break;
@@ -120,54 +176,6 @@ private void SwitchRankIcon(int mymmr)
                 rank = "rank_21";
                 break;
         }
-        var op =Addressables.LoadAssetAsync<Sprite>(rank);
-        Sprite go = op.WaitForCompletion();
-        RankIcon.sprite = go;
-    }
-
-    public void Update()
-    {
-        if (SceneManager.GetSceneByName("GamePlay").isLoaded == true)
-        {
-            return;
-        }
-        if (SceneManager.GetSceneByName("Game").isLoaded == false)
-        {
-            return;
-        }
-        var currentavatar = _clientService.User.CurrentAvatar;
-        if (currentavatar != OldAvatar)
-        {
-            var op = Addressables.LoadAssetAsync<Sprite>(currentavatar);
-            Sprite go = op.WaitForCompletion();
-            AvatarArt.sprite = go;
-            OldAvatar = currentavatar;
-        }
-        var currentborder = _clientService.User.CurrentBorder;
-        if (currentborder != OldBorder)
-        {
-            var op = Addressables.LoadAssetAsync<Sprite>(currentborder);
-            Sprite go = op.WaitForCompletion();
-            BorderArt.sprite = go;
-            OldBorder = currentborder;
-        }
-        var user = _clientService.User;
-        var currenttitle = user.CurrentTitle;
-        string color = _titles.Where(x => x.ID == currenttitle).Single().TitleColor;
-        if (currentborder != OldTitle)
-        {
-            TitleText.text = _translator.GetText(currenttitle + "Name");
-            TitleText.color = mycolormap[color];
-            OldTitle = currenttitle;
-        }
-        if (MMR != null)
-        {
-            MMR.text = user.MMR.ToString();
-        }
-        if (mmr != OldMMR)
-        {
-            OldMMR = user.MMR;
-            SwitchRankIcon(mmr);
-        }
+        return rank;
     }
 }
