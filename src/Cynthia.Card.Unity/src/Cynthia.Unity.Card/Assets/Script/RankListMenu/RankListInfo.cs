@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using DG.Tweening;
+using System.Diagnostics;
 
 public class RankListInfo : MonoBehaviour
 {
@@ -48,9 +49,9 @@ public class RankListInfo : MonoBehaviour
     private Func<MessageBox> _messageBox;
     private int PageRowCount = 10;
     //private int currentPageRowCount = 0;
-    private Tuple<string, DateTime, string, int, string> seasonData;
-    private Tuple<string, DateTime, string, int, string> previousSeasonData;
-    private Tuple<string, DateTime, string, int, string> nextSeasonData;
+    private SeasonInfo seasonData;
+    private SeasonInfo previousSeasonData;
+    private SeasonInfo nextSeasonData;
     private LocalizationService _translator { get => DependencyResolver.Container.Resolve<LocalizationService>(); }
     private Dictionary<int, List<Tuple<string, int>>> factionsRanking;
     private int activeSeasonID;
@@ -96,6 +97,7 @@ public class RankListInfo : MonoBehaviour
 
     public async Task OpenRankList(bool openActiveSeason = true, IList<Tuple<string, string, string, string, int, int, IList<int[]>>> rankingList = null)
     {
+        seasonRewards = await DependencyResolver.Container.Resolve<GwentClientService>().GetSeasonRewards(1, "all");
         MainUI.SetActive(false);
         RankListUI.SetActive(true);
 
@@ -109,6 +111,9 @@ public class RankListInfo : MonoBehaviour
         }
         else if (rankingList != null)
             await AssignSeasonData(rankingList);
+        else{
+            return;
+        }
 
 
         CleanUpRow();
@@ -125,6 +130,9 @@ public class RankListInfo : MonoBehaviour
             sideButtons[0].SetActive(false);
             RewardsButtonClicked();
         }
+
+        Background2.DOFade(0f, 0.7f).SetId("BackgroundFade").OnComplete(() => Background2.enabled = false);
+
 
     }
 
@@ -206,6 +214,8 @@ public class RankListInfo : MonoBehaviour
 
     public async Task GenerateRankListRows()
     {
+        if(rankList == null)
+            return;
         int endIndex = Mathf.Min(currentIndex + PageRowCount, rankList.Count);
 
         foreach (var tab in LeaderBoardTabs)
@@ -280,29 +290,28 @@ public class RankListInfo : MonoBehaviour
             {
                 seasonData = previousSeasonData;
             }
-            openedActiveSeason = seasonData.Item4 == activeSeasonID;
+            openedActiveSeason = seasonData.SeasonId == activeSeasonID;
         }
         
         if (openedActiveSeason)
         {
             if(buttondirection == 0)
                 seasonData = await _clientService.GetSeasonData();
-            activeSeasonID = seasonData.Item4;
-            Debug.Log($"Active season id: {activeSeasonID}");
+            activeSeasonID = seasonData.SeasonId;
         }
         else
         {
             if (buttondirection == 0)
             {
                 var _newSeasonData = await _clientService.GetSeasonData(active, seasonId);
-                if (_newSeasonData.Item4 != -1)
+                if (_newSeasonData.SeasonId != -1)
                 {
                     seasonData = _newSeasonData;
                 }                
             }
 
         }
-        openedSeasonID = seasonData.Item4;
+        openedSeasonID = seasonData.SeasonId;
         //back button
         if (buttondirection == -1)
             nextSeasonData = lastLoadedSeason;
@@ -316,8 +325,10 @@ public class RankListInfo : MonoBehaviour
 
 
 
-        int previousSeasonDataId = previousSeasonData.Item4;
-        int nextSeasonDataId = nextSeasonData.Item4;
+        int previousSeasonDataId = previousSeasonData.SeasonId;
+        int nextSeasonDataId = nextSeasonData.SeasonId;
+
+        UnityEngine.Debug.Log($"Active season id: {activeSeasonID}, Opened season id: {openedSeasonID}, next season id: {nextSeasonData.SeasonId}, previous season id: {previousSeasonData.SeasonId}");
 
         SeasonBackButton.gameObject.SetActive(previousSeasonDataId != -1);
         SeasonNextButton.gameObject.SetActive(nextSeasonDataId != -1);
@@ -326,16 +337,17 @@ public class RankListInfo : MonoBehaviour
         seasonRewards = await _clientService.GetSeasonRewards(openedSeasonID, "all");
 
         string _seasondEndTimerText = 
-            activeSeasonID > seasonData.Item4 ? _translator.GetText("Season_EndTimer_Finished")
-            : activeSeasonID == seasonData.Item4 ? _translator.GetText("Season_EndTimer_Current")
+            activeSeasonID > seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Finished")
+            : activeSeasonID == seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Current")
             : _translator.GetText("Season_EndTimer_Upcoming");
 
-        string _seasonName = seasonData.Item1;
-        DateTime _seasonEndTime = seasonData.Item2;
-        string _seasonColor = seasonData.Item3;
-        int _seasonId = seasonData.Item4;
+        string _seasonName = seasonData.SeasonName;
+        DateTime _seasonEndTime = seasonData.SeasonEndTime;
+        string _seasonColor = seasonData.SeasonColor;
+        int _seasonId = seasonData.SeasonId;
 
-        seasonRowScript.SetSeasonRow(_translator.GetText(_seasonName), _seasondEndTimerText, _seasonEndTime, mycolormap[_seasonColor], activeSeasonID == _seasonId);
+        if(_seasonId != -1)
+            seasonRowScript.SetSeasonRow(_translator.GetText(_seasonName), _seasondEndTimerText, _seasonEndTime, mycolormap[_seasonColor], activeSeasonID == _seasonId);
     }
 
     public void LeaderboardButtonClicked()
@@ -390,20 +402,20 @@ public class RankListInfo : MonoBehaviour
     {
         if (seasonData != null)
         {
-            var _newSeasonId = seasonData.Item4 - 1;
+            var _newSeasonId = seasonData.SeasonId - 1;
             await LoadSeasonInfoAsync(false, _newSeasonId);
-            bool isActive = activeSeasonID == seasonData.Item4;
-            await OpenRankList(isActive, Season.DecodeRanklist(seasonData.Item5));
+            bool isActive = activeSeasonID == seasonData.SeasonId;
+            await OpenRankList(isActive, Season.DecodeRanklist(seasonData.rankingHistory));
         }
     }
     public async void SeasonNextButtonClick()
     {
         if (seasonData != null)
         {
-            var _newSeasonId = seasonData.Item4 + 1;
+            var _newSeasonId = seasonData.SeasonId + 1;
             await LoadSeasonInfoAsync(false, _newSeasonId);
-            bool isActive = activeSeasonID == seasonData.Item4;
-            await OpenRankList(isActive, Season.DecodeRanklist(seasonData.Item5));
+            bool isActive = activeSeasonID == seasonData.SeasonId;
+            await OpenRankList(isActive, Season.DecodeRanklist(seasonData.rankingHistory));
         }
     }
 
@@ -421,7 +433,7 @@ public class RankListInfo : MonoBehaviour
             isLoadingMore = true;
             await LoadMoreRowsAsync();
             
-            Background2.DOFade(0f, 0.7f).SetId("BackgroundFade").OnComplete(() => Background2.enabled = false);
+            //Background2.DOFade(0f, 0.7f).SetId("BackgroundFade").OnComplete(() => Background2.enabled = false);
             
 
         }

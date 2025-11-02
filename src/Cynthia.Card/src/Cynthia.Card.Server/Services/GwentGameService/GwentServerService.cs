@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
             UpdateAndSaveSeasons();
-            CreatePlayersStreaksFromGameResults(minDate: new DateTime(2025, 6, 23, 0, 0, 0, DateTimeKind.Utc));
+            CreatePlayersStreaksFromGameResults(minDate: new DateTime(2025, 12, 23, 0, 0, 0, DateTimeKind.Utc));
             
         }
 
@@ -77,7 +77,7 @@ namespace Cynthia.Card.Server
             foreach (var gameresult in results)
             {
 
-                if (!gameresult.IsEffective())
+                if (!gameresult.IsEffective() || !gameresult.isRanked)
                     continue;
 
                 if (maxDate.HasValue && gameresult.Time > maxDate)
