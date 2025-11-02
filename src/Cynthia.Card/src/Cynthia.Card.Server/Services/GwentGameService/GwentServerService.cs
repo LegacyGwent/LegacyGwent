@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
             UpdateAndSaveSeasons();
-            CreatePlayersStreaksFromGameResults(minDate: new DateTime(2025, 12, 23, 0, 0, 0, DateTimeKind.Utc));
+            CreatePlayersStreaksFromGameResults(minDate: new DateTime(2025, 10, 23, 0, 0, 0, DateTimeKind.Utc));
             
         }
 
