@@ -160,7 +160,24 @@ namespace Cynthia.Card.Server
 
         public int[] GetPlayernameStreak(string Palyername) => _gwentServerService.GetPlayernameStreak(Palyername);
 
-        public Tuple<string, DateTime, string, int, string> GetSeasonData(bool active, int id) => _gwentServerService.GetSeasonData(active, id);
+        public IList<SeasonInfo> GetSeasons() => _gwentServerService.GetSeasons();
+
+        public SeasonInfo GetSeasonData(bool active, int id) => _gwentServerService.GetSeasonData(active, id);
+
+        /*public Task<Tuple<string, DateTime, string, int, string>> GetSeasonData(bool active, int id)
+        {
+            try
+            {
+                var result = _gwentServerService.GetSeasonData(active, id);
+                return Task.FromResult(result);
+            }
+            catch(Exception ex)
+            {
+                throw new HubException("Cant load season data.");
+            }
+        }*/
+
+
         public IList<string> GetUserMessages(string playername) => _gwentServerService.GetUserMessages(playername);
         public Task<bool> RemoveUserMessage(string username, int messageId) => _gwentServerService.RemoveUserMessage(username, messageId);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type) => _gwentServerService.GetSeasonRewards(seasonID, type);
