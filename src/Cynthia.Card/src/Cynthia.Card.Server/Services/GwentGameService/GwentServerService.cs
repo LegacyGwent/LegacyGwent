@@ -282,7 +282,7 @@ namespace Cynthia.Card.Server
                     }
                 }
 
-                await SendSeasonEndMessage(player.PlayerName, avatarRewards, borderRewards, titleRewards, player.MMR, rank, GetSeasonData().Item1);
+                await SendSeasonEndMessage(player.PlayerName, avatarRewards, borderRewards, titleRewards, player.MMR, rank, GetSeasonData().SeasonName);
             }
 
             return true;
@@ -1033,7 +1033,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
             string rank = null;
             string ranktitle = null;
             string rankavatar = null; // for seasonal avatars
-            int seasonId = _databaseService.QuerySeasonData().Item4;
+            int seasonId = _databaseService.QuerySeasonData().SeasonId;
             switch (mymmr)
             {
                 case int i when i < 3500:
@@ -1281,7 +1281,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
 
-        public Tuple<string, DateTime, string, int, string> GetSeasonData(bool active = true, int id = 0) => _databaseService.QuerySeasonData(active, id);
+        public SeasonInfo GetSeasonData(bool active = true, int id = 0) => _databaseService.QuerySeasonData(active, id);
         public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
         public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);

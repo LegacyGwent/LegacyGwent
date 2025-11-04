@@ -38,9 +38,9 @@ namespace Cynthia.Card.Server
                     var now = DateTime.UtcNow;
                     if (seasonData != null)
                     {
-                        if (seasonData.Item2 != DateTime.MinValue)
+                        if (seasonData.SeasonEndTime != DateTime.MinValue)
                         {
-                            if (now >= seasonData.Item2)
+                            if (now >= seasonData.SeasonEndTime)
                             {
                                 Console.WriteLine("Executing monthly rank reset and seasonal rewards...");
                                 _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
@@ -75,7 +75,7 @@ namespace Cynthia.Card.Server
 
             await _databaseService.RefreshSeasons();
             
-            while (DateTime.UtcNow > _databaseService.QuerySeasonData().Item2)
+            while (DateTime.UtcNow > _databaseService.QuerySeasonData().SeasonEndTime)
             {
                 await ResetSeason();
             }

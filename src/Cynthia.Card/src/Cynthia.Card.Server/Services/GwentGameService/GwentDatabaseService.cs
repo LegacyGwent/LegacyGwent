@@ -199,27 +199,30 @@ namespace Cynthia.Card.Server
                 season = GetSeasonInfo().AsQueryable().Where(x => x.isActive).OrderByDescending(x => x.SeasonId).FirstOrDefault();
             else
                 season = GetSeasonInfo().AsQueryable().Where(x => x.SeasonId == seasonID).FirstOrDefault();
+            if (season == null)
+                return new List<SeasonReward>();
             return season.seasonalRewards;
 
         }
-        public Tuple<string, DateTime, string, int, string> QuerySeasonData(bool active = true, int id = 0)
+        public SeasonInfo QuerySeasonData(bool active = true, int id = 0)
         {
-            var activeSeason = GetSeasonInfo().AsQueryable().Where(x => x.isActive).OrderBy(x => x.SeasonId).FirstOrDefault();
+            var seasons = GetSeasonInfo().Find(_ => true).ToList();
+
             if (active)
             {
-                if (activeSeason != null)
-                    return new Tuple<string, DateTime, string, int, string>(activeSeason.SeasonName, activeSeason.SeasonEndTime, activeSeason.SeasonColor, activeSeason.SeasonId, "");
-                else return new Tuple<string, DateTime, string, int, string>("", DateTime.MinValue, "purple", -1, "");
+                var activeSeason = seasons
+                    .Where(x => x.isActive)
+                    .OrderBy(x => x.SeasonId)
+                    .FirstOrDefault();
+
+                return activeSeason ?? new SeasonInfo();
             }
             else
             {
-                var searchedSeason = GetSeasonInfo().AsQueryable().Where(x => x.SeasonId == id).FirstOrDefault();
-                if (searchedSeason != null)
-                {
-                    var _date = activeSeason.SeasonId < searchedSeason.SeasonId ? searchedSeason.SeasonStartTime : searchedSeason.SeasonEndTime;
-                    return new Tuple<string, DateTime, string, int, string>(searchedSeason.SeasonName, _date, searchedSeason.SeasonColor, searchedSeason.SeasonId, searchedSeason.rankingHistory);
-                }
-                else return new Tuple<string, DateTime, string, int, string>("Not existing season with given id", DateTime.MinValue, "purple", -1, "");
+                var searchedSeason = seasons
+                    .FirstOrDefault(x => x.SeasonId == id);
+
+                return searchedSeason ?? new SeasonInfo(){SeasonId = -1};
             }
         }
 
