@@ -29,7 +29,7 @@ namespace Cynthia.Card.Server
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await _databaseService.RefreshSeasons();
-            var seasonData = _databaseService.QuerySeasonData();
+            var seasonData = await _databaseService.QuerySeasonData();
             
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -46,7 +46,7 @@ namespace Cynthia.Card.Server
                                 _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
 
                                 await ResetSeason();
-                                seasonData = _databaseService.QuerySeasonData();
+                                seasonData = await _databaseService.QuerySeasonData();
                             }
                         }
                     }
@@ -74,8 +74,10 @@ namespace Cynthia.Card.Server
             await ResetPlayerRanks();
 
             await _databaseService.RefreshSeasons();
+
+            var season_data = await _databaseService.QuerySeasonData();
             
-            while (DateTime.UtcNow > _databaseService.QuerySeasonData().SeasonEndTime)
+            while (DateTime.UtcNow > season_data.SeasonEndTime)
             {
                 await ResetSeason();
             }

@@ -15,7 +15,7 @@ namespace Cynthia.Card
                 var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).Mess(RNG).Take(1).ToList();
                 foreach (var card in cards)
                 {
-                    await card.Effect.Boost(2, Card);
+                    await card.Effect.Boost(3, Card);
                 }
             }
             return 0;

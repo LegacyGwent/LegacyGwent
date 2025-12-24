@@ -204,7 +204,7 @@ namespace Cynthia.Card.Server
             return season.seasonalRewards;
 
         }
-        public SeasonInfo QuerySeasonData(bool active = true, int id = 0)
+        public async Task<SeasonInfo> QuerySeasonData(bool active = true, int id = 0)
         {
             var seasons = GetSeasonInfo().Find(_ => true).ToList();
 

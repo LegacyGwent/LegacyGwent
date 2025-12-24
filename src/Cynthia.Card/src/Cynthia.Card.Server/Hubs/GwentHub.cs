@@ -162,7 +162,7 @@ namespace Cynthia.Card.Server
 
         public IList<SeasonInfo> GetSeasons() => _gwentServerService.GetSeasons();
 
-        public SeasonInfo GetSeasonData(bool active, int id) => _gwentServerService.GetSeasonData(active, id);
+        public async Task<SeasonInfo> GetSeasonData(bool active, int id) => await _gwentServerService.GetSeasonData(active, id);
 
         /*public Task<Tuple<string, DateTime, string, int, string>> GetSeasonData(bool active, int id)
         {

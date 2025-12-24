@@ -48,7 +48,6 @@ namespace Cynthia.Card.Server
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
             UpdateAndSaveSeasons();
-            CreatePlayersStreaksFromGameResults(minDate: new DateTime(2025, 10, 23, 0, 0, 0, DateTimeKind.Utc));
             
         }
 
@@ -174,7 +173,7 @@ namespace Cynthia.Card.Server
 
             List<Season> seasonsList = new List<Season>
             {
-                new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season3Rewards },
+                new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 01, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season3Rewards },
                 // new Season() { id = 2, name = "Season_SeasonOfMahakam", endTime = new DateTime(2026, 02, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season4Rewards }
             };
             await _databaseService.UpdateSeasons(seasonsList);
@@ -266,10 +265,10 @@ namespace Cynthia.Card.Server
                     if (rank > seasonReward.minimalPosition)
                         continue;
                     if (seasonReward.avatar != null)
-                        {
-                            avatarRewards.Add(seasonReward.avatar);
-                            await AddAvatar(player.PlayerName, seasonReward.avatar);
-                        }
+                    {
+                        avatarRewards.Add(seasonReward.avatar);
+                        await AddAvatar(player.PlayerName, seasonReward.avatar);
+                    }
                     if (seasonReward.border != null)
                     {
                         borderRewards.Add(seasonReward.border);
@@ -282,7 +281,9 @@ namespace Cynthia.Card.Server
                     }
                 }
 
-                await SendSeasonEndMessage(player.PlayerName, avatarRewards, borderRewards, titleRewards, player.MMR, rank, GetSeasonData().SeasonName);
+                var season_data = await GetSeasonData();
+
+                await SendSeasonEndMessage(player.PlayerName, avatarRewards, borderRewards, titleRewards, player.MMR, rank, season_data.SeasonName);
             }
 
             return true;
@@ -729,7 +730,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.5";
+            return "2.1.6";
         }
 
         public async Task<string> GetNotes(string connectionId)
@@ -982,7 +983,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.5";
+            return @"2.1.6";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
@@ -1033,7 +1034,8 @@ When other players are available, player matchmaking will be prioritized. Add #f
             string rank = null;
             string ranktitle = null;
             string rankavatar = null; // for seasonal avatars
-            int seasonId = _databaseService.QuerySeasonData().SeasonId;
+            var seasondata = await _databaseService.QuerySeasonData();
+            int seasonId = seasondata.SeasonId;
             switch (mymmr)
             {
                 case int i when i < 3500:
@@ -1281,7 +1283,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
 
-        public SeasonInfo GetSeasonData(bool active = true, int id = 0) => _databaseService.QuerySeasonData(active, id);
+        public async Task<SeasonInfo> GetSeasonData(bool active = true, int id = 0) => await _databaseService.QuerySeasonData(active, id);
         public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
         public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);

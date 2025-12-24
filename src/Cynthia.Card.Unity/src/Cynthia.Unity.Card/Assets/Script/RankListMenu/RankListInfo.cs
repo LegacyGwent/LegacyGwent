@@ -10,7 +10,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using DG.Tweening;
-using System.Diagnostics;
 
 public class RankListInfo : MonoBehaviour
 {
@@ -278,76 +277,96 @@ public class RankListInfo : MonoBehaviour
 
     public async Task LoadSeasonInfoAsync(bool active = true, int seasonId = -1, int buttondirection = 0)
     {
-        var lastLoadedSeason = seasonData;
-        bool openedActiveSeason = active;
-        if (buttondirection != 0)
+        try
         {
-            if (buttondirection == 1 && nextSeasonData != null)
+
+            var lastLoadedSeason = seasonData;
+            bool openedActiveSeason = active;
+            if (buttondirection != 0)
             {
-                seasonData = nextSeasonData;
+                if (buttondirection == 1 && nextSeasonData != null)
+                {
+                    seasonData = nextSeasonData;
+                }
+                if (buttondirection == -1 && previousSeasonData != null)
+                {
+                    seasonData = previousSeasonData;
+                }
+                openedActiveSeason = seasonData.SeasonId == activeSeasonID;
             }
-            if (buttondirection == -1 && previousSeasonData != null)
+
+            if (openedActiveSeason)
             {
-                seasonData = previousSeasonData;
+                if (buttondirection == 0)
+                    seasonData = await _clientService.GetSeasonData();
+                activeSeasonID = seasonData.SeasonId;
             }
-            openedActiveSeason = seasonData.SeasonId == activeSeasonID;
+            else
+            {
+                if (buttondirection == 0)
+                {
+                    var _newSeasonData = await _clientService.GetSeasonData(active, seasonId);
+                    if (_newSeasonData.SeasonId != -1)
+                    {
+                        seasonData = _newSeasonData;
+                    }
+                }
+
+            }
+            openedSeasonID = seasonData.SeasonId;
+            //back button
+            if (buttondirection == -1)
+                nextSeasonData = lastLoadedSeason;
+            else
+                nextSeasonData = await _clientService.GetSeasonData(false, openedSeasonID + 1);
+            //next button
+            if (buttondirection == 1)
+                previousSeasonData = lastLoadedSeason;
+            else
+                previousSeasonData = await _clientService.GetSeasonData(false, openedSeasonID - 1);
+
+
+
+            int previousSeasonDataId = previousSeasonData.SeasonId;
+            int nextSeasonDataId = nextSeasonData.SeasonId;
+
+            UnityEngine.Debug.Log($"Active season id: {activeSeasonID}, Opened season id: {openedSeasonID}, next season id: {nextSeasonData.SeasonId}, previous season id: {previousSeasonData.SeasonId}");
+
+            SeasonBackButton.gameObject.SetActive(previousSeasonDataId != -1);
+            SeasonNextButton.gameObject.SetActive(nextSeasonDataId != -1);
+
+
+            seasonRewards = await _clientService.GetSeasonRewards(openedSeasonID, "all");
+
+            string _seasondEndTimerText =
+                activeSeasonID > seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Finished")
+                : activeSeasonID == seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Current")
+                : _translator.GetText("Season_EndTimer_Upcoming");
+
+            string _seasonName = seasonData.SeasonName;
+            DateTime _seasonEndTime = seasonData.SeasonEndTime;
+            string _seasonColor = seasonData.SeasonColor;
+            int _seasonId = seasonData.SeasonId;
+            
+            if(_seasonId != -1)
+                seasonRowScript.SetSeasonRow(_translator.GetText(_seasonName), _seasondEndTimerText, _seasonEndTime, mycolormap[_seasonColor], activeSeasonID == _seasonId);
+        }
+        catch
+        {
+            Debug.Log("Couldn't load season info from server.");
+            string _seasonName = "Season_SeasonOfTheDragon";
+            DateTime _seasonEndTime = new DateTime(2025, 01, 27, 0, 0, 0, DateTimeKind.Utc);
+            string _seasonColor = "lightblue";
+            string _seasondEndTimerText = _translator.GetText("Season_EndTimer_Current");
+            int _seasonId = 0;
+
+            if(_seasonId != -1)
+                seasonRowScript.SetSeasonRow(_translator.GetText(_seasonName), _seasondEndTimerText, _seasonEndTime, mycolormap[_seasonColor], activeSeasonID == _seasonId);
+        
         }
         
-        if (openedActiveSeason)
-        {
-            if(buttondirection == 0)
-                seasonData = await _clientService.GetSeasonData();
-            activeSeasonID = seasonData.SeasonId;
-        }
-        else
-        {
-            if (buttondirection == 0)
-            {
-                var _newSeasonData = await _clientService.GetSeasonData(active, seasonId);
-                if (_newSeasonData.SeasonId != -1)
-                {
-                    seasonData = _newSeasonData;
-                }                
-            }
-
-        }
-        openedSeasonID = seasonData.SeasonId;
-        //back button
-        if (buttondirection == -1)
-            nextSeasonData = lastLoadedSeason;
-        else
-            nextSeasonData = await _clientService.GetSeasonData(false, openedSeasonID + 1);
-        //next button
-        if (buttondirection == 1)
-            previousSeasonData = lastLoadedSeason;
-        else
-            previousSeasonData = await _clientService.GetSeasonData(false, openedSeasonID - 1);
 
 
-
-        int previousSeasonDataId = previousSeasonData.SeasonId;
-        int nextSeasonDataId = nextSeasonData.SeasonId;
-
-        UnityEngine.Debug.Log($"Active season id: {activeSeasonID}, Opened season id: {openedSeasonID}, next season id: {nextSeasonData.SeasonId}, previous season id: {previousSeasonData.SeasonId}");
-
-        SeasonBackButton.gameObject.SetActive(previousSeasonDataId != -1);
-        SeasonNextButton.gameObject.SetActive(nextSeasonDataId != -1);
-
-
-        seasonRewards = await _clientService.GetSeasonRewards(openedSeasonID, "all");
-
-        string _seasondEndTimerText = 
-            activeSeasonID > seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Finished")
-            : activeSeasonID == seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Current")
-            : _translator.GetText("Season_EndTimer_Upcoming");
-
-        string _seasonName = seasonData.SeasonName;
-        DateTime _seasonEndTime = seasonData.SeasonEndTime;
-        string _seasonColor = seasonData.SeasonColor;
-        int _seasonId = seasonData.SeasonId;
-
-        if(_seasonId != -1)
-            seasonRowScript.SetSeasonRow(_translator.GetText(_seasonName), _seasondEndTimerText, _seasonEndTime, mycolormap[_seasonColor], activeSeasonID == _seasonId);
     }
 
     public void LeaderboardButtonClicked()

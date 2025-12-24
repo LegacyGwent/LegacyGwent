@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 138);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 139);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11218,7 +11218,7 @@ namespace Cynthia.Card
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = true,
+                    IsDoomed =false,
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
@@ -15076,7 +15076,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70184", //Ard Feainn Heavy Cavalry
                     Name="日轮之师重骑兵",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15086,7 +15086,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。",
-                    Info = "2点护甲。领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
+                    Info = "1点护甲。领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
                     CardArtsId = "202453",
                     LinkedCards=new List<String> {},
                 }
