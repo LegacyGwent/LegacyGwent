@@ -59,16 +59,18 @@ namespace Cynthia.Card.Server.Controllers
             return _gwentServerService.GetUserCount();
         }
 
-        [Route("{time:DateTime}")]
-        public string QueryCard(DateTime time)
+        [Route("{time:datetime}/{rankedOnly:bool?}")]
+        public string QueryCard(DateTime time, bool? rankedOnly)
         {
-            return _databaseService.QueryCard(time);
+            return _databaseService.QueryCard(time, rankedOnly);
         }
 
-        [Route("{time:DateTime}")]
-        public string QueryRanking(DateTime time)
+
+
+        [Route("{time:datetime}/{rankedOnly:bool?}")]
+        public string QueryRanking(DateTime time, bool? rankedOnly)
         {
-            return _databaseService.QueryRanking(time);
+            return _databaseService.QueryRanking(time, rankedOnly);
         }
 
         [HttpPost]

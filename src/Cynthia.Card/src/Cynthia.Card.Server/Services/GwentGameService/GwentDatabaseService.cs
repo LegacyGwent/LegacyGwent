@@ -658,13 +658,17 @@ namespace Cynthia.Card.Server
             return str;
         }
 
-        public string QueryCard(DateTime time)
+        public string QueryCard(DateTime time, bool? rankeds)
         {
             var isAI = false;
             var db = GetDatabase();
             var resultCollection = isAI ? db.GetCollection<GameResult>("aigameresults") : db.GetCollection<GameResult>("gameresults");
             var isDefault = time == default(DateTime);
-            var result = resultCollection.AsQueryable().Where(x => (isDefault || x.Time >= time) && (x.BlueDeckCode != null && x.RedDeckCode != null)).ToList();
+            List<GameResult> result;
+            if (rankeds != null)
+                result = resultCollection.AsQueryable().Where(x => x.isRanked == rankeds && (isDefault || x.Time >= time) && (x.BlueDeckCode != null && x.RedDeckCode != null)).ToList();
+            else
+                result = resultCollection.AsQueryable().Where(x => (isDefault || x.Time >= time) && (x.BlueDeckCode != null && x.RedDeckCode != null)).ToList();
             var badCount = result.Where(x => !x.IsEffective()).Count();
             var count = result.Count();
 
@@ -679,6 +683,10 @@ namespace Cynthia.Card.Server
                 .ToList();
 
             var str = "";
+            if (rankeds.HasValue)
+                str += $"Type: {(rankeds.Value ? "Ranked" : "Casual")}\n";
+            else
+                str += $"(/true - only ranking games, /false - only casual)\n";
 
             str += $"本数据为:{(isAI ? "PVE" : "PVP")}环境\n";
             str += $"diy服{(isDefault ? "" : time + "后")}后共计对局{count}场\n共计使用卡牌:{cards.Count}种\n";
@@ -716,13 +724,17 @@ namespace Cynthia.Card.Server
             return str;
         }
 
-        public string QueryRanking(DateTime time)
+        public string QueryRanking(DateTime time, bool? rankeds)
         {
             var isAI = false;
             var db = GetDatabase();
             var resultCollection = isAI ? db.GetCollection<GameResult>("aigameresults") : db.GetCollection<GameResult>("gameresults");
             var isDefault = time == default(DateTime);
-            var result = resultCollection.AsQueryable().Where(x => isDefault || x.Time >= time).ToList();
+            List<GameResult> result;
+            if (rankeds != null)
+                result = resultCollection.AsQueryable().Where(x => x.isRanked == rankeds && (isDefault || x.Time >= time)).ToList();
+            else
+                result = resultCollection.AsQueryable().Where(x => isDefault || x.Time >= time).ToList();
             var badCount = result.Where(x => !x.IsEffective()).Count();
             var count = result.Count();
 
@@ -735,6 +747,11 @@ namespace Cynthia.Card.Server
                 .ToList();
 
             var str = "";
+
+            if (rankeds.HasValue)
+                str += $"Type: {(rankeds.Value ? "Ranked" : "Casual")}\n";
+            else
+                str += $"(/true - only ranking games, /false - only casual)\n";
 
             str += $"本数据为:{(isAI ? "PVE" : "PVP")}环境\n";
             str += $"diy服{(isDefault ? "" : time + "后")}后共计对局{count}场\n共计玩家:{player.Count}名\n";
