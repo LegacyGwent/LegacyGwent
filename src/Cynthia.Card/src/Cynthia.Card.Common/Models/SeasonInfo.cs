@@ -68,14 +68,7 @@ namespace Cynthia.Card.Common.Models
 
         static public int CalculateFactionPoints(float gamesWon, float gamesLost, float gamesDrawn)
         {
-            var faction_games = gamesWon + gamesLost + gamesDrawn;
-            if (faction_games == 0)
-                return 0;
-            var a = 0.0f;
-            var b = 4000.0f;
-            var ewr = (gamesWon + 0.5 * gamesDrawn + a) / (gamesWon + gamesLost + gamesDrawn + a + b) * 100;
-            var ewrWeighted = ewr + Math.Log10(faction_games) * 0.02f;
-            int points = (int)Math.Round(ewrWeighted * 10000);
+            int points = (int)(((gamesWon * 1.2f - gamesLost) + gamesDrawn)*10.0f);
             return points;
         }
         

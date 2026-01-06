@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 8);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 9);
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -169,7 +169,7 @@ namespace Cynthia.Card
                     Taunt4 = "Roche4",
                     Taunt5 = "Roche5",
                     Taunt6 = "Roche6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -211,7 +211,7 @@ namespace Cynthia.Card
                     Taunt4 = "Radovid4",
                     Taunt5 = "Radovid5",
                     Taunt6 = "Radovid6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -257,7 +257,7 @@ namespace Cynthia.Card
                     Taunt4 = "Letho4",
                     Taunt5 = "Letho5",
                     Taunt6 = "Letho6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -738,7 +738,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season4Border1",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -746,7 +746,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season4Border2",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -754,7 +754,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season4Border3",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -762,7 +762,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season4Border4",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -770,7 +770,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season4Border5",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -778,7 +778,7 @@ namespace Cynthia.Card
                 new Border()
                 {
                     ID = "Season4Border6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -1267,6 +1267,69 @@ namespace Cynthia.Card
                     ID = "SKELLIGER",
                     IsReleased = true,
                     TitleColor = "purple",
+                }
+            },
+            {
+                "DRAGONSLAYER",
+                new Title()
+                {
+                    ID = "DRAGONSLAYER",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WILDHUNTHOUND",
+                new Title()
+                {
+                    ID = "WILDHUNTHOUND",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WILDHUNTWARRIOR",
+                new Title()
+                {
+                    ID = "WILDHUNTWARRIOR",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WILDHUNTRIDER",
+                new Title()
+                {
+                    ID = "WILDHUNTRIDER",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WILDHUNTNAVIGATOR",
+                new Title()
+                {
+                    ID = "WILDHUNTNAVIGATOR",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WILDHUNTGENERAL",
+                new Title()
+                {
+                    ID = "WILDHUNTGENERAL",
+                    IsReleased = true,
+                    TitleColor = "orange",
+                }
+            },
+            {
+                "WILDHUNTKING",
+                new Title()
+                {
+                    ID = "WILDHUNTKING",
+                    IsReleased = true,
+                    TitleColor = "orange",
                 }
             },
         };

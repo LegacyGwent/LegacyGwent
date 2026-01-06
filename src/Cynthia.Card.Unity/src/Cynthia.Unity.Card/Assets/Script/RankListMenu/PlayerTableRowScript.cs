@@ -74,8 +74,13 @@ public class PlayerTableRowScript : MonoBehaviour
             border = "NoBorder";
         SetBorder(border);
         
-        if(logged)
-            SetLoggedPlayerLine(int.Parse(rankNumber));
+        int rank;
+        if (int.TryParse(rankNumber, out rank))
+        {
+            if (logged)
+                SetLoggedPlayerLine(rank);
+        }
+
     }
 
     public void SetAvatar(string avatar)

@@ -53,6 +53,7 @@ public class RankPlayerScreenScript : MonoBehaviour
     public Image FactionBackgroundLogo;
     public Text peakMMR;
     public Text PlayerTitle;
+    public GameObject FactionBars;
 
     private Dictionary<int, List<Tuple<string, int>>> factionsRanks;
 
@@ -78,6 +79,17 @@ public class RankPlayerScreenScript : MonoBehaviour
         };
     }
 
+    private void Start()
+    {
+        var _streakTexts = new List<Text> { AllFactionsStreak, MonstersStreak, NilfgaardStreak, NorthernRealmsStreak, ScoiataelStreak, SkelligeStreak };
+        float _outline = 1.6f;
+        foreach (var _textObject in _streakTexts)
+        {
+            _textObject.color = new Color(1.0f, 0.854f, 0.325f, 1.0f);
+            _textObject.GetComponent<Outline>().effectDistance = new Vector2(_outline, -_outline);
+        }
+
+    }
     public void SetPlayerInfo(string avatar, string border, string nickname, string title, int mmr, int bestMMR, IList<int[]> statsFactions, int rankNumber, Dictionary<int, List<Tuple<string, int>>> factionsRankings)
     {
         factionsRanks = factionsRankings;
@@ -199,36 +211,40 @@ public class RankPlayerScreenScript : MonoBehaviour
         }
 
 
-        AllFactionsStreak.text = $"{totalgames[0]} - {totalgames[2]} - {totalgames[1]}";
+        AllFactionsStreak.text = $"{totalgames[0]}  -  {totalgames[2]}  -  {totalgames[1]}";
         AllFactionsLabel.text = games > 0 ? $"{_translator.GetText("Faction_ALL")} {_translator.GetText("Leaderboard_Games")}: {games} ({((float)totalgames[0] / (float)games) * 100:F2}%)" : $"{_translator.GetText("Faction_ALL")} {_translator.GetText("Leaderboard_Games")}: {games}";
 
         int _factionGames = statsFactions[0].Sum();
         int _factionWins = statsFactions[0][0];
 
-        MonstersStreak.text =  $"{statsFactions[0][0]} - {statsFactions[0][2]} - {statsFactions[0][1]}";
+        MonstersStreak.text = $"{statsFactions[0][0]}  -  {statsFactions[0][2]}  -  {statsFactions[0][1]}";
         MonstersLabel.text = _factionGames > 0 ? $"{_translator.GetText("Faction_MO")} {_translator.GetText("Leaderboard_Games")}: {_factionGames} ({((float)_factionWins / (float)_factionGames) * 100:F2}%)" : $"{_translator.GetText("Faction_MO")} {_translator.GetText("Leaderboard_Games")}: {_factionGames}";
 
         _factionGames = statsFactions[1].Sum();
         _factionWins = statsFactions[1][0];
-        NilfgaardStreak.text =  $"{statsFactions[1][0]} - {statsFactions[1][2]} - {statsFactions[1][1]}";
+        NilfgaardStreak.text = $"{statsFactions[1][0]}  -  {statsFactions[1][2]}  -  {statsFactions[1][1]}";
+        NilfgaardStreak.color = new Color(1.0f, 0.854f, 0.325f, 1.0f);
         NilfgaardLabel.text = _factionGames > 0 ? $"{_translator.GetText("Faction_NG")} {_translator.GetText("Leaderboard_Games")}: {_factionGames} ({((float)_factionWins / (float)_factionGames) * 100:F2}%)" : $"{_translator.GetText("Faction_NG")} {_translator.GetText("Leaderboard_Games")}: {_factionGames}";
 
         _factionGames = statsFactions[2].Sum();
         _factionWins = statsFactions[2][0];
-        NorthernRealmsStreak.text =  $"{statsFactions[2][0]} - {statsFactions[2][2]} - {statsFactions[2][1]}";
+        NorthernRealmsStreak.text = $"{statsFactions[2][0]}  -  {statsFactions[2][2]}  -  {statsFactions[2][1]}";
+        NorthernRealmsStreak.color = new Color(1.0f, 0.854f, 0.325f, 1.0f);
         NorthernRealmsLabel.text = _factionGames > 0 ? $"{_translator.GetText("Faction_NR")} {_translator.GetText("Leaderboard_Games")}: {_factionGames} ({((float)_factionWins / (float)_factionGames) * 100:F2}%)" : $"{_translator.GetText("Faction_NR")} {_translator.GetText("Leaderboard_Games")}: {_factionGames}";
 
         _factionGames = statsFactions[3].Sum();
         _factionWins = statsFactions[3][0];
-        ScoiataelStreak.text =  $"{statsFactions[3][0]} - {statsFactions[3][2]} - {statsFactions[3][1]}";
+        ScoiataelStreak.text = $"{statsFactions[3][0]}  -  {statsFactions[3][2]}  -  {statsFactions[3][1]}";
+        ScoiataelStreak.color = new Color(1.0f, 0.854f, 0.325f, 1.0f);
         ScoiataelLabel.text = _factionGames > 0 ? $"{_translator.GetText("Faction_ST")} {_translator.GetText("Leaderboard_Games")}: {_factionGames} ({((float)_factionWins / (float)_factionGames) * 100:F2}%)" : $"{_translator.GetText("Faction_ST")} {_translator.GetText("Leaderboard_Games")}: {_factionGames}";
 
         _factionGames = statsFactions[4].Sum();
         _factionWins = statsFactions[4][0];
-        SkelligeStreak.text = $"{statsFactions[4][0]} - {statsFactions[4][2]} - {statsFactions[4][1]}";
+        SkelligeStreak.text = $"{statsFactions[4][0]}  -  {statsFactions[4][2]}  -  {statsFactions[4][1]}";
         SkelligeLabel.text = _factionGames > 0 ? $"{_translator.GetText("Faction_SK")} {_translator.GetText("Leaderboard_Games")}: {_factionGames} ({((float)_factionWins / (float)_factionGames) * 100:F2}%)" : $"{_translator.GetText("Faction_SK")} {_translator.GetText("Leaderboard_Games")}: {_factionGames}";
+        SkelligeStreak.color = new Color(1.0f, 0.854f, 0.325f, 1.0f);
 
-
+        LayoutRebuilder.ForceRebuildLayoutImmediate(FactionBars.GetComponent<RectTransform>());
     }
 
     private void SetBar(string faction, string type, float value)
@@ -319,6 +335,8 @@ public class RankPlayerScreenScript : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(FactionRankList.GetComponent<RectTransform>());
 
         players.gameObject.GetComponent<Canvas>().sortingOrder = 2;
+
+
     }
 
     private void CloseFactionRankList()

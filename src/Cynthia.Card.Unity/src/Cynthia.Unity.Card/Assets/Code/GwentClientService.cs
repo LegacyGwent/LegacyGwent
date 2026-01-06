@@ -366,6 +366,10 @@ namespace Cynthia.Card.Client
         {
             return await HubConnection.InvokeAsync<SeasonInfo>("GetSeasonData", active, id);
         }
+        public Task<IList<SeasonInfo>>GetSeasons()
+        {
+            return HubConnection.InvokeAsync<IList<SeasonInfo>>("GetSeasons");
+        }
 
         public Task<IList<Tuple<string, string, string, string, int, int, IList<int[]>>>> GetAllMMR(int offset, int limit)
         {

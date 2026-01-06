@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Autofac;
+using Assets.Script.Localization;
 using System;
 using DG.Tweening;
 
@@ -15,12 +17,17 @@ public class SeasonRow : MonoBehaviour
     private bool timerInvoked = false;
     private bool isTabOpened = true;
     private bool isMoving = false;
+    private LocalizationService _translator;
 
+    private void Start()
+    {
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+    }
     public void TabClick()
     {
         if (isMoving)
             return;
-            
+
         if (!isTabOpened)
             OpenTab();
         else
@@ -55,6 +62,7 @@ public class SeasonRow : MonoBehaviour
         else
             SeasonName.text = seasonName;
 
+        Time.color = Color.white;
         SeasonName.color = color;
         TextBeforeTime.text = seasonEndTimerText;
         endTime = seasonEndTime;
@@ -69,7 +77,6 @@ public class SeasonRow : MonoBehaviour
         {
             if (endTime < DateTime.UtcNow || endTime > DateTime.UtcNow && !active)
             {
-                Time.color = Color.white;
                 if (timerInvoked)
                 {
                     CancelInvoke("UpdateTimer");
@@ -103,8 +110,10 @@ public class SeasonRow : MonoBehaviour
         //    parts.Add($"{timeToEnd.Seconds}s");
 
         Time.text = parts.Count > 0 ? string.Join(" : ", parts) : "0s";
-        if (timeToEnd < TimeSpan.FromDays(1))
+        if (timeToEnd < TimeSpan.FromDays(7))
             Time.color = Color.red;
+        else if (timeToEnd < TimeSpan.FromDays(14))
+            Time.color = Color.yellow;
     }
     private void OnDisable()
     {

@@ -85,7 +85,7 @@ namespace Cynthia.Card.Server
             var sortById = Builders<SeasonInfo>.Sort.Ascending(x => x.SeasonId);
 
             SeasonInfo nextSeason = null;
-            TimeSpan _autoSeasonDuration = TimeSpan.FromDays(50);
+            TimeSpan _autoSeasonDuration = TimeSpan.FromDays(60);
 
             try
             {

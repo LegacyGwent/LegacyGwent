@@ -173,8 +173,8 @@ namespace Cynthia.Card.Server
 
             List<Season> seasonsList = new List<Season>
             {
-                new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 01, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season3Rewards },
-                // new Season() { id = 2, name = "Season_SeasonOfMahakam", endTime = new DateTime(2026, 02, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season4Rewards }
+                new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season3Rewards },
+                new Season() { id = 2, name = "Season_MahakamSeason", endTime = new DateTime(2026, 03, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards }
             };
             await _databaseService.UpdateSeasons(seasonsList);
         }
@@ -730,7 +730,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.6";
+            return "2.1.7";
         }
 
         public async Task<string> GetNotes(string connectionId)
@@ -983,7 +983,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.6";
+            return @"2.1.7";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
