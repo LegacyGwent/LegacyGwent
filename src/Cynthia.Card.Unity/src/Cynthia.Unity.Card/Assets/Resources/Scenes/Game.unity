@@ -22720,6 +22720,42 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 989319474}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541640426564585, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541639560178231, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541640056806244, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319480 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541641080295305, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319481 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7029291512321593998, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7886918631231594070, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991389126
 GameObject:
   m_ObjectHideFlags: 0
@@ -30592,6 +30628,18 @@ MonoBehaviour:
     TextObject: {fileID: 0}
   - Id: Leaderboard_Score
     TextObject: {fileID: 0}
+  - Id: Faction_MO
+    TextObject: {fileID: 989319481}
+  - Id: Faction_NG
+    TextObject: {fileID: 989319480}
+  - Id: Faction_NR
+    TextObject: {fileID: 989319479}
+  - Id: Faction_ST
+    TextObject: {fileID: 989319478}
+  - Id: Faction_SK
+    TextObject: {fileID: 989319477}
+  - Id: Faction_ALL
+    TextObject: {fileID: 989319482}
   - Id: Leaderboard_Rewards
     TextObject: {fileID: 1036862901052351100}
 --- !u!1 &1362820516
