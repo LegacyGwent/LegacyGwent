@@ -12160,7 +12160,7 @@ MonoBehaviour:
   - {fileID: 21300008, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
   - {fileID: 21300006, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
   - {fileID: 21300000, guid: bba55c97b537b754eb6dc5e7831360fb, type: 3}
-  FactionRankListHeader: {fileID: 7447541641163416172}
+  FactionRankListHeader: {fileID: 7447541640325081871}
   factionIcons:
   - {fileID: 21300000, guid: c7864209d4c14734dbbc6826d83bb332, type: 3}
   - {fileID: 21300000, guid: b9a9b98cfe2e04440a6ad27f46061b08, type: 3}

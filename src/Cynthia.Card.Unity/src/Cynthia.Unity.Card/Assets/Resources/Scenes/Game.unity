@@ -22756,6 +22756,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 989319474}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541640677402352, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541639942163168, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &989319485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7447541640610202862, guid: c5f978a6cdc42c149ad17856b1fea4ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 989319474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991389126
 GameObject:
   m_ObjectHideFlags: 0
@@ -30623,11 +30641,11 @@ MonoBehaviour:
   - Id: Leaderboard_SeasonRewards
     TextObject: {fileID: 3967266324728179860}
   - Id: Leaderboard_Position
-    TextObject: {fileID: 0}
+    TextObject: {fileID: 989319483}
   - Id: Leaderboard_Name
-    TextObject: {fileID: 0}
+    TextObject: {fileID: 989319485}
   - Id: Leaderboard_Score
-    TextObject: {fileID: 0}
+    TextObject: {fileID: 989319484}
   - Id: Faction_MO
     TextObject: {fileID: 989319481}
   - Id: Faction_NG
