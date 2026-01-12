@@ -279,6 +279,9 @@ public class RankPlayerScreenScript : MonoBehaviour
         var players = FactionRankList.transform.GetChild(2);
 
         int myNickIndex = -1;
+        int my_i = -1;
+        int loggedNickIndex = -1;
+        int logged_i = -1;
 
         for (int i = 1; i < players.transform.childCount - 1; i++)
         {
@@ -291,29 +294,36 @@ public class RankPlayerScreenScript : MonoBehaviour
             players.transform.GetChild(i).GetChild(3).GetComponent<Text>().text = $"{playerData.Item2}";
             if (myNickname == playerData.Item1)
             {
-                Color tintColor = new Color(1f, 0.455f, 0.027f, 1.0f);
-                if (myNickname == _clientService.User.PlayerName)
-                {
-                    tintColor = new Color(0.976f, 1.0f, 0.027f, 1.0f);
-                }
-                players.transform.GetChild(i).GetChild(1).GetComponent<Text>().color = tintColor;
-                players.transform.GetChild(i).GetChild(2).GetComponent<Text>().color = tintColor;
-                players.transform.GetChild(i).GetChild(3).GetComponent<Text>().color = tintColor;
                 myNickIndex = ranksIndex;
+                my_i = i;
             }
-            else
-            {
+            if (_clientService.User.PlayerName == playerData.Item1){
+                loggedNickIndex = ranksIndex;
+                logged_i = i; 
+            }
                 players.transform.GetChild(i).GetChild(1).GetComponent<Text>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 players.transform.GetChild(i).GetChild(2).GetComponent<Text>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 players.transform.GetChild(i).GetChild(3).GetComponent<Text>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-            }
         }
-        
 
-
+        if (loggedNickIndex != -1)
+        {
+            Color tintColor = new Color(0.993f, 0.785f, 0.135f, 1.0f);
+            players.transform.GetChild(logged_i).GetChild(1).GetComponent<Text>().color = tintColor;
+            players.transform.GetChild(logged_i).GetChild(2).GetComponent<Text>().color = tintColor;
+            players.transform.GetChild(logged_i).GetChild(3).GetComponent<Text>().color = tintColor;
+        }
+        if(myNickIndex != -1 && myNickIndex != loggedNickIndex)
+        {
+            Color tintColor = new Color(1f, 0.455f, 0.027f, 1.0f);
+            players.transform.GetChild(my_i).GetChild(1).GetComponent<Text>().color = tintColor;
+            players.transform.GetChild(my_i).GetChild(2).GetComponent<Text>().color = tintColor;
+            players.transform.GetChild(my_i).GetChild(3).GetComponent<Text>().color = tintColor;
+        }
         if (myNickIndex == -1)
         {
             players.GetChild(11).gameObject.SetActive(true);
+            
             int _factionRankPosition = factionsRanks[buttonid].FindIndex(t => t.Item1 == myNickname) + 1;
             players.transform.GetChild(11).GetChild(1).GetComponent<Text>().text = $"#{_factionRankPosition}";
             players.transform.GetChild(11).GetChild(2).GetComponent<Text>().text = $"{factionsRanks[buttonid][_factionRankPosition - 1].Item1}";
