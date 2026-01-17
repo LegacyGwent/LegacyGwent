@@ -821,7 +821,7 @@
         },
         "12021": {
             "Name": "Geralt: Aard",
-            "Info": "Deploy: Deal 3 Damage to 3 enemies and move them to the row above.",
+            "Info": "Deploy: Deal 3 damage to 3 ennemies and move them to the row above, deal those ennemies an extra 2 damage if there were one the siege row. ",
             "Flavor": "A blast of concentrated energy that pummels everything in its path. Great for when you forget your keys."
         },
         "12022": {
@@ -3961,7 +3961,7 @@
         },
         "70165": {
             "Name": "Vivienne de Tabris",
-            "Info": "Deploy: Transform an ally unit into a different Gold unit from your starting deck, and Boost it by 2.",
+            "Info": "Deploy: Transform an ally unit into a different Gold unit from your starting deck, then Boost an ally by 2.",
             "Flavor": "Vivienne's a bit of an odd duck for a lady-in-waitin'. But by the Gods, ye can't deny her beauty an' grace!"
         },
         "70166": {

@@ -820,7 +820,7 @@
         },
         "12021": {
             "Name": "Geralt Aard",
-            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń 3 wrogom i przenieś ich rząd wyżej.",
+            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń 3 wrogim jednostkom i przesuń je o 1 rząd w górę. Jeśli cel znajduje się w rzędzie oblężenia, zadaj mu dodatkowe 2 pkt obrażeń.",
             "Flavor": "Wiedźmin złożył palce w Znak Aard. Huknęło tak, że Geralta zakłuło w uszach, a od wsysanego przez implozję powietrza aż zaszumiały wikliny."
         },
         "12022": {
@@ -3960,7 +3960,7 @@
         },
         "70165": {
             "Name": "Vivienne de Tabris",
-            "Info": "Rozmieszczenie: Przemień sojusznika w kopie innej złotej jednostki z Twojej talii startowej i wzmocnij ją o 2.",
+            "Info": "Rozmieszczenie: Przemień sojuszną jednostkę w inną złotą jednostkę z twojej talii startowej, następnie Wzmocnij sojusznika o 2.",
             "Flavor": "Osobliwa dwórka... Ale nie sposób odmówić jej uroku."
         },
         "70166": {

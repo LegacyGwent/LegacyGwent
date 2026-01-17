@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 140);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 141);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -605,7 +605,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12021", //Geralt: Aard
                     Name="杰洛特：阿尔德法印",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11411,7 +11411,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist, Categorie.Cursed},
                     Flavor = "",
                     Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身4点后各降下一排“倾盆大雨”。",
                     CardArtsId = "202283",
@@ -14023,7 +14023,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70159", //Crowmother
                     Name="乌鸦之母",
-                    Strength=2,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,

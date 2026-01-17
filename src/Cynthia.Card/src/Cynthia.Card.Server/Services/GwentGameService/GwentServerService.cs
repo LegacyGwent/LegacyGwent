@@ -1053,7 +1053,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     ranktitle = "JOURNEYMAN";
                     break;
                 case int i when i >= 3850 && i < 3950:
-                    if (seasonId == 1)
+                    if (seasonId == 2)
                         rankavatar = "Zoltan_Animal_Tamer";
                     // else
                     //     rankavatar = "avatar for season 4";
@@ -1069,7 +1069,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 case int i when i >= 4250 && i < 4400:
                     rank = "Rank18border";
                     ranktitle = "MASTER";
-                    if (seasonId == 1)
+                    if (seasonId == 2)
                         rankavatar = "EredinMasked";
                     // else
                     //     rankavatar = "avatar for season 4";
