@@ -17,7 +17,7 @@ namespace Cynthia.Card.Server
         public bool Register(string username, string password, string playername) => _gwentServerService.Register(username, password, playername);
 
         //登录
-        public async Task<UserInfo> Login(string username, string password) => await _gwentServerService.Login(new User(username, Context.ConnectionId), password);
+        public async Task<UserInfo> LoginAccount(string username, string password) => await _gwentServerService.LoginAccount(new User(username, Context.ConnectionId), password);
         // update the userinfo when loading GameScene to update the avatars/borders/titles
         public async Task<UserInfo> QueryUserInfo(string username, string password) => await _gwentServerService.QueryUserInfo(username, password);
         
