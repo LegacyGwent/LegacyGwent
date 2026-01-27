@@ -357,7 +357,7 @@ namespace Cynthia.Card.Server
             return loginUser;
         }
 
-        public async Task<UserInfo> Login(User user, string password)
+        public async Task<UserInfo> LoginAccount(User user, string password)
         {
             //判断用户名与密码
             var loginUser = _databaseService.Login(user.UserName, password);
