@@ -385,7 +385,7 @@ namespace Cynthia.Card.Client
         public async Task<UserInfo> Login(string username, string password)
         {
             //登录,如果成功保存登录信息
-            User = await HubConnection.InvokeAsync<UserInfo>("Login", username, password);
+            User = await HubConnection.InvokeAsync<UserInfo>("LoginAccount", username, password);
             if (User != null)
                 Player.PlayerName = User.PlayerName;
             return User;
