@@ -82,6 +82,7 @@ public class LoginClick : MonoBehaviour
                 _client.ClientState = ClientState.Standby;
                 // Debug.Log("执行了!跳转后");
                 IsLogining = false;
+                BGMManager.loggedSuccesfully = true;
             };
 
             
