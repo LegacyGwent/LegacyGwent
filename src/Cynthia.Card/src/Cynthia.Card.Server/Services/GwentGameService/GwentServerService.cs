@@ -730,7 +730,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.8";
+            return "2.1.9";
         }
 
         public async Task<string> GetNotes(string connectionId)
@@ -985,7 +985,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.8";
+            return @"2.1.9";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
