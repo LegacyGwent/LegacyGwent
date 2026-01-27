@@ -74,6 +74,7 @@ public class LoginClick : MonoBehaviour
             }
             //Debug.Log($"用户名是:{_client.User.UserName},密码是:{_client.User.PassWord}");
             LogMessage.text = string.Format(_translator.GetText("LoginMenu_WelcomeMessage"), _client.User.PlayerName);
+            BGMManager.loggedSuccesfully = true;
 
             //SceneManager.LoadScene("Game");
 
@@ -82,7 +83,6 @@ public class LoginClick : MonoBehaviour
                 _client.ClientState = ClientState.Standby;
                 // Debug.Log("执行了!跳转后");
                 IsLogining = false;
-                BGMManager.loggedSuccesfully = true;
             };
 
             
