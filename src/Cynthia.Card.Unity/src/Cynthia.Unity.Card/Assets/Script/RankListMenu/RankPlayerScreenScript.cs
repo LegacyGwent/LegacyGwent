@@ -332,7 +332,7 @@ public class RankPlayerScreenScript : MonoBehaviour
             Color tintColor = new Color(1f, 0.455f, 0.027f, 1.0f);
             if (factionsRanks[buttonid][_factionRankPosition - 1].Item1 == _clientService.User.PlayerName)
             {
-                tintColor = new Color(0.976f, 1.0f, 0.027f, 1.0f);
+                tintColor = new Color(0.993f, 0.785f, 0.135f, 1.0f);
             }
             players.transform.GetChild(11).GetChild(1).GetComponent<Text>().color = tintColor;
             players.transform.GetChild(11).GetChild(2).GetComponent<Text>().color = tintColor;
