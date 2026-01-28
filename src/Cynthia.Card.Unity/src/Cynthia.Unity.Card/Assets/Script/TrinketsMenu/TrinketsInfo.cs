@@ -130,7 +130,7 @@ public class TrinketsInfo : MonoBehaviour // this script controls the behaviour 
 
     public void SetTitlesInfo(IList<Title> Titles)
     {   // Controls the layout of the titles in the titles menu
-        var pagenum = 30;
+        var pagenum = Titles.Count;
         TitlesScroll.value = 1;
         RemoveAllChild(TitlesContext);
         var sc = 0;
