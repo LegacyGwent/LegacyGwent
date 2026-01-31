@@ -990,7 +990,9 @@ namespace Cynthia.Card.Server
         {
             var task1 = Players[Player1Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1));
             var task2 = Players[Player2Index].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player2));
-            await Task.WhenAll(task1, task2);
+            // Send spectator-specific info to all viewers (shows both players' hands)
+            var spectatorTasks = ViewList.Select(viewer => viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfoForSpectator()));
+            await Task.WhenAll(new[] { task1, task2 }.Concat(spectatorTasks));
             await SetDeckInfo();
             // await SendOperactionList();
         }
@@ -1026,7 +1028,9 @@ namespace Cynthia.Card.Server
         {
             var player1Task = Players[Player1Index].SendAsync(ServerOperationType.SetCardsInfo, GetCardsInfo(TwoPlayer.Player1));
             var player2Task = Players[Player2Index].SendAsync(ServerOperationType.SetCardsInfo, GetCardsInfo(TwoPlayer.Player2));
-            return Task.WhenAll(player1Task, player2Task);
+            // Send spectator-specific info to all viewers (shows both players' hands)
+            var spectatorTasks = ViewList.Select(viewer => viewer.SendAsync(ServerOperationType.SetCardsInfo, GetCardsInfoForSpectator()));
+            return Task.WhenAll(new[] { player1Task, player2Task }.Concat(spectatorTasks));
         }
         public Task SetPointInfo()
         {
@@ -1251,6 +1255,85 @@ namespace Cynthia.Card.Server
                 EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.Status).ToList()
             };
             return result;
+        }
+        // Get game info for spectators - shows both players' hands fully visible
+        public GameInfomation GetAllInfoForSpectator()
+        {
+            Console.WriteLine("GetAllInfoForSpectator");
+            // if a player has no avatar, title or border, display the default ones to avoid errors
+            if (Players[Player2Index].CurrentAvatar == null) { Players[Player2Index].CurrentAvatar = "NoAvatar"; }
+            if (Players[Player1Index].CurrentAvatar == null) { Players[Player1Index].CurrentAvatar = "NoAvatar"; }
+            if (Players[Player1Index].CurrentBorder == null) { Players[Player1Index].CurrentBorder = "NoBorder"; }
+            if (Players[Player2Index].CurrentBorder == null) { Players[Player2Index].CurrentBorder = "NoBorder"; }
+            if (Players[Player1Index].CurrentTitle == null) { Players[Player1Index].CurrentTitle = "CARDSMITH"; }
+            if (Players[Player2Index].CurrentTitle == null) { Players[Player2Index].CurrentTitle = "CARDSMITH"; }
+            var result = new GameInfomation()
+            {
+                MyRow1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+                MyRow2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+                MyRow3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow1Point = PlayersPlace[Player2Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow2Point = PlayersPlace[Player2Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+                EnemyRow3Point = PlayersPlace[Player2Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus),
+                IsMyPlayerPass = IsPlayersPass[Player1Index],
+                IsEnemyPlayerPass = IsPlayersPass[Player2Index],
+                MyWinCount = PlayersWinCount[Player1Index],
+                EnemyWinCount = PlayersWinCount[Player2Index],
+                IsMyLeader = IsPlayersLeader[Player1Index],
+                IsEnemyLeader = IsPlayersLeader[Player2Index],
+                MyLeader = PlayersLeader[Player1Index][0].Status,
+                EnemyLeader = PlayersLeader[Player2Index][0].Status,
+                EnemyName = Players[Player2Index].PlayerName,
+                MyName = Players[Player1Index].PlayerName,
+                EnemyAvatar = Players[Player2Index].CurrentAvatar,
+                MyAvatar = Players[Player1Index].CurrentAvatar,
+                MyBorder = Players[Player1Index].CurrentBorder,
+                EnemyBorder = Players[Player2Index].CurrentBorder,
+                MyTitle = Players[Player1Index].CurrentTitle,
+                EnemyTitle = Players[Player2Index].CurrentTitle,
+                MyDeckCount = PlayersDeck[Player1Index].Count(),
+                EnemyDeckCount = PlayersDeck[Player2Index].Count(),
+                MyHandCount = PlayersHandCard[Player1Index].Count() + (IsPlayersLeader[Player1Index] ? 1 : 0),
+                EnemyHandCount = PlayersHandCard[Player2Index].Count() + (IsPlayersLeader[Player2Index] ? 1 : 0),
+                MyCemeteryCount = PlayersCemetery[Player1Index].Count(),
+                EnemyCemeteryCount = PlayersCemetery[Player2Index].Count(),
+                // For spectators, show both players' hands fully visible
+                MyHandCard = PlayersHandCard[Player1Index].Select(x => x.Status).ToList(),
+                EnemyHandCard = PlayersHandCard[Player2Index].Select(x => x.Status).ToList(),
+                MyPlace = PlayersPlace[Player1Index].Select(x => x.Select(c => c.Status).ToList()).ToArray(),
+                EnemyPlace = PlayersPlace[Player2Index].Select
+                (
+                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus(PlayersFaction[Player2Index]) : item).ToList()
+                ).ToArray(),
+                MyCemetery = PlayersCemetery[Player1Index].Select(x => x.Status).ToList(),
+                EnemyCemetery = PlayersCemetery[Player2Index].Select(x => x.Status).ToList(),
+                MyStay = PlayersStay[Player1Index].Select(x => x.Status).ToList(),
+                EnemyStay = PlayersStay[Player2Index].Select(x => x.Status).ToList()
+            };
+            return result;
+        }
+        // Get cards info for spectators - shows both players' hands fully visible
+        public GameInfomation GetCardsInfoForSpectator()
+        {
+            return new GameInfomation()
+            {
+                IsMyLeader = IsPlayersLeader[Player1Index],
+                IsEnemyLeader = IsPlayersLeader[Player2Index],
+                MyLeader = PlayersLeader[Player1Index][0].Status,
+                EnemyLeader = PlayersLeader[Player2Index][0].Status,
+                // For spectators, show both players' hands fully visible
+                MyHandCard = PlayersHandCard[Player1Index].Select(x => x.Status),
+                EnemyHandCard = PlayersHandCard[Player2Index].Select(x => x.Status),
+                MyStay = PlayersStay[Player1Index].Select(x => x.Status),
+                EnemyStay = PlayersStay[Player2Index].Select(x => x.Status),
+                MyPlace = PlayersPlace[Player1Index].Select(x => x.Select(c => c.Status)).ToArray(),
+                EnemyPlace = PlayersPlace[Player2Index].Select
+                (
+                    x => x.Select(c => c.Status).Select(item => item.Conceal ? new CardStatus(PlayersFaction[Player2Index]) : item)
+                ).ToArray(),
+                MyCemetery = PlayersCemetery[Player1Index].Select(x => x.Status),
+                EnemyCemetery = PlayersCemetery[Player2Index].Select(x => x.Status),
+            };
         }
         //--------------------------------------
         public Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type)
@@ -1777,7 +1860,8 @@ namespace Cynthia.Card.Server
                     ((AIPlayer)player).Receive += viewer.AddOperation;
                 }
 
-                var task = viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(TwoPlayer.Player1)).ContinueWith(async x =>
+                // Use spectator-specific method that shows both players' hands
+                var task = viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfoForSpectator()).ContinueWith(async x =>
                 {
                     // send PlayerToResendToViewerInfo[0]
                     foreach (var op in PlayerToResendToViewerInfo[0])
