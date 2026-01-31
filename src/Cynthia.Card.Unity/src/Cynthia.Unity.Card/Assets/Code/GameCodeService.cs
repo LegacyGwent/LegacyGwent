@@ -225,7 +225,7 @@ namespace Cynthia.Card.Client
         public void GameStart()
         {
             // start timing for deciding red coin
-            _code.GetComponent<GameCode>().GameUIControl.ropeController.StartRopeTimer(45f);
+            _code.GetComponent<GameCode>().GameUIControl.ropeController.StartRopeTimer();
             _code.GetComponent<GameCode>().GameUIControl.SetDecideCoinInfo(true);
         }
         /*
