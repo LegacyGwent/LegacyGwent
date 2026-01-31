@@ -110,7 +110,7 @@ public class PlayerTableRowScript : MonoBehaviour
 
         if (LoggedPlayerLineBackground != null && LoggedPlayerLine != null)
         {
-            if (rank <= 3)
+            if (rank == 1)
             {
                 LoggedPlayerLine.color = PlayerTableRowScript.topLineColor;
                 LoggedPlayerLineBackground.color = PlayerTableRowScript.topBackgroundColor;
