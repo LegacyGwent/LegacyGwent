@@ -1004,7 +1004,9 @@ namespace Cynthia.Card.Server
         {
             var player1Task = SetDeckInfo(Player1Index);
             var player2Task = SetDeckInfo(Player2Index);
-            await Task.WhenAll(player1Task, player2Task);
+            // Send deck info to all spectators
+            var spectatorTasks = ViewList.Select(viewer => viewer.SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[Player1Index].Select(x => x.Status).OrderBy(x => x.CardId).OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).ToList()));
+            await Task.WhenAll(new[] { player1Task, player2Task }.Concat(spectatorTasks));
         }
         public Task SetCemeteryInfo(int playerIndex)
         {
@@ -1016,7 +1018,13 @@ namespace Cynthia.Card.Server
         {
             var player1Task = SetCemeteryInfo(Player1Index);
             var player2Task = SetCemeteryInfo(Player2Index);
-            await Task.WhenAll(player1Task, player2Task);
+            // Send cemetery info to all spectators
+            var spectatorTasks = ViewList.SelectMany(viewer => new[]
+            {
+                viewer.SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player1Index].Select(x => x.Status).ToList()),
+                viewer.SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player2Index].Select(x => x.Status).ToList())
+            });
+            await Task.WhenAll(new[] { player1Task, player2Task }.Concat(spectatorTasks));
         }
         public Task SetGameInfo()
         {
@@ -1845,6 +1853,43 @@ namespace Cynthia.Card.Server
             return OperactionList.AddLast(task);
         }
 
+        // Initialize a spectator with all current game state
+        private async Task InitializeSpectator(Viewer viewer)
+        {
+            // Send all game information (includes hands, board, points, etc.)
+            await viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfoForSpectator());
+            
+            // Send deck information for both players
+            await viewer.SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[Player1Index].Select(x => x.Status).OrderBy(x => x.CardId).OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).ToList());
+            
+            // Send cemetery information for both players
+            await viewer.SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player1Index].Select(x => x.Status).ToList());
+            await viewer.SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[Player2Index].Select(x => x.Status).ToList());
+            
+            // Send coin information if the game has started
+            // The coin shows who goes first in the current round
+            // RedCoin array stores who has the coin for each round (index 0, 1, 2)
+            if (CurrentRoundCount >= 0 && CurrentRoundCount < 3 && RedCoin[CurrentRoundCount] != 0)
+            {
+                // Determine who has the coin in the current round
+                int coinPlayerIndex = RedCoin[CurrentRoundCount];
+                bool player1HasCoin = (coinPlayerIndex == Player1Index);
+                await viewer.SendAsync(ServerOperationType.SetCoinInfo, player1HasCoin);
+            }
+            else if (RedCoin[0] == Player1Index || RedCoin[0] == Player2Index)
+            {
+                // Fallback: use round 1 coin info if current round info not available
+                bool player1HasCoin = (RedCoin[0] == Player1Index);
+                await viewer.SendAsync(ServerOperationType.SetCoinInfo, player1HasCoin);
+            }
+            
+            // Send any pending operations that need to be resent (like mulligan or select menu operations)
+            foreach (var op in PlayerToResendToViewerInfo[0])
+            {
+                await viewer.SendAsync(op);
+            }
+        }
+
         public bool JoinViewList(Viewer viewer)
         {
             if (ViewList.All(x => x.CurrentUser.UserName != viewer.CurrentUser.UserName))
@@ -1860,15 +1905,8 @@ namespace Cynthia.Card.Server
                     ((AIPlayer)player).Receive += viewer.AddOperation;
                 }
 
-                // Use spectator-specific method that shows both players' hands
-                var task = viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfoForSpectator()).ContinueWith(async x =>
-                {
-                    // send PlayerToResendToViewerInfo[0]
-                    foreach (var op in PlayerToResendToViewerInfo[0])
-                    {
-                        await viewer.SendAsync(op);
-                    }
-                });
+                // Initialize spectator with all current game state
+                _ = InitializeSpectator(viewer);
 
                 return true;
             }
