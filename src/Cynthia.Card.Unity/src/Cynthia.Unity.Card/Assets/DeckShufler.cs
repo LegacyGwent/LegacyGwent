@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cynthia.Card.Client;
+using Cynthia.Card;
 using Autofac;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class DeckShufler : MonoBehaviour
 {
@@ -11,8 +13,8 @@ public class DeckShufler : MonoBehaviour
     private EditorInfo _editorInfo;
 
     // Step 1: declare x and y
-    public int x = 0;
-    public int y = 2;
+    public static string x = null;
+    public static string y = null;
 
     void Awake()
     {
@@ -22,31 +24,85 @@ public class DeckShufler : MonoBehaviour
 
     public async void DoStuff()
     {
-        Debug.Log("SHUFLING");
-
-        // Step 2: swap decks at positions x and y
-        var decks = _clientService.User.Decks.ToList(); // make a copy
-        if (x < decks.Count && y < decks.Count)
-        {
-            var temp = decks[x];
-            decks[x] = decks[y];
-            decks[y] = temp;
-        }
-
+        
+        
+    }
+    
+    public void GetClick(string id)
+    {
+        var decks = _clientService.User.Decks.ToList();
         _clientService.User.Decks = decks;
         _editorInfo.SetDeckList(decks);
+        
+        //Debug.Log("Received ID: " + id);
 
-        // Step 3: remove all decks from server
-        var deckIds = decks.Select(d => d.Id).ToList();
-        foreach (var id in deckIds)
+        if (x == null)
         {
-            await _clientService.RemoveDeck(id);
+            x = id;
+            Debug.Log("Set as first deck "+id);
+        }
+        else if (y == null)
+        {
+            if (id != x)
+            {
+                y = id;
+                Debug.Log("Set as second deck "+id);
+            }
+            else
+            {
+                Debug.Log("Clicked same deck again");
+            }
+
         }
 
-        // Step 4: re-add decks in new order
-        foreach (var deck in decks)
+        if (x != null && y != null)
         {
-            await _clientService.AddDeck(deck);
-        }
+            //Debug.Log("Swapping");
+            int indexX = decks.FindIndex(d => d.Id == x);
+            int indexY = decks.FindIndex(d => d.Id == y);
+
+            if (indexX != -1 && indexY != -1)
+            {
+                // Swap the deck objects
+                var temp = decks[indexX];
+                decks[indexX] = decks[indexY];
+                decks[indexY] = temp;
+
+                // Update the user decks and the editor UI
+                _clientService.User.Decks = decks;
+                _editorInfo.SetDeckList(decks);
+
+                Debug.Log($"Swapped decks at indexes {indexX} and {indexY}");
+
+                // Optional: save to server immediately
+                
+                //await SaveDecksToServer(decks);
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find decks to swap: {x}, {y}");
+            }
+
+                x = null;
+                y = null;
+            SaveDecksToServer(decks,_clientService);
+        }     
     }
+    public async Task SaveDecksToServer( List<DeckModel> decks, GwentClientService _clientService)
+    {  
+        Debug.Log("Saving Decks to Server");
+
+        var deckIds = decks.Select(d => d.Id).ToList();
+
+        foreach (var i in deckIds)
+        {
+            await _clientService.RemoveDeck(i);
+        }
+        foreach (var i in decks)
+        {
+            await _clientService.AddDeck(i);
+        }
+        Debug.Log(decks.GetType().FullName);
+    }
+
 }
