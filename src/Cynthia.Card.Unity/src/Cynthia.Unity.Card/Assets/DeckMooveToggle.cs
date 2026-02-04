@@ -22,10 +22,10 @@ public class DeckMooveToggle : MonoBehaviour
     public void ToggleDeckMooveMode()
     {
         DeckMooveMode = !DeckMooveMode;
-        Debug.Log("DeckMooveMode changed to: " + DeckMooveMode);
+        //Debug.Log("DeckMooveMode changed to: " + DeckMooveMode);
         if (DeckMooveMode==false)
         {
-            Debug.Log("Clearing clicks");
+            //Debug.Log("Clearing clicks");
             DeckShufler.x=null;
             DeckShufler.y=null;
         }

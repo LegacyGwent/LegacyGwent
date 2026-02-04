@@ -21,12 +21,6 @@ public class DeckShufler : MonoBehaviour
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _editorInfo = FindObjectOfType<EditorInfo>();
     }
-
-    public async void DoStuff()
-    {
-        
-        
-    }
     
     public void GetClick(string id)
     {
@@ -39,18 +33,18 @@ public class DeckShufler : MonoBehaviour
         if (x == null)
         {
             x = id;
-            Debug.Log("Set as first deck "+id);
+            //Debug.Log("Set as first deck "+id);
         }
         else if (y == null)
         {
             if (id != x)
             {
                 y = id;
-                Debug.Log("Set as second deck "+id);
+                //Debug.Log("Set as second deck "+id);
             }
             else
             {
-                Debug.Log("Clicked same deck again");
+                //Debug.Log("Clicked same deck again");
             }
 
         }
@@ -72,25 +66,21 @@ public class DeckShufler : MonoBehaviour
                 _clientService.User.Decks = decks;
                 _editorInfo.SetDeckList(decks);
 
-                Debug.Log($"Swapped decks at indexes {indexX} and {indexY}");
+                //Debug.Log($"Swapped decks at indexes {indexX} and {indexY}");
 
                 // Optional: save to server immediately
                 
                 //await SaveDecksToServer(decks);
             }
-            else
-            {
-                Debug.LogWarning($"Could not find decks to swap: {x}, {y}");
-            }
 
-                x = null;
-                y = null;
+            x = null;
+            y = null;
             SaveDecksToServer(decks,_clientService);
         }     
     }
     public async Task SaveDecksToServer( List<DeckModel> decks, GwentClientService _clientService)
     {  
-        Debug.Log("Saving Decks to Server");
+        //Debug.Log("Saving Decks to Server");
 
         var deckIds = decks.Select(d => d.Id).ToList();
 
@@ -102,7 +92,6 @@ public class DeckShufler : MonoBehaviour
         {
             await _clientService.AddDeck(i);
         }
-        Debug.Log(decks.GetType().FullName);
     }
 
 }
