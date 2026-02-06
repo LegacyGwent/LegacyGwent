@@ -37,4 +37,9 @@ public class DeckMooveToggle : MonoBehaviour
     {
         image.sprite = DeckMooveMode ? onSprite : offSprite;
     }
+    public void TurnOff()
+    {
+        DeckMooveMode=false;
+        ApplyVisualState();
+    }
 }
