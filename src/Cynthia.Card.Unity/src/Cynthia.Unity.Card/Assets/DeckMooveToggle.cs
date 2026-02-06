@@ -8,6 +8,8 @@ public class DeckMooveToggle : MonoBehaviour
     private Button button;
     private Image image;
 
+    public GameObject container;
+
     public Sprite offSprite; // Button
     public Sprite onSprite;  // ButtonOn
 
@@ -23,6 +25,10 @@ public class DeckMooveToggle : MonoBehaviour
     {
         DeckMooveMode = !DeckMooveMode;
         //Debug.Log("DeckMooveMode changed to: " + DeckMooveMode);
+        if (DeckMooveMode)
+        {
+            CloseButtons();
+        }
         if (DeckMooveMode==false)
         {
             //Debug.Log("Clearing clicks");
@@ -33,6 +39,17 @@ public class DeckMooveToggle : MonoBehaviour
         ApplyVisualState();
     }
 
+    public void CloseButtons()
+    {
+        foreach (Transform child in container.transform)
+        {
+            var prefabScript = child.GetComponent<EditorShowDeck>();
+            if (prefabScript != null)
+            {
+                prefabScript.CloseButtons();
+            }
+        }
+    }
     void ApplyVisualState()
     {
         image.sprite = DeckMooveMode ? onSprite : offSprite;
