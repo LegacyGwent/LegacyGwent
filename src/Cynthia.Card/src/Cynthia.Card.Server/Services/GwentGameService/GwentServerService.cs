@@ -673,6 +673,29 @@ namespace Cynthia.Card.Server
             return true;
         }
 
+        public bool SwapDecks(string connectionId, string firstDeckId, string secondDeckId)
+        {
+            // user must be logged in
+            if (!_users.TryGetValue(connectionId, out var user))
+                return false;
+
+            // call DB service first (source of truth)
+            if (!_databaseService.SwapDecks(user.UserName, firstDeckId, secondDeckId))
+                return false;
+
+            // update in-memory decks
+            var firstIndex = user.Decks.Select((d, i) => (d, i)).FirstOrDefault(x => x.d.Id == firstDeckId).i;
+            var secondIndex = user.Decks.Select((d, i) => (d, i)).FirstOrDefault(x => x.d.Id == secondDeckId).i;
+
+            if (firstIndex < 0 || secondIndex < 0)
+                return false;
+
+            (user.Decks[firstIndex], user.Decks[secondIndex]) =
+                (user.Decks[secondIndex], user.Decks[firstIndex]);
+
+            return true;
+        }
+
         public bool ModifyDeck(string connectionId, string id, DeckModel deck)
         {
             if (!_users.ContainsKey(connectionId))

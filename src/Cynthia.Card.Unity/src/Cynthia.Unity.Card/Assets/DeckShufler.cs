@@ -73,25 +73,17 @@ public class DeckShufler : MonoBehaviour
                 //await SaveDecksToServer(decks);
             }
 
+            SwapOnServer(x,y);
+
             x = null;
             y = null;
-            SaveDecksToServer(decks,_clientService);
         }     
     }
-    public async Task SaveDecksToServer( List<DeckModel> decks, GwentClientService _clientService)
-    {  
-        //Debug.Log("Saving Decks to Server");
-
-        var deckIds = decks.Select(d => d.Id).ToList();
-
-        foreach (var i in deckIds)
-        {
-            await _clientService.RemoveDeck(i);
-        }
-        foreach (var i in decks)
-        {
-            await _clientService.AddDeck(i);
-        }
+    public async Task<bool> SwapOnServer(string firstDeckId, string secondDeckId)
+    {
+        return await _clientService.SwapDecks(firstDeckId, secondDeckId);
     }
+    
+
 
 }
