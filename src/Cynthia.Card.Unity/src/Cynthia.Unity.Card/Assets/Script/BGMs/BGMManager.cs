@@ -68,6 +68,7 @@ public class BGMManager : MonoBehaviour
     public Sound[] soundList;
 
     public static BGMManager instance;
+    public static bool loggedSuccesfully = false;
     public AudioMixer audioMixer;
     public AudioMixerGroup groupMusic;
     public float bgmChangeSpeed = 0.01f;
@@ -258,7 +259,7 @@ public class BGMManager : MonoBehaviour
         if (inGame == false)
         {
             scene = SceneManager.GetActiveScene();
-            if (scene.name == "LoginScene")
+            if(loggedSuccesfully)
             {
                 PlaySound("Title");
                 inGame = true;

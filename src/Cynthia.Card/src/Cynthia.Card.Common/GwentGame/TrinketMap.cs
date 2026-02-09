@@ -1171,6 +1171,51 @@ namespace Cynthia.Card
                 }
             },
             {
+                "MONSTER",
+                new Title()
+                {
+                    ID = "MONSTER",
+                    IsReleased = true,
+                    TitleColor = "red",
+                }
+            },
+            {
+                "NILFGAARDIAN",
+                new Title()
+                {
+                    ID = "NILFGAARDIAN",
+                    IsReleased = true,
+                    TitleColor = "lightgray",
+                }
+            },
+            {
+                "NORTHERNER",
+                new Title()
+                {
+                    ID = "NORTHERNER",
+                    IsReleased = true,
+                    TitleColor = "nrblue",
+                }
+            },
+            {
+                "SCOIA'TAEL",
+                new Title()
+                {
+                    ID = "SCOIA'TAEL",
+                    IsReleased = true,
+                    TitleColor = "lightgreen",
+                }
+            },
+            { 
+                "SKELLIGER",
+                new Title()
+                {
+                    ID = "SKELLIGER",
+                    IsReleased = true,
+                    TitleColor = "purple",
+                }
+            },
+            {
                 "DRAGONHATCHLING",
                 new Title()
                 {
@@ -1222,51 +1267,6 @@ namespace Cynthia.Card
                     ID = "GOLDENDRAGON",
                     IsReleased = true,
                     TitleColor = "orange",
-                }
-            },
-            {
-                "MONSTER",
-                new Title()
-                {
-                    ID = "MONSTER",
-                    IsReleased = true,
-                    TitleColor = "red",
-                }
-            },
-            {
-                "NILFGAARDIAN",
-                new Title()
-                {
-                    ID = "NILFGAARDIAN",
-                    IsReleased = true,
-                    TitleColor = "lightgray",
-                }
-            },
-            {
-                "NORTHERNER",
-                new Title()
-                {
-                    ID = "NORTHERNER",
-                    IsReleased = true,
-                    TitleColor = "nrblue",
-                }
-            },
-            {
-                "SCOIA'TAEL",
-                new Title()
-                {
-                    ID = "SCOIA'TAEL",
-                    IsReleased = true,
-                    TitleColor = "lightgreen",
-                }
-            },
-            { 
-                "SKELLIGER",
-                new Title()
-                {
-                    ID = "SKELLIGER",
-                    IsReleased = true,
-                    TitleColor = "purple",
                 }
             },
             {

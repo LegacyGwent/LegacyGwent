@@ -16,7 +16,7 @@ public class RopeController : MonoBehaviour
     private float endWaitTime = 0.5f;
     private int shakeRange = 1;
     public bool isRunning = false;
-    public float remainingTime = 90f;
+    public float remainingTime = 60f;
     public int skipedTurns=0;
     private int count = 0; // count for fixed update to record if it's the first time it is called during a turn
     private int oldCount = 0;
@@ -24,7 +24,7 @@ public class RopeController : MonoBehaviour
     {
         await DependencyResolver.Container.Resolve<GwentClientService>().Surrender();
     }
-    public void StartRopeTimer(float totalTime = 90f)
+    public void StartRopeTimer(float totalTime = 60f)
     {
         rope.gameObject.SetActive(false); // is not active until ropeTime
         remainingTime = totalTime;

@@ -357,7 +357,7 @@ namespace Cynthia.Card.Server
             return loginUser;
         }
 
-        public async Task<UserInfo> Login(User user, string password)
+        public async Task<UserInfo> LoginAccount(User user, string password)
         {
             //判断用户名与密码
             var loginUser = _databaseService.Login(user.UserName, password);
@@ -753,7 +753,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.8";
+            return "2.1.9";
         }
 
         public async Task<string> GetNotes(string connectionId)
@@ -763,6 +763,7 @@ namespace Cynthia.Card.Server
 本作永久免费开源,欢迎加群闲聊约战~关注第一消息
 群号: 949112936/945408322
 查看实时在线人数: http://cynthia.ovyno.com:5005
+~ Versions older than 2.1.9 are no longer valid, please update the client.
 
 To dowload the latest version of the game and interact with the community, please visit our Discord at https://discord.gg/Dw9sKgaUZN
 
@@ -980,6 +981,7 @@ may come back in the future.
         {
             await Task.CompletedTask;
             return @"This is the DIY server, have fun playing!
+~ Versions older than 2.1.9 are no longer valid, please update the client.
 
 This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
@@ -1006,7 +1008,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.8";
+            return @"2.1.9";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()

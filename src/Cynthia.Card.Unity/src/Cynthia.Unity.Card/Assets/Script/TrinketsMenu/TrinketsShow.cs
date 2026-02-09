@@ -103,13 +103,18 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
     }
     public void SetTitleList (string title, string color) // set the look of the title in the title list
     {
-        if (!_clientService.User.OwnedTitles.Contains(title))
-        {
-            TitlesBackground.material = LightGray;
-        }
         TitleText.text = _translator.GetText(title+"Name");
         TitleText.color = mycolormap[color];
         trinketID = title;
         titleColor = mycolormap[color];
-    }
+        TitleText.fontStyle = FontStyle.Normal;
+
+        if (!_clientService.User.OwnedTitles.Contains(title))
+        {
+            TitlesBackground.material = LightGray;
+            TitleText.color = Color.Lerp(TitleText.color, Color.gray, 0.83f);
+            titleColor = Color.Lerp(titleColor, Color.gray, 0.83f);
+            TitleText.fontStyle = FontStyle.Italic;
+            TitleText.resizeTextMaxSize -= 9;
+        }
 }
