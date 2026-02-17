@@ -25,10 +25,7 @@ namespace Cynthia.Card
             }
             var id = targetList[targetIndex].CardId;
             await target.Effect.Transform(id, Card);
-            var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow);
-            if (!cards.Any()) return 0;
-            var card = cards.Single();
-            await card.Effect.Boost(2, Card);
+            await target.Effect.Boost(2, Card);
             return 0;
         }
     }
