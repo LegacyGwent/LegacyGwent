@@ -435,6 +435,7 @@ namespace Cynthia.Card.Client
         public Task LeaveEditor() => HubConnection.InvokeAsync<bool>("LeaveEditor");
         public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", deck);
         public Task<bool> RemoveDeck(string deckId) => HubConnection.InvokeAsync<bool>("RemoveDeck", deckId);
+        public Task<bool> SwapDecks(string firstDeckId, string secondDeckId) => HubConnection.InvokeAsync<bool>("SwapDecks", firstDeckId, secondDeckId);
         public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, deck);
         public Task<bool> ModifyBlacklist(BlacklistModel blacklist) => HubConnection.InvokeAsync<bool>("ModifyBlacklist", blacklist);
 

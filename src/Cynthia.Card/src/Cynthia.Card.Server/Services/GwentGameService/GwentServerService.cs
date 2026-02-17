@@ -673,6 +673,29 @@ namespace Cynthia.Card.Server
             return true;
         }
 
+        public bool SwapDecks(string connectionId, string firstDeckId, string secondDeckId)
+        {
+            // user must be logged in
+            if (!_users.TryGetValue(connectionId, out var user))
+                return false;
+
+            // call DB service first (source of truth)
+            if (!_databaseService.SwapDecks(user.UserName, firstDeckId, secondDeckId))
+                return false;
+
+            // update in-memory decks
+            var firstIndex = user.Decks.Select((d, i) => (d, i)).FirstOrDefault(x => x.d.Id == firstDeckId).i;
+            var secondIndex = user.Decks.Select((d, i) => (d, i)).FirstOrDefault(x => x.d.Id == secondDeckId).i;
+
+            if (firstIndex < 0 || secondIndex < 0)
+                return false;
+
+            (user.Decks[firstIndex], user.Decks[secondIndex]) =
+                (user.Decks[secondIndex], user.Decks[firstIndex]);
+
+            return true;
+        }
+
         public bool ModifyDeck(string connectionId, string id, DeckModel deck)
         {
             if (!_users.ContainsKey(connectionId))
@@ -1245,8 +1268,8 @@ When other players are available, player matchmaking will be prioritized. Add #f
         }
 
         public (IList<IGrouping<UserState, User>>, IList<(string, string, string)>, IList<(string, string, string)>) GetUsersWithRoomId()
-        {
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName, x.RoomId)).ToList();
+        {   // only matches with password containing #w can be spectated
+            var list = _gwentMatchs.GwentRooms.Where(x => x.Password.Contains("#w", StringComparison.OrdinalIgnoreCase) && x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName, x.RoomId)).ToList();
             var aiList = _gwentMatchs.GwentRooms.Where(x => x.IsReady && (x.Player1 is AIPlayer || x.Player2 is AIPlayer)).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName, x.RoomId)).ToList();
             return (_users.Select(x => x.Value).Where(x => x.UserState != UserState.Play && x.UserState != UserState.PlayWithAI).GroupBy(x => x.UserState).ToList(), list, aiList);
         }
