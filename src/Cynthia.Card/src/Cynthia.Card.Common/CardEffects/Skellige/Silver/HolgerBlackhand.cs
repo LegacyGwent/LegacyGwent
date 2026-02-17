@@ -28,7 +28,7 @@ namespace Cynthia.Card
                 return 0;
             }
 
-            var CemeteryList = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit);
+            var CemeteryList = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit && x.CardInfo().CardId !="70014");
             if (CemeteryList.Count() == 0)
             {
                 return 0;

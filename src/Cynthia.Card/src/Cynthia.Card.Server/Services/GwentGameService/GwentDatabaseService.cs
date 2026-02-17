@@ -263,6 +263,30 @@ namespace Cynthia.Card.Server
             // _collection.Update(x => x.UserName == username, user);
             return true;
         }
+        
+        public bool SwapDecks(string username, string firstDeckId, string secondDeckId)
+        {
+            var users = GetUserInfo();
+
+            var user = users.AsQueryable().SingleOrDefault(x => x.UserName == username);
+            if (user == null)
+                return false;
+
+            var firstIndex = user.Decks.Select((d, i) => (d, i)).FirstOrDefault(x => x.d.Id == firstDeckId).i;
+            var secondIndex = user.Decks.Select((d, i) => (d, i)).FirstOrDefault(x => x.d.Id == secondDeckId).i;
+
+            // both decks must exist
+            if (firstIndex < 0 || secondIndex < 0)
+                return false;
+
+            // swap decks
+            (user.Decks[firstIndex], user.Decks[secondIndex]) =
+                (user.Decks[secondIndex], user.Decks[firstIndex]);
+
+            users.ReplaceOne(x => x.UserName == username, user);
+            return true;
+        }
+
         public int initMMR = 3400;
         public bool Register(string username, string password, string playername)
         {

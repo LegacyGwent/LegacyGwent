@@ -40,6 +40,8 @@ namespace Cynthia.Card.Server
 
         //删除卡组
         public bool RemoveDeck(string id) => _gwentServerService.RemoveDeck(Context.ConnectionId, id);
+        public bool SwapDecks(string firstDeckId, string secondDeckId) => _gwentServerService.SwapDecks(Context.ConnectionId, firstDeckId, secondDeckId);
+        
 
         //修改卡组
         public bool ModifyDeck(string id, DeckModel deck) => _gwentServerService.ModifyDeck(Context.ConnectionId, id, deck);

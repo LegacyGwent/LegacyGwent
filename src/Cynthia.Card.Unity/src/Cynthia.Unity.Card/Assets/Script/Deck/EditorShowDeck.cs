@@ -5,6 +5,7 @@ using Cynthia.Card.Client;
 
 public class EditorShowDeck : MonoBehaviour
 {
+    private DeckShufler _deckShufler;
     public RectTransform ButtonsContext;
     public RectTransform DeckEditor;
     public MainCodeService _codeService;
@@ -35,11 +36,20 @@ public class EditorShowDeck : MonoBehaviour
     private void Awake()
     {
         _codeService = DependencyResolver.Container.Resolve<MainCodeService>();
+        _deckShufler = FindObjectOfType<DeckShufler>();
     }
 
     public void DeckClick()
     {
-        IsShow = !IsShow;
+        //Debug.Log("ID is:"+Id);
+        if(DeckMooveToggle.DeckMooveMode)
+        {
+            _deckShufler.GetClick(Id);
+        }
+        else
+        {
+            IsShow = !IsShow;
+        }
     }
     public void RemoveClick()
     {
