@@ -15086,7 +15086,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。",
-                    Info = "1点护甲。领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
+                    Info = "领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
                     CardArtsId = "202453",
                     LinkedCards=new List<String> {},
                 }
