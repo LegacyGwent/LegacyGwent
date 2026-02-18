@@ -58,5 +58,7 @@ public class DeckMooveToggle : MonoBehaviour
     {
         DeckMooveMode=false;
         ApplyVisualState();
+        DeckShufler.x=null;
+        DeckShufler.y=null;
     }
 }
