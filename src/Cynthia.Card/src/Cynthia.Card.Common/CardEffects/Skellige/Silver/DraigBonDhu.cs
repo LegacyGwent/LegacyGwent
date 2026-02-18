@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
             //以下代码基于此卡可以选择双方墓地
             //显示我方墓地单位卡(顺序)
-            var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit).ToList();
+            var list = Game.PlayersCemetery[Card.PlayerIndex].Where(x => x.CardInfo().CardType == CardType.Unit && x.CardInfo().CardId != "70014").ToList();
 
             //选择两张牌，如果不选，什么都不做
             var result = await Game.GetSelectMenuCards(Card.PlayerIndex, list, 2, "选择强化两张牌");

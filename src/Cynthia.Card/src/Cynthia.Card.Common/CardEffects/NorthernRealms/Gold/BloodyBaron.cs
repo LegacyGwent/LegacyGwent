@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
             if (!@event.isRoundEnd && @event.Target.PlayerIndex != Card.PlayerIndex && @event.Target.Status.Type == CardType.Unit
-                && (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand()) && @event.DeathLocation.RowPosition.IsOnPlace())
+                && (Card.Status.CardRow.IsOnPlace() || Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand()) && @event.DeathLocation.RowPosition.IsOnPlace() && @event.Target.CardInfo().CardId != "70014")
             {
                 await Card.Effect.Boost(1, Card);
             }

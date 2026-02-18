@@ -35,7 +35,7 @@ namespace Cynthia.Card.AI
             {
                 var result = new List<int>()
                     {
-                        info.SelectList.Indexed().First(x=>x.Value.Name=="0").Key
+                        info.SelectList.Indexed().First(x=>x.Value.Name=="1").Key
                     };
                 send(
                     Operation.Create(UserOperationType.SelectMenuCardsInfo,
