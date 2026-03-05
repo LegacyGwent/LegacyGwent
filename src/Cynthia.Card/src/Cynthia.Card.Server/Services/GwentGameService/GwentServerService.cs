@@ -161,28 +161,62 @@ namespace Cynthia.Card.Server
             };
             List<SeasonReward> season3Rewards = new List<SeasonReward>()
             {
-                new SeasonReward(minimalPosition: 1, border: "Season3Border6", title: "DRAGONHATCHLING"),
-                new SeasonReward(minimalPosition: 5, border: "Season3Border5", title: "YOUNGDRAKE"),
-                new SeasonReward(minimalPosition: 10, border: "Season3Border4", title: "SLYZARD"),
+                new SeasonReward(minimalPosition: 100, border: "Season3Border6", title: "DRAGONHATCHLING"),
+                new SeasonReward(minimalPosition: 50, border: "Season3Border5", title: "YOUNGDRAKE"),
+                new SeasonReward(minimalPosition: 30, border: "Season3Border4", title: "SLYZARD"),
                 new SeasonReward(minimalPosition: 20, border: "Season3Border3", title: "WYVERN"),
-                new SeasonReward(minimalPosition: 30, avatar: "Geralt_Intoxicated"),
-                new SeasonReward(minimalPosition: 50, border: "Season3Border2", title: "GREATWYRM"),
-                new SeasonReward(minimalPosition: 100, border: "Season3Border1", title: "GOLDENDRAGON"),
+                new SeasonReward(minimalPosition: 10, avatar: "Geralt_Intoxicated"),
+                new SeasonReward(minimalPosition: 5, border: "Season3Border2", title: "GREATWYRM"),
+                new SeasonReward(minimalPosition: 1, border: "Season3Border1", title: "GOLDENDRAGON"),
 
-                // In-season rewards (MMR based) for Season 1:
+                // In-season rewards (MMR based) for Season 3:
                 // - Avatar at "rank 10" threshold
                 // - Avatar at "rank 18" threshold
                 // These thresholds currently correspond to 3850 and 4250 MMR.
                 new SeasonReward(minimalPosition: 0, avatar: "Zoltan_Animal_Tamer", isInSeasonReward: true, minimalMMR: 3850),
                 new SeasonReward(minimalPosition: 0, avatar: "EredinMasked", isInSeasonReward: true, minimalMMR: 4250)
             };
+            List<SeasonReward> season4Rewards = new List<SeasonReward>()
+            {
+                new SeasonReward(minimalPosition: 100, border: "Season4Border6", title: "WOLFPUP"),
+                new SeasonReward(minimalPosition: 50, border: "Season4Border5", title: "YOUNGWOLF"),
+                new SeasonReward(minimalPosition: 30, border: "Season4Border4", title: "DENPROTECTOR"),
+                new SeasonReward(minimalPosition: 20, border: "Season4Border3", title: "PACKLEADER"),
+                new SeasonReward(minimalPosition: 10, border: "Season4Border2", title: "GRANDWARG"),
+                new SeasonReward(minimalPosition: 100, border: "Season4Border1", title: "WHITEWOLF"),
+
+                // In-season rewards (MMR based) for Season 4:  
+                // - Avatar at "rank 10" threshold
+                // - Avatar at "rank 18" threshold
+                // These thresholds currently correspond to 3850 and 4250 MMR.
+                new SeasonReward(minimalPosition: 0, avatar: "Radovid", isInSeasonReward: true, minimalMMR: 3850),
+                new SeasonReward(minimalPosition: 0, avatar: "Vernon_Roche", isInSeasonReward: true, minimalMMR: 4250)
+            };
+            List<SeasonReward> season5Rewards = new List<SeasonReward>()
+            {
+                new SeasonReward(minimalPosition: 100, border: "Season5Border6", title: "VOLUNTEER"),   
+                new SeasonReward(minimalPosition: 50, border: "Season5Border5", title: "FOREMAN"),
+                new SeasonReward(minimalPosition: 30, border: "Season5Border4", title: "SKIRMISHER"),
+                new SeasonReward(minimalPosition: 20, border: "Season5Border3", title: "GUARD"),
+                new SeasonReward(minimalPosition: 10, border: "Season5Border2", title: "CLANELDER"),
+                new SeasonReward(minimalPosition: 1, border: "Season5Border1", title: "ELDERINCHIEF"),
+
+                // In-season rewards (MMR based) for Season 5:  
+                // - Avatar at "rank 10" threshold
+                // - Avatar at "rank 18" threshold
+                // These thresholds currently correspond to 3850 and 4250 MMR.
+                new SeasonReward(minimalPosition: 0, avatar: "Francesca", isInSeasonReward: true, minimalMMR: 3850),
+                new SeasonReward(minimalPosition: 0, avatar: "King_Bran", isInSeasonReward: true, minimalMMR: 4250)
+            };
 
 
             List<Season> seasonsList = new List<Season>
             {
                 new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season3Rewards },
-                new Season() { id = 2, name = "Season_MahakamSeason", endTime = new DateTime(2026, 03, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards }
-            };
+                new Season() { id = 2, name = "Season_MahakamSeason", endTime = new DateTime(2026, 03, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season4Rewards },
+                new Season() { id = 3, name = "Season_BoarSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "green", seasonalRewards = season5Rewards }
+            }; 
+            // Season 6 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
             await _databaseService.UpdateSeasons(seasonsList);
         }
 
