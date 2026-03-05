@@ -107,14 +107,14 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         }
     }
     
-    static public string GetRankIcon(int mmr)
+    static public string GetRankIcon(float mmr)
     {
         string rank;
         if (mmr <= 3400)
         {
             return "rank_1";
         }
-        ranknumber = Math.Truncate(mmr / 50 - 67);
+        int ranknumber = (int)Math.Truncate(mmr / 50 - 67);
         rank = "rank_" + ranknumber.ToString();
         return rank;
     }
