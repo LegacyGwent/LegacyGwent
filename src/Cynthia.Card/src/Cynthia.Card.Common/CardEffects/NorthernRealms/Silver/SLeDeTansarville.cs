@@ -31,6 +31,7 @@ namespace Cynthia.Card
             if(needdraw)
             {
             await Game.PlayerDrawCard(Card.PlayerIndex, 1);
+            needdraw = false;
             }    
                 return;
         }

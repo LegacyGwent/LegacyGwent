@@ -948,7 +948,7 @@
         },
         "13004": {
             "Name": "Iris' Companions",
-            "Info": "Deploy: Draw a card, then Discard a random card. If you have Iris: Shade on your side of the board, choose the card to Discard instead.",
+            "Info": "Deploy: Draw a card of your choice from your deck, then Discard a random card. If you have Iris: Shade on your side of the board, choose the card to Discard instead.",
             "Flavor": "We'd rather keep our names to ourselves. Think of us as… friends of the house."
         },
         "13005": {
@@ -1843,7 +1843,7 @@
         },
         "32006": {
             "Name": "Vilgefortz",
-            "Info": "Deploy: Destroy an ally, then play top card from your deck; or Truce: Destroy an enemy, then your opponent draws a Revealed Bronze card.",
+            "Info": "Deploy: Destroy an ally, then play the top card from your deck; or Truce: Destroy an enemy, then your opponent draws a Revealed Bronze card.",
             "Flavor": "We are all pawns on his board. Playing a game whose rules we do not know."
         },
         "32007": {
@@ -3488,7 +3488,7 @@
         },
         "70050": {
             "Name": "Mad Charge",
-            "Info": "Choose an ally with Armor, that unit then Duels chosen enemy.",
+            "Info": "Choose an ally with Armor, that unit then Duels a chosen enemy.",
             "Flavor": "You can't stop a galloping cavalry horse. So if things go bad, the only thing to do is to lower your lance, close your eyes and pray to the gods."
         },
         "70054": {
