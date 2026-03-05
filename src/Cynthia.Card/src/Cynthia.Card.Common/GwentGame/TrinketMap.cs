@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alsein.Extensions;
+using Cynthia.Card.Common.Models;
 
 namespace Cynthia.Card
 {
@@ -9,6 +10,42 @@ namespace Cynthia.Card
     {
         //
         public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 9);
+
+        /// <summary>
+        /// Releases all trinkets (avatars, borders, titles) referenced by the given seasonal rewards.
+        /// This is intended to be called when a season becomes active so that all of its rewards
+        /// become available without hardcoding IsReleased per trinket.
+        /// </summary>
+        public static void ReleaseSeasonRewards(IEnumerable<SeasonReward> rewards)
+        {
+            if (rewards == null)
+            {
+                return;
+            }
+
+            foreach (var reward in rewards)
+            {
+                if (reward == null)
+                {
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(reward.avatar) && AvatarMap.TryGetValue(reward.avatar, out var avatar))
+                {
+                    avatar.IsReleased = true;
+                }
+
+                if (!string.IsNullOrEmpty(reward.border) && BorderMap.TryGetValue(reward.border, out var border))
+                {
+                    border.IsReleased = true;
+                }
+
+                if (!string.IsNullOrEmpty(reward.title) && TitleMap.TryGetValue(reward.title, out var title))
+                {
+                    title.IsReleased = true;
+                }
+            }
+        }
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap

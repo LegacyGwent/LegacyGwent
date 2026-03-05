@@ -1,4 +1,4 @@
-﻿using Alsein.Extensions.IO;
+using Alsein.Extensions.IO;
 using Alsein.Extensions.LifetimeAnnotations;
 using Assets.Script.Localization;
 using Assets.Script.ResourceManagement;
@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cynthia.Card.Common.Models.Localization;
 using Cynthia.Card.Common.Models;
+using Cynthia.Card;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -263,6 +264,17 @@ namespace Cynthia.Card.Client
             if (fileHandler.AreFilesDownloaded())
             {
                 _translator.TextLocalization.ResourceHandler = fileHandler;
+            }
+
+            // After maps/locales are up to date, release trinkets for the active season
+            try
+            {
+                var activeSeason = await GetSeasonData(true, 0);
+                TrinketMap.ReleaseSeasonRewards(activeSeason?.seasonalRewards);
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Error releasing seasonal trinkets: {e.Message}");
             }
         }
 
