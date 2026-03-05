@@ -167,7 +167,14 @@ namespace Cynthia.Card.Server
                 new SeasonReward(minimalPosition: 20, border: "Season3Border3", title: "WYVERN"),
                 new SeasonReward(minimalPosition: 30, avatar: "Geralt_Intoxicated"),
                 new SeasonReward(minimalPosition: 50, border: "Season3Border2", title: "GREATWYRM"),
-                new SeasonReward(minimalPosition: 100, border: "Season3Border1", title: "GOLDENDRAGON")
+                new SeasonReward(minimalPosition: 100, border: "Season3Border1", title: "GOLDENDRAGON"),
+
+                // In-season rewards (MMR based) for Season 1:
+                // - Avatar at "rank 10" threshold
+                // - Avatar at "rank 18" threshold
+                // These thresholds currently correspond to 3850 and 4250 MMR.
+                new SeasonReward(minimalPosition: 0, avatar: "Zoltan_Animal_Tamer", isInSeasonReward: true, minimalMMR: 3850),
+                new SeasonReward(minimalPosition: 0, avatar: "EredinMasked", isInSeasonReward: true, minimalMMR: 4250)
             };
 
 
@@ -1056,9 +1063,8 @@ When other players are available, player matchmaking will be prioritized. Add #f
         {
             string rank = null;
             string ranktitle = null;
-            string rankavatar = null; // for seasonal avatars
             var seasondata = await _databaseService.QuerySeasonData();
-            int seasonId = seasondata.SeasonId;
+
             switch (mymmr)
             {
                 case int i when i < 3500:
@@ -1075,12 +1081,6 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     rank = "Rank9border";
                     ranktitle = "JOURNEYMAN";
                     break;
-                case int i when i >= 3850 && i < 3950:
-                    if (seasonId == 1)
-                        rankavatar = "Zoltan_Animal_Tamer";
-                    // else
-                    //     rankavatar = "avatar for season 4";
-                    break;
                 case int i when i >= 3950 && i < 4100:
                     rank = "Rank12border";
                     ranktitle = "ADEPT";
@@ -1092,19 +1092,48 @@ When other players are available, player matchmaking will be prioritized. Add #f
                 case int i when i >= 4250 && i < 4400:
                     rank = "Rank18border";
                     ranktitle = "MASTER";
-                    if (seasonId == 1)
-                        rankavatar = "EredinMasked";
-                    // else
-                    //     rankavatar = "avatar for season 4";
                     break;
                 default:
                     rank = "Rank21border";
                     ranktitle = "GRANDMASTER";
                     break;
             }
-            await AddBorder(PlayerName, rank);
-            await AddTitle(PlayerName, ranktitle);
-            await AddAvatar(PlayerName, rankavatar);
+
+            if (rank != null)
+            {
+                await AddBorder(PlayerName, rank);
+            }
+            if (ranktitle != null)
+            {
+                await AddTitle(PlayerName, ranktitle);
+            }
+
+            // In-season rewards driven by SeasonReward configuration
+            if (seasondata != null && seasondata.seasonalRewards != null)
+            {
+                var inSeasonRewards = seasondata.seasonalRewards
+                    .Where(r => r.isInSeasonReward && r.minimalMMR > 0)
+                    .ToList();
+
+                foreach (var reward in inSeasonRewards)
+                {
+                    if (mymmr >= reward.minimalMMR)
+                    {
+                        if (!string.IsNullOrEmpty(reward.avatar))
+                        {
+                            await AddAvatar(PlayerName, reward.avatar);
+                        }
+                        if (!string.IsNullOrEmpty(reward.border))
+                        {
+                            await AddBorder(PlayerName, reward.border);
+                        }
+                        if (!string.IsNullOrEmpty(reward.title))
+                        {
+                            await AddTitle(PlayerName, reward.title);
+                        }
+                    }
+                }
+            }
         }
 
         public async void InvokeGameOver(GameResult result, bool isOnlyShow, bool isCountMMR)
