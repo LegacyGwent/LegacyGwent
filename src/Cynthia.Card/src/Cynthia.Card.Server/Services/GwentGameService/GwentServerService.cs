@@ -212,9 +212,9 @@ namespace Cynthia.Card.Server
 
             List<Season> seasonsList = new List<Season>
             {
-                new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season3Rewards },
-                new Season() { id = 2, name = "Season_MahakamSeason", endTime = new DateTime(2026, 03, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season4Rewards },
-                new Season() { id = 3, name = "Season_BoarSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "green", seasonalRewards = season5Rewards }
+                new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards },
+                new Season() { id = 2, name = "Season_WolfSeason", endTime = new DateTime(2026, 03, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season4Rewards },
+                new Season() { id = 3, name = "Season_MahakamSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "emerald", seasonalRewards = season5Rewards }
             }; 
             // Season 6 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
             await _databaseService.UpdateSeasons(seasonsList);
