@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 9);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 10);
 
         /// <summary>
         /// Releases all trinkets (avatars, borders, titles) referenced by the given seasonal rewards.
@@ -1367,6 +1367,123 @@ namespace Cynthia.Card
                     ID = "WILDHUNTKING",
                     IsReleased = true,
                     TitleColor = "orange",
+                }
+            },
+            {
+                "WOLFPUP",
+                new Title()
+                {
+                    ID = "WOLFPUP",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "YOUNGWOLF",
+                new Title()
+                {
+                    ID = "YOUNGWOLF",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "DENPROTECTOR",
+                new Title()
+                {
+                    ID = "DENPROTECTOR",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "PACKLEADER",
+                new Title()
+                {
+                    ID = "PACKLEADER",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "GRANDWARG",
+                new Title()
+                {
+                    ID = "GRANDWARG",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "WHITEWOLF",
+                new Title()
+                {
+                    ID = "WHITEWOLF",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "WHITEWOLF",
+                new Title()
+                {
+                    ID = "WHITEWOLF",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "VOLUNTEER",
+                new Title()
+                {
+                    ID = "VOLUNTEER",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "FOREMAN",
+                new Title()
+                {
+                    ID = "FOREMAN",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "SKIRMISHER",
+                new Title()
+                {
+                    ID = "SKIRMISHER",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "GUARD",
+                new Title()
+                {
+                    ID = "GUARD",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "CLANELDER",
+                new Title()
+                {
+                    ID = "CLANELDER",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "ELDERINCHIEF",
+                new Title()
+                {
+                    ID = "ELDERINCHIEF",
+                    IsReleased = false,
+                    TitleColor = "yellow",
                 }
             },
         };

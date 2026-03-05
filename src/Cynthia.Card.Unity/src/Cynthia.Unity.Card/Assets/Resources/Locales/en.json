@@ -42,7 +42,7 @@
         "RegisterMenu_PasswordsNotIdentical": "The passwords are not identical. Try again.",
         "RegisterMenu_Registering": "Registering... Please wait...",
         "RegisterMenu_AlreadyRegistered": "Registration failed. A user with the same username or nickname already exists.",
-        "RegisterMenu_RegistrationSuccessful": "Registration successful. Press the \\'back\\' button to return to the login page.",
+        "RegisterMenu_RegistrationSuccessful": "Registration successful. Press the back button to return to the login page.",
         "RegisterMenu_ErrorRegistering": "There's been an error. The server may have been shut down.",
         "SettingsMenu_SettingsTitle": "Settings",
         "SettingsMenu_GeneralSettingsButton": "GENERAL",
@@ -89,6 +89,7 @@
         "MainMenu_PlayingRankText": "Playing:",
         "MainMenu_CasualFlagText": "Opponent Found",
         "MainMenu_RankFlagText": "Opponent Found",
+        "MainMenu_Spectator": "Spectator",
         "Matchmaking_Menu_CasualFlagText": "Opponent Found",
         "Matchmaking_Menu_RankFlagText": "Opponent Found",
         "Matchmaking_Menu_CasualText": "Playing Casual:",
@@ -167,6 +168,20 @@
         "IngameMenu_RoundWonTitle": "YOU WON THE ROUND!",
         "IngameMenu_RoundLostTitle": "YOU LOST THE ROUND!",
         "IngameMenu_RoundDrawTitle": "DRAW!",
+        "CoinSeparate": "Separate 20 (+8)",
+        "CoinAdded": "Added 20 (28)",
+        "CoinStyle": "Coin style",
+        "DiscardConfirmTitle": "Confirm Discard?",
+        "DiscardConfirmContent": "You are attempting to discard a card, do you want to confirm?",
+        "Copied": "Copied!",
+        "Code": "Code",
+        "Added": "Added!",
+        "Loading_game_info": "Loading...",
+        "Enter_deck_name": "Enter deck name",
+        "ReorderDecks": "Reorder",
+        "Avatars_button": "Avatars",
+        "Borders_button": "Borders",
+        "Titles_button": "Titles",
         "TrinketsMenu_SetAvatarButton": "Set Avatar",
         "TrinketsMenu_SetBorderButton": "Set Border",
         "TrinketsMenu_SetTitleButton": "Set Title",
@@ -177,6 +192,36 @@
         "TrinketsMenu_Avatars": "Avatars",
         "TrinketsMenu_Borders": "Borders",
         "TrinketsMenu_Titles": "Titles",
+        "Leaderboard_Table": "Leaderboard",
+        "Leaderboard_Position": "Position",
+        "Leaderboard_Rewards": "Rewards",
+        "Leaderboard_Name": "Name",
+        "Leaderboard_MMR": "MMR",
+        "Leaderboard_PeakMMR": "Peak MMR",
+        "Leaderboard_Wins": "WINS",
+        "Leaderboard_Defeats": "DEFEATS",
+        "Leaderboard_Draws": "DRAWS",
+        "Leaderboard_Score": "SCORE",
+        "Leaderboard_TopPlayers": "Top Players",
+        "Leaderboard_SeasonRewards": "Seasonal Rewards",
+        "Leaderboard_Winrate": "Winrate",
+        "Leaderboard_Games": "Games",
+        "Season_EndTimer_Current": "Will end in:",
+        "Season_EndTimer_Finished": "Has ended in:",
+        "Season_EndTimer_Upcoming": "Will start at:",
+        "Season_CreaturesSeason": "Season of the Creatures",
+        "Season_WolfSeason": "Season of the Wolf",
+        "Season_BoarSeason": "Season of the Boar",
+        "Season_MahakamSeason": "Season of Mahakam",
+        "Season_SeasonOfTheDragon": "Season of the Dragon",
+        "Faction_ALL": "All Factions",
+        "Faction_MO": "Monsters",
+        "Faction_NG": "Nilfgaard",
+        "Faction_NR": "Northern Realms",
+        "Faction_ST": "Scoia'tael",
+        "Faction_SK": "Skellige",
+        "SeasonEnd_MessageTitle": "New season!",
+        "Season_EndMessageRewards": "{0} has just ended. You finished the season at {1} place with {2} MMR!\nYou have qualified to receive these rewards:",
         "NoAvatarName": "No Avatar",
         "NoAvatarDescription": "Unlocked by default.",
         "GeraltOfRiviaName": "Geralt of Rivia",
@@ -220,7 +265,7 @@
         "Dandelion5": "That... was actually rather impressive. Congratulations.",
         "Dandelion6": "Thanks, my friend!",
         "Zoltan_Animal_TamerName": "Zoltan Animal Tamer",
-        "Zoltan_Animal_TamerDescription": "",
+        "Zoltan_Animal_TamerDescription": "Reach Rank 10 in Season 3.",
         "Zoltan1": "Hohoho, things're aboot tae get spicy!",
         "Zoltan2": "Duvvelsheyss!",
         "Zoltan3": "Gonna kick ye so hard in the arse, ye'll taste boot leather!",
@@ -228,7 +273,7 @@
         "Zoltan5": "Ha! How aboot that!",
         "Zoltan6": "Thanks for that, pal!",
         "YenneferFuryName": "Yennefer Fury",
-        "YenneferFuryDescription": "Finish Season 2 in the top 30 players.",
+        "YenneferFuryDescription": "Reach Rank 18 in Season 2.",
         "Vernon_RocheName": "Vernon Roche",
         "Vernon_RocheDescription": "",
         "Roche1": "We shall strike swiftly and precisely.",
@@ -264,7 +309,7 @@
         "Phoenix5": "...",
         "Phoenix6": "...",
         "OdrinName": "Odrin",
-        "OdrinDescription": "",
+        "OdrinDescription": "Win 10 ranked matches by scoring more than 200 points in any round.",
         "Odrin1": "Gonna go now… or should I shtay?",
         "Odrin2": "Oh, you shnivelin' shack o'… sho that'sh how it'sh gonna be?!",
         "Odrin3": "I'm gonna kick yer arsh so hard…",
@@ -290,7 +335,7 @@
         "IorvethScarfName": "Iorveth Scarf",
         "IorvethScarfDescription": "",
         "IorvethName": "Iorveth",
-        "IorvethDescription": "Reach Rank 18 in Season 2.",
+        "IorvethDescription": "Finish Season 2 in the top 30 players.",
         "Iorveth1": "Not bravery, but brains. That’s how you win.",
         "Iorveth2": "Bloede arse!",
         "Iorveth3": "Lackeys like you we coat in honey, then tie you down on an anthill.",
@@ -308,7 +353,7 @@
         "Imlerith5": "Who taught you to play like this?",
         "Imlerith6": "Let it be so.",
         "Geralt_IntoxicatedName": "Geralt Intoxicated",
-        "Geralt_IntoxicatedDescription": "",
+        "Geralt_IntoxicatedDescription": "Finsh Season 3 in the top 30 players.",
         "FrancescaName": "Francesca",
         "FrancescaDescription": "",
         "Francesca1": "The Aen Seidhe could surprise you at any time.",
@@ -326,7 +371,7 @@
         "Maerolorn5": "...",
         "Maerolorn6": "...",
         "Eredin_UnmaskedName": "Eredin Unmasked",
-        "Eredin_UnmaskedDescription": "",
+        "Eredin_UnmaskedDescription": "Reach Rank 18 in Season 3.",
         "Eredin1": "You know well how this will end.",
         "Eredin2": "Bloede verin!",
         "Eredin3": "You shall perish, worm.",
@@ -344,16 +389,15 @@
         "Dagon5": "Vulgtmnah mgehye'btnk. (Well Played.)",
         "Dagon6": "(Our pact is sealed.)",
         "ClassicGeraltName": "Classic Geralt",
-        "ClassicGeraltDescription": "Partecipate in Season One.",
+        "ClassicGeraltDescription": "Participate in Season One.",
         "CirALtName": "Ciri Elder Blood",
-        "CiriAltDescription": "Reach Rank 10 in Season 2.",
+        "CirAltDescription": "Reach Rank 10 in Season 2.",
         "Taunt1": "WATCH THIS",
         "Taunt2": "DAMMIT!",
         "Taunt3": "YOU'RE GOING DOWN",
         "Taunt4": "BAD MOVE",
         "Taunt5": "WELL PLAYED",
         "Taunt6": "THANKS",
-        "CirALtDescription": "",
         "NOVICEName": "NOVICE",
         "NOVICEDescription": "Reach Rank 3.",
         "APPRENTICEName": "APPRENTICE",
@@ -382,10 +426,24 @@
         "CHAMPIONDescription": "Finish Season One in the top 5 of Players.",
         "HEROName": "HERO",
         "HERODescription": "Finish Season One as the top player.",
+        "WILDHUNTHOUNDName": "WILD HUNT HOUND",
+        "WILDHUNTHOUNDDescription": "Finish Season One in the top 100 players.",
+        "WILDHUNTWARRIORName": "WILD HUNT WARRIOR",
+        "WILDHUNTWARRIORDescription": "Finish Season One in the top 50 players.",
+        "WILDHUNTRIDERName": "WILD HUNT RIDER",
+        "WILDHUNTRIDERDescription": "Finish Season One in the top 20 players.",
+        "WILDHUNTNAVIGATORName": "WILD HUNT Navigator",
+        "WILDHUNTNAVIGATORDescription": "Finish Season One in the top 10 players.",
+        "WILDHUNTGENERALName": "WILD HUNT GENERAL",
+        "WILDHUNTGENERALDescription": "Finish Season One in the top 5 of Players.",
+        "WILDHUNTKINGName": "WILD HUNT KING",
+        "WILDHUNTKINGDescription": "Finish Season One as the top player.",
         "PIONEERName": "PIONEER",
         "PIONEERDescription": "Partecipate in Season One.",
         "GOODGAMERName": "GOOD GAMER",
         "GOODGAMERDescription": "Receive GG 500 times.",
+        "NoBorderName": "No Border",
+        "NoBorderDescription": "Unlocked by default.",
         "Rank3borderName": "Rank 3",
         "Rank3borderDescription": "Reach Rank 3.",
         "Rank6borderName": "Rank 6",
@@ -400,6 +458,8 @@
         "Rank18borderDescription": "Reach Rank 18.",
         "Rank21borderName": "Rank 21",
         "Rank21borderDescription": "Reach Rank 21.",
+        "Rank21border2Name": "Champion",
+        "Rank21border2Description": "Win a tournament.",
         "Season1Border1Name": "Season 1 Border 1",
         "Season1Border1Description": "Finish Season One in the top 100 players.",
         "Season1Border2Name": "Season 1 Border 2",
@@ -409,7 +469,7 @@
         "Season1Border4Name": "Season 1 Border 4",
         "Season1Border4Description": "Finish Season One in the top 10 players.",
         "Season1Border5Name": "Season 1 Border 5",
-        "Season1Border5Description": "Finish Season One in the top 5 of Players.",
+        "Season1Border5Description": "Finish Season One in the top 5 Players.",
         "Season1Border6Name": "Season 1 Border 6",
         "Season1Border6Description": "Finish Season One as the top player.",
         "G_PhoenixName": "Phoenix Border",
@@ -423,9 +483,67 @@
         "Season2Border4Name": "Season 2 Border 4",
         "Season2Border4Description": "Finish Season 2 in the top 10 players.",
         "Season2Border5Name": "Season 2 Border 5",
-        "Season2Border5Description": "Finish Season 2 in the top 5 of Players.",
+        "Season2Border5Description": "Finish Season 2 in the top 5 Players.",
         "Season2Border6Name": "Season 2 Border 6",
         "Season2Border6Description": "Finish Season 2 as the top player.",
+        "Season3Border1Name": "Season 3 Border 1",
+        "Season3Border1Description": "Finish Season 3 in the top 100 players.",
+        "Season3Border2Name": "Season 3 Border 2",
+        "Season3Border2Description": "Finish Season 3 in the top 50 players.",
+        "Season3Border3Name": "Season 3 Border 3",
+        "Season3Border3Description": "Finish Season 3 in the top 20 players.",
+        "Season3Border4Name": "Season 3 Border 4",
+        "Season3Border4Description": "Finish Season 3 in the top 10 players.",
+        "Season3Border5Name": "Season 3 Border 5",
+        "Season3Border5Description": "Finish Season 3 in the top 5 Players.",
+        "Season3Border6Name": "Season 3 Border 6",
+        "Season3Border6Description": "Finish Season 3 as the top player.",
+        "Season4Border1Name": "Season 4 Border 1",
+        "Season4Border1Description": "Finish Season 4 in the top 100 players.",
+        "Season4Border2Name": "Season 4 Border 2",
+        "Season4Border2Description": "Finish Season 4 in the top 50 players.",
+        "Season4Border3Name": "Season 4 Border 3",
+        "Season4Border3Description": "Finish Season 4 in the top 20 players.",
+        "Season4Border4Name": "Season 4 Border 4",
+        "Season4Border4Description": "Finish Season 4 in the top 10 players.",
+        "Season4Border5Name": "Season 4 Border 5",
+        "Season4Border5Description": "Finish Season 4 in the top 5 Players.",
+        "Season4Border6Name": "Season 4 Border 6",
+        "Season4Border6Description": "Finish Season 4 as the top player.",
+        "Season5Border1Name": "Season 5 Border 1",
+        "Season5Border1Description": "Finish Season 5 in the top 100 players.",
+        "Season5Border2Name": "Season 5 Border 2",
+        "Season5Border2Description": "Finish Season 5 in the top 50 players.",
+        "Season5Border3Name": "Season 5 Border 3",
+        "Season5Border3Description": "Finish Season 5 in the top 20 players.",
+        "Season5Border4Name": "Season 5 Border 4",
+        "Season5Border4Description": "Finish Season 5 in the top 10 players.",
+        "Season5Border5Name": "Season 5 Border 5",
+        "Season5Border5Description": "Finish Season 5 in the top 5 Players.",
+        "Season5Border6Name": "Season 5 Border 6",
+        "Season5Border6Description": "Finish Season 5 as the top player.",
+        "Season6Border1Name": "Season 6 Border 1",
+        "Season6Border1Description": "Finish Season 6 in the top 100 players.",
+        "Season6Border2Name": "Season 6 Border 2",
+        "Season6Border2Description": "Finish Season 6 in the top 50 players.",
+        "Season6Border3Name": "Season 6 Border 3",
+        "Season6Border3Description": "Finish Season 6 in the top 20 players.",
+        "Season6Border4Name": "Season 6 Border 4",
+        "Season6Border4Description": "Finish Season 6 in the top 10 players.",
+        "Season6Border5Name": "Season 6 Border 5",
+        "Season6Border5Description": "Finish Season 6 in the top 5 Players.",
+        "Season6Border6Name": "Season 6 Border 6",
+        "Season6Border6Description": "Finish Season 6 as the top player.",
+        "FactionMOName": "Monsters Border",
+        "FactionMODescription": "Finish season in the top 3 of Monsters players.",
+        "FactionNGName": "Nilfgaard Border",
+        "FactionNGDescription": "Finish season in the top 3 of Nilfgaard players.",
+        "FactionNRName": "Northern Realms Border",
+        "FactionNRDescription": "Finish season in the top 3 of Northern Realms players.",
+        "FactionSKName": "Skellige Border",
+        "FactionSKDescription": "Finish season in the top 3 of Skellige players.",
+        "FactionSTName": "Scoia'tael Border",
+        "FactionSTDescription": "Finish season in the top 3 of Scoia'tael players.",
         "RANGERName": "RANGER",
         "RANGERDescription": "Finish Season 2 in the top 100 players.",
         "TRAPPERName": "TRAPPER",
@@ -438,9 +556,68 @@
         "DEFENDERDescription": "Finish Season 2 in the top 5 of Players.",
         "PROTECTORName": "PROTECTOR",
         "PROTECTORDescription": "Finish Season 2 as the top player.",
+        "OCCASIONALDRINKERName": "OCCASIONAL DRINKER",
+        "OCCASIONALDRINKERDescription": "Win a ranked match by scoring more than 200 points in any round.",
+        "$$$MILLIONAIRE$$$Name": "$$$MILLIONAIRE$$$",
+        "$$$MILLIONAIRE$$$Description": "In a casual match, have either player have more than a million points in a single round.",
+        "DRAGONHATCHLINGName": "DRAGON HATCHLING",
+        "DRAGONHATCHLINGDescription": "Finish Season 3 in the top 100 players.",
+        "YOUNGDRAKEName": "YOUNG DRAKE",
+        "YOUNGDRAKEDescription": "Finish Season 3 in the top 50 players.",
+        "SLYZARDName": "SLYZARD",
+        "SLYZARDDescription": "Finish Season 3 in the top 20 players.",
+        "WYVERNName": "WYVERN",
+        "WYVERNDescription": "Finish Season 3 in the top 10 players.",
+        "GREATWYRMName": "GREAT WYRM",
+        "GREATWYRMDescription": "Finish Season 3 in the top 5 players.",
+        "GOLDENDRAGONName": "GOLDEN DRAGON",
+        "GOLDENDRAGONDescription": "Finish Season 3 as the top player.",
+        "WOLFPUPName": "WOLF PUP",
+        "WOLFPUPDescription": "Finish Season 4 in the top 100 players.",
+        "YOUNGWOLFName": "YOUNG WOLF",
+        "YOUNGWOLFDescription": "Finish Season 4 in the top 50 players.",
+        "DENPROTECTORName": "DEN PROTECTOR",
+        "DENPROTECTORDescription": "Finish Season 4 in the top 20 players.",
+        "PACKLEADERName": "PACK LEADER",
+        "PACKLEADERDescription": "Finish Season 4 in the top 10 players.",
+        "GRANDWARGName": "GRAND WARG",
+        "GRANDWARGDescription": "Finish Season 4 in the top 5 players.",
+        "WHITEWOLFName": "WHITE WOLF",
+        "WHITEWOLFDescription": "Finish Season 4 as the top player.",
+        "VOLUNTEERName": "VOLUNTEER",
+        "VOLUNTEERDescription": "Finish Season 5 in the top 100 players.",
+        "FOREMANName": "FOREMAN",
+        "FOREMANDescription": "Finish Season 5 in the top 50 players.",
+        "SKIRMISHERName": "SKIRMISHER",
+        "SKIRMISHERDescription": "Finish Season 5 in the top 20 players.",
+        "GUARDName": "GUARD",
+        "GUARDDescription": "Finish Season 5 in the top 10 players.",
+        "CLANELDERName": "CLAN ELDER",
+        "CLANELDERDescription": "Finish Season 5 in the top 5 players.",
+        "ELDERINCHIEFName": "ELDER IN CHIEF",
+        "ELDERINCHIEFDescription": "Finish Season 5 as the top player.",
+        "G_BeerName": "Beer Border",
+        "G_BeerDescription": "Win 5 ranked matches by scoring more than 200 points in any round.",
+        "COMPETITORName": "COMPETITOR",
+        "COMPETITORDescription": "Participate in a tournament.",
+        "DEVELOPERName": "DEVELOPER",
+        "DEVELOPERDescription": "Contribute to the development of the game.",
+        "Rank21Border2Name": "Tournament Champion",
+        "Rank21Border2Description": "Win a tournament.",
+        "MONSTERName": "MONSTER",
+        "MONSTERDescription": "Finish season in the top 10 of Monsters Players.",
+        "NILFGAARDIANName": "NILFGAARDIAN",
+        "NILFGAARDIANDescription": "Finish season in the top 10 of Nilfgaard Players.",
+        "NORTHERNERName": "NORTHERNER",
+        "NORTHERNERDescription": "Finish season in the top 10 of Northern Realms Players.",
+        "SCOIA'TAELName": "SCOIA'TAEL",
+        "SCOIA'TAELDescription": "Finish season in the top 10 of Scoia'tael Players.",
+        "SKELLIGERName": "SKELLIGER",
+        "SKELLIGERDescription": "Finish season in the top 10 of Skellige Players.",
         "IngameMenu_GGButton": "Send GG!",
         "GG_Message1": "Good Game! Your opponent ",
         "GG_Message2": " Sent GG!",
+        "NewReward": "NEW REWARD!",
         "CardTag_DoubleAgent": "Double Agent",
         "CardTag_WildHunt": "Wild Hunt",
         "CardTag_Tactic": "Tactic",
@@ -545,7 +722,7 @@
         "ai5_name": "Reaver Hunters",
         "Surrender_button": "Surrender",
         "ShupeKnight_1_Strengthen": "Strengthen self to 25.",
-        "ShupeKnight_2_Resilience": "Resilient.",
+        "ShupeKnight_2_Resilience": "Resilience.",
         "ShupeKnight_3_Duel": "Duel an enemy.",
         "ShupeKnight_4_Reset": "Reset a unit.",
         "ShupeKnight_5_Destroy": "Destroy all enemies with 3 Power or less.",
@@ -666,7 +843,7 @@
         },
         "12013": {
             "Name": "Lambert: Swordmaster",
-            "Info": "Deploy: Deal 4 Damage to all copies of an enemy.",
+            "Info": "Deploy: Deal 5 Damage to all copies of an enemy.",
             "Flavor": "Go teach your grandma to suck eggs."
         },
         "12014": {
@@ -686,12 +863,12 @@
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it's a Monster unit, destroy it instead.",
+            "Info": "Deploy: Toggle an enemy's Lock status.\nIf it is a Monster, destroy it, otherwise, Damage it by 4.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
             "Name": "Ihuarraquax",
-            "Info": "Deploy: Deal 5 Damage to self.\nThe first time this unit's current Power is equal to its base Power, on turn end, deal 7 Damage to 3 random enemies.",
+            "Info": "Deploy: Deal 5 Damage to self.\nThe first time this unit's current Power is equal to its base Strength, on turn end, deal 7 Damage to 3 random enemies.",
             "Flavor": "Inconceivable. Impossible, Ciri thought, returning to her senses. Unicorns don't exist, not any more, not in this world. Unicorns are extinct."
         },
         "12019": {
@@ -711,7 +888,7 @@
         },
         "12022": {
             "Name": "Regis: Higher Vampire",
-            "Info": "Deploy: Look at the top 3 Bronze units from your opponent's deck.\nConsume 1, then Boost self by its base Power.",
+            "Info": "Deploy: Look at the top 3 Bronze units from your opponent's deck.\nConsume 1, then Boost self by its base Strength.",
             "Flavor": "He becomes invisible at will. His glance hypnotizes into a deep sleep. He then drinks his fill, turns into a bat and flies off. Altogether uncouth."
         },
         "12023": {
@@ -761,7 +938,7 @@
         },
         "12032": {
             "Name": "Ciri: Nova",
-            "Info": "Deploy: If you have exactly 2 copies of each Bronze card in your starting deck, set the base Power of this card to 22.",
+            "Info": "Deploy: If you have exactly 2 copies of each Bronze card in your starting deck, set the base Strength of this card to 22.",
             "Flavor": "Zireael possesses a great power she cannot control. She is a danger - to herself, to others. Until she learns to control it, she should remain isolated."
         },
         "12033": {
@@ -807,7 +984,7 @@
         "12041": {
             "Name": "Shupe's Bizarre Adventure",
             "Info": "If your starting deck has no duplicates, send Shupe on an adventure.",
-            "Flavor": ""
+            "Flavor": "Shupe is known to have quite the imagination. What other troll would look at scraps of paper and see rocks?"
         },
         "12042": {
             "Name": "Sihil",
@@ -831,7 +1008,7 @@
         },
         "13004": {
             "Name": "Iris' Companions",
-            "Info": "Deploy: Move a card from your deck to your hand, then Discard a random card.",
+            "Info": "Deploy: Draw a card of your choice from your deck, then Discard a random card. If you have Iris: Shade on your side of the board, choose the card to Discard instead.",
             "Flavor": "We'd rather keep our names to ourselves. Think of us as… friends of the house."
         },
         "13005": {
@@ -886,7 +1063,7 @@
         },
         "13015": {
             "Name": "Olgierd von Everec",
-            "Info": "On turn start, resurrect itself and Weaken itself by half.",
+            "Info": "On round start, Resurrect self and Weaken self by half.",
             "Flavor": "At least you now know I don't easily lose my head."
         },
         "13016": {
@@ -937,7 +1114,7 @@
         "13025": {
             "Name": "Artefact Compression",
             "Info": "Transform a Bronze or Silver unit into a Jade Figurine.",
-            "Flavor": ""
+            "Flavor": "The figurine expanded in a flash, pulsing and throbbing, changing its shape and structure like a puff of smoke crawling over the floor. Beams of light revealed movement and hardening materials. A moment later, in the center of the magic circle a human form suddenly appeared."
         },
         "13026": {
             "Name": "Bekker's Dark Mirror",
@@ -996,7 +1173,7 @@
         },
         "13037": {
             "Name": "The Last Wish",
-            "Info": "Look at the top 2 cards from your deck.\nPlay 1 and shuffle the other back.",
+            "Info": "Look at the top 2 cards from your deck. Play 1 and shuffle the other back.\nIf you have Magic Lamp in the graveyard, look at the top 3 cards instead.",
             "Flavor": "A djinn, good sirs, fulfills but three wishes. Thus freed, it flees to dimensions unknown."
         },
         "13038": {
@@ -1062,7 +1239,7 @@
         "14006": {
             "Name": "Bloodcurdling Roar",
             "Info": "Destroy an ally, then Spawn a Bear.",
-            "Flavor": ""
+            "Flavor": "First we ran into a bear... things just got worse from there."
         },
         "14007": {
             "Name": "Dimeritium Shackles",
@@ -1106,7 +1283,7 @@
         },
         "14015": {
             "Name": "Wyvern Scale Shield",
-            "Info": "Boost a unit by the base Power of a Bronze or Silver unit in your hand.",
+            "Info": "Boost a unit by the base Strength of a Bronze or Silver unit in your hand.",
             "Flavor": "Stronger than your average shield and far more stylish."
         },
         "14016": {
@@ -1151,7 +1328,7 @@
         },
         "14024": {
             "Name": "Mastercrafted Spear",
-            "Info": "Deal Damage equal to the base Power of a Bronze or Silver unit in your hand.",
+            "Info": "Deal Damage equal to the base Strength of a Bronze or Silver unit in your hand.",
             "Flavor": "Hold that spear up, weakling! Not a single horse shall pass!"
         },
         "14025": {
@@ -1232,7 +1409,7 @@
         "15013": {
             "Name": "Clear Skies",
             "Info": "Boost all Damaged allies under Hazards by 2 and clear all Hazards from your side.",
-            "Flavor": ""
+            "Flavor": "The sun's shinin', Dromle! The sun's shinin'! Maybe there's hope after all…"
         },
         "15014": {
             "Name": "Rally",
@@ -1242,7 +1419,7 @@
         "21001": {
             "Name": "Dagon",
             "Info": "Deploy: Spawn Impenetrable Fog or Torrential Rain.",
-            "Flavor": ""
+            "Flavor": "That is not dead which can eternal lie, and with strange aeons even death may die."
         },
         "21002": {
             "Name": "Arachas Queen",
@@ -1251,7 +1428,7 @@
         },
         "21003": {
             "Name": "Whispering Hillock",
-            "Info": "Deploy: Create a Bronze or Silver Organic card.",
+            "Info": "Deploy: Create a Silver Organic card.",
             "Flavor": "It will rise again. Elsewhere, beyond our reach. Blood will flow once more."
         },
         "21004": {
@@ -1381,7 +1558,7 @@
         },
         "23010": {
             "Name": "Morvudd",
-            "Info": "Deploy: Toggle a unit's Lock status.\nIf it was an enemy, halve its Power.",
+            "Info": "Deploy: Toggle a unit's Lock status.\nIf it is an enemy, halve its Power.",
             "Flavor": "Ate only the entrails. Fussy."
         },
         "23011": {
@@ -1426,7 +1603,7 @@
         },
         "23019": {
             "Name": "She-Troll of Vergen",
-            "Info": "Deploy: Play a Bronze Deathwish unit from your deck, Consume it and Boost self by its base Power.",
+            "Info": "Deploy: Play a Bronze Deathwish unit from your deck, Consume it and Boost self by its base Strength.",
             "Flavor": "Lover of elf and onion soup."
         },
         "23020": {
@@ -1441,7 +1618,7 @@
         },
         "23022": {
             "Name": "Parasite",
-            "Info": "Choose a unit. If it's an enemy, deal 12 Damage to it. If it's an ally, Boost it by 12.",
+            "Info": "Choose a unit.\nIf it is an enemy, deal 12 Damage to it.\nIf it is an ally, Boost it by 12.",
             "Flavor": "A real eye-catcher."
         },
         "24001": {
@@ -1566,8 +1743,8 @@
         },
         "24025": {
             "Name": "Barbegazi",
-            "Info": "Deploy: Consume an ally and Boost self by its Power.\nResilient.",
-            "Flavor": ""
+            "Info": "Deploy: Consume an ally and Boost self by its Power.\nResilience.",
+            "Flavor": "What moments before looked like round rocks among the stalagmites now stared at him with enormous, bright, menacing eyes."
         },
         "24026": {
             "Name": "Ekimmara",
@@ -1591,7 +1768,7 @@
         },
         "24030": {
             "Name": "Harpy",
-            "Info": "Summon a copy of this unit on a random row whenever you destroy an allied Beast.",
+            "Info": "Summon a copy of this unit on a random row whenever an allied Beast is destroyed during your turn.",
             "Flavor": "There are many species of harpy, and all are kleptomaniacs."
         },
         "24031": {
@@ -1632,7 +1809,7 @@
         "24038": {
             "Name": "Moonlight",
             "Info": "Spawn Full Moon, or Blood Moon.",
-            "Flavor": ""
+            "Flavor": "When the moon is full, nightmares crawl out of all the dark nooks and crannies of the world."
         },
         "25001": {
             "Name": "Lesser D'ao",
@@ -1726,7 +1903,7 @@
         },
         "32006": {
             "Name": "Vilgefortz",
-            "Info": "Deploy: Destroy an ally, then play top card from your deck; or Truce: Destroy an enemy, then your opponent draws a Revealed Bronze card.",
+            "Info": "Deploy: Destroy an ally, then play the top card from your deck; or Truce: Destroy an enemy, then your opponent draws a Revealed Bronze card.",
             "Flavor": "We are all pawns on his board. Playing a game whose rules we do not know."
         },
         "32007": {
@@ -1736,12 +1913,12 @@
         },
         "32008": {
             "Name": "Menno Coehoorn",
-            "Info": "Deploy: Damage an enemy by 4.\nIf it's Spying, destroy it.",
+            "Info": "Deploy: Damage an enemy by 4.\nIf it is Spying, destroy it.",
             "Flavor": "I'll take an attentive reconnaissance unit over a fine brigade any day."
         },
         "32009": {
             "Name": "Leo Bonhart",
-            "Info": "Deploy: Reveal one of your units and deal Damage equal to its base Power to an enemy.",
+            "Info": "Deploy: Reveal one of your units and deal Damage equal to its base Strength to an enemy.",
             "Flavor": "He would just sit there and stare at me, not saying a word. His eyes, they were… fish-like, somehow. No brows, no lashes… Just these balls of water, with a black stone sunk in each. He would devour me with those eyes in total silence. That frightened me more than the beatings."
         },
         "32010": {
@@ -1787,7 +1964,7 @@
         "33003": {
             "Name": "The Guardian",
             "Info": "Deploy: Add a Lesser Guardian to the top of your opponent's deck.",
-            "Flavor": ""
+            "Flavor": "Stone fists to stop intruders armed with swords. Ironclad logic to stop those armed with lies."
         },
         "33004": {
             "Name": "Cantarella",
@@ -1811,7 +1988,7 @@
         },
         "33008": {
             "Name": "Henry var Attre",
-            "Info": "Deploy: Conceal any number of units.\nIf allies, Boost them by 2.\nIf enemies, deal 2 Damage to them (can't kill)",
+            "Info": "Deploy: Conceal any number of units.\nBoost allies you Concealed by 2 and deal 2 Damage to enemies you Concealed.\nCan't destroy a unit.",
             "Flavor": "The line between diplomacy and espionage is a thin one, especially in Nilfgaard."
         },
         "33009": {
@@ -1831,7 +2008,7 @@
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Deploy: Choose an enemy or a Revealed opposing unit. If its on board Deal 7 Damage. If its a Revealed card set it to 1.",
+            "Info": "Deploy: Choose an enemy or a Revealed enemy unit.\nIf it is on board, Deal 7 Damage. If it is a Revealed card, set it to 1.",
             "Flavor": "We do what we must. I am not ashamed of that."
         },
         "33013": {
@@ -1882,7 +2059,7 @@
         "33022": {
             "Name": "Nilfgaardian Gate",
             "Info": "Play a Bronze or Silver Officer from your deck and Boost it by 1.",
-            "Flavor": ""
+            "Flavor": "Don't think they're open for visitors..."
         },
         "33023": {
             "Name": "Slave Driver",
@@ -1906,7 +2083,7 @@
         },
         "34004": {
             "Name": "Nilfgaardian Knight",
-            "Info": "Deploy: Reveal a random card in your hand of the lowest colour possible.\n2 Armor.",
+            "Info": "Deploy: Reveal a random card in your hand of the Lowest color possible.\n2 Armor.",
             "Flavor": "Sons of noble houses, born in the City of the Golden Towers, form the elite backbone of the Imperial Army."
         },
         "34005": {
@@ -1961,7 +2138,7 @@
         },
         "34015": {
             "Name": "Deithwen Arbalest",
-            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it's Spying, deal 8 Damage instead.",
+            "Info": "Deploy: Deal 4 Damage to an enemy.\nIf it is Spying, deal 8 Damage instead.",
             "Flavor": "I aim for the knees. Always."
         },
         "34016": {
@@ -1986,12 +2163,12 @@
         },
         "34020": {
             "Name": "Nauzicaa Brigade",
-            "Info": "Deploy: Damage a Spying unit by 7.\nIf it was destroyed, Strengthen self by 4.",
+            "Info": "Deploy: Damage a Spying unit by 7.\nIf it is destroyed, Strengthen self by 4.",
             "Flavor": "They call us Death's Heads. Care to find out why?"
         },
         "34021": {
             "Name": "Spotter",
-            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Power.",
+            "Info": "Deploy: Choose a Bronze or Silver Revealed unit in either hand and Boost self by half its base Strength.",
             "Flavor": "The North has nothing with which it could surprise us."
         },
         "34022": {
@@ -2001,7 +2178,7 @@
         },
         "34023": {
             "Name": "Daerlan Soldier",
-            "Info": "Whenever you Reveal this unit, play it on a random row and draw a card.",
+            "Info": "Whenever you Reveal this unit, summon it to a random row and draw a card.",
             "Flavor": "Learned a lot at Braibant Military Academy. How to scrub potatoes, for instance."
         },
         "34024": {
@@ -2116,7 +2293,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose one: Play 1 Silver or Bronze Temeria card from your deck with power less or equal then self; or destroy conceled ambush enemy unit.",
+            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal than self; or destroy a face-down Ambush enemy unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -2147,7 +2324,7 @@
         "42013": {
             "Name": "Philippa Eilhart",
             "Info": "Deploy: Deal 5 Damage to an enemy, then deal 4, 3, 2 and 1 Damage to random enemies.",
-            "Flavor": ""
+            "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "43001": {
             "Name": "Thaler",
@@ -2166,7 +2343,7 @@
         },
         "43004": {
             "Name": "Ronvid the Incessant",
-            "Info": "On turn end, resurrect on a random row with 1 Power.\nCrew.",
+            "Info": "On turn end, Resurrect on a random row with 1 Power.\nCrew.",
             "Flavor": "This self-dubbed knight roams the world defending the honor of his beloved Maid Bilberry - though none are certain where she lives, if she lives still or if she ever lived at all."
         },
         "43005": {
@@ -2301,12 +2478,12 @@
         },
         "44010": {
             "Name": "Cursed Knight",
-            "Info": "Deploy: Transform a Cursed ally into a base copy of this unit.\n2 Armor.",
+            "Info": "Deploy: Transform a Cursed ally into a default copy of this unit.\n2 Armor.",
             "Flavor": "He fights an endless war whose beginning he no longer remembers."
         },
         "44011": {
             "Name": "Siege Support",
-            "Info": "Whenever an ally appears, Boost it by 1.\nIf it's a Machine, also give it 1 Armor.\nCrew.",
+            "Info": "Whenever an ally appears, Boost it by 1.\nIf it is a Machine, also give it 1 Armor.\nCrew.",
             "Flavor": "You gotta recalibrate the arm by five degrees.\\nDo what by the what now?"
         },
         "44012": {
@@ -2317,7 +2494,7 @@
         "44013": {
             "Name": "Redanian Knight-Elect",
             "Info": "On turn end, if this unit has Armor, Boost adjacent units by 1.\n2 Armor.",
-            "Flavor": ""
+            "Flavor": "Not wealth or fame but intentions true -- that’s what makes a hero of you!"
         },
         "44014": {
             "Name": "Reinforced Ballista",
@@ -2341,7 +2518,7 @@
         },
         "44018": {
             "Name": "Battering Ram",
-            "Info": "Deploy: Deal 3 Damage.\nIf the unit was destroyed, deal 3 Damage to another unit.\nCrewed: Increase initial Damage by 1.",
+            "Info": "Deploy: Deal 3 Damage to an enemy.\nIf the unit was destroyed, deal 3 Damage to another enemy.\nCrewed: Increase initial Damage by 1.",
             "Flavor": "Not gonna open up, eh? Guess we gotta knock harder."
         },
         "44019": {
@@ -2356,8 +2533,8 @@
         },
         "44021": {
             "Name": "Reaver Hunter",
-            "Info": "Deploy: Boost all copies of this unit by 1, if in hand, deck or on the board.\nRepeat its ability whenever a copy of this unit is played.",
-            "Flavor": ""
+            "Info": "Deploy: Boost all friendly copies of this unit by 1, if in hand, deck or on the board.\nRepeat its ability whenever a friendly copy of this unit is played.",
+            "Flavor": "See this here tattoo? 'At's me, hackin' at a dragon. A DRAGON, m'lady."
         },
         "44022": {
             "Name": "Temerian Drummer",
@@ -2401,7 +2578,7 @@
         },
         "44030": {
             "Name": "Witch Hunter",
-            "Info": "Deploy: Reset a unit.\nIf it's a Mage, play another Witch Hunter from your deck.",
+            "Info": "Deploy: Reset a unit.\nIf it is a Mage, play another Witch Hunter from your deck.",
             "Flavor": "Long coats, wide-brimmed hats, and crooked grins – witch hunters are hard to miss."
         },
         "44031": {
@@ -2422,7 +2599,7 @@
         "44034": {
             "Name": "Bloody Flail",
             "Info": "Deal 5 Damage and Spawn a Specter on a random row.",
-            "Flavor": ""
+            "Flavor": "There are weapons banned in all the Northern Realms, for the wounds they deal are horrible beyond all imagining."
         },
         "45001": {
             "Name": "Specter",
@@ -2451,7 +2628,7 @@
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Deploy: Create a Silver special card.",
+            "Info": "Deploy, Choose One: Create a Neutral Silver special card; or Create a Scoia'tael Silver special card.",
             "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
@@ -2466,12 +2643,12 @@
         },
         "52002": {
             "Name": "Saesenthessis",
-            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal 1 Damage for each Elf ally on the board and in your hand.",
+            "Info": "Deploy: Boost self by 1 for each Dwarf ally on the board and in your hand and deal Damage equal to number of Elf allies on the board and in your hand.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "52003": {
             "Name": "Xavier Moran",
-            "Info": "Deploy: Boost this unit by the base Power of the highest base power Dwarf you played this round.",
+            "Info": "Deploy: Boost this unit by the base Strength of the Highest base Strength Dwarf you played this round.",
             "Flavor": "Well? Somethin' wrong? Venison a wee bit rank for ye? Ehh, princess?"
         },
         "52004": {
@@ -2566,12 +2743,12 @@
         },
         "53009": {
             "Name": "Aelirenn",
-            "Info": "When 5 Elven allies are on the board, Summon this unit on a random row.",
+            "Info": "On turn end, if there are 5 Elven allies on the board, Summon this unit on a random row.",
             "Flavor": "Better to die standing than to live on bent knee."
         },
         "53010": {
             "Name": "Braenn",
-            "Info": "Deploy: Damage an enemy by this unit's power.\nIf the unit was destroyed, Boost all your other Dryads and Ambush units in hand, deck and on the board by 1.",
+            "Info": "Deploy: Damage an enemy by this unit's Power.\nIf the unit was destroyed, Boost all your other Dryads and Ambush units in hand, deck and on the board by 1.",
             "Flavor": "Mona…? No… no. I'm Braenn. A daughter of Brokilon."
         },
         "53011": {
@@ -2622,7 +2799,7 @@
         "53020": {
             "Name": "Pit Trap",
             "Info": "Apply a Hazard to an enemy row that deals 3 Damage to units on contact.",
-            "Flavor": ""
+            "Flavor": "Simple, cheap and deadly efficient - no wonder it's one of the Scoia'tael's favorite traps."
         },
         "53021": {
             "Name": "Mahakam Horn",
@@ -2651,7 +2828,7 @@
         },
         "54005": {
             "Name": "Dwarven Mercenary",
-            "Info": "Deploy: Move a unit to this row on its side.\nIf it's an ally, Boost it by 3.",
+            "Info": "Deploy: Move a unit to this row on its side.\nIf it is an ally, Boost it by 3.",
             "Flavor": "The key's mixin' pleasure an' business – like smackin' foes and gettin' coin for it."
         },
         "54006": {
@@ -2706,7 +2883,7 @@
         },
         "54016": {
             "Name": "Mahakam Defender",
-            "Info": "Resilient.",
+            "Info": "Resilience.",
             "Flavor": "I'm telling ye, we're born fer battle – we slash straight at their knees!"
         },
         "54017": {
@@ -2726,7 +2903,7 @@
         },
         "54020": {
             "Name": "Vrihedd Officer",
-            "Info": "Deploy: Swap a card and Boost self by its base Power.",
+            "Info": "Deploy: Swap a card and Boost self by its base Strength.",
             "Flavor": "Hatred burns brighter than any fire, and cuts deeper than any blade."
         },
         "54021": {
@@ -2812,7 +2989,7 @@
         "61004": {
             "Name": "Bran Tuirseach",
             "Info": "Deploy: Discard up to 3 cards from your deck and Strengthen them by 1.",
-            "Flavor": ""
+            "Flavor": "He lived life on his own terms—died on them, too."
         },
         "62001": {
             "Name": "Olaf",
@@ -2826,7 +3003,7 @@
         },
         "62003": {
             "Name": "Vabjorn",
-            "Info": "Deploy: select an enemy, if it is damaged, destroy it, otherwise damage it by 2 until it is damaged and damage self by half strength.",
+            "Info": "Deploy: select an enemy, if it is Damaged, destroy it, otherwise Damage it by 2 until it is Damaged and Damage self by half Strength.",
             "Flavor": "Blood for Svalblod! Skulls for his throne!"
         },
         "62004": {
@@ -2846,12 +3023,12 @@
         },
         "62007": {
             "Name": "Cerys an Craite",
-            "Info": "When 4 units are resurrected while this unit is in the graveyard, resurrect it and Strengthen it by 1.",
+            "Info": "When 4 units are Resurrected while this unit is in the graveyard, Resurrect it and Strengthen it by 1.",
             "Flavor": "They call me Sparrowhawk. Know why? Because I eat rats like you for breakfast."
         },
         "62008": {
             "Name": "Madman Lugos",
-            "Info": "Deploy: Discard a Bronze or Silver loyal unit from your deck and Damage an enemy by the Discarded unit's base Power.",
+            "Info": "Deploy: Discard a Bronze or Silver loyal unit from your deck and Damage an enemy by the Discarded unit's base Strength.",
             "Flavor": "WAAAAAAAAAAGH!!!!"
         },
         "62009": {
@@ -2861,7 +3038,7 @@
         },
         "62010": {
             "Name": "Cerys: Fearless",
-            "Info": "When you discard a Bronze or Silver unit, Damage self by 4 then resurrect it.\nRepeat up to 1 time.",
+            "Info": "When you Discard a Bronze or Silver unit, Damage self by 4 then Resurrect it.\nRepeat up to 1 time.",
             "Flavor": "“If you want something done, send your best man. If you want something done right, send a woman.”"
         },
         "62011": {
@@ -2901,7 +3078,7 @@
         },
         "63005": {
             "Name": "Morkvarg",
-            "Info": "Whenever this unit enters the graveyard, resurrect it and Weaken it by half.",
+            "Info": "Whenever this unit enters the graveyard, Resurrect it and Weaken it by half.",
             "Flavor": "The vilest man Skellige's ever known."
         },
         "63006": {
@@ -2971,7 +3148,7 @@
         },
         "63019": {
             "Name": "Restore",
-            "Info": "Return a Bronze or Silver Skellige unit from your graveyard to your hand, add the Doomed category to it, and set its base Power to 8, then play a card.",
+            "Info": "Return a Bronze or Silver Skellige unit from your graveyard to your hand, add the Doomed category to it, and set its base Strength to 8, then play a card.",
             "Flavor": "Those cursed sorceresses are stealing our thunder! Whyever should folk choose a procedure taking several hours, when some perfumed tart can solve their problem with a wave of her hand?"
         },
         "63020": {
@@ -2996,7 +3173,7 @@
         },
         "64004": {
             "Name": "Dimun Smuggler",
-            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck. This effect counts as resurection.",
+            "Info": "Deploy: Return one Bronze unit from your graveyard to your deck.\nThis effect counts as resurrection.",
             "Flavor": "Spikeroog's a barren backwater, but that don't bother us - everythin' we need, we take from you."
         },
         "64005": {
@@ -3036,7 +3213,7 @@
         },
         "64012": {
             "Name": "Tuirseach Skirmisher",
-            "Info": "Whenever this unit is resurrected, Strengthen it by 4.",
+            "Info": "Whenever this unit is Resurrected, Strengthen it by 4.",
             "Flavor": "Friends we show heart, foes we show our axe. Remember that."
         },
         "64013": {
@@ -3076,7 +3253,7 @@
         },
         "64020": {
             "Name": "An Craite Marauder",
-            "Info": "Deploy: Deal 4 Damage.\nIf resurrected, deal 6 Damage instead.",
+            "Info": "Deploy: Deal 4 Damage.\nIf Resurrected, deal 6 Damage instead.",
             "Flavor": "You daft? You mean to sail to Skellige? Those barbarians'll tear you to shreds!"
         },
         "64021": {
@@ -3096,7 +3273,7 @@
         },
         "64024": {
             "Name": "An Craite Raider",
-            "Info": "Whenever you Discard this unit, resurrect it on a random row.",
+            "Info": "Whenever you Discard this unit, Resurrect it on a random row.",
             "Flavor": "Man or tree, a Skelligan axe fells it all the same."
         },
         "64025": {
@@ -3166,7 +3343,7 @@
         },
         "65004": {
             "Name": "Spectral Whale",
-            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 damage to all units on this row.",
+            "Info": "Spying.\nOn turn end, move to a random row and deal 1 Damage to all units on it.\nDeathwish: Deal 1 Damage to all units on this row.",
             "Flavor": "Ehh, too big for a humpback. That's a finback. A finback? With a snout that short? Those herbs've gone to your head!"
         },
         "65005": {
@@ -3181,7 +3358,7 @@
         },
         "65007": {
             "Name": "Wilmar",
-            "Info": "Spying.\nDeathwish: If its opponent turn, Spawn a Bear on the opposite row.",
+            "Info": "Spying.\nDeathwish: If destroyed during your opponent's turn, Spawn a Bear on the opposite row.",
             "Flavor": ""
         },
         "70001": {
@@ -3206,7 +3383,7 @@
         },
         "70005": {
             "Name": "Vysogota Of Corvo",
-            "Info": "On round start, if there is a unit to the right Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
+            "Info": "On turn start, if there is a unit to the left Boost it by 3, then Damage self by 1 and move to the friendly row with the least amount of units.\nDeathwish: Boost the Lowest ally by 6.",
             "Flavor": "It's been near half a century since I last practiced medicine. The years haven't been kind to my memory... Nor the dexterity of my fingers."
         },
         "70006": {
@@ -3226,7 +3403,7 @@
         },
         "70009": {
             "Name": "Fleder",
-            "Info": "Deploy: Summon a copy of this unit from your deck on its right.\nWhenever a Bronze or Silver enemy becomes Damaged, Boost self by 1.",
+            "Info": "Deploy: Summon a copy of this unit on its right.\nWhenever a Bronze or Silver enemy becomes Damaged, Boost self by 1.",
             "Flavor": "The children o' the night come as punishment from the gods! We's tolerated wizard-folk and non-human filth in our midst too long! Repent! 'Fore yer soul rots, repent!"
         },
         "70010": {
@@ -3241,12 +3418,12 @@
         },
         "70012": {
             "Name": "Toussaint Knight-Errant",
-            "Info": "Deploy: For each card advantage your opponent has, Boost self by 4.",
+            "Info": "Deploy: Boost self by 4 for each additional non-Leader card your opponent has in hand compared to you.",
             "Flavor": "White steed, shiny-arse armor... Aye, 'tis a knight-errant alright. Fetch the coffin maker!"
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a torrential rain from deck and apply a torrential rain on both sides, if there are no torrential rains in your deck, weaken self by 4 and apply Torrential Rain on both sides.",
+            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, Weaken self by 4 and apply Torrential Rain on both sides.",
             "Flavor": "At times, even druids succumb to Svalblod's whispers..."
         },
         "70014": {
@@ -3256,7 +3433,7 @@
         },
         "70015": {
             "Name": "Brokilon Sentinel",
-            "Info": "On turn end, if the opponent has exactly 4 units in the opposing row, deal 1 Damage to all enemies in that row.",
+            "Info": "On turn end, if the opponent has exactly 4 units on the opposite row, deal 1 Damage to all enemies in that row.",
             "Flavor": "Brokilon is not merely the forest you see before you. She yet lives on in the cities, villages, and fields you so callously carved from her flesh. We shall yet reclaim what you have stolen from her."
         },
         "70016": {
@@ -3291,7 +3468,7 @@
         },
         "70023": {
             "Name": "Kikimore Warrior",
-            "Info": "Deploy: Consume a different Bronze unit in your deck with current Power no greater than its own, then Boost self by its Power.",
+            "Info": "Deploy: Consume a different Bronze unit in your deck with Strenght no greater than this unit Strenght, then Boost self by its Power.",
             "Flavor": "Come spring, the buggers start to burst through the woodwork. Literally."
         },
         "70024": {
@@ -3317,7 +3494,7 @@
         "70032": {
             "Name": "Gascon",
             "Info": "Deploy: Choose a row, move all units on both sides of it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
-            "Flavor": "Th' Strays of Spalla – 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
+            "Flavor": "Th' Strays of Spalla - 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
         },
         "70033": {
             "Name": "War Elephant",
@@ -3326,13 +3503,13 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and strengthen self by 1. Its base strength cannot be over 10.",
+            "Info": "On turn end, resurrect on a random row and Strengthen self by 1. Its base Strength cannot be over 10.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
             "Name": "Terror Crew",
             "Info": "Deal 4 Damage to a random enemy. When Discarded, trigger its ability and add 1 Terror Crew Plunderers to your deck.",
-            "Flavor": ""
+            "Flavor": "But dear Skelligers, what use do you have for axes? There are no trees in the sea…"
         },
         "70040": {
             "Name": "Terror Crew Plunderer",
@@ -3341,12 +3518,12 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the strongest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
+            "Info": "Damage the Highest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
             "Flavor": "How much of a dose would be lethal? Any."
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the weakest ally by 2.\nRepeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat once more.",
+            "Info": "Boost the Lowest ally by 2.\nRepeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat once more.",
             "Flavor": "It is the duchess's exclusive privilege to delight in the prized, oaky flavor of Sangreal... A pleasure she partakes in very, very often."
         },
         "70043": {
@@ -3371,7 +3548,7 @@
         },
         "70050": {
             "Name": "Mad Charge",
-            "Info": "Choose an ally with Armor, that unit then Duels chosen enemy.",
+            "Info": "Choose an ally with Armor, that unit then Duels a chosen enemy.",
             "Flavor": "You can't stop a galloping cavalry horse. So if things go bad, the only thing to do is to lower your lance, close your eyes and pray to the gods."
         },
         "70054": {
@@ -3391,7 +3568,7 @@
         },
         "70062": {
             "Name": "Living Armor",
-            "Info": "Units in the same row as this unit take at most 5 Damage at once.",
+            "Info": "Units in the same row as this unit take at most 5 Damage at once. 2 Armor.",
             "Flavor": "Sure it's expensive. But considering how much you'll save on room and board, you'll get a return on the investment by the end of this century!"
         },
         "70070": {
@@ -3411,7 +3588,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strenght copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
+            "Info": "Deploy: Add on its row a 2 base Strength copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3431,17 +3608,17 @@
         },
         "70080": {
             "Name": "Knut the Callous",
-            "Info": "Deploy: Play a Bronze unit with the highest base Strength from your deck, then deal Damage to that unit equal to half of it's Strength.",
+            "Info": "Deploy: Play a Bronze unit with the Highest base Strength from your deck, then deal Damage to played unit equal to half of its Power.",
             "Flavor": "Knut, son of Oluf? Aye, never has a jarl's moniker fit so well."
         },
         "70081": {
             "Name": "Drummond Pillager",
-            "Info": "When discarded, strengthen all drummond units in hand, or in the deck by 1.",
+            "Info": "When Discarded, Strengthen all Drummond units in hand, or in the deck by 1.",
             "Flavor": "Tis but a scratch, aye?"
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Deploy: Destroy all units with Strength 2 or less on both sides.",
+            "Info": "Deploy: Destroy all units with 2 Power or less on both sides.",
             "Flavor": "Only death can cleanse me o' shame."
         },
         "70083": {
@@ -3451,22 +3628,22 @@
         },
         "70084": {
             "Name": "Olgierd Immortal",
-            "Info": "Deathwish: On turn end, resurrect this unit on the same location.",
-            "Flavor": ""
+            "Info": "Deathwish: On turn end, Resurrect this unit on the same location.",
+            "Flavor": "All of my dreams have come true. Unfortunately."
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Deploy: Damage an ennemy unit by 7. If destroyed, apply Biting Frost on that row.",
+            "Info": "Deploy: Damage an enemy unit by 7. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
             "Name": "Philippa: Mistress of the Lodge",
-            "Info": "Deploy, Choose One: Play a bronze or silver mage from your deck; or spawn a bronze spell.",
+            "Info": "Deploy, Choose One: Play a Bronze or Silver Mage from your deck; or Spawn a Bronze Spell.",
             "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "70088": {
             "Name": "The Thing In The Swamp",
-            "Info": "Deploy: Move any number of foglets in your graveyard to the bottom of your deck and apply fog to the opposing row.",
+            "Info": "Deploy: Move any number of Foglets in your graveyard to the bottom of your deck and apply Impenetrable Fog on the opposite row.",
             "Flavor": "Fool's fires... those little shiny thingies that shall lead thee to certain doom."
         },
         "70089": {
@@ -3476,27 +3653,27 @@
         },
         "70090": {
             "Name": "Cultist Oblation",
-            "Info": "After 2 turn, on the turn starts, bannish itself. Deathwish: Heal a random unit in the opponent's half of the field with the most injuries and strengthen it by 1.",
+            "Info": "After 2 turns, on turn start, Banish self. Deathwish: Heal a random enemy unit with the most injuries and Strengthen it by 1.",
             "Flavor": "They... They's butcherin' folk, Captain! S-sacrifices to a bear god or some such!"
         },
         "70091": {
             "Name": "Magic Lamp",
-            "Info": "At the start of the game, add three copies of The Last Wish to your deck and discard self. While this card is in a graveyard, Last Wish looks at 3 cards instead of 2.",
+            "Info": "At the start of the game, add three copies of The Last Wish to your deck and Discard self. While this card is in a graveyard, Last Wish looks at 3 cards instead of 2.",
             "Flavor": "It's a little tarnished. A little rubbing will make it shiny again."
         },
         "70092": {
             "Name": "Svalblod Brawler",
-            "Info": "Deploy: Choose an enemy, for each Torrential Rain on the board, damage it by two and gain 1 armor.",
+            "Info": "Deploy: Choose an enemy, for each Torrential Rain on the board, Damage it by two and gain 1 Armor.",
             "Flavor": "Skellige's no home to murderers and rogues... Their crimes must be repaid in blood."
         },
         "70093": {
             "Name": "Tempest",
-            "Info": "Choose 4 rows, Spawn Torrential Rain on them. If it's already under Torrential Rain, Spawn Skellige Storm on this row instead.",
+            "Info": "Choose 4 rows, Spawn Torrential Rain on them.\nIf it is already under Torrential Rain, Spawn Skellige Storm on its row instead.",
             "Flavor": "A Category 10 on the Bekker scale."
         },
         "70094": {
             "Name": "Lyrian Cavalry",
-            "Info": "Deploy: choose a unit from your deck and boost self by the amount that unit is boosted.",
+            "Info": "Deploy: Choose a unit from your deck and Boost self by the amount that unit is Boosted.",
             "Flavor": "A horseman's worth no less than his steed. And Lyrian horses are among the Continent's best."
         },
         "70095": {
@@ -3516,12 +3693,12 @@
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Choose one: Play a random Bronze item; or play a Bronze Scoia'tael item.",
+            "Info": "Deploy, Choose One: Play a random Bronze item; or play a Bronze Scoia'tael item.",
             "Flavor": "The gates were ordered to be closed… But they didn't budge."
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. Move any cards with 2 power or lower from your deck to your graveyard. If it was in your hand, damage it to 1 instead",
+            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. If a unit has 2 Power or less, move it to the graveyard if in deck, and Damage it by 1 if in hand.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70100": {
@@ -3536,12 +3713,12 @@
         },
         "70102": {
             "Name": "Detlaff: Crimson Curse",
-            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all enemy rows; or apply Blood Moon on all friendly rows.",
+            "Info": "Deploy: Banish 3 Beast or Vampire from your graveyard, then Choose One: Apply  Full Moon on all friendly rows; or apply Blood Moon on all enemy rows.",
             "Flavor": "He did not love like a man, but like an animal. Madly, deeply, unconditionally. Wildly."
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card, then tranform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Deploy: Select a revealed card in your hand, then transform it to a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "It is said he created an illusion so realistic that he began to believe it himself..."
         },
         "70104": {
@@ -3551,12 +3728,12 @@
         },
         "70105": {
             "Name": "Freixenet And Braine",
-            "Info": "Deploy: Make a unit's Strength equal to this card's Strength.",
+            "Info": "Deploy: Make a unit's Power equal to this card's Power.",
             "Flavor": "He was only meant to be a breeding stud to her. But in the end, they fell in love regardless."
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 base copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
+            "Info": "Deploy: Spawn 1 default copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3576,7 +3753,7 @@
         },
         "70110": {
             "Name": "Knickers",
-            "Info": "On round end if this unit's Strength is higher than the number of cards in your hand, Summon this unit from your deck.",
+            "Info": "On turn end, if this unit's Power is higher than the number of cards in your hand, Summon this unit on a random row.",
             "Flavor": "Leave it alone, Knickers! Damn it, leave it alone!"
         },
         "70111": {
@@ -3586,12 +3763,12 @@
         },
         "70112": {
             "Name": "Primal Savagery",
-            "Info": "Deal 3 Damage to a non cursed ally, then choose and play one of two Bronze Cultist card from your deck, then strengthen the unit played by 1.",
+            "Info": "Deal 3 Damage to a non-Cultist ally, then choose and play one of two Bronze Cultist card from your deck, then Strenghten the unit played by 1.",
             "Flavor": "Not all of Svalblod's worshippers wield bow and blade. They've simply no need."
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Every turn, on turn end, destroy the lowest unit if its Strength is 5 or lower.\n2 Armor.",
+            "Info": "Every turn, on turn end, destroy the Lowest unit if its Power is 5 or lower.\n2 Armor.",
             "Flavor": "When she took roost here, they fought 'er for near a century. Then the dragon got weary o' fightin' and they realized she weren't goin' nowheres, so… they cut a deal. She dinnae bother 'em, they give 'er what she needs."
         },
         "70114": {
@@ -3601,17 +3778,17 @@
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return a Bronze or Silver enemy to opponent's hand and set its power to 1.",
+            "Info": "Return a Bronze or Silver enemy to opponent's hand and set its Power to 1.",
             "Flavor": "You did what to who? To be fair, I can’t even recall the specifics anymore."
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever you apply Torrential Rain to an enemy row, summon from the graveyard on a random row.",
+            "Info": "Whenever Torrential Rain is applied to an enemy row, Summon from the graveyard on a random row.",
             "Flavor": "Easy, mates! Sirens never attack when... Huh? What d'yous mean Right above me?"
         },
         "70117": {
             "Name": "Fauve",
-            "Info": "Summon this unit whenever you play the Leader. On turn end, boost all allies with the same power as self by 1.",
+            "Info": "Summon this unit whenever you play the Leader. On turn end, boost all allies with the same Power as self by 1.",
             "Flavor": "At the edge of the wood, a lone dryad awaited them. Dandelion recognized her at once – the very same with green hair who had given them light in dark of night and urged the bard to continue his ballads."
         },
         "70118": {
@@ -3621,7 +3798,7 @@
         },
         "70119": {
             "Name": "Thaw",
-            "Info": "Boost a random ally by 2.\nRepeat once, then repeat this ability for each card you have played this turn.",
+            "Info": "Boost a random ally by 3.\nRepeat once, then repeat this ability for each card you have played this turn.",
             "Flavor": "It heralds the coming of spring... Which, in turn, heralds the coming of war."
         },
         "70121": {
@@ -3631,17 +3808,17 @@
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Deploy: Boost a random unit with the lowest power in your deck by 2. If it is a Dyad, Strenthen it instead.",
+            "Info": "Deploy: Boost a random unit with the Lowest Power in your deck by 2.\nIf it is a Dryad, Strenthen it instead.",
             "Flavor": "She teaches young dryads many useful skills: fletching arrows, communing with the forest, slitting the throats of men..."
         },
         "70123": {
             "Name": "Battle Preparation",
-            "Info": "Play a Bronze soldier unit from your hand and Boost it by 2, then draw a card.",
+            "Info": "Boost a Bronze Soldier unit in your hand by 2. Then draw a card and play the unit that was Boosted by this card.",
             "Flavor": "Many a knight met an untimely death because of his shoddily tied breastplate coming undone."
         },
         "70124": {
             "Name": "Woodland Prowlers",
-            "Info": "Deploy: Weaken a enemy by 1. If it's under Impenetrable Fog, Weaken by 3.",
+            "Info": "Deploy: Weaken an enemy by 1.\nIf it is under Impenetrable Fog, Weaken by 3 instead.",
             "Flavor": ""
         },
         "70125": {
@@ -3651,7 +3828,7 @@
         },
         "70126": {
             "Name": "Cintrian Royal Guard",
-            "Info": "Deploy: Boost self by 3. If your total power is less then the opponent, Boost the adjacent units by 3 each instead.",
+            "Info": "Deploy: Boost self by 3.\nIf you are losing, Boost adjacent units by 3 instead.",
             "Flavor": "Queen Calanthe handpicked her personal guard with meticulous care. Each must serve with unconditional loyalty, stand more than six feet tall, and possess a devilishly handsome jawline."
         },
         "70127": {
@@ -3666,17 +3843,17 @@
         },
         "70129": {
             "Name": "Natural Selection",
-            "Info": "Spawn 2 Arachas Hatchlings on a row. For each copy of this card in your graveyard, spawn an extra one.",
+            "Info": "Spawn 2 Arachas Hatchlings on a row.\nFor each copy of this card in your graveyard, Spawn an extra one.",
             "Flavor": "The strongest will survive. So not you."
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right takes Damage, if this unit has armor, Damage this unit until it has no more armor instead then transfer the excess damage to the unit on the right. Crewed: Gain 6 armor.",
+            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right.\nCrewed: Gain 6 Armor.",
             "Flavor": "Something like the bastard child of a shield and a palisade."
         },
         "70131": {
             "Name": "Count Caldwell",
-            "Info": "Deploy: Swap the Strength of 2 enemy units.",
+            "Info": "Deploy: Swap the Base Strength of 2 enemy units on the same row.",
             "Flavor": "Your Majesty… For the queen to question commoners, why, it's simply not proper…"
         },
         "70132": {
@@ -3706,12 +3883,12 @@
         },
         "70137": {
             "Name": "The Great Oak",
-            "Info": "Deploy, Choose one: Weaken an enemy unit by half of its base Strength; or resurrect a Bronze Dryad and then return it to the deck.",
+            "Info": "Deploy, Choose One: Weaken an enemy unit by half of its base Strength; or resurrect a Bronze Dryad and then return it to the deck.",
             "Flavor": "The trees of Brokilon oft rustle amongst themselves, despairing of the ancient oak whose heart now rots with hatred."
         },
         "70138": {
             "Name": "Dryad's Caress",
-            "Info": "Play a Bronze or Silver Dryad unit from your deck, then boost it by the number of Dryad units on your side.",
+            "Info": "Choose a Bronze or Silver Dryad unit from your deck, then Boost it by the number of Dryad units on your side and play it.",
             "Flavor": "Shh, shh... Evelienn va maeth, elaine blath..."
         },
         "70139": {
@@ -3721,7 +3898,7 @@
         },
         "70140": {
             "Name": "Dryad Grovekeeper",
-            "Info": "Deploy: Transform a Bronze or Silver ally into a copy of this unit, keeping its base Strength. Then, boost all allies with strength lower than this unit's strength by 1.",
+            "Info": "Deploy: Transform a non-Gold ally into this card without changing its Power, then set its Power into base Strength. Boost all Dryad allies with Power lower than this unit by 1.",
             "Flavor": "Is it true? That flowers in Brokilon bloom seven times a year? But... How can that be?"
         },
         "70141": {
@@ -3741,27 +3918,27 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Deploy: Play a copy of this unit from your deck. If there is no copies, add a copy to your deck instead.",
+            "Info": "Deploy: Play a copy of this unit from your deck.\nIf there are no copies of this card in your deck, add a default copy of this card to your deck instead.",
             "Flavor": "She thought service in the diplomatic corps would mean a quiet life behind a desk. She and her blistered feet were sorely mistaken..."
         },
         "70145": {
             "Name": "Orianna",
-            "Info": "Deploy: Choose one enemy unit, make all Vampire units on your own side drain it by 1 each.",
+            "Info": "Deploy: Choose one enemy unit, make all Vampire units on your side Drain it by 1 each.",
             "Flavor": "Lady Orianna's been a blessin' for us... She 'elps the beggarly, supports the arts – why, she even runs a home for them poor orphans!"
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Deploy, Choose One: Deal 5 Damage to two enemy units each or Damage an enemy by 8.",
+            "Info": "Deploy, Choose One: Deal 5 Damage to two enemy units each; or Damage an enemy by 8.",
             "Flavor": "A fondness for shiny trinkets is not a trait unique to magpies."
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire destroys a unit, Summon a copy of this unit from your deck on a random row. Whenever a different ally unit on the same row Drains, Drain the target by 1.",
+            "Info": "Whenever an ally Vampire destroys a unit, Summon a copy of this unit on a random row. Whenever a different ally unit on the same row Drains, Drain the target by 1.",
             "Flavor": "One alone poses no great threat. But a dozen? Gods be with you."
         },
         "70148": {
             "Name": "Alp",
-            "Info": "On turn end, If there is no units with higher strength then self on the opposite row, Drain a random unit on this row by 1.",
+            "Info": "On turn end, if there is no unit with higher Power on the opposite row, Drain a random enemy on that row.",
             "Flavor": "The townsfolk, long plagued with horrific nightmares, posted a desperate plea for help... Hmm. An alp, gotta be, the witcher grumbled to himself."
         },
         "70149": {
@@ -3771,12 +3948,12 @@
         },
         "70150": {
             "Name": "Vincent van Moorlehem",
-            "Info": "Deploy: Destroy an enemy unit, boost its adjacent units by half of its Strength each.",
+            "Info": "Deploy: Destroy an enemy unit, then Boost its adjacent units by half of its Power each.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
             "Name": "Philippe van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 3. On turn end if in hand, reveal self and trigger its deploy ability.",
+            "Info": "Deploy: Damage an enemy by 3.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
@@ -3791,12 +3968,12 @@
         },
         "70154": {
             "Name": "Iris: Shade",
-            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands.",
+            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands. If this card is on your side of the board, your Iris' Companions will Discard a chosen card instead of a random one.",
             "Flavor": "Olgierd's betrothed was like a dream…"
         },
         "70155": {
             "Name": "Isbel of Hagge",
-            "Info": "Deploy: Reset a unit. If it's an ally, repeat once.",
+            "Info": "Deploy: Reset a unit.\nIf it is an ally, repeat once.",
             "Flavor": "I promised I would never again use magic to harm others."
         },
         "70156": {
@@ -3816,7 +3993,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard up to 3 Bronze Special cards from your deck. While this card is on the board, spawn a Crow for each special card discarded.",
+            "Info": "Deploy: Discard 3 Bronze special cards from your deck.\nFor each, Summon a Crow.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -3826,7 +4003,7 @@
         },
         "70161": {
             "Name": "Azar Javed",
-            "Info": "Deploy: Spawn 2 Scarabs.",
+            "Info": "Deploy: Spawn 2 Scarabs on oponent side.",
             "Flavor": "Azar Javed's specialty is the element of fire. The sorcerer not only deftly manipulates the power of fire, it can be said that fire has become a part of his very being."
         },
         "70162": {
@@ -3851,53 +4028,113 @@
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Look at 3 random cards with different colors from your deck. Play one, discard the other two.",
+            "Info": "Look at 3 random cards with different colors from your deck. Play one, Discard the other two.",
             "Flavor": "The seal states clearly: do not open. But of course… curiosity will win out."
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Put back up to 3 non-gold dwarves in your deck then play a non-gold dwarf from your deck. When this card is in the graveyard, give 1 armor to each dwarf you play.",
+            "Info": "Put back up to 3 non-Gold Dwarves in your deck then play a non-Gold Dwarf from your deck. When this card is in the graveyard, give 1 Armor to each Dwarf you play.",
             "Flavor": "They'd follow each other into the fire. And laugh about it."
         },
         "70168": {
             "Name": "Ogre Warrior",
-            "Info": "On turn end, damage self by half if you don't have the highest unit.",
+            "Info": "On turn end, Damage self by half if you don't have the Highest unit.",
             "Flavor": "You is idiot steak!"
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "On turn end, if no ennemy is stronger than the strongest ogroid ally, reduce the counter of the last copy of this unit by 1. When it reaches 0 summon self on a random row and Boost a random ally by 1.",
+            "Info": "When in deck, on turn end, if this is the bottom copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
             "Flavor": ""
         },
         "70170": {
             "Name": "Cloud Giant",
-            "Info": "Deploy: If you control the highest unit, gain Immunity. If you don't, loose Immunity. On turn start repeat Deploy ability.\nResilient",
+            "Info": "Deploy: If you control the Highest unit, gain Immunity.\nIf you don't, lose Immunity.\nOn turn start, repeat its ability.\nResilience.",
             "Flavor": ""
         },
         "70171": {
             "Name": "Giant's Belt",
-            "Info": "Boost an ally by its base Power, if it is an Ogroid, strengthen it by 2 before.",
+            "Info": "Boost an ally by its base Strength.\nIf it is an Ogroid, Strengthen it by 2 before applying Boost.",
             "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         },
         "70172": {
             "Name": "Princess",
-            "Info": "Spawn a Bear. If there is a Witcher on this row, spawn a Raging Bear instead.",
+            "Info": "Deploy: Spawn a Bear.\nAt the start of your next turn, transform a Bear on the same row into a Raging Bear.",
             "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
         },
         "70173": {
             "Name": "Deadeye Ambush",
-            "Info": "Select an ally, boost it by 5 and move it to the row below, select an enemy, damage it by 5 and move it to the melee row.",
+            "Info": "Select an ally, Boost it by 5 and move it to the row below.\nThen select an enemy, Damage it by 5 and move it to the melee row.",
             "Flavor": "One, two, come into view; Three, four, hide 'hind the door; Five, six, this'll be quick; Seven, eight, come meet your fate!"
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying.\nReveal two enemy cards, then Spawn and Play a copy of a different bronze card in your opponent's hand.",
-            "Flavor": "In her spare time, she likes playing practical jokes on others. Her favorite gag is switching footwraps and headwear."
+            "Info": "Spying.\nDeploy: Reveal two enemy cards, then choose a Revealed card in oponent hand that is not a copy of this unit and Spawn a default copy of it.",
+            "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
             "Name": "Trapmaker",
             "Info": "When an allied ambush is activated, Summon a copy of self on the same row.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
+        },
+        "70176": {
+            "Name": "Hybrid",
+            "Info": "Deploy: Boost a non-Gold Beast in your deck by 2.\nDeathwish: Boost the Lowest non-Gold Beast in your deck by 4.",
+            "Flavor": "When one head just isn’t enough."
+        },
+        "70177": {
+            "Name": "Sir Scratch-a-Lot",
+            "Info": "Deploy: Strengthen all allied Beasts by 1 wherever they are, then Boost them by 1 if they are under Full Moon.",
+            "Flavor": "If you value your eyesight... Don't call him a pussy."
+        },
+        "70178": {
+            "Name": "Ulle the Unlucky",
+            "Info": "On turn start, if this card is in the graveyard, Resurrect self.\nOn turn end, Duel the Lowest enemy, if you win, Banish self.",
+            "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
+        },
+        "70179": {
+            "Name": "Queen Calanthe",
+            "Info": "Deploy: Shuffle a non-Gold ally back to your deck without changing its Power, then play the Lowest non-Gold unit from your deck.",
+            "Flavor": "They call her the Lioness of Cintra. And not without good reason."
+        },
+        "70180": {
+            "Name": "Albastra The White Dragon",
+            "Info": "Deploy: Spawn Left Wing and Right Wing. Every turn, on turn start, if neither Left Wing nor Right Wing is on your side of the board, destroy self, otherwise, Boost self by 3.\nImmune.",
+            "Flavor": "That was no avalanche, that was a dragon!"
+        },
+        "70181": {
+            "Name": "Right Wing",
+            "Info": "3 Armor.",
+            "Flavor": "That was no avalanche, that was a dragon!"
+        },
+        "70182": {
+            "Name": "Left wing",
+            "Info": "3 Armor.",
+            "Flavor": "That was no avalanche, that was a dragon!"
+        },
+        "70183": {
+            "Name": "Feast of Blood",
+            "Info": "Choose a Vampire ally and make it Drain an enemy by 4.\nIf it survives, Spawn a Plumard on its right.",
+            "Flavor": "Vampires have been known to fast for years at a time. Yet once the hunt resumes, they feed and feed until frenzied and drunk on blood."
+        },
+        "70184": {
+            "Name": "Ard Feainn Heavy Cavalry",
+            "Info": "Boost self by 4 when a Leader is played. Decrease the Boost by 1 for each time this card has been Boosted by its own ability previously this round.\n1 Armor.",
+            "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
+        },
+        "70185": {
+            "Name": "Noonwraith",
+            "Info": "Deploy: Spawn a Mirror Image on this and the opposite row.\nOn turn end, repeat its ability, then transform self into a Nightwraith without changing its Power.",
+            "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
+        },
+        "70186": {
+            "Name": "Mirror Image",
+            "Info": "No ability.",
+            "Flavor": "They exude this immense sadness, this helpless wraith... I fear them, same as anyone. But most of all I feel sorry for them."
+        },
+        "70187": {
+            "Name": "Nightwraith",
+            "Info": "On turn end, Boost all Mirror Images on this and the opposite row by 1, then transform self into a Noonwraith without changing its Power.",
+            "Flavor": "How much damage can a pale, emaciated woman, entangled in a ripped dress, do? A lot, it turns out."
         },
         "80001": {
             "Name": "Auberon: King",
