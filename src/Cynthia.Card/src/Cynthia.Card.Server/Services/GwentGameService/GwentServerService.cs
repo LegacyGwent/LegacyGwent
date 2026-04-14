@@ -213,8 +213,8 @@ namespace Cynthia.Card.Server
             List<Season> seasonsList = new List<Season>
             {
                 new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards },
-                new Season() { id = 2, name = "Season_WolfSeason", endTime = new DateTime(2026, 03, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season4Rewards },
-                new Season() { id = 3, name = "Season_MahakamSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "emerald", seasonalRewards = season5Rewards }
+                new Season() { id = 2, name = "Season_WolfSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season4Rewards },
+                new Season() { id = 3, name = "Season_MahakamSeason", endTime = new DateTime(2026, 09, 27, 0, 0, 0, DateTimeKind.Utc), color = "emerald", seasonalRewards = season5Rewards }
             }; 
             // Season 6 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
             await _databaseService.UpdateSeasons(seasonsList);
@@ -1025,8 +1025,8 @@ may come back in the future.
 This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
 
-Welcome to DIY Gwent Season 3!
-Welcome to the Season of the Dragon!
+Welcome to DIY Gwent Season 4!
+Welcome to the Season of the Wolf!
 We are introducing a new leaderboard that will enable you to see the stats per faction of the players on the ladder and create a ranking each season.
 Based on this ranking, the top 3 players per faction will be rewarded with the faction's banner and the top 5 will get a title (if a player already has a reward, it will go to the next player in line).
 
