@@ -883,7 +883,7 @@
         },
         "12021": {
             "Name": "Geralt: Aard",
-            "Info": "Deploy: Deal 3 Damage to 3 enemies and move them to the row above.",
+            "Info": "Deploy: Deal 3 damage to 3 ennemies and move them to the row above, deal those ennemies an extra 2 damage if there were one the siege row. ",
             "Flavor": "A blast of concentrated energy that pummels everything in its path. Great for when you forget your keys."
         },
         "12022": {
@@ -4118,7 +4118,7 @@
         },
         "70184": {
             "Name": "Ard Feainn Heavy Cavalry",
-            "Info": "Boost self by 4 when a Leader is played. Decrease the Boost by 1 for each time this card has been Boosted by its own ability previously this round.\n1 Armor.",
+            "Info": "Boost self by 4 when a Leader is played. Decrease the Boost by 1 for each time this card has been Boosted by its own ability previously this round.",
             "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
         },
         "70185": {

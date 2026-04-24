@@ -605,7 +605,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12021", //Geralt: Aard
                     Name="杰洛特：阿尔德法印",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11411,7 +11411,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist },
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist, Categorie.Cursed},
                     Flavor = "",
                     Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身4点后各降下一排“倾盆大雨”。",
                     CardArtsId = "202283",
@@ -14023,7 +14023,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70159", //Crowmother
                     Name="乌鸦之母",
-                    Strength=2,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15086,7 +15086,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。",
-                    Info = "1点护甲。领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
+                    Info = "领袖牌已经被打出时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1。",
                     CardArtsId = "202453",
                     LinkedCards=new List<String> {},
                 }

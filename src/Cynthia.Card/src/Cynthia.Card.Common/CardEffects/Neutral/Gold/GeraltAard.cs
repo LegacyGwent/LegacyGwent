@@ -21,10 +21,13 @@ namespace Cynthia.Card
                 }
                 await Game.Debug($"产生位移,移动至目标:{row}");
                 await card.Effect.Move(new CardLocation(row, int.MaxValue), Card);
-            }
-            foreach (var card in cards)
-            {
                 await card.Effect.Damage(3, Card);
+                // if the target is on the siege row, it will receive 2 additional damage
+                if (row ==  RowPosition.MyRow1)
+                {
+                    await card.Effect.Damage(2, Card);
+                    continue;
+                }
             }
             return 0;
         }

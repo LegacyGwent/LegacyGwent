@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Thaw(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            for(int s = 0; s <= Game.TurnCardPlayedNum + 1; s++)
+            for(int s = 1; s <= Game.TurnCardPlayedNum + 1; s++)
             {
                 var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).Mess(RNG).Take(1).ToList();
                 foreach (var card in cards)
