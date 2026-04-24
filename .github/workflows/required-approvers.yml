@@ -6,28 +6,14 @@ on:
   pull_request_review:
     types: [submitted]
 
-# minimal read permissions (we only read files & reviews)
+# minimal read permissions (we only read reviews)
 permissions:
-  contents: read
   pull-requests: read
 
 jobs:
   check-approvers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Get changed files
-        run: |
-          set -euo pipefail
-          # store changed files as JSON array (safe for GITHUB_ENV)
-          FILES=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files \
-            --paginate --jq '.[].filename' | jq -R -s -c 'split("\n")[:-1]')
-          echo "CHANGED_FILES=$FILES" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Get approvals
         run: |
           set -euo pipefail
@@ -43,23 +29,12 @@ jobs:
           set -euo pipefail
 
           # ---- configuration ----
-          SPECIAL_PATH="src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects"
-          REQUIRED_BOTH=("The-last-Iris" "Pippow")                # if SPECIAL_PATH touched -> require BOTH
-          REQUIRED_ANY=("The-last-Iris" "Pippow" "kajtek14102")  # if not -> require ANY of these
+          REQUIRED_ANY=("The-last-Iris" "Pippow" "kajtek14102")  # require ANY of these for every path
           # -----------------------
 
           # runtime values (lowercased)
           PR_AUTHOR=$(jq -r '.pull_request.user.login | ascii_downcase' "$GITHUB_EVENT_PATH")
           APPROVERS=$(echo "${APPROVED_USERS:-[]}" | jq -r '.[]' 2>/dev/null || true)
-
-          # detect whether SPECIAL_PATH is touched
-          NEED_SPECIAL=0
-          for f in $(echo "$CHANGED_FILES" | jq -r '.[]' 2>/dev/null || true); do
-            if [[ "$f" == $SPECIAL_PATH* ]]; then
-              NEED_SPECIAL=1
-              break
-            fi
-          done
 
           # helper: is_approved <login_lowercase>
           is_approved() {
@@ -71,44 +46,23 @@ jobs:
             echo "$APPROVERS" | grep -x -i -q "$login_lc"
           }
 
-          if [ "$NEED_SPECIAL" -eq 1 ]; then
-            # require BOTH required users, but if PR author is in the required list,
-            # treat them as already satisfied.
-            MISSING=()
-            for u in "${REQUIRED_BOTH[@]}"; do
-              u_lc=$(echo "$u" | tr '[:upper:]' '[:lower:]')
-              if [ "$u_lc" = "$PR_AUTHOR" ]; then
-                # author counts as approved
-                continue
-              fi
-              if ! is_approved "$u_lc"; then
-                MISSING+=("$u")
-              fi
-            done
-
-            if [ ${#MISSING[@]} -gt 0 ]; then
-              echo "❌ Missing approvals (SPECIAL_PATH): ${MISSING[*]}"
-              exit 1
+          # require ANY of REQUIRED_ANY for every path; author counts
+          ANY_OK=0
+          for u in "${REQUIRED_ANY[@]}"; do
+            u_lc=$(echo "$u" | tr '[:upper:]' '[:lower:]')
+            if [ "$u_lc" = "$PR_AUTHOR" ]; then
+              ANY_OK=1
+              break
             fi
-          else
-            # non-special: require ANY of REQUIRED_ANY, author counts
-            ANY_OK=0
-            for u in "${REQUIRED_ANY[@]}"; do
-              u_lc=$(echo "$u" | tr '[:upper:]' '[:lower:]')
-              if [ "$u_lc" = "$PR_AUTHOR" ]; then
-                ANY_OK=1
-                break
-              fi
-              if is_approved "$u_lc"; then
-                ANY_OK=1
-                break
-              fi
-            done
-
-            if [ "$ANY_OK" -eq 0 ]; then
-              echo "❌ Missing approval: one of ${REQUIRED_ANY[*]} must approve"
-              exit 1
+            if is_approved "$u_lc"; then
+              ANY_OK=1
+              break
             fi
+          done
+
+          if [ "$ANY_OK" -eq 0 ]; then
+            echo "❌ Missing approval: one of ${REQUIRED_ANY[*]} must approve"
+            exit 1
           fi
 
           echo "✅ Approval rules passed — merge allowed."
