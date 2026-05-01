@@ -862,7 +862,7 @@
         },
         "12017": {
             "Name": "Geralt Zlecenie",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli należy do frakcji Potworów, zamiast tego zniszcz go.",
+            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie wrogiej jednostki, następnie zadaj jej 4 pkt obrażeń. Jeśli należy do frakcji Potworów, zamiast tego zniszcz ją.",
             "Flavor": "Kiedyś wykonałem pewne zlecenie. Gdy kazano mi wybrać nagrodę, skorzystałem z Prawa Niespodzianki."
         },
         "12018": {
@@ -1662,7 +1662,7 @@
         },
         "24009": {
             "Name": "Nekker Wojownik",
-            "Info": "Rozmieszczenie: Wybierz brązowego sojusznika i dodaj 2 jego kopie do swojej talii.",
+            "Info": "Rozmieszczenie: Wybierz brązowego sojusznika i dodaj 2 jego kopie na spód swojej talii.",
             "Flavor": "Uważajcie panowie, pod tym mostem żyją nekkery."
         },
         "24010": {
@@ -3712,7 +3712,7 @@
         },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
-            "Info": "Rozmieszczenie: Wygnaj 3 brązowe bestie lub wampiry z Twojego cmentarza, następnie Wybierz: Stwórz Krwawe księżyce we wszystkich rzędach przeciwnika, lub Stwórz Pełnie we wszystkich Twoich rzędach.",
+            "Info": "Rozmieszczenie: Wygnaj 3 brązowe bestie lub wampiry z Twojego cmentarza, następnie Wybierz: Stwórz Pełnie we wszystkich Twoich rzędach, lub Stwórz Krwawe księżyce we wszystkich rzędach przeciwnika.",
             "Flavor": "On nie kochał jak człowiek, tylko jak zwierzę. Na zabój, bezwarunkowo. Dziko."
         },
         "70103": {
@@ -3777,7 +3777,7 @@
         },
         "70115": {
             "Name": "Amnestia",
-            "Info": "Cofnij wrogą brązową lojalną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
+            "Info": "Przenieś Brązową lub Srebrną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
             "Flavor": "Zrobiłeś, co komu? Szczerze mówiąc, już nawet nie pamiętam szczegółów."
         },
         "70116": {
@@ -3932,7 +3932,7 @@
         },
         "70147": {
             "Name": "Wąpierz",
-            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy sojusznik z tego samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
+            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy inny sojusznik z tego samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
             "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
@@ -3966,7 +3966,7 @@
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
-            "Name": "Iris Upiór",
+            "Name": "Iris Widmo",
             "Info": "Rozmieszczenie, Rozejm: Dodaj 2 Towarzyszy Iris do ręki obu graczy.",
             "Flavor": "Olgierd narzeczoną miał jak sen…"
         },

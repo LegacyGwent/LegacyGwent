@@ -2428,7 +2428,7 @@
         },
         "43021": {
             "Name": "Vandergrift's Blade",
-            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage, If the unit was destroyed, Banish it.",
+            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage and Banish the unit if it was killed.",
             "Flavor": "Seltkirk shattered Vandergrift's sword during a knights' tourney in Ard Carraigh. Afterwards Vandergrift, enraged at his weapon's failure, ordered a new one forged, this time with powerful runestones enchanted into it."
         },
         "44001": {
@@ -3728,7 +3728,7 @@
         },
         "70105": {
             "Name": "Freixenet And Braine",
-            "Info": "Deploy: Make a unit's Power equal to this card's Power.",
+            "Info": "Deploy: Set unit's Power to this card's Power.",
             "Flavor": "He was only meant to be a breeding stud to her. But in the end, they fell in love regardless."
         },
         "70106": {
@@ -3778,7 +3778,7 @@
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return a Bronze or Silver enemy to opponent's hand and set its Power to 1.",
+            "Info": "Put a Bronze or Silver unit into opponent's hand and set its Power to 1.",
             "Flavor": "You did what to who? To be fair, I can’t even recall the specifics anymore."
         },
         "70116": {
@@ -3947,17 +3947,17 @@
             "Flavor": "As head of state, I must judge her fairly. But she is my sister, thus my heart bleeds for her…"
         },
         "70150": {
-            "Name": "Vincent van Moorlehem",
+            "Name": "Vincent Van Moorlehem",
             "Info": "Deploy: Destroy an enemy unit, then Boost its adjacent units by half of its Power each.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
-            "Name": "Philippe van Moorlehem",
+            "Name": "Philippe Van Moorlehem",
             "Info": "Deploy: Damage an enemy by 3.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
-            "Name": "Van Moorlehem's Cupbearer",
+            "Name": "Van Moorlehem's Cup bearer",
             "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.",
             "Flavor": "My specialty? Tartar. Of what? Ah, that depends on the host's mood…"
         },
