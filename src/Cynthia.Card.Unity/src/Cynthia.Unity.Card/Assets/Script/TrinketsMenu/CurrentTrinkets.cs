@@ -107,75 +107,15 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         }
     }
     
-    static public string GetRankIcon(int mmr)
+    static public string GetRankIcon(float mmr)
     {
         string rank;
-        switch (mmr)
+        if (mmr <= 3400)
         {
-            case int i when i < 3450:
-                rank = "rank_1";
-                break;
-            case int i when i >= 3450 && i < 3500:
-                rank = "rank_2";
-                break;
-            case int i when i >= 3500 && i < 3550:
-                rank = "rank_3";
-                break;
-            case int i when i >= 3550 && i < 3600:
-                rank = "rank_4";
-                break;
-            case int i when i >= 3600 && i < 3650:
-                rank = "rank_5";
-                break;
-            case int i when i >= 3650 && i < 3700:
-                rank = "rank_6";
-                break;
-            case int i when i >= 3700 && i < 3750:
-                rank = "rank_7";
-                break;
-            case int i when i >= 3750 && i < 3800:
-                rank = "rank_8";
-                break;
-            case int i when i >= 3800 && i < 3850:
-                rank = "rank_9";
-                break;
-            case int i when i >= 3850 && i < 3900:
-                rank = "rank_10";
-                break;
-            case int i when i >= 3900 && i < 3950:
-                rank = "rank_11";
-                break;
-            case int i when i >= 3950 && i < 4000:
-                rank = "rank_12";
-                break;
-            case int i when i >= 4000 && i < 4050:
-                rank = "rank_13";
-                break;
-            case int i when i >= 4050 && i < 4100:
-                rank = "rank_14";
-                break;
-            case int i when i >= 4100 && i < 4150:
-                rank = "rank_15";
-                break;
-            case int i when i >= 4150 && i < 4200:
-                rank = "rank_16";
-                break;
-            case int i when i >= 4200 && i < 4250:
-                rank = "rank_17";
-                break;
-            case int i when i >= 4250 && i < 4300:
-                rank = "rank_18";
-                break;
-            case int i when i >= 4300 && i < 4350:
-                rank = "rank_19";
-                break;
-            case int i when i >= 4350 && i < 4400:
-                rank = "rank_20";
-                break;
-            default:
-                rank = "rank_21";
-                break;
+            return "rank_1";
         }
+        int ranknumber = (int)Math.Truncate(mmr / 50 - 67);
+        rank = "rank_" + ranknumber.ToString();
         return rank;
     }
 }

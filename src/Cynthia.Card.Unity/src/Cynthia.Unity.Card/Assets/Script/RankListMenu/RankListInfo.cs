@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Autofac;
 using Cynthia.Card.Client;
@@ -268,7 +268,9 @@ public class RankListInfo : MonoBehaviour
         {
             tab.SetActive(true);
         }
-        foreach (var _reward in seasonRewards)
+
+        // Only display season-end (position-based) rewards here.
+        foreach (var _reward in seasonRewards.Where(r => !r.isInSeasonReward))
         {
             var rewardTable = Instantiate(RewardTableElementPrefab, PositionRewardsTable.transform);
             var rewardElementScript = rewardTable.GetComponent<RewardTableElement>();

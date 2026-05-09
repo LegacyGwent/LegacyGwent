@@ -8,6 +8,7 @@ using MongoDB.Driver.Linq;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Cynthia.Card.Common.Models;
+using Cynthia.Card;
 
 namespace Cynthia.Card.Server
 {
@@ -30,6 +31,8 @@ namespace Cynthia.Card.Server
         {
             await _databaseService.RefreshSeasons();
             var seasonData = await _databaseService.QuerySeasonData();
+            // Ensure trinkets for the currently active season are released
+            TrinketMap.ReleaseSeasonRewards(seasonData?.seasonalRewards);
             
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -76,6 +79,8 @@ namespace Cynthia.Card.Server
             await _databaseService.RefreshSeasons();
 
             var season_data = await _databaseService.QuerySeasonData();
+            // When a new season becomes active, release its associated trinkets
+            TrinketMap.ReleaseSeasonRewards(season_data?.seasonalRewards);
             
             while (DateTime.UtcNow > season_data.SeasonEndTime)
             {

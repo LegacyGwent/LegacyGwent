@@ -2,13 +2,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Alsein.Extensions;
+using Cynthia.Card.Common.Models;
 
 namespace Cynthia.Card
 {
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 9);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 10);
+
+        /// <summary>
+        /// Releases all trinkets (avatars, borders, titles) referenced by the given seasonal rewards.
+        /// This is intended to be called when a season becomes active so that all of its rewards
+        /// become available without hardcoding IsReleased per trinket.
+        /// </summary>
+        public static void ReleaseSeasonRewards(IEnumerable<SeasonReward> rewards)
+        {
+            if (rewards == null)
+            {
+                return;
+            }
+
+            foreach (var reward in rewards)
+            {
+                if (reward == null)
+                {
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(reward.avatar) && AvatarMap.TryGetValue(reward.avatar, out var avatar))
+                {
+                    avatar.IsReleased = true;
+                }
+
+                if (!string.IsNullOrEmpty(reward.border) && BorderMap.TryGetValue(reward.border, out var border))
+                {
+                    border.IsReleased = true;
+                }
+
+                if (!string.IsNullOrEmpty(reward.title) && TitleMap.TryGetValue(reward.title, out var title))
+                {
+                    title.IsReleased = true;
+                }
+            }
+        }
         public static IEnumerable<TrinketAvatar> GetAvatars()
         {
             return AvatarMap
@@ -1330,6 +1367,114 @@ namespace Cynthia.Card
                     ID = "WILDHUNTKING",
                     IsReleased = true,
                     TitleColor = "orange",
+                }
+            },
+            {
+                "WOLFPUP",
+                new Title()
+                {
+                    ID = "WOLFPUP",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "YOUNGWOLF",
+                new Title()
+                {
+                    ID = "YOUNGWOLF",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "DENPROTECTOR",
+                new Title()
+                {
+                    ID = "DENPROTECTOR",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "PACKLEADER",
+                new Title()
+                {
+                    ID = "PACKLEADER",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "GRANDWARG",
+                new Title()
+                {
+                    ID = "GRANDWARG",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "WHITEWOLF",
+                new Title()
+                {
+                    ID = "WHITEWOLF",
+                    IsReleased = false,
+                    TitleColor = "lightblue",
+                }
+            },
+            {
+                "VOLUNTEER",
+                new Title()
+                {
+                    ID = "VOLUNTEER",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "FOREMAN",
+                new Title()
+                {
+                    ID = "FOREMAN",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "SKIRMISHER",
+                new Title()
+                {
+                    ID = "SKIRMISHER",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "GUARD",
+                new Title()
+                {
+                    ID = "GUARD",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "CLANELDER",
+                new Title()
+                {
+                    ID = "CLANELDER",
+                    IsReleased = false,
+                    TitleColor = "yellow",
+                }
+            },
+            {
+                "ELDERINCHIEF",
+                new Title()
+                {
+                    ID = "ELDERINCHIEF",
+                    IsReleased = false,
+                    TitleColor = "yellow",
                 }
             },
         };
