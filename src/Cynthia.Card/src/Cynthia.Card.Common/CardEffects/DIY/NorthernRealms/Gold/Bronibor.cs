@@ -8,24 +8,13 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 namespace Cynthia.Card
 {
     [CardEffectId("70188")]//艾勒的格哈特
-    public class Bronibor : CardEffect, IHandlesEvent<AfterUnitDown>
+    public class Bronibor : CardEffect
     {//Spawn and play a Poor Fucking Infantry. Then, deal 1 damage to a random enemy for each soldier you control.
         public Bronibor(GameCard card) : base(card) { }
 
-        private bool isused = false;
-
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            await Card.CreateAndMoveStay(CardId.PoorFIngInfantry);
-            return 0;
-        }
-        public async Task HandleEvent(AfterUnitDown @event)
-        {
-            if (@event.Target.Status.CardId != CardId.PoorFIngInfantry || @event.Target.PlayerIndex != Card.PlayerIndex || isused || !Card.Status.CardRow.IsOnPlace())
-            {
-                return;
-            }
-            isused = true;
+            await Game.CreateCard(CardId.PoorFIngInfantry, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
             var soldierlist = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAllCategorie(Categorie.Soldier)).ToList();
             int damage = soldierlist.Count();
             for (int i = 0; i < damage; i++)
@@ -37,7 +26,7 @@ namespace Cynthia.Card
                 }
                 await enemylist.Mess(Game.RNG).First().Effect.Damage(1, Card);
             }
-            return;
+            return 0;
         }
     }
 }
