@@ -21,7 +21,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (@event.Target.Status.CardId != CardId.PoorFIngInfantry || @event.Target.PlayerIndex != Card.PlayerIndex || isused)
+            if (@event.Target.Status.CardId != CardId.PoorFIngInfantry || @event.Target.PlayerIndex != Card.PlayerIndex || isused || !Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
