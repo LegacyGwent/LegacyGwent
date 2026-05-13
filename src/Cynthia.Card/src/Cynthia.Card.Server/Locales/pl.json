@@ -2332,7 +2332,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Rozmieszczenie: Wymień do 2 kart.",
+            "Info": "Rozmieszczenie: Zamień kartę, a następnie Zamień drugą kartę.",
             "Flavor": "Lepiej przeżyć jeden dzień jak król niż całe życie jak dziad."
         },
         "43003": {
@@ -2857,7 +2857,7 @@
         },
         "54011": {
             "Name": "Havekarskie Wsparcie",
-            "Info": "Rozmieszczenie: Wzmocnij jednostkę w swojej ręce o 3.",
+            "Info": "Rozmieszczenie: Wzmocnij jednostkę w swojej ręce o 4.",
             "Flavor": "Elf, krasnolud, co za różnica - pieniądz nie śmierdzi."
         },
         "54012": {
@@ -3422,7 +3422,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 4 pkt siły.",
+            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 2 pkt siły.",
             "Flavor": "Czasem nawet druidzi ulegają podszeptom Svalbloda..."
         },
         "70014": {
@@ -3472,7 +3472,7 @@
         },
         "70024": {
             "Name": "Nieśmiertelny",
-            "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie i zadaj sobie 1 pkt obrażeń.",
+            "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie.",
             "Flavor": "Gdzie jeden padnie, tam zaraz drugi stanie."
         },
         "70025": {
@@ -3622,7 +3622,7 @@
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
-            "Info": "Wezwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskającego Mrózu zostanie zniszczony.",
+            "Info": "Wezwij kopię tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskającego Mrózu zostanie zniszczony.",
             "Flavor": "Malują niebo bielą śniegu i szarością zamieci, a ziemię czerwienią ognia i krwi."
         },
         "70084": {
@@ -3732,7 +3732,7 @@
         },
         "70106": {
             "Name": "Jaja Endriagi",
-            "Info": "Rozmieszczenie: Stwórz 1 bazową kopie tej karty po lewej stronie.\nZemsta: Stwórz Larwe endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.",
+            "Info": "Rozmieszczenie: Stwórz 1 bazową Przeklętą kopię tej karty po lewej stronie.\nZemsta: Stwórz Larwę endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.",
             "Flavor": "Kiedy się je znajdzie, na wszelki wypadek lepiej puścić z dymem cały las. A potem uciekać, gdzie pieprz rośnie."
         },
         "70107": {
@@ -4042,13 +4042,14 @@
         },
         "70169": {
             "Name": "Rój Nekkerów",
-            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik ostatniej kopii tej jednostki w twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
-            "Flavor": ""
+            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik pierwszej kopii tej jednostki w twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
+       
+            "Flavor": "Gdy już widzisz jednego, możesz być pewny, że za nim jest dziesięć."
         },
         "70170": {
             "Name": "Gigant z Chmur",
             "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
-            "Flavor": ""
+            "Flavor": "Wiele rzeczy spada z nieba, oprócz deszczu i śniegu. Na przykład żaby... i Gigant z Chmur."
         },
         "70171": {
             "Name": "Pas Olbrzyma",

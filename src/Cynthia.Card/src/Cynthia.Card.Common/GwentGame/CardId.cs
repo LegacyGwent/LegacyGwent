@@ -666,5 +666,7 @@ namespace Cynthia.Card
         public const string NoonWraith = "70185";
         public const string MirrorImage = "70186";
         public const string NightWraith = "70187";
+        public const string Bronibor = "70188";
+        public const string ArcaneTome = "70189";
     }
 }

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 141);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 143);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -6802,7 +6802,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
                     Flavor = "宁似帝王快活一天，强如乞丐苟活一世。",
-                    Info = "交换最多2张牌。",
+                    Info = "部署：交换1张牌，然后交换第二张牌。",
                     CardArtsId = "12220400",
                     LinkedCards=new List<String> {},
                 }
@@ -6821,7 +6821,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid},
+                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid, Categorie.Soldier},
                     Flavor = "我是拉多多德国王的兵兵。收到命令，看守船船。",
                     Info = "10战力。4点护甲，己方回合开始时增加2点护甲。",
                     CardArtsId = "12220900",
@@ -6927,7 +6927,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed},
+                    Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed, Categorie.Officer},
                     Flavor = "白天是维吉玛城卫兵队长。到了晚上，便化身为无情的复仇者，保卫受尽压迫的劳苦大众。",
                     Info = "摧毁所有单位的护甲，获得被摧毁护甲数值一半的增益。",
                     CardArtsId = "20009800",
@@ -9022,7 +9022,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Support},
                     Flavor = "矮人和精灵在我眼里都一样，给钱就行。",
-                    Info = "使手牌中1张单位牌获得3点增益。",
+                    Info = "使手牌中1张单位牌获得4点增益。",
                     CardArtsId = "14231200",
                     LinkedCards=new List<String> {},
                 }
@@ -10760,7 +10760,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64028", //Dimun Corsair
                     Name="迪门家族海贼",
-                    Strength=1,
+                    Strength=3,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11413,7 +11413,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist, Categorie.Cursed},
                     Flavor = "",
-                    Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身4点后各降下一排“倾盆大雨”。",
+                    Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身2点后各降下一排“倾盆大雨”。",
                     CardArtsId = "202283",
                     LinkedCards=new List<String> {"14019"},
                 }
@@ -11644,7 +11644,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed,Categorie.Aedirn},
                     Flavor = "",
-                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”，并受到1点伤害。",
+                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”",
                     CardArtsId = "202506",
                     LinkedCards=new List<String> {"45001"},
                 }
@@ -11834,7 +11834,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Item},
                     Flavor = "有毒且致幻，它让你生不如死，却不致命。",
-                    Info = "伤害最强的敌军单位2点，重复4次。 己方墓场每有一张“合欢茎魔药”，则额外重复1次。",
+                    Info = "伤害最弱的友军单位3点，再重复3次。 己方墓场每有一张“合欢茎魔药”，则额外重复1次。",
                     CardArtsId = "201709",
                     LinkedCards=new List<String> {},
                 }
@@ -11855,7 +11855,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Item},
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
-                    Info = "增益最弱的友军单位2点，重复4次。 己方墓场每有一张“鬼针草煎药”，则额外重复1次。",
+                    Info = "增益最弱的友军单位3点，再重复3次。 己方墓场每有一张“鬼针草煎药”，则额外重复1次。",
                     CardArtsId = "202202",
                     LinkedCards=new List<String> {},
                 }
@@ -12304,7 +12304,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”",
-                    Info = "在左侧生成1张原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
+                    Info = "在左侧生成1张具有佚亡的原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
                     CardArtsId = "202444",
                     LinkedCards=new List<String> {"70107"},
                 }
@@ -13233,7 +13233,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Soldier },
                     Flavor = "白雪和烈火，是他们为天空和大地涂抹的颜色。",
-                    Info = "每当有位于“刺骨冰霜”之下的敌军单位被摧毁时，从牌组召唤1张它的同名牌。",
+                    Info = "每当有位于“刺骨冰霜”之下的敌军单位被摧毁时，从牌组召唤第一张它的同名牌。",
                     CardArtsId = "202610",
                     LinkedCards=new List<String> {},
                 }
@@ -13265,7 +13265,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70086", //Philippa: Mistress of the Lodge
                     Name="菲丽芭：集会所之主",
-                    Strength=3,
+                    Strength=4,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14768,8 +14768,8 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
-                    Flavor = "",
-                    Info = "计数2：回合结束时如果你拥有最高战力单位且是食人魔，位于牌组顺序最靠前的水生孽鬼计数-1，当计数为0时从卡组召唤自身到随机排，并随机增益友方单位1点。",
+                    Flavor = "当你看到一个水生孽鬼时，你可以确定有十个在后面跟着你。",
+                    Info = "当位于牌组时，回合结束时，如果你拥有最高战力单位且是食人魔，位于牌组顺序最靠前的水生孽鬼计数-1，当计数为0时从卡组召唤自身到随机排，并随机增益友方单位1点。",
                     CardArtsId = "r600000",
                     LinkedCards=new List<String> {},
                 }
@@ -14789,7 +14789,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
-                    Flavor = "",
+                    Flavor = "天空中除了雨和雪，还有很多东西会掉下来。比如青蛙...还有云顶巨人。",
                     Info = "坚韧。部署：如果你拥有最高战力单位，则获得免疫，否则失去免疫。回合开始时重复部署效果。",
                     CardArtsId = "c10000900",
                     LinkedCards=new List<String> {},
@@ -15152,6 +15152,48 @@ namespace Cynthia.Card
                     Info = "回合结束时，提升己方同排所有镜像战力1点，然后将自己转换为日间妖灵，不改变其战力。",
                     CardArtsId = "202531",
                     LinkedCards=new List<String> {"70185", "70186"},
+                }
+            },
+            {
+                "70188",//XXXXXX Bronibor
+                new GwentCard()
+                {
+                    CardId ="70188", //Bronibor
+                    Name="XXXXX",
+                    Strength=1,
+                    Group=Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Officer, Categorie.Temeria},
+                    Flavor = "XXXXX",
+                    Info = "XXXXXXXXXX",
+                    CardArtsId = "c10003900",
+                    LinkedCards=new List<String> {"44020"},
+                }
+            },
+            {
+                "70189",//XXXXXX Arcane Tome
+                new GwentCard()
+                {
+                    CardId ="70189", //Arcane Tome
+                    Name="XXXXX",
+                    Strength=0,
+                    Group=Group.Copper,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{Categorie.Item},
+                    Flavor = "XXXXX",
+                    Info = "XXXXXXXXXX",
+                    CardArtsId = "203103",
+                    LinkedCards=new List<String> {"44024"},
                 }
             },
         };

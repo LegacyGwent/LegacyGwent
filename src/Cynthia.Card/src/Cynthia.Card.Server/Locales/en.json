@@ -2333,7 +2333,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Deploy: Swap up to 2 cards.",
+            "Info": "Deploy: Swap a card, then Swap a second one.",
             "Flavor": "Better to live one day as a king than a whole life as a beggar."
         },
         "43003": {
@@ -2858,7 +2858,7 @@
         },
         "54011": {
             "Name": "Hawker Support",
-            "Info": "Deploy: Boost a unit in your hand by 3.",
+            "Info": "Deploy: Boost a unit in your hand by 4.",
             "Flavor": "Elf, dwarf, makes no difference – long as they've got coin."
         },
         "54012": {
@@ -3423,7 +3423,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, Weaken self by 4 and apply Torrential Rain on both sides.",
+            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, Weaken self by 2 and apply Torrential Rain on both sides.",
             "Flavor": "At times, even druids succumb to Svalblod's whispers..."
         },
         "70014": {
@@ -3473,7 +3473,7 @@
         },
         "70024": {
             "Name": "Immortals",
-            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.",
+            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row.",
             "Flavor": "Where one falls, another will take his place."
         },
         "70025": {
@@ -3518,12 +3518,12 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the Highest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
+            "Info": "Boost the lowest ally by 3.\nThen boost the lowest ally by 2, three times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time.",
             "Flavor": "How much of a dose would be lethal? Any."
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the Lowest ally by 2.\nRepeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat once more.",
+            "Info": "Damage the lowest ally by 3.\nThen damage the lowest ally by 2, three times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
             "Flavor": "It is the duchess's exclusive privilege to delight in the prized, oaky flavor of Sangreal... A pleasure she partakes in very, very often."
         },
         "70043": {
@@ -3623,7 +3623,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
+            "Info": "Summon the first copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
             "Flavor": "They paint the sky with snow and the earth with fire."
         },
         "70084": {
@@ -3733,7 +3733,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 default copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
+            "Info": "Deploy: Spawn a doomed copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -4043,13 +4043,13 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "When in deck, on turn end, if this is the bottom copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
-            "Flavor": ""
+            "Info": "When in deck, on turn end, if this is the top copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
+            "Flavor": "By the time you see one, you can be sure ten are behind you."
         },
         "70170": {
             "Name": "Cloud Giant",
             "Info": "Deploy: If you control the Highest unit, gain Immunity.\nIf you don't, lose Immunity.\nOn turn start, repeat its ability.\nResilience.",
-            "Flavor": ""
+            "Flavor": "Many things fall from the sky other than rain and snow. Frogs, for example... And the Cloud Giant."
         },
         "70171": {
             "Name": "Giant's Belt",

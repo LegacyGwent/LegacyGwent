@@ -26,7 +26,7 @@ namespace Cynthia.Card
                         return;
                     }
                     //只召唤最后一个
-                    if (Card == list.Last())
+                    if (Card == list.First())
                     {
                         await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
                     }

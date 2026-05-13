@@ -26,6 +26,6 @@ namespace Cynthia.Card
             return 0;
         }
 
-        private const int boost = 3;
+        private const int boost = 4;
     }
 }
