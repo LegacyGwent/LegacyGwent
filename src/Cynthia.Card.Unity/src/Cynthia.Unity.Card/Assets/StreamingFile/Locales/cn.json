@@ -214,6 +214,7 @@
         "Season_BoarSeason": "野猪赛季",
         "Season_MahakamSeason": "玛哈坎赛季",
         "Season_SeasonOfTheDragon": "巨龙之季",
+        "Season_WildHuntSeason": "狂猎赛季",
         "Faction_ALL": "所有阵营",
         "Faction_MO": "怪物",
         "Faction_NG": "尼弗迦德",
@@ -427,17 +428,17 @@
         "HEROName": "英雄",
         "HERODescription": "以天梯第一完成第1赛季。",
         "WILDHUNTHOUNDName": "野猎犬",
-        "WILDHUNTHOUNDDescription": "以天梯前100名完成第1赛季。",
+        "WILDHUNTHOUNDDescription": "以天梯前100名完成第4赛季。",
         "WILDHUNTWARRIORName": "战士",
-        "WILDHUNTWARRIORDescription": "以天梯前50名完成第1赛季。",
+        "WILDHUNTWARRIORDescription": "以天梯前50名完成第4赛季。",
         "WILDHUNTRIDERName": "骑手",
-        "WILDHUNTRIDERDescription": "以天梯前20名完成第1赛季。",
+        "WILDHUNTRIDERDescription": "以天梯前20名完成第4赛季。",
         "WILDHUNTNAVIGATORName": "导航者",
-        "WILDHUNTNAVIGATORDescription": "以天梯前10名完成第1赛季。",
+        "WILDHUNTNAVIGATORDescription": "以天梯前10名完成第4赛季。",
         "WILDHUNTGENERALName": "将军",
-        "WILDHUNTGENERALDescription": "以天梯前5名完成第1赛季。",
+        "WILDHUNTGENERALDescription": "以天梯前5名完成第4赛季。",
         "WILDHUNTKINGName": "国王",
-        "WILDHUNTKINGDescription": "以天梯第一完成第1赛季。",
+        "WILDHUNTKINGDescription": "以天梯第一完成第4赛季。",
         "PIONEERName": "先锋",
         "PIONEERDescription": "参与第一赛季。",
         "GOODGAMERName": "优秀玩家",
@@ -883,7 +884,7 @@
         },
         "12021": {
             "Name": "杰洛特：阿尔德法印",
-            "Info": "选择3个敌军单位各造成3点伤害，并将它们上移1排。",
+            "Info": "部署：选择3个敌军单位各造成3点伤害，并将它们上移1排。如果目标位于围城排，则额外造成2点伤害。",
             "Flavor": "这股注入专注力的能量能摧毁一切挡道之物——如果你忘了带钥匙，这招最管用。"
         },
         "12022": {
@@ -4123,7 +4124,7 @@
         },
         "70184": {
             "Name": "日轮之师重骑兵",
-            "Info": "1点护甲。双方打出领袖牌时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1.",
+            "Info": "双方打出领袖牌时，获得4点增益。本轮每触发过一次自身的能力，使获得的增益减1.",
             "Flavor": "恩希尔宣称他的骑兵会把敌人踏平。我们还以为他是在打比方。我们错了。"
         },
         "70185": {
