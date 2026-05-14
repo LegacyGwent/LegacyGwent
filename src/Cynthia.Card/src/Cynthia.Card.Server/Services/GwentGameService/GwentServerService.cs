@@ -178,12 +178,12 @@ namespace Cynthia.Card.Server
             };
             List<SeasonReward> season4Rewards = new List<SeasonReward>()
             {
-                new SeasonReward(minimalPosition: 100, border: "Season4Border6", title: "WOLFPUP"),
-                new SeasonReward(minimalPosition: 50, border: "Season4Border5", title: "YOUNGWOLF"),
-                new SeasonReward(minimalPosition: 30, border: "Season4Border4", title: "DENPROTECTOR"),
-                new SeasonReward(minimalPosition: 20, border: "Season4Border3", title: "PACKLEADER"),
-                new SeasonReward(minimalPosition: 10, border: "Season4Border2", title: "GRANDWARG"),
-                new SeasonReward(minimalPosition: 100, border: "Season4Border1", title: "WHITEWOLF"),
+                new SeasonReward(minimalPosition: 100, border: "Season4Border1", title: "WOLFPUP"),
+                new SeasonReward(minimalPosition: 50, border: "Season4Border2", title: "YOUNGWOLF"),
+                new SeasonReward(minimalPosition: 30, border: "Season4Border3", title: "DENPROTECTOR"),
+                new SeasonReward(minimalPosition: 20, border: "Season4Border4", title: "PACKLEADER"),
+                new SeasonReward(minimalPosition: 10, border: "Season4Border5", title: "GRANDWARG"),
+                new SeasonReward(minimalPosition: 1, border: "Season4Border6", title: "WHITEWOLF"),
 
                 // In-season rewards (MMR based) for Season 4:  
                 // - Avatar at "rank 10" threshold
@@ -194,12 +194,12 @@ namespace Cynthia.Card.Server
             };
             List<SeasonReward> season5Rewards = new List<SeasonReward>()
             {
-                new SeasonReward(minimalPosition: 100, border: "Season5Border6", title: "VOLUNTEER"),   
-                new SeasonReward(minimalPosition: 50, border: "Season5Border5", title: "FOREMAN"),
-                new SeasonReward(minimalPosition: 30, border: "Season5Border4", title: "SKIRMISHER"),
-                new SeasonReward(minimalPosition: 20, border: "Season5Border3", title: "GUARD"),
-                new SeasonReward(minimalPosition: 10, border: "Season5Border2", title: "CLANELDER"),
-                new SeasonReward(minimalPosition: 1, border: "Season5Border1", title: "ELDERINCHIEF"),
+                new SeasonReward(minimalPosition: 100, border: "Season5Border1", title: "VOLUNTEER"),   
+                new SeasonReward(minimalPosition: 50, border: "Season5Border2", title: "FOREMAN"),
+                new SeasonReward(minimalPosition: 30, border: "Season5Border3", title: "SKIRMISHER"),
+                new SeasonReward(minimalPosition: 20, border: "Season5Border4", title: "GUARD"),
+                new SeasonReward(minimalPosition: 10, border: "Season5Border5", title: "CLANELDER"),
+                new SeasonReward(minimalPosition: 1, border: "Season5Border6", title: "ELDERINCHIEF"),
 
                 // In-season rewards (MMR based) for Season 5:  
                 // - Avatar at "rank 10" threshold

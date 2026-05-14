@@ -94,7 +94,7 @@ namespace Cynthia.Card.Server
 
             var activeSeason = await temp.AsQueryable()
                 .Where(x => x.isActive == true)
-                .OrderByDescending(x => x.SeasonId)
+                .OrderBy(x => x.SeasonId)
                 .FirstOrDefaultAsync();
 
             if (activeSeason != null)
@@ -122,7 +122,7 @@ namespace Cynthia.Card.Server
 
                     var activeSeason = await temp.AsQueryable()
                         .Where(x => x.isActive == true)
-                        .OrderByDescending(x => x.SeasonId)
+                        .OrderBy(x => x.SeasonId)
                         .FirstOrDefaultAsync();
 
                     if (activeSeason != null)

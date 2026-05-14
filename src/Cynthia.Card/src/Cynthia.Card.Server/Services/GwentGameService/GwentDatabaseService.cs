@@ -69,6 +69,7 @@ namespace Cynthia.Card.Server
                 {
                     var update = Builders<SeasonInfo>.Update
                         .Set(x => x.SeasonName, season.name)
+                        .Set(x => x.SeasonColor, season.color)
                         .Set(x => x.SeasonEndTime, season.endTime)
                         .Set(x => x.seasonalRewards, season.seasonalRewards);
 
@@ -182,7 +183,7 @@ namespace Cynthia.Card.Server
         public void SeasonRewardsGranted()
         {
             var temp = GetSeasonInfo();
-            var activeSeason = temp.AsQueryable().Where(x => x.isActive == true).OrderByDescending(x => x.SeasonId).FirstOrDefault();
+            var activeSeason = temp.AsQueryable().Where(x => x.isActive == true).OrderBy(x => x.SeasonId).FirstOrDefault();
 
             if (activeSeason != null)
             {
@@ -196,7 +197,7 @@ namespace Cynthia.Card.Server
         {
             SeasonInfo season;
             if (seasonID < 0)
-                season = GetSeasonInfo().AsQueryable().Where(x => x.isActive).OrderByDescending(x => x.SeasonId).FirstOrDefault();
+                season = GetSeasonInfo().AsQueryable().Where(x => x.isActive).OrderBy(x => x.SeasonId).FirstOrDefault();
             else
                 season = GetSeasonInfo().AsQueryable().Where(x => x.SeasonId == seasonID).FirstOrDefault();
             if (season == null)
