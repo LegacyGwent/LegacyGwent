@@ -182,7 +182,8 @@ namespace Cynthia.Card.Server
                 new SeasonReward(minimalPosition: 50, border: "Season4Border2", title: "WILDHUNTWARRIOR"),
                 new SeasonReward(minimalPosition: 30, border: "Season4Border3", title: "WILDHUNTRIDER"),
                 new SeasonReward(minimalPosition: 20, border: "Season4Border4", title: "WILDHUNTNAVIGATOR"),
-                new SeasonReward(minimalPosition: 10, border: "Season4Border5", title: "WILDHUNTGENERAL"),
+                new SeasonReward(minimalPosition: 10, avatar: "Letho"),
+                new SeasonReward(minimalPosition: 5, border: "Season4Border5", title: "WILDHUNTGENERAL"),
                 new SeasonReward(minimalPosition: 1, border: "Season4Border6", title: "WILDHUNTKING"),
 
                 // In-season rewards (MMR based) for Season 4:  
@@ -198,7 +199,8 @@ namespace Cynthia.Card.Server
                 new SeasonReward(minimalPosition: 50, border: "Season5Border2", title: "YOUNGWOLF"),
                 new SeasonReward(minimalPosition: 30, border: "Season5Border3", title: "DENPROTECTOR"),
                 new SeasonReward(minimalPosition: 20, border: "Season5Border4", title: "PACKLEADER"),
-                new SeasonReward(minimalPosition: 10, border: "Season5Border5", title: "GRANDWARG"),
+                new SeasonReward(minimalPosition: 10, avatar: "Dagon"),
+                new SeasonReward(minimalPosition: 5, border: "Season5Border5", title: "GRANDWARG"),
                 new SeasonReward(minimalPosition: 1, border: "Season5Border6", title: "WHITEWOLF"),
 
                 // In-season rewards (MMR based) for Season 5:  
