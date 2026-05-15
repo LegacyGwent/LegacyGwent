@@ -549,8 +549,6 @@ namespace Cynthia.Card
         public virtual async Task Lower_Power_By(int num, GameCard source)
         {
             if (num <= 0 || Card.Status.CardRow.IsInCemetery() || Card.Status.CardRow == RowPosition.Banish || Card.Status.Type != CardType.Unit || Card.IsDead || Card.Status.Type == CardType.Special) return;
-
-            var die = false;
             Card.Status.HealthStatus -= num;
             if ((Card.CardPoint()) <= 0)
             {
