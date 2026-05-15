@@ -47,7 +47,7 @@ namespace Cynthia.Card.Server
             ResultList = _databaseService.GetAllGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
-            UpdateAndSaveSeasons();
+            using var _ = UpdateAndSaveSeasons();
             
         }
 
