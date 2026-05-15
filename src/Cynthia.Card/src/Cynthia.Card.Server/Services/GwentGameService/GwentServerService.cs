@@ -178,12 +178,13 @@ namespace Cynthia.Card.Server
             };
             List<SeasonReward> season4Rewards = new List<SeasonReward>()
             {
-                new SeasonReward(minimalPosition: 100, border: "Season4Border6", title: "WOLFPUP"),
-                new SeasonReward(minimalPosition: 50, border: "Season4Border5", title: "YOUNGWOLF"),
-                new SeasonReward(minimalPosition: 30, border: "Season4Border4", title: "DENPROTECTOR"),
-                new SeasonReward(minimalPosition: 20, border: "Season4Border3", title: "PACKLEADER"),
-                new SeasonReward(minimalPosition: 10, border: "Season4Border2", title: "GRANDWARG"),
-                new SeasonReward(minimalPosition: 100, border: "Season4Border1", title: "WHITEWOLF"),
+                new SeasonReward(minimalPosition: 100, border: "Season4Border1", title: "WILDHUNTHOUND"),
+                new SeasonReward(minimalPosition: 50, border: "Season4Border2", title: "WILDHUNTWARRIOR"),
+                new SeasonReward(minimalPosition: 30, border: "Season4Border3", title: "WILDHUNTRIDER"),
+                new SeasonReward(minimalPosition: 20, border: "Season4Border4", title: "WILDHUNTNAVIGATOR"),
+                new SeasonReward(minimalPosition: 10, avatar: "Letho"),
+                new SeasonReward(minimalPosition: 5, border: "Season4Border5", title: "WILDHUNTGENERAL"),
+                new SeasonReward(minimalPosition: 1, border: "Season4Border6", title: "WILDHUNTKING"),
 
                 // In-season rewards (MMR based) for Season 4:  
                 // - Avatar at "rank 10" threshold
@@ -194,12 +195,13 @@ namespace Cynthia.Card.Server
             };
             List<SeasonReward> season5Rewards = new List<SeasonReward>()
             {
-                new SeasonReward(minimalPosition: 100, border: "Season5Border6", title: "VOLUNTEER"),   
-                new SeasonReward(minimalPosition: 50, border: "Season5Border5", title: "FOREMAN"),
-                new SeasonReward(minimalPosition: 30, border: "Season5Border4", title: "SKIRMISHER"),
-                new SeasonReward(minimalPosition: 20, border: "Season5Border3", title: "GUARD"),
-                new SeasonReward(minimalPosition: 10, border: "Season5Border2", title: "CLANELDER"),
-                new SeasonReward(minimalPosition: 1, border: "Season5Border1", title: "ELDERINCHIEF"),
+                new SeasonReward(minimalPosition: 100, border: "Season5Border1", title: "WOLFPUP"),   
+                new SeasonReward(minimalPosition: 50, border: "Season5Border2", title: "YOUNGWOLF"),
+                new SeasonReward(minimalPosition: 30, border: "Season5Border3", title: "DENPROTECTOR"),
+                new SeasonReward(minimalPosition: 20, border: "Season5Border4", title: "PACKLEADER"),
+                new SeasonReward(minimalPosition: 10, avatar: "Dagon"),
+                new SeasonReward(minimalPosition: 5, border: "Season5Border5", title: "GRANDWARG"),
+                new SeasonReward(minimalPosition: 1, border: "Season5Border6", title: "WHITEWOLF"),
 
                 // In-season rewards (MMR based) for Season 5:  
                 // - Avatar at "rank 10" threshold
@@ -213,8 +215,8 @@ namespace Cynthia.Card.Server
             List<Season> seasonsList = new List<Season>
             {
                 new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards },
-                new Season() { id = 2, name = "Season_WolfSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season4Rewards },
-                new Season() { id = 3, name = "Season_MahakamSeason", endTime = new DateTime(2026, 09, 27, 0, 0, 0, DateTimeKind.Utc), color = "emerald", seasonalRewards = season5Rewards }
+                new Season() { id = 2, name = "Season_WildHuntSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season4Rewards },
+                new Season() { id = 3, name = "Season_WolfSeason", endTime = new DateTime(2026, 09, 27, 0, 0, 0, DateTimeKind.Utc), color = "blue", seasonalRewards = season5Rewards }
             }; 
             // Season 6 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
             await _databaseService.UpdateSeasons(seasonsList);
@@ -1026,7 +1028,7 @@ This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
 
 Welcome to DIY Gwent Season 4!
-Welcome to the Season of the Wolf!
+Welcome to the Season of the Wild Hunt!
 We are introducing a new leaderboard that will enable you to see the stats per faction of the players on the ladder and create a ranking each season.
 Based on this ranking, the top 3 players per faction will be rewarded with the faction's banner and the top 5 will get a title (if a player already has a reward, it will go to the next player in line).
 

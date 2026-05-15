@@ -98,7 +98,6 @@ public class RankListInfo : MonoBehaviour
 
     public async Task OpenRankList(bool openActiveSeason = true, IList<Tuple<string, string, string, string, int, int, IList<int[]>>> rankingList = null)
     {
-        seasonRewards = await DependencyResolver.Container.Resolve<GwentClientService>().GetSeasonRewards(1, "all");
         MainUI.SetActive(false);
         RankListUI.SetActive(true);
 
@@ -285,14 +284,17 @@ public class RankListInfo : MonoBehaviour
         {
             if (allSeasons == null)
             {
-                allSeasons = await DependencyResolver.Container.Resolve<GwentClientService>().GetSeasons();
+                allSeasons = (await DependencyResolver.Container.Resolve<GwentClientService>().GetSeasons())
+                    .OrderBy(x => x.SeasonId)
+                    .ToList();
 
                 foreach (var item in allSeasons)
                 {
                     UnityEngine.Debug.Log($"{item.SeasonId} / {item.SeasonName} active={item.isActive}");
-                    if (item.isActive)
-                        activeSeasonID = item.SeasonId;
                 }
+                var firstActiveSeason = allSeasons.FirstOrDefault(x => x.isActive);
+                if (firstActiveSeason != null)
+                    activeSeasonID = firstActiveSeason.SeasonId;
             }
 
 
@@ -333,6 +335,8 @@ public class RankListInfo : MonoBehaviour
 
             }
             openedSeasonID = seasonData.SeasonId;
+            if (openedSeasonID > 0)
+                seasonRewards = await _clientService.GetSeasonRewards(openedSeasonID, "all");
             //back button
             if (buttondirection == -1)
                 nextSeasonData = lastLoadedSeason;
@@ -355,9 +359,6 @@ public class RankListInfo : MonoBehaviour
 
             SeasonBackButton.gameObject.SetActive(previousSeasonDataId != -1);
             SeasonNextButton.gameObject.SetActive(nextSeasonDataId != -1);
-
-
-            //seasonRewards = await _clientService.GetSeasonRewards(openedSeasonID, "all");
 
             string _seasondEndTimerText =
                 activeSeasonID > seasonData.SeasonId ? _translator.GetText("Season_EndTimer_Finished")
