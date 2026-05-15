@@ -146,7 +146,7 @@ namespace Cynthia.Card.Server
         }
         
         /// <summary>Updates only: { NAME, ENDTIME, REWARDS } of season with existing ID or creates new.</summary>
-        private async Task UpdateAndSaveSeasons()
+        private Task UpdateAndSaveSeasons()
         {
 
             List<SeasonReward> season2Rewards = new List<SeasonReward>()
@@ -219,7 +219,7 @@ namespace Cynthia.Card.Server
                 new Season() { id = 3, name = "Season_WolfSeason", endTime = new DateTime(2026, 09, 27, 0, 0, 0, DateTimeKind.Utc), color = "blue", seasonalRewards = season5Rewards }
             }; 
             // Season 6 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
-            await _databaseService.UpdateSeasons(seasonsList);
+            return _databaseService.UpdateSeasons(seasonsList);
         }
 
         public async Task<bool> GiveAwaySeasonalRewards()
