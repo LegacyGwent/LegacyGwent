@@ -57,11 +57,9 @@ namespace Cynthia.Card
                     );
 
                     return deserializedMessage;
-                    break;
 
                 default:
                     return null;
-                    break;
             }
         }
     }
