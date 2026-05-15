@@ -1,8 +1,6 @@
 name: Acquire activation file
 on:
   workflow_dispatch: {}
-
-FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true
 jobs:
   activation:
     name: Request manual activation file 🔑
