@@ -205,7 +205,7 @@ namespace Cynthia.Card.Server
             return season.seasonalRewards;
 
         }
-        public async Task<SeasonInfo> QuerySeasonData(bool active = true, int id = 0)
+        public Task<SeasonInfo> QuerySeasonData(bool active = true, int id = 0)
         {
             var seasons = GetSeasonInfo().Find(_ => true).ToList();
 
@@ -216,14 +216,14 @@ namespace Cynthia.Card.Server
                     .OrderBy(x => x.SeasonId)
                     .FirstOrDefault();
 
-                return activeSeason ?? new SeasonInfo();
+                return Task.FromResult(activeSeason ?? new SeasonInfo());
             }
             else
             {
                 var searchedSeason = seasons
                     .FirstOrDefault(x => x.SeasonId == id);
 
-                return searchedSeason ?? new SeasonInfo(){SeasonId = -1};
+                return Task.FromResult(searchedSeason ?? new SeasonInfo(){SeasonId = -1});
             }
         }
 
