@@ -269,7 +269,7 @@ namespace Cynthia.Card.Client
             // After maps/locales are up to date, release trinkets for the active season
             try
             {
-                var activeSeason = await GetSeasonData(true, 0);
+                var activeSeason = GetSeasonData(true, 0);
                 TrinketMap.ReleaseSeasonRewards(activeSeason?.seasonalRewards);
             }
             catch (Exception e)

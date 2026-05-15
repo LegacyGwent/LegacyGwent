@@ -240,7 +240,7 @@
 
             var charDataAllSeasons = new List<List<ChartInfo>>();
 
-            var seasonsDailyData = await GetDayResultsMapping(_resultsList, _seasonsList);
+            var seasonsDailyData = GetDayResultsMapping(_resultsList, _seasonsList);
 
             foreach (var seasonDaysData in seasonsDailyData)
             {
@@ -518,7 +518,7 @@
 
 
 
-    public async Task<Dictionary<SeasonInfo, Dictionary<DateTime, int[]>>> GetDayResultsMapping(IList<GameResult> resultsList, IList<SeasonInfo> seasonsList)
+    public Dictionary<SeasonInfo, Dictionary<DateTime, int[]>> GetDayResultsMapping(IList<GameResult> resultsList, IList<SeasonInfo> seasonsList)
     {
         var factionStatsTemplate = new Dictionary<Faction, Dictionary<Faction, int[]>>
         {
