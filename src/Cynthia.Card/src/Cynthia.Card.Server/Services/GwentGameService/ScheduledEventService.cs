@@ -30,7 +30,7 @@ namespace Cynthia.Card.Server
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await _databaseService.RefreshSeasons();
-            var seasonData = await _databaseService.QuerySeasonData();
+            var seasonData = _databaseService.QuerySeasonData();
             // Ensure trinkets for the currently active season are released
             TrinketMap.ReleaseSeasonRewards(seasonData?.seasonalRewards);
             
@@ -49,7 +49,7 @@ namespace Cynthia.Card.Server
                                 _logger.LogInformation("Executing monthly rank reset and seasonal rewards...");
 
                                 await ResetSeason();
-                                seasonData = await _databaseService.QuerySeasonData();
+                                seasonData = _databaseService.QuerySeasonData();
                             }
                         }
                     }
@@ -78,7 +78,7 @@ namespace Cynthia.Card.Server
 
             await _databaseService.RefreshSeasons();
 
-            var season_data = await _databaseService.QuerySeasonData();
+            var season_data = _databaseService.QuerySeasonData();
             // When a new season becomes active, release its associated trinkets
             TrinketMap.ReleaseSeasonRewards(season_data?.seasonalRewards);
             
