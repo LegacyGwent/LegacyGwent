@@ -47,7 +47,7 @@ namespace Cynthia.Card.Server
             ResultList = _databaseService.GetAllGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
-            UpdateAndSaveSeasons().GetAwaiter().GetResult();
+            UpdateAndSaveSeasons();
             
         }
 
@@ -324,7 +324,7 @@ namespace Cynthia.Card.Server
                     }
                 }
 
-                var season_data = GetSeasonData();
+                var season_data = await GetSeasonData();
 
                 await SendSeasonEndMessage(player.PlayerName, avatarRewards, borderRewards, titleRewards, player.MMR, rank, season_data.SeasonName);
             }
@@ -1099,7 +1099,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         {
             string rank = null;
             string ranktitle = null;
-            var seasondata = _databaseService.QuerySeasonData();
+            var seasondata = await _databaseService.QuerySeasonData();
 
             switch (mymmr)
             {
@@ -1371,7 +1371,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
 
         public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
 
-        public SeasonInfo GetSeasonData(bool active = true, int id = 0) => _databaseService.QuerySeasonData(active, id);
+        public async Task<SeasonInfo> GetSeasonData(bool active = true, int id = 0) => await _databaseService.QuerySeasonData(active, id);
         public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
         public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);
