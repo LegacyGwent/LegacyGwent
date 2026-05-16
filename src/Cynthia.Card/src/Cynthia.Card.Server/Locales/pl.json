@@ -3518,12 +3518,12 @@
         },
         "70041": {
             "Name": "Wyciąg z Gigaskorpiona",
-            "Info": "Zadaj 2 pkt obrażeń najsilnieszemu wrogowi. Powtórz 3 razy. Za każdy Odwar Raffarda Białego na Twoim cmetarzu powtórz jeszcze raz.",
+            "Info": "Zadaj 3 pkt obrażeń najsilniejszemu wrogowi.\nNastępnie zadaj 2 pkt obrażeń najsilniejszemu wrogowi trzy razy.\nZa każdy Odwar Raffarda Białego w twojej mogile powtórz raz dodatkowy.",
             "Flavor": "Śmiertelna dawka? Każda."
         },
         "70042": {
             "Name": "Odwar Raffarda Białego",
-            "Info": "Wzmocnij najsłabszego sojusznika o 2. Powtórz 3 razy. Za każdy Wyciąg z gigaskorpiona na Twoim cmetarzu powtórz jeszcze raz.",
+            "Info": "Wzmocnij najsłabszego sojusznika o 3.\nNastępnie wzmocnij najsłabszego sojusznika o 2, trzy razy.\nZa każdy Wyciąg z Gigaskorpiona w twojej mogile powtórz raz dodatkowy.",
             "Flavor": "Raczyć się nim może jedynie księżna. Robi to nad wyraz często."
         },
         "70043": {
