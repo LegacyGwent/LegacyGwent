@@ -15170,7 +15170,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Officer, Categorie.Temeria},
                     Flavor = "在这里，这个村庄的名字我已经忘记了，你最终会展示出你作为一支军队的价值。",
-                    Info = "生成并打出一个“可怜的雇佣兵”，然后对棋盘上的每个士兵造成1点伤害。",
+                    Info = "生成并打出一个“可怜的步兵”，然后使我方半场上每个士兵单位对随机敌方单位造成一点伤害",
                     CardArtsId = "c10003900",
                     LinkedCards=new List<String> {"44020"},
                 }
