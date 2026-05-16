@@ -14,7 +14,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var count = Game.PlayersCemetery[PlayerIndex].Count(x => x.Status.CardId == CardId.BidensBipinnata);
-            if (!Game.GetPlaceCards(AnotherPlayer).WhereAllLowest().TryMessOne(out var target1, Game.RNG))
+            if (!Game.GetPlaceCards(PlayerIndex).WhereAllLowest().TryMessOne(out var target1, Game.RNG))
                 {
                     return 0;
                 }
