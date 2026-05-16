@@ -7,7 +7,7 @@ using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70188")]//艾勒的格哈特
+    [CardEffectId("70188")]//布罗尼伯
     public class Bronibor : CardEffect, IHandlesEvent<AfterUnitDown>
     {//Spawn and play a Poor Fucking Infantry. Then, deal 1 damage to a random enemy for each soldier you control.
         public Bronibor(GameCard card) : base(card) { }

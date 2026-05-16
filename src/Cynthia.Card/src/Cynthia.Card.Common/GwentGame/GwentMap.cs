@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 145);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 146);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11834,7 +11834,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Item},
                     Flavor = "有毒且致幻，它让你生不如死，却不致命。",
-                    Info = "伤害最弱的友军单位3点，再重复3次。 己方墓场每有一张“合欢茎魔药”，则额外重复1次。",
+                    Info = "伤害最强的敌军单位3点，再重复2次。 己方墓场每有一张“合欢茎魔药”，则额外造成2点伤害1次。",
                     CardArtsId = "201709",
                     LinkedCards=new List<String> {},
                 }
@@ -11855,7 +11855,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Item},
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
-                    Info = "增益最弱的友军单位3点，再重复3次。 己方墓场每有一张“鬼针草煎药”，则额外重复1次。",
+                    Info = " 增益最弱的友军单位3点，再重复2次。 己方墓场每有一张“鬼针草煎药”，则额外造成2点增益1次。",
                     CardArtsId = "202202",
                     LinkedCards=new List<String> {},
                 }
@@ -15155,11 +15155,11 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70188",//XXXXXX Bronibor
+                "70188",//布罗尼伯 Bronibor
                 new GwentCard()
                 {
                     CardId ="70188", //Bronibor
-                    Name="XXXXX",
+                    Name="布罗尼伯",
                     Strength=1,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
@@ -15169,18 +15169,18 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Officer, Categorie.Temeria},
-                    Flavor = "XXXXX",
-                    Info = "XXXXXXXXXX",
+                    Flavor = "在这里，这个村庄的名字我已经忘记了，你最终会展示出你作为一支军队的价值。",
+                    Info = "生成并打出一个“可怜的雇佣兵”，然后对棋盘上的每个士兵造成1点伤害。",
                     CardArtsId = "c10003900",
                     LinkedCards=new List<String> {"44020"},
                 }
             },
             {
-                "70189",//XXXXXX Arcane Tome
+                "70189",//奥术法典 Arcane Tome
                 new GwentCard()
                 {
                     CardId ="70189", //Arcane Tome
-                    Name="XXXXX",
+                    Name="奥术法典",
                     Strength=0,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
@@ -15190,8 +15190,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Item},
-                    Flavor = "XXXXX",
-                    Info = "XXXXXXXXXX",
+                    Flavor = "阿尔祖的宏篇巨著，写满了这位传奇法师的毕生所学。",
+                    Info = "对一个单位造成3点伤害。如果该单位被摧毁，则生成并打出一个“凯文尼亡灵”。",
                     CardArtsId = "203103",
                     LinkedCards=new List<String> {"44024"},
                 }

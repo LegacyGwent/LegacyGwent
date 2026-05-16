@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70189")]//XXXXX Arcane Tome
+    [CardEffectId("70189")]//奥术法典 Arcane Tome
     public class ArcaneTome : CardEffect
     {//Damage a unit by 3. If it is destroyed, spawn and play a Kaedweni Revenant.
         public ArcaneTome(GameCard card) : base(card) { }
