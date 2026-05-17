@@ -568,10 +568,7 @@ namespace Cynthia.Card
         public const string EndregaEggs = "70106";
         public const string EndregaLarva = "70107";
         public const string EndregaWarrior = "70108";
-        public const string PalmerindeLaunfal = "70111";
         public const string Thaw = "70119";
-        public const string AzarJaved = "70161";
-        public const string Scarab = "70162";
         public const string AuberonKing = "80001";
         public const string AuberonInvader = "80002";
         public const string AuberonConqueror = "80003";
