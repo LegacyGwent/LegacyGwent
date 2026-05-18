@@ -42,7 +42,7 @@ namespace Cynthia.Card
         {
             if (@event.Target != Card) return;
             await Game.CreateCard(CardId.EndregaLarva, PlayerIndex, @event.DeathLocation);
-            if (IsCopy)
+            if (IsCopy && !Card.IsAliveOnPlance())
             {
                 await Card.Effect.Banish();
             }
