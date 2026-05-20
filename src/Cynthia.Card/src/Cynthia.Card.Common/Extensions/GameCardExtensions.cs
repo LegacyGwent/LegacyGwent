@@ -92,6 +92,10 @@ namespace Cynthia.Card
         {
             return cards.Where(x => !x.Status.Conceal && !x.IsDead).ToList();
         }
+        public static IList<GameCard> IgnoreImmune(this IList<GameCard> cards)
+        {
+            return cards.Where(x => !x.Status.IsImmue).ToList();
+        }
         public static bool HasAnyCategorie(this GameCard card, params Categorie[] categories)
         {
             return card.Status.Categories.Intersect(categories).Any();
