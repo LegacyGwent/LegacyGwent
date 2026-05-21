@@ -505,14 +505,16 @@ public class EditorInfo : MonoBehaviour
 #endif
         if (Input.GetMouseButtonDown(1) || IsRightClickMobile)
         {
+            IsRightClickMobile = false;
+            pressTime = 0;              
+
             if (EditorArtCard.gameObject.activeSelf || ShowArtCard.gameObject.activeSelf)
             {
                 RightClickedCardID = LastHoveredCard;
-                Debug.Log("Right Clicked ID: "+RightClickedCardID);
-                //RighClickActive=true;
+                Debug.Log("Right Clicked ID: " + RightClickedCardID);
                 SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
             }
-        }        
+        }
     }
             
     public void ClickSwitchUICard(CardStatus card)
