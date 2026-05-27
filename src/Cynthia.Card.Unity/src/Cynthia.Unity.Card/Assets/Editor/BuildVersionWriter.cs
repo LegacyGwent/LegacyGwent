@@ -13,7 +13,7 @@ public class BuildVersionWriter : IPostprocessBuildWithReport
     {
         string outputDir = Path.GetDirectoryName(report.summary.outputPath);
         string versionFile = Path.Combine(outputDir, "version.txt");
-        File.WriteAllText(versionFile, Application.version);
+        File.WriteAllText(versionFile, PlayerSettings.bundleVersion);
         Debug.Log("BuildVersionWriter: version.txt written -> " + Application.version);
     }
 }
