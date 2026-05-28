@@ -5,10 +5,10 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70083")]//红骑士
-    public class RedRider : CardEffect, IHandlesEvent<BeforeCardToCemetery>, IHandlesEvent<AfterCardToCemetery>, IHandlesEvent<AfterTurnOver>
-    {//每当有位于"刺骨冰霜"之下的敌军单位被摧毁时，从牌组召唤1张它的同名牌。
-        public RedRider(GameCard card) : base(card) { }
+    public class RedRider : CardEffect, IHandlesEvent<BeforeCardToCemetery>
+    {// When an enemy unit is moved to the graveyard from a row with Biting Frost, if this card is in your deck, summon it on a random row.
         public bool IsToSummon = false;
+        public RedRider(GameCard card) : base(card) { }
         public async Task HandleEvent(BeforeCardToCemetery @event)
         {
             if (@event.Target.Status.Type == CardType.Unit && @event.Target.PlayerIndex == AnotherPlayer && Card.Status.CardRow.IsInDeck())
@@ -27,24 +27,12 @@ namespace Cynthia.Card
                         return;
                     }
                     //只召唤最后一个
-                    if (Card == list.First())
+                    if (Card == list.Last())
                     {
-                        IsToSummon = true;
+                        await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), list.First());
                     }
                 }
             }
-        }
-        public async Task HandleEvent(AfterCardToCemetery @event)
-        {
-            if (IsToSummon)
-            {
-                IsToSummon = false;
-                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), Card);
-            }
-        }
-        public async Task HandleEvent(AfterTurnOver @event)
-        {
-           IsToSummon = false; 
         }
 
     }
