@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 146);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 147);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -15189,7 +15189,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Item},
+                    Categories = new Categorie[]{Categorie.Special, Categorie.Item},
                     Flavor = "阿尔祖的宏篇巨著，写满了这位传奇法师的毕生所学。",
                     Info = "对一个单位造成3点伤害。如果该单位被摧毁，则生成并打出一个“凯文尼亡灵”。",
                     CardArtsId = "203103",
