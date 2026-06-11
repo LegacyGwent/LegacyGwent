@@ -4142,11 +4142,6 @@
             "Info": "Spawn and play a Poor Fucking Infantry then for each soldier on the board, Damage a random enemy by 1.",
             "Flavor": "Here, outside this village, whose name I have forgotten, you will finally show how much worth you have as an army."
         },
-        "70189": {
-            "Name": "Arcane Tome",
-            "Info": "Damage a unit by 3. If it is Destroyed, Spawn and play a Kaedweni Revenant.",
-            "Flavor": "Alzur’s opus magnum. Contains the accumulated knowledge of the legendary mage."
-        },
         "80001": {
             "Name": "Auberon: King",
             "Info": "He'll drop a white frost.",
