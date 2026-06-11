@@ -4142,11 +4142,6 @@
             "Info": " Stwórz i zagraj \"Prostego Porwanego Pehotynca\", następnie za każdego żołnierza na planszy, zadaj 1 punkt obrażeń losowemu wrogowi.",
             "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
         },
-        "70189": {
-            "Name": "Księga Wiedzy Tajemnej",
-            "Info": "Zadaj 3 punkty obrażeń jednostce. Jeśli zostaje zniszczona, stwórz i zagraj Kaeveni Revenanta.",
-            "Flavor": "Opus magnum Alzura. Zawiera wiedzę zgromadzoną przez legendarnego maga."
-        },
         "80001": {
             "Name": "Auberon Król",
             "Info": "Przywoła białe zimno.",
