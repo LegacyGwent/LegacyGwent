@@ -1129,9 +1129,11 @@ When other players are available, player matchmaking will be prioritized. Add #f
                     rank = "Rank18border";
                     ranktitle = "MASTER";
                     break;
-                default:
+                case int i when i >= 4400:
                     rank = "Rank21border";
                     ranktitle = "GRANDMASTER";
+                    break;
+                default:
                     break;
             }
 
