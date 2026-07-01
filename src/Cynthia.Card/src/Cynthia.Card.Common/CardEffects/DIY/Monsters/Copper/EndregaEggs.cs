@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70106")]//安德莱格虫卵
-    public class EndregaEggs : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>
+    public class EndregaEggs : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>, IHandlesEvent<AfterRoundOver>
     {//在左侧生成1张原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。
         public EndregaEggs(GameCard card) : base(card) { }
 
@@ -43,6 +43,14 @@ namespace Cynthia.Card
             if (@event.Target != Card) return;
             await Game.CreateCard(CardId.EndregaLarva, PlayerIndex, @event.DeathLocation);
             if (IsCopy && !Card.IsAliveOnPlance())
+            {
+                await Card.Effect.Banish();
+            }
+            return;
+        }
+        public async Task HandleEvent(AfterRoundOver @event)
+        {
+            if (IsCopy && Card.IsAliveOnPlance())
             {
                 await Card.Effect.Banish();
             }
