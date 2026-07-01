@@ -443,8 +443,8 @@ public class RankListInfo : MonoBehaviour
         if (seasonData != null)
         {
             var _newSeasonId = seasonData.SeasonId - 1;
-            await LoadSeasonInfoAsync(false, _newSeasonId);
-            bool isActive = activeSeasonID == seasonData.SeasonId;
+            bool isActive = activeSeasonID == _newSeasonId;
+            await LoadSeasonInfoAsync(isActive, _newSeasonId);
             await OpenRankList(isActive, Season.DecodeRanklist(seasonData.rankingHistory));
         }
     }
