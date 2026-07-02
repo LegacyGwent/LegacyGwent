@@ -397,11 +397,44 @@ namespace Cynthia.Card.Server
                     await card.Effect.CardUse();
                 else
                     await card.Effect.Play(cardInfo.CardLocation);
+                await ClearPendingCards(playerIndex);
                 if (autoUpdateCemetery)
                     await SetCemeteryInfo();
                 if (autoUpdateDeck)
                     await SetDeckInfo();
             }
+        }
+
+
+        public async Task<int> ClearPendingCards(int playerIndex)
+        {
+            await SendEvent(new AfterRoundPlay(playerIndex));
+            int _ = 3;
+            while (_-- > 0 & PlayersStay[playerIndex].Count > 0)
+            {
+                    var stayPlayer = playerIndex;
+                    var count = PlayersStay[stayPlayer].Count;
+                    for (var i = count - 1; i >= 0; i--)
+                    {
+                        if (PlayersStay[stayPlayer][i].CardInfo().CardType == CardType.Special)
+                        {
+                            await AddTask(async () =>
+                            {
+                                if (PlayersStay[stayPlayer][i] != null)
+                                    await PlayersStay[stayPlayer][i].Effect.CardUse();
+                            });
+                        }
+                        else
+                        {
+                            var location = await GetPlayCard(PlayersStay[stayPlayer][i]);
+                            if (location.RowPosition.IsInCemetery())
+                                await PlayersStay[stayPlayer][i].Effect.ToCemetery();
+                            else
+                                await PlayersStay[stayPlayer][i].Effect.Play(location, false, false);
+                        }
+                    }
+            }
+            return _;
         }
 
         //玩家抽卡
