@@ -6,25 +6,22 @@ using System;
 namespace Cynthia.Card
 {
     [CardEffectId("70025")]//席安娜
-    public class Syanna : CardEffect, IHandlesEvent<AfterUnitPlay>, IHandlesEvent<AfterUnitDown>
+    public class Syanna : CardEffect, IHandlesEvent<AfterUnitPlay>, IHandlesEvent<AfterUnitDown>, IHandlesEvent<AfterRoundPlay>
     {//4护甲。力竭。使你的下一张银色/铜色忠诚单位牌额外触发一次部署效果。
-
-        private bool _isUse = false;
 
         public Syanna(GameCard card) : base(card) { }
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await Card.Effect.Armor(4, Card);
-            if (_isUse == false)
-            {
-                await Card.Effect.SetCountdown(1);
-                _isUse = true;
-            }
+            await Card.Effect.SetCountdown(1);
             return 0;
         }
 
         private GameCard _target = null;
+        private AfterUnitPlay _after_unit_play = null;
+        private AfterUnitDown _after_unit_down = null;
+
 
         public async Task HandleEvent(AfterUnitPlay @event)
         {
@@ -33,13 +30,14 @@ namespace Cynthia.Card
                 Card.Status.IsCountdown &&
                 @event.PlayedCard.PlayerIndex == PlayerIndex &&
                 @event.PlayedCard.IsAnyGroup(Group.Silver, Group.Copper) &&
-                @event.PlayedCard.CardInfo().CardUseInfo == CardUseInfo.MyRow))
+                @event.PlayedCard.CardInfo().CardUseInfo == CardUseInfo.MyRow && _target == null))
             {
                 return;
             }
-            await Card.Effect.SetCountdown(offset: -1);
+
             _target = @event.PlayedCard;
-            await PlayStayCard(await _target.Effect.CardPlayEffect(@event.IsSpying, @event.IsReveal), false);
+            if (_after_unit_play == null)
+                _after_unit_play = @event;
         }
 
         public async Task HandleEvent(AfterUnitDown @event)
@@ -48,8 +46,31 @@ namespace Cynthia.Card
             {
                 return;
             }
+
             _target = null;
-            await @event.Target.Effect.CardDownEffect(@event.IsSpying, false);
+
+            if (_after_unit_down == null)
+                _after_unit_down = @event;
+        }
+
+        public async Task HandleEvent(AfterRoundPlay @event)
+        {
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            {
+                return;
+            }
+            if(_after_unit_down != null || _after_unit_play != null)
+                await Card.Effect.SetCountdown(offset: -1);
+            if (_after_unit_play != null)
+            {
+                await PlayStayCard(await _after_unit_play.PlayedCard.Effect.CardPlayEffect(_after_unit_play.IsSpying, _after_unit_play.IsReveal), false);
+                _after_unit_play = null;
+            }
+            if (_after_unit_down != null)
+            {
+                await _after_unit_down.Target.Effect.CardDownEffect(_after_unit_down.IsSpying, false);
+                _after_unit_down = null;
+            }
         }
     }
 }
