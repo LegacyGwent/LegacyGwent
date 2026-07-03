@@ -1374,12 +1374,12 @@
         },
         "15006": {
             "Name": "Duda: Agitator",
-            "Info": "Deploy: Deal 2 Damage to 2 units on each side of this card.",
+            "Info": "Deploy: Deal 2 Damage to 3 units on each side of this card.",
             "Flavor": "Zoltan's parrot had the extraordinary ability to irritate anyone who spent time with it. Including Zoltan."
         },
         "15007": {
             "Name": "Duda: Companion",
-            "Info": "Deploy: Boost 2 units on each side of this card by 2.",
+            "Info": "Deploy: Boost 3 units on each side of this card by 2.",
             "Flavor": "Knows one hundred words – eighty of them curses, the rest, connectors."
         },
         "15008": {
@@ -1444,7 +1444,7 @@
         },
         "22001": {
             "Name": "Old Speartip: Asleep",
-            "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on the board by 1.",
+            "Info": "Boost adjacent units by 1. Gain 5 Armor. At the start of your turn, if there are at least 3 enemy units on the opposite row, Awaken.",
             "Flavor": "Do not disturb."
         },
         "22002": {
@@ -1454,7 +1454,7 @@
         },
         "22003": {
             "Name": "Old Speartip",
-            "Info": "Deploy: Deal 2 Damage to up to 5 enemies on the opposite row.",
+            "Info": "Damage up to 5 enemy units on the opposite row by 2. At the start of your turn, if there are fewer than 3 enemy units on the opposite row, Sleep.",
             "Flavor": "Oh, you're in a heap of trouble now…"
         },
         "22004": {
@@ -3424,7 +3424,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, Weaken self by 2 and apply Torrential Rain on both sides.",
+            "Info": "Apply a Torrential Rain on both sides.",
             "Flavor": "At times, even druids succumb to Svalblod's whispers..."
         },
         "70014": {
@@ -3584,7 +3584,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 times.",
+            "Info": "If your starting deck has exactly 3 copies of every bronze card, spawn a Bronze unit card from your starting deck and give it Doomed.",
             "Flavor": "You can hide a lot behind a beautiful smile."
         },
         "70076": {
@@ -3748,7 +3748,7 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Dwarven Chariot",
+            "Name": "Rowdy Dwarf",
             "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
             "Flavor": "You can draw anything you like, my dear dwarves. But you can't build it, mark my words."
         },
@@ -3804,7 +3804,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential rain on the opposite side by 1.",
+            "Info": "Increase the Damage dealt by Torrential Rain and Skellige Storm on the opposite side by 1.",
             "Flavor": "In his hour of doom, All-mother Freya appeared to Otkell on his ship, and gave him the means to soothe the raging tempest, for she already knew that Otkell, like his brothers, had a greater tale to tell."
         },
         "70122": {
@@ -3824,7 +3824,7 @@
         },
         "70125": {
             "Name": "Barnabas Beckenbauer",
-            "Info": "Deploy: Boost another ally unit by 2, for each unique bronze item in your graveyard",
+            "Info": "Deploy: Boost another ally unit by 2 for each bronze item in your graveyard",
             "Flavor": "Arrived here with his peddler's wagon full o' tricks an' gadgets. Went from house tae house, praised his rubbish tae the high heavens. An' what's it he sold us? Bombs that go off in yer hand! Beard-growth formula that makes yer hair catch fire!"
         },
         "70126": {
@@ -3954,7 +3954,7 @@
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 3.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
+            "Info": "Deploy: Damage an enemy by 4.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
@@ -3994,7 +3994,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard 3 Bronze special cards from your deck.\nFor each, Summon a Crow.",
+            "Info": "Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2 and give them Doomed.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4014,7 +4014,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if it has at least 3 Boosts, Reset self and Boost all allies on the same row by 1.",
+            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 1.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
@@ -4073,7 +4073,7 @@
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
-            "Name": "Trapmaker",
+            "Name": "Snakes Trap",
             "Info": "When an allied ambush is activated, Summon a copy of self on the same row.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
@@ -4094,7 +4094,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: Shuffle a non-Gold ally back to your deck without changing its Power, then play the Lowest non-Gold unit from your deck.",
+            "Info": "Deploy: Play the Lowest non-Gold unit from your deck, then Shuffle a non-Gold ally back to your deck without changing its Power.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {

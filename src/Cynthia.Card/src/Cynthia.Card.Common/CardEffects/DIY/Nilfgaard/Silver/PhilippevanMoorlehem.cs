@@ -15,7 +15,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Damage(3,Card);
+            await target.Effect.Damage(4,Card);
             return 0;
         }
         public async Task HandleEvent(AfterTurnOver @event)
@@ -38,7 +38,7 @@ namespace Cynthia.Card
                 return;
             }
             if (@event.Target != Card || @event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex) return;
-            await target.Effect.Damage(3,Card);
+            await target.Effect.Damage(4,Card);
         }
     }
 }

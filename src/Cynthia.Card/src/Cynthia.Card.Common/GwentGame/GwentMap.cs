@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 149);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 150);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1064,7 +1064,7 @@ namespace Cynthia.Card
                     Flavor = "我给了你三条确凿的线索，脉络比晨露还要清楚，就连我手下的探子和宫廷女术士都拨给你了。可你没能找到我的女儿，反而带来了这头……怪物？",
                     Info = "不限阵营地创造1个非领袖金色单位。",
                     CardArtsId = "20005800",
-                    LinkedCards=new List<String> {"12004","12005","12006","12007","12008","12009","12010","12011","12012","12013","12014","12015","12016","12017","12018","12019","12020","12021","12022","12023","12024","12025","12026","12002","12027","12028","12003","12029","12030","12031","12032","22001","22002","22003","22004","22005","22006","22007","22008","22009","22010","22011","22012","22013","22014","32002","32003","32004","32005","32006","32007","32008","32009","32001","32010","32011","32012","32013","32014","42001","42002","42003","42004","42005","42006","42007","42008","42009","42010","42011","42012","42013","52001","52002","52003","52004","52005","52006","52007","52008","52009","52010","52011","52012","52013","62001","62002","62003","62004","62005","62006","62007","62008","62009","62010","62011","62012","62013","70002","70003","70008","70025","70027","70032","70038","70044","70072","70102","70111","70113","70117","70082","70086","70125","70159","70137","70141","70145","70150","70154","70158","70163","70164","70165","70170","70177","70180"},
+                    LinkedCards=new List<String> {"12004","12005","12006","12007","12008","12009","12010","12011","12012","12013","12014","12015","12016","12017","12018","12019","12020","12021","12022","12023","12024","12025","12026","12002","12027","12028","12003","12029","12030","12031","12032","22001","22002","22004","22005","22006","22007","22008","22009","22010","22011","22012","22013","22014","32002","32003","32004","32005","32006","32007","32008","32009","32001","32010","32011","32012","32013","32014","42001","42002","42003","42004","42005","42006","42007","42008","42009","42010","42011","42012","42013","52001","52002","52003","52004","52005","52006","52007","52008","52009","52010","52011","52012","52013","62001","62002","62003","62004","62005","62006","62007","62008","62009","62010","62011","62012","62013","70002","70003","70008","70025","70027","70032","70038","70044","70072","70102","70111","70113","70117","70082","70086","70125","70159","70137","70141","70145","70150","70154","70158","70163","70164","70165","70170","70177","70180"},
                 }
             },
             {
@@ -3031,7 +3031,7 @@ namespace Cynthia.Card
                 {
                     CardId ="22001", //Old Speartip: Asleep
                     Name="老矛头：昏睡",
-                    Strength=12,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -3041,9 +3041,9 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "别吵！",
-                    Info = "使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。",
+                    Info = "使相邻单位获得1点增益，自身获得5点护甲。己方回合开始时，若对方同排有至少3个单位，则苏醒。",
                     CardArtsId = "13221800",
-                    LinkedCards=new List<String> {},
+                    LinkedCards=new List<String> {"22003"},
                 }
             },
             {
@@ -3080,12 +3080,12 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "哦，你现在可有大麻烦了......",
-                    Info = "对最多5个敌军同排单位造成2点伤害。",
+                    Info = "对最多5个敌军同排单位造成2点伤害。己方回合开始时若对方同排单位不足3个，则沉睡。",
                     CardArtsId = "13240800",
-                    LinkedCards=new List<String> {},
+                    LinkedCards=new List<String> {"22001"},
                 }
             },
             {
@@ -11411,11 +11411,11 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support, Categorie.Cultist, Categorie.Cursed},
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
                     Flavor = "",
-                    Info = "丢从卡组中丢弃一张“倾盆大雨”并在两侧各降下一排“倾盆大雨”。如果卡组没有“倾盆大雨”则削弱自身2点后各降下一排“倾盆大雨”。",
+                    Info = "在双方同排各降下“倾盆大雨”。",
                     CardArtsId = "202283",
-                    LinkedCards=new List<String> {"14019"},
+                    LinkedCards=new List<String> {},
                 }
             },
             {
@@ -12112,7 +12112,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "“迷人的微笑背后可以潜藏许多秘密……”",
-                    Info = "造成等同于手牌中立牌数量的伤害2次。",
+                    Info = "若每张铜色牌在己方初始牌组中刚好有3张，则生成起始牌组中一张铜色单位牌，并使其具有佚亡。",
                     CardArtsId = "202478",
                     LinkedCards=new List<String> {},
                 }
@@ -12353,12 +12353,12 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70109",//矮人战车 DwarvenChariot
+                "70109",//喧闹的矮人 Rowdy Dwarf
                 new GwentCard()
                 {
-                    CardId ="70109", //Dwarven Chariot
-                    Name="矮人战车",
-                    Strength=9,
+                    CardId ="70109", //Rowdy Dwarf
+                    Name="喧闹的矮人",
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12366,7 +12366,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Machine},
+                    Categories = new Categorie[]{ Categorie.Dwarf, Categorie.Soldier},
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
                     Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
                     CardArtsId = "202472",
@@ -13802,7 +13802,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey},
                     Flavor = "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。",
-                    Info = "使对方场上的“倾盆大雨”伤害提升1点。",
+                    Info = "使对方场上的“倾盆大雨”和“史凯利杰风暴”伤害提升1点。",
                     CardArtsId = "c10001000",
                     LinkedCards=new List<String> {"14019"},
                 }
@@ -13876,7 +13876,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70125", //Barnabas Beckenbauer
                     Name="巴纳巴斯·贝肯鲍尔",
-                    Strength=9,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13886,7 +13886,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "他赶着一车乱七八糟的玩意儿到我们这儿来，挨家挨户地上门，把他那些垃圾都吹上了天。结果呢，他都卖给了我们什么？会在手上爆炸的爆竹！能让你头发着火的生发剂！",
-                    Info = "使1个其它友军单位获得2点增益，墓场中每有1种铜色道具牌便重复1次。",
+                    Info = "使1个其它友军单位获得2点增益，墓场中每有1张铜色道具牌便重复1次。",
                     CardArtsId = "202107",
                     LinkedCards=new List<String> {},
                 }
@@ -14023,7 +14023,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70159", //Crowmother
                     Name="乌鸦之母",
-                    Strength=3,
+                    Strength=4,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14033,7 +14033,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ },
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "丢弃牌组中的三张铜色特殊牌，己方每丢弃一张特殊牌时，生成一只乌鸦。",
+                    Info = "生成3只乌鸦。复活所有战力不高于2的乌鸦，并使其获得佚亡。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14115,7 +14115,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
+                    Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
                     Info = "遗愿：随机对1个敌军单位造成3点伤害。",
                     CardArtsId = "202568",
@@ -14432,7 +14432,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。",
-                    Info = "对一个敌军单位造成3点伤害，回合结束时，若位于手牌则揭示自身并触发此能力。",
+                    Info = "对一个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身并触发此能力。",
                     CardArtsId = "202545",
                     LinkedCards=new List<String> {},
                 }
@@ -14642,7 +14642,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "回合结束时，若至少具有3点增益，则重置自身并使同排友军单位获得1点增益。",
+                    Info = "回合结束时，若至少具有3点增益，将增益转化为护甲，并向同一排的友方单位授予2点增益点。",
                     CardArtsId = "202112",
                     LinkedCards=new List<String> {},
                 }
@@ -14883,19 +14883,19 @@ namespace Cynthia.Card
                 "70175",
                 new GwentCard()
                 {
-                    CardId ="70175", //Trapmaker
-                    Name="陷阱制造者",
-                    Strength=3,
+                    CardId ="70175", //SerpentineTrap
+                    Name="毒蛇陷阱",
+                    Strength=0,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
-                    CardUseInfo = CardUseInfo.MyRow,
-                    CardType = CardType.Unit,
+                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Elf, Categorie.Support},
+                    Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
                     Flavor = "手艺是厉害，可没谁会夸上一句，这些人就只会“啊啊啊，我的腿！”",
-                    Info = "当一张己方“伏击”单位触发，召唤一张本单位到己方同排。",
+                    Info = "选定敌方单位所在的一排，使其单位数量调整为4，优先移动战力最大的单位。对因此被移动的单位，造成1点伤害。",
                     CardArtsId = "203256",
                     LinkedCards=new List<String> {},
                 }
@@ -14981,7 +14981,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "保留一个银色/铜色友方单位的战力不变，并将其收回牌组，然后从牌组打出一个最弱的银色/铜色单位牌。",
+                    Info = "从牌组打出一个最弱的银色/铜色单位牌，然后保留一个银色/铜色友方单位的战力不变，并将其收回牌组。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
@@ -15191,9 +15191,30 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Item},
                     Flavor = "阿尔祖的宏篇巨著，写满了这位传奇法师的毕生所学。",
-                    Info = "对一个单位造成3点伤害。如果该单位被摧毁，则生成并打出一个“凯文尼亡灵”。",
+                    Info = "NOT CURRENTLY IN THE GAME.",
                     CardArtsId = "203103",
                     LinkedCards=new List<String> {"44024"},
+                }
+            },
+            {
+                "70190",//
+                new GwentCard()
+                {
+                    CardId ="70190", //KingChrum
+                    Name=" 克鲁姆国王",
+                    Strength=12,
+                    Group=Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Ogroid},
+                    Flavor = "索姆的山谷王国说得好听，其实就是个收买路财的关口。不过克鲁姆懂得扩张，还有改革。",
+                    Info = "使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。",
+                    CardArtsId = "203263",
+                    LinkedCards=new List<String> {},
                 }
             },
         };

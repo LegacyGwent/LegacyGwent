@@ -24,9 +24,14 @@ namespace Cynthia.Card
             }
 
             //并在手牌中添加1张己方起始牌组中铜色单位牌的指定原始同名牌
-            var list = Game.PlayerBaseDeck[PlayerIndex].Deck.Where(x => x.Is(Group.Copper, CardType.Unit));
-            var selectList = list.Select(x => new CardStatus(x.CardId)).ToList();
-            var result = (await Game.GetSelectMenuCards(PlayerIndex, selectList, isCanOver: false, title: "选择一张牌"));
+            var list = Game.PlayerBaseDeck[PlayerIndex].Deck.Where(x => x.Is(Group.Copper, CardType.Unit)); 
+            var selectList = list
+                .Select(x => x.CardId)
+                .Distinct()
+                .Select(id => new CardStatus(id))
+                .ToList();
+
+            var result = await Game.GetSelectMenuCards(PlayerIndex, selectList, isCanOver: false, title: "选择一张牌");
             if (!(result).TrySingle(out var targetIndex))
             {
                 return 0;
@@ -36,7 +41,6 @@ namespace Cynthia.Card
             // await target.Effect.Conceal(Card);
             //随后将其揭示
             await target.Effect.Reveal(Card);
-
             return 0;
         }
     }

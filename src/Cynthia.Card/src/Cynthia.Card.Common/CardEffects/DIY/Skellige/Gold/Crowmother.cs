@@ -5,43 +5,28 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70159")]//
-    public class Crowmother : CardEffect, IHandlesEvent<AfterCardDiscard>
+    public class Crowmother : CardEffect
     {//
         public Crowmother(GameCard card) : base(card) { }
+        // 生成3只乌鸦。复活所有战力不高于2的乌鸦，并使其获得佚亡。
+        // Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2, and give them Doomed.
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Special ).Mess(Game.RNG);
-            if (list.Count() == 0)
+            for (var i = 0; i < 3; i++)
+            {
+                await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
+            }
+            var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow).ToList();
+            if (cards.Count() == 0)
             {
                 return 0;
             }
-            var result = await Game.GetSelectMenuCards
-                (Card.PlayerIndex, list.ToList(), 3, "选择打出一张牌");
-            for (var i = 0; i < result.Count(); i++)
+            foreach (var card in cards)
             {
-                await result[i].Effect.Discard(Card);
-                if (result.Count() == 0)
-                {
-                    return 0;
-                }
+                card.Status.IsDoomed = true;
+                await card.Effect.Resurrect(Card.GetLocation() + 1, Card);
             }
             return 0;
-        }
-        
-        public async Task HandleEvent(AfterCardDiscard @event)
-        {
-            if (Card.Status.CardRow.IsOnPlace() && @event.Target.CardInfo().CardType == CardType.Special
-            && (@event.Source.PlayerIndex == Card.PlayerIndex && !@event.Source.HasAnyCategorie(Categorie.Agent)
-            || (@event.Source.PlayerIndex != Card.PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent))))
-            {
-                await CrowCreate();
-            }
-            return;
-        }
-
-        private async Task CrowCreate()
-        {
-            await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
         }
     }
 }

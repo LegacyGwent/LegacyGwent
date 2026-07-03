@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public FieldMarshalDudaAgitator(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Card.GetRangeCard(2, type: GetRangeType.HollowAll).ToList();
+            var list = Card.GetRangeCard(3, type: GetRangeType.HollowAll).ToList();
             if (list.Count() == 0)
             {
                 return 0;

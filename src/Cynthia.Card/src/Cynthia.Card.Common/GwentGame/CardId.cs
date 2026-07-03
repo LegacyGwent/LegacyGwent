@@ -653,7 +653,7 @@ namespace Cynthia.Card
         public const string Princess = "70172";
         public const string DeadeyeAmbush = "70173";
         public const string MageInfiltrator = "70174";
-        public const string Trapmaker = "70175";
+        public const string SerpentineTrap = "70175";
         public const string Hybrid = "70176";
         public const string SirScratchALot = "70177";
         public const string Ulle = "70178";
@@ -668,6 +668,7 @@ namespace Cynthia.Card
         public const string NightWraith = "70187";
         public const string Bronibor = "70188";
         public const string ArcaneTome = "70189";
+        public const string KingChrum = "70190";
 
     }
 }

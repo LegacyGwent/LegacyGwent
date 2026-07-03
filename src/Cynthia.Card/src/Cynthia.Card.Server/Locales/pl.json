@@ -853,7 +853,7 @@
         },
         "12015": {
             "Name": "Zoltan Szelma",
-            "Info": "Rozmieszczenie: Wybierz: Stwórz Dudę Towarzysza, który wzmocni 2 sąsiadujące jednostki o 2 lub Stwórz Dudę Mąciciela, który zada 2 sąsiadującym jednostkom 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Wybierz: Stwórz Dudę Towarzysza, który wzmocni 3 sąsiadujące jednostki o 2 lub Stwórz Dudę Mąciciela, który zada 3 sąsiadującym jednostkom 2 pkt obrażeń.",
             "Flavor": "Wybaczcie. Mądre to zamorskie ptaszysko, ale nieobyczajne. Dziesięć talarów za cudaka dałem."
         },
         "12016": {
@@ -1373,12 +1373,12 @@
         },
         "15006": {
             "Name": "Duda Mąciciel",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń 2 jednostkom po obu stronach tej jednostki.",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń 3 jednostkom po obu stronach tej jednostki.",
             "Flavor": "Papuga Zoltana miała niezwykły talent do irytowania wszystkich, którym weszła w drogę. W tym Zoltana."
         },
         "15007": {
             "Name": "Duda Towarzysz",
-            "Info": "Rozmieszczenie: Wzmocnij 2 jednostki po obu stronach tej jednostki o 2.",
+            "Info": "Rozmieszczenie: Wzmocnij 3 jednostki po obu stronach tej jednostki o 2.",
             "Flavor": "Zna sto słów - osiemdziesiąt z nich to przekleństwa, reszta to łączniki."
         },
         "15008": {
@@ -1443,7 +1443,7 @@
         },
         "22001": {
             "Name": "Stary Grot Sen",
-            "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystkie inne jednostki o 1. Otrzymaj 5 pancerza. Na początku twojej tury, jeśli na przeciwnym rzędzie jest co najmniej 3 jednostki wroga, Budź.",
             "Flavor": "„Nie przeszkadzać”."
         },
         "22002": {
@@ -1453,7 +1453,7 @@
         },
         "22003": {
             "Name": "Stary Grot",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń 5 losowym wrogom z przeciwnego rzędu.",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń do 5 jednostek wroga na przeciwnym rzędzie. Na początku twojej tury, jeśli na przeciwnym rzędzie jest mniej niż 3 jednostki wroga, Uśpij.",
             "Flavor": "No i się doigrałeś..."
         },
         "22004": {
@@ -3423,7 +3423,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 2 pkt siły.",
+            "Info": "Zastosuj Ulewny Deszcz po obu stronach.",
             "Flavor": "Czasem nawet druidzi ulegają podszeptom Svalbloda..."
         },
         "70014": {
@@ -3583,7 +3583,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Rozmieszczenie: Zadaj obrażenia równe liczbie neutralnych kart w twojej ręce. Powtórz raz",
+            "Info": "Jeśli w twojej startowej talii są wyłącznie brązowe karty, stwórz Brązową jednostkę z twojej startowej talii i nadaj jej Doomed.",
             "Flavor": "Wiele można schować za pięknym uśmiechem."
         },
         "70076": {
@@ -3747,7 +3747,7 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Krasnoludzki Rydwan",
+            "Name": "Szalone Dwarze",
             "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
             "Flavor": "Na papierze to wszystko można wyrysować, mości krasnoludy. Ale zbudować to tego nie zbudujecie, miarkujcie moje słowa."
         },
@@ -3803,7 +3803,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz po przeciwnej stronie o 1.",
+            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz i Skellige Burzę po przeciwnej stronie o 1.",
             "Flavor": "W godzinie grozy Wszechmatka Freya ukazała się Otkellowi na jego statku i pozwoliła mu uciszyć szalejący sztorm, gdyż wiedziała już, że Otkell, podobnie jak jego bracia, miał do opowiedzenia większą historię."
         },
         "70122": {
@@ -3823,7 +3823,7 @@
         },
         "70125": {
             "Name": "Barnaba Beckenbauer",
-            "Info": "Rozmieszczenie: Wzmocnij innego sojusznika o 2. Za każy Brązowy przedmiot na Twoim cmentarzu powtórz raz.",
+            "Info": "Rozmieszczenie: Wzmocnij innego sojusznika o 2. Za każdy Brązowy przedmiot na Twoim cmentarzu powtórz raz.",
             "Flavor": "Przyjechał tu z całym kramem wynalazków, łaził po domach, wychwalał je pod niebiosa. I co nam sprzedał? Petardy, co wybuchają w rękach! Płyn na porost brody, od którego włosy stawały w ogniu!"
         },
         "70126": {
@@ -3953,7 +3953,7 @@
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli ta jednostka jest w Twojej ręce na koniec tury, odsłoń ją i aktywuj jej umiejętność.",
             "Flavor": "Mówią, że Vincent Van Moorlehem boi się tylko jednego człowieka. Nie jest to Emhyr var Emreis ani Geralt z Rivii - tylko jego własny syn."
         },
         "70152": {
@@ -3993,7 +3993,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Rozmieszczenie: Odrzuć 3 brązowe karty specjalne z twojej talii. Za każdą odrzuconą kartę przyzwij kruka.",
+            "Info": "Stwórz 3 kruków. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2 i nadaj im Doomed.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -4073,7 +4073,7 @@
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce - tylko po jednej z każdej pary - i podmieniając część ubrań na mniejsze."
         },
         "70175": {
-            "Name": "Wnykarz",
+            "Name": "Zasadzka Długoszczura",
             "Info": "Wezwij kopię tej jednostki do tego rzędu kiedy zostanie aktywowana sojusznicza zasadzka. ",
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
@@ -4094,7 +4094,7 @@
         },
         "70179": {
             "Name": "Królowa Calanthe",
-            "Info": "Rozmieszczenie: Wtasuj innego niż złotego sojusznika do talii bez zmieniania jego siły, następnie zagraj najsłabszą inną niż złota jednostkę z talii.",
+            "Info": "Rozmieszczenie: Zagraj najsłabszą nie Złotą jednostkę z Twojej talii, następnie przetasuj nie Złotego sojusznika do Twojej talii bez zmiany jego siły.",
             "Flavor": "Zwano ją Lwicą. Nie bez powodu."
         },
         "70180": {

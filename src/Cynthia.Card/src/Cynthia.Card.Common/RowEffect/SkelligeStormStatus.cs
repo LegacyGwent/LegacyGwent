@@ -11,20 +11,25 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterTurnStart @event)
         {
             if (PlayerIndex != @event.PlayerIndex) return;
+            int exDamage = 0;
+            if(Game.GetPlaceCards(Game.AnotherPlayer(PlayerIndex)).Where(x => x.Status.CardId == CardId.Otkell && !x.Status.IsLock && x.IsAliveOnPlance()).Count() != 0)
+            {
+                exDamage = 1;
+            }
 
             var cards = RowCards.Take(3).ToList();
             if (cards.Count > 0)
             {
                 if (!cards[0].Status.Conceal)
-                    await cards[0].Effect.Damage(2, null, damageType: DamageType.SkelligeStorm);
+                    await cards[0].Effect.Damage(2 + exDamage, null, damageType: DamageType.SkelligeStorm);
                 if (cards.Count > 1)
                 {
                     if (!cards[1].Status.Conceal)
-                        await cards[1].Effect.Damage(1, null, damageType: DamageType.SkelligeStorm);
+                        await cards[1].Effect.Damage(1 + exDamage, null, damageType: DamageType.SkelligeStorm);
                     if (cards.Count > 2)
                     {
                         if (!cards[2].Status.Conceal)
-                            await cards[2].Effect.Damage(1, null, damageType: DamageType.SkelligeStorm);
+                            await cards[2].Effect.Damage(1 + exDamage, null, damageType: DamageType.SkelligeStorm);
                     }
                 }
             }
