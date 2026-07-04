@@ -4142,6 +4142,11 @@
             "Info": " Stwórz i zagraj \"Prostego Porwanego Pehotynca\", następnie za każdego żołnierza na planszy, zadaj 1 punkt obrażeń losowemu wrogowi.",
             "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
         },
+        "70189": {
+            "Name": "Król Chrum",
+            "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
+            "Flavor": "Królestwo Thruma to niewiele więcej niż trakt w dolinie, na którym można ściągać myto z podróżnych. Jednak Chrum od zawsze marzył o ekspansji. O ekspansji... I o reformach."
+        },
         "80001": {
             "Name": "Auberon Król",
             "Info": "Przywoła białe zimno.",

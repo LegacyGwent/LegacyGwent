@@ -4073,8 +4073,8 @@
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
-            "Name": "Snakes Trap",
-            "Info": "When an allied ambush is activated, Summon a copy of self on the same row.",
+            "Name": "Lure Trap",
+            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 1.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
         "70176": {
@@ -4141,6 +4141,11 @@
             "Name": "Bronibor",
             "Info": "Spawn and play a Poor Fucking Infantry then for each soldier on the board, Damage a random enemy by 1.",
             "Flavor": "Here, outside this village, whose name I have forgotten, you will finally show how much worth you have as an army."
+        },
+        "70189": {
+            "Name": "King Chrum",
+            "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on the board by 1.",
+            "Flavor": "Thrum's valley kingdom was little more than a glorified toll road. Chrum, however, had expansion on his mind. Expansion, and reform."
         },
         "80001": {
             "Name": "Auberon: King",
