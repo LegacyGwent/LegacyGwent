@@ -14,7 +14,14 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 3; i++)
             {
-                await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
+                if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
+                {
+                    await Game.CreateCard(CardId.Crow, PlayerIndex, Card.GetLocation() + 1);
+                }
+                else
+                {
+                    await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
+                }
             }
             var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow).ToList();
             if (cards.Count() == 0)
@@ -23,8 +30,16 @@ namespace Cynthia.Card
             }
             foreach (var card in cards)
             {
+                
+                if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
+                {
+                    await card.Effect.Resurrect(Card.GetLocation() + 1, card);
+                }
+                else
+                {
+                    await card.Effect.Resurrect(Game.GetRandomCanPlayLocation(PlayerIndex, true), Card);
+                }
                 card.Status.IsDoomed = true;
-                await card.Effect.Resurrect(Card.GetLocation() + 1, Card);
             }
             return 0;
         }
