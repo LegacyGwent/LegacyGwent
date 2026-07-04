@@ -4013,7 +4013,7 @@
         },
         "70163": {
             "Name": "Raynard Odo",
-            "Info": "Na koniec rundy, jeśli ta jednostka jest wzmocniona przynajmniej o 3, zresetuj się i wzmocnij wszystkich sojuszników w tym rzędzie o 1.",
+            "Info": "Na koniec rundy, jeśli ta jednostka jest wzmocniona przynajmniej o 3, zresetuj się i wzmocnij wszystkich sojuszników w tym rzędzie o 1.\nPowtórz do 2 razy.",
             "Flavor": "Dziesięć lat służyłem pod waszym mężem, potem osiem pod tobą, pani... I nigdy nie walczyłem o słuszniejszą sprawę."
         },
         "70164": {
