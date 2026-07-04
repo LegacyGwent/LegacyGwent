@@ -1374,12 +1374,12 @@
         },
         "15006": {
             "Name": "Duda: Agitator",
-            "Info": "Deploy: Deal 2 Damage to 2 units on each side of this card.",
+            "Info": "Deploy: Deal 2 Damage to 3 units on each side of this card.",
             "Flavor": "Zoltan's parrot had the extraordinary ability to irritate anyone who spent time with it. Including Zoltan."
         },
         "15007": {
             "Name": "Duda: Companion",
-            "Info": "Deploy: Boost 2 units on each side of this card by 2.",
+            "Info": "Deploy: Boost 3 units on each side of this card by 2.",
             "Flavor": "Knows one hundred words – eighty of them curses, the rest, connectors."
         },
         "15008": {
@@ -1444,7 +1444,7 @@
         },
         "22001": {
             "Name": "Old Speartip: Asleep",
-            "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on the board by 1.",
+            "Info": "Boost adjacent units by 1. Gain 5 Armor. At the start of your turn, if there are at least 3 enemy units on the opposite row, Awaken.",
             "Flavor": "Do not disturb."
         },
         "22002": {
@@ -1454,7 +1454,7 @@
         },
         "22003": {
             "Name": "Old Speartip",
-            "Info": "Deploy: Deal 2 Damage to up to 5 enemies on the opposite row.",
+            "Info": "Damage up to 5 enemy units on the opposite row by 2. At the start of your turn, if there are fewer than 3 enemy units on the opposite row, Sleep.",
             "Flavor": "Oh, you're in a heap of trouble now…"
         },
         "22004": {
@@ -2334,7 +2334,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Deploy: Swap up to 2 cards.",
+            "Info": "Deploy: Swap a card, then Swap a second one.",
             "Flavor": "Better to live one day as a king than a whole life as a beggar."
         },
         "43003": {
@@ -2429,7 +2429,7 @@
         },
         "43021": {
             "Name": "Vandergrift's Blade",
-            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage, If the unit was destroyed, Banish it.",
+            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage and Banish the unit if it was killed.",
             "Flavor": "Seltkirk shattered Vandergrift's sword during a knights' tourney in Ard Carraigh. Afterwards Vandergrift, enraged at his weapon's failure, ordered a new one forged, this time with powerful runestones enchanted into it."
         },
         "44001": {
@@ -2859,7 +2859,7 @@
         },
         "54011": {
             "Name": "Hawker Support",
-            "Info": "Deploy: Boost a unit in your hand by 3.",
+            "Info": "Deploy: Boost a unit in your hand by 4.",
             "Flavor": "Elf, dwarf, makes no difference – long as they've got coin."
         },
         "54012": {
@@ -3424,7 +3424,7 @@
         },
         "70013": {
             "Name": "Corrupted Flaminca",
-            "Info": "Deploy: Discard a Torrential Rain from deck and apply a Torrential Rain on both sides, if there are no Torrential Rains in your deck, Weaken self by 4 and apply Torrential Rain on both sides.",
+            "Info": "Apply a Torrential Rain on both sides.",
             "Flavor": "At times, even druids succumb to Svalblod's whispers..."
         },
         "70014": {
@@ -3474,7 +3474,7 @@
         },
         "70024": {
             "Name": "Immortals",
-            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row, then damage self by 1.",
+            "Info": "When an adjacent Cursed unit is destroyed, Spawn a Specter on this row.",
             "Flavor": "Where one falls, another will take his place."
         },
         "70025": {
@@ -3519,12 +3519,12 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the Highest enemy by 2.\nRepeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat once more.",
+            "Info": "Damage the highest enemy by 3.\nThen Damage the highest enemy by 2, three times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
             "Flavor": "How much of a dose would be lethal? Any."
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the Lowest ally by 2.\nRepeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat once more.",
+            "Info": "Boost the lowest ally by 3.\nThen Boost the lowest ally by 2, three times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time.",
             "Flavor": "It is the duchess's exclusive privilege to delight in the prized, oaky flavor of Sangreal... A pleasure she partakes in very, very often."
         },
         "70043": {
@@ -3584,7 +3584,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Deploy: Deal Damage equal to the number of Neutral cards in your hand 2 times.",
+            "Info": "If your starting deck has exactly 3 copies of every bronze card, spawn a Bronze unit card from your starting deck and give it Doomed.",
             "Flavor": "You can hide a lot behind a beautiful smile."
         },
         "70076": {
@@ -3624,7 +3624,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon a copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
+            "Info": "Summon the first copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
             "Flavor": "They paint the sky with snow and the earth with fire."
         },
         "70084": {
@@ -3729,12 +3729,12 @@
         },
         "70105": {
             "Name": "Freixenet And Braine",
-            "Info": "Deploy: Make a unit's Power equal to this card's Power.",
+            "Info": "Deploy: Set unit's Power to this card's Power.",
             "Flavor": "He was only meant to be a breeding stud to her. But in the end, they fell in love regardless."
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn 1 default copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
+            "Info": "Deploy: Spawn a doomed copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3748,7 +3748,7 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Dwarven Chariot",
+            "Name": "Rowdy Dwarf",
             "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
             "Flavor": "You can draw anything you like, my dear dwarves. But you can't build it, mark my words."
         },
@@ -3779,7 +3779,7 @@
         },
         "70115": {
             "Name": "Amnesty",
-            "Info": "Return a Bronze or Silver enemy to opponent's hand and set its Power to 1.",
+            "Info": "Put a Bronze or Silver unit into opponent's hand and set its Power to 1.",
             "Flavor": "You did what to who? To be fair, I can’t even recall the specifics anymore."
         },
         "70116": {
@@ -3804,7 +3804,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential rain on the opposite side by 1.",
+            "Info": "Increase the Damage dealt by Torrential Rain and Skellige Storm on the opposite side by 1.",
             "Flavor": "In his hour of doom, All-mother Freya appeared to Otkell on his ship, and gave him the means to soothe the raging tempest, for she already knew that Otkell, like his brothers, had a greater tale to tell."
         },
         "70122": {
@@ -3824,7 +3824,7 @@
         },
         "70125": {
             "Name": "Barnabas Beckenbauer",
-            "Info": "Deploy: Boost another ally unit by 2, for each unique bronze item in your graveyard",
+            "Info": "Deploy: Boost another ally unit by 2 for each bronze item in your graveyard",
             "Flavor": "Arrived here with his peddler's wagon full o' tricks an' gadgets. Went from house tae house, praised his rubbish tae the high heavens. An' what's it he sold us? Bombs that go off in yer hand! Beard-growth formula that makes yer hair catch fire!"
         },
         "70126": {
@@ -3948,17 +3948,17 @@
             "Flavor": "As head of state, I must judge her fairly. But she is my sister, thus my heart bleeds for her…"
         },
         "70150": {
-            "Name": "Vincent van Moorlehem",
+            "Name": "Vincent Van Moorlehem",
             "Info": "Deploy: Destroy an enemy unit, then Boost its adjacent units by half of its Power each.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
-            "Name": "Philippe van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 3.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
+            "Name": "Philippe Van Moorlehem",
+            "Info": "Deploy: Damage an enemy by 4.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
-            "Name": "Van Moorlehem's Cupbearer",
+            "Name": "Van Moorlehem's Cup bearer",
             "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.",
             "Flavor": "My specialty? Tartar. Of what? Ah, that depends on the host's mood…"
         },
@@ -3994,7 +3994,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Deploy: Discard 3 Bronze special cards from your deck.\nFor each, Summon a Crow.",
+            "Info": "Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2 and give them Doomed.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4014,7 +4014,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if it has at least 3 Boosts, Reset self and Boost all allies on the same row by 1.",
+            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 1.\nRepeat up to 2 times.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
@@ -4044,13 +4044,13 @@
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "When in deck, on turn end, if this is the bottom copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
-            "Flavor": ""
+            "Info": "When in deck, on turn end, if this is the top copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
+            "Flavor": "By the time you see one, you can be sure ten are behind you."
         },
         "70170": {
             "Name": "Cloud Giant",
             "Info": "Deploy: If you control the Highest unit, gain Immunity.\nIf you don't, lose Immunity.\nOn turn start, repeat its ability.\nResilience.",
-            "Flavor": ""
+            "Flavor": "Many things fall from the sky other than rain and snow. Frogs, for example... And the Cloud Giant."
         },
         "70171": {
             "Name": "Giant's Belt",
@@ -4073,8 +4073,8 @@
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
-            "Name": "Trapmaker",
-            "Info": "When an allied ambush is activated, Summon a copy of self on the same row.",
+            "Name": "Lure Trap",
+            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 1.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
         "70176": {
@@ -4094,7 +4094,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: Shuffle a non-Gold ally back to your deck without changing its Power, then play the Lowest non-Gold unit from your deck.",
+            "Info": "Deploy: Play the Lowest non-Gold unit from your deck, then Shuffle a non-Gold ally back to your deck without changing its Power.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
@@ -4136,6 +4136,16 @@
             "Name": "Nightwraith",
             "Info": "On turn end, Boost all Mirror Images on this and the opposite row by 1, then transform self into a Noonwraith without changing its Power.",
             "Flavor": "How much damage can a pale, emaciated woman, entangled in a ripped dress, do? A lot, it turns out."
+        },
+        "70188": {
+            "Name": "Bronibor",
+            "Info": "Spawn and play a Poor Fucking Infantry then for each soldier on the board, Damage a random enemy by 1.",
+            "Flavor": "Here, outside this village, whose name I have forgotten, you will finally show how much worth you have as an army."
+        },
+        "70189": {
+            "Name": "King Chrum",
+            "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on the board by 1.",
+            "Flavor": "Thrum's valley kingdom was little more than a glorified toll road. Chrum, however, had expansion on his mind. Expansion, and reform."
         },
         "80001": {
             "Name": "Auberon: King",

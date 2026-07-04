@@ -853,7 +853,7 @@
         },
         "12015": {
             "Name": "Zoltan Szelma",
-            "Info": "Rozmieszczenie: Wybierz: Stwórz Dudę Towarzysza, który wzmocni 2 sąsiadujące jednostki o 2 lub Stwórz Dudę Mąciciela, który zada 2 sąsiadującym jednostkom 2 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Wybierz: Stwórz Dudę Towarzysza, który wzmocni 3 sąsiadujące jednostki o 2 lub Stwórz Dudę Mąciciela, który zada 3 sąsiadującym jednostkom 2 pkt obrażeń.",
             "Flavor": "Wybaczcie. Mądre to zamorskie ptaszysko, ale nieobyczajne. Dziesięć talarów za cudaka dałem."
         },
         "12016": {
@@ -863,7 +863,7 @@
         },
         "12017": {
             "Name": "Geralt Zlecenie",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli należy do frakcji Potworów, zamiast tego zniszcz go.",
+            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie wrogiej jednostki, następnie zadaj jej 4 pkt obrażeń. Jeśli należy do frakcji Potworów, zamiast tego zniszcz ją.",
             "Flavor": "Kiedyś wykonałem pewne zlecenie. Gdy kazano mi wybrać nagrodę, skorzystałem z Prawa Niespodzianki."
         },
         "12018": {
@@ -1373,12 +1373,12 @@
         },
         "15006": {
             "Name": "Duda Mąciciel",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń 2 jednostkom po obu stronach tej jednostki.",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń 3 jednostkom po obu stronach tej jednostki.",
             "Flavor": "Papuga Zoltana miała niezwykły talent do irytowania wszystkich, którym weszła w drogę. W tym Zoltana."
         },
         "15007": {
             "Name": "Duda Towarzysz",
-            "Info": "Rozmieszczenie: Wzmocnij 2 jednostki po obu stronach tej jednostki o 2.",
+            "Info": "Rozmieszczenie: Wzmocnij 3 jednostki po obu stronach tej jednostki o 2.",
             "Flavor": "Zna sto słów - osiemdziesiąt z nich to przekleństwa, reszta to łączniki."
         },
         "15008": {
@@ -1443,7 +1443,7 @@
         },
         "22001": {
             "Name": "Stary Grot Sen",
-            "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
+            "Info": "Rozmieszczenie: Wzmocnij wszystkie inne jednostki o 1. Otrzymaj 5 pancerza. Na początku twojej tury, jeśli na przeciwnym rzędzie jest co najmniej 3 jednostki wroga, Budź.",
             "Flavor": "„Nie przeszkadzać”."
         },
         "22002": {
@@ -1453,7 +1453,7 @@
         },
         "22003": {
             "Name": "Stary Grot",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń 5 losowym wrogom z przeciwnego rzędu.",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń do 5 jednostek wroga na przeciwnym rzędzie. Na początku twojej tury, jeśli na przeciwnym rzędzie jest mniej niż 3 jednostki wroga, Uśpij.",
             "Flavor": "No i się doigrałeś..."
         },
         "22004": {
@@ -1663,7 +1663,7 @@
         },
         "24009": {
             "Name": "Nekker Wojownik",
-            "Info": "Rozmieszczenie: Wybierz brązowego sojusznika i dodaj 2 jego kopie do swojej talii.",
+            "Info": "Rozmieszczenie: Wybierz brązowego sojusznika i dodaj 2 jego kopie na spód swojej talii.",
             "Flavor": "Uważajcie panowie, pod tym mostem żyją nekkery."
         },
         "24010": {
@@ -2333,7 +2333,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Rozmieszczenie: Wymień do 2 kart.",
+            "Info": "Rozmieszczenie: Zamień kartę, a następnie Zamień drugą kartę.",
             "Flavor": "Lepiej przeżyć jeden dzień jak król niż całe życie jak dziad."
         },
         "43003": {
@@ -2858,7 +2858,7 @@
         },
         "54011": {
             "Name": "Havekarskie Wsparcie",
-            "Info": "Rozmieszczenie: Wzmocnij jednostkę w swojej ręce o 3.",
+            "Info": "Rozmieszczenie: Wzmocnij jednostkę w swojej ręce o 4.",
             "Flavor": "Elf, krasnolud, co za różnica - pieniądz nie śmierdzi."
         },
         "54012": {
@@ -3423,7 +3423,7 @@
         },
         "70013": {
             "Name": "Upadła Flaminika",
-            "Info": "Rozmieszczenie: Stwórz deszcz w rzędzie tej jednostki i przeciwnim rzędzie. Odrzuć ulewny deszcz z twojej talii. Jeśi nie masz deszczu w talii, zamiast tego osłab te jednostkę o 4 pkt siły.",
+            "Info": "Zastosuj Ulewny Deszcz po obu stronach.",
             "Flavor": "Czasem nawet druidzi ulegają podszeptom Svalbloda..."
         },
         "70014": {
@@ -3473,7 +3473,7 @@
         },
         "70024": {
             "Name": "Nieśmiertelny",
-            "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie i zadaj sobie 1 pkt obrażeń.",
+            "Info": "Gdy sąsiednia przeklęta jednostka zostanie zniszczona stwórz Upiora w tym rzędzie.",
             "Flavor": "Gdzie jeden padnie, tam zaraz drugi stanie."
         },
         "70025": {
@@ -3518,12 +3518,12 @@
         },
         "70041": {
             "Name": "Wyciąg z Gigaskorpiona",
-            "Info": "Zadaj 2 pkt obrażeń najsilnieszemu wrogowi. Powtórz 3 razy. Za każdy Odwar Raffarda Białego na Twoim cmetarzu powtórz jeszcze raz.",
+            "Info": "Zadaj 3 pkt obrażeń najsilniejszemu wrogowi.\nNastępnie zadaj 2 pkt obrażeń najsilniejszemu wrogowi trzy razy.\nZa każdy Odwar Raffarda Białego w twojej mogile powtórz raz dodatkowy.",
             "Flavor": "Śmiertelna dawka? Każda."
         },
         "70042": {
             "Name": "Odwar Raffarda Białego",
-            "Info": "Wzmocnij najsłabszego sojusznika o 2. Powtórz 3 razy. Za każdy Wyciąg z gigaskorpiona na Twoim cmetarzu powtórz jeszcze raz.",
+            "Info": "Wzmocnij najsłabszego sojusznika o 3.\nNastępnie wzmocnij najsłabszego sojusznika o 2, trzy razy.\nZa każdy Wyciąg z Gigaskorpiona w twojej mogile powtórz raz dodatkowy.",
             "Flavor": "Raczyć się nim może jedynie księżna. Robi to nad wyraz często."
         },
         "70043": {
@@ -3583,7 +3583,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Rozmieszczenie: Zadaj obrażenia równe liczbie neutralnych kart w twojej ręce. Powtórz raz",
+            "Info": "Jeśli w twojej startowej talii są wyłącznie brązowe karty, stwórz Brązową jednostkę z twojej startowej talii i nadaj jej Doomed.",
             "Flavor": "Wiele można schować za pięknym uśmiechem."
         },
         "70076": {
@@ -3623,7 +3623,7 @@
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
-            "Info": "Wezwij kopie tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskającego Mrózu zostanie zniszczony.",
+            "Info": "Wezwij kopię tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskającego Mrózu zostanie zniszczony.",
             "Flavor": "Malują niebo bielą śniegu i szarością zamieci, a ziemię czerwienią ognia i krwi."
         },
         "70084": {
@@ -3713,7 +3713,7 @@
         },
         "70102": {
             "Name": "Detlaff Krwawa Klątwa",
-            "Info": "Rozmieszczenie: Wygnaj 3 brązowe bestie lub wampiry z Twojego cmentarza, następnie Wybierz: Stwórz Krwawe księżyce we wszystkich rzędach przeciwnika, lub Stwórz Pełnie we wszystkich Twoich rzędach.",
+            "Info": "Rozmieszczenie: Wygnaj 3 brązowe bestie lub wampiry z Twojego cmentarza, następnie Wybierz: Stwórz Pełnie we wszystkich Twoich rzędach, lub Stwórz Krwawe księżyce we wszystkich rzędach przeciwnika.",
             "Flavor": "On nie kochał jak człowiek, tylko jak zwierzę. Na zabój, bezwarunkowo. Dziko."
         },
         "70103": {
@@ -3733,7 +3733,7 @@
         },
         "70106": {
             "Name": "Jaja Endriagi",
-            "Info": "Rozmieszczenie: Stwórz 1 bazową kopie tej karty po lewej stronie.\nZemsta: Stwórz Larwe endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.",
+            "Info": "Rozmieszczenie: Stwórz 1 bazową Przeklętą kopię tej karty po lewej stronie.\nZemsta: Stwórz Larwę endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.",
             "Flavor": "Kiedy się je znajdzie, na wszelki wypadek lepiej puścić z dymem cały las. A potem uciekać, gdzie pieprz rośnie."
         },
         "70107": {
@@ -3747,7 +3747,7 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Krasnoludzki Rydwan",
+            "Name": "Szalone Dwarze",
             "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
             "Flavor": "Na papierze to wszystko można wyrysować, mości krasnoludy. Ale zbudować to tego nie zbudujecie, miarkujcie moje słowa."
         },
@@ -3778,7 +3778,7 @@
         },
         "70115": {
             "Name": "Amnestia",
-            "Info": "Cofnij wrogą brązową lojalną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
+            "Info": "Przenieś Brązową lub Srebrną jednostkę do ręki przeciwnika i zmień jej siłę na 1.",
             "Flavor": "Zrobiłeś, co komu? Szczerze mówiąc, już nawet nie pamiętam szczegółów."
         },
         "70116": {
@@ -3803,7 +3803,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz po przeciwnej stronie o 1.",
+            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz i Skellige Burzę po przeciwnej stronie o 1.",
             "Flavor": "W godzinie grozy Wszechmatka Freya ukazała się Otkellowi na jego statku i pozwoliła mu uciszyć szalejący sztorm, gdyż wiedziała już, że Otkell, podobnie jak jego bracia, miał do opowiedzenia większą historię."
         },
         "70122": {
@@ -3823,7 +3823,7 @@
         },
         "70125": {
             "Name": "Barnaba Beckenbauer",
-            "Info": "Rozmieszczenie: Wzmocnij innego sojusznika o 2. Za każy Brązowy przedmiot na Twoim cmentarzu powtórz raz.",
+            "Info": "Rozmieszczenie: Wzmocnij innego sojusznika o 2. Za każdy Brązowy przedmiot na Twoim cmentarzu powtórz raz.",
             "Flavor": "Przyjechał tu z całym kramem wynalazków, łaził po domach, wychwalał je pod niebiosa. I co nam sprzedał? Petardy, co wybuchają w rękach! Płyn na porost brody, od którego włosy stawały w ogniu!"
         },
         "70126": {
@@ -3933,7 +3933,7 @@
         },
         "70147": {
             "Name": "Wąpierz",
-            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy sojusznik z tego samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
+            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy inny sojusznik z tego samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
             "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
@@ -3953,7 +3953,7 @@
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Damage an enemy by 3. If is in your hand on turn end,reveal self and trigger its ability.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli ta jednostka jest w Twojej ręce na koniec tury, odsłoń ją i aktywuj jej umiejętność.",
             "Flavor": "Mówią, że Vincent Van Moorlehem boi się tylko jednego człowieka. Nie jest to Emhyr var Emreis ani Geralt z Rivii - tylko jego własny syn."
         },
         "70152": {
@@ -3967,7 +3967,7 @@
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
-            "Name": "Iris Upiór",
+            "Name": "Iris Widmo",
             "Info": "Rozmieszczenie, Rozejm: Dodaj 2 Towarzyszy Iris do ręki obu graczy.",
             "Flavor": "Olgierd narzeczoną miał jak sen…"
         },
@@ -3993,7 +3993,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Rozmieszczenie: Odrzuć 3 brązowe karty specjalne z twojej talii. Za każdą odrzuconą kartę przyzwij kruka.",
+            "Info": "Stwórz 3 kruków. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2 i nadaj im Doomed.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -4013,7 +4013,7 @@
         },
         "70163": {
             "Name": "Raynard Odo",
-            "Info": "Na koniec rundy, jeśli ta jednostka jest wzmocniona przynajmniej o 3, zresetuj się i wzmocnij wszystkich sojuszników w tym rzędzie o 1.",
+            "Info": "Na koniec rundy, jeśli ta jednostka jest wzmocniona przynajmniej o 3, zresetuj się i wzmocnij wszystkich sojuszników w tym rzędzie o 1.\nPowtórz do 2 razy.",
             "Flavor": "Dziesięć lat służyłem pod waszym mężem, potem osiem pod tobą, pani... I nigdy nie walczyłem o słuszniejszą sprawę."
         },
         "70164": {
@@ -4043,13 +4043,13 @@
         },
         "70169": {
             "Name": "Rój Nekkerów",
-            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik ostatniej kopii tej jednostki w twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
-            "Flavor": ""
+            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik pierwszej kopii tej jednostki w twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
+            "Flavor": "Gdy już widzisz jednego, możesz być pewny, że za nim jest dziesięć."
         },
         "70170": {
             "Name": "Gigant z Chmur",
             "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
-            "Flavor": ""
+            "Flavor": "Wiele rzeczy spada z nieba, oprócz deszczu i śniegu. Na przykład żaby... i Gigant z Chmur."
         },
         "70171": {
             "Name": "Pas Olbrzyma",
@@ -4072,7 +4072,7 @@
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce - tylko po jednej z każdej pary - i podmieniając część ubrań na mniejsze."
         },
         "70175": {
-            "Name": "Wnykarz",
+            "Name": "Zasadzka Długoszczura",
             "Info": "Wezwij kopię tej jednostki do tego rzędu kiedy zostanie aktywowana sojusznicza zasadzka. ",
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
@@ -4093,7 +4093,7 @@
         },
         "70179": {
             "Name": "Królowa Calanthe",
-            "Info": "Rozmieszczenie: Wtasuj innego niż złotego sojusznika do talii bez zmieniania jego siły, następnie zagraj najsłabszą inną niż złota jednostkę z talii.",
+            "Info": "Rozmieszczenie: Zagraj najsłabszą nie Złotą jednostkę z Twojej talii, następnie przetasuj nie Złotego sojusznika do Twojej talii bez zmiany jego siły.",
             "Flavor": "Zwano ją Lwicą. Nie bez powodu."
         },
         "70180": {
@@ -4135,6 +4135,16 @@
             "Name": "Północnica",
             "Info": "Na koniec tury Wzmocnij wszystkie Widmowe Odbicia w tym i przeciwnym rzędzie i przemień się w Południce bez zmieniania siły.",
             "Flavor": "Ile szkody zdoła w końcu wyrządzić blada, zasuszona kobieta zaplątana w podarte suknie? Otóż dużo."
+        },
+        "70188": {
+            "Name": "Bronibor",
+            "Info": " Stwórz i zagraj \"Prostego Porwanego Pehotynca\", następnie za każdego żołnierza na planszy, zadaj 1 punkt obrażeń losowemu wrogowi.",
+            "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
+        },
+        "70189": {
+            "Name": "Król Chrum",
+            "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
+            "Flavor": "Królestwo Thruma to niewiele więcej niż trakt w dolinie, na którym można ściągać myto z podróżnych. Jednak Chrum od zawsze marzył o ekspansji. O ekspansji... I o reformach."
         },
         "80001": {
             "Name": "Auberon Król",
