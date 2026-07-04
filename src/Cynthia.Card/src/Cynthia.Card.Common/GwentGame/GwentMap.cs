@@ -14888,7 +14888,7 @@ namespace Cynthia.Card
                     Strength=0,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
-                    CardUseInfo = CardUseInfo.EnemyRow,
+                    CardUseInfo = CardUseInfo.AnyPlace,
                     CardType = CardType.Special,
                     IsDoomed = false,
                     IsCountdown = false,
