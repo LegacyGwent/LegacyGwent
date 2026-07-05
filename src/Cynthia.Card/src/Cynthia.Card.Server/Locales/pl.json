@@ -4044,7 +4044,6 @@
         "70169": {
             "Name": "Rój Nekkerów",
             "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik pierwszej kopii tej jednostki w twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
-       
             "Flavor": "Gdy już widzisz jednego, możesz być pewny, że za nim jest dziesięć."
         },
         "70170": {
@@ -4142,7 +4141,7 @@
             "Info": " Stwórz i zagraj \"Prostego Porwanego Pehotynca\", następnie za każdego żołnierza na planszy, zadaj 1 punkt obrażeń losowemu wrogowi.",
             "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
         },
-        "70189": {
+        "70190": {
             "Name": "Król Chrum",
             "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
             "Flavor": "Królestwo Thruma to niewiele więcej niż trakt w dolinie, na którym można ściągać myto z podróżnych. Jednak Chrum od zawsze marzył o ekspansji. O ekspansji... I o reformach."
