@@ -3803,7 +3803,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz i Skellige Burzę po przeciwnej stronie o 1.",
+            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz i Skellige Burzę po przeciwnej stronie o 2.",
             "Flavor": "W godzinie grozy Wszechmatka Freya ukazała się Otkellowi na jego statku i pozwoliła mu uciszyć szalejący sztorm, gdyż wiedziała już, że Otkell, podobnie jak jego bracia, miał do opowiedzenia większą historię."
         },
         "70122": {
@@ -4141,7 +4141,7 @@
             "Info": " Stwórz i zagraj \"Prostego Porwanego Pehotynca\", następnie za każdego żołnierza na planszy, zadaj 1 punkt obrażeń losowemu wrogowi.",
             "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
         },
-        "70189": {
+        "70190": {
             "Name": "Król Chrum",
             "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
             "Flavor": "Królestwo Thruma to niewiele więcej niż trakt w dolinie, na którym można ściągać myto z podróżnych. Jednak Chrum od zawsze marzył o ekspansji. O ekspansji... I o reformach."

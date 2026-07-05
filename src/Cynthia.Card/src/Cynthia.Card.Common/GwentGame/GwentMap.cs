@@ -13802,7 +13802,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey},
                     Flavor = "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。",
-                    Info = "使对方场上的“倾盆大雨”和“史凯利杰风暴”伤害提升1点。",
+                    Info = "使对方场上的“倾盆大雨”和“史凯利杰风暴”伤害提升2点。",
                     CardArtsId = "c10001000",
                     LinkedCards=new List<String> {"14019"},
                 }
