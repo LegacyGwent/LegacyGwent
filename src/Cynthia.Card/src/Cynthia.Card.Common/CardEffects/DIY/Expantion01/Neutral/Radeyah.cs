@@ -20,7 +20,11 @@ namespace Cynthia.Card
                .Distinct()
                .Where(x => GwentMap.CardMap[x].Is(Group.Copper, CardType.Unit))
                .ToArray();
-            return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
+            var selectList = cardsId.Select(x => new CardStatus(x)).ToList();
+            if (!(await Game.GetSelectMenuCards(PlayerIndex, selectList)).TrySingle(out var cardIndex))
+                return 0;
+            await Game.CreateToStayFirst(cardsId[cardIndex], PlayerIndex, x => x.IsDoomed = true);
+            return 1;
         }
     }
 }
