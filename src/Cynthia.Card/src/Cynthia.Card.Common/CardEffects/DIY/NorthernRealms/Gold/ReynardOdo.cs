@@ -13,7 +13,11 @@ namespace Cynthia.Card
 
 
         public ReynardOdo(GameCard card) : base(card) { }
-
+        public override async Task<int> CardUseEffect()
+        {
+            await Card.Effect.SetCountdown(value: 3);
+            return 0;
+        }
         public async Task HandleEvent(AfterTurnOver @event)
         {
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace() || Card.Status.Countdown <= 0)
