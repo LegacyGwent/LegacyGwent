@@ -14,7 +14,6 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await Card.Effect.Armor(4, Card);
-            await Card.Effect.SetCountdown(1);
             return 0;
         }
 
