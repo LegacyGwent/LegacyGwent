@@ -8,11 +8,11 @@ namespace Cynthia.Card
     public class Crowmother : CardEffect
     {//
         public Crowmother(GameCard card) : base(card) { }
-        // 生成3只乌鸦。复活所有战力不高于2的乌鸦，并使其获得佚亡。
-        // Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2, and give them Doomed.
+        // 生成2只乌鸦。复活所有战力不高于2的乌鸦。
+        // Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2. Doomed.
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < 2; i++)
             {
                 if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
                 {
@@ -39,7 +39,6 @@ namespace Cynthia.Card
                 {
                     await card.Effect.Resurrect(Game.GetRandomCanPlayLocation(PlayerIndex, true), Card);
                 }
-                card.Status.IsDoomed = true;
             }
             return 0;
         }

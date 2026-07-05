@@ -3994,7 +3994,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2 and give them Doomed.",
+            "Info": "Spawn 2 Crows. Resurrect all Crows with power equal to or less than 2.\nDoomed.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {

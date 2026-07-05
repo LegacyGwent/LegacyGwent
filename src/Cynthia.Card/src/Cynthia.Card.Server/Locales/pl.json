@@ -3993,7 +3993,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Stwórz 3 kruków. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2 i nadaj im Doomed.",
+            "Info": "Stwórz 2 kruki. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2.\nFatum.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
