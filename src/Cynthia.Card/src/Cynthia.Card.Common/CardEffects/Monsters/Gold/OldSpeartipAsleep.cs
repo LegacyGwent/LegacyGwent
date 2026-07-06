@@ -20,18 +20,17 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if (@event.PlayerIndex != PlayerIndex)
+            
+            var row = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror()).IgnoreConcealAndDead();
+            if (row.Count() >= 3)
             {
-                var row = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror()).IgnoreConcealAndDead();
-                if (row.Count() >= 3)
-                {
-                    await Card.Effect.Transform(CardId.OldSpeartip, Card);
-                }
+                await Card.Effect.Transform(CardId.OldSpeartip, Card);
             }
+            return;
         }
         public async Task HandleEvent(AfterCardTransform @event)
         {
-            if (@event.Target != Card || !Card.IsAliveOnPlance() || @event.Source.Status.CardId != CardId.OldSpeartip)
+            if (@event.Target != Card || !Card.IsAliveOnPlance() || @event.Source.Status.CardId != CardId.OldSpeartipAsleep)
             {
                 return;
             }
