@@ -31,7 +31,7 @@ namespace Cynthia.Card
                 var boostlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x != Card).ToList();;
                 foreach (var card in boostlist)
                 {
-                    await card.Effect.Boost(1, Card);
+                    await card.Effect.Boost(2, Card);
                 }
                 await Card.Effect.SetCountdown(offset: -1);
                 return;
