@@ -14033,7 +14033,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "生成2只乌鸦。复活所有战力不高于2的乌鸦。",
+                    Info = "生成2只乌鸦，复活所有战力不高于2的乌鸦。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
