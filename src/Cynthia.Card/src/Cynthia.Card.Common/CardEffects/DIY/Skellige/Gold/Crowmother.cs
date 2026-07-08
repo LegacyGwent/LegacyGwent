@@ -23,7 +23,7 @@ namespace Cynthia.Card
                     await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
                 }
             }
-            var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow).ToList();
+            var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow && x.Status.Strength <= 2).ToList();
             if (cards.Count() == 0)
             {
                 return 0;
