@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 151);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 152);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12353,11 +12353,11 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70109",//喧闹的矮人 Rowdy Dwarf
+                "70109",//矮人狂战士 Dwarf Berserker
                 new GwentCard()
                 {
-                    CardId ="70109", //Rowdy Dwarf
-                    Name="喧闹的矮人",
+                    CardId ="70109", //Dwarf Berserker
+                    Name="矮人狂战士",
                     Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
@@ -12368,8 +12368,8 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf, Categorie.Soldier},
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
-                    Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
-                    CardArtsId = "202472",
+                    Info = "“我知道自己死定了。所以我要拉几个一起上路的。”",
+                    CardArtsId = "202476",
                     LinkedCards=new List<String> {},
                 }
             },

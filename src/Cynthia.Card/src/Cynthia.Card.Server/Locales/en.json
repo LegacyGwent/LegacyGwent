@@ -3748,9 +3748,9 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Rowdy Dwarf",
+            "Name": "Dwarf Berserker",
             "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
-            "Flavor": "You can draw anything you like, my dear dwarves. But you can't build it, mark my words."
+            "Flavor": "I know I'm going to die. So I'm making sure I'll have company."
         },
         "70110": {
             "Name": "Knickers",
