@@ -1027,10 +1027,8 @@ may come back in the future.
 This game is permanently free and open-source.
 To download the latest version of the game and interact with the community, please visit our Discord: https://discord.gg/Dw9sKgaUZN
 
-Welcome to DIY Gwent Season 4!
-Welcome to the Season of the Wild Hunt!
-We are introducing a new leaderboard that will enable you to see the stats per faction of the players on the ladder and create a ranking each season.
-Based on this ranking, the top 3 players per faction will be rewarded with the faction's banner and the top 5 will get a title (if a player already has a reward, it will go to the next player in line).
+Welcome to DIY Gwent Season 5!
+Welcome to the Season of Wolf!
 
 AI Matchmaking:
 ai: Geralt Ciri ai1: Recruit Training ai2: Avallac'h ai3: King Oberon ai4: Iron Falcon Mercenary ai5: Dragon Hunter
