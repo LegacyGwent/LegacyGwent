@@ -14896,7 +14896,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
                     Flavor = "手艺是厉害，可没谁会夸上一句，这些人就只会“啊啊啊，我的腿！”",
-                    Info = "选定对方单排，使其单位数量调整为4，优先移入战力最大或移出战力最小的单位。对因此移动的单位，造成1点伤害。",
+                    Info = "选定对方单排，使其单位数量调整为4，优先移入战力最大或移出战力最小的单位。对因此移动的单位，造成2点伤害。",
                     CardArtsId = "203256",
                     LinkedCards=new List<String> {},
                 }
