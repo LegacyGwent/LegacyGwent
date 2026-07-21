@@ -4074,7 +4074,7 @@
         },
         "70175": {
             "Name": "Lure Trap",
-            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 1.",
+            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 2.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
         "70176": {

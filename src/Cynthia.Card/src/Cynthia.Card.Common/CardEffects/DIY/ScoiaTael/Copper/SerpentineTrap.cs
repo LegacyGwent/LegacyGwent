@@ -27,7 +27,7 @@ namespace Cynthia.Card
 
                     var cardToMove = enemyboard.First();
                     await cardToMove.Effect.Move(new CardLocation(row.Mirror(), int.MaxValue), Card);
-                    await cardToMove.Effect.Damage(1, Card);
+                    await cardToMove.Effect.Damage(2, Card);
                 }
                 return 0;
             }
@@ -43,7 +43,7 @@ namespace Cynthia.Card
                     continue;
                 }
                 await card.Effect.Move(new CardLocation(target, Game.RowToList(card.PlayerIndex, target).Count), Card);
-                await card.Effect.Damage(1, Card);
+                await card.Effect.Damage(2, Card);
             }
             return 0;
         }

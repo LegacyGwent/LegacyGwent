@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 152);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 153);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12101,7 +12101,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70072", //Radeyah
                     Name="雷蒂娅",
-                    Strength=7,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12358,7 +12358,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70109", //Dwarf Berserker
                     Name="矮人狂战士",
-                    Strength=6,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13802,7 +13802,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey},
                     Flavor = "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。",
-                    Info = "使对方场上的“倾盆大雨”和“史凯利杰风暴”伤害提升2点。",
+                    Info = "使对方场上的“倾盆大雨”和“史凯利杰风暴”伤害提升1点。",
                     CardArtsId = "c10001000",
                     LinkedCards=new List<String> {"14019"},
                 }
@@ -14896,7 +14896,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
                     Flavor = "手艺是厉害，可没谁会夸上一句，这些人就只会“啊啊啊，我的腿！”",
-                    Info = "选定敌方单位所在的一排，使其单位数量调整为4，优先移动战力最大的单位。对因此被移动的单位，造成1点伤害。",
+                    Info = "选定敌方单位所在的一排，使其单位数量调整为4，优先移动战力最大的单位。对因此被移动的单位，造成2点伤害。",
                     CardArtsId = "203256",
                     LinkedCards=new List<String> {},
                 }

@@ -4073,7 +4073,7 @@
         },
         "70175": {
             "Name": "Zasadzka Długoszczura",
-            "Info": "Wezwij kopię tej jednostki do tego rzędu kiedy zostanie aktywowana sojusznicza zasadzka. ",
+            "Info": "Wybierz rząd przeciwnika. Jeśli zawiera mniej niż 4 jednostki, przenieś na ten rząd jego najsilniejszych sojuszników aż do osiągnięcia 4 jednostek. Jeśli ma więcej niż 4 jednostki, przenieś najsłabszych sojuszników z tego rzędu na losowe rzędy tak, aby zostały tam 4 jednostki. Każda przeniesiona karta otrzymuje 2 punkty obrażeń.",
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
         "70176": {
