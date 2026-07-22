@@ -4014,7 +4014,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 1.\nRepeat up to 2 times.",
+            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 2.\nRepeat up to 2 times.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
