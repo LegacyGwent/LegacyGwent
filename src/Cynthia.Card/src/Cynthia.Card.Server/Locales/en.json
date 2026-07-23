@@ -4094,7 +4094,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: Play the Lowest non-Gold unit from your deck, then Shuffle a non-Gold ally back to your deck without changing its Power.",
+            "Info": "Deploy: shuffle a non-gold ally back to your deck without changing its power, then play the lowest non-gold unit from your deck.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {

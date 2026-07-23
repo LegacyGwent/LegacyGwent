@@ -14982,7 +14982,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "从牌组打出一个最弱的银色/铜色单位牌，然后保留一个银色/铜色友方单位的战力不变，并将其收回牌组。",
+                    Info = "保留一个银色/铜色友方单位的战力不变，并将其收回牌组，然后从牌组打出一个最弱的银色/铜色单位牌。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
