@@ -1,0 +1,33 @@
+name: DIY-AI Bootstrap Once
+
+on:
+  push:
+    branches: [diy-ai]
+    paths: [.github/workflows/diy-ai-bootstrap-once.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    environment: diy-ai
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install password bootstrap client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+      - name: Refresh isolated server services
+        env:
+          SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
+          SSH_PORT: ${{ secrets.DIY_AI_SSH_PORT }}
+          SSHPASS: ${{ secrets.DIY_AI_BOOTSTRAP_ROOT_PASSWORD }}
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          install -m 0700 -d ~/.ssh
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >>~/.ssh/known_hosts
+          remote_dir="/tmp/diy-ai-bootstrap-${GITHUB_SHA}"
+          sshpass -e ssh -p "$SSH_PORT" root@"$SSH_HOST" "install -d -m 0700 '$remote_dir'"
+          sshpass -e scp -P "$SSH_PORT" deploy/diy-ai/* root@"$SSH_HOST:$remote_dir/"
+          sshpass -e ssh -p "$SSH_PORT" root@"$SSH_HOST" \
+            "cd '$remote_dir' && bash bootstrap-server.sh && systemctl is-active mongod-diy-ai.service"
