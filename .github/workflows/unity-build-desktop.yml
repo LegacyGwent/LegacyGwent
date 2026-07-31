@@ -63,8 +63,10 @@ jobs:
           TARGET_PLATFORM: ${{ matrix.targetPlatform }}
         run: |
           set -Eeuo pipefail
-          client_version="$(awk '/^[[:space:]]+bundleVersion:/ { print $2; exit }' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset)"
-          test -n "$client_version"
+          version_file="build/$TARGET_PLATFORM/version.txt"
+          test -s "$version_file"
+          client_version="$(tr -d '\r\n' < "$version_file")"
+          [[ "$client_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
           case "$TARGET_PLATFORM" in
             StandaloneWindows64) archive_name="DiyGwent-AITest-Windows-$client_version.zip" ;;
             StandaloneOSX) archive_name="DiyGwent-AITest-macOS-$client_version.zip" ;;
@@ -72,11 +74,13 @@ jobs:
             *) echo "Unsupported desktop target: $TARGET_PLATFORM" >&2; exit 1 ;;
           esac
           package_root="${archive_name%.zip}"
+          staging_dir="build/package-$TARGET_PLATFORM"
           smoke_dir="build/smoke-$TARGET_PLATFORM"
-          mv "build/$TARGET_PLATFORM" "build/$package_root"
+          mkdir -p "$staging_dir/$package_root"
+          cp -a --no-preserve=ownership "build/$TARGET_PLATFORM/." "$staging_dir/$package_root/"
           (
-            cd build
-            zip -qry -y "$archive_name" "$package_root"
+            cd "$staging_dir"
+            zip -qry -y "../$archive_name" "$package_root"
           )
           test -s "build/$archive_name"
           unzip -q "build/$archive_name" -d "$smoke_dir"
@@ -94,10 +98,10 @@ jobs:
           esac
           if [[ "$TARGET_PLATFORM" != StandaloneWindows64 ]]; then
             diff -u \
-              <(find "build/$package_root" -type f -executable -printf '%P\n' | sort) \
+              <(find "$staging_dir/$package_root" -type f -executable -printf '%P\n' | sort) \
               <(find "$smoke_dir/$package_root" -type f -executable -printf '%P\n' | sort)
             diff -u \
-              <(find "build/$package_root" -type l -printf '%P -> %l\n' | sort) \
+              <(find "$staging_dir/$package_root" -type l -printf '%P -> %l\n' | sort) \
               <(find "$smoke_dir/$package_root" -type l -printf '%P -> %l\n' | sort)
           fi
           echo "archive_name=$archive_name" >> "$GITHUB_OUTPUT"
