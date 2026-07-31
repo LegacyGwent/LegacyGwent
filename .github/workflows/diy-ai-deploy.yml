@@ -58,7 +58,12 @@ jobs:
           ssh -o ConnectTimeout=30 -i ~/.ssh/diy-ai -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
             "sudo /usr/local/sbin/deploy-card-diy-ai '$GITHUB_SHA' '$remote_archive'"
 
-      - name: Verify public endpoint
+      - name: Verify deployed endpoint on target host
         env:
           SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
-        run: curl --fail --show-error --retry 5 --retry-delay 2 "http://${SSH_HOST}:5010/healthz"
+          SSH_PORT: ${{ secrets.DIY_AI_SSH_PORT }}
+          SSH_USER: ${{ secrets.DIY_AI_SSH_USER }}
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          ssh -o ConnectTimeout=30 -i ~/.ssh/diy-ai -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "curl --fail --show-error --retry 5 --retry-delay 2 http://127.0.0.1:5010/healthz"

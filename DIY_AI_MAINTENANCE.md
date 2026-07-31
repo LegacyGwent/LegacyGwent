@@ -23,6 +23,9 @@ To open the Unity project against the deployed AI track:
 .\scripts\open-unity.ps1 -ServerUrl http://cynthia.ovyno.com:5010
 ```
 
+If a local proxy uses fake-IP DNS and returns 403 for nonstandard ports, route
+`cynthia.ovyno.com:5010` directly or pass the current public A record instead.
+
 ## CI/CD
 
 - `diy-ai-ci.yml` builds the server image for every push and pull request that

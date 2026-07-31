@@ -26,7 +26,8 @@ Last verified: 2026-07-31
 
 - `DIY-AI CI` validates scripts, policy boundaries, and the server image.
 - `DIY-AI Deploy` builds inside the pinned .NET 3.1 SDK image, uploads through
-  dedicated account `card-deploy`, activates atomically, and verifies public 5010.
+  dedicated account `card-deploy`, activates atomically, and verifies 5010 from
+  the target host through the authenticated SSH channel.
 - Secrets live in GitHub Environment `diy-ai`; never record their values.
 - Pin SSH host keys through `DIY_AI_SSH_KNOWN_HOSTS`; do not run `ssh-keyscan` in
   delivery because it opens enough connections to trip SSH rate limiting.

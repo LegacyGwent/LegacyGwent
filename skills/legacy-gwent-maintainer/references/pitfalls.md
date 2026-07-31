@@ -62,3 +62,14 @@ Last verified: 2026-07-31
   development traffic while still rate-limiting bursts.
 - Prevention: do not discover host keys during every deployment.
 - Verification: repeated CI deployment and ordinary developer SSH both complete.
+
+## Proxied access to port 5010 returns 403
+
+- Symptom: direct IP `/healthz` returns 200 while the domain on port 5010 returns
+  403 from a developer machine or hosted runner.
+- Cause: a fake-IP/local or runner egress proxy intercepts the nonstandard HTTP
+  port; the DIY-AI application itself is healthy.
+- Fix: route the hostname and port directly, use the current public A record for
+  development, and perform CD health verification through authenticated SSH.
+- Prevention: separate application health from external proxy-path checks.
+- Verification: target-host loopback and a no-proxy direct-IP request return 200.
