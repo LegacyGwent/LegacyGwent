@@ -41,7 +41,7 @@ jobs:
         with:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
           key: Library-${{ matrix.targetPlatform }}
-          restore-keys: Library-
+          restore-keys: Library-${{ matrix.targetPlatform }}-
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
