@@ -29,3 +29,27 @@ Last verified: 2026-07-31
   player names, deck names, round scores, win counts, surrender state, and
   balance point.
 - Prefer the persisted result plus the Unity victory screen for end-to-end proof.
+
+## Card art inventory
+
+- Run `scripts/card_art_inventory.ps1` from the skill directory; it compares
+  full-size Addressable art, `GwentMap` dictionary keys and art IDs, explicit
+  `CardEffectId` attributes, and `_slot` miniatures.
+- Verified inventory: 1,343 unique full-size card-art assets, 709 `CardMap`
+  entries, 692 explicit card-effect IDs, and 671 unique art IDs assigned to a
+  card definition.
+- Of the art assets, 659 are used by a card with an explicit effect, 12 are
+  assigned only to effectless card definitions, and 672 are completely
+  unassigned. Therefore 684 have no explicit effect, but only 672 are cleanly
+  free for a new card without reusing an existing definition's art.
+- Of the 672 unassigned art assets, 539 already have a matching `_slot`
+  miniature and 133 need a miniature before the deck-list UI can use them
+  cleanly.
+- The `/cardart` authoring page enumerates a separate set of 1,049 small
+  `wwwroot/scale` previews. It has 531 IDs not referenced by `CardMap`, but 499
+  of those lack a Unity full-size image; only 32 overlap the clean full-art pool,
+  and only one of those already has a registered miniature. Do not equate an
+  available web preview with a client-ready card-art chain.
+- Count occupation by the dictionary key, not the duplicated `GwentCard.CardId`
+  property. Entry key `70108` currently has the incorrect property value
+  `70106`; treating the property as identity miscounts effect/art ownership.
