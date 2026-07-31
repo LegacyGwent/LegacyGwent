@@ -20,13 +20,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build publish artifact in the pinned SDK image
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build self-contained Linux publish artifact
         run: |
-          docker build --target build --tag legacygwent-diy-ai-builder:${GITHUB_SHA} src/Cynthia.Card
-          container_id="$(docker create legacygwent-diy-ai-builder:${GITHUB_SHA})"
-          trap 'docker rm -f "$container_id" >/dev/null 2>&1 || true' EXIT
           mkdir -p publish
-          docker cp "$container_id:/build/." publish/
+          dotnet publish \
+            --configuration Release \
+            --runtime linux-x64 \
+            --self-contained true \
+            --output publish \
+            src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          test -x publish/Cynthia.Card.Server
+          test -f publish/Cynthia.Card.Server.dll
           tar -C publish -czf "gwent-diy-ai-${GITHUB_SHA}.tar.gz" .
 
       - name: Configure deploy key

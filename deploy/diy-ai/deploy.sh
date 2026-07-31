@@ -7,6 +7,12 @@ release_root="/usr/share/card-diy-ai/releases"
 current_link="/usr/share/card-diy-ai/current"
 upload_root="/var/lib/card-deploy/uploads"
 
+glibc_version="$(getconf GNU_LIBC_VERSION | awk '{print $2}')"
+if ! printf '%s\n%s\n' '2.27' "$glibc_version" | sort --version-sort --check=quiet; then
+    echo ".NET 10 linux-x64 requires glibc 2.27 or newer; found $glibc_version" >&2
+    exit 2
+fi
+
 if [[ ! "$release_id" =~ ^[0-9a-f]{40}$ ]]; then
     echo "release id must be a full Git commit SHA" >&2
     exit 2
@@ -36,6 +42,8 @@ if [[ ! -d "$release_dir" ]]; then
     install -d -o card-diy-ai -g card-diy-ai -m 0755 "$staging_dir"
     tar -xzf "$archive" -C "$staging_dir"
     test -f "$staging_dir/Cynthia.Card.Server.dll"
+    test -x "$staging_dir/Cynthia.Card.Server"
+    grep -q '"tfm": "net10.0"' "$staging_dir/Cynthia.Card.Server.runtimeconfig.json"
     chown -R card-diy-ai:card-diy-ai "$staging_dir"
     chmod -R u=rwX,g=rX,o= "$staging_dir"
     mv "$staging_dir" "$release_dir"

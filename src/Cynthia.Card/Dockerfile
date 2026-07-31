@@ -1,5 +1,6 @@
-# dotnet docker file
-FROM mcr.microsoft.com/dotnet/sdk:3.1 as build
+# .NET 10 build and runtime smoke image. Production deploys the same
+# self-contained linux-x64 publish output directly under systemd.
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 # Copy everything
@@ -8,15 +9,25 @@ COPY src/Cynthia.Card.Server/Cynthia.Card.Server.csproj ./src/Cynthia.Card.Serve
 COPY src/Cynthia.Card.AI/Cynthia.Card.AI.csproj ./src/Cynthia.Card.AI/
 
 # Restore as distinct layers
-RUN ["dotnet", "restore", "src/Cynthia.Card.Server/Cynthia.Card.Server.csproj"]
+RUN ["dotnet", "restore", "--runtime", "linux-x64", "src/Cynthia.Card.Server/Cynthia.Card.Server.csproj"]
 COPY src src
 
-# Build and publish a release
+# Build and publish a self-contained Linux release.
 WORKDIR /app
-RUN ["dotnet", "publish", "--configuration", "Release", "--output", "/build", "src/Cynthia.Card.Server/Cynthia.Card.Server.csproj"]
+RUN dotnet publish \
+    --configuration Release \
+    --runtime linux-x64 \
+    --self-contained true \
+    --no-restore \
+    --output /build \
+    src/Cynthia.Card.Server/Cynthia.Card.Server.csproj \
+    && test -x /build/Cynthia.Card.Server
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 as runtime
+# A self-contained publish only needs the native runtime dependencies.
+FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime
+WORKDIR /app
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 COPY --from=build /build ./
 EXPOSE 5005
-CMD ["dotnet", "Cynthia.Card.Server.dll"]
+EXPOSE 5010
+ENTRYPOINT ["./Cynthia.Card.Server"]

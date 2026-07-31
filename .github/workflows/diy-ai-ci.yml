@@ -23,14 +23,70 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
       - name: Validate repository patches
         run: git diff --check HEAD^ HEAD
 
       - name: Validate deployment scripts
-        run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh deploy/diy-ai/sync-from-diy.sh
+        run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh deploy/diy-ai/prepare-net10-host.sh deploy/diy-ai/run-server.sh deploy/diy-ai/sync-from-diy.sh
+
+      - name: Build server
+        run: dotnet build --configuration Release src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+
+      - name: Validate self-contained Linux publish
+        run: |
+          dotnet publish \
+            --configuration Release \
+            --runtime linux-x64 \
+            --self-contained true \
+            --output publish-smoke \
+            src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          test -x publish-smoke/Cynthia.Card.Server
+          test -f publish-smoke/Cynthia.Card.Server.dll
 
       - name: Build server runtime image
         run: docker build --target runtime --tag legacygwent-diy-ai:${GITHUB_SHA} src/Cynthia.Card
+
+      - name: Smoke-test runtime image
+        run: |
+          set -Eeuo pipefail
+          network_name="gwent-smoke-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          mongo_name="gwent-mongo-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          server_name="gwent-server-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          cleanup() {
+            docker rm --force "$server_name" "$mongo_name" >/dev/null 2>&1 || true
+            docker network rm "$network_name" >/dev/null 2>&1 || true
+          }
+          trap cleanup EXIT
+          docker network create "$network_name" >/dev/null
+          docker run --detach --name "$mongo_name" --network "$network_name" mongo:4.4.29 --bind_ip_all >/dev/null
+          for _ in $(seq 1 30); do
+            if docker exec "$mongo_name" mongo --quiet --eval 'quit(db.runCommand({ping: 1}).ok ? 0 : 2)'; then
+              break
+            fi
+            sleep 1
+          done
+          docker exec "$mongo_name" mongo --quiet --eval 'quit(db.runCommand({ping: 1}).ok ? 0 : 2)'
+          docker run --detach --name "$server_name" \
+            --network "$network_name" \
+            --publish 127.0.0.1::5010 \
+            --env ASPNETCORE_URLS=http://0.0.0.0:5010 \
+            --env "MONGO_CONNECTION_STRING=mongodb://$mongo_name:27017/gwent-diy-ai" \
+            legacygwent-diy-ai:${GITHUB_SHA} >/dev/null
+          host_port="$(docker port "$server_name" 5010/tcp | sed 's/.*://')"
+          test -n "$host_port"
+          for _ in $(seq 1 20); do
+            if curl --fail --silent --show-error "http://127.0.0.1:$host_port/healthz"; then
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs "$server_name"
+          exit 1
 
   policy:
     runs-on: ubuntu-22.04
@@ -46,3 +102,12 @@ jobs:
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-mobile.yml
           grep -q '^[[:space:]]*- StandaloneLinux64' .github/workflows/unity-build-desktop.yml
           grep -q 'name: Package desktop client' .github/workflows/unity-build-desktop.yml
+          grep -q '<TargetFramework>net10.0</TargetFramework>' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          ! grep -q 'PackageReference Include="System.Text.Json"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q '^FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build$' src/Cynthia.Card/Dockerfile
+          grep -q '^FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime$' src/Cynthia.Card/Dockerfile
+          grep -q -- '--self-contained true' .github/workflows/diy-ai-deploy.yml
+          grep -q '^ExecStart=.*/usr/local/sbin/run-card-diy-ai$' deploy/diy-ai/card-diy-ai.service
+          ! grep -q '/usr/bin/dotnet' deploy/diy-ai/card-diy-ai.service
+          grep -q 'exec "$self_contained_host"' deploy/diy-ai/run-server.sh
+          echo 'd94c7b887c1ba5e74dd8028e370021c3314dbf2e0179cf33a1452c9f4c1c17c4  src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Microsoft.AspNetCore.SignalR.Client.dll' | sha256sum --check --strict

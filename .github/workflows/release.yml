@@ -49,12 +49,12 @@ jobs:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 3.1.301
-      - name: Build .NET Core
-        run: dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          dotnet-version: 10.0.x
+      - name: Build shared Unity model
+        run: dotnet build src/Cynthia.Card/src/Cynthia.Card.Common/Cynthia.Card.Common.csproj
       - name: Sync Cynthia.Card.Common.dll
         run: cp src/Cynthia.Card/src/Cynthia.Card.Common/bin/Debug/netstandard2.0/Cynthia.Card.Common.dll src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Cynthia.Card.Common.dll
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b

@@ -13,9 +13,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 3.1.301
+          dotnet-version: 10.0.x
       - name: Build
-        run: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 dotnet build ./src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+        run: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 dotnet build --configuration Release ./src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj

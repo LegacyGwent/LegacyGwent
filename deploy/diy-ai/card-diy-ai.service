@@ -8,8 +8,9 @@ Type=simple
 WorkingDirectory=/usr/share/card-diy-ai/current
 EnvironmentFile=/etc/card-diy-ai.env
 # The legacy host returns 127 for systemd's User=/Group= execution path.
-# sudo drops both identities consistently before starting dotnet.
-ExecStart=/usr/bin/sudo -E -u card-diy-ai -g card-diy-ai /usr/bin/dotnet /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
+# sudo drops both identities consistently before the launcher selects the
+# self-contained host (or a retained pre-migration rollback release).
+ExecStart=/usr/bin/sudo -E -u card-diy-ai -g card-diy-ai /usr/local/sbin/run-card-diy-ai
 Restart=on-failure
 RestartSec=5s
 TimeoutStopSec=30s
