@@ -1,6 +1,21 @@
 name: Build Client for Computer
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths:
+      - "src/Cynthia.Card.Unity/**"
+      - "src/Cynthia.Card/src/Cynthia.Card.Common/**"
+      - ".github/workflows/unity-build-desktop.yml"
+  pull_request:
+    paths:
+      - "src/Cynthia.Card.Unity/**"
+      - "src/Cynthia.Card/src/Cynthia.Card.Common/**"
+      - ".github/workflows/unity-build-desktop.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: unity-desktop-${{ github.ref }}
+  cancel-in-progress: true
 
 
 env:

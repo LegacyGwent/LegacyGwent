@@ -1,6 +1,11 @@
 name: .NET Core
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches-ignore: [diy-ai]
+  pull_request:
+    branches-ignore: [diy-ai]
+  workflow_dispatch:
 
 jobs:
   build:

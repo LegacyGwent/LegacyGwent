@@ -25,6 +25,9 @@ Last verified: 2026-07-31
 ## GitHub Actions
 
 - `DIY-AI CI` validates scripts, policy boundaries, and the server image.
+- The legacy .NET workflow excludes `diy-ai` to avoid duplicate server builds.
+- Desktop Unity CI runs automatically only when Unity or Common sources change;
+  same-branch superseded builds are cancelled. It remains manually dispatchable.
 - `DIY-AI Deploy` builds inside the pinned .NET 3.1 SDK image, uploads through
   dedicated account `card-deploy`, activates atomically, and verifies 5010 from
   the target host through the authenticated SSH channel.
