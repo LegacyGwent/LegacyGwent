@@ -74,16 +74,17 @@ jobs:
             *) echo "Unsupported desktop target: $TARGET_PLATFORM" >&2; exit 1 ;;
           esac
           package_root="${archive_name%.zip}"
-          staging_dir="build/package-$TARGET_PLATFORM"
-          smoke_dir="build/smoke-$TARGET_PLATFORM"
+          archive_path="$GITHUB_WORKSPACE/$archive_name"
+          staging_dir="$RUNNER_TEMP/package-$TARGET_PLATFORM"
+          smoke_dir="$RUNNER_TEMP/smoke-$TARGET_PLATFORM"
           mkdir -p "$staging_dir/$package_root"
           cp -a --no-preserve=ownership "build/$TARGET_PLATFORM/." "$staging_dir/$package_root/"
           (
             cd "$staging_dir"
-            zip -qry -y "../$archive_name" "$package_root"
+            zip -qry -y "$archive_path" "$package_root"
           )
-          test -s "build/$archive_name"
-          unzip -q "build/$archive_name" -d "$smoke_dir"
+          test -s "$archive_path"
+          unzip -q "$archive_path" -d "$smoke_dir"
           case "$TARGET_PLATFORM" in
             StandaloneWindows64)
               find "$smoke_dir/$package_root" -maxdepth 1 -type f -iname '*.exe' -print -quit | grep -q .
@@ -108,6 +109,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.package.outputs.archive_name }}
-          path: build/${{ steps.package.outputs.archive_name }}
+          path: ${{ steps.package.outputs.archive_name }}
           if-no-files-found: error
           compression-level: 0
