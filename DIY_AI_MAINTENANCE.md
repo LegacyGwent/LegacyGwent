@@ -46,6 +46,9 @@ name and `DiyGwent-AITest-<platform>-<version>` distribution filenames. The
 name signals an experimental, aggressively changing track rather than a more
 stable or more capable replacement for DIY. The distinct Unity product name
 also keeps Windows PlayerPrefs and persistent data separate from `DiyGwent`.
+The supported direct-download set is Windows x64, macOS, Linux x64, and Android
+APK. Desktop CI creates the platform ZIP on the Linux runner before artifact
+upload so Unix executable modes and macOS symbolic links survive distribution.
 
 ## Copy stable data into DIY-AI
 

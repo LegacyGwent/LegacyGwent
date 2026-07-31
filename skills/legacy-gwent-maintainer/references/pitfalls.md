@@ -2,6 +2,19 @@
 
 Last verified: 2026-07-31
 
+## Downloaded macOS or Linux client is not executable
+
+- Symptom: CI is green, but the downloaded macOS app or Linux binary will not
+  launch, or an app-bundle symbolic link has become an ordinary file.
+- Cause: `actions/upload-artifact` normalizes permissions and does not preserve
+  symlinks when it uploads a raw build directory.
+- Fix: create a nested ZIP on the Ubuntu build runner with Info-ZIP `zip -y`
+  before artifact upload; ZIP records the original Unix modes and link entries.
+- Prevention: upload the prebuilt `DiyGwent-AITest-<platform>-<version>.zip`,
+  never the raw macOS/Linux Unity output directory.
+- Verification: inspect ZIP external attributes/link entries and test extraction
+  plus launch on the target OS.
+
 ## Mongo URI suffix points at the wrong apparent database
 
 - Symptom: `gwent-diy` or `gwent-diy-ai` appears empty even though accounts and

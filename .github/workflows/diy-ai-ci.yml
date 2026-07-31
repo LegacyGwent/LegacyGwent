@@ -44,3 +44,5 @@ jobs:
           grep -q '^  productName: DiyGwent AITest$' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-desktop.yml
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-mobile.yml
+          grep -q '^[[:space:]]*- StandaloneLinux64' .github/workflows/unity-build-desktop.yml
+          grep -q 'name: Package desktop client' .github/workflows/unity-build-desktop.yml

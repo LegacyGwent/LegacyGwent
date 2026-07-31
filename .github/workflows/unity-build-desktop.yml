@@ -31,7 +31,7 @@ jobs:
         targetPlatform:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
-          # - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          - StandaloneLinux64 # Build a Linux 64-bit standalone.
     steps:
       - uses: actions/checkout@v4
         with:
@@ -56,7 +56,46 @@ jobs:
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-AITest-${{ matrix.targetPlatform }}
           allowDirtyBuild: true
+      - name: Package desktop client
+        id: package
+        shell: bash
+        env:
+          TARGET_PLATFORM: ${{ matrix.targetPlatform }}
+        run: |
+          client_version="$(awk '/^[[:space:]]+bundleVersion:/ { print $2; exit }' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset)"
+          test -n "$client_version"
+          case "$TARGET_PLATFORM" in
+            StandaloneWindows64) archive_name="DiyGwent-AITest-Windows-$client_version.zip" ;;
+            StandaloneOSX) archive_name="DiyGwent-AITest-macOS-$client_version.zip" ;;
+            StandaloneLinux64) archive_name="DiyGwent-AITest-Linux-$client_version.zip" ;;
+            *) echo "Unsupported desktop target: $TARGET_PLATFORM" >&2; exit 1 ;;
+          esac
+          package_root="${archive_name%.zip}"
+          staging_dir="build/package-$TARGET_PLATFORM"
+          smoke_dir="build/smoke-$TARGET_PLATFORM"
+          mkdir -p "$staging_dir/$package_root"
+          cp -a "build/$TARGET_PLATFORM/." "$staging_dir/$package_root/"
+          (
+            cd "$staging_dir"
+            zip -qry -y "../$archive_name" "$package_root"
+          )
+          test -s "build/$archive_name"
+          unzip -q "build/$archive_name" -d "$smoke_dir"
+          case "$TARGET_PLATFORM" in
+            StandaloneWindows64)
+              find "$smoke_dir/$package_root" -maxdepth 1 -type f -iname '*.exe' -print -quit | grep -q .
+              ;;
+            StandaloneOSX)
+              find "$smoke_dir/$package_root" -maxdepth 1 -type d -name '*.app' -print -quit | grep -q .
+              ;;
+            StandaloneLinux64)
+              find "$smoke_dir/$package_root" -maxdepth 1 -type f -executable -print -quit | grep -q .
+              ;;
+          esac
+          echo "archive_name=$archive_name" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
-          name: DiyGwent-AITest-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          name: ${{ steps.package.outputs.archive_name }}
+          path: build/${{ steps.package.outputs.archive_name }}
+          if-no-files-found: error
+          compression-level: 0
