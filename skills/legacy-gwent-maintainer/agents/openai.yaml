@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legacy Gwent Maintainer"
+  short_description: "Maintain Legacy Gwent with durable project knowledge"
+  default_prompt: "Use $legacy-gwent-maintainer to develop, diagnose, or operate Legacy Gwent safely and update its durable knowledge."

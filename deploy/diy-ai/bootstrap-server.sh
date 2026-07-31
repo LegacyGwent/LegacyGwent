@@ -33,6 +33,9 @@ if [[ ! -f /etc/card-diy-ai.env ]]; then
     install -o root -g card-diy-ai -m 0640 \
         "$script_dir/card-diy-ai.env.example" /etc/card-diy-ai.env
 fi
+if ! grep -q '^DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=' /etc/card-diy-ai.env; then
+    printf '%s\n' 'DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1' >>/etc/card-diy-ai.env
+fi
 
 install -o root -g root -m 0644 "$script_dir/card-diy-ai.service" /etc/systemd/system/card-diy-ai.service
 install -o root -g root -m 0644 "$script_dir/mongod-diy-ai.service" /etc/systemd/system/mongod-diy-ai.service

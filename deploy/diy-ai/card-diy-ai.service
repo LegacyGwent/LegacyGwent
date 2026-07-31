@@ -5,19 +5,16 @@ Requires=mongod-diy-ai.service
 
 [Service]
 Type=simple
-User=card-diy-ai
-Group=card-diy-ai
 WorkingDirectory=/usr/share/card-diy-ai/current
 EnvironmentFile=/etc/card-diy-ai.env
-ExecStartPre=/usr/bin/test -f /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
-ExecStart=/usr/bin/dotnet /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
+# The legacy host returns 127 for systemd's User=/Group= execution path.
+# sudo drops both identities consistently before starting dotnet.
+ExecStart=/usr/bin/sudo -E -u card-diy-ai -g card-diy-ai /usr/bin/dotnet /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
 Restart=on-failure
 RestartSec=5s
 TimeoutStopSec=30s
 KillSignal=SIGINT
 MemoryLimit=2G
-NoNewPrivileges=true
-PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target

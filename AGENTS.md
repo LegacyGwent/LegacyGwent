@@ -2,6 +2,10 @@
 
 This repository's `diy-ai` branch is the aggressively maintained AI track.
 
+For every Legacy Gwent task, use the project skill at
+`skills/legacy-gwent-maintainer/SKILL.md`. Read its knowledge index before work
+and apply its mandatory learning rewrite after verified discoveries.
+
 ## Scope
 
 - Start changes from `diy-ai`; never deploy experimental commits to the `diy` service.
