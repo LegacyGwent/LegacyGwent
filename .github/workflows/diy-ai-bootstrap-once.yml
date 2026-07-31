@@ -31,7 +31,13 @@ jobs:
           sshpass -e ssh -o ConnectTimeout=30 -p "$SSH_PORT" root@"$SSH_HOST" "install -d -m 0700 '$remote_dir'"
           sshpass -e scp -o ConnectTimeout=30 -P "$SSH_PORT" deploy/diy-ai/* root@"$SSH_HOST:$remote_dir/"
           sshpass -e ssh -o ConnectTimeout=30 -p "$SSH_PORT" root@"$SSH_HOST" \
-            "cd '$remote_dir' && bash bootstrap-server.sh; \
+            "iptables -F CODEX_SSH_GUARD; \
+             iptables -A CODEX_SSH_GUARD -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 30 --name CODEX_SSH --rsource -j DROP; \
+             iptables -A CODEX_SSH_GUARD -m conntrack --ctstate NEW -m recent --set --name CODEX_SSH --rsource; \
+             iptables -A CODEX_SSH_GUARD -j RETURN; \
+             if command -v netfilter-persistent >/dev/null; then netfilter-persistent save; \
+             else install -d -m 0755 /etc/iptables && iptables-save >/etc/iptables/rules.v4; fi; \
+             cd '$remote_dir' && bash bootstrap-server.sh; \
              echo ---SSH-GUARD---; iptables -S CODEX_SSH_GUARD; \
              echo ---MONGO-STATUS---; systemctl --no-pager --full status mongod-diy-ai.service || true; \
              echo ---MONGO-JOURNAL---; journalctl -u mongod-diy-ai.service --no-pager -n 40 || true"

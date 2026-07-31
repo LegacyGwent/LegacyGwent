@@ -45,7 +45,8 @@ chmod 0440 /etc/sudoers.d/card-diy-ai-deploy
 visudo -cf /etc/sudoers.d/card-diy-ai-deploy >/dev/null
 
 systemctl daemon-reload
-systemctl enable --now mongod-diy-ai.service
+systemctl enable mongod-diy-ai.service >/dev/null
+systemctl restart mongod-diy-ai.service
 systemctl enable card-diy-ai.service >/dev/null
 
 echo "DIY-AI server environment is ready; upload the first release before starting card-diy-ai."
