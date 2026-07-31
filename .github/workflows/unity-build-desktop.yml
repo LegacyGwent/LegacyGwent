@@ -62,6 +62,7 @@ jobs:
         env:
           TARGET_PLATFORM: ${{ matrix.targetPlatform }}
         run: |
+          set -Eeuo pipefail
           client_version="$(awk '/^[[:space:]]+bundleVersion:/ { print $2; exit }' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset)"
           test -n "$client_version"
           case "$TARGET_PLATFORM" in
@@ -71,13 +72,11 @@ jobs:
             *) echo "Unsupported desktop target: $TARGET_PLATFORM" >&2; exit 1 ;;
           esac
           package_root="${archive_name%.zip}"
-          staging_dir="build/package-$TARGET_PLATFORM"
           smoke_dir="build/smoke-$TARGET_PLATFORM"
-          mkdir -p "$staging_dir/$package_root"
-          cp -a "build/$TARGET_PLATFORM/." "$staging_dir/$package_root/"
+          mv "build/$TARGET_PLATFORM" "build/$package_root"
           (
-            cd "$staging_dir"
-            zip -qry -y "../$archive_name" "$package_root"
+            cd build
+            zip -qry -y "$archive_name" "$package_root"
           )
           test -s "build/$archive_name"
           unzip -q "build/$archive_name" -d "$smoke_dir"
@@ -87,11 +86,20 @@ jobs:
               ;;
             StandaloneOSX)
               find "$smoke_dir/$package_root" -maxdepth 1 -type d -name '*.app' -print -quit | grep -q .
+              test -n "$(find "$smoke_dir/$package_root" -type f -executable -print -quit)"
               ;;
             StandaloneLinux64)
               find "$smoke_dir/$package_root" -maxdepth 1 -type f -executable -print -quit | grep -q .
               ;;
           esac
+          if [[ "$TARGET_PLATFORM" != StandaloneWindows64 ]]; then
+            diff -u \
+              <(find "build/$package_root" -type f -executable -printf '%P\n' | sort) \
+              <(find "$smoke_dir/$package_root" -type f -executable -printf '%P\n' | sort)
+            diff -u \
+              <(find "build/$package_root" -type l -printf '%P -> %l\n' | sort) \
+              <(find "$smoke_dir/$package_root" -type l -printf '%P -> %l\n' | sort)
+          fi
           echo "archive_name=$archive_name" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
