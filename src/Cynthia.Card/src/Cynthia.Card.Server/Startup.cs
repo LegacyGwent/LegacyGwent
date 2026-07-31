@@ -20,6 +20,7 @@ namespace Cynthia.Card.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHealthChecks();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSignalR().AddHubOptions<GwentHub>(options =>
@@ -53,6 +54,7 @@ namespace Cynthia.Card.Server
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/healthz");
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");

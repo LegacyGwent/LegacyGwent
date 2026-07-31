@@ -1,0 +1,23 @@
+[Unit]
+Description=Legacy Gwent DIY-AI server
+After=network-online.target mongod-diy-ai.service
+Requires=mongod-diy-ai.service
+
+[Service]
+Type=simple
+User=card-diy-ai
+Group=card-diy-ai
+WorkingDirectory=/usr/share/card-diy-ai/current
+EnvironmentFile=/etc/card-diy-ai.env
+ExecStartPre=/usr/bin/test -f /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
+ExecStart=/usr/bin/dotnet /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=30s
+KillSignal=SIGINT
+MemoryLimit=2G
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

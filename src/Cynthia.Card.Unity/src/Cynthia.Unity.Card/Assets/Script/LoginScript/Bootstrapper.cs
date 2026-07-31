@@ -3,8 +3,8 @@ using Autofac;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using UnityEngine;
 
@@ -14,11 +14,14 @@ public class Bootstrapper : MonoBehaviour
     {
         if (DependencyResolver.Container != null)
             return;
-        var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
+        var serverUrl = Environment.GetEnvironmentVariable("GWENT_SERVER_URL");
+        if (string.IsNullOrWhiteSpace(serverUrl))
+            serverUrl = "http://cynthia.ovyno.com:5005";
+        serverUrl = serverUrl.TrimEnd('/');
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
         builder.Register(
-            x => new HubConnectionBuilder().WithUrl($"http://{IP}:5005/hub/gwent", HttpTransportType.WebSockets, options => { options.SkipNegotiation = true; })
+            x => new HubConnectionBuilder().WithUrl($"{serverUrl}/hub/gwent", HttpTransportType.WebSockets, options => { options.SkipNegotiation = true; })
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new BoolConverter()))
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new ListOperationConverter()))
                     .Build()

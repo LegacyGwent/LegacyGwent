@@ -1,0 +1,41 @@
+name: DIY-AI CI
+
+on:
+  push:
+    branches: [diy-ai]
+  pull_request:
+    branches: [diy-ai]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: diy-ai-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  server:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate repository patches
+        run: git diff --check HEAD^ HEAD
+
+      - name: Validate deployment scripts
+        run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh
+
+      - name: Build server runtime image
+        run: docker build --target runtime --tag legacygwent-diy-ai:${GITHUB_SHA} src/Cynthia.Card
+
+  policy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Protect stable DIY resources
+        run: |
+          test "$(grep -c '5010' deploy/diy-ai/card-diy-ai.env.example)" -ge 1
+          test "$(grep -c '28021/gwent-diy-ai' deploy/diy-ai/card-diy-ai.env.example)" -eq 1
+          ! grep -R --line-number --fixed-strings '/usr/share/card-diy/publish' deploy/diy-ai

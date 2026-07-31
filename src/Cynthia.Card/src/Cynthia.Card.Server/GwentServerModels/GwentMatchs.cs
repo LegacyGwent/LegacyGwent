@@ -54,9 +54,9 @@ namespace Cynthia.Card.Server
         public void PlayerJoin(ClientPlayer player, string password)
         {
             //判断是否是特殊密码
-            if (password.ToLower().EndsWith("#f"))
+            if (password.ToLower().EndsWith("#f") || password.ToLower().EndsWith("#"))
             {
-                switch (password.ToLower().Replace("#f", "").Replace("special", ""))
+                switch (password.ToLower().Replace("#f", "").TrimEnd('#').Replace("special", ""))
                 {
                     case "ai":
                         {
@@ -186,7 +186,7 @@ namespace Cynthia.Card.Server
 
             else
             {
-                switch (password.ToLower().Replace("#f", "").Replace("special", ""))
+                switch (password.ToLower().Replace("#f", "").TrimEnd('#').Replace("special", ""))
                 {
                     case "ai":
                         {

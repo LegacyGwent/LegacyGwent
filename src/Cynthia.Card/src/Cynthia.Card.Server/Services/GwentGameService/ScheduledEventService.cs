@@ -85,6 +85,7 @@ namespace Cynthia.Card.Server
             while (DateTime.UtcNow > season_data.SeasonEndTime)
             {
                 await ResetSeason();
+                season_data = await _databaseService.QuerySeasonData();
             }
         }
 
@@ -163,4 +164,4 @@ namespace Cynthia.Card.Server
             }
         }
     }
-} 
+}

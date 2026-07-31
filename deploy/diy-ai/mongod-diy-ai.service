@@ -1,0 +1,17 @@
+[Unit]
+Description=MongoDB for Legacy Gwent DIY-AI
+After=network.target
+
+[Service]
+Type=simple
+User=mongodb
+Group=mongodb
+ExecStart=/usr/bin/mongod --dbpath /var/lib/mongodb-diy-ai --bind_ip 127.0.0.1 --port 28021 --logpath /var/log/mongodb/mongod-diy-ai.log --logappend
+Restart=on-failure
+RestartSec=5s
+LimitNOFILE=64000
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,62 @@
+name: DIY-AI Deploy
+
+on:
+  push:
+    branches: [diy-ai]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: diy-ai-deployment
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    environment: diy-ai
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build publish artifact in the pinned SDK image
+        run: |
+          docker build --target build --tag legacygwent-diy-ai-builder:${GITHUB_SHA} src/Cynthia.Card
+          container_id="$(docker create legacygwent-diy-ai-builder:${GITHUB_SHA})"
+          trap 'docker rm -f "$container_id" >/dev/null 2>&1 || true' EXIT
+          mkdir -p publish
+          docker cp "$container_id:/build/." publish/
+          tar -C publish -czf "gwent-diy-ai-${GITHUB_SHA}.tar.gz" .
+
+      - name: Configure deploy key
+        env:
+          SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
+          SSH_PORT: ${{ secrets.DIY_AI_SSH_PORT }}
+          SSH_PRIVATE_KEY: ${{ secrets.DIY_AI_SSH_PRIVATE_KEY }}
+        run: |
+          test -n "$SSH_HOST"
+          test -n "$SSH_PRIVATE_KEY"
+          SSH_PORT="${SSH_PORT:-22}"
+          install -m 0700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" >~/.ssh/diy-ai
+          chmod 0600 ~/.ssh/diy-ai
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >>~/.ssh/known_hosts
+
+      - name: Upload and activate release
+        env:
+          SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
+          SSH_PORT: ${{ secrets.DIY_AI_SSH_PORT }}
+          SSH_USER: ${{ secrets.DIY_AI_SSH_USER }}
+        run: |
+          SSH_PORT="${SSH_PORT:-22}"
+          archive="gwent-diy-ai-${GITHUB_SHA}.tar.gz"
+          remote_archive="/var/lib/card-deploy/uploads/$archive"
+          scp -i ~/.ssh/diy-ai -P "$SSH_PORT" "$archive" "$SSH_USER@$SSH_HOST:$remote_archive"
+          ssh -i ~/.ssh/diy-ai -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "sudo /usr/local/sbin/deploy-card-diy-ai '$GITHUB_SHA' '$remote_archive'"
+
+      - name: Verify public endpoint
+        env:
+          SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
+        run: curl --fail --show-error --retry 5 --retry-delay 2 "http://${SSH_HOST}:5010/healthz"
