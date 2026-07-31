@@ -1,4 +1,5 @@
 ﻿using Assets.Script.ResourceManagement;
+using System;
 using System.Collections.Generic;
 using Cynthia.Card.Common.Models.Localization;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Assets.Script.Localization
 {
     class TextLocalization
     {
+        public const string PreferenceKey = "DiyAi.TextLanguage";
+
         private IList<ConfigEntry> _languages;
         public ConfigEntry ChosenLanguage { get; private set; }
         public int ChosenLanguageIndex => _languages.IndexOf(ChosenLanguage);
@@ -19,7 +22,7 @@ namespace Assets.Script.Localization
             {
                 _resourceHandler = value;
                 _languages = _resourceHandler.LoadConfiguration();
-                ChooseLanguage(PlayerPrefs.GetInt("TextLanguage", 0));
+                ChooseLanguage(PlayerPrefs.GetInt(PreferenceKey, GetChineseLanguageIndex()));
             }
         }
 
@@ -29,6 +32,15 @@ namespace Assets.Script.Localization
         public TextLocalization()
         {
             ResourceHandler = new LocalizationResourceHandler("Locales");
+        }
+        private int GetChineseLanguageIndex()
+        {
+            for (var index = 0; index < _languages.Count; index++)
+            {
+                if (string.Equals(_languages[index].Filename, "cn", StringComparison.OrdinalIgnoreCase))
+                    return index;
+            }
+            return 0;
         }
         public int ChooseLanguage(int index)
         {

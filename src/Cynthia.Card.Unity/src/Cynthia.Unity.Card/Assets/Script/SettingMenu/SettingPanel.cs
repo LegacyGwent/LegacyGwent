@@ -125,13 +125,13 @@ public class SettingPanel : MonoBehaviour
     //设置语言
     public void SetTextLanguage(int langIndex)
     {
-        PlayerPrefs.SetInt("TextLanguage", langIndex);
+        PlayerPrefs.SetInt(TextLocalization.PreferenceKey, langIndex);
         languageManager.TextLocalization.ChooseLanguage(langIndex);
         OnTextLanguageChange.Invoke();
     }
     public void SetAudioLanguage(int langIndex)
     {
-        PlayerPrefs.SetInt("AudioLanguage", langIndex);
+        PlayerPrefs.SetInt(AudioLocalization.PreferenceKey, langIndex);
         languageManager.AudioLocalization.ChooseLanguage(langIndex);
     }
     public void SetCoinDisplayMode(string option)

@@ -36,6 +36,11 @@ default to the direct 5010 endpoint. Windows can still override it with
 coexist with the stable client; a build postprocessor enables the plain-HTTP
 5010 connection until the service is moved behind TLS.
 
+DIY-AI selects Chinese text and Chinese audio on first launch in both Editor and
+packaged players. It stores choices under DIY-AI-specific PlayerPrefs keys, so a
+stable client's previous language does not override this branch's default;
+manual language changes remain persistent.
+
 ## Copy stable data into DIY-AI
 
 Bootstrap installs `/usr/local/sbin/sync-card-diy-to-ai`. To replace only the

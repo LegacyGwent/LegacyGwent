@@ -25,6 +25,10 @@ Last verified: 2026-07-31
   avoid fake-IP proxies intercepting the nonstandard port.
 - Android uses package ID `cynthia.diy.ai.card`. Its Gradle postprocessor adds
   `INTERNET` and permits cleartext because 5010 does not yet provide TLS.
+- DIY-AI resolves the initial text and audio languages by filename `cn`, then
+  persists manual selections in `DiyAi.TextLanguage` and
+  `DiyAi.AudioLanguage`. This makes Chinese the Editor/player default without
+  inheriting the stable Windows client's PlayerPrefs.
 - Desktop Unity CI runs on relevant pushes; dispatch the mobile workflow for an
   Android APK. Do not expect a workflow environment variable to become a
   persistent runtime variable inside a built player.
