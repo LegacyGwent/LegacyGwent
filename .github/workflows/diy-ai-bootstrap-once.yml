@@ -31,4 +31,7 @@ jobs:
           sshpass -e ssh -o ConnectTimeout=30 -p "$SSH_PORT" root@"$SSH_HOST" "install -d -m 0700 '$remote_dir'"
           sshpass -e scp -o ConnectTimeout=30 -P "$SSH_PORT" deploy/diy-ai/* root@"$SSH_HOST:$remote_dir/"
           sshpass -e ssh -o ConnectTimeout=30 -p "$SSH_PORT" root@"$SSH_HOST" \
-            "cd '$remote_dir' && bash bootstrap-server.sh && systemctl is-active mongod-diy-ai.service"
+            "cd '$remote_dir' && bash bootstrap-server.sh; \
+             echo ---SSH-GUARD---; iptables -S CODEX_SSH_GUARD; \
+             echo ---MONGO-STATUS---; systemctl --no-pager --full status mongod-diy-ai.service || true; \
+             echo ---MONGO-JOURNAL---; journalctl -u mongod-diy-ai.service --no-pager -n 40 || true"
