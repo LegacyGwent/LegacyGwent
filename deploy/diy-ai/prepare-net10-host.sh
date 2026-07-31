@@ -16,6 +16,12 @@ fi
 systemctl is-active --quiet card-diy-ai.service
 test -f /usr/share/card-diy-ai/current/Cynthia.Card.Server.dll
 
+if grep -q '^DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=' /etc/card-diy-ai.env; then
+    sed -i 's/^DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=.*/DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0/' /etc/card-diy-ai.env
+else
+    printf '%s\n' 'DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0' >>/etc/card-diy-ai.env
+fi
+
 # Install the transition pieces without restarting the running service. The
 # next normal deployment will restart through the rollback-compatible launcher.
 install -o root -g root -m 0755 "$script_dir/deploy.sh" /usr/local/sbin/deploy-card-diy-ai

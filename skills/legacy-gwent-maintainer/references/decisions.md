@@ -24,6 +24,12 @@ It still depends on compatible native libraries, so deployment rejects glibc
 older than 2.27 before switching the active release. A stable launcher prefers
 the native host but can run retained framework-dependent releases during the
 migration window, preserving rollback across the ExecStart transition.
+The legacy host remains in invariant globalization mode rather than receiving a
+risky OS-level ICU upgrade; predefined culture names are enabled so existing
+NLog formatting remains compatible.
+Normal deployments are called only after both server and policy CI jobs pass;
+the deployment workflow's manual dispatch is reserved for explicit recovery or
+operator-directed redeployment.
 
 ## Keep the Unity transport boundary frozen during server upgrades
 

@@ -15,17 +15,17 @@ Last verified: 2026-08-01
 - Verification: a clean Release build reaches `net10.0` with zero errors, and
   Common/AI outputs remain under `netstandard2.0`.
 
-## Knowledge validation rejects a valid date on Windows
+## Windows line endings break validation or Linux host preparation
 
-- Symptom: `validate_knowledge.py` reports a missing `Last verified` date even
-  though the line is present.
-- Cause: Git materializes Markdown with CRLF, while the validator applies an
-  LF-only end-of-line regex to raw decoded bytes.
-- Fix: normalize CRLF to LF before line-anchored validation.
-- Prevention: make repository knowledge validators independent of checkout
-  line endings.
-- Verification: both knowledge validation and skill quick validation pass in a
-  Windows worktree.
+- Symptom: knowledge validation misses a visible date, or Bash reports
+  unexpected EOF after a Windows-created `git archive` is extracted on Linux.
+- Cause: text files can materialize as CRLF; LF-only regexes and Bash heredoc or
+  control syntax then parse a different byte stream than expected.
+- Fix: validators normalize CRLF before matching. For manual host preparation,
+  normalize extracted scripts and unit/env files, then run target-host `bash -n`.
+- Prevention: validate the extracted host payload; GitHub's Linux checkout remains LF-native.
+- Verification: knowledge validators pass, every extracted script passes remote
+  `bash -n`, and preparation installs byte-identical normalized files.
 
 ## Downloaded macOS or Linux client is not executable
 
@@ -122,13 +122,22 @@ Last verified: 2026-08-01
 - Prevention: test the exact unit on the target kernel, not only the command line.
 - Verification: both dedicated services remain `active` after restart.
 
-## New .NET process fails because ICU is absent
+## Legacy host globalization prevents the .NET 10 server from starting
 
-- Symptom: `dotnet` terminates with “Couldn't find a valid ICU package”.
-- Cause: the legacy server lacks a compatible ICU package.
-- Fix: set `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1`, matching existing CI.
-- Prevention: keep this value in `/etc/card-diy-ai.env` and its repository example.
-- Verification: `/healthz` returns 200 after a fresh service restart.
+- Symptom: normal globalization terminates with “Couldn't find a valid ICU
+  package”; invariant mode alone instead throws `CultureNotFoundException` for
+  `en-US` while old NLog initializes.
+- Cause: the host has ICU 57, which .NET 10 cannot load, while NLog 4.8 still
+  constructs an explicit `en-US` format provider that invariant mode rejects by
+  default.
+- Fix: set `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1` and
+  `DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0`. This permits named
+  cultures backed by invariant data without upgrading system ICU.
+- Prevention: keep both values in `/etc/card-diy-ai.env`, its repository
+  example, host-preparation script, and the runtime Docker image.
+- Verification: run the self-contained release on an unused target-host port;
+  `/healthz` and `/hub/gwent/negotiate` return 200, the process stops cleanly,
+  and the active 5010 release remains healthy.
 
 ## CI trips SSH protection
 
@@ -140,6 +149,33 @@ Last verified: 2026-08-01
 - Prevention: do not discover host keys during every deployment.
 - Verification: repeated CI deployment and ordinary developer SSH both complete.
 
+## A failed candidate deploys before its validation workflow finishes
+
+- Symptom: a `diy-ai` push starts deployment while server or policy checks are
+  still running, so a candidate can briefly reach 5010 even if CI later fails.
+- Cause: independent push-triggered CI and deploy workflows have no dependency
+  relationship.
+- Fix: make deployment a reusable workflow invoked by the CI `deploy` job with
+  `needs: [server, policy]`; remove its independent push trigger.
+- Prevention: policy checks assert the call gate and reject a restored deploy
+  push trigger. Manual dispatch remains an explicit emergency operation.
+- Verification: a normal push shows deploy queued behind both CI jobs and no
+  separate push-triggered deploy run exists.
+
+## `set -e` exits before a failed release can roll back
+
+- Symptom: `current` points at a bad release after `systemctl restart` fails,
+  even though the deployment script contains rollback code below it.
+- Cause: a bare restart under `set -e` terminates the script before the health
+  result and rollback branch can run; the same pattern can abort rollback
+  verification.
+- Fix: evaluate candidate and rollback restarts inside explicit conditionals,
+  convert failures into unhealthy state, then execute and verify rollback.
+- Prevention: every fallible command before recovery logic must be captured,
+  not left as an unguarded simple command under `set -e`.
+- Verification: script review and failure-path tests show both a nonzero restart
+  and a failed health loop reach rollback; an unhealthy rollback stops service.
+
 ## Proxied access to port 5010 returns 403
 
 - Symptom: direct IP `/healthz` returns 200 while the domain on port 5010 returns
@@ -150,3 +186,15 @@ Last verified: 2026-08-01
   development, and perform CD health verification through authenticated SSH.
 - Prevention: separate application health from external proxy-path checks.
 - Verification: target-host loopback and a no-proxy direct-IP request return 200.
+
+## An ad hoc SSH loop makes ordinary commands disappear
+
+- Symptom: tools such as `readlink` become “command not found” immediately after
+  assigning a shell variable named `path` in a remote one-liner.
+- Cause: root's interactive SSH command shell is zsh, where lowercase `path` is
+  a special array tied to `PATH`; assigning a target pathname replaces `PATH`.
+- Fix: use a neutral variable such as `target`, or execute reviewed operational
+  scripts with an explicit Bash shebang.
+- Prevention: never use `path` as a zsh variable in ad hoc host commands.
+- Verification: the same guarded cleanup succeeds with `target` and leaves both
+  DIY services active.

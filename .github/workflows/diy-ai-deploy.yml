@@ -1,8 +1,7 @@
 name: DIY-AI Deploy
 
 on:
-  push:
-    branches: [diy-ai]
+  workflow_call:
   workflow_dispatch:
 
 permissions:

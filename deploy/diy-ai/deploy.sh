@@ -54,16 +54,18 @@ ln -s "$release_dir" "$next_link"
 mv -Tf "$next_link" "$current_link"
 
 systemctl enable card-diy-ai.service >/dev/null
-systemctl restart card-diy-ai.service
-
 healthy=false
-for _ in $(seq 1 30); do
-    if curl --silent --show-error --fail --max-time 2 http://127.0.0.1:5010/healthz >/dev/null; then
-        healthy=true
-        break
-    fi
-    sleep 2
-done
+if systemctl restart card-diy-ai.service; then
+    for _ in $(seq 1 30); do
+        if curl --silent --show-error --fail --max-time 2 http://127.0.0.1:5010/healthz >/dev/null; then
+            healthy=true
+            break
+        fi
+        sleep 2
+    done
+else
+    echo "DIY-AI candidate service restart failed" >&2
+fi
 
 if [[ "$healthy" != true ]]; then
     echo "DIY-AI health check failed; rolling back" >&2
@@ -71,7 +73,24 @@ if [[ "$healthy" != true ]]; then
         rollback_link="/usr/share/card-diy-ai/.rollback-$release_id"
         ln -s "$previous_release" "$rollback_link"
         mv -Tf "$rollback_link" "$current_link"
-        systemctl restart card-diy-ai.service
+        rollback_healthy=false
+        if systemctl restart card-diy-ai.service; then
+            for _ in $(seq 1 30); do
+                if curl --silent --show-error --fail --max-time 2 http://127.0.0.1:5010/healthz >/dev/null; then
+                    rollback_healthy=true
+                    break
+                fi
+                sleep 2
+            done
+        else
+            echo "DIY-AI rollback service restart failed" >&2
+        fi
+        if [[ "$rollback_healthy" != true ]]; then
+            echo "DIY-AI rollback release also failed its health check; stopping the service" >&2
+            systemctl stop card-diy-ai.service || true
+        else
+            echo "DIY-AI rollback release is healthy: $previous_release" >&2
+        fi
     else
         systemctl stop card-diy-ai.service || true
     fi

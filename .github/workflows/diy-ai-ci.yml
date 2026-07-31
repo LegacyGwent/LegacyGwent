@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Setup .NET 10 SDK
         uses: actions/setup-dotnet@v4
@@ -29,7 +29,15 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Validate repository patches
-        run: git diff --check HEAD^ HEAD
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          case "$GITHUB_EVENT_NAME" in
+            push) git diff --check "$BEFORE_SHA" "$GITHUB_SHA" ;;
+            pull_request) git diff --check "$PR_BASE_SHA" "$GITHUB_SHA" ;;
+            *) git diff --check HEAD^ HEAD ;;
+          esac
 
       - name: Validate deployment scripts
         run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh deploy/diy-ai/prepare-net10-host.sh deploy/diy-ai/run-server.sh deploy/diy-ai/sync-from-diy.sh
@@ -106,8 +114,19 @@ jobs:
           ! grep -q 'PackageReference Include="System.Text.Json"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q '^FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build$' src/Cynthia.Card/Dockerfile
           grep -q '^FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime$' src/Cynthia.Card/Dockerfile
+          grep -q '^DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0$' deploy/diy-ai/card-diy-ai.env.example
+          grep -q '^ENV DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0$' src/Cynthia.Card/Dockerfile
           grep -q -- '--self-contained true' .github/workflows/diy-ai-deploy.yml
+          grep -q '^[[:space:]]*workflow_call:' .github/workflows/diy-ai-deploy.yml
+          ! grep -q '^[[:space:]]*push:' .github/workflows/diy-ai-deploy.yml
+          grep -q 'needs: \[server, policy\]' .github/workflows/diy-ai-ci.yml
           grep -q '^ExecStart=.*/usr/local/sbin/run-card-diy-ai$' deploy/diy-ai/card-diy-ai.service
           ! grep -q '/usr/bin/dotnet' deploy/diy-ai/card-diy-ai.service
           grep -q 'exec "$self_contained_host"' deploy/diy-ai/run-server.sh
           echo 'd94c7b887c1ba5e74dd8028e370021c3314dbf2e0179cf33a1452c9f4c1c17c4  src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Microsoft.AspNetCore.SignalR.Client.dll' | sha256sum --check --strict
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/diy-ai'
+    needs: [server, policy]
+    uses: ./.github/workflows/diy-ai-deploy.yml
+    secrets: inherit

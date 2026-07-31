@@ -25,14 +25,21 @@ Last verified: 2026-08-01
   newer and `deploy.sh` rejects older hosts before switching releases. The
   current Debian 9 host reports glibc 2.28, but Debian 9 itself is outside the
   official .NET 10 support matrix.
+- The host's ICU 57 is too old for .NET 10. Keep both
+  `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1` and
+  `DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0` in
+  `/etc/card-diy-ai.env`: the second setting lets legacy NLog construct its
+  `en-US` format provider while all culture data remains invariant.
 - Deployment command: `/usr/local/sbin/deploy-card-diy-ai`.
 - Before the first .NET 10 deployment, copy `deploy/diy-ai` from the exact
   release candidate to the host and run `prepare-net10-host.sh` as root. It
-  installs the new deploy script, launcher, and unit without restarting the
-  current service. Only then may the .NET 10 commit reach auto-deploy.
+  installs the new deploy script, launcher, unit, and globalization setting
+  without restarting the current service. Only then may the .NET 10 commit
+  reach auto-deploy.
 - Health check: `http://127.0.0.1:5010/healthz` and public equivalent.
 - Deployment keeps five releases and restores the previous symlink when health
-  verification fails.
+  verification or the candidate restart fails. It verifies the restored
+  release too and stops the service if even rollback cannot become healthy.
 - Stable-to-AI database copy: `/usr/local/sbin/sync-card-diy-to-ai --execute`.
   It snapshots 28020 online, stops only `card-diy-ai`, backs up 28021 under
   `/var/backups/legacy-gwent/diy-ai-sync/<run>`, replaces both logical
@@ -53,6 +60,9 @@ Last verified: 2026-08-01
   self-contained `linux-x64`, uploads through dedicated account `card-deploy`,
   activates atomically, and verifies 5010 from the target host through the
   authenticated SSH channel.
+- A normal `diy-ai` push reaches deployment only through the `deploy` job in
+  `DIY-AI CI`, after both `server` and `policy` succeed. The deploy workflow is
+  reusable and manually dispatchable, but it has no independent push trigger.
 - Secrets live in GitHub Environment `diy-ai`; never record their values.
 - The Environment uses a custom deployment branch policy allowing only
   `diy-ai`, so other branches cannot consume its deployment credentials.
