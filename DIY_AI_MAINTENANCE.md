@@ -40,6 +40,7 @@ Required GitHub Actions secrets:
 - `DIY_AI_SSH_PORT`
 - `DIY_AI_SSH_USER`
 - `DIY_AI_SSH_PRIVATE_KEY`
+- `DIY_AI_SSH_KNOWN_HOSTS`
 
 The deploy workflow uses the GitHub Environment named `diy-ai`. No secret is
 stored in this repository.

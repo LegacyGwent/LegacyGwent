@@ -34,14 +34,16 @@ jobs:
           SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
           SSH_PORT: ${{ secrets.DIY_AI_SSH_PORT }}
           SSH_PRIVATE_KEY: ${{ secrets.DIY_AI_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DIY_AI_SSH_KNOWN_HOSTS }}
         run: |
           test -n "$SSH_HOST"
           test -n "$SSH_PRIVATE_KEY"
+          test -n "$SSH_KNOWN_HOSTS"
           SSH_PORT="${SSH_PORT:-22}"
           install -m 0700 -d ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" >~/.ssh/diy-ai
           chmod 0600 ~/.ssh/diy-ai
-          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >>~/.ssh/known_hosts
+          printf '%s\n' "$SSH_KNOWN_HOSTS" >~/.ssh/known_hosts
 
       - name: Upload and activate release
         env:
@@ -52,8 +54,8 @@ jobs:
           SSH_PORT="${SSH_PORT:-22}"
           archive="gwent-diy-ai-${GITHUB_SHA}.tar.gz"
           remote_archive="/var/lib/card-deploy/uploads/$archive"
-          scp -i ~/.ssh/diy-ai -P "$SSH_PORT" "$archive" "$SSH_USER@$SSH_HOST:$remote_archive"
-          ssh -i ~/.ssh/diy-ai -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+          scp -o ConnectTimeout=30 -i ~/.ssh/diy-ai -P "$SSH_PORT" "$archive" "$SSH_USER@$SSH_HOST:$remote_archive"
+          ssh -o ConnectTimeout=30 -i ~/.ssh/diy-ai -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
             "sudo /usr/local/sbin/deploy-card-diy-ai '$GITHUB_SHA' '$remote_archive'"
 
       - name: Verify public endpoint

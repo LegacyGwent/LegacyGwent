@@ -21,13 +21,14 @@ jobs:
         env:
           SSH_HOST: ${{ secrets.DIY_AI_SSH_HOST }}
           SSH_PORT: ${{ secrets.DIY_AI_SSH_PORT }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DIY_AI_SSH_KNOWN_HOSTS }}
           SSHPASS: ${{ secrets.DIY_AI_BOOTSTRAP_ROOT_PASSWORD }}
         run: |
           SSH_PORT="${SSH_PORT:-22}"
           install -m 0700 -d ~/.ssh
-          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >>~/.ssh/known_hosts
+          printf '%s\n' "$SSH_KNOWN_HOSTS" >~/.ssh/known_hosts
           remote_dir="/tmp/diy-ai-bootstrap-${GITHUB_SHA}"
-          sshpass -e ssh -p "$SSH_PORT" root@"$SSH_HOST" "install -d -m 0700 '$remote_dir'"
-          sshpass -e scp -P "$SSH_PORT" deploy/diy-ai/* root@"$SSH_HOST:$remote_dir/"
-          sshpass -e ssh -p "$SSH_PORT" root@"$SSH_HOST" \
+          sshpass -e ssh -o ConnectTimeout=30 -p "$SSH_PORT" root@"$SSH_HOST" "install -d -m 0700 '$remote_dir'"
+          sshpass -e scp -o ConnectTimeout=30 -P "$SSH_PORT" deploy/diy-ai/* root@"$SSH_HOST:$remote_dir/"
+          sshpass -e ssh -o ConnectTimeout=30 -p "$SSH_PORT" root@"$SSH_HOST" \
             "cd '$remote_dir' && bash bootstrap-server.sh && systemctl is-active mongod-diy-ai.service"
