@@ -12,8 +12,8 @@ $existingPid = Get-ListeningProcessId -Port $script:ServerPort
 if ($existingPid) {
     throw "Port $script:ServerPort is already in use by PID $existingPid."
 }
-if (-not (Test-Path -LiteralPath $script:DotNetExe)) {
-    throw "ASP.NET Core 3.1 is missing. Run scripts\setup-dev.ps1 first."
+if (-not (Test-DotNetServerSdk)) {
+    throw ".NET $script:DotNetSdkChannel SDK is missing. Run scripts\setup-dev.ps1 first."
 }
 
 $env:DOTNET_ROOT = Split-Path -Parent $script:DotNetExe

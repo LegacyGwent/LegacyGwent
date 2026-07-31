@@ -10,9 +10,9 @@
 
 Windows, macOS, Linux均可。
 
-### 2. 客户端与服务端后台: .NET Core 3.1（最新版即可）
+### 2. 共享模型与服务端后台: .NET 10 SDK
 
-直接在[微软开发者官网](https://dotnet.microsoft.com/download/dotnet/3.1)下载对应版本然后安装即可。
+直接在[微软开发者官网](https://dotnet.microsoft.com/download/dotnet/10.0)下载 .NET 10 SDK。共享模型仍以 `netstandard2.0` 构建供旧版 Unity 使用。
 
 ### 3. 客户端UI: Unity 2019.4.1f1（版本必须一样）
 
@@ -32,7 +32,7 @@ Windows, macOS, Linux均可。
 
 下载最新版的 `Visual Studio Code`， 安装C#插件：`C# for Visual Studio Code (powered by OmniSharp)`。
 
-Windows环境下，建议在环境变量中把MSBuildSDksPath设置为安装的 .NET sdk的路径（如 `C:\Program Files\dotnet\sdk\3.1.201\Sdks`）。
+Windows 环境无需手工设置 `MSBuildSDKsPath`；仓库根目录的 `global.json` 会选择已安装的 .NET 10 SDK。
 
 ### 6. 其他工具
 

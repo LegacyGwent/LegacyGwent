@@ -1,10 +1,10 @@
 # Local development
 
-Last verified: 2026-07-31
+Last verified: 2026-08-01
 
 ## Toolchain
 
-- Setup: `scripts/setup-dev.ps1` installs ASP.NET Core 3.1.32, MongoDB 4.4.29,
+- Setup: `scripts/setup-dev.ps1` installs the .NET 10 SDK, MongoDB 4.4.29,
   and Unity 2019.4.1f1 under `%LOCALAPPDATA%\LegacyGwentDev`.
 - Stable profile: `scripts/start-dev.ps1` uses server 5005, MongoDB 28020, and
   connection-URI suffix `gwent-diy`.
@@ -35,13 +35,18 @@ Last verified: 2026-07-31
 - Desktop Unity CI runs on relevant pushes; dispatch the mobile workflow for an
   Android APK. Do not expect a workflow environment variable to become a
   persistent runtime variable inside a built player.
+- Unity workflows build `Cynthia.Card.Common` directly. Keep Common and AI on
+  `netstandard2.0`; do not make client builds depend on the `net10.0` server.
+- The .NET 10 server accepts a SignalR 5.0.8 client handshake. This was verified
+  against `/hub/gwent` after the framework migration, but a full Unity gameplay
+  smoke is still required before production rollout.
 - Confirm the actual TCP peer after switching endpoints; a working UI does not
   prove the client is local.
 
 ## Checks
 
 - Build the server project to an independent output directory when a running
-  service locks `bin/Debug/netcoreapp3.0/Cynthia.Card.Server.dll`.
+  service locks `bin/Debug/net10.0/Cynthia.Card.Server.dll`.
 - Run PowerShell parser checks for changed `.ps1` files and `bash -n` for changed
   deployment scripts.
 - `LOCAL_DEVELOPMENT.md` is the user-facing command reference.

@@ -1,16 +1,17 @@
 # Architecture
 
-Last verified: 2026-07-31
+Last verified: 2026-08-01
 
 ## Main components
 
 - ASP.NET Core server: `src/Cynthia.Card/src/Cynthia.Card.Server` targeting
-  `netcoreapp3.0`.
+  `net10.0` with C# 10.
 - Shared game model: `src/Cynthia.Card/src/Cynthia.Card.Common` targeting
   `netstandard2.0`.
 - Server AI: `src/Cynthia.Card/src/Cynthia.Card.AI`.
 - Unity client: `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card`, maintained with
-  Unity 2019.4.1f1.
+  Unity 2019.4.1f1. Its bundled SignalR client remains 5.0.8; server framework
+  upgrades must not rewrite the Unity assembly set.
 - MongoDB access is centralized in
   `Services/GwentGameService/GwentDatabaseService.cs`.
 - SignalR gameplay hub is `/hub/gwent`; liveness endpoint is `/healthz`.

@@ -8,9 +8,9 @@
 
 Windows, macOS, Linux all Good.
 
-### 2. Server: .NET Core 3.1 (or the latest version)
+### 2. Shared model and server: .NET 10 SDK
 
-Download in [Microsoft Website](https://dotnet.microsoft.com/download/dotnet/3.1)
+Download the .NET 10 SDK from the [Microsoft website](https://dotnet.microsoft.com/download/dotnet/10.0). The shared model continues to target `netstandard2.0` for the legacy Unity client.
 
 ### 3. Database: MongoDB 4.2 (the exact version)
 
@@ -30,7 +30,7 @@ Installation：
 
 Download the latest `Visual Studio Code` and install C# plugin：`C# for Visual Studio Code (powered by OmniSharp)`.
 
-In Windows, set `MSBuildSDksPath` in Environment Variable to be the installation path of .NET SDK (such as `C:\Program Files\dotnet\sdk\3.1.201\Sdks`). No need for other OS.
+On Windows, do not set `MSBuildSDKsPath` manually. The repository `global.json` selects an installed .NET 10 SDK.
 
 ### 6. Other Tools
 

@@ -1,6 +1,31 @@
 # Pitfalls
 
-Last verified: 2026-07-31
+Last verified: 2026-08-01
+
+## .NET 10 build fails on a generated global using
+
+- Symptom: the server migration fails with CS8400 in
+  `Cynthia.Card.Server.GlobalUsings.g.cs` even though application code uses C# 8.
+- Cause: the .NET 10 Web SDK generates a framework global using that requires
+  C# 10 or newer; disabling ordinary implicit usings does not remove it.
+- Fix: target C# 10 in the server project while leaving Common, AI, and Unity on
+  their existing language/runtime boundary.
+- Prevention: do not force the server language version below the target Web
+  SDK's generated source requirements.
+- Verification: a clean Release build reaches `net10.0` with zero errors, and
+  Common/AI outputs remain under `netstandard2.0`.
+
+## Knowledge validation rejects a valid date on Windows
+
+- Symptom: `validate_knowledge.py` reports a missing `Last verified` date even
+  though the line is present.
+- Cause: Git materializes Markdown with CRLF, while the validator applies an
+  LF-only end-of-line regex to raw decoded bytes.
+- Fix: normalize CRLF to LF before line-anchored validation.
+- Prevention: make repository knowledge validators independent of checkout
+  line endings.
+- Verification: both knowledge validation and skill quick validation pass in a
+  Windows worktree.
 
 ## Downloaded macOS or Linux client is not executable
 

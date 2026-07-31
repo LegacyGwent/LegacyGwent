@@ -3,12 +3,16 @@
 The local environment uses the versions closest to production and the original
 project documentation:
 
-- ASP.NET Core Runtime 3.1.32 for the `netcoreapp3.0` server
+- .NET 10 SDK for the `net10.0` server
 - MongoDB 4.4.29 on `127.0.0.1:28020`
 - Unity 2019.4.1f1 (`e6c045e14e4e`) for the client
 
 Tools and database files are kept outside the repository in
 `%LOCALAPPDATA%\LegacyGwentDev`.
+
+The server upgrade is intentionally isolated from the Unity runtime. The shared
+Common and AI projects still target `netstandard2.0`, Unity remains on
+2019.4.1f1, and its bundled SignalR client remains at 5.0.8.
 
 ## First-time setup
 

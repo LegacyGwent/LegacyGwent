@@ -1,6 +1,6 @@
 # Operations
 
-Last verified: 2026-07-31
+Last verified: 2026-08-01
 
 ## Stable DIY
 
@@ -17,7 +17,19 @@ Last verified: 2026-07-31
   `gwentdiy` and `Web`, data directory `/var/lib/mongodb-diy-ai`.
 - Releases: `/usr/share/card-diy-ai/releases/<commit>` with atomic `current`
   symlink switching.
+- Releases contain a self-contained `linux-x64` .NET 10 host. systemd invokes
+  `/usr/local/sbin/run-card-diy-ai`, which executes `Cynthia.Card.Server`; its
+  temporary `/usr/bin/dotnet` fallback keeps pre-migration releases usable for
+  atomic rollback until they age out.
+- Self-contained is not libc-independent. The publish requires glibc 2.27 or
+  newer and `deploy.sh` rejects older hosts before switching releases. The
+  current Debian 9 host reports glibc 2.28, but Debian 9 itself is outside the
+  official .NET 10 support matrix.
 - Deployment command: `/usr/local/sbin/deploy-card-diy-ai`.
+- Before the first .NET 10 deployment, copy `deploy/diy-ai` from the exact
+  release candidate to the host and run `prepare-net10-host.sh` as root. It
+  installs the new deploy script, launcher, and unit without restarting the
+  current service. Only then may the .NET 10 commit reach auto-deploy.
 - Health check: `http://127.0.0.1:5010/healthz` and public equivalent.
 - Deployment keeps five releases and restores the previous symlink when health
   verification fails.
@@ -32,13 +44,15 @@ Last verified: 2026-07-31
 
 ## GitHub Actions
 
-- `DIY-AI CI` validates scripts, policy boundaries, and the server image.
+- `DIY-AI CI` builds with .NET 10, validates a self-contained Linux publish,
+  and smoke-tests the `runtime-deps:10.0` image with MongoDB 4.4.
 - The legacy .NET workflow excludes `diy-ai` to avoid duplicate server builds.
 - Desktop Unity CI runs automatically only when Unity or Common sources change;
   same-branch superseded builds are cancelled. It remains manually dispatchable.
-- `DIY-AI Deploy` builds inside the pinned .NET 3.1 SDK image, uploads through
-  dedicated account `card-deploy`, activates atomically, and verifies 5010 from
-  the target host through the authenticated SSH channel.
+- `DIY-AI Deploy` uses `actions/setup-dotnet@v4` with `10.0.x`, publishes
+  self-contained `linux-x64`, uploads through dedicated account `card-deploy`,
+  activates atomically, and verifies 5010 from the target host through the
+  authenticated SSH channel.
 - Secrets live in GitHub Environment `diy-ai`; never record their values.
 - The Environment uses a custom deployment branch policy allowing only
   `diy-ai`, so other branches cannot consume its deployment credentials.

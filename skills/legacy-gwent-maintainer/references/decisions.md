@@ -1,6 +1,6 @@
 # Active decisions
 
-Last verified: 2026-07-31
+Last verified: 2026-08-01
 
 ## Isolate aggressive maintenance
 
@@ -17,9 +17,20 @@ seed and the two tracks diverge independently afterward.
 
 ## Prefer native atomic releases on the legacy host
 
-Build in a pinned container in GitHub Actions, but deploy framework-dependent
-publish artifacts to native systemd. This matches the existing host, avoids
-requiring a container registry credential, and permits symlink rollback.
+Build and validate with .NET 10 in GitHub Actions, but deploy a self-contained
+`linux-x64` publish to native systemd. This keeps atomic symlink rollback and
+avoids both a container-registry credential and a machine-wide .NET 10 runtime.
+It still depends on compatible native libraries, so deployment rejects glibc
+older than 2.27 before switching the active release. A stable launcher prefers
+the native host but can run retained framework-dependent releases during the
+migration window, preserving rollback across the ExecStart transition.
+
+## Keep the Unity transport boundary frozen during server upgrades
+
+Framework migration applies to the ASP.NET Core server and server-side test
+tools only. Common and AI remain `netstandard2.0`, Unity remains 2019.4.1f1,
+and the Unity SignalR 5.0.8 assemblies are checksum-protected in DIY-AI CI.
+Upgrade transport libraries only as a separate compatibility project.
 
 ## Keep project knowledge versioned and progressively disclosed
 

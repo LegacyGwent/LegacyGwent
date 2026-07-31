@@ -14,11 +14,15 @@ $unityUrl = "https://download.unity3d.com/download_unity/e6c045e14e4e/Windows64E
 
 New-Item -ItemType Directory -Path $script:DevRoot -Force | Out-Null
 
-if (-not (Test-Path -LiteralPath $script:DotNetExe)) {
-    Write-Host "Installing ASP.NET Core Runtime 3.1.32..."
+if (-not (Test-DotNetServerSdk)) {
+    Write-Host "Installing .NET $script:DotNetSdkChannel SDK..."
     curl.exe -L --fail --silent --show-error "https://dot.net/v1/dotnet-install.ps1" -o $dotnetInstaller
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $dotnetInstaller `
-        -Runtime aspnetcore -Version 3.1.32 -InstallDir (Split-Path -Parent $script:DotNetExe) -NoPath
+        -Channel $script:DotNetSdkChannel -Quality GA `
+        -InstallDir (Split-Path -Parent $script:DotNetExe) -NoPath
+    if ($LASTEXITCODE -ne 0 -or -not (Test-DotNetServerSdk)) {
+        throw ".NET $script:DotNetSdkChannel SDK installation failed with exit code $LASTEXITCODE."
+    }
 }
 
 if (-not (Get-ChildItem -LiteralPath $script:MongoRoot -Filter "mongod.exe" -File -Recurse -ErrorAction SilentlyContinue)) {

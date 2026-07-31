@@ -28,7 +28,9 @@ def main() -> int:
 
     for path in sorted(REFERENCE_ROOT.glob("*.md")):
         raw = path.read_bytes()
-        text = raw.decode("utf-8")
+        # Git may materialize tracked Markdown with CRLF on Windows. Normalize
+        # before applying line-anchored checks so validation is cross-platform.
+        text = raw.decode("utf-8").replace("\r\n", "\n")
         line_count = len(text.splitlines())
         if line_count > MAX_LINES:
             errors.append(f"{path.name}: {line_count} lines exceeds {MAX_LINES}")

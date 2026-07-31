@@ -5,7 +5,7 @@ r"""
 1) LegacyGwent\src\Cynthia.Card.Unity\src\Cynthia.Unity.Card\Assets\Resources\Locales
 2) LegacyGwent\src\Cynthia.Card.Unity\src\Cynthia.Unity.Card\Assets\StreamingFile\Locales
 3) LegacyGwent\src\Cynthia.Card\src\Cynthia.Card.Server\Locales
-4) LegacyGwent\src\Cynthia.Card\src\Cynthia.Card.Server\bin\Debug\netcoreapp3.0\Locales
+4) LegacyGwent\src\Cynthia.Card\src\Cynthia.Card.Server\bin\Debug\net10.0\Locales
 
 """
 import pathlib
@@ -23,7 +23,7 @@ def unify_language(path,languages):
         to_path = pathlib.PurePath(path, "src", "Cynthia.Card.Unity", "src", "Cynthia.Unity.Card", "Assets", "StreamingFile", "Locales", language+'.json')
         shutil.copyfile(from_path, to_path)
         try:
-            to_path = pathlib.PurePath(path, "src", "Cynthia.Card", "src", "Cynthia.Card.Server", "bin", "Debug", "netcoreapp3.0","locales", language+'.json')
+            to_path = pathlib.PurePath(path, "src", "Cynthia.Card", "src", "Cynthia.Card.Server", "bin", "Debug", "net10.0","locales", language+'.json')
             shutil.copyfile(from_path, to_path)
             print(language +' unified')
         except:
