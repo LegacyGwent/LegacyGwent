@@ -41,3 +41,6 @@ jobs:
           test "$(grep -c '5010' deploy/diy-ai/card-diy-ai.env.example)" -ge 1
           test "$(grep -c '28021/gwent-diy-ai' deploy/diy-ai/card-diy-ai.env.example)" -eq 1
           ! grep -R --line-number --fixed-strings '/usr/share/card-diy/publish' deploy/diy-ai
+          grep -q '^  productName: DiyGwent AITest$' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset
+          grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-desktop.yml
+          grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-mobile.yml

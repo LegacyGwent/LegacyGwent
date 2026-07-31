@@ -41,6 +41,12 @@ packaged players. It stores choices under DIY-AI-specific PlayerPrefs keys, so a
 stable client's previous language does not override this branch's default;
 manual language changes remain persistent.
 
+Player-facing builds use the deliberately modest `DiyGwent AITest` product
+name and `DiyGwent-AITest-<platform>-<version>` distribution filenames. The
+name signals an experimental, aggressively changing track rather than a more
+stable or more capable replacement for DIY. The distinct Unity product name
+also keeps Windows PlayerPrefs and persistent data separate from `DiyGwent`.
+
 ## Copy stable data into DIY-AI
 
 Bootstrap installs `/usr/local/sbin/sync-card-diy-to-ai`. To replace only the

@@ -2,6 +2,17 @@
 
 Last verified: 2026-07-31
 
+## DIY-AI release identity
+
+- The player-facing product name is `DiyGwent AITest`. `AITest` intentionally
+  lowers expectations: this is an experimental, aggressively changing track,
+  not a promise that it is stronger or more stable than DIY.
+- Use `DiyGwent-AITest-<platform>-<version>` for distributed client filenames.
+  Keep internal branch, service, database, and deployment names as `diy-ai`.
+- Preserve the distinct Unity product name as well as the Android package ID;
+  the former isolates Windows PlayerPrefs/persistent data and the latter lets
+  both Android clients coexist.
+
 ## Account identity
 
 - Registration form naming is counterintuitive: stored `UserName` is the login;
