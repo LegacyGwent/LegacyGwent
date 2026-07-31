@@ -32,6 +32,8 @@ Last verified: 2026-07-31
   dedicated account `card-deploy`, activates atomically, and verifies 5010 from
   the target host through the authenticated SSH channel.
 - Secrets live in GitHub Environment `diy-ai`; never record their values.
+- The Environment uses a custom deployment branch policy allowing only
+  `diy-ai`, so other branches cannot consume its deployment credentials.
 - Pin SSH host keys through `DIY_AI_SSH_KNOWN_HOSTS`; do not run `ssh-keyscan` in
   delivery because it opens enough connections to trip SSH rate limiting.
 
