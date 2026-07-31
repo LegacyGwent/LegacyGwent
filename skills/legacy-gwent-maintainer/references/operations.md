@@ -7,20 +7,28 @@ Last verified: 2026-07-31
 - Service: `card-diy.service`.
 - Public port: 5005.
 - Working directory: `/usr/share/card-diy/publish`.
-- MongoDB: loopback 28020, database `gwent-diy`.
+- MongoDB: loopback 28020; logical databases `gwentdiy` and `Web`.
 - Do not restart or reuse these resources for DIY-AI work.
 
 ## DIY-AI
 
 - Service: `card-diy-ai.service`, public port 5010.
-- Mongo service: `mongod-diy-ai.service`, loopback 28021, database
-  `gwent-diy-ai`, data directory `/var/lib/mongodb-diy-ai`.
+- Mongo service: `mongod-diy-ai.service`, loopback 28021, logical databases
+  `gwentdiy` and `Web`, data directory `/var/lib/mongodb-diy-ai`.
 - Releases: `/usr/share/card-diy-ai/releases/<commit>` with atomic `current`
   symlink switching.
 - Deployment command: `/usr/local/sbin/deploy-card-diy-ai`.
 - Health check: `http://127.0.0.1:5010/healthz` and public equivalent.
 - Deployment keeps five releases and restores the previous symlink when health
   verification fails.
+- Stable-to-AI database copy: `/usr/local/sbin/sync-card-diy-to-ai --execute`.
+  It snapshots 28020 online, stops only `card-diy-ai`, backs up 28021 under
+  `/var/backups/legacy-gwent/diy-ai-sync/<run>`, replaces both logical
+  databases, and rolls back on restore or health failure. Preserve the reported
+  run directory until the copied state has been accepted.
+- Because stable MongoDB is a standalone process and remains online, the dump is
+  best-effort rather than a transactional point-in-time snapshot. Check the
+  recorded source drift files and compare collection-count digests afterward.
 
 ## GitHub Actions
 

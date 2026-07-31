@@ -167,7 +167,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 0
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: cynthia.diy.card
+    Android: cynthia.diy.ai.card
     Standalone: com.Company.ProductName
   buildNumber: {}
   AndroidBundleVersionCode: 1

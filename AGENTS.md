@@ -10,8 +10,11 @@ and apply its mandatory learning rewrite after verified discoveries.
 
 - Start changes from `diy-ai`; never deploy experimental commits to the `diy` service.
 - The isolated server is `card-diy-ai` on TCP port `5010`.
-- The isolated MongoDB is `mongod-diy-ai` on loopback port `28021`, database `gwent-diy-ai`.
-- Never modify, restart, migrate, or reuse the production-like `card-diy` service on port `5005` or its `gwent-diy` database.
+- The isolated MongoDB is `mongod-diy-ai` on loopback port `28021`; application
+  data is hardcoded into logical databases `gwentdiy` and `Web`.
+- Never modify, restart, migrate, or reuse the production-like `card-diy`
+  service on port `5005` or its MongoDB process on port `28020` unless the user
+  explicitly requests a backed-up migration or snapshot copy.
 
 ## Required checks
 

@@ -16,7 +16,6 @@ jobs:
       matrix:
         targetPlatform:
           - Android # Build an Android .apk standalone app.
-          - iOS # Build an iOS player.
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,6 +39,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
           buildName: DiyGwent-${{ matrix.targetPlatform }}
+          androidExportType: androidPackage
           allowDirtyBuild: true
       - uses: actions/upload-artifact@v4
         with:

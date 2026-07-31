@@ -27,7 +27,7 @@ jobs:
         run: git diff --check HEAD^ HEAD
 
       - name: Validate deployment scripts
-        run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh
+        run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh deploy/diy-ai/sync-from-diy.sh
 
       - name: Build server runtime image
         run: docker build --target runtime --tag legacygwent-diy-ai:${GITHUB_SHA} src/Cynthia.Card

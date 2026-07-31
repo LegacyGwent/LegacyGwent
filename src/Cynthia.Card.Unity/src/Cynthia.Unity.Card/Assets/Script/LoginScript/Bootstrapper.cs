@@ -10,14 +10,21 @@ using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
 {
+    private const string DefaultServerUrl = "http://106.15.38.165:5010";
+
     public void Awake()
     {
         if (DependencyResolver.Container != null)
             return;
         var serverUrl = Environment.GetEnvironmentVariable("GWENT_SERVER_URL");
         if (string.IsNullOrWhiteSpace(serverUrl))
-            serverUrl = "http://cynthia.ovyno.com:5005";
-        serverUrl = serverUrl.TrimEnd('/');
+        {
+            var configuredEndpoint = Resources.Load<TextAsset>("ServerEndpoint");
+            serverUrl = configuredEndpoint == null ? DefaultServerUrl : configuredEndpoint.text;
+        }
+        if (string.IsNullOrWhiteSpace(serverUrl))
+            serverUrl = DefaultServerUrl;
+        serverUrl = serverUrl.Trim().TrimEnd('/');
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
         builder.Register(

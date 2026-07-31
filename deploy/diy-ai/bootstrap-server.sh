@@ -40,6 +40,7 @@ fi
 install -o root -g root -m 0644 "$script_dir/card-diy-ai.service" /etc/systemd/system/card-diy-ai.service
 install -o root -g root -m 0644 "$script_dir/mongod-diy-ai.service" /etc/systemd/system/mongod-diy-ai.service
 install -o root -g root -m 0755 "$script_dir/deploy.sh" /usr/local/sbin/deploy-card-diy-ai
+install -o root -g root -m 0755 "$script_dir/sync-from-diy.sh" /usr/local/sbin/sync-card-diy-to-ai
 
 cat >/etc/sudoers.d/card-diy-ai-deploy <<'EOF'
 card-deploy ALL=(root) NOPASSWD: /usr/local/sbin/deploy-card-diy-ai *

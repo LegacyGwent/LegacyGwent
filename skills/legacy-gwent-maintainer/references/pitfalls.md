@@ -2,6 +2,45 @@
 
 Last verified: 2026-07-31
 
+## Mongo URI suffix points at the wrong apparent database
+
+- Symptom: `gwent-diy` or `gwent-diy-ai` appears empty even though accounts and
+  matches exist, or a copy of that named database leaves DIY-AI unseeded.
+- Cause: `GwentDatabaseService.cs` explicitly opens `gwentdiy`, and
+  `DiyPage/Command.cs` explicitly opens `Web`; the connection URI suffix is not
+  used by those repositories.
+- Fix: inspect, back up, and migrate both `gwentdiy` and `Web` on the intended
+  Mongo port.
+- Prevention: describe isolation by Mongo process/port/data directory and use
+  `sync-card-diy-to-ai`, not an inferred URI database name.
+- Verification: collection-count digests for both logical databases match the
+  intended snapshot on ports 28020 and 28021.
+
+## Android client cannot reach plain HTTP 5010
+
+- Symptom: a Windows build connects, but an Android 9+ build fails before login.
+- Cause: modern target SDKs block cleartext HTTP unless the manifest opts in;
+  Android also cannot use a developer machine's process environment override.
+- Fix: keep the DIY-AI Android Gradle manifest postprocessor enabled until 5010
+  is behind TLS, and bake the endpoint through `ServerEndpoint.txt`.
+- Prevention: use distinct package ID `cynthia.diy.ai.card`, verify the generated
+  manifest, and migrate the service to HTTPS before removing the opt-in.
+- Verification: APK manifest contains `INTERNET` and `usesCleartextTraffic`, and
+  server logs show the device connecting to 5010.
+
+## Build-time environment does not configure a packaged Unity player
+
+- Symptom: CI sets `GWENT_SERVER_URL`, but the downloaded client still connects
+  to the branch fallback.
+- Cause: the environment variable is read when the player runs, not serialized
+  into the build by GitHub Actions.
+- Fix: update `Assets/Resources/ServerEndpoint.txt` for packaged defaults; retain
+  the environment variable for runtime desktop overrides.
+- Prevention: treat endpoint assets and runtime environment settings as separate
+  configuration channels.
+- Verification: run the artifact without an environment override and inspect its
+  actual TCP peer.
+
 ## Unity silently connects to the public server
 
 - Symptom: local UI works, but new accounts or results do not appear in local MongoDB.

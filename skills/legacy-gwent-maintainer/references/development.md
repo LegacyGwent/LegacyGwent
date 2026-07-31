@@ -7,9 +7,11 @@ Last verified: 2026-07-31
 - Setup: `scripts/setup-dev.ps1` installs ASP.NET Core 3.1.32, MongoDB 4.4.29,
   and Unity 2019.4.1f1 under `%LOCALAPPDATA%\LegacyGwentDev`.
 - Stable profile: `scripts/start-dev.ps1` uses server 5005, MongoDB 28020, and
-  database `gwent-diy`.
+  connection-URI suffix `gwent-diy`.
 - Isolated profile: `scripts/start-ai-dev.ps1` uses server 5010, MongoDB 28021,
-  database `gwent-diy-ai`, and a separate data directory.
+  URI suffix `gwent-diy-ai`, and a separate data directory.
+- The server ignores those URI suffixes when selecting repositories: game data
+  is in logical database `gwentdiy`, while DIY-page data is in `Web`.
 - Stop with the matching `stop-dev.ps1` or `stop-ai-dev.ps1`.
 
 ## Unity
@@ -17,6 +19,15 @@ Last verified: 2026-07-31
 - `scripts/open-unity.ps1` builds/synchronizes the Common DLL and sets
   `GWENT_SERVER_URL` only for the launched Unity process.
 - Pass `-ServerUrl http://cynthia.ovyno.com:5010` for the deployed DIY-AI track.
+- Packaged `diy-ai` clients resolve the endpoint in this order:
+  `GWENT_SERVER_URL`, `Assets/Resources/ServerEndpoint.txt`, then the compiled
+  5010 fallback. The tracked resource currently uses the direct public IP to
+  avoid fake-IP proxies intercepting the nonstandard port.
+- Android uses package ID `cynthia.diy.ai.card`. Its Gradle postprocessor adds
+  `INTERNET` and permits cleartext because 5010 does not yet provide TLS.
+- Desktop Unity CI runs on relevant pushes; dispatch the mobile workflow for an
+  Android APK. Do not expect a workflow environment variable to become a
+  persistent runtime variable inside a built player.
 - Confirm the actual TCP peer after switching endpoints; a working UI does not
   prove the client is local.
 

@@ -21,8 +21,11 @@ Last verified: 2026-07-31
   fallback.
 - MongoDB comes from `MONGO_CONNECTION_STRING`, with the legacy local fallback
   `mongodb://localhost:28020/gwent-diy`.
-- Unity server selection comes from `GWENT_SERVER_URL`, with the public DIY
-  endpoint as fallback.
+- The URI selects the Mongo server, but repository code explicitly opens
+  `gwentdiy` in `GwentDatabaseService.cs` and `Web` in `DiyPage/Command.cs`;
+  changing only the URI database suffix does not move application data.
+- Unity server selection on `diy-ai` is `GWENT_SERVER_URL`, then the tracked
+  `Resources/ServerEndpoint.txt`, then a compiled direct-IP 5010 fallback.
 - The shared Common DLL must be rebuilt and copied into Unity
   `Assets/Assemblies` after model changes; `scripts/open-unity.ps1` performs this.
 

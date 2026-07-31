@@ -33,12 +33,16 @@ For a background smoke-test instance:
 
 The website is available at <http://127.0.0.1:5005/>.
 
-For the fully isolated `diy-ai` profile (server `5010`, MongoDB `28021`, and
-database `gwent-diy-ai`), use:
+For the fully isolated `diy-ai` profile (server `5010`, MongoDB `28021`, and a
+separate data directory), use:
 
 ```powershell
 .\scripts\start-ai-dev.ps1
 ```
+
+The connection URI ends in `gwent-diy-ai`, but the legacy repositories select
+logical databases `gwentdiy` and `Web` explicitly. Isolation comes from the
+separate MongoDB process, port, and data directory—not the URI suffix.
 
 ## Stop
 
@@ -60,3 +64,6 @@ Sign in to Unity Hub and activate a Unity Personal license once, then run:
 
 The script rebuilds and syncs the ignored `Cynthia.Card.Common.dll` dependency
 before opening the project. The client connects to the game hub on port `5005`.
+On branch `diy-ai`, packaged clients instead read
+`Assets/Resources/ServerEndpoint.txt` and default to the deployed port `5010`;
+`GWENT_SERVER_URL` remains the highest-priority override.

@@ -12,10 +12,14 @@ the stable DIY instance.
 | Public TCP port | `5005` | `5010` |
 | MongoDB service | existing `mongod` | `mongod-diy-ai` |
 | MongoDB port | `28020` | `28021` (loopback only) |
-| Database | `gwent-diy` | `gwent-diy-ai` |
+| Logical databases | `gwentdiy`, `Web` | `gwentdiy`, `Web` (separate Mongo process) |
 | Release directory | `/usr/share/card-diy/publish` | `/usr/share/card-diy-ai/releases/<commit>` |
 
 Health check: `http://127.0.0.1:5010/healthz`.
+
+The Mongo URI suffixes `gwent-diy` and `gwent-diy-ai` do not select the
+application databases. Legacy repositories explicitly open `gwentdiy` and
+`Web`; isolation is provided by the different ports and data directories.
 
 To open the Unity project against the deployed AI track:
 
@@ -25,6 +29,27 @@ To open the Unity project against the deployed AI track:
 
 If a local proxy uses fake-IP DNS and returns 403 for nonstandard ports, route
 `cynthia.ovyno.com:5010` directly or pass the current public A record instead.
+
+Packaged `diy-ai` clients use `Assets/Resources/ServerEndpoint.txt` and currently
+default to the direct 5010 endpoint. Windows can still override it with
+`GWENT_SERVER_URL`. The Android package ID is `cynthia.diy.ai.card`, so it can
+coexist with the stable client; a build postprocessor enables the plain-HTTP
+5010 connection until the service is moved behind TLS.
+
+## Copy stable data into DIY-AI
+
+Bootstrap installs `/usr/local/sbin/sync-card-diy-to-ai`. To replace only the
+isolated 28021 data with an online snapshot of 28020:
+
+```bash
+sudo /usr/local/sbin/sync-card-diy-to-ai --execute
+```
+
+The command dumps `gwentdiy` and `Web`, stops only `card-diy-ai`, backs up the
+old target under `/var/backups/legacy-gwent/diy-ai-sync/<run>`, restores the
+snapshot, starts 5010, and rolls back automatically if restore or health checks
+fail. Stable 5005 remains online, so a standalone MongoDB dump is a best-effort
+online snapshot rather than a transactional point-in-time copy.
 
 ## CI/CD
 
