@@ -38,6 +38,13 @@ tools only. Common and AI remain `netstandard2.0`, Unity remains 2019.4.1f1,
 and the Unity SignalR 5.0.8 assemblies are checksum-protected in DIY-AI CI.
 Upgrade transport libraries only as a separate compatibility project.
 
+## Migrate vulnerable database dependencies through an explicit checkpoint
+
+Use MongoDB.Driver 2.30 only to expose 3.x removals, then deploy 3.9 as the
+security baseline. Do not pin a modern SharpCompress underneath the older
+driver. Require a zero-advisory solution audit, isolated Mongo 4.4 functional
+coverage including zlib, and a real Unity regression before dependency rollout.
+
 ## Keep project knowledge versioned and progressively disclosed
 
 The canonical skill lives in this repository. A personal Codex installation may

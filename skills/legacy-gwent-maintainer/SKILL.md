@@ -38,6 +38,8 @@ for the task, then rewrite the knowledge base when verified learning occurs.
 - Windows local setup or Unity: read `references/development.md`.
 - Server, MongoDB, SSH, Actions, deployment, or rollback: read
   `references/operations.md`.
+- Runtime/package upgrades, vulnerability findings, or dependency policy: read
+  `references/dependencies.md`.
 - Unexpected behavior, failures, or repeated debugging: read
   `references/pitfalls.md` before diagnosing.
 - A durable design choice or replacement of an old approach: read

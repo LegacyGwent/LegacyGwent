@@ -45,6 +45,17 @@ jobs:
       - name: Build server and server-side test tools
         run: dotnet build --configuration Release src/Cynthia.Card/Cynthia.Card.sln
 
+      - name: Reject known vulnerable packages
+        run: |
+          report="$(mktemp)"
+          trap 'rm -f "$report"' EXIT
+          dotnet list src/Cynthia.Card/Cynthia.Card.sln package \
+            --vulnerable \
+            --include-transitive \
+            --no-restore \
+            --format json > "$report"
+          python scripts/check-vulnerable-packages.py "$report"
+
       - name: Validate self-contained Linux publish
         run: |
           dotnet publish \
@@ -111,6 +122,9 @@ jobs:
           grep -q '^[[:space:]]*- StandaloneLinux64' .github/workflows/unity-build-desktop.yml
           grep -q 'name: Package desktop client' .github/workflows/unity-build-desktop.yml
           grep -q '<TargetFramework>net10.0</TargetFramework>' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q 'PackageReference Include="MongoDB.Driver" Version="3.9.0"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q 'PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q 'name: Reject known vulnerable packages' .github/workflows/diy-ai-ci.yml
           ! grep -q 'PackageReference Include="System.Text.Json"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q '^FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build$' src/Cynthia.Card/Dockerfile
           grep -q '^FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime$' src/Cynthia.Card/Dockerfile

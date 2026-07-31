@@ -8,6 +8,9 @@ Last verified: 2026-08-01
 - Public port: 5005.
 - Working directory: `/usr/share/card-diy/publish`.
 - MongoDB: loopback 28020; logical databases `gwentdiy` and `Web`.
+- This legacy service has no dedicated health endpoint: `/healthz` currently
+  falls through to the HTML home page. Use HTTP 200 plus unchanged service PID
+  and lifecycle state when proving it survived an isolated DIY-AI deployment.
 - Do not restart or reuse these resources for DIY-AI work.
 
 ## DIY-AI
@@ -40,6 +43,9 @@ Last verified: 2026-08-01
 - Deployment keeps five releases and restores the previous symlink when health
   verification or the candidate restart fails. It verifies the restored
   release too and stops the service if even rollback cannot become healthy.
+- A normal service stop can cancel `ScheduledEventService` and emit a single
+  `TaskCanceledException`; correlate it with systemd lifecycle timestamps.
+  Error markers after the new process begins are the deployment signal.
 - Stable-to-AI database copy: `/usr/local/sbin/sync-card-diy-to-ai --execute`.
   It snapshots 28020 online, stops only `card-diy-ai`, backs up 28021 under
   `/var/backups/legacy-gwent/diy-ai-sync/<run>`, replaces both logical
