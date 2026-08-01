@@ -214,12 +214,20 @@ jobs:
               grep -Eq 'android:usesCleartextTraffic.*(0xffffffff|true)' "$manifest_report"
 
               "$apksigner_path" verify --verbose --print-certs "$asset_path" > "$signature_report"
+              cat "$signature_report"
               grep -Fq 'Verifies' "$signature_report"
               grep -Eq '^Number of signers: [1-9][0-9]*$' "$signature_report"
-              grep -Eq '^Signer (#[0-9]+|\([^)]*\)) certificate DN:' "$signature_report"
-              grep -Eq '^Signer (#[0-9]+|\([^)]*\)) certificate SHA-256 digest: [0-9a-fA-F]{64}$' "$signature_report"
-              echo 'Signing certificate (audit only; no stable identity is asserted):'
-              grep -E '^Signer (#[0-9]+|\([^)]*\)) certificate (DN|SHA-256 digest):' "$signature_report"
+              grep -Eq 'certificate DN:[[:space:]]*.+' "$signature_report"
+              certificate_digest="$(
+                awk '/certificate SHA-256 digest:/ {
+                  sub(/^.*certificate SHA-256 digest:[[:space:]]*/, "")
+                  print
+                  exit
+                }' "$signature_report" |
+                  tr -d '[:space:]:'
+              )"
+              [[ "$certificate_digest" =~ ^[0-9a-fA-F]{64}$ ]]
+              echo "Normalized signing certificate SHA-256: $certificate_digest"
               ;;
             StandaloneWindows64) asset_name="DiyGwent-AITest-Windows-$EXPECTED_CLIENT_VERSION.zip" ;;
             StandaloneOSX) asset_name="DiyGwent-AITest-macOS-$EXPECTED_CLIENT_VERSION.zip" ;;

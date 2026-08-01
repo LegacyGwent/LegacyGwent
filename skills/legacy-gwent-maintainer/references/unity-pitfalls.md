@@ -131,14 +131,16 @@ Last verified: 2026-08-01
 
 ## APK verifies but certificate-summary parsing fails the workflow
 
-- Symptom: Android compilation and `apksigner verify` pass, then packaging exits
-  immediately after the certificate-audit heading and uploads no artifact.
-- Cause: `apksigner --print-certs` can prefix certificate lines with either
-  `Signer #N` or `Signer (minSdkVersion=..., maxSdkVersion=...)`; a regex that
-  accepts only the numbered form rejects a valid signature report.
-- Fix: accept both prefixes, while independently requiring a signer count, a DN,
-  and a 64-hex-character SHA-256 certificate digest.
-- Prevention: keep signature validity checks separate from human-readable audit
-  output and test parsers against both documented signer prefixes.
-- Verification: both sample formats pass the parser, a malformed digest fails,
-  and CI uploads the APK after `apksigner` reports `Verifies`.
+- Symptom: Android compilation and `apksigner verify` pass, then a certificate
+  text assertion exits and the upload step is skipped.
+- Cause: `apksigner --print-certs` is human-readable output; signer labels,
+  whitespace, and digest separators vary across build-tools versions.
+- Fix: use the command exit, `Verifies`, and signer count as validity gates; log
+  the complete report, find certificate fields by their semantic labels, remove
+  colons/whitespace from the digest, then require 64 hexadecimal characters.
+- Prevention: separate prepare, verify, and upload steps. Upload a successfully
+  prepared APK even when verification fails so the failed run remains
+  diagnosable; never accept that artifact unless the verification job is green.
+- Verification: numbered/parenthesized labels and compact/colon-delimited
+  digests pass, malformed digests fail, and a failed verifier still leaves the
+  APK available for independent inspection.

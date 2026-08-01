@@ -84,14 +84,11 @@ jobs:
           androidVersionCode: ${{ steps.client_version.outputs.android_version_code }}
           androidExportType: androidPackage
           allowDirtyBuild: true
-      - name: Package Android client
+      - name: Prepare Android client
         id: package
         shell: bash
         env:
           EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
-          EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
-          EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
-          EXPECTED_ANDROID_LABEL: DiyGwent AITest
         run: |
           set -Eeuo pipefail
           version_file="build/${{ matrix.targetPlatform }}/version.txt"
@@ -102,7 +99,17 @@ jobs:
           package_name="DiyGwent-AITest-Android-$EXPECTED_CLIENT_VERSION.apk"
           cp "${apk_files[0]}" "$package_name"
           test -s "$package_name"
+          echo "package_name=$package_name" >> "$GITHUB_OUTPUT"
 
+      - name: Verify Android client
+        shell: bash
+        env:
+          PACKAGE_NAME: ${{ steps.package.outputs.package_name }}
+          EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
+          EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
+          EXPECTED_ANDROID_LABEL: DiyGwent AITest
+        run: |
+          set -Eeuo pipefail
           find_android_tool() {
             local tool_name="$1"
             local tool_path
@@ -122,7 +129,7 @@ jobs:
           manifest_report="$RUNNER_TEMP/aitest-android-manifest.txt"
           signature_report="$RUNNER_TEMP/aitest-android-signature.txt"
 
-          "$aapt_path" dump badging "$package_name" > "$badging_report"
+          "$aapt_path" dump badging "$PACKAGE_NAME" > "$badging_report"
           package_line="$(grep -m 1 '^package:' "$badging_report")"
           [[ "$package_line" == *"name='$EXPECTED_ANDROID_PACKAGE'"* ]]
           [[ "$package_line" == *"versionCode='$EXPECTED_ANDROID_VERSION_CODE'"* ]]
@@ -130,19 +137,26 @@ jobs:
           grep -Fq "application-label:'$EXPECTED_ANDROID_LABEL'" "$badging_report"
           grep -Fq "uses-permission: name='android.permission.INTERNET'" "$badging_report"
 
-          "$aapt_path" dump xmltree "$package_name" AndroidManifest.xml > "$manifest_report"
+          "$aapt_path" dump xmltree "$PACKAGE_NAME" AndroidManifest.xml > "$manifest_report"
           grep -Eq 'android:usesCleartextTraffic.*(0xffffffff|true)' "$manifest_report"
 
-          "$apksigner_path" verify --verbose --print-certs "$package_name" > "$signature_report"
+          "$apksigner_path" verify --verbose --print-certs "$PACKAGE_NAME" > "$signature_report"
+          cat "$signature_report"
           grep -Fq 'Verifies' "$signature_report"
           grep -Eq '^Number of signers: [1-9][0-9]*$' "$signature_report"
-          grep -Eq '^Signer (#[0-9]+|\([^)]*\)) certificate DN:' "$signature_report"
-          grep -Eq '^Signer (#[0-9]+|\([^)]*\)) certificate SHA-256 digest: [0-9a-fA-F]{64}$' "$signature_report"
-          echo 'Signing certificate (audit only; no stable identity is asserted):'
-          grep -E '^Signer (#[0-9]+|\([^)]*\)) certificate (DN|SHA-256 digest):' "$signature_report"
-
-          echo "package_name=$package_name" >> "$GITHUB_OUTPUT"
+          grep -Eq 'certificate DN:[[:space:]]*.+' "$signature_report"
+          certificate_digest="$(
+            awk '/certificate SHA-256 digest:/ {
+              sub(/^.*certificate SHA-256 digest:[[:space:]]*/, "")
+              print
+              exit
+            }' "$signature_report" |
+              tr -d '[:space:]:'
+          )"
+          [[ "$certificate_digest" =~ ^[0-9a-fA-F]{64}$ ]]
+          echo "Normalized signing certificate SHA-256: $certificate_digest"
       - uses: actions/upload-artifact@v4
+        if: ${{ always() && steps.package.outcome == 'success' }}
         with:
           name: ${{ steps.package.outputs.package_name }}
           path: ${{ steps.package.outputs.package_name }}
