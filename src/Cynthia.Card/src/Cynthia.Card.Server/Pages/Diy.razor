@@ -70,9 +70,7 @@
                 <SimpleSelectOption Value="特殊卡" Label="特殊卡"></SimpleSelectOption>
             </SelectOptions>
         </SimpleSelect>
-        <Input Placeholder="战力" @bind-Value="@newDiyCard.cardInfo.Strength">
-        <AddOnBefore>战力</AddOnBefore>
-        @* </Input> *@
+        <Input Placeholder="战力" @bind-Value="@newDiyCard.cardInfo.Strength" />
         <SimpleSelect Placeholder="阵营" OnSelectedItemChanged="handleFractionChange">
             <SelectOptions>
                 <SimpleSelectOption Value="怪兽" Label="怪兽"></SimpleSelectOption>
