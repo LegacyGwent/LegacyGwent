@@ -1,7 +1,13 @@
 name: Build Client for Mobile
 
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Full commit SHA that must be built
+        required: true
+        type: string
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -21,6 +27,15 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+      - name: Verify dispatched commit
+        shell: bash
+        env:
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
+        run: |
+          set -Eeuo pipefail
+          [[ "$EXPECTED_SHA" =~ ^[0-9a-fA-F]{40}$ ]]
+          actual_sha="$(git rev-parse HEAD)"
+          test "${EXPECTED_SHA,,}" = "$actual_sha"
       - uses: actions/cache@v4
         with:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
@@ -40,9 +55,24 @@ jobs:
         run: |
           set -Eeuo pipefail
           settings="src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset"
-          client_version="$(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | head -n 1 | tr -d '\r')"
+          mapfile -t client_versions < <(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | tr -d '\r')
+          mapfile -t tracked_android_codes < <(sed -n 's/^[[:space:]]*AndroidBundleVersionCode:[[:space:]]*//p' "$settings" | tr -d '\r')
+          test "${#client_versions[@]}" -eq 1
+          test "${#tracked_android_codes[@]}" -eq 1
+          client_version="${client_versions[0]}"
+          tracked_android_code="${tracked_android_codes[0]}"
           [[ "$client_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$tracked_android_code" =~ ^[0-9]+$ ]]
+          IFS=. read -r major minor patch <<< "$client_version"
+          for component in "$major" "$minor" "$patch"; do
+            test "$((10#$component))" -le 999
+          done
+          android_version_code="$((10#$major * 1000000 + 10#$minor * 1000 + 10#$patch))"
+          test "$android_version_code" -gt 0
+          test "$android_version_code" -lt 2050000000
+          test "$tracked_android_code" = "$android_version_code"
           echo "value=$client_version" >> "$GITHUB_OUTPUT"
+          echo "android_version_code=$android_version_code" >> "$GITHUB_OUTPUT"
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         id: unity_build
         with:
@@ -51,6 +81,7 @@ jobs:
           buildName: DiyGwent-AITest-${{ matrix.targetPlatform }}
           versioning: Custom
           version: ${{ steps.client_version.outputs.value }}
+          androidVersionCode: ${{ steps.client_version.outputs.android_version_code }}
           androidExportType: androidPackage
           allowDirtyBuild: true
       - name: Package Android client
@@ -58,6 +89,9 @@ jobs:
         shell: bash
         env:
           EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
+          EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
+          EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
+          EXPECTED_ANDROID_LABEL: DiyGwent AITest
         run: |
           set -Eeuo pipefail
           version_file="build/${{ matrix.targetPlatform }}/version.txt"
@@ -68,6 +102,43 @@ jobs:
           package_name="DiyGwent-AITest-Android-$EXPECTED_CLIENT_VERSION.apk"
           cp "${apk_files[0]}" "$package_name"
           test -s "$package_name"
+
+          find_android_tool() {
+            local tool_name="$1"
+            local tool_path
+            tool_path="$(command -v "$tool_name" || true)"
+            if [[ -z "$tool_path" ]]; then
+              local sdk_root="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+              test -n "$sdk_root"
+              tool_path="$(find "$sdk_root/build-tools" -mindepth 2 -maxdepth 2 -type f -name "$tool_name" -perm -u+x -print | sort -V | tail -n 1)"
+            fi
+            test -x "$tool_path"
+            printf '%s\n' "$tool_path"
+          }
+
+          aapt_path="$(find_android_tool aapt)"
+          apksigner_path="$(find_android_tool apksigner)"
+          badging_report="$RUNNER_TEMP/aitest-android-badging.txt"
+          manifest_report="$RUNNER_TEMP/aitest-android-manifest.txt"
+          signature_report="$RUNNER_TEMP/aitest-android-signature.txt"
+
+          "$aapt_path" dump badging "$package_name" > "$badging_report"
+          package_line="$(grep -m 1 '^package:' "$badging_report")"
+          [[ "$package_line" == *"name='$EXPECTED_ANDROID_PACKAGE'"* ]]
+          [[ "$package_line" == *"versionCode='$EXPECTED_ANDROID_VERSION_CODE'"* ]]
+          [[ "$package_line" == *"versionName='$EXPECTED_CLIENT_VERSION'"* ]]
+          grep -Fq "application-label:'$EXPECTED_ANDROID_LABEL'" "$badging_report"
+          grep -Fq "uses-permission: name='android.permission.INTERNET'" "$badging_report"
+
+          "$aapt_path" dump xmltree "$package_name" AndroidManifest.xml > "$manifest_report"
+          grep -Eq 'android:usesCleartextTraffic.*(0xffffffff|true)' "$manifest_report"
+
+          "$apksigner_path" verify --verbose --print-certs "$package_name" > "$signature_report"
+          grep -Fq 'Verifies' "$signature_report"
+          grep -Eq '^Number of signers: [1-9][0-9]*$' "$signature_report"
+          echo 'Signing certificate (audit only; no stable identity is asserted):'
+          grep -E '^Signer #[0-9]+ certificate (DN|SHA-256 digest):' "$signature_report"
+
           echo "package_name=$package_name" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:

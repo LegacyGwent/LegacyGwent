@@ -88,9 +88,12 @@ Last verified: 2026-08-01
   hard-coded filename version.
 - Fix: read and validate `ProjectSettings.bundleVersion`, pass it to GameCI with
   `versioning: Custom`, and make both build metadata and `version.txt` use that
-  value. Runtime UI reads `Application.version`.
+  value. For Android, track and explicitly pass the monotonic code computed as
+  `major * 1,000,000 + minor * 1,000 + patch` (2.1.9 is 2001009). Runtime UI
+  reads `Application.version`.
 - Prevention: keep ProjectSettings as the client build version source and make
-  packaging fail when the generated `version.txt` differs.
+  packaging fail when `version.txt`, Android native metadata, or the computed
+  version code differs. Do not rely implicitly on GameCI's current derivation.
 - Verification: inspect all four native metadata formats, including Android
   `versionCode` and macOS `CFBundleVersion`, not only archive names.
 
@@ -115,8 +118,13 @@ Last verified: 2026-08-01
 - Symptom: a newer APK has a higher `versionCode`, but `adb install -r` rejects it.
 - Cause: the mobile workflow has no fixed keystore; debug certificates may differ
   across builders, and Android requires the same signing identity for upgrades.
+  A blank GameCI `androidVersionCode` also overrides a stale tracked value by
+  deriving one from the semantic version, so CI and local builds can diverge.
 - Fix: configure a durable protected keystore before public distribution.
-- Prevention: treat signing identity separately from version correctness and
-  record the expected certificate SHA-256 outside the repository.
-- Verification: compare old/new certificate digests and perform an actual
-  `adb install -r` upgrade test.
+- Prevention: keep `AndroidBundleVersionCode` synchronized in ProjectSettings,
+  pass it explicitly to GameCI, inspect the generated manifest, treat signing
+  identity separately from version correctness, and record the expected
+  certificate SHA-256 outside the repository.
+- Verification: `aapt` reports the expected package/version name/version code,
+  `apksigner` verifies and reports the certificate, then old/new certificate
+  digests match and an actual `adb install -r` upgrade succeeds.

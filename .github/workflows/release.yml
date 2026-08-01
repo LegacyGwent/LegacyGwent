@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-22.04
     outputs:
       client_version: ${{ steps.release_identity.outputs.client_version }}
+      android_version_code: ${{ steps.release_identity.outputs.android_version_code }}
       release_tag: ${{ steps.release_identity.outputs.release_tag }}
     steps:
       - uses: actions/checkout@v4
@@ -40,14 +41,29 @@ jobs:
         run: |
           set -Eeuo pipefail
           settings="src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset"
-          client_version="$(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | head -n 1 | tr -d '\r')"
+          mapfile -t client_versions < <(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | tr -d '\r')
+          mapfile -t tracked_android_codes < <(sed -n 's/^[[:space:]]*AndroidBundleVersionCode:[[:space:]]*//p' "$settings" | tr -d '\r')
+          test "${#client_versions[@]}" -eq 1
+          test "${#tracked_android_codes[@]}" -eq 1
+          client_version="${client_versions[0]}"
+          tracked_android_code="${tracked_android_codes[0]}"
           [[ "$client_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$tracked_android_code" =~ ^[0-9]+$ ]]
+          IFS=. read -r major minor patch <<< "$client_version"
+          for component in "$major" "$minor" "$patch"; do
+            test "$((10#$component))" -le 999
+          done
+          android_version_code="$((10#$major * 1000000 + 10#$minor * 1000 + 10#$patch))"
+          test "$android_version_code" -gt 0
+          test "$android_version_code" -lt 2050000000
+          test "$tracked_android_code" = "$android_version_code"
           test "$REQUESTED_RELEASE_TAG" = "v$client_version"
           git fetch --force --tags origin
           tag_commit="$(git rev-list -n 1 "$REQUESTED_RELEASE_TAG")"
           workflow_commit="$(git rev-parse "$GITHUB_SHA^{commit}")"
           test "$tag_commit" = "$workflow_commit"
           echo "client_version=$client_version" >> "$GITHUB_OUTPUT"
+          echo "android_version_code=$android_version_code" >> "$GITHUB_OUTPUT"
           echo "release_tag=$REQUESTED_RELEASE_TAG" >> "$GITHUB_OUTPUT"
 
   create_release:
@@ -110,13 +126,30 @@ jobs:
         shell: bash
         env:
           EXPECTED_CLIENT_VERSION: ${{ needs.validate_release.outputs.client_version }}
+          EXPECTED_ANDROID_VERSION_CODE: ${{ needs.validate_release.outputs.android_version_code }}
         run: |
           set -Eeuo pipefail
           settings="src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset"
-          client_version="$(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | head -n 1 | tr -d '\r')"
+          mapfile -t client_versions < <(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | tr -d '\r')
+          mapfile -t tracked_android_codes < <(sed -n 's/^[[:space:]]*AndroidBundleVersionCode:[[:space:]]*//p' "$settings" | tr -d '\r')
+          test "${#client_versions[@]}" -eq 1
+          test "${#tracked_android_codes[@]}" -eq 1
+          client_version="${client_versions[0]}"
+          tracked_android_code="${tracked_android_codes[0]}"
           [[ "$client_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$tracked_android_code" =~ ^[0-9]+$ ]]
+          IFS=. read -r major minor patch <<< "$client_version"
+          for component in "$major" "$minor" "$patch"; do
+            test "$((10#$component))" -le 999
+          done
+          android_version_code="$((10#$major * 1000000 + 10#$minor * 1000 + 10#$patch))"
+          test "$android_version_code" -gt 0
+          test "$android_version_code" -lt 2050000000
+          test "$tracked_android_code" = "$android_version_code"
           test "$client_version" = "$EXPECTED_CLIENT_VERSION"
+          test "$android_version_code" = "$EXPECTED_ANDROID_VERSION_CODE"
           echo "value=$client_version" >> "$GITHUB_OUTPUT"
+          echo "android_version_code=$android_version_code" >> "$GITHUB_OUTPUT"
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         id: unity_build
         with:
@@ -125,6 +158,7 @@ jobs:
           buildName: DiyGwent-AITest-${{ matrix.targetPlatform }}
           versioning: Custom
           version: ${{ steps.client_version.outputs.value }}
+          androidVersionCode: ${{ steps.client_version.outputs.android_version_code }}
           androidExportType: androidPackage
           allowDirtyBuild: true
       - name: Package release client
@@ -132,6 +166,9 @@ jobs:
         shell: bash
         env:
           EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
+          EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
+          EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
+          EXPECTED_ANDROID_LABEL: DiyGwent AITest
           TARGET_PLATFORM: ${{ matrix.targetPlatform }}
         run: |
           set -Eeuo pipefail
@@ -145,6 +182,42 @@ jobs:
               asset_name="DiyGwent-AITest-Android-$EXPECTED_CLIENT_VERSION.apk"
               asset_path="$GITHUB_WORKSPACE/$asset_name"
               cp "${apk_files[0]}" "$asset_path"
+
+              find_android_tool() {
+                local tool_name="$1"
+                local tool_path
+                tool_path="$(command -v "$tool_name" || true)"
+                if [[ -z "$tool_path" ]]; then
+                  local sdk_root="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+                  test -n "$sdk_root"
+                  tool_path="$(find "$sdk_root/build-tools" -mindepth 2 -maxdepth 2 -type f -name "$tool_name" -perm -u+x -print | sort -V | tail -n 1)"
+                fi
+                test -x "$tool_path"
+                printf '%s\n' "$tool_path"
+              }
+
+              aapt_path="$(find_android_tool aapt)"
+              apksigner_path="$(find_android_tool apksigner)"
+              badging_report="$RUNNER_TEMP/aitest-release-android-badging.txt"
+              manifest_report="$RUNNER_TEMP/aitest-release-android-manifest.txt"
+              signature_report="$RUNNER_TEMP/aitest-release-android-signature.txt"
+
+              "$aapt_path" dump badging "$asset_path" > "$badging_report"
+              package_line="$(grep -m 1 '^package:' "$badging_report")"
+              [[ "$package_line" == *"name='$EXPECTED_ANDROID_PACKAGE'"* ]]
+              [[ "$package_line" == *"versionCode='$EXPECTED_ANDROID_VERSION_CODE'"* ]]
+              [[ "$package_line" == *"versionName='$EXPECTED_CLIENT_VERSION'"* ]]
+              grep -Fq "application-label:'$EXPECTED_ANDROID_LABEL'" "$badging_report"
+              grep -Fq "uses-permission: name='android.permission.INTERNET'" "$badging_report"
+
+              "$aapt_path" dump xmltree "$asset_path" AndroidManifest.xml > "$manifest_report"
+              grep -Eq 'android:usesCleartextTraffic.*(0xffffffff|true)' "$manifest_report"
+
+              "$apksigner_path" verify --verbose --print-certs "$asset_path" > "$signature_report"
+              grep -Fq 'Verifies' "$signature_report"
+              grep -Eq '^Number of signers: [1-9][0-9]*$' "$signature_report"
+              echo 'Signing certificate (audit only; no stable identity is asserted):'
+              grep -E '^Signer #[0-9]+ certificate (DN|SHA-256 digest):' "$signature_report"
               ;;
             StandaloneWindows64) asset_name="DiyGwent-AITest-Windows-$EXPECTED_CLIENT_VERSION.zip" ;;
             StandaloneOSX) asset_name="DiyGwent-AITest-macOS-$EXPECTED_CLIENT_VERSION.zip" ;;

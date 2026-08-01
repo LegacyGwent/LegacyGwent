@@ -25,14 +25,17 @@ Last verified: 2026-08-01
   avoid fake-IP proxies intercepting the nonstandard port.
 - Android uses package ID `cynthia.diy.ai.card`. Its Gradle postprocessor adds
   `INTERNET` and permits cleartext because 5010 does not yet provide TLS.
-- Release filenames and workflow `version.txt` do not update Unity Android
-  package metadata. The verified 2.1.9 AITest APK still declares historical
-  `versionName=0.0.1415` and `versionCode=1415`; coordinate both version systems
-  and keep `versionCode` monotonic before relying on Android update semantics.
-- Mobile CI currently produces an Android Debug-signed APK. v1/v2 signature
-  verification proves archive integrity, not publisher identity. Configure a
-  dedicated keystore through protected CI secrets before trusted public
-  distribution; never add the key or password to the repository.
+- `ProjectSettings.bundleVersion` and `AndroidBundleVersionCode` are coupled by
+  `major * 1,000,000 + minor * 1,000 + patch`; version 2.1.9 therefore uses
+  Android code 2001009. Mobile and release CI recompute and assert the tracked
+  value, pass both values explicitly to GameCI, and inspect the generated APK.
+- Mobile CI requires a full `expected_sha` dispatch input and rejects the build
+  after checkout when `HEAD` differs. Dispatch only a pushed trusted repository
+  branch, then confirm the recorded Actions `headSha` before accepting artifacts.
+- Mobile CI currently produces an Android Debug-signed APK. `apksigner` reports
+  the certificate for each artifact but does not treat that ephemeral identity
+  as stable. Configure a dedicated keystore through protected CI secrets before
+  trusted distribution; never add the key or password to the repository.
 - DIY-AI resolves the initial text and audio languages by filename `cn`, then
   persists manual selections in `DiyAi.TextLanguage` and
   `DiyAi.AudioLanguage`. This makes Chinese the Editor/player default without
