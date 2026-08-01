@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using Autofac;
 using System;
 using Assets.Script.Localization;
-using Microsoft.AspNetCore.SignalR.Client;
 
 public class RegisterClick : MonoBehaviour
 {
@@ -47,9 +46,7 @@ public class RegisterClick : MonoBehaviour
         RegisterMessage.text = _translator.GetText("RegisterMenu_Registering");
         try
         {
-            var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
-            if (hub.State == HubConnectionState.Disconnected)
-                await hub.StartAsync();
+            await server.EnsureConnectedAsync();
             var result = await server.Register(Username.text, Password.text, Playername.text);
             if (!result)
             {
