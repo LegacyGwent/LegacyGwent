@@ -10,6 +10,9 @@ Last verified: 2026-08-01
   upgrades. CI checksum-protects the bundled assembly.
 - The server pins `NLog.Web.AspNetCore` 4.9.3 and `MongoDB.Driver` 3.9.0.
   MongoDB.Driver 3.9 resolves MongoDB.Bson 3.9 and SharpCompress 0.48.1.
+- `NLog.Web.AspNetCore` 4.9.3 resolves `NLog` core 4.7.2. Treat the web
+  integration and core package versions separately; do not report NLog core as
+  4.9.3.
 - `DIY-AI CI` audits the complete solution, including transitive packages, and
   fails through `scripts/check-vulnerable-packages.py` on any known advisory.
 
