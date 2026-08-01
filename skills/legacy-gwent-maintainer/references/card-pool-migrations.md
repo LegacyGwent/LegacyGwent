@@ -3,7 +3,7 @@
 Last verified: 2026-08-02
 
 Verified against deployed DIY-AI commit `1f047f56e9bb08e3fbbcb039541fdce1ba43c762`
-and the reset content map lineage through `1.0.0.155`.
+and the reset content map lineage through `1.0.0.156`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -70,7 +70,9 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
    Treat downloaded locale data as a separate rules surface: the Chinese client
    must receive names and descriptions overlaid from the active `GwentMap`, not
    stale DIY text left in `Locales/cn.json`. Because legacy clients cache locales
-   against `CardMapVersion`, increment that version whenever this payload changes.
+   against `CardMapVersion`, every change to a card `Name`/`Info` or localized
+   card description must increment that version in the same commit, even when
+   card IDs, order, and effects are unchanged. A missing bump blocks release.
 4. Preserve `70014` and `DecideRedCoin`; it implements the first/second-player
    bid and compensation. Preserve the AI dependency closure and smoke-test all
    advertised AI queues.

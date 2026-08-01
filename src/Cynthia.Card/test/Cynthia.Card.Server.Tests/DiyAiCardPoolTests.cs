@@ -37,7 +37,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 155), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 156), GwentMap.CardMapVersion);
             Assert.Equal(709, GwentMap.CardMap.Count);
 
             var orderedIds = string.Join(",", GwentMap.CardMap.Keys);
@@ -112,6 +112,47 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("对1个敌军造成4点伤害。", locale.CardLocales["44016"].Info);
             Assert.Contains("最强单位", locale.CardLocales["14019"].Info);
             Assert.Contains("最弱单位", locale.CardLocales["14019"].Info);
+        }
+
+        [Fact]
+        public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
+        {
+            var current = new Version(1, 0, 0, 156);
+            var stale = new Version(1, 0, 0, 155);
+
+            Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
+            Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
+            Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(true, stale, current));
+            Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(true, null, current));
+            Assert.False(LocalizationUpdatePolicy.ShouldDownloadLocales(true, current, current));
+        }
+
+        [Fact]
+        public void UnityClientUsesPortableLocaleSynchronization()
+        {
+            var serviceSource = Regex.Replace(
+                File.ReadAllText(FindRepositoryFile(
+                    "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Code/GwentClientService.cs")),
+                @"\s+",
+                " ");
+            var handlerSource = Regex.Replace(
+                File.ReadAllText(FindRepositoryFile(
+                    "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/ResourceManagement/TextLocalizationFileHandler.cs")),
+                @"\s+",
+                " ");
+
+            Assert.Contains(
+                "LocalizationUpdatePolicy.ShouldDownloadLocales( fileHandler.AreFilesDownloaded(), localesWereLastUpdatedTo, serverVersion)",
+                serviceSource);
+            Assert.Contains(
+                "PlayerPrefs.GetString(\"LocalizationVersion\", \"0.0.0.0\")",
+                serviceSource);
+            Assert.DoesNotContain(
+                "!fileHandler.AreFilesDownloaded() && clientVersion != serverVersion",
+                serviceSource);
+            Assert.Contains(
+                "#else _directoryPath = Application.persistentDataPath; #endif",
+                handlerSource);
         }
 
         [Fact]

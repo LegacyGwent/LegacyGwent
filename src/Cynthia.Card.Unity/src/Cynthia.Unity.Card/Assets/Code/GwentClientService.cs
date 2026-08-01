@@ -231,7 +231,7 @@ namespace Cynthia.Card.Client
             var clientTrinketMapVersion = new Version(TrinketMap.TrinketMapVersion.ToString());
             Debug.Log($"the client trinket map version is {TrinketMap.TrinketMapVersion.ToString()}");
             Debug.Log($"the client version is {GwentMap.CardMapVersion.ToString()}");
-            var localesWereLastUpdatedTo = new Version(PlayerPrefs.GetString("LocalizationVersion", GwentMap.CardMapVersion.ToString()));
+            var localesWereLastUpdatedTo = new Version(PlayerPrefs.GetString("LocalizationVersion", "0.0.0.0"));
             var serverVersion = new Version(await GetCardMapVersion(cancellationToken));
             cancellationToken.ThrowIfCancellationRequested();
             Debug.Log($"the server version is {serverVersion}");
@@ -284,11 +284,13 @@ namespace Cynthia.Card.Client
                     GwentMap.InitializeCardMap();
                 }
                 // Download locales from the server if:
-                // 1. Locales are not downloaded and the client is outdated
+                // 1. Locales have not been downloaded on this installation
                 // 2. There came out a new version of locales since the last time we downloaded them
 
-                if (!fileHandler.AreFilesDownloaded() && clientVersion != serverVersion ||
-                    localesWereLastUpdatedTo != serverVersion)
+                if (LocalizationUpdatePolicy.ShouldDownloadLocales(
+                    fileHandler.AreFilesDownloaded(),
+                    localesWereLastUpdatedTo,
+                    serverVersion))
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     infoText.text = _translator.GetText("LoginMenu_LanguagesUpdating");

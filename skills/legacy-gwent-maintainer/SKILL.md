@@ -40,8 +40,10 @@ for the task, then rewrite the knowledge base when verified learning occurs.
   `references/operations.md`.
 - Runtime/package upgrades, vulnerability findings, or dependency policy: read
   `references/dependencies.md`.
-- Unity startup, packaging, versioning, or native platform launch failures: read
+- Unity startup, runtime localization, or native platform launch failures: read
   `references/unity-pitfalls.md` before diagnosing.
+- Unity CI, packaging, versioning, or release artifact failures: read
+  `references/unity-release-pitfalls.md` before diagnosing.
 - Website, Blazor, or local preview failures: read
   `references/website-pitfalls.md` before diagnosing.
 - Unexpected behavior, failures, or repeated debugging: read
