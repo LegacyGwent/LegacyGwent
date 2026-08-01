@@ -57,8 +57,9 @@ Last verified: 2026-08-01
 
 ## GitHub Actions
 
-- `DIY-AI CI` builds the full server solution (including AITest and ConsoleTest)
-  with .NET 10, validates a self-contained Linux publish, and smoke-tests the
+- `DIY-AI CI` builds the full server solution (including AITest, ConsoleTest,
+  and Server.Tests) with .NET 10, executes the server compatibility tests,
+  validates a self-contained Linux publish, and smoke-tests the
   `runtime-deps:10.0` image with MongoDB 4.4.
 - The legacy .NET workflow excludes `diy-ai` to avoid duplicate server builds.
 - Desktop Unity CI runs automatically only when Unity or Common sources change;

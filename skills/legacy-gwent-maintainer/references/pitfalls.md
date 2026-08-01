@@ -15,6 +15,28 @@ Last verified: 2026-08-01
 - Verification: a clean Release build reaches `net10.0` with zero errors, and
   Common/AI outputs remain under `netstandard2.0`.
 
+## Long localized SignalR payloads can break the frozen Unity transport
+
+- Symptom: Unity 2019.4's Mono `ManagedWebSocket` can close a long localized
+  SignalR JSON frame with code 1007 near a fragmented UTF-8 receive boundary.
+- Cause: the .NET server's `JsonHubProtocol` owns a relaxed-escaping writer;
+  payload encoders or converters cannot cover protocol-owned target, invocation
+  ID, and error strings. Combining payload pre-encoding with a complete-frame
+  pass is redundant and expands the staged frame before the final copy,
+  increasing peak allocation on large localized payloads.
+- Fix: make `AsciiSafeJsonHubProtocol` the sole normalization boundary. Return
+  the framework memory unchanged for all-ASCII frames; only for non-ASCII input,
+  compute the exact escaped length and emit `\uXXXX` or surrogate pairs once.
+  `HandshakeProtocol` error responses bypass this layer; successful handshakes
+  are ASCII, but localized failed-handshake errors are not normalized.
+- Prevention: do not also configure a payload encoder or string converter. Test
+  through the `IHubProtocol` registered by `Startup`, including the ASCII fast
+  path and protocol-envelope strings.
+- Verification: write a long invocation containing non-ASCII declared names,
+  dictionary keys, values, surrogate pairs, envelope fields, and completion
+  error text; require ASCII output and typed round trips. Require an ASCII-only
+  message to remain byte-identical to the framework protocol output.
+
 ## Windows line endings break validation or Linux host preparation
 
 - Symptom: knowledge validation misses a visible date, or Bash reports

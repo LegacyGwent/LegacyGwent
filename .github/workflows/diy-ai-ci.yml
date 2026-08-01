@@ -45,6 +45,14 @@ jobs:
       - name: Build server and server-side test tools
         run: dotnet build --configuration Release src/Cynthia.Card/Cynthia.Card.sln
 
+      - name: Run server compatibility tests
+        run: >-
+          dotnet test
+          --configuration Release
+          --no-build
+          --no-restore
+          src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj
+
       - name: Reject known vulnerable packages
         run: |
           report="$(mktemp)"
@@ -146,6 +154,8 @@ jobs:
           grep -q 'PackageReference Include="MongoDB.Driver" Version="3.9.0"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q 'PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q 'name: Reject known vulnerable packages' .github/workflows/diy-ai-ci.yml
+          sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^      - name: Run server compatibility tests$'
+          sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^          src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj$'
           ! grep -q 'PackageReference Include="System.Text.Json"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q '^FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build$' src/Cynthia.Card/Dockerfile
           grep -q '^FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime$' src/Cynthia.Card/Dockerfile

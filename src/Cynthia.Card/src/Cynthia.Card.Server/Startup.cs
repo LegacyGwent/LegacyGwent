@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using MongoDB.Driver;
 using Blazored.LocalStorage;
 using System;
+using System.Linq;
 
 namespace Cynthia.Card.Server
 {
@@ -27,6 +29,14 @@ namespace Cynthia.Card.Server
             {
                 options.ClientTimeoutInterval = TimeSpan.FromSeconds(90);
             });
+            // Normalize at the protocol boundary because payload converters cannot reach
+            // target, invocation ID, and error text. Replacing only the framework JSON
+            // protocol keeps Blazor's protocol and avoids double-encoding payload strings.
+            var frameworkJsonProtocol = services.Single(descriptor =>
+                descriptor.ServiceType == typeof(IHubProtocol) &&
+                descriptor.ImplementationType == typeof(JsonHubProtocol));
+            services.Remove(frameworkJsonProtocol);
+            services.AddSingleton<IHubProtocol, AsciiSafeJsonHubProtocol>();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
             services.AddSingleton<GwentCardDataService>();
