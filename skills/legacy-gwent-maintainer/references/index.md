@@ -11,7 +11,8 @@ Read this file first, then load only the rows relevant to the task.
 | Windows setup, local server, MongoDB, Unity | [development.md](development.md) | Reproducible local workflows |
 | Linux server, SSH, systemd, CI/CD, rollback | [operations.md](operations.md) | Stable and DIY-AI operations |
 | Runtime packages, vulnerability audits, upgrade paths | [dependencies.md](dependencies.md) | Supported pins and phased security upgrades |
-| Failure, confusing symptom, known trap | [pitfalls.md](pitfalls.md) | Root causes and verified remedies |
+| Unity startup, packaging, versions, platform launch | [unity-pitfalls.md](unity-pitfalls.md) | Unity-specific root causes and verified remedies |
+| Other failure, confusing symptom, known trap | [pitfalls.md](pitfalls.md) | Cross-cutting root causes and verified remedies |
 | Why the current approach was selected | [decisions.md](decisions.md) | Active architectural decisions |
 
 Maintenance rule: rewrite a canonical reference when knowledge changes. Split a

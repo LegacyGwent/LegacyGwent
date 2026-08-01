@@ -27,19 +27,6 @@ Last verified: 2026-08-01
 - Verification: knowledge validators pass, every extracted script passes remote
   `bash -n`, and preparation installs byte-identical normalized files.
 
-## Downloaded macOS or Linux client is not executable
-
-- Symptom: CI is green, but the downloaded macOS app or Linux binary will not
-  launch, or an app-bundle symbolic link has become an ordinary file.
-- Cause: `actions/upload-artifact` normalizes permissions and does not preserve
-  symlinks when it uploads a raw build directory.
-- Fix: create a nested ZIP on the Ubuntu build runner with Info-ZIP `zip -y`
-  before artifact upload; ZIP records the original Unix modes and link entries.
-- Prevention: upload the prebuilt `DiyGwent-AITest-<platform>-<version>.zip`,
-  never the raw macOS/Linux Unity output directory.
-- Verification: inspect ZIP external attributes/link entries and test extraction
-  plus launch on the target OS.
-
 ## Mongo URI suffix points at the wrong apparent database
 
 - Symptom: `gwent-diy` or `gwent-diy-ai` appears empty even though accounts and
@@ -53,39 +40,6 @@ Last verified: 2026-08-01
   `sync-card-diy-to-ai`, not an inferred URI database name.
 - Verification: collection-count digests for both logical databases match the
   intended snapshot on ports 28020 and 28021.
-
-## Android client cannot reach plain HTTP 5010
-
-- Symptom: a Windows build connects, but an Android 9+ build fails before login.
-- Cause: modern target SDKs block cleartext HTTP unless the manifest opts in;
-  Android also cannot use a developer machine's process environment override.
-- Fix: keep the DIY-AI Android Gradle manifest postprocessor enabled until 5010
-  is behind TLS, and bake the endpoint through `ServerEndpoint.txt`.
-- Prevention: use distinct package ID `cynthia.diy.ai.card`, verify the generated
-  manifest, and migrate the service to HTTPS before removing the opt-in.
-- Verification: APK manifest contains `INTERNET` and `usesCleartextTraffic`, and
-  server logs show the device connecting to 5010.
-
-## Build-time environment does not configure a packaged Unity player
-
-- Symptom: CI sets `GWENT_SERVER_URL`, but the downloaded client still connects
-  to the branch fallback.
-- Cause: the environment variable is read when the player runs, not serialized
-  into the build by GitHub Actions.
-- Fix: update `Assets/Resources/ServerEndpoint.txt` for packaged defaults; retain
-  the environment variable for runtime desktop overrides.
-- Prevention: treat endpoint assets and runtime environment settings as separate
-  configuration channels.
-- Verification: run the artifact without an environment override and inspect its
-  actual TCP peer.
-
-## Unity silently connects to the public server
-
-- Symptom: local UI works, but new accounts or results do not appear in local MongoDB.
-- Cause: the client historically resolved `cynthia.ovyno.com` directly.
-- Fix: configure `GWENT_SERVER_URL`; use `scripts/open-unity.ps1`.
-- Prevention: keep the endpoint configurable and inspect the established TCP peer.
-- Verification: Unity connects to the intended loopback or DIY-AI address.
 
 ## Registration names look reversed
 
@@ -161,6 +115,19 @@ Last verified: 2026-08-01
   push trigger. Manual dispatch remains an explicit emergency operation.
 - Verification: a normal push shows deploy queued behind both CI jobs and no
   separate push-triggered deploy run exists.
+
+## A direct DIY-AI branch push deploys without review
+
+- Symptom: an explicitly targeted push to `diy-ai` can reach port 5010 without a
+  pull request or required review.
+- Cause: `diy-ai` currently has no GitHub branch protection, while its successful
+  push CI invokes the reusable deployment workflow automatically.
+- Fix: push candidate work to a review branch and open a PR; merge into `diy-ai`
+  only after all runtime gates are complete.
+- Prevention: never use `git push origin HEAD:diy-ai` as a convenience command;
+  add branch protection before treating review as an enforced control.
+- Verification: query branch protection and workflow triggers, then confirm the
+  candidate SHA exists only on its review branch until approval.
 
 ## `set -e` exits before a failed release can roll back
 
