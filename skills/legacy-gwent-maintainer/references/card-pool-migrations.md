@@ -3,7 +3,7 @@
 Last verified: 2026-08-02
 
 Verified against deployed DIY-AI commit `1f047f56e9bb08e3fbbcb039541fdce1ba43c762`
-and CardMap `1.0.0.154`.
+and the reset content map lineage through `1.0.0.155`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -39,6 +39,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   effects from `origin/master`. Preserve the current DIY-AI implementation for
   the actual AI0-AI5 dependency closure, Goddess of Justice, and first-player
   decision/compensation mechanism.
+- Compare against the frozen pre-reset DIY-AI commit
+  `fb174665c109e73da49c8a239cc78077faf6cfc1`. A moving `origin/diy-ai`
+  reference becomes the reset state after push and makes a rerun select no
+  restoration targets.
 - Gold, silver, and copper weather are an explicit rules exception: retain the
   DIY-AI definitions, effects, and every `RowEffect` implementation. In
   particular, Torrential Rain damages one random lowest unit and one random
@@ -57,10 +61,16 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and
    match start. Do not rely on the client; `AddDeck` historically skipped its
-   `IsBasicDeck` validation.
+   `IsBasicDeck` validation. Database cleanup must use the exact active-user-card
+   allowlist, not only the retired/system denylist: orphan IDs such as `89009`
+   and `89010` are absent from both CardMap and the retirement manifest.
 3. Remove retired IDs from retained cards' linked/discovery pools and direct
    effect references. Also replace retired IDs in starter decks before allowing
    account creation.
+   Treat downloaded locale data as a separate rules surface: the Chinese client
+   must receive names and descriptions overlaid from the active `GwentMap`, not
+   stale DIY text left in `Locales/cn.json`. Because legacy clients cache locales
+   against `CardMapVersion`, increment that version whenever this payload changes.
 4. Preserve `70014` and `DecideRedCoin`; it implements the first/second-player
    bid and compensation. Preserve the AI dependency closure and smoke-test all
    advertised AI queues.
@@ -79,5 +89,10 @@ original starter deck, and removed 25 invalid blacklist entries across 24
 users. Its immediate post-check reported zero remaining invalid decks and
 blacklist entries. The restorable pre-migration dump is under
 `/var/backups/legacy-gwent/diy-ai-card-reset/20260801T155718Z.lSCs8t` and has
+`state=complete`. A stricter allowlist audit then found three historical decks
+containing orphan IDs `89009`/`89010`. The corrective migration removed those
+three decks, seeded all three affected users, and completed with zero remaining
+unknown, derived, retired, or system-card deck/blacklist references. Its backup
+is `/var/backups/legacy-gwent/diy-ai-card-reset/20260801T162135Z.5oQj5e` with
 `state=complete`. Future migrations must recompute immediately before execution
 because the public server remains live.

@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-01
+Last verified: 2026-08-02
 
 ## DIY-AI release identity
 
@@ -25,9 +25,11 @@ Last verified: 2026-08-01
 - A basic deck contains 25 through 40 cards, inclusive. The leader is stored
   separately and must not appear in that card list; the same method also limits
   golds to 4, silvers to 6, gold/silver copies to 1, and copper copies to 3.
-- `GwentDeck.CreateBasicDeck(1)` currently returns 26 cards and survives a
-  server upload/query round trip as a valid basic deck. Never treat 25 as a
-  fixed deck size or infer validity from UI appearance alone.
+- After the DIY-AI card-pool reset, use `GwentDeck.CreateBasicDeck(0)` for new
+  registrations and protocol probes. It returns the valid 25-card original
+  starter deck. `CreateBasicDeck(1)` still contains retired card `70157` and is
+  correctly rejected by the server; do not reuse the numbered legacy presets
+  without auditing them against `DiyAiCardPool`.
 
 ## AI matchmaking
 

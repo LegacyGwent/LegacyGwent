@@ -27,6 +27,10 @@ namespace Cynthia.Card.Server.Services.GwentGameService
             {
                 var filePath = $"{currentDirectory}/Locales/{locale.Filename}.json";
                 var loadedLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(filePath));
+                if (string.Equals(locale.Filename, "cn", StringComparison.OrdinalIgnoreCase))
+                {
+                    ApplyChineseCardRules(loadedLocale);
+                }
                 loadedLocales.Add(loadedLocale);
             }
 
@@ -35,6 +39,34 @@ namespace Cynthia.Card.Server.Services.GwentGameService
                 .GroupBy(locale => locale.Info.Filename, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
             _gameLocales = JsonConvert.SerializeObject(loadedLocales);
+        }
+
+        public static void ApplyChineseCardRules(GameLocale gameLocale)
+        {
+            if (gameLocale == null)
+            {
+                throw new ArgumentNullException(nameof(gameLocale));
+            }
+
+            if (gameLocale.CardLocales == null)
+            {
+                gameLocale.CardLocales = new Dictionary<string, CardLocale>(StringComparer.Ordinal);
+            }
+
+            foreach (var card in GwentMap.CardMap)
+            {
+                if (!gameLocale.CardLocales.TryGetValue(card.Key, out var cardLocale)
+                    || cardLocale == null)
+                {
+                    cardLocale = new CardLocale();
+                    gameLocale.CardLocales[card.Key] = cardLocale;
+                }
+
+                // GwentMap is the gameplay source of truth. The locale keeps
+                // flavor text, but cannot override the active Chinese rules.
+                cardLocale.Name = card.Value.Name;
+                cardLocale.Info = card.Value.Info;
+            }
         }
 
         public string GetGameLocales()

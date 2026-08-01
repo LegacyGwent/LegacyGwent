@@ -1,7 +1,9 @@
 [CmdletBinding()]
 param(
     [string]$MasterRef = "origin/master",
-    [string]$DiyAiRef = "origin/diy-ai"
+    # Freeze the pre-reset source. Using the moving origin/diy-ai branch here
+    # makes the target set empty after the reset commit is pushed.
+    [string]$DiyAiRef = "fb174665c109e73da49c8a239cc78077faf6cfc1"
 )
 
 $ErrorActionPreference = "Stop"

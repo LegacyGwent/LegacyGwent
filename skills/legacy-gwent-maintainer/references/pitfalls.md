@@ -1,6 +1,6 @@
 # Pitfalls
 
-Last verified: 2026-08-01
+Last verified: 2026-08-02
 
 ## .NET 10 build fails on a generated global using
 
@@ -168,31 +168,31 @@ Last verified: 2026-08-01
 
 ## An ad hoc SSH loop makes ordinary commands disappear
 
-- Symptom: tools such as `readlink` become “command not found” immediately after
-  assigning a shell variable named `path` in a remote one-liner.
-- Cause: root's interactive SSH command shell is zsh, where lowercase `path` is
-  a special array tied to `PATH`; assigning a target pathname replaces `PATH`.
-- Fix: use a neutral variable such as `target`, or execute reviewed operational
-  scripts with an explicit Bash shebang.
+- Symptom: tools such as `readlink` disappear after assigning `path` in a remote one-liner.
+- Cause: root's zsh treats lowercase `path` as a special array tied to `PATH`.
+- Fix: use a neutral variable such as `target`, or a reviewed Bash script.
 - Prevention: never use `path` as a zsh variable in ad hoc host commands.
-- Verification: the same guarded cleanup succeeds with `target` and leaves both
-  DIY services active.
+- Verification: guarded cleanup succeeds with `target` and both DIY services stay active.
 
 ## PowerShell expands a remote shell substitution locally
 
-- Symptom: an SSH command containing `$(...)` runs or fails on the Windows client
-  before the intended remote install script executes.
-- Cause: backslash does not escape PowerShell interpolation inside a double-quoted
-  command string.
-- Fix: upload a fixed reviewed shell script and execute that file remotely.
+- Symptom: SSH text containing `$(...)` runs or fails on Windows before reaching the host.
+- Cause: backslash does not escape interpolation in a double-quoted PowerShell string.
+- Fix: upload and execute a fixed reviewed shell script.
 - Prevention: avoid embedding shell substitutions in PowerShell SSH strings.
-- Verification: the uploaded script checksum/content is inspected, remote state
-  changes as intended, and the temporary file is removed.
+- Verification: inspect the upload, verify remote state, and remove the temporary file.
+
+## Restored rules can still show stale Chinese client text
+
+- Symptom: server effects are restored and retired cards hidden, but Unity still shows an old DIY description.
+- Cause: the client displays downloaded `Locales/cn.json`; that layer can disagree with `GwentMap`, and master has no locale baseline to restore.
+- Fix: overlay Chinese card names and rule text from active `GwentMap` when locales load, while preserving flavor text.
+- Prevention: require every serialized Chinese card name/description to equal the active map in an automated test.
+- Verification: all 709 entries agree, and the old Windows client shows the restored Mauler plus the retained DIY rain rule.
 
 ## A Unity cache restores another target platform
 
-- Symptom: Linux restores a multi-gigabyte macOS `Library` cache and still spends
-  a long time reimporting.
+- Symptom: Linux restores a large macOS `Library` cache and still reimports.
 - Cause: a broad `restore-keys: Library-` prefix crosses target platforms.
 - Fix: scope every restore prefix to `Library-${{ matrix.targetPlatform }}-`.
 - Prevention: cache keys and fallback prefixes must include the Unity target.
