@@ -1,20 +1,83 @@
 @page "/thank2"
-@using Cynthia.Card.Server
+@inject SiteTextService Text
 
-<h1>项目特别感谢 / Special Thanks for the Project</h1>
-<br/>
-<h3>感谢 / Thanks to</h3>
-<p>diy评估,diy卡牌制作,各种群活动和群秩序管理的neal与岁月无情 / Neal and “岁月无情” for DIY evaluation, DIY card creation, group activities, and group management</p>
-<p>对diy提供众多创作建议的文与椛,对老卡进行平衡性调整的安度因 / 文 and 椛 for providing numerous creative suggestions for DIY, 安度因 for balancing old cards</p>
-<p>第二次本服比赛的赞助/协助者亚克西(以及本次活动其他协助者与赞助者) / 亚克西 and other sponsors/assistants for the second server competition</p>
-<p>对discord进行宣传管理的dr.w / dr.w for promoting and managing Discord</p>
-<p>参与基础卡牌制作的Charli,joeshyn,冰山一角,tale / Charli, joeshyn, 冰山一角, and tale for participating in basic card creation</p>
-<p>研究语音的AS / AS for researching voice implementation</p>
-<p>项目架构指导的师傅Alsein / Master Alsein for project architecture guidance</p>
-<p>与 / and</p>
-<p>群内的所有管理,一直陪伴支持的群里们的大家,十分感谢! / All admins and members in the group for their continuous support, many thanks!</p>
+<SitePage Eyebrow="@L("项目名录", "Project credits")"
+          Title="@L("一路同行的人", "The people who carried the project")"
+          Description="@L("老昆特能够继续运转，离不开创作、维护、活动与社区里的长期协作。", "Legacy Gwent keeps running because people continue to create, maintain, organize, and care for its community.")"
+          Icon="oi-heart"
+          CssClass="aitest-page--credits">
+    <Aside>
+        <strong>@Acknowledgements.Count</strong>
+        <span>@L("组特别致谢", "credit groups")</span>
+    </Aside>
+    <ChildContent>
+        <section class="aitest-panel">
+            <div class="aitest-panel-heading">
+                <h2>@L("特别感谢", "Special thanks")</h2>
+                <span>@L("按贡献方向整理", "Grouped by contribution")</span>
+            </div>
 
-<br/><br/>
+            @if (Acknowledgements == null || Acknowledgements.Count == 0)
+            {
+                <SiteEmptyState Icon="oi-people"
+                                Title="@L("致谢名单正在整理", "Credits are being compiled")"
+                                Description="@L("新的贡献记录整理完成后会显示在这里。", "New contribution records will appear here once they are reviewed.")" />
+            }
+            else
+            {
+                <div class="aitest-credit-grid">
+                    @foreach (var item in Acknowledgements.Select((value, index) => new { Value = value, Index = index + 1 }))
+                    {
+                        <article class="aitest-credit-card">
+                            <span class="aitest-credit-index">@item.Index.ToString("00")</span>
+                            <div>
+                                <h3>@item.Value.Names</h3>
+                                <p>@(Text.IsEnglish ? item.Value.English : item.Value.Chinese)</p>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+        </section>
 
-<p>由于完全不懂css,无法做的很漂亮qvq,还请见谅 / Sorry, I don’t really know CSS, so it may not look pretty qvq.</p>
-<p>贡献者可能有遗漏,欢迎补充 / Some contributors may be missing. Contributions are welcome.</p>
+        <div class="aitest-note" role="note">
+            <strong>@L("仍在续写：", "Still growing: ")</strong>
+            @L(
+                "贡献者记录可能仍有遗漏，欢迎联系项目维护者补充。也感谢群内所有管理员与一直陪伴、支持项目的每一位成员。",
+                "The credits may still be incomplete; please contact the maintainers with additions. Our thanks also go to every group administrator and every community member who has stayed with and supported the project.")
+        </div>
+    </ChildContent>
+</SitePage>
+
+@code {
+    private sealed class Acknowledgement
+    {
+        public Acknowledgement(string names, string chinese, string english)
+        {
+            Names = names ?? string.Empty;
+            Chinese = chinese ?? string.Empty;
+            English = english ?? string.Empty;
+        }
+
+        public string Names { get; }
+        public string Chinese { get; }
+        public string English { get; }
+    }
+
+    private readonly IList<Acknowledgement> Acknowledgements = new List<Acknowledgement>
+    {
+        new Acknowledgement("neal、岁月无情", "负责 DIY 评估、DIY 卡牌制作、群活动与群秩序管理。", "DIY evaluation, card creation, group events, and community moderation."),
+        new Acknowledgement("文、椛、安度因", "文与椛为 DIY 提供大量创作建议，安度因为老卡进行平衡性调整。", "文 and 椛 contributed extensive DIY design ideas; 安度因 balanced legacy cards."),
+        new Acknowledgement("亚克西及活动协助者、赞助者", "赞助并协助举办本服第二次比赛。", "Sponsored and helped organize the server's second tournament."),
+        new Acknowledgement("dr.w", "负责 Discord 的宣传与管理。", "Promotion and moderation on Discord."),
+        new Acknowledgement("Charli、joeshyn、冰山一角、tale", "参与基础卡牌制作。", "Contributed to the creation of the base card set."),
+        new Acknowledgement("AS", "研究卡牌语音的实现方式。", "Researched voice implementation for cards."),
+        new Acknowledgement("Alsein", "提供项目架构指导。", "Provided guidance on the project's architecture."),
+        new Acknowledgement("群内所有管理员与成员", "长期维护社区，并始终陪伴、支持这个项目。", "Sustained the community and continued to accompany and support the project.")
+    };
+
+    private string L(string chinese, string english)
+    {
+        return Text.IsEnglish ? english : chinese;
+    }
+}

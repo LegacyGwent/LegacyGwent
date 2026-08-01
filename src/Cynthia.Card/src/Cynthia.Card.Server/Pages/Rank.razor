@@ -1,40 +1,71 @@
 @page "/rank"
+@using Microsoft.Extensions.Logging
 @inject GwentServerService GwentService
+@inject SiteTextService Text
+@inject ILogger<Rank> Logger
 @implements IDisposable
 
-<div class="table-responsive">
-    <table class="table table-bordered" style="width:770px">
-        <tr>
-            <th>排名 / Rank</th>
-            <th>玩家 / Player</th>
-            <th>MMR</th>
-        </tr>
-        @foreach(var (index, result) in _resultList.Select((r, i) => (i + 1, r)))
-        {
-            <tr>
-                <td>@index</td>
-                <td>@result.Item1</td>
-                <td>@result.Item2</td>
-            </tr>
-        }
-    </table>
-</div>
+<SitePage Eyebrow="@Text["LadderArchive"]"
+          Title="@Text["CurrentLadderTitle"]"
+          Description="@Text["CurrentLadderDescription"]"
+          Icon="oi-graph"
+          CssClass="aitest-page--ladder">
+    <Aside>
+        <strong>@_resultList.Count</strong>
+        <span>@Text["RankedPlayers"]</span>
+    </Aside>
+    <ChildContent>
+        <section class="aitest-panel">
+            <div class="aitest-panel-heading">
+                <h2>@Text["CurrentLadderTitle"]</h2>
+                <span class="aitest-badge">@Text["TopRankLimit"]</span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(_loadError))
+            {
+                <SiteEmptyState Icon="oi-warning"
+                                Title="@Text["DataUnavailableTitle"]"
+                                Description="@Text["DataUnavailableBody"]" />
+            }
+            else
+            {
+                <RankingTable Items="@_resultList" RatingLabel="@Text["CurrentRatingColumn"]" />
+            }
+        </section>
+    </ChildContent>
+</SitePage>
 
 @code
 {
-    private IList<Tuple<string, int>> _resultList;
+    private IList<Tuple<string, int>> _resultList = new List<Tuple<string, int>>();
+    private string _loadError = "";
 
     protected override void OnInitialized()
     {
-        _resultList = GwentService.GetAllMMR(0, 500);
+        LoadRankings();
         GwentService.OnGameOver += OnGameOver;
+    }
+
+    private void LoadRankings()
+    {
+        try
+        {
+            _resultList = GwentService.GetAllMMR(0, 500) ?? new List<Tuple<string, int>>();
+            _loadError = "";
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to load current MMR rankings");
+            _resultList = new List<Tuple<string, int>>();
+            _loadError = Text["DataUnavailableBody"];
+        }
     }
 
     private void OnGameOver(GameResult newResult)
     {
         InvokeAsync(() =>
         {
-            _resultList = GwentService.GetAllMMR(0, 500);
+            LoadRankings();
             StateHasChanged();
         });
     }

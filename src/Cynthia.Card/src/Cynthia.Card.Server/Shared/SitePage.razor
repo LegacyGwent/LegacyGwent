@@ -1,0 +1,43 @@
+<section class="aitest-page @CssClass">
+    <header class="aitest-page-hero">
+        <div class="aitest-page-heading">
+            @if (!string.IsNullOrEmpty(Eyebrow))
+            {
+                <div class="aitest-page-eyebrow">@Eyebrow</div>
+            }
+            <h1>@Title</h1>
+            @if (!string.IsNullOrEmpty(Description))
+            {
+                <p>@Description</p>
+            }
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Icon))
+        {
+            <div class="aitest-page-visual" aria-hidden="true">
+                <span class="oi @Icon"></span>
+            </div>
+        }
+
+        @if (Aside != null)
+        {
+            <div class="aitest-page-aside">
+                @Aside
+            </div>
+        }
+    </header>
+
+    <div class="aitest-page-body">
+        @ChildContent
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Eyebrow { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public string CssClass { get; set; } = "";
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public RenderFragment Aside { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

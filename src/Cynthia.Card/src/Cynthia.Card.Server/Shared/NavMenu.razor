@@ -1,82 +1,92 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">主页 / Home</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+@inject SiteTextService Text
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> 主页 / Home
+<nav class="aitest-nav" aria-label="@Text["Navigation"]">
+    <div class="aitest-nav-header">
+        <a class="aitest-brand" href="">
+            <span class="aitest-brand-mark" aria-hidden="true">A</span>
+            <span class="aitest-brand-copy">
+                <strong>DiyGwent</strong>
+                <small>AITest · @Text["ExperimentalChannel"]</small>
+            </span>
+        </a>
+        <button class="aitest-nav-toggle"
+                type="button"
+                aria-label="@Text["OpenNavigation"]"
+                aria-expanded="@(!collapseNavMenu)"
+                @onclick="ToggleNavMenu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <div class="aitest-nav-panel @NavMenuCssClass" @onclick="CloseNavMenu">
+        <div class="aitest-nav-group">
+            <div class="aitest-nav-label">@Text["Overview"]</div>
+            <NavLink class="aitest-nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span><span>@Text["Home"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="gameresults">
-                <span class="oi oi-plus" aria-hidden="true"></span> 对战记录 / Results
+            <NavLink class="aitest-nav-link" href="gameresults">
+                <span class="oi oi-list-rich" aria-hidden="true"></span><span>@Text["Results"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="rank">
-                <span class="oi oi-plus" aria-hidden="true"></span> 天梯积分 / MMR
+        </div>
+
+        <div class="aitest-nav-group">
+            <div class="aitest-nav-label">@Text["Competition"]</div>
+            <NavLink class="aitest-nav-link" href="rank">
+                <span class="oi oi-graph" aria-hidden="true"></span><span>@Text["Mmr"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="rank2">
-                <span class="oi oi-plus" aria-hidden="true"></span> 天梯荣誉榜 / Top Board
+            <NavLink class="aitest-nav-link" href="rank2">
+                <span class="oi oi-badge" aria-hidden="true"></span><span>@Text["TopBoard"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="seasons">
-                <span class="oi oi-plus" aria-hidden="true"></span> 赛季 / Seasons
+            <NavLink class="aitest-nav-link" href="seasons">
+                <span class="oi oi-calendar" aria-hidden="true"></span><span>@Text["Seasons"]</span>
             </NavLink>
-        </li>        
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="diy">
-                <span class="oi oi-plus" aria-hidden="true"></span> diy设计 / DIY Design
+        </div>
+
+        <div class="aitest-nav-group">
+            <div class="aitest-nav-label">@Text["Workshop"]</div>
+            <NavLink class="aitest-nav-link" href="diy">
+                <span class="oi oi-pencil" aria-hidden="true"></span><span>@Text["DiyDesign"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="vote">
-                <span class="oi oi-plus" aria-hidden="true"></span> 吉安所
+            <NavLink class="aitest-nav-link" href="vote">
+                <span class="oi oi-beaker" aria-hidden="true"></span><span>@Text["Vote"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="cardart">
-                <span class="oi oi-plus" aria-hidden="true"></span> 达盖尔的旗帜
+            <NavLink class="aitest-nav-link" href="cardart">
+                <span class="oi oi-flag" aria-hidden="true"></span><span>@Text["CardArt"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> 点点点 / Counter
+            <NavLink class="aitest-nav-link" href="counter">
+                <span class="oi oi-loop-circular" aria-hidden="true"></span><span>@Text["Counter"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="thank2">
-                <span class="oi oi-plus" aria-hidden="true"></span> 特别感谢 / Thanks
+        </div>
+
+        <div class="aitest-nav-group">
+            <div class="aitest-nav-label">@Text["Community"]</div>
+            <NavLink class="aitest-nav-link" href="thank2">
+                <span class="oi oi-heart" aria-hidden="true"></span><span>@Text["SpecialThanks"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="thank">
-                <span class="oi oi-plus" aria-hidden="true"></span> 投食名单 / Sponsors
+            <NavLink class="aitest-nav-link" href="thank">
+                <span class="oi oi-people" aria-hidden="true"></span><span>@Text["Sponsors"]</span>
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="download">
-                <span class="oi oi-plus" aria-hidden="true"></span> 下载地址 / Download
-            </NavLink>
-        </li>
-    </ul>
-</div>
+        </div>
+
+        <div class="aitest-nav-footnote">
+            <span class="aitest-live-dot" aria-hidden="true"></span>
+            <span>@Text["MaintainedNotice"]</span>
+        </div>
+    </div>
+</nav>
 
 @code {
     bool collapseNavMenu = true;
 
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    string NavMenuCssClass => collapseNavMenu ? "collapse" : "";
 
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    void CloseNavMenu()
+    {
+        collapseNavMenu = true;
     }
 }

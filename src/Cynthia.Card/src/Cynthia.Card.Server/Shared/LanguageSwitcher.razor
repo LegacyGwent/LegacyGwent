@@ -1,0 +1,29 @@
+@inject NavigationManager Navigation
+@inject SiteTextService Text
+
+<form class="aitest-language"
+      method="get"
+      action="/culture/set"
+      onsubmit="this.elements['returnUrl'].value = window.location.pathname + window.location.search">
+    <span class="oi oi-globe" aria-hidden="true"></span>
+    <label class="sr-only" for="aitest-language-select">@Text["Language"]</label>
+    <input type="hidden" name="returnUrl" value="@ReturnUrl" />
+    <select id="aitest-language-select"
+            name="culture"
+            aria-label="@Text["Language"]"
+            onchange="this.form.elements['returnUrl'].value = window.location.pathname + window.location.search; this.form.submit()">
+        <option value="zh-CN" selected="@(!Text.IsEnglish)">中文</option>
+        <option value="en-US" selected="@(Text.IsEnglish)">English</option>
+    </select>
+</form>
+
+@code {
+    private string ReturnUrl
+    {
+        get
+        {
+            var current = new Uri(Navigation.Uri);
+            return string.IsNullOrEmpty(current.PathAndQuery) ? "/" : current.PathAndQuery;
+        }
+    }
+}

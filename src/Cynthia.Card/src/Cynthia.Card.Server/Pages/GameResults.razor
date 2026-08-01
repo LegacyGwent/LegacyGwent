@@ -1,84 +1,346 @@
-﻿@page "/gameresults"
+@page "/gameresults"
+@using Microsoft.Extensions.Logging
 @inject GwentServerService GwentService
+@inject GwentLocalizationService Localization
+@inject SiteTextService Text
+@inject ILogger<GameResults> Logger
 @implements IDisposable
 
-<div class="table-responsive">
-    <table class="table table-bordered" style="width:770px">
-        <tr>
-            <td style="width:80px"></td>
-            <td style="width:140px">玩家名 / Name</td>
-            <td style="width:150px">所用领袖 / Leader</td>
-            <td style="width:90px">对局结果 / Result</td>
-            <td style="width:80px">总比分 / Rounds won</td>
-            <td style="width:60px">R1</td>
-            <td style="width:60px">R2</td>
-            <td style="width:60px">R3</td>
-        </tr>
-@foreach(var result in _resultList.OrderByDescending(x => x.Time).Take(50))
-{
-        <tr class="table-info">
-            <td>先手方 / BlueCoin:</td>
-            @if(result.RedPlayerName.Length>8)
+<SitePage Eyebrow="@Text["DataArchive"]"
+          Title="@Text["RecentMatchesTitle"]"
+          Description="@Text["RecentMatchesDescription"]"
+          Icon="oi-list-rich"
+          CssClass="aitest-page--matches">
+    <Aside>
+        <strong>@VisibleResults.Count</strong>
+        <span>@Text["MatchesShown"]</span>
+    </Aside>
+    <ChildContent>
+        <section class="aitest-panel">
+            <div class="aitest-panel-heading">
+                <h2>@Text["RecentMatchesTitle"]</h2>
+                <span class="aitest-badge">@Text["LatestMatchLimit"]</span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(_loadError))
             {
-                <td style="font-size:8px">@result.RedPlayerName</td>
-            }else
-            {
-                <td>@result.RedPlayerName</td>
-            }    
-            <td>@GwentMap.CardMap[result.RedLeaderId].Name</td>
-            <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw ? "平 / Draw" : (result.RedPlayerGameResultStatus==GameStatus.Win ? "胜 ☆ / Win" : "败 / Loss"))</td>
-            <td>@result.RedWinCount</td>
-            <td>@(result.ValidCount>=1 ? result.RedScore[0].ToString() : "-")</td>
-            <td>@(result.ValidCount>=2 ? result.RedScore[1].ToString() : "-")</td>
-            <td>@(result.ValidCount>=3 ? result.RedScore[2].ToString() : "-")</td>
-        </tr>
-        <tr class="table-danger">
-            <td>后手方 / RedCoin:</td>
-            @if(result.BluePlayerName.Length>8)
-            {
-                <td style="font-size:8px">@result.BluePlayerName</td>
-            }else
-            {
-                <td>@result.BluePlayerName</td>
+                <SiteEmptyState Icon="oi-warning"
+                                Title="@Text["DataUnavailableTitle"]"
+                                Description="@Text["DataUnavailableBody"]" />
             }
-            <td>@GwentMap.CardMap[result.BlueLeaderId].Name</td>
-            <td>@(result.RedPlayerGameResultStatus==GameStatus.Draw ? "平 / Draw" : (result.RedPlayerGameResultStatus==GameStatus.Win ? "败 / Loss" : "胜 ☆ / Win"))</td>
-            <td>@result.BlueWinCount</td>
-            <td>@(result.ValidCount>=1 ? result.BlueScore[0].ToString() : "-")</td>
-            <td>@(result.ValidCount>=2 ? result.BlueScore[1].ToString() : "-")</td>
-            <td>@(result.ValidCount>=3 ? result.BlueScore[2].ToString() : "-")</td>
-        </tr>
-        <tr>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-        </tr>
-}
-    </table>
-</div>
+            else if (VisibleResults.Count == 0)
+            {
+                <SiteEmptyState Icon="oi-list-rich"
+                                Title="@Text["NoMatchesTitle"]"
+                                Description="@Text["NoMatchesBody"]" />
+            }
+            else
+            {
+                <div class="aitest-match-list">
+                    @foreach (var result in VisibleResults)
+                    {
+                        var redFaction = PlayerFaction(result.RedLeaderId);
+                        var blueFaction = PlayerFaction(result.BlueLeaderId);
+                        var redFactionEmblem = FactionEmblemPath(redFaction);
+                        var blueFactionEmblem = FactionEmblemPath(blueFaction);
+
+                        <article class="aitest-match-card">
+                            <div class="aitest-match-player is-red @FactionClass(redFaction)">
+                                <span class="aitest-faction-mark"
+                                      role="img"
+                                      aria-label="@FactionName(redFaction)"
+                                      title="@FactionName(redFaction)">
+                                    @if (!string.IsNullOrEmpty(redFactionEmblem))
+                                    {
+                                        <img class="aitest-faction-emblem"
+                                             src="@redFactionEmblem"
+                                             alt=""
+                                             aria-hidden="true" />
+                                    }
+                                    else
+                                    {
+                                        <span class="oi @FactionIconClass(redFaction)" aria-hidden="true"></span>
+                                    }
+                                    <small aria-hidden="true">@FactionMark(redFaction)</small>
+                                </span>
+                                <div class="aitest-match-player-copy">
+                                    <div class="aitest-match-player-heading">
+                                        <strong>@PlayerName(result.RedPlayerName)</strong>
+                                        <span class="aitest-turn-order is-first">
+                                            <span aria-hidden="true"></span>
+                                            @FirstMoveLabel
+                                        </span>
+                                    </div>
+                                    <small class="aitest-match-leader">
+                                        <span>@LeaderName(result.RedLeaderId)</span>
+                                        <span aria-hidden="true">·</span>
+                                        <b class="@OutcomeClass(result, true)">@Outcome(result, true)</b>
+                                    </small>
+                                    <small class="aitest-match-faction">@FactionName(redFaction)</small>
+                                    @if (!string.IsNullOrWhiteSpace(result.RedDeckName))
+                                    {
+                                        <small class="aitest-match-deck" title="@result.RedDeckName">@result.RedDeckName</small>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="aitest-match-score">
+                                <span class="aitest-badge">@MatchMode(result)</span>
+                                <strong>@result.RedWinCount — @result.BlueWinCount</strong>
+                                <div class="aitest-rounds" aria-label="@Text["RoundShort"]">
+                                    @for (var round = 0; round < 3; round++)
+                                    {
+                                        <em>@RoundScore(result, round)</em>
+                                    }
+                                </div>
+                                <time datetime="@result.Time.ToString("O")">@FormatTime(result.Time)</time>
+                            </div>
+
+                            <div class="aitest-match-player is-blue @FactionClass(blueFaction)">
+                                <span class="aitest-faction-mark"
+                                      role="img"
+                                      aria-label="@FactionName(blueFaction)"
+                                      title="@FactionName(blueFaction)">
+                                    @if (!string.IsNullOrEmpty(blueFactionEmblem))
+                                    {
+                                        <img class="aitest-faction-emblem"
+                                             src="@blueFactionEmblem"
+                                             alt=""
+                                             aria-hidden="true" />
+                                    }
+                                    else
+                                    {
+                                        <span class="oi @FactionIconClass(blueFaction)" aria-hidden="true"></span>
+                                    }
+                                    <small aria-hidden="true">@FactionMark(blueFaction)</small>
+                                </span>
+                                <div class="aitest-match-player-copy">
+                                    <div class="aitest-match-player-heading">
+                                        <strong>@PlayerName(result.BluePlayerName)</strong>
+                                        <span class="aitest-turn-order is-second">
+                                            <span aria-hidden="true"></span>
+                                            @SecondMoveLabel
+                                        </span>
+                                    </div>
+                                    <small class="aitest-match-leader">
+                                        <span>@LeaderName(result.BlueLeaderId)</span>
+                                        <span aria-hidden="true">·</span>
+                                        <b class="@OutcomeClass(result, false)">@Outcome(result, false)</b>
+                                    </small>
+                                    <small class="aitest-match-faction">@FactionName(blueFaction)</small>
+                                    @if (!string.IsNullOrWhiteSpace(result.BlueDeckName))
+                                    {
+                                        <small class="aitest-match-deck" title="@result.BlueDeckName">@result.BlueDeckName</small>
+                                    }
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+        </section>
+    </ChildContent>
+</SitePage>
 
 @code
 {
-    private IList<GameResult> _resultList;
+    private IList<GameResult> _resultList = new List<GameResult>();
+    private string _loadError = "";
+
+    private IList<GameResult> VisibleResults => _resultList;
+
+    private string FirstMoveLabel => Text["FirstMove"];
+
+    private string SecondMoveLabel => Text["SecondMove"];
 
     protected override void OnInitialized()
     {
-        _resultList = GwentService.ResultList.ToList();
+        try
+        {
+            _resultList = GwentService.ResultList?
+                .Where(result => result != null)
+                .OrderByDescending(result => result.Time)
+                .Take(50)
+                .ToList()
+                ?? new List<GameResult>();
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to load recent match results");
+            _resultList = new List<GameResult>();
+            _loadError = Text["DataUnavailableBody"];
+        }
+
         GwentService.OnGameOver += OnGameOver;
     }
 
     private void OnGameOver(GameResult newResult)
     {
+        if (newResult == null)
+        {
+            return;
+        }
+
         InvokeAsync(() =>
         {
-            _resultList.Add(newResult);
+            _resultList = _resultList
+                .Append(newResult)
+                .Where(result => result != null)
+                .OrderByDescending(result => result.Time)
+                .Take(50)
+                .ToList();
             StateHasChanged();
         });
+    }
+
+    private string PlayerName(string playerName)
+    {
+        return string.IsNullOrWhiteSpace(playerName) ? Text["UnknownPlayer"] : playerName;
+    }
+
+    private string LeaderName(string leaderId)
+    {
+        var localizedName = Localization.GetCardName(Text.IsEnglish ? "en" : "cn", leaderId);
+        if (!string.IsNullOrWhiteSpace(localizedName))
+        {
+            return localizedName;
+        }
+
+        if (!string.IsNullOrWhiteSpace(leaderId)
+            && GwentMap.CardMap.TryGetValue(leaderId, out var leader)
+            && !string.IsNullOrWhiteSpace(leader.Name))
+        {
+            return leader.Name;
+        }
+
+        return Text["UnknownLeader"];
+    }
+
+    private string Outcome(GameResult result, bool redPlayer)
+    {
+        var status = redPlayer ? result.RedPlayerStatus() : result.BluePlayerStatus();
+        if (status == GameStatus.Draw)
+        {
+            return Text["Draw"];
+        }
+
+        return status == GameStatus.Win ? Text["Win"] : Text["Loss"];
+    }
+
+    private string OutcomeClass(GameResult result, bool redPlayer)
+    {
+        var status = redPlayer ? result.RedPlayerStatus() : result.BluePlayerStatus();
+        return status == GameStatus.Win
+            ? "is-win"
+            : status == GameStatus.Draw
+                ? "is-draw"
+                : "is-loss";
+    }
+
+    private Faction? PlayerFaction(string leaderId)
+    {
+        if (!string.IsNullOrWhiteSpace(leaderId)
+            && GwentMap.CardMap.TryGetValue(leaderId, out var leader))
+        {
+            return leader.Faction;
+        }
+
+        return null;
+    }
+
+    private string FactionClass(Faction? faction)
+    {
+        return faction switch
+        {
+            Faction.Monsters => "is-faction-monsters",
+            Faction.Nilfgaard => "is-faction-nilfgaard",
+            Faction.NorthernRealms => "is-faction-northern-realms",
+            Faction.ScoiaTael => "is-faction-scoiatael",
+            Faction.Skellige => "is-faction-skellige",
+            Faction.Neutral => "is-faction-neutral",
+            _ => "is-faction-unknown"
+        };
+    }
+
+    private string FactionMark(Faction? faction)
+    {
+        return faction switch
+        {
+            Faction.Monsters => "MO",
+            Faction.Nilfgaard => "NG",
+            Faction.NorthernRealms => "NR",
+            Faction.ScoiaTael => "ST",
+            Faction.Skellige => "SK",
+            Faction.Neutral => "N",
+            _ => "?"
+        };
+    }
+
+    private string FactionEmblemPath(Faction? faction)
+    {
+        return faction switch
+        {
+            Faction.Monsters => "img/factions/monsters.png",
+            Faction.Nilfgaard => "img/factions/nilfgaard.png",
+            Faction.NorthernRealms => "img/factions/northern-realms.png",
+            Faction.ScoiaTael => "img/factions/scoiatael.png",
+            Faction.Skellige => "img/factions/skellige.png",
+            _ => null
+        };
+    }
+
+    private string FactionIconClass(Faction? faction)
+    {
+        return faction switch
+        {
+            Faction.Monsters => "oi-fire",
+            Faction.Nilfgaard => "oi-sun",
+            Faction.NorthernRealms => "oi-shield",
+            Faction.ScoiaTael => "oi-target",
+            Faction.Skellige => "oi-bolt",
+            Faction.Neutral => "oi-aperture",
+            _ => "oi-question-mark"
+        };
+    }
+
+    private string FactionName(Faction? faction)
+    {
+        return faction switch
+        {
+            Faction.Monsters => Text["Monsters"],
+            Faction.Nilfgaard => Text["Nilfgaard"],
+            Faction.NorthernRealms => Text["NorthernRealms"],
+            Faction.ScoiaTael => Text["ScoiaTael"],
+            Faction.Skellige => Text["Skellige"],
+            Faction.Neutral => Text.IsEnglish ? "Neutral" : "中立",
+            _ => Text.IsEnglish ? "Unknown faction" : "未知势力"
+        };
+    }
+
+    private string MatchMode(GameResult result)
+    {
+        return result.isRanked ? Text["RankedMatch"] : Text["CasualMatch"];
+    }
+
+    private string RoundScore(GameResult result, int round)
+    {
+        if (result.ValidCount <= round)
+        {
+            return "—";
+        }
+
+        var red = result.RedScore != null && result.RedScore.Length > round
+            ? result.RedScore[round].ToString()
+            : "—";
+        var blue = result.BlueScore != null && result.BlueScore.Length > round
+            ? result.BlueScore[round].ToString()
+            : "—";
+        return $"{red}:{blue}";
+    }
+
+    private string FormatTime(DateTime time)
+    {
+        return time.ToLocalTime().ToString(Text.IsEnglish ? "MMM d, HH:mm" : "MM-dd HH:mm");
     }
 
     public void Dispose()

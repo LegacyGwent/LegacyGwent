@@ -1,0 +1,16 @@
+<div class="aitest-empty-state" role="status">
+    <span class="oi @Icon" aria-hidden="true"></span>
+    <div>
+        <strong>@Title</strong>
+        @if (!string.IsNullOrEmpty(Description))
+        {
+            <p>@Description</p>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Icon { get; set; } = "oi-inbox";
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+}

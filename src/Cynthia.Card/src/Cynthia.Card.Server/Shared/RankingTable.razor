@@ -1,0 +1,44 @@
+@inject SiteTextService Text
+
+@if (Items == null || Items.Count == 0)
+{
+    <SiteEmptyState Icon="oi-bar-chart"
+                    Title="@Text["NoRankingsTitle"]"
+                    Description="@Text["NoRankingsBody"]" />
+}
+else
+{
+    <div class="aitest-data-table-wrap aitest-ranking-table-wrap">
+        <table class="aitest-data-table aitest-ranking-table" aria-label="@RatingLabel">
+            <thead>
+                <tr>
+                    <th scope="col">@Text["RankColumn"]</th>
+                    <th scope="col">@Text["PlayerColumn"]</th>
+                    <th scope="col">@RatingLabel</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Items.Select((value, index) => new { Value = value, Rank = index + 1 }))
+                {
+                    <tr>
+                        <td data-label="@Text["RankColumn"]">
+                            <span class="aitest-rank-number @(item.Rank <= 3 ? "is-podium" : "")">@item.Rank</span>
+                        </td>
+                        <td data-label="@Text["PlayerColumn"]"><strong>@PlayerName(item.Value)</strong></td>
+                        <td data-label="@RatingLabel"><span class="aitest-rating">@item.Value.Item2</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    [Parameter] public IList<Tuple<string, int>> Items { get; set; }
+    [Parameter] public string RatingLabel { get; set; }
+
+    private string PlayerName(Tuple<string, int> item)
+    {
+        return string.IsNullOrWhiteSpace(item?.Item1) ? Text["UnknownPlayer"] : item.Item1;
+    }
+}

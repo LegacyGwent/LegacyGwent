@@ -25,7 +25,8 @@ namespace Cynthia.Card.Server
             {
                 var services = serviceScope.ServiceProvider;
                 var myDependency = services.GetRequiredService<GwentDatabaseService>();
-                Command.MongodbConnect(myDependency);
+                var hostEnvironment = services.GetRequiredService<IWebHostEnvironment>();
+                Command.MongodbConnect(myDependency, hostEnvironment.WebRootPath);
             }
             host.Run();
             // }

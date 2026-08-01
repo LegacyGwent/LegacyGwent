@@ -577,6 +577,35 @@ namespace Cynthia.Card.Server
                 return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Where(x => x.isRanked == true).Take(count).ToList();
             return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Take(count).ToList();
         }
+
+        public IList<GameResult> GetRankedGameResultsForPeriod(DateTime startUtc, DateTime endUtc)
+        {
+            if (endUtc <= startUtc)
+            {
+                return new List<GameResult>();
+            }
+
+            var collection = GetDatabase().GetCollection<GameResult>("gameresults");
+            var filter = Builders<GameResult>.Filter.And(
+                Builders<GameResult>.Filter.Eq(result => result.isRanked, true),
+                Builders<GameResult>.Filter.Gte(result => result.Time, startUtc),
+                Builders<GameResult>.Filter.Lt(result => result.Time, endUtc));
+
+            return collection
+                .Find(filter)
+                .Project(result => new GameResult
+                {
+                    Time = result.Time,
+                    RedPlayerGameResultStatus = result.RedPlayerGameResultStatus,
+                    RedLeaderId = result.RedLeaderId,
+                    BlueLeaderId = result.BlueLeaderId,
+                    RedWinCount = result.RedWinCount,
+                    BlueWinCount = result.BlueWinCount,
+                    isRanked = result.isRanked,
+                    isSurrender = result.isSurrender
+                })
+                .ToList();
+        }
         public bool AddGameResult(GameResult data)
         {
             var temp = GetDatabase().GetCollection<GameResult>("gameresults");

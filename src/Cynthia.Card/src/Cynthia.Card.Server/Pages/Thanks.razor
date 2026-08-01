@@ -1,36 +1,83 @@
 @page "/thank"
-@using Cynthia.Card.Server
+@inject SiteTextService Text
 
-<h1>特别感谢投食名单 / Special Thanks to Sponsors</h1>
+<SitePage Eyebrow="@L("社区支持档案", "Community support archive")"
+          Title="@L("每一份支持，都留在这里", "Every contribution left a mark")"
+          Description="@L("这份名单记录了早期为服务器与社区提供支持的朋友，以及他们留下的话。", "This archive remembers the people who supported the server and community in its early years, together with the messages they left.")"
+          Icon="oi-people"
+          CssClass="aitest-page--supporters">
+    <Aside>
+        <strong>@TotalAmount.ToString("0.##")</strong>
+        <span>@L("累计记录金额", "recorded total")</span>
+    </Aside>
+    <ChildContent>
+        <div class="aitest-note" role="note">
+            <strong>@L("隐私与补录说明：", "Privacy and corrections: ")</strong>
+            @L(
+                "支付宝会显示实名，因此相关投食默认保密；如需展示附加信息、更改匿名状态，或发现记录遗漏，请联系群主或项目维护者。感谢每一位支持者。",
+                "Alipay may expose real names, so those contributions are private by default. Contact the group owner or project maintainers to add a display note, change anonymity, or correct a missing record. Thank you to every supporter.")
+        </div>
 
-<h3>目前投食总量 / Total Sponsorship: @_sponsorRecord.Sum(x=>x.Money)</h3>
-<h4>因支付宝显示实名,所以支付宝投食保密,支付宝投食注意填写附加显示信息 / Alipay donations are private due to real-name display. Please fill in optional info if needed.</h4>
-<h4>投食统计可能有遗漏,如有发现可联系作者进行补充 / Some donations may be missing. Contact the author to add them.</h4>
-<h4>有意保密或者显示保密内容,可联系群主进行更新,感谢大家的支持 / If you want to remain anonymous or display as private, contact the group owner. Thank you for your support.</h4>
+        <section class="aitest-panel">
+            <div class="aitest-panel-heading">
+                <h2>@L("投食名单", "Support records")</h2>
+                <span class="aitest-badge">@SponsorCount @L("条记录", "records")</span>
+            </div>
 
-<table>
-@foreach (var item in _sponsorRecord)
-{
-    <tr>
-        <td>
-            投食人 / Donor: @if(item.MasterName==""){<b><i>匿名 / Anonymous</i></b>}else{@item.MasterName}
-        </td>
-        <td>
-            留言 / Message: @if(@item.Message==""){<b><i>未留言 / No message</i></b>}else{@item.Message}
-        </td>
-        <td>
-            时间 / Date: @item.Time.Year-@item.Time.Month-@item.Time.Day
-        </td>
-        <td>
-            金额 / Amount: @item.Money
-        </td>
-    </tr>
-}
-</table>
-
-<br/><br/>
-
-<p>由于完全不懂css,无法做的很漂亮qvq,还请见谅 / Sorry, I don’t really know CSS, so it may not look pretty qvq.</p>
+            @if (_sponsorRecord == null || _sponsorRecord.Count == 0)
+            {
+                <SiteEmptyState Icon="oi-heart"
+                                Title="@L("暂时没有可展示的记录", "No records to display")"
+                                Description="@L("完成隐私整理后的支持记录会出现在这里。", "Support records will appear here after their privacy details are reviewed.")" />
+            }
+            else
+            {
+                <div class="aitest-data-table-wrap">
+                    <table class="aitest-data-table aitest-archive-table aitest-support-table"
+                           aria-label="@L("投食名单", "Support records")">
+                        <thead>
+                            <tr>
+                                <th scope="col">@L("投食人", "Supporter")</th>
+                                <th scope="col">@L("留言", "Message")</th>
+                                <th scope="col">@L("日期", "Date")</th>
+                                <th scope="col">@L("金额", "Amount")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in _sponsorRecord)
+                            {
+                                <tr>
+                                    <td data-label="@L("投食人", "Supporter")">
+                                        @if (string.IsNullOrWhiteSpace(item?.MasterName))
+                                        {
+                                            <span class="aitest-badge">@L("匿名", "Anonymous")</span>
+                                        }
+                                        else
+                                        {
+                                            <strong>@item.MasterName</strong>
+                                        }
+                                    </td>
+                                    <td data-label="@L("留言", "Message")">
+                                        @if (string.IsNullOrWhiteSpace(item?.Message))
+                                        {
+                                            <span>@L("未留言", "No message")</span>
+                                        }
+                                        else
+                                        {
+                                            @item.Message
+                                        }
+                                    </td>
+                                    <td data-label="@L("日期", "Date")">@(item == null ? "—" : item.Time.ToString("yyyy-MM-dd"))</td>
+                                    <td data-label="@L("金额", "Amount")"><span class="aitest-rating">@(item == null ? "—" : item.Money.ToString("0.##"))</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </section>
+    </ChildContent>
+</SitePage>
 
 @code
 {
@@ -46,14 +93,23 @@
 
         public SponsorInfo(string masterName, string message, decimal money, DateTime time)
         {
-            MasterName = masterName;
-            Message = message;
+            MasterName = masterName ?? string.Empty;
+            Message = message ?? string.Empty;
             Money = money;
             Time = time;
         }
     }
 
-    private IList<SponsorInfo> _sponsorRecord;
+    private IList<SponsorInfo> _sponsorRecord = new List<SponsorInfo>();
+
+    private int SponsorCount => _sponsorRecord?.Count ?? 0;
+
+    private decimal TotalAmount => _sponsorRecord?.Where(item => item != null).Sum(item => item.Money) ?? 0m;
+
+    private string L(string chinese, string english)
+    {
+        return Text.IsEnglish ? english : chinese;
+    }
 
     protected override void OnInitialized()
     {

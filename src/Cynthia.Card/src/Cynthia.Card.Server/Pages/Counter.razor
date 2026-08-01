@@ -1,17 +1,60 @@
-﻿@page "/counter"
+@page "/counter"
 @inject CounterService counterService
+@inject SiteTextService Text
 @implements IDisposable
 
-<h1>计数器 / Counter</h1>
+<SitePage Eyebrow="@L("社区小实验", "Community micro-experiment")"
+          Title="@L("点点点", "The counter")"
+          Description="@L("一枚全站共享的小按钮，记录本次服务器运行期间大家一共点了多少次。", "One tiny shared button that counts every click made during the current server session.")"
+          Icon="oi-loop-circular"
+          CssClass="aitest-page--counter">
+    <Aside>
+        <strong>@currentCount</strong>
+        <span>@L("本次启动累计点击", "Clicks this session")</span>
+    </Aside>
+    <ChildContent>
+        <section class="aitest-panel">
+            <div class="aitest-panel-heading">
+                <h2>@L("现在轮到你了", "Your turn")</h2>
+                <span class="aitest-badge">@L("全站同步", "Shared live")</span>
+            </div>
+            <div class="aitest-panel-content aitest-counter-stage">
+                <div class="aitest-counter-orbit" aria-live="polite" aria-atomic="true">
+                    <span>@L("当前累计", "Current total")</span>
+                    <strong>@currentCount</strong>
+                </div>
+                <div class="aitest-counter-copy">
+                    <p>
+                        @L(
+                            "每点击一次，当前数字就会加一；所有打开这个页面的人都会看到更新后的结果。",
+                            "Each press adds one to the total, and everyone viewing this page receives the updated count.")
+                    </p>
+                    <button class="aitest-button aitest-counter-button" type="button" @onclick="IncrementCount">
+                        <span class="oi oi-plus" aria-hidden="true"></span>
+                        @L("点一下", "Add one click")
+                    </button>
+                </div>
+            </div>
+        </section>
 
-<p>自本次服务器启动起,总共被戳 / Since this server started, total clicks: @currentCount 次 / times</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">戳 / Click</button>
+        <div class="aitest-note" role="note">
+            <strong>@L("计数范围：", "Counting scope: ")</strong>
+            @L(
+                "数字保存在当前服务器进程中，服务重新启动后会从零开始。这只是一个轻量互动，不影响账号、对局或天梯数据。",
+                "The number lives in the current server process and returns to zero after a restart. This lightweight interaction does not affect accounts, matches, or ladder data.")
+        </div>
+    </ChildContent>
+</SitePage>
 
 @code {
-    int currentCount;
+    private int currentCount;
 
-    void IncrementCount()
+    private string L(string chinese, string english)
+    {
+        return Text.IsEnglish ? english : chinese;
+    }
+
+    private void IncrementCount()
     {
         counterService.Click();
     }
@@ -24,7 +67,8 @@
 
     private void OnValueChanged(int newValue)
     {
-        InvokeAsync(() => {
+        InvokeAsync(() =>
+        {
             currentCount = newValue;
             StateHasChanged();
         });
@@ -32,6 +76,6 @@
 
     public void Dispose()
     {
-        counterService.OnValueChanged  -= OnValueChanged;
+        counterService.OnValueChanged -= OnValueChanged;
     }
 }

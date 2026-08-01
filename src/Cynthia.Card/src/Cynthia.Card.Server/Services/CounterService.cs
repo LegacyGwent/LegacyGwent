@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace Cynthia.Card.Server
 {
@@ -9,12 +10,12 @@ namespace Cynthia.Card.Server
 
         public void Click()
         {
-            _value++;
-            OnValueChanged?.Invoke(_value);
+            var value = Interlocked.Increment(ref _value);
+            OnValueChanged?.Invoke(value);
         }
         public int GetValue()
         {
-            return _value;
+            return Volatile.Read(ref _value);
         }
     }
 }
