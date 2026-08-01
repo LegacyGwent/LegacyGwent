@@ -31,6 +31,7 @@ namespace Cynthia.Card.Server
         }
         private IMongoDatabase GetDatabase() => GetMongoClient().GetDatabase(_dataBaseName);
         private IMongoCollection<UserInfo> GetUserInfo() => GetDatabase().GetCollection<UserInfo>(_repositoryName);
+        private IMongoCollection<BsonDocument> GetSettings() => GetDatabase().GetCollection<BsonDocument>("settings");
 
         public IMongoCollection<SeasonInfo> GetSeasonInfo() => GetDatabase().GetCollection<SeasonInfo>(_seasonRepositoryName);
 
@@ -803,10 +804,82 @@ namespace Cynthia.Card.Server
         {
             var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
             var update = Builders<UserInfo>.Update
-                .Set(x => x.MMR, baseMMR)
-                .Set(x => x.HighestMMR, baseMMR);
+                .Set(x => x.MMR, baseMMR);
 
             await GetUserInfo().UpdateOneAsync(filter, update);
+        }
+
+        public async Task RunPendingMigrations()
+        {
+            const string migrationId = "restore_all_time_highest_mmr_v1";
+            if (await HasMigrationRunAsync(migrationId))
+            {
+                return;
+            }
+
+            await RestoreAllTimeHighestMMRFromSeasonHistoryAsync();
+            await MarkMigrationRunAsync(migrationId);
+        }
+
+        private async Task<bool> HasMigrationRunAsync(string migrationId)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("key", migrationId);
+            var doc = await GetSettings().Find(filter).FirstOrDefaultAsync();
+            return doc != null && doc.Contains("value") && doc["value"].AsBoolean;
+        }
+
+        private async Task MarkMigrationRunAsync(string migrationId)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("key", migrationId);
+            var update = Builders<BsonDocument>.Update
+                .Set("key", migrationId)
+                .Set("value", true);
+            await GetSettings().UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
+        }
+
+        private async Task RestoreAllTimeHighestMMRFromSeasonHistoryAsync()
+        {
+            var peaksByPlayer = new Dictionary<string, int>();
+
+            foreach (var season in QuerySeasons())
+            {
+                if (string.IsNullOrWhiteSpace(season.rankingHistory))
+                {
+                    continue;
+                }
+
+                foreach (var entry in Season.DecodeRanklist(season.rankingHistory))
+                {
+                    var playerName = entry.Item1;
+                    var historicalPeak = entry.Item6;
+                    if (peaksByPlayer.TryGetValue(playerName, out var existingPeak))
+                    {
+                        peaksByPlayer[playerName] = Math.Max(existingPeak, historicalPeak);
+                    }
+                    else
+                    {
+                        peaksByPlayer[playerName] = historicalPeak;
+                    }
+                }
+            }
+
+            foreach (var player in GetAllPlayers())
+            {
+                var restoredPeak = player.HighestMMR;
+                if (peaksByPlayer.TryGetValue(player.PlayerName, out var historicalPeak))
+                {
+                    restoredPeak = Math.Max(restoredPeak, historicalPeak);
+                }
+
+                if (restoredPeak <= player.HighestMMR)
+                {
+                    continue;
+                }
+
+                var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, player.UserName);
+                var update = Builders<UserInfo>.Update.Set(x => x.HighestMMR, restoredPeak);
+                await GetUserInfo().UpdateOneAsync(filter, update);
+            }
         }
         public async Task ResetPlayerStreak(string username)
         {
