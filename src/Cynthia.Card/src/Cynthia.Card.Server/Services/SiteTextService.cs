@@ -142,10 +142,15 @@ namespace Cynthia.Card.Server.Services
                 ["Monsters"] = ("怪兽", "Monsters")
             };
 
-        public bool IsEnglish => string.Equals(
-            CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
-            "en",
-            StringComparison.OrdinalIgnoreCase);
+        public bool IsEnglish => IsEnglishCulture(CultureInfo.CurrentUICulture);
+
+        public static bool IsEnglishCulture(CultureInfo culture)
+        {
+            return string.Equals(
+                culture?.Name,
+                "en-US",
+                StringComparison.OrdinalIgnoreCase);
+        }
 
         public string this[string key]
         {
