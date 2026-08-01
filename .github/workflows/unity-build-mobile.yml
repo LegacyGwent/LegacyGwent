@@ -36,7 +36,9 @@ jobs:
           [[ "$EXPECTED_SHA" =~ ^[0-9a-fA-F]{40}$ ]]
           actual_sha="$(git rev-parse HEAD)"
           test "${EXPECTED_SHA,,}" = "$actual_sha"
-      - uses: actions/cache@v4
+      - name: Restore Unity Library cache
+        id: unity_cache_restore
+        uses: actions/cache/restore@v4
         with:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
           key: Library-${{ matrix.targetPlatform }}
@@ -105,6 +107,7 @@ jobs:
         shell: bash
         env:
           PACKAGE_NAME: ${{ steps.package.outputs.package_name }}
+          EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
           EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
           EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
           EXPECTED_ANDROID_LABEL: DiyGwent AITest
@@ -162,3 +165,9 @@ jobs:
           path: ${{ steps.package.outputs.package_name }}
           if-no-files-found: error
           compression-level: 0
+      - name: Save Unity Library cache
+        if: ${{ always() && steps.unity_build.outcome == 'success' && steps.unity_cache_restore.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: ${{ steps.unity_cache_restore.outputs.cache-primary-key }}

@@ -143,6 +143,10 @@ jobs:
             ! grep -q '<?xml' "$workflow"
           done
           grep -q 'package_name="DiyGwent-AITest-Android-\$EXPECTED_CLIENT_VERSION.apk"' .github/workflows/unity-build-mobile.yml
+          test "$(grep -Fc 'EXPECTED_CLIENT_VERSION: $''{{ steps.client_version.outputs.value }}' .github/workflows/unity-build-mobile.yml)" -ge 2
+          grep -Fq 'uses: actions/cache/restore@v4' .github/workflows/unity-build-mobile.yml
+          grep -Fq 'uses: actions/cache/save@v4' .github/workflows/unity-build-mobile.yml
+          grep -Fq "always() && steps.unity_build.outcome == 'success'" .github/workflows/unity-build-mobile.yml
           grep -q 'string clientVersion = PlayerSettings.bundleVersion;' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Editor/BuildVersionWriter.cs
           grep -q 'private string CurrentVersion => Application.version;' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/LoginScript/GameInit.cs
           ! grep -q '^[[:space:]]*hubConnection.StartAsync();' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Code/GwentClientService.cs
