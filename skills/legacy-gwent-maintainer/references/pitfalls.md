@@ -129,6 +129,18 @@ Last verified: 2026-08-01
 - Verification: query branch protection and workflow triggers, then confirm the
   candidate SHA exists only on its review branch until approval.
 
+## A server-only follow-up reruns every Unity desktop build
+
+- Symptom: a PR synchronization that changes only server, website, or knowledge
+  files queues Windows, macOS, and Linux Unity jobs again.
+- Cause: `pull_request.paths` is evaluated against the PR's cumulative base-to-head
+  diff; an earlier Unity change remains in scope on every later synchronization.
+- Fix: let the final run finish, or split client and server work into separate PRs.
+- Prevention: batch non-client follow-ups before the first push when one PR must
+  contain both, and do not assume last-commit paths control PR workflow filters.
+- Verification: compare the latest commit paths with the complete PR file list
+  and the workflow event before cancelling or retriggering a queued build.
+
 ## `set -e` exits before a failed release can roll back
 
 - Symptom: `current` points at a bad release after `systemctl restart` fails,
