@@ -108,6 +108,27 @@ jobs:
           grep -q '^  productName: DiyGwent AITest$' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-desktop.yml
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-mobile.yml
+          grep -q 'versioning: Custom' .github/workflows/unity-build-desktop.yml
+          grep -q 'versioning: Custom' .github/workflows/unity-build-mobile.yml
+          grep -q 'versioning: Custom' .github/workflows/release.yml
+          grep -q 'name: Validate release identity' .github/workflows/release.yml
+          grep -q 'test "$REQUESTED_RELEASE_TAG" = "v$client_version"' .github/workflows/release.yml
+          grep -q 'test "$tag_commit" = "$workflow_commit"' .github/workflows/release.yml
+          grep -q 'group: tagged-release-' .github/workflows/release.yml
+          grep -q 'gh release create.*--draft' .github/workflows/release.yml
+          grep -q 'gh release upload.*--clobber' .github/workflows/release.yml
+          grep -q 'gh release edit.*--draft=false' .github/workflows/release.yml
+          ! grep -Eq 'actions/(create-release|upload-release-asset)' .github/workflows/release.yml
+          for workflow in .github/workflows/unity-build-desktop.yml .github/workflows/unity-build-mobile.yml .github/workflows/release.yml; do
+            grep -Fq 'UNITY_LICENSE: $''{{ secrets.UNITY_LICENSE }}' "$workflow"
+            ! grep -q '<?xml' "$workflow"
+          done
+          grep -q 'package_name="DiyGwent-AITest-Android-\$EXPECTED_CLIENT_VERSION.apk"' .github/workflows/unity-build-mobile.yml
+          grep -q 'string clientVersion = PlayerSettings.bundleVersion;' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Editor/BuildVersionWriter.cs
+          grep -q 'private string CurrentVersion => Application.version;' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/LoginScript/GameInit.cs
+          ! grep -q '^[[:space:]]*hubConnection.StartAsync();' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Code/GwentClientService.cs
+          grep -q 'public async Task EnsureConnectedAsync(CancellationToken cancellationToken' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Code/GwentClientService.cs
+          grep -q 'AutoUpdateGame(LatestVersionText, cancellationToken)' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/LoginScript/GameInit.cs
           grep -q '^[[:space:]]*- StandaloneLinux64' .github/workflows/unity-build-desktop.yml
           grep -q 'name: Package desktop client' .github/workflows/unity-build-desktop.yml
           grep -q '<TargetFramework>net10.0</TargetFramework>' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
