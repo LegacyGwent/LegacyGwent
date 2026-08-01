@@ -1,6 +1,9 @@
 # Card-pool migrations
 
-Last verified: 2026-08-01 on the staged DIY-AI reset CardMap `1.0.0.154`.
+Last verified: 2026-08-02
+
+Verified against deployed DIY-AI commit `1f047f56e9bb08e3fbbcb039541fdce1ba43c762`
+and CardMap `1.0.0.154`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -70,9 +73,11 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 7. Preserve historical results. Harden any direct `GwentMap.CardMap[id]` lookup
    with version-aware decoding or `TryGetValue` before the retirement ships.
 
-Earlier snapshot from 2026-08-01: Mongo `28021` held 41,939 users, 72,438 saved
-decks, 131,890 PVP results, and 111,194 AI results. The later no-write migration
-preview scanned 41,940 users and would remove 18,322 decks across 3,136 users;
-562 affected users would receive the original starter deck, and 25 invalid
-blacklist entries across 24 users would be removed. Recompute immediately before
-migration because the public server remains live.
+The 2026-08-01 production migration on Mongo `28021` scanned 41,940 users,
+removed 18,322 invalid decks across 3,136 users, seeded 562 users with the
+original starter deck, and removed 25 invalid blacklist entries across 24
+users. Its immediate post-check reported zero remaining invalid decks and
+blacklist entries. The restorable pre-migration dump is under
+`/var/backups/legacy-gwent/diy-ai-card-reset/20260801T155718Z.lSCs8t` and has
+`state=complete`. Future migrations must recompute immediately before execution
+because the public server remains live.
