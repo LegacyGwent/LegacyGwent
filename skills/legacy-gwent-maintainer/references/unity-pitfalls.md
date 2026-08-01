@@ -129,18 +129,72 @@ Last verified: 2026-08-01
   `apksigner` verifies and reports the certificate, then old/new certificate
   digests match and an actual `adb install -r` upgrade succeeds.
 
-## APK verifies but certificate-summary parsing fails the workflow
+## Android succeeds but the verification tail fails
 
-- Symptom: Android compilation and `apksigner verify` pass, then a certificate
-  text assertion exits and the upload step is skipped.
-- Cause: `apksigner --print-certs` is human-readable output; signer labels,
-  whitespace, and digest separators vary across build-tools versions.
-- Fix: use the command exit, `Verifies`, and signer count as validity gates; log
-  the complete report, find certificate fields by their semantic labels, remove
-  colons/whitespace from the digest, then require 64 hexadecimal characters.
-- Prevention: separate prepare, verify, and upload steps. Upload a successfully
-  prepared APK even when verification fails so the failed run remains
-  diagnosable; never accept that artifact unless the verification job is green.
-- Verification: numbered/parenthesized labels and compact/colon-delimited
-  digests pass, malformed digests fail, and a failed verifier still leaves the
-  APK available for independent inspection.
+- Symptom: Unity and APK preparation succeed, yet the job turns red during
+  metadata/signature checks; the artifact or newly built cache may be lost.
+- Cause: split steps do not inherit one another's `env`; certificate labels vary
+  by build-tools; `actions/cache` saves in a success-only post step by default.
+- Fix: map every expected value into the verifier; gate signatures on command
+  success, `Verifies`, signer count, semantic labels, and a normalized digest.
+  Always upload a prepared APK. Use separate cache restore/save actions and save
+  on `always()`, successful Unity build, and cache miss.
+- Prevention: policy-check wiring; run `scripts/verify_android_artifact.ps1`
+  and the exact CI verifier against a real downloaded APK before committing.
+- Verification: malformed digest fixtures fail, the real APK passes, a failed
+  verifier retains the APK, and the next failure drill must confirm cache save.
+
+## Unity cache restores the wrong platform or is unavailable on a review branch
+
+- Symptom: a Linux job restores a macOS `Library`, or an exact-source Android
+  review build spends roughly a cold build cycle importing assets despite a
+  matching-looking cache elsewhere.
+- Cause: broad restore prefixes cross target platforms, while Actions caches are
+  branch-scoped and a sibling branch's entry may not be visible to the review
+  branch.
+- Fix: include `${{ matrix.targetPlatform }}` in every cache key and restore
+  prefix; let a correctly running cold build finish instead of retriggering it.
+- Prevention: distinguish cache visibility from build health and retain the
+  exact `expected_sha` gate for mobile dispatches.
+- Verification: a cache miss never downloads another platform's archive, the
+  job still reports the expected HEAD, and the produced artifact passes native
+  metadata inspection.
+
+## Native metadata or a rebuilt artifact hash appears to drift
+
+- Symptom: Explorer reports `2019.4.1f1` instead of app version `2.1.9`, or an
+  exact-source rebuild changes all archive hashes despite no client-source edit.
+- Cause: Unity stamps its engine version into the Windows bootstrap; rebuilds
+  also refresh PE timestamps, assembly MVID/PDB GUIDs, and Unity's build ID.
+- Fix: verify `version.txt`, serialized configuration, runtime UI, and native
+  metadata; compare paths, modes, unpacked sizes, and semantic IL when needed.
+- Prevention: treat engine metadata and reproducibility noise separately from
+  app metadata and logic; do not accept or reject a build on ZIP SHA alone.
+- Verification: app sources agree; unexplained binary differences are limited
+  to expected identifiers and decompiled managed code remains equivalent.
+
+## macOS keeps a legacy placeholder bundle identifier
+
+- Symptom: `Info.plist` contains `com.Company.ProductName` although the app name,
+  endpoint, language, and version are correct.
+- Cause: the legacy Unity project never assigned a production macOS bundle ID;
+  changing the AITest name or version does not rewrite that independent field.
+- Fix: treat the current value as a known packaging limitation; choose and test
+  a durable reverse-DNS identifier before signing/notarizing public macOS builds.
+- Prevention: audit bundle identity separately from `CFBundleVersion` and
+  `CFBundleShortVersionString`.
+- Verification: version and endpoint checks pass now; a future signed build must
+  report the approved non-placeholder ID and preserve upgrade identity.
+
+## The available Android emulator cannot run the current APK ABI
+
+- Symptom: the local API 35 x86_64 AVD cannot install or launch an APK that
+  otherwise passes manifest and signature checks.
+- Cause: this AVD advertises translated arm64 support but no 32-bit ABI, while
+  the current AITest APK contains only `armeabi-v7a` libraries.
+- Fix: use ARMv7-capable physical hardware for this artifact, or add and verify
+  `arm64-v8a` in a later client change.
+- Prevention: inspect APK native libraries and `ro.product.cpu.abilist*` before
+  spending time booting an emulator.
+- Verification: at least one APK ABI intersects the target device ABI list, then
+  installation, startup, and the actual 5010 TCP connection succeed.
