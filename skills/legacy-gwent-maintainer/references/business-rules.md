@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-07-31
+Last verified: 2026-08-01
 
 ## DIY-AI release identity
 
@@ -22,24 +22,58 @@ Last verified: 2026-07-31
 ## Deck validity
 
 - Use `Cynthia.Card.GwentDeck.IsBasicDeck(...)` as the source of truth.
-- A known valid basic deck has 25 cards with leader, rarity, and copy limits
-  enforced by that method; do not infer validity from UI appearance alone.
+- A basic deck contains 25 through 40 cards, inclusive. The leader is stored
+  separately and must not appear in that card list; the same method also limits
+  golds to 4, silvers to 6, gold/silver copies to 1, and copper copies to 3.
+- `GwentDeck.CreateBasicDeck(1)` currently returns 26 cards and survives a
+  server upload/query round trip as a valid basic deck. Never treat 25 as a
+  fixed deck size or infer validity from UI appearance alone.
 
 ## AI matchmaking
 
+- Match passwords map `ai` to Geralt/Ciri (`GeraltNovaAI`), `ai1` to Recruit
+  Training (`SoldierTrainAI`), `ai2` to Avallac'h mill (`MillAI`), `ai3` to
+  King Auberon, `ai4` to Iron Falcon, and `ai5` to Dragon Hunter. Keep the
+  Chinese and English login announcements aligned with this parser.
 - `ai1` selects `SoldierTrainAI`, whose deck is based on repeated recruit card
   `89008` and whose bidding behavior is predictable.
 - Forced-AI suffixes `#` and legacy `#f` are normalized by
   `GwentServerModels/GwentMatchs.cs` on `diy-ai`.
 - UI instructions and server password parsing have diverged before; verify a
   match actually starts and inspect the server parser when they disagree.
+- A headless SignalR 5.0.8 protocol client can reuse `SoldierTrainAI` as its
+  decision engine: convert incoming `IList<Operation<int>>` values to enum-based
+  operations, feed them through the AI server-operation handler, and return each
+  generated user operation to the hub. Require one response per decision and a
+  natural `GameEnd`; surrender is not a successful compatibility proof.
 
 ## Match verification
 
 - A real AI result is persisted in MongoDB collection `aigameresults` with
   player names, deck names, round scores, win counts, surrender state, and
   balance point.
+- In a persisted `GameResult`, the `Red*` fields belong to `RedCoin[0]`, which
+  is also `GameRound` for the first turn of round one; display that side as the
+  initial first mover and the `Blue*` side as the initial second mover. Do not
+  infer this order from the red/blue English coin labels in legacy UI text.
+- Match documents do not persist a separate faction field. Resolve each side's
+  faction from its leader ID through `GwentMap.CardMap`; keep an unknown fallback
+  for missing or retired leader IDs instead of indexing the map directly.
 - Prefer the persisted result plus the Unity victory screen for end-to-end proof.
+- Public season statistics count only ranked results for which
+  `GameResult.IsEffective()` is true. Use `RedPlayerStatus()` and
+  `BluePlayerStatus()` rather than inferring the opponent result from a raw
+  `RedPlayerGameResultStatus`; surrender, draw, and incomplete records otherwise
+  produce incorrect faction totals.
+
+## DIY workshop review
+
+- Sending a design to Card Review preserves its existing votes and comments.
+- Removing a proposal from Card Review resets the source `DiyCards.IsInDiscuss`
+  flag so it can be revised and submitted again.
+- Votes are mutually exclusive per user. Comments and votes must be written with
+  Mongo atomic operators and the page must adopt the returned server document;
+  never replace a whole array from a Blazor circuit snapshot.
 
 ## Card art inventory
 

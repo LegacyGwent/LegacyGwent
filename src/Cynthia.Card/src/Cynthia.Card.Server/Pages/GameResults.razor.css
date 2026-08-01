@@ -1,0 +1,367 @@
+.aitest-match-list {
+    gap: 0.95rem;
+    padding: 1.15rem;
+}
+
+.aitest-match-card {
+    min-height: 7.25rem;
+    grid-template-columns: minmax(13.5rem, 1fr) minmax(11rem, auto) minmax(13.5rem, 1fr);
+    background: rgba(255, 255, 255, 0.62);
+}
+
+.aitest-match-player {
+    --faction-color: #887765;
+    --faction-rgb: 136, 119, 101;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+    background:
+        linear-gradient(90deg, rgba(var(--faction-rgb), 0.13), transparent 72%),
+        rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0.22rem 0 0 rgba(var(--faction-rgb), 0.72);
+}
+
+.aitest-match-player.is-red {
+    background:
+        linear-gradient(-90deg, rgba(var(--faction-rgb), 0.13), transparent 72%),
+        rgba(255, 255, 255, 0.12);
+    box-shadow: inset -0.22rem 0 0 rgba(var(--faction-rgb), 0.72);
+}
+
+.is-faction-monsters {
+    --faction-color: #9f453d;
+    --faction-rgb: 159, 69, 61;
+}
+
+.is-faction-nilfgaard {
+    --faction-color: #8a6b24;
+    --faction-rgb: 138, 107, 36;
+}
+
+.is-faction-northern-realms {
+    --faction-color: #3f6f9b;
+    --faction-rgb: 63, 111, 155;
+}
+
+.is-faction-scoiatael {
+    --faction-color: #4f7c55;
+    --faction-rgb: 79, 124, 85;
+}
+
+.is-faction-skellige {
+    --faction-color: #735881;
+    --faction-rgb: 115, 88, 129;
+}
+
+.is-faction-neutral {
+    --faction-color: #6d6f6a;
+    --faction-rgb: 109, 111, 106;
+}
+
+.aitest-faction-mark {
+    position: relative;
+    width: 3.15rem;
+    height: 3.55rem;
+    flex: 0 0 3.15rem;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.3rem;
+    color: #fffaf0;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.22), transparent 36%),
+        linear-gradient(145deg, rgba(var(--faction-rgb), 0.72), var(--faction-color));
+    border: 1px solid rgba(var(--faction-rgb), 0.76);
+    border-radius: 1.1rem 1.1rem 1.45rem 1.45rem;
+    box-shadow:
+        inset 0 0 0 0.18rem rgba(255, 255, 255, 0.12),
+        0 0.48rem 0.85rem rgba(48, 39, 31, 0.15);
+    line-height: 1;
+}
+
+.aitest-faction-mark .oi {
+    font-size: 1.05rem;
+}
+
+.aitest-faction-mark .aitest-faction-emblem {
+    width: 2.05rem;
+    height: 2.05rem;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 0.18rem 0.16rem rgba(21, 18, 14, 0.42));
+}
+
+.aitest-faction-mark small {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    line-height: 1;
+}
+
+.aitest-faction-mark::after {
+    position: absolute;
+    right: 0.48rem;
+    bottom: 0.42rem;
+    left: 0.48rem;
+    height: 1px;
+    content: "";
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.aitest-match-player-copy {
+    min-width: 0;
+}
+
+.aitest-match-player-heading {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.is-red .aitest-match-player-heading {
+    flex-direction: row-reverse;
+}
+
+.aitest-match-player-heading strong {
+    min-width: 0;
+    overflow: hidden;
+    color: #29251f;
+    font-size: 1.04rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.aitest-turn-order {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.33rem;
+    padding: 0.23rem 0.48rem;
+    color: #5c5145;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(88, 75, 59, 0.14);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.aitest-turn-order > span {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+}
+
+.aitest-turn-order.is-first > span {
+    background: #be6e4d;
+    box-shadow: 0 0 0 0.17rem rgba(190, 110, 77, 0.13);
+}
+
+.aitest-turn-order.is-second > span {
+    background: #3e8179;
+    box-shadow: 0 0 0 0.17rem rgba(62, 129, 121, 0.13);
+}
+
+.aitest-match-leader,
+.aitest-match-faction,
+.aitest-match-deck {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.aitest-match-leader {
+    margin-top: 0.42rem;
+    color: #62574b;
+    font-size: 0.8rem;
+    line-height: 1.45;
+}
+
+.aitest-match-leader b {
+    font-weight: 700;
+}
+
+.aitest-match-leader b.is-win {
+    color: #2f7561;
+}
+
+.aitest-match-leader b.is-draw {
+    color: #8a6e35;
+}
+
+.aitest-match-leader b.is-loss {
+    color: #a04f49;
+}
+
+.aitest-match-faction {
+    margin-top: 0.15rem;
+    color: var(--faction-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+}
+
+.aitest-match-deck {
+    margin-top: 0.38rem;
+    color: #786d61;
+    font-size: 0.75rem;
+}
+
+.aitest-match-deck::before {
+    margin-right: 0.32rem;
+    content: "▤";
+    color: var(--faction-color);
+}
+
+.is-red .aitest-match-deck::before {
+    margin-right: 0;
+    margin-left: 0.32rem;
+}
+
+.aitest-match-score {
+    min-width: 11rem;
+    align-content: center;
+    gap: 0.25rem;
+    padding: 0.95rem 1.15rem;
+}
+
+.aitest-match-score strong {
+    font-size: 1.58rem;
+}
+
+.aitest-match-score span,
+.aitest-match-score time {
+    font-size: 0.75rem;
+}
+
+.aitest-rounds {
+    gap: 0.36rem;
+    margin-top: 0.18rem;
+}
+
+.aitest-rounds em {
+    min-width: 2.15rem;
+    padding: 0.18rem 0.42rem;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 60rem) {
+    .aitest-match-card {
+        grid-template-columns: minmax(12rem, 1fr) minmax(9.6rem, auto) minmax(12rem, 1fr);
+    }
+
+    .aitest-match-player {
+        gap: 0.7rem;
+        padding: 1rem;
+    }
+
+    .aitest-faction-mark {
+        width: 2.65rem;
+        height: 3rem;
+        flex-basis: 2.65rem;
+    }
+
+    .aitest-match-player-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.38rem;
+    }
+
+    .is-red .aitest-match-player-heading {
+        align-items: flex-end;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 760px) {
+    .aitest-match-list {
+        gap: 0.8rem;
+        padding: 0.75rem;
+    }
+
+    .aitest-match-card {
+        min-height: 0;
+        grid-template-columns: 1fr;
+    }
+
+    .aitest-match-score {
+        min-width: 0;
+        grid-template-columns: auto 1fr auto;
+        column-gap: 0.75rem;
+        padding: 0.85rem 1rem;
+    }
+
+    .aitest-match-score strong {
+        font-size: 1.4rem;
+    }
+
+    .aitest-rounds {
+        grid-column: 1 / -1;
+    }
+
+    .aitest-match-score time {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+        text-align: right;
+    }
+
+    .aitest-match-player,
+    .aitest-match-player.is-red {
+        flex-direction: row;
+        background:
+            linear-gradient(90deg, rgba(var(--faction-rgb), 0.13), transparent 72%),
+            rgba(255, 255, 255, 0.12);
+        box-shadow: inset 0.22rem 0 0 rgba(var(--faction-rgb), 0.72);
+        text-align: left;
+    }
+
+    .aitest-match-player-heading,
+    .is-red .aitest-match-player-heading {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .is-red .aitest-match-deck::before {
+        margin-right: 0.32rem;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 430px) {
+    .aitest-match-player-heading,
+    .is-red .aitest-match-player-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .aitest-match-score {
+        grid-template-columns: 1fr auto;
+    }
+
+    .aitest-match-score > span {
+        justify-self: start;
+    }
+
+    .aitest-match-score strong {
+        justify-self: end;
+    }
+
+    .aitest-match-score time {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        justify-self: start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aitest-match-card,
+    .aitest-faction-mark {
+        transition: none;
+    }
+}

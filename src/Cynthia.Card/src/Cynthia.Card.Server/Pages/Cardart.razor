@@ -1,28 +1,145 @@
 @page "/cardart"
-@using System.IO;
-@using System.Collections.Generic;
+@using System.IO
+@using Microsoft.Extensions.Logging
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnvironment
+@inject SiteTextService Text
+@inject ILogger<Cardart> Logger
 
-<div>
-    @foreach (var card in GetPngFileNames("./wwwroot/scale"))
-    {
-        <div class="card">
-            <img src="@($"./scale/{card}")" alt="card" />
-            <p class="card-text">@card.Replace(".png", "")</p>
-        </div>
-    }
-</div>
+<SitePage Eyebrow="@Text["ArtArchive"]"
+          Title="@Text["CardArtTitle"]"
+          Description="@Text["CardArtDescription"]"
+          Icon="oi-image"
+          CssClass="aitest-page--gallery">
+    <Aside>
+        <strong>@_cards.Count</strong>
+        <span>@Text["ArtAvailable"]</span>
+    </Aside>
+    <ChildContent>
+        <section class="aitest-panel">
+            <div class="aitest-note">@Text["CardArtReadinessNote"]</div>
+            <div class="aitest-gallery-toolbar">
+                <input class="aitest-search"
+                       type="search"
+                       value="@_search"
+                       aria-label="@Text["SearchArt"]"
+                       placeholder="@Text["SearchArt"]"
+                       @oninput="HandleSearch" />
+                <span class="aitest-badge" aria-live="polite">@FilteredCards.Count / @_cards.Count</span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(_loadError))
+            {
+                <SiteEmptyState Icon="oi-warning"
+                                Title="@Text["DataUnavailableTitle"]"
+                                Description="@Text["DataUnavailableBody"]" />
+            }
+            else if (FilteredCards.Count == 0)
+            {
+                <SiteEmptyState Icon="oi-image"
+                                Title="@Text["NoArtTitle"]"
+                                Description="@Text["NoArtBody"]" />
+            }
+            else
+            {
+                <div class="aitest-art-grid" id="aitest-art-grid" tabindex="-1">
+                    @foreach (var card in VisibleCards)
+                    {
+                        <figure class="aitest-art-card">
+                            <img src="@($"./scale/{card}")"
+                                 alt="@($"{Text["CardArtPreview"]} {ArtId(card)}")"
+                                 loading="lazy"
+                                 decoding="async" />
+                            <span>@ArtId(card)</span>
+                        </figure>
+                    }
+                </div>
+
+                @if (PageCount > 1)
+                {
+                    <nav class="aitest-pagination" aria-label="@Text["PageLabel"]">
+                        <button class="aitest-button aitest-button-compact aitest-button-ghost"
+                                type="button"
+                                disabled="@(CurrentPage == 0)"
+                                @onclick="PreviousPage">
+                            @Text["PreviousPage"]
+                        </button>
+                        <span aria-live="polite">@PageStatus</span>
+                        <button class="aitest-button aitest-button-compact aitest-button-ghost"
+                                type="button"
+                                disabled="@(CurrentPage >= PageCount - 1)"
+                                @onclick="NextPage">
+                            @Text["NextPage"]
+                        </button>
+                    </nav>
+                }
+            }
+        </section>
+    </ChildContent>
+</SitePage>
 
 @code
 {
-    public List<string> GetPngFileNames(string folderPath)
-    {
-        List<string> pngFileNames = new List<string>(); 
-        foreach (string filePath in Directory.GetFiles(folderPath, "*.png"))
-        {
-            string fileName = Path.GetFileName(filePath);
-            pngFileNames.Add(fileName);
-        }
+    private const int PageSize = 48;
+    private readonly List<string> _cards = new List<string>();
+    private string _search = "";
+    private string _loadError = "";
+    private int _page;
 
-        return pngFileNames;
+    private IList<string> FilteredCards => _cards
+        .Where(card => string.IsNullOrWhiteSpace(_search)
+            || ArtId(card).IndexOf(_search.Trim(), StringComparison.OrdinalIgnoreCase) >= 0)
+        .ToList();
+
+    private int PageCount => Math.Max(1, (FilteredCards.Count + PageSize - 1) / PageSize);
+    private int CurrentPage => Math.Min(_page, PageCount - 1);
+    private IList<string> VisibleCards => FilteredCards
+        .Skip(CurrentPage * PageSize)
+        .Take(PageSize)
+        .ToList();
+    private string PageStatus => Text.IsEnglish
+        ? $"Page {CurrentPage + 1} / {PageCount}"
+        : $"第 {CurrentPage + 1} 页 / 共 {PageCount} 页";
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            var scaleDirectory = Path.Combine(HostEnvironment.WebRootPath, "scale");
+            if (!Directory.Exists(scaleDirectory))
+            {
+                throw new DirectoryNotFoundException(scaleDirectory);
+            }
+
+            _cards.AddRange(Directory.EnumerateFiles(scaleDirectory, "*.png", SearchOption.TopDirectoryOnly)
+                .Select(Path.GetFileName)
+                .Where(fileName => !string.IsNullOrWhiteSpace(fileName))
+                .OrderBy(fileName => fileName, StringComparer.OrdinalIgnoreCase));
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to load card artwork inventory");
+            _loadError = Text["DataUnavailableBody"];
+        }
+    }
+
+    private void HandleSearch(ChangeEventArgs eventArgs)
+    {
+        _search = eventArgs?.Value?.ToString() ?? "";
+        _page = 0;
+    }
+
+    private void PreviousPage()
+    {
+        _page = Math.Max(0, CurrentPage - 1);
+    }
+
+    private void NextPage()
+    {
+        _page = Math.Min(PageCount - 1, CurrentPage + 1);
+    }
+
+    private static string ArtId(string fileName)
+    {
+        return Path.GetFileNameWithoutExtension(fileName) ?? "";
     }
 }

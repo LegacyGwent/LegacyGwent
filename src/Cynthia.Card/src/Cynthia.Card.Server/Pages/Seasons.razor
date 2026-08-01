@@ -1,694 +1,299 @@
 @page "/seasons"
-@inject GwentServerService GwentService
+@using System.Globalization
+@using Microsoft.Extensions.Logging
+@inject SeasonOverviewService SeasonOverview
+@inject GwentLocalizationService Localization
+@inject SiteTextService Text
+@inject ILogger<Seasons> Logger
 
-@inject IJSRuntime JS
-
-
-<div id="chartOverlay" style="
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.7);
-    z-index:9999;
-    justify-content:center;
-    align-items:center;
-">
-  <div style="
-      background:#fff;
-      padding:20px;
-      padding-top:20px;
-      border-radius:10px;
-      position:relative;
-      max-width:90%;
-      max-height:90%;
-      overflow:auto;
-  ">
-    <center><h6 id="canvasheader" style="padding-bottom:1vh">tekst</h6></center>
-    <button onclick="document.getElementById('chartOverlay').style.display='none'" 
-            style="position:absolute; top:10px; right:10px; background-color:rgb(175, 36, 36); width: 6.5vh; color: white; border-radius:3px">X</button>
-
-    <canvas id="overlayCanvas" style="width:100%; height:100%; max-width:100%; max-height:80vh;"></canvas>
-
-    <div id="multiChartContainer" style="display:flex; flex-wrap:wrap; gap:20px;"></div>
-
-  </div>
-</div>
-
-
-
-<div class="table-responsive">
-    <table class="table table-bordered" style="width:770px">
-        <tr style="background-color:rgb(235, 144, 83)">
-            <td style="width:140px">ID</td>
-            <td style="width:150px">Name</td>
-            <td style="width:90px">isActive</td>
-            <td style="width:80px">StartDate</td>
-            <td style="width:60px">EndDate</td>
-            <td style="width:60px"><center>Player picks</center></td>
-            <td style="width:220px">Rewards</td>
-        </tr>
-@foreach(var season in _seasonsList.Where(s => s.isActive))
-{       
-        <tr class="table-info">
-            <td style="background-color:pink">@season.SeasonId</td>   
-            <td style="background-color:pink">@season.SeasonName</td>
-            <td style="background-color:pink">@(season.isActive==true?"Active":"-")</td>
-            <td style="background-color:pink">@season.SeasonStartTime</td>
-            <td style="background-color:pink">@season.SeasonEndTime</td>
-            <td style="background-color:pink">
-                <canvas id="activeSeasonChart" width="800" height="300" onclick="openChartInNewWindow('activeSeasonChart', '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')"></canvas>
-                <center>
-                    <h6>Factions stats</h6>
-                    <button onclick="openMultipleChartsInOverlay(['factionsgames', 'factionscompared'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        All Factions
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_0', 'activefactionstats_1', 'activefactionstats_2', 'activefactionstats_3'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Northern Realms
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_4', 'activefactionstats_5', 'activefactionstats_6', 'activefactionstats_7'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Nilfgaard
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_8', 'activefactionstats_9', 'activefactionstats_10', 'activefactionstats_11'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Skellige
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_12', 'activefactionstats_13', 'activefactionstats_14', 'activefactionstats_15'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Scoia'tael
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_16', 'activefactionstats_17', 'activefactionstats_18', 'activefactionstats_19'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Monsters
-                    </button>
-                </center>
-                <div style="display:none;">
-                    <canvas id="factionscompared" width="800" height="300"></canvas>
-                    <canvas id="factionsgames" width="800" height="300"></canvas>
-                    @for(int canvasID = 0; canvasID < 20; canvasID++){
-                        <canvas id="activefactionstats_@canvasID" width="800" height="300"></canvas>  
-                    }
-                </div>
-                
-                
-            </td>
-            <td style="background-color:pink; font-size:13px">
-                @if (season.seasonalRewards != null && season.seasonalRewards.Any())
+<SitePage Eyebrow="@Text["SeasonArchive"]"
+          Title="@Text["SeasonsTitle"]"
+          Description="@Text["SeasonsDescription"]"
+          Icon="oi-calendar"
+          CssClass="aitest-page--seasons">
+    <Aside>
+        <strong>@_seasons.Count</strong>
+        <span>@Text["SeasonCount"]</span>
+    </Aside>
+    <ChildContent>
+        @if (!string.IsNullOrEmpty(_loadError))
+        {
+            <section class="aitest-panel">
+                <SiteEmptyState Icon="oi-warning"
+                                Title="@Text["DataUnavailableTitle"]"
+                                Description="@Text["DataUnavailableBody"]" />
+            </section>
+        }
+        else if (_seasons.Count == 0)
+        {
+            <section class="aitest-panel">
+                <SiteEmptyState Icon="oi-calendar"
+                                Title="@Text["NoSeasonsTitle"]"
+                                Description="@Text["NoSeasonsBody"]" />
+            </section>
+        }
+        else
+        {
+            <div class="aitest-season-stack">
+                @foreach (var overview in _seasons)
                 {
-                    <ul>
-                        @foreach (var reward in season.seasonalRewards)
-                        {
-                            <li>
-                                <strong>Top: @reward.minimalPosition</strong> @reward.avatar @reward.border @reward.title
-                            </li>
-                        }
-                    </ul>
+                    var season = overview.Season;
+                    var activity = RecentActivity(overview);
+                    var maxActivity = activity.Count == 0 ? 1 : activity.Max(day => day.Matches);
+
+                    <article class="aitest-panel aitest-season-panel @(season.isActive ? "is-active" : "")">
+                        <header class="aitest-panel-heading">
+                            <div class="aitest-season-title">
+                                <h2>@SeasonName(season)</h2>
+                                <p>@FormatDate(season.SeasonStartTime) — @FormatDate(season.SeasonEndTime)</p>
+                            </div>
+                            <div class="aitest-season-status">
+                                <span class="aitest-badge @(season.isActive ? "is-active" : "")">@SeasonStatus(season)</span>
+                                @if (season.areRewardsGranted)
+                                {
+                                    <span class="aitest-badge">@Text["RewardsGranted"]</span>
+                                }
+                            </div>
+                        </header>
+
+                        <div class="aitest-season-summary">
+                            <div class="aitest-season-stat">
+                                <strong>@overview.MatchCount</strong>
+                                <span>@Text["RankedMatches"]</span>
+                            </div>
+                            <div class="aitest-season-stat">
+                                <strong>@overview.PlayerPicks</strong>
+                                <span>@Text["PlayerPicks"]</span>
+                            </div>
+                            <div class="aitest-season-stat">
+                                <strong>@overview.ActiveDays</strong>
+                                <span>@Text["ActiveDays"]</span>
+                            </div>
+                        </div>
+
+                        <section class="aitest-season-section">
+                            <div class="aitest-season-section-head">
+                                <h3>@Text["DailyActivity"]</h3>
+                                <span>@Text["RecentActivityWindow"]</span>
+                            </div>
+                            @if (activity.Count == 0)
+                            {
+                                <div class="aitest-note">@Text["NoMatchesBody"]</div>
+                            }
+                            else
+                            {
+                                <div class="aitest-activity-chart" aria-hidden="true">
+                                    @foreach (var day in activity)
+                                    {
+                                        <span class="aitest-activity-bar"
+                                              style="@ActivityHeight(day.Matches, maxActivity)"
+                                              data-label="@ActivityLabel(day)"
+                                              title="@ActivityLabel(day)"></span>
+                                    }
+                                </div>
+                                <ul class="sr-only">
+                                    @foreach (var day in activity)
+                                    {
+                                        <li>@ActivityLabel(day)</li>
+                                    }
+                                </ul>
+                            }
+                        </section>
+
+                        <section class="aitest-season-section">
+                            <div class="aitest-season-section-head">
+                                <h3>@Text["FactionBreakdown"]</h3>
+                                <span>@overview.PlayerPicks @Text["PlayerPicks"]</span>
+                            </div>
+                            <div class="aitest-data-table-wrap">
+                                <table class="aitest-data-table aitest-faction-table" aria-label="@Text["FactionBreakdown"]">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">@Text["FactionColumn"]</th>
+                                            <th scope="col">@Text["PicksColumn"]</th>
+                                            <th scope="col">@Text["WinsColumn"]</th>
+                                            <th scope="col">@Text["DrawsColumn"]</th>
+                                            <th scope="col">@Text["LossesColumn"]</th>
+                                            <th scope="col">@Text["WinRateColumn"]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var faction in overview.Factions.OrderByDescending(item => item.Picks))
+                                        {
+                                            <tr>
+                                                <td data-label="@Text["FactionColumn"]"><strong>@FactionName(faction.Faction)</strong></td>
+                                                <td data-label="@Text["PicksColumn"]">@faction.Picks</td>
+                                                <td data-label="@Text["WinsColumn"]">@faction.Wins</td>
+                                                <td data-label="@Text["DrawsColumn"]">@faction.Draws</td>
+                                                <td data-label="@Text["LossesColumn"]">@faction.Losses</td>
+                                                <td data-label="@Text["WinRateColumn"]"><span class="aitest-rating">@faction.WinRate.ToString("0.0")%</span></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="aitest-season-section">
+                            <div class="aitest-season-section-head">
+                                <h3>@Text["SeasonRewards"]</h3>
+                                <span>@((season.seasonalRewards ?? new List<SeasonReward>()).Count)</span>
+                            </div>
+                            @if (season.seasonalRewards == null || season.seasonalRewards.Count == 0)
+                            {
+                                <div class="aitest-note">@Text["NoRewards"]</div>
+                            }
+                            else
+                            {
+                                <div class="aitest-reward-grid">
+                                    @foreach (var reward in season.seasonalRewards.OrderBy(item => item.minimalPosition))
+                                    {
+                                        <div class="aitest-reward">
+                                            <strong>@RewardRequirement(reward)</strong>
+                                            <span>@RewardContents(reward)</span>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </section>
+                    </article>
                 }
-                else
-                {
-                    <span>-</span>
-                }
-            </td>
-        </tr>
-
-        <tr>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-        </tr>
-}
-@for(int canvasID = 0; canvasID < _seasonsList.Count; canvasID++)
-{
-    var season = _seasonsList[canvasID];
-
-        <tr class="table-info">
-            <td>@season.SeasonId</td>   
-            <td >@season.SeasonName</td>
-            <td>@(season.isActive==true?"Active":"-")</td>
-
-            <td>@season.SeasonStartTime</td>
-            <td>
-                @season.SeasonEndTime
-                <p style="font-style: italic; font-family: serif; color: darkred; background-color: darkkhaki;">
-                    @(season.areRewardsGranted==true?"Rewards Granted":"")
-                </p>
-            </td>
-            <td><canvas id="myChart_@canvasID" width="800" height="300" onclick="openChartInNewWindow('myChart_@canvasID', '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')"></canvas>
-                <center>
-                    <h6>Factions stats</h6>
-                    <button onclick="openMultipleChartsInOverlay(['factionsgames_@canvasID', 'factionscompared_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        All Factions
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_0_@canvasID', 'activefactionstats_1_@canvasID', 'activefactionstats_2_@canvasID', 'activefactionstats_3_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Northern Realms
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_4_@canvasID', 'activefactionstats_5_@canvasID', 'activefactionstats_6_@canvasID', 'activefactionstats_7_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Nilfgaard
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_8_@canvasID', 'activefactionstats_9_@canvasID', 'activefactionstats_10_@canvasID', 'activefactionstats_11_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Skellige
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_12_@canvasID', 'activefactionstats_13_@canvasID', 'activefactionstats_14_@canvasID', 'activefactionstats_15_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Scoia'tael
-                    </button>
-                    <button onclick="openMultipleChartsInOverlay(['activefactionstats_16_@canvasID', 'activefactionstats_17_@canvasID', 'activefactionstats_18_@canvasID', 'activefactionstats_19_@canvasID'], '(@season.SeasonId) @season.SeasonName (@season.SeasonStartTime.ToString("yyyy.MM.dd") - @season.SeasonEndTime.ToString("yyyy.MM.dd"))')">
-                        Monsters
-                    </button>
-                </center>
-                <div style="display:none;">
-                    <canvas id="factionscompared_@canvasID" width="800" height="300"></canvas>
-                    <canvas id="factionsgames_@canvasID" width="800" height="300"></canvas>
-                    @for(int innercanvasID = 0; innercanvasID < 20; innercanvasID++){
-                        string c = innercanvasID.ToString() + "_" + canvasID.ToString();
-                        <canvas id="activefactionstats_@c" width="800" height="300"></canvas>  
-                    }
-                </div>
-            </td>
-            <td style="font-size:13px">
-                @if (season.seasonalRewards != null && season.seasonalRewards.Any())
-                {
-                    <ul>
-                        @foreach (var reward in season.seasonalRewards)
-                        {
-                            <li>
-                                <strong>Top: @reward.minimalPosition</strong> @reward.avatar @reward.border @reward.title
-                            </li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <span>-</span>
-                }
-            </td>
-        </tr>
-
-        <tr>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-            <td style="padding:3px"></td>
-        </tr>
-}
-    </table>
-</div>
-
-
-
-
+            </div>
+        }
+    </ChildContent>
+</SitePage>
 
 @code
 {
-    
+    private IList<SeasonOverview> _seasons = new List<SeasonOverview>();
+    private string _loadError = "";
 
-    private IList<SeasonInfo> _seasonsList;
-    private IList<GameResult> _resultsList;
-    private Dictionary<Faction, string> factionsColorMap = new Dictionary<Faction, string>(){
-                    { Faction.NorthernRealms, "rgb(6, 106, 222, 1)" },
-                    { Faction.Nilfgaard,      "rgb(84, 84, 83, 1)" },
-                    { Faction.Skellige,       "rgb(66, 39, 82, 1)" },
-                    { Faction.ScoiaTael,      "rgb(132, 159, 53, 1)" },
-                    { Faction.Monsters,       "rgb(124, 39, 36, 1)" },
-                    { Faction.Neutral,        "rgb(175, 147, 7, 1)" }
-                };
-    private Dictionary<SeasonInfo, Dictionary<Faction, Dictionary<Faction, int[]>>> _seasonFactionsStats  = new Dictionary<SeasonInfo, Dictionary<Faction, Dictionary<Faction, int[]>>>();
-
-    private List<string> canvasIdList = new List<string>();
-    private bool _chartDrawn = false;
-
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _seasonsList = GwentService.GetSeasons();
-        _resultsList = GwentService._databaseService.GetAllGameResults(-1, rankedOnly: true);
+        try
+        {
+            _seasons = (await SeasonOverview.GetAsync()).ToList();
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to build season overview");
+            _seasons = new List<SeasonOverview>();
+            _loadError = Text["DataUnavailableBody"];
+        }
     }
 
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    private IList<DayActivity> RecentActivity(SeasonOverview overview)
     {
-        if (firstRender && !_chartDrawn)
-        {
-            _chartDrawn = true;
-
-
-            var charDataAllSeasons = new List<List<ChartInfo>>();
-
-            var seasonsDailyData = GetDayResultsMapping(_resultsList, _seasonsList);
-
-            foreach (var seasonDaysData in seasonsDailyData)
-            {
-                var allGamesData = new List<List<float>>(){new List<float>(), new List<float>(), new List<float>(), new List<float>(), new List<float>(), new List<float>()};
-                var chartData = new List<ChartInfo>();
-                var dates = new List<DateTime>();
-
-                
-                foreach (var dayData in seasonDaysData.Value.OrderBy(x => x.Key)){
-                    
-                    if(dayData.Value.Sum() == 0)
-                        continue;
-
-                    dates.Add(dayData.Key);
-                    bool hide = false;
-                    if(dayData.Key.Date >= DateTime.UtcNow.Date.AddDays(-1)){
-                        hide = true;
-                    }
-                    if(hide){
-                        allGamesData[0].Add(dayData.Value[0]);
-                        for (int index = 1; index < 6; index++){
-                            allGamesData[index].Add(0);
-                        }
-                    }
-                    else{
-                        allGamesData[0].Add(0);
-                        for (int index = 1; index < 6; index++){
-                            allGamesData[index].Add(dayData.Value[index]);
-                        }
-                    }                    
-                }
-
-                var chart0 = new ChartInfo{
-                    label = "All Factions",
-                    date = dates,
-                    data = allGamesData[0],
-                    backgroundColor = new List<string>(){"rgb(175, 147, 7, 1)"},
-                    borderColor = "rgba(175, 147, 72, 0.5)",
-                    borderWidth = 12
-                };
-                
-                chartData.Add(chart0); 
-
-                var chart = new ChartInfo{
-                    label = "Northern Realms",
-                    date = dates,
-                    data = allGamesData[1],
-                    backgroundColor = new List<string>(){"rgb(6, 106, 222, 1)"},
-                    borderColor = "rgba(6, 106, 222, 0.5)",
-                    borderWidth = 12
-                };
-                chartData.Add(chart); 
-
-                var chart2 = new ChartInfo{
-                    label = "Nilfgaard",
-                    date = dates,
-                    data = allGamesData[2],
-                    backgroundColor = new List<string>(){"rgb(84, 84, 83, 1)"},
-                    borderColor = "rgba(84, 84, 83, 0.5)",
-                    borderWidth = 12
-                };
-                chartData.Add(chart2);
-                var chart3 = new ChartInfo{
-                    label = "Skellige",
-                    date = dates,
-                    data = allGamesData[3],
-                    backgroundColor = new List<string>(){"rgb(66, 39, 82, 1)"},
-                    borderColor = "rgba(66, 39, 82, 0.5)",
-                    borderWidth = 12
-                };
-                chartData.Add(chart3);   
-
-                var chart4 = new ChartInfo{
-                    label = "Scoia'tael",
-                    date = dates,
-                    data = allGamesData[4],
-                    backgroundColor = new List<string>(){"rgb(132, 159, 53, 1)"},
-                    borderColor = "rgba(132, 159, 53, 0.5)",
-                    borderWidth = 12
-                };
-                chartData.Add(chart4);  
-
-                var chart5 = new ChartInfo{
-                    label = "Monsters",
-                    date = dates,
-                    data = allGamesData[5],
-                    backgroundColor = new List<string>(){"rgb(124, 39, 36, 1)"},
-                    borderColor = "rgba(124, 39, 36, 0.5)",
-                    borderWidth = 12
-                };
-                chartData.Add(chart5); 
-
-                charDataAllSeasons.Add(chartData);
-
-                if(seasonDaysData.Key.isActive)
-                    await JS.InvokeVoidAsync("drawTestChart", charDataAllSeasons.Last(), "activeSeasonChart");
-                }
-
-                for(int i = 0; i < _seasonsList.Count; i++)
-                {
-                    var canvasId = "myChart_" + i;
-                    await JS.InvokeVoidAsync("drawTestChart", charDataAllSeasons[i], canvasId);
-                }
-            }
-            
-            var seasonsFactionsChartsData = new Dictionary<SeasonInfo, List<ChartInfo>>();
-            var  seasonsFactionsWinrateCharts = new Dictionary<SeasonInfo, ChartInfo>();
-
-            var  seasonsFactionsGamesCharts = new Dictionary<SeasonInfo, ChartInfo>();
-
-            foreach(var season in _seasonFactionsStats){
-                
-                var factionsChartData = new List<ChartInfo>();
-                var factionsWinrateData = new List<float>();
-
-                var factionsGamesAmount = new List<int[]>();
-
-                List<float[]> seasonFactionStats = new List<float[]>();
-
-                foreach(var factionStats in season.Value){
-                    if(factionStats.Key == Faction.Neutral)
-                        continue;
-
-                    var totalFactionGames = new int[3];
-
-                    foreach(var facedFaction in factionStats.Value){
-                        if(facedFaction.Key == Faction.Neutral || facedFaction.Key == factionStats.Key)
-                            continue;
-
-
-                        for(int i = 0; i < 3; i++){
-                            totalFactionGames[i] += facedFaction.Value[i];
-                        }
-
-                        var copy = Array.ConvertAll(facedFaction.Value, item => (float)item);
-
-                        Array.Copy(facedFaction.Value, copy, facedFaction.Value.Length);
-                        seasonFactionStats.Add(copy);
-                        factionsChartData.Add(new ChartInfo{
-                            label = factionStats.Key.ToString() + " vs " + facedFaction.Key.ToString(),
-                            date = new List<DateTime>(){},
-                            data = copy.ToList(),
-                            backgroundColor = new List<string>(){factionsColorMap[factionStats.Key], factionsColorMap[Faction.Neutral], factionsColorMap[facedFaction.Key]},
-                            borderColor = "rgba(156,104,60,0.5)",
-                            borderWidth = 1,
-                            tooltips = new List<string>(){factionStats.Key.ToString(), facedFaction.Key.ToString()}
-                        });
-                    }
-
-
-                    int totalGames = totalFactionGames.Sum();
-                    float winrate = 0.0f;
-                    
-                    if (totalGames != 0)
-                    {
-                        winrate = ((float)totalFactionGames[0] / (float)totalGames) * 100; 
-                    }
-
-                    factionsWinrateData.Add(winrate);
-                    factionsGamesAmount.Add(totalFactionGames);
-
-
-                    seasonsFactionsChartsData[season.Key] = factionsChartData;
-
-                }
-
-                var colors_base = new List<string>(){factionsColorMap[Faction.NorthernRealms], factionsColorMap[Faction.Nilfgaard], factionsColorMap[Faction.Skellige], factionsColorMap[Faction.ScoiaTael], factionsColorMap[Faction.Monsters]};
-                var tooltips_base = new List<string>(){Faction.NorthernRealms.ToString(), Faction.Nilfgaard.ToString(), Faction.Skellige.ToString(), Faction.ScoiaTael.ToString(), Faction.Monsters.ToString()};
-
-                List<int> indices = Enumerable.Range(0, factionsWinrateData.Count).ToList();
-
-                var sortedIndices = indices.OrderByDescending(i => factionsWinrateData[i]).ToList();
-
-                factionsWinrateData = sortedIndices.Select(i => factionsWinrateData[i]).ToList();
-                
-                var colors = new List<string>(colors_base);
-                colors = sortedIndices.Select(i => colors[i]).ToList();
-                var tooltips = new List<string>(tooltips_base);
-                tooltips = sortedIndices.Select(i => tooltips[i]).ToList();
-                for (int i = 0; i < tooltips.Count; i++)
-                {
-                    tooltips[i] = tooltips[i] + " " + factionsWinrateData[i].ToString("F2") + "%";
-                }
-
-
-
-                seasonsFactionsWinrateCharts[season.Key] = new ChartInfo{
-                    label = "factions comparison",
-                    date = new List<DateTime>(),
-                    data = new List<float>(factionsWinrateData),
-                    backgroundColor = new List<string>(colors),
-                    borderColor = "rgba(156,104,60,0.5)",
-                    borderWidth = 1,
-                    tooltips = new List<string>(tooltips)
-                };
-
-
-
-
-                var indices2 = Enumerable.Range(0, factionsWinrateData.Count).ToList();
-
-                var sortedIndices2 = indices2.OrderByDescending(i => factionsGamesAmount[i].Sum()).ToList();
-
-                factionsGamesAmount = sortedIndices2.Select(i => factionsGamesAmount[i]).ToList();
-                var colors2 =new List<string>(colors_base);
-                var tooltips2 = new List<string>(tooltips_base);
-                colors2 = sortedIndices2.Select(i => colors2[i]).ToList();
-                tooltips2 = sortedIndices2.Select(i => tooltips2[i]).ToList();
-                for (int i = 0; i < tooltips2.Count; i++)
-                {
-                    tooltips2[i] = tooltips2[i] + " (" + factionsGamesAmount[i].Sum().ToString() + ")";
-                }
-
-
-                seasonsFactionsGamesCharts[season.Key] = new ChartInfo{
-                    label = "factions comparison",
-                    date = new List<DateTime>(){ DateTime.Now },
-                    data = factionsGamesAmount.Select(sublist => (float)sublist.Sum()).ToList(),
-                    backgroundColor = new List<string>(colors2),
-                    borderColor = "rgba(156,104,60,0.5)",
-                    borderWidth = 1,
-                    tooltips = new List<string>(tooltips2)
-                };
-
-            }
-            
-            for(int season_i = 0; season_i < seasonsFactionsChartsData.Count; season_i++){
-
-                var factionData = seasonsFactionsChartsData.ElementAt(season_i);
-                var factionchart = factionData.Value;
-
-                if(factionData.Key.isActive){
-                    await JS.InvokeVoidAsync("drawTestChart",
-                        new List<ChartInfo> { seasonsFactionsWinrateCharts[factionData.Key]},
-                        "factionscompared",
-                        "pie",
-                        seasonsFactionsWinrateCharts[factionData.Key].tooltips,
-                        true,
-                        "Factions WinRate"
-                    );
-                    await JS.InvokeVoidAsync("drawTestChart",
-                        new List<ChartInfo> { seasonsFactionsGamesCharts[factionData.Key]},
-                        "factionsgames",
-                        "pie",
-                        seasonsFactionsGamesCharts[factionData.Key].tooltips,
-                        false,
-                        "Factions Games",
-                        "games"
-                    );
-                    for(int i = 0; i < factionchart.Count; i++){
-                        var chart = factionchart[i];
-                        await JS.InvokeVoidAsync("drawTestChart", new List<ChartInfo> { factionchart[i] }, "activefactionstats_" + i.ToString(), "pie", new List<string>(){chart.tooltips[0], "Draws", chart.tooltips[1]}, false, chart.tooltips[0] + " vs " + chart.tooltips[1]);
-                    }  
-                }
-
-                await JS.InvokeVoidAsync("drawTestChart",
-                    new List<ChartInfo> { seasonsFactionsWinrateCharts[factionData.Key]},
-                    "factionscompared_" + season_i.ToString(),
-                    "pie",
-                    seasonsFactionsWinrateCharts[factionData.Key].tooltips,
-                    true,
-                    "Factions WinRate"
-                );
-                    
-                await JS.InvokeVoidAsync("drawTestChart", new List<ChartInfo> { seasonsFactionsGamesCharts[factionData.Key]}, "factionsgames_" + season_i.ToString(), "pie", seasonsFactionsGamesCharts[factionData.Key].tooltips, false, "Factions Games", "games");
-
-                for(int i = 0; i < factionchart.Count; i++){
-                    var chart = factionchart[i];
-                    await JS.InvokeVoidAsync("drawTestChart", new List<ChartInfo> { factionchart[i] }, "activefactionstats_" + i.ToString() + "_" + season_i.ToString(), "pie", new List<string>(){chart.tooltips[0], "Draws", chart.tooltips[1]}, false, chart.tooltips[0] + " vs " + chart.tooltips[1]);
-                }                     
-               
-            }
-
+        var activity = (overview.Activity ?? new List<DayActivity>())
+            .Where(day => day != null && day.Matches > 0)
+            .ToList();
+        return activity.Skip(Math.Max(0, activity.Count - 32)).ToList();
     }
 
-
-
-    public Dictionary<SeasonInfo, Dictionary<DateTime, int[]>> GetDayResultsMapping(IList<GameResult> resultsList, IList<SeasonInfo> seasonsList)
+    private string SeasonName(SeasonInfo season)
     {
-        var factionStatsTemplate = new Dictionary<Faction, Dictionary<Faction, int[]>>
+        if (!string.IsNullOrWhiteSpace(season?.SeasonName))
         {
-            { Faction.NorthernRealms, new Dictionary<Faction, int[]>
-                {
-                    { Faction.NorthernRealms, new int[3] },
-                    { Faction.Nilfgaard,      new int[3] },
-                    { Faction.Skellige,       new int[3] },
-                    { Faction.ScoiaTael,      new int[3] },
-                    { Faction.Monsters,       new int[3] },
-                    { Faction.Neutral,        new int[3] }
-                }
-            },
-            { Faction.Nilfgaard, new Dictionary<Faction, int[]>
-                {
-                    { Faction.NorthernRealms, new int[3] },
-                    { Faction.Nilfgaard,      new int[3] },
-                    { Faction.Skellige,       new int[3] },
-                    { Faction.ScoiaTael,      new int[3] },
-                    { Faction.Monsters,       new int[3] },
-                    { Faction.Neutral,        new int[3] }
-                }
-            },
-            { Faction.Skellige, new Dictionary<Faction, int[]>
-                {
-                    { Faction.NorthernRealms, new int[3] },
-                    { Faction.Nilfgaard,      new int[3] },
-                    { Faction.Skellige,       new int[3] },
-                    { Faction.ScoiaTael,      new int[3] },
-                    { Faction.Monsters,       new int[3] },
-                    { Faction.Neutral,        new int[3] }
-                }
-            },
-            { Faction.ScoiaTael, new Dictionary<Faction, int[]>
-                {
-                    { Faction.NorthernRealms, new int[3] },
-                    { Faction.Nilfgaard,      new int[3] },
-                    { Faction.Skellige,       new int[3] },
-                    { Faction.ScoiaTael,      new int[3] },
-                    { Faction.Monsters,       new int[3] },
-                    { Faction.Neutral,        new int[3] }
-                }
-            },
-            { Faction.Monsters, new Dictionary<Faction, int[]>
-                {
-                    { Faction.NorthernRealms, new int[3] },
-                    { Faction.Nilfgaard,      new int[3] },
-                    { Faction.Skellige,       new int[3] },
-                    { Faction.ScoiaTael,      new int[3] },
-                    { Faction.Monsters,       new int[3] },
-                    { Faction.Neutral,        new int[3] }
-                }
-            },
-            { Faction.Neutral, new Dictionary<Faction, int[]>
-                {
-                    { Faction.NorthernRealms, new int[3] },
-                    { Faction.Nilfgaard,      new int[3] },
-                    { Faction.Skellige,       new int[3] },
-                    { Faction.ScoiaTael,      new int[3] },
-                    { Faction.Monsters,       new int[3] },
-                    { Faction.Neutral,        new int[3] }
-                }
-            }
-        };
-
-        void UpdateSeasonGamesMap(int[] array, string redLeaderId, string blueLeaderId, GameStatus redPlayerGameStatus, SeasonInfo season)
-        {
-            Dictionary<Faction, int> factionIndexMap = new Dictionary<Faction, int>
-            {
-                { Faction.NorthernRealms, 1 },
-                { Faction.Nilfgaard, 2 },
-                { Faction.Skellige, 3 },
-                { Faction.ScoiaTael, 4 },
-                { Faction.Monsters, 5 }
-            };
-
-            foreach(var leader in new string[]{redLeaderId, blueLeaderId}){
-                var leaderFaction = GwentMap.CardMap[leader].Faction;
-                if (factionIndexMap.ContainsKey(leaderFaction))
-                {
-                    int factionIndex = factionIndexMap[leaderFaction];
-                    array[factionIndex] += 1;
-                }
-            }
-            const int WINS = 0;
-            const int DEFEATS = 2;
-            const int DRAWS = 1;
-
-            switch(redPlayerGameStatus){
-                case GameStatus.Win:
-                    _seasonFactionsStats[season][GwentMap.CardMap[redLeaderId].Faction][GwentMap.CardMap[blueLeaderId].Faction][WINS] += 1;
-                    _seasonFactionsStats[season][GwentMap.CardMap[blueLeaderId].Faction][GwentMap.CardMap[redLeaderId].Faction][DEFEATS] += 1;
-                    break;
-                case GameStatus.Lose:
-                    _seasonFactionsStats[season][GwentMap.CardMap[redLeaderId].Faction][GwentMap.CardMap[blueLeaderId].Faction][DEFEATS] += 1;
-                    _seasonFactionsStats[season][GwentMap.CardMap[blueLeaderId].Faction][GwentMap.CardMap[redLeaderId].Faction][WINS] += 1;
-                    break;
-                case GameStatus.Draw:
-                    _seasonFactionsStats[season][GwentMap.CardMap[redLeaderId].Faction][GwentMap.CardMap[blueLeaderId].Faction][DRAWS] += 1;
-                    _seasonFactionsStats[season][GwentMap.CardMap[blueLeaderId].Faction][GwentMap.CardMap[redLeaderId].Faction][DRAWS] += 1;
-                    break;
-                default:
-                    break;
-            }
-
+            var localizedName = Localization.GetMenuText(
+                Text.IsEnglish ? "en" : "cn",
+                season.SeasonName);
+            return string.IsNullOrWhiteSpace(localizedName)
+                ? HumanizeResourceId(season.SeasonName)
+                : localizedName;
         }
 
-        var seasonResultsMap = new Dictionary<SeasonInfo, Dictionary<DateTime, int[]>>();
+        return Text.IsEnglish ? $"Season {season?.SeasonId}" : $"第 {season?.SeasonId} 赛季";
+    }
 
-
-        foreach (var season in seasonsList)
+    private string SeasonStatus(SeasonInfo season)
+    {
+        if (season.isActive)
         {
-            var seasonDays = GetDatesBetween(season.SeasonStartTime, season.SeasonEndTime)
-                .ToDictionary(d => d, d => new int[6]);
-            seasonResultsMap[season] = seasonDays;
-
-            _seasonFactionsStats[season] = factionStatsTemplate.ToDictionary(
-                outer => outer.Key,
-                outer => outer.Value.ToDictionary(
-                    inner => inner.Key,
-                    inner => (int[])inner.Value.Clone()
-                )
-            );
+            return Text["ActiveSeason"];
         }
 
-        foreach (var result in resultsList)
+        return DateTime.UtcNow < season.SeasonStartTime
+            ? Text["UpcomingSeason"]
+            : Text["CompletedSeason"];
+    }
+
+    private string FormatDate(DateTime date)
+    {
+        return date.ToString(Text.IsEnglish ? "MMM d, yyyy" : "yyyy 年 M 月 d 日");
+    }
+
+    private string ActivityHeight(int matches, int maximum)
+    {
+        var percentage = Math.Max(5d, matches * 100d / Math.Max(1, maximum));
+        return "height:" + percentage.ToString("0.##", CultureInfo.InvariantCulture) + "%";
+    }
+
+    private string ActivityLabel(DayActivity day)
+    {
+        var date = day.Date.ToString(Text.IsEnglish ? "MMM d" : "M 月 d 日");
+        return Text.IsEnglish ? $"{date}: {day.Matches}" : $"{date}：{day.Matches} 场";
+    }
+
+    private string FactionName(Faction faction)
+    {
+        switch (faction)
         {
-            var resultDate = result.Time.Date;
+            case Faction.NorthernRealms:
+                return Text["NorthernRealms"];
+            case Faction.Nilfgaard:
+                return Text["Nilfgaard"];
+            case Faction.Skellige:
+                return Text["Skellige"];
+            case Faction.ScoiaTael:
+                return Text["ScoiaTael"];
+            case Faction.Monsters:
+                return Text["Monsters"];
+            default:
+                return faction.ToString();
+        }
+    }
 
-            var season = seasonsList.FirstOrDefault(s =>
-                result.Time >= s.SeasonStartTime &&
-                result.Time < s.SeasonEndTime);
-
-            if (season == null) continue;
-
-            var seasonDays = seasonResultsMap[season];
-
-            if (seasonDays.TryGetValue(resultDate, out var counts))
-            {
-                UpdateSeasonGamesMap(counts, result.RedLeaderId, result.BlueLeaderId, result.RedPlayerGameResultStatus, season);
-                counts[0] += 2;
-            }
+    private string RewardRequirement(SeasonReward reward)
+    {
+        if (reward.isInSeasonReward && reward.minimalMMR > 0)
+        {
+            return $"{Text["MmrRequirement"]} ≥ {reward.minimalMMR}";
         }
 
-        return seasonResultsMap;
-
+        return Text.IsEnglish
+            ? $"{Text["PositionRequirement"]} ≤ {reward.minimalPosition}"
+            : $"{Text["PositionRequirement"]}前 {reward.minimalPosition}";
     }
 
-    public class ChartInfo
+    private string RewardContents(SeasonReward reward)
     {
-        public string label { get; set; }
-        public List<DateTime> date { get; set; }
-        public List<float> data { get; set; }
-        public List<string> backgroundColor { get; set; }
-        public string borderColor { get; set; }
-        public int borderWidth { get; set; }
-        public List<string> tooltips;
+        var contents = new[] { reward.avatar, reward.border, reward.title }
+            .Where(value => !string.IsNullOrWhiteSpace(value))
+            .Select(LocalizeResourceId);
+        var text = string.Join(" · ", contents);
+        return string.IsNullOrWhiteSpace(text) ? "—" : text;
     }
 
-    private List<DateTime> GetDatesBetween(DateTime start, DateTime end)
+    private string LocalizeResourceId(string resourceId)
     {
-        List<DateTime> dates = new List<DateTime>();
-
-        DateTime startDate = start.Date;
-        DateTime endDate = end.Date;
-
-        for (DateTime current = startDate; current <= endDate; current = current.AddDays(1))
-            dates.Add(current);
-
-        return dates;
+        var localized = Localization.GetMenuText(
+            Text.IsEnglish ? "en" : "cn",
+            resourceId);
+        return string.IsNullOrWhiteSpace(localized)
+            ? HumanizeResourceId(resourceId)
+            : localized;
     }
-    
+
+    private static string HumanizeResourceId(string resourceId)
+    {
+        if (string.IsNullOrWhiteSpace(resourceId))
+        {
+            return "—";
+        }
+
+        var value = resourceId.StartsWith("Season_", StringComparison.Ordinal)
+            ? resourceId.Substring("Season_".Length)
+            : resourceId;
+        return value.Replace('_', ' ');
+    }
 }

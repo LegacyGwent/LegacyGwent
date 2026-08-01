@@ -1,7 +1,6 @@
 ﻿using Assets.Script.Localization;
 using Autofac;
 using Cynthia.Card.Client;
-using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -62,9 +61,7 @@ public class LoginClick : MonoBehaviour
         LogMessage.text = _translator.GetText("LoginMenu_LoggingIn");
         try
         {
-            var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
-            if (hub.State == HubConnectionState.Disconnected)
-                await hub.StartAsync();
+            await _client.EnsureConnectedAsync();
             await _client.Login(Username.text, Password.text);
             if (_client.User == null)
             {

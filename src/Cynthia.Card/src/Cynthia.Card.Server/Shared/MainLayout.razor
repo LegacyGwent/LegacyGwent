@@ -1,41 +1,77 @@
-﻿@inherits LayoutComponentBase
-@using MongoDB.Driver;
+@inherits LayoutComponentBase
+@using Microsoft.Extensions.Logging
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject SiteTextService Text
+@inject SiteSessionService SiteSession
+@inject Microsoft.Extensions.Logging.ILogger<MainLayout> Logger
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+<div class="aitest-shell">
+    <a class="aitest-skip-link" href="#aitest-main-content">@Text["SkipToContent"]</a>
+    <aside class="aitest-sidebar">
+        <NavMenu />
+    </aside>
 
-<div class="main">
-    <div class="top-row px" style="z-index: 1000;">
-        @if (loginFailed)
-        {
-            <Alert Message="登录失败，请重试" Type="@AlertType.Error" Closable />
-        }
-        @if (!isLogin)
-        {
-            @if (isLogining)
-            {
-                <Button>尝试登录中</Button>
-            }
-            else
-            {
-                <Input DefaultToEmptyString=true style="width:150px" placeholder="账号" type="text" @bind-Value="input_user" />
-                <Input DefaultToEmptyString=true style="width:150px" placeholder="密码" type="password" @bind-Value="input_password" />
-                <Button @onclick="Login">登录</Button>
-            }
-        }
-        else
-        {
-            <Button Type="link">欢迎你，陌生而可敬的 @user </Button>
-            <Button OnClick="Logout">登出</Button>
-        }
-    </div>
-    <CascadingValue Value=user>
-        <div class="content px-4">
-            @Body
-        </div>
-    </CascadingValue>
+    <main class="aitest-main">
+        <header class="aitest-toolbar">
+            <div class="aitest-service-state" title="@Text["ServiceOnline"]">
+                <span class="aitest-live-dot" aria-hidden="true"></span>
+                <span>@Text["ServiceOnline"]</span>
+                <strong>5010</strong>
+            </div>
+
+            <div class="aitest-toolbar-actions">
+                <LanguageSwitcher />
+
+                <div class="aitest-auth">
+                    @if (loginFailed)
+                    {
+                        <div class="aitest-login-error" role="alert">@Text["LoginFailed"]</div>
+                    }
+
+                    @if (!isLogin)
+                    {
+                        @if (isLogining)
+                        {
+                            <span class="aitest-login-pending">@Text["LoggingIn"]</span>
+                        }
+                        else
+                        {
+                            <form class="aitest-auth-form" @onsubmit="Login" @onsubmit:preventDefault>
+                                <input class="aitest-auth-input"
+                                       aria-label="@Text["Account"]"
+                                       autocomplete="username"
+                                       placeholder="@Text["Account"]"
+                                       type="text"
+                                       @bind="input_user"
+                                       @bind:event="oninput" />
+                                <input class="aitest-auth-input"
+                                       aria-label="@Text["Password"]"
+                                       autocomplete="current-password"
+                                       placeholder="@Text["Password"]"
+                                       type="password"
+                                       @bind="input_password"
+                                       @bind:event="oninput" />
+                                <button class="aitest-button aitest-button-compact" type="submit">
+                                    @Text["Login"]
+                                </button>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <span class="aitest-user-name">@Text.Format("WelcomeUser", user)</span>
+                        <button class="aitest-text-button" type="button" @onclick="Logout">@Text["Logout"]</button>
+                    }
+                </div>
+            </div>
+        </header>
+
+        <CascadingValue Value="user">
+            <div class="aitest-content" id="aitest-main-content" tabindex="-1">
+                @Body
+            </div>
+        </CascadingValue>
+    </main>
 </div>
 
 @code
@@ -46,50 +82,106 @@
     string input_user = "";
     string input_password = "";
     string user = "";
-    string localStorageUserName = "USER_NAME";
+    const string localStorageSessionKey = "DiyAi.SiteSession.v1";
+    const string legacyLocalStorageUserName = "USER_NAME";
+
     async Task Login()
     {
-        isLogining = true;
-        loginFailed = false;
-        await Task.Delay(10);
-        if (Command.Login(input_user, input_password))
+        if (isLogining)
         {
-            user = input_user;
-            isLogin = true;
-            await localStorage.SetItemAsync(localStorageUserName, user);
+            return;
         }
-        else
+
+        var submittedUser = (input_user ?? string.Empty).Trim();
+        var submittedPassword = input_password ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(submittedUser) || string.IsNullOrEmpty(submittedPassword))
         {
             loginFailed = true;
-            Console.WriteLine("登陆失败");
+            isLogining = false;
+            return;
         }
-        isLogining = false;
+
+        isLogining = true;
+        loginFailed = false;
+        try
+        {
+            if (Command.Login(submittedUser, submittedPassword))
+            {
+                user = submittedUser;
+                isLogin = true;
+                var sessionToken = SiteSession.Create(user);
+                await localStorage.SetItemAsync(localStorageSessionKey, sessionToken);
+                await localStorage.SetItemAsync(legacyLocalStorageUserName, string.Empty);
+                input_user = string.Empty;
+                input_password = string.Empty;
+            }
+            else
+            {
+                loginFailed = true;
+            }
+        }
+        catch (Exception exception)
+        {
+            Logger.LogWarning(exception, "Website sign-in failed without terminating the circuit");
+            user = string.Empty;
+            isLogin = false;
+            loginFailed = true;
+        }
+        finally
+        {
+            isLogining = false;
+        }
     }
-    public class LoginUser
-    {
-        public string _id { get; set; }
-        public string PlayerName { get; set; }
-        public string UserName { get; set; }
-        public string PassWord { get; set; }
-        public object[] Decks { get; set; }
-    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
+
         isLogining = true;
-        var localName = await localStorage.GetItemAsync<string>(localStorageUserName);
-        if (localName != null && localName != "")
+        try
         {
-            user = localName;
-            isLogin = true;
+            var token = await localStorage.GetItemAsync<string>(localStorageSessionKey);
+            if (SiteSession.TryRead(token, out var verifiedUser))
+            {
+                user = verifiedUser;
+                isLogin = true;
+            }
+            else
+            {
+                await localStorage.SetItemAsync(localStorageSessionKey, string.Empty);
+            }
         }
-        isLogining = false;
-        StateHasChanged();
+        catch (Exception exception)
+        {
+            Logger.LogWarning(exception, "Website session restore failed without terminating the circuit");
+            user = string.Empty;
+            isLogin = false;
+            loginFailed = true;
+        }
+        finally
+        {
+            isLogining = false;
+        }
+
+        await InvokeAsync(StateHasChanged);
     }
+
     async Task Logout()
     {
-        await localStorage.SetItemAsync(localStorageUserName, "");
-        user = "";
-        isLogin = false;
+        try
+        {
+            await localStorage.SetItemAsync(localStorageSessionKey, string.Empty);
+            await localStorage.SetItemAsync(legacyLocalStorageUserName, string.Empty);
+        }
+        catch (Exception exception)
+        {
+            Logger.LogWarning(exception, "Website session storage could not be cleared");
+        }
+        finally
+        {
+            user = string.Empty;
+            isLogin = false;
+            loginFailed = false;
+        }
     }
 }

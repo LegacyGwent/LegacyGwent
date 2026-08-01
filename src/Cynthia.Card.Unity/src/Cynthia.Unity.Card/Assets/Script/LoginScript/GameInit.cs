@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using Cynthia.Card.Client;
-using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Assets.Script.Localization;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -24,30 +25,34 @@ public class GameInit : MonoBehaviour
     public Text VersionText;
     public RectTransform NotesContext;
     private string UpToDateVersion;
-    private string CurrentVersion="2.1.9";
+    private string CurrentVersion => Application.version;
     public GameObject Download_Button;
     string link;
 
     private GwentClientService _gwentClientService;
     private LocalizationService _translator;
+    private CancellationTokenSource _loadServerMessageCancellation;
 
     private void Start()
     {
         _gwentClientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        GetLink();
         ConfigureGame();
-        LoadServerMessage();
+        _loadServerMessageCancellation = new CancellationTokenSource();
+        LoadServerMessage(_loadServerMessageCancellation.Token);
     }
-    public async void GetLink()
+
+    private void OnDestroy()
     {
-        link = await _gwentClientService.GetDownloadLink();
+        _loadServerMessageCancellation?.Cancel();
     }
+
     public void OpenDownloadLink()
     {
-
-        Application.OpenURL(link);
-
+        if (!string.IsNullOrWhiteSpace(link))
+        {
+            Application.OpenURL(link);
+        }
     }
 
     public void ExitClick()
@@ -55,7 +60,27 @@ public class GameInit : MonoBehaviour
         _gwentClientService.ExitGameClick();
     }
 
-    public async void LoadServerMessage()
+    private async void LoadServerMessage(CancellationToken cancellationToken)
+    {
+        try
+        {
+            await LoadServerMessageAsync(cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+        finally
+        {
+            _loadServerMessageCancellation?.Dispose();
+            _loadServerMessageCancellation = null;
+        }
+    }
+
+    private async Task LoadServerMessageAsync(CancellationToken cancellationToken)
     {
         var i = 0;
         LatestVersionText.text = _translator.GetText("LoginMenu_LoadingLatestVersion");
@@ -64,12 +89,13 @@ public class GameInit : MonoBehaviour
         {
             try
             {
-                var hub = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
-                if (hub.State == HubConnectionState.Disconnected)
-                {
-                    await hub.StartAsync();
-                }
+                await _gwentClientService.EnsureConnectedAsync(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
                 break;
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
             }
             catch
             {
@@ -84,11 +110,36 @@ public class GameInit : MonoBehaviour
                     LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
                     NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
                 }
+                await Task.Delay(TimeSpan.FromSeconds(Math.Min(Math.Max(i, 1), 5)), cancellationToken);
             }
         }
+
+        cancellationToken.ThrowIfCancellationRequested();
         try
         {
-            UpToDateVersion = (await _gwentClientService.GetLatestClientVersion());
+            var downloadLink = await _gwentClientService.GetDownloadLink(cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            link = downloadLink;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception e)
+        {
+            link = string.Empty;
+            Debug.Log($"Unable to load the client download link: {e.Message}");
+        }
+
+        try
+        {
+            var latestClientVersion = await _gwentClientService.GetLatestClientVersion(cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            UpToDateVersion = latestClientVersion;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch
         {
@@ -109,16 +160,24 @@ public class GameInit : MonoBehaviour
             var language = textLanguageManager.ChosenLanguage.Filename;
             if (language=="cn")
             {
-                NotesText.text = (await _gwentClientService.GetNotes()).Replace("\\n", "\n");
+                var notes = await _gwentClientService.GetNotes(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
+                NotesText.text = notes.Replace("\\n", "\n");
                 LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
                 NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
             }
             else if (Array.Exists(new[] { "en", "ru", "pl" }, element => element == language))
             {
-                NotesText.text = (await _gwentClientService.GetNotesEN()).Replace("\\n", "\n");
+                var notes = await _gwentClientService.GetNotesEN(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
+                NotesText.text = notes.Replace("\\n", "\n");
                 LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
                 NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
             }
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch
         {
@@ -130,9 +189,12 @@ public class GameInit : MonoBehaviour
 
         try
         {
-            //var version = new Version(await _gwentClientService.GetLatestVersion());
-            //LatestVersionText.text = ClientGlobalInfo.Version == version ? "当前已为最新版本" : "最新版本为：" + version.ToString();
-            await _gwentClientService.AutoUpdateGame(LatestVersionText);
+            await _gwentClientService.AutoUpdateGame(LatestVersionText, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch (Exception e)
         {
@@ -143,6 +205,7 @@ public class GameInit : MonoBehaviour
             }
         }
 
+        cancellationToken.ThrowIfCancellationRequested();
         if (NotesContext != null)
         {
             NotesContext.sizeDelta =
@@ -177,7 +240,7 @@ public class GameInit : MonoBehaviour
             SetCloseSound(PlayerPrefs.GetInt("isCloseSound", 1));
             SetMusic(PlayerPrefs.GetInt("musicVolum", 7));
             SetEffect(PlayerPrefs.GetInt("effectVolum", 7));
-            NowVersionText.text = string.Format(_translator.GetText("LoginMenu_CurrentVersionInfo"), ClientGlobalInfo.Version);
+            NowVersionText.text = string.Format(_translator.GetText("LoginMenu_CurrentVersionInfo"), Application.version);
 
             // AudioManager.Instance.SetVolume(PlayerPrefs.GetInt("musicVolum", 5));
             // AudioManager.Instance.SetLanguageType((LanguageType)PlayerPrefs.GetInt("Language", 0));

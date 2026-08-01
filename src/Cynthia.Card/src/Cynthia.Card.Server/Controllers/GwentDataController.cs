@@ -73,7 +73,9 @@ namespace Cynthia.Card.Server.Controllers
             return _databaseService.QueryRanking(time, rankedOnly);
         }
 
-        [HttpPost]
+        // DIY-AI does not expose this legacy administrative mutation until an
+        // authenticated operator API exists.
+        [NonAction]
         public async Task<IActionResult> AwardTrinketToUsers([FromBody] AwardTrinketRequest request)
         {
             if (request == null || request.Usernames == null || request.Usernames.Count == 0 || string.IsNullOrEmpty(request.TrinketId))

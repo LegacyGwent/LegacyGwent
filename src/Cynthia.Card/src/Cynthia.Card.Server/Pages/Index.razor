@@ -1,26 +1,122 @@
-﻿@page "/"
+@page "/"
 @inject GwentServerService GwentService
+@inject SiteTextService Text
 @implements IDisposable
 
-<h4>
-    群号 / Group: <a href=@addGroupLink>945408322</a>, 欢迎加入闲聊或约牌 / Welcome to chat or match
-    <br />
-    本站为测试服 / This is a test server, 正式服切换端口号至5000 / official server uses port 5000
-</h4>
+<div class="home-page">
+    <section class="home-hero">
+        <div class="home-hero-copy">
+            <div class="home-eyebrow"><span></span>@Text["HeroEyebrow"]</div>
+            <h1>@Text["HeroTitle"]</h1>
+            <p>@Text["HeroDescription"]</p>
 
-<h2>~实时玩家状态查看 / Live Player Status~</h2>
-<h3>目前在线人数 / Currently Online: @onlinePlayers.Count </h3>
+            <div class="home-hero-actions">
+                <a class="aitest-button" href="@addGroupLink" target="_blank" rel="noopener noreferrer">
+                    <span class="oi oi-people" aria-hidden="true"></span>@Text["JoinGroup"]
+                </a>
+            </div>
 
-<ul>
-    @foreach (var player in onlinePlayers)
-    {
-        <li>@player</li>
-    }
-</ul>
+            <div class="home-endpoints" aria-label="@Text["ServerGuide"]">
+                <div>
+                    <span>@Text["CurrentChannel"]</span>
+                    <strong>5010 · AITest</strong>
+                </div>
+                <div>
+                    <span>@Text["StableDiyChannel"]</span>
+                    <strong>5005 · DIY</strong>
+                </div>
+                <div>
+                    <span>@Text["OfficialChannel"]</span>
+                    <strong>5000</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-dashboard" aria-labelledby="live-status-title">
+        <article class="home-panel home-live-panel">
+            <div class="home-panel-heading">
+                <div>
+                    <span class="home-section-kicker">@Text["LiveStatus"]</span>
+                    <h2 id="live-status-title">@Text["CurrentlyOnline"]</h2>
+                </div>
+                <div class="home-player-count" aria-label="@Text["CurrentlyOnline"] @onlinePlayers.Count">
+                    <strong>@onlinePlayers.Count</strong>
+                    <span>@Text["PlayersUnit"]</span>
+                </div>
+            </div>
+
+            @if (onlinePlayers.Count == 0)
+            {
+                <div class="home-empty-state">
+                    <span class="home-empty-rune" aria-hidden="true">◇</span>
+                    <p>@Text["NoPlayers"]</p>
+                </div>
+            }
+            else
+            {
+                <div class="home-player-list">
+                    <span class="home-player-list-title">@Text["OnlineNow"]</span>
+                    <ul>
+                        @foreach (var player in onlinePlayers.OrderBy(player => player))
+                        {
+                            <li><span class="aitest-live-dot" aria-hidden="true"></span>@player</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </article>
+
+        <div class="home-info-stack">
+            <article class="home-info-card">
+                <span class="oi oi-transfer" aria-hidden="true"></span>
+                <div>
+                    <h2>@Text["ServerGuide"]</h2>
+                    <p>@Text["ServerGuideBody"]</p>
+                </div>
+            </article>
+            <article class="home-info-card">
+                <span class="oi oi-chat" aria-hidden="true"></span>
+                <div>
+                    <h2>@Text["GroupTitle"]</h2>
+                    <p>@Text["GroupBody"]</p>
+                    <a href="@addGroupLink" target="_blank" rel="noopener noreferrer">945408322 <span aria-hidden="true">→</span></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="home-quick-links" aria-labelledby="quick-start-title">
+        <div class="home-section-heading">
+            <span class="home-section-kicker">AITest</span>
+            <h2 id="quick-start-title">@Text["QuickStart"]</h2>
+        </div>
+        <div class="home-quick-grid">
+            <a class="home-quick-card" href="diy">
+                <span class="home-quick-number">01</span>
+                <h3>@Text["QuickDiyTitle"]</h3>
+                <p>@Text["QuickDiyBody"]</p>
+                <strong>@Text["Enter"] <span aria-hidden="true">→</span></strong>
+            </a>
+            <a class="home-quick-card" href="rank">
+                <span class="home-quick-number">02</span>
+                <h3>@Text["QuickRankTitle"]</h3>
+                <p>@Text["QuickRankBody"]</p>
+                <strong>@Text["Enter"] <span aria-hidden="true">→</span></strong>
+            </a>
+            <a class="home-quick-card" href="gameresults">
+                <span class="home-quick-number">03</span>
+                <h3>@Text["QuickResultsTitle"]</h3>
+                <p>@Text["QuickResultsBody"]</p>
+                <strong>@Text["Enter"] <span aria-hidden="true">→</span></strong>
+            </a>
+        </div>
+    </section>
+</div>
 
 @code
 {
-    string addGroupLink =
+    readonly string addGroupLink =
         "https://shang.qq.com/wpa/qunwpa?idkey=131ac538a2dee688ba02f146df56a90b83a35182cd441081cfb26f9c080c3b89";
 
     HashSet<string> onlinePlayers = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -50,21 +146,18 @@
     {
         var players = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        // all grouped users
         foreach (var group in users.user)
         {
-            foreach (var u in group)
-                players.Add(u.PlayerName);
+            foreach (var user in group)
+                players.Add(user.PlayerName);
         }
 
-        // players in PvP matches
         foreach (var match in users.player)
         {
             players.Add(match.player1);
             players.Add(match.player2);
         }
 
-        // players in AI matches (skip AI names)
         foreach (var match in users.aiPlayer)
         {
             if (!IsAiName(match.player1))

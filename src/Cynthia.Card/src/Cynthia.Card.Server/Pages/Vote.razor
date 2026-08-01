@@ -1,404 +1,746 @@
 @page "/vote"
-@using System.IO;
-@using Newtonsoft.Json;
+@using Microsoft.Extensions.Logging
+@inject SiteTextService Text
+@inject ILogger<Vote> Logger
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnvironment
 
-<div>
-    <Divider Orientation="left">本届内阁</Divider>
-    @* <Button OnClick="() => committeeVisible = true">修改名单</Button> *@
-    <ul>
-    @foreach (var id in @currentAdminInfo.cabinetUserName)
-    {
-    @* <li>
-    <input @bind="todo.user" />
-    </li> *@
-    <p>@id</p>
-    }
-    </ul>
-    <input placeholder="Something todo" @bind="adminUser" />
-    <button @onclick="AddAdmin">Add todo</button>
-
-    <Divider Orientation="left">审核区</Divider>
-
-    @foreach (var x in Info.diyCardInfo)
-    {
-        @if (x.cardInfo != null && x.CardType != null && x.author != null)
+<SitePage Eyebrow="@L("工坊评议", "Workshop council")"
+          Title="@L("吉安所 · 卡牌审核", "Card Review")"
+          Description="@L("“吉安所”是 DIY 卡牌进入游戏前的公开审核区：查看候选方案、表达赞成或反对，并通过评论记录修改意见。", "This is the public review room for DIY cards before they enter the game: inspect proposals, vote for or against them, and record revision notes in comments.")"
+          Icon="oi-beaker"
+          CssClass="workshop-page workshop-review-page aitest-page--review">
+    <Aside>
+        <strong>@cards.Count</strong>
+        <span>@L("份审核方案", "proposals in review")</span>
+        <a class="workshop-hero-action" href="/diy">
+            <span class="oi oi-arrow-left" aria-hidden="true"></span>
+            @L("返回设计工坊", "Back to workshop")
+        </a>
+    </Aside>
+    <ChildContent>
+        @if (!string.IsNullOrWhiteSpace(loadError))
         {
-            <Card Title="@x.cardInfo.Name">
-
-                <Body>
-                    <Row>
-                        <AntDesign.Col Span="4">
-                            <Image style="padding:5px" Src="@($"./scale/{x.imageLink+".png"}")" />
-                        </AntDesign.Col>
-                        <AntDesign.Col Span="20">
-                            <Content>
-                                <p>
-                                    <Tag>@x.CardType</Tag>
-                                    <Tag>@x.Fraction</Tag>
-                                    <Tag>@x.Group</Tag>
-                                </p>
-                                <p>战力：<Tag>@x.cardInfo.Strength</Tag>，效果：@x.cardInfo.Info</p>
-                                <Divider />
-                                <span>
-                                    <Tooltip Title='@("Like")'>
-                                        <Icon Type="caret-up" OnClick="()=>SetLike(x)"
-                                            Style="color:red;font-size:30px;cursor:pointer;" />
-                                    </Tooltip>
-                                    <span style="color:red;font-size:20px;">@x.likeList.Count()</span>
-                                </span>
-                                <span>
-                                    <Tooltip Title='@("Dislike")'>
-                                        <Icon Type="caret-down" OnClick="()=>SetDislike(x)"
-                                            Style="color:#18A558;font-size:30px;cursor:pointer;" />
-                                    </Tooltip>
-                                    <span style="color:#18A558;font-size:20px;">@x.dislikeList.Count()</span>
-                                </span>
-                                <Button OnClick="() => {detailPageVisible = true; currentDiyCard=x;}">详细</Button>
-                                <Button
-                                    OnClick="() => {commitDrawerVisible = true; currentDiyCard=x;}">评论(@x.commits.Count())</Button>
-                            </Content>
-                        </AntDesign.Col>
-                    </Row>
-                </Body>
-            </Card>
-            <br />
+            <div class="workshop-message workshop-message-warning" role="alert">
+                <span class="oi oi-warning" aria-hidden="true"></span>
+                <span>@loadError</span>
+                <button type="button" @onclick="LoadCards">@L("重试", "Retry")</button>
+            </div>
         }
-    }
-</div>
 
-
-<div>
-    <Drawer Closable="true" Visible="commitDrawerVisible" Placement="right" Title='("卡牌评论")'
-        OnClose="() => commitDrawerVisible = false" Width="360">
-        @if (currentDiyCard != null)
+        @if (!string.IsNullOrWhiteSpace(adminError))
         {
-            @foreach (var commit in currentDiyCard.commits)
-            {
-                <Comment Author=@commit.user Avatar=@avatar Content=@commit.text Datetime=@commit.commitDate.ToString()>
-                </Comment>
-            }
-            @if (user != "")
-            {
-                <Comment Avatar=@avatar>
-                    <ContentTemplate>
-                        <div>
-                            <TextArea MinRows="4" @bind-Value="commentContent" />
-                            <Button OnClick=@onSubmit type="primary">
-                                发表评论
-                            </Button>
-                        </div>
-                    </ContentTemplate>
-                </Comment>
-            }
+            <div class="workshop-message workshop-message-warning" role="alert">
+                <span class="oi oi-lock-locked" aria-hidden="true"></span>
+                <span>@adminError</span>
+            </div>
         }
-    </Drawer>
-</div>
 
-<div>
-    <Drawer Closable="true" Visible="detailPageVisible" Placement="right" Title='("详细信息")'
-        OnClose="() => detailPageVisible = false" Width="360">
-        @if (currentDiyCard != null)
+        @if (!string.IsNullOrWhiteSpace(operationError))
         {
-            <img width="150px" height="210px" Src="@($"./scale/{currentDiyCard.imageLink+".png"}")">
-            @if (currentDiyCard.cardInfo != null && currentDiyCard.CardType != null
-           && currentDiyCard.author != null)
-            {
-                <h2>@currentDiyCard.cardInfo.Name</h2>
-                <p>@currentDiyCard.CardType</p>
-                <p>战力：<Tag>@currentDiyCard.cardInfo.Strength</Tag>
-                    阵营：<Tag>@currentDiyCard.Fraction</Tag>
-                    品质：<Tag>@currentDiyCard.Group</Tag>
-                </p>
-                @if (currentDiyCard.Categories != null)
+            <div class="workshop-message workshop-message-error" role="alert">
+                <span class="oi oi-circle-x" aria-hidden="true"></span>
+                <span>@operationError</span>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(operationNotice))
+        {
+            <div class="workshop-message workshop-message-success" role="status">
+                <span class="oi oi-check" aria-hidden="true"></span>
+                <span>@operationNotice</span>
+            </div>
+        }
+
+        <div class="workshop-review-overview">
+            <section class="aitest-panel workshop-review-guide">
+                <div class="aitest-panel-heading">
+                    <h2>@L("这里做什么", "What happens here")</h2>
+                    <span>@L("公开、可追溯的评议", "Open, traceable review")</span>
+                </div>
+                <div class="aitest-panel-content">
+                    <p>@L("赞同与反对用于观察整体倾向，评论用于说明理由和提出具体修改。投票与评论都需要登录；普通玩家不会看到删除或送审管理操作。", "Votes show the overall direction, while comments capture reasons and concrete revisions. Voting and commenting require sign-in; regular players never see deletion or submission controls.")</p>
+                    <div class="workshop-review-principles">
+                        <span><strong>@L("先读规则", "Read first")</strong>@L("再判断强度与趣味", "Judge power and play value")</span>
+                        <span><strong>@L("说明理由", "Explain why")</strong>@L("让反馈可以被采用", "Make feedback actionable")</span>
+                        <span><strong>@L("保留记录", "Keep history")</strong>@L("评论随方案一起留存", "Comments remain with the proposal")</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="aitest-panel workshop-cabinet-panel">
+                <div class="aitest-panel-heading">
+                    <h2>@L("本届内阁", "Current cabinet")</h2>
+                    <span>@L("审核维护权限", "Review moderation")</span>
+                </div>
+                @if (currentAdminInfo.cabinetUserName.Count == 0)
                 {
-                    <p> 标签：
-                        @foreach (var s in currentDiyCard.Categories)
-                        {
-                            <Tag>@s</Tag>
-                        }
-                    </p>
+                    <SiteEmptyState Icon="oi-people"
+                                    Title="@L("尚未设置内阁成员", "No cabinet members configured")"
+                                    Description="@L("当前无人拥有删除或送审权限。", "No one currently has deletion or submission privileges.")" />
                 }
-                <p>效果：@currentDiyCard.cardInfo.Info</p>
-                <p>ArtID：@currentDiyCard.imageLink</p>
-                <p>@currentDiyCard.cardInfo.Flavor</p>
-                <Divider />
-                <p>设计师：@currentDiyCard.author</p>
-                <p>赞同：@string.Join(",",currentDiyCard.likeList)</p>
-                <p>反对：@string.Join(",",currentDiyCard.dislikeList)</p>
-                <p>上次修改时间：@currentDiyCard.lastEditedDate</p>
-                <Button OnClick="(e) => removeDiyCard(currentDiyCard)" type="primary">删除</Button>
+                else
+                {
+                    <ul class="workshop-cabinet-list">
+                        @foreach (var member in currentAdminInfo.cabinetUserName)
+                        {
+                            <li>
+                                <span class="oi oi-person" aria-hidden="true"></span>
+                                <span>@member</span>
+                                @if (string.Equals(member, user, StringComparison.Ordinal))
+                                {
+                                    <em>@L("当前账号", "You")</em>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </section>
+        </div>
+
+        <section class="aitest-panel">
+            <div class="aitest-panel-heading">
+                <h2>@L("审核队列", "Review queue")</h2>
+                <span>@L("按评议权重排序", "Ordered by review signal")</span>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(loadError) && cards.Count == 0)
+            {
+                <SiteEmptyState Icon="oi-warning"
+                                Title="@L("审核数据暂时不可用", "Review data is unavailable")"
+                                Description="@L("读取失败已被隔离，其他导航仍可正常使用。", "The failed read was isolated, and the rest of the site remains usable.")" />
+            }
+            else if (cards.Count == 0)
+            {
+                <SiteEmptyState Icon="oi-task"
+                                Title="@L("审核队列为空", "The review queue is empty")"
+                                Description="@L("工坊方案被内阁送审后，会出现在这里。", "Workshop proposals appear here after a cabinet member submits them.")" />
+            }
+            else
+            {
+                <div class="workshop-card-grid">
+                    @foreach (var card in cards)
+                    {
+                        <article class="workshop-card workshop-review-card">
+                            <div class="workshop-card-art">
+                                @if (!CanRenderArtwork(card))
+                                {
+                                    <div class="workshop-card-art-missing">
+                                        <span class="oi oi-image" aria-hidden="true"></span>
+                                        <span>@L("暂无卡面", "No artwork")</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img src="@CardImage(card.imageLink)"
+                                         alt="@CardAlt(card)"
+                                         loading="lazy"
+                                         decoding="async"
+                                         @onerror="() => MarkArtworkFailed(card)" />
+                                }
+                                <span class="workshop-art-id">@L("卡面", "Art") @DisplayValue(card.imageLink)</span>
+                            </div>
+
+                            <div class="workshop-card-body">
+                                <header class="workshop-card-header">
+                                    <div class="workshop-card-tags">
+                                        <span>@DisplayCardType(card.CardType)</span>
+                                        <span>@DisplayFaction(card.Fraction)</span>
+                                        <span>@DisplayGroup(card.Group)</span>
+                                    </div>
+                                    <h3>@CardName(card)</h3>
+                                    <p>@L("设计师", "Designer") · @DisplayValue(card.author)</p>
+                                </header>
+
+                                <div class="workshop-card-rule">
+                                    <span class="workshop-strength">
+                                        <small>@L("战力", "Power")</small>
+                                        <strong>@card.cardInfo.Strength</strong>
+                                    </span>
+                                    <p>@DisplayValue(card.cardInfo.Info)</p>
+                                </div>
+
+                                <footer class="workshop-card-actions">
+                                    <div class="workshop-votes" aria-label="@L("审核投票", "Review votes")">
+                                        <button class="workshop-vote @(HasLiked(card) ? "is-active" : "")"
+                                                type="button"
+                                                title="@VoteHint"
+                                                aria-pressed="@HasLiked(card)"
+                                                disabled="@(!IsLoggedIn || IsBusy(card))"
+                                                @onclick="() => SetVote(card, true)">
+                                            <span aria-hidden="true">▲</span>
+                                            <span>@L("赞同", "Agree")</span>
+                                            <strong>@card.likeList.Count</strong>
+                                        </button>
+                                        <button class="workshop-vote workshop-vote-down @(HasDisliked(card) ? "is-active" : "")"
+                                                type="button"
+                                                title="@VoteHint"
+                                                aria-pressed="@HasDisliked(card)"
+                                                disabled="@(!IsLoggedIn || IsBusy(card))"
+                                                @onclick="() => SetVote(card, false)">
+                                            <span aria-hidden="true">▼</span>
+                                            <span>@L("反对", "Disagree")</span>
+                                            <strong>@card.dislikeList.Count</strong>
+                                        </button>
+                                    </div>
+
+                                    <div class="workshop-card-links">
+                                        <button type="button" @onclick="() => OpenDetails(card)">@L("详情", "Details")</button>
+                                        <button type="button" @onclick="() => OpenComments(card)">
+                                            @L("评论", "Comments") <span>@card.commits.Count</span>
+                                        </button>
+                                    </div>
+                                </footer>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+        </section>
+    </ChildContent>
+</SitePage>
+
+@if (interactiveReady)
+{
+<Drawer Closable="true"
+        Visible="commitDrawerVisible"
+        Placement="right"
+        Title="@L("审核评论", "Review comments")"
+        OnClose="CloseComments"
+        Width="420">
+    <div class="workshop-drawer-content">
+        @if (currentDiyCard != null)
+        {
+            <div class="workshop-drawer-card-name">@CardName(currentDiyCard)</div>
+
+            @if (currentDiyCard.commits.Count == 0)
+            {
+                <div class="workshop-drawer-empty">@L("还没有评论。", "No comments yet.")</div>
+            }
+            else
+            {
+                @foreach (var comment in currentDiyCard.commits)
+                {
+                    <Comment Author="@DisplayValue(comment.user)"
+                             Avatar="@avatar"
+                             Content="@DisplayValue(comment.text)"
+                             Datetime="@DisplayDate(comment.commitDate)">
+                    </Comment>
+                }
+            }
+
+            @if (IsLoggedIn)
+            {
+                <div class="workshop-comment-editor">
+                    <label class="workshop-field">
+                        <span>@L("审核意见", "Review note")</span>
+                        <TextArea MinRows="4" Placeholder="@L("写下审核意见", "Write a review note")" @bind-Value="commentContent" />
+                    </label>
+                    <Button OnClick="SubmitComment" type="primary" Disabled="@IsBusy(currentDiyCard)">
+                        @L("发表评论", "Post comment")
+                    </Button>
+                </div>
+            }
+            else
+            {
+                <div class="workshop-drawer-note">@L("登录后才能发表评论。", "Sign in to post a comment.")</div>
             }
         }
-    </Drawer>
-</div>
+    </div>
+</Drawer>
 
-<div>
-    <Drawer Closable="true" Visible="committeeVisible" Placement="right" Title='("详细信息")'
-        OnClose="() => committeeVisible = false" Width="360">
-        <Input Placeholder="华盖殿大学士" @bind-Value="@newDiyCard.imageLink" />
-        <Input Placeholder="谨身殿大学士" @bind-Value="@newDiyCard.imageLink" />
-        <Input Placeholder="文华殿大学士" @bind-Value="@newDiyCard.imageLink" />
-        <Input Placeholder="武英殿大学士" @bind-Value="@newDiyCard.imageLink" />
-        <Input Placeholder="文渊阁大学士" @bind-Value="@newDiyCard.imageLink" />
-        <Button OnClick="() => committeeVisible = true">修改名单</Button>
-    </Drawer>
-</div>
+<Drawer Closable="true"
+        Visible="detailPageVisible"
+        Placement="right"
+        Title="@L("审核详情", "Review details")"
+        OnClose="CloseDetails"
+        Width="440">
+    @if (currentDiyCard != null)
+    {
+        <div class="workshop-drawer-content">
+            @if (CanRenderArtwork(currentDiyCard))
+            {
+                <img class="workshop-detail-art"
+                     src="@CardImage(currentDiyCard.imageLink)"
+                     alt="@CardAlt(currentDiyCard)"
+                     @onerror="() => MarkArtworkFailed(currentDiyCard)" />
+            }
+            <h2>@CardName(currentDiyCard)</h2>
+            <div class="workshop-card-tags">
+                <span>@DisplayCardType(currentDiyCard.CardType)</span>
+                <span>@DisplayFaction(currentDiyCard.Fraction)</span>
+                <span>@DisplayGroup(currentDiyCard.Group)</span>
+            </div>
+            <dl class="workshop-detail-list">
+                <dt>@L("战力", "Power")</dt>
+                <dd>@currentDiyCard.cardInfo.Strength</dd>
+                <dt>@L("标签", "Tags")</dt>
+                <dd>@DisplayCategories(currentDiyCard)</dd>
+                <dt>@L("效果", "Rules")</dt>
+                <dd>@DisplayValue(currentDiyCard.cardInfo.Info)</dd>
+                <dt>@L("卡面 ID", "Artwork ID")</dt>
+                <dd>@DisplayValue(currentDiyCard.imageLink)</dd>
+                <dt>@L("背景故事", "Flavor")</dt>
+                <dd>@DisplayValue(currentDiyCard.cardInfo.Flavor)</dd>
+                <dt>@L("设计师", "Designer")</dt>
+                <dd>@DisplayValue(currentDiyCard.author)</dd>
+                <dt>@L("最后编辑", "Last edited")</dt>
+                <dd>@DisplayDate(currentDiyCard.lastEditedDate)</dd>
+                <dt>@L("赞同者", "Supporters")</dt>
+                <dd>@DisplayUsers(currentDiyCard.likeList)</dd>
+                <dt>@L("反对者", "Opponents")</dt>
+                <dd>@DisplayUsers(currentDiyCard.dislikeList)</dd>
+            </dl>
 
-
-
+            @if (IsCabinetMember)
+            {
+                <button class="workshop-button workshop-button-danger"
+                        type="button"
+                        disabled="@IsBusy(currentDiyCard)"
+                        @onclick="() => RemoveDiyCard(currentDiyCard)">
+                    @(IsDeleteConfirmationPending(currentDiyCard)
+                        ? L("再次点击确认移除", "Click again to remove")
+                        : L("从审核区删除", "Remove from review"))
+                </button>
+            }
+        </div>
+    }
+</Drawer>
+}
 
 @code {
+    [CascadingParameter]
+    private string user { get; set; }
+
+    private List<DiyCardInfo> cards = new List<DiyCardInfo>();
+    private DiyCardInfo currentDiyCard;
+    private AdminInfo currentAdminInfo = new AdminInfo();
+    private string commentContent = string.Empty;
+    private string loadError = string.Empty;
+    private string adminError = string.Empty;
+    private string operationError = string.Empty;
+    private string operationNotice = string.Empty;
+    private string busyCardId = string.Empty;
+    private string deleteConfirmationCardId = string.Empty;
+    private bool commitDrawerVisible;
+    private bool detailPageVisible;
+    private bool interactiveReady;
+    private readonly HashSet<string> failedImageLinks = new HashSet<string>(StringComparer.Ordinal);
+    private readonly string avatar = "https://img1.imgtp.com/2023/08/31/Lg0dnIKd.png";
+
+    private bool IsLoggedIn => !string.IsNullOrWhiteSpace(user);
+    private bool IsCabinetMember => IsLoggedIn
+        && currentAdminInfo != null
+        && currentAdminInfo.cabinetUserName != null
+        && currentAdminInfo.cabinetUserName.Contains(user, StringComparer.Ordinal);
+    private string VoteHint => IsLoggedIn
+        ? L("记录你的审核意见", "Record your review vote")
+        : L("登录后才能投票", "Sign in to vote");
+
+    private bool CanRenderArtwork(DiyCardInfo card)
+    {
+        if (card == null
+            || string.IsNullOrWhiteSpace(card.imageLink)
+            || failedImageLinks.Contains(card.imageLink))
+        {
+            return false;
+        }
+
+        var fileName = ArtworkFileName(card.imageLink);
+        return !string.IsNullOrEmpty(fileName)
+            && System.IO.File.Exists(System.IO.Path.Combine(HostEnvironment.WebRootPath, "scale", fileName));
+    }
+
+    private void MarkArtworkFailed(DiyCardInfo card)
+    {
+        if (card != null && !string.IsNullOrWhiteSpace(card.imageLink))
+        {
+            failedImageLinks.Add(card.imageLink);
+        }
+    }
+
     protected override void OnInitialized()
     {
-        Command.GetDiscussCardsInfo();
-        Info.diyCardInfo.Sort((e1, e2) => (-GetWeight(e1)).CompareTo(-GetWeight(e2)));
-        newDiyCard.cardInfo = new DiyCardInfo.SavedGwentCard();
-        currentAdminInfo = Command.GetAdmin();
+        LoadCards();
+        LoadAdmin();
     }
-    int GetWeight(DiyCardInfo e)
-    {
-        if (e.likeList == null || e.dislikeList == null)
-        {
-            return -10000;
-        }
-        return (e.likeList.Count() - e.dislikeList.Count()) * 100 + (e.likeList.Count() + e.dislikeList.Count()) +
-        e.commits.Count();
-    }
-    [CascadingParameter]
-    string user { get; set; }
-    string commentContent = "";
-    DiyCardInfo newDiyCard = new DiyCardInfo();
-    DiyCardInfo currentDiyCard;
-    AdminInfo currentAdminInfo;
-    string avatar = @"https://img1.imgtp.com/2023/08/31/Lg0dnIKd.png";
-    string adminUser { get; set; }
-    bool commitDrawerVisible = false;
-    bool detailPageVisible = false;
-    bool committeeVisible = false;
 
-
-    void SetLike(DiyCardInfo card)
+    protected override void OnAfterRender(bool firstRender)
     {
-        if (user == "")
+        if (!firstRender)
         {
             return;
         }
-        else if (card.likeList.Contains(user))
-        {
-            card.likeList.Remove(user);
-            Command.UpdateDiyCardLikeList(card, Command.discussAreaCollection);
 
-        }
-        else
+        interactiveReady = true;
+        StateHasChanged();
+    }
+
+    private void LoadCards()
+    {
+        try
         {
-            card.likeList.Add(user);
-            Command.UpdateDiyCardLikeList(card, Command.discussAreaCollection);
-            if (card.dislikeList.Contains(user))
-            {
-                card.dislikeList.Remove(user);
-                Command.UpdateDiyCardDislikeList(card, Command.discussAreaCollection);
-            }
+            cards = Command.GetDiscussCardsInfo();
+            SortCards();
+            loadError = string.Empty;
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to load the DIY card review queue");
+            cards = new List<DiyCardInfo>();
+            loadError = L("审核数据读取失败，当前页面已安全停止加载。", "Review data could not be loaded. This page stopped safely.");
         }
     }
-    void SetDislike(DiyCardInfo card)
+
+    private void LoadAdmin()
     {
-        if (user == "")
+        try
+        {
+            currentAdminInfo = Command.GetAdmin() ?? new AdminInfo();
+            if (currentAdminInfo.cabinetUserName == null)
+            {
+                currentAdminInfo.cabinetUserName = new List<string>();
+            }
+            adminError = string.Empty;
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to load Card Review cabinet permissions");
+            currentAdminInfo = new AdminInfo();
+            adminError = L("本届内阁名单暂时不可用，因此删除操作已关闭。", "Cabinet membership is unavailable, so deletion is disabled.");
+        }
+    }
+
+    private void SortCards()
+    {
+        cards = (cards ?? new List<DiyCardInfo>())
+            .Where(card => card != null)
+            .Select(Command.NormalizeCard)
+            .OrderByDescending(GetWeight)
+            .ThenByDescending(card => card.lastEditedDate)
+            .ToList();
+    }
+
+    private static int GetWeight(DiyCardInfo card)
+    {
+        if (card == null)
+        {
+            return int.MinValue;
+        }
+
+        var likes = card.likeList == null ? 0 : card.likeList.Count;
+        var dislikes = card.dislikeList == null ? 0 : card.dislikeList.Count;
+        var comments = card.commits == null ? 0 : card.commits.Count;
+        return (likes - dislikes) * 100 + likes + dislikes + comments;
+    }
+
+    private void SetVote(DiyCardInfo card, bool isLike)
+    {
+        if (!IsLoggedIn || card == null || IsBusy(card))
         {
             return;
         }
-        else if (card.dislikeList.Contains(user))
-        {
-            card.dislikeList.Remove(user);
-            Command.UpdateDiyCardDislikeList(card, Command.discussAreaCollection);
 
-        }
-        else
+        operationError = string.Empty;
+        operationNotice = string.Empty;
+        busyCardId = CardKey(card);
+        try
         {
-            card.dislikeList.Add(user);
-            Command.UpdateDiyCardDislikeList(card, Command.discussAreaCollection);
-            if (card.likeList.Contains(user))
-            {
-                card.likeList.Remove(user);
-                Command.UpdateDiyCardLikeList(card, Command.discussAreaCollection);
-            }
+            var updatedCard = Command.ToggleDiyCardVote(
+                card,
+                Command.discussAreaCollection,
+                user,
+                isLike);
+            card.likeList = updatedCard.likeList;
+            card.dislikeList = updatedCard.dislikeList;
+            SortCards();
         }
-    }
-    void onSubmit()
-    {
-        if (user == "2")
+        catch (Exception exception)
         {
-            if (currentDiyCard != null && commentContent != "")
-            {
-                if (currentDiyCard.commits == null)
-                {
-                    currentDiyCard.commits = new List<DiyCardInfo.Commit>();
-                }
-                var newCommit = new DiyCardInfo.Commit();
-                newCommit.user = user;
-                newCommit.text = commentContent;
-                newCommit.commitDate = DateTime.Now;
-                currentDiyCard.commits.Add(newCommit);
-                commentContent = "";
-                Command.UpdateDiyCardComment(currentDiyCard, Command.discussAreaCollection);
-            }
+            Logger.LogError(exception, "Failed to update review votes for DIY card {CardId}", CardKey(card));
+            operationError = L("投票没有保存，请稍后重试。", "Your vote was not saved. Try again shortly.");
+            TryRefreshCards();
+        }
+        finally
+        {
+            busyCardId = string.Empty;
         }
     }
 
-    void removeDiyCard(DiyCardInfo card)
+    private void SubmitComment()
     {
-        Command.RemoveDiyCard(card, Command.discussAreaCollection);
-        Command.GetDiscussCardsInfo();
+        if (!IsLoggedIn || currentDiyCard == null || string.IsNullOrWhiteSpace(commentContent) || IsBusy(currentDiyCard))
+        {
+            return;
+        }
+
+        if (commentContent.Trim().Length > 2000)
+        {
+            operationError = L("评论不能超过 2000 个字符。", "Comments cannot exceed 2,000 characters.");
+            return;
+        }
+
+        operationError = string.Empty;
+        operationNotice = string.Empty;
+        busyCardId = CardKey(currentDiyCard);
+        var comment = new DiyCardInfo.Commit
+        {
+            user = user,
+            text = commentContent.Trim(),
+            commitDate = DateTime.Now,
+            likeList = new List<string>(),
+            dislikeList = new List<string>()
+        };
+
+        try
+        {
+            var updatedCard = Command.AddDiyCardComment(
+                currentDiyCard,
+                Command.discussAreaCollection,
+                comment);
+            currentDiyCard.commits = updatedCard.commits;
+            commentContent = string.Empty;
+            SortCards();
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to add a review comment to DIY card {CardId}", CardKey(currentDiyCard));
+            operationError = L("评论没有保存，请稍后重试。", "Your comment was not saved. Try again shortly.");
+            TryRefreshCards();
+        }
+        finally
+        {
+            busyCardId = string.Empty;
+        }
+    }
+
+    private void RemoveDiyCard(DiyCardInfo card)
+    {
+        if (!IsCabinetMember || card == null || IsBusy(card))
+        {
+            return;
+        }
+
+        if (!IsDeleteConfirmationPending(card))
+        {
+            deleteConfirmationCardId = CardKey(card);
+            operationError = string.Empty;
+            operationNotice = L(
+                "移除后方案会回到可送审状态；请再次点击移除按钮确认。",
+                "The proposal will become eligible for review again. Click remove once more to confirm.");
+            return;
+        }
+
+        deleteConfirmationCardId = string.Empty;
+
+        operationError = string.Empty;
+        operationNotice = string.Empty;
+        busyCardId = CardKey(card);
+
+        try
+        {
+            if (Command.RemoveDiscussCard(card))
+            {
+                cards.Remove(card);
+                operationNotice = L("方案已从审核区删除。", "The proposal was removed from review.");
+            }
+            else
+            {
+                TryRefreshCards();
+                operationError = L("这份方案已经不存在，列表已刷新。", "This proposal no longer exists. The list was refreshed.");
+            }
+            detailPageVisible = false;
+            currentDiyCard = null;
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to remove DIY card {CardId} from review", CardKey(card));
+            operationError = L("删除没有完成，页面已重新核对当前状态。", "Deletion did not complete. The page checked the current state again.");
+            TryRefreshCards();
+        }
+        finally
+        {
+            busyCardId = string.Empty;
+        }
+    }
+
+    private void TryRefreshCards()
+    {
+        try
+        {
+            var selectedCardId = currentDiyCard == null ? string.Empty : CardKey(currentDiyCard);
+            cards = Command.GetDiscussCardsInfo();
+            SortCards();
+            ReconcileCurrentCard(selectedCardId);
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Failed to refresh Card Review after a write error");
+        }
+    }
+
+    private void ReconcileCurrentCard(string selectedCardId)
+    {
+        if (string.IsNullOrEmpty(selectedCardId))
+        {
+            return;
+        }
+
+        currentDiyCard = cards.FirstOrDefault(card => string.Equals(CardKey(card), selectedCardId, StringComparison.Ordinal));
+        if (currentDiyCard == null)
+        {
+            detailPageVisible = false;
+            commitDrawerVisible = false;
+        }
+    }
+
+    private void OpenComments(DiyCardInfo card)
+    {
+        currentDiyCard = card;
+        commentContent = string.Empty;
+        commitDrawerVisible = true;
+    }
+
+    private void CloseComments()
+    {
+        commitDrawerVisible = false;
+        commentContent = string.Empty;
+    }
+
+    private void OpenDetails(DiyCardInfo card)
+    {
+        deleteConfirmationCardId = string.Empty;
+        currentDiyCard = card;
+        detailPageVisible = true;
+    }
+
+    private void CloseDetails()
+    {
+        deleteConfirmationCardId = string.Empty;
         detailPageVisible = false;
     }
 
-    void AddAdmin()
+    private bool HasLiked(DiyCardInfo card)
     {
-        Command.SetAdmin();
+        return IsLoggedIn && card.likeList.Contains(user, StringComparer.Ordinal);
     }
-    @* DiyCardInfo GetAdmin()
-    {
-        return 1;
-    } *@
 
-    void handleTypeChange(string s)
+    private bool HasDisliked(DiyCardInfo card)
     {
-        newDiyCard.CardType = s;
-        switch (s)
+        return IsLoggedIn && card.dislikeList.Contains(user, StringComparer.Ordinal);
+    }
+
+    private bool IsBusy(DiyCardInfo card)
+    {
+        return card != null && string.Equals(busyCardId, CardKey(card), StringComparison.Ordinal);
+    }
+
+    private bool IsDeleteConfirmationPending(DiyCardInfo card)
+    {
+        return card != null
+            && string.Equals(deleteConfirmationCardId, CardKey(card), StringComparison.Ordinal);
+    }
+
+    private static string CardKey(DiyCardInfo card)
+    {
+        return card == null ? string.Empty : $"{card._id}:{card.uid}";
+    }
+
+    private string CardName(DiyCardInfo card)
+    {
+        return card != null && card.cardInfo != null && !string.IsNullOrWhiteSpace(card.cardInfo.Name)
+            ? card.cardInfo.Name
+            : L("未命名方案", "Untitled proposal");
+    }
+
+    private string CardAlt(DiyCardInfo card)
+    {
+        return L($"{CardName(card)} 的卡面", $"Artwork for {CardName(card)}");
+    }
+
+    private string DisplayCardType(string value)
+    {
+        if (value == "单位卡") return L("单位卡", "Unit");
+        if (value == "特殊卡") return L("特殊卡", "Special");
+        return DisplayValue(value);
+    }
+
+    private string DisplayFaction(string value)
+    {
+        switch (value)
         {
-            case "单位卡":
-                newDiyCard.cardInfo.CardType = CardType.Unit;
-                break;
-            case "特殊卡":
-                newDiyCard.cardInfo.CardType = CardType.Special;
-                break;
+            case "怪兽": return L("怪兽", "Monsters");
+            case "帝国": return L("帝国", "Nilfgaard");
+            case "松鼠": return L("松鼠", "Scoia'tael");
+            case "北方": return L("北方", "Northern Realms");
+            case "群岛": return L("群岛", "Skellige");
+            case "中立": return L("中立", "Neutral");
+            default: return DisplayValue(value);
         }
     }
-    void handleFractionChange(string s)
+
+    private string DisplayGroup(string value)
     {
-        newDiyCard.Fraction = s;
-        switch (s)
+        switch (value)
         {
-            case "怪兽":
-                newDiyCard.cardInfo.Faction = Faction.Monsters;
-                break;
-            case "帝国":
-                newDiyCard.cardInfo.Faction = Faction.Nilfgaard;
-                break;
-            case "松鼠":
-                newDiyCard.cardInfo.Faction = Faction.ScoiaTael;
-                break;
-            case "北方":
-                newDiyCard.cardInfo.Faction = Faction.NorthernRealms;
-                break;
-            case "群岛":
-                newDiyCard.cardInfo.Faction = Faction.Skellige;
-                break;
-            default:
-                newDiyCard.cardInfo.Faction = Faction.Neutral;
-                break;
+            case "领袖": return L("领袖", "Leader");
+            case "金色": return L("金色", "Gold");
+            case "银色": return L("银色", "Silver");
+            case "铜色": return L("铜色", "Bronze");
+            default: return DisplayValue(value);
         }
     }
-    void handleGroupChange(string s)
+
+    private string DisplayCategories(DiyCardInfo card)
     {
-        newDiyCard.Group = s;
-        switch (s)
+        if (card == null)
         {
-            case "金色":
-                newDiyCard.cardInfo.Group = Group.Gold;
-                break;
-            case "银色":
-                newDiyCard.cardInfo.Group = Group.Silver;
-                break;
-            case "铜色":
-                newDiyCard.cardInfo.Group = Group.Copper;
-                break;
-            default:
-                newDiyCard.cardInfo.Group = Group.Leader;
-                break;
+            return L("未填写", "Not provided");
         }
+
+        if (Text.IsEnglish && card.cardInfo != null && card.cardInfo.Categories != null && card.cardInfo.Categories.Length > 0)
+        {
+            return string.Join(", ", card.cardInfo.Categories.Select(category => category.ToString()));
+        }
+
+        if (card.Categories == null || card.Categories.Count == 0)
+        {
+            return L("未填写", "Not provided");
+        }
+
+        return string.Join(Text.IsEnglish ? ", " : "、", card.Categories);
     }
-    void handleCategorieChange(IEnumerable<string> values)
+
+    private string DisplayUsers(IEnumerable<string> values)
     {
-        newDiyCard.Categories = values.ToList();
-        List<Categorie> t = new List<Categorie>();
-        foreach (var s in values)
-        {
-            t.Add(string2Categorie[s]);
-        }
-        newDiyCard.cardInfo.Categories = t.ToArray();
+        var users = (values ?? Enumerable.Empty<string>()).Where(value => !string.IsNullOrWhiteSpace(value)).ToList();
+        return users.Count == 0 ? L("暂无", "None") : string.Join(Text.IsEnglish ? ", " : "、", users);
     }
-    Dictionary<string, Categorie> string2Categorie =
-    new Dictionary<string, Categorie>(){
-{"间谍", Categorie.DoubleAgent}, // 特殊处理一下间谍
-{"双面间谍", Categorie.DoubleAgent},
-{"狂猎", Categorie.WildHunt},
-{"谋略", Categorie.Tactic},
-{"野兽", Categorie.Beast},
-{"领袖牌", Categorie.Leader},
-{"法师", Categorie.Mage},
-{"首领", Categorie.Boss},
-{"吸血鬼", Categorie.Vampire},
-{"辛特拉", Categorie.Cintra},
-{"类虫生物", Categorie.Insectoid},
-{"流亡军", Categorie.Stray},
-{"构造体", Categorie.Construct},
-{"法术", Categorie.Spell},
-{"瑞达尼亚", Categorie.Redania},
-{"攻城支援", Categorie.SiegeSupport},
-{"德拉蒙家族", Categorie.ClanDrummond},
-{"鬼灵", Categorie.Specter},
-{"诅咒生物", Categorie.Cursed},
-{"士兵", Categorie.Soldier},
-{"科德温", Categorie.Kaedwen},
-{"水生", Categorie.Vodyanoi},
-{"图尔赛克家族", Categorie.ClanTuirseach},
-{"托达洛克家族", Categorie.ClanTordarroch},
-{"迪门家族", Categorie.ClanDimun},
-{"猎魔人", Categorie.Witcher},
-{"呓语", Categorie.Cultist},
-{"炼金", Categorie.Alchemy},
-{"鲁莽", Categorie.Reckless},
-{"海玫家族", Categorie.ClanHeymaey},
-{"闪击", Categorie.Blitz},
-{"树精", Categorie.Dryad},
-{"特殊", Categorie.Special},
-{"精灵", Categorie.Elf},
-{"莱里亚", Categorie.Lyria},
-{"食腐生物", Categorie.Necrophage},
-{"机械", Categorie.Machine},
-{"亚甸", Categorie.Aedirn},
-{"辅助", Categorie.Support},
-{"奎特家族", Categorie.ClanAnCraite},
-{"矮人", Categorie.Dwarf},
-{"龙兽", Categorie.Draconid},
-{"攻城器械", Categorie.SiegeEngine},
-{"泰莫利亚", Categorie.Temeria},
-{"军官", Categorie.Officer},
-{"天气", Categorie.Weather},
-{"有机", Categorie.Organic},
-{"道具", Categorie.Item},
-{"灾厄", Categorie.Hazard},
-{"恩泽", Categorie.Boon},
-{"伏击", Categorie.Ambush},
-{"佚亡", Categorie.Doomed},
-{"巨熊", Categorie.Bear},
-{"食人魔", Categorie.Ogroid},
-{"蓝衣铁卫", Categorie.BlueStripes},
-{"繁育", Categorie.Breedable},
-{"吞食者", Categorie.Devourer},
-{"巨龙", Categorie.Dragon},
-{"鹰身女妖", Categorie.Harpy},
-{"医生", Categorie.Medic},
-{"坚守", Categorie.Stubborn},
-{"永逝", Categorie.Permadeath},
-{"农民", Categorie.Peasant},
-{"药水", Categorie.Potion},
-{"残物", Categorie.Relict},
-{"回溯", Categorie.Regressing},
-{"变身", Categorie.Shapeshifter},
-{"退场", Categorie.Token},
-{"密探", Categorie.Agent},
-{"布洛克瓦尔家族", Categorie.ClanBrokvar},
-{"测试", Categorie.Test},
-        };
+
+    private string DisplayValue(string value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? L("未填写", "Not provided") : value;
+    }
+
+    private string DisplayDate(DateTime value)
+    {
+        return value == default(DateTime) ? L("未知", "Unknown") : value.ToString("g");
+    }
+
+    private static string CardImage(string imageLink)
+    {
+        return $"/scale/{ArtworkFileName(imageLink)}";
+    }
+
+    private static string ArtworkFileName(string imageLink)
+    {
+        var safeId = new string((imageLink ?? string.Empty)
+            .Where(character => char.IsLetterOrDigit(character) || character == '-' || character == '_')
+            .ToArray());
+        return string.IsNullOrEmpty(safeId) ? string.Empty : $"{safeId}.png";
+    }
+
+    private string L(string chinese, string english)
+    {
+        return Text.IsEnglish ? english : chinese;
+    }
 }

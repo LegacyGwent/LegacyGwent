@@ -8,6 +8,9 @@ Last verified: 2026-08-01
 - Public port: 5005.
 - Working directory: `/usr/share/card-diy/publish`.
 - MongoDB: loopback 28020; logical databases `gwentdiy` and `Web`.
+- This legacy service has no dedicated health endpoint: `/healthz` currently
+  falls through to the HTML home page. Use HTTP 200 plus unchanged service PID
+  and lifecycle state when proving it survived an isolated DIY-AI deployment.
 - Do not restart or reuse these resources for DIY-AI work.
 
 ## DIY-AI
@@ -40,6 +43,9 @@ Last verified: 2026-08-01
 - Deployment keeps five releases and restores the previous symlink when health
   verification or the candidate restart fails. It verifies the restored
   release too and stops the service if even rollback cannot become healthy.
+- A normal service stop can cancel `ScheduledEventService` and emit a single
+  `TaskCanceledException`; correlate it with systemd lifecycle timestamps.
+  Error markers after the new process begins are the deployment signal.
 - Stable-to-AI database copy: `/usr/local/sbin/sync-card-diy-to-ai --execute`.
   It snapshots 28020 online, stops only `card-diy-ai`, backs up 28021 under
   `/var/backups/legacy-gwent/diy-ai-sync/<run>`, replaces both logical
@@ -51,8 +57,9 @@ Last verified: 2026-08-01
 
 ## GitHub Actions
 
-- `DIY-AI CI` builds the full server solution (including AITest and ConsoleTest)
-  with .NET 10, validates a self-contained Linux publish, and smoke-tests the
+- `DIY-AI CI` builds the full server solution (including AITest, ConsoleTest,
+  and Server.Tests) with .NET 10, executes the server compatibility tests,
+  validates a self-contained Linux publish, and smoke-tests the
   `runtime-deps:10.0` image with MongoDB 4.4.
 - The legacy .NET workflow excludes `diy-ai` to avoid duplicate server builds.
 - Desktop Unity CI runs automatically only when Unity or Common sources change;
@@ -76,3 +83,14 @@ Last verified: 2026-08-01
 - Current threshold is per source: the 30th new connection within 60 seconds is
   dropped. There is no permanent DROP for the former suspect/office IP.
 - Rules are persisted through `netfilter-persistent` or `/etc/iptables/rules.v4`.
+
+## Maintainer SSH access
+
+- This workstation uses the dedicated Ed25519 key
+  `%USERPROFILE%/.ssh/legacygwent_codex_ed25519`; its public fingerprint is
+  `SHA256:iuKo+4HhU/kbYYsKZWEWjLpr3aT/rduMiWKOqAOfvoo`.
+- `%USERPROFILE%/.ssh/config` maps `Host cynthia.ovyno.com` to user `root`, that
+  identity file, and `IdentitiesOnly yes`. The server password was not changed.
+- Verify non-interactively with
+  `ssh -o BatchMode=yes root@cynthia.ovyno.com`. Never store the private key,
+  password, or an SSH session transcript in the repository.

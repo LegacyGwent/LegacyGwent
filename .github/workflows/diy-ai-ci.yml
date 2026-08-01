@@ -45,6 +45,25 @@ jobs:
       - name: Build server and server-side test tools
         run: dotnet build --configuration Release src/Cynthia.Card/Cynthia.Card.sln
 
+      - name: Run server compatibility tests
+        run: >-
+          dotnet test
+          --configuration Release
+          --no-build
+          --no-restore
+          src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj
+
+      - name: Reject known vulnerable packages
+        run: |
+          report="$(mktemp)"
+          trap 'rm -f "$report"' EXIT
+          dotnet list src/Cynthia.Card/Cynthia.Card.sln package \
+            --vulnerable \
+            --include-transitive \
+            --no-restore \
+            --format json > "$report"
+          python scripts/check-vulnerable-packages.py "$report"
+
       - name: Validate self-contained Linux publish
         run: |
           dotnet publish \
@@ -108,9 +127,39 @@ jobs:
           grep -q '^  productName: DiyGwent AITest$' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-desktop.yml
           grep -q 'buildName: DiyGwent-AITest-' .github/workflows/unity-build-mobile.yml
+          grep -q 'versioning: Custom' .github/workflows/unity-build-desktop.yml
+          grep -q 'versioning: Custom' .github/workflows/unity-build-mobile.yml
+          grep -q 'versioning: Custom' .github/workflows/release.yml
+          grep -q 'name: Validate release identity' .github/workflows/release.yml
+          grep -q 'test "$REQUESTED_RELEASE_TAG" = "v$client_version"' .github/workflows/release.yml
+          grep -q 'test "$tag_commit" = "$workflow_commit"' .github/workflows/release.yml
+          grep -q 'group: tagged-release-' .github/workflows/release.yml
+          grep -q 'gh release create.*--draft' .github/workflows/release.yml
+          grep -q 'gh release upload.*--clobber' .github/workflows/release.yml
+          grep -q 'gh release edit.*--draft=false' .github/workflows/release.yml
+          ! grep -Eq 'actions/(create-release|upload-release-asset)' .github/workflows/release.yml
+          for workflow in .github/workflows/unity-build-desktop.yml .github/workflows/unity-build-mobile.yml .github/workflows/release.yml; do
+            grep -Fq 'UNITY_LICENSE: $''{{ secrets.UNITY_LICENSE }}' "$workflow"
+            ! grep -q '<?xml' "$workflow"
+          done
+          grep -q 'package_name="DiyGwent-AITest-Android-\$EXPECTED_CLIENT_VERSION.apk"' .github/workflows/unity-build-mobile.yml
+          test "$(grep -Fc 'EXPECTED_CLIENT_VERSION: $''{{ steps.client_version.outputs.value }}' .github/workflows/unity-build-mobile.yml)" -ge 2
+          grep -Fq 'uses: actions/cache/restore@v4' .github/workflows/unity-build-mobile.yml
+          grep -Fq 'uses: actions/cache/save@v4' .github/workflows/unity-build-mobile.yml
+          grep -Fq "always() && steps.unity_build.outcome == 'success'" .github/workflows/unity-build-mobile.yml
+          grep -q 'string clientVersion = PlayerSettings.bundleVersion;' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Editor/BuildVersionWriter.cs
+          grep -q 'private string CurrentVersion => Application.version;' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/LoginScript/GameInit.cs
+          ! grep -q '^[[:space:]]*hubConnection.StartAsync();' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Code/GwentClientService.cs
+          grep -q 'public async Task EnsureConnectedAsync(CancellationToken cancellationToken' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Code/GwentClientService.cs
+          grep -q 'AutoUpdateGame(LatestVersionText, cancellationToken)' src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/LoginScript/GameInit.cs
           grep -q '^[[:space:]]*- StandaloneLinux64' .github/workflows/unity-build-desktop.yml
           grep -q 'name: Package desktop client' .github/workflows/unity-build-desktop.yml
           grep -q '<TargetFramework>net10.0</TargetFramework>' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q 'PackageReference Include="MongoDB.Driver" Version="3.9.0"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q 'PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
+          grep -q 'name: Reject known vulnerable packages' .github/workflows/diy-ai-ci.yml
+          sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^      - name: Run server compatibility tests$'
+          sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^          src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj$'
           ! grep -q 'PackageReference Include="System.Text.Json"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q '^FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build$' src/Cynthia.Card/Dockerfile
           grep -q '^FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime$' src/Cynthia.Card/Dockerfile

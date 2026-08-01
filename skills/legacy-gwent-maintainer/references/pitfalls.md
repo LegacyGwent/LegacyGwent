@@ -15,6 +15,28 @@ Last verified: 2026-08-01
 - Verification: a clean Release build reaches `net10.0` with zero errors, and
   Common/AI outputs remain under `netstandard2.0`.
 
+## Long localized SignalR payloads can break the frozen Unity transport
+
+- Symptom: Unity 2019.4's Mono `ManagedWebSocket` can close a long localized
+  SignalR JSON frame with code 1007 near a fragmented UTF-8 receive boundary.
+- Cause: the .NET server's `JsonHubProtocol` owns a relaxed-escaping writer;
+  payload encoders or converters cannot cover protocol-owned target, invocation
+  ID, and error strings. Combining payload pre-encoding with a complete-frame
+  pass is redundant and expands the staged frame before the final copy,
+  increasing peak allocation on large localized payloads.
+- Fix: make `AsciiSafeJsonHubProtocol` the sole normalization boundary. Return
+  the framework memory unchanged for all-ASCII frames; only for non-ASCII input,
+  compute the exact escaped length and emit `\uXXXX` or surrogate pairs once.
+  `HandshakeProtocol` error responses bypass this layer; successful handshakes
+  are ASCII, but localized failed-handshake errors are not normalized.
+- Prevention: do not also configure a payload encoder or string converter. Test
+  through the `IHubProtocol` registered by `Startup`, including the ASCII fast
+  path and protocol-envelope strings.
+- Verification: write a long invocation containing non-ASCII declared names,
+  dictionary keys, values, surrogate pairs, envelope fields, and completion
+  error text; require ASCII output and typed round trips. Require an ASCII-only
+  message to remain byte-identical to the framework protocol output.
+
 ## Windows line endings break validation or Linux host preparation
 
 - Symptom: knowledge validation misses a visible date, or Bash reports
@@ -26,66 +48,6 @@ Last verified: 2026-08-01
 - Prevention: validate the extracted host payload; GitHub's Linux checkout remains LF-native.
 - Verification: knowledge validators pass, every extracted script passes remote
   `bash -n`, and preparation installs byte-identical normalized files.
-
-## Downloaded macOS or Linux client is not executable
-
-- Symptom: CI is green, but the downloaded macOS app or Linux binary will not
-  launch, or an app-bundle symbolic link has become an ordinary file.
-- Cause: `actions/upload-artifact` normalizes permissions and does not preserve
-  symlinks when it uploads a raw build directory.
-- Fix: create a nested ZIP on the Ubuntu build runner with Info-ZIP `zip -y`
-  before artifact upload; ZIP records the original Unix modes and link entries.
-- Prevention: upload the prebuilt `DiyGwent-AITest-<platform>-<version>.zip`,
-  never the raw macOS/Linux Unity output directory.
-- Verification: inspect ZIP external attributes/link entries and test extraction
-  plus launch on the target OS.
-
-## Mongo URI suffix points at the wrong apparent database
-
-- Symptom: `gwent-diy` or `gwent-diy-ai` appears empty even though accounts and
-  matches exist, or a copy of that named database leaves DIY-AI unseeded.
-- Cause: `GwentDatabaseService.cs` explicitly opens `gwentdiy`, and
-  `DiyPage/Command.cs` explicitly opens `Web`; the connection URI suffix is not
-  used by those repositories.
-- Fix: inspect, back up, and migrate both `gwentdiy` and `Web` on the intended
-  Mongo port.
-- Prevention: describe isolation by Mongo process/port/data directory and use
-  `sync-card-diy-to-ai`, not an inferred URI database name.
-- Verification: collection-count digests for both logical databases match the
-  intended snapshot on ports 28020 and 28021.
-
-## Android client cannot reach plain HTTP 5010
-
-- Symptom: a Windows build connects, but an Android 9+ build fails before login.
-- Cause: modern target SDKs block cleartext HTTP unless the manifest opts in;
-  Android also cannot use a developer machine's process environment override.
-- Fix: keep the DIY-AI Android Gradle manifest postprocessor enabled until 5010
-  is behind TLS, and bake the endpoint through `ServerEndpoint.txt`.
-- Prevention: use distinct package ID `cynthia.diy.ai.card`, verify the generated
-  manifest, and migrate the service to HTTPS before removing the opt-in.
-- Verification: APK manifest contains `INTERNET` and `usesCleartextTraffic`, and
-  server logs show the device connecting to 5010.
-
-## Build-time environment does not configure a packaged Unity player
-
-- Symptom: CI sets `GWENT_SERVER_URL`, but the downloaded client still connects
-  to the branch fallback.
-- Cause: the environment variable is read when the player runs, not serialized
-  into the build by GitHub Actions.
-- Fix: update `Assets/Resources/ServerEndpoint.txt` for packaged defaults; retain
-  the environment variable for runtime desktop overrides.
-- Prevention: treat endpoint assets and runtime environment settings as separate
-  configuration channels.
-- Verification: run the artifact without an environment override and inspect its
-  actual TCP peer.
-
-## Unity silently connects to the public server
-
-- Symptom: local UI works, but new accounts or results do not appear in local MongoDB.
-- Cause: the client historically resolved `cynthia.ovyno.com` directly.
-- Fix: configure `GWENT_SERVER_URL`; use `scripts/open-unity.ps1`.
-- Prevention: keep the endpoint configurable and inspect the established TCP peer.
-- Verification: Unity connects to the intended loopback or DIY-AI address.
 
 ## Registration names look reversed
 
@@ -103,14 +65,6 @@ Last verified: 2026-08-01
 - Prevention: keep UI instructions and parser cases under one verification test.
 - Verification: a forced match starts and persists an `aigameresults` record.
 
-## Build fails while the local server is running
-
-- Symptom: MSBuild cannot copy `Cynthia.Card.Server.dll` after repeated retries.
-- Cause: the running .NET host locks the normal Debug output DLL on Windows.
-- Fix: build with an independent output directory or stop only the local server.
-- Prevention: use an isolated verification output for non-disruptive checks.
-- Verification: build completes with zero errors without stopping gameplay.
-
 ## Legacy systemd returns status 127
 
 - Symptom: valid `mongod`, `/usr/bin/test`, or `dotnet` commands exit 127 only
@@ -127,9 +81,9 @@ Last verified: 2026-08-01
 - Symptom: normal globalization terminates with “Couldn't find a valid ICU
   package”; invariant mode alone instead throws `CultureNotFoundException` for
   `en-US` while old NLog initializes.
-- Cause: the host has ICU 57, which .NET 10 cannot load, while NLog 4.8 still
-  constructs an explicit `en-US` format provider that invariant mode rejects by
-  default.
+- Cause: the host has ICU 57, which .NET 10 cannot load, while NLog core 4.7.2
+  still constructs an explicit `en-US` format provider that invariant mode
+  rejects by default.
 - Fix: set `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1` and
   `DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0`. This permits named
   cultures backed by invariant data without upgrading system ICU.
@@ -161,6 +115,31 @@ Last verified: 2026-08-01
   push trigger. Manual dispatch remains an explicit emergency operation.
 - Verification: a normal push shows deploy queued behind both CI jobs and no
   separate push-triggered deploy run exists.
+
+## A direct DIY-AI branch push deploys without review
+
+- Symptom: an explicitly targeted push to `diy-ai` can reach port 5010 without a
+  pull request or required review.
+- Cause: `diy-ai` currently has no GitHub branch protection, while its successful
+  push CI invokes the reusable deployment workflow automatically.
+- Fix: push candidate work to a review branch and open a PR; merge into `diy-ai`
+  only after all runtime gates are complete.
+- Prevention: never use `git push origin HEAD:diy-ai` as a convenience command;
+  add branch protection before treating review as an enforced control.
+- Verification: query branch protection and workflow triggers, then confirm the
+  candidate SHA exists only on its review branch until approval.
+
+## A server-only follow-up reruns every Unity desktop build
+
+- Symptom: a PR synchronization that changes only server, website, or knowledge
+  files queues Windows, macOS, and Linux Unity jobs again.
+- Cause: `pull_request.paths` is evaluated against the PR's cumulative base-to-head
+  diff; an earlier Unity change remains in scope on every later synchronization.
+- Fix: let the final run finish, or split client and server work into separate PRs.
+- Prevention: batch non-client follow-ups before the first push when one PR must
+  contain both, and do not assume last-commit paths control PR workflow filters.
+- Verification: compare the latest commit paths with the complete PR file list
+  and the workflow event before cancelling or retriggering a queued build.
 
 ## `set -e` exits before a failed release can roll back
 
@@ -198,3 +177,23 @@ Last verified: 2026-08-01
 - Prevention: never use `path` as a zsh variable in ad hoc host commands.
 - Verification: the same guarded cleanup succeeds with `target` and leaves both
   DIY services active.
+
+## PowerShell expands a remote shell substitution locally
+
+- Symptom: an SSH command containing `$(...)` runs or fails on the Windows client
+  before the intended remote install script executes.
+- Cause: backslash does not escape PowerShell interpolation inside a double-quoted
+  command string.
+- Fix: upload a fixed reviewed shell script and execute that file remotely.
+- Prevention: avoid embedding shell substitutions in PowerShell SSH strings.
+- Verification: the uploaded script checksum/content is inspected, remote state
+  changes as intended, and the temporary file is removed.
+
+## A Unity cache restores another target platform
+
+- Symptom: Linux restores a multi-gigabyte macOS `Library` cache and still spends
+  a long time reimporting.
+- Cause: a broad `restore-keys: Library-` prefix crosses target platforms.
+- Fix: scope every restore prefix to `Library-${{ matrix.targetPlatform }}-`.
+- Prevention: cache keys and fallback prefixes must include the Unity target.
+- Verification: a cache miss never downloads another platform's archive.

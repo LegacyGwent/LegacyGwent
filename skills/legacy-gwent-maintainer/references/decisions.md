@@ -38,9 +38,33 @@ tools only. Common and AI remain `netstandard2.0`, Unity remains 2019.4.1f1,
 and the Unity SignalR 5.0.8 assemblies are checksum-protected in DIY-AI CI.
 Upgrade transport libraries only as a separate compatibility project.
 
+## Migrate vulnerable database dependencies through an explicit checkpoint
+
+Use MongoDB.Driver 2.30 only to expose 3.x removals, then deploy 3.9 as the
+security baseline. Do not pin a modern SharpCompress underneath the older
+driver. Require a zero-advisory solution audit, isolated Mongo 4.4 functional
+coverage including zlib, and a real Unity regression before dependency rollout.
+
 ## Keep project knowledge versioned and progressively disclosed
 
 The canonical skill lives in this repository. A personal Codex installation may
 link to it for discovery, but updates must be committed here. The index routes
 agents to small domain references; learning rewrites canonical truth instead of
 growing a task diary.
+
+## Gate the website, authentication, and client distribution separately
+
+The owner has approved an initial function-first public AITest website trial on
+the isolated DIY-AI service, including website sign-in and workshop mutations.
+Treat the cleartext 5010 login and signed localStorage session as explicit
+experimental security debt, recommend unique test credentials, and never call
+this a production-grade authentication boundary. Before security-sensitive or
+production use, add HTTPS termination plus server-managed HttpOnly, Secure,
+SameSite session authentication and authorization on every mutation.
+
+Client distribution is a separate release gate. Until a controlled AITest
+archive and exact artifact manifest exist, omit the download navigation, home
+call-to-action, and route, and make `GetDownloadLink` return empty. A future
+manifest must bind every platform link to its filename, version, byte size,
+SHA-256, source commit, and explicit availability; never infer provenance from
+a similar version number in the legacy shared folder.
