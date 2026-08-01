@@ -18,7 +18,9 @@ Last verified: 2026-08-01
 
 - `scripts/open-unity.ps1` builds/synchronizes the Common DLL and sets
   `GWENT_SERVER_URL` only for the launched Unity process.
-- Pass `-ServerUrl http://cynthia.ovyno.com:5010` for the deployed DIY-AI track.
+- For the deployed DIY-AI track, use the tracked 5010 endpoint (currently the
+  direct public IP). Use the hostname only where DNS and proxy routing are known
+  to preserve the real public address.
 - Packaged `diy-ai` clients resolve the endpoint in this order:
   `GWENT_SERVER_URL`, `Assets/Resources/ServerEndpoint.txt`, then the compiled
   5010 fallback. The tracked resource currently uses the direct public IP to

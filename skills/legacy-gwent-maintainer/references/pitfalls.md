@@ -103,9 +103,9 @@ Last verified: 2026-08-01
 - Symptom: normal globalization terminates with “Couldn't find a valid ICU
   package”; invariant mode alone instead throws `CultureNotFoundException` for
   `en-US` while old NLog initializes.
-- Cause: the host has ICU 57, which .NET 10 cannot load, while NLog 4.8 still
-  constructs an explicit `en-US` format provider that invariant mode rejects by
-  default.
+- Cause: the host has ICU 57, which .NET 10 cannot load, while NLog core 4.7.2
+  still constructs an explicit `en-US` format provider that invariant mode
+  rejects by default.
 - Fix: set `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1` and
   `DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY=0`. This permits named
   cultures backed by invariant data without upgrading system ICU.

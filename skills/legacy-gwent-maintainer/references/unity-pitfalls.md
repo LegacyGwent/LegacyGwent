@@ -128,3 +128,17 @@ Last verified: 2026-08-01
 - Verification: `aapt` reports the expected package/version name/version code,
   `apksigner` verifies and reports the certificate, then old/new certificate
   digests match and an actual `adb install -r` upgrade succeeds.
+
+## APK verifies but certificate-summary parsing fails the workflow
+
+- Symptom: Android compilation and `apksigner verify` pass, then packaging exits
+  immediately after the certificate-audit heading and uploads no artifact.
+- Cause: `apksigner --print-certs` can prefix certificate lines with either
+  `Signer #N` or `Signer (minSdkVersion=..., maxSdkVersion=...)`; a regex that
+  accepts only the numbered form rejects a valid signature report.
+- Fix: accept both prefixes, while independently requiring a signer count, a DN,
+  and a 64-hex-character SHA-256 certificate digest.
+- Prevention: keep signature validity checks separate from human-readable audit
+  output and test parsers against both documented signer prefixes.
+- Verification: both sample formats pass the parser, a malformed digest fails,
+  and CI uploads the APK after `apksigner` reports `Verifies`.

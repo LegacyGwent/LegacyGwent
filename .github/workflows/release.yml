@@ -112,7 +112,7 @@ jobs:
         with:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
           key: Library-${{ matrix.targetPlatform }}
-          restore-keys: Library-
+          restore-keys: Library-${{ matrix.targetPlatform }}-
       - name: Setup .NET 10 SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -216,8 +216,10 @@ jobs:
               "$apksigner_path" verify --verbose --print-certs "$asset_path" > "$signature_report"
               grep -Fq 'Verifies' "$signature_report"
               grep -Eq '^Number of signers: [1-9][0-9]*$' "$signature_report"
+              grep -Eq '^Signer (#[0-9]+|\([^)]*\)) certificate DN:' "$signature_report"
+              grep -Eq '^Signer (#[0-9]+|\([^)]*\)) certificate SHA-256 digest: [0-9a-fA-F]{64}$' "$signature_report"
               echo 'Signing certificate (audit only; no stable identity is asserted):'
-              grep -E '^Signer #[0-9]+ certificate (DN|SHA-256 digest):' "$signature_report"
+              grep -E '^Signer (#[0-9]+|\([^)]*\)) certificate (DN|SHA-256 digest):' "$signature_report"
               ;;
             StandaloneWindows64) asset_name="DiyGwent-AITest-Windows-$EXPECTED_CLIENT_VERSION.zip" ;;
             StandaloneOSX) asset_name="DiyGwent-AITest-macOS-$EXPECTED_CLIENT_VERSION.zip" ;;
