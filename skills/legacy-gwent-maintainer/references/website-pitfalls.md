@@ -94,6 +94,25 @@ Last verified: 2026-08-01
   and back, and require the exact path/query to remain while the language cookie
   and localized heading change.
 
+## Invariant globalization hides an otherwise correct English request culture
+
+- Symptom: browser language detection and the culture cookie work in the Windows
+  preview, but the .NET 10 Linux release always renders Chinese.
+- Cause: the legacy host must run with invariant globalization. The localization
+  middleware still selects a named `en-US` culture, but its
+  `TwoLetterISOLanguageName` is `iv`, not `en`.
+- Fix: identify the website language from the full BCP-47 culture `Name`
+  (`en-US`) in both `_Host.cshtml` and `SiteTextService`; keep the text service
+  stateless and singleton so prerender and interactive circuits cannot share
+  mutable language state.
+- Prevention: never infer a named culture from derived language properties when
+  the production runtime is invariant. Extend the runtime-image smoke test with
+  `Accept-Language`, unsupported-language fallback, and culture-cookie priority
+  assertions under the exact production globalization environment.
+- Verification: English headers render `lang="en-US"` and the English hero;
+  unsupported or absent headers fall back to `zh-CN`; English and Chinese
+  cookies each override the opposite request header.
+
 ## Hover states make nearby controls or navigation items jump
 
 - Symptom: a sidebar row, login button, or pager grows or changes shape on
@@ -135,8 +154,8 @@ Last verified: 2026-08-01
 - Prevention: restore downloads only from a manifest that records each exact
   filename, version, byte size, SHA-256, source commit, availability, and direct
   platform link. Never reuse the legacy shared folder as an AITest archive.
-- Verification: the website contains no folder ID or download route, direct
-  `/download` resolves to NotFound, `GetDownloadLink` is empty, and any future
+- Verification: the website contains no folder ID or download navigation,
+  direct `/download` returns 410 Gone, `GetDownloadLink` is empty, and any future
   published file reproduces the manifest hash.
 
 ## A public website trial inherits an unauthenticated admin mutation

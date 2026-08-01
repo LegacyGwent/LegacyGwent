@@ -2,11 +2,9 @@
 @namespace Cynthia.Card.Server.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Globalization
+@using Cynthia.Card.Server.Services
 @{
-    var isEnglish = string.Equals(
-        CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
-        "en",
-        StringComparison.OrdinalIgnoreCase);
+    var isEnglish = SiteTextService.IsEnglishCulture(CultureInfo.CurrentUICulture);
     var pageTitle = isEnglish ? "Gwent Workshop · AITest" : "昆特小窝 · AITest";
     var pageDescription = isEnglish
         ? "A Gwent test realm maintained by players and AI."
