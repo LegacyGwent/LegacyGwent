@@ -7,12 +7,12 @@ namespace Cynthia.Card
 {
     [CardEffectId("64006")]//海玫家族诗人
     public class HeymaeySkald : CardEffect
-    {//使所选“家族”的所有友军单位获得2点增益。
+    {//使所选“家族”的所有友军单位获得1点增益。
         public HeymaeySkald(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选一张场上的家族单位,不能是自己
-            var target = await Game.GetSelectPlaceCards(Card, 1, false, x => x.Is(null, CardType.Unit, x => x.HasAnyCategorie(Categorie.ClanDrummond, Categorie.ClanTuirseach, Categorie.ClanDimun, Categorie.ClanTordarroch, Categorie.ClanHeymaey, Categorie.ClanAnCraite, Categorie.ClanBrokvar)), SelectModeType.MyRow);
+            var target = await Game.GetSelectPlaceCards(Card, 1, false, x => x.Is(Group.Copper, CardType.Unit, x => x.HasAnyCategorie(Categorie.ClanDrummond, Categorie.ClanTuirseach, Categorie.ClanDimun, Categorie.ClanTordarroch, Categorie.ClanHeymaey, Categorie.ClanAnCraite, Categorie.ClanBrokvar)), SelectModeType.MyRow);
             if (target.Count() == 0)
             {
                 return 0;

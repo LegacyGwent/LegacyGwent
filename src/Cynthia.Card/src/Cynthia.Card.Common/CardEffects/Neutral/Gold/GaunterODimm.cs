@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
+
 namespace Cynthia.Card
 {
     [CardEffectId("12020")]//刚特·欧迪姆

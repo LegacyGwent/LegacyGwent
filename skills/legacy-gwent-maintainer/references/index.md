@@ -8,6 +8,7 @@ Read this file first, then load only the rows relevant to the task.
 | --- | --- | --- |
 | Components, source ownership, runtime flow | [architecture.md](architecture.md) | Repository layout and component boundaries |
 | Accounts, cards, decks, AI, matchmaking | [business-rules.md](business-rules.md) | Verified gameplay and domain behavior |
+| Card-pool reset, retirement, deck-code compatibility | [card-pool-migrations.md](card-pool-migrations.md) | Immutable map ordering, classification, data migration |
 | Windows setup, local server, MongoDB, Unity | [development.md](development.md) | Reproducible local workflows |
 | Linux server, SSH, systemd, CI/CD, rollback | [operations.md](operations.md) | Stable and DIY-AI operations |
 | Runtime packages, vulnerability audits, upgrade paths | [dependencies.md](dependencies.md) | Supported pins and phased security upgrades |

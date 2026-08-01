@@ -12,9 +12,9 @@ namespace Cynthia.Card
         {
             //随机取出卡组中一张目标卡
             var list = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.HasAnyCategorie(Categorie.Hazard) &&
-                x.Status.Group == Group.Copper)
-                .Mess(Game.RNG)
-                .ToList();
+                     x.Status.Group == Group.Copper)
+                  .Mess(Game.RNG)
+                  .ToList();
 
             if (list.Count() == 0)
             {

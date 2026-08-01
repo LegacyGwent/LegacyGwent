@@ -13,21 +13,13 @@ namespace Cynthia.Card
             var cards = await Game.GetSelectPlaceCards(Card, 3, selectMode: SelectModeType.EnemyRow);
             foreach (var card in cards)
             {
-                var currentrow = card.Status.CardRow;
-                var row = (currentrow.MyRowToIndex() + 1).IndexToMyRow();
-                // await Game.Debug($"currentrow:{currentrow},targetrow:{row}");
-                // Siege row cannot move up (row becomes Banish); handle bonus before !IsOnPlace early-exit.
-                if (currentrow == RowPosition.MyRow3)
-                {
-                    await card.Effect.Damage(2, Card);
-                    continue;
-                }
+                var row = (card.Status.CardRow.MyRowToIndex() + 1).IndexToMyRow();
                 if (!row.IsOnPlace())
                 {
                     await Game.Debug("已经是最上一排,不产生位移");
                     continue;
                 }
-                // await Game.Debug($"产生位移,移动至目标:{row}");
+                await Game.Debug($"产生位移,移动至目标:{row}");
                 await card.Effect.Move(new CardLocation(row, int.MaxValue), Card);
             }
             foreach (var card in cards)

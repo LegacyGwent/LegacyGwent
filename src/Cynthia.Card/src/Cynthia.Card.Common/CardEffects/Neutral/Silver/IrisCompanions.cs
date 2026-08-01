@@ -1,20 +1,19 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
     [CardEffectId("13004")]//爱丽丝的同伴
     public class IrisCompanions : CardEffect
-    {//Draw a card, then discard a random card. If you Iris: Shade is on the board, choose the card to discard instead.
+    {//将1张牌从牌组移至手牌，然后随机丢弃1张牌。
         public IrisCompanions(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //己方卡组乱序呈现
             var list = Game.PlayersDeck[PlayerIndex].Mess(RNG).ToList();
             //让玩家选择一张卡,不能不选
-            var result = await Game.GetSelectMenuCards(PlayerIndex, list, isCanOver: true);
+            var result = await Game.GetSelectMenuCards(PlayerIndex, list, isCanOver: false);
             if (result.Count == 0) return 0;//如果没有任何符合标准的牌,返回
             var dcard = result.Single();
             var row = Game.RowToList(dcard.PlayerIndex, dcard.Status.CardRow);
@@ -22,18 +21,7 @@ namespace Cynthia.Card
             await Game.PlayerDrawCard(PlayerIndex);//抽卡
                                                    //---------------------------------------------------------------------------
                                                    //随机弃掉一张
-            var IrisCount = Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.Status.CardId == "70154" && x.Status.IsLock == false).ToList().Count();
-            if (IrisCount > 0)
-            //如果有爱丽丝,则让玩家选择要弃掉的牌
-            {
-                var discardcard = await Game.GetSelectMenuCards(PlayerIndex, Game.PlayersHandCard[PlayerIndex], isCanOver: true);
-                await discardcard.Single().Effect.Discard(Card);
-            }
-            else
-            {
-                var discardcard = Game.PlayersHandCard[PlayerIndex].Mess(RNG).First();
-                await discardcard.Effect.Discard(Card);
-            }
+            await Game.PlayersHandCard[PlayerIndex].Mess(RNG).First().Effect.ToCemetery();
             return 0;
         }
     }

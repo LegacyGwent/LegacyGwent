@@ -8,7 +8,10 @@ namespace Cynthia.Card
     public class MahakamDefender : CardEffect
     {
         //坚韧。
-        public MahakamDefender(GameCard card) : base(card){}
+        public MahakamDefender(GameCard card) : base(card)
+        {
+        }
+
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             await Card.Effect.Resilience(Card);

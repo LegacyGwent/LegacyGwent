@@ -14,7 +14,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (@event.Target.PlayerIndex != Card.PlayerIndex && Card.Status.CardRow.IsOnPlace() && !@event.IsMoveInfo.isMove)
+            if (@event.Target.PlayerIndex != Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
                 await Card.Effect.Boost(boost, Card);
             }

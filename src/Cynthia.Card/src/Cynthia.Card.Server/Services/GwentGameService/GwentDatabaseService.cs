@@ -303,7 +303,8 @@ namespace Cynthia.Card.Server
             ownedborders.Add("NoBorder");
             var ownedtitles = new List<string>();
             ownedtitles.Add("NoBorder");
-            decks.Add(GwentDeck.CreateBasicDeck(1));
+            // DIY-AI reset uses the original master starter deck (the default branch).
+            decks.Add(GwentDeck.CreateBasicDeck(0));
 
             var emptyStreak = new List<int[]>() { new int[3], new int[3], new int[3], new int[3], new int[3] };
 

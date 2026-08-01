@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -17,11 +16,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDiscard @event)
         {
-            // 现在触发条件：触发源在己方半场且不是密探，或者触发源在对方半场且是密探
-            // 出新卡时注意可能涉及bug
-            if (Card.Status.CardRow.IsOnPlace()
-            && (@event.Source.PlayerIndex == Card.PlayerIndex && !@event.Source.HasAnyCategorie(Categorie.Agent)
-            || (@event.Source.PlayerIndex != Card.PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent))))
+            if (@event.Source.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
             {
                 await DamageRandomEnemy();
             }

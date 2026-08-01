@@ -681,18 +681,14 @@ namespace Cynthia.Card.Server
 
         public bool AddDeck(string connectionId, DeckModel deck)
         {
-            if (deck.Leader == "12004")
-            {
-                return false;
-            }
             //添加卡组
             if (!_users.ContainsKey(connectionId))
+                return false;
+            if (deck?.Leader == "12004" || !(deck.IsBasicDeck() || deck.IsSpecialDeck()))
                 return false;
             var user = _users[connectionId];
             if (user.Decks.Count >= 1000)
                 return false;
-            //if (!deck.IsBasicDeck())
-            //return false;
             if (!_databaseService.AddDeck(user.UserName, deck))
                 return false;
             user.Decks.Add(deck);

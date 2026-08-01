@@ -6,31 +6,24 @@ namespace Cynthia.Card
 {
     [CardEffectId("62003")]//维伯约恩
     public class Vabjorn : CardEffect
-    {//部署：选择一个单位，如果其已受伤则摧毁它；否则对其造成2点伤害直至其受伤并对自身造成基础战力一半的伤害。
+    {//对1个单位造成2点伤害。若目标已受伤，则将其摧毁。
         public Vabjorn(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            //以下代码基于：可以选择我方单位
+            //选择一张场上的卡(任意方)
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
             }
-            if (target.Status.HealthStatus >= 0 && target.CardInfo().CardId != "54012")
-                {
-                    while (target.Status.HealthStatus >= 0)           
-                    {
-                        await target.Effect.Damage(2, Card, BulletType.FireBall);
-
-                    }
-                    var WeakenValue = (Card.Status.Strength + 1) / 2;
-                    await Card.Effect.Weaken(WeakenValue, Card);
-                    return 0;
-                }
-
-            else if (target.Status.HealthStatus < 0)
+            await target.Effect.Damage(2, Card);
+            //如果目标没受伤，结束
+            if (target.Status.HealthStatus >= 0)
             {
-                await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
+                return 0;
             }
+            await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
             return 0;
         }
     }

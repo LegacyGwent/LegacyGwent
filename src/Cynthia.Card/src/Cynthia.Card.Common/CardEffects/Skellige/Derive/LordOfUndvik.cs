@@ -21,8 +21,7 @@ namespace Cynthia.Card
             {
                 if (card.Status.CardRow.IsOnPlace())
                 {
-                    await card.Effect.Boost(14, Card);
-                    card.Status.IsImmue = true;
+                    await card.Effect.Boost(10, Card);
                 }
             }
             return;

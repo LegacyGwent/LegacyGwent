@@ -13,32 +13,26 @@ namespace Cynthia.Card
         private int _resurrectCount = 0;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.SetCountdown(value: 2); //1 originally
+            await Card.Effect.SetCountdown(value: 1);
             return 0;
         }
         public async Task HandleEvent(AfterCardDiscard @event)
         {
-            // 现在关于触发源的触发条件：触发源在己方半场且不是密探，或者触发源在对方半场且是密探；然后这里要取反
-            // 出新卡时注意可能涉及bug
-            if (Countdown <= 0 || !Card.IsAliveOnPlance() || @event.Target.PlayerIndex != PlayerIndex 
-            || (@event.Source.PlayerIndex == PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent))
-            || (@event.Source.PlayerIndex != PlayerIndex && !@event.Source.HasAnyCategorie(Categorie.Agent)))
+            if (Countdown <= 0 || !Card.IsAliveOnPlance())
             {
                 return;
             }
-            if (@event.Target.Status.Group != Group.Gold)
+            await SetCountdown(offset: -1);
+            if (!Card.IsAliveOnPlance() ||
+                @event.Target.PlayerIndex != PlayerIndex || @event.Source.PlayerIndex != PlayerIndex ||
+                !@event.Target.Status.CardRow.IsInCemetery())
             {
-                await Card.Effect.Damage(4, Card); // self damage added for balance
-                await SetCountdown(offset: -1);
-                if (!Card.IsAliveOnPlance() || !@event.Target.Status.CardRow.IsInCemetery())
-                {
-                    return;
-                }
-
-                await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
-                _resurrectCount++;
-                _discardSource = @event.Source;
+                return;
             }
+
+            await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
+            _resurrectCount++;
+            _discardSource = @event.Source;
         }
 
         public async Task HandleEvent(BeforePlayStayCard @event)

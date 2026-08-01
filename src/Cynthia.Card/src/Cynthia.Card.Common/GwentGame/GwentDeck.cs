@@ -155,6 +155,9 @@ namespace Cynthia.Card
         }
         public static bool IsBasicDeck(this DeckModel deck)
         {
+            if (!UsesActiveUserCardPool(deck))
+                return false;
+
             var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);     //将卡组编号集合,转换成对应的卡
             var deckFaction = GwentMap.CardMap[deck.Leader].Faction;    //得到卡组领袖所在的势力
 
@@ -180,6 +183,9 @@ namespace Cynthia.Card
         }
         public static bool IsHalfBasicDeck(this DeckModel deck)
         {
+            if (!UsesActiveUserCardPool(deck))
+                return false;
+
             var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);     //将卡组编号集合,转换成对应的卡
             var deckFaction = GwentMap.CardMap[deck.Leader].Faction;    //得到卡组领袖所在的势力
 
@@ -205,6 +211,9 @@ namespace Cynthia.Card
         }
         public static bool IsSpecialDeck(this DeckModel deck)
         {
+            if (!UsesActiveUserCardPool(deck))
+                return false;
+
             var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
             var deckFaction = GwentMap.CardMap[deck.Leader].Faction;
 
@@ -240,6 +249,9 @@ namespace Cynthia.Card
         }
         public static bool IsHalfSpecialDeck(this DeckModel deck)
         {
+            if (!UsesActiveUserCardPool(deck))
+                return false;
+
             var decks = deck.Deck.Select(x => GwentMap.CardMap[x]);
             var deckFaction = GwentMap.CardMap[deck.Leader].Faction;
 
@@ -262,6 +274,18 @@ namespace Cynthia.Card
             if (decks.Where(x => x.Group == Group.Copper).GroupBy(x => x.CardId).Select(x => x.Count()).Any(x => x > 3))
                 return false;
             return true;
+        }
+
+        private static bool UsesActiveUserCardPool(DeckModel deck)
+        {
+            if (deck?.Deck == null || string.IsNullOrWhiteSpace(deck.Leader))
+                return false;
+
+            if (!DiyAiCardPool.IsUserDeckCard(deck.Leader) ||
+                GwentMap.CardMap[deck.Leader].Group != Group.Leader)
+                return false;
+
+            return deck.Deck.All(DiyAiCardPool.IsUserDeckCard);
         }
     }
 }

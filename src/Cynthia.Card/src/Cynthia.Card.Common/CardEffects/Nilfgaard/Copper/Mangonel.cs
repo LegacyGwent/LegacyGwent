@@ -16,10 +16,10 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardReveal @event)
         {
-
-            if (@event.Source == null || (Game.GameRound.ToPlayerIndex(Game) != PlayerIndex) || !Card.Status.CardRow.IsOnPlace()) return;
-        await DamageRandomEnemy();
+            if (@event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
+            await DamageRandomEnemy();
         }
+
         private async Task DamageRandomEnemy()
         {
             var cards = Game.GetPlaceCards(AnotherPlayer);
