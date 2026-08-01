@@ -30,6 +30,22 @@ Last verified: 2026-08-01
 - The shared Common DLL must be rebuilt and copied into Unity
   `Assets/Assemblies` after model changes; `scripts/open-unity.ps1` performs this.
 
+## Website structure
+
+- The AITest website uses `Shared/SitePage.razor`, `SiteEmptyState.razor`, and
+  `RankingTable.razor` as the common subpage shell; route-specific styling stays
+  in `wwwroot/css/site.css`, with workshop/drawer rules in
+  `wwwroot/css/workshop-pages.css` loaded after AntDesign.
+- `SiteTextService` selects exactly one language from the request culture.
+  `CultureController` persists manual selection; startup uses `Accept-Language`
+  for the first visit and falls back to `zh-CN`.
+- DIY and review card lists belong to each Blazor component instance. `Info.cs`
+  intentionally contains no mutable static page state. Mongo writes use atomic
+  vote/comment operations in `DiyPage/Command.cs`.
+- `SeasonOverviewService` requests a date-bounded Mongo projection, excludes
+  results that fail `GameResult.IsEffective()`, uses the canonical red/blue
+  status helpers, and caches the derived overview for two minutes.
+
 ## Branch tracks
 
 - `diy` is the stable DIY baseline.

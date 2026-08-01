@@ -49,20 +49,6 @@ Last verified: 2026-08-01
 - Verification: knowledge validators pass, every extracted script passes remote
   `bash -n`, and preparation installs byte-identical normalized files.
 
-## Mongo URI suffix points at the wrong apparent database
-
-- Symptom: `gwent-diy` or `gwent-diy-ai` appears empty even though accounts and
-  matches exist, or a copy of that named database leaves DIY-AI unseeded.
-- Cause: `GwentDatabaseService.cs` explicitly opens `gwentdiy`, and
-  `DiyPage/Command.cs` explicitly opens `Web`; the connection URI suffix is not
-  used by those repositories.
-- Fix: inspect, back up, and migrate both `gwentdiy` and `Web` on the intended
-  Mongo port.
-- Prevention: describe isolation by Mongo process/port/data directory and use
-  `sync-card-diy-to-ai`, not an inferred URI database name.
-- Verification: collection-count digests for both logical databases match the
-  intended snapshot on ports 28020 and 28021.
-
 ## Registration names look reversed
 
 - Symptom: login and display name appear swapped in MongoDB.
@@ -78,14 +64,6 @@ Last verified: 2026-08-01
 - Fix: normalize both suffixes in `GwentMatchs.cs`.
 - Prevention: keep UI instructions and parser cases under one verification test.
 - Verification: a forced match starts and persists an `aigameresults` record.
-
-## Build fails while the local server is running
-
-- Symptom: MSBuild cannot copy `Cynthia.Card.Server.dll` after repeated retries.
-- Cause: the running .NET host locks the normal Debug output DLL on Windows.
-- Fix: build with an independent output directory or stop only the local server.
-- Prevention: use an isolated verification output for non-disruptive checks.
-- Verification: build completes with zero errors without stopping gameplay.
 
 ## Legacy systemd returns status 127
 
@@ -187,3 +165,23 @@ Last verified: 2026-08-01
 - Prevention: never use `path` as a zsh variable in ad hoc host commands.
 - Verification: the same guarded cleanup succeeds with `target` and leaves both
   DIY services active.
+
+## PowerShell expands a remote shell substitution locally
+
+- Symptom: an SSH command containing `$(...)` runs or fails on the Windows client
+  before the intended remote install script executes.
+- Cause: backslash does not escape PowerShell interpolation inside a double-quoted
+  command string.
+- Fix: upload a fixed reviewed shell script and execute that file remotely.
+- Prevention: avoid embedding shell substitutions in PowerShell SSH strings.
+- Verification: the uploaded script checksum/content is inspected, remote state
+  changes as intended, and the temporary file is removed.
+
+## A Unity cache restores another target platform
+
+- Symptom: Linux restores a multi-gigabyte macOS `Library` cache and still spends
+  a long time reimporting.
+- Cause: a broad `restore-keys: Library-` prefix crosses target platforms.
+- Fix: scope every restore prefix to `Library-${{ matrix.targetPlatform }}-`.
+- Prevention: cache keys and fallback prefixes must include the Unity target.
+- Verification: a cache miss never downloads another platform's archive.

@@ -83,3 +83,14 @@ Last verified: 2026-08-01
 - Current threshold is per source: the 30th new connection within 60 seconds is
   dropped. There is no permanent DROP for the former suspect/office IP.
 - Rules are persisted through `netfilter-persistent` or `/etc/iptables/rules.v4`.
+
+## Maintainer SSH access
+
+- This workstation uses the dedicated Ed25519 key
+  `%USERPROFILE%/.ssh/legacygwent_codex_ed25519`; its public fingerprint is
+  `SHA256:iuKo+4HhU/kbYYsKZWEWjLpr3aT/rduMiWKOqAOfvoo`.
+- `%USERPROFILE%/.ssh/config` maps `Host cynthia.ovyno.com` to user `root`, that
+  identity file, and `IdentitiesOnly yes`. The server password was not changed.
+- Verify non-interactively with
+  `ssh -o BatchMode=yes root@cynthia.ovyno.com`. Never store the private key,
+  password, or an SSH session transcript in the repository.

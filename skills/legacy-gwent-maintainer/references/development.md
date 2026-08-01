@@ -63,3 +63,29 @@ Last verified: 2026-08-01
 - Run PowerShell parser checks for changed `.ps1` files and `bash -n` for changed
   deployment scripts.
 - `LOCAL_DEVELOPMENT.md` is the user-facing command reference.
+
+## Website preview data
+
+- The redesign preview runs on `http://127.0.0.1:5020` and uses the isolated
+  Mongo process on 28021. Do not point it at stable 28020.
+- For data-rich visual QA, use a separate disposable Mongo instance (currently
+  28022). Seed only sanitized match/rank/workshop fields; never copy the remote
+  `user.PassWord` field or other credentials into the local preview database.
+- Before judging a UI fix, resolve the exact listening process for the viewed
+  port and inspect its executable/output path. A stale 5020 `netcoreapp3.0`
+  process can coexist with a newer publish on 5021 and make fixed CSS look
+  broken; navigate the review tab to the verified current preview explicitly.
+- The legacy `netcoreapp3.0` target cannot hot-apply managed edits or refresh an
+  open browser. When watch reports `Restart is needed`/`ENC0097`, restart only
+  the 5020 preview process; after Razor/CSS changes recover health, manually
+  reload the tab because static assets are never injected into the open page.
+- A background preview stores the `dotnet watch` root PID. Stop it with
+  `scripts/stop-dev.ps1 -KeepMongoDB`, which validates and terminates the whole
+  descendant watch tree; killing only the current 5020 listener leaves stale
+  watcher processes behind.
+- A remote seed can be restored without exposing MongoDB by opening a temporary
+  authenticated SSH reverse tunnel and running `mongorestore` remotely into the
+  local endpoint. Close the tunnel afterward and compare per-collection counts
+  for both `gwentdiy` and `Web`.
+- Temporary QA accounts/cards must use distinctive identifiers, be deleted after
+  the browser flow, and be verified absent in MongoDB.

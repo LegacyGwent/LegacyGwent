@@ -42,6 +42,8 @@ for the task, then rewrite the knowledge base when verified learning occurs.
   `references/dependencies.md`.
 - Unity startup, packaging, versioning, or native platform launch failures: read
   `references/unity-pitfalls.md` before diagnosing.
+- Website, Blazor, or local preview failures: read
+  `references/website-pitfalls.md` before diagnosing.
 - Unexpected behavior, failures, or repeated debugging: read
   `references/pitfalls.md` before diagnosing.
 - A durable design choice or replacement of an old approach: read
