@@ -2,7 +2,7 @@
 
 Last verified: 2026-08-02
 
-Verified against the DIY-AI reset lineage through `1.0.0.162`.
+Verified against the DIY-AI reset lineage through `1.0.0.163`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 

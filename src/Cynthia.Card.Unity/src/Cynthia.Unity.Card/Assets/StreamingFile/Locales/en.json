@@ -1616,7 +1616,7 @@
         },
         "23020": {
             "Name": "Devana Runestone",
-            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
+            "Info": "If you are behind, Generate an even-power Bronze Monsters unit outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "My blades're so sharp, they can cut paper!"
         },
         "23021": {
@@ -2051,7 +2051,7 @@
         },
         "33019": {
             "Name": "Dazhbog Runestone",
-            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
+            "Info": "If you are behind, Generate an even-power Bronze Nilfgaard unit outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "Careful. Still hot."
         },
         "33020": {
@@ -2426,7 +2426,7 @@
         },
         "43019": {
             "Name": "Zoria Runestone",
-            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
+            "Info": "If you are behind, Generate an even-power Bronze Northern Realms unit outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "I'm getting a palpable chill from this runestone… did I do something to hurt its feelings?"
         },
         "43020": {
@@ -2796,7 +2796,7 @@
         },
         "53018": {
             "Name": "Morana Runestone",
-            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
+            "Info": "If you are behind, Generate an even-power Bronze Scoia'tael unit outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "I grow faint at the very sight of it…"
         },
         "53019": {
@@ -3151,7 +3151,7 @@
         },
         "63018": {
             "Name": "Stribog Runestone",
-            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
+            "Info": "If you are behind, Generate an even-power Bronze Skellige unit outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "Ofieri runemasters can combine these into runewords of incredible power."
         },
         "63019": {

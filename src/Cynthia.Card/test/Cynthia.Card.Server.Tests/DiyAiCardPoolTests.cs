@@ -40,7 +40,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 162), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 163), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -125,8 +125,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 162);
-            var stale = new Version(1, 0, 0, 161);
+            var current = new Version(1, 0, 0, 163);
+            var stale = new Version(1, 0, 0, 162);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -231,19 +231,19 @@ namespace Cynthia.Card.Server.Tests
                 ["13023"] = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
                 ["13044"] = "生成对方起始牌组中的1张非间谍铜色/银色单位牌，并使其获得1点增益。",
                 ["21003"] = "生成1张铜色/银色“有机”牌。",
-                ["23020"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["23020"] = "若落后，生成1个己方起始牌组之外的怪兽偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                 ["31004"] = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
                 ["33016"] = "生成1个己方起始牌组之外的铜色尼弗迦德“士兵”单位。",
-                ["33019"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["33019"] = "若落后，生成1个己方起始牌组之外的尼弗迦德偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                 ["41002"] = "生成1个铜色北方领域“诅咒生物”单位。",
                 ["42010"] = "择一：生成1张己方起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
-                ["43019"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["43019"] = "若落后，生成1个己方起始牌组之外的北方领域偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                 ["51003"] = "生成1张己方起始牌组之外的银色中立“特殊”牌。",
                 ["52013"] = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个己方起始牌组之外的非间谍银色“精灵”单位。",
-                ["53018"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["53018"] = "若落后，生成1个己方起始牌组之外的松鼠党偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                 ["53021"] = "择一：生成1个己方起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",
                 ["62012"] = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或生成对方初始牌组中1张非间谍银色单位牌。",
-                ["63018"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["63018"] = "若落后，生成1个己方起始牌组之外的史凯利格偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                 ["63020"] = "生成1个己方起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。"
             };
             Assert.All(expectedChineseInfo, card =>

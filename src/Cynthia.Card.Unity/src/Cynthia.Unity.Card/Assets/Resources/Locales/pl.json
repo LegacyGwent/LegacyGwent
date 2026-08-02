@@ -1615,7 +1615,7 @@
         },
         "23020": {
             "Name": "Runa Dziewanna",
-            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę Potworów o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Moje ostrze tnie... Cóż, ostrzej."
         },
         "23021": {
@@ -2050,7 +2050,7 @@
         },
         "33019": {
             "Name": "Runa Darzbóg",
-            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę Nilfgaardu o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Uważaj, wciąż jest gorąca."
         },
         "33020": {
@@ -2425,7 +2425,7 @@
         },
         "43019": {
             "Name": "Runa Zoria",
-            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę Królestw Północy o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Runa emanuje nienaturalnym chłodem... Być może ktoś zranił kiedyś jej uczucia?"
         },
         "43020": {
@@ -2795,7 +2795,7 @@
         },
         "53018": {
             "Name": "Runa Morana",
-            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę Scoia'tael o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Mdli mnie na sam jej widok..."
         },
         "53019": {
@@ -3150,7 +3150,7 @@
         },
         "63018": {
             "Name": "Runa Strzybóg",
-            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę Skellige o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Ofirscy mistrzowie run potrafią układać je w najróżniejsze słowa, dodając im przy tym mocy."
         },
         "63019": {

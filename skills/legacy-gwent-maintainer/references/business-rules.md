@@ -139,7 +139,7 @@ Last verified: 2026-08-02
 
 ## Generate-effect experiment
 
-- In the DIY-AI `1.0.0.162` ruleset, “生成” presents every eligible candidate
+- In the DIY-AI `1.0.0.163` ruleset, “生成” presents every eligible candidate
   and lets the player choose one. Do not reuse the legacy creation helper that
   shuffles and takes three. “己方起始牌组之外” excludes matching `CardId`
   values from the player's initial deck, and retired ordinary DIY cards remain
@@ -156,8 +156,11 @@ Last verified: 2026-08-02
   Scoia'tael, Northern Realms, Nilfgaard, Monsters, and Neutral. An empty board
   ends the effect. These tie and empty-board details are intentionally kept out
   of the compact player-facing card description.
-- Faction runestones generate an even-power Bronze unit of the player's faction
-  while behind and an odd-power one while ahead. A tied score ends the effect.
-  Their candidates are non-spies outside the player's initial deck.
+- Faction runestones generate an even-power Bronze unit of their fixed faction
+  while behind and an odd-power one while ahead: Devena is Monsters, Dazhbog
+  is Nilfgaard, Zoria is Northern Realms, Morana is Scoia'tael, and Stribog is
+  Skellige. A tied score ends the effect. Their candidates are non-spies
+  outside the player's initial deck. Player-facing text must name that fixed
+  faction explicitly instead of saying “your faction” or “this faction”.
 - Triss: Telekinesis keeps its original source pool—Bronze special cards present
   in either player's initial deck—but presents all distinct eligible candidates.
