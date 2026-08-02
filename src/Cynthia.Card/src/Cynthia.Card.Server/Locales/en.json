@@ -981,7 +981,7 @@
         },
         "12039": {
             "Name": "Uma's Curse",
-            "Info": "Use the highest-power unit's row and current power parity to Generate a non-Leader Gold unit of the corresponding faction and parity outside your starting deck. Your siege/ranged/melee rows correspond to Neutral/Monsters/Nilfgaard; enemy melee/ranged/siege correspond to Northern Realms/Scoia'tael/Skellige. Break ties top-to-bottom, then left-to-right; if there are no units, do nothing.",
+            "Info": "Use the highest-power unit's row and current power parity to Generate a non-Leader Gold unit of the corresponding faction and parity outside your starting deck. Your siege/ranged/melee rows correspond to Neutral/Monsters/Nilfgaard; enemy melee/ranged/siege correspond to Northern Realms/Scoia'tael/Skellige.",
             "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this… monstrosity?"
         },
         "12040": {

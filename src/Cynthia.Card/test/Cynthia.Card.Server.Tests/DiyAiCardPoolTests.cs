@@ -40,7 +40,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 161), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 162), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -125,8 +125,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 161);
-            var stale = new Version(1, 0, 0, 160);
+            var current = new Version(1, 0, 0, 162);
+            var stale = new Version(1, 0, 0, 161);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -226,7 +226,7 @@ namespace Cynthia.Card.Server.Tests
             {
                 ["12026"] = "生成任意方起始牌组中的1张铜色特殊牌。",
                 ["12030"] = "生成1张己方起始牌组之外的铜色/银色“法术”牌。",
-                ["12039"] = "根据场上最高战力单位的所在排及当前战力奇偶，生成1个对应奇偶战力的己方起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。并列时按从上到下、同排从左到右取首个；场上没有单位时不生效。",
+                ["12039"] = "根据场上最高战力单位的所在排及当前战力奇偶，生成1个对应奇偶战力的己方起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。",
                 ["13020"] = "生成1只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
                 ["13023"] = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
                 ["13044"] = "生成对方起始牌组中的1张非间谍铜色/银色单位牌，并使其获得1点增益。",
