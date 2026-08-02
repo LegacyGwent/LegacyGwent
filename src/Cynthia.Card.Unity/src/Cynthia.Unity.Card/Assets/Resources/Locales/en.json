@@ -3526,12 +3526,12 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the highest enemy by 3.\nThen Damage the highest enemy by 2, three times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
+            "Info": "Damage the highest enemy by 2, four times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
             "Flavor": "How much of a dose would be lethal? Any."
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the lowest ally by 3.\nThen Boost the lowest ally by 2, three times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time.",
+            "Info": "Boost the lowest ally by 2, four times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time.",
             "Flavor": "It is the duchess's exclusive privilege to delight in the prized, oaky flavor of Sangreal... A pleasure she partakes in very, very often."
         },
         "70043": {

@@ -7,19 +7,14 @@ namespace Cynthia.Card
 {
     [CardEffectId("70042")]//合欢茎魔药
     public class AlbizziaJulibrissin : CardEffect
-    {//Boost the lowest ally by 3. Then boost the lowest ally by 2, repeat 2 times. For each Gigascorpion decoction in your graveyard, repeat an additional time.
+    {//使最弱的友军单位获得2点增益，重复4次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。
 
         public AlbizziaJulibrissin(GameCard card) : base(card) { }
 
         public override async Task<int> CardUseEffect()
         {
             var count = Game.PlayersCemetery[PlayerIndex].Count(x => x.Status.CardId == CardId.BidensBipinnata);
-            if (!Game.GetPlaceCards(PlayerIndex).WhereAllLowest().TryMessOne(out var target1, Game.RNG))
-                {
-                    return 0;
-                }
-                await target1.Effect.Boost(3, Card);
-            for (var i = 0; i < 3 + count; i++)
+            for (var i = 0; i < 4 + count; i++)
             {
                 if (!Game.GetPlaceCards(PlayerIndex).WhereAllLowest().TryMessOne(out var target, Game.RNG))
                 {

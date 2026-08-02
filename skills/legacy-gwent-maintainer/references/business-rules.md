@@ -115,11 +115,9 @@ Last verified: 2026-08-02
 - `70041` is 鬼针草煎药 and `70042` is 合欢茎魔药. DIY-AI deliberately
   makes both cards deckable while the rest of the ordinary DIY retirement
   manifest stays hidden.
-- Use their historical `Special + Alchemy + Item` category set. The stable DIY
-  branch removed `Alchemy` in 2024 and left them as item-only specials, but
-  DIY-AI retains the earlier alchemy tag so effects such as Viper Witcher count
-  them as alchemy cards.
-- Both effects apply an initial 3-point hit/boost, then apply a separate 2-point
-  effect three times. Each copy of the counterpart potion in the player's
-  graveyard adds one more 2-point repetition. Chinese copy must say the 2-point
-  effect is repeated three times; do not "fix" the implementation to two loops.
+- Use exactly `Special + Alchemy`; neither card has the `Item` category. This
+  lets alchemy effects such as Viper Witcher count them without making them
+  eligible for item-only effects.
+- Both effects apply 2 points four times, with no separate initial 3-point
+  hit/boost. Each copy of the counterpart potion in the player's graveyard adds
+  one more 2-point repetition.

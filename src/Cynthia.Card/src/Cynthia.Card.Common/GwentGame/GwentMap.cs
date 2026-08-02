@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 158);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 159);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11824,9 +11824,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy,Categorie.Item},
+                    Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy},
                     Flavor = "有毒且致幻，它让你生不如死，却不致命。",
-                    Info = "对最强的敌军单位造成3点伤害。随后对最强的敌军单位造成2点伤害，重复3次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
+                    Info = "对最强的敌军单位造成2点伤害，重复4次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
                     CardArtsId = "201709",
                     LinkedCards=new List<String> {},
                 }
@@ -11845,9 +11845,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy,Categorie.Item},
+                    Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy},
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
-                    Info = "使最弱的友军单位获得3点增益。随后使最弱的友军单位获得2点增益，重复3次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。",
+                    Info = "使最弱的友军单位获得2点增益，重复4次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。",
                     CardArtsId = "202202",
                     LinkedCards=new List<String> {},
                 }

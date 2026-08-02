@@ -39,7 +39,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 158), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 159), GwentMap.CardMapVersion);
             Assert.Equal(709, GwentMap.CardMap.Count);
 
             var orderedIds = string.Join(",", GwentMap.CardMap.Keys);
@@ -119,8 +119,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 158);
-            var stale = new Version(1, 0, 0, 157);
+            var current = new Version(1, 0, 0, 159);
+            var stale = new Version(1, 0, 0, 158);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -218,7 +218,7 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
-        public void SelectedDiyAiPotionsUseTheHistoricalAlchemyVersion()
+        public void SelectedDiyAiPotionsUseTheOriginalAlchemyDesign()
         {
             Assert.All(new[] { "70041", "70042" }, cardId =>
             {
@@ -229,17 +229,60 @@ namespace Cynthia.Card.Server.Tests
                 Assert.Equal(CardType.Special, card.CardType);
                 Assert.Contains(Categorie.Special, card.Categories);
                 Assert.Contains(Categorie.Alchemy, card.Categories);
-                Assert.Contains(Categorie.Item, card.Categories);
+                Assert.DoesNotContain(Categorie.Item, card.Categories);
+                Assert.Equal(2, card.Categories.Length);
             });
 
             var bidensSource = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/Neutral/Copper/BidensBipinnata.cs"));
             var albizziaSource = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/Neutral/Copper/AlbizziaJulibrissin.cs"));
-            Assert.Contains("for (var i = 0; i < 3 + count; i++)", bidensSource);
-            Assert.Contains("for (var i = 0; i < 3 + count; i++)", albizziaSource);
-            Assert.Contains("造成2点伤害，重复3次", GwentMap.CardMap["70041"].Info);
-            Assert.Contains("获得2点增益，重复3次", GwentMap.CardMap["70042"].Info);
+            Assert.Contains("for (var i = 0; i < 4 + count; i++)", bidensSource);
+            Assert.Contains("for (var i = 0; i < 4 + count; i++)", albizziaSource);
+            Assert.DoesNotContain("Damage(3", bidensSource);
+            Assert.DoesNotContain("Boost(3", albizziaSource);
+            Assert.Contains("造成2点伤害，重复4次", GwentMap.CardMap["70041"].Info);
+            Assert.Contains("获得2点增益，重复4次", GwentMap.CardMap["70042"].Info);
+
+            var expectedInfoByLanguage = new Dictionary<string, string[]>
+            {
+                ["cn"] = new[]
+                {
+                    "对最强的敌军单位造成2点伤害，重复4次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
+                    "使最弱的友军单位获得2点增益，重复4次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。"
+                },
+                ["en"] = new[]
+                {
+                    "Damage the highest enemy by 2, four times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
+                    "Boost the lowest ally by 2, four times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time."
+                },
+                ["pl"] = new[]
+                {
+                    "Zadaj najsilniejszemu wrogowi 2 pkt obrażeń cztery razy.\nZa każdą kartę „Odwar Raffarda Białego” na swoim cmentarzu powtórz dodatkowy raz.",
+                    "Wzmocnij najsłabszego sojusznika o 2 pkt cztery razy.\nZa każdą kartę „Wyciąg z Gigaskorpiona” na swoim cmentarzu powtórz dodatkowy raz."
+                },
+                ["ru"] = new[]
+                {
+                    "Четыре раза нанесите 2 ед. урона самому сильному противнику.\nЗа каждую карту «Зелье Раффара Белого» на вашем кладбище повторите ещё один раз.",
+                    "Четыре раза усильте самого слабого союзника на 2 ед.\nЗа каждую карту «Отвар из гигаскорпиона» на вашем кладбище повторите ещё один раз."
+                }
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(localeRoots, localeRoot =>
+            {
+                Assert.All(expectedInfoByLanguage, expectedInfo =>
+                {
+                    var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{expectedInfo.Key}.json")));
+                    Assert.Equal(expectedInfo.Value[0], locale.CardLocales["70041"].Info);
+                    Assert.Equal(expectedInfo.Value[1], locale.CardLocales["70042"].Info);
+                });
+            });
         }
 
         [Fact]

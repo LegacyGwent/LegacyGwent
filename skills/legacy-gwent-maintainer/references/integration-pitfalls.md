@@ -45,4 +45,4 @@ Last verified: 2026-08-02
   migration merge and confirm Viper Witcher uses `Count / 3 * 2`, Spotter uses
   `Strength / 2`, both Greatsword countdown assignments are 3, Dimun Pirate is
   11, Dimun Corsair is 1, Triss: Telekinesis is 5, and the map version is at
-  least 1.0.0.158.
+  least 1.0.0.159.
