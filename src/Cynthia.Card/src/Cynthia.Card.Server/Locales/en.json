@@ -916,7 +916,7 @@
         },
         "12026": {
             "Name": "Triss: Telekinesis",
-            "Info": "Deploy: Create a Bronze special card from either player's starting deck.",
+            "Info": "Deploy: Generate a Bronze special card from either player's starting deck.",
             "Flavor": "Bindings won't suffice. Nor will a gag render her any less dangerous. No, dimeritium is the only solution."
         },
         "12027": {
@@ -936,7 +936,7 @@
         },
         "12030": {
             "Name": "Aguara: True Form",
-            "Info": "Deploy: Create a Bronze or Silver Spell.",
+            "Info": "Deploy: Generate a Bronze or Silver Spell outside your starting deck.",
             "Flavor": "Ever heard of an anterion? Think of it as the opposite of a lycanthrope: a beast which can take on human form."
         },
         "12031": {
@@ -981,7 +981,7 @@
         },
         "12039": {
             "Name": "Uma's Curse",
-            "Info": "Create a non-Leader Gold unit.",
+            "Info": "Use the highest-power unit's row and current power parity to Generate a non-Leader Gold unit of the corresponding faction and parity outside your starting deck. Your siege/ranged/melee rows correspond to Neutral/Monsters/Nilfgaard; enemy melee/ranged/siege correspond to Northern Realms/Scoia'tael/Skellige. Break ties top-to-bottom, then left-to-right; if there are no units, do nothing.",
             "Flavor": "I give you three solid leads, trails as fresh as morning dew, the aid of my spies and my court sorceress. Yet in my daughter's stead, you bring me this… monstrosity?"
         },
         "12040": {
@@ -1096,7 +1096,7 @@
         },
         "13020": {
             "Name": "Dorregaray of Vole",
-            "Info": "Deploy: Spawn a Savage Bear, Wyvern, Barbegazi or Drowner.",
+            "Info": "Deploy: Generate a Savage Bear, Wyvern, Barbegazi or Drowner.",
             "Flavor": "Like the witchers, Dorregaray is a monster aficionado, though he's developed his own classification system. Instead of dividing them into necrophages, ogroids and the like, he just thinks they're all wonderful."
         },
         "13021": {
@@ -1111,7 +1111,7 @@
         },
         "13023": {
             "Name": "Black Blood",
-            "Info": "Choose One: Create a Bronze Necrophage or Vampire and Boost it by 2; or Destroy a Bronze or Silver Necrophage or Vampire.",
+            "Info": "Choose One: Generate a Bronze Necrophage or Vampire outside your starting deck and Boost it by 1; or Destroy a Bronze or Silver Necrophage or Vampire.",
             "Flavor": "Vampires all agree: use of this potion is bad sportsmanship."
         },
         "13024": {
@@ -1216,7 +1216,7 @@
         },
         "13044": {
             "Name": "Garrison",
-            "Info": "Create a Bronze or Silver unit from your opponent's starting deck and Boost it by 2.",
+            "Info": "Generate a non-Spying Bronze or Silver unit from your opponent's starting deck and Boost it by 1.",
             "Flavor": "Knock, knock… anybody home?"
         },
         "14001": {
@@ -1436,7 +1436,7 @@
         },
         "21003": {
             "Name": "Whispering Hillock",
-            "Info": "Deploy: Create a Silver Organic card.",
+            "Info": "Deploy: Generate a Bronze or Silver Organic card.",
             "Flavor": "It will rise again. Elsewhere, beyond our reach. Blood will flow once more."
         },
         "21004": {
@@ -1616,7 +1616,7 @@
         },
         "23020": {
             "Name": "Devana Runestone",
-            "Info": "Create a Bronze or Silver Monster card.",
+            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "My blades're so sharp, they can cut paper!"
         },
         "23021": {
@@ -1881,7 +1881,7 @@
         },
         "31004": {
             "Name": "Usurper",
-            "Info": "Spying.\nDeploy: Create any Leader and Boost it by 2.",
+            "Info": "Spying.\nDeploy: Generate a non-Spying Leader from your opponent's faction and Boost it by 1.",
             "Flavor": "Why should something as trivial as birth decide who rules over us?"
         },
         "32001": {
@@ -2036,7 +2036,7 @@
         },
         "33016": {
             "Name": "Vreemde",
-            "Info": "Deploy: Create a Bronze Nilfgaardian Soldier.",
+            "Info": "Deploy: Generate a Bronze Nilfgaardian Soldier outside your starting deck.",
             "Flavor": "The Great Sun shall warm the North with its rays, even if it means I must slaughter you all!"
         },
         "33017": {
@@ -2051,7 +2051,7 @@
         },
         "33019": {
             "Name": "Dazhbog Runestone",
-            "Info": "Create a Bronze or Silver Nilfgaard card.",
+            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "Careful. Still hot."
         },
         "33020": {
@@ -2256,7 +2256,7 @@
         },
         "41002": {
             "Name": "Princess Adda",
-            "Info": "Deploy: Spawn a Bronze Northern Realms Cursed Unit.",
+            "Info": "Deploy: Generate a Bronze Northern Realms Cursed unit.",
             "Flavor": "Freed from a curse inflicted out of jealousy, only to return to a court filled with little else."
         },
         "41003": {
@@ -2316,7 +2316,7 @@
         },
         "42010": {
             "Name": "Kiyan",
-            "Info": "Deploy, Choose One: Create a Bronze or Silver Alchemy card; or Play a Bronze or Silver Item from your deck.",
+            "Info": "Deploy, Choose One: Generate a Bronze Alchemy card outside your starting deck; or Play a Bronze or Silver Item from your deck.",
             "Flavor": "We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far."
         },
         "42011": {
@@ -2426,7 +2426,7 @@
         },
         "43019": {
             "Name": "Zoria Runestone",
-            "Info": "Create a Bronze or Silver Northern Realms card.",
+            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "I'm getting a palpable chill from this runestone… did I do something to hurt its feelings?"
         },
         "43020": {
@@ -2636,7 +2636,7 @@
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Deploy, Choose One: Create a Neutral Silver special card; or Create a Scoia'tael Silver special card.",
+            "Info": "Deploy: Generate a Neutral Silver special card outside your starting deck.",
             "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
@@ -2706,7 +2706,7 @@
         },
         "52013": {
             "Name": "Isengrim: Outlaw",
-            "Info": "Deploy, Choose One: Play a Bronze or Silver special card from your deck; or Create a Silver Elf.",
+            "Info": "Deploy, Choose One: Play a Bronze or Silver special card from your deck; or Generate a non-Spying Silver Elf outside your starting deck.",
             "Flavor": "Before us lies Elskerdeg Pass, and beyond that, Zerrikania and Hakland. Before us lies a long and dangerous road. If we are to walk it together… let us put aside our mistrust."
         },
         "53001": {
@@ -2796,7 +2796,7 @@
         },
         "53018": {
             "Name": "Morana Runestone",
-            "Info": "Create a Bronze or Silver Scoia'tael card.",
+            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "I grow faint at the very sight of it…"
         },
         "53019": {
@@ -2811,7 +2811,7 @@
         },
         "53021": {
             "Name": "Mahakam Horn",
-            "Info": "Choose One: Create a Bronze or Silver Dwarf; or Strengthen a unit by 7.",
+            "Info": "Choose One: Generate a Bronze Dwarf outside your starting deck; or Strengthen a unit by 7.",
             "Flavor": "Once upon a time, Mahakam held a horn-blowing contest. That day the dwarves made an important discovery: loud noises and snow-capped peaks do not play well together."
         },
         "54001": {
@@ -3056,7 +3056,7 @@
         },
         "62012": {
             "Name": "Hym",
-            "Info": "Deploy, Choose One: Play a Bronze or Silver Cursed unit from your deck; or Create a Silver unit from your opponent's starting deck.",
+            "Info": "Deploy, Choose One: Play a Bronze or Silver Cursed unit from your deck; or Generate a non-Spying Silver unit from your opponent's starting deck.",
             "Flavor": "The gods' speak to me… I hear them whisper from the shadows…"
         },
         "62013": {
@@ -3151,7 +3151,7 @@
         },
         "63018": {
             "Name": "Stribog Runestone",
-            "Info": "Create a Bronze or Silver Skellige card.",
+            "Info": "If you are behind, Generate an even-power Bronze unit from your faction outside your starting deck; if ahead, Generate an odd-power one; on a tie, do nothing.",
             "Flavor": "Ofieri runemasters can combine these into runewords of incredible power."
         },
         "63019": {
@@ -3161,7 +3161,7 @@
         },
         "63020": {
             "Name": "Ornamental Sword",
-            "Info": "Create a Bronze or Silver Skellige Soldier and Strengthen it by 3.",
+            "Info": "Generate a Bronze Skellige Soldier outside your starting deck and Strengthen it by 2.",
             "Flavor": ""
         },
         "64001": {

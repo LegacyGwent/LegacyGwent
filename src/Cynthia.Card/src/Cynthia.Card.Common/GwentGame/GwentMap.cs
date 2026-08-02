@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 160);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 161);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -41,6 +41,15 @@ namespace Cynthia.Card
             return GetCards(isHasDerive, isHasAgent)
                 .Where(filter)
                 .Mess(rng).Take(count).Select(x => x.CardId)
+                .ToList();
+        }
+        public static IEnumerable<string> GetGenerateCardsId(Func<CardStatus, bool> filter, IEnumerable<string> excludedCardIds = null, bool isHasDerive = false, bool isHasAgent = false)
+        {
+            var excluded = new HashSet<string>(excludedCardIds ?? Enumerable.Empty<string>());
+            return GetCards(isHasDerive, isHasAgent)
+                .Where(filter)
+                .Where(card => !excluded.Contains(card.CardId))
+                .Select(card => card.CardId)
                 .ToList();
         }
         public static IEnumerable<string> GetCardsId(bool isHasDerive = false)
@@ -725,7 +734,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Temeria},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "捆住手脚远远不够。塞住嘴巴也不会让她的危险程度有分毫减少。所以，阻魔金是唯一的解决方案。",
-                    Info = "创造任意方起始牌组中的1张铜色特殊牌。",
+                    Info = "生成任意方起始牌组中的1张铜色特殊牌。",
                     CardArtsId = "20177300",
                     LinkedCards=new List<String> {},
                 }
@@ -852,7 +861,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Relict},
                     Flavor = "听说过“化兽”吗？就相当于把狼人反过来：这是一种可以变成人形的怪物。",
-                    Info = "不限阵营地创造1张铜色/银色“法术”牌。",
+                    Info = "生成1张己方起始牌组之外的铜色/银色“法术”牌。",
                     CardArtsId = "20005600",
                     LinkedCards=new List<String> {"13024","13025","13026","13032","13033","13034","13036","13037","13041","14003","14008","14016","53019","63019","70001"},
                 }
@@ -1063,7 +1072,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Spell,Categorie.Special},
                     Flavor = "我给了你三条确凿的线索，脉络比晨露还要清楚，就连我手下的探子和宫廷女术士都拨给你了。可你没能找到我的女儿，反而带来了这头……怪物？",
-                    Info = "不限阵营地创造1个非领袖金色单位。",
+                    Info = "根据场上最高战力单位的所在排及当前战力奇偶，生成1个对应奇偶战力的己方起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。并列时按从上到下、同排从左到右取首个；场上没有单位时不生效。",
                     CardArtsId = "20005800",
                     LinkedCards=new List<String> {"12004","12005","12006","12007","12008","12009","12010","12011","12012","12013","12014","12015","12016","12017","12018","12019","12020","12021","12022","12023","12024","12025","12026","12002","12027","12028","12003","12029","12030","12031","12032","22001","22002","22004","22005","22006","22007","22008","22009","22010","22011","22012","22013","22014","32002","32003","32004","32005","32006","32007","32008","32009","32001","32010","32011","32012","32013","32014","42001","42002","42003","42004","42005","42006","42007","42008","42009","42010","42011","42012","42013","52001","52002","52003","52004","52005","52006","52007","52008","52009","52010","52011","52012","52013","62001","62002","62003","62004","62005","62006","62007","62008","62009","62010","62011","62012","62013","70002","70003","70008","70025","70027","70032","70038","70044","70072","70102","70111","70113","70117","70082","70086","70125","70159","70137","70141","70145","70150","70154","70158","70163","70164","70165","70170","70177","70180"},
                 }
@@ -1548,7 +1557,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "和猎魔人一样，多瑞加雷也热爱同怪物打交道。不过他有自己的一套分类系统。别人眼里面目可憎的食尸生物、食人魔，在他看来都特别可爱。",
-                    Info = "不限阵营地创造1个铜色/银色“龙兽”或“野兽”单位。",
+                    Info = "生成1只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
                     CardArtsId = "20008700",
                     LinkedCards=new List<String> {"64008","24014","24023","24025"},
                 }
@@ -1612,7 +1621,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "吸血鬼们纷纷表示：使用这种药水有违体育精神。",
-                    Info = "择一：创造1个铜色“食腐生物”或“吸血鬼”单位，并使其获得2点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
+                    Info = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
                     CardArtsId = "20169700",
                     LinkedCards=new List<String> {"24003","24011","24014","24026","24028","24029","70009","70010","70132","70127","70147","70148","70152","70153"},
                 }
@@ -2053,7 +2062,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "咚咚咚，有人在家吗？",
-                    Info = "创造对方起始牌组中的1张铜色/银色单位牌，并使它获得2点增益。",
+                    Info = "生成对方起始牌组中的1张非间谍铜色/银色单位牌，并使其获得1点增益。",
                     CardArtsId = "20055500",
                     LinkedCards=new List<String> {},
                 }
@@ -2967,7 +2976,7 @@ namespace Cynthia.Card
                 {
                     CardId ="21003",
                     Name="呢喃山丘",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Leader,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -2977,7 +2986,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Relict},
                     Flavor = "它会在其它我们所无法触及的地方再次崛起。厄运会再次降临。",
-                    Info = "创造1张铜色/银色“有机”牌。",
+                    Info = "生成1张铜色/银色“有机”牌。",
                     CardArtsId = "20158700",
                     LinkedCards=new List<String> {"13030","13040","23021","23022"},
                 }
@@ -3735,7 +3744,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "我的剑实在是锋利，连纸都能裁开！",
-                    Info = "创造1张铜色/银色“怪兽”牌。",
+                    Info = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                     CardArtsId = "20158400",
                     LinkedCards=new List<String> {"23002","23003","23004","23005","23006","23007","23008","23009","23010","23011","23012","23013","23014","23015","23016","23017","23018","23019","23020","23021","23022","24001","24002","24003","24004","24005","24006","24007","24008","24009","24010","24011","24012","24013","24014","24015","24016","24017","24018","24019","24020","24021","24022","24023","24024","24025","24026","24027","24028","24029","24030","24031","24032","24033","24034","24035","24036","24037","24038","70009","70010","70022","70023","70058","70083","70085","70088","70132","70124","70129","70146","70147","70148","70168","70169","70171","70176","70183","70185"},
                 }
@@ -4856,7 +4865,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Officer},
                     Flavor = "王权怎能单凭出身的贵贱来随便决定？",
-                    Info = "间谍。不限阵营地创造1张领袖牌，使其获得2点增益。",
+                    Info = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
                     CardArtsId = "20158000",
                     LinkedCards=new List<String> {"21001","21002","21003","21004","21005","31002","31003","31001","31004","41001","41002","41003","41004","51001","51002","51003","51004","61001","61002","61003","61004","70045","70099","70149","70179"},
                 }
@@ -5500,7 +5509,7 @@ namespace Cynthia.Card
                 {
                     CardId ="33016", //Vreemde
                     Name="弗林姆德",
-                    Strength=4,
+                    Strength=3,
                     Group=Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -5510,7 +5519,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "即便要击败你们每一个人，我也要让伟大日轮照耀北境。",
-                    Info = "创造1个铜色尼弗迦德“士兵”单位。",
+                    Info = "生成1个己方起始牌组之外的铜色尼弗迦德“士兵”单位。",
                     CardArtsId = "20005000",
                     LinkedCards=new List<String> {"34004","34006","34007","34010","34012","34013","34014","34015","34003","34005","34020","34021","34023","34024","34026","34027","34031","34032","70012","70184"},
                 }
@@ -5573,7 +5582,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "当心。还烫着呢。",
-                    Info = "创造1张铜色/银色“尼弗迦德”牌。",
+                    Info = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                     CardArtsId = "20158300",
                     LinkedCards=new List<String> {"33005","33003","33006","33007","33008","33002","33009","33010","33011","33012","33013","33001","33014","33015","33016","33017","33018","33019","33020","33021","33022","33023","34004","34006","34007","34008","34009","34010","34011","34012","34013","34014","34015","34016","34017","34018","34003","34005","34019","34020","34021","34022","34023","34024","34025","34026","34027","34028","34002","34001","34029","34030","34031","34032","34033","70004","70012","70103","70115","70123","70127","70151","70152","70153","70174","70184"},
                 }
@@ -6437,7 +6446,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cursed},
                     Flavor = "她的诅咒被解除了……但是喜欢吃生肉的习惯却没改掉。",
-                    Info = "创造1个铜色/银色“诅咒生物”单位。",
+                    Info = "生成1个铜色北方领域“诅咒生物”单位。",
                     CardArtsId = "20006300",
                     LinkedCards=new List<String> {"44010","44024","44025","44031"},
                 }
@@ -6681,7 +6690,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42010", //Kiyan
                     Name="凯亚恩",
-                    Strength=4,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6691,7 +6700,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Witcher},
                     Flavor = "我们生活在无尽黑色大海中一座宁静的世外小岛上。我们不该扬帆远航。",
-                    Info = "择一：创造1张铜色/银色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
+                    Info = "择一：生成1张己方起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
                     CardArtsId = "20162100",
                     LinkedCards=new List<String> {"13023","13029","13039","13040","13043","14007","14010","14013","14014","14017","14018","14020","14021","23020","33019","33021","34033","43019","53018","63018","70157"},
                 }
@@ -7155,7 +7164,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "这块符文石让我不寒而栗……我是不是做了什么伤它感情的事？",
-                    Info = "创造1张铜色/银色“北方领域”牌。",
+                    Info = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                     CardArtsId = "20158200",
                     LinkedCards=new List<String> {"43002","43003","43004","43005","43006","43007","43008","43009","43010","43011","43012","43013","43014","43015","43016","43017","43018","43019","43020","43021","44001","44002","44003","44004","44005","44006","44007","44008","44009","44010","44011","44012","44013","44014","44015","44016","44017","44018","44019","44020","44021","44022","44023","44024","44025","44026","44027","44028","44029","44030","44031","44032","44033","44034","70017","70024","70033","70050","70076","70077","70104","70118","70094","70095","70101","70126","70130","70142","70143","70144"},
                 }
@@ -8042,7 +8051,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Elf},
                     Flavor = "虽然我们人数不多、四散分离，但我们的内心燃烧得比任何时候都要炽热。",
-                    Info = "创造1张银色“特殊”牌。",
+                    Info = "生成1张己方起始牌组之外的银色中立“特殊”牌。",
                     CardArtsId = "20007500",
                     LinkedCards=new List<String> {"13023","13024","13025","13026","13027","13028","13029","13030","13031","13032","13033","13034","13035","13036","13037","13038","13039","13040","13041","13042","13043","13044","53018","53019","53020","53021","70054","70138"},
                 }
@@ -8328,7 +8337,7 @@ namespace Cynthia.Card
                 {
                     CardId ="52013", //Isengrim: Outlaw
                     Name="伊森格林：亡命徒",
-                    Strength=2,
+                    Strength=1,
                     Group=Group.Gold,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -8338,7 +8347,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Officer},
                     Flavor = "在我们眼前的便是艾尔斯克德格山道，再往前，就是瑟瑞卡尼亚和哈克兰。这将是一条漫长而危险的道路。要想一同走下去，我们就得摒除彼此的猜忌。",
-                    Info = "择一：从牌组打出1张铜色/银色“特殊”牌；或创造1个银色“精灵”单位。",
+                    Info = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个己方起始牌组之外的非间谍银色“精灵”单位。",
                     CardArtsId = "20161500",
                     LinkedCards=new List<String> {"53002","53003","53008","53009","53011","53013","53014","53015"},
                 }
@@ -8719,7 +8728,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "一看到它我就头晕……",
-                    Info = "创造1张铜色/银色“松鼠党”牌。",
+                    Info = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                     CardArtsId = "20158500",
                     LinkedCards=new List<String> {"53002","53003","53004","53005","53006","53007","53008","53009","53010","53011","53012","53013","53014","53015","53016","53017","53018","53019","53020","53021","54001","54002","54003","54004","54005","54006","54007","54008","54009","54010","54011","54012","54013","54014","54015","54016","54017","54018","54019","54020","54021","54022","54023","54024","54025","54026","54027","54028","54029","54030","54031","54032","70015","70019","70020","70021","70043","70054","70105","70109","70114","70097","70098","70100","70122","70138","70139","70140","70173","70175"},
                 }
@@ -8782,7 +8791,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "从前，玛哈坎举办过一次吹号角比赛。那一天，矮人们学到了重要的一课：不要在积雪殷厚的雪上下大声吹号。",
-                    Info = "择一：创造1张铜色/银色“矮人”牌；或使1个单位获得7点强化。",
+                    Info = "择一：生成1个己方起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",
                     CardArtsId = "20153700",
                     LinkedCards=new List<String> {"13011","53004","53005","53007","53016","53017","54005","54012","54015","54016","54019","54022","54026","54029","70019","70020","70021","70097"},
                 }
@@ -9722,7 +9731,7 @@ namespace Cynthia.Card
                 {
                     CardId ="62012", //Hym
                     Name="希姆",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9732,7 +9741,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "诸神对我说话……我听见他们在暗影中的私语……",
-                    Info = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或创造对方初始牌组中1张银色单位牌。",
+                    Info = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或生成对方初始牌组中1张非间谍银色单位牌。",
                     CardArtsId = "20010200",
                     LinkedCards=new List<String> {},
                 }
@@ -10132,7 +10141,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "欧菲尔的符文大师可以把它们组合成威力无比的符文。",
-                    Info = "创造1张铜色/银色“史凯利格”牌。",
+                    Info = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                     CardArtsId = "20158100",
                     LinkedCards=new List<String> {"63001","63003","63004","63005","63006","63007","63008","63009","63010","63011","63012","63013","63014","63015","63016","63017","63018","63019","63020","64001","64002","64003","64004","64005","64006","64007","64008","64009","64010","64011","64012","64013","64014","64015","64016","64017","64018","64019","64020","64021","64022","64023","64024","64025","64026","64027","64028","64029","64030","64031","64032","64033","64034","70013","70016","70039","70046","70112","70116","70079","70080","70081","70089","70092","70096","70121","70160","70134","70135","70178"},
                 }
@@ -10174,7 +10183,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "看上去很精美，但顶多也就只能用来抹抹黄油。",
-                    Info = "创造1个铜色/银色史凯利格“士兵”单位，并使其获得3点强化。",
+                    Info = "生成1个己方起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。",
                     CardArtsId = "20164200",
                     LinkedCards=new List<String> {"63001","63003","63004","64001","64002","64004","64005","64009","64010","64011","64012","64013","64020","64021","64022","64024","64025","64026","64030","64033","70079","70081"},
                 }

@@ -40,7 +40,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 160), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 161), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -125,8 +125,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 160);
-            var stale = new Version(1, 0, 0, 159);
+            var current = new Version(1, 0, 0, 161);
+            var stale = new Version(1, 0, 0, 160);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -211,6 +211,130 @@ namespace Cynthia.Card.Server.Tests
                 "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Nilfgaard/Copper/Spotter.cs"));
 
             Assert.Contains("Status.Strength / 2", spotterSource);
+        }
+
+        [Fact]
+        public void GenerateReworkMatchesPublishedRules()
+        {
+            Assert.Equal(5, GwentMap.CardMap["21003"].Strength);
+            Assert.Equal(5, GwentMap.CardMap["42010"].Strength);
+            Assert.Equal(1, GwentMap.CardMap["52013"].Strength);
+            Assert.Equal(2, GwentMap.CardMap["62012"].Strength);
+            Assert.Equal(3, GwentMap.CardMap["33016"].Strength);
+
+            var expectedChineseInfo = new Dictionary<string, string>
+            {
+                ["12026"] = "生成任意方起始牌组中的1张铜色特殊牌。",
+                ["12030"] = "生成1张己方起始牌组之外的铜色/银色“法术”牌。",
+                ["12039"] = "根据场上最高战力单位的所在排及当前战力奇偶，生成1个对应奇偶战力的己方起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。并列时按从上到下、同排从左到右取首个；场上没有单位时不生效。",
+                ["13020"] = "生成1只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
+                ["13023"] = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
+                ["13044"] = "生成对方起始牌组中的1张非间谍铜色/银色单位牌，并使其获得1点增益。",
+                ["21003"] = "生成1张铜色/银色“有机”牌。",
+                ["23020"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["31004"] = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
+                ["33016"] = "生成1个己方起始牌组之外的铜色尼弗迦德“士兵”单位。",
+                ["33019"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["41002"] = "生成1个铜色北方领域“诅咒生物”单位。",
+                ["42010"] = "择一：生成1张己方起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
+                ["43019"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["51003"] = "生成1张己方起始牌组之外的银色中立“特殊”牌。",
+                ["52013"] = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个己方起始牌组之外的非间谍银色“精灵”单位。",
+                ["53018"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["53021"] = "择一：生成1个己方起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",
+                ["62012"] = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或生成对方初始牌组中1张非间谍银色单位牌。",
+                ["63018"] = "若落后，生成1个己方起始牌组之外的本阵营偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["63020"] = "生成1个己方起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。"
+            };
+            Assert.All(expectedChineseInfo, card =>
+                Assert.Equal(card.Value, GwentMap.CardMap[card.Key].Info));
+
+            var excluded = GwentMap.GetCards()
+                .Where(card => card.Is(Group.Copper, CardType.Unit))
+                .Take(2)
+                .Select(card => card.CardId)
+                .ToArray();
+            var expectedCandidates = GwentMap.GetCards()
+                .Where(card => card.Is(Group.Copper, CardType.Unit))
+                .Where(card => !excluded.Contains(card.CardId))
+                .Select(card => card.CardId)
+                .ToArray();
+            Assert.Equal(
+                expectedCandidates,
+                GwentMap.GetGenerateCardsId(
+                    card => card.Is(Group.Copper, CardType.Unit),
+                    excluded));
+            Assert.True(expectedCandidates.Length > 3);
+
+            var sourcePaths = new[]
+            {
+                "Monsters/Leader/WhisperingHillock.cs",
+                "Neutral/Gold/AguaraTrueForm.cs",
+                "Neutral/Gold/TrissTelekinesis.cs",
+                "Neutral/Gold/UmaSCurese.cs",
+                "Neutral/Silver/BlackBlood.cs",
+                "Neutral/Silver/DorregarayOfVole.cs",
+                "Neutral/Silver/Garrison.cs",
+                "Nilfgaard/Leader/Usurper.cs",
+                "Nilfgaard/Silver/Vreemde.cs",
+                "NorthernRealms/Gold/Kiyan.cs",
+                "NorthernRealms/Leader/PrincessAdda.cs",
+                "ScoiaTael/Gold/IsengrimOutlaw.cs",
+                "ScoiaTael/Leader/Filavandrel.cs",
+                "ScoiaTael/Silver/MahakamHorn.cs",
+                "Skellige/Gold/Hym.cs",
+                "Skellige/Silver/OrnamentalSword.cs"
+            };
+            var cardEffectRoot = "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects";
+            Assert.All(sourcePaths, sourcePath =>
+            {
+                var source = File.ReadAllText(FindRepositoryFile($"{cardEffectRoot}/{sourcePath}"));
+                Assert.DoesNotContain("GetCreateCardsId", source);
+                Assert.DoesNotContain(".Take(3)", source);
+            });
+
+            var umaSource = File.ReadAllText(FindRepositoryFile(
+                $"{cardEffectRoot}/Neutral/Gold/UmaSCurese.cs"));
+            Assert.True(
+                umaSource.IndexOf("RowPosition.EnemyRow3", StringComparison.Ordinal) <
+                umaSource.IndexOf("RowPosition.EnemyRow2", StringComparison.Ordinal));
+            Assert.True(
+                umaSource.IndexOf("RowPosition.EnemyRow2", StringComparison.Ordinal) <
+                umaSource.IndexOf("RowPosition.EnemyRow1", StringComparison.Ordinal));
+            Assert.True(
+                umaSource.IndexOf("RowPosition.EnemyRow1", StringComparison.Ordinal) <
+                umaSource.IndexOf("RowPosition.MyRow1", StringComparison.Ordinal));
+            Assert.Contains("orderedCards.First", umaSource);
+            Assert.Contains("if (orderedCards.Count == 0) return 0", umaSource);
+
+            var runestoneSource = File.ReadAllText(FindRepositoryFile(
+                $"{cardEffectRoot}/FactionRunestoneEffect.cs"));
+            Assert.Contains("if (myPoint == enemyPoint) return 0", runestoneSource);
+            Assert.Contains("myPoint < enemyPoint ? 0 : 1", runestoneSource);
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(localeRoot =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{language}.json")))).ToArray();
+                Assert.All(expectedChineseInfo.Keys, cardId =>
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                        Assert.Equal(locales[0].CardLocales[cardId].Info, locale.CardLocales[cardId].Info));
+                    Assert.False(string.IsNullOrWhiteSpace(locales[0].CardLocales[cardId].Info));
+                });
+                if (language == "cn")
+                {
+                    Assert.All(expectedChineseInfo, card =>
+                        Assert.Equal(card.Value, locales[0].CardLocales[card.Key].Info));
+                }
+            });
         }
 
         [Fact]

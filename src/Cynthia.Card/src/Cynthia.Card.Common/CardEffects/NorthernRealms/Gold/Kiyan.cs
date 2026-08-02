@@ -6,14 +6,16 @@ namespace Cynthia.Card
 {
     [CardEffectId("42010")]//凯亚恩
     public class Kiyan : CardEffect
-    {//择一：创造1张铜色/银色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。
+    {//择一：生成1张己方起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。
         public Kiyan(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var switchCard = await Card.GetMenuSwitch(("禁术", "Kiyan_1_CreateAlchemy"), ("忌器", "Kiyan_2_PlayItem"));
             if (switchCard == 0)
             {
-                var ids = GwentMap.GetCreateCardsId(x => x.Is(filter: x => x.HasAllCategorie(Categorie.Alchemy) && x.IsAnyGroup(Group.Copper, Group.Silver)), Game.RNG);
+                var ids = GwentMap.GetGenerateCardsId(
+                    x => x.Group == Group.Copper && x.HasAllCategorie(Categorie.Alchemy),
+                    Card.GetMyBaseDeck().Select(x => x.CardId));
                 return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray());
             }
             if (switchCard == 1)

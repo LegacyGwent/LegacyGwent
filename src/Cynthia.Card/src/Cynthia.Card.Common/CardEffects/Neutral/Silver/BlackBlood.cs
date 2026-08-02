@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("13023")]//黑血
     public class BlackBlood : CardEffect
-    {//择一：创造1个铜色“食腐生物”或“吸血鬼”单位，并使其获得2点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。
+    {//择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。
         public BlackBlood(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
@@ -18,12 +18,13 @@ namespace Cynthia.Card
             );
             if (switchCard == 0)
             {
-                var cards = GwentMap.GetCreateCardsId(x => x.Group == Group.Copper &&
-                        (x.Categories.Contains(Categorie.Necrophage) ||
-                        x.Categories.Contains(Categorie.Vampire)), Game.RNG).ToArray();
+                var cards = GwentMap.GetGenerateCardsId(
+                    x => x.Is(Group.Copper, CardType.Unit) &&
+                        x.HasAnyCategorie(Categorie.Necrophage, Categorie.Vampire),
+                    Card.GetMyBaseDeck().Select(x => x.CardId)).ToArray();
                 if ((await Game.CreateAndMoveStay(PlayerIndex, cards, isCanOver: true)) == 1)
                 {
-                    await Game.PlayersStay[PlayerIndex].First().Effect.Boost(2, Card);
+                    await Game.PlayersStay[PlayerIndex].First().Effect.Boost(1, Card);
                     return 1;
                 }
                 return 0;

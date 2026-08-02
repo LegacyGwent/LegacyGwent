@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
 	[CardEffectId("53021")]//玛哈坎号角
 	public class MahakamHorn : CardEffect
-	{//择一：创造1张铜色/银色“矮人”牌；或使1个单位获得7点强化。
+	{//择一：生成1个己方起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。
 		public MahakamHorn(GameCard card) : base(card){}
 		public override async Task<int> CardUseEffect()
 		{
@@ -17,10 +17,10 @@ namespace Cynthia.Card
 			{
 
 				return await Card.CreateAndMoveStay(
-				GwentMap.GetCreateCardsId(
-				x => x.HasAnyCategorie(Categorie.Dwarf) &&
-				(x.Group == Group.Copper || x.Group == Group.Silver),
-				RNG)
+				GwentMap.GetGenerateCardsId(
+				x => x.Is(Group.Copper, CardType.Unit) &&
+				x.HasAnyCategorie(Categorie.Dwarf),
+				Card.GetMyBaseDeck().Select(x => x.CardId))
 			.ToList());
 			}
 

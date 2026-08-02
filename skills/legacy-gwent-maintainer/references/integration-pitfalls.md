@@ -42,7 +42,8 @@ Last verified: 2026-08-02
   it with the current `origin/diy-ai`; keep a named regression test for every
   published balance batch.
 - Verification: run `AugustSecondBalancePatchMatchesPublishedRules` and
-  `TemporaryBalanceVariantsAreIndependentAndMatchTheirPublishedRules` after any
-  migration merge. Confirm the Viper Witcher and An Craite Greatsword Z/A/B/C
-  parameter matrices, Spotter `Strength / 2`, Dimun Pirate 11, Dimun Corsair 1,
-  Triss: Telekinesis 5, and a map version of at least `1.0.0.160`.
+  `TemporaryBalanceVariantsAreIndependentAndMatchTheirPublishedRules`, plus
+  `GenerateReworkMatchesPublishedRules`, after any migration merge. Confirm the
+  Viper Witcher and An Craite Greatsword Z/A/B/C parameter matrices, Spotter
+  `Strength / 2`, Dimun Pirate 11, Dimun Corsair 1, Triss: Telekinesis 5, and a
+  map version of at least `1.0.0.161`.

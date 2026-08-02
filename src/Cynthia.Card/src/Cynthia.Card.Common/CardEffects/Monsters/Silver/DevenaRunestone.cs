@@ -1,25 +1,9 @@
-using System.Linq;
-using System.Threading.Tasks;
-using Alsein.Extensions;
-
 namespace Cynthia.Card
 {
     [CardEffectId("23020")]//戴维娜符文石
-    public class DevenaRunestone : CardEffect
-    {//创造1张铜色/银色“怪兽”牌。
+    public class DevenaRunestone : FactionRunestoneEffect
+    {//落后时生成1个偶数铜色怪兽单位；领先时生成1个奇数铜色怪兽单位；平局不生效。
         public DevenaRunestone(GameCard card) : base(card) { }
-        public override async Task<int> CardUseEffect()
-        {
-            return await Card.CreateAndMoveStay(
-                GwentMap.GetCreateCardsId(
-                    x => x.Faction == Faction.Monsters &&
-                    x.CardId != Card.Status.CardId &&
-                    (x.Group == Group.Copper || x.Group == Group.Silver) &&
-                    !x.HasAnyCategorie(Categorie.Agent),
-                    RNG
-                )
-                .ToList()
-            );
-        }
+        protected override Faction RunestoneFaction => Faction.Monsters;
     }
 }

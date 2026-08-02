@@ -915,7 +915,7 @@
         },
         "12026": {
             "Name": "Triss Telekineza",
-            "Info": "Rozmieszczenie: Utwórz brązową kartę specjalną z talii początkowych obu graczy.",
+            "Info": "Rozmieszczenie: Wygeneruj brązową kartę specjalną z talii początkowych obu graczy.",
             "Flavor": "Nie wystarczy, że ją zwiążesz... Możesz nawet zakneblować wiedźmę, a i tak jest niebezpieczna. Dwimeryt to jedyne rozwiązanie."
         },
         "12027": {
@@ -935,7 +935,7 @@
         },
         "12030": {
             "Name": "Aguara Lisica",
-            "Info": "Rozmieszczenie: Utwórz brązową lub srebrną kartę Zaklęcia.",
+            "Info": "Rozmieszczenie: Wygeneruj brązowe lub srebrne Zaklęcie spoza swojej talii początkowej.",
             "Flavor": "Wiesz, co to jest anterion? To jakby przeciwieństwo likantropa, bestia która przyjmuje ludzką postać."
         },
         "12031": {
@@ -980,7 +980,7 @@
         },
         "12039": {
             "Name": "Klątwa Umy",
-            "Info": "Utwórz złotą jednostkę, która nie jest Dowódcą.",
+            "Info": "Na podstawie rzędu i parzystości bieżącej siły najsilniejszej jednostki wygeneruj spoza swojej talii początkowej złotą jednostkę niebędącą Dowódcą o odpowiadającej frakcji i parzystości. Twoje rzędy oblężenia/dystansowy/wręcz odpowiadają Neutralnym/Potworom/Nilfgaardowi, a rzędy wroga wręcz/dystansowy/oblężenia — Królestwom Północy/Scoia'tael/Skellige. Remisy rozstrzygaj od góry do dołu, potem od lewej do prawej; jeśli nie ma jednostek, nic się nie dzieje.",
             "Flavor": "Daję ci trzy świeże tropy. Oferuję pomoc wywiadu i nadwornej czarodziejki. A ty zamiast córki przywozisz mi jakąś... Pokrakę?"
         },
         "12040": {
@@ -1095,7 +1095,7 @@
         },
         "13020": {
             "Name": "Dorregaray z Vole",
-            "Info": "Rozmieszczenie: Stwórz Zdziczałego niedźwiedzia, Wiwerne, Barbegazi, lub Utopca.",
+            "Info": "Rozmieszczenie: Wygeneruj Zdziczałego niedźwiedzia, Wiwernę, Barbegazi lub Utopca.",
             "Flavor": "Dorregaray prześciga w fanaberiach nawet wiedźminów. Nie poprzestaje na dzieleniu potworów na dobre i złe. Uważa, że wszystkie są dobre."
         },
         "13021": {
@@ -1110,7 +1110,7 @@
         },
         "13023": {
             "Name": "Czarna Krew",
-            "Info": "Wybierz: Utwórz brązową kartę Trupojada albo Wampira i wzmocnij ją o 2, lub Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
+            "Info": "Wybierz: Wygeneruj spoza swojej talii początkowej brązowego Trupojada albo Wampira i wzmocnij go o 1 lub zniszcz brązowego bądź srebrnego Trupojada albo Wampira.",
             "Flavor": "Wszystkie wampiry zgodnie uważają, że korzystanie z tego eliksiru jest niesportowym zachowaniem."
         },
         "13024": {
@@ -1215,7 +1215,7 @@
         },
         "13044": {
             "Name": "Garnizon",
-            "Info": "Utwórz brązową lub srebrną jednostkę z talii początkowej przeciwnika i wzmocnij ją o 2.",
+            "Info": "Wygeneruj niebędącą Szpiegiem brązową lub srebrną jednostkę z talii początkowej przeciwnika i wzmocnij ją o 1.",
             "Flavor": "Puk, puk, jest tam kto ?"
         },
         "14001": {
@@ -1435,7 +1435,7 @@
         },
         "21003": {
             "Name": "Szepczące Wzgórze",
-            "Info": "Rozmieszczenie: Utwórz srebrną kartę organiczną.",
+            "Info": "Rozmieszczenie: Wygeneruj brązową lub srebrną kartę organiczną.",
             "Flavor": "Pojawi się znowu. W innym miejscu, poza naszym zasięgiem. Znów poleje się krew."
         },
         "21004": {
@@ -1615,7 +1615,7 @@
         },
         "23020": {
             "Name": "Runa Dziewanna",
-            "Info": "Utwórz brązową lub srebrną kartę Potworów.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Moje ostrze tnie... Cóż, ostrzej."
         },
         "23021": {
@@ -1880,7 +1880,7 @@
         },
         "31004": {
             "Name": "Uzurpator",
-            "Info": "Szpieg \nRozmieszczenie: Utwórz dowolnego Dowódcę i wzmocnij go o 2.",
+            "Info": "Szpieg.\nRozmieszczenie: Wygeneruj niebędącego Szpiegiem Dowódcę z frakcji przeciwnika i wzmocnij go o 1.",
             "Flavor": "Czemu urodzenie ma decydować o tym, kto nam przewodzi?"
         },
         "32001": {
@@ -2035,7 +2035,7 @@
         },
         "33016": {
             "Name": "Vreemde",
-            "Info": "Rozmieszczenie: Utwórz brązową kartę Nilfgaardzkiego Żołnierza.",
+            "Info": "Rozmieszczenie: Wygeneruj brązowego Nilfgaardzkiego Żołnierza spoza swojej talii początkowej.",
             "Flavor": "Wielkie Słońce ogrzeje Północ swoimi promieniami, choćbym miał was wszystkich wyrżnąć!"
         },
         "33017": {
@@ -2050,7 +2050,7 @@
         },
         "33019": {
             "Name": "Runa Darzbóg",
-            "Info": "Utwórz i zagraj brązową kartę Nilfgaardu.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Uważaj, wciąż jest gorąca."
         },
         "33020": {
@@ -2255,7 +2255,7 @@
         },
         "41002": {
             "Name": "Królewna Adda",
-            "Info": "Rozmieszczenie: Stwórz brązową przeklętą jednostkę Królestw Północy.",
+            "Info": "Rozmieszczenie: Wygeneruj brązową Przeklętą jednostkę Królestw Północy.",
             "Flavor": "Uwolniona od klątwy rzuconej z zazdrości, by powrócić na dwór wypełniony dokładnie tym samym."
         },
         "41003": {
@@ -2315,7 +2315,7 @@
         },
         "42010": {
             "Name": "Kiyan",
-            "Info": "Rozmieszczenie, Wybierz: Utwórz brązową lub srebrną kartę Alchemii lub Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
+            "Info": "Rozmieszczenie, Wybierz: Wygeneruj brązową kartę Alchemii spoza swojej talii początkowej albo zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
             "Flavor": "Żyjemy sobie na spokojnej wysepce niewiedzy śród czarnych mórz nieskończoności i nie powinniśmy wypuszczać się za daleko."
         },
         "42011": {
@@ -2425,7 +2425,7 @@
         },
         "43019": {
             "Name": "Runa Zoria",
-            "Info": "Utwórz brązową lub srebrną kartę Królestw Północy.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Runa emanuje nienaturalnym chłodem... Być może ktoś zranił kiedyś jej uczucia?"
         },
         "43020": {
@@ -2635,7 +2635,7 @@
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Rozmieszczenie: Utwórz srebrną kartę specjalną.",
+            "Info": "Rozmieszczenie: Wygeneruj srebrną neutralną kartę specjalną spoza swojej talii początkowej.",
             "Flavor": "Choć jest nas teraz niewielu i jesteśmy rozproszeni, nasze serca płoną jaśniej niż kiedykolwiek."
         },
         "51004": {
@@ -2705,7 +2705,7 @@
         },
         "52013": {
             "Name": "Isengrim Uciekinier",
-            "Info": "Rozmieszczenie, Wybierz: Zagraj brązową lub srebrną kartę specjalną lub Utwórz srebrnego Elfa.",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj brązową lub srebrną kartę specjalną ze swojej talii albo wygeneruj niebędącego Szpiegiem srebrnego Elfa spoza swojej talii początkowej.",
             "Flavor": "Przed nami przełęcz Elskerdeg, a za przełęczą Zerrikania i Hakland. Przed nami daleka i niebezpieczna droga. Jeżeli mamy iść nią razem... Porzućmy nieufność."
         },
         "53001": {
@@ -2795,7 +2795,7 @@
         },
         "53018": {
             "Name": "Runa Morana",
-            "Info": "Utwórz brązową lub srebrną kartę Scoia'tael.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Mdli mnie na sam jej widok..."
         },
         "53019": {
@@ -2810,7 +2810,7 @@
         },
         "53021": {
             "Name": "Mahakamski Róg",
-            "Info": "Wybierz: Utwórz brązowego lub srebrnego Krasnoluda lub Ulepsz jednostkę o 7.",
+            "Info": "Wybierz: Wygeneruj brązowego Krasnoluda spoza swojej talii początkowej albo ulepsz jednostkę o 7.",
             "Flavor": "Pewnego razu w Mahakamie urządzono konkurs gry na rogu. Krasnoludy odkryły wtedy, że głośne dźwięki i ośnieżone szczyty nie są najszczęśliwszym zestawieniem."
         },
         "54001": {
@@ -3055,7 +3055,7 @@
         },
         "62012": {
             "Name": "Him",
-            "Info": "Rozmieszczenie, Wybierz: Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii lub Utwórz srebrną kartę jednostki z talii początkowej przeciwnika.",
+            "Info": "Rozmieszczenie, Wybierz: Zagraj brązową lub srebrną Przeklętą jednostkę ze swojej talii albo wygeneruj niebędącą Szpiegiem srebrną jednostkę z talii początkowej przeciwnika.",
             "Flavor": "Bogowie przemawiają do mnie. Słyszę ich szepty z cieni..."
         },
         "62013": {
@@ -3150,7 +3150,7 @@
         },
         "63018": {
             "Name": "Runa Strzybóg",
-            "Info": "Utwórz i zagraj brązową lub srebrną kartę Skellige.",
+            "Info": "Jeśli przegrywasz, wygeneruj spoza swojej talii początkowej brązową jednostkę swojej frakcji o parzystej sile; jeśli prowadzisz — o nieparzystej sile; przy remisie nic się nie dzieje.",
             "Flavor": "Ofirscy mistrzowie run potrafią układać je w najróżniejsze słowa, dodając im przy tym mocy."
         },
         "63019": {
@@ -3160,7 +3160,7 @@
         },
         "63020": {
             "Name": "Ozdobny Miecz",
-            "Info": "Utwórz brązową lub srebrną kartę Żołnierza ze Skellige i ulepsz ją o 3.",
+            "Info": "Wygeneruj brązowego Żołnierza ze Skellige spoza swojej talii początkowej i ulepsz go o 2.",
             "Flavor": ""
         },
         "64001": {

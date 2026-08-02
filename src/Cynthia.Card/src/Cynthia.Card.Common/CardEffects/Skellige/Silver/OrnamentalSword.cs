@@ -6,13 +6,19 @@ namespace Cynthia.Card
 {
     [CardEffectId("63020")]//华美的长剑
     public class OrnamentalSword : CardEffect
-    {//创造1个铜色/银色史凯利格“士兵”单位，并使其获得3点强化。
+    {//生成1个己方起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。
         public OrnamentalSword(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
-        {	//创造
-            await Card.CreateAndMoveStay(GwentMap.GetCreateCardsId(x => x.Faction == Faction.Skellige && (x.Group == Group.Copper || x.Group == Group.Silver) && x.HasAllCategorie(Categorie.Soldier), RNG).ToList());
+        {	//生成
+            var count = await Card.CreateAndMoveStay(
+                GwentMap.GetGenerateCardsId(
+                    x => x.Faction == Faction.Skellige &&
+                        x.Is(Group.Copper, CardType.Unit) &&
+                        x.HasAllCategorie(Categorie.Soldier),
+                    Card.GetMyBaseDeck().Select(x => x.CardId)).ToList());
+            if (count == 0) return 0;
             //强化玩家悬牌
-            await Game.PlayersStay[PlayerIndex][0].Effect.Strengthen(3, Card);
+            await Game.PlayersStay[PlayerIndex][0].Effect.Strengthen(2, Card);
             return 1;
         }
     }

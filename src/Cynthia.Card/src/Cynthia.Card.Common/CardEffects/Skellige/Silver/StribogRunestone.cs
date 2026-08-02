@@ -1,16 +1,9 @@
-using System.Linq;
-using System.Threading.Tasks;
-using Alsein.Extensions;
-
 namespace Cynthia.Card
 {
     [CardEffectId("63018")]//史璀伯格符文石
-    public class StribogRunestone : CardEffect
-    {//创造1张铜色/银色“史凯利格”牌。
+    public class StribogRunestone : FactionRunestoneEffect
+    {//落后时生成1个偶数铜色史凯利格单位；领先时生成1个奇数铜色史凯利格单位；平局不生效。
         public StribogRunestone(GameCard card) : base(card) { }
-        public override async Task<int> CardUseEffect()
-        {
-            return await Card.CreateAndMoveStay(GwentMap.GetCreateCardsId(x => x.Faction == Faction.Skellige && x.CardId != Card.Status.CardId && (x.Group == Group.Copper || x.Group == Group.Silver) && !x.HasAnyCategorie(Categorie.Agent), RNG).ToList());
-        }
+        protected override Faction RunestoneFaction => Faction.Skellige;
     }
 }

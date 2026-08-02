@@ -136,3 +136,27 @@ Last verified: 2026-08-02
   (7/2 turns/2). Each timer resets to the same value after triggering.
 - Variants share their family's `CardArtsId`, miniature, and voice, but gameplay,
   deck limits, and same-card identity follow `CardId`, not art or display name.
+
+## Generate-effect experiment
+
+- In the DIY-AI `1.0.0.161` ruleset, “生成” presents every eligible candidate
+  and lets the player choose one. Do not reuse the legacy creation helper that
+  shuffles and takes three. “己方起始牌组之外” excludes matching `CardId`
+  values from the player's initial deck, and retired ordinary DIY cards remain
+  unavailable even when they otherwise match a predicate.
+- This rule applies to Whispering Hillock, Usurper, Princess Adda, Filavandrel,
+  Aguara: True Form, Triss: Telekinesis, Kiyan, Isengrim: Outlaw, Hym, Black
+  Blood, Garrison, Dorregaray, Vreemde, Mahakam Horn, Ornamental Sword, Uma's
+  Curse, and all five faction runestones. Multi-mode cards keep their unrelated
+  mode unchanged.
+- Uma uses the highest current on-board power and the candidate's base power
+  parity. On a tie, scan from top to bottom and left to right: enemy siege,
+  enemy ranged, enemy melee, own melee, own ranged, own siege; within one row,
+  use ascending card index. Those rows map respectively to Skellige,
+  Scoia'tael, Northern Realms, Nilfgaard, Monsters, and Neutral. An empty board
+  ends the effect.
+- Faction runestones generate an even-power Bronze unit of the player's faction
+  while behind and an odd-power one while ahead. A tied score ends the effect.
+  Their candidates are non-spies outside the player's initial deck.
+- Triss: Telekinesis keeps its original source pool—Bronze special cards present
+  in either player's initial deck—but presents all distinct eligible candidates.
