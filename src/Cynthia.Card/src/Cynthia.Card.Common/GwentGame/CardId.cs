@@ -279,6 +279,9 @@ namespace Cynthia.Card
         public const string NauzicaaBrigade = "34020";
         public const string Spotter = "34021";
         public const string ViperWitcher = "34022";
+        public const string ViperWitcherA = "34034";
+        public const string ViperWitcherB = "34035";
+        public const string ViperWitcherC = "34036";
         public const string DaerlanSoldier = "34023";
         public const string AlbaPikeman = "34024";
         public const string ImperialGolem = "34025";
@@ -482,6 +485,9 @@ namespace Cynthia.Card
         public const string AnCraiteBlacksmith = "64007";
         public const string SavageBear = "64008";
         public const string AnCraiteGreatsword = "64009";
+        public const string AnCraiteGreatswordA = "64035";
+        public const string AnCraiteGreatswordB = "64036";
+        public const string AnCraiteGreatswordC = "64037";
         public const string TuirseachArcher = "64010";
         public const string DrummondWarmonger = "64011";
         public const string TuirseachSkirmisher = "64012";

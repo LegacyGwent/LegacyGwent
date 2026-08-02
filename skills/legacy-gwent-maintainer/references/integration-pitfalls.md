@@ -41,8 +41,8 @@ Last verified: 2026-08-02
 - Prevention: never accept an entire conflicted card-rule file without comparing
   it with the current `origin/diy-ai`; keep a named regression test for every
   published balance batch.
-- Verification: run `AugustSecondBalancePatchMatchesPublishedRules` after any
-  migration merge and confirm Viper Witcher uses `Count / 3 * 2`, Spotter uses
-  `Strength / 2`, both Greatsword countdown assignments are 3, Dimun Pirate is
-  11, Dimun Corsair is 1, Triss: Telekinesis is 5, and the map version is at
-  least 1.0.0.159.
+- Verification: run `AugustSecondBalancePatchMatchesPublishedRules` and
+  `TemporaryBalanceVariantsAreIndependentAndMatchTheirPublishedRules` after any
+  migration merge. Confirm the Viper Witcher and An Craite Greatsword Z/A/B/C
+  parameter matrices, Spotter `Strength / 2`, Dimun Pirate 11, Dimun Corsair 1,
+  Triss: Telekinesis 5, and a map version of at least `1.0.0.160`.

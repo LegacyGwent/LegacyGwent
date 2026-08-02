@@ -52,6 +52,11 @@ Last verified: 2026-08-02
   The Unity client already downloads versioned card-map, trinket-map, and locale
   JSON, so compatible card rules, values, names, descriptions, and server fixes
   normally do not require a public client release.
+- A new server card can reuse an existing `CardArtsId`; the Unity client then
+  reuses its full art, `_slot` miniature, and voice while treating the new
+  `CardId` as an independent card. Append the definition, register a distinct
+  effect type, add every locale entry, and bump `CardMapVersion`; no player
+  rebuild is needed when no new asset or protocol is introduced.
 - Downloaded locales persist under the client data path. Card and trinket maps
   currently replace only the in-memory compiled maps; cache them atomically with
   version/hash validation and a compiled fallback before relying on them offline.

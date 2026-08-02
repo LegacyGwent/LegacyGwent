@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,14 +40,19 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 159), GwentMap.CardMapVersion);
-            Assert.Equal(709, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 160), GwentMap.CardMapVersion);
+            Assert.Equal(715, GwentMap.CardMap.Count);
 
-            var orderedIds = string.Join(",", GwentMap.CardMap.Keys);
-            var hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(orderedIds)))
+            var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
+            var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
                 .ToLowerInvariant();
 
-            Assert.Equal("1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9", hash);
+            Assert.Equal(
+                "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
+                historicalHash);
+            Assert.Equal(
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037" },
+                GwentMap.CardMap.Keys.Skip(709));
         }
 
         [Fact]
@@ -119,8 +125,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 159);
-            var stale = new Version(1, 0, 0, 158);
+            var current = new Version(1, 0, 0, 160);
+            var stale = new Version(1, 0, 0, 159);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -200,21 +206,171 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(11, GwentMap.CardMap[CardId.DimunPirate].Strength);
             Assert.Equal(1, GwentMap.CardMap[CardId.DimunCorsair].Strength);
             Assert.Contains("基础战力一半（向下取整）", GwentMap.CardMap[CardId.Spotter].Info);
-            Assert.Contains("每有3张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcher].Info);
-            Assert.Contains("造成2点伤害", GwentMap.CardMap[CardId.ViperWitcher].Info);
-            Assert.Contains("每3回合", GwentMap.CardMap[CardId.AnCraiteGreatsword].Info);
 
             var spotterSource = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Nilfgaard/Copper/Spotter.cs"));
-            var viperSource = File.ReadAllText(FindRepositoryFile(
-                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Nilfgaard/Copper/ViperWitcher.cs"));
-            var greatswordSource = File.ReadAllText(FindRepositoryFile(
-                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Skellige/Copper/AnCraiteGreatsword.cs"));
 
             Assert.Contains("Status.Strength / 2", spotterSource);
-            Assert.Contains("Count / 3 * 2", viperSource);
-            Assert.Contains("if (point <= 0) return 0;", viperSource);
-            Assert.Equal(2, Regex.Matches(greatswordSource, @"SetCountdown\(value:\s*3\)").Count);
+        }
+
+        [Fact]
+        public void TemporaryBalanceVariantsAreIndependentAndMatchTheirPublishedRules()
+        {
+            var viperIds = new[]
+            {
+                CardId.ViperWitcher,
+                CardId.ViperWitcherA,
+                CardId.ViperWitcherB,
+                CardId.ViperWitcherC
+            };
+            var greatswordIds = new[]
+            {
+                CardId.AnCraiteGreatsword,
+                CardId.AnCraiteGreatswordA,
+                CardId.AnCraiteGreatswordB,
+                CardId.AnCraiteGreatswordC
+            };
+
+            Assert.Equal(new[] { 5, 5, 5, 3 }, viperIds.Select(id => GwentMap.CardMap[id].Strength));
+            Assert.Equal(new[] { 8, 8, 8, 7 }, greatswordIds.Select(id => GwentMap.CardMap[id].Strength));
+            Assert.All(viperIds, id =>
+            {
+                Assert.Equal("20012400", GwentMap.CardMap[id].CardArtsId);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+            });
+            Assert.All(greatswordIds, id =>
+            {
+                Assert.Equal("20004000", GwentMap.CardMap[id].CardArtsId);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+            });
+
+            Assert.Contains("每有1张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcher].Info);
+            Assert.Contains("每有3张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcherA].Info);
+            Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.ViperWitcherB].Info);
+            Assert.Contains("每有1张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcherC].Info);
+            Assert.Contains("每2回合", GwentMap.CardMap[CardId.AnCraiteGreatsword].Info);
+            Assert.Contains("每3回合", GwentMap.CardMap[CardId.AnCraiteGreatswordA].Info);
+            Assert.Contains("获得3点强化", GwentMap.CardMap[CardId.AnCraiteGreatswordB].Info);
+            Assert.Contains("每2回合", GwentMap.CardMap[CardId.AnCraiteGreatswordC].Info);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(ViperWitcher), dataService.GetType(CardId.ViperWitcher));
+            Assert.Equal(typeof(ViperWitcherA), dataService.GetType(CardId.ViperWitcherA));
+            Assert.Equal(typeof(ViperWitcherB), dataService.GetType(CardId.ViperWitcherB));
+            Assert.Equal(typeof(ViperWitcherC), dataService.GetType(CardId.ViperWitcherC));
+            Assert.Equal(typeof(AnCraiteGreatsword), dataService.GetType(CardId.AnCraiteGreatsword));
+            Assert.Equal(typeof(AnCraiteGreatswordA), dataService.GetType(CardId.AnCraiteGreatswordA));
+            Assert.Equal(typeof(AnCraiteGreatswordB), dataService.GetType(CardId.AnCraiteGreatswordB));
+            Assert.Equal(typeof(AnCraiteGreatswordC), dataService.GetType(CardId.AnCraiteGreatswordC));
+
+            var viperEffects = new ViperWitcherEffect[]
+            {
+                new ViperWitcher(new GameCard(null)),
+                new ViperWitcherA(new GameCard(null)),
+                new ViperWitcherB(new GameCard(null)),
+                new ViperWitcherC(new GameCard(null))
+            };
+            var getDamage = typeof(ViperWitcherEffect).GetMethod(
+                "GetDamage",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            var skipZeroDamage = typeof(ViperWitcherEffect).GetProperty(
+                "SkipTargetWhenNoDamage",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.Equal(new[] { 0, 0, 3, 0 }, viperEffects.Select(effect =>
+                (int)getDamage.Invoke(effect, new object[] { 0 })));
+            Assert.Equal(new[] { 3, 2, 5, 3 }, viperEffects.Select(effect =>
+                (int)getDamage.Invoke(effect, new object[] { 3 })));
+            Assert.Equal(new[] { 7, 4, 7, 7 }, viperEffects.Select(effect =>
+                (int)getDamage.Invoke(effect, new object[] { 7 })));
+            Assert.Equal(new[] { false, true, false, false }, viperEffects.Select(effect =>
+                (bool)skipZeroDamage.GetValue(effect)));
+
+            var greatswordEffects = new AnCraiteGreatswordEffect[]
+            {
+                new AnCraiteGreatsword(new GameCard(null)),
+                new AnCraiteGreatswordA(new GameCard(null)),
+                new AnCraiteGreatswordB(new GameCard(null)),
+                new AnCraiteGreatswordC(new GameCard(null))
+            };
+            var turnCountdown = typeof(AnCraiteGreatswordEffect).GetProperty(
+                "TurnCountdown",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            var strengthenAmount = typeof(AnCraiteGreatswordEffect).GetProperty(
+                "StrengthenAmount",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.Equal(new[] { 2, 3, 3, 2 }, greatswordEffects.Select(effect =>
+                (int)turnCountdown.GetValue(effect)));
+            Assert.Equal(new[] { 2, 2, 3, 2 }, greatswordEffects.Select(effect =>
+                (int)strengthenAmount.GetValue(effect)));
+
+            var expectedNamesByLanguage = new Dictionary<string, string[]>
+            {
+                ["cn"] = new[]
+                {
+                    "毒蛇学派猎魔人A", "毒蛇学派猎魔人B", "毒蛇学派猎魔人C",
+                    "奎特家族巨剑士A", "奎特家族巨剑士B", "奎特家族巨剑士C"
+                },
+                ["en"] = new[]
+                {
+                    "Viper Witcher A", "Viper Witcher B", "Viper Witcher C",
+                    "An Craite Greatsword A", "An Craite Greatsword B", "An Craite Greatsword C"
+                },
+                ["pl"] = new[]
+                {
+                    "Wiedźmin Szkoły Żmii A", "Wiedźmin Szkoły Żmii B", "Wiedźmin Szkoły Żmii C",
+                    "Rębacz an Craite A", "Rębacz an Craite B", "Rębacz an Craite C"
+                },
+                ["ru"] = new[]
+                {
+                    "Ведьмак школы Змеи A", "Ведьмак школы Змеи B", "Ведьмак школы Змеи C",
+                    "Ан Крайт: мечник A", "Ан Крайт: мечник B", "Ан Крайт: мечник C"
+                }
+            };
+            var variantIds = viperIds.Skip(1).Concat(greatswordIds.Skip(1)).ToArray();
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(localeRoots, localeRoot =>
+            {
+                Assert.All(expectedNamesByLanguage, expectedNames =>
+                {
+                    var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{expectedNames.Key}.json")));
+                    Assert.Equal(
+                        expectedNames.Value,
+                        variantIds.Select(id => locale.CardLocales[id].Name));
+                    Assert.All(variantIds, id => Assert.False(string.IsNullOrWhiteSpace(locale.CardLocales[id].Info)));
+                    Assert.All(variantIds, id => Assert.False(string.IsNullOrWhiteSpace(locale.CardLocales[id].Flavor)));
+                });
+            });
+
+            var familyIds = viperIds.Concat(greatswordIds).ToArray();
+            Assert.All(expectedNamesByLanguage.Keys, language =>
+            {
+                var locales = localeRoots.Select(localeRoot =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{language}.json")))).ToArray();
+                Assert.All(familyIds, id =>
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                    {
+                        Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                        Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                        Assert.Equal(locales[0].CardLocales[id].Flavor, locale.CardLocales[id].Flavor);
+                    });
+                });
+            });
+
+            var chineseLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(familyIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chineseLocale.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chineseLocale.CardLocales[id].Info);
+            });
         }
 
         [Fact]

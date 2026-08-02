@@ -2180,7 +2180,7 @@
         },
         "34022": {
             "Name": "Wiedźmin Szkoły Żmii",
-            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń za każde 3 karty Alchemii w twojej talii początkowej.",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń za każdą kartę Alchemii w twojej talii początkowej.",
             "Flavor": "Żmije są szkolone do walki z dwoma ostrzami, potocznie zwanymi „kłami”. Ich styl koncentruje się na szybkich, agresywnych ciosach, których celem jest zdominowanie przeciwnika - czy to potwora, czy to człowieka."
         },
         "34023": {
@@ -3205,7 +3205,7 @@
         },
         "64009": {
             "Name": "Rębacz an Craite",
-            "Info": "Po każdych 3 turach, jeśli ta jednostka jest ranna, na początku tury uzdrów ją i ulepsz o 2.",
+            "Info": "Po każdych 2 turach, jeśli ta jednostka jest ranna, na początku tury uzdrów ją i ulepsz o 2.",
             "Flavor": "Nie rozśmieszaj mnie, Nordlingu! Nie byłbyś w stanie nawet unieść mojego półtoraka, a co dopiero nim walczyć!"
         },
         "64010": {
@@ -4192,6 +4192,36 @@
             "Name": "Świeży rekrut",
             "Info": "Na początku gry ulepsz tę jednostkę o siłę Bogini Sprawiedliwości.",
             "Flavor": ""
+        },
+        "34034": {
+            "Name": "Wiedźmin Szkoły Żmii A",
+            "Info": "Rozmieszczenie: Zadaj 2 pkt obrażeń za każde 3 karty Alchemii w twojej talii początkowej.",
+            "Flavor": "Żmije są szkolone do walki z dwoma ostrzami, potocznie zwanymi „kłami”. Ich styl koncentruje się na szybkich, agresywnych ciosach, których celem jest zdominowanie przeciwnika - czy to potwora, czy to człowieka."
+        },
+        "34035": {
+            "Name": "Wiedźmin Szkoły Żmii B",
+            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń oraz dodatkowe 2 pkt za każde 3 karty Alchemii w twojej talii początkowej.",
+            "Flavor": "Żmije są szkolone do walki z dwoma ostrzami, potocznie zwanymi „kłami”. Ich styl koncentruje się na szybkich, agresywnych ciosach, których celem jest zdominowanie przeciwnika - czy to potwora, czy to człowieka."
+        },
+        "34036": {
+            "Name": "Wiedźmin Szkoły Żmii C",
+            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń za każdą kartę Alchemii w twojej talii początkowej.",
+            "Flavor": "Żmije są szkolone do walki z dwoma ostrzami, potocznie zwanymi „kłami”. Ich styl koncentruje się na szybkich, agresywnych ciosach, których celem jest zdominowanie przeciwnika - czy to potwora, czy to człowieka."
+        },
+        "64035": {
+            "Name": "Rębacz an Craite A",
+            "Info": "Po każdych 3 turach, jeśli ta jednostka jest ranna, na początku tury uzdrów ją i ulepsz o 2.",
+            "Flavor": "Nie rozśmieszaj mnie, Nordlingu! Nie byłbyś w stanie nawet unieść mojego półtoraka, a co dopiero nim walczyć!"
+        },
+        "64036": {
+            "Name": "Rębacz an Craite B",
+            "Info": "Po każdych 3 turach, jeśli ta jednostka jest ranna, na początku tury uzdrów ją i ulepsz o 3.",
+            "Flavor": "Nie rozśmieszaj mnie, Nordlingu! Nie byłbyś w stanie nawet unieść mojego półtoraka, a co dopiero nim walczyć!"
+        },
+        "64037": {
+            "Name": "Rębacz an Craite C",
+            "Info": "Po każdych 2 turach, jeśli ta jednostka jest ranna, na początku tury uzdrów ją i ulepsz o 2.",
+            "Flavor": "Nie rozśmieszaj mnie, Nordlingu! Nie byłbyś w stanie nawet unieść mojego półtoraka, a co dopiero nim walczyć!"
         }
     }
 }

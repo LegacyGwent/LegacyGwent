@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 159);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 160);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -6078,7 +6078,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "毒蛇学派将会重生……雷索志在必得。",
-                    Info = "己方起始牌组中每有3张“炼金”牌，便造成2点伤害。",
+                    Info = "己方起始牌组中每有1张“炼金”牌，便造成1点伤害。",
                     CardArtsId = "20012400",
                     LinkedCards=new List<String> {},
                 }
@@ -10363,7 +10363,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？",
-                    Info = "每3回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
+                    Info = "每2回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
                     CardArtsId = "20004000",
                     LinkedCards=new List<String> {},
                 }
@@ -15207,6 +15207,133 @@ namespace Cynthia.Card
                     Flavor = "索姆的山谷王国说得好听，其实就是个收买路财的关口。不过克鲁姆懂得扩张，还有改革。",
                     Info = "使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。",
                     CardArtsId = "203263",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            // 以下测试卡必须追加在 CardMap 末尾，避免改变历史牌组编码的序号。
+            {
+                "34034",//毒蛇学派猎魔人A
+                new GwentCard()
+                {
+                    CardId ="34034", //Viper Witcher A
+                    Name="毒蛇学派猎魔人A",
+                    Strength=5,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "毒蛇学派将会重生……雷索志在必得。",
+                    Info = "己方起始牌组中每有3张“炼金”牌，便造成2点伤害。",
+                    CardArtsId = "20012400",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "34035",//毒蛇学派猎魔人B
+                new GwentCard()
+                {
+                    CardId ="34035", //Viper Witcher B
+                    Name="毒蛇学派猎魔人B",
+                    Strength=5,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "毒蛇学派将会重生……雷索志在必得。",
+                    Info = "造成3点伤害，己方起始牌组中每有3张“炼金”牌，便额外造成2点伤害。",
+                    CardArtsId = "20012400",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "34036",//毒蛇学派猎魔人C
+                new GwentCard()
+                {
+                    CardId ="34036", //Viper Witcher C
+                    Name="毒蛇学派猎魔人C",
+                    Strength=3,
+                    Group=Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Witcher},
+                    Flavor = "毒蛇学派将会重生……雷索志在必得。",
+                    Info = "己方起始牌组中每有1张“炼金”牌，便造成1点伤害。",
+                    CardArtsId = "20012400",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "64035",//奎特家族巨剑士A
+                new GwentCard()
+                {
+                    CardId ="64035", //An Craite Greatsword A
+                    Name="奎特家族巨剑士A",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
+                    Flavor = "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？",
+                    Info = "每3回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
+                    CardArtsId = "20004000",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "64036",//奎特家族巨剑士B
+                new GwentCard()
+                {
+                    CardId ="64036", //An Craite Greatsword B
+                    Name="奎特家族巨剑士B",
+                    Strength=8,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
+                    Flavor = "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？",
+                    Info = "每3回合，若受伤，则在回合开始时治愈自身，并获得3点强化。",
+                    CardArtsId = "20004000",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "64037",//奎特家族巨剑士C
+                new GwentCard()
+                {
+                    CardId ="64037", //An Craite Greatsword C
+                    Name="奎特家族巨剑士C",
+                    Strength=7,
+                    Group=Group.Copper,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
+                    Flavor = "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？",
+                    Info = "每2回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
+                    CardArtsId = "20004000",
                     LinkedCards=new List<String> {},
                 }
             },

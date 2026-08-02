@@ -82,8 +82,8 @@ Last verified: 2026-08-02
 - Run `scripts/card_art_inventory.ps1` from the skill directory; it compares
   full-size Addressable art, `GwentMap` dictionary keys and art IDs, explicit
   `CardEffectId` attributes, and `_slot` miniatures.
-- Verified inventory: 1,343 unique full-size card-art assets, 709 `CardMap`
-  entries, 692 explicit card-effect IDs, and 671 unique art IDs assigned to a
+- Verified inventory: 1,343 unique full-size card-art assets, 715 `CardMap`
+  entries, 698 explicit card-effect IDs, and 671 unique art IDs assigned to a
   card definition.
 - Of the art assets, 659 are used by a card with an explicit effect, 12 are
   assigned only to effectless card definitions, and 672 are completely
@@ -121,3 +121,18 @@ Last verified: 2026-08-02
 - Both effects apply 2 points four times, with no separate initial 3-point
   hit/boost. Each copy of the counterpart potion in the player's graveyard adds
   one more 2-point repetition.
+
+## Temporary public balance variants
+
+- DIY-AI exposes four independent Copper IDs for each test family. The original
+  unsuffixed name is the Z/original rule; A/B/C are separate cards and each has
+  its own three-copy limit. Do not add a shared family limit unless requested.
+- Viper Witcher uses `34022` for Z (5 power, 1 damage per starting-deck Alchemy),
+  `34034` for A (5 power, 2 damage per complete group of 3 Alchemy), `34035`
+  for B (5 power, base 3 damage plus 2 per complete group of 3), and `34036`
+  for C (3 power with the Z effect).
+- An Craite Greatsword uses `64009` for Z (8 power, 2-turn timer, Strengthen 2),
+  `64035` for A (8/3 turns/2), `64036` for B (8/3 turns/3), and `64037` for C
+  (7/2 turns/2). Each timer resets to the same value after triggering.
+- Variants share their family's `CardArtsId`, miniature, and voice, but gameplay,
+  deck limits, and same-card identity follow `CardId`, not art or display name.

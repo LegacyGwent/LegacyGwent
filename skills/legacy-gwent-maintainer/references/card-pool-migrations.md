@@ -2,7 +2,7 @@
 
 Last verified: 2026-08-02
 
-Verified against the DIY-AI reset lineage through `1.0.0.159`.
+Verified against the DIY-AI reset lineage through `1.0.0.160`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -16,6 +16,9 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   remaps every later ordinal and corrupts historical decoding.
 - Never remove, reorder, or reuse an existing CardMap slot. Retire a card
   logically, preserve the complete map for decoding, and append future cards.
+- A published new ID remains permanent map history even when an experiment ends.
+  Retire it logically; deleting it would corrupt decks and results created during
+  the experiment. Sharing `CardArtsId` does not change this identity rule.
 - Before changing availability, snapshot the exact ordered ID map and increment
   `CardMapVersion`. Existing Unity clients fetch the server map when the version
   differs, so a pure availability reset does not by itself require a rebuilt
@@ -26,11 +29,13 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 709 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 715 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- The resulting baseline/system/selected-DIY pool is 528 entries; 181 current
-  entries are legacy DIY retirement candidates. The two promoted exceptions are
+- The resulting baseline/system/selected-DIY/experimental pool is 534 entries;
+  181 current entries are legacy DIY retirement candidates and 488 entries are
+  user-deckable after also excluding system and derived cards. The two promoted
+  exceptions are
   `70041` (鬼针草煎药) and `70042` (合欢茎魔药), both using exactly the
   `Special + Alchemy` categories.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
@@ -57,7 +62,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 709 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 715 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

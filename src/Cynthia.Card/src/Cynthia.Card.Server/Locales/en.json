@@ -2181,7 +2181,7 @@
         },
         "34022": {
             "Name": "Viper Witcher",
-            "Info": "Deploy: Deal 2 Damage for every 3 Alchemy cards in your starting deck.",
+            "Info": "Deploy: Deal 1 Damage for each Alchemy card in your starting deck.",
             "Flavor": "Viper Witchers are trained to fight with twin blades, often referred to as “fangs”. This style focuses on fast and furious strikes aimed to overwhelm their target, be it monster or man."
         },
         "34023": {
@@ -3206,7 +3206,7 @@
         },
         "64009": {
             "Name": "An Craite Greatsword",
-            "Info": "Every 3 turns, on turn start, if Damaged, Heal self and Strengthen by 2.",
+            "Info": "Every 2 turns, on turn start, if Damaged, Heal self and Strengthen by 2.",
             "Flavor": "Ahh, ye gave me a good laugh there, Nordling! Why, this bastard, ye couldn't even grip it, let alone gut me with it."
         },
         "64010": {
@@ -4193,6 +4193,36 @@
             "Name": "Fresh Recruit",
             "Info": "At the start of the game, Strengthen self by The Goddess of Justice's Power.",
             "Flavor": ""
+        },
+        "34034": {
+            "Name": "Viper Witcher A",
+            "Info": "Deploy: Deal 2 Damage for every 3 Alchemy cards in your starting deck.",
+            "Flavor": "Viper Witchers are trained to fight with twin blades, often referred to as “fangs”. This style focuses on fast and furious strikes aimed to overwhelm their target, be it monster or man."
+        },
+        "34035": {
+            "Name": "Viper Witcher B",
+            "Info": "Deploy: Deal 3 Damage, plus 2 Damage for every 3 Alchemy cards in your starting deck.",
+            "Flavor": "Viper Witchers are trained to fight with twin blades, often referred to as “fangs”. This style focuses on fast and furious strikes aimed to overwhelm their target, be it monster or man."
+        },
+        "34036": {
+            "Name": "Viper Witcher C",
+            "Info": "Deploy: Deal 1 Damage for each Alchemy card in your starting deck.",
+            "Flavor": "Viper Witchers are trained to fight with twin blades, often referred to as “fangs”. This style focuses on fast and furious strikes aimed to overwhelm their target, be it monster or man."
+        },
+        "64035": {
+            "Name": "An Craite Greatsword A",
+            "Info": "Every 3 turns, on turn start, if Damaged, Heal self and Strengthen by 2.",
+            "Flavor": "Ahh, ye gave me a good laugh there, Nordling! Why, this bastard, ye couldn't even grip it, let alone gut me with it."
+        },
+        "64036": {
+            "Name": "An Craite Greatsword B",
+            "Info": "Every 3 turns, on turn start, if Damaged, Heal self and Strengthen by 3.",
+            "Flavor": "Ahh, ye gave me a good laugh there, Nordling! Why, this bastard, ye couldn't even grip it, let alone gut me with it."
+        },
+        "64037": {
+            "Name": "An Craite Greatsword C",
+            "Info": "Every 2 turns, on turn start, if Damaged, Heal self and Strengthen by 2.",
+            "Flavor": "Ahh, ye gave me a good laugh there, Nordling! Why, this bastard, ye couldn't even grip it, let alone gut me with it."
         }
     }
 }
