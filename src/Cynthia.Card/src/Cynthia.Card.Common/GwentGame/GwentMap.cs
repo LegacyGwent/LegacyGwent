@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 156);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 157);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -714,7 +714,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12026", //Triss: Telekinesis
                     Name="特莉丝：心灵传动",
-                    Strength=6,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6047,7 +6047,7 @@ namespace Cynthia.Card
                 {
                     CardId ="34021",
                     Name="侦察员",
-                    Strength=5,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6057,7 +6057,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "北方佬耍不出花招了。",
-                    Info = "获得等同于1张被揭示铜色/银色单位牌基础战力的增益。",
+                    Info = "获得等同于1张被揭示铜色/银色单位牌基础战力一半（向下取整）的增益。",
                     CardArtsId = "16230300",
                     LinkedCards=new List<String> {},
                 }
@@ -6078,7 +6078,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "毒蛇学派将会重生……雷索志在必得。",
-                    Info = "己方起始牌组中每有1张“炼金”牌，便造成1点伤害。",
+                    Info = "己方起始牌组中每有3张“炼金”牌，便造成2点伤害。",
                     CardArtsId = "20012400",
                     LinkedCards=new List<String> {},
                 }
@@ -10206,7 +10206,7 @@ namespace Cynthia.Card
                 {
                     CardId ="64002", //Dimun Pirate
                     Name="迪门家族海盗",
-                    Strength=11,
+                    Strength=1,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -10363,7 +10363,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanAnCraite},
                     Flavor = "啊哈哈，你真让我笑掉大牙，北方佬！怎么？我手上这把大家伙，你都不一定拿得动，还想用它对付我？",
-                    Info = "每2回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
+                    Info = "每3回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
                     CardArtsId = "20004000",
                     LinkedCards=new List<String> {},
                 }

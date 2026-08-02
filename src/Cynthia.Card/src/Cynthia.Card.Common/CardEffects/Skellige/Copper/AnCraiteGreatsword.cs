@@ -6,11 +6,11 @@ namespace Cynthia.Card
 {
     [CardEffectId("64009")]//奎特家族巨剑士
     public class AnCraiteGreatsword : CardEffect, IHandlesEvent<AfterTurnStart>
-    {//每2回合，若受伤，则在回合开始时治愈自身，并获得2点强化。
+    {//每3回合，若受伤，则在回合开始时治愈自身，并获得2点强化。
         public AnCraiteGreatsword(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.SetCountdown(value: 2);
+            await Card.Effect.SetCountdown(value: 3);
             return 0;
         }
 
@@ -22,7 +22,7 @@ namespace Cynthia.Card
                 if (Card.Effect.Countdown <= 0)
                 {
                     //重新倒计时
-                    await Card.Effect.SetCountdown(value: 2);
+                    await Card.Effect.SetCountdown(value: 3);
                     //如果受伤，触发效果
                     if (Card.Status.HealthStatus < 0)
                     {

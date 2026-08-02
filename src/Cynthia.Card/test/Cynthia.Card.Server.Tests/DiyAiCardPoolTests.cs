@@ -37,7 +37,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 156), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 157), GwentMap.CardMapVersion);
             Assert.Equal(709, GwentMap.CardMap.Count);
 
             var orderedIds = string.Join(",", GwentMap.CardMap.Keys);
@@ -117,8 +117,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 156);
-            var stale = new Version(1, 0, 0, 155);
+            var current = new Version(1, 0, 0, 157);
+            var stale = new Version(1, 0, 0, 156);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -188,6 +188,30 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(typeof(IHandlesEvent<AfterCardMove>).IsAssignableFrom(typeof(AleOfTheAncestors)));
             Assert.True(typeof(IHandlesEvent<AfterCardMove>).IsAssignableFrom(typeof(BloodMoonStatus)));
             Assert.True(typeof(IHandlesEvent<AfterCardMove>).IsAssignableFrom(typeof(PitTrapStatus)));
+        }
+
+        [Fact]
+        public void AugustSecondBalancePatchMatchesPublishedRules()
+        {
+            Assert.Equal(5, GwentMap.CardMap[CardId.TrissTelekinesis].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.Spotter].Strength);
+            Assert.Equal(1, GwentMap.CardMap[CardId.DimunPirate].Strength);
+            Assert.Contains("基础战力一半（向下取整）", GwentMap.CardMap[CardId.Spotter].Info);
+            Assert.Contains("每有3张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcher].Info);
+            Assert.Contains("造成2点伤害", GwentMap.CardMap[CardId.ViperWitcher].Info);
+            Assert.Contains("每3回合", GwentMap.CardMap[CardId.AnCraiteGreatsword].Info);
+
+            var spotterSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Nilfgaard/Copper/Spotter.cs"));
+            var viperSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Nilfgaard/Copper/ViperWitcher.cs"));
+            var greatswordSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Skellige/Copper/AnCraiteGreatsword.cs"));
+
+            Assert.Contains("Status.Strength / 2", spotterSource);
+            Assert.Contains("Count / 3 * 2", viperSource);
+            Assert.Contains("if (point <= 0) return 0;", viperSource);
+            Assert.Equal(2, Regex.Matches(greatswordSource, @"SetCountdown\(value:\s*3\)").Count);
         }
 
         private static string FindRepositoryFile(string relativePath)
