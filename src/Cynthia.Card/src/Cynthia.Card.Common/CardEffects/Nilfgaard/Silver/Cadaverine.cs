@@ -13,8 +13,8 @@ namespace Cynthia.Card
         {
             var switchCard = await Card.GetMenuSwitch
             (
-                ("毒药", "对1个敌军单位以及所有与它同类型的单位造成2点伤害。"),
-                ("强酸", "摧毁1个铜色/银色“中立”单位。")
+                ("毒药", "Cadaverine_1_DamegeCategory"),
+                ("强酸", "Cadaverine_2_DestroyNeutral")
             );
             if (switchCard == 0)
             {

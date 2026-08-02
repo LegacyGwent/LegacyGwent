@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Kiyan(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var switchCard = await Card.GetMenuSwitch(("禁术", "创造1张铜色/银色“炼金”牌。"), ("忌器", "从牌组打出1张铜色/银色“道具”牌。"));
+            var switchCard = await Card.GetMenuSwitch(("禁术", "Kiyan_1_CreateAlchemy"), ("忌器", "Kiyan_2_PlayItem"));
             if (switchCard == 0)
             {
                 var ids = GwentMap.GetCreateCardsId(x => x.Is(filter: x => x.HasAllCategorie(Categorie.Alchemy) && x.IsAnyGroup(Group.Copper, Group.Silver)), Game.RNG);

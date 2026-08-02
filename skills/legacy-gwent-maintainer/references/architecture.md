@@ -1,6 +1,6 @@
 # Architecture
 
-Last verified: 2026-08-01
+Last verified: 2026-08-02
 
 ## Main components
 
@@ -45,6 +45,45 @@ Last verified: 2026-08-01
 - `SeasonOverviewService` requests a date-bounded Mongo projection, excludes
   results that fail `GameResult.IsEffective()`, uses the canonical red/blue
   status helpers, and caches the derived overview for two minutes.
+
+## Client update boundary
+
+- Card effect classes are discovered and executed by the authoritative server.
+  The Unity client already downloads versioned card-map, trinket-map, and locale
+  JSON, so compatible card rules, values, names, descriptions, and server fixes
+  normally do not require a public client release.
+- Downloaded locales persist under the client data path. Card and trinket maps
+  currently replace only the in-memory compiled maps; cache them atomically with
+  version/hash validation and a compiled fallback before relying on them offline.
+- Unity 2019.4.1f1 includes Addressables 1.18.11 and uses Addressables for card
+  art, miniatures, avatars, and borders, but remote catalogs are disabled and all
+  groups still use local paths. This is local packaging, not resource hot update.
+- Current Addressables groups are packed together: the principal card-art bundle
+  is about 172 MiB on Android and 190 MiB on Windows. Remote migration must first
+  split content by change frequency or immutable pack and preserve per-platform
+  `addressables_content_state.bin` files.
+- Voice lines, music, and effects still load synchronously through `Resources`.
+  Move these only after the art pilot, split voice downloads by language, and
+  replace synchronous loads with preload/async paths.
+- Weather presentation is not generic: `ShowWeather.cs` maps serialized
+  `RowStatus` values to row colors with `Single`. An unknown new weather has no
+  fallback and can throw in an old client; publish a generic weather presenter
+  before treating future weather prefabs/materials/shaders as remote content.
+  Remote shaders remain platform-specific assets: ship their materials and a
+  small `ShaderVariantCollection` with the effect pack and warm it before a
+  match. A new render pipeline, native plugin, or C# render controller still
+  crosses the full-player boundary.
+- Persistent card visuals are fixed `CardStatus` fields rendered by several
+  compiled card prefabs. A new mechanic such as poison can run server-side, but
+  visible stacks/duration require a bootstrap client until a generic status
+  descriptor and shared status-overlay prefab exist.
+- AI decisions/decks and spectator admission, visibility, ordering, and limits
+  can change server-side while existing RPCs and operation DTOs remain stable.
+  Separate AI menus, spectator controls/camera, and other interaction changes
+  are compiled Unity UI behavior and cross the client-release boundary.
+- UI/C# changes, protocol-breaking changes, engine upgrades, PlayerSettings, and
+  native-plugin changes still require a full player release. Treat HybridCLR as
+  a separate IL2CPP migration rather than part of the first resource-update step.
 
 ## Branch tracks
 

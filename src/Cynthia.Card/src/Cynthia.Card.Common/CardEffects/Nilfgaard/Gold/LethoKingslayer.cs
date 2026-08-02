@@ -14,8 +14,8 @@ namespace Cynthia.Card
             //选择界面
             var switchCard = await Card.GetMenuSwitch
             (
-                ("屠宰", "摧毁1名敌军领袖，自身获得5点增益。"),
-                ("诡计", "从牌组打出1张铜色/银色“谋略”牌。")
+                ("屠宰", "LethoKingslayer_1_Destroy"),
+                ("诡计", "LethoKingslayer_2_PlayTactic")
             );
             //选项1
             if (switchCard == 0)

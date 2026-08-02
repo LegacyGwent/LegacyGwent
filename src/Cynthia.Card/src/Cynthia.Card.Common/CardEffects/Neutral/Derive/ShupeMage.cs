@@ -116,11 +116,11 @@ namespace Cynthia.Card
         {
             methodDesDict = new Dictionary<int, string>()
             {
-                {1, "抽1张牌"},
-                {2, "随机魅惑1个敌军单位"},
-                {3, "在对方三排随机生成一种灾厄"},
-                {4, "对1个敌军造成10点伤害，再对其相邻单位造成5点"},
-                {5, "从牌组打出1张铜色/银色“特殊”牌"}
+                {1, "ShupeMage_1_DrawCard"},
+                {2, "ShupeMage_2_Charm"},
+                {3, "ShupeMage_3_Hazard"},
+                {4, "ShupeMage_4_Damage"},
+                {5, "ShupeMage_5_Special"}
             };
         }
     }

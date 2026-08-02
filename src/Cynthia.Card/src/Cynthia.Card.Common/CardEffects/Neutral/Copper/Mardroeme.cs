@@ -13,8 +13,8 @@ namespace Cynthia.Card
             //选择选项,设置每个选项的名字和效果
             var switchCard = await Card.GetMenuSwitch
             (
-                ("突变诱发物", "重置1个单位，并使其获得3点强化；"),
-                ("毒物", "重置1个单位，使其受到3点削弱；")
+                ("突变诱发物", "Mardroeme_1_Strenghten"),
+                ("毒物", "Mardroeme_2_Weaken")
             );
             //选择场上任意一个单位
             var target = await Game.GetSelectPlaceCards(Card);

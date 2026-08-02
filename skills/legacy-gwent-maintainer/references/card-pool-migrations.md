@@ -2,8 +2,7 @@
 
 Last verified: 2026-08-02
 
-Verified against deployed DIY-AI commit `1f047f56e9bb08e3fbbcb039541fdce1ba43c762`
-and the reset content map lineage through `1.0.0.156`.
+Verified against the DIY-AI reset lineage through `1.0.0.158`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -30,8 +29,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 - Current map: 709 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- The resulting baseline/system pool is 526 entries; 183 current entries are
-  legacy DIY retirement candidates.
+- The resulting baseline/system/selected-DIY pool is 528 entries; 181 current
+  entries are legacy DIY retirement candidates. The two promoted exceptions are
+  `70041` (鬼针草煎药) and `70042` (合欢茎魔药), both using their historical
+  `Special + Alchemy + Item` categories.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.

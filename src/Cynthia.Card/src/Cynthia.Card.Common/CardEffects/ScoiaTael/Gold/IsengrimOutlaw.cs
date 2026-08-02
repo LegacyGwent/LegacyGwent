@@ -11,8 +11,8 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var switchCard = await Card.GetMenuSwitch(
-               ("暴行", "从牌组打出1张铜色/银色“特殊”牌"),
-               ("后援", "创造1个银色“精灵”单位")
+               ("暴行", "IsengrimOutlaw_1_PlaySpecial"),
+               ("后援", "IsengrimOutlaw_2_CreateElf")
            );
 
             //从牌组打出1张铜色/银色“特殊”牌

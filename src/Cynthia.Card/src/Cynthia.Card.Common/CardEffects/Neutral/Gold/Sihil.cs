@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             //均衡，分裂，装备 来源 https://www.bilibili.com/video/av17561142?from=search&seid=13434231812588843367 22:15
-            var switchCard = await Card.GetMenuSwitch(("均衡", "对所有战力为“奇数”的敌军单位造成3点伤害。"), ("分裂", "对所有战力为“偶数”的敌军单位造成3点伤害。"), ("装备", "从牌组随机打出1个铜色/银色单位。"));
+            var switchCard = await Card.GetMenuSwitch(("均衡", "Sihil_1_DamageOdd"), ("分裂", "Sihil_2_DamageEven"), ("装备", "Sihil_3_PlayUnit"));
             if (switchCard == 0)
             {
 

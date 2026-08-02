@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public BoneTalisman(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var switchCard = await Card.GetMenuSwitch(("野兽", "复活1个铜色“野兽”或“呓语”单位"), ("再生", "治愈1名友军单位，并使其获得3点强化"));
+            var switchCard = await Card.GetMenuSwitch(("野兽", "BoneTalisman_1_ResurectBeast"), ("再生", "BoneTalisman_2_Strenghten"));
             if (switchCard == 0)
             {
                 //从我方墓地列出铜色“野兽”或“呓语”单位

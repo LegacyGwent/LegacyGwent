@@ -13,8 +13,8 @@ namespace Cynthia.Card
             //选择选项,设置每个选项的名字和效果
             var switchCard = await Card.GetMenuSwitch
             (
-                ("挑拨", "创造1个铜色“食腐生物”或“吸血鬼”单位，并使其获得2点增益。"),
-                ("剧毒", "摧毁1个铜色 / 银色“食腐生物”或“吸血鬼”单位。")
+                ("挑拨", "BlackBlood_1_CreateVampire"),
+                ("剧毒", "BlackBlood_2_DestroyVampire")
             );
             if (switchCard == 0)
             {

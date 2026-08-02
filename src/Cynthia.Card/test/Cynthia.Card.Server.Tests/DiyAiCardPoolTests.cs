@@ -19,9 +19,11 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(183, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(181, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
+            Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
+            Assert.DoesNotContain("70042", DiyAiCardPool.RetiredCardIds);
 
             Assert.All(
                 DiyAiCardPool.RetiredCardIds,
@@ -37,7 +39,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 157), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 158), GwentMap.CardMapVersion);
             Assert.Equal(709, GwentMap.CardMap.Count);
 
             var orderedIds = string.Join(",", GwentMap.CardMap.Keys);
@@ -117,8 +119,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 157);
-            var stale = new Version(1, 0, 0, 156);
+            var current = new Version(1, 0, 0, 158);
+            var stale = new Version(1, 0, 0, 157);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -195,7 +197,8 @@ namespace Cynthia.Card.Server.Tests
         {
             Assert.Equal(5, GwentMap.CardMap[CardId.TrissTelekinesis].Strength);
             Assert.Equal(7, GwentMap.CardMap[CardId.Spotter].Strength);
-            Assert.Equal(1, GwentMap.CardMap[CardId.DimunPirate].Strength);
+            Assert.Equal(11, GwentMap.CardMap[CardId.DimunPirate].Strength);
+            Assert.Equal(1, GwentMap.CardMap[CardId.DimunCorsair].Strength);
             Assert.Contains("基础战力一半（向下取整）", GwentMap.CardMap[CardId.Spotter].Info);
             Assert.Contains("每有3张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcher].Info);
             Assert.Contains("造成2点伤害", GwentMap.CardMap[CardId.ViperWitcher].Info);
@@ -212,6 +215,185 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("Count / 3 * 2", viperSource);
             Assert.Contains("if (point <= 0) return 0;", viperSource);
             Assert.Equal(2, Regex.Matches(greatswordSource, @"SetCountdown\(value:\s*3\)").Count);
+        }
+
+        [Fact]
+        public void SelectedDiyAiPotionsUseTheHistoricalAlchemyVersion()
+        {
+            Assert.All(new[] { "70041", "70042" }, cardId =>
+            {
+                var card = GwentMap.CardMap[cardId];
+                Assert.True(DiyAiCardPool.IsUserDeckCard(cardId));
+                Assert.False(card.IsDerive);
+                Assert.Equal(Group.Copper, card.Group);
+                Assert.Equal(CardType.Special, card.CardType);
+                Assert.Contains(Categorie.Special, card.Categories);
+                Assert.Contains(Categorie.Alchemy, card.Categories);
+                Assert.Contains(Categorie.Item, card.Categories);
+            });
+
+            var bidensSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/Neutral/Copper/BidensBipinnata.cs"));
+            var albizziaSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/Neutral/Copper/AlbizziaJulibrissin.cs"));
+            Assert.Contains("for (var i = 0; i < 3 + count; i++)", bidensSource);
+            Assert.Contains("for (var i = 0; i < 3 + count; i++)", albizziaSource);
+            Assert.Contains("造成2点伤害，重复3次", GwentMap.CardMap["70041"].Info);
+            Assert.Contains("获得2点增益，重复3次", GwentMap.CardMap["70042"].Info);
+        }
+
+        [Fact]
+        public void ActiveChoiceMenusUseLocalizedOptionKeys()
+        {
+            var expectedChoicesBySource = new Dictionary<string, string[]>
+            {
+                ["Monsters/Gold/WeavessIncantation.cs"] = new[]
+                {
+                    "WeavessIncantation_1_Strenghten", "WeavessIncantation_2_PlayRelict"
+                },
+                ["Neutral/Copper/Mardroeme.cs"] = new[]
+                {
+                    "Mardroeme_1_Strenghten", "Mardroeme_2_Weaken"
+                },
+                ["Neutral/Derive/ShupeKnight.cs"] = new[]
+                {
+                    "ShupeKnight_1_Strengthen", "ShupeKnight_2_Resilience",
+                    "ShupeKnight_3_Duel", "ShupeKnight_4_Reset", "ShupeKnight_5_Destroy"
+                },
+                ["Neutral/Derive/ShupeHunter.cs"] = new[]
+                {
+                    "ShupeHunter_1_SingleDamage", "ShupeHunter_2_RepeatedDamage",
+                    "ShupeHunter_3_Replay", "ShupeHunter_4_PlayFromDeck",
+                    "ShupeHunter_5_ClearSky"
+                },
+                ["Neutral/Derive/ShupeMage.cs"] = new[]
+                {
+                    "ShupeMage_1_DrawCard", "ShupeMage_2_Charm", "ShupeMage_3_Hazard",
+                    "ShupeMage_4_Damage", "ShupeMage_5_Special"
+                },
+                ["Neutral/Gold/Sihil.cs"] = new[]
+                {
+                    "Sihil_1_DamageOdd", "Sihil_2_DamageEven", "Sihil_3_PlayUnit"
+                },
+                ["Neutral/Silver/BlackBlood.cs"] = new[]
+                {
+                    "BlackBlood_1_CreateVampire", "BlackBlood_2_DestroyVampire"
+                },
+                ["Neutral/Silver/Mandrake.cs"] = new[]
+                {
+                    "Mandrake_1_Strenghten", "Mandrake_2_Weaken"
+                },
+                ["Nilfgaard/Gold/LethoKingslayer.cs"] = new[]
+                {
+                    "LethoKingslayer_1_Destroy", "LethoKingslayer_2_PlayTactic"
+                },
+                ["Nilfgaard/Silver/Cadaverine.cs"] = new[]
+                {
+                    "Cadaverine_1_DamegeCategory", "Cadaverine_2_DestroyNeutral"
+                },
+                ["NorthernRealms/Gold/Kiyan.cs"] = new[]
+                {
+                    "Kiyan_1_CreateAlchemy", "Kiyan_2_PlayItem"
+                },
+                ["NorthernRealms/Silver/VandergriftSBlade.cs"] = new[]
+                {
+                    "VandergriftSBlade_1_DestroyCursed", "VandergriftSBlade_2_Damage"
+                },
+                ["ScoiaTael/Gold/IsengrimOutlaw.cs"] = new[]
+                {
+                    "IsengrimOutlaw_1_PlaySpecial", "IsengrimOutlaw_2_CreateElf"
+                },
+                ["ScoiaTael/Silver/MahakamHorn.cs"] = new[]
+                {
+                    "MahakamHorn_1_CreateDwarf", "MahakamHorn_2_Strenghten"
+                },
+                ["Skellige/Copper/BoneTalisman.cs"] = new[]
+                {
+                    "BoneTalisman_1_ResurectBeast", "BoneTalisman_2_Strenghten"
+                },
+                ["Skellige/Gold/Hym.cs"] = new[]
+                {
+                    "Hym_1_PlayCursed", "Hym_2_PlaySilver"
+                },
+                ["Neutral/Gold/GaunterODimm.cs"] = new[]
+                {
+                    "GaunterODimm_1_LowerThanSix", "GaunterODimm_2_EqualToSix",
+                    "GaunterODimm_3_HigherThanSix"
+                },
+                ["Neutral/Gold/Aguara.cs"] = new[]
+                {
+                    "Aguara_1_BoostLowest", "Aguara_2_DamageHighest",
+                    "Aguara_3_BoostHand", "Aguara_4_CharmElf"
+                }
+            };
+            var cardEffectRoot =
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects";
+            Assert.All(expectedChoicesBySource, choiceSource =>
+            {
+                var source = File.ReadAllText(FindRepositoryFile(
+                    $"{cardEffectRoot}/{choiceSource.Key}"));
+                Assert.All(choiceSource.Value, key => Assert.Contains($"\"{key}\"", source));
+            });
+
+            var expectedKeys = expectedChoicesBySource
+                .SelectMany(choiceSource => choiceSource.Value)
+                .ToArray();
+            Assert.Equal(49, expectedKeys.Length);
+            Assert.Equal(49, expectedKeys.Distinct(StringComparer.Ordinal).Count());
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            var menuTextsByLanguage = new Dictionary<string, Dictionary<string, string>>(
+                StringComparer.Ordinal);
+            Assert.All(localeRoots, localeRoot =>
+            {
+                Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+                {
+                    var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{language}.json")));
+                    Assert.All(expectedKeys, key =>
+                    {
+                        Assert.True(locale.MenuLocales.TryGetValue(key, out var text));
+                        Assert.False(string.IsNullOrWhiteSpace(text));
+                    });
+                    Assert.All(expectedChoicesBySource.Values, optionKeys =>
+                    {
+                        var optionTexts = optionKeys
+                            .Select(key => locale.MenuLocales[key])
+                            .ToArray();
+                        Assert.Equal(
+                            optionTexts.Length,
+                            optionTexts.Distinct(StringComparer.Ordinal).Count());
+                    });
+                    Assert.Contains("9", locale.MenuLocales["VandergriftSBlade_2_Damage"]);
+                    Assert.DoesNotContain("10", locale.MenuLocales["VandergriftSBlade_2_Damage"]);
+                    Assert.Contains("2", locale.MenuLocales["Cadaverine_1_DamegeCategory"]);
+                    Assert.DoesNotContain("3", locale.MenuLocales["Cadaverine_1_DamegeCategory"]);
+
+                    var currentTexts = expectedKeys.ToDictionary(
+                        key => key,
+                        key => locale.MenuLocales[key],
+                        StringComparer.Ordinal);
+                    if (menuTextsByLanguage.TryGetValue(language, out var canonicalTexts))
+                    {
+                        Assert.Equal(canonicalTexts, currentTexts);
+                    }
+                    else
+                    {
+                        menuTextsByLanguage[language] = currentTexts;
+                    }
+                });
+            });
+
+            var chineseLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.Contains("除自身外", chineseLocale.MenuLocales[
+                "WeavessIncantation_1_Strenghten"]);
+            Assert.Contains("食腐生物", chineseLocale.MenuLocales[
+                "BlackBlood_1_CreateVampire"]);
         }
 
         private static string FindRepositoryFile(string relativePath)

@@ -11,7 +11,7 @@ namespace Cynthia.Card
 		public override async Task<int> CardUseEffect()
 		{
 
-			var switchCard = await Card.GetMenuSwitch(("警告", "创造1张铜色/银色“矮人”牌"), ("战斗的召唤", "使1个单位获得7点强化"));
+			var switchCard = await Card.GetMenuSwitch(("警告", "MahakamHorn_1_CreateDwarf"), ("战斗的召唤", "MahakamHorn_2_Strenghten"));
 
 			if (switchCard == 0)
 			{

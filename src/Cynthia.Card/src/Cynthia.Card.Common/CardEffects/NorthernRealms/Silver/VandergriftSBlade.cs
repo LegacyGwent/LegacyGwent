@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             //卡牌描述来自https://www.bilibili.com/video/av17561142?from=search&seid=5862653946081547514 48：56
-            var switchCard = await Card.GetMenuSwitch(("一刀两断", "摧毁1个铜色/银色“诅咒单位”敌军单位。"), ("凶暴重击", "造成9点伤害，放逐所摧毁的单位"));
+            var switchCard = await Card.GetMenuSwitch(("一刀两断", "VandergriftSBlade_1_DestroyCursed"), ("凶暴重击", "VandergriftSBlade_2_Damage"));
             if (switchCard == 0)
             {
                 var target = await Game.GetSelectPlaceCards(Card, 1, false,

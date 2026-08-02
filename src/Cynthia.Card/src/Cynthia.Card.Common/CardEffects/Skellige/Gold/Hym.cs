@@ -13,8 +13,8 @@ namespace Cynthia.Card
             //选择选项,设置每个选项的名字和效果
             //选项名来源 https://vmobile.douyu.com/show/a4Jj7lZXpoqWDk01?share_source=2 5分钟往后一点
             var switchCard = await Card.GetMenuSwitch(
-                ("寄生之缚", "从牌组打出1张铜色/银色“诅咒生物”牌"),
-                ("低语", "创造对方初始牌组中1张银色单位牌")
+                ("寄生之缚", "Hym_1_PlayCursed"),
+                ("低语", "Hym_2_PlaySilver")
             );
 
             //选择了打诅咒生物的话

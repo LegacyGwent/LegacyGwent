@@ -100,3 +100,26 @@ Last verified: 2026-08-02
 - Count occupation by the dictionary key, not the duplicated `GwentCard.CardId`
   property. Entry key `70108` currently has the incorrect property value
   `70106`; treating the property as identity miscounts effect/art ownership.
+
+## Similar Chinese card names
+
+- `CardId.DimunPirate` (`64002`) is “迪门家族海盗”: base strength 11 and
+  discards all remaining copies of itself from the deck.
+- `CardId.DimunCorsair` (`64028`) is “迪门家族海贼”: base strength 1 after the
+  2026-08-02 balance patch and resurrects a Bronze Machine unit.
+- Do not identify these cards from the shared “迪门家族海…” prefix. Confirm the
+  exact Chinese name, `CardId`, art, and effect text before applying balance data.
+
+## Selected DIY cards in the reset pool
+
+- `70041` is 鬼针草煎药 and `70042` is 合欢茎魔药. DIY-AI deliberately
+  makes both cards deckable while the rest of the ordinary DIY retirement
+  manifest stays hidden.
+- Use their historical `Special + Alchemy + Item` category set. The stable DIY
+  branch removed `Alchemy` in 2024 and left them as item-only specials, but
+  DIY-AI retains the earlier alchemy tag so effects such as Viper Witcher count
+  them as alchemy cards.
+- Both effects apply an initial 3-point hit/boost, then apply a separate 2-point
+  effect three times. Each copy of the counterpart potion in the player's
+  graveyard adds one more 2-point repetition. Chinese copy must say the 2-point
+  effect is repeated three times; do not "fix" the implementation to two loops.

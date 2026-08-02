@@ -13,8 +13,8 @@ namespace Cynthia.Card
             //选择选项,设置每个选项的名字和效果
             var switchCard = await Card.GetMenuSwitch
             (
-                ("曼德拉甘酒", "治愈1个单位，并使其获得6点强化。"),
-                ("曼德拉根茎提取物", "重置1个单位，使其受到6点削弱。")
+                ("曼德拉甘酒", "Mandrake_1_Strenghten"),
+                ("曼德拉根茎提取物", "Mandrake_2_Weaken")
             );
             //选择场上任意一个单位
             var target = await Game.GetSelectPlaceCards(Card);

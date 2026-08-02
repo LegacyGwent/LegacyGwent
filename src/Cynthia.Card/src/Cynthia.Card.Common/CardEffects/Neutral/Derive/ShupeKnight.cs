@@ -90,11 +90,11 @@ namespace Cynthia.Card
         {
             methodDesDict = new Dictionary<int, string>()
             {
-                {1, "强化自身至25点"},
-                {2, "坚韧"},
-                {3, "与1个敌军单位对决"},
-                {4, "重置1个单位"},
-                {5, "摧毁所有战力低于4点的敌军单位"}
+                {1, "ShupeKnight_1_Strengthen"},
+                {2, "ShupeKnight_2_Resilience"},
+                {3, "ShupeKnight_3_Duel"},
+                {4, "ShupeKnight_4_Reset"},
+                {5, "ShupeKnight_5_Destroy"}
             };
         }
     }

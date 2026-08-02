@@ -116,31 +116,6 @@ Last verified: 2026-08-02
 - Verification: a normal push shows deploy queued behind both CI jobs and no
   separate push-triggered deploy run exists.
 
-## A direct DIY-AI branch push deploys without review
-
-- Symptom: an explicitly targeted push to `diy-ai` can reach port 5010 without a
-  pull request or required review.
-- Cause: `diy-ai` currently has no GitHub branch protection, while its successful
-  push CI invokes the reusable deployment workflow automatically.
-- Fix: push candidate work to a review branch and open a PR; merge into `diy-ai`
-  only after all runtime gates are complete.
-- Prevention: never use `git push origin HEAD:diy-ai` as a convenience command;
-  add branch protection before treating review as an enforced control.
-- Verification: query branch protection and workflow triggers, then confirm the
-  candidate SHA exists only on its review branch until approval.
-
-## A server-only follow-up reruns every Unity desktop build
-
-- Symptom: a PR synchronization that changes only server, website, or knowledge
-  files queues Windows, macOS, and Linux Unity jobs again.
-- Cause: `pull_request.paths` is evaluated against the PR's cumulative base-to-head
-  diff; an earlier Unity change remains in scope on every later synchronization.
-- Fix: let the final run finish, or split client and server work into separate PRs.
-- Prevention: batch non-client follow-ups before the first push when one PR must
-  contain both, and do not assume last-commit paths control PR workflow filters.
-- Verification: compare the latest commit paths with the complete PR file list
-  and the workflow event before cancelling or retriggering a queued build.
-
 ## `set -e` exits before a failed release can roll back
 
 - Symptom: `current` points at a bad release after `systemctl restart` fails,
@@ -189,6 +164,27 @@ Last verified: 2026-08-02
 - Fix: overlay Chinese card names and rule text from active `GwentMap` when locales load, while preserving flavor text.
 - Prevention: require every serialized Chinese card name/description to equal the active map in an automated test.
 - Verification: all 709 entries agree, and the old Windows client shows the restored Mauler plus the retained DIY rain rule.
+
+## Literal dynamic-choice text collapses into one card description
+
+- Symptom: Shupe or another choose-one/two card displays its full card
+  description for every offered ability even though the options execute different
+  effects.
+- Cause: `GetMenuSwitch` and equivalent hand-written menus reuse one card ID.
+  Unity `CardContent` treats `CardStatus.Info` as a menu-locale key; a literal
+  rendered sentence misses lookup and every option falls back to
+  `GetCardInfo` for that shared ID. The original-card reset accidentally
+  reintroduced this regression after it had been fixed.
+- Fix: send stable `MenuLocales` keys for every dynamic option. Keep the server,
+  Unity Resources, and Unity StreamingFile copies synchronized across cn/en/pl/ru;
+  bump `CardMapVersion` so installed clients download the corrected server locale.
+- Prevention: never pass player-facing text as a dummy option's `Info`; preserve
+  historical misspellings such as `Strenghten`, `Resurect`, and
+  `DamegeCategory` unless every producer and locale copy is migrated together.
+- Verification: `ActiveChoiceMenusUseLocalizedOptionKeys` covers all 49 active
+  options, requires distinct text within every option family, and guards the
+  restored 9-damage, 2-damage, and self-exclusion wording. Live choices show
+  different descriptions without requiring a client reinstall.
 
 ## A Unity cache restores another target platform
 

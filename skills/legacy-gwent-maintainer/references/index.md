@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-08-01
+Last verified: 2026-08-02
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -14,6 +14,7 @@ Read this file first, then load only the rows relevant to the task.
 | Runtime packages, vulnerability audits, upgrade paths | [dependencies.md](dependencies.md) | Supported pins and phased security upgrades |
 | Unity startup, runtime localization, platform launch | [unity-pitfalls.md](unity-pitfalls.md) | Unity runtime root causes and verified remedies |
 | Unity CI, packaging, versions, release artifacts | [unity-release-pitfalls.md](unity-release-pitfalls.md) | Unity release root causes and verified remedies |
+| Branches, worktrees, PR integration, workflow triggers | [integration-pitfalls.md](integration-pitfalls.md) | Integration drift and automation traps |
 | Other failure, confusing symptom, known trap | [pitfalls.md](pitfalls.md) | Cross-cutting root causes and verified remedies |
 | Website, Blazor, local preview failure | [website-pitfalls.md](website-pitfalls.md) | Website-specific symptoms and verified remedies |
 | Why the current approach was selected | [decisions.md](decisions.md) | Active architectural decisions |

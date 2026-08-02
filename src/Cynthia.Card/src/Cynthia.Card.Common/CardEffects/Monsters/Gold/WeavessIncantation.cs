@@ -13,8 +13,8 @@ namespace Cynthia.Card
             //选择选项,设置每个选项的名字和效果
             var switchCard = await Card.GetMenuSwitch
             (
-                ("罪恶之力", "使位于手牌、牌组和己方半场除自身外的所有“残物”单位获得2点强化。"),
-                ("邪物召唤", "从牌组打出1张铜色/银色“残物”牌，并使其获得2点强化。")
+                ("罪恶之力", "WeavessIncantation_1_Strenghten"),
+                ("邪物召唤", "WeavessIncantation_2_PlayRelict")
             );
 
             //选择了buff的话

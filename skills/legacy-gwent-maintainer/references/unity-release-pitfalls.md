@@ -121,3 +121,19 @@ Last verified: 2026-08-02
   spending time booting an emulator.
 - Verification: at least one APK ABI intersects the target device ABI list, then
   installation, startup, and the actual 5010 TCP connection succeed.
+
+## One changed card art redownloads the whole remote bundle
+
+- Symptom: after enabling a remote Addressables catalog, changing one card image
+  makes a client download roughly 172-190 MiB again.
+- Cause: the existing default card-art group uses local `Pack Together`; merely
+  switching its load path to remote preserves one giant platform-specific bundle.
+- Fix: split assets by change frequency or immutable content pack, build remote
+  content separately for every target, preserve that player's
+  `addressables_content_state.bin`, upload hash-named bundles first, and publish
+  the catalog last.
+- Prevention: keep bootstrap UI and fallbacks local; remove `WaitForCompletion`
+  from remote load paths; retain previous catalogs and bundles for rollback.
+- Verification: update one test card on Windows and Android, confirm only its
+  bounded content group downloads, then verify progress, retry, disk-space,
+  offline fallback, and rollback behavior.
