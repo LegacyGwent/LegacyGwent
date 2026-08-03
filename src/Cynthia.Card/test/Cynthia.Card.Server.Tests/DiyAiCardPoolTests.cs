@@ -20,7 +20,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(180, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(159, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -42,7 +42,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 164), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 165), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -64,9 +64,55 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(starter.IsBasicDeck());
             Assert.All(starter.Deck, cardId => Assert.True(DiyAiCardPool.IsUserDeckCard(cardId)));
 
-            starter.Deck[0] = "70002";
+            starter.Deck[0] = "70003";
             Assert.False(starter.IsBasicDeck());
             Assert.False(starter.IsSpecialDeck());
+        }
+
+        [Fact]
+        public void AugustThirdCardBatchIsAvailableAndMatchesPublishedValues()
+        {
+            var deckableDiyCards = new[]
+            {
+                "70002", "70005", "70011", "70026", "70027", "70059",
+                "70062", "70070", "70091", "70110", "70119", "70131",
+                "70133", "70155", "70157", "70161", "70172", "70190"
+            };
+            Assert.All(deckableDiyCards, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
+
+            var generatedCards = new[] { "70006", "70071", "70162" };
+            Assert.All(generatedCards, id =>
+            {
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
+                Assert.True(GwentMap.CardMap[id].IsDerive);
+                Assert.False(DiyAiCardPool.IsUserDeckCard(id));
+            });
+
+            Assert.Equal(2, GwentMap.CardMap["21003"].Strength);
+            Assert.Equal(22, GwentMap.CardMap["70006"].Strength);
+            Assert.Equal(5, GwentMap.CardMap["70002"].Strength);
+            Assert.Equal(5, GwentMap.CardMap["22001"].Strength);
+            Assert.Equal(3, GwentMap.CardMap["70110"].Strength);
+            Assert.Equal(8, GwentMap.CardMap["70161"].Strength);
+            Assert.Equal(9, GwentMap.CardMap["70131"].Strength);
+            Assert.Equal(8, GwentMap.CardMap["70155"].Strength);
+            Assert.Equal(2, GwentMap.CardMap["70172"].Strength);
+            Assert.Contains(Categorie.Organic, GwentMap.CardMap["70157"].Categories);
+            Assert.DoesNotContain(Categorie.Alchemy, GwentMap.CardMap["70157"].Categories);
+            Assert.Equal("克鲁姆国王", GwentMap.CardMap["70190"].Name);
+
+            Assert.Equal("生成1张银色“有机”牌。", GwentMap.CardMap["21003"].Info);
+            Assert.Contains("随机非间谍单位", GwentMap.CardMap["12027"].Info);
+            Assert.Contains("伤害减半（向上取整）", GwentMap.CardMap["70062"].Info);
+            Assert.Contains("重复3次", GwentMap.CardMap["70119"].Info);
+            Assert.Contains("额外获得3点增益", GwentMap.CardMap["70133"].Info);
+            Assert.Contains("每个回合开始时", GwentMap.CardMap["70172"].Info);
+
+            var aguaraSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Neutral/Gold/Aguara.cs"));
+            Assert.Contains("Aguara_1_BoostLowest", aguaraSource);
+            Assert.Contains("Aguara_3_BoostHand", aguaraSource);
+            Assert.Contains("CardUseInfo.MyRow", aguaraSource);
         }
 
         [Fact]
@@ -127,8 +173,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 164);
-            var stale = new Version(1, 0, 0, 163);
+            var current = new Version(1, 0, 0, 165);
+            var stale = new Version(1, 0, 0, 164);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -201,22 +247,20 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
-        public void QuenAvailabilityDescriptionAndLandingHookMatchTheRule()
+        public void QuenAvailabilityAndDescriptionMatchTheImmediateShieldRule()
         {
             const string expectedInfo =
-                "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得“昆恩”：首次进入己方战场并完成部署结算后，获得2点增益和护盾。";
+                "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得2点增益和护盾。护盾可阻挡1次伤害；已有护盾的单位不能被选中。发起对决时，先破除自身护盾。";
             Assert.Equal(expectedInfo, GwentMap.CardMap[CardId.Quen].Info);
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Quen));
             Assert.False(GwentMap.CardMap[CardId.Quen].IsDerive);
-            Assert.True(typeof(IHandlesEvent<AfterUnitLanded>).IsAssignableFrom(
-                typeof(PendingQuenEffect)));
 
             var expectedInfoByLanguage = new Dictionary<string, string>
             {
                 ["cn"] = expectedInfo,
-                ["en"] = "Choose a Bronze or Silver unit in your hand. It and all copies in your hand and deck gain Quen: the first time each enters your side of the battlefield after its Deploy ability resolves, Boost it by 2 and give it Shield.",
-                ["pl"] = "Wybierz brązową lub srebrną jednostkę w swojej ręce. Ona i wszystkie jej kopie w ręce i talii otrzymują Quen: gdy każda z nich po raz pierwszy znajdzie się po twojej stronie pola bitwy po rozpatrzeniu Rozmieszczenia, wzmocnij ją o 2 i daj jej Tarczę.",
-                ["ru"] = "Выберите бронзовый или серебряный отряд в руке. Он и все его копии в руке и колоде получают «Квен»: когда каждый из них впервые попадёт на вашу сторону поля после завершения эффекта размещения, усильте его на 2 и дайте ему щит."
+                ["en"] = "Choose a Bronze or Silver unit in your hand. Boost it and all copies of it in your hand and deck by 2, then give them Shield. Shield blocks one instance of damage; units that already have Shield cannot be chosen. A unit initiating a Duel loses its Shield before attacking.",
+                ["pl"] = "Wybierz brązową lub srebrną jednostkę w swojej ręce. Wzmocnij ją oraz wszystkie jej kopie w ręce i talii o 2 i daj im Tarczę. Tarcza blokuje jedno źródło obrażeń; nie można wybrać jednostki, która już ma Tarczę. Jednostka rozpoczynająca Pojedynek traci Tarczę przed atakiem.",
+                ["ru"] = "Выберите бронзовый или серебряный отряд в руке. Усильте его и все его копии в руке и колоде на 2 и дайте им щит. Щит блокирует один случай урона; нельзя выбрать отряд, у которого уже есть щит. Отряд, начинающий дуэль, теряет щит перед атакой."
             };
             var quenLocaleRoots = new[]
             {
@@ -234,22 +278,6 @@ namespace Cynthia.Card.Server.Tests
                 });
             });
 
-            var cardEffectSource = File.ReadAllText(FindRepositoryFile(
-                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/CardEffect.cs"));
-            var cardDownStart = cardEffectSource.IndexOf(
-                "public virtual async Task CardDown",
-                StringComparison.Ordinal);
-            var landedHook = cardEffectSource.IndexOf(
-                "RaiseEvent(new AfterUnitLanded(Card))",
-                cardDownStart,
-                StringComparison.Ordinal);
-            var globalLandingEvent = cardEffectSource.IndexOf(
-                "SendEvent(new AfterUnitDown",
-                cardDownStart,
-                StringComparison.Ordinal);
-            Assert.True(cardDownStart >= 0);
-            Assert.True(landedHook > cardDownStart);
-            Assert.True(globalLandingEvent > landedHook);
         }
 
         [Fact]
@@ -310,7 +338,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void GenerateReworkMatchesPublishedRules()
         {
-            Assert.Equal(5, GwentMap.CardMap["21003"].Strength);
+            Assert.Equal(2, GwentMap.CardMap["21003"].Strength);
             Assert.Equal(5, GwentMap.CardMap["42010"].Strength);
             Assert.Equal(1, GwentMap.CardMap["52013"].Strength);
             Assert.Equal(2, GwentMap.CardMap["62012"].Strength);
@@ -324,7 +352,7 @@ namespace Cynthia.Card.Server.Tests
                 ["13020"] = "生成1只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
                 ["13023"] = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
                 ["13044"] = "生成对方起始牌组中的1张非间谍铜色/银色单位牌，并使其获得1点增益。",
-                ["21003"] = "生成1张铜色/银色“有机”牌。",
+                ["21003"] = "生成1张银色“有机”牌。",
                 ["23020"] = "若落后，生成1个己方起始牌组之外的怪兽偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
                 ["31004"] = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
                 ["33016"] = "生成1个己方起始牌组之外的铜色尼弗迦德“士兵”单位。",

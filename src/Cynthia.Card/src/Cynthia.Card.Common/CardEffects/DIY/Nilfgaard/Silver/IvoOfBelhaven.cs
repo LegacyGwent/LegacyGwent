@@ -33,6 +33,11 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDeath @event)
         {
+            if (@event.Target != Card)
+            {
+                return;
+            }
+
             var deck = Game.PlayersDeck[PlayerIndex]
                 .Where(card => card.Status.Categories.Contains(Categorie.Witcher))
                 .OrderByDescending(x => x.Status.Group).ToList();

@@ -72,11 +72,14 @@ namespace Cynthia.Card.Gameplay.Tests
             MenuSelectCardInfo info,
             Action<Operation<UserOperationType>> send)
         {
+            LastMenuOptionCount = info.SelectList.Count;
             var selected = Enumerable.Range(0, info.SelectList.Count)
                 .Take(info.SelectCount)
                 .ToList();
             send(Operation.Create(UserOperationType.SelectMenuCardsInfo, selected));
         }
+
+        public int LastMenuOptionCount { get; private set; }
 
         public override void SelectPlaceCards(
             PlaceSelectCardsInfo info,

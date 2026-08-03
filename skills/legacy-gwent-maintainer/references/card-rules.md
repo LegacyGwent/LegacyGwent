@@ -13,15 +13,15 @@ Last verified: 2026-08-03
 
 ## Selected DIY cards in the reset pool
 
-- `70001` is 昆恩法印 and is restored as a deckable Copper Neutral spell in
-  DIY-AI `1.0.0.164`. It selects a Bronze/Silver unit in hand and gives that
-  physical card plus same-ID cards currently in hand/deck a server-internal
-  pending Quen marker. Each marker waits for its own first successful landing on
-  its controller's side after deployment, then grants Boost 2 and Shield once.
-- Pending Quen is attached to each `GameCard`, not inferred later from card ID.
-  Death, return to hand, banish, or movement to the enemy side during deployment
-  does not consume it. A later qualifying summon/resurrection/normal play can
-  consume it; transformation removes it with the replaced `EffectSet`.
+- `70001` is 昆恩法印 and is a deckable Copper Neutral spell in DIY-AI
+  `1.0.0.165`. It immediately Boosts the selected Bronze/Silver hand unit and
+  all same-ID cards currently in hand/deck by 2, then gives each an ordinary
+  Shield. A revealed unit in hand therefore blocks one damage instance.
+- The shared Duel rule clears the initiating unit's Shield before its first
+  attack; the target's Shield still blocks the first incoming attack normally.
+  The Shield is not restored. In forced two-unit Duel effects such as Treason,
+  the first selected unit is the initiator. This makes two Shielded units
+  resolve without a special origin flag or a non-progressing loop.
 - `70041` is 鬼针草煎药 and `70042` is 合欢茎魔药. DIY-AI deliberately
   makes both cards deckable while the rest of the ordinary DIY retirement
   manifest stays hidden.
@@ -88,3 +88,25 @@ Last verified: 2026-08-03
   faction explicitly instead of saying “your faction” or “this faction”.
 - Triss: Telekinesis keeps its original source pool—Bronze special cards present
   in either player's initial deck—but presents all distinct eligible candidates.
+
+## August 3 public test batch
+
+- DIY-AI `1.0.0.165` re-enables these deckable DIY cards: `70002`, `70005`,
+  `70011`, `70026`, `70027`, `70059`, `70062`, `70070`, `70091`, `70110`,
+  `70119`, `70131`, `70133`, `70155`, `70157`, `70161`, `70172`, and `70190`.
+  Their derived dependencies `70006`, `70071`, and `70162` are available only
+  as generated/transformed cards, never as user-deck cards. Keep the runtime
+  pool and Mongo migration allowlist identical.
+- Living Armor has no deploy Armor. One unlocked Living Armor per allied row
+  halves each damage instance to any allied unit on that row, rounded up;
+  multiple copies never stack. Ivo of Belhaven's Deathwish runs only when Ivo
+  himself dies, not whenever any unit dies.
+- Lady of the Lake weakens by the remaining hand/deck card count once. Thaw
+  applies four base 2-point boosts (initial application plus three repeats),
+  then one more for each card played earlier that turn; `TurnCardPlayedNum`
+  already includes the current Thaw during its deploy effect.
+- Lonely Champion checks its row and the whole allied board independently at
+  owner turn end. Princess transforms one Bear on its row at every owner turn
+  start. Aguara's hand option excludes spies and every menu option must retain
+  its own localization key. Old Speartip uses two complete forms; Magic Lamp in
+  the cemetery makes The Last Wish inspect one additional card.

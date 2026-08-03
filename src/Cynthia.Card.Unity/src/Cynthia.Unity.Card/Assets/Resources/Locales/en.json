@@ -1436,7 +1436,7 @@
         },
         "21003": {
             "Name": "Whispering Hillock",
-            "Info": "Deploy: Generate a Bronze or Silver Organic card.",
+            "Info": "Generate a Silver Organic card.",
             "Flavor": "It will rise again. Elsewhere, beyond our reach. Blood will flow once more."
         },
         "21004": {
@@ -3371,7 +3371,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Choose a Bronze or Silver unit in your hand. It and all copies in your hand and deck gain Quen: the first time each enters your side of the battlefield after its Deploy ability resolves, Boost it by 2 and give it Shield.",
+            "Info": "Choose a Bronze or Silver unit in your hand. Boost it and all copies of it in your hand and deck by 2, then give them Shield. Shield blocks one instance of damage; units that already have Shield cannot be chosen. A unit initiating a Duel loses its Shield before attacking.",
             "Flavor": ""
         },
         "70002": {
@@ -3396,7 +3396,7 @@
         },
         "70006": {
             "Name": "Lady Of The Lake",
-            "Info": "Deploy: Weaken self by 2 for every card in your hand and deck.",
+            "Info": "Weaken self by the number of cards remaining in your hand and deck.",
             "Flavor": ""
         },
         "70007": {
@@ -3421,7 +3421,7 @@
         },
         "70011": {
             "Name": "Lady Of The Lake: Advent",
-            "Info": "Spawn Lady Of The Lake.",
+            "Info": "Spawn a 22-Power Lady of the Lake, which Weakens itself by the number of cards remaining in your hand and deck.",
             "Flavor": ""
         },
         "70012": {
@@ -3576,7 +3576,7 @@
         },
         "70062": {
             "Name": "Living Armor",
-            "Info": "Units in the same row as this unit take at most 5 Damage at once. 2 Armor.",
+            "Info": "All allied units on this row take half damage, rounded up.",
             "Flavor": "Sure it's expensive. But considering how much you'll save on room and board, you'll get a return on the investment by the end of this century!"
         },
         "70070": {
@@ -3806,7 +3806,7 @@
         },
         "70119": {
             "Name": "Thaw",
-            "Info": "Boost a random ally by 3.\nRepeat once, then repeat this ability for each card you have played this turn.",
+            "Info": "Boost a random ally by 2. Repeat 3 times, then repeat once more for each card you have played this turn.",
             "Flavor": "It heralds the coming of spring... Which, in turn, heralds the coming of war."
         },
         "70121": {
@@ -3871,7 +3871,7 @@
         },
         "70133": {
             "Name": "Lonely Champion",
-            "Info": "Every turn, on turn end, if no other units on your side of the board, boost self by 4.",
+            "Info": "At the end of your turn, if there are no other allied units on this row, boost self by 1. If there are no other allied units on your side, boost self by an additional 3.",
             "Flavor": "So long as he continues the righteous fight, the Order and its flame endure."
         },
         "70134": {
@@ -4066,7 +4066,7 @@
         },
         "70172": {
             "Name": "Princess",
-            "Info": "Deploy: Spawn a Bear.\nAt the start of your next turn, transform a Bear on the same row into a Raging Bear.",
+            "Info": "Deploy: Spawn a Bear. At the start of each of your turns, transform a Bear on this row into a Raging Bear.",
             "Flavor": "You've got all that important qualities every Roach has to have - you don't talk much."
         },
         "70173": {

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 164);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 165);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -777,7 +777,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Relict},
                     Flavor = "乖乖听话，不然就让狐妖把你抓走！",
-                    Info = "择二：使最弱的友军单位获得5点增益；使手牌中的1个随机单位获得5点增益；对最强的1个敌军单位造成5点伤害；魅惑1个战力不高于5点的敌军“精灵”单位。",
+                    Info = "择二：使最弱的友军单位获得5点增益；使手牌中的1个随机非间谍单位获得5点增益；对最强的1个敌军单位造成5点伤害；魅惑1个战力不高于5点的敌军“精灵”单位。",
                     CardArtsId = "20006200",
                     LinkedCards=new List<String> {},
                 }
@@ -2976,7 +2976,7 @@ namespace Cynthia.Card
                 {
                     CardId ="21003",
                     Name="呢喃山丘",
-                    Strength=5,
+                    Strength=2,
                     Group=Group.Leader,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -2986,7 +2986,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Relict},
                     Flavor = "它会在其它我们所无法触及的地方再次崛起。厄运会再次降临。",
-                    Info = "生成1张铜色/银色“有机”牌。",
+                    Info = "生成1张银色“有机”牌。",
                     CardArtsId = "20158700",
                     LinkedCards=new List<String> {"13030","13040","23021","23022"},
                 }
@@ -3039,7 +3039,7 @@ namespace Cynthia.Card
                 {
                     CardId ="22001",
                     Name="老矛头：昏睡",
-                    Strength=12,
+                    Strength=5,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -3049,7 +3049,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "别吵！",
-                    Info = "使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。",
+                    Info = "使相邻单位获得1点增益，自身获得5点护甲。己方回合开始时，若对方同排有至少3个单位，则苏醒。",
                     CardArtsId = "13221800",
                     LinkedCards=new List<String> {"22003"},
                 }
@@ -3091,7 +3091,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "哦，你现在可有大麻烦了......",
-                    Info = "对最多5个敌军同排单位造成2点伤害。",
+                    Info = "对最多5个敌军同排单位造成2点伤害。己方回合开始时，若对方同排单位不足3个，则沉睡。",
                     CardArtsId = "13240800",
                     LinkedCards=new List<String> {"22001"},
                 }
@@ -11161,7 +11161,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Spell},
                     Flavor = "昆恩法印的故事",
-                    Info = "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得“昆恩”：首次进入己方战场并完成部署结算后，获得2点增益和护盾。",
+                    Info = "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得2点增益和护盾。护盾可阻挡1次伤害；已有护盾的单位不能被选中。发起对决时，先破除自身护盾。",
                     CardArtsId = "c10000100",
                     LinkedCards=new List<String> {},
                 }
@@ -11172,7 +11172,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70002", //Detlaff: Higher Vampire
                     Name = "狄拉夫：高等吸血鬼",
-                    Strength = 6,
+                    Strength = 5,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11256,7 +11256,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70006", //Lady Of The Lake
                     Name = "湖中仙女",
-                    Strength = 25,
+                    Strength = 22,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11266,7 +11266,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。",
+                    Info = "对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和。",
                     CardArtsId = "c10000000",
                     LinkedCards=new List<String> {},
                 }
@@ -11372,7 +11372,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "",
-                    Info = "生成一张湖中仙女（24战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。）",
+                    Info = "生成1张湖中仙女（22战力，对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和）。",
                     CardArtsId = "c10000000",
                     LinkedCards=new List<String> {"70006"},
                 }
@@ -12047,7 +12047,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Construct},
                     Flavor = "价钱是贵了点。但是你把节省下来的吃住都算进去，不出一百年就能回本！",
-                    Info = "己方同排其他单位单次最多受到5点伤害。2点护甲。",
+                    Info = "己方同排单位受到的伤害减半（向上取整）。",
                     CardArtsId = "202404",
                     LinkedCards=new List<String> {},
                 }
@@ -12390,7 +12390,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
                     Flavor = "它带来了春天，也带来了战争。",
-                    Info = "随机使1个友军单位获得2点增益。重复一次。本回合中每打出过1张牌便额外重复1次。",
+                    Info = "随机使1个友军单位获得2点增益。重复3次。本回合中每打出过1张牌便额外重复1次。",
                     CardArtsId = "202213",
                     LinkedCards=new List<String> {},
                 }
@@ -12401,7 +12401,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70110", //Knickers
                     Name="裤裆",
-                    Strength=4,
+                    Strength=3,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13781,8 +13781,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
-                    Flavor = "回合结束时，若场上没有其它友军单位则获得4点增益。",
-                    Info = "只要他继续为正义而战，骑士团和烈焰就永不熄灭。",
+                    Flavor = "只要他继续为正义而战，骑士团和烈焰就永不熄灭。",
+                    Info = "回合结束时，若同排没有其他友军单位，则获得1点增益；若场上没有其他友军单位，则额外获得3点增益。",
                     CardArtsId = "202639",
                     LinkedCards=new List<String> {},
                 }
@@ -14003,7 +14003,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70131", //Count Caldwell
                     Name="考德威尔伯爵",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14507,7 +14507,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70155", //Isbel of Hagge
                     Name="哈吉的伊斯贝尔",
-                    Strength=9,
+                    Strength=8,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14557,7 +14557,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special ,Categorie.Alchemy},
+                    Categories = new Categorie[]{ Categorie.Special ,Categorie.Organic},
                     Flavor = "",
                     Info = "选择2个单位，若为偶数使其获得6点增益，若为奇数对其造成6点伤害。",
                     CardArtsId = "202677",
@@ -14591,7 +14591,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70161", //Azar Javed
                     Name="阿扎·贾维德",
-                    Strength=9,
+                    Strength=8,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14824,7 +14824,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70172", //Princess
                     Name="公主",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14834,7 +14834,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "你有萝卜所具备的一切美德一沉默寡言",
-                    Info = "生成一只熊。下个回合开始时，将同排的一只熊转化为狂暴的熊。",
+                    Info = "生成1只熊。己方每个回合开始时，将同排的1只熊转化为狂暴的熊。",
                     CardArtsId = "c10004000",
                     LinkedCards=new List<String> {"15010","65002"},
                 }
@@ -15203,7 +15203,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70190", //KingChrum
-                    Name=" 克鲁姆国王",
+                    Name="克鲁姆国王",
                     Strength=12,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,

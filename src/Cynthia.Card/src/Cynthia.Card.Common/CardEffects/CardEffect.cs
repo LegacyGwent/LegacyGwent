@@ -330,10 +330,6 @@ namespace Cynthia.Card
         public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo, bool sendEvent = true)
         {
             await Game.ShowCardDown(Card);
-            if (sendEvent && Card.IsAliveOnPlance())
-            {
-                await Card.Effects.RaiseEvent(new AfterUnitLanded(Card));
-            }
             await Game.SetPointInfo();
             if (isSpying)
                 await Spying(Card);
@@ -701,7 +697,9 @@ namespace Cynthia.Card
             if (Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
             Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow };
             Card.Effects.Clear();
-            Card.Effects.Add(Game.CreateEffectInstance(cardId, Card));
+            var transformedEffect = Game.CreateEffectInstance(cardId, Card);
+            Card.Effects.Add(transformedEffect);
+            Card.Effect = transformedEffect;
             setting(Card);
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
@@ -845,16 +843,23 @@ namespace Cynthia.Card
             });
         }
 
-        public virtual async Task Duel(GameCard target, GameCard source)
+        public virtual async Task Duel(GameCard target, GameCard source, int damageMultiplier = 1)
         {
-            //决斗
+            //对决
             if (target.IsDead || !target.Status.CardRow.IsOnPlace() || Card.IsDead || !Card.Status.CardRow.IsOnPlace() || target.Status.Type != CardType.Unit || Card.Status.Type != CardType.Unit || Card.IsDead)
                 return;
+            damageMultiplier = Math.Max(1, damageMultiplier);
+            //发起对决会在首次攻击前破除发起方自身的护盾；被对决方的护盾照常生效。
+            if (Card.Status.IsShield)
+            {
+                Card.Status.IsShield = false;
+                await Game.ShowSetCard(Card);
+            }
             int count = 0;
             while (true)
             {
                 count++;
-                await target.Effect.Damage(Card.CardPoint(), Card, BulletType.RedLight);
+                await target.Effect.Damage(damageMultiplier * Card.CardPoint(), Card, BulletType.RedLight);
                 if (target.IsDead || !target.Status.CardRow.IsOnPlace()) return;
                 await Game.ClientDelay(400);
                 await Card.Effect.Damage(target.CardPoint(), target, BulletType.RedLight);

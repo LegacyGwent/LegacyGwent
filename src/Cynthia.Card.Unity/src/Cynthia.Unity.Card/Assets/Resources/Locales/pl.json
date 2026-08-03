@@ -1435,7 +1435,7 @@
         },
         "21003": {
             "Name": "Szepczące Wzgórze",
-            "Info": "Rozmieszczenie: Wygeneruj brązową lub srebrną kartę organiczną.",
+            "Info": "Wygeneruj srebrną kartę organiczną.",
             "Flavor": "Pojawi się znowu. W innym miejscu, poza naszym zasięgiem. Znów poleje się krew."
         },
         "21004": {
@@ -1450,7 +1450,7 @@
         },
         "22001": {
             "Name": "Stary Grot Sen",
-            "Info": "Rozmieszczenie: Wzmocnij wszystkie inne jednostki o 1. Otrzymaj 5 pancerza. Na początku twojej tury, jeśli na przeciwnym rzędzie jest co najmniej 3 jednostki wroga, Budź.",
+            "Info": "Wzmocnij sąsiednie jednostki o 1. Otrzymaj 5 pancerza. Na początku twojej tury, jeśli w przeciwnym rzędzie znajdują się co najmniej 3 jednostki wroga, przebudź się.",
             "Flavor": "„Nie przeszkadzać”."
         },
         "22002": {
@@ -3370,7 +3370,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Wybierz brązową lub srebrną jednostkę w swojej ręce. Ona i wszystkie jej kopie w ręce i talii otrzymują Quen: gdy każda z nich po raz pierwszy znajdzie się po twojej stronie pola bitwy po rozpatrzeniu Rozmieszczenia, wzmocnij ją o 2 i daj jej Tarczę.",
+            "Info": "Wybierz brązową lub srebrną jednostkę w swojej ręce. Wzmocnij ją oraz wszystkie jej kopie w ręce i talii o 2 i daj im Tarczę. Tarcza blokuje jedno źródło obrażeń; nie można wybrać jednostki, która już ma Tarczę. Jednostka rozpoczynająca Pojedynek traci Tarczę przed atakiem.",
             "Flavor": ""
         },
         "70002": {
@@ -3395,7 +3395,7 @@
         },
         "70006": {
             "Name": "Pani Jeziora",
-            "Info": "Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w twojej ręce i tali.",
+            "Info": "Osłab tę jednostkę o liczbę kart pozostałych w twojej ręce i talii.",
             "Flavor": ""
         },
         "70007": {
@@ -3420,7 +3420,7 @@
         },
         "70011": {
             "Name": "Pani Jeziora Adwent",
-            "Info": "Stwórz Panią jeziora.",
+            "Info": "Stwórz Panią Jeziora o sile 22, która osłabia się o liczbę kart pozostałych w twojej ręce i talii.",
             "Flavor": ""
         },
         "70012": {
@@ -3575,7 +3575,7 @@
         },
         "70062": {
             "Name": "Ożywiona Zbroja",
-            "Info": "Jednostki w tym rzędzie mogą otrzymać maksymalnie 5 pkt obrażeń na raz. 2 pkt pancerza.",
+            "Info": "Wszystkie sojusznicze jednostki w tym rzędzie otrzymują połowę obrażeń, zaokrąglając w górę.",
             "Flavor": "Owszem, kosztowna. Ale biorąc pod uwagę oszczędności na wikcie i opierunku, inwestycja zwróci się jeszcze w tym stuleciu!"
         },
         "70070": {
@@ -3805,7 +3805,7 @@
         },
         "70119": {
             "Name": "Odwilż",
-            "Info": "Wzmocnij losowego sojusznika o 3. Powtórz raz. Następnie powtórze te umiejętność za każdą kartę zagraną w tej turze.",
+            "Info": "Wzmocnij losowego sojusznika o 2. Powtórz 3 razy, a następnie jeszcze raz za każdą kartę zagraną w tej turze.",
             "Flavor": "Zwiastuje nadejście wiosny. A wiosna - nadejście wojny."
         },
         "70121": {
@@ -3870,7 +3870,7 @@
         },
         "70133": {
             "Name": "Samotny czempion",
-            "Info": "Na koniec każdej tury, jeśli po twojej stronie nie ma innych jednostek, wzmocnij się o 4.",
+            "Info": "Na końcu twojej tury, jeśli w tym rzędzie nie ma innych sojuszniczych jednostek, wzmocnij się o 1. Jeśli po twojej stronie nie ma innych sojuszniczych jednostek, wzmocnij się dodatkowo o 3.",
             "Flavor": "Póki czempion walczy dla świętej sprawy, póty Zakon i jego płomienie wciąż trwają w nim."
         },
         "70134": {
@@ -4065,7 +4065,7 @@
         },
         "70172": {
             "Name": "Księżniczka",
-            "Info": "Rozmieszczenie: Stwórz i zagraj Niedźwiedzia. Na początku kolejnej tury przemień Niedźwiedzia w tym rzędzie we Wściekłego Niedźwiedzia.",
+            "Info": "Rozmieszczenie: Stwórz i zagraj Niedźwiedzia. Na początku każdej twojej tury przemień Niedźwiedzia w tym rzędzie we Wściekłego Niedźwiedzia.",
             "Flavor": "Masz najważniejszą ceche, jakie powinna mieć każda Płotka - niewiele mówisz. "
         },
         "70173": {

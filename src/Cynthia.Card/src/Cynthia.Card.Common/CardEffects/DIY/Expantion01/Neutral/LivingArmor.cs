@@ -7,11 +7,11 @@ namespace Cynthia.Card
 {
     [CardEffectId("70062")]//活体盔甲 Living Armor
     public class LivingArmor : CardEffect, IHandlesEvent<BeforeCardDamage>
-    {//己方半场同排其他单位一次最多受到5点伤害。
+    {//己方同排单位受到的伤害减半（向上取整）；同排多个同名效果不叠加。
         public LivingArmor(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.Armor(2,Card);
+            await Task.CompletedTask;
             return 0;
         }
         public async Task HandleEvent(BeforeCardDamage @event)
@@ -23,12 +23,18 @@ namespace Cynthia.Card
             }
 
             var currentRow = Card.Status.CardRow;
-            if (@event.Target.Status.CardRow == currentRow && @event.Target.PlayerIndex == Card.PlayerIndex && @event.Target != Card)
+            var activeSource = Game.RowToList(PlayerIndex, currentRow)
+                .FirstOrDefault(x => x.Status.CardId == CardId.LivingArmor &&
+                    x.IsAliveOnPlance() && !x.Status.IsLock);
+            if (activeSource != Card)
             {
-                if(@event.Num>5)
-                {
-                    @event.Num=5;
-                }
+                return;
+            }
+
+            if (@event.Target.Status.CardRow == currentRow &&
+                @event.Target.PlayerIndex == PlayerIndex)
+            {
+                @event.Num = (@event.Num + 1) / 2;
             }
 
             await Task.CompletedTask;

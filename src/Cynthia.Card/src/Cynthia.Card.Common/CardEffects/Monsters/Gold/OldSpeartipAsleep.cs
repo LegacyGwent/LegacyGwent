@@ -5,18 +5,28 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("22001")]//老矛头：昏睡
-    public class OldSpeartipAsleep : CardEffect
-    {//使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。
+    public class OldSpeartipAsleep : CardEffect, IHandlesEvent<AfterTurnStart>
+    {//使相邻单位获得1点增益，自身获得5点护甲。己方回合开始时，若对方同排有至少3个单位，则苏醒。
         public OldSpeartipAsleep(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.PlayersHandCard[PlayerIndex].Concat(Game.GetPlaceCards(PlayerIndex)).Concat(Game.PlayersDeck[PlayerIndex]).FilterCards(filter: x => x.HasAllCategorie(Categorie.Ogroid)&&x!=Card);
-
-            foreach(var card in cards)
-            {
-                await card.Effect.Strengthen(1, Card);
-            }
+            await OldSpeartipRules.ArmorAndBoostAdjacent(Card);
             return 0;
+        }
+
+        public async Task HandleEvent(AfterTurnStart @event)
+        {
+            if (@event.PlayerIndex != PlayerIndex || !Card.IsAliveOnPlance())
+            {
+                return;
+            }
+
+            var row = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror()).IgnoreConcealAndDead();
+            if (row.Count() >= 3)
+            {
+                await Card.Effect.Transform(CardId.OldSpeartip, Card);
+                await OldSpeartipRules.DamageOppositeRow(Card);
+            }
         }
     }
 }

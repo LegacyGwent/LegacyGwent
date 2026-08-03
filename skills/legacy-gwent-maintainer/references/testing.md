@@ -48,11 +48,17 @@ not the required CI lane.
 
 ## Current lifecycle coverage
 
-The initial suite verifies that Ice Troll receives delayed Quen only after a
-survived deploy duel, that lethal duel damage leaves the pending marker
-unconsumed, and that returning to hand during deployment also leaves it pending.
-It also verifies Saesenthessis: Blaze exhausting its original deck, resurrecting
-only cemetery units into the deck, firing resurrection behavior, continuing the
-remaining draws, and stopping safely when no units can refill it. Add future
-lifecycle regressions here instead of approximating them with source text
+The suite verifies that Quen immediately Boosts and Shields same-ID cards in
+hand/deck, blocks damage to a revealed hand unit, clears the Duel initiator's
+Shield permanently, preserves the target's Shield for the first hit, resolves
+two Shielded units without looping, follows first-selection initiative in forced
+Duels, and keeps Ice Troll's frost multiplier.
+
+The August 3 scenarios cover non-stacking Living Armor including self, Ivo's
+self-only Deathwish, Lady of the Lake's non-doubled count, Thaw's repeat count,
+both Lonely Champion bonuses, repeated Princess turns, both Old Speartip
+transforms, Aguara's non-spy hand filter, and the Magic Lamp/The Last Wish
+cross-card dependency. Saesenthessis: Blaze coverage verifies unit-only cemetery
+refill, resurrection events, continued draws, and empty-pool termination. Add
+future lifecycle regressions here instead of approximating them with source text
 assertions.

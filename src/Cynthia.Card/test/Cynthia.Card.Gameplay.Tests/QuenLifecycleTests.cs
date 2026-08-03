@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,7 +6,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class QuenLifecycleTests
     {
         [Fact]
-        public async Task QuenMarksTheSelectedUnitAndSameIdCardsInHandAndDeck()
+        public async Task QuenImmediatelyBoostsAndShieldsSameIdCardsInHandAndDeck()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
@@ -16,7 +15,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player1Index,
                 CardId.Quen,
                 RowPosition.MyHand);
-            var markedCards = new[]
+            var protectedCards = new[]
             {
                 fixture.AddCard(
                     fixture.Game.Player1Index,
@@ -39,143 +38,176 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await quen.Effect.CardUse();
 
-            Assert.All(markedCards, card => Assert.Single(
-                card.Effects.OfType<PendingQuenEffect>(),
-                effect => effect.IsPending));
-            Assert.Empty(unrelated.Effects.OfType<PendingQuenEffect>());
+            Assert.All(protectedCards, card =>
+            {
+                Assert.Equal(2, card.Status.HealthStatus);
+                Assert.True(card.Status.IsShield);
+            });
+            Assert.Equal(0, unrelated.Status.HealthStatus);
+            Assert.False(unrelated.Status.IsShield);
         }
 
         [Fact]
-        public async Task IceTrollGainsQuenAfterItsDeployDuelFinishes()
+        public async Task QuenBlocksDamageToARevealedUnitInHand()
+        {
+            var fixture = new HeadlessGameFixture();
+            fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
+            fixture.Game.PlayersDeck[fixture.Game.Player2Index].Clear();
+            var quen = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.Quen,
+                RowPosition.MyHand);
+            var protectedUnit = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.IceTroll,
+                RowPosition.MyHand);
+            protectedUnit.Status.IsReveal = true;
+            var enemy = fixture.AddCard(
+                fixture.Game.Player2Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyRow1);
+            await fixture.SynchronizeClientsAsync();
+
+            await quen.Effect.CardUse();
+            await protectedUnit.Effect.Damage(4, enemy);
+
+            Assert.Equal(2, protectedUnit.Status.HealthStatus);
+            Assert.False(protectedUnit.Status.IsShield);
+            Assert.Equal(RowPosition.MyHand, protectedUnit.Status.CardRow);
+        }
+
+        [Fact]
+        public async Task DuelInitiatorBreaksOwnShieldBeforeAttackingAndDoesNotRestoreIt()
+        {
+            var fixture = new HeadlessGameFixture();
+            var duelist = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.IceTroll,
+                RowPosition.MyRow1,
+                strength: 6);
+            var target = fixture.AddCard(
+                fixture.Game.Player2Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyRow1,
+                strength: 7);
+            GiveQuen(duelist);
+            await fixture.SynchronizeClientsAsync();
+
+            await duelist.Effect.Duel(target, duelist);
+
+            Assert.True(duelist.IsAliveOnPlance());
+            Assert.Equal(-1, duelist.Status.HealthStatus);
+            Assert.False(duelist.Status.IsShield);
+            Assert.Contains(target, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
+        }
+
+        [Fact]
+        public async Task TwoQuenUnitsResolveWithoutLooping()
+        {
+            var fixture = new HeadlessGameFixture();
+            var first = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.IceTroll,
+                RowPosition.MyRow1,
+                strength: 4);
+            var second = fixture.AddCard(
+                fixture.Game.Player2Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyRow1,
+                strength: 4);
+            GiveQuen(first);
+            GiveQuen(second);
+            await fixture.SynchronizeClientsAsync();
+
+            await first.Effect.Duel(second, first);
+
+            Assert.Contains(first, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
+            Assert.True(second.IsAliveOnPlance());
+            Assert.False(second.Status.IsShield);
+        }
+
+        [Fact]
+        public async Task ForcedDuelStillTreatsTheFirstUnitAsTheInitiator()
+        {
+            var fixture = new HeadlessGameFixture();
+            var first = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.IceTroll,
+                RowPosition.MyRow1,
+                strength: 4);
+            var second = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyRow1,
+                strength: 4);
+            var treason = fixture.AddCard(
+                fixture.Game.Player2Index,
+                CardId.Treason,
+                RowPosition.MyStay);
+            GiveQuen(first);
+            GiveQuen(second);
+            await fixture.SynchronizeClientsAsync();
+
+            await first.Effect.Duel(second, treason);
+
+            Assert.Contains(first, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
+            Assert.True(second.IsAliveOnPlance());
+            Assert.False(second.Status.IsShield);
+        }
+
+        [Fact]
+        public async Task ShieldOnTheDuelTargetStillBlocksTheFirstAttack()
+        {
+            var fixture = new HeadlessGameFixture();
+            var duelist = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.IceTroll,
+                RowPosition.MyRow1,
+                strength: 4);
+            var target = fixture.AddCard(
+                fixture.Game.Player2Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyRow1,
+                strength: 5);
+            GiveQuen(target);
+            await fixture.SynchronizeClientsAsync();
+
+            await duelist.Effect.Duel(target, duelist);
+
+            Assert.Contains(duelist, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
+            Assert.True(target.IsAliveOnPlance());
+            Assert.False(target.Status.IsShield);
+        }
+
+        [Fact]
+        public async Task FrostDuelBreaksTheInitiatorsShieldAndKeepsItsDamageMultiplier()
         {
             var fixture = new HeadlessGameFixture();
             var iceTroll = fixture.AddCard(
                 fixture.Game.Player1Index,
                 CardId.IceTroll,
-                RowPosition.MyHand);
-            var duelTarget = fixture.AddCard(
+                RowPosition.MyHand,
+                strength: 4);
+            var target = fixture.AddCard(
                 fixture.Game.Player2Index,
                 CardId.GeraltOfRivia,
                 RowPosition.MyRow1,
-                strength: 1);
-            var pendingQuen = new PendingQuenEffect(iceTroll);
-            iceTroll.Effects.Add(pendingQuen);
+                strength: 6);
+            await fixture.Game.GameRowEffect[fixture.Game.Player2Index][0]
+                .SetStatus<BitingFrostStatus>();
+            GiveQuen(iceTroll);
             await fixture.SynchronizeClientsAsync();
 
             await iceTroll.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
 
             Assert.True(iceTroll.IsAliveOnPlance());
-            Assert.Equal(2, iceTroll.Status.HealthStatus);
-            Assert.True(iceTroll.Status.IsShield);
-            Assert.False(pendingQuen.IsPending);
-            Assert.Contains(duelTarget, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
-        }
-
-        [Fact]
-        public async Task LethalDeployDuelDoesNotConsumePendingQuen()
-        {
-            var fixture = new HeadlessGameFixture();
-            var iceTroll = fixture.AddCard(
-                fixture.Game.Player1Index,
-                CardId.IceTroll,
-                RowPosition.MyHand);
-            fixture.AddCard(
-                fixture.Game.Player2Index,
-                CardId.GeraltOfRivia,
-                RowPosition.MyRow1,
-                strength: 10);
-            var pendingQuen = new PendingQuenEffect(iceTroll);
-            iceTroll.Effects.Add(pendingQuen);
-            await fixture.SynchronizeClientsAsync();
-
-            await iceTroll.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
-
-            Assert.Contains(iceTroll, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
             Assert.False(iceTroll.Status.IsShield);
-            Assert.True(pendingQuen.IsPending);
-            Assert.Contains(pendingQuen, iceTroll.Effects);
+            Assert.Contains(target, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
         }
 
-        [Fact]
-        public async Task ReturningToHandDuringDeployDoesNotConsumePendingQuen()
+        private static void GiveQuen(GameCard card)
         {
-            var fixture = new HeadlessGameFixture();
-            var unit = fixture.AddCard(
-                fixture.Game.Player1Index,
-                CardId.IceTroll,
-                RowPosition.MyHand);
-            HeadlessGameFixture.ReplaceMainEffect(unit, new ReturnSelfDuringDeploy(unit));
-            var pendingQuen = new PendingQuenEffect(unit);
-            unit.Effects.Add(pendingQuen);
-            await fixture.SynchronizeClientsAsync();
-
-            await unit.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
-
-            Assert.Equal(RowPosition.MyHand, unit.Status.CardRow);
-            Assert.False(unit.Status.IsShield);
-            Assert.Equal(0, unit.Status.HealthStatus);
-            Assert.True(pendingQuen.IsPending);
-            Assert.Contains(pendingQuen, unit.Effects);
-        }
-
-        [Fact]
-        public async Task EnemySideLandingKeepsQuenPendingUntilOneFriendlyLanding()
-        {
-            var fixture = new HeadlessGameFixture();
-            var unit = fixture.AddCard(
-                fixture.Game.Player1Index,
-                CardId.IceTroll,
-                RowPosition.EnemyRow1);
-            var pendingQuen = new PendingQuenEffect(unit);
-            unit.Effects.Add(pendingQuen);
-            await fixture.SynchronizeClientsAsync();
-
-            await unit.Effect.CardDown(
-                false,
-                false,
-                false,
-                (false, false));
-
-            Assert.True(pendingQuen.IsPending);
-            Assert.False(unit.Status.IsShield);
-            Assert.Equal(0, unit.Status.HealthStatus);
-
-            await fixture.Game.ShowCardMove(
-                new CardLocation(RowPosition.MyRow1, 0),
-                unit);
-            await unit.Effect.CardDown(
-                false,
-                false,
-                false,
-                (false, false));
-
-            Assert.False(pendingQuen.IsPending);
-            Assert.True(unit.Status.IsShield);
-            Assert.Equal(2, unit.Status.HealthStatus);
-
-            await unit.Effect.CardDown(
-                false,
-                false,
-                false,
-                (false, false));
-            Assert.Equal(2, unit.Status.HealthStatus);
-        }
-
-        private sealed class ReturnSelfDuringDeploy : CardEffect
-        {
-            public ReturnSelfDuringDeploy(GameCard card) : base(card)
-            {
-            }
-
-            public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
-            {
-                await Game.ShowCardMove(
-                    new CardLocation(
-                        RowPosition.MyHand,
-                        Game.PlayersHandCard[PlayerIndex].Count),
-                    Card);
-                return 0;
-            }
+            card.Status.IsShield = true;
         }
     }
 }

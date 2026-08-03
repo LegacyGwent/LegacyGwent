@@ -6,16 +6,18 @@ namespace Cynthia.Card
 {
     [CardEffectId("70119")]//融雪 Thaw
     public class Thaw : CardEffect
-    {//随机使1个友军单位获得2点增益。重复一次。本回合中每打出过1张牌便额外重复1次。
+    {//随机使1个友军单位获得2点增益。重复3次。本回合中每打出过1张牌便额外重复1次。
         public Thaw(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            for(int s = 1; s <= Game.TurnCardPlayedNum + 1; s++)
+            // CardUse increments TurnCardPlayedNum before this effect resolves, so +3 means
+            // the initial application plus 3 repeats when no earlier card was played.
+            for(int s = 0; s < Game.TurnCardPlayedNum + 3; s++)
             {
                 var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == Card.PlayerIndex).Mess(RNG).Take(1).ToList();
                 foreach (var card in cards)
                 {
-                    await card.Effect.Boost(3, Card);
+                    await card.Effect.Boost(2, Card);
                 }
             }
             return 0;
