@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-08-02
+Last verified: 2026-08-03
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -8,6 +8,7 @@ Read this file first, then load only the rows relevant to the task.
 | --- | --- | --- |
 | Components, source ownership, runtime flow | [architecture.md](architecture.md) | Repository layout and component boundaries |
 | Accounts, cards, decks, AI, matchmaking | [business-rules.md](business-rules.md) | Verified gameplay and domain behavior |
+| Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Card-pool reset, retirement, deck-code compatibility | [card-pool-migrations.md](card-pool-migrations.md) | Immutable map ordering, classification, data migration |
 | Windows setup, local server, MongoDB, Unity | [development.md](development.md) | Reproducible local workflows |
 | Linux server, SSH, systemd, CI/CD, rollback | [operations.md](operations.md) | Stable and DIY-AI operations |

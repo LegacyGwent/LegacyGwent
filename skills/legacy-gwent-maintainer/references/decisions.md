@@ -1,6 +1,6 @@
 # Active decisions
 
-Last verified: 2026-08-01
+Last verified: 2026-08-03
 
 ## Isolate aggressive maintenance
 
@@ -51,6 +51,13 @@ The canonical skill lives in this repository. A personal Codex installation may
 link to it for discovery, but updates must be committed here. The index routes
 agents to small domain references; learning rewrites canonical truth instead of
 growing a task diary.
+
+Keep exactly one physical skill entity on a workstation. Personal discovery
+paths and secondary checkouts may use directory links to that entity, but must
+not carry independently editable copies. Resolve every link before editing and
+validate that its target is the active DIY-AI checkout. Store durable rules in
+the skill; derive branch, dirty-tree, deployment, health, and workflow state at
+task start with `scripts/project-status.ps1` so transient facts cannot go stale.
 
 ## Gate the website, authentication, and client distribution separately
 

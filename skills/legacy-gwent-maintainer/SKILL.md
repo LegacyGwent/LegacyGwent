@@ -11,7 +11,9 @@ for the task, then rewrite the knowledge base when verified learning occurs.
 ## Start every task
 
 1. Locate the checkout and read its `AGENTS.md`.
-2. Inspect the current branch, worktree, and relevant source before changing it.
+2. Run `scripts/project-status.ps1` and inspect the relevant source before
+   changing it. Add `-Remote` or `-GitHub` only when live deployment or workflow
+   state matters; both modes are read-only.
 3. Read [references/index.md](references/index.md) completely.
 4. Read only the references routed by the index for the current task.
 5. Preserve unrelated user changes and keep stable DIY resources isolated from
@@ -35,6 +37,8 @@ for the task, then rewrite the knowledge base when verified learning occurs.
 - Architecture or component ownership: read `references/architecture.md`.
 - Gameplay, accounts, decks, AI, or matchmaking: read
   `references/business-rules.md`.
+- Card play timing, deployment, landing, damage, shield, duel, or repeated
+  effects: read `references/gameplay-lifecycle.md`.
 - Windows local setup or Unity: read `references/development.md`.
 - Server, MongoDB, SSH, Actions, deployment, or rollback: read
   `references/operations.md`.

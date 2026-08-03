@@ -1,6 +1,20 @@
 # Integration pitfalls
 
-Last verified: 2026-08-02
+Last verified: 2026-08-03
+
+## A skill script locates the discovery alias instead of the repository
+
+- Symptom: a script works through the physical skill path but fails with “not
+  inside a Git checkout” when invoked through `.codex/skills` or another link.
+- Cause: PowerShell preserves the invocation alias in `$PSScriptRoot`; joining
+  parent directories does not resolve a Junction's target.
+- Fix: inspect the skill-root item, resolve its `Target` when it is a link, and
+  derive the repository only from that physical target.
+- Prevention: keep one physical skill entity and make every discovery or
+  secondary-checkout path a Junction to it. Link-aware scripts must resolve the
+  skill root before looking for repository-relative files.
+- Verification: run the script through the physical path, personal discovery
+  path, and secondary-checkout path; all three must report the same root and SHA.
 
 ## A direct DIY-AI branch push deploys without review
 

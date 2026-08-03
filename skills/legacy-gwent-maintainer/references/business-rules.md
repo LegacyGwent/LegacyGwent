@@ -68,6 +68,22 @@ Last verified: 2026-08-02
   `RedPlayerGameResultStatus`; surrender, draw, and incomplete records otherwise
   produce incorrect faction totals.
 
+## Spectator mode
+
+- Spectator support belongs to the DIY lineage, not specifically to DIY-AI. It
+  was introduced by `1f94022e3` in 2023, hidden by `c644e1e61` in 2024, and
+  re-enabled and expanded by `d24f8c8f` on 2026-01-31. Consequently the
+  2026-01-23 DIY 2.1.8 binary has no visible entry while later DIY and DIY-AI
+  builds do; current `diy` and `diy-ai` spectator code is equivalent.
+- The normal room list exposes every ready AI match, but exposes a ready
+  human-versus-human match only when its password contains `#w`. This is only a
+  discovery filter: `JoinViewList` rechecks login state, `Standby`, room ID and
+  readiness, but does not enforce `#w` as authorization.
+- A viewer is read-only in the intended client flow and receives the current
+  board plus live operations from Player 1's perspective, including both
+  players' complete hands. Treat it as experimental/debugging functionality,
+  not a privacy boundary or a tournament-safe public spectator system.
+
 ## DIY workshop review
 
 - Sending a design to Card Review preserves its existing votes and comments.
