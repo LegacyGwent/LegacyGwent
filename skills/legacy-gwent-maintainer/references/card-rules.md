@@ -14,14 +14,17 @@ Last verified: 2026-08-03
 ## Selected DIY cards in the reset pool
 
 - `70001` is 昆恩法印 and is a deckable Copper Neutral spell in DIY-AI
-  `1.0.0.165`. It immediately Boosts the selected Bronze/Silver hand unit and
+  `1.0.0.166`. It immediately Boosts the selected Bronze/Silver hand unit and
   all same-ID cards currently in hand/deck by 2, then gives each an ordinary
   Shield. A revealed unit in hand therefore blocks one damage instance.
-- The shared Duel rule clears the initiating unit's Shield before its first
-  attack; the target's Shield still blocks the first incoming attack normally.
-  The Shield is not restored. In forced two-unit Duel effects such as Treason,
-  the first selected unit is the initiator. This makes two Shielded units
-  resolve without a special origin flag or a non-progressing loop.
+- Duel has no Quen-specific or initiator-specific shield exception. Both units'
+  Shields block their first incoming damage instance through the normal damage
+  pipeline; when both start Shielded, each Shield is consumed in the first
+  exchange and the Duel then progresses normally.
+- Ice Troll (`24034`) is the card-specific balance valve: it has 5 base power
+  and deals 1 damage to itself before selecting and starting its Duel. That
+  self-damage naturally consumes its Shield if present. If the target row has
+  Biting Frost, only Ice Troll's Duel damage uses the x2 multiplier.
 - `70041` is 鬼针草煎药 and `70042` is 合欢茎魔药. DIY-AI deliberately
   makes both cards deckable while the rest of the ordinary DIY retirement
   manifest stays hidden.
@@ -91,7 +94,7 @@ Last verified: 2026-08-03
 
 ## August 3 public test batch
 
-- DIY-AI `1.0.0.165` re-enables these deckable DIY cards: `70002`, `70005`,
+- DIY-AI `1.0.0.166` re-enables these deckable DIY cards: `70002`, `70005`,
   `70011`, `70026`, `70027`, `70059`, `70062`, `70070`, `70091`, `70110`,
   `70119`, `70131`, `70133`, `70155`, `70157`, `70161`, `70172`, and `70190`.
   Their derived dependencies `70006`, `70071`, and `70162` are available only

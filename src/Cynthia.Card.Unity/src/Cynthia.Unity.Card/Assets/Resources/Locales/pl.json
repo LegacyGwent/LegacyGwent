@@ -1795,7 +1795,7 @@
         },
         "24034": {
             "Name": "Lodowy Troll",
-            "Info": "Rozmieszczenie: Stocz pojedynek z wrogiem. Jeśli wróg znajduje się pod wpływem Trzaskającego Mrozu, zadaj mu podwójne obrażenia.",
+            "Info": "Rozmieszczenie: Zadaj sobie 1 pkt obrażeń, następnie stocz pojedynek z wrogiem. Jeśli wróg znajduje się pod wpływem Trzaskającego Mrozu, zadawaj podwójne obrażenia w pojedynku.",
             "Flavor": "Istnieje wiele różnych odmian trolli. Jednakże wciąż nie udało się znaleźć jednego, który nie byłby durny jak wiadro gwoździ."
         },
         "24035": {
@@ -3370,7 +3370,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Wybierz brązową lub srebrną jednostkę w swojej ręce. Wzmocnij ją oraz wszystkie jej kopie w ręce i talii o 2 i daj im Tarczę. Tarcza blokuje jedno źródło obrażeń; nie można wybrać jednostki, która już ma Tarczę. Jednostka rozpoczynająca Pojedynek traci Tarczę przed atakiem.",
+            "Info": "Wybierz brązową lub srebrną jednostkę w swojej ręce. Wzmocnij ją oraz wszystkie jej kopie w ręce i talii o 2 i daj im Tarczę. Tarcza blokuje jedno źródło obrażeń; nie można wybrać jednostki, która już ma Tarczę.",
             "Flavor": ""
         },
         "70002": {

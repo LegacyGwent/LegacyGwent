@@ -1796,7 +1796,7 @@
         },
         "24034": {
             "Name": "Ice Troll",
-            "Info": "Deploy: Duel an enemy.\nIf the enemy is under Biting Frost, deal double Damage.",
+            "Info": "Deploy: Damage self by 1, then Duel an enemy. If the enemy is under Biting Frost, deal double Duel damage.",
             "Flavor": "Trolls come in many varieties, with differing shapes, sizes and predilections, though always with about as much brains as a bucket of rusty nails."
         },
         "24035": {
@@ -3371,7 +3371,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Choose a Bronze or Silver unit in your hand. Boost it and all copies of it in your hand and deck by 2, then give them Shield. Shield blocks one instance of damage; units that already have Shield cannot be chosen. A unit initiating a Duel loses its Shield before attacking.",
+            "Info": "Choose a Bronze or Silver unit in your hand. Boost it and all copies of it in your hand and deck by 2, then give them Shield. Shield blocks one instance of damage; units that already have Shield cannot be chosen.",
             "Flavor": ""
         },
         "70002": {

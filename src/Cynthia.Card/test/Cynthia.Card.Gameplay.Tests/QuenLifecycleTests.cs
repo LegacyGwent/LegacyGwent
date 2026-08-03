@@ -77,7 +77,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task DuelInitiatorBreaksOwnShieldBeforeAttackingAndDoesNotRestoreIt()
+        public async Task DuelInitiatorKeepsShieldUntilTheCounterattackConsumesIt()
         {
             var fixture = new HeadlessGameFixture();
             var duelist = fixture.AddCard(
@@ -96,7 +96,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await duelist.Effect.Duel(target, duelist);
 
             Assert.True(duelist.IsAliveOnPlance());
-            Assert.Equal(-1, duelist.Status.HealthStatus);
+            Assert.Equal(0, duelist.Status.HealthStatus);
             Assert.False(duelist.Status.IsShield);
             Assert.Contains(target, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
         }
@@ -121,9 +121,9 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await first.Effect.Duel(second, first);
 
-            Assert.Contains(first, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
-            Assert.True(second.IsAliveOnPlance());
-            Assert.False(second.Status.IsShield);
+            Assert.True(first.IsAliveOnPlance());
+            Assert.False(first.Status.IsShield);
+            Assert.Contains(second, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
         }
 
         [Fact]
@@ -150,9 +150,9 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await first.Effect.Duel(second, treason);
 
-            Assert.Contains(first, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
-            Assert.True(second.IsAliveOnPlance());
-            Assert.False(second.Status.IsShield);
+            Assert.True(first.IsAliveOnPlance());
+            Assert.False(first.Status.IsShield);
+            Assert.Contains(second, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
         }
 
         [Fact]
@@ -180,14 +180,14 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task FrostDuelBreaksTheInitiatorsShieldAndKeepsItsDamageMultiplier()
+        public async Task IceTrollSelfDamageConsumesShieldBeforeItsFrostDuel()
         {
             var fixture = new HeadlessGameFixture();
             var iceTroll = fixture.AddCard(
                 fixture.Game.Player1Index,
                 CardId.IceTroll,
                 RowPosition.MyHand,
-                strength: 4);
+                strength: 5);
             var target = fixture.AddCard(
                 fixture.Game.Player2Index,
                 CardId.GeraltOfRivia,
@@ -202,6 +202,30 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.True(iceTroll.IsAliveOnPlance());
             Assert.False(iceTroll.Status.IsShield);
+            Assert.Equal(0, iceTroll.Status.HealthStatus);
+            Assert.Contains(target, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
+        }
+
+        [Fact]
+        public async Task IceTrollDamagesItselfBeforeStartingAnOrdinaryDuel()
+        {
+            var fixture = new HeadlessGameFixture();
+            var iceTroll = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.IceTroll,
+                RowPosition.MyHand,
+                strength: 5);
+            var target = fixture.AddCard(
+                fixture.Game.Player2Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyRow1,
+                strength: 4);
+            await fixture.SynchronizeClientsAsync();
+
+            await iceTroll.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
+
+            Assert.True(iceTroll.IsAliveOnPlance());
+            Assert.Equal(-1, iceTroll.Status.HealthStatus);
             Assert.Contains(target, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
         }
 

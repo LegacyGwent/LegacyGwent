@@ -849,12 +849,6 @@ namespace Cynthia.Card
             if (target.IsDead || !target.Status.CardRow.IsOnPlace() || Card.IsDead || !Card.Status.CardRow.IsOnPlace() || target.Status.Type != CardType.Unit || Card.Status.Type != CardType.Unit || Card.IsDead)
                 return;
             damageMultiplier = Math.Max(1, damageMultiplier);
-            //发起对决会在首次攻击前破除发起方自身的护盾；被对决方的护盾照常生效。
-            if (Card.Status.IsShield)
-            {
-                Card.Status.IsShield = false;
-                await Game.ShowSetCard(Card);
-            }
             int count = 0;
             while (true)
             {

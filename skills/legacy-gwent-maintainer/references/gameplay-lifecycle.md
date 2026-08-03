@@ -83,16 +83,23 @@ there is no Quen-origin marker or delayed landing hook.
 
 The shared `Duel` helper deals the source's current power to the target, then—if
 the target survives—deals the target's current power back, repeating until one
-side leaves play or the safety limit is reached. Before the first attack it
-clears the source/initiator's Shield, if present, and publishes that state. The
-target's Shield remains and can cancel the first hit through ordinary `Damage`.
-The source Shield is never restored. Ice Troll passes a source-damage multiplier
-into this same helper for its frost branch; do not reintroduce a parallel loop.
+side leaves play or the safety limit is reached. Duel has no special Shield
+handling: the normal `Damage` pipeline consumes the defender's Shield and
+cancels that hit. If both units begin Shielded, the first attack and first
+counterattack consume one Shield each, after which the next iteration makes
+progress. Ice Troll passes a source-damage multiplier into this same helper for
+its frost branch; do not reintroduce a parallel loop.
 
 `Duel(target, source)` uses the effect owner's `Card` as initiator; `source` is
 only attribution. Therefore forced Duel effects establish initiative by which
 participant's effect invokes the helper. Treason deliberately invokes it from
 the first selected participant.
+
+Ice Troll deliberately calls ordinary self-`Damage(1)` before target selection
+and Duel. This local cost consumes Quen/Shield without changing global Duel
+semantics, triggers normal damage listeners, and can stop the effect if the
+Troll leaves play. Its Biting Frost multiplier applies only after that cost, so
+the Duel uses the Troll's resulting current power.
 
 Syanna records both `AfterUnitPlay` and `AfterUnitDown`, then directly repeats
 the target's `CardPlayEffect` and `CardDownEffect` at `AfterRoundPlay`. Do not put

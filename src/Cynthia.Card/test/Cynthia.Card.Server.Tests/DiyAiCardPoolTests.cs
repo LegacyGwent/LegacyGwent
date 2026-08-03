@@ -42,7 +42,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 165), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 166), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -173,8 +173,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 165);
-            var stale = new Version(1, 0, 0, 164);
+            var current = new Version(1, 0, 0, 166);
+            var stale = new Version(1, 0, 0, 165);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -250,7 +250,7 @@ namespace Cynthia.Card.Server.Tests
         public void QuenAvailabilityAndDescriptionMatchTheImmediateShieldRule()
         {
             const string expectedInfo =
-                "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得2点增益和护盾。护盾可阻挡1次伤害；已有护盾的单位不能被选中。发起对决时，先破除自身护盾。";
+                "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得2点增益和护盾。护盾可阻挡1次伤害；已有护盾的单位不能被选中。";
             Assert.Equal(expectedInfo, GwentMap.CardMap[CardId.Quen].Info);
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Quen));
             Assert.False(GwentMap.CardMap[CardId.Quen].IsDerive);
@@ -258,9 +258,9 @@ namespace Cynthia.Card.Server.Tests
             var expectedInfoByLanguage = new Dictionary<string, string>
             {
                 ["cn"] = expectedInfo,
-                ["en"] = "Choose a Bronze or Silver unit in your hand. Boost it and all copies of it in your hand and deck by 2, then give them Shield. Shield blocks one instance of damage; units that already have Shield cannot be chosen. A unit initiating a Duel loses its Shield before attacking.",
-                ["pl"] = "Wybierz brązową lub srebrną jednostkę w swojej ręce. Wzmocnij ją oraz wszystkie jej kopie w ręce i talii o 2 i daj im Tarczę. Tarcza blokuje jedno źródło obrażeń; nie można wybrać jednostki, która już ma Tarczę. Jednostka rozpoczynająca Pojedynek traci Tarczę przed atakiem.",
-                ["ru"] = "Выберите бронзовый или серебряный отряд в руке. Усильте его и все его копии в руке и колоде на 2 и дайте им щит. Щит блокирует один случай урона; нельзя выбрать отряд, у которого уже есть щит. Отряд, начинающий дуэль, теряет щит перед атакой."
+                ["en"] = "Choose a Bronze or Silver unit in your hand. Boost it and all copies of it in your hand and deck by 2, then give them Shield. Shield blocks one instance of damage; units that already have Shield cannot be chosen.",
+                ["pl"] = "Wybierz brązową lub srebrną jednostkę w swojej ręce. Wzmocnij ją oraz wszystkie jej kopie w ręce i talii o 2 i daj im Tarczę. Tarcza blokuje jedno źródło obrażeń; nie można wybrać jednostki, która już ma Tarczę.",
+                ["ru"] = "Выберите бронзовый или серебряный отряд в руке. Усильте его и все его копии в руке и колоде на 2 и дайте им щит. Щит блокирует один случай урона; нельзя выбрать отряд, у которого уже есть щит."
             };
             var quenLocaleRoots = new[]
             {
@@ -457,6 +457,15 @@ namespace Cynthia.Card.Server.Tests
                         Assert.Equal(card.Value, locales[0].CardLocales[card.Key].Info));
                 }
             });
+        }
+
+        [Fact]
+        public void IceTrollUsesSelfDamageInsteadOfAGlobalDuelShieldException()
+        {
+            Assert.Equal(5, GwentMap.CardMap[CardId.IceTroll].Strength);
+            Assert.Equal(
+                "对自身造成1点伤害，随后与1个敌军单位对决。若它位于“刺骨冰霜”之下，则己方对决伤害翻倍。",
+                GwentMap.CardMap[CardId.IceTroll].Info);
         }
 
         [Fact]

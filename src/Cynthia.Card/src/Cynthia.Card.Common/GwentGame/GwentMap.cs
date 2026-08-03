@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 165);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 166);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -4497,7 +4497,7 @@ namespace Cynthia.Card
                 {
                     CardId ="24034",
                     Name="冰巨魔",
-                    Strength=4,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -4507,7 +4507,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "巨魔形形色色，身材、嗜好各有不同。不过它们的脑子都和一桶锈钉子差不了多少。",
-                    Info = "与1个敌军单位对决。若它位于“刺骨冰霜”之下，则己方伤害翻倍。",
+                    Info = "对自身造成1点伤害，随后与1个敌军单位对决。若它位于“刺骨冰霜”之下，则己方对决伤害翻倍。",
                     CardArtsId = "20050200",
                     LinkedCards=new List<String> {"14005"},
                 }
@@ -11161,7 +11161,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Spell},
                     Flavor = "昆恩法印的故事",
-                    Info = "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得2点增益和护盾。护盾可阻挡1次伤害；已有护盾的单位不能被选中。发起对决时，先破除自身护盾。",
+                    Info = "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得2点增益和护盾。护盾可阻挡1次伤害；已有护盾的单位不能被选中。",
                     CardArtsId = "c10000100",
                     LinkedCards=new List<String> {},
                 }

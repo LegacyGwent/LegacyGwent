@@ -49,10 +49,10 @@ not the required CI lane.
 ## Current lifecycle coverage
 
 The suite verifies that Quen immediately Boosts and Shields same-ID cards in
-hand/deck, blocks damage to a revealed hand unit, clears the Duel initiator's
-Shield permanently, preserves the target's Shield for the first hit, resolves
-two Shielded units without looping, follows first-selection initiative in forced
-Duels, and keeps Ice Troll's frost multiplier.
+hand/deck, blocks damage to a revealed hand unit, lets both Duel participants'
+Shields block their first incoming hit, and resolves two Shielded units without
+looping. Ice Troll coverage verifies its pre-Duel self-damage both with and
+without Shield, plus the Biting Frost multiplier after that cost.
 
 The August 3 scenarios cover non-stacking Living Armor including self, Ivo's
 self-only Deathwish, Lady of the Lake's non-doubled count, Thaw's repeat count,
