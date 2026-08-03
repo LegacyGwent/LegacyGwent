@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-02
+Last verified: 2026-08-03
 
 ## DIY-AI release identity
 
@@ -67,6 +67,21 @@ Last verified: 2026-08-02
   `BluePlayerStatus()` rather than inferring the opponent result from a raw
   `RedPlayerGameResultStatus`; surrender, draw, and incomplete records otherwise
   produce incorrect faction totals.
+
+## Match process retention
+
+- MongoDB collections `gameresults` and `aigameresults` persist only the match
+  summary: identities, leaders, deck names/codes, round scores, win counts,
+  result/ranked/surrender flags, MMR, blacklist codes, balance point, and time.
+  They do not contain turns, chosen targets, random outcomes, or board snapshots.
+- `GwentServerGame.HistoryList` is an in-memory played-card list used by card
+  effects. It is neither a complete action sequence nor copied into `GameResult`.
+- `ClientPlayer.OperactionList` and `Viewer.OperationList` are live SignalR
+  transport buffers. Sending copies their contents to the client and clears the
+  list; neither buffer is written to MongoDB.
+- The 2026-08-03 DIY-AI database had no collection named for replay, operation,
+  history, record, or process. Existing results cannot reconstruct a deterministic
+  replay; adding one requires a new versioned event log or periodic snapshots.
 
 ## Spectator mode
 
