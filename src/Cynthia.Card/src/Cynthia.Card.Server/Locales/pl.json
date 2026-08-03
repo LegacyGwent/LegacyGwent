@@ -815,7 +815,7 @@
         },
         "12006": {
             "Name": "Saskia Smoczy Ogień",
-            "Info": "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart. Jeśli podczas dobierania twoja talia będzie pusta, wtasuj do niej wszystkie jednostki ze swojego cmentarza i kontynuuj dobieranie. Jest to traktowane jako Wskrzeszenie.",
+            "Info": "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart. Jeśli podczas dobierania twoja talia będzie pusta, wtasuj do niej wszystkie jednostki niebędące Dowódcami ani Szpiegami ze swojego cmentarza i kontynuuj dobieranie. Jest to traktowane jako Wskrzeszenie.",
             "Flavor": "Odziedziczyłam po ojcu zdolność polimorfii, choć potrafię przemieniać się jedynie w jedną postać."
         },
         "12007": {

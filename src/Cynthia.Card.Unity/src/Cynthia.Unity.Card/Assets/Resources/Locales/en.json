@@ -816,7 +816,7 @@
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
-            "Info": "Deploy: Banish your hand, then draw that many cards. If your deck becomes empty while drawing, shuffle all units from your graveyard into your deck and continue drawing. This counts as Resurrecting them.",
+            "Info": "Deploy: Banish your hand, then draw that many cards. If your deck becomes empty while drawing, shuffle all non-Leader, non-Spying units from your graveyard into your deck and continue drawing. This counts as Resurrecting them.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "12007": {

@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-03
+Last verified: 2026-08-04
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -58,7 +58,8 @@ The August 3 scenarios cover non-stacking Living Armor including self, Ivo's
 self-only Deathwish, Lady of the Lake's non-doubled count, Thaw's repeat count,
 both Lonely Champion bonuses, repeated Princess turns, both Old Speartip
 transforms, Aguara's non-spy hand filter, and the Magic Lamp/The Last Wish
-cross-card dependency. Saesenthessis: Blaze coverage verifies unit-only cemetery
-refill, resurrection events, continued draws, and empty-pool termination. Add
-future lifecycle regressions here instead of approximating them with source text
+cross-card dependency. Saesenthessis: Blaze coverage verifies cemetery refill
+for non-Leader/non-Spying units only, exclusion of leaders, spies and specials,
+resurrection events, continued draws, and empty-pool termination. Add future
+lifecycle regressions here instead of approximating them with source text
 assertions.

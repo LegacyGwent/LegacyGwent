@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-03
+Last verified: 2026-08-04
 
-Verified against the DIY-AI reset lineage through `1.0.0.166`.
+Verified against the DIY-AI reset lineage through `1.0.0.167`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 

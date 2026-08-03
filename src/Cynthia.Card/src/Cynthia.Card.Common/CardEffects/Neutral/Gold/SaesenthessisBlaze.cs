@@ -38,7 +38,9 @@ namespace Cynthia.Card
         private async Task ReturnCemeteryUnitsToDeck()
         {
             var units = Game.PlayersCemetery[PlayerIndex]
-                .Where(card => card.Status.Type == CardType.Unit)
+                .Where(card => card.Status.Type == CardType.Unit &&
+                    card.Status.Group != Group.Leader &&
+                    card.CardInfo().CardUseInfo == CardUseInfo.MyRow)
                 .ToList();
             foreach (var unit in units)
             {

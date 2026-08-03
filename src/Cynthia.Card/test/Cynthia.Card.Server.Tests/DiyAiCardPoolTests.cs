@@ -42,7 +42,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 166), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 167), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -173,8 +173,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 166);
-            var stale = new Version(1, 0, 0, 165);
+            var current = new Version(1, 0, 0, 167);
+            var stale = new Version(1, 0, 0, 166);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -284,7 +284,7 @@ namespace Cynthia.Card.Server.Tests
         public void SaesenthessisBlazeDescriptionMatchesItsResurrectionRefillRule()
         {
             const string expectedChineseInfo =
-                "放逐所有手牌，抽同等数量的牌。如果抽牌过程中牌组为空，则将墓场中的所有单位牌放回牌组后继续抽牌，该效果视为复活。";
+                "放逐所有手牌，抽同等数量的牌。如果抽牌过程中牌组为空，则将墓场中的所有非领袖和非间谍单位放回牌组后继续抽牌，该效果视为复活。";
             Assert.Equal(
                 expectedChineseInfo,
                 GwentMap.CardMap[CardId.SaesenthessisBlaze].Info);
@@ -292,9 +292,9 @@ namespace Cynthia.Card.Server.Tests
             var expectedInfoByLanguage = new Dictionary<string, string>
             {
                 ["cn"] = expectedChineseInfo,
-                ["en"] = "Deploy: Banish your hand, then draw that many cards. If your deck becomes empty while drawing, shuffle all units from your graveyard into your deck and continue drawing. This counts as Resurrecting them.",
-                ["pl"] = "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart. Jeśli podczas dobierania twoja talia będzie pusta, wtasuj do niej wszystkie jednostki ze swojego cmentarza i kontynuuj dobieranie. Jest to traktowane jako Wskrzeszenie.",
-                ["ru"] = "Размещение: изгоните все карты из руки и возьмите столько же карт. Если во время добора колода опустеет, замешайте в неё все отряды со своего кладбища и продолжите добор. Это считается воскрешением."
+                ["en"] = "Deploy: Banish your hand, then draw that many cards. If your deck becomes empty while drawing, shuffle all non-Leader, non-Spying units from your graveyard into your deck and continue drawing. This counts as Resurrecting them.",
+                ["pl"] = "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart. Jeśli podczas dobierania twoja talia będzie pusta, wtasuj do niej wszystkie jednostki niebędące Dowódcami ani Szpiegami ze swojego cmentarza i kontynuuj dobieranie. Jest to traktowane jako Wskrzeszenie.",
+                ["ru"] = "Размещение: изгоните все карты из руки и возьмите столько же карт. Если во время добора колода опустеет, замешайте в неё все отряды, не являющиеся лидерами или шпионами, со своего кладбища и продолжите добор. Это считается воскрешением."
             };
             var localeRoots = new[]
             {

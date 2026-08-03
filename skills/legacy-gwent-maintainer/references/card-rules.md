@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-08-03
+Last verified: 2026-08-04
 
 ## Similar Chinese card names
 
@@ -14,7 +14,7 @@ Last verified: 2026-08-03
 ## Selected DIY cards in the reset pool
 
 - `70001` is 昆恩法印 and is a deckable Copper Neutral spell in DIY-AI
-  `1.0.0.166`. It immediately Boosts the selected Bronze/Silver hand unit and
+  `1.0.0.167`. It immediately Boosts the selected Bronze/Silver hand unit and
   all same-ID cards currently in hand/deck by 2, then gives each an ordinary
   Shield. A revealed unit in hand therefore blocks one damage instance.
 - Duel has no Quen-specific or initiator-specific shield exception. Both units'
@@ -54,11 +54,13 @@ Last verified: 2026-08-03
 
 - `12006` banishes the other cards remaining in its controller's hand, then
   draws that same count one card at a time.
-- When the deck is empty before a required draw, snapshot every unit currently
-  in that player's cemetery and return each still-eligible unit to a random deck
-  position through the normal `Resurrect(... MyDeck ...)` helper. Non-unit cards
+- When the deck is empty before a required draw, snapshot every non-Leader,
+  non-Spying unit currently in that player's cemetery and return each
+  still-eligible unit to a random deck position through the normal
+  `Resurrect(... MyDeck ...)` helper. Leaders, Spying units, and non-unit cards
   remain in the cemetery. Continue drawing afterward; stop cleanly if both the
-  deck and eligible cemetery-unit pool are empty.
+  deck and eligible cemetery-unit pool are empty. In code, non-Spying follows
+  the established hand/deck convention `CardUseInfo == MyRow`.
 - Returning the units must send `AfterCardResurrect`. This is the established
   “counts as resurrecting” behavior used by Dimun Smuggler, so resurrection
   listeners such as Tuirseach Skirmisher still trigger even though the
@@ -94,7 +96,7 @@ Last verified: 2026-08-03
 
 ## August 3 public test batch
 
-- DIY-AI `1.0.0.166` re-enables these deckable DIY cards: `70002`, `70005`,
+- DIY-AI `1.0.0.167` re-enables these deckable DIY cards: `70002`, `70005`,
   `70011`, `70026`, `70027`, `70059`, `70062`, `70070`, `70091`, `70110`,
   `70119`, `70131`, `70133`, `70155`, `70157`, `70161`, `70172`, and `70190`.
   Their derived dependencies `70006`, `70071`, and `70162` are available only

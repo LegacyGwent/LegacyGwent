@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 166);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 167);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -303,7 +303,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "放逐所有手牌，抽同等数量的牌。如果抽牌过程中牌组为空，则将墓场中的所有单位牌放回牌组后继续抽牌，该效果视为复活。",
+                    Info = "放逐所有手牌，抽同等数量的牌。如果抽牌过程中牌组为空，则将墓场中的所有非领袖和非间谍单位放回牌组后继续抽牌，该效果视为复活。",
                     CardArtsId = "20005700",
                     LinkedCards=new List<String> {},
                 }

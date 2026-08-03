@@ -7,7 +7,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class SaesenthessisBlazeTests
     {
         [Fact]
-        public async Task EmptyDeckResurrectsAllCemeteryUnitsAndContinuesDrawing()
+        public async Task EmptyDeckResurrectsEligibleCemeteryUnitsAndContinuesDrawing()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
@@ -54,6 +54,14 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player1Index,
                 CardId.BitingFrost,
                 RowPosition.MyCemetery);
+            var cemeteryLeader = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.WhisperingHillock,
+                RowPosition.MyCemetery);
+            var cemeterySpy = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.Cantarella,
+                RowPosition.MyCemetery);
             var skirmisherBaseStrength = skirmisher.Status.Strength;
             await fixture.SynchronizeClientsAsync();
 
@@ -73,7 +81,9 @@ namespace Cynthia.Card.Gameplay.Tests
                 card => card.Status.CardRow.IsInCemetery());
             Assert.Equal(skirmisherBaseStrength + 3, skirmisher.Status.Strength);
             Assert.Equal(RowPosition.MyCemetery, cemeterySpecial.Status.CardRow);
-            Assert.Single(fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
+            Assert.Equal(RowPosition.MyCemetery, cemeteryLeader.Status.CardRow);
+            Assert.Equal(RowPosition.MyCemetery, cemeterySpy.Status.CardRow);
+            Assert.Equal(3, fixture.Game.PlayersCemetery[fixture.Game.Player1Index].Count);
         }
 
         [Fact]
@@ -101,6 +111,14 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player1Index,
                 CardId.BitingFrost,
                 RowPosition.MyCemetery);
+            var cemeteryLeader = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.WhisperingHillock,
+                RowPosition.MyCemetery);
+            var cemeterySpy = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.Cantarella,
+                RowPosition.MyCemetery);
             await fixture.SynchronizeClientsAsync();
 
             await blaze.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
@@ -109,6 +127,8 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Single(fixture.Game.PlayersHandCard[fixture.Game.Player1Index]);
             Assert.Empty(fixture.Game.PlayersDeck[fixture.Game.Player1Index]);
             Assert.Equal(RowPosition.MyCemetery, cemeterySpecial.Status.CardRow);
+            Assert.Equal(RowPosition.MyCemetery, cemeteryLeader.Status.CardRow);
+            Assert.Equal(RowPosition.MyCemetery, cemeterySpy.Status.CardRow);
         }
     }
 }
