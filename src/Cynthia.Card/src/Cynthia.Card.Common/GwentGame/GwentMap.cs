@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 163);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 164);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -303,7 +303,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "放逐所有手牌，抽同等数量的牌。",
+                    Info = "放逐所有手牌，抽同等数量的牌。如果抽牌过程中牌组为空，则将墓场中的所有单位牌放回牌组后继续抽牌，该效果视为复活。",
                     CardArtsId = "20005700",
                     LinkedCards=new List<String> {},
                 }
@@ -11161,7 +11161,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Spell},
                     Flavor = "昆恩法印的故事",
-                    Info = "选择手牌中的一个铜色/银色单位，给予其和其在手牌和牌组中的同名卡2点增益和护盾。护盾可以阻挡一次伤害效果。已经有护盾的不能被选中。",
+                    Info = "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得“昆恩”：首次进入己方战场并完成部署结算后，获得2点增益和护盾。",
                     CardArtsId = "c10000100",
                     LinkedCards=new List<String> {},
                 }

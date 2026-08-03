@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-02
+Last verified: 2026-08-03
 
-Verified against the DIY-AI reset lineage through `1.0.0.163`.
+Verified against the DIY-AI reset lineage through `1.0.0.164`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -32,12 +32,12 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 - Current map: 715 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- The resulting baseline/system/selected-DIY/experimental pool is 534 entries;
-  181 current entries are legacy DIY retirement candidates and 488 entries are
-  user-deckable after also excluding system and derived cards. The two promoted
-  exceptions are
-  `70041` (鬼针草煎药) and `70042` (合欢茎魔药), both using exactly the
-  `Special + Alchemy` categories.
+- The resulting baseline/system/selected-DIY/experimental pool is 535 entries;
+  180 current entries are legacy DIY retirement candidates and 489 entries are
+  user-deckable after also excluding system and derived cards. The promoted
+  exceptions are `70001` (昆恩法印), `70041` (鬼针草煎药), and `70042`
+  (合欢茎魔药). The two potions use exactly the `Special + Alchemy`
+  categories.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.

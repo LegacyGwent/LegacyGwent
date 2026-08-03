@@ -53,6 +53,14 @@ jobs:
           --no-restore
           src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj
 
+      - name: Run headless gameplay tests
+        run: >-
+          dotnet test
+          --configuration Release
+          --no-build
+          --no-restore
+          src/Cynthia.Card/test/Cynthia.Card.Gameplay.Tests/Cynthia.Card.Gameplay.Tests.csproj
+
       - name: Reject known vulnerable packages
         run: |
           report="$(mktemp)"
@@ -203,6 +211,8 @@ jobs:
           grep -q 'name: Reject known vulnerable packages' .github/workflows/diy-ai-ci.yml
           sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^      - name: Run server compatibility tests$'
           sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^          src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj$'
+          sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^      - name: Run headless gameplay tests$'
+          sed '/^  policy:/,$d' .github/workflows/diy-ai-ci.yml | grep -q '^          src/Cynthia.Card/test/Cynthia.Card.Gameplay.Tests/Cynthia.Card.Gameplay.Tests.csproj$'
           ! grep -q 'PackageReference Include="System.Text.Json"' src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
           grep -q '^FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build$' src/Cynthia.Card/Dockerfile
           grep -q '^FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime$' src/Cynthia.Card/Dockerfile

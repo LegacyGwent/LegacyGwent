@@ -816,7 +816,7 @@
         },
         "12006": {
             "Name": "Saesenthessis: Blaze",
-            "Info": "Deploy: Banish your hand and draw that many cards.",
+            "Info": "Deploy: Banish your hand, then draw that many cards. If your deck becomes empty while drawing, shuffle all units from your graveyard into your deck and continue drawing. This counts as Resurrecting them.",
             "Flavor": "I inherited my father's ability to assume other forms - well, one other form, in my case."
         },
         "12007": {
@@ -3371,7 +3371,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Choose a Bronze or Silver unit in your hand, then Boost it and all its copies in your hand and deck by 2 and give them Shield. The Shield can block any Damage once.",
+            "Info": "Choose a Bronze or Silver unit in your hand. It and all copies in your hand and deck gain Quen: the first time each enters your side of the battlefield after its Deploy ability resolves, Boost it by 2 and give it Shield.",
             "Flavor": ""
         },
         "70002": {

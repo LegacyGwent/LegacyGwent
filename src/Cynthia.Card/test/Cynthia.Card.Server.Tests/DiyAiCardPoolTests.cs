@@ -20,11 +20,13 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(181, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(180, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
             Assert.DoesNotContain("70042", DiyAiCardPool.RetiredCardIds);
+            Assert.DoesNotContain(CardId.Quen, DiyAiCardPool.RetiredCardIds);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Quen));
 
             Assert.All(
                 DiyAiCardPool.RetiredCardIds,
@@ -40,7 +42,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 163), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 164), GwentMap.CardMapVersion);
             Assert.Equal(715, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -62,7 +64,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(starter.IsBasicDeck());
             Assert.All(starter.Deck, cardId => Assert.True(DiyAiCardPool.IsUserDeckCard(cardId)));
 
-            starter.Deck[0] = "70001";
+            starter.Deck[0] = "70002";
             Assert.False(starter.IsBasicDeck());
             Assert.False(starter.IsSpecialDeck());
         }
@@ -125,8 +127,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 163);
-            var stale = new Version(1, 0, 0, 162);
+            var current = new Version(1, 0, 0, 164);
+            var stale = new Version(1, 0, 0, 163);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -196,6 +198,98 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(typeof(IHandlesEvent<AfterCardMove>).IsAssignableFrom(typeof(AleOfTheAncestors)));
             Assert.True(typeof(IHandlesEvent<AfterCardMove>).IsAssignableFrom(typeof(BloodMoonStatus)));
             Assert.True(typeof(IHandlesEvent<AfterCardMove>).IsAssignableFrom(typeof(PitTrapStatus)));
+        }
+
+        [Fact]
+        public void QuenAvailabilityDescriptionAndLandingHookMatchTheRule()
+        {
+            const string expectedInfo =
+                "选择手牌中的1个铜色/银色单位，使其及手牌、牌组中的同名牌获得“昆恩”：首次进入己方战场并完成部署结算后，获得2点增益和护盾。";
+            Assert.Equal(expectedInfo, GwentMap.CardMap[CardId.Quen].Info);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Quen));
+            Assert.False(GwentMap.CardMap[CardId.Quen].IsDerive);
+            Assert.True(typeof(IHandlesEvent<AfterUnitLanded>).IsAssignableFrom(
+                typeof(PendingQuenEffect)));
+
+            var expectedInfoByLanguage = new Dictionary<string, string>
+            {
+                ["cn"] = expectedInfo,
+                ["en"] = "Choose a Bronze or Silver unit in your hand. It and all copies in your hand and deck gain Quen: the first time each enters your side of the battlefield after its Deploy ability resolves, Boost it by 2 and give it Shield.",
+                ["pl"] = "Wybierz brązową lub srebrną jednostkę w swojej ręce. Ona i wszystkie jej kopie w ręce i talii otrzymują Quen: gdy każda z nich po raz pierwszy znajdzie się po twojej stronie pola bitwy po rozpatrzeniu Rozmieszczenia, wzmocnij ją o 2 i daj jej Tarczę.",
+                ["ru"] = "Выберите бронзовый или серебряный отряд в руке. Он и все его копии в руке и колоде получают «Квен»: когда каждый из них впервые попадёт на вашу сторону поля после завершения эффекта размещения, усильте его на 2 и дайте ему щит."
+            };
+            var quenLocaleRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(quenLocaleRoots, localeRoot =>
+            {
+                Assert.All(expectedInfoByLanguage, language =>
+                {
+                    var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{language.Key}.json")));
+                    Assert.Equal(language.Value, locale.CardLocales[CardId.Quen].Info);
+                });
+            });
+
+            var cardEffectSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/CardEffect.cs"));
+            var cardDownStart = cardEffectSource.IndexOf(
+                "public virtual async Task CardDown",
+                StringComparison.Ordinal);
+            var landedHook = cardEffectSource.IndexOf(
+                "RaiseEvent(new AfterUnitLanded(Card))",
+                cardDownStart,
+                StringComparison.Ordinal);
+            var globalLandingEvent = cardEffectSource.IndexOf(
+                "SendEvent(new AfterUnitDown",
+                cardDownStart,
+                StringComparison.Ordinal);
+            Assert.True(cardDownStart >= 0);
+            Assert.True(landedHook > cardDownStart);
+            Assert.True(globalLandingEvent > landedHook);
+        }
+
+        [Fact]
+        public void SaesenthessisBlazeDescriptionMatchesItsResurrectionRefillRule()
+        {
+            const string expectedChineseInfo =
+                "放逐所有手牌，抽同等数量的牌。如果抽牌过程中牌组为空，则将墓场中的所有单位牌放回牌组后继续抽牌，该效果视为复活。";
+            Assert.Equal(
+                expectedChineseInfo,
+                GwentMap.CardMap[CardId.SaesenthessisBlaze].Info);
+
+            var expectedInfoByLanguage = new Dictionary<string, string>
+            {
+                ["cn"] = expectedChineseInfo,
+                ["en"] = "Deploy: Banish your hand, then draw that many cards. If your deck becomes empty while drawing, shuffle all units from your graveyard into your deck and continue drawing. This counts as Resurrecting them.",
+                ["pl"] = "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart. Jeśli podczas dobierania twoja talia będzie pusta, wtasuj do niej wszystkie jednostki ze swojego cmentarza i kontynuuj dobieranie. Jest to traktowane jako Wskrzeszenie.",
+                ["ru"] = "Размещение: изгоните все карты из руки и возьмите столько же карт. Если во время добора колода опустеет, замешайте в неё все отряды со своего кладбища и продолжите добор. Это считается воскрешением."
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(localeRoots, localeRoot =>
+            {
+                Assert.All(expectedInfoByLanguage, language =>
+                {
+                    var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{language.Key}.json")));
+                    Assert.Equal(
+                        language.Value,
+                        locale.CardLocales[CardId.SaesenthessisBlaze].Info);
+                });
+            });
+
+            var source = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Neutral/Gold/SaesenthessisBlaze.cs"));
+            Assert.Contains("unit.Effect.Resurrect", source);
+            Assert.Contains("await Game.PlayerDrawCard(PlayerIndex)", source);
         }
 
         [Fact]
@@ -736,5 +830,6 @@ namespace Cynthia.Card.Server.Tests
 
             throw new FileNotFoundException($"Could not find repository file {relativePath}.");
         }
+
     }
 }

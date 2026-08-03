@@ -143,6 +143,15 @@ Last verified: 2026-08-03
 
 ## Selected DIY cards in the reset pool
 
+- `70001` is 昆恩法印 and is restored as a deckable Copper Neutral spell in
+  DIY-AI `1.0.0.164`. It selects a Bronze/Silver unit in hand and gives that
+  physical card plus same-ID cards currently in hand/deck a server-internal
+  pending Quen marker. Each marker waits for its own first successful landing on
+  its controller's side after deployment, then grants Boost 2 and Shield once.
+- Pending Quen is attached to each `GameCard`, not inferred later from card ID.
+  Death, return to hand, banish, or movement to the enemy side during deployment
+  does not consume it. A later qualifying summon/resurrection/normal play can
+  consume it; transformation removes it with the replaced `EffectSet`.
 - `70041` is 鬼针草煎药 and `70042` is 合欢茎魔药. DIY-AI deliberately
   makes both cards deckable while the rest of the ordinary DIY retirement
   manifest stays hidden.
@@ -167,6 +176,20 @@ Last verified: 2026-08-03
   (7/2 turns/2). Each timer resets to the same value after triggering.
 - Variants share their family's `CardArtsId`, miniature, and voice, but gameplay,
   deck limits, and same-card identity follow `CardId`, not art or display name.
+
+## Saesenthessis: Blaze refill
+
+- `12006` banishes the other cards remaining in its controller's hand, then
+  draws that same count one card at a time.
+- When the deck is empty before a required draw, snapshot every unit currently
+  in that player's cemetery and return each still-eligible unit to a random deck
+  position through the normal `Resurrect(... MyDeck ...)` helper. Non-unit cards
+  remain in the cemetery. Continue drawing afterward; stop cleanly if both the
+  deck and eligible cemetery-unit pool are empty.
+- Returning the units must send `AfterCardResurrect`. This is the established
+  “counts as resurrecting” behavior used by Dimun Smuggler, so resurrection
+  listeners such as Tuirseach Skirmisher still trigger even though the
+  destination is the deck rather than the battlefield.
 
 ## Generate-effect experiment
 

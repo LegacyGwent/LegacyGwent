@@ -330,6 +330,10 @@ namespace Cynthia.Card
         public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo, bool sendEvent = true)
         {
             await Game.ShowCardDown(Card);
+            if (sendEvent && Card.IsAliveOnPlance())
+            {
+                await Card.Effects.RaiseEvent(new AfterUnitLanded(Card));
+            }
             await Game.SetPointInfo();
             if (isSpying)
                 await Spying(Card);

@@ -14,8 +14,9 @@ relevant source again when changing the shared pipeline.
 2. `CardPlayStart` moves the unit to its chosen row and clears reveal state.
 3. Send `AfterUnitPlay`.
 4. Raise `CardPlayEffect`; ordinary deployment effects execute here.
-5. If the unit remains on a row, call `CardDown`: show the landed card, update
-   points, resolve spying, then send `AfterUnitDown` and record history.
+5. If the unit remains on a row, call `CardDown`: show the landed card, raise the
+   card-local `AfterUnitLanded` hook, update points, resolve spying, then send
+   global `AfterUnitDown` and record history.
 6. Resolve `BeforePlayStayCard` and any cards waiting in `PlayersStay`.
 7. If the original unit remains on a row, raise `CardDownEffect`.
 
@@ -27,16 +28,18 @@ assuming they are equivalent to a hand play.
 
 ## Landing reactions
 
-`CardDown` calls `ShowCardDown` before `AfterUnitDown`. Landing listeners can
-therefore change or damage the unit before `CardDownEffect`. Active examples
+`CardDown` calls `ShowCardDown`, then raises `AfterUnitLanded` on the arriving
+card's own `EffectSet`, before broadcasting `AfterUnitDown`. Landing listeners
+can therefore change or damage the unit before `CardDownEffect`. Active examples
 include Savage Bear damage, Blood Moon damage, Pit Trap damage, Roach summons,
 and several engines that boost themselves or the arriving unit.
 
 If a new state must not affect deployment but must protect against landing
-reactions, activate it after `ShowCardDown` and before `AfterUnitDown`. Putting
-it only in `CardDownEffect` is too late. The current shared pipeline has no
-named hook at that boundary, so add an explicit one-shot transition rather than
-depending on animation timing.
+reactions, handle `AfterUnitLanded`. Putting it only in `CardDownEffect` is too
+late. `CardDown` raises this local hook only for normal event-producing landings
+and only while the card is alive on a battlefield row. A unit killed, returned
+to hand, banished, or otherwise removed during deployment cannot consume a
+pending landing state.
 
 ## Damage and shield
 
@@ -47,10 +50,11 @@ of `Damage`, including duel, weather, trap, and hand damage; there is no native
 duel-only shield exception.
 
 `IsShield` is serialized client-visible state and is valid in hand or on the
-board. `ToCemetery`, `Repair`, and locking a card clear it. A future delayed
-shield marker should be server-internal, one-shot, cleared when its card leaves
-the eligible lifecycle, and converted to `IsShield` only at its specified
-timing boundary.
+board. `ToCemetery`, `Repair`, and locking a card clear it. Delayed shield
+markers should be server-internal `Effect` instances, one-shot and converted to
+`IsShield` only at `AfterUnitLanded`. Invalid entry attempts must not consume
+the marker; transformation clears it because `Transform` replaces the card's
+entire `EffectSet`.
 
 ## Duel and repeated deployment
 

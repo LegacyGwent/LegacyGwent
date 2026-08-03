@@ -815,7 +815,7 @@
         },
         "12006": {
             "Name": "Saskia Smoczy Ogień",
-            "Info": "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart.",
+            "Info": "Rozmieszczenie: Wygnaj wszystkie karty ze swojej ręki i dobierz tyle samo kart. Jeśli podczas dobierania twoja talia będzie pusta, wtasuj do niej wszystkie jednostki ze swojego cmentarza i kontynuuj dobieranie. Jest to traktowane jako Wskrzeszenie.",
             "Flavor": "Odziedziczyłam po ojcu zdolność polimorfii, choć potrafię przemieniać się jedynie w jedną postać."
         },
         "12007": {
@@ -3370,7 +3370,7 @@
         },
         "70001": {
             "Name": "Quen",
-            "Info": "Wybierz brązową lub srebrną jednostkę w twojej ręce, wzmocnij ją i wszystkie jej kopie w ręce i tali o 2 i daj im tarcze. Tarcza raz blokuje dowolne obrażenia.",
+            "Info": "Wybierz brązową lub srebrną jednostkę w swojej ręce. Ona i wszystkie jej kopie w ręce i talii otrzymują Quen: gdy każda z nich po raz pierwszy znajdzie się po twojej stronie pola bitwy po rozpatrzeniu Rozmieszczenia, wzmocnij ją o 2 i daj jej Tarczę.",
             "Flavor": ""
         },
         "70002": {
