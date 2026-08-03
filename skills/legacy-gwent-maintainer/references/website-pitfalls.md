@@ -1,6 +1,6 @@
 # Website and local preview pitfalls
 
-Last verified: 2026-08-01
+Last verified: 2026-08-03
 
 ## Mongo URI suffix points at the wrong apparent database
 
@@ -78,6 +78,23 @@ Last verified: 2026-08-01
 - Prevention: reuse the same validity/status rules as competitive statistics.
 - Verification: the seeded three seasons contain 3,543, 17,388, and 5,101 valid
   ranked matches and show localized season names.
+
+## Recent matches omit AI games after a service restart
+
+- Symptom: `/gameresults` claims to show recent AITest matches but displays an
+  older 50-game player history and omits newer matches against `ai1`.
+- Cause: `GwentServerService.ResultList` was initialized only through
+  `GetAllGameResults(50)`, which reads `gameresults`. AI results live in the
+  separate `aigameresults` collection and appeared only while the process that
+  observed their live `OnGameOver` event remained running.
+- Fix: query the newest candidates from both collections, merge by UTC `Time`,
+  and keep the newest 50 for the public timeline.
+- Prevention: every UI described as AITest-wide must explicitly decide whether
+  it covers `gameresults`, `aigameresults`, or both; do not infer a complete
+  timeline from the legacy player-only helper.
+- Verification: seed interleaved player and AI timestamps, restart the service,
+  and require `/gameresults` to preserve their combined descending order and
+  the 50-item cap.
 
 ## Language switching returns to the previous page
 

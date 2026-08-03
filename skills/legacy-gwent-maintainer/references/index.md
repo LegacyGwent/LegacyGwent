@@ -8,6 +8,7 @@ Read this file first, then load only the rows relevant to the task.
 | --- | --- | --- |
 | Components, source ownership, runtime flow | [architecture.md](architecture.md) | Repository layout and component boundaries |
 | Accounts, cards, decks, AI, matchmaking | [business-rules.md](business-rules.md) | Verified gameplay and domain behavior |
+| Card identity, selected DIY effects, balance variants, generate rules | [card-rules.md](card-rules.md) | Verified card-specific behavior |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
 | Card-pool reset, retirement, deck-code compatibility | [card-pool-migrations.md](card-pool-migrations.md) | Immutable map ordering, classification, data migration |

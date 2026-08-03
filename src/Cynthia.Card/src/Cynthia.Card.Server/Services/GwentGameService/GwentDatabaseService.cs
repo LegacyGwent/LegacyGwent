@@ -579,6 +579,46 @@ namespace Cynthia.Card.Server
             return temp.AsQueryable<GameResult>().OrderByDescending(x => x.Time).Take(count).ToList();
         }
 
+        public IList<GameResult> GetRecentGameResults(int count)
+        {
+            if (count <= 0)
+            {
+                return new List<GameResult>();
+            }
+
+            var database = GetDatabase();
+            var playerResults = database.GetCollection<GameResult>("gameresults")
+                .AsQueryable<GameResult>()
+                .OrderByDescending(result => result.Time)
+                .Take(count)
+                .ToList();
+            var aiResults = database.GetCollection<GameResult>("aigameresults")
+                .AsQueryable<GameResult>()
+                .OrderByDescending(result => result.Time)
+                .Take(count)
+                .ToList();
+
+            return MergeRecentGameResults(playerResults, aiResults, count);
+        }
+
+        public static IList<GameResult> MergeRecentGameResults(
+            IEnumerable<GameResult> playerResults,
+            IEnumerable<GameResult> aiResults,
+            int count)
+        {
+            if (count <= 0)
+            {
+                return new List<GameResult>();
+            }
+
+            return (playerResults ?? Enumerable.Empty<GameResult>())
+                .Concat(aiResults ?? Enumerable.Empty<GameResult>())
+                .Where(result => result != null)
+                .OrderByDescending(result => result.Time)
+                .Take(count)
+                .ToList();
+        }
+
         public IList<GameResult> GetRankedGameResultsForPeriod(DateTime startUtc, DateTime endUtc)
         {
             if (endUtc <= startUtc)

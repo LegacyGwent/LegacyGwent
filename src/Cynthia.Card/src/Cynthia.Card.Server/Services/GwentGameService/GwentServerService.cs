@@ -44,7 +44,7 @@ namespace Cynthia.Card.Server
             _gwentMatchs = new GwentMatchs(() => hub, (GwentCardDataService)container.GetService(typeof(GwentCardDataService)), this);
             _hub = hub;
             _env = env;
-            ResultList = _databaseService.GetAllGameResults(50);
+            ResultList = _databaseService.GetRecentGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
             UpdateAndSaveSeasons();
