@@ -136,9 +136,10 @@ Last verified: 2026-08-04
 - Dana presents every Neutral deck card without unit or rarity restrictions,
   moves the chosen card to Stay, and plays it through the normal pipeline. The
   high-value chain Dana -> Royal Decree -> any Gold unit is intentional test
-  coverage. Roach remains in deck because both deck plays have
-  `AfterUnitDown.IsFromHand == false`; changing that would be a separate Roach
-  rules change.
+  coverage. A Gold unit played from the deck this way must trigger Roach.
+  `AfterUnitDown.IsPlayed` marks entry through `CardEffect.Play` independently
+  of `IsFromHand`; Summon, Resurrect, and Move leave it false and must not
+  trigger Roach.
 - Dana currently uses existing client art `203195`, including its registered
   full sprite and leader miniature, so the August 4 release can hot-sync without an
   immediate client rebuild. The originally proposed `d17210000` remains a

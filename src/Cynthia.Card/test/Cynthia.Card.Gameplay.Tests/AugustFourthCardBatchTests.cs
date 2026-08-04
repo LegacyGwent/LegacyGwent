@@ -142,7 +142,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task DanaPlaysAChosenNeutralGoldFromDeckWhileRoachStaysInDeck()
+        public async Task DanaPlayingANeutralGoldFromDeckSummonsRoach()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
@@ -163,12 +163,12 @@ namespace Cynthia.Card.Gameplay.Tests
             await dana.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
 
             Assert.True(gold.Status.CardRow.IsOnPlace());
-            Assert.Contains(roach, fixture.Game.PlayersDeck[fixture.Game.Player1Index]);
+            Assert.True(roach.Status.CardRow.IsOnPlace());
             Assert.Equal(2, fixture.FirstPlayer.LastMenuOptionCount);
         }
 
         [Fact]
-        public async Task DanaCanChainRoyalDecreeIntoAGoldUnitWithoutSummoningRoach()
+        public async Task DanaCanChainRoyalDecreeIntoAGoldUnitAndSummonRoach()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
@@ -195,6 +195,27 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.True(gold.Status.CardRow.IsOnPlace());
             Assert.Equal(2, gold.Status.HealthStatus);
             Assert.True(decree.Status.CardRow.IsInCemetery());
+            Assert.True(roach.Status.CardRow.IsOnPlace());
+        }
+
+        [Fact]
+        public async Task SummoningAGoldUnitDoesNotTriggerRoach()
+        {
+            var fixture = new HeadlessGameFixture();
+            fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
+            var gold = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.GeraltOfRivia,
+                RowPosition.MyDeck);
+            var roach = fixture.AddCard(
+                fixture.Game.Player1Index,
+                CardId.Roach,
+                RowPosition.MyDeck);
+            await fixture.SynchronizeClientsAsync();
+
+            await gold.Effect.Summon(new CardLocation(RowPosition.MyRow1, 0), gold);
+
+            Assert.True(gold.Status.CardRow.IsOnPlace());
             Assert.Contains(roach, fixture.Game.PlayersDeck[fixture.Game.Player1Index]);
         }
     }

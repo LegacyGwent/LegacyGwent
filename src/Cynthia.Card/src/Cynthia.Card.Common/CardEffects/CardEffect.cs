@@ -117,7 +117,7 @@ namespace Cynthia.Card
                     count = ((CardPlayEffect)await Card.Effects.RaiseEvent(new CardPlayEffect(isSpying, isReveal))).SearchCount;
                 });
             if (Card.Status.CardRow.IsOnPlace())
-                await CardDown(isSpying, isFromHand, false, (false, false));
+                await CardDown(isSpying, isFromHand, false, (false, false), isPlayed: true);
             count = (await Game.SendEvent(new BeforePlayStayCard(Card, count))).PlayCount;
             await PlayStayCard(count, isSpying);
             if (Card.Status.CardRow.IsOnPlace())
@@ -327,7 +327,7 @@ namespace Cynthia.Card
                 }
             }
         }
-        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo, bool sendEvent = true)
+        public virtual async Task CardDown(bool isSpying, bool isFromHand, bool isFromPlance, (bool isMove, bool isFromEnemy) isMoveInfo, bool sendEvent = true, bool isPlayed = false)
         {
             await Game.ShowCardDown(Card);
             await Game.SetPointInfo();
@@ -337,7 +337,7 @@ namespace Cynthia.Card
             //打出了卡牌,应该触发对应事件<暂未定义,待补充>
             if (sendEvent)
             {
-                await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo, isSpying)));
+                await Game.AddTask(async () => await Game.SendEvent(new AfterUnitDown(Card, isFromHand, isFromPlance, isMoveInfo, isSpying, isPlayed)));
             }
             //8888888888888888888888888888888888888888888888888888888888888888888888
             if (!isMoveInfo.isMove)
