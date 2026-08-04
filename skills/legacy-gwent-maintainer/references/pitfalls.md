@@ -1,6 +1,6 @@
 # Pitfalls
 
-Last verified: 2026-08-02
+Last verified: 2026-08-04
 
 ## .NET 10 build fails on a generated global using
 

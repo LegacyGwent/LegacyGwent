@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-08-03
+Last verified: 2026-08-04
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -11,6 +11,7 @@ Read this file first, then load only the rows relevant to the task.
 | Card identity, selected DIY effects, balance variants, generate rules | [card-rules.md](card-rules.md) | Verified card-specific behavior |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
+| Card-batch publication, preflight, repeated CI | [release-preflight.md](release-preflight.md) | First-push gates and release-loop prevention |
 | Card-pool reset, retirement, deck-code compatibility | [card-pool-migrations.md](card-pool-migrations.md) | Immutable map ordering, classification, data migration |
 | Windows setup, local server, MongoDB, Unity | [development.md](development.md) | Reproducible local workflows |
 | Linux server, SSH, systemd, CI/CD, rollback | [operations.md](operations.md) | Stable and DIY-AI operations |

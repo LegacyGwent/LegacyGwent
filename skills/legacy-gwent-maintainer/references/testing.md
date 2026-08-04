@@ -44,6 +44,34 @@ Run the isolated suite with:
 dotnet test src/Cynthia.Card/test/Cynthia.Card.Gameplay.Tests/Cynthia.Card.Gameplay.Tests.csproj
 ```
 
+Run the Server and Gameplay projects sequentially in one worktree. They share
+Common/AI build outputs, so concurrent `dotnet test` processes can race on
+`obj/Release` and fail with CS2012 even when the code is correct.
+
+## Card-batch preflight
+
+Before the first push of a card batch, consolidate all known changes and pass
+these gates locally:
+
+1. For every changed or restored card ID, assert strength, group, derived/deck
+   availability, effect type, and exact Chinese `Info` in the static suite.
+2. Require the active `GwentMap` description to equal the server Chinese locale,
+   then require server, Unity Resources, and Unity StreamingFile locale copies
+   to agree for each supported language. Do not wait for live `GetCardMap` to
+   discover source/locale drift.
+3. Require the runtime user-card set and Mongo reset allowlist to be identical,
+   including derived dependencies that must remain non-deckable.
+4. Cover each lifecycle rule with a positive and a negative headless scenario.
+   For example, a Gold unit entering through `Play` summons Roach, while the
+   same unit entering through `Summon` does not.
+5. Treat an interpretation not established by source or explicit user wording
+   as an assumption. Surface it before release; never encode an unconfirmed
+   assumption as a regression test and then treat that test as business truth.
+
+Run both suites, knowledge validation, and `git diff --check` before the first
+push. Production commit, `/healthz`, CardMap version, and SignalR map reads are
+post-deploy confirmation, not substitutes for this preflight.
+
 The DIY-AI CI solution build includes this project and the server job runs it as
 a separate `Run headless gameplay tests` step. Keep it deterministic and under a
 few seconds; full random AI-vs-AI balance simulations belong in an opt-in tool,
@@ -70,9 +98,12 @@ assertions.
 The August 4 scenarios verify Living Armor preserving the original An Craite
 Greatsword through lethal-looking damage and allowing its engine to trigger;
 Calanthe consuming positive Boost without going through the damage pipeline,
-while leaving Armor and Shield untouched; Meve and Anna's restored DIY behavior; Dana directly playing a
-Neutral Gold; and Dana chaining Royal Decree while Roach correctly stays in the
-deck. Static tests separately lock the six retired variant slots, runtime/Mongo
-allowlist equality, CardMap `1.0.0.169`, all locale copies, leader-only draft
-validity, and Dana's two
+while leaving Armor and Shield untouched; Meve and Anna's restored DIY
+behavior; Dana directly playing a Neutral Gold; and Dana chaining Royal Decree
+while Roach correctly summons for a played Gold unit but not a summoned one.
+The second-batch scenarios cover Gascon self-exclusion, Albastra wings and
+two-turn Frost, Syanna's wounded-amount cadence, and Coën's deploy, tied-lowest
+Witcher Boost, and opposite-row Farmer Deathwish. Static tests separately lock
+the retired variant slots, runtime/Mongo allowlist equality, CardMap
+`1.0.0.171`, source/locale agreement, leader-only draft validity, and Dana's
 Addressables entries.
