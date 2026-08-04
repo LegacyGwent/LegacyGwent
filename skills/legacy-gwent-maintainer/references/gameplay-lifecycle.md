@@ -101,7 +101,7 @@ semantics, triggers normal damage listeners, and can stop the effect if the
 Troll leaves play. Its Biting Frost multiplier applies only after that cost, so
 the Duel uses the Troll's resulting current power.
 
-Since CardMap `1.0.0.170`, Syanna no longer repeats Deploy. She uses the normal
+Since CardMap `1.0.0.171`, Syanna no longer repeats Deploy. She uses the normal
 `AfterTurnOver` event, decrements a visible two-turn Countdown only at the end
 of her owner's turns, and then deals the amount she is currently wounded
 (`-HealthStatus`) to one selected board unit. A non-positive wounded amount

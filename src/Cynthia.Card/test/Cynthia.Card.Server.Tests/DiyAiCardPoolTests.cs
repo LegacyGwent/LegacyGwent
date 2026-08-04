@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 170), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 171), GwentMap.CardMapVersion);
             Assert.Equal(716, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -588,6 +588,11 @@ namespace Cynthia.Card.Server.Tests
                 GwentMap.CardMap["70025"].Info);
             Assert.Contains("其他最弱的友军猎魔人", GwentMap.CardMap["70158"].Info);
             Assert.Contains("每2回合开始时", GwentMap.CardMap["70180"].Info);
+
+            var chineseLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(deckableIds, id =>
+                Assert.Equal(chineseLocale.CardLocales[id].Info, GwentMap.CardMap[id].Info));
 
             var dataService = new GwentCardDataService();
             Assert.Equal(typeof(Gascon), dataService.GetType("70032"));

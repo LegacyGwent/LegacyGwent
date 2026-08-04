@@ -147,7 +147,7 @@ Last verified: 2026-08-04
 
 ## August 4 second card batch
 
-- CardMap `1.0.0.170` restores these user-deck cards from DIY: Prophet Lebioda
+- CardMap `1.0.0.171` restores these user-deck cards from DIY: Prophet Lebioda
   `70007`, Vivienne: Oriole `70008`, Gascon `70032`, Radeyah `70072`, Barnabas
   Beckenbauer `70125`, Moon Dust `70128`, Piercing Missile `70156`, and Albastra
   `70180`; it also reworks Syanna `70025` and Coën of Poviss `70158`. Albastra's

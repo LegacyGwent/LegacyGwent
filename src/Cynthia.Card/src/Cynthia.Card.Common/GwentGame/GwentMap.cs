@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 170);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 171);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11731,7 +11731,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Officer},
                     Flavor = "“你手下的人可就是史帕拉流亡军？你便是人称野狗公爵的那位？”",
-                    Info = "选择一排，移动敌我双方这一排上的所有单位。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。",
+                    Info = "选择一排，移动敌我双方这一排上的所有单位，每移动一个单位使自身受到2点伤害。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。",
                     CardArtsId = "202099",
                     LinkedCards=new List<String> {},
                 }
@@ -14538,7 +14538,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Item,Categorie.Special},
                     Flavor = "无坚不摧，无甲不破。",
-                    Info = "穿甲弹:对1个敌军单位造成造成7点伤害（无视护甲)，若其具有增益则改为造成10点伤害。",
+                    Info = "对1个敌军单位造成7点伤害（无视护甲)，若其具有增益则改为造成10点伤害（无视护甲）。",
                     CardArtsId = "202411",
                     LinkedCards=new List<String> {},
                 }
