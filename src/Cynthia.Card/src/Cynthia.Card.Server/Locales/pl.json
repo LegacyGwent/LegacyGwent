@@ -3485,7 +3485,7 @@
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "Jednorazowa. Powtórz umiejętność rozmieszczenia następnej Brązowej lub Srebrnej jednostki którą zagrasz. 4 pkt pancerza",
+            "Info": "Co 2 tury, na koniec tury, zadaj obrażenia równe obrażeniom odniesionym przez tę jednostkę.",
             "Flavor": "Wasza książęca mość... Księżniczka została dotknięta przekleństwem Czarnego Słońca. Obawiam się, że nie ma dla niej nadziei..."
         },
         "70026": {
@@ -3495,7 +3495,7 @@
         },
         "70027": {
             "Name": "Geralt Axii",
-            "Info": "Rozmieszczenie: Zagraj po swojej stronie srebną lub brązową lojalną jednostkę ze strony przeciwnika, a następnie przenieś ją na drugą stronę.",
+            "Info": "Rozmieszczenie: Zagraj po swojej stronie srebrną lub brązową jednostkę bez Szpiegowania ze strony przeciwnika, a następnie przenieś ją na drugą stronę.",
             "Flavor": "Geralt, oplatając szyję konia lewym ramieniem, dłonią prawej ręki, złożywszy palce w Znak Aksji, wodził nad łbem wierzchowca, szepcząc zaklęcie."
         },
         "70032": {
@@ -3995,7 +3995,7 @@
         },
         "70158": {
             "Name": "Coën z Poviss",
-            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń. Jeśli cel został zniszczony obnirz obrażenia o 1 i powtórz tę umiejętność.",
+            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń. Na początku tury wzmocnij pozostałe najsłabsze sojusznicze jednostki Wiedźminów o 2. Zemsta: Stwórz Chłopa w przeciwnym rzędzie wroga.",
             "Flavor": ""
         },
         "70159": {
@@ -4105,7 +4105,7 @@
         },
         "70180": {
             "Name": "Albastra Biała smoczyca",
-            "Info": "Rozmieszczenie: Stwórz lewe i prawe skrzydło. Na początku tury jeśli lewe i prawe skrzydło nie jest po Twojej stronie planszy zniszcz tę jednostkę. W przeciwnym wypadku wzmocnij tę jednostkę o 3. Odporność",
+            "Info": "Odporność. Rozmieszczenie: Stwórz Lewe i Prawe Skrzydło oraz zastosuj Trzaskający Mróz w przeciwnym rzędzie wroga. Co 2 tury, na początku tury, powtórz efekt Mrozu. Jeśli nie masz żadnego skrzydła, zniszcz tę jednostkę.",
             "Flavor": "To nie była lawina, to był smok!"
         },
         "70181": {

@@ -3486,7 +3486,7 @@
         },
         "70025": {
             "Name": "Syanna",
-            "Info": "Single-Use.\nRepeat the Deploy ability of the next Bronze or Silver loyal unit you play.\n4 Armor.",
+            "Info": "Every 2 turns, on turn end, deal Damage equal to the amount this unit is wounded.",
             "Flavor": "Your Majesty... The princess has been touched by the curse o' the Black Sun. There's no hope, I'm afraid..."
         },
         "70026": {
@@ -3496,7 +3496,7 @@
         },
         "70027": {
             "Name": "Geralt: Axii",
-            "Info": "Deploy: Replay a Bronze or Silver loyal unit from your opponent's side of the board, then move it back to the opposite row.",
+            "Info": "Deploy: Replay a Bronze or Silver non-Spying unit from your opponent's side of the board, then move it back to the opposite row.",
             "Flavor": "Placing his left arm around the horse's neck, Geralt makes the Axii sign with the fingers of his right hand above the steed's head and whispers the incantation."
         },
         "70032": {
@@ -3996,7 +3996,7 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Deploy: Deal 5 Damage. If the target is destroyed, Reduce the damage by 1 and repeat this ability.",
+            "Info": "Deploy: Deal 3 Damage. On turn start, Boost the other weakest allied Witcher units by 2. Deathwish: Spawn a Peasant on the opposite enemy row.",
             "Flavor": ""
         },
         "70159": {
@@ -4106,7 +4106,7 @@
         },
         "70180": {
             "Name": "Albastra The White Dragon",
-            "Info": "Deploy: Spawn Left Wing and Right Wing. Every turn, on turn start, if neither Left Wing nor Right Wing is on your side of the board, destroy self, otherwise, Boost self by 3.\nImmune.",
+            "Info": "Immune. Deploy: Spawn Left Wing and Right Wing and apply Biting Frost to the opposite enemy row. Every 2 turns, on turn start, repeat the Frost effect. If you have neither wing, destroy self.",
             "Flavor": "That was no avalanche, that was a dragon!"
         },
         "70181": {

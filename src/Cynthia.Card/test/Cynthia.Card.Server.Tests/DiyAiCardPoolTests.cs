@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(162, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(150, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 169), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 170), GwentMap.CardMapVersion);
             Assert.Equal(716, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -558,6 +558,61 @@ namespace Cynthia.Card.Server.Tests
                 "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
             Assert.Contains("m_Address: 203195", cardAddressableGroup);
             Assert.Contains("m_Address: 203195_slot", miniatureAddressableGroup);
+        }
+
+        [Fact]
+        public void AugustFourthSecondBatchIsAvailableAndMatchesPublishedValues()
+        {
+            var deckableIds = new[]
+            {
+                "70007", "70008", "70025", "70032", "70072",
+                "70125", "70128", "70156", "70158", "70180"
+            };
+            Assert.All(deckableIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
+
+            var wingIds = new[] { "70181", "70182" };
+            Assert.All(wingIds, id =>
+            {
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
+                Assert.True(GwentMap.CardMap[id].IsDerive);
+                Assert.False(DiyAiCardPool.IsUserDeckCard(id));
+            });
+
+            Assert.Equal(11, GwentMap.CardMap["70025"].Strength);
+            Assert.Equal(3, GwentMap.CardMap["70072"].Strength);
+            Assert.Equal(4, GwentMap.CardMap["70125"].Strength);
+            Assert.Equal(8, GwentMap.CardMap["70158"].Strength);
+            Assert.Contains("非间谍", GwentMap.CardMap["70027"].Info);
+            Assert.Equal(
+                "每2回合结束时，造成等同于受伤量的伤害。",
+                GwentMap.CardMap["70025"].Info);
+            Assert.Contains("其他最弱的友军猎魔人", GwentMap.CardMap["70158"].Info);
+            Assert.Contains("每2回合开始时", GwentMap.CardMap["70180"].Info);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(Gascon), dataService.GetType("70032"));
+            Assert.Equal(typeof(Albastra), dataService.GetType("70180"));
+            Assert.Equal(typeof(AlbastraRightWing), dataService.GetType("70181"));
+            Assert.Equal(typeof(AlbastraLeftWing), dataService.GetType("70182"));
+            Assert.Equal(typeof(Syanna), dataService.GetType("70025"));
+            Assert.Equal(typeof(CoënofPoviss), dataService.GetType("70158"));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            var changedInfoIds = new[] { "70025", "70027", "70158", "70180" };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(localeRoot =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{localeRoot}/{language}.json")))).ToArray();
+                Assert.All(changedInfoIds, cardId =>
+                    Assert.All(locales.Skip(1), locale =>
+                        Assert.Equal(locales[0].CardLocales[cardId].Info, locale.CardLocales[cardId].Info)));
+            });
         }
 
         [Fact]

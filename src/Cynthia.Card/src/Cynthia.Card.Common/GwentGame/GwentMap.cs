@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 169);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 170);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11656,18 +11656,18 @@ namespace Cynthia.Card
                 {
                     CardId = "70025", //Syanna
                     Name = "席安娜",
-                    Strength = 6,
+                    Strength = 11,
                     Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    Countdown = 1,
+                    Countdown = 2,
                     IsDoomed = false,
                     IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier},
                     Flavor = "陛下……公主中的乃是暗日诅咒。只怕，无方可解……",
-                    Info = "4护甲。力竭。使你的下一张银色/铜色忠诚单位牌额外触发一次部署效果。",
+                    Info = "每2回合结束时，造成等同于受伤量的伤害。",
                     CardArtsId = "202194",
                     LinkedCards=new List<String> {},
                 }
@@ -11710,7 +11710,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
-                    Info = "重新打出敌方半场一张银色/铜色忠诚单位牌，随后将其移回对方半场。",
+                    Info = "重新打出敌方半场一张银色/铜色非间谍单位牌，随后将其移回对方半场。",
                     CardArtsId = "202396",
                     LinkedCards=new List<String> {},
                 }
@@ -12102,7 +12102,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70072", //Radeyah
                     Name="雷蒂娅",
-                    Strength=6,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13877,7 +13877,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70125", //Barnabas Beckenbauer
                     Name="巴纳巴斯·贝肯鲍尔",
-                    Strength=6,
+                    Strength=4,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14570,7 +14570,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70158", //Coën of Poviss
                     Name="波维斯的柯恩",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14580,7 +14580,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "造成5点伤害，若摧毁目标单位则降低1点伤害并重复此能力",
+                    Info = "造成3点伤害。回合开始时，使其他最弱的友军猎魔人单位获得2点增益。遗愿：在对方同排生成1个“农民”单位。",
                     CardArtsId = "c10000800",
                     LinkedCards=new List<String> {},
                 }
@@ -15000,11 +15000,11 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "免疫，生成左翼和右翼。回合开始时，获得3点增益，若己方场上没有左右翼，改为摧毁自身。",
+                    Info = "免疫，生成左翼和右翼。在对方同排降下“刺骨冰霜”。每2回合开始时，重复其效果一次。若己方没有左右翼，摧毁自身。",
                     CardArtsId = "r9900000",
                     LinkedCards=new List<String> {"70181","70182"},
                 }

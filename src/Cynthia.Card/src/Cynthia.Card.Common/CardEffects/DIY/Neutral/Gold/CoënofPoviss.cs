@@ -1,39 +1,48 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70158")]//柯恩 CoënofPoviss
-    public class CoënofPoviss : CardEffect
-    {//
+    [CardEffectId("70158")]
+    public class CoënofPoviss : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterCardDeath>
+    {
+        private const string FarmerCardId = "15011";
+
         public CoënofPoviss(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var Damagenum = 5;
-            var count = 1;
-            
-            for(var i = 0;i < count; i++)
+            var selected = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            if (selected.TrySingle(out var target))
             {
-                var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
-                if (!selectList.TrySingle(out var target))
-                {
-                    return 0;
-                }
-                await target.Effect.Damage(Damagenum, Card);
-                if (!target.IsAliveOnPlance())
-                {
-                    count++;
-                    Damagenum=Damagenum-1;
-                    if(Damagenum == 0)
-                    {
-                        return 0;
-                    }
-                }
+                await target.Effect.Damage(3, Card);
             }
             return 0;
         }
+
+        public async Task HandleEvent(AfterTurnStart @event)
+        {
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
+
+            var targets = Game.GetPlaceCards(PlayerIndex)
+                .Where(card => card != Card && card.Status.Categories.Contains(Categorie.Witcher))
+                .WhereAllLowest()
+                .ToList();
+            foreach (var target in targets)
+            {
+                await target.Effect.Boost(2, Card);
+            }
+        }
+
+        public async Task HandleEvent(AfterCardDeath @event)
+        {
+            if (@event.Target != Card || !@event.DeathLocation.RowPosition.IsOnPlace()) return;
+
+            await Game.CreateCard(
+                FarmerCardId,
+                AnotherPlayer,
+                new CardLocation(@event.DeathLocation.RowPosition, int.MaxValue));
+        }
     }
 }
-

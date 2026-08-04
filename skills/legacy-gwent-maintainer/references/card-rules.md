@@ -144,3 +144,23 @@ Last verified: 2026-08-04
   immediate client rebuild. The originally proposed `d17210000` remains a
   future full-art restoration candidate. Server `wwwroot/scale` is only a small
   website image and is not a Unity asset source.
+
+## August 4 second card batch
+
+- CardMap `1.0.0.170` restores these user-deck cards from DIY: Prophet Lebioda
+  `70007`, Vivienne: Oriole `70008`, Gascon `70032`, Radeyah `70072`, Barnabas
+  Beckenbauer `70125`, Moon Dust `70128`, Piercing Missile `70156`, and Albastra
+  `70180`; it also reworks Syanna `70025` and Coën of Poviss `70158`. Albastra's
+  wings `70181`/`70182` are active derived dependencies, never deckable. Keep
+  all ten deckable IDs aligned with the Mongo migration allowlist.
+- Gascon snapshots the selected row and excludes himself before moving units;
+  this prevents both self-movement and collection mutation during iteration.
+  Its player-facing text intentionally does not mention the self-exclusion.
+- Albastra applies Biting Frost to the enemy row opposite her current row on
+  Deploy, then repeats only that Frost effect every second owner turn start via
+  the ordinary visible Countdown. Her existing wing-presence destruction rule
+  remains. Coën boosts every tied weakest other allied Witcher at owner turn
+  start. For his Deathwish, pass the captured death row unchanged to
+  `CreateCard(Farmer, AnotherPlayer, ...)`; `CreateCard` interprets that
+  `MyRowN` relative to the destination player, producing the physical opposite
+  row without calling `Mirror()`.

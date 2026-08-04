@@ -17,7 +17,10 @@ namespace Cynthia.Card
             // var selectedrow = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
             var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
 
-            var cards = Game.RowToList(AnotherPlayer, selectedrow).IgnoreConcealAndDead().Concat(Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead());
+            var cards = Game.RowToList(AnotherPlayer, selectedrow).IgnoreConcealAndDead()
+                .Concat(Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead())
+                .Where(card => card != Card)
+                .ToList();
             foreach (var card in cards)
             {
                 var row = (card.Status.CardRow.MyRowToIndex()).IndexToMyRow();
