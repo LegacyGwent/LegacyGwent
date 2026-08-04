@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 153);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 154);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -14982,7 +14982,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "保留一个银色/铜色友方单位的战力不变，并将其收回牌组，然后从牌组打出一个最弱的银色/铜色单位牌。",
+                    Info = "获得一个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
