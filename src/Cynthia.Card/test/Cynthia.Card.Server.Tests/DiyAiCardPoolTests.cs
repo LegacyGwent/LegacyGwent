@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 168), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 169), GwentMap.CardMapVersion);
             Assert.Equal(716, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -66,6 +66,23 @@ namespace Cynthia.Card.Server.Tests
             starter.Deck[0] = "70003";
             Assert.False(starter.IsBasicDeck());
             Assert.False(starter.IsSpecialDeck());
+        }
+
+        [Fact]
+        public void LeaderOnlyDeckIsAValidDraftButNotAPlayableDeck()
+        {
+            var draft = new DeckModel
+            {
+                Leader = CardId.QueenCalanthe,
+                Deck = new List<string>(),
+                Name = "未完成卡组",
+                Id = Guid.NewGuid().ToString()
+            };
+
+            Assert.True(draft.IsHalfBasicDeck());
+            Assert.True(draft.IsHalfSpecialDeck());
+            Assert.False(draft.IsBasicDeck());
+            Assert.False(draft.IsSpecialDeck());
         }
 
         [Fact]
@@ -522,7 +539,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
             Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);
             Assert.Equal(
-                "汲食1个友军铜色/银色非间谍单位的增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
+                "汲食1个友军铜色/银色非间谍单位的所有增益，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
                 GwentMap.CardMap[CardId.QueenCalanthe].Info);
 
             var dataService = new GwentCardDataService();

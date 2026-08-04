@@ -69,9 +69,10 @@ assertions.
 
 The August 4 scenarios verify Living Armor preserving the original An Craite
 Greatsword through lethal-looking damage and allowing its engine to trigger;
-Calanthe consuming positive Boost plus Armor without going through the damage
-pipeline; Meve and Anna's restored DIY behavior; Dana directly playing a
+Calanthe consuming positive Boost without going through the damage pipeline,
+while leaving Armor and Shield untouched; Meve and Anna's restored DIY behavior; Dana directly playing a
 Neutral Gold; and Dana chaining Royal Decree while Roach correctly stays in the
 deck. Static tests separately lock the six retired variant slots, runtime/Mongo
-allowlist equality, CardMap `1.0.0.168`, all locale copies, and Dana's two
+allowlist equality, CardMap `1.0.0.169`, all locale copies, leader-only draft
+validity, and Dana's two
 Addressables entries.

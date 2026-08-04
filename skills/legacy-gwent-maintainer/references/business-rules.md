@@ -25,6 +25,11 @@ Last verified: 2026-08-03
 - A basic deck contains 25 through 40 cards, inclusive. The leader is stored
   separately and must not appear in that card list; the same method also limits
   golds to 4, silvers to 6, gold/silver copies to 1, and copper copies to 3.
+- Saving and matchmaking have different validity boundaries. The deck editor
+  may save an unfinished draft, including a leader-only deck, when it satisfies
+  `IsHalfBasicDeck` or `IsHalfSpecialDeck`. Starting any match must still require
+  the complete `IsBasicDeck` or `IsSpecialDeck` rule, including the 25-card
+  minimum. Do not reject drafts in `AddDeck`, and do not relax matchmaking.
 - After the DIY-AI card-pool reset, use `GwentDeck.CreateBasicDeck(0)` for new
   registrations and protocol probes. It returns the valid 25-card original
   starter deck. `CreateBasicDeck(1)` still contains retired card `70157` and is

@@ -24,24 +24,15 @@ namespace Cynthia.Card
 
             var target = selectedAllies.Single();
             var boost = Math.Max(0, target.Status.HealthStatus);
-            var armor = Math.Max(0, target.Status.Armor);
-
-            // Drain here means consuming the current positive boost and armor as
-            // power. Do not route this through Damage/Drain: Shield and row damage
-            // modifiers must not change how much is consumed.
+            // Consume only positive boost. This is intentionally not routed through
+            // Damage/Drain, so Shield does not block it and Armor is left untouched.
             if (boost > 0)
             {
                 await target.Effect.Reset(Card);
             }
-            if (armor > 0)
+            if (boost > 0)
             {
-                await Game.SendEvent(new AfterCardSubArmor(target, armor, Card));
-                target.Status.Armor = 0;
-                await Game.ShowSetCard(target);
-            }
-            if (boost + armor > 0)
-            {
-                await Card.Effect.Boost(boost + armor, Card);
+                await Card.Effect.Boost(boost, Card);
             }
 
             await Game.ShowCardMove(

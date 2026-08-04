@@ -684,7 +684,10 @@ namespace Cynthia.Card.Server
             //添加卡组
             if (!_users.ContainsKey(connectionId))
                 return false;
-            if (deck?.Leader == "12004" || !(deck.IsBasicDeck() || deck.IsSpecialDeck()))
+            // Deck editor drafts may be saved before reaching the 25-card match
+            // minimum. Matchmaking still requires IsBasicDeck/IsSpecialDeck.
+            if (deck == null || deck.Leader == "12004" ||
+                !(deck.IsHalfBasicDeck() || deck.IsHalfSpecialDeck()))
                 return false;
             var user = _users[connectionId];
             if (user.Decks.Count >= 1000)
@@ -764,8 +767,17 @@ namespace Cynthia.Card.Server
         }
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId)
         {
-            var result = _users[connectionId].CurrentPlayer.SendAsync(operation);
-            return result;
+            // A late client packet can arrive after the match has already ended and
+            // CurrentPlayer has been cleared. Ignore that stale operation instead of
+            // throwing a hub-level NullReferenceException.
+            if (operation == null ||
+                !_users.TryGetValue(connectionId, out var user) ||
+                user.CurrentPlayer == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return user.CurrentPlayer.SendAsync(operation);
         }
 
         public async Task Disconnect(string connectionId, Exception exception = null)//, bool isWaitReconnect = false)

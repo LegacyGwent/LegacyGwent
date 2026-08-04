@@ -167,24 +167,28 @@ Last verified: 2026-08-02
 
 ## Literal dynamic-choice text collapses into one card description
 
-- Symptom: Shupe or another choose-one/two card displays its full card
-  description for every offered ability even though the options execute different
-  effects.
-- Cause: `GetMenuSwitch` and equivalent hand-written menus reuse one card ID.
-  Unity `CardContent` treats `CardStatus.Info` as a menu-locale key; a literal
-  rendered sentence misses lookup and every option falls back to
-  `GetCardInfo` for that shared ID. The original-card reset accidentally
-  reintroduced this regression after it had been fixed.
-- Fix: send stable `MenuLocales` keys for every dynamic option. Keep the server,
-  Unity Resources, and Unity StreamingFile copies synchronized across cn/en/pl/ru;
-  bump `CardMapVersion` so installed clients download the corrected server locale.
-- Prevention: never pass player-facing text as a dummy option's `Info`; preserve
-  historical misspellings such as `Strenghten`, `Resurect`, and
-  `DamegeCategory` unless every producer and locale copy is migrated together.
-- Verification: `ActiveChoiceMenusUseLocalizedOptionKeys` covers all 49 active
-  options, requires distinct text within every option family, and guards the
-  restored 9-damage, 2-damage, and self-exclusion wording. Live choices show
-  different descriptions without requiring a client reinstall.
+- Symptom: a choose-one/two card displays its full description for every option.
+- Cause: hand-written menus reuse one card ID, and Unity treats `CardStatus.Info`
+  as a locale key; a literal sentence misses lookup and falls back to that ID.
+- Fix: use stable `MenuLocales` keys; synchronize server and Unity cn/en/pl/ru
+  copies and bump `CardMapVersion`.
+- Prevention: never pass player text as dummy-option `Info`; keep historical key
+  spellings unless every producer/locale migrates together.
+- Verification: `ActiveChoiceMenusUseLocalizedOptionKeys` covers all active
+  options and requires distinct text within every option family.
+
+## A late game operation throws after the match ends
+
+- Symptom: SignalR reports a hub-level `NullReferenceException` in
+  `GameOperation`, often shortly after a match transition or delayed UI input.
+- Cause: the client can deliver an already-queued operation after the server has
+  cleared `User.CurrentPlayer`; the old hub path dereferenced it unconditionally.
+- Fix: resolve the user and current player defensively and ignore null/stale
+  packets. Do not recreate a player or route the packet into a new match.
+- Prevention: treat transport messages at lifecycle boundaries as stale-capable;
+  validate the current session object before dispatch.
+- Verification: the server build/tests pass and a stale operation returns a
+  completed task without invoking a player endpoint.
 
 ## A Unity cache restores another target platform
 

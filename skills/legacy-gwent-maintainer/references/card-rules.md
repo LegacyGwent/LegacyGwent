@@ -122,12 +122,13 @@ Last verified: 2026-08-04
   Henrietta `70149`, restores/reworks Queen Calanthe `70179`, and appends Dana
   Meadbh `70191`. All four are user-deck leaders; Calanthe remains 7 power,
   Meve 8, Anna 6, and Dana 3.
-- Calanthe snapshots one allied non-Spying Bronze/Silver unit's current positive
-  net Boost and Armor, clears only those two values, gains their sum as Boost,
-  shuffles that unit into the deck, then forces the player to choose and play a
-  Bronze/Silver unit from the deck. Do not call generic `Drain` or `Damage`:
-  Shield and Living Armor must not alter the consumed amount. Negative
-  `HealthStatus`, Shield, Resilience, and other unmentioned state are not reset.
+- Since the `1.0.0.169` clarification, Calanthe snapshots only one allied
+  non-Spying Bronze/Silver unit's current positive net Boost, resets that Boost,
+  gains the same amount as Boost, shuffles the unit into the deck, then forces
+  the player to choose and play a Bronze/Silver unit from the deck. Do not
+  consume Armor, and do not call generic `Drain` or `Damage`: Shield does not
+  block the direct Boost transfer, while Armor, Shield, Resilience, negative
+  `HealthStatus`, and other unmentioned state remain untouched.
 - Meve and Anna source files already matched `origin/diy`; their reset-state bug
   was availability, not missing behavior. Meve Boosts one unit in board/hand/deck
   by 4. Anna sorts by base Strength and plays the lowest top card, including a
@@ -139,7 +140,7 @@ Last verified: 2026-08-04
   `AfterUnitDown.IsFromHand == false`; changing that would be a separate Roach
   rules change.
 - Dana currently uses existing client art `203195`, including its registered
-  full sprite and leader miniature, so `1.0.0.168` can hot-sync without an
+  full sprite and leader miniature, so the August 4 release can hot-sync without an
   immediate client rebuild. The originally proposed `d17210000` remains a
   future full-art restoration candidate. Server `wwwroot/scale` is only a small
   website image and is not a Unity asset source.

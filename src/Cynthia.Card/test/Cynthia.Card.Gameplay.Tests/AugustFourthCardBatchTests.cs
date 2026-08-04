@@ -38,7 +38,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CalantheConsumesOnlyPositiveBoostAndArmorThenReplaysTheUnit()
+        public async Task CalantheConsumesOnlyPositiveBoostLeavesArmorAndIgnoresShieldThenReplaysTheUnit()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
@@ -62,13 +62,15 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
             await target.Effect.Boost(5, target);
             await target.Effect.Armor(4, target);
+            target.Status.IsShield = true;
 
             await calanthe.Effect.Play(new CardLocation(RowPosition.MyRow2, 0));
 
-            Assert.Equal(9, calanthe.Status.HealthStatus);
+            Assert.Equal(5, calanthe.Status.HealthStatus);
             Assert.Equal(0, calanthe.Status.Armor);
             Assert.Equal(0, target.Status.HealthStatus);
-            Assert.Equal(0, target.Status.Armor);
+            Assert.Equal(4, target.Status.Armor);
+            Assert.True(target.Status.IsShield);
             Assert.True(target.Status.CardRow.IsOnPlace());
             Assert.True(spyingUnit.Status.CardRow.IsOnPlace());
             Assert.True(spyingUnit.Status.IsSpying);
