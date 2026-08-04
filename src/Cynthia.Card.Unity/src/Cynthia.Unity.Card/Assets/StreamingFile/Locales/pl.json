@@ -3525,12 +3525,12 @@
         },
         "70041": {
             "Name": "Wyciąg z Gigaskorpiona",
-            "Info": "Zadaj najsilniejszemu wrogowi 2 pkt obrażeń cztery razy.\nZa każdą kartę „Odwar Raffarda Białego” na swoim cmentarzu powtórz dodatkowy raz.",
+            "Info": "Zadaj najsilniejszemu wrogowi 2 pkt obrażeń, a następnie powtórz 3 razy.\nZa każdą kartę „Odwar Raffarda Białego” na swoim cmentarzu powtórz dodatkowy raz.",
             "Flavor": "Śmiertelna dawka? Każda."
         },
         "70042": {
             "Name": "Odwar Raffarda Białego",
-            "Info": "Wzmocnij najsłabszego sojusznika o 2 pkt cztery razy.\nZa każdą kartę „Wyciąg z Gigaskorpiona” na swoim cmentarzu powtórz dodatkowy raz.",
+            "Info": "Wzmocnij najsłabszego sojusznika o 2 pkt, a następnie powtórz 3 razy.\nZa każdą kartę „Wyciąg z Gigaskorpiona” na swoim cmentarzu powtórz dodatkowy raz.",
             "Flavor": "Raczyć się nim może jedynie księżna. Robi to nad wyraz często."
         },
         "70043": {
@@ -4100,7 +4100,7 @@
         },
         "70179": {
             "Name": "Królowa Calanthe",
-            "Info": "Rozmieszczenie: Zagraj najsłabszą nie Złotą jednostkę z Twojej talii, następnie przetasuj nie Złotego sojusznika do Twojej talii bez zmiany jego siły.",
+            "Info": "Wykradnij sojuszniczej brązowej lub srebrnej jednostce niebędącej Szpiegiem wszystkie wzmocnienia i pancerz, a następnie wtasuj ją z powrotem do talii. Następnie zagraj brązową lub srebrną jednostkę z talii. Załoga.",
             "Flavor": "Zwano ją Lwicą. Nie bez powodu."
         },
         "70180": {
@@ -4222,6 +4222,11 @@
             "Name": "Rębacz an Craite C",
             "Info": "Po każdych 2 turach, jeśli ta jednostka jest ranna, na początku tury uzdrów ją i ulepsz o 2.",
             "Flavor": "Nie rozśmieszaj mnie, Nordlingu! Nie byłbyś w stanie nawet unieść mojego półtoraka, a co dopiero nim walczyć!"
+        },
+        "70191": {
+            "Name": "Dana Méadbh",
+            "Info": "Zagraj neutralną kartę ze swojej talii.",
+            "Flavor": "Jej pieśń obudziła las."
         }
     }
 }

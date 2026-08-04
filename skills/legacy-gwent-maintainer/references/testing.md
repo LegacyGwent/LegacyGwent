@@ -22,10 +22,13 @@ selection, movement, death, landing, weather, duel, or chained events.
 ## Reusable fixture
 
 `Cynthia.Card.Gameplay.Tests/HeadlessGameFixture.cs` creates the real
-`GwentServerGame` with deterministic no-UI AI players. The players consume the
-same server operations as a client and always choose the first eligible option,
-so tests exercise production selection and event pipelines without random UI
-input.
+`GwentServerGame` with deterministic no-UI AI players. Menu, place-card, and row
+selection choose the first eligible option, so tests exercise production
+selection and event pipelines without UI input. The inherited `PlayCard`
+implementation may still choose a legal landing row randomly; avoid asserting a
+specific row unless the fixture explicitly overrides that method. When a chain
+needs a specific menu card, control the candidate order or add a queued card-ID
+selector rather than relying on shuffled order.
 
 Build a scenario by adding physical `GameCard` objects to explicit zones, call
 `SynchronizeClientsAsync`, then invoke the production play/effect method. For a
@@ -63,3 +66,12 @@ for non-Leader/non-Spying units only, exclusion of leaders, spies and specials,
 resurrection events, continued draws, and empty-pool termination. Add future
 lifecycle regressions here instead of approximating them with source text
 assertions.
+
+The August 4 scenarios verify Living Armor preserving the original An Craite
+Greatsword through lethal-looking damage and allowing its engine to trigger;
+Calanthe consuming positive Boost plus Armor without going through the damage
+pipeline; Meve and Anna's restored DIY behavior; Dana directly playing a
+Neutral Gold; and Dana chaining Royal Decree while Roach correctly stays in the
+deck. Static tests separately lock the six retired variant slots, runtime/Mongo
+allowlist equality, CardMap `1.0.0.168`, all locale copies, and Dana's two
+Addressables entries.

@@ -675,6 +675,8 @@ namespace Cynthia.Card
         public const string Bronibor = "70188";
         public const string ArcaneTome = "70189";
         public const string KingChrum = "70190";
+        public const string Meve = "70045";
+        public const string DanaMeadbh = "70191";
 
     }
 }

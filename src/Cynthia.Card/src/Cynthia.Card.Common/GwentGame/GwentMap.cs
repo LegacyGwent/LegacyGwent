@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 167);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 168);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -4867,7 +4867,7 @@ namespace Cynthia.Card
                     Flavor = "王权怎能单凭出身的贵贱来随便决定？",
                     Info = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
                     CardArtsId = "20158000",
-                    LinkedCards=new List<String> {"21001","21002","21003","21004","21005","31002","31003","31001","31004","41001","41002","41003","41004","51001","51002","51003","51004","61001","61002","61003","61004","70045","70099","70149","70179"},
+                    LinkedCards=new List<String> {"21001","21002","21003","21004","21005","31002","31003","31001","31004","41001","41002","41003","41004","51001","51002","51003","51004","61001","61002","61003","61004","70045","70099","70149","70179","70191"},
                 }
             },
             {
@@ -11835,7 +11835,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy},
                     Flavor = "有毒且致幻，它让你生不如死，却不致命。",
-                    Info = "对最强的敌军单位造成2点伤害，重复4次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
+                    Info = "对最强的敌军单位造成2点伤害，随后重复3次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
                     CardArtsId = "201709",
                     LinkedCards=new List<String> {},
                 }
@@ -11856,7 +11856,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Alchemy},
                     Flavor = "随处可见的野花，据维吉玛郊区的老妪说，它的茎叶可以缓解精神失常。",
-                    Info = "使最弱的友军单位获得2点增益，重复4次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。",
+                    Info = "使最弱的友军单位获得2点增益，随后重复3次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。",
                     CardArtsId = "202202",
                     LinkedCards=new List<String> {},
                 }
@@ -12390,7 +12390,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
                     Flavor = "它带来了春天，也带来了战争。",
-                    Info = "随机使1个友军单位获得2点增益。重复3次。本回合中每打出过1张牌便额外重复1次。",
+                    Info = "随机使1个友军单位获得2点增益，随后重复3次。本回合中每打出过1张牌便额外重复1次。",
                     CardArtsId = "202213",
                     LinkedCards=new List<String> {},
                 }
@@ -14983,7 +14983,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "保留一个银色/铜色友方单位的战力不变，并将其收回牌组，然后从牌组打出一个最弱的银色/铜色单位牌。",
+                    Info = "汲食1个友军铜色/银色非间谍单位的增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
@@ -15344,6 +15344,28 @@ namespace Cynthia.Card
                     Info = "每2回合，若受伤，则在回合开始时治愈自身，并获得2点强化。",
                     CardArtsId = "20004000",
                     LinkedCards=new List<String> {},
+                }
+            },
+            // 新卡必须继续追加在已发布的历史槽位之后。
+            {
+                "70191",//达娜·梅碧 Dana Meadbh
+                new GwentCard()
+                {
+                    CardId = "70191",
+                    Name = "达娜·梅碧",
+                    Strength = 3,
+                    Group = Group.Leader,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Leader },
+                    Flavor = "她的歌声唤醒了森林。",
+                    Info = "从牌组打出1张中立牌。",
+                    CardArtsId = "203195",
+                    LinkedCards = new List<String> {},
                 }
             },
         };

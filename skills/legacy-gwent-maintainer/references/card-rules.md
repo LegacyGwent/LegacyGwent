@@ -14,7 +14,7 @@ Last verified: 2026-08-04
 ## Selected DIY cards in the reset pool
 
 - `70001` is 昆恩法印 and is a deckable Copper Neutral spell in DIY-AI
-  `1.0.0.167`. It immediately Boosts the selected Bronze/Silver hand unit and
+  `1.0.0.168`. It immediately Boosts the selected Bronze/Silver hand unit and
   all same-ID cards currently in hand/deck by 2, then gives each an ordinary
   Shield. A revealed unit in hand therefore blocks one damage instance.
 - Duel has no Quen-specific or initiator-specific shield exception. Both units'
@@ -31,24 +31,24 @@ Last verified: 2026-08-04
 - Use exactly `Special + Alchemy`; neither card has the `Item` category. This
   lets alchemy effects such as Viper Witcher count them without making them
   eligible for item-only effects.
-- Both effects apply 2 points four times, with no separate initial 3-point
-  hit/boost. Each copy of the counterpart potion in the player's graveyard adds
-  one more 2-point repetition.
+- Both effects apply 2 points once and then repeat that application three times,
+  with no separate initial 3-point hit/boost. Each copy of the counterpart
+  potion in the player's graveyard adds one more 2-point repetition. Player text
+  must say “随后重复3次” rather than the ambiguous “重复4次”.
 
-## Temporary public balance variants
+## Retired temporary balance variants
 
-- DIY-AI exposes four independent Copper IDs for each test family. The original
-  unsuffixed name is the Z/original rule; A/B/C are separate cards and each has
-  its own three-copy limit. Do not add a shared family limit unless requested.
-- Viper Witcher uses `34022` for Z (5 power, 1 damage per starting-deck Alchemy),
-  `34034` for A (5 power, 2 damage per complete group of 3 Alchemy), `34035`
-  for B (5 power, base 3 damage plus 2 per complete group of 3), and `34036`
-  for C (3 power with the Z effect).
-- An Craite Greatsword uses `64009` for Z (8 power, 2-turn timer, Strengthen 2),
-  `64035` for A (8/3 turns/2), `64036` for B (8/3 turns/3), and `64037` for C
-  (7/2 turns/2). Each timer resets to the same value after triggering.
-- Variants share their family's `CardArtsId`, miniature, and voice, but gameplay,
-  deck limits, and same-card identity follow `CardId`, not art or display name.
+- Since `1.0.0.168`, only original Viper Witcher `34022` and original An Craite
+  Greatsword `64009` are user-deck cards. A/B/C IDs `34034`-`34036` and
+  `64035`-`64037` are retired, hidden, rejected by deck validation, removed from
+  Mongo decks/blacklists, and must not be offered to players.
+- Keep those six IDs as invisible historical CardMap slots, with their metadata,
+  locale entries, and effect types dormant. Never delete or reuse them: they
+  occupied published ordinals 709-714, and the next new card is appended after
+  them. “Remove the variants” means player-facing retirement, not ordinal reuse.
+- Living Armor is the intended protection experiment for original engines. Its
+  regression test keeps the original Greatsword alive through 9 incoming damage
+  (halved to 5), then verifies its two-turn heal/Strengthen-2 cycle.
 
 ## Saesenthessis: Blaze refill
 
@@ -115,3 +115,31 @@ Last verified: 2026-08-04
   start. Aguara's hand option excludes spies and every menu option must retain
   its own localization key. Old Speartip uses two complete forms; Magic Lamp in
   the cemetery makes The Last Wish inspect one additional card.
+
+## August 4 leader batch
+
+- `1.0.0.168` restores the existing DIY definitions of Meve `70045` and Anna
+  Henrietta `70149`, restores/reworks Queen Calanthe `70179`, and appends Dana
+  Meadbh `70191`. All four are user-deck leaders; Calanthe remains 7 power,
+  Meve 8, Anna 6, and Dana 3.
+- Calanthe snapshots one allied non-Spying Bronze/Silver unit's current positive
+  net Boost and Armor, clears only those two values, gains their sum as Boost,
+  shuffles that unit into the deck, then forces the player to choose and play a
+  Bronze/Silver unit from the deck. Do not call generic `Drain` or `Damage`:
+  Shield and Living Armor must not alter the consumed amount. Negative
+  `HealthStatus`, Shield, Resilience, and other unmentioned state are not reset.
+- Meve and Anna source files already matched `origin/diy`; their reset-state bug
+  was availability, not missing behavior. Meve Boosts one unit in board/hand/deck
+  by 4. Anna sorts by base Strength and plays the lowest top card, including a
+  Special when it is the lowest.
+- Dana presents every Neutral deck card without unit or rarity restrictions,
+  moves the chosen card to Stay, and plays it through the normal pipeline. The
+  high-value chain Dana -> Royal Decree -> any Gold unit is intentional test
+  coverage. Roach remains in deck because both deck plays have
+  `AfterUnitDown.IsFromHand == false`; changing that would be a separate Roach
+  rules change.
+- Dana currently uses existing client art `203195`, including its registered
+  full sprite and leader miniature, so `1.0.0.168` can hot-sync without an
+  immediate client rebuild. The originally proposed `d17210000` remains a
+  future full-art restoration candidate. Server `wwwroot/scale` is only a small
+  website image and is not a Unity asset source.

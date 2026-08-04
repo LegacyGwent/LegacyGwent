@@ -3526,12 +3526,12 @@
         },
         "70041": {
             "Name": "Giga Scorpion Decoction",
-            "Info": "Damage the highest enemy by 2, four times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
+            "Info": "Damage the highest enemy by 2, then repeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
             "Flavor": "How much of a dose would be lethal? Any."
         },
         "70042": {
             "Name": "White Raffard's Decoction",
-            "Info": "Boost the lowest ally by 2, four times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time.",
+            "Info": "Boost the lowest ally by 2, then repeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time.",
             "Flavor": "It is the duchess's exclusive privilege to delight in the prized, oaky flavor of Sangreal... A pleasure she partakes in very, very often."
         },
         "70043": {
@@ -4101,7 +4101,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: Play the Lowest non-Gold unit from your deck, then Shuffle a non-Gold ally back to your deck without changing its Power.",
+            "Info": "Drain all Boosts and Armor from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a Bronze or Silver unit from your deck. Crew.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
@@ -4223,6 +4223,11 @@
             "Name": "An Craite Greatsword C",
             "Info": "Every 2 turns, on turn start, if Damaged, Heal self and Strengthen by 2.",
             "Flavor": "Ahh, ye gave me a good laugh there, Nordling! Why, this bastard, ye couldn't even grip it, let alone gut me with it."
+        },
+        "70191": {
+            "Name": "Dana Méadbh",
+            "Info": "Play a Neutral card from your deck.",
+            "Flavor": "Her song awakened the forest."
         }
     }
 }

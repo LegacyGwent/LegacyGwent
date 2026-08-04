@@ -2,7 +2,7 @@
 
 Last verified: 2026-08-04
 
-Verified against the DIY-AI reset lineage through `1.0.0.167`.
+Verified against the DIY-AI reset lineage through `1.0.0.168`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -23,16 +23,23 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   `CardMapVersion`. Existing Unity clients fetch the server map when the version
   differs, so a pure availability reset does not by itself require a rebuilt
   client.
+- Count map entries from dictionary `CardId` keys (or the initialized
+  `CardMap`), never by counting `new GwentCard()` expressions in
+  `GwentMap.cs`. The master file contains one additional constructor in
+  `DeckChange` for cloning card metadata; constructor counting reports 517 even
+  though the baseline map contains 516 IDs.
 - Add `CardMapVersion`/`RulesetId` to new result and deck records. Version-gate
   analytics such as `QueryCard`; old unversioned codes must use the frozen
   `1.0.0.153` map or fall back to result summaries.
 
 ## DIY-AI baseline classification
 
-- Current map: 715 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 716 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- After the August 3 batch, 159 entries remain legacy DIY retirement candidates.
+- After the August 4 batch, 162 entries are retired: the previous 159 minus
+  restored leaders `70045`, `70149`, and `70179`, plus retired experiment IDs
+  `34034`-`34036` and `64035`-`64037`.
   The promoted user-deck exceptions include `70001` (昆恩法印), `70041`
   (鬼针草煎药), `70042` (合欢茎魔药), plus the 18 deckable IDs listed in
   `card-rules.md`. The generated dependencies `70006`, `70071`, and `70162`
@@ -60,9 +67,13 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   gold-weather color in server code; preserve the DIY-AI scene values and verify
   both arrays together.
 
+  New leader `70191` is appended after those six historical variant slots.
+- The active exceptions also include restored leaders Meve `70045`, Anna
+  Henrietta `70149`, Queen Calanthe `70179`, and new Dana Meadbh `70191`.
+
 ## Retirement checklist
 
-1. Keep all 715 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 716 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

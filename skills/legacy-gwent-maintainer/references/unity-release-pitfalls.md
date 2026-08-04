@@ -1,6 +1,30 @@
 # Unity release pitfalls
 
-Last verified: 2026-08-02
+Last verified: 2026-08-04
+
+## Website artwork exists but the Unity card is blank
+
+- Symptom: an Art ID is visible under server `wwwroot/scale`, yet the Unity
+  client shows no full card image or leader/deck miniature after CardMap sync.
+- Cause: the website, CardMap, and Unity share a logical `CardArtsId`, not a
+  physical asset store. Website previews are 120x173 files; Unity requires a
+  full sprite, an optional `<id>_slot` miniature, matching `.meta` GUIDs, and
+  entries in `Default Local Group.asset`. The 2024-11-17 upstream asset cleanup
+  (`98e12818f`) removed 495 legacy full-size `d*` images while leaving many
+  website previews, creating this split.
+- Fix: restore the exact historical full-size blob and `.meta`, create the
+  correctly cropped miniature when absent, register both GUID/address pairs,
+  and rebuild the client. Do not upscale the website thumbnail as the shipped
+  card art.
+- Prevention: before assigning any Art ID, check server preview, Unity full
+  image, miniature, both metas, and both Addressables addresses. Restore only
+  artwork actually entering the active card pool; restoring all 495 historical
+  images would add about 173 MiB of source PNGs and unnecessarily enlarge client
+  delivery.
+- Verification: visually inspect both full sprite and miniature, confirm GUID
+  uniqueness and Addressables membership, then build a client and load the card
+  plus its deck/leader slot. A CardMap version bump updates metadata/locales but
+  cannot add art to an already installed client.
 
 ## CI artifact names and internal client versions diverge
 

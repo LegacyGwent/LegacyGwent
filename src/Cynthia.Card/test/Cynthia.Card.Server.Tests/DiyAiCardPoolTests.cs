@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(159, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(162, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -42,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 167), GwentMap.CardMapVersion);
-            Assert.Equal(715, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 168), GwentMap.CardMapVersion);
+            Assert.Equal(716, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -53,7 +52,7 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191" },
                 GwentMap.CardMap.Keys.Skip(709));
         }
 
@@ -173,8 +172,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void LocalizationUpdatePolicyCoversFreshAndStaleClients()
         {
-            var current = new Version(1, 0, 0, 167);
-            var stale = new Version(1, 0, 0, 166);
+            var current = new Version(1, 0, 0, 168);
+            var stale = new Version(1, 0, 0, 167);
 
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, current, current));
             Assert.True(LocalizationUpdatePolicy.ShouldDownloadLocales(false, stale, current));
@@ -469,163 +468,79 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
-        public void TemporaryBalanceVariantsAreIndependentAndMatchTheirPublishedRules()
+        public void TemporaryBalanceVariantsAreRetiredWithoutReusingTheirHistoricalSlots()
         {
-            var viperIds = new[]
+            var originalIds = new[]
             {
                 CardId.ViperWitcher,
+                CardId.AnCraiteGreatsword
+            };
+            var retiredVariantIds = new[]
+            {
                 CardId.ViperWitcherA,
                 CardId.ViperWitcherB,
-                CardId.ViperWitcherC
-            };
-            var greatswordIds = new[]
-            {
-                CardId.AnCraiteGreatsword,
+                CardId.ViperWitcherC,
                 CardId.AnCraiteGreatswordA,
                 CardId.AnCraiteGreatswordB,
                 CardId.AnCraiteGreatswordC
             };
 
-            Assert.Equal(new[] { 5, 5, 5, 3 }, viperIds.Select(id => GwentMap.CardMap[id].Strength));
-            Assert.Equal(new[] { 8, 8, 8, 7 }, greatswordIds.Select(id => GwentMap.CardMap[id].Strength));
-            Assert.All(viperIds, id =>
+            Assert.All(originalIds, id =>
             {
-                Assert.Equal("20012400", GwentMap.CardMap[id].CardArtsId);
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
                 Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.False(GwentMap.CardMap[id].IsDerive);
             });
-            Assert.All(greatswordIds, id =>
+            Assert.All(retiredVariantIds, id =>
             {
-                Assert.Equal("20004000", GwentMap.CardMap[id].CardArtsId);
-                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.Contains(id, DiyAiCardPool.RetiredCardIds);
+                Assert.False(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.True(GwentMap.CardMap[id].IsDerive);
             });
 
             Assert.Contains("每有1张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcher].Info);
-            Assert.Contains("每有3张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcherA].Info);
-            Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.ViperWitcherB].Info);
-            Assert.Contains("每有1张“炼金”牌", GwentMap.CardMap[CardId.ViperWitcherC].Info);
             Assert.Contains("每2回合", GwentMap.CardMap[CardId.AnCraiteGreatsword].Info);
-            Assert.Contains("每3回合", GwentMap.CardMap[CardId.AnCraiteGreatswordA].Info);
-            Assert.Contains("获得3点强化", GwentMap.CardMap[CardId.AnCraiteGreatswordB].Info);
-            Assert.Contains("每2回合", GwentMap.CardMap[CardId.AnCraiteGreatswordC].Info);
 
             var dataService = new GwentCardDataService();
             Assert.Equal(typeof(ViperWitcher), dataService.GetType(CardId.ViperWitcher));
-            Assert.Equal(typeof(ViperWitcherA), dataService.GetType(CardId.ViperWitcherA));
-            Assert.Equal(typeof(ViperWitcherB), dataService.GetType(CardId.ViperWitcherB));
-            Assert.Equal(typeof(ViperWitcherC), dataService.GetType(CardId.ViperWitcherC));
             Assert.Equal(typeof(AnCraiteGreatsword), dataService.GetType(CardId.AnCraiteGreatsword));
-            Assert.Equal(typeof(AnCraiteGreatswordA), dataService.GetType(CardId.AnCraiteGreatswordA));
-            Assert.Equal(typeof(AnCraiteGreatswordB), dataService.GetType(CardId.AnCraiteGreatswordB));
-            Assert.Equal(typeof(AnCraiteGreatswordC), dataService.GetType(CardId.AnCraiteGreatswordC));
+        }
 
-            var viperEffects = new ViperWitcherEffect[]
+        [Fact]
+        public void AugustFourthLeaderBatchIsDeckableAndMatchesPublishedValues()
+        {
+            var leaderIds = new[]
             {
-                new ViperWitcher(new GameCard(null)),
-                new ViperWitcherA(new GameCard(null)),
-                new ViperWitcherB(new GameCard(null)),
-                new ViperWitcherC(new GameCard(null))
+                CardId.Meve,
+                CardId.AnnaHenrietta,
+                CardId.QueenCalanthe,
+                CardId.DanaMeadbh
             };
-            var getDamage = typeof(ViperWitcherEffect).GetMethod(
-                "GetDamage",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            var skipZeroDamage = typeof(ViperWitcherEffect).GetProperty(
-                "SkipTargetWhenNoDamage",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            Assert.Equal(new[] { 0, 0, 3, 0 }, viperEffects.Select(effect =>
-                (int)getDamage.Invoke(effect, new object[] { 0 })));
-            Assert.Equal(new[] { 3, 2, 5, 3 }, viperEffects.Select(effect =>
-                (int)getDamage.Invoke(effect, new object[] { 3 })));
-            Assert.Equal(new[] { 7, 4, 7, 7 }, viperEffects.Select(effect =>
-                (int)getDamage.Invoke(effect, new object[] { 7 })));
-            Assert.Equal(new[] { false, true, false, false }, viperEffects.Select(effect =>
-                (bool)skipZeroDamage.GetValue(effect)));
+            Assert.All(leaderIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
+            Assert.Equal(new[] { 8, 6, 7, 3 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
+            Assert.Equal(Faction.ScoiaTael, GwentMap.CardMap[CardId.DanaMeadbh].Faction);
+            Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
+            Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);
+            Assert.Equal(
+                "汲食1个友军铜色/银色非间谍单位的增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
+                GwentMap.CardMap[CardId.QueenCalanthe].Info);
 
-            var greatswordEffects = new AnCraiteGreatswordEffect[]
-            {
-                new AnCraiteGreatsword(new GameCard(null)),
-                new AnCraiteGreatswordA(new GameCard(null)),
-                new AnCraiteGreatswordB(new GameCard(null)),
-                new AnCraiteGreatswordC(new GameCard(null))
-            };
-            var turnCountdown = typeof(AnCraiteGreatswordEffect).GetProperty(
-                "TurnCountdown",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            var strengthenAmount = typeof(AnCraiteGreatswordEffect).GetProperty(
-                "StrengthenAmount",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            Assert.Equal(new[] { 2, 3, 3, 2 }, greatswordEffects.Select(effect =>
-                (int)turnCountdown.GetValue(effect)));
-            Assert.Equal(new[] { 2, 2, 3, 2 }, greatswordEffects.Select(effect =>
-                (int)strengthenAmount.GetValue(effect)));
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(Mave), dataService.GetType(CardId.Meve));
+            Assert.Equal(typeof(AnnaHenrietta), dataService.GetType(CardId.AnnaHenrietta));
+            Assert.Equal(typeof(QueenCalanthe), dataService.GetType(CardId.QueenCalanthe));
+            Assert.Equal(typeof(DanaMeadbh), dataService.GetType(CardId.DanaMeadbh));
 
-            var expectedNamesByLanguage = new Dictionary<string, string[]>
-            {
-                ["cn"] = new[]
-                {
-                    "毒蛇学派猎魔人A", "毒蛇学派猎魔人B", "毒蛇学派猎魔人C",
-                    "奎特家族巨剑士A", "奎特家族巨剑士B", "奎特家族巨剑士C"
-                },
-                ["en"] = new[]
-                {
-                    "Viper Witcher A", "Viper Witcher B", "Viper Witcher C",
-                    "An Craite Greatsword A", "An Craite Greatsword B", "An Craite Greatsword C"
-                },
-                ["pl"] = new[]
-                {
-                    "Wiedźmin Szkoły Żmii A", "Wiedźmin Szkoły Żmii B", "Wiedźmin Szkoły Żmii C",
-                    "Rębacz an Craite A", "Rębacz an Craite B", "Rębacz an Craite C"
-                },
-                ["ru"] = new[]
-                {
-                    "Ведьмак школы Змеи A", "Ведьмак школы Змеи B", "Ведьмак школы Змеи C",
-                    "Ан Крайт: мечник A", "Ан Крайт: мечник B", "Ан Крайт: мечник C"
-                }
-            };
-            var variantIds = viperIds.Skip(1).Concat(greatswordIds.Skip(1)).ToArray();
-            var localeRoots = new[]
-            {
-                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
-                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
-                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
-            };
-            Assert.All(localeRoots, localeRoot =>
-            {
-                Assert.All(expectedNamesByLanguage, expectedNames =>
-                {
-                    var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
-                        FindRepositoryFile($"{localeRoot}/{expectedNames.Key}.json")));
-                    Assert.Equal(
-                        expectedNames.Value,
-                        variantIds.Select(id => locale.CardLocales[id].Name));
-                    Assert.All(variantIds, id => Assert.False(string.IsNullOrWhiteSpace(locale.CardLocales[id].Info)));
-                    Assert.All(variantIds, id => Assert.False(string.IsNullOrWhiteSpace(locale.CardLocales[id].Flavor)));
-                });
-            });
-
-            var familyIds = viperIds.Concat(greatswordIds).ToArray();
-            Assert.All(expectedNamesByLanguage.Keys, language =>
-            {
-                var locales = localeRoots.Select(localeRoot =>
-                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
-                        FindRepositoryFile($"{localeRoot}/{language}.json")))).ToArray();
-                Assert.All(familyIds, id =>
-                {
-                    Assert.All(locales.Skip(1), locale =>
-                    {
-                        Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
-                        Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
-                        Assert.Equal(locales[0].CardLocales[id].Flavor, locale.CardLocales[id].Flavor);
-                    });
-                });
-            });
-
-            var chineseLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
-                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
-            Assert.All(familyIds, id =>
-            {
-                Assert.Equal(GwentMap.CardMap[id].Name, chineseLocale.CardLocales[id].Name);
-                Assert.Equal(GwentMap.CardMap[id].Info, chineseLocale.CardLocales[id].Info);
-            });
+            Assert.True(File.Exists(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/203195.png")));
+            Assert.True(File.Exists(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Miniatures/203195_slot.png")));
+            var cardAddressableGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
+            var miniatureAddressableGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
+            Assert.Contains("m_Address: 203195", cardAddressableGroup);
+            Assert.Contains("m_Address: 203195_slot", miniatureAddressableGroup);
         }
 
         [Fact]
@@ -652,30 +567,30 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("for (var i = 0; i < 4 + count; i++)", albizziaSource);
             Assert.DoesNotContain("Damage(3", bidensSource);
             Assert.DoesNotContain("Boost(3", albizziaSource);
-            Assert.Contains("造成2点伤害，重复4次", GwentMap.CardMap["70041"].Info);
-            Assert.Contains("获得2点增益，重复4次", GwentMap.CardMap["70042"].Info);
+            Assert.Contains("造成2点伤害，随后重复3次", GwentMap.CardMap["70041"].Info);
+            Assert.Contains("获得2点增益，随后重复3次", GwentMap.CardMap["70042"].Info);
 
             var expectedInfoByLanguage = new Dictionary<string, string[]>
             {
                 ["cn"] = new[]
                 {
-                    "对最强的敌军单位造成2点伤害，重复4次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
-                    "使最弱的友军单位获得2点增益，重复4次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。"
+                    "对最强的敌军单位造成2点伤害，随后重复3次。己方墓场每有1张“合欢茎魔药”，则额外重复1次。",
+                    "使最弱的友军单位获得2点增益，随后重复3次。己方墓场每有1张“鬼针草煎药”，则额外重复1次。"
                 },
                 ["en"] = new[]
                 {
-                    "Damage the highest enemy by 2, four times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
-                    "Boost the lowest ally by 2, four times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time."
+                    "Damage the highest enemy by 2, then repeat 3 times.\nFor each White Raffard's Decoction in your graveyard, repeat an additional time.",
+                    "Boost the lowest ally by 2, then repeat 3 times.\nFor each Giga Scorpion Decoction in your graveyard, repeat an additional time."
                 },
                 ["pl"] = new[]
                 {
-                    "Zadaj najsilniejszemu wrogowi 2 pkt obrażeń cztery razy.\nZa każdą kartę „Odwar Raffarda Białego” na swoim cmentarzu powtórz dodatkowy raz.",
-                    "Wzmocnij najsłabszego sojusznika o 2 pkt cztery razy.\nZa każdą kartę „Wyciąg z Gigaskorpiona” na swoim cmentarzu powtórz dodatkowy raz."
+                    "Zadaj najsilniejszemu wrogowi 2 pkt obrażeń, a następnie powtórz 3 razy.\nZa każdą kartę „Odwar Raffarda Białego” na swoim cmentarzu powtórz dodatkowy raz.",
+                    "Wzmocnij najsłabszego sojusznika o 2 pkt, a następnie powtórz 3 razy.\nZa każdą kartę „Wyciąg z Gigaskorpiona” na swoim cmentarzu powtórz dodatkowy raz."
                 },
                 ["ru"] = new[]
                 {
-                    "Четыре раза нанесите 2 ед. урона самому сильному противнику.\nЗа каждую карту «Зелье Раффара Белого» на вашем кладбище повторите ещё один раз.",
-                    "Четыре раза усильте самого слабого союзника на 2 ед.\nЗа каждую карту «Отвар из гигаскорпиона» на вашем кладбище повторите ещё один раз."
+                    "Нанесите 2 ед. урона самому сильному противнику, затем повторите 3 раза.\nЗа каждую карту «Зелье Раффара Белого» на вашем кладбище повторите ещё один раз.",
+                    "Усильте самого слабого союзника на 2 ед., затем повторите 3 раза.\nЗа каждую карту «Отвар из гигаскорпиона» на вашем кладбище повторите ещё один раз."
                 }
             };
             var localeRoots = new[]
