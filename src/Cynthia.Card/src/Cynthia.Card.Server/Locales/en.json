@@ -4094,7 +4094,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Deploy: shuffle a non-gold ally back to your deck without changing its power, then play the lowest non-gold unit from your deck.",
+            "Info": "Deploy: Drain all boosts and armor from a non-Spying bronze or silver ally, then return it to your deck. After that, play a bronze or silver unit from your deck.\nCrew.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
