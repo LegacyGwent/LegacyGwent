@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-04
+Last verified: 2026-08-05
 
-Verified against the DIY-AI reset lineage through `1.0.0.168`.
+Verified against the DIY-AI reset lineage through `1.0.0.172`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -37,9 +37,11 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 - Current map: 716 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- After the August 4 batch, 162 entries are retired: the previous 159 minus
-  restored leaders `70045`, `70149`, and `70179`, plus retired experiment IDs
-  `34034`-`34036` and `64035`-`64037`.
+- After the August 5 batch, 142 entries are retired. Eight more DIY cards are
+  restored to user decks: `70084`, `70102`, `70113`, `70145`, `70154`, `70164`,
+  `70170`, and `70177`. Original card `22003` is not in the retirement manifest
+  but is derived-only, so it must still be excluded from the exact migration
+  allowlist while `22001` remains deckable.
   The promoted user-deck exceptions include `70001` (昆恩法印), `70041`
   (鬼针草煎药), `70042` (合欢茎魔药), plus the 18 deckable IDs listed in
   `card-rules.md`. The generated dependencies `70006`, `70071`, and `70162`
@@ -70,6 +72,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   New leader `70191` is appended after those six historical variant slots.
 - The active exceptions also include restored leaders Meve `70045`, Anna
   Henrietta `70149`, Queen Calanthe `70179`, and new Dana Meadbh `70191`.
+- The active exceptions further include the eight August 5 restored cards above;
+  `DiyAiCardPool.IsUserDeckCard`, rather than only the retirement manifest, is
+  authoritative because derived original cards such as awakened Old Speartip
+  are unavailable without being retired.
 
 ## Retirement checklist
 
@@ -95,10 +101,14 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
    advertised AI queues.
 5. Do not delete art mechanically. Some promoted DIY definitions share a
    `CardArtsId` with retained originals; keep retired art as reusable inventory.
-6. On Mongo `28021`, stop only `card-diy-ai`, take a restorable dump, archive the
-   affected deck documents, remove invalid decks and blacklist entries, seed a
-   pure-baseline starter deck for accounts left with none, then deploy and
-   verify. Never touch DIY port `28020` or service `5005`.
+6. On Mongo `28021`, stop only `card-diy-ai` and take a restorable dump before
+   mutation. For a retired test card with a compatible successor, prefer an
+   explicit old-ID-to-new-ID migration inside decks and blacklists; if the
+   successor is already present, remove only the obsolete duplicate rather than
+   invalidating the whole deck. Use whole-deck removal and starter seeding only
+   when no safe card-level migration exists. Preview counts, archive affected
+   documents, execute, and verify. Never touch DIY port `28020` or service
+   `5005`.
 7. Preserve historical results. Harden any direct `GwentMap.CardMap[id]` lookup
    with version-aware decoding or `TryGetValue` before the retirement ships.
 

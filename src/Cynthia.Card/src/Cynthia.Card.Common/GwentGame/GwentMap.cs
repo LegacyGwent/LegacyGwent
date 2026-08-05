@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 171);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 172);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -540,7 +540,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "我曾经完成过一份委托。对方要我选择奖赏，我便依照意外率向他索要回报。",
-                    Info = "对1个敌军单位造成4点伤害。若它为“怪兽”单位，则直接将其摧毁。",
+                    Info = "对1个敌军单位造成4点伤害。若它为“怪兽”单位，则直接将其摧毁并放逐。",
                     CardArtsId = "20175900",
                     LinkedCards=new List<String> {},
                 }
@@ -626,7 +626,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "这股注入专注力的能量能摧毁一切挡道之物——如果你忘了带钥匙，这招最管用。",
-                    Info = "选择3个敌军单位各造成3点伤害，并将它们上移1排。",
+                    Info = "部署：选择3个敌军单位各造成3点伤害，并将它们上移1排。如果目标位于攻城排，则额外造成2点伤害。",
                     CardArtsId = "11211100",
                     LinkedCards=new List<String> {},
                 }
@@ -3080,7 +3080,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="22003",
-                    Name="老矛头",
+                    Name="老矛头：觉醒",
                     Strength=10,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
@@ -3088,10 +3088,10 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "哦，你现在可有大麻烦了......",
-                    Info = "对最多5个敌军同排单位造成2点伤害。己方回合开始时，若对方同排单位不足3个，则沉睡。",
+                    Info = "对最多5个敌军同排单位造成2点伤害。己方回合开始时若对方同排单位不足3个，则沉睡。",
                     CardArtsId = "13240800",
                     LinkedCards=new List<String> {"22001"},
                 }
@@ -3133,7 +3133,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
                     Flavor = "叫他们有来无回！",
-                    Info = "对1个敌军单位造成4点伤害，若目标位于“刺骨冰霜”之下，则伤害变为8点。",
+                    Info = "对1个敌军单位造成4点伤害，若目标位于“刺骨冰霜”之下，则将其摧毁。",
                     CardArtsId = "13210200",
                     LinkedCards=new List<String> {"14005"},
                 }
@@ -12240,7 +12240,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "“若是月亮一片血红，那就速速紧闭门窗，让宝宝快快上床……",
-                    Info = "放逐己方墓场中3张铜色“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
+                    Info = "放逐己方墓场中3张“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
                     CardArtsId = "202185",
                     LinkedCards=new List<String> {"25009","25008"},
                 }
@@ -12464,7 +12464,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70113", //Keltullis
                     Name="克尔图里斯",
-                    Strength=12,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12474,7 +12474,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "2护甲，回合结束时，摧毁场上战力低于6的单位中最低的1个。",
+                    Info = "2护甲。回合结束时，摧毁己方同排其他1个最弱单位，随后获得1点增益，并摧毁对方同排战力低于自身的1个最弱单位。若未摧毁己方单位，则后续效果不生效。",
                     CardArtsId = "202103",
                     LinkedCards=new List<String> {},
                 }
@@ -13287,7 +13287,7 @@ namespace Cynthia.Card
                 {
                     CardId ="13015",
                     Name="欧吉尔德·伊佛瑞克",
-                    Strength=5,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13295,9 +13295,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
+                    Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "至少你知道我的头不好砍了。",
-                    Info = "遗愿：复活至原位。",
+                    Info = "小局开始时，复活自身并削弱一半战力。",
                     CardArtsId = "11220700",
                     LinkedCards=new List<String> {},
                 }
@@ -14297,7 +14297,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70145", //Orianna
                     Name="奥莉安娜",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14486,7 +14486,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70154", //Iris: Shade
                     Name="爱丽丝：庄园幽影",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14496,7 +14496,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "和欧吉尔德的婚约犹如一场美梦……",
-                    Info = "休战：向双方手牌中添加两张爱丽丝的同伴。爱丽丝：庄园幽影在场时，己方的爱丽丝的同伴可以选择丢弃的牌。",
+                    Info = "休战：向双方手牌中添加2张爱丽丝的同伴。爱丽丝：庄园幽影在场时，己方的爱丽丝的同伴可以选择丢弃的牌。",
                     CardArtsId = "202399",
                     LinkedCards=new List<String> {"13004"},
                 }
@@ -14665,7 +14665,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "",
-                    Info = "回合结束时，使同排随机一个敌军单位移至其它排，并对其造成1点伤害。",
+                    Info = "回合结束时，使同排所有敌军单位随机移至其它排，并对其造成1点伤害。",
                     CardArtsId = "202327",
                     LinkedCards=new List<String> {},
                 }
@@ -14782,7 +14782,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70170", //Cloud Giant
                     Name="云顶巨人",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14792,7 +14792,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "天空中除了雨和雪，还有很多东西会掉下来。比如青蛙...还有云顶巨人。",
-                    Info = "坚韧。部署：如果你拥有最高战力单位，则获得免疫，否则失去免疫。回合开始时重复部署效果。",
+                    Info = "坚韧。对方半场每有1个“蔽日浓雾”灾厄效果，便获得1回合免疫。",
                     CardArtsId = "c10000900",
                     LinkedCards=new List<String> {},
                 }
@@ -14940,7 +14940,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast, Categorie.Cursed},
                     Flavor = "不想少只眼睛的话……就别叫他小猫咪。",
-                    Info = "部署：使所有野兽友方获得1点强化，无论他们身在何处，若他们处于满月下，则额外获得1点增益。",
+                    Info = "使所有位于满月之下的野兽单位获得1点增益。位于手牌、牌组或己方半场：有友军野兽单位被打出时，获得1点增益。",
                     CardArtsId = "203081",
                     LinkedCards=new List<String> {"25009"},
                 }
@@ -15004,7 +15004,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "免疫，生成左翼和右翼。在对方同排降下“刺骨冰霜”。每2回合开始时，重复其效果一次。若己方没有左右翼，摧毁自身。",
+                    Info = "免疫，生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。",
                     CardArtsId = "r9900000",
                     LinkedCards=new List<String> {"70181","70182"},
                 }

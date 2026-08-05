@@ -15,7 +15,7 @@ namespace Cynthia.Card
                 return;
             }
             var row = Card.Status.CardRow.Mirror();
-            var cards = Game.RowToList(PlayerIndex, row).IgnoreConcealAndDead().Where(x => x != Card);
+            var cards = Game.RowToList(PlayerIndex, row).IgnoreConcealAndDead().Where(x => x != Card).ToList();
             var targetRow = TurnType.My.GetRow();
             targetRow.Remove(row.IsMyRow() ? row : row.Mirror());
             foreach (var card in cards)

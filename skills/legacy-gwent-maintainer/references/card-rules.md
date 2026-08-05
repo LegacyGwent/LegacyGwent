@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-08-04
+Last verified: 2026-08-05
 
 ## Similar Chinese card names
 
@@ -165,3 +165,36 @@ Last verified: 2026-08-04
   `CreateCard(Farmer, AnotherPlayer, ...)`; `CreateCard` interprets that
   `MyRowN` relative to the destination player, producing the physical opposite
   row without calling `Mirror()`.
+
+## August 5 monster batch
+
+- CardMap `1.0.0.172` restores these DIY cards to the user pool: Olgierd:
+  Immortal `70084`, Dettlaff: Crimson Curse `70102`, Keltullis `70113`, Orianna
+  `70145`, Iris: Shade `70154`, Tatterwing `70164`, Cloud Giant `70170`, and Sir
+  Scratch-a-Lot `70177`. Old Speartip: Asleep `22001` remains deckable, while
+  `22003` is renamed Old Speartip: Awakened and becomes derived-only. The reset
+  migration allowlist must exclude `22003` and include all eight restored IDs.
+- Geralt: Aard keeps 6 power and uses the DIY siege-row branch: a target already
+  on the Siege row takes 2 extra damage instead of moving upward, then receives
+  the ordinary 3 damage. Geralt: Professional directly Banishes a Monster, so
+  neither cemetery-entry nor Deathwish events fire. Imlerith destroys a target
+  under Biting Frost instead of dealing 8 damage.
+- Sir Scratch-a-Lot Boosts every Beast under Full Moon on either half by 1 on
+  Deploy. Every individual copy in hand, deck, or the allied half independently
+  listens to `AfterUnitDown` and Boosts only itself by 1 when an allied Beast
+  enters play. This intentionally includes ordinary plays, Summon, and generated
+  units such as Harpy Hatchlings and Woodland Spirit's Wolves; movement does not
+  broadcast `AfterUnitDown`. Never make one listener loop over all copies, or N
+  copies will produce N-squared Boosts.
+- Cloud Giant has 7 power and Resilience. On Deploy it counts Impenetrable Fog
+  rows on the opposing half and gains that many owner-turn intervals of
+  Immunity. Decrement at each subsequent owner turn start; one Fog therefore
+  protects it through the opponent's next action window. The serialized
+  `IsImmue` state drives selection rules, and the client uses a cool-blue card
+  tint so the temporary state is visible without a new asset.
+- Keltullis has 9 power and gains 2 Armor on Deploy. At owner turn end it first
+  destroys one random tied-weakest other non-Immune ally on its row. Only after
+  a valid sacrifice does it Boost itself by 1 and destroy one random tied-weakest
+  non-Immune enemy below its new power opposite; no target ends both follow-ups.
+- Tatterwing snapshots all opposite-row enemies before moving them, avoiding
+  collection mutation. Dettlaff accepts Gold and Leader Beasts/Vampires too.

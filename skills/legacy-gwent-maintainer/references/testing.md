@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-04
+Last verified: 2026-08-05
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -35,6 +35,15 @@ Build a scenario by adding physical `GameCard` objects to explicit zones, call
 synthetic edge case, replace only the tested card's main `CardEffect` with a
 small test-only effect; never add test branches or test card IDs to production
 code.
+
+`GameCard` keeps its primary `Card.Effect` and its event-dispatching
+`Card.Effects` entries as distinct effect instances. This is invisible to
+stateless one-shot effects but matters for a private field that is initialized
+on Deploy and consumed by a later event, such as Cloud Giant's remaining
+Immunity turns. Exercise those cards through the real `Play` pipeline or raise
+`CardPlayEffect` on `Card.Effects`; do not initialize state by calling
+`card.Effect.CardPlayEffect(...)` and then expect `card.Effects.RaiseEvent(...)`
+to observe the same private field.
 
 ## Commands and CI
 
@@ -107,3 +116,9 @@ Witcher Boost, and opposite-row Farmer Deathwish. Static tests separately lock
 the retired variant slots, runtime/Mongo allowlist equality, CardMap
 `1.0.0.171`, source/locale agreement, leader-only draft validity, and Dana's
 Addressables entries.
+
+The August 5 scenarios cover Aard's Siege-row bonus, Professional's Deathwish-
+free Banish, Olgierd's round-start return, Imlerith under Frost, unrestricted
+Dettlaff cemetery rarities, per-copy Sir Scratch-a-Lot triggers, Cloud Giant's
+Fog-duration Immunity, both Keltullis branches, and Tatterwing's all-unit row
+movement.

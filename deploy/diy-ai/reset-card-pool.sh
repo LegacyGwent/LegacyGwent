@@ -99,8 +99,9 @@ database_mutated=true
 printf 'state=migrating\n' >"$run_dir/status"
 run_migration true | tee "$run_dir/result.json"
 run_migration false | tee "$run_dir/post-check.json"
-grep -q '"removedDecks":0' "$run_dir/post-check.json"
-grep -q '"removedBlacklistEntries":0' "$run_dir/post-check.json"
+grep -q '"migratedDecks":0' "$run_dir/post-check.json"
+grep -q '"replacedBlacklistEntries":0' "$run_dir/post-check.json"
+grep -q '"remainingInvalidDecks":0' "$run_dir/post-check.json"
 
 systemctl start "$service"
 wait_for_health

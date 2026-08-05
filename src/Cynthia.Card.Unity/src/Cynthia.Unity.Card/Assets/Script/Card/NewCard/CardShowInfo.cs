@@ -190,6 +190,10 @@ public class CardShowInfo : MonoBehaviour
         RevealIcon.SetActive(CurrentCore.IsReveal);
         //护盾
         ShieldIcon.SetActive(CurrentCore.IsShield);
+        // 免疫使用冷色卡面提示，不与护盾共用图标。
+        CardImg.color = CurrentCore.IsImmue
+            ? new Color(0.62f, 0.82f, 1f, 1f)
+            : Color.white;
         if (CardInfo.CardType == CardType.Special)
         {
             Strength.gameObject.SetActive(false);

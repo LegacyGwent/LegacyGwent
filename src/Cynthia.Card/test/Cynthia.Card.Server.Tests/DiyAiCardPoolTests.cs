@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(150, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(142, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 171), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 172), GwentMap.CardMapVersion);
             Assert.Equal(716, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -587,7 +587,9 @@ namespace Cynthia.Card.Server.Tests
                 "每2回合结束时，造成等同于受伤量的伤害。",
                 GwentMap.CardMap["70025"].Info);
             Assert.Contains("其他最弱的友军猎魔人", GwentMap.CardMap["70158"].Info);
-            Assert.Contains("每2回合开始时", GwentMap.CardMap["70180"].Info);
+            Assert.Equal(
+                "免疫，生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。",
+                GwentMap.CardMap["70180"].Info);
 
             var chineseLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
                 FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
@@ -617,6 +619,78 @@ namespace Cynthia.Card.Server.Tests
                 Assert.All(changedInfoIds, cardId =>
                     Assert.All(locales.Skip(1), locale =>
                         Assert.Equal(locales[0].CardLocales[cardId].Info, locale.CardLocales[cardId].Info)));
+            });
+        }
+
+        [Fact]
+        public void AugustFifthMonsterBatchIsAvailableAndMatchesPublishedValues()
+        {
+            var restoredDeckableIds = new[]
+            {
+                CardId.OlgierdImmortal,
+                CardId.DetlaffCrimsonCurse,
+                CardId.Keltullis,
+                CardId.Orianna,
+                CardId.IrisShade,
+                CardId.Tatterwing,
+                CardId.CloudGiant,
+                CardId.SirScratchALot
+            };
+            Assert.All(restoredDeckableIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
+
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.OldSpeartipAsleep));
+            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.OldSpeartip));
+            Assert.True(GwentMap.CardMap[CardId.OldSpeartip].IsDerive);
+            Assert.Equal("老矛头：觉醒", GwentMap.CardMap[CardId.OldSpeartip].Name);
+
+            Assert.Equal(6, GwentMap.CardMap[CardId.GeraltAard].Strength);
+            Assert.Contains("攻城排", GwentMap.CardMap[CardId.GeraltAard].Info);
+            Assert.Contains("摧毁并放逐", GwentMap.CardMap[CardId.GeraltProfessional].Info);
+            Assert.Equal(9, GwentMap.CardMap[CardId.OlgierdVonEverec].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.IrisShade].Strength);
+            Assert.Contains("添加2张", GwentMap.CardMap[CardId.IrisShade].Info);
+            Assert.Equal(7, GwentMap.CardMap[CardId.Orianna].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.CloudGiant].Strength);
+            Assert.Equal(9, GwentMap.CardMap[CardId.Keltullis].Strength);
+            Assert.DoesNotContain("铜色/银色", GwentMap.CardMap[CardId.DetlaffCrimsonCurse].Info);
+            Assert.Contains("所有敌军单位", GwentMap.CardMap[CardId.Tatterwing].Info);
+            Assert.Contains("有友军野兽单位被打出时", GwentMap.CardMap[CardId.SirScratchALot].Info);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(GeraltAard), dataService.GetType(CardId.GeraltAard));
+            Assert.Equal(typeof(GeraltProfessional), dataService.GetType(CardId.GeraltProfessional));
+            Assert.Equal(typeof(OlgierdVonEverec), dataService.GetType(CardId.OlgierdVonEverec));
+            Assert.Equal(typeof(OldSpeartipAsleep), dataService.GetType(CardId.OldSpeartipAsleep));
+            Assert.Equal(typeof(OldSpeartip), dataService.GetType(CardId.OldSpeartip));
+            Assert.Equal(typeof(Imlerith), dataService.GetType(CardId.Imlerith));
+            Assert.Equal(typeof(Keltullis), dataService.GetType(CardId.Keltullis));
+            Assert.Equal(typeof(SirScratchALot), dataService.GetType(CardId.SirScratchALot));
+            Assert.Equal(typeof(CloudGiant), dataService.GetType(CardId.CloudGiant));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            var changedChineseIds = new[]
+            {
+                CardId.GeraltProfessional, CardId.GeraltAard, CardId.OldSpeartip,
+                CardId.DetlaffCrimsonCurse, CardId.Keltullis, CardId.IrisShade,
+                CardId.CloudGiant, CardId.SirScratchALot, "70180"
+            };
+            var chineseLocales = localeRoots.Select(localeRoot =>
+                JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                    FindRepositoryFile($"{localeRoot}/cn.json")))).ToArray();
+            Assert.All(changedChineseIds, cardId =>
+            {
+                Assert.Equal(GwentMap.CardMap[cardId].Name, chineseLocales[0].CardLocales[cardId].Name);
+                Assert.Equal(GwentMap.CardMap[cardId].Info, chineseLocales[0].CardLocales[cardId].Info);
+                Assert.All(chineseLocales.Skip(1), locale =>
+                {
+                    Assert.Equal(chineseLocales[0].CardLocales[cardId].Name, locale.CardLocales[cardId].Name);
+                    Assert.Equal(chineseLocales[0].CardLocales[cardId].Info, locale.CardLocales[cardId].Info);
+                });
             });
         }
 

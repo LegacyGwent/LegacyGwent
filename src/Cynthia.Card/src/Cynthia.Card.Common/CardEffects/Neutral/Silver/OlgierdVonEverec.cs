@@ -5,34 +5,38 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("13015")]//欧吉尔德·伊佛瑞克
-    public class OlgierdVonEverec : CardEffect, IHandlesEvent<AfterCardDeath>, IHandlesEvent<AfterTurnOver>,IHandlesEvent<AfterRoundOver>
-    {//遗愿：复活至原位。
+    public class OlgierdVonEverec : CardEffect, IHandlesEvent<AfterCardToCemetery>, IHandlesEvent<BeforeRoundStart>
+    {//小局开始时，复活自身并削弱一半战力。
         public OlgierdVonEverec(GameCard card) : base(card) { }
-        private bool _resurrectFlag = false;
-        private CardLocation _resurrectTarget = null;
+        private CardLocation _resurrectTarget;
 
-        public async Task HandleEvent(AfterTurnOver @event)
+        public Task HandleEvent(AfterCardToCemetery @event)
         {
-            if (@event.PlayerIndex == Card.PlayerIndex && _resurrectFlag == true)
+            if (@event.Target == Card && @event.isRoundEnd)
             {
-                await Card.Effect.Resurrect(_resurrectTarget, Card);
-                _resurrectFlag = false;
+                _resurrectTarget = @event.DeathLocation;
             }
+
+            return Task.CompletedTask;
         }
 
-        public async Task HandleEvent(AfterCardDeath @event)
+        public async Task HandleEvent(BeforeRoundStart @event)
         {
-            if (@event.Target != Card) return;
-            _resurrectTarget = @event.DeathLocation;
-            _resurrectFlag = true;
-            await Task.CompletedTask;
-            return;
-        }
+            if (!Card.Status.CardRow.IsInCemetery())
+            {
+                return;
+            }
 
-        public async Task HandleEvent(AfterRoundOver @event)
-        {
-            _resurrectFlag = false;
-            await Task.CompletedTask;
+            var weakenValue = (Card.Status.Strength + 1) / 2;
+            if (Card.Status.Strength == weakenValue)
+            {
+                await Card.Effect.Weaken(weakenValue, Card);
+                return;
+            }
+
+            var location = _resurrectTarget ?? Game.GetRandomCanPlayLocation(Card.PlayerIndex, true);
+            await Card.Effect.Resurrect(location, Card);
+            await Card.Effect.Weaken(weakenValue, Card);
         }
     }
 }

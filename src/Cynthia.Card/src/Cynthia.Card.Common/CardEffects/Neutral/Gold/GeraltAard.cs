@@ -13,7 +13,13 @@ namespace Cynthia.Card
             var cards = await Game.GetSelectPlaceCards(Card, 3, selectMode: SelectModeType.EnemyRow);
             foreach (var card in cards)
             {
-                var row = (card.Status.CardRow.MyRowToIndex() + 1).IndexToMyRow();
+                var currentRow = card.Status.CardRow;
+                var row = (currentRow.MyRowToIndex() + 1).IndexToMyRow();
+                if (currentRow == RowPosition.MyRow3)
+                {
+                    await card.Effect.Damage(2, Card);
+                    continue;
+                }
                 if (!row.IsOnPlace())
                 {
                     await Game.Debug("已经是最上一排,不产生位移");

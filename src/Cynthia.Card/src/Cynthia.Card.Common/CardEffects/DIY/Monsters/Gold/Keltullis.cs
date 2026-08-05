@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70113")]//克尔图里斯
     public class Keltullis : CardEffect, IHandlesEvent<AfterTurnOver>
-    {//6护甲，回合结束时随机摧毁1个场上战力最低且低于自身基础战力的单位。
+    {
         public Keltullis(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -20,12 +20,28 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if (!Game.GetAllCard(Game.AnotherPlayer(Card.PlayerIndex)).FilterCards(filter: x => x.CardPoint() < 6 && x != Card).Where(x => x.Status.CardRow.IsOnPlace()).WhereAllLowest().TryMessOne(out var target, Game.RNG))
+            var alliedRow = Game.RowToList(PlayerIndex, Card.Status.CardRow)
+                .IgnoreConcealAndDead()
+                .Where(x => x != Card && !x.Status.IsImmue)
+                .WhereAllLowest()
+                .ToList();
+            if (!alliedRow.TryMessOne(out var sacrifice, Game.RNG))
             {
                 return;
             }
 
-            await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            await sacrifice.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            await Card.Effect.Boost(1, Card);
+
+            var enemyRow = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())
+                .IgnoreConcealAndDead()
+                .Where(x => !x.Status.IsImmue && x.CardPoint() < Card.CardPoint())
+                .WhereAllLowest()
+                .ToList();
+            if (enemyRow.TryMessOne(out var enemy, Game.RNG))
+            {
+                await enemy.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Cynthia.Card
             var card = cards.Single();
             if (card.Status.Faction == Faction.Monsters)
             {
-                await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
+                await card.Effect.Banish();
             }
             else
             {

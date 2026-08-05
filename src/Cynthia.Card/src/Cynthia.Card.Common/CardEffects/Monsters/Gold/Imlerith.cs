@@ -14,8 +14,14 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            int point = Game.GameRowEffect[AnotherPlayer][target.Status.CardRow.MyRowToIndex()].RowStatus == RowStatus.BitingFrost ? 8 : 4;
-            await target.Effect.Damage(point, Card);
+            if (Game.GameRowEffect[AnotherPlayer][target.Status.CardRow.MyRowToIndex()].RowStatus == RowStatus.BitingFrost)
+            {
+                await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            }
+            else
+            {
+                await target.Effect.Damage(4, Card);
+            }
             return 0;
         }
     }
