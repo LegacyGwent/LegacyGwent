@@ -112,6 +112,21 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 7. Preserve historical results. Harden any direct `GwentMap.CardMap[id]` lookup
    with version-aware decoding or `TryGetValue` before the retirement ships.
 
+## Old Speartip migration ID trap
+
+- Symptom: replacing derived-only `22003` with `22004` makes affected decks gain
+  Caranthir instead of the deckable sleeping form of Old Speartip.
+- Cause: adjacent Monster gold IDs were inferred instead of verified against
+  `GwentMap`: `22001` is Old Speartip: Asleep, `22003` is Old Speartip: Awakened,
+  and `22004` is Caranthir.
+- Fix: migrate deck and blacklist references from `22003` to `22001`; when
+  `22001` already exists, remove only the obsolete `22003` copy.
+- Prevention: every card-level database replacement must name both source and
+  target cards in review notes and verify both IDs against the active map.
+- Verification: use a pre-migration dump to enumerate every source deck, then
+  require a post-check with zero pending replacements, missing decks, and
+  unresolved decks before restarting `card-diy-ai`.
+
 The 2026-08-01 production migration on Mongo `28021` scanned 41,940 users,
 removed 18,322 invalid decks across 3,136 users, seeded 562 users with the
 original starter deck, and removed 25 invalid blacklist entries across 24

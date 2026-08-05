@@ -45,7 +45,7 @@
     // instead of deleting the player's whole deck. If the replacement is
     // already present, drop the old copy to avoid creating a duplicate gold.
     var cardIdReplacements = {
-        "22003": "22004"
+        "22003": "22001"
     };
 
     function migrateCardList(cardIds) {
