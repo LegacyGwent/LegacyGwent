@@ -17,8 +17,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            //增益值向下取等
-            int boostnum = (target.Status.Strength + target.Status.HealthStatus) / 2;
+            int boostnum = (target.Status.Strength + target.Status.HealthStatus + 1) / 2;
             await target.Effect.Boost(boostnum, Card);
             return 0;
         }

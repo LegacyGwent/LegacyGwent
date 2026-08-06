@@ -13,7 +13,9 @@ namespace Cynthia.Card
             var cards = Game.PlayersDeck[AnotherPlayer].ToList();
             var selectCard = await Game.GetSelectMenuCards(PlayerIndex, cards);
             if (selectCard.Count == 0) return 0;
-            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, cards.Count), selectCard.Single());
+            var target = selectCard.Single();
+            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, cards.Count), target);
+            await target.Effect.Lock(Card);
             return 0;
         }
     }

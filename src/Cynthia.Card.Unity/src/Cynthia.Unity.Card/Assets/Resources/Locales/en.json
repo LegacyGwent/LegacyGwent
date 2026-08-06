@@ -786,7 +786,10 @@
         "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
         "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item",
         "Gael_1_Damage2Units": "Deal 5 Damage to two enemy units each.",
-        "Gael_1_Damage1Unit": "Damage an enemy by 8."
+        "Gael_1_Damage1Unit": "Damage an enemy by 8.",
+        "Masquerade_ChangeGold": "Change the selected unit's rarity to Gold.",
+        "Masquerade_ChangeSilver": "Change the selected unit's rarity to Silver.",
+        "Masquerade_ChangeCopper": "Change the selected unit's rarity to Bronze."
     },
     "CardLocales": {
         "12001": {
@@ -1216,7 +1219,7 @@
         },
         "13044": {
             "Name": "Garrison",
-            "Info": "Generate a non-Spying Bronze or Silver unit from your opponent's starting deck and Boost it by 1.",
+            "Info": "Generate a non-Spying Bronze or Silver Soldier or Officer from your opponent's starting deck and Boost it by 1.",
             "Flavor": "Knock, knock… anybody home?"
         },
         "14001": {
@@ -1446,7 +1449,7 @@
         },
         "21005": {
             "Name": "Unseen Elder",
-            "Info": "Deploy: Drain a unit by half (rounded up).",
+            "Info": "Deploy: Drain a unit by half.",
             "Flavor": "No one, not even among the higher vampires, knows exactly how old the Unseen Elder is. They only know they should never, under any circumstances, defy his will."
         },
         "22001": {
@@ -1956,7 +1959,7 @@
         },
         "32015": {
             "Name": "Assassination",
-            "Info": "Deal 9 Damage to an enemy.\nRepeat once.",
+            "Info": "Deal 8 Damage to an enemy unit, then deal 8 Damage to an enemy unit.",
             "Flavor": "In Nilfgaard, trustful people are considered an endangered species."
         },
         "33001": {
@@ -2001,7 +2004,7 @@
         },
         "33009": {
             "Name": "Hefty Helge",
-            "Info": "Deploy: Deal 1 Damage to all enemies except those on the opposite row.\nIf this unit was Revealed, deal 1 Damage to all enemies instead.",
+            "Info": "Deal 1 Damage to all enemies except those on the opposite row. If Revealed, deal 1 Damage to all enemy units and all Revealed non-Spying enemy unit cards.",
             "Flavor": "Not the best for taking cities, but great for razing them to the ground."
         },
         "33010": {
@@ -2056,7 +2059,7 @@
         },
         "33020": {
             "Name": "Treason",
-            "Info": "Force 2 adjacent enemies to Duel each other.",
+            "Info": "Force 2 enemies on the same row to Duel each other.",
             "Flavor": "Many believe the empire's power rests upon the shoulders of its disciplined army and dutiful mages. In truth, the Nilfgaardian floren rules the world."
         },
         "33021": {
@@ -2091,7 +2094,7 @@
         },
         "34004": {
             "Name": "Nilfgaardian Knight",
-            "Info": "Deploy: Reveal a random card in your hand of the Lowest color possible.\n2 Armor.",
+            "Info": "Reveal the lowest-rarity card in your hand. 2 Armor.",
             "Flavor": "Sons of noble houses, born in the City of the Golden Towers, form the elite backbone of the Imperial Army."
         },
         "34005": {
@@ -3576,7 +3579,7 @@
         },
         "70062": {
             "Name": "Living Armor",
-            "Info": "All allied units on this row take half damage, rounded up.",
+            "Info": "All allied units on this row take half damage.",
             "Flavor": "Sure it's expensive. But considering how much you'll save on room and board, you'll get a return on the investment by the end of this century!"
         },
         "70070": {
@@ -3591,7 +3594,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "If your starting deck has exactly 3 copies of every bronze card, spawn a Bronze unit card from your starting deck and give it Doomed.",
+            "Info": "If your starting deck has exactly 3 copies of every Bronze card, Spawn a Doomed base copy of a Bronze unit in your starting deck.",
             "Flavor": "You can hide a lot behind a beautiful smile."
         },
         "70076": {
@@ -3966,7 +3969,7 @@
         },
         "70152": {
             "Name": "Van Moorlehem's Cup bearer",
-            "Info": "On turn end, if there is no Gold unit on the opposite side, gain 1 Boost.",
+            "Info": "At the start of every turn, randomly Conceal a Bronze card in your hand and Boost it by 1.",
             "Flavor": "My specialty? Tartar. Of what? Ah, that depends on the host's mood…"
         },
         "70153": {
@@ -4046,7 +4049,7 @@
         },
         "70168": {
             "Name": "Ogre Warrior",
-            "Info": "At the start of the turn after 3 turns, if you control the Highest unit, Boost self by half its Power, rounded up.",
+            "Info": "At the start of the turn after 3 turns, if you control the Highest unit, Boost self by half its Power.",
             "Flavor": "You is idiot steak!"
         },
         "70169": {
@@ -4056,7 +4059,7 @@
         },
         "70170": {
             "Name": "Cloud Giant",
-            "Info": "For each Impenetrable Fog on the enemy side, gain Immunity for 1 turn. At the end of every turn, Damage a Highest enemy unit on the opposite row by half self's base Power, rounded up, then move it to a random row.",
+            "Info": "For each Impenetrable Fog on the enemy side, gain Immunity for 1 turn. At the end of every turn, Damage a Highest enemy unit on the opposite row by half self's base Power, then move it to a random row.",
             "Flavor": "Many things fall from the sky other than rain and snow. Frogs, for example... And the Cloud Giant."
         },
         "70171": {
@@ -4076,7 +4079,7 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying.\nDeploy: Reveal two enemy cards, then choose a Revealed card in oponent hand that is not a copy of this unit and Spawn a default copy of it.",
+            "Info": "Spying. Reveal 2 enemy hand cards. Choose an enemy Bronze unit or a Revealed non-Spying enemy Bronze unit card and Spawn its Doomed base copy.",
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
@@ -4086,7 +4089,7 @@
         },
         "70176": {
             "Name": "Hybrid",
-            "Info": "Trigger the Deathwish of an allied Bronze unit. Then Consume an allied unit and Boost self by its Power.",
+            "Info": "Trigger the Deathwish of an allied Bronze unit. At the start of your next turn, Consume the unit to the right and Boost self by its Power.",
             "Flavor": "When one head just isn’t enough."
         },
         "70177": {
@@ -4126,7 +4129,7 @@
         },
         "70184": {
             "Name": "Ard Feainn Heavy Cavalry",
-            "Info": "Boost self by 4 when a Leader is played. Decrease the Boost by 1 for each time this card has been Boosted by its own ability previously this round.",
+            "Info": "Boost self by 4 when a Leader is played. Decrease the Boost by 1 for each time this ability triggered earlier this round.",
             "Flavor": "When Emhyr declared that his cavalry would stomp his enemies into the mud, we thought he was speaking metaphorically. We were wrong."
         },
         "70185": {
@@ -4233,6 +4236,11 @@
             "Name": "Ignis Fatuus",
             "Info": "Spawn a Doomed base copy of self on this row. While on the board, all Impenetrable Fog on the enemy side Weakens instead of dealing damage.",
             "Flavor": "It follows the pale light through the fog and fades before dawn."
+        },
+        "70193": {
+            "Name": "Masquerade",
+            "Info": "Choose a non-Leader unit on the battlefield and change its rarity to one of the other rarities.",
+            "Flavor": "Identity is only a mask that can be replaced."
         }
     }
 }

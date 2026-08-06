@@ -5,8 +5,10 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70176")]//杂交兽
-    public class Hybrid : CardEffect
+    public class Hybrid : CardEffect, IHandlesEvent<AfterTurnStart>
     {
+        private bool _consumeRightAtNextTurnStart;
+
         public Hybrid(GameCard card) : base(card) { }
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
@@ -19,18 +21,32 @@ namespace Cynthia.Card
             {
                 await deathwishTarget.Effects.RaiseEvent(
                     new AfterCardDeath(deathwishTarget, deathwishTarget.GetLocation()));
-            }
-
-            var consumeTargets = await Game.GetSelectPlaceCards(
-                Card,
-                filter: target => target.PlayerIndex == PlayerIndex,
-                selectMode: SelectModeType.MyRow);
-            if (consumeTargets.TrySingle(out var consumeTarget))
-            {
-                await Card.Effect.Consume(consumeTarget);
+                _consumeRightAtNextTurnStart = true;
             }
 
             return 0;
+        }
+
+        public async Task HandleEvent(AfterTurnStart @event)
+        {
+            if (@event.PlayerIndex != PlayerIndex || !_consumeRightAtNextTurnStart)
+            {
+                return;
+            }
+
+            _consumeRightAtNextTurnStart = false;
+            if (!Card.Status.CardRow.IsOnPlace())
+            {
+                return;
+            }
+
+            var consumeTarget = Card
+                .GetRangeCard(1, GetRangeType.HollowRight)
+                .FirstOrDefault();
+            if (consumeTarget != null && consumeTarget.PlayerIndex == PlayerIndex)
+            {
+                await Card.Effect.Consume(consumeTarget);
+            }
         }
     }
 }
