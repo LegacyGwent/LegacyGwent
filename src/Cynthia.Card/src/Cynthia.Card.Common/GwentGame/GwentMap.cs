@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 174);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 175);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1179,7 +1179,7 @@ namespace Cynthia.Card
                     Flavor = "我们的名字还是不说为好。就当我们是……主人家的朋友吧。",
                     Info = "将1张牌从牌组移至手牌，然后随机丢弃1张牌。",
                     CardArtsId = "20008300",
-                    LinkedCards=new List<String> {},
+                    LinkedCards=new List<String> {"70154"},
                 }
             },
             {
@@ -4886,7 +4886,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "占卜术、水卜术、肠卜术、蜡卜术、蛋卜术、烬卜术、尿卜术、雷卜术……",
-                    Info = "检视对方牌组，将其中1张牌置于底端。",
+                    Info = "检视对方牌组，将其中1张牌置于底端，并改变它的锁定状态。",
                     CardArtsId = "16210800",
                     LinkedCards=new List<String> {},
                 }
@@ -5182,7 +5182,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“请你出手要多少钱？” “看情况喽。比如说目标是你，大改100奥伦币左右。”",
-                    Info = "对1个敌军单位造成8点伤害，再对1个敌军单位造成8点伤害。",
+                    Info = "对1个敌军单位造成8点无视护甲的伤害，再对1个敌军单位造成8点无视护甲的伤害。",
                     CardArtsId = "16310100",
                     LinkedCards=new List<String> {},
                 }
@@ -13761,7 +13761,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "如此恐怖的现场……显然是蝠翼脑魔所为。",
-                    Info = "随机对敌军单位造成1点伤害5次，若目标受伤则改为汲取。",
+                    Info = "随机对敌军单位造成1点伤害5次，若目标受伤则改为汲食。",
                     CardArtsId = "202224",
                     LinkedCards=new List<String> {},
                 }
@@ -14307,7 +14307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "奥莉安娜夫人真是咱们的福气……她救济穷人，资助画家。她还为那些可怜的孩子们开了一家孤儿院呢！",
-                    Info = "选择1个敌军单位，使己方场上所有吸血鬼单位各汲取其1点战力。",
+                    Info = "选择1个敌军单位，使己方场上所有吸血鬼单位各汲食其1点战力。",
                     CardArtsId = "202222",
                     LinkedCards=new List<String> {},
                 }
@@ -14370,7 +14370,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。",
-                    Info = "回合结束时，若同排没有战力高于自身的敌军单位，则汲取同排随机1个敌军单位1点战力。",
+                    Info = "回合结束时，若同排没有战力高于自身的敌军单位，则汲食同排随机1个敌军单位1点战力。",
                     CardArtsId = "202230",
                     LinkedCards=new List<String> {},
                 }
@@ -14538,7 +14538,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Item,Categorie.Special},
                     Flavor = "无坚不摧，无甲不破。",
-                    Info = "对1个敌军单位造成7点伤害（无视护甲)，若其具有增益则改为造成10点伤害（无视护甲）。",
+                    Info = "对1个敌军单位造成7点无视护甲的伤害，若其具有增益则改为造成10点无视护甲的伤害。",
                     CardArtsId = "202411",
                     LinkedCards=new List<String> {},
                 }
@@ -15066,7 +15066,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "选择一个友方吸血鬼，使其汲取一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
+                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }

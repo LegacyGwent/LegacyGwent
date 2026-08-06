@@ -16,11 +16,13 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            var row = target.Status.CardRow;
+            var targetRow = Game.GameRowEffect[target.PlayerIndex][target.Status.CardRow.MyRowToIndex()];
             await target.Effect.Damage(6, Card);
-            if (!target.Status.CardRow.IsOnPlace())
+            // Nested game tasks may not have moved a lethally damaged unit to the cemetery yet.
+            // Accept either observable state so Frost is never lost to queue timing.
+            if (!target.Status.CardRow.IsOnPlace() || target.CardPoint() <= 0)
             {
-                await Game.GameRowEffect[target.PlayerIndex][row.MyRowToIndex()].SetStatus<BitingFrostStatus>();
+                await targetRow.SetStatus<BitingFrostStatus>();
             }
             return 0;
 

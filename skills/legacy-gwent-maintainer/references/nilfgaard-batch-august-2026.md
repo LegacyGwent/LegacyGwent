@@ -1,6 +1,6 @@
 # August 6 Nilfgaard and global card batch
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
 Load this reference when changing the August 6 Nilfgaard restoration, global
 half-value arithmetic, or its regression tests.
@@ -10,14 +10,15 @@ half-value arithmetic, or its regression tests.
 - All card-effect calculations described as half use ceiling division for
   positive integers: `(value + 1) / 2`. Card descriptions do not repeat an
   explicit rounding annotation.
-- CardMap `1.0.0.174` contains 718 ordered entries. `70193` is appended; never
-  remove or reuse it.
+- CardMap `1.0.0.175` contains 718 ordered entries. `70193` is appended history;
+  never remove or reuse its slot.
 - Restored deckable DIY IDs are `70004`, `70012`, `70103`, `70111`, `70115`,
   `70123`, `70127`, `70150`, `70151`, `70152`, `70153`, `70165`, `70174`, and
   `70184`.
-- Masquerade (`70193`) is a Nilfgaard Bronze Tactic using art `d19930000`. It
-  targets a non-Leader unit and lets the player change its runtime rarity to one
-  of the other two Gold/Silver/Bronze groups.
+- Masquerade (`70193`) is retired and derived-only as of `1.0.0.175`. Preserve
+  its map slot and dormant effect for historical decoding, but exclude it from
+  player decks and remove existing copies from decks and blacklists through the
+  reset migration.
 
 ## Effect details worth preserving
 
@@ -48,14 +49,16 @@ half-value arithmetic, or its regression tests.
 
 Ignis only rewrites `DamageType.ImpenetrableFog` damage into Weaken. Apiarian
 Phantom deals ordinary Unit damage, so the two effects must remain independent.
-For Phantom's exact-6 hit, determine lethality by whether the target remains on
-the battlefield after damage, not by `GameCard.IsDead`: cemetery movement calls
-repair/reset before the awaiting effect resumes. The required matrix is:
+For Phantom's exact-6 hit, the real game task queue can leave a lethally damaged
+target temporarily on its row before the queued cemetery move. Determine
+lethality with `!CardRow.IsOnPlace() || CardPoint() <= 0`, and preserve the row
+object captured before damage. The required matrix starts with Impenetrable Fog
+on the target row:
 
 - Ignis + lethal: exactly one Frost.
-- Ignis + nonlethal: no Frost.
+- Ignis + nonlethal: Fog remains.
 - no Ignis + lethal: exactly one Frost.
-- no Ignis + nonlethal: no Frost.
+- no Ignis + nonlethal: Fog remains.
 
 ## Verification
 

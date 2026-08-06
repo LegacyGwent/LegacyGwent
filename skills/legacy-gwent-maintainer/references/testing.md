@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -44,6 +44,13 @@ Immunity turns. Exercise those cards through the real `Play` pipeline or raise
 `CardPlayEffect` on `Card.Effects`; do not initialize state by calling
 `card.Effect.CardPlayEffect(...)` and then expect `card.Effects.RaiseEvent(...)`
 to observe the same private field.
+
+Tests that inspect state immediately after a nested queued operation must enter
+through `Game.AddTask`. Calling `Effects.RaiseEvent` directly while the game
+operation list is idle drains nested tasks immediately and can hide production
+timing where `Damage -> ToCemetery` is still queued. Reproduce every relevant
+precondition too: a weather interaction test must actually set the target row's
+weather before the card effect runs.
 
 ## Commands and CI
 
@@ -136,9 +143,10 @@ separate legacy `Card.Effect` instance gives a false negative.
 The August 6 Nilfgaard scenarios additionally cover two penetrating Assassination
 hits, same-row non-adjacent Treason, both Hefty Helge reveal branches, deterministic
 lowest-rarity revealing, restored Alba Pikeman turn cadence and Armor, Cupbearer
-conceal/Boost cadence, Mage Infiltrator's board/hand/no-target branches, Masquerade
-rarity changes, representative odd-half rounding, and Xarthisius's move-and-lock.
-Apiarian Phantom has a four-quadrant regression: Ignis present/absent crossed with
-lethal/nonlethal exact-6 damage. Lethal cases create exactly one Frost; nonlethal
-cases create none. Check board location after damage rather than `IsDead`, because
-cemetery movement repairs/reset card state before the effect resumes.
+conceal/Boost cadence, Mage Infiltrator's board/hand/no-target branches,
+representative odd-half rounding, and Xarthisius's move-and-lock. Apiarian
+Phantom has a real-task-pipeline four-quadrant regression: Ignis present/absent
+crossed with lethal/nonlethal exact-6 damage against a target already under Fog.
+Lethal cases replace Fog with Frost; nonlethal cases retain Fog. Accept either
+off-board state or non-positive power after damage because the cemetery move may
+be pending or already repaired.
