@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Alsein.Extensions;
 using Alsein.Extensions.Extensions;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace Cynthia.Card
 {
@@ -39,7 +41,35 @@ namespace Cynthia.Card
 
         public static string CompressDeck(this GameDeck deck) => deck.ToDeckModel().CompressDeck();
 
+        private sealed class DeckCodeV2
+        {
+            [JsonProperty("l")]
+            public string Leader { get; set; }
+
+            [JsonProperty("d")]
+            public List<string> Deck { get; set; }
+
+        }
+
         public static string CompressDeck(this DeckModel deck)
+        {
+            if (deck == null)
+                throw new ArgumentNullException(nameof(deck));
+
+            var payload = new DeckCodeV2
+            {
+                Leader = deck.Leader,
+                Deck = deck.Deck?.ToList() ?? new List<string>()
+            };
+            var json = JsonConvert.SerializeObject(payload, Formatting.None);
+            var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(json))
+                .TrimEnd('=')
+                .Replace('+', '-')
+                .Replace('/', '_');
+            return "V2." + encoded;
+        }
+
+        public static string CompressLegacyDeck(this DeckModel deck)
         {
             var list = new List<string>();
             var list3 = new List<char> { '(', '[', '{' };
@@ -81,6 +111,22 @@ namespace Cynthia.Card
         }
         public static DeckModel DeCompressToDeck(this string stringDeck)
         {
+            if (stringDeck != null && stringDeck.StartsWith("V2.", StringComparison.Ordinal))
+            {
+                var encoded = stringDeck.Substring(3).Replace('-', '+').Replace('_', '/');
+                encoded = encoded.PadRight(encoded.Length + ((4 - encoded.Length % 4) % 4), '=');
+                var json = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
+                var payload = JsonConvert.DeserializeObject<DeckCodeV2>(json)
+                    ?? throw new FormatException("Invalid V2 deck code payload.");
+                return new DeckModel
+                {
+                    SchemaVersion = 2,
+                    Name = "卡组码卡组(编辑卡组界面点击卡组名可改名哟)",
+                    Leader = payload.Leader ?? "",
+                    Deck = payload.Deck ?? new List<string>()
+                };
+            }
+
             var deckResult = new DeckModel() { Name = "卡组码卡组(编辑卡组界面点击卡组名可改名哟)" };
             //如果没有任何一个数字,说明只有领袖
             if (!stringDeck.Any(x => (x >= '0' && x <= '9')))

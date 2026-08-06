@@ -45,6 +45,10 @@ namespace Cynthia.Card
         public IList<CardStatus>[] EnemyPlace { get; set; } = new IList<CardStatus>[3] { new List<CardStatus>(), new List<CardStatus>(), new List<CardStatus>() };//敌方场地
         public IList<CardStatus> MyCemetery { get; set; } = new List<CardStatus>();//我方墓地
         public IList<CardStatus> EnemyCemetery { get; set; } = new List<CardStatus>();//敌方墓地
+        public IList<CardStatus> Rules { get; set; } = new List<CardStatus>();//共享规则区
+        public IList<GameRuleSource> RuleSources { get; set; } = new List<GameRuleSource>();//规则来源
+        public IList<GameResourceState> MyResources { get; set; } = new List<GameResourceState>();
+        public IList<GameResourceState> EnemyResources { get; set; } = new List<GameResourceState>();
 
         public IList<CardStatus> MyDeck { get; set; } = new List<CardStatus>();
 
@@ -74,6 +78,8 @@ namespace Cynthia.Card
                     return MyLeader;
                 case RowPosition.EnemyLeader:
                     return EnemyLeader;
+                case RowPosition.Rule:
+                    return Rules;
                 case RowPosition.MyRow1:
                     return MyPlace[0];
                 case RowPosition.MyRow2:
@@ -164,6 +170,8 @@ namespace Cynthia.Card
             EnemyHandCount = gameInfomation.EnemyHandCount;
             MyCemeteryCount = gameInfomation.MyCemeteryCount;
             EnemyCemeteryCount = gameInfomation.EnemyCemeteryCount;
+            MyResources = gameInfomation.MyResources?.ToList() ?? new List<GameResourceState>();
+            EnemyResources = gameInfomation.EnemyResources?.ToList() ?? new List<GameResourceState>();
         }
         public void SetCardsInfo(GameInfomation gameInfomation)//更新卡牌类型数据
         {
@@ -171,14 +179,20 @@ namespace Cynthia.Card
             IsEnemyLeader = gameInfomation.IsEnemyLeader;
             MyLeader = new List<CardStatus>() { gameInfomation.MyLeader };
             EnemyLeader = new List<CardStatus>() { gameInfomation.EnemyLeader };
-            MyHandCard = gameInfomation.MyHandCard.ToList();
-            MyStay = gameInfomation.MyStay.ToList();
-            EnemyStay = gameInfomation.EnemyStay.ToList();
-            EnemyHandCard = gameInfomation.EnemyHandCard.ToList();
-            MyPlace = gameInfomation.MyPlace.Select(x => x.ToList()).ToArray();
-            EnemyPlace = gameInfomation.EnemyPlace.Select(x => x.ToList()).ToArray();
-            MyCemetery = gameInfomation.MyCemetery.ToList();
-            EnemyCemetery = gameInfomation.EnemyCemetery.ToList();
+            MyHandCard = gameInfomation.MyHandCard?.ToList() ?? new List<CardStatus>();
+            MyStay = gameInfomation.MyStay?.ToList() ?? new List<CardStatus>();
+            EnemyStay = gameInfomation.EnemyStay?.ToList() ?? new List<CardStatus>();
+            EnemyHandCard = gameInfomation.EnemyHandCard?.ToList() ?? new List<CardStatus>();
+            MyPlace = gameInfomation.MyPlace?.Select(x => x?.ToList() ?? new List<CardStatus>()).ToArray()
+                ?? new IList<CardStatus>[3] { new List<CardStatus>(), new List<CardStatus>(), new List<CardStatus>() };
+            EnemyPlace = gameInfomation.EnemyPlace?.Select(x => x?.ToList() ?? new List<CardStatus>()).ToArray()
+                ?? new IList<CardStatus>[3] { new List<CardStatus>(), new List<CardStatus>(), new List<CardStatus>() };
+            MyCemetery = gameInfomation.MyCemetery?.ToList() ?? new List<CardStatus>();
+            EnemyCemetery = gameInfomation.EnemyCemetery?.ToList() ?? new List<CardStatus>();
+            Rules = gameInfomation.Rules?.ToList() ?? new List<CardStatus>();
+            RuleSources = gameInfomation.RuleSources?.ToList() ?? new List<GameRuleSource>();
+            MyResources = gameInfomation.MyResources?.ToList() ?? new List<GameResourceState>();
+            EnemyResources = gameInfomation.EnemyResources?.ToList() ?? new List<GameResourceState>();
         }
         public void SetCoinInfo(bool isBlueCoin)
         {

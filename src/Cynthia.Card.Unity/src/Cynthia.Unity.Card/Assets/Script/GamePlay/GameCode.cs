@@ -30,6 +30,10 @@ public class GameCode : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log($"被我捉住了!{e.Message}");
+
+            if (!this || !Application.isPlaying)
+                return;
+
             SceneManager.LoadScene("LoginScene");
             DependencyResolver.Container.Resolve<GwentClientService>().ClientState = ClientState.Standby;
             if (ClientGlobalInfo.ViewingRoomId != "")

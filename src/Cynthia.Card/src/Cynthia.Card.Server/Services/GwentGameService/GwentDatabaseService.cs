@@ -510,7 +510,7 @@ namespace Cynthia.Card.Server
         {
             var temp = GetUserInfo();
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
-            return user.Length > 0 ? user[0].UserMessages : new List<string>();
+            return user.Length > 0 ? user[0].UserMessages ?? new List<string>() : new List<string>();
         }
 
         public int[] QueryStreak(string playername, int factionId = -1)
@@ -931,22 +931,28 @@ namespace Cynthia.Card.Server
             var temp = GetUserInfo();
             var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
             var user = await temp.Find(filter).FirstOrDefaultAsync();
-            if (user != null)
-            {
-                var messages = user.UserMessages;
+            if (user == null || !TryRemoveUserMessage(user.UserMessages, messageToRemoveId)) return false;
 
-                foreach (var codedMessage in messages)
+            var update = Builders<UserInfo>.Update.Set(x => x.UserMessages, user.UserMessages);
+            var result = await temp.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount == 1;
+        }
+
+        public static bool TryRemoveUserMessage(IList<string> messages, int messageToRemoveId)
+        {
+            if (messages == null) return false;
+            var codedMessage = messages.FirstOrDefault(message =>
+            {
+                try
                 {
-                    if (UserMessage.ReCreateMessage(codedMessage).MessageId == messageToRemoveId)
-                    {
-                        messages.Remove(codedMessage);
-                        var update = Builders<UserInfo>.Update.Set(x => x.UserMessages, messages);
-                        await temp.UpdateOneAsync(filter, update);
-                        break;
-                    }
+                    return UserMessage.ReCreateMessage(message)?.MessageId == messageToRemoveId;
                 }
-            }
-            return false;
+                catch
+                {
+                    return false;
+                }
+            });
+            return codedMessage != null && messages.Remove(codedMessage);
         }
         
     }

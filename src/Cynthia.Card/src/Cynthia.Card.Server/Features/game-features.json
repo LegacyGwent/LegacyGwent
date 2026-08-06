@@ -1,0 +1,59 @@
+{
+  "SchemaVersion": 2,
+  "FeatureLevel": 2,
+  "RulesetVersion": "diy-ai-rules-1",
+  "PlayerRuleCardsEnabled": false,
+  "CardPools": [],
+  "RuleCards": [],
+  "Modes": [
+    {
+      "Id": "pvp.casual",
+      "Category": "pvp",
+      "Name": { "ZhCn": "休闲匹配", "En": "Casual" },
+      "Description": { "ZhCn": "公开匹配。", "En": "Public matchmaking." },
+      "IconKey": "pvp",
+      "MatchKind": "pvp",
+      "RuleMatchPolicy": "same",
+      "AllowCustomRuleCards": true,
+      "SortOrder": 10,
+      "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "pvp.ranked",
+      "Category": "pvp",
+      "Name": { "ZhCn": "天梯匹配", "En": "Ranked" },
+      "Description": { "ZhCn": "标准规则的计分匹配。", "En": "Rated matchmaking with standard rules." },
+      "IconKey": "ranked",
+      "MatchKind": "pvp",
+      "RuleMatchPolicy": "same",
+      "IsRanked": true,
+      "AllowCustomRuleCards": false,
+      "SortOrder": 30,
+      "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.0", "Category": "ai", "Name": { "ZhCn": "AI 练习", "En": "AI Practice" },
+      "Description": { "ZhCn": "基础人机对战。", "En": "Basic AI practice." }, "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai0", "AllowCustomRuleCards": true, "SortOrder": 100, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.1", "Category": "ai", "Name": { "ZhCn": "AI 1 · 士兵", "En": "AI 1 · Soldiers" },
+      "Description": { "ZhCn": "士兵体系测试对手。", "En": "Soldier test opponent." }, "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai1", "AllowCustomRuleCards": true, "SortOrder": 110, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.2", "Category": "ai", "Name": { "ZhCn": "AI 2 · 毁牌", "En": "AI 2 · Mill" },
+      "Description": { "ZhCn": "毁牌体系测试对手。", "En": "Mill test opponent." }, "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai2", "AllowCustomRuleCards": true, "SortOrder": 120, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.3", "Category": "ai", "Name": { "ZhCn": "AI 3 · 奥伯龙", "En": "AI 3 · Auberon" },
+      "Description": { "ZhCn": "奥伯龙体系测试对手。", "En": "Auberon test opponent." }, "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai3", "AllowCustomRuleCards": true, "SortOrder": 130, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.4", "Category": "ai", "Name": { "ZhCn": "AI 4 · 铁隼", "En": "AI 4 · Iron Falcon" },
+      "Description": { "ZhCn": "铁隼体系测试对手。", "En": "Iron Falcon test opponent." }, "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai4", "AllowCustomRuleCards": true, "SortOrder": 140, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.5", "Category": "ai", "Name": { "ZhCn": "AI 5 · 掠夺者", "En": "AI 5 · Reavers" },
+      "Description": { "ZhCn": "掠夺者体系测试对手。", "En": "Reaver test opponent." }, "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai5", "AllowCustomRuleCards": true, "SortOrder": 150, "MinimumClientFeatureLevel": 2
+    }
+  ]
+}

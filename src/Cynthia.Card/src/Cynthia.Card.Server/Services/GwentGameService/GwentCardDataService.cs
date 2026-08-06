@@ -67,5 +67,13 @@ namespace Cynthia.Card.Server
 
         public CardEffect CreateInstance(string effectId, GameCard targetCard)
             => (CardEffect)Activator.CreateInstance(GetType(effectId), targetCard);
+
+        public DeckBuildingRuleProposal AdjustDeckBuilding(
+            string effectId,
+            DeckBuildingAdjustmentContext context)
+        {
+            var effect = (CardEffect)Activator.CreateInstance(GetType(effectId), new object[] { null });
+            return effect.OnDeckBuildingAdjust(context) ?? new DeckBuildingRuleProposal();
+        }
     }
 }

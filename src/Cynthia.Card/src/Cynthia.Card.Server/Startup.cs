@@ -37,6 +37,7 @@ namespace Cynthia.Card.Server
             services.AddSignalR().AddHubOptions<GwentHub>(options =>
             {
                 options.ClientTimeoutInterval = TimeSpan.FromSeconds(90);
+                options.EnableDetailedErrors = _env?.IsDevelopment() == true;
             });
             // Normalize at the protocol boundary because payload converters cannot reach
             // target, invocation ID, and error text. Replacing only the framework JSON
@@ -50,6 +51,7 @@ namespace Cynthia.Card.Server
             services.AddSingleton<GwentDatabaseService>();
             services.AddSingleton<GwentCardDataService>();
             services.AddSingleton<GwentLocalizationService>();
+            services.AddSingleton<GameFeatureService>();
             services.AddSingleton<CounterService>();
             services.AddSingleton<SiteTextService>();
             services.AddSingleton<SiteSessionService>();

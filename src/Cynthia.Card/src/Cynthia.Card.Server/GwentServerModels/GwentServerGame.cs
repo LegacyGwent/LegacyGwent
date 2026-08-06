@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 using Alsein.Extensions.Extensions;
@@ -16,6 +17,16 @@ namespace Cynthia.Card.Server
         public int[] RedCoin { get; private set; } = new int[3];
         public Pipeline OperactionList { get; private set; } = new Pipeline();
         private readonly GwentCardDataService _gwentCardTypeService;
+        private readonly Func<string, bool> _isRuleCard;
+        private readonly Func<string, bool> _isActiveRuleCard;
+        private readonly string _modeId;
+        private readonly string _rulesetVersion;
+        private readonly string _rulesetFingerprint;
+        private readonly IReadOnlyDictionary<string, DynamicCardMarkerDefinition> _cardMarkerDefinitions;
+        private readonly IReadOnlyDictionary<string, GameResourceDefinition> _resourceDefinitions;
+        private const int MaxDynamicMarkersPerCard = 8;
+        private const int MaxResourcesPerPlayer = 16;
+        private const int MaxDynamicValue = 1000000000;
         public int _randomSeed;
         public Random RNG { get; private set; }
         public int RowMaxCount { get; set; } = GwentGlobalSetting.RowMaxCount;
@@ -38,6 +49,9 @@ namespace Cynthia.Card.Server
         public GameRow[][] GameRowEffect { get; set; } = new GameRow[2][];//玩家天气效果
         public IList<GameCard>[] PlayersCemetery { get; set; } = new IList<GameCard>[2];//玩家墓地/
         public IList<GameCard>[] PlayersStay { get; set; } = new IList<GameCard>[2];//玩家悬牌
+        public IList<GameCard> GameRules { get; set; } = new List<GameCard>();//双方规则卡的共享并集
+        public IList<GameResourceState>[] PlayerResources { get; } =
+            { new List<GameResourceState>(), new List<GameResourceState>() };
         public Faction[] PlayersFaction { get; set; } = new Faction[2];//玩家们的势力
         public bool[] IsPlayersPass { get; set; } = new bool[2] { false, false };
         public bool[] IsPlayersMulligan { get; set; } = new bool[2] { false, false };
@@ -72,6 +86,13 @@ namespace Cynthia.Card.Server
         public int TurnCardPlayedNum { get; set; } = 0;//本回合打出牌的数量
 
         private readonly TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
+        private const int MaxNestedEvents = 64;
+        private const int MaxEventsPerResolution = 4096;
+        private int _eventDepth;
+        private int _eventCount;
+        private int _terminalState;
+
+        public bool IsTerminated => Volatile.Read(ref _terminalState) != 0;
 
         public async Task PlayGame()
         {
@@ -144,13 +165,29 @@ namespace Cynthia.Card.Server
 
         public async Task<GameResult> Play()
         {
-            await Task.WhenAny(PlayGame(), _setGameEnd.Task);
+            var playTask = PlayGame();
+            var completed = await Task.WhenAny(playTask, _setGameEnd.Task);
+            if (completed == playTask)
+            {
+                // Observe and propagate card/effect failures to the room boundary.
+                await playTask;
+            }
+            else
+            {
+                // External disconnect/abort can finish the room while the gameplay
+                // task is still unwinding. Observe a later fault without rethrowing it
+                // on the finalizer thread.
+                _ = playTask.ContinueWith(
+                    task => { var ignored = task.Exception; },
+                    TaskContinuationOptions.OnlyOnFaulted);
+            }
             await SendOperactionList();
             return TempGameResult;
         }
 
         public async Task GameEnd(int winPlayerIndex, Exception exception, bool isSurrender = false)
         {
+            if (Interlocked.CompareExchange(ref _terminalState, 1, 0) != 0) return;
             if (exception == null)
                 // await MessageBox("对方的账号被强制顶下线,比赛结束");
                 await MessageBox("对方已断开连接,比赛结束!");
@@ -182,12 +219,54 @@ namespace Cynthia.Card.Server
                 isSpecial = isSpecialGame,
                 RedBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
                 BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
+                ModeId = _modeId,
+                RulesetVersion = _rulesetVersion,
+                RulesetFingerprint = _rulesetFingerprint,
+                RandomSeed = _randomSeed,
+                RedRuleCards = GetDeckRuleIds(redIndex),
+                BlueRuleCards = GetDeckRuleIds(blueIndex),
             };
             GameResultEvent(result);
             TempGameResult = result;
 
             await Task.WhenAll(SendGameResult(winPlayerIndex, GameStatus.Win), SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose));
-            _setGameEnd.SetResult(winPlayerIndex);
+            _setGameEnd.TrySetResult(winPlayerIndex);
+        }
+
+        public async Task AbortDueToResolutionError(Exception exception)
+        {
+            if (Interlocked.CompareExchange(ref _terminalState, 1, 0) != 0) return;
+
+            const string playerMessage = "本局因卡牌结算异常已安全终止，服务器仍可继续使用。";
+            Console.Error.WriteLine(
+                $"[GAME-ABORT] mode={_modeId} rules={_rulesetFingerprint} seed={_randomSeed} " +
+                $"error={exception?.GetType().Name}: {exception?.Message}");
+
+            await TrySendAbortMessage(Player1Index, playerMessage);
+            await TrySendAbortMessage(Player2Index, playerMessage);
+            await TrySendAbortedResult(Player1Index);
+            await TrySendAbortedResult(Player2Index);
+            _setGameEnd.TrySetResult(-1);
+        }
+
+        private async Task TrySendAbortMessage(int playerIndex, string message)
+        {
+            try { await Players[playerIndex].SendAsync(ServerOperationType.MessageBox, message); }
+            catch (Exception notifyError)
+            {
+                Console.Error.WriteLine(
+                    $"[GAME-ABORT-NOTIFY] player={playerIndex} {notifyError.GetType().Name}: {notifyError.Message}");
+            }
+        }
+
+        private async Task TrySendAbortedResult(int playerIndex)
+        {
+            try { await SendGameResult(playerIndex, GameStatus.Draw); }
+            catch (Exception sendError)
+            {
+                Console.Error.WriteLine(
+                    $"[GAME-ABORT-SEND] player={playerIndex} {sendError.GetType().Name}: {sendError.Message}");
+            }
         }
 
         public async Task BigRoundEnd()//小局结束,进行收场
@@ -791,6 +870,12 @@ namespace Cynthia.Card.Server
                 isSpecial = isSpecialGame,
                 RedBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
                 BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? ""
+                ,ModeId = _modeId
+                ,RulesetVersion = _rulesetVersion
+                ,RulesetFingerprint = _rulesetFingerprint
+                ,RandomSeed = _randomSeed
+                ,RedRuleCards = GetDeckRuleIds(redIndex)
+                ,BlueRuleCards = GetDeckRuleIds(blueIndex)
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -834,6 +919,8 @@ namespace Cynthia.Card.Server
                     return PlayersLeader[myPlayerIndex];
                 case RowPosition.EnemyLeader:
                     return PlayersLeader[enemyPlayerIndex];
+                case RowPosition.Rule:
+                    return GameRules;
                 default:
                     return null;
             }
@@ -881,6 +968,8 @@ namespace Cynthia.Card.Server
                 return RowPosition.MyLeader;
             if (list == PlayersLeader[enemyPlayerIndex])
                 return RowPosition.EnemyLeader;
+            if (list == GameRules)
+                return RowPosition.Rule;
             //
             return RowPosition.SpecialPlace;
         }
@@ -1008,6 +1097,7 @@ namespace Cynthia.Card.Server
             .Concat(PlayersCemetery[anotherPlayer])
             .Concat(PlayersDeck[playerIndex])
             .Concat(PlayersDeck[anotherPlayer])
+            .Concat(GameRules)
             .Concat(PlayersPlace[playerIndex][0])
             .Concat(PlayersPlace[playerIndex][1])
             .Concat(PlayersPlace[playerIndex][2])
@@ -1140,6 +1230,8 @@ namespace Cynthia.Card.Server
                 EnemyHandCount = PlayersHandCard[enemyPlayerIndex].Count() + (IsPlayersLeader[enemyPlayerIndex] ? 1 : 0),
                 MyCemeteryCount = PlayersCemetery[myPlayerIndex].Count(),
                 EnemyCemeteryCount = PlayersCemetery[enemyPlayerIndex].Count(),
+                MyResources = CloneResources(myPlayerIndex),
+                EnemyResources = CloneResources(enemyPlayerIndex),
             };
         }
         public GameInfomation GetCardsInfo(TwoPlayer player)
@@ -1163,6 +1255,10 @@ namespace Cynthia.Card.Server
                 ).ToArray(),
                 MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status),
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status),
+                Rules = GameRules.Select(x => x.Status),
+                RuleSources = GetRuleSources(myPlayerIndex, enemyPlayerIndex),
+                MyResources = CloneResources(myPlayerIndex),
+                EnemyResources = CloneResources(enemyPlayerIndex),
             };
         }
         public GameInfomation GetPointInfo(TwoPlayer player)
@@ -1293,7 +1389,11 @@ namespace Cynthia.Card.Server
                 MyCemetery = PlayersCemetery[myPlayerIndex].Select(x => x.Status).ToList(),
                 EnemyCemetery = PlayersCemetery[enemyPlayerIndex].Select(x => x.Status).ToList(),
                 MyStay = PlayersStay[myPlayerIndex].Select(x => x.Status).ToList(),
-                EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.Status).ToList()
+                EnemyStay = PlayersStay[enemyPlayerIndex].Select(x => x.Status).ToList(),
+                Rules = GameRules.Select(x => x.Status).ToList(),
+                RuleSources = GetRuleSources(myPlayerIndex, enemyPlayerIndex),
+                MyResources = CloneResources(myPlayerIndex),
+                EnemyResources = CloneResources(enemyPlayerIndex)
             };
             return result;
         }
@@ -1349,7 +1449,11 @@ namespace Cynthia.Card.Server
                 MyCemetery = PlayersCemetery[Player1Index].Select(x => x.Status).ToList(),
                 EnemyCemetery = PlayersCemetery[Player2Index].Select(x => x.Status).ToList(),
                 MyStay = PlayersStay[Player1Index].Select(x => x.Status).ToList(),
-                EnemyStay = PlayersStay[Player2Index].Select(x => x.Status).ToList()
+                EnemyStay = PlayersStay[Player2Index].Select(x => x.Status).ToList(),
+                Rules = GameRules.Select(x => x.Status).ToList(),
+                RuleSources = GetRuleSources(Player1Index, Player2Index),
+                MyResources = CloneResources(Player1Index),
+                EnemyResources = CloneResources(Player2Index)
             };
             return result;
         }
@@ -1374,7 +1478,42 @@ namespace Cynthia.Card.Server
                 ).ToArray(),
                 MyCemetery = PlayersCemetery[Player1Index].Select(x => x.Status),
                 EnemyCemetery = PlayersCemetery[Player2Index].Select(x => x.Status),
+                Rules = GameRules.Select(x => x.Status),
+                RuleSources = GetRuleSources(Player1Index, Player2Index),
+                MyResources = CloneResources(Player1Index),
+                EnemyResources = CloneResources(Player2Index),
             };
+        }
+
+        private List<GameResourceState> CloneResources(int playerIndex)
+            => (PlayerResources[playerIndex] ?? new List<GameResourceState>())
+                .Select(x => new GameResourceState
+                {
+                    DefinitionId = x.DefinitionId,
+                    Value = x.Value,
+                    Min = x.Min,
+                    Max = x.Max
+                })
+                .ToList();
+
+        private List<string> GetDeckRuleIds(int playerIndex)
+            => PlayerBaseDeck[playerIndex].Deck
+                .Select(x => x.CardId)
+                .Where(_isActiveRuleCard)
+                .Distinct(StringComparer.Ordinal)
+                .OrderBy(x => x, StringComparer.Ordinal)
+                .ToList();
+
+        private List<GameRuleSource> GetRuleSources(int myPlayerIndex, int enemyPlayerIndex)
+        {
+            var myRules = new HashSet<string>(GetDeckRuleIds(myPlayerIndex), StringComparer.Ordinal);
+            var enemyRules = new HashSet<string>(GetDeckRuleIds(enemyPlayerIndex), StringComparer.Ordinal);
+            return GameRules.Select(x => new GameRuleSource
+            {
+                CardId = x.Status.CardId,
+                MyPlayerUses = myRules.Contains(x.Status.CardId),
+                EnemyPlayerUses = enemyRules.Contains(x.Status.CardId)
+            }).ToList();
         }
         //--------------------------------------
         public Task ShowWeatherApply(int playerIndex, RowPosition row, RowStatus type)
@@ -1593,7 +1732,7 @@ namespace Cynthia.Card.Server
         {
         }
 
-        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false)
+        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false, Func<string, bool> isRuleCard = null, string modeId = "", string rulesetVersion = "", string rulesetFingerprint = "", int? randomSeed = null, IEnumerable<DynamicCardMarkerDefinition> cardMarkerDefinitions = null, IEnumerable<GameResourceDefinition> resourceDefinitions = null, IEnumerable<string> activeRuleCardIds = null)
         {
             Random rnd = new Random();
             if (isSpecial && rnd.Next(0, 2) == 0)
@@ -1605,7 +1744,25 @@ namespace Cynthia.Card.Server
             }
             GameResultEvent = gameResultEvent;
             _gwentCardTypeService = gwentCardTypeService;
-            _randomSeed = (int)DateTime.UtcNow.Ticks;
+            _isRuleCard = isRuleCard ?? DeckRuleEngine.IsRuleCard;
+            var activeRuleIds = activeRuleCardIds == null
+                ? null
+                : new HashSet<string>(activeRuleCardIds, StringComparer.Ordinal);
+            _isActiveRuleCard = activeRuleIds == null
+                ? _isRuleCard
+                : new Func<string, bool>(cardId => _isRuleCard(cardId) && activeRuleIds.Contains(cardId));
+            _modeId = modeId ?? "";
+            _rulesetVersion = rulesetVersion ?? "";
+            _rulesetFingerprint = rulesetFingerprint ?? "";
+            _cardMarkerDefinitions = (cardMarkerDefinitions ?? Enumerable.Empty<DynamicCardMarkerDefinition>())
+                .Where(x => x != null && !string.IsNullOrWhiteSpace(x.Id))
+                .GroupBy(x => x.Id, StringComparer.Ordinal)
+                .ToDictionary(x => x.Key, x => x.First(), StringComparer.Ordinal);
+            _resourceDefinitions = (resourceDefinitions ?? Enumerable.Empty<GameResourceDefinition>())
+                .Where(x => x != null && !string.IsNullOrWhiteSpace(x.Id))
+                .GroupBy(x => x.Id, StringComparer.Ordinal)
+                .ToDictionary(x => x.Key, x => x.First(), StringComparer.Ordinal);
+            _randomSeed = randomSeed ?? (int)DateTime.UtcNow.Ticks;
             RNG = new Random(_randomSeed);
             PlayerBaseDeck[Player1Index] = player1.Deck.ToGameDeck();
             PlayerBaseDeck[Player2Index] = player2.Deck.ToGameDeck();
@@ -1649,6 +1806,7 @@ namespace Cynthia.Card.Server
             PlayersHandCard[Player2Index] = new List<GameCard>();
             PlayersStay[Player1Index] = new List<GameCard>();
             PlayersStay[Player2Index] = new List<GameCard>();
+            GameRules = CreateRuleCards(player1.Deck, player2.Deck);
             IsPlayersLeader[Player1Index] = true;
             IsPlayersLeader[Player2Index] = true;
             PlayersLeader[Player1Index] = new List<GameCard>()
@@ -1670,7 +1828,7 @@ namespace Cynthia.Card.Server
                 ),player2.Deck.Leader)
         }.ToList();
             //将卡组转化成实体,并且打乱牌组
-            PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
+            PlayersDeck[Player1Index] = player1.Deck.Deck.Where(cardId => !_isRuleCard(cardId)).Select(cardId =>
                 new GameCard(this, Player1Index,
                     new CardStatus(
                         cardId,
@@ -1679,7 +1837,7 @@ namespace Cynthia.Card.Server
                     ), cardId))
             .Mess(RNG).ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
-            PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
+            PlayersDeck[Player2Index] = player2.Deck.Deck.Where(cardId => !_isRuleCard(cardId)).Select(cardId =>
                 new GameCard(this, Player2Index,
                     new CardStatus(
                         cardId,
@@ -1688,6 +1846,229 @@ namespace Cynthia.Card.Server
                     ), cardId)
             )
             .Mess(RNG).ToList();
+        }
+
+        private IList<GameCard> CreateRuleCards(DeckModel player1Deck, DeckModel player2Deck)
+            => (player1Deck?.Deck ?? new List<string>())
+                .Concat(player2Deck?.Deck ?? new List<string>())
+                .Where(_isActiveRuleCard)
+                .Distinct(StringComparer.Ordinal)
+                .OrderBy(cardId => cardId, StringComparer.Ordinal)
+                .Select(cardId => new GameCard(this, Player1Index,
+                    new CardStatus(cardId, Faction.Neutral, RowPosition.Rule), cardId))
+                .ToList();
+
+        public IReadOnlyList<int> GetRulePlayerIndexes(string ruleCardId)
+        {
+            if (string.IsNullOrWhiteSpace(ruleCardId)) return new int[0];
+            var owners = new List<int>(2);
+            for (var playerIndex = 0; playerIndex < Players.Length; playerIndex++)
+            {
+                if ((Players[playerIndex]?.Deck?.Deck ?? new List<string>())
+                    .Any(x => string.Equals(x, ruleCardId, StringComparison.Ordinal)))
+                    owners.Add(playerIndex);
+            }
+            return owners;
+        }
+
+        public RuleDeckPopulationResult PopulateDeckToCountDistinctRandom(
+            int playerIndex,
+            IEnumerable<string> candidateCardIds,
+            int targetDeckCount,
+            string sourceRuleCardId,
+            RuleDeckInsufficientPolicy insufficientPolicy = RuleDeckInsufficientPolicy.FailMatch)
+        {
+            if (playerIndex < 0 || playerIndex >= PlayersDeck.Length)
+                throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            if (targetDeckCount < 0)
+                throw new ArgumentOutOfRangeException(nameof(targetDeckCount));
+            if (string.IsNullOrWhiteSpace(sourceRuleCardId))
+                throw new ArgumentException("A source rule card id is required.", nameof(sourceRuleCardId));
+
+            var deck = PlayersDeck[playerIndex] ?? throw new InvalidOperationException("Player deck is not initialized.");
+            if (deck.Count > targetDeckCount)
+                throw new InvalidOperationException(
+                    $"Rule '{sourceRuleCardId}' cannot populate player {playerIndex}'s deck to {targetDeckCount}: " +
+                    $"the deck already contains {deck.Count} cards.");
+
+            var existingNames = new HashSet<string>(
+                deck.Select(x => GwentMap.CardMap.TryGetValue(x.Status.CardId, out var card) ? card.Name : x.Status.CardId),
+                StringComparer.Ordinal);
+            var candidates = (candidateCardIds ?? Enumerable.Empty<string>())
+                .Where(x => !string.IsNullOrWhiteSpace(x) && GwentMap.CardMap.ContainsKey(x))
+                .Distinct(StringComparer.Ordinal)
+                .OrderBy(x => x, StringComparer.Ordinal)
+                .GroupBy(x => GwentMap.CardMap[x].Name ?? x, StringComparer.Ordinal)
+                .Where(x => !existingNames.Contains(x.Key))
+                .Select(x => x.First())
+                .ToList();
+            var needed = targetDeckCount - deck.Count;
+            var result = new RuleDeckPopulationResult
+            {
+                SourceRuleCardId = sourceRuleCardId,
+                PlayerIndex = playerIndex,
+                RequestedDeckCount = targetDeckCount,
+                CandidateCount = candidates.Count
+            };
+            if (candidates.Count < needed && insufficientPolicy == RuleDeckInsufficientPolicy.FailMatch)
+                throw new RuleDeckPopulationException(sourceRuleCardId, playerIndex, targetDeckCount, candidates.Count);
+
+            if (candidates.Count < needed)
+            {
+                needed = candidates.Count;
+                result.UsedFallback = true;
+            }
+            var selected = candidates.Mess(RNG).Take(needed).ToList();
+            foreach (var cardId in selected)
+            {
+                deck.Add(new GameCard(this, playerIndex,
+                    new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.MyDeck), cardId));
+                result.AddedCardIds.Add(cardId);
+            }
+            // The helper is normally used from OnGameStart before the first draw.
+            // Shuffling the complete deck keeps replay reproduction tied to the match RNG.
+            PlayersDeck[playerIndex] = deck.Mess(RNG).ToList();
+            result.FinalDeckCount = PlayersDeck[playerIndex].Count;
+            return result;
+        }
+
+        public async Task SetCardMarker(GameCard card, string definitionId, int? value = null, string instanceId = "")
+        {
+            if (card == null) throw new ArgumentNullException(nameof(card));
+            var definition = GetCardMarkerDefinition(definitionId);
+            instanceId = NormalizeDynamicId(instanceId, nameof(instanceId), allowBlank: true);
+            if (!definition.AllowMultipleInstances) instanceId = "";
+            if (value.HasValue) value = ClampDynamicValue(value.Value);
+
+            var markers = card.Status.DynamicMarkers ?? (card.Status.DynamicMarkers = new List<DynamicCardMarker>());
+            var existing = markers.FirstOrDefault(x =>
+                string.Equals(x.DefinitionId, definition.Id, StringComparison.Ordinal) &&
+                string.Equals(x.InstanceId ?? "", instanceId, StringComparison.Ordinal));
+            if (existing == null)
+            {
+                if (markers.Count >= MaxDynamicMarkersPerCard)
+                    throw new InvalidOperationException($"A card cannot have more than {MaxDynamicMarkersPerCard} dynamic markers.");
+                markers.Add(new DynamicCardMarker
+                {
+                    DefinitionId = definition.Id,
+                    InstanceId = instanceId,
+                    Value = value
+                });
+            }
+            else
+            {
+                existing.Value = value;
+            }
+            card.Status.DynamicMarkers = markers
+                .OrderByDescending(x => _cardMarkerDefinitions.TryGetValue(x.DefinitionId, out var item) ? item.Priority : 0)
+                .ThenBy(x => x.DefinitionId, StringComparer.Ordinal)
+                .ThenBy(x => x.InstanceId, StringComparer.Ordinal)
+                .ToList();
+            await ShowSetCard(card);
+        }
+
+        public async Task RemoveCardMarker(GameCard card, string definitionId, string instanceId = "")
+        {
+            if (card == null) throw new ArgumentNullException(nameof(card));
+            var definition = GetCardMarkerDefinition(definitionId);
+            instanceId = NormalizeDynamicId(instanceId, nameof(instanceId), allowBlank: true);
+            if (!definition.AllowMultipleInstances) instanceId = "";
+            var markers = card.Status.DynamicMarkers ?? new List<DynamicCardMarker>();
+            var removed = markers.RemoveAll(x =>
+                string.Equals(x.DefinitionId, definition.Id, StringComparison.Ordinal) &&
+                string.Equals(x.InstanceId ?? "", instanceId, StringComparison.Ordinal));
+            if (removed > 0) await ShowSetCard(card);
+        }
+
+        public async Task SetResource(int playerIndex, string definitionId, int value, int? min = null, int? max = null)
+        {
+            ValidatePlayerIndex(playerIndex);
+            var definition = GetResourceDefinition(definitionId);
+            ValidateRange(min, max);
+            value = ClampDynamicValue(value);
+            if (min.HasValue) value = Math.Max(value, ClampDynamicValue(min.Value));
+            if (max.HasValue) value = Math.Min(value, ClampDynamicValue(max.Value));
+            var resources = PlayerResources[playerIndex];
+            var existing = resources.FirstOrDefault(x => string.Equals(x.DefinitionId, definition.Id, StringComparison.Ordinal));
+            if (existing == null)
+            {
+                if (resources.Count >= MaxResourcesPerPlayer)
+                    throw new InvalidOperationException($"A player cannot have more than {MaxResourcesPerPlayer} dynamic resources.");
+                existing = new GameResourceState { DefinitionId = definition.Id };
+                resources.Add(existing);
+            }
+            existing.Value = value;
+            existing.Min = min;
+            existing.Max = max;
+            PlayerResources[playerIndex] = resources
+                .OrderByDescending(x => _resourceDefinitions.TryGetValue(x.DefinitionId, out var item) ? item.Priority : 0)
+                .ThenBy(x => x.DefinitionId, StringComparer.Ordinal)
+                .ToList();
+            // Use an existing operation so older clients ignore the additive DTO
+            // fields instead of receiving an unknown operation enum value.
+            await SetGameInfo();
+        }
+
+        public Task AddResource(int playerIndex, string definitionId, int delta, int? min = null, int? max = null)
+        {
+            ValidatePlayerIndex(playerIndex);
+            GetResourceDefinition(definitionId);
+            var current = PlayerResources[playerIndex]
+                .FirstOrDefault(x => string.Equals(x.DefinitionId, definitionId, StringComparison.Ordinal))?.Value ?? 0;
+            var next = (long)current + delta;
+            return SetResource(playerIndex, definitionId,
+                (int)Math.Max(-MaxDynamicValue, Math.Min(MaxDynamicValue, next)), min, max);
+        }
+
+        private DynamicCardMarkerDefinition GetCardMarkerDefinition(string definitionId)
+        {
+            definitionId = NormalizeDynamicId(definitionId, nameof(definitionId), allowBlank: false);
+            if (_cardMarkerDefinitions.TryGetValue(definitionId, out var definition)) return definition;
+            return new DynamicCardMarkerDefinition
+            {
+                Id = definitionId,
+                ShortLabel = definitionId.Substring(0, 1).ToUpperInvariant(),
+                StyleToken = "neutral",
+                ValueDisplay = "number"
+            };
+        }
+
+        private GameResourceDefinition GetResourceDefinition(string definitionId)
+        {
+            definitionId = NormalizeDynamicId(definitionId, nameof(definitionId), allowBlank: false);
+            if (_resourceDefinitions.TryGetValue(definitionId, out var definition)) return definition;
+            return new GameResourceDefinition
+            {
+                Id = definitionId,
+                ShortLabel = definitionId.Substring(0, 1).ToUpperInvariant(),
+                StyleToken = "neutral",
+                ValueFormat = "number"
+            };
+        }
+
+        private static string NormalizeDynamicId(string value, string parameterName, bool allowBlank)
+        {
+            value = (value ?? "").Trim();
+            if (!allowBlank && value.Length == 0)
+                throw new ArgumentException("The identifier cannot be blank.", parameterName);
+            if (value.Length > 64)
+                throw new ArgumentException("The identifier cannot exceed 64 characters.", parameterName);
+            return value;
+        }
+
+        private static int ClampDynamicValue(int value)
+            => Math.Max(-MaxDynamicValue, Math.Min(MaxDynamicValue, value));
+
+        private static void ValidateRange(int? min, int? max)
+        {
+            if (min.HasValue && max.HasValue && min.Value > max.Value)
+                throw new ArgumentException("Resource minimum cannot be greater than maximum.");
+        }
+
+        private void ValidatePlayerIndex(int playerIndex)
+        {
+            if (playerIndex != Player1Index && playerIndex != Player2Index)
+                throw new ArgumentOutOfRangeException(nameof(playerIndex));
         }
         public async Task SendBigRoundEndToCemetery()
         {
@@ -1811,6 +2192,23 @@ namespace Cynthia.Card.Server
         //发送事件时
         public async Task<TEvent> SendEvent<TEvent>(TEvent @event) where TEvent : Event
         {
+            if (IsTerminated) return @event;
+            var isRootEvent = _eventDepth == 0;
+            if (isRootEvent) _eventCount = 0;
+            _eventDepth++;
+            _eventCount++;
+            if (_eventDepth > MaxNestedEvents || _eventCount > MaxEventsPerResolution)
+            {
+                var rejectedDepth = _eventDepth;
+                var rejectedCount = _eventCount;
+                _eventDepth--;
+                if (isRootEvent) _eventCount = 0;
+                throw new GameResolutionLimitException(
+                    $"Event resolution exceeded its safety limit (depth={rejectedDepth}, events={rejectedCount}).");
+            }
+
+            try
+            {
             //卡牌
             async Task task()
             {
@@ -1850,7 +2248,13 @@ namespace Cynthia.Card.Server
             {
                 await AddTask((Func<Task>)task2);
             }
-            return @event;
+                return @event;
+            }
+            finally
+            {
+                _eventDepth--;
+                if (isRootEvent) _eventCount = 0;
+            }
         }
         public async Task<Operation<UserOperationType>> ReceiveAsync(int playerIndex)
         {
@@ -1883,6 +2287,7 @@ namespace Cynthia.Card.Server
 
         public Task AddTask(params Func<Task>[] task)
         {
+            if (IsTerminated) return Task.CompletedTask;
             return OperactionList.AddLast(task);
         }
 

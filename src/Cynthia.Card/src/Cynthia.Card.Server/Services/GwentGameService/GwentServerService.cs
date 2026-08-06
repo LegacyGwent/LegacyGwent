@@ -26,6 +26,7 @@ namespace Cynthia.Card.Server
 
         private GwentCardDataService _gwentCardDataService;
         private GwentLocalizationService _gwentLocalizationService;
+        private readonly GameFeatureService _gameFeatureService;
 
         public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
@@ -37,7 +38,8 @@ namespace Cynthia.Card.Server
             IServiceProvider container,
             IWebHostEnvironment env,
             GwentCardDataService gwentCardDataService,
-            GwentLocalizationService gwentLocalizationService
+            GwentLocalizationService gwentLocalizationService,
+            GameFeatureService gameFeatureService
         )
         {
             _databaseService = databaseService;
@@ -47,6 +49,7 @@ namespace Cynthia.Card.Server
             ResultList = _databaseService.GetRecentGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
+            _gameFeatureService = gameFeatureService;
             UpdateAndSaveSeasons();
             
         }
@@ -473,6 +476,8 @@ namespace Cynthia.Card.Server
 
         public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
 
+        internal GameFeatureManifest GetRuntimeFeatureManifest() => _gameFeatureService.GetManifest();
+
         public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
@@ -480,13 +485,18 @@ namespace Cynthia.Card.Server
             {
                 //获取这个玩家
                 var user = _users[connectionId];
-                //如果玩家不处于闲置状态,或玩家没有该Id的卡组,或者该卡组不符合标准,禁止匹配
-                if (user.UserState != UserState.Standby || !(user.Decks.Any(x => x.Id == deckId) && (user.Decks.Single(x => x.Id == deckId).IsSpecialDeck() || user.Decks.Single(x => x.Id == deckId).IsBasicDeck())))
+                var deck = user.Decks.FirstOrDefault(x => x.Id == deckId);
+                var hasRules = deck?.Deck?.Any(DeckRuleEngine.IsRuleCard) == true;
+                var featureComplete = deck != null && _gameFeatureService.ValidateDeck(deck, true).IsComplete;
+                var legacyComplete = deck != null && !hasRules && (deck.IsSpecialDeck() || deck.IsBasicDeck());
+                // Password/custom matching deliberately does not require both sides
+                // to share a rule fingerprint, but each submitted deck must be legal.
+                if (user.UserState != UserState.Standby || !_gameFeatureService.CanPlayerUseDeck(deck) || (!featureComplete && !legacyComplete))
                     return false;
                 //建立一个新的玩家
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
-                player.Deck = user.Decks.Single(x => x.Id == deckId);
+                player.Deck = deck;
                 player.CurrentAvatar = user.CurrentAvatar;
                 player.CurrentBorder = user.CurrentBorder;
                 player.CurrentTitle = user.CurrentTitle;
@@ -686,8 +696,7 @@ namespace Cynthia.Card.Server
                 return false;
             // Deck editor drafts may be saved before reaching the 25-card match
             // minimum. Matchmaking still requires IsBasicDeck/IsSpecialDeck.
-            if (deck == null || deck.Leader == "12004" ||
-                !(deck.IsHalfBasicDeck() || deck.IsHalfSpecialDeck()))
+            if (deck == null || deck.Leader == "12004" || !CanSaveDeck(deck))
                 return false;
             var user = _users[connectionId];
             if (user.Decks.Count >= 1000)
@@ -745,11 +754,25 @@ namespace Cynthia.Card.Server
             var user = _users[connectionId];
             if (user.Decks.Count < 0)
                 return false;
+            if (deck == null || deck.Leader == "12004" || !CanSaveDeck(deck))
+                return false;
             //如果卡组不合规范
             if (!_databaseService.ModifyDeck(user.UserName, id, deck))
                 return false;
             user.Decks[user.Decks.Select((x, index) => (x, index)).Single(d => d.x.Id == id).index] = deck;
             return true;
+        }
+
+        private bool CanSaveDeck(DeckModel deck)
+        {
+            var featureValidation = _gameFeatureService.ValidateDeck(deck, false);
+            if (featureValidation.IsValid)
+                return true;
+
+            // Legacy partial-deck validators do not understand rule constraints.
+            // Keep them only for ordinary unfinished decks, never as a rule bypass.
+            return !deck.Deck.Any(DeckRuleEngine.IsRuleCard) &&
+                   (deck.IsHalfBasicDeck() || deck.IsHalfSpecialDeck());
         }
 
         public bool ModifyBlacklist(string connectionId, BlacklistModel blacklist)
@@ -778,6 +801,31 @@ namespace Cynthia.Card.Server
             }
 
             return user.CurrentPlayer.SendAsync(operation);
+        }
+
+        public bool MatchMode(string connectionId, string deckId, string modeId, int usingBlacklist)
+        {
+            if (!_users.TryGetValue(connectionId, out var user) || user.UserState != UserState.Standby)
+                return false;
+            var deck = user.Decks.FirstOrDefault(x => x.Id == deckId);
+            if (deck == null || !_gameFeatureService.TryValidateMode(modeId, deck, out var mode, out var validation))
+                return false;
+
+            var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub)
+            {
+                Deck = deck,
+                CurrentAvatar = user.CurrentAvatar,
+                CurrentBorder = user.CurrentBorder,
+                CurrentTitle = user.CurrentTitle,
+                Blacklist = usingBlacklist == 1 ? user.Blacklist : null
+            };
+            if (!_gwentMatchs.PlayerJoinMode(player, mode, validation.Rules))
+            {
+                user.CurrentPlayer = null;
+                return false;
+            }
+            InovkeUserChanged();
+            return true;
         }
 
         public async Task Disconnect(string connectionId, Exception exception = null)//, bool isWaitReconnect = false)

@@ -5,13 +5,19 @@ using Microsoft.AspNetCore.SignalR;
 using System.Linq;
 using Cynthia.Card.Common.Models;
 using Cynthia.Card.AI;
+using Cynthia.Card.Server.Services.GwentGameService;
 namespace Cynthia.Card.Server
 {
     public class GwentHub : Hub
     {
         public GwentServerService _gwentServerService;
+        private readonly GameFeatureService _gameFeatureService;
 
-        public GwentHub(GwentServerService gwentServerService) => _gwentServerService = gwentServerService;
+        public GwentHub(GwentServerService gwentServerService, GameFeatureService gameFeatureService)
+        {
+            _gwentServerService = gwentServerService;
+            _gameFeatureService = gameFeatureService;
+        }
 
         //注册
         public bool Register(string username, string password, string playername) => _gwentServerService.Register(username, password, playername);
@@ -56,6 +62,8 @@ namespace Cynthia.Card.Server
         public bool MatchOfPassword(string deckId, string password) => NewMatchOfPassword(deckId, password, 0);
 
         public bool NewMatchOfPassword(string deckId, string password, int usingBlacklist) => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
+        public bool MatchMode(string deckId, string modeId, int usingBlacklist = 0)
+            => _gwentServerService.MatchMode(Context.ConnectionId, deckId, modeId, usingBlacklist);
         public Task<bool> SendGG(string MyName, string EnemyName) => _gwentServerService.SendGG(MyName, EnemyName);
 
         public Task<bool> SendTaunt(string EnemyName, string tauntID)  => _gwentServerService.SendTaunt(EnemyName, tauntID);
@@ -91,6 +99,10 @@ namespace Cynthia.Card.Server
         }
 
         public string GetCardMap() => _gwentServerService.GetCardMap();
+        public GameFeatureManifest GetGameFeatureManifest(int clientFeatureLevel = 1)
+            => _gameFeatureService.GetManifest(clientFeatureLevel);
+        public DeckBuildingProjection GetDeckBuildingProjection(DeckBuildingProjectionRequest request)
+            => _gameFeatureService.ProjectDeckBuilding(request);
         public string GetAvatarMap() => _gwentServerService.GetAvatarMap(); // retreive avatar info from server
         public string GetBorderMap() => _gwentServerService.GetBorderMap(); // retreive border info from server
         public string GetTitleMap() => _gwentServerService.GetTitleMap(); // retreive title info from server

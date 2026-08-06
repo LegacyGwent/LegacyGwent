@@ -1,6 +1,6 @@
 # Architecture
 
-Last verified: 2026-08-02
+Last verified: 2026-08-06
 
 ## Main components
 
@@ -57,6 +57,18 @@ Last verified: 2026-08-02
   `CardId` as an independent card. Append the definition, register a distinct
   effect type, add every locale entry, and bump `CardMapVersion`; no player
   rebuild is needed when no new asset or protocol is introduced.
+- Full card art and list miniatures are separate Addressables sprites. Battlefield,
+  collection, and right-click card views load `CardArtsId`; deck-card rows,
+  leader rows, and deck selectors load `<CardArtsId>_slot` through
+  `ListCardShowInfo`, `LeaderShow`, and `DeckEditorMiniatures`. A missing regular
+  card slot falls back to placeholder art, while leader/deck selector paths
+  expect the slot to exist. New artwork therefore needs both compositions; the
+  client does not crop the full card dynamically at runtime.
+- `Cards` and `Miniatures` are not clean one-to-one inventories: both retain
+  historical/orphan assets, and some full arts have no slot. Never infer active
+  coverage or safe deletion from directory totals. Normalize `_slot` names to
+  their art IDs, compare both sets, then intersect candidates with current
+  `GwentMap.CardArtsId` references before changing the packaged asset pool.
 - Downloaded locales persist under the client data path. Card and trinket maps
   currently replace only the in-memory compiled maps; cache them atomically with
   version/hash validation and a compiled fallback before relying on them offline.
@@ -95,3 +107,29 @@ Last verified: 2026-08-02
 - `diy` is the stable DIY baseline.
 - `diy-ai` is the aggressive AI-maintained track derived from `diy`.
 - `AGENTS.md` defines the isolation and validation policy for `diy-ai`.
+
+## Rule-card deck lifecycle (`diy-ai` local framework)
+
+- Rule cards are removed and deduplicated into the shared rule zone; they never
+  count as ordinary draw-deck cards. A shared rule effect must use its recorded
+  owner indexes instead of assuming `Card.PlayerIndex`, because either or both
+  players may carry the same rule.
+- An explicitly empty named card pool is different from an omitted restriction:
+  empty means no ordinary cards can be selected. Rules may replace the standard
+  deck-size constraint with `0..0`; such a deck is complete and matchable.
+- Runtime population happens from the ordinary `OnGameStart` event before the
+  initial ten-card draw. `PopulateDeckToCountDistinctRandom` canonicalizes known
+  candidates, deduplicates by card name, consumes the match RNG, and either
+  fills atomically or follows an explicit insufficient-candidate policy. Never
+  silently duplicate candidates or retry indefinitely.
+- Match results persist `RandomSeed`, `RulesetVersion`, and
+  `RulesetFingerprint`; keep all three when adding generated opening decks so a
+  report can be reproduced.
+- `PlayerSelectable=false` hides one package from player deck building but must
+  not disable its server-authored AI/runtime use. `IsEnabled=false` is the
+  package kill switch: it must block player selection and runtime execution,
+  while the structural rule-card predicate still removes the disabled card
+  from the draw pile instead of turning it into an ordinary drawable card.
+- Rule-package matches are excluded from ordinary MMR by default, even when a
+  future mode is marked ranked. A mode must explicitly set
+  `CountRuleMatchesAsRanked` before such matches can affect ranked statistics.

@@ -78,6 +78,7 @@ public class GameUIControl : MonoBehaviour
     //----------------------------------   
     private IList<Title> _titles { get => TrinketMap.GetTitles().ToList(); } // lists all title cosmetics
     private static Dictionary<string, Color> mycolormap { get => ColorMap.colormap; } // stores the color of the title cosmetics
+    private static readonly HashSet<string> WarnedUnknownTitleIds = new HashSet<string>();
 
     private void Awake()
     {
@@ -257,10 +258,8 @@ public class GameUIControl : MonoBehaviour
         Myavatar = gameInfomation.MyAvatar;
         Enemyname = gameInfomation.EnemyName;
         EnemyTitle.text = _translator.GetText(gameInfomation.EnemyTitle + "Name");
-        string mycolor = _titles.Where(x => x.ID == gameInfomation.MyTitle).Single().TitleColor;
-        MyTitle.color= mycolormap[mycolor];
-        string enemycolor = _titles.Where(x => x.ID == gameInfomation.EnemyTitle).Single().TitleColor;
-        EnemyTitle.color= mycolormap[enemycolor];
+        ApplyTitleColor(MyTitle, gameInfomation.MyTitle);
+        ApplyTitleColor(EnemyTitle, gameInfomation.EnemyTitle);
         var op = Addressables.LoadAssetAsync<Sprite>(gameInfomation.MyAvatar);
         Sprite go = op.WaitForCompletion();
         MyAvatar.sprite = go;
@@ -275,6 +274,25 @@ public class GameUIControl : MonoBehaviour
         go = op.WaitForCompletion();
         EnemyBorder.sprite = go;
 
+    }
+
+    private void ApplyTitleColor(Text titleText, string titleId)
+    {
+        var title = _titles.FirstOrDefault(x => x.ID == titleId);
+        Color titleColor;
+        if (title != null && mycolormap.TryGetValue(title.TitleColor, out titleColor))
+        {
+            titleText.color = titleColor;
+            return;
+        }
+
+        // Old/local accounts and server-authored AI profiles can reference a title
+        // that is not present in the client's cosmetic table.  Cosmetics must never
+        // interrupt game setup, so render those titles with the neutral fallback.
+        titleText.color = Color.white;
+        var warningId = titleId ?? "<null>";
+        if (warningId != "NoBorder" && warningId != "NoTitle" && WarnedUnknownTitleIds.Add(warningId))
+            Debug.LogWarning("Unknown title cosmetic, using neutral color: " + warningId);
     }
     public void SetMMRInfo(int myMMR, int enemyMMR)
     {
@@ -344,6 +362,7 @@ public class GameUIControl : MonoBehaviour
         //-------------------------------------
         //调度
         SetMulliganInfo(gameInfomation);
+        GameResourcePanel.Attach(this)?.SetResources(gameInfomation.MyResources, gameInfomation.EnemyResources);
         //-------------------------------------
     }
 }

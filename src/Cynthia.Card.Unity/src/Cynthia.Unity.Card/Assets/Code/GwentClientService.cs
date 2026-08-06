@@ -35,6 +35,10 @@ namespace Cynthia.Card.Client
         public UserInfo Avatars { get; set; }
         public UserInfo Borders { get; set; }
         public UserInfo Titles { get; set; }
+        public GameFeatureManifest FeatureManifest { get; private set; } = new GameFeatureManifest
+        {
+            RulesetVersion = "offline-standard"
+        };
         public bool IsAutoPlay { get; set; } = false;
         private GlobalUIService _globalUIService;
         private ITubeInlet sender;/*待修改*/
@@ -116,6 +120,9 @@ namespace Cynthia.Card.Client
             });
             hubConnection.On("RepeatLogin", async () =>
             {
+                if (!Application.isPlaying)
+                    return;
+
                 SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
                 await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox(
@@ -125,6 +132,13 @@ namespace Cynthia.Card.Client
             hubConnection.Closed += (async x =>
             {
                 (sender, receiver) = Tube.CreateSimplex();
+
+                // SignalR may finish closing after the Unity editor has already
+                // left Play Mode. SceneManager rejects scene changes at that
+                // point, so treat the callback as teardown only.
+                if (!Application.isPlaying)
+                    return;
+
                 SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
                 Player.ResetTube();
@@ -320,6 +334,21 @@ namespace Cynthia.Card.Client
                 _translator.TextLocalization.ResourceHandler = fileHandler;
             }
 
+            try
+            {
+                await RefreshGameFeatureManifest(cancellationToken, useOfflineFallback: true);
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                // Old/offline servers keep the standard local deck rules and legacy menu.
+                Debug.Log($"Game feature manifest unavailable, using standard rules: {e.Message}");
+                FeatureManifest = new GameFeatureManifest { RulesetVersion = "offline-standard" };
+            }
+
             // After maps/locales are up to date, release trinkets for the active season
             try
             {
@@ -340,6 +369,43 @@ namespace Cynthia.Card.Client
         public Task<string> GetCardMap(CancellationToken cancellationToken = default(CancellationToken))
         {
             return HubConnection.InvokeAsync<string>("GetCardMap", cancellationToken);
+        }
+        public Task<GameFeatureManifest> GetGameFeatureManifest(int clientFeatureLevel = 2, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return HubConnection.InvokeAsync<GameFeatureManifest>("GetGameFeatureManifest", clientFeatureLevel, cancellationToken);
+        }
+        public Task<DeckBuildingProjection> GetDeckBuildingProjection(
+            DeckBuildingProjectionRequest request,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return HubConnection.InvokeAsync<DeckBuildingProjection>("GetDeckBuildingProjection", request, cancellationToken);
+        }
+        public async Task<bool> RefreshGameFeatureManifest(
+            CancellationToken cancellationToken = default(CancellationToken),
+            bool useOfflineFallback = false)
+        {
+            try
+            {
+                var manifest = await GetGameFeatureManifest(2, cancellationToken);
+                FeatureManifest = manifest ?? new GameFeatureManifest { RulesetVersion = "offline-standard" };
+                _translator.RegisterRuleCards(FeatureManifest);
+                return manifest != null;
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Game feature manifest refresh failed: {e.Message}");
+                if (useOfflineFallback)
+                    FeatureManifest = new GameFeatureManifest { RulesetVersion = "offline-standard" };
+                return false;
+            }
+        }
+        public Task<bool> MatchMode(string deckId, string modeId, int usingBlacklist = 0, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return HubConnection.InvokeAsync<bool>("MatchMode", deckId, modeId, usingBlacklist, cancellationToken);
         }
         public Task<string> GetAvatarMap(CancellationToken cancellationToken = default(CancellationToken))
         {

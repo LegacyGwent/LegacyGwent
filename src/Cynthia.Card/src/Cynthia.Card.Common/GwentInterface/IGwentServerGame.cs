@@ -27,6 +27,18 @@ namespace Cynthia.Card
         IList<GameCard>[][] PlayersPlace { get; set; }//玩家场地/
         IList<GameCard>[] PlayersCemetery { get; set; }//玩家墓地/
         IList<GameCard>[] PlayersStay { get; set; }//玩家悬牌
+        IList<GameCard> GameRules { get; set; }//共享规则区（双方规则卡并集）
+        IReadOnlyList<int> GetRulePlayerIndexes(string ruleCardId);
+        RuleDeckPopulationResult PopulateDeckToCountDistinctRandom(
+            int playerIndex,
+            IEnumerable<string> candidateCardIds,
+            int targetDeckCount,
+            string sourceRuleCardId,
+            RuleDeckInsufficientPolicy insufficientPolicy = RuleDeckInsufficientPolicy.FailMatch);
+        Task SetCardMarker(GameCard card, string definitionId, int? value = null, string instanceId = "");
+        Task RemoveCardMarker(GameCard card, string definitionId, string instanceId = "");
+        Task SetResource(int playerIndex, string definitionId, int value, int? min = null, int? max = null);
+        Task AddResource(int playerIndex, string definitionId, int delta, int? min = null, int? max = null);
         // RowStatus[][] GameRowStatus { get; set; }//玩家天气
         GameRow[][] GameRowEffect { get; set; }//每排的特效
         Faction[] PlayersFaction { get; set; }//玩家们的势力

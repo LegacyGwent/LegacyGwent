@@ -6,13 +6,19 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    public abstract class CardEffect : Effect, IHandlesEvent<CardUseEffect>, IHandlesEvent<CardPlayEffect>, IHandlesEvent<CardDownEffect>
+    public abstract class CardEffect : Effect, IHandlesEvent<CardUseEffect>, IHandlesEvent<CardPlayEffect>, IHandlesEvent<CardDownEffect>, IDeckBuildingRuleEffect
     {
         public CardEffect(GameCard card)
         {
-            Game = card.Game;
+            // A rule effect may be instantiated without live game state solely
+            // for the pure OnDeckBuildingAdjust event. Runtime methods still
+            // require a real GameCard and are never called on that instance.
+            Game = card?.Game;
             Card = card;
         }
+
+        public virtual DeckBuildingRuleProposal OnDeckBuildingAdjust(DeckBuildingAdjustmentContext context)
+            => new DeckBuildingRuleProposal();
 
         //必要的两个信息对象
         public GameCard Card { get; set; }//宿主

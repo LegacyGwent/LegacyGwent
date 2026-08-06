@@ -1,4 +1,4 @@
-﻿using Alsein.Extensions.IO;
+using Alsein.Extensions.IO;
 using Alsein.Extensions.LifetimeAnnotations;
 using Assets.Script.Localization;
 using Assets.Script.ResourceManagement;
@@ -27,6 +27,7 @@ namespace Cynthia.Card.Client
         private ITubeOutlet receiver;/*待修改*/
         private LocalizationService _translator;
         private GwentClientService _clientService;
+        private readonly HashSet<int> _processingMessageIds = new HashSet<int>();
         
 
         public Task<string> DisplayMessage()
@@ -81,21 +82,29 @@ namespace Cynthia.Card.Client
             Debug.Log($"handling message {messageId}");
             async Task SpawnMessage()
             {
-                await _globalUIService.YNMessageBoxEnhanced("SeasonEnd_MessageTitle", string.Format(_translator.GetText("Season_EndMessageRewards"), _translator.GetText(seasonName), rank.ToString(), mmrBeforeReset.ToString()), yes: "PopupWindow_YesButton", no: "PopupWindow_NoButton", isOnlyYes: true, message2: "", message3: "", avatars: avatars, borders: borders, titles: titles);
-                if (messageId != -1)
+                if (messageId != -1 && !_processingMessageIds.Add(messageId)) return;
+                try
                 {
-                    _clientService.RemoveUserMessage(messageId);
-                    await CheckMessages();
+                    await _globalUIService.YNMessageBoxEnhanced("SeasonEnd_MessageTitle", string.Format(_translator.GetText("Season_EndMessageRewards"), _translator.GetText(seasonName), rank.ToString(), mmrBeforeReset.ToString()), yes: "PopupWindow_YesButton", no: "PopupWindow_NoButton", isOnlyYes: true, message2: "", message3: "", avatars: avatars, borders: borders, titles: titles);
+                    if (messageId != -1)
+                    {
+                        var removed = await _clientService.RemoveUserMessage(messageId);
+                        if (removed) await CheckMessages();
+                        else Debug.LogError($"Failed to acknowledge user message {messageId}.");
+                    }
                 }
-
+                finally
+                {
+                    if (messageId != -1) _processingMessageIds.Remove(messageId);
+                }
             }
 
             async void OnClientStateChanged()
             {
                 if (_clientService.ClientState == ClientState.Standby)
                 {
-                    await SpawnMessage();
                     _clientService.ClientStateChanged -= OnClientStateChanged;
+                    await SpawnMessage();
                 }
             }
 
@@ -104,7 +113,7 @@ namespace Cynthia.Card.Client
                 _clientService.ClientStateChanged += OnClientStateChanged;
 
             else
-                SpawnMessage();
+                await SpawnMessage();
         }
     }
 }

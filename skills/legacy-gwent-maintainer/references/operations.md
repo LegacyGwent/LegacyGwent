@@ -1,6 +1,19 @@
 # Operations
 
-Last verified: 2026-08-01
+Last verified: 2026-08-06
+
+## Original realm
+
+- Service `card.service` listens on port 5000 from `/usr/share/card/publish`.
+- Its deployed binary uses an external MongoDB Atlas SRV connection rather
+  than any of the loopback MongoDB instances. Never substitute the legacy
+  `gwent` database on port 28020 when reporting current original-realm data;
+  on 2026-08-03 that local collection's newest result was from 2026-05-11.
+- The deployed Atlas SRV hostname no longer resolved on 2026-08-03. The service
+  process and HTTP landing page remained up, but a current persisted match
+  count could not be verified. Report the original-realm count as unavailable
+  until database connectivity is restored; do not infer zero from the stale
+  local database or HTTP health alone.
 
 ## Stable DIY
 
@@ -54,6 +67,21 @@ Last verified: 2026-08-01
 - Because stable MongoDB is a standalone process and remains online, the dump is
   best-effort rather than a transactional point-in-time snapshot. Check the
   recorded source drift files and compare collection-count digests afterward.
+
+## Local rule-card verification
+
+- Keep the developer manifest at
+  `src/Cynthia.Card/src/Cynthia.Card.Server/Features/game-features.rule-ui.local.json`.
+  Pass its absolute path when a launcher starts the server from a child working
+  directory; a relative path can silently select defaults instead.
+- `PlayerRuleCardsEnabled` defaults to `false`. Temporarily enable it only while
+  capturing player-facing deck-builder UI, then restore `false` before handoff.
+  Password-addressed AI/special modes may still expose their own match rules.
+- Rule fixtures require the explicit local `-EnableRuleFixtures` switch. Never
+  deploy fixture cards or use the local manifest as production configuration.
+- A packaged Windows QA player may use loopback 5022 while normal local DIY-AI
+  remains 5010. Stop only the exact QA profile/process afterward; never touch the
+  stable DIY service or port 5005.
 
 ## GitHub Actions
 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card.Client;
 using Cynthia.Card;
@@ -68,14 +68,20 @@ public class MatchInfo : MonoBehaviour
     private GwentClientService _client { get => DependencyResolver.Container.Resolve<GwentClientService>(); }
     private GlobalUIService _UIService { get => DependencyResolver.Container.Resolve<GlobalUIService>(); }
     private LocalizationService _translator { get => DependencyResolver.Container.Resolve<LocalizationService>(); }
+    public GwentClientService Client => _client;
+    private ServerModeMenu _serverModeMenu;
+    private DeckRuleFilter _deckRuleFilter = DeckRuleFilter.All;
 
 
-    public void MatchMenuClick()
+    public async void MatchMenuClick()
     {
-        if (_client.User.Decks.Count() <= 0)
+        await _client.RefreshGameFeatureManifest();
+        var availableDecks = GetPlayerVisibleDecks().ToList();
+        if (availableDecks.Count <= 0)
         {
-            _UIService.YNMessageBox(_translator.GetText("PopupWindow_NoDeckTitle"),
+            await _UIService.YNMessageBox(_translator.GetText("PopupWindow_NoDeckTitle"),
                 _translator.GetText("PopupWindow_NoDeckDesc"), isOnlyYes: true);
+            return;
         }
         else
         {
@@ -96,6 +102,13 @@ public class MatchInfo : MonoBehaviour
             MatchPasswordObject.SetActive(true);
             BlacklistObject.SetActive(true);
         }
+        if (_serverModeMenu != null && _serverModeMenu.HasModes)
+        {
+            _serverModeMenu.SetVisible(true);
+            _serverModeMenu.SelectDefault(IsRankMatch ? "pvp.ranked" : "pvp.casual");
+            var mode = _serverModeMenu.SelectedMode;
+            MatchPasswordObject.SetActive(!IsRankMatch && (mode == null || mode.MatchKind == "pvp"));
+        }
     }
     public void NormalMatchMenuClick()
     {
@@ -105,29 +118,19 @@ public class MatchInfo : MonoBehaviour
     public void RankMatchMenuClick()
     {
         IsRankMatch = true;
-        // MatchMenuClick();
-        ResetMatch();
-        MainUI.SetActive(false);
-        MatchUI.SetActive(true);
-        Debug.Log("1");
-        // ResetTextMenus.ForAll(x => x.TextReset());
-        MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
-        Debug.Log(_translator.GetText("MainMenu_MatchTitle_Rank"));
-        MatchPasswordObject.SetActive(false);
-        BlacklistObject.SetActive(false);
-        Debug.Log("3");
-        Debug.Log(MainMenu_MatchTitle.text);
-
+        MatchMenuClick();
     }
     public void ResetMatch()
     {
         Debug.Log("重置");
-        if (!_client.User.Decks.Any(x => x.Id == ClientGlobalInfo.DefaultDeckId))
+        var availableDecks = GetPlayerVisibleDecks().ToList();
+        if (availableDecks.Count == 0) return;
+        if (!availableDecks.Any(x => x.Id == ClientGlobalInfo.DefaultDeckId))
         {
-            ClientGlobalInfo.DefaultDeckId = _client.User.Decks.First().Id;
+            ClientGlobalInfo.DefaultDeckId = availableDecks.First().Id;
         }
-        SetDeck(_client.User.Decks.Single(x => x.Id == ClientGlobalInfo.DefaultDeckId), ClientGlobalInfo.DefaultDeckId);
-        SetDeckList(_client.User.Decks);
+        SetDeck(availableDecks.Single(x => x.Id == ClientGlobalInfo.DefaultDeckId), ClientGlobalInfo.DefaultDeckId);
+        SetDeckList(availableDecks);
     }
     public void ShowMatch()/////待编辑
     {
@@ -159,15 +162,50 @@ public class MatchInfo : MonoBehaviour
                 await _client.StopMatch();
                 return;
             }
-            //如果是基础卡组（包括店店卡组）
-            if (_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
+            var selectedDeck = _client.User.Decks.Single(x => x.Id == CurrentDeckId);
+            if (!DeckRuleEngine.CanPlayerSelectRuleDeck(_client.FeatureManifest, selectedDeck))
+            {
+                await _UIService.YNMessageBox("PopupWindow_IncompleteDeckTitle", "PopupWindow_IncompleteDeckDesc", "PopupWindow_OkButton", isOnlyYes: true);
+                return;
+            }
+            var customPassword = IsRankMatch ? "" : (MatchPassword.text ?? "").Trim();
+            // Typing a password is an explicit custom entry point. It deliberately
+            // bypasses public-queue rule fingerprint pairing, but the local deck
+            // must still be legal under its own rules.
+            if (!string.IsNullOrWhiteSpace(customPassword))
+            {
+                var hasRules = HasRuleCards(selectedDeck);
+                var valid = IsFeatureDeckComplete(selectedDeck, true) ||
+                            (!hasRules && (selectedDeck.IsBasicDeck() || selectedDeck.IsSpecialDeck()));
+                if (!valid)
+                {
+                    await _UIService.YNMessageBox("PopupWindow_IncompleteDeckTitle", "PopupWindow_IncompleteDeckDesc", "PopupWindow_OkButton", isOnlyYes: true);
+                    return;
+                }
+                var password = !hasRules && selectedDeck.IsSpecialDeck() ? "special" + customPassword : customPassword;
+                _ = _client.NewMatchOfPassword(CurrentDeckId, password, usingBlacklist);
+            }
+            else if (_serverModeMenu != null && _serverModeMenu.HasModes)
+            {
+                var selected = _serverModeMenu.SelectedMode;
+                var setBlacklist = selected != null && selected.IsRanked ? 0 : usingBlacklist;
+                if (selected == null || !await _client.MatchMode(CurrentDeckId, selected.Id, setBlacklist))
+                {
+                    await _UIService.YNMessageBox(
+                        ResolveLocalized(new LocalizedText { ZhCn = "无法开始对战", En = "Unable to start" }),
+                        ResolveLocalized(new LocalizedText { ZhCn = "当前卡组不符合所选模式，或模式暂时不可用。", En = "The selected deck is not valid for this mode, or the mode is temporarily unavailable." }),
+                        isOnlyYes: true);
+                    return;
+                }
+            }
+            //兼容旧服务器/旧密码入口
+            else if (!HasRuleCards(selectedDeck) && selectedDeck.IsBasicDeck())
             {
                 var password = IsRankMatch ? "rank" : (MatchPassword.text).Replace("special", "");
                 var setBlacklist = IsRankMatch ? 0 : usingBlacklist;
                 _ = _client.NewMatchOfPassword(CurrentDeckId, password, setBlacklist);
             }
-            //如果不是基础卡组和乱斗卡组，停止匹配
-            else if (!_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsSpecialDeck())
+            else if (HasRuleCards(selectedDeck) || !selectedDeck.IsSpecialDeck())
             {
                 await _UIService.YNMessageBox("PopupWindow_IncompleteDeckTitle", "PopupWindow_IncompleteDeckDesc", "PopupWindow_OkButton", isOnlyYes: true);
                 return;
@@ -192,6 +230,9 @@ public class MatchInfo : MonoBehaviour
             //等待匹配的结果,如果是true代表成功匹配
             if (await _client.MatchResult())
             {
+                if (!this || !Application.isPlaying)
+                    return;
+
                 //进入了游戏
                 Debug.Log("成功匹配,进入游戏");
                 ClientGlobalInfo.IsToMatch = false;
@@ -212,10 +253,16 @@ public class MatchInfo : MonoBehaviour
                 ShowStopMatch();
             }
         }
-        catch
+        catch (Exception exception)
         {
-            SceneManager.LoadScene("LoginScene");
+            Debug.LogException(exception);
+            IsDoingMatch = false;
             _client.ClientState = ClientState.Standby;
+            ShowStopMatch();
+            await _UIService.YNMessageBox(
+                ResolveLocalized(new LocalizedText { ZhCn = "匹配请求失败", En = "Match request failed" }),
+                ResolveLocalized(new LocalizedText { ZhCn = "连接仍在时可以直接重试；若服务器已断开，客户端会自动返回登录界面。", En = "You can retry while connected. If the server disconnected, the client will return to login automatically." }),
+                isOnlyYes: true);
         }
     }
     public void SwitchDeckOpen()
@@ -246,6 +293,7 @@ public class MatchInfo : MonoBehaviour
 
     void Start()
     {
+        _serverModeMenu = ServerModeMenu.Attach(this);
         RecordStatus.onValueChanged.AddListener(x =>
        {
            PlayerPrefs.SetInt("RecordBlacklist", x ? 1 : 0);
@@ -256,8 +304,27 @@ public class MatchInfo : MonoBehaviour
         RecordStatus.isOn = PlayerPrefs.GetInt("RecordBlacklist", 0) != 0;
         BlacklistMessage.text = _translator.GetText("MatchmakingMenu_BlacklistCheckbox");
     }
+
+    public void OnServerModeSelected(GameModeDefinition mode)
+    {
+        if (mode == null) return;
+        IsRankMatch = mode.IsRanked;
+        MainMenu_MatchTitle.text = ResolveLocalized(mode.Name);
+        BlacklistObject.SetActive(mode.MatchKind == "pvp" && !mode.IsRanked);
+        MatchPasswordObject.SetActive(mode.MatchKind == "pvp" && !mode.IsRanked);
+        var deck = _client.User?.Decks?.FirstOrDefault(x => x.Id == CurrentDeckId);
+        if (deck != null) SetDeck(deck, CurrentDeckId);
+    }
+    public string ResolveLocalized(LocalizedText text)
+    {
+        var language = _translator.TextLocalization.ChosenLanguage?.Filename ?? "cn";
+        return text?.Resolve(string.Equals(language, "en", StringComparison.OrdinalIgnoreCase) ? "en" : "zh-CN") ?? "";
+    }
     public void SetDeckList(IList<DeckModel> decks)
     {
+        decks = (decks ?? new List<DeckModel>())
+            .Where(x => DeckRuleEngine.CanPlayerSelectRuleDeck(_client.FeatureManifest, x))
+            .ToList();
         var count = DecksContext.childCount;
         // Debug.Log($"数量为:{count}");
         for (var i = count - 1; i >= 0; i--)
@@ -267,19 +334,39 @@ public class MatchInfo : MonoBehaviour
         }
         // Debug.Log($"完成消除,脱离");
         DecksContext.DetachChildren();
-        // Debug.Log("完成脱离,生成新实例");
-        Debug.Log(decks.Select(x => x.Name).Join(","));
-        decks.ForAll(x =>
+        var hasAnyRuleDeck = decks.Any(HasRuleCards);
+        if (!hasAnyRuleDeck) _deckRuleFilter = DeckRuleFilter.All;
+        if (hasAnyRuleDeck)
+            DeckRuleFilterBar.Create(
+                DecksContext,
+                _deckRuleFilter,
+                DeckName != null ? DeckName.font : null,
+                string.Equals(_translator.TextLocalization.ChosenLanguage?.Filename, "en", StringComparison.OrdinalIgnoreCase),
+                value =>
+                {
+                    if (_deckRuleFilter == value) return;
+                    _deckRuleFilter = value;
+                    SetDeckList(_client.User.Decks);
+                });
+        var visibleDecks = decks.Where(x =>
+            _deckRuleFilter == DeckRuleFilter.All ||
+            (_deckRuleFilter == DeckRuleFilter.Rules && HasRuleCards(x)) ||
+            (_deckRuleFilter == DeckRuleFilter.Standard && !HasRuleCards(x))).ToList();
+        Debug.Log(visibleDecks.Select(x => x.Name).Join(","));
+        visibleDecks.ForAll(x =>
         {
             var deck = Instantiate(DeckPrefabs[GetFactionIndex(GwentMap.CardMap[x.Leader].Faction)]);
-            string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
-            deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck());
-            deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
-            deck.GetComponent<SwitchMatchDeck>().SetId(DecksContext.childCount);
             deck.transform.SetParent(DecksContext, false);
+            string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
+            var legacyValid = !HasRuleCards(x) && (x.IsBasicDeck() || x.IsSpecialDeck());
+            var showInfo = deck.GetComponent<DeckShowInfo>();
+            showInfo.SetDeckInfo(x.Name, IsFeatureDeckComplete(x) || legacyValid);
+            showInfo.SetRuleInfo(x, _client.FeatureManifest, _translator);
+            deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
+            deck.GetComponent<SwitchMatchDeck>().SetDeckId(x.Id);
         });
         // Debug.Log("生成完毕,设置高");
-        var height = decks.Count * 83 + 35;
+        var height = visibleDecks.Count * 83 + (hasAnyRuleDeck ? 81 : 35);
         DecksContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(370, height > 800 ? height : 800);
         // Debug.Log("顺利完成");
     }
@@ -311,25 +398,43 @@ public class MatchInfo : MonoBehaviour
         var leader = Instantiate(LaderPrefab);
         leader.GetComponent<LeaderShow>().SetLeader(deck.Leader);
         leader.transform.SetParent(CardsContext, false);
-        var cards = deck.Deck.Select(x => GwentMap.CardMap[x]);
+        var cards = deck.Deck.Select(x => GwentMap.CardMap[x]).ToList();
+        var playableCards = deck.Deck.Where(x => !DeckRuleEngine.IsRuleCard(x)).Select(x => GwentMap.CardMap[x]).ToList();
         cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.Name).ForAll(x =>
             {
                 var card = Instantiate(CardPrefab);
                 card.GetComponent<ListCardShowInfo>().SetCardInfo(x.First().CardId, x.Count());
                 card.transform.SetParent(CardsContext, false);
             });
-        CopperCount.text = cards.Where(x => x.Group == Group.Copper).Count().ToString();
-        SilverCount.text = $"{cards.Where(x => x.Group == Group.Silver).Count().ToString()}/6";
-        GoldCount.text = $"{cards.Where(x => x.Group == Group.Gold).Count().ToString()}/4";
-        AllCount.text = $"{deck.Deck.Count()}";
-        AllCount.color = (deck.IsBasicDeck() || deck.IsSpecialDeck() || (deck.IsBlacklist() && deck.Id == "blacklist")) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
-        AllCountText.color = (deck.IsBasicDeck() || deck.IsSpecialDeck() || (deck.IsBlacklist() && deck.Id == "blacklist")) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        CopperCount.text = playableCards.Count(x => x.Group == Group.Copper).ToString();
+        SilverCount.text = playableCards.Count(x => x.Group == Group.Silver).ToString();
+        GoldCount.text = playableCards.Count(x => x.Group == Group.Gold).ToString();
+        AllCount.text = playableCards.Count.ToString();
+        var legacyValid = !HasRuleCards(deck) && (deck.IsBasicDeck() || deck.IsSpecialDeck());
+        var valid = IsFeatureDeckComplete(deck) || legacyValid || (deck.IsBlacklist() && deck.Id == "blacklist");
+        AllCount.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
+        AllCountText.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         HeadT.sprite = HeadTSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         HeadB.sprite = HeadBSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];
         //////////////////////////////////////////////////
         var height = ((41.5f + 3f) * CardsContext.childCount) + 8f + 38f;
         CardsContext.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, height);
     }
+    private bool IsFeatureDeckComplete(DeckModel deck, bool ignoreSelectedMode = false)
+    {
+        var manifest = _client.FeatureManifest ?? new GameFeatureManifest { RulesetVersion = "offline-standard" };
+        var mode = ignoreSelectedMode ? null : _serverModeMenu?.SelectedMode;
+        if (mode != null)
+            return DeckRuleEngine.ValidateMode(deck, manifest, mode, true).IsComplete;
+        var selected = deck.Deck.Where(DeckRuleEngine.IsRuleCard).Distinct(StringComparer.Ordinal);
+        var rules = DeckRuleEngine.Resolve(manifest.RuleCards, selected, manifest.RulesetVersion, manifest.CardPools);
+        return DeckRuleEngine.Validate(deck, rules, true).IsComplete;
+    }
+    private IEnumerable<DeckModel> GetPlayerVisibleDecks()
+        => (_client.User?.Decks ?? new List<DeckModel>())
+            .Where(x => DeckRuleEngine.CanPlayerSelectRuleDeck(_client.FeatureManifest, x));
+    private static bool HasRuleCards(DeckModel deck)
+        => (deck?.Deck ?? new List<string>()).Any(DeckRuleEngine.IsRuleCard);
     public int GetFactionIndex(Faction faction)
     {
         return FactionIndex.Indexed().Single(x => x.Value == faction).Key;

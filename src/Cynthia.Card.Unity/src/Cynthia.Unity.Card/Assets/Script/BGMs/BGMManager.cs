@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -42,6 +42,7 @@ public class Sound
     }
     public void Play()
     {
+        if (source == null) return;
         if (clip == null) // check Witcher3BgmDirectory
         {
             clip = Resources.Load<AudioClip>(Witcher3BgmDirectory + name);
@@ -50,6 +51,11 @@ public class Sound
         {
             clip = Resources.Load<AudioClip>(OldGwentBgmDirectory + name);
         }
+        if (clip == null)
+        {
+            Debug.LogWarning("Audio clip missing: " + name);
+            return;
+        }
         source.clip = clip;
         source.volume = volume * (1 + Random.Range(-randomVolum / 2f, randomVolum / 2f));
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
@@ -57,7 +63,7 @@ public class Sound
     }
     public void Stop()
     {
-        source.Stop();
+        if (source != null) source.Stop();
     }
 }
 
@@ -104,6 +110,7 @@ public class BGMManager : MonoBehaviour
     private static float tempVolum = 0.0f;
     private bool inGame = false;
     private LocalizationService translator;
+    private bool _isPrimaryInstance;
     private Scene scene;
     /*
         All = 0, Cardselect
@@ -219,20 +226,21 @@ public class BGMManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
-            Debug.LogError("More than on audiomanager!");
+            enabled = false;
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            instance = this;
-        }
+        instance = this;
+        _isPrimaryInstance = true;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
-        GameObject.DontDestroyOnLoad(gameObject);
-        translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        if (!_isPrimaryInstance) return;
+        TryResolveTranslator();
         for (int s = 0; s < soundList.Length; s++)
         {
             GameObject _go = new GameObject("Sound_" + s + "_" + soundList[s].name);
@@ -245,7 +253,9 @@ public class BGMManager : MonoBehaviour
 
     private void Update()
     {
-        if (playingSound != null && playingSound.source.isPlaying == false)//判断音乐停止
+        if (!_isPrimaryInstance) return;
+        if (translator == null && !TryResolveTranslator()) return;
+        if (playingSound != null && (playingSound.source == null || playingSound.source.isPlaying == false))//判断音乐停止
         {
             inCardselect = false;
             inGameplay = false;
@@ -289,6 +299,7 @@ public class BGMManager : MonoBehaviour
         if (matchButton != null && matchButton.activeSelf == true)//确保有button
         {
             tempText = matchButton.GetComponentInChildren<Text>();
+            if (tempText == null) return;
             tempString = tempText.text;
             if (inLine == false)
             {
@@ -427,6 +438,7 @@ public class BGMManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_isPrimaryInstance || audioMixer == null) return;
         if (lerpSound != null) //给一个短暂的声音淡出效果
         {
             tempVolum = SettingPanel.LinearToDecibel(
@@ -487,6 +499,7 @@ public class BGMManager : MonoBehaviour
 
     public void PlaySound(string _name)
     {
+        if (!_isPrimaryInstance || soundList == null) return;
         bool findFlag = false;
 
         for (int s = 0; s < soundList.Length; s++)
@@ -536,6 +549,7 @@ public class BGMManager : MonoBehaviour
     }
     public void PlayBGM(int group)
     {
+        if (!_isPrimaryInstance || group < 0 || group >= BGMs.GetLength(0)) return;
         int len = -1;
 
         for (int s = 0; s < 8; s++)
@@ -554,5 +568,24 @@ public class BGMManager : MonoBehaviour
         }
         lastCardselectBgm = num;
         PlaySound(BGMs[group, num]);
+    }
+
+    private bool TryResolveTranslator()
+    {
+        if (translator != null) return true;
+        try
+        {
+            translator = DependencyResolver.Container?.Resolve<LocalizationService>();
+        }
+        catch
+        {
+            translator = null;
+        }
+        return translator != null;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this) instance = null;
     }
 }

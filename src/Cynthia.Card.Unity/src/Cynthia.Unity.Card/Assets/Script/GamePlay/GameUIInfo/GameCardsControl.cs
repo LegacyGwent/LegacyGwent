@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card.Client;
 using Cynthia.Card;
@@ -40,6 +40,11 @@ public class GameCardsControl : MonoBehaviour
     //---------------------------
     public void SetCardsInfo(GameInfomation gameInfomation)
     {
+        RuleZonePanel.Attach(this)?.SetRules(
+            gameInfomation.Rules,
+            gameInfomation.RuleSources,
+            gameInfomation.MyName,
+            gameInfomation.EnemyName);
         MyHand.SetCards(gameInfomation.MyHandCard);
         MyRow1.SetCards(gameInfomation.MyPlace[0]);
         MyRow2.SetCards(gameInfomation.MyPlace[1]);

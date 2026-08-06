@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cynthia.Card;
@@ -10,21 +10,24 @@ public class AudioAgentGame : MonoBehaviour
 
     private GameObject tempObject;
     private BGMManager manager;
-    // Start is called before the first frame update
-    void Update()
+    private IEnumerator Start()
     {
-        tempObject = GameObject.Find("BGMManager");
-        if (tempObject != null)
+        while (manager == null)
         {
-            manager = tempObject.GetComponent<BGMManager>();
-            manager.SetObject(editorUI, 1);
-            manager.SetObject(matchButton, 2);
-        }
-        else
-        {
-            Debug.Log("Game Agnet 赋值错误！");
-        }
-    }
+            tempObject = GameObject.Find("BGMManager");
+            if (tempObject != null)
+            {
+                manager = tempObject.GetComponent<BGMManager>();
+            }
 
+            if (manager == null)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+        }
+
+        manager.SetObject(editorUI, 1);
+        manager.SetObject(matchButton, 2);
+    }
 
 }

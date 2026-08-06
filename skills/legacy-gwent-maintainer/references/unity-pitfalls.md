@@ -1,6 +1,43 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-02
+Last verified: 2026-08-06
+
+## A standalone player shows white card placeholders
+
+- Symptom: the Unity player compiles and connects, but card art is white and
+  `StreamingAssets/aa/settings.json` is absent or Addressables runtime data is
+  null.
+- Cause: `BuildPipeline.BuildPlayer` does not build Addressables content. The
+  Editor can still resolve imported assets, so Editor-only testing hides this
+  packaging failure.
+- Fix: call `AddressableAssetSettings.BuildPlayerContent()` and fail on its
+  reported error before `BuildPipeline.BuildPlayer`; then verify the packaged
+  `StreamingAssets/aa` catalog and bundles exist.
+- Unity 2019/SBP caveat: a deep checkout path can make BuildCache paths exceed
+  legacy Windows `MAX_PATH`, sometimes leaving a corrupt `Library/BuildCache`.
+  Build through a short directory junction such as `C:\\Users\\<user>\\gwai`,
+  and move a proven-corrupt cache aside before retrying.
+- Verification: launch the packaged player, log in, open the full-art card pool,
+  and compare its Common DLL hash with the server/source build used for the test.
+
+## A leader miniature leaves empty bands above and below
+
+- Symptom: a deck-list leader portrait appears as a thin horizontal strip with
+  the faction backing visible above and below, even though its `RectTransform`
+  is already about 80 pixels high.
+- Cause: `LeaderMiniature` preserves sprite aspect ratio. A conventional
+  512x64 (8:1) slot sprite fitted into the roughly 4.3:1 deck banner therefore
+  occupies only about half the available height.
+- Fix: for artwork that needs the full banner height, crop the original card
+  face/subject into a dedicated 512x128 (4:1) `<CardArtsId>_slot` sprite. Keep
+  the card art itself unchanged; do not replace a portrait crop with unrelated
+  panoramic composition or globally disable aspect preservation.
+- Prevention: preview the exact slot sprite inside the target faction's match
+  and editor deck prefabs. Treat the full card image and `_slot` miniature as
+  separate compositions of the same source artwork.
+- Verification: the slot remains addressable under `<CardArtsId>_slot`, imports
+  as a 512x128 sprite, fills the banner vertically, and retains a recognizable
+  face-focused crop without stretching.
 
 ## Downloaded macOS or Linux client is not executable
 

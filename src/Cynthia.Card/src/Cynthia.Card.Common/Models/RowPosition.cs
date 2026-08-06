@@ -21,5 +21,6 @@ namespace Cynthia.Card
         EnemyLeader,
         Banish,//单位已经被放逐(代表虚无)
         None,//代表未指定
+        Rule,//共享规则区（追加枚举值，避免改变旧网络协议编号）
     }
 }
