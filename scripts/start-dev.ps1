@@ -23,7 +23,15 @@ $env:ASPNETCORE_ENVIRONMENT = "Development"
 $env:ASPNETCORE_URLS = "http://127.0.0.1:$script:ServerPort"
 $env:MONGO_CONNECTION_STRING = "mongodb://127.0.0.1:$script:MongoPort/$script:MongoDatabase"
 if ($FeatureManifest) {
-    $env:GWENT_FEATURE_MANIFEST = $FeatureManifest
+    $manifestPath = $FeatureManifest
+    if (-not [System.IO.Path]::IsPathRooted($manifestPath)) {
+        $manifestPath = Join-Path (Get-Location) $manifestPath
+    }
+    $manifestPath = [System.IO.Path]::GetFullPath($manifestPath)
+    if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
+        throw "Feature manifest does not exist: $manifestPath"
+    }
+    $env:GWENT_FEATURE_MANIFEST = $manifestPath
 } else {
     Remove-Item Env:GWENT_FEATURE_MANIFEST -ErrorAction SilentlyContinue
 }

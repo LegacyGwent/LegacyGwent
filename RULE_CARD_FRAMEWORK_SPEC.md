@@ -198,9 +198,14 @@ At game creation, rule cards are removed from both draw decks, deduplicated into
 the rule zone, annotated with which player supplied them, and subscribed to the
 normal event stream. The zone is hidden when no rule card is active.
 
-Public PVP defaults to equal rule fingerprints. Explicit password challenges
-may deliberately pair different fingerprints. Match records persist both
-sides' rule IDs, package versions, and the combined ruleset fingerprint.
+The current public PVP mode may default to equal rule fingerprints, but that is
+a server policy rather than a client invariant. Each server-authored mode may
+choose a different compatibility policy after inspecting the actual rule cards,
+and explicit password challenges may deliberately pair different fingerprints.
+The client submits the selected mode and deck, renders the server-provided mode
+description, and never promises or reimplements a matching policy. Match records
+persist both sides' rule IDs, package versions, and the combined ruleset
+fingerprint.
 
 Ranked and ordinary balance statistics exclude rule-package matches unless a
 future mode explicitly opts in. Package-specific analytics are grouped by rule

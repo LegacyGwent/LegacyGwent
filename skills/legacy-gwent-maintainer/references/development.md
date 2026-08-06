@@ -1,6 +1,6 @@
 # Local development
 
-Last verified: 2026-08-01
+Last verified: 2026-08-06
 
 ## Toolchain
 
@@ -13,6 +13,11 @@ Last verified: 2026-08-01
 - The server ignores those URI suffixes when selecting repositories: game data
   is in logical database `gwentdiy`, while DIY-page data is in `Web`.
 - Stop with the matching `stop-dev.ps1` or `stop-ai-dev.ps1`.
+- `-FeatureManifest` accepts a path relative to the caller's working directory;
+  `start-dev.ps1` resolves and validates it before launching the server from the
+  project directory. Keep that resolution step: passing the caller-relative
+  value directly makes `GameFeatureService` combine it with the server content
+  root, silently exercising the Unity fallback instead of the intended manifest.
 
 ## Unity
 

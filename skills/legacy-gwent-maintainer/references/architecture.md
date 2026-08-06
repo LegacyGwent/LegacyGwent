@@ -125,6 +125,12 @@ Last verified: 2026-08-06
 - Match results persist `RandomSeed`, `RulesetVersion`, and
   `RulesetFingerprint`; keep all three when adding generated opening decks so a
   report can be reproduced.
+- Rule-card matchmaking compatibility is server-authoritative mode policy, not
+  a Unity invariant. The current public mode may compare fingerprints, while a
+  different mode or explicit password challenge may use another policy after
+  inspecting the actual rule cards. Unity submits the selected mode/deck and
+  renders the server-provided neutral description; never hard-code or promise
+  "same rules always match" in client code or bundled client text.
 - `PlayerSelectable=false` hides one package from player deck building but must
   not disable its server-authored AI/runtime use. `IsEnabled=false` is the
   package kill switch: it must block player selection and runtime execution,
