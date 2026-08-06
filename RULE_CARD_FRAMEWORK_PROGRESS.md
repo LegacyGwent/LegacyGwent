@@ -7,6 +7,18 @@ goal. The framework must not be deployed until the remaining visual acceptance
 pass is complete. Production card batches continue to ship independently from
 the pre-framework `diy-ai` line.
 
+## Production baseline at handoff
+
+- The independent card batch `dc373d3a81a13baf390c59087a4a43cbfb68bb95`
+  is deployed on 5010. `/healthz` returns HTTP 200/`Healthy`, the service journal
+  has no warning-or-higher entries since deployment, and 5005 remains active.
+- Its database migration completed with a recoverable backup under
+  `/var/backups/legacy-gwent/diy-ai-card-reset/20260806T172504Z.ZnkYHW`.
+  Exact post-checks report zero retired card `70193` copies in decks and
+  blacklists and zero newly invalid decks.
+- CardMap is `1.0.0.175`. The local rule-framework commits below have not been
+  included in that production release.
+
 ## Current local state
 
 - Worktree: `card-pool-reset-worktree`
