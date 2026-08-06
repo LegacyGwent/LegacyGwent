@@ -544,6 +544,8 @@ namespace Cynthia.Card.Server.Tests
                 var removalPreview = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
                 {
                     Revision = 1,
+                    Action = "add",
+                    CandidateCardId = lowId,
                     Deck = lowOnlyDeck
                 });
 
@@ -562,6 +564,8 @@ namespace Cynthia.Card.Server.Tests
                 var takeover = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
                 {
                     Revision = 2,
+                    Action = "add",
+                    CandidateCardId = highId,
                     Deck = takeoverDeck
                 });
 
@@ -606,6 +610,8 @@ namespace Cynthia.Card.Server.Tests
                 var preview = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
                 {
                     Revision = 3,
+                    Action = "add",
+                    CandidateCardId = ruleId,
                     Deck = deck
                 });
 
@@ -870,6 +876,66 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void RefreshReturnsRuleSnapshotWithoutNormalizingTheDraft()
+        {
+            const string ruleId = "test-snapshot-only-rule";
+            var leader = GwentMap.CardMap.Values.First(x =>
+                x.Group == Group.Leader && x.Faction != Faction.Neutral && DiyAiCardPool.IsUserDeckCard(x.CardId));
+            var copper = GwentMap.CardMap.Values.First(x =>
+                x.Group == Group.Copper && x.Faction == leader.Faction && DiyAiCardPool.IsUserDeckCard(x.CardId));
+            var existed = GwentMap.CardMap.TryGetValue(ruleId, out var old);
+            GwentMap.CardMap[ruleId] = TestRuleCard(ruleId);
+            try
+            {
+                var manifest = new GameFeatureManifest
+                {
+                    RulesetVersion = "snapshot-v1",
+                    PlayerRuleCardsEnabled = true,
+                    RuleCards = new List<RuleCardDefinition>
+                    {
+                        new RuleCardDefinition
+                        {
+                            Id = ruleId,
+                            PlayerSelectable = true,
+                            AddConstraints = new List<DeckConstraintDefinition>
+                            {
+                                new DeckConstraintDefinition
+                                {
+                                    Id = "snapshot.single-copy",
+                                    Kind = "copy-count",
+                                    Max = 1,
+                                    Filter = new CardFilterDefinition { CardIds = new List<string> { copper.CardId } }
+                                }
+                            }
+                        }
+                    }
+                };
+                var deck = new DeckModel
+                {
+                    Leader = leader.CardId,
+                    Deck = new List<string> { ruleId, copper.CardId, copper.CardId }
+                };
+
+                var snapshot = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
+                {
+                    Action = "refresh",
+                    Deck = deck
+                });
+
+                Assert.False(snapshot.RequiresConfirmation);
+                Assert.Empty(snapshot.RemovedCards);
+                Assert.Equal(deck.Deck, snapshot.NormalizedDeck.Deck);
+                Assert.Equal(new[] { ruleId }, snapshot.ResolvedRules.AppliedRuleCards);
+                Assert.Contains(snapshot.ResolvedRules.Constraints, x => x.Id == "snapshot.single-copy");
+            }
+            finally
+            {
+                if (existed) GwentMap.CardMap[ruleId] = old;
+                else GwentMap.CardMap.Remove(ruleId);
+            }
+        }
+
+        [Fact]
         public void CardEffectCanHandlePureDeckBuildingEventWithoutAGameInstance()
         {
             var proposal = new GwentCardDataService().AdjustDeckBuilding("99001", new DeckBuildingAdjustmentContext
@@ -949,6 +1015,8 @@ namespace Cynthia.Card.Server.Tests
                 var preview = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
                 {
                     Revision = 8,
+                    Action = "add",
+                    CandidateCardId = ruleId,
                     Deck = deck
                 });
 
@@ -1086,6 +1154,7 @@ namespace Cynthia.Card.Server.Tests
                 var projection = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
                 {
                     Revision = 91,
+                    Action = "normalize",
                     Deck = submitted,
                     ConfirmNormalization = true
                 });
@@ -1166,6 +1235,7 @@ namespace Cynthia.Card.Server.Tests
                 var projection = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
                 {
                     Revision = 92,
+                    Action = "normalize",
                     Deck = submitted,
                     ConfirmNormalization = true
                 });

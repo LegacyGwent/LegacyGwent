@@ -4,6 +4,7 @@ using System.Linq;
 using Cynthia.Card;
 using Cynthia.Card.Client;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public sealed class ServerModeMenu : MonoBehaviour
@@ -72,7 +73,7 @@ public sealed class ServerModeMenu : MonoBehaviour
 
     private void BuildLauncher()
     {
-        var launcherObject = new GameObject("ServerModeLauncher", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
+        var launcherObject = new GameObject("ServerModeLauncher", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(Outline));
         launcherObject.transform.SetParent(_owner.MatchPasswordObject.transform.parent, false);
         var source = _owner.MatchPasswordObject.GetComponent<RectTransform>();
         var rect = launcherObject.GetComponent<RectTransform>();
@@ -85,7 +86,7 @@ public sealed class ServerModeMenu : MonoBehaviour
         image.color = new Color32(31, 57, 62, 255);
         _launcher = launcherObject.GetComponent<Button>();
         _launcher.targetGraphic = image;
-        _launcher.colors = Colors(image.color, new Color32(42, 73, 77, 255), new Color32(24, 46, 51, 255));
+        _launcher.colors = Colors(image.color, new Color32(58, 91, 91, 255), new Color32(24, 46, 51, 255));
         _launcher.onClick.AddListener(Open);
 
         _launcherText = MakeText(launcherObject.transform, "Label", "", 22, TextAnchor.MiddleLeft, Cream);
@@ -97,6 +98,7 @@ public sealed class ServerModeMenu : MonoBehaviour
         arrowRect.pivot = new Vector2(1, .5f);
         arrowRect.sizeDelta = new Vector2(48, 0);
         arrowRect.anchoredPosition = Vector2.zero;
+        launcherObject.AddComponent<StableModeHover>().Bind(launcherObject.GetComponent<Outline>(), arrowRect);
     }
 
     private void BuildOverlay()
@@ -236,7 +238,7 @@ public sealed class ServerModeMenu : MonoBehaviour
 
     private void BuildModeRow(Transform parent, GameModeDefinition mode)
     {
-        var row = new GameObject("Mode-" + mode.Id, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement));
+        var row = new GameObject("Mode-" + mode.Id, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(LayoutElement), typeof(Outline));
         row.transform.SetParent(parent, false);
         row.GetComponent<LayoutElement>().preferredHeight = 88;
         var background = row.GetComponent<Image>();
@@ -244,7 +246,8 @@ public sealed class ServerModeMenu : MonoBehaviour
         _rowBackgrounds[mode.Id] = background;
         var button = row.GetComponent<Button>();
         button.targetGraphic = background;
-        button.colors = Colors(Card, CardHover, new Color32(23, 44, 49, 255));
+        button.colors = Colors(Card, new Color32(53, 88, 89, 255), new Color32(23, 44, 49, 255));
+        row.AddComponent<StableModeHover>().Bind(row.GetComponent<Outline>());
         _rowButtons[mode.Id] = button;
         button.onClick.AddListener(() =>
         {
@@ -356,5 +359,38 @@ public sealed class ServerModeMenu : MonoBehaviour
         rect.anchorMax = Vector2.one;
         rect.offsetMin = new Vector2(left, bottom);
         rect.offsetMax = new Vector2(-right, -top);
+    }
+}
+
+// Strong, size-stable hover feedback. It deliberately avoids transform scaling,
+// which made neighbouring controls twitch in earlier menus.
+public sealed class StableModeHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    private Outline _outline;
+    private RectTransform _arrow;
+    private Vector2 _arrowHome;
+
+    public void Bind(Outline outline, RectTransform arrow = null)
+    {
+        _outline = outline;
+        _arrow = arrow;
+        if (_arrow != null) _arrowHome = _arrow.anchoredPosition;
+        if (_outline != null)
+        {
+            _outline.effectDistance = new Vector2(2, -2);
+            _outline.effectColor = new Color32(222, 170, 78, 0);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_outline != null) _outline.effectColor = new Color32(222, 170, 78, 230);
+        if (_arrow != null) _arrow.anchoredPosition = _arrowHome + new Vector2(-6, 0);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_outline != null) _outline.effectColor = new Color32(222, 170, 78, 0);
+        if (_arrow != null) _arrow.anchoredPosition = _arrowHome;
     }
 }

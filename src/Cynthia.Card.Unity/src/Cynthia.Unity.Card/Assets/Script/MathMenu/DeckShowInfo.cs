@@ -22,6 +22,7 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private Vector2 _deckTextBasePosition;
     private int _deckTextBaseFontSize;
     private bool _deckTextMetricsCaptured;
+    private bool _hovering;
 
     public void SetDeckInfo(string name, bool isAvaliable)
     {
@@ -56,12 +57,20 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        _hovering = true;
         if (_ruleIds.Count > 0) ShowTooltip(eventData.position);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        _hovering = false;
         HideTooltip();
+    }
+
+    private void Update()
+    {
+        if (_hovering && _ruleIds.Count > 0 && _tooltip != null && _tooltip.activeSelf)
+            MoveTooltip(Input.mousePosition);
     }
 
     private void EnsureBadge()
@@ -108,13 +117,20 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_tooltip == null) return;
         _tooltip.SetActive(true);
         _tooltip.transform.SetAsLastSibling();
+        MoveTooltip(screenPosition);
+    }
+
+    private void MoveTooltip(Vector2 screenPosition)
+    {
+        if (_tooltip == null) return;
         var canvas = _tooltip.GetComponentInParent<Canvas>();
         var canvasRect = canvas != null ? canvas.transform as RectTransform : null;
         if (canvasRect == null) return;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPosition, canvas.worldCamera, out var point);
         var rect = _tooltip.GetComponent<RectTransform>();
         var half = rect.sizeDelta * .5f;
-        point += new Vector2(half.x + 18, 0);
+        var showOnRight = point.x + half.x * 2f + 28f <= canvasRect.rect.xMax;
+        point += new Vector2(showOnRight ? half.x + 22f : -half.x - 22f, -half.y - 16f);
         point.x = Mathf.Clamp(point.x, canvasRect.rect.xMin + half.x + 12, canvasRect.rect.xMax - half.x - 12);
         point.y = Mathf.Clamp(point.y, canvasRect.rect.yMin + half.y + 12, canvasRect.rect.yMax - half.y - 12);
         rect.anchoredPosition = point;

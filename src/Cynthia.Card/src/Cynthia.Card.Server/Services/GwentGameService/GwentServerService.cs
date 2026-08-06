@@ -656,7 +656,7 @@ namespace Cynthia.Card.Server
 
         public bool Surrender(string connectionId) // 投降
         {
-            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"), isSurrender: true);
+            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("loc:PopupWindow_Surrendered"), isSurrender: true);
             InovkeUserChanged();
             return result;
         }
@@ -769,10 +769,21 @@ namespace Cynthia.Card.Server
             if (featureValidation.IsValid)
                 return true;
 
-            // Legacy partial-deck validators do not understand rule constraints.
-            // Keep them only for ordinary unfinished decks, never as a rule bypass.
-            return !deck.Deck.Any(DeckRuleEngine.IsRuleCard) &&
-                   (deck.IsHalfBasicDeck() || deck.IsHalfSpecialDeck());
+            // A saved deck is an editable draft, not a matchmaking ticket. Keep
+            // incomplete and legacy-broken ordinary decks (including an empty
+            // deck and retired cards) so players can always leave the editor.
+            // Match entry performs the strict authoritative validation.
+            if (deck.Deck.Any(DeckRuleEngine.IsRuleCard) ||
+                deck.Deck.Count > DeckBuildingProjectionEngine.AbsoluteCopyLimit ||
+                !GwentMap.CardMap.TryGetValue(deck.Leader ?? "", out var leader) ||
+                leader.Group != Group.Leader ||
+                !DiyAiCardPool.IsUserDeckCard(deck.Leader))
+                return false;
+
+            return deck.Deck.All(cardId =>
+                GwentMap.CardMap.TryGetValue(cardId, out var card) &&
+                card.Group != Group.Leader &&
+                !DeckRuleEngine.IsRuleCard(cardId));
         }
 
         public bool ModifyBlacklist(string connectionId, BlacklistModel blacklist)

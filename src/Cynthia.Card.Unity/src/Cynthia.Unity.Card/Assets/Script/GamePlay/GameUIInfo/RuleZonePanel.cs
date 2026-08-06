@@ -25,6 +25,7 @@ public sealed class RuleZonePanel : MonoBehaviour
     private LocalizationService _translator;
     private Button _launcher;
     private Text _launcherText;
+    private Canvas _canvas;
     private GameObject _overlay;
     private Transform _content;
     private Text _detailName;
@@ -51,13 +52,14 @@ public sealed class RuleZonePanel : MonoBehaviour
                 typeof(GraphicRaycaster));
             var canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 500;
+            canvas.sortingOrder = 6;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 1;
         }
         var panel = canvasObject.GetComponent<RuleZonePanel>() ?? canvasObject.AddComponent<RuleZonePanel>();
+        panel._canvas = canvasObject.GetComponent<Canvas>();
         panel.Initialize(canvasObject.transform);
         return panel;
     }
@@ -93,7 +95,7 @@ public sealed class RuleZonePanel : MonoBehaviour
         if (_launcher == null) return;
         _launcher.gameObject.SetActive(total > 0);
         _launcherText.text = IsEnglish ? $"RULES  {total}" : $"规则  {total}";
-        if (total == 0 && _overlay != null) _overlay.SetActive(false);
+        if (total == 0) CloseOverlay();
         RebuildList();
     }
 
@@ -116,6 +118,7 @@ public sealed class RuleZonePanel : MonoBehaviour
         _launcher.colors = Colors(Panel, Hover, new Color32(14, 35, 39, 255));
         _launcher.onClick.AddListener(() =>
         {
+            if (_canvas != null) _canvas.sortingOrder = 900;
             _overlay.SetActive(true);
             _overlay.transform.SetAsLastSibling();
             ShowFirstRule();
@@ -155,7 +158,7 @@ public sealed class RuleZonePanel : MonoBehaviour
         closeRect.pivot = new Vector2(1, 1);
         closeRect.sizeDelta = new Vector2(56, 46);
         closeRect.anchoredPosition = new Vector2(-20, -18);
-        close.GetComponent<Button>().onClick.AddListener(() => _overlay.SetActive(false));
+        close.GetComponent<Button>().onClick.AddListener(CloseOverlay);
 
         var listPanel = new GameObject("ListPanel", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
         listPanel.transform.SetParent(dialog.transform, false);
@@ -219,6 +222,12 @@ public sealed class RuleZonePanel : MonoBehaviour
         textRect.offsetMin = new Vector2(26, 26);
         textRect.offsetMax = new Vector2(-26, -88);
         _overlay.SetActive(false);
+    }
+
+    private void CloseOverlay()
+    {
+        if (_overlay != null) _overlay.SetActive(false);
+        if (_canvas != null) _canvas.sortingOrder = 6;
     }
 
     private void RebuildList()
@@ -308,8 +317,9 @@ public sealed class RuleZonePanel : MonoBehaviour
             {
                 if (artImage != null && operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
                 {
-                    artImage.sprite = operation.Result;
+                    artImage.sprite = CreateCardPortrait(operation.Result);
                     artImage.color = Color.white;
+                    artImage.preserveAspect = false;
                 }
             };
         }
@@ -387,6 +397,19 @@ public sealed class RuleZonePanel : MonoBehaviour
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Truncate;
         return text;
+    }
+
+    private static Sprite CreateCardPortrait(Sprite source)
+    {
+        if (source == null || source.texture == null) return source;
+        // Legacy card art is stored on a square canvas whose painted card sits in
+        // the upper-left region. Crop that portrait instead of shrinking the
+        // surrounding black area into a tiny rule icon.
+        var rect = source.rect;
+        var width = rect.width * .49f;
+        var height = rect.height * .70f;
+        var crop = new Rect(rect.x, rect.y + rect.height - height, width, height);
+        return Sprite.Create(source.texture, crop, new Vector2(.5f, .5f), source.pixelsPerUnit);
     }
 
     private static GameObject MakeButton(Transform parent, string name, string label, int size)

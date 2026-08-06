@@ -60,24 +60,38 @@ namespace Cynthia.Card.Client
         public async Task CheckMessages()
         {
             var messages = _clientService.CheckUserMessages(_clientService.User.UserName);
-
             var messagesList = await messages;
-
-
-            foreach (var condensedMessage in messagesList)
+            var seasonMessages = new List<UserSeasonEndMessage>();
+            foreach (var condensedMessage in messagesList ?? new List<string>())
             {
-                var deserializedMessage = UserMessage.ReCreateMessage(condensedMessage);
-                Debug.Log(condensedMessage);
-
-                if (deserializedMessage is UserSeasonEndMessage seasonEndMessage)
+                try
                 {
-                    await HandleSeasonEndMessage(seasonEndMessage.avatars, seasonEndMessage.borders, seasonEndMessage.titles, seasonEndMessage.mmrBeforeReset, seasonEndMessage.rank, seasonEndMessage.seasonName, seasonEndMessage.MessageId);
-                    break;
-                }         
+                    if (UserMessage.ReCreateMessage(condensedMessage) is UserSeasonEndMessage seasonEndMessage)
+                        seasonMessages.Add(seasonEndMessage);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"Ignoring malformed user message: {e.Message}");
+                }
             }
+
+            // Imported/legacy accounts can contain several years of unacknowledged
+            // season notices. Show only the newest one, then persistently consume the
+            // complete stale backlog so the player is not prompted once per login.
+            var latest = seasonMessages.OrderByDescending(x => x.MessageId).FirstOrDefault();
+            if (latest == null) return;
+            await HandleSeasonEndMessage(
+                latest.avatars,
+                latest.borders,
+                latest.titles,
+                latest.mmrBeforeReset,
+                latest.rank,
+                latest.seasonName,
+                latest.MessageId,
+                seasonMessages.Select(x => x.MessageId).Distinct().ToList());
         }
 
-        public async Task HandleSeasonEndMessage(IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName, int messageId = -1)
+        public async Task HandleSeasonEndMessage(IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName, int messageId = -1, IList<int> acknowledgementIds = null)
         {
             Debug.Log($"handling message {messageId}");
             async Task SpawnMessage()
@@ -88,9 +102,15 @@ namespace Cynthia.Card.Client
                     await _globalUIService.YNMessageBoxEnhanced("SeasonEnd_MessageTitle", string.Format(_translator.GetText("Season_EndMessageRewards"), _translator.GetText(seasonName), rank.ToString(), mmrBeforeReset.ToString()), yes: "PopupWindow_YesButton", no: "PopupWindow_NoButton", isOnlyYes: true, message2: "", message3: "", avatars: avatars, borders: borders, titles: titles);
                     if (messageId != -1)
                     {
-                        var removed = await _clientService.RemoveUserMessage(messageId);
-                        if (removed) await CheckMessages();
-                        else Debug.LogError($"Failed to acknowledge user message {messageId}.");
+                        var ids = (acknowledgementIds ?? new List<int> { messageId })
+                            .Where(x => x >= 0)
+                            .Distinct()
+                            .ToList();
+                        foreach (var id in ids)
+                        {
+                            if (!await _clientService.RemoveUserMessage(id))
+                                Debug.LogError($"Failed to acknowledge user message {id}.");
+                        }
                     }
                 }
                 finally

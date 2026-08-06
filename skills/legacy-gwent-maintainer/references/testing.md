@@ -18,6 +18,10 @@ selection, movement, death, landing, weather, duel, or chained events.
   assertion suite.
 - Workspace `headless-ai-probe` is a separate live integration probe. It uses a
   real server, SignalR, and MongoDB and is therefore not a unit-test substitute.
+  Before running it, point its Common and AI project references at the worktree
+  under test and rebuild it. A stale probe model can complete and persist a real
+  match, then report a false failure while deserializing newly added fields such
+  as `GameResult.ModeId`.
 
 ## Reusable fixture
 

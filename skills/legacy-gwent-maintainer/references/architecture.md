@@ -110,6 +110,12 @@ Last verified: 2026-08-06
 
 ## Rule-card deck lifecycle (`diy-ai` local framework)
 
+- Deck-building projection is a rule snapshot protocol, not a per-card RPC.
+  Fetch once on editor entry and whenever the leader or selected rule cards
+  change; ordinary add/remove actions validate against that snapshot locally.
+  Only a rule transition may preview deterministic cleanup. Saving/leaving must
+  preserve incomplete or legacy-broken drafts, while match entry remains the
+  strict server-authoritative validation boundary.
 - Rule cards are removed and deduplicated into the shared rule zone; they never
   count as ordinary draw-deck cards. A shared rule effect must use its recorded
   owner indexes instead of assuming `Card.PlayerIndex`, because either or both

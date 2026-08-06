@@ -202,6 +202,10 @@ namespace Cynthia.Card
         public string FailureCode { get; set; } = "";
         public DeckModel SubmittedDeck { get; set; } = new DeckModel();
         public DeckModel NormalizedDeck { get; set; } = new DeckModel();
+        // Complete, server-resolved rule snapshot. The editor keeps this snapshot
+        // while ordinary cards are edited locally and only asks the server again
+        // when the leader or selected rule cards change.
+        public ResolvedDeckRuleSet ResolvedRules { get; set; } = new ResolvedDeckRuleSet();
         public List<ResolvedRuleCardExecution> ExecutionOrder { get; set; } = new List<ResolvedRuleCardExecution>();
         public List<DeckBuildingLimitState> Limits { get; set; } = new List<DeckBuildingLimitState>();
         public List<DeckBuildingCardState> CardStates { get; set; } = new List<DeckBuildingCardState>();

@@ -42,7 +42,9 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerClick(PointerEventData eventData)
     {
         var show = cardShowInfo != null ? cardShowInfo : gameObject.GetComponent<CardShowInfo>();
-        if (show?.CurrentCore == null || !TryResolveMainCodeService()) return;
+        // A grey card is informational only. Do not send an impossible edit to
+        // the editor/server and do not punish the player with an error popup.
+        if (Count <= 0 || show?.CurrentCore == null || !TryResolveMainCodeService()) return;
         _mainCodeService.ClickEditorUICoreCard(show.CurrentCore);
     }
     //鼠标进入

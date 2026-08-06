@@ -42,7 +42,7 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
         _root.anchorMax = Vector2.one;
         _root.pivot = Vector2.one;
         _root.anchoredPosition = new Vector2(-4, -4);
-        _root.sizeDelta = new Vector2(30, 132);
+        _root.sizeDelta = new Vector2(36, 150);
         var layout = root.GetComponent<VerticalLayoutGroup>();
         layout.childAlignment = TextAnchor.UpperCenter;
         layout.spacing = 2;
@@ -79,7 +79,7 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
             {
                 var instances = group
                     .Where(x => !string.IsNullOrWhiteSpace(x.InstanceId) || x.Value.HasValue)
-                    .Select(x => (string.IsNullOrWhiteSpace(x.InstanceId) ? "•" : x.InstanceId) +
+                    .Select(x => (string.IsNullOrWhiteSpace(x.InstanceId) ? "•" : InstanceLabel(x.InstanceId)) +
                                  (x.Value.HasValue ? "：" + x.Value.Value : ""));
                 var instanceText = string.Join("  ", instances);
                 if (!string.IsNullOrWhiteSpace(instanceText))
@@ -114,10 +114,10 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
     {
         var badge = new GameObject("Marker", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
         badge.transform.SetParent(_root, false);
-        badge.GetComponent<RectTransform>().sizeDelta = new Vector2(28, 28);
+        badge.GetComponent<RectTransform>().sizeDelta = new Vector2(34, 30);
         var layout = badge.GetComponent<LayoutElement>();
-        layout.preferredWidth = 28;
-        layout.preferredHeight = 28;
+        layout.preferredWidth = 34;
+        layout.preferredHeight = 30;
         var image = badge.GetComponent<Image>();
         image.color = new Color(color.r, color.g, color.b, .94f);
         image.raycastTarget = !string.IsNullOrWhiteSpace(description);
@@ -134,15 +134,33 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
         text.font = _font;
-        text.fontSize = string.IsNullOrEmpty(value) ? 16 : 12;
+        text.fontSize = string.IsNullOrEmpty(value) ? 17 : 14;
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.white;
         text.raycastTarget = false;
         text.text = string.IsNullOrEmpty(value) ? label : label + value;
+        var outline = text.gameObject.AddComponent<Outline>();
+        outline.effectColor = new Color32(3, 8, 10, 230);
+        outline.effectDistance = new Vector2(1, -1);
     }
 
     private string CurrentLanguage => _translator?.TextLocalization?.ChosenLanguage?.Filename ?? "cn";
+
+    private string InstanceLabel(string id)
+    {
+        var english = CurrentLanguage.StartsWith("en");
+        switch ((id ?? "").ToLowerInvariant())
+        {
+            case "deploy": return english ? "Deploy" : "部署";
+            case "graveyard": return english ? "Graveyard" : "墓场";
+            case "turn": return english ? "Turn" : "回合";
+            case "weather": return english ? "Weather" : "天气";
+            case "hand": return english ? "Hand" : "手牌";
+            case "deck": return english ? "Deck" : "牌组";
+            default: return id;
+        }
+    }
 
     private static string FallbackLabel(string id)
         => string.IsNullOrWhiteSpace(id) ? "?" : id.Substring(0, 1).ToUpperInvariant();
@@ -174,6 +192,7 @@ public sealed class DynamicMarkerHoverTarget : MonoBehaviour, IPointerEnterHandl
 {
     private string _title;
     private string _description;
+    private bool _hovered;
 
     public void Bind(string title, string description)
     {
@@ -182,27 +201,49 @@ public sealed class DynamicMarkerHoverTarget : MonoBehaviour, IPointerEnterHandl
     }
 
     public void OnPointerEnter(PointerEventData eventData)
-        => DynamicMarkerTooltip.Show(_title, _description, eventData.position);
+    {
+        _hovered = true;
+        DynamicMarkerTooltip.Show(_title, _description, eventData.position);
+    }
 
-    public void OnPointerExit(PointerEventData eventData) => DynamicMarkerTooltip.Hide();
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _hovered = false;
+        DynamicMarkerTooltip.Hide();
+    }
+
+    private void Update()
+    {
+        if (_hovered) DynamicMarkerTooltip.Move(Input.mousePosition);
+    }
 }
 
 internal static class DynamicMarkerTooltip
 {
     private static RectTransform _canvasRect;
     private static GameObject _tooltip;
-    private static Text _text;
+    private static Text _titleText;
+    private static Text _descriptionText;
 
     public static void Show(string title, string description, Vector2 screenPosition)
     {
         if (string.IsNullOrWhiteSpace(description)) return;
         EnsureCreated();
         if (_tooltip == null) return;
-        _text.text = string.IsNullOrWhiteSpace(title) ? description : title + "\n" + description;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screenPosition, null, out var local);
-        _tooltip.GetComponent<RectTransform>().anchoredPosition = local + new Vector2(18, 18);
+        _titleText.text = title ?? "";
+        _descriptionText.text = description ?? "";
+        var lines = (description ?? "").Split('\n').Length;
+        _tooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(420, Mathf.Clamp(92 + lines * 24, 116, 220));
+        Move(screenPosition);
         _tooltip.SetActive(true);
         _tooltip.transform.SetAsLastSibling();
+    }
+
+    public static void Move(Vector2 screenPosition)
+    {
+        if (_tooltip == null || _canvasRect == null) return;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screenPosition, null, out var local);
+        _tooltip.GetComponent<RectTransform>().anchoredPosition = local + new Vector2(20, 20);
     }
 
     public static void Hide()
@@ -220,7 +261,7 @@ internal static class DynamicMarkerTooltip
                 typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 480;
+            canvas.sortingOrder = 7;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
@@ -233,23 +274,53 @@ internal static class DynamicMarkerTooltip
         rect.anchorMin = new Vector2(.5f, .5f);
         rect.anchorMax = new Vector2(.5f, .5f);
         rect.pivot = Vector2.zero;
-        rect.sizeDelta = new Vector2(380, 112);
+        rect.sizeDelta = new Vector2(420, 116);
         var image = _tooltip.GetComponent<Image>();
-        image.color = new Color32(6, 20, 25, 248);
+        image.color = new Color32(6, 19, 23, 248);
         image.raycastTarget = false;
-        _text = new GameObject("Text", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text)).GetComponent<Text>();
-        _text.transform.SetParent(_tooltip.transform, false);
-        _text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        _text.fontSize = 15;
-        _text.alignment = TextAnchor.MiddleLeft;
-        _text.color = new Color32(239, 233, 215, 255);
-        _text.raycastTarget = false;
-        _text.horizontalOverflow = HorizontalWrapMode.Wrap;
-        _text.verticalOverflow = VerticalWrapMode.Truncate;
-        _text.rectTransform.anchorMin = Vector2.zero;
-        _text.rectTransform.anchorMax = Vector2.one;
-        _text.rectTransform.offsetMin = new Vector2(14, 10);
-        _text.rectTransform.offsetMax = new Vector2(-14, -10);
+        var outline = _tooltip.AddComponent<Outline>();
+        outline.effectColor = new Color32(196, 145, 63, 210);
+        outline.effectDistance = new Vector2(1, -1);
+
+        var accent = new GameObject("Accent", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        accent.transform.SetParent(_tooltip.transform, false);
+        var accentRect = accent.GetComponent<RectTransform>();
+        accentRect.anchorMin = Vector2.zero;
+        accentRect.anchorMax = new Vector2(0, 1);
+        accentRect.pivot = new Vector2(0, .5f);
+        accentRect.sizeDelta = new Vector2(5, 0);
+        accent.GetComponent<Image>().color = new Color32(222, 170, 78, 255);
+        accent.GetComponent<Image>().raycastTarget = false;
+
+        _titleText = MakeTooltipText("Title", 18, FontStyle.Bold, new Color32(239, 220, 177, 255));
+        _titleText.rectTransform.anchorMin = new Vector2(0, 1);
+        _titleText.rectTransform.anchorMax = Vector2.one;
+        _titleText.rectTransform.offsetMin = new Vector2(20, -48);
+        _titleText.rectTransform.offsetMax = new Vector2(-16, -10);
+
+        _descriptionText = MakeTooltipText("Description", 15, FontStyle.Normal, new Color32(221, 226, 218, 255));
+        _descriptionText.rectTransform.anchorMin = Vector2.zero;
+        _descriptionText.rectTransform.anchorMax = Vector2.one;
+        _descriptionText.rectTransform.offsetMin = new Vector2(20, 12);
+        _descriptionText.rectTransform.offsetMax = new Vector2(-16, -52);
         _tooltip.SetActive(false);
+    }
+
+    private static Text MakeTooltipText(string name, int size, FontStyle style, Color color)
+    {
+        var text = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Text)).GetComponent<Text>();
+        text.transform.SetParent(_tooltip.transform, false);
+        text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        text.fontSize = size;
+        text.fontStyle = style;
+        text.alignment = TextAnchor.UpperLeft;
+        text.color = color;
+        text.raycastTarget = false;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Truncate;
+        var outline = text.gameObject.AddComponent<Outline>();
+        outline.effectColor = new Color32(0, 0, 0, 190);
+        outline.effectDistance = new Vector2(1, -1);
+        return text;
     }
 }

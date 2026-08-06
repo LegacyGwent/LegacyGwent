@@ -23,6 +23,13 @@ Last verified: 2026-08-06
 
 - `scripts/open-unity.ps1` builds/synchronizes the Common DLL and sets
   `GWENT_SERVER_URL` only for the launched Unity process.
+- Unity 2019's Scriptable Build Pipeline still hits legacy Windows path limits
+  inside `Library/BuildCache/<hash>/<hash>/...`. In a deeply nested Codex
+  worktree this appears as many misleading `DirectoryNotFoundException` errors.
+  Move/quarantine only the generated `Library/BuildCache`, create a verified
+  short junction to the Unity project (for example `C:\gwent-ai-unity`), and run
+  the full Addressables build through that short project path. Do not delete or
+  relocate source assets to work around this cache failure.
 - For the deployed DIY-AI track, use the tracked 5010 endpoint (currently the
   direct public IP). Use the hostname only where DNS and proxy routing are known
   to preserve the real public address.

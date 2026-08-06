@@ -325,29 +325,43 @@ public class MatchInfo : MonoBehaviour
         decks = (decks ?? new List<DeckModel>())
             .Where(x => DeckRuleEngine.CanPlayerSelectRuleDeck(_client.FeatureManifest, x))
             .ToList();
+        var hasAnyRuleDeck = decks.Any(HasRuleCards);
+        if (!hasAnyRuleDeck) _deckRuleFilter = DeckRuleFilter.All;
+        var filterBar = DecksContext.Find("DeckRuleFilterBar");
         var count = DecksContext.childCount;
         // Debug.Log($"数量为:{count}");
         for (var i = count - 1; i >= 0; i--)
         {
-            // Debug.Log($"消除{i}");
-            Destroy(DecksContext.GetChild(i).gameObject);
+            var child = DecksContext.GetChild(i);
+            if (hasAnyRuleDeck && child == filterBar) continue;
+            child.gameObject.SetActive(false);
+            Destroy(child.gameObject);
         }
-        // Debug.Log($"完成消除,脱离");
-        DecksContext.DetachChildren();
-        var hasAnyRuleDeck = decks.Any(HasRuleCards);
-        if (!hasAnyRuleDeck) _deckRuleFilter = DeckRuleFilter.All;
+        if (!hasAnyRuleDeck && filterBar != null)
+        {
+            filterBar.gameObject.SetActive(false);
+            Destroy(filterBar.gameObject);
+            filterBar = null;
+        }
         if (hasAnyRuleDeck)
-            DeckRuleFilterBar.Create(
-                DecksContext,
-                _deckRuleFilter,
-                DeckName != null ? DeckName.font : null,
-                string.Equals(_translator.TextLocalization.ChosenLanguage?.Filename, "en", StringComparison.OrdinalIgnoreCase),
-                value =>
-                {
-                    if (_deckRuleFilter == value) return;
-                    _deckRuleFilter = value;
-                    SetDeckList(_client.User.Decks);
-                });
+        {
+            if (filterBar == null)
+                filterBar = DeckRuleFilterBar.Create(
+                    DecksContext,
+                    _deckRuleFilter,
+                    DeckName != null ? DeckName.font : null,
+                    string.Equals(_translator.TextLocalization.ChosenLanguage?.Filename, "en", StringComparison.OrdinalIgnoreCase),
+                    value =>
+                    {
+                        if (_deckRuleFilter == value) return;
+                        _deckRuleFilter = value;
+                        DeckRuleFilterBar.SetCurrent(DecksContext.Find("DeckRuleFilterBar")?.gameObject, value);
+                        SetDeckList(_client.User.Decks);
+                    }).transform;
+            filterBar.gameObject.SetActive(true);
+            filterBar.SetSiblingIndex(0);
+            DeckRuleFilterBar.SetCurrent(filterBar.gameObject, _deckRuleFilter);
+        }
         var visibleDecks = decks.Where(x =>
             _deckRuleFilter == DeckRuleFilter.All ||
             (_deckRuleFilter == DeckRuleFilter.Rules && HasRuleCards(x)) ||
@@ -400,11 +414,16 @@ public class MatchInfo : MonoBehaviour
         leader.transform.SetParent(CardsContext, false);
         var cards = deck.Deck.Select(x => GwentMap.CardMap[x]).ToList();
         var playableCards = deck.Deck.Where(x => !DeckRuleEngine.IsRuleCard(x)).Select(x => GwentMap.CardMap[x]).ToList();
-        cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.Name).ForAll(x =>
+        cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.CardId).ForAll(x =>
             {
                 var card = Instantiate(CardPrefab);
                 card.GetComponent<ListCardShowInfo>().SetCardInfo(x.First().CardId, x.Count());
                 card.transform.SetParent(CardsContext, false);
+                if (DeckRuleEngine.IsRuleCard(x.Key))
+                    RuleCardListVisual.Apply(
+                        card,
+                        DeckName != null ? DeckName.font : null,
+                        string.Equals(_translator.TextLocalization.ChosenLanguage?.Filename, "en", StringComparison.OrdinalIgnoreCase));
             });
         CopperCount.text = playableCards.Count(x => x.Group == Group.Copper).ToString();
         SilverCount.text = playableCards.Count(x => x.Group == Group.Silver).ToString();

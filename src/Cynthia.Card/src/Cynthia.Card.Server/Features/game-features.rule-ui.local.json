@@ -2,7 +2,7 @@
   "SchemaVersion": 2,
   "FeatureLevel": 2,
   "RulesetVersion": "local-rule-ui-1",
-  "PlayerRuleCardsEnabled": false,
+  "PlayerRuleCardsEnabled": true,
   "CardMarkerDefinitions": [
     {
       "Id": "local.poison", "Name": { "ZhCn": "中毒", "En": "Poison" },
@@ -92,6 +92,30 @@
       "Description": { "ZhCn": "士兵体系测试对手。", "En": "Soldier test opponent." },
       "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai1", "AiRuleCards": ["99004"], "AllowCustomRuleCards": true,
       "SortOrder": 110, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.2", "Category": "ai", "Name": { "ZhCn": "AI 2 · 阿瓦拉克", "En": "AI 2 · Avallac'h" },
+      "Description": { "ZhCn": "毁牌体系测试对手。", "En": "Mill test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai2", "AllowCustomRuleCards": true,
+      "SortOrder": 120, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.3", "Category": "ai", "Name": { "ZhCn": "AI 3 · 奥贝伦王", "En": "AI 3 · King Auberon" },
+      "Description": { "ZhCn": "奥贝伦体系测试对手。", "En": "Auberon test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai3", "AllowCustomRuleCards": true,
+      "SortOrder": 130, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.4", "Category": "ai", "Name": { "ZhCn": "AI 4 · 铁隼佣兵团", "En": "AI 4 · Iron Falcon" },
+      "Description": { "ZhCn": "铁隼体系测试对手。", "En": "Iron Falcon test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai4", "AllowCustomRuleCards": true,
+      "SortOrder": 140, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.5", "Category": "ai", "Name": { "ZhCn": "AI 5 · 猎龙人", "En": "AI 5 · Reaver Hunters" },
+      "Description": { "ZhCn": "猎龙人体系测试对手。", "En": "Reaver test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai5", "AllowCustomRuleCards": true,
+      "SortOrder": 150, "MinimumClientFeatureLevel": 2
     }
   ]
 }

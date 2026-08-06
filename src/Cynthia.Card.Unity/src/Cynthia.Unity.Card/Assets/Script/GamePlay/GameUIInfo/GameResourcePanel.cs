@@ -38,7 +38,9 @@ public sealed class GameResourcePanel : MonoBehaviour
             canvasObject = new GameObject("GameResourceCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 470;
+            // Board HUD: visible above the board, but below card detail, choice
+            // dialogs and every modal menu.
+            canvas.sortingOrder = 5;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
@@ -130,6 +132,15 @@ public sealed class GameResourcePanel : MonoBehaviour
         _tooltip.transform.SetAsLastSibling();
     }
 
+    internal void MoveTooltip(Vector2 position)
+    {
+        if (_tooltip == null || !_tooltip.activeSelf) return;
+        var rect = _tooltip.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rect.parent as RectTransform, position, null, out var local);
+        rect.anchoredPosition = local + new Vector2(18, 18);
+    }
+
     internal void HideTooltip()
     {
         if (_tooltip != null) _tooltip.SetActive(false);
@@ -209,6 +220,7 @@ public sealed class ResourceHoverTarget : MonoBehaviour, IPointerEnterHandler, I
     private GameResourcePanel _owner;
     private string _title;
     private string _description;
+    private bool _hovered;
 
     public void Bind(GameResourcePanel owner, string title, string description)
     {
@@ -218,7 +230,19 @@ public sealed class ResourceHoverTarget : MonoBehaviour, IPointerEnterHandler, I
     }
 
     public void OnPointerEnter(PointerEventData eventData)
-        => _owner?.ShowTooltip(_title, _description, eventData.position);
+    {
+        _hovered = true;
+        _owner?.ShowTooltip(_title, _description, eventData.position);
+    }
 
-    public void OnPointerExit(PointerEventData eventData) => _owner?.HideTooltip();
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _hovered = false;
+        _owner?.HideTooltip();
+    }
+
+    private void Update()
+    {
+        if (_hovered) _owner?.MoveTooltip(Input.mousePosition);
+    }
 }

@@ -13,6 +13,7 @@ Read this file first, then load only the rows relevant to the task.
 | August 6 Nilfgaard/global card batch | [nilfgaard-batch-august-2026.md](nilfgaard-batch-august-2026.md) | Restored pool, effects, rounding rule, and regressions |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
+| Rule cards, mode menu, deck editor and generic HUD acceptance | [rule-framework-ux.md](rule-framework-ux.md) | Durable architecture and visual QA checklist |
 | Card-batch publication, preflight, repeated CI | [release-preflight.md](release-preflight.md) | First-push gates and release-loop prevention |
 | Card-pool reset, retirement, deck-code compatibility | [card-pool-migrations.md](card-pool-migrations.md) | Immutable map ordering, classification, data migration |
 | Windows setup, local server, MongoDB, Unity | [development.md](development.md) | Reproducible local workflows |

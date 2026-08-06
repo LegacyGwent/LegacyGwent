@@ -34,27 +34,44 @@ namespace Cynthia.Card
             var allRemovals = new List<DeckRuleTransitionRemoval>();
             ResolvedDeckRuleSet rules = null;
             var stabilized = false;
+            var isRuleTransition =
+                (string.Equals(request.Action, "add", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(request.Action, "remove", StringComparison.OrdinalIgnoreCase)) &&
+                DeckRuleEngine.IsRuleCard(request.CandidateCardId);
+            var shouldNormalize = isRuleTransition ||
+                string.Equals(request.Action, "normalize", StringComparison.OrdinalIgnoreCase);
 
-            DeduplicateRuleCards(normalized, allRemovals);
+            if (shouldNormalize)
+                DeduplicateRuleCards(normalized, allRemovals);
 
             // Removing a prerequisite rule can leave one or more selected rules
             // with an unsatisfied RequiresAll chain. Treat those dependent rules
             // as part of the same authoritative transition so the client can
             // preview and confirm one deterministic cleanup instead of getting
             // stuck behind a rule-resolution error.
-            if (string.Equals(request.Action, "remove", StringComparison.OrdinalIgnoreCase) &&
+            if (shouldNormalize &&
+                string.Equals(request.Action, "remove", StringComparison.OrdinalIgnoreCase) &&
                 DeckRuleEngine.IsRuleCard(request.CandidateCardId))
             {
                 RemoveRulesWithMissingDependencies(manifest, normalized, allRemovals);
             }
 
-            response.FailureCode = ApplyNormalizationProposals(manifest, normalized, allRemovals);
+            response.FailureCode = shouldNormalize
+                ? ApplyNormalizationProposals(manifest, normalized, allRemovals)
+                : "";
             rules = Resolve(manifest, normalized);
             // A conflicting/incomplete rule set has no authoritative transition.
             // Never preview destructive cleanup for a combination that cannot be
             // accepted in the first place; report the rule issue against the
             // submitted deck unchanged.
-            if (!string.IsNullOrWhiteSpace(response.FailureCode) ||
+            if (!shouldNormalize)
+            {
+                // Refresh is a read-only snapshot operation. Existing broken or
+                // retired-card decks must never be silently rewritten merely by
+                // opening the editor.
+                stabilized = true;
+            }
+            else if (!string.IsNullOrWhiteSpace(response.FailureCode) ||
                 (rules.ResolutionIssues?.Count ?? 0) > 0)
             {
                 stabilized = true;
@@ -92,6 +109,7 @@ namespace Cynthia.Card
                 response.FailureCode = "rules.normalization-limit";
 
             rules = Resolve(manifest, normalized);
+            response.ResolvedRules = rules;
             response.RulesFingerprint = rules.Fingerprint ?? "";
             response.ExecutionOrder = rules.ExecutionOrder ?? new List<ResolvedRuleCardExecution>();
             response.NormalizedDeck = normalized;

@@ -63,8 +63,12 @@ public class righclickLogic : MonoBehaviour
     void Start()
     {
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        ExitButtonText.text=translator.GetText("LoginMenu_ExitButton");
-        BackButtonText.text=translator.GetText("RegisterMenu_BackButton");
+        var english = translator.TextLocalization?.ChosenLanguage?.Filename == "en";
+        // These are card-detail navigation actions, not login-menu actions.
+        // Explicit labels avoid an unrelated localization key leaking "登录"
+        // into this overlay when locale tables are refreshed independently.
+        ExitButtonText.text = english ? "CLOSE" : "关闭";
+        BackButtonText.text = english ? "BACK" : "返回";
         History = new List<string>();
         string FromGamePlay = GameEvent.RightClickedCardID;
         string FromEditor = EditorInfo.RightClickedCardID;

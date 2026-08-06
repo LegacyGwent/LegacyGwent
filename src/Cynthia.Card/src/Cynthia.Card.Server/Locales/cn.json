@@ -140,6 +140,7 @@
         "PopupWindow_Surrender_title": "确认投降?",
         "PopupWindow_Surrender_content": "确认要投降吗？",
         "PopupWindow_ReceivedMessageTitle": "收到了一个来自服务器的消息",
+        "PopupWindow_Surrendered": "已投降",
         "PopupWindow_NoDeckTitle": "当前没有卡组",
         "PopupWindow_NoDeckDesc": "当前没有卡组,请添加卡组后再进行匹配",
         "PopupWindow_IncompleteDeckTitle": "该卡组无法用于匹配",
