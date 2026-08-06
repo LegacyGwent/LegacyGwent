@@ -2,7 +2,7 @@
 
 Last verified: 2026-08-06
 
-Verified against the DIY-AI reset lineage through `1.0.0.173`.
+Verified against the DIY-AI reset lineage through `1.0.0.174`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -34,10 +34,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 717 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 718 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- After the August 6 batch, 118 entries are retired. The August 5 cards remain
+- After the August 6 Nilfgaard batch, 104 entries are retired. The August 5 cards remain
   active, and 19 more historical DIY IDs plus new `70192` are user-deck cards:
   `70009`, `70010`, `70022`, `70023`, `70058`, `70083`, `70085`, `70088`,
   `70106`, `70124`, `70129`, `70132`, `70146`, `70148`, `70168`, `70169`,
@@ -53,6 +53,11 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   `card-rules.md`. The generated dependencies `70006`, `70071`, and `70162`
   must be unretired but remain derived/non-deckable. The two potions use exactly
   the `Special + Alchemy` categories.
+- The August 6 Nilfgaard restoration additionally makes these 14 historical DIY
+  IDs deckable: `70004`, `70012`, `70103`, `70111`, `70115`, `70123`, `70127`,
+  `70150`, `70151`, `70152`, `70153`, `70165`, `70174`, and `70184`. New card
+  `70193` (Masquerade) is appended and deckable; it is never inserted into an
+  older map slot.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.
@@ -85,7 +90,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 717 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 718 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

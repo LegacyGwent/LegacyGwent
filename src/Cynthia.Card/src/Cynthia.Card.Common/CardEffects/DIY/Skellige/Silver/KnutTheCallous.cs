@@ -32,7 +32,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await DTarget.Effect.Damage(DTarget.CardPoint()/2, Card);
+            await DTarget.Effect.Damage((DTarget.CardPoint() + 1) / 2, Card);
             return;
         }
     }

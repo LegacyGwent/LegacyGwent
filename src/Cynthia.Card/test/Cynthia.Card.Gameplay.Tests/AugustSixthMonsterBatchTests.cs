@@ -229,11 +229,11 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task HybridTriggersBronzeDeathwishBeforeConsumingTheSelectedUnit()
+        public async Task HybridTriggersBronzeDeathwishThenConsumesItsRightNeighborNextTurn()
         {
             var fixture = new HeadlessGameFixture();
             var hybrid = fixture.AddCard(
-                fixture.Game.Player1Index, "70176", RowPosition.MyRow1, strength: 7);
+                fixture.Game.Player1Index, "70176", RowPosition.MyRow1, strength: 6);
             var egg = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.HarpyEgg, RowPosition.MyRow1);
             await fixture.SynchronizeClientsAsync();
@@ -243,8 +243,67 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Contains(
                 fixture.Game.GetPlaceCards(fixture.Game.Player1Index),
                 card => card.Status.CardId == CardId.HarpyHatchling);
-            Assert.Equal(RowPosition.Banish, egg.Status.CardRow);
+            Assert.True(egg.Status.CardRow.IsOnPlace());
+            Assert.Equal(0, hybrid.Status.HealthStatus);
+
+            await hybrid.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player2Index));
+            Assert.True(egg.Status.CardRow.IsOnPlace());
+
+            await hybrid.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            Assert.False(egg.Status.CardRow.IsOnPlace());
             Assert.True(hybrid.CardPoint() > hybrid.Status.Strength);
+        }
+
+        [Fact]
+        public async Task IgnisFatuusDoesNotSuppressApiarianPhantomKillFrost()
+        {
+            var lethal = new HeadlessGameFixture();
+            lethal.AddCard(lethal.Game.Player1Index, CardId.IgnisFatuus, RowPosition.MyRow1);
+            var lethalPhantom = lethal.AddCard(
+                lethal.Game.Player1Index, "70085", RowPosition.MyRow1);
+            lethal.AddCard(
+                lethal.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, strength: 6);
+            await lethal.SynchronizeClientsAsync();
+
+            await lethalPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+
+            Assert.Equal(RowStatus.BitingFrost, lethal.Game.GameRowEffect[lethal.Game.Player2Index][1].RowStatus);
+            Assert.Equal(RowStatus.None, lethal.Game.GameRowEffect[lethal.Game.Player2Index][0].RowStatus);
+            Assert.Equal(RowStatus.None, lethal.Game.GameRowEffect[lethal.Game.Player2Index][2].RowStatus);
+
+            var surviving = new HeadlessGameFixture();
+            surviving.AddCard(surviving.Game.Player1Index, CardId.IgnisFatuus, RowPosition.MyRow1);
+            var survivingPhantom = surviving.AddCard(
+                surviving.Game.Player1Index, "70085", RowPosition.MyRow1);
+            surviving.AddCard(
+                surviving.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow2, strength: 7);
+            await surviving.SynchronizeClientsAsync();
+
+            await survivingPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+
+            Assert.Equal(RowStatus.None, surviving.Game.GameRowEffect[surviving.Game.Player2Index][1].RowStatus);
+
+            var noIgnis = new HeadlessGameFixture();
+            var ordinaryPhantom = noIgnis.AddCard(
+                noIgnis.Game.Player1Index, "70085", RowPosition.MyRow1);
+            noIgnis.AddCard(
+                noIgnis.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, strength: 6);
+            await noIgnis.SynchronizeClientsAsync();
+
+            await ordinaryPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+
+            Assert.Equal(RowStatus.BitingFrost, noIgnis.Game.GameRowEffect[noIgnis.Game.Player2Index][1].RowStatus);
+
+            var ordinarySurvivor = new HeadlessGameFixture();
+            var ordinarySurvivingPhantom = ordinarySurvivor.AddCard(
+                ordinarySurvivor.Game.Player1Index, "70085", RowPosition.MyRow1);
+            ordinarySurvivor.AddCard(
+                ordinarySurvivor.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow2, strength: 7);
+            await ordinarySurvivor.SynchronizeClientsAsync();
+
+            await ordinarySurvivingPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+
+            Assert.Equal(RowStatus.None, ordinarySurvivor.Game.GameRowEffect[ordinarySurvivor.Game.Player2Index][1].RowStatus);
         }
 
         [Fact]

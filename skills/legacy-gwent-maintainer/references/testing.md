@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-05
+Last verified: 2026-08-06
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -132,3 +132,13 @@ check; Hybrid's Deathwish-before-Consume ordering; and Apiarian Phantom's
 kill-gated Frost. When testing a card with private deploy-to-event state, raise
 both `CardPlayEffect` and the later event through `Card.Effects`; calling the
 separate legacy `Card.Effect` instance gives a false negative.
+
+The August 6 Nilfgaard scenarios additionally cover two penetrating Assassination
+hits, same-row non-adjacent Treason, both Hefty Helge reveal branches, deterministic
+lowest-rarity revealing, restored Alba Pikeman turn cadence and Armor, Cupbearer
+conceal/Boost cadence, Mage Infiltrator's board/hand/no-target branches, Masquerade
+rarity changes, representative odd-half rounding, and Xarthisius's move-and-lock.
+Apiarian Phantom has a four-quadrant regression: Ignis present/absent crossed with
+lethal/nonlethal exact-6 damage. Lethal cases create exactly one Frost; nonlethal
+cases create none. Check board location after damage rather than `IsDead`, because
+cemetery movement repairs/reset card state before the effect resumes.

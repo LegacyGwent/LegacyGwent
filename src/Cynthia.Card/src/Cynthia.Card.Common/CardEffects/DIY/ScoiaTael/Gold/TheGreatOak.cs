@@ -44,7 +44,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await Dtarget.Effect.Weaken(Dtarget.Status.Strength / 2, Card);
+            await Dtarget.Effect.Weaken((Dtarget.Status.Strength + 1) / 2, Card);
             return 0;
         }
 

@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70174")]//
     public class MageInfiltrator : CardEffect
-    {//Spying. Reveal two enemy cards, then spawn and play a copy of a different bronze unit in your opponent's hand
+    {//间谍。揭示2张敌方手牌，选择1个敌军铜色单位或1张被揭示的敌方铜色单位牌，生成其佚亡原始同名牌。
         public MageInfiltrator(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {   // Reveal two enemy cards
@@ -17,11 +17,22 @@ namespace Cynthia.Card
             {
                 await card.Effect.Reveal(Card);
             }
-            // then spawn and play a copy of a different bronze unit in your opponent's hand
-            var enemycards = await Game.GetSelectPlaceCards(Card,1, true, filter: x => (x.Status.IsReveal && x.IsAnyGroup(Group.Copper) && x.Status.CardId != Card.Status.CardId), selectMode: SelectModeType.MyHand);
-            if (enemycards.Count() == 0) return 0;
-            var targetCard = enemycards.Single();
-            await Game.CreateToStayFirst(targetCard.Status.CardId, Game.AnotherPlayer(Card.PlayerIndex));
+            var controller = Game.AnotherPlayer(Card.PlayerIndex);
+            var candidates = Game.GetPlaceCards(Card.PlayerIndex)
+                .Concat(Game.PlayersHandCard[Card.PlayerIndex].Where(x => x.Status.IsReveal))
+                .Where(x => x.Status.Type == CardType.Unit &&
+                            x.Status.Group == Group.Copper &&
+                            !x.Status.IsSpying &&
+                            x.Status.CardId != Card.Status.CardId)
+                .Distinct()
+                .ToList();
+            var selected = await Game.GetSelectMenuCards(controller, candidates, isCanOver: true);
+            if (!selected.TrySingle(out var targetCard)) return 0;
+            await Game.CreateCard(
+                targetCard.Status.CardId,
+                controller,
+                new CardLocation(RowPosition.MyStay, 0),
+                status => status.IsDoomed = true);
             return 1;
         }
     }

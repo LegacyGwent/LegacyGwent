@@ -22,14 +22,14 @@ namespace Cynthia.Card
             var Ltaget = target.GetRangeCard(1, GetRangeType.HollowLeft);
             if (Ltaget.Count() != 0 && !Ltaget.Single().Status.Conceal)
             {
-                await Ltaget.Single().Effect.Boost(num/2, Card);
+                await Ltaget.Single().Effect.Boost((num + 1) / 2, Card);
             }
 
             //如果右侧有单位且不是伏击卡
             var Rtaget = target.GetRangeCard(1, GetRangeType.HollowRight);
             if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
             {
-                await Rtaget.Single().Effect.Boost(num/2, Card);
+                await Rtaget.Single().Effect.Boost((num + 1) / 2, Card);
             }
             return 0;
             

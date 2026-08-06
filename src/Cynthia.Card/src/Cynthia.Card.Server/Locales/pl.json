@@ -785,7 +785,10 @@
         "VriheddSaboteur_1_RandomItem": "Zagraj losowy brązowy przedmiot.",
         "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael.",
         "Gael_1_Damage2Units": "Zadaj 5 pkt obrażeń dwóm wrogom.",
-        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń."
+        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń.",
+        "Masquerade_ChangeGold": "Zmień jakość wybranej jednostki na złotą.",
+        "Masquerade_ChangeSilver": "Zmień jakość wybranej jednostki na srebrną.",
+        "Masquerade_ChangeCopper": "Zmień jakość wybranej jednostki na brązową."
     },
     "CardLocales": {
         "12001": {
@@ -1215,7 +1218,7 @@
         },
         "13044": {
             "Name": "Garnizon",
-            "Info": "Wygeneruj niebędącą Szpiegiem brązową lub srebrną jednostkę z talii początkowej przeciwnika i wzmocnij ją o 1.",
+            "Info": "Wygeneruj niebędącego Szpiegiem brązowego lub srebrnego Żołnierza albo Oficera z talii początkowej przeciwnika i wzmocnij go o 1.",
             "Flavor": "Puk, puk, jest tam kto ?"
         },
         "14001": {
@@ -1955,7 +1958,7 @@
         },
         "32015": {
             "Name": "Zabójstwo",
-            "Info": "Zadaj 9 pkt. obrażeń przeciwnikowi.\nPowtórz raz.",
+            "Info": "Zadaj wrogiej jednostce 8 pkt obrażeń, a następnie zadaj wrogiej jednostce 8 pkt obrażeń.",
             "Flavor": "Ufni ludzie to w Nilfgaardzie gatunek zagrożony wyginięciem."
         },
         "33001": {
@@ -2000,7 +2003,7 @@
         },
         "33009": {
             "Name": "Gruba Helga",
-            "Info": "Rozmieszczenie: Zadaj 1 pkt obrażeń wszystkim wrogom oprócz tych w przeciwnym rzędzie. Jeśli ta jednostka była ujawniona, zamiast tego zadaj 1 pkt obrażeń wszystkim wrogom.",
+            "Info": "Zadaj 1 pkt obrażeń wszystkim wrogom poza przeciwnym rzędem. Jeśli karta była Ujawniona, zadaj 1 pkt obrażeń wszystkim wrogim jednostkom i Ujawnionym niespierającym wrogim kartom jednostek.",
             "Flavor": "Nie nadaje się zbytnio do zdobywania miast, ale jest doskonała gdy potrzebujesz zrównać je z ziemią."
         },
         "33010": {
@@ -2055,7 +2058,7 @@
         },
         "33020": {
             "Name": "Zdrada",
-            "Info": "Zmuś 2 sąsiadujących wrogów do stoczenia ze sobą pojedynku.",
+            "Info": "Zmuś 2 wrogów w tym samym rzędzie do stoczenia pojedynku.",
             "Flavor": "Wielu uważa, że potęga cesarstwa jest zbudowana na zdyscyplinowanej armii i posłusznych magikach. Prawda jest taka, że światem rządzi nilfgaardzki floren."
         },
         "33021": {
@@ -2090,7 +2093,7 @@
         },
         "34004": {
             "Name": "Nilfgaardzki Rycerz",
-            "Info": "Rozmieszczenie: Ujawnij losową kartę w swojej ręce, preferując najpierw brązowe, potem srebrne, a na końcu złote karty. 2 pkt pancerza.",
+            "Info": "Ujawnij kartę o najniższej jakości w swojej ręce. 2 pkt pancerza.",
             "Flavor": "Synowie szlachetnych rodów, urodzeni w mieście Złotych Wież, tworzą prawdziwą elitę cesarskiej armii."
         },
         "34005": {
@@ -3575,7 +3578,7 @@
         },
         "70062": {
             "Name": "Ożywiona Zbroja",
-            "Info": "Wszystkie sojusznicze jednostki w tym rzędzie otrzymują połowę obrażeń, zaokrąglając w górę.",
+            "Info": "Wszystkie sojusznicze jednostki w tym rzędzie otrzymują połowę obrażeń.",
             "Flavor": "Owszem, kosztowna. Ale biorąc pod uwagę oszczędności na wikcie i opierunku, inwestycja zwróci się jeszcze w tym stuleciu!"
         },
         "70070": {
@@ -3590,7 +3593,7 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Jeśli w twojej startowej talii są wyłącznie brązowe karty, stwórz Brązową jednostkę z twojej startowej talii i nadaj jej Doomed.",
+            "Info": "Jeśli każda brązowa karta w talii początkowej występuje dokładnie 3 razy, stwórz Przeklętą bazową kopię brązowej jednostki z tej talii.",
             "Flavor": "Wiele można schować za pięknym uśmiechem."
         },
         "70076": {
@@ -3965,7 +3968,7 @@
         },
         "70152": {
             "Name": "Podczaszy Van Moorlehemów",
-            "Info": "Na koniec tury, jeśli po przeciwnej stronie nie ma złotych jednoste, wzmocnij się o 1.",
+            "Info": "Na początku każdej tury losowo Ukryj brązową kartę w ręce i wzmocnij ją o 1.",
             "Flavor": "Moja specjalność? Tatar. Z czego? Ach, zależy od humoru jaśniepaństwa…"
         },
         "70153": {
@@ -4045,7 +4048,7 @@
         },
         "70168": {
             "Name": "Ogr Wojownik",
-            "Info": "Na początku tury po 3 turach, jeśli kontrolujesz najsilniejszą jednostkę, Wzmocnij się o połowę swojej siły, zaokrąglając w górę.",
+            "Info": "Na początku tury po 3 turach, jeśli kontrolujesz najsilniejszą jednostkę, Wzmocnij się o połowę swojej siły.",
             "Flavor": "Ty być głupi kotlet"
         },
         "70169": {
@@ -4055,7 +4058,7 @@
         },
         "70170": {
             "Name": "Gigant z Chmur",
-            "Info": "Za każdą Gęstą mgłę po stronie przeciwnika zyskaj Odporność na 1 turę. Na końcu każdej tury zadaj najsilniejszemu wrogowi w przeciwległym rzędzie obrażenia równe połowie bazowej siły własnej, zaokrąglając w górę, a następnie przenieś go do losowego rzędu.",
+            "Info": "Za każdą Gęstą mgłę po stronie przeciwnika zyskaj Odporność na 1 turę. Na końcu każdej tury zadaj najsilniejszemu wrogowi w przeciwległym rzędzie obrażenia równe połowie bazowej siły własnej, a następnie przenieś go do losowego rzędu.",
             "Flavor": "Wiele rzeczy spada z nieba, oprócz deszczu i śniegu. Na przykład żaby... i Gigant z Chmur."
         },
         "70171": {
@@ -4075,7 +4078,7 @@
         },
         "70174": {
             "Name": "Mag Infiltrator",
-            "Info": "Szpieg \nRozmieszczenie: Ujawnij dwie karty w ręce przeciwnika, następnie wybierz odkrytą kartę nie będącą kopią tej karty w ręce przeciwnika i stwórz jej bazową kopie. ",
+            "Info": "Szpieg. Ujawnij 2 karty w ręce przeciwnika. Wybierz wrogą brązową jednostkę albo Ujawnioną niespierającą brązową kartę jednostki i stwórz jej Przeklętą bazową kopię.",
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce - tylko po jednej z każdej pary - i podmieniając część ubrań na mniejsze."
         },
         "70175": {
@@ -4085,7 +4088,7 @@
         },
         "70176": {
             "Name": "Hybryda",
-            "Info": "Uruchom Zemstę sojuszniczej Brązowej jednostki. Następnie Pożryj sojuszniczą jednostkę i Wzmocnij się o jej siłę.",
+            "Info": "Uruchom Zemstę sojuszniczej Brązowej jednostki. Na początku następnej tury Pożryj jednostkę po prawej i Wzmocnij się o jej siłę.",
             "Flavor": "Co dwie głowy to nie jedna."
         },
         "70177": {
@@ -4232,6 +4235,11 @@
             "Name": "Ignis Fatuus",
             "Info": "Stwórz w tym rzędzie Przeklętą bazową kopię tej karty. Gdy znajduje się na polu, każda Gęsta mgła po stronie przeciwnika Osłabia zamiast zadawać obrażenia.",
             "Flavor": "Podąża za bladym światłem przez mgłę i znika przed świtem."
+        },
+        "70193": {
+            "Name": "Maskarada",
+            "Info": "Wybierz niebędącą Dowódcą jednostkę na polu i zmień jej jakość na jedną z pozostałych.",
+            "Flavor": "Tożsamość jest tylko maską, którą można zmienić."
         }
     }
 }
