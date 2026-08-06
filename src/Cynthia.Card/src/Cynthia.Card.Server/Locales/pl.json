@@ -1730,7 +1730,7 @@
         },
         "24021": {
             "Name": "Lodowy Gigant",
-            "Info": "Rozmieszczenie: Za każdy Trzaskający Mróz na polu Wzmocnij się o 3 punkty. Za każdym razem gdy na polu bitwy pojawi się Trzaskający mróz, Wzmocnij się o 3 punkty.",
+            "Info": "Za każdy Trzaskający Mróz na polu Wzmocnij się o 3. Za każdym razem, gdy na polu pojawi się Trzaskający Mróz, Wzmocnij się o 3.",
             "Flavor": "Uciekłem w życiu jeden raz. Przed lodowym gigantem. I nawet się tego nie wstydzę."
         },
         "24022": {
@@ -3630,7 +3630,7 @@
         },
         "70083": {
             "Name": "Czerwoni Jeźdźcy",
-            "Info": "Wezwij kopię tej jednostki do losowego rzędu kiedy wróg wpływem Trzaskającego Mrózu zostanie zniszczony.",
+            "Info": "Gdy 3 wrogie jednostki pod wpływem Trzaskającego Mrozu zostaną zniszczone, Wezwij tę jednostkę.",
             "Flavor": "Malują niebo bielą śniegu i szarością zamieci, a ziemię czerwienią ognia i krwi."
         },
         "70084": {
@@ -3640,7 +3640,7 @@
         },
         "70085": {
             "Name": "Barciowe Widziadło",
-            "Info": "Rozmieszczenie: Zadaj 7 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
+            "Info": "Rozmieszczenie: Zadaj 6 pkt obrażeń wrogiej jednostce. Jeśli zostanie zniszczona, rzuć na ten rząd Trzaskający Mróz.",
             "Flavor": "No, kto jest dobrym psem? Kto jest dobrym psem? Cóż, na pewno nie on."
         },
         "70086": {
@@ -3649,7 +3649,7 @@
             "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
         },
         "70088": {
-            "Name": "Potwór z bagien",
+            "Name": "Bagienny błędny ognik",
             "Info": "Rozmieszczenie: Przenieś wszystkie mglaki z cmentarza na spód swojej talii i stwórz Gęstą mgłę w przeciwległym rzędzie. ",
             "Flavor": "Przypominają zwykłe świetliki, lecz w rzeczywistości te małe lśniące cholerstwa zaprowadzą cię do pewnej zguby."
         },
@@ -3740,7 +3740,7 @@
         },
         "70106": {
             "Name": "Jaja Endriagi",
-            "Info": "Rozmieszczenie: Stwórz 1 bazową Przeklętą kopię tej karty po lewej stronie.\nZemsta: Stwórz Larwę endriagi w tym samym miejscu. Po 3 turach na początku tury zniszcz te jednostkę.",
+            "Info": "Rozmieszczenie: Stwórz po lewej 1 bazową Przeklętą kopię tej karty. Zemsta: Stwórz Larwę endriagi w tym samym rzędzie. Po 3 turach, na końcu tury, zniszcz się.",
             "Flavor": "Kiedy się je znajdzie, na wszelki wypadek lepiej puścić z dymem cały las. A potem uciekać, gdzie pieprz rośnie."
         },
         "70107": {
@@ -3775,7 +3775,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Na koniec każdej tury, zniszcz najsłabszą jednostkę o sile 5 lub niższej. 2 pkt pancerza.",
+            "Info": "2 pkt pancerza. Na końcu każdej tury zniszcz inną najsłabszą sojuszniczą jednostkę w tym rzędzie, następnie Wzmocnij się o 1 i zniszcz najsłabszego wroga w przeciwległym rzędzie o niższej sile niż twoja.",
             "Flavor": "Kiedy się tu sprowadziła, sto lat się z nią tłukli. Ale w końcu gadzina się zmęczyła, a oni zrozumieli, że łatwo jej nie wypędzą... Więc poszli na układ. Ona im nie bruździ, a w zamian dostaje czego jej trzeba."
         },
         "70114": {
@@ -3870,7 +3870,7 @@
         },
         "70133": {
             "Name": "Samotny czempion",
-            "Info": "Na końcu twojej tury, jeśli w tym rzędzie nie ma innych sojuszniczych jednostek, wzmocnij się o 1. Jeśli po twojej stronie nie ma innych sojuszniczych jednostek, wzmocnij się dodatkowo o 3.",
+            "Info": "Na końcu każdej tury, jeśli w tym rzędzie nie ma innych sojuszniczych jednostek, Wzmocnij się o 1. Jeśli po twojej stronie nie ma innych sojuszniczych jednostek, Wzmocnij się dodatkowo o 3.",
             "Flavor": "Póki czempion walczy dla świętej sprawy, póty Zakon i jego płomienie wciąż trwają w nim."
         },
         "70134": {
@@ -3935,12 +3935,12 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Rozmieszczenie, Wybierz: Zadaj 5 pkt obrażeń dwóm wrogom, lub zadaj wrogowi 8 pkt obrażeń.",
+            "Info": "Rzuć Złotą pianę na przeciwległy rząd wroga. Następnie Wykradnij każdej jednostce w tym rzędzie 2. Na początku następnej tury powtórz tę zdolność.",
             "Flavor": "Nie tylko sroki lubią błyskotki."
         },
         "70147": {
             "Name": "Wąpierz",
-            "Info": "Za każdym razem, gdy sojuszniczy wampir zniszczy jednostkę, przyzwij jedną kopie tej jednostki do losowego rzędu. Kiedy inny sojusznik z tego samego rzędu Wykradnie ta jednostka też Wykradnie celowi 1.",
+            "Info": "Kiedy inna sojusznicza jednostka w tym samym rzędzie Wykradnie, Wykradnij temu samemu celowi 1.",
             "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
@@ -3995,7 +3995,7 @@
         },
         "70158": {
             "Name": "Coën z Poviss",
-            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń. Na początku tury wzmocnij pozostałe najsłabsze sojusznicze jednostki Wiedźminów o 2. Zemsta: Stwórz Chłopa w przeciwnym rzędzie wroga.",
+            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń. Na początku każdej tury Wzmocnij pozostałe najsłabsze sojusznicze jednostki Wiedźminów o 2. Zemsta: Stwórz Chłopa w przeciwnym rzędzie wroga.",
             "Flavor": ""
         },
         "70159": {
@@ -4045,17 +4045,17 @@
         },
         "70168": {
             "Name": "Ogr Wojownik",
-            "Info": "Na koniec tury, jeśli nie kontrolujesz najsilniejszej jednostki, zadaj sobie obrażenia równe połowie swojej siły.",
+            "Info": "Na początku tury po 3 turach, jeśli kontrolujesz najsilniejszą jednostkę, Wzmocnij się o połowę swojej siły, zaokrąglając w górę.",
             "Flavor": "Ty być głupi kotlet"
         },
         "70169": {
             "Name": "Rój Nekkerów",
-            "Info": "Na koniec tury, jeśli żaden przeciwnik nie jest silniejszy niż Twój najsilniejszy Ogroid, zmniejsz licznik pierwszej kopii tej jednostki w twojej talii o 1. Gdy licznik osiągnie 0, przyzwij tę jednostkę na losowy rząd i Wzmocnij losowego sojusznika o 1.",
+            "Info": "Wzmocnij 3 sojusznicze jednostki o 1. Jeśli cel jest Ogroidem, zamiast tego Ulepsz go o 1.",
             "Flavor": "Gdy już widzisz jednego, możesz być pewny, że za nim jest dziesięć."
         },
         "70170": {
             "Name": "Gigant z Chmur",
-            "Info": "Rozmieszczenie: Jeśli kontrolujesz najsilniejszą jednostkę, zyskaj Odporność. Jeśli nie, utrać Odporność. Na początku tury powtórz efekt Rozmieszczenia.\nWytrzymałość.",
+            "Info": "Za każdą Gęstą mgłę po stronie przeciwnika zyskaj Odporność na 1 turę. Na końcu każdej tury zadaj najsilniejszemu wrogowi w przeciwległym rzędzie obrażenia równe połowie bazowej siły własnej, zaokrąglając w górę, a następnie przenieś go do losowego rzędu.",
             "Flavor": "Wiele rzeczy spada z nieba, oprócz deszczu i śniegu. Na przykład żaby... i Gigant z Chmur."
         },
         "70171": {
@@ -4085,7 +4085,7 @@
         },
         "70176": {
             "Name": "Hybryda",
-            "Info": "Rozmieszczenie: Wzmocnij nie Złotą bestię w Twojej talii o 2.\nZemsta:Wzmocnij najsłabszą nie Złotą bestię w Twojej talii o 4.",
+            "Info": "Uruchom Zemstę sojuszniczej Brązowej jednostki. Następnie Pożryj sojuszniczą jednostkę i Wzmocnij się o jej siłę.",
             "Flavor": "Co dwie głowy to nie jedna."
         },
         "70177": {
@@ -4227,6 +4227,11 @@
             "Name": "Dana Méadbh",
             "Info": "Zagraj neutralną kartę ze swojej talii.",
             "Flavor": "Jej pieśń obudziła las."
+        },
+        "70192": {
+            "Name": "Ignis Fatuus",
+            "Info": "Stwórz w tym rzędzie Przeklętą bazową kopię tej karty. Gdy znajduje się na polu, każda Gęsta mgła po stronie przeciwnika Osłabia zamiast zadawać obrażenia.",
+            "Flavor": "Podąża za bladym światłem przez mgłę i znika przed świtem."
         }
     }
 }

@@ -460,6 +460,12 @@ namespace Cynthia.Card
             source = beforeEventPackage.Source;
             damageType = beforeEventPackage.DamageType;
 
+            if (beforeEventPackage.IsWeaken)
+            {
+                await Weaken(num, source);
+                return;
+            }
+
             //如果有护盾，取消这一次的伤害
             if (Card.Status.IsShield)
             {

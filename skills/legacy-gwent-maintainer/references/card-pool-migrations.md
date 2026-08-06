@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-05
+Last verified: 2026-08-06
 
-Verified against the DIY-AI reset lineage through `1.0.0.172`.
+Verified against the DIY-AI reset lineage through `1.0.0.173`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -34,10 +34,16 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 716 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 717 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- After the August 5 batch, 142 entries are retired. Eight more DIY cards are
+- After the August 6 batch, 118 entries are retired. The August 5 cards remain
+  active, and 19 more historical DIY IDs plus new `70192` are user-deck cards:
+  `70009`, `70010`, `70022`, `70023`, `70058`, `70083`, `70085`, `70088`,
+  `70106`, `70124`, `70129`, `70132`, `70146`, `70148`, `70168`, `70169`,
+  `70176`, `70183`, `70185`, and `70192`. Dependencies `70107`, `70108`,
+  `70147`, `70186`, and `70187` are unretired but remain derived-only and must
+  stay out of the Mongo allowlist. Eight August 5 DIY cards are
   restored to user decks: `70084`, `70102`, `70113`, `70145`, `70154`, `70164`,
   `70170`, and `70177`. Original card `22003` is not in the retirement manifest
   but is derived-only, so it must still be excluded from the exact migration
@@ -79,7 +85,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 716 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 717 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

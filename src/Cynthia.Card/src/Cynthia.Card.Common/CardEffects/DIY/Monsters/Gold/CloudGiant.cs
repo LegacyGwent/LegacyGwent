@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70170")]// CloudGiant
-    public class CloudGiant : CardEffect, IHandlesEvent<AfterTurnStart>
+    public class CloudGiant : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterTurnOver>
     {
         private int _immuneTurns;
 
@@ -15,7 +15,6 @@ namespace Cynthia.Card
             _immuneTurns = Game.GameRowEffect[AnotherPlayer]
                 .Count(row => row.RowStatus == RowStatus.ImpenetrableFog);
             Card.Status.IsImmue = _immuneTurns > 0;
-            await Card.Effect.Resilience(Card);
             await Game.ShowSetCard(Card);
             return 0;            
         }
@@ -33,6 +32,50 @@ namespace Cynthia.Card
                 Card.Status.IsImmue = false;
                 await Game.ShowSetCard(Card);
             }
+        }
+
+        public async Task HandleEvent(AfterTurnOver @event)
+        {
+            if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            {
+                return;
+            }
+
+            var enemyRow = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())
+                .IgnoreConcealAndDead()
+                .WhereAllHighest()
+                .ToList();
+            if (!enemyRow.TryMessOne(out var target, Game.RNG))
+            {
+                return;
+            }
+
+            var damage = (Card.Status.Strength + 1) / 2;
+            await target.Effect.Damage(damage, Card);
+            if (!target.Status.CardRow.IsOnPlace() || target.IsDead)
+            {
+                return;
+            }
+
+            var destinationRows = new[]
+                {
+                    RowPosition.MyRow1,
+                    RowPosition.MyRow2,
+                    RowPosition.MyRow3
+                }
+                .Where(row => row != target.Status.CardRow)
+                .Where(row => Game.RowToList(target.PlayerIndex, row).Count < Game.RowMaxCount)
+                .ToList();
+            if (!destinationRows.TryMessOne(out var destinationRow, Game.RNG))
+            {
+                return;
+            }
+
+            await target.Effect.Move(
+                new CardLocation(
+                    destinationRow,
+                    Game.RowToList(target.PlayerIndex, destinationRow).Count),
+                Card);
         }
     }
 }

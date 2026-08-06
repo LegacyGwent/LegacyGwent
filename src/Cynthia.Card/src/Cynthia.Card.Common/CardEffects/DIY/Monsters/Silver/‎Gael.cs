@@ -1,68 +1,48 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Alsein.Extensions;
-using Cynthia.Card.Common.CardEffects.Neutral.Derive;
-
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70146")]//加尔 Gael "Deploy, Choose One: Deploy: Deal 5 Damage to two enemy units each or Damage an enemy by 8."
-    public class Gael : Choose
-    {//
+    [CardEffectId("70146")]//加尔 Gael
+    public class Gael : CardEffect, IHandlesEvent<AfterTurnStart>
+    {
+        private bool _repeatOnNextTurnStart;
+
         public Gael(GameCard card) : base(card) { }
-        protected override async Task<int> UseMethodByChoice(int switchCard)
+
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            switch (switchCard)
-            {
-                case 1:
-                    return await FUNCTION1();
-                case 2:
-                    return await FUNCTION2();
-            }
+            await ApplyGoldenFrothDrain();
+            _repeatOnNextTurnStart = true;
             return 0;
         }
 
-        protected override void RealInitDict()
+        public async Task HandleEvent(AfterTurnStart @event)
         {
-            methodDesDict = new Dictionary<int, string>()
+            if (!_repeatOnNextTurnStart ||
+                @event.PlayerIndex != PlayerIndex ||
+                !Card.Status.CardRow.IsOnPlace())
             {
-                {1, "Gael_1_Damage2Units"},
-                {2, "Gael_1_Damage1Unit"}
-            };
+                return;
+            }
+
+            _repeatOnNextTurnStart = false;
+            await ApplyGoldenFrothDrain();
         }
 
-        // Deal 5 Damage to two enemy units each
-        private async Task<int> FUNCTION1()
-        { 
-            var targets = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.EnemyRow);
-            if (targets.Count() == 0)
-            {
-                return 0;
-            }
+        private async Task ApplyGoldenFrothDrain()
+        {
+            var rowIndex = Card.Status.CardRow.MyRowToIndex();
+            await Game.GameRowEffect[AnotherPlayer][rowIndex]
+                .SetStatus<GoldenFrothStatus>();
+
+            var targets = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())
+                .IgnoreConcealAndDead()
+                .ToList();
             foreach (var target in targets)
             {
-                await target.Effect.Damage(5, Card);
+                await Card.Effect.Drain(2, target);
             }
-
-            return 0;
-        }
-            // Damage an enemy by 8.
-        private async Task<int> FUNCTION2()
-        {
-            var targets = await Game.GetSelectPlaceCards(Card, 1, selectMode: SelectModeType.EnemyRow);
-            if (targets.Count() == 0)
-            {
-                return 0;
-            }
-            foreach (var target in targets)
-            {
-                await target.Effect.Damage(8, Card);
-            }
-
-            return 0;
         }
     }
 }
-

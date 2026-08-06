@@ -1731,7 +1731,7 @@
         },
         "24021": {
             "Name": "Ice Giant",
-            "Info": "Deploy: For every Biting Frost on the board, Boost self by 3.\nEvery time a Biting Frost appears on the board, Boost self by 3.",
+            "Info": "For every Biting Frost on the board, Boost self by 3. Whenever Biting Frost appears on the board, Boost self by 3.",
             "Flavor": "Fled one time in my life. From the Ice Giant. And I'm not a bit ashamed."
         },
         "24022": {
@@ -3631,7 +3631,7 @@
         },
         "70083": {
             "Name": "Red Rider",
-            "Info": "Summon the first copy of this unit on a random row whenever an enemy unit that is under Biting Frost is destroyed.",
+            "Info": "After 3 enemy units under Biting Frost are destroyed, Summon this unit.",
             "Flavor": "They paint the sky with snow and the earth with fire."
         },
         "70084": {
@@ -3641,7 +3641,7 @@
         },
         "70085": {
             "Name": "The Apiarian Phantom",
-            "Info": "Deploy: Damage an enemy unit by 7. If destroyed, apply Biting Frost on that row.",
+            "Info": "Deploy: Damage an enemy unit by 6. If destroyed, apply Biting Frost on that row.",
             "Flavor": "Who's a good boy? Well, surely not him."
         },
         "70086": {
@@ -3650,7 +3650,7 @@
             "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "70088": {
-            "Name": "The Thing In The Swamp",
+            "Name": "Swamp Will-o'-the-Wisp",
             "Info": "Deploy: Move any number of Foglets in your graveyard to the bottom of your deck and apply Impenetrable Fog on the opposite row.",
             "Flavor": "Fool's fires... those little shiny thingies that shall lead thee to certain doom."
         },
@@ -3741,7 +3741,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn a doomed copy of this card on its left.\nDeathwish: Spawn an Endrega Larva on the same position.\nAfter 3 turns, on turn end, destroy self.",
+            "Info": "Deploy: Spawn a Doomed base copy of this card on its left. Deathwish: Spawn an Endrega Larva on the same row. After 3 turns, on turn end, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -3755,9 +3755,9 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Rowdy Dwarf",
+            "Name": "Dwarf Berserker",
             "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
-            "Flavor": "You can draw anything you like, my dear dwarves. But you can't build it, mark my words."
+            "Flavor": "I know I'm going to die. So I'm making sure I'll have company."
         },
         "70110": {
             "Name": "Knickers",
@@ -3776,7 +3776,7 @@
         },
         "70113": {
             "Name": "Keltullis",
-            "Info": "Every turn, on turn end, destroy the Lowest unit if its Power is 5 or lower.\n2 Armor.",
+            "Info": "2 Armor. At the end of every turn, destroy another Lowest allied unit on this row, then Boost self by 1 and destroy a Lowest enemy unit on the opposite row with lower Power than self.",
             "Flavor": "When she took roost here, they fought 'er for near a century. Then the dragon got weary o' fightin' and they realized she weren't goin' nowheres, so… they cut a deal. She dinnae bother 'em, they give 'er what she needs."
         },
         "70114": {
@@ -3871,7 +3871,7 @@
         },
         "70133": {
             "Name": "Lonely Champion",
-            "Info": "At the end of your turn, if there are no other allied units on this row, boost self by 1. If there are no other allied units on your side, boost self by an additional 3.",
+            "Info": "At the end of every turn, if there are no other allied units on this row, Boost self by 1. If there are no other allied units on your side, Boost self by an additional 3.",
             "Flavor": "So long as he continues the righteous fight, the Order and its flame endure."
         },
         "70134": {
@@ -3936,12 +3936,12 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Deploy, Choose One: Deal 5 Damage to two enemy units each; or Damage an enemy by 8.",
+            "Info": "Apply Golden Froth to the opposite enemy row. Then Drain every unit on that row by 2. At the start of your next turn, repeat this ability.",
             "Flavor": "A fondness for shiny trinkets is not a trait unique to magpies."
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever an ally Vampire destroys a unit, Summon a copy of this unit on a random row. Whenever a different ally unit on the same row Drains, Drain the target by 1.",
+            "Info": "Whenever a different allied unit on the same row Drains, Drain the same target by 1.",
             "Flavor": "One alone poses no great threat. But a dozen? Gods be with you."
         },
         "70148": {
@@ -3996,12 +3996,12 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Deploy: Deal 3 Damage. On turn start, Boost the other weakest allied Witcher units by 2. Deathwish: Spawn a Peasant on the opposite enemy row.",
+            "Info": "Deploy: Deal 3 Damage. At the start of every turn, Boost the other weakest allied Witcher units by 2. Deathwish: Spawn a Peasant on the opposite enemy row.",
             "Flavor": ""
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2 and give them Doomed.",
+            "Info": "Spawn 2 Crows. Resurrect all Crows with power equal to or less than 2.\nDoomed.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4021,7 +4021,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 1.\nRepeat up to 2 times.",
+            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 2.\nRepeat up to 2 times.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
@@ -4046,17 +4046,17 @@
         },
         "70168": {
             "Name": "Ogre Warrior",
-            "Info": "On turn end, Damage self by half if you don't have the Highest unit.",
+            "Info": "At the start of the turn after 3 turns, if you control the Highest unit, Boost self by half its Power, rounded up.",
             "Flavor": "You is idiot steak!"
         },
         "70169": {
             "Name": "Nekker Swarm",
-            "Info": "When in deck, on turn end, if this is the top copy of this unit, and if no enemy has higher Power than the Highest Ogroid ally, reduce self's counter by 1. When it reaches 0, Summon self on a random row and Boost a random ally by 1.",
+            "Info": "Boost 3 allied units by 1. If a target is an Ogroid, Strengthen it by 1 instead.",
             "Flavor": "By the time you see one, you can be sure ten are behind you."
         },
         "70170": {
             "Name": "Cloud Giant",
-            "Info": "Deploy: If you control the Highest unit, gain Immunity.\nIf you don't, lose Immunity.\nOn turn start, repeat its ability.\nResilience.",
+            "Info": "For each Impenetrable Fog on the enemy side, gain Immunity for 1 turn. At the end of every turn, Damage a Highest enemy unit on the opposite row by half self's base Power, rounded up, then move it to a random row.",
             "Flavor": "Many things fall from the sky other than rain and snow. Frogs, for example... And the Cloud Giant."
         },
         "70171": {
@@ -4081,12 +4081,12 @@
         },
         "70175": {
             "Name": "Lure Trap",
-            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 1.",
+            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 2.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
         "70176": {
             "Name": "Hybrid",
-            "Info": "Deploy: Boost a non-Gold Beast in your deck by 2.\nDeathwish: Boost the Lowest non-Gold Beast in your deck by 4.",
+            "Info": "Trigger the Deathwish of an allied Bronze unit. Then Consume an allied unit and Boost self by its Power.",
             "Flavor": "When one head just isn’t enough."
         },
         "70177": {
@@ -4101,7 +4101,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Drain all Boosts and Armor from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a Bronze or Silver unit from your deck. Crew.",
+            "Info": "Drain all Boosts from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a Bronze or Silver unit from your deck. Crew.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
@@ -4228,6 +4228,11 @@
             "Name": "Dana Méadbh",
             "Info": "Play a Neutral card from your deck.",
             "Flavor": "Her song awakened the forest."
+        },
+        "70192": {
+            "Name": "Ignis Fatuus",
+            "Info": "Spawn a Doomed base copy of self on this row. While on the board, all Impenetrable Fog on the enemy side Weakens instead of dealing damage.",
+            "Flavor": "It follows the pale light through the fog and fades before dawn."
         }
     }
 }

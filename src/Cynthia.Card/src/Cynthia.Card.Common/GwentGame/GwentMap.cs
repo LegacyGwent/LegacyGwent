@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 172);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 173);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -4232,7 +4232,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "我这辈子只当过一次逃兵，就是碰上寒冰巨人那次——我一点也没觉得丢人。",
-                    Info = "若场上任意位置有“刺骨冰霜”，则获得6点增益。",
+                    Info = "场上每有1个“刺骨冰霜”灾厄效果，便获得3点增益。每有1个“刺骨冰霜”灾厄效果出现在场上，便获得3点增益。",
                     CardArtsId = "13221200",
                     LinkedCards=new List<String> {"14005"},
                 }
@@ -11320,7 +11320,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70009", //Fleder
                     Name = "蝠翼魔",
-                    Strength = 5,
+                    Strength = 4,
                     Group = Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11341,7 +11341,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70010", //Protofleder
                     Name = "原蝠翼魔",
-                    Strength = 7,
+                    Strength = 6,
                     Group = Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12305,7 +12305,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”",
-                    Info = "在左侧生成1张具有佚亡的原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
+                    Info = "在左侧生成1张佚亡原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
                     CardArtsId = "202444",
                     LinkedCards=new List<String> {"70107"},
                 }
@@ -12316,7 +12316,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70107", //Endrega Larva
                     Name="安德莱格幼虫",
-                    Strength=5,
+                    Strength=4,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12336,9 +12336,9 @@ namespace Cynthia.Card
                 "70108",//安德莱格战士 EndregaWarrior
                 new GwentCard()
                 {
-                    CardId ="70106", //Endrega Eggs
+                    CardId ="70108", //Endrega Warrior
                     Name="安德莱格战士",
-                    Strength=7,
+                    Strength=5,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12474,7 +12474,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "2护甲。回合结束时，摧毁己方同排其他1个最弱单位，随后获得1点增益，并摧毁对方同排战力低于自身的1个最弱单位。若未摧毁己方单位，则后续效果不生效。",
+                    Info = "2护甲。每回合结束时，摧毁己方同排其他1个最弱单位，随后获得1点增益，并摧毁对方同排战力低于自身的1个最弱单位。",
                     CardArtsId = "202103",
                     LinkedCards=new List<String> {},
                 }
@@ -13224,8 +13224,8 @@ namespace Cynthia.Card
                 {
                     CardId ="70083", //Red Rider
                     Name="红骑士",
-                    Strength = 3,
-                    Group = Group.Copper,
+                    Strength = 6,
+                    Group = Group.Silver,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -13234,7 +13234,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Soldier },
                     Flavor = "白雪和烈火，是他们为天空和大地涂抹的颜色。",
-                    Info = "每当有位于“刺骨冰霜”之下的敌军单位被摧毁时，从牌组召唤第一张它的同名牌。",
+                    Info = "当有3个位于“刺骨冰霜”之下的敌军单位被摧毁时，召唤此单位。",
                     CardArtsId = "202610",
                     LinkedCards=new List<String> {},
                 }
@@ -13255,7 +13255,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Construct },
                     Flavor = "谁算好孩子？唔，他肯定不算。",
-                    Info = "对1个敌方单位造成7点伤害，若其被摧毁，则在该排降下“刺骨冰霜”。",
+                    Info = "对1个敌方单位造成6点伤害，若其被摧毁，则在该排降下“刺骨冰霜”。",
                     CardArtsId = "202609",
                     LinkedCards=new List<String> {"14005"},
                 }
@@ -13307,7 +13307,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70088", //The Thing In The Swamp
-                    Name="沼泽中的怪兽",
+                    Name="沼泽鬼火",
                     Strength=3,
                     Group=Group.Silver,
                     Faction = Faction.Monsters,
@@ -13782,7 +13782,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "只要他继续为正义而战，骑士团和烈焰就永不熄灭。",
-                    Info = "回合结束时，若同排没有其他友军单位，则获得1点增益；若场上没有其他友军单位，则额外获得3点增益。",
+                    Info = "每回合结束时，若同排没有其他友军单位，则获得1点增益；若场上没有其他友军单位，则额外获得3点增益。",
                     CardArtsId = "202639",
                     LinkedCards=new List<String> {},
                 }
@@ -14328,7 +14328,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "喜欢发光小玩意的不只有喜鹊。",
-                    Info = "对2个敌军单位造成5点伤害。",
+                    Info = "在对方同排洒下“黄金酒沫”。然后汲食该排所有单位2点战力，下回合开始时，重复此能力。",
                     CardArtsId = "202226",
                     LinkedCards=new List<String> {},
                 }
@@ -14346,10 +14346,10 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = false,
+                    IsDerive = true,
                     Categories = new Categorie[]{Categorie.Vampire},
                     Flavor = "一只构成不了什么威胁。要是有一群？那就很要命了。",
-                    Info = "友军吸血鬼单位摧毁单位时召唤一个同名牌。同排友军非同名单位汲取时，汲取相同目标1点战力。",
+                    Info = "同排友军非同名单位汲食时，汲食相同目标1点战力。",
                     CardArtsId = "202231",
                     LinkedCards=new List<String> {},
                 }
@@ -14580,7 +14580,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "造成3点伤害。回合开始时，使其他最弱的友军猎魔人单位获得2点增益。遗愿：在对方同排生成1个“农民”单位。",
+                    Info = "造成3点伤害。每回合开始时，使其他最弱的友军猎魔人单位获得2点增益。遗愿：在对方同排生成1个“农民”单位。",
                     CardArtsId = "c10000800",
                     LinkedCards=new List<String> {},
                 }
@@ -14739,17 +14739,18 @@ namespace Cynthia.Card
                 {
                     CardId ="70168", //Ogre Warrior
                     Name="食人魔战士",
-                    Strength=13,
+                    Strength=8,
+                    Countdown=3,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "你！蠢货！肉排！",
-                    Info = "回合结束时，如果未控制最高战力单位，则对自身造成一半战力的伤害。",
+                    Info = "3回合后的回合开始时，若控制最高战力单位，则获得自身战力一半的增益（向上取整）。",
                     CardArtsId = "203267",
                     LinkedCards=new List<String> {},
                 }
@@ -14760,18 +14761,17 @@ namespace Cynthia.Card
                 {
                     CardId ="70169", //Nekker Swarm
                     Name="水生孽鬼",
-                    Strength=2,
-                    Countdown=2,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "当你看到一个水生孽鬼时，你可以确定有十个在后面跟着你。",
-                    Info = "当位于牌组时，回合结束时，如果你拥有最高战力单位且是食人魔，位于牌组顺序最靠前的水生孽鬼计数-1，当计数为0时从卡组召唤自身到随机排，并随机增益友方单位1点。",
+                    Info = "使3个友军单位各获得1点增益，如果该单位是食人魔，改为获得强化。",
                     CardArtsId = "r600000",
                     LinkedCards=new List<String> {},
                 }
@@ -14782,7 +14782,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70170", //Cloud Giant
                     Name="云顶巨人",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14792,7 +14792,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "天空中除了雨和雪，还有很多东西会掉下来。比如青蛙...还有云顶巨人。",
-                    Info = "坚韧。对方半场每有1个“蔽日浓雾”灾厄效果，便获得1回合免疫。",
+                    Info = "对方半场每有1个“蔽日浓雾”灾厄效果，便获得1回合免疫。每回合结束时，对对方同排战力最强的1个敌军单位造成等同于自身基础战力一半的伤害（向上取整），并将其移动至随机排。",
                     CardArtsId = "c10000900",
                     LinkedCards=new List<String> {},
                 }
@@ -14917,9 +14917,8 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
-                    HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "当一个头不够时。",
-                    Info = "部署：使卡组中的一个野兽单位获得2点增益。遗愿：使卡组中战力最低的野兽获得4点增益。",
+                    Info = "触发1个友军铜色单位的遗愿效果。然后吞噬1个友军单位，并获得其战力的增益。",
                     CardArtsId = "202856",
                     LinkedCards=new List<String> {},
                 }
@@ -15099,7 +15098,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70185", //Noon Wraith
                     Name="日间妖灵",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15365,6 +15364,27 @@ namespace Cynthia.Card
                     Flavor = "她的歌声唤醒了森林。",
                     Info = "从牌组打出1张中立牌。",
                     CardArtsId = "203195",
+                    LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70192",//伊格尼斯·法图斯 Ignis Fatuus
+                new GwentCard()
+                {
+                    CardId = "70192",
+                    Name = "伊格尼斯·法图斯",
+                    Strength = 6,
+                    Group = Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Relict },
+                    Flavor = "",
+                    Info = "在所在排生成1张自身的佚亡原始同名牌。使对方场上所有的“蔽日浓雾”造成的伤害改为削弱。",
+                    CardArtsId = "202680",
                     LinkedCards = new List<String> {},
                 }
             },

@@ -7,6 +7,7 @@ namespace Cynthia.Card
         public GameCard Source { get; set; }
         public int Num { get; set; }
         public bool IsCancel { get; set; } = false;
+        public bool IsWeaken { get; set; } = false;
         public DamageType DamageType { get; set; }
 
         public BeforeCardDamage(GameCard target, int num, GameCard source, DamageType damageType)

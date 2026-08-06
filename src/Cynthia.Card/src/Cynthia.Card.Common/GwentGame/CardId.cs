@@ -677,6 +677,7 @@ namespace Cynthia.Card
         public const string KingChrum = "70190";
         public const string Meve = "70045";
         public const string DanaMeadbh = "70191";
+        public const string IgnisFatuus = "70192";
 
     }
 }

@@ -122,3 +122,13 @@ free Banish, Olgierd's round-start return, Imlerith under Frost, unrestricted
 Dettlaff cemetery rarities, per-copy Sir Scratch-a-Lot triggers, Cloud Giant's
 Fog-duration Immunity, both Keltullis branches, and Tatterwing's all-unit row
 movement.
+
+The August 6 scenarios cover Ignis Fatuus's non-recursive Doomed copy and
+idempotent Fog-to-Weaken conversion with Shield preservation; Cloud Giant's
+owner-only turn-end damage and survivor movement; Gael's deploy plus exactly
+one next-turn repeat; Red Rider's three Frost-death threshold and round-cleanup
+exclusion; Water Hag's Boost/Strength split; Ogre Warrior's one-shot third-turn
+check; Hybrid's Deathwish-before-Consume ordering; and Apiarian Phantom's
+kill-gated Frost. When testing a card with private deploy-to-event state, raise
+both `CardPlayEffect` and the later event through `Card.Effects`; calling the
+separate legacy `Card.Effect` instance gives a false negative.

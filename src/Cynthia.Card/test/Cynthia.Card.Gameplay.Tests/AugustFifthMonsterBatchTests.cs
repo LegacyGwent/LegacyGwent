@@ -141,7 +141,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await giant.Effects.RaiseEvent(new CardPlayEffect(false, false));
             Assert.True(giant.Status.IsImmue);
-            Assert.True(giant.Status.IsResilience);
+            Assert.False(giant.Status.IsResilience);
 
             await giant.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(giant.Status.IsImmue);
