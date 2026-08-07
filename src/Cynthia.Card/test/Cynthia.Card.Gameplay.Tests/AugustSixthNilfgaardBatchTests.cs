@@ -217,31 +217,6 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task MasqueradeChangesRarityAndEndsCleanlyWithoutTargets()
-        {
-            var fixture = new HeadlessGameFixture();
-            var masquerade = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Masquerade, RowPosition.MyHand);
-            var target = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1);
-            await fixture.SynchronizeClientsAsync();
-
-            await masquerade.Effect.CardUseEffect();
-
-            Assert.Equal(Group.Gold, target.Status.Group);
-            Assert.Equal(1, target.CardPoint());
-
-            var emptyFixture = new HeadlessGameFixture();
-            var emptyMasquerade = emptyFixture.AddCard(
-                emptyFixture.Game.Player1Index, CardId.Masquerade, RowPosition.MyHand);
-            await emptyFixture.SynchronizeClientsAsync();
-
-            var result = await emptyMasquerade.Effect.CardUseEffect();
-
-            Assert.Equal(0, result);
-        }
-
-        [Fact]
         public async Task OddHalfValuesAlwaysRoundUpForRepresentativeEffects()
         {
             var spotterFixture = new HeadlessGameFixture();

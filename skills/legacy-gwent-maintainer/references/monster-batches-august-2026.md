@@ -1,6 +1,6 @@
 # August 2026 monster card batches
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
 Load this reference for the August 5 or August 6 DIY-AI Monster changes.
 
@@ -49,8 +49,10 @@ Load this reference for the August 5 or August 6 DIY-AI Monster changes.
 - Red Rider is a 6-power Silver and listens from the deck. It summons after the
   third enemy unit is destroyed from a Biting Frost row; round-end cemetery
   cleanup does not count. Apiarian Phantom deals 6 and applies Biting Frost
-  only when the target has actually left the battlefield—checking `IsDead`
-  after `Damage` is unreliable because cemetery movement repairs card state.
+  only on a lethal hit. After `Damage`, accept either a target already off the
+  battlefield or one still queued on its row with non-positive power: checking
+  only `CardRow` misses live queued deaths, while checking only `IsDead` misses
+  a target already repaired in the cemetery.
 - Gael applies Golden Froth to the opposite row, Drains every unit there by 2,
   and repeats exactly once at the next owner turn start. Plumard is derived-only
   and only echoes a different same-row ally's Drain for 1; its old self-summon

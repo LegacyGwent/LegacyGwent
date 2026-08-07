@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(104, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(105, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 174), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 175), GwentMap.CardMapVersion);
             Assert.Equal(718, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -1035,6 +1035,18 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("随机隐匿1张铜色手牌", GwentMap.CardMap["70152"].Info);
             Assert.Contains("下回合开始时，吞噬右侧单位", GwentMap.CardMap[CardId.Hybrid].Info);
             Assert.Contains("本小局", GwentMap.CardMap["70184"].Info);
+            Assert.Equal(
+                "检视对方牌组，将其中1张牌置于底端，并改变它的锁定状态。",
+                GwentMap.CardMap["32002"].Info);
+            Assert.Equal(
+                "对1个敌军单位造成8点无视护甲的伤害，再对1个敌军单位造成8点无视护甲的伤害。",
+                GwentMap.CardMap["32015"].Info);
+            Assert.Equal(
+                "对1个敌军单位造成7点无视护甲的伤害，若其具有增益则改为造成10点无视护甲的伤害。",
+                GwentMap.CardMap["70156"].Info);
+            Assert.DoesNotContain(
+                GwentMap.CardMap.Values,
+                card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
 
             var masquerade = GwentMap.CardMap[CardId.Masquerade];
             Assert.Equal("化妆舞会", masquerade.Name);
@@ -1043,7 +1055,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(CardType.Special, masquerade.CardType);
             Assert.Contains(Categorie.Tactic, masquerade.Categories);
             Assert.Equal("d19930000", masquerade.CardArtsId);
-            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Masquerade));
+            Assert.Contains(CardId.Masquerade, DiyAiCardPool.RetiredCardIds);
+            Assert.True(masquerade.IsDerive);
+            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.Masquerade));
             Assert.Equal(typeof(Masquerade), new GwentCardDataService().GetType(CardId.Masquerade));
             Assert.True(File.Exists(FindRepositoryFile(
                 "src/Cynthia.Card/src/Cynthia.Card.Server/wwwroot/scale/d19930000.png")));
@@ -1076,8 +1090,9 @@ namespace Cynthia.Card.Server.Tests
             };
             var changedIds = new[]
             {
-                "13044", "32015", "33009", "33020", "34004", "34021", "34024", "70062", "70072",
-                "70103", "70152", "70168", "70170", "70174", "70176", "70184", "70193"
+                "13044", "32002", "32015", "33009", "33020", "34004", "34021", "34024", "70062", "70072",
+                "70103", "70132", "70145", "70148", "70152", "70156", "70168", "70170", "70174", "70176",
+                "70183", "70184", "70193"
             };
             Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
             {
@@ -1102,6 +1117,14 @@ namespace Cynthia.Card.Server.Tests
             {
                 Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
                 Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+            Assert.All(localeRoots, root =>
+            {
+                var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                    FindRepositoryFile($"{root}/cn.json")));
+                Assert.DoesNotContain(
+                    locale.CardLocales.Values,
+                    card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
             });
         }
 

@@ -261,11 +261,14 @@ namespace Cynthia.Card.Gameplay.Tests
             lethal.AddCard(lethal.Game.Player1Index, CardId.IgnisFatuus, RowPosition.MyRow1);
             var lethalPhantom = lethal.AddCard(
                 lethal.Game.Player1Index, "70085", RowPosition.MyRow1);
+            await lethal.Game.GameRowEffect[lethal.Game.Player2Index][1]
+                .SetStatus<ImpenetrableFogStatus>();
             lethal.AddCard(
                 lethal.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, strength: 6);
             await lethal.SynchronizeClientsAsync();
 
-            await lethalPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+            await lethal.Game.AddTask(async () =>
+                await lethalPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
             Assert.Equal(RowStatus.BitingFrost, lethal.Game.GameRowEffect[lethal.Game.Player2Index][1].RowStatus);
             Assert.Equal(RowStatus.None, lethal.Game.GameRowEffect[lethal.Game.Player2Index][0].RowStatus);
@@ -275,35 +278,44 @@ namespace Cynthia.Card.Gameplay.Tests
             surviving.AddCard(surviving.Game.Player1Index, CardId.IgnisFatuus, RowPosition.MyRow1);
             var survivingPhantom = surviving.AddCard(
                 surviving.Game.Player1Index, "70085", RowPosition.MyRow1);
+            await surviving.Game.GameRowEffect[surviving.Game.Player2Index][1]
+                .SetStatus<ImpenetrableFogStatus>();
             surviving.AddCard(
                 surviving.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow2, strength: 7);
             await surviving.SynchronizeClientsAsync();
 
-            await survivingPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+            await surviving.Game.AddTask(async () =>
+                await survivingPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.Equal(RowStatus.None, surviving.Game.GameRowEffect[surviving.Game.Player2Index][1].RowStatus);
+            Assert.Equal(RowStatus.ImpenetrableFog, surviving.Game.GameRowEffect[surviving.Game.Player2Index][1].RowStatus);
 
             var noIgnis = new HeadlessGameFixture();
             var ordinaryPhantom = noIgnis.AddCard(
                 noIgnis.Game.Player1Index, "70085", RowPosition.MyRow1);
+            await noIgnis.Game.GameRowEffect[noIgnis.Game.Player2Index][1]
+                .SetStatus<ImpenetrableFogStatus>();
             noIgnis.AddCard(
                 noIgnis.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, strength: 6);
             await noIgnis.SynchronizeClientsAsync();
 
-            await ordinaryPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+            await noIgnis.Game.AddTask(async () =>
+                await ordinaryPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
             Assert.Equal(RowStatus.BitingFrost, noIgnis.Game.GameRowEffect[noIgnis.Game.Player2Index][1].RowStatus);
 
             var ordinarySurvivor = new HeadlessGameFixture();
             var ordinarySurvivingPhantom = ordinarySurvivor.AddCard(
                 ordinarySurvivor.Game.Player1Index, "70085", RowPosition.MyRow1);
+            await ordinarySurvivor.Game.GameRowEffect[ordinarySurvivor.Game.Player2Index][1]
+                .SetStatus<ImpenetrableFogStatus>();
             ordinarySurvivor.AddCard(
                 ordinarySurvivor.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow2, strength: 7);
             await ordinarySurvivor.SynchronizeClientsAsync();
 
-            await ordinarySurvivingPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false));
+            await ordinarySurvivor.Game.AddTask(async () =>
+                await ordinarySurvivingPhantom.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.Equal(RowStatus.None, ordinarySurvivor.Game.GameRowEffect[ordinarySurvivor.Game.Player2Index][1].RowStatus);
+            Assert.Equal(RowStatus.ImpenetrableFog, ordinarySurvivor.Game.GameRowEffect[ordinarySurvivor.Game.Player2Index][1].RowStatus);
         }
 
         [Fact]

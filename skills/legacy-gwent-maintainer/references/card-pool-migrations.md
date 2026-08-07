@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
-Verified against the DIY-AI reset lineage through `1.0.0.174`.
+Verified against the DIY-AI reset lineage through `1.0.0.175`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -37,7 +37,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 - Current map: 718 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- After the August 6 Nilfgaard batch, 104 entries are retired. The August 5 cards remain
+- After the `1.0.0.175` hotfix, 105 entries are retired. The August 5 cards remain
   active, and 19 more historical DIY IDs plus new `70192` are user-deck cards:
   `70009`, `70010`, `70022`, `70023`, `70058`, `70083`, `70085`, `70088`,
   `70106`, `70124`, `70129`, `70132`, `70146`, `70148`, `70168`, `70169`,
@@ -55,9 +55,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   the `Special + Alchemy` categories.
 - The August 6 Nilfgaard restoration additionally makes these 14 historical DIY
   IDs deckable: `70004`, `70012`, `70103`, `70111`, `70115`, `70123`, `70127`,
-  `70150`, `70151`, `70152`, `70153`, `70165`, `70174`, and `70184`. New card
-  `70193` (Masquerade) is appended and deckable; it is never inserted into an
-  older map slot.
+  `70150`, `70151`, `70152`, `70153`, `70165`, `70174`, and `70184`. Card
+  `70193` (Masquerade) remains an appended historical slot but is retired and
+  removed in place from decks and blacklists; it must never be deleted,
+  reordered, or reused.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.
