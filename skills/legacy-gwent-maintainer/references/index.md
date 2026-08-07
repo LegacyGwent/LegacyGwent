@@ -11,6 +11,7 @@ Read this file first, then load only the rows relevant to the task.
 | Card identity, selected DIY effects, balance variants, generate rules | [card-rules.md](card-rules.md) | Verified card-specific behavior |
 | August 5-6 Monster card batches | [monster-batches-august-2026.md](monster-batches-august-2026.md) | Restored pool, effects, and edge conditions |
 | August 6 Nilfgaard/global card batch | [nilfgaard-batch-august-2026.md](nilfgaard-batch-august-2026.md) | Restored pool, effects, rounding rule, and regressions |
+| August 7 Northern Realms/global card batch | [northern-realms-batch-august-2026.md](northern-realms-batch-august-2026.md) | Restored pool, delayed effects, armor transfer, and lock timing |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
 | Rule cards, mode menu, deck editor and generic HUD acceptance | [rule-framework-ux.md](rule-framework-ux.md) | Durable architecture and visual QA checklist |

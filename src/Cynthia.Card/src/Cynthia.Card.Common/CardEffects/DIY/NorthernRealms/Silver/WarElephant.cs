@@ -11,28 +11,30 @@ namespace Cynthia.Card
         public WarElephant(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            int damagenum = 0;
-            var list = Card.GetRangeCard(1, type: GetRangeType.HollowAll).ToList();
-            if (list.Count() == 0)
-            {
-                return 0;
-            }
-            foreach (var card in list)
+            var armorTotal = 0;
+            var cards = Card.GetRangeCard(1, type: GetRangeType.HollowAll)
+                .Append(Card)
+                .ToList();
+            foreach (var card in cards)
             {
                 if (card.Status.Armor > 0)
                 {
-                    damagenum = damagenum + card.Status.Armor;
-                    await card.Effect.Damage(card.Status.Armor, Card);
+                    var removedArmor = card.Status.Armor;
+                    armorTotal += removedArmor;
+                    card.Status.Armor = 0;
+                    await Game.ShowCardIconEffect(card, CardIconEffectType.BreakArmor);
+                    await Game.SendEvent(new AfterCardSubArmor(card, removedArmor, Card));
+                    await Game.ShowSetCard(card);
+                    await Game.SendEvent(new AfterCardArmorBreak(card, Card));
                 }
             }
-            if (Card.Status.Armor > 0)
+            if (armorTotal <= 0)
             {
-                damagenum = damagenum + Card.Status.Armor;
-                await Card.Effect.Damage(Card.Status.Armor, Card);
+                return 0;
             }
             var result2 = await Game.GetSelectPlaceCards(Card);
             if (result2.Count <= 0) return 0;
-            await result2.Single().Effect.Damage(damagenum, Card);
+            await result2.Single().Effect.Damage(armorTotal, Card);
             return 0;
         }
     }

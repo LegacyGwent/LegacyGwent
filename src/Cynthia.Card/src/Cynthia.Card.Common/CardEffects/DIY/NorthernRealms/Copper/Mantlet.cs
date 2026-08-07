@@ -14,10 +14,7 @@ namespace Cynthia.Card
             {
                 for (var i = 0; i < 1 + Card.GetCrewedCount(); i++)
                 {
-                    if (i > 0)
-                    {
-                        await Card.Effect.Armor(6, Card);
-                    }
+                    await Card.Effect.Armor(6, Card);
                 }
             }
             return 0;
@@ -29,25 +26,23 @@ namespace Cynthia.Card
                 return;
             }
 
-            var currentRow = Card.Status.CardRow;
-            var arrornum = Card.Status.Armor;
-            var taget = Card.GetRangeCard(1, GetRangeType.HollowRight);
-            if (taget.Count() == 0 || taget.Single().Status.Conceal)
+            var armor = Card.Status.Armor;
+            var adjacentCards = Card.GetRangeCard(1, GetRangeType.HollowAll);
+            if (!adjacentCards.Contains(@event.Target))
             {
                 return;
             }
-            if (@event.Target == taget.Single() && @event.Target.PlayerIndex == Card.PlayerIndex && @event.Target != Card && arrornum > 0)
+            if (@event.Target.PlayerIndex == Card.PlayerIndex && @event.Target != Card && armor > 0)
             {
-                if(@event.Num >= arrornum)
+                var absorbed = System.Math.Min(@event.Num, armor);
+                @event.Num -= absorbed;
+                Card.Status.Armor -= absorbed;
+                await Game.ShowCardIconEffect(Card, CardIconEffectType.BreakArmor);
+                await Game.SendEvent(new AfterCardSubArmor(Card, absorbed, @event.Source));
+                await Game.ShowSetCard(Card);
+                if (Card.Status.Armor == 0)
                 {
-                    @event.Num=@event.Num-arrornum;
-                    await Card.Effect.Damage(arrornum, Card);
-                }
-                if(@event.Num < arrornum)
-                {
-                   
-                    await Card.Effect.Damage(@event.Num, Card);
-                    @event.Num=0;
+                    await Game.SendEvent(new AfterCardArmorBreak(Card, @event.Source));
                 }
                 return;
             }

@@ -115,7 +115,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task GaelDrainsTheOppositeRowOnDeployAndExactlyOnceNextTurn()
+        public async Task GaelDrainsTheOppositeRowOnDeployAndExactlyOnceAfterThreeOwnerTurns()
         {
             var fixture = new HeadlessGameFixture();
             var gael = fixture.AddCard(
@@ -136,6 +136,14 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player2Index));
             Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
+
+            await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
+            Assert.Equal(4, gael.Status.HealthStatus);
+
+            await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
+            Assert.Equal(4, gael.Status.HealthStatus);
 
             await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.All(enemies, enemy => Assert.Equal(-4, enemy.Status.HealthStatus));

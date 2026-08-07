@@ -2,7 +2,7 @@
 
 Last verified: 2026-08-07
 
-Verified against the DIY-AI reset lineage through `1.0.0.175`.
+Verified against the DIY-AI reset lineage through `1.0.0.176`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -37,7 +37,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 - Current map: 718 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
-- After the `1.0.0.175` hotfix, 105 entries are retired. The August 5 cards remain
+- After the `1.0.0.176` restoration, 84 entries are retired. The August 5 cards remain
   active, and 19 more historical DIY IDs plus new `70192` are user-deck cards:
   `70009`, `70010`, `70022`, `70023`, `70058`, `70083`, `70085`, `70088`,
   `70106`, `70124`, `70129`, `70132`, `70146`, `70148`, `70168`, `70169`,
@@ -59,6 +59,12 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   `70193` (Masquerade) remains an appended historical slot but is retired and
   removed in place from decks and blacklists; it must never be deleted,
   reordered, or reused.
+- The August 7 first batch additionally restores 21 historical DIY IDs as
+  user-deck cards: `70017`, `70024`, `70033`, `70050`, `70076`, `70077`,
+  `70078`, `70086`, `70094`, `70095`, `70101`, `70104`, `70118`, `70126`,
+  `70130`, `70141`, `70142`, `70143`, `70144`, `70163`, and `70188`.
+  Their CardMap slots were already present; restore availability without
+  appending or reordering any of the 718 entries.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.

@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("44025")]//中邪的女术士
     public class DamnedSorceress : CardEffect
-    {//若同排有1个“诅咒生物”单位，则造成7点伤害。
+    {//若同排有“诅咒生物”单位，造成7点伤害。同排每有1个“诅咒生物”单位，伤害提高1点。
         public DamnedSorceress(GameCard card) : base(card) { }
         public override async Task CardDownEffect(bool isSpying, bool isReveal)
         {
@@ -18,7 +18,7 @@ namespace Cynthia.Card
                 {
                     return;
                 }
-                await target.Effect.Damage(7, Card);
+                await target.Effect.Damage(6 + list.Count(), Card);
             }
             return;
         }

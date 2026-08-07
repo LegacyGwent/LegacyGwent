@@ -27,7 +27,8 @@ namespace Cynthia.Card
             foreach (var card in cards)
             {
                 var targets = cards.Single();
-                var point = targets.CardPoint() - targets.Status.Strength;
+                var point = System.Math.Max(0, targets.CardPoint() - targets.Status.Strength);
+                point = (point + 1) / 2;
                 await Card.Effect.Boost(point, Card);
             }
             return 0;

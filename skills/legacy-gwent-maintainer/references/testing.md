@@ -123,8 +123,8 @@ assertions.
 
 The August 4 scenarios verify Living Armor preserving the original An Craite
 Greatsword through lethal-looking damage and allowing its engine to trigger;
-Calanthe consuming positive Boost without going through the damage pipeline,
-while leaving Armor and Shield untouched; Meve and Anna's restored DIY
+Calanthe transferring positive Boost and Armor without going through the damage
+pipeline, then repairing and replaying the selected unit; Meve and Anna's restored DIY
 behavior; Dana directly playing a Neutral Gold; and Dana chaining Royal Decree
 while Roach correctly summons for a played Gold unit but not a summoned one.
 The second-batch scenarios cover Gascon self-exclusion, Albastra wings and
@@ -143,7 +143,7 @@ movement.
 The August 6 scenarios cover Ignis Fatuus's non-recursive Doomed copy and
 idempotent Fog-to-Weaken conversion with Shield preservation; Cloud Giant's
 owner-only turn-end damage and survivor movement; Gael's deploy plus exactly
-one next-turn repeat; Red Rider's three Frost-death threshold and round-cleanup
+one repeat after three owner turn starts; Red Rider's three Frost-death threshold and round-cleanup
 exclusion; Water Hag's Boost/Strength split; Ogre Warrior's one-shot third-turn
 check; Hybrid's Deathwish-before-Consume ordering; and Apiarian Phantom's
 kill-gated Frost. When testing a card with private deploy-to-event state, raise
@@ -160,3 +160,11 @@ crossed with lethal/nonlethal exact-6 damage against a target already under Fog.
 Lethal cases replace Fog with Frost; nonlethal cases retain Fog. Accept either
 off-board state or non-positive power after damage because the cemetery move may
 be pending or already repaired.
+
+The August 7 first-batch scenarios cover Cupbearer selecting only revealed
+Bronze hand cards, Gael's three-owner-turn delay, Calanthe's direct Boost/Armor
+transfer, both-sided Mantlet protection, Immortal Cavalry's lock-silenced
+cadence, odd/even Lyrian Cavalry rounding, unlimited Reynard activations, and
+War Elephant consuming its own Armor without requiring adjacent allies. Use
+`Game.SendEvent` for Immortal Cavalry: direct `Effects.RaiseEvent` bypasses the
+production dispatcher rule that locked cards do not receive events.

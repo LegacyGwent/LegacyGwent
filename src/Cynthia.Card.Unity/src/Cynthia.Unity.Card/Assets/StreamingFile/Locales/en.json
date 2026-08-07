@@ -3600,7 +3600,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add on its row a 2 base Strength copy of each Locked Bronze unit on the board.\nWhenever any Bronze unit is Locked during your turn, add a 2 base Strength copy of it in the same row as this unit.",
+            "Info": "Deploy: Add a 2-power Doomed base copy of each Locked Bronze unit on this row. Whenever a Bronze unit is Locked during your turn, add its 2-power Doomed base copy on this row.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3685,7 +3685,7 @@
         },
         "70094": {
             "Name": "Lyrian Cavalry",
-            "Info": "Deploy: Choose a unit from your deck and Boost self by the amount that unit is Boosted.",
+            "Info": "Deploy: Choose a unit in your deck and Boost self by half that unit's Boost.",
             "Flavor": "A horseman's worth no less than his steed. And Lyrian horses are among the Continent's best."
         },
         "70095": {
@@ -3720,7 +3720,7 @@
         },
         "70101": {
             "Name": "Immortal Cavalry",
-            "Info": "Single-Use.\nAt the start of the game, lock self. Next time an ally appears Boost it by 3.",
+            "Info": "At the start of the game, toggle this unit's Lock. Every 2 allied turn starts, toggle this unit's Lock.",
             "Flavor": "Maybe camels aren't as swift as horses… but at least they don't die after two days in the desert."
         },
         "70102": {
@@ -3860,7 +3860,7 @@
         },
         "70130": {
             "Name": "Mantlet",
-            "Info": "When the unit on the right takes Damage, if this unit has Armor, Damage this unit until it has no more Armor instead then transfer the excess Damage to the unit on the right.\nCrewed: Gain 6 Armor.",
+            "Info": "When an adjacent unit takes Damage, deduct it from this unit's Armor first. Gain 6 Armor. Crewed: Trigger this ability again.",
             "Flavor": "Something like the bastard child of a shield and a palisade."
         },
         "70131": {
@@ -3940,7 +3940,7 @@
         },
         "70146": {
             "Name": "Gael",
-            "Info": "Apply Golden Froth to the opposite enemy row. Then Drain every unit on that row by 2. At the start of your next turn, repeat this ability.",
+            "Info": "Apply Golden Froth to the opposite enemy row, then Drain every unit on that row by 2. At the start of your third subsequent turn, repeat this ability.",
             "Flavor": "A fondness for shiny trinkets is not a trait unique to magpies."
         },
         "70147": {
@@ -3970,7 +3970,7 @@
         },
         "70152": {
             "Name": "Van Moorlehem's Cup bearer",
-            "Info": "At the start of every turn, randomly Conceal a Bronze card in your hand and Boost it by 1.",
+            "Info": "At the start of every turn, randomly Conceal a Bronze card in your hand, then Boost it by 1.",
             "Flavor": "My specialty? Tartar. Of what? Ah, that depends on the host's mood…"
         },
         "70153": {
@@ -4025,7 +4025,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "On turn end, if it has at least 3 Boosts, Gain Armor equal to its Boosts, then Reset self and Boost all allies on the same row by 2.\nRepeat up to 2 times.",
+            "Info": "At the end of every allied turn, if this unit has at least 3 Boost, convert its Boost into Armor, then Boost other allies on this row by 2.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
@@ -4105,7 +4105,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Drain all Boosts from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a Bronze or Silver unit from your deck. Crew.",
+            "Info": "Gain all Boost and Armor from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a Bronze or Silver unit from your deck. Crew.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
@@ -4150,7 +4150,7 @@
         },
         "70188": {
             "Name": "Bronibor",
-            "Info": "Spawn and play a Poor Fucking Infantry then for each soldier on the board, Damage a random enemy by 1.",
+            "Info": "Spawn a Poor Fucking Infantry, then for each allied Soldier on the board, Damage a random enemy by 1.",
             "Flavor": "Here, outside this village, whose name I have forgotten, you will finally show how much worth you have as an army."
         },
         "70190": {
