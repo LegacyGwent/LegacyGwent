@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(105, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(84, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 175), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 176), GwentMap.CardMapVersion);
             Assert.Equal(718, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -541,7 +541,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
             Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);
             Assert.Equal(
-                "汲食1个友军铜色/银色非间谍单位的所有增益，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
+                "获得1个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
                 GwentMap.CardMap[CardId.QueenCalanthe].Info);
 
             var dataService = new GwentCardDataService();
@@ -1125,6 +1125,88 @@ namespace Cynthia.Card.Server.Tests
                 Assert.DoesNotContain(
                     locale.CardLocales.Values,
                     card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
+            });
+        }
+
+        [Fact]
+        public void AugustSeventhFirstBatchMatchesRulesPoolAndLocales()
+        {
+            var restoredIds = new[]
+            {
+                "70017", "70024", "70033", "70050", "70076", "70077", "70078",
+                "70086", "70094", "70095", "70101", "70104", "70118", "70126",
+                "70130", "70141", "70142", "70143", "70144", "70163", "70188"
+            };
+            Assert.All(restoredIds, id =>
+            {
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.False(GwentMap.CardMap[id].IsDerive);
+            });
+
+            Assert.Equal(7, GwentMap.CardMap["13012"].Strength);
+            Assert.Equal("造成3、2、1点伤害。", GwentMap.CardMap["13012"].Info);
+            Assert.Equal(10, GwentMap.CardMap["43003"].Strength);
+            Assert.Contains(Categorie.Soldier, GwentMap.CardMap["43003"].Categories);
+            Assert.Equal(5, GwentMap.CardMap["43015"].Strength);
+            Assert.Equal(2, GwentMap.CardMap["43017"].Strength);
+            Assert.Equal(7, GwentMap.CardMap["70076"].Strength);
+            Assert.Equal(8, GwentMap.CardMap["70094"].Strength);
+            Assert.Contains("一半", GwentMap.CardMap["70094"].Info);
+            Assert.Equal(7, GwentMap.CardMap["70126"].Strength);
+            Assert.Equal(7, GwentMap.CardMap["70130"].Strength);
+            Assert.Equal(new[] { Categorie.Soldier }, GwentMap.CardMap["70101"].Categories);
+            Assert.Contains("每2回合开始时", GwentMap.CardMap["70101"].Info);
+            Assert.True(GwentMap.CardMap["70146"].IsCountdown);
+            Assert.Equal(3, GwentMap.CardMap["70146"].Countdown);
+            Assert.Contains("3回合后的回合开始时", GwentMap.CardMap["70146"].Info);
+            Assert.Contains("随后使其获得1点增益", GwentMap.CardMap["70152"].Info);
+            Assert.False(GwentMap.CardMap["70163"].IsCountdown);
+            Assert.DoesNotContain("生效3次", GwentMap.CardMap["70163"].Info);
+            Assert.Contains("所有增益和护甲", GwentMap.CardMap["70179"].Info);
+            Assert.DoesNotContain("生成并打出", GwentMap.CardMap["70188"].Info);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(Myrgtabrakke), dataService.GetType("13012"));
+            Assert.Equal(typeof(Roach), dataService.GetType("13001"));
+            Assert.Equal(typeof(Ves), dataService.GetType("43002"));
+            Assert.Equal(typeof(Trollololo), dataService.GetType("43003"));
+            Assert.Equal(typeof(Winch), dataService.GetType("44033"));
+            Assert.Equal(typeof(Gael), dataService.GetType("70146"));
+            Assert.Equal(typeof(QueenCalanthe), dataService.GetType("70179"));
+            Assert.Equal(typeof(Mantlet), dataService.GetType("70130"));
+            Assert.Equal(typeof(ImmortalCavalry), dataService.GetType("70101"));
+
+            var changedIds = new[]
+            {
+                "13001", "13012", "43002", "43003", "43015", "43017", "44025",
+                "44033", "70076", "70094", "70101", "70126", "70130", "70146",
+                "70152", "70163", "70179", "70188"
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(changedIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
             });
         }
 

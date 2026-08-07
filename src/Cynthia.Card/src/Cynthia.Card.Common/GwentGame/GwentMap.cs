@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 175);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 176);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1346,7 +1346,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "永远别想分开母龙和她的孩子。",
-                    Info = "造成2点伤害，再重复2次。",
+                    Info = "造成3、2、1点伤害。",
                     CardArtsId = "11220500",
                     LinkedCards=new List<String> {},
                 }
@@ -1514,7 +1514,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。",
-                    Info = "己方从手牌打出金色单位牌时，召唤此单位。",
+                    Info = "己方打出金色单位牌时，召唤此单位。",
                     CardArtsId = "11221000",
                     LinkedCards=new List<String> {},
                 }
@@ -6805,7 +6805,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
                     Flavor = "宁似帝王快活一天，强如乞丐苟活一世。",
-                    Info = "交换最多2张牌。",
+                    Info = "部署：交换1张牌，然后交换第二张牌。",
                     CardArtsId = "12220400",
                     LinkedCards=new List<String> {},
                 }
@@ -6816,7 +6816,7 @@ namespace Cynthia.Card
                 {
                     CardId ="43003",
                     Name="巨魔魔",
-                    Strength=11,
+                    Strength=10,
                     Group=Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6824,9 +6824,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid},
+                    Categories = new Categorie[]{ Categorie.Redania,Categorie.Ogroid,Categorie.Soldier},
                     Flavor = "我是拉多多德国王的兵兵。收到命令，看守船船。",
-                    Info = "9点护甲。",
+                    Info = "4点护甲，己方回合开始时增加2点护甲。",
                     CardArtsId = "12220900",
                     LinkedCards=new List<String> {},
                 }
@@ -7069,7 +7069,7 @@ namespace Cynthia.Card
                 {
                     CardId ="43015",
                     Name="帕薇塔公主",
-                    Strength=3,
+                    Strength=5,
                     Group=Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7111,7 +7111,7 @@ namespace Cynthia.Card
                 {
                     CardId ="43017",
                     Name="萨宾娜·葛丽维希格",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.EnemyRow,
@@ -7735,7 +7735,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Cursed},
                     Flavor = "萨宾娜的诅咒谁也不放过，就连其他的女术士也难以幸免。",
-                    Info = "若同排有1个“诅咒生物”单位，则造成7点伤害。",
+                    Info = "若同排有“诅咒生物”单位，造成7点伤害。同排每有1个额外的“诅咒生物”单位，伤害提高1点。",
                     CardArtsId = "20163000",
                     LinkedCards=new List<String> {},
                 }
@@ -7904,7 +7904,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "就是一个绞盘。没什么可大惊小怪的。",
-                    Info = "使所有己方半场的“机械”单位获得3点增益。",
+                    Info = "择一：从己方墓场打出1张铜色“机械”牌并使其获得佚亡；或使所有友军“机械”单位获得3点增益。",
                     CardArtsId = "20165900",
                     LinkedCards=new List<String> {},
                 }
@@ -12124,7 +12124,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70076", //Congregation Cleric
                     Name="集会传教士",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12134,7 +12134,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”",
-                    Info = "生成所有被锁定的铜色单位的2战力的原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力的原始同名牌。",
+                    Info = "生成所有被锁定的铜色单位的2战力的佚亡原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力的佚亡原始同名牌。",
                     CardArtsId = "202374",
                     LinkedCards=new List<String> {},
                 }
@@ -13561,7 +13561,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70094", //Lyrian Cavalry
                     Name="莱里亚骑兵",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13571,7 +13571,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "骑士的价值不亚于他的骏马。而吕梁马是欧洲大陆最好的马之一。",
-                    Info = "自身获得卡组里一张单位卡增益数值等额的增益。",
+                    Info = "自身获得牌组中1张单位牌增益数值一半的增益。",
                     CardArtsId = "202153",
                     LinkedCards=new List<String> {},
                 }
@@ -13735,12 +13735,11 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
-                    Countdown = 1,
+                    IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Cursed,Categorie.Soldier},
+                    Categories = new Categorie[]{Categorie.Soldier},
                     Flavor = "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。",
-                    Info = "对局开始时，锁定自身。使己方下一张打出的单位牌获得3点增益。",
+                    Info = "对局开始时，改变自身的锁定状态。每2回合开始时，改变自身的锁定状态。",
                     CardArtsId = "202509",
                     LinkedCards=new List<String> {},
                 }
@@ -13898,7 +13897,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70126", //Cintrian Royal Guard
                     Name="辛特拉皇家护卫",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13982,7 +13981,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70130", //Mantlet
                     Name="防盾",
-                    Strength=10,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13992,7 +13991,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "类似于盾牌和栅栏的杂交品种。",
-                    Info = "右侧相邻单位受到伤害时，优先抵扣自身的护甲。驱动：获得6点护甲。",
+                    Info = "相邻单位受到伤害时，优先抵扣自身的护甲。获得6点护甲，驱动：再次触发此能力。",
                     CardArtsId = "202413",
                     LinkedCards=new List<String> {},
                 }
@@ -14324,11 +14323,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
+                    Countdown = 3,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "喜欢发光小玩意的不只有喜鹊。",
-                    Info = "在对方同排洒下“黄金酒沫”。然后汲食该排所有单位2点战力，下回合开始时，重复此能力。",
+                    Info = "在对方同排洒下“黄金酒沫”，随后汲食该排所有单位2点战力。3回合后的回合开始时，重复此能力。",
                     CardArtsId = "202226",
                     LinkedCards=new List<String> {},
                 }
@@ -14454,7 +14454,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……",
-                    Info = "每回合开始时，随机隐匿1张铜色手牌，并使其获得1点增益。",
+                    Info = "每回合开始时，随机隐匿1张铜色手牌，随后使其获得1点增益。",
                     CardArtsId = "202546",
                     LinkedCards=new List<String> {},
                 }
@@ -14639,12 +14639,11 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
-                    Countdown=3,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "回合结束时，若至少具有3点增益，将增益转化为护甲，并向同一排的友方单位授予2点增益点。\n重复2次。",
+                    Info = "每回合结束时，若至少具有3点增益，将增益转化为护甲，并使同排其他友军单位获得2点增益。",
                     CardArtsId = "202112",
                     LinkedCards=new List<String> {},
                 }
@@ -14982,7 +14981,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "汲食1个友军铜色/银色非间谍单位的所有增益，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
+                    Info = "获得1个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
@@ -15171,7 +15170,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Officer, Categorie.Temeria},
                     Flavor = "在这里，这个村庄的名字我已经忘记了，你最终会展示出你作为一支军队的价值。",
-                    Info = "生成并打出一个“可怜的步兵”，然后使我方半场上每个士兵单位对随机敌方单位造成一点伤害",
+                    Info = "生成1个“可怜的步兵”，随后己方半场每有1个“士兵”单位，便对1个随机敌军单位造成1点伤害。",
                     CardArtsId = "c10003900",
                     LinkedCards=new List<String> {"44020"},
                 }

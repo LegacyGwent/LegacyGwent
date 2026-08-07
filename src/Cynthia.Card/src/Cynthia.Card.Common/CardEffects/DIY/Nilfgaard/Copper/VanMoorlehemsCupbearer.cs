@@ -16,7 +16,7 @@ namespace Cynthia.Card
             }
 
             var cards = Game.PlayersHandCard[PlayerIndex]
-                .Where(x => x.Status.Group == Group.Copper)
+                .Where(x => x.Status.Group == Group.Copper && x.Status.IsReveal)
                 .ToList();
             if (!cards.TryMessOne(out var target, RNG))
             {

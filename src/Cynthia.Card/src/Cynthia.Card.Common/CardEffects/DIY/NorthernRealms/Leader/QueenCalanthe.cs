@@ -24,16 +24,19 @@ namespace Cynthia.Card
 
             var target = selectedAllies.Single();
             var boost = Math.Max(0, target.Status.HealthStatus);
-            // Consume only positive boost. This is intentionally not routed through
-            // Damage/Drain, so Shield does not block it and Armor is left untouched.
-            if (boost > 0)
-            {
-                await target.Effect.Reset(Card);
-            }
+            var armor = Math.Max(0, target.Status.Armor);
             if (boost > 0)
             {
                 await Card.Effect.Boost(boost, Card);
             }
+            if (armor > 0)
+            {
+                await Card.Effect.Armor(armor, Card);
+            }
+
+            // Transfer directly rather than through Drain/Damage: Shield cannot
+            // block the transfer and the selected unit cannot die midway through it.
+            target.Effect.Repair(true);
 
             await Game.ShowCardMove(
                 new CardLocation(

@@ -6,28 +6,29 @@ namespace Cynthia.Card
     [CardEffectId("70146")]//加尔 Gael
     public class Gael : CardEffect, IHandlesEvent<AfterTurnStart>
     {
-        private bool _repeatOnNextTurnStart;
-
         public Gael(GameCard card) : base(card) { }
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await ApplyGoldenFrothDrain();
-            _repeatOnNextTurnStart = true;
+            await Card.Effect.SetCountdown(3);
             return 0;
         }
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (!_repeatOnNextTurnStart ||
-                @event.PlayerIndex != PlayerIndex ||
-                !Card.Status.CardRow.IsOnPlace())
+            if (@event.PlayerIndex != PlayerIndex ||
+                !Card.Status.CardRow.IsOnPlace() ||
+                Card.Status.Countdown <= 0)
             {
                 return;
             }
 
-            _repeatOnNextTurnStart = false;
-            await ApplyGoldenFrothDrain();
+            await Card.Effect.SetCountdown(offset: -1);
+            if (Card.Status.Countdown == 0)
+            {
+                await ApplyGoldenFrothDrain();
+            }
         }
 
         private async Task ApplyGoldenFrothDrain()

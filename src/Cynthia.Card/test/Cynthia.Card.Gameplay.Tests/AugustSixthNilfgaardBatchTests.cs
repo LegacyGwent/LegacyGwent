@@ -175,6 +175,22 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
+        public async Task CupbearerDoesNotBoostAnUnrevealedBronzeHandCard()
+        {
+            var fixture = new HeadlessGameFixture();
+            var cupbearer = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.VanMoorlehemsCupbearer, RowPosition.MyRow1);
+            var hand = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand);
+            await fixture.SynchronizeClientsAsync();
+
+            await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
+
+            Assert.False(hand.Status.IsReveal);
+            Assert.Equal(0, hand.Status.HealthStatus);
+        }
+
+        [Fact]
         public async Task MageInfiltratorCanCopyBoardOrRevealedHandAsDoomedAndEndsWithoutTargets()
         {
             var boardFixture = new HeadlessGameFixture();
