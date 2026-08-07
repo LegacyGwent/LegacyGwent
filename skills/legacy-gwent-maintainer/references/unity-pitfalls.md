@@ -1,6 +1,21 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
+
+## Automated mouse input misses the captured Unity control
+
+- Symptom: a `PrintWindow` screenshot shows a control at one coordinate, but
+  `SetCursorPos` clicks a different row or button even though the player is
+  fullscreen and positioned at the origin.
+- Cause: the captured client image is in logical pixels while Windows cursor
+  APIs use physical desktop pixels under display scaling. At 125% scaling, a
+  screenshot point `(x, y)` must be clicked near `(1.25x, 1.25y)`.
+- Fix: obtain the real window rectangle and DPI scale, then transform screenshot
+  coordinates before input. Keep a short mouse-down interval so Unity receives
+  a complete click.
+- Verification: click a distinctive deck row, confirm its inline buttons appear,
+  and archive a screenshot before using the coordinate mapping for destructive
+  or state-changing UI tests.
 
 ## A standalone player shows white card placeholders
 

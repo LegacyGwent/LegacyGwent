@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
 Read this file first, then load only the rows relevant to the task.
 

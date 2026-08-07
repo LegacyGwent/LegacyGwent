@@ -17,16 +17,17 @@ public sealed class GameResourcePanel : MonoBehaviour
     private RectTransform _enemyRoot;
     private GameObject _tooltip;
     private Text _tooltipText;
+    private Camera _canvasCamera;
 
     public static GameResourcePanel Attach(GameUIControl owner)
     {
         if (owner == null) return null;
         var panel = owner.GetComponent<GameResourcePanel>() ?? owner.gameObject.AddComponent<GameResourcePanel>();
-        panel.Initialize();
+        panel.Initialize(owner);
         return panel;
     }
 
-    private void Initialize()
+    private void Initialize(Component owner)
     {
         if (_myRoot != null) return;
         _font = _font ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
@@ -37,15 +38,16 @@ public sealed class GameResourcePanel : MonoBehaviour
         {
             canvasObject = new GameObject("GameResourceCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            // Board HUD: visible above the board, but below card detail, choice
-            // dialogs and every modal menu.
-            canvas.sortingOrder = 5;
+            ConfigureBoardCanvas(canvas, owner);
+            canvas.sortingOrder = 0;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 1;
         }
+        _canvasCamera = canvasObject.GetComponent<Canvas>().renderMode == RenderMode.ScreenSpaceOverlay
+            ? null
+            : canvasObject.GetComponent<Canvas>().worldCamera;
         _myRoot = MakeRail(canvasObject.transform, "MyResources", new Vector2(0, 0), new Vector2(0, 0), new Vector2(30, 150));
         _enemyRoot = MakeRail(canvasObject.transform, "EnemyResources", new Vector2(0, 1), new Vector2(0, 1), new Vector2(30, -150));
         BuildTooltip(canvasObject.transform);
@@ -127,7 +129,7 @@ public sealed class GameResourcePanel : MonoBehaviour
         _tooltip.SetActive(true);
         var rect = _tooltip.GetComponent<RectTransform>();
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect.parent as RectTransform, position, null, out var local);
+            rect.parent as RectTransform, position, _canvasCamera, out var local);
         rect.anchoredPosition = local + new Vector2(18, 18);
         _tooltip.transform.SetAsLastSibling();
     }
@@ -137,7 +139,7 @@ public sealed class GameResourcePanel : MonoBehaviour
         if (_tooltip == null || !_tooltip.activeSelf) return;
         var rect = _tooltip.GetComponent<RectTransform>();
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect.parent as RectTransform, position, null, out var local);
+            rect.parent as RectTransform, position, _canvasCamera, out var local);
         rect.anchoredPosition = local + new Vector2(18, 18);
     }
 
@@ -147,6 +149,25 @@ public sealed class GameResourcePanel : MonoBehaviour
     }
 
     private string CurrentLanguage => _translator?.TextLocalization?.ChosenLanguage?.Filename ?? "cn";
+
+    private static void ConfigureBoardCanvas(Canvas canvas, Component owner)
+    {
+        var source = owner == null ? null : owner.GetComponentInParent<Canvas>();
+        if (source == null || source.renderMode == RenderMode.ScreenSpaceOverlay)
+        {
+            source = FindObjectsOfType<Canvas>()
+                .Where(x => x != null && x != canvas &&
+                            x.renderMode != RenderMode.ScreenSpaceOverlay && x.worldCamera != null)
+                .OrderBy(x => x.sortingOrder)
+                .FirstOrDefault();
+        }
+        canvas.renderMode = source?.renderMode ?? RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = source?.worldCamera ?? Camera.main;
+        canvas.planeDistance = source?.planeDistance ?? 100;
+        canvas.sortingLayerID = source?.sortingLayerID ?? 0;
+        if (canvas.renderMode != RenderMode.ScreenSpaceOverlay && canvas.worldCamera == null)
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+    }
 
     private static RectTransform MakeRail(Transform parent, string name, Vector2 anchor, Vector2 pivot, Vector2 position)
     {

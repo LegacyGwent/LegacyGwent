@@ -23,6 +23,7 @@ namespace Cynthia.Card
             Add(cardMap, "99003", "铜色试炼", "只能携带铜色卡，且铜色卡同名限1张。", "11210300");
             Add(cardMap, "99004", "饕餮回响", "吞噬能力触发两次（本地规则区事件样本）。", "11210400");
             Add(cardMap, "99005", "帝国远征令", "仅限尼弗迦德领袖；需要百卡实验，并将怪兽卡加入可选卡池。", "11210500");
+            Add(cardMap, "99006", "空白契约", "卡组必须为空，普通可选卡池也为空。", "11210600");
         }
 
         private static void Add(IDictionary<string, GwentCard> cardMap, string id, string name, string info, string artId)

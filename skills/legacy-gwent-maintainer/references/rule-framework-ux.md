@@ -1,6 +1,6 @@
 # Rule framework UX acceptance
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
 This is the durable acceptance checklist for the local-only `diy-ai` rule-card,
 server-mode, generic marker, and resource framework. Do not publish the framework
@@ -21,6 +21,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
 - Opening/saving an old deck never silently normalizes it. Only adding/removing a
   rule card can present one deterministic cleanup preview. Declining preserves
   the deck; accepting may leave an incomplete draft and must still allow return.
+- Decide whether a rule card is selectable from the complete add-rule transition,
+  including deterministic cleanup, not by validating the raw candidate deck.
+  Otherwise an empty-deck or restricted-pool rule is greyed out precisely when it
+  needs to offer a cleanup preview. The projection implementation must suppress
+  nested card-state generation while evaluating this transition to avoid recursion.
 - Count widgets show composition, not overall validity. Pool, faction, duplicate,
   retired-card, conflict, dependency, and mode checks remain separate.
 - Keep the standard `current / maximum` deck-size display. When the resolved

@@ -12,9 +12,9 @@ public enum DeckRuleFilter
 
 public static class DeckRuleFilterBar
 {
-    private static readonly Color Normal = new Color32(27, 53, 57, 245);
-    private static readonly Color Selected = new Color32(64, 105, 94, 255);
-    private static readonly Color Hover = new Color32(45, 78, 79, 255);
+    private static readonly Color Normal = new Color32(22, 45, 49, 245);
+    private static readonly Color Selected = new Color32(62, 103, 91, 255);
+    private static readonly Color Hover = new Color32(83, 132, 113, 255);
     private static readonly Color Ink = new Color32(239, 233, 215, 255);
 
     public static GameObject Create(Transform parent, DeckRuleFilter current, Font font, bool english, Action<DeckRuleFilter> onChanged)

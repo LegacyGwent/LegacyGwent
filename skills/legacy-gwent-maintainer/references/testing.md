@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-06
+Last verified: 2026-08-07
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -60,6 +60,12 @@ dotnet test src/Cynthia.Card/test/Cynthia.Card.Gameplay.Tests/Cynthia.Card.Gamep
 Run the Server and Gameplay projects sequentially in one worktree. They share
 Common/AI build outputs, so concurrent `dotnet test` processes can race on
 `obj/Release` and fail with CS2012 even when the code is correct.
+
+An actively running local server also locks its copied Common/AI assemblies in
+the Server output directory on Windows. Stop that exact local server process
+before rebuilding or running the suites, then restart it from the same feature
+manifest after tests. Repeated MSB3026/MSB3027 copy failures are an output lock,
+not a gameplay regression.
 
 ## Card-batch preflight
 

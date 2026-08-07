@@ -54,12 +54,16 @@ namespace Cynthia.Card.Client
                 await HandleSeasonEndMessage(avatars, borders, titles, mmrBeforeReset, rank, seasonName);
             });
 
-            CheckMessages();
         }
 
-        public async Task CheckMessages()
+        public async Task CheckMessages(string username = null)
         {
-            var messages = _clientService.CheckUserMessages(_clientService.User.UserName);
+            username = string.IsNullOrWhiteSpace(username)
+                ? _clientService.User?.UserName
+                : username;
+            if (string.IsNullOrWhiteSpace(username)) return;
+
+            var messages = _clientService.CheckUserMessages(username);
             var messagesList = await messages;
             var seasonMessages = new List<UserSeasonEndMessage>();
             foreach (var condensedMessage in messagesList ?? new List<string>())
@@ -88,10 +92,11 @@ namespace Cynthia.Card.Client
                 latest.rank,
                 latest.seasonName,
                 latest.MessageId,
-                seasonMessages.Select(x => x.MessageId).Distinct().ToList());
+                seasonMessages.Select(x => x.MessageId).Distinct().ToList(),
+                username);
         }
 
-        public async Task HandleSeasonEndMessage(IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName, int messageId = -1, IList<int> acknowledgementIds = null)
+        public async Task HandleSeasonEndMessage(IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName, int messageId = -1, IList<int> acknowledgementIds = null, string acknowledgementUsername = null)
         {
             Debug.Log($"handling message {messageId}");
             async Task SpawnMessage()
@@ -108,8 +113,12 @@ namespace Cynthia.Card.Client
                             .ToList();
                         foreach (var id in ids)
                         {
-                            if (!await _clientService.RemoveUserMessage(id))
-                                Debug.LogError($"Failed to acknowledge user message {id}.");
+                            var username = string.IsNullOrWhiteSpace(acknowledgementUsername)
+                                ? _clientService.User?.UserName
+                                : acknowledgementUsername;
+                            if (string.IsNullOrWhiteSpace(username) ||
+                                !await _clientService.RemoveUserMessage(username, id))
+                                Debug.LogError($"Failed to acknowledge user message {id} for {username ?? "<unknown>"}.");
                         }
                     }
                 }

@@ -55,7 +55,11 @@ public class MainCode : MonoBehaviour
 
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
 
-
+        // Refresh the authenticated account before consuming persistent
+        // notices. Doing this in the opposite order can display and then try
+        // to acknowledge a previously logged-in account's season message.
+        await UpdateUserInfo();
+        await _messagesReaderService.CheckMessages(_client.User?.UserName);
 
         if (_client.IsAutoPlay || ClientGlobalInfo.IsToMatch)
         {
@@ -69,10 +73,9 @@ public class MainCode : MonoBehaviour
             }
             //DoMatchButton.onClick.Invoke();
         }
-        UpdateUserInfo();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
-    private async void UpdateUserInfo()
+    private async Task UpdateUserInfo()
     {
         _client.User = await _client.QueryUserInfo(_client.User.UserName, _client.User.PassWord);
         if (_client.User.NewlyUnlockedTrinkets.HasNewTrinkets)

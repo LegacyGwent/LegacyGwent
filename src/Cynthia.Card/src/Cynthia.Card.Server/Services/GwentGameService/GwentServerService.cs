@@ -1240,7 +1240,7 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
 
         public async Task<SeasonInfo> GetSeasonData(bool active = true, int id = 0) => await _databaseService.QuerySeasonData(active, id);
-        public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
+        public IList<string> GetUserMessages(string username) => _databaseService.QueryUserMessages(username);
         public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);

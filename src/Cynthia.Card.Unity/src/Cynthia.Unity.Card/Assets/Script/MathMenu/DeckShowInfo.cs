@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public Text DeckText;
     public Sprite UnAvaliableIcon;
@@ -23,6 +23,7 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private int _deckTextBaseFontSize;
     private bool _deckTextMetricsCaptured;
     private bool _hovering;
+    private Camera _pointerCamera;
 
     public void SetDeckInfo(string name, bool isAvaliable)
     {
@@ -58,19 +59,32 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         _hovering = true;
-        if (_ruleIds.Count > 0) ShowTooltip(eventData.position);
+        _pointerCamera = eventData.enterEventCamera;
+        if (_ruleIds.Count > 0) ShowTooltip(eventData.position, _pointerCamera);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         _hovering = false;
+        _pointerCamera = null;
+        HideTooltip();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Expanding a deck exposes its action buttons in-place. Keeping the
+        // hover card over the centre of the editor at that point obscures the
+        // newly selected row and feels like a stale modal, so retire it until
+        // the pointer actually leaves and re-enters the row.
+        _hovering = false;
+        _pointerCamera = null;
         HideTooltip();
     }
 
     private void Update()
     {
         if (_hovering && _ruleIds.Count > 0 && _tooltip != null && _tooltip.activeSelf)
-            MoveTooltip(Input.mousePosition);
+            MoveTooltip(Input.mousePosition, _pointerCamera);
     }
 
     private void EnsureBadge()
@@ -111,22 +125,26 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         DeckText.fontSize = _deckTextBaseFontSize;
     }
 
-    private void ShowTooltip(Vector2 screenPosition)
+    private void ShowTooltip(Vector2 screenPosition, Camera eventCamera)
     {
         BuildTooltip();
         if (_tooltip == null) return;
         _tooltip.SetActive(true);
         _tooltip.transform.SetAsLastSibling();
-        MoveTooltip(screenPosition);
+        MoveTooltip(screenPosition, eventCamera);
     }
 
-    private void MoveTooltip(Vector2 screenPosition)
+    private void MoveTooltip(Vector2 screenPosition, Camera eventCamera)
     {
         if (_tooltip == null) return;
         var canvas = _tooltip.GetComponentInParent<Canvas>();
         var canvasRect = canvas != null ? canvas.transform as RectTransform : null;
         if (canvasRect == null) return;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPosition, canvas.worldCamera, out var point);
+        // Use the pointer event's camera. Some legacy menu canvases are nested
+        // below a camera canvas but do not expose that camera through
+        // Canvas.worldCamera, which otherwise converts every screen point far
+        // outside the rect and clamps the tooltip to one fixed location.
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPosition, eventCamera, out var point);
         var rect = _tooltip.GetComponent<RectTransform>();
         var half = rect.sizeDelta * .5f;
         var showOnRight = point.x + half.x * 2f + 28f <= canvasRect.rect.xMax;
@@ -189,8 +207,21 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_tooltip != null) _tooltip.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        // The tooltip lives under the shared canvas rather than under this deck row.
+        // PointerExit is not raised when the deck list is disabled during a scene
+        // transition, so explicitly retire the hover state and tooltip here.
+        _hovering = false;
+        _pointerCamera = null;
+        HideTooltip();
+    }
+
     private void OnDestroy()
     {
+        _hovering = false;
+        _pointerCamera = null;
+        HideTooltip();
         if (_tooltip != null) Destroy(_tooltip);
     }
 }

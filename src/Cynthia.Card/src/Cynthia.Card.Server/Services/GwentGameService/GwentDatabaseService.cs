@@ -506,11 +506,20 @@ namespace Cynthia.Card.Server
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             return user.Length > 0 ? new Tuple<int, int>(user[0].MMR, user[0].HighestMMR) : new Tuple<int, int>(0, 0);
         }
-        public IList<string> QueryUserMessages(string playername)
+        public IList<string> QueryUserMessages(string username)
         {
             var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
-            return user.Length > 0 ? user[0].UserMessages ?? new List<string>() : new List<string>();
+            // The hub/client contract passes the login username. Looking up a
+            // display PlayerName here leaks notices across accounts whenever a
+            // username happens to equal somebody else's player name.
+            var users = temp.AsQueryable().Where(x => x.UserName == username).Take(1).ToArray();
+            return SelectUserMessagesByUsername(users, username);
+        }
+
+        public static IList<string> SelectUserMessagesByUsername(IEnumerable<UserInfo> users, string username)
+        {
+            var user = users?.FirstOrDefault(x => x.UserName == username);
+            return user?.UserMessages ?? new List<string>();
         }
 
         public int[] QueryStreak(string playername, int factionId = -1)

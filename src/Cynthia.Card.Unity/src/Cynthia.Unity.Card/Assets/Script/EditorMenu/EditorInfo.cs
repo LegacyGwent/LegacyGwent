@@ -926,8 +926,8 @@ public class EditorInfo : MonoBehaviour
                     var accepted = await _globalUIService.YNMessageBox(
                         Local("加入规则卡", "Add rule card"),
                         Local(
-                            "加入规则卡可能改变组卡与匹配条件，使该卡组无法与常规卡组匹配。是否继续？",
-                            "Adding a rule card may change deck-building and matchmaking conditions, preventing this deck from matching ordinary decks. Continue?"));
+                            "加入规则卡可能改变组卡与匹配条件，实际匹配方式由服务器当前模式决定。是否继续？",
+                            "Adding a rule card may change deck-building and matchmaking conditions. The active server mode decides actual compatibility. Continue?"));
                     if (!accepted) return;
                 }
             }
@@ -1245,8 +1245,19 @@ public class EditorInfo : MonoBehaviour
                 return projectedRuleState.Selectable ? 1 : 0;
             var candidate = CloneDeck(_nowEditorDeck);
             candidate.Deck.Add(card.CardId);
-            var candidateRules = ResolveRules(candidate);
-            return candidateRules.ResolutionIssues.Count == 0 && DeckRuleEngine.Validate(candidate, candidateRules, false).IsValid ? 1 : 0;
+            var projection = DeckBuildingProjectionEngine.Project(
+                _clientService.FeatureManifest ?? new GameFeatureManifest { RulesetVersion = "offline-standard" },
+                new DeckBuildingProjectionRequest
+                {
+                    Action = "add",
+                    CandidateCardId = card.CardId,
+                    ConfirmNormalization = true,
+                    Deck = candidate
+                });
+            return projection.IsValid &&
+                (projection.NormalizedDeck?.Deck ?? new List<string>()).Contains(card.CardId)
+                ? 1
+                : 0;
         }
         if (isSpecial && !HasRuleCards(_nowEditorDeck))
             return Math.Max(0, (card.Group == Group.Silver ? 1 : 3) - existing);

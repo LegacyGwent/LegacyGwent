@@ -1045,6 +1045,96 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void RuleCardStateStaysSelectableWhenItsTransitionRequiresCleanup()
+        {
+            const string ruleId = "test-empty-deck-rule";
+            var leader = GwentMap.CardMap.Values.First(x =>
+                x.Group == Group.Leader && x.Faction != Faction.Neutral && DiyAiCardPool.IsUserDeckCard(x.CardId));
+            var copper = GwentMap.CardMap.Values.First(x =>
+                x.Group == Group.Copper && x.Faction == leader.Faction && DiyAiCardPool.IsUserDeckCard(x.CardId));
+            var existed = GwentMap.CardMap.TryGetValue(ruleId, out var old);
+            GwentMap.CardMap[ruleId] = TestRuleCard(ruleId);
+            try
+            {
+                var manifest = new GameFeatureManifest
+                {
+                    RulesetVersion = "empty-transition-v1",
+                    PlayerRuleCardsEnabled = true,
+                    CardPools = new List<CardPoolDefinition>
+                    {
+                        new CardPoolDefinition { Id = "test.empty", AnyOf = new List<CardFilterDefinition>() }
+                    },
+                    RuleCards = new List<RuleCardDefinition>
+                    {
+                        new RuleCardDefinition
+                        {
+                            Id = ruleId,
+                            PlayerSelectable = true,
+                            RemoveConstraintIds = new List<string> { DeckRuleEngine.StandardDeckSize },
+                            RestrictToCardPools = new List<string> { "test.empty" },
+                            AddConstraints = new List<DeckConstraintDefinition>
+                            {
+                                new DeckConstraintDefinition
+                                {
+                                    Id = "test.empty-size",
+                                    Kind = "deck-size",
+                                    Min = 0,
+                                    Max = 0
+                                }
+                            }
+                        }
+                    }
+                };
+                var current = new DeckModel
+                {
+                    Leader = leader.CardId,
+                    Deck = new List<string> { copper.CardId }
+                };
+
+                var snapshot = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
+                {
+                    Revision = 90,
+                    Deck = current
+                });
+                var ruleState = Assert.Single(snapshot.CardStates, x => x.CardId == ruleId);
+                Assert.True(ruleState.Selectable);
+                Assert.Equal(1, ruleState.MaxCopies);
+
+                var candidate = new DeckModel
+                {
+                    Leader = leader.CardId,
+                    Deck = new List<string> { copper.CardId, ruleId }
+                };
+                var preview = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
+                {
+                    Revision = 91,
+                    Action = "add",
+                    CandidateCardId = ruleId,
+                    Deck = candidate
+                });
+                Assert.True(preview.RequiresConfirmation);
+                Assert.Equal(copper.CardId, Assert.Single(preview.RemovedCards).CardId);
+                Assert.Equal(new[] { ruleId }, preview.NormalizedDeck.Deck);
+
+                var confirmed = DeckBuildingProjectionEngine.Project(manifest, new DeckBuildingProjectionRequest
+                {
+                    Revision = 92,
+                    Action = "add",
+                    CandidateCardId = ruleId,
+                    ConfirmNormalization = true,
+                    Deck = candidate
+                });
+                Assert.True(confirmed.IsValid);
+                Assert.Equal(new[] { ruleId }, confirmed.NormalizedDeck.Deck);
+            }
+            finally
+            {
+                if (existed) GwentMap.CardMap[ruleId] = old;
+                else GwentMap.CardMap.Remove(ruleId);
+            }
+        }
+
+        [Fact]
         public void ConflictingRulesNeverPreviewDestructiveDeckCleanup()
         {
             const string firstRuleId = "test-conflict-cleanup-a";

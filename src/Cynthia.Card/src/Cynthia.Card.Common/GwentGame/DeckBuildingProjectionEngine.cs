@@ -18,6 +18,12 @@ namespace Cynthia.Card
         public static DeckBuildingProjection Project(
             GameFeatureManifest manifest,
             DeckBuildingProjectionRequest request)
+            => ProjectCore(manifest, request, includeCardStates: true);
+
+        private static DeckBuildingProjection ProjectCore(
+            GameFeatureManifest manifest,
+            DeckBuildingProjectionRequest request,
+            bool includeCardStates)
         {
             manifest = manifest ?? new GameFeatureManifest { RulesetVersion = "offline-standard" };
             request = request ?? new DeckBuildingProjectionRequest();
@@ -130,7 +136,9 @@ namespace Cynthia.Card
             // Correctness first: deck/group totals can change many max-copy states,
             // so the first protocol revision always returns a complete snapshot.
             response.FullSnapshot = true;
-            response.CardStates = BuildCardStates(manifest, normalized, rules);
+            response.CardStates = includeCardStates
+                ? BuildCardStates(manifest, normalized, rules)
+                : new List<DeckBuildingCardState>();
             response.ProjectionFingerprint = Hash(string.Join("\n", new[]
             {
                 response.RulesetVersion,
@@ -341,11 +349,28 @@ namespace Cynthia.Card
                 var candidate = CloneDeck(deck);
                 candidate.Deck.RemoveAll(x => x == cardId);
                 candidate.Deck.Add(cardId);
-                var candidateRules = Resolve(manifest, candidate);
-                var validation = DeckRuleEngine.Validate(candidate, candidateRules, false);
-                state.Selectable = DeckRuleEngine.CanPlayerSelectRuleDeck(manifest, candidate) && validation.IsValid;
+                // A rule transition may intentionally invalidate some of the
+                // submitted ordinary cards and then remove them after explicit
+                // confirmation. Evaluate the same authoritative transition as
+                // the add endpoint, without recursively producing card states,
+                // so cards such as an empty-deck rule remain selectable.
+                var transition = ProjectCore(manifest, new DeckBuildingProjectionRequest
+                {
+                    Action = "add",
+                    CandidateCardId = cardId,
+                    ConfirmNormalization = true,
+                    Deck = candidate
+                }, includeCardStates: false);
+                state.Selectable = DeckRuleEngine.CanPlayerSelectRuleDeck(manifest, candidate) &&
+                    transition.IsValid &&
+                    (transition.NormalizedDeck?.Deck ?? new List<string>()).Contains(cardId);
                 state.MaxCopies = state.Selectable ? 1 : 0;
-                ApplyReason(state, validation, candidateRules);
+                ApplyReason(state,
+                    new DeckValidationResult
+                    {
+                        Issues = transition.Issues ?? new List<DeckValidationIssue>()
+                    },
+                    transition.ResolvedRules);
                 return state;
             }
 

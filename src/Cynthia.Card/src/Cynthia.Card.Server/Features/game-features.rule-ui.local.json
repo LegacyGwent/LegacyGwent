@@ -2,7 +2,7 @@
   "SchemaVersion": 2,
   "FeatureLevel": 2,
   "RulesetVersion": "local-rule-ui-1",
-  "PlayerRuleCardsEnabled": true,
+  "PlayerRuleCardsEnabled": false,
   "CardMarkerDefinitions": [
     {
       "Id": "local.poison", "Name": { "ZhCn": "中毒", "En": "Poison" },
@@ -28,6 +28,10 @@
     }
   ],
   "CardPools": [
+    {
+      "Id": "local.empty",
+      "AnyOf": []
+    },
     {
       "Id": "local.monsters",
       "AnyOf": [{ "Factions": ["Monsters"] }]
@@ -72,6 +76,15 @@
       "AddCardPools": ["local.monsters"],
       "RequiresAll": ["99001"],
       "ExclusiveWith": ["99003"]
+    },
+    {
+      "Id": "99006", "Name": { "ZhCn": "空白契约", "En": "Blank Contract" },
+      "Description": { "ZhCn": "卡组必须为空，普通可选卡池也为空。", "En": "Requires an empty deck and exposes an empty ordinary-card pool." },
+      "ArtId": "11210600", "Priority": 60, "PlayerSelectable": true, "SortOrder": 60,
+      "ExclusiveWith": ["99001", "99002", "99003", "99004", "99005"],
+      "RemoveConstraintIds": ["base.deck-size"],
+      "RestrictToCardPools": ["local.empty"],
+      "AddConstraints": [{ "Id": "local.empty-size", "Kind": "deck-size", "Min": 0, "Max": 0 }]
     }
   ],
   "Modes": [

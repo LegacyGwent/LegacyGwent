@@ -14,6 +14,12 @@ using UnityEngine.UI;
 /// </summary>
 public sealed class RuleZonePanel : MonoBehaviour
 {
+    // Keep the passive launcher on the same base canvas tier as the legacy
+    // board HUD. Selection dialogs use order 1 and card details use 3-4, so
+    // every normal interaction covers the badge. The explicit rule browser
+    // still raises this canvas while it is open.
+    private const int LauncherSortingOrder = 0;
+    private const int OverlaySortingOrder = 900;
     private static readonly Color Ink = new Color32(7, 20, 25, 245);
     private static readonly Color Panel = new Color32(18, 42, 47, 255);
     private static readonly Color Card = new Color32(27, 57, 61, 255);
@@ -26,6 +32,10 @@ public sealed class RuleZonePanel : MonoBehaviour
     private Button _launcher;
     private Text _launcherText;
     private Canvas _canvas;
+    private RenderMode _launcherRenderMode;
+    private Camera _launcherCamera;
+    private float _launcherPlaneDistance;
+    private int _launcherSortingLayerId;
     private GameObject _overlay;
     private Transform _content;
     private Text _detailName;
@@ -52,7 +62,7 @@ public sealed class RuleZonePanel : MonoBehaviour
                 typeof(GraphicRaycaster));
             var canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 6;
+            canvas.sortingOrder = LauncherSortingOrder;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
@@ -60,8 +70,40 @@ public sealed class RuleZonePanel : MonoBehaviour
         }
         var panel = canvasObject.GetComponent<RuleZonePanel>() ?? canvasObject.AddComponent<RuleZonePanel>();
         panel._canvas = canvasObject.GetComponent<Canvas>();
+        panel.ConfigurePassiveCanvas(owner);
         panel.Initialize(canvasObject.transform);
         return panel;
+    }
+
+    private void ConfigurePassiveCanvas(Component owner)
+    {
+        var source = owner == null ? null : owner.GetComponentInParent<Canvas>();
+        if (source == null || source.renderMode == RenderMode.ScreenSpaceOverlay)
+        {
+            source = FindObjectsOfType<Canvas>()
+                .Where(x => x != null && x != _canvas &&
+                            x.renderMode != RenderMode.ScreenSpaceOverlay && x.worldCamera != null)
+                .OrderBy(x => x.sortingOrder)
+                .FirstOrDefault();
+        }
+
+        _launcherRenderMode = source?.renderMode ?? RenderMode.ScreenSpaceCamera;
+        _launcherCamera = source?.worldCamera ?? Camera.main;
+        _launcherPlaneDistance = source?.planeDistance ?? 100;
+        _launcherSortingLayerId = source?.sortingLayerID ?? 0;
+        if (_launcherRenderMode != RenderMode.ScreenSpaceOverlay && _launcherCamera == null)
+            _launcherRenderMode = RenderMode.ScreenSpaceOverlay;
+        RestorePassiveCanvas();
+    }
+
+    private void RestorePassiveCanvas()
+    {
+        if (_canvas == null) return;
+        _canvas.renderMode = _launcherRenderMode;
+        _canvas.worldCamera = _launcherRenderMode == RenderMode.ScreenSpaceOverlay ? null : _launcherCamera;
+        _canvas.planeDistance = _launcherPlaneDistance;
+        _canvas.sortingLayerID = _launcherSortingLayerId;
+        _canvas.sortingOrder = LauncherSortingOrder;
     }
 
     private void Initialize(Transform canvas)
@@ -118,7 +160,12 @@ public sealed class RuleZonePanel : MonoBehaviour
         _launcher.colors = Colors(Panel, Hover, new Color32(14, 35, 39, 255));
         _launcher.onClick.AddListener(() =>
         {
-            if (_canvas != null) _canvas.sortingOrder = 900;
+            if (_canvas != null)
+            {
+                _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                _canvas.worldCamera = null;
+                _canvas.sortingOrder = OverlaySortingOrder;
+            }
             _overlay.SetActive(true);
             _overlay.transform.SetAsLastSibling();
             ShowFirstRule();
@@ -227,7 +274,7 @@ public sealed class RuleZonePanel : MonoBehaviour
     private void CloseOverlay()
     {
         if (_overlay != null) _overlay.SetActive(false);
-        if (_canvas != null) _canvas.sortingOrder = 6;
+        RestorePassiveCanvas();
     }
 
     private void RebuildList()

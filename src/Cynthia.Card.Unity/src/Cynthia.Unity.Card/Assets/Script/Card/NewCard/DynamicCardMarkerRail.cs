@@ -50,6 +50,7 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
         layout.childControlWidth = false;
         layout.childForceExpandHeight = false;
         layout.childForceExpandWidth = false;
+        DynamicMarkerTooltip.Configure(owner.GetComponentInParent<Canvas>());
     }
 
     public void Render(IList<DynamicCardMarker> markers)
@@ -224,6 +225,14 @@ internal static class DynamicMarkerTooltip
     private static GameObject _tooltip;
     private static Text _titleText;
     private static Text _descriptionText;
+    private static Canvas _sourceCanvas;
+    private static Camera _canvasCamera;
+
+    public static void Configure(Canvas sourceCanvas)
+    {
+        if (sourceCanvas != null && sourceCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
+            _sourceCanvas = sourceCanvas;
+    }
 
     public static void Show(string title, string description, Vector2 screenPosition)
     {
@@ -242,7 +251,7 @@ internal static class DynamicMarkerTooltip
     public static void Move(Vector2 screenPosition)
     {
         if (_tooltip == null || _canvasRect == null) return;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screenPosition, null, out var local);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screenPosition, _canvasCamera, out var local);
         _tooltip.GetComponent<RectTransform>().anchoredPosition = local + new Vector2(20, 20);
     }
 
@@ -260,13 +269,30 @@ internal static class DynamicMarkerTooltip
             canvasObject = new GameObject("DynamicMarkerTooltipCanvas",
                 typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 7;
+            if (_sourceCanvas == null)
+            {
+                _sourceCanvas = Object.FindObjectsOfType<Canvas>()
+                    .Where(x => x != null && x != canvas &&
+                                x.renderMode != RenderMode.ScreenSpaceOverlay && x.worldCamera != null)
+                    .OrderBy(x => x.sortingOrder)
+                    .FirstOrDefault();
+            }
+            canvas.renderMode = _sourceCanvas?.renderMode ?? RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = _sourceCanvas?.worldCamera ?? Camera.main;
+            canvas.planeDistance = _sourceCanvas?.planeDistance ?? 100;
+            canvas.sortingLayerID = _sourceCanvas?.sortingLayerID ?? 0;
+            if (canvas.renderMode != RenderMode.ScreenSpaceOverlay && canvas.worldCamera == null)
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 0;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 1;
         }
+        var tooltipCanvas = canvasObject.GetComponent<Canvas>();
+        _canvasCamera = tooltipCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+            ? null
+            : tooltipCanvas.worldCamera;
         _canvasRect = canvasObject.GetComponent<RectTransform>();
         _tooltip = new GameObject("DynamicMarkerTooltip", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
         _tooltip.transform.SetParent(canvasObject.transform, false);

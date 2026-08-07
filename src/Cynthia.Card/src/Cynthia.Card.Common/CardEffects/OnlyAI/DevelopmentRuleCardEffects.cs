@@ -62,4 +62,27 @@ namespace Cynthia.Card
             await Game.AddResource(@event.PlayerIndex, "local.momentum", 2);
         }
     }
+
+    [CardEffectId("99006")]
+    public sealed class BlankContractDevelopmentRule : CardEffect
+    {
+        public BlankContractDevelopmentRule(GameCard card) : base(card) { }
+
+        public override DeckBuildingRuleProposal OnDeckBuildingAdjust(DeckBuildingAdjustmentContext context)
+            => new DeckBuildingRuleProposal
+            {
+                RemoveConstraintIds = new List<string> { DeckRuleEngine.StandardDeckSize },
+                RestrictToCardPools = new List<string> { "local.empty" },
+                AddConstraints = new List<DeckConstraintDefinition>
+                {
+                    new DeckConstraintDefinition
+                    {
+                        Id = "local.empty-size",
+                        Kind = "deck-size",
+                        Min = 0,
+                        Max = 0
+                    }
+                }
+            };
+    }
 }

@@ -80,6 +80,11 @@ namespace Cynthia.Card.Client
             return HubConnection.InvokeAsync<bool>("RemoveUserMessage", User.UserName, messageId);
         }
 
+        public Task<bool> RemoveUserMessage(string username, int messageId)
+        {
+            return HubConnection.InvokeAsync<bool>("RemoveUserMessage", username, messageId);
+        }
+
 
 
         public Task<bool> MatchResult()
