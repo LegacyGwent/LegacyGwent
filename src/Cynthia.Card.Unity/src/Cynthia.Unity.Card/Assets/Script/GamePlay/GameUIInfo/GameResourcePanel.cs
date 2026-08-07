@@ -16,7 +16,9 @@ public sealed class GameResourcePanel : MonoBehaviour
     private RectTransform _myRoot;
     private RectTransform _enemyRoot;
     private GameObject _tooltip;
-    private Text _tooltipText;
+    private Text _tooltipTitle;
+    private Text _tooltipDescription;
+    private RectTransform _tooltipCanvasRect;
     private Camera _canvasCamera;
 
     public static GameResourcePanel Attach(GameUIControl owner)
@@ -45,12 +47,9 @@ public sealed class GameResourcePanel : MonoBehaviour
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 1;
         }
-        _canvasCamera = canvasObject.GetComponent<Canvas>().renderMode == RenderMode.ScreenSpaceOverlay
-            ? null
-            : canvasObject.GetComponent<Canvas>().worldCamera;
         _myRoot = MakeRail(canvasObject.transform, "MyResources", new Vector2(0, 0), new Vector2(0, 0), new Vector2(30, 150));
         _enemyRoot = MakeRail(canvasObject.transform, "EnemyResources", new Vector2(0, 1), new Vector2(0, 1), new Vector2(30, -150));
-        BuildTooltip(canvasObject.transform);
+        BuildTooltip(owner);
     }
 
     public void SetResources(IEnumerable<GameResourceState> mine, IEnumerable<GameResourceState> enemy)
@@ -125,22 +124,27 @@ public sealed class GameResourcePanel : MonoBehaviour
     internal void ShowTooltip(string title, string description, Vector2 position)
     {
         if (_tooltip == null || string.IsNullOrWhiteSpace(description)) return;
-        _tooltipText.text = string.IsNullOrWhiteSpace(title) ? description : title + "\n" + description;
+        _tooltipTitle.text = title ?? "";
+        _tooltipDescription.text = description ?? "";
+        var visualLines = Mathf.Max(1, (description ?? "").Split('\n').Length + Mathf.CeilToInt((description ?? "").Length / 30f) - 1);
+        _tooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(420, Mathf.Clamp(104 + visualLines * 20, 124, 214));
         _tooltip.SetActive(true);
-        var rect = _tooltip.GetComponent<RectTransform>();
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect.parent as RectTransform, position, _canvasCamera, out var local);
-        rect.anchoredPosition = local + new Vector2(18, 18);
         _tooltip.transform.SetAsLastSibling();
+        MoveTooltip(position);
     }
 
     internal void MoveTooltip(Vector2 position)
     {
         if (_tooltip == null || !_tooltip.activeSelf) return;
+        if (_tooltipCanvasRect == null) return;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_tooltipCanvasRect, position, _canvasCamera, out var local);
         var rect = _tooltip.GetComponent<RectTransform>();
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect.parent as RectTransform, position, _canvasCamera, out var local);
-        rect.anchoredPosition = local + new Vector2(18, 18);
+        var half = rect.sizeDelta * .5f;
+        var showOnRight = local.x + rect.sizeDelta.x + 30 <= _tooltipCanvasRect.rect.xMax;
+        var point = local + new Vector2(showOnRight ? half.x + 20 : -half.x - 20, half.y + 18);
+        point.x = Mathf.Clamp(point.x, _tooltipCanvasRect.rect.xMin + half.x + 12, _tooltipCanvasRect.rect.xMax - half.x - 12);
+        point.y = Mathf.Clamp(point.y, _tooltipCanvasRect.rect.yMin + half.y + 12, _tooltipCanvasRect.rect.yMax - half.y - 12);
+        rect.anchoredPosition = point;
     }
 
     internal void HideTooltip()
@@ -190,25 +194,77 @@ public sealed class GameResourcePanel : MonoBehaviour
         return rect;
     }
 
-    private void BuildTooltip(Transform parent)
+    private void BuildTooltip(Component owner)
     {
+        var canvasObject = GameObject.Find("GameHoverTooltipCanvas");
+        if (canvasObject == null)
+        {
+            canvasObject = new GameObject("GameHoverTooltipCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
+            var canvas = canvasObject.GetComponent<Canvas>();
+            ConfigureBoardCanvas(canvas, owner);
+            // Above board labels/player names, below card details (sorting 4)
+            // and explicit modal overlays.
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 2;
+            var scaler = canvasObject.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080);
+            scaler.matchWidthOrHeight = 1;
+        }
+        var tooltipCanvas = canvasObject.GetComponent<Canvas>();
+        _canvasCamera = tooltipCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : tooltipCanvas.worldCamera;
+        _tooltipCanvasRect = canvasObject.GetComponent<RectTransform>();
         _tooltip = new GameObject("ResourceTooltip", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-        _tooltip.transform.SetParent(parent, false);
+        _tooltip.transform.SetParent(canvasObject.transform, false);
         var rect = _tooltip.GetComponent<RectTransform>();
         rect.anchorMin = new Vector2(.5f, .5f);
         rect.anchorMax = new Vector2(.5f, .5f);
-        rect.pivot = Vector2.zero;
-        rect.sizeDelta = new Vector2(360, 96);
+        rect.pivot = new Vector2(.5f, .5f);
+        rect.sizeDelta = new Vector2(420, 124);
         var image = _tooltip.GetComponent<Image>();
-        image.color = new Color32(6, 20, 25, 248);
+        image.color = new Color32(6, 19, 23, 250);
         image.raycastTarget = false;
-        _tooltipText = MakeText(_tooltip.transform, "Text", "", 15, TextAnchor.MiddleLeft);
-        _tooltipText.rectTransform.anchorMin = Vector2.zero;
-        _tooltipText.rectTransform.anchorMax = Vector2.one;
-        _tooltipText.rectTransform.offsetMin = new Vector2(14, 10);
-        _tooltipText.rectTransform.offsetMax = new Vector2(-14, -10);
-        _tooltipText.horizontalOverflow = HorizontalWrapMode.Wrap;
-        _tooltipText.verticalOverflow = VerticalWrapMode.Truncate;
+        var outline = _tooltip.AddComponent<Outline>();
+        outline.effectColor = new Color32(188, 137, 57, 190);
+        outline.effectDistance = new Vector2(1, -1);
+
+        var accent = new GameObject("Accent", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        accent.transform.SetParent(_tooltip.transform, false);
+        var accentRect = accent.GetComponent<RectTransform>();
+        accentRect.anchorMin = Vector2.zero;
+        accentRect.anchorMax = new Vector2(0, 1);
+        accentRect.pivot = new Vector2(0, .5f);
+        accentRect.sizeDelta = new Vector2(5, 0);
+        accent.GetComponent<Image>().color = new Color32(222, 170, 78, 255);
+        accent.GetComponent<Image>().raycastTarget = false;
+
+        _tooltipTitle = MakeText(_tooltip.transform, "Title", "", 19, TextAnchor.UpperLeft);
+        _tooltipTitle.fontStyle = FontStyle.Bold;
+        _tooltipTitle.color = new Color32(239, 220, 177, 255);
+        _tooltipTitle.rectTransform.anchorMin = new Vector2(0, 1);
+        _tooltipTitle.rectTransform.anchorMax = Vector2.one;
+        _tooltipTitle.rectTransform.offsetMin = new Vector2(22, -49);
+        _tooltipTitle.rectTransform.offsetMax = new Vector2(-18, -12);
+
+        var divider = new GameObject("Divider", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        divider.transform.SetParent(_tooltip.transform, false);
+        var dividerRect = divider.GetComponent<RectTransform>();
+        dividerRect.anchorMin = new Vector2(0, 1);
+        dividerRect.anchorMax = new Vector2(1, 1);
+        dividerRect.pivot = new Vector2(.5f, 1);
+        dividerRect.offsetMin = new Vector2(22, -55);
+        dividerRect.offsetMax = new Vector2(-18, -53);
+        divider.GetComponent<Image>().color = new Color32(99, 118, 115, 150);
+        divider.GetComponent<Image>().raycastTarget = false;
+
+        _tooltipDescription = MakeText(_tooltip.transform, "Description", "", 16, TextAnchor.UpperLeft);
+        _tooltipDescription.rectTransform.anchorMin = Vector2.zero;
+        _tooltipDescription.rectTransform.anchorMax = Vector2.one;
+        _tooltipDescription.rectTransform.offsetMin = new Vector2(22, 14);
+        _tooltipDescription.rectTransform.offsetMax = new Vector2(-18, -66);
+        _tooltipDescription.horizontalOverflow = HorizontalWrapMode.Wrap;
+        _tooltipDescription.verticalOverflow = VerticalWrapMode.Truncate;
+        _tooltipDescription.lineSpacing = 1.12f;
         _tooltip.SetActive(false);
     }
 

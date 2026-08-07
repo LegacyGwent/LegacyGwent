@@ -101,7 +101,7 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewAvatars)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedAvatars"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetAvatarContext(trinketID);
                 }
@@ -111,7 +111,7 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewBorders)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedBorders"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetBorderContext(trinketID);
                 }
@@ -128,7 +128,7 @@ public class MainCode : MonoBehaviour
                         Debug.LogWarning("Skipping unknown unlocked title: " + trinketID);
                         continue;
                     }
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTitleLook(trinketID, titleColor); // sets the look in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTitleContext(trinketID);
                 }
@@ -138,6 +138,24 @@ public class MainCode : MonoBehaviour
             await _client.ClearNewlyUnlockedTrinkets(_client.User.UserName);
         }
     }
+
+    private GameObject CreateTrinketUnlock()
+    {
+        // This is a UI prefab. Instantiating it at world position zero makes
+        // its canvas-local position resolution-dependent and can place the
+        // reward panel off-screen while its backdrop still blocks all input.
+        var notification = Instantiate(TrinketUnlockPrefab, Canevas.transform, false);
+        var rectTransform = notification.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.localRotation = Quaternion.identity;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.anchoredPosition = Vector2.zero;
+        }
+        notification.transform.SetAsLastSibling();
+        return notification;
+    }
+
     void Awake()
     {
         RectTransform rectTransform = UserCount.GetComponent<RectTransform>();

@@ -165,16 +165,54 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         rect.anchorMin = new Vector2(.5f, .5f);
         rect.anchorMax = new Vector2(.5f, .5f);
         rect.pivot = new Vector2(.5f, .5f);
-        rect.sizeDelta = new Vector2(430, Mathf.Min(390, 58 + _ruleIds.Count * 74));
-        _tooltip.GetComponent<Image>().color = new Color32(8, 25, 29, 252);
+        rect.sizeDelta = new Vector2(440, Mathf.Min(420, 78 + _ruleIds.Count * 78));
+        _tooltip.GetComponent<Image>().color = new Color32(6, 19, 23, 252);
+        var outline = _tooltip.AddComponent<Outline>();
+        outline.effectColor = new Color32(188, 137, 57, 190);
+        outline.effectDistance = new Vector2(1, -1);
+
+        var accent = new GameObject("Accent", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        accent.transform.SetParent(_tooltip.transform, false);
+        var accentRect = accent.GetComponent<RectTransform>();
+        accentRect.anchorMin = Vector2.zero;
+        accentRect.anchorMax = new Vector2(0, 1);
+        accentRect.pivot = new Vector2(0, .5f);
+        accentRect.sizeDelta = new Vector2(5, 0);
+        accent.GetComponent<Image>().color = new Color32(222, 170, 78, 255);
+        accent.GetComponent<Image>().raycastTarget = false;
+
+        var heading = new GameObject("Heading", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text)).GetComponent<Text>();
+        heading.transform.SetParent(_tooltip.transform, false);
+        heading.font = DeckText != null ? DeckText.font : Resources.GetBuiltinResource<Font>("Arial.ttf");
+        heading.fontSize = 19;
+        heading.fontStyle = FontStyle.Bold;
+        heading.alignment = TextAnchor.UpperLeft;
+        heading.color = new Color32(239, 220, 177, 255);
+        heading.text = _translator?.TextLocalization?.ChosenLanguage?.Filename == "en" ? "RULE CARDS" : "规则卡总览";
+        heading.raycastTarget = false;
+        heading.rectTransform.anchorMin = new Vector2(0, 1);
+        heading.rectTransform.anchorMax = Vector2.one;
+        heading.rectTransform.offsetMin = new Vector2(22, -49);
+        heading.rectTransform.offsetMax = new Vector2(-18, -12);
+
+        var divider = new GameObject("Divider", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        divider.transform.SetParent(_tooltip.transform, false);
+        var dividerRect = divider.GetComponent<RectTransform>();
+        dividerRect.anchorMin = new Vector2(0, 1);
+        dividerRect.anchorMax = new Vector2(1, 1);
+        dividerRect.pivot = new Vector2(.5f, 1);
+        dividerRect.offsetMin = new Vector2(22, -55);
+        dividerRect.offsetMax = new Vector2(-18, -53);
+        divider.GetComponent<Image>().color = new Color32(99, 118, 115, 150);
+        divider.GetComponent<Image>().raycastTarget = false;
 
         var content = new GameObject("Content", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
         content.transform.SetParent(_tooltip.transform, false);
         var contentRect = content.GetComponent<RectTransform>();
         contentRect.anchorMin = Vector2.zero;
         contentRect.anchorMax = Vector2.one;
-        contentRect.offsetMin = new Vector2(20, 15);
-        contentRect.offsetMax = new Vector2(-20, -15);
+        contentRect.offsetMin = new Vector2(22, 16);
+        contentRect.offsetMax = new Vector2(-18, -66);
         var text = content.GetComponent<Text>();
         text.font = DeckText != null ? DeckText.font : Resources.GetBuiltinResource<Font>("Arial.ttf");
         text.fontSize = 16;
@@ -182,6 +220,8 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         text.color = new Color32(239, 233, 215, 255);
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Truncate;
+        text.lineSpacing = 1.08f;
+        text.supportRichText = true;
         text.text = BuildSummary();
         text.raycastTarget = false;
         _tooltip.SetActive(false);
@@ -190,16 +230,16 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private string BuildSummary()
     {
         var english = _translator?.TextLocalization?.ChosenLanguage?.Filename == "en";
-        var lines = new List<string> { english ? "RULE CARDS" : "规则卡" };
+        var lines = new List<string>();
         foreach (var id in _ruleIds)
         {
             var definition = _manifest.RuleCards.FirstOrDefault(x => x.Id == id);
             var name = definition != null ? definition.Name.Resolve(english ? "en" : "zh-CN") : _translator.GetCardName(id);
             var description = definition != null ? definition.Description.Resolve(english ? "en" : "zh-CN") : _translator.GetCardInfo(id);
             if (description != null && description.Length > 74) description = description.Substring(0, 74) + "…";
-            lines.Add("\n◆ " + name + "\n" + description);
+            lines.Add("<color=#EFDCB1><b>◆ " + name + "</b></color>\n<size=14><color=#B6C3BE>" + description + "</color></size>");
         }
-        return string.Join("\n", lines);
+        return string.Join("\n\n", lines);
     }
 
     private void HideTooltip()

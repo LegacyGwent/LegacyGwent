@@ -72,6 +72,10 @@ until every applicable item has automated coverage or a reviewed screenshot.
   to the coin. Card details, choices, menus, and modal dialogs render above them.
   Opening the rule browser may elevate only its modal overlay, then restore the
   low launcher layer when closed.
+- Hover help for resources and card markers uses a dedicated intermediate layer:
+  it renders above player names and passive board labels, but below card details,
+  choices, menus, and modal dialogs. Do not leave hover text on the passive HUD
+  canvas where player-name UI can cover it.
 - Rule launcher stays hidden when neither player has active rules. When present,
   the browser shows which side supplied each rule and supports shared rules.
 - Resource definitions support one or many entries and optional hover text. A
@@ -80,6 +84,9 @@ until every applicable item has automated coverage or a reviewed screenshot.
 - Card markers support one or many definitions/instances, readable high-contrast
   labels, stack/value display, and a polished tooltip with separated title,
   description, and localized instance details. Multiple markers remain legible.
+- Resource, card-marker, and deck-rule hover cards share a restrained hierarchy:
+  distinct title, divider/accent, readable wrapped body, comfortable padding,
+  pointer tracking, and edge clamping. Do not render a raw debug-style text block.
 - Generic HUD styles must not cover or intercept normal card/menu interaction.
 
 ## Visual regressions
@@ -87,6 +94,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
 - Acknowledging a completed-season reward persists per account/season. It must
   not loop, and reconnecting or logging in again must not show the same season
   dialog once more merely because the SignalR session changed.
+- Instantiate canvas notification prefabs with their UI parent and
+  `worldPositionStays: false`, then normalize their `RectTransform`. Passing
+  world position zero can move the visible reward panel beyond the lower-left
+  edge at high resolutions while its full-screen raycast backdrop still blocks
+  every menu control.
 - Legacy/imported accounts may contain several stale season notices. Show the
   newest pending notice once and acknowledge the complete older season backlog;
   never make a player clear one historical season on each successive login.
@@ -94,7 +106,8 @@ until every applicable item has automated coverage or a reviewed screenshot.
   the face on the right at the same scale as existing leader slots, and uses the
   current packaged `_slot` Addressable rather than a stale bundle.
 - Right-click card details label navigation as `关闭`/`返回` (or localized
-  equivalents), never `登录`.
+  equivalents), never `登录`. `关闭` exits the detail overlay; `返回` pops an
+  actual linked-card browsing history and stays hidden when no prior card exists.
 - User-facing server messages are localization keys resolved by the client. Do
   not concatenate Chinese and English (for example `已投降\nSurrendered`) in one
   production message.

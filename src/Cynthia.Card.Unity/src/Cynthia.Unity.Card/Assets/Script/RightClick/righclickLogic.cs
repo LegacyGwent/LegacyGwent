@@ -83,6 +83,7 @@ public class righclickLogic : MonoBehaviour
         }
 
         UpdateCard(DisplayID);
+        RefreshNavigationButtons();
     }
     public static string RemoveContentInParentheses(string input)
     {
@@ -205,6 +206,7 @@ public class righclickLogic : MonoBehaviour
         {
             AddLinked(ID);
         }
+        RefreshNavigationButtons();
     }
     public void AddLinked(string ID)
     {
@@ -227,11 +229,21 @@ public class righclickLogic : MonoBehaviour
             DisplayID=History[History.Count - 1];
             UpdateCard(DisplayID);
             History.RemoveAt(History.Count - 1);
+            RefreshNavigationButtons();
         }
         else
         {
             Closerightclick();
         }
+    }
+
+    private void RefreshNavigationButtons()
+    {
+        // "返回" means navigating to the previously inspected linked card.
+        // On the first card there is no navigation history, so showing it next
+        // to "关闭" makes two different actions look redundant.
+        if (BackButtonText != null && BackButtonText.transform.parent != null)
+            BackButtonText.transform.parent.gameObject.SetActive(History != null && History.Count > 1);
     }
     public void PlaySound()
     {

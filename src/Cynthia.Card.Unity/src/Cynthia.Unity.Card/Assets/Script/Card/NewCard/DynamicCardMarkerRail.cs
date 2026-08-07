@@ -241,8 +241,8 @@ internal static class DynamicMarkerTooltip
         if (_tooltip == null) return;
         _titleText.text = title ?? "";
         _descriptionText.text = description ?? "";
-        var lines = (description ?? "").Split('\n').Length;
-        _tooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(420, Mathf.Clamp(92 + lines * 24, 116, 220));
+        var visualLines = Mathf.Max(1, (description ?? "").Split('\n').Length + Mathf.CeilToInt((description ?? "").Length / 32f) - 1);
+        _tooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(430, Mathf.Clamp(104 + visualLines * 20, 124, 224));
         Move(screenPosition);
         _tooltip.SetActive(true);
         _tooltip.transform.SetAsLastSibling();
@@ -252,7 +252,13 @@ internal static class DynamicMarkerTooltip
     {
         if (_tooltip == null || _canvasRect == null) return;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screenPosition, _canvasCamera, out var local);
-        _tooltip.GetComponent<RectTransform>().anchoredPosition = local + new Vector2(20, 20);
+        var rect = _tooltip.GetComponent<RectTransform>();
+        var half = rect.sizeDelta * .5f;
+        var showOnRight = local.x + rect.sizeDelta.x + 30 <= _canvasRect.rect.xMax;
+        var point = local + new Vector2(showOnRight ? half.x + 20 : -half.x - 20, half.y + 18);
+        point.x = Mathf.Clamp(point.x, _canvasRect.rect.xMin + half.x + 12, _canvasRect.rect.xMax - half.x - 12);
+        point.y = Mathf.Clamp(point.y, _canvasRect.rect.yMin + half.y + 12, _canvasRect.rect.yMax - half.y - 12);
+        rect.anchoredPosition = point;
     }
 
     public static void Hide()
@@ -283,7 +289,10 @@ internal static class DynamicMarkerTooltip
             canvas.sortingLayerID = _sourceCanvas?.sortingLayerID ?? 0;
             if (canvas.renderMode != RenderMode.ScreenSpaceOverlay && canvas.worldCamera == null)
                 canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 0;
+            // Hover help must clear player-name HUD, while card details and
+            // modal interaction canvases remain above it.
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 2;
             var scaler = canvasObject.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
@@ -299,8 +308,8 @@ internal static class DynamicMarkerTooltip
         var rect = _tooltip.GetComponent<RectTransform>();
         rect.anchorMin = new Vector2(.5f, .5f);
         rect.anchorMax = new Vector2(.5f, .5f);
-        rect.pivot = Vector2.zero;
-        rect.sizeDelta = new Vector2(420, 116);
+        rect.pivot = new Vector2(.5f, .5f);
+        rect.sizeDelta = new Vector2(430, 124);
         var image = _tooltip.GetComponent<Image>();
         image.color = new Color32(6, 19, 23, 248);
         image.raycastTarget = false;
@@ -318,17 +327,29 @@ internal static class DynamicMarkerTooltip
         accent.GetComponent<Image>().color = new Color32(222, 170, 78, 255);
         accent.GetComponent<Image>().raycastTarget = false;
 
-        _titleText = MakeTooltipText("Title", 18, FontStyle.Bold, new Color32(239, 220, 177, 255));
+        _titleText = MakeTooltipText("Title", 19, FontStyle.Bold, new Color32(239, 220, 177, 255));
         _titleText.rectTransform.anchorMin = new Vector2(0, 1);
         _titleText.rectTransform.anchorMax = Vector2.one;
-        _titleText.rectTransform.offsetMin = new Vector2(20, -48);
-        _titleText.rectTransform.offsetMax = new Vector2(-16, -10);
+        _titleText.rectTransform.offsetMin = new Vector2(22, -49);
+        _titleText.rectTransform.offsetMax = new Vector2(-18, -12);
 
-        _descriptionText = MakeTooltipText("Description", 15, FontStyle.Normal, new Color32(221, 226, 218, 255));
+        var divider = new GameObject("Divider", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        divider.transform.SetParent(_tooltip.transform, false);
+        var dividerRect = divider.GetComponent<RectTransform>();
+        dividerRect.anchorMin = new Vector2(0, 1);
+        dividerRect.anchorMax = new Vector2(1, 1);
+        dividerRect.pivot = new Vector2(.5f, 1);
+        dividerRect.offsetMin = new Vector2(22, -55);
+        dividerRect.offsetMax = new Vector2(-18, -53);
+        divider.GetComponent<Image>().color = new Color32(99, 118, 115, 150);
+        divider.GetComponent<Image>().raycastTarget = false;
+
+        _descriptionText = MakeTooltipText("Description", 16, FontStyle.Normal, new Color32(221, 226, 218, 255));
         _descriptionText.rectTransform.anchorMin = Vector2.zero;
         _descriptionText.rectTransform.anchorMax = Vector2.one;
-        _descriptionText.rectTransform.offsetMin = new Vector2(20, 12);
-        _descriptionText.rectTransform.offsetMax = new Vector2(-16, -52);
+        _descriptionText.rectTransform.offsetMin = new Vector2(22, 14);
+        _descriptionText.rectTransform.offsetMax = new Vector2(-18, -66);
+        _descriptionText.lineSpacing = 1.12f;
         _tooltip.SetActive(false);
     }
 
