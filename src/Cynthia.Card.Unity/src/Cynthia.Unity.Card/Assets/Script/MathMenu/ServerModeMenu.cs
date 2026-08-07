@@ -226,7 +226,7 @@ public sealed class ServerModeMenu : MonoBehaviour
             if (lastCategory != mode.Category)
             {
                 var category = MakeText(content.transform, "Category-" + mode.Category,
-                    mode.Category == "ai" ? Resolve(new LocalizedText { ZhCn = "人机试炼", En = "AI challenges" }) : Resolve(new LocalizedText { ZhCn = "玩家对战", En = "Player versus player" }),
+                    ResolveCategoryName(mode),
                     16, TextAnchor.MiddleLeft, Gold);
                 category.gameObject.AddComponent<LayoutElement>().preferredHeight = 34;
                 lastCategory = mode.Category;
@@ -281,7 +281,7 @@ public sealed class ServerModeMenu : MonoBehaviour
         descriptionRect.offsetMin = new Vector2(25, 10);
         descriptionRect.offsetMax = new Vector2(-118, 0);
 
-        var type = MakeText(row.transform, "Type", mode.Category == "ai" ? "AI" : "PVP", 14, TextAnchor.MiddleCenter, Gold);
+        var type = MakeText(row.transform, "Type", ResolveTypeLabel(mode), 14, TextAnchor.MiddleCenter, Gold);
         var typeRect = type.rectTransform;
         typeRect.anchorMin = new Vector2(1, .5f);
         typeRect.anchorMax = new Vector2(1, .5f);
@@ -310,6 +310,27 @@ public sealed class ServerModeMenu : MonoBehaviour
     }
 
     private string Resolve(LocalizedText text) => _owner.ResolveLocalized(text);
+
+    private string ResolveCategoryName(GameModeDefinition mode)
+    {
+        if (mode?.CategoryName != null &&
+            (!string.IsNullOrWhiteSpace(mode.CategoryName.ZhCn) || !string.IsNullOrWhiteSpace(mode.CategoryName.En)))
+            return Resolve(mode.CategoryName);
+        if (string.Equals(mode?.Category, "ai", StringComparison.OrdinalIgnoreCase))
+            return Resolve(new LocalizedText { ZhCn = "人机试炼", En = "AI challenges" });
+        if (string.Equals(mode?.Category, "pvp", StringComparison.OrdinalIgnoreCase) ||
+            string.IsNullOrWhiteSpace(mode?.Category))
+            return Resolve(new LocalizedText { ZhCn = "玩家对战", En = "Player versus player" });
+        return mode.Category;
+    }
+
+    private string ResolveTypeLabel(GameModeDefinition mode)
+    {
+        if (mode?.TypeLabel != null &&
+            (!string.IsNullOrWhiteSpace(mode.TypeLabel.ZhCn) || !string.IsNullOrWhiteSpace(mode.TypeLabel.En)))
+            return Resolve(mode.TypeLabel);
+        return string.Equals(mode?.MatchKind, "ai", StringComparison.OrdinalIgnoreCase) ? "AI" : "PVP";
+    }
 
     private static Text MakeText(Transform parent, string name, string value, int size, TextAnchor alignment, Color color)
     {

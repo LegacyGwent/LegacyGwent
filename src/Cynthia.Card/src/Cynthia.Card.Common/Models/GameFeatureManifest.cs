@@ -281,10 +281,15 @@ namespace Cynthia.Card
     {
         public string Id { get; set; } = "";
         public string Category { get; set; } = "";
+        // Optional server-authored presentation. Older manifests may omit it;
+        // clients then fall back to the built-in pvp/ai category labels.
+        public LocalizedText CategoryName { get; set; } = new LocalizedText();
         public LocalizedText Name { get; set; } = new LocalizedText();
         public LocalizedText Description { get; set; } = new LocalizedText();
         public string IconKey { get; set; } = "";
         public string MatchKind { get; set; } = "pvp";
+        // Presentation only. MatchKind remains the authoritative execution path.
+        public LocalizedText TypeLabel { get; set; } = new LocalizedText();
         // Matchmaking policy only. Password/custom entry points may deliberately
         // pair decks with different rule cards.
         public string RuleMatchPolicy { get; set; } = "same";

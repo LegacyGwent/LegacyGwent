@@ -11,7 +11,8 @@ for the task, then rewrite the knowledge base when verified learning occurs.
 ## Start every task
 
 1. Locate the checkout and read its `AGENTS.md`.
-2. Run `scripts/project-status.ps1` and inspect the relevant source before
+2. From the repository root, run
+   `skills/legacy-gwent-maintainer/scripts/project-status.ps1` and inspect the relevant source before
    changing it. Add `-Remote` or `-GitHub` only when live deployment or workflow
    state matters; both modes are read-only.
 3. Read [references/index.md](references/index.md) completely.

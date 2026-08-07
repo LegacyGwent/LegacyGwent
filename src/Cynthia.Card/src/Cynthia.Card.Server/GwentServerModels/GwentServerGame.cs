@@ -24,6 +24,7 @@ namespace Cynthia.Card.Server
         private readonly string _rulesetFingerprint;
         private readonly IReadOnlyDictionary<string, DynamicCardMarkerDefinition> _cardMarkerDefinitions;
         private readonly IReadOnlyDictionary<string, GameResourceDefinition> _resourceDefinitions;
+        private readonly IReadOnlyDictionary<string, RuleCardDefinition> _ruleCardDefinitions;
         private const int MaxDynamicMarkersPerCard = 8;
         private const int MaxResourcesPerPlayer = 16;
         private const int MaxDynamicValue = 1000000000;
@@ -225,6 +226,8 @@ namespace Cynthia.Card.Server
                 RandomSeed = _randomSeed,
                 RedRuleCards = GetDeckRuleIds(redIndex),
                 BlueRuleCards = GetDeckRuleIds(blueIndex),
+                RedRulePackages = GetDeckRulePackages(redIndex),
+                BlueRulePackages = GetDeckRulePackages(blueIndex),
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -876,6 +879,8 @@ namespace Cynthia.Card.Server
                 ,RandomSeed = _randomSeed
                 ,RedRuleCards = GetDeckRuleIds(redIndex)
                 ,BlueRuleCards = GetDeckRuleIds(blueIndex)
+                ,RedRulePackages = GetDeckRulePackages(redIndex)
+                ,BlueRulePackages = GetDeckRulePackages(blueIndex)
             };
             GameResultEvent(result);
             TempGameResult = result;
@@ -1504,6 +1509,22 @@ namespace Cynthia.Card.Server
                 .OrderBy(x => x, StringComparer.Ordinal)
                 .ToList();
 
+        private List<ResolvedRuleCardExecution> GetDeckRulePackages(int playerIndex)
+            => GetDeckRuleIds(playerIndex).Select(cardId =>
+            {
+                _ruleCardDefinitions.TryGetValue(cardId, out var definition);
+                return new ResolvedRuleCardExecution
+                {
+                    RuleCardId = cardId,
+                    PackageVersion = definition?.PackageVersion ?? "",
+                    Priority = definition?.Priority ?? 0,
+                    OverrideScopes = (definition?.OverrideScopes ?? new List<string>())
+                        .Distinct(StringComparer.Ordinal)
+                        .OrderBy(x => x, StringComparer.Ordinal)
+                        .ToList()
+                };
+            }).ToList();
+
         private List<GameRuleSource> GetRuleSources(int myPlayerIndex, int enemyPlayerIndex)
         {
             var myRules = new HashSet<string>(GetDeckRuleIds(myPlayerIndex), StringComparer.Ordinal);
@@ -1732,7 +1753,7 @@ namespace Cynthia.Card.Server
         {
         }
 
-        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false, Func<string, bool> isRuleCard = null, string modeId = "", string rulesetVersion = "", string rulesetFingerprint = "", int? randomSeed = null, IEnumerable<DynamicCardMarkerDefinition> cardMarkerDefinitions = null, IEnumerable<GameResourceDefinition> resourceDefinitions = null, IEnumerable<string> activeRuleCardIds = null)
+        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false, Func<string, bool> isRuleCard = null, string modeId = "", string rulesetVersion = "", string rulesetFingerprint = "", int? randomSeed = null, IEnumerable<DynamicCardMarkerDefinition> cardMarkerDefinitions = null, IEnumerable<GameResourceDefinition> resourceDefinitions = null, IEnumerable<string> activeRuleCardIds = null, IEnumerable<RuleCardDefinition> ruleCardDefinitions = null)
         {
             Random rnd = new Random();
             if (isSpecial && rnd.Next(0, 2) == 0)
@@ -1759,6 +1780,10 @@ namespace Cynthia.Card.Server
                 .GroupBy(x => x.Id, StringComparer.Ordinal)
                 .ToDictionary(x => x.Key, x => x.First(), StringComparer.Ordinal);
             _resourceDefinitions = (resourceDefinitions ?? Enumerable.Empty<GameResourceDefinition>())
+                .Where(x => x != null && !string.IsNullOrWhiteSpace(x.Id))
+                .GroupBy(x => x.Id, StringComparer.Ordinal)
+                .ToDictionary(x => x.Key, x => x.First(), StringComparer.Ordinal);
+            _ruleCardDefinitions = (ruleCardDefinitions ?? Enumerable.Empty<RuleCardDefinition>())
                 .Where(x => x != null && !string.IsNullOrWhiteSpace(x.Id))
                 .GroupBy(x => x.Id, StringComparer.Ordinal)
                 .ToDictionary(x => x.Key, x => x.First(), StringComparer.Ordinal);

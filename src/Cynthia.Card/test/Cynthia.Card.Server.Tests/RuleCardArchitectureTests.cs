@@ -109,6 +109,64 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void CombinedMatchFingerprintIncludesRulePackageVersions()
+        {
+            var player1 = new GeraltNovaAI();
+            var player2 = new SoldierTrainAI();
+            var ruleId = player1.Deck.Deck.First();
+            player2.Deck.Deck.RemoveAll(x => x == ruleId);
+            var room = new GwentRoom(player1, "test-versioned-rules");
+            room.AddPlayer(player2);
+            var first = new RuleCardDefinition { Id = ruleId, PackageVersion = "1", IsEnabled = true };
+            var second = new RuleCardDefinition { Id = ruleId, PackageVersion = "2", IsEnabled = true };
+
+            var firstFingerprint = GwentMatchs.CreateCombinedRuleFingerprint(
+                room, new[] { first }, "rules-v1", isActiveRuleCard: id => id == ruleId);
+            var secondFingerprint = GwentMatchs.CreateCombinedRuleFingerprint(
+                room, new[] { second }, "rules-v1", isActiveRuleCard: id => id == ruleId);
+
+            Assert.NotEqual(firstFingerprint, secondFingerprint);
+        }
+
+        [Fact]
+        public async Task GameResultKeepsVersionedRulePackagesForEachOwner()
+        {
+            var player1 = new GeraltNovaAI();
+            var player2 = new SoldierTrainAI();
+            var ruleId = player1.Deck.Deck.First();
+            player2.Deck.Deck.RemoveAll(x => x == ruleId);
+            GameResult captured = null;
+            var definition = new RuleCardDefinition
+            {
+                Id = ruleId,
+                PackageVersion = "package-7",
+                Priority = 42,
+                OverrideScopes = new List<string> { DeckRuleEngine.ScopeCardPool }
+            };
+            var game = new GwentServerGame(
+                player1,
+                player2,
+                new GwentCardDataService(),
+                result => captured = result,
+                false,
+                id => id == ruleId,
+                activeRuleCardIds: new[] { ruleId },
+                ruleCardDefinitions: new[] { definition });
+
+            await game.GameOverExecute();
+
+            Assert.NotNull(captured);
+            var redUsesRule = captured.RedRuleCards.Contains(ruleId);
+            var ownerPackages = redUsesRule ? captured.RedRulePackages : captured.BlueRulePackages;
+            var otherPackages = redUsesRule ? captured.BlueRulePackages : captured.RedRulePackages;
+            var package = Assert.Single(ownerPackages, x => x.RuleCardId == ruleId);
+            Assert.Equal("package-7", package.PackageVersion);
+            Assert.Equal(42, package.Priority);
+            Assert.Equal(new[] { DeckRuleEngine.ScopeCardPool }, package.OverrideScopes);
+            Assert.DoesNotContain(otherPackages, x => x.RuleCardId == ruleId);
+        }
+
+        [Fact]
         public void PvpMatchKeysSeparateRuleFingerprintsUnlessTheModeExplicitlyOptsOut()
         {
             var standardMode = new GameModeDefinition

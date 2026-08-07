@@ -25,10 +25,12 @@ the pre-framework `diy-ai` line.
 - Branch: `reset-diy-ai-card-pool`
 - Local server: `http://127.0.0.1:5010`, isolated MongoDB on `28021`
 - Local manifest: `game-features.rule-ui.local.json`; player rule-card entry is
-  intentionally enabled for local review and AI0-AI5 are exposed.
-- Latest Windows review build (includes the final ordinary-card incremental row
-  refresh pass):
-  `Builds/AITest-Windows-rule-local-final/DiyGwent-AITest.exe`
+  intentionally enabled for local review. The production/default
+  `game-features.json` remains disabled, proving the server-side kill switch
+  without changing the client. AI0-AI5 and a server-authored special challenge
+  fixture are exposed locally.
+- Latest verified Windows review build:
+  `Builds/AITest-Windows-rule-local-review7/DiyGwent-AITest.exe`
 - The full Addressables/player build passed under Unity 2019.4.1f1. Use the
   verified short project junction `C:\gwent-ai-unity` for subsequent full builds
   because the normal worktree path exceeds legacy SBP cache path limits.
@@ -47,7 +49,10 @@ the pre-framework `diy-ai` line.
 - A localized `minimum N` badge appears only when the resolved minimum deck size
   differs from the ordinary 25-card minimum.
 - Mode rows/launcher have stable non-scaling hover treatment; the local manifest
-  exposes all six available AI profiles.
+  exposes all six available AI profiles. Category headings/type badges may be
+  localized and supplied by the server for future challenge/test categories.
+- Combined rule fingerprints include package versions. Match results retain
+  backward-compatible rule ID lists plus per-side versioned package identities.
 - Rule/resource/card-marker HUD was lowered beneath card details and menus;
   marker readability and tooltips were restyled and pointer-following.
 - Card details use `关闭`/`返回` rather than the unrelated login label.
@@ -62,31 +67,30 @@ the pre-framework `diy-ai` line.
 ## Verification completed
 
 - `Cynthia.Card.Server` Release build: passed, 0 warnings / 0 errors.
-- `RuleCardArchitectureTests`: 36/36 passed.
+- `RuleCardArchitectureTests`: 39/39 passed (77 server tests total).
 - Unity 2019 script compilation: passed.
-- Full Addressables + Windows player build: passed; reported player size
-  `953,339,443` bytes.
-- Final player-only rebuild after the incremental editor patch: passed; reported
-  player size `953,341,491` bytes.
-- The previous review player starts successfully against local 5010. The final
-  build is compiled and packaged but still needs the visual acceptance pass below.
+- Full Addressables + Windows player build: passed; latest review player size
+  `953,347,691` bytes.
+- Full-art inventory now proves 1,838/1,838 files are Addressable, with zero
+  mapped card art missing full-size assets. Four unassigned website previews
+  remain web-only because no original full-size source exists.
+- Review screenshots are archived under
+  `verification-output/rule-framework-review-20260807` and the final review-7
+  evidence is under `verification-output/rule-framework-review-20260807-final`.
+- The review-7 player logged into the isolated 5010 service, rendered the
+  server-authored `特殊挑战` category and AI0-AI5 list, and completed an AI1
+  match naturally. The persisted result at `2026-08-07T11:53:26.249Z` has
+  `isSurrender=false`, `ModeId=ai.1`, ruleset `local-rule-ui-1`, and the AI-side
+  versioned rule package `99004@1`.
+- Gameplay tests: 68/68 passed. Together with 77 server tests, the current
+  automated total is 145/145.
 
-## Required next-session acceptance
+## Remaining visual acceptance before publication
 
-1. Use the latest review build, not `AITest-Windows-rule-local`, and visually
-   verify the rule-card header/right padding, shared editor/match rule styling,
-   tooltip following, and non-flashing filters.
-2. Rapidly add/remove ordinary and grey cards at several scroll positions. Confirm
-   no RPC-driven pause, no popup, no card-grid rebuild, and no scroll reset.
-3. Add/remove conflicting rules and verify the one-time cleanup preview, declining
-   and accepting it, then leave with an incomplete draft.
-4. Verify `minimum N` is hidden at 25 and visible for custom minima including zero.
-5. Verify mode launcher hover and AI0-AI5 list, password matching, and server-hidden
-   player-rule mode behavior.
-6. Verify card-detail/menu layering over rule/resource/marker HUD and inspect one
-   and many resources/markers plus their moving tooltips.
-7. Re-login twice after acknowledging a season result; it must not reappear.
-8. Recheck Dana Meadbh's rebuilt leader slot for the right-edge white strip.
-9. Archive approved screenshots in a dedicated review directory and run the full
-   server/gameplay test suites plus a local live AI match before considering a
-   publishable client.
+1. Owner reviews the archived screenshots and the still-running review-7 client
+   for final visual approval. The mode menu, special challenge, full AI list,
+   hover state, and completed AI1 match have fresh review-7 captures.
+2. If requested, repeat rapid ordinary/grey-card edits and conflicting-rule
+   transitions interactively with the owner; their implementation and earlier
+   screenshots are already present in the main review archive.
+3. Keep the feature local and unpushed until explicit publication approval.

@@ -58,6 +58,10 @@ until every applicable item has automated coverage or a reviewed screenshot.
   layout jump, or subtle color-only response. Preserve password matching.
 - Mode names, descriptions, availability, icons, and match policy come from the
   server. The client must not advertise an inferred rule-matching guarantee.
+- Mode category headings and optional type badges are also server-authored.
+  `MatchKind` selects the execution path (`pvp`/`ai`); never infer execution from
+  a presentation category. This permits challenge/test/expansion categories
+  without a client rebuild.
 - Card-art-backed icons crop only the meaningful painted region; never shrink a
   mostly black full-card source into a small square. Use a neutral fallback icon
   when no suitable crop exists.
@@ -98,3 +102,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
   filter and warning, conflict cleanup, deck list with/without rules, full AI menu
   and hover, in-game hidden/visible rule launcher, rule browser, one/many resources,
   one/many card markers and tooltips, card details layering, and Dana leader slot.
+
+## Result identity
+
+- Combined match fingerprints include the manifest ruleset version and every
+  active rule package version, not merely sorted rule IDs.
+- Persist both legacy per-side rule ID lists and additive per-side versioned
+  package records. This keeps old readers compatible while making historical
+  challenge/test results reproducible and package analytics reliable.

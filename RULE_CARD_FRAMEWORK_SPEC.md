@@ -149,9 +149,11 @@ so the UI can explain the result.
 
 ## Server projection protocol
 
-Opening the editor requests a complete `DeckBuildingProjection`. Every card
-selection or removal then submits the current immutable deck snapshot and a
-monotonically increasing client revision.
+Opening the editor and every leader/rule-card transition request a complete
+`DeckBuildingProjection` with a monotonically increasing client revision.
+Ordinary card additions/removals are evaluated against the last accepted
+authoritative snapshot locally; they do not perform one server round trip per
+click.
 
 The response contains:
 
@@ -159,19 +161,20 @@ The response contains:
 - manifest/ruleset version and fingerprint;
 - macro deck constraints;
 - card-pool fingerprint;
-- full per-card state for initial/rule changes, or a delta for ordinary edits;
+- full per-card state for initial, leader, and rule changes;
 - normalized candidate deck;
 - removals with original index, rule source, and reason;
 - validity/completeness and explainable issues;
 - whether user confirmation is required.
 
 The client discards a response older than its latest submitted revision. A
-failed request leaves the last accepted projection visible and blocks saving or
-matching until a fresh authoritative projection succeeds.
+failed rule/leader request leaves the last accepted projection visible. Drafts
+remain saveable and escapable, while strict matchmaking remains blocked until a
+fresh authoritative projection succeeds.
 
-To protect the low-bandwidth server, initial and rule-changing requests may
-return a full pool; ordinary add/remove requests return only changed card
-states and aggregate counters when the pool fingerprint is unchanged.
+To protect the low-bandwidth server, only projection-changing transitions
+return the full resolved pool. Ordinary edits update card states and aggregate
+counters from that immutable snapshot without an RPC or grid rebuild.
 
 ## Deterministic cleanup and fixed point
 
@@ -252,8 +255,10 @@ The description is optional: when it is empty the client creates no hover/tap
 target and shows no interactive cursor or empty tooltip.
 
 Resources are ordinary game state, not deck cards. They are included in full
-game information, reconnect/spectator snapshots, and a small incremental update
-operation. Server helpers clamp values and send one authoritative update. An
+game information and reconnect/spectator snapshots. Mutations use the existing
+non-card `SetGameInfo` operation so compatible older clients safely ignore the
+additive resource fields without receiving an unknown operation. Server helpers
+clamp values and send one authoritative update. An
 unknown resource still renders with the neutral fallback. No resources means
 the zone is absent and consumes no layout space.
 

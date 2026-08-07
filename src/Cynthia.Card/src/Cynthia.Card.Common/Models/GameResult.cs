@@ -39,6 +39,10 @@ namespace Cynthia.Card
         public int RandomSeed { get; set; }
         public List<string> RedRuleCards { get; set; } = new List<string>();
         public List<string> BlueRuleCards { get; set; } = new List<string>();
+        // Additive, versioned identities keep historical rule matches reproducible.
+        // The legacy string lists remain for existing readers and old documents.
+        public List<ResolvedRuleCardExecution> RedRulePackages { get; set; } = new List<ResolvedRuleCardExecution>();
+        public List<ResolvedRuleCardExecution> BlueRulePackages { get; set; } = new List<ResolvedRuleCardExecution>();
 
     }
 }

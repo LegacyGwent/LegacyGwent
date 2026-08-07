@@ -2,7 +2,7 @@
   "SchemaVersion": 2,
   "FeatureLevel": 2,
   "RulesetVersion": "local-rule-ui-1",
-  "PlayerRuleCardsEnabled": false,
+  "PlayerRuleCardsEnabled": true,
   "CardMarkerDefinitions": [
     {
       "Id": "local.poison", "Name": { "ZhCn": "中毒", "En": "Poison" },
@@ -93,6 +93,15 @@
       "Description": { "ZhCn": "公开匹配。", "En": "Public matchmaking." },
       "IconKey": "pvp", "MatchKind": "pvp", "RuleMatchPolicy": "same", "AllowCustomRuleCards": true,
       "SortOrder": 10, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "challenge.feast", "Category": "challenge",
+      "CategoryName": { "ZhCn": "特殊挑战", "En": "Special challenges" },
+      "Name": { "ZhCn": "饕餮试炼", "En": "Feast Trial" },
+      "Description": { "ZhCn": "由服务器配置规则的人机挑战。", "En": "A server-configured AI challenge." },
+      "TypeLabel": { "ZhCn": "挑战", "En": "CHALLENGE" },
+      "IconKey": "challenge", "MatchKind": "ai", "AiProfile": "ai1", "AiRuleCards": ["99004"],
+      "AllowCustomRuleCards": true, "SortOrder": 80, "MinimumClientFeatureLevel": 2
     },
     {
       "Id": "ai.0", "Category": "ai", "Name": { "ZhCn": "AI 练习", "En": "AI Practice" },

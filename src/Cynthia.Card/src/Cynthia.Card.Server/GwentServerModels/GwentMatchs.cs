@@ -32,12 +32,17 @@ namespace Cynthia.Card.Server
                 .Distinct(StringComparer.Ordinal)
                 .ToList();
             var activeRuleCardSet = new HashSet<string>(activeRuleCardIds, StringComparer.Ordinal);
+            if (string.IsNullOrWhiteSpace(rulesetVersion))
+                rulesetVersion = string.IsNullOrWhiteSpace(featureManifest.RulesetVersion)
+                    ? "legacy-custom"
+                    : featureManifest.RulesetVersion;
             if (string.IsNullOrWhiteSpace(rulesetFingerprint))
                 rulesetFingerprint = CreateCombinedRuleFingerprint(
                     room,
+                    featureManifest.RuleCards,
+                    rulesetVersion,
+                    featureManifest.CardPools,
                     cardId => DeckRuleEngine.IsRuleCard(cardId) && activeRuleCardSet.Contains(cardId));
-            if (string.IsNullOrWhiteSpace(rulesetVersion))
-                rulesetVersion = "legacy-custom";
             if (string.IsNullOrWhiteSpace(modeId))
                 modeId = string.IsNullOrWhiteSpace(room.Password) ? "legacy.casual" : "custom.password";
             //通知玩家游戏开始
@@ -63,7 +68,8 @@ namespace Cynthia.Card.Server
                 rulesetFingerprint: rulesetFingerprint,
                 cardMarkerDefinitions: featureManifest.CardMarkerDefinitions,
                 resourceDefinitions: featureManifest.ResourceDefinitions,
-                activeRuleCardIds: activeRuleCardIds);
+                activeRuleCardIds: activeRuleCardIds,
+                ruleCardDefinitions: featureManifest.RuleCards);
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {
@@ -124,9 +130,14 @@ namespace Cynthia.Card.Server
                 room.AddPlayer(player);
                 if (room.IsReady)
                 {
+                    var featureManifest = _gwentService.GetRuntimeFeatureManifest();
                     var matchFingerprint = matchSameRules
                         ? rules.Fingerprint
-                        : CreateCombinedRuleFingerprint(room);
+                        : CreateCombinedRuleFingerprint(
+                            room,
+                            featureManifest.RuleCards,
+                            rules.RulesetVersion,
+                            featureManifest.CardPools);
                     StartGame(
                         room,
                         false,
@@ -174,8 +185,11 @@ namespace Cynthia.Card.Server
             return (exactPasswordMatch && !room.InBlacklist(player)) || legacyAiFallback;
         }
 
-        private static string CreateCombinedRuleFingerprint(
+        public static string CreateCombinedRuleFingerprint(
             GwentRoom room,
+            IEnumerable<RuleCardDefinition> definitions,
+            string rulesetVersion,
+            IEnumerable<CardPoolDefinition> cardPools = null,
             Func<string, bool> isActiveRuleCard = null)
         {
             isActiveRuleCard = isActiveRuleCard ?? DeckRuleEngine.IsRuleCard;
@@ -184,8 +198,9 @@ namespace Cynthia.Card.Server
                 .SelectMany(x => x.Deck?.Deck ?? new List<string>())
                 .Where(isActiveRuleCard)
                 .Distinct(StringComparer.Ordinal)
-                .OrderBy(x => x, StringComparer.Ordinal);
-            return string.Join("+", ids);
+                .OrderBy(x => x, StringComparer.Ordinal)
+                .ToList();
+            return DeckRuleEngine.Resolve(definitions, ids, rulesetVersion, cardPools).Fingerprint;
         }
 
         private static AIPlayer CreateAi(string profile)
