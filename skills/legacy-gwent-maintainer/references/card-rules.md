@@ -1,8 +1,13 @@
 # Card-specific rules
 
-Last verified: 2026-08-05
+Last verified: 2026-08-08
 
 ## Similar Chinese card names
+
+- In this project, Chinese `树精` maps to `Categorie.Dryad`; `树人` maps to
+  `Categorie.Treant`. Confirm the Chinese noun before copying tags or filters:
+  tree-themed Scoia'tael cards can mention either and the categories are not
+  interchangeable.
 
 - `CardId.DimunPirate` (`64002`) is “迪门家族海盗”: base strength 11 and
   discards all remaining copies of itself from the deck.

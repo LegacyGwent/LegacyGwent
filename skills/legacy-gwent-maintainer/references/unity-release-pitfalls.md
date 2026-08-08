@@ -1,6 +1,6 @@
 # Unity release pitfalls
 
-Last verified: 2026-08-04
+Last verified: 2026-08-08
 
 ## Website artwork exists but the Unity card is blank
 
@@ -25,6 +25,13 @@ Last verified: 2026-08-04
   uniqueness and Addressables membership, then build a client and load the card
   plus its deck/leader slot. A CardMap version bump updates metadata/locales but
   cannot add art to an already installed client.
+
+For deck/leader strips, use a composed `<CardArtsId>_slot.png` at `512x64`
+ARGB, preserve a recognizable face/subject crop, and register its unique GUID
+and address in the Miniatures Addressables group. Do not squeeze an arbitrary
+wide source into the slot or use the whole mostly-black full-card canvas; both
+produce distorted or empty-looking strips. Verify dimensions, alpha, one GUID,
+one address, and the actual deck-list rendering before release.
 
 ## CI artifact names and internal client versions diverge
 

@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-07
+Last verified: 2026-08-08
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -33,6 +33,13 @@ implementation may still choose a legal landing row randomly; avoid asserting a
 specific row unless the fixture explicitly overrides that method. When a chain
 needs a specific menu card, control the candidate order or add a queued card-ID
 selector rather than relying on shuffled order.
+
+`SynchronizeClientsAsync` may reorder a deck before the deterministic player
+selects its first current candidate. Capture the expected selected object from
+the live deck after synchronization, then assert both its mutation and final
+position. Do not retain a pre-sync variable and assume it remains the menu's
+first card; that test can pass on Windows and fail on Linux without a production
+regression.
 
 Build a scenario by adding physical `GameCard` objects to explicit zones, call
 `SynchronizeClientsAsync`, then invoke the production play/effect method. For a
