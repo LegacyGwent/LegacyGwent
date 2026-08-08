@@ -1,6 +1,6 @@
 # DIY-AI rule framework progress
 
-Last updated: 2026-08-07
+Last updated: 2026-08-08
 
 This file is the restart handoff for the local-only rule-card/client-flexibility
 goal. The framework must not be deployed until the remaining visual acceptance
@@ -9,28 +9,27 @@ the pre-framework `diy-ai` line.
 
 ## Production baseline at handoff
 
-- The independent card batch `dc373d3a81a13baf390c59087a4a43cbfb68bb95`
-  is deployed on 5010. `/healthz` returns HTTP 200/`Healthy`, the service journal
-  has no warning-or-higher entries since deployment, and 5005 remains active.
-- Its database migration completed with a recoverable backup under
-  `/var/backups/legacy-gwent/diy-ai-card-reset/20260806T172504Z.ZnkYHW`.
-  Exact post-checks report zero retired card `70193` copies in decks and
-  blacklists and zero newly invalid decks.
-- CardMap is `1.0.0.175`. The local rule-framework commits below have not been
-  included in that production release.
+- The latest independently verified production card batch is
+  `580f469c3bdb8451d933d9608e60bbc34e2b3b90`; its DIY-AI workflow and real
+  5010 deployment completed successfully. The local rule-framework commits
+  below have not been included in that production release.
+- Production card batches and the local rule framework remain separated. The
+  remote `origin/diy-ai` currently points at `580f469c3`; no rule-framework
+  commit has been pushed or deployed, and 5005 has not been touched.
 
 ## Current local state
 
 - Worktree: `card-pool-reset-worktree`
 - Branch: `reset-diy-ai-card-pool`
-- Local server: `http://127.0.0.1:5010`, isolated MongoDB on `28021`
+- Local review server: `http://127.0.0.1:5010`, isolated MongoDB on `28021`;
+  both are stopped after the final review.
 - Local manifest: `game-features.rule-ui.local.json`; player rule-card entry is
   intentionally enabled for local review. The production/default
   `game-features.json` remains disabled, proving the server-side kill switch
   without changing the client. AI0-AI5 and a server-authored special challenge
   fixture are exposed locally.
 - Latest verified Windows review build:
-  `Builds/AITest-Windows-rule-local-review7/DiyGwent-AITest.exe`
+  `verification-output/review11-final/DiyGwent-AITest.exe`
 - The full Addressables/player build passed under Unity 2019.4.1f1. Use the
   verified short project junction `C:\gwent-ai-unity` for subsequent full builds
   because the normal worktree path exceeds legacy SBP cache path limits.
@@ -53,6 +52,15 @@ the pre-framework `diy-ai` line.
   localized and supplied by the server for future challenge/test categories.
 - Combined rule fingerprints include package versions. Match results retain
   backward-compatible rule ID lists plus per-side versioned package identities.
+- `OnDeckBuildingAdjust` proposals now drive projection, draft validation,
+  strict mode validation, PVP keys, and runtime fingerprints through one
+  authority path. A throwing experimental effect is contained and fails only
+  that projection/save/match closed.
+- Ordinary card queries exclude the rule zone while explicit event dispatch
+  still reaches rules, preventing normal effects from selecting rule cards.
+- The generated mode catalogue refreshes from the live server Manifest on every
+  entry, preserves valid selection, falls back to casual when a selected mode
+  disappears, and can be changed/restored without a service or client restart.
 - Rule/resource/card-marker HUD was lowered beneath card details and menus;
   marker readability and tooltips were restyled and pointer-following.
 - Card details use `关闭`/`返回` rather than the unrelated login label.
@@ -67,10 +75,10 @@ the pre-framework `diy-ai` line.
 ## Verification completed
 
 - `Cynthia.Card.Server` Release build: passed, 0 warnings / 0 errors.
-- `RuleCardArchitectureTests`: 39/39 passed (77 server tests total).
+- `RuleCardArchitectureTests`: 44/44 passed (83 server tests total).
 - Unity 2019 script compilation: passed.
-- Full Addressables + Windows player build: passed; latest review player size
-  `953,347,691` bytes.
+- Full Addressables inventory/build proof and the final Windows Player build
+  passed; the review-11 player size is `953,353,515` bytes.
 - Full-art inventory now proves 1,838/1,838 files are Addressable, with zero
   mapped card art missing full-size assets. Four unassigned website previews
   remain web-only because no original full-size source exists.
@@ -82,14 +90,20 @@ the pre-framework `diy-ai` line.
   match naturally. The persisted result at `2026-08-07T11:53:26.249Z` has
   `isSurrender=false`, `ModeId=ai.1`, ruleset `local-rule-ui-1`, and the AI-side
   versioned rule package `99004@1`.
-- Gameplay tests: 68/68 passed. Together with 77 server tests, the current
-  automated total is 145/145.
+- Gameplay tests: 75/75 passed. Together with 83 server tests, the current
+  automated total is 158/158. The server Release build has 0 warnings and
+  0 errors.
+- A real SignalR probe against the isolated 5010 service proved mode hot reload:
+  eight modes initially, seven immediately after disabling `challenge.feast`,
+  and eight after restoring the file, without restarting the service. The
+  restored Manifest SHA-256 is
+  `4123568A9CBF4332DEE7CD893A79F89E08E834EC78834029BE5657DE422A7A65`.
 
 ## Remaining visual acceptance before publication
 
-1. Owner reviews the archived screenshots and the still-running review-7 client
-   for final visual approval. The mode menu, special challenge, full AI list,
-   hover state, and completed AI1 match have fresh review-7 captures.
+1. Owner reviews the archived screenshots for final visual approval. The mode
+   menu, special challenge, full AI list, hover state, and completed AI1 match
+   have packaged-client captures; the review services and clients are stopped.
 2. If requested, repeat rapid ordinary/grey-card edits and conflicting-rule
    transitions interactively with the owner; their implementation and earlier
    screenshots are already present in the main review archive.
