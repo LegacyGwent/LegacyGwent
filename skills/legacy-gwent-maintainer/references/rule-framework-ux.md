@@ -81,8 +81,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
   server-provided mode; the local acceptance manifest currently exposes AI0-AI5.
 - Launcher and rows have obvious but size-stable hover/focus feedback: no scale,
   layout jump, or subtle color-only response. Preserve password matching.
-- Keep the mode launcher with the central matchmaking controls. It must not be a
-  child of the right-hand card-detail panel or cover long card descriptions.
+- Keep the mode launcher in its established right-hand position immediately
+  above password matchmaking. Position and render order are separate concerns:
+  insert it below the card-detail view in sibling order so long descriptions
+  cover the launcher without moving either control. Do not relocate it onto the
+  central deck portrait merely to avoid an overlap.
 - The mode chooser is a true modal at the root canvas: its dimmer and dialog sit
   above rank/avatar/name canvases and all passive match UI.
 - Mode names, descriptions, availability, icons, and match policy come from the

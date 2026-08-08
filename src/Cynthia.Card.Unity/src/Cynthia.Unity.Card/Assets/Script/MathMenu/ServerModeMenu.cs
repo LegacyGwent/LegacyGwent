@@ -105,16 +105,24 @@ public sealed class ServerModeMenu : MonoBehaviour
     private void BuildLauncher()
     {
         var launcherObject = new GameObject("ServerModeLauncher", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(Outline));
-        // The launcher is a matchmaking action. Parenting it to CardShow made it
-        // cover long card descriptions, so keep it with the central match controls.
-        launcherObject.transform.SetParent(_owner.MatchButton.transform.parent, false);
-        var source = _owner.MatchButton.GetComponent<RectTransform>();
+        // Keep the established position above password matchmaking. The card-detail
+        // view shares this panel, so insert the launcher immediately below that view
+        // in sibling order: details may cover it without moving either control.
+        var host = _owner.MatchPasswordObject.transform.parent;
+        launcherObject.transform.SetParent(host, false);
+        var cardDetailLayer = _owner.ShowArtCard != null ? _owner.ShowArtCard.transform : null;
+        while (cardDetailLayer != null && cardDetailLayer.parent != host)
+            cardDetailLayer = cardDetailLayer.parent;
+        if (cardDetailLayer != null)
+            launcherObject.transform.SetSiblingIndex(cardDetailLayer.GetSiblingIndex());
+
+        var source = _owner.MatchPasswordObject.GetComponent<RectTransform>();
         var rect = launcherObject.GetComponent<RectTransform>();
         rect.anchorMin = source.anchorMin;
         rect.anchorMax = source.anchorMax;
         rect.pivot = source.pivot;
-        rect.anchoredPosition = source.anchoredPosition + new Vector2(0, 116);
-        rect.sizeDelta = new Vector2(source.sizeDelta.x, 64);
+        rect.anchoredPosition = source.anchoredPosition + new Vector2(0, 82);
+        rect.sizeDelta = source.sizeDelta;
         var image = launcherObject.GetComponent<Image>();
         image.color = new Color32(31, 57, 62, 255);
         _launcher = launcherObject.GetComponent<Button>();
