@@ -62,6 +62,7 @@ public class EditorShowDeck : MonoBehaviour
     //-----------------------------
     public void OpenButtons()
     {
+        GetComponent<DeckShowInfo>()?.SetExpanded(true);
         DOTween.To(() => ButtonsContext.anchoredPosition, x =>
         {
              ButtonsContext.anchoredPosition = x;
@@ -75,6 +76,7 @@ public class EditorShowDeck : MonoBehaviour
     }
     public void CloseButtons()
     {
+        GetComponent<DeckShowInfo>()?.SetExpanded(false);
         DOTween.To(() => ButtonsContext.anchoredPosition, x => 
         {
             ButtonsContext.anchoredPosition = x;

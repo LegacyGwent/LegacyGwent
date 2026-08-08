@@ -96,6 +96,12 @@ public class EditorInfo : MonoBehaviour
     private DeckBuildingProjection _acceptedProjection;
     private readonly Dictionary<string, DeckBuildingCardState> _projectedCardStates
         = new Dictionary<string, DeckBuildingCardState>(StringComparer.Ordinal);
+    // Availability badges describe the remaining copies of that specific card.
+    // Keep the server/rule-transition snapshot stable while ordinary cards are
+    // edited locally; otherwise the global deck-size remainder makes every
+    // visible badge tick down whenever any one card is added.
+    private readonly Dictionary<string, int> _availableCopiesSnapshot
+        = new Dictionary<string, int>(StringComparer.Ordinal);
     //
     public GameObject EditorListCardPrefab;//列表卡牌
     public GameObject EditorMenuCardPrefab;//菜单卡牌
@@ -480,9 +486,19 @@ public class EditorInfo : MonoBehaviour
         visibleDecks.ForAll(x =>
         {
             if (_deckPrefabMap == null) Start();
-            var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
+            if (!GwentMap.CardMap.TryGetValue(x.Leader ?? string.Empty, out var leader))
+            {
+                Debug.LogWarning($"Deck '{x.Name}' ({x.Id}) is hidden because leader '{x.Leader}' is missing from CardMap.");
+                return;
+            }
+            if (!_deckPrefabMap.TryGetValue(leader.Faction, out var deckPrefab) || deckPrefab == null)
+            {
+                Debug.LogWarning($"Deck '{x.Name}' ({x.Id}) is hidden because leader '{x.Leader}' has unsupported faction '{leader.Faction}'.");
+                return;
+            }
+            var deck = Instantiate(deckPrefab);
             deck.transform.SetParent(ShowDecksContext, false);
-            string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
+            string leaderartid = leader.CardArtsId;
             var featureValid = DeckRuleEngine.Validate(x, ResolveRules(x), true).IsComplete;
             var legacyValid = !HasRuleCards(x) && (x.IsBasicDeck() || x.IsSpecialDeck());
             var showInfo = deck.GetComponent<DeckShowInfo>();
@@ -828,6 +844,7 @@ public class EditorInfo : MonoBehaviour
         _projectionHealthy = false;
         _acceptedProjection = null;
         _projectedCardStates.Clear();
+        _availableCopiesSnapshot.Clear();
         EditorSearch.text = "";
         DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? _translator.GetText("EditorMenu_DefaultDeckname") : _nowEditorDeck.Name;
         if (_nowEditorDeck.Id != "blacklist")
@@ -877,9 +894,9 @@ public class EditorInfo : MonoBehaviour
         }
         else
         {
+            RefreshOrdinaryAvailabilityAfterEdit(id, 1);
             UpdateOrdinaryDeckRow(id);
             RefreshDeckCountersAndHeight(_nowEditorDeck);
-            RefreshVisibleCardAvailability();
         }
     }
 
@@ -909,15 +926,23 @@ public class EditorInfo : MonoBehaviour
                (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 12)))
             {
                 _nowEditorDeck.Deck.Add(card.CardId);
+                AdjustAvailableCopiesSnapshot(card.CardId, -1);
                 UpdateOrdinaryDeckRow(card.CardId);
                 RefreshDeckCountersAndHeight(_nowEditorDeck);
-                RefreshVisibleCardAvailability();
+                RefreshVisibleCardAvailability(card.CardId);
             }
         }
         else
         {
             var candidate = CloneDeck(_nowEditorDeck);
             candidate.Deck.Add(card.CardId);
+            // Ordinary edits use the last server-authoritative rule snapshot
+            // entirely locally.  Previously only rule-card additions projected
+            // their candidate, so an event-only rule (for example Feast Echo)
+            // accidentally bypassed the unchanged 4-gold / 6-silver limits.
+            if (!DeckRuleEngine.IsRuleCard(card.CardId) &&
+                !DeckRuleEngine.CanAddCard(_nowEditorDeck, card.CardId, CurrentRuleSnapshot()))
+                return;
             if (DeckRuleEngine.IsRuleCard(card.CardId))
             {
                 if (!PlayerRuleCardsEnabled) return;
@@ -941,9 +966,9 @@ public class EditorInfo : MonoBehaviour
             }
             else
             {
+                RefreshOrdinaryAvailabilityAfterEdit(card.CardId, -1);
                 UpdateOrdinaryDeckRow(card.CardId);
                 RefreshDeckCountersAndHeight(_nowEditorDeck);
-                RefreshVisibleCardAvailability();
             }
         }
         //Debug.Log("点击了菜单卡");
@@ -995,6 +1020,13 @@ public class EditorInfo : MonoBehaviour
                 .Where(x => x.PlayerSelectable)
                 .Select(x => x.Id),
             StringComparer.Ordinal);
+        var visibleRuleIds = new HashSet<string>(
+            (_clientService.FeatureManifest?.RuleCards ?? new List<RuleCardDefinition>())
+                .Where(x => x.PlayerSelectable &&
+                    ((x.AllowedLeaderFactions?.Count ?? 0) == 0 ||
+                     x.AllowedLeaderFactions.Contains(leader.Faction)))
+                .Select(x => x.Id),
+            StringComparer.Ordinal);
         var hasProjection = RuleSnapshotMatchesCurrentDeck();
         SetEditorCardInfo
         (
@@ -1002,6 +1034,7 @@ public class EditorInfo : MonoBehaviour
             _cards
             .Where(x => _showRuleCards
                 ? PlayerRuleCardsEnabled && DeckRuleEngine.IsRuleCard(x.CardId) && manifestRuleIds.Contains(x.CardId) &&
+                  visibleRuleIds.Contains(x.CardId) &&
                   (!hasProjection || _projectedCardStates.ContainsKey(x.CardId))
                 : !DeckRuleEngine.IsRuleCard(x.CardId))
             .Where(x =>
@@ -1262,15 +1295,80 @@ public class EditorInfo : MonoBehaviour
         if (isSpecial && !HasRuleCards(_nowEditorDeck))
             return Math.Max(0, (card.Group == Group.Silver ? 1 : 3) - existing);
 
+        if (_availableCopiesSnapshot.TryGetValue(card.CardId, out var snapshot))
+            return snapshot;
+
         var rules = CurrentRuleSnapshot();
         var probe = BuildLocalConstraintProbe(_nowEditorDeck, rules);
         var addable = 0;
-        while (addable < 100 && DeckRuleEngine.CanAddCard(probe, card.CardId, rules))
+        while (addable < DeckBuildingProjectionEngine.AbsoluteCopyLimit &&
+               DeckRuleEngine.CanAddCard(probe, card.CardId, rules))
         {
             probe.Deck.Add(card.CardId);
             addable++;
         }
+        _availableCopiesSnapshot[card.CardId] = addable;
         return addable;
+    }
+
+    private void AdjustAvailableCopiesSnapshot(string cardId, int delta)
+    {
+        if (string.IsNullOrWhiteSpace(cardId) || DeckRuleEngine.IsRuleCard(cardId)) return;
+        if (!_availableCopiesSnapshot.TryGetValue(cardId, out var current)) return;
+        _availableCopiesSnapshot[cardId] = Math.Max(0,
+            Math.Min(DeckBuildingProjectionEngine.AbsoluteCopyLimit, current + delta));
+    }
+
+    // Keep ordinary clicks cheap and stable: update the clicked identity in
+    // place, and only invalidate the wider visible snapshot when a shared
+    // deck/group cap has just become binding (or has just been released).
+    // This prevents both the old "every X64 counts down" bug and stale silver
+    // cards remaining clickable after the sixth silver was selected.
+    private void RefreshOrdinaryAvailabilityAfterEdit(string cardId, int snapshotDelta)
+    {
+        AdjustAvailableCopiesSnapshot(cardId, snapshotDelta);
+        if (_nowEditorDeck == null || !GwentMap.CardMap.TryGetValue(cardId, out var changedCard) ||
+            !GwentMap.CardMap.TryGetValue(_nowEditorDeck.Leader, out var leader))
+        {
+            RefreshVisibleCardAvailability(cardId);
+            return;
+        }
+
+        var rules = CurrentRuleSnapshot();
+        var ordinaryCards = _nowEditorDeck.Deck
+            .Where(x => !DeckRuleEngine.IsRuleCard(x) && GwentMap.CardMap.ContainsKey(x))
+            .Select(x => GwentMap.CardMap[x])
+            .ToList();
+        var sharedBoundaryChanged = false;
+        foreach (var constraint in rules?.Constraints ?? new List<DeckConstraintDefinition>())
+        {
+            if (!constraint.Max.HasValue) continue;
+            var kind = (constraint.Kind ?? "").ToLowerInvariant();
+            int current;
+            if (kind == "deck-size")
+                current = ordinaryCards.Count;
+            else if (kind == "card-count" && DeckRuleEngine.Matches(constraint.Filter, changedCard, leader))
+                current = ordinaryCards.Count(x => DeckRuleEngine.Matches(constraint.Filter, x, leader));
+            else
+                continue;
+
+            if (current >= constraint.Max.Value ||
+                (snapshotDelta > 0 && current == constraint.Max.Value - 1))
+            {
+                sharedBoundaryChanged = true;
+                break;
+            }
+        }
+
+        if (sharedBoundaryChanged)
+        {
+            _availableCopiesSnapshot.Clear();
+            RefreshVisibleCardAvailability();
+        }
+        else
+        {
+            RefreshVisibleCardAvailability(cardId);
+        }
     }
 
     private ResolvedDeckRuleSet CurrentRuleSnapshot()
@@ -1310,10 +1408,11 @@ public class EditorInfo : MonoBehaviour
         return probe;
     }
 
-    private void RefreshVisibleCardAvailability()
+    private void RefreshVisibleCardAvailability(string cardId = null)
     {
         foreach (var card in GetAllChilds<EditorUICoreCard>(EditorCardsContext))
-            if (card?.cardShowInfo?.CurrentCore != null)
+            if (card?.cardShowInfo?.CurrentCore != null &&
+                (string.IsNullOrWhiteSpace(cardId) || card.cardShowInfo.CurrentCore.CardId == cardId))
                 card.Count = GetAvailableCopies(card.cardShowInfo.CurrentCore);
     }
 
@@ -1428,6 +1527,7 @@ public class EditorInfo : MonoBehaviour
         if (projection == null) return;
         _acceptedProjection = projection;
         _projectionHealthy = projection.IsAuthoritative && string.IsNullOrWhiteSpace(projection.FailureCode) && !projection.RequiresConfirmation;
+        _availableCopiesSnapshot.Clear();
         _projectedCardStates.Clear();
         foreach (var state in projection.CardStates ?? new List<DeckBuildingCardState>())
             _projectedCardStates[state.CardId] = state;

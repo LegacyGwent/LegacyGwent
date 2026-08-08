@@ -23,6 +23,7 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private int _deckTextBaseFontSize;
     private bool _deckTextMetricsCaptured;
     private bool _hovering;
+    private bool _expanded;
     private Camera _pointerCamera;
 
     public void SetDeckInfo(string name, bool isAvaliable)
@@ -40,20 +41,26 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             .Where(DeckRuleEngine.IsRuleCard)
             .Distinct(System.StringComparer.Ordinal));
         EnsureBadge();
-        _badge.SetActive(_ruleIds.Count > 0);
-        RestoreDeckTextLayout();
         if (_ruleIds.Count > 0)
         {
             var english = _translator?.TextLocalization?.ChosenLanguage?.Filename == "en";
             _badge.GetComponent<Text>().text = english
                 ? $"INCLUDES {_ruleIds.Count} RULE CARD{(_ruleIds.Count > 1 ? "S" : "")}"
                 : $"含 {_ruleIds.Count} 张规则卡";
-            if (DeckText != null)
-            {
-                DeckText.rectTransform.anchoredPosition = _deckTextBasePosition + new Vector2(0, 9);
-                DeckText.fontSize = Mathf.Max(13, _deckTextBaseFontSize - 2);
-            }
         }
+        ApplyCollapsedRuleSummary();
+    }
+
+    public void SetExpanded(bool expanded)
+    {
+        _expanded = expanded;
+        if (_expanded)
+        {
+            _hovering = false;
+            _pointerCamera = null;
+            HideTooltip();
+        }
+        ApplyCollapsedRuleSummary();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -92,7 +99,13 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (_badge != null) return;
         CaptureDeckTextLayout();
         _badge = new GameObject("RuleDeckStatus", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
-        _badge.transform.SetParent(transform, false);
+        // The deck root doubles in height while its action buttons expand, but
+        // the painted header lives in a fixed-height Body child anchored to the
+        // top. Parent the summary to that same Body so it stays inside the
+        // header instead of sliding down over the Edit button.
+        _badge.transform.SetParent(DeckText != null && DeckText.transform.parent != null
+            ? DeckText.transform.parent
+            : transform, false);
         var rect = _badge.GetComponent<RectTransform>();
         var sourceRect = DeckText != null ? DeckText.rectTransform : null;
         rect.anchorMin = sourceRect != null ? sourceRect.anchorMin : new Vector2(.5f, .5f);
@@ -123,6 +136,15 @@ public class DeckShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!_deckTextMetricsCaptured || DeckText == null) return;
         DeckText.rectTransform.anchoredPosition = _deckTextBasePosition;
         DeckText.fontSize = _deckTextBaseFontSize;
+    }
+
+    private void ApplyCollapsedRuleSummary()
+    {
+        RestoreDeckTextLayout();
+        if (_badge != null) _badge.SetActive(_ruleIds.Count > 0);
+        if (_ruleIds.Count == 0 || DeckText == null) return;
+        DeckText.rectTransform.anchoredPosition = _deckTextBasePosition + new Vector2(0, 9);
+        DeckText.fontSize = Mathf.Max(13, _deckTextBaseFontSize - 2);
     }
 
     private void ShowTooltip(Vector2 screenPosition, Camera eventCamera)

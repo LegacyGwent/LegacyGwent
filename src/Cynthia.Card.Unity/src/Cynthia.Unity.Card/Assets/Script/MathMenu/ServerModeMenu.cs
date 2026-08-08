@@ -105,14 +105,16 @@ public sealed class ServerModeMenu : MonoBehaviour
     private void BuildLauncher()
     {
         var launcherObject = new GameObject("ServerModeLauncher", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button), typeof(Outline));
-        launcherObject.transform.SetParent(_owner.MatchPasswordObject.transform.parent, false);
-        var source = _owner.MatchPasswordObject.GetComponent<RectTransform>();
+        // The launcher is a matchmaking action. Parenting it to CardShow made it
+        // cover long card descriptions, so keep it with the central match controls.
+        launcherObject.transform.SetParent(_owner.MatchButton.transform.parent, false);
+        var source = _owner.MatchButton.GetComponent<RectTransform>();
         var rect = launcherObject.GetComponent<RectTransform>();
         rect.anchorMin = source.anchorMin;
         rect.anchorMax = source.anchorMax;
         rect.pivot = source.pivot;
-        rect.anchoredPosition = source.anchoredPosition + new Vector2(0, 82);
-        rect.sizeDelta = source.sizeDelta;
+        rect.anchoredPosition = source.anchoredPosition + new Vector2(0, 116);
+        rect.sizeDelta = new Vector2(source.sizeDelta.x, 64);
         var image = launcherObject.GetComponent<Image>();
         image.color = new Color32(31, 57, 62, 255);
         _launcher = launcherObject.GetComponent<Button>();
@@ -135,10 +137,13 @@ public sealed class ServerModeMenu : MonoBehaviour
     private void BuildOverlay()
     {
         _overlay = new GameObject("ServerModeOverlay", typeof(RectTransform), typeof(Canvas), typeof(CanvasRenderer), typeof(GraphicRaycaster), typeof(Image));
-        _overlay.transform.SetParent(_owner.MatchUI.transform, false);
+        var rootCanvas = _owner.MatchUI.GetComponentInParent<Canvas>();
+        _overlay.transform.SetParent(rootCanvas != null ? rootCanvas.transform : _owner.MatchUI.transform, false);
         var overlayCanvas = _overlay.GetComponent<Canvas>();
         overlayCanvas.overrideSorting = true;
-        overlayCanvas.sortingOrder = 1200;
+        // This is a true modal. Keep profile/rank canvases and every other menu
+        // beneath the dimmer and dialog instead of letting them bleed through.
+        overlayCanvas.sortingOrder = 32760;
         Stretch(_overlay.GetComponent<RectTransform>(), 0, 0, 0, 0);
         _overlay.GetComponent<Image>().color = new Color32(2, 9, 12, 210);
 

@@ -19,6 +19,17 @@ until every applicable item has automated coverage or a reviewed screenshot.
   make those paths accidentally agree.
 - Ordinary selection must not rebuild the whole card grid, reset its scrollbar,
   flash partially loaded content, or show transient validation dialogs.
+- The remaining-copy badge is only presentation state, never the authority for
+  an edit. Revalidate every ordinary-card candidate locally against the accepted
+  rule snapshot before mutating the deck: an event-only rule must retain the
+  standard 4-gold/6-silver limits unless it explicitly replaces them. When a
+  shared deck/group maximum becomes binding or is released, invalidate the
+  affected visible availability in place; do not rebuild the grid or contact the
+  server.
+- A remaining-copy badge belongs to one card identity. Ordinary add/remove edits
+  update only that card's cached badge; a global deck-size remainder must not
+  make every visible card count down together. Recompute the complete snapshot
+  only when the leader/rule set changes or the server returns a new projection.
 - A grey/unselectable card ignores clicks locally and sends no request.
 - Empty, incomplete, over-limit, retired-card, or otherwise broken decks are
   valid *drafts*: they can be saved and the player can leave the editor. They are
@@ -39,6 +50,10 @@ until every applicable item has automated coverage or a reviewed screenshot.
 - Rule-card entry is a fifth quality-style filter beside copper, not a global
   `rule on/off` mode. The server can hide that entry and all player rule decks;
   server-authored rule AI/password challenges still work and display their rules.
+- A hard faction-scoped rule is absent outside its allowed faction, matching the
+  ordinary faction card pool. Reserve grey cards for visible, potentially useful
+  transitions blocked by dynamic dependencies/conflicts; do not advertise another
+  faction's rule as a disabled choice.
 - Adding the first rule card warns once that matchmaking conditions may change.
   Match compatibility remains server-authored mode policy and is never hard-coded
   as “identical rule cards always match.”
@@ -54,6 +69,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
 - Deck-rule summaries follow the pointer while hovered and clamp/flip at screen
   edges. Never leave a tooltip fixed at the pointer-entry position or floating in
   an arbitrary central location.
+- A deck row with rules keeps its compact rule summary visible both collapsed
+  and expanded so the important identity is not lost when edit/delete controls
+  open. Anchor the summary to the fixed painted header (not the expanding root),
+  keep the adjusted title metrics, and never let generated metadata overlap the
+  native buttons.
 
 ## Mode menu
 
@@ -61,6 +81,10 @@ until every applicable item has automated coverage or a reviewed screenshot.
   server-provided mode; the local acceptance manifest currently exposes AI0-AI5.
 - Launcher and rows have obvious but size-stable hover/focus feedback: no scale,
   layout jump, or subtle color-only response. Preserve password matching.
+- Keep the mode launcher with the central matchmaking controls. It must not be a
+  child of the right-hand card-detail panel or cover long card descriptions.
+- The mode chooser is a true modal at the root canvas: its dimmer and dialog sit
+  above rank/avatar/name canvases and all passive match UI.
 - Mode names, descriptions, availability, icons, and match policy come from the
   server. The client must not advertise an inferred rule-matching guarantee.
 - Rebuild the generated mode catalogue immediately after refreshing the server

@@ -28,6 +28,50 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void EventOnlyFeastEchoRuleKeepsStandardGoldAndSilverLimits()
+        {
+            const string ruleId = "99004";
+            var leader = GwentMap.CardMap.Values.First(x =>
+                x.Group == Group.Leader && x.Faction != Faction.Neutral && DiyAiCardPool.IsUserDeckCard(x.CardId));
+            var silverCards = GwentMap.CardMap.Values
+                .Where(x => x.Group == Group.Silver &&
+                            (x.Faction == Faction.Neutral || x.Faction == leader.Faction) &&
+                            DiyAiCardPool.IsUserDeckCard(x.CardId))
+                .GroupBy(x => x.CardId)
+                .Select(x => x.First())
+                .Take(7)
+                .ToList();
+            Assert.Equal(7, silverCards.Count);
+
+            var existed = GwentMap.CardMap.TryGetValue(ruleId, out var old);
+            GwentMap.CardMap[ruleId] = TestRuleCard(ruleId);
+            try
+            {
+                var rules = DeckRuleEngine.Resolve(
+                    new[] { new RuleCardDefinition { Id = ruleId, PlayerSelectable = true } },
+                    new[] { ruleId },
+                    "event-only-v1");
+                Assert.Contains(rules.Constraints, x =>
+                    x.Id == DeckRuleEngine.StandardGoldCount && x.Max == 4);
+                Assert.Contains(rules.Constraints, x =>
+                    x.Id == DeckRuleEngine.StandardSilverCount && x.Max == 6);
+
+                var deck = new DeckModel
+                {
+                    Leader = leader.CardId,
+                    Deck = new[] { ruleId }.Concat(silverCards.Take(6).Select(x => x.CardId)).ToList()
+                };
+                Assert.True(DeckRuleEngine.Validate(deck, rules, false).IsValid);
+                Assert.False(DeckRuleEngine.CanAddCard(deck, silverCards[6].CardId, rules));
+            }
+            finally
+            {
+                if (existed) GwentMap.CardMap[ruleId] = old;
+                else GwentMap.CardMap.Remove(ruleId);
+            }
+        }
+
+        [Fact]
         public void V2DeckCodeStoresDirectCardIdsAndRoundTripsDeckOrder()
         {
             var deck = GwentDeck.CreateBasicDeck(0);
