@@ -10,8 +10,9 @@ namespace Cynthia.Card
         public DwarfMiner (GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var handDwarf = Game.PlayersHandCard[PlayerIndex].FilterCards(filter: x => x.HasAnyCategorie(Categorie.Dwarf)).ToList();
-            var count = handDwarf.Count();
+            var count = Game.GetPlaceCards(PlayerIndex)
+                .Concat(Game.PlayersHandCard[PlayerIndex])
+                .Count(x => x.Status.CardId == Card.Status.CardId);
             await Card.Effect.Strengthen(count, Card);
             return 0;
         }

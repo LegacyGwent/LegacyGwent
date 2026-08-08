@@ -851,21 +851,39 @@ namespace Cynthia.Card
 
         public virtual async Task Duel(GameCard target, GameCard source, int damageMultiplier = 1)
         {
+            await DuelWithDamageCount(target, source, damageMultiplier);
+        }
+
+        public virtual async Task<int> DuelWithDamageCount(GameCard target, GameCard source, int damageMultiplier = 1)
+        {
             //对决
             if (target.IsDead || !target.Status.CardRow.IsOnPlace() || Card.IsDead || !Card.Status.CardRow.IsOnPlace() || target.Status.Type != CardType.Unit || Card.Status.Type != CardType.Unit || Card.IsDead)
-                return;
+                return 0;
             damageMultiplier = Math.Max(1, damageMultiplier);
             int count = 0;
+            int damageCount = 0;
             while (true)
             {
                 count++;
+                var targetBeforeDamage = Math.Max(0, target.CardPoint()) + Math.Max(0, target.Status.Armor);
                 await target.Effect.Damage(damageMultiplier * Card.CardPoint(), Card, BulletType.RedLight);
-                if (target.IsDead || !target.Status.CardRow.IsOnPlace()) return;
+                var targetAfterDamage = Math.Max(0, target.CardPoint()) + Math.Max(0, target.Status.Armor);
+                if (targetAfterDamage < targetBeforeDamage)
+                {
+                    damageCount++;
+                }
+                if (target.IsDead || !target.Status.CardRow.IsOnPlace()) return damageCount;
                 await Game.ClientDelay(400);
+                var initiatorBeforeDamage = Math.Max(0, Card.CardPoint()) + Math.Max(0, Card.Status.Armor);
                 await Card.Effect.Damage(target.CardPoint(), target, BulletType.RedLight);
-                if (Card.IsDead || !Card.Status.CardRow.IsOnPlace()) return;
+                var initiatorAfterDamage = Math.Max(0, Card.CardPoint()) + Math.Max(0, Card.Status.Armor);
+                if (initiatorAfterDamage < initiatorBeforeDamage)
+                {
+                    damageCount++;
+                }
+                if (Card.IsDead || !Card.Status.CardRow.IsOnPlace()) return damageCount;
                 await Game.ClientDelay(400);
-                if (count > 20) return;
+                if (count > 20) return damageCount;
             }
         }
 

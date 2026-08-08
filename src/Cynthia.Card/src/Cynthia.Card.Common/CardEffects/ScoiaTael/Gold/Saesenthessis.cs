@@ -11,16 +11,18 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var listDwarf = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAnyCategorie(Categorie.Dwarf)).ToList();
+            var handDwarf = Game.PlayersHandCard[PlayerIndex].FilterCards(filter: x => x.HasAnyCategorie(Categorie.Dwarf)).ToList();
 
 
-            int boostNum = listDwarf.Count();
+            int boostNum = listDwarf.Count() + handDwarf.Count();
 
             await Card.Effect.Boost(boostNum, Card);
 
             var listElf = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAnyCategorie(Categorie.Elf)).ToList();
+            var handElf = Game.PlayersHandCard[PlayerIndex].FilterCards(filter: x => x.HasAnyCategorie(Categorie.Elf)).ToList();
 
 
-            int damageNum = listElf.Count();
+            int damageNum = listElf.Count() + handElf.Count();
 
             if (damageNum == 0)
             {

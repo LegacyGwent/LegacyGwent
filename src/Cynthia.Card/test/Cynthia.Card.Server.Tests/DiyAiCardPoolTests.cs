@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(84, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(64, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 176), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 177), GwentMap.CardMapVersion);
             Assert.Equal(718, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -182,7 +182,7 @@ namespace Cynthia.Card.Server.Tests
                 Assert.Equal(card.Value.Name, cardLocale.Name);
                 Assert.Equal(card.Value.Info, cardLocale.Info);
             });
-            Assert.Equal("对1个敌军造成4点伤害。", locale.CardLocales["44016"].Info);
+            Assert.Equal("对1个敌军造成4点伤害。若目标处于锁定状态，则伤害变为7点。", locale.CardLocales["44016"].Info);
             Assert.Contains("最强单位", locale.CardLocales["14019"].Info);
             Assert.Contains("最弱单位", locale.CardLocales["14019"].Info);
         }
@@ -647,7 +647,8 @@ namespace Cynthia.Card.Server.Tests
 
             Assert.Equal(6, GwentMap.CardMap[CardId.GeraltAard].Strength);
             Assert.Contains("攻城排", GwentMap.CardMap[CardId.GeraltAard].Info);
-            Assert.Contains("摧毁并放逐", GwentMap.CardMap[CardId.GeraltProfessional].Info);
+            Assert.Contains("怪兽”相关类型", GwentMap.CardMap[CardId.GeraltProfessional].Info);
+            Assert.DoesNotContain("放逐", GwentMap.CardMap[CardId.GeraltProfessional].Info);
             Assert.Equal(9, GwentMap.CardMap[CardId.OlgierdVonEverec].Strength);
             Assert.Equal(7, GwentMap.CardMap[CardId.IrisShade].Strength);
             Assert.Contains("添加2张", GwentMap.CardMap[CardId.IrisShade].Info);
@@ -1156,7 +1157,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(7, GwentMap.CardMap["70126"].Strength);
             Assert.Equal(7, GwentMap.CardMap["70130"].Strength);
             Assert.Equal(new[] { Categorie.Soldier }, GwentMap.CardMap["70101"].Categories);
-            Assert.Contains("每2回合开始时", GwentMap.CardMap["70101"].Info);
+            Assert.Contains("锁定状态", GwentMap.CardMap["70101"].Info);
             Assert.True(GwentMap.CardMap["70146"].IsCountdown);
             Assert.Equal(3, GwentMap.CardMap["70146"].Countdown);
             Assert.Contains("3回合后的回合开始时", GwentMap.CardMap["70146"].Info);
@@ -1182,6 +1183,80 @@ namespace Cynthia.Card.Server.Tests
                 "13001", "13012", "43002", "43003", "43015", "43017", "44025",
                 "44033", "70076", "70094", "70101", "70126", "70130", "70146",
                 "70152", "70163", "70179", "70188"
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(changedIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+        }
+
+        [Fact]
+        public void AugustEighthFirstBatchMatchesPoolMetadataAndLocales()
+        {
+            var restoredIds = new[]
+            {
+                "70019", "70020", "70021", "70043", "70044", "70054",
+                "70097", "70098", "70100", "70109", "70114", "70117",
+                "70122", "70137", "70138", "70139", "70140", "70167",
+                "70173", "70175"
+            };
+            Assert.All(restoredIds, id =>
+            {
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.False(GwentMap.CardMap[id].IsDerive);
+            });
+
+            Assert.Equal(6, GwentMap.CardMap["44016"].Strength);
+            Assert.Equal(9, GwentMap.CardMap["70101"].Strength);
+            Assert.Equal(9, GwentMap.CardMap["70098"].Strength);
+            Assert.Equal(6, GwentMap.CardMap["70114"].Strength);
+            Assert.Equal(6, GwentMap.CardMap["70122"].Strength);
+            Assert.Equal(12, GwentMap.CardMap["70137"].Strength);
+            Assert.Contains(Categorie.Treant, GwentMap.CardMap["70137"].Categories);
+            Assert.Contains(Categorie.Treant, GwentMap.CardMap["70139"].Categories);
+            Assert.Contains(Categorie.Cursed, GwentMap.CardMap["70185"].Categories);
+            Assert.Contains(Categorie.Cursed, GwentMap.CardMap["70186"].Categories);
+            Assert.Contains(Categorie.Cursed, GwentMap.CardMap["70187"].Categories);
+            Assert.Equal("镜像", GwentMap.CardMap["70186"].Name);
+            Assert.Equal("夜之妖灵", GwentMap.CardMap["70187"].Name);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(VriheddSaboteur), dataService.GetType("70098"));
+            Assert.Contains(Categorie.Dryad, GwentMap.CardMap["70100"].Categories);
+            Assert.Equal(typeof(ForestWhisperer), dataService.GetType("70100"));
+            Assert.Equal(typeof(BowDryad), dataService.GetType("70114"));
+            Assert.Equal(typeof(DryadMatron), dataService.GetType("70122"));
+            Assert.Equal(typeof(NoonWraith), dataService.GetType("70185"));
+            Assert.Equal(typeof(NightWraith), dataService.GetType("70187"));
+
+            var changedIds = new[]
+            {
+                "13001", "12016", "12017", "14025", "44001", "44016",
+                "52012", "53020", "70054", "70097", "70098", "70100",
+                "70101", "70114", "70122", "70139", "70167", "70185",
+                "70186", "70187"
             };
             var localeRoots = new[]
             {

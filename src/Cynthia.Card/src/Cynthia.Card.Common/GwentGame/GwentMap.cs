@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 176);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 177);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -518,7 +518,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "白狼，我只是个普通猎魔人。我不猎龙，不跟国王称兄道弟，也不和女术士纠缠……",
-                    Info = "摧毁1个没有被增益的铜色/银色敌军单位。",
+                    Info = "摧毁1个没有被增益或处于锁定状态的铜色/银色敌军单位。",
                     CardArtsId = "20023600",
                     LinkedCards=new List<String> {},
                 }
@@ -540,7 +540,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "我曾经完成过一份委托。对方要我选择奖赏，我便依照意外率向他索要回报。",
-                    Info = "对1个敌军单位造成4点伤害。若它为“怪兽”单位，则直接将其摧毁并放逐。",
+                    Info = "对1个敌军单位造成4点伤害。若它为“怪兽”或“怪兽”相关类型单位，则直接将其摧毁。",
                     CardArtsId = "20175900",
                     LinkedCards=new List<String> {},
                 }
@@ -1514,7 +1514,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "杰洛特，我们得来场人马间的对话。恕我直言，你的骑术……真的有待提高，伙计。",
-                    Info = "己方打出金色单位牌时，召唤此单位。",
+                    Info = "己方打出非领袖金色单位牌时，召唤此单位。",
                     CardArtsId = "11221000",
                     LinkedCards=new List<String> {},
                 }
@@ -2587,7 +2587,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
                     Flavor = "吃够量，世界就会变个样……",
-                    Info = "对单排所有单位造成2点伤害，并清除其上的恩泽。",
+                    Info = "对单排所有单位造成2点无视护甲的伤害。若目标排处于恩泽之下，则伤害提升至3点，并清除其上的恩泽。",
                     CardArtsId = "11340400",
                     LinkedCards=new List<String> {},
                 }
@@ -7227,7 +7227,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "他们本是忠于崔丹姆老男爵的士兵，随法利波离开城市后，如今却成了被悬赏的叛徒。",
-                    Info = "4点护甲。",
+                    Info = "对局开始时，改变自身的锁定状态。4点护甲。",
                     CardArtsId = "20017100",
                     LinkedCards=new List<String> {},
                 }
@@ -7534,7 +7534,7 @@ namespace Cynthia.Card
                 {
                     CardId ="44016",
                     Name="亚甸槌击者",
-                    Strength=7,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7544,7 +7544,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Aedirn},
                     Flavor = "呃，这些家伙真让人头疼。",
-                    Info = "对1个敌军造成4点伤害。",
+                    Info = "对1个敌军造成4点伤害。若目标处于锁定状态，则伤害变为7点。",
                     CardArtsId = "20167500",
                     LinkedCards=new List<String> {},
                 }
@@ -8114,7 +8114,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "增益自身等同于友军“矮人”单位数量；造成等同于友军“精灵”单位数量的伤害。",
+                    Info = "增益自身等同于友军和手牌中“矮人”单位数量；造成等同于友军和手牌中“精灵”单位数量的伤害。",
                     CardArtsId = "14210100",
                     LinkedCards=new List<String> {},
                 }
@@ -8326,7 +8326,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Officer},
                     Flavor = "即使伊欧菲斯只剩一只眼睛，他内心的洞察力也无人能及。",
-                    Info = "迫使2个同排的敌军单位互相对决。",
+                    Info = "迫使2个同排的敌军单位相互对决。获得等同于此对决造成伤害次数之和的增益。",
                     CardArtsId = "20161100",
                     LinkedCards=new List<String> {},
                 }
@@ -8770,7 +8770,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "简单、廉价，又十分好用。难怪它是松鼠党最喜欢用的一种陷阱。",
-                    Info = "在对方单排降下灾厄，对所有被影响的单位造成3点伤害。",
+                    Info = "在对方单排降下灾厄，对所有被影响的单位造成3点无视护甲的伤害。",
                     CardArtsId = "20149000",
                     LinkedCards=new List<String> {},
                 }
@@ -11984,7 +11984,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "设埋伏一般都得藏起来。不过……也有例外。",
-                    Info = "复活2个战力高于4点的铜色士兵单位，并对它们各造成4点伤害。",
+                    Info = "复活2个战力不低于5点的铜色士兵单位，并对它们各造成5点伤害。",
                     CardArtsId = "202536",
                     LinkedCards=new List<String> {},
                 }
@@ -12485,7 +12485,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70114", //Dryad Sharpshooter
                     Name="长弓树精",
-                    Strength=4,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12493,9 +12493,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Dryad},
+                    Categories = new Categorie[]{Categorie.Soldier,Categorie.Dryad},
                     Flavor = "",
-                    Info = "摧毁1个基础战力不高于自身的敌军单位",
+                    Info = "造成4点伤害。己方回合中，若被移至远程排，重复此能力。",
                     CardArtsId = "202676",
                     LinkedCards=new List<String> {},
                 }
@@ -12579,7 +12579,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "",
-                    Info = "使牌组中的1个铜色单位牌获得2点增益。",
+                    Info = "使牌组中的1个铜色/银色单位牌获得2点增益。",
                     CardArtsId = "202161",
                     LinkedCards=new List<String> {},
                 }
@@ -13655,7 +13655,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dwarf},
                     Flavor = "xxxxx",
-                    Info = "手卡中每有一张矮人单位卡便获得1点强化",
+                    Info = "获得等同于友军和手牌中“矮人矿工”单位数量的强化。",
                     CardArtsId = "202474",
                     LinkedCards=new List<String> {},
                 }
@@ -13666,7 +13666,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70098", //Vrihedd Saboteur
                     Name="维里赫德旅破坏者",
-                    Strength=2,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13676,7 +13676,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Elf,Categorie.Soldier},
                     Flavor = "上头有命令，要关上大门。可它们纹丝不动……",
-                    Info = "维里赫德旅破坏者:择一:随机打出1张铜色道具牌:或从牌组中打出1张铜色松鼠党道具牌。",
+                    Info = "任意方有卡牌返回牌组时，获得1点增益。",
                     CardArtsId = "202538",
                     LinkedCards=new List<String> {},
                 }
@@ -13708,17 +13708,17 @@ namespace Cynthia.Card
                 {
                     CardId ="70100", //Forest Whisperer
                     Name="林语者",
-                    Strength=7,
-                    Group=Group.Copper,
+                    Strength=6,
+                    Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Dryad,Categorie.Soldier},
+                    Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。",
-                    Info = "对双方同排所有非树精单位造成2点伤害。",
+                    Info = "若己方场上有2张未翻开的伏击牌，召唤此单位。",
                     CardArtsId = "202272",
                     LinkedCards=new List<String> {},
                 }
@@ -13729,7 +13729,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70101", //Immortal Cavalry
                     Name="不朽者骑兵",
-                    Strength=11,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13739,7 +13739,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Soldier},
                     Flavor = "骆驼跑得是没有马快……但至少它们在沙漠里能多活两天。",
-                    Info = "对局开始时，改变自身的锁定状态。每2回合开始时，改变自身的锁定状态。",
+                    Info = "每当处于锁定状态的单位获得增益或受到伤害，获得1点增益。",
                     CardArtsId = "202509",
                     LinkedCards=new List<String> {},
                 }
@@ -13813,7 +13813,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70122", //Dryad Matron
                     Name="树精族母",
-                    Strength=10,
+                    Strength=6,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13823,7 +13823,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……",
-                    Info = "随机使牌组中战力最低的单位牌获得2点增益，若为树精则改为2点强化。",
+                    Info = "使同排所有其他“树精”单位获得1点强化。每强化1个“树精”单位，使手牌中随机非间谍单位牌获得1点增益。",
                     CardArtsId = "202275",
                     LinkedCards=new List<String> {},
                 }
@@ -14128,7 +14128,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70137", //The Great Oak
                     Name="巨橡",
-                    Strength=13,
+                    Strength=12,
                     Group=Group.Gold,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14136,7 +14136,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{Categorie.Treant},
                     Flavor = "远古橡树的心被仇恨腐蚀得千疮百孔。布洛克莱昂的树木万念俱灰，无风自摇。",
                     Info = "择一，削弱一个敌军单位一半的基础战力；复活1张铜色树精牌，随后将其放回牌组。",
                     CardArtsId = "202264",
@@ -14178,9 +14178,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ },
+                    Categories = new Categorie[]{Categorie.Treant},
                     Flavor = "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？",
-                    Info = "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标单位则重复1次。",
+                    Info = "造成4点伤害，使目标相邻单位移至随机排，若摧毁目标单位则重复1次。",
                     CardArtsId = "202268",
                     LinkedCards=new List<String> {},
                 }
@@ -14727,7 +14727,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
                     Flavor = "",
-                    Info = "卓尔坦的伙伴:将墓场3张铜色/银色矮人牌返回牌组，随后从牌组中打出1张铜色矮人牌。位于墓场时，使已方打出的矮人单位获得1点护甲。",
+                    Info = "将墓场中至多3张铜色/银色“矮人”牌返回牌组，随后从牌组打出1张铜色“矮人”牌。",
                     CardArtsId = "202471",
                     LinkedCards=new List<String> {},
                 }
@@ -15105,19 +15105,19 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{Categorie.Specter},
+                    Categories = new Categorie[]{Categorie.Cursed},
                     Flavor = "和常识相反，农夫白天不干活，不是为了躲太阳。是为了躲日间妖灵。",
-                    Info = "部署：在本排和对方同排各生成一个“镜像”。\n回合结束时，重复部署效果，然后将自身转化为夜之妖灵，战力不变。",
+                    Info = "在双方同排各生成“镜像”。每回合结束时，重复此能力，随后保留战力转化为“夜之妖灵”。",
                     CardArtsId = "202530",
                     LinkedCards=new List<String> {"70186", "70187"},
                 }
             },
             {
-                "70186",//老鼠
+                "70186",//镜像
                 new GwentCard()
                 {
                     CardId ="70186", //Mirror Image
-                    Name="老鼠",
+                    Name="镜像",
                     Strength=1,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
@@ -15126,9 +15126,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{Categorie.Specter, Categorie.Token},
-                    Flavor = "无特殊效果",
-                    Info = "他们散发出这般深重的悲哀，这般无助的幽灵……我惧怕他们，如同惧怕任何人。但我最同情他们。",
+                    Categories = new Categorie[]{Categorie.Cursed, Categorie.Token},
+                    Flavor = "他们散发出这般深重的悲哀，这般无助的幽灵……我惧怕他们，如同惧怕任何人。但我最同情他们。",
+                    Info = "没有特殊技能。",
                     CardArtsId = "c10002700",
                     LinkedCards=new List<String> {"70185", "70187"},
                 }
@@ -15138,7 +15138,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70187", //Nightwraith
-                    Name="老鼠",
+                    Name="夜之妖灵",
                     Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Neutral,
@@ -15147,9 +15147,9 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{Categorie.Specter},
+                    Categories = new Categorie[]{Categorie.Cursed},
                     Flavor = "一个苍白憔悴，衣衫褴褛的女人，能有多大危害？危害可大了。",
-                    Info = "回合结束时，提升己方同排所有镜像战力1点，然后将自己转换为日间妖灵，不改变其战力。",
+                    Info = "每回合结束时，使双方同排所有“镜像”获得1点增益，随后保留战力转化为“日间妖灵”。",
                     CardArtsId = "202531",
                     LinkedCards=new List<String> {"70185", "70186"},
                 }

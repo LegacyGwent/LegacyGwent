@@ -20,7 +20,7 @@ namespace Cynthia.Card
             for (int i = result.Count() - 1; i >= 0; i--)
             {
                 await result[i].Effect.Resurrect(new CardLocation() { RowPosition = RowPosition.MyStay, CardIndex = 0 }, Card);
-                await result[i].Effect.Damage(4, Card);
+                await result[i].Effect.Damage(5, Card);
             }
             return result.Count();
         }

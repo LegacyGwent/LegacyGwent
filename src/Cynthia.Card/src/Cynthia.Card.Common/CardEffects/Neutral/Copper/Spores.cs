@@ -12,16 +12,19 @@ namespace Cynthia.Card
         {
             var result = await Game.GetSelectRow(Card.PlayerIndex, Card, TurnType.Enemy.GetRow());
             var row = Game.RowToList(Card.PlayerIndex, result).IgnoreConcealAndDead();
+            var rowEffect = Game.GameRowEffect[Game.AnotherPlayer(Card.PlayerIndex)][result.Mirror().MyRowToIndex()];
+            var hasBoon = rowEffect.RowStatus.IsBoon();
+            var damage = hasBoon ? 3 : 2;
             foreach (var card in row)
             {
                 if (card.Status.CardRow.IsOnPlace())
                 {
-                    await card.Effect.Damage(2, Card);
+                    await card.Effect.Damage(damage, Card, isPenetrate: true);
                 }
             }
-            if (Game.GameRowEffect[Game.AnotherPlayer(Card.PlayerIndex)][result.Mirror().MyRowToIndex()].RowStatus.IsBoon())
+            if (hasBoon)
             {
-                await Game.GameRowEffect[Game.AnotherPlayer(Card.PlayerIndex)][result.Mirror().MyRowToIndex()].SetStatus<NoneStatus>();
+                await rowEffect.SetStatus<NoneStatus>();
                 // await Game.ApplyWeather(Card.PlayerIndex, result, RowStatus.None);
             }
             return 0;

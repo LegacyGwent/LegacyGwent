@@ -738,6 +738,7 @@ namespace Cynthia.Card.Server
         {
             var player1SoureRow = (source.PlayerIndex == Player1Index ? source.Status.CardRow : source.Status.CardRow.Mirror());
             var player1TagetRow = ListToRow(Player1Index, target);
+            var sourceRowBeforeMove = source.Status.CardRow;
             if (!source.Status.CardRow.IsNone())
             {
                 var sourceRow = RowToList(source.PlayerIndex, source.Status.CardRow);
@@ -763,6 +764,12 @@ namespace Cynthia.Card.Server
             if (autoUpdateDeck && (player1SoureRow.IsInDeck() || player1TagetRow.IsInDeck()))
             {
                 await SetDeckInfo();
+            }
+            if (!sourceRowBeforeMove.IsNone() &&
+                !sourceRowBeforeMove.IsInDeck() &&
+                source.Status.CardRow.IsInDeck())
+            {
+                await SendEvent(new AfterCardToDeck(source));
             }
             return source;
         }
