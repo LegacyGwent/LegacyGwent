@@ -1280,6 +1280,74 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void FeatureManifestHotReloadsEnabledModesWithoutRestartingTheService()
+        {
+            var tempRoot = Path.Combine(Path.GetTempPath(), "gwent-feature-hot-reload-" + Guid.NewGuid().ToString("N"));
+            var featureDirectory = Path.Combine(tempRoot, "Features");
+            var manifestPath = Path.Combine(featureDirectory, "game-features.json");
+            Directory.CreateDirectory(featureDirectory);
+            try
+            {
+                var manifest = new GameFeatureManifest
+                {
+                    SchemaVersion = 2,
+                    FeatureLevel = 2,
+                    RulesetVersion = "hot-reload-v1",
+                    Modes = new List<GameModeDefinition>
+                    {
+                        new GameModeDefinition
+                        {
+                            Id = "pvp.casual",
+                            MatchKind = "pvp",
+                            RuleMatchPolicy = "same",
+                            SortOrder = 10
+                        },
+                        new GameModeDefinition
+                        {
+                            Id = "challenge.feast",
+                            MatchKind = "ai",
+                            RuleMatchPolicy = "ignore",
+                            SortOrder = 20
+                        }
+                    }
+                };
+                File.WriteAllText(manifestPath, JsonConvert.SerializeObject(manifest));
+                var firstWriteUtc = File.GetLastWriteTimeUtc(manifestPath);
+                var service = new GameFeatureService(
+                    new TestWebHostEnvironment { ContentRootPath = tempRoot },
+                    new GwentCardDataService());
+
+                Assert.Equal(
+                    new[] { "pvp.casual", "challenge.feast" },
+                    service.GetManifest().Modes.Select(x => x.Id));
+
+                manifest.RulesetVersion = "hot-reload-v2";
+                manifest.Modes.Single(x => x.Id == "challenge.feast").IsEnabled = false;
+                File.WriteAllText(manifestPath, JsonConvert.SerializeObject(manifest));
+                File.SetLastWriteTimeUtc(manifestPath, firstWriteUtc.AddSeconds(1));
+
+                var disabled = service.GetManifest();
+                Assert.Equal("hot-reload-v2", disabled.RulesetVersion);
+                Assert.Equal(new[] { "pvp.casual" }, disabled.Modes.Select(x => x.Id));
+
+                manifest.RulesetVersion = "hot-reload-v3";
+                manifest.Modes.Single(x => x.Id == "challenge.feast").IsEnabled = true;
+                File.WriteAllText(manifestPath, JsonConvert.SerializeObject(manifest));
+                File.SetLastWriteTimeUtc(manifestPath, firstWriteUtc.AddSeconds(2));
+
+                var restored = service.GetManifest();
+                Assert.Equal("hot-reload-v3", restored.RulesetVersion);
+                Assert.Equal(
+                    new[] { "pvp.casual", "challenge.feast" },
+                    restored.Modes.Select(x => x.Id));
+            }
+            finally
+            {
+                if (Directory.Exists(tempRoot)) Directory.Delete(tempRoot, true);
+            }
+        }
+
+        [Fact]
         public void ProjectionRevisionGateRejectsStaleAndMismatchedResponses()
         {
             var gate = new DeckBuildingProjectionRevisionGate();

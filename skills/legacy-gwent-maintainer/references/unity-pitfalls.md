@@ -1,6 +1,6 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-07
+Last verified: 2026-08-08
 
 ## Automated mouse input misses the captured Unity control
 
@@ -146,3 +146,17 @@ Last verified: 2026-08-07
   network startup; cancel scene-owned retry tasks from `OnDestroy`.
 - Verification: search for raw `HubConnection.StartAsync()` calls, run a batch
   compile, then prove first-launch login and a complete match in the real player.
+
+## A healthy packaged player has no visible window in an automation shell
+
+- Symptom: the Unity process is responsive, initializes D3D, connects to
+  SignalR, and logs no exception, but `MainWindowHandle` remains zero.
+- Cause: some Codex/PTY execution shells run in a non-interactive Windows
+  desktop. A Notepad process launched from the same shell also has no window,
+  so this is not evidence of a Unity startup regression.
+- Prevention: distinguish process health from desktop visibility before editing
+  client startup code. Use the interactive computer-control channel for visual
+  work; use scoped window captures only, never a full-desktop capture.
+- Verification: compare with a trivial GUI process in the same shell, inspect
+  `Player.log` for engine/SignalR progress, and cover server-driven behavior via
+  SignalR probes plus deterministic tests when the interactive channel is absent.
