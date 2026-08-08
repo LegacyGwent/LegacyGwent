@@ -80,6 +80,8 @@ public class MainCode : MonoBehaviour
         _client.User = await _client.QueryUserInfo(_client.User.UserName, _client.User.PassWord);
         if (_client.User.NewlyUnlockedTrinkets.HasNewTrinkets)
         {
+            var pendingNotifications = new List<GameObject>();
+
             if (Canevas == null)
             {
                 var canvas = FindObjectOfType<Canvas>();
@@ -104,6 +106,7 @@ public class MainCode : MonoBehaviour
                     TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedAvatars"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetAvatarContext(trinketID);
+                    pendingNotifications.Add(TrinketUnlock);
                 }
 
             }
@@ -114,6 +117,7 @@ public class MainCode : MonoBehaviour
                     TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedBorders"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetBorderContext(trinketID);
+                    pendingNotifications.Add(TrinketUnlock);
                 }
 
             }
@@ -131,9 +135,11 @@ public class MainCode : MonoBehaviour
                     TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTitleLook(trinketID, titleColor); // sets the look in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTitleContext(trinketID);
+                    pendingNotifications.Add(TrinketUnlock);
                 }
 
             }
+            ShowTrinketUnlockQueue(pendingNotifications);
             // Clear the notifications after displaying them
             await _client.ClearNewlyUnlockedTrinkets(_client.User.UserName);
         }
@@ -152,8 +158,48 @@ public class MainCode : MonoBehaviour
             rectTransform.localScale = Vector3.one;
             rectTransform.anchoredPosition = Vector2.zero;
         }
+        // Several default cosmetics can unlock on the first login. Keep later
+        // notifications hidden until the current one is acknowledged instead
+        // of stacking multiple modal backdrops and panels on top of each other.
+        notification.SetActive(false);
         notification.transform.SetAsLastSibling();
         return notification;
+    }
+
+    private static void ShowTrinketUnlockQueue(IList<GameObject> notifications)
+    {
+        var queuedNotifications = new List<KeyValuePair<GameObject, Button>>();
+        foreach (var notification in notifications)
+        {
+            var okButton = notification
+                .GetComponentsInChildren<Button>(true)
+                .FirstOrDefault(button => button.gameObject.name == "OkButton");
+
+            if (okButton == null)
+            {
+                Debug.LogWarning("Discarding a trinket notification without an OkButton so it cannot block the reward queue.");
+                Object.Destroy(notification);
+                continue;
+            }
+
+            queuedNotifications.Add(new KeyValuePair<GameObject, Button>(notification, okButton));
+        }
+
+        for (var index = 0; index < queuedNotifications.Count - 1; index++)
+        {
+            var nextNotification = queuedNotifications[index + 1].Key;
+            queuedNotifications[index].Value.onClick.AddListener(() =>
+            {
+                nextNotification.SetActive(true);
+                nextNotification.transform.SetAsLastSibling();
+            });
+        }
+
+        if (queuedNotifications.Count > 0)
+        {
+            queuedNotifications[0].Key.SetActive(true);
+            queuedNotifications[0].Key.transform.SetAsLastSibling();
+        }
     }
 
     void Awake()

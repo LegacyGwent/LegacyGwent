@@ -1,6 +1,6 @@
 # Rule framework UX acceptance
 
-Last verified: 2026-08-07
+Last verified: 2026-08-08
 
 This is the durable acceptance checklist for the local-only `diy-ai` rule-card,
 server-mode, generic marker, and resource framework. Do not publish the framework
@@ -99,6 +99,12 @@ until every applicable item has automated coverage or a reviewed screenshot.
   world position zero can move the visible reward panel beyond the lower-left
   edge at high resolutions while its full-screen raycast backdrop still blocks
   every menu control.
+- A fresh account can unlock several default cosmetics in one response. Create
+  every notification inactive and advance one explicit queue from each current
+  popup's confirmation button; activating every prefab immediately stacks
+  several full-screen backdrops and visually duplicates titles/buttons. A
+  malformed notification without a confirmation button must be discarded rather
+  than blocking the remaining queue.
 - Legacy/imported accounts may contain several stale season notices. Show the
   newest pending notice once and acknowledge the complete older season backlog;
   never make a player clear one historical season on each successive login.
