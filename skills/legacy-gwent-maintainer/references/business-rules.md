@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-03
+Last verified: 2026-08-08
 
 ## DIY-AI release identity
 
@@ -127,9 +127,11 @@ Last verified: 2026-08-03
   are assigned only to effectless card definitions, and 1,164 are completely
   unassigned. Of those unassigned assets, 537 already have a matching `_slot`
   miniature and 627 do not.
-- Seventeen mapped art IDs lack a `_slot`; most are derived/token/internal cards
-  and the legacy list UI has a generic fallback. Audit the list before making
-  one of them a leader or otherwise relying on its deck-list banner.
+- Sixteen mapped art IDs lack a `_slot`; most are derived/token/internal cards
+  and the legacy list UI has a generic fallback. Bronibor's previously missing
+  deck-list banner was restored in the August 8 batch, reducing this count from
+  seventeen. Audit the list before making another card a leader or otherwise
+  relying on its deck-list banner.
 - The `/cardart` authoring page enumerates a separate set of 1,049 small
   `wwwroot/scale` previews. It has 530 IDs not referenced by `CardMap`; 526 have
   a restored Unity full-size image and four (`c10000300`, `c10001600`,
