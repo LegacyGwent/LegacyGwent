@@ -51,10 +51,43 @@ namespace Cynthia.Card.Server.Services.GwentGameService
         public ResolvedDeckRuleSet Resolve(DeckModel deck)
         {
             var manifest = GetManifest();
+            return ResolveEffective(manifest, deck);
+        }
+
+        internal ResolvedDeckRuleSet ResolveRuntime(DeckModel deck)
+        {
+            var manifest = GetManifest();
+            var activeRuleIds = new HashSet<string>(
+                (manifest.RuleCards ?? new List<RuleCardDefinition>()).Select(x => x.Id),
+                StringComparer.Ordinal);
+            var runtimeDeck = CloneDeck(deck);
+            runtimeDeck.Deck = runtimeDeck.Deck
+                .Where(cardId => !DeckRuleEngine.IsRuleCard(cardId) || activeRuleIds.Contains(cardId))
+                .ToList();
+            return ResolveEffective(manifest, runtimeDeck);
+        }
+
+        private ResolvedDeckRuleSet ResolveEffective(
+            GameFeatureManifest manifest,
+            DeckModel deck,
+            long revision = 0)
+        {
+            var effectIssues = new List<DeckValidationIssue>();
+            ApplyDeckBuildingEffects(manifest, new DeckBuildingProjectionRequest
+            {
+                Revision = revision,
+                Deck = CloneDeck(deck)
+            }, effectIssues);
             var ruleCards = (deck?.Deck ?? new List<string>())
                 .Where(DeckRuleEngine.IsRuleCard)
                 .Distinct(StringComparer.Ordinal);
-            return DeckRuleEngine.Resolve(manifest.RuleCards, ruleCards, manifest.RulesetVersion, manifest.CardPools);
+            var rules = DeckRuleEngine.Resolve(
+                manifest.RuleCards,
+                ruleCards,
+                manifest.RulesetVersion,
+                manifest.CardPools);
+            rules.ResolutionIssues.AddRange(effectIssues);
+            return rules;
         }
 
         public DeckValidationResult ValidateDeck(DeckModel deck, bool requireComplete)
@@ -82,7 +115,8 @@ namespace Cynthia.Card.Server.Services.GwentGameService
         {
             var manifest = GetManifest();
             mode = manifest.Modes.FirstOrDefault(x => x.Id == modeId && x.IsEnabled);
-            validation = DeckRuleEngine.ValidateMode(deck, manifest, mode, true);
+            var rules = ResolveEffective(manifest, deck);
+            validation = DeckRuleEngine.ValidateMode(deck, manifest, mode, rules, true);
             if (!CanPlayerUseDeck(manifest, deck))
             {
                 validation.Issues.Add(new DeckValidationIssue { Code = "rules.player-disabled" });

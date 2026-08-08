@@ -76,6 +76,10 @@ public class MatchInfo : MonoBehaviour
     public async void MatchMenuClick()
     {
         await _client.RefreshGameFeatureManifest();
+        if (_serverModeMenu == null)
+            _serverModeMenu = ServerModeMenu.Attach(this);
+        else
+            _serverModeMenu.RefreshFromManifest();
         var availableDecks = GetPlayerVisibleDecks().ToList();
         if (availableDecks.Count <= 0)
         {

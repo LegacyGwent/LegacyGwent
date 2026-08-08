@@ -31,7 +31,6 @@ namespace Cynthia.Card.Server
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Distinct(StringComparer.Ordinal)
                 .ToList();
-            var activeRuleCardSet = new HashSet<string>(activeRuleCardIds, StringComparer.Ordinal);
             if (string.IsNullOrWhiteSpace(rulesetVersion))
                 rulesetVersion = string.IsNullOrWhiteSpace(featureManifest.RulesetVersion)
                     ? "legacy-custom"
@@ -42,7 +41,7 @@ namespace Cynthia.Card.Server
                     featureManifest.RuleCards,
                     rulesetVersion,
                     featureManifest.CardPools,
-                    cardId => DeckRuleEngine.IsRuleCard(cardId) && activeRuleCardSet.Contains(cardId));
+                    resolveDeckRules: deck => _gwentService.ResolveRuntimeDeckRules(deck));
             if (string.IsNullOrWhiteSpace(modeId))
                 modeId = string.IsNullOrWhiteSpace(room.Password) ? "legacy.casual" : "custom.password";
             //通知玩家游戏开始
@@ -137,7 +136,8 @@ namespace Cynthia.Card.Server
                             room,
                             featureManifest.RuleCards,
                             rules.RulesetVersion,
-                            featureManifest.CardPools);
+                            featureManifest.CardPools,
+                            resolveDeckRules: deck => _gwentService.ResolveRuntimeDeckRules(deck));
                     StartGame(
                         room,
                         false,
@@ -190,8 +190,17 @@ namespace Cynthia.Card.Server
             IEnumerable<RuleCardDefinition> definitions,
             string rulesetVersion,
             IEnumerable<CardPoolDefinition> cardPools = null,
-            Func<string, bool> isActiveRuleCard = null)
+            Func<string, bool> isActiveRuleCard = null,
+            Func<DeckModel, ResolvedDeckRuleSet> resolveDeckRules = null)
         {
+            if (resolveDeckRules != null)
+            {
+                var fingerprints = new[] { room.Player1, room.Player2 }
+                    .Where(x => x != null)
+                    .Select(x => resolveDeckRules(x.Deck)?.Fingerprint ?? "")
+                    .ToList();
+                return DeckRuleEngine.CombineFingerprints(rulesetVersion, fingerprints);
+            }
             isActiveRuleCard = isActiveRuleCard ?? DeckRuleEngine.IsRuleCard;
             var ids = new[] { room.Player1, room.Player2 }
                 .Where(x => x != null)

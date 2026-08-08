@@ -12,6 +12,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
   authoritative server projection containing the resolved constraints and card
   pool. Ordinary card add/remove operations use that snapshot locally and must
   not send one RPC per click.
+- A rule card's `OnDeckBuildingAdjust` proposal is part of the authoritative
+  resolved rule set, not an editor-only hint. Projection, draft/save validation,
+  strict mode validation, and PVP fingerprinting must all consume the same
+  effective proposal; do not rely on duplicating the effect in manifest JSON to
+  make those paths accidentally agree.
 - Ordinary selection must not rebuild the whole card grid, reset its scrollbar,
   flash partially loaded content, or show transient validation dialogs.
 - A grey/unselectable card ignores clicks locally and sends no request.
@@ -58,6 +63,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
   layout jump, or subtle color-only response. Preserve password matching.
 - Mode names, descriptions, availability, icons, and match policy come from the
   server. The client must not advertise an inferred rule-matching guarantee.
+- Rebuild the generated mode catalogue immediately after refreshing the server
+  manifest. Preserve the selected mode if it still exists; otherwise fall back
+  to the server's current casual/default entry, and hide the launcher when the
+  refreshed catalogue is empty. Caching the list only at scene startup defeats
+  the server-side on/off control.
 - Mode category headings and optional type badges are also server-authored.
   `MatchKind` selects the execution path (`pvp`/`ai`); never infer execution from
   a presentation category. This permits challenge/test/expansion categories
@@ -78,6 +88,11 @@ until every applicable item has automated coverage or a reviewed screenshot.
   canvas where player-name UI can cover it.
 - Rule launcher stays hidden when neither player has active rules. When present,
   the browser shows which side supplied each rule and supports shared rules.
+- Rule cards receive the normal event stream through an explicit rule-zone
+  broadcast, but ordinary card queries and target selection must exclude the
+  rule zone. Never expose rule entities through a generic `GetAllCard` path just
+  to make event delivery convenient; ordinary effects can otherwise select a
+  rule, consume an action, and resolve as an unexplained no-op.
 - Resource definitions support one or many entries and optional hover text. A
   tooltip follows the pointer while hovered and does nothing when no description
   is supplied.
@@ -105,6 +120,12 @@ until every applicable item has automated coverage or a reviewed screenshot.
   several full-screen backdrops and visually duplicates titles/buttons. A
   malformed notification without a confirmation button must be discarded rather
   than blocking the remaining queue.
+- The imported reward prefab hard-codes English title/button labels. Resolve the
+  localization service before refreshing the authenticated account, then replace
+  those labels at instantiation with the existing `NewReward` and
+  `PopupWindow_OkButton` keys. Otherwise a Chinese-default build briefly falls
+  back to `NEW REWARD!` / `OK` on first login even though the rest of the scene is
+  localized.
 - Legacy/imported accounts may contain several stale season notices. Show the
   newest pending notice once and acknowledge the complete older season backlog;
   never make a player clear one historical season on each successive login.

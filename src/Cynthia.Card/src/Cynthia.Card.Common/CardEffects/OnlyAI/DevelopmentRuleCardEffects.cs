@@ -85,4 +85,18 @@ namespace Cynthia.Card
                 }
             };
     }
+
+    /// <summary>
+    /// Failure fixture used to verify that experimental out-of-game effects
+    /// fail closed without escaping into hub or matchmaking callers. It is not
+    /// present in CardMap or any shipped feature manifest.
+    /// </summary>
+    [CardEffectId("99007")]
+    public sealed class FailingDeckBuildingDevelopmentRule : CardEffect
+    {
+        public FailingDeckBuildingDevelopmentRule(GameCard card) : base(card) { }
+
+        public override DeckBuildingRuleProposal OnDeckBuildingAdjust(DeckBuildingAdjustmentContext context)
+            => throw new System.InvalidOperationException("Intentional deck-building rule fixture failure.");
+    }
 }

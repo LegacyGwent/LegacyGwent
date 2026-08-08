@@ -478,6 +478,9 @@ namespace Cynthia.Card.Server
 
         internal GameFeatureManifest GetRuntimeFeatureManifest() => _gameFeatureService.GetManifest();
 
+        internal ResolvedDeckRuleSet ResolveRuntimeDeckRules(DeckModel deck)
+            => _gameFeatureService.ResolveRuntime(deck);
+
         public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
@@ -764,8 +767,13 @@ namespace Cynthia.Card.Server
         }
 
         private bool CanSaveDeck(DeckModel deck)
+            => CanSaveDraft(_gameFeatureService, deck);
+
+        internal static bool CanSaveDraft(GameFeatureService gameFeatureService, DeckModel deck)
         {
-            var featureValidation = _gameFeatureService.ValidateDeck(deck, false);
+            if (gameFeatureService == null || deck == null || deck.Deck == null)
+                return false;
+            var featureValidation = gameFeatureService.ValidateDeck(deck, false);
             if (featureValidation.IsValid)
                 return true;
 

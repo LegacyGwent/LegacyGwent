@@ -1102,7 +1102,6 @@ namespace Cynthia.Card.Server
             .Concat(PlayersCemetery[anotherPlayer])
             .Concat(PlayersDeck[playerIndex])
             .Concat(PlayersDeck[anotherPlayer])
-            .Concat(GameRules)
             .Concat(PlayersPlace[playerIndex][0])
             .Concat(PlayersPlace[playerIndex][1])
             .Concat(PlayersPlace[playerIndex][2])
@@ -2238,7 +2237,7 @@ namespace Cynthia.Card.Server
             async Task task()
             {
                 var list = new List<GameCard>();
-                foreach (var card in GetAllCard(Player1Index, true, true).ToList())
+                foreach (var card in GetAllCard(Player1Index, true, true).Concat(GameRules).ToList())
                 {
                     if (card.Status.IsLock) continue;
                     await card.Effects.RaiseEvent(@event);

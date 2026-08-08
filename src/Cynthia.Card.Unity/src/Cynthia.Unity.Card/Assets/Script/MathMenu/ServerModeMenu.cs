@@ -41,16 +41,46 @@ public sealed class ServerModeMenu : MonoBehaviour
     {
         _owner = owner;
         _font = _font ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
-        _modes = (owner.Client.FeatureManifest?.Modes ?? new List<GameModeDefinition>())
+        RefreshFromManifest();
+        if (HasModes) Select(SelectedModeId);
+    }
+
+    // The server manifest is the source of truth for the mode catalogue. Rebuild
+    // the generated rows whenever that manifest is refreshed instead of keeping
+    // the snapshot captured when this component was first attached.
+    public void RefreshFromManifest()
+    {
+        var previousModeId = SelectedModeId;
+        _modes = (_owner.Client.FeatureManifest?.Modes ?? new List<GameModeDefinition>())
             // Rule cards are a property of the selected deck, not a standalone
             // advertised game mode. Older manifests may still expose this entry.
             .Where(x => x.IsEnabled && x.Id != "pvp.rules")
             .OrderBy(x => x.SortOrder)
             .ToList();
-        if (_modes.Count == 0) return;
+
+        if (_overlay != null)
+        {
+            _overlay.SetActive(false);
+            Destroy(_overlay);
+            _overlay = null;
+        }
+        _rowBackgrounds.Clear();
+        _rowMarkers.Clear();
+        _rowButtons.Clear();
+
+        if (_modes.Count == 0)
+        {
+            SelectedModeId = null;
+            if (_launcher != null) _launcher.gameObject.SetActive(false);
+            return;
+        }
+
+        SelectedModeId = _modes.Any(x => x.Id == previousModeId)
+            ? previousModeId
+            : _modes.FirstOrDefault(x => x.Id == "pvp.casual")?.Id ?? _modes[0].Id;
         if (_launcher == null) BuildLauncher();
-        if (_overlay == null) BuildOverlay();
-        Select(_modes.FirstOrDefault(x => x.Id == "pvp.casual")?.Id ?? _modes[0].Id);
+        BuildOverlay();
+        UpdateSelectionVisuals(SelectedMode);
     }
 
     public void SetVisible(bool visible)
@@ -61,7 +91,8 @@ public sealed class ServerModeMenu : MonoBehaviour
 
     public void SelectDefault(string modeId)
     {
-        if (_modes.Any(x => x.Id == modeId)) Select(modeId);
+        if (!HasModes) return;
+        Select(_modes.Any(x => x.Id == modeId) ? modeId : SelectedModeId ?? _modes[0].Id);
     }
 
     public void Open()
@@ -292,13 +323,20 @@ public sealed class ServerModeMenu : MonoBehaviour
 
     private void Select(string id)
     {
-        SelectedModeId = id;
-        var mode = SelectedMode;
+        var mode = _modes.FirstOrDefault(x => x.Id == id);
         if (mode == null) return;
+        SelectedModeId = id;
+        UpdateSelectionVisuals(mode);
+        _owner.OnServerModeSelected(mode);
+    }
+
+    private void UpdateSelectionVisuals(GameModeDefinition mode)
+    {
+        if (mode == null || _launcherText == null) return;
         _launcherText.text = (Resolve(new LocalizedText { ZhCn = "模式 · ", En = "MODE · " })) + Resolve(mode.Name);
         foreach (var pair in _rowBackgrounds)
         {
-            var selected = pair.Key == id;
+            var selected = pair.Key == mode.Id;
             var normal = selected ? (Color)new Color32(45, 75, 75, 255) : Card;
             pair.Value.color = normal;
             if (_rowButtons.TryGetValue(pair.Key, out var button))
@@ -306,7 +344,6 @@ public sealed class ServerModeMenu : MonoBehaviour
             if (_rowMarkers.TryGetValue(pair.Key, out var marker))
                 marker.enabled = selected;
         }
-        _owner.OnServerModeSelected(mode);
     }
 
     private string Resolve(LocalizedText text) => _owner.ResolveLocalized(text);

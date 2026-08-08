@@ -54,6 +54,7 @@ public class MainCode : MonoBehaviour
         _messagesReaderService = DependencyResolver.Container.Resolve<ClientMessagesReaderService>();
 
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
 
         // Refresh the authenticated account before consuming persistent
         // notices. Doing this in the opposite order can display and then try
@@ -73,7 +74,6 @@ public class MainCode : MonoBehaviour
             }
             //DoMatchButton.onClick.Invoke();
         }
-        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
     private async Task UpdateUserInfo()
     {
@@ -158,6 +158,24 @@ public class MainCode : MonoBehaviour
             rectTransform.localScale = Vector3.one;
             rectTransform.anchoredPosition = Vector2.zero;
         }
+
+        var title = notification
+            .GetComponentsInChildren<Text>(true)
+            .FirstOrDefault(text => text.gameObject.name == "Title");
+        if (title != null)
+        {
+            title.text = _translator.GetText("NewReward");
+        }
+
+        var okButton = notification
+            .GetComponentsInChildren<Button>(true)
+            .FirstOrDefault(button => button.gameObject.name == "OkButton");
+        var okLabel = okButton == null ? null : okButton.GetComponentInChildren<Text>(true);
+        if (okLabel != null)
+        {
+            okLabel.text = _translator.GetText("PopupWindow_OkButton");
+        }
+
         // Several default cosmetics can unlock on the first login. Keep later
         // notifications hidden until the current one is acknowledged instead
         // of stacking multiple modal backdrops and panels on top of each other.

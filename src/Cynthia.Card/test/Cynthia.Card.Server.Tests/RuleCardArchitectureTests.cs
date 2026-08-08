@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Cynthia.Card.AI;
 using Cynthia.Card.Server.Services.GwentGameService;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Cynthia.Card.Server.Tests
@@ -1008,6 +1012,274 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void CardEffectDeckAdjustmentIsAuthoritativeForProjectionValidationModeAndPvpFingerprint()
+        {
+            const string ruleId = "99001";
+            const string modeId = "test.effect-authority";
+            var existed = GwentMap.CardMap.TryGetValue(ruleId, out var old);
+            var tempRoot = Path.Combine(Path.GetTempPath(), "gwent-rule-authority-" + Guid.NewGuid().ToString("N"));
+            GwentMap.CardMap[ruleId] = TestRuleCard(ruleId);
+            try
+            {
+                var manifest = new GameFeatureManifest
+                {
+                    SchemaVersion = 2,
+                    FeatureLevel = 2,
+                    RulesetVersion = "effect-authority-v1",
+                    PlayerRuleCardsEnabled = true,
+                    RuleCards = new List<RuleCardDefinition>
+                    {
+                        // Deliberately leave the manifest free of deck-size changes.
+                        // The authoritative change exists only in CardEffect 99001.
+                        new RuleCardDefinition
+                        {
+                            Id = ruleId,
+                            PackageVersion = "authority-1",
+                            PlayerSelectable = true
+                        }
+                    },
+                    Modes = new List<GameModeDefinition>
+                    {
+                        new GameModeDefinition
+                        {
+                            Id = modeId,
+                            MatchKind = "pvp",
+                            RuleMatchPolicy = "same",
+                            AllowCustomRuleCards = true
+                        }
+                    }
+                };
+                var featureDirectory = Path.Combine(tempRoot, "Features");
+                Directory.CreateDirectory(featureDirectory);
+                File.WriteAllText(
+                    Path.Combine(featureDirectory, "game-features.json"),
+                    JsonConvert.SerializeObject(manifest));
+                var service = new GameFeatureService(
+                    new TestWebHostEnvironment { ContentRootPath = tempRoot },
+                    new GwentCardDataService());
+                var deck = GwentDeck.CreateBasicDeck(0);
+                deck.Deck.Add(ruleId);
+
+                var projection = service.ProjectDeckBuilding(new DeckBuildingProjectionRequest
+                {
+                    Revision = 41,
+                    Action = "refresh",
+                    Deck = deck
+                });
+                var resolved = service.Resolve(deck);
+                var draftValidation = service.ValidateDeck(deck, false);
+                Assert.True(service.TryValidateMode(modeId, deck, out var mode, out var modeValidation));
+
+                foreach (var rules in new[]
+                {
+                    projection.ResolvedRules,
+                    resolved,
+                    draftValidation.Rules,
+                    modeValidation.Rules
+                })
+                {
+                    Assert.DoesNotContain(rules.Constraints, x => x.Id == DeckRuleEngine.StandardDeckSize);
+                    Assert.Contains(rules.Constraints, x =>
+                        x.Id == "local.deck-size" && x.Min == 25 && x.Max == 100);
+                }
+                Assert.Equal(projection.RulesFingerprint, resolved.Fingerprint);
+                Assert.Equal(resolved.Fingerprint, draftValidation.Rules.Fingerprint);
+                Assert.Equal(resolved.Fingerprint, modeValidation.Rules.Fingerprint);
+                Assert.Equal(
+                    "mode:" + modeId + ":" + resolved.Fingerprint,
+                    GwentMatchs.CreateModeMatchKey(mode, modeValidation.Rules));
+
+                var first = new ClientPlayer(new User("authority-a", "authority-a-connection"), () => null)
+                {
+                    Deck = deck
+                };
+                var second = new ClientPlayer(new User("authority-b", "authority-b-connection"), () => null)
+                {
+                    Deck = new DeckModel
+                    {
+                        Leader = deck.Leader,
+                        Deck = deck.Deck.Where(x => x != ruleId).ToList()
+                    }
+                };
+                var secondRules = service.Resolve(second.Deck);
+                Assert.NotEqual(resolved.Fingerprint, secondRules.Fingerprint);
+                var room = new GwentRoom(first, "effect-authority");
+                room.AddPlayer(second);
+                var combined = GwentMatchs.CreateCombinedRuleFingerprint(
+                    room,
+                    manifest.RuleCards,
+                    manifest.RulesetVersion,
+                    resolveDeckRules: service.Resolve);
+                Assert.Equal(
+                    DeckRuleEngine.CombineFingerprints(
+                        manifest.RulesetVersion,
+                        new[] { resolved.Fingerprint, secondRules.Fingerprint }),
+                    combined);
+
+                var swappedRoom = new GwentRoom(second, "effect-authority-swapped");
+                swappedRoom.AddPlayer(first);
+                Assert.Equal(
+                    combined,
+                    GwentMatchs.CreateCombinedRuleFingerprint(
+                        swappedRoom,
+                        manifest.RuleCards,
+                        manifest.RulesetVersion,
+                        resolveDeckRules: service.Resolve));
+            }
+            finally
+            {
+                if (existed) GwentMap.CardMap[ruleId] = old;
+                else GwentMap.CardMap.Remove(ruleId);
+                if (Directory.Exists(tempRoot)) Directory.Delete(tempRoot, true);
+            }
+        }
+
+        [Fact]
+        public void FailingDeckBuildingEffectFailsProjectionSaveAndMatchClosedWithoutThrowing()
+        {
+            const string ruleId = "99007";
+            const string modeId = "test.effect-failure";
+            var existed = GwentMap.CardMap.TryGetValue(ruleId, out var old);
+            var tempRoot = Path.Combine(Path.GetTempPath(), "gwent-rule-failure-" + Guid.NewGuid().ToString("N"));
+            GwentMap.CardMap[ruleId] = TestRuleCard(ruleId);
+            try
+            {
+                var manifest = new GameFeatureManifest
+                {
+                    SchemaVersion = 2,
+                    FeatureLevel = 2,
+                    RulesetVersion = "effect-failure-v1",
+                    PlayerRuleCardsEnabled = true,
+                    RuleCards = new List<RuleCardDefinition>
+                    {
+                        new RuleCardDefinition { Id = ruleId, PlayerSelectable = true }
+                    },
+                    Modes = new List<GameModeDefinition>
+                    {
+                        new GameModeDefinition
+                        {
+                            Id = modeId,
+                            MatchKind = "pvp",
+                            RuleMatchPolicy = "same",
+                            AllowCustomRuleCards = true
+                        }
+                    }
+                };
+                var featureDirectory = Path.Combine(tempRoot, "Features");
+                Directory.CreateDirectory(featureDirectory);
+                File.WriteAllText(
+                    Path.Combine(featureDirectory, "game-features.json"),
+                    JsonConvert.SerializeObject(manifest));
+                var service = new GameFeatureService(
+                    new TestWebHostEnvironment { ContentRootPath = tempRoot },
+                    new GwentCardDataService());
+                var deck = GwentDeck.CreateBasicDeck(0);
+                deck.Deck.Add(ruleId);
+
+                var exception = Record.Exception(() =>
+                {
+                    var projection = service.ProjectDeckBuilding(new DeckBuildingProjectionRequest
+                    {
+                        Revision = 51,
+                        Action = "refresh",
+                        Deck = deck
+                    });
+                    Assert.False(projection.IsValid);
+                    Assert.Equal("rules.deck-building-effect-failed", projection.FailureCode);
+                    Assert.Contains(projection.Issues, x =>
+                        x.Code == "rules.deck-building-effect-failed" && x.CardId == ruleId);
+
+                    var draftValidation = service.ValidateDeck(deck, false);
+                    Assert.False(draftValidation.IsValid);
+                    Assert.Contains(draftValidation.Issues, x =>
+                        x.Code == "rules.deck-building-effect-failed" && x.CardId == ruleId);
+                    Assert.False(GwentServerService.CanSaveDraft(service, deck));
+
+                    Assert.False(service.TryValidateMode(modeId, deck, out _, out var modeValidation));
+                    Assert.Contains(modeValidation.Issues, x =>
+                        x.Code == "rules.deck-building-effect-failed" && x.CardId == ruleId);
+                });
+                Assert.Null(exception);
+            }
+            finally
+            {
+                if (existed) GwentMap.CardMap[ruleId] = old;
+                else GwentMap.CardMap.Remove(ruleId);
+                if (Directory.Exists(tempRoot)) Directory.Delete(tempRoot, true);
+            }
+        }
+
+        [Fact]
+        public void RemovedRuleMayLeaveSavableBrokenDraftButStrictMatchStillRejectsIt()
+        {
+            const string ruleId = "test-broken-draft-rule";
+            const string modeId = "test-broken-draft-mode";
+            var existed = GwentMap.CardMap.TryGetValue(ruleId, out var old);
+            var tempRoot = Path.Combine(Path.GetTempPath(), "gwent-broken-draft-" + Guid.NewGuid().ToString("N"));
+            GwentMap.CardMap[ruleId] = TestRuleCard(ruleId);
+            try
+            {
+                var manifest = new GameFeatureManifest
+                {
+                    SchemaVersion = 2,
+                    FeatureLevel = 2,
+                    RulesetVersion = "broken-draft-v1",
+                    PlayerRuleCardsEnabled = true,
+                    RuleCards = new List<RuleCardDefinition>
+                    {
+                        new RuleCardDefinition
+                        {
+                            Id = ruleId,
+                            PlayerSelectable = true,
+                            RemoveConstraintIds = new List<string> { DeckRuleEngine.StandardCopperCopies }
+                        }
+                    },
+                    Modes = new List<GameModeDefinition>
+                    {
+                        new GameModeDefinition
+                        {
+                            Id = modeId,
+                            MatchKind = "pvp",
+                            RuleMatchPolicy = "same",
+                            AllowCustomRuleCards = true
+                        }
+                    }
+                };
+                var featureDirectory = Path.Combine(tempRoot, "Features");
+                Directory.CreateDirectory(featureDirectory);
+                File.WriteAllText(
+                    Path.Combine(featureDirectory, "game-features.json"),
+                    JsonConvert.SerializeObject(manifest));
+                var service = new GameFeatureService(
+                    new TestWebHostEnvironment { ContentRootPath = tempRoot },
+                    new GwentCardDataService());
+                var deck = GwentDeck.CreateBasicDeck(0);
+                var copperId = deck.Deck.First(x => GwentMap.CardMap[x].Group == Group.Copper);
+                while (deck.Deck.Count(x => x == copperId) < 4) deck.Deck.Add(copperId);
+                deck.Deck.Add(ruleId);
+
+                Assert.True(service.ValidateDeck(deck, false).IsValid);
+                deck.Deck.Remove(ruleId);
+
+                var brokenDraft = service.ValidateDeck(deck, false);
+                Assert.False(brokenDraft.IsValid);
+                Assert.Contains(brokenDraft.Issues, x =>
+                    x.Code == "copies.max" && x.CardId == copperId);
+                Assert.True(GwentServerService.CanSaveDraft(service, deck));
+                Assert.False(service.TryValidateMode(modeId, deck, out _, out var matchValidation));
+                Assert.False(matchValidation.IsComplete);
+                Assert.Contains(matchValidation.Issues, x =>
+                    x.Code == "copies.max" && x.CardId == copperId);
+            }
+            finally
+            {
+                if (existed) GwentMap.CardMap[ruleId] = old;
+                else GwentMap.CardMap.Remove(ruleId);
+                if (Directory.Exists(tempRoot)) Directory.Delete(tempRoot, true);
+            }
+        }
+
+        [Fact]
         public void ProjectionRevisionGateRejectsStaleAndMismatchedResponses()
         {
             var gate = new DeckBuildingProjectionRevisionGate();
@@ -1494,7 +1766,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(2, game.GameRules.Count);
             Assert.DoesNotContain(game.PlayersDeck.SelectMany(x => x), x => x.Status.CardId == ruleId);
             Assert.All(game.GameRules, x => Assert.Equal(RowPosition.Rule, x.Status.CardRow));
-            Assert.All(game.GameRules, x => Assert.Contains(x, game.GetAllCard(game.Player1Index)));
+            Assert.All(game.GameRules, x => Assert.DoesNotContain(x, game.GetAllCard(game.Player1Index)));
             var playerInfo = game.GetCardsInfo(TwoPlayer.Player1);
             Assert.Equal(2, playerInfo.Rules.Count());
             var shared = Assert.Single(playerInfo.RuleSources, x => x.CardId == ruleId);
@@ -1546,8 +1818,38 @@ namespace Cynthia.Card.Server.Tests
 
             foreach (var card in game.GetAllCard(game.Player1Index, true, true))
                 card.Effects.Clear();
+            game.GameRules[0].Effects.Clear();
             var probe = new RuleEventProbe(game.GameRules[0]);
             game.GameRules[0].Effects.Add(probe);
+
+            await game.SendEvent(new OnGameStart());
+
+            Assert.Equal(1, probe.Triggered);
+        }
+
+        [Fact]
+        public async Task OrdinaryCardQueriesExcludeRuleZoneWhileEventsStillReachRules()
+        {
+            var player1 = new GeraltNovaAI();
+            var player2 = new SoldierTrainAI();
+            var ruleId = player1.Deck.Deck.First();
+            var game = new GwentServerGame(
+                player1,
+                player2,
+                new GwentCardDataService(),
+                _ => { },
+                false,
+                cardId => cardId == ruleId);
+            var rule = Assert.Single(game.GameRules);
+
+            Assert.DoesNotContain(rule, game.GetAllCard(game.Player1Index, true, true));
+            Assert.Contains(rule, game.RowToList(game.Player1Index, RowPosition.Rule));
+
+            foreach (var card in game.GetAllCard(game.Player1Index, true, true))
+                card.Effects.Clear();
+            rule.Effects.Clear();
+            var probe = new RuleEventProbe(rule);
+            rule.Effects.Add(probe);
 
             await game.SendEvent(new OnGameStart());
 
@@ -1713,8 +2015,19 @@ namespace Cynthia.Card.Server.Tests
         {
             foreach (var card in game.GetAllCard(game.Player1Index, true, true))
                 card.Effects.Clear();
+            game.GameRules.Single().Effects.Clear();
             game.GameRules.Single().Effects.Add(effect);
             await game.SendEvent(new OnGameStart());
+        }
+
+        private sealed class TestWebHostEnvironment : IWebHostEnvironment
+        {
+            public string ApplicationName { get; set; } = "Cynthia.Card.Server.Tests";
+            public IFileProvider WebRootFileProvider { get; set; } = new NullFileProvider();
+            public string WebRootPath { get; set; } = "";
+            public string EnvironmentName { get; set; } = "Test";
+            public string ContentRootPath { get; set; } = "";
+            public IFileProvider ContentRootFileProvider { get; set; } = new NullFileProvider();
         }
 
         private sealed class RuleEventProbe : CardEffect, IHandlesEvent<OnGameStart>

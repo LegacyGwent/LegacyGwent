@@ -232,6 +232,18 @@ namespace Cynthia.Card
                 .Where(IsRuleCard)
                 .Distinct(StringComparer.Ordinal);
             var rules = Resolve(manifest.RuleCards, selectedRuleCards, manifest.RulesetVersion, manifest.CardPools);
+            return ValidateMode(deck, manifest, mode, rules, requireComplete);
+        }
+
+        public static DeckValidationResult ValidateMode(
+            DeckModel deck,
+            GameFeatureManifest manifest,
+            GameModeDefinition mode,
+            ResolvedDeckRuleSet rules,
+            bool requireComplete)
+        {
+            manifest = manifest ?? new GameFeatureManifest();
+            rules = rules ?? new ResolvedDeckRuleSet { RulesetVersion = manifest.RulesetVersion ?? "" };
             var result = Validate(deck, rules, requireComplete);
             if (mode == null || !mode.IsEnabled)
             {
@@ -375,6 +387,18 @@ namespace Cynthia.Card
                 lines.Add("c=" + ConstraintCanonical(c));
             foreach (var modifier in (rules?.CardPoolModifiers ?? new List<ResolvedCardPoolModifier>()).OrderBy(x => x.RuleCardId))
                 lines.Add("p=" + PoolModifierCanonical(modifier));
+            using (var sha = SHA256.Create())
+                return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(string.Join("\n", lines))))
+                    .Replace("-", "").Substring(0, 20).ToLowerInvariant();
+        }
+
+        public static string CombineFingerprints(string rulesetVersion, IEnumerable<string> fingerprints)
+        {
+            var lines = new List<string> { "v=" + (rulesetVersion ?? "") };
+            lines.AddRange((fingerprints ?? Enumerable.Empty<string>())
+                .Select(x => x ?? "")
+                .OrderBy(x => x, StringComparer.Ordinal)
+                .Select(x => "f=" + x));
             using (var sha = SHA256.Create())
                 return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(string.Join("\n", lines))))
                     .Replace("-", "").Substring(0, 20).ToLowerInvariant();
