@@ -26,7 +26,8 @@ namespace Cynthia.Card
 
             var second = (await Game.GetSelectPlaceCards(Card, filter: x => x.PlayerIndex == first.PlayerIndex && x.Status.CardRow == first.Status.CardRow && x != first)).Single();
 
-            await first.Effect.Duel(second, Card);
+            var damageCount = await first.Effect.DuelWithDamageCount(second, Card);
+            await Card.Effect.Boost(damageCount, Card);
 
             return 0;
         }

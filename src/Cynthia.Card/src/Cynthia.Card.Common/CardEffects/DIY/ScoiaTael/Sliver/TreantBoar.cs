@@ -17,7 +17,7 @@ namespace Cynthia.Card
                 var result = await Game.GetSelectPlaceCards(Card);
                 if (!result.Any()) return 0;
                 var target1 = result[0];
-                await target1.Effect.Damage(3, Card);
+                await target1.Effect.Damage(4, Card);
                 if (!target1.IsAliveOnPlance())
                 {
                     rcount = 2;

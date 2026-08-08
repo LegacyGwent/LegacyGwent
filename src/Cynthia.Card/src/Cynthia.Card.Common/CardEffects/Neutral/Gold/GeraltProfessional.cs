@@ -8,14 +8,30 @@ namespace Cynthia.Card
     public class GeraltProfessional : CardEffect
     {//对1个敌军单位造成4点伤害。若它为“怪兽”单位，则直接将其摧毁。
         public GeraltProfessional(GameCard card) : base(card) { }
+
+        private static readonly Categorie[] MonsterCategories =
+        {
+            Categorie.Relict,
+            Categorie.WildHunt,
+            Categorie.Vampire,
+            Categorie.Insectoid,
+            Categorie.Vodyanoi,
+            Categorie.Beast,
+            Categorie.Ogroid,
+            Categorie.Draconid,
+            Categorie.Cursed,
+            Categorie.Construct,
+            Categorie.Necrophage
+        };
+
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cards = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
             if (cards.Count == 0) return 0;
             var card = cards.Single();
-            if (card.Status.Faction == Faction.Monsters)
+            if (card.Status.Faction == Faction.Monsters || card.Status.Categories.HasAny(MonsterCategories))
             {
-                await card.Effect.Banish();
+                await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
             }
             else
             {

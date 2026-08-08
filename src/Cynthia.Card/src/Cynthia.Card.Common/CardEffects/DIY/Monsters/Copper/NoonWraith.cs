@@ -19,7 +19,7 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnOver @event)
         {//On turn end, repeat deploy ability and transform into a Nightwraith.
-            if (@event.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsOnPlace())
+            if (Card.Status.CardRow.IsOnPlace())
             {
                 mystrength = Card.Status.Strength;
                 myhealth = Card.Status.HealthStatus;

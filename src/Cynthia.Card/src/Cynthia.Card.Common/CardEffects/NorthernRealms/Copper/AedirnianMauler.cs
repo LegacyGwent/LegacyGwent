@@ -16,7 +16,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await target.Effect.Damage(4, Card);
+            await target.Effect.Damage(target.Status.IsLock ? 7 : 4, Card);
             return 0;
         }
     }

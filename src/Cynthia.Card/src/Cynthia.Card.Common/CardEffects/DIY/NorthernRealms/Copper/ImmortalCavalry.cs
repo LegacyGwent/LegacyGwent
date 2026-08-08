@@ -3,29 +3,25 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("70101")]//不朽者骑兵 ImmortalCavalry
-    public class ImmortalCavalry : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<OnGameStart>
-    {//对局开始时改变自身锁定状态。每2回合开始时，改变自身锁定状态。
+    public class ImmortalCavalry : CardEffect, IHandlesEvent<AfterCardBoost>, IHandlesEvent<AfterCardHurt>
+    {//每当处于锁定状态的单位获得增益或受到伤害，获得1点增益。
         public ImmortalCavalry(GameCard card) : base(card){}
 
-        private int _ownerTurnStarts;
-
-        public async Task HandleEvent(OnGameStart @event)
+        public async Task HandleEvent(AfterCardBoost @event)
         {
-            await Card.Effect.Lock(Card);
+            await BoostForLockedTarget(@event.Target);
         }
 
-        public async Task HandleEvent(AfterTurnStart @event)
+        public async Task HandleEvent(AfterCardHurt @event)
         {
-            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace())
-            {
-                return;
-            }
+            await BoostForLockedTarget(@event.Target);
+        }
 
-            _ownerTurnStarts++;
-            if (_ownerTurnStarts >= 2)
+        private async Task BoostForLockedTarget(GameCard target)
+        {
+            if (Card.Status.CardRow.IsOnPlace() && target.Status.IsLock)
             {
-                _ownerTurnStarts = 0;
-                await Card.Effect.Lock(Card);
+                await Card.Effect.Boost(1, Card);
             }
         }
     }

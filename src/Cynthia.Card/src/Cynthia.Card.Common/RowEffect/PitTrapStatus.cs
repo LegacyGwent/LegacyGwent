@@ -12,7 +12,7 @@ namespace Cynthia.Card
             var target = @event.Target;
             if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
             {
-                await target.Effect.Damage(3, null, damageType: DamageType.PitTrap);
+                await target.Effect.Damage(3, null, isPenetrate: true, damageType: DamageType.PitTrap);
             }
         }
 
@@ -21,7 +21,7 @@ namespace Cynthia.Card
             var target = @event.Target;
             if (target.PlayerIndex == PlayerIndex && target.Status.CardRow == RowPosition)
             {
-                await target.Effect.Damage(3, null, damageType: DamageType.PitTrap);
+                await target.Effect.Damage(3, null, isPenetrate: true, damageType: DamageType.PitTrap);
             }
         }
 
@@ -29,7 +29,7 @@ namespace Cynthia.Card
         {
             foreach (var card in AliveNotConceal)
             {
-                await card.Effect.Damage(3, null, damageType: DamageType.PitTrap);
+                await card.Effect.Damage(3, null, isPenetrate: true, damageType: DamageType.PitTrap);
             }
         }
     }

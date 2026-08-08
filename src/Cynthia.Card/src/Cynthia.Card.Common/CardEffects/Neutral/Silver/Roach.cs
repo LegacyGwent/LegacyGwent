@@ -10,7 +10,12 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (@event.Target.Status.Group == Group.Gold && @event.Target.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInDeck() && @event.IsPlayed && !@event.IsSpying)
+            if (@event.Target.Status.Group == Group.Gold &&
+                @event.Target.Status.Group != Group.Leader &&
+                @event.Target.PlayerIndex == Card.PlayerIndex &&
+                Card.Status.CardRow.IsInDeck() &&
+                @event.IsPlayed &&
+                !@event.IsSpying)
             {
                 await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, true), @event.Target);
             }

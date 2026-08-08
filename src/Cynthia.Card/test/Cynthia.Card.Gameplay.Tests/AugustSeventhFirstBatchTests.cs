@@ -32,7 +32,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task ImmortalCavalryStaysLockedUntilExternallyUnlockedThenRelocksAfterTwoOwnerTurns()
+        public async Task ImmortalCavalryNoLongerUsesTheOldSelfLockCycle()
         {
             var fixture = new HeadlessGameFixture();
             var cavalry = fixture.AddCard(
@@ -40,21 +40,11 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
 
             await fixture.Game.SendEvent(new OnGameStart());
-            Assert.True(cavalry.Status.IsLock);
-
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
-            Assert.True(cavalry.Status.IsLock);
 
-            await cavalry.Effect.Lock(cavalry);
             Assert.False(cavalry.Status.IsLock);
-
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player2Index));
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
-            Assert.False(cavalry.Status.IsLock);
-
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
-            Assert.True(cavalry.Status.IsLock);
+            Assert.Equal(0, cavalry.Status.HealthStatus);
         }
 
         [Theory]

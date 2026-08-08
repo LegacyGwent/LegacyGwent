@@ -265,16 +265,19 @@ namespace Cynthia.Card.Gameplay.Tests
             var fixture = new HeadlessGameFixture();
             var xarthisius = fixture.AddCard(
                 fixture.Game.Player1Index, "32002", RowPosition.MyRow1);
-            var first = fixture.AddCard(
+            fixture.AddCard(
                 fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyDeck);
             fixture.AddCard(
                 fixture.Game.Player2Index, CardId.Eskel, RowPosition.MyDeck);
             await fixture.SynchronizeClientsAsync();
 
+            var selected = fixture.Game.PlayersDeck[fixture.Game.Player2Index].First();
+
             await xarthisius.Effects.RaiseEvent(new CardPlayEffect(false, false));
 
             var moved = fixture.Game.PlayersDeck[fixture.Game.Player2Index].Last();
-            Assert.True(moved.Status.IsLock, $"first={first.Status.IsLock}, moved={moved.Status.CardId}:{moved.Status.IsLock}");
+            Assert.Same(selected, moved);
+            Assert.True(moved.Status.IsLock, $"moved={moved.Status.CardId}:{moved.Status.IsLock}");
         }
     }
 }

@@ -870,12 +870,12 @@
         },
         "12016": {
             "Name": "Eskel: Pathfinder",
-            "Info": "Deploy: Destroy a Bronze or Silver enemy that is not Boosted.",
+            "Info": "Deploy: Destroy a Bronze or Silver enemy that is not Boosted or is Locked.",
             "Flavor": "Heard you panting from three miles away. Just didn't wanna give up that vantage point."
         },
         "12017": {
             "Name": "Geralt: Professional",
-            "Info": "Deploy: Toggle an enemy's Lock status.\nIf it is a Monster, destroy it, otherwise, Damage it by 4.",
+            "Info": "Deploy: Damage an enemy by 4. If it belongs to Monsters or has a Monster-related category, destroy it instead.",
             "Flavor": "I accepted a job once, did it. Asked to choose my reward, I invoked the Law of Surprise."
         },
         "12018": {
@@ -1005,7 +1005,7 @@
         },
         "13001": {
             "Name": "Roach",
-            "Info": "Whenever a loyal Gold unit is played on your side of the board, Summon this unit on a random row.",
+            "Info": "Whenever you play a non-Leader Gold unit, Summon this unit.",
             "Flavor": "Geralt, we gotta have a man–to–horse talk. No offense, but your riding skills? They leave a bit to be desired, buddy."
         },
         "13002": {
@@ -1345,7 +1345,7 @@
         },
         "14025": {
             "Name": "Spores",
-            "Info": "Deal 2 Damage to all units on an enemy row and clear a Boon from it.",
+            "Info": "Deal 2 Armor-piercing Damage to all units on a row. If the row is under a Boon, deal 3 instead and clear that Boon.",
             "Flavor": "Carried by the wind across the Continent... Sowing madness and blight where they fall."
         },
         "14026": {
@@ -2445,7 +2445,7 @@
         },
         "44001": {
             "Name": "Tridam Infantry",
-            "Info": "4 Armor.",
+            "Info": "At the start of the game, toggle the Lock status of this unit. 4 Armor.",
             "Flavor": "Soldiers loyal to the old baron of Tridam left the city with Falibor, thus becoming renegades wanted by the law."
         },
         "44002": {
@@ -2520,7 +2520,7 @@
         },
         "44016": {
             "Name": "Aedirnian Mauler",
-            "Info": "Deploy: Damage an enemy by 4, if it survives Damage another by 2.",
+            "Info": "Deploy: Damage an enemy by 4. If it is Locked, Damage it by 7 instead.",
             "Flavor": "Ugh, these guys can be a real headache."
         },
         "44017": {
@@ -2705,7 +2705,7 @@
         },
         "52012": {
             "Name": "Iorveth: Meditation",
-            "Info": "Deploy: Force 2 enemies on the same row to Duel each other.",
+            "Info": "Deploy: Force 2 enemies on the same row to Duel each other. Boost self by the number of Damage instances dealt during that Duel.",
             "Flavor": "Iorveth may have only one eye, but his inner vision is unmatched."
         },
         "52013": {
@@ -2810,7 +2810,7 @@
         },
         "53020": {
             "Name": "Pit Trap",
-            "Info": "Apply a Hazard to an enemy row that deals 3 Damage to units on contact.",
+            "Info": "Apply a Hazard to an enemy row that deals 3 Armor-piercing Damage to affected units.",
             "Flavor": "Simple, cheap and deadly efficient - no wonder it's one of the Scoia'tael's favorite traps."
         },
         "53021": {
@@ -3565,7 +3565,7 @@
         },
         "70054": {
             "Name": "Feign Death",
-            "Info": "Resurrect 2 Bronze Soldier units with 5 Power or more, then deal 4 Damage to each of them.",
+            "Info": "Resurrect 2 Bronze Soldier units with 5 Power or more, then Damage each by 5.",
             "Flavor": "In order to set a trap, you should usually hide. But… there are exceptions to this rule."
         },
         "70058": {
@@ -3700,12 +3700,12 @@
         },
         "70097": {
             "Name": "Dwarf Miner",
-            "Info": "Deploy: Strengthen self by 1 for every Dwarf in your hand.",
+            "Info": "Strengthen self by the number of allied Dwarf Miners on the board and in your hand.",
             "Flavor": "Which moron's whistling in the mine?!"
         },
         "70098": {
             "Name": "Vrihedd Saboteur",
-            "Info": "Deploy, Choose One: Play a random Bronze item; or play a Bronze Scoia'tael item.",
+            "Info": "Whenever any card returns to a deck, Boost self by 1.",
             "Flavor": "The gates were ordered to be closed… But they didn't budge."
         },
         "70099": {
@@ -3715,12 +3715,12 @@
         },
         "70100": {
             "Name": "Forest Whisperer",
-            "Info": "Deploy: Damage all units on the same row on both sides by 2, except for Dryads.",
+            "Info": "If you control 2 unrevealed Ambush cards, Summon this unit.",
             "Flavor": "The dryads of Brokilon mastered a unique craft - to shape trees at will... And breathe into them life."
         },
         "70101": {
             "Name": "Immortal Cavalry",
-            "Info": "At the start of the game, toggle this unit's Lock. Every 2 allied turn starts, toggle this unit's Lock.",
+            "Info": "Whenever a Locked unit is Boosted or Damaged, Boost self by 1.",
             "Flavor": "Maybe camels aren't as swift as horses… but at least they don't die after two days in the desert."
         },
         "70102": {
@@ -3785,7 +3785,7 @@
         },
         "70114": {
             "Name": "Dryad Sharpshooter",
-            "Info": "Deploy: Destroy an enemy that has the same or lower base Strength as this unit.",
+            "Info": "Deploy: Damage an enemy by 4. During your turn, if this unit is moved to the Ranged row, repeat this ability.",
             "Flavor": "She does no warning shot, always aims to kill. No mercy, even for the little ones."
         },
         "70115": {
@@ -3820,7 +3820,7 @@
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Deploy: Boost a random unit with the Lowest Power in your deck by 2.\nIf it is a Dryad, Strenthen it instead.",
+            "Info": "Strengthen all other Dryads on this row by 1. For each Dryad Strengthened, Boost a random non-Spying unit in your hand by 1.",
             "Flavor": "She teaches young dryads many useful skills: fletching arrows, communing with the forest, slitting the throats of men..."
         },
         "70123": {
@@ -3905,7 +3905,7 @@
         },
         "70139": {
             "Name": "Treant Boar",
-            "Info": "Deploy: Deal 3 Damage to a unit, then move units adjacent to the target to random rows. If the target is destroyed, repeat once.",
+            "Info": "Deploy: Damage a unit by 4, then move adjacent units to random rows. If the target is destroyed, repeat once.",
             "Flavor": "Dryads wield a mystifying power to shape the forest's trees into any form they wish. So why not a giant boar?"
         },
         "70140": {
@@ -4045,7 +4045,7 @@
         },
         "70167": {
             "Name": "Zoltans Company",
-            "Info": "Put back up to 3 non-Gold Dwarves in your deck then play a non-Gold Dwarf from your deck. When this card is in the graveyard, give 1 Armor to each Dwarf you play.",
+            "Info": "Return up to 3 Bronze or Silver Dwarves from your graveyard to your deck, then play a Bronze Dwarf from your deck.",
             "Flavor": "They'd follow each other into the fire. And laugh about it."
         },
         "70168": {
@@ -4135,17 +4135,17 @@
         },
         "70185": {
             "Name": "Noonwraith",
-            "Info": "Deploy: Spawn a Mirror Image on this and the opposite row.\nOn turn end, repeat its ability, then transform self into a Nightwraith without changing its Power.",
+            "Info": "Spawn a Mirror Image on this and the opposite row. At the end of every turn, repeat this ability, then transform into a Nightwraith without changing Power.",
             "Flavor": "Contrary to popular belief, farmers don't stop work in the middle of the day to hide from the heat - they hide from the Noonwraith."
         },
         "70186": {
             "Name": "Mirror Image",
-            "Info": "No ability.",
+            "Info": "No special ability.",
             "Flavor": "They exude this immense sadness, this helpless wraith... I fear them, same as anyone. But most of all I feel sorry for them."
         },
         "70187": {
             "Name": "Nightwraith",
-            "Info": "On turn end, Boost all Mirror Images on this and the opposite row by 1, then transform self into a Noonwraith without changing its Power.",
+            "Info": "At the end of every turn, Boost all Mirror Images on this and the opposite row by 1, then transform into a Noonwraith without changing Power.",
             "Flavor": "How much damage can a pale, emaciated woman, entangled in a ripped dress, do? A lot, it turns out."
         },
         "70188": {

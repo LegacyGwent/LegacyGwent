@@ -869,12 +869,12 @@
         },
         "12016": {
             "Name": "Eskel Tropiciel",
-            "Info": "Rozmieszczenie: Zniszcz wybranego brązowego lub srebrnego wroga, który nie jest wzmocniony.",
+            "Info": "Rozmieszczenie: Zniszcz brązowego lub srebrnego wroga, który nie jest wzmocniony albo jest zablokowany.",
             "Flavor": "Słyszałem twoje sapanie z trzech mil, tylko nie chciało mi się z krzaków wyjść."
         },
         "12017": {
             "Name": "Geralt Zlecenie",
-            "Info": "Rozmieszczenie: Aktywuj lub dezaktywuj zablokowanie wrogiej jednostki, następnie zadaj jej 4 pkt obrażeń. Jeśli należy do frakcji Potworów, zamiast tego zniszcz ją.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli należy do Potworów lub ma kategorię związaną z Potworami, zamiast tego zniszcz go.",
             "Flavor": "Kiedyś wykonałem pewne zlecenie. Gdy kazano mi wybrać nagrodę, skorzystałem z Prawa Niespodzianki."
         },
         "12018": {
@@ -1004,7 +1004,7 @@
         },
         "13001": {
             "Name": "Płotka",
-            "Info": "Gdy zagrasz złotą jednostkę, wezwij tę jednostkę do losowego rzędu.",
+            "Info": "Gdy zagrasz złotą jednostkę niebędącą Dowódcą, wezwij tę jednostkę.",
             "Flavor": "„Bez urazy, Geralt, ale musimy porozmawiać na temat tego, jak mną kierujesz”."
         },
         "13002": {
@@ -1344,7 +1344,7 @@
         },
         "14025": {
             "Name": "Zarodniki",
-            "Info": "Zadaj 2 pkt obrażeń wszystkim jednostkom w wybranym rzędzie i usuń z niego Korzyść.",
+            "Info": "Zadaj wszystkim jednostkom w rzędzie 2 pkt obrażeń ignorujących pancerz. Jeśli rząd jest objęty Korzyścią, zadaj 3 pkt i usuń tę Korzyść.",
             "Flavor": "Podróżują przez Kontynent niesione wiatrem... A ich śladem idzie szaleństwo."
         },
         "14026": {
@@ -2444,7 +2444,7 @@
         },
         "44001": {
             "Name": "Tridamski Piechur",
-            "Info": "4 pkt pancerza.",
+            "Info": "Na początku gry zmień stan Blokady tej jednostki. 4 pkt pancerza.",
             "Flavor": "Żołnierze lojalni wobec starego barona Tridam opuścili miasto wraz z Faliborem, aby stać się renegatami poszukiwanymi przez prawo."
         },
         "44002": {
@@ -2519,7 +2519,7 @@
         },
         "44016": {
             "Name": "Aedirnski Rębajło",
-            "Info": "Rozmieszczenie: Zadaj wrogowi obrażenia równe 4, a jeśli przeżyje, zadaj innemu obrażenia równe 2.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli jest zablokowany, zadaj mu 7 pkt obrażeń.",
             "Flavor": "A gdybym był młotkowym, to co byś powiedziała?"
         },
         "44017": {
@@ -2704,7 +2704,7 @@
         },
         "52012": {
             "Name": "Iorweth Zaduma",
-            "Info": "Rozmieszczenie: Zmuś 2 wrogów w tym samym rzędzie do stoczenia ze sobą pojedynku.",
+            "Info": "Rozmieszczenie: Zmuś 2 wrogów w tym samym rzędzie do pojedynku. Wzmocnij się o liczbę przypadków zadania obrażeń w tym pojedynku.",
             "Flavor": "Cholernie celny jak na faceta z jednym okiem."
         },
         "52013": {
@@ -2809,7 +2809,7 @@
         },
         "53020": {
             "Name": "Wilczy Dół",
-            "Info": "Rzuć na wrogi rząd Zagrożenie, które zadaje jednostkom 3 pkt obrażeń przy zetknięciu. ",
+            "Info": "Rzuć na wrogi rząd Zagrożenie zadające objętym jednostkom 3 pkt obrażeń ignorujących pancerz.",
             "Flavor": "Prosta, tania a zarazem skuteczna – jedna z ulubionych pułapek Scoia'tael."
         },
         "53021": {
@@ -3564,7 +3564,7 @@
         },
         "70054": {
             "Name": "Fortel",
-            "Info": "Wskrześ 2 brązowych Żołnierzy o sile 5 lub większej i zadaj im po 4 pkt obrażeń.",
+            "Info": "Wskrześ 2 brązowych Żołnierzy o sile co najmniej 5, następnie zadaj każdemu 5 pkt obrażeń.",
             "Flavor": "Żeby zastawić pułapkę, zwykle trzeba się schować. Ale… Są wyjątki od tej zasady."
         },
         "70058": {
@@ -3699,12 +3699,12 @@
         },
         "70097": {
             "Name": "Krasnoludzki Hawierz",
-            "Info": "Rozmieszczenie: Ulepsz się o 1 za każdego Krasnoluda w twojej ręce.",
+            "Info": "Ulepsz się o liczbę sojuszniczych Krasnoludzkich Hawierzy na planszy i w ręce.",
             "Flavor": "Który bęcwał gwiżdże w kopalni?!"
         },
         "70098": {
             "Name": "Sabotażysta Vrihedd",
-            "Info": "Wybierz: Zagraj losowy brązowy przedmiot, lub Zagraj przedmiot Scoia'tael.",
+            "Info": "Za każdym razem, gdy dowolna karta wraca do talii, wzmocnij się o 1.",
             "Flavor": "Padł rozkaz, żeby zamknąć bramy… Ale te ani drgnęły."
         },
         "70099": {
@@ -3714,12 +3714,12 @@
         },
         "70100": {
             "Name": "Zaklinaczka Puszczy",
-            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom z wyjątkiem driad na tym i przeciwnym rzędzie 2 pkt obrażeń.",
+            "Info": "Jeśli kontrolujesz 2 nieodkryte karty Zasadzki, wezwij tę jednostkę.",
             "Flavor": "Driady z Brokilonu opanowały wyjątkową sztukę - potrafią kształtować drzewa wedle woli, a nawet tchnąć w nie świadomość."
         },
         "70101": {
             "Name": "Kawaleria Nieśmiertelnych",
-            "Info": "Na początku gry zmień stan Blokady tej jednostki. Co 2 początki twojej tury ponownie zmień jej stan Blokady.",
+            "Info": "Za każdym razem, gdy zablokowana jednostka zostaje wzmocniona lub otrzymuje obrażenia, wzmocnij się o 1.",
             "Flavor": "Wielbłądy nie są może tak rącze, jak konie… Ale za to nie zdychają po dwóch dniach na pustyni."
         },
         "70102": {
@@ -3784,7 +3784,7 @@
         },
         "70114": {
             "Name": "Driadzia Łuczniczka",
-            "Info": "Rozmieszczenie: Zniszcz wroga z siłą mniejszą lub równą sile tej jednostki.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Podczas twojej tury, jeśli ta jednostka zostanie przeniesiona do rzędu dalekiego zasięgu, powtórz tę zdolność.",
             "Flavor": "Nie strzelała po to, by kogokolwiek ostrzec. Bez litości, nawet dla najmłodszych."
         },
         "70115": {
@@ -3819,7 +3819,7 @@
         },
         "70122": {
             "Name": "Driada Piastunka",
-            "Info": "Rozmieszczenie: Ulepsz losową jednostkę o najniższej sile w twojej talii o 2. Jeśli to driada zamiast tego ulepsz ja o 2.",
+            "Info": "Ulepsz wszystkie pozostałe Driady w tym rzędzie o 1. Za każdą ulepszoną Driadę wzmocnij losową nieszpiegowską jednostkę w ręce o 1.",
             "Flavor": "Przyucza młode driady: pokazuje im, jak robić strzały, kształtować rośliny, podrzynać gardła..."
         },
         "70123": {
@@ -3904,7 +3904,7 @@
         },
         "70139": {
             "Name": "Drzewiec: Odyniec",
-            "Info": "Rozmieszczeni: Zadaj 3 pkt obrażeń, następnie przenieś sąsiadów celu do losowych rzędów. Jeśli cel został zniszczony powtórz raz.",
+            "Info": "Rozmieszczenie: Zadaj jednostce 4 pkt obrażeń, następnie przenieś sąsiednie jednostki do losowych rzędów. Jeśli cel zostanie zniszczony, powtórz raz.",
             "Flavor": "Driady potrafią nadawać drzewcom najróżniejsze formy - chociażby gigantycznego odyńca."
         },
         "70140": {
@@ -4044,7 +4044,7 @@
         },
         "70167": {
             "Name": "Kompania Zoltana",
-            "Info": "Wtasuj do 3 brązowych lub srebrnych krasnoludów do Twojej talii, następnie zagraj nie złotego krasnoluda z Twojej talii. Kiedy ta karta jest na cmentarzu daj 1 pkt pancerza każdemu zagranemu krasnoludowi.",
+            "Info": "Wtasuj do 3 brązowych lub srebrnych Krasnoludów z cmentarza do talii, następnie zagraj brązowego Krasnoluda z talii.",
             "Flavor": "Skoczyliby za sobą w ogień. I jeszcze by się z tego śmiali."
         },
         "70168": {
@@ -4134,17 +4134,17 @@
         },
         "70185": {
             "Name": "Południca",
-            "Info": "Rozmieszcznie: Stwórz Widmowe odbicie w tym i przeciwnym rzędzie. Na koniec tury powtórz efekt Rozmieszczenia i przemień się w Północnice bez zmieniania siły.",
+            "Info": "Stwórz Widmowe Odbicie w tym i przeciwnym rzędzie. Na koniec każdej tury powtórz tę zdolność, następnie przemień się w Północnicę bez zmiany siły.",
             "Flavor": "Wbrew temu, co się powszechnie sądzi, chłopi nie przerywają pracy w środku dnia, żeby się schronić przed upałem – tylko przed południcami."
         },
         "70186": {
             "Name": "Widmowe Odbicie",
-            "Info": "Brak umiejętności",
+            "Info": "Brak specjalnej zdolności.",
             "Flavor": ""
         },
         "70187": {
             "Name": "Północnica",
-            "Info": "Na koniec tury Wzmocnij wszystkie Widmowe Odbicia w tym i przeciwnym rzędzie i przemień się w Południce bez zmieniania siły.",
+            "Info": "Na koniec każdej tury wzmocnij wszystkie Widmowe Odbicia w tym i przeciwnym rzędzie o 1, następnie przemień się w Południcę bez zmiany siły.",
             "Flavor": "Ile szkody zdoła w końcu wyrządzić blada, zasuszona kobieta zaplątana w podarte suknie? Otóż dużo."
         },
         "70188": {

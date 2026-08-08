@@ -1,27 +1,26 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
     [CardEffectId("70100")]//林语者 ForestWhisperer
-    public class ForestWhisperer : CardEffect
-    {//对双方同排的非树精单位造成2点伤害。
+    public class ForestWhisperer : CardEffect, IHandlesEvent<AfterUnitDown>
+    {
         public ForestWhisperer(GameCard card) : base(card) { }
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+
+        public async Task HandleEvent(AfterUnitDown @event)
         {
-            var cards1 = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && !x.HasAllCategorie(Categorie.Dryad) && x != Card).ToList();
-            var cards2 = Game.RowToList(PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && !x.HasAllCategorie(Categorie.Dryad) && x != Card).ToList();
-            
-            foreach (var card in cards1)
+            if (!Card.Status.CardRow.IsInDeck() || @event.Target.PlayerIndex != PlayerIndex)
             {
-                await card.Effect.Damage(2, Card, BulletType.RedLight);
+                return;
             }
-            foreach (var card in cards2)
+
+            var concealedAmbushes = Game.GetPlaceCards(PlayerIndex, isHasConceal: true)
+                .Count(x => x.Status.Conceal && x.HasAnyCategorie(Categorie.Ambush));
+            if (concealedAmbushes >= 2)
             {
-                await card.Effect.Damage(2, Card, BulletType.RedLight);
+                await Card.Effect.Summon(Game.GetRandomCanPlayLocation(PlayerIndex, true), @event.Target);
             }
-            return 0;
         }
     }
 }

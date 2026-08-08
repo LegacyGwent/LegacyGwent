@@ -7,20 +7,27 @@ namespace Cynthia.Card
 {
     [CardEffectId("70122")]//树精族母 DryadMatron
     public class DryadMatron : CardEffect
-    {//随机使牌组中战力最低的单位牌获得2点增益，若为树精则改为2点强化。
+    {//使同排其他树人单位获得1点强化，每强化1个树人，使手牌中随机非间谍单位牌获得1点增益。
         public DryadMatron(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.PlayersDeck[PlayerIndex]
-            .Where(x => (x.CardInfo().CardType == CardType.Unit)).WhereAllLowest().ToList();
-            if (list.Count() == 0) return 0;
-            var cards = list.Mess(RNG).First();
-            if(cards.HasAllCategorie(Categorie.Dryad))
+            var dryads = Game.RowToList(PlayerIndex, Card.Status.CardRow)
+                .IgnoreConcealAndDead()
+                .Where(x => x != Card && x.HasAnyCategorie(Categorie.Dryad))
+                .ToList();
+
+            foreach (var dryad in dryads)
             {
-                await cards.Effect.Strengthen(2, cards);
-                return 0;
+                await dryad.Effect.Strengthen(1, Card);
+                var handTargets = Game.PlayersHandCard[PlayerIndex]
+                    .Where(x => x.CardInfo().CardType == CardType.Unit &&
+                        x.CardInfo().CardUseInfo == CardUseInfo.MyRow)
+                    .ToList();
+                if (handTargets.TryMessOne(out var handTarget, RNG))
+                {
+                    await handTarget.Effect.Boost(1, Card);
+                }
             }
-            await cards.Effect.Boost(2, cards);
             return 0;
         }
         

@@ -23,7 +23,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task GeraltProfessionalBanishesAMonsterWithoutTriggeringDeathwish()
+        public async Task GeraltProfessionalHonorsDoomedAndTriggersDeathwish()
         {
             var fixture = new HeadlessGameFixture();
             var geralt = fixture.AddCard(
@@ -35,7 +35,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await geralt.Effect.CardPlayEffect(false, false);
 
             Assert.Equal(RowPosition.Banish, egg.Status.CardRow);
-            Assert.DoesNotContain(
+            Assert.Contains(
                 fixture.Game.GetPlaceCards(fixture.Game.Player2Index),
                 card => card.Status.CardId == CardId.HarpyHatchling);
         }
