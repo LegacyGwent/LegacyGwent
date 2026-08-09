@@ -13,5 +13,9 @@ public class DeckEditorMiniatures : MonoBehaviour
         var op = Addressables.LoadAssetAsync<Sprite>(artid + "_slot");
         Sprite go = op.WaitForCompletion();
         Miniature.sprite = go;
+        // Deck headers use several frame widths; fill the painted slot instead
+        // of letterboxing it and exposing the frame background at the edges.
+        Miniature.preserveAspect = false;
+        LeaderSlotClip.Apply(Miniature);
     }
 }

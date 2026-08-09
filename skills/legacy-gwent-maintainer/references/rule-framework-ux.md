@@ -158,7 +158,10 @@ until every applicable item has automated coverage or a reviewed screenshot.
   never make a player clear one historical season on each successive login.
 - Dana Meadbh's leader slot crop has no pale/white strip at the right edge, keeps
   the face on the right at the same scale as existing leader slots, and uses the
-  current packaged `_slot` Addressable rather than a stale bundle.
+  current packaged `_slot` Addressable rather than a stale bundle. Leader slot
+  art is clipped by a fixed banner mask a few pixels inside the metal frame, so
+  fill-mode art cannot leak past either edge; borders and deck controls remain
+  outside that mask.
 - Right-click card details label navigation as `关闭`/`返回` (or localized
   equivalents), never `登录`. `关闭` exits the detail overlay; `返回` pops an
   actual linked-card browsing history and stays hidden when no prior card exists.

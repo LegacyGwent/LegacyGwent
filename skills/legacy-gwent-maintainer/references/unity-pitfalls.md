@@ -1,6 +1,6 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-08
+Last verified: 2026-08-09
 
 ## Automated mouse input misses the captured Unity control
 
@@ -35,24 +35,30 @@ Last verified: 2026-08-08
 - Verification: launch the packaged player, log in, open the full-art card pool,
   and compare its Common DLL hash with the server/source build used for the test.
 
-## A leader miniature leaves empty bands above and below
+## A leader miniature leaves bands or leaks past the banner frame
 
 - Symptom: a deck-list leader portrait appears as a thin horizontal strip with
-  the faction backing visible above and below, even though its `RectTransform`
-  is already about 80 pixels high.
-- Cause: `LeaderMiniature` preserves sprite aspect ratio. A conventional
-  512x64 (8:1) slot sprite fitted into the roughly 4.3:1 deck banner therefore
-  occupies only about half the available height.
-- Fix: for artwork that needs the full banner height, crop the original card
-  face/subject into a dedicated 512x128 (4:1) `<CardArtsId>_slot` sprite. Keep
-  the card art itself unchanged; do not replace a portrait crop with unrelated
-  panoramic composition or globally disable aspect preservation.
-- Prevention: preview the exact slot sprite inside the target faction's match
-  and editor deck prefabs. Treat the full card image and `_slot` miniature as
-  separate compositions of the same source artwork.
-- Verification: the slot remains addressable under `<CardArtsId>_slot`, imports
-  as a 512x128 sprite, fills the banner vertically, and retains a recognizable
-  face-focused crop without stretching.
+  the faction backing visible above and below; after disabling aspect
+  preservation, the portrait may instead extend past the right metal border.
+- Cause: `LeaderMiniature` can preserve the sprite aspect ratio, so a wide slot
+  sprite does not fill the roughly 4.3:1 banner. Some faction prefabs also give
+  the miniature a rectangle slightly wider than the visible frame; filling that
+  rectangle exposes the overflow because the leader banner has no mask.
+- Fix: keep a face-focused 512x128 (4:1) `<CardArtsId>_slot` sprite, let the art
+  fill its assigned rectangle, and wrap only the art image in a `RectMask2D`
+  clip window derived from the immediate banner parent's visible rectangle.
+  Inset the clip a few pixels inside the metal frame. Keep the frame, leader
+  name, faction decoration, strength diamond, and interaction objects outside
+  the mask so they remain sharp and unobstructed.
+- Prevention: do not hand-tune one portrait's horizontal offset to hide an edge.
+  Apply the same clipping helper in both the match deck list and deck-editor
+  leader header, and preview the exact slot sprite in every faction prefab.
+  Treat the full card image and `_slot` miniature as separate compositions of
+  the same source artwork.
+- Verification: the slot remains addressable under `<CardArtsId>_slot`, fills
+  the banner vertically, retains a recognizable face-focused crop, has neither
+  a pale strip nor visible overflow at either edge, and its border/decorations
+  are not clipped. Verify both collapsed and expanded deck rows.
 
 ## Downloaded macOS or Linux client is not executable
 
