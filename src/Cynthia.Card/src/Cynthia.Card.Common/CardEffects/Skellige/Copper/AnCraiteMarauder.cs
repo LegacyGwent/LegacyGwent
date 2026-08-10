@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //选取一个任意单位
-            int damagepoint = _resurrectedflag ? 6 : 4;
+            int damagepoint = _resurrectedflag ? Card.Status.Strength : 4;
             _resurrectedflag = false;
             var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
             if (!selectList.TrySingle(out var target))

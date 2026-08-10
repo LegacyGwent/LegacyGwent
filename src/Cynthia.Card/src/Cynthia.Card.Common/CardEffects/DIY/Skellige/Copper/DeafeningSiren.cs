@@ -4,12 +4,22 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70116")]//尖啸女海妖 DeafeningSiren
-    public class DeafeningSiren : CardEffect, IHandlesEvent<AfterWeatherApply>
+    public class DeafeningSiren : CardEffect, IHandlesEvent<OnGameStart>, IHandlesEvent<AfterWeatherApply>
     {//每当在对方半场降下“倾盆大雨”，复活自身至随机排。
         public DeafeningSiren(GameCard card) : base(card) { }
+
+        public async Task HandleEvent(OnGameStart @event)
+        {
+            await Game.CreateCardAtEnd(CardId.DeafeningSiren, PlayerIndex, RowPosition.MyDeck);
+            await Game.CreateCardAtEnd(CardId.DeafeningSiren, PlayerIndex, RowPosition.MyDeck);
+        }
+
         public async Task HandleEvent(AfterWeatherApply @event)
         {
-            if (@event.Type == RowStatus.TorrentialRain && @event.PlayerIndex == AnotherPlayer && Card.Status.CardRow.IsInCemetery())
+            if (@event.Type == RowStatus.TorrentialRain &&
+                @event.PlayerIndex == AnotherPlayer &&
+                Game.GameRound.ToPlayerIndex(Game) == PlayerIndex &&
+                Card.Status.CardRow.IsInCemetery())
             {
                 await Card.Effect.Summon(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
             }

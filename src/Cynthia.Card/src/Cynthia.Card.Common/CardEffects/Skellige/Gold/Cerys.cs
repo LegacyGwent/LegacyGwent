@@ -20,6 +20,7 @@ namespace Cynthia.Card
                     await Card.Effect.Resurrect(new CardLocation() { RowPosition = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true).RowPosition, CardIndex = int.MaxValue }, Card);
                     //重置计数器，复活到随机排最右侧
                     await Card.Effect.SetCountdown(value: 4);
+                    await Card.Effect.Strengthen(1, Card);
                 }
             }
             return;

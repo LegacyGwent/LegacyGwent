@@ -18,12 +18,13 @@ namespace Cynthia.Card
             if (cards.Count <= 0) return 0;
             foreach (var card in cards)
             {
-                await card.Effect.Boost(boost,Card);
+                await card.Effect.Boost(card.Status.HealthStatus < 0 ? woundedBoost : boost, Card);
             }
 
             return 0;
         }
 
         private const int boost = 3;
+        private const int woundedBoost = 5;
     }
 }

@@ -10,8 +10,9 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await ApplyGoldenFrothDrain();
-            await Card.Effect.SetCountdown(3);
+            await ApplyGoldenFroth();
+            await DrainOppositeRow();
+            await Card.Effect.SetCountdown(2);
             return 0;
         }
 
@@ -27,22 +28,25 @@ namespace Cynthia.Card
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Status.Countdown == 0)
             {
-                await ApplyGoldenFrothDrain();
+                await DrainOppositeRow();
             }
         }
 
-        private async Task ApplyGoldenFrothDrain()
+        private async Task ApplyGoldenFroth()
         {
             var rowIndex = Card.Status.CardRow.MyRowToIndex();
             await Game.GameRowEffect[AnotherPlayer][rowIndex]
                 .SetStatus<GoldenFrothStatus>();
+        }
 
+        private async Task DrainOppositeRow()
+        {
             var targets = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())
                 .IgnoreConcealAndDead()
                 .ToList();
             foreach (var target in targets)
             {
-                await Card.Effect.Drain(2, target);
+                await Card.Effect.Drain(1, target);
             }
         }
     }

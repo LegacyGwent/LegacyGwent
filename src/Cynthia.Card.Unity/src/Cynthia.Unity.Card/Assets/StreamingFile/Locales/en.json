@@ -4242,6 +4242,11 @@
             "Name": "Masquerade",
             "Info": "Choose a non-Leader unit on the battlefield and change its rarity to one of the other rarities.",
             "Flavor": "Identity is only a mask that can be replaced."
+        },
+        "70194": {
+            "Name": "Wraith Sorcerer",
+            "Info": "At game start, change this unit's Lock status. Repeat this effect every 2 allied turns.",
+            "Flavor": ""
         }
     }
 }

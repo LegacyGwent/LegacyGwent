@@ -10,7 +10,9 @@ namespace Cynthia.Card
         public LethoOfGulet(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = await Game.GetSelectPlaceCards(Card, 2, true, x => x.Status.CardRow == Card.Status.CardRow, SelectModeType.MyRow, isHasConceal: true);
+            var cards = isSpying
+                ? await Game.GetSelectPlaceCards(Card, 2, true, x => x.Status.CardRow == Card.Status.CardRow, SelectModeType.MyRow, isHasConceal: true)
+                : await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.MyRow, filter: x => x.Status.CardRow == Card.Status.CardRow);
             foreach (var card in cards)
             {
                 await card.Effect.Lock(Card);

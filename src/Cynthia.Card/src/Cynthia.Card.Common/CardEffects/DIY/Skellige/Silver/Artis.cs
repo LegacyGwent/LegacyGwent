@@ -10,17 +10,21 @@ namespace Cynthia.Card
         public Artis(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            await Game.CreateCard(
+                CardId.CultistOblation,
+                AnotherPlayer,
+                new CardLocation(Card.Status.CardRow, int.MaxValue));
 
+            var selectList = await Game.GetSelectPlaceCards(
+                Card,
+                filter: x => x.HasAllCategorie(Categorie.Soldier),
+                selectMode: SelectModeType.MyRow);
             if (!selectList.TrySingle(out var target))
             {
                 return 0;
             }
-            var damage = 7;
-            await target.Effect.Damage(damage, Card);
-            if (target.IsDead){
-                await Game.CreateCard(CardId.CultistOblation, target.PlayerIndex, target.GetLocation());
-            }
+
+            await target.Effect.Transform(CardId.SvalblodFanatic, Card, isForce: true);
             return 0;
         }
     }

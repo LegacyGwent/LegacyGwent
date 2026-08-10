@@ -1,6 +1,6 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-09
+Last verified: 2026-08-10
 
 ## Automated mouse input misses the captured Unity control
 
@@ -59,6 +59,22 @@ Last verified: 2026-08-09
   the banner vertically, retains a recognizable face-focused crop, has neither
   a pale strip nor visible overflow at either edge, and its border/decorations
   are not clipped. Verify both collapsed and expanded deck rows.
+
+## New card art loads but its deck-list miniature is missing
+
+- Symptom: the full card opens correctly, but deck lists or compact card rows
+  cannot load `<CardArtsId>_slot` even though the PNG and `.meta` exist.
+- Cause: full art and compact art belong to separate Addressables groups. The
+  full image is registered in `Default Local Group.asset`, while the slot image
+  must be registered independently in `Miniatures.asset` with its own GUID and
+  `<CardArtsId>_slot` address.
+- Fix: add both assets with their exact `.meta` GUIDs to their corresponding
+  groups; do not assume placing a file under `Assets/Addressables/Miniatures`
+  registers it.
+- Prevention: static card-batch tests must assert both files and both group
+  addresses for every new art ID.
+- Verification: the group entries resolve to the two `.meta` GUIDs and the
+  client can load both `<CardArtsId>` and `<CardArtsId>_slot`.
 
 ## Downloaded macOS or Linux client is not executable
 
