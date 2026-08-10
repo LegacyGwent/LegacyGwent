@@ -10,13 +10,16 @@ namespace Cynthia.Card
         public Amnesty(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            var cards = await Game.GetSelectPlaceCards
-            (Card, filter: x => x.Status.Group == Group.Copper || x.Status.Group == Group.Silver);
+            var cards = await Game.GetSelectPlaceCards(
+                Card,
+                filter: x => !x.Status.IsSpying &&
+                    (x.Status.Group == Group.Copper || x.Status.Group == Group.Silver),
+                selectMode: SelectModeType.EnemyRow);
             if (cards.Count == 0) return 0;
-            var targets = cards.Single();
-            var targetRow = (targets.PlayerIndex == Card.PlayerIndex) ? RowPosition.EnemyHand : RowPosition.MyHand;
-            await Game.ShowCardMove(new CardLocation(targetRow, 0), targets, refreshPoint: true);
-            await targets.Effect.Lower_Power_By(targets.CardPoint() - 1, targets);
+            var target = cards.Single();
+            await target.Effect.Lock(Card);
+            await target.Effect.Lower_Power_By(target.CardPoint() - 1, Card);
+            await Game.ShowCardMove(new CardLocation(RowPosition.EnemyHand, 0), target, refreshPoint: true);
             return 0;
         }
     }

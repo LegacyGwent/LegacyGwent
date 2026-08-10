@@ -10,32 +10,47 @@ namespace Cynthia.Card
         public Svalblod(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var cards = Game.PlayersDeck[PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow).FilterCards(filter: x => x != Card).ToList();
-            if (cards.Count() != 0)
+            var deckUnits = Game.PlayersDeck[PlayerIndex]
+                .Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x != Card)
+                .Select(x => new { Card = x, Strength = x.Status.Strength })
+                .ToList();
+            var handUnits = Game.PlayersHandCard[PlayerIndex]
+                .Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x != Card)
+                .Select(x => new { Card = x, Strength = x.Status.Strength })
+                .ToList();
+
+            foreach (var entry in deckUnits.Where(x => x.Strength >= 2))
             {
-                foreach (var card in cards)
-                {
-                    await card.Effect.Damage(2, Card);
-                    await card.Effect.Strengthen(2, Card);
-                }  
+                await entry.Card.Effect.Damage(2, Card);
+                await entry.Card.Effect.Strengthen(2, Card);
             }
-            var handcards = Game.PlayersHandCard[Card.PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow);
-            if (handcards.Count() == 0)
+
+            foreach (var entry in handUnits.Where(x => x.Strength >= 2))
             {
-                return 0;
+                // The generic damage pipeline deliberately leaves a hand unit at
+                // one point. Svalblod is the explicit exception: the following
+                // strengthen keeps the card alive after taking the full damage.
+                await Game.ShowCardNumberChange(entry.Card, -2, NumberType.Normal);
+                entry.Card.Status.HealthStatus -= 2;
+                await Game.ShowSetCard(entry.Card);
+                await Game.SetPointInfo();
+                await Game.ShowCardNumberChange(entry.Card, 2, NumberType.White);
+                entry.Card.Status.Strength += 2;
+                await Game.ShowSetCard(entry.Card);
+                await Game.SetPointInfo();
+                await Game.SendEvent(new AfterCardStrengthen(entry.Card, 2, Card));
             }
-            foreach (var x in handcards)
+
+            foreach (var entry in deckUnits.Where(x => x.Strength <= 2))
+            {
+                if (entry.Card.Status.CardRow.IsInDeck())
                 {
-                    if (x.Status.Strength == 2)
-                        {
-                            await x.Effect.Damage(1, Card);
-                        }
-                    if (x.Status.Strength >= 3)
-                        {
-                        await x.Effect.Damage(2, Card);
-                        await x.Effect.Strengthen(2, Card);
-                        }
-                } 
+                    await Game.ShowCardMove(
+                        new CardLocation(RowPosition.MyCemetery, 0),
+                        entry.Card);
+                }
+            }
+
             return 0;
         }
     }

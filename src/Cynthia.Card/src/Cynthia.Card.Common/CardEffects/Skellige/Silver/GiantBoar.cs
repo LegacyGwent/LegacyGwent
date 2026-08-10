@@ -10,12 +10,14 @@ namespace Cynthia.Card
         public GiantBoar(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var list = Game.GetPlaceCards(Card.PlayerIndex).Where(x => x != Card);
-            if (list.Count() == 0)
+            var candidates = Game.PlayersHandCard[PlayerIndex].Any()
+                ? Game.PlayersHandCard[PlayerIndex].Where(x => x != Card).ToList()
+                : Game.RowToList(PlayerIndex, Card.Status.CardRow).Where(x => x != Card).ToList();
+            if (candidates.Count == 0)
             {
                 return 0;
             }
-            var target = list.Mess(Game.RNG).First();
+            var target = candidates.Mess(Game.RNG).First();
             await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
             await Card.Effect.Boost(10, Card);
 

@@ -115,7 +115,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task GaelDrainsTheOppositeRowOnDeployAndExactlyOnceAfterThreeOwnerTurns()
+        public async Task GaelDrainsTheOppositeRowOnDeployAndExactlyOnceAfterTwoOwnerTurns()
         {
             var fixture = new HeadlessGameFixture();
             var gael = fixture.AddCard(
@@ -128,14 +128,18 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
 
             await gael.Effects.RaiseEvent(new CardPlayEffect(false, false));
-            Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
-            Assert.Equal(4, gael.Status.HealthStatus);
+            Assert.All(enemies, enemy => Assert.Equal(-1, enemy.Status.HealthStatus));
+            Assert.Equal(2, gael.Status.HealthStatus);
             Assert.Equal(
                 RowStatus.GoldenFroth,
                 fixture.Game.GameRowEffect[fixture.Game.Player2Index][1].RowStatus);
 
             await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player2Index));
-            Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
+            Assert.All(enemies, enemy => Assert.Equal(-1, enemy.Status.HealthStatus));
+
+            await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            Assert.All(enemies, enemy => Assert.Equal(-1, enemy.Status.HealthStatus));
+            Assert.Equal(2, gael.Status.HealthStatus);
 
             await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
@@ -143,14 +147,6 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.All(enemies, enemy => Assert.Equal(-2, enemy.Status.HealthStatus));
-            Assert.Equal(4, gael.Status.HealthStatus);
-
-            await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
-            Assert.All(enemies, enemy => Assert.Equal(-4, enemy.Status.HealthStatus));
-            Assert.Equal(8, gael.Status.HealthStatus);
-
-            await gael.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
-            Assert.All(enemies, enemy => Assert.Equal(-4, enemy.Status.HealthStatus));
         }
 
         [Fact]

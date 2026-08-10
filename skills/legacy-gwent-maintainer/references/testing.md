@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-07
+Last verified: 2026-08-10
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -158,3 +158,13 @@ cadence, odd/even Lyrian Cavalry rounding, unlimited Reynard activations, and
 War Elephant consuming its own Armor without requiring adjacent allies. Use
 `Game.SendEvent` for Immortal Cavalry: direct `Effects.RaiseEvent` bypasses the
 production dispatcher rule that locked cards do not receive events.
+
+The August 9 first-batch scenarios cover Wraith Sorcerer's lock-silenced
+two-turn cycle, Gael repeating only its Drain, Svalblod's overlapping initial-
+strength rules, Crowmother's row filling, Deafening Siren's game-start copies
+and owner-turn Rain gate, all-hazard Svalblod Brawler damage with lethal actual-
+loss accounting, Tuirseach Warship self-exclusion, and Vildkaarl counting a
+lethally damaged adjacent unit's pre-removal power. When an effect Boosts by
+actual power lost, snapshot before Damage and treat a target that left play as
+having lost the full snapshot; cemetery repair otherwise makes the post-Damage
+power appear unchanged.

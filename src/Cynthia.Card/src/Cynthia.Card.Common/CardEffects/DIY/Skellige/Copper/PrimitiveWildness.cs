@@ -15,12 +15,14 @@ namespace Cynthia.Card
             {
                 return 0;
             }
+            await target.Effect.Damage(3, Card);
+
             var list = Game.PlayersDeck[Card.PlayerIndex]
-            .Where(x => x.Status.Group == Group.Copper && x.CardInfo().Categories.Contains(Categorie.Cultist)).Mess(RNG).Take(2);
+                .Where(x => x.Status.Group == Group.Copper && x.CardInfo().Categories.Contains(Categorie.Cultist))
+                .ToList();
             var playCard = await Game.GetSelectMenuCards(Card.PlayerIndex, list.ToList(), 1, "选择打出一张牌");
             if (playCard.Count() == 0) return 0;
-            
-            await targets.Single().Effect.Damage(3, Card);
+
             var cardplayed = playCard.Single();
             await cardplayed.Effect.Strengthen(1,Card);
             await cardplayed.MoveToCardStayFirst();

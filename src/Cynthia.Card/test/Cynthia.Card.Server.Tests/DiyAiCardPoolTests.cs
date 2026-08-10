@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(64, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(42, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 177), GwentMap.CardMapVersion);
-            Assert.Equal(718, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 178), GwentMap.CardMapVersion);
+            Assert.Equal(719, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,8 +52,78 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void AugustNinthFirstBatchMatchesPoolMetadataLocalesAndAssets()
+        {
+            var restoredDeckCards = new[]
+            {
+                "70003", "70013", "70016", "70038", "70039", "70046",
+                "70079", "70080", "70081", "70089", "70092", "70093",
+                "70096", "70099", "70112", "70116", "70121", "70134",
+                "70159", "70160", "70166", "70178", CardId.WraithSorcerer
+            };
+            Assert.All(restoredDeckCards, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
+            Assert.All(new[] { "70040", "70136" }, id =>
+            {
+                Assert.True(GwentMap.CardMap[id].IsDerive);
+                Assert.False(DiyAiCardPool.IsUserDeckCard(id));
+            });
+
+            var sorcerer = GwentMap.CardMap[CardId.WraithSorcerer];
+            Assert.Equal("亡魂术士", sorcerer.Name);
+            Assert.Equal(11, sorcerer.Strength);
+            Assert.Equal(Faction.NorthernRealms, sorcerer.Faction);
+            Assert.Equal(Group.Copper, sorcerer.Group);
+            Assert.Equal(CardType.Unit, sorcerer.CardType);
+            Assert.Equal(CardUseInfo.MyRow, sorcerer.CardUseInfo);
+            Assert.Contains(Categorie.Mage, sorcerer.Categories);
+            Assert.Contains(Categorie.Cursed, sorcerer.Categories);
+            Assert.Equal("d17710000", sorcerer.CardArtsId);
+            Assert.False(sorcerer.IsDerive);
+
+            Assert.Contains(Categorie.Item, GwentMap.CardMap["70041"].Categories);
+            Assert.Contains(Categorie.Item, GwentMap.CardMap["70042"].Categories);
+            Assert.Equal(3, GwentMap.CardMap["70125"].Strength);
+            Assert.Equal(Group.Silver, GwentMap.CardMap["70116"].Group);
+            Assert.Equal(6, GwentMap.CardMap["64020"].Strength);
+            Assert.Equal(5, GwentMap.CardMap["70079"].Strength);
+            Assert.Contains(Categorie.Officer, GwentMap.CardMap["70079"].Categories);
+
+            Assert.All(GwentMap.CardMap.Values,
+                card => Assert.DoesNotContain("改为", card.Info ?? string.Empty));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(locales, locale =>
+                    Assert.True(locale.CardLocales.ContainsKey(CardId.WraithSorcerer)));
+                Assert.All(locales.Skip(1), locale => Assert.Equal(
+                    locales[0].CardLocales[CardId.WraithSorcerer].Info,
+                    locale.CardLocales[CardId.WraithSorcerer].Info));
+            });
+
+            Assert.True(File.Exists(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/d17710000.png")));
+            Assert.True(File.Exists(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Miniatures/d17710000_slot.png")));
+            var group = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
+            Assert.Contains("m_Address: d17710000", group);
+            var miniatures = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
+            Assert.Contains("m_Address: d17710000_slot", miniatures);
         }
 
         [Fact]
@@ -63,7 +133,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(starter.IsBasicDeck());
             Assert.All(starter.Deck, cardId => Assert.True(DiyAiCardPool.IsUserDeckCard(cardId)));
 
-            starter.Deck[0] = "70003";
+            starter.Deck[0] = "70040";
             Assert.False(starter.IsBasicDeck());
             Assert.False(starter.IsSpecialDeck());
         }
@@ -371,19 +441,19 @@ namespace Cynthia.Card.Server.Tests
                 ["13023"] = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
                 ["13044"] = "生成对方起始牌组中的1张非间谍铜色/银色“士兵”或“军官”牌，并使其获得1点增益。",
                 ["21003"] = "生成1张银色“有机”牌。",
-                ["23020"] = "若落后，生成1个己方起始牌组之外的怪兽偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["23020"] = "若落后，生成1个己方起始牌组之外的怪兽偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
                 ["31004"] = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
                 ["33016"] = "生成1个己方起始牌组之外的铜色尼弗迦德“士兵”单位。",
-                ["33019"] = "若落后，生成1个己方起始牌组之外的尼弗迦德偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["33019"] = "若落后，生成1个己方起始牌组之外的尼弗迦德偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
                 ["41002"] = "生成1个铜色北方领域“诅咒生物”单位。",
                 ["42010"] = "择一：生成1张己方起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
-                ["43019"] = "若落后，生成1个己方起始牌组之外的北方领域偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["43019"] = "若落后，生成1个己方起始牌组之外的北方领域偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
                 ["51003"] = "生成1张己方起始牌组之外的银色中立“特殊”牌。",
                 ["52013"] = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个己方起始牌组之外的非间谍银色“精灵”单位。",
-                ["53018"] = "若落后，生成1个己方起始牌组之外的松鼠党偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["53018"] = "若落后，生成1个己方起始牌组之外的松鼠党偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
                 ["53021"] = "择一：生成1个己方起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",
                 ["62012"] = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或生成对方初始牌组中1张非间谍银色单位牌。",
-                ["63018"] = "若落后，生成1个己方起始牌组之外的史凯利格偶数战力铜色单位；若领先，改为奇数战力；平局不生效。",
+                ["63018"] = "若落后，生成1个己方起始牌组之外的史凯利格偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
                 ["63020"] = "生成1个己方起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。"
             };
             Assert.All(expectedChineseInfo, card =>
@@ -582,7 +652,7 @@ namespace Cynthia.Card.Server.Tests
 
             Assert.Equal(11, GwentMap.CardMap["70025"].Strength);
             Assert.Equal(3, GwentMap.CardMap["70072"].Strength);
-            Assert.Equal(4, GwentMap.CardMap["70125"].Strength);
+            Assert.Equal(3, GwentMap.CardMap["70125"].Strength);
             Assert.Equal(8, GwentMap.CardMap["70158"].Strength);
             Assert.Contains("非间谍", GwentMap.CardMap["70027"].Info);
             Assert.Equal(
@@ -732,7 +802,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("造成6点伤害", GwentMap.CardMap["70085"].Info);
             Assert.Contains("黄金酒沫", GwentMap.CardMap["70146"].Info);
             Assert.Contains("3回合后的回合开始时", GwentMap.CardMap["70168"].Info);
-            Assert.Contains("改为获得强化", GwentMap.CardMap["70169"].Info);
+            Assert.Contains("变为获得强化", GwentMap.CardMap["70169"].Info);
             Assert.Contains("自身基础战力一半", GwentMap.CardMap["70170"].Info);
             Assert.Contains("触发1个友军铜色单位的遗愿", GwentMap.CardMap["70176"].Info);
             Assert.All(GwentMap.CardMap.Values, card => Assert.DoesNotContain("说明", card.Info));
@@ -744,7 +814,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(Faction.Monsters, ignis.Faction);
             Assert.Contains(Categorie.Relict, ignis.Categories);
             Assert.Equal("202680", ignis.CardArtsId);
-            Assert.Contains("伤害改为削弱", ignis.Info);
+            Assert.Contains("伤害变为削弱", ignis.Info);
             Assert.Equal(typeof(IgnisFatuus), new GwentCardDataService().GetType(CardId.IgnisFatuus));
 
             var localeRoots = new[]
@@ -790,7 +860,7 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
-        public void SelectedDiyAiPotionsUseTheOriginalAlchemyDesign()
+        public void SelectedDiyAiPotionsAreAlchemyItems()
         {
             Assert.All(new[] { "70041", "70042" }, cardId =>
             {
@@ -801,8 +871,8 @@ namespace Cynthia.Card.Server.Tests
                 Assert.Equal(CardType.Special, card.CardType);
                 Assert.Contains(Categorie.Special, card.Categories);
                 Assert.Contains(Categorie.Alchemy, card.Categories);
-                Assert.DoesNotContain(Categorie.Item, card.Categories);
-                Assert.Equal(2, card.Categories.Length);
+                Assert.Contains(Categorie.Item, card.Categories);
+                Assert.Equal(3, card.Categories.Length);
             });
 
             var bidensSource = File.ReadAllText(FindRepositoryFile(
@@ -1043,7 +1113,7 @@ namespace Cynthia.Card.Server.Tests
                 "对1个敌军单位造成8点无视护甲的伤害，再对1个敌军单位造成8点无视护甲的伤害。",
                 GwentMap.CardMap["32015"].Info);
             Assert.Equal(
-                "对1个敌军单位造成7点无视护甲的伤害，若其具有增益则改为造成10点无视护甲的伤害。",
+                "对1个敌军单位造成7点无视护甲的伤害，若其具有增益则变为造成10点无视护甲的伤害。",
                 GwentMap.CardMap["70156"].Info);
             Assert.DoesNotContain(
                 GwentMap.CardMap.Values,
@@ -1159,8 +1229,8 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(new[] { Categorie.Soldier }, GwentMap.CardMap["70101"].Categories);
             Assert.Contains("锁定状态", GwentMap.CardMap["70101"].Info);
             Assert.True(GwentMap.CardMap["70146"].IsCountdown);
-            Assert.Equal(3, GwentMap.CardMap["70146"].Countdown);
-            Assert.Contains("3回合后的回合开始时", GwentMap.CardMap["70146"].Info);
+            Assert.Equal(2, GwentMap.CardMap["70146"].Countdown);
+            Assert.Contains("2回合后的回合开始时", GwentMap.CardMap["70146"].Info);
             Assert.Contains("随后使其获得1点增益", GwentMap.CardMap["70152"].Info);
             Assert.False(GwentMap.CardMap["70163"].IsCountdown);
             Assert.DoesNotContain("生效3次", GwentMap.CardMap["70163"].Info);

@@ -35,8 +35,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await Card.Effect.ToCemetery(CardBreakEffectType.Scorch);
-            Card.Status.IsDoomed = true;
+            await Card.Effect.Lock(Card);
             return;
         }
     }

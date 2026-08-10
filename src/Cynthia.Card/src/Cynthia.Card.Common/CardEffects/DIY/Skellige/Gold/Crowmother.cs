@@ -8,37 +8,28 @@ namespace Cynthia.Card
     public class Crowmother : CardEffect
     {//
         public Crowmother(GameCard card) : base(card) { }
-        // 生成2只乌鸦。复活所有战力不高于2的乌鸦。
-        // Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2. Doomed.
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            for (var i = 0; i < 2; i++)
+            Card.Status.IsDoomed = false;
+
+            var alliedRows = new[] { RowPosition.MyRow1, RowPosition.MyRow2, RowPosition.MyRow3 };
+            foreach (var row in alliedRows.Where(x => x != Card.Status.CardRow))
             {
-                if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
+                if (Game.RowToList(PlayerIndex, row).Count() < Game.RowMaxCount)
                 {
-                    await Game.CreateCard(CardId.Crow, PlayerIndex, Card.GetLocation() + 1);
-                }
-                else
-                {
-                    await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
+                    await Game.CreateCard(CardId.Crow, PlayerIndex, new CardLocation(row, int.MaxValue));
                 }
             }
+
             var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow && x.Status.Strength <= 2).ToList();
-            if (cards.Count() == 0)
-            {
-                return 0;
-            }
             foreach (var card in cards)
             {
-                
-                if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
+                if (Game.RowToList(PlayerIndex, Card.Status.CardRow).Count() >= Game.RowMaxCount)
                 {
-                    await card.Effect.Resurrect(Card.GetLocation() + 1, card);
+                    break;
                 }
-                else
-                {
-                    await card.Effect.Resurrect(Game.GetRandomCanPlayLocation(PlayerIndex, true), Card);
-                }
+
+                await card.Effect.Resurrect(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
             }
             return 0;
         }

@@ -4240,6 +4240,11 @@
             "Name": "Maskarada",
             "Info": "Wybierz niebędącą Dowódcą jednostkę na polu i zmień jej jakość na jedną z pozostałych.",
             "Flavor": "Tożsamość jest tylko maską, którą można zmienić."
+        },
+        "70194": {
+            "Name": "Widmowy czarodziej",
+            "Info": "Na początku gry zmień stan Blokady tej jednostki. Powtarzaj ten efekt co 2 własne tury.",
+            "Flavor": ""
         }
     }
 }

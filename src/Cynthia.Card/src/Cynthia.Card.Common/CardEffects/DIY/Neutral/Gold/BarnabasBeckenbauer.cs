@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var cardlist = Game.PlayersCemetery[PlayerIndex]
-                .Where(x => x.Status.Group == Group.Copper && x.HasAllCategorie(Categorie.Item) && x.Status.Type == CardType.Special)
+                .Where(x => x.HasAllCategorie(Categorie.Item))
                 .ToList();
             var count = cardlist.Count();
             for (var i = 0; i < count; i++)

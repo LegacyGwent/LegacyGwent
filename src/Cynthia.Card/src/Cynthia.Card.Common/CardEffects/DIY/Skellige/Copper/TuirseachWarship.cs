@@ -14,7 +14,10 @@ namespace Cynthia.Card
             {
                 return;
             }
-            var cards = Game.GetPlaceCards(AnotherPlayer).Concat(Game.GetPlaceCards(PlayerIndex)).FilterCards(filter: x => x.Status.HealthStatus >= 0).ToList();
+            var cards = Game.GetPlaceCards(AnotherPlayer)
+                .Concat(Game.GetPlaceCards(PlayerIndex))
+                .FilterCards(filter: x => x != Card && x.Status.HealthStatus >= 0)
+                .ToList();
             if (cards.Count() == 0)
             {
                 return;

@@ -146,13 +146,13 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task TridamStartsLockedAndMaulerUsesLockedDamageValue()
+        public async Task TridamStartsUnlockedWithFourArmorAndMaulerUsesLockedDamageValue()
         {
             var fixture = new HeadlessGameFixture();
             var tridam = fixture.AddCard(fixture.Game.Player1Index, "44001", RowPosition.MyRow1);
             await fixture.SynchronizeClientsAsync();
             await fixture.Game.SendEvent(new OnGameStart());
-            Assert.True(tridam.Status.IsLock);
+            Assert.False(tridam.Status.IsLock);
 
             await tridam.Effect.CardPlayEffect(false, false);
             Assert.Equal(4, tridam.Status.Armor);
