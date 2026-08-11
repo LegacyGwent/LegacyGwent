@@ -18,7 +18,7 @@ namespace Cynthia.Card
                 {
                     return;
                 }
-                await target.Effect.Damage(6 + list.Count(), Card);
+                await target.Effect.Damage(5 + list.Count(), Card);
             }
             return;
         }

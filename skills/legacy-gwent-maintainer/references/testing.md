@@ -178,8 +178,14 @@ destruction; Svalblod excluding Spying hand/deck units; Sigvald's second-owner-
 turn resurrection and Strengthen; Crowmother being intrinsically non-Doomed;
 Sigrdrifa accepting non-clan Skellige Copper/Silver units; Cupbearer's every-
 second-owner-turn cadence; and Dwarf Miner counting same-ID copies on board,
-in hand, and in deck from its new eight-power base. A real War Council chain
-using Nilfgaardian Gate and Battle Preparation left both generated cards in
-`PlayersStay` because their nested `CardUseEffect` tasks ran after the parent
-pipeline had already stopped. That regression is a release blocker: retire the
-candidate card completely rather than publishing it or weakening the test.
+in hand, and in deck from its new eight-power base. War Council's rejected
+draft put both Nilfgaardian Gate and Battle Preparation in `PlayersStay`, which
+could leave both cards floating after a nested pipeline. Its released contract
+puts only Gate through `PlayersStay` and creates Battle Preparation in hand.
+Test it through production `RoundPlayCard`, including the deterministic
+Gate -> Ceallach -> Emissary -> Recruit -> Magne Division -> Ointment -> Recruit
+chain, then require both players' `PlayersStay` collections to be empty and the
+operation pipeline to be stopped. Do not replace this with a direct effect
+call. If a future design still leaves cards floating, the owner's current
+release policy permits publishing only when the exact residual path is
+prominently reported; never hide it by weakening the assertion.

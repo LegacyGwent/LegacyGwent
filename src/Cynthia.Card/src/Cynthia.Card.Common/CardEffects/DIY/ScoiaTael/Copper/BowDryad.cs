@@ -29,7 +29,7 @@ namespace Cynthia.Card
             var result = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
             if (result.TrySingle(out var target))
             {
-                await target.Effect.Damage(4, Card);
+                await target.Effect.Damage(3, Card);
             }
         }
     }

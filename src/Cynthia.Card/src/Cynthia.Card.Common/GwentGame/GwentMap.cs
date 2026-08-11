@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 179);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 180);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -626,7 +626,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "这股注入专注力的能量能摧毁一切挡道之物——如果你忘了带钥匙，这招最管用。",
-                    Info = "部署：选择3个敌军单位各造成3点伤害，并将它们上移1排。如果目标位于攻城排，则额外造成2点伤害。",
+                    Info = "选择3个敌军单位各造成3点伤害，并将它们上移1排。如果目标位于攻城排，则额外造成2点伤害。",
                     CardArtsId = "11211100",
                     LinkedCards=new List<String> {},
                 }
@@ -5877,7 +5877,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "他们以雷动之势冲进敌军方阵，犹如一把尖刀插入柔软的肚腹。阿尔巴之师所向披靡，一路横扫，直取泰莫利亚步兵团的咽喉。",
-                    Info = "每有1个友军单位被打出，便获得1点增益。",
+                    Info = "每有1个友军单位出现，便获得1点增益。",
                     CardArtsId = "20029600",
                     LinkedCards=new List<String> {},
                 }
@@ -6806,7 +6806,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
                     Flavor = "宁似帝王快活一天，强如乞丐苟活一世。",
-                    Info = "部署：交换1张牌，然后交换第二张牌。",
+                    Info = "交换1张牌，然后交换第二张牌。",
                     CardArtsId = "12220400",
                     LinkedCards=new List<String> {},
                 }
@@ -7440,7 +7440,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Kaedwen,Categorie.Support},
                     CrewCount = 1,
                     Flavor = "“你得把准星左校5度。”“把什么调多少？”",
-                    Info = "使后续打出的友军单位获得1点增益，“机械”单位额外获得1点护甲。 操控。",
+                    Info = "使后续出现的友军单位获得1点增益，“机械”单位额外获得1点护甲。 操控。",
                     CardArtsId = "12230900",
                     LinkedCards=new List<String> {},
                 }
@@ -7736,7 +7736,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Cursed},
                     Flavor = "萨宾娜的诅咒谁也不放过，就连其他的女术士也难以幸免。",
-                    Info = "若同排有“诅咒生物”单位，造成7点伤害。同排每有1个额外的“诅咒生物”单位，伤害提高1点。",
+                    Info = "若同排有“诅咒生物”单位，造成6点伤害。同排每有1个额外的“诅咒生物”单位，伤害提高1点。",
                     CardArtsId = "20163000",
                     LinkedCards=new List<String> {},
                 }
@@ -9004,7 +9004,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Support},
                     Flavor = "谁付的钱多我就给谁卖命，不然就挑个最容易抢的去抢。",
-                    Info = "每有1个敌军单位被打出，便获得1点增益。",
+                    Info = "每有1个敌军单位出现，便获得1点增益。",
                     CardArtsId = "14231500",
                     LinkedCards=new List<String> {},
                 }
@@ -10100,7 +10100,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "精通炼金术的大德鲁伊，也是群岛脾气最差的老混蛋。",
-                    Info = "部署：生成“倾盆大雨”、“晴空”或“惊悚咆哮”。",
+                    Info = "生成“倾盆大雨”、“晴空”或“惊悚咆哮”。",
                     CardArtsId = "15220600",
                     LinkedCards=new List<String> {"14019","15013","14006"},
                 }
@@ -10352,7 +10352,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed},
                     Flavor = "“驯服”？哈，小子，史凯利格人也许能训练它们，但那跟驯服完全不同……",
-                    Info = "对后续打出至对方半场的单位造成1点伤害。",
+                    Info = "对后续出现在对方半场的单位造成1点伤害。",
                     CardArtsId = "15221000",
                     LinkedCards=new List<String> {},
                 }
@@ -11183,7 +11183,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "择一：从牌组中打出一张战力不高于自身的铜色单位，在回合结束将它摧毁；或吞噬牌组中一张战力高于自身的铜色单位牌，将它的战力作为自身的增益。",
+                    Info = "选择你牌组中的一张铜色单位牌。如果其战力高于此单位，吞噬该单位并按其战力提升自身战力。否则，打出该单位，并在回合结束时将其送入墓地。",
                     CardArtsId = "202291",
                     LinkedCards=new List<String> {},
                 }
@@ -12486,7 +12486,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70114", //Dryad Sharpshooter
                     Name="长弓树精",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12496,7 +12496,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Soldier,Categorie.Dryad},
                     Flavor = "",
-                    Info = "造成4点伤害。己方回合中，若被移至远程排，重复此能力。",
+                    Info = "造成3点伤害。己方回合中，若被移至远程排，重复此能力。",
                     CardArtsId = "202676",
                     LinkedCards=new List<String> {},
                 }
@@ -13193,7 +13193,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDrummond, Categorie.Soldier},
                     Flavor = "他们唯一比抢劫更喜欢的是杀戮。",
-                    Info = "使后续打出至己方半场的“德拉蒙家族”单位获得1点强化。",
+                    Info = "使后续出现在己方半场的“德拉蒙家族”单位获得1点强化。",
                     CardArtsId = "202626",
                     LinkedCards=new List<String> {},
                 }
@@ -14961,7 +14961,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
                     Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
-                    Info = "回合开始时，复活自身到随机排，回合结束时，与最弱的敌方单位决斗，如果获胜，则锁定自身。",
+                    Info = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果获胜则改变自身的锁定状态。",
                     CardArtsId = "c10006000",
                     LinkedCards=new List<String> {},
                 }
@@ -15450,6 +15450,27 @@ namespace Cynthia.Card
                     Info = "休战：将对方牌组顶端1张铜色牌的原始同名牌置于其牌组顶端，随后双方各抽1张牌。",
                     CardArtsId = "d18990000",
                     LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70196",//兵棋推演 War Council
+                new GwentCard()
+                {
+                    CardId = "70196",
+                    Name = "兵棋推演",
+                    Strength = 0,
+                    Group = Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Tactic, Categorie.Special },
+                    Flavor = "",
+                    Info = "休战：选择1张牌进行交换，并生成1张“尼弗迦德大门”。为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
+                    CardArtsId = "d19950000",
+                    LinkedCards = new List<String> { CardId.NilfgaardianGate, CardId.BattlePreparation },
                 }
             },
         };

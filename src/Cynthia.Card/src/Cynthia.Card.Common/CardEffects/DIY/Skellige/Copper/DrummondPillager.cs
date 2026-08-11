@@ -18,8 +18,6 @@ namespace Cynthia.Card
             if (!Card.Status.CardRow.IsOnPlace() ||
                 @event.Target == Card ||
                 @event.Target.PlayerIndex != PlayerIndex ||
-                !@event.IsFromHand ||
-                !@event.IsPlayed ||
                 !@event.Target.HasAllCategorie(Categorie.ClanDrummond))
             {
                 return;
