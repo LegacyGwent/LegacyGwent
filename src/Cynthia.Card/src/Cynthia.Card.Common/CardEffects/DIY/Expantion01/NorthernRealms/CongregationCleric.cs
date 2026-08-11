@@ -12,7 +12,10 @@ namespace Cynthia.Card
         {
             //对方全场的锁定铜单位
             var lockList = Game.GetPlaceCards(PlayerIndex).Concat(Game.GetPlaceCards(AnotherPlayer))
-            .FilterCards(filter: x => x.Status.Group == Group.Copper && x.Status.IsLock == true).ToList();
+            .FilterCards(filter: x => x.Status.Type == CardType.Unit &&
+                                     x.Status.Group == Group.Copper &&
+                                     x.Status.IsLock &&
+                                     x.CardPoint() >= 2).ToList();
             foreach(var card in lockList)
             {
                 await Game.CreateCardAtEnd(card.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
@@ -21,7 +24,11 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardLock @event)
         {
-            if (@event.Source.PlayerIndex == PlayerIndex && Card.Status.CardRow.IsOnPlace() && @event.Target.Status.Group == Group.Copper)
+            if (@event.Source.PlayerIndex == PlayerIndex &&
+                Card.Status.CardRow.IsOnPlace() &&
+                @event.Target.Status.Type == CardType.Unit &&
+                @event.Target.Status.Group == Group.Copper &&
+                @event.Target.CardPoint() >= 2)
             {
                 await Game.CreateCardAtEnd(@event.Target.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
             }

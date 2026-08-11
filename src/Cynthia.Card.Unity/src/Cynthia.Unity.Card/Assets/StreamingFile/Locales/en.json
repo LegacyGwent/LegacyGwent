@@ -2005,7 +2005,7 @@
         },
         "33009": {
             "Name": "Hefty Helge",
-            "Info": "Deal 1 Damage to all enemies except those on the opposite row. If Revealed, deal 1 Damage to all enemy units and all Revealed non-Spying enemy unit cards.",
+            "Info": "Deal 1 damage to all enemies outside the opposite row. Each time this card is Revealed by you, repeat this ability 1 additional time when played.",
             "Flavor": "Not the best for taking cities, but great for razing them to the ground."
         },
         "33010": {
@@ -2445,7 +2445,7 @@
         },
         "44001": {
             "Name": "Tridam Infantry",
-            "Info": "At the start of the game, toggle the Lock status of this unit. 4 Armor.",
+            "Info": "4 Armor.",
             "Flavor": "Soldiers loyal to the old baron of Tridam left the city with Falibor, thus becoming renegades wanted by the law."
         },
         "44002": {
@@ -3515,7 +3515,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and Strengthen self by 1. Its base Strength cannot be over 10.",
+            "Info": "Every 2 turns, at turn end, Resurrect this unit and Strengthen it by 1.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3600,7 +3600,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add a 2-power Doomed base copy of each Locked Bronze unit on this row. Whenever a Bronze unit is Locked during your turn, add its 2-power Doomed base copy on this row.",
+            "Info": "Deploy: Add a 2-power Doomed base copy of each Locked Bronze unit with at least 2 Power. Whenever a Bronze unit with at least 2 Power is Locked during your turn, add its 2-power Doomed base copy on this row.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3630,7 +3630,7 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Deploy: Destroy all units with 2 Power or less on both sides.",
+            "Info": "Deploy: Destroy all allied units with 2 Power or less, then destroy all enemy units with 2 Power or less.",
             "Flavor": "Only death can cleanse me o' shame."
         },
         "70083": {
@@ -3700,7 +3700,7 @@
         },
         "70097": {
             "Name": "Dwarf Miner",
-            "Info": "Strengthen self by the number of allied Dwarf Miners on the board and in your hand.",
+            "Info": "Strengthen self by the number of allied Dwarf Miners on the board, in your hand, and in your deck.",
             "Flavor": "Which moron's whistling in the mine?!"
         },
         "70098": {
@@ -3710,7 +3710,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Deploy: Damage all loyal units in your hand and deck by 2, then Strengthen them by 2. If a unit has 2 Power or less, move it to the graveyard if in deck, and Damage it by 1 if in hand.",
+            "Info": "Deploy: Damage all non-Spying units with at least 2 Power in your hand and deck by 2, then Strengthen them by 2. Move non-Spying units with 2 Power or less from your deck to your graveyard.",
             "Flavor": "He proclaimed to his worshippers but one commandment: Kill."
         },
         "70100": {
@@ -3970,7 +3970,7 @@
         },
         "70152": {
             "Name": "Van Moorlehem's Cup bearer",
-            "Info": "At the start of every turn, randomly Conceal a Bronze card in your hand, then Boost it by 1.",
+            "Info": "Every 2 turns, randomly Conceal a Bronze card in your hand, then Boost it by 1.",
             "Flavor": "My specialty? Tartar. Of what? Ah, that depends on the host's mood…"
         },
         "70153": {
@@ -4005,7 +4005,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Spawn 2 Crows. Resurrect all Crows with power equal to or less than 2.\nDoomed.",
+            "Info": "Spawn 1 Crow on each of your other rows. Resurrect all Crows with 2 Power or less until this row is full.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4080,7 +4080,7 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying. Reveal 2 enemy hand cards. Choose an enemy Bronze unit or a Revealed non-Spying enemy Bronze unit card and Spawn its Doomed base copy.",
+            "Info": "Spying. Reveal 2 enemy hand cards. Choose an enemy non-Spying Bronze unit or a Revealed non-Spying enemy Bronze unit card and Spawn its Doomed base copy.",
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
@@ -4246,6 +4246,11 @@
         "70194": {
             "Name": "Wraith Sorcerer",
             "Info": "At game start, change this unit's Lock status. Repeat this effect every 2 allied turns.",
+            "Flavor": ""
+        },
+        "70195": {
+            "Name": "Rumourmonger",
+            "Info": "Truce: Place a base copy of the top Bronze card in your opponent's deck on top of their deck, then both players draw 1 card.",
             "Flavor": ""
         }
     }

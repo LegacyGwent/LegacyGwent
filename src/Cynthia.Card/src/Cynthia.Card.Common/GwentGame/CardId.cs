@@ -680,6 +680,7 @@ namespace Cynthia.Card
         public const string IgnisFatuus = "70192";
         public const string Masquerade = "70193";
         public const string WraithSorcerer = "70194";
+        public const string Rumourmonger = "70195";
         public const string SvalblodFanatic = "70046";
 
     }

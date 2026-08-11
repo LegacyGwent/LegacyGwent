@@ -10,7 +10,7 @@ namespace Cynthia.Card
         //更新CardMap内容请务必将CardMapVersion更新
         public static Version CardMapVersion { get; } = DevelopmentRuleCardFixtures.Enabled
             ? new Version(1, 0, 99, 1)
-            : new Version(1, 0, 0, 178);
+            : new Version(1, 0, 0, 179);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -5350,11 +5350,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 1,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "并非攻城的最佳选择，却是毁城的行家里手。",
-                    Info = "对对方半场非同排上的所有敌军单位造成1点伤害。若被揭示，则对所有敌军单位和被揭示的非间谍敌军单位牌造成1点伤害。",
+                    Info = "对对方半场非同排上的所有敌军单位造成1点伤害。每当被己方揭示时，此能力可多生效1次。",
                     CardArtsId = "20004100",
                     LinkedCards=new List<String> {},
                 }
@@ -7230,7 +7231,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "他们本是忠于崔丹姆老男爵的士兵，随法利波离开城市后，如今却成了被悬赏的叛徒。",
-                    Info = "对局开始时，改变自身的锁定状态。4点护甲。",
+                    Info = "4点护甲。",
                     CardArtsId = "20017100",
                     LinkedCards=new List<String> {},
                 }
@@ -10123,7 +10124,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support,Categorie.Doomed},
                     Flavor = "跪在我身边，向圣母低头。",
-                    Info = "复活1个铜色/银色“家族”单位。",
+                    Info = "复活1个史凯利杰铜色/银色单位。",
                     CardArtsId = "15221100",
                     LinkedCards=new List<String> {},
                 }
@@ -11775,7 +11776,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "每2回合结束时，复活至随机排。",
+                    Info = "每2回合结束时，复活此单位，并获得1点强化。",
                     CardArtsId = "202282",
                     LinkedCards=new List<String> {},
                 }
@@ -12137,7 +12138,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”",
-                    Info = "生成所有被锁定的铜色单位的2战力的佚亡原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力的佚亡原始同名牌。",
+                    Info = "生成所有被锁定且战力不小于2的铜色单位的2战力佚亡原始同名牌。己方回合中，每当战力不小于2的铜色单位被锁定，在同排生成其2战力佚亡原始同名牌。",
                     CardArtsId = "202374",
                     LinkedCards=new List<String> {},
                 }
@@ -12372,7 +12373,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf, Categorie.Soldier},
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
-                    Info = "“我知道自己死定了。所以我要拉几个一起上路的。”",
+                    Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
                     CardArtsId = "202476",
                     LinkedCards=new List<String> {},
                 }
@@ -13216,7 +13217,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
-                    Info = "摧毁双方场上所有战力低于3的单位。",
+                    Info = "摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。",
                     CardArtsId = "202182",
                     LinkedCards=new List<String> {},
                 }
@@ -13648,7 +13649,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70097", //Dwarf Miner
                     Name="矮人矿工",
-                    Strength=6,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13658,7 +13659,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dwarf},
                     Flavor = "xxxxx",
-                    Info = "获得等同于友军和手牌中“矮人矿工”单位数量的强化。",
+                    Info = "获得等同于友军、手牌和牌组中“矮人矿工”单位数量的强化。",
                     CardArtsId = "202474",
                     LinkedCards=new List<String> {},
                 }
@@ -13700,7 +13701,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Beast},
                     Flavor = "斯瓦勃洛唯一的戒律：屠戮。",
-                    Info = "对己方手牌和牌组的所有战力不小于2的单位造成2点伤害，随后使其获得2点强化。将牌组中的战力不大于2的单位移至己方墓场。",
+                    Info = "对己方手牌和牌组的所有战力不小于2的非间谍单位造成2点伤害，随后使其获得2点强化。将牌组中战力不大于2的非间谍单位移至己方墓场。",
                     CardArtsId = "202189",
                     LinkedCards=new List<String> {},
                 }
@@ -14031,12 +14032,12 @@ namespace Cynthia.Card
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
-                    IsDoomed = true,
+                    IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "移除“佚亡”标签。在己方其他排各生成1只“乌鸦”。召唤墓场中所有战力不大于2的“乌鸦”，直至填满此排。",
+                    Info = "在己方其他排各生成1只“乌鸦”。召唤墓场中所有战力不大于2的“乌鸦”，直至填满此排。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14453,11 +14454,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 2,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……",
-                    Info = "每回合开始时，随机隐匿1张铜色手牌，随后使其获得1点增益。",
+                    Info = "每2回合开始时，随机隐匿1张铜色手牌，随后使其获得1点增益。",
                     CardArtsId = "202546",
                     LinkedCards=new List<String> {},
                 }
@@ -14878,7 +14880,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "据说她以前曾在帝国选美中夺得冠军",
-                    Info = "间谍。揭示2张对方手牌，选择1个敌军铜色单位或1张被揭示的非间谍敌方铜色单位牌，生成其佚亡原始同名牌。",
+                    Info = "间谍。揭示2张对方手牌，选择1个敌军非间谍铜色单位或1张被揭示的非间谍敌方铜色单位牌，生成其佚亡原始同名牌。",
                     CardArtsId = "202666",
                     LinkedCards=new List<String> {},
                 }
@@ -15429,6 +15431,27 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "对局开始时，改变自身的锁定状态。每2回合开始时，重复此效果。",
                     CardArtsId = "d17710000",
+                    LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70195",//流言制造者 Rumourmonger
+                new GwentCard()
+                {
+                    CardId = "70195",
+                    Name = "流言制造者",
+                    Strength = 7,
+                    Group = Group.Copper,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Soldier },
+                    Flavor = "",
+                    Info = "休战：将对方牌组顶端1张铜色牌的原始同名牌置于其牌组顶端，随后双方各抽1张牌。",
+                    CardArtsId = "d18990000",
                     LinkedCards = new List<String> {},
                 }
             },

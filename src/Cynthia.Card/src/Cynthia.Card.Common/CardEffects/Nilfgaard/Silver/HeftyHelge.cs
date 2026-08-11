@@ -5,32 +5,37 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("33009")]//重弩海尔格
-    public class HeftyHelge : CardEffect
-    {//对对方半场非同排上的所有敌军单位造成1点伤害。若被揭示，则对所有敌军单位和被揭示的非间谍敌军单位牌造成1点伤害。
+    public class HeftyHelge : CardEffect, IHandlesEvent<AfterCardReveal>
+    {//对对方半场非同排上的所有敌军单位造成1点伤害。每当被己方揭示时，此能力可多生效1次。
         public HeftyHelge(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            var repetitions = Card.Status.Countdown;
             var cards = Game.GetPlaceCards(AnotherPlayer)
-                .Where(x => x.Status.Type == CardType.Unit)
+                .Where(x => x.Status.Type == CardType.Unit && x.Status.CardRow != Card.Status.CardRow)
                 .ToList();
-            if (!isReveal)
+
+            for (var i = 0; i < repetitions; i++)
             {
-                cards = cards.Where(x => x.Status.CardRow != Card.Status.CardRow).ToList();
+                foreach (var card in cards.Where(x => x.IsAliveOnPlance()).ToList())
+                {
+                    await card.Effect.Damage(1, Card, BulletType.FireBall);
+                }
             }
-            else
-            {
-                cards.AddRange(Game.PlayersHandCard[AnotherPlayer]
-                    .Concat(Game.PlayersDeck[AnotherPlayer])
-                    .Where(x => x.Status.Type == CardType.Unit &&
-                                x.Status.IsReveal &&
-                                !x.Status.IsSpying));
-                cards = cards.Distinct().ToList();
-            }
-            foreach (var card in cards)
-            {
-                await card.Effect.Damage(1, Card, BulletType.FireBall);
-            }
+
+            await Card.Effect.SetCountdown(0);
             return 0;
+        }
+
+        public async Task HandleEvent(AfterCardReveal @event)
+        {
+            if (@event.Target != Card || @event.Source == null ||
+                @event.Source.PlayerIndex != Card.PlayerIndex)
+            {
+                return;
+            }
+
+            await Card.Effect.SetCountdown(offset: 1);
         }
     }
 }

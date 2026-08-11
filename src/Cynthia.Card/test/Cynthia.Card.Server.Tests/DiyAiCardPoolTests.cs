@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 178), GwentMap.CardMapVersion);
-            Assert.Equal(719, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 179), GwentMap.CardMapVersion);
+            Assert.Equal(720, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,8 +52,90 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void AugustEleventhFirstBatchMatchesPoolMetadataLocalesAndAssets()
+        {
+            var changedIds = new[]
+            {
+                CardId.HeftyHelge, CardId.DwarfMiner, CardId.DwarvenChariot,
+                CardId.VanMoorlehemsCupbearer, CardId.MageInfiltrator,
+                CardId.WraithSorcerer, CardId.Rumourmonger,
+                CardId.CongregationCleric, CardId.TridamInfantry,
+                CardId.Crowmother, CardId.Svalblod, CardId.ArnjolfThePatricide,
+                "70038", CardId.Sigrdrifa
+            };
+            Assert.All(changedIds, id => Assert.True(GwentMap.CardMap.ContainsKey(id)));
+            Assert.All(new[] { CardId.Rumourmonger }, id =>
+            {
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
+            });
+
+            Assert.Equal(1, GwentMap.CardMap[CardId.HeftyHelge].Countdown);
+            Assert.True(GwentMap.CardMap[CardId.HeftyHelge].IsCountdown);
+            Assert.Equal(8, GwentMap.CardMap[CardId.DwarfMiner].Strength);
+            Assert.Contains("牌组", GwentMap.CardMap[CardId.DwarfMiner].Info);
+            Assert.Contains("选择2个单位", GwentMap.CardMap[CardId.DwarvenChariot].Info);
+            Assert.Equal(2, GwentMap.CardMap[CardId.VanMoorlehemsCupbearer].Countdown);
+            Assert.Contains("敌军非间谍铜色单位", GwentMap.CardMap[CardId.MageInfiltrator].Info);
+            Assert.Contains("被揭示的非间谍敌方铜色单位牌", GwentMap.CardMap[CardId.MageInfiltrator].Info);
+            Assert.Equal("4点护甲。", GwentMap.CardMap[CardId.TridamInfantry].Info);
+            Assert.Contains("战力不小于2", GwentMap.CardMap[CardId.CongregationCleric].Info);
+            Assert.False(GwentMap.CardMap[CardId.Crowmother].IsDoomed);
+            Assert.DoesNotContain("佚亡", GwentMap.CardMap[CardId.Crowmother].Info);
+            Assert.Contains("非间谍单位", GwentMap.CardMap[CardId.Svalblod].Info);
+            Assert.Equal(
+                "摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。",
+                GwentMap.CardMap[CardId.ArnjolfThePatricide].Info);
+            Assert.Equal(
+                "每2回合结束时，复活此单位，并获得1点强化。",
+                GwentMap.CardMap["70038"].Info);
+            Assert.Equal(
+                "复活1个史凯利杰铜色/银色单位。",
+                GwentMap.CardMap[CardId.Sigrdrifa].Info);
+
+            var rumourmonger = GwentMap.CardMap[CardId.Rumourmonger];
+            Assert.Equal(7, rumourmonger.Strength);
+            Assert.Equal(Group.Copper, rumourmonger.Group);
+            Assert.Equal(Faction.Nilfgaard, rumourmonger.Faction);
+            Assert.Contains(Categorie.Soldier, rumourmonger.Categories);
+            Assert.Equal("d18990000", rumourmonger.CardArtsId);
+
+            Assert.False(GwentMap.CardMap.ContainsKey("70196"));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(changedIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+
+            var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables";
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/d18990000.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/d18990000_slot.png")));
         }
 
         [Fact]
@@ -1099,7 +1181,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(6, GwentMap.CardMap[CardId.Hybrid].Strength);
             Assert.Contains("士兵”或“军官", GwentMap.CardMap["13044"].Info);
             Assert.Equal("暗杀", GwentMap.CardMap["32015"].Name);
-            Assert.Contains("被揭示的非间谍敌军单位牌", GwentMap.CardMap["33009"].Info);
+            Assert.Contains("每当被己方揭示时", GwentMap.CardMap["33009"].Info);
             Assert.Contains("同排2个敌军", GwentMap.CardMap["33020"].Info);
             Assert.Contains("品质最低", GwentMap.CardMap["34004"].Info);
             Assert.Contains("佚亡原始同名牌", GwentMap.CardMap["70072"].Info);

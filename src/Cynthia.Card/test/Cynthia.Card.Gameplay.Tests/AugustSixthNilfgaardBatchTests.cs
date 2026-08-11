@@ -51,7 +51,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task HeftyHelgeRevealBranchHitsBoardAndRevealedNonSpyingCardZones()
+        public async Task HeftyHelgeOwnRevealAddsOneOppositeRowActivation()
         {
             var fixture = new HeadlessGameFixture();
             var helge = fixture.AddCard(
@@ -64,24 +64,17 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyHand, strength: 5);
             var hiddenHand = fixture.AddCard(
                 fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyHand, strength: 5);
-            var revealedDeck = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyDeck, strength: 5);
-            var spyingDeck = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyDeck, strength: 5);
             revealedHand.Status.IsReveal = true;
-            revealedDeck.Status.IsReveal = true;
-            spyingDeck.Status.IsReveal = true;
-            spyingDeck.Status.IsSpying = true;
             await fixture.SynchronizeClientsAsync();
 
+            await helge.Effects.RaiseEvent(new AfterCardReveal(helge, helge));
             await helge.Effects.RaiseEvent(new CardPlayEffect(false, true));
 
-            Assert.Equal(-1, sameRow.Status.HealthStatus);
-            Assert.Equal(-1, otherRow.Status.HealthStatus);
-            Assert.Equal(-1, revealedHand.Status.HealthStatus);
+            Assert.Equal(0, sameRow.Status.HealthStatus);
+            Assert.Equal(-2, otherRow.Status.HealthStatus);
+            Assert.Equal(0, revealedHand.Status.HealthStatus);
             Assert.Equal(0, hiddenHand.Status.HealthStatus);
-            Assert.Equal(-1, revealedDeck.Status.HealthStatus);
-            Assert.Equal(0, spyingDeck.Status.HealthStatus);
+            Assert.Equal(0, helge.Status.Countdown);
         }
 
         [Fact]
@@ -104,6 +97,7 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(0, sameRow.Status.HealthStatus);
             Assert.Equal(-1, otherRow.Status.HealthStatus);
             Assert.Equal(0, revealedHand.Status.HealthStatus);
+            Assert.Equal(0, helge.Status.Countdown);
         }
 
         [Fact]
@@ -155,7 +149,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CupbearerConcealsAndBoostsOneBronzeHandCardOnOwnerTurnStart()
+        public async Task CupbearerConcealsAndBoostsOneBronzeHandCardEverySecondOwnerTurnStart()
         {
             var fixture = new HeadlessGameFixture();
             var cupbearer = fixture.AddCard(
@@ -166,6 +160,10 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
 
             await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player2Index));
+            Assert.True(hand.Status.IsReveal);
+            Assert.Equal(0, hand.Status.HealthStatus);
+
+            await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(hand.Status.IsReveal);
             Assert.Equal(0, hand.Status.HealthStatus);
 

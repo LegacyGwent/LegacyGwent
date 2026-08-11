@@ -185,3 +185,14 @@ lethally damaged adjacent unit's pre-removal power. When an effect Boosts by
 actual power lost, snapshot before Damage and treat a target that left play as
 having lost the full snapshot; cemetery repair otherwise makes the post-Damage
 power appear unchanged.
+
+The August 11 scenarios cover Rumourmonger's topmost-Bronze copy/draw and
+no-target branch; Hefty Helge's owner-only Reveal count, off-row repeats, clear,
+and same-instance resurrection; Congregation Cleric's two-power floor;
+Arnjolf's allied-then-enemy destruction; Svalblod excluding Spies; Sigvald's
+second-owner-turn resurrection; non-Doomed Crowmother; non-clan Skellige
+targets for Sigrdrifa; Cupbearer's two-turn cadence; and Dwarf Miner's board,
+hand, and deck count from an eight-power base. A real War Council chain left
+Nilfgaardian Gate and Battle Preparation in `PlayersStay`: nested effects ran
+after the parent pipeline stopped. Treat this as a release blocker and retire
+the candidate card rather than weakening the test.

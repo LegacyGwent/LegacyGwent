@@ -26,6 +26,7 @@ namespace Cynthia.Card
 
             _ownerTurnOvers = 0;
             await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
+            await Card.Effect.Strengthen(1, Card);
         }
     }
 }

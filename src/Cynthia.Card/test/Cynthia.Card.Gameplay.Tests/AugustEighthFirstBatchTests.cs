@@ -232,18 +232,19 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task DwarfMinerCountsBoardHandAndSelfCopies()
+        public async Task DwarfMinerCountsBoardHandDeckAndSelfCopiesFromEightBasePower()
         {
             var fixture = new HeadlessGameFixture();
             var miner = fixture.AddCard(fixture.Game.Player1Index, "70097", RowPosition.MyRow1);
             fixture.AddCard(fixture.Game.Player1Index, "70097", RowPosition.MyRow2);
             fixture.AddCard(fixture.Game.Player1Index, "70097", RowPosition.MyHand);
+            fixture.AddCard(fixture.Game.Player1Index, "70097", RowPosition.MyDeck);
             fixture.AddCard(fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand);
             await fixture.SynchronizeClientsAsync();
 
             await miner.Effect.CardPlayEffect(false, false);
 
-            Assert.Equal(9, miner.Status.Strength);
+            Assert.Equal(12, miner.Status.Strength);
         }
 
         [Fact]
