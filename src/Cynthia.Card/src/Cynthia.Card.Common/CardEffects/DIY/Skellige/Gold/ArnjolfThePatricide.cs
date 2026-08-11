@@ -7,12 +7,22 @@ namespace Cynthia.Card
 {
     [CardEffectId("70082")]//背亲者恩约夫 ArnjolfthePatricide
     public class ArnjolfthePatricide : CardEffect
-    {//摧毁场上所有战力低于3的单位。
+    {//摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。
         public ArnjolfthePatricide(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            var cards = Game.GetAllCard(Card.PlayerIndex, isHasConceal: true).Where(x => x.Status.CardRow.IsOnPlace() && x.CardPoint() < 3 && x != Card).ToList();
-            foreach (var card in cards)
+            var alliedCards = Game.GetPlaceCards(PlayerIndex)
+                .Where(x => x.CardPoint() <= 2 && x != Card)
+                .ToList();
+            foreach (var card in alliedCards)
+            {
+                await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
+            }
+
+            var enemyCards = Game.GetPlaceCards(AnotherPlayer)
+                .Where(x => x.CardPoint() <= 2)
+                .ToList();
+            foreach (var card in enemyCards)
             {
                 await card.Effect.ToCemetery(CardBreakEffectType.Scorch);
             }

@@ -168,3 +168,18 @@ lethally damaged adjacent unit's pre-removal power. When an effect Boosts by
 actual power lost, snapshot before Damage and treat a target that left play as
 having lost the full snapshot; cemetery repair otherwise makes the post-Damage
 power appear unchanged.
+
+The August 11 first-batch scenarios cover Rumourmonger's topmost-Bronze copy
+and both-player draw, including its no-target branch; Hefty Helge's owner-only
+Reveal counter, off-row repeated damage, explicit counter clear, and the rule
+that resurrecting the same cleared instance does not restore its initial count;
+Congregation Cleric's two-power floor; Arnjolf's allied-then-enemy low-power
+destruction; Svalblod excluding Spying hand/deck units; Sigvald's second-owner-
+turn resurrection and Strengthen; Crowmother being intrinsically non-Doomed;
+Sigrdrifa accepting non-clan Skellige Copper/Silver units; Cupbearer's every-
+second-owner-turn cadence; and Dwarf Miner counting same-ID copies on board,
+in hand, and in deck from its new eight-power base. A real War Council chain
+using Nilfgaardian Gate and Battle Preparation left both generated cards in
+`PlayersStay` because their nested `CardUseEffect` tasks ran after the parent
+pipeline had already stopped. That regression is a release blocker: retire the
+candidate card completely rather than publishing it or weakening the test.

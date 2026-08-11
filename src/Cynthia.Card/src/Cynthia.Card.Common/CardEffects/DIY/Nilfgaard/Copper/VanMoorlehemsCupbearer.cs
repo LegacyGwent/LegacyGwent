@@ -8,6 +8,12 @@ namespace Cynthia.Card
     public class VanMoorlehemsCupbearer : CardEffect, IHandlesEvent<AfterTurnStart>
     {//每回合开始时，随机隐匿1张铜色手牌并使其获得1点增益。
         public VanMoorlehemsCupbearer(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
+            await Card.Effect.SetCountdown(2);
+            return 0;
+        }
+
         public async Task HandleEvent(AfterTurnStart @event)
         {
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
@@ -15,6 +21,13 @@ namespace Cynthia.Card
                 return;
             }
 
+            await Card.Effect.SetCountdown(offset: -1);
+            if (Card.Status.Countdown > 0)
+            {
+                return;
+            }
+
+            await Card.Effect.SetCountdown(2);
             var cards = Game.PlayersHandCard[PlayerIndex]
                 .Where(x => x.Status.Group == Group.Copper && x.Status.IsReveal)
                 .ToList();

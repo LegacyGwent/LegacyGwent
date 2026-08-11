@@ -12,6 +12,7 @@ namespace Cynthia.Card
         {
             var count = Game.GetPlaceCards(PlayerIndex)
                 .Concat(Game.PlayersHandCard[PlayerIndex])
+                .Concat(Game.PlayersDeck[PlayerIndex])
                 .Count(x => x.Status.CardId == Card.Status.CardId);
             await Card.Effect.Strengthen(count, Card);
             return 0;

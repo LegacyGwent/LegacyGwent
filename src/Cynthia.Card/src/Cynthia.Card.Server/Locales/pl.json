@@ -2003,7 +2003,7 @@
         },
         "33009": {
             "Name": "Gruba Helga",
-            "Info": "Zadaj 1 pkt obrażeń wszystkim wrogom poza przeciwnym rzędem. Jeśli karta była Ujawniona, zadaj 1 pkt obrażeń wszystkim wrogim jednostkom i Ujawnionym niespierającym wrogim kartom jednostek.",
+            "Info": "Zadaj po 1 pkt obrażeń wszystkim wrogom poza przeciwnym rzędem. Za każdym razem, gdy Ujawnisz tę kartę, po zagraniu powtórz tę zdolność dodatkowy raz.",
             "Flavor": "Nie nadaje się zbytnio do zdobywania miast, ale jest doskonała gdy potrzebujesz zrównać je z ziemią."
         },
         "33010": {
@@ -2443,7 +2443,7 @@
         },
         "44001": {
             "Name": "Tridamski Piechur",
-            "Info": "Na początku gry zmień stan Blokady tej jednostki. 4 pkt pancerza.",
+            "Info": "4 pkt pancerza.",
             "Flavor": "Żołnierze lojalni wobec starego barona Tridam opuścili miasto wraz z Faliborem, aby stać się renegatami poszukiwanymi przez prawo."
         },
         "44002": {
@@ -3513,7 +3513,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "Na koniec tury wskrześ tę jednostkę do losowego rzędu i ulepsz o 1. Siła bazowa tej jednostki nie może być większa niż 10.",
+            "Info": "Co 2 tury, na koniec tury, wskrześ tę jednostkę i ulepsz ją o 1.",
             "Flavor": "Vildkaarl, który dożywa starości, cieszy się ogromnym szacunkiem reszty stada. Tak, jak Sigvald."
         },
         "70039": {
@@ -3598,7 +3598,7 @@
         },
         "70076": {
             "Name": "Kleryk Kongregacji",
-            "Info": "Rozmieszczenie: Stwórz w tym rzędzie Skazane kopie bazowe o sile 2 wszystkich Zablokowanych brązowych jednostek. Gdy brązowa jednostka zostanie Zablokowana w twojej turze, stwórz tutaj jej Skazaną kopię bazową o sile 2.",
+            "Info": "Rozmieszczenie: Stwórz Skazane kopie bazowe o sile 2 wszystkich Zablokowanych brązowych jednostek o sile co najmniej 2. Gdy taka jednostka zostanie Zablokowana w twojej turze, stwórz jej Skazaną kopię bazową o sile 2 w tym rzędzie.",
             "Flavor": "Kościół to nie świątynie, to nie święta pisma - tylko wierni."
         },
         "70077": {
@@ -3628,7 +3628,7 @@
         },
         "70082": {
             "Name": "Arnjolf Ojcobójca",
-            "Info": "Zniszcz wszystkie jednostki o sile mniejszej niż 3 po obu stronach planszy.",
+            "Info": "Zniszcz wszystkie sojusznicze jednostki o sile 2 lub mniej, następnie zniszcz wszystkie wrogie jednostki o sile 2 lub mniej.",
             "Flavor": "Moją hańbę można zmazać tylko krwią."
         },
         "70083": {
@@ -3698,7 +3698,7 @@
         },
         "70097": {
             "Name": "Krasnoludzki Hawierz",
-            "Info": "Ulepsz się o liczbę sojuszniczych Krasnoludzkich Hawierzy na planszy i w ręce.",
+            "Info": "Ulepsz się o liczbę sojuszniczych Krasnoludzkich Hawierzy na planszy, w ręce i w talii.",
             "Flavor": "Który bęcwał gwiżdże w kopalni?!"
         },
         "70098": {
@@ -3708,7 +3708,7 @@
         },
         "70099": {
             "Name": "Svalblod",
-            "Info": "Rozmieszczenie: Zadaj wszystkim lojalnym jednostkom w twojej talii i ręce 2 pkt obrażeń, następnie ulepsz je o 2 pkt. Jeśli to miałoby zabić jednostkę w Twojej ręce, zamiast tego ustaw jej siłę na 1.",
+            "Info": "Rozmieszczenie: Zadaj wszystkim jednostkom bez Szpiega o sile co najmniej 2 w twojej ręce i talii 2 pkt obrażeń, następnie ulepsz je o 2. Przenieś jednostki bez Szpiega o sile 2 lub mniej z talii na cmentarz.",
             "Flavor": "Dał swym wiernym tylko jedno przykazanie: zabijaj."
         },
         "70100": {
@@ -3968,7 +3968,7 @@
         },
         "70152": {
             "Name": "Podczaszy Van Moorlehemów",
-            "Info": "Na początku każdej tury losowo Ukryj brązową kartę w ręce, następnie wzmocnij ją o 1.",
+            "Info": "Co 2 tury losowo Ukryj brązową kartę w ręce, następnie wzmocnij ją o 1.",
             "Flavor": "Moja specjalność? Tatar. Z czego? Ach, zależy od humoru jaśniepaństwa…"
         },
         "70153": {
@@ -4003,7 +4003,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Stwórz 2 kruki. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2.\nFatum.",
+            "Info": "Stwórz po 1 Kruku w każdym z pozostałych twoich rzędów. Wskrzeszaj Kruki o sile 2 lub mniej, aż ten rząd będzie pełny.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -4078,7 +4078,7 @@
         },
         "70174": {
             "Name": "Mag Infiltrator",
-            "Info": "Szpieg. Ujawnij 2 karty w ręce przeciwnika. Wybierz wrogą brązową jednostkę albo Ujawnioną niespierającą brązową kartę jednostki i stwórz jej Przeklętą bazową kopię.",
+            "Info": "Szpieg. Ujawnij 2 karty w ręce przeciwnika. Wybierz wrogą brązową jednostkę bez Szpiega albo Ujawnioną brązową kartę jednostki bez Szpiega i stwórz jej Skazaną kopię bazową.",
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce - tylko po jednej z każdej pary - i podmieniając część ubrań na mniejsze."
         },
         "70175": {
@@ -4244,6 +4244,11 @@
         "70194": {
             "Name": "Widmowy czarodziej",
             "Info": "Na początku gry zmień stan Blokady tej jednostki. Powtarzaj ten efekt co 2 własne tury.",
+            "Flavor": ""
+        },
+        "70195": {
+            "Name": "Plotkarz",
+            "Info": "Rozejm: Umieść bazową kopię pierwszej brązowej karty z talii przeciwnika na wierzchu jego talii, następnie obaj gracze dobierają po 1 karcie.",
             "Flavor": ""
         }
     }

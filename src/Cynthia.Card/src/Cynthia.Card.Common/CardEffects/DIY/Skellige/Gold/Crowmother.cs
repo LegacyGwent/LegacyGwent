@@ -10,8 +10,6 @@ namespace Cynthia.Card
         public Crowmother(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            Card.Status.IsDoomed = false;
-
             var alliedRows = new[] { RowPosition.MyRow1, RowPosition.MyRow2, RowPosition.MyRow3 };
             foreach (var row in alliedRows.Where(x => x != Card.Status.CardRow))
             {

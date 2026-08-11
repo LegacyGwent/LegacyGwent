@@ -11,11 +11,15 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var deckUnits = Game.PlayersDeck[PlayerIndex]
-                .Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x != Card)
+                .Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow &&
+                            !x.Status.IsSpying &&
+                            x != Card)
                 .Select(x => new { Card = x, Strength = x.Status.Strength })
                 .ToList();
             var handUnits = Game.PlayersHandCard[PlayerIndex]
-                .Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow && x != Card)
+                .Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow &&
+                            !x.Status.IsSpying &&
+                            x != Card)
                 .Select(x => new { Card = x, Strength = x.Status.Strength })
                 .ToList();
 
