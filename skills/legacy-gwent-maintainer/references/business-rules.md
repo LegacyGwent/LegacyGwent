@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-08
+Last verified: 2026-08-11
 
 ## DIY-AI release identity
 
@@ -119,6 +119,13 @@ Last verified: 2026-08-08
   `skills/legacy-gwent-maintainer/scripts/card_art_inventory.ps1`; it compares
   full-size art files, full-art Addressables, `GwentMap` dictionary keys/art IDs,
   explicit `CardEffectId` attributes, `_slot` miniatures, and web previews.
+- `d19400000` is an unassigned local art address, not a `CardMap` card ID. It is
+  the static illustration for the official post-Homecoming GWENT card Terror of
+  the Seas (`202460`, Chinese `海上恶魔`), by Christof Grobelski; the upstream
+  static-art asset number is `1940`. LegacyGwent first imported it in commit
+  `4b27d241609c1dc79feedc3d8b48f242a5b81174` with the other `d`-prefixed HC
+  illustrations. Do not classify it as foreign historical art or a beta discard
+  merely because the current `GwentMap` does not reference it.
 - Verified inventory (2026-08-07): 1,838 unique full-size card-art files and
   exactly 1,838 full-art Addressable entries, with zero missing or dangling
   full-art addresses. All 674 unique art IDs assigned by the 718 `CardMap`
