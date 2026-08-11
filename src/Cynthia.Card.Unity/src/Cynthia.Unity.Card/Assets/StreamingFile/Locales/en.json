@@ -4252,10 +4252,15 @@
             "Info": "Truce: Place a base copy of the top Bronze card in your opponent's deck on top of their deck, then both players draw 1 card.",
             "Flavor": ""
         },
-        "70196": {
-            "Name": "War Council",
-            "Info": "Truce: Swap 1 card and Spawn a Nilfgaardian Gate. Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
-            "Flavor": ""
+       "70196": {
+           "Name": "War Council",
+           "Info": "Truce: Swap 1 card and Spawn a Nilfgaardian Gate. Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
+           "Flavor": ""
+        },
+        "70197": {
+            "Name": "Draug: Northern Realms",
+            "Info": "Deploy: Resurrect random units to this unit's row as 1-Power Draugirs until you fill the row.",
+            "Flavor": "Some men cannot admit defeat. Some keep fighting from beyond the grave."
         }
     }
 }

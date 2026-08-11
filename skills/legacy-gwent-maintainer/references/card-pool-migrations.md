@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-10
+Last verified: 2026-08-11
 
-Verified against the DIY-AI reset lineage through `1.0.0.178`.
+Verified against the DIY-AI reset lineage through `1.0.0.181`.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -34,7 +34,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 719 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 722 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
 - After the `1.0.0.176` restoration, 84 entries are retired. The August 5 cards remain
@@ -72,6 +72,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   Realms card `70194` is appended as the 719th map entry and is deckable.
   Derived dependencies `70040` and `70136` stay outside the Mongo allowlist.
   The exact retirement set contains 42 IDs at `1.0.0.178`.
+- Later August releases append deckable cards `70195` (Rumourmonger), `70196`
+  (War Council), and `70197` (Draug: Northern Realms). Keep those IDs in that
+  exact order. `70197` intentionally reuses Draug art `13210100`; sharing art
+  does not permit merging or reusing its persistent CardMap identity.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.
@@ -104,7 +108,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 719 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 722 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

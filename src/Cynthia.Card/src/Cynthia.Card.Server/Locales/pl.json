@@ -4251,10 +4251,15 @@
             "Info": "Rozejm: Umieść bazową kopię pierwszej brązowej karty z talii przeciwnika na wierzchu jego talii, następnie obaj gracze dobierają po 1 karcie.",
             "Flavor": ""
         },
-        "70196": {
-            "Name": "Narada wojenna",
-            "Info": "Rozejm: Zamień 1 kartę i stwórz Nilfgaardzką Bramę. Dodaj Przygotowanie do bitwy do swojej ręki, następnie przeciwnik dobiera i odsłania brązową kartę.",
-            "Flavor": ""
+       "70196": {
+           "Name": "Narada wojenna",
+           "Info": "Rozejm: Zamień 1 kartę i stwórz Nilfgaardzką Bramę. Dodaj Przygotowanie do bitwy do swojej ręki, następnie przeciwnik dobiera i odsłania brązową kartę.",
+           "Flavor": ""
+        },
+        "70197": {
+            "Name": "Draug: Królestwa Północy",
+            "Info": "Rozmieszczenie: Wskrześ jednostki jako Draugirów o sile 1 do wypełnienia nimi tego rzędu.",
+            "Flavor": "Generał nie pogodził się z przegraną. Zginął, ale walczy dalej."
         }
     }
 }
