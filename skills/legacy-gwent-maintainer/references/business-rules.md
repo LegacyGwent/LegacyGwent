@@ -139,6 +139,14 @@ Last verified: 2026-08-11
   deck-list banner was restored in the August 8 batch, reducing this count from
   seventeen. Audit the list before making another card a leader or otherwise
   relying on its deck-list banner.
+- Treat each 512x128 `_slot` as an art-directed deck-list portrait, not a blind
+  center crop. Because the card name covers much of the left and middle area,
+  place a recognizable face or the illustration's most distinctive subject in
+  the right-hand recognition area; avoid backs of heads, empty scenery, and
+  cropped-off facial features. Inspect the standalone strip and the real deck
+  list before accepting it. The August 11 Rumourmonger strip is the regression
+  example: its first crop over-emphasized a bald head seen from behind and had
+  to be recut around the older speaker's face.
 - The `/cardart` authoring page enumerates a separate set of 1,049 small
   `wwwroot/scale` previews. It has 530 IDs not referenced by `CardMap`; 526 have
   a restored Unity full-size image and four (`c10000300`, `c10001600`,
