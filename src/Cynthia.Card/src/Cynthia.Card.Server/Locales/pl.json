@@ -894,7 +894,7 @@
         },
         "12021": {
             "Name": "Geralt Aard",
-            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń 3 wrogim jednostkom i przesuń je o 1 rząd w górę. Jeśli cel znajduje się w rzędzie oblężenia, zadaj mu dodatkowe 2 pkt obrażeń.",
+            "Info": "Zadaj 3 pkt obrażeń 3 wrogim jednostkom i przesuń je o 1 rząd w górę. Jeśli cel znajduje się w rzędzie oblężenia, zadaj mu dodatkowe 2 pkt obrażeń.",
             "Flavor": "Wiedźmin złożył palce w Znak Aard. Huknęło tak, że Geralta zakłuło w uszach, a od wsysanego przez implozję powietrza aż zaszumiały wikliny."
         },
         "12022": {
@@ -2344,7 +2344,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Rozmieszczenie: Zamień kartę, a następnie Zamień drugą kartę.",
+            "Info": "Zamień kartę, a następnie Zamień drugą kartę.",
             "Flavor": "Lepiej przeżyć jeden dzień jak król niż całe życie jak dziad."
         },
         "43003": {
@@ -2564,7 +2564,7 @@
         },
         "44025": {
             "Name": "Widmo Czarodziejki",
-            "Info": "Rozmieszczenie: Jeśli w tym rzędzie jest jednostka Przeklęta, zadaj 7 pkt obrażeń. Zwiększ obrażenia o 1 za każdą kolejną przeklętą jednostkę",
+            "Info": "Rozmieszczenie: Jeśli w tym rzędzie jest jednostka Przeklęta, zadaj 6 pkt obrażeń. Zwiększ obrażenia o 1 za każdą kolejną przeklętą jednostkę",
             "Flavor": "Klątwa Arcymistrzyni nie oszczędziła nikogo, nawet konfraterek Sabriny."
         },
         "44026": {
@@ -3144,7 +3144,7 @@
         },
         "63016": {
             "Name": "Gremista",
-            "Info": "Rozmieszczenie: Stwórz Ulewny Deszcz, Czyste Niebo lub Wściekły Ryk.",
+            "Info": "Stwórz Ulewny Deszcz, Czyste Niebo lub Wściekły Ryk.",
             "Flavor": "Arcydruid, Mistrz Alchemiczny, a zarazem najbardziej zrzędliwy dziad na wyspach."
         },
         "63017": {
@@ -3204,7 +3204,7 @@
         },
         "64008": {
             "Name": "Zdziczały Niedźwiedź",
-            "Info": "Za każdym razem, gdy z dowolnej ręki na stronę twojego przeciwnika zostaje zagrana jednostka, zadaj jej 1 pkt obrażeń.",
+            "Info": "Za każdym razem, gdy jednostka pojawi się po stronie przeciwnika, zadaj jej 1 pkt obrażeń.",
             "Flavor": "„Oswojony”? Mój drogi chłopcze, fakt że Skelligijczycy tresują niedźwiedzie wcale nie oznacza, że są one „oswojone”…"
         },
         "64009": {
@@ -3379,7 +3379,7 @@
         },
         "70002": {
             "Name": "Detlaff Wampir Wyższy",
-            "Info": "Rozmieszczenie: Wybierz brązową jednostke w twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
+            "Info": "Wybierz brązową jednostke w twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
             "Flavor": "Na jego widok nawet wiedźminom miękną kolana."
         },
         "70003": {
@@ -3624,7 +3624,7 @@
         },
         "70081": {
             "Name": "Drummondzki Pogromca",
-            "Info": "Kiedy odrzucisz tę kartę ulepsz wszystkie jednostki klanu Drummond w ręce, talii i na polu bitwy o 1.",
+            "Info": "Ulepsz o 1 każdą jednostkę klanu Drummond, która pojawi się po twojej stronie.",
             "Flavor": "E tam, to tylko draśnięcie."
         },
         "70082": {
@@ -3784,7 +3784,7 @@
         },
         "70114": {
             "Name": "Driadzia Łuczniczka",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Podczas twojej tury, jeśli ta jednostka zostanie przeniesiona do rzędu dalekiego zasięgu, powtórz tę zdolność.",
+            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń. Podczas twojej tury, jeśli ta jednostka zostanie przeniesiona do rzędu dalekiego zasięgu, powtórz tę zdolność.",
             "Flavor": "Nie strzelała po to, by kogokolwiek ostrzec. Bez litości, nawet dla najmłodszych."
         },
         "70115": {
@@ -4099,7 +4099,7 @@
         },
         "70178": {
             "Name": "Ulle",
-            "Info": "Na początku tury, jeśli ta karta jest na cmentarzu, wskrześ ją. Na koniec tury stocz pojedynek z najsłabszym wrogiem, jeśli wygrasz wygnaj tę jednostkę.",
+            "Info": "Na początku każdej sojuszniczej tury wskrześ tę jednostkę. Na końcu każdej sojuszniczej tury stocz pojedynek z najsłabszym wrogiem. Jeśli ta jednostka wygra, zmień jej stan Blokady.",
             "Flavor": "Obyś po wiek wieków przegrywał."
         },
         "70179": {
@@ -4250,6 +4250,11 @@
         "70195": {
             "Name": "Plotkarz",
             "Info": "Rozejm: Umieść bazową kopię pierwszej brązowej karty z talii przeciwnika na wierzchu jego talii, następnie obaj gracze dobierają po 1 karcie.",
+            "Flavor": ""
+        },
+        "70196": {
+            "Name": "Narada wojenna",
+            "Info": "Rozejm: Zamień 1 kartę i stwórz Nilfgaardzką Bramę. Dodaj Przygotowanie do bitwy do swojej ręki, następnie przeciwnik dobiera i odsłania brązową kartę.",
             "Flavor": ""
         }
     }

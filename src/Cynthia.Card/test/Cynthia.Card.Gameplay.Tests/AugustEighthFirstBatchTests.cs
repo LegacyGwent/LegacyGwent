@@ -224,11 +224,11 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
 
             await dryad.Effect.CardPlayEffect(false, false);
-            Assert.Equal(-4, enemy.Status.HealthStatus);
+            Assert.Equal(-3, enemy.Status.HealthStatus);
 
             fixture.Game.GameRound = (TwoPlayer)fixture.Game.Player1Index;
             await dryad.Effect.Move(new CardLocation(RowPosition.MyRow2, 0), dryad);
-            Assert.Equal(-8, enemy.Status.HealthStatus);
+            Assert.Equal(-6, enemy.Status.HealthStatus);
         }
 
         [Fact]

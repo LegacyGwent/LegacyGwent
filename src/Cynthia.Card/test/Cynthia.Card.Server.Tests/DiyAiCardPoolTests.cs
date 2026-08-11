@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 179), GwentMap.CardMapVersion);
-            Assert.Equal(720, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 180), GwentMap.CardMapVersion);
+            Assert.Equal(721, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,7 +52,7 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196" },
                 GwentMap.CardMap.Keys.Skip(709));
         }
 
@@ -105,8 +105,6 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(Categorie.Soldier, rumourmonger.Categories);
             Assert.Equal("d18990000", rumourmonger.CardArtsId);
 
-            Assert.False(GwentMap.CardMap.ContainsKey("70196"));
-
             var localeRoots = new[]
             {
                 "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
@@ -136,6 +134,89 @@ namespace Cynthia.Card.Server.Tests
             var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables";
             Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/d18990000.png")));
             Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/d18990000_slot.png")));
+        }
+
+        [Fact]
+        public void AugustEleventhSecondBatchMatchesMetadataLocalesAndAssets()
+        {
+            var changedIds = new[]
+            {
+                CardId.WarCouncil, CardId.GeraltAard, CardId.Ves, CardId.Gremist,
+                "70002", CardId.BowDryad, CardId.Ulle,
+                CardId.DrummondPillager, CardId.HawkerSmuggler, CardId.SavageBear,
+                CardId.AlbaArmoredCavalry, CardId.SiegeSupport, CardId.DamnedSorceress
+            };
+            Assert.All(changedIds, id => Assert.True(GwentMap.CardMap.ContainsKey(id)));
+
+            var warCouncil = GwentMap.CardMap[CardId.WarCouncil];
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.WarCouncil));
+            Assert.Equal(Group.Gold, warCouncil.Group);
+            Assert.Equal(Faction.Nilfgaard, warCouncil.Faction);
+            Assert.Equal(CardType.Special, warCouncil.CardType);
+            Assert.Equal(CardUseInfo.AnyPlace, warCouncil.CardUseInfo);
+            Assert.Contains(Categorie.Tactic, warCouncil.Categories);
+            Assert.Contains(Categorie.Special, warCouncil.Categories);
+            Assert.Equal("d19950000", warCouncil.CardArtsId);
+            Assert.False(warCouncil.IsDerive);
+            Assert.Equal(
+                "休战：选择1张牌进行交换，并生成1张“尼弗迦德大门”。为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
+                warCouncil.Info);
+            Assert.Contains(CardId.NilfgaardianGate, warCouncil.LinkedCards);
+            Assert.Contains(CardId.BattlePreparation, warCouncil.LinkedCards);
+
+            Assert.Equal(7, GwentMap.CardMap[CardId.BowDryad].Strength);
+            Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
+            Assert.Contains("6点伤害", GwentMap.CardMap[CardId.DamnedSorceress].Info);
+            Assert.Equal(
+                "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果获胜则改变自身的锁定状态。",
+                GwentMap.CardMap[CardId.Ulle].Info);
+            Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.GeraltAard].Info);
+            Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.Ves].Info);
+            Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.Gremist].Info);
+            Assert.DoesNotContain("择一：", GwentMap.CardMap["70002"].Info);
+            Assert.All(
+                new[] { CardId.DrummondPillager, CardId.HawkerSmuggler, CardId.SavageBear, CardId.AlbaArmoredCavalry, CardId.SiegeSupport },
+                id => Assert.Contains("出现", GwentMap.CardMap[id].Info));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(changedIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+
+            const string artGuid = "98e8f986c6c5f5844b8b1d8dc145e7db";
+            const string slotGuid = "c2ae2ed8635e4fda8e3046cbcb01fe59";
+            var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables";
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/d19950000.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/d19950000_slot.png")));
+            var fullGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
+            var slotGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
+            Assert.Contains($"m_GUID: {artGuid}", fullGroup);
+            Assert.Contains("m_Address: d19950000", fullGroup);
+            Assert.Contains($"m_GUID: {slotGuid}", slotGroup);
+            Assert.Contains("m_Address: d19950000_slot", slotGroup);
         }
 
         [Fact]
@@ -1383,7 +1464,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(6, GwentMap.CardMap["44016"].Strength);
             Assert.Equal(9, GwentMap.CardMap["70101"].Strength);
             Assert.Equal(9, GwentMap.CardMap["70098"].Strength);
-            Assert.Equal(6, GwentMap.CardMap["70114"].Strength);
+            Assert.Equal(7, GwentMap.CardMap["70114"].Strength);
             Assert.Equal(6, GwentMap.CardMap["70122"].Strength);
             Assert.Equal(12, GwentMap.CardMap["70137"].Strength);
             Assert.Contains(Categorie.Treant, GwentMap.CardMap["70137"].Categories);

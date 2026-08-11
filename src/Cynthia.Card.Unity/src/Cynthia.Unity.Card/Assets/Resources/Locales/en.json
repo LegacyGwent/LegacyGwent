@@ -895,7 +895,7 @@
         },
         "12021": {
             "Name": "Geralt: Aard",
-            "Info": "Deploy: Deal 3 damage to 3 ennemies and move them to the row above, deal those ennemies an extra 2 damage if there were one the siege row. ",
+            "Info": "Deal 3 damage to 3 enemies and move them to the row above. If a target was on the Siege row, deal an additional 2 damage to it.",
             "Flavor": "A blast of concentrated energy that pummels everything in its path. Great for when you forget your keys."
         },
         "12022": {
@@ -2345,7 +2345,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Deploy: Swap a card, then Swap a second one.",
+            "Info": "Swap a card, then Swap a second one.",
             "Flavor": "Better to live one day as a king than a whole life as a beggar."
         },
         "43003": {
@@ -2565,7 +2565,7 @@
         },
         "44025": {
             "Name": "Damned Sorceress",
-            "Info": "Deploy: If there is a Cursed unit on this unit's row, deal 7 Damage.\nIncrease the Damage by 1 for each extra Cursed unit on the same row.",
+            "Info": "Deploy: If there is a Cursed unit on this unit's row, deal 6 Damage.\nIncrease the Damage by 1 for each extra Cursed unit on the same row.",
             "Flavor": "Sabrina's curse spared no one, not even her fellow practitioners."
         },
         "44026": {
@@ -3145,7 +3145,7 @@
         },
         "63016": {
             "Name": "Gremist",
-            "Info": "Deploy: Spawn Torrential Rain, Clear Skies or Bloodcurdling Roar.",
+            "Info": "Spawn Torrential Rain, Clear Skies or Bloodcurdling Roar.",
             "Flavor": "An archdruid, a master of alchemy, and the grumpiest old fart in the Isles."
         },
         "63017": {
@@ -3205,7 +3205,7 @@
         },
         "64008": {
             "Name": "Savage Bear",
-            "Info": "Whenever a unit is played from either hand on your opponent's side of the board, deal 1 Damage to it.",
+            "Info": "Whenever a unit appears on your opponent's side of the board, deal 1 Damage to it.",
             "Flavor": "Tame? Och, lad, Skelligers might train bears, but that don't at all mean they tame 'em…"
         },
         "64009": {
@@ -3380,7 +3380,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Deploy: Choose a Bronze unit in your deck. If it has more Power than this unit, consume it and boost self by its power. Otherwise, play that unit and send it to the graveyard at the end of the turn.",
+            "Info": "Choose a Bronze unit in your deck. If it has more Power than this unit, consume it and boost self by its power. Otherwise, play that unit and send it to the graveyard at the end of the turn.",
             "Flavor": "In his true form, the Beast of Beauclair could cause even a witcher to quake in his boots."
         },
         "70003": {
@@ -3625,7 +3625,7 @@
         },
         "70081": {
             "Name": "Drummond Pillager",
-            "Info": "When Discarded, Strengthen all Drummond units in hand, or in the deck by 1.",
+            "Info": "Strengthen every Clan Drummond unit that appears on your side by 1.",
             "Flavor": "Tis but a scratch, aye?"
         },
         "70082": {
@@ -3785,7 +3785,7 @@
         },
         "70114": {
             "Name": "Dryad Sharpshooter",
-            "Info": "Deploy: Damage an enemy by 4. During your turn, if this unit is moved to the Ranged row, repeat this ability.",
+            "Info": "Deploy: Damage an enemy by 3. During your turn, if this unit is moved to the Ranged row, repeat this ability.",
             "Flavor": "She does no warning shot, always aims to kill. No mercy, even for the little ones."
         },
         "70115": {
@@ -4100,7 +4100,7 @@
         },
         "70178": {
             "Name": "Ulle the Unlucky",
-            "Info": "On turn start, if this card is in the graveyard, Resurrect self.\nOn turn end, Duel the Lowest enemy, if you win, Banish self.",
+            "Info": "At the start of every allied turn, Resurrect this unit. At the end of every allied turn, Duel the weakest enemy. If this unit wins, change its Lock status.",
             "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
         },
         "70179": {
@@ -4251,6 +4251,11 @@
         "70195": {
             "Name": "Rumourmonger",
             "Info": "Truce: Place a base copy of the top Bronze card in your opponent's deck on top of their deck, then both players draw 1 card.",
+            "Flavor": ""
+        },
+        "70196": {
+            "Name": "War Council",
+            "Info": "Truce: Swap 1 card and Spawn a Nilfgaardian Gate. Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
             "Flavor": ""
         }
     }

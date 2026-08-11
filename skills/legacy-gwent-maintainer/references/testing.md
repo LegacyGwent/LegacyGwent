@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-10
+Last verified: 2026-08-11
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -186,13 +186,15 @@ actual power lost, snapshot before Damage and treat a target that left play as
 having lost the full snapshot; cemetery repair otherwise makes the post-Damage
 power appear unchanged.
 
-The August 11 scenarios cover Rumourmonger's topmost-Bronze copy/draw and
-no-target branch; Hefty Helge's owner-only Reveal count, off-row repeats, clear,
-and same-instance resurrection; Congregation Cleric's two-power floor;
-Arnjolf's allied-then-enemy destruction; Svalblod excluding Spies; Sigvald's
-second-owner-turn resurrection; non-Doomed Crowmother; non-clan Skellige
-targets for Sigrdrifa; Cupbearer's two-turn cadence; and Dwarf Miner's board,
-hand, and deck count from an eight-power base. A real War Council chain left
-Nilfgaardian Gate and Battle Preparation in `PlayersStay`: nested effects ran
-after the parent pipeline stopped. Treat this as a release blocker and retire
-the candidate card rather than weakening the test.
+The August 11 scenarios cover Rumourmonger's Bronze copy/draw and empty branch;
+Helge's owner Reveal counter, repeated off-row damage, clear, and same-instance
+resurrection; the new Cleric, Arnjolf, Svalblod, Sigvald, Crowmother, Sigrdrifa,
+Cupbearer, and Dwarf Miner boundaries. War Council's rejected draft put Gate
+and Battle Preparation in `PlayersStay`, leaving them floating after a nested
+pipeline; the released contract keeps only Gate there and creates Preparation
+in hand. Test through production `RoundPlayCard` with the deterministic Gate ->
+Ceallach -> Emissary -> Recruit -> Magne Division -> Ointment -> Recruit chain,
+then require both `PlayersStay` collections empty and the pipeline stopped.
+Never replace this with a direct effect call. If a future design still floats a
+card, release only under the owner's explicit exception and prominently report
+the exact residual path; never hide it by weakening the assertion.
