@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(42, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(41, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 181), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 182), GwentMap.CardMapVersion);
             Assert.Equal(722, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -91,6 +91,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 "摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。",
                 GwentMap.CardMap[CardId.ArnjolfThePatricide].Info);
+            Assert.DoesNotContain(CardId.ArnjolfThePatricide, DiyAiCardPool.RetiredCardIds);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.ArnjolfThePatricide));
+            Assert.False(GwentMap.CardMap[CardId.ArnjolfThePatricide].IsDerive);
             Assert.Equal(
                 "每2回合结束时，复活此单位，并获得1点强化。",
                 GwentMap.CardMap["70038"].Info);

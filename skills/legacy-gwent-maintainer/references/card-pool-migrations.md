@@ -2,7 +2,13 @@
 
 Last verified: 2026-08-11
 
-Verified against the DIY-AI reset lineage through `1.0.0.181`.
+Verified against the DIY-AI reset lineage through `1.0.0.182`.
+
+The August 11 first-batch restoration of `70082` (Arnjolf the Patricide) must
+also remove that ID from `DiyAiCardPool.RetiredCardIds` and add it to the exact
+Mongo reset allowlist. Updating its effect, metadata, locale, and tests without
+asserting `IsUserDeckCard("70082")` leaves the card implemented but hidden from
+deck building after `DiyAiCardPool.Apply` runs.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
