@@ -99,6 +99,116 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
+        public async Task WarCouncilDuringTruceStillSwapsAndPlaysGateButSkipsTruceClause()
+        {
+            var fixture = new HeadlessGameFixture();
+            ClearMutableZones(fixture);
+
+            var warCouncil = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.WarCouncil, RowPosition.MyHand);
+            var handCard = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyHand);
+            var deckCard = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyDeck);
+            fixture.AddCard(
+                fixture.Game.Player1Index, CardId.CeallachDyffryn, RowPosition.MyDeck);
+            var enemyDraw = fixture.AddCard(
+                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyDeck);
+            fixture.Game.IsPlayersPass[fixture.Game.Player2Index] = true;
+            fixture.FirstPlayer.QueueMenuCardIds(
+                CardId.GeraltOfRivia,
+                CardId.CeallachDyffryn);
+            await fixture.SynchronizeClientsAsync();
+
+            await fixture.Game.RoundPlayCard(
+                fixture.Game.Player1Index,
+                new RoundInfo
+                {
+                    HandCardIndex = fixture.Game.PlayersHandCard[fixture.Game.Player1Index]
+                        .IndexOf(warCouncil),
+                    CardLocation = new CardLocation(RowPosition.SpecialPlace, 0)
+                });
+
+            Assert.Contains(handCard, fixture.Game.PlayersDeck[fixture.Game.Player1Index]);
+            Assert.DoesNotContain(
+                fixture.Game.PlayersHandCard[fixture.Game.Player1Index],
+                card => card.Status.CardId == CardId.BattlePreparation);
+            Assert.Contains(enemyDraw, fixture.Game.PlayersDeck[fixture.Game.Player2Index]);
+            Assert.False(enemyDraw.Status.IsReveal);
+            Assert.Contains(
+                fixture.Game.GetAllCard(fixture.Game.Player1Index, isContainDead: true, isHasConceal: true),
+                card => card.Status.CardId == CardId.CeallachDyffryn && card.Status.CardRow.IsOnPlace());
+            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player1Index]);
+            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player2Index]);
+            Assert.False(fixture.Game.OperactionList.IsRunning);
+        }
+
+        [Fact]
+        public async Task CerysFearlessRestoresDiyContractAndStopsAfterThreeUses()
+        {
+            var fixture = new HeadlessGameFixture();
+            ClearMutableZones(fixture);
+
+            var cerys = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.CerysFearless, RowPosition.MyRow1);
+            cerys.Status.HealthStatus = 10;
+            var discardSource = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.CursedScroll, RowPosition.MyRow1);
+            var discarded = new[]
+            {
+                fixture.AddCard(fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand),
+                fixture.AddCard(fixture.Game.Player1Index, CardId.ArachasHatchling, RowPosition.MyHand),
+                fixture.AddCard(fixture.Game.Player1Index, "15011", RowPosition.MyHand),
+                fixture.AddCard(fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyHand)
+            };
+            await fixture.SynchronizeClientsAsync();
+            await cerys.Effects.RaiseEvent(new CardPlayEffect(false, false));
+
+            foreach (var card in discarded)
+            {
+                await fixture.Game.AddTask(() => card.Effect.Discard(discardSource));
+            }
+
+            Assert.All(discarded.Take(3), card => Assert.NotEqual(RowPosition.MyCemetery, card.Status.CardRow));
+            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player1Index]);
+            Assert.Contains(discarded[3], fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
+            Assert.Equal(0, cerys.Status.Countdown);
+            Assert.Equal(-2, cerys.Status.HealthStatus);
+            Assert.True(cerys.Status.CardRow.IsOnPlace());
+            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player2Index]);
+            Assert.False(fixture.Game.OperactionList.IsRunning);
+        }
+
+        [Fact]
+        public async Task CerysFearlessIgnoresGoldDiscardAndHostileNonSpySource()
+        {
+            var fixture = new HeadlessGameFixture();
+            ClearMutableZones(fixture);
+
+            var cerys = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.CerysFearless, RowPosition.MyRow1);
+            var friendlySource = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.CursedScroll, RowPosition.MyRow1);
+            var hostileSource = fixture.AddCard(
+                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1);
+            var gold = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyHand);
+            var copper = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand);
+            await fixture.SynchronizeClientsAsync();
+            await cerys.Effects.RaiseEvent(new CardPlayEffect(false, false));
+
+            await fixture.Game.AddTask(() => gold.Effect.Discard(friendlySource));
+            await fixture.Game.AddTask(() => copper.Effect.Discard(hostileSource));
+
+            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player1Index]);
+            Assert.Equal(3, cerys.Status.Countdown);
+            Assert.Equal(0, cerys.Status.HealthStatus);
+            Assert.False(gold.Status.CardRow.IsOnPlace());
+            Assert.False(copper.Status.CardRow.IsOnPlace());
+        }
+
+        [Fact]
         public async Task BowDryadUsesThreeDamageOnDeployAndOwnTurnMoveToRangedRow()
         {
             var fixture = new HeadlessGameFixture();

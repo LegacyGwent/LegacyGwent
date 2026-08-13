@@ -13,22 +13,27 @@ namespace Cynthia.Card
         private int _resurrectCount = 0;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Card.Effect.SetCountdown(value: 1);
+            await Card.Effect.SetCountdown(value: 3);
             return 0;
         }
         public async Task HandleEvent(AfterCardDiscard @event)
         {
-            if (Countdown <= 0 || !Card.IsAliveOnPlance())
+            if (Countdown <= 0 || !Card.IsAliveOnPlance() ||
+                @event.Target.PlayerIndex != PlayerIndex ||
+                (@event.Source.PlayerIndex == PlayerIndex && @event.Source.HasAnyCategorie(Categorie.Agent)) ||
+                (@event.Source.PlayerIndex != PlayerIndex && !@event.Source.HasAnyCategorie(Categorie.Agent)))
             {
                 return;
             }
+
+            if (@event.Target.Status.Group == Group.Gold)
+            {
+                return;
+            }
+
+            await Card.Effect.Damage(4, Card);
             await SetCountdown(offset: -1);
-            if (!Card.IsAliveOnPlance() ||
-                @event.Target.PlayerIndex != PlayerIndex || @event.Source.PlayerIndex != PlayerIndex ||
-                !@event.Target.Status.CardRow.IsInCemetery())
-            {
-                return;
-            }
+            if (!Card.IsAliveOnPlance() || !@event.Target.Status.CardRow.IsInCemetery()) return;
 
             await @event.Target.Effect.Resurrect(CardLocation.MyStayFirst, Card);
             _resurrectCount++;

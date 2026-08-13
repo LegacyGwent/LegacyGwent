@@ -3049,7 +3049,7 @@
         },
         "62010": {
             "Name": "Cerys: Fearless",
-            "Info": "When you Discard a Bronze or Silver unit, Damage self by 4 then Resurrect it.\nRepeat up to 1 time.",
+            "Info": "Whenever you Discard a non-Gold unit, Damage self by 4, then Resurrect it. This ability can trigger a total of 3 times.",
             "Flavor": "“If you want something done, send your best man. If you want something done right, send a woman.”"
         },
         "62011": {
@@ -4254,7 +4254,7 @@
         },
        "70196": {
            "Name": "War Council",
-           "Info": "Truce: Swap 1 card and Spawn a Nilfgaardian Gate. Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
+           "Info": "Swap 1 card and Spawn a Nilfgaardian Gate. Truce: Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
            "Flavor": ""
         },
         "70197": {

@@ -12,6 +12,7 @@ Read this file first, then load only the rows relevant to the task.
 | August 5-6 Monster card batches | [monster-batches-august-2026.md](monster-batches-august-2026.md) | Restored pool, effects, and edge conditions |
 | August 6 Nilfgaard/global card batch | [nilfgaard-batch-august-2026.md](nilfgaard-batch-august-2026.md) | Restored pool, effects, rounding rule, and regressions |
 | August 7 Northern Realms/global card batch | [northern-realms-batch-august-2026.md](northern-realms-batch-august-2026.md) | Restored pool, delayed effects, armor transfer, and lock timing |
+| August 13 card batch | [august-13-batch-2026.md](august-13-batch-2026.md) | War Council Truce split, Cerys discard lifecycle, Living Armor rarity |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
 | Card-batch publication, preflight, repeated CI | [release-preflight.md](release-preflight.md) | First-push gates and release-loop prevention |

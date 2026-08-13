@@ -3048,7 +3048,7 @@
         },
         "62010": {
             "Name": "Cerys Nieustraszona",
-            "Info": "Kiedy odrzucisz brązową lub srebrną jednostkę, zadaj sobie obrażenia równe 4, a następnie wskrześ ją. Powtórz maksymalnie 1 raz.",
+            "Info": "Za każdym razem, gdy odrzucisz nie-złotą jednostkę, zadaj sobie 4 obrażenia, a następnie wskrześ ją. Ta zdolność może zadziałać łącznie 3 razy.",
             "Flavor": "„Jeśli chcesz coś załatwić, wyślij najlepszego ze swoich poddanych. Jeśli chcesz coś załatwić dobrze, wyślij kobietę”."
         },
         "62011": {
@@ -4253,7 +4253,7 @@
         },
        "70196": {
            "Name": "Narada wojenna",
-           "Info": "Rozejm: Zamień 1 kartę i stwórz Nilfgaardzką Bramę. Dodaj Przygotowanie do bitwy do swojej ręki, następnie przeciwnik dobiera i odsłania brązową kartę.",
+           "Info": "Zamień 1 kartę i stwórz Nilfgaardzką Bramę. Rozejm: Dodaj Przygotowanie do bitwy do swojej ręki, następnie przeciwnik dobiera i odsłania brązową kartę.",
            "Flavor": ""
         },
         "70197": {

@@ -185,10 +185,10 @@ puts only Gate through `PlayersStay` and creates Battle Preparation in hand.
 Test it through production `RoundPlayCard`, including the deterministic
 Gate -> Ceallach -> Emissary -> Recruit -> Magne Division -> Ointment -> Recruit
 chain, then require both players' `PlayersStay` collections to be empty and the
-operation pipeline to be stopped. Do not replace this with a direct effect
-call. If a future design still leaves cards floating, the owner's current
+operation pipeline to be stopped. If a future design still leaves cards floating, the owner's current
 release policy permits publishing only when the exact residual path is
 prominently reported; never hide it by weakening the assertion.
+
 
 For a faction copy of an existing card, inherit the original effect class and
 assert metadata, art, linked cards, and production behavior remain identical;

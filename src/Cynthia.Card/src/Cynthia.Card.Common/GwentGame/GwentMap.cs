@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 182);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 183);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9689,8 +9689,8 @@ namespace Cynthia.Card
                 {
                     CardId ="62010",
                     Name="凯瑞丝：无所畏惧",
-                    Strength=6,
-                    Countdown =1,
+                    Strength=10,
+                    Countdown =3,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9700,7 +9700,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "复活己方下张丢弃的单位牌。",
+                    Info = "己方丢弃1张非金色单位牌时，对自身造成4点伤害，随后将其复活，一共可生效3次。",
                     CardArtsId = "20177800",
                     LinkedCards=new List<String> {},
                 }
@@ -12039,7 +12039,7 @@ namespace Cynthia.Card
                     CardId ="70062", //Living Armor
                     Name="活体盔甲",
                     Strength=11,
-                    Group = Group.Silver,
+                    Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -15468,7 +15468,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Tactic, Categorie.Special },
                     Flavor = "",
-                    Info = "休战：选择1张牌进行交换，并生成1张“尼弗迦德大门”。为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
+                    Info = "选择1张牌进行交换，并生成1张“尼弗迦德大门”。休战：为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
                     CardArtsId = "d19950000",
                     LinkedCards = new List<String> { CardId.NilfgaardianGate, CardId.BattlePreparation },
                 }

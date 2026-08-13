@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 182), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 183), GwentMap.CardMapVersion);
             Assert.Equal(722, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -162,10 +162,20 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("d19950000", warCouncil.CardArtsId);
             Assert.False(warCouncil.IsDerive);
             Assert.Equal(
-                "休战：选择1张牌进行交换，并生成1张“尼弗迦德大门”。为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
+                "选择1张牌进行交换，并生成1张“尼弗迦德大门”。休战：为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
                 warCouncil.Info);
             Assert.Contains(CardId.NilfgaardianGate, warCouncil.LinkedCards);
             Assert.Contains(CardId.BattlePreparation, warCouncil.LinkedCards);
+
+            var livingArmor = GwentMap.CardMap[CardId.LivingArmor];
+            Assert.Equal(Group.Gold, livingArmor.Group);
+
+            var cerysFearless = GwentMap.CardMap[CardId.CerysFearless];
+            Assert.Equal(10, cerysFearless.Strength);
+            Assert.Equal(3, cerysFearless.Countdown);
+            Assert.Equal(
+                "己方丢弃1张非金色单位牌时，对自身造成4点伤害，随后将其复活，一共可生效3次。",
+                cerysFearless.Info);
 
             Assert.Equal(7, GwentMap.CardMap[CardId.BowDryad].Strength);
             Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
