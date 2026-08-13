@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(42, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(41, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 180), GwentMap.CardMapVersion);
-            Assert.Equal(721, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 183), GwentMap.CardMapVersion);
+            Assert.Equal(722, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,7 +52,7 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197" },
                 GwentMap.CardMap.Keys.Skip(709));
         }
 
@@ -91,6 +91,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 "摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。",
                 GwentMap.CardMap[CardId.ArnjolfThePatricide].Info);
+            Assert.DoesNotContain(CardId.ArnjolfThePatricide, DiyAiCardPool.RetiredCardIds);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.ArnjolfThePatricide));
+            Assert.False(GwentMap.CardMap[CardId.ArnjolfThePatricide].IsDerive);
             Assert.Equal(
                 "每2回合结束时，复活此单位，并获得1点强化。",
                 GwentMap.CardMap["70038"].Info);
@@ -159,10 +162,20 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("d19950000", warCouncil.CardArtsId);
             Assert.False(warCouncil.IsDerive);
             Assert.Equal(
-                "休战：选择1张牌进行交换，并生成1张“尼弗迦德大门”。为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
+                "选择1张牌进行交换，并生成1张“尼弗迦德大门”。休战：为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
                 warCouncil.Info);
             Assert.Contains(CardId.NilfgaardianGate, warCouncil.LinkedCards);
             Assert.Contains(CardId.BattlePreparation, warCouncil.LinkedCards);
+
+            var livingArmor = GwentMap.CardMap[CardId.LivingArmor];
+            Assert.Equal(Group.Gold, livingArmor.Group);
+
+            var cerysFearless = GwentMap.CardMap[CardId.CerysFearless];
+            Assert.Equal(10, cerysFearless.Strength);
+            Assert.Equal(3, cerysFearless.Countdown);
+            Assert.Equal(
+                "己方丢弃1张非金色单位牌时，对自身造成4点伤害，随后将其复活，一共可生效3次。",
+                cerysFearless.Info);
 
             Assert.Equal(7, GwentMap.CardMap[CardId.BowDryad].Strength);
             Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
@@ -356,7 +369,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.DoesNotContain("向上取整", GwentMap.CardMap["70062"].Info);
             Assert.Contains("重复3次", GwentMap.CardMap["70119"].Info);
             Assert.Contains("额外获得3点增益", GwentMap.CardMap["70133"].Info);
-            Assert.Contains("每个回合开始时", GwentMap.CardMap["70172"].Info);
+            Assert.Contains("每回合开始时", GwentMap.CardMap["70172"].Info);
 
             var aguaraSource = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Neutral/Gold/Aguara.cs"));
@@ -821,9 +834,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 "每2回合结束时，造成等同于受伤量的伤害。",
                 GwentMap.CardMap["70025"].Info);
-            Assert.Contains("其他最弱的友军猎魔人", GwentMap.CardMap["70158"].Info);
+            Assert.Contains("其它最弱的友军猎魔人", GwentMap.CardMap["70158"].Info);
             Assert.Equal(
-                "免疫，生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。",
+                "生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。免疫。",
                 GwentMap.CardMap["70180"].Info);
 
             var chineseLocale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
@@ -1515,6 +1528,117 @@ namespace Cynthia.Card.Server.Tests
             {
                 Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
                 Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+        }
+
+        [Fact]
+        public void AugustEleventhThirdBatchMatchesMetadataLocalesAndChineseStyle()
+        {
+            var originalDraug = GwentMap.CardMap[CardId.Draug];
+            var northernDraug = GwentMap.CardMap[CardId.NorthernRealmsDraug];
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.NorthernRealmsDraug));
+            Assert.Equal("战灵：北方领域", northernDraug.Name);
+            Assert.Equal(Faction.NorthernRealms, northernDraug.Faction);
+            Assert.Equal(originalDraug.Strength, northernDraug.Strength);
+            Assert.Equal(originalDraug.Group, northernDraug.Group);
+            Assert.Equal(originalDraug.CardUseInfo, northernDraug.CardUseInfo);
+            Assert.Equal(originalDraug.CardType, northernDraug.CardType);
+            Assert.Equal(originalDraug.IsDoomed, northernDraug.IsDoomed);
+            Assert.Equal(originalDraug.IsCountdown, northernDraug.IsCountdown);
+            Assert.Equal(originalDraug.Categories, northernDraug.Categories);
+            Assert.Equal(originalDraug.Info, northernDraug.Info);
+            Assert.Equal(originalDraug.CardArtsId, northernDraug.CardArtsId);
+            Assert.Equal(originalDraug.LinkedCards, northernDraug.LinkedCards);
+
+            var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables";
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/13210100.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/13210100_slot.png")));
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(NorthernRealmsDraug), dataService.GetType(CardId.NorthernRealmsDraug));
+            Assert.Equal(typeof(Archgriffin), dataService.GetType(CardId.Archgriffin));
+
+            var archgriffin = GwentMap.CardMap[CardId.Archgriffin];
+            Assert.Equal(9, archgriffin.Strength);
+            Assert.Equal(
+                "移除所在排的灾厄。从对方墓场中将1张铜色单位牌移至己方墓场。",
+                archgriffin.Info);
+
+            var expectedMapInfo = new Dictionary<string, string>
+            {
+                [CardId.Operator] = "力竭。休战：选择己方手牌中的1张铜色单位牌，为双方手牌各添加1张其原始同名牌。",
+                ["22007"] = "吞噬1个战力不高于7点的单位，将其战力转化为自身增益。",
+                ["34005"] = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
+                [CardId.Saesenthessis] = "获得等同于友军和手牌中“矮人”单位数量的增益；造成等同于友军和手牌中“精灵”单位数量的伤害。",
+                [CardId.XavierMoran] = "使自身获得等同于最后打出的非同名“矮人”单位牌的初始战力的增益。",
+                [CardId.Malena] = "伏击：2回合后的回合开始时：翻开，在战力不超过5点的铜色/银色敌军单位中魅惑最强的一个。",
+                [CardId.WildBoarOfTheSea] = "回合结束时，使左侧单位获得1点强化，右侧单位受到1点伤害。5点护甲。",
+                [CardId.Donar] = "改变1个单位的锁定状态。从对方墓场中将1张铜色单位牌移至己方墓场。",
+                ["70077"] = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有1个被锁定的单位，减少1次回合计数。",
+                ["70086"] = "择一：从牌组中打出1张铜色/银色“法师”牌；生成1张铜色“法术”牌。",
+                ["70095"] = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
+                [CardId.CrowClanDruid] = "回合结束时，若同排没有“乌鸦”，则在右侧生成1只“乌鸦”。",
+                [CardId.Wisteria] = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
+                [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
+                [CardId.DeadeyeAmbush] = "选择1个友军单位，将其上移1排并使其获得5点增益；选择1个敌军单位，将其移至敌方近战排并对其造成5点伤害。",
+                [CardId.Albastra] = "生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。免疫。"
+            };
+            Assert.All(expectedMapInfo, pair => Assert.Equal(pair.Value, GwentMap.CardMap[pair.Key].Info));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(locales, locale => Assert.True(
+                    locale.CardLocales.ContainsKey(CardId.NorthernRealmsDraug)));
+                Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[CardId.NorthernRealmsDraug].Name,
+                        locale.CardLocales[CardId.NorthernRealmsDraug].Name);
+                    Assert.Equal(locales[0].CardLocales[CardId.NorthernRealmsDraug].Info,
+                        locale.CardLocales[CardId.NorthernRealmsDraug].Info);
+                });
+            });
+
+            var chineseLocales = localeRoots.Select(root =>
+                JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                    FindRepositoryFile($"{root}/cn.json")))).ToArray();
+            Assert.All(chineseLocales.Skip(1), locale => Assert.All(chineseLocales[0].CardLocales, pair =>
+                Assert.Equal(pair.Value.Info, locale.CardLocales[pair.Key].Info)));
+            Assert.All(chineseLocales, locale => Assert.All(locale.CardLocales.Values, card =>
+            {
+                if (string.IsNullOrEmpty(card.Info))
+                {
+                    return;
+                }
+                Assert.DoesNotContain("一张", card.Info);
+                Assert.DoesNotContain("其他", card.Info);
+                Assert.DoesNotContain(",", card.Info);
+                Assert.DoesNotContain(".", card.Info);
+                Assert.DoesNotContain("。 ", card.Info);
+                Assert.DoesNotContain("\n ", card.Info);
+                Assert.Matches("[。！？…]$", card.Info);
+            }));
+            Assert.All(GwentMap.CardMap.Values, card =>
+            {
+                if (string.IsNullOrEmpty(card.Info))
+                {
+                    return;
+                }
+                Assert.DoesNotContain("一张", card.Info);
+                Assert.DoesNotContain("其他", card.Info);
+                Assert.DoesNotContain(",", card.Info);
+                Assert.DoesNotContain(".", card.Info);
+                Assert.DoesNotContain("。 ", card.Info);
+                Assert.DoesNotContain("\n ", card.Info);
+                Assert.Matches("[。！？…]$", card.Info);
             });
         }
 

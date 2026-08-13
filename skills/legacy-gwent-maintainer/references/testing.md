@@ -198,3 +198,12 @@ then require both `PlayersStay` collections empty and the pipeline stopped.
 Never replace this with a direct effect call. If a future design still floats a
 card, release only under the owner's explicit exception and prominently report
 the exact residual path; never hide it by weakening the assertion.
+
+For a faction copy of an existing card, inherit the original effect class and
+assert metadata, art, linked cards, and production behavior remain identical;
+`70197` inherits Draug and reuses `13210100`. Great Griffin needs a headless
+test that clears its own row hazard and moves only the selected enemy Bronze
+unit from the enemy graveyard into the owner's graveyard. Global Chinese text
+normalization must be restricted to card `Info`: parse all three Chinese locale
+surfaces, require them to match, and reject `一张`, `其他`, ASCII punctuation,
+spaces after full stops, and missing terminal punctuation.

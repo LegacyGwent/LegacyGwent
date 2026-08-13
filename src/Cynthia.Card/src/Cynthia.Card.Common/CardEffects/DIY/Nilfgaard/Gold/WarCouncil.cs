@@ -11,8 +11,6 @@ namespace Cynthia.Card
 
         public override async Task<int> CardUseEffect()
         {
-            if (Game.IsPlayersPass[AnotherPlayer]) return 0;
-
             var handCards = Game.PlayersHandCard[PlayerIndex].ToList();
             var deckCards = Game.PlayersDeck[PlayerIndex].ToList();
             if (handCards.Any() && deckCards.Any() &&
@@ -23,6 +21,9 @@ namespace Cynthia.Card
             }
 
             var playCount = await Card.CreateAndMoveStay(CardId.NilfgaardianGate);
+
+            if (Game.IsPlayersPass[AnotherPlayer]) return playCount;
+
             await Game.CreateCard(
                 CardId.BattlePreparation,
                 PlayerIndex,

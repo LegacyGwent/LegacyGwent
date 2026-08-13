@@ -10,7 +10,7 @@ namespace Cynthia.Card
         //更新CardMap内容请务必将CardMapVersion更新
         public static Version CardMapVersion { get; } = DevelopmentRuleCardFixtures.Enabled
             ? new Version(1, 0, 99, 1)
-            : new Version(1, 0, 0, 180);
+            : new Version(1, 0, 0, 183);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -350,7 +350,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "他还自称“三寒鸦”博尔奇……他不太会取名字。",
-                    Info = "3回合后的回合开始时：摧毁场上除自身外所有最强的单位。 3点护甲。",
+                    Info = "3回合后的回合开始时：摧毁场上除自身外所有最强的单位。3点护甲。",
                     CardArtsId = "11210700",
                     LinkedCards=new List<String> {},
                 }
@@ -478,7 +478,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Temeria},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "长官……我们的箭，它们……它们长出翅膀了！",
-                    Info = "回合结束时，使其他最弱的友军单位获得1点增益。",
+                    Info = "回合结束时，使其它最弱的友军单位获得1点增益。",
                     CardArtsId = "12210700",
                     LinkedCards=new List<String> {},
                 }
@@ -565,7 +565,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "“真是难以置信，”希里回过神来想道，“在这个世界，独角兽已经不存在了。它们早就灭绝了。”",
-                    Info = "对自身造成5点伤害。 当前战力等同于基础战力时，在回合结束时对3个敌方随机单位造成7点伤害。",
+                    Info = "对自身造成5点伤害。当前战力等同于基础战力时，在回合结束时对3个敌方随机单位造成7点伤害。",
                     CardArtsId = "20005100",
                     LinkedCards=new List<String> {},
                 }
@@ -586,7 +586,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra,Categorie.Witcher},
                     Flavor = "去往何处，何时动身，我自己说了算。",
-                    Info = "己方输掉小局时返回手牌。 2点护甲。",
+                    Info = "己方输掉小局时返回手牌。2点护甲。",
                     CardArtsId = "11210100",
                     LinkedCards=new List<String> {},
                 }
@@ -607,7 +607,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "他会一字不差地实现你的愿望，但往往问题就在于此。",
-                    Info = "发牌员随机创造一张单位牌，你猜测其战力是大于、等于或小于6。如果你猜对了打出该牌。",
+                    Info = "发牌员随机创造1张单位牌，你猜测其战力是大于、等于或小于6。如果你猜对了打出该牌。",
                     CardArtsId = "13221500",
                     LinkedCards=new List<String> {},
                 }
@@ -927,7 +927,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Hazard},
                     Flavor = "维可瓦罗学者认定，缺少了帝国的援助，饱受干旱困扰的行省会失去一半的人口，三分之二的牲畜，以及全部的反叛意志。",
-                    Info = "灾厄降于对方全场。 回合开始时，对各排最弱的单位造成2点伤害。",
+                    Info = "灾厄降于对方全场。回合开始时，对各排最弱的单位造成2点伤害。",
                     CardArtsId = "20001800",
                     LinkedCards=new List<String> {},
                 }
@@ -1307,7 +1307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。",
-                    Info = "力竭。 4回合后的回合开始时：对所有敌军单位造成1点伤害，随后返回手牌。",
+                    Info = "力竭。4回合后的回合开始时：对所有敌军单位造成1点伤害，随后返回手牌。",
                     CardArtsId = "11220600",
                     LinkedCards=new List<String> {},
                 }
@@ -1454,7 +1454,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。",
-                    Info = "力竭。 休战：为双方各添加1张己方手牌1张铜色单位牌的原始同名牌。",
+                    Info = "力竭。休战：选择己方手牌中的1张铜色单位牌，为双方手牌各添加1张其原始同名牌。",
                     CardArtsId = "11220800",
                     LinkedCards=new List<String> {},
                 }
@@ -1539,7 +1539,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "我的回忆所剩无几……但每次想到我的玫瑰，记忆便会涌现。",
-                    Info = "间谍。 遗愿：使对面半场5个随机单位获得5点增益。",
+                    Info = "间谍。遗愿：使对面半场5个随机单位获得5点增益。",
                     CardArtsId = "11221500",
                     LinkedCards=new List<String> {},
                 }
@@ -2044,7 +2044,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Alchemy,Categorie.Special,Categorie.Item},
                     Flavor = "在瑟瑞卡尼亚，龙神崇拜体现在日常生活的各个方面。因此也难怪他们会以此为武器命名了。",
-                    Info = "在对方单排降下灾厄，当任一玩家打出一张非同名“特殊”牌时，对该排上所有单位造成4点伤害。",
+                    Info = "在对方单排降下灾厄，当任一玩家打出1张非同名“特殊”牌时，对该排上所有单位造成4点伤害。",
                     CardArtsId = "20154800",
                     LinkedCards=new List<String> {},
                 }
@@ -2170,7 +2170,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Organic},
                     Flavor = "起初我们碰上了一头熊……悲剧就从那时开始了。",
-                    Info = "摧毁1个友军单位。 生成1头“熊”。",
+                    Info = "摧毁1个友军单位。生成1头“熊”。",
                     CardArtsId = "15240600",
                     LinkedCards=new List<String> {"15010"},
                 }
@@ -2443,7 +2443,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Hazard},
                     Flavor = "这儿连雨都带股尿骚味。",
-                    Info = "在对方单排降下灾厄。回合开始时，对所在排的最强单位造成1点伤害，随后对最弱单位造成1点伤害",
+                    Info = "在对方单排降下灾厄。回合开始时，对所在排的最强单位造成1点伤害，随后对最弱单位造成1点伤害。",
                     CardArtsId = "11331200",
                     LinkedCards=new List<String> {},
                 }
@@ -2653,7 +2653,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Ogroid,Categorie.Token},
                     Flavor = "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？",
-                    Info = "派“店店”去帝国宫廷军事学院。 强化自身至25点；坚韧；与1个敌军单位对决；重置1个单位；摧毁所有战力低于4点的敌军单位。",
+                    Info = "派“店店”去帝国宫廷军事学院。强化自身至25点；坚韧；与1个敌军单位对决；重置1个单位；摧毁所有战力低于4点的敌军单位。",
                     CardArtsId = "20173700",
                     LinkedCards=new List<String> {},
                 }
@@ -2674,7 +2674,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Ogroid,Categorie.Token},
                     Flavor = "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？",
-                    Info = "派“店店”去多尔·布雷坦纳的森林。 造成15点伤害；对一个敌军随机单位造成2点伤害，连续8次；重新打出1个铜色/银色单位，并使它获得5点增益；从牌组打出1张铜色/银色单位牌；移除己方半场的所有“灾厄”效果，并使友军单位获得1点增益。",
+                    Info = "派“店店”去多尔·布雷坦纳的森林。造成15点伤害；对一个敌军随机单位造成2点伤害，连续8次；重新打出1个铜色/银色单位，并使它获得5点增益；从牌组打出1张铜色/银色单位牌；移除己方半场的所有“灾厄”效果，并使友军单位获得1点增益。",
                     CardArtsId = "20173100",
                     LinkedCards=new List<String> {},
                 }
@@ -2695,7 +2695,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Ogroid,Categorie.Token},
                     Flavor = "其他巨魔都觉得他是个异类，毕竟在巨魔们看来，谁会喜欢彩色纸片胜过喜欢石头呢？",
-                    Info = "派“店店”去班·阿德学院，见见那里的小伙子们。 抽1张牌；随机魅惑1个敌军单位；在对方三排随机生成一种灾厄 ；对1个敌军造成10点伤害，再对其相邻单位造成5点；从牌组打出1张铜色/银色“特殊”牌。",
+                    Info = "派“店店”去班·阿德学院，见见那里的小伙子们。抽1张牌；随机魅惑1个敌军单位；在对方三排随机生成一种灾厄 ；对1个敌军造成10点伤害，再对其相邻单位造成5点；从牌组打出1张铜色/银色“特殊”牌。",
                     CardArtsId = "20172500",
                     LinkedCards=new List<String> {},
                 }
@@ -2716,7 +2716,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Token},
                     Flavor = "“天呐，那根本不是独角兽！那是……”——著名奇珍收藏家崴尔玛的遗言。",
-                    Info = "对所有其他单位造成2点伤害。",
+                    Info = "对所有其它单位造成2点伤害。",
                     CardArtsId = "11240200",
                     LinkedCards=new List<String> {},
                 }
@@ -2800,7 +2800,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Token},
                     Flavor = "都说独角兽喜欢幼莲。但如今，幼莲跟独角兽一样稀缺，这理论也就难以证明了。",
-                    Info = "使所有其他单位获得2点增益。",
+                    Info = "使所有其它单位获得2点增益。",
                     CardArtsId = "11240100",
                     LinkedCards=new List<String> {},
                 }
@@ -2968,7 +2968,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Insectoid},
                     Flavor = "她的孩子们完美继承了她的美貌。",
-                    Info = "吞噬3个友军单位，获得其战力作为增益。 免疫。",
+                    Info = "吞噬3个友军单位，获得其战力作为增益。免疫。",
                     CardArtsId = "20174300",
                     LinkedCards=new List<String> {},
                 }
@@ -3178,7 +3178,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。",
-                    Info = "吞噬1个战力不高于7点的单位，将其战力传化为自身增益。",
+                    Info = "吞噬1个战力不高于7点的单位，将其战力转化为自身增益。",
                     CardArtsId = "13210700",
                     LinkedCards=new List<String> {},
                 }
@@ -3221,7 +3221,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Officer},
                     Flavor = "老巫妪说过你会来。她们在水面上预见了你的到来。",
-                    Info = "2点护甲。 回合结束时，与最强的敌军单位对决。若存活，则回复2点战力并获得2点护甲。一共可生效3次。",
+                    Info = "2点护甲。回合结束时，与最强的敌军单位对决。若存活，则回复2点战力并获得2点护甲。一共可生效3次。",
                     CardArtsId = "20178100",
                     LinkedCards=new List<String> {},
                 }
@@ -3348,7 +3348,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Construct,Categorie.Agent},
                     Flavor = "“我到底做了什么？”法师被自己的创造物吓得大叫起来。",
-                    Info = "间谍、力竭。 将1个敌军单位移至自身所在排，然后抽1张牌。",
+                    Info = "间谍、力竭。将1个敌军单位移至自身所在排，然后抽1张牌。",
                     CardArtsId = "13220400",
                     LinkedCards=new List<String> {},
                 }
@@ -3390,7 +3390,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "据说哥亚特曾经是一位闻名遐迩的骑士。只可惜，有一天他触怒了湖中仙女，被变成了一头怪物。",
-                    Info = "获得7点增益。 每次被伤害时，额外承受2点伤害。",
+                    Info = "获得7点增益。每次被伤害时，额外承受2点伤害。",
                     CardArtsId = "20005200",
                     LinkedCards=new List<String> {},
                 }
@@ -3863,7 +3863,7 @@ namespace Cynthia.Card
                 {
                     CardId ="24004",
                     Name="大狮鹫",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -3873,7 +3873,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "大狮鹫也是狮鹫，只是更加凶悍。",
-                    Info = "移除所在排的灾厄。",
+                    Info = "移除所在排的灾厄。从对方墓场中将1张铜色单位牌移至己方墓场。",
                     CardArtsId = "13230700",
                     LinkedCards=new List<String> {},
                 }
@@ -4000,7 +4000,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "看起来像螃蟹和蜘蛛的杂交……只是体型硕大无比。",
-                    Info = "每当友军单位吞噬1个单位，便在随机排生成1只“蟹蜘蛛幼虫”。 一共可生效4次。",
+                    Info = "每当友军单位吞噬1个单位，便在随机排生成1只“蟹蜘蛛幼虫”。一共可生效4次。",
                     CardArtsId = "13220100",
                     LinkedCards=new List<String> {"25002"},
                 }
@@ -4065,7 +4065,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Cursed},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "根据民间传说，它们会在亡者鲜血的浇灌下破土而出。因此在拥有黑暗过往的地方，它们长得特别茂盛。",
-                    Info = "回合开始时移至随机排，对1个随机敌军单位造成1点伤害。 遗愿：对1个敌军随机单位造成4点伤害。",
+                    Info = "回合开始时移至随机排，对1个随机敌军单位造成1点伤害。遗愿：对1个敌军随机单位造成4点伤害。",
                     CardArtsId = "20003800",
                     LinkedCards=new List<String> {},
                 }
@@ -4107,7 +4107,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt,Categorie.Machine},
                     Flavor = "鬼船纳吉尔法的船头劈开波浪，将海水破成两道。号角响彻天际，汉姆多尔站在燃烧的彩虹之上，迎接敌人的来犯。白霜降临，狂风和暴雨近在咫尺……",
-                    Info = "使所有友军“狂猎”单位获得1点增益。 后续出现的其他友军“狂猎”单位也将获得1点增益。",
+                    Info = "使所有友军“狂猎”单位获得1点增益。后续出现的其它友军“狂猎”单位也将获得1点增益。",
                     CardArtsId = "20030100",
                     LinkedCards=new List<String> {},
                 }
@@ -4150,7 +4150,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast,Categorie.Cursed},
                     Flavor = "有人说，如果被狼人咬了，那么你就会被感染，也变成狼人。当然，猎魔人都知道这是胡说八道。只有强大的诅咒才能造成这种效果。",
-                    Info = "接触“满月”后获得7点增益。 免疫。",
+                    Info = "接触“满月”后获得7点增益。免疫。",
                     CardArtsId = "20009900",
                     LinkedCards=new List<String> {"25009"},
                 }
@@ -4257,7 +4257,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Draconid},
                     Flavor = "他们静静地骑在马上，看起来很放松，但全副武装：宽头短矛、剑柄独特的剑、战斧以及锯齿长斧。",
-                    Info = "吞噬右侧单位，获得其战力作为增益。 每2回合开始时，重复此能力。",
+                    Info = "吞噬右侧单位，获得其战力作为增益。每2回合开始时，重复此能力。",
                     CardArtsId = "13230800",
                     LinkedCards=new List<String> {},
                 }
@@ -4320,7 +4320,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。",
-                    Info = "坚韧。 吞噬1个友军单位，获得其战力作为增益。",
+                    Info = "坚韧。吞噬1个友军单位，获得其战力作为增益。",
                     CardArtsId = "20170100",
                     LinkedCards=new List<String> {},
                 }
@@ -4447,7 +4447,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "如果忽略它们会攻击人类的残酷事实，这些小家伙其实挺可爱的。",
-                    Info = "若位于手牌、牌组或己方半场：友军单位发动吞噬时获得1点增益。 遗愿：召唤1张同名牌。",
+                    Info = "若位于手牌、牌组或己方半场：友军单位发动吞噬时获得1点增益。遗愿：召唤1张同名牌。",
                     CardArtsId = "13230500",
                     LinkedCards=new List<String> {},
                 }
@@ -4679,7 +4679,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Token},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "鹰身女妖蛋卷，真是美味佳肴啊，好先生。但它也非常昂贵，您可能料得到，这些可怜的鸟儿并不愿跟自己的蛋分离。",
-                    Info = "使吞噬自身的单位获得额外4点增益。 遗愿：在随机排生成1只“鹰身女妖幼崽”。",
+                    Info = "使吞噬自身的单位获得额外4点增益。遗愿：在随机排生成1只“鹰身女妖幼崽”。",
                     CardArtsId = "13231600",
                     LinkedCards=new List<String> {"25005"},
                 }
@@ -4910,7 +4910,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "精心策划的暗算能解决所有麻烦。",
-                    Info = "揭示最多2张己方手牌，再随机揭示相同数量的对方卡牌",
+                    Info = "揭示最多2张己方手牌，再随机揭示相同数量的对方卡牌。",
                     CardArtsId = "16210300",
                     LinkedCards=new List<String> {},
                 }
@@ -4952,7 +4952,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "蒂博尔以狂热的忠诚而闻名。据说皇帝驾崩时，他深深地鞠躬致敬，几乎可以说贴在了地上。",
-                    Info = "休战：获得15点增益，随后对方抽1张铜色牌并揭示它",
+                    Info = "休战：获得15点增益，随后对方抽1张铜色牌并揭示它。",
                     CardArtsId = "16210700",
                     LinkedCards=new List<String> {},
                 }
@@ -4994,7 +4994,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "所谓外交官，就是用华丽的辞藻，来透露一些只言片语。",
-                    Info = "休战：若双方牌组都有牌，从双方牌组各抽1张牌。保留1张，将另一张给予对方。",
+                    Info = "休战：若双方牌组都有牌，从双方牌组各抽1张牌。保留1张，将另1张给予对方。",
                     CardArtsId = "20007100",
                     LinkedCards=new List<String> {},
                 }
@@ -5122,7 +5122,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Aedirn},
                     HideTags = new HideTag[]{HideTag.Yennefer},
                     Flavor = "身体已经开始腐烂……但声带依然完好。说不定我们还能让他开口说话……",
-                    Info = "从对方墓场中复活1张铜色/银色“士兵”牌",
+                    Info = "从对方墓场中复活1张铜色/银色“士兵”牌。",
                     CardArtsId = "20178000",
                     LinkedCards=new List<String> {},
                 }
@@ -5418,7 +5418,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "这是我们必须做的，我并不为此感到羞愧。",
-                    Info = "对1个敌军单位造成7点伤害，或将对方1张被揭示的单位牌战力降为1点",
+                    Info = "对1个敌军单位造成7点伤害，或将对方1张被揭示的单位牌战力降为1点。",
                     CardArtsId = "16220900",
                     LinkedCards=new List<String> {},
                 }
@@ -6007,7 +6007,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "皇帝最忠诚的贴身护卫，誓死保卫皇帝的安全。",
-                    Info = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点单位。",
+                    Info = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
                     CardArtsId = "16230800",
                     LinkedCards=new List<String> {},
                 }
@@ -6196,7 +6196,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "自由人可以选择。奴隶只能由别人替他们决定。",
-                    Info = "在己方其他排生成1张佚亡原始同名牌。",
+                    Info = "在己方其它排生成1张佚亡原始同名牌。",
                     CardArtsId = "20136500",
                     LinkedCards=new List<String> {},
                 }
@@ -6407,7 +6407,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Token},
                     Flavor = "那是只鸟？还是头狮鹫？不对！那是……",
-                    Info = "间谍。2回合后，己方回合结束时，摧毁同排所有其他最弱的单位，并放逐自身。",
+                    Info = "间谍。2回合后，己方回合结束时，摧毁同排所有其它最弱的单位，并放逐自身。",
                     CardArtsId = "16240200",
                     LinkedCards=new List<String> {},
                 }
@@ -6429,7 +6429,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Redania},
                     CrewCount = 1,
                     Flavor = "身为国王，对待敌人应冷酷无情，对待朋友当慷慨大度。",
-                    Info = "改变2个单位的锁定状态。若为敌军单位，则对其造成4点伤害。 操控。",
+                    Info = "改变2个单位的锁定状态。若为敌军单位，则对其造成4点伤害。操控。",
                     CardArtsId = "12110200",
                     LinkedCards=new List<String> {},
                 }
@@ -6472,7 +6472,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Temeria},
                     CrewCount = 1,
                     Flavor = "我不需要谋臣和他们的诡计，我相信士兵的利刃。",
-                    Info = "使己方半场其他单位，以及手牌和牌组中的非间谍单位获得1点增益。 操控。",
+                    Info = "使己方半场其它单位，以及手牌和牌组中的非间谍单位获得1点增益。操控。",
                     CardArtsId = "12110100",
                     LinkedCards=new List<String> {},
                 }
@@ -6494,7 +6494,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Kaedwen},
                     CrewCount = 1,
                     Flavor = "恕我直言，亨赛特国王不是看起来像贼，他本就是贼。",
-                    Info = "选择1个友军铜色“机械”或“科德温”单位，从牌组打出所有它的同名牌。 操控。",
+                    Info = "选择1个友军铜色“机械”或“科德温”单位，从牌组打出所有它的同名牌。操控。",
                     CardArtsId = "12110300",
                     LinkedCards=new List<String> {},
                 }
@@ -6557,7 +6557,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Aedirn,Categorie.Officer},
                     Flavor = "尽管赛尔奇克美德过人，更是有着不屈的勇气，然而他还是和所有命丧上亚甸之战的将士一样，没能逃过自己的命运。",
-                    Info = "与1个敌军单位对决。 3点护甲。",
+                    Info = "与1个敌军单位对决。3点护甲。",
                     CardArtsId = "20161800",
                     LinkedCards=new List<String> {},
                 }
@@ -6662,7 +6662,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "你真以为这种下三滥的谎话能糊弄我？",
-                    Info = "间谍。 从牌组随机打出2张牌。",
+                    Info = "间谍。从牌组随机打出2张牌。",
                     CardArtsId = "12210500",
                     LinkedCards=new List<String> {},
                 }
@@ -6746,7 +6746,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "一位爱国者……也是个令人头疼的家伙。",
-                    Info = "对1个敌军单位造成7点伤害。 对局开始时，将1个“蓝衣铁卫突击队”加入牌组。",
+                    Info = "对1个敌军单位造成7点伤害。对局开始时，将1个“蓝衣铁卫突击队”加入牌组。",
                     CardArtsId = "12210200",
                     LinkedCards=new List<String> {},
                 }
@@ -6788,7 +6788,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Agent},
                     Flavor = "滚开！我们中间不是每个人都那么轻浮、那么浅薄……",
-                    Info = "间谍、力竭。 抽2张牌，保留1张，放回另1张。",
+                    Info = "间谍、力竭。抽2张牌，保留1张，放回另1张。",
                     CardArtsId = "12220300",
                     LinkedCards=new List<String> {},
                 }
@@ -6852,7 +6852,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Kaedwen},
                     CrewCount = 1,
                     Flavor = "这位自封的骑士四海漂泊，捍卫着心爱少女比贝莉的荣誉。虽然没人知道她住在哪里，她是不是哈活着，甚至是不是曾经有过这个人。",
-                    Info = "回合结束时，复活至随机排，基础战力设为1点。 操控。",
+                    Info = "回合结束时，复活至随机排，基础战力设为1点。操控。",
                     CardArtsId = "20046500",
                     LinkedCards=new List<String> {},
                 }
@@ -6915,7 +6915,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "正如弗尔泰斯特国王常说的那样，尺寸并不重要，关键要好用。",
-                    Info = "对1个敌军单位造成2点伤害，并将其上移一排。 驱动：再次触发此能力。",
+                    Info = "对1个敌军单位造成2点伤害，并将其上移一排。驱动：再次触发此能力。",
                     CardArtsId = "20149400",
                     LinkedCards=new List<String> {},
                 }
@@ -7104,7 +7104,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Officer},
                     Flavor = "他穿着黄金铠甲——没错，混账一个。",
-                    Info = "从牌组随机打出1张铜色/银色非间谍单位牌，使其获得5点护甲。 3点护甲。",
+                    Info = "从牌组随机打出1张铜色/银色非间谍单位牌，使其获得5点护甲。3点护甲。",
                     CardArtsId = "12220800",
                     LinkedCards=new List<String> {},
                 }
@@ -7126,7 +7126,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Kaedwen},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "科德温荒野之女。",
-                    Info = "间谍。 遗愿：将该排最弱单位的战力应用于全排单位。",
+                    Info = "间谍。遗愿：将该排最弱单位的战力应用于全排单位。",
                     CardArtsId = "12220600",
                     LinkedCards=new List<String> {},
                 }
@@ -7252,7 +7252,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Kaedwen},
                     Flavor = "我一直拿艾瑞图萨学院的女生和班·阿德的愣头小子们作对比。结果总是姑娘们胜出。",
-                    Info = "用1张手牌交换牌组中的一张铜色“特殊”牌。",
+                    Info = "用1张手牌交换牌组中的1张铜色“特殊”牌。",
                     CardArtsId = "20004800",
                     LinkedCards=new List<String> {},
                 }
@@ -7274,7 +7274,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Kaedwen,Categorie.Officer},
                     CrewCount = 1,
                     Flavor = "冲锋，没用的蠢货！冲锋，不然你就会知道，我比尼弗迦德人更可怕！",
-                    Info = "移除所在排的灾厄。 3点护甲。 操控。",
+                    Info = "移除所在排的灾厄。3点护甲。操控。",
                     CardArtsId = "12221400",
                     LinkedCards=new List<String> {},
                 }
@@ -7337,7 +7337,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Soldier},
                     Flavor = "为了瑞达尼亚，不论上刀山下油锅，还是吃虫子，我都在所不惜。",
-                    Info = "每当护甲归0，获得5点增益。 4点护甲。",
+                    Info = "每当护甲归0，获得5点增益。4点护甲。",
                     CardArtsId = "12231700",
                     LinkedCards=new List<String> {},
                 }
@@ -7358,7 +7358,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "攻城用的最新武器。",
-                    Info = "获得2点增益。 驱动：再次触发此能力。",
+                    Info = "获得2点增益。驱动：再次触发此能力。",
                     CardArtsId = "12230400",
                     LinkedCards=new List<String> {},
                 }
@@ -7400,7 +7400,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Kaedwen},
                     Flavor = "科德温军队里并非所有人都认同国王的政治手段。然而谁都不敢说出来。",
-                    Info = "若从牌组打出，则获得5点增益。 2点护甲。",
+                    Info = "若从牌组打出，则获得5点增益。2点护甲。",
                     CardArtsId = "20003400",
                     LinkedCards=new List<String> {},
                 }
@@ -7421,7 +7421,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Aedirn},
                     Flavor = "深陷无尽的战斗，却早已忘记了起因。",
-                    Info = "将1个友军“诅咒生物”单位变为自身的原始同名牌。 2点护甲。",
+                    Info = "将1个友军“诅咒生物”单位变为自身的原始同名牌。2点护甲。",
                     CardArtsId = "20162500",
                     LinkedCards=new List<String> {},
                 }
@@ -7443,7 +7443,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Kaedwen,Categorie.Support},
                     CrewCount = 1,
                     Flavor = "“你得把准星左校5度。”“把什么调多少？”",
-                    Info = "使后续出现的友军单位获得1点增益，“机械”单位额外获得1点护甲。 操控。",
+                    Info = "使后续出现的友军单位获得1点增益，“机械”单位额外获得1点护甲。操控。",
                     CardArtsId = "12230900",
                     LinkedCards=new List<String> {},
                 }
@@ -7485,7 +7485,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Soldier},
                     Flavor = "不为名不为利，高尚的动机才能成就英雄！",
-                    Info = "回合结束时，若受护甲保护，则使相邻单位获得1点增益。 2点护甲。",
+                    Info = "回合结束时，若受护甲保护，则使相邻单位获得1点增益。2点护甲。",
                     CardArtsId = "12330100",
                     LinkedCards=new List<String> {},
                 }
@@ -7506,7 +7506,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "从没两次命中同一处，仔细想想，真是个大问题。",
-                    Info = "对1个敌军单位造成2点伤害。 驱动：再次触发此能力。",
+                    Info = "对1个敌军单位造成2点伤害。驱动：再次触发此能力。",
                     CardArtsId = "12230200",
                     LinkedCards=new List<String> {},
                 }
@@ -7527,7 +7527,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "城堡可是块硬骨头。快去准备投石机！",
-                    Info = "对3个相邻敌军单位造成1点伤害。 驱动：伤害增加1点。",
+                    Info = "对3个相邻敌军单位造成1点伤害。驱动：伤害增加1点。",
                     CardArtsId = "12230300",
                     LinkedCards=new List<String> {},
                 }
@@ -7569,7 +7569,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "成为弩炮是所有十字弩的终极梦想。",
-                    Info = "对1个敌军单位和最多4个与它战力相同的其他敌军单位造成1点伤害。 驱动：再次触发此能力。",
+                    Info = "对1个敌军单位和最多4个与它战力相同的其它敌军单位造成1点伤害。驱动：再次触发此能力。",
                     CardArtsId = "12230100",
                     LinkedCards=new List<String> {},
                 }
@@ -7590,7 +7590,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "不肯开门是吧？那我们就再加把劲敲一敲啰。",
-                    Info = "对1个敌军单位造成3点伤害。若摧毁目标，则对另一个敌军单位造成3点伤害。 驱动：初始伤害提高1点。",
+                    Info = "对1个敌军单位造成3点伤害。若摧毁目标，则对另一个敌军单位造成3点伤害。驱动：初始伤害提高1点。",
                     CardArtsId = "20004900",
                     LinkedCards=new List<String> {},
                 }
@@ -7612,7 +7612,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Kaedwen,Categorie.Support},
                     CrewCount = 1,
                     Flavor = "我绝不会失手两次。",
-                    Info = "治愈一个铜色/银色友军“机械”单位，并再次触发其能力。 操控。",
+                    Info = "治愈一个铜色/银色友军“机械”单位，并再次触发其能力。操控。",
                     CardArtsId = "12231800",
                     LinkedCards=new List<String> {},
                 }
@@ -7654,7 +7654,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Soldier},
                     Flavor = "看见这纹身没？纹的是我在痛扁一条龙。一条龙哟，女士。",
-                    Info = "使手牌、牌组或己方半场所有同名牌获得1点增益。 每有1张同名牌打出，便再次触发此能力。",
+                    Info = "使手牌、牌组或己方半场所有同名牌获得1点增益。每有1张同名牌打出，便再次触发此能力。",
                     CardArtsId = "12230610",
                     LinkedCards=new List<String> {},
                 }
@@ -7718,7 +7718,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Kaedwen},
                     Flavor = "万劫不复的士兵日复一日地过着同一天，就好像奇安凡尼银行的职员一样。",
-                    Info = "己方打出下一张“法术”或“道具”牌时，在所在排生成1张自身的佚亡原始同名牌。 1点护甲。",
+                    Info = "己方打出下1张“法术”或“道具”牌时，在所在排生成1张自身的佚亡原始同名牌。1点护甲。",
                     CardArtsId = "20162400",
                     LinkedCards=new List<String> {},
                 }
@@ -7803,7 +7803,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
                     CrewCount = 1,
                     Flavor = "蓝衣铁卫与松鼠党有个共通点——满心仇恨。",
-                    Info = "使己方半场其他“泰莫利亚”单位，以及手牌和牌组所有战力与自身相同的非间谍“泰莫利亚”单位获得1点增益。 操控。",
+                    Info = "使己方半场其它“泰莫利亚”单位，以及手牌和牌组所有战力与自身相同的非间谍“泰莫利亚”单位获得1点增益。操控。",
                     CardArtsId = "12231000",
                     LinkedCards=new List<String> {},
                 }
@@ -8118,7 +8118,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Aedirn,Categorie.Draconid},
                     Flavor = "我继承了父亲的变身能力……好吧，尽管我只有一种变化形态。",
-                    Info = "增益自身等同于友军和手牌中“矮人”单位数量；造成等同于友军和手牌中“精灵”单位数量的伤害。",
+                    Info = "获得等同于友军和手牌中“矮人”单位数量的增益；造成等同于友军和手牌中“精灵”单位数量的伤害。",
                     CardArtsId = "14210100",
                     LinkedCards=new List<String> {},
                 }
@@ -8139,7 +8139,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "怎么了，公主？吃不惯野味吗？嗯？",
-                    Info = "增益自身等同于最后打出的非同名“矮人”单位牌的初始战力。",
+                    Info = "使自身获得等同于最后打出的非同名“矮人”单位牌的初始战力的增益。",
                     CardArtsId = "20008000",
                     LinkedCards=new List<String> {},
                 }
@@ -8372,7 +8372,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Agent},
                     Flavor = "我们是汇成风暴的雨滴。",
-                    Info = "间谍、力竭。 抽1张“特殊”牌和单位牌。保留1张，放回另一张。",
+                    Info = "间谍、力竭。抽1张“特殊”牌和单位牌。保留1张，放回另1张。",
                     CardArtsId = "14220300",
                     LinkedCards=new List<String> {},
                 }
@@ -8499,7 +8499,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Dwarf},
                     Flavor = "听说过巨龙奥克维斯塔吗？石英山那只？亚尔潘·齐格林与他的矮人同伴们把它解决了。",
-                    Info = "坚韧。 每打出1个友军“矮人”单位，便获得1点增益。",
+                    Info = "坚韧。每打出1个友军“矮人”单位，便获得1点增益。",
                     CardArtsId = "14221300",
                     LinkedCards=new List<String> {},
                 }
@@ -8521,7 +8521,7 @@ namespace Cynthia.Card
                     IsConcealCard = true,
                     Categories = new Categorie[]{ Categorie.Elf, Categorie.Ambush },
                     Flavor = "我恨你们，人类。你们全都一个样。",
-                    Info = "伏击：2回合后的回合开始时：翻开，在战力不超过5点的铜色/银色敌军单位中魅惑其中最强的一个。",
+                    Info = "伏击：2回合后的回合开始时：翻开，在战力不超过5点的铜色/银色敌军单位中魅惑最强的一个。",
                     CardArtsId = "14221000",
                     LinkedCards=new List<String> {},
                 }
@@ -8839,7 +8839,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Elf},
                     Flavor = "他们说精灵踏雪无痕。不过要我说，“他们”不过是一帮住在乡下的白痴，就知道胡说八道。",
-                    Info = "交换一张牌。",
+                    Info = "交换1张牌。",
                     CardArtsId = "20143800",
                     LinkedCards=new List<String> {},
                 }
@@ -8986,7 +8986,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Elf},
                     Flavor = "也许你能躲过他们，但要被发现了，就别浪费时间逃跑了。",
-                    Info = "对1个敌军单位造成2点伤害。 每当有敌军单位改变所在排别，便对其造成2点伤害。 自身移动时对1个敌军随机单位造成2点伤害。",
+                    Info = "对1个敌军单位造成2点伤害。每当有敌军单位改变所在排别，便对其造成2点伤害。自身移动时对1个敌军随机单位造成2点伤害。",
                     CardArtsId = "14231400",
                     LinkedCards=new List<String> {},
                 }
@@ -9070,7 +9070,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Elf},
                     Flavor = "管他泰莫利亚人还是瑞达尼亚人，杀无赦。",
-                    Info = "使所有“精灵”友军获得1点增益。 每次被交换时，再次触发此能力。",
+                    Info = "使所有“精灵”友军获得1点增益。每次被交换时，再次触发此能力。",
                     CardArtsId = "14230900",
                     LinkedCards=new List<String> {},
                 }
@@ -9322,7 +9322,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Elf},
                     Flavor = "听到他们奔袭的动静时，想跑已来不及了……",
-                    Info = "召唤所有同名牌。 自身移动时获得2点增益。",
+                    Info = "召唤所有同名牌。自身移动时获得2点增益。",
                     CardArtsId = "14231600",
                     LinkedCards=new List<String> {},
                 }
@@ -9596,7 +9596,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite},
                     Flavor = "只消对尼弗迦德人提起这个名字，他们就会吓得尿裤子……",
-                    Info = "回合结束时，使左侧单位获得1点强化，右侧单位收到1点伤害。5点护甲。",
+                    Info = "回合结束时，使左侧单位获得1点强化，右侧单位受到1点伤害。5点护甲。",
                     CardArtsId = "15210900",
                     LinkedCards=new List<String> {},
                 }
@@ -9692,8 +9692,8 @@ namespace Cynthia.Card
                 {
                     CardId ="62010",
                     Name="凯瑞丝：无所畏惧",
-                    Strength=6,
-                    Countdown =1,
+                    Strength=10,
+                    Countdown =3,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -9703,7 +9703,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "复活己方下张丢弃的单位牌。",
+                    Info = "己方丢弃1张非金色单位牌时，对自身造成4点伤害，随后将其复活，一共可生效3次。",
                     CardArtsId = "20177800",
                     LinkedCards=new List<String> {},
                 }
@@ -9809,7 +9809,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Agent,Categorie.ClanBrokvar},
                     Flavor = "诸神已经发话，必须献上祭品。",
-                    Info = "间谍、力竭。 检视牌组中2张牌。抽取1张，丢弃另1张。",
+                    Info = "间谍、力竭。检视牌组中2张牌。抽取1张，丢弃另1张。",
                     CardArtsId = "15221400",
                     LinkedCards=new List<String> {},
                 }
@@ -9914,7 +9914,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey,Categorie.Officer},
                     Flavor = "我已齐集众位族长，有话快说。",
-                    Info = "改变1个单位的锁定状态。从对方墓场中1张铜色单位牌移至己方墓场。",
+                    Info = "改变1个单位的锁定状态。从对方墓场中将1张铜色单位牌移至己方墓场。",
                     CardArtsId = "15220400",
                     LinkedCards=new List<String> {},
                 }
@@ -10986,7 +10986,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Token},
                     Flavor = "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”",
-                    Info = "回合结束时移至随机排，对同排所有其他单位造成1点伤害。 间谍。",
+                    Info = "回合结束时移至随机排，对同排所有其它单位造成1点伤害。间谍。",
                     CardArtsId = "15240300",
                     LinkedCards=new List<String> {},
                 }
@@ -11052,7 +11052,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Token},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "高个子的是威尔玛。他右边的是威尔弗雷德。结巴的那个是威尔海姆。",
-                    Info = "遗愿：若为对方回合，则在对面此排生成1头“熊”。 间谍。",
+                    Info = "遗愿：若为对方回合，则在对面此排生成1头“熊”。间谍。",
                     CardArtsId = "20052500",
                     LinkedCards=new List<String> {},
                 }
@@ -11186,7 +11186,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "选择你牌组中的一张铜色单位牌。如果其战力高于此单位，吞噬该单位并按其战力提升自身战力。否则，打出该单位，并在回合结束时将其送入墓地。",
+                    Info = "选择你牌组中的1张铜色单位牌。如果其战力高于此单位，吞噬该单位并按其战力提升自身战力。否则，打出该单位，并在回合结束时将其送入墓地。",
                     CardArtsId = "202291",
                     LinkedCards=new List<String> {},
                 }
@@ -11249,7 +11249,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "",
-                    Info = "回合开始时，左侧单位获得3点增益，自身受到1点伤害，并移至己方单位最少排。 遗愿：己方场上最弱单位获得6点增益。",
+                    Info = "回合开始时，左侧单位获得3点增益，自身受到1点伤害，并移至己方单位最少排。遗愿：己方场上最弱单位获得6点增益。",
                     CardArtsId = "202150",
                     LinkedCards=new List<String> {},
                 }
@@ -11481,7 +11481,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support,Categorie.ClanTuirseach},
                     Flavor = "",
-                    Info = "选择手牌中的一张铜色牌，丢弃所有牌组中该牌的同名牌。",
+                    Info = "选择手牌中的1张铜色牌，丢弃所有牌组中该牌的同名牌。",
                     CardArtsId = "202355",
                     LinkedCards=new List<String> {},
                 }
@@ -11523,7 +11523,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[] { Categorie.Special},
                     Flavor = "来自噩梦....",
-                    Info = "游戏开始时,将这张卡置入墓场。\n若在墓场,己方卡组的单位无法从卡组移动至墓场,免疫决斗伤害,且打出时候获得1-2点伤害或1-2点增益。",
+                    Info = "游戏开始时，将这张卡置入墓场。\n若在墓场，己方卡组的单位无法从卡组移动至墓场，免疫决斗伤害，且打出时候获得1-2点伤害或1-2点增益。",
                     CardArtsId = "d20470000",
                     LinkedCards=new List<String> {},
                 }
@@ -11628,7 +11628,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "",
-                    Info = "吞噬己方牌组中1个战力不大于自身的非同名铜色单位牌，获得等同于其基础战力的增益",
+                    Info = "吞噬己方牌组中1个战力不大于自身的非同名铜色单位牌，获得等同于其基础战力的增益。",
                     CardArtsId = "202342",
                     LinkedCards=new List<String> {},
                 }
@@ -11649,7 +11649,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed,Categorie.Aedirn},
                     Flavor = "",
-                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”",
+                    Info = "相邻诅咒单位被摧毁时，在同排最右侧生成1张“鬼灵”。",
                     CardArtsId = "202506",
                     LinkedCards=new List<String> {"45001"},
                 }
@@ -11692,7 +11692,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher},
                     Flavor = "变异剥夺了我们的情感，但不是脑子。",
-                    Info = "回合开始时，若我方总战力大于对方，强化自身2点。遗愿：随机将卡组里一张稀有度最高的猎魔人单位移至卡组顶端。",
+                    Info = "回合开始时，若我方总战力大于对方，强化自身2点。遗愿：随机将卡组里1张稀有度最高的猎魔人单位移至卡组顶端。",
                     CardArtsId = "202064",
                     LinkedCards=new List<String> {},
                 }
@@ -11714,7 +11714,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Witcher},
                     HideTags = new HideTag[]{HideTag.Geralt},
                     Flavor = "猎魔人拉下兜帽，口中念着咒语，用手指捏出亚克席法印。",
-                    Info = "重新打出敌方半场一张银色/铜色非间谍单位牌，随后将其移回对方半场。",
+                    Info = "重新打出敌方半场1张银色/铜色非间谍单位牌，随后将其移回对方半场。",
                     CardArtsId = "202396",
                     LinkedCards=new List<String> {},
                 }
@@ -12009,7 +12009,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "巨魔不仅没头脑，饿肚子时还容易不高兴。两样凑在一起，极其危险。",
-                    Info = "获得4点增益，然后使一个敌方单位获得4点增益",
+                    Info = "获得4点增益，然后使一个敌方单位获得4点增益。",
                     CardArtsId = "202436",
                     LinkedCards=new List<String> {},
                 }
@@ -12042,7 +12042,7 @@ namespace Cynthia.Card
                     CardId ="70062", //Living Armor
                     Name="活体盔甲",
                     Strength=11,
-                    Group = Group.Silver,
+                    Group = Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
@@ -12160,7 +12160,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "“我的信仰无人能敌，亦如我的怒火！”",
-                    Info = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有一个被锁定的的单位，减少1次回合计数。",
+                    Info = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有1个被锁定的单位，减少1次回合计数。",
                     CardArtsId = "202359",
                     LinkedCards=new List<String> {},
                 }
@@ -12478,7 +12478,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "",
-                    Info = "2护甲。每回合结束时，摧毁己方同排其他1个最弱单位，随后获得1点增益，并摧毁对方同排战力低于自身的1个最弱单位。",
+                    Info = "2护甲。每回合结束时，摧毁己方同排其它1个最弱单位，随后获得1点增益，并摧毁对方同排战力低于自身的1个最弱单位。",
                     CardArtsId = "202103",
                     LinkedCards=new List<String> {},
                 }
@@ -12690,7 +12690,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Redania,Categorie.Cursed},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "我的回忆所剩无几……但每次想到我的玫瑰，记忆便会涌现。",
-                    Info = "间谍。 遗愿：使对面半场6个随机单位获得5点增益。",
+                    Info = "间谍。遗愿：使对面半场6个随机单位获得5点增益。",
                     CardArtsId = "11221500",
                     LinkedCards=new List<String> {},
                 }
@@ -12775,7 +12775,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "时空在我们面前瓦解，也在我们身后膨胀，这就是穿越。",
-                    Info = "力竭。 休战：为双方各添加1张己方手牌1张非“力竭”铜色/银色牌的原始同名牌。",
+                    Info = "力竭。休战：为双方各添加1张己方手牌1张非“力竭”铜色/银色牌的原始同名牌。",
                     CardArtsId = "11220800",
                     LinkedCards=new List<String> {},
                 }
@@ -12902,7 +12902,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "他是石英山之主，毁灭者，图拉真的屠夫。但在闲暇时间里，他喜欢远足和烛光晚餐。",
-                    Info = "力竭。 3回合后的回合开始时：对所有敌军单位造成1点伤害，随后返回手牌。",
+                    Info = "力竭。3回合后的回合开始时：对所有敌军单位造成1点伤害，随后返回手牌。",
                     CardArtsId = "11220600",
                     LinkedCards=new List<String> {},
                 }
@@ -13133,7 +13133,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "岩洞中先前还和石头没什么两样的怪物，倏地瞪大眼睛，充满恶意地盯着他。",
-                    Info = "坚韧。 吞噬1个友军单位，获得其战力作为增益。",
+                    Info = "坚韧。吞噬1个友军单位，获得其战力作为增益。",
                     CardArtsId = "20170100",
                     LinkedCards=new List<String> {},
                 }
@@ -13491,7 +13491,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "干的是驾轻就熟的老行当，而且居然还有钱拿！",
-                    Info = "魅惑最强的敌军单位。[不会被状态效果影响，根据选点增益卡组]",
+                    Info = "魅惑最强的敌军单位。[不会被状态效果影响，根据选点增益卡组]。",
                     CardArtsId = "202400",
                     LinkedCards=new List<String> {},
                 }
@@ -13617,7 +13617,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "我能在百步之外找到靶心！也许我的第一枪就打不准......",
-                    Info = "对一个战力低于自身的单位造成2者战力差的伤害，对大于等于自身战力的单位不造成伤害",
+                    Info = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
                     CardArtsId = "202155",
                     LinkedCards=new List<String> {},
                 }
@@ -13638,7 +13638,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.ClanTuirseach,Categorie.Machine},
                     Flavor = "xxxxx",
-                    Info = "回合结束时，随机对1个未受伤的其他单位造成2点伤害。",
+                    Info = "回合结束时，随机对1个未受伤的其它单位造成2点伤害。",
                     CardArtsId = "202459",
                     LinkedCards=new List<String> {},
                 }
@@ -13785,7 +13785,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "只要他继续为正义而战，骑士团和烈焰就永不熄灭。",
-                    Info = "每回合结束时，若同排没有其他友军单位，则获得1点增益；若场上没有其他友军单位，则额外获得3点增益。",
+                    Info = "每回合结束时，若同排没有其它友军单位，则获得1点增益；若场上没有其它友军单位，则额外获得3点增益。",
                     CardArtsId = "202639",
                     LinkedCards=new List<String> {},
                 }
@@ -13827,7 +13827,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……",
-                    Info = "使同排所有其他“树精”单位获得1点强化。每强化1个“树精”单位，使手牌中随机非间谍单位牌获得1点增益。",
+                    Info = "使同排所有其它“树精”单位获得1点强化。每强化1个“树精”单位，使手牌中随机非间谍单位牌获得1点增益。",
                     CardArtsId = "202275",
                     LinkedCards=new List<String> {},
                 }
@@ -13848,7 +13848,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special,Categorie.Tactic},
                     Flavor = "许多骑士英年早逝，都怪草草绑上的胸甲松开得不是时候。",
-                    Info = "从手牌打出一张铜色士兵牌并使其获得2点增益，随后抽一张牌。",
+                    Info = "从手牌打出1张铜色士兵牌并使其获得2点增益，随后抽1张牌。",
                     CardArtsId = "202454",
                     LinkedCards=new List<String> {},
                 }
@@ -14037,7 +14037,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "在己方其他排各生成1只“乌鸦”。召唤墓场中所有战力不大于2的“乌鸦”，直至填满此排。",
+                    Info = "在己方其它排各生成1只“乌鸦”。召唤墓场中所有战力不大于2的“乌鸦”，直至填满此排。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14079,7 +14079,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "先贤声称动物愚昧无知——纯属胡说八道。",
-                    Info = "回合结束时，若同排没有乌鸦，则在右侧生成一个乌鸦。",
+                    Info = "回合结束时，若同排没有“乌鸦”，则在右侧生成1只“乌鸦”。",
                     CardArtsId = "202517",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14226,7 +14226,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra},
                     Flavor = "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。",
-                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌，则将每种各一张铜色辛特拉牌加入牌组。",
+                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌，则将每种各1张铜色辛特拉牌加入牌组。",
                     CardArtsId = "202250",
                     LinkedCards=new List<String> {"70017","70126","70143","70144"},
                 }
@@ -14289,7 +14289,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra},
                     Flavor = "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……",
-                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则将一张同名牌加入牌组。",
+                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则将1张同名牌加入牌组。",
                     CardArtsId = "202261",
                     LinkedCards=new List<String> {},
                 }
@@ -14395,7 +14395,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader},
                     Flavor = "身为一国之首，我必须公正审判她的罪行。但她是我姐姐，我的心在为她淌血……",
-                    Info = "将牌组中的牌按基础战力从低到高排序，随后打出牌组顶端的一张牌。",
+                    Info = "将牌组中的牌按基础战力从低到高排序，随后打出牌组顶端的1张牌。",
                     CardArtsId = "202186",
                     LinkedCards=new List<String> {},
                 }
@@ -14564,7 +14564,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special ,Categorie.Organic},
                     Flavor = "",
-                    Info = "选择2个单位，若为偶数使其获得6点增益，若为奇数对其造成6点伤害。",
+                    Info = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
                     CardArtsId = "202677",
                     LinkedCards=new List<String> {},
                 }
@@ -14585,7 +14585,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "造成3点伤害。每回合开始时，使其他最弱的友军猎魔人单位获得2点增益。遗愿：在对方同排生成1个“农民”单位。",
+                    Info = "造成3点伤害。每回合开始时，使其它最弱的友军猎魔人单位获得2点增益。遗愿：在对方同排生成1个“农民”单位。",
                     CardArtsId = "c10000800",
                     LinkedCards=new List<String> {},
                 }
@@ -14648,7 +14648,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "每回合结束时，若至少具有3点增益，将增益转化为护甲，并使同排其他友军单位获得2点增益。",
+                    Info = "每回合结束时，若至少具有3点增益，将增益转化为护甲，并使同排其它友军单位获得2点增益。",
                     CardArtsId = "202112",
                     LinkedCards=new List<String> {},
                 }
@@ -14690,7 +14690,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "将一个友军单位转为起始卡组中的一张非同名金色单位牌,随后使其获得2点增益。",
+                    Info = "将一个友军单位转为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
                     CardArtsId = "202235",
                     LinkedCards=new List<String> {},
                 }
@@ -14838,7 +14838,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "你有萝卜所具备的一切美德一沉默寡言",
-                    Info = "生成1只熊。己方每个回合开始时，将同排的1只熊转化为狂暴的熊。",
+                    Info = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
                     CardArtsId = "c10004000",
                     LinkedCards=new List<String> {"15010","65002"},
                 }
@@ -14859,7 +14859,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
                     Flavor = "慢点.....人类快把你追丢了",
-                    Info = "选择一个己方单位向下移动一排并增益5点，选择一个敌方单位,将其移至敌方近战排并造成5点伤害",
+                    Info = "选择1个友军单位，将其上移1排并使其获得5点增益；选择1个敌军单位，将其移至敌方近战排并对其造成5点伤害。",
                     CardArtsId = "202184",
                     LinkedCards=new List<String> {},
                 }
@@ -15007,7 +15007,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Draconid},
                     Flavor = "快跑！那不是雪崩，是龙！",
-                    Info = "免疫，生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。",
+                    Info = "生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。免疫。",
                     CardArtsId = "r9900000",
                     LinkedCards=new List<String> {"70181","70182"},
                 }
@@ -15070,7 +15070,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪",
+                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪。",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }
@@ -15196,7 +15196,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Item},
                     Flavor = "阿尔祖的宏篇巨著，写满了这位传奇法师的毕生所学。",
-                    Info = "NOT CURRENTLY IN THE GAME.",
+                    Info = "NOT CURRENTLY IN THE GAME。",
                     CardArtsId = "203103",
                     LinkedCards=new List<String> {"44024"},
                 }
@@ -15471,9 +15471,30 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Tactic, Categorie.Special },
                     Flavor = "",
-                    Info = "休战：选择1张牌进行交换，并生成1张“尼弗迦德大门”。为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
+                    Info = "选择1张牌进行交换，并生成1张“尼弗迦德大门”。休战：为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
                     CardArtsId = "d19950000",
                     LinkedCards = new List<String> { CardId.NilfgaardianGate, CardId.BattlePreparation },
+                }
+            },
+            {
+                "70197",//战灵：北方领域 Northern Realms Draug
+                new GwentCard()
+                {
+                    CardId = "70197",
+                    Name = "战灵：北方领域",
+                    Strength = 10,
+                    Group = Group.Gold,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Cursed, Categorie.Officer },
+                    Flavor = "有些人就是不服输，死了还要继续打。",
+                    Info = "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
+                    CardArtsId = "13210100",
+                    LinkedCards = new List<String> { CardId.Draugir },
                 }
             },
         };
