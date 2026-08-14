@@ -2019,7 +2019,7 @@
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Deploy: Choose an enemy or a Revealed enemy unit.\nIf it is on board, Deal 7 Damage. If it is a Revealed card, set it to 1.",
+            "Info": "Deal 7 damage to an enemy unit. If it survives and is Locked, set its power to 1. Or set the power of a Revealed unit card to 1.",
             "Flavor": "We do what we must. I am not ashamed of that."
         },
         "33013": {
@@ -3738,7 +3738,7 @@
             "Flavor": "Best not laugh at their silly-arse hats. Believe me."
         },
         "70105": {
-            "Name": "Freixenet And Braine",
+            "Name": "Freixenet",
             "Info": "Deploy: Set unit's Power to this card's Power.",
             "Flavor": "He was only meant to be a breeding stud to her. But in the end, they fell in love regardless."
         },
@@ -4261,6 +4261,11 @@
             "Name": "Draug: Northern Realms",
             "Info": "Deploy: Resurrect random units to this unit's row as 1-Power Draugirs until you fill the row.",
             "Flavor": "Some men cannot admit defeat. Some keep fighting from beyond the grave."
+        },
+        "70198": {
+            "Name": "Girl Who Drank Brokilon Water",
+            "Info": "Spawn a Doomed base copy of this unit in each other allied row. On turn start, Transform into the strongest Dryad unit in its row.",
+            "Flavor": ""
         }
     }
 }

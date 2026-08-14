@@ -4,7 +4,7 @@
 
     var execute = typeof EXECUTE !== "undefined" && EXECUTE === true;
     // This allowlist is the exact DiyAiCardPool.IsUserDeckCard set for CardMap
-    // 1.0.0.182. An allowlist also rejects orphan IDs that never existed in the
+    // 1.0.0.184. An allowlist also rejects orphan IDs that never existed in the
     // current map, unlike a finite retired-card denylist.
     var allowedUserCardRanges = [
         [12001, 12042], [13001, 13044], [14001, 14027],
@@ -33,7 +33,7 @@
         [70079, 70082], [70089, 70089], [70092, 70093], [70096, 70096], [70099, 70099],
         [70112, 70112], [70116, 70116], [70121, 70121], [70134, 70134],
         [70159, 70160], [70166, 70166], [70178, 70178],
-        [70190, 70192], [70194, 70197]
+        [70105, 70105], [70190, 70192], [70194, 70195], [70197, 70198]
     ];
 
     var allowedUserCardIds = {};
@@ -60,7 +60,8 @@
         "22003": "22001"
     };
     var retiredCardRemovals = {
-        "70193": true
+        "70193": true,
+        "70196": true
     };
 
     function migrateCardList(cardIds) {

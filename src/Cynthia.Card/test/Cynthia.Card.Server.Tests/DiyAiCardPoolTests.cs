@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 183), GwentMap.CardMapVersion);
-            Assert.Equal(722, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 184), GwentMap.CardMapVersion);
+            Assert.Equal(723, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,8 +52,94 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void AugustFourteenthBatchMatchesPoolMetadataLocalesAndAssets()
+        {
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.FreixenetAndBraine));
+            Assert.DoesNotContain(CardId.FreixenetAndBraine, DiyAiCardPool.RetiredCardIds);
+            Assert.Equal("菲斯奈特", GwentMap.CardMap[CardId.FreixenetAndBraine].Name);
+
+            Assert.Contains(CardId.WarCouncil, DiyAiCardPool.RetiredCardIds);
+            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.WarCouncil));
+            Assert.True(GwentMap.CardMap[CardId.WarCouncil].IsDerive);
+            Assert.Equal("c10002300", GwentMap.CardMap[CardId.WraithSorcerer].CardArtsId);
+            Assert.Equal("选定一排，对左右两侧末端的单位各造成6点伤害。", GwentMap.CardMap[CardId.Milaen].Info);
+            Assert.Equal(
+                "对1个敌军单位造成7点伤害，若目标存活且处于锁定状态，则将其战力降为1点。或将1张被揭示的单位牌战力降为1点。",
+                GwentMap.CardMap[CardId.Serrit].Info);
+
+            var girl = GwentMap.CardMap[CardId.GirlWhoDrankBrokilonWater];
+            Assert.True(DiyAiCardPool.IsUserDeckCard(girl.CardId));
+            Assert.Equal("饮下布洛奇隆之水的少女", girl.Name);
+            Assert.Equal(4, girl.Strength);
+            Assert.Equal(Group.Gold, girl.Group);
+            Assert.Equal(Faction.ScoiaTael, girl.Faction);
+            Assert.Contains(Categorie.Dryad, girl.Categories);
+            Assert.Equal("c10001700", girl.CardArtsId);
+            Assert.Equal(
+                "在己方其它排生成1张佚亡原始同名牌。回合开始时，变化为同排最强的“树精”单位。",
+                girl.Info);
+
+            Assert.All(GwentMap.CardMap.Values, card =>
+            {
+                Assert.DoesNotContain("己方场上", card.Info ?? string.Empty);
+                Assert.DoesNotContain("敌方场上", card.Info ?? string.Empty);
+            });
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            var changedIds = new[]
+            {
+                CardId.FreixenetAndBraine, CardId.WraithSorcerer, CardId.Serrit,
+                CardId.Milaen, CardId.GirlWhoDrankBrokilonWater
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinesePaths = localeRoots.Select(root => FindRepositoryFile($"{root}/cn.json"));
+            Assert.All(chinesePaths, path =>
+            {
+                var text = File.ReadAllText(path);
+                Assert.DoesNotContain("己方场上", text);
+                Assert.DoesNotContain("敌方场上", text);
+            });
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(chinesePaths.First()));
+            Assert.All(changedIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+
+            var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables";
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/c10001700.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/c10002300.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/c10001700_slot.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/c10002300_slot.png")));
+            var fullGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
+            var miniatureGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
+            Assert.Contains("m_Address: c10001700", fullGroup);
+            Assert.Contains("m_Address: c10002300", fullGroup);
+            Assert.Contains("m_Address: c10001700_slot", miniatureGroup);
+            Assert.Contains("m_Address: c10002300_slot", miniatureGroup);
         }
 
         [Fact]
@@ -89,7 +175,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.DoesNotContain("佚亡", GwentMap.CardMap[CardId.Crowmother].Info);
             Assert.Contains("非间谍单位", GwentMap.CardMap[CardId.Svalblod].Info);
             Assert.Equal(
-                "摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。",
+                "摧毁己方所有战力不高于2的单位，随后摧毁敌方半场所有战力不高于2的单位。",
                 GwentMap.CardMap[CardId.ArnjolfThePatricide].Info);
             Assert.DoesNotContain(CardId.ArnjolfThePatricide, DiyAiCardPool.RetiredCardIds);
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.ArnjolfThePatricide));
@@ -152,7 +238,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.All(changedIds, id => Assert.True(GwentMap.CardMap.ContainsKey(id)));
 
             var warCouncil = GwentMap.CardMap[CardId.WarCouncil];
-            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.WarCouncil));
+            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.WarCouncil));
             Assert.Equal(Group.Gold, warCouncil.Group);
             Assert.Equal(Faction.Nilfgaard, warCouncil.Faction);
             Assert.Equal(CardType.Special, warCouncil.CardType);
@@ -160,7 +246,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(Categorie.Tactic, warCouncil.Categories);
             Assert.Contains(Categorie.Special, warCouncil.Categories);
             Assert.Equal("d19950000", warCouncil.CardArtsId);
-            Assert.False(warCouncil.IsDerive);
+            Assert.True(warCouncil.IsDerive);
             Assert.Equal(
                 "选择1张牌进行交换，并生成1张“尼弗迦德大门”。休战：为己方手牌添加1张“战前准备”，并使对方抽1张铜色牌并揭示它。",
                 warCouncil.Info);
@@ -258,7 +344,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(CardUseInfo.MyRow, sorcerer.CardUseInfo);
             Assert.Contains(Categorie.Mage, sorcerer.Categories);
             Assert.Contains(Categorie.Cursed, sorcerer.Categories);
-            Assert.Equal("d17710000", sorcerer.CardArtsId);
+            Assert.Equal("c10002300", sorcerer.CardArtsId);
             Assert.False(sorcerer.IsDerive);
 
             Assert.Contains(Categorie.Item, GwentMap.CardMap["70041"].Categories);
@@ -291,15 +377,15 @@ namespace Cynthia.Card.Server.Tests
             });
 
             Assert.True(File.Exists(FindRepositoryFile(
-                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/d17710000.png")));
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/c10002300.png")));
             Assert.True(File.Exists(FindRepositoryFile(
-                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Miniatures/d17710000_slot.png")));
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Miniatures/c10002300_slot.png")));
             var group = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
-            Assert.Contains("m_Address: d17710000", group);
+            Assert.Contains("m_Address: c10002300", group);
             var miniatures = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
-            Assert.Contains("m_Address: d17710000_slot", miniatures);
+            Assert.Contains("m_Address: c10002300_slot", miniatures);
         }
 
         [Fact]

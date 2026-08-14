@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 183);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 184);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -5415,7 +5415,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "这是我们必须做的，我并不为此感到羞愧。",
-                    Info = "对1个敌军单位造成7点伤害，或将对方1张被揭示的单位牌战力降为1点。",
+                    Info = "对1个敌军单位造成7点伤害，若目标存活且处于锁定状态，则将其战力降为1点。或将1张被揭示的单位牌战力降为1点。",
                     CardArtsId = "16220900",
                     LinkedCards=new List<String> {},
                 }
@@ -8645,7 +8645,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf},
                     Flavor = "老男爵对待偷猎者向来毫不留情。幸亏麦莉运气够好，老男爵已经死了，他的手下也成了亡命之徒。",
-                    Info = "选定一排，做左右两侧末端的单位各造成6点伤害。",
+                    Info = "选定一排，对左右两侧末端的单位各造成6点伤害。",
                     CardArtsId = "6010300",
                     LinkedCards=new List<String> {},
                 }
@@ -11246,7 +11246,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "",
-                    Info = "回合开始时，左侧单位获得3点增益，自身受到1点伤害，并移至己方单位最少排。遗愿：己方场上最弱单位获得6点增益。",
+                    Info = "回合开始时，左侧单位获得3点增益，自身受到1点伤害，并移至己方单位最少排。遗愿：己方半场最弱单位获得6点增益。",
                     CardArtsId = "202150",
                     LinkedCards=new List<String> {},
                 }
@@ -12205,11 +12205,11 @@ namespace Cynthia.Card
                 }
             },
             {
-                "70105",//菲斯奈特与布雷恩 FreixenetAndBraine
+                "70105",//菲斯奈特 Freixenet
                 new GwentCard()
                 {
                     CardId ="70105", //Freixenet And Braine
-                    Name="菲斯奈特与布雷恩",
+                    Name="菲斯奈特",
                     Strength=7,
                     Group=Group.Silver,
                     Faction = Faction.ScoiaTael,
@@ -13214,7 +13214,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
-                    Info = "摧毁己方所有战力不高于2的单位，随后摧毁敌方场上所有战力不高于2的单位。",
+                    Info = "摧毁己方所有战力不高于2的单位，随后摧毁敌方半场所有战力不高于2的单位。",
                     CardArtsId = "202182",
                     LinkedCards=new List<String> {},
                 }
@@ -13719,7 +13719,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "布洛克莱昂的树精掌握着一项别致的手艺：随心所欲地变化树形……并赋予它们生命。",
-                    Info = "若己方场上有2张未翻开的伏击牌，召唤此单位。",
+                    Info = "若己方半场有2张未翻开的伏击牌，召唤此单位。",
                     CardArtsId = "202272",
                     LinkedCards=new List<String> {},
                 }
@@ -14307,7 +14307,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "奥莉安娜夫人真是咱们的福气……她救济穷人，资助画家。她还为那些可怜的孩子们开了一家孤儿院呢！",
-                    Info = "选择1个敌军单位，使己方场上所有吸血鬼单位各汲食其1点战力。",
+                    Info = "选择1个敌军单位，使己方半场所有吸血鬼单位各汲食其1点战力。",
                     CardArtsId = "202222",
                     LinkedCards=new List<String> {},
                 }
@@ -15427,7 +15427,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Mage, Categorie.Cursed },
                     Flavor = "",
                     Info = "对局开始时，改变自身的锁定状态。每2回合开始时，重复此效果。",
-                    CardArtsId = "d17710000",
+                    CardArtsId = "c10002300",
                     LinkedCards = new List<String> {},
                 }
             },
@@ -15492,6 +15492,27 @@ namespace Cynthia.Card
                     Info = "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
                     CardArtsId = "13210100",
                     LinkedCards = new List<String> { CardId.Draugir },
+                }
+            },
+            {
+                "70198",//饮下布洛奇隆之水的少女 Girl Who Drank Brokilon Water
+                new GwentCard()
+                {
+                    CardId = "70198",
+                    Name = "饮下布洛奇隆之水的少女",
+                    Strength = 4,
+                    Group = Group.Gold,
+                    Faction = Faction.ScoiaTael,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Dryad },
+                    Flavor = "",
+                    Info = "在己方其它排生成1张佚亡原始同名牌。回合开始时，变化为同排最强的“树精”单位。",
+                    CardArtsId = "c10001700",
+                    LinkedCards = new List<String> {},
                 }
             },
         };

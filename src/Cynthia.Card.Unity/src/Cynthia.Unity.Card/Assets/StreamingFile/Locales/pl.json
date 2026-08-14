@@ -2018,7 +2018,7 @@
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 7 pkt obrażeń lub Zmień siłę ujawnionej jednostki przeciwnika na 1.",
+            "Info": "Zadaj wrogiej jednostce 7 pkt obrażeń. Jeśli przetrwa i jest Zablokowana, ustaw jej siłę na 1. Lub ustaw siłę Odsłoniętej karty jednostki na 1.",
             "Flavor": "Robimy co musimy, nie wstydzę się tego."
         },
         "33013": {
@@ -3737,7 +3737,7 @@
             "Flavor": "Nie śmiej się z ich beretów. Dobrze radzę."
         },
         "70105": {
-            "Name": "Freixenet i Braine",
+            "Name": "Freixenet",
             "Info": "Rozmieszczenie: Ustaw siłę wybranej jednostki na siłę tej karty.",
             "Flavor": "Miał być tylko narzędziem do osiągnięcia celu, lecz wbrew rozsądkowi zakochali się w sobie."
         },
@@ -4260,6 +4260,11 @@
             "Name": "Draug: Królestwa Północy",
             "Info": "Rozmieszczenie: Wskrześ jednostki jako Draugirów o sile 1 do wypełnienia nimi tego rzędu.",
             "Flavor": "Generał nie pogodził się z przegraną. Zginął, ale walczy dalej."
+        },
+        "70198": {
+            "Name": "Dziewczyna, która wypiła wodę Brokilonu",
+            "Info": "Stwórz Skazaną bazową kopię tej jednostki w każdym innym sojuszniczym rzędzie. Na początku tury przemień ją w najsilniejszą Driadę w jej rzędzie.",
+            "Flavor": ""
         }
     }
 }
