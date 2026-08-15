@@ -26,7 +26,8 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
     private void Initialize(CardShowInfo owner)
     {
         if (_root != null) return;
-        _font = _font ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+        _font = _font ?? Resources.Load<Font>("FountInfo/NotoSansSC-VariableFont_wght")
+                      ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
         // CardShowInfo lives on the 3D CardObj transform. Anchoring a UI rail
@@ -115,10 +116,10 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
     {
         var badge = new GameObject("Marker", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(LayoutElement));
         badge.transform.SetParent(_root, false);
-        badge.GetComponent<RectTransform>().sizeDelta = new Vector2(34, 30);
+        badge.GetComponent<RectTransform>().sizeDelta = new Vector2(36, 32);
         var layout = badge.GetComponent<LayoutElement>();
-        layout.preferredWidth = 34;
-        layout.preferredHeight = 30;
+        layout.preferredWidth = 36;
+        layout.preferredHeight = 32;
         var image = badge.GetComponent<Image>();
         image.color = new Color(color.r, color.g, color.b, .94f);
         image.raycastTarget = !string.IsNullOrWhiteSpace(description);
@@ -135,15 +136,15 @@ public sealed class DynamicCardMarkerRail : MonoBehaviour
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
         text.font = _font;
-        text.fontSize = string.IsNullOrEmpty(value) ? 17 : 14;
+        text.fontSize = string.IsNullOrEmpty(value) ? 18 : 16;
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.white;
         text.raycastTarget = false;
         text.text = string.IsNullOrEmpty(value) ? label : label + value;
         var outline = text.gameObject.AddComponent<Outline>();
-        outline.effectColor = new Color32(3, 8, 10, 230);
-        outline.effectDistance = new Vector2(1, -1);
+        outline.effectColor = new Color32(3, 8, 10, 190);
+        outline.effectDistance = new Vector2(.5f, -.5f);
     }
 
     private string CurrentLanguage => _translator?.TextLocalization?.ChosenLanguage?.Filename ?? "cn";

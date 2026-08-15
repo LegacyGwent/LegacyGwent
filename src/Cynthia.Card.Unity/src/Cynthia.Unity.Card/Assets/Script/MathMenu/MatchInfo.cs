@@ -98,13 +98,13 @@ public class MatchInfo : MonoBehaviour
         {
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle_Rank");
             MatchPasswordObject.SetActive(false);
-            BlacklistObject.SetActive(false);
+            HideLegacyBlacklistControls();
         }
         else
         {
             MainMenu_MatchTitle.text = _translator.GetText("MainMenu_MatchTitle");
             MatchPasswordObject.SetActive(true);
-            BlacklistObject.SetActive(true);
+            HideLegacyBlacklistControls();
         }
         if (_serverModeMenu != null && _serverModeMenu.HasModes)
         {
@@ -155,8 +155,6 @@ public class MatchInfo : MonoBehaviour
 
     public async void MatchButtonClick()/////点击匹配按钮的话
     {
-        int usingBlacklist = RecordStatus.isOn ? 1 : 0;
-
         try
         {
             //如果正在进行匹配
@@ -187,13 +185,12 @@ public class MatchInfo : MonoBehaviour
                     return;
                 }
                 var password = !hasRules && selectedDeck.IsSpecialDeck() ? "special" + customPassword : customPassword;
-                _ = _client.NewMatchOfPassword(CurrentDeckId, password, usingBlacklist);
+                _ = _client.NewMatchOfPassword(CurrentDeckId, password, 0);
             }
             else if (_serverModeMenu != null && _serverModeMenu.HasModes)
             {
                 var selected = _serverModeMenu.SelectedMode;
-                var setBlacklist = selected != null && selected.IsRanked ? 0 : usingBlacklist;
-                if (selected == null || !await _client.MatchMode(CurrentDeckId, selected.Id, setBlacklist))
+                if (selected == null || !await _client.MatchMode(CurrentDeckId, selected.Id, 0))
                 {
                     await _UIService.YNMessageBox(
                         ResolveLocalized(new LocalizedText { ZhCn = "无法开始对战", En = "Unable to start" }),
@@ -206,8 +203,7 @@ public class MatchInfo : MonoBehaviour
             else if (!HasRuleCards(selectedDeck) && selectedDeck.IsBasicDeck())
             {
                 var password = IsRankMatch ? "rank" : (MatchPassword.text).Replace("special", "");
-                var setBlacklist = IsRankMatch ? 0 : usingBlacklist;
-                _ = _client.NewMatchOfPassword(CurrentDeckId, password, setBlacklist);
+                _ = _client.NewMatchOfPassword(CurrentDeckId, password, 0);
             }
             else if (HasRuleCards(selectedDeck) || !selectedDeck.IsSpecialDeck())
             {
@@ -216,7 +212,7 @@ public class MatchInfo : MonoBehaviour
             }
             //否则以乱斗卡组匹配(目前不关注匹配结果)
             else
-                _ = _client.NewMatchOfPassword(CurrentDeckId, "special" + MatchPassword.text, usingBlacklist);
+                _ = _client.NewMatchOfPassword(CurrentDeckId, "special" + MatchPassword.text, 0);
 
 
 
@@ -298,15 +294,17 @@ public class MatchInfo : MonoBehaviour
     void Start()
     {
         _serverModeMenu = ServerModeMenu.Attach(this);
-        RecordStatus.onValueChanged.AddListener(x =>
-       {
-           PlayerPrefs.SetInt("RecordBlacklist", x ? 1 : 0);
-       });
+        HideLegacyBlacklistControls();
+        PlayerPrefs.DeleteKey("RecordBlacklist");
         ResetMatch();
         IsDoingMatch = false;
         _client.ClientState = ClientState.Standby;
-        RecordStatus.isOn = PlayerPrefs.GetInt("RecordBlacklist", 0) != 0;
-        BlacklistMessage.text = _translator.GetText("MatchmakingMenu_BlacklistCheckbox");
+    }
+
+    private void HideLegacyBlacklistControls()
+    {
+        if (BlacklistObject != null) BlacklistObject.SetActive(false);
+        if (RecordStatus != null) RecordStatus.isOn = false;
     }
 
     public void OnServerModeSelected(GameModeDefinition mode)
@@ -314,7 +312,7 @@ public class MatchInfo : MonoBehaviour
         if (mode == null) return;
         IsRankMatch = mode.IsRanked;
         MainMenu_MatchTitle.text = ResolveLocalized(mode.Name);
-        BlacklistObject.SetActive(mode.MatchKind == "pvp" && !mode.IsRanked);
+        HideLegacyBlacklistControls();
         MatchPasswordObject.SetActive(mode.MatchKind == "pvp" && !mode.IsRanked);
         var deck = _client.User?.Decks?.FirstOrDefault(x => x.Id == CurrentDeckId);
         if (deck != null) SetDeck(deck, CurrentDeckId);

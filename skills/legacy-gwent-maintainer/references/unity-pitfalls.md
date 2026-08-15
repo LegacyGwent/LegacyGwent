@@ -35,6 +35,22 @@ Last verified: 2026-08-10
 - Verification: launch the packaged player, log in, open the full-art card pool,
   and compare its Common DLL hash with the server/source build used for the test.
 
+## Compact card art is sharp on the board but grainy in other screens
+
+- Symptom: board art is stable, but menu cards remain soft or briefly flash a
+  grainy prefab placeholder while their Addressable artwork loads.
+- Cause: all four views render through `CardShowInfo`, but the optimization was
+  conditionally enabled only when `CardMoveInfo` or `SelectUICard` happened to
+  be attached. Mulligan and editor prefabs use different companion components,
+  so they silently kept sampling the original non-mipmapped Addressable sprite.
+- Fix: hide compact art until loading finishes and use `StableMiniCardArt` in
+  every view (320px desktop, 256px mobile); `ArtCard` keeps the original sprite.
+- Prevention: choose the rendering owner (`CardShowInfo` versus `ArtCard`) as the
+  quality boundary; never infer visual size from optional interaction scripts.
+- Verification: compare the same detailed artwork in hand, on the board, in the
+  mulligan grid, and in the deck editor; all compact views remain stable while
+  the right-click/full-detail view remains full resolution.
+
 ## A leader miniature leaves bands or leaks past the banner frame
 
 - Symptom: a deck-list leader portrait appears as a thin horizontal strip with

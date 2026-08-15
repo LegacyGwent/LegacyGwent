@@ -481,7 +481,7 @@ namespace Cynthia.Card.Server
         internal ResolvedDeckRuleSet ResolveRuntimeDeckRules(DeckModel deck)
             => _gameFeatureService.ResolveRuntime(deck);
 
-        public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
+        public bool Match(string connectionId, string deckId, string password, int legacyUsingBlacklist)//匹配
         {
             //如果这个玩家在登陆状态,并且处于闲置中
             if (_users.ContainsKey(connectionId) && _users[connectionId].UserState == UserState.Standby)
@@ -503,10 +503,9 @@ namespace Cynthia.Card.Server
                 player.CurrentAvatar = user.CurrentAvatar;
                 player.CurrentBorder = user.CurrentBorder;
                 player.CurrentTitle = user.CurrentTitle;
-                if (usingBlacklist == 1)
-                    player.Blacklist = user.Blacklist;
-                else
-                    player.Blacklist = null;
+                // The legacy argument is retained for older client compatibility,
+                // but DIY-AI no longer applies blacklist filtering.
+                player.Blacklist = null;
 
                 //将这个玩家加入到游戏匹配系统之中
                 _gwentMatchs.PlayerJoin(player, password);
@@ -796,16 +795,9 @@ namespace Cynthia.Card.Server
 
         public bool ModifyBlacklist(string connectionId, BlacklistModel blacklist)
         {
-            if (!_users.ContainsKey(connectionId))
-                return false;
-            var user = _users[connectionId];
-            if (user.Decks.Count < 0)
-                return false;
-            //如果黑名单不合规范
-            if (!_databaseService.ModifyBlacklist(user.UserName, blacklist))
-                return false;
-            user.Blacklist = blacklist;
-            return true;
+            // Compatibility no-op: old clients may still invoke this hub method.
+            // Existing Mongo fields remain readable, but are no longer mutated or used.
+            return _users.ContainsKey(connectionId);
         }
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId)
         {
@@ -822,7 +814,7 @@ namespace Cynthia.Card.Server
             return user.CurrentPlayer.SendAsync(operation);
         }
 
-        public bool MatchMode(string connectionId, string deckId, string modeId, int usingBlacklist)
+        public bool MatchMode(string connectionId, string deckId, string modeId, int legacyUsingBlacklist)
         {
             if (!_users.TryGetValue(connectionId, out var user) || user.UserState != UserState.Standby)
                 return false;
@@ -836,7 +828,7 @@ namespace Cynthia.Card.Server
                 CurrentAvatar = user.CurrentAvatar,
                 CurrentBorder = user.CurrentBorder,
                 CurrentTitle = user.CurrentTitle,
-                Blacklist = usingBlacklist == 1 ? user.Blacklist : null
+                Blacklist = null
             };
             if (!_gwentMatchs.PlayerJoinMode(player, mode, validation.Rules))
             {

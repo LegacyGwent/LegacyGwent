@@ -154,7 +154,7 @@ public class EditorInfo : MonoBehaviour
         DeckName.onValueChanged.RemoveAllListeners();
         DeckName.onValueChanged.AddListener(x => DeckNameChanged(x));
         SwitchButtonText.text = _translator.GetText("EditorMenu_SwitchDeckButton");
-        BlacklistButtonText.text = _translator.GetText("EditorMenu_BlacklistButton");
+        HideLegacyBlacklistButton();
         DisableLegacySpecialModeToggle();
         ApplyPlayerRuleCardVisibility();
         //---------------------------------------------------------------------------
@@ -168,6 +168,14 @@ public class EditorInfo : MonoBehaviour
                 ? SwitchButtonText.transform.parent.gameObject
                 : null;
         if (legacyButton != null) legacyButton.SetActive(false);
+    }
+
+    private void HideLegacyBlacklistButton()
+    {
+        var button = BlacklistButtonText != null && BlacklistButtonText.transform.parent != null
+            ? BlacklistButtonText.transform.parent.gameObject
+            : null;
+        if (button != null) button.SetActive(false);
     }
 
     private void CreateRuleCardGroupButton()
@@ -592,28 +600,9 @@ public class EditorInfo : MonoBehaviour
 
     }
     public void SetBlacklistClick()
-    {   //点击新建按钮后
-        if (_clientService.User.Decks.Count >= 1000)
-        {
-            _globalUIService.YNMessageBox(_translator.GetText("PopupWindow_DeckLimitTitle"), _translator.GetText("PopupWindow_DeckLimitDesc"));
-        }
-        else
-        {
-            /*
-            Titile x:0 | Y:478.5 true    Y: 605 false
-            Left y:0 | X:-470 true     X: -1700 false
-            Right y:0 | X: 468 true     X: 1700 false*/
-            EditorStatus = EditorStatus.EditorDeck;
-            _nowSwitchLeaderId = null;
-            _nowEditorDeck = new DeckModel() { Leader = _nowSwitchLeaderId, Deck = _clientService.User.Blacklist == null ? new List<string>() : _clientService.User.Blacklist.Blacklist, Id = "blacklist" };
-
-            EditorBodyCore.SetActive(true);
-            EditorBodyMian.SetActive(false);
-            ResetEditorCore();
-
-            DeckName.text = _translator.GetText("EditorMenu_DefaultDeckname");
-        }
-
+    {
+        // Kept as an empty UnityEvent compatibility target for older scenes.
+        // DIY-AI no longer exposes or applies the blacklist feature.
     }
     public void SelectSwitchUICard(CardStatus card, bool isOver = true)
     {

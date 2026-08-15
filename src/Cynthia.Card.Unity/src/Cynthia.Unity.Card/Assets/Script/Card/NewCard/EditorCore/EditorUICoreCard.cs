@@ -1,12 +1,12 @@
 using Autofac;
 using Cynthia.Card.Client;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    private const float StableScale = 1.76f;
     public CardShowInfo cardShowInfo;
     private MainCodeService _mainCodeService;
     public GameObject CountIcon;
@@ -36,6 +36,8 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     private void Awake()
     {
+        var rect = transform as RectTransform;
+        if (rect != null) rect.localScale = new Vector3(StableScale, StableScale, 1f);
         TryResolveMainCodeService();
     }
     //鼠标点击
@@ -50,7 +52,6 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)
     {
-        gameObject.GetComponent<RectTransform>().DOScale(1.77f * 1.05f, 0.1f);
         var show = cardShowInfo != null ? cardShowInfo : gameObject.GetComponent<CardShowInfo>();
         if (show?.CurrentCore == null || !TryResolveMainCodeService()) return;
         _mainCodeService.SelectSwitchUICard(show.CurrentCore);
@@ -58,7 +59,6 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     //鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
-        gameObject.GetComponent<RectTransform>().DOScale(1.77f, 0.1f);
         var show = cardShowInfo != null ? cardShowInfo : gameObject.GetComponent<CardShowInfo>();
         if (show?.CurrentCore == null || !TryResolveMainCodeService()) return;
         _mainCodeService.SelectSwitchUICard(show.CurrentCore, false);

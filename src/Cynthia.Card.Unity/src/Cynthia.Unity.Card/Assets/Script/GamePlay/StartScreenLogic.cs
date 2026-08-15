@@ -9,6 +9,7 @@ using UnityEngine.AddressableAssets;
 using System;
 using System.Collections;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class StartScreenLogic : MonoBehaviour
 {
@@ -355,7 +356,7 @@ public class StartScreenLogic : MonoBehaviour
         EnemyInfo.FadeIn();
         bool EnemyPlayedAudio=AudioManager.Instance.PlayAudio(GwentMap.CardMap[enemyLeaderStatus.CardId].CardArtsId, AudioType.Card, AudioPlayMode.Append);
         yield return new WaitForSeconds(2f); 
-        VS.Play("VS_In", 0, 0f);
+        PlayVsImpact();
         yield return new WaitForSeconds(0.5f); 
         MyBackground.Play("MyBackgroundFadeIn", 0, 0f);
         MyCards.MyCardMoveIn();
@@ -388,5 +389,35 @@ public class StartScreenLogic : MonoBehaviour
         if (eventSystem != null)
             eventSystem.enabled = true;
     }
+
+    private void PlayVsImpact()
+    {
+        if (VS == null) return;
+        VS.enabled = false;
+        var rect = VS.transform as RectTransform;
+        var image = VS.GetComponent<Image>();
+        if (rect == null || image == null) return;
+
+        rect.DOKill(true);
+        image.DOKill(true);
+        rect.localRotation = Quaternion.Euler(0f, 0f, -2.2f);
+        rect.localScale = new Vector3(.18f, .18f, 1f);
+        image.color = new Color(1f, .82f, .52f, 0f);
+
+        var shadow = image.GetComponent<Shadow>();
+        if (shadow == null) shadow = image.gameObject.AddComponent<Shadow>();
+        shadow.effectColor = new Color32(10, 4, 0, 225);
+        shadow.effectDistance = new Vector2(4f, -4f);
+        shadow.useGraphicAlpha = true;
+
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.DOFade(1f, .07f));
+        sequence.Join(rect.DOScale(new Vector3(1.12f, .92f, 1f), .13f).SetEase(Ease.OutCubic));
+        sequence.Join(rect.DOLocalRotate(new Vector3(0f, 0f, 1.1f), .13f).SetEase(Ease.OutCubic));
+        sequence.Append(rect.DOScale(new Vector3(.95f, 1.05f, 1f), .055f).SetEase(Ease.InQuad));
+        sequence.Join(image.DOColor(Color.white, .08f));
+        sequence.Append(rect.DOScale(Vector3.one, .09f).SetEase(Ease.OutQuad));
+        sequence.Join(rect.DOLocalRotate(Vector3.zero, .09f).SetEase(Ease.OutQuad));
+        sequence.Append(rect.DOPunchPosition(new Vector3(3f, -2f, 0f), .11f, 4, .35f));
+    }
 }
- 

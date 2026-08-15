@@ -125,7 +125,6 @@ namespace Cynthia.Card.Server
             var key = CreateModeMatchKey(mode, rules);
             foreach (var room in GwentRooms.Where(x => !x.IsReady && x.Password == key).ToList())
             {
-                if (room.InBlacklist(player)) continue;
                 room.AddPlayer(player);
                 if (room.IsReady)
                 {
@@ -182,7 +181,7 @@ namespace Cynthia.Card.Server
                 StringComparison.OrdinalIgnoreCase);
             var legacyAiFallback = roomPassword.Length == 0 &&
                 requestedPassword.StartsWith("ai", StringComparison.OrdinalIgnoreCase);
-            return (exactPasswordMatch && !room.InBlacklist(player)) || legacyAiFallback;
+            return exactPasswordMatch || legacyAiFallback;
         }
 
         public static string CreateCombinedRuleFingerprint(

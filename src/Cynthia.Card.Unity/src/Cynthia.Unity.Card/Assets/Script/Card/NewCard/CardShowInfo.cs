@@ -77,6 +77,12 @@ public class CardShowInfo : MonoBehaviour
     public Image SelectMargin;
     public GameObject SelectIcon;
     private string _oldCardArtsId = null; // prevent repeated load
+    private Outline _immuneOutline;
+    private Outline _immuneOuterOutline;
+    private Vector3 _hoverBaseScale;
+    private bool _hoverBaseScaleInitialized;
+    private bool _hoverActive;
+    private Tweener _hoverScaleTween;
     //目前被CurrentCore属性取代
     //public CardShowInfo(CardStatus card) => CurrentCore = card;
 
@@ -127,6 +133,9 @@ public class CardShowInfo : MonoBehaviour
             {
                 var requestedArtId = CurrentCore.CardArtsId;
                 var targetImage = CardImg;
+                // Never expose the prefab's low-resolution placeholder while
+                // Addressables is resolving the requested card art.
+                targetImage.enabled = false;
                 Addressables.LoadAssetAsync<Sprite>(requestedArtId).Completed += (obj) =>
                 {
                     try
@@ -136,7 +145,20 @@ public class CardShowInfo : MonoBehaviour
                         {
                             return;
                         }
-                        targetImage.sprite = obj.Result;
+                        // CardShowInfo is the shared compact-card renderer used by
+                        // the board, hand, mulligan and deck editor. Keep every one
+                        // of those views on the same mipmapped sampling path; the
+                        // full-size detail renderer is ArtCard and remains untouched.
+                        var stableArt = StableMiniCardArt.Get(requestedArtId, obj.Result);
+                        if (stableArt != null)
+                        {
+                            targetImage.sprite = stableArt;
+                            targetImage.enabled = true;
+                        }
+                        else
+                        {
+                            _oldCardArtsId = null;
+                        }
                     }
                     catch (MissingReferenceException)
                     {
@@ -147,7 +169,9 @@ public class CardShowInfo : MonoBehaviour
             }
             else
             {
-                CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
+                var loadedSprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();
+                CardImg.sprite = StableMiniCardArt.Get(CurrentCore.CardArtsId, loadedSprite);
+                CardImg.enabled = CardImg.sprite != null;
             }
             _oldCardArtsId = CurrentCore.CardArtsId;
         }
@@ -207,10 +231,11 @@ public class CardShowInfo : MonoBehaviour
         RevealIcon.SetActive(CurrentCore.IsReveal);
         //护盾
         ShieldIcon.SetActive(CurrentCore.IsShield);
-        // 免疫使用冷色卡面提示，不与护盾共用图标。
-        CardImg.color = CurrentCore.IsImmue
-            ? new Color(0.62f, 0.82f, 1f, 1f)
-            : Color.white;
+        // Immunity should read as a protective rim, not as a blue-tinted card.
+        // Keeping the art neutral also prevents status changes from muddying
+        // already dark illustrations.
+        CardImg.color = Color.white;
+        SetImmuneVisual(CurrentCore.IsImmue);
         if (CardInfo.CardType == CardType.Special)
         {
             Strength.gameObject.SetActive(false);
@@ -323,6 +348,61 @@ public class CardShowInfo : MonoBehaviour
 
     public void ScaleTo(float endValue, float duration = 0.25f, Ease ease = Ease.OutQuad)
     {
+        if (!_hoverActive)
+        {
+            _hoverBaseScale = Vector3.one * endValue;
+            _hoverBaseScaleInitialized = true;
+        }
         transform.DOScale(endValue, duration).SetEase(ease);
+    }
+
+    public void SetHoverEmphasis(bool active)
+    {
+        if (CardBorder == null) return;
+
+        if (active && !_hoverBaseScaleInitialized)
+        {
+            _hoverBaseScale = transform.localScale;
+            _hoverBaseScaleInitialized = true;
+        }
+
+        var targetScale = active
+            ? _hoverBaseScale * 1.035f
+            : _hoverBaseScale;
+
+        _hoverScaleTween?.Kill(false);
+        _hoverScaleTween = transform.DOScale(targetScale, .085f).SetEase(Ease.OutQuad);
+        _hoverActive = active;
+
+        CardBorder.DOKill();
+        CardBorder.DOColor(active
+                ? new Color(1f, .94f, .72f, 1f)
+                : Color.white,
+            .08f).SetEase(Ease.OutQuad);
+    }
+
+    private void SetImmuneVisual(bool active)
+    {
+        if (CardBorder == null) return;
+        if (_immuneOutline == null)
+        {
+            _immuneOutline = CardBorder.GetComponent<Outline>();
+            if (_immuneOutline == null)
+                _immuneOutline = CardBorder.gameObject.AddComponent<Outline>();
+            _immuneOutline.effectColor = new Color32(255, 226, 164, 240);
+            _immuneOutline.effectDistance = new Vector2(1.45f, -1.45f);
+            _immuneOutline.useGraphicAlpha = true;
+        }
+
+        if (_immuneOuterOutline == null)
+        {
+            _immuneOuterOutline = CardBorder.gameObject.AddComponent<Outline>();
+            _immuneOuterOutline.effectColor = new Color32(222, 125, 43, 225);
+            _immuneOuterOutline.effectDistance = new Vector2(3.1f, -3.1f);
+            _immuneOuterOutline.useGraphicAlpha = true;
+        }
+
+        _immuneOutline.enabled = active;
+        _immuneOuterOutline.enabled = active;
     }
 }

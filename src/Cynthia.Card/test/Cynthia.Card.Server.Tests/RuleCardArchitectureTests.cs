@@ -303,6 +303,28 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void ExplicitPasswordRoomsIgnoreLegacyBlacklistData()
+        {
+            var owner = new ClientPlayer(
+                new User("blacklist-owner", "owner-connection") { PlayerName = "owner" },
+                () => null)
+            {
+                Deck = new DeckModel { Deck = new List<string> { "31001" } },
+                Blacklist = new BlacklistModel { Blacklist = new List<string> { "31002" } }
+            };
+            var challenger = new ClientPlayer(
+                new User("blacklist-challenger", "challenger-connection") { PlayerName = "challenger" },
+                () => null)
+            {
+                Deck = new DeckModel { Deck = new List<string> { "31002" } },
+                Blacklist = new BlacklistModel { Blacklist = new List<string> { "31001" } }
+            };
+            var room = new GwentRoom(owner, "legacy-blacklist");
+
+            Assert.True(GwentMatchs.CanJoinExplicitPasswordRoom(room, challenger, "legacy-blacklist"));
+        }
+
+        [Fact]
         public void LeaderFactionRestrictionBecomesASharedDeclarativeConstraint()
         {
             var rules = DeckRuleEngine.Resolve(new[]

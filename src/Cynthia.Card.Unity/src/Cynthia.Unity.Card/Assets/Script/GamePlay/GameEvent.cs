@@ -73,6 +73,7 @@ public class GameEvent : MonoBehaviour
     //是否鼠标停留在硬币上
     private bool IsSelectCoin;
     private bool IsOnCoin;
+    private bool _isSendingPass;
     private bool IsAutoPlay { get => DependencyResolver.Container.Resolve<GwentClientService>().IsAutoPlay; }
     //<><><><><><><><><><><><><><><
     //-----------------------------
@@ -206,7 +207,7 @@ public class GameEvent : MonoBehaviour
             {
                 //将之前选中的复原
                 //_selectCard.transform.localScale = new Vector3(1, 1, 1);
-                _selectCard.CardShowInfo.ScaleTo(1);
+                _selectCard.CardShowInfo.SetHoverEmphasis(false);
                 _selectCard.ZPosition += 1f;//此复原有问题
             }
             _selectCard = value;
@@ -226,7 +227,7 @@ public class GameEvent : MonoBehaviour
                 return;
             }
             //_selectCard.transform.localScale = new Vector3(1.05f, 1.05f, 1);
-            _selectCard.CardShowInfo.ScaleTo(1.1f);
+            _selectCard.CardShowInfo.SetHoverEmphasis(true);
             _selectCard.ZPosition -= 1f;
         }
     }
@@ -320,7 +321,8 @@ public class GameEvent : MonoBehaviour
                 if (IsSelectCoin)//硬币判断
                 {
                     IsSelectCoin = false;
-                    IsOnCoin = true;//按住了！
+                    IsOnCoin = PassCoin.BeginPassHold();//按住并开始确认进度
+                    return;
                 }
                 //将选中的卡牌变为拖动状态,如果可以被拖动(并取消选中效果
                 if (SelectCard == null || !SelectCard.IsCanDrag || SelectCard.IsStay) return;
@@ -350,10 +352,12 @@ public class GameEvent : MonoBehaviour
                 //拖或者pass
                 CurrentPlace = CardUseInfo.ReSet;
                 if (IsOnCoin)//此方法会被改到其他地方(按住)
-                {   //直接pass信息并结束
-                    await sender.SendAsync<RoundInfo>(new RoundInfo() { IsPass = true });
+                {
+                    var isConfirmedPass = PassCoin.EndPassHold();
                     IsOnCoin = false;
                     IsSelectCoin = false;
+                    if (isConfirmedPass)
+                        await sender.SendAsync<RoundInfo>(new RoundInfo() { IsPass = true });
                     return;
                 }
                 if (DragCard == null) return;//没有拖拽的话,就没有什么效果
@@ -506,6 +510,12 @@ public class GameEvent : MonoBehaviour
     //每一帧
     private void Update()
     {
+        if (IsOnCoin && PassCoin.ConsumeAutoConfirmedPass())
+        {
+            IsOnCoin = false;
+            IsSelectCoin = false;
+            SendConfirmedPass();
+        }
         // check if surrender
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -588,12 +598,10 @@ public class GameEvent : MonoBehaviour
 #endif
                                 {
                                     IsSelectCoin = true;//选中的硬币
-                                    IsOnCoin = true;//按住硬币
                                 }
                                 else
                                 {
                                     IsSelectCoin = false;
-                                    IsOnCoin = false;
                                 }
 #else
                                 IsSelectCoin = true;//选中的硬币
@@ -603,7 +611,9 @@ public class GameEvent : MonoBehaviour
                         else//如果没有移动在硬币上
                         {
                             IsSelectCoin = false;//取消选中硬币
-                            IsOnCoin = false;//取消按住硬币
+                            if (IsOnCoin)
+                                PassCoin.CancelPassHold();
+                            IsOnCoin = false;//移出硬币时取消按住
                         }
                     }
                 }
@@ -673,6 +683,20 @@ public class GameEvent : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private async void SendConfirmedPass()
+    {
+        if (_isSendingPass) return;
+        _isSendingPass = true;
+        try
+        {
+            await sender.SendAsync<RoundInfo>(new RoundInfo() { IsPass = true });
+        }
+        finally
+        {
+            _isSendingPass = false;
         }
     }
     //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
@@ -1148,6 +1172,7 @@ public class GameEvent : MonoBehaviour
         //事后
         NowOperationType = GameOperationType.None;//了
         PassCoin.IsCanUse = false;//硬币不可用
+        PassCoin.ResetPassHold();
         MyHand.CardsCanDrag(false);
         MyLeader.SetCanDrag(false);
         //发送讯息

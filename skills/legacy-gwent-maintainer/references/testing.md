@@ -2,20 +2,13 @@
 
 Last verified: 2026-08-11
 
-Load this reference before testing a card whose correctness depends on deploy,
-selection, movement, death, landing, weather, duel, or chained events.
+Load this reference before testing a card whose correctness depends on deploy, selection, movement, death, landing, weather, duel, or chained events.
 
 ## Test layers
 
-- `test/Cynthia.Card.Server.Tests` covers static rules, map/localization
-  consistency, persistence boundaries, and service compatibility. Keep fast
-  pure assertions here.
-- `test/Cynthia.Card.Gameplay.Tests` is the isolated in-process gameplay suite.
-  It references the production Common, AI, and Server projects, but does not
-  start Unity, SignalR, MongoDB, a web host, or any other external engine.
-- `test/AITest` is the original console proof that two AI players can drive a
-  complete `GwentServerGame`. Treat it as the design ancestor, not the automated
-  assertion suite.
+- `test/Cynthia.Card.Server.Tests` covers static rules, map/localization consistency, persistence boundaries, and service compatibility. Keep fast pure assertions here.
+- `test/Cynthia.Card.Gameplay.Tests` is the isolated in-process gameplay suite. It references the production Common, AI, and Server projects, but does not start Unity, SignalR, MongoDB, a web host, or any other external engine.
+- `test/AITest` is the original console proof that two AI players can drive a complete `GwentServerGame`. Treat it as the design ancestor, not the automated assertion suite.
 - Workspace `headless-ai-probe` is a separate live integration probe. It uses a
   real server, SignalR, and MongoDB and is therefore not a unit-test substitute.
   Before running it, point its Common and AI project references at the worktree
@@ -25,10 +18,8 @@ selection, movement, death, landing, weather, duel, or chained events.
 
 ## Reusable fixture
 
-`Cynthia.Card.Gameplay.Tests/HeadlessGameFixture.cs` creates the real
-`GwentServerGame` with deterministic no-UI AI players. Menu, place-card, and row
-selection choose the first eligible option, so tests exercise production
-selection and event pipelines without UI input. The inherited `PlayCard`
+`Cynthia.Card.Gameplay.Tests/HeadlessGameFixture.cs` creates the real `GwentServerGame` with deterministic no-UI AI players. Menu, place-card, and row
+selection choose the first eligible option, so tests exercise production selection and event pipelines without UI input. The inherited `PlayCard`
 implementation may still choose a legal landing row randomly; avoid asserting a
 specific row unless the fixture explicitly overrides that method. When a chain
 needs a specific menu card, control the candidate order or add a queued card-ID
