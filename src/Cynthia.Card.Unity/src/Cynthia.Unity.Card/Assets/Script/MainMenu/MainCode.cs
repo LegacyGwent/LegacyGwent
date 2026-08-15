@@ -1,4 +1,4 @@
-﻿using Assets.Script.Localization;
+using Assets.Script.Localization;
 using Cynthia.Card.Client;
 using UnityEngine;
 using Autofac;
@@ -54,8 +54,13 @@ public class MainCode : MonoBehaviour
         _messagesReaderService = DependencyResolver.Container.Resolve<ClientMessagesReaderService>();
 
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
 
-
+        // Refresh the authenticated account before consuming persistent
+        // notices. Doing this in the opposite order can display and then try
+        // to acknowledge a previously logged-in account's season message.
+        await UpdateUserInfo();
+        await _messagesReaderService.CheckMessages(_client.User?.UserName);
 
         if (_client.IsAutoPlay || ClientGlobalInfo.IsToMatch)
         {
@@ -69,22 +74,39 @@ public class MainCode : MonoBehaviour
             }
             //DoMatchButton.onClick.Invoke();
         }
-        UpdateUserInfo();
-        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
-    private async void UpdateUserInfo()
+    private async Task UpdateUserInfo()
     {
         _client.User = await _client.QueryUserInfo(_client.User.UserName, _client.User.PassWord);
         if (_client.User.NewlyUnlockedTrinkets.HasNewTrinkets)
         {
+            var pendingNotifications = new List<GameObject>();
+
+            if (Canevas == null)
+            {
+                var canvas = FindObjectOfType<Canvas>();
+                Canevas = canvas == null ? null : canvas.gameObject;
+            }
+
+            if (TrinketUnlockPrefab == null)
+                TrinketUnlockPrefab = Resources.Load<GameObject>("Prefab/Trinkets/TrinketUnlockPrefab");
+
+            if (Canevas == null || TrinketUnlockPrefab == null)
+            {
+                Debug.LogWarning("Cannot display newly unlocked trinkets because the notification canvas or prefab is missing.");
+                await _client.ClearNewlyUnlockedTrinkets(_client.User.UserName);
+                return;
+            }
+
             // Display notifications for new trinkets
             if (_client.User.NewlyUnlockedTrinkets.NewAvatars.Count > 0)
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewAvatars)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedAvatars"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetAvatarContext(trinketID);
+                    pendingNotifications.Add(TrinketUnlock);
                 }
 
             }
@@ -92,9 +114,10 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewBorders)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = CreateTrinketUnlock();
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedBorders"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetBorderContext(trinketID);
+                    pendingNotifications.Add(TrinketUnlock);
                 }
 
             }
@@ -102,17 +125,101 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewTitles)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
-                    string color = _titles.Where(x => x.ID == trinketID).Single().TitleColor;
-                    TrinketUnlock.GetComponent<TrinketsContext>().SetTitleLook(trinketID, mycolormap[color]); // sets the look in the preview
+                    var title = _titles.FirstOrDefault(x => x.ID == trinketID);
+                    Color titleColor;
+                    if (title == null || !mycolormap.TryGetValue(title.TitleColor, out titleColor))
+                    {
+                        Debug.LogWarning("Skipping unknown unlocked title: " + trinketID);
+                        continue;
+                    }
+                    TrinketUnlock = CreateTrinketUnlock();
+                    TrinketUnlock.GetComponent<TrinketsContext>().SetTitleLook(trinketID, titleColor); // sets the look in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTitleContext(trinketID);
+                    pendingNotifications.Add(TrinketUnlock);
                 }
 
             }
+            ShowTrinketUnlockQueue(pendingNotifications);
             // Clear the notifications after displaying them
             await _client.ClearNewlyUnlockedTrinkets(_client.User.UserName);
         }
     }
+
+    private GameObject CreateTrinketUnlock()
+    {
+        // This is a UI prefab. Instantiating it at world position zero makes
+        // its canvas-local position resolution-dependent and can place the
+        // reward panel off-screen while its backdrop still blocks all input.
+        var notification = Instantiate(TrinketUnlockPrefab, Canevas.transform, false);
+        var rectTransform = notification.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.localRotation = Quaternion.identity;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.anchoredPosition = Vector2.zero;
+        }
+
+        var title = notification
+            .GetComponentsInChildren<Text>(true)
+            .FirstOrDefault(text => text.gameObject.name == "Title");
+        if (title != null)
+        {
+            title.text = _translator.GetText("NewReward");
+        }
+
+        var okButton = notification
+            .GetComponentsInChildren<Button>(true)
+            .FirstOrDefault(button => button.gameObject.name == "OkButton");
+        var okLabel = okButton == null ? null : okButton.GetComponentInChildren<Text>(true);
+        if (okLabel != null)
+        {
+            okLabel.text = _translator.GetText("PopupWindow_OkButton");
+        }
+
+        // Several default cosmetics can unlock on the first login. Keep later
+        // notifications hidden until the current one is acknowledged instead
+        // of stacking multiple modal backdrops and panels on top of each other.
+        notification.SetActive(false);
+        notification.transform.SetAsLastSibling();
+        return notification;
+    }
+
+    private static void ShowTrinketUnlockQueue(IList<GameObject> notifications)
+    {
+        var queuedNotifications = new List<KeyValuePair<GameObject, Button>>();
+        foreach (var notification in notifications)
+        {
+            var okButton = notification
+                .GetComponentsInChildren<Button>(true)
+                .FirstOrDefault(button => button.gameObject.name == "OkButton");
+
+            if (okButton == null)
+            {
+                Debug.LogWarning("Discarding a trinket notification without an OkButton so it cannot block the reward queue.");
+                Object.Destroy(notification);
+                continue;
+            }
+
+            queuedNotifications.Add(new KeyValuePair<GameObject, Button>(notification, okButton));
+        }
+
+        for (var index = 0; index < queuedNotifications.Count - 1; index++)
+        {
+            var nextNotification = queuedNotifications[index + 1].Key;
+            queuedNotifications[index].Value.onClick.AddListener(() =>
+            {
+                nextNotification.SetActive(true);
+                nextNotification.transform.SetAsLastSibling();
+            });
+        }
+
+        if (queuedNotifications.Count > 0)
+        {
+            queuedNotifications[0].Key.SetActive(true);
+            queuedNotifications[0].Key.transform.SetAsLastSibling();
+        }
+    }
+
     void Awake()
     {
         RectTransform rectTransform = UserCount.GetComponent<RectTransform>();

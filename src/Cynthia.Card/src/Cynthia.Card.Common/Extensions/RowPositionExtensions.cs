@@ -220,6 +220,8 @@ namespace Cynthia.Card
                     return RowPosition.EnemyLeader;
                 case RowPosition.EnemyLeader:
                     return RowPosition.MyLeader;
+                case RowPosition.Rule:
+                    return RowPosition.Rule;
             }
             return RowPosition.SpecialPlace;
         }

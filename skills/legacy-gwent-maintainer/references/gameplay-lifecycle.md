@@ -1,6 +1,6 @@
 # Gameplay lifecycle
 
-Last verified: 2026-08-03
+Last verified: 2026-08-08
 
 Use this reference before changing deployment, landing, shields, duels, or any
 effect that must run at a precise point in a unit's entry pipeline. Verify the
@@ -101,6 +101,13 @@ semantics, triggers normal damage listeners, and can stop the effect if the
 Troll leaves play. Its Biting Frost multiplier applies only after that cost, so
 the Duel uses the Troll's resulting current power.
 
+When an effect needs the number of damage instances resolved by a Duel, use
+`CardEffect.DuelWithDamageCount`; keep ordinary `Duel` as its compatibility
+wrapper. Count a hit only when it actually reduces Armor or current power.
+Shielded attempts therefore count as zero, and the shared safety limit and
+leave-play termination remain authoritative. Do not reconstruct a second Duel
+loop in the card effect.
+
 Since CardMap `1.0.0.171`, Syanna no longer repeats Deploy. She uses the normal
 `AfterTurnOver` event, decrements a visible two-turn Countdown only at the end
 of her owner's turns, and then deals the amount she is currently wounded
@@ -119,3 +126,12 @@ event/countdown path rather than maintaining a private turn counter.
 - `TurnCardPlayedNum` is incremented before a played card's deploy effect. When
   text refers to cards played earlier in the turn, subtract or structure loops
   with the current card already counted; lock this with a zero-earlier-card test.
+
+## Returning cards to the deck
+
+`GwentServerGame.LogicCardMove` is the canonical zone-transition boundary. It
+sends `AfterCardToDeck` only when a card moves from a real non-deck zone into a
+deck. This covers mulligan, exchange, and effect-driven returns without firing
+for initial `None -> deck` population or deck-internal reordering. Subscribe to
+this event for “whenever any card returns to a deck” effects; do not listen only
+to a swap helper, and do not duplicate event emission in individual cards.

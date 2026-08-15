@@ -140,6 +140,7 @@
         "PopupWindow_Surrender_title": "Rezygnacja?",
         "PopupWindow_Surrender_content": "Czy napewno chcesz się poddać?",
         "PopupWindow_ReceivedMessageTitle": "Otrzymałeś wiadomość z serwera",
+        "PopupWindow_Surrendered": "Poddano się",
         "PopupWindow_NoDeckTitle": "BRAK TALII",
         "PopupWindow_NoDeckDesc": "Nie masz dostępnej tali. Stwórz talie i wróć tutaj.",
         "PopupWindow_IncompleteDeckTitle": "TALIA NIEKOMPLETNA",

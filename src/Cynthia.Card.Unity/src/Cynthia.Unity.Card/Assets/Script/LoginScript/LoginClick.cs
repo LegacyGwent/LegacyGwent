@@ -74,6 +74,9 @@ public class LoginClick : MonoBehaviour
 
             //SceneManager.LoadScene("Game");
 
+            if (!this || !Application.isPlaying)
+                return;
+
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Game");
             asyncLoad.completed += (AsyncOperation op) => {
                 _client.ClientState = ClientState.Standby;

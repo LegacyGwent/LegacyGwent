@@ -1,6 +1,8 @@
 param(
     [switch]$NoWatch,
-    [switch]$Background
+    [switch]$Background,
+    [string]$FeatureManifest,
+    [switch]$EnableRuleFixtures
 )
 
 $previous = @{
@@ -14,7 +16,11 @@ try {
     $env:GWENT_DEV_SERVER_PORT = "5010"
     $env:GWENT_DEV_MONGO_PORT = "28021"
     $env:GWENT_DEV_DATABASE = "gwent-diy-ai"
-    & (Join-Path $PSScriptRoot "start-dev.ps1") -NoWatch:$NoWatch -Background:$Background
+    & (Join-Path $PSScriptRoot "start-dev.ps1") `
+        -NoWatch:$NoWatch `
+        -Background:$Background `
+        -FeatureManifest $FeatureManifest `
+        -EnableRuleFixtures:$EnableRuleFixtures
 }
 finally {
     $env:GWENT_DEV_PROFILE = $previous.Profile

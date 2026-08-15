@@ -140,6 +140,7 @@
         "PopupWindow_Surrender_title": "Surrender?",
         "PopupWindow_Surrender_content": "Are you sure you want to surrender?",
         "PopupWindow_ReceivedMessageTitle": "Received message from the server",
+        "PopupWindow_Surrendered": "Surrendered",
         "PopupWindow_NoDeckTitle": "NO DECK",
         "PopupWindow_NoDeckDesc": "You have no available decks. Please create one and come back.",
         "PopupWindow_IncompleteDeckTitle": "INCOMPLETE DECK",

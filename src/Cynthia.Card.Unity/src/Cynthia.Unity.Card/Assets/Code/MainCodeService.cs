@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Alsein.Extensions.LifetimeAnnotations;
 using Autofac;
@@ -19,65 +19,77 @@ namespace Cynthia.Card.Client
         {
             _code = GameObject.Find("Code");
         }
+
+        private bool TryGetMainCode(out MainCode mainCode)
+        {
+            // Pointer-exit callbacks may arrive while Game.unity is unloading.
+            // Unity's destroyed-object null semantics let us safely reacquire Code
+            // after a scene change and quietly ignore the final stale callback.
+            if (_code == null) _code = GameObject.Find("Code");
+            mainCode = _code == null ? null : _code.GetComponent<MainCode>();
+            return mainCode != null;
+        }
+
         public T GetCode<T>()
         {
-            return _code.GetComponent<T>();
+            if (_code == null) _code = GameObject.Find("Code");
+            return _code == null ? default(T) : _code.GetComponent<T>();
         }
         //
         public void ClickEditorListLeader(string id)
         {//点击了编辑列表领袖
-            _code.GetComponent<MainCode>().EditorMenu.ClickEditorListLeader(id);
+            if (TryGetMainCode(out var code)) code.EditorMenu.ClickEditorListLeader(id);
         }
         public void ClickEditorListCard(string id)
         {//点击了编辑列表卡牌
-            _code.GetComponent<MainCode>().EditorMenu.ClickEditorListCard(id);
+            if (TryGetMainCode(out var code)) code.EditorMenu.ClickEditorListCard(id);
         }
         public void ClickEditorUICoreCard(CardStatus card)
         {//点击了编辑菜单卡牌
-            _code.GetComponent<MainCode>().EditorMenu.ClickEditorUICoreCard(card);
+            if (TryGetMainCode(out var code)) code.EditorMenu.ClickEditorUICoreCard(card);
         }
         //
         public void AddDeckClick()
         {
-            _code.GetComponent<MainCode>().EditorMenu.AddDeckClick();
+            if (TryGetMainCode(out var code)) code.EditorMenu.AddDeckClick();
         }
 
         public void ClickSwitchUICard(CardStatus card)
         {
-            _code.GetComponent<MainCode>().EditorMenu.ClickSwitchUICard(card);
+            if (TryGetMainCode(out var code)) code.EditorMenu.ClickSwitchUICard(card);
         }
 
         public void SelectSwitchUICard(CardStatus card, bool isOver = true)
         {
-            _code.GetComponent<MainCode>().EditorMenu.SelectSwitchUICard(card, isOver);
+            if (TryGetMainCode(out var code)) code.EditorMenu.SelectSwitchUICard(card, isOver);
         }
         public void SetMatchArtCard(CardStatus card, bool isOver = true)
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetMatchArtCard(card, isOver);
+            if (TryGetMainCode(out var code)) code.MatchUI.GetComponent<MatchInfo>().SetMatchArtCard(card, isOver);
         }
         public void SetMatchDeckList(IList<DeckModel> decks)
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetDeckList(decks);
+            if (TryGetMainCode(out var code)) code.MatchUI.GetComponent<MatchInfo>().SetDeckList(decks);
         }
 
         public void SetDeck(DeckModel deck, string id)
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SetDeck(deck, id);
+            if (TryGetMainCode(out var code)) code.MatchUI.GetComponent<MatchInfo>().SetDeck(deck, id);
         }
 
         public void SwitchDeckOpen()
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SwitchDeckOpen();
+            if (TryGetMainCode(out var code)) code.MatchUI.GetComponent<MatchInfo>().SwitchDeckOpen();
         }
 
         public void MatchReset()
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().MatchReset();
+            if (TryGetMainCode(out var code)) code.MatchUI.GetComponent<MatchInfo>().MatchReset();
         }
 
         public void SwitchDeckClose()
         {
-            _code.GetComponent<MainCode>().MatchUI.GetComponent<MatchInfo>().SwitchDeckClose();
+            if (TryGetMainCode(out var code)) code.MatchUI.GetComponent<MatchInfo>().SwitchDeckClose();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card;
 using UnityEngine.UI;
@@ -17,6 +17,7 @@ using static UnityEngine.UI.Scrollbar;
 using Cynthia.Card.Common.Extensions;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 public class EditorInfo : MonoBehaviour
 {
     private string LastHoveredCard;
@@ -43,6 +44,10 @@ public class EditorInfo : MonoBehaviour
     private int _nowShow = -1;
     private string _showSearchMessage = "";
     private bool isSpecial = false;
+    private bool _showRuleCards = false;
+    private Toggle _ruleCardGroupButton;
+    private int _loadedEditorCardPages = 1;
+    private DeckRuleFilter _deckRuleFilter = DeckRuleFilter.All;
     //------------------------------------------------
     //DOTween动画
     public RectTransform ShowCardsTitle;
@@ -85,6 +90,18 @@ public class EditorInfo : MonoBehaviour
     public Toggle[] EditorGroupButtons;
     private Group _nowEditorGroup = Group.Leader;
     private DeckModel _nowEditorDeck = null;
+    private readonly DeckBuildingProjectionRevisionGate _projectionRevisionGate
+        = new DeckBuildingProjectionRevisionGate();
+    private bool _projectionHealthy;
+    private DeckBuildingProjection _acceptedProjection;
+    private readonly Dictionary<string, DeckBuildingCardState> _projectedCardStates
+        = new Dictionary<string, DeckBuildingCardState>(StringComparer.Ordinal);
+    // Availability badges describe the remaining copies of that specific card.
+    // Keep the server/rule-transition snapshot stable while ordinary cards are
+    // edited locally; otherwise the global deck-size remainder makes every
+    // visible badge tick down whenever any one card is added.
+    private readonly Dictionary<string, int> _availableCopiesSnapshot
+        = new Dictionary<string, int>(StringComparer.Ordinal);
     //
     public GameObject EditorListCardPrefab;//列表卡牌
     public GameObject EditorMenuCardPrefab;//菜单卡牌
@@ -100,6 +117,7 @@ public class EditorInfo : MonoBehaviour
     public Text CopperCount;//铜色数量
     public Text AllCount;   //全部数量
     public Text AllCountText;
+    private GameObject _minimumDeckBadge;
     public Text SwitchButtonText;
     public Text BlacklistButtonText;
     public Button SwitchDeckButton;
@@ -137,16 +155,85 @@ public class EditorInfo : MonoBehaviour
         DeckName.onValueChanged.AddListener(x => DeckNameChanged(x));
         SwitchButtonText.text = _translator.GetText("EditorMenu_SwitchDeckButton");
         BlacklistButtonText.text = _translator.GetText("EditorMenu_BlacklistButton");
+        DisableLegacySpecialModeToggle();
+        ApplyPlayerRuleCardVisibility();
         //---------------------------------------------------------------------------
     }
 
-    public void SetEditorCardInfo(IList<CardStatus> cards)
+    private void DisableLegacySpecialModeToggle()
+    {
+        var legacyButton = SwitchDeckButton != null
+            ? SwitchDeckButton.gameObject
+            : SwitchButtonText != null && SwitchButtonText.transform.parent != null
+                ? SwitchButtonText.transform.parent.gameObject
+                : null;
+        if (legacyButton != null) legacyButton.SetActive(false);
+    }
+
+    private void CreateRuleCardGroupButton()
+    {
+        if (_ruleCardGroupButton != null || EditorGroupButtons == null || EditorGroupButtons.Length < 4) return;
+
+        var copperButton = EditorGroupButtons[3];
+        _ruleCardGroupButton = Instantiate(copperButton, copperButton.transform.parent);
+        _ruleCardGroupButton.name = "RuleCardGroupButton";
+        var rect = _ruleCardGroupButton.GetComponent<RectTransform>();
+        rect.anchoredPosition = new Vector2(copperButton.GetComponent<RectTransform>().anchoredPosition.x + 69f, rect.anchoredPosition.y);
+
+        var background = _ruleCardGroupButton.transform.Find("Bg");
+        var oldIcon = background != null ? background.Find("Icon") : null;
+        if (oldIcon != null) oldIcon.gameObject.SetActive(false);
+        if (background != null) CreateRuleTabletIcon(background);
+
+        EditorGroupButtons = EditorGroupButtons.Concat(new[] { _ruleCardGroupButton }).ToArray();
+        _ruleCardGroupButton.isOn = false;
+    }
+
+    private bool PlayerRuleCardsEnabled
+        => _clientService?.FeatureManifest?.PlayerRuleCardsEnabled == true &&
+           (_clientService.FeatureManifest.RuleCards?.Any(x => x.PlayerSelectable) ?? false);
+
+    private void ApplyPlayerRuleCardVisibility()
+    {
+        if (PlayerRuleCardsEnabled) CreateRuleCardGroupButton();
+        if (_ruleCardGroupButton != null) _ruleCardGroupButton.gameObject.SetActive(PlayerRuleCardsEnabled);
+        if (PlayerRuleCardsEnabled) return;
+
+        _showRuleCards = false;
+        _deckRuleFilter = DeckRuleFilter.All;
+        if (_ruleCardGroupButton != null && _ruleCardGroupButton.isOn && EditorGroupButtons.Length > 0)
+            EditorGroupButtons[0].isOn = true;
+    }
+
+    private static void CreateRuleTabletIcon(Transform parent)
+    {
+        var tablet = new GameObject("RuleIcon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        tablet.transform.SetParent(parent, false);
+        var tabletRect = tablet.GetComponent<RectTransform>();
+        tabletRect.anchorMin = tabletRect.anchorMax = new Vector2(.5f, .5f);
+        tabletRect.sizeDelta = new Vector2(22, 28);
+        tabletRect.anchoredPosition = Vector2.zero;
+        tablet.GetComponent<Image>().color = new Color32(25, 62, 60, 255);
+
+        for (var i = 0; i < 3; i++)
+        {
+            var line = new GameObject("RuleLine" + i, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+            line.transform.SetParent(tablet.transform, false);
+            var lineRect = line.GetComponent<RectTransform>();
+            lineRect.anchorMin = lineRect.anchorMax = new Vector2(.5f, .5f);
+            lineRect.sizeDelta = new Vector2(i == 2 ? 10 : 14, 2);
+            lineRect.anchoredPosition = new Vector2(0, 7 - i * 7);
+            line.GetComponent<Image>().color = new Color32(226, 178, 82, 255);
+        }
+    }
+
+    public void SetEditorCardInfo(IList<CardStatus> cards, bool resetScroll = false)
     {   //设置已有卡牌
         var pagenum = 30;
-        EditorCardsScroll.value = 1;
+        var previousScroll = resetScroll ? 1f : EditorCardsScroll.value;
+        var pagesToRestore = resetScroll ? 1 : Math.Max(1, _loadedEditorCardPages);
         RemoveAllChild(EditorCardsContext);
-        var sc = 0;
-        AddCards(sc, pagenum, cards);
+        var sc = -1;
         void AddCards(int skipCount, int pageCount, IList<CardStatus> showCards)
         {
             if (showCards.Count <= skipCount * pageCount)
@@ -158,17 +245,19 @@ public class EditorInfo : MonoBehaviour
             {
                 var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
                 card.cardShowInfo.setCurrentCore(x, true);
-                var canAdd = 0;
-                if (_nowEditorDeck.Id == "blacklist")
-                    canAdd = 1;
-                else if (!isSpecial)
-                    canAdd = (x.Group == Group.Copper ? 3 : 1);
-                else
-                    canAdd = ((x.Group == Group.Gold || x.Group == Group.Copper) ? 3 : 1);
-                card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
+                card.Count = GetAvailableCopies(x);
                 card.transform.SetParent(EditorCardsContext, false);
+                if (DeckRuleEngine.IsRuleCard(x.CardId)) AddRuleCardBadge(card.transform);
             });
         }
+        for (var page = 0; page < pagesToRestore && page * pagenum < cards.Count; page++)
+        {
+            AddCards(page, pagenum, cards);
+            sc = page;
+        }
+        _loadedEditorCardPages = Math.Max(1, sc + 1);
+        Canvas.ForceUpdateCanvases();
+        EditorCardsScroll.value = previousScroll;
         if (_editorCardScrollEvent != null)
         {
             EditorCardsScroll.onValueChanged.RemoveListener(_editorCardScrollEvent);
@@ -183,9 +272,45 @@ public class EditorInfo : MonoBehaviour
 
             sc++;
             AddCards(sc, pagenum, cards);
+            _loadedEditorCardPages = Math.Max(_loadedEditorCardPages, sc + 1);
         };
         EditorCardsScroll.onValueChanged.AddListener(_editorCardScrollEvent);
     }
+
+    private void AddRuleCardBadge(Transform card)
+    {
+        var badge = new GameObject("RuleCardBadge", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Outline));
+        badge.layer = card.gameObject.layer;
+        badge.transform.SetParent(card, false);
+        badge.transform.SetAsLastSibling();
+        var badgeRect = badge.GetComponent<RectTransform>();
+        badgeRect.anchorMin = new Vector2(0, 1);
+        badgeRect.anchorMax = new Vector2(0, 1);
+        badgeRect.pivot = new Vector2(0, 1);
+        badgeRect.anchoredPosition = new Vector2(6, -6);
+        badgeRect.sizeDelta = new Vector2(64, 26);
+        badge.GetComponent<Image>().color = new Color32(15, 53, 55, 245);
+        var outline = badge.GetComponent<Outline>();
+        outline.effectColor = new Color32(222, 174, 78, 210);
+        outline.effectDistance = new Vector2(1, -1);
+
+        var labelObject = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
+        labelObject.layer = badge.layer;
+        labelObject.transform.SetParent(badge.transform, false);
+        var labelRect = labelObject.GetComponent<RectTransform>();
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = Vector2.zero;
+        labelRect.offsetMax = Vector2.zero;
+        var label = labelObject.GetComponent<Text>();
+        label.font = SwitchButtonText != null ? SwitchButtonText.font : Resources.GetBuiltinResource<Font>("Arial.ttf");
+        label.fontSize = 15;
+        label.fontStyle = FontStyle.Bold;
+        label.alignment = TextAnchor.MiddleCenter;
+        label.color = new Color32(238, 220, 174, 255);
+        label.text = Local("规则", "RULE");
+    }
+
     private UnityAction<float> _showCardScrollEvent = null;
     private UnityAction<float> _editorCardScrollEvent = null;
 
@@ -228,8 +353,10 @@ public class EditorInfo : MonoBehaviour
         ShowCardScroll.onValueChanged.AddListener(_showCardScrollEvent);
     }
 
-    public void OpenEditor(bool IsMoveLeftRight = true)
+    public async void OpenEditor(bool IsMoveLeftRight = true)
     {
+        await _clientService.RefreshGameFeatureManifest();
+        ApplyPlayerRuleCardVisibility();
         ShowCardScroll.value = 1;
         EditorCardsScroll.value = 1;
         EditorStatus = EditorStatus.ShowCards;
@@ -302,28 +429,86 @@ public class EditorInfo : MonoBehaviour
         father.DetachChildren();
     }
 
+    private void RemoveAllChildExcept(Transform father, Transform preserved)
+    {
+        for (var i = father.childCount - 1; i >= 0; i--)
+        {
+            var child = father.GetChild(i);
+            if (child == preserved) continue;
+            child.gameObject.SetActive(false);
+            Destroy(child.gameObject);
+        }
+    }
+
     public void SetDeckList(IList<DeckModel> decks)
     {
         //设置已有卡组
-        RemoveAllChild(ShowDecksContext);
+        var availableDecks = (decks ?? new List<DeckModel>())
+            .Where(x => DeckRuleEngine.CanPlayerSelectRuleDeck(_clientService.FeatureManifest, x))
+            .ToList();
+        var hasAnyRuleDeck = availableDecks.Any(HasRuleCards);
+        if (!hasAnyRuleDeck) _deckRuleFilter = DeckRuleFilter.All;
+        var filterBar = ShowDecksContext.Find("DeckRuleFilterBar");
+        RemoveAllChildExcept(ShowDecksContext, hasAnyRuleDeck ? filterBar : null);
+        if (!hasAnyRuleDeck && filterBar != null)
+        {
+            filterBar.gameObject.SetActive(false);
+            Destroy(filterBar.gameObject);
+            filterBar = null;
+        }
+        if (hasAnyRuleDeck)
+        {
+            if (filterBar == null)
+                filterBar = DeckRuleFilterBar.Create(
+                    ShowDecksContext,
+                    _deckRuleFilter,
+                    SwitchButtonText != null ? SwitchButtonText.font : null,
+                    Local("否", "no") == "no",
+                    value =>
+                    {
+                        if (_deckRuleFilter == value) return;
+                        _deckRuleFilter = value;
+                        DeckRuleFilterBar.SetCurrent(ShowDecksContext.Find("DeckRuleFilterBar")?.gameObject, value);
+                        SetDeckList(_clientService.User.Decks);
+                    }).transform;
+            filterBar.gameObject.SetActive(true);
+            filterBar.SetSiblingIndex(0);
+            DeckRuleFilterBar.SetCurrent(filterBar.gameObject, _deckRuleFilter);
+        }
         var button = Instantiate(AddDeckButtonPrefab);
         button.transform.SetParent(ShowDecksContext, false);
         //-----
-        decks.ForAll(x =>
+        var visibleDecks = availableDecks.Where(x =>
+            x.Id != "blacklist" &&
+            (_deckRuleFilter == DeckRuleFilter.All ||
+             (_deckRuleFilter == DeckRuleFilter.Rules && HasRuleCards(x)) ||
+             (_deckRuleFilter == DeckRuleFilter.Standard && !HasRuleCards(x)))).ToList();
+        visibleDecks.ForAll(x =>
         {
             if (_deckPrefabMap == null) Start();
-            if (x.Id != "blacklist")
+            if (!GwentMap.CardMap.TryGetValue(x.Leader ?? string.Empty, out var leader))
             {
-                var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
-                string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
-                deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck() || (x.IsBlacklist() && x.Id == "blacklist"));
-                deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
-                deck.GetComponent<EditorShowDeck>().Id = x.Id;
-                deck.transform.SetParent(ShowDecksContext, false);
+                Debug.LogWarning($"Deck '{x.Name}' ({x.Id}) is hidden because leader '{x.Leader}' is missing from CardMap.");
+                return;
             }
+            if (!_deckPrefabMap.TryGetValue(leader.Faction, out var deckPrefab) || deckPrefab == null)
+            {
+                Debug.LogWarning($"Deck '{x.Name}' ({x.Id}) is hidden because leader '{x.Leader}' has unsupported faction '{leader.Faction}'.");
+                return;
+            }
+            var deck = Instantiate(deckPrefab);
+            deck.transform.SetParent(ShowDecksContext, false);
+            string leaderartid = leader.CardArtsId;
+            var featureValid = DeckRuleEngine.Validate(x, ResolveRules(x), true).IsComplete;
+            var legacyValid = !HasRuleCards(x) && (x.IsBasicDeck() || x.IsSpecialDeck());
+            var showInfo = deck.GetComponent<DeckShowInfo>();
+            showInfo.SetDeckInfo(x.Name, featureValid || legacyValid);
+            showInfo.SetRuleInfo(x, _clientService.FeatureManifest, _translator);
+            deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
+            deck.GetComponent<EditorShowDeck>().Id = x.Id;
         });
         //----
-        var count = decks.Count();
+        var count = visibleDecks.Count;
         // var height = (15 + 65 + 5 + 85) + (80 + 5) * count;//count <= 16 ? 780f : 
         // ShowDecksContext.sizeDelta = new Vector2(0, height);
         ShowDeckScroll.value = 1;
@@ -355,48 +540,26 @@ public class EditorInfo : MonoBehaviour
     {
         Debug.Log("点击了【" + _clientService.User.Decks.Single(x => x.Id == Id).Name + "】卡组的编辑按钮");
         var deck = _clientService.User.Decks.Single(x => x.Id == Id);
+        if (!DeckRuleEngine.CanPlayerSelectRuleDeck(_clientService.FeatureManifest, deck)) return;
         _nowEditorDeck = deck;
-        isSpecial = (!deck.IsHalfBasicDeck()) && deck.IsHalfSpecialDeck();
+        isSpecial = !HasRuleCards(deck) && (!deck.IsHalfBasicDeck()) && deck.IsHalfSpecialDeck();
         _nowSwitchLeaderId = deck.Leader;
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
         //
+        EditorStatus = EditorStatus.EditorDeck;
         ResetEditorCore();
         ShowCardsTitle.anchoredPosition = new Vector2(0, 150f);
         EditorCardsTitle.anchoredPosition = new Vector2(0, -63f);
         EditorBodyCore.SetActive(true);
         EditorBodyMian.SetActive(false);
-        EditorStatus = EditorStatus.EditorDeck;
     }
     //=============================================================================================================================
     //以上为展示卡牌相关的内容,以下为展示框选择相关内容
     public void SwitchDeckClick()
     {
-        if (_nowEditorDeck.Id == "blacklist")
-            return;
-        var decks = _nowEditorDeck.Deck;
-        isSpecial = !isSpecial;
-        if (!isSpecial)
-        {
-            var gold = decks.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Distinct().ToList().Take(4).ToList();
-            var silver = decks.Where(x => GwentMap.CardMap[x].Group == Group.Silver).ToList();
-            var copper = decks.Where(x => GwentMap.CardMap[x].Group == Group.Copper).ToList();
-            gold.AddRange(silver);
-            gold.AddRange(copper);
-            _nowEditorDeck.Deck = gold;
-        }
-        else
-        {
-            var gold = decks.Where(x => (!SpecialBanningList.Contains(GwentMap.CardMap[x].CardId)) && (GwentMap.CardMap[x].Group == Group.Gold)).ToList();
-            var silver = decks.Where(x => GwentMap.CardMap[x].Group == Group.Silver).ToList();
-            var copper = decks.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Distinct().ToList();
-            gold.AddRange(silver);
-            gold.AddRange(copper);
-            _nowEditorDeck.Deck = gold;
-        }
-
-        SetEditorDeck(_nowEditorDeck);
-        //=============================================================================================================================
-        AutoSetEditorCards();
+        // Kept only for compatibility with the serialized scene event. New decks
+        // enter custom rules solely by adding an explicit rule card.
+        return;
     }
 
     public void AddDeckClick()
@@ -534,8 +697,8 @@ public class EditorInfo : MonoBehaviour
             //收回...不过降下编辑的
             EditorBodyCore.SetActive(true);
             EditorBodyMian.SetActive(false);
-            ResetEditorCore();
             EditorStatus = EditorStatus.EditorDeck;
+            ResetEditorCore();
             DOTween.To(() => EditorCardsTitle.anchoredPosition, x => EditorCardsTitle.anchoredPosition = x,
                     new Vector2(0, -63f), 0.5f);//降下Title,设定标题 ********
             DOTween.To(() => LeftSwitchMenu.anchoredPosition, x => LeftSwitchMenu.anchoredPosition = x,
@@ -590,6 +753,8 @@ public class EditorInfo : MonoBehaviour
                 // }
                 // else
                 // {
+                // Saving a draft and leaving the editor never requires a complete
+                // match-ready deck. Strict validation remains at matchmaking.
                 _nowEditorDeck.Name = (DeckName.text == "" ? _translator.GetText("EditorMenu_DefaultDeckname") : DeckName.text);
                 if (_nowEditorDeck.Id == "blacklist")
                 {
@@ -674,8 +839,12 @@ public class EditorInfo : MonoBehaviour
             _nowEditorDeck.Name = name;
     }
 
-    public void ResetEditorCore()
+    public async void ResetEditorCore()
     {//初始化
+        _projectionHealthy = false;
+        _acceptedProjection = null;
+        _projectedCardStates.Clear();
+        _availableCopiesSnapshot.Clear();
         EditorSearch.text = "";
         DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? _translator.GetText("EditorMenu_DefaultDeckname") : _nowEditorDeck.Name;
         if (_nowEditorDeck.Id != "blacklist")
@@ -693,6 +862,7 @@ public class EditorInfo : MonoBehaviour
         SetEditorDeck(_nowEditorDeck);
         EditorGroupButtons[0].isOn = true;
         AutoSetEditorCards();
+        await RefreshProjectionForCurrentDeck();
     }
 
     public void ClickEditorListLeader(string id)
@@ -708,47 +878,46 @@ public class EditorInfo : MonoBehaviour
                                        //Debug.Log("点击了领袖");
     }
 
-    public void ClickEditorListCard(string id)
+    public async void ClickEditorListCard(string id)
     {//点击了卡牌   应该从卡组去除对应卡牌,并且更新显示
         var subIndex = _nowEditorDeck.Deck.Select((item, index) => (item, index)).First(x => x.item == id).index;
-        _nowEditorDeck.Deck.RemoveAt(subIndex);
-        SetEditorDeck(_nowEditorDeck);
-        //**************************************************
-        var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == id);
-        c.ForAll(x => { x.Count++; });
+        var candidate = CloneDeck(_nowEditorDeck);
+        candidate.Deck.RemoveAt(subIndex);
+        if (DeckRuleEngine.IsRuleCard(id) &&
+            _nowEditorDeck.Id != "blacklist" &&
+            !await ProjectCandidate(candidate, "remove", id)) return;
+        _nowEditorDeck.Deck = candidate.Deck;
+        if (DeckRuleEngine.IsRuleCard(id))
+        {
+            SetEditorDeck(_nowEditorDeck);
+            AutoSetEditorCards();
+        }
+        else
+        {
+            RefreshOrdinaryAvailabilityAfterEdit(id, 1);
+            UpdateOrdinaryDeckRow(id);
+            RefreshDeckCountersAndHeight(_nowEditorDeck);
+        }
     }
 
-    public void ClickEditorUICoreCard(CardStatus card)
+    public async void ClickEditorUICoreCard(CardStatus card)
     {//点击了显示卡牌  应该判断是否应该添加卡牌,如果可以,添加并且更新显示,否则跳出消息提醒
+        if (card == null || GetAvailableCopies(card) <= 0) return;
         var count = _nowEditorDeck.Deck.Where(x => x == card.CardId).Count();
         if (_nowEditorDeck.Id == "blacklist")
         {
             if (!(count >= 1 || (_nowEditorDeck.Deck.Count >= 2)))
             {   //如果超过上限,禁止加入卡牌
                 _nowEditorDeck.Deck.Add(card.CardId);
-                SetEditorDeck(_nowEditorDeck);
+                UpdateOrdinaryDeckRow(card.CardId);
+                RefreshDeckCountersAndHeight(_nowEditorDeck);
                 //**********************************************
                 var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
                 c.ForAll(x => { x.Count--; });
             }
 
         }
-        else if (!isSpecial)
-        {
-            if (!((card.Group == Group.Copper && count >= 3) ||
-                (card.Group != Group.Copper && count >= 1) ||
-                (_nowEditorDeck.Deck.Count >= 40) ||
-                (card.Group == Group.Silver && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Silver).Count() >= 6) ||
-                (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 4)))
-            {   //如果超过上限,禁止加入卡牌
-                _nowEditorDeck.Deck.Add(card.CardId);
-                SetEditorDeck(_nowEditorDeck);
-                //**********************************************
-                var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
-                c.ForAll(x => { x.Count--; });
-            }
-        }
-        else
+        else if (isSpecial && !HasRuleCards(_nowEditorDeck))
         {
             if (!((card.Group == Group.Silver && count >= 1) ||
                ((card.Group == Group.Gold || card.Group == Group.Copper) && count >= 3) ||
@@ -757,10 +926,49 @@ public class EditorInfo : MonoBehaviour
                (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 12)))
             {
                 _nowEditorDeck.Deck.Add(card.CardId);
+                AdjustAvailableCopiesSnapshot(card.CardId, -1);
+                UpdateOrdinaryDeckRow(card.CardId);
+                RefreshDeckCountersAndHeight(_nowEditorDeck);
+                RefreshVisibleCardAvailability(card.CardId);
+            }
+        }
+        else
+        {
+            var candidate = CloneDeck(_nowEditorDeck);
+            candidate.Deck.Add(card.CardId);
+            // Ordinary edits use the last server-authoritative rule snapshot
+            // entirely locally.  Previously only rule-card additions projected
+            // their candidate, so an event-only rule (for example Feast Echo)
+            // accidentally bypassed the unchanged 4-gold / 6-silver limits.
+            if (!DeckRuleEngine.IsRuleCard(card.CardId) &&
+                !DeckRuleEngine.CanAddCard(_nowEditorDeck, card.CardId, CurrentRuleSnapshot()))
+                return;
+            if (DeckRuleEngine.IsRuleCard(card.CardId))
+            {
+                if (!PlayerRuleCardsEnabled) return;
+                if (!HasRuleCards(_nowEditorDeck))
+                {
+                    var accepted = await _globalUIService.YNMessageBox(
+                        Local("加入规则卡", "Add rule card"),
+                        Local(
+                            "加入规则卡可能改变组卡与匹配条件，实际匹配方式由服务器当前模式决定。是否继续？",
+                            "Adding a rule card may change deck-building and matchmaking conditions. The active server mode decides actual compatibility. Continue?"));
+                    if (!accepted) return;
+                }
+            }
+            if (DeckRuleEngine.IsRuleCard(card.CardId) &&
+                !await ProjectCandidate(candidate, "add", card.CardId)) return;
+            _nowEditorDeck.Deck = candidate.Deck;
+            if (DeckRuleEngine.IsRuleCard(card.CardId))
+            {
                 SetEditorDeck(_nowEditorDeck);
-                //**********************************************
-                var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
-                c.ForAll(x => { x.Count--; });
+                AutoSetEditorCards();
+            }
+            else
+            {
+                RefreshOrdinaryAvailabilityAfterEdit(card.CardId, -1);
+                UpdateOrdinaryDeckRow(card.CardId);
+                RefreshDeckCountersAndHeight(_nowEditorDeck);
             }
         }
         //Debug.Log("点击了菜单卡");
@@ -770,35 +978,84 @@ public class EditorInfo : MonoBehaviour
     {//点击了品质筛选
         if (!EditorGroupButtons.Any(x => x.isOn)) return;
         var result = EditorGroupButtons.Select((item, index) => (item, index)).First(x => x.item.isOn).index;
+        if (result == 4)
+        {
+            if (!PlayerRuleCardsEnabled) return;
+            if (!_showRuleCards)
+            {
+                _showRuleCards = true;
+                AutoSetEditorCards(resetScroll: true);
+            }
+            return;
+        }
+        _showRuleCards = false;
         var group = result == 0 ? Group.Leader : (result == 1 ? Group.Gold : (result == 2 ? Group.Silver : Group.Copper));
         if (_nowEditorGroup != group)
         {
             _nowEditorGroup = group;
-            AutoSetEditorCards();
+            AutoSetEditorCards(resetScroll: true);
         }
+        else AutoSetEditorCards(resetScroll: true);
     }
 
     public void EditorSearchChange(string value)
     {   //编辑卡牌中,搜索框改变
         _editorSearchMessage = value;
-        AutoSetEditorCards();
+        AutoSetEditorCards(resetScroll: true);
     }
 
-    public void AutoSetEditorCards()
+    public void AutoSetEditorCards(bool resetScroll = false)
     {   //按照筛选条件进行筛选
+        // Returning from the deck editor clears the active deck before Unity has
+        // finished dispatching InputField/Toggle callbacks from the old view.
+        // Those late callbacks do not have anything to filter and must not inspect
+        // the now-cleared deck.
+        if (_nowEditorDeck == null || EditorStatus != EditorStatus.EditorDeck)
+            return;
+
+        var rules = CurrentRuleSnapshot();
+        var leader = GwentMap.CardMap[_nowEditorDeck.Leader];
+        var manifestRuleIds = new HashSet<string>(
+            (_clientService.FeatureManifest?.RuleCards ?? new List<RuleCardDefinition>())
+                .Where(x => x.PlayerSelectable)
+                .Select(x => x.Id),
+            StringComparer.Ordinal);
+        var visibleRuleIds = new HashSet<string>(
+            (_clientService.FeatureManifest?.RuleCards ?? new List<RuleCardDefinition>())
+                .Where(x => x.PlayerSelectable &&
+                    ((x.AllowedLeaderFactions?.Count ?? 0) == 0 ||
+                     x.AllowedLeaderFactions.Contains(leader.Faction)))
+                .Select(x => x.Id),
+            StringComparer.Ordinal);
+        var hasProjection = RuleSnapshotMatchesCurrentDeck();
         SetEditorCardInfo
         (
             //
             _cards
-            .Where(x => ((_nowEditorDeck.Id == "blacklist" && x.Group == Group.Gold) || (_nowEditorDeck.Id != "blacklist" && (!(isSpecial && SpecialBanningList.Contains(x.CardInfo().CardId)) && ((x.Faction == Faction.Neutral) || (x.Faction == _nowSwitchFaction))))))
+            .Where(x => _showRuleCards
+                ? PlayerRuleCardsEnabled && DeckRuleEngine.IsRuleCard(x.CardId) && manifestRuleIds.Contains(x.CardId) &&
+                  visibleRuleIds.Contains(x.CardId) &&
+                  (!hasProjection || _projectedCardStates.ContainsKey(x.CardId))
+                : !DeckRuleEngine.IsRuleCard(x.CardId))
+            .Where(x =>
+                (_nowEditorDeck.Id == "blacklist" && x.Group == Group.Gold) ||
+                (_nowEditorDeck.Id != "blacklist" &&
+                 !(isSpecial && SpecialBanningList.Contains(x.CardInfo().CardId)) &&
+                 (_showRuleCards ||
+                  (x.Group == Group.Leader
+                    ? x.Faction == _nowSwitchFaction
+                    : hasProjection
+                        ? _projectedCardStates.TryGetValue(x.CardId, out var state) && state.ReasonCode != "card.not-allowed"
+                        : DeckRuleEngine.IsCardSelectable(x.CardInfo(), leader, rules)))))
             .Where(x => ((_editorSearchMessage == "") ? true :
                 (_translator.GetCardName(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
                  _translator.GetCardInfo(x.CardInfo().CardId).Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase) ||
                  x.CardInfo().Strength.ToString().Contains(_editorSearchMessage) ||
                  x.Categories.Select(tag => _translator.GetText($"CardTag_{GwentMap.CategorieInfoMap[tag]}")).Any(text => text.Contains(_editorSearchMessage, StringComparison.OrdinalIgnoreCase))
                 )))
-            .Where(x => _nowEditorGroup == Group.Leader ? x.Group != Group.Leader : x.Group == _nowEditorGroup)
-            .ToList()
+            .Where(x => _showRuleCards || (_nowEditorGroup == Group.Leader ? x.Group != Group.Leader : x.Group == _nowEditorGroup))
+            .ToList(),
+            resetScroll
         );
     }
 
@@ -813,7 +1070,19 @@ public class EditorInfo : MonoBehaviour
             leader.GetComponent<EditorListLeader>().Id = _nowSwitchLeaderId;
             leader.transform.SetParent(EditorCListContext, false);
         }
-        deck.Deck.Select(x => GwentMap.CardMap[x])
+        var selectedRules = deck.Deck
+            .Where(DeckRuleEngine.IsRuleCard)
+            .Distinct()
+            .Select(x => GwentMap.CardMap[x])
+            .ToList();
+        if (selectedRules.Count > 0)
+        {
+            CreateRuleSectionTitle(selectedRules.Count);
+            selectedRules.ForAll(CreateRuleCardRow);
+            CreateDeckDivider();
+        }
+
+        deck.Deck.Where(x => !DeckRuleEngine.IsRuleCard(x)).Select(x => GwentMap.CardMap[x])
             .OrderByDescending(x => x.Group)
             .ThenByDescending(x => x.Strength)
             .GroupBy(x => x.CardId)
@@ -824,33 +1093,584 @@ public class EditorInfo : MonoBehaviour
             card.GetComponent<EditorListCard>().Id = x.Key;
             card.transform.SetParent(EditorCListContext, false);
         });
-        AllCount.text = _nowEditorDeck.Deck.Count().ToString();
-        bool valid = deck.Id == "blacklist" || (deck.IsSpecialDeck() || deck.IsBasicDeck());
+        RefreshDeckCountersAndHeight(deck);
+    }
+
+    private void RefreshDeckCountersAndHeight(DeckModel deck)
+    {
+        var selectedRuleCount = (deck?.Deck ?? new List<string>())
+            .Where(DeckRuleEngine.IsRuleCard)
+            .Distinct()
+            .Count();
+        var playableCards = (deck?.Deck ?? new List<string>()).Where(x => !DeckRuleEngine.IsRuleCard(x)).ToList();
+        var rules = ResolveRules(deck);
+        var validation = DeckRuleEngine.Validate(deck, rules, true);
+        AllCount.text = playableCards.Count + FormatLimit(GetDeckMaximum(rules));
+        UpdateMinimumDeckBadge(deck.Id == "blacklist" ? null : GetDeckMinimum(rules));
+        bool valid = deck.Id == "blacklist" ||
+                     (ProjectionMatchesCurrentDeck() ? _projectionHealthy && _acceptedProjection.IsComplete : validation.IsComplete) ||
+                     (!HasRuleCards(deck) && isSpecial && deck.IsSpecialDeck());
         AllCount.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         AllCountText.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         if (_nowEditorDeck.Id == "blacklist")
         {
-            CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
+            CopperCount.text = $"{playableCards.Count(x => GwentMap.CardMap[x].Group == Group.Copper)}";
             GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}";
             SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}";
         }
         else
         {
-            CopperCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Copper).Count()}";
-            if (isSpecial)
+            CopperCount.text = $"{playableCards.Count(x => GwentMap.CardMap[x].Group == Group.Copper)}{FormatLimit(GetGroupMaximum(rules, Group.Copper))}";
+            if (isSpecial && !HasRuleCards(deck))
                 GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/12";
             else
-                GoldCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Gold).Count()}/4";
-            SilverCount.text = $"{_nowEditorDeck.Deck.Where(x => GwentMap.CardMap[x].Group == Group.Silver).Count()}/6";
+                GoldCount.text = $"{playableCards.Count(x => GwentMap.CardMap[x].Group == Group.Gold)}{FormatLimit(GetGroupMaximum(rules, Group.Gold))}";
+            SilverCount.text = $"{playableCards.Count(x => GwentMap.CardMap[x].Group == Group.Silver)}{FormatLimit(GetGroupMaximum(rules, Group.Silver))}";
         }
         //*****************
         //等待补充？？？
         //*****************
-        var count = deck.Deck.Distinct().Count();
-        var height = ((10 + 75 + 2.6f + (41.5f + 2.6f) * count) + 5f);
+        var ordinaryCount = deck.Deck.Where(x => !DeckRuleEngine.IsRuleCard(x)).Distinct().Count();
+        var ruleHeight = selectedRuleCount > 0 ? 34f + selectedRuleCount * 44.1f + 10f : 0f;
+        var height = ((10 + 75 + 2.6f + (41.5f + 2.6f) * ordinaryCount) + ruleHeight + 5f);
         EditorCListContext.sizeDelta = new Vector2(0, height);
         //EditorCListScroll.value = 1;
     }
+
+    private void UpdateOrdinaryDeckRow(string cardId)
+    {
+        if (string.IsNullOrWhiteSpace(cardId) || DeckRuleEngine.IsRuleCard(cardId)) return;
+        var copies = _nowEditorDeck.Deck.Count(x => x == cardId);
+        var existing = GetAllChilds<EditorListCard>(EditorCListContext)
+            .FirstOrDefault(x => x.Id == cardId);
+
+        if (copies <= 0)
+        {
+            if (existing != null)
+            {
+                existing.gameObject.SetActive(false);
+                Destroy(existing.gameObject);
+            }
+        }
+        else if (existing == null)
+        {
+            var card = Instantiate(EditorListCardPrefab).GetComponent<ListCardShowInfo>();
+            card.SetCardInfo(cardId, copies);
+            card.GetComponent<EditorListCard>().Id = cardId;
+            card.transform.SetParent(EditorCListContext, false);
+        }
+        else
+        {
+            var info = existing.GetComponent<ListCardShowInfo>();
+            if (info.Count != null) info.Count.SetActive(copies > 1);
+            if (info.CountText != null) info.CountText.text = $"x{copies}";
+        }
+
+        GetAllChilds<EditorListCard>(EditorCListContext)
+            .Where(x => !DeckRuleEngine.IsRuleCard(x.Id) && x.gameObject.activeSelf)
+            .OrderByDescending(x => GwentMap.CardMap[x.Id].Group)
+            .ThenByDescending(x => GwentMap.CardMap[x.Id].Strength)
+            .ThenBy(x => x.Id, StringComparer.Ordinal)
+            .ForAll(x => x.transform.SetAsLastSibling());
+    }
+
+    private void CreateRuleSectionTitle(int count)
+    {
+        var header = new GameObject("RuleSectionTitle", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Outline), typeof(LayoutElement));
+        header.transform.SetParent(EditorCListContext, false);
+        SetDeckListRowWidth(header.GetComponent<RectTransform>(), 32f);
+        var layout = header.GetComponent<LayoutElement>();
+        layout.minHeight = 32;
+        layout.preferredHeight = 32;
+        layout.preferredWidth = GetDeckListRowWidth();
+        var background = header.GetComponent<Image>();
+        background.color = new Color32(12, 36, 39, 238);
+        background.raycastTarget = false;
+        var outline = header.GetComponent<Outline>();
+        outline.effectColor = new Color32(116, 88, 42, 190);
+        outline.effectDistance = new Vector2(1, -1);
+
+        var accent = new GameObject("Accent", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        accent.transform.SetParent(header.transform, false);
+        var accentRect = accent.GetComponent<RectTransform>();
+        accentRect.anchorMin = Vector2.zero;
+        accentRect.anchorMax = new Vector2(0, 1);
+        accentRect.pivot = new Vector2(0, .5f);
+        accentRect.sizeDelta = new Vector2(4, 0);
+        accentRect.anchoredPosition = Vector2.zero;
+        accent.GetComponent<Image>().color = new Color32(220, 174, 78, 255);
+        accent.GetComponent<Image>().raycastTarget = false;
+
+        var labelObject = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
+        labelObject.transform.SetParent(header.transform, false);
+        var labelRect = labelObject.GetComponent<RectTransform>();
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = new Vector2(14, 0);
+        labelRect.offsetMax = new Vector2(-8, 0);
+        var label = labelObject.GetComponent<Text>();
+        label.font = SwitchButtonText != null ? SwitchButtonText.font : Resources.GetBuiltinResource<Font>("Arial.ttf");
+        label.fontSize = 15;
+        label.fontStyle = FontStyle.Bold;
+        label.alignment = TextAnchor.MiddleLeft;
+        label.color = new Color32(218, 169, 76, 255);
+        label.text = Local($"规则卡 · {count}", $"RULE CARDS · {count}");
+        label.raycastTarget = false;
+        var labelOutline = labelObject.AddComponent<Outline>();
+        labelOutline.effectColor = new Color32(0, 12, 14, 220);
+        labelOutline.effectDistance = new Vector2(1, -1);
+    }
+
+    private void CreateRuleCardRow(GwentCard rule)
+    {
+        var card = Instantiate(EditorListCardPrefab).GetComponent<ListCardShowInfo>();
+        card.SetCardInfo(rule.CardId, 1);
+        card.GetComponent<EditorListCard>().Id = rule.CardId;
+        card.transform.SetParent(EditorCListContext, false);
+        RuleCardListVisual.Apply(card.gameObject, SwitchButtonText != null ? SwitchButtonText.font : null, Local("否", "no") == "no");
+    }
+
+    private void CreateDeckDivider()
+    {
+        var divider = new GameObject("DeckCardsDivider", typeof(RectTransform), typeof(LayoutElement));
+        divider.transform.SetParent(EditorCListContext, false);
+        SetDeckListRowWidth(divider.GetComponent<RectTransform>(), 8f);
+        divider.GetComponent<LayoutElement>().preferredHeight = 8;
+        divider.GetComponent<LayoutElement>().preferredWidth = GetDeckListRowWidth();
+        var line = new GameObject("Line", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        line.transform.SetParent(divider.transform, false);
+        var lineRect = line.GetComponent<RectTransform>();
+        lineRect.anchorMin = new Vector2(0, .5f);
+        lineRect.anchorMax = new Vector2(1, .5f);
+        lineRect.sizeDelta = new Vector2(-12, 1);
+        lineRect.anchoredPosition = Vector2.zero;
+        line.GetComponent<Image>().color = new Color32(91, 105, 100, 90);
+    }
+
+    private float GetDeckListRowWidth()
+        => Mathf.Max(310f, EditorCListContext != null ? EditorCListContext.rect.width - 16f : 310f);
+
+    private void SetDeckListRowWidth(RectTransform rect, float height)
+    {
+        if (rect == null) return;
+        rect.sizeDelta = new Vector2(GetDeckListRowWidth(), height);
+    }
+
+    private ResolvedDeckRuleSet ResolveRules(DeckModel deck)
+    {
+        var manifest = _clientService.FeatureManifest ?? new GameFeatureManifest { RulesetVersion = "offline-standard" };
+        var selected = (deck?.Deck ?? new List<string>()).Where(DeckRuleEngine.IsRuleCard).Distinct(StringComparer.Ordinal);
+        return DeckRuleEngine.Resolve(manifest.RuleCards, selected, manifest.RulesetVersion, manifest.CardPools);
+    }
+
+    private bool HasRuleCards(DeckModel deck)
+        => (deck?.Deck ?? new List<string>()).Any(DeckRuleEngine.IsRuleCard);
+
+    private int GetAvailableCopies(CardStatus card)
+    {
+        if (_nowEditorDeck == null) return 0;
+        var existing = _nowEditorDeck.Deck.Count(x => x == card.CardId);
+        if (_nowEditorDeck.Id == "blacklist") return Math.Max(0, 1 - existing);
+        if (DeckRuleEngine.IsRuleCard(card.CardId))
+        {
+            if (existing > 0) return 0;
+            if (RuleSnapshotMatchesCurrentDeck() && _projectedCardStates.TryGetValue(card.CardId, out var projectedRuleState))
+                return projectedRuleState.Selectable ? 1 : 0;
+            var candidate = CloneDeck(_nowEditorDeck);
+            candidate.Deck.Add(card.CardId);
+            var projection = DeckBuildingProjectionEngine.Project(
+                _clientService.FeatureManifest ?? new GameFeatureManifest { RulesetVersion = "offline-standard" },
+                new DeckBuildingProjectionRequest
+                {
+                    Action = "add",
+                    CandidateCardId = card.CardId,
+                    ConfirmNormalization = true,
+                    Deck = candidate
+                });
+            return projection.IsValid &&
+                (projection.NormalizedDeck?.Deck ?? new List<string>()).Contains(card.CardId)
+                ? 1
+                : 0;
+        }
+        if (isSpecial && !HasRuleCards(_nowEditorDeck))
+            return Math.Max(0, (card.Group == Group.Silver ? 1 : 3) - existing);
+
+        if (_availableCopiesSnapshot.TryGetValue(card.CardId, out var snapshot))
+            return snapshot;
+
+        var rules = CurrentRuleSnapshot();
+        var probe = BuildLocalConstraintProbe(_nowEditorDeck, rules);
+        var addable = 0;
+        while (addable < DeckBuildingProjectionEngine.AbsoluteCopyLimit &&
+               DeckRuleEngine.CanAddCard(probe, card.CardId, rules))
+        {
+            probe.Deck.Add(card.CardId);
+            addable++;
+        }
+        _availableCopiesSnapshot[card.CardId] = addable;
+        return addable;
+    }
+
+    private void AdjustAvailableCopiesSnapshot(string cardId, int delta)
+    {
+        if (string.IsNullOrWhiteSpace(cardId) || DeckRuleEngine.IsRuleCard(cardId)) return;
+        if (!_availableCopiesSnapshot.TryGetValue(cardId, out var current)) return;
+        _availableCopiesSnapshot[cardId] = Math.Max(0,
+            Math.Min(DeckBuildingProjectionEngine.AbsoluteCopyLimit, current + delta));
+    }
+
+    // Keep ordinary clicks cheap and stable: update the clicked identity in
+    // place, and only invalidate the wider visible snapshot when a shared
+    // deck/group cap has just become binding (or has just been released).
+    // This prevents both the old "every X64 counts down" bug and stale silver
+    // cards remaining clickable after the sixth silver was selected.
+    private void RefreshOrdinaryAvailabilityAfterEdit(string cardId, int snapshotDelta)
+    {
+        AdjustAvailableCopiesSnapshot(cardId, snapshotDelta);
+        if (_nowEditorDeck == null || !GwentMap.CardMap.TryGetValue(cardId, out var changedCard) ||
+            !GwentMap.CardMap.TryGetValue(_nowEditorDeck.Leader, out var leader))
+        {
+            RefreshVisibleCardAvailability(cardId);
+            return;
+        }
+
+        var rules = CurrentRuleSnapshot();
+        var ordinaryCards = _nowEditorDeck.Deck
+            .Where(x => !DeckRuleEngine.IsRuleCard(x) && GwentMap.CardMap.ContainsKey(x))
+            .Select(x => GwentMap.CardMap[x])
+            .ToList();
+        var sharedBoundaryChanged = false;
+        foreach (var constraint in rules?.Constraints ?? new List<DeckConstraintDefinition>())
+        {
+            if (!constraint.Max.HasValue) continue;
+            var kind = (constraint.Kind ?? "").ToLowerInvariant();
+            int current;
+            if (kind == "deck-size")
+                current = ordinaryCards.Count;
+            else if (kind == "card-count" && DeckRuleEngine.Matches(constraint.Filter, changedCard, leader))
+                current = ordinaryCards.Count(x => DeckRuleEngine.Matches(constraint.Filter, x, leader));
+            else
+                continue;
+
+            if (current >= constraint.Max.Value ||
+                (snapshotDelta > 0 && current == constraint.Max.Value - 1))
+            {
+                sharedBoundaryChanged = true;
+                break;
+            }
+        }
+
+        if (sharedBoundaryChanged)
+        {
+            _availableCopiesSnapshot.Clear();
+            RefreshVisibleCardAvailability();
+        }
+        else
+        {
+            RefreshVisibleCardAvailability(cardId);
+        }
+    }
+
+    private ResolvedDeckRuleSet CurrentRuleSnapshot()
+        => RuleSnapshotMatchesCurrentDeck()
+            ? _acceptedProjection.ResolvedRules
+            : ResolveRules(_nowEditorDeck);
+
+    private bool RuleSnapshotMatchesCurrentDeck()
+    {
+        if (_acceptedProjection?.ResolvedRules == null || _nowEditorDeck == null) return false;
+        if (!string.Equals(_acceptedProjection.RulesetVersion,
+                _clientService.FeatureManifest?.RulesetVersion ?? "", StringComparison.Ordinal)) return false;
+        var selected = _nowEditorDeck.Deck.Where(DeckRuleEngine.IsRuleCard)
+            .Distinct(StringComparer.Ordinal).OrderBy(x => x, StringComparer.Ordinal);
+        var projected = (_acceptedProjection.ResolvedRules.AppliedRuleCards ?? new List<string>())
+            .OrderBy(x => x, StringComparer.Ordinal);
+        return selected.SequenceEqual(projected);
+    }
+
+    // Invalid legacy cards may remain in a saved draft, but they must not make
+    // every otherwise legal card appear grey. Build availability from the legal
+    // portion while keeping the actual draft untouched and visible on the left.
+    private static DeckModel BuildLocalConstraintProbe(DeckModel deck, ResolvedDeckRuleSet rules)
+    {
+        var probe = new DeckModel
+        {
+            Id = deck?.Id,
+            Name = deck?.Name ?? "",
+            Leader = deck?.Leader ?? "",
+            Deck = (deck?.Deck ?? new List<string>()).Where(DeckRuleEngine.IsRuleCard).Distinct().ToList()
+        };
+        foreach (var cardId in (deck?.Deck ?? new List<string>()).Where(x => !DeckRuleEngine.IsRuleCard(x)))
+        {
+            if (!GwentMap.CardMap.ContainsKey(cardId)) continue;
+            if (DeckRuleEngine.CanAddCard(probe, cardId, rules)) probe.Deck.Add(cardId);
+        }
+        return probe;
+    }
+
+    private void RefreshVisibleCardAvailability(string cardId = null)
+    {
+        foreach (var card in GetAllChilds<EditorUICoreCard>(EditorCardsContext))
+            if (card?.cardShowInfo?.CurrentCore != null &&
+                (string.IsNullOrWhiteSpace(cardId) || card.cardShowInfo.CurrentCore.CardId == cardId))
+                card.Count = GetAvailableCopies(card.cardShowInfo.CurrentCore);
+    }
+
+    private bool ProjectionMatchesCurrentDeck()
+        => _acceptedProjection?.NormalizedDeck != null && _nowEditorDeck != null &&
+           string.Equals(_acceptedProjection.NormalizedDeck.Leader, _nowEditorDeck.Leader, StringComparison.Ordinal) &&
+           (_acceptedProjection.NormalizedDeck.Deck ?? new List<string>()).SequenceEqual(_nowEditorDeck.Deck ?? new List<string>());
+
+    private async Task<bool> ProjectCandidate(
+        DeckModel candidate,
+        string action,
+        string candidateCardId,
+        bool requireComplete = false)
+    {
+        var projection = await RequestProjection(candidate, action, candidateCardId, false, true);
+        if (projection == null) return false;
+
+        if (projection.RequiresConfirmation)
+        {
+            var names = projection.RemovedCards
+                .GroupBy(x => x.CardId)
+                .Take(8)
+                .Select(x => $"{_translator.GetCardName(x.Key)} ×{x.Count()}");
+            var accepted = await _globalUIService.YNMessageBox(
+                Local("卡组调整确认", "Confirm deck adjustment"),
+                Local("这次调整会使部分卡牌不再合法。确认后将移除：\n", "This change makes some cards illegal. Confirm to remove:\n") + string.Join("\n", names));
+            if (!accepted) return false;
+            projection = await RequestProjection(candidate, action, candidateCardId, true, true);
+            if (projection == null) return false;
+        }
+
+        if (!projection.IsValid || (requireComplete && !projection.IsComplete))
+        {
+            IEnumerable<DeckValidationIssue> issues = projection.Issues;
+            if (requireComplete && !projection.IsComplete && !(issues?.Any() ?? false))
+                issues = new[] { new DeckValidationIssue { Code = "count.min" } };
+            await ShowRuleIssues(issues);
+            return false;
+        }
+
+        if (action == "add" && !string.IsNullOrWhiteSpace(candidateCardId))
+        {
+            var previousCount = _nowEditorDeck?.Deck?.Count(x => x == candidateCardId) ?? 0;
+            var projectedCount = projection.NormalizedDeck?.Deck?.Count(x => x == candidateCardId) ?? 0;
+            if (projectedCount <= previousCount)
+            {
+                IEnumerable<DeckValidationIssue> rejectionIssues = projection.Issues.Count > 0
+                    ? (IEnumerable<DeckValidationIssue>)projection.Issues
+                    : new[] { new DeckValidationIssue { Code = "card.not-allowed", CardId = candidateCardId } };
+                await ShowRuleIssues(rejectionIssues);
+                return false;
+            }
+        }
+
+        candidate.Leader = projection.NormalizedDeck.Leader;
+        candidate.Deck = projection.NormalizedDeck.Deck.ToList();
+        AcceptProjection(projection);
+        return true;
+    }
+
+    private async Task RefreshProjectionForCurrentDeck()
+    {
+        if (_nowEditorDeck == null || _nowEditorDeck.Id == "blacklist" || string.IsNullOrWhiteSpace(_nowEditorDeck.Leader))
+            return;
+        var projection = await RequestProjection(_nowEditorDeck, "refresh", "", false, false);
+        if (projection == null || EditorStatus != EditorStatus.EditorDeck || _nowEditorDeck == null) return;
+        AcceptProjection(projection);
+        SetEditorDeck(_nowEditorDeck);
+        AutoSetEditorCards();
+    }
+
+    private async Task<DeckBuildingProjection> RequestProjection(
+        DeckModel deck,
+        string action,
+        string candidateCardId,
+        bool confirmNormalization,
+        bool showFailure)
+    {
+        var revision = _projectionRevisionGate.BeginRequest();
+        try
+        {
+            var projection = await _clientService.GetDeckBuildingProjection(new DeckBuildingProjectionRequest
+            {
+                Revision = revision,
+                PreviousProjectionFingerprint = _acceptedProjection?.ProjectionFingerprint ?? "",
+                PreviousPoolFingerprint = _acceptedProjection?.PoolFingerprint ?? "",
+                Action = action ?? "refresh",
+                CandidateCardId = candidateCardId ?? "",
+                ConfirmNormalization = confirmNormalization,
+                ClientFeatureLevel = 2,
+                Deck = CloneDeck(deck)
+            });
+            if (!_projectionRevisionGate.TryAccept(revision, projection))
+                return null;
+            return projection;
+        }
+        catch (Exception e)
+        {
+            if (_projectionRevisionGate.IsLatest(revision)) _projectionHealthy = false;
+            Debug.LogWarning($"Deck projection failed: {e.Message}");
+            if (showFailure)
+                await _globalUIService.YNMessageBox(
+                    Local("暂时无法验证卡组", "Deck validation unavailable"),
+                    Local("未能取得服务端最新组卡规则。为避免卡组损坏，本次修改未应用。", "The latest server deck rules could not be loaded. This edit was not applied."),
+                    isOnlyYes: true);
+            return null;
+        }
+    }
+
+    private void AcceptProjection(DeckBuildingProjection projection)
+    {
+        if (projection == null) return;
+        _acceptedProjection = projection;
+        _projectionHealthy = projection.IsAuthoritative && string.IsNullOrWhiteSpace(projection.FailureCode) && !projection.RequiresConfirmation;
+        _availableCopiesSnapshot.Clear();
+        _projectedCardStates.Clear();
+        foreach (var state in projection.CardStates ?? new List<DeckBuildingCardState>())
+            _projectedCardStates[state.CardId] = state;
+    }
+
+    private Task<bool> ShowRuleIssues(IEnumerable<DeckValidationIssue> issues)
+    {
+        var issueList = (issues ?? Enumerable.Empty<DeckValidationIssue>()).ToList();
+        var resolutionIssues = issueList.Where(IsRuleResolutionIssue).ToList();
+        if (resolutionIssues.Count > 0) issueList = resolutionIssues;
+        if (issueList.Count == 0)
+            issueList.Add(new DeckValidationIssue { Code = "deck.invalid" });
+        var text = string.Join("\n", issueList.Take(8).Select(RuleIssueText));
+        var title = resolutionIssues.Count > 0
+            ? Local("规则冲突", "Rule conflict")
+            : Local("卡组不符合要求", "Deck requirements not met");
+        return _globalUIService.YNMessageBox(title, text, isOnlyYes: true);
+    }
+
+    private static bool IsRuleResolutionIssue(DeckValidationIssue issue)
+        => issue != null && (issue.Code == "rules.conflict" ||
+                             issue.Code == "rules.requires" ||
+                             issue.Code == "rules.priority-conflict" ||
+                             issue.Code == "rules.unknown" ||
+                             issue.Code == "rules.disabled" ||
+                             issue.Code == "rules.constraint-invalid" ||
+                             issue.Code == "rules.pool-unknown");
+
+    private string RuleIssueText(DeckValidationIssue issue)
+    {
+        switch (issue.Code)
+        {
+            case "rules.conflict": return Local($"{_translator.GetCardName(issue.CardId)} 与 {_translator.GetCardName(issue.RelatedId)} 不能同时使用", $"{_translator.GetCardName(issue.CardId)} conflicts with {_translator.GetCardName(issue.RelatedId)}");
+            case "rules.requires": return Local($"{_translator.GetCardName(issue.CardId)} 需要先选择 {_translator.GetCardName(issue.RelatedId)}", $"{_translator.GetCardName(issue.CardId)} requires {_translator.GetCardName(issue.RelatedId)}");
+            case "rules.priority-conflict": return Local("规则卡对同一项设置给出了冲突结果", "Rule cards provide conflicting values for the same setting");
+            case "rules.deck-building-effect-failed": return Local("一张规则卡的组卡逻辑执行失败，本次修改已取消", "A rule card's deck-building logic failed; this edit was cancelled");
+            case "rules.normalization-cycle": return Local("规则组合导致卡组调整循环，请移除冲突规则", "The rule combination creates a deck-adjustment cycle");
+            case "rules.normalization-limit": return Local("规则组合无法在安全次数内稳定，请移除冲突规则", "The rule combination did not stabilize within the safety limit");
+            case "rules.unknown": return Local($"服务器未提供规则卡 {issue.CardId}", $"Rule card {issue.CardId} was not provided by the server");
+            case "rules.faction": return Local("当前领袖势力不能使用这张规则卡", "This rule card is not available to the current leader faction");
+            case "card.not-allowed": return Local($"{_translator.GetCardName(issue.CardId)} 不符合当前规则", $"{_translator.GetCardName(issue.CardId)} is not allowed by the current rules");
+            case "card.denied": return Local($"{_translator.GetCardName(issue.CardId)} 被当前规则禁止", $"{_translator.GetCardName(issue.CardId)} is denied by the current rules");
+            case "copies.max": return Local($"{_translator.GetCardName(issue.CardId)} 超过同名上限", $"{_translator.GetCardName(issue.CardId)} exceeds the copy limit");
+            case "count.max": return Local("卡组超过当前规则的数量上限", "The deck exceeds a limit imposed by the current rules");
+            case "count.min": return Local("卡组尚未达到当前规则要求的最低数量", "The deck has not reached the required minimum");
+            case "deck.invalid": return Local("卡组尚未满足当前组卡要求", "The deck does not yet meet the current requirements");
+            default: return issue.Code;
+        }
+    }
+
+    private string Local(string zhCn, string en)
+        => string.Equals(_translator.TextLocalization.ChosenLanguage?.Filename, "en", StringComparison.OrdinalIgnoreCase) ? en : zhCn;
+
+    private static DeckModel CloneDeck(DeckModel deck) => new DeckModel
+    {
+        Id = deck?.Id,
+        Name = deck?.Name ?? "",
+        Leader = deck?.Leader ?? "",
+        Deck = deck?.Deck?.ToList() ?? new List<string>()
+    };
+
+    private int? GetDeckMaximum(ResolvedDeckRuleSet rules)
+    {
+        if (ProjectionMatchesCurrentDeck())
+            return _acceptedProjection.Limits?
+                .Where(x => x.Kind == "deck-size" && x.Max.HasValue)
+                .Select(x => x.Max).Min();
+        return rules?.Constraints?.Where(x => x.Kind == "deck-size" && x.Max.HasValue).Select(x => x.Max).Min();
+    }
+
+    private int? GetDeckMinimum(ResolvedDeckRuleSet rules)
+    {
+        if (ProjectionMatchesCurrentDeck())
+            return _acceptedProjection.Limits?
+                .Where(x => x.Kind == "deck-size" && x.Min.HasValue)
+                .Select(x => x.Min).Max();
+        return rules?.Constraints?.Where(x => x.Kind == "deck-size" && x.Min.HasValue).Select(x => x.Min).Max();
+    }
+
+    private void UpdateMinimumDeckBadge(int? minimum)
+    {
+        var shouldShow = minimum.HasValue && minimum.Value != 25 && AllCountText != null;
+        if (!shouldShow)
+        {
+            if (_minimumDeckBadge != null) _minimumDeckBadge.SetActive(false);
+            return;
+        }
+
+        if (_minimumDeckBadge == null)
+        {
+            var parent = AllCountText.transform.parent;
+            _minimumDeckBadge = new GameObject("DeckMinimumBadge", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Outline));
+            _minimumDeckBadge.transform.SetParent(parent, false);
+            var rect = _minimumDeckBadge.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(.5f, .5f);
+            rect.anchorMax = new Vector2(.5f, .5f);
+            rect.pivot = new Vector2(.5f, .5f);
+            rect.anchoredPosition = new Vector2(118, 0);
+            rect.sizeDelta = new Vector2(92, 25);
+            var image = _minimumDeckBadge.GetComponent<Image>();
+            image.color = new Color32(15, 48, 50, 235);
+            image.raycastTarget = false;
+            var outline = _minimumDeckBadge.GetComponent<Outline>();
+            outline.effectColor = new Color32(201, 154, 67, 205);
+            outline.effectDistance = new Vector2(1, -1);
+
+            var labelObject = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text), typeof(Outline));
+            labelObject.transform.SetParent(_minimumDeckBadge.transform, false);
+            var labelRect = labelObject.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = new Vector2(4, 1);
+            labelRect.offsetMax = new Vector2(-4, -1);
+            var label = labelObject.GetComponent<Text>();
+            label.font = AllCountText.font ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
+            label.fontSize = 13;
+            label.fontStyle = FontStyle.Bold;
+            label.alignment = TextAnchor.MiddleCenter;
+            label.color = new Color32(239, 230, 201, 255);
+            label.raycastTarget = false;
+            var labelOutline = labelObject.GetComponent<Outline>();
+            labelOutline.effectColor = new Color32(0, 10, 12, 220);
+            labelOutline.effectDistance = new Vector2(1, -1);
+        }
+
+        _minimumDeckBadge.SetActive(true);
+        _minimumDeckBadge.GetComponentInChildren<Text>().text = Local($"最低 {minimum.Value}", $"MIN {minimum.Value}");
+    }
+
+    private int? GetGroupMaximum(ResolvedDeckRuleSet rules, Group group)
+    {
+        if (ProjectionMatchesCurrentDeck())
+            return _acceptedProjection.Limits?
+                .Where(x => x.Kind == "card-count" && x.Max.HasValue &&
+                            (x.Groups?.Count ?? 0) == 1 && x.Groups[0] == group)
+                .Select(x => x.Max).Min();
+        return rules?.Constraints?
+            .Where(x => x.Kind == "card-count" && x.Max.HasValue &&
+                        (x.Filter?.Groups?.Count ?? 0) == 1 && x.Filter.Groups[0] == group)
+            .Select(x => x.Max).Min();
+    }
+
+    private static string FormatLimit(int? maximum) => maximum.HasValue ? "/" + maximum.Value : "";
 
 
     public int GetFactionIndex(Faction faction)
@@ -882,9 +1702,19 @@ public class EditorInfo : MonoBehaviour
     {
         Debug.Log(deckCode);
         var deck = deckCode.DeCompressToDeck();
+        if (!DeckRuleEngine.CanPlayerSelectRuleDeck(_clientService.FeatureManifest, deck))
+        {
+            await _globalUIService.YNMessageBox(
+                Local("暂不可用", "Unavailable"),
+                Local("服务器当前未开放玩家规则卡组。原有卡组数据不会被删除。", "Player rule-card decks are currently disabled by the server. Existing data is preserved."),
+                isOnlyYes: true);
+            return false;
+        }
         deck.Name = string.IsNullOrWhiteSpace(name) ? _translator.GetCardName(deck.Leader.CardInfo().CardId) + " #" + (_clientService.User.Decks.Count + 1)
                                                     : (name.Length >= 20 ? name.Substring(0, 20) : name);
-        if (!(deck.IsBasicDeck() || deck.IsSpecialDeck() || deck.IsHalfBasicDeck()))
+        var featureValidation = DeckRuleEngine.Validate(deck, ResolveRules(deck), false);
+        var legacyDraft = !HasRuleCards(deck) && (deck.IsBasicDeck() || deck.IsSpecialDeck() || deck.IsHalfBasicDeck());
+        if (!(featureValidation.IsValid || legacyDraft))
         {
             await _globalUIService.YNMessageBox("PopupWindow_AddDeckErrorTitle",
                                                "Code: " + deckCode, "PopupWindow_OkButton", isOnlyYes: true);
@@ -927,5 +1757,32 @@ public class EditorInfo : MonoBehaviour
     public void CloseDeckCodeInput()
     {
         DeckCodeInputBackGround.SetActive(false);
+    }
+}
+
+internal sealed class CompactRuleDeckRow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+{
+    private EditorInfo _owner;
+    private CardStatus _card;
+
+    public void Initialize(EditorInfo owner, CardStatus card)
+    {
+        _owner = owner;
+        _card = card;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_owner != null && _card != null) _owner.SelectSwitchUICard(_card);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_owner != null && _card != null) _owner.SelectSwitchUICard(_card, false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (_owner != null && _card != null) _owner.ClickEditorListCard(_card.CardId);
     }
 }

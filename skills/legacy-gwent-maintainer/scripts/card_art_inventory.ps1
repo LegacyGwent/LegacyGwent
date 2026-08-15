@@ -10,6 +10,7 @@ $unityAddressables = Join-Path $unityAssets 'Addressables'
 $mapPath = Join-Path $commonRoot 'GwentGame\GwentMap.cs'
 $effectsPath = Join-Path $commonRoot 'CardEffects'
 $artPath = Join-Path $unityAddressables 'Cards'
+$fullArtGroupPath = Join-Path $unityAssets 'AddressableAssetsData\AssetGroups\Default Local Group.asset'
 $miniatureGroupPath = Join-Path $unityAssets 'AddressableAssetsData\AssetGroups\Miniatures.asset'
 $webPreviewPath = Join-Path $repoRoot 'src\Cynthia.Card\src\Cynthia.Card.Server\wwwroot\scale'
 $imageExtensions = @('.png', '.jpg', '.jpeg', '.tga')
@@ -20,6 +21,10 @@ $artIds = @(Get-ChildItem -LiteralPath $artPath -File |
     Sort-Object -Unique)
 $miniatureIds = @(Select-String -LiteralPath $miniatureGroupPath -Pattern '^\s+m_Address:\s*(.+)$' |
     ForEach-Object { $_.Matches[0].Groups[1].Value.Trim() -replace '_slot$', '' } |
+    Sort-Object -Unique)
+$fullArtAddressIds = @(Select-String -LiteralPath $fullArtGroupPath -Pattern '^\s+m_Address:\s*(.+)$' |
+    ForEach-Object { $_.Matches[0].Groups[1].Value.Trim() } |
+    Where-Object { $_ -match '^[A-Za-z0-9]+$' } |
     Sort-Object -Unique)
 $webPreviewIds = @(Get-ChildItem -LiteralPath $webPreviewPath -File -Filter '*.png' |
     ForEach-Object BaseName |
@@ -70,6 +75,7 @@ $effectIds = @([regex]::Matches($effectSource, 'CardEffectId\s*\(\s*"([^"]+)"\s*
 
 $artSet = [Collections.Generic.HashSet[string]]::new([string[]]$artIds)
 $miniatureSet = [Collections.Generic.HashSet[string]]::new([string[]]$miniatureIds)
+$fullArtAddressSet = [Collections.Generic.HashSet[string]]::new([string[]]$fullArtAddressIds)
 $effectSet = [Collections.Generic.HashSet[string]]::new([string[]]$effectIds)
 $mappedArtSet = [Collections.Generic.HashSet[string]]::new(
     [string[]]@($entries.ArtId | Where-Object { $_ } | Sort-Object -Unique))
@@ -86,12 +92,26 @@ $entriesWithoutEffect = @($entries | Where-Object { -not $effectSet.Contains($_.
 $keyPropertyMismatches = @($entries |
     Where-Object { $_.CardIdProperty -and $_.Key -ne $_.CardIdProperty })
 $unassignedWebPreviews = @($webPreviewIds | Where-Object { -not $mappedArtSet.Contains($_) })
+$fullArtMissingAddressable = @($artIds | Where-Object { -not $fullArtAddressSet.Contains($_) })
+$addressableMissingFullArt = @($fullArtAddressIds | Where-Object { -not $artSet.Contains($_) })
+$mappedArtMissingFullArt = @($mappedArtSet | Where-Object { -not $artSet.Contains($_) })
+$mappedArtMissingMiniature = @($mappedArtSet | Where-Object { -not $miniatureSet.Contains($_) })
+$webPreviewMissingFullArt = @($webPreviewIds | Where-Object { -not $artSet.Contains($_) })
 
 [pscustomobject]@{
     FullArtAssets = $artSet.Count
+    FullArtAddressableEntries = $fullArtAddressSet.Count
+    FullArtMissingAddressable = $fullArtMissingAddressable.Count
+    FullArtMissingAddressableIds = $fullArtMissingAddressable
+    AddressableEntriesMissingFullArt = $addressableMissingFullArt.Count
+    AddressableEntriesMissingFullArtIds = $addressableMissingFullArt
     CardMapEntries = $entries.Count
     ExplicitCardEffectIds = $effectSet.Count
     UniqueArtAssignedToCards = $mappedArtSet.Count
+    MappedArtMissingFullArt = $mappedArtMissingFullArt.Count
+    MappedArtMissingFullArtIds = $mappedArtMissingFullArt
+    MappedArtMissingMiniature = $mappedArtMissingMiniature.Count
+    MappedArtMissingMiniatureIds = $mappedArtMissingMiniature
     UniqueArtUsedByEffects = $effectArtSet.Count
     UniqueArtDefinedWithoutEffect = $definedWithoutEffectArt.Count
     UnassignedArt = $unassignedArt.Count
@@ -103,6 +123,8 @@ $unassignedWebPreviews = @($webPreviewIds | Where-Object { -not $mappedArtSet.Co
     UnassignedWebPreviewArt = $unassignedWebPreviews.Count
     UnassignedWebPreviewWithFullArt = @($unassignedWebPreviews | Where-Object { $artSet.Contains($_) }).Count
     UnassignedWebPreviewMissingFullArt = @($unassignedWebPreviews | Where-Object { -not $artSet.Contains($_) }).Count
+    WebPreviewMissingFullArt = $webPreviewMissingFullArt.Count
+    WebPreviewMissingFullArtIds = $webPreviewMissingFullArt
     UnassignedWebPreviewWithMiniature = @($unassignedWebPreviews | Where-Object { $miniatureSet.Contains($_) }).Count
     CardEntriesWithoutEffect = $entriesWithoutEffect.Count
     CardKeyPropertyMismatches = $keyPropertyMismatches.Count

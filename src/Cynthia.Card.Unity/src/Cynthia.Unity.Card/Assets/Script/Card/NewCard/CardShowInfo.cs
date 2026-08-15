@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card;
 using UnityEngine;
@@ -125,9 +125,24 @@ public class CardShowInfo : MonoBehaviour
         {
             if (asyncLoadAsset)
             {
-                Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).Completed += (obj) =>
+                var requestedArtId = CurrentCore.CardArtsId;
+                var targetImage = CardImg;
+                Addressables.LoadAssetAsync<Sprite>(requestedArtId).Completed += (obj) =>
                 {
-                    CardImg.sprite = obj.Result;
+                    try
+                    {
+                        if (!this || !targetImage || _currentCore == null ||
+                            _currentCore.CardArtsId != requestedArtId)
+                        {
+                            return;
+                        }
+                        targetImage.sprite = obj.Result;
+                    }
+                    catch (MissingReferenceException)
+                    {
+                        // Filtering can destroy an editor card in the same frame in
+                        // which its Addressables completion callback is dispatched.
+                    }
                 };
             }
             else
@@ -142,6 +157,7 @@ public class CardShowInfo : MonoBehaviour
         CardBack.gameObject.SetActive(false);
         if (CurrentCore.IsCardBack)
         {
+            DynamicCardMarkerRail.Attach(this)?.Render(null);
             RevealIcon.SetActive(false);
             ShieldIcon.SetActive(false);
             LockIcon.SetActive(false);
@@ -168,6 +184,7 @@ public class CardShowInfo : MonoBehaviour
             CardBorder.sprite = SilverBorder;
         if (CurrentCore.Group == Group.Copper)
             CardBorder.sprite = CopperBorder;
+        DynamicCardMarkerRail.Attach(this)?.Render(CurrentCore.DynamicMarkers);
         if (CardInfo.Faction == Faction.Monsters)
             FactionIcon.sprite = MonstersIcon;
         if (CardInfo.Faction == Faction.Nilfgaard)

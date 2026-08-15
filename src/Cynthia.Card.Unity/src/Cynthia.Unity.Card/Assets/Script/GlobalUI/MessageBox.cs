@@ -58,7 +58,12 @@ public class MessageBox : MonoBehaviour
         MessageText.text = _translator.GetText(message);
         YesText.text = _translator.GetText(yes);
         NoText.text = _translator.GetText(no);
-        // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
+        // Message height is driven by ContentSizeFitter. Rebuild immediately so
+        // multi-line confirmations cannot overlap the fixed button row for a
+        // frame (or indefinitely on older Unity layout passes).
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(MessageText.rectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
         return receiver.ReceiveAsync<bool>();
     }
     public virtual void YesClick()

@@ -2,6 +2,15 @@ using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
+    public class GameRuleSource
+    {
+        public string CardId { get; set; }
+        // Relative to the GameInfomation recipient. For spectators, My is the
+        // red/first player and Enemy is the blue/second player.
+        public bool MyPlayerUses { get; set; }
+        public bool EnemyPlayerUses { get; set; }
+    }
+
     public class GameInfomation
     {
         public int MyRow1Point { get; set; }
@@ -42,5 +51,9 @@ namespace Cynthia.Card
         public IEnumerable<CardStatus>[] EnemyPlace { get; set; }//敌方场地
         public IEnumerable<CardStatus> MyCemetery { get; set; }//我方墓地
         public IEnumerable<CardStatus> EnemyCemetery { get; set; }//敌方墓地
+        public IEnumerable<CardStatus> Rules { get; set; }//共享规则区
+        public IEnumerable<GameRuleSource> RuleSources { get; set; }//规则卡的双方携带来源
+        public IEnumerable<GameResourceState> MyResources { get; set; }//我方服务端声明资源
+        public IEnumerable<GameResourceState> EnemyResources { get; set; }//对方服务端声明资源
     }
 }

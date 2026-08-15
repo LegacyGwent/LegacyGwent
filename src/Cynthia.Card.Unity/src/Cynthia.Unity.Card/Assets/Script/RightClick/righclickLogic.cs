@@ -63,8 +63,12 @@ public class righclickLogic : MonoBehaviour
     void Start()
     {
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        ExitButtonText.text=translator.GetText("LoginMenu_ExitButton");
-        BackButtonText.text=translator.GetText("RegisterMenu_BackButton");
+        var english = translator.TextLocalization?.ChosenLanguage?.Filename == "en";
+        // These are card-detail navigation actions, not login-menu actions.
+        // Explicit labels avoid an unrelated localization key leaking "登录"
+        // into this overlay when locale tables are refreshed independently.
+        ExitButtonText.text = english ? "CLOSE" : "关闭";
+        BackButtonText.text = english ? "BACK" : "返回";
         History = new List<string>();
         string FromGamePlay = GameEvent.RightClickedCardID;
         string FromEditor = EditorInfo.RightClickedCardID;
@@ -79,6 +83,7 @@ public class righclickLogic : MonoBehaviour
         }
 
         UpdateCard(DisplayID);
+        RefreshNavigationButtons();
     }
     public static string RemoveContentInParentheses(string input)
     {
@@ -201,6 +206,7 @@ public class righclickLogic : MonoBehaviour
         {
             AddLinked(ID);
         }
+        RefreshNavigationButtons();
     }
     public void AddLinked(string ID)
     {
@@ -223,11 +229,21 @@ public class righclickLogic : MonoBehaviour
             DisplayID=History[History.Count - 1];
             UpdateCard(DisplayID);
             History.RemoveAt(History.Count - 1);
+            RefreshNavigationButtons();
         }
         else
         {
             Closerightclick();
         }
+    }
+
+    private void RefreshNavigationButtons()
+    {
+        // "返回" means navigating to the previously inspected linked card.
+        // On the first card there is no navigation history, so showing it next
+        // to "关闭" makes two different actions look redundant.
+        if (BackButtonText != null && BackButtonText.transform.parent != null)
+            BackButtonText.transform.parent.gameObject.SetActive(History != null && History.Count > 1);
     }
     public void PlaySound()
     {

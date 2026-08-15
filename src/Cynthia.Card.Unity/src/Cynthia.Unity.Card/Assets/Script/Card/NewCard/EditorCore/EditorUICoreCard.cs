@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Cynthia.Card.Client;
 using DG.Tweening;
 using UnityEngine;
@@ -34,25 +34,47 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     private int _count = -1;
 
-    private void Start()
+    private void Awake()
     {
-        _mainCodeService = DependencyResolver.Container.Resolve<MainCodeService>();
+        TryResolveMainCodeService();
     }
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
     {
-        _mainCodeService.ClickEditorUICoreCard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
+        var show = cardShowInfo != null ? cardShowInfo : gameObject.GetComponent<CardShowInfo>();
+        // A grey card is informational only. Do not send an impossible edit to
+        // the editor/server and do not punish the player with an error popup.
+        if (Count <= 0 || show?.CurrentCore == null || !TryResolveMainCodeService()) return;
+        _mainCodeService.ClickEditorUICoreCard(show.CurrentCore);
     }
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f * 1.05f, 0.1f);
-        _mainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
+        var show = cardShowInfo != null ? cardShowInfo : gameObject.GetComponent<CardShowInfo>();
+        if (show?.CurrentCore == null || !TryResolveMainCodeService()) return;
+        _mainCodeService.SelectSwitchUICard(show.CurrentCore);
     }
     //鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
         gameObject.GetComponent<RectTransform>().DOScale(1.77f, 0.1f);
-        _mainCodeService.SelectSwitchUICard(gameObject.GetComponent<CardShowInfo>().CurrentCore, false);
+        var show = cardShowInfo != null ? cardShowInfo : gameObject.GetComponent<CardShowInfo>();
+        if (show?.CurrentCore == null || !TryResolveMainCodeService()) return;
+        _mainCodeService.SelectSwitchUICard(show.CurrentCore, false);
+    }
+
+    private bool TryResolveMainCodeService()
+    {
+        if (_mainCodeService != null) return true;
+        try
+        {
+            _mainCodeService = DependencyResolver.Container?.Resolve<MainCodeService>();
+        }
+        catch
+        {
+            _mainCodeService = null;
+        }
+        return _mainCodeService != null;
     }
 }

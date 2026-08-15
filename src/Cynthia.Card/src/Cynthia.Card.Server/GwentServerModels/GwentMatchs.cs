@@ -19,8 +19,31 @@ namespace Cynthia.Card.Server
             _gwentCardTypeServic = gwentCardTypeService;
             _gwentService = gwentService;
         }
-        public async void StartGame(GwentRoom room, bool isSpecial = false, bool isCountMMR = false)
+        public async void StartGame(GwentRoom room, bool isSpecial = false, bool isCountMMR = false, string modeId = "", string rulesetVersion = "", string rulesetFingerprint = "")
         {
+            GwentServerGame gwentGame = null;
+            try
+            {
+            var featureManifest = _gwentService.GetRuntimeFeatureManifest();
+            var activeRuleCardIds = (featureManifest.RuleCards ?? new List<RuleCardDefinition>())
+                .Where(x => x != null && x.IsEnabled)
+                .Select(x => x.Id)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct(StringComparer.Ordinal)
+                .ToList();
+            if (string.IsNullOrWhiteSpace(rulesetVersion))
+                rulesetVersion = string.IsNullOrWhiteSpace(featureManifest.RulesetVersion)
+                    ? "legacy-custom"
+                    : featureManifest.RulesetVersion;
+            if (string.IsNullOrWhiteSpace(rulesetFingerprint))
+                rulesetFingerprint = CreateCombinedRuleFingerprint(
+                    room,
+                    featureManifest.RuleCards,
+                    rulesetVersion,
+                    featureManifest.CardPools,
+                    resolveDeckRules: deck => _gwentService.ResolveRuntimeDeckRules(deck));
+            if (string.IsNullOrWhiteSpace(modeId))
+                modeId = string.IsNullOrWhiteSpace(room.Password) ? "legacy.casual" : "custom.password";
             //通知玩家游戏开始
             if (room.Player1 is ClientPlayer)
             {
@@ -33,7 +56,19 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer), isCountMMR), isSpecial);
+            gwentGame = new GwentServerGame(
+                player1,
+                player2,
+                _gwentCardTypeServic,
+                result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer), isCountMMR),
+                isSpecial,
+                modeId: modeId,
+                rulesetVersion: rulesetVersion,
+                rulesetFingerprint: rulesetFingerprint,
+                cardMarkerDefinitions: featureManifest.CardMarkerDefinitions,
+                resourceDefinitions: featureManifest.ResourceDefinitions,
+                activeRuleCardIds: activeRuleCardIds,
+                ruleCardDefinitions: featureManifest.RuleCards);
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {
@@ -46,8 +81,162 @@ namespace Cynthia.Card.Server
             //开启游戏
             room.CurrentGame = gwentGame;
             await gwentGame.Play();
-            GameEnd(room);
-            _gwentService.InovkeUserChanged();
+            }
+            catch (Exception exception)
+            {
+                Console.Error.WriteLine(
+                    $"[ROOM-GAME-FAILURE] room={room?.RoomId} {exception.GetType().Name}: {exception.Message}");
+                if (gwentGame != null)
+                {
+                    try { await gwentGame.AbortDueToResolutionError(exception); }
+                    catch (Exception abortError)
+                    {
+                        Console.Error.WriteLine(
+                            $"[ROOM-ABORT-FAILURE] room={room?.RoomId} {abortError.GetType().Name}: {abortError.Message}");
+                    }
+                }
+            }
+            finally
+            {
+                GameEnd(room);
+                _gwentService.InovkeUserChanged();
+            }
+        }
+
+        public bool PlayerJoinMode(ClientPlayer player, GameModeDefinition mode, ResolvedDeckRuleSet rules)
+        {
+            if (player == null || mode == null || rules == null) return false;
+            if (string.Equals(mode.MatchKind, "ai", StringComparison.OrdinalIgnoreCase))
+            {
+                var ai = CreateAi(mode.AiProfile);
+                if (ai == null) return false;
+                ApplyAiRuleCards(ai, mode.AiRuleCards);
+                var aiRoom = new GwentRoom(player, "mode:" + mode.Id + ":" + rules.Fingerprint);
+                aiRoom.AddPlayer(ai);
+                GwentRooms.Add(aiRoom);
+                // Let StartGame derive the combined fingerprint after the
+                // server-authored AI rules have been injected.
+                StartGame(aiRoom, false, false, mode.Id, rules.RulesetVersion);
+                return true;
+            }
+            if (!string.Equals(mode.MatchKind, "pvp", StringComparison.OrdinalIgnoreCase)) return false;
+
+            var matchSameRules = !string.Equals(mode.RuleMatchPolicy, "ignore", StringComparison.OrdinalIgnoreCase);
+            var key = CreateModeMatchKey(mode, rules);
+            foreach (var room in GwentRooms.Where(x => !x.IsReady && x.Password == key).ToList())
+            {
+                if (room.InBlacklist(player)) continue;
+                room.AddPlayer(player);
+                if (room.IsReady)
+                {
+                    var featureManifest = _gwentService.GetRuntimeFeatureManifest();
+                    var matchFingerprint = matchSameRules
+                        ? rules.Fingerprint
+                        : CreateCombinedRuleFingerprint(
+                            room,
+                            featureManifest.RuleCards,
+                            rules.RulesetVersion,
+                            featureManifest.CardPools,
+                            resolveDeckRules: deck => _gwentService.ResolveRuntimeDeckRules(deck));
+                    StartGame(
+                        room,
+                        false,
+                        ShouldCountModeMatchAsRanked(mode, room),
+                        mode.Id,
+                        rules.RulesetVersion,
+                        matchFingerprint);
+                }
+                return true;
+            }
+            player.CurrentUser.UserState = UserState.Match;
+            GwentRooms.Add(new GwentRoom(player, key));
+            return true;
+        }
+
+        public static string CreateModeMatchKey(GameModeDefinition mode, ResolvedDeckRuleSet rules)
+        {
+            if (mode == null) throw new ArgumentNullException(nameof(mode));
+            if (rules == null) throw new ArgumentNullException(nameof(rules));
+            var matchSameRules = !string.Equals(mode.RuleMatchPolicy, "ignore", StringComparison.OrdinalIgnoreCase);
+            return "mode:" + mode.Id + (matchSameRules ? ":" + (rules.Fingerprint ?? "") : "");
+        }
+
+        public static bool ShouldCountModeMatchAsRanked(GameModeDefinition mode, GwentRoom room)
+        {
+            if (mode == null || room == null || !mode.IsRanked) return false;
+            var hasRuleCards = new[] { room.Player1, room.Player2 }
+                .Where(x => x != null)
+                .SelectMany(x => x.Deck?.Deck ?? new List<string>())
+                .Any(DeckRuleEngine.IsRuleCard);
+            return !hasRuleCards || mode.CountRuleMatchesAsRanked;
+        }
+
+        public static bool CanJoinExplicitPasswordRoom(GwentRoom room, ClientPlayer player, string password)
+        {
+            if (room == null || player == null || room.IsReady) return false;
+            var requestedPassword = password ?? "";
+            var roomPassword = room.Password ?? "";
+            var exactPasswordMatch = string.Equals(
+                roomPassword,
+                requestedPassword,
+                StringComparison.OrdinalIgnoreCase);
+            var legacyAiFallback = roomPassword.Length == 0 &&
+                requestedPassword.StartsWith("ai", StringComparison.OrdinalIgnoreCase);
+            return (exactPasswordMatch && !room.InBlacklist(player)) || legacyAiFallback;
+        }
+
+        public static string CreateCombinedRuleFingerprint(
+            GwentRoom room,
+            IEnumerable<RuleCardDefinition> definitions,
+            string rulesetVersion,
+            IEnumerable<CardPoolDefinition> cardPools = null,
+            Func<string, bool> isActiveRuleCard = null,
+            Func<DeckModel, ResolvedDeckRuleSet> resolveDeckRules = null)
+        {
+            if (resolveDeckRules != null)
+            {
+                var fingerprints = new[] { room.Player1, room.Player2 }
+                    .Where(x => x != null)
+                    .Select(x => resolveDeckRules(x.Deck)?.Fingerprint ?? "")
+                    .ToList();
+                return DeckRuleEngine.CombineFingerprints(rulesetVersion, fingerprints);
+            }
+            isActiveRuleCard = isActiveRuleCard ?? DeckRuleEngine.IsRuleCard;
+            var ids = new[] { room.Player1, room.Player2 }
+                .Where(x => x != null)
+                .SelectMany(x => x.Deck?.Deck ?? new List<string>())
+                .Where(isActiveRuleCard)
+                .Distinct(StringComparer.Ordinal)
+                .OrderBy(x => x, StringComparer.Ordinal)
+                .ToList();
+            return DeckRuleEngine.Resolve(definitions, ids, rulesetVersion, cardPools).Fingerprint;
+        }
+
+        private static AIPlayer CreateAi(string profile)
+        {
+            switch ((profile ?? "").ToLowerInvariant())
+            {
+                case "ai0": return new GeraltNovaAI();
+                case "ai1": return new SoldierTrainAI();
+                case "ai2": return new MillAI();
+                case "ai3": return new AuberonKingAI();
+                case "ai4": return new IronFalconAI();
+                case "ai5": return new ReaverHunterAI();
+                default: return null;
+            }
+        }
+
+        public static void ApplyAiRuleCards(AIPlayer ai, IEnumerable<string> ruleCardIds)
+        {
+            if (ai?.Deck == null) return;
+            if (ai.Deck.Deck == null) ai.Deck.Deck = new List<string>();
+            var existing = new HashSet<string>(ai.Deck.Deck, StringComparer.Ordinal);
+            foreach (var id in (ruleCardIds ?? Enumerable.Empty<string>())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct(StringComparer.Ordinal))
+            {
+                if (existing.Add(id)) ai.Deck.Deck.Add(id);
+            }
         }
 
         //以密码的方式进行匹配
@@ -168,7 +357,7 @@ namespace Cynthia.Card.Server
             foreach (var room in GwentRooms)
             {
                 //如果这个房间正在等待玩家加入,并且密匙成功配对
-                if (!room.IsReady && ((room.Password.ToLower() == password.ToLower() && !room.InBlacklist(player)) || (room.Password == string.Empty && password.ToLower().StartsWith("ai"))))
+                if (CanJoinExplicitPasswordRoom(room, player, password))
                 {
                     room.AddPlayer(player);
                     if (room.IsReady)
@@ -332,6 +521,7 @@ namespace Cynthia.Card.Server
         }
         public void GameEnd(GwentRoom room)
         {
+            if (room == null) return;
             //结束游戏恢复玩家状态
             if (room.Player1 is ClientPlayer)
             {

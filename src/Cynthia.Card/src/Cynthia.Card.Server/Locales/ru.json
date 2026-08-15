@@ -140,6 +140,7 @@
         "PopupWindow_Surrender_title": "Хотите сдаться?",
         "PopupWindow_Surrender_content": "Вы действительно хотите сдаться?",
         "PopupWindow_ReceivedMessageTitle": "Получено сообщение от сервера",
+        "PopupWindow_Surrendered": "Сдался",
         "PopupWindow_NoDeckTitle": "Нет колод",
         "PopupWindow_NoDeckDesc": " У вас нет доступных колод. Пожалуйста, создайте и вернитесь.",
         "PopupWindow_IncompleteDeckTitle": "Неполная колода",

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Alsein.Extensions.LifetimeAnnotations;
 using Autofac;
+using Assets.Script.Localization;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Cynthia.Card.Client
@@ -21,6 +22,7 @@ namespace Cynthia.Card.Client
 
         public HubConnection _hubConnection { get; set; }
         public GwentClientService _server { get; set; }
+        private readonly LocalizationService _translator;
 
         // public TaskCompletionSource<bool> _disconnectTaskSource { get; set; }
 
@@ -34,6 +36,7 @@ namespace Cynthia.Card.Client
             // _disconnectTaskSource = new TaskCompletionSource<bool>();
             _hubConnection = DependencyResolver.Container.ResolveNamed<HubConnection>("game");
             _server = DependencyResolver.Container.Resolve<GwentClientService>();
+            _translator = DependencyResolver.Container.Resolve<LocalizationService>();
             // _hubConnection.Closed += async e =>
             // {
             //     await Task.CompletedTask;
@@ -150,7 +153,10 @@ namespace Cynthia.Card.Client
                     Debug.Log(arguments[0].ToType<string>());
                     break;
                 case ServerOperationType.MessageBox:
-                    _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), "PopupWindow_OkButton", isOnlyYes: true);
+                    var message = arguments[0].ToType<string>();
+                    if (!string.IsNullOrWhiteSpace(message) && message.StartsWith("loc:", StringComparison.Ordinal))
+                        message = _translator.GetText(message.Substring(4));
+                    _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", message, "PopupWindow_OkButton", isOnlyYes: true);
                     break;
                 case ServerOperationType.RoundEnd://回合结束
                     GameCodeService.RoundEnd();

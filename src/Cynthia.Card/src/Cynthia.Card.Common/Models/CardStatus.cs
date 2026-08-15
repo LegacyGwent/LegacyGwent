@@ -59,6 +59,11 @@ namespace Cynthia.Card
         public bool IsLock { get; set; } = false;//是否锁定 | 场地,墓地
         public bool Conceal { get; set; } = false;//是否盖牌 | 场地
         public bool IsImmue { get; set; } = false;//是否免疫 | 场地
+        // Server-defined generic presentation markers. Older clients safely
+        // ignore this additive field; compatible clients render a neutral
+        // fallback when a definition or style token is unknown.
+        public System.Collections.Generic.List<DynamicCardMarker> DynamicMarkers { get; set; }
+            = new System.Collections.Generic.List<DynamicCardMarker>();
         //-----------------------------------------------------------------
         //显示相关
         public bool IsConcealCard { get => _isConcealCard ?? CardInfo.IsConcealCard; set => _isConcealCard = value; }

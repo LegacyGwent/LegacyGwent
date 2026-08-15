@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-03
+Last verified: 2026-08-11
 
 ## DIY-AI release identity
 
@@ -115,24 +115,43 @@ Last verified: 2026-08-03
 
 ## Card art inventory
 
-- Run `scripts/card_art_inventory.ps1` from the skill directory; it compares
-  full-size Addressable art, `GwentMap` dictionary keys and art IDs, explicit
-  `CardEffectId` attributes, and `_slot` miniatures.
-- Verified inventory: 1,343 unique full-size card-art assets, 715 `CardMap`
-  entries, 698 explicit card-effect IDs, and 671 unique art IDs assigned to a
-  card definition.
-- Of the art assets, 659 are used by a card with an explicit effect, 12 are
-  assigned only to effectless card definitions, and 672 are completely
-  unassigned. Therefore 684 have no explicit effect, but only 672 are cleanly
-  free for a new card without reusing an existing definition's art.
-- Of the 672 unassigned art assets, 539 already have a matching `_slot`
-  miniature and 133 need a miniature before the deck-list UI can use them
-  cleanly.
+- From the repository root, run
+  `skills/legacy-gwent-maintainer/scripts/card_art_inventory.ps1`; it compares
+  full-size art files, full-art Addressables, `GwentMap` dictionary keys/art IDs,
+  explicit `CardEffectId` attributes, `_slot` miniatures, and web previews.
+- `d19400000` is an unassigned local art address, not a `CardMap` card ID. It is
+  the static illustration for the official post-Homecoming GWENT card Terror of
+  the Seas (`202460`, Chinese `海上恶魔`), by Christof Grobelski; the upstream
+  static-art asset number is `1940`. LegacyGwent first imported it in commit
+  `4b27d241609c1dc79feedc3d8b48f242a5b81174` with the other `d`-prefixed HC
+  illustrations. Do not classify it as foreign historical art or a beta discard
+  merely because the current `GwentMap` does not reference it.
+- Verified inventory (2026-08-07): 1,838 unique full-size card-art files and
+  exactly 1,838 full-art Addressable entries, with zero missing or dangling
+  full-art addresses. All 674 unique art IDs assigned by the 718 `CardMap`
+  entries have both a full-size file and an Addressable entry.
+- Of the full-size assets, 662 are used by a card with an explicit effect, 12
+  are assigned only to effectless card definitions, and 1,164 are completely
+  unassigned. Of those unassigned assets, 537 already have a matching `_slot`
+  miniature and 627 do not.
+- Sixteen mapped art IDs lack a `_slot`; most are derived/token/internal cards
+  and the legacy list UI has a generic fallback. Bronibor's previously missing
+  deck-list banner was restored in the August 8 batch, reducing this count from
+  seventeen. Audit the list before making another card a leader or otherwise
+  relying on its deck-list banner.
+- Treat each 512x128 `_slot` as an art-directed deck-list portrait, not a blind
+  center crop. Because the card name covers much of the left and middle area,
+  place a recognizable face or the illustration's most distinctive subject in
+  the right-hand recognition area; avoid backs of heads, empty scenery, and
+  cropped-off facial features. Inspect the standalone strip and the real deck
+  list before accepting it. The August 11 Rumourmonger strip is the regression
+  example: its first crop over-emphasized a bald head seen from behind and had
+  to be recut around the older speaker's face.
 - The `/cardart` authoring page enumerates a separate set of 1,049 small
-  `wwwroot/scale` previews. It has 531 IDs not referenced by `CardMap`, but 499
-  of those lack a Unity full-size image; only 32 overlap the clean full-art pool,
-  and only one of those already has a registered miniature. Do not equate an
-  available web preview with a client-ready card-art chain.
-- Count occupation by the dictionary key, not the duplicated `GwentCard.CardId`
-  property. Entry key `70108` currently has the incorrect property value
-  `70106`; treating the property as identity miscounts effect/art ownership.
+  `wwwroot/scale` previews. It has 530 IDs not referenced by `CardMap`; 526 have
+  a restored Unity full-size image and four (`c10000300`, `c10001600`,
+  `c10002300`, `c10003200`) are web-only previews with no original full-size
+  source. Do not upscale those previews silently or call them client-ready.
+- Count occupation by the dictionary key, not the duplicated
+  `GwentCard.CardId` property. The inventory currently reports zero key/property
+  mismatches, but retaining this check prevents historical identity drift.

@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-10
+Last verified: 2026-08-11
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -18,6 +18,10 @@ selection, movement, death, landing, weather, duel, or chained events.
   assertion suite.
 - Workspace `headless-ai-probe` is a separate live integration probe. It uses a
   real server, SignalR, and MongoDB and is therefore not a unit-test substitute.
+  Before running it, point its Common and AI project references at the worktree
+  under test and rebuild it. A stale probe model can complete and persist a real
+  match, then report a false failure while deserializing newly added fields such
+  as `GameResult.ModeId`.
 
 ## Reusable fixture
 
@@ -29,6 +33,13 @@ implementation may still choose a legal landing row randomly; avoid asserting a
 specific row unless the fixture explicitly overrides that method. When a chain
 needs a specific menu card, control the candidate order or add a queued card-ID
 selector rather than relying on shuffled order.
+
+`SynchronizeClientsAsync` may reorder a deck before the deterministic player
+selects its first current candidate. Capture the expected selected object from
+the live deck after synchronization, then assert both its mutation and final
+position. Do not retain a pre-sync variable and assume it remains the menu's
+first card; that test can pass on Windows and fail on Linux without a production
+regression.
 
 Build a scenario by adding physical `GameCard` objects to explicit zones, call
 `SynchronizeClientsAsync`, then invoke the production play/effect method. For a
@@ -63,6 +74,12 @@ dotnet test src/Cynthia.Card/test/Cynthia.Card.Gameplay.Tests/Cynthia.Card.Gamep
 Run the Server and Gameplay projects sequentially in one worktree. They share
 Common/AI build outputs, so concurrent `dotnet test` processes can race on
 `obj/Release` and fail with CS2012 even when the code is correct.
+
+An actively running local server also locks its copied Common/AI assemblies in
+the Server output directory on Windows. Stop that exact local server process
+before rebuilding or running the suites, then restart it from the same feature
+manifest after tests. Repeated MSB3026/MSB3027 copy failures are an output lock,
+not a gameplay regression.
 
 ## Card-batch preflight
 
@@ -169,26 +186,18 @@ actual power lost, snapshot before Damage and treat a target that left play as
 having lost the full snapshot; cemetery repair otherwise makes the post-Damage
 power appear unchanged.
 
-The August 11 first-batch scenarios cover Rumourmonger's topmost-Bronze copy
-and both-player draw, including its no-target branch; Hefty Helge's owner-only
-Reveal counter, off-row repeated damage, explicit counter clear, and the rule
-that resurrecting the same cleared instance does not restore its initial count;
-Congregation Cleric's two-power floor; Arnjolf's allied-then-enemy low-power
-destruction; Svalblod excluding Spying hand/deck units; Sigvald's second-owner-
-turn resurrection and Strengthen; Crowmother being intrinsically non-Doomed;
-Sigrdrifa accepting non-clan Skellige Copper/Silver units; Cupbearer's every-
-second-owner-turn cadence; and Dwarf Miner counting same-ID copies on board,
-in hand, and in deck from its new eight-power base. War Council's rejected
-draft put both Nilfgaardian Gate and Battle Preparation in `PlayersStay`, which
-could leave both cards floating after a nested pipeline. Its released contract
-puts only Gate through `PlayersStay` and creates Battle Preparation in hand.
-Test it through production `RoundPlayCard`, including the deterministic
-Gate -> Ceallach -> Emissary -> Recruit -> Magne Division -> Ointment -> Recruit
-chain, then require both players' `PlayersStay` collections to be empty and the
-operation pipeline to be stopped. If a future design still leaves cards floating, the owner's current
-release policy permits publishing only when the exact residual path is
-prominently reported; never hide it by weakening the assertion.
-
+The August 11 scenarios cover Rumourmonger's Bronze copy/draw and empty branch;
+Helge's owner Reveal counter, repeated off-row damage, clear, and same-instance
+resurrection; the new Cleric, Arnjolf, Svalblod, Sigvald, Crowmother, Sigrdrifa,
+Cupbearer, and Dwarf Miner boundaries. War Council's rejected draft put Gate
+and Battle Preparation in `PlayersStay`, leaving them floating after a nested
+pipeline; the released contract keeps only Gate there and creates Preparation
+in hand. Test through production `RoundPlayCard` with the deterministic Gate ->
+Ceallach -> Emissary -> Recruit -> Magne Division -> Ointment -> Recruit chain,
+then require both `PlayersStay` collections empty and the pipeline stopped.
+Never replace this with a direct effect call. If a future design still floats a
+card, release only under the owner's explicit exception and prominently report
+the exact residual path; never hide it by weakening the assertion.
 
 For a faction copy of an existing card, inherit the original effect class and
 assert metadata, art, linked cards, and production behavior remain identical;

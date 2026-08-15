@@ -1,0 +1,143 @@
+{
+  "SchemaVersion": 2,
+  "FeatureLevel": 2,
+  "RulesetVersion": "local-rule-ui-1",
+  "PlayerRuleCardsEnabled": true,
+  "CardMarkerDefinitions": [
+    {
+      "Id": "local.poison", "Name": { "ZhCn": "中毒", "En": "Poison" },
+      "Description": { "ZhCn": "本地验收用的服务端状态；数字表示层数。", "En": "Server-authored local fixture; the number is its stack count." },
+      "ShortLabel": "毒", "StyleToken": "venom", "ValueDisplay": "stack", "Priority": 20
+    },
+    {
+      "Id": "local.echo", "Name": { "ZhCn": "回响", "En": "Echo" },
+      "Description": { "ZhCn": "同一种状态可以按实例同时存在。", "En": "Multiple instances of one marker can coexist." },
+      "ShortLabel": "响", "StyleToken": "arcane", "ValueDisplay": "number", "AllowMultipleInstances": true, "Priority": 10
+    }
+  ],
+  "ResourceDefinitions": [
+    {
+      "Id": "local.coins", "Name": { "ZhCn": "金币", "En": "Coins" },
+      "Description": { "ZhCn": "由服务端提供的局内资源示例，上限为9。", "En": "A server-authored in-match resource fixture, capped at 9." },
+      "ShortLabel": "金币", "StyleToken": "amber", "ValueFormat": "fraction", "Priority": 20
+    },
+    {
+      "Id": "local.momentum", "Name": { "ZhCn": "势能", "En": "Momentum" },
+      "Description": { "ZhCn": "", "En": "" },
+      "ShortLabel": "势能", "StyleToken": "steel", "ValueFormat": "number", "Priority": 10
+    }
+  ],
+  "CardPools": [
+    {
+      "Id": "local.empty",
+      "AnyOf": []
+    },
+    {
+      "Id": "local.monsters",
+      "AnyOf": [{ "Factions": ["Monsters"] }]
+    }
+  ],
+  "RuleCards": [
+    {
+      "Id": "99001", "Name": { "ZhCn": "百卡实验", "En": "Hundred Card Lab" },
+      "Description": { "ZhCn": "将卡组上限提高至100张。", "En": "Raises the deck maximum to 100." },
+      "ArtId": "11210100", "Priority": 10, "PlayerSelectable": true, "SortOrder": 10,
+      "RemoveConstraintIds": ["base.deck-size"],
+      "AddConstraints": [{ "Id": "local.deck-size", "Kind": "deck-size", "Min": 25, "Max": 100 }]
+    },
+    {
+      "Id": "99002", "Name": { "ZhCn": "金银解禁", "En": "Gold and Silver Unbound" },
+      "Description": { "ZhCn": "取消金色、银色卡的数量与同名限制。", "En": "Removes gold and silver count and duplicate limits." },
+      "ArtId": "11210200", "Priority": 20, "PlayerSelectable": true, "SortOrder": 20,
+      "ExclusiveWith": ["99003"],
+      "RemoveConstraintIds": ["base.gold-count", "base.silver-count", "base.gold-copies", "base.silver-copies"]
+    },
+    {
+      "Id": "99003", "Name": { "ZhCn": "铜色试炼", "En": "Copper Trial" },
+      "Description": { "ZhCn": "只能携带铜色卡，且铜色卡同名限1张。", "En": "Only copper cards; one copy of each." },
+      "ArtId": "11210300", "Priority": 30, "PlayerSelectable": true, "SortOrder": 30,
+      "ExclusiveWith": ["99002", "99005"],
+      "RemoveConstraintIds": ["base.gold-count", "base.silver-count", "base.copper-copies"],
+      "AddConstraints": [
+        { "Id": "local.copper-only", "Kind": "allow-cards", "Filter": { "Groups": ["Copper"] } },
+        { "Id": "local.copper-copies", "Kind": "copy-count", "Filter": { "Groups": ["Copper"] }, "Max": 1 }
+      ]
+    },
+    {
+      "Id": "99004", "Name": { "ZhCn": "饕餮回响", "En": "Feast Echo" },
+      "Description": { "ZhCn": "吞噬能力触发两次（事件规则样本）。", "En": "Consume abilities trigger twice (event-rule fixture)." },
+      "ArtId": "11210400", "Priority": 40, "PlayerSelectable": true, "SortOrder": 40
+    },
+    {
+      "Id": "99005", "Name": { "ZhCn": "帝国远征令", "En": "Imperial Expedition" },
+      "Description": { "ZhCn": "仅限帝国领袖，需要百卡实验，并将怪兽卡加入可选卡池。", "En": "Nilfgaard leaders only; requires Hundred Card Lab and adds Monsters cards to the pool." },
+      "ArtId": "11210500", "Priority": 50, "PlayerSelectable": true, "SortOrder": 50,
+      "AllowedLeaderFactions": ["Nilfgaard"],
+      "AddCardPools": ["local.monsters"],
+      "RequiresAll": ["99001"],
+      "ExclusiveWith": ["99003"]
+    },
+    {
+      "Id": "99006", "Name": { "ZhCn": "空白契约", "En": "Blank Contract" },
+      "Description": { "ZhCn": "卡组必须为空，普通可选卡池也为空。", "En": "Requires an empty deck and exposes an empty ordinary-card pool." },
+      "ArtId": "11210600", "Priority": 60, "PlayerSelectable": true, "SortOrder": 60,
+      "ExclusiveWith": ["99001", "99002", "99003", "99004", "99005"],
+      "RemoveConstraintIds": ["base.deck-size"],
+      "RestrictToCardPools": ["local.empty"],
+      "AddConstraints": [{ "Id": "local.empty-size", "Kind": "deck-size", "Min": 0, "Max": 0 }]
+    }
+  ],
+  "Modes": [
+    {
+      "Id": "pvp.casual", "Category": "pvp", "Name": { "ZhCn": "休闲匹配", "En": "Casual" },
+      "Description": { "ZhCn": "公开匹配。", "En": "Public matchmaking." },
+      "IconKey": "pvp", "MatchKind": "pvp", "RuleMatchPolicy": "same", "AllowCustomRuleCards": true,
+      "SortOrder": 10, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "challenge.feast", "Category": "challenge",
+      "CategoryName": { "ZhCn": "特殊挑战", "En": "Special challenges" },
+      "Name": { "ZhCn": "饕餮试炼", "En": "Feast Trial" },
+      "Description": { "ZhCn": "由服务器配置规则的人机挑战。", "En": "A server-configured AI challenge." },
+      "TypeLabel": { "ZhCn": "挑战", "En": "CHALLENGE" },
+      "IconKey": "challenge", "MatchKind": "ai", "AiProfile": "ai1", "AiRuleCards": ["99004"],
+      "AllowCustomRuleCards": true, "SortOrder": 80, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.0", "Category": "ai", "Name": { "ZhCn": "AI 练习", "En": "AI Practice" },
+      "Description": { "ZhCn": "基础人机对战。", "En": "Basic AI practice." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai0", "AllowCustomRuleCards": true,
+      "SortOrder": 100, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.1", "Category": "ai", "Name": { "ZhCn": "AI 1 · 士兵", "En": "AI 1 · Soldiers" },
+      "Description": { "ZhCn": "士兵体系测试对手。", "En": "Soldier test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai1", "AiRuleCards": ["99004"], "AllowCustomRuleCards": true,
+      "SortOrder": 110, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.2", "Category": "ai", "Name": { "ZhCn": "AI 2 · 阿瓦拉克", "En": "AI 2 · Avallac'h" },
+      "Description": { "ZhCn": "毁牌体系测试对手。", "En": "Mill test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai2", "AllowCustomRuleCards": true,
+      "SortOrder": 120, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.3", "Category": "ai", "Name": { "ZhCn": "AI 3 · 奥贝伦王", "En": "AI 3 · King Auberon" },
+      "Description": { "ZhCn": "奥贝伦体系测试对手。", "En": "Auberon test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai3", "AllowCustomRuleCards": true,
+      "SortOrder": 130, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.4", "Category": "ai", "Name": { "ZhCn": "AI 4 · 铁隼佣兵团", "En": "AI 4 · Iron Falcon" },
+      "Description": { "ZhCn": "铁隼体系测试对手。", "En": "Iron Falcon test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai4", "AllowCustomRuleCards": true,
+      "SortOrder": 140, "MinimumClientFeatureLevel": 2
+    },
+    {
+      "Id": "ai.5", "Category": "ai", "Name": { "ZhCn": "AI 5 · 猎龙人", "En": "AI 5 · Reaver Hunters" },
+      "Description": { "ZhCn": "猎龙人体系测试对手。", "En": "Reaver test opponent." },
+      "IconKey": "ai", "MatchKind": "ai", "AiProfile": "ai5", "AllowCustomRuleCards": true,
+      "SortOrder": 150, "MinimumClientFeatureLevel": 2
+    }
+  ]
+}

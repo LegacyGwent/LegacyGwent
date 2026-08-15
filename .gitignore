@@ -27,6 +27,12 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+# Local Codex/Unity verification outputs
+.tmp/
+Builds/
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/Windows/
+src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/Windows.meta
+
 # Visual Studio 2015
 .vs
 .vscode

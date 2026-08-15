@@ -61,13 +61,13 @@ if ($LASTEXITCODE -ne 0) {
 }
 $dirtyLines = @($dirtyOutput | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
 $mapPath = Join-Path $script:RepoRoot 'src\Cynthia.Card\src\Cynthia.Card.Common\GwentGame\GwentMap.cs'
-$mapMatch = Select-String -LiteralPath $mapPath -Pattern 'CardMapVersion\s*\{\s*get;\s*\}\s*=\s*new Version\(([^)]+)\)' |
-    Select-Object -First 1
-$cardMapVersion = if ($mapMatch) {
-    (($mapMatch.Matches[0].Groups[1].Value -split ',') | ForEach-Object { $_.Trim() }) -join '.'
-} else {
-    $null
-}
+$mapSource = Get-Content -Raw -LiteralPath $mapPath
+$versionMatches = @([regex]::Matches($mapSource, 'new Version\(([^)]+)\)'))
+$versions = @($versionMatches | ForEach-Object {
+    (($_.Groups[1].Value -split ',') | ForEach-Object { $_.Trim() }) -join '.'
+})
+$cardMapVersion = if ($versions.Count -gt 0) { $versions[-1] } else { $null }
+$developmentCardMapVersion = if ($versions.Count -gt 1) { $versions[0] } else { $null }
 
 $listeners = @()
 foreach ($port in @(5010, 5020, 5021, 28021)) {
@@ -98,6 +98,7 @@ $status = [ordered]@{
         Dirty = ($dirtyLines.Count -gt 0)
         ChangedPaths = $dirtyLines
         CardMapVersion = $cardMapVersion
+        DevelopmentCardMapVersion = $developmentCardMapVersion
     }
     LocalListeners = $listeners
 }

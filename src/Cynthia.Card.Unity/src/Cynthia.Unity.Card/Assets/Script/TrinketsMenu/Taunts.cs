@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Autofac;
 using System.Linq;
@@ -58,7 +58,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
             gameUIControl = GameUI.GetComponent<GameUIControl>();
             myavatar = gameUIControl.Myavatar;
             enemyname = gameUIControl.Enemyname;
-            if (myavatar == "")
+            if (string.IsNullOrEmpty(myavatar) || myavatar == "NoAvatar")
             {
                 return;
             }

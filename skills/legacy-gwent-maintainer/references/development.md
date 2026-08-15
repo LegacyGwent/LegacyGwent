@@ -1,6 +1,6 @@
 # Local development
 
-Last verified: 2026-08-01
+Last verified: 2026-08-06
 
 ## Toolchain
 
@@ -13,11 +13,23 @@ Last verified: 2026-08-01
 - The server ignores those URI suffixes when selecting repositories: game data
   is in logical database `gwentdiy`, while DIY-page data is in `Web`.
 - Stop with the matching `stop-dev.ps1` or `stop-ai-dev.ps1`.
+- `-FeatureManifest` accepts a path relative to the caller's working directory;
+  `start-dev.ps1` resolves and validates it before launching the server from the
+  project directory. Keep that resolution step: passing the caller-relative
+  value directly makes `GameFeatureService` combine it with the server content
+  root, silently exercising the Unity fallback instead of the intended manifest.
 
 ## Unity
 
 - `scripts/open-unity.ps1` builds/synchronizes the Common DLL and sets
   `GWENT_SERVER_URL` only for the launched Unity process.
+- Unity 2019's Scriptable Build Pipeline still hits legacy Windows path limits
+  inside `Library/BuildCache/<hash>/<hash>/...`. In a deeply nested Codex
+  worktree this appears as many misleading `DirectoryNotFoundException` errors.
+  Move/quarantine only the generated `Library/BuildCache`, create a verified
+  short junction to the Unity project (for example `C:\gwent-ai-unity`), and run
+  the full Addressables build through that short project path. Do not delete or
+  relocate source assets to work around this cache failure.
 - For the deployed DIY-AI track, use the tracked 5010 endpoint (currently the
   direct public IP). Use the hostname only where DNS and proxy routing are known
   to preserve the real public address.
