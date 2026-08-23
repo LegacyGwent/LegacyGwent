@@ -9,9 +9,15 @@ Last verified: 2026-08-23
   least one counterpart with a different `CardId`; a card can never be swapped
   for an original same-name copy.
 - Cerys: Fearless (`62010`) is a 6-power unit. She first Duels a selected enemy;
-  only if she remains on the battlefield afterward does a selected allied
-  Drummond Queensguard Duel a second selected enemy. Her former discard/
-  resurrection counter behavior is retired.
+  only if she remains on the battlefield afterward does the currently strongest
+  allied Drummond Queensguard Duel a second selected enemy. Do not present an
+  allied-Queensguard selection: ties follow the existing stable battlefield
+  order. Her former discard/resurrection counter behavior is retired.
+- Wraith Sorcerer (`70194`) maps to full art `c10002300` and miniature
+  `c10002300_slot`; both addresses are local Unity Addressables. Server CardMap
+  and website-scale updates do not add them to an already installed client, so
+  an older client may remain blank until a client containing the rebuilt local
+  Addressables catalog/bundles is installed.
 - Ulle the Unlucky (`70178`) keeps the existing effect implementation. Its text
   says “if it survives” rather than “if it wins”, matching the actual post-Duel
   survival check.
