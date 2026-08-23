@@ -7,68 +7,50 @@ namespace Cynthia.Card.Gameplay.Tests
     public class AugustEleventhSecondBatchTests
     {
         [Fact]
-        public async Task CerysFearlessRestoresDiyContractAndStopsAfterThreeUses()
+        public async Task CerysFearlessLetsQueensguardDuelAfterSheSurvives()
         {
             var fixture = new HeadlessGameFixture();
             ClearMutableZones(fixture);
 
             var cerys = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.CerysFearless, RowPosition.MyRow1);
-            cerys.Status.HealthStatus = 10;
-            var discardSource = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.CursedScroll, RowPosition.MyRow1);
-            var discarded = new[]
-            {
-                fixture.AddCard(fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand),
-                fixture.AddCard(fixture.Game.Player1Index, CardId.ArachasHatchling, RowPosition.MyHand),
-                fixture.AddCard(fixture.Game.Player1Index, "15011", RowPosition.MyHand),
-                fixture.AddCard(fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyHand)
-            };
+            var queensguard = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.DrummondQueensguard, RowPosition.MyRow1);
+            var firstEnemy = fixture.AddCard(
+                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 1);
+            var secondEnemy = fixture.AddCard(
+                fixture.Game.Player2Index, CardId.ArachasHatchling, RowPosition.MyRow2, 3);
             await fixture.SynchronizeClientsAsync();
-            await cerys.Effects.RaiseEvent(new CardPlayEffect(false, false));
 
-            foreach (var card in discarded)
-            {
-                await fixture.Game.AddTask(() => card.Effect.Discard(discardSource));
-            }
+            await fixture.Game.AddTask(
+                () => cerys.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.All(discarded.Take(3), card => Assert.NotEqual(RowPosition.MyCemetery, card.Status.CardRow));
-            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player1Index]);
-            Assert.Contains(discarded[3], fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
-            Assert.Equal(0, cerys.Status.Countdown);
-            Assert.Equal(-2, cerys.Status.HealthStatus);
             Assert.True(cerys.Status.CardRow.IsOnPlace());
-            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player2Index]);
-            Assert.False(fixture.Game.OperactionList.IsRunning);
+            Assert.True(queensguard.Status.CardRow.IsOnPlace());
+            Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
+            Assert.False(secondEnemy.Status.CardRow.IsOnPlace());
         }
 
         [Fact]
-        public async Task CerysFearlessIgnoresGoldDiscardAndHostileNonSpySource()
+        public async Task CerysFearlessStopsBeforeQueensguardDuelWhenSheDies()
         {
             var fixture = new HeadlessGameFixture();
             ClearMutableZones(fixture);
 
             var cerys = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.CerysFearless, RowPosition.MyRow1);
-            var friendlySource = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.CursedScroll, RowPosition.MyRow1);
-            var hostileSource = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1);
-            var gold = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyHand);
-            var copper = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand);
+            var queensguard = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.DrummondQueensguard, RowPosition.MyRow1);
+            fixture.AddCard(
+                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
             await fixture.SynchronizeClientsAsync();
-            await cerys.Effects.RaiseEvent(new CardPlayEffect(false, false));
 
-            await fixture.Game.AddTask(() => gold.Effect.Discard(friendlySource));
-            await fixture.Game.AddTask(() => copper.Effect.Discard(hostileSource));
+            await fixture.Game.AddTask(
+                () => cerys.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.Empty(fixture.Game.PlayersStay[fixture.Game.Player1Index]);
-            Assert.Equal(3, cerys.Status.Countdown);
-            Assert.Equal(0, cerys.Status.HealthStatus);
-            Assert.False(gold.Status.CardRow.IsOnPlace());
-            Assert.False(copper.Status.CardRow.IsOnPlace());
+            Assert.False(cerys.Status.CardRow.IsOnPlace());
+            Assert.True(queensguard.Status.CardRow.IsOnPlace());
+            Assert.Equal(0, queensguard.Status.HealthStatus);
         }
 
         [Fact]

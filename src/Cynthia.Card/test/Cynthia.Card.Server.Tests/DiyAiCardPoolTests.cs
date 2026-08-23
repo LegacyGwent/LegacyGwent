@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 184), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 185), GwentMap.CardMapVersion);
             Assert.Equal(723, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -257,17 +257,17 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(Group.Gold, livingArmor.Group);
 
             var cerysFearless = GwentMap.CardMap[CardId.CerysFearless];
-            Assert.Equal(10, cerysFearless.Strength);
-            Assert.Equal(3, cerysFearless.Countdown);
+            Assert.Equal(6, cerysFearless.Strength);
+            Assert.Equal(0, cerysFearless.Countdown);
             Assert.Equal(
-                "己方丢弃1张非金色单位牌时，对自身造成4点伤害，随后将其复活，一共可生效3次。",
+                "与1个敌军单位对决，若存活，使1名友方“德拉蒙女王卫队”与1个敌军单位对决。",
                 cerysFearless.Info);
 
             Assert.Equal(7, GwentMap.CardMap[CardId.BowDryad].Strength);
             Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
             Assert.Contains("6点伤害", GwentMap.CardMap[CardId.DamnedSorceress].Info);
             Assert.Equal(
-                "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果获胜则改变自身的锁定状态。",
+                "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果存活则改变自身的锁定状态。",
                 GwentMap.CardMap[CardId.Ulle].Info);
             Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.GeraltAard].Info);
             Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.Ves].Info);

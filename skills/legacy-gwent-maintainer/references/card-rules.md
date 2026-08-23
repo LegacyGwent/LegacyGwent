@@ -1,6 +1,20 @@
 # Card-specific rules
 
-Last verified: 2026-08-05
+Last verified: 2026-08-23
+
+## August 23 first card batch
+
+- Ves (`43002`) performs up to two hand/deck swaps. For each swap, both the
+  selectable hand card and the randomly chosen deck replacement must have at
+  least one counterpart with a different `CardId`; a card can never be swapped
+  for an original same-name copy.
+- Cerys: Fearless (`62010`) is a 6-power unit. She first Duels a selected enemy;
+  only if she remains on the battlefield afterward does a selected allied
+  Drummond Queensguard Duel a second selected enemy. Her former discard/
+  resurrection counter behavior is retired.
+- Ulle the Unlucky (`70178`) keeps the existing effect implementation. Its text
+  says “if it survives” rather than “if it wins”, matching the actual post-Duel
+  survival check.
 
 ## Similar Chinese card names
 

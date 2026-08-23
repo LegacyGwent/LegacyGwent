@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 184);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 185);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9689,18 +9689,17 @@ namespace Cynthia.Card
                 {
                     CardId ="62010",
                     Name="凯瑞丝：无所畏惧",
-                    Strength=10,
-                    Countdown =3,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "己方丢弃1张非金色单位牌时，对自身造成4点伤害，随后将其复活，一共可生效3次。",
+                    Info = "与1个敌军单位对决，若存活，使1名友方“德拉蒙女王卫队”与1个敌军单位对决。",
                     CardArtsId = "20177800",
                     LinkedCards=new List<String> {},
                 }
@@ -14961,7 +14960,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
                     Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
-                    Info = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果获胜则改变自身的锁定状态。",
+                    Info = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果存活则改变自身的锁定状态。",
                     CardArtsId = "c10006000",
                     LinkedCards=new List<String> {},
                 }

@@ -3048,7 +3048,7 @@
         },
         "62010": {
             "Name": "Cerys Nieustraszona",
-            "Info": "Za każdym razem, gdy odrzucisz nie-złotą jednostkę, zadaj sobie 4 obrażenia, a następnie wskrześ ją. Ta zdolność może zadziałać łącznie 3 razy.",
+            "Info": "Stocz pojedynek z wrogą jednostką. Jeśli ta jednostka przetrwa, spraw, by sojusznicza „Straż Królowej” stoczyła pojedynek z wrogą jednostką.",
             "Flavor": "„Jeśli chcesz coś załatwić, wyślij najlepszego ze swoich poddanych. Jeśli chcesz coś załatwić dobrze, wyślij kobietę”."
         },
         "62011": {
@@ -4098,7 +4098,7 @@
         },
         "70178": {
             "Name": "Ulle",
-            "Info": "Na początku każdej sojuszniczej tury wskrześ tę jednostkę. Na końcu każdej sojuszniczej tury stocz pojedynek z najsłabszym wrogiem. Jeśli ta jednostka wygra, zmień jej stan Blokady.",
+            "Info": "Na początku każdej sojuszniczej tury wskrześ tę jednostkę. Na końcu każdej sojuszniczej tury stocz pojedynek z najsłabszym wrogiem. Jeśli ta jednostka przetrwa, zmień jej stan Blokady.",
             "Flavor": "Obyś po wiek wieków przegrywał."
         },
         "70179": {
