@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 185), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 186), GwentMap.CardMapVersion);
             Assert.Equal(723, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -260,8 +260,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(6, cerysFearless.Strength);
             Assert.Equal(0, cerysFearless.Countdown);
             Assert.Equal(
-                "与1个敌军单位对决，若存活，使1名友方“德拉蒙女王卫队”与1个敌军单位对决。",
+                "与1个敌军单位对决，若存活，使1名友方最强“德拉蒙女王卫队”与1个敌军单位对决。",
                 cerysFearless.Info);
+            Assert.Equal(7, GwentMap.CardMap[CardId.VernossielsCommando].Strength);
 
             Assert.Equal(7, GwentMap.CardMap[CardId.BowDryad].Strength);
             Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
@@ -380,6 +381,8 @@ namespace Cynthia.Card.Server.Tests
                 "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Cards/c10002300.png")));
             Assert.True(File.Exists(FindRepositoryFile(
                 "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables/Miniatures/c10002300_slot.png")));
+            Assert.True(File.Exists(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Server/wwwroot/scale/c10002300.png")));
             var group = File.ReadAllText(FindRepositoryFile(
                 "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
             Assert.Contains("m_Address: c10002300", group);

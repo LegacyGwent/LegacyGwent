@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 
@@ -5,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("62010")]//凯瑞丝：无所畏惧
     public class CerysFearless : CardEffect
-    {//与1个敌军单位对决，若存活，使1名友方“德拉蒙女王卫队”与1个敌军单位对决。
+    {//与1个敌军单位对决，若存活，使1名友方最强“德拉蒙女王卫队”与1个敌军单位对决。
         public CerysFearless(GameCard card) : base(card) { }
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
@@ -23,11 +24,11 @@ namespace Cynthia.Card
                 return 0;
             }
 
-            if (!(await Game.GetSelectPlaceCards(
-                Card,
-                selectMode: SelectModeType.MyRow,
-                filter: card => card.Status.CardId == CardId.DrummondQueensguard))
-                .TrySingle(out var queensguard))
+            var queensguard = Game.GetPlaceCards(Card.PlayerIndex)
+                .Where(card => card.Status.CardId == CardId.DrummondQueensguard)
+                .WhereAllHighest()
+                .FirstOrDefault();
+            if (queensguard == null)
             {
                 return 0;
             }

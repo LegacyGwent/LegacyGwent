@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 185);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 186);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -9699,7 +9699,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanAnCraite,Categorie.Officer},
                     Flavor = "我必须要团结各大家族。我希望能够避免开战。但假如尼弗迦德执意来犯，那我们就一定要同仇敌忾。",
-                    Info = "与1个敌军单位对决，若存活，使1名友方“德拉蒙女王卫队”与1个敌军单位对决。",
+                    Info = "与1个敌军单位对决，若存活，使1名友方最强“德拉蒙女王卫队”与1个敌军单位对决。",
                     CardArtsId = "20177800",
                     LinkedCards=new List<String> {},
                 }
@@ -11867,7 +11867,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70043", //Vernossiel's Commando
                     Name="弗妮希尔的突击队",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,

@@ -7,15 +7,17 @@ namespace Cynthia.Card.Gameplay.Tests
     public class AugustEleventhSecondBatchTests
     {
         [Fact]
-        public async Task CerysFearlessLetsQueensguardDuelAfterSheSurvives()
+        public async Task CerysFearlessAutomaticallyUsesStrongestQueensguardAfterSheSurvives()
         {
             var fixture = new HeadlessGameFixture();
             ClearMutableZones(fixture);
 
             var cerys = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.CerysFearless, RowPosition.MyRow1);
-            var queensguard = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.DrummondQueensguard, RowPosition.MyRow1);
+            var weakerQueensguard = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.DrummondQueensguard, RowPosition.MyRow1, 2);
+            var strongestQueensguard = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.DrummondQueensguard, RowPosition.MyRow2, 9);
             var firstEnemy = fixture.AddCard(
                 fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 1);
             var secondEnemy = fixture.AddCard(
@@ -26,7 +28,9 @@ namespace Cynthia.Card.Gameplay.Tests
                 () => cerys.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
             Assert.True(cerys.Status.CardRow.IsOnPlace());
-            Assert.True(queensguard.Status.CardRow.IsOnPlace());
+            Assert.True(weakerQueensguard.Status.CardRow.IsOnPlace());
+            Assert.Equal(0, weakerQueensguard.Status.HealthStatus);
+            Assert.True(strongestQueensguard.Status.CardRow.IsOnPlace());
             Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
             Assert.False(secondEnemy.Status.CardRow.IsOnPlace());
         }
