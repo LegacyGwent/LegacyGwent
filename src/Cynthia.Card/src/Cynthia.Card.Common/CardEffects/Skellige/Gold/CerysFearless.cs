@@ -34,7 +34,7 @@ namespace Cynthia.Card
             }
 
             if (!(await Game.GetSelectPlaceCards(
-                Card,
+                queensguard,
                 selectMode: SelectModeType.EnemyRow)).TrySingle(out var secondEnemy))
             {
                 return 0;

@@ -33,6 +33,14 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.True(strongestQueensguard.Status.CardRow.IsOnPlace());
             Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
             Assert.False(secondEnemy.Status.CardRow.IsOnPlace());
+            Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
+            var queensguardLocation = fixture.Game.GetCardLocation(strongestQueensguard);
+            Assert.Equal(
+                queensguardLocation.RowPosition,
+                fixture.FirstPlayer.PlaceSelectionSources[1].RowPosition);
+            Assert.Equal(
+                queensguardLocation.CardIndex,
+                fixture.FirstPlayer.PlaceSelectionSources[1].CardIndex);
         }
 
         [Fact]

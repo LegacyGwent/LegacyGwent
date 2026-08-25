@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 186), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 187), GwentMap.CardMapVersion);
             Assert.Equal(723, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -1344,6 +1344,12 @@ namespace Cynthia.Card.Server.Tests
                 "WeavessIncantation_1_Strenghten"]);
             Assert.Contains("食腐生物", chineseLocale.MenuLocales[
                 "BlackBlood_1_CreateVampire"]);
+            Assert.Equal(
+                "生成1张己方起始牌组之外的铜色“炼金”牌。",
+                chineseLocale.MenuLocales["Kiyan_1_CreateAlchemy"]);
+            Assert.Equal(
+                "从牌组打出1张铜色/银色“道具”牌。",
+                chineseLocale.MenuLocales["Kiyan_2_PlayItem"]);
         }
 
         [Fact]

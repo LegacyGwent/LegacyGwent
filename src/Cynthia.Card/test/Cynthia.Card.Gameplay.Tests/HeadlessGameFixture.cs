@@ -93,8 +93,13 @@ namespace Cynthia.Card.Gameplay.Tests
 
         public int LastMenuOptionCount { get; private set; }
 
+        public IList<CardLocation> PlaceSelectionSources { get; } = new List<CardLocation>();
+
         public override void SelectPlaceCards(PlaceSelectCardsInfo info, Action<Operation<UserOperationType>> send)
         {
+            PlaceSelectionSources.Add(new CardLocation(
+                info.SelectCard.RowPosition,
+                info.SelectCard.CardIndex));
             var selected = info.CanSelect.CardsPartToLocation().Take(info.SelectCount).ToList();
             send(Operation.Create(UserOperationType.SelectPlaceCardsInfo, selected));
         }
