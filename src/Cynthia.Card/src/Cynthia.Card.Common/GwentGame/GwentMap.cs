@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 187);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 188);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12134,7 +12134,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”",
-                    Info = "生成所有被锁定且战力不小于2的铜色单位的2战力佚亡原始同名牌。己方回合中，每当战力不小于2的铜色单位被锁定，在同排生成其2战力佚亡原始同名牌。",
+                    Info = "生成所有被锁定的铜色单位的2战力佚亡原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力佚亡原始同名牌。",
                     CardArtsId = "202374",
                     LinkedCards=new List<String> {},
                 }
@@ -12305,9 +12305,9 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "“一旦发现虫卵，最好的办法就是把整座森林全烧掉。然后有多远跑多远。”",
-                    Info = "在左侧生成1张佚亡原始同名牌。遗愿：在同排生成1张“安德莱格幼虫”。3回合后，回合结束时，摧毁自身。",
+                    Info = "在左侧生成1张原始同名牌。遗愿：在同排生成1个“安德莱格幼虫”，使牌组中的“安德莱格女王”获得1点强化。3回合后的回合结束时，摧毁自身。",
                     CardArtsId = "202444",
-                    LinkedCards=new List<String> {"70107"},
+                    LinkedCards=new List<String> {"70106","70107","70199"},
                 }
             },
               {
@@ -12327,7 +12327,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Insectoid,Categorie.Token},
                     Flavor = "“十分丰满……也十分危险。”",
-                    Info = "3回合后，回合结束时，转化为“安德莱格战士”。",
+                    Info = "3回合后的回合结束时，转化为“安德莱格战士”。",
                     CardArtsId = "202440",
                     LinkedCards=new List<String> {"70108"},
                 }
@@ -14982,7 +14982,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Cintra},
                     CrewCount = 1,
                     Flavor = "人们叫她“辛特拉的母狮”。这可不是毫无根据的。",
-                    Info = "获得1个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
+                    Info = "获得1个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色非间谍单位牌。操控。",
                     CardArtsId = "18340",
                     LinkedCards=new List<String> {},
                 }
@@ -15512,6 +15512,27 @@ namespace Cynthia.Card
                     Info = "在己方其它排生成1张佚亡原始同名牌。回合开始时，变化为同排最强的“树精”单位。",
                     CardArtsId = "c10001700",
                     LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70199",//安德莱格女王 Endrega Queen
+                new GwentCard()
+                {
+                    CardId = "70199",
+                    Name = "安德莱格女王",
+                    Strength = 2,
+                    Group = Group.Gold,
+                    Faction = Faction.Monsters,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Insectoid },
+                    Flavor = "",
+                    Info = "每3回合开始时，在左侧生成1个“安德莱格虫卵”。当基础战力不小于10时，召唤此单位。",
+                    CardArtsId = "d19180000",
+                    LinkedCards = new List<String> { "70106" },
                 }
             },
         };

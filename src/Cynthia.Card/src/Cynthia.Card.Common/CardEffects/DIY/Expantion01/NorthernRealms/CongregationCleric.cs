@@ -14,8 +14,7 @@ namespace Cynthia.Card
             var lockList = Game.GetPlaceCards(PlayerIndex).Concat(Game.GetPlaceCards(AnotherPlayer))
             .FilterCards(filter: x => x.Status.Type == CardType.Unit &&
                                      x.Status.Group == Group.Copper &&
-                                     x.Status.IsLock &&
-                                     x.CardPoint() >= 2).ToList();
+                                     x.Status.IsLock).ToList();
             foreach(var card in lockList)
             {
                 await Game.CreateCardAtEnd(card.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
@@ -27,8 +26,7 @@ namespace Cynthia.Card
             if (@event.Source.PlayerIndex == PlayerIndex &&
                 Card.Status.CardRow.IsOnPlace() &&
                 @event.Target.Status.Type == CardType.Unit &&
-                @event.Target.Status.Group == Group.Copper &&
-                @event.Target.CardPoint() >= 2)
+                @event.Target.Status.Group == Group.Copper)
             {
                 await Game.CreateCardAtEnd(@event.Target.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
             }

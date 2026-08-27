@@ -91,7 +91,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CongregationClericCopiesOnlyLockedCopperUnitsAtLeastTwoPower()
+        public async Task CongregationClericCopiesLockedCopperUnitsRegardlessOfPower()
         {
             var fixture = new HeadlessGameFixture();
             var cleric = fixture.AddCard(
@@ -106,14 +106,16 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await cleric.Effects.RaiseEvent(new CardPlayEffect(false, false));
 
-            Assert.DoesNotContain(
+            var weakCopy = Assert.Single(
                 fixture.Game.PlayersPlace[fixture.Game.Player1Index][0],
                 card => card != cleric && card.Status.CardId == tooWeak.Status.CardId);
-            var copy = Assert.Single(
+            var eligibleCopy = Assert.Single(
                 fixture.Game.PlayersPlace[fixture.Game.Player1Index][0],
                 card => card.Status.CardId == eligible.Status.CardId);
-            Assert.Equal(2, copy.Status.Strength);
-            Assert.True(copy.Status.IsDoomed);
+            Assert.Equal(2, weakCopy.Status.Strength);
+            Assert.Equal(2, eligibleCopy.Status.Strength);
+            Assert.True(weakCopy.Status.IsDoomed);
+            Assert.True(eligibleCopy.Status.IsDoomed);
         }
 
         [Fact]

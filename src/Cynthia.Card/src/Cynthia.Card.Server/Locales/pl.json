@@ -3598,7 +3598,7 @@
         },
         "70076": {
             "Name": "Kleryk Kongregacji",
-            "Info": "Rozmieszczenie: Stwórz Skazane kopie bazowe o sile 2 wszystkich Zablokowanych brązowych jednostek o sile co najmniej 2. Gdy taka jednostka zostanie Zablokowana w twojej turze, stwórz jej Skazaną kopię bazową o sile 2 w tym rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz Skazane kopie bazowe o sile 2 wszystkich Zablokowanych brązowych jednostek. Gdy brązowa jednostka zostanie Zablokowana w twojej turze, stwórz jej Skazaną kopię bazową o sile 2 w tym rzędzie.",
             "Flavor": "Kościół to nie świątynie, to nie święta pisma - tylko wierni."
         },
         "70077": {
@@ -3743,7 +3743,7 @@
         },
         "70106": {
             "Name": "Jaja Endriagi",
-            "Info": "Rozmieszczenie: Stwórz po lewej 1 bazową Przeklętą kopię tej karty. Zemsta: Stwórz Larwę endriagi w tym samym rzędzie. Po 3 turach, na końcu tury, zniszcz się.",
+            "Info": "Stwórz po lewej 1 bazową kopię tej karty. Zemsta: Stwórz Larwę endriagi w tym samym rzędzie i wzmocnij każdą Królową endriag w swojej talii o 1. Po 3 turach, na końcu tury, zniszcz się.",
             "Flavor": "Kiedy się je znajdzie, na wszelki wypadek lepiej puścić z dymem cały las. A potem uciekać, gdzie pieprz rośnie."
         },
         "70107": {
@@ -4103,7 +4103,7 @@
         },
         "70179": {
             "Name": "Królowa Calanthe",
-            "Info": "Zyskaj wszystkie Wzmocnienia i Pancerz sojuszniczej brązowej lub srebrnej jednostki niebędącej Szpiegiem, a następnie wtasuj ją do talii. Następnie zagraj brązową lub srebrną jednostkę z talii. Załoga.",
+            "Info": "Zyskaj wszystkie Wzmocnienia i Pancerz sojuszniczej brązowej lub srebrnej jednostki niebędącej Szpiegiem, a następnie wtasuj ją do talii. Następnie zagraj brązową lub srebrną jednostkę niebędącą Szpiegiem z talii. Załoga.",
             "Flavor": "Zwano ją Lwicą. Nie bez powodu."
         },
         "70180": {
@@ -4264,6 +4264,11 @@
         "70198": {
             "Name": "Dziewczyna, która wypiła wodę Brokilonu",
             "Info": "Stwórz Skazaną bazową kopię tej jednostki w każdym innym sojuszniczym rzędzie. Na początku tury przemień ją w najsilniejszą Driadę w jej rzędzie.",
+            "Flavor": ""
+        },
+        "70199": {
+            "Name": "Królowa endriag",
+            "Info": "Co 3 tury, na początku tury, stwórz Jajo endriagi po lewej stronie tej jednostki. Gdy bazowa siła tej jednostki osiągnie co najmniej 10, przywołaj ją.",
             "Flavor": ""
         }
     }

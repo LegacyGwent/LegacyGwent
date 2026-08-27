@@ -3599,7 +3599,7 @@
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add a 2-power Doomed base copy of each Locked Bronze unit with at least 2 Power. Whenever a Bronze unit with at least 2 Power is Locked during your turn, add its 2-power Doomed base copy on this row.",
+            "Info": "Deploy: Add a 2-power Doomed base copy of each Locked Bronze unit. Whenever a Bronze unit is Locked during your turn, add its 2-power Doomed base copy on this row.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3744,7 +3744,7 @@
         },
         "70106": {
             "Name": "Endrega Eggs",
-            "Info": "Deploy: Spawn a Doomed base copy of this card on its left. Deathwish: Spawn an Endrega Larva on the same row. After 3 turns, on turn end, destroy self.",
+            "Info": "Spawn a base copy of this card on its left. Deathwish: Spawn an Endrega Larva on the same row and Strengthen each Endrega Queen in your deck by 1. After 3 turns, on turn end, destroy self.",
             "Flavor": "If you find some it's best to burn the entire forest down. Then run as far away as you can."
         },
         "70107": {
@@ -4104,7 +4104,7 @@
         },
         "70179": {
             "Name": "Queen Calanthe",
-            "Info": "Gain all Boost and Armor from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a Bronze or Silver unit from your deck. Crew.",
+            "Info": "Gain all Boost and Armor from an allied non-Spying Bronze or Silver unit, then shuffle it back into your deck. Then play a non-Spying Bronze or Silver unit from your deck. Crew.",
             "Flavor": "They call her the Lioness of Cintra. And not without good reason."
         },
         "70180": {
@@ -4265,6 +4265,11 @@
         "70198": {
             "Name": "Girl Who Drank Brokilon Water",
             "Info": "Spawn a Doomed base copy of this unit in each other allied row. On turn start, Transform into the strongest Dryad unit in its row.",
+            "Flavor": ""
+        },
+        "70199": {
+            "Name": "Endrega Queen",
+            "Info": "Every 3 turns, on turn start, Spawn an Endrega Egg on this unit's left. When this unit's base Power reaches 10, Summon it.",
             "Flavor": ""
         }
     }

@@ -47,6 +47,7 @@ namespace Cynthia.Card
             var candidates = Game.PlayersDeck[PlayerIndex]
                 .Where(deckCard =>
                     deckCard.CardInfo().CardType == CardType.Unit &&
+                    !deckCard.Status.IsSpying &&
                     (deckCard.Status.Group == Group.Copper || deckCard.Status.Group == Group.Silver))
                 .ToList();
             if (!candidates.Any())

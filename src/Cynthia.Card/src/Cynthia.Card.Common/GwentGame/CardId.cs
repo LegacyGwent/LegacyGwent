@@ -684,6 +684,7 @@ namespace Cynthia.Card
         public const string WarCouncil = "70196";
         public const string NorthernRealmsDraug = "70197";
         public const string GirlWhoDrankBrokilonWater = "70198";
+        public const string EndregaQueen = "70199";
         public const string SvalblodFanatic = "70046";
 
     }

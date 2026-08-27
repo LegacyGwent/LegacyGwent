@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 187), GwentMap.CardMapVersion);
-            Assert.Equal(723, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 188), GwentMap.CardMapVersion);
+            Assert.Equal(724, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,7 +52,7 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199" },
                 GwentMap.CardMap.Keys.Skip(709));
         }
 
@@ -170,7 +170,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("敌军非间谍铜色单位", GwentMap.CardMap[CardId.MageInfiltrator].Info);
             Assert.Contains("被揭示的非间谍敌方铜色单位牌", GwentMap.CardMap[CardId.MageInfiltrator].Info);
             Assert.Equal("4点护甲。", GwentMap.CardMap[CardId.TridamInfantry].Info);
-            Assert.Contains("战力不小于2", GwentMap.CardMap[CardId.CongregationCleric].Info);
+            Assert.DoesNotContain("战力不小于2", GwentMap.CardMap[CardId.CongregationCleric].Info);
             Assert.False(GwentMap.CardMap[CardId.Crowmother].IsDoomed);
             Assert.DoesNotContain("佚亡", GwentMap.CardMap[CardId.Crowmother].Info);
             Assert.Contains("非间谍单位", GwentMap.CardMap[CardId.Svalblod].Info);
@@ -876,7 +876,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
             Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);
             Assert.Equal(
-                "获得1个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色单位牌。操控。",
+                "获得1个友军铜色/银色非间谍单位的所有增益和护甲，随后将其收回牌组。然后从牌组打出1张铜色/银色非间谍单位牌。操控。",
                 GwentMap.CardMap[CardId.QueenCalanthe].Info);
 
             var dataService = new GwentCardDataService();
