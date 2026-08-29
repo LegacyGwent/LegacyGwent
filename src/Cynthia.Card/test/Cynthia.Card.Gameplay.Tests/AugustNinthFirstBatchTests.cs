@@ -30,6 +30,20 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
+        public async Task WraithSorcererDoesNotToggleBelowThreePower()
+        {
+            var fixture = new HeadlessGameFixture();
+            var sorcerer = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.WraithSorcerer, RowPosition.MyRow1, 2);
+            await fixture.SynchronizeClientsAsync();
+
+            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+
+            Assert.False(sorcerer.Status.IsLock);
+        }
+
+        [Fact]
         public async Task GaelRepeatsOnlyTheDrainAfterTwoOwnerTurns()
         {
             var fixture = new HeadlessGameFixture();

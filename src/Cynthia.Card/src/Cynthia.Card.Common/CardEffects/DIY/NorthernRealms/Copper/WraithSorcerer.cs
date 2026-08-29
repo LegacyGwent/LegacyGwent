@@ -25,6 +25,10 @@ namespace Cynthia.Card
             if (_ownerTurnStarts >= 2)
             {
                 _ownerTurnStarts = 0;
+                if (Card.Status.Strength < 3)
+                {
+                    return;
+                }
                 await Card.Effect.Lock(Card);
             }
         }

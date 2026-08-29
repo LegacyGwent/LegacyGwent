@@ -3403,7 +3403,7 @@
         },
         "70007": {
             "Name": "Prorok Lebioda",
-            "Info": "Gdy ta jednostka zostanie wygnana, wzmocnij wszystkich sojuszników o 1.",
+            "Info": "Gdy ta jednostka zostanie wygnana lub przeciwnik spasuje, wzmocnij wszystkie sojusznicze jednostki po swojej stronie planszy o 1.",
             "Flavor": "Powiada prorok Lebioda: zaprawdę, ubogiego datkiem wesprzyj. Ale miast dać ubogiemu całego arbuza, daj mu pół arbuza, bo się gotowo ubogiemu we łbie przewrócić od szczęścia."
         },
         "70008": {
@@ -3593,12 +3593,12 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "Jeśli każda brązowa karta w talii początkowej występuje dokładnie 3 razy, stwórz Przeklętą bazową kopię brązowej jednostki z tej talii.",
+            "Info": "Jeśli każda brązowa karta w talii początkowej występuje dokładnie 3 razy, stwórz bazową kopię brązowej jednostki z tej talii.",
             "Flavor": "Wiele można schować za pięknym uśmiechem."
         },
         "70076": {
             "Name": "Kleryk Kongregacji",
-            "Info": "Rozmieszczenie: Stwórz Skazane kopie bazowe o sile 2 wszystkich Zablokowanych brązowych jednostek. Gdy brązowa jednostka zostanie Zablokowana w twojej turze, stwórz jej Skazaną kopię bazową o sile 2 w tym rzędzie.",
+            "Info": "Rozmieszczenie: Stwórz bazowe kopie o sile 2 wszystkich Zablokowanych brązowych jednostek. Gdy brązowa jednostka zostanie Zablokowana w twojej turze, stwórz jej bazową kopię o sile 2 w tym rzędzie.",
             "Flavor": "Kościół to nie świątynie, to nie święta pisma - tylko wierni."
         },
         "70077": {
@@ -3728,7 +3728,7 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Rozmieszczenie: Wybierz odkrytą kartę w twojej ręce, następnie przekształć ją w brązową jednostkę ze swojej talii początkowej, a następnie ją Ujawnij.",
+            "Info": "Wybierz 1 kartę w ręce, przekształć ją w bazową kopię brązowej jednostki z talii początkowej, a następnie ją Ujawnij.",
             "Flavor": "Ponoć tworzył iluzje tak przekonujące, że sam zaczynał w nie wierzyć..."
         },
         "70104": {
@@ -4078,7 +4078,7 @@
         },
         "70174": {
             "Name": "Mag Infiltrator",
-            "Info": "Szpieg. Ujawnij 2 karty w ręce przeciwnika. Wybierz wrogą brązową jednostkę bez Szpiega albo Ujawnioną brązową kartę jednostki bez Szpiega i stwórz jej Skazaną kopię bazową.",
+            "Info": "Szpieg. Ujawnij 2 karty w ręce przeciwnika. Wybierz wrogą brązową jednostkę bez Szpiega albo Ujawnioną brązową kartę jednostki bez Szpiega i stwórz jej kopię bazową.",
             "Flavor": "W wolnym czasie lubi się zgrywać, kradnąc ludziom onuce - tylko po jednej z każdej pary - i podmieniając część ubrań na mniejsze."
         },
         "70175": {
@@ -4093,7 +4093,7 @@
         },
         "70177": {
             "Name": "Pan Drapak",
-            "Info": "Rozmieszczenie: Ulepsz wszystkie sojsznicze bestie o 1 gdziekolwiek są, następnie Wzmocnij je o 1 jeśli są pod wpływem pełni księżyca.",
+            "Info": "Wzmocnij wszystkie Bestie pod Pełnią Księżyca o 1. W ręce, talii lub po swojej stronie planszy: za każdym razem, gdy Bestia pojawi się po twojej stronie planszy, wzmocnij tę jednostkę o 1.",
             "Flavor": "Jeśli cenisz gałki oczne, nie drocz się z nim."
         },
         "70178": {
@@ -4243,7 +4243,7 @@
         },
         "70194": {
             "Name": "Widmowy czarodziej",
-            "Info": "Na początku gry zmień stan Blokady tej jednostki. Powtarzaj ten efekt co 2 własne tury.",
+            "Info": "Na początku gry zmień stan Blokady tej jednostki. Co 2 własne tury, jeśli jej siła wynosi co najmniej 3, powtórz ten efekt.",
             "Flavor": ""
         },
         "70195": {
@@ -4268,7 +4268,7 @@
         },
         "70199": {
             "Name": "Królowa endriag",
-            "Info": "Co 3 tury, na początku tury, stwórz Jajo endriagi po lewej stronie tej jednostki. Gdy bazowa siła tej jednostki osiągnie co najmniej 10, przywołaj ją.",
+            "Info": "Co 3 własne tury, na końcu tury, stwórz Jajo endriagi po lewej stronie. Na początku gry umieść tę jednostkę na spodzie talii. Gdy jej bazowa siła wynosi co najmniej 10, przywołaj ją do rzędu bliskiego starcia.",
             "Flavor": ""
         }
     }

@@ -31,8 +31,7 @@ namespace Cynthia.Card
             await Game.CreateCard(
                 targetCard.Status.CardId,
                 controller,
-                new CardLocation(RowPosition.MyStay, 0),
-                status => status.IsDoomed = true);
+                new CardLocation(RowPosition.MyStay, 0));
             return 1;
         }
     }

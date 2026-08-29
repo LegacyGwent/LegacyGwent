@@ -34,7 +34,6 @@ namespace Cynthia.Card
         }
         private void Lesser(CardStatus status)
         {
-            status.IsDoomed = true;
             status.Strength = 2;
         }
     }

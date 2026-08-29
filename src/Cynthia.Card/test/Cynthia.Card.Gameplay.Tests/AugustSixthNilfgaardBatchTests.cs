@@ -189,7 +189,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task MageInfiltratorCanCopyBoardOrRevealedHandAsDoomedAndEndsWithoutTargets()
+        public async Task MageInfiltratorCanCopyBoardOrRevealedHandWithoutDoomedAndEndsWithoutTargets()
         {
             var boardFixture = new HeadlessGameFixture();
             var boardInfiltrator = boardFixture.AddCard(
@@ -204,7 +204,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             var boardCopy = Assert.Single(boardFixture.Game.PlayersStay[boardFixture.Game.Player1Index]);
             Assert.Equal(CardId.Wolf, boardCopy.Status.CardId);
-            Assert.True(boardCopy.Status.IsDoomed);
+            Assert.False(boardCopy.Status.IsDoomed);
 
             var handFixture = new HeadlessGameFixture();
             var handInfiltrator = handFixture.AddCard(
@@ -218,7 +218,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             var handCopy = Assert.Single(handFixture.Game.PlayersStay[handFixture.Game.Player1Index]);
             Assert.Equal(CardId.Wolf, handCopy.Status.CardId);
-            Assert.True(handCopy.Status.IsDoomed);
+            Assert.False(handCopy.Status.IsDoomed);
 
             var emptyFixture = new HeadlessGameFixture();
             var emptyInfiltrator = emptyFixture.AddCard(

@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 188), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 189), GwentMap.CardMapVersion);
             Assert.Equal(724, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -81,7 +81,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(Categorie.Dryad, girl.Categories);
             Assert.Equal("c10001700", girl.CardArtsId);
             Assert.Equal(
-                "在己方其它排生成1张佚亡原始同名牌。回合开始时，变化为同排最强的“树精”单位。",
+                "在己方其它排生成1张佚亡原始同名牌。回合开始时，转化为同排最强的“树精”单位。",
                 girl.Info);
 
             Assert.All(GwentMap.CardMap.Values, card =>
@@ -916,7 +916,7 @@ namespace Cynthia.Card.Server.Tests
             });
 
             Assert.Equal(11, GwentMap.CardMap["70025"].Strength);
-            Assert.Equal(3, GwentMap.CardMap["70072"].Strength);
+            Assert.Equal(2, GwentMap.CardMap["70072"].Strength);
             Assert.Equal(3, GwentMap.CardMap["70125"].Strength);
             Assert.Equal(8, GwentMap.CardMap["70158"].Strength);
             Assert.Contains("非间谍", GwentMap.CardMap["70027"].Info);
@@ -992,7 +992,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(9, GwentMap.CardMap[CardId.Keltullis].Strength);
             Assert.DoesNotContain("铜色/银色", GwentMap.CardMap[CardId.DetlaffCrimsonCurse].Info);
             Assert.Contains("所有敌军单位", GwentMap.CardMap[CardId.Tatterwing].Info);
-            Assert.Contains("有友军野兽单位被打出时", GwentMap.CardMap[CardId.SirScratchALot].Info);
+            Assert.Contains("有“野兽”单位出现在己方半场时", GwentMap.CardMap[CardId.SirScratchALot].Info);
 
             var dataService = new GwentCardDataService();
             Assert.Equal(typeof(GeraltAard), dataService.GetType(CardId.GeraltAard));
@@ -1367,13 +1367,14 @@ namespace Cynthia.Card.Server.Tests
             });
 
             Assert.Equal(5, GwentMap.CardMap["34024"].Strength);
-            Assert.Equal(6, GwentMap.CardMap[CardId.Hybrid].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.Hybrid].Strength);
             Assert.Contains("士兵”或“军官", GwentMap.CardMap["13044"].Info);
             Assert.Equal("暗杀", GwentMap.CardMap["32015"].Name);
             Assert.Contains("每当被己方揭示时", GwentMap.CardMap["33009"].Info);
             Assert.Contains("同排2个敌军", GwentMap.CardMap["33020"].Info);
             Assert.Contains("品质最低", GwentMap.CardMap["34004"].Info);
-            Assert.Contains("佚亡原始同名牌", GwentMap.CardMap["70072"].Info);
+            Assert.Contains("原始同名牌", GwentMap.CardMap["70072"].Info);
+            Assert.DoesNotContain("佚亡原始同名牌", GwentMap.CardMap["70072"].Info);
             Assert.Contains("随机隐匿1张铜色手牌", GwentMap.CardMap["70152"].Info);
             Assert.Contains("下回合开始时，吞噬右侧单位", GwentMap.CardMap[CardId.Hybrid].Info);
             Assert.Contains("本小局", GwentMap.CardMap["70184"].Info);

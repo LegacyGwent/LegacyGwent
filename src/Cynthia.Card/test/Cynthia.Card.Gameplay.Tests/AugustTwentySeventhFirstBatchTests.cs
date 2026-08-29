@@ -43,7 +43,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.PlayersPlace[fixture.Game.Player1Index][1],
                 card => card.Status.CardId == CardId.EndregaLarva);
             Assert.Equal(10, queen.Status.Strength);
-            Assert.True(queen.Status.CardRow.IsOnPlace());
+            Assert.Equal(RowPosition.MyRow1, queen.Status.CardRow);
         }
 
         [Fact]
@@ -89,21 +89,27 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task EndregaQueenCreatesOneEggEveryThreeOwnerTurnStarts()
+        public async Task EndregaQueenMovesToDeckBottomAndCreatesOneEggEveryThreeOwnerTurnEnds()
         {
             var fixture = new HeadlessGameFixture();
+            fixture.Game.PlayersDeck[fixture.Game.Player1Index].Clear();
+            fixture.AddCard(fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyDeck);
             var queen = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.EndregaQueen, RowPosition.MyRow3);
+                fixture.Game.Player1Index, CardId.EndregaQueen, RowPosition.MyDeck);
             await fixture.SynchronizeClientsAsync();
 
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player2Index));
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            await fixture.Game.SendEvent(new OnGameStart());
+            Assert.Same(queen, fixture.Game.PlayersDeck[fixture.Game.Player1Index].Last());
+
+            await queen.Effect.Summon(new CardLocation(RowPosition.MyRow3, 0), queen);
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player2Index));
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.DoesNotContain(
                 fixture.Game.PlayersPlace[fixture.Game.Player1Index][2],
                 card => card.Status.CardId == CardId.EndregaEggs);
 
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
 
             var row = fixture.Game.PlayersPlace[fixture.Game.Player1Index][2];
             var egg = Assert.Single(row, card => card.Status.CardId == CardId.EndregaEggs);

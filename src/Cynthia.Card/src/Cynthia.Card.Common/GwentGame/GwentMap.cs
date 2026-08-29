@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 188);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 189);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11287,7 +11287,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "被放逐时，使场上所有友军单位获得1点增益。",
+                    Info = "被放逐或对方放弃跟牌时，使己方半场所有友军单位获得1点增益。",
                     CardArtsId = "202348",
                     LinkedCards=new List<String> {},
                 }
@@ -12102,7 +12102,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70072", //Radeyah
                     Name="雷蒂娅",
-                    Strength=3,
+                    Strength=2,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12113,7 +12113,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Mage},
                     HideTags = new HideTag[]{HideTag.Triss},
                     Flavor = "“迷人的微笑背后可以潜藏许多秘密……”",
-                    Info = "若每张铜色牌在己方初始牌组中刚好有3张，则生成己方起始牌组中1张铜色单位牌的佚亡原始同名牌。",
+                    Info = "若每张铜色牌在己方初始牌组中刚好有3张，则生成己方起始牌组中1张铜色单位牌的原始同名牌。",
                     CardArtsId = "202478",
                     LinkedCards=new List<String> {},
                 }
@@ -12134,7 +12134,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Redania},
                     Flavor = "“靠近点，羔羊，再近点。愿永恒之火温暖你的灵魂！”",
-                    Info = "生成所有被锁定的铜色单位的2战力佚亡原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力佚亡原始同名牌。",
+                    Info = "生成所有被锁定的铜色单位的2战力原始同名牌。己方回合中，每当铜色单位被锁定，在同排生成其2战力原始同名牌。",
                     CardArtsId = "202374",
                     LinkedCards=new List<String> {},
                 }
@@ -12261,7 +12261,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”",
-                    Info = "选择1张被揭示的手牌，并将其变形为己方起始牌组中1张铜色单位牌的原始同名牌，随后将其揭示。",
+                    Info = "选择1张手牌，将其转化为1张己方起始牌组中铜色单位牌的原始同名牌，随后将其揭示。",
                     CardArtsId = "202239",
                     LinkedCards=new List<String> {},
                 }
@@ -14876,7 +14876,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "据说她以前曾在帝国选美中夺得冠军",
-                    Info = "间谍。揭示2张对方手牌，选择1个敌军非间谍铜色单位或1张被揭示的非间谍敌方铜色单位牌，生成其佚亡原始同名牌。",
+                    Info = "间谍。揭示2张对方手牌，选择1个敌军非间谍铜色单位或1张被揭示的非间谍敌方铜色单位牌，生成其原始同名牌。",
                     CardArtsId = "202666",
                     LinkedCards=new List<String> {},
                 }
@@ -14908,7 +14908,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70176", //Hybrid
                     Name="杂交兽",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14929,7 +14929,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70177", //Sir Scratch-a-Lot
                     Name="挠挠爵士",
-                    Strength=8,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14939,7 +14939,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast, Categorie.Cursed},
                     Flavor = "不想少只眼睛的话……就别叫他小猫咪。",
-                    Info = "使所有位于满月之下的野兽单位获得1点增益。位于手牌、牌组或己方半场：有友军野兽单位被打出时，获得1点增益。",
+                    Info = "使所有位于满月之下的野兽单位获得1点增益。位于手牌、牌组或己方半场：有“野兽”单位出现在己方半场时，获得1点增益。",
                     CardArtsId = "203081",
                     LinkedCards=new List<String> {"25009"},
                 }
@@ -15425,7 +15425,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Mage, Categorie.Cursed },
                     Flavor = "",
-                    Info = "对局开始时，改变自身的锁定状态。每2回合开始时，重复此效果。",
+                    Info = "对局开始时，改变自身的锁定状态。每2回合开始时，若战力不小于3，重复此效果。",
                     CardArtsId = "c10002300",
                     LinkedCards = new List<String> {},
                 }
@@ -15509,7 +15509,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Dryad },
                     Flavor = "",
-                    Info = "在己方其它排生成1张佚亡原始同名牌。回合开始时，变化为同排最强的“树精”单位。",
+                    Info = "在己方其它排生成1张佚亡原始同名牌。回合开始时，转化为同排最强的“树精”单位。",
                     CardArtsId = "c10001700",
                     LinkedCards = new List<String> {},
                 }
@@ -15530,7 +15530,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Insectoid },
                     Flavor = "",
-                    Info = "每3回合开始时，在左侧生成1个“安德莱格虫卵”。当基础战力不小于10时，召唤此单位。",
+                    Info = "每3回合结束时，在左侧生成1个“安德莱格虫卵”。对局开始时，置于牌组底端。当基础战力不小于10时，召唤此单位至近战排。",
                     CardArtsId = "d19180000",
                     LinkedCards = new List<String> { "70106" },
                 }

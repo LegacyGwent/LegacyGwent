@@ -3404,7 +3404,7 @@
         },
         "70007": {
             "Name": "Prophet Lebioda",
-            "Info": "When Banished, Boost all allies by 1.",
+            "Info": "When Banished or when your opponent passes, Boost all allied units on your side of the board by 1.",
             "Flavor": "To thine own self be judge and ruler for thou alone shalt answer for thine deeds before thee."
         },
         "70008": {
@@ -3594,12 +3594,12 @@
         },
         "70072": {
             "Name": "Radeyah",
-            "Info": "If your starting deck has exactly 3 copies of every Bronze card, Spawn a Doomed base copy of a Bronze unit in your starting deck.",
+            "Info": "If your starting deck has exactly 3 copies of every Bronze card, Spawn a base copy of a Bronze unit in your starting deck.",
             "Flavor": "You can hide a lot behind a beautiful smile."
         },
         "70076": {
             "Name": "Congregation Cleric",
-            "Info": "Deploy: Add a 2-power Doomed base copy of each Locked Bronze unit. Whenever a Bronze unit is Locked during your turn, add its 2-power Doomed base copy on this row.",
+            "Info": "Deploy: Add a 2-power base copy of each Locked Bronze unit. Whenever a Bronze unit is Locked during your turn, add its 2-power base copy on this row.",
             "Flavor": "Our church is not this temple, not our scripture. It is our people, our community, we who have faith."
         },
         "70077": {
@@ -3729,7 +3729,7 @@
         },
         "70103": {
             "Name": "Artorius Vigo",
-            "Info": "Deploy: Select a revealed card in your hand, then transform it to a Bronze unit from your starting deck, then Reveal it.",
+            "Info": "Choose 1 card in your hand, Transform it into a base copy of a Bronze unit from your starting deck, then Reveal it.",
             "Flavor": "It is said he created an illusion so realistic that he began to believe it himself..."
         },
         "70104": {
@@ -4079,7 +4079,7 @@
         },
         "70174": {
             "Name": "Mage Infiltrator",
-            "Info": "Spying. Reveal 2 enemy hand cards. Choose an enemy non-Spying Bronze unit or a Revealed non-Spying enemy Bronze unit card and Spawn its Doomed base copy.",
+            "Info": "Spying. Reveal 2 enemy hand cards. Choose an enemy non-Spying Bronze unit or a Revealed non-Spying enemy Bronze unit card and Spawn its base copy.",
             "Flavor": "In her spare time, she likes playiang practical jokes on others. Her favorite gag is switching footwraps and headwear."
         },
         "70175": {
@@ -4094,7 +4094,7 @@
         },
         "70177": {
             "Name": "Sir Scratch-a-Lot",
-            "Info": "Deploy: Strengthen all allied Beasts by 1 wherever they are, then Boost them by 1 if they are under Full Moon.",
+            "Info": "Boost all Beast units under Full Moon by 1. While in your hand, deck, or on your side of the board, Boost self by 1 whenever a Beast appears on your side of the board.",
             "Flavor": "If you value your eyesight... Don't call him a pussy."
         },
         "70178": {
@@ -4244,7 +4244,7 @@
         },
         "70194": {
             "Name": "Wraith Sorcerer",
-            "Info": "At game start, change this unit's Lock status. Repeat this effect every 2 allied turns.",
+            "Info": "At game start, change this unit's Lock status. Every 2 allied turns, if its Power is at least 3, repeat this effect.",
             "Flavor": ""
         },
         "70195": {
@@ -4269,7 +4269,7 @@
         },
         "70199": {
             "Name": "Endrega Queen",
-            "Info": "Every 3 turns, on turn start, Spawn an Endrega Egg on this unit's left. When this unit's base Power reaches 10, Summon it.",
+            "Info": "Every 3 allied turns, at the end of the turn, Spawn an Endrega Egg to the left. At game start, move this unit to the bottom of your deck. When its base Power is at least 10, Summon it to the Melee row.",
             "Flavor": ""
         }
     }

@@ -114,8 +114,8 @@ namespace Cynthia.Card.Gameplay.Tests
                 card => card.Status.CardId == eligible.Status.CardId);
             Assert.Equal(2, weakCopy.Status.Strength);
             Assert.Equal(2, eligibleCopy.Status.Strength);
-            Assert.True(weakCopy.Status.IsDoomed);
-            Assert.True(eligibleCopy.Status.IsDoomed);
+            Assert.False(weakCopy.Status.IsDoomed);
+            Assert.False(eligibleCopy.Status.IsDoomed);
         }
 
         [Fact]

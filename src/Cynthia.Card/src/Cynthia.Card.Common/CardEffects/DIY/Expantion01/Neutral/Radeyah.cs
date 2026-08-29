@@ -1,13 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-using System;
 
 namespace Cynthia.Card
 {
     [CardEffectId("70072")]//雷蒂娅 Radeyah
     public class Radeyah : CardEffect
-    {//若每张铜色牌在己方初始牌组中刚好有3张，则生成起始牌组中一张铜色单位牌，并使其具有佚亡。
+    {//若每张铜色牌在己方初始牌组中刚好有3张，则生成起始牌组中一张铜色单位牌的原始同名牌。
         public Radeyah(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -23,7 +22,7 @@ namespace Cynthia.Card
             var selectList = cardsId.Select(x => new CardStatus(x)).ToList();
             if (!(await Game.GetSelectMenuCards(PlayerIndex, selectList)).TrySingle(out var cardIndex))
                 return 0;
-            await Game.CreateToStayFirst(cardsId[cardIndex], PlayerIndex, x => x.IsDoomed = true);
+            await Game.CreateToStayFirst(cardsId[cardIndex], PlayerIndex);
             return 1;
         }
     }
