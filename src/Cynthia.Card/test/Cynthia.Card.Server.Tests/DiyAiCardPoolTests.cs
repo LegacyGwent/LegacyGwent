@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 189), GwentMap.CardMapVersion);
-            Assert.Equal(724, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 190), GwentMap.CardMapVersion);
+            Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,8 +52,99 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void AugustThirtiethFirstBatchMatchesMetadataLocalesEffectsAndAssets()
+        {
+            var egmond = GwentMap.CardMap[CardId.Egmond];
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Egmond));
+            Assert.False(egmond.IsDerive);
+            Assert.Equal("埃格蒙德", egmond.Name);
+            Assert.Equal(10, egmond.Strength);
+            Assert.Equal(Group.Silver, egmond.Group);
+            Assert.Equal(Faction.NorthernRealms, egmond.Faction);
+            Assert.Equal(CardType.Unit, egmond.CardType);
+            Assert.Contains(Categorie.Soldier, egmond.Categories);
+            Assert.Equal("d22220000", egmond.CardArtsId);
+            Assert.Equal(
+                "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。每当在己方回合获得增益时，重复此能力。",
+                egmond.Info);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(Egmond), dataService.GetType(CardId.Egmond));
+            Assert.Equal(typeof(RocheMerciless), dataService.GetType(CardId.RocheMerciless));
+
+            Assert.Equal(2, GwentMap.CardMap["70038"].Countdown);
+            Assert.True(GwentMap.CardMap["70038"].IsCountdown);
+            Assert.Equal(2, GwentMap.CardMap[CardId.WraithSorcerer].Countdown);
+            Assert.True(GwentMap.CardMap[CardId.WraithSorcerer].IsCountdown);
+            Assert.Equal(3, GwentMap.CardMap[CardId.EndregaQueen].Countdown);
+            Assert.True(GwentMap.CardMap[CardId.EndregaQueen].IsCountdown);
+
+            Assert.Equal(
+                "择一：打出牌组中1张战力不高于自身的银色/铜色“泰莫利亚”单位牌；摧毁1个背面向上的伏击敌军单位。",
+                GwentMap.CardMap[CardId.RocheMerciless].Info);
+            Assert.Equal(
+                "将1个非“辅助”友军铜色单位洗回牌组，然后从牌组打出1张随机铜色单位牌。",
+                GwentMap.CardMap["70017"].Info);
+            Assert.Contains("造成10点伤害", GwentMap.CardMap[CardId.VandergriftSBlade].Info);
+            Assert.Contains("摧毁护甲数值", GwentMap.CardMap["70033"].Info);
+            Assert.Equal(
+                "生成1个铜色“辛德拉”单位，随后将每种各1张“辛德拉”铜色单位牌加入牌组底端。",
+                GwentMap.CardMap[CardId.QueenAdalia].Info);
+            Assert.Contains("“辛特拉”单位", GwentMap.CardMap[CardId.CintrianKnight].Info);
+            Assert.Contains("加入牌组底端", GwentMap.CardMap[CardId.CintrianEnvoy].Info);
+            Assert.Contains(Categorie.Special, GwentMap.CardMap[CardId.CursedScroll].Categories);
+            Assert.Contains(Categorie.Item, GwentMap.CardMap[CardId.CursedScroll].Categories);
+
+            var changedIds = new[]
+            {
+                CardId.RocheMerciless, "43021", "70017", "70033", "70038",
+                CardId.QueenAdalia, CardId.CintrianKnight, CardId.CintrianEnvoy,
+                CardId.CursedScroll, CardId.WraithSorcerer, CardId.EndregaQueen,
+                CardId.Egmond
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(changedIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
+
+            const string assets =
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Addressables";
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Cards/d22220000.png")));
+            Assert.True(File.Exists(FindRepositoryFile($"{assets}/Miniatures/d22220000_slot.png")));
+            var fullGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
+            var miniatureGroup = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/AddressableAssetsData/AssetGroups/Miniatures.asset"));
+            Assert.Contains("m_GUID: c06e160d05cf5374ab769dc894130831", fullGroup);
+            Assert.Contains("m_Address: d22220000", fullGroup);
+            Assert.Contains("m_GUID: ccb3a2b607d547fa93417cddcd2afc73", miniatureGroup);
+            Assert.Contains("m_Address: d22220000_slot", miniatureGroup);
         }
 
         [Fact]

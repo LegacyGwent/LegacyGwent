@@ -2303,7 +2303,7 @@
         },
         "42007": {
             "Name": "Roche Bezlitosny",
-            "Info": "Rozmieszczenie, Wybierz: Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta; lub zniszcz zakrytą wrogą zasadzke.",
+            "Info": "Wybierz: Zagraj z talii srebrną lub brązową jednostkę Temerii o sile nie większej niż ta jednostka albo zniszcz zakrytą wrogą jednostkę z zasadzki.",
             "Flavor": "Strach nam nie przystoi, ale jest pewien d'hoine... Vernon Roche. Wystrzegaj się go."
         },
         "42008": {
@@ -3913,7 +3913,7 @@
         },
         "70141": {
             "Name": "Królowa Adalia",
-            "Info": "Rozieszczenie: Stwórz karte Cintry. Jeśli w twojej talii startowej są tylko karty królestw północy, dodaj po jednej kopii każdej Cintryjskiej Brązowej jednostki do twojej talii.",
+            "Info": "Stwórz brązową jednostkę Cintry, a następnie dodaj po jednej kopii każdej brązowej jednostki Cintry na spód swojej talii.",
             "Flavor": "Adalia podnosiła most zwodzony ruchem brwi. Strach pomyśleć, co się działo, gdy ruszyła ręką."
         },
         "70142": {
@@ -3928,7 +3928,7 @@
         },
         "70144": {
             "Name": "Wysłanniczka z Cintry",
-            "Info": "Rozmieszczenie: Zagraj kopie tej karty z twojej talii. Jeśli w talii nie ma kopi tej karty zamiast tego dodaj jedną kopie do talii.",
+            "Info": "Rozmieszczenie: Zagraj kopię tej karty z talii. Jeśli w talii nie ma jej kopii, zamiast tego dodaj jedną kopię na spód talii.",
             "Flavor": "Myślała, że angaż w korpusie dyplomatycznym oznacza pracę przy biurku. Srogo się zawiodła."
         },
         "70145": {
@@ -4269,6 +4269,11 @@
         "70199": {
             "Name": "Królowa endriag",
             "Info": "Co 3 własne tury, na końcu tury, stwórz Jajo endriagi po lewej stronie. Na początku gry umieść tę jednostkę na spodzie talii. Gdy jej bazowa siła wynosi co najmniej 10, przywołaj ją do rzędu bliskiego starcia.",
+            "Flavor": ""
+        },
+        "70200": {
+            "Name": "Egmond",
+            "Info": "Usuń wszystkie wzmocnienia z sojuszniczej jednostki, a następnie zadaj wrogiej jednostce obrażenia równe usuniętej wartości. Jeśli ją zniszczysz, wzmocnij tę jednostkę o 1. Za każdym razem, gdy ta jednostka zostanie wzmocniona podczas twojej tury, powtórz tę zdolność.",
             "Flavor": ""
         }
     }

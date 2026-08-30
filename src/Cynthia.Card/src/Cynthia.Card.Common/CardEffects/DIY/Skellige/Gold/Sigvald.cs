@@ -7,8 +7,6 @@ namespace Cynthia.Card
     [CardEffectId("70038")]//西格瓦尔德
     public class Sigvald : CardEffect, IHandlesEvent<AfterTurnOver>
     {
-        private int _ownerTurnOvers;
-
         public Sigvald(GameCard card) : base(card) { }
 
         public async Task HandleEvent(AfterTurnOver @event)
@@ -18,15 +16,15 @@ namespace Cynthia.Card
                 return;
             }
 
-            _ownerTurnOvers++;
-            if (_ownerTurnOvers < 2)
+            await SetCountdown(offset: -1);
+            if (Countdown > 0)
             {
                 return;
             }
 
-            _ownerTurnOvers = 0;
             await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
             await Card.Effect.Strengthen(1, Card);
+            await SetCountdown(value: 2);
         }
     }
 }

@@ -2304,7 +2304,7 @@
         },
         "42007": {
             "Name": "Roche: Merciless",
-            "Info": "Deploy, Choose One: Play 1 Silver or Bronze Temeria card from your deck with Power less or equal than self; or destroy a face-down Ambush enemy unit.",
+            "Info": "Choose One: Play a Silver or Bronze Temeria unit from your deck with Power no greater than this unit's; or destroy a face-down enemy Ambush unit.",
             "Flavor": "Fear does not befit us. Yet, there is a certain d'hoine... Vernon Roche. Be wary of him."
         },
         "42008": {
@@ -3914,7 +3914,7 @@
         },
         "70141": {
             "Name": "Queen Adalia",
-            "Info": "Deploy: Spawn a Bronze Cintra card. If there are only Northern Realm cards in your starting deck, add one copy of every Bronze Cintra card to your deck.",
+            "Info": "Spawn a Bronze Cintra unit, then add one copy of each Bronze Cintra unit to the bottom of your deck.",
             "Flavor": "Queen Adalia of Cintra possessed the power to raise a drawbridge with a twitch of her brow. A frightening thought what she could do with a wave of her hand..."
         },
         "70142": {
@@ -3929,7 +3929,7 @@
         },
         "70144": {
             "Name": "Cintrian Envoy",
-            "Info": "Deploy: Play a copy of this unit from your deck.\nIf there are no copies of this card in your deck, add a default copy of this card to your deck instead.",
+            "Info": "Deploy: Play a copy of this unit from your deck.\nIf there are no copies of this card in your deck, add a default copy of this card to the bottom of your deck instead.",
             "Flavor": "She thought service in the diplomatic corps would mean a quiet life behind a desk. She and her blistered feet were sorely mistaken..."
         },
         "70145": {
@@ -4270,6 +4270,11 @@
         "70199": {
             "Name": "Endrega Queen",
             "Info": "Every 3 allied turns, at the end of the turn, Spawn an Endrega Egg to the left. At game start, move this unit to the bottom of your deck. When its base Power is at least 10, Summon it to the Melee row.",
+            "Flavor": ""
+        },
+        "70200": {
+            "Name": "Egmond",
+            "Info": "Remove all Boost from an allied unit, then damage an enemy unit by the amount removed. If it is destroyed, Boost self by 1. Whenever this unit is Boosted during your turn, repeat this ability.",
             "Flavor": ""
         }
     }

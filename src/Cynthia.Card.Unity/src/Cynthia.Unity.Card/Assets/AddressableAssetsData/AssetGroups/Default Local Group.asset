@@ -5405,6 +5405,10 @@ MonoBehaviour:
     m_Address: c10002300
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: c06e160d05cf5374ab769dc894130831
+    m_Address: d22220000
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5906503ae4b1e438db91b29a26dbfb, type: 2}
   m_SchemaSet:

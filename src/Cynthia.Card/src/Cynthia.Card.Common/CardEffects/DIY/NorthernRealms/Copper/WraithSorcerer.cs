@@ -5,8 +5,6 @@ namespace Cynthia.Card
     [CardEffectId(CardId.WraithSorcerer)]
     public class WraithSorcerer : CardEffect, IHandlesEvent<OnGameStart>, IHandlesEvent<AfterTurnStart>
     {
-        private int _ownerTurnStarts;
-
         public WraithSorcerer(GameCard card) : base(card) { }
 
         public async Task HandleEvent(OnGameStart @event)
@@ -21,10 +19,10 @@ namespace Cynthia.Card
                 return;
             }
 
-            _ownerTurnStarts++;
-            if (_ownerTurnStarts >= 2)
+            await SetCountdown(offset: -1);
+            if (Countdown <= 0)
             {
-                _ownerTurnStarts = 0;
+                await SetCountdown(value: 2);
                 if (Card.Status.Strength < 3)
                 {
                     return;
