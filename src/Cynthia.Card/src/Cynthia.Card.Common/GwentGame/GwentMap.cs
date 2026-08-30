@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 190);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 191);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -14582,7 +14582,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Witcher},
                     Flavor = "",
-                    Info = "造成3点伤害。每回合开始时，使其它最弱的友军猎魔人单位获得2点增益。遗愿：在对方同排生成1个“农民”单位。",
+                    Info = "造成3点伤害。每回合结束时，使其它最弱的友军猎魔人单位获得1点增益，随后重复一次。遗愿：在对方同排生成1个“农民”单位。",
                     CardArtsId = "c10000800",
                     LinkedCards=new List<String> {},
                 }
@@ -15544,7 +15544,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70200",
                     Name = "埃格蒙德",
-                    Strength = 10,
+                    Strength = 11,
                     Group = Group.Silver,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15554,7 +15554,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "",
-                    Info = "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。每当在己方回合获得增益时，重复此能力。",
+                    Info = "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。若在己方回合中获得过增益，回合结束时重复此能力。",
                     CardArtsId = "d22220000",
                     LinkedCards = new List<String> {},
                 }

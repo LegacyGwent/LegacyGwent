@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-10
+Last verified: 2026-08-30
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -117,9 +117,9 @@ Calanthe transferring positive Boost and Armor without going through the damage
 pipeline, then repairing and replaying the selected unit; Meve and Anna's restored DIY
 behavior; Dana directly playing a Neutral Gold; and Dana chaining Royal Decree
 while Roach correctly summons for a played Gold unit but not a summoned one.
-The second-batch scenarios cover Gascon self-exclusion, Albastra wings and
-two-turn Frost, Syanna's wounded-amount cadence, and Coën's deploy, tied-lowest
-Witcher Boost, and opposite-row Farmer Deathwish. Static tests separately lock
+The second-batch scenarios cover Gascon, Albastra, Syanna, and Coën's deploy and
+Deathwish. Current Coën coverage verifies two owner-turn-end tied-lowest
+Witcher Boost passes with recalculation. Static tests separately lock
 the retired variant slots, runtime/Mongo allowlist equality, CardMap
 `1.0.0.171`, source/locale agreement, leader-only draft validity, and Dana's
 Addressables entries.

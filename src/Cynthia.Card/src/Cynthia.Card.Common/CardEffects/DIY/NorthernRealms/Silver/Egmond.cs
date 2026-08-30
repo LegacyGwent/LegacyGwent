@@ -6,61 +6,58 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId(CardId.Egmond)]
-    public class Egmond : CardEffect, IHandlesEvent<AfterCardBoost>
+    public class Egmond : CardEffect, IHandlesEvent<AfterCardBoost>, IHandlesEvent<AfterTurnOver>
     {
-        private bool _isResolvingAbility;
-        private int _pendingRepeats;
+        private bool _wasBoostedThisOwnerTurn;
+        private bool _isResolvingTurnEndRepeat;
 
         public Egmond(GameCard card) : base(card) { }
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await ResolveAbilityChain();
+            await ResolveAbilityOnce();
             return 0;
         }
 
-        public async Task HandleEvent(AfterCardBoost @event)
+        public Task HandleEvent(AfterCardBoost @event)
         {
             if (@event.Target != Card ||
+                _isResolvingTurnEndRepeat ||
                 !Card.Status.CardRow.IsOnPlace() ||
                 Game.GameRound.ToPlayerIndex(Game) != PlayerIndex)
             {
-                return;
+                return Task.CompletedTask;
             }
 
-            if (_isResolvingAbility)
-            {
-                // Boost events are dispatched synchronously. Queue the repeat so
-                // this ability's own kill reward is honored without recursive calls.
-                _pendingRepeats++;
-                return;
-            }
-
-            await ResolveAbilityChain();
+            _wasBoostedThisOwnerTurn = true;
+            return Task.CompletedTask;
         }
 
-        private async Task ResolveAbilityChain()
+        public async Task HandleEvent(AfterTurnOver @event)
         {
-            if (_isResolvingAbility || !Card.Status.CardRow.IsOnPlace())
+            if (@event.PlayerIndex != PlayerIndex)
             {
                 return;
             }
 
-            _isResolvingAbility = true;
+            var shouldRepeat = _wasBoostedThisOwnerTurn;
+            _wasBoostedThisOwnerTurn = false;
+            if (!shouldRepeat || !Card.Status.CardRow.IsOnPlace())
+            {
+                return;
+            }
+
+            _isResolvingTurnEndRepeat = true;
             try
             {
-                var repeats = 1;
-                while (repeats-- > 0 && Card.Status.CardRow.IsOnPlace())
-                {
-                    _pendingRepeats = 0;
-                    await ResolveAbilityOnce();
-                    repeats += _pendingRepeats;
-                }
+                await ResolveAbilityOnce();
             }
             finally
             {
-                _pendingRepeats = 0;
-                _isResolvingAbility = false;
+                // A kill reward earned by this repeat is still applied, but it
+                // must not schedule another repeat or leak into the next turn.
+                _isResolvingTurnEndRepeat = false;
+                _wasBoostedThisOwnerTurn = false;
             }
         }
 

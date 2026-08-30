@@ -3999,7 +3999,7 @@
         },
         "70158": {
             "Name": "Coën of Poviss",
-            "Info": "Deploy: Deal 3 Damage. At the start of every turn, Boost the other weakest allied Witcher units by 2. Deathwish: Spawn a Peasant on the opposite enemy row.",
+            "Info": "Deploy: Deal 3 Damage. At the end of your turn, Boost the other weakest allied Witcher units by 1, then repeat this ability once. Deathwish: Spawn a Peasant on the opposite enemy row.",
             "Flavor": ""
         },
         "70159": {
@@ -4274,7 +4274,7 @@
         },
         "70200": {
             "Name": "Egmond",
-            "Info": "Remove all Boost from an allied unit, then damage an enemy unit by the amount removed. If it is destroyed, Boost self by 1. Whenever this unit is Boosted during your turn, repeat this ability.",
+            "Info": "Remove all Boost from an allied unit, then damage an enemy unit by the amount removed. If it is destroyed, Boost self by 1. If this unit was Boosted during your turn, repeat this ability at the end of the turn.",
             "Flavor": ""
         }
     }

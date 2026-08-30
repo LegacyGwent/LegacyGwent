@@ -1,18 +1,20 @@
-# August 30, 2026 first card batch
+# August 30, 2026 card batches
 
 Last verified: 2026-08-30
 
-- CardMap `1.0.0.190` appends deckable Northern Realms Silver Soldier Egmond
-  `70200`; never reuse an earlier ID for it. Egmond removes only the selected
-  ally's positive `HealthStatus`, resets that Boost, and damages the selected
-  enemy by the removed amount. A lethal hit Boosts Egmond by 1. Any Boost
-  Egmond receives during its controller's turn, including that lethal-hit
-  reward, repeats the ability.
-- Do not suppress Egmond's own reward event to avoid recursion. `Boost` sends
-  `AfterCardBoost` synchronously, so queue repeats while the ability is already
-  resolving and drain the queue after the current resolution. This preserves
-  legal chained repeats without recursive stack growth. A repeat with no
-  legal target, zero removed Boost, or a nonlethal hit terminates naturally.
+- CardMap `1.0.0.190` appended deckable Northern Realms Silver Soldier Egmond
+  `70200`; `1.0.0.191` raises it to 11 power and changes its repeat timing.
+  Never reuse an earlier ID for it. Egmond removes only the selected ally's
+  positive `HealthStatus`, resets that Boost, and damages the selected enemy by
+  the removed amount. A lethal hit Boosts Egmond by 1.
+- During Egmond's controller's turn, any number of Boost events targeting
+  Egmond set one pending flag. The owner's `AfterTurnOver` consumes that flag
+  before resolving exactly one extra ability. Suppress only flag creation while
+  that end-turn repeat is resolving: its lethal reward still Boosts Egmond, but
+  cannot cause a second repeat or carry into the next owner turn. Boosts during
+  the opponent's turn never set the flag. Deploy still resolves once
+  independently, and a resolution with no legal target or zero removed Boost
+  ends safely.
 - Lethal `Damage` schedules the physical cemetery move through `Game.AddTask`.
   Immediately after awaiting `Damage`, a destroyed target can still report an
   on-board row. When a same-effect reward depends on destruction, check
@@ -26,3 +28,7 @@ Last verified: 2026-08-30
   one copy of every Bronze Cintra unit to the deck in CardMap order. The old
   Northern-Realms-only starting-deck condition and random insertion positions
   are removed.
+- Coën of Poviss `70158` no longer Boosts at turn start. At the end of only its
+  controller's turn, it finds every tied weakest other allied Witcher and
+  Boosts each by 1, then independently recalculates the current weakest set and
+  repeats once. Exclude Coën itself even if its own power is the lowest.

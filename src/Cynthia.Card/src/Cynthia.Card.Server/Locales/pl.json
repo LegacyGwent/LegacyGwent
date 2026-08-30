@@ -3998,7 +3998,7 @@
         },
         "70158": {
             "Name": "Coën z Poviss",
-            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń. Na początku każdej tury Wzmocnij pozostałe najsłabsze sojusznicze jednostki Wiedźminów o 2. Zemsta: Stwórz Chłopa w przeciwnym rzędzie wroga.",
+            "Info": "Rozmieszczenie: Zadaj 3 pkt obrażeń. Na końcu swojej tury Wzmocnij pozostałe najsłabsze sojusznicze jednostki Wiedźminów o 1, a następnie powtórz tę zdolność raz. Zemsta: Stwórz Chłopa w przeciwnym rzędzie wroga.",
             "Flavor": ""
         },
         "70159": {
@@ -4273,7 +4273,7 @@
         },
         "70200": {
             "Name": "Egmond",
-            "Info": "Usuń wszystkie wzmocnienia z sojuszniczej jednostki, a następnie zadaj wrogiej jednostce obrażenia równe usuniętej wartości. Jeśli ją zniszczysz, wzmocnij tę jednostkę o 1. Za każdym razem, gdy ta jednostka zostanie wzmocniona podczas twojej tury, powtórz tę zdolność.",
+            "Info": "Usuń wszystkie wzmocnienia z sojuszniczej jednostki, a następnie zadaj wrogiej jednostce obrażenia równe usuniętej wartości. Jeśli ją zniszczysz, wzmocnij tę jednostkę o 1. Jeśli ta jednostka została wzmocniona podczas twojej tury, na końcu tury powtórz tę zdolność.",
             "Flavor": ""
         }
     }
