@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 189);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 190);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -6638,7 +6638,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Temeria,Categorie.Officer},
                     Flavor = "我们内心从不畏惧。不过，倒是有一个人类……弗农·罗契。千万要当心他。",
-                    Info = "摧毁1个背面向上的伏击敌军单位。",
+                    Info = "择一：打出牌组中1张战力不高于自身的银色/铜色“泰莫利亚”单位牌；摧毁1个背面向上的伏击敌军单位。",
                     CardArtsId = "20177700",
                     LinkedCards=new List<String> {},
                 }
@@ -7207,7 +7207,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。",
-                    Info = "择一：摧毁1个铜色/银色“诅咒单位”敌军单位；或造成9点伤害，放逐所摧毁的单位。",
+                    Info = "择一：摧毁1个铜色/银色“诅咒生物”敌军单位；或造成10点伤害，放逐所摧毁的单位。",
                     CardArtsId = "20163300",
                     LinkedCards=new List<String> {},
                 }
@@ -11498,7 +11498,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Support,Categorie.Cintra},
                     Flavor = "",
-                    Info = "将 1 个非辅助友军铜色单位洗回牌组，然后从牌组中打出1张随机铜色单位牌。",
+                    Info = "将1个非“辅助”友军铜色单位洗回牌组，然后从牌组打出1张随机铜色单位牌。",
                     CardArtsId = "202257",
                     LinkedCards=new List<String> {},
                 }
@@ -11752,7 +11752,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Beast },
                     Flavor = "“样子有点像浑身没毛的鹿首魔，鼻子能拖到地上。”\n“什么？不，你这是在胡扯”",
-                    Info = "摧毁自身及相邻单位的护甲，并造成扣除护甲值的伤害。",
+                    Info = "摧毁自身及相邻单位的护甲，并造成摧毁护甲数值的伤害。",
                     CardArtsId = "202503",
                     LinkedCards=new List<String> {},
                 }
@@ -11769,7 +11769,8 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 2,
+                    IsCountdown = true,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
                     Info = "每2回合结束时，复活此单位，并获得1点强化。",
@@ -14222,7 +14223,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra},
                     Flavor = "辛特拉女王艾达莉亚皱皱眉头就能升起吊桥。要是她挥挥手呢……真不敢想会发生什么。",
-                    Info = "生成1个铜色辛特拉单位，若起始牌组中只有北方领域牌，则将每种各1张铜色辛特拉牌加入牌组。",
+                    Info = "生成1个铜色“辛德拉”单位，随后将每种各1张“辛德拉”铜色单位牌加入牌组底端。",
                     CardArtsId = "202250",
                     LinkedCards=new List<String> {"70017","70126","70143","70144"},
                 }
@@ -14264,7 +14265,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cintra,Categorie.Soldier},
                     Flavor = "丧钟为谁鸣？",
-                    Info = "己方打出辛特拉单位时，使自身与打出的辛特拉单位获得1点增益。",
+                    Info = "己方打出“辛特拉”单位时，使自身与打出的“辛特拉”单位获得1点增益。",
                     CardArtsId = "202259",
                     LinkedCards=new List<String> {},
                 }
@@ -14285,7 +14286,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cintra},
                     Flavor = "她原以为去外交部上班，就是做做波澜不惊的文案工作。那双满是水泡的脚说明，她打错算盘了……",
-                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则将1张同名牌加入牌组。",
+                    Info = "从牌组打出1张同名牌，若牌组没有同名牌则将1张同名牌加入牌组底端。",
                     CardArtsId = "202261",
                     LinkedCards=new List<String> {},
                 }
@@ -14705,7 +14706,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special},
+                    Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
                     Flavor = "",
                     Info = "检视3张不同稀有度的牌，打出1张，丢弃其余2张。",
                     CardArtsId = "202498",
@@ -15421,7 +15422,8 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 2,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Mage, Categorie.Cursed },
                     Flavor = "",
@@ -15526,13 +15528,35 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 3,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Insectoid },
                     Flavor = "",
                     Info = "每3回合结束时，在左侧生成1个“安德莱格虫卵”。对局开始时，置于牌组底端。当基础战力不小于10时，召唤此单位至近战排。",
                     CardArtsId = "d19180000",
                     LinkedCards = new List<String> { "70106" },
+                }
+            },
+            {
+                "70200",//埃格蒙德 Egmond
+                new GwentCard()
+                {
+                    CardId = "70200",
+                    Name = "埃格蒙德",
+                    Strength = 10,
+                    Group = Group.Silver,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Soldier },
+                    Flavor = "",
+                    Info = "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。每当在己方回合获得增益时，重复此能力。",
+                    CardArtsId = "d22220000",
+                    LinkedCards = new List<String> {},
                 }
             },
         };

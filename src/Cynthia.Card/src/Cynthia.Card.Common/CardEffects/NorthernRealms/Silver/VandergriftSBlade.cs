@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("43021")]//范德格里夫特之剑
     public class VandergriftSBlade : CardEffect
-    {//择一：摧毁1个铜色/银色“诅咒单位”敌军单位；或造成9点伤害，放逐所摧毁的单位。
+    {//择一：摧毁1个铜色/银色“诅咒单位”敌军单位；或造成10点伤害，放逐所摧毁的单位。
         public VandergriftSBlade(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
@@ -31,7 +31,7 @@ namespace Cynthia.Card
                 {
                     return 0;
                 }
-                await target.Effect.Damage(9, Card);
+                await target.Effect.Damage(10, Card);
                 //如果目标没死，结束
                 if (!target.IsDead)
                 {

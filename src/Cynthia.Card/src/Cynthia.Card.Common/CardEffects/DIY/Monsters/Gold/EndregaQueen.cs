@@ -5,8 +5,6 @@ namespace Cynthia.Card
     [CardEffectId("70199")]//安德莱格女王 Endrega Queen
     public class EndregaQueen : CardEffect, IHandlesEvent<OnGameStart>, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardStrengthen>
     {
-        private int _turnCount;
-
         public EndregaQueen(GameCard card) : base(card) { }
 
         public async Task HandleEvent(OnGameStart @event)
@@ -28,14 +26,14 @@ namespace Cynthia.Card
                 return;
             }
 
-            _turnCount++;
-            if (_turnCount < 3)
+            await SetCountdown(offset: -1);
+            if (Countdown > 0)
             {
                 return;
             }
 
-            _turnCount = 0;
             await Game.CreateCard(CardId.EndregaEggs, PlayerIndex, Card.GetLocation());
+            await SetCountdown(value: 3);
         }
 
         public async Task HandleEvent(AfterCardStrengthen @event)

@@ -188,3 +188,6 @@ Last verified: 2026-08-23
 
 For the August 5 and August 6 monster batches, read
 [monster-batches-august-2026.md](monster-batches-august-2026.md).
+
+For the August 30 batch, read
+[august-30-batch-2026.md](august-30-batch-2026.md).
