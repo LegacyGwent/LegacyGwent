@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 191);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 192);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11539,6 +11539,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
+                    HideTags = new HideTag[]{ HideTag.Zoltan },
                     Flavor = "",
                     Info = "召唤“菲吉斯·梅鲁佐”和“穆罗·布鲁伊斯”，自身受到强化时额外获得1点强化。",
                     CardArtsId = "202467",
@@ -14728,6 +14729,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Tactic},
+                    HideTags = new HideTag[]{ HideTag.Zoltan },
                     Flavor = "",
                     Info = "将墓场中至多3张铜色/银色“矮人”牌返回牌组，随后从牌组打出1张铜色“矮人”牌。",
                     CardArtsId = "202471",
@@ -14930,7 +14932,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70177", //Sir Scratch-a-Lot
                     Name="挠挠爵士",
-                    Strength=3,
+                    Strength=7,
                     Group=Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15522,7 +15524,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70199",
                     Name = "安德莱格女王",
-                    Strength = 2,
+                    Strength = 3,
                     Group = Group.Gold,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
