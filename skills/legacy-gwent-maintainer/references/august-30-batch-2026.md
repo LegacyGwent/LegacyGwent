@@ -32,3 +32,10 @@ Last verified: 2026-08-30
   controller's turn, it finds every tied weakest other allied Witcher and
   Boosts each by 1, then independently recalculates the current weakest set and
   repeats once. Exclude Coën itself even if its own power is the lowest.
+- CardMap `1.0.0.192` raises Endrega Queen `70199` from 2 to 3 base power and
+  Sir Scratch-a-Lot `70177` from 3 to 7 base power.
+- Dandelion: Vainglory `12011` counts qualifying cards in the starting deck by
+  their established character `HideTag` values. Zoltan: Warrior `70019` and
+  Zoltan's Company `70167` therefore carry `HideTag.Zoltan`; each contributes
+  one 3-point Boost to Dandelion. Unrelated starting-deck cards do not count,
+  and the existing player text remains unchanged.

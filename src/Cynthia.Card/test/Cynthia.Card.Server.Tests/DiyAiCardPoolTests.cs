@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 191), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 192), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -54,6 +54,26 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void AugustThirtiethThirdBatchMatchesPublishedRules()
+        {
+            Assert.Equal(3, GwentMap.CardMap[CardId.EndregaQueen].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.SirScratchALot].Strength);
+
+            Assert.Contains(
+                HideTag.Zoltan,
+                GwentMap.CardMap[CardId.ZoltanWarrior].HideTags);
+            Assert.Contains(
+                HideTag.Zoltan,
+                GwentMap.CardMap[CardId.ZoltansCompany].HideTags);
+            Assert.DoesNotContain(
+                HideTag.Zoltan,
+                GwentMap.CardMap[CardId.DwarfMiner].HideTags ?? Array.Empty<HideTag>());
+            Assert.Equal(
+                "己方起始牌组中每有1张“杰洛特”、“叶奈法”、“特莉丝”或“卓尔坦”牌，便获得3点增益。",
+                GwentMap.CardMap[CardId.DandelionVainglory].Info);
         }
 
         [Fact]
