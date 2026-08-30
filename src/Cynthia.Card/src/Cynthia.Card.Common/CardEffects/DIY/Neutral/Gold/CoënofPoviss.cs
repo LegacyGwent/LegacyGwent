@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70158")]
-    public class CoënofPoviss : CardEffect, IHandlesEvent<AfterTurnStart>, IHandlesEvent<AfterCardDeath>
+    public class CoënofPoviss : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>
     {
         private const string FarmerCardId = "15011";
 
@@ -21,17 +21,20 @@ namespace Cynthia.Card
             return 0;
         }
 
-        public async Task HandleEvent(AfterTurnStart @event)
+        public async Task HandleEvent(AfterTurnOver @event)
         {
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
 
-            var targets = Game.GetPlaceCards(PlayerIndex)
-                .Where(card => card != Card && card.Status.Categories.Contains(Categorie.Witcher))
-                .WhereAllLowest()
-                .ToList();
-            foreach (var target in targets)
+            for (var repeat = 0; repeat < 2; repeat++)
             {
-                await target.Effect.Boost(2, Card);
+                var targets = Game.GetPlaceCards(PlayerIndex)
+                    .Where(card => card != Card && card.Status.Categories.Contains(Categorie.Witcher))
+                    .WhereAllLowest()
+                    .ToList();
+                foreach (var target in targets)
+                {
+                    await target.Effect.Boost(1, Card);
+                }
             }
         }
 

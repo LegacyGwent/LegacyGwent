@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 190), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 191), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -63,15 +63,19 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Egmond));
             Assert.False(egmond.IsDerive);
             Assert.Equal("埃格蒙德", egmond.Name);
-            Assert.Equal(10, egmond.Strength);
+            Assert.Equal(11, egmond.Strength);
             Assert.Equal(Group.Silver, egmond.Group);
             Assert.Equal(Faction.NorthernRealms, egmond.Faction);
             Assert.Equal(CardType.Unit, egmond.CardType);
             Assert.Contains(Categorie.Soldier, egmond.Categories);
             Assert.Equal("d22220000", egmond.CardArtsId);
             Assert.Equal(
-                "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。每当在己方回合获得增益时，重复此能力。",
+                "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。若在己方回合中获得过增益，回合结束时重复此能力。",
                 egmond.Info);
+
+            Assert.Equal(
+                "造成3点伤害。每回合结束时，使其它最弱的友军猎魔人单位获得1点增益，随后重复一次。遗愿：在对方同排生成1个“农民”单位。",
+                GwentMap.CardMap[CardId.CoënofPoviss].Info);
 
             var dataService = new GwentCardDataService();
             Assert.Equal(typeof(Egmond), dataService.GetType(CardId.Egmond));

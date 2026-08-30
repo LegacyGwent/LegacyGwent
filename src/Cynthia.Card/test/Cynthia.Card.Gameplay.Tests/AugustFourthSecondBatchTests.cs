@@ -76,7 +76,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CoenDamagesOnDeployAndBoostsAllOtherTiedWeakestWitchers()
+        public async Task CoenDamagesOnDeployAndBoostsAllOtherTiedWeakestWitchersAtOwnerTurnEnd()
         {
             var fixture = new HeadlessGameFixture();
             var target = fixture.AddCard(
@@ -93,7 +93,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await coen.Effect.CardPlayEffect(false, false);
             Assert.Equal(-3, target.Status.HealthStatus);
 
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.Equal(2, weakestOne.Status.HealthStatus);
             Assert.Equal(2, weakestTwo.Status.HealthStatus);
             Assert.Equal(0, stronger.Status.HealthStatus);

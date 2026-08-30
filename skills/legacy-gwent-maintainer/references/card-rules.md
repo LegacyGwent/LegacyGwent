@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-08-23
+Last verified: 2026-08-30
 
 ## August 23 first card batch
 
@@ -180,8 +180,10 @@ Last verified: 2026-08-23
 - Albastra applies Biting Frost to the enemy row opposite her current row on
   Deploy, then repeats only that Frost effect every second owner turn start via
   the ordinary visible Countdown. Her existing wing-presence destruction rule
-  remains. Coën boosts every tied weakest other allied Witcher at owner turn
-  start. For his Deathwish, pass the captured death row unchanged to
+  remains. Coën now makes two separate 1-point Boost passes over every tied
+  weakest other allied Witcher at owner turn end, recalculating the weakest set
+  before the second pass. For his Deathwish, pass the captured death row
+  unchanged to
   `CreateCard(Farmer, AnotherPlayer, ...)`; `CreateCard` interprets that
   `MyRowN` relative to the destination player, producing the physical opposite
   row without calling `Mirror()`.

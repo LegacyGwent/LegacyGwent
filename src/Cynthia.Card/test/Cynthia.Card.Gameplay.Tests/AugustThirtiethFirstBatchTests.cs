@@ -54,7 +54,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task EgmondOwnTurnKillRewardQueuesOneMoreAbilityWithoutRecursiveDispatch()
+        public async Task EgmondTurnEndKillRewardDoesNotQueueOrCarryAnotherRepeat()
         {
             var fixture = new HeadlessGameFixture();
             var ally = fixture.AddCard(
@@ -69,16 +69,22 @@ namespace Cynthia.Card.Gameplay.Tests
             fixture.Game.GameRound = (TwoPlayer)fixture.Game.Player1Index;
             await fixture.SynchronizeClientsAsync();
 
-            await fixture.Game.AddTask(
-                () => egmond.Effects.RaiseEvent(new CardPlayEffect(false, false)));
+            await fixture.Game.AddTask(() => egmond.Effect.Boost(1, ally));
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
 
             Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
             Assert.Equal(0, secondEnemy.Status.HealthStatus);
-            Assert.Equal(4, fixture.FirstPlayer.PlaceSelectionSources.Count);
+            Assert.Equal(2, egmond.Status.HealthStatus);
+            Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
+
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
+
+            Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
+            Assert.Equal(0, secondEnemy.Status.HealthStatus);
         }
 
         [Fact]
-        public async Task EgmondRepeatsOnlyWhenBoostedDuringItsOwnersTurn()
+        public async Task EgmondOwnerTurnBoostsWaitUntilTurnEndAndRepeatOnlyOnce()
         {
             var ownTurn = new HeadlessGameFixture();
             var ally = ownTurn.AddCard(
@@ -92,10 +98,18 @@ namespace Cynthia.Card.Gameplay.Tests
             await ownTurn.SynchronizeClientsAsync();
 
             await ownTurn.Game.AddTask(() => egmond.Effect.Boost(1, ally));
+            await ownTurn.Game.AddTask(() => egmond.Effect.Boost(1, ally));
+
+            Assert.Equal(3, ally.Status.HealthStatus);
+            Assert.Equal(0, enemy.Status.HealthStatus);
+            Assert.Empty(ownTurn.FirstPlayer.PlaceSelectionSources);
+
+            await ownTurn.Game.SendEvent(new AfterTurnOver(ownTurn.Game.Player1Index));
 
             Assert.Equal(0, ally.Status.HealthStatus);
             Assert.Equal(-3, enemy.Status.HealthStatus);
-            Assert.Equal(1, egmond.Status.HealthStatus);
+            Assert.Equal(2, egmond.Status.HealthStatus);
+            Assert.Equal(2, ownTurn.FirstPlayer.PlaceSelectionSources.Count);
 
             var enemyTurn = new HeadlessGameFixture();
             var untouchedAlly = enemyTurn.AddCard(
@@ -109,6 +123,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await enemyTurn.SynchronizeClientsAsync();
 
             await enemyTurn.Game.AddTask(() => passiveEgmond.Effect.Boost(1, untouchedAlly));
+            await enemyTurn.Game.SendEvent(new AfterTurnOver(enemyTurn.Game.Player1Index));
 
             Assert.Equal(3, untouchedAlly.Status.HealthStatus);
             Assert.Equal(0, untouchedEnemy.Status.HealthStatus);
