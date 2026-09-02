@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 192);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 193);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -562,7 +562,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "“真是难以置信，”希里回过神来想道，“在这个世界，独角兽已经不存在了。它们早就灭绝了。”",
-                    Info = "对自身造成5点伤害。当前战力等同于基础战力时，在回合结束时对3个敌方随机单位造成7点伤害。",
+                    Info = "对自身造成5点伤害。当前战力等同于基础战力时，在回合结束时对3个敌方单位造成7点伤害。",
                     CardArtsId = "20005100",
                     LinkedCards=new List<String> {},
                 }
@@ -7376,7 +7376,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "感受到了吗？每当这宝贝儿投出巨石，大地都会震颤。",
-                    Info = "回合结束时，对1个敌军随机单位造成1点伤害。",
+                    Info = "回合结束时，对1个敌军随机单位造成1点伤害。驱动：获得1点强化。",
                     CardArtsId = "12231500",
                     LinkedCards=new List<String> {},
                 }
@@ -8264,7 +8264,7 @@ namespace Cynthia.Card
                     IsConcealCard = true,
                     Categories = new Categorie[]{ Categorie.Dryad, Categorie.Ambush },
                     Flavor = "布洛克莱昂的意义远高于我的生命。她是一位母亲，关怀着自己的孩子们。我至死都要捍卫她。",
-                    Info = "伏击：当对方打出下张铜色/银色特殊牌时，翻开并抵消其能力。",
+                    Info = "伏击：当对方打出下张特殊牌时，翻开并抵消其能力。",
                     CardArtsId = "20177900",
                     LinkedCards=new List<String> {},
                 }
@@ -8475,7 +8475,7 @@ namespace Cynthia.Card
                     IsConcealCard = true,
                     Categories = new Categorie[]{ Categorie.Dryad,Categorie.Ambush},
                     Flavor = "艾思娜女士的女儿继承了她无与伦比的美貌，也同样极端仇视与人类有关的一切。",
-                    Info = "伏击：在下个单位从任意方手牌打出至对方半场时翻开，对它造成7点伤害。",
+                    Info = "伏击：在下个单位从任意方手牌打出至对方半场时翻开，对它造成7点伤害，放逐所摧毁的单位。",
                     CardArtsId = "14220800",
                     LinkedCards=new List<String> {},
                 }
@@ -11668,7 +11668,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier},
                     Flavor = "陛下……公主中的乃是暗日诅咒。只怕，无方可解……",
-                    Info = "每2回合结束时，造成等同于受伤量的伤害。",
+                    Info = "每2回合开始时，造成等同于受伤量的伤害。",
                     CardArtsId = "202194",
                     LinkedCards=new List<String> {},
                 }
@@ -12242,7 +12242,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "“若是月亮一片血红，那就速速紧闭门窗，让宝宝快快上床……",
-                    Info = "放逐己方墓场中3张“野兽”或“吸血鬼”，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
+                    Info = "放逐己方墓场中3个“吸血鬼”或“野兽”单位，随后择一：在己方半场降下3排“满月”；或在对方半场降下3排“血月”。",
                     CardArtsId = "202185",
                     LinkedCards=new List<String> {"25009","25008"},
                 }
@@ -12253,7 +12253,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70103", //Artorius Vigo
                     Name = "亚托列司·薇歌",
-                    Strength = 9,
+                    Strength = 7,
                     Group = Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13232,7 +13232,8 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
+                    Countdown = 3,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.WildHunt, Categorie.Soldier },
                     Flavor = "白雪和烈火，是他们为天空和大地涂抹的颜色。",
@@ -14340,7 +14341,7 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70147", //Plumard
-                    Name="渴血鸟怪",
+                    Name="吸血鸟怪",
                     Strength=2,
                     Group=Group.Copper,
                     Faction = Faction.Monsters,
@@ -14351,7 +14352,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{Categorie.Vampire},
                     Flavor = "一只构成不了什么威胁。要是有一群？那就很要命了。",
-                    Info = "同排友军非同名单位汲食时，汲食相同目标1点战力。",
+                    Info = "同排非同名单位汲取时，汲取同目标1点战力。",
                     CardArtsId = "202231",
                     LinkedCards=new List<String> {},
                 }
@@ -14942,7 +14943,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast, Categorie.Cursed},
                     Flavor = "不想少只眼睛的话……就别叫他小猫咪。",
-                    Info = "使所有位于满月之下的野兽单位获得1点增益。位于手牌、牌组或己方半场：有“野兽”单位出现在己方半场时，获得1点增益。",
+                    Info = "使所有位于满月之下的野兽单位获得1点增益。位于手牌、牌组：有“野兽”单位出现在己方半场时，获得1点增益。",
                     CardArtsId = "203081",
                     LinkedCards=new List<String> {"25009"},
                 }
@@ -15069,7 +15070,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个渴血鸟怪。",
+                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }

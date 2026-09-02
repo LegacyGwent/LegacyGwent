@@ -100,7 +100,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task SirScratchALotBoostsEachCopyOnceWhenAnAlliedBeastEntersPlay()
+        public async Task SirScratchALotBoostsOnlyHandAndDeckCopiesWhenAnAlliedBeastEntersPlay()
         {
             var fixture = new HeadlessGameFixture();
             var boardCopy = fixture.AddCard(
@@ -121,7 +121,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.Game.CreateCardAtEnd(
                 CardId.Wolf, fixture.Game.Player1Index, RowPosition.MyRow2);
 
-            Assert.Equal(2, boardCopy.Status.HealthStatus);
+            Assert.Equal(1, boardCopy.Status.HealthStatus);
             Assert.Equal(1, handCopy.Status.HealthStatus);
             Assert.Equal(1, deckCopy.Status.HealthStatus);
             Assert.Equal(1, enemyBeast.Status.HealthStatus);

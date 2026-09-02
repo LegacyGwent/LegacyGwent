@@ -22,7 +22,10 @@ namespace Cynthia.Card
                 return;
             }
             await Card.Effect.SetCountdown(offset: -1);
-            var cards = Game.GetPlaceCards(AnotherPlayer).Mess(Game.RNG).Take(3);
+            var cards = await Game.GetSelectPlaceCards(
+                Card,
+                3,
+                selectMode: SelectModeType.EnemyRow);
             foreach (var card in cards)
             {
                 await card.Effect.Damage(7, Card);

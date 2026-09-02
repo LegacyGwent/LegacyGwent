@@ -15,7 +15,10 @@ namespace Cynthia.Card
         {
             var deathwishTargets = await Game.GetSelectPlaceCards(
                 Card,
-                filter: target => target.PlayerIndex == PlayerIndex && target.Status.Group == Group.Copper,
+                filter: target => target.PlayerIndex == PlayerIndex &&
+                                  target.Status.Group == Group.Copper &&
+                                  (target.Status.HideTags ?? System.Array.Empty<HideTag>())
+                                      .Contains(HideTag.Deathwish),
                 selectMode: SelectModeType.MyRow);
             if (deathwishTargets.TrySingle(out var deathwishTarget) && !deathwishTarget.Status.IsLock)
             {

@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 192), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 193), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -54,6 +54,58 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberSecondFirstBatchMatchesPublishedRulesAndChineseLocales()
+        {
+            var redRider = GwentMap.CardMap[CardId.RedRider];
+            Assert.True(redRider.IsCountdown);
+            Assert.Equal(3, redRider.Countdown);
+            Assert.DoesNotContain("随机单位", GwentMap.CardMap[CardId.Ihuarraquax].Info);
+            Assert.Contains("驱动：获得1点强化", GwentMap.CardMap[CardId.ReinforcedTrebuchet].Info);
+            Assert.DoesNotContain("铜色/银色", GwentMap.CardMap[CardId.MorennForestChild].Info);
+            Assert.Contains("放逐所摧毁的单位", GwentMap.CardMap[CardId.Morenn].Info);
+            Assert.Contains("3个“吸血鬼”或“野兽”单位", GwentMap.CardMap[CardId.DetlaffCrimsonCurse].Info);
+            Assert.Equal("吸血鸟怪", GwentMap.CardMap[CardId.Plumard].Name);
+            Assert.Equal(
+                "同排非同名单位汲取时，汲取同目标1点战力。",
+                GwentMap.CardMap[CardId.Plumard].Info);
+            Assert.Contains("生成一个“吸血鸟怪”", GwentMap.CardMap[CardId.FeastOfBlood].Info);
+            Assert.Contains("位于手牌、牌组：", GwentMap.CardMap[CardId.SirScratchALot].Info);
+            Assert.DoesNotContain("己方半场：", GwentMap.CardMap[CardId.SirScratchALot].Info);
+            Assert.Equal(7, GwentMap.CardMap[CardId.ArtoriusVigo].Strength);
+            Assert.Equal("每2回合开始时，造成等同于受伤量的伤害。", GwentMap.CardMap["70025"].Info);
+
+            var changedIds = new[]
+            {
+                CardId.Ihuarraquax,
+                CardId.ReinforcedTrebuchet,
+                CardId.MorennForestChild,
+                CardId.Morenn,
+                CardId.RedRider,
+                CardId.DetlaffCrimsonCurse,
+                CardId.Plumard,
+                CardId.SirScratchALot,
+                CardId.FeastOfBlood,
+                CardId.ArtoriusVigo,
+                "70025"
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            var chineseLocales = localeRoots.Select(root =>
+                JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                    FindRepositoryFile($"{root}/cn.json")))).ToArray();
+
+            Assert.All(changedIds, id => Assert.All(chineseLocales, locale =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, locale.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, locale.CardLocales[id].Info);
+            }));
         }
 
         [Fact]
@@ -1036,7 +1088,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(8, GwentMap.CardMap["70158"].Strength);
             Assert.Contains("非间谍", GwentMap.CardMap["70027"].Info);
             Assert.Equal(
-                "每2回合结束时，造成等同于受伤量的伤害。",
+                "每2回合开始时，造成等同于受伤量的伤害。",
                 GwentMap.CardMap["70025"].Info);
             Assert.Contains("其它最弱的友军猎魔人", GwentMap.CardMap["70158"].Info);
             Assert.Equal(
@@ -1503,7 +1555,7 @@ namespace Cynthia.Card.Server.Tests
                 "对1个敌军单位造成7点无视护甲的伤害，若其具有增益则变为造成10点无视护甲的伤害。",
                 GwentMap.CardMap["70156"].Info);
             Assert.DoesNotContain(
-                GwentMap.CardMap.Values,
+                GwentMap.CardMap.Where(card => card.Key != CardId.Plumard).Select(card => card.Value),
                 card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
 
             var masquerade = GwentMap.CardMap[CardId.Masquerade];
@@ -1581,7 +1633,7 @@ namespace Cynthia.Card.Server.Tests
                 var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
                     FindRepositoryFile($"{root}/cn.json")));
                 Assert.DoesNotContain(
-                    locale.CardLocales.Values,
+                    locale.CardLocales.Where(card => card.Key != CardId.Plumard).Select(card => card.Value),
                     card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
             });
         }

@@ -1,6 +1,6 @@
 # Gameplay lifecycle
 
-Last verified: 2026-08-03
+Last verified: 2026-09-02
 
 Use this reference before changing deployment, landing, shields, duels, or any
 effect that must run at a precise point in a unit's entry pipeline. Verify the
@@ -101,9 +101,10 @@ semantics, triggers normal damage listeners, and can stop the effect if the
 Troll leaves play. Its Biting Frost multiplier applies only after that cost, so
 the Duel uses the Troll's resulting current power.
 
-Since CardMap `1.0.0.171`, Syanna no longer repeats Deploy. She uses the normal
-`AfterTurnOver` event, decrements a visible two-turn Countdown only at the end
-of her owner's turns, and then deals the amount she is currently wounded
+Since CardMap `1.0.0.171`, Syanna no longer repeats Deploy. As of CardMap
+`1.0.0.193`, she uses the normal `AfterTurnStart` event, decrements a visible
+two-turn Countdown only at the start of her owner's turns, and then deals the
+amount she is currently wounded
 (`-HealthStatus`) to one selected board unit. A non-positive wounded amount
 ends the trigger without opening target selection. Keep this on the shared turn
 event/countdown path rather than maintaining a private turn counter.

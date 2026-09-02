@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-08-30
+Last verified: 2026-09-02
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -14,6 +14,7 @@ Read this file first, then load only the rows relevant to the task.
 | August 7 Northern Realms/global card batch | [northern-realms-batch-august-2026.md](northern-realms-batch-august-2026.md) | Restored pool, delayed effects, armor transfer, and lock timing |
 | August 13 card batch | [august-13-batch-2026.md](august-13-batch-2026.md) | War Council Truce split, Cerys discard lifecycle, Living Armor rarity |
 | August 30 card batches | [august-30-batch-2026.md](august-30-batch-2026.md) | Egmond/Coën timing, visible Countdowns, Queen Adalia, Dandelion character tags |
+| September 2 card batch | [september-2-batch-2026.md](september-2-batch-2026.md) | Targeted selections, lethal Banish timing, Crew, Countdown, and generated-card power checks |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
 | Card-batch publication, preflight, repeated CI | [release-preflight.md](release-preflight.md) | First-push gates and release-loop prevention |

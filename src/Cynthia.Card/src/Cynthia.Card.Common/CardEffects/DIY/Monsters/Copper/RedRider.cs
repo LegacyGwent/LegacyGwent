@@ -7,8 +7,6 @@ namespace Cynthia.Card
     [CardEffectId("70083")]//红骑士
     public class RedRider : CardEffect, IHandlesEvent<BeforeCardToCemetery>
     {
-        private int _destroyedUnderFrost;
-
         public RedRider(GameCard card) : base(card) { }
 
         public async Task HandleEvent(BeforeCardToCemetery @event)
@@ -29,13 +27,13 @@ namespace Cynthia.Card
                 return;
             }
 
-            _destroyedUnderFrost++;
-            if (_destroyedUnderFrost < 3)
+            await SetCountdown(offset: -1);
+            if (Countdown > 0)
             {
                 return;
             }
 
-            _destroyedUnderFrost = 0;
+            await SetCountdown(value: 3);
             var location = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true);
             if (location != null)
             {

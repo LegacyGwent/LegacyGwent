@@ -164,6 +164,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await rider.Effects.RaiseEvent(new BeforeCardToCemetery(
                 cleanupVictim, cleanupVictim.GetLocation(), true));
             Assert.Equal(RowPosition.MyDeck, rider.Status.CardRow);
+            Assert.Equal(3, rider.Status.Countdown);
 
             for (var i = 0; i < 2; i++)
             {
@@ -173,6 +174,7 @@ namespace Cynthia.Card.Gameplay.Tests
                     victim, victim.GetLocation()));
             }
             Assert.Equal(RowPosition.MyDeck, rider.Status.CardRow);
+            Assert.Equal(1, rider.Status.Countdown);
 
             var thirdVictim = fixture.AddCard(
                 fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1);
@@ -180,6 +182,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 thirdVictim, thirdVictim.GetLocation()));
 
             Assert.True(rider.Status.CardRow.IsOnPlace());
+            Assert.Equal(3, rider.Status.Countdown);
         }
 
         [Fact]
@@ -236,6 +239,8 @@ namespace Cynthia.Card.Gameplay.Tests
         public async Task HybridTriggersBronzeDeathwishThenConsumesItsRightNeighborNextTurn()
         {
             var fixture = new HeadlessGameFixture();
+            var noDeathwish = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1);
             var hybrid = fixture.AddCard(
                 fixture.Game.Player1Index, "70176", RowPosition.MyRow1, strength: 6);
             var egg = fixture.AddCard(
@@ -248,6 +253,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.GetPlaceCards(fixture.Game.Player1Index),
                 card => card.Status.CardId == CardId.HarpyHatchling);
             Assert.True(egg.Status.CardRow.IsOnPlace());
+            Assert.True(noDeathwish.Status.CardRow.IsOnPlace());
             Assert.Equal(0, hybrid.Status.HealthStatus);
 
             await hybrid.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player2Index));

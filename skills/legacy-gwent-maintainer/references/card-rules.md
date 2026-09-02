@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-08-30
+Last verified: 2026-09-02
 
 ## August 23 first card batch
 
@@ -193,3 +193,6 @@ For the August 5 and August 6 monster batches, read
 
 For the August 30 batch, read
 [august-30-batch-2026.md](august-30-batch-2026.md).
+
+For the September 2 batch, read
+[september-2-batch-2026.md](september-2-batch-2026.md).

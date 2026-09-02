@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -11,12 +12,22 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var row = Card.Status.CardRow;
-            while (!(Game.RowToList(PlayerIndex, row).Count >= Game.RowMaxCount || Game.PlayersCemetery[PlayerIndex].Count <= 0))
+            var availableSpace = Math.Max(0, Game.RowMaxCount - Game.RowToList(PlayerIndex, row).Count);
+            var selectCount = Math.Min(8, Math.Min(availableSpace, Game.PlayersCemetery[PlayerIndex].Count));
+            if (selectCount <= 0)
             {
-                if (!Game.PlayersCemetery[PlayerIndex].TryMessOne(out var target, Game.RNG))
-                {
-                    return 0;
-                }
+                return 0;
+            }
+
+            var selected = await Game.GetSelectMenuCards(
+                PlayerIndex,
+                Game.PlayersCemetery[PlayerIndex].ToList(),
+                selectCount,
+                "选择最多8个复活目标",
+                isCanOver: true);
+
+            foreach (var target in selected)
+            {
                 await target.Effect.Transform(CardId.Draugir, Card, x => x.Status.Strength = 1);
                 await target.Effect.Resurrect(new CardLocation(row, int.MaxValue), Card);
             }

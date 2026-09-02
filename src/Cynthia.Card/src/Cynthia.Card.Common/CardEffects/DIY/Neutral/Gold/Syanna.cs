@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70025")]
-    public class Syanna : CardEffect, IHandlesEvent<AfterTurnOver>
+    public class Syanna : CardEffect, IHandlesEvent<AfterTurnStart>
     {
         public Syanna(GameCard card) : base(card) { }
 
@@ -15,7 +15,7 @@ namespace Cynthia.Card
             return 0;
         }
 
-        public async Task HandleEvent(AfterTurnOver @event)
+        public async Task HandleEvent(AfterTurnStart @event)
         {
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace()) return;
 

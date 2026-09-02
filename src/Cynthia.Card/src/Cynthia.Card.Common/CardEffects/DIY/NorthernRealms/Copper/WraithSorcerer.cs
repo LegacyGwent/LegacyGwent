@@ -23,7 +23,7 @@ namespace Cynthia.Card
             if (Countdown <= 0)
             {
                 await SetCountdown(value: 2);
-                if (Card.Status.Strength < 3)
+                if (Card.CardPoint() < 3)
                 {
                     return;
                 }

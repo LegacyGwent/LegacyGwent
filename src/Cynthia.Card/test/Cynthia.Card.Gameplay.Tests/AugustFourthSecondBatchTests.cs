@@ -55,7 +55,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task SyannaDealsHerCurrentWoundedAmountEverySecondOwnerTurnEnd()
+        public async Task SyannaDealsHerCurrentWoundedAmountEverySecondOwnerTurnStart()
         {
             var fixture = new HeadlessGameFixture();
             var target = fixture.AddCard(
@@ -67,11 +67,14 @@ namespace Cynthia.Card.Gameplay.Tests
             await syanna.Effect.CardPlayEffect(false, false);
             await syanna.Effect.Damage(4, enemy);
 
-            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player2Index));
+            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player2Index));
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.Equal(0, target.Status.HealthStatus);
 
-            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
+            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            Assert.Equal(0, target.Status.HealthStatus);
+
+            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.Equal(-4, target.Status.HealthStatus);
         }
 

@@ -34,8 +34,7 @@ namespace Cynthia.Card
             if (@event.Target.PlayerIndex != PlayerIndex || @event.IsSpying ||
                 !@event.Target.HasAllCategorie(Categorie.Beast) ||
                 !(Card.Status.CardRow.IsInHand() ||
-                  Card.Status.CardRow.IsInDeck() ||
-                  (Card.Status.CardRow.IsOnPlace() && Card.Status.CardRow.IsMyRow())))
+                  Card.Status.CardRow.IsInDeck()))
             {
                 return;
             }

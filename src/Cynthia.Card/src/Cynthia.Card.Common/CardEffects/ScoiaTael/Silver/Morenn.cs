@@ -17,7 +17,16 @@ namespace Cynthia.Card
             }
             await Card.Effect.Ambush(async () =>
             {
-                await @event.Target.Effect.Damage(7, Card);
+                await Game.AddTask(async () =>
+                {
+                    var wasDoomed = @event.Target.Status.IsDoomed;
+                    @event.Target.Status.IsDoomed = true;
+                    await @event.Target.Effect.Damage(7, Card);
+                    if (@event.Target.CardPoint() > 0)
+                    {
+                        @event.Target.Status.IsDoomed = wasDoomed;
+                    }
+                });
             });
         }
 
