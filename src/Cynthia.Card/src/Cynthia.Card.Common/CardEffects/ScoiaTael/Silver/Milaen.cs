@@ -6,12 +6,16 @@ namespace Cynthia.Card
 {
     [CardEffectId("53014")]//麦莉
     public class Milaen : CardEffect
-    {//选定一排，对左右两侧末端的单位各造成6点伤害。
+    {
         public Milaen(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var rowIndex = await Game.GetSelectRow(Card.PlayerIndex, Card,
                 TurnType.Enemy.GetRow());
+            var damage = 6 + Game.GetPlaceCards(PlayerIndex, isHasConceal: true)
+                .Count(card => card.Status.Type == CardType.Unit &&
+                               card.Status.Conceal &&
+                               card.HasAllCategorie(Categorie.Ambush));
             var row = Game.RowToList(Card.PlayerIndex, rowIndex).ToList();
             if (row.Count <= 0)
                 return 0;
@@ -24,8 +28,5 @@ namespace Cynthia.Card
                 await cardRight.Effect.Damage(damage, Card);
             return 0;
         }
-
-
-        private const int damage = 6;
     }
 }

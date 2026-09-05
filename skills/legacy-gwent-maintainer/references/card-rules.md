@@ -196,3 +196,5 @@ For the August 30 batch, read
 
 For the September 2 batch, read
 [september-2-batch-2026.md](september-2-batch-2026.md).
+
+For the September 5 batch, read [september-5-batch-2026.md](september-5-batch-2026.md).

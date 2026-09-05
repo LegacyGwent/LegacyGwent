@@ -47,6 +47,11 @@ namespace Cynthia.Card.Gameplay.Tests
     {
         private readonly string _requestedName;
         private readonly Queue<string> _queuedMenuCardIds = new Queue<string>();
+        private readonly Queue<string> _queuedMenuOptionKeys = new Queue<string>();
+        private readonly Queue<RowPosition> _queuedRows = new Queue<RowPosition>();
+        public IList<MenuSelectCardInfo> MenuRequests { get; } = new List<MenuSelectCardInfo>();
+        public IList<IList<RowPosition>> RowRequests { get; } = new List<IList<RowPosition>>();
+        public Action BeforeRowSelection { get; set; }
 
         public DeterministicHeadlessPlayer(string playerName)
         {
@@ -63,7 +68,20 @@ namespace Cynthia.Card.Gameplay.Tests
         public override void SelectMenuCards(MenuSelectCardInfo info, Action<Operation<UserOperationType>> send)
         {
             LastMenuOptionCount = info.SelectList.Count;
+            MenuRequests.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<MenuSelectCardInfo>(
+                Newtonsoft.Json.JsonConvert.SerializeObject(info)));
             var selected = new List<int>();
+            if (_queuedMenuOptionKeys.Count > 0)
+            {
+                var index = Enumerable.Range(0, info.SelectList.Count)
+                    .FirstOrDefault(candidate =>
+                        info.SelectList[candidate].Info == _queuedMenuOptionKeys.Peek(), -1);
+                if (index >= 0)
+                {
+                    _queuedMenuOptionKeys.Dequeue();
+                    selected.Add(index);
+                }
+            }
             while (selected.Count < info.SelectCount && _queuedMenuCardIds.Count > 0)
             {
                 var requestedCardId = _queuedMenuCardIds.Dequeue();
@@ -93,6 +111,16 @@ namespace Cynthia.Card.Gameplay.Tests
 
         public int LastMenuOptionCount { get; private set; }
 
+        public void QueueMenuOptionKeys(params string[] keys)
+        {
+            foreach (var key in keys) _queuedMenuOptionKeys.Enqueue(key);
+        }
+
+        public void QueueRows(params RowPosition[] rows)
+        {
+            foreach (var row in rows) _queuedRows.Enqueue(row);
+        }
+
         public IList<CardLocation> PlaceSelectionSources { get; } = new List<CardLocation>();
 
         public override void SelectPlaceCards(PlaceSelectCardsInfo info, Action<Operation<UserOperationType>> send)
@@ -106,7 +134,11 @@ namespace Cynthia.Card.Gameplay.Tests
 
         public override void SelectRow(CardLocation selectCard, IList<RowPosition> rowPart, Action<Operation<UserOperationType>> send)
         {
-            send(Operation.Create(UserOperationType.SelectRowInfo, rowPart.First()));
+            RowRequests.Add(rowPart.ToList());
+            BeforeRowSelection?.Invoke();
+            var row = _queuedRows.Count > 0 ? _queuedRows.Dequeue() : rowPart.First();
+            if (!rowPart.Contains(row)) throw new InvalidOperationException("Requested test row is not selectable.");
+            send(Operation.Create(UserOperationType.SelectRowInfo, row));
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 193), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 194), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -54,6 +54,44 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberFifthFirstBatchMatchesPublishedRulesAndChineseLocales()
+        {
+            var expected = new Dictionary<string, string>
+            {
+                ["12042"] = "择一：对所有战力为“奇数”的敌军单位造成3点伤害；对所有战力为“偶数”的敌军单位造成3点伤害；或从牌组打出1个铜色/银色单位。",
+                ["22012"] = "择一：使位于手牌、牌组和己方半场除自身外的所有“残物”单位获得2点强化；或从牌组打出1张铜色/银色“残物”牌，并使其获得2点强化。",
+                ["52012"] = "迫使2个同排的敌军单位相互对决。获得等同于此对决造成伤害次数的增益。",
+                ["53014"] = "选定一排，对左右两侧末端的单位各造成6点伤害，己方半场每有1个未翻开的“伏击”单位，伤害提高1点。",
+                ["70088"] = "将己方墓场中所有的“小雾妖”放回牌组底端。在对方单排降下“蔽日浓雾”，己方回合中，若有“倾盆大雨”灾厄效果出现在敌方半场，重复此能力。",
+                ["70089"] = "在对方同排生成“巨熊祭品”，随后将1个己方“士兵”单位转化为“斯瓦勃洛狂信者”。",
+                ["70099"] = "对手牌和牌组的所有战力不小于2的非间谍单位造成2点伤害，随后使其获得2点强化。将牌组中战力不大于2的非间谍单位移至己方墓场。",
+                ["70110"] = "自身战力不低于手牌数时，召唤此单位。",
+                ["70148"] = "每回合结束时，若对方同排没有高于自身战力的单位，汲食该排1个最强敌军单位1点战力。",
+                ["70170"] = "对方半场每有1个“蔽日浓雾”灾厄效果，便获得1回合免疫。每回合结束时，使对方同排最强的1个敌军单位受到等同于自身基础战力一半的伤害，并将其移动至随机排。",
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(expected, rule => Assert.Equal(rule.Value, GwentMap.CardMap[rule.Key].Info));
+            foreach (var root in localeRoots)
+            {
+                var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                    FindRepositoryFile($"{root}/cn.json")));
+                Assert.All(expected, rule => Assert.Equal(rule.Value, locale.CardLocales[rule.Key].Info));
+                Assert.Equal("从牌组打出1个铜色/银色单位。", locale.MenuLocales["Sihil_3_PlayUnit"]);
+                var weavess = locale.CardLocales[CardId.WeavessIncantation].Info;
+                Assert.DoesNotContain("” 牌", weavess);
+                Assert.DoesNotContain("择一", locale.MenuLocales["WeavessIncantation_1_Strenghten"]);
+                Assert.DoesNotContain("择一", locale.MenuLocales["WeavessIncantation_2_PlayRelict"]);
+                Assert.DoesNotContain("打出", locale.MenuLocales["WeavessIncantation_1_Strenghten"]);
+                Assert.Contains("打出", locale.MenuLocales["WeavessIncantation_2_PlayRelict"]);
+            }
         }
 
         [Fact]
@@ -234,7 +272,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.WarCouncil));
             Assert.True(GwentMap.CardMap[CardId.WarCouncil].IsDerive);
             Assert.Equal("c10002300", GwentMap.CardMap[CardId.WraithSorcerer].CardArtsId);
-            Assert.Equal("选定一排，对左右两侧末端的单位各造成6点伤害。", GwentMap.CardMap[CardId.Milaen].Info);
+            Assert.StartsWith("选定一排，对左右两侧末端的单位各造成6点伤害", GwentMap.CardMap[CardId.Milaen].Info);
             Assert.Equal(
                 "对1个敌军单位造成7点伤害，若目标存活且处于锁定状态，则将其战力降为1点。或将1张被揭示的单位牌战力降为1点。",
                 GwentMap.CardMap[CardId.Serrit].Info);
@@ -1485,8 +1523,8 @@ namespace Cynthia.Card.Server.Tests
                             optionTexts.Length,
                             optionTexts.Distinct(StringComparer.Ordinal).Count());
                     });
-                    Assert.Contains("9", locale.MenuLocales["VandergriftSBlade_2_Damage"]);
-                    Assert.DoesNotContain("10", locale.MenuLocales["VandergriftSBlade_2_Damage"]);
+                    Assert.Contains("10", locale.MenuLocales["VandergriftSBlade_2_Damage"]);
+                    Assert.DoesNotContain("9", locale.MenuLocales["VandergriftSBlade_2_Damage"]);
                     Assert.Contains("2", locale.MenuLocales["Cadaverine_1_DamegeCategory"]);
                     Assert.DoesNotContain("3", locale.MenuLocales["Cadaverine_1_DamegeCategory"]);
 

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 193);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 194);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1135,7 +1135,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "“这把剑上刻的是什么？诅咒吗？”“不，是脏话。”",
-                    Info = "择一：对所有战力为“奇数”的敌军单位造成3点伤害；对所有战力为“偶数”的敌军单位造成3点伤害；或从牌组随机打出1个铜色/银色单位。",
+                    Info = "择一：对所有战力为“奇数”的敌军单位造成3点伤害；对所有战力为“偶数”的敌军单位造成3点伤害；或从牌组打出1个铜色/银色单位。",
                     CardArtsId = "20163200",
                     LinkedCards=new List<String> {},
                 }
@@ -3282,7 +3282,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage,Categorie.Relict},
                     Flavor = "我能感受到你的痛苦和恐惧。",
-                    Info = "择一：使位于手牌、牌组和己方半场除自身外的所有“残物”单位获得2点强化；或从牌组打出1张铜色/银色“残物” 牌，并使其获得2点强化。",
+                    Info = "择一：使位于手牌、牌组和己方半场除自身外的所有“残物”单位获得2点强化；或从牌组打出1张铜色/银色“残物”牌，并使其获得2点强化。",
                     CardArtsId = "20022200",
                     LinkedCards=new List<String> {},
                 }
@@ -8327,7 +8327,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf,Categorie.Officer},
                     Flavor = "即使伊欧菲斯只剩一只眼睛，他内心的洞察力也无人能及。",
-                    Info = "迫使2个同排的敌军单位相互对决。获得等同于此对决造成伤害次数之和的增益。",
+                    Info = "迫使2个同排的敌军单位相互对决。获得等同于此对决造成伤害次数的增益。",
                     CardArtsId = "20161100",
                     LinkedCards=new List<String> {},
                 }
@@ -8645,7 +8645,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Elf},
                     Flavor = "老男爵对待偷猎者向来毫不留情。幸亏麦莉运气够好，老男爵已经死了，他的手下也成了亡命之徒。",
-                    Info = "选定一排，对左右两侧末端的单位各造成6点伤害。",
+                    Info = "选定一排，对左右两侧末端的单位各造成6点伤害，己方半场每有1个未翻开的“伏击”单位，伤害提高1点。",
                     CardArtsId = "6010300",
                     LinkedCards=new List<String> {},
                 }
@@ -12413,7 +12413,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "",
-                    Info = "自身战力不低于手牌数时，召唤此牌至随机排。",
+                    Info = "自身战力不低于手牌数时，召唤此单位。",
                     CardArtsId = "202397",
                     LinkedCards=new List<String> {},
                 }
@@ -13321,7 +13321,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "",
-                    Info = "将己方墓场中的最多3张的“小雾妖”放回牌库底，随后在对方同排降下“蔽日浓雾”。",
+                    Info = "将己方墓场中所有的“小雾妖”放回牌组底端。在对方单排降下“蔽日浓雾”，己方回合中，若有“倾盆大雨”灾厄效果出现在敌方半场，重复此能力。",
                     CardArtsId = "202599",
                     LinkedCards=new List<String> {"14011"},
                 }
@@ -13342,7 +13342,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed},
                     Flavor = "结束了，结束了，那是怜悯。",
-                    Info = "在对方同排生成“巨熊祭品”，随后将1个己方“士兵”单位变为“斯瓦勃洛狂信者”。",
+                    Info = "在对方同排生成“巨熊祭品”，随后将1个己方“士兵”单位转化为“斯瓦勃洛狂信者”。",
                     CardArtsId = "202279",
                     LinkedCards=new List<String> {"70090"},
                 }
@@ -13700,7 +13700,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Beast},
                     Flavor = "斯瓦勃洛唯一的戒律：屠戮。",
-                    Info = "对己方手牌和牌组的所有战力不小于2的非间谍单位造成2点伤害，随后使其获得2点强化。将牌组中战力不大于2的非间谍单位移至己方墓场。",
+                    Info = "对手牌和牌组的所有战力不小于2的非间谍单位造成2点伤害，随后使其获得2点强化。将牌组中战力不大于2的非间谍单位移至己方墓场。",
                     CardArtsId = "202189",
                     LinkedCards=new List<String> {},
                 }
@@ -14373,7 +14373,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "长久以来，恐怖的梦魇让镇民苦不堪言。走投无路之下，他们只好贴出一张告示，盼望能够请到救兵……“嗯。一定是吸血鬼女作祟。”猎魔人嘟囔道。",
-                    Info = "回合结束时，若同排没有战力高于自身的敌军单位，则汲食同排随机1个敌军单位1点战力。",
+                    Info = "每回合结束时，若对方同排没有高于自身战力的单位，汲食该排1个最强敌军单位1点战力。",
                     CardArtsId = "202230",
                     LinkedCards=new List<String> {},
                 }
@@ -14796,7 +14796,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Ogroid},
                     Flavor = "天空中除了雨和雪，还有很多东西会掉下来。比如青蛙...还有云顶巨人。",
-                    Info = "对方半场每有1个“蔽日浓雾”灾厄效果，便获得1回合免疫。每回合结束时，对对方同排最强的1个敌军单位造成等同于自身基础战力一半的伤害，并将其移动至随机排。",
+                    Info = "对方半场每有1个“蔽日浓雾”灾厄效果，便获得1回合免疫。每回合结束时，使对方同排最强的1个敌军单位受到等同于自身基础战力一半的伤害，并将其移动至随机排。",
                     CardArtsId = "c10000900",
                     LinkedCards=new List<String> {},
                 }

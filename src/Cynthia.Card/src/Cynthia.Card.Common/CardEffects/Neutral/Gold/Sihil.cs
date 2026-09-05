@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("12042")]//矮人符文剑
     public class Sihil : CardEffect
-    {//择一：对所有战力为“奇数”的敌军单位造成3点伤害；对所有战力为“偶数”的敌军单位造成3点伤害；或从牌组随机打出1个铜色/银色单位。
+    {//择一：伤害奇数/偶数战力敌军，或从牌组选择打出1个铜色/银色单位。
         public Sihil(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
@@ -51,7 +51,8 @@ namespace Cynthia.Card
                     return 0;
                 }
                 //选一张
-                if (!list.TryMessOne(out var target, Game.RNG))
+                var selected = await Game.GetSelectMenuCards(PlayerIndex, list, 1);
+                if (!selected.TrySingle(out var target))
                 {
                     return 0;
                 }
