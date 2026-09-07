@@ -199,7 +199,7 @@ namespace Cynthia.Card.Server
                 new SeasonReward(minimalPosition: 50, border: "Season5Border2", title: "YOUNGWOLF"),
                 new SeasonReward(minimalPosition: 30, border: "Season5Border3", title: "DENPROTECTOR"),
                 new SeasonReward(minimalPosition: 20, border: "Season5Border4", title: "PACKLEADER"),
-                new SeasonReward(minimalPosition: 10, avatar: "Dagon"),
+                new SeasonReward(minimalPosition: 30, avatar: "Dagon"),
                 new SeasonReward(minimalPosition: 5, border: "Season5Border5", title: "GRANDWARG"),
                 new SeasonReward(minimalPosition: 1, border: "Season5Border6", title: "WHITEWOLF"),
 
@@ -210,15 +210,32 @@ namespace Cynthia.Card.Server
                 new SeasonReward(minimalPosition: 0, avatar: "Francesca", isInSeasonReward: true, minimalMMR: 3850),
                 new SeasonReward(minimalPosition: 0, avatar: "King_Bran", isInSeasonReward: true, minimalMMR: 4250)
             };
+            List<SeasonReward> season6Rewards = new List<SeasonReward>()
+            {
+                new SeasonReward(minimalPosition: 100, border: "Season6Border1", title: "VOLUNTEER"),   
+                new SeasonReward(minimalPosition: 50, border: "Season6Border2", title: "FOREMAN"),
+                new SeasonReward(minimalPosition: 30, border: "Season6Border3", title: "SKIRMISHER"),
+                new SeasonReward(minimalPosition: 20, border: "Season6Border4", title: "GUARD"),
+                new SeasonReward(minimalPosition: 30, avatar: "Regis"),
+                new SeasonReward(minimalPosition: 5, border: "Season6Border5", title: "CLANELDER"),
+                new SeasonReward(minimalPosition: 1, border: "Season6Border6", title: "ELDERINCHIEF"),
 
+                // In-season rewards (MMR based) for Season 6:  
+                // - Avatar at "rank 10" threshold
+                // - Avatar at "rank 18" threshold
+                // These thresholds currently correspond to 3850 and 4250 MMR.
+                new SeasonReward(minimalPosition: 0, avatar: "Zoltan_Animal_Tamer", isInSeasonReward: true, minimalMMR: 3850),
+                new SeasonReward(minimalPosition: 0, avatar: "Maerolorn", isInSeasonReward: true, minimalMMR: 4250)
+            };
 
             List<Season> seasonsList = new List<Season>
             {
                 new Season() { id = 1, name = "Season_SeasonOfTheDragon", endTime = new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "orange", seasonalRewards = season3Rewards },
                 new Season() { id = 2, name = "Season_WildHuntSeason", endTime = new DateTime(2026, 06, 27, 0, 0, 0, DateTimeKind.Utc), color = "lightblue", seasonalRewards = season4Rewards },
-                new Season() { id = 3, name = "Season_WolfSeason", endTime = new DateTime(2026, 09, 27, 0, 0, 0, DateTimeKind.Utc), color = "blue", seasonalRewards = season5Rewards }
+                new Season() { id = 3, name = "Season_WolfSeason", endTime = new DateTime(2026, 09, 27, 0, 0, 0, DateTimeKind.Utc), color = "blue", seasonalRewards = season5Rewards },
+                new Season() { id = 3, name = "Season_BearSeason", endTime = new DateTime(2026, 12, 27, 0, 0, 0, DateTimeKind.Utc), color = "purple", seasonalRewards = season6Rewards }
             }; 
-            // Season 6 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
+            // Season 7 will be added later TO DO: decide if repeat season 1 or go into Homecoming rewards
             return _databaseService.UpdateSeasons(seasonsList);
         }
 

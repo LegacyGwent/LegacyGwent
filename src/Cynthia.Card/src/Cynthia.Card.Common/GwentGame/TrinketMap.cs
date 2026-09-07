@@ -9,7 +9,7 @@ namespace Cynthia.Card
     public static class TrinketMap
     {
         //
-        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 10);
+        public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 11);
 
         /// <summary>
         /// Releases all trinkets (avatars, borders, titles) referenced by the given seasonal rewards.
@@ -308,7 +308,7 @@ namespace Cynthia.Card
                     Taunt4 = "Bran4",
                     Taunt5 = "Bran5",
                     Taunt6 = "Bran6",
-                    IsReleased = false,
+                    IsReleased = true,
                 }
             },
             {
@@ -1307,15 +1307,6 @@ namespace Cynthia.Card
                 }
             },
             {
-                "DRAGONSLAYER",
-                new Title()
-                {
-                    ID = "DRAGONSLAYER",
-                    IsReleased = true,
-                    TitleColor = "orange",
-                }
-            },
-            {
                 "WILDHUNTHOUND",
                 new Title()
                 {
@@ -1374,7 +1365,7 @@ namespace Cynthia.Card
                 new Title()
                 {
                     ID = "WOLFPUP",
-                    IsReleased = false,
+                    IsReleased = true,
                     TitleColor = "lightblue",
                 }
             },
@@ -1383,7 +1374,7 @@ namespace Cynthia.Card
                 new Title()
                 {
                     ID = "YOUNGWOLF",
-                    IsReleased = false,
+                    IsReleased = true,
                     TitleColor = "lightblue",
                 }
             },
@@ -1392,7 +1383,7 @@ namespace Cynthia.Card
                 new Title()
                 {
                     ID = "DENPROTECTOR",
-                    IsReleased = false,
+                    IsReleased = true,
                     TitleColor = "lightblue",
                 }
             },
@@ -1401,7 +1392,7 @@ namespace Cynthia.Card
                 new Title()
                 {
                     ID = "PACKLEADER",
-                    IsReleased = false,
+                    IsReleased = true,
                     TitleColor = "lightblue",
                 }
             },
@@ -1410,7 +1401,7 @@ namespace Cynthia.Card
                 new Title()
                 {
                     ID = "GRANDWARG",
-                    IsReleased = false,
+                    IsReleased = true,
                     TitleColor = "lightblue",
                 }
             },
@@ -1419,7 +1410,7 @@ namespace Cynthia.Card
                 new Title()
                 {
                     ID = "WHITEWOLF",
-                    IsReleased = false,
+                    IsReleased = true,
                     TitleColor = "lightblue",
                 }
             },
