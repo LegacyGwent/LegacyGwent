@@ -470,6 +470,10 @@ public class GameEvent : MonoBehaviour
                         Debug.Log("点了卡组");
                         GameCardShowControl.ShowMyDeck();
                         break;
+                    case RightOnType.EnemyDeck:
+                        Debug.Log("点了对手卡组");
+                        GameCardShowControl.ShowEnemyDeck();
+                        break;
                     case RightOnType.Card:
                         Debug.Log("右键点击了卡牌");
                         var card = trueitem.First();

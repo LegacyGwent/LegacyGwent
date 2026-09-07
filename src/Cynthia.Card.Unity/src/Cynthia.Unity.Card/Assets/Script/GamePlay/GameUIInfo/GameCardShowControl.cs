@@ -49,6 +49,7 @@ public class GameCardShowControl : MonoBehaviour
     public IList<CardStatus> UseCardList = new List<CardStatus>();
     public IList<CardStatus> MyCemetery = new List<CardStatus>();
     public IList<CardStatus> MyDeck = new List<CardStatus>();
+    public IList<CardStatus> EnemyDeck = new List<CardStatus>();
     public IList<CardStatus> EnemyCemetery = new List<CardStatus>();
     private int _nowIndex;
     //
@@ -82,6 +83,10 @@ public class GameCardShowControl : MonoBehaviour
                 {
                     ClickedId  = MyDeck[LastHoveredCard].CardId;
                 }
+                else if (_nowShowType == MenuShowType.EnemyDeck)
+                {
+                    ClickedId = EnemyDeck[LastHoveredCard].CardId;
+                }
                 Debug.Log("RightClicked Card of ID: "+ClickedId);
                 GameEvent.RighClickActive=true;
                 GameEvent.RightClickedCardID=ClickedId;
@@ -109,6 +114,10 @@ public class GameCardShowControl : MonoBehaviour
                 else if (_nowShowType == MenuShowType.MyDeck)
                 {
                     ClickedId  = MyDeck[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.EnemyDeck)
+                {
+                    ClickedId = EnemyDeck[LastHoveredCard].CardId;
                 }
                 Debug.Log("RightClicked Card of ID: "+ClickedId);
                 GameEvent.RighClickActive=true;
@@ -228,6 +237,10 @@ public class GameCardShowControl : MonoBehaviour
             {
                 ArtCard.CurrentCore = MyDeck[index];
             }
+            else if (_nowShowType == MenuShowType.EnemyDeck)
+            {
+                ArtCard.CurrentCore = EnemyDeck[index];
+            }
             ArtCard.gameObject.SetActive(true);
         }
     }
@@ -307,6 +320,18 @@ public class GameCardShowControl : MonoBehaviour
         ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerDeck");
         _nowShowType = MenuShowType.MyDeck;
         SetCardInfo(MyDeck);
+        SelectCard(-1);
+        CardSelectUI.SetActive(true);
+        SetButtonShow(IsCloseShow: true);
+        IsUseMenuShow = false;
+    }
+    public void ShowEnemyDeck()
+    {
+        if (EnemyDeck == null || EnemyDeck.Count() == 0)
+            return;
+        ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerDeck");
+        _nowShowType = MenuShowType.EnemyDeck;
+        SetCardInfo(EnemyDeck);
         SelectCard(-1);
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);

@@ -47,6 +47,7 @@ namespace Cynthia.Card
         public IList<CardStatus> EnemyCemetery { get; set; } = new List<CardStatus>();//敌方墓地
 
         public IList<CardStatus> MyDeck { get; set; } = new List<CardStatus>();
+        public IList<CardStatus> EnemyDeck { get; set; } = new List<CardStatus>();
 
         public RowStatus[] MyRowStatus { get; set; } = new RowStatus[3];
         public RowStatus[] EnemyRowStatus { get; set; } = new RowStatus[3];
@@ -136,6 +137,10 @@ namespace Cynthia.Card
         public void SetMyDeckInfo(IList<CardStatus> myDeck)
         {
             MyDeck = myDeck;
+        }
+        public void SetEnemyDeckInfo(IList<CardStatus> enemyDeck)
+        {
+            EnemyDeck = enemyDeck;
         }
         //--
         public void SetGameInfo(GameInfomation gameInfomation)//更新数值+胜场数据

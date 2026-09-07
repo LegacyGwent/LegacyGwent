@@ -5,6 +5,7 @@
         MyCemetery,
         EnemyCemetery,
         MyDeck,
+        EnemyDeck,
         Card
     }
 }

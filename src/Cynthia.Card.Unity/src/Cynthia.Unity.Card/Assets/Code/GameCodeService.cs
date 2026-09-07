@@ -120,6 +120,10 @@ namespace Cynthia.Card.Client
         {
             _code.GetComponent<GameCode>().GameCardShowControl.MyDeck = myDeck;
         }
+        public void SetEnemyDeckInfo(IList<CardStatus> enemyDeck)
+        {
+            _code.GetComponent<GameCode>().GameCardShowControl.EnemyDeck = enemyDeck;
+        }
         //--
         public void SetGameInfo(GameInfomation gameInfomation)//更新数值+胜场数据
         {

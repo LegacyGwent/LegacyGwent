@@ -218,6 +218,9 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.SetMyDeck:
                     GameCodeService.SetMyDeckInfo(arguments[0].ToType<List<CardStatus>>());
                     break;
+                case ServerOperationType.SetEnemyDeck:
+                    GameCodeService.SetEnemyDeckInfo(arguments[0].ToType<List<CardStatus>>());
+                    break;
                 case ServerOperationType.SetAllInfo:
                     var gameInfo = arguments[0].ToType<GameInfomation>();
                     GameCodeService.SetAllInfo(gameInfo);
