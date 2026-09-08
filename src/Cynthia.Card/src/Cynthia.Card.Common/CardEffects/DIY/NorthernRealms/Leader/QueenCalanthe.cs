@@ -48,6 +48,8 @@ namespace Cynthia.Card
                 .Where(deckCard =>
                     deckCard.CardInfo().CardType == CardType.Unit &&
                     !deckCard.Status.IsSpying &&
+                    deckCard.CardInfo().CardUseInfo != CardUseInfo.EnemyRow &&
+                    deckCard.CardInfo().CardUseInfo != CardUseInfo.EnemyPlace &&
                     (deckCard.Status.Group == Group.Copper || deckCard.Status.Group == Group.Silver))
                 .ToList();
             if (!candidates.Any())

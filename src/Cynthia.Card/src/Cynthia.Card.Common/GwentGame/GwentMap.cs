@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 194);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 195);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11965,7 +11965,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“战马撒开腿后谁也拦不住。所以到时候你能做的，就是放低长枪，闭上眼睛，求老天爷开恩。”",
-                    Info = "使1个受护甲保护的友军单位与1个敌军单位对决。",
+                    Info = "使1个受伤或受护甲保护的友军单位与1个敌军单位对决。",
                     CardArtsId = "202420",
                     LinkedCards=new List<String> {},
                 }
@@ -15070,7 +15070,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。",
+                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。（吸血鸟怪：同排非同名单位汲取时，汲取同目标1点战力。）",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }
@@ -15493,7 +15493,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed, Categorie.Officer },
                     Flavor = "有些人就是不服输，死了还要继续打。",
-                    Info = "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
+                    Info = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
                     CardArtsId = "13210100",
                     LinkedCards = new List<String> { CardId.Draugir },
                 }

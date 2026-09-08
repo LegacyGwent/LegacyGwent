@@ -32,12 +32,12 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task DraugOffersAtMostEightCemeteryTargetsAndResurrectsTheSelection()
+        public async Task NorthernDraugOffersAtMostEightCemeteryTargetsAndResurrectsTheSelection()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersCemetery[fixture.Game.Player1Index].Clear();
             var draug = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Draug, RowPosition.MyRow1);
+                fixture.Game.Player1Index, CardId.NorthernRealmsDraug, RowPosition.MyRow1);
             var corpses = Enumerable.Range(0, 10)
                 .Select(_ => fixture.AddCard(
                     fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyCemetery))

@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 194), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 195), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -54,6 +54,49 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberSeventhFirstBatchMatchesRulesMetadataAndChineseLocales()
+        {
+            var expected = new Dictionary<string, string>
+            {
+                [CardId.Draug] = "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
+                [CardId.NorthernRealmsDraug] = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
+                ["70050"] = "使1个受伤或受护甲保护的友军单位与1个敌军单位对决。",
+                [CardId.FeastOfBlood] = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。（吸血鸟怪：同排非同名单位汲取时，汲取同目标1点战力。）"
+            };
+            var data = new GwentCardDataService();
+            Assert.Equal(typeof(Draug), data.GetType(CardId.Draug));
+            Assert.Equal(typeof(NorthernRealmsDraug), data.GetType(CardId.NorthernRealmsDraug));
+            Assert.Equal(typeof(QueenCalanthe), data.GetType(CardId.QueenCalanthe));
+            Assert.Equal(typeof(MadCharge), data.GetType("70050"));
+            Assert.Equal(typeof(FeastOfBlood), data.GetType(CardId.FeastOfBlood));
+            Assert.Contains("非间谍单位牌", GwentMap.CardMap[CardId.QueenCalanthe].Info);
+            foreach (var id in expected.Keys.Append(CardId.QueenCalanthe))
+            {
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.False(GwentMap.CardMap[id].IsDerive);
+            }
+            Assert.Equal(10, GwentMap.CardMap[CardId.Draug].Strength);
+            Assert.Equal(10, GwentMap.CardMap[CardId.NorthernRealmsDraug].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.QueenCalanthe].Strength);
+            Assert.Equal(Group.Leader, GwentMap.CardMap[CardId.QueenCalanthe].Group);
+            Assert.Equal(Group.Copper, GwentMap.CardMap["70050"].Group);
+            Assert.Equal(Group.Copper, GwentMap.CardMap[CardId.FeastOfBlood].Group);
+            var roots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(expected, rule => Assert.Equal(rule.Value, GwentMap.CardMap[rule.Key].Info));
+            foreach (var root in roots)
+            {
+                var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(FindRepositoryFile($"{root}/cn.json")));
+                Assert.All(expected, rule => Assert.Equal(rule.Value, locale.CardLocales[rule.Key].Info));
+                Assert.Equal(GwentMap.CardMap[CardId.QueenCalanthe].Info, locale.CardLocales[CardId.QueenCalanthe].Info);
+            }
         }
 
         [Fact]
@@ -1593,7 +1636,7 @@ namespace Cynthia.Card.Server.Tests
                 "对1个敌军单位造成7点无视护甲的伤害，若其具有增益则变为造成10点无视护甲的伤害。",
                 GwentMap.CardMap["70156"].Info);
             Assert.DoesNotContain(
-                GwentMap.CardMap.Where(card => card.Key != CardId.Plumard).Select(card => card.Value),
+                GwentMap.CardMap.Where(card => card.Key != CardId.Plumard && card.Key != CardId.FeastOfBlood).Select(card => card.Value),
                 card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
 
             var masquerade = GwentMap.CardMap[CardId.Masquerade];
@@ -1671,7 +1714,7 @@ namespace Cynthia.Card.Server.Tests
                 var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
                     FindRepositoryFile($"{root}/cn.json")));
                 Assert.DoesNotContain(
-                    locale.CardLocales.Where(card => card.Key != CardId.Plumard).Select(card => card.Value),
+                    locale.CardLocales.Where(card => card.Key != CardId.Plumard && card.Key != CardId.FeastOfBlood).Select(card => card.Value),
                     card => (card.Info ?? string.Empty).Contains("汲取", StringComparison.Ordinal));
             });
         }
@@ -1847,7 +1890,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(originalDraug.IsDoomed, northernDraug.IsDoomed);
             Assert.Equal(originalDraug.IsCountdown, northernDraug.IsCountdown);
             Assert.Equal(originalDraug.Categories, northernDraug.Categories);
-            Assert.Equal(originalDraug.Info, northernDraug.Info);
+            Assert.Equal("选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。", northernDraug.Info);
             Assert.Equal(originalDraug.CardArtsId, northernDraug.CardArtsId);
             Assert.Equal(originalDraug.LinkedCards, northernDraug.LinkedCards);
 
@@ -1925,7 +1968,7 @@ namespace Cynthia.Card.Server.Tests
                 Assert.DoesNotContain(".", card.Info);
                 Assert.DoesNotContain("。 ", card.Info);
                 Assert.DoesNotContain("\n ", card.Info);
-                Assert.Matches("[。！？…]$", card.Info);
+                Assert.Matches("[。！？…]）?$", card.Info); // A full-sentence parenthetical reminder may close last.
             }));
             Assert.All(GwentMap.CardMap.Values, card =>
             {
@@ -1939,7 +1982,7 @@ namespace Cynthia.Card.Server.Tests
                 Assert.DoesNotContain(".", card.Info);
                 Assert.DoesNotContain("。 ", card.Info);
                 Assert.DoesNotContain("\n ", card.Info);
-                Assert.Matches("[。！？…]$", card.Info);
+                Assert.Matches("[。！？…]）?$", card.Info);
             });
         }
 

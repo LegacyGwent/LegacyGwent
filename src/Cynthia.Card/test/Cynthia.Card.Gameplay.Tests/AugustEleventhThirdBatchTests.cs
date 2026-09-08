@@ -7,7 +7,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class AugustEleventhThirdBatchTests
     {
         [Fact]
-        public async Task NorthernRealmsDraugReusesDraugEffectAndArtBehavior()
+        public async Task NorthernRealmsDraugKeepsItsArtAndResurrectsSelectedDraugirs()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.PlayersCemetery[fixture.Game.Player1Index].Clear();
@@ -20,7 +20,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
 
             Assert.IsType<NorthernRealmsDraug>(draug.Effect);
-            Assert.IsAssignableFrom<Draug>(draug.Effect);
+            Assert.IsAssignableFrom<CardEffect>(draug.Effect);
             await fixture.Game.AddTask(async () =>
                 await draug.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 

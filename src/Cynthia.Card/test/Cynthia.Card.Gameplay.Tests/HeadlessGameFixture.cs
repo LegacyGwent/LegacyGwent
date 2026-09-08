@@ -52,6 +52,7 @@ namespace Cynthia.Card.Gameplay.Tests
         public IList<MenuSelectCardInfo> MenuRequests { get; } = new List<MenuSelectCardInfo>();
         public IList<IList<RowPosition>> RowRequests { get; } = new List<IList<RowPosition>>();
         public Action BeforeRowSelection { get; set; }
+        public Func<MenuSelectCardInfo, IList<int>> MenuSelectionOverride { get; set; }
 
         public DeterministicHeadlessPlayer(string playerName)
         {
@@ -70,6 +71,11 @@ namespace Cynthia.Card.Gameplay.Tests
             LastMenuOptionCount = info.SelectList.Count;
             MenuRequests.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<MenuSelectCardInfo>(
                 Newtonsoft.Json.JsonConvert.SerializeObject(info)));
+            if (MenuSelectionOverride != null)
+            {
+                send(Operation.Create(UserOperationType.SelectMenuCardsInfo, MenuSelectionOverride(info)));
+                return;
+            }
             var selected = new List<int>();
             if (_queuedMenuOptionKeys.Count > 0)
             {

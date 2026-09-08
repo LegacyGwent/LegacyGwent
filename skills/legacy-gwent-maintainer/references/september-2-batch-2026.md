@@ -12,11 +12,10 @@ Last verified: 2026-09-02
   only allied Bronze units carrying `HideTag.Deathwish`; a locked chosen target
   still does not resolve its Deathwish.
 - Ihuarraquax `12018` lets its owner select up to three enemy units for the
-  seven-damage resolution instead of choosing randomly. Draug `22002` and
-  Northern Realms Draug `70197` present the controller's cemetery and accept up
-  to eight selected resurrection targets, additionally capped by free row
-  space. Each selected card is transformed into a 1-power Draugir before being
-  resurrected.
+  seven-damage resolution instead of choosing randomly. The September 2 Draug
+  selection change was split on September 7: original `22002` is random again,
+  while Northern Realms `70197` selects up to eight cemetery units, capped by
+  free row space, then transforms them into 1-power Draugirs and resurrects them.
 - Morenn `53006` Banishes only a unit actually destroyed by her seven damage.
   The lethal damage path is queued, so mark the prospective target Doomed in
   the queued damage action and restore its prior Doomed state when it survives;
