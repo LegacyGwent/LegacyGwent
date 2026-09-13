@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 196), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 197), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -54,6 +54,55 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberThirteenthFirstBatchMatchesRulesMetadataAndLocales()
+        {
+            var expected = new Dictionary<string, string>
+            {
+                ["64004"] = "将1个铜色单位从己方墓场放回牌组。该效果视为复活。",
+                [CardId.Ulle] = "每回合开始时，复活此单位。每复活2次，对自身造成1点削弱。每回合结束时，与敌方最弱单位对决，若存活，则改变自身的锁定状态。"
+            };
+            var data = new GwentCardDataService();
+            Assert.Equal(typeof(DimunSmuggler), data.GetType("64004"));
+            Assert.Equal(typeof(Ulle), data.GetType(CardId.Ulle));
+            Assert.Equal(10, GwentMap.CardMap["64004"].Strength);
+            Assert.Equal(Group.Copper, GwentMap.CardMap["64004"].Group);
+            Assert.Equal(3, GwentMap.CardMap[CardId.Ulle].Strength);
+            Assert.Equal(Group.Silver, GwentMap.CardMap[CardId.Ulle].Group);
+            Assert.Equal(2, GwentMap.CardMap[CardId.Ulle].Countdown);
+            Assert.True(GwentMap.CardMap[CardId.Ulle].IsCountdown);
+            Assert.Equal(new[] { Categorie.Cursed, Categorie.ClanAnCraite }, GwentMap.CardMap[CardId.Ulle].Categories);
+            foreach (var rule in expected)
+            {
+                Assert.Equal(rule.Value, GwentMap.CardMap[rule.Key].Info);
+                Assert.Equal(Faction.Skellige, GwentMap.CardMap[rule.Key].Faction);
+                Assert.Equal(CardType.Unit, GwentMap.CardMap[rule.Key].CardType);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(rule.Key));
+                Assert.False(GwentMap.CardMap[rule.Key].IsDerive);
+            }
+            var roots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                foreach (var rule in expected)
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                    {
+                        Assert.Equal(locales[0].CardLocales[rule.Key].Name, locale.CardLocales[rule.Key].Name);
+                        Assert.Equal(locales[0].CardLocales[rule.Key].Info, locale.CardLocales[rule.Key].Info);
+                    });
+                    if (language == "cn")
+                        Assert.All(locales, locale => Assert.Equal(rule.Value, locale.CardLocales[rule.Key].Info));
+                }
+            }
         }
 
         [Fact]
@@ -584,7 +633,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
             Assert.Contains("6点伤害", GwentMap.CardMap[CardId.DamnedSorceress].Info);
             Assert.Equal(
-                "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果存活则改变自身的锁定状态。",
+                "每回合开始时，复活此单位。每复活2次，对自身造成1点削弱。每回合结束时，与敌方最弱单位对决，若存活，则改变自身的锁定状态。",
                 GwentMap.CardMap[CardId.Ulle].Info);
             Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.GeraltAard].Info);
             Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.Ves].Info);

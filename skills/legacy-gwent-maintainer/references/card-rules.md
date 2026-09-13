@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-09-02
+Last verified: 2026-09-13
 
 ## August 23 first card batch
 
@@ -18,9 +18,9 @@ Last verified: 2026-09-02
   and website-scale updates do not add them to an already installed client, so
   an older client may remain blank until a client containing the rebuilt local
   Addressables catalog/bundles is installed.
-- Ulle the Unlucky (`70178`) keeps the existing effect implementation. Its text
-  says “if it survives” rather than “if it wins”, matching the actual post-Duel
-  survival check.
+- Ulle the Unlucky (`70178`) toggles lock after surviving its owner-turn-end
+  Duel. Since September 13, its visible counter applies Weaken(1) every second
+  successful resurrection; locked cards still cannot trigger their own revival.
 
 ## Similar Chinese card names
 
@@ -141,14 +141,12 @@ Last verified: 2026-09-02
 - `1.0.0.168` restores the existing DIY definitions of Meve `70045` and Anna
   Henrietta `70149`, restores/reworks Queen Calanthe `70179`, and appends Dana
   Meadbh `70191`. All four are user-deck leaders; Calanthe remains 7 power,
-  Meve 8, Anna 6, and Dana 3.
-- Since the `1.0.0.169` clarification, Calanthe snapshots only one allied
-  non-Spying Bronze/Silver unit's current positive net Boost, resets that Boost,
-  gains the same amount as Boost, shuffles the unit into the deck, then forces
-  the player to choose and play a Bronze/Silver unit from the deck. Do not
-  consume Armor, and do not call generic `Drain` or `Damage`: Shield does not
-  block the direct Boost transfer, while Armor, Shield, Resilience, negative
-  `HealthStatus`, and other unmentioned state remain untouched.
+  Meve 8, Anna 6; Dana is now 2 power with Relict under the September 11 rule.
+- Calanthe transfers an allied non-Spying Bronze/Silver unit's positive net
+  Boost and Armor directly to herself, calls Repair(true) on the target, and
+  shuffles it into the deck before playing a Bronze/Silver non-Spying Unit.
+  Shield cannot block that direct transfer. The return clears temporary state
+  and lock; deck selection also excludes intrinsic EnemyRow/EnemyPlace spies.
 - Meve and Anna source files already matched `origin/diy`; their reset-state bug
   was availability, not missing behavior. Meve Boosts one unit in board/hand/deck
   by 4. Anna sorts by base Strength and plays the lowest top card, including a

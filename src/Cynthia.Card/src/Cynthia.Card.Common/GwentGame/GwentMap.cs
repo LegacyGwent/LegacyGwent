@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 196);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 197);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -10267,7 +10267,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.ClanDimun},
                     Flavor = "史派克鲁格是一片死水，不过没有关系。我们想要什么，就从你们那儿夺。",
-                    Info = "将1个铜色单位从己方墓场返回至牌组。",
+                    Info = "将1个铜色单位从己方墓场放回牌组。该效果视为复活。",
                     CardArtsId = "20014600",
                     LinkedCards=new List<String> {},
                 }
@@ -14960,11 +14960,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 2,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
                     Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
-                    Info = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，如果存活则改变自身的锁定状态。",
+                    Info = "每回合开始时，复活此单位。每复活2次，对自身造成1点削弱。每回合结束时，与敌方最弱单位对决，若存活，则改变自身的锁定状态。",
                     CardArtsId = "c10006000",
                     LinkedCards=new List<String> {},
                 }

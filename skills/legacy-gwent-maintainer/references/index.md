@@ -18,6 +18,8 @@ Read this file first, then load only the rows relevant to the task.
 | September 5 card batch | [september-5-batch-2026.md](september-5-batch-2026.md) | Alp strongest drain, Swamp Rain repeats, Milaen Ambush damage, Sihil selection, and localized options |
 | September 7 card batch | [september-7-batch-2026.md](september-7-batch-2026.md) | Split Draug variants, intrinsic-spy filtering, wounded Mad Charge, and token reminder |
 | September 11 card batch | [september-11-batch-2026.md](september-11-batch-2026.md) | Returning Blade damage, successful Sigvald resurrection counter, exact Dandelion hand play, and leader metadata |
+| September 13 card batch | [september-13-batch-2026.md](september-13-batch-2026.md) | Smuggler resurrection clarification and Ulle successful-revival Weaken counter |
+| Zone changes, state reset, unlocking, replay and return-to-deck | [zone-state-transitions.md](zone-state-transitions.md) | A-H transition matrix, Repair versus Resurrect, preserved power/counters, and card-specific exceptions |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
 | Card-batch publication, preflight, repeated CI | [release-preflight.md](release-preflight.md) | First-push gates and release-loop prevention |
