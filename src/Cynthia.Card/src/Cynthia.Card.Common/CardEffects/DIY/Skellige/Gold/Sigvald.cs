@@ -1,11 +1,9 @@
-using System.Linq;
 using System.Threading.Tasks;
-using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
     [CardEffectId("70038")]//西格瓦尔德
-    public class Sigvald : CardEffect, IHandlesEvent<AfterTurnOver>
+    public class Sigvald : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardResurrect>
     {
         public Sigvald(GameCard card) : base(card) { }
 
@@ -16,15 +14,31 @@ namespace Cynthia.Card
                 return;
             }
 
+            var location = Game.GetRandomCanPlayLocation(PlayerIndex, false);
+            if (location != null)
+            {
+                await Card.Effect.Resurrect(location, Card);
+            }
+        }
+
+        public async Task HandleEvent(AfterCardResurrect @event)
+        {
+            if (@event.Target != Card)
+            {
+                return;
+            }
+
             await SetCountdown(offset: -1);
             if (Countdown > 0)
             {
                 return;
             }
 
-            await Card.Effect.Resurrect(Game.GetRandomCanPlayLocation(Card.PlayerIndex, false), Card);
-            await Card.Effect.Strengthen(1, Card);
             await SetCountdown(value: 2);
+            if (Card.CardPoint() <= 7)
+            {
+                await Card.Effect.Strengthen(1, Card);
+            }
         }
     }
 }

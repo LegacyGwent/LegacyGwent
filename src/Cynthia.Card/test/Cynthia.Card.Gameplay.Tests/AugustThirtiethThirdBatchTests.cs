@@ -7,7 +7,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class AugustThirtiethThirdBatchTests
     {
         [Fact]
-        public async Task DandelionVaingloryCountsBothNewZoltanCardsInTheStartingDeck()
+        public async Task DandelionVaingloryNoLongerBoostsFromStartingDeckCharacterCards()
         {
             var fixture = new HeadlessGameFixture();
             var dandelion = fixture.AddCard(
@@ -25,7 +25,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.Game.AddTask(
                 () => dandelion.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.Equal(6, dandelion.Status.HealthStatus);
+            Assert.Equal(0, dandelion.Status.HealthStatus);
         }
 
         [Fact]

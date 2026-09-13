@@ -174,7 +174,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task SigvaldResurrectsAndStrengthensOnlyAfterTwoOwnerTurnEnds()
+        public async Task SigvaldResurrectsEveryOwnerTurnEndAndStrengthensEverySecondResurrection()
         {
             var fixture = new HeadlessGameFixture();
             var sigvald = fixture.AddCard(
@@ -182,10 +182,14 @@ namespace Cynthia.Card.Gameplay.Tests
             var originalStrength = sigvald.Status.Strength;
             await fixture.SynchronizeClientsAsync();
 
-            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player2Index));
             Assert.True(sigvald.Status.CardRow.IsInCemetery());
 
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
+            Assert.True(sigvald.Status.CardRow.IsOnPlace());
+            Assert.Equal(originalStrength, sigvald.Status.Strength);
+
+            await sigvald.Effect.ToCemetery();
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.True(sigvald.Status.CardRow.IsOnPlace());
             Assert.Equal(originalStrength + 1, sigvald.Status.Strength);

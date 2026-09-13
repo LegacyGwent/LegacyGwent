@@ -192,7 +192,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task AddedCountdownsRemainVisibleAndKeepTheirOriginalCadence()
+        public async Task AddedCountdownsRemainVisibleAndTrackTheirCurrentCadence()
         {
             var sigvaldFixture = new HeadlessGameFixture();
             var sigvald = sigvaldFixture.AddCard(
@@ -205,7 +205,10 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(2, sigvald.Status.Countdown);
             await sigvaldFixture.Game.SendEvent(
                 new AfterTurnOver(sigvaldFixture.Game.Player1Index));
+            Assert.True(sigvald.Status.CardRow.IsOnPlace());
             Assert.Equal(1, sigvald.Status.Countdown);
+            Assert.Equal(1, sigvald.Status.Strength);
+            await sigvald.Effect.ToCemetery();
             await sigvaldFixture.Game.SendEvent(
                 new AfterTurnOver(sigvaldFixture.Game.Player1Index));
             Assert.True(sigvald.Status.CardRow.IsOnPlace());

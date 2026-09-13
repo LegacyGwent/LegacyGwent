@@ -41,7 +41,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 195), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 196), GwentMap.CardMapVersion);
             Assert.Equal(725, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -54,6 +54,74 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberEleventhFirstBatchMatchesRulesMetadataAndLocales()
+        {
+            var expected = new[]
+            {
+                (Id: "70139", Strength: 7, Group: Group.Silver, Faction: Faction.ScoiaTael,
+                    Effect: typeof(TreantBoar), Info: "造成4点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
+                (Id: "43021", Strength: 0, Group: Group.Silver, Faction: Faction.NorthernRealms,
+                    Effect: typeof(VandergriftSBlade), Info: "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。若小局结束时位于墓场，返回牌组，并提升3点伤害。"),
+                (Id: "70038", Strength: 1, Group: Group.Gold, Faction: Faction.Skellige,
+                    Effect: typeof(Sigvald), Info: "每回合结束时，复活此单位。若战力不高于7点，每复活2次，获得1点强化。"),
+                (Id: "70109", Strength: 8, Group: Group.Copper, Faction: Faction.ScoiaTael,
+                    Effect: typeof(DwarvenChariot), Info: "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。"),
+                (Id: "51003", Strength: 3, Group: Group.Leader, Faction: Faction.ScoiaTael,
+                    Effect: typeof(Filavandrel), Info: "生成1张己方起始牌组之外的银色中立“特殊”牌。"),
+                (Id: "70191", Strength: 2, Group: Group.Leader, Faction: Faction.ScoiaTael,
+                    Effect: typeof(DanaMeadbh), Info: "从牌组打出1张中立牌。"),
+                (Id: "12011", Strength: 9, Group: Group.Gold, Faction: Faction.Neutral,
+                    Effect: typeof(DandelionVainglory), Info: "从手牌中打出1张“利维亚的杰洛特”或“特莉丝·梅莉葛德”，随后抽1张牌。")
+            };
+            var data = new GwentCardDataService();
+            foreach (var rule in expected)
+            {
+                var card = GwentMap.CardMap[rule.Id];
+                Assert.Equal(rule.Strength, card.Strength);
+                Assert.Equal(rule.Group, card.Group);
+                Assert.Equal(rule.Faction, card.Faction);
+                Assert.Equal(rule.Id == "43021" ? CardType.Special : CardType.Unit, card.CardType);
+                Assert.Equal(rule.Info, card.Info);
+                Assert.Equal(rule.Effect, data.GetType(rule.Id));
+                Assert.False(card.IsDerive);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(rule.Id));
+            }
+            Assert.Equal(new[] { Categorie.Soldier, Categorie.Dwarf }, GwentMap.CardMap["70109"].Categories);
+            Assert.Equal(new[] { Categorie.Leader, Categorie.Relict }, GwentMap.CardMap["70191"].Categories);
+            Assert.Equal(new[] { CardId.GeraltOfRivia, CardId.TrissMerigold },
+                GwentMap.CardMap[CardId.DandelionVainglory].LinkedCards);
+            Assert.Equal(2, GwentMap.CardMap["70038"].Countdown);
+            Assert.True(GwentMap.CardMap["70038"].IsCountdown);
+
+            var roots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var localeFile in Directory.EnumerateFiles(
+                Path.GetDirectoryName(FindRepositoryFile($"{roots[0]}/cn.json")), "*.json"))
+            {
+                var fileName = Path.GetFileName(localeFile);
+                if (fileName == "config.json") continue;
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{fileName}")))).ToArray();
+                foreach (var rule in expected)
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                    {
+                        Assert.Equal(locales[0].CardLocales[rule.Id].Name, locale.CardLocales[rule.Id].Name);
+                        Assert.Equal(locales[0].CardLocales[rule.Id].Info, locale.CardLocales[rule.Id].Info);
+                    });
+                    if (fileName == "cn.json")
+                    {
+                        Assert.All(locales, locale => Assert.Equal(rule.Info, locale.CardLocales[rule.Id].Info));
+                    }
+                }
+            }
         }
 
         [Fact]
@@ -205,7 +273,7 @@ namespace Cynthia.Card.Server.Tests
                 HideTag.Zoltan,
                 GwentMap.CardMap[CardId.DwarfMiner].HideTags ?? Array.Empty<HideTag>());
             Assert.Equal(
-                "己方起始牌组中每有1张“杰洛特”、“叶奈法”、“特莉丝”或“卓尔坦”牌，便获得3点增益。",
+                "从手牌中打出1张“利维亚的杰洛特”或“特莉丝·梅莉葛德”，随后抽1张牌。",
                 GwentMap.CardMap[CardId.DandelionVainglory].Info);
         }
 
@@ -429,7 +497,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.ArnjolfThePatricide));
             Assert.False(GwentMap.CardMap[CardId.ArnjolfThePatricide].IsDerive);
             Assert.Equal(
-                "每2回合结束时，复活此单位，并获得1点强化。",
+                "每回合结束时，复活此单位。若战力不高于7点，每复活2次，获得1点强化。",
                 GwentMap.CardMap["70038"].Info);
             Assert.Equal(
                 "复活1个史凯利杰铜色/银色单位。",
@@ -1119,7 +1187,7 @@ namespace Cynthia.Card.Server.Tests
                 CardId.DanaMeadbh
             };
             Assert.All(leaderIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
-            Assert.Equal(new[] { 8, 6, 7, 3 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
+            Assert.Equal(new[] { 8, 6, 7, 2 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
             Assert.Equal(Faction.ScoiaTael, GwentMap.CardMap[CardId.DanaMeadbh].Faction);
             Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
             Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);
@@ -1493,10 +1561,6 @@ namespace Cynthia.Card.Server.Tests
                 {
                     "Kiyan_1_CreateAlchemy", "Kiyan_2_PlayItem"
                 },
-                ["NorthernRealms/Silver/VandergriftSBlade.cs"] = new[]
-                {
-                    "VandergriftSBlade_1_DestroyCursed", "VandergriftSBlade_2_Damage"
-                },
                 ["ScoiaTael/Gold/IsengrimOutlaw.cs"] = new[]
                 {
                     "IsengrimOutlaw_1_PlaySpecial", "IsengrimOutlaw_2_CreateElf"
@@ -1536,8 +1600,8 @@ namespace Cynthia.Card.Server.Tests
             var expectedKeys = expectedChoicesBySource
                 .SelectMany(choiceSource => choiceSource.Value)
                 .ToArray();
-            Assert.Equal(49, expectedKeys.Length);
-            Assert.Equal(49, expectedKeys.Distinct(StringComparer.Ordinal).Count());
+            Assert.Equal(47, expectedKeys.Length);
+            Assert.Equal(47, expectedKeys.Distinct(StringComparer.Ordinal).Count());
             var localeRoots = new[]
             {
                 "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",

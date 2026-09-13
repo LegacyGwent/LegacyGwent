@@ -1,6 +1,6 @@
 # Headless gameplay testing
 
-Last verified: 2026-08-30
+Last verified: 2026-09-13
 
 Load this reference before testing a card whose correctness depends on deploy,
 selection, movement, death, landing, weather, duel, or chained events.
@@ -174,8 +174,8 @@ and both-player draw, including its no-target branch; Hefty Helge's owner-only
 Reveal counter, off-row repeated damage, explicit counter clear, and the rule
 that resurrecting the same cleared instance does not restore its initial count;
 Congregation Cleric's two-power floor; Arnjolf's allied-then-enemy low-power
-destruction; Svalblod excluding Spying hand/deck units; Sigvald's second-owner-
-turn resurrection and Strengthen; Crowmother being intrinsically non-Doomed;
+destruction; Svalblod excluding Spying hand/deck units; Sigvald's owner-turn
+resurrection and every-second-success Strengthen; Crowmother being intrinsically non-Doomed;
 Sigrdrifa accepting non-clan Skellige Copper/Silver units; Cupbearer's every-
 second-owner-turn cadence; and Dwarf Miner counting same-ID copies on board,
 in hand, and in deck from its new eight-power base. War Council's rejected

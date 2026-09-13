@@ -1,6 +1,6 @@
 # August 30, 2026 card batches
 
-Last verified: 2026-08-30
+Last verified: 2026-09-13
 
 - CardMap `1.0.0.190` appended deckable Northern Realms Silver Soldier Egmond
   `70200`; `1.0.0.191` raises it to 11 power and changes its repeat timing.
@@ -20,10 +20,10 @@ Last verified: 2026-08-30
   on-board row. When a same-effect reward depends on destruction, check
   `target.IsDead || !target.Status.CardRow.IsOnPlace()` rather than row state
   alone.
-- Sigvald `70038`, Wraith Sorcerer `70194`, and Endrega Queen `70199` expose
-  their existing two-, two-, and three-turn cadence through `CardStatus.Countdown`.
-  Use `SetCountdown` so clients see every decrement and reset; do not change
-  locked-card event suppression or owner-turn timing.
+- Wraith Sorcerer `70194` and Endrega Queen `70199` expose their two- and
+  three-turn cadence through `CardStatus.Countdown`. Sigvald `70038` now
+  counts two successful resurrections under the September 11 rule. Use
+  `SetCountdown` so clients see decrements/resets and preserve lock suppression.
 - Queen Adalia `70141` generates one chosen Bronze Cintra unit, then appends
   one copy of every Bronze Cintra unit to the deck in CardMap order. The old
   Northern-Realms-only starting-deck condition and random insertion positions
@@ -34,8 +34,7 @@ Last verified: 2026-08-30
   repeats once. Exclude Coën itself even if its own power is the lowest.
 - CardMap `1.0.0.192` raises Endrega Queen `70199` from 2 to 3 base power and
   Sir Scratch-a-Lot `70177` from 3 to 7 base power.
-- Dandelion: Vainglory `12011` counts qualifying cards in the starting deck by
-  their established character `HideTag` values. Zoltan: Warrior `70019` and
-  Zoltan's Company `70167` therefore carry `HideTag.Zoltan`; each contributes
-  one 3-point Boost to Dandelion. Unrelated starting-deck cards do not count,
-  and the existing player text remains unchanged.
+- Zoltan: Warrior `70019` and Zoltan's Company `70167` retain `HideTag.Zoltan`.
+  Dandelion: Vainglory `12011` no longer uses starting-deck character tags or
+  Boosts; the September 11 rule replaces that effect with exact hand-card play
+  followed by a draw.

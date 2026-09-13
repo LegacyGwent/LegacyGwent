@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 195);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 196);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -411,9 +411,9 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "丹德里恩大师跟我说过你所有的冒险故事。比如他是如何利用歌声来助你战斗，他优势如何用琴声驯服了巨章鱼怪……",
-                    Info = "己方起始牌组中每有1张“杰洛特”、“叶奈法”、“特莉丝”或“卓尔坦”牌，便获得3点增益。",
+                    Info = "从手牌中打出1张“利维亚的杰洛特”或“特莉丝·梅莉葛德”，随后抽1张牌。",
                     CardArtsId = "20177400",
-                    LinkedCards=new List<String> {},
+                    LinkedCards=new List<String> { CardId.GeraltOfRivia, CardId.TrissMerigold },
                 }
             },
             {
@@ -7207,7 +7207,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。",
-                    Info = "择一：摧毁1个铜色/银色“诅咒生物”敌军单位；或造成10点伤害，放逐所摧毁的单位。",
+                    Info = "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。若小局结束时位于墓场，返回牌组，并提升3点伤害。",
                     CardArtsId = "20163300",
                     LinkedCards=new List<String> {},
                 }
@@ -8042,7 +8042,7 @@ namespace Cynthia.Card
                 {
                     CardId ="51003", //Filavandrel
                     Name="菲拉凡德芮",
-                    Strength=4,
+                    Strength=3,
                     Group=Group.Leader,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11774,7 +11774,7 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "每2回合结束时，复活此单位，并获得1点强化。",
+                    Info = "每回合结束时，复活此单位。若战力不高于7点，每复活2次，获得1点强化。",
                     CardArtsId = "202282",
                     LinkedCards=new List<String> {},
                 }
@@ -12369,7 +12369,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Dwarf, Categorie.Soldier},
+                    Categories = new Categorie[]{ Categorie.Soldier, Categorie.Dwarf},
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
                     Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
                     CardArtsId = "202476",
@@ -14183,7 +14183,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Treant},
                     Flavor = "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？",
-                    Info = "造成4点伤害，使目标相邻单位移至随机排，若摧毁目标单位则重复1次。",
+                    Info = "造成4点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。",
                     CardArtsId = "202268",
                     LinkedCards=new List<String> {},
                 }
@@ -15356,7 +15356,7 @@ namespace Cynthia.Card
                 {
                     CardId = "70191",
                     Name = "达娜·梅碧",
-                    Strength = 3,
+                    Strength = 2,
                     Group = Group.Leader,
                     Faction = Faction.ScoiaTael,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15364,7 +15364,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Leader },
+                    Categories = new Categorie[] { Categorie.Leader, Categorie.Relict },
                     Flavor = "她的歌声唤醒了森林。",
                     Info = "从牌组打出1张中立牌。",
                     CardArtsId = "203195",
