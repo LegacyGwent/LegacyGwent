@@ -2363,7 +2363,7 @@
         },
         "43006": {
             "Name": "Nenneke",
-            "Info": "Rozmieszczenie: Wtasuj 3 brązowe lub srebrne jednostki z własnego cmentarza do swojej talii.",
+            "Info": "Wtasuj 3 brązowe lub srebrne jednostki z własnego cmentarza do swojej talii. Ten efekt liczy się jako wskrzeszenie.",
             "Flavor": "Mało kto wie więcej o uzdrawianiu niż Nenneke."
         },
         "43007": {
@@ -2438,7 +2438,7 @@
         },
         "43021": {
             "Name": "Miecz Vandergrifta",
-            "Info": "Wybierz: Zniszcz brązowego lub srebrnego Przeklętego wroga lub Zadaj 10 pkt obrażeń i jeśli jednostka została zniszczona, wygnaj ją.",
+            "Info": "Zadaj 10 pkt obrażeń. Jeśli celem jest brązowa lub srebrna jednostka Przeklęta, zniszcz ją. Wygnaj jednostkę zniszczoną przez tę zdolność.",
             "Flavor": "Po turnieju rycerskim w Ard Carraigh, gdy jego miecz został roztrzaskany przez Seltkirka, wściekły Vandergrift zamówił czarodziejskie ostrze, zaklęte potężnymi runami."
         },
         "44001": {
@@ -3378,7 +3378,7 @@
         },
         "70002": {
             "Name": "Detlaff Wampir Wyższy",
-            "Info": "Wybierz brązową jednostke w twojej talii. Jeśli ma więcej siły niż ta jednostka, pochłoń ją i wzmocnij się o jej siłe. W przeciwnym wypadku zagraj te jednostke i wyślij ją na cmentarz na koniec rundy.",
+            "Info": "Wybierz brązową jednostkę ze swojej talii. Jeśli jej siła jest większa od siły tej jednostki, pochłoń ją i wzmocnij tę jednostkę tymczasowo o jej siłę. W przeciwnym razie zagraj ją i zniszcz na koniec tury.",
             "Flavor": "Na jego widok nawet wiedźminom miękną kolana."
         },
         "70003": {
@@ -3513,7 +3513,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "Co 2 tury, na koniec tury, wskrześ tę jednostkę i ulepsz ją o 1.",
+            "Info": "Na koniec swojej tury wskrześ tę jednostkę. Co drugie wskrzeszenie wzmocnij ją o 1.",
             "Flavor": "Vildkaarl, który dożywa starości, cieszy się ogromnym szacunkiem reszty stada. Tak, jak Sigvald."
         },
         "70039": {
@@ -3903,7 +3903,7 @@
         },
         "70139": {
             "Name": "Drzewiec: Odyniec",
-            "Info": "Rozmieszczenie: Zadaj jednostce 4 pkt obrażeń, następnie przenieś sąsiednie jednostki do losowych rzędów. Jeśli cel zostanie zniszczony, powtórz raz.",
+            "Info": "Zadaj 3 pkt obrażeń i przenieś jednostki sąsiadujące z celem do losowych rzędów po ich stronie. Jeśli cel zostanie zniszczony, powtórz tę zdolność.",
             "Flavor": "Driady potrafią nadawać drzewcom najróżniejsze formy - chociażby gigantycznego odyńca."
         },
         "70140": {
@@ -3958,27 +3958,27 @@
         },
         "70150": {
             "Name": "Vincent Van Moorlehem",
-            "Info": "Rozmieszczenie: Zniszcz wrogą jednostkę. Wzmocnij sąsiadujące z nią jednostki i połowe siły zniszczonej jednostki każdą.",
+            "Info": "Obejrzyj 3 brązowe lub srebrne jednostki bez Szpiegowania z talii przeciwnika. Wybierz jedną, zmniejsz jej siłę do 1, a następnie zadaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Wszyscy omijają włości Moorlehemów szerokim łukiem. Nawet poborcy podatkowi."
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 4 pkt obrażeń. Jeśli ta jednostka jest w Twojej ręce na koniec tury, odsłoń ją i aktywuj jej umiejętność.",
+            "Info": "Zadaj jednostce w swojej talii obrażenia równe połowie jej siły, a następnie zadaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Mówią, że Vincent Van Moorlehem boi się tylko jednego człowieka. Nie jest to Emhyr var Emreis ani Geralt z Rivii - tylko jego własny syn."
         },
         "70152": {
             "Name": "Podczaszy Van Moorlehemów",
-            "Info": "Co 2 tury losowo Ukryj brązową kartę w ręce, następnie wzmocnij ją o 1.",
+            "Info": "Na początku co drugiej swojej tury ukryj losową ujawnioną brązową kartę ze swojej ręki, a następnie ją ulecz.",
             "Flavor": "Moja specjalność? Tatar. Z czego? Ach, zależy od humoru jaśniepaństwa…"
         },
         "70153": {
             "Name": "Łowca Van Moorlehemów",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń. Jeśli w Twojej ręce nie ma złotych kart powtórz raz.",
+            "Info": "Zadaj brązowej jednostce w swojej talii obrażenia równe połowie jej siły, a następnie zadaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
             "Name": "Iris Widmo",
-            "Info": "Rozmieszczenie, Rozejm: Dodaj 2 Towarzyszy Iris do ręki obu graczy.",
+            "Info": "Rozejm: Na koniec swojej tury dodaj po 1 karcie Towarzyszy Iris do ręki obu graczy. Zdolność może zadziałać dwukrotnie. Gdy ta jednostka jest po twojej stronie pola, zagrywani przez ciebie Towarzysze Iris pozwalają wybrać kartę do odrzucenia.",
             "Flavor": "Olgierd narzeczoną miał jak sen…"
         },
         "70155": {
@@ -4098,7 +4098,7 @@
         },
         "70178": {
             "Name": "Ulle",
-            "Info": "Na początku każdej sojuszniczej tury wskrześ tę jednostkę. Na końcu każdej sojuszniczej tury stocz pojedynek z najsłabszym wrogiem. Jeśli ta jednostka przetrwa, zmień jej stan Blokady.",
+            "Info": "Na początku swojej tury wskrześ tę jednostkę. Na koniec swojej tury stocz pojedynek z najsłabszą wrogą jednostką. Jeśli ta jednostka przeżyje, osłab ją o 1, a następnie zmień jej stan blokady.",
             "Flavor": "Obyś po wiek wieków przegrywał."
         },
         "70179": {
@@ -4274,6 +4274,16 @@
         "70200": {
             "Name": "Egmond",
             "Info": "Usuń wszystkie wzmocnienia z sojuszniczej jednostki, a następnie zadaj wrogiej jednostce obrażenia równe usuniętej wartości. Jeśli ją zniszczysz, wzmocnij tę jednostkę o 1. Jeśli ta jednostka została wzmocniona podczas twojej tury, na końcu tury powtórz tę zdolność.",
+            "Flavor": ""
+        },
+        "70201": {
+            "Name": "Rience",
+            "Info": "Zniszcz wrogą jednostkę i wzmocnij tymczasowo każdą sąsiadującą z nią jednostkę o połowę jej siły.",
+            "Flavor": ""
+        },
+        "70202": {
+            "Name": "Ramon Tyrconnel",
+            "Info": "Zadaj wrogiej jednostce 4 pkt obrażeń. Na koniec swojej tury, jeśli ta karta jest w twojej ręce, ujawnij ją i powtórz tę zdolność.",
             "Flavor": ""
         }
     }

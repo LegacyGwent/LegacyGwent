@@ -1,6 +1,6 @@
 # Unity release pitfalls
 
-Last verified: 2026-08-04
+Last verified: 2026-09-15
 
 ## Website artwork exists but the Unity card is blank
 
@@ -14,8 +14,10 @@ Last verified: 2026-08-04
   website previews, creating this split.
 - Fix: restore the exact historical full-size blob and `.meta`, create the
   correctly cropped miniature when absent, register both GUID/address pairs,
-  and rebuild the client. Do not upscale the website thumbnail as the shipped
-  card art.
+  and rebuild the client. Alternatively, a narrowly scoped runtime Sprite
+  rectangle can reuse the exact full-art pixels without another bitmap; the
+  September 14 cards use this path with explicit asset-handle/sprite ownership.
+  Do not upscale the website thumbnail as the shipped card art.
 - Prevention: before assigning any Art ID, check server preview, Unity full
   image, miniature, both metas, and both Addressables addresses. Restore only
   artwork actually entering the active card pool; restoring all 495 historical

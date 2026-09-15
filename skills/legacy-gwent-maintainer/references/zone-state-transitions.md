@@ -1,8 +1,8 @@
 # Zone transitions and state cleanup
 
-Last verified: 2026-09-13
+Last verified: 2026-09-15
 
-Verified against the DIY-AI engine used by CardMap `1.0.0.197`. These are
+Verified against the DIY-AI engine used by CardMap `1.0.0.198`. These are
 current implementation rules, not a proposal to unify the helpers. Source:
 `src/Cynthia.Card.Common/CardEffects/CardEffect.cs` and
 `src/Cynthia.Card.Server/GwentServerModels/GwentServerGame.cs` below
@@ -34,8 +34,8 @@ current implementation rules, not a proposal to unify the helpers. Source:
 | Cemetery Resurrect to board | Unlock without Repair; successfully moving sends AfterCardResurrect. Effects such as Draug transform first, so their state change cannot represent generic resurrection. |
 | Board replay | Play alone does not Repair or unlock. Decoy, Geralt Axii and Shupe's replay branch explicitly Repair(true), then enqueue/play and apply their own rewards. There is no universal Replay helper. |
 | Board to deck | Princess Pavetta, Milva, Cintrian Field Medic, Queen Calanthe and Lyrian Landsknecht explicitly Repair(true). The Great Oak returns its played Dryad through raw movement without that cleanup. |
-| Cemetery return to deck | Nenneke, Assire, Zoltan's Company and Swamp Thing use Repair(), preserving lock. Vandergrift's Blade moves directly and keeps its accumulated damage. |
-| Cemetery Resurrect to deck | Unlock without Repair and emit resurrection events despite no battlefield entry. Dimun Smuggler and Saesenthessis: Blaze use this; Ciri Dash also adds its own Strengthen. |
+| Cemetery return to deck | Assire, Zoltan's Company and Swamp Thing use Repair(), preserving lock. Vandergrift's Blade no longer has a return-to-deck ability. |
+| Cemetery Resurrect to deck | Unlock without Repair and emit resurrection events despite no battlefield entry. Dimun Smuggler, Nenneke and Saesenthessis: Blaze use this; Ciri Dash also adds its own Strengthen. |
 | Hand to deck | Swap/mulligan clears reveal but preserves lock and power changes. Raw movement does not even clear reveal. |
 
 Card-specific listeners can make additional changes after any native helper.

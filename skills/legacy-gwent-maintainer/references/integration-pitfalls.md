@@ -1,6 +1,6 @@
 # Integration pitfalls
 
-Last verified: 2026-08-03
+Last verified: 2026-09-15
 
 ## A skill script locates the discovery alias instead of the repository
 
@@ -16,19 +16,33 @@ Last verified: 2026-08-03
 - Verification: run the script through the physical path, personal discovery
   path, and secondary-checkout path; all three must report the same root and SHA.
 
-## A direct DIY-AI branch push deploys without review
+## A direct DIY-AI push immediately starts the release pipeline
 
-- Symptom: an explicitly targeted push to `diy-ai` can reach port 5010 without a
-  pull request or required review.
-- Cause: `diy-ai` currently has no GitHub branch protection, while its successful
-  push CI invokes the reusable deployment workflow automatically.
-- Fix: push candidate work to a review branch and open a PR; merge into `diy-ai`
-  only after all runtime gates are complete.
-- Prevention: never use `git push origin HEAD:diy-ai` as a convenience command;
-  add branch protection before treating review as an enforced control. A direct
-  push is reserved for an explicitly authorized DIY-AI emergency release.
-- Verification: query branch protection and workflow triggers, then confirm the
-  candidate SHA exists only on its review branch until approval.
+- Symptom: pushing to `diy-ai` automatically queues CI and, after its gates,
+  deploys to port 5010.
+- Cause: the branch push is the normal release trigger; a PR is not a separate
+  deployment prerequisite.
+- Fix: when the user authorizes a mainline release, prepare one isolated
+  candidate from current `origin/diy-ai`, finish local gates, then use
+  `git push origin HEAD:refs/heads/diy-ai`. Do not add an approval requirement
+  when the user has already authorized publication.
+- Prevention: check the target ref, preserve protected rule-card/replay worktrees,
+  and never push experimental commits to stable `diy`.
+- Verification: mainline SHA, successful gated deployment, live CardMap/health,
+  stable-service PID, and protected worktree fingerprints all match expectations.
+
+## A full new Unity worktree exhausts the Windows drive
+
+- Symptom: a new worktree fails partway through materializing duplicate art.
+- Cause: the repository has large tracked Unity resources; each ordinary
+  worktree needs its own copy regardless of shared Git objects.
+- Fix: create the new candidate with `git worktree add --no-checkout`, configure
+  a cone sparse checkout for needed source, then initialize that fresh index
+  with `git read-tree -mu HEAD`. Restore only additional required art fixtures.
+- Prevention: check free space first. Sparse an older task worktree only after
+  confirming it is clean; never remove unrelated changes to recover space.
+- Verification: the fresh candidate is clean before edits, required static art
+  fixtures exist, and protected worktree fingerprints are unchanged.
 
 ## A server-only follow-up reruns every Unity desktop build
 

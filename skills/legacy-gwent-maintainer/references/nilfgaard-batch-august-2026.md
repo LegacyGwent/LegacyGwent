@@ -1,6 +1,6 @@
 # August 6 Nilfgaard and global card batch
 
-Last verified: 2026-08-07
+Last verified: 2026-09-15
 
 Load this reference when changing the August 6 Nilfgaard restoration, global
 half-value arithmetic, or its regression tests.
@@ -32,8 +32,8 @@ half-value arithmetic, or its regression tests.
   enemy Unit cards in hand and deck.
 - Nilfgaardian Knight reveals the leftmost lowest-rarity own hand card and gains
   2 Armor. Ties are deterministic, not random.
-- Cupbearer conceals one random Bronze own-hand card and Boosts it by 1 at every
-  owner turn start.
+- Cupbearer uses a two-owner-turn countdown to conceal one random revealed
+  Bronze own-hand card and Heal it (September 14 replaces the former +1 Boost).
 - Mage Infiltrator copies an eligible enemy battlefield unit or revealed enemy
   hand unit to the opponent's board as a Doomed base copy; no eligible target
   ends cleanly.

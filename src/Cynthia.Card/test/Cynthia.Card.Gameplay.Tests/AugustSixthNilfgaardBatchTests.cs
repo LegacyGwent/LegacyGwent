@@ -149,43 +149,46 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CupbearerConcealsAndBoostsOneBronzeHandCardEverySecondOwnerTurnStart()
+        public async Task CupbearerConcealsAndHealsOneBronzeHandCardEverySecondOwnerTurnStart()
         {
             var fixture = new HeadlessGameFixture();
             var cupbearer = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.VanMoorlehemsCupbearer, RowPosition.MyRow1);
             var hand = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand);
+                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand, 5);
             hand.Status.IsReveal = true;
+            hand.Status.HealthStatus = -2;
             await fixture.SynchronizeClientsAsync();
 
             await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player2Index));
             Assert.True(hand.Status.IsReveal);
-            Assert.Equal(0, hand.Status.HealthStatus);
+            Assert.Equal(-2, hand.Status.HealthStatus);
 
             await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(hand.Status.IsReveal);
-            Assert.Equal(0, hand.Status.HealthStatus);
+            Assert.Equal(-2, hand.Status.HealthStatus);
 
             await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.False(hand.Status.IsReveal);
-            Assert.Equal(1, hand.Status.HealthStatus);
+            Assert.Equal(0, hand.Status.HealthStatus);
         }
 
         [Fact]
-        public async Task CupbearerDoesNotBoostAnUnrevealedBronzeHandCard()
+        public async Task CupbearerDoesNotHealAnUnrevealedBronzeHandCard()
         {
             var fixture = new HeadlessGameFixture();
             var cupbearer = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.VanMoorlehemsCupbearer, RowPosition.MyRow1);
             var hand = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyHand);
+            hand.Status.HealthStatus = -2;
             await fixture.SynchronizeClientsAsync();
 
             await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            await cupbearer.Effects.RaiseEvent(new AfterTurnStart(fixture.Game.Player1Index));
 
             Assert.False(hand.Status.IsReveal);
-            Assert.Equal(0, hand.Status.HealthStatus);
+            Assert.Equal(-2, hand.Status.HealthStatus);
         }
 
         [Fact]

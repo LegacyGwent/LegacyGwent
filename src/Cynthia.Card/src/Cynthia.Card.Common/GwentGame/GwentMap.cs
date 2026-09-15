@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 197);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 198);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -851,7 +851,7 @@ namespace Cynthia.Card
                 {
                     CardId ="12030", //Aguara: True Form
                     Name="狐妖：真身",
-                    Strength=2,
+                    Strength=1,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6891,7 +6891,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support,Categorie.Temeria},
                     Flavor = "南尼克的医术无人可及。",
-                    Info = "将墓场3张铜色/银色单位牌放回牌组。",
+                    Info = "将墓场3张铜色/银色单位牌放回牌组。该效果视为复活。",
                     CardArtsId = "12221200",
                     LinkedCards=new List<String> {},
                 }
@@ -7207,7 +7207,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "在阿德卡莱的一次骑士比武中，赛尔奇克打断了范德格里夫特的长剑。于是，愤怒的范德格里夫特下令铸造一把新的兵刃，还在上面附了强大的符文石。",
-                    Info = "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。若小局结束时位于墓场，返回牌组，并提升3点伤害。",
+                    Info = "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。",
                     CardArtsId = "20163300",
                     LinkedCards=new List<String> {},
                 }
@@ -11182,7 +11182,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "选择你牌组中的1张铜色单位牌。如果其战力高于此单位，吞噬该单位并按其战力提升自身战力。否则，打出该单位，并在回合结束时将其送入墓地。",
+                    Info = "选择牌组中1张铜色单位牌，如果其战力高于自身，吞噬该单位，并获得等同于其战力的增益。否则，打出该单位，并在回合结束时将其摧毁。",
                     CardArtsId = "202291",
                     LinkedCards=new List<String> {},
                 }
@@ -11774,7 +11774,7 @@ namespace Cynthia.Card
                     IsCountdown = true,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "每回合结束时，复活此单位。若战力不高于7点，每复活2次，获得1点强化。",
+                    Info = "每回合结束时，复活此单位。每复活2次，获得1点强化。",
                     CardArtsId = "202282",
                     LinkedCards=new List<String> {},
                 }
@@ -14183,7 +14183,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Treant},
                     Flavor = "树精的神秘力量可以将森林的树木化作任何样子。变出一头硕大的野猪又有何难？",
-                    Info = "造成4点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。",
+                    Info = "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。",
                     CardArtsId = "202268",
                     LinkedCards=new List<String> {},
                 }
@@ -14415,7 +14415,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。",
-                    Info = "摧毁1个敌军单位，使其相邻单位各获得其战力一半的增益。",
+                    Info = "检视对方牌组3张非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。",
                     CardArtsId = "202543",
                     LinkedCards=new List<String> {},
                 }
@@ -14426,7 +14426,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70151", //Philippe van Moorlehem
                     Name="菲利普·凡·莫拉汉姆",
-                    Strength=8,
+                    Strength=10,
                     Group=Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14436,7 +14436,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。",
-                    Info = "对一个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身并触发此能力。",
+                    Info = "使牌组中1个单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
                     CardArtsId = "202545",
                     LinkedCards=new List<String> {},
                 }
@@ -14458,7 +14458,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "我的拿手菜？生肉酱。什么肉？啊，那就得看主人的心情了……",
-                    Info = "每2回合开始时，随机隐匿1张铜色手牌，随后使其获得1点增益。",
+                    Info = "每2回合开始时，随机隐匿1张铜色手牌，随后将其治愈。",
                     CardArtsId = "202546",
                     LinkedCards=new List<String> {},
                 }
@@ -14469,7 +14469,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70153", //Van Moorlehem Hunter
                     Name="莫拉汉姆家猎手",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14479,7 +14479,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "对一个敌军单位造成3点伤害，若手牌中没有金色牌则重复1次。",
+                    Info = "使牌组中1个铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
                     CardArtsId = "202547",
                     LinkedCards=new List<String> {},
                 }
@@ -14490,17 +14490,18 @@ namespace Cynthia.Card
                 {
                     CardId ="70154", //Iris: Shade
                     Name="爱丽丝：庄园幽影",
-                    Strength=7,
+                    Strength=9,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    Countdown = 2,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "和欧吉尔德的婚约犹如一场美梦……",
-                    Info = "休战：向双方手牌中添加2张爱丽丝的同伴。爱丽丝：庄园幽影在场时，己方的爱丽丝的同伴可以选择丢弃的牌。",
+                    Info = "休战：回合结束时，为双方手牌各添加1张“爱丽丝的同伴”，一共可生效2次。使己方打出的“爱丽丝的同伴”可以选择丢弃的牌。",
                     CardArtsId = "202399",
                     LinkedCards=new List<String> {"13004"},
                 }
@@ -14960,12 +14961,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    Countdown = 2,
-                    IsCountdown = true,
+                    Countdown = 0,
+                    IsCountdown = false,
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
                     Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
-                    Info = "每回合开始时，复活此单位。每复活2次，对自身造成1点削弱。每回合结束时，与敌方最弱单位对决，若存活，则改变自身的锁定状态。",
+                    Info = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，若存活，对自身造成1点削弱，并改变自身的锁定状态。",
                     CardArtsId = "c10006000",
                     LinkedCards=new List<String> {},
                 }
@@ -15560,6 +15561,48 @@ namespace Cynthia.Card
                     Flavor = "",
                     Info = "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。若在己方回合中获得过增益，回合结束时重复此能力。",
                     CardArtsId = "d22220000",
+                    LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70201",//里恩斯
+                new GwentCard()
+                {
+                    CardId = "70201",
+                    Name = "里恩斯",
+                    Strength = 7,
+                    Group = Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Mage },
+                    Flavor = "",
+                    Info = "摧毁1个敌军单位，使其相邻单位各获得等同于其战力一半的增益。",
+                    CardArtsId = "c10001100",
+                    LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70202",//拉蒙·蒂尔康奈尔
+                new GwentCard()
+                {
+                    CardId = "70202",
+                    Name = "拉蒙·蒂尔康奈尔",
+                    Strength = 7,
+                    Group = Group.Silver,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Officer },
+                    Flavor = "",
+                    Info = "对1个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身，并重复此能力。",
+                    CardArtsId = "d19330000",
                     LinkedCards = new List<String> {},
                 }
             },

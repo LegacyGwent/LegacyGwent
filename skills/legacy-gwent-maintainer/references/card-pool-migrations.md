@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-08-11
+Last verified: 2026-09-15
 
-Verified against the DIY-AI reset lineage through `1.0.0.182`.
+Verified against the DIY-AI reset lineage through `1.0.0.198`.
 
 The August 11 first-batch restoration of `70082` (Arnjolf the Patricide) must
 also remove that ID from `DiyAiCardPool.RetiredCardIds` and add it to the exact
@@ -40,7 +40,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 722 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 727 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
 - After the `1.0.0.176` restoration, 84 entries are retired. The August 5 cards remain
@@ -82,6 +82,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   (War Council), and `70197` (Draug: Northern Realms). Keep those IDs in that
   exact order. `70197` intentionally reuses Draug art `13210100`; sharing art
   does not permit merging or reusing its persistent CardMap identity.
+- Subsequent mainline releases append `70198` (Girl Who Drank Brokilon Water),
+  `70199` (Endrega Queen), and `70200` (Egmond). September 14 appends
+  `70201` (Rience) and `70202` (Ramon Tyrconnel), preserving the first 725 slots.
+  Verify IDs against the compiled map; stale reference counts are not an ID allocator.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.
@@ -114,7 +118,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 722 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 727 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

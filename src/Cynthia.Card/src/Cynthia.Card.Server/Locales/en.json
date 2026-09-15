@@ -2364,7 +2364,7 @@
         },
         "43006": {
             "Name": "Nenneke",
-            "Info": "Deploy: Return 3 Bronze or Silver units from the graveyard to your deck.",
+            "Info": "Return 3 Bronze or Silver units from your graveyard to your deck. This counts as Resurrecting them.",
             "Flavor": "Few know more about healing than Nenneke."
         },
         "43007": {
@@ -2439,7 +2439,7 @@
         },
         "43021": {
             "Name": "Vandergrift's Blade",
-            "Info": "Choose One: Destroy a Bronze or Silver Cursed enemy; or deal 10 Damage and Banish the unit if it was killed.",
+            "Info": "Deal 10 damage. If the target is a Bronze or Silver Cursed unit, destroy it. Banish the unit destroyed by this ability.",
             "Flavor": "Seltkirk shattered Vandergrift's sword during a knights' tourney in Ard Carraigh. Afterwards Vandergrift, enraged at his weapon's failure, ordered a new one forged, this time with powerful runestones enchanted into it."
         },
         "44001": {
@@ -3379,7 +3379,7 @@
         },
         "70002": {
             "Name": "Detlaff: Higher Vampire",
-            "Info": "Choose a Bronze unit in your deck. If it has more Power than this unit, consume it and boost self by its power. Otherwise, play that unit and send it to the graveyard at the end of the turn.",
+            "Info": "Choose a Bronze unit in your deck. If its Power is higher than this unit's, Consume it and Boost this unit by its Power. Otherwise, play it and destroy it at the end of the turn.",
             "Flavor": "In his true form, the Beast of Beauclair could cause even a witcher to quake in his boots."
         },
         "70003": {
@@ -3514,7 +3514,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "Every 2 turns, at turn end, Resurrect this unit and Strengthen it by 1.",
+            "Info": "At the end of your turn, Resurrect this unit. Every 2 times it is Resurrected, Strengthen it by 1.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3904,7 +3904,7 @@
         },
         "70139": {
             "Name": "Treant Boar",
-            "Info": "Deploy: Damage a unit by 4, then move adjacent units to random rows. If the target is destroyed, repeat once.",
+            "Info": "Deal 3 damage and move units adjacent to the target to random rows on their side. If the target is destroyed, repeat this ability.",
             "Flavor": "Dryads wield a mystifying power to shape the forest's trees into any form they wish. So why not a giant boar?"
         },
         "70140": {
@@ -3959,27 +3959,27 @@
         },
         "70150": {
             "Name": "Vincent Van Moorlehem",
-            "Info": "Deploy: Destroy an enemy unit, then Boost its adjacent units by half of its Power each.",
+            "Info": "Look at 3 non-Spying Bronze or Silver units in the enemy deck. Choose one, reduce its Power to 1, then deal damage equal to the Power it lost.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Deploy: Damage an enemy by 4.\nOn turn end, if in hand, Reveal self and trigger its Deploy ability.",
+            "Info": "Damage a unit in your deck by half its Power, then deal damage equal to the Power it lost.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
             "Name": "Van Moorlehem's Cup bearer",
-            "Info": "Every 2 turns, randomly Conceal a Bronze card in your hand, then Boost it by 1.",
+            "Info": "At the start of every second allied turn, Conceal a random revealed Bronze card in your hand, then Heal it.",
             "Flavor": "My specialty? Tartar. Of what? Ah, that depends on the host's mood…"
         },
         "70153": {
             "Name": "Van Moorlehem Hunter",
-            "Info": "Deploy: Damage an enemy unit by 3. If there is no Gold card in your hand, repeat once.",
+            "Info": "Damage a Bronze unit in your deck by half its Power, then deal damage equal to the Power it lost.",
             "Flavor": "Rather than beasts, he prefers to stalk poachers. But they don't come as often anymore into the woods surrounding the palace…"
         },
         "70154": {
             "Name": "Iris: Shade",
-            "Info": "Deploy, Truce: Add 2 Iris' Companions to both hands. If this card is on your side of the board, your Iris' Companions will Discard a chosen card instead of a random one.",
+            "Info": "Truce: At the end of your turn, add 1 Iris' Companions to each player's hand. This can trigger twice. While this unit is on your side of the board, your played Iris' Companions can choose which card to Discard.",
             "Flavor": "Olgierd's betrothed was like a dream…"
         },
         "70155": {
@@ -4099,7 +4099,7 @@
         },
         "70178": {
             "Name": "Ulle the Unlucky",
-            "Info": "At the start of every allied turn, Resurrect this unit. At the end of every allied turn, Duel the weakest enemy. If this unit survives, change its Lock status.",
+            "Info": "At the start of your turn, Resurrect this unit. At the end of your turn, Duel the weakest enemy unit. If this unit survives, Weaken it by 1, then toggle its Lock status.",
             "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
         },
         "70179": {
@@ -4275,6 +4275,16 @@
         "70200": {
             "Name": "Egmond",
             "Info": "Remove all Boost from an allied unit, then damage an enemy unit by the amount removed. If it is destroyed, Boost self by 1. If this unit was Boosted during your turn, repeat this ability at the end of the turn.",
+            "Flavor": ""
+        },
+        "70201": {
+            "Name": "Rience",
+            "Info": "Destroy an enemy unit and Boost each adjacent unit by half its Power.",
+            "Flavor": ""
+        },
+        "70202": {
+            "Name": "Ramon Tyrconnel",
+            "Info": "Deal 4 damage to an enemy unit. At the end of your turn, if this card is in your hand, Reveal it and repeat this ability.",
             "Flavor": ""
         }
     }

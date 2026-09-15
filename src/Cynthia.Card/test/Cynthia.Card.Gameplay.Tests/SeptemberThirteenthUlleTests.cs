@@ -8,7 +8,7 @@ namespace Cynthia.Card.Gameplay.Tests
         private const string UlleId = "70178";
 
         [Fact]
-        public async Task UlleResurrectsOnOwnerTurnStartAndCountsResurrectionsInsteadOfTurns()
+        public async Task UlleResurrectsOnOwnerTurnStartWithoutAResurrectionCountdown()
         {
             var fixture = new HeadlessGameFixture();
             var ulle = fixture.AddCard(fixture.Game.Player1Index, UlleId, RowPosition.MyCemetery);
@@ -17,16 +17,16 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player2Index));
             Assert.True(ulle.Status.CardRow.IsInCemetery());
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
 
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(ulle.Status.CardRow.IsOnPlace());
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             Assert.Equal(3, ulle.Status.Strength);
 
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player2Index));
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             Assert.Equal(3, ulle.Status.Strength);
             Assert.False(ulle.Status.IsLock);
             Assert.True(enemy.Status.CardRow.IsOnPlace());
@@ -34,42 +34,49 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task UlleWeakensEverySecondResurrectionAcrossRepeatedDuelDeathsAndBanishesAtZero()
+        public async Task UlleWeakensAfterEachOwnerTurnEndDuelAndCanDieFromItsOwnWeaken()
         {
             var fixture = new HeadlessGameFixture();
             var ulle = fixture.AddCard(fixture.Game.Player1Index, UlleId, RowPosition.MyCemetery);
-            fixture.AddCard(fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 30);
             await fixture.SynchronizeClientsAsync();
 
-            for (var resurrection = 1; resurrection <= 6; resurrection++)
+            for (var turn = 1; turn <= 3; turn++)
             {
+                fixture.AddCard(fixture.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow1, 1);
+                await fixture.SynchronizeClientsAsync();
                 await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
-
-                var expectedStrength = 3 - resurrection / 2;
-                Assert.Equal(expectedStrength, ulle.Status.Strength);
-                Assert.Equal(0, ulle.Status.HealthStatus);
-                Assert.Equal(resurrection % 2 == 1 ? 1 : 2, ulle.Status.Countdown);
-                Assert.True(ulle.Status.IsCountdown);
-                if (expectedStrength == 0)
-                {
-                    Assert.Equal(RowPosition.Banish, ulle.Status.CardRow);
-                    break;
-                }
-
                 Assert.True(ulle.Status.CardRow.IsOnPlace());
                 await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
-                Assert.True(ulle.Status.CardRow.IsInCemetery());
-                Assert.Equal(expectedStrength, ulle.Status.Strength);
-                Assert.False(ulle.Status.IsLock);
+                if (turn < 3)
+                {
+                    Assert.True(ulle.Status.CardRow.IsOnPlace());
+                    Assert.Equal(3 - turn, ulle.Status.Strength);
+                    Assert.True(ulle.Status.IsLock);
+                    await ulle.Effect.Lock(ulle);
+                }
             }
-
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.Equal(RowPosition.Banish, ulle.Status.CardRow);
+            Assert.False(ulle.Status.IsLock);
             Assert.False(fixture.Game.OperactionList.IsRunning);
         }
 
         [Fact]
-        public async Task UlleCountsExternalResurrectionButNotOtherCardsOrFailedAttempts()
+        public async Task UlleDoesNotWeakenOrLockAfterLosingItsDuel()
+        {
+            var fixture = new HeadlessGameFixture();
+            var ulle = fixture.AddCard(fixture.Game.Player1Index, UlleId, RowPosition.MyRow1);
+            fixture.AddCard(fixture.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow1, 30);
+            await fixture.SynchronizeClientsAsync();
+
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
+
+            Assert.True(ulle.Status.CardRow.IsInCemetery());
+            Assert.Equal(3, ulle.Status.Strength);
+            Assert.False(ulle.Status.IsLock);
+        }
+
+        [Fact]
+        public async Task UlleExternalResurrectionDoesNotSpendOrTriggerAResurrectionCounter()
         {
             var fixture = new HeadlessGameFixture();
             var ulle = fixture.AddCard(fixture.Game.Player1Index, UlleId, RowPosition.MyCemetery);
@@ -78,27 +85,27 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await fixture.Game.AddTask(() => other.Effect.Resurrect(
                 new CardLocation(RowPosition.MyRow1, 0), other));
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
 
             await fixture.Game.AddTask(() => ulle.Effect.Resurrect(
                 new CardLocation(RowPosition.MyStay, 0), other));
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             await fixture.Game.AddTask(() => ulle.Effect.Resurrect(
                 new CardLocation(RowPosition.MyRow1, 0), other));
             Assert.True(ulle.Status.CardRow.IsOnStay());
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
 
             await ulle.Effect.ToCemetery();
             await fixture.Game.AddTask(() => ulle.Effect.Resurrect(
                 new CardLocation(RowPosition.MyHand, 0), other));
             Assert.True(ulle.Status.CardRow.IsInHand());
-            Assert.Equal(2, ulle.Status.Strength);
+            Assert.Equal(3, ulle.Status.Strength);
             Assert.Equal(0, ulle.Status.HealthStatus);
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
         }
 
         [Fact]
-        public async Task UlleCannotSpendAResurrectionCountWhenAllRowsAreFull()
+        public async Task UlleCannotResurrectWhenAllRowsAreFull()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.RowMaxCount = 1;
@@ -110,13 +117,13 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(ulle.Status.CardRow.IsInCemetery());
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             Assert.Equal(3, ulle.Status.Strength);
 
             await blocker.Effect.ToCemetery();
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(ulle.Status.CardRow.IsOnPlace());
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             Assert.Equal(3, ulle.Status.Strength);
         }
 
@@ -143,7 +150,8 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.True(ally.Status.CardRow.IsOnPlace());
             Assert.True(ulle.Status.CardRow.IsOnPlace());
             Assert.True(ulle.Status.IsLock);
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
+            Assert.Equal(2, ulle.Status.Strength);
 
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.Single(weakest, card => card.Status.CardRow.IsInCemetery());
@@ -164,13 +172,13 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.True(ulle.Status.IsLock);
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             await ulle.Effect.ToCemetery();
             Assert.True(ulle.Status.IsLock);
 
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
             Assert.True(ulle.Status.CardRow.IsInCemetery());
-            Assert.Equal(1, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
 
             await fixture.Game.AddTask(() => ulle.Effect.Resurrect(
                 new CardLocation(RowPosition.MyRow1, 0), source));
@@ -179,7 +187,7 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.False(ulle.Status.IsLock);
             Assert.True(ulle.Status.CardRow.IsOnPlace());
             Assert.Equal(2, ulle.Status.Strength);
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
         }
 
         [Fact]
@@ -201,7 +209,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task UlleWithoutAnEnemyDoesNotToggleItsLockOrSpendAResurrectionCount()
+        public async Task UlleWithoutAnEnemyDoesNotToggleItsLockOrWeaken()
         {
             var fixture = new HeadlessGameFixture();
             var ulle = fixture.AddCard(fixture.Game.Player1Index, UlleId, RowPosition.MyRow1);
@@ -211,7 +219,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.True(ulle.Status.CardRow.IsOnPlace());
             Assert.False(ulle.Status.IsLock);
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
         }
 
         [Theory]
@@ -229,7 +237,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.Equal(row, ulle.Status.CardRow);
             Assert.False(ulle.Status.IsLock);
-            Assert.Equal(2, ulle.Status.Countdown);
+            Assert.Equal(0, ulle.Status.Countdown);
             Assert.Equal(0, enemy.Status.HealthStatus);
             Assert.True(enemy.Status.CardRow.IsOnPlace());
         }
@@ -247,7 +255,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 if (@event.Target == _ulle)
                 {
                     UnlockedInCemeteryBeforeCounting = _ulle.Status.CardRow.IsInCemetery()
-                        && _ulle.Status.Countdown == 1;
+                        && _ulle.Status.Countdown == 0;
                 }
                 return Task.CompletedTask;
             }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
@@ -10,29 +11,37 @@ namespace Cynthia.Card
         public VincentvanMoorlehem(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
-            if (!selectList.TrySingle(out var target))
+            var inspected = Game.PlayersDeck[AnotherPlayer]
+                .Where(x => x.IsAnyGroup(Group.Copper, Group.Silver) &&
+                            x.Is(type: CardType.Unit) &&
+                            !x.Status.IsSpying &&
+                            x.CardInfo().CardUseInfo != CardUseInfo.EnemyRow &&
+                            x.CardInfo().CardUseInfo != CardUseInfo.EnemyPlace)
+                .Mess(RNG)
+                .Take(3)
+                .ToList();
+            if (!(await Game.GetSelectMenuCards(PlayerIndex, inspected, isEnemyBack: false))
+                .TrySingle(out var deckUnit))
             {
                 return 0;
             }
-            int num = target.CardPoint();
-            await target.Effect.ToCemetery(CardBreakEffectType.Scorch);
-            
-            //如果左侧有单位且不是伏击卡
-            var Ltaget = target.GetRangeCard(1, GetRangeType.HollowLeft);
-            if (Ltaget.Count() != 0 && !Ltaget.Single().Status.Conceal)
+
+            var before = deckUnit.CardPoint();
+            await deckUnit.Effect.Lower_Power_By(before - 1, Card);
+            var lostPower = deckUnit.Status.CardRow.IsInDeck()
+                ? Math.Max(0, before - Math.Max(0, deckUnit.CardPoint()))
+                : Math.Max(0, before);
+            if (lostPower <= 0)
             {
-                await Ltaget.Single().Effect.Boost((num + 1) / 2, Card);
+                return 0;
             }
 
-            //如果右侧有单位且不是伏击卡
-            var Rtaget = target.GetRangeCard(1, GetRangeType.HollowRight);
-            if (Rtaget.Count() != 0 && !Rtaget.Single().Status.Conceal)
+            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+            if (selectList.TrySingle(out var target))
             {
-                await Rtaget.Single().Effect.Boost((num + 1) / 2, Card);
+                await target.Effect.Damage(lostPower, Card);
             }
             return 0;
-            
         }
     }
 }

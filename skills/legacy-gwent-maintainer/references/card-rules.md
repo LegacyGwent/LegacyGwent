@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-09-13
+Last verified: 2026-09-15
 
 ## August 23 first card batch
 
@@ -18,9 +18,9 @@ Last verified: 2026-09-13
   and website-scale updates do not add them to an already installed client, so
   an older client may remain blank until a client containing the rebuilt local
   Addressables catalog/bundles is installed.
-- Ulle the Unlucky (`70178`) toggles lock after surviving its owner-turn-end
-  Duel. Since September 13, its visible counter applies Weaken(1) every second
-  successful resurrection; locked cards still cannot trigger their own revival.
+- Ulle the Unlucky (`70178`) has no countdown under the September 14 rule.
+  After surviving its owner-turn-end Duel, it receives Weaken(1), then toggles
+  lock if still alive on the board. Locked cards cannot trigger their own revival.
 
 ## Similar Chinese card names
 

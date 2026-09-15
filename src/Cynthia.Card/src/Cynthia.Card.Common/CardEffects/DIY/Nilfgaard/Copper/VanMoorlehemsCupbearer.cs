@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70152")]//口莫拉汉姆家斟酒侍者 VanMoorlehemsCupbearer
     public class VanMoorlehemsCupbearer : CardEffect, IHandlesEvent<AfterTurnStart>
-    {//每回合开始时，随机隐匿1张铜色手牌并使其获得1点增益。
+    {//每两个己方回合开始时，随机隐匿1张被揭示的铜色手牌并治愈它。
         public VanMoorlehemsCupbearer(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -37,7 +37,7 @@ namespace Cynthia.Card
             }
 
             await target.Effect.Conceal(Card);
-            await target.Effect.Boost(1, Card);
+            await target.Effect.Heal(Card);
         }
     }
 }

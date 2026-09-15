@@ -686,6 +686,8 @@ namespace Cynthia.Card
         public const string GirlWhoDrankBrokilonWater = "70198";
         public const string EndregaQueen = "70199";
         public const string Egmond = "70200";
+        public const string Rience = "70201";
+        public const string RamonTyrconnel = "70202";
         public const string SvalblodFanatic = "70046";
 
     }

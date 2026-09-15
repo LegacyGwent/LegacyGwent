@@ -42,6 +42,8 @@ for the task, then rewrite the knowledge base when verified learning occurs.
 - Windows local setup or Unity: read `references/development.md`.
 - Server, MongoDB, SSH, Actions, deployment, or rollback: read
   `references/operations.md`.
+- Publishing a card batch: read `references/release-preflight.md` and use its
+  `card-batch-probe.py` workflow for compiled/live metadata comparison.
 - Runtime/package upgrades, vulnerability findings, or dependency policy: read
   `references/dependencies.md`.
 - Unity startup, runtime localization, or native platform launch failures: read

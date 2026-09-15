@@ -38,8 +38,8 @@ namespace Cynthia.Card.Gameplay.Tests
         [Theory]
         [InlineData(6, 7)]
         [InlineData(7, 8)]
-        [InlineData(8, 8)]
-        public async Task SigvaldOnlyStrengthensAtMostSevenPowerOnEverySecondResurrection(
+        [InlineData(8, 9)]
+        public async Task SigvaldStrengthensEverySecondResurrectionWithoutPowerCap(
             int strength, int expectedStrength)
         {
             var fixture = new HeadlessGameFixture();

@@ -41,8 +41,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 197), GwentMap.CardMapVersion);
-            Assert.Equal(725, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 198), GwentMap.CardMapVersion);
+            Assert.Equal(727, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,8 +52,84 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberFourteenthFirstBatchMatchesRulesMetadataAndLocales()
+        {
+            var expected = new[]
+            {
+                (Id: "70038", Strength: 1, Group: Group.Gold, Faction: Faction.Skellige, Effect: typeof(Sigvald), Info: "每回合结束时，复活此单位。每复活2次，获得1点强化。"),
+                (Id: "43021", Strength: 0, Group: Group.Silver, Faction: Faction.NorthernRealms, Effect: typeof(VandergriftSBlade), Info: "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。"),
+                (Id: "70178", Strength: 3, Group: Group.Silver, Faction: Faction.Skellige, Effect: typeof(Ulle), Info: "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，若存活，对自身造成1点削弱，并改变自身的锁定状态。"),
+                (Id: "12030", Strength: 1, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(AguaraTrueForm), Info: "生成1张己方起始牌组之外的铜色/银色“法术”牌。"),
+                (Id: "70154", Strength: 9, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(IrisShade), Info: "休战：回合结束时，为双方手牌各添加1张“爱丽丝的同伴”，一共可生效2次。使己方打出的“爱丽丝的同伴”可以选择丢弃的牌。"),
+                (Id: "70139", Strength: 7, Group: Group.Silver, Faction: Faction.ScoiaTael, Effect: typeof(TreantBoar), Info: "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
+                (Id: "70002", Strength: 5, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(DetlaffHigherVampire), Info: "选择牌组中1张铜色单位牌，如果其战力高于自身，吞噬该单位，并获得等同于其战力的增益。否则，打出该单位，并在回合结束时将其摧毁。"),
+                (Id: "43006", Strength: 10, Group: Group.Silver, Faction: Faction.NorthernRealms, Effect: typeof(Nenneke), Info: "将墓场3张铜色/银色单位牌放回牌组。该效果视为复活。"),
+                (Id: "70153", Strength: 9, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorleheHunter), Info: "使牌组中1个铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
+                (Id: "70151", Strength: 10, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(PhilippevanMoorlehem), Info: "使牌组中1个单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
+                (Id: "70150", Strength: 7, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(VincentvanMoorlehem), Info: "检视对方牌组3张非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。"),
+                (Id: "70152", Strength: 9, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorlehemsCupbearer), Info: "每2回合开始时，随机隐匿1张铜色手牌，随后将其治愈。"),
+                (Id: "70201", Strength: 7, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(Rience), Info: "摧毁1个敌军单位，使其相邻单位各获得等同于其战力一半的增益。"),
+                (Id: "70202", Strength: 7, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(RamonTyrconnel), Info: "对1个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身，并重复此能力。"),
+            };
+            var data = new GwentCardDataService();
+            foreach (var rule in expected)
+            {
+                var card = GwentMap.CardMap[rule.Id];
+                Assert.Equal(rule.Strength, card.Strength);
+                Assert.Equal(rule.Group, card.Group);
+                Assert.Equal(rule.Faction, card.Faction);
+                Assert.Equal(rule.Id == "43021" ? CardType.Special : CardType.Unit, card.CardType);
+                Assert.Equal(rule.Info, card.Info);
+                Assert.Equal(rule.Effect, data.GetType(rule.Id));
+                Assert.True(DiyAiCardPool.IsUserDeckCard(rule.Id));
+                Assert.False(card.IsDerive);
+            }
+            Assert.True(GwentMap.CardMap[CardId.IrisShade].IsCountdown);
+            Assert.Equal(2, GwentMap.CardMap[CardId.IrisShade].Countdown);
+            Assert.False(GwentMap.CardMap[CardId.Ulle].IsCountdown);
+            Assert.Equal(0, GwentMap.CardMap[CardId.Ulle].Countdown);
+            Assert.Equal(new[] { Categorie.Mage }, GwentMap.CardMap[CardId.Rience].Categories);
+            Assert.Equal(new[] { Categorie.Officer }, GwentMap.CardMap[CardId.RamonTyrconnel].Categories);
+            Assert.Equal("c10001100", GwentMap.CardMap[CardId.Rience].CardArtsId);
+            Assert.Equal("d19330000", GwentMap.CardMap[CardId.RamonTyrconnel].CardArtsId);
+            var roots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                foreach (var rule in expected)
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                    {
+                        Assert.Equal(locales[0].CardLocales[rule.Id].Name, locale.CardLocales[rule.Id].Name);
+                        Assert.Equal(locales[0].CardLocales[rule.Id].Info, locale.CardLocales[rule.Id].Info);
+                    });
+                    if (language == "cn")
+                        Assert.All(locales, locale => Assert.Equal(rule.Info, locale.CardLocales[rule.Id].Info));
+                }
+            }
+            var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets";
+            var groupText = File.ReadAllText(FindRepositoryFile($"{assets}/AddressableAssetsData/AssetGroups/Default Local Group.asset"));
+            foreach (var art in new[] { "c10001100", "d19330000" })
+            {
+                var imagePath = FindRepositoryFile($"{assets}/Addressables/Cards/{art}.png");
+                Assert.True(new FileInfo(imagePath).Length > 100000);
+                var meta = File.ReadAllText(imagePath + ".meta");
+                var guid = Regex.Match(meta, @"(?m)^guid: ([0-9a-f]+)").Groups[1].Value;
+                Assert.Equal(32, guid.Length);
+                Assert.Contains($"m_GUID: {guid}", groupText);
+                Assert.Contains($"m_Address: {art}\n", groupText.Replace("\r\n", "\n"));
+            }
         }
 
         [Fact]
@@ -62,7 +138,7 @@ namespace Cynthia.Card.Server.Tests
             var expected = new Dictionary<string, string>
             {
                 ["64004"] = "将1个铜色单位从己方墓场放回牌组。该效果视为复活。",
-                [CardId.Ulle] = "每回合开始时，复活此单位。每复活2次，对自身造成1点削弱。每回合结束时，与敌方最弱单位对决，若存活，则改变自身的锁定状态。"
+                [CardId.Ulle] = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，若存活，对自身造成1点削弱，并改变自身的锁定状态。"
             };
             var data = new GwentCardDataService();
             Assert.Equal(typeof(DimunSmuggler), data.GetType("64004"));
@@ -71,8 +147,8 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(Group.Copper, GwentMap.CardMap["64004"].Group);
             Assert.Equal(3, GwentMap.CardMap[CardId.Ulle].Strength);
             Assert.Equal(Group.Silver, GwentMap.CardMap[CardId.Ulle].Group);
-            Assert.Equal(2, GwentMap.CardMap[CardId.Ulle].Countdown);
-            Assert.True(GwentMap.CardMap[CardId.Ulle].IsCountdown);
+            Assert.Equal(0, GwentMap.CardMap[CardId.Ulle].Countdown);
+            Assert.False(GwentMap.CardMap[CardId.Ulle].IsCountdown);
             Assert.Equal(new[] { Categorie.Cursed, Categorie.ClanAnCraite }, GwentMap.CardMap[CardId.Ulle].Categories);
             foreach (var rule in expected)
             {
@@ -111,11 +187,11 @@ namespace Cynthia.Card.Server.Tests
             var expected = new[]
             {
                 (Id: "70139", Strength: 7, Group: Group.Silver, Faction: Faction.ScoiaTael,
-                    Effect: typeof(TreantBoar), Info: "造成4点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
+                    Effect: typeof(TreantBoar), Info: "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
                 (Id: "43021", Strength: 0, Group: Group.Silver, Faction: Faction.NorthernRealms,
-                    Effect: typeof(VandergriftSBlade), Info: "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。若小局结束时位于墓场，返回牌组，并提升3点伤害。"),
+                    Effect: typeof(VandergriftSBlade), Info: "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。"),
                 (Id: "70038", Strength: 1, Group: Group.Gold, Faction: Faction.Skellige,
-                    Effect: typeof(Sigvald), Info: "每回合结束时，复活此单位。若战力不高于7点，每复活2次，获得1点强化。"),
+                    Effect: typeof(Sigvald), Info: "每回合结束时，复活此单位。每复活2次，获得1点强化。"),
                 (Id: "70109", Strength: 8, Group: Group.Copper, Faction: Faction.ScoiaTael,
                     Effect: typeof(DwarvenChariot), Info: "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。"),
                 (Id: "51003", Strength: 3, Group: Group.Leader, Faction: Faction.ScoiaTael,
@@ -546,7 +622,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.ArnjolfThePatricide));
             Assert.False(GwentMap.CardMap[CardId.ArnjolfThePatricide].IsDerive);
             Assert.Equal(
-                "每回合结束时，复活此单位。若战力不高于7点，每复活2次，获得1点强化。",
+                "每回合结束时，复活此单位。每复活2次，获得1点强化。",
                 GwentMap.CardMap["70038"].Info);
             Assert.Equal(
                 "复活1个史凯利杰铜色/银色单位。",
@@ -633,7 +709,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("造成3点伤害", GwentMap.CardMap[CardId.BowDryad].Info);
             Assert.Contains("6点伤害", GwentMap.CardMap[CardId.DamnedSorceress].Info);
             Assert.Equal(
-                "每回合开始时，复活此单位。每复活2次，对自身造成1点削弱。每回合结束时，与敌方最弱单位对决，若存活，则改变自身的锁定状态。",
+                "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，若存活，对自身造成1点削弱，并改变自身的锁定状态。",
                 GwentMap.CardMap[CardId.Ulle].Info);
             Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.GeraltAard].Info);
             Assert.DoesNotContain("部署：", GwentMap.CardMap[CardId.Ves].Info);
@@ -1350,8 +1426,8 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("怪兽”相关类型", GwentMap.CardMap[CardId.GeraltProfessional].Info);
             Assert.DoesNotContain("放逐", GwentMap.CardMap[CardId.GeraltProfessional].Info);
             Assert.Equal(9, GwentMap.CardMap[CardId.OlgierdVonEverec].Strength);
-            Assert.Equal(7, GwentMap.CardMap[CardId.IrisShade].Strength);
-            Assert.Contains("添加2张", GwentMap.CardMap[CardId.IrisShade].Info);
+            Assert.Equal(9, GwentMap.CardMap[CardId.IrisShade].Strength);
+            Assert.Contains("各添加1张", GwentMap.CardMap[CardId.IrisShade].Info);
             Assert.Equal(7, GwentMap.CardMap[CardId.Orianna].Strength);
             Assert.Equal(8, GwentMap.CardMap[CardId.CloudGiant].Strength);
             Assert.Equal(9, GwentMap.CardMap[CardId.Keltullis].Strength);
@@ -1780,7 +1856,6 @@ namespace Cynthia.Card.Server.Tests
                 ["src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Skellige/Copper/AnCraiteWarcrier.cs"] = "target.Status.HealthStatus + 1) / 2",
                 ["src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/Skellige/Silver/KnutTheCallous.cs"] = "(DTarget.CardPoint() + 1) / 2",
                 ["src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/ScoiaTael/Gold/TheGreatOak.cs"] = "(Dtarget.Status.Strength + 1) / 2",
-                ["src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/DIY/Nilfgaard/Gold/VincentvanMoorlehem.cs"] = "(num + 1) / 2"
             };
             Assert.All(halfSources, source => Assert.Contains(
                 source.Value,
@@ -1864,7 +1939,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(GwentMap.CardMap["70146"].IsCountdown);
             Assert.Equal(2, GwentMap.CardMap["70146"].Countdown);
             Assert.Contains("2回合后的回合开始时", GwentMap.CardMap["70146"].Info);
-            Assert.Contains("随后使其获得1点增益", GwentMap.CardMap["70152"].Info);
+            Assert.Contains("随后将其治愈", GwentMap.CardMap["70152"].Info);
             Assert.False(GwentMap.CardMap["70163"].IsCountdown);
             Assert.DoesNotContain("生效3次", GwentMap.CardMap["70163"].Info);
             Assert.Contains("所有增益和护甲", GwentMap.CardMap["70179"].Info);

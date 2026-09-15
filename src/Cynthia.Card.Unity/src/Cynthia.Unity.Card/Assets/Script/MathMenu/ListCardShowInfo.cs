@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Cynthia.Card;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ListCardShowInfo : MonoBehaviour
 {
@@ -24,12 +25,25 @@ public class ListCardShowInfo : MonoBehaviour
     public Sprite SilverStar;
     public Sprite GoldStar;
     public CardStatus CardStatus;
+    private Sprite _croppedMiniature;
+    private AsyncOperationHandle<Sprite>? _fullArtHandle;
 
     private void SetCardInfo(int strength, string name, int count = 1, Group group = Group.Gold, string artid = "15230800")
     {
         Border.sprite = (group == Group.Gold ? Gold : (group == Group.Silver ? Silver : Copper));
         Strength.text = strength.ToString();
         Name.text = name;
+
+        if (_croppedMiniature != null)
+        {
+            Destroy(_croppedMiniature);
+            _croppedMiniature = null;
+        }
+        if (_fullArtHandle.HasValue)
+        {
+            Addressables.Release(_fullArtHandle.Value);
+            _fullArtHandle = null;
+        }
 
         if (AssetExists(artid + "_slot"))
         {
@@ -40,6 +54,18 @@ public class ListCardShowInfo : MonoBehaviour
             // {
             //     Miniature.sprite = obj.Result;
             // };
+        }
+        else if ((artid == "c10001100" || artid == "d19330000") && AssetExists(artid))
+        {
+            // These original atlas textures have no separate miniature. Use a
+            // sprite rectangle over the original pixels, with the usual 8:1 ratio.
+            _fullArtHandle = Addressables.LoadAssetAsync<Sprite>(artid);
+            var fullArt = _fullArtHandle.Value.WaitForCompletion();
+            var top = artid == "c10001100" ? 110 : 86;
+            _croppedMiniature = Sprite.Create(fullArt.texture,
+                new Rect(0, fullArt.texture.height - top - 62, 496, 62),
+                new Vector2(0.5f, 0.5f), 100, 0, SpriteMeshType.FullRect);
+            Miniature.sprite = _croppedMiniature;
         }
         else
         {
@@ -59,6 +85,11 @@ public class ListCardShowInfo : MonoBehaviour
             Count.SetActive(true);
             CountText.text = $"x{count.ToString()}";
         }
+    }
+    private void OnDestroy()
+    {
+        if (_croppedMiniature != null) Destroy(_croppedMiniature);
+        if (_fullArtHandle.HasValue) Addressables.Release(_fullArtHandle.Value);
     }
     public void SetCardInfo(CardStatus card, int count = 1)
     {

@@ -165,7 +165,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task NennekeExplicitlyRepairsCemeteryCardsWithoutUnlockingThem()
+        public async Task NennekeUsesNativeResurrectionToUnlockWithoutRepairingOtherState()
         {
             var f = new HeadlessGameFixture();
             var card = AddMarkedCard(f, RowPosition.MyCemetery);
@@ -176,7 +176,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await f.Game.AddTask(() => nenneke.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
             Assert.Equal(RowPosition.MyDeck, card.Status.CardRow);
-            AssertRepaired(card, locked: true);
+            AssertMarked(card, locked: false, revealed: true);
         }
 
         [Fact]

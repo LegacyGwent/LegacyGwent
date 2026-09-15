@@ -35,10 +35,7 @@ namespace Cynthia.Card
             }
 
             await SetCountdown(value: 2);
-            if (Card.CardPoint() <= 7)
-            {
-                await Card.Effect.Strengthen(1, Card);
-            }
+            await Card.Effect.Strengthen(1, Card);
         }
     }
 }
