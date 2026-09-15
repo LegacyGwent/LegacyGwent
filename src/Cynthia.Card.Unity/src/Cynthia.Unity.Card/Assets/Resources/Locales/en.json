@@ -789,7 +789,9 @@
         "Gael_1_Damage1Unit": "Damage an enemy by 8.",
         "Masquerade_ChangeGold": "Change the selected unit's rarity to Gold.",
         "Masquerade_ChangeSilver": "Change the selected unit's rarity to Silver.",
-        "Masquerade_ChangeCopper": "Change the selected unit's rarity to Bronze."
+        "Masquerade_ChangeCopper": "Change the selected unit's rarity to Bronze.",
+        "AxelThreeEyes_1_SpawnCrows": "Spawn 1 Crow on each row.",
+        "AxelThreeEyes_2_CreateCrowEyes": "Spawn 3 Crow's Eyes in your graveyard."
     },
     "CardLocales": {
         "12001": {
@@ -3504,7 +3506,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Deploy: Choose a row, move all units on both sides of it to random rows and Damage self by 2 for each unit moved.\nWhen in your hand or deck, Boost self by 1 whenever a unit moves during your turn.",
+            "Info": "Move all units on both sides of this row to random rows and lose 1 Boost for each unit moved. While in your hand or deck, Boost self by 1 whenever a Bronze or Silver unit moves during your turn.",
             "Flavor": "Th' Strays of Spalla - 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
         },
         "70033": {
@@ -3879,7 +3881,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "On turn end, if there is no Crow on this row, spawn a Crow on the right side.",
+            "Info": "Spawn 1 Crow. At the start of each turn, if there is a Crow on this row, repeat this ability, then Damage self by 1.",
             "Flavor": "Wise men claim that animals are mindless automatons. Wise men don't know what they're talking about."
         },
         "70135": {
@@ -3959,12 +3961,12 @@
         },
         "70150": {
             "Name": "Vincent Van Moorlehem",
-            "Info": "Look at 3 non-Spying Bronze or Silver units in the enemy deck. Choose one, reduce its Power to 1, then deal damage equal to the Power it lost.",
+            "Info": "Look at 3 non-Spying Bronze or Silver units with more than 1 Power in the enemy deck. Choose one, reduce its Power to 1, then deal damage equal to the Power it lost.",
             "Flavor": "Everyone gives the Moorlehems a wide berth. Even tax collectors."
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Damage a unit in your deck by half its Power, then deal damage equal to the Power it lost.",
+            "Info": "Damage a unit with more than 1 Power in your deck by half its Power, then deal damage equal to the Power it lost.",
             "Flavor": "It's said that Vincent Van Moorlehem fears only one man. It's not Emhyr var Emreis or Geralt of Rivia - it’s his own son."
         },
         "70152": {
@@ -3974,7 +3976,7 @@
         },
         "70153": {
             "Name": "Van Moorlehem Hunter",
-            "Info": "Damage a Bronze unit in your deck by half its Power, then deal damage equal to the Power it lost.",
+            "Info": "Damage a Bronze unit with more than 1 Power in your deck by half its Power, then deal damage equal to the Power it lost.",
             "Flavor": "Rather than beasts, he prefers to stalk poachers. But they don't come as often anymore into the woods surrounding the palace…"
         },
         "70154": {
@@ -4004,7 +4006,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Spawn 1 Crow on each of your other rows. Resurrect all Crows with 2 Power or less until this row is full.",
+            "Info": "Spawn 1 Crow on each of your other rows. Spawn a number of Crows equal to the number of Crows destroyed this game, until this row is full.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4285,6 +4287,11 @@
         "70202": {
             "Name": "Ramon Tyrconnel",
             "Info": "Deal 4 damage to an enemy unit. At the end of your turn, if this card is in your hand, Reveal it and repeat this ability.",
+            "Flavor": ""
+        },
+        "70203": {
+            "Name": "Axel Three-Eyes",
+            "Info": "Choose One: Spawn 1 Crow on each row; or Spawn 3 Crow's Eyes in your graveyard.",
             "Flavor": ""
         }
     }

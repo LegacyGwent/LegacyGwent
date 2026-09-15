@@ -1,6 +1,28 @@
 # Integration pitfalls
 
-Last verified: 2026-09-15
+Last verified: 2026-09-16
+
+## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
+
+- Symptom: a season, spectator, or UI commit from `diy` appears mergeable into
+  `diy-ai`, yet it can overwrite an active season, change serialized enum
+  values, reintroduce stale card text, or remove inventory still referenced by
+  player data.
+- Cause: the branches share source history but have independent Mongo state,
+  CardMap/locales, protocol consumers, and later card fixes. A green historical
+  build proves compilation at its old base, not compatibility with the current
+  AI branch or database.
+- Fix: diff immutable branch heads from their merge base, classify individual
+  hunks, and port only the final intended behavior. Keep new protocol enum
+  members at the end, require unique season IDs, preserve current AI card rules,
+  and audit stateful removals against Mongo 28021 before changing them.
+- Prevention: never cherry-pick a post-split DIY commit wholesale. Package a
+  direct source-only fix separately from protocol, season-data, and Unity scene
+  work; document unresolved product choices before implementation.
+- Verification: run current server/gameplay tests, inspect numeric enum values
+  and season-ID uniqueness, compare all locale surfaces, exercise the complete
+  client/server path for protocol changes, and preview any 28021 migration with
+  a restorable backup plan.
 
 ## A skill script locates the discovery alias instead of the repository
 

@@ -26,6 +26,11 @@ namespace Cynthia.Card.Server.Tests
             Assert.DoesNotContain("70042", DiyAiCardPool.RetiredCardIds);
             Assert.DoesNotContain(CardId.Quen, DiyAiCardPool.RetiredCardIds);
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Quen));
+            Assert.Contains(CardId.Draug, DiyAiCardPool.RetiredCardIds);
+            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.Draug));
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.NorthernRealmsDraug));
+            Assert.DoesNotContain(CardId.Crow, DiyAiCardPool.RetiredCardIds);
+            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.Crow));
 
             Assert.All(
                 DiyAiCardPool.RetiredCardIds,
@@ -41,8 +46,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 198), GwentMap.CardMapVersion);
-            Assert.Equal(727, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 199), GwentMap.CardMapVersion);
+            Assert.Equal(728, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -52,8 +57,112 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberFifteenthFirstBatchMatchesMetadataLocalesAndCardPool()
+        {
+            var data = new GwentCardDataService();
+            var expected = new Dictionary<string, (int Strength, string Info)>
+            {
+                ["70032"] = (1, "将双方同排所有单位移至随机排，每移动一个单位，便失去1点增益。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。"),
+                [CardId.CrowClanDruid] = (8, "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。"),
+                [CardId.Crowmother] = (4, "在己方其它排各生成1只“乌鸦”。生成与本次对局被摧毁数量相等的“乌鸦”，直至填满此排。"),
+                [CardId.VanMoorleheHunter] = (7, "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
+                [CardId.PhilippevanMoorlehem] = (9, "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
+                [CardId.VincentvanMoorlehem] = (6, "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。")
+            };
+            Assert.Equal(Categorie.Relict, Assert.Single(GwentMap.CardMap[CardId.Miruna].Categories));
+            Assert.Equal(4, GwentMap.CardMap[CardId.Crotch].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.Protofleder].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.ImmortalCavalry].Strength);
+            Assert.All(expected, pair =>
+            {
+                Assert.Equal(pair.Value.Strength, GwentMap.CardMap[pair.Key].Strength);
+                Assert.Equal(pair.Value.Info, GwentMap.CardMap[pair.Key].Info);
+            });
+            Assert.Equal(typeof(Gascon), data.GetType("70032"));
+            Assert.Equal(typeof(CrowClanDruid), data.GetType(CardId.CrowClanDruid));
+            Assert.Equal(typeof(Crowmother), data.GetType(CardId.Crowmother));
+            Assert.Equal(typeof(VanMoorleheHunter), data.GetType(CardId.VanMoorleheHunter));
+            Assert.Equal(typeof(PhilippevanMoorlehem), data.GetType(CardId.PhilippevanMoorlehem));
+            Assert.Equal(typeof(VincentvanMoorlehem), data.GetType(CardId.VincentvanMoorlehem));
+            Assert.True(GwentMap.CardMap[CardId.Crowmother].IsCountdown);
+            Assert.Equal(0, GwentMap.CardMap[CardId.Crowmother].Countdown);
+
+            var axel = GwentMap.CardMap[CardId.AxelThreeEyes];
+            Assert.Equal("“三目者”艾克索", axel.Name);
+            Assert.Equal(5, axel.Strength);
+            Assert.Equal(Group.Silver, axel.Group);
+            Assert.Equal(Faction.Skellige, axel.Faction);
+            Assert.Equal(CardType.Unit, axel.CardType);
+            Assert.Equal(new[] { Categorie.Druid }, axel.Categories);
+            Assert.False(axel.IsDerive);
+            Assert.False(axel.IsCountdown);
+            Assert.Equal("d19860000", axel.CardArtsId);
+            Assert.Equal(new[] { CardId.Crow, CardId.CrowSEye }, axel.LinkedCards);
+            Assert.Equal(typeof(AxelThreeEyes), data.GetType(CardId.AxelThreeEyes));
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.AxelThreeEyes));
+
+            var roots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            var changedIds = expected.Keys.Append(CardId.AxelThreeEyes).ToArray();
+            var axelOptionKeys = new[]
+            {
+                "AxelThreeEyes_1_SpawnCrows",
+                "AxelThreeEyes_2_CreateCrowEyes"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id =>
+                {
+                    Assert.All(locales, locale => Assert.True(locale.CardLocales.ContainsKey(id)));
+                    Assert.All(locales.Skip(1), locale =>
+                    {
+                        Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                        Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                    });
+                });
+                Assert.All(axelOptionKeys, key =>
+                {
+                    Assert.All(locales, locale => Assert.True(locale.MenuLocales.ContainsKey(key)));
+                    Assert.All(locales.Skip(1), locale =>
+                        Assert.Equal(locales[0].MenuLocales[key], locale.MenuLocales[key]));
+                });
+                if (language == "cn")
+                {
+                    Assert.All(expected, pair => Assert.Equal(pair.Value.Info, locales[0].CardLocales[pair.Key].Info));
+                    Assert.Equal(axel.Name, locales[0].CardLocales[CardId.AxelThreeEyes].Name);
+                    Assert.Equal(axel.Info, locales[0].CardLocales[CardId.AxelThreeEyes].Info);
+                    Assert.Equal("在每排生成1只“乌鸦”。", locales[0].MenuLocales[axelOptionKeys[0]]);
+                    Assert.Equal("在墓场中生成3张“乌鸦眼”。", locales[0].MenuLocales[axelOptionKeys[1]]);
+                }
+            }
+
+            var assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets";
+            var artPath = FindRepositoryFile($"{assets}/Addressables/Cards/d19860000.png");
+            var artBytes = File.ReadAllBytes(artPath);
+            Assert.Equal(new byte[] { 137, 80, 78, 71, 13, 10, 26, 10 }, artBytes.Take(8));
+            Assert.Equal(1024, ReadBigEndianInt32(artBytes, 16));
+            Assert.Equal(1024, ReadBigEndianInt32(artBytes, 20));
+            Assert.Contains("m_Address: d19860000", File.ReadAllText(FindRepositoryFile(
+                $"{assets}/AddressableAssetsData/AssetGroups/Default Local Group.asset")));
+            var artMeta = File.ReadAllText(FindRepositoryFile(
+                $"{assets}/Addressables/Cards/d19860000.png.meta"));
+            Assert.Contains("guid: 138376fe7320e1444a7a185ab98c87ca", artMeta);
+            Assert.Contains("textureType: 8", artMeta);
+            var listCardSource = File.ReadAllText(FindRepositoryFile(
+                $"{assets}/Script/MathMenu/ListCardShowInfo.cs"));
+            Assert.Contains("artid == \"d19860000\"", listCardSource);
+            Assert.Contains("artid == \"d19860000\" ? 220", listCardSource);
         }
 
         [Fact]
@@ -69,9 +178,9 @@ namespace Cynthia.Card.Server.Tests
                 (Id: "70139", Strength: 7, Group: Group.Silver, Faction: Faction.ScoiaTael, Effect: typeof(TreantBoar), Info: "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
                 (Id: "70002", Strength: 5, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(DetlaffHigherVampire), Info: "选择牌组中1张铜色单位牌，如果其战力高于自身，吞噬该单位，并获得等同于其战力的增益。否则，打出该单位，并在回合结束时将其摧毁。"),
                 (Id: "43006", Strength: 10, Group: Group.Silver, Faction: Faction.NorthernRealms, Effect: typeof(Nenneke), Info: "将墓场3张铜色/银色单位牌放回牌组。该效果视为复活。"),
-                (Id: "70153", Strength: 9, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorleheHunter), Info: "使牌组中1个铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
-                (Id: "70151", Strength: 10, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(PhilippevanMoorlehem), Info: "使牌组中1个单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
-                (Id: "70150", Strength: 7, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(VincentvanMoorlehem), Info: "检视对方牌组3张非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。"),
+                (Id: "70153", Strength: 7, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorleheHunter), Info: "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
+                (Id: "70151", Strength: 9, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(PhilippevanMoorlehem), Info: "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
+                (Id: "70150", Strength: 6, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(VincentvanMoorlehem), Info: "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。"),
                 (Id: "70152", Strength: 9, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorlehemsCupbearer), Info: "每2回合开始时，随机隐匿1张铜色手牌，随后将其治愈。"),
                 (Id: "70201", Strength: 7, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(Rience), Info: "摧毁1个敌军单位，使其相邻单位各获得等同于其战力一半的增益。"),
                 (Id: "70202", Strength: 7, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(RamonTyrconnel), Info: "对1个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身，并重复此能力。"),
@@ -266,7 +375,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(typeof(MadCharge), data.GetType("70050"));
             Assert.Equal(typeof(FeastOfBlood), data.GetType(CardId.FeastOfBlood));
             Assert.Contains("非间谍单位牌", GwentMap.CardMap[CardId.QueenCalanthe].Info);
-            foreach (var id in expected.Keys.Append(CardId.QueenCalanthe))
+            Assert.Contains(CardId.Draug, DiyAiCardPool.RetiredCardIds);
+            Assert.True(GwentMap.CardMap[CardId.Draug].IsDerive);
+            foreach (var id in expected.Keys.Where(id => id != CardId.Draug).Append(CardId.QueenCalanthe))
             {
                 Assert.True(DiyAiCardPool.IsUserDeckCard(id));
                 Assert.False(GwentMap.CardMap[id].IsDerive);
@@ -884,7 +995,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(22, GwentMap.CardMap["70006"].Strength);
             Assert.Equal(5, GwentMap.CardMap["70002"].Strength);
             Assert.Equal(5, GwentMap.CardMap["22001"].Strength);
-            Assert.Equal(3, GwentMap.CardMap["70110"].Strength);
+            Assert.Equal(4, GwentMap.CardMap["70110"].Strength);
             Assert.Equal(8, GwentMap.CardMap["70161"].Strength);
             Assert.Equal(9, GwentMap.CardMap["70131"].Strength);
             Assert.Equal(8, GwentMap.CardMap["70155"].Strength);
@@ -940,6 +1051,8 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(
                 "Object.prototype.hasOwnProperty.call(allowedUserCardIds, id)",
                 script);
+            Assert.Contains("\"22002\": \"70197\"", script);
+            Assert.Contains("\"22003\": \"22001\"", script);
             Assert.DoesNotContain("Number(text)", script);
         }
 
@@ -1496,7 +1609,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(6, GwentMap.CardMap["70083"].Strength);
             Assert.Equal(Group.Silver, GwentMap.CardMap["70083"].Group);
             Assert.Equal(4, GwentMap.CardMap["70009"].Strength);
-            Assert.Equal(6, GwentMap.CardMap["70010"].Strength);
+            Assert.Equal(7, GwentMap.CardMap["70010"].Strength);
             Assert.Equal(4, GwentMap.CardMap["70107"].Strength);
             Assert.Equal(5, GwentMap.CardMap["70108"].Strength);
             Assert.Equal(8, GwentMap.CardMap["70168"].Strength);
@@ -2007,7 +2120,7 @@ namespace Cynthia.Card.Server.Tests
             });
 
             Assert.Equal(6, GwentMap.CardMap["44016"].Strength);
-            Assert.Equal(9, GwentMap.CardMap["70101"].Strength);
+            Assert.Equal(7, GwentMap.CardMap["70101"].Strength);
             Assert.Equal(9, GwentMap.CardMap["70098"].Strength);
             Assert.Equal(7, GwentMap.CardMap["70114"].Strength);
             Assert.Equal(6, GwentMap.CardMap["70122"].Strength);
@@ -2109,7 +2222,7 @@ namespace Cynthia.Card.Server.Tests
                 ["70077"] = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有1个被锁定的单位，减少1次回合计数。",
                 ["70086"] = "择一：从牌组中打出1张铜色/银色“法师”牌；生成1张铜色“法术”牌。",
                 ["70095"] = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
-                [CardId.CrowClanDruid] = "回合结束时，若同排没有“乌鸦”，则在右侧生成1只“乌鸦”。",
+                [CardId.CrowClanDruid] = "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
                 [CardId.Wisteria] = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
                 [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
                 [CardId.DeadeyeAmbush] = "选择1个友军单位，将其上移1排并使其获得5点增益；选择1个敌军单位，将其移至敌方近战排并对其造成5点伤害。",
@@ -2190,6 +2303,14 @@ namespace Cynthia.Card.Server.Tests
             }
 
             throw new FileNotFoundException($"Could not find repository file {relativePath}.");
+        }
+
+        private static int ReadBigEndianInt32(byte[] bytes, int offset)
+        {
+            return (bytes[offset] << 24) |
+                   (bytes[offset + 1] << 16) |
+                   (bytes[offset + 2] << 8) |
+                   bytes[offset + 3];
         }
 
     }

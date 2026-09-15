@@ -788,7 +788,9 @@
         "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń.",
         "Masquerade_ChangeGold": "Zmień jakość wybranej jednostki na złotą.",
         "Masquerade_ChangeSilver": "Zmień jakość wybranej jednostki na srebrną.",
-        "Masquerade_ChangeCopper": "Zmień jakość wybranej jednostki na brązową."
+        "Masquerade_ChangeCopper": "Zmień jakość wybranej jednostki na brązową.",
+        "AxelThreeEyes_1_SpawnCrows": "Stwórz po 1 Kruku w każdym rzędzie.",
+        "AxelThreeEyes_2_CreateCrowEyes": "Stwórz 3 Wronie Oczy na swoim cmentarzu."
     },
     "CardLocales": {
         "12001": {
@@ -3503,7 +3505,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Rozmieszczenie: Wybierz rząd i przenieś wszystkich znajdujących się w nim wrogów do losowych rzędów, zadając sobie 2 pkt obrażeń za każdą przeniesioną jednostkę.\nKiedy jednostka w twojej ręce lub talii poruszy się podczas twojej tury, zwiększ swoje obrażenia o 1.",
+            "Info": "Przenieś wszystkie jednostki po obu stronach tego rzędu do losowych rzędów i usuń 1 pkt wzmocnienia za każdą przeniesioną jednostkę. W ręce lub talii: wzmocnij tę jednostkę o 1, gdy brązowa lub srebrna jednostka zostanie przeniesiona podczas twojej tury.",
             "Flavor": "To ty przewodzisz Kundlom ze Spalli? Ciebie wołają Księciem Psów?"
         },
         "70033": {
@@ -3878,7 +3880,7 @@
         },
         "70134": {
             "Name": "Adeptka Klanu Kruka",
-            "Info": "Na koniec tury, jeśli w tym rzędzie nie ma wrony stwórz wrone po prawej stronie.",
+            "Info": "Stwórz 1 Kruka. Na początku każdej tury, jeśli w tym rzędzie jest Kruk, powtórz tę zdolność, a następnie zadaj tej jednostce 1 pkt obrażeń.",
             "Flavor": "Uczeni mężowie twierdzą, że zwierzęta to bezrozumne automatony. Uczeni mężowie pieprzą od rzeczy."
         },
         "70135": {
@@ -3958,12 +3960,12 @@
         },
         "70150": {
             "Name": "Vincent Van Moorlehem",
-            "Info": "Obejrzyj 3 brązowe lub srebrne jednostki bez Szpiegowania z talii przeciwnika. Wybierz jedną, zmniejsz jej siłę do 1, a następnie zadaj obrażenia równe utraconej przez nią sile.",
+            "Info": "Obejrzyj 3 brązowe lub srebrne jednostki bez Szpiegowania o sile większej niż 1 z talii przeciwnika. Wybierz jedną, zmniejsz jej siłę do 1, a następnie zadaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Wszyscy omijają włości Moorlehemów szerokim łukiem. Nawet poborcy podatkowi."
         },
         "70151": {
             "Name": "Philippe Van Moorlehem",
-            "Info": "Zadaj jednostce w swojej talii obrażenia równe połowie jej siły, a następnie zadaj obrażenia równe utraconej przez nią sile.",
+            "Info": "Zadaj jednostce o sile większej niż 1 w swojej talii obrażenia równe połowie jej siły, a następnie zadaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Mówią, że Vincent Van Moorlehem boi się tylko jednego człowieka. Nie jest to Emhyr var Emreis ani Geralt z Rivii - tylko jego własny syn."
         },
         "70152": {
@@ -3973,7 +3975,7 @@
         },
         "70153": {
             "Name": "Łowca Van Moorlehemów",
-            "Info": "Zadaj brązowej jednostce w swojej talii obrażenia równe połowie jej siły, a następnie zadaj obrażenia równe utraconej przez nią sile.",
+            "Info": "Zadaj brązowej jednostce o sile większej niż 1 w swojej talii obrażenia równe połowie jej siły, a następnie zadaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Bardziej niż na zwierzynę lubi zaczaić się na kłusowników. Ale ci coraz rzadziej odważają się zachodzić w przylegające do pałacu lasy…"
         },
         "70154": {
@@ -4003,7 +4005,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Stwórz po 1 Kruku w każdym z pozostałych twoich rzędów. Wskrzeszaj Kruki o sile 2 lub mniej, aż ten rząd będzie pełny.",
+            "Info": "Stwórz po 1 Kruku w każdym z pozostałych twoich rzędów. Stwórz tyle Kruków, ile Kruków zniszczono w tej grze, aż ten rząd będzie pełny.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -4284,6 +4286,11 @@
         "70202": {
             "Name": "Ramon Tyrconnel",
             "Info": "Zadaj wrogiej jednostce 4 pkt obrażeń. Na koniec swojej tury, jeśli ta karta jest w twojej ręce, ujawnij ją i powtórz tę zdolność.",
+            "Flavor": ""
+        },
+        "70203": {
+            "Name": "Axel Troje Oczu",
+            "Info": "Wybierz jedno: stwórz po 1 Kruku w każdym rzędzie; albo stwórz 3 Wronie Oczy na swoim cmentarzu.",
             "Flavor": ""
         }
     }

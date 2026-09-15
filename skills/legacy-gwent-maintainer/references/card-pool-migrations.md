@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-09-15
+Last verified: 2026-09-16
 
-Verified against the DIY-AI reset lineage through `1.0.0.198`.
+Verified against the DIY-AI reset lineage through `1.0.0.199`.
 
 The August 11 first-batch restoration of `70082` (Arnjolf the Patricide) must
 also remove that ID from `DiyAiCardPool.RetiredCardIds` and add it to the exact
@@ -40,7 +40,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 727 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 728 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
 - After the `1.0.0.176` restoration, 84 entries are retired. The August 5 cards remain
@@ -85,6 +85,13 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 - Subsequent mainline releases append `70198` (Girl Who Drank Brokilon Water),
   `70199` (Endrega Queen), and `70200` (Egmond). September 14 appends
   `70201` (Rience) and `70202` (Ramon Tyrconnel), preserving the first 725 slots.
+  September 15 appends `70203` (Axel Three-Eyes). The same batch retires original
+  Monsters Draug `22002` from user decks in favor of Northern Realms Draug
+  `70197`; keep both persistent map slots, exclude `22002` from the runtime and
+  Mongo allowlists, and migrate deck/blacklist references `22002 -> 70197`.
+  When `70197` is already present, remove only the obsolete `22002` duplicate.
+  Crow `70136` must be unretired so linked/generation pools retain it, while its
+  `IsDerive` flag continues to keep it out of user decks and the Mongo allowlist.
   Verify IDs against the compiled map; stale reference counts are not an ID allocator.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
@@ -118,7 +125,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 727 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 728 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

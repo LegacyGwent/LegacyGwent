@@ -55,13 +55,13 @@ public class ListCardShowInfo : MonoBehaviour
             //     Miniature.sprite = obj.Result;
             // };
         }
-        else if ((artid == "c10001100" || artid == "d19330000") && AssetExists(artid))
+        else if ((artid == "c10001100" || artid == "d19330000" || artid == "d19860000") && AssetExists(artid))
         {
             // These original atlas textures have no separate miniature. Use a
             // sprite rectangle over the original pixels, with the usual 8:1 ratio.
             _fullArtHandle = Addressables.LoadAssetAsync<Sprite>(artid);
             var fullArt = _fullArtHandle.Value.WaitForCompletion();
-            var top = artid == "c10001100" ? 110 : 86;
+            var top = artid == "c10001100" ? 110 : (artid == "d19860000" ? 220 : 86);
             _croppedMiniature = Sprite.Create(fullArt.texture,
                 new Rect(0, fullArt.texture.height - top - 62, 496, 62),
                 new Vector2(0.5f, 0.5f), 100, 0, SpriteMeshType.FullRect);

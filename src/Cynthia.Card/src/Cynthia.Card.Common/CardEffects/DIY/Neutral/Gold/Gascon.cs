@@ -7,20 +7,17 @@ namespace Cynthia.Card
 {
     [CardEffectId("70032")]//Gascon
     public class Gascon : CardEffect, IHandlesEvent<AfterCardMove>
-    {//将所有单位移至随机排，每移动1个单位，便受到2点伤害。若位于牌组或手牌：己方回合中，每有1个单位被改变所在排别时获得1点增益
+    {
         public Gascon(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            int moveCount = (Card.Status.Strength + Card.Status.HealthStatus - 1) / 2;
-            int i = 0;
-            // var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
-            // var selectedrow = Game.RowToList(AnotherPlayer, Card.Status.CardRow).IgnoreConcealAndDead();
             var selectedrow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.All.GetRow());
-
             var cards = Game.RowToList(AnotherPlayer, selectedrow).IgnoreConcealAndDead()
                 .Concat(Game.RowToList(PlayerIndex, selectedrow).IgnoreConcealAndDead())
                 .Where(card => card != Card)
                 .ToList();
+
+            var moved = 0;
             foreach (var card in cards)
             {
                 var row = (card.Status.CardRow.MyRowToIndex()).IndexToMyRow();
@@ -32,24 +29,33 @@ namespace Cynthia.Card
                     continue;
                 }
                 await card.Effect.Move(new CardLocation(target, Game.RowToList(card.PlayerIndex, target).Count), Card);
-                i++;
-                if (i >= moveCount)
-                {
-                    break;
-                }
+                moved++;
             }
-            await Card.Effect.Damage(2*i, Card);
+
+            // This is loss of Boost, not damage.  It cannot take Gascon below
+            // base power, trigger damage reactions, or kill him.
+            var boostLost = Math.Min(moved, Math.Max(0, Card.Status.HealthStatus));
+            if (boostLost > 0)
+            {
+                await Game.ShowCardNumberChange(Card, -boostLost, NumberType.Normal);
+                Card.Status.HealthStatus -= boostLost;
+                await Game.ShowSetCard(Card);
+                await Game.SetPointInfo();
+            }
             return 0;
         }
         public async Task HandleEvent(AfterCardMove @event)
         {
-            if (
-                (Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand())
-                )
+            if (Game.GameRound.ToPlayerIndex(Game) != PlayerIndex ||
+                !(Card.Status.CardRow.IsInDeck() || Card.Status.CardRow.IsInHand()) ||
+                @event.Target == Card ||
+                @event.Target.Status.Type != CardType.Unit ||
+                !@event.Target.Status.IsAnyGroup(Group.Copper, Group.Silver))
             {
-                await Card.Effect.Boost(1, Card);
+                return;
             }
-            return;
+
+            await Card.Effect.Boost(1, Card);
         }
     }
 }

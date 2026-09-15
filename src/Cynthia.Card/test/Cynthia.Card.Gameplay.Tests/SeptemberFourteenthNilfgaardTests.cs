@@ -58,7 +58,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task HunterUsesPreCleanupPowerLossWhenTheDamagedDeckUnitDies()
+        public async Task HunterExcludesOnePowerDeckUnits()
         {
             var f = new HeadlessGameFixture();
             f.Game.PlayersDeck[f.Game.Player1Index].Clear();
@@ -66,14 +66,16 @@ namespace Cynthia.Card.Gameplay.Tests
             var deckUnit = f.AddCard(
                 f.Game.Player1Index, CardId.AnCraiteMarauder, RowPosition.MyDeck, 1);
             var boardTarget = f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyRow2, 20);
-            f.FirstPlayer.QueueMenuCardIds(CardId.AnCraiteMarauder);
             await f.SynchronizeClientsAsync();
 
             await f.Game.AddTask(async () =>
                 await hunter.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.Contains(deckUnit, f.Game.PlayersCemetery[f.Game.Player1Index]);
-            Assert.Equal(19, boardTarget.CardPoint());
+            Assert.Contains(deckUnit, f.Game.PlayersDeck[f.Game.Player1Index]);
+            Assert.Equal(1, deckUnit.CardPoint());
+            Assert.Equal(20, boardTarget.CardPoint());
+            Assert.Empty(f.FirstPlayer.MenuRequests);
+            Assert.Empty(f.FirstPlayer.PlaceSelectionSources);
             Assert.False(f.Game.OperactionList.IsRunning);
         }
 
@@ -87,7 +89,7 @@ namespace Cynthia.Card.Gameplay.Tests
             var hunter = f.AddCard(f.Game.Player1Index, CardId.VanMoorleheHunter, RowPosition.MyRow1);
             if (decline)
             {
-                f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyDeck);
+                f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyDeck, 2);
                 f.FirstPlayer.MenuSelectionOverride = _ => new List<int>();
             }
             await f.SynchronizeClientsAsync();
@@ -121,6 +123,24 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(18, boardTarget.CardPoint());
             Assert.Single(f.FirstPlayer.MenuRequests);
             Assert.Single(f.FirstPlayer.PlaceSelectionSources);
+        }
+
+        [Fact]
+        public async Task PhilippeExcludesOnePowerDeckUnits()
+        {
+            var f = new HeadlessGameFixture();
+            f.Game.PlayersDeck[f.Game.Player1Index].Clear();
+            var philippe = f.AddCard(f.Game.Player1Index, "70151", RowPosition.MyRow1);
+            var deckUnit = f.AddCard(f.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyDeck, 1);
+            await f.SynchronizeClientsAsync();
+
+            await f.Game.AddTask(async () =>
+                await philippe.Effects.RaiseEvent(new CardPlayEffect(false, false)));
+
+            Assert.Contains(deckUnit, f.Game.PlayersDeck[f.Game.Player1Index]);
+            Assert.Equal(1, deckUnit.CardPoint());
+            Assert.Empty(f.FirstPlayer.MenuRequests);
+            Assert.Empty(f.FirstPlayer.PlaceSelectionSources);
         }
 
         [Fact]
@@ -165,6 +185,7 @@ namespace Cynthia.Card.Gameplay.Tests
             var intrinsicSpy = f.AddCard(f.Game.Player2Index, CardId.Cantarella, RowPosition.MyDeck);
             f.AddCard(f.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyDeck);
             f.AddCard(f.Game.Player2Index, CardId.BitingFrost, RowPosition.MyDeck);
+            f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyDeck, 1);
             await f.SynchronizeClientsAsync();
 
             await f.Game.AddTask(async () =>

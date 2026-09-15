@@ -688,6 +688,7 @@ namespace Cynthia.Card
         public const string Egmond = "70200";
         public const string Rience = "70201";
         public const string RamonTyrconnel = "70202";
+        public const string AxelThreeEyes = "70203";
         public const string SvalblodFanatic = "70046";
 
     }

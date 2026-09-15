@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var candidates = Game.PlayersDeck[PlayerIndex]
-                .Where(x => x.Is(Group.Copper, CardType.Unit))
+                .Where(x => x.Is(Group.Copper, CardType.Unit) && x.CardPoint() > 1)
                 .ToList();
             if (!(await Game.GetSelectMenuCards(PlayerIndex, candidates)).TrySingle(out var deckUnit))
             {

@@ -14,6 +14,7 @@ namespace Cynthia.Card
             var inspected = Game.PlayersDeck[AnotherPlayer]
                 .Where(x => x.IsAnyGroup(Group.Copper, Group.Silver) &&
                             x.Is(type: CardType.Unit) &&
+                            x.CardPoint() > 1 &&
                             !x.Status.IsSpying &&
                             x.CardInfo().CardUseInfo != CardUseInfo.EnemyRow &&
                             x.CardInfo().CardUseInfo != CardUseInfo.EnemyPlace)

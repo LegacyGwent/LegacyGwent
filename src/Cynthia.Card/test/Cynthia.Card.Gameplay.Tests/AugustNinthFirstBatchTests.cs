@@ -97,7 +97,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CrowmotherGeneratesOtherRowsAndResurrectsOnlySmallCrowsIntoItsRow()
+        public async Task CrowmotherDoesNotResurrectCemeteryCrowsWithoutDestroyedCrowCounter()
         {
             var fixture = new HeadlessGameFixture();
             var mother = fixture.AddCard(fixture.Game.Player1Index, "70159", RowPosition.MyRow2);
@@ -112,7 +112,8 @@ namespace Cynthia.Card.Gameplay.Tests
                 card => card.Status.CardId == "70136");
             Assert.Contains(fixture.Game.PlayersPlace[fixture.Game.Player1Index][2],
                 card => card.Status.CardId == "70136");
-            Assert.Contains(smallCrow, fixture.Game.PlayersPlace[fixture.Game.Player1Index][1]);
+            Assert.DoesNotContain(smallCrow, fixture.Game.PlayersPlace[fixture.Game.Player1Index][1]);
+            Assert.Contains(smallCrow, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
             Assert.Contains(largeCrow, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
         }
 

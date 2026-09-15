@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 198);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 199);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -3259,7 +3259,7 @@ namespace Cynthia.Card
                     Countdown=2,
                     IsCountdown = true,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Beast},
+                    Categories = new Categorie[]{ Categorie.Relict},
                     Flavor = "打什么仗嘛？明明有更多好办法消耗过剩的精力……",
                     Info = "2回合后的回合开始时：魅惑对方同排最强的单位。",
                     CardArtsId = "13210800",
@@ -11341,7 +11341,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70010", //Protofleder
                     Name = "原蝠翼魔",
-                    Strength = 6,
+                    Strength = 7,
                     Group = Group.Copper,
                     Faction = Faction.Monsters,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -11732,7 +11732,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Officer},
                     Flavor = "“你手下的人可就是史帕拉流亡军？你便是人称野狗公爵的那位？”",
-                    Info = "选择一排，移动敌我双方这一排上的所有单位，每移动一个单位使自身受到2点伤害。若位于手牌、牌组：己方回合中，每有1个单位被移动，便获得1点增益。",
+                    Info = "将双方同排所有单位移至随机排，每移动一个单位，便失去1点增益。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。",
                     CardArtsId = "202099",
                     LinkedCards=new List<String> {},
                 }
@@ -12403,7 +12403,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70110", //Knickers
                     Name="裤裆",
-                    Strength=3,
+                    Strength=4,
                     Group=Group.Silver,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13732,7 +13732,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70101", //Immortal Cavalry
                     Name="不朽者骑兵",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14032,11 +14032,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "在己方其它排各生成1只“乌鸦”。召唤墓场中所有战力不大于2的“乌鸦”，直至填满此排。",
+                    Countdown = 0,
+                    Info = "在己方其它排各生成1只“乌鸦”。生成与本次对局被摧毁数量相等的“乌鸦”，直至填满此排。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14068,7 +14069,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70134", //Crow Clan Druid
                     Name="鸦母德鲁伊",
-                    Strength=7,
+                    Strength=8,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14078,7 +14079,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "先贤声称动物愚昧无知——纯属胡说八道。",
-                    Info = "回合结束时，若同排没有“乌鸦”，则在右侧生成1只“乌鸦”。",
+                    Info = "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
                     CardArtsId = "202517",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14405,7 +14406,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70150", //Vincent van Moorlehem
                     Name="文森特·凡·莫拉汉姆",
-                    Strength=7,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14415,7 +14416,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。",
-                    Info = "检视对方牌组3张非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。",
+                    Info = "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。",
                     CardArtsId = "202543",
                     LinkedCards=new List<String> {},
                 }
@@ -14426,7 +14427,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70151", //Philippe van Moorlehem
                     Name="菲利普·凡·莫拉汉姆",
-                    Strength=10,
+                    Strength=9,
                     Group=Group.Silver,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14436,7 +14437,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。",
-                    Info = "使牌组中1个单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
+                    Info = "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
                     CardArtsId = "202545",
                     LinkedCards=new List<String> {},
                 }
@@ -14469,7 +14470,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70153", //Van Moorlehem Hunter
                     Name="莫拉汉姆家猎手",
-                    Strength=9,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14479,7 +14480,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "使牌组中1个铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
+                    Info = "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
                     CardArtsId = "202547",
                     LinkedCards=new List<String> {},
                 }
@@ -15604,6 +15605,27 @@ namespace Cynthia.Card
                     Info = "对1个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身，并重复此能力。",
                     CardArtsId = "d19330000",
                     LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70203",//“三目者”艾克索 Axel Three-Eyes
+                new GwentCard()
+                {
+                    CardId = "70203",
+                    Name = "“三目者”艾克索",
+                    Strength = 5,
+                    Group = Group.Silver,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Druid },
+                    Flavor = "",
+                    Info = "择一：在每排生成1只“乌鸦”；或在墓场中生成3张“乌鸦眼”。",
+                    CardArtsId = "d19860000",
+                    LinkedCards = new List<String> { CardId.Crow, CardId.CrowSEye },
                 }
             },
         };

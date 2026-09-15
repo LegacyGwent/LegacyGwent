@@ -20,7 +20,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.Equal(RowPosition.MyRow1, gascon.Status.CardRow);
             Assert.NotEqual(RowPosition.MyRow1, ally.Status.CardRow);
-            Assert.Equal(-2, gascon.Status.HealthStatus);
+            Assert.Equal(0, gascon.Status.HealthStatus);
         }
 
         [Fact]

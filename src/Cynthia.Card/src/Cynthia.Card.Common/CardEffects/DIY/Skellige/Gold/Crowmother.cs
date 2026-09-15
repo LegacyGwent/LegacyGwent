@@ -5,8 +5,8 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70159")]//
-    public class Crowmother : CardEffect
-    {//
+    public class Crowmother : CardEffect, IHandlesEvent<AfterCardDeath>
+    {
         public Crowmother(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -19,17 +19,23 @@ namespace Cynthia.Card
                 }
             }
 
-            var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow && x.Status.Strength <= 2).ToList();
-            foreach (var card in cards)
+            var crowsToGenerate = Card.Status.Countdown;
+            while (crowsToGenerate-- > 0 &&
+                   Game.RowToList(PlayerIndex, Card.Status.CardRow).Count < Game.RowMaxCount)
             {
-                if (Game.RowToList(PlayerIndex, Card.Status.CardRow).Count() >= Game.RowMaxCount)
-                {
-                    break;
-                }
-
-                await card.Effect.Resurrect(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
+                await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, Card.Status.CardRow);
             }
             return 0;
+        }
+
+        public async Task HandleEvent(AfterCardDeath @event)
+        {
+            if (@event.Target.Status.CardId != CardId.Crow)
+            {
+                return;
+            }
+
+            await Card.Effect.SetCountdown(offset: 1);
         }
     }
 }

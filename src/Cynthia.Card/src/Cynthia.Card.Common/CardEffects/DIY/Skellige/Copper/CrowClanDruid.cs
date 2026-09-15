@@ -6,21 +6,42 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70134")]//鸦母德鲁伊 CrowClanDruid
-    public class CrowClanDruid : CardEffect, IHandlesEvent<AfterTurnOver>
-    {//
+    public class CrowClanDruid : CardEffect, IHandlesEvent<AfterTurnStart>
+    {
         public CrowClanDruid(GameCard card) : base(card) { }
-        public async Task HandleEvent(AfterTurnOver @event)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
+            await CreateCrowAtRight();
+            return 0;
+        }
+
+        public async Task HandleEvent(AfterTurnStart @event)
         {
             if (@event.PlayerIndex != Card.PlayerIndex || !Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
-            var crowlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead().Where(x => x.Status.CardRow.IsOnPlace() && x.Status.CardId == CardId.Crow).ToList();;
-            var rowlist = Game.RowToList(Card.PlayerIndex, Card.Status.CardRow);
-            if(crowlist.Count() == 0 && rowlist.Count < Game.RowMaxCount)
+
+            if (!Game.RowToList(PlayerIndex, Card.Status.CardRow)
+                .IgnoreConcealAndDead()
+                .Any(x => x.Status.CardId == CardId.Crow))
             {
-                await Game.CreateCard(CardId.Crow, PlayerIndex, Card.GetLocation()+1);
+                return;
             }
+
+            await CreateCrowAtRight();
+            await Card.Effect.Damage(1, Card);
+        }
+
+        private async Task CreateCrowAtRight()
+        {
+            if (!Card.Status.CardRow.IsOnPlace() ||
+                Game.RowToList(PlayerIndex, Card.Status.CardRow).Count >= Game.RowMaxCount)
+            {
+                return;
+            }
+
+            await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, Card.Status.CardRow);
         }
     }
 }
