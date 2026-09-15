@@ -254,7 +254,10 @@ import urllib.parse
 import urllib.request
 
 expected = json.loads(base64.b64decode("__SNAPSHOT_B64__").decode("utf-8"))
-release_sha = Path("/usr/share/card-diy-ai/current").resolve(strict=True).name
+release_path = Path("/usr/share/card-diy-ai/current").resolve()
+if not release_path.is_dir():
+    raise RuntimeError("active release directory does not exist")
+release_sha = release_path.name
 if release_sha != expected["source"]["headSha"]:
     raise RuntimeError("active release does not match snapshot: " + release_sha)
 

@@ -45,3 +45,10 @@ through foreground SSH and read-only SignalR calls; the connection is closed in
 `finally`. JSON `passed: true` with exit 0 is required. This checks metadata,
 not gameplay behavior, client rendering, health, or isolation: retain those
 separate release checks. No database mutation or deployment is performed.
+
+The local CLI requires Python 3.10+ and the repository .NET SDK. Its remote
+script runs on the deployed host's Python 3.5.3: avoid newer pathlib keyword
+arguments such as `resolve(strict=True)`. Resolve without that keyword and
+explicitly verify the release directory exists. Local syntax/unit tests cannot
+prove remote standard-library compatibility; the foreground live check is the
+acceptance gate.
