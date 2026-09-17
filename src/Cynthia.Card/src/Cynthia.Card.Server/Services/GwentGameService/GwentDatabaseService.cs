@@ -873,8 +873,7 @@ namespace Cynthia.Card.Server
         {
             var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
             var update = Builders<UserInfo>.Update
-                .Set(x => x.MMR, baseMMR)
-                .Set(x => x.HighestMMR, baseMMR);
+                .Set(x => x.MMR, baseMMR);
 
             await GetUserInfo().UpdateOneAsync(filter, update);
         }

@@ -18,7 +18,6 @@ namespace Cynthia.Card
 
         public static readonly ISet<string> RetiredCardIds = new HashSet<string>(StringComparer.Ordinal)
         {
-            "22002",
             "70015",
             "70040",
             "130210", "130220", "130200",

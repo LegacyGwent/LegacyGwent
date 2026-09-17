@@ -19,15 +19,15 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(41, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(40, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
             Assert.DoesNotContain("70042", DiyAiCardPool.RetiredCardIds);
             Assert.DoesNotContain(CardId.Quen, DiyAiCardPool.RetiredCardIds);
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Quen));
-            Assert.Contains(CardId.Draug, DiyAiCardPool.RetiredCardIds);
-            Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.Draug));
+            Assert.DoesNotContain(CardId.Draug, DiyAiCardPool.RetiredCardIds);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Draug));
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.NorthernRealmsDraug));
             Assert.DoesNotContain(CardId.Crow, DiyAiCardPool.RetiredCardIds);
             Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.Crow));
@@ -46,7 +46,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 199), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 200), GwentMap.CardMapVersion);
             Assert.Equal(728, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -62,13 +62,75 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void SeptemberSixteenthFirstBatchMatchesMetadataLocalesPoolAndSeasonResetPolicy()
+        {
+            var data = new GwentCardDataService();
+            var draug = GwentMap.CardMap[CardId.Draug];
+            Assert.Equal("战灵", draug.Name);
+            Assert.Equal(Faction.Monsters, draug.Faction);
+            Assert.Equal(
+                GwentMap.CardMap[CardId.NorthernRealmsDraug].Info,
+                draug.Info);
+            Assert.Equal(typeof(Draug), data.GetType(CardId.Draug));
+            Assert.DoesNotContain(CardId.Draug, DiyAiCardPool.RetiredCardIds);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Draug));
+            Assert.False(draug.IsDerive);
+
+            Assert.Equal(7, GwentMap.CardMap[CardId.CrowClanDruid].Strength);
+            Assert.Contains("每回合结束时", GwentMap.CardMap[CardId.CrowClanDruid].Info);
+            Assert.Equal(
+                new[] { Categorie.Beast, Categorie.Token },
+                GwentMap.CardMap[CardId.Crow].Categories);
+            Assert.Equal(
+                "摧毁双方所有战力不高于3的单位。",
+                GwentMap.CardMap[CardId.ArnjolfThePatricide].Info);
+            Assert.Contains("失去2点增益", GwentMap.CardMap["70032"].Info);
+            Assert.Contains("增益不足2点", GwentMap.CardMap["70032"].Info);
+            Assert.Contains("牌组底端", GwentMap.CardMap[CardId.AxelThreeEyes].Info);
+
+            var changedIds = new[]
+            {
+                CardId.Draug, "70032", CardId.ArnjolfThePatricide,
+                CardId.CrowClanDruid, CardId.Crow, CardId.AxelThreeEyes
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = localeRoots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            }
+
+            var databaseSource = File.ReadAllText(FindRepositoryFile(
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Services/GwentGameService/GwentDatabaseService.cs"));
+            var resetStart = databaseSource.IndexOf("public async Task ResetPlayerMMR", StringComparison.Ordinal);
+            var resetEnd = databaseSource.IndexOf("public async Task ResetPlayerStreak", resetStart, StringComparison.Ordinal);
+            var resetMethod = databaseSource.Substring(resetStart, resetEnd - resetStart);
+            Assert.Contains(".Set(x => x.MMR, baseMMR)", resetMethod);
+            Assert.DoesNotContain("HighestMMR", resetMethod);
+
+            var resetScript = File.ReadAllText(FindRepositoryFile("deploy/diy-ai/reset-card-pool.js"));
+            Assert.Contains("[22001, 22002]", resetScript);
+            Assert.DoesNotContain("\"22002\": \"70197\"", resetScript);
+        }
+
+        [Fact]
         public void SeptemberFifteenthFirstBatchMatchesMetadataLocalesAndCardPool()
         {
             var data = new GwentCardDataService();
             var expected = new Dictionary<string, (int Strength, string Info)>
             {
-                ["70032"] = (1, "将双方同排所有单位移至随机排，每移动一个单位，便失去1点增益。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。"),
-                [CardId.CrowClanDruid] = (8, "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。"),
+                ["70032"] = (1, "将双方同排所有单位移至随机排，每移动一个单位，便失去2点增益。若增益不足2点，则停止移动剩余单位。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。"),
+                [CardId.CrowClanDruid] = (7, "生成1只“乌鸦”。每回合结束时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。"),
                 [CardId.Crowmother] = (4, "在己方其它排各生成1只“乌鸦”。生成与本次对局被摧毁数量相等的“乌鸦”，直至填满此排。"),
                 [CardId.VanMoorleheHunter] = (7, "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
                 [CardId.PhilippevanMoorlehem] = (9, "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
@@ -143,7 +205,7 @@ namespace Cynthia.Card.Server.Tests
                     Assert.Equal(axel.Name, locales[0].CardLocales[CardId.AxelThreeEyes].Name);
                     Assert.Equal(axel.Info, locales[0].CardLocales[CardId.AxelThreeEyes].Info);
                     Assert.Equal("在每排生成1只“乌鸦”。", locales[0].MenuLocales[axelOptionKeys[0]]);
-                    Assert.Equal("在墓场中生成3张“乌鸦眼”。", locales[0].MenuLocales[axelOptionKeys[1]]);
+                    Assert.Equal("将2张“乌鸦眼”加入牌组底端，随后从牌组顶端打出1张“乌鸦眼”。", locales[0].MenuLocales[axelOptionKeys[1]]);
                 }
             }
 
@@ -363,7 +425,7 @@ namespace Cynthia.Card.Server.Tests
         {
             var expected = new Dictionary<string, string>
             {
-                [CardId.Draug] = "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
+                [CardId.Draug] = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
                 [CardId.NorthernRealmsDraug] = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
                 ["70050"] = "使1个受伤或受护甲保护的友军单位与1个敌军单位对决。",
                 [CardId.FeastOfBlood] = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。（吸血鸟怪：同排非同名单位汲取时，汲取同目标1点战力。）"
@@ -375,9 +437,9 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(typeof(MadCharge), data.GetType("70050"));
             Assert.Equal(typeof(FeastOfBlood), data.GetType(CardId.FeastOfBlood));
             Assert.Contains("非间谍单位牌", GwentMap.CardMap[CardId.QueenCalanthe].Info);
-            Assert.Contains(CardId.Draug, DiyAiCardPool.RetiredCardIds);
-            Assert.True(GwentMap.CardMap[CardId.Draug].IsDerive);
-            foreach (var id in expected.Keys.Where(id => id != CardId.Draug).Append(CardId.QueenCalanthe))
+            Assert.DoesNotContain(CardId.Draug, DiyAiCardPool.RetiredCardIds);
+            Assert.False(GwentMap.CardMap[CardId.Draug].IsDerive);
+            foreach (var id in expected.Keys.Append(CardId.QueenCalanthe))
             {
                 Assert.True(DiyAiCardPool.IsUserDeckCard(id));
                 Assert.False(GwentMap.CardMap[id].IsDerive);
@@ -727,7 +789,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.DoesNotContain("佚亡", GwentMap.CardMap[CardId.Crowmother].Info);
             Assert.Contains("非间谍单位", GwentMap.CardMap[CardId.Svalblod].Info);
             Assert.Equal(
-                "摧毁己方所有战力不高于2的单位，随后摧毁敌方半场所有战力不高于2的单位。",
+                "摧毁双方所有战力不高于3的单位。",
                 GwentMap.CardMap[CardId.ArnjolfThePatricide].Info);
             Assert.DoesNotContain(CardId.ArnjolfThePatricide, DiyAiCardPool.RetiredCardIds);
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.ArnjolfThePatricide));
@@ -1051,7 +1113,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(
                 "Object.prototype.hasOwnProperty.call(allowedUserCardIds, id)",
                 script);
-            Assert.Contains("\"22002\": \"70197\"", script);
+            Assert.DoesNotContain("\"22002\": \"70197\"", script);
             Assert.Contains("\"22003\": \"22001\"", script);
             Assert.DoesNotContain("Number(text)", script);
         }
@@ -1751,6 +1813,26 @@ namespace Cynthia.Card.Server.Tests
         {
             var expectedChoicesBySource = new Dictionary<string, string[]>
             {
+                ["DIY/Expantion01/Monsters/DetlaffCrimsonCurse.cs"] = new[]
+                {
+                    "DetlaffCrimsonCurse_1_Boon", "DetlaffCrimsonCurse_2_Hazard"
+                },
+                ["DIY/NorthernRealms/Gold/PhilippaLodgeMistress.cs"] = new[]
+                {
+                    "PhilippaLodgeMistress_1_PlayMage", "PhilippaLodgeMistress_2_CreateSpell"
+                },
+                ["DIY/ScoiaTael/Gold/TheGreatOak.cs"] = new[]
+                {
+                    "TheGreatOak_1_Weaken", "TheGreatOak_2_Resurrect"
+                },
+                ["DIY/Skellige/Gold/Hammond.cs"] = new[]
+                {
+                    "Hammond_1_SpawnMachine", "Hammond_2_BoostMachines"
+                },
+                ["DIY/Skellige/Silver/AxelThreeEyes.cs"] = new[]
+                {
+                    "AxelThreeEyes_1_SpawnCrows", "AxelThreeEyes_2_CreateCrowEyes"
+                },
                 ["Monsters/Gold/WeavessIncantation.cs"] = new[]
                 {
                     "WeavessIncantation_1_Strenghten", "WeavessIncantation_2_PlayRelict"
@@ -1799,6 +1881,14 @@ namespace Cynthia.Card.Server.Tests
                 {
                     "Kiyan_1_CreateAlchemy", "Kiyan_2_PlayItem"
                 },
+                ["NorthernRealms/Copper/Winch.cs"] = new[]
+                {
+                    "Winch_1_Resurect", "Winch_2_Boost"
+                },
+                ["NorthernRealms/Gold/RocheMerciless.cs"] = new[]
+                {
+                    "RocheMerciless_1_PlayTemeria", "RocheMerciless_2_DestroyAmbush"
+                },
                 ["ScoiaTael/Gold/IsengrimOutlaw.cs"] = new[]
                 {
                     "IsengrimOutlaw_1_PlaySpecial", "IsengrimOutlaw_2_CreateElf"
@@ -1838,8 +1928,8 @@ namespace Cynthia.Card.Server.Tests
             var expectedKeys = expectedChoicesBySource
                 .SelectMany(choiceSource => choiceSource.Value)
                 .ToArray();
-            Assert.Equal(47, expectedKeys.Length);
-            Assert.Equal(47, expectedKeys.Distinct(StringComparer.Ordinal).Count());
+            Assert.Equal(61, expectedKeys.Length);
+            Assert.Equal(61, expectedKeys.Distinct(StringComparer.Ordinal).Count());
             var localeRoots = new[]
             {
                 "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
@@ -1894,6 +1984,22 @@ namespace Cynthia.Card.Server.Tests
                 "WeavessIncantation_1_Strenghten"]);
             Assert.Contains("食腐生物", chineseLocale.MenuLocales[
                 "BlackBlood_1_CreateVampire"]);
+            Assert.Contains("1点增益", chineseLocale.MenuLocales[
+                "BlackBlood_1_CreateVampire"]);
+            Assert.DoesNotContain("2点增益", chineseLocale.MenuLocales[
+                "BlackBlood_1_CreateVampire"]);
+            Assert.Contains("不高于自身", chineseLocale.MenuLocales[
+                "RocheMerciless_1_PlayTemeria"]);
+            Assert.Contains("起始牌组之外", chineseLocale.MenuLocales[
+                "MahakamHorn_1_CreateDwarf"]);
+            Assert.Contains("非间谍", chineseLocale.MenuLocales[
+                "IsengrimOutlaw_2_CreateElf"]);
+            Assert.Contains("非间谍", chineseLocale.MenuLocales[
+                "Hym_2_PlaySilver"]);
+            Assert.Contains("2张", chineseLocale.MenuLocales[
+                "AxelThreeEyes_2_CreateCrowEyes"]);
+            Assert.Contains("牌组底端", chineseLocale.MenuLocales[
+                "AxelThreeEyes_2_CreateCrowEyes"]);
             Assert.Equal(
                 "生成1张己方起始牌组之外的铜色“炼金”牌。",
                 chineseLocale.MenuLocales["Kiyan_1_CreateAlchemy"]);
@@ -2222,7 +2328,7 @@ namespace Cynthia.Card.Server.Tests
                 ["70077"] = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有1个被锁定的单位，减少1次回合计数。",
                 ["70086"] = "择一：从牌组中打出1张铜色/银色“法师”牌；生成1张铜色“法术”牌。",
                 ["70095"] = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
-                [CardId.CrowClanDruid] = "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
+                [CardId.CrowClanDruid] = "生成1只“乌鸦”。每回合结束时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
                 [CardId.Wisteria] = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
                 [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
                 [CardId.DeadeyeAmbush] = "选择1个友军单位，将其上移1排并使其获得5点增益；选择1个敌军单位，将其移至敌方近战排并对其造成5点伤害。",

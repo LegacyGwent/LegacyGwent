@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 199);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 200);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -3070,7 +3070,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Officer},
                     Flavor = "有些人就是不服输，死了还要继续打。",
-                    Info = "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
+                    Info = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
                     CardArtsId = "13210100",
                     LinkedCards=new List<String> {"25003"},
                 }
@@ -11732,7 +11732,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Officer},
                     Flavor = "“你手下的人可就是史帕拉流亡军？你便是人称野狗公爵的那位？”",
-                    Info = "将双方同排所有单位移至随机排，每移动一个单位，便失去1点增益。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。",
+                    Info = "将双方同排所有单位移至随机排，每移动一个单位，便失去2点增益。若增益不足2点，则停止移动剩余单位。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。",
                     CardArtsId = "202099",
                     LinkedCards=new List<String> {},
                 }
@@ -13215,7 +13215,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier},
                     Flavor = "他杀死了自己的亲人，还有什么是不能丢弃的？",
-                    Info = "摧毁己方所有战力不高于2的单位，随后摧毁敌方半场所有战力不高于2的单位。",
+                    Info = "摧毁双方所有战力不高于3的单位。",
                     CardArtsId = "202182",
                     LinkedCards=new List<String> {},
                 }
@@ -14069,7 +14069,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70134", //Crow Clan Druid
                     Name="鸦母德鲁伊",
-                    Strength=8,
+                    Strength=7,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14079,7 +14079,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "先贤声称动物愚昧无知——纯属胡说八道。",
-                    Info = "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
+                    Info = "生成1只“乌鸦”。每回合结束时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
                     CardArtsId = "202517",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14119,7 +14119,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Beast},
+                    Categories = new Categorie[]{ Categorie.Beast, Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
                     Info = "遗愿：随机对1个敌军单位造成3点伤害。",
                     CardArtsId = "202568",
@@ -15623,7 +15623,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Druid },
                     Flavor = "",
-                    Info = "择一：在每排生成1只“乌鸦”；或在墓场中生成3张“乌鸦眼”。",
+                    Info = "择一：在每排生成1只“乌鸦”；或将2张“乌鸦眼”加入牌组底端，随后从牌组顶端打出1张“乌鸦眼”。",
                     CardArtsId = "d19860000",
                     LinkedCards = new List<String> { CardId.Crow, CardId.CrowSEye },
                 }

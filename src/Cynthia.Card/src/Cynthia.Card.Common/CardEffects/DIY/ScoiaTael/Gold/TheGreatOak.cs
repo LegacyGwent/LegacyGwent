@@ -33,7 +33,7 @@ namespace Cynthia.Card
             methodDesDict = new Dictionary<int, string>()
             {
                 {1, "TheGreatOak_1_Weaken"},
-                {2, "TheGreatOak_2_Resurect"}
+                {2, "TheGreatOak_2_Resurrect"}
             };
         }
 

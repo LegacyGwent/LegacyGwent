@@ -8,7 +8,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public sealed class SeptemberSeventhFirstBatchTests
     {
         [Fact]
-        public async Task OriginalDraugUsesRandomResurrectionWithoutAMenuOrEightCardLimit()
+        public async Task OriginalDraugNowUsesTheNorthernDraugSelectionAndEightCardLimit()
         {
             var fixture = new HeadlessGameFixture();
             fixture.Game.RowMaxCount = 12;
@@ -17,9 +17,11 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.AddCard(0, CardId.Wolf, RowPosition.MyCemetery);
             await fixture.SynchronizeClientsAsync();
             await fixture.Game.AddTask(async () => await draug.Effects.RaiseEvent(new CardPlayEffect(false, false)));
-            Assert.Empty(fixture.FirstPlayer.MenuRequests);
-            Assert.Equal(12, fixture.Game.PlayersPlace[0][0].Count);
-            Assert.Equal(3, fixture.Game.PlayersCemetery[0].Count);
+            var request = Assert.Single(fixture.FirstPlayer.MenuRequests);
+            Assert.Equal("选择最多8个复活目标", request.Title);
+            Assert.Equal(8, request.SelectCount);
+            Assert.Equal(9, fixture.Game.PlayersPlace[0][0].Count);
+            Assert.Equal(6, fixture.Game.PlayersCemetery[0].Count);
             Assert.All(fixture.Game.PlayersPlace[0][0].Where(card => card != draug), card =>
             {
                 Assert.Equal(CardId.Draugir, card.Status.CardId);

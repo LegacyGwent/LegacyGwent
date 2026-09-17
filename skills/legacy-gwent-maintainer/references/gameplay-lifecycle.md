@@ -1,6 +1,6 @@
 # Gameplay lifecycle
 
-Last verified: 2026-09-02
+Last verified: 2026-09-17
 
 Use this reference before changing deployment, landing, shields, duels, or any
 effect that must run at a precise point in a unit's entry pipeline. Verify the
@@ -20,10 +20,14 @@ relevant source again when changing the shared pipeline.
 7. If the original unit remains on a row, raise `CardDownEffect`.
 
 A unit removed during `CardPlayEffect` never reaches `CardDown` or
-`CardDownEffect`. A concealed unit exits immediately after `ShowCardDown` and
-does not follow the ordinary event sequence. Summon, resurrect, move, and manual
-placement helpers may call different subsets; inspect their caller instead of
-assuming they are equivalent to a hand play.
+`CardDownEffect`. A concealed unit exits the ordinary sequence immediately
+after `ShowCardDown`; once the face-down card has actually landed, `Play` sends
+the dedicated global `AfterAmbushDown` event. Effects that count newly placed
+face-down Ambushes, such as Forest Whisperer, must listen to that event rather
+than `AfterUnitDown`. Revealing the Ambush later still follows the ordinary
+shown-card landing path. Summon, resurrect, move, and manual placement helpers
+may call different subsets; inspect their caller instead of assuming they are
+equivalent to a hand play.
 
 ## Landing reactions
 
@@ -33,6 +37,11 @@ later raises `CardDownEffect` if the original unit remains on a row. There is no
 card-local post-deploy/pre-landing hook. State that must exist in hand, such as
 the current Quen Shield, must be represented before `Play` begins rather than
 attached at `CardDown`.
+
+Regression tests for a face-down landing reaction must play a real Ambush
+through `CardEffect.Play` and verify both the one-Ambush negative case and the
+threshold case. Manually broadcasting `AfterUnitDown` can make a broken effect
+pass because production never sends that event for the concealed landing.
 
 ## Damage and shield
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
@@ -23,11 +24,17 @@ namespace Cynthia.Card
                     }
                     break;
                 case 2:
-                    for (var count = 0; count < 3; count++)
+                    for (var count = 0; count < 2; count++)
                     {
-                        await Game.CreateCardAtEnd(CardId.CrowSEye, PlayerIndex, RowPosition.MyCemetery);
+                        await Game.CreateCard(
+                            CardId.CrowSEye,
+                            PlayerIndex,
+                            new CardLocation(RowPosition.MyDeck, Game.PlayersDeck[PlayerIndex].Count));
                     }
-                    break;
+                    var topCrowEye = Game.PlayersDeck[PlayerIndex]
+                        .First(card => card.Status.CardId == CardId.CrowSEye);
+                    await topCrowEye.MoveToCardStayFirst();
+                    return 1;
             }
 
             return 0;

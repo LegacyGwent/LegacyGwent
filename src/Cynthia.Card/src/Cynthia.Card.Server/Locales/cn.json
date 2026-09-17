@@ -738,7 +738,7 @@
         "ShupeMage_4_Damage": "对1个敌军造成10点伤害，再对其相邻单位造成5点",
         "ShupeMage_5_Special": "从牌组打出1张铜色/银色“特殊”牌",
         "Hym_1_PlayCursed": "从牌组打出1张铜色/银色“诅咒生物”单位",
-        "Hym_2_PlaySilver": "创造对手初始牌组中的1张银色单位牌",
+        "Hym_2_PlaySilver": "生成对方初始牌组中1张非间谍银色单位牌。",
         "GaunterODimm_1_LowerThanSix": "小于6。",
         "GaunterODimm_2_EqualToSix": "等于6。",
         "GaunterODimm_3_HigherThanSix": "大于6。",
@@ -756,10 +756,10 @@
         "Kiyan_2_PlayItem": "从牌组打出1张铜色/银色“道具”牌。",
         "PhilippaLodgeMistress_1_PlayMage": "从牌组中打出1张铜色/银色“法师”单位。",
         "PhilippaLodgeMistress_2_CreateSpell": "生成1张铜色“法术”牌。",
-        "RocheMerciless_1_PlayTemeria": "打出1张战力低于自身的铜色/银色“泰莫利亚”阵营单位。",
+        "RocheMerciless_1_PlayTemeria": "打出牌组中1张战力不高于自身的铜色/银色“泰莫利亚”单位牌。",
         "RocheMerciless_2_DestroyAmbush": "摧毁一个隐蔽的伏击敌方单位。",
         "IsengrimOutlaw_1_PlaySpecial": "从牌组中打出1张铜色/银色“特殊”牌。",
-        "IsengrimOutlaw_2_CreateElf": "创造1个银色“精灵”单位。",
+        "IsengrimOutlaw_2_CreateElf": "生成1个己方起始牌组之外的非间谍银色“精灵”单位。",
         "TheGreatOak_1_Weaken": "削弱1个敌军一半的基础战力。",
         "TheGreatOak_2_Resurrect": "复活1个铜色“树精”单位并将其返回牌组。",
         "Hammond_1_SpawnMachine": "生成1个铜色“史凯利格”阵营“机械”单位。",
@@ -770,7 +770,7 @@
         "Winch_2_Boost": "使己方所有“机械”单位获得3点增益。",
         "Mardroeme_1_Strenghten": "重置1个单位并使其获得3点强化。",
         "Mardroeme_2_Weaken": "重置1个单位并使其受到3点削弱。",
-        "MahakamHorn_1_CreateDwarf": "创造1个铜色/银色“矮人”单位牌。",
+        "MahakamHorn_1_CreateDwarf": "生成1个己方起始牌组之外的铜色“矮人”单位。",
         "MahakamHorn_2_Strenghten": "使1个单位获得7点强化。",
         "VandergriftSBlade_1_DestroyCursed": "摧毁1个敌军铜色/银色“诅咒生物”单位。",
         "VandergriftSBlade_2_Damage": "造成10点伤害，若该单位被摧毁，则将其放逐。",
@@ -778,7 +778,7 @@
         "Cadaverine_2_DestroyNeutral": "摧毁一个敌军铜色/银色“中立”阵营单位。",
         "Mandrake_1_Strenghten": "治愈1个单位并使其获得6点强化。",
         "Mandrake_2_Weaken": "重置1个单位并使其受到6点削弱。",
-        "BlackBlood_1_CreateVampire": "创造1个铜色“食腐生物”或“吸血鬼”单位牌并使其获得2点增益。",
+        "BlackBlood_1_CreateVampire": "生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益。",
         "BlackBlood_2_DestroyVampire": "摧毁一个铜色/银色“食腐生物”或“吸血鬼”单位。",
         "Sihil_1_DamageOdd": "对所有“奇数”战力的敌军造成3点伤害。",
         "Sihil_2_DamageEven": "对所有“偶数”战力的敌军造成3点伤害。",
@@ -791,7 +791,7 @@
         "Masquerade_ChangeSilver": "将所选单位的品质变为银色。",
         "Masquerade_ChangeCopper": "将所选单位的品质变为铜色。",
         "AxelThreeEyes_1_SpawnCrows": "在每排生成1只“乌鸦”。",
-        "AxelThreeEyes_2_CreateCrowEyes": "在墓场中生成3张“乌鸦眼”。"
+        "AxelThreeEyes_2_CreateCrowEyes": "将2张“乌鸦眼”加入牌组底端，随后从牌组顶端打出1张“乌鸦眼”。"
     },
     "CardLocales": {
         "12001": {
@@ -1461,7 +1461,7 @@
         },
         "22002": {
             "Name": "战灵",
-            "Info": "将死去的单位复活为战力为1的“战鬼”，直至填满此排。",
+            "Info": "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
             "Flavor": "有些人就是不服输，死了还要继续打。"
         },
         "22003": {
@@ -3511,7 +3511,7 @@
         },
         "70032": {
             "Name": "加斯科",
-            "Info": "将双方同排所有单位移至随机排，每移动一个单位，便失去1点增益。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。",
+            "Info": "将双方同排所有单位移至随机排，每移动一个单位，便失去2点增益。若增益不足2点，则停止移动剩余单位。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。",
             "Flavor": "“你手下的人可就是史帕拉流亡军？你便是人称野狗公爵的那位？”"
         },
         "70033": {
@@ -3636,7 +3636,7 @@
         },
         "70082": {
             "Name": "弑亲者恩约夫",
-            "Info": "摧毁己方所有战力不高于2的单位，随后摧毁敌方半场所有战力不高于2的单位。",
+            "Info": "摧毁双方所有战力不高于3的单位。",
             "Flavor": "“只有毁灭可以洗刷我的耻辱。”"
         },
         "70083": {
@@ -3886,7 +3886,7 @@
         },
         "70134": {
             "Name": "鸦母德鲁伊",
-            "Info": "生成1只“乌鸦”。每回合开始时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
+            "Info": "生成1只“乌鸦”。每回合结束时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
             "Flavor": "先贤声称动物愚昧无知——纯属胡说八道。"
         },
         "70135": {
@@ -3896,7 +3896,7 @@
         },
         "70136": {
             "Name": "乌鸦",
-            "Info": "遗愿：随机对1个敌军单位造成2点伤害。",
+            "Info": "遗愿：随机对1个敌军单位造成3点伤害。",
             "Flavor": "“置身鸦群，你也必须鸦鸦做声。”"
         },
         "70137": {
@@ -4296,7 +4296,7 @@
         },
         "70203": {
             "Name": "“三目者”艾克索",
-            "Info": "择一：在每排生成1只“乌鸦”；或在墓场中生成3张“乌鸦眼”。",
+            "Info": "择一：在每排生成1只“乌鸦”；或将2张“乌鸦眼”加入牌组底端，随后从牌组顶端打出1张“乌鸦眼”。",
             "Flavor": ""
         }
     }

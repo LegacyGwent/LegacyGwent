@@ -248,22 +248,31 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task ForestWhispererSummonsForTwoUnrevealedAmbushes()
+        public async Task ForestWhispererSummonsWhenTheSecondAmbushIsActuallyPlayedFaceDown()
         {
             var fixture = new HeadlessGameFixture();
             var whisperer = fixture.AddCard(fixture.Game.Player1Index, "70100", RowPosition.MyDeck);
-            var first = fixture.AddCard(fixture.Game.Player1Index, "53017", RowPosition.MyRow1);
-            var second = fixture.AddCard(fixture.Game.Player1Index, "53018", RowPosition.MyRow2);
+            var first = fixture.AddCard(fixture.Game.Player1Index, CardId.Morenn, RowPosition.MyRow1);
+            var second = fixture.AddCard(fixture.Game.Player1Index, CardId.Toruviel, RowPosition.MyHand);
             first.Status.Conceal = true;
-            second.Status.Conceal = true;
-            first.Status.Categories = first.Status.Categories.Concat(new[] { Categorie.Ambush }).Distinct().ToArray();
-            second.Status.Categories = second.Status.Categories.Concat(new[] { Categorie.Ambush }).Distinct().ToArray();
             await fixture.SynchronizeClientsAsync();
 
-            await fixture.Game.SendEvent(new AfterUnitDown(
-                second, true, false, (false, false), false, true));
+            await second.Effect.Play(new CardLocation(RowPosition.MyRow2, 0));
 
+            Assert.True(second.Status.Conceal);
             Assert.True(whisperer.Status.CardRow.IsOnPlace());
+
+            var oneAmbushFixture = new HeadlessGameFixture();
+            var waitingWhisperer = oneAmbushFixture.AddCard(
+                oneAmbushFixture.Game.Player1Index, "70100", RowPosition.MyDeck);
+            var onlyAmbush = oneAmbushFixture.AddCard(
+                oneAmbushFixture.Game.Player1Index, CardId.Morenn, RowPosition.MyHand);
+            await oneAmbushFixture.SynchronizeClientsAsync();
+
+            await onlyAmbush.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
+
+            Assert.True(onlyAmbush.Status.Conceal);
+            Assert.True(waitingWhisperer.Status.CardRow.IsInDeck());
         }
 
         [Fact]

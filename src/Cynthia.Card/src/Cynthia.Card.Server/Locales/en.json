@@ -738,7 +738,7 @@
         "ShupeMage_4_Damage": "Deal 10 Damage to an enemy and 5 to any adjacent to it.",
         "ShupeMage_5_Special": "Play a non Gold special card from your deck.",
         "Hym_1_PlayCursed": "Play a Bronze or Silver Cursed unit from your deck.",
-        "Hym_2_PlaySilver": "Create a Silver unit from your opponent's starting deck.",
+        "Hym_2_PlaySilver": "Generate a non-Spying Silver unit from your opponent's starting deck.",
         "GaunterODimm_1_LowerThanSix": "Lower than 6.",
         "GaunterODimm_2_EqualToSix": "Equal to 6.",
         "GaunterODimm_3_HigherThanSix": "Higher than 6.",
@@ -756,12 +756,12 @@
         "Kiyan_2_PlayItem": "Play a Bronze or Silver Item from your deck.",
         "PhilippaLodgeMistress_1_PlayMage": "Play a bronze or silver mage from your deck.",
         "PhilippaLodgeMistress_2_CreateSpell": "Spawn a bronze spell.",
-        "RocheMerciless_1_PlayTemeria": "Play 1 Silver or Bronze Temeria card from your deck with power less or equal then self.",
+        "RocheMerciless_1_PlayTemeria": "Play a Bronze or Silver Temeria unit from your deck with Power no greater than this unit's.",
         "RocheMerciless_2_DestroyAmbush": "Destroy conceled ambush enemy unit.",
         "IsengrimOutlaw_1_PlaySpecial": "Play a Bronze or Silver special card from your deck.",
-        "IsengrimOutlaw_2_CreateElf": "Create a Silver Elf.",
+        "IsengrimOutlaw_2_CreateElf": "Generate a non-Spying Silver Elf outside your starting deck.",
         "TheGreatOak_1_Weaken": "Weaken an enemy unit by half of its base Strength.",
-        "TheGreatOak_2_Resurect": "Resurrect a Bronze Dryad and then return it to the deck.",
+        "TheGreatOak_2_Resurrect": "Resurrect a Bronze Dryad and then return it to the deck.",
         "Hammond_1_SpawnMachine": "Spawn a Skellige Bronze Machine.",
         "Hammond_2_BoostMachines": "Boost all allied Machines on the board by 2.",
         "BoneTalisman_1_ResurectBeast": "Resurrect a Bronze Beast or Cultist.",
@@ -770,7 +770,7 @@
         "Winch_2_Boost": "Boost all Machines on your side of the board by 3.",
         "Mardroeme_1_Strenghten": "Reset a unit and Strengthen it by 3.",
         "Mardroeme_2_Weaken": "Reset a unit and Weaken it by 3.",
-        "MahakamHorn_1_CreateDwarf": "Create a Bronze or Silver Dwarf.",
+        "MahakamHorn_1_CreateDwarf": "Generate a Bronze Dwarf outside your starting deck.",
         "MahakamHorn_2_Strenghten": "Strengthen a unit by 7.",
         "VandergriftSBlade_1_DestroyCursed": "Destroy a Bronze or Silver Cursed enemy.",
         "VandergriftSBlade_2_Damage": "Deal 10 Damage, If the unit was destroyed, Banish it.",
@@ -778,7 +778,7 @@
         "Cadaverine_2_DestroyNeutral": "Destroy a Bronze or Silver Neutral enemy.",
         "Mandrake_1_Strenghten": "Heal a unit and Strengthen it by 6.",
         "Mandrake_2_Weaken": "Reset a unit and Weaken it by 6.",
-        "BlackBlood_1_CreateVampire": "Create a Bronze Necrophage or Vampire and Boost it by 2.",
+        "BlackBlood_1_CreateVampire": "Generate a Bronze Necrophage or Vampire outside your starting deck and Boost it by 1.",
         "BlackBlood_2_DestroyVampire": "Destroy a Bronze or Silver Necrophage or Vampire.",
         "Sihil_1_DamageOdd": "Deal 3 Damage to all enemies with odd Power.",
         "Sihil_2_DamageEven": "Deal 3 Damage to all enemies with even Power.",
@@ -791,7 +791,7 @@
         "Masquerade_ChangeSilver": "Change the selected unit's rarity to Silver.",
         "Masquerade_ChangeCopper": "Change the selected unit's rarity to Bronze.",
         "AxelThreeEyes_1_SpawnCrows": "Spawn 1 Crow on each row.",
-        "AxelThreeEyes_2_CreateCrowEyes": "Spawn 3 Crow's Eyes in your graveyard."
+        "AxelThreeEyes_2_CreateCrowEyes": "Add 2 Crow's Eyes to the bottom of your deck, then play the top Crow's Eye from your deck."
     },
     "CardLocales": {
         "12001": {
@@ -3506,7 +3506,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Move all units on both sides of this row to random rows and lose 1 Boost for each unit moved. While in your hand or deck, Boost self by 1 whenever a Bronze or Silver unit moves during your turn.",
+            "Info": "Move all units on both sides of this row to random rows and lose 2 Boost for each unit moved. Stop moving units if this unit has less than 2 Boost. While in your hand or deck, Boost self by 1 whenever a Bronze or Silver unit moves during your turn.",
             "Flavor": "Th' Strays of Spalla - 'tis you who lead them? 'Tis you they call the Duke of Dogs?"
         },
         "70033": {
@@ -3631,7 +3631,7 @@
         },
         "70082": {
             "Name": "Arnjolf the Patricide",
-            "Info": "Deploy: Destroy all allied units with 2 Power or less, then destroy all enemy units with 2 Power or less.",
+            "Info": "Destroy all units on both sides with 3 Power or less.",
             "Flavor": "Only death can cleanse me o' shame."
         },
         "70083": {
@@ -3881,7 +3881,7 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "Spawn 1 Crow. At the start of each turn, if there is a Crow on this row, repeat this ability, then Damage self by 1.",
+            "Info": "Spawn 1 Crow. At the end of each turn, if there is a Crow on this row, repeat this ability, then Damage self by 1.",
             "Flavor": "Wise men claim that animals are mindless automatons. Wise men don't know what they're talking about."
         },
         "70135": {
@@ -4291,7 +4291,7 @@
         },
         "70203": {
             "Name": "Axel Three-Eyes",
-            "Info": "Choose One: Spawn 1 Crow on each row; or Spawn 3 Crow's Eyes in your graveyard.",
+            "Info": "Choose One: Spawn 1 Crow on each row; or Add 2 Crow's Eyes to the bottom of your deck, then play the top Crow's Eye from your deck.",
             "Flavor": ""
         }
     }

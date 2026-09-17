@@ -737,7 +737,7 @@
         "ShupeMage_4_Damage": "Zadaj wrogowi 10 pkt. obrażeń i 5 pkt. obrażeń jednostkom z nim sąsiadującym.",
         "ShupeMage_5_Special": "Zagraj brązową lub srebną kartę specjalną ze swojej talii.",
         "Hym_1_PlayCursed": "Zagraj brązową lub srebrną jednostkę Przeklętą ze swojej talii.",
-        "Hym_2_PlaySilver": "Utwórz srebrną kartę jednostki z talii początkowej przeciwnika.",
+        "Hym_2_PlaySilver": "Stwórz srebrną jednostkę bez statusu szpiega z talii początkowej przeciwnika.",
         "GaunterODimm_1_LowerThanSix": "Mniejsza niż 6.",
         "GaunterODimm_2_EqualToSix": "Równa 6.",
         "GaunterODimm_3_HigherThanSix": "Większa niż 6.",
@@ -753,12 +753,12 @@
         "LethoKingslayer_2_PlayTactic": "Zagraj brązową lub srebrną kartę Taktyki ze swojej talii.",
         "Kiyan_1_CreateAlchemy": "Wygeneruj brązową kartę Alchemii spoza swojej talii początkowej.",
         "Kiyan_2_PlayItem": "Zagraj brązowy lub srebrny Przedmiot ze swojej talii.",
-        "PhilippaLodgeMistress_1_PlayMage": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
-        "PhilippaLodgeMistress_2_CreateSpell": "Rozmieszczenie: Zagraj brązowego lub srebrnego maga ze swojej talii lub stwórz brązowe zaklęcie.",
-        "RocheMerciless_1_PlayTemeria": "Zagraj Srebrną lub Brązową jednostkę Temeri z siłą niższa niż ta karta.",
+        "PhilippaLodgeMistress_1_PlayMage": "Zagraj brązowego lub srebrnego maga ze swojej talii.",
+        "PhilippaLodgeMistress_2_CreateSpell": "Stwórz brązowe zaklęcie.",
+        "RocheMerciless_1_PlayTemeria": "Zagraj ze swojej talii brązową lub srebrną jednostkę Temerii o sile nie większej niż siła tej jednostki.",
         "RocheMerciless_2_DestroyAmbush": "Zniszcz zakrytą wrogą zasadzke.",
         "IsengrimOutlaw_1_PlaySpecial": "Zagraj brązową lub srebrną kartę specjalną.",
-        "IsengrimOutlaw_2_CreateElf": "Utwórz srebrnego Elfa.",
+        "IsengrimOutlaw_2_CreateElf": "Stwórz srebrnego Elfa bez statusu szpiega spoza swojej talii początkowej.",
         "TheGreatOak_1_Weaken": "Osłab jednostkę o połowe jej podstawowej siły.",
         "TheGreatOak_2_Resurrect": "Wskrześ Brązową Driade i wtasuj ją w talie na koniec tury.",
         "Hammond_1_SpawnMachine": "Stwórz Skelligijską brązową maszynę.",
@@ -769,7 +769,7 @@
         "Winch_2_Boost": "Wzmocnij wszystkie maszyny po twojej stronie o 3.",
         "Mardroeme_1_Strenghten": "Zresetuj jednostkę i ulepsz ją o 3.",
         "Mardroeme_2_Weaken": "Zresetuj jednostkę i osłab ją o 3.",
-        "MahakamHorn_1_CreateDwarf": "Utwórz brązowego lub srebrnego Krasnoluda.",
+        "MahakamHorn_1_CreateDwarf": "Stwórz brązowego Krasnoluda spoza swojej talii początkowej.",
         "MahakamHorn_2_Strenghten": "Ulepsz jednostkę o 7.",
         "VandergriftSBlade_1_DestroyCursed": "Zniszcz brązowego lub srebrnego Przeklętego wroga.",
         "VandergriftSBlade_2_Damage": "Zadaj 10 pkt obrażeń i jeśli jednostka została zniszczona, wygnaj ją.",
@@ -777,7 +777,7 @@
         "Cadaverine_2_DestroyNeutral": "Zniszcz brązową lub srebrną jednostkę neutralną.",
         "Mandrake_1_Strenghten": "Uzdrów jednostkę i ulepsz ją o 6.",
         "Mandrake_2_Weaken": "Zresetuj jednostkę i osłab ją o 6.",
-        "BlackBlood_1_CreateVampire": "Utwórz brązową kartę Trupojada albo Wampira i wzmocnij ją o 2.",
+        "BlackBlood_1_CreateVampire": "Stwórz brązowego Trupojada albo Wampira spoza swojej talii początkowej i wzmocnij go o 1.",
         "BlackBlood_2_DestroyVampire": "Zniszcz brązowego lub srebrnego Trupojada bądź Wampira.",
         "Sihil_1_DamageOdd": "Zadaj 3 pkt obrażeń wszystkim wrogom o nieparzystej sile.",
         "Sihil_2_DamageEven": "Zadaj 3 pkt obrażeń wszystkim wrogom o parzystej sile.",
@@ -790,7 +790,7 @@
         "Masquerade_ChangeSilver": "Zmień jakość wybranej jednostki na srebrną.",
         "Masquerade_ChangeCopper": "Zmień jakość wybranej jednostki na brązową.",
         "AxelThreeEyes_1_SpawnCrows": "Stwórz po 1 Kruku w każdym rzędzie.",
-        "AxelThreeEyes_2_CreateCrowEyes": "Stwórz 3 Wronie Oczy na swoim cmentarzu."
+        "AxelThreeEyes_2_CreateCrowEyes": "Dodaj 2 Wronie Oczy na spód swojej talii, a następnie zagraj najwyżej położone Wronie Oko ze swojej talii."
     },
     "CardLocales": {
         "12001": {
@@ -3505,7 +3505,7 @@
         },
         "70032": {
             "Name": "Gascon",
-            "Info": "Przenieś wszystkie jednostki po obu stronach tego rzędu do losowych rzędów i usuń 1 pkt wzmocnienia za każdą przeniesioną jednostkę. W ręce lub talii: wzmocnij tę jednostkę o 1, gdy brązowa lub srebrna jednostka zostanie przeniesiona podczas twojej tury.",
+            "Info": "Przenieś wszystkie jednostki po obu stronach tego rzędu do losowych rzędów i usuń 2 pkt wzmocnienia za każdą przeniesioną jednostkę. Jeśli ta jednostka ma mniej niż 2 pkt wzmocnienia, przestań przenosić pozostałe jednostki. W ręce lub talii: wzmocnij tę jednostkę o 1, gdy brązowa lub srebrna jednostka zostanie przeniesiona podczas twojej tury.",
             "Flavor": "To ty przewodzisz Kundlom ze Spalli? Ciebie wołają Księciem Psów?"
         },
         "70033": {
@@ -3630,7 +3630,7 @@
         },
         "70082": {
             "Name": "Arnjolf Ojcobójca",
-            "Info": "Zniszcz wszystkie sojusznicze jednostki o sile 2 lub mniej, następnie zniszcz wszystkie wrogie jednostki o sile 2 lub mniej.",
+            "Info": "Zniszcz wszystkie jednostki po obu stronach o sile 3 lub mniej.",
             "Flavor": "Moją hańbę można zmazać tylko krwią."
         },
         "70083": {
@@ -3880,7 +3880,7 @@
         },
         "70134": {
             "Name": "Adeptka Klanu Kruka",
-            "Info": "Stwórz 1 Kruka. Na początku każdej tury, jeśli w tym rzędzie jest Kruk, powtórz tę zdolność, a następnie zadaj tej jednostce 1 pkt obrażeń.",
+            "Info": "Stwórz 1 Kruka. Na końcu każdej tury, jeśli w tym rzędzie jest Kruk, powtórz tę zdolność, a następnie zadaj tej jednostce 1 pkt obrażeń.",
             "Flavor": "Uczeni mężowie twierdzą, że zwierzęta to bezrozumne automatony. Uczeni mężowie pieprzą od rzeczy."
         },
         "70135": {
@@ -4290,7 +4290,7 @@
         },
         "70203": {
             "Name": "Axel Troje Oczu",
-            "Info": "Wybierz jedno: stwórz po 1 Kruku w każdym rzędzie; albo stwórz 3 Wronie Oczy na swoim cmentarzu.",
+            "Info": "Wybierz jedno: stwórz po 1 Kruku w każdym rzędzie; albo dodaj 2 Wronie Oczy na spód swojej talii, a następnie zagraj najwyżej położone Wronie Oko ze swojej talii.",
             "Flavor": ""
         }
     }

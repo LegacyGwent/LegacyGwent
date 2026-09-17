@@ -104,8 +104,9 @@ namespace Cynthia.Card
             // Game.HistoryList.Add((isSpying ? AnotherPlayer : Card.PlayerIndex, Card));
             if (Card.Status.Conceal)
             {
-                //如果是伏击,不触发事件
                 await Game.ShowCardDown(Card);
+                await Game.AddTask(async () => await Game.SendEvent(
+                    new AfterAmbushDown(Card, isFromHand, isPlayed: true)));
                 return;
             }
             await Game.SendEvent(new AfterUnitPlay(Card, isFromHand, isSpying, isReveal));

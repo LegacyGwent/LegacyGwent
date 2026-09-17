@@ -7,12 +7,13 @@ namespace Cynthia.Card.Gameplay.Tests
     public class SeptemberFifteenthEffectsTests
     {
         [Fact]
-        public async Task GasconMovesEveryOtherUnitOnTheSelectedPairOfRowsAndOnlyLosesBoost()
+        public async Task GasconSpendsTwoBoostPerMoveAndStopsWhenLessThanTwoRemain()
         {
             var f = new HeadlessGameFixture();
             var gascon = f.AddCard(f.Game.Player1Index, "70032", RowPosition.MyRow1, 1);
-            gascon.Status.HealthStatus = 2;
-            var ally = f.AddCard(f.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyRow1);
+            gascon.Status.HealthStatus = 5;
+            var firstAlly = f.AddCard(f.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyRow1);
+            var secondAlly = f.AddCard(f.Game.Player1Index, CardId.Lambert, RowPosition.MyRow1);
             var enemy = f.AddCard(f.Game.Player2Index, CardId.Eskel, RowPosition.MyRow1);
             f.FirstPlayer.QueueRows(RowPosition.MyRow1);
             await f.SynchronizeClientsAsync();
@@ -20,10 +21,26 @@ namespace Cynthia.Card.Gameplay.Tests
             await gascon.Effect.CardPlayEffect(false, false);
 
             Assert.Equal(RowPosition.MyRow1, gascon.Status.CardRow);
-            Assert.NotEqual(RowPosition.MyRow1, ally.Status.CardRow);
-            Assert.NotEqual(RowPosition.MyRow1, enemy.Status.CardRow);
-            Assert.Equal(1, gascon.CardPoint());
+            var movable = new[] { firstAlly, secondAlly, enemy };
+            Assert.Equal(2, movable.Count(card => card.Status.CardRow != RowPosition.MyRow1));
+            Assert.Single(movable, card => card.Status.CardRow == RowPosition.MyRow1);
+            Assert.Equal(1, gascon.Status.HealthStatus);
+            Assert.Equal(2, gascon.CardPoint());
             Assert.False(gascon.IsDead);
+
+            var lowBoostFixture = new HeadlessGameFixture();
+            var lowBoostGascon = lowBoostFixture.AddCard(
+                lowBoostFixture.Game.Player1Index, "70032", RowPosition.MyRow1, 1);
+            lowBoostGascon.Status.HealthStatus = 1;
+            var unmoved = lowBoostFixture.AddCard(
+                lowBoostFixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyRow1);
+            lowBoostFixture.FirstPlayer.QueueRows(RowPosition.MyRow1);
+            await lowBoostFixture.SynchronizeClientsAsync();
+
+            await lowBoostGascon.Effect.CardPlayEffect(false, false);
+
+            Assert.Equal(RowPosition.MyRow1, unmoved.Status.CardRow);
+            Assert.Equal(1, lowBoostGascon.Status.HealthStatus);
         }
 
         [Fact]
@@ -52,7 +69,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CrowClanDruidCreatesAtTheRightThenRepeatsOnlyWithACrowOnItsOwnTurnStart()
+        public async Task CrowClanDruidCreatesAtTheRightThenRepeatsOnlyWithACrowOnItsOwnTurnEnd()
         {
             var f = new HeadlessGameFixture();
             var druid = f.AddCard(f.Game.Player1Index, CardId.CrowClanDruid, RowPosition.MyHand);
@@ -62,11 +79,11 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(new[] { CardId.CrowClanDruid, CardId.Crow },
                 f.Game.PlayersPlace[f.Game.Player1Index][1].Select(card => card.Status.CardId));
 
-            await f.Game.SendEvent(new AfterTurnStart(f.Game.Player2Index));
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player2Index));
             Assert.Equal(2, f.Game.PlayersPlace[f.Game.Player1Index][1].Count);
             Assert.Equal(0, druid.Status.HealthStatus);
 
-            await f.Game.SendEvent(new AfterTurnStart(f.Game.Player1Index));
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
             Assert.Equal(3, f.Game.PlayersPlace[f.Game.Player1Index][1].Count);
             Assert.Equal(-1, druid.Status.HealthStatus);
 
@@ -78,7 +95,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 await crow.Effect.ToCemetery();
             }
 
-            await f.Game.SendEvent(new AfterTurnStart(f.Game.Player1Index));
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
             Assert.Single(f.Game.PlayersPlace[f.Game.Player1Index][1]);
             Assert.Equal(-1, druid.Status.HealthStatus);
         }
@@ -115,7 +132,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task AxelThreeEyesOffersCrowsForEveryRowOrThreeCrowEyesInTheOwnGraveyard()
+        public async Task AxelThreeEyesOffersCrowsOrAddsTwoCrowEyesToDeckAndPlaysTheTopCopy()
         {
             var crowFixture = new HeadlessGameFixture();
             var crowAxel = crowFixture.AddCard(
@@ -131,13 +148,18 @@ namespace Cynthia.Card.Gameplay.Tests
             var eyeFixture = new HeadlessGameFixture();
             var eyeAxel = eyeFixture.AddCard(
                 eyeFixture.Game.Player1Index, CardId.AxelThreeEyes, RowPosition.MyHand);
+            var enemy = eyeFixture.AddCard(
+                eyeFixture.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow1);
             eyeFixture.FirstPlayer.QueueMenuOptionKeys("AxelThreeEyes_2_CreateCrowEyes");
             await eyeFixture.SynchronizeClientsAsync();
 
             await eyeAxel.Effect.Play(new CardLocation(RowPosition.MyRow1, 0));
 
-            Assert.Equal(3, eyeFixture.Game.PlayersCemetery[eyeFixture.Game.Player1Index]
-                .Count(card => card.Status.CardId == CardId.CrowSEye));
+            Assert.Single(eyeFixture.Game.PlayersDeck[eyeFixture.Game.Player1Index],
+                card => card.Status.CardId == CardId.CrowSEye);
+            Assert.Single(eyeFixture.Game.PlayersCemetery[eyeFixture.Game.Player1Index],
+                card => card.Status.CardId == CardId.CrowSEye);
+            Assert.Equal(-4, enemy.Status.HealthStatus);
             Assert.DoesNotContain(eyeFixture.Game.GetPlaceCards(eyeFixture.Game.Player1Index),
                 card => card.Status.CardId == CardId.Crow);
         }

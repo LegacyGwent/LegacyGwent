@@ -17,9 +17,13 @@ namespace Cynthia.Card
                 .Where(card => card != Card)
                 .ToList();
 
-            var moved = 0;
             foreach (var card in cards)
             {
+                if (Card.Status.HealthStatus < 2)
+                {
+                    break;
+                }
+
                 var row = (card.Status.CardRow.MyRowToIndex()).IndexToMyRow();
                 var targetRow = TurnType.My.GetRow();
                 targetRow.Remove(row.IsMyRow() ? row : row.Mirror());
@@ -29,16 +33,8 @@ namespace Cynthia.Card
                     continue;
                 }
                 await card.Effect.Move(new CardLocation(target, Game.RowToList(card.PlayerIndex, target).Count), Card);
-                moved++;
-            }
-
-            // This is loss of Boost, not damage.  It cannot take Gascon below
-            // base power, trigger damage reactions, or kill him.
-            var boostLost = Math.Min(moved, Math.Max(0, Card.Status.HealthStatus));
-            if (boostLost > 0)
-            {
-                await Game.ShowCardNumberChange(Card, -boostLost, NumberType.Normal);
-                Card.Status.HealthStatus -= boostLost;
+                await Game.ShowCardNumberChange(Card, -2, NumberType.Normal);
+                Card.Status.HealthStatus -= 2;
                 await Game.ShowSetCard(Card);
                 await Game.SetPointInfo();
             }

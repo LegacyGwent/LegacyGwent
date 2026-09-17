@@ -12,6 +12,7 @@ namespace Cynthia.Card.Gameplay.Tests
             var fixture = new HeadlessGameFixture();
             var gascon = fixture.AddCard(
                 fixture.Game.Player1Index, "70032", RowPosition.MyRow1, strength: 10);
+            gascon.Status.HealthStatus = 2;
             var ally = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyRow1);
             await fixture.SynchronizeClientsAsync();

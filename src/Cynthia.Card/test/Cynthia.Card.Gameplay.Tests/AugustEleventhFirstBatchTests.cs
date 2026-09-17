@@ -119,7 +119,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task ArnjolfDestroysAllLowPowerAlliesBeforeAllLowPowerEnemies()
+        public async Task ArnjolfDestroysEveryUnitOnBothSidesWithThreePowerOrLess()
         {
             var fixture = new HeadlessGameFixture();
             var arnjolf = fixture.AddCard(
@@ -128,12 +128,16 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyRow2, 2);
             lowAlly.Status.IsDoomed = false;
             var highAlly = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyRow2, 3);
+                fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyRow2, 4);
             var lowEnemy = fixture.AddCard(
                 fixture.Game.Player2Index, CardId.GeraltOfRivia, RowPosition.MyRow2, 2);
             lowEnemy.Status.IsDoomed = false;
             var highEnemy = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.Eskel, RowPosition.MyRow2, 3);
+                fixture.Game.Player2Index, CardId.Eskel, RowPosition.MyRow2, 4);
+            var thresholdAlly = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.Lambert, RowPosition.MyRow3, 3);
+            var thresholdEnemy = fixture.AddCard(
+                fixture.Game.Player2Index, CardId.Lambert, RowPosition.MyRow3, 3);
             await fixture.SynchronizeClientsAsync();
 
             await fixture.Game.AddTask(async () =>
@@ -141,6 +145,8 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.Contains(lowAlly, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
             Assert.Contains(lowEnemy, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
+            Assert.Contains(thresholdAlly, fixture.Game.PlayersCemetery[fixture.Game.Player1Index]);
+            Assert.Contains(thresholdEnemy, fixture.Game.PlayersCemetery[fixture.Game.Player2Index]);
             Assert.True(highAlly.Status.CardRow.IsOnPlace());
             Assert.True(highEnemy.Status.CardRow.IsOnPlace());
             Assert.True(arnjolf.Status.CardRow.IsOnPlace());
