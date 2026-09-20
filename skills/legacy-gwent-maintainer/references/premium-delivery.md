@@ -48,7 +48,10 @@ Last verified: 2026-09-20
   toolchain, or insufficient disk for source + Library + bundles + Docker.
 - Fix: persist one release keystore outside Git, back it up, and configure the
   five `ANDROID_*` Secrets. `configure-android-signing.py` can upload encrypted
-  Secrets using PyNaCl. Configure the separate `UNITY_LICENSE` requirement.
+  Secrets using PyNaCl. GameCI Personal setup documents `UNITY_LICENSE` (Hub
+  generated .ulf), `UNITY_EMAIL`, and `UNITY_PASSWORD`; all are wired in CI.
+  Missing repository Secrets does not mean the local editor lacks a license.
+  A Hub license may exist without a .ulf at its documented default location.
 - Prevention: never infer private-key ownership from an old APK. Both variants
   share package identity and signing; a new fork key generally requires an
   initial uninstall of an APK signed by someone else. Keep credentials private.

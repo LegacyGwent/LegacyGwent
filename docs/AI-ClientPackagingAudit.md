@@ -59,8 +59,12 @@ CI 会先清理不需要的工具。磁盘预检只能检查解压空间，不�
 
 ## CI 与签名配置
 
-- 云端 Unity 构建仍需要维护者配置有效的 `UNITY_LICENSE`。当前 fork 尚缺此项；
-  workflow 会在下载大素材前明确失败。不会把本机绑定的 Unity 许可证直接复制到 Linux。
+- 云端 Unity 构建仍需配置 `UNITY_LICENSE`；GameCI 个人版配置还列有
+  `UNITY_EMAIL`、`UNITY_PASSWORD`，workflow 已接入这些 Secrets。当前 fork 尚缺
+  该配置，workflow 会在下载大素材前明确失败。这不是要求另购许可证，也不表示
+  本机 Unity 未激活。现行 [GameCI 说明](https://game.ci/docs/github/activation/)
+  支持使用 Hub 生成的个人版 `.ulf` 跨平台配置；本机文档默认位置未找到该文件。
+  不要将许可证/密码放入公开仓库或聊天，不要为此中断正在使用的本机激活。
 - 安卓需要 `ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、
   `ANDROID_KEY_ALIAS`、`ANDROID_KEY_PASSWORD`、`ANDROID_CERT_SHA256`。
   这些已经配置到当前 fork，私钥及密码不在 Git 中。
