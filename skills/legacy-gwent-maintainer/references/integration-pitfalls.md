@@ -51,6 +51,10 @@ Last verified: 2026-09-21
   source archives. Keep findings outside the repository and never print matched
   secrets or private contact values. Prepare historical rewrites separately and
   coordinate approval before force-pushing or moving published source tags.
+  If the user excludes history rewriting, make an ordinary cleanup commit on
+  the affected branch instead. Redact specific paths/addresses while retaining
+  diagnostic files; preserve an unrelated dirty checkout using a temporary Git
+  index. Explicitly report that historical blobs and email metadata remain.
 - Prevention: use the account's GitHub noreply identity, relative paths, and
   `scripts/check-public-content.py` for new text. Keep third-party credits.
   The guard does not scan all binary metadata or guarantee anonymity.
