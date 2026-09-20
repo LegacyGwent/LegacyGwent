@@ -12,15 +12,17 @@ namespace Cynthia.Card
         public NecromancerTome(GameCard card) : base(card) { }
         public override async Task<int> CardUseEffect()
         {
-            for (var i = 0; i < 4; i++)
+            var targets = await Game.GetSelectPlaceCards(Card, 4, selectMode: SelectModeType.MyRow, isHasConceal: true);
+            if (targets.Count() == 0)
             {
-                var card = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow)).SingleOrDefault();
-                if (card != default)
-                {
-                    var position = card.GetLocation();
-                    await card.Effect.ToCemetery(CardBreakEffectType.Epidemic);
-                    await Game.CreateCard(CardId.Specter, PlayerIndex, position);
-                }
+                return 0;
+            }
+            foreach (var target in targets)
+            {
+                var position = target.GetLocation();
+                await target.Effect.Boost(target.CardPoint(), Card);
+                await target.Effect.ToCemetery(CardBreakEffectType.Epidemic);
+                await Game.CreateCard(CardId.Specter, PlayerIndex, position);
             }
             return 0;
         }

@@ -42,16 +42,17 @@ namespace Cynthia.Card
         private async Task<int> FUNCTION2()
         {
             if (!Card.Status.CardRow.IsOnPlace()) return 0;
-            for (var i = 0; i < 2; i++)
+
+            var targets = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.MyRow, isHasConceal: true);
+            if (targets.Count() == 0)
             {
-                var card = (await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.MyRow)).SingleOrDefault();
-                if (card == default)
-                {
-                    break;
-                }
-                var position = card.GetLocation();
-                await card.Effect.Boost(card.CardPoint(), Card);
-                await card.Effect.ToCemetery(CardBreakEffectType.Epidemic);
+                return 0;
+            }
+            foreach (var target in targets)
+            {
+                var position = target.GetLocation();
+                await target.Effect.Boost(target.CardPoint(), Card);
+                await target.Effect.ToCemetery(CardBreakEffectType.Epidemic);
                 await Game.CreateCard(CardId.Specter, PlayerIndex, position);
             }
             return 0;
