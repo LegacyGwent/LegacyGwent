@@ -60,6 +60,9 @@ namespace Assets.Script.DynamicCards.Editor
         {
             var catalog = JsonUtility.FromJson<DynamicCardCatalog>(File.ReadAllText(DynamicCardLibrary.CatalogAsset));
             var cards = catalog.cards.OrderBy(c => c.prefab, StringComparer.Ordinal).ToArray();
+            var missing = cards.SelectMany(c => new[] { c.prefab, c.audio }).Where(p => !string.IsNullOrEmpty(p) && !File.Exists(p)).Take(10).ToArray();
+            if (missing.Length != 0)
+                throw new BuildFailedException("Premium sources are missing. Run python scripts/premium-content.py restore from the repository root. Missing: " + string.Join(", ", missing));
             if (cards.Any(c => !c.prefab.StartsWith(DynamicCardLibrary.ContentRoot + "Old/Thronebreaker/", StringComparison.Ordinal) &&
                                !c.prefab.StartsWith(DynamicCardLibrary.ContentRoot + "Old/Legacy2017/", StringComparison.Ordinal) &&
                                !c.prefab.StartsWith(DynamicCardLibrary.ContentRoot + "Latest/", StringComparison.Ordinal)))

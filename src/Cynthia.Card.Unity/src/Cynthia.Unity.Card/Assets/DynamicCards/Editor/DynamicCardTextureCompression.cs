@@ -9,6 +9,35 @@ namespace Assets.Script.DynamicCards.Editor
     {
         public const int Quality = 80;
 
+        // One authored source library; Android imports its own GPU-compressed data.
+        // ES3 is the Android player baseline, so ETC2 RGBA preserves transparency
+        // without a device-specific ASTC requirement or ETC1 alpha decompression.
+        [MenuItem("Tools/Dynamic Cards/Optimize Android Texture Storage")]
+        public static void ApplyAndroid()
+        {
+            int count = 0;
+            AssetDatabase.StartAssetEditing();
+            try
+            {
+                foreach (var path in Directory.GetFiles(DynamicCardLibrary.ContentRoot, "*.png", SearchOption.AllDirectories))
+                {
+                    var importer = AssetImporter.GetAtPath(path.Replace('\\', '/')) as TextureImporter;
+                    if (importer == null || importer.textureType != TextureImporterType.Default) continue;
+                    var settings = importer.GetPlatformTextureSettings("Android");
+                    int size = Math.Min(1024, importer.maxTextureSize);
+                    if (settings.overridden && settings.format == TextureImporterFormat.ETC2_RGBA8 &&
+                        settings.maxTextureSize == size && !settings.crunchedCompression) continue;
+                    settings.name = "Android"; settings.overridden = true;
+                    settings.format = TextureImporterFormat.ETC2_RGBA8;
+                    settings.maxTextureSize = size; settings.crunchedCompression = false;
+                    settings.compressionQuality = Quality;
+                    importer.SetPlatformTextureSettings(settings); importer.SaveAndReimport(); count++;
+                }
+            }
+            finally { AssetDatabase.StopAssetEditing(); }
+            Debug.Log("Dynamic card Android texture overrides: " + count);
+        }
+
         public static bool Configure(string path)
         {
             if ((!path.StartsWith(DynamicCardLibrary.ContentRoot + "Old/", StringComparison.Ordinal) &&

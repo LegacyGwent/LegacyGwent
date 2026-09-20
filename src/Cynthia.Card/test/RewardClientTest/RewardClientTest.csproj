@@ -4,5 +4,8 @@
     <ProjectReference Include="../../src/Cynthia.Card.Common/Cynthia.Card.Common.csproj" />
     <Compile Include="../../../Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/DynamicCards/Runtime/DailyQuestClient.cs" Link="Production/DailyQuestClient.cs" />
     <Compile Include="../../../Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/DynamicCards/Runtime/PremiumCollectionClient.cs" Link="Production/PremiumCollectionClient.cs" />
+    <Compile Include="../../../Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/DynamicCards/Runtime/ClientContent.cs" Link="Production/ClientContent.cs" />
+    <Compile Include="../../../Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/DynamicCards/Runtime/DynamicCardSettings.cs" Link="Production/DynamicCardSettings.cs" />
+    <Compile Include="../../../Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/DynamicCards/Runtime/DynamicCardQuality.cs" Link="Production/DynamicCardQuality.cs" />
   </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ namespace Assets.Script.DynamicCards
         private static void Install()
         {
             // Isolated tool scenes do not install account services. Login bootstrap runs in Awake.
-            if(DependencyResolver.Container==null)return;
+            if(!ClientContent.HasPremiumContent || DependencyResolver.Container==null)return;
             var root=new GameObject("Daily quest synchronization");
             DontDestroyOnLoad(root); root.AddComponent<DailyQuestTicker>();
             InitializeMainMenu(SceneManager.GetActiveScene());

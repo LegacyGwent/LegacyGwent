@@ -53,3 +53,8 @@ src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/cn.js
 src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/en.json
 src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/pl.json
 src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales/ru.json
+
+# Downloaded build sources and private signing material
+.premium-downloads/
+*.keystore
+*.jks

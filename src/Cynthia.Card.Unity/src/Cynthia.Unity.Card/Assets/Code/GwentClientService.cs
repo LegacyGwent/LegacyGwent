@@ -123,7 +123,7 @@ namespace Cynthia.Card.Client
                     _translator.GetText("PopupWindow_LoggedOutTitle"),
                     _translator.GetText("PopupWindow_LoggedOutDesc"));
             });
-            hubConnection.On("DailyQuestsChanged", () => { _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh(true); });
+            hubConnection.On("DailyQuestsChanged", () => { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh(true); });
             hubConnection.Closed += (async x =>
             {
                 Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
@@ -478,10 +478,10 @@ namespace Cynthia.Card.Client
             if (User != null)
             {
                 Player.PlayerName = User.PlayerName;
-                try { await Assets.Script.DynamicCards.PremiumCollectionClient.Refresh(); }
+                try { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) await Assets.Script.DynamicCards.PremiumCollectionClient.Refresh(); }
                 catch (Exception e) { Debug.LogWarning("Premium collection unavailable: " + e.Message); }
             }
-            if (User != null) await Assets.Script.DynamicCards.DailyQuestClient.Refresh(true);
+            if (User != null && Assets.Script.DynamicCards.ClientContent.HasPremiumContent) await Assets.Script.DynamicCards.DailyQuestClient.Refresh(true);
             return User;
         }
         // get the version of the Trinket Map to decide if it needs an update
@@ -527,10 +527,10 @@ namespace Cynthia.Card.Client
         //新建卡组,删除卡组,修改卡组
         public Task JoinEditor() => HubConnection.InvokeAsync<bool>("JoinEditor");
         public Task LeaveEditor() => HubConnection.InvokeAsync<bool>("LeaveEditor");
-        public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", deck);
+        public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", Assets.Script.DynamicCards.ClientContent.ForServer(deck));
         public Task<bool> RemoveDeck(string deckId) => HubConnection.InvokeAsync<bool>("RemoveDeck", deckId);
         public Task<bool> SwapDecks(string firstDeckId, string secondDeckId) => HubConnection.InvokeAsync<bool>("SwapDecks", firstDeckId, secondDeckId);
-        public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, deck);
+        public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, Assets.Script.DynamicCards.ClientContent.ForServer(deck));
         public Task<bool> ModifyBlacklist(BlacklistModel blacklist) => HubConnection.InvokeAsync<bool>("ModifyBlacklist", blacklist);
 
         public Task SendOperation(Task<Operation<int>> operation) => HubConnection.SendAsync("GameOperation", operation);

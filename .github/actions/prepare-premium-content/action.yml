@@ -1,0 +1,23 @@
+name: Prepare premium content
+description: Restore pinned premium sources only for the premium package
+inputs:
+  variant:
+    required: true
+    description: standard or premium
+runs:
+  using: composite
+  steps:
+    - name: Free space for Unity premium imports
+      if: inputs.variant == 'premium'
+      shell: bash
+      run: |
+        set -Eeuo pipefail
+        # The shared DLL has already been built. Keep Android SDK build-tools
+        # for APK verification; Unity uses its own container toolchain.
+        sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/chromium /opt/hostedtoolcache/CodeQL
+        docker image prune -af
+        df -h .
+    - name: Restore verified premium sources
+      if: inputs.variant == 'premium'
+      shell: bash
+      run: python3 scripts/premium-content.py restore --cache "$RUNNER_TEMP/premium-downloads"

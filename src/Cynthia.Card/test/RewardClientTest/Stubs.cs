@@ -12,6 +12,19 @@ namespace Assets.Script.Localization
 }
 namespace UnityEngine
 {
+    public class TextAsset { public string text; }
+    public static class Resources { public static TextAsset Content; public static T Load<T>(string path) where T:class => Content as T; }
+    public static class JsonUtility { public static T FromJson<T>(string value) => Newtonsoft.Json.JsonConvert.DeserializeObject<T>(value); }
+    public static class Application { public static bool isMobilePlatform; }
+    public static class SystemInfo { public static int graphicsShaderLevel = 35; }
+    public static class PlayerPrefs
+    {
+        public static readonly System.Collections.Generic.Dictionary<string,int> Values = new System.Collections.Generic.Dictionary<string,int>();
+        public static int GetInt(string key,int fallback) => Values.TryGetValue(key,out var value)?value:fallback;
+        public static void SetInt(string key,int value) => Values[key]=value;
+        public static bool HasKey(string key) => Values.ContainsKey(key);
+        public static void Save() { }
+    }
     public static class Time { public static float realtimeSinceStartup; }
     public static class Debug { public static void LogWarning(object text){} }
 }

@@ -45,6 +45,8 @@ public class EditorInfo : MonoBehaviour
     }
     private IList<CardStatus> CollectionVariants(IList<CardStatus> cards)
     {
+        if (!Assets.Script.DynamicCards.ClientContent.HasPremiumContent)
+            return cards.Select(c => new CardStatus(c.CardId) { IsPremium = false }).ToList();
         var result = new List<CardStatus>();
         foreach (var card in cards)
         {
@@ -86,7 +88,7 @@ public class EditorInfo : MonoBehaviour
         if (core != null && _nowEditorDeck != null)
         {
             int total = _nowEditorDeck.Deck.Count(x => x == card.CardId);
-            int selected = CardInventory.DeckPremiumCount(_nowEditorDeck, card.CardId);
+            int selected = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(_nowEditorDeck, card.CardId) : 0;
             used = premium ? selected : total - selected;
             if (_nowEditorDeck.Id == "blacklist") owned = 1;
             else if (isSpecial && card.Group == Group.Gold && !premium) owned = 3;
@@ -315,7 +317,7 @@ public class EditorInfo : MonoBehaviour
 
     public void OpenEditor(bool IsMoveLeftRight = true)
     {
-        _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh();
+        if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh();
         ShowCardScroll.value = 1;
         EditorCardsScroll.value = 1;
         EditorStatus = EditorStatus.ShowCards;
@@ -775,7 +777,7 @@ public class EditorInfo : MonoBehaviour
 
     public void SetSwitchList(IList<CardStatus> cards)
     {//选择列表
-        if (cards.Count > 0 && cards.All(x => x.Group == Group.Leader))
+        if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent && cards.Count > 0 && cards.All(x => x.Group == Group.Leader))
             cards = cards.SelectMany(x => new[] { new CardStatus(x.CardId) { IsPremium = false }, new CardStatus(x.CardId) { IsPremium = true } }).ToList();
         RemoveAllChild(SwitchCardsContext);
         cards.ForAll(x =>
@@ -841,7 +843,7 @@ public class EditorInfo : MonoBehaviour
     {
         if (_nowEditorDeck == null || PremiumPanel.Busy) return;
         int total = _nowEditorDeck.Deck.Count(x => x == id);
-        int selected = CardInventory.DeckPremiumCount(_nowEditorDeck, id);
+        int selected = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(_nowEditorDeck, id) : 0;
         if ((premium ? selected : total - selected) <= 0) return;
         _nowEditorDeck.Deck.Remove(id);
         if (premium) _nowEditorDeck.PremiumCards[id] = selected - 1;
@@ -860,10 +862,10 @@ public class EditorInfo : MonoBehaviour
         }
         else
         {
-            if (!Assets.Script.DynamicCards.PremiumCollectionClient.Ready) return;
-            CardInventory.InitializeDeck(_nowEditorDeck, Assets.Script.DynamicCards.PremiumCollectionClient.Account);
+            if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent && !Assets.Script.DynamicCards.PremiumCollectionClient.Ready) return;
+            if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) CardInventory.InitializeDeck(_nowEditorDeck, Assets.Script.DynamicCards.PremiumCollectionClient.Account);
             int total = _nowEditorDeck.Deck.Count(x => x == card.CardId);
-            int selected = CardInventory.DeckPremiumCount(_nowEditorDeck, card.CardId);
+            int selected = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(_nowEditorDeck, card.CardId) : 0;
             int owned = Assets.Script.DynamicCards.PremiumCollectionClient.Count(card.CardId, premium);
             if (isSpecial && card.Group == Group.Gold && !premium) owned = 3;
             if ((premium ? selected : total - selected) >= owned)
@@ -922,14 +924,14 @@ public class EditorInfo : MonoBehaviour
         {
             var factionIndex = GetFactionIndex(_nowSwitchFaction);
             var leader = Instantiate(EditorLeadersPrefab[factionIndex]).GetComponent<LeaderShow>();
-            leader.SetLeader(_nowSwitchLeaderId, deck.PremiumLeader == true);
+            leader.SetLeader(_nowSwitchLeaderId, Assets.Script.DynamicCards.ClientContent.HasPremiumContent && deck.PremiumLeader == true);
             leader.GetComponent<EditorListLeader>().Id = _nowSwitchLeaderId;
             leader.transform.SetParent(EditorCListContext, false);
         }
         foreach (var group in deck.Deck.GroupBy(x => x)
             .OrderByDescending(x => GwentMap.CardMap[x.Key].Group).ThenByDescending(x => GwentMap.CardMap[x.Key].Strength))
         {
-            int premium = CardInventory.DeckPremiumCount(deck, group.Key);
+            int premium = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(deck, group.Key) : 0;
             AddRow(group.Key, false, group.Count() - premium);
             AddRow(group.Key, true, premium);
         }

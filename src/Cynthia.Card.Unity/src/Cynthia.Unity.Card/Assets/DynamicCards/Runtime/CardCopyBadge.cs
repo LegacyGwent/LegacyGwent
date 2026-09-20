@@ -8,7 +8,7 @@ namespace Assets.Script.DynamicCards
     public static class CardCopyBadge
     {
         // Only the deck editor's premium copper cards display their existing counter.
-        public static bool ShowsCount(CardStatus card) => card != null &&
+        public static bool ShowsCount(CardStatus card) => ClientContent.HasPremiumContent && card != null &&
             card.Group == Group.Copper && card.IsPremium == true;
 
         public static void Apply(CardShowInfo view, int count)
@@ -24,6 +24,7 @@ namespace Assets.Script.DynamicCards
 
         public static void StyleBorder(Image border, bool premium, Group group = Group.Gold)
         {
+            premium = premium && ClientContent.HasPremiumContent;
             if (border == null) return;
             var child = border.transform.Find("PremiumEdge");
             if (child == null && premium)

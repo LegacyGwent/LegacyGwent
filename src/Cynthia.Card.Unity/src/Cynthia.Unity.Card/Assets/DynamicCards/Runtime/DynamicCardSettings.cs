@@ -13,6 +13,7 @@ namespace Assets.Script.DynamicCards
         {
             get
             {
+                if (!ClientContent.CanAnimate) return DynamicCardQuality.Off;
                 int legacy = PlayerPrefs.GetInt(LegacyPreference, 0) == 1
                     ? (int)DynamicCardQuality.High : (int)DynamicCardQuality.Off;
                 int stored = PlayerPrefs.GetInt(QualityPreference, legacy);
@@ -21,6 +22,7 @@ namespace Assets.Script.DynamicCards
             }
             set
             {
+                if (!ClientContent.CanAnimate) return;
                 if (value < DynamicCardQuality.Off || value > DynamicCardQuality.High)
                     throw new ArgumentOutOfRangeException("value");
                 bool changed = Quality != value;

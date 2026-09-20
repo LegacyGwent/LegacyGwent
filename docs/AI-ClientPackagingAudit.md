@@ -1,128 +1,88 @@
-# AI 分线客户端打包检查
+# AI 分线客户端打包与交付
 
-检查日期：2026-09-20。代码基线：`1a2db7195c774fbb066e5da4ebb0aa0c6926b965`。
+检查与修复日期：2026-09-20。最初审计基线为 AI 线首次兼容性移植提交；本文描述修复后的流程。
 
-## 结论与证据范围
+## 四种目标产物
 
-现有实现具有按平台包含或排除闪卡动画资源的机制，但当前提交尚不具备
-从干净 checkout 自动交付 Windows/Android 两种内容版本的完整流程。
-本次为源代码、Git 跟踪范围、资源目录和平台配置检查，未执行 Unity
-Player 构建、安卓 shader 编译、APK 安装或真机测试。
+| 平台 | standard | premium |
+| --- | --- | --- |
+| Windows x64 | 普通卡界面，不携带闪卡动画包 | 闪卡界面和 Windows 专用动画包 |
+| Android | 普通卡界面，不携带闪卡动画包 | 闪卡界面和 Android 专用动画包 |
 
-| 目标 | 当前结论 |
-| --- | --- |
-| Windows 无动画资源版 | 已有 CI 路径和资源排除逻辑；本次没有实编译证明 |
-| Windows 闪卡版 | 打包器支持，但 AI checkout 缺素材，CI 缺准备步骤及版本矩阵 |
-| Android 无动画资源版 | 已有 APK CI 路径；有 ARM64 和发布签名缺口 |
-| Android 闪卡版 | 同样缺素材与 CI 接线，另外缺安卓资源包、shader 和设备验收 |
+同一套代码、账号和通信接口，通过 `LegacyClientBuild.Build` 的
+`-clientVariant standard/premium` 选择内容。无需维护两套客户端代码。
+老客户端仍走原有协议；服务器奖励与玩家使用哪种包无关。
 
-这里的“无动画资源版”不是“移除所有闪卡功能的客户端”。
+## 五项修复
 
-## 已确认的问题
+1. **素材交付**：`build-config/premium-content.json` 固定源素材版本和每卷 SHA-256。
+   677 张卡的 prefab、贴图、材质、动画、音频及原始 `.meta` 通过 GitHub Release
+   分卷交付，避免把约 33.8 GB 的源文件直接塞进普通 Git 历史。
+   33 卷 ZIP 合计 5,409,871,278 字节。原始素材中已经不存在的音频
+   `Latest/Audio/533473923.wav` 从卡 `13860101` 的索引中清除；不伪造音频。
+2. **构建入口和矩阵**：desktop、mobile、release 接入 standard/premium，
+   Windows 与 Android 均有两种产物名。统一入口先同步 Common DLL（workflow）、
+   准备当前平台的动态包，再生成 Addressables 和 Player；finally 恢复临时资源。
+   `client-content.json` 写入运行时 Resources 和产物内 StreamingAssets。
+3. **标准包界面**：普通包隐藏闪卡筛选、合成、粉尘、日常奖励和动态画质入口，
+   只显示普通卡图；不会主动请求闪卡钱包。标准包提交卡组时省略闪卡选择字段，
+   让服务器保留同一账号在闪卡客户端的外观选择。切换包不会擦除画质偏好。
+4. **Android 架构和资源**：显式 IL2CPP、ARMv7 + ARM64、Android API 21、GLES3。
+   Android 动态 PNG 纹理使用 ETC2 RGBA8，最大 1024，不另存一套低清源图。
+   Android 使用独立的平台资源包；不支持的后处理 shader 跳过，运行时图形能力
+   不足时回退静态卡。低/中/高档仍控制渲染尺寸和刷新频率，不能代替内存实测。
+5. **固定安卓签名**：mobile/release 使用同一组 `ANDROID_*` Secrets；缺任一项
+   就停止。产物检查同时验证包名、版本、ARM64、签名证书 SHA-256 和资源成员。
+   两种内容包保持同一应用身份。新签名不能直接覆盖使用其他签名的旧 APK；
+   这次迁移通常要先卸载旧包，本地设置可能丢失，服务器账号数据不会因此被删除。
 
-### P1：闪卡素材没有进入可复现的交付链
+## 从干净 checkout 恢复素材
 
-- `Assets/DynamicCards/.gitignore` 排除 `Content/*`，只保留 catalog 及其 meta。
-- AI checkout 的 catalog 有 677 个条目，677 个 prefab 路径全部不存在；
-  `git ls-files Assets/DynamicCards/Content` 只返回上述两个 catalog 文件。
-- 原工作区的同一 catalog 所列 677 个 prefab 全部存在。因此素材并非丢失，
-  但只合并 Git 提交不会把这些本地素材交给其他维护者或 GitHub Actions。
-- 开启 IncludeContent 后构建需要真实 prefab、材质、贴图、动画及依赖；
-  索引不能代替资源。当前材质校验甚至可能先因缺 prefab 抛空引用异常。
-- 建议：建立固定版本、校验哈希的外部素材包获取流程，保留原 `.meta`；
-  或建立独立的、按平台发布的预构建资源包流程。后者需要调整当前
-  `PreparedBundle` 对源资源 hash 的校验方式，不能只复制 bundle 就当接线完成。
+标准包无需下载闪卡源素材。闪卡包在仓库根目录运行：
 
-### P1：CI 未接入闪卡版本矩阵及资源预构建
+```sh
+python scripts/premium-content.py restore
+```
 
-- `DynamicCardBuild.IncludeContent` 读取 `LEGACY_GWENT_DYNAMIC_CARDS=0/1`，
-  其次读取 `ProjectSettings/DynamicCardsBuild.json`；均未设置时为 false。
-- desktop、mobile、release 三个 workflow 都没有内容版本矩阵、资源获取、
-  `PrepareForBuild` 调用或闪卡专用构建方法，也没有区分两种内容的产物名。
-- Unity 标准 Build 窗口注册的 handler 会先构建资源，但程序化
-  `BuildPipeline.BuildPlayer` 不会自动经过该窗口 handler。
-  `OnPreprocessBuild` 只接受已准备且 hash 匹配的资源包，否则主动失败。
-- 当前 CI 干净构建默认尝试无动画资源版；仅把开关改成 1 仍不足以构建闪卡版。
-- 建议：统一一个 CI 构建入口，先准备目标平台资源，再构建 Player，最后
-  恢复临时文件；矩阵与产物名显式区分 Windows/Android × 标准/闪卡。
+脚本验证 ZIP 字节数、SHA-256、文件数、路径和 catalog，先暂存后安装，
+拒绝覆盖已有用户素材。只允许保留 checkout 中的 catalog/meta；meta 的
+换行及行尾空格差异被容忍，GUID 等实际内容不同则停止。catalog 由 Git
+属性固定换行格式，以保持 Windows/Linux checkout 的哈希一致。
+下载缓存默认 `.premium-downloads`，不提交 Git。离线可传 `--cache` 和 `--local-only`。
+需要源文件解压空间，还需为 Unity Library、平台包及 Docker 镜像预留足够磁盘；
+CI 会先清理不需要的工具。磁盘预检只能检查解压空间，不能证明完整构建峰值足够。
 
-### P1：Android 未启用 ARM64
+发布新源版本时使用 `scripts/premium-content.py pack` 更新 manifest，再用
+`scripts/publish-premium-content.py` 上传。只有全部远端卷的大小和 SHA-256
+匹配，草稿素材 Release 才公开；已发布版本禁止修改，变更应使用新 tag。
+源素材 tag 不以 `v` 开头，不触发客户端正式发布。
 
-- `ProjectSettings.asset` 的 `AndroidTargetArchitectures: 5` 是 ARMv7=1
-  加历史 X86=4，不包含 ARM64=2；`scriptingBackend: {}` 未显式启用 IL2CPP。
-  工程和 workflows 中未发现覆盖这两项的构建代码。
-- 不能因此保证支持仅运行 64 位应用的安卓设备。5 是配置位掩码，
-  不代表 Unity 2019 最终 APK 一定还会生成 x86 库；最终 ABI 需检查 APK。
-- 建议：正式安卓路径显式设置 IL2CPP + ARM64（按支持范围保留 ARMv7），
-  随后校验 SignalR/JSON 反射与 AOT 路径、原生 ABI 和真实 APK 启动。
-- 参考：[Unity 2019.4 架构枚举](https://github.com/Unity-Technologies/UnityCsReference/blob/2019.4/Editor/Mono/PlayerSettingsAndroid.bindings.cs)、
-  [Android 64 位兼容说明](https://developer.android.com/games/optimize/64-bit)。
+## CI 与签名配置
 
-### P2：无动画资源版仍包含完整闪卡界面
+- 云端 Unity 构建仍需要维护者配置有效的 `UNITY_LICENSE`。当前 fork 尚缺此项；
+  workflow 会在下载大素材前明确失败。不会把本机绑定的 Unity 许可证直接复制到 Linux。
+- 安卓需要 `ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、
+  `ANDROID_KEY_ALIAS`、`ANDROID_KEY_PASSWORD`、`ANDROID_CERT_SHA256`。
+  这些已经配置到当前 fork，私钥及密码不在 Git 中。
+- `scripts/configure-android-signing.py` 可在仓库外生成/复用固定签名并加密上传 Secrets；
+  `--upload` 需要 PyNaCl。必须另做离线备份；不要在新机器上随意生成替代密钥。
+- 合入上游时使用上游自己的许可证与安卓签名 Secrets；fork 的私钥不会随 PR 传递。
+- fork 的部署工作流已加仓库身份限制；推送本分支不会部署上游 AI/DIY 服务。
 
-- 开关只控制 `StreamingAssets/DynamicCards` 中 `cards*.bundle` 和索引。
-  Runtime 脚本及 `Resources/PremiumCrafting` 等小型 UI 资源依然随 Player 发布。
-- `EditorInfo.Awake` 无条件创建 `PremiumCollectionPanel`；`PremiumFilter`
-  默认 2，`CollectionVariants` 默认生成普通和闪卡两个展示项。
-- `DynamicCardSettingRow.Install` 不判断包内资源是否存在，合成按钮也只检查
-  服务端账户与费用。因此标准包仍可能显示不可播放的闪卡选项并允许合成。
-- 缺资源时动画加载会退回普通卡图，不是这个分支必然崩溃；但它不满足
-  “完全不使用闪卡的玩家界面基本不变”的更强要求。
-- 建议：增加包内容能力标记，标准包默认只展示普通卡，隐藏不可用的动态
-  画质入口，并明确决定是否保留合成入口。账户拥有状态仍由同一服务器维护。
+## 已执行验证及边界
 
-### P2：Android 正式升级签名尚未固定
+- .NET Release solution 构建：0 警告、0 错误；服务器兼容测试 54 项通过。
+- 客户端契约检查 27 项通过，包括普通包不擦除闪卡选择和不覆盖画质偏好。
+- 素材/产物交付测试 12 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
+  普通包混入动态资源、闪卡分卷缺失、APK 缺 ARM64 等均能被拒绝。
+- 33 卷真实素材已在 AI 工作区解压和校验，677 张卡恢复完成。
+- 使用 Unity 2019.4 本地引用做 Roslyn 静态编译：Windows runtime、Android runtime、
+  Windows Editor 三套条件均通过。这不是 Unity Player、IL2CPP 或 shader 构建。
+- workflow YAML、shell 语法及 Git whitespace 检查纳入提交前验证。
+- **没有生成或安装本次 APK/Windows Player，也没有安卓真机视觉、内存、温度、
+  覆盖升级和实际对局验证。** 本机 Unity 2019 缺 Android 模块；云端缺上述许可证。
+  因此修复配置和源码不等于四个真实产物已经验收。
 
-- `androidUseCustomKeystore: 0`，mobile/release workflow 未传入固定 keystore。
-  文件中的 keystore 路径和 alias 不代表已启用该签名。
-- 不同机器生成的调试证书可能不同，不能保证覆盖升级。两个内容版本若
-  作为同一应用互相替换，应使用相同包名、稳定签名和一致的版本规则。
-- 建议：通过受保护的 CI secrets 配置正式签名，再检查历史包证书与新包
-  证书及覆盖安装。参见 [Android 应用签名](https://developer.android.com/studio/publish/app-signing)。
-
-## Android 渲染与性能：风险，尚非已复现故障
-
-- 本机 `Library/DynamicCardsBundles` 只有 `StandaloneWindows64`，25 个
-  `.bundle` 共 1,452,231,666 字节（约 1.35 GiB）。该数字既不是 Android
-  APK 大小，也不是运行时内存；Android 必须单独生成资源包。
-- 自动纹理优化只写 Standalone DXT5 Crunch。抽查原工作区
-  `Old/Thronebreaker/OriginalTextures` 的 276 个 PNG meta：没有 Android
-  override，275 个有 Standalone override。不能将这个样本视为全素材统计，
-  也不能据此断言 Android 一律未压缩；它仍会使用 Unity 的平台默认设置。
-- 建议显式制定 Android 透明纹理格式、尺寸和 GPU 范围。ASTC/ETC2 的
-  支持范围及不支持时解压的内存代价，见
-  [Unity 平台纹理文档](https://docs.unity3d.com/2019.4/Documentation/Manual/class-TextureImporterOverride.html)。
-- 754 个动态卡 shader 中 748 个声明 target 3.5，均有 PortableCard fallback，
-  未发现 only_renderers/exclude_renderers 平台排除。target 3.5 对应 ES3 级别；
-  fallback 只能提供另一渲染实现，不能证明材质、后处理与原效果一致。
-  `DynamicCardPostEffect.Prepare` 也没有能力分级。
-  参考 [Unity shader target 文档](https://docs.unity3d.com/2019.4/Documentation/Manual/SL-ShaderCompileTargets.html)。
-- 高/中/低/关会改变 RenderTexture 尺寸及重绘频率，但不会减少源贴图
-  分辨率或可见卡数量。低档不能单独保证低内存设备稳定。动画/粒子仍有
-  CPU 成本。现有 Windows 基准不能当作安卓性能通过。
-
-## 已正确接入的基础机制
-
-- Bundle builder 按 BuildTarget 生成 `Library/DynamicCardsBundles/<target>`，
-  没有把 Windows 资源路径硬编码为 Android Player 的加载路径。
-- Android 的 jar URL 使用 UnityWebRequestAssetBundle 和 UnityWebRequest
-  分别读资源及索引，符合
-  [StreamingAssets 平台规则](https://docs.unity3d.com/2019.4/Documentation/Manual/StreamingAssets.html)。
-- 无动画资源构建会暂移已有动态包，构建后恢复；动画资源缺失时保留静态图。
-- AI Android manifest 后处理加入 INTERNET 与 cleartext HTTP 许可，
-  默认服务器地址来自 Resources/ServerEndpoint.txt。
-- 所有客户端 CI 在 Unity 构建前重新生成 netstandard2.0 Common DLL，
-  新客户端 DTO 不依赖 net10.0 服务端程序集。
-- Runtime 中本次检查到的 UnityEditor 引用有 UNITY_EDITOR 条件保护，
-  `Assets/link.xml` 已保留 Assembly-CSharp、Common、SignalR 与 JSON 程序集。
-  这仍不等于已验证切换 IL2CPP 后的所有调用。
-
-## 建议的处理顺序
-
-1. 接通可复现素材来源和四种产物的构建入口，这是目前的直接交付阻塞。
-2. 完成无资源包的界面能力控制，明确标准包的体验。
-3. 补 ARM64/IL2CPP 和稳定安卓签名，明确图形及纹理基线。
-4. 后续即使暂时没有真机，也可编译四种产物并检查 APK ABI、签名、
-   manifest、资源清单及大小；最后再做手机视觉、内存、温度和实际对局验收。
-
-本次只记录检查结论；未修改运行代码、CI、资源开关或签名配置。
+构建后运行 `scripts/verify-client-content.py` 验证嵌入标记和动态包成员；Android
+再通过 workflow 的 aapt/apksigner 检查。上线前还要进行旧客户端登录、编辑卡组、
+匹配及对局回归，和新闪卡客户端合成/选择/实际对局验证。

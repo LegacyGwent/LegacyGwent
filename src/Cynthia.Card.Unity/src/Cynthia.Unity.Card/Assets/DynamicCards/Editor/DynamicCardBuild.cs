@@ -14,11 +14,13 @@ namespace Assets.Script.DynamicCards.Editor
     public sealed class DynamicCardBuild : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
         [Serializable] private class Options { public bool includeAnimatedCards; }
-        [Serializable] private class Stage { public bool hadBundle, hadMeta; public string[] originalFiles, stagedFiles; }
+        [Serializable] private class Stage { public bool hadBundle, hadMeta; public string[] originalFiles, stagedFiles; public string capabilities, streamingCapabilities, streamingMeta; }
         private const string OptionsPath = "ProjectSettings/DynamicCardsBuild.json";
         private const string BackupRoot = "Library/DynamicCardsBuildBackup";
         private const string StreamingRoot = "Assets/StreamingAssets/DynamicCards";
         private const string StageFile = BackupRoot + "/stage.json";
+        private const string CapabilitiesFile = "Assets/Resources/ClientContent.json";
+        private const string StreamingCapabilities = "Assets/StreamingAssets/client-content.json";
         public int callbackOrder { get { return 100; } }
 
         static DynamicCardBuild()
@@ -28,6 +30,7 @@ namespace Assets.Script.DynamicCards.Editor
             {
                 try
                 {
+                    ConfigurePlatform(options.target);
                     if (IncludeContent) BuildBundle(options.target);
                     BuildPipeline.BuildPlayer(options);
                 }
@@ -49,15 +52,27 @@ namespace Assets.Script.DynamicCards.Editor
         public void OnPreprocessBuild(BuildReport report)
         {
             RestoreStage();
+            if (report.summary.platform == BuildTarget.Android &&
+                (PlayerSettings.GetScriptingBackend(BuildTargetGroup.Android) != ScriptingImplementation.IL2CPP ||
+                 (PlayerSettings.Android.targetArchitectures & AndroidArchitecture.ARM64) == 0))
+                throw new BuildFailedException("Android release requires IL2CPP and ARM64. Use LegacyClientBuild.Build or the standard Build window.");
+            if (report.summary.platform == BuildTarget.Android &&
+                (report.summary.options & BuildOptions.Development) == 0 && !PlayerSettings.Android.useCustomKeystore)
+                throw new BuildFailedException("Android release requires a persistent signing key. Configure the repository signing secrets or a local keystore.");
             Directory.CreateDirectory(BackupRoot);
             var payload = IncludeContent ? DynamicCardBundleBuilder.PayloadFiles(Path.GetDirectoryName(PreparedBundle(report.summary.platform))) : new string[0];
             var original = Directory.Exists(StreamingRoot) ? Directory.GetFiles(StreamingRoot).Where(IsPayloadFile).Select(Path.GetFileName).ToArray() : new string[0];
             var staged = original.Concat(payload.SelectMany(p => new[] { Path.GetFileName(p), Path.GetFileName(p) + ".meta" })).Distinct().ToArray();
-            var stage = new Stage { originalFiles = original, stagedFiles = staged };
+            var stage = new Stage { originalFiles = original, stagedFiles = staged, capabilities = File.ReadAllText(CapabilitiesFile),
+                streamingCapabilities = File.Exists(StreamingCapabilities) ? File.ReadAllText(StreamingCapabilities) : null,
+                streamingMeta = File.Exists(StreamingCapabilities + ".meta") ? File.ReadAllText(StreamingCapabilities + ".meta") : null };
             foreach (var name in original) File.Copy(Path.Combine(StreamingRoot, name), Path.Combine(BackupRoot, name), true);
             File.WriteAllText(StageFile, JsonUtility.ToJson(stage));
             try
             {
+                File.WriteAllText(CapabilitiesFile, "{\"schema\":1,\"variant\":\"" + (IncludeContent ? "premium" : "standard") + "\",\"target\":\"" + report.summary.platform + "\"}");
+                Directory.CreateDirectory(Path.GetDirectoryName(StreamingCapabilities));
+                File.Copy(CapabilitiesFile, StreamingCapabilities, true);
                 foreach (var name in original) File.Delete(Path.Combine(StreamingRoot, name));
                 if (IncludeContent)
                 {
@@ -69,7 +84,21 @@ namespace Assets.Script.DynamicCards.Editor
             catch { RestoreStage(); throw; }
         }
 
-        public void OnPostprocessBuild(BuildReport report) { RestoreStage(); }
+        public void OnPostprocessBuild(BuildReport report)
+        {
+            try { File.Copy(CapabilitiesFile, Path.Combine(Path.GetDirectoryName(report.summary.outputPath), "client-content.json"), true); }
+            finally { RestoreStage(); }
+        }
+
+        public static void ConfigurePlatform(BuildTarget target)
+        {
+            if (target != BuildTarget.Android) return;
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel21;
+            PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
+            PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3 });
+        }
 
         public static string BuildBundle(BuildTarget target)
         {
@@ -77,6 +106,7 @@ namespace Assets.Script.DynamicCards.Editor
             if (EditorApplication.isPlaying) throw new BuildFailedException("Stop Play Mode before rebuilding dynamic card packages.");
             if(target==BuildTarget.StandaloneWindows64 || target==BuildTarget.StandaloneWindows)
                 DynamicCardTextureCompression.Apply();
+            if (target == BuildTarget.Android) DynamicCardTextureCompression.ApplyAndroid();
             string directory = "Library/DynamicCardsBundles/" + target;
             string bundle = DynamicCardBundleBuilder.Build(target);
             File.WriteAllText(directory + "/content.hash", ContentHash());
@@ -91,7 +121,7 @@ namespace Assets.Script.DynamicCards.Editor
         // Unity 2019 cannot nest BuildAssetBundles inside a player-build callback.
         // Standard Build/Build And Run prepare automatically through the registered handler.
         public static void PrepareForBuild()
-        { if (IncludeContent) BuildBundle(EditorUserBuildSettings.activeBuildTarget); }
+        { ConfigurePlatform(EditorUserBuildSettings.activeBuildTarget); if (IncludeContent) BuildBundle(EditorUserBuildSettings.activeBuildTarget); }
 
         private static string PreparedBundle(BuildTarget target)
         {
@@ -115,6 +145,12 @@ namespace Assets.Script.DynamicCards.Editor
         {
             if (!File.Exists(StageFile)) return;
             var stage = JsonUtility.FromJson<Stage>(File.ReadAllText(StageFile));
+            if (stage.capabilities != null)
+            {
+                File.WriteAllText(CapabilitiesFile, stage.capabilities);
+                RestoreFile(StreamingCapabilities, stage.streamingCapabilities);
+                RestoreFile(StreamingCapabilities + ".meta", stage.streamingMeta);
+            }
             if (stage.originalFiles != null)
             {
                 foreach (var name in stage.stagedFiles ?? new string[0])
@@ -145,6 +181,12 @@ namespace Assets.Script.DynamicCards.Editor
             string name = Path.GetFileName(path);
             if (name.EndsWith(".meta")) name = name.Substring(0, name.Length - 5);
             return name == DynamicCardLibrary.BundleIndexFile || (name.StartsWith("cards") && name.EndsWith(".bundle"));
+        }
+
+        private static void RestoreFile(string path, string original)
+        {
+            if (original == null) { if (File.Exists(path)) File.Delete(path); }
+            else File.WriteAllText(path, original);
         }
     }
 

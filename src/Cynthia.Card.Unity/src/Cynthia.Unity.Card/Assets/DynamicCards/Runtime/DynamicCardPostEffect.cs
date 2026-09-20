@@ -10,7 +10,7 @@ namespace Assets.Script.DynamicCards
 
         public Material Prepare()
         {
-            if (!isActiveAndEnabled || SourceShader == null) return null;
+            if (!isActiveAndEnabled || SourceShader == null || !SourceShader.isSupported) return null;
             if (material == null) material = new Material(SourceShader) { hideFlags = HideFlags.HideAndDontSave };
             Configure(material);
             return material;

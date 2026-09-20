@@ -25,10 +25,11 @@ operations, and AI card pool.
   premium wallet or reward workers. A wallet failure must not prevent ordinary
   play.
 
-Both content variants share the same network and account contract. The build
-toggle excludes animated payload, but does not hide premium UI or crafting.
-Clean-checkout premium packaging still needs a reproducible content source and
-CI preparation/matrix wiring; see [the packaging audit](AI-ClientPackagingAudit.md).
+Both content variants share the same network and account contract. The build-owned
+capability marker hides premium UI and animated payload in the standard package.
+Standard deck writes omit appearance selections so the server preserves them.
+Windows/Android variant matrices restore a pinned source release before preparing
+platform bundles; see [packaging and validation status](AI-ClientPackagingAudit.md).
 
 ## Server-owned powder and daily rewards
 

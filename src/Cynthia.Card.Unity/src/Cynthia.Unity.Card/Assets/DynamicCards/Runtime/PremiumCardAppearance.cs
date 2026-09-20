@@ -18,6 +18,7 @@ namespace Assets.Script.DynamicCards
         {
             if (art == null) return;
             var appearance = art.GetComponent<PremiumCardAppearance>();
+            if (!ClientContent.HasPremiumContent) { if (appearance != null) appearance.Restore(); return; }
             bool locked = card != null && card.IsPremium == true && !card.IsCardBack && !card.Conceal &&
                 !UnityEngine.SceneManagement.SceneManager.GetSceneByName("GamePlay").isLoaded &&
                 !PremiumCollectionClient.Owns(card.CardId);

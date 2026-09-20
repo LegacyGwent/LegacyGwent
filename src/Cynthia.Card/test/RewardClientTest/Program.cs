@@ -27,6 +27,36 @@ class Program
     {
         try
         {
+            void Content(string value)
+            {
+                UnityEngine.Resources.Content = value == null ? null : new UnityEngine.TextAsset { text = value };
+                typeof(ClientContent).GetField("premium", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static).SetValue(null, null);
+            }
+            Content(null);
+            Check(!ClientContent.HasPremiumContent, "missing build marker defaults to standard capabilities");
+            Content("{\"schema\":1,\"variant\":\"standard\"}");
+            UnityEngine.PlayerPrefs.SetInt("DynamicCards.Quality",3);
+            DynamicCardSettings.Quality = DynamicCardQuality.Low;
+            Check(DynamicCardSettings.Quality == DynamicCardQuality.Off && UnityEngine.PlayerPrefs.GetInt("DynamicCards.Quality",0)==3,
+                "standard package disables animation without overwriting premium quality preferences");
+            var sourceDeck = new DeckModel { Name="saved", Leader="leader", Deck=new List<string>{"card"},
+                PremiumCards=new Dictionary<string,int>{{"card",1}}, PremiumLeader=true };
+            var wireDeck=ClientContent.ForServer(sourceDeck);
+            Check(wireDeck.PremiumCards==null && wireDeck.PremiumLeader==null && wireDeck.Id==sourceDeck.Id && wireDeck.Deck[0]=="card",
+                "standard deck request omits appearance fields and preserves gameplay data");
+            Check(sourceDeck.PremiumLeader==true && sourceDeck.PremiumCards["card"]==1 && !ReferenceEquals(wireDeck.Deck,sourceDeck.Deck),
+                "standard serialization does not mutate the saved premium deck");
+            Content("{\"schema\":2,\"variant\":\"premium\"}");
+            Check(!ClientContent.HasPremiumContent,"unsupported capability schema fails closed");
+            Content("{\"schema\":1,\"variant\":\"premium\"}");
+            Check(ClientContent.HasPremiumContent && ReferenceEquals(ClientContent.ForServer(sourceDeck),sourceDeck),
+                "premium package keeps explicit deck appearance fields");
+            Check(DynamicCardSettings.Quality==DynamicCardQuality.High,"premium package restores existing quality choice");
+            UnityEngine.Application.isMobilePlatform=true; UnityEngine.SystemInfo.graphicsShaderLevel=20;
+            Check(!ClientContent.CanAnimate && DynamicCardSettings.Quality==DynamicCardQuality.Off,"unsupported mobile graphics uses static fallback");
+            UnityEngine.SystemInfo.graphicsShaderLevel=35;
+            Check(ClientContent.CanAnimate,"ES3 capable premium player may animate");
+            UnityEngine.Application.isMobilePlatform=false;
             var c=Fresh();PremiumCollectionClient.Accept(Wallet(c.User,3,2,20),c.User.Id);
             PremiumCollectionClient.Accept(Wallet(c.User,2,0,10),c.User.Id);
             Check(PremiumCollectionClient.Account.Revision==3 && PremiumCollectionClient.Account.MeteoritePowder==20,"older wallet response cannot roll back new balance or crowns");

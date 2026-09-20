@@ -21,6 +21,7 @@ namespace Assets.Script.DynamicCards
         public bool IsOpen => page!=null;
         public static DailyQuestPanel EnsureInitialized(EditorInfo editor)
         {
+            if (!ClientContent.HasPremiumContent) return null;
             if(editor==null || editor.MainUI==null)return null;
             var panel=editor.MainUI.GetComponent<DailyQuestPanel>();
             if(panel==null)panel=editor.MainUI.AddComponent<DailyQuestPanel>();

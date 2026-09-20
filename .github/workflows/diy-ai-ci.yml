@@ -53,6 +53,12 @@ jobs:
           --no-restore
           src/Cynthia.Card/test/Cynthia.Card.Server.Tests/Cynthia.Card.Server.Tests.csproj
 
+      - name: Test standard and premium client contracts
+        run: dotnet run --configuration Release --project src/Cynthia.Card/test/RewardClientTest/RewardClientTest.csproj
+
+      - name: Test source delivery and player artifact gates
+        run: python3 scripts/test-client-packaging.py
+
       - name: Run headless gameplay tests
         run: >-
           dotnet test
@@ -193,7 +199,7 @@ jobs:
             grep -Fq 'UNITY_LICENSE: $''{{ secrets.UNITY_LICENSE }}' "$workflow"
             ! grep -q '<?xml' "$workflow"
           done
-          grep -q 'package_name="DiyGwent-AITest-Android-\$EXPECTED_CLIENT_VERSION.apk"' .github/workflows/unity-build-mobile.yml
+          grep -q 'package_name="DiyGwent-AITest-Android-\$EXPECTED_CLIENT_VERSION-\$CLIENT_VARIANT.apk"' .github/workflows/unity-build-mobile.yml
           test "$(grep -Fc 'EXPECTED_CLIENT_VERSION: $''{{ steps.client_version.outputs.value }}' .github/workflows/unity-build-mobile.yml)" -ge 2
           grep -Fq 'uses: actions/cache/restore@v4' .github/workflows/unity-build-mobile.yml
           grep -Fq 'uses: actions/cache/save@v4' .github/workflows/unity-build-mobile.yml

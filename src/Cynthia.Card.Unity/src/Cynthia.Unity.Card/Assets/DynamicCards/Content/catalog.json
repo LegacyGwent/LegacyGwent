@@ -24622,7 +24622,7 @@
         "20008300"
       ],
       "prefab": "Assets/DynamicCards/Content/Latest/13860101/Card.prefab",
-      "audio": "Assets/DynamicCards/Content/Latest/Audio/533473923.wav",
+      "audio": "",
       "pivot": "13860100/Pivot",
       "fieldOfView": 24.999996185302734,
       "cameraDistance": -29.871030807495117,

@@ -13,6 +13,7 @@ namespace Assets.Script.DynamicCards
         private bool refreshing;
         public static void Install(GameObject template)
         {
+            if (!ClientContent.CanAnimate) return;
             if (template == null) return;
             // QualityPanel points to the value selector, while its parent owns the label and divider.
             var templateRow = template.transform.parent;

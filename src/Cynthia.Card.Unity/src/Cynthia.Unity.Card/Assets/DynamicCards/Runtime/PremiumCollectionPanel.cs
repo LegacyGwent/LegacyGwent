@@ -32,6 +32,7 @@ namespace Assets.Script.DynamicCards
         public void Initialize(EditorInfo owner)
         {
             editor = owner;
+            if (!ClientContent.HasPremiumContent) return;
             translator = DependencyResolver.Container.Resolve<LocalizationService>();
             font = owner.ShowSearch.textComponent.font;
             catalogAvailable = PremiumCollectionClient.Ready;
@@ -56,6 +57,7 @@ namespace Assets.Script.DynamicCards
 
         public void AttachDetails(RectTransform parent, righclickLogic owner)
         {
+            if (actions == null) return;
             detailsOwner=owner;
             actions.SetParent(parent,false);
             actions.anchorMin=actions.anchorMax=new Vector2(.5f,.5f);
@@ -73,6 +75,7 @@ namespace Assets.Script.DynamicCards
         private void OnDisable() { PremiumCollectionClient.Changed -= AccountChanged; TextLocalization.LanguageChanged -= RefreshLabels; opened = false; }
         public async void Open()
         {
+            if (!ClientContent.HasPremiumContent) return;
             opened = true; current = null; error = null;
             RefreshLabels();
             try { await PremiumCollectionClient.Refresh(); }
@@ -217,6 +220,7 @@ namespace Assets.Script.DynamicCards
 
         public async void CraftClicked()
         {
+            if (!ClientContent.HasPremiumContent) return;
             if (busy || detailsOwner==null || current?.IsPremium != true || !craft.interactable) return;
             string card = current.CardId;
             string accountId = PremiumCollectionClient.Account.Id;
@@ -267,6 +271,7 @@ namespace Assets.Script.DynamicCards
 
         public async void SelectClicked()
         {
+            if (!ClientContent.HasPremiumContent) return;
             if (busy || current == null || !PremiumCollectionClient.Owns(current.CardId)) return;
             string card = current.CardId;
             busy = true; RefreshLabels();
