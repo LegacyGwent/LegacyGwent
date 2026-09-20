@@ -1,6 +1,6 @@
 # Unity release pitfalls
 
-Last verified: 2026-09-15
+Last verified: 2026-09-20
 
 ## Website artwork exists but the Unity card is blank
 
@@ -163,3 +163,29 @@ Last verified: 2026-09-15
 - Verification: update one test card on Windows and Android, confirm only its
   bounded content group downloads, then verify progress, retry, disk-space,
   offline fallback, and rollback behavior.
+
+## Premium code merges but premium client packaging is not reproducible
+
+- Symptom: CI builds only the standard content variant, or enabling animated
+  content fails on a clean checkout despite working in the developer project.
+- Cause: `Assets/DynamicCards/.gitignore` tracks only the catalog, not the
+  source payload. At the premium integration baseline `1a2db7195`, all 677
+  catalog prefabs exist in the original workspace but none in the AI checkout.
+  Desktop/mobile/release workflows have no content matrix, payload acquisition,
+  or `DynamicCardBuild.PrepareForBuild` step. The Build window handler prepares
+  bundles; a programmatic `BuildPipeline.BuildPlayer` bypasses that handler.
+- Fix: provide a versioned, hash-verified payload with original metas, prepare
+  bundles for the actual target before Player build, and distinguish variants
+  in matrix and artifact names. Shipping prebuilt bundles instead requires a
+  matching validation path; current preparation validates source asset hashes.
+- Prevention: test a clean checkout, not only the original asset-rich workspace.
+  `IncludeContent=false` removes animation payload, not premium UI or crafting;
+  product behavior needs a separate package-capability decision. Android needs
+  its own bundles. Windows texture compression and benchmarks are not Android
+  acceptance. `AndroidTargetArchitectures: 5` omits ARM64 (mask value 2).
+- Verification: inspect four artifacts (Windows/Android, standard/premium),
+  bundle membership and target, Common DLL, APK ABI/signature/manifest, and
+  standard-client UI. Validate shaders and memory on devices before claiming
+  Android runtime readiness. Full baseline evidence and pending recommendations
+  are recorded in `docs/AI-ClientPackagingAudit.md`; that audit did not build
+  players or implement the proposed packaging fixes.

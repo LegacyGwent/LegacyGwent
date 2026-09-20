@@ -228,7 +228,7 @@ jobs:
           echo 'd94c7b887c1ba5e74dd8028e370021c3314dbf2e0179cf33a1452c9f4c1c17c4  src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Assemblies/Microsoft.AspNetCore.SignalR.Client.dll' | sha256sum --check --strict
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/diy-ai'
+    if: github.repository == 'LegacyGwent/LegacyGwent' && github.event_name == 'push' && github.ref == 'refs/heads/diy-ai'
     needs: [server, policy]
     uses: ./.github/workflows/diy-ai-deploy.yml
     secrets: inherit

@@ -25,9 +25,10 @@ operations, and AI card pool.
   premium wallet or reward workers. A wallet failure must not prevent ordinary
   play.
 
-Both client packages may be built from this source. The package without dynamic
-card content ignores premium presentation and still uses the same network and
-account contract.
+Both content variants share the same network and account contract. The build
+toggle excludes animated payload, but does not hide premium UI or crafting.
+Clean-checkout premium packaging still needs a reproducible content source and
+CI preparation/matrix wiring; see [the packaging audit](AI-ClientPackagingAudit.md).
 
 ## Server-owned powder and daily rewards
 

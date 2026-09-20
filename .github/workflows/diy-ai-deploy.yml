@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    if: github.repository == 'LegacyGwent/LegacyGwent'
     runs-on: ubuntu-22.04
     timeout-minutes: 30
     environment: diy-ai
