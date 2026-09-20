@@ -43,17 +43,17 @@ class GitHub:
             proxy = urllib.parse.urlsplit(proxy if '://' in proxy else 'http://' + proxy)
             if proxy.scheme != 'http' or proxy.username:
                 raise ValueError('Only an unauthenticated HTTP CONNECT proxy is supported')
-            conn = http.client.HTTPSConnection(proxy.hostname, proxy.port or 80, timeout=120)
+            conn = http.client.HTTPSConnection(proxy.hostname, proxy.port or 80, timeout=600)
             conn.set_tunnel(address.hostname, 443)
         else:
-            conn = http.client.HTTPSConnection(address.hostname, timeout=120)
+            conn = http.client.HTTPSConnection(address.hostname, timeout=600)
         try:
             conn.putrequest('POST', address.path + '?' + address.query)
             for key, value in {'Authorization': 'Bearer ' + self.token,
                  'User-Agent': 'LegacyGwent-content-delivery', 'Content-Type': 'application/octet-stream',
                  'Content-Length': str(path.stat().st_size)}.items(): conn.putheader(key, value)
             conn.endheaders()
-            conn.sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 8 * 1024 * 1024)
+            conn.sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1024 * 1024)
             with path.open('rb') as f:
                 sent = 0
                 for block in iter(lambda: f.read(1024 * 1024), b''):
