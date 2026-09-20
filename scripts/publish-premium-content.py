@@ -32,9 +32,18 @@ class GitHub:
         req = urllib.request.Request('https://api.github.com/' + path, data=body, method=method,
               headers={'Authorization': 'Bearer ' + self.token, 'User-Agent': 'LegacyGwent-content-delivery',
                        'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            raw = r.read()
-            return json.loads(raw) if raw else None
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    raw = r.read()
+                    return json.loads(raw) if raw else None
+            except (OSError, urllib.error.URLError, http.client.HTTPException) as error:
+                # Reads are safe to replay. Creation/publication failures instead
+                # resume through the verified draft inventory on the next run.
+                if method != 'GET' or attempt == 2: raise
+                if isinstance(error, urllib.error.HTTPError) and error.code < 500: raise
+                print('RETRY GitHub read', 'attempt', attempt + 2, type(error).__name__, flush=True)
+                time.sleep(2 * (attempt + 1))
 
     def upload(self, url, path):
         address = urllib.parse.urlsplit(url.split('{')[0] + '?name=' + urllib.parse.quote(path.name))
@@ -122,7 +131,12 @@ def main():
         if remote.get('state') != 'uploaded' or remote.get('size') != part['bytes'] or remote.get('digest') != 'sha256:' + part['sha256']:
             raise ValueError('Release inventory is incomplete')
     if release['draft']:
-        api.request(prefix + '/releases/%s' % release['id'], 'PATCH', dict(draft=False))
+        release = api.request(prefix + '/releases/%s' % release['id'], 'PATCH',
+                  dict(tag_name=m['release'], target_commitish=release['target_commitish'],
+                       name=release['name'], body=release.get('body') or '',
+                       draft=False, prerelease=True))
+    if release['draft'] or release['tag_name'] != m['release']:
+        raise ValueError('Published release identity does not match the source manifest')
     print('PUBLISHED', release['html_url'], flush=True)
 
 

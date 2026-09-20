@@ -82,12 +82,17 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
 
 - .NET Release solution 构建：0 警告、0 错误；服务器兼容测试 54 项通过。
 - 客户端契约检查 27 项通过，包括普通包不擦除闪卡选择和不覆盖画质偏好。
-- 素材/产物交付测试 16 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
+- 素材/产物交付测试 19 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
   普通包混入动态资源、闪卡分卷缺失、APK 缺 ARM64 等均能被拒绝。
-  包含传输片段重组、缺片和损坏片段的检查。
+  包含传输片段重组、缺片、损坏片段、读取重试及草稿发布保留标签的检查。
 - 33 卷真实素材已在 AI 工作区解压和校验，677 张卡恢复完成。
+- [源素材 Release](https://github.com/lwr511/LegacyGwent/releases/tag/premium-source-20260920-v1)
+  已公开发布；重新读取远端确认 62 个文件均上传完成，大小和 SHA-256 全部匹配。
+  未登录下载抽查 `premium-source-004.zip.part-007`（3,128,221 字节）及哈希通过。
+  素材 tag 指向 `premium-source-20260920-v1`，包含对应 manifest。
 - 使用 Unity 2019.4 本地引用做 Roslyn 静态编译：Windows runtime、Android runtime、
-  Windows Editor 三套条件均通过。这不是 Unity Player、IL2CPP 或 shader 构建。
+  Windows Editor 均通过，Android 额外启用 `ENABLE_IL2CPP` 条件符号也通过。
+  这不是 Unity Player、原生 IL2CPP 或 shader 构建。
 - workflow YAML、shell 语法及 Git whitespace 检查纳入提交前验证。
 - **没有生成或安装本次 APK/Windows Player，也没有安卓真机视觉、内存、温度、
   覆盖升级和实际对局验证。** 本机 Unity 2019 缺 Android 模块；云端缺上述许可证。

@@ -21,8 +21,10 @@ Last verified: 2026-09-20
   Never overwrite a published release. New source changes require a new tag.
 - Verification: real 33-part local restore passed; all 677 catalog prefabs exist.
   `python scripts/test-client-packaging.py` covers roundtrip and rejection paths.
-  Local restore is not proof of remote availability; publishing verifies the
-  final remote asset inventory before making its draft visible.
+  Published `premium-source-20260920-v1` has 62 transport files whose remote
+  sizes/digests match the manifest; one unauthenticated public download also
+  matched its local hash. Local restore alone is not proof of remote availability;
+  publishing verifies the final remote inventory before making its draft visible.
 
 ## Resuming an interrupted source publication
 
@@ -35,11 +37,20 @@ Last verified: 2026-09-20
 - Fix: reuse drafts from the release list; require `uploaded`, matching size,
   and matching SHA-256. Only replace matching incomplete assets in that draft.
   Explicit HTTP CONNECT proxy handling and smaller transport chunks support
-  bounded retries. The publisher prints retry type without credential contents.
+  bounded retries. Transient read failures also need retries: a connection reset
+  during inventory lookup otherwise aborts that worker outside its upload retry.
+  The publisher prints retry type without credential contents.
+  Updating a draft must include its intended tag and target commit along with
+  name/body and draft/prerelease flags. In this publication, a target-only PATCH
+  changed the draft tag to `untagged-*`, causing tag-based retry to create a
+  duplicate. A full-identity PATCH restored the original draft without losing
+  its uploaded files. Publication now validates the returned tag and draft flag.
 - Prevention: never overwrite a published source release or accept size alone.
   Keep local archives until the full remote inventory passes verification.
 - Verification: an interrupted full-size `starter` asset was replaced and its
   returned digest matched; real chunk reassembly reproduced a 590 MB ZIP hash.
+  Regression fixtures cover transient read retries, no blind creation retries,
+  and preservation of the intended tag when a resumed draft is published.
 
 ## Platform and content are independent build dimensions
 

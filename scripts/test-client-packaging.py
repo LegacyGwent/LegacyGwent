@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Small offline contract tests for source delivery and built-artifact gates."""
 import importlib.util
+import hashlib
+import io
 import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
+import urllib.error
 import zipfile
 
 
@@ -17,6 +21,7 @@ def module(name, filename):
 
 delivery = module('delivery', 'premium-content.py')
 artifacts = module('artifacts', 'verify-client-content.py')
+publisher = module('publisher', 'publish-premium-content.py')
 
 
 class SourceDelivery(unittest.TestCase):
@@ -138,6 +143,53 @@ class PlayerArtifacts(unittest.TestCase):
     def test_ios_raw_marker(self):
         data = {'Data/Raw/client-content.json': b'{"schema":1,"variant":"standard","target":"iOS"}'}
         self.check(data, target='iOS')
+
+
+class SourcePublication(unittest.TestCase):
+    def test_transient_inventory_read_is_retried(self):
+        failure = urllib.error.URLError(ConnectionResetError('fixture'))
+        with mock.patch.object(publisher.urllib.request, 'urlopen', side_effect=[failure, io.BytesIO(b'{}')]) as request:
+            with mock.patch.object(publisher.time, 'sleep'):
+                self.assertEqual(publisher.GitHub('fixture').request('repos/owner/repo'), {})
+        self.assertEqual(request.call_count, 2)
+
+    def test_ambiguous_creation_is_not_replayed(self):
+        failure = urllib.error.URLError(ConnectionResetError('fixture'))
+        with mock.patch.object(publisher.urllib.request, 'urlopen', side_effect=failure) as request:
+            with self.assertRaises(urllib.error.URLError):
+                publisher.GitHub('fixture').request('repos/owner/repo/releases', 'POST', {})
+        self.assertEqual(request.call_count, 1)
+
+    def test_resumed_draft_retains_tag_when_published(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); payload = b'content'; (root / 'source.zip').write_bytes(payload)
+            sha = hashlib.sha256(payload).hexdigest()
+            manifest = dict(repository='owner/repo', release='source-v1',
+                            parts=[dict(name='source.zip', bytes=len(payload), sha256=sha)])
+            (root / 'manifest.json').write_text(json.dumps(manifest))
+            release = dict(id=1, draft=True, tag_name='source-v1', target_commitish='a' * 40,
+                           name='Source', body='Sources', html_url='https://example.invalid/draft')
+
+            class API:
+                def __init__(self, token): pass
+                def request(self, path, method='GET', data=None):
+                    if '/releases/tags/' in path:
+                        raise urllib.error.HTTPError(path, 404, 'Draft', {}, None)
+                    if '/assets?' in path:
+                        return [dict(name='source.zip', state='uploaded', size=len(payload), digest='sha256:' + sha)]
+                    if method == 'PATCH':
+                        # Model the observed draft behavior when identity is omitted.
+                        release.update(data); release['tag_name'] = data.get('tag_name', 'untagged-temporary')
+                        release['html_url'] = 'https://example.invalid/' + release['tag_name']
+                        return dict(release)
+                    return [dict(release)]
+
+            args = ['publisher', '--manifest', str(root / 'manifest.json'), '--archives', str(root), '--commit', 'a' * 40]
+            with mock.patch.object(publisher, 'GitHub', API), mock.patch.object(publisher, 'credential', return_value='fixture'):
+                with mock.patch('sys.argv', args): publisher.main()
+            self.assertFalse(release['draft'])
+            self.assertEqual(release['tag_name'], 'source-v1')
+            self.assertEqual(release['target_commitish'], 'a' * 40)
 
 
 if __name__ == '__main__': unittest.main()
