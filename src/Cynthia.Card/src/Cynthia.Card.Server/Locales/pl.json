@@ -779,7 +779,9 @@
         "VriheddSaboteur_1_RandomItem": "Zagraj losowy brązowy przedmiot.",
         "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael.",
         "Gael_1_Damage2Units": "Zadaj 5 pkt obrażeń dwóm wrogom.",
-        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń."
+        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń.",
+        "Vlodimir_1_Spawn2": "Stwórz 2 brązowe Upiory.",
+        "Vlodimir_2_Destroy2": "Zniszcz 2 sojuszników, zwiększ sie o ich siłę i stwórz 2 brązowe Upiory na ich miejscach."
     },
     "CardLocales": {
         "12001": {
@@ -834,7 +836,7 @@
         },
         "12011": {
             "Name": "Jaskier Przechwałki",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 3 pkt za każdą złotą kartę Geralta, Yennefer, Triss i Zoltana w twojej talii początkowej.",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 4 pkt za każdą złotą kartę Geralta, Yennefer, Triss i Zoltana w twojej talii początkowej.",
             "Flavor": "Jaskier opowiadał mi o waszych przygodach. Jak zagrzewał cię śpiewem do walki, jak okiełznał kejrana grą na lutni..."
         },
         "12012": {
@@ -1734,7 +1736,7 @@
         },
         "24023": {
             "Name": "Wiwerna",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 5 pkt obrażeń.",
+            "Info": "Zadaj 5 pkt obrażeń wrogowi. Jeśli w tej rundzie zagrałeś inną jednostkę Drakonida, zamiast tego zadaj 7 pkt obrażeń.",
             "Flavor": "To było coś, co żyło tylko po to, by zabijać."
         },
         "24024": {
@@ -2469,8 +2471,8 @@
         },
         "44008": {
             "Name": "Wzmocniony Trebusz",
-            "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi na koniec tury.",
-            "Flavor": "Czujesz to? Ziemia drży, gdy „Gruba Berta” wystrzeliwuje pocisk."
+            "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi na koniec tury.\nObsadzenie: Zwiększ obrażenia o 1.",
+            "Flavor": "Czujesz to? Ziemia drży, gdy „Gruba Berta” wystrzeliwuje pocisk. "
         },
         "44009": {
             "Name": "Rycerz z Kaedwen",
@@ -3389,7 +3391,7 @@
         },
         "70006": {
             "Name": "Pani Jeziora",
-            "Info": "Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w twojej ręce i tali.",
+            "Info": "Rozmieszczenie: Osłab te jednostkę o 3 pkt za każdą kartę w twojej ręce i tali.",
             "Flavor": ""
         },
         "70007": {
@@ -3504,7 +3506,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "Na koniec tury wskrześ tę jednostkę do losowego rzędu i ulepsz o 1. Siła bazowa tej jednostki nie może być większa niż 10.",
+            "Info": "Na koniec tury wskrześ tę jednostkę do losowego rzędu i ulepsz o 1. Siła bazowa tej jednostki nie może być większa niż 7.",
             "Flavor": "Vildkaarl, który dożywa starości, cieszy się ogromnym szacunkiem reszty stada. Tak, jak Sigvald."
         },
         "70039": {
@@ -3784,7 +3786,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Za każdym razem kiedy Ulewny Desz zostanie zagrany na rząd przeciwnika przyzwij tę jednostkę z cmentarza",
+            "Info": "Podczas swojej tury, za każdym razem, gdy na stronie przeciwnika zostanie zastosowany „Ulewny Deszcz”, przyzwij tę jednostkę z cmentarza do losowego rzędu. Jeśli na stronie przeciwnika nie ma „Ulewnego Deszczu”, przenieś tę jednostkę na cmentarz.",
             "Flavor": "Spokojnie, syreny nigdy nie atakują, kiedy... Aaaa! W nogi!"
         },
         "70117": {
@@ -4089,7 +4091,7 @@
         },
         "70178": {
             "Name": "Ulle",
-            "Info": "Na początku tury, jeśli ta karta jest na cmentarzu, wskrześ ją. Na koniec tury stocz pojedynek z najsłabszym wrogiem, jeśli wygrasz wygnaj tę jednostkę.",
+            "Info": "Na początku tury, jeśli ta karta znajduje się na cmentarzu, wskrześ tę jednostkę.\nNa koniec tury stocz pojedynek z najsłabszym wrogiem. Jeśli wygrasz, zablokuj tę jednostkę.",
             "Flavor": "Obyś po wiek wieków przegrywał."
         },
         "70179": {
@@ -4146,6 +4148,26 @@
             "Name": "Król Chrum",
             "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
             "Flavor": "Królestwo Thruma to niewiele więcej niż trakt w dolinie, na którym można ściągać myto z podróżnych. Jednak Chrum od zawsze marzył o ekspansji. O ekspansji... I o reformach."
+        },
+        "70191": {
+            "Name": "Ophelie Van Moorlehem",
+            "Info": "Rozmieszczenie: ukryj kartę. Jeśli była to karta Wampira, wzmocnij siebie o połowę jej mocy.",
+            "Flavor": "Ophelie Van Moorlehem uwielbia urządzać huczne bale. To, że o niektórych biesiadnikach ginie potem słuch, zdaje się nikomu nie przeszkadzać…"
+        },
+        "70192": {
+            "Name": "Witold von Everec",
+            "Info": "Rozmieszczenie: wybierz jedno: przywołaj Widma po lewej i prawej stronie tej jednostki; albo zniszcz 2 przyjazne jednostki, wzmocnij siebie o ich moc i przywołaj Widmo w każdym z ich miejsc.",
+            "Flavor": "Witold lubił się zabawić za życia i po śmierci bardzo mu tych rozrywek brakowało."
+        },
+        "70193": {
+            "Name": "Wolumin Nekromanty",
+            "Info": "Zniszcz do 4 przyjaznych jednostek. Przywołaj Widmo w każdym z ich miejsc.",
+            "Flavor": "Niektóre strony są wykonane z ludzkiego ciała, a różne przepowiednie, rytuały pogrzebowe i zaklęcia wskrzeszenia – zapisane krwią."
+        },
+        "70194": {
+            "Name": "Skjordal Drummond",
+            "Info": "Rozmieszczenie: odrzuć z talii jedną brązową jednostkę klanu, a następnie wskrzesz brązową jednostkę innego klanu.",
+            "Flavor": "Wierzył w honor swych współbraci, co ostatecznie doprowadziło do jego upadku."
         },
         "80001": {
             "Name": "Auberon Król",
