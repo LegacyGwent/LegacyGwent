@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 155);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 156);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -401,7 +401,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Support},
                     Flavor = "丹德里恩大师跟我说过你所有的冒险故事。比如他是如何利用歌声来助你战斗，他优势如何用琴声驯服了巨章鱼怪……",
-                    Info = "己方起始牌组中每有1张“杰洛特”、“叶奈法”、“特莉丝”或“卓尔坦”牌，便获得3点增益。",
+                    Info = "己方起始牌组中每有1张“杰洛特”、“叶奈法”、“特莉丝”或“卓尔坦”牌，便获得4点增益。",
                     CardArtsId = "20177400",
                     LinkedCards=new List<String> {},
                 }
@@ -4268,7 +4268,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Draconid},
                     Flavor = "想象一下在最可怕的噩梦中出现的长翅膀的蛇——翼手龙比这更可怕。",
-                    Info = "对1个敌军单位造成5点伤害。",
+                    Info = "对一个敌军单位造成5点伤害。若本小局中打出过其他龙兽单位，则改为造成7点伤害。",
                     CardArtsId = "13230300",
                     LinkedCards=new List<String> {},
                 }
@@ -4932,7 +4932,7 @@ namespace Cynthia.Card
                 {
                     CardId ="32005", //Tibor Eggebracht
                     Name="蒂博尔·艾格布拉杰",
-                    Strength=10,
+                    Strength=12,
                     Group=Group.Gold,
                     Faction = Faction.Nilfgaard,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -6686,7 +6686,7 @@ namespace Cynthia.Card
                 {
                     CardId ="42010", //Kiyan
                     Name="凯亚恩",
-                    Strength=4,
+                    Strength=6,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -7372,7 +7372,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "感受到了吗？每当这宝贝儿投出巨石，大地都会震颤。",
-                    Info = "回合结束时，对1个敌军随机单位造成1点伤害。",
+                    Info = "在你的回合结束时，对一个随机敌军单位造成1点伤害。\n已操控：初始伤害增加1点。",
                     CardArtsId = "12231500",
                     LinkedCards=new List<String> {},
                 }
@@ -11265,7 +11265,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的两倍。",
+                    Info = "对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的三倍。",
                     CardArtsId = "c10000000",
                     LinkedCards=new List<String> {},
                 }
@@ -11771,7 +11771,7 @@ namespace Cynthia.Card
                     IsCountdown = false,
                     Categories = new Categorie[] {Categorie.Soldier,Categorie.Cursed,Categorie.Cultist},
                     Flavor = "能活够一定年岁的维尔卡战士会赢得整个家族的尊敬。",
-                    Info = "西格瓦尔德:回合结束时，复活至随机排。当基础战力高于10时，削弱自身至10点。",
+                    Info = "每回合结束时，在随机一排复活此单位，并使其获得1点增益。基础战力不会超过7。",
                     CardArtsId = "202282",
                     LinkedCards=new List<String> {},
                 }
@@ -12101,7 +12101,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70072", //Radeyah
                     Name="雷蒂娅",
-                    Strength=6,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.Neutral,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -12536,7 +12536,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Beast},
                     Flavor = "",
-                    Info = "当你在敌方场上降下 '倾盆大雨'，从墓地召唤到己方场上随机排",
+                    Info = "己方回合中，每当敌方半场降下“倾盆大雨”时，从墓场将此单位召唤至随机一排。每当敌方半场没有“倾盆大雨”时，将此单位移至墓场。",
                     CardArtsId = "202181",
                     LinkedCards=new List<String> {"14019"},
                 }
@@ -13686,7 +13686,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70099", //Svalblod
                     Name="斯瓦勃洛",
-                    Strength=3,
+                    Strength=7,
                     Group=Group.Leader,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13694,7 +13694,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Leader,Categorie.Beast},
+                    Categories = new Categorie[]{ Categorie.Leader,Categorie.Beast, Categorie.Cursed},
                     Flavor = "斯瓦勃洛唯一的戒律：屠戮。",
                     Info = "对牌组中所有单位造成2点伤害，随后强化2点。若该单位位于牌组中且战力不大于2，直接进入墓地；若该单位位于手牌且战力不大于2，战力被设为1.",
                     CardArtsId = "202189",
@@ -14024,16 +14024,17 @@ namespace Cynthia.Card
                     CardId ="70159", //Crowmother
                     Name="乌鸦之母",
                     Strength=4,
+                    Countdown=0,
                     Group=Group.Gold,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = true,
-                    IsCountdown = false,
+                    IsCountdown = true,
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "生成2只乌鸦，复活所有战力不高于2的乌鸦。",
+                    Info = "在随机一行生成2只乌鸦。每当你的回合内有1只友方乌鸦被摧毁，便额外生成1只乌鸦。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -14115,7 +14116,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Beast},
+                    Categories = new Categorie[]{ Categorie.Beast, Categorie.Token},
                     Flavor = "置身鸦群，你也必须鸦鸦做声。",
                     Info = "遗愿：随机对1个敌军单位造成3点伤害。",
                     CardArtsId = "202568",
@@ -14960,7 +14961,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed, Categorie.ClanAnCraite},
                     Flavor = "你是来找竞技场幽灵的吗？别害羞，所有人都打得倒倒霉乌雷。",
-                    Info = "回合开始时，复活自身到随机排，回合结束时，与最弱的敌方单位决斗，如果获胜，则放逐自身。",
+                    Info = "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决；若存活，则切换自身的锁定状态。",
                     CardArtsId = "c10006000",
                     LinkedCards=new List<String> {},
                 }
@@ -15215,6 +15216,90 @@ namespace Cynthia.Card
                     Flavor = "索姆的山谷王国说得好听，其实就是个收买路财的关口。不过克鲁姆懂得扩张，还有改革。",
                     Info = "使手牌、牌组和己方半场除自身外所有“食人魔”单位获得1点强化。",
                     CardArtsId = "203263",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70191",//
+                new GwentCard()
+                {
+                    CardId ="70191", //Ophelie Van Moorlehem
+                    Name="奥菲莉亚·凡·莫拉汉姆",
+                    Strength=7,
+                    Group=Group.Gold,
+                    Faction = Faction.Nilfgaard,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Vampire},
+                    Flavor = "欧菲丽·凡·莫拉汉姆喜欢举办盛大的庆典。虽然总有一些宾客会消失得无影无踪，但人们对此好像却无动于衷……",
+                    Info = "部署：隐藏1张牌。若该牌为“吸血鬼”牌，则获得其一半战力的增益。",
+                    CardArtsId = "202544",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70192",//
+                new GwentCard()
+                {
+                    CardId ="70192", //Vlodimir von Everec
+                    Name="弗洛迪米·伊佛瑞克",
+                    Strength=2,
+                    Group=Group.Silver,
+                    Faction = Faction.NorthernRealms,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cursed},
+                    Flavor = "弗洛迪米生前过得花天酒地，死后实在是把他给憋坏了。",
+                    Info = "部署：择一：在此单位左右两侧各生成1个“鬼灵”；或摧毁2个友军单位，获得等同于其战力的增益，并在它们原来的位置各生成1个“鬼灵”。",
+                    CardArtsId = "202402",
+                    LinkedCards=new List<String> {},
+                }
+            },
+            {
+                "70193",//
+                new GwentCard()
+                {
+                    CardId ="70193", //Necromancer’s Tome
+                    Name="死灵法师之书",
+                    Strength=0,
+                    Group=Group.Silver,
+                    Faction = Faction.Neutral,
+                    CardUseInfo = CardUseInfo.AnyPlace,
+                    CardType = CardType.Special,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
+                    Flavor = "部分书页是人肉制成，其中各种预言、埋葬仪式和复活咒文都是用血写的。",
+                    Info = "摧毁至多4个友方单位，并在它们原来的位置各生成1个“鬼灵”。",
+                    CardArtsId = "203118",
+                    LinkedCards=new List<String> {"45001"},
+                }
+            },
+            {
+                "70194",//
+                new GwentCard()
+                {
+                    CardId ="70194", //Skjordal Drummond
+                    Name="史裘达尔·德拉蒙德",
+                    Strength=5,
+                    Group=Group.Gold,
+                    Faction = Faction.Skellige,
+                    CardUseInfo = CardUseInfo.MyRow,
+                    CardType = CardType.Unit,
+                    IsDoomed = false,
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.ClanDrummond},
+                    Flavor = "他对荣誉的信奉，却招致了他的毁灭。",
+                    Info = "部署：从牌组中丢弃1张铜色家族单位牌，然后复活1个不同家族的铜色单位。",
+                    CardArtsId = "202620",
                     LinkedCards=new List<String> {},
                 }
             },
