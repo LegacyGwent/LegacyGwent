@@ -92,7 +92,7 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
 - [源素材 Release](https://github.com/lwr511/LegacyGwent/releases/tag/premium-source-20260920-v1)
   已公开发布；重新读取远端确认 62 个文件均上传完成，大小和 SHA-256 全部匹配。
   未登录下载抽查 `premium-source-004.zip.part-007`（3,128,221 字节）及哈希通过。
-  素材 tag 指向 `premium-source-20260920-v1`，包含对应 manifest。
+  素材 tag `premium-source-20260920-v1` 指向包含对应 manifest 的源码快照。
 - 使用 Unity 2019.4 本地引用做 Roslyn 静态编译：Windows runtime、Android runtime、
   Windows Editor 均通过，Android 额外启用 `ENABLE_IL2CPP` 条件符号也通过。
   这不是 Unity Player、原生 IL2CPP 或 shader 构建。

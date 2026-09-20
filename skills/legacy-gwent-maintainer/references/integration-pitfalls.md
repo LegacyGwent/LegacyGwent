@@ -55,6 +55,10 @@ Last verified: 2026-09-21
   the affected branch instead. Redact specific paths/addresses while retaining
   diagnostic files; preserve an unrelated dirty checkout using a temporary Git
   index. Explicitly report that historical blobs and email metadata remain.
+  When rewriting a not-yet-merged PR branch is authorized, sanitize every
+  contributed snapshot and identity while preserving the upstream base. Check
+  published tags separately and retain source Release assets when retargeting
+  an affected tag. Use explicit expected-SHA leases for only the affected refs.
 - Prevention: use the account's GitHub noreply identity, relative paths, and
   `scripts/check-public-content.py` for new text. Keep third-party credits.
   The guard does not scan all binary metadata or guarantee anonymity.
@@ -62,6 +66,9 @@ Last verified: 2026-09-21
   inventory are separate evidence. A new cleanup commit cannot erase old blobs,
   downloaded copies or GitHub's ownership/activity records. Copyright statements
   do not establish permission; see `ASSET_NOTICE.md` and the privacy guide.
+  Zero visible forks does not prove zero clones. A rewrite can remove old
+  commits from branch ancestry without removing GitHub cached commit views;
+  complete server-side removal requires GitHub Support's separate assessment.
 
 ## A skill script locates the discovery alias instead of the repository
 
