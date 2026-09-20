@@ -8,5 +8,7 @@ namespace Cynthia.Card
         public string Name { get; set; } = "";
         public List<string> Deck { get; set; } = new List<string>();
         public string Leader { get; set; } = "";
+        public Dictionary<string, int> PremiumCards { get; set; }
+        public bool? PremiumLeader { get; set; }
     }
 }

@@ -34,6 +34,9 @@ namespace Cynthia.Card.Server
             var player1 = room.Player1;
             var player2 = room.Player2;
             var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer), isCountMMR), isSpecial);
+            if (player1 is ClientPlayer first && player2 is ClientPlayer second && first.CurrentUser.UserName != second.CurrentUser.UserName)
+                gwentGame.RoundWon = (winner,roundId,settledUtc) => _gwentService.QueueDailyCrown(
+                    winner == 0 ? first.CurrentUser : second.CurrentUser, roundId, settledUtc);
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {

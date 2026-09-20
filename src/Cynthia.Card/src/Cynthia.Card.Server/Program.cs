@@ -4,13 +4,17 @@ using NLog.Web;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson.Serialization;
 
 namespace Cynthia.Card.Server
 {
     public class Program
     {
+        private static readonly object MongoMappingLock = new object();
+
         public static void Main(string[] args)
         {
+            ConfigureMongoMappings();
             // if (Directory.Exists("./logs")) Directory.CreateDirectory("./logs");
             // var name = DateTime.UtcNow.ToString("s").Replace(":", "");
             // var sw = new StreamWriter(new FileStream($"./{name}log.log", FileMode.Create));
@@ -35,6 +39,23 @@ namespace Cynthia.Card.Server
             //     sw.Close();
             //     se.Close();
             // }
+        }
+
+        public static void ConfigureMongoMappings()
+        {
+            lock (MongoMappingLock)
+            {
+                if (!BsonClassMap.IsClassMapRegistered(typeof(DeckModel)))
+                {
+                    BsonClassMap.RegisterClassMap<DeckModel>(map =>
+                    {
+                        map.AutoMap();
+                        map.SetIgnoreExtraElements(true);
+                        map.UnmapMember(deck => deck.PremiumCards);
+                        map.UnmapMember(deck => deck.PremiumLeader);
+                    });
+                }
+            }
         }
 
         public static async Task TimingUpdate(int updateTime, StreamWriter sw, StreamWriter se)

@@ -20,6 +20,7 @@ public class LeaderShow : MonoBehaviour
     public Sprite NilfgaardIcon;
     private IDictionary<Faction, Sprite> _groupIconMap;
     public string CurrentId { get; private set; } = null;
+    public bool IsPremium { get; private set; }
     public void Start()
     {
         _groupIconMap = new Dictionary<Faction, Sprite>
@@ -31,9 +32,10 @@ public class LeaderShow : MonoBehaviour
              {Faction.Nilfgaard,NilfgaardIcon},
          };
     }
-    public void SetLeader(string id)
+    public void SetLeader(string id, bool premium = false)
     {
         CurrentId = id;
+        IsPremium = premium;
         if (_groupIconMap == null) Start();
 
         var card = GwentMap.CardMap[id];
@@ -44,6 +46,7 @@ public class LeaderShow : MonoBehaviour
         Name.text = card.Name;
         Streng.text = card.Strength.ToString();
         Title.sprite = _groupIconMap[card.Faction];
+        Assets.Script.DynamicCards.CardCopyBadge.StyleBorder(Title, premium);
         string miniatureid = card.CardArtsId + "_slot";
         var op = Addressables.LoadAssetAsync<Sprite>(miniatureid);
         Sprite go = op.WaitForCompletion();

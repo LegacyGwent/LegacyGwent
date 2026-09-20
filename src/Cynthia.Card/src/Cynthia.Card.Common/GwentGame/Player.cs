@@ -13,6 +13,7 @@ namespace Cynthia.Card
         public string CurrentBorder { get; set; } // the border cosmetic of the Player
         public string CurrentTitle { get; set; } // the title cosmetic of the Player
         public DeckModel Deck { get; set; }//所用卡组
+        public HashSet<string> PremiumCards { get; set; } = new HashSet<string>();
         public BlacklistModel Blacklist { get; set; }
         protected ITubeEndPoint _upstream;
         protected ITubeEndPoint _downstream;

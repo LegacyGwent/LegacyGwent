@@ -41,6 +41,8 @@ namespace Cynthia.Card
         private bool? _isConcealCard;
         public GwentCard CardInfo { get; set; }
         public string CardId { get; set; }
+        // Null in local collection cards; the server always stamps true/false for match cards.
+        public bool? IsPremium { get; set; }
         public string CardArtsId { get => _cardArtId ?? CardInfo.CardArtsId; set => _cardArtId = value; }
         public Group Group { get => _group ?? CardInfo.Group; set => _group = value; }
         public RowPosition CardRow { get; set; }

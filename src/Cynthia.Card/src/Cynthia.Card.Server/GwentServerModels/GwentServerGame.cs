@@ -12,6 +12,9 @@ namespace Cynthia.Card.Server
     public class GwentServerGame : IGwentServerGame
     {
         public Action<GameResult> GameResultEvent { get; set; }
+        public Action<int, string, DateTimeOffset> RoundWon { get; set; }
+        private readonly string dailyMatchId = Guid.NewGuid().ToString("N");
+        private static bool UsesPremium(Player player, string cardId) => player is AIPlayer || player.PremiumCards.Contains(cardId);
         public GameResult TempGameResult { get; set; } = new GameResult();
         public int[] RedCoin { get; private set; } = new int[3];
         public Pipeline OperactionList { get; private set; } = new Pipeline();
@@ -108,7 +111,8 @@ namespace Cynthia.Card.Server
             var playerIndex = RedCoin[0];
             for (int i = Balance.ComparePointMin; i <= Balance.ComparePointMax; i++)
             {
-                selectList.Add(new CardStatus(cardId) { Name = i.ToString(), Strength = i });
+                // System-owned opening bid artwork is always premium, independent of either wallet.
+                selectList.Add(new CardStatus(cardId) { Name = i.ToString(), Strength = i, IsPremium = true });
             }
             var task1 = GetSelectMenuCards(Player1Index, selectList, isCanOver: false, title: "请选择你认为后手价值的点数");
             var task2 = GetSelectMenuCards(Player2Index, selectList, isCanOver: false, title: "请选择你认为后手价值的点数");
@@ -218,6 +222,19 @@ namespace Cynthia.Card.Server
                 GameRound = AnotherPlayer(RedCoin[CurrentRoundCount]) == Player1Index ? TwoPlayer.Player1 : TwoPlayer.Player2;
                 PlayersWinCount[Player1Index]++;
                 PlayersWinCount[Player2Index]++;
+            }
+            if (RoundWon != null && player1PlacePoint != player2PlacePoint)
+            {
+                try
+                {
+                    RoundWon(player1PlacePoint > player2PlacePoint ? Player1Index : Player2Index,
+                        dailyMatchId + ":" + CurrentRoundCount, DateTimeOffset.UtcNow);
+                }
+                catch (Exception error)
+                {
+                    NLog.LogManager.GetCurrentClassLogger().Error(error,
+                        "Daily reward enqueue failed; round progression continues.");
+                }
             }
             RoundCount++;//有效回合的总数
             CurrentRoundCount++;//当前回合
@@ -667,6 +684,9 @@ namespace Cynthia.Card.Server
         }
         public async Task<IList<int>> GetSelectMenuCards(int playerIndex, MenuSelectCardInfo info)
         {
+            foreach (var card in info.SelectList)
+                if (!card.IsCardBack && !card.Conceal && card.IsPremium == null)
+                    card.IsPremium = UsesPremium(Players[playerIndex],card.CardId);
             if (info.SelectList.Count == 0)
             {
                 return new List<int>();
@@ -1676,7 +1696,7 @@ namespace Cynthia.Card.Server
                     RowPosition.MyLeader
                 ),player2.Deck.Leader)
         }.ToList();
-            //将卡组转化成实体,并且打乱牌组
+            // Create copies, assign their saved versions, then shuffle in ApplyDeckVersions.
             PlayersDeck[Player1Index] = player1.Deck.Deck.Select(cardId =>
                 new GameCard(this, Player1Index,
                     new CardStatus(
@@ -1684,7 +1704,7 @@ namespace Cynthia.Card.Server
                         PlayersFaction[Player1Index],
                         RowPosition.MyDeck
                     ), cardId))
-            .Mess(RNG).ToList();
+            .ToList();
             //需要更改,将卡牌效果变成对应Id的卡牌效果
             PlayersDeck[Player2Index] = player2.Deck.Deck.Select(cardId =>
                 new GameCard(this, Player2Index,
@@ -1694,7 +1714,24 @@ namespace Cynthia.Card.Server
                         RowPosition.MyDeck
                     ), cardId)
             )
-            .Mess(RNG).ToList();
+            .ToList();
+            ApplyDeckVersions(player1, Player1Index);
+            ApplyDeckVersions(player2, Player2Index);
+        }
+
+        private void ApplyDeckVersions(Player player, int index)
+        {
+            foreach (var leader in PlayersLeader[index])
+                leader.Status.IsPremium = player is AIPlayer || (player.Deck.PremiumLeader ?? UsesPremium(player, leader.Status.CardId));
+            var remaining = player.Deck.PremiumCards == null ? null : new Dictionary<string, int>(player.Deck.PremiumCards);
+            foreach (var card in PlayersDeck[index])
+            {
+                int count = remaining != null && remaining.TryGetValue(card.Status.CardId, out var value) ? value : 0;
+                card.Status.IsPremium = player is AIPlayer || (remaining == null ? UsesPremium(player, card.Status.CardId) : count > 0);
+                if (count > 0) remaining[card.Status.CardId] = count - 1;
+            }
+            // Version assignment is independent of the draw order.
+            PlayersDeck[index] = PlayersDeck[index].Mess(RNG).ToList();
         }
         public async Task SendBigRoundEndToCemetery()
         {
@@ -1754,6 +1791,7 @@ namespace Cynthia.Card.Server
             //创造对应的卡
             var creatCard = new GameCard(this, playerIndex, new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.None), cardId);
             setting?.Invoke(creatCard.Status);
+            creatCard.Status.IsPremium = creatCard.Status.IsPremium ?? UsesPremium(Players[playerIndex],creatCard.Status.CardId);
             //将创造的卡以不显示的方式移动到目标位置!
             await LogicCardMove(creatCard, row, position.CardIndex);
             //发送信息,显示创造的卡

@@ -59,17 +59,23 @@ public class LoginClick : MonoBehaviour
         if (IsLogining) return;
         IsLogining = true;
         LogMessage.text = _translator.GetText("LoginMenu_LoggingIn");
+        var loginStage = "connect";
         try
         {
             await _client.EnsureConnectedAsync();
+            loginStage = "authenticate";
+            Debug.Log("[LegacyGwent] Login: requesting authentication; connection=" + _client.HubConnection.State);
             await _client.Login(Username.text, Password.text);
             if (_client.User == null)
             {
+                Debug.LogWarning("[LegacyGwent] Login: server rejected credentials.");
                 LogMessage.text = _translator.GetText("LoginMenu_WrongCredentials");
                 IsLogining = false;
                 return;
             }
             //Debug.Log($"用户名是:{_client.User.UserName},密码是:{_client.User.PassWord}");
+            loginStage = "load-game";
+            Debug.Log("[LegacyGwent] Login: authenticated; loading Game scene.");
             LogMessage.text = string.Format(_translator.GetText("LoginMenu_WelcomeMessage"), _client.User.PlayerName);
 
             //SceneManager.LoadScene("Game");
@@ -84,13 +90,17 @@ public class LoginClick : MonoBehaviour
             
             // Debug.Log("执行了!跳转后");
         }
-        catch
+        catch (System.Exception exception)
         {
+            // Record only types and phase: server exception messages may contain account data.
+            var failure = exception.GetBaseException();
+            var failureCode = loginStage + "/" + failure.GetType().Name;
+            Debug.LogError("[LegacyGwent] Login failed: " + failureCode);
             //await DependencyResolver.Container.ResolveNamed<HubConnection>().Named("game").StartAsync();
             //await _client.Login(Username.text, Password.text);
             //if (_client.User == null)
             //{
-            LogMessage.text = _translator.GetText("LoginMenu_LoginError");
+            LogMessage.text = _translator.GetText("LoginMenu_LoginError") + "\n[" + failureCode + "]";
             //"发生异常,原因或许是服务器未开启,尝试重试或者联系作者";
             //    return;
             //}

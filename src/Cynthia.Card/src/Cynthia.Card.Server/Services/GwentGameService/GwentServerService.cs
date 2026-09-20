@@ -23,6 +23,11 @@ namespace Cynthia.Card.Server
         private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService _databaseService;
         private readonly GwentMatchs _gwentMatchs;
+        private readonly RewardSettlementService _rewardSettlement;
+        private readonly PremiumDeckSelectionService _deckSelections;
+        private readonly InitialPowderGrantService _initialPowderGrants;
+        private readonly ConcurrentDictionary<string, PremiumCollection> _premiumCollections =
+            new ConcurrentDictionary<string, PremiumCollection>();
 
         private GwentCardDataService _gwentCardDataService;
         private GwentLocalizationService _gwentLocalizationService;
@@ -37,7 +42,10 @@ namespace Cynthia.Card.Server
             IServiceProvider container,
             IWebHostEnvironment env,
             GwentCardDataService gwentCardDataService,
-            GwentLocalizationService gwentLocalizationService
+            GwentLocalizationService gwentLocalizationService,
+            RewardSettlementService rewardSettlement,
+            PremiumDeckSelectionService deckSelections,
+            InitialPowderGrantService initialPowderGrants
         )
         {
             _databaseService = databaseService;
@@ -47,6 +55,9 @@ namespace Cynthia.Card.Server
             ResultList = _databaseService.GetRecentGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
+            _rewardSettlement = rewardSettlement;
+            _deckSelections = deckSelections;
+            _initialPowderGrants = initialPowderGrants;
             UpdateAndSaveSeasons();
             
         }
@@ -426,6 +437,7 @@ namespace Cynthia.Card.Server
                 user.OwnedBorders = loginUser.OwnedBorders;
                 user.OwnedTitles = loginUser.OwnedTitles;
                 _users.Add(user.ConnectionId, user);
+                _rewardSettlement.QueueDailyLogin(user.UserName, user.ConnectionId);
 
                 // give all default avatars
                 await AddAvatar(user.PlayerName, "NoAvatar");
@@ -471,7 +483,80 @@ namespace Cynthia.Card.Server
             return loginUser;
         }
 
-        public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
+        public async Task<bool> Register(string username, string password, string playerName)
+        {
+            var registered = await _databaseService.Register(username, password, playerName);
+            if (registered)
+                _initialPowderGrants.RequestScan();
+            return registered;
+        }
+
+        public async Task<PremiumCollectionResult> GetPremiumCollection(string connectionId)
+        {
+            if (!_users.TryGetValue(connectionId, out var user))
+                return new PremiumCollectionResult { Status = "unauthenticated" };
+            var result = await _databaseService.GetPremiumCollection(user.UserName);
+            if (result.Success)
+            {
+                _premiumCollections[user.UserName] = result.Collection;
+                ApplyDeckSelections(user, result.Collection);
+            }
+            return result;
+        }
+
+        public async Task<DailyQuestResult> GetDailyQuests(string connectionId)
+        {
+            if (!_users.TryGetValue(connectionId, out var user))
+                return new DailyQuestResult { Status = "unauthenticated" };
+            var result = await _databaseService.GetDailyQuests(user.UserName);
+            if (result.Wallet?.Success == true)
+                _premiumCollections[user.UserName] = result.Wallet.Collection;
+            return result;
+        }
+
+        public void QueueDailyCrown(User user, string roundId, DateTimeOffset settledUtc)
+        {
+            _rewardSettlement.QueueDailyRound(user.UserName, user.ConnectionId, roundId, settledUtc);
+        }
+
+        public void QueueDailyLoginForOnlineUsers()
+        {
+            foreach (var user in _users.Values.ToArray())
+                _rewardSettlement.QueueDailyLogin(user.UserName, user.ConnectionId);
+        }
+
+        public async Task<PremiumCollectionResult> CraftPremium(string connectionId, string cardId) =>
+            await UpdatePremiumCache(connectionId, user => _databaseService.CraftPremium(user.UserName, cardId));
+
+        public async Task<PremiumCollectionResult> CraftPremiumCopy(string connectionId, string cardId, string requestId) =>
+            await UpdatePremiumCache(connectionId, user => _databaseService.CraftPremiumCopy(user.UserName, cardId, requestId));
+
+        public async Task<PremiumCollectionResult> SelectPremium(string connectionId, string cardId, bool premium) =>
+            await UpdatePremiumCache(connectionId, user => _databaseService.SelectPremium(user.UserName, cardId, premium));
+
+        private async Task<PremiumCollectionResult> UpdatePremiumCache(
+            string connectionId, Func<User, Task<PremiumCollectionResult>> operation)
+        {
+            if (!_users.TryGetValue(connectionId, out var user))
+                return new PremiumCollectionResult { Status = "unauthenticated" };
+            var result = await operation(user);
+            if (result.Success)
+                _premiumCollections[user.UserName] = result.Collection;
+            return result;
+        }
+
+        private static void ApplyDeckSelections(User user, PremiumCollection collection)
+        {
+            if (user?.Decks == null || collection?.DeckSelections == null)
+                return;
+            foreach (var deck in user.Decks)
+            {
+                if (deck == null || !collection.DeckSelections.TryGetValue(deck.Id, out var selection) || selection == null)
+                    continue;
+                deck.PremiumCards = new Dictionary<string, int>(selection.PremiumCards ?? new Dictionary<string, int>());
+                deck.PremiumLeader = selection.PremiumLeader;
+            }
+        }
 
         public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
         {
@@ -483,10 +568,18 @@ namespace Cynthia.Card.Server
                 //如果玩家不处于闲置状态,或玩家没有该Id的卡组,或者该卡组不符合标准,禁止匹配
                 if (user.UserState != UserState.Standby || !(user.Decks.Any(x => x.Id == deckId) && (user.Decks.Single(x => x.Id == deckId).IsSpecialDeck() || user.Decks.Single(x => x.Id == deckId).IsBasicDeck())))
                     return false;
+                var savedDeck = user.Decks.Single(x => x.Id == deckId);
+                _premiumCollections.TryGetValue(user.UserName, out var collection);
+                if (collection != null && !CardInventory.ValidDeckVersions(savedDeck, collection)) return false;
                 //建立一个新的玩家
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
-                player.Deck = user.Decks.Single(x => x.Id == deckId);
+                // Snapshot the saved versions; edits while queued cannot change this match.
+                player.Deck = new DeckModel { Id = savedDeck.Id, Name = savedDeck.Name, Leader = savedDeck.Leader,
+                    Deck = savedDeck.Deck.ToList(), PremiumCards = savedDeck.PremiumCards == null
+                        ? null : new Dictionary<string, int>(savedDeck.PremiumCards),
+                    PremiumLeader = savedDeck.PremiumLeader };
+                player.PremiumCards = new HashSet<string>(collection?.OwnedCards ?? new List<string>());
                 player.CurrentAvatar = user.CurrentAvatar;
                 player.CurrentBorder = user.CurrentBorder;
                 player.CurrentTitle = user.CurrentTitle;
@@ -692,9 +785,15 @@ namespace Cynthia.Card.Server
             var user = _users[connectionId];
             if (user.Decks.Count >= 1000)
                 return false;
+            var hasAppearance = deck.PremiumCards != null || deck.PremiumLeader.HasValue;
+            _premiumCollections.TryGetValue(user.UserName, out var collection);
+            if (hasAppearance && !CardInventory.ValidDeckVersions(deck, collection))
+                return false;
             if (!_databaseService.AddDeck(user.UserName, deck))
                 return false;
             user.Decks.Add(deck);
+            if (hasAppearance)
+                _deckSelections.QueueSave(user.UserName, deck);
             return true;
         }
 
@@ -712,6 +811,7 @@ namespace Cynthia.Card.Server
                 if (!_databaseService.RemoveDeck(user.UserName, id))
                     return false;
             user.Decks.RemoveAt(user.Decks.Select((x, index) => (x, index)).Single(deck => deck.x.Id == id).index);
+            _deckSelections.QueueRemove(user.UserName, id);
             return true;
         }
 
@@ -745,10 +845,29 @@ namespace Cynthia.Card.Server
             var user = _users[connectionId];
             if (user.Decks.Count < 0)
                 return false;
+            if (deck == null || !user.Decks.Any(item => item.Id == id))
+                return false;
+            var existing = user.Decks.Single(item => item.Id == id);
+            var hasAppearance = deck.PremiumCards != null || deck.PremiumLeader.HasValue;
+            if (!hasAppearance)
+            {
+                deck.PremiumCards = existing.PremiumCards == null
+                    ? null : new Dictionary<string, int>(existing.PremiumCards);
+                deck.PremiumLeader = existing.PremiumLeader;
+            }
+            else
+            {
+                _premiumCollections.TryGetValue(user.UserName, out var collection);
+                if (!CardInventory.ValidDeckVersions(deck, collection)) return false;
+            }
             //如果卡组不合规范
             if (!_databaseService.ModifyDeck(user.UserName, id, deck))
                 return false;
             user.Decks[user.Decks.Select((x, index) => (x, index)).Single(d => d.x.Id == id).index] = deck;
+            if (hasAppearance)
+                _deckSelections.QueueSave(user.UserName, deck);
+            else
+                _deckSelections.QueueReconcile(user.UserName, deck);
             return true;
         }
 
@@ -845,6 +964,13 @@ ai5 Dragon Hunter
 Append #f (# is also accepted) to force an AI match when another player may use the same password, for example ai1#f.
 
 Note: this realm changes frequently and may be interrupted. Its experimental data evolves independently; report issues in the group.";
+        }
+
+        public Task<string> GetLocalizedNotes(string connectionId, string language)
+        {
+            if (language == "cn") return GetNotes(connectionId);
+            if (language == "en") return GetNotesEN(connectionId);
+            return Task.FromResult(_gwentLocalizationService.GetText(language, "LoginMenu_NewsBody"));
         }
 
         public async Task<string> GetDownloadLink(string connectionId)
@@ -1173,6 +1299,7 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         {
             return _gwentLocalizationService.GetGameLocales();
         }
+        public string GetGameLocalesVersion() => _gwentLocalizationService.GetVersion();
 
         public int GetPalyernameMMR(string playername) => _databaseService.QueryMMR(playername);
 

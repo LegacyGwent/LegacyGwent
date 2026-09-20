@@ -30713,6 +30713,12 @@ MonoBehaviour:
     TextObject: {fileID: 961599310}
   - Id: ReorderDecks
     TextObject: {fileID: 1736025218}
+  - Id: Spectator_Title
+    TextObject: {fileID: 449667612}
+  - Id: Enter_deck_name
+    TextObject: {fileID: 501314523}
+  - Id: MatchmakingMenu_BlacklistCheckbox
+    TextObject: {fileID: 1437566753}
 --- !u!1 &1362820516
 GameObject:
   m_ObjectHideFlags: 0

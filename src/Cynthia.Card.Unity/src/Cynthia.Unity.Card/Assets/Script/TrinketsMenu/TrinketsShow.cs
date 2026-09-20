@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -107,7 +107,7 @@ public class TrinketsShow : MonoBehaviour // this script controls the avatar tri
         {
             TitlesBackground.material = LightGray;
         }
-        TitleText.text = _translator.GetText(title+"Name");
+        LocalizedLabel.Set(TitleText, title+"Name");
         TitleText.color = mycolormap[color];
         trinketID = title;
         titleColor = mycolormap[color];

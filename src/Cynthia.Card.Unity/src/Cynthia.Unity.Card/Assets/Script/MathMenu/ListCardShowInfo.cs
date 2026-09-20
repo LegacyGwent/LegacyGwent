@@ -27,10 +27,21 @@ public class ListCardShowInfo : MonoBehaviour
     public CardStatus CardStatus;
     private Sprite _croppedMiniature;
     private AsyncOperationHandle<Sprite>? _fullArtHandle;
+    private int miniatureRequest;
 
     private void SetCardInfo(int strength, string name, int count = 1, Group group = Group.Gold, string artid = "15230800")
     {
-        Border.sprite = (group == Group.Gold ? Gold : (group == Group.Silver ? Silver : Copper));
+        var request = ++miniatureRequest;
+        // Deck rows use the original static _slot artwork, even when full cards animate.
+        var animatedView = Miniature.GetComponent<Assets.Script.DynamicCards.DynamicCardView>();
+        if (animatedView != null)
+        {
+            animatedView.enabled = false;
+            Destroy(animatedView);
+        }
+        Border.sprite = Resources.Load<Sprite>("PremiumCrafting/dp_slot_" + (group == Group.Gold ? "gold" : group == Group.Silver ? "silver" : "bronze"))
+            ?? (group == Group.Gold ? Gold : (group == Group.Silver ? Silver : Copper));
+        Assets.Script.DynamicCards.CardCopyBadge.StyleBorder(Border, CardStatus?.IsPremium == true, group);
         Strength.text = strength.ToString();
         Name.text = name;
 
@@ -71,20 +82,20 @@ public class ListCardShowInfo : MonoBehaviour
         {
             Addressables.LoadAssetAsync<Sprite>("15230800").Completed += (obj) =>
             {
+                if (this == null || Miniature == null || request != miniatureRequest || obj.Result == null) return;
                 Miniature.sprite = obj.Result;
             };
         }
+        Star.gameObject.SetActive(strength <= 0);
+        Strength.gameObject.SetActive(strength > 0);
         if (strength <= 0)
         {
             Star.gameObject.SetActive(true);
             Strength.gameObject.SetActive(false);
             Star.sprite = (group == Group.Gold ? GoldStar : (group == Group.Silver ? SilverStar : CopperStar));
         }
-        if (count > 1)
-        {
-            Count.SetActive(true);
-            CountText.text = $"x{count.ToString()}";
-        }
+        Count.SetActive(Assets.Script.DynamicCards.CardCopyBadge.ShowsCount(CardStatus));
+        CountText.text = $"x{count}";
     }
     private void OnDestroy()
     {
@@ -96,10 +107,10 @@ public class ListCardShowInfo : MonoBehaviour
         CardStatus = card;
         SetCardInfo(CardStatus.Strength, CardStatus.Name, count, CardStatus.Group, CardStatus.CardArtsId);
     }
-    public void SetCardInfo(string id, int count = 1)
+    public void SetCardInfo(string id, int count = 1, bool premium = false)
     {
         var translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        CardStatus = new CardStatus(id);
+        CardStatus = new CardStatus(id) { IsPremium = premium };
         CardStatus.Name = translator.GetCardName(id);
         CardStatus.Info = translator.GetCardInfo(id);
         SetCardInfo(CardStatus.Strength, CardStatus.Name, count, CardStatus.Group, CardStatus.CardArtsId);

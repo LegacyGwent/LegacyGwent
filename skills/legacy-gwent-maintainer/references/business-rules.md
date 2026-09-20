@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-03
+Last verified: 2026-09-20
 
 ## DIY-AI release identity
 
@@ -18,6 +18,32 @@ Last verified: 2026-08-03
 - Registration form naming is counterintuitive: stored `UserName` is the login;
   stored `PlayerName` is the visible in-game name.
 - Verify account creation in MongoDB rather than trusting only the client screen.
+
+## Premium cards and rewards
+
+- Premium presentation preserves the original card ID and adds `IsPremium` on
+  the wire. `DeckModel.PremiumCards` and `PremiumLeader` are nullable: missing
+  values identify an old caller and must preserve, then reconcile, any stored
+  selection rather than clearing it.
+- Keep premium deck selections out of `UserInfo.Decks`. Store them under
+  `premium_collection.DeckSelections`; the server BSON map must continue to
+  ignore premium `DeckModel` members so an older server can read the account
+  database after rollback.
+- Old clients do not request the premium wallet. Login, registration, ordinary
+  deck writes, matchmaking, and round progression must remain available when
+  the wallet database or reward notification fails.
+- Initial powder is server-owned and configured by `InitialPowder.json`.
+  `Enabled` pauses without consuming eligibility; the stable receipt
+  `initial-meteorite-powder-v1` and `InitialPowderGranted` flag make both old
+  account backfill and new-account grants idempotent. Do not add a client grant.
+- Daily rewards use the China calendar day: login grants 20 powder and crown
+  thresholds 2/4/6 grant 25/35/45. Connected users cross midnight without
+  relogging. Keep all processed round IDs across daily resets; delayed or
+  repeated settlement must never pay the same round twice.
+- Round rewards are background work. Persist a `daily_round_reward_jobs` entry
+  before changing the wallet, retry incomplete jobs, and use the stable
+  match/round key as the idempotency key. SignalR notification is best effort
+  and must not control game progression or the reward commit.
 
 ## Deck validity
 

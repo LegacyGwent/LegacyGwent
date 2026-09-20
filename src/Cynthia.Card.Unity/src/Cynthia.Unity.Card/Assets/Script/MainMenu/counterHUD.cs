@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,18 +40,18 @@ public class counterHUD : MonoBehaviour
     private async void Start ()
     {
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        MainMenu_PlayersOnlineText.text = _translator.GetText("MainMenu_PlayersOnlineText");
-        MainMenu_PlayingPvpText.text = _translator.GetText("MainMenu_PlayingPvpText");
-        MainMenu_PlayingvsAIText.text = _translator.GetText("MainMenu_PlayingvsAIText");
-        MainMenu_PlayingCasualText.text = _translator.GetText("MainMenu_PlayingCasualText");
-        MainMenu_PlayingRankText.text = _translator.GetText("MainMenu_PlayingRankText");
-        MainMenu_CasualFlagText.text = _translator.GetText("MainMenu_CasualFlagText");
-        MainMenu_RankFlagText.text = _translator.GetText("MainMenu_RankFlagText");
-        Matchmaking_Menu_CasualFlagText.text = _translator.GetText("Matchmaking_Menu_CasualFlagText");
-        Matchmaking_Menu_RankFlagText.text = _translator.GetText("Matchmaking_Menu_RankFlagText");
-        Matchmaking_Menu_CasualText.text = _translator.GetText("Matchmaking_Menu_CasualText");
-        Matchmaking_Menu_RankText.text = _translator.GetText("Matchmaking_Menu_RankText");
-        Matchmaking_Menu_PlayersOnlineText.text = _translator.GetText("Matchmaking_Menu_PlayersOnlineText"); 
+        LocalizedLabel.Set(MainMenu_PlayersOnlineText, "MainMenu_PlayersOnlineText");
+        LocalizedLabel.Set(MainMenu_PlayingPvpText, "MainMenu_PlayingPvpText");
+        LocalizedLabel.Set(MainMenu_PlayingvsAIText, "MainMenu_PlayingvsAIText");
+        LocalizedLabel.Set(MainMenu_PlayingCasualText, "MainMenu_PlayingCasualText");
+        LocalizedLabel.Set(MainMenu_PlayingRankText, "MainMenu_PlayingRankText");
+        LocalizedLabel.Set(MainMenu_CasualFlagText, "MainMenu_CasualFlagText");
+        LocalizedLabel.Set(MainMenu_RankFlagText, "MainMenu_RankFlagText");
+        LocalizedLabel.Set(Matchmaking_Menu_CasualFlagText, "Matchmaking_Menu_CasualFlagText");
+        LocalizedLabel.Set(Matchmaking_Menu_RankFlagText, "Matchmaking_Menu_RankFlagText");
+        LocalizedLabel.Set(Matchmaking_Menu_CasualText, "Matchmaking_Menu_CasualText");
+        LocalizedLabel.Set(Matchmaking_Menu_RankText, "Matchmaking_Menu_RankText");
+        LocalizedLabel.Set(Matchmaking_Menu_PlayersOnlineText, "Matchmaking_Menu_PlayersOnlineText");
     }
     private void Awake ()
     {

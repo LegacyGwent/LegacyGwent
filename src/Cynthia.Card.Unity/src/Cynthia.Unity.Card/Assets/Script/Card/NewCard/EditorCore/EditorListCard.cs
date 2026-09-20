@@ -8,6 +8,7 @@ public class EditorListCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     private MainCodeService _mainCodeService;
     public string Id { get; set; }
+    public bool IsPremium { get; set; }
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class EditorListCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
     {
-        _mainCodeService.ClickEditorListCard(Id);
+        if (eventData.button == PointerEventData.InputButton.Left) _mainCodeService.ClickEditorListCard(Id, IsPremium);
     }
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)

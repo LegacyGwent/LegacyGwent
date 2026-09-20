@@ -13811,6 +13811,8 @@ MonoBehaviour:
     TextObject: {fileID: 1213936371}
   - Id: Taunt6
     TextObject: {fileID: 1229321545}
+  - Id: IngameMenu_ShowCards
+    TextObject: {fileID: 9019661322724102180}
 --- !u!1 &1136800736
 GameObject:
   m_ObjectHideFlags: 0

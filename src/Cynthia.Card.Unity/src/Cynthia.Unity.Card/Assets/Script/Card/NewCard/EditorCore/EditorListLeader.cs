@@ -22,11 +22,13 @@ public class EditorListLeader : MonoBehaviour, IPointerEnterHandler, IPointerExi
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _mainCodeService.SelectSwitchUICard(new CardStatus(gameObject.GetComponent<LeaderShow>().CurrentId));
+        var leader = GetComponent<LeaderShow>();
+        _mainCodeService.SelectSwitchUICard(new CardStatus(leader.CurrentId) { IsPremium = leader.IsPremium });
     }
     //鼠标离开
     public void OnPointerExit(PointerEventData eventData)
     {
-        _mainCodeService.SelectSwitchUICard(new CardStatus(gameObject.GetComponent<LeaderShow>().CurrentId), false);
+        var leader = GetComponent<LeaderShow>();
+        _mainCodeService.SelectSwitchUICard(new CardStatus(leader.CurrentId) { IsPremium = leader.IsPremium }, false);
     }
 }

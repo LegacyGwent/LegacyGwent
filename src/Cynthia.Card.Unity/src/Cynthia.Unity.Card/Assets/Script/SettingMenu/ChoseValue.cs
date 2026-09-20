@@ -33,6 +33,14 @@ public class ChoseValue : MonoBehaviour {
 
     private LocalizationService _translator;
 
+    private void OnEnable() { TextLocalization.LanguageChanged += RefreshLabel; if (_translator != null) RefreshLabel(); }
+    private void OnDisable() { TextLocalization.LanguageChanged -= RefreshLabel; }
+    private void RefreshLabel()
+    {
+        if (_translator != null && ShowText != null && ChoseList != null && Index < ChoseList.Count)
+            ShowText.text = _translator.GetText(ChoseList[Index]);
+    }
+
     private void Start()
     {
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();

@@ -111,3 +111,26 @@ Update Mode: updateDependencies
 
 The following packages were updated:
   com.unity.ads from version 3.4.5 to 3.4.7
+
+=== Sat Sep 19 13:32:06 2026
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ide.visualstudio@2.0.15
+The following packages were updated:
+  com.unity.addressables from version 1.18.11 to 1.18.19
+  com.unity.ads from version 3.4.7 to 3.7.5
+  com.unity.analytics from version 3.3.5 to 3.6.12
+  com.unity.collab-proxy from version 1.2.16 to 1.14.18
+  com.unity.ext.nunit from version 1.0.0 to 1.0.6
+  com.unity.ide.rider from version 1.1.4 to 1.2.1
+  com.unity.ide.vscode from version 1.2.1 to 1.2.5
+  com.unity.multiplayer-hlapi from version 1.0.6 to 1.0.8
+  com.unity.purchasing from version 2.0.6 to 4.1.5
+  com.unity.test-framework from version 1.1.14 to 1.1.31
+  com.unity.textmeshpro from version 2.0.1 to 2.1.4
+  com.unity.timeline from version 1.2.6 to 1.2.18
+  com.unity.xr.legacyinputhelpers from version 2.1.4 to 2.1.9
+  com.unity.nuget.newtonsoft-json from version 3.0.1 to 3.0.2

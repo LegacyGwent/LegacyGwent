@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Cynthia.Card.Server
 {
-    public class GwentDatabaseService
+    public partial class GwentDatabaseService
     {
         private readonly IServiceProvider _provider;
         // public IDatabaseService Database { get; set; }
@@ -41,6 +41,8 @@ namespace Cynthia.Card.Server
         public GwentDatabaseService(IServiceProvider provider)
         {
             _provider = provider;
+            _initialPowder = new Lazy<InitialPowderOptions>(() =>
+                (InitialPowderOptions)_provider.GetService(typeof(InitialPowderOptions)) ?? InitialPowderOptions.Load());
             // Database = database;
             // _collection = Database[_dataBaseName].GetRepository<UserInfo>(_repositoryName);
         }
@@ -289,7 +291,7 @@ namespace Cynthia.Card.Server
         }
 
         public int initMMR = 3400;
-        public bool Register(string username, string password, string playername)
+        public async Task<bool> Register(string username, string password, string playername)
         {
             var temp = GetUserInfo();
             if (temp.AsQueryable<UserInfo>().Any(x => x.UserName == username || x.PlayerName == playername))
@@ -308,7 +310,8 @@ namespace Cynthia.Card.Server
 
             var emptyStreak = new List<int[]>() { new int[3], new int[3], new int[3], new int[3], new int[3] };
 
-            temp.InsertOne(new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, HighestMMR = initMMR, OwnedAvatars = ownedavatars, OwnedBorders = ownedborders });
+            var user = new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, HighestMMR = initMMR, OwnedAvatars = ownedavatars, OwnedBorders = ownedborders };
+            await temp.InsertOneAsync(user);
             return true;
         }
         public UserInfo Login(string username, string password)

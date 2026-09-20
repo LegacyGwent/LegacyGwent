@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using Cynthia.Card.Common.Models.Localization;
 using UnityEngine;
+using System.Globalization;
 
 namespace Assets.Script.Localization
 {
     class TextLocalization
     {
         public const string PreferenceKey = "DiyAi.TextLanguage";
-
+        public static event Action LanguageChanged;
+        public CultureInfo Culture => CultureInfo.GetCultureInfo(ChosenLanguage.Filename.StartsWith("cn") ? "zh-CN" : ChosenLanguage.Filename.Split('.')[0]);
         private IList<ConfigEntry> _languages;
         public ConfigEntry ChosenLanguage { get; private set; }
         public int ChosenLanguageIndex => _languages.IndexOf(ChosenLanguage);
@@ -44,12 +46,18 @@ namespace Assets.Script.Localization
         }
         public int ChooseLanguage(int index)
         {
-            index %= _languages.Count;
+            bool notify = ChosenLanguage != null;
+            index = ((index % _languages.Count) + _languages.Count) % _languages.Count;
             ChosenLanguage = _languages[index];
 
             var loadedLocale = ResourceHandler.LoadResource(ChosenLanguage.Filename);
-            Texts = loadedLocale.MenuLocales;
-            CardTexts = loadedLocale.CardLocales;
+            // Downloaded language packs can predate UI shipped with this client.
+            var bundled = new LocalizationResourceHandler("Locales").LoadResource(ChosenLanguage.Filename);
+            Texts = new Dictionary<string, string>(bundled?.MenuLocales ?? loadedLocale.MenuLocales);
+            CardTexts = new Dictionary<string, CardLocale>(bundled?.CardLocales ?? loadedLocale.CardLocales);
+            foreach (var entry in loadedLocale.MenuLocales) Texts[entry.Key] = entry.Value;
+            foreach (var entry in loadedLocale.CardLocales) CardTexts[entry.Key] = entry.Value;
+            if (notify) LanguageChanged?.Invoke();
 
             return index;
         }

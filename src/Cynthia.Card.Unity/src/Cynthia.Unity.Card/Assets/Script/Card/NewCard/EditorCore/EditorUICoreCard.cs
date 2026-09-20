@@ -17,19 +17,10 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
         get => _count;
         set
         {
-            if (_count == value) return;
             _count = value;
-            Gray.SetActive(false);
-            CountIcon.SetActive(false);
-            if (_count > 1)
-            {   //如果数量大于1,设定并显示数量
-                CountIcon.SetActive(true);
-                CountText.text = $"X{value}";
-            }
-            else if (_count <= 0)
-            {   //如果小于等于0,灰
-                Gray.SetActive(true);
-            }
+            CountIcon.SetActive(Assets.Script.DynamicCards.CardCopyBadge.ShowsCount(cardShowInfo.CurrentCore));
+            CountText.text = $"X{value}";
+            Gray.SetActive(_count <= 0);
         }
     }
     private int _count = -1;
@@ -41,7 +32,8 @@ public class EditorUICoreCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
     {
-        _mainCodeService.ClickEditorUICoreCard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
+        if (eventData.button == PointerEventData.InputButton.Left)
+            _mainCodeService.ClickEditorUICoreCard(gameObject.GetComponent<CardShowInfo>().CurrentCore);
     }
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Autofac;
@@ -14,13 +14,13 @@ public class ViewListRow : MonoBehaviour
 
     public void SetViewListRow(int roomNumber, string roomName, string roomId)
     {
-        RoomNumber.text = "Room " + roomNumber;
+        Assets.Script.Localization.LocalizedLabel.Set(RoomNumber, "Spectator_RoomNumber", roomNumber);
         RoomName.text = roomName;
         RoomId = roomId;
     }
     public void SetRViewListRowString(string roomNumber, string roomName, string roomId)
     {
-        RoomNumber.text = "Room " + roomNumber;
+        Assets.Script.Localization.LocalizedLabel.Set(RoomNumber, "Spectator_RoomNumber", roomNumber);
         RoomName.text = roomName;
         RoomId = roomId;
     }

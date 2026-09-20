@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,27 +12,27 @@ public class RankListRow : MonoBehaviour
 
     public void SetRankListRow(int rankNumber, string playername, int mmr)
     {
-        RankNumber.text = "Rank " + rankNumber;
+        Assets.Script.Localization.LocalizedLabel.Set(RankNumber, "Leaderboard_RankNumber", rankNumber);
         Playername.text = playername;
         MMR.text = mmr.ToString();
     }
     public void SetRankListRow(int rankNumber, string playername, int mmr, string stats)
     {
-        RankNumber.text = "Rank " + rankNumber;
+        Assets.Script.Localization.LocalizedLabel.Set(RankNumber, "Leaderboard_RankNumber", rankNumber);
         Playername.text = playername;
         MMR.text = mmr.ToString();
         Stats.text = stats;
     }
     public void SetRankListRowString(string rankNumber, string playername, int mmr)
     {
-        RankNumber.text = "Rank " + rankNumber;
+        Assets.Script.Localization.LocalizedLabel.Set(RankNumber, "Leaderboard_RankNumber", rankNumber);
         Playername.text = playername;
         MMR.text = mmr.ToString();
     }
 
     public void SetRankListRowString(string rankNumber, string playername, int mmr, string stats)
     {
-        RankNumber.text = "Rank " + rankNumber;
+        Assets.Script.Localization.LocalizedLabel.Set(RankNumber, "Leaderboard_RankNumber", rankNumber);
         Playername.text = playername;
         MMR.text = mmr.ToString();
         Stats.text = stats;

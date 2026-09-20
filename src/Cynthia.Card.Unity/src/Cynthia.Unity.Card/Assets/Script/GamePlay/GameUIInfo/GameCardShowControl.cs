@@ -1,4 +1,4 @@
-﻿using Alsein.Extensions;
+using Alsein.Extensions;
 using Alsein.Extensions.IO;
 using Autofac;
 using Cynthia.Card;
@@ -61,6 +61,8 @@ public class GameCardShowControl : MonoBehaviour
     //TEST
     private void OnMouseOver()
     {
+        if (GameEvent.RighClickActive || SceneManager.GetSceneByName("RightClick").isLoaded)
+            return;
 #if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
         if (Input.GetMouseButtonDown(1))
         {
@@ -183,6 +185,7 @@ public class GameCardShowControl : MonoBehaviour
     }
     public void CloseButtonClick()//关闭
     {
+        ClearCardPreview();
         CardSelectUI.SetActive(false);
     }
     public async void AffirmButtonClick()//确认
@@ -196,6 +199,7 @@ public class GameCardShowControl : MonoBehaviour
     public void HideButtonClick()//隐藏卡牌
     {
         IsUseMenuShow = false;
+        ClearCardPreview();
         CardSelectUI.SetActive(false);
     }
     //------------------------------------------------------------------------------------------
@@ -203,34 +207,25 @@ public class GameCardShowControl : MonoBehaviour
     {
         //光标移动到某张卡牌上
         _nowIndex = index;
-        if (index == -1)
-        {
-            //光标离开某张卡牌
-            ArtCard.gameObject.SetActive(false);
-        }
-        else
-        {
-            LastHoveredCard = index;
-
-            if (_nowShowType == MenuShowType.UseCard)
-            {
-                ArtCard.CurrentCore = UseCardList[index];
-            }
-            else if (_nowShowType == MenuShowType.EnemyCemetery)
-            {
-                ArtCard.CurrentCore = EnemyCemetery[index];
-            }
-            else if (_nowShowType == MenuShowType.MyCemetery)
-            {
-                ArtCard.CurrentCore = MyCemetery[index];
-            }
-            else if (_nowShowType == MenuShowType.MyDeck)
-            {
-                ArtCard.CurrentCore = MyDeck[index];
-            }
-            ArtCard.gameObject.SetActive(true);
-        }
+        // Keep the last preview when the pointer leaves a card.
+        if (index < 0) return;
+        var cards = _nowShowType == MenuShowType.UseCard ? UseCardList :
+            _nowShowType == MenuShowType.EnemyCemetery ? EnemyCemetery :
+            _nowShowType == MenuShowType.MyCemetery ? MyCemetery :
+            _nowShowType == MenuShowType.MyDeck ? MyDeck : null;
+        if (cards == null || index >= cards.Count || cards[index].IsCardBack || cards[index].Conceal) return;
+        if (ArtCard.gameObject.activeSelf && LastHoveredCard == index) return;
+        LastHoveredCard = index;
+        ArtCard.CurrentCore = cards[index];
+        ArtCard.gameObject.SetActive(true);
     }
+    private void ClearCardPreview()
+    {
+        _nowIndex = -1;
+        LastHoveredCard = -1;
+        ArtCard.gameObject.SetActive(false);
+    }
+
     public async void ClickCard(int index)
     {
         //点击了卡牌
@@ -281,7 +276,7 @@ public class GameCardShowControl : MonoBehaviour
         ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerGraveyard");
         _nowShowType = MenuShowType.MyCemetery;
         SetCardInfo(MyCemetery);
-        SelectCard(-1);
+        ClearCardPreview();
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);
         IsUseMenuShow = false;
@@ -293,7 +288,7 @@ public class GameCardShowControl : MonoBehaviour
         ShowCardMessage.text = _translator.GetText("IngameMenu_EnemyGraveyard");
         _nowShowType = MenuShowType.EnemyCemetery;
         SetCardInfo(EnemyCemetery);
-        SelectCard(-1);
+        ClearCardPreview();
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);
         IsUseMenuShow = false;
@@ -307,7 +302,7 @@ public class GameCardShowControl : MonoBehaviour
         ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerDeck");
         _nowShowType = MenuShowType.MyDeck;
         SetCardInfo(MyDeck);
-        SelectCard(-1);
+        ClearCardPreview();
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);
         IsUseMenuShow = false;
@@ -316,6 +311,10 @@ public class GameCardShowControl : MonoBehaviour
     //调度开始
     public void MulliganStart(IList<CardStatus> cards, int total)//调度界面
     {
+        // A card detail opened during the opening bid must not cover the mulligan controls.
+        var details = FindObjectOfType<righclickLogic>();
+        if (details != null)
+            details.Closerightclick();
         NowMulliganCount = 0;
         NowMulliganTotal = total;
         useCardTitle = string.Format(_translator.GetText("IngameMenu_MulliganTitle"), NowMulliganCount, NowMulliganTotal);
@@ -344,6 +343,7 @@ public class GameCardShowControl : MonoBehaviour
         NowSelect = new List<int>();
         UseCardList = new List<CardStatus>();
         OpenButton.SetActive(false);//打开
+        ClearCardPreview();
         CardSelectUI.SetActive(false);
     }
     //更新信息(需要更改),动画之类的
@@ -391,7 +391,7 @@ public class GameCardShowControl : MonoBehaviour
         SetCardInfo(UseCardList);
         SetButtonShow(UseButtonShow);
         IsUseMenuShow = true;
-        SelectCard(-1);
+        ClearCardPreview();
         CardSelectUI.SetActive(true);
     }
     //------------------------------------------------------------------------------------------------

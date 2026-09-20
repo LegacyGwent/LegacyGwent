@@ -22,6 +22,7 @@ public class InitSetting : MonoBehaviour
 
         InitLanguageSettings();
         InitSettings();
+        Assets.Script.DynamicCards.DynamicCardSettingRow.Install(QualityPanel);
     }
 
     void InitLanguageSettings()

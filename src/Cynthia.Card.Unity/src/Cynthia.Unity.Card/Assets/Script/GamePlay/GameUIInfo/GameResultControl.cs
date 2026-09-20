@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Script.Localization;
 using Autofac;
@@ -65,7 +65,7 @@ public class GameResultControl : MonoBehaviour
     private LocalizationService _translator => DependencyResolver.Container.Resolve<LocalizationService>();
     public void ShowMMRResult(int oldMMR, int newMMR)
     {
-        MMRChangeText.text = $"MMR: {oldMMR} → {newMMR}";
+        LocalizedLabel.Set(MMRChangeText, "IngameMenu_MmrChange", oldMMR, newMMR);
     }
     public void ShowGameResult(GameResultInfomation gameResult)
     {

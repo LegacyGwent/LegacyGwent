@@ -28,9 +28,9 @@ namespace Cynthia.Card.Client
         {//点击了编辑列表领袖
             _code.GetComponent<MainCode>().EditorMenu.ClickEditorListLeader(id);
         }
-        public void ClickEditorListCard(string id)
+        public void ClickEditorListCard(string id, bool premium = false)
         {//点击了编辑列表卡牌
-            _code.GetComponent<MainCode>().EditorMenu.ClickEditorListCard(id);
+            _code.GetComponent<MainCode>().EditorMenu.ClickEditorListCard(id, premium);
         }
         public void ClickEditorUICoreCard(CardStatus card)
         {//点击了编辑菜单卡牌

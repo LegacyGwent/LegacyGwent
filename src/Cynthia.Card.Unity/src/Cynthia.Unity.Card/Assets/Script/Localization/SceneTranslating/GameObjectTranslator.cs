@@ -15,8 +15,12 @@ namespace Assets.Script.Localization.SceneTranslating
             _translationManager = DependencyResolver.Container.Resolve<LocalizationService>();
             TranslateAll();
         }
+        private void OnEnable() { TextLocalization.LanguageChanged += TranslateAll; if (_translationManager != null) TranslateAll(); }
+        private void OnDisable() { TextLocalization.LanguageChanged -= TranslateAll; }
         public void TranslateAll()
         {
+            if (_translationManager == null)
+                _translationManager = DependencyResolver.Container.Resolve<LocalizationService>();
             foreach (var entry in ObjectsToTranslate)
             {
                 var textId = entry.Id;

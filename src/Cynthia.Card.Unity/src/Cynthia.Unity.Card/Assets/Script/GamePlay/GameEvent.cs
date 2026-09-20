@@ -16,6 +16,7 @@ public class GameEvent : MonoBehaviour
     private LocalizationService translator;
     static public bool RighClickActive;
     public static string RightClickedCardID;
+    public static bool RightClickedPremium;
     public ArtCard ShowCard;
     public float ArrowsZ = -6f;
     //可被拖上(6排,以及我方墓地)
@@ -212,12 +213,12 @@ public class GameEvent : MonoBehaviour
             _selectCard = value;
             if (value == null)
             {
-                ShowCard.gameObject.SetActive(false);
                 return;
             }
-            if (!_selectCard.IsTem)
+            if (!_selectCard.IsTem && !_selectCard.CardShowInfo.CurrentCore.IsCardBack && !_selectCard.CardShowInfo.CurrentCore.Conceal)
             {
-                ShowCard.CurrentCore = _selectCard.CardShowInfo.CurrentCore;
+                if (!ShowCard.gameObject.activeSelf || !ReferenceEquals(ShowCard.CurrentCore, _selectCard.CardShowInfo.CurrentCore))
+                    ShowCard.CurrentCore = _selectCard.CardShowInfo.CurrentCore;
                 ShowCard.gameObject.SetActive(true);
             }
             if (!_selectCard.IsCanSelect || _selectCard.IsOn || _selectCard.IsStay || _selectCard.CardShowInfo.IsDead || _selectCard.IsTem)
@@ -476,6 +477,7 @@ public class GameEvent : MonoBehaviour
                         Debug.Log("卡牌On?:" + card.GetComponent<CardMoveInfo>().IsOn);
 #if !UNITY_ANDROID && !UNITY_IOS                           
                             RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
+                            RightClickedPremium = card.GetComponent<CardShowInfo>().CurrentCore.IsPremium == true;
                             if (!string.IsNullOrEmpty(RightClickedCardID))
                             {
                                 RighClickActive = true;
@@ -485,6 +487,7 @@ public class GameEvent : MonoBehaviour
                         if(IsRightClickMobile)
                         {            
                             RightClickedCardID = card.GetComponent<CardShowInfo>().CurrentCore.CardId;
+                            RightClickedPremium = card.GetComponent<CardShowInfo>().CurrentCore.IsPremium == true;
                             if (!string.IsNullOrEmpty(RightClickedCardID))
                             {
                                 DragCard = null;
