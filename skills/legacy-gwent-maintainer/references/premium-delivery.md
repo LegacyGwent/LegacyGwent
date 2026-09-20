@@ -24,6 +24,23 @@ Last verified: 2026-09-20
   Local restore is not proof of remote availability; publishing verifies the
   final remote asset inventory before making its draft visible.
 
+## Resuming an interrupted source publication
+
+- Symptom: the tag endpoint returns 404 for a draft, or an interrupted asset
+  advertises its full size but is not usable; direct HTTPS uploads stall while
+  ordinary API requests work through the system proxy.
+- Cause: draft tag lookup can differ from release listing. A GitHub asset in
+  `starter` state can report the intended full size before upload completes.
+  Python `http.client` does not automatically use urllib's system proxy config.
+- Fix: reuse drafts from the release list; require `uploaded`, matching size,
+  and matching SHA-256. Only replace matching incomplete assets in that draft.
+  Explicit HTTP CONNECT proxy handling and smaller transport chunks support
+  bounded retries. The publisher prints retry type without credential contents.
+- Prevention: never overwrite a published source release or accept size alone.
+  Keep local archives until the full remote inventory passes verification.
+- Verification: an interrupted full-size `starter` asset was replaced and its
+  returned digest matched; real chunk reassembly reproduced a 590 MB ZIP hash.
+
 ## Platform and content are independent build dimensions
 
 - Symptom: a standard package exposes crafting it cannot render, or Android

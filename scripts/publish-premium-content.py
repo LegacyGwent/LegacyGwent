@@ -108,8 +108,9 @@ def main():
                 result = api.upload(release['upload_url'], path)
                 if result.get('digest') != 'sha256:' + actual: raise ValueError('Remote archive checksum mismatch')
                 break
-            except (OSError, http.client.HTTPException):
+            except (OSError, http.client.HTTPException) as error:
                 if attempt == 3: raise
+                print('RETRY', path.name, 'attempt', attempt + 2, type(error).__name__, flush=True)
                 time.sleep(3)
         print('UPLOADED', path.name, flush=True)
     with ThreadPoolExecutor(max_workers=a.workers) as pool:
