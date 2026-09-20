@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repository": "lwr511/LegacyGwent",
   "release": "premium-source-20260920-v1",
   "catalogSha256": "23e313a5d4d0b50478b0771539d8bd0615fe5993e61382b0065d08cd5732506e",
@@ -38,7 +38,49 @@
       "bytes": 590330781,
       "sha256": "27c7e22f99934781e5f87803423ced7fa55312408fb35dd0f737e4f66b156d94",
       "unpackedBytes": 1073386218,
-      "files": 642
+      "files": 642,
+      "chunks": [
+        {
+          "name": "premium-source-004.zip.part-000",
+          "bytes": 83886080,
+          "sha256": "3312abc2753e8a817a882c4fbb429f5fcb910057eb18e4df2c490be53017c423"
+        },
+        {
+          "name": "premium-source-004.zip.part-001",
+          "bytes": 83886080,
+          "sha256": "655cc1302b1ccf993c3e9c57c62760ebe406f09b0a83cc32a7f8b102a3341d27"
+        },
+        {
+          "name": "premium-source-004.zip.part-002",
+          "bytes": 83886080,
+          "sha256": "3259b13e56f1afbfc1a391bd0c1b4a0b8082f1422d849c8a023093d1eae7943b"
+        },
+        {
+          "name": "premium-source-004.zip.part-003",
+          "bytes": 83886080,
+          "sha256": "511df38af9536d45adbe7199685d721ddb2a750ac0ca07a51a9283bddb557ffe"
+        },
+        {
+          "name": "premium-source-004.zip.part-004",
+          "bytes": 83886080,
+          "sha256": "22e25f8eb1f401e7a78de1be7fb05caf635c6da83a20345145a5e10f626669dc"
+        },
+        {
+          "name": "premium-source-004.zip.part-005",
+          "bytes": 83886080,
+          "sha256": "ae8a934dbc0cad2f3d3964dceb97758c94638ce2d2c78a68a1e9668d8fbb0dad"
+        },
+        {
+          "name": "premium-source-004.zip.part-006",
+          "bytes": 83886080,
+          "sha256": "edc3b057ebf993d77c08262696b9246e8539abd34e36157438747834e3c5402a"
+        },
+        {
+          "name": "premium-source-004.zip.part-007",
+          "bytes": 3128221,
+          "sha256": "0bb28813ae696f8308ce05a7206910fe1e6fb392debb6911641e7150fa0b98fd"
+        }
+      ]
     },
     {
       "name": "premium-source-005.zip",
@@ -171,14 +213,98 @@
       "bytes": 597318554,
       "sha256": "5ed1b7d436e57407cc1c0fc941e1dbef314c2808ef2d40d89f3eee1fba92b6d3",
       "unpackedBytes": 1073398018,
-      "files": 1530
+      "files": 1530,
+      "chunks": [
+        {
+          "name": "premium-source-023.zip.part-000",
+          "bytes": 83886080,
+          "sha256": "7de704a7590b38bdb87061389fb2595af29e40a5a542585c109bd320b78e863c"
+        },
+        {
+          "name": "premium-source-023.zip.part-001",
+          "bytes": 83886080,
+          "sha256": "5d0e715f59a61429d6ff0f08fbe3598074208d6551bed8247c3b853d11e3b806"
+        },
+        {
+          "name": "premium-source-023.zip.part-002",
+          "bytes": 83886080,
+          "sha256": "c16f9f8313923ea7f99c973bce7f8af84c4dfae59d4482b92f4e31314d90b127"
+        },
+        {
+          "name": "premium-source-023.zip.part-003",
+          "bytes": 83886080,
+          "sha256": "68a758bb90097e02f32f27f987b26deff48b763a91a48e2bf5d7daeaf9c96e07"
+        },
+        {
+          "name": "premium-source-023.zip.part-004",
+          "bytes": 83886080,
+          "sha256": "a8b31a9674f1582f868c3e22095c5a655be7a6d57f026524aacfb027eb2b1643"
+        },
+        {
+          "name": "premium-source-023.zip.part-005",
+          "bytes": 83886080,
+          "sha256": "fd2e7d611618ead7a140d20b29a54dfe75a7f7308fb2f55f302bea8e4ccb822b"
+        },
+        {
+          "name": "premium-source-023.zip.part-006",
+          "bytes": 83886080,
+          "sha256": "0bfa28f55ff55db975cf1f9ccada1d4eec64d74ebb4694478940bc067eaf3b74"
+        },
+        {
+          "name": "premium-source-023.zip.part-007",
+          "bytes": 10115994,
+          "sha256": "cca77d4b1c684ba306aa1a2d6c1531b6e028ed3826cb0de66e194a9aaeac55a1"
+        }
+      ]
     },
     {
       "name": "premium-source-024.zip",
       "bytes": 644920899,
       "sha256": "1e540a45af43f1cd961d2468a1e3311b10485fd2db26530553209f70c0346e9c",
       "unpackedBytes": 1024205310,
-      "files": 15471
+      "files": 15471,
+      "chunks": [
+        {
+          "name": "premium-source-024.zip.part-000",
+          "bytes": 83886080,
+          "sha256": "c23c1a81926448724941c44af915ca8b512eac00061c8217df5f8919ad7b4e57"
+        },
+        {
+          "name": "premium-source-024.zip.part-001",
+          "bytes": 83886080,
+          "sha256": "4ab6e95ad960055e7788b142dec21e8305e920e8960d11e1fc556ab050652a02"
+        },
+        {
+          "name": "premium-source-024.zip.part-002",
+          "bytes": 83886080,
+          "sha256": "e43ed5d9172ea38e1267911b6dc1d00f6ed778de88805357d0e4a20d42c044ca"
+        },
+        {
+          "name": "premium-source-024.zip.part-003",
+          "bytes": 83886080,
+          "sha256": "dba037dcb1856996439f2f6ead601facefcc0907a5077da3a5d76a848d61d11f"
+        },
+        {
+          "name": "premium-source-024.zip.part-004",
+          "bytes": 83886080,
+          "sha256": "10c4b19ea70294152937f2b34efc62aa86bd3af95a69569c473fc6be4e733e5f"
+        },
+        {
+          "name": "premium-source-024.zip.part-005",
+          "bytes": 83886080,
+          "sha256": "7459715361b89fa5376b0eac977325dfa17119811fff2820d06355dd090c27b9"
+        },
+        {
+          "name": "premium-source-024.zip.part-006",
+          "bytes": 83886080,
+          "sha256": "c934e8f4ec8c2f5fe9fcc5cda2c07fa5d07ff8748328098831d3b9bbda5c6625"
+        },
+        {
+          "name": "premium-source-024.zip.part-007",
+          "bytes": 57718339,
+          "sha256": "30c522a0b3361923593078c6c35fb0c93f052945b659d0cdff6dcd48a9649015"
+        }
+      ]
     },
     {
       "name": "premium-source-025.zip",
@@ -220,14 +346,68 @@
       "bytes": 214012851,
       "sha256": "11fd754d40182600c1d82b77bf3b8953550213fd3df34f747b5e55a2c6d68386",
       "unpackedBytes": 1072347299,
-      "files": 536
+      "files": 536,
+      "chunks": [
+        {
+          "name": "premium-source-030.zip.part-000",
+          "bytes": 83886080,
+          "sha256": "726a818612a12404931e0d878bc9e517d0c045457129287092c626400d9f820c"
+        },
+        {
+          "name": "premium-source-030.zip.part-001",
+          "bytes": 83886080,
+          "sha256": "e08ca92f21595794a6bff8c08d28789e3b01e2953f1dd2007ad21b2fa17d45fe"
+        },
+        {
+          "name": "premium-source-030.zip.part-002",
+          "bytes": 46240691,
+          "sha256": "1e68b7f42988aa7b36315184c56ac0db5a61ce89c462b780e665953673a1b920"
+        }
+      ]
     },
     {
       "name": "premium-source-031.zip",
       "bytes": 545773995,
       "sha256": "66b9ec05971935fb3321693df8695c46a61c020f5f2ad7d22afc3e9ffafc9255",
       "unpackedBytes": 1073565564,
-      "files": 9051
+      "files": 9051,
+      "chunks": [
+        {
+          "name": "premium-source-031.zip.part-000",
+          "bytes": 83886080,
+          "sha256": "c64778bcebffd750f9956380ffa12904ede64a17641174c083fd1313f99352ce"
+        },
+        {
+          "name": "premium-source-031.zip.part-001",
+          "bytes": 83886080,
+          "sha256": "06a3a1d8ae98985ab06152c3bc6de881b0ca55af82f107caa56fcf61953f64e8"
+        },
+        {
+          "name": "premium-source-031.zip.part-002",
+          "bytes": 83886080,
+          "sha256": "2e0778fa289e9c4b707715022aa6d92442aa7265d7b5f6904d45b8ae3be96309"
+        },
+        {
+          "name": "premium-source-031.zip.part-003",
+          "bytes": 83886080,
+          "sha256": "98ab531a2c889113ec345130acd7d44da0e26ffb592c0d49465958c23f203066"
+        },
+        {
+          "name": "premium-source-031.zip.part-004",
+          "bytes": 83886080,
+          "sha256": "1b3bb157d3a47d3c7dbf7b4b6650480005cc07c99d9f280094d8220cd4ed3b2f"
+        },
+        {
+          "name": "premium-source-031.zip.part-005",
+          "bytes": 83886080,
+          "sha256": "ef471db7811faccbd2d3c30d87c7dbd6cc433e9f813522bf237509bcf9d295ef"
+        },
+        {
+          "name": "premium-source-031.zip.part-006",
+          "bytes": 42457515,
+          "sha256": "48133b47f05881243560139550ff255fbafad0b5ad6515350d6693b3d876adb3"
+        }
+      ]
     },
     {
       "name": "premium-source-032.zip",

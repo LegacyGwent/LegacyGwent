@@ -18,7 +18,8 @@
 1. **素材交付**：`build-config/premium-content.json` 固定源素材版本和每卷 SHA-256。
    677 张卡的 prefab、贴图、材质、动画、音频及原始 `.meta` 通过 GitHub Release
    分卷交付，避免把约 33.8 GB 的源文件直接塞进普通 Git 历史。
-   33 卷 ZIP 合计 5,409,871,278 字节。原始素材中已经不存在的音频
+   33 卷 ZIP 合计 5,409,871,278 字节。较大的卷再拆为传输片段，
+   当前共 62 个远端文件；恢复时同时验证片段哈希与重组后 ZIP 的哈希。原始素材中已经不存在的音频
    `Latest/Audio/533473923.wav` 从卡 `13860101` 的索引中清除；不伪造音频。
 2. **构建入口和矩阵**：desktop、mobile、release 接入 standard/premium，
    Windows 与 Android 均有两种产物名。统一入口先同步 Common DLL（workflow）、
@@ -53,7 +54,8 @@ python scripts/premium-content.py restore
 CI 会先清理不需要的工具。磁盘预检只能检查解压空间，不能证明完整构建峰值足够。
 
 发布新源版本时使用 `scripts/premium-content.py pack` 更新 manifest，再用
-`scripts/publish-premium-content.py` 上传。只有全部远端卷的大小和 SHA-256
+`scripts/publish-premium-content.py` 上传。较大 ZIP 可先执行
+`scripts/premium-content.py split-transport --cache <压缩包目录>`。只有全部远端卷的大小和 SHA-256
 匹配，草稿素材 Release 才公开；已发布版本禁止修改，变更应使用新 tag。
 源素材 tag 不以 `v` 开头，不触发客户端正式发布。
 
@@ -77,8 +79,9 @@ CI 会先清理不需要的工具。磁盘预检只能检查解压空间，不�
 
 - .NET Release solution 构建：0 警告、0 错误；服务器兼容测试 54 项通过。
 - 客户端契约检查 27 项通过，包括普通包不擦除闪卡选择和不覆盖画质偏好。
-- 素材/产物交付测试 12 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
+- 素材/产物交付测试 15 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
   普通包混入动态资源、闪卡分卷缺失、APK 缺 ARM64 等均能被拒绝。
+  包含传输片段重组、缺片和损坏片段的检查。
 - 33 卷真实素材已在 AI 工作区解压和校验，677 张卡恢复完成。
 - 使用 Unity 2019.4 本地引用做 Roslyn 静态编译：Windows runtime、Android runtime、
   Windows Editor 三套条件均通过。这不是 Unity Player、IL2CPP 或 shader 构建。

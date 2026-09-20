@@ -66,6 +66,24 @@ class SourceDelivery(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'existing premium sources'): self.restore()
         self.assertEqual((self.destination / 'user.asset').read_text(), 'keep')
 
+    def make_chunks(self):
+        delivery.split_transport(self.manifest, self.cache, threshold=100, chunk_bytes=100)
+        next(self.cache.glob('*.zip')).unlink()
+
+    def test_chunked_roundtrip(self):
+        self.make_chunks(); self.restore()
+        self.assertEqual((self.destination / 'card.prefab').read_text(), 'prefab payload')
+
+    def test_corrupt_transport_chunk_rejected(self):
+        self.make_chunks(); next(self.cache.glob('*.part-*')).write_bytes(b'corrupt')
+        with self.assertRaisesRegex(ValueError, 'checksum mismatch'): self.restore()
+        self.assertFalse((self.destination / 'card.prefab').exists())
+
+    def test_missing_transport_chunk_rejected(self):
+        self.make_chunks(); next(self.cache.glob('*.part-*')).unlink()
+        with self.assertRaisesRegex(ValueError, 'Missing transport chunk'): self.restore()
+        self.assertFalse((self.destination / 'card.prefab').exists())
+
     def test_traversal_rejected_even_with_valid_archive_hash(self):
         archive = self.cache / 'premium-source-000.zip'
         with zipfile.ZipFile(archive, 'w') as z: z.writestr('../outside', b'x')

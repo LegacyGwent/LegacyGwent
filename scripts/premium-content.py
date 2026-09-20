@@ -24,6 +24,62 @@ def digest(path):
     return h.hexdigest()
 
 
+def split_transport(manifest, cache, threshold=128 * 1024**2, chunk_bytes=80 * 1024**2, keep=()):
+    """Split large ZIPs for bounded upload retries without recompressing source assets."""
+    manifest, cache = Path(manifest), Path(cache)
+    m = json.loads(manifest.read_text(encoding='utf-8'))
+    for part in m['parts']:
+        if part['bytes'] <= threshold or part['name'] in keep: continue
+        archive = cache / part['name']
+        if digest(archive) != part['sha256']: raise ValueError('Archive checksum mismatch')
+        chunks = []
+        with archive.open('rb') as src:
+            for i, data in enumerate(iter(lambda: src.read(chunk_bytes), b'')):
+                name = part['name'] + '.part-%03d' % i
+                (cache / name).write_bytes(data)
+                chunks.append(dict(name=name, bytes=len(data), sha256=hashlib.sha256(data).hexdigest()))
+        part['chunks'] = chunks
+    m['schema'] = 2
+    manifest.write_text(json.dumps(m, indent=2) + '\n', encoding='utf-8')
+
+
+def acquire_archive(part, cache, repository, tag, local_only):
+    archive = cache / part['name']
+    if archive.is_file() and archive.stat().st_size == part['bytes'] and digest(archive) == part['sha256']:
+        return archive
+    if local_only and not part.get('chunks'):
+        raise ValueError('Missing or corrupt content archive: ' + part['name'])
+    if len(repository.split('/')) != 2 or any(safe_name(x).name != x for x in repository.split('/') + [tag]):
+        raise ValueError('Invalid release location')
+    pieces = part.get('chunks') or [part]
+    if sum(p['bytes'] for p in pieces) != part['bytes']: raise ValueError('Invalid transport size')
+    partial = archive.with_suffix('.partial')
+    try:
+        with partial.open('wb') as dst:
+            for piece in pieces:
+                name = piece['name']
+                if safe_name(name).name != name: raise ValueError('Transport names must be basenames')
+                local = cache / name
+                h, size = hashlib.sha256(), 0
+                if local_only:
+                    if not local.is_file(): raise ValueError('Missing transport chunk: ' + name)
+                    src = local.open('rb')
+                else:
+                    url = 'https://github.com/%s/releases/download/%s/%s' % (repository, tag, name)
+                    src = urllib.request.urlopen(url, timeout=120)
+                with src:
+                    for block in iter(lambda: src.read(1024 * 1024), b''):
+                        size += len(block); h.update(block); dst.write(block)
+                if size != piece['bytes'] or h.hexdigest() != piece['sha256']:
+                    raise ValueError('Downloaded archive checksum mismatch: ' + name)
+        if partial.stat().st_size != part['bytes'] or digest(partial) != part['sha256']:
+            raise ValueError('Reassembled archive checksum mismatch')
+        partial.replace(archive)
+    finally:
+        if partial.exists(): partial.unlink()
+    return archive
+
+
 def safe_name(name):
     p = PurePosixPath(name)
     if not name or '\\' in name or ':' in name or p.is_absolute() or '..' in p.parts or str(p) != name:
@@ -85,7 +141,7 @@ def pack(source, output, manifest, repository, tag, catalog_override=None, part_
 def install(manifest, destination, cache, local_only=False):
     manifest, destination, cache = Path(manifest), Path(destination).resolve(), Path(cache).resolve()
     m = json.loads(manifest.read_text(encoding='utf-8'))
-    if m.get('schema') != 1 or not m.get('parts'):
+    if m.get('schema') not in (1, 2) or not m.get('parts'):
         raise ValueError('Invalid content manifest')
     # Never overwrite the catalog from the checked-out commit with another version.
     catalog = destination / 'catalog.json'
@@ -105,23 +161,7 @@ def install(manifest, destination, cache, local_only=False):
             name = part['name']
             if safe_name(name).name != name:
                 raise ValueError('Archive names must be basenames')
-            archive = cache / name
-            if not archive.is_file() or archive.stat().st_size != part['bytes'] or digest(archive) != part['sha256']:
-                if local_only:
-                    raise ValueError('Missing or corrupt content archive: ' + name)
-                repo, tag = m['repository'], m['release']
-                if len(repo.split('/')) != 2 or any(safe_name(x).name != x for x in repo.split('/') + [tag]):
-                    raise ValueError('Invalid release location')
-                url = 'https://github.com/%s/releases/download/%s/%s' % (repo, tag, name)
-                partial = archive.with_suffix('.partial')
-                try:
-                    with urllib.request.urlopen(url, timeout=120) as src, partial.open('wb') as dst:
-                        shutil.copyfileobj(src, dst, 1024 * 1024)
-                    if partial.stat().st_size != part['bytes'] or digest(partial) != part['sha256']:
-                        raise ValueError('Downloaded archive checksum mismatch: ' + name)
-                    partial.replace(archive)
-                finally:
-                    if partial.exists(): partial.unlink()
+            archive = acquire_archive(part, cache, m['repository'], m['release'], local_only)
             with zipfile.ZipFile(archive) as z:
                 infos = z.infolist()
                 if len(infos) != part['files'] or sum(x.file_size for x in infos) != part['unpackedBytes']:
@@ -171,8 +211,13 @@ def main():
     a.add_argument('--destination', type=Path, default=CONTENT)
     a.add_argument('--cache', type=Path, default=ROOT / '.premium-downloads')
     a.add_argument('--local-only', action='store_true')
+    a = commands.add_parser('split-transport')
+    a.add_argument('--manifest', type=Path, default=MANIFEST)
+    a.add_argument('--cache', type=Path, required=True)
+    a.add_argument('--keep', action='append', default=[])
     args = vars(p.parse_args()); command = args.pop('command')
     if command == 'pack': pack(**args)
+    elif command == 'split-transport': split_transport(**args)
     else: install(**args)
 
 

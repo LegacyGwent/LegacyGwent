@@ -50,7 +50,7 @@ class GitHub:
         try:
             conn.putrequest('POST', address.path + '?' + address.query)
             for key, value in {'Authorization': 'Bearer ' + self.token,
-                 'User-Agent': 'LegacyGwent-content-delivery', 'Content-Type': 'application/zip',
+                 'User-Agent': 'LegacyGwent-content-delivery', 'Content-Type': 'application/octet-stream',
                  'Content-Length': str(path.stat().st_size)}.items(): conn.putheader(key, value)
             conn.endheaders()
             conn.sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 8 * 1024 * 1024)
@@ -60,9 +60,9 @@ class GitHub:
                     conn.send(block); sent += len(block)
                     if sent % (64 * 1024 * 1024) == 0:
                         print('SENDING', path.name, sent, '/', path.stat().st_size, flush=True)
-            response = conn.getresponse(); result = json.loads(response.read())
-            if response.status != 201: raise RuntimeError('GitHub upload HTTP ' + str(response.status))
-            return result
+            response = conn.getresponse(); raw = response.read()
+            if response.status != 201: raise http.client.HTTPException('GitHub upload HTTP ' + str(response.status))
+            return json.loads(raw)
         finally: conn.close()
 
 
@@ -71,7 +71,7 @@ def main():
     p.add_argument('--manifest', type=Path, default=Path(__file__).resolve().parents[1] / 'build-config/premium-content.json')
     p.add_argument('--archives', type=Path, required=True)
     p.add_argument('--commit', required=True)
-    p.add_argument('--workers', type=int, choices=range(1, 5), default=3)
+    p.add_argument('--workers', type=int, choices=range(1, 17), default=8)
     a = p.parse_args(); m = json.loads(a.manifest.read_text())
     repo = m['repository']; api = GitHub(credential(repo.split('/')[0])); prefix = 'repos/' + repo
     try: release = api.request(prefix + '/releases/tags/' + m['release'])
@@ -83,12 +83,18 @@ def main():
         if release is None: release = api.request(prefix + '/releases', 'POST', dict(tag_name=m['release'], target_commitish=a.commit,
                   name='Premium source assets ' + m['release'], draft=True, prerelease=True,
                   body='Build-time source assets for LegacyGwent. Restore using scripts/premium-content.py and the SHA-256 manifest in build-config/premium-content.json. Not a playable client.'))
+    parts = [piece for part in m['parts'] for piece in part.get('chunks', [part])]
+    initial_assets = api.request(prefix + '/releases/%s/assets?per_page=100' % release['id'])
+    if len(parts) > 100: raise ValueError('Publisher currently supports up to 100 transport files')
     def upload_part(part):
         path = a.archives / part['name']
-        with path.open('rb') as f: actual = hashlib.file_digest(f, 'sha256').hexdigest()
+        h = hashlib.sha256()
+        with path.open('rb') as f:
+            for block in iter(lambda: f.read(8 * 1024 * 1024), b''): h.update(block)
+        actual = h.hexdigest()
         if actual != part['sha256']: raise ValueError('Local archive checksum mismatch: ' + path.name)
         for attempt in range(4):
-            assets = api.request(prefix + '/releases/%s/assets?per_page=100' % release['id'])
+            assets = initial_assets if attempt == 0 else api.request(prefix + '/releases/%s/assets?per_page=100' % release['id'])
             existing = next((x for x in assets if x['name'] == path.name), None)
             if existing:
                 if existing.get('state') == 'uploaded' and existing['size'] == part['bytes'] and existing.get('digest') == 'sha256:' + actual:
@@ -107,10 +113,10 @@ def main():
                 time.sleep(3)
         print('UPLOADED', path.name, flush=True)
     with ThreadPoolExecutor(max_workers=a.workers) as pool:
-        list(pool.map(upload_part, m['parts']))
+        list(pool.map(upload_part, parts))
     # Publish only after every future completed and GitHub confirms all hashes.
     assets = {x['name']: x for x in api.request(prefix + '/releases/%s/assets?per_page=100' % release['id'])}
-    for part in m['parts']:
+    for part in parts:
         remote = assets.get(part['name'], {})
         if remote.get('state') != 'uploaded' or remote.get('size') != part['bytes'] or remote.get('digest') != 'sha256:' + part['sha256']:
             raise ValueError('Release inventory is incomplete')

@@ -8,7 +8,9 @@ Last verified: 2026-09-20
 - Cause: the 677 catalog prefabs and dependencies occupy about 33.8 GB and are
   ignored by Git; tracking a catalog alone does not deliver them.
 - Fix: `build-config/premium-content.json` pins 33 ZIP release parts (about
-  5.4 GB), individual sizes/hashes, and catalog hash. `premium-content.py restore`
+  5.4 GB), individual sizes/hashes, and catalog hash. Manifest schema 2 can
+  split large ZIPs into transport chunks, validating both chunk and whole-ZIP
+  hashes. `split-transport` needs no source recompression. `premium-content.py restore`
   verifies each archive, extracts to staging, then installs into a clean Content
   directory. The original metas travel with source assets. Standard CI skips
   source restoration. The default download cache is ignored by Git.
