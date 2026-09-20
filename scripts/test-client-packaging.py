@@ -47,6 +47,11 @@ class SourceDelivery(unittest.TestCase):
         self.assertEqual((self.destination / 'card.prefab.meta').read_bytes(), (self.source / 'card.prefab.meta').read_bytes())
         self.assertEqual((self.destination / 'catalog.json.meta').read_bytes(), meta)
 
+    def test_ci_discards_only_verified_download_archive(self):
+        delivery.install(self.manifest, self.destination, self.cache, local_only=True, discard_archives=True)
+        self.assertEqual((self.destination / 'card.prefab').read_text(), 'prefab payload')
+        self.assertFalse(list(self.cache.glob('*.zip')))
+
     def test_corrupt_archive_cannot_install(self):
         next(self.cache.glob('*.zip')).write_bytes(b'corrupt')
         with self.assertRaisesRegex(ValueError, 'corrupt'): self.restore()

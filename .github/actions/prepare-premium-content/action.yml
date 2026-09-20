@@ -12,12 +12,26 @@ runs:
       shell: bash
       run: |
         set -Eeuo pipefail
+        if [[ "${RUNNER_ENVIRONMENT:-}" != github-hosted ]]; then
+          echo "Custom runner: retain installed tools; provide sufficient free disk for premium builds."
+          exit 0
+        fi
         # The shared DLL has already been built. Keep Android SDK build-tools
         # for APK verification; Unity uses its own container toolchain.
         sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/chromium /opt/hostedtoolcache/CodeQL
+        sdk_root="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+        if [[ "$sdk_root" == /usr/local/lib/android/sdk ]]; then
+          find "$sdk_root" -mindepth 1 -maxdepth 1 ! -name build-tools -exec sudo rm -rf -- {} +
+        fi
+        # Preserve a toolcache JDK if the APK verifier's java resolves there.
+        java_path="$(readlink -f "$(command -v java)")"
+        for tool in /opt/hostedtoolcache/*; do
+          [[ "$java_path" == "$tool/"* ]] && continue
+          sudo rm -rf -- "$tool"
+        done
         docker image prune -af
         df -h .
     - name: Restore verified premium sources
       if: inputs.variant == 'premium'
       shell: bash
-      run: python3 scripts/premium-content.py restore --cache "$RUNNER_TEMP/premium-downloads"
+      run: /usr/bin/python3 scripts/premium-content.py restore --cache "$RUNNER_TEMP/premium-downloads" --discard-archives

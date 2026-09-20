@@ -46,13 +46,6 @@ jobs:
           [[ "$EXPECTED_SHA" =~ ^[0-9a-fA-F]{40}$ ]]
           actual_sha="$(git rev-parse HEAD)"
           test "${EXPECTED_SHA,,}" = "$actual_sha"
-      - name: Restore Unity Library cache
-        id: unity_cache_restore
-        uses: actions/cache/restore@v4
-        with:
-          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
-          key: Library-v3-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}-${{ hashFiles('build-config/premium-content.json', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/**', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Packages/**') }}
-          restore-keys: Library-v3-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}-
       - name: Setup .NET 10 SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -105,6 +98,13 @@ jobs:
       - uses: ./.github/actions/prepare-premium-content
         with:
           variant: ${{ matrix.clientVariant }}
+      - name: Restore Unity Library cache
+        id: unity_cache_restore
+        uses: actions/cache/restore@v4
+        with:
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: Library-v3-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}-${{ hashFiles('build-config/premium-content.json', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/**', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Packages/**') }}
+          restore-keys: Library-v3-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}-
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         id: unity_build
         with:

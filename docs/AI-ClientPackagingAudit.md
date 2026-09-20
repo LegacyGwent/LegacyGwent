@@ -51,7 +51,10 @@ python scripts/premium-content.py restore
 属性固定换行格式，以保持 Windows/Linux checkout 的哈希一致。
 下载缓存默认 `.premium-downloads`，不提交 Git。离线可传 `--cache` 和 `--local-only`。
 需要源文件解压空间，还需为 Unity Library、平台包及 Docker 镜像预留足够磁盘；
-CI 会先清理不需要的工具。磁盘预检只能检查解压空间，不能证明完整构建峰值足够。
+CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK，
+保留 APK 检查所需 build-tools/Java；每卷解压成功后删除下载 ZIP，减少约 5.4 GB
+累计缓存占用。自托管机器不会自动清除工具。磁盘预检只能检查解压空间，
+不能证明完整构建峰值足够。
 
 发布新源版本时使用 `scripts/premium-content.py pack` 更新 manifest，再用
 `scripts/publish-premium-content.py` 上传。较大 ZIP 可先执行
@@ -79,7 +82,7 @@ CI 会先清理不需要的工具。磁盘预检只能检查解压空间，不�
 
 - .NET Release solution 构建：0 警告、0 错误；服务器兼容测试 54 项通过。
 - 客户端契约检查 27 项通过，包括普通包不擦除闪卡选择和不覆盖画质偏好。
-- 素材/产物交付测试 15 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
+- 素材/产物交付测试 16 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
   普通包混入动态资源、闪卡分卷缺失、APK 缺 ARM64 等均能被拒绝。
   包含传输片段重组、缺片和损坏片段的检查。
 - 33 卷真实素材已在 AI 工作区解压和校验，677 张卡恢复完成。

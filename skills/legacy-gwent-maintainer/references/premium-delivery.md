@@ -57,7 +57,10 @@ Last verified: 2026-09-20
 - Prevention: never infer private-key ownership from an old APK. Both variants
   share package identity and signing; a new fork key generally requires an
   initial uninstall of an APK signed by someone else. Keep credentials private.
-  Source extraction disk checks do not guarantee total Unity build peak space.
+  Hosted CI frees tools before restoring Library, retains Android build-tools
+  and Java, and discards verified download ZIPs after extraction. Custom runners
+  retain their installed tools. Extraction disk checks do not prove build peak
+  space; source, Library, bundles, Docker and player staging all occupy disk.
 - Verification: check real APK manifest, signer digest, ABIs, install/upgrade,
   and actual old/new client gameplay. Static Roslyn compilation does not run
   IL2CPP or compile Android shaders. Phone memory/visual acceptance remains

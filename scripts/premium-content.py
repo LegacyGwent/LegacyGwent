@@ -138,7 +138,7 @@ def pack(source, output, manifest, repository, tag, catalog_override=None, part_
     print('MANIFEST', manifest, 'ARCHIVE_BYTES', sum(x['bytes'] for x in parts), flush=True)
 
 
-def install(manifest, destination, cache, local_only=False):
+def install(manifest, destination, cache, local_only=False, discard_archives=False):
     manifest, destination, cache = Path(manifest), Path(destination).resolve(), Path(cache).resolve()
     m = json.loads(manifest.read_text(encoding='utf-8'))
     if m.get('schema') not in (1, 2) or not m.get('parts'):
@@ -176,6 +176,7 @@ def install(manifest, destination, cache, local_only=False):
                     with z.open(info) as src, target.open('wb') as dst:
                         shutil.copyfileobj(src, dst, 1024 * 1024)
             print('VERIFIED', part['name'], flush=True)
+            if discard_archives: archive.unlink()
         if digest(stage / 'catalog.json') != m['catalogSha256']:
             raise ValueError('Extracted catalog mismatch')
         # Validate BOTH tracked files before moving anything. Unity metas may
@@ -211,6 +212,7 @@ def main():
     a.add_argument('--destination', type=Path, default=CONTENT)
     a.add_argument('--cache', type=Path, default=ROOT / '.premium-downloads')
     a.add_argument('--local-only', action='store_true')
+    a.add_argument('--discard-archives', action='store_true', help='Delete verified download ZIPs after extraction (CI only)')
     a = commands.add_parser('split-transport')
     a.add_argument('--manifest', type=Path, default=MANIFEST)
     a.add_argument('--cache', type=Path, required=True)
