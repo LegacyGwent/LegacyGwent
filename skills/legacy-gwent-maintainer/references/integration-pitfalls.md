@@ -1,6 +1,6 @@
 # Integration pitfalls
 
-Last verified: 2026-09-16
+Last verified: 2026-09-20
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
 
@@ -23,6 +23,23 @@ Last verified: 2026-09-16
   and season-ID uniqueness, compare all locale surfaces, exercise the complete
   client/server path for protocol changes, and preview any 28021 migration with
   a restorable backup plan.
+
+## A feature port leaves generic UI translations behind
+
+- Symptom: premium-specific text is translated but titles, borders, settings,
+  and card category names revert to old English strings in the AI client.
+- Cause: comparing file presence or a feature-key subset does not cover all
+  personal changes inside shared language files. Whole-file copying is also
+  unsafe because AI card descriptions and choice text follow newer rules.
+- Fix: compare personal-base, personal-current, AI-base and AI-current values
+  per UI key. Restore nonconflicting generic text without replacing AI rule
+  descriptions, removed options or the AI endpoint welcome text. Synchronize
+  Resources, StreamingFile and server Locales together.
+- Prevention: audit original dirty files as well as committed source paths;
+  distinguish source Release delivery from Git tracking and historical evidence.
+- Verification: the final delivery audit restored 74 omitted UI translations;
+  `scripts/Verify-Localization.py` passed across all four languages and stores.
+  File/key presence alone does not establish semantic parity or device behavior.
 
 ## A skill script locates the discovery alias instead of the repository
 
