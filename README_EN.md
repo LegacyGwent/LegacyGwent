@@ -4,6 +4,11 @@
 
 ## Copyright Statement
 
+**This is an unofficial community project, not approved or endorsed by CD PROJEKT RED.**
+See the [asset and unofficial-project notice](ASSET_NOTICE.md), which also applies
+to associated source-asset releases. The source-code license does not license
+original game assets; non-commercial or educational intent is not authorization.
+
 + This project is based on the Beta Gwent. All art resources are extracted from the official client, and the copyright belongs to the original copyright owner. This work is for learning and communication purposes only and can **not** be used for commercial purposes.
 + All codes are written by the project author and have nothing to do with the official client. It is under the GNU General Public License, and welcome to contribute.
 

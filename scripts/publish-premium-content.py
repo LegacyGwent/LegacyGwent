@@ -15,6 +15,12 @@ import urllib.parse
 import urllib.request
 
 
+def source_release_body():
+    notice = (Path(__file__).resolve().parents[1] / 'ASSET_NOTICE.md').read_text(encoding='utf-8')
+    return ('Build-time source assets for LegacyGwent. Restore using scripts/premium-content.py '
+            'and the SHA-256 manifest in build-config/premium-content.json. Not a playable client.\n\n' + notice)
+
+
 def credential(account):
     token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
     if token: return token
@@ -91,7 +97,7 @@ def main():
         release = next((r for r in drafts if r['tag_name'] == m['release']), None)
         if release is None: release = api.request(prefix + '/releases', 'POST', dict(tag_name=m['release'], target_commitish=a.commit,
                   name='Premium source assets ' + m['release'], draft=True, prerelease=True,
-                  body='Build-time source assets for LegacyGwent. Restore using scripts/premium-content.py and the SHA-256 manifest in build-config/premium-content.json. Not a playable client.'))
+                  body=source_release_body()))
     parts = [piece for part in m['parts'] for piece in part.get('chunks', [part])]
     initial_assets = api.request(prefix + '/releases/%s/assets?per_page=100' % release['id'])
     if len(parts) > 100: raise ValueError('Publisher currently supports up to 100 transport files')

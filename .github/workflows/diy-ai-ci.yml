@@ -39,6 +39,23 @@ jobs:
             *) git diff --check HEAD^ HEAD ;;
           esac
 
+      - name: Check newly published text
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -Eeuo pipefail
+          case "$GITHUB_EVENT_NAME" in
+            pull_request) base="$PR_BASE_SHA" ;;
+            push) base="$BEFORE_SHA" ;;
+            *) base="HEAD^" ;;
+          esac
+          if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+            base="$(git hash-object -t tree /dev/null)"
+          fi
+          python3 scripts/check-public-content.py --base "$base"
+          python3 scripts/test-public-content.py
+
       - name: Validate deployment scripts
         run: bash -n deploy/diy-ai/bootstrap-server.sh deploy/diy-ai/deploy.sh deploy/diy-ai/prepare-net10-host.sh deploy/diy-ai/run-server.sh deploy/diy-ai/sync-from-diy.sh
 

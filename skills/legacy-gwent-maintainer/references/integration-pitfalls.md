@@ -1,6 +1,6 @@
 # Integration pitfalls
 
-Last verified: 2026-09-20
+Last verified: 2026-09-21
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
 
@@ -40,6 +40,24 @@ Last verified: 2026-09-20
 - Verification: the final delivery audit restored 74 omitted UI translations;
   `scripts/Verify-Localization.py` passed across all four languages and stores.
   File/key presence alone does not establish semantic parity or device behavior.
+
+## A clean release branch does not mean the fork has no private history
+
+- Symptom: an AI release branch passes a text scan, but an older public branch
+  still exposes workstation paths or private contact addresses in Git metadata.
+- Cause: source-only ports can omit debug files and ancestry; older branches,
+  release tags and author/committer fields remain independently accessible.
+- Fix: inspect every relevant public ref, new-commit identity, tracked data and
+  source archives. Keep findings outside the repository and never print matched
+  secrets or private contact values. Prepare historical rewrites separately and
+  coordinate approval before force-pushing or moving published source tags.
+- Prevention: use the account's GitHub noreply identity, relative paths, and
+  `scripts/check-public-content.py` for new text. Keep third-party credits.
+  The guard does not scan all binary metadata or guarantee anonymity.
+- Verification: source-archive scanning, Git author/committer checks and branch
+  inventory are separate evidence. A new cleanup commit cannot erase old blobs,
+  downloaded copies or GitHub's ownership/activity records. Copyright statements
+  do not establish permission; see `ASSET_NOTICE.md` and the privacy guide.
 
 ## A skill script locates the discovery alias instead of the repository
 
