@@ -15265,28 +15265,7 @@ namespace Cynthia.Card
                 "70193",//
                 new GwentCard()
                 {
-                    CardId ="70193", //Necromancer’s Tome
-                    Name="死灵法师之书",
-                    Strength=0,
-                    Group=Group.Silver,
-                    Faction = Faction.Neutral,
-                    CardUseInfo = CardUseInfo.AnyPlace,
-                    CardType = CardType.Special,
-                    IsDoomed = false,
-                    IsCountdown = false,
-                    IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
-                    Flavor = "部分书页是人肉制成，其中各种预言、埋葬仪式和复活咒文都是用血写的。",
-                    Info = "摧毁至多4个友方单位，并在它们原来的位置各生成1个“鬼灵”。",
-                    CardArtsId = "203118",
-                    LinkedCards=new List<String> {"45001"},
-                }
-            },
-            {
-                "70194",//
-                new GwentCard()
-                {
-                    CardId ="70194", //Skjordal Drummond
+                    CardId ="70193", //Skjordal Drummond
                     Name="史裘达尔·德拉蒙德",
                     Strength=5,
                     Group=Group.Gold,

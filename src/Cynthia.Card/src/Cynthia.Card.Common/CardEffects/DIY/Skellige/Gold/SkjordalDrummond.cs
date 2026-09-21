@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70194")] //史裘达尔·德拉蒙德
+    [CardEffectId("70193")] //史裘达尔·德拉蒙德
     public class SkjordalDrummond : CardEffect
     {
         //部署：部署：从牌组中丢弃1张铜色家族单位牌，然后复活1个不同家族的铜色单位。。
