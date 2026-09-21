@@ -780,7 +780,9 @@
         "VriheddSaboteur_1_RandomItem": "Play a random Bronze Item",
         "VriheddSaboteur_2_STItem": "Chosse and play a Scoia'tael Bronze Item",
         "Gael_1_Damage2Units": "Deal 5 Damage to two enemy units each.",
-        "Gael_1_Damage1Unit": "Damage an enemy by 8."
+        "Gael_1_Damage1Unit": "Damage an enemy by 8.",
+        "Vlodimir_1_Spawn2": "Spawn a Specter to the left and right of this unit.",
+        "Vlodimir_2_Destroy2": "Destroy 2 friendly units, boost self by their power, and spawn a Specter in each of their places."
     },
     "CardLocales": {
         "12001": {
@@ -835,7 +837,7 @@
         },
         "12011": {
             "Name": "Dandelion: Vainglory",
-            "Info": "Deploy: For every Geralt, Yennefer, Triss and Zoltan Gold card in your starting deck, Boost self by 3.",
+            "Info": "Deploy: For every Geralt, Yennefer, Triss and Zoltan Gold card in your starting deck, Boost self by 4.",
             "Flavor": "Dandelion told me all about your adventures. How he'd ready you for battle with his songs, how he tamed the kayran by playin' his lute..."
         },
         "12012": {
@@ -1735,7 +1737,7 @@
         },
         "24023": {
             "Name": "Wyvern",
-            "Info": "Deploy: Deal 5 Damage to an enemy.",
+            "Info": "Deal 5 damage to an enemy. If you have played another Draconid unit this round, deal 7 damage instead.",
             "Flavor": "Imagine a cross between a winged snake and a nightmare. Wyverns are worse."
         },
         "24024": {
@@ -2470,7 +2472,7 @@
         },
         "44008": {
             "Name": "Reinforced Trebuchet",
-            "Info": "On turn end, deal 1 Damage to a random enemy.",
+            "Info": "On turn end, deal 1 Damage to a random enemy. \nCrewed: Increase initial Damage by 1.",
             "Flavor": "Feel that? The earth trembles each time Big Bertha looses a stone."
         },
         "44009": {
@@ -3390,7 +3392,7 @@
         },
         "70006": {
             "Name": "Lady Of The Lake",
-            "Info": "Deploy: Weaken self by 2 for every card in your hand and deck.",
+            "Info": "Deploy: Weaken self by 3 for every card in your hand and deck.",
             "Flavor": ""
         },
         "70007": {
@@ -3505,7 +3507,7 @@
         },
         "70038": {
             "Name": "Sigvald",
-            "Info": "On turn end, resurrect on a random row and Strengthen self by 1. Its base Strength cannot be over 10.",
+            "Info": "On turn end, resurrect on a random row and Strengthen self by 1. Its base Strength cannot be over 7.",
             "Flavor": "A vildkaarl that lives to old age earns the respect of his clan."
         },
         "70039": {
@@ -3785,7 +3787,7 @@
         },
         "70116": {
             "Name": "Deafening Siren",
-            "Info": "Whenever Torrential Rain is applied to an enemy row, Summon from the graveyard on a random row.",
+            "Info": "During your turn, whenever “Torrential Rain” is applied to the opponent’s side, summon this unit from the graveyard to a random row. whenever there is no “Torrential Rain” on the opponent's side of the board, move this unit to the graveyard.",
             "Flavor": "Easy, mates! Sirens never attack when... Huh? What d'yous mean Right above me?"
         },
         "70117": {
@@ -4090,7 +4092,7 @@
         },
         "70178": {
             "Name": "Ulle the Unlucky",
-            "Info": "On turn start, if this card is in the graveyard, Resurrect self.\nOn turn end, Duel the Lowest enemy, if you win, Banish self.",
+            "Info": "On turn start, if this card is in the graveyard, Resurrect self.\nOn turn end, Duel the Lowest enemy, if you win, Lock self.",
             "Flavor": "Come to face the Ghost of the Arena? Don't be shy - all defeat Ulle the Unlucky."
         },
         "70179": {
@@ -4147,6 +4149,21 @@
             "Name": "King Chrum",
             "Info": "Deploy: Strengthen all your other Ogroids in hand, deck and on the board by 1.",
             "Flavor": "Thrum's valley kingdom was little more than a glorified toll road. Chrum, however, had expansion on his mind. Expansion, and reform."
+        },
+        "70191": {
+            "Name": "Ophelie Van Moorlehem",
+            "Info": "Deploy: Conceal a card. If it was a Vampire, boost self by half of its power.",
+            "Flavor": "Ophelie Van Moorlehem loves throwing huge galas. The fact that some attendees then disappear without a trace doesn't seem to bother anyone…"
+        },
+        "70192": {
+            "Name": "Vlodimir von Everec",
+            "Info": "Deploy: Choose one: Spawn a Specter to the left and right of this unit; or destroy 2 friendly units, boost self by their power, and spawn a Specter in each of their places.",
+            "Flavor": "Vlodimir liked to have a good time when he was alive and greatly missed having fun after his death."
+        },
+        "70193": {
+            "Name": "Skjordal Drummond",
+            "Info": "Deploy: Discard a Bronze Clan unit from your deck, then resurrect a Bronze unit from a different Clan.",
+            "Flavor": "He believed in honor, and that became his undoing."
         },
         "80001": {
             "Name": "Auberon: King",

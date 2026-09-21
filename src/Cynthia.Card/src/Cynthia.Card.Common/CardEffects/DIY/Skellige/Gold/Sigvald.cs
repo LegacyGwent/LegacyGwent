@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70038")]//西格瓦尔德
     public class Sigvald : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardStrengthen>
-    {//Resurect self and strengthen by 1 when destroyed. Its strength cannot be over 10
+    {//Resurect self and strengthen by 1 when destroyed. Its strength cannot be over 7
         public Sigvald(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -15,12 +15,12 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(AfterCardStrengthen @event)
         {
-            if (Card.Status.Strength <= 10) 
+            if (Card.Status.Strength <= 7) 
             {
                 return;
             }
 
-            await Card.Effect.Weaken(Card.Status.Strength-10,Card);
+            await Card.Effect.Weaken(Card.Status.Strength-7,Card);
         }
         public async Task HandleEvent(AfterTurnOver @event)
         {
@@ -28,7 +28,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            if (Card.Status.Strength < 10)
+            if (Card.Status.Strength < 7)
             {
                 await Card.Effect.Strengthen(1, Card);
             }

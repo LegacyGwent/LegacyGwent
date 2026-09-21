@@ -208,6 +208,7 @@
         "Season_EndTimer_Current": "Zakończy się za:",
         "Season_EndTimer_Finished": "Zakończony:",
         "Season_EndTimer_Upcoming": "Rozpocznie się:",
+        "Spectator_Watch_Button": "OBSERWUJ",
         "Season_CreaturesSeason": "Sezon Kreatur",
         "Season_WolfSeason": "Sezon Wilka",
         "Season_BoarSeason": "Sezon Niedźwiedzia",
@@ -265,7 +266,7 @@
         "Dandelion5": "To ci się udało, winszuję.",
         "Dandelion6": "Dzięki, przyjacielu!",
         "Zoltan_Animal_TamerName": "Zoltan Treser",
-        "Zoltan_Animal_TamerDescription": "Osiągnij range 10 w trzecim sezonie.",
+        "Zoltan_Animal_TamerDescription": "Osiągnij range 10 w trzecim lub szóstym sezonie.",
         "Zoltan1": "No, to teraz będzie się działo!",
         "Zoltan2": "Duvvelsheyss!",
         "Zoltan3": "Ale ci zaraz nakopię do rzyci!",
@@ -275,7 +276,7 @@
         "YenneferFuryName": "Yennefer Furia",
         "YenneferFuryDescription": "Osiągnij range 18tą w drugim sezonie.",
         "Vernon_RocheName": "Vernon Roche",
-        "Vernon_RocheDescription": "",
+        "Vernon_RocheDescription": "Osiągnij range 18tą w czwartym sezonie.",
         "Roche1": "Uderzymy szybko i skutecznie.",
         "Roche2": "Ożesz...",
         "Roche3": "Wybić ich do nogi!",
@@ -285,7 +286,7 @@
         "TrissSorceressName": "Triss Czarodziejka",
         "TrissSorceressDescription": "Osiągnij range 18tą w pierwszym sezonie.",
         "RegisName": "Regis",
-        "RegisDescription": "",
+        "RegisDescription": "Zakończ sezon 6 w pierwszej 30 graczy.",
         "Regis1": "A teraz patrz uważnie.",
         "Regis2": "Hm, niedobrze...",
         "Regis3": "Nie myl mojej uprzejmości ze słabością.",
@@ -293,7 +294,7 @@
         "Regis5": "Dobra robota!",
         "Regis6": "Masz moją wdzięczność.",
         "RadovidName": "Król Radowid Vty",
-        "RadovidDescription": "",
+        "RadovidDescription": "Osiągnij range 10tą w czwartym sezonie.",
         "Radovid1": "Szach i mat.",
         "Radovid2": "Dość tego!",
         "Radovid3": "Stracisz za to głowę!",
@@ -317,7 +318,7 @@
         "Odrin5": "He? Jak... yp... jak to srobiłeś?",
         "Odrin6": "Ooo... dziękii, pszyjasielu!",
         "LethoName": "Letho z Gulety",
-        "LethoDescription": "",
+        "LethoDescription": "Zakończ sezon 4 w pierwszej 10 graczy.",
         "Letho1": "Obserwuj uważnie.",
         "Letho2": "Hrmph... niedobrze.",
         "Letho3": "To będzie zbyt proste.",
@@ -325,7 +326,7 @@
         "Letho5": "Nieźle sobie radzisz.",
         "Letho6": "Dzięki.",
         "King_BranName": "Bran Tuirseach",
-        "King_BranDescription": "",
+        "King_BranDescription": "Osiągnij rangę 18 w sezonie 5.",
         "Bran1": "Z tarczą, lub na tarczy!",
         "Bran2": "Niech cię syreny zeżrą!",
         "Bran3": "Stąpasz po kruchym lodzie...",
@@ -355,7 +356,7 @@
         "Geralt_IntoxicatedName": "Geralt Odurzony",
         "Geralt_IntoxicatedDescription": "Osiągnij range 30 w trzecim sezonie.",
         "FrancescaName": "Francesca",
-        "FrancescaDescription": "",
+        "FrancescaDescription": "Osiągnij rangę 10 w sezonie 5.",
         "Francesca1": "Aen Seidhe mogą cię zaskoczyć.",
         "Francesca2": "A d'yaebl aep arse!",
         "Francesca3": "Przejdziesz w zapomnienie!",
@@ -363,7 +364,7 @@
         "Francesca5": "Dobry ruch.",
         "Francesca6": "Masz moją wdzięczność.",
         "Maerolorn_Name": "Bezkost",
-        "Maerolorn_Description": "",
+        "Maerolorn_Description": "Osiągnij rangę 18 w sezonie 6.",
         "Maerolorn1": "...",
         "Maerolorn2": "...",
         "Maerolorn3": "...",
@@ -381,7 +382,7 @@
         "Dandelionthewitcher2Name": "Jakier Wiedźmin 2",
         "Dandelionthewitcher2Description": "Osiągnij 13tą rangę w drugim sezonie.",
         "DagonName": "Dagon",
-        "DagonDescription": "",
+        "DagonDescription": "Zakończ sezon 5 w pierwszej 30 graczy.",
         "Dagon1": "Hai y-cgof'nn!",
         "Dagon2": "Mnahn'yar!",
         "Dagon3": "Stell'bsna n'gha!",
@@ -391,7 +392,7 @@
         "ClassicGeraltName": "Klasyczny Geralt",
         "ClassicGeraltDescription": "Weź udział w pierwszym sezonie.",
         "CirALtName": "Ciri Starszej Krwi",
-        "CirAltDescription": "Osiągnij 10tą rangę w pierwszym sezonie.",
+        "CirALtDescription": "Osiągnij 10tą rangę w pierwszym sezonie.",
         "Taunt1": "PATRZ NA TO!",
         "Taunt2": "CHOLERA!",
         "Taunt3": "To TWÓJ KONIEC",
@@ -778,7 +779,9 @@
         "VriheddSaboteur_1_RandomItem": "Zagraj losowy brązowy przedmiot.",
         "VriheddSaboteur_2_STItem": "Zagraj brązowy przedmiot Scoia'tael.",
         "Gael_1_Damage2Units": "Zadaj 5 pkt obrażeń dwóm wrogom.",
-        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń."
+        "Gael_1_Damage1Unit": "Zadaj wrogowi 8 pkt obrażeń.",
+        "Vlodimir_1_Spawn2": "Stwórz 2 brązowe Upiory.",
+        "Vlodimir_2_Destroy2": "Zniszcz 2 sojuszników, zwiększ sie o ich siłę i stwórz 2 brązowe Upiory na ich miejscach."
     },
     "CardLocales": {
         "12001": {
@@ -833,7 +836,7 @@
         },
         "12011": {
             "Name": "Jaskier Przechwałki",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 3 pkt za każdą złotą kartę Geralta, Yennefer, Triss i Zoltana w twojej talii początkowej.",
+            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o 4 pkt za każdą złotą kartę Geralta, Yennefer, Triss i Zoltana w twojej talii początkowej.",
             "Flavor": "Jaskier opowiadał mi o waszych przygodach. Jak zagrzewał cię śpiewem do walki, jak okiełznał kejrana grą na lutni..."
         },
         "12012": {
@@ -1733,7 +1736,7 @@
         },
         "24023": {
             "Name": "Wiwerna",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 5 pkt obrażeń.",
+            "Info": "Zadaj 5 pkt obrażeń wrogowi. Jeśli w tej rundzie zagrałeś inną jednostkę Drakonida, zamiast tego zadaj 7 pkt obrażeń.",
             "Flavor": "To było coś, co żyło tylko po to, by zabijać."
         },
         "24024": {
@@ -2468,8 +2471,8 @@
         },
         "44008": {
             "Name": "Wzmocniony Trebusz",
-            "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi na koniec tury.",
-            "Flavor": "Czujesz to? Ziemia drży, gdy „Gruba Berta” wystrzeliwuje pocisk."
+            "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi na koniec tury.\nObsadzenie: Zwiększ obrażenia o 1.",
+            "Flavor": "Czujesz to? Ziemia drży, gdy „Gruba Berta” wystrzeliwuje pocisk. "
         },
         "44009": {
             "Name": "Rycerz z Kaedwen",
@@ -3388,7 +3391,7 @@
         },
         "70006": {
             "Name": "Pani Jeziora",
-            "Info": "Rozmieszczenie: Osłab te jednostkę o 2 pkt za każdą kartę w twojej ręce i tali.",
+            "Info": "Rozmieszczenie: Osłab te jednostkę o 3 pkt za każdą kartę w twojej ręce i tali.",
             "Flavor": ""
         },
         "70007": {
@@ -3503,7 +3506,7 @@
         },
         "70038": {
             "Name": "Siegwald",
-            "Info": "Na koniec tury wskrześ tę jednostkę do losowego rzędu i ulepsz o 1. Siła bazowa tej jednostki nie może być większa niż 10.",
+            "Info": "Na koniec tury wskrześ tę jednostkę do losowego rzędu i ulepsz o 1. Siła bazowa tej jednostki nie może być większa niż 7.",
             "Flavor": "Vildkaarl, który dożywa starości, cieszy się ogromnym szacunkiem reszty stada. Tak, jak Sigvald."
         },
         "70039": {
@@ -3747,9 +3750,9 @@
             "Flavor": ""
         },
         "70109": {
-            "Name": "Szalone Dwarze",
+            "Name": "Straceniec",
             "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
-            "Flavor": "Na papierze to wszystko można wyrysować, mości krasnoludy. Ale zbudować to tego nie zbudujecie, miarkujcie moje słowa."
+            "Flavor": "Wiem, że zginę. Więc upewniam się, że nie zabraknie mi towarzystwa."
         },
         "70110": {
             "Name": "Knickers",
@@ -3783,7 +3786,7 @@
         },
         "70116": {
             "Name": "Ogłuszająca Syrena",
-            "Info": "Za każdym razem kiedy Ulewny Desz zostanie zagrany na rząd przeciwnika przyzwij tę jednostkę z cmentarza",
+            "Info": "Podczas swojej tury, za każdym razem, gdy na stronie przeciwnika zostanie zastosowany „Ulewny Deszcz”, przyzwij tę jednostkę z cmentarza do losowego rzędu. Jeśli na stronie przeciwnika nie ma „Ulewnego Deszczu”, przenieś tę jednostkę na cmentarz.",
             "Flavor": "Spokojnie, syreny nigdy nie atakują, kiedy... Aaaa! W nogi!"
         },
         "70117": {
@@ -3993,7 +3996,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Stwórz 3 kruków. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2 i nadaj im Doomed.",
+            "Info": "Stwórz 2 kruki. Ożyw wszystkie kruki z siłą równą lub mniejszą niż 2.\nFatum.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -4073,7 +4076,7 @@
         },
         "70175": {
             "Name": "Zasadzka Długoszczura",
-            "Info": "Wezwij kopię tej jednostki do tego rzędu kiedy zostanie aktywowana sojusznicza zasadzka. ",
+            "Info": "Wybierz rząd przeciwnika. Jeśli zawiera mniej niż 4 jednostki, przenieś na ten rząd jego najsilniejszych sojuszników aż do osiągnięcia 4 jednostek. Jeśli ma więcej niż 4 jednostki, przenieś najsłabszych sojuszników z tego rzędu na losowe rzędy tak, aby zostały tam 4 jednostki. Każda przeniesiona karta otrzymuje 2 punkty obrażeń.",
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
         "70176": {
@@ -4088,12 +4091,12 @@
         },
         "70178": {
             "Name": "Ulle",
-            "Info": "Na początku tury, jeśli ta karta jest na cmentarzu, wskrześ ją. Na koniec tury stocz pojedynek z najsłabszym wrogiem, jeśli wygrasz wygnaj tę jednostkę.",
+            "Info": "Na początku tury, jeśli ta karta znajduje się na cmentarzu, wskrześ tę jednostkę.\nNa koniec tury stocz pojedynek z najsłabszym wrogiem. Jeśli wygrasz, zablokuj tę jednostkę.",
             "Flavor": "Obyś po wiek wieków przegrywał."
         },
         "70179": {
             "Name": "Królowa Calanthe",
-            "Info": "Rozmieszczenie: Zagraj najsłabszą nie Złotą jednostkę z Twojej talii, następnie przetasuj nie Złotego sojusznika do Twojej talii bez zmiany jego siły.",
+            "Info": "Rozmieszczenie: Pozbądź się wszystkich wzmocnień i pancerza z niebędącego szpiegiem brązowego lub srebrnego sojusznika, następnie umieść go z powrotem w swojej talii. Następnie zagraj brązową lub srebrną jednostkę ze swojej talii.\nZałoga.",
             "Flavor": "Zwano ją Lwicą. Nie bez powodu."
         },
         "70180": {
@@ -4145,6 +4148,21 @@
             "Name": "Król Chrum",
             "Info": "Rozmieszczenie: Ulepsz wszystkie inne sojusznicze Ogroidy w swojej ręce, talii i na polu bitwy o 1.",
             "Flavor": "Królestwo Thruma to niewiele więcej niż trakt w dolinie, na którym można ściągać myto z podróżnych. Jednak Chrum od zawsze marzył o ekspansji. O ekspansji... I o reformach."
+        },
+        "70191": {
+            "Name": "Ophelie Van Moorlehem",
+            "Info": "Rozmieszczenie: ukryj kartę. Jeśli była to karta Wampira, wzmocnij siebie o połowę jej mocy.",
+            "Flavor": "Ophelie Van Moorlehem uwielbia urządzać huczne bale. To, że o niektórych biesiadnikach ginie potem słuch, zdaje się nikomu nie przeszkadzać…"
+        },
+        "70192": {
+            "Name": "Witold von Everec",
+            "Info": "Rozmieszczenie: wybierz jedno: przywołaj Widma po lewej i prawej stronie tej jednostki; albo zniszcz 2 przyjazne jednostki, wzmocnij siebie o ich moc i przywołaj Widmo w każdym z ich miejsc.",
+            "Flavor": "Witold lubił się zabawić za życia i po śmierci bardzo mu tych rozrywek brakowało."
+        },
+        "70193": {
+            "Name": "Skjordal Drummond",
+            "Info": "Rozmieszczenie: odrzuć z talii jedną brązową jednostkę klanu, a następnie wskrzesz brązową jednostkę innego klanu.",
+            "Flavor": "Wierzył w honor swych współbraci, co ostatecznie doprowadziło do jego upadku."
         },
         "80001": {
             "Name": "Auberon Król",

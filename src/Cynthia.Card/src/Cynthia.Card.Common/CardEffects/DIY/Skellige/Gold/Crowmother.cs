@@ -5,42 +5,32 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70159")]//
-    public class Crowmother : CardEffect
+    public class Crowmother : CardEffect, IHandlesEvent<AfterCardDeath>
     {//
         public Crowmother(GameCard card) : base(card) { }
-        // 生成2只乌鸦。复活所有战力不高于2的乌鸦。
-        // Spawn 3 Crows. Resurrect all Crows with power equal to or less than 2. Doomed.
+        // 在随机一行生成2只乌鸦。每当你的回合内有1只友方乌鸦被摧毁，便额外生成1只乌鸦。
+        // Spawn 2 Crows on a random row. Spawn an additional Crow for every ally Crow destroyed during your turns.
+        private int DestroyedCrowCount = 0;
+        // public async Task HandleEvent(OnGameStart @event)
+        // {
+        //     await Card.Effect.SetCountdown(value: 0);
+        // }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            for (var i = 0; i < 2; i++)
+            for (int i = 0; i < 2 + DestroyedCrowCount; i++)
             {
-                if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
-                {
-                    await Game.CreateCard(CardId.Crow, PlayerIndex, Card.GetLocation() + 1);
-                }
-                else
-                {
-                    await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
-                }
-            }
-            var cards = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.CardId == CardId.Crow && x.Status.Strength <= 2).ToList();
-            if (cards.Count() == 0)
-            {
-                return 0;
-            }
-            foreach (var card in cards)
-            {
-                
-                if(Game.RowToList(Card.PlayerIndex, Card.GetLocation().RowPosition).Count() < Game.RowMaxCount)
-                {
-                    await card.Effect.Resurrect(Card.GetLocation() + 1, card);
-                }
-                else
-                {
-                    await card.Effect.Resurrect(Game.GetRandomCanPlayLocation(PlayerIndex, true), Card);
-                }
+                await Game.CreateCard(CardId.Crow, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
             }
             return 0;
+        }
+        public async Task HandleEvent(AfterCardDeath @event)
+        {
+            if (Game.GameRound.ToPlayerIndex(Game) == PlayerIndex && @event.Target.Status.CardId == CardId.Crow && @event.Target.PlayerIndex == Card.PlayerIndex)
+            {
+                DestroyedCrowCount++;
+                await Card.Effect.SetCountdown(value: DestroyedCrowCount);
+            }
+            return;
         }
     }
 }
