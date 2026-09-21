@@ -12,7 +12,6 @@ using UnityEngine.UI;
 using System;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
-using System.Net;
 
 public class Bootstrapper : MonoBehaviour
 {
@@ -20,11 +19,9 @@ public class Bootstrapper : MonoBehaviour
     {
         if (DependencyResolver.Container != null)
             return;
-        var IP = Dns.GetHostEntry("cynthia.ovyno.com").AddressList[0];
         var builder = new ContainerBuilder();
         builder.Register(x => DependencyResolver.Container).SingleInstance();
-        //builder.Register(x => new HubConnectionBuilder().WithUrl($"http://{IP}:5000/hub/gwent").Build()).SingleInstance();
-        builder.Register(x => new HubConnectionBuilder().WithUrl("http://localhost:5000/hub/gwent").Build()).SingleInstance();
+        builder.Register(x => new HubConnectionBuilder().WithUrl("http://106.15.38.165:5000/hub/gwent").Build()).SingleInstance();
 
         DependencyResolver.Container = AutoRegisterService(builder).Build();
     }

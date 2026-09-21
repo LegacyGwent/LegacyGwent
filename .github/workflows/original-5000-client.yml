@@ -1,0 +1,115 @@
+name: Build Original 5000 Client
+
+on:
+  push:
+    branches:
+      - release/original-5000-client-0.1.0.2
+  workflow_dispatch:
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: original-5000-client-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-source:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original client identity
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          bootstrap="src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/LoginScript/Bootstrapper.cs"
+          settings="src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectSettings.asset"
+          version_file="src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectVersion.txt"
+          grep -Fq 'http://106.15.38.165:5000/hub/gwent' "$bootstrap"
+          test "$(sed -n 's/^[[:space:]]*productName:[[:space:]]*//p' "$settings" | head -n 1 | tr -d '\r')" = "MyGwent"
+          test "$(sed -n 's/^[[:space:]]*bundleVersion:[[:space:]]*//p' "$settings" | head -n 1 | tr -d '\r')" = "0.1.0.2"
+          grep -Fq 'm_EditorVersion: 2019.2.6f1' "$version_file"
+
+  build:
+    needs: verify-source
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneWindows64
+          - StandaloneOSX
+          - StandaloneLinux64
+          - Android
+          - iOS
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v4
+        with:
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: original-5000-${{ matrix.targetPlatform }}-${{ hashFiles('src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Packages/manifest.json', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: original-5000-${{ matrix.targetPlatform }}-
+      - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
+          buildName: MyGwent-Original-${{ matrix.targetPlatform }}
+          versioning: Custom
+          version: 0.1.0.2
+          androidVersionCode: 1
+          androidExportType: androidPackage
+          allowDirtyBuild: true
+      - name: Package client
+        id: package
+        shell: bash
+        env:
+          TARGET_PLATFORM: ${{ matrix.targetPlatform }}
+        run: |
+          set -Eeuo pipefail
+          build_dir="build/$TARGET_PLATFORM"
+          test -d "$build_dir"
+          info="$RUNNER_TEMP/BUILDINFO.txt"
+          {
+            echo "Product: MyGwent Original"
+            echo "Version: 0.1.0.2"
+            echo "Server: http://106.15.38.165:5000"
+            echo "Base source: 8e3453e7e73d16db308387fd1cc836a093715bdc"
+            echo "Build source: $GITHUB_SHA"
+            echo "Platform: $TARGET_PLATFORM"
+          } > "$info"
+          case "$TARGET_PLATFORM" in
+            Android)
+              mapfile -t apks < <(find "$build_dir" -type f -iname '*.apk' | sort)
+              test "${#apks[@]}" -eq 1
+              package_name="MyGwent-Original-Android-0.1.0.2"
+              mkdir "$package_name"
+              cp "${apks[0]}" "$package_name/MyGwent-Original-Android-0.1.0.2.apk"
+              cp "$info" "$package_name/BUILDINFO.txt"
+              ;;
+            StandaloneWindows64) package_name="MyGwent-Original-Windows-0.1.0.2" ;;
+            StandaloneOSX) package_name="MyGwent-Original-macOS-0.1.0.2" ;;
+            StandaloneLinux64) package_name="MyGwent-Original-Linux-0.1.0.2" ;;
+            iOS) package_name="MyGwent-Original-iOS-0.1.0.2" ;;
+            *) echo "Unsupported target: $TARGET_PLATFORM" >&2; exit 1 ;;
+          esac
+          if [[ "$TARGET_PLATFORM" != Android ]]; then
+            mkdir "$package_name"
+            cp -a --no-preserve=ownership "$build_dir/." "$package_name/"
+            cp "$info" "$package_name/BUILDINFO.txt"
+          fi
+          zip -qry -y "$package_name.zip" "$package_name"
+          test -s "$package_name.zip"
+          echo "name=$package_name" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.name }}
+          path: ${{ steps.package.outputs.name }}.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
