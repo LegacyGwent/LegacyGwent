@@ -69,7 +69,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CrowClanDruidCreatesAtTheRightThenRepeatsOnlyWithACrowOnItsOwnTurnEnd()
+        public async Task CrowClanDruidCreatesAtTheRightThenRepeatsEverySecondOwnTurnEnd()
         {
             var f = new HeadlessGameFixture();
             var druid = f.AddCard(f.Game.Player1Index, CardId.CrowClanDruid, RowPosition.MyHand);
@@ -82,10 +82,16 @@ namespace Cynthia.Card.Gameplay.Tests
             await f.Game.SendEvent(new AfterTurnOver(f.Game.Player2Index));
             Assert.Equal(2, f.Game.PlayersPlace[f.Game.Player1Index][1].Count);
             Assert.Equal(0, druid.Status.HealthStatus);
+            Assert.Equal(2, druid.Status.Countdown);
+
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
+            Assert.Equal(2, f.Game.PlayersPlace[f.Game.Player1Index][1].Count);
+            Assert.Equal(1, druid.Status.Countdown);
 
             await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
             Assert.Equal(3, f.Game.PlayersPlace[f.Game.Player1Index][1].Count);
-            Assert.Equal(-1, druid.Status.HealthStatus);
+            Assert.Equal(0, druid.Status.HealthStatus);
+            Assert.Equal(2, druid.Status.Countdown);
 
             var crows = f.Game.PlayersPlace[f.Game.Player1Index][1]
                 .Where(card => card.Status.CardId == CardId.Crow)
@@ -96,8 +102,9 @@ namespace Cynthia.Card.Gameplay.Tests
             }
 
             await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
             Assert.Single(f.Game.PlayersPlace[f.Game.Player1Index][1]);
-            Assert.Equal(-1, druid.Status.HealthStatus);
+            Assert.Equal(0, druid.Status.HealthStatus);
         }
 
         [Fact]
@@ -112,14 +119,14 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await ownCrow.Effect.Damage(3, source);
             await enemyCrow.Effect.Damage(3, source);
-            Assert.Equal(2, mother.Status.Countdown);
+            Assert.Equal(1, mother.Status.Countdown);
             Assert.True(mother.Status.IsCountdown);
 
             mother.Status.IsLock = true;
             var lockedCrow = f.AddCard(f.Game.Player1Index, CardId.Crow, RowPosition.MyRow3);
             await f.SynchronizeClientsAsync();
             await lockedCrow.Effect.Damage(3, source);
-            Assert.Equal(2, mother.Status.Countdown);
+            Assert.Equal(1, mother.Status.Countdown);
             mother.Status.IsLock = false;
 
             await mother.Effect.Play(new CardLocation(RowPosition.MyRow2, 0));
@@ -127,8 +134,8 @@ namespace Cynthia.Card.Gameplay.Tests
                 card => card.Status.CardId == CardId.Crow);
             Assert.Single(f.Game.PlayersPlace[f.Game.Player1Index][2],
                 card => card.Status.CardId == CardId.Crow);
-            Assert.Equal(2, f.Game.PlayersPlace[f.Game.Player1Index][1]
-                .Count(card => card.Status.CardId == CardId.Crow));
+            Assert.Single(f.Game.PlayersPlace[f.Game.Player1Index][1],
+                card => card.Status.CardId == CardId.Crow);
         }
 
         [Fact]

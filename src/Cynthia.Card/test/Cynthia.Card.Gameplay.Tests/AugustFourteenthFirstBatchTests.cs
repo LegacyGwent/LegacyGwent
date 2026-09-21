@@ -72,7 +72,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task SerritReducesLockedSurvivorToOneAfterDamage()
+        public async Task SerritDoublesDamageAgainstLockedTarget()
         {
             var fixture = new HeadlessGameFixture();
             var serrit = fixture.AddCard(fixture.Game.Player1Index, CardId.Serrit, RowPosition.MyRow1);
@@ -83,8 +83,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.Game.AddTask(async () =>
                 await serrit.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
-            Assert.Equal(1, target.CardPoint());
-            Assert.True(target.Status.CardRow.IsOnPlace());
+            Assert.False(target.Status.CardRow.IsOnPlace());
         }
 
         [Fact]

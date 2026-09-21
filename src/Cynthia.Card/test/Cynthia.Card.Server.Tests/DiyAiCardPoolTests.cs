@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(40, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(39, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -31,6 +31,8 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.NorthernRealmsDraug));
             Assert.DoesNotContain(CardId.Crow, DiyAiCardPool.RetiredCardIds);
             Assert.False(DiyAiCardPool.IsUserDeckCard(CardId.Crow));
+            Assert.DoesNotContain(CardId.SvalblodPriest, DiyAiCardPool.RetiredCardIds);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.SvalblodPriest));
 
             Assert.All(
                 DiyAiCardPool.RetiredCardIds,
@@ -46,7 +48,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 200), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 201), GwentMap.CardMapVersion);
             Assert.Equal(728, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -59,6 +61,93 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(
                 new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberTwentiethFirstBatchMatchesMetadataLocalesAndTerminology()
+        {
+            Assert.Equal(5, GwentMap.CardMap[CardId.TrissMerigold].Strength);
+            Assert.Equal(9, GwentMap.CardMap[CardId.CursedImmortals].Strength);
+            Assert.Equal(6, GwentMap.CardMap[CardId.Meve].Strength);
+            Assert.Equal(8, GwentMap.CardMap[CardId.CrowClanDruid].Strength);
+            Assert.Equal(
+                new[] { Categorie.Draconid, Categorie.Beast },
+                GwentMap.CardMap[CardId.Hybrid].Categories);
+            Assert.All(new[] { CardId.CrowClanDruid, CardId.SvalblodPriest }, id =>
+            {
+                Assert.True(GwentMap.CardMap[id].IsCountdown);
+                Assert.Equal(2, GwentMap.CardMap[id].Countdown);
+            });
+            Assert.False(GwentMap.CardMap[CardId.SvalblodPriest].IsDerive);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.SvalblodPriest));
+
+            var expectedInfo = new Dictionary<string, string>
+            {
+                [CardId.TrissMerigold] = "造成10点伤害。",
+                [CardId.AvallacHTheSage] = "检视对方牌组顶端3张不同品质的非间谍单位牌，生成其中1张的原始同名牌。",
+                [CardId.UmaSCurese] = "根据最强单位所在排及战力奇偶，生成1个对应奇偶战力的起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。",
+                [CardId.Fiend] = "将1个友军“野兽”单位移至该排。",
+                [CardId.Serrit] = "对1个敌军单位造成7点伤害，若目标处于锁定状态，则伤害翻倍。或将对方1张被揭示的单位牌战力降为1点。",
+                [CardId.PhilippaEilhart] = "对敌军单位造成5、4、3、2、1点伤害，若目标处于锁定状态，则伤害翻倍。每次随机改变目标，无法对同一目标连续造成伤害。",
+                ["70026"] = "每回合开始时，若领先，获得2点强化。遗愿：随机将牌组中1张品质最高的“猎魔人”单位牌置于牌组顶端。",
+                [CardId.SvalblodFanatic] = "每回合结束时，随机对1个最弱敌军单位造成3点伤害，受到等同于其失去战力的伤害。",
+                [CardId.CrowClanDruid] = "生成1只“乌鸦”。每2回合结束时，若同排有“乌鸦”，重复此能力。",
+                [CardId.SvalblodPriest] = "相邻单位每受到2次伤害，强化自身1点。",
+                [CardId.Crowmother] = "在己方其它排各生成1只“乌鸦”。生成与本次对局己方被摧毁数量相等的“乌鸦”，直至填满此排。",
+                [CardId.CursedScroll] = "检视3张不同品质的牌，打出1张，丢弃其余2张。"
+            };
+            Assert.All(expectedInfo, pair => Assert.Equal(pair.Value, GwentMap.CardMap[pair.Key].Info));
+
+            var data = new GwentCardDataService();
+            Assert.Equal(typeof(Fiend), data.GetType(CardId.Fiend));
+            Assert.Equal(typeof(AvallacHTheSage), data.GetType(CardId.AvallacHTheSage));
+            Assert.Equal(typeof(SvalblodPriest), data.GetType(CardId.SvalblodPriest));
+
+            Assert.All(GwentMap.CardMap.Values, card =>
+            {
+                Assert.DoesNotContain("初始牌组", card.Info ?? string.Empty);
+                Assert.DoesNotContain("己方起始牌组", card.Info ?? string.Empty);
+                Assert.DoesNotContain("己方同排", card.Info ?? string.Empty);
+                Assert.DoesNotContain("平局不生效", card.Info ?? string.Empty);
+            });
+
+            var changedIds = new[]
+            {
+                "12007", "12029", "12030", "12032", "12039", "12041", "13023", "23020",
+                "24002", "24028", "33012", "33016", "33019", "34022", "34034", "34035",
+                "34036", "42010", "42013", "43019", "51003", "52013", "53018", "53021",
+                "62012", "63018", "63020", "70026", "70046", "70062", "70070", "70072",
+                "70103", "70113", "70134", "70135", "70159", "70166"
+            };
+            var roots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(changedIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+                if (language == "cn")
+                {
+                    Assert.All(changedIds, id => Assert.Equal(
+                        GwentMap.CardMap[id].Info,
+                        locales[0].CardLocales[id].Info));
+                    Assert.All(locales.SelectMany(locale => locale.CardLocales.Values), card =>
+                    {
+                        Assert.DoesNotContain("初始牌组", card.Info ?? string.Empty);
+                        Assert.DoesNotContain("己方起始牌组", card.Info ?? string.Empty);
+                        Assert.DoesNotContain("己方同排", card.Info ?? string.Empty);
+                        Assert.DoesNotContain("平局不生效", card.Info ?? string.Empty);
+                    });
+                }
+            }
         }
 
         [Fact]
@@ -76,8 +165,8 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Draug));
             Assert.False(draug.IsDerive);
 
-            Assert.Equal(7, GwentMap.CardMap[CardId.CrowClanDruid].Strength);
-            Assert.Contains("每回合结束时", GwentMap.CardMap[CardId.CrowClanDruid].Info);
+            Assert.Equal(8, GwentMap.CardMap[CardId.CrowClanDruid].Strength);
+            Assert.Contains("每2回合结束时", GwentMap.CardMap[CardId.CrowClanDruid].Info);
             Assert.Equal(
                 new[] { Categorie.Beast, Categorie.Token },
                 GwentMap.CardMap[CardId.Crow].Categories);
@@ -130,8 +219,8 @@ namespace Cynthia.Card.Server.Tests
             var expected = new Dictionary<string, (int Strength, string Info)>
             {
                 ["70032"] = (1, "将双方同排所有单位移至随机排，每移动一个单位，便失去2点增益。若增益不足2点，则停止移动剩余单位。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。"),
-                [CardId.CrowClanDruid] = (7, "生成1只“乌鸦”。每回合结束时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。"),
-                [CardId.Crowmother] = (4, "在己方其它排各生成1只“乌鸦”。生成与本次对局被摧毁数量相等的“乌鸦”，直至填满此排。"),
+                [CardId.CrowClanDruid] = (8, "生成1只“乌鸦”。每2回合结束时，若同排有“乌鸦”，重复此能力。"),
+                [CardId.Crowmother] = (4, "在己方其它排各生成1只“乌鸦”。生成与本次对局己方被摧毁数量相等的“乌鸦”，直至填满此排。"),
                 [CardId.VanMoorleheHunter] = (7, "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
                 [CardId.PhilippevanMoorlehem] = (9, "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
                 [CardId.VincentvanMoorlehem] = (6, "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。")
@@ -235,7 +324,7 @@ namespace Cynthia.Card.Server.Tests
                 (Id: "70038", Strength: 1, Group: Group.Gold, Faction: Faction.Skellige, Effect: typeof(Sigvald), Info: "每回合结束时，复活此单位。每复活2次，获得1点强化。"),
                 (Id: "43021", Strength: 0, Group: Group.Silver, Faction: Faction.NorthernRealms, Effect: typeof(VandergriftSBlade), Info: "造成10点伤害，若目标为铜色/银色“诅咒生物”单位，则将其摧毁，并放逐所摧毁的单位。"),
                 (Id: "70178", Strength: 3, Group: Group.Silver, Faction: Faction.Skellige, Effect: typeof(Ulle), Info: "每回合开始时，复活此单位。每回合结束时，与敌方最弱单位对决，若存活，对自身造成1点削弱，并改变自身的锁定状态。"),
-                (Id: "12030", Strength: 1, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(AguaraTrueForm), Info: "生成1张己方起始牌组之外的铜色/银色“法术”牌。"),
+                (Id: "12030", Strength: 1, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(AguaraTrueForm), Info: "生成1张起始牌组之外的铜色/银色“法术”牌。"),
                 (Id: "70154", Strength: 9, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(IrisShade), Info: "休战：回合结束时，为双方手牌各添加1张“爱丽丝的同伴”，一共可生效2次。使己方打出的“爱丽丝的同伴”可以选择丢弃的牌。"),
                 (Id: "70139", Strength: 7, Group: Group.Silver, Faction: Faction.ScoiaTael, Effect: typeof(TreantBoar), Info: "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
                 (Id: "70002", Strength: 5, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(DetlaffHigherVampire), Info: "选择牌组中1张铜色单位牌，如果其战力高于自身，吞噬该单位，并获得等同于其战力的增益。否则，打出该单位，并在回合结束时将其摧毁。"),
@@ -366,7 +455,7 @@ namespace Cynthia.Card.Server.Tests
                 (Id: "70109", Strength: 8, Group: Group.Copper, Faction: Faction.ScoiaTael,
                     Effect: typeof(DwarvenChariot), Info: "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。"),
                 (Id: "51003", Strength: 3, Group: Group.Leader, Faction: Faction.ScoiaTael,
-                    Effect: typeof(Filavandrel), Info: "生成1张己方起始牌组之外的银色中立“特殊”牌。"),
+                    Effect: typeof(Filavandrel), Info: "生成1张起始牌组之外的银色中立“特殊”牌。"),
                 (Id: "70191", Strength: 2, Group: Group.Leader, Faction: Faction.ScoiaTael,
                     Effect: typeof(DanaMeadbh), Info: "从牌组打出1张中立牌。"),
                 (Id: "12011", Strength: 9, Group: Group.Gold, Faction: Faction.Neutral,
@@ -683,7 +772,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("c10002300", GwentMap.CardMap[CardId.WraithSorcerer].CardArtsId);
             Assert.StartsWith("选定一排，对左右两侧末端的单位各造成6点伤害", GwentMap.CardMap[CardId.Milaen].Info);
             Assert.Equal(
-                "对1个敌军单位造成7点伤害，若目标存活且处于锁定状态，则将其战力降为1点。或将1张被揭示的单位牌战力降为1点。",
+                "对1个敌军单位造成7点伤害，若目标处于锁定状态，则伤害翻倍。或将对方1张被揭示的单位牌战力降为1点。",
                 GwentMap.CardMap[CardId.Serrit].Info);
 
             var girl = GwentMap.CardMap[CardId.GirlWhoDrankBrokilonWater];
@@ -1316,26 +1405,26 @@ namespace Cynthia.Card.Server.Tests
             var expectedChineseInfo = new Dictionary<string, string>
             {
                 ["12026"] = "生成任意方起始牌组中的1张铜色特殊牌。",
-                ["12030"] = "生成1张己方起始牌组之外的铜色/银色“法术”牌。",
-                ["12039"] = "根据场上最高战力单位的所在排及当前战力奇偶，生成1个对应奇偶战力的己方起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。",
+                ["12030"] = "生成1张起始牌组之外的铜色/银色“法术”牌。",
+                ["12039"] = "根据最强单位所在排及战力奇偶，生成1个对应奇偶战力的起始牌组之外的非领袖金色单位。己方攻城/远程/近战排对应中立/怪兽/尼弗迦德，对方近战/远程/攻城排对应北方领域/松鼠党/史凯利格。",
                 ["13020"] = "生成1只“恶熊”、“翼手龙”、“须岩怪”或“水鬼”。",
-                ["13023"] = "择一：生成1个己方起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
+                ["13023"] = "择一：生成1个起始牌组之外的铜色“食腐生物”或“吸血鬼”单位，并使其获得1点增益；或摧毁1个铜色/银色“食腐生物”或“吸血鬼”单位。",
                 ["13044"] = "生成对方起始牌组中的1张非间谍铜色/银色“士兵”或“军官”牌，并使其获得1点增益。",
                 ["21003"] = "生成1张银色“有机”牌。",
-                ["23020"] = "若落后，生成1个己方起始牌组之外的怪兽偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
+                ["23020"] = "若落后，生成1个起始牌组之外的怪兽偶数战力铜色单位；若领先，变为奇数战力。",
                 ["31004"] = "间谍。生成对方阵营的1张非间谍领袖牌，并使其获得1点增益。",
-                ["33016"] = "生成1个己方起始牌组之外的铜色尼弗迦德“士兵”单位。",
-                ["33019"] = "若落后，生成1个己方起始牌组之外的尼弗迦德偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
+                ["33016"] = "生成1个起始牌组之外的铜色尼弗迦德“士兵”单位。",
+                ["33019"] = "若落后，生成1个起始牌组之外的尼弗迦德偶数战力铜色单位；若领先，变为奇数战力。",
                 ["41002"] = "生成1个铜色北方领域“诅咒生物”单位。",
-                ["42010"] = "择一：生成1张己方起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
-                ["43019"] = "若落后，生成1个己方起始牌组之外的北方领域偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
-                ["51003"] = "生成1张己方起始牌组之外的银色中立“特殊”牌。",
-                ["52013"] = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个己方起始牌组之外的非间谍银色“精灵”单位。",
-                ["53018"] = "若落后，生成1个己方起始牌组之外的松鼠党偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
-                ["53021"] = "择一：生成1个己方起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",
-                ["62012"] = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或生成对方初始牌组中1张非间谍银色单位牌。",
-                ["63018"] = "若落后，生成1个己方起始牌组之外的史凯利格偶数战力铜色单位；若领先，变为奇数战力；平局不生效。",
-                ["63020"] = "生成1个己方起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。"
+                ["42010"] = "择一：生成1张起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
+                ["43019"] = "若落后，生成1个起始牌组之外的北方领域偶数战力铜色单位；若领先，变为奇数战力。",
+                ["51003"] = "生成1张起始牌组之外的银色中立“特殊”牌。",
+                ["52013"] = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个起始牌组之外的非间谍银色“精灵”单位。",
+                ["53018"] = "若落后，生成1个起始牌组之外的松鼠党偶数战力铜色单位；若领先，变为奇数战力。",
+                ["53021"] = "择一：生成1个起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",
+                ["62012"] = "择一：从牌组打出1张铜色/银色“诅咒生物”牌；或生成对方起始牌组中1张非间谍银色单位牌。",
+                ["63018"] = "若落后，生成1个起始牌组之外的史凯利格偶数战力铜色单位；若领先，变为奇数战力。",
+                ["63020"] = "生成1个起始牌组之外的铜色史凯利格“士兵”单位，并使其获得2点强化。"
             };
             Assert.All(expectedChineseInfo, card =>
                 Assert.Equal(card.Value, GwentMap.CardMap[card.Key].Info));
@@ -1487,7 +1576,7 @@ namespace Cynthia.Card.Server.Tests
                 CardId.DanaMeadbh
             };
             Assert.All(leaderIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
-            Assert.Equal(new[] { 8, 6, 7, 2 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
+            Assert.Equal(new[] { 6, 6, 7, 2 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
             Assert.Equal(Faction.ScoiaTael, GwentMap.CardMap[CardId.DanaMeadbh].Faction);
             Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
             Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);
@@ -2328,7 +2417,7 @@ namespace Cynthia.Card.Server.Tests
                 ["70077"] = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有1个被锁定的单位，减少1次回合计数。",
                 ["70086"] = "择一：从牌组中打出1张铜色/银色“法师”牌；生成1张铜色“法术”牌。",
                 ["70095"] = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
-                [CardId.CrowClanDruid] = "生成1只“乌鸦”。每回合结束时，若同排有“乌鸦”单位，重复此能力，随后对自身造成1点伤害。",
+                [CardId.CrowClanDruid] = "生成1只“乌鸦”。每2回合结束时，若同排有“乌鸦”，重复此能力。",
                 [CardId.Wisteria] = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
                 [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
                 [CardId.DeadeyeAmbush] = "选择1个友军单位，将其上移1排并使其获得5点增益；选择1个敌军单位，将其移至敌方近战排并对其造成5点伤害。",

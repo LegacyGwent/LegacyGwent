@@ -39,15 +39,21 @@ namespace Cynthia.Card
             }
 
             var deck = Game.PlayersDeck[PlayerIndex]
-                .Where(card => card.Status.Categories.Contains(Categorie.Witcher))
-                .OrderByDescending(x => x.Status.Group).ToList();
+                .Where(card => card.Status.Type == CardType.Unit &&
+                               card.Status.Categories.Contains(Categorie.Witcher))
+                .ToList();
 
-            if (deck.Count() == 0)
+            if (deck.Count == 0)
             {
                 return;
             }
 
-            await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), deck.First());
+            var highestQuality = deck.Max(x => x.Status.Group);
+            if (deck.Where(x => x.Status.Group == highestQuality)
+                    .TryMessOne(out var target, Game.RNG))
+            {
+                await Game.ShowCardMove(new CardLocation(RowPosition.MyDeck, 0), target);
+            }
         }
     }
 }

@@ -826,7 +826,7 @@
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Deploy: Deal 5 Damage.",
+            "Info": "Deploy: Deal 10 Damage.",
             "Flavor": "I can take care of myself. Trust me."
         },
         "12008": {
@@ -936,7 +936,7 @@
         },
         "12029": {
             "Name": "Avallac'h: Sage",
-            "Info": "Deploy: Spawn a copy of a random Gold or Silver unit from your opponent's starting deck.",
+            "Info": "Look at the top 3 non-Spying unit cards of different qualities in your opponent's deck. Spawn a base copy of one.",
             "Flavor": "Amongst the free elves were a handful of Aen Saevherne, or Sages. They were an enigma, bordering on a legend."
         },
         "12030": {
@@ -1641,7 +1641,7 @@
         },
         "24002": {
             "Name": "Fiend",
-            "Info": "No Ability.",
+            "Info": "Move an allied Beast unit to this row.",
             "Flavor": "A fiend looks a bit like a deer. An enormous, evil deer."
         },
         "24003": {
@@ -2021,7 +2021,7 @@
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Deal 7 damage to an enemy unit. If it survives and is Locked, set its power to 1. Or set the power of a Revealed unit card to 1.",
+            "Info": "Deal 7 Damage to an enemy unit. If it is Locked, double the Damage. Or set the Power of a Revealed enemy unit card to 1.",
             "Flavor": "We do what we must. I am not ashamed of that."
         },
         "33013": {
@@ -2336,7 +2336,7 @@
         },
         "42013": {
             "Name": "Philippa Eilhart",
-            "Info": "Deploy: Deal 5 Damage to an enemy, then deal 4, 3, 2 and 1 Damage to random enemies.",
+            "Info": "Deal 5, 4, 3, 2 and 1 Damage to enemy units. If a target is Locked, double the Damage. Change the target randomly each time; the same target cannot be hit twice in a row.",
             "Flavor": "Soon the power of kings will wither, and the Lodge shall seize its rightful place."
         },
         "43001": {
@@ -3496,7 +3496,7 @@
         },
         "70026": {
             "Name": "Ivo of Belhaven",
-            "Info": "On turn start, if you are winning, Strengthen self by 2.\nDeathwish: Move a random Witcher in your deck to the top of your deck.",
+            "Info": "At the start of each turn, if you are winning, Strengthen self by 2. Deathwish: Move a random highest-quality Witcher unit from your deck to the top.",
             "Flavor": "It's not reason I'm devoid of, just emotion."
         },
         "70027": {
@@ -3556,7 +3556,7 @@
         },
         "70046": {
             "Name": "Svalblod Fanatic",
-            "Info": "On turn end, deal 3 Damage to the Lowest enemy, then deal 3 Damage to self.",
+            "Info": "At the end of each turn, deal 3 Damage to a random Lowest enemy unit, take Damage equal to the Power it lost.",
             "Flavor": "Not all are worthy of Svalblod's blessing."
         },
         "70050": {
@@ -3881,12 +3881,12 @@
         },
         "70134": {
             "Name": "Crow Clan Druid",
-            "Info": "Spawn 1 Crow. At the end of each turn, if there is a Crow on this row, repeat this ability, then Damage self by 1.",
+            "Info": "Spawn 1 Crow. Every 2 turns, at the end of the turn, if there is a Crow on this row, repeat this ability.",
             "Flavor": "Wise men claim that animals are mindless automatons. Wise men don't know what they're talking about."
         },
         "70135": {
             "Name": "Svalblod Priest",
-            "Info": "When damaged by allies, deal same amount of Damage to a unit.",
+            "Info": "Whenever adjacent units take Damage 2 times, Strengthen self by 1.",
             "Flavor": "The cruelty of Svalblod priests proved so fierce, so merciless that – upon the cult's collapse – they were condemned and cast out to the high seas aboard longships with nary a paddle nor sail to guide them."
         },
         "70136": {
@@ -4006,7 +4006,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Spawn 1 Crow on each of your other rows. Spawn a number of Crows equal to the number of Crows destroyed this game, until this row is full.",
+            "Info": "Spawn 1 Crow on each of your other rows. Spawn a number of Crows equal to the number of allied Crows destroyed this game, until this row is full.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4041,7 +4041,7 @@
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Look at 3 random cards with different colors from your deck. Play one, Discard the other two.",
+            "Info": "Look at 3 cards of different qualities from your deck. Play one and Discard the other two.",
             "Flavor": "The seal states clearly: do not open. But of course… curiosity will win out."
         },
         "70167": {
@@ -4254,10 +4254,10 @@
             "Info": "Truce: Place a base copy of the top Bronze card in your opponent's deck on top of their deck, then both players draw 1 card.",
             "Flavor": ""
         },
-       "70196": {
-           "Name": "War Council",
-           "Info": "Swap 1 card and Spawn a Nilfgaardian Gate. Truce: Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
-           "Flavor": ""
+        "70196": {
+            "Name": "War Council",
+            "Info": "Swap 1 card and Spawn a Nilfgaardian Gate. Truce: Add a Battle Preparation to your hand, then your opponent draws and Reveals a Bronze card.",
+            "Flavor": ""
         },
         "70197": {
             "Name": "Draug: Northern Realms",

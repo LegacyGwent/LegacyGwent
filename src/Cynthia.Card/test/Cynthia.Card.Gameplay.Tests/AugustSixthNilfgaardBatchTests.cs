@@ -264,6 +264,7 @@ namespace Cynthia.Card.Gameplay.Tests
         public async Task XarthisiusMovesTheChosenDeckCardToBottomAndTogglesLock()
         {
             var fixture = new HeadlessGameFixture();
+            fixture.Game.PlayersDeck[fixture.Game.Player2Index].Clear();
             var xarthisius = fixture.AddCard(
                 fixture.Game.Player1Index, "32002", RowPosition.MyRow1);
             fixture.AddCard(
