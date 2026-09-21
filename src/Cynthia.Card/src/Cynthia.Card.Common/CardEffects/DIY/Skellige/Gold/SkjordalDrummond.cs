@@ -36,7 +36,7 @@ namespace Cynthia.Card
             var clan = cate_list.FirstOrDefault();
 
 
-            var reslist = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && !x.HasAnyCategorie(clan) && familylist.Any(family => x.HasAnyCategorie(family))  && x.Status.CardId != discardtarget.Status.CardId).ToList();
+            var reslist = Game.PlayersCemetery[PlayerIndex].Where(x => x.Status.Group == Group.Copper && x.CardInfo().CardType == CardType.Unit && x.HasAnyCategorie(clan) && x.Status.CardId != discardtarget.Status.CardId).ToList();
             if (reslist.Count() == 0)
             {
                 return 0;
