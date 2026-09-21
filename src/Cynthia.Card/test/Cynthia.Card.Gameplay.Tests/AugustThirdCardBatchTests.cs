@@ -42,13 +42,16 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player1Index, CardId.Roach, RowPosition.MyDeck);
             var witcher = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyDeck);
+            var highestQualityWitcher = fixture.AddCard(
+                fixture.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyDeck);
             await fixture.SynchronizeClientsAsync();
 
             await ivo.Effects.RaiseEvent(new AfterCardDeath(other, other.GetLocation(other.PlayerIndex)));
             Assert.Same(nonWitcher, fixture.Game.PlayersDeck[fixture.Game.Player1Index].First());
 
             await ivo.Effects.RaiseEvent(new AfterCardDeath(ivo, ivo.GetLocation(ivo.PlayerIndex)));
-            Assert.Same(witcher, fixture.Game.PlayersDeck[fixture.Game.Player1Index].First());
+            Assert.Same(highestQualityWitcher, fixture.Game.PlayersDeck[fixture.Game.Player1Index].First());
+            Assert.Contains(witcher, fixture.Game.PlayersDeck[fixture.Game.Player1Index]);
         }
 
         [Fact]

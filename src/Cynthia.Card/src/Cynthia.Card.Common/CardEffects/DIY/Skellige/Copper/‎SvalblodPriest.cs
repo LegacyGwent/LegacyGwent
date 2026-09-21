@@ -8,19 +8,30 @@ namespace Cynthia.Card
     public class SvalblodPriest : CardEffect, IHandlesEvent<AfterCardHurt>
     {
         public SvalblodPriest(GameCard card) : base(card) { }
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
+        {
+            await SetCountdown(2);
+            return 0;
+        }
+
         public async Task HandleEvent(AfterCardHurt @event)
         {
-            if (@event.Target != Card || !Card.Status.CardRow.IsOnPlace() || @event.DamageType.IsHazard() || @event.Source.PlayerIndex != PlayerIndex )
+            if (!Card.Status.CardRow.IsOnPlace() ||
+                @event.Target.PlayerIndex != PlayerIndex ||
+                !Card.GetRangeCard(1, GetRangeType.HollowAll, isHasDead: true)
+                    .Contains(@event.Target))
             {
                 return;
             }
-            var selectList = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
-            if (!selectList.TrySingle(out var target))
+
+            await SetCountdown(offset: -1);
+            if (Countdown > 0)
             {
                 return;
             }
-            await target.Effect.Damage(@event.Num, Card);
-            return;
+
+            await SetCountdown(2);
+            await Card.Effect.Strengthen(1, Card);
         }
     }
 }

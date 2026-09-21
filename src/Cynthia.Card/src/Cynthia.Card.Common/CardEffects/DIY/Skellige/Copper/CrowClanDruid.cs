@@ -12,6 +12,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await CreateCrowAtRight();
+            await SetCountdown(2);
             return 0;
         }
 
@@ -22,15 +23,19 @@ namespace Cynthia.Card
                 return;
             }
 
-            if (!Game.RowToList(PlayerIndex, Card.Status.CardRow)
-                .IgnoreConcealAndDead()
-                .Any(x => x.Status.CardId == CardId.Crow))
+            await SetCountdown(offset: -1);
+            if (Countdown > 0)
             {
                 return;
             }
 
-            await CreateCrowAtRight();
-            await Card.Effect.Damage(1, Card);
+            await SetCountdown(2);
+            if (Game.RowToList(PlayerIndex, Card.Status.CardRow)
+                .IgnoreConcealAndDead()
+                .Any(x => x.Status.CardId == CardId.Crow))
+            {
+                await CreateCrowAtRight();
+            }
         }
 
         private async Task CreateCrowAtRight()

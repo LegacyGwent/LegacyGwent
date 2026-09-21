@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("33012")]//瑟瑞特
     public class Serrit : CardEffect
-    {//对1个敌军单位造成7点伤害，若其存活且被锁定则将战力降为1点；或将1张被揭示的单位牌战力降为1点。
+    {//对1个敌军单位造成7点伤害，若目标被锁定则伤害翻倍；或将1张被揭示的单位牌战力降为1点。
         public Serrit(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -19,11 +19,7 @@ namespace Cynthia.Card
             }
             else
             {
-                await targetCard.Effect.Damage(7, Card);
-                if (targetCard.IsAliveOnPlance() && targetCard.Status.IsLock)
-                {
-                    await targetCard.Effect.Lower_Power_By(targetCard.CardPoint() - 1, Card);
-                }
+                await targetCard.Effect.Damage(targetCard.Status.IsLock ? 14 : 7, Card);
             }
 
             return 0;

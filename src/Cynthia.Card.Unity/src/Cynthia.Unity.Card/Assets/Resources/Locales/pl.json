@@ -890,7 +890,7 @@
         },
         "12007": {
             "Name": "Triss Merigold",
-            "Info": "Rozmieszczenie: Zadaj 5 pkt obrażeń.",
+            "Info": "Rozmieszczenie: Zadaj 10 pkt obrażeń.",
             "Flavor": "Potrafię o siebie zadbać. Wierz mi."
         },
         "12008": {
@@ -1000,7 +1000,7 @@
         },
         "12029": {
             "Name": "Avallac'h Wiedzący",
-            "Info": "Rozmieszczenie: Stwórz standardowy egzemplarz losowej złotej lub srebrnej jednostki z talii początkowej przeciwnika.",
+            "Info": "Spójrz na 3 wierzchnie karty jednostek różnej jakości bez Szpiega w talii przeciwnika. Stwórz bazową kopię jednej z nich.",
             "Flavor": "Nieliczni wśród wolnych elfów Aen Saevherne - Wiedzący - byli bliską legendzie enigmą."
         },
         "12030": {
@@ -1705,7 +1705,7 @@
         },
         "24002": {
             "Name": "Bies",
-            "Info": "Brak umiejętności.",
+            "Info": "Przenieś sojuszniczą Bestię do tego rzędu.",
             "Flavor": "Bies wygląda trochę jak jeleń. Wielki, wściekły jeleń."
         },
         "24003": {
@@ -2085,7 +2085,7 @@
         },
         "33012": {
             "Name": "Serrit",
-            "Info": "Zadaj wrogiej jednostce 7 pkt obrażeń. Jeśli przetrwa i jest Zablokowana, ustaw jej siłę na 1. Lub ustaw siłę Odsłoniętej karty jednostki na 1.",
+            "Info": "Zadaj wrogiej jednostce 7 pkt obrażeń. Jeśli jest Zablokowana, podwój obrażenia. Lub ustaw siłę Odsłoniętej wrogiej karty jednostki na 1.",
             "Flavor": "Robimy co musimy, nie wstydzę się tego."
         },
         "33013": {
@@ -2400,7 +2400,7 @@
         },
         "42013": {
             "Name": "Filippa Eilhart",
-            "Info": "Rozmieszczenie: Zrań wroga o 5, a następnie zrań losowych wrogów o 4, 3, 2 i 1. Nie można zranić tego samego wroga dwa razy z rzędu.",
+            "Info": "Zadaj wrogim jednostkom kolejno 5, 4, 3, 2 i 1 pkt obrażeń. Jeśli cel jest Zablokowany, podwój obrażenia. Za każdym razem losowo zmień cel; ten sam cel nie może zostać trafiony dwa razy z rzędu.",
             "Flavor": "Filippa Eilhart, choć bardzo atrakcyjna, była zdecydowanie niemiła."
         },
         "43001": {
@@ -3560,7 +3560,7 @@
         },
         "70026": {
             "Name": "Ivo z Belhaven",
-            "Info": "Na początku tury, jeśli masz więcej punktów niż przeciwnik, ulepsz się o 2.\nZemsta: Przemieść losowego Wiedźmina w twojej talii na jej szczyt.",
+            "Info": "Na początku każdej tury, jeśli prowadzisz, ulepsz się o 2. Zemsta: Przenieś losową jednostkę Wiedźmina o najwyższej jakości ze swojej talii na jej szczyt.",
             "Flavor": "Jestem pozbawiony emocji, nie rozumu."
         },
         "70027": {
@@ -3620,7 +3620,7 @@
         },
         "70046": {
             "Name": "Bękart Svalbloda",
-            "Info": "Na koniec tury zadaj 3 pkt obrażeń najsłabszemu wrogowi, następnie zadaj 3 obrażenia tej jednostce.",
+            "Info": "Na końcu każdej tury zadaj 3 pkt obrażeń losowej najsłabszej wrogiej jednostce, a następnie otrzymaj obrażenia równe utraconej przez nią sile.",
             "Flavor": "Nie każdy jest w stanie przyjąć błogosławieństwo Svalbloda."
         },
         "70050": {
@@ -3945,12 +3945,12 @@
         },
         "70134": {
             "Name": "Adeptka Klanu Kruka",
-            "Info": "Stwórz 1 Kruka. Na końcu każdej tury, jeśli w tym rzędzie jest Kruk, powtórz tę zdolność, a następnie zadaj tej jednostce 1 pkt obrażeń.",
+            "Info": "Stwórz 1 Kruka. Co 2 tury, na końcu tury, jeśli w tym rzędzie jest Kruk, powtórz tę zdolność.",
             "Flavor": "Uczeni mężowie twierdzą, że zwierzęta to bezrozumne automatony. Uczeni mężowie pieprzą od rzeczy."
         },
         "70135": {
             "Name": "Kapłan Svalbloda",
-            "Info": "Kiedy ta jednostka zostanie zraniano przez sojusznika zadaj tyle samo obrażeń.",
+            "Info": "Za każdym razem, gdy sąsiednie jednostki otrzymają obrażenia łącznie 2 razy, ulepsz się o 1.",
             "Flavor": "Kapłani Svalbloda byli tak okrutni, że po upadku kultu związano ich i wypchnięto w morze na drakkarze bez wioseł i żagli."
         },
         "70136": {
@@ -4070,7 +4070,7 @@
         },
         "70159": {
             "Name": "Krucza Matka",
-            "Info": "Stwórz po 1 Kruku w każdym z pozostałych twoich rzędów. Stwórz tyle Kruków, ile Kruków zniszczono w tej grze, aż ten rząd będzie pełny.",
+            "Info": "Stwórz po 1 Kruku w każdym z pozostałych twoich rzędów. Stwórz tyle Kruków, ile sojuszniczych Kruków zniszczono w tej grze, aż ten rząd będzie pełny.",
             "Flavor": "Niektóre kruki uczą się ludzkich słów. A niektórzy ludzie uczą się języka kruków."
         },
         "70160": {
@@ -4105,7 +4105,7 @@
         },
         "70166": {
             "Name": "Cursed Scroll",
-            "Info": "Spójrz na 3 karty róznych kolorów z Twojej talii. Zagraj jedną i odrzuć pozostałe dwie.",
+            "Info": "Spójrz na 3 karty różnej jakości ze swojej talii. Zagraj jedną i odrzuć pozostałe dwie.",
             "Flavor": "Na pieczęci stoi jasno: nie otwierać. Ale wiadomo… Ciekawość w końcu zwycięży."
         },
         "70167": {

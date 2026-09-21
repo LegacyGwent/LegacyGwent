@@ -18,7 +18,8 @@ namespace Cynthia.Card
             GameCard nexttarget = target;
             for (var i = 1; i < 6; i++)
             {
-                await nexttarget.Effect.Damage(6 - i, Card);
+                var damage = (6 - i) * (nexttarget.Status.IsLock ? 2 : 1);
+                await nexttarget.Effect.Damage(damage, Card);
                 nexttarget = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex == AnotherPlayer && x != nexttarget).Mess(Game.RNG).FirstOrDefault();
                 if (nexttarget == default)
                 {

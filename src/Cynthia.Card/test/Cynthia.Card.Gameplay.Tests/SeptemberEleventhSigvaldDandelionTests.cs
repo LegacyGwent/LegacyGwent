@@ -126,7 +126,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
         [Theory]
         [InlineData(CardId.GeraltOfRivia, 0)]
-        [InlineData(CardId.TrissMerigold, -5)]
+        [InlineData(CardId.TrissMerigold, -9)]
         public async Task DandelionPlaysTheSelectedExactHandCardAndResolvesItsDeployBeforeDrawing(
             string selectedId, int dandelionHealthAtDraw)
         {

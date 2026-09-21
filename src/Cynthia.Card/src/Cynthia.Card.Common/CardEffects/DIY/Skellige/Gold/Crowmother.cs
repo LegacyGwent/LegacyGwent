@@ -30,7 +30,8 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardDeath @event)
         {
-            if (@event.Target.Status.CardId != CardId.Crow)
+            if (@event.Target.PlayerIndex != PlayerIndex ||
+                @event.Target.Status.CardId != CardId.Crow)
             {
                 return;
             }

@@ -1,6 +1,6 @@
 # Card-specific rules
 
-Last verified: 2026-09-15
+Last verified: 2026-09-20
 
 ## August 23 first card batch
 
@@ -90,9 +90,10 @@ Last verified: 2026-09-15
 
 - In the DIY-AI `1.0.0.163` ruleset, “生成” presents every eligible candidate
   and lets the player choose one. Do not reuse the legacy creation helper that
-  shuffles and takes three. “己方起始牌组之外” excludes matching `CardId`
-  values from the player's initial deck, and retired ordinary DIY cards remain
-  unavailable even when they otherwise match a predicate.
+  shuffles and takes three. “起始牌组之外” excludes matching `CardId` values
+  from the player's initial deck; retired ordinary DIY cards stay unavailable.
+- Chinese card text uses “起始” for deck/hand concepts and “初始” for unit
+  Strength concepts. Omit redundant “己方” before “起始牌组” and “同排”.
 - This rule applies to Whispering Hillock, Usurper, Princess Adda, Filavandrel,
   Aguara: True Form, Triss: Telekinesis, Kiyan, Isengrim: Outlaw, Hym, Black
   Blood, Garrison, Dorregaray, Vreemde, Mahakam Horn, Ornamental Sword, Uma's
@@ -125,7 +126,7 @@ Last verified: 2026-09-15
 - Living Armor has no deploy Armor. One unlocked Living Armor per allied row
   halves each damage instance to any allied unit on that row, rounded up;
   multiple copies never stack. Ivo of Belhaven's Deathwish runs only when Ivo
-  himself dies, not whenever any unit dies.
+  dies and moves a random highest-quality Witcher unit to the deck top.
 - Lady of the Lake weakens by the remaining hand/deck card count once. Thaw
   applies four base 2-point boosts (initial application plus three repeats),
   then one more for each card played earlier that turn; `TurnCardPlayedNum`
@@ -141,7 +142,7 @@ Last verified: 2026-09-15
 - `1.0.0.168` restores the existing DIY definitions of Meve `70045` and Anna
   Henrietta `70149`, restores/reworks Queen Calanthe `70179`, and appends Dana
   Meadbh `70191`. All four are user-deck leaders; Calanthe remains 7 power,
-  Meve 8, Anna 6; Dana is now 2 power with Relict under the September 11 rule.
+  Meve 6, Anna 6; Dana is now 2 power with Relict under the September 11 rule.
 - Calanthe transfers an allied non-Spying Bronze/Silver unit's positive net
   Boost and Armor directly to herself, calls Repair(true) on the target, and
   shuffles it into the deck before playing a Bronze/Silver non-Spying Unit.

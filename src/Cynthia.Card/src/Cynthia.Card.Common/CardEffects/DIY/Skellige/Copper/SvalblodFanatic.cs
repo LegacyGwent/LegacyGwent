@@ -17,13 +17,21 @@ namespace Cynthia.Card
                 return;
             }
             
-            var cards = Game.GetAllCard(Card.PlayerIndex).Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex).WhereAllLowest().Mess(RNG).ToList();
-            if (cards.Count() == 0)
+            var cards = Game.GetAllCard(Card.PlayerIndex)
+                .Where(x => x.Status.CardRow.IsOnPlace() && x.PlayerIndex != Card.PlayerIndex)
+                .WhereAllLowest()
+                .ToList();
+            if (!cards.TryMessOne(out var target, RNG))
             {
                 return ;
             }
-            await cards.Mess(RNG).First().Effect.Damage(3, Card);
-            await Card.Effect.Damage(3, Card);
+
+            var before = target.CardPoint();
+            await target.Effect.Damage(3, Card);
+            var lostPower = target.Status.CardRow.IsOnPlace()
+                ? Math.Max(0, before - Math.Max(0, target.CardPoint()))
+                : Math.Max(0, before);
+            await Card.Effect.Damage(lostPower, Card);
         }
     }
 }
