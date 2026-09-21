@@ -55,7 +55,7 @@ jobs:
           path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
           key: original-5000-${{ matrix.targetPlatform }}-${{ hashFiles('src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Packages/manifest.json', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/ProjectVersion.txt') }}
           restore-keys: original-5000-${{ matrix.targetPlatform }}-
-      - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
+      - uses: game-ci/unity-builder@9f79830454d37cd9e70c4c3b73d26c06bcce2b2a
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
@@ -63,7 +63,6 @@ jobs:
           versioning: Custom
           version: 0.1.0.2
           androidVersionCode: 1
-          androidExportType: androidPackage
           allowDirtyBuild: true
       - name: Package client
         id: package
