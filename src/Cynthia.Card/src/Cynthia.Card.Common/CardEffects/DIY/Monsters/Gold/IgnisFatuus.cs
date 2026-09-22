@@ -13,7 +13,8 @@ namespace Cynthia.Card
                 CardId.IgnisFatuus,
                 PlayerIndex,
                 Card.GetLocation(),
-                status => status.IsDoomed = true);
+                status => status.IsDoomed = true,
+                source: Card);
             return 0;
         }
 

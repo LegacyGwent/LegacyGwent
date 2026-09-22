@@ -24,7 +24,7 @@ namespace Cynthia.Card
             //将2张它的同名牌加入牌组底部
             for(var i = 0; i < 2; i++)
             {
-                await Game.CreateCardAtEnd(targetId, PlayerIndex, RowPosition.MyDeck);
+                await Game.CreateCardAtEnd(targetId, PlayerIndex, RowPosition.MyDeck, source: Card);
             }
 
             return 0;

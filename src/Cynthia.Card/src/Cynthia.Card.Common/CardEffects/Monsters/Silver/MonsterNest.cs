@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var target = GwentMap.GetCards()
                 .Where(x => x.Is(Group.Copper, CardType.Unit, x => x.HasAnyCategorie(Categorie.Necrophage, Categorie.Insectoid)))
                 .Select(x => x.CardId);
-            var count = (await Game.CreateAndMoveStay(PlayerIndex, target.ToArray()));
+            var count = (await Game.CreateAndMoveStay(PlayerIndex, target.ToArray(), source: Card));
             if (count == 0)
             {
                 return 0;

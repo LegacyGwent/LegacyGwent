@@ -33,7 +33,7 @@ namespace Cynthia.Card
             if (result.Count() <= 0) return 0;
             foreach (var CardIndex in result)
             {
-                await Game.CreateCardAtEnd(selectList[CardIndex].CardId, PlayerIndex, RowPosition.MyHand);
+                await Game.CreateCardAtEnd(selectList[CardIndex].CardId, PlayerIndex, RowPosition.MyHand, source: Card);
             }
             return 0;
         }

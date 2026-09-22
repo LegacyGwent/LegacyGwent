@@ -33,7 +33,7 @@ namespace Cynthia.Card
             }
 
             // await Game.Debug("生成了熊");
-            await Game.CreateCardAtEnd(CardId.Bear, AnotherPlayer, @event.DeathLocation.RowPosition);
+            await Game.CreateCardAtEnd(CardId.Bear, AnotherPlayer, @event.DeathLocation.RowPosition, source: Card);
             return;
         }
     }

@@ -130,9 +130,9 @@ namespace Cynthia.Card
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    await Game.CreateCardAtEnd(CardId.IronFalconInfantry, PlayerIndex, RowPosition.MyDeck);
-                    await Game.CreateCardAtEnd(CardId.IronFalconTroubadour, PlayerIndex, RowPosition.MyDeck);
-                    await Game.CreateCardAtEnd(CardId.IronFalconKnifeJuggler, PlayerIndex, RowPosition.MyDeck);
+                    await Game.CreateCardAtEnd(CardId.IronFalconInfantry, PlayerIndex, RowPosition.MyDeck, source: Card);
+                    await Game.CreateCardAtEnd(CardId.IronFalconTroubadour, PlayerIndex, RowPosition.MyDeck, source: Card);
+                    await Game.CreateCardAtEnd(CardId.IronFalconKnifeJuggler, PlayerIndex, RowPosition.MyDeck, source: Card);
                 }
 
                 cards = Game.PlayersDeck[PlayerIndex].Where(x => x.CardInfo().CardUseInfo == CardUseInfo.MyRow).FilterCards(filter: x => x != Card).ToList();

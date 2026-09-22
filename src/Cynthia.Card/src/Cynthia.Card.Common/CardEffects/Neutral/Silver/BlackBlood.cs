@@ -22,7 +22,7 @@ namespace Cynthia.Card
                     x => x.Is(Group.Copper, CardType.Unit) &&
                         x.HasAnyCategorie(Categorie.Necrophage, Categorie.Vampire),
                     Card.GetMyBaseDeck().Select(x => x.CardId)).ToArray();
-                if ((await Game.CreateAndMoveStay(PlayerIndex, cards, isCanOver: true)) == 1)
+                if ((await Game.CreateAndMoveStay(PlayerIndex, cards, isCanOver: true, source: Card)) == 1)
                 {
                     await Game.PlayersStay[PlayerIndex].First().Effect.Boost(1, Card);
                     return 1;

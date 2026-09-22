@@ -17,7 +17,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            await Game.CreateCard(target.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard(target.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: Card);
             return 1;
         }
     }

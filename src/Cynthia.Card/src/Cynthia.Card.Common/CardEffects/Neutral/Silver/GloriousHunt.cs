@@ -12,12 +12,12 @@ namespace Cynthia.Card
 		{
 			if(Game.WhoHeight.PlayerIndex==PlayerIndex)
 			{
-				await Game.CreateCard(CardId.ManticoreVenom,PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+				await Game.CreateCard(CardId.ManticoreVenom,PlayerIndex,new CardLocation(RowPosition.MyStay,0), source: Card);
 				return 1;
 			}
 			else if(Game.WhoHeight.PlayerIndex==AnotherPlayer)
 			{
-				await Game.CreateCard(CardId.ImperialManticore,PlayerIndex,new CardLocation(RowPosition.MyStay,0));
+				await Game.CreateCard(CardId.ImperialManticore,PlayerIndex,new CardLocation(RowPosition.MyStay,0), source: Card);
 				return 1;
 			}
 			return 0;

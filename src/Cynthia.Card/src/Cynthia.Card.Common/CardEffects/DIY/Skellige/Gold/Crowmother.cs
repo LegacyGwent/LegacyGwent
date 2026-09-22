@@ -15,7 +15,7 @@ namespace Cynthia.Card
             {
                 if (Game.RowToList(PlayerIndex, row).Count() < Game.RowMaxCount)
                 {
-                    await Game.CreateCard(CardId.Crow, PlayerIndex, new CardLocation(row, int.MaxValue));
+                    await Game.CreateCard(CardId.Crow, PlayerIndex, new CardLocation(row, int.MaxValue), source: Card);
                 }
             }
 
@@ -23,7 +23,7 @@ namespace Cynthia.Card
             while (crowsToGenerate-- > 0 &&
                    Game.RowToList(PlayerIndex, Card.Status.CardRow).Count < Game.RowMaxCount)
             {
-                await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, Card.Status.CardRow);
+                await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, Card.Status.CardRow, source: Card);
             }
             return 0;
         }

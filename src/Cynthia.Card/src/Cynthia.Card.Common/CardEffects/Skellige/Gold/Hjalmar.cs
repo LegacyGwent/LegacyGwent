@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Hjalmar(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Game.CreateCard(CardId.LordOfUndvik, AnotherPlayer, Card.GetLocation());
+            await Game.CreateCard(CardId.LordOfUndvik, AnotherPlayer, Card.GetLocation(), source: Card);
             return 0;
         }
     }

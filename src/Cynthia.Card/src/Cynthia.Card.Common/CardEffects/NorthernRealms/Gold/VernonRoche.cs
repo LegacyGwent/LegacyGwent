@@ -20,7 +20,7 @@ namespace Cynthia.Card
         }
         public async Task HandleEvent(OnGameStart @event)
         {
-            await Game.CreateCard(CardId.BlueStripesCommando, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)));
+            await Game.CreateCard(CardId.BlueStripesCommando, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), source: Card);
             return;
         }
     }

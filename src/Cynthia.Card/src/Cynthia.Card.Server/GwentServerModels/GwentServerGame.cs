@@ -1779,11 +1779,11 @@ namespace Cynthia.Card.Server
         //====================================================================================
         //====================================================================================
         //卡牌事件处理与转发
-        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null)
+        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null, GameCard source = null)
         {
-            return await CreateCard(cardId, playerIndex, position, true, setting);
+            return await CreateCard(cardId, playerIndex, position, true, setting, source);
         }
-        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, bool sendEvent, Action<CardStatus> setting = null)
+        public async Task<GameCard> CreateCard(string cardId, int playerIndex, CardLocation position, bool sendEvent, Action<CardStatus> setting = null, GameCard source = null)
         {
             //定位到这一排
             var row = RowToList(playerIndex, position.RowPosition);
@@ -1792,7 +1792,11 @@ namespace Cynthia.Card.Server
             //创造对应的卡
             var creatCard = new GameCard(this, playerIndex, new CardStatus(cardId, PlayersFaction[playerIndex], RowPosition.None), cardId);
             setting?.Invoke(creatCard.Status);
-            creatCard.Status.IsPremium = creatCard.Status.IsPremium ?? UsesPremium(Players[playerIndex],creatCard.Status.CardId);
+            // A derivative inherits its premium appearance from the card that created it,
+            // even when the receiving account separately owns the generated card as premium
+            // (a nullable false from a standard source must win). Only system-owned creation
+            // without a source falls back to the account's premium ownership.
+            creatCard.Status.IsPremium = source?.Status.IsPremium ?? creatCard.Status.IsPremium ?? UsesPremium(Players[playerIndex],creatCard.Status.CardId);
             //将创造的卡以不显示的方式移动到目标位置!
             await LogicCardMove(creatCard, row, position.CardIndex);
             //发送信息,显示创造的卡
@@ -1841,15 +1845,21 @@ namespace Cynthia.Card.Server
             await SetPointInfo();
             return creatCard;
         }
-        public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡")
+        public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡", GameCard source = null)
         {
             var selectList = cards.Select(x => new CardStatus(x)).ToList();
+            // A generation preview must show the version the created card will actually use.
+            // When a source exists it owns the version, so pin it here; without a source the
+            // selection menu keeps its existing account-ownership fallback.
+            if (source != null)
+                foreach (var selectCard in selectList)
+                    selectCard.IsPremium = source.Status.IsPremium;
             var result = (await GetSelectMenuCards(playerIndex, selectList, isCanOver: isCanOver, title: title)).Reverse().ToList();
             //先选的先打出
             if (result.Count() <= 0) return 0;
             foreach (var CardIndex in result)
             {
-                await CreateCard(selectList[CardIndex].CardId, playerIndex, new CardLocation(RowPosition.MyStay, 0));
+                await CreateCard(selectList[CardIndex].CardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), source: source);
             }
             return result.Count();
         }

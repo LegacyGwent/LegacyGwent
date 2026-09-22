@@ -702,7 +702,12 @@ namespace Cynthia.Card
                 return;
             }
             if (Card.Status.CardRow == RowPosition.Banish || Card.IsDead) return;
-            Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow };
+            // The transformed card's premium (animated) appearance is decided by the
+            // card that caused the transform, not by the transformed target. A self
+            // transform passes source == Card, so read the source before replacing the
+            // target's status or the old premium state would already be gone.
+            var isPremium = source?.Status.IsPremium;
+            Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow, IsPremium = isPremium };
             Card.Effects.Clear();
             var transformedEffect = Game.CreateEffectInstance(cardId, Card);
             Card.Effects.Add(transformedEffect);

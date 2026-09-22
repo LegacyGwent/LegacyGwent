@@ -25,7 +25,7 @@ namespace Cynthia.Card
                 return 0;
             }
             var resultrow = await Game.GetSelectRow(Card.PlayerIndex, Card, allowlist);
-            await Game.CreateCardAtEnd(CardId.SpectralWhale, Card.PlayerIndex, resultrow);
+            await Game.CreateCardAtEnd(CardId.SpectralWhale, Card.PlayerIndex, resultrow, source: Card);
             return 0;
         }
     }

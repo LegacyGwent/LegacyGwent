@@ -16,7 +16,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            await Game.CreateCard(CardId.PoorFIngInfantry, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard(CardId.PoorFIngInfantry, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: Card);
             return 1;
         }
         public async Task HandleEvent(AfterUnitDown @event)

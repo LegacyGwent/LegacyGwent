@@ -19,7 +19,7 @@ namespace Cynthia.Card
             {
                 return;
             }
-            await Game.CreateCardAtEnd(CardId.HarpyHatchling, PlayerIndex, rowIndex.Value);
+            await Game.CreateCardAtEnd(CardId.HarpyHatchling, PlayerIndex, rowIndex.Value, source: Card);
         }
 
         public async Task HandleEvent(AfterCardConsume @event)

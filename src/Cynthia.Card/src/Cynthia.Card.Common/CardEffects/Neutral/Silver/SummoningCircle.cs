@@ -17,7 +17,7 @@ namespace Cynthia.Card
                             (x.CardId.CardInfo().CardType == CardType.Unit)))
                             .ToList();
             if (cards.Count() <= 0) return 0;
-            await Game.CreateCard(cards.Last().CardId.Status.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard(cards.Last().CardId.Status.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: Card);
             return 1;
         }
     }

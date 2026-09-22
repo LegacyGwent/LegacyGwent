@@ -13,13 +13,14 @@ namespace Cynthia.Card
             var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Unit, x => x.HasAllCategorie(Categorie.Cintra))
                 .Select(x => x.CardId).ToArray();
 
-            var createdCount = await Game.CreateAndMoveStay(PlayerIndex, cardsId);
+            var createdCount = await Game.CreateAndMoveStay(PlayerIndex, cardsId, source: Card);
             foreach (var cardId in cardsId)
             {
                 await Game.CreateCard(
                     cardId,
                     PlayerIndex,
-                    new CardLocation(RowPosition.MyDeck, Game.PlayersDeck[PlayerIndex].Count));
+                    new CardLocation(RowPosition.MyDeck, Game.PlayersDeck[PlayerIndex].Count),
+                    source: Card);
             }
 
             return createdCount;

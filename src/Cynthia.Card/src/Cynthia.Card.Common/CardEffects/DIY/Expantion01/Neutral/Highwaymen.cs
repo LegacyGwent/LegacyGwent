@@ -17,10 +17,10 @@ namespace Cynthia.Card
                 return 0;
             }
             IsUse = true;
-            await Game.CreateCard(CardId.StraysofSpalla, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard(CardId.StraysofSpalla, PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: Card);
             for (var i = 0; i < 2; i++)
             {
-                await Game.CreateCard(CardId.StraysofSpalla, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)));
+                await Game.CreateCard(CardId.StraysofSpalla, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), source: Card);
             }
             return 1;
         }

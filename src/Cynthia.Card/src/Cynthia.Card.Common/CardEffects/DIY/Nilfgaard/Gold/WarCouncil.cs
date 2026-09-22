@@ -27,7 +27,8 @@ namespace Cynthia.Card
             await Game.CreateCard(
                 CardId.BattlePreparation,
                 PlayerIndex,
-                new CardLocation(RowPosition.MyHand, int.MaxValue));
+                new CardLocation(RowPosition.MyHand, int.MaxValue),
+                source: Card);
 
             var drawCards = await Game.PlayerDrawCard(
                 AnotherPlayer,

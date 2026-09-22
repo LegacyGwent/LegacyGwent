@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             var ids = GwentMap.GetGenerateCardsId(
                 x => x.HasAllCategorie(Categorie.Organic) && x.Is(Group.Silver));
-            return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray());
+            return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray(), source: Card);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 var ids = GwentMap.GetGenerateCardsId(
                     x => x.Group == Group.Copper && x.HasAllCategorie(Categorie.Alchemy),
                     Card.GetMyBaseDeck().Select(x => x.CardId));
-                return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray());
+                return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray(), source: Card);
             }
             if (switchCard == 1)
             {

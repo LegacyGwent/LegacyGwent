@@ -10,8 +10,8 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(OnGameStart @event)
         {
-            await Game.CreateCardAtEnd(CardId.DeafeningSiren, PlayerIndex, RowPosition.MyDeck);
-            await Game.CreateCardAtEnd(CardId.DeafeningSiren, PlayerIndex, RowPosition.MyDeck);
+            await Game.CreateCardAtEnd(CardId.DeafeningSiren, PlayerIndex, RowPosition.MyDeck, source: Card);
+            await Game.CreateCardAtEnd(CardId.DeafeningSiren, PlayerIndex, RowPosition.MyDeck, source: Card);
         }
 
         public async Task HandleEvent(AfterWeatherApply @event)

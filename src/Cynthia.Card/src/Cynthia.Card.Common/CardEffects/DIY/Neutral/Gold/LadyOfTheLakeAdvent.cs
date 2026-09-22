@@ -11,7 +11,7 @@ namespace Cynthia.Card
 
         public override async Task<int> CardUseEffect()
         {
-            await Game.CreateToStayFirst(CardId.LadyOfTheLake, Card.PlayerIndex);
+            await Game.CreateToStayFirst(CardId.LadyOfTheLake, Card.PlayerIndex, source: Card);
             return 1;
         }
     }

@@ -25,7 +25,7 @@ namespace Cynthia.Card
             }
             await DamageRandomEnemy();
 
-            await Game.CreateCardAtEnd(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck);
+            await Game.CreateCardAtEnd(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck, source: Card);
         }
 
         private async Task DamageRandomEnemy()

@@ -25,6 +25,11 @@ Last verified: 2026-09-20
   the wire. `DeckModel.PremiumCards` and `PremiumLeader` are nullable: missing
   values identify an old caller and must preserve, then reconcile, any stored
   selection rather than clearing it.
+- Card version ownership follows the effect source: a transformation or a card
+  effect that generates a derived card inherits `IsPremium` from the card that
+  caused the action, and a self-transformation uses itself as the source. Only
+  system-owned creation with no source falls back to the account's premium
+  ownership of that card ID.
 - Keep premium deck selections out of `UserInfo.Decks`. Store them under
   `premium_collection.DeckSelections`; the server BSON map must continue to
   ignore premium `DeckModel` members so an older server can read the account

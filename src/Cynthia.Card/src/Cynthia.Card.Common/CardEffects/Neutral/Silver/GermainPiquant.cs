@@ -12,10 +12,10 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             if (!Card.Status.CardRow.IsOnPlace()) return 0;
-            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation());
-            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation());
-            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++));
-            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++));
+            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation(), source: Card);
+            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation(), source: Card);
+            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++), source: Card);
+            await Game.CreateCard(CardId.Cow, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++), source: Card);
             return 0;
         }
     }

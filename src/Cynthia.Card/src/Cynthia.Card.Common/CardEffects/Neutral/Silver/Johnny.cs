@@ -21,7 +21,7 @@ namespace Cynthia.Card
                 return 0;
             }
             await target.Effect.Discard(Card);
-            await Game.CreateCardAtEnd(targetId, PlayerIndex, RowPosition.MyHand);
+            await Game.CreateCardAtEnd(targetId, PlayerIndex, RowPosition.MyHand, source: Card);
             return 0;
         }
     }

@@ -45,7 +45,8 @@ namespace Cynthia.Card
             await Game.CreateCard(
                 FarmerCardId,
                 AnotherPlayer,
-                new CardLocation(@event.DeathLocation.RowPosition, int.MaxValue));
+                new CardLocation(@event.DeathLocation.RowPosition, int.MaxValue),
+                source: Card);
         }
     }
 }

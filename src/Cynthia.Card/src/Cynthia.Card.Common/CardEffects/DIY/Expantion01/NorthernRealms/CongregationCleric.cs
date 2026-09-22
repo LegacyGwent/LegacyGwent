@@ -17,7 +17,7 @@ namespace Cynthia.Card
                                      x.Status.IsLock).ToList();
             foreach(var card in lockList)
             {
-                await Game.CreateCardAtEnd(card.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
+                await Game.CreateCardAtEnd(card.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser, source: Card);
             }
             return 0;
         }
@@ -28,7 +28,7 @@ namespace Cynthia.Card
                 @event.Target.Status.Type == CardType.Unit &&
                 @event.Target.Status.Group == Group.Copper)
             {
-                await Game.CreateCardAtEnd(@event.Target.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser);
+                await Game.CreateCardAtEnd(@event.Target.CardInfo().CardId, PlayerIndex, Card.Status.CardRow, setting: Lesser, source: Card);
             }
             return;
         }

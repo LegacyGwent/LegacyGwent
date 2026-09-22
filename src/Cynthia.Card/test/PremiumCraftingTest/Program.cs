@@ -64,7 +64,86 @@ class Program
             "the account persists an explicit one-copy premium inventory");
         Check((await fresh.GetPremiumCollection(user.UserName)).Collection.MeteoritePowder==50,
             "using a mixed deck does not charge additional crafting fees");
+
+        // Transform (变形) inherits the premium appearance from the card that caused the
+        // transform, not from the transformed target's own previous state.
+        var transformId = first.Costs.Keys.First(x => x != card);
+        TestPlayer Owner(string name, bool premium) => new TestPlayer
+        {
+            PlayerName = name,
+            Deck = new DeckModel { Leader = leader, Deck = new List<string> { card } },
+            PremiumCards = premium ? new HashSet<string> { card, leader } : new HashSet<string>()
+        };
+
+        var sourceDecides = new GwentServerGame(Owner("premium source", true), Owner("standard target", false));
+        var targetOfPremiumSource = sourceDecides.PlayersDeck[1].Single();
+        Check(sourceDecides.PlayersDeck[0].Single().Status.IsPremium == true && targetOfPremiumSource.Status.IsPremium == false,
+            "transform fixture separates a premium source from a standard target");
+        await targetOfPremiumSource.Effect.Transform(transformId, sourceDecides.PlayersDeck[0].Single());
+        Check(targetOfPremiumSource.Status.CardId == transformId && targetOfPremiumSource.Status.IsPremium == true,
+            "a premium source makes the transformed target premium");
+
+        var sourceOverrides = new GwentServerGame(Owner("standard source", false), Owner("premium target", true));
+        var targetOfStandardSource = sourceOverrides.PlayersDeck[1].Single();
+        Check(targetOfStandardSource.Status.IsPremium == true, "transform target starts premium");
+        await targetOfStandardSource.Effect.Transform(transformId, sourceOverrides.PlayersDeck[0].Single());
+        Check(targetOfStandardSource.Status.IsPremium == false,
+            "a standard source turns a premium transformed target standard");
+
+        var selfTransform = new GwentServerGame(Owner("self premium", true), Owner("opponent", false));
+        var selfCard = selfTransform.PlayersDeck[0].Single();
+        await selfCard.Effect.Transform(transformId, selfCard);
+        Check(selfCard.Status.CardId == transformId && selfCard.Status.IsPremium == true,
+            "a self transform keeps its own premium state");
+
+        // Generated/created derivatives (CreateCard) inherit the premium appearance of the
+        // card effect that created them, exactly. The receiving account's own premium
+        // ownership is only a fallback for system-owned creation without a source.
+        TestPlayer Generator(string name, params string[] premiumCards) => new TestPlayer
+        {
+            PlayerName = name,
+            Deck = new DeckModel { Leader = leader, Deck = new List<string> { card } },
+            PremiumCards = new HashSet<string>(premiumCards)
+        };
+        CardLocation Stay() => new CardLocation(RowPosition.MyStay, 0);
+
+        // Premium source -> premium derivative, even though the creating account does not
+        // own the generated card as premium.
+        var premiumGen = new GwentServerGame(Generator("premium generator", card), Generator("plain receiver"));
+        var premiumSource = premiumGen.PlayersDeck[0].Single();
+        Check(premiumSource.Status.IsPremium == true && !premiumGen.Players[0].PremiumCards.Contains(transformId),
+            "generation fixture separates a premium source from an unowned derivative");
+        var premiumDerivative = await premiumGen.CreateCard(transformId, 0, Stay(), source: premiumSource);
+        Check(premiumDerivative != null && premiumDerivative.Status.IsPremium == true,
+            "a premium source creates a premium derivative for an account that does not own it");
+
+        // Standard source -> standard derivative, even when the receiving player does own
+        // the generated card as premium. This is the opponent's side of the board.
+        var standardGen = new GwentServerGame(Generator("standard generator"), Generator("premium owner", transformId));
+        var standardSource = standardGen.PlayersDeck[0].Single();
+        Check(standardSource.Status.IsPremium == false && standardGen.Players[1].PremiumCards.Contains(transformId),
+            "generation fixture separates a standard source from an owned derivative");
+        var standardDerivative = await standardGen.CreateCard(transformId, 1, Stay(), source: standardSource);
+        Check(standardDerivative != null && standardDerivative.Status.IsPremium == false,
+            "a standard source creates a standard derivative even when the receiver owns the premium");
+
+        // Cross-side premium creation: the source still decides on the opponent's side.
+        var crossGen = new GwentServerGame(Generator("premium cross source", card), Generator("plain opponent"));
+        var crossSource = crossGen.PlayersDeck[0].Single();
+        var crossDerivative = await crossGen.CreateCard(transformId, 1, Stay(), source: crossSource);
+        Check(crossDerivative != null && crossDerivative.Status.IsPremium == true,
+            "opponent-side creation still follows a premium source");
+
+        // Only a source-less system/API creation may fall back to account ownership.
+        var fallbackGen = new GwentServerGame(Generator("system owner", transformId), Generator("other"));
+        var fallbackDerivative = await fallbackGen.CreateCard(transformId, 0, Stay());
+        Check(fallbackDerivative != null && fallbackDerivative.Status.IsPremium == true,
+            "no-source system creation keeps the account ownership fallback");
+        var explicitStandard = await fallbackGen.CreateCard(transformId, 0, Stay(), setting: x => x.IsPremium = false);
+        Check(explicitStandard != null && explicitStandard.Status.IsPremium == false,
+            "an explicit source-less setting still wins over account ownership");
+
         Console.WriteLine("COMPLETE checks=" + checks);
     }
-    private sealed class TestPlayer : Player { }
+    private sealed class TestPlayer : Player { public TestPlayer() { _downstream.Receive += _ => Task.CompletedTask; } }
 }

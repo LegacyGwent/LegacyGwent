@@ -28,8 +28,8 @@ namespace Cynthia.Card
                 return 0;
             }
             var id = target.Status.CardId;
-            await Game.CreateCardAtEnd(id, PlayerIndex, RowPosition.MyHand);
-            await Game.CreateCardAtEnd(id, AnotherPlayer, RowPosition.MyHand);
+            await Game.CreateCardAtEnd(id, PlayerIndex, RowPosition.MyHand, source: Card);
+            await Game.CreateCardAtEnd(id, AnotherPlayer, RowPosition.MyHand, source: Card);
             return 0;
         }
     }

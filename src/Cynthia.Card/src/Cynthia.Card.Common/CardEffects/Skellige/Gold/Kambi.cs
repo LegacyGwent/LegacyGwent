@@ -18,7 +18,7 @@ namespace Cynthia.Card
             }
 
             //最左生成汉姆多尔
-            await Game.CreateCardAtEnd(CardId.Hemdall, Card.PlayerIndex, @event.DeathLocation.RowPosition);
+            await Game.CreateCardAtEnd(CardId.Hemdall, Card.PlayerIndex, @event.DeathLocation.RowPosition, source: Card);
         }
     }
 }

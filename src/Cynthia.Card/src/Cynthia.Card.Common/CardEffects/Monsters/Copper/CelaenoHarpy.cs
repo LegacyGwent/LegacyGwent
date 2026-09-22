@@ -12,7 +12,7 @@ namespace Cynthia.Card
 		{
             for(var i = 0; i<2;i++)
             {
-                await Game.CreateCard(CardId.HarpyEgg, PlayerIndex, Card.GetLocation());
+                await Game.CreateCard(CardId.HarpyEgg, PlayerIndex, Card.GetLocation(), source: Card);
             }
 			return 0;
 		}

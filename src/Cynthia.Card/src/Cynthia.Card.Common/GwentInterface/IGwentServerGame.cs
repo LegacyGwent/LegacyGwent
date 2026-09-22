@@ -76,8 +76,12 @@ namespace Cynthia.Card
         Task ShowCardOn(GameCard card);//抬起
         Task SendCardOn(int playerIndex, CardLocation location);
         //-----------------------
-        Task<GameCard> CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null);
-        Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡");
+        // source: the card that caused this creation, if any. A non-null source owns the
+        // generated card's premium appearance (premium source -> premium derivative,
+        // standard source -> standard derivative). Only system-owned creation without a
+        // source may fall back to the receiving account's premium ownership.
+        Task<GameCard> CreateCard(string CardId, int playerIndex, CardLocation position, Action<CardStatus> setting = null, GameCard source = null);
+        Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡", GameCard source = null);
         Task SendSetCard(int playerIndex, GameCard card);//更新卡牌
         Task ShowSetCard(GameCard card);//更新卡牌
         //------------------------

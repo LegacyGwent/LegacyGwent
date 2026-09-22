@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardDeath @event)
         {
             if (@event.Target != Card) return;
-            await Game.CreateCard(CardId.Chort, PlayerIndex, @event.DeathLocation);
+            await Game.CreateCard(CardId.Chort, PlayerIndex, @event.DeathLocation, source: Card);
             return;
         }
     }

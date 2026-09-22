@@ -19,7 +19,7 @@ namespace Cynthia.Card
                     {
                         if (Game.RowToList(PlayerIndex, row).Count < Game.RowMaxCount)
                         {
-                            await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, row);
+                            await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, row, source: Card);
                         }
                     }
                     break;
@@ -29,7 +29,8 @@ namespace Cynthia.Card
                         await Game.CreateCard(
                             CardId.CrowSEye,
                             PlayerIndex,
-                            new CardLocation(RowPosition.MyDeck, Game.PlayersDeck[PlayerIndex].Count));
+                            new CardLocation(RowPosition.MyDeck, Game.PlayersDeck[PlayerIndex].Count),
+                            source: Card);
                     }
                     var topCrowEye = Game.PlayersDeck[PlayerIndex]
                         .First(card => card.Status.CardId == CardId.CrowSEye);

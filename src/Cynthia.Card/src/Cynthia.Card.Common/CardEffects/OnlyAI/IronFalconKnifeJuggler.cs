@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             var position = Card.GetLocation();
             var cards = Game.GetPlaceCards(PlayerIndex).FilterCards(filter: x => x.Status.CardId == Card.Status.CardId).ToList();
-            await Game.CreateCard(Card.Status.CardId, PlayerIndex, position, setting: ToDoomed);
+            await Game.CreateCard(Card.Status.CardId, PlayerIndex, position, setting: ToDoomed, source: Card);
             if (cards.Count() == 0)
             {
                 return 0;

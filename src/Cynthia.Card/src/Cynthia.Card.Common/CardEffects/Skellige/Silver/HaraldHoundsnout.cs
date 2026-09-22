@@ -11,10 +11,10 @@ namespace Cynthia.Card
         public HaraldHoundsnout(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Game.CreateCard(CardId.Wilfred, PlayerIndex, Card.GetLocation());
-            await Game.CreateCard(CardId.Wilhelm, PlayerIndex, Card.GetLocation() + 1);
+            await Game.CreateCard(CardId.Wilfred, PlayerIndex, Card.GetLocation(), source: Card);
+            await Game.CreateCard(CardId.Wilhelm, PlayerIndex, Card.GetLocation() + 1, source: Card);
             //对面同排同序号生成
-            await Game.CreateCard(CardId.Wilmar, PlayerIndex, Card.GetLocation().Mirror());
+            await Game.CreateCard(CardId.Wilmar, PlayerIndex, Card.GetLocation().Mirror(), source: Card);
             return 0;
         }
     }

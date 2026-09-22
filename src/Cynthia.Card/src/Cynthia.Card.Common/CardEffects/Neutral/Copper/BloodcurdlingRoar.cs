@@ -16,7 +16,7 @@ namespace Cynthia.Card
                 return 0;
             }
             await result.Single().Effect.ToCemetery(CardBreakEffectType.Scorch);
-            await Game.CreateCard("15010", Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard("15010", Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: Card);
             return 1;
         }
     }

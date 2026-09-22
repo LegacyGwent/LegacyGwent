@@ -52,7 +52,7 @@ namespace Cynthia.Card
                    .Distinct()
                    .Where(x => !GwentMap.CardMap[x].HasAnyCategorie(Categorie.Agent) && GwentMap.CardMap[x].Is(Group.Silver, CardType.Unit))
                    .ToArray();
-                return await Game.CreateAndMoveStay(PlayerIndex, cardsId);
+                return await Game.CreateAndMoveStay(PlayerIndex, cardsId, source: Card);
 
             }
 
