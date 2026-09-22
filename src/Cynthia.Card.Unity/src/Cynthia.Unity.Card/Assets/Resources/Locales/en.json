@@ -4,6 +4,13 @@
         "Filename": "en"
     },
     "MenuLocales": {
+        "DailyQuest_GGStillAvailable": "Round win rewards are complete. You can still earn Good Game rewards today.",
+        "DailyQuest_GGCapReached": "Daily Good Game cap reached. Further Good Games give no powder.",
+        "DailyQuest_GGEarned": "GG powder today: {0} / {1}",
+        "DailyQuest_GGProgress": "Received {0} / {1}",
+        "DailyQuest_GGDescription": "Each Good Game you receive from an opponent: +{0} powder. Rewards are credited automatically.",
+        "DailyQuest_GGTitle": "Good Game received",
+        "DailyQuest_OpponentRules": "Only the first match against each opponent each day grants crowns and GG powder.\nResets at 00:00 China time (UTC+8). Login rewards are unaffected.",
         "LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
         "LoginMenu_Message": "This project is open source and free of charge. You can contact LegacyGwent@GitHub or QQ group 945408322 to help with the project.",
         "LoginMenu_NotesTitle": "News",

@@ -13,7 +13,8 @@ namespace Cynthia.Card.Server
 
         public override void Write(Utf8JsonWriter writer, DailyQuestProgress value, JsonSerializerOptions options) =>
             JsonSerializer.Serialize(writer, new {
-                value.Day, value.LoginGranted, value.Crowns, value.PowderGranted, value.RoundIds
+                value.Day, value.LoginGranted, value.Crowns, value.PowderGranted,
+                value.GGReceived, value.GGPowderGranted, value.RoundIds
             }, options);
     }
 }

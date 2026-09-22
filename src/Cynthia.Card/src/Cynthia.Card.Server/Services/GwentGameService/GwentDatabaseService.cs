@@ -448,17 +448,13 @@ namespace Cynthia.Card.Server
             temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
             return true;
         }
-        public bool UpdateGGCounter(string playername) // increase the gg count of a player
+        public bool UpdateGGCounter(string username) // increase the gg count of a player
         {
-            var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
-            if (user.Length == 0)
-            {
-                return false;
-            }
-            user[0].GGsReceived += 1;
-            temp.ReplaceOne(x => x.PlayerName == playername, user[0]);
-            return true;
+            if (string.IsNullOrWhiteSpace(username)) return false;
+            // Update only the counter on the server-identified account, without replacing other user fields.
+            var result = GetUserInfo().UpdateOne(x => x.UserName == username,
+                Builders<UserInfo>.Update.Inc(x => x.GGsReceived, 1));
+            return result.MatchedCount > 0;
         }
         public bool UpdateStreak(string playername, int result, int factionIndex)
         {

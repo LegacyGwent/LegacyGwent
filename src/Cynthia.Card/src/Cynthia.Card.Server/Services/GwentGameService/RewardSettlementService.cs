@@ -28,11 +28,15 @@ namespace Cynthia.Card.Server
         public bool QueueDailyLogin(string username, string connectionId) =>
             _work.Writer.TryWrite(new RewardWork { Username = username, ConnectionId = connectionId });
 
-        public bool QueueDailyRound(string username, string connectionId, string roundId, DateTimeOffset settledUtc) =>
+        public bool QueueDailyRound(string username, string playerName, string connectionId, string opponentPlayerName,
+            string matchId, string roundId, DateTimeOffset settledUtc) =>
             _work.Writer.TryWrite(new RewardWork
             {
                 Username = username,
+                PlayerName = playerName,
                 ConnectionId = connectionId,
+                OpponentPlayerName = opponentPlayerName,
+                MatchId = matchId,
                 RoundId = roundId,
                 SettledUtc = settledUtc
             });
@@ -47,7 +51,8 @@ namespace Cynthia.Card.Server
                     {
                         if (DateTimeOffset.TryParse(pending.SettledUtc, CultureInfo.InvariantCulture,
                             DateTimeStyles.RoundtripKind, out var settledUtc))
-                            QueueDailyRound(pending.Username, pending.ConnectionId, pending.Id, settledUtc);
+                            QueueDailyRound(pending.Username, pending.PlayerName, pending.ConnectionId,
+                                pending.OpponentPlayerName, pending.MatchId, pending.Id, settledUtc);
                     }
                     break;
                 }
@@ -69,12 +74,21 @@ namespace Cynthia.Card.Server
                     }
                     else
                     {
-                        var job = await _database.PersistDailyRoundRewardJob(item.Username, item.ConnectionId,
-                            item.RoundId, item.SettledUtc, stoppingToken);
+                        var job = await _database.PersistDailyRoundRewardJob(item.Username, item.PlayerName,
+                            item.ConnectionId, item.OpponentPlayerName, item.MatchId, item.RoundId, item.SettledUtc,
+                            stoppingToken);
                         if (!job.Completed)
                         {
-                            var result = await _database.AwardDailyCrown(job.Username, job.Id,
-                                DateTimeOffset.Parse(job.SettledUtc, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind));
+                            var settledUtc = DateTimeOffset.Parse(job.SettledUtc, CultureInfo.InvariantCulture,
+                                DateTimeStyles.RoundtripKind);
+                            // The human-match overload keeps the authoritative opponent/match context for
+                            // the same-opponent check; the legacy overload stays for synthetic jobs.
+                            var result = string.IsNullOrWhiteSpace(job.MatchId) ||
+                                         string.IsNullOrWhiteSpace(job.PlayerName) ||
+                                         string.IsNullOrWhiteSpace(job.OpponentPlayerName)
+                                ? await _database.AwardDailyCrown(job.Username, job.Id, settledUtc)
+                                : await _database.AwardDailyCrown(job.Username, job.PlayerName,
+                                    job.OpponentPlayerName, job.MatchId, job.Id, settledUtc);
                             if (!result.Success)
                                 throw new InvalidOperationException("Daily round reward returned status " + result.Status + ".");
                             await _database.CompleteDailyRoundRewardJob(job.Id, stoppingToken);
@@ -106,7 +120,10 @@ namespace Cynthia.Card.Server
         private sealed class RewardWork
         {
             public string Username { get; set; }
+            public string PlayerName { get; set; }
             public string ConnectionId { get; set; }
+            public string OpponentPlayerName { get; set; }
+            public string MatchId { get; set; }
             public string RoundId { get; set; }
             public DateTimeOffset SettledUtc { get; set; }
         }

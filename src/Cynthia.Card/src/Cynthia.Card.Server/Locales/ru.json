@@ -4,6 +4,13 @@
         "Filename": "ru"
     },
     "MenuLocales": {
+        "DailyQuest_GGStillAvailable": "Награды за победы в раундах получены. Награды за «Good Game» ещё можно получить сегодня.",
+        "DailyQuest_GGCapReached": "Дневной лимит наград за «Good Game» достигнут. Дальнейшие «Good Game» не дают пыли.",
+        "DailyQuest_GGEarned": "Пыль за GG сегодня: {0} / {1}",
+        "DailyQuest_GGProgress": "Получено: {0} / {1}",
+        "DailyQuest_GGDescription": "За каждое полученное от соперника «Good Game»: +{0} пыли. Награды начисляются автоматически.",
+        "DailyQuest_GGTitle": "Полученные «Good Game»",
+        "DailyQuest_OpponentRules": "Только первый матч с каждым противником за день даёт короны и пыль за GG.\nСброс в 00:00 по китайскому времени (UTC+8). Награда за вход не меняется.",
         "LoginMenu_GameTitle": "Гвинт: Наследие - фанатское издание",
         "LoginMenu_Message": "Это бесплатный проект с открытым исходным кодом. Вы можете связаться с Jiaqun по телефону 945408322 и помочь с проектом.",
         "LoginMenu_NotesTitle": "Новости",

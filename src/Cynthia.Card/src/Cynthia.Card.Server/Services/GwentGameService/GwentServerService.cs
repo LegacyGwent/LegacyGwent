@@ -35,6 +35,11 @@ namespace Cynthia.Card.Server
         public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
 
+        // Server-side receipt for the most recent finished human match of each participant.
+        // Postgame GG is authenticated against this receipt, never against caller-supplied names.
+        private readonly ConcurrentDictionary<string, GgMatchReceipt> _finishedMatches = new ConcurrentDictionary<string, GgMatchReceipt>();
+        private static readonly TimeSpan GgPostgameWindow = TimeSpan.FromHours(6);
+
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
         public GwentServerService(
             IHubContext<GwentHub> hub,
@@ -514,15 +519,54 @@ namespace Cynthia.Card.Server
             return result;
         }
 
+        // Legacy enqueue without opponent context; kept for tests and non-human callers.
         public void QueueDailyCrown(User user, string roundId, DateTimeOffset settledUtc)
         {
-            _rewardSettlement.QueueDailyRound(user.UserName, user.ConnectionId, roundId, settledUtc);
+            _rewardSettlement.QueueDailyRound(user.UserName, user.PlayerName, user.ConnectionId, null, null, roundId, settledUtc);
+        }
+
+        // Authoritative human-vs-human enqueue. The queued work keeps the server-issued match id
+        // and both display names so the same-opponent check can run at settlement time without
+        // blocking round progression.
+        public void QueueDailyCrown(User user, User opponent, string matchId, string roundId, DateTimeOffset settledUtc)
+        {
+            _rewardSettlement.QueueDailyRound(user.UserName, user.PlayerName, user.ConnectionId,
+                opponent?.PlayerName, matchId, roundId, settledUtc);
         }
 
         public void QueueDailyLoginForOnlineUsers()
         {
             foreach (var user in _users.Values.ToArray())
                 _rewardSettlement.QueueDailyLogin(user.UserName, user.ConnectionId);
+        }
+
+        // Records the authoritative result of the most recent human-vs-human match for both
+        // participants. Called from GwentMatchs only when a real, distinct-human game finished.
+        public void RecordFinishedMatch(string matchId, User first, User second) =>
+            RecordFinishedMatch(matchId, first, second, _databaseService.DailyQuestClock().ToUniversalTime());
+
+        // Overload used when the settlement already carries the game-over timestamp.
+        public void RecordFinishedMatch(string matchId, User first, User second, DateTimeOffset finishedUtc)
+        {
+            if (string.IsNullOrWhiteSpace(matchId) || first == null || second == null ||
+                string.IsNullOrWhiteSpace(first.UserName) || string.IsNullOrWhiteSpace(second.UserName) ||
+                first.UserName == second.UserName)
+                return;
+            var finished = finishedUtc.ToUniversalTime();
+            _finishedMatches[first.UserName] = new GgMatchReceipt
+            {
+                MatchId = matchId,
+                OpponentUserName = second.UserName,
+                OpponentPlayerName = second.PlayerName,
+                FinishedUtc = finished
+            };
+            _finishedMatches[second.UserName] = new GgMatchReceipt
+            {
+                MatchId = matchId,
+                OpponentUserName = first.UserName,
+                OpponentPlayerName = first.PlayerName,
+                FinishedUtc = finished
+            };
         }
 
         public async Task<PremiumCollectionResult> CraftPremium(string connectionId, string cardId) =>
@@ -696,20 +740,50 @@ namespace Cynthia.Card.Server
             return wasAdded;
         }
 
-        public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
+        // Legacy hub signature (two caller strings) is preserved; identity now comes from the
+        // authenticated connection and the server match receipt. Caller names are only cross-checked.
+        public async Task<bool> SendGG(string connectionId, string MyName, string EnemyName)
         {
-            if (_users.Any(x => x.Value.PlayerName == EnemyName))
+            if (!_users.TryGetValue(connectionId, out var sender)) return false;
+            if (string.IsNullOrWhiteSpace(MyName) || MyName != sender.PlayerName) return false; // forged sender display
+            if (string.IsNullOrWhiteSpace(EnemyName) || EnemyName == sender.PlayerName) return false; // self or empty
+            if (!_finishedMatches.TryGetValue(sender.UserName, out var receipt)) return false; // no real finished match
+            if (receipt.OpponentPlayerName != EnemyName) return false; // arbitrary / nonparticipant recipient
+            var now = _databaseService.DailyQuestClock().ToUniversalTime();
+            if (now - receipt.FinishedUtc > GgPostgameWindow || receipt.FinishedUtc > now) return false; // stale / future receipt
+
+            // The event key is server-issued: one GG per sender per finished match.
+            var award = await _databaseService.AwardDailyGG(receipt.OpponentUserName, receipt.OpponentPlayerName,
+                sender.PlayerName, receipt.MatchId, receipt.FinishedUtc);
+            if (!award.Success) return false;
+            if (!award.Processed) return true; // idempotent replay of an already-settled GG
+
+            var recipient = _users.Values.FirstOrDefault(x => x.UserName == receipt.OpponentUserName);
+            if (recipient != null && _users.ContainsKey(recipient.ConnectionId))
             {
-                var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
-                if (!_users.ContainsKey(connectionId))
+                try { await _hub.Clients.Client(recipient.ConnectionId).SendAsync("DisplayGG", sender.PlayerName); }
+                catch (Exception e)
                 {
-                    return false;
+                    NLog.LogManager.GetCurrentClassLogger().Warn(e,
+                        "GG settled but display failed. Sender={0}, Recipient={1}, Match={2}",
+                        sender.UserName, receipt.OpponentUserName, receipt.MatchId);
                 }
-                var user = _users[connectionId];
-                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
-                _databaseService.UpdateGGCounter(EnemyName); // update the GG couter
+                try { await _hub.Clients.Client(recipient.ConnectionId).SendAsync("DailyQuestsChanged"); }
+                catch (Exception e)
+                {
+                    NLog.LogManager.GetCurrentClassLogger().Warn(e,
+                        "GG settled but daily quest notification failed. Recipient={0}", receipt.OpponentUserName);
+                }
             }
-            return false;
+            // Social counter increments once per valid GG even when the powder cap is already reached.
+            try { _databaseService.UpdateGGCounter(receipt.OpponentUserName); }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Warn(e,
+                    "GG powder settled but social counter update failed. Recipient={0}, Match={1}",
+                    receipt.OpponentUserName, receipt.MatchId);
+            }
+            return true;
         }
         public async Task<bool> SendTaunt(string EnemyName, string TauntID) // 
         {
@@ -1323,5 +1397,14 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
             await Task.CompletedTask;
             return true;
         }
+    }
+
+    // Server-only proof that a human match finished. Never serialized to clients.
+    internal sealed class GgMatchReceipt
+    {
+        public string MatchId { get; set; }
+        public string OpponentUserName { get; set; }
+        public string OpponentPlayerName { get; set; }
+        public DateTimeOffset FinishedUtc { get; set; }
     }
 }

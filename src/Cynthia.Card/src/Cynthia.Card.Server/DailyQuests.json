@@ -1,5 +1,7 @@
 {
   "LoginPowder": 20,
+  "GGPowder": 5,
+  "GGDailyCap": 30,
   "Tiers": [
     { "Crowns": 2, "Powder": 25 },
     { "Crowns": 4, "Powder": 35 },

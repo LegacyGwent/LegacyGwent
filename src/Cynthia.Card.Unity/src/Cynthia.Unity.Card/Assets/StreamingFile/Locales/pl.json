@@ -4,6 +4,13 @@
         "Filename": "pl"
     },
     "MenuLocales": {
+        "DailyQuest_GGStillAvailable": "Nagrody za wygrane rundy odebrane. Nagrody za „Good Game” są jeszcze dostępne dzisiaj.",
+        "DailyQuest_GGCapReached": "Osiągnięto dzienny limit nagród za „Good Game”. Kolejne „Good Game” nie dają pyłu.",
+        "DailyQuest_GGEarned": "Pył za GG dzisiaj: {0} / {1}",
+        "DailyQuest_GGProgress": "Otrzymano: {0} / {1}",
+        "DailyQuest_GGDescription": "Za każde otrzymane od przeciwnika „Good Game”: +{0} pyłu. Nagrody otrzymasz automatycznie.",
+        "DailyQuest_GGTitle": "Otrzymane „Good Game”",
+        "DailyQuest_OpponentRules": "Każdego dnia korony i pył za GG daje tylko pierwszy mecz z każdym przeciwnikiem.\nReset o 00:00 czasu chińskiego (UTC+8). Nagroda za logowanie pozostaje bez zmian.",
         "LoginMenu_GameTitle": "LEGACY GWENT - DIY EDITION",
         "LoginMenu_Message": "Ten program jest programem typu open source i jest darmowy. Skontaktuj się LegacyGwent@GitHub albo QQ grupa 945408322, jeśli chcesz pomóc w rozwoju projektu.",
         "LoginMenu_NotesTitle": "Nowości",

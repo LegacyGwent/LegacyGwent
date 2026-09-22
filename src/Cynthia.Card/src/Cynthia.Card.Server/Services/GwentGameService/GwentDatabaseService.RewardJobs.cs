@@ -11,6 +11,11 @@ namespace Cynthia.Card.Server
         public string Id { get; set; }
         public string Username { get; set; }
         public string ConnectionId { get; set; }
+        // Authoritative same-opponent context captured at round settlement so a restart cannot
+        // lose it; the wallet owner's display name is the one persisted in gameresults.
+        public string PlayerName { get; set; }
+        public string OpponentPlayerName { get; set; }
+        public string MatchId { get; set; }
         public string SettledUtc { get; set; }
         public bool Completed { get; set; }
         public int Attempts { get; set; }
@@ -24,12 +29,15 @@ namespace Cynthia.Card.Server
             GetDatabase().GetCollection<DailyRoundRewardJob>("daily_round_reward_jobs");
 
         public async Task<DailyRoundRewardJob> PersistDailyRoundRewardJob(
-            string username, string connectionId, string roundId, DateTimeOffset settledUtc,
-            CancellationToken cancellationToken)
+            string username, string playerName, string connectionId, string opponentPlayerName, string matchId,
+            string roundId, DateTimeOffset settledUtc, CancellationToken cancellationToken)
         {
             var update = Builders<DailyRoundRewardJob>.Update
                 .SetOnInsert(x => x.Username, username)
+                .SetOnInsert(x => x.PlayerName, playerName)
                 .SetOnInsert(x => x.ConnectionId, connectionId)
+                .SetOnInsert(x => x.OpponentPlayerName, opponentPlayerName)
+                .SetOnInsert(x => x.MatchId, matchId)
                 .SetOnInsert(x => x.SettledUtc, settledUtc.ToUniversalTime().ToString("O"))
                 .SetOnInsert(x => x.Completed, false)
                 .SetOnInsert(x => x.Attempts, 0);

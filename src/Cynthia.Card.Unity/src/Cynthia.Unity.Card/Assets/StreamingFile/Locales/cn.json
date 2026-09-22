@@ -4,6 +4,13 @@
         "Filename": "cn"
     },
     "MenuLocales": {
+        "DailyQuest_GGStillAvailable": "小局胜利奖励已完成，今日仍可获得 GG 奖励。",
+        "DailyQuest_GGCapReached": "今日 GG 奖励已达上限，继续收到 GG 不再获得粉尘。",
+        "DailyQuest_GGEarned": "今日 GG 粉尘：{0} / {1}",
+        "DailyQuest_GGProgress": "已收到 {0} / {1}",
+        "DailyQuest_GGDescription": "每收到对手 1 次 GG：+{0} 粉尘，奖励自动到账。",
+        "DailyQuest_GGTitle": "收到的 GG",
+        "DailyQuest_OpponentRules": "同一天与同一对手，仅首场对局计小王冠与 GG 粉尘奖励。\n每日中国时间 00:00（UTC+8）重置，登录奖励不受影响。",
         "LoginMenu_GameTitle": "巫师之昆特牌怀旧复刻版",
         "LoginMenu_Message": "本项目永久开源免费,欢迎加群945408322进行交流和关注本项目。",
         "LoginMenu_NotesTitle": "公告 Notes",

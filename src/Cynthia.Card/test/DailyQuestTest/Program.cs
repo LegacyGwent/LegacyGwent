@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Cynthia.Card;
@@ -13,6 +14,11 @@ class Program
     static void Check(bool value,string text){if(!value)throw new Exception(text);Console.WriteLine("PASS "+text);checks++;}
     static async Task Main(string[] args)
     {
+        // Deterministic fixture: rule tests pin the approved AI-branch daily contract independently of
+        // the production DailyQuests.json copied into the build output. GG extends the cap 125 -> 155.
+        File.WriteAllText(Path.Combine(AppContext.BaseDirectory,"DailyQuests.json"),
+            "{\"LoginPowder\":20,\"GGPowder\":5,\"GGDailyCap\":30,\"Tiers\":["+
+            "{\"Crowns\":2,\"Powder\":25},{\"Crowns\":4,\"Powder\":35},{\"Crowns\":6,\"Powder\":45}]}");
         var mongo=new MongoClient(Environment.GetEnvironmentVariable("REWARD_TEST_MONGO_URI") ?? "mongodb://127.0.0.1:28121");
         // Daily earning contracts are independent of the one-time launch grant.
         var provider=new ServiceCollection().AddSingleton<IMongoClient>(mongo).AddSingleton(new InitialPowderOptions(0)).BuildServiceProvider();
@@ -35,7 +41,7 @@ class Program
         var state=(await db.GetDailyQuests(user.UserName));
         Check(state.Wallet.Collection.MeteoritePowder==20 && state.Wallet.Collection.DailyQuests.LoginGranted,"24 concurrent login requests grant once");
         Check(state.ResetUtc.StartsWith("2026-09-13T16:00") && state.Wallet.Collection.DailyQuests.Day=="2026-09-13","reset uses China midnight independently of host timezone");
-        Check(state.DailyCap==125 && state.Tiers.Select(x=>x.Powder).SequenceEqual(new[]{25,35,45}),"approved incremental rewards and daily cap");
+        Check(state.DailyCap==155 && state.GGPowder==5 && state.GGDailyCap==30 && state.Tiers.Select(x=>x.Powder).SequenceEqual(new[]{25,35,45}),"approved incremental rewards and GG-inclusive daily cap");
         await Task.WhenAll(Enumerable.Range(0,20).Select(_=>db.AwardDailyCrown(user.UserName,"match-a:0",now)));
         state=await db.GetDailyQuests(user.UserName);
         Check(state.Wallet.Collection.DailyQuests.Crowns==1 && state.Wallet.Collection.MeteoritePowder==20,"duplicate round callbacks count once");
@@ -89,6 +95,47 @@ class Program
             var end=game.BigRoundEnd();if(await Task.WhenAny(end,Task.Delay(5000))!=end)throw new Exception("round settlement timed out");await end;
             Check(winner==(scenario==2?-1:scenario) && (winner<0 || key.EndsWith(":0")),"real round settlement scenario "+scenario);
         }
+        // Postgame GG: 5 powder to the recipient per accepted GG, 6 per China day, provider-only.
+        var ggUser=new UserInfo{UserName="gg-"+Guid.NewGuid().ToString("N"),PlayerName="GG Test",Decks=new List<DeckModel>()};
+        await users.InsertOneAsync(ggUser);
+        var ggState=await db.GetDailyQuests(ggUser.UserName);
+        Check(ggState.Wallet.Collection.MeteoritePowder==20 && ggState.Wallet.Collection.DailyQuests.GGReceived==0,"GG account starts with login only");
+        var ggFirst=await db.AwardDailyGG(ggUser.UserName,"gg-match-1",now);
+        Check(ggFirst.Success && ggFirst.Processed && ggFirst.Result.Wallet.Collection.MeteoritePowder==25 &&
+            ggFirst.Result.Wallet.Collection.DailyQuests.GGReceived==1 && ggFirst.Result.Wallet.Collection.DailyQuests.GGPowderGranted==5 &&
+            ggFirst.Result.Wallet.Collection.DailyQuests.PowderGranted==25,"first GG credits five to the recipient");
+        var ggDup=await db.AwardDailyGG(ggUser.UserName,"gg-match-1",now);
+        Check(ggDup.Success && !ggDup.Processed && ggDup.Result.Wallet.Collection.MeteoritePowder==25 &&
+            ggDup.Result.Wallet.Collection.DailyQuests.GGReceived==1,"duplicate GG for the same match pays once");
+        for(int i=2;i<=6;i++)await db.AwardDailyGG(ggUser.UserName,"gg-match-"+i,now);
+        ggState=await db.GetDailyQuests(ggUser.UserName);
+        Check(ggState.Wallet.Collection.MeteoritePowder==50 && ggState.Wallet.Collection.DailyQuests.GGReceived==6 &&
+            ggState.Wallet.Collection.DailyQuests.GGPowderGranted==30,"six unique GGs reach the 30 powder cap");
+        await Task.WhenAll(Enumerable.Range(7,64).Select(i=>db.AwardDailyGG(ggUser.UserName,"gg-unique-"+i,now)));
+        ggState=await db.GetDailyQuests(ggUser.UserName);
+        Check(ggState.Wallet.Collection.MeteoritePowder==50 && ggState.Wallet.Collection.DailyQuests.GGReceived==6 &&
+            ggState.Wallet.Collection.DailyQuests.ProcessedGGIds.Count==70,"capped GGs add no powder but stay in the ledger");
+        Check(!Newtonsoft.Json.JsonConvert.SerializeObject(ggState).Contains("ProcessedGGIds") &&
+            !System.Text.Json.JsonSerializer.Serialize(ggState,new System.Text.Json.JsonSerializerOptions{Converters={new DailyQuestProgressJsonConverter()}}).Contains("ProcessedGGIds"),
+            "both JSON paths hide the persisted GG ledger");
+        var ggSaved=now;
+        now=now.AddDays(1); // next China midnight (16:00Z)
+        var ggReset=await db.GetDailyQuests(ggUser.UserName);
+        Check(ggReset.Wallet.Collection.DailyQuests.Day=="2026-09-15" && ggReset.Wallet.Collection.DailyQuests.GGReceived==0 &&
+            ggReset.Wallet.Collection.DailyQuests.GGPowderGranted==0,"China midnight resets the daily GG counters");
+        var ggReplay=await db.AwardDailyGG(ggUser.UserName,"gg-match-1",ggSaved);
+        Check(ggReplay.Result.Wallet.Collection.DailyQuests.GGReceived==0 &&
+            ggReplay.Result.Wallet.Collection.DailyQuests.ProcessedGGIds.Count==70,"credited or capped GG cannot pay again after reset");
+        var ggNext=await db.AwardDailyGG(ggUser.UserName,"gg-match-100",now);
+        Check(ggNext.Processed && ggNext.Result.Wallet.Collection.DailyQuests.GGReceived==1 &&
+            ggNext.Result.Wallet.Collection.MeteoritePowder==75,"a new day allows a fresh GG with the AI login reward");
+        now=now.AddDays(-1);
+        Check((await db.AwardDailyGG(ggUser.UserName,"gg-match-101",now)).Result.Status=="clock_behind","clock rollback blocks GG credit");
+        now=now.AddDays(1);
+        var ggFuture=await db.AwardDailyGG(ggUser.UserName,"gg-match-102",now.AddSeconds(1));
+        Check(ggFuture.Result.Wallet.Collection.DailyQuests.GGReceived==1,"future GG settlement time rejected");
+        var ggRestart=new GwentDatabaseService(provider){DailyQuestClock=()=>now};
+        Check((await ggRestart.GetDailyQuests(ggUser.UserName)).Wallet.Collection.DailyQuests.ProcessedGGIds.Count==71,"server recreation retains the GG ledger");
         Console.WriteLine("COMPLETE checks="+checks);
     }
     private sealed class SinkPlayer:Player{public SinkPlayer(){_downstream.Receive+=_=>Task.CompletedTask;}}

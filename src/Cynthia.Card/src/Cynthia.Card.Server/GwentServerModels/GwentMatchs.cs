@@ -33,10 +33,37 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer), isCountMMR), isSpecial);
+            var isAiMatch = player1 is AIPlayer || player2 is AIPlayer;
+            Action<GameResult> gameOver = result => _gwentService.InvokeGameOver(result, isAiMatch, isCountMMR);
+            GwentServerGame gwentGame;
             if (player1 is ClientPlayer first && player2 is ClientPlayer second && first.CurrentUser.UserName != second.CurrentUser.UserName)
-                gwentGame.RoundWon = (winner,roundId,settledUtc) => _gwentService.QueueDailyCrown(
-                    winner == 0 ? first.CurrentUser : second.CurrentUser, roundId, settledUtc);
+            {
+                var firstUser = first.CurrentUser;
+                var secondUser = second.CurrentUser;
+                var matchId = Guid.NewGuid().ToString("N");
+                // Register the finished human match before the result reaches either client, so the
+                // postgame GG button is authorized by a server receipt rather than by client names.
+                gameOver = result =>
+                {
+                    // Use the same server id for the persisted GameResult and the GG receipt.
+                    // This lets delayed GG settlement exclude its own match from prior-match checks.
+                    result.Id = matchId;
+                    _gwentService.RecordFinishedMatch(matchId, firstUser, secondUser, result.Time);
+                    _gwentService.InvokeGameOver(result, isAiMatch, isCountMMR);
+                };
+                gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, gameOver, isSpecial, matchId);
+                // Rewards stay on the AI branch's fire-and-forget queue so round progression is never
+                // blocked; the queue now carries the match id and both display names for the
+                // authoritative same-opponent check performed at settlement time.
+                gwentGame.RoundWon = (winner, roundId, settledUtc) => _gwentService.QueueDailyCrown(
+                    winner == 0 ? firstUser : secondUser,
+                    winner == 0 ? secondUser : firstUser,
+                    matchId, roundId, settledUtc);
+            }
+            else
+            {
+                gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, gameOver, isSpecial);
+            }
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {

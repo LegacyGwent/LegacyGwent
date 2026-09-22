@@ -66,7 +66,7 @@ namespace Cynthia.Card.Server
         public bool MatchOfPassword(string deckId, string password) => NewMatchOfPassword(deckId, password, 0);
 
         public bool NewMatchOfPassword(string deckId, string password, int usingBlacklist) => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
-        public Task<bool> SendGG(string MyName, string EnemyName) => _gwentServerService.SendGG(MyName, EnemyName);
+        public Task<bool> SendGG(string MyName, string EnemyName) => _gwentServerService.SendGG(Context.ConnectionId, MyName, EnemyName);
 
         public Task<bool> SendTaunt(string EnemyName, string tauntID)  => _gwentServerService.SendTaunt(EnemyName, tauntID);
         

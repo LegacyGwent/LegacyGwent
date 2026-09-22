@@ -126,6 +126,25 @@ class Program
             c=Fresh();c.HubConnection.Respond=(m,a)=>Task.FromResult<object>(Daily(c.User));
             await DailyQuestClient.Refresh();UnityEngine.Time.realtimeSinceStartup=6;await DailyQuestClient.Refresh();
             Check(c.HubConnection.Calls==2,"synchronous request completion releases pending state for later refresh");
+
+            c=Fresh();var gg=Wallet(c.User,3,0,15);
+            gg.Collection.DailyQuests.GGReceived=1;gg.Collection.DailyQuests.GGPowderGranted=5;
+            PremiumCollectionClient.Accept(gg,c.User.Id);PremiumCollectionClient.Accept(Wallet(c.User,2),c.User.Id);
+            Check(PremiumCollectionClient.Account.DailyQuests.GGReceived==1 && PremiumCollectionClient.Account.MeteoritePowder==15,
+                "older wallet snapshot cannot undo received GG progress or powder");
+            c=Fresh();pending=Pending();var rewarded=Daily(c.User,2);
+            rewarded.GGPowder=5;rewarded.GGDailyCap=30;rewarded.DailyCap=155;
+            rewarded.Wallet.Collection.DailyQuests.GGReceived=1;rewarded.Wallet.Collection.DailyQuests.GGPowderGranted=5;
+            rewarded.Wallet.Collection.MeteoritePowder=15;
+            c.HubConnection.Respond=(m,a)=>c.HubConnection.Calls==1?pending.Task:Task.FromResult<object>(rewarded);
+            refresh=DailyQuestClient.Refresh(true);notification=DailyQuestClient.Refresh(true);
+            pending.SetResult(Daily(c.User,1));await Task.WhenAll(refresh,notification);
+            Check(c.HubConnection.Calls==2 && PremiumCollectionClient.Account.DailyQuests.GGReceived==1 &&
+                PremiumCollectionClient.Account.MeteoritePowder==15 && DailyQuestClient.State.GGDailyCap==30,
+                "GG notification during stale fetch refreshes both task progress and wallet");
+            PremiumCollectionClient.Reset();
+            Check(DailyQuestClient.State==null && PremiumCollectionClient.Account==null,"logout clears GG and wallet state");
+
         }
         catch(Exception e){Check(false,"client suite completed without exception: "+e);}
         var result=new{passed=failures==0,finished=true,failed=failures,count=checks.Count,checks};

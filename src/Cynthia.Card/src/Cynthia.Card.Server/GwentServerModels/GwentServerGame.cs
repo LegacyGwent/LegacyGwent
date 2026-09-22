@@ -13,7 +13,7 @@ namespace Cynthia.Card.Server
     {
         public Action<GameResult> GameResultEvent { get; set; }
         public Action<int, string, DateTimeOffset> RoundWon { get; set; }
-        private readonly string dailyMatchId = Guid.NewGuid().ToString("N");
+        private readonly string dailyMatchId;
         private static bool UsesPremium(Player player, string cardId) => player is AIPlayer || player.PremiumCards.Contains(cardId);
         public GameResult TempGameResult { get; set; } = new GameResult();
         public int[] RedCoin { get; private set; } = new int[3];
@@ -1620,8 +1620,9 @@ namespace Cynthia.Card.Server
         {
         }
 
-        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false)
+        public GwentServerGame(Player player1, Player player2, GwentCardDataService gwentCardTypeService, Action<GameResult> gameResultEvent, bool isSpecial = false, string matchId = null)
         {
+            dailyMatchId = string.IsNullOrWhiteSpace(matchId) ? Guid.NewGuid().ToString("N") : matchId;
             Random rnd = new Random();
             if (isSpecial && rnd.Next(0, 2) == 0)
             {
