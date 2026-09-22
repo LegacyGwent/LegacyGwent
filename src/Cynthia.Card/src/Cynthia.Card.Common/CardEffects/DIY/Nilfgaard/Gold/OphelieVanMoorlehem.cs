@@ -12,6 +12,10 @@ namespace Cynthia.Card
         {
             
             var cards = Game.GetAllCard(PlayerIndex).Where(x => x.Status.IsReveal).ToList();
+            if (cards.Count == 0)
+            {
+                return 0;
+            }
             var targetCard = await Game.GetSelectMenuCards(PlayerIndex, cards, 1);
             var selectCard = targetCard.Single();
             if (targetCard.Count == 0)
