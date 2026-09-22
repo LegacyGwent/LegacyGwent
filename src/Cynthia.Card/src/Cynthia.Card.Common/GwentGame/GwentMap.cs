@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 157);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 158);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -7372,7 +7372,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "感受到了吗？每当这宝贝儿投出巨石，大地都会震颤。",
-                    Info = "在你的回合结束时，对一个随机敌军单位造成1点伤害。\n已操控：初始伤害增加1点。",
+                    Info = "回合结束时，对1个敌军随机单位造成1点伤害。驱动：伤害增加1点.",
                     CardArtsId = "12231500",
                     LinkedCards=new List<String> {},
                 }
@@ -11265,7 +11265,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Doomed},
                     Flavor = "",
-                    Info = "对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌之和的三倍。",
+                    Info = "对自身造成削弱，削弱数值等同于手牌和牌组剩余卡牌数量之和的3倍。",
                     CardArtsId = "c10000000",
                     LinkedCards=new List<String> {},
                 }
@@ -14034,7 +14034,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Druid},
                     Flavor = "有些乌鸦会说人话。而有些人，学会了乌鸦的语言。",
-                    Info = "在随机一行生成2只乌鸦。每当你的回合内有1只友方乌鸦被摧毁，便额外生成1只乌鸦。",
+                    Info = "在己方其它排各生成1只“乌鸦”。随后生成[0]只“乌鸦”，每有1只友方“乌鸦”被摧毁，计数加1。",
                     CardArtsId = "202514",
                     LinkedCards=new List<String> {"70136"},
                 }
@@ -15235,7 +15235,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "欧菲丽·凡·莫拉汉姆喜欢举办盛大的庆典。虽然总有一些宾客会消失得无影无踪，但人们对此好像却无动于衷……",
-                    Info = "部署：隐藏1张牌。若该牌为“吸血鬼”牌，则获得其一半战力的增益。",
+                    Info = "隐藏1张手牌。若为“吸血鬼”牌，则获得其战力一半的增益。",
                     CardArtsId = "202544",
                     LinkedCards=new List<String> {},
                 }
@@ -15256,7 +15256,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "弗洛迪米生前过得花天酒地，死后实在是把他给憋坏了。",
-                    Info = "部署：择一：在此单位左右两侧各生成1个“鬼灵”；或摧毁2个友军单位，获得等同于其战力的增益，并在它们原来的位置各生成1个“鬼灵”。",
+                    Info = "择一：在左右两侧生成1个鬼灵；或摧毁2个友军单位，获得与其战力相等的增益，并在原位各生成1个鬼灵。",
                     CardArtsId = "202402",
                     LinkedCards=new List<String> {},
                 }
@@ -15277,7 +15277,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanDrummond},
                     Flavor = "他对荣誉的信奉，却招致了他的毁灭。",
-                    Info = "部署：从牌组中丢弃1张铜色家族单位牌，然后复活1个不同家族的铜色单位。",
+                    Info = "从牌组中丢弃1张铜色“家族”单位牌，随后复活1个相同“家族”的非同名铜色单位。",
                     CardArtsId = "202620",
                     LinkedCards=new List<String> {},
                 }

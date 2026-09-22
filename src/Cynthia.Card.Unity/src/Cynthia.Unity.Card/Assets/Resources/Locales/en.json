@@ -3997,7 +3997,7 @@
         },
         "70159": {
             "Name": "Crowmother",
-            "Info": "Spawn 2 Crows. Resurrect all Crows with power equal to or less than 2.\nDoomed.",
+            "Info": "Spawn 2 Crows on a random row. Spawn an additional Crow for every ally Crow destroyed during your turns.\nDoomed.",
             "Flavor": "Some crows learn human words. And some humans learn the language of the crows."
         },
         "70160": {
@@ -4162,7 +4162,7 @@
         },
         "70193": {
             "Name": "Skjordal Drummond",
-            "Info": "Deploy: Discard a Bronze Clan unit from your deck, then resurrect a Bronze unit from a different Clan.",
+            "Info": "Deploy: Discard a Bronze Clan unit from your deck, then resurrect a different Bronze unit from the same Clan.",
             "Flavor": "He believed in honor, and that became his undoing."
         },
         "80001": {
