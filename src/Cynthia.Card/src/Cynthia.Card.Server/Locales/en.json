@@ -3832,7 +3832,7 @@
         },
         "70109": {
             "Name": "Dwarf Berserker",
-            "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
+            "Info": "Deploy: Choose 2 units and move them to the same row as this unit on their own side of the board.\nWhen this unit is moved, Boost a random unit in its row by 2.",
             "Flavor": "I know I'm going to die. So I'm making sure I'll have company."
         },
         "70110": {
@@ -3887,7 +3887,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential Rain and Skellige Storm on the opposite side by 2.",
+            "Info": "While you have an Otkell on your side of the board that is not Locked, all Damage dealt by Torrential Rain and Skellige Storm on the enemy side is increased by 1 (does not stack).",
             "Flavor": "In his hour of doom, All-mother Freya appeared to Otkell on his ship, and gave him the means to soothe the raging tempest, for she already knew that Otkell, like his brothers, had a greater tale to tell."
         },
         "70122": {
@@ -4097,7 +4097,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "At the end of every allied turn, if this unit has at least 3 Boost, convert its Boost into Armor, then Boost other allies on this row by 2.",
+            "Info": "At the end of your turn, if this unit has at least 3 Boosts, convert its Boosts into Armor and Reset it, then Boost all other allies on the same row by 2.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
@@ -4157,7 +4157,7 @@
         },
         "70175": {
             "Name": "Lure Trap",
-            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 2.",
+            "Info": "Select an enemy row and adjust it to 4 units: if it has fewer than 4 units, move the strongest units from other enemy rows into it; if it has more than 4 units, move the strongest units from it to other enemy rows. Each moved unit takes 2 damage.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
         "70176": {

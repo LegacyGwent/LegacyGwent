@@ -3832,7 +3832,7 @@
         },
         "70109": {
             "Name": "Straceniec",
-            "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
+            "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do tego samego rzędu co ta jednostka, po ich stronie planszy.\nGdy ta jednostka zostanie przeniesiona, wzmocnij losową jednostkę w jej rzędzie o 2.",
             "Flavor": "Wiem, że zginę. Więc upewniam się, że nie zabraknie mi towarzystwa."
         },
         "70110": {
@@ -3887,7 +3887,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Zwiększ obrażenia zadawane przez Ulewny Deszcz i Skellige Burzę po przeciwnej stronie o 2.",
+            "Info": "Jeśli masz niezablokowanego Otkella po swojej stronie planszy, wszystkie obrażenia zadawane przez Ulewny Deszcz i Skellige Burzę po stronie przeciwnika wzrastają o 1 (nie kumuluje się).",
             "Flavor": "W godzinie grozy Wszechmatka Freya ukazała się Otkellowi na jego statku i pozwoliła mu uciszyć szalejący sztorm, gdyż wiedziała już, że Otkell, podobnie jak jego bracia, miał do opowiedzenia większą historię."
         },
         "70122": {
@@ -4097,7 +4097,7 @@
         },
         "70163": {
             "Name": "Raynard Odo",
-            "Info": "Na koniec każdej swojej tury, jeśli ta jednostka ma co najmniej 3 Wzmocnienia, zamień jej Wzmocnienie w Pancerz, następnie wzmocnij innych sojuszników w tym rzędzie o 2.",
+            "Info": "Na koniec twojej tury, jeśli ta jednostka ma co najmniej 3 punkty wzmocnienia, zamień jej wzmocnienia na pancerz i zresetuj ją, a następnie wzmocnij wszystkich pozostałych sojuszników w tym samym rzędzie o 2.",
             "Flavor": "Dziesięć lat służyłem pod waszym mężem, potem osiem pod tobą, pani... I nigdy nie walczyłem o słuszniejszą sprawę."
         },
         "70164": {
@@ -4157,7 +4157,7 @@
         },
         "70175": {
             "Name": "Zasadzka Długoszczura",
-            "Info": "Wybierz rząd przeciwnika. Jeśli zawiera mniej niż 4 jednostki, przenieś na ten rząd jego najsilniejszych sojuszników aż do osiągnięcia 4 jednostek. Jeśli ma więcej niż 4 jednostki, przenieś najsłabszych sojuszników z tego rzędu na losowe rzędy tak, aby zostały tam 4 jednostki. Każda przeniesiona karta otrzymuje 2 punkty obrażeń.",
+            "Info": "Wybierz rząd przeciwnika i zmień liczbę znajdujących się w nim jednostek na 4: jeśli jest ich mniej, przenieś do niego najsilniejsze jednostki z innych rzędów przeciwnika; jeśli jest ich więcej, przenieś najsilniejsze jednostki z tego rzędu do innych rzędów przeciwnika. Każda przeniesiona jednostka otrzymuje 2 obrażenia.",
             "Flavor": "Z nimi zawsze to samo: aaach, nie czuję nóg!. Ale żeby ktokolwiek docenił rzemiosło... Czy proszę o tak wiele?"
         },
         "70176": {

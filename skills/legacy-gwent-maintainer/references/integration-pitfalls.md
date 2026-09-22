@@ -1,6 +1,6 @@
 # Integration pitfalls
 
-Last verified: 2026-09-21
+Last verified: 2026-09-22
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
 
@@ -19,6 +19,12 @@ Last verified: 2026-09-21
 - Prevention: never cherry-pick a post-split DIY commit wholesale. Package a
   direct source-only fix separately from protocol, season-data, and Unity scene
   work; document unresolved product choices before implementation.
+  For the user's shared-feature work, inspect and deliver both `diy` and
+  `diy-ai`; a single-branch commit is not completion of a paired change. Use
+  `docs/CrossBranchSync.md` for the feature ledger and intentional differences.
+  Locale fixes need per-card comparison: AI Reynard is unlimited, AI Otkell's
+  Rain bonus does not stack, and AI Calanthe excludes spies. Those descriptions
+  must not be replaced by the otherwise-correct stable-DIY text.
 - Verification: run current server/gameplay tests, inspect numeric enum values
   and season-ID uniqueness, compare all locale surfaces, exercise the complete
   client/server path for protocol changes, and preview any 28021 migration with
