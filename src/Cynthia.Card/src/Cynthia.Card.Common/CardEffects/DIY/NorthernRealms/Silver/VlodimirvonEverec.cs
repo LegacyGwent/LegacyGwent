@@ -51,7 +51,7 @@ namespace Cynthia.Card
             foreach (var target in targets)
             {
                 var position = target.GetLocation();
-                await target.Effect.Boost(target.CardPoint(), Card);
+                await Card.Effect.Boost(target.CardPoint(), target);
                 await target.Effect.ToCemetery(CardBreakEffectType.Epidemic);
                 await Game.CreateCard(CardId.Specter, PlayerIndex, position);
             }

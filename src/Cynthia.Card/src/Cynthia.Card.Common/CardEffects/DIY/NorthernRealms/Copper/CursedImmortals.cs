@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("70024")]//被诅咒的不朽者
-    public class CursedImmortals : CardEffect, IHandlesEvent<BeforeCardToCemetery>
+    public class CursedImmortals : CardEffect, IHandlesEvent<AfterCardDeath>
     {//相邻诅咒单位被摧毁时，在同排最右侧生成一张“鬼灵”
         public CursedImmortals(GameCard card) : base(card) { }
 
-        public async Task HandleEvent(BeforeCardToCemetery @event)
+        public async Task HandleEvent(AfterCardDeath @event)
         {
             // 因为在AfterCardDeath时，本卡的位置会移动，所以选择在BeforeCardToCemetery的时点触发
-            if (Card.Status.CardRow.IsOnPlace() && !@event.isRoundEnd && @event.Target != Card && @event.Target.PlayerIndex == PlayerIndex)
+            if (Card.Status.CardRow.IsOnPlace() && @event.Target != Card && @event.Target.PlayerIndex == PlayerIndex)
             {
                 CardLocation myLoc = Card.GetLocation();
                 CardLocation deathLoc = @event.DeathLocation;
