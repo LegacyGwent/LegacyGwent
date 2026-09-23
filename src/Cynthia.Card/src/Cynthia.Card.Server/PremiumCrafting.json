@@ -1,8 +1,8 @@
 {
   "Copper": 100,
-  "Silver": 200,
-  "Gold": 400,
-  "Leader": 400,
+  "Silver": 400,
+  "Gold": 800,
+  "Leader": 1000,
   "AvailableArtIds": [
     "11210100",
     "11210200",

@@ -19,7 +19,7 @@ partial class Program
     static async Task InitialPowderCases()
     {
         var configured = InitialPowderOptions.Load();
-        Check(configured.Amount == 5000, "shipped initial powder configuration is 5000");
+        Check(configured.Amount == 3000, "shipped initial powder configuration is 3000");
         var path = Path.Combine(work, "initial-config.json");
         foreach (var json in new[] { "{", "null", "{}", "{\"Amount\":null}", "{\"Amount\":-1}", "{\"Amount\":1000000001}", "{\"Amount\":5.5}", "{\"Amount\":\"5000\"}" })
         {

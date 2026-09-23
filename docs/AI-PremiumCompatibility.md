@@ -38,15 +38,16 @@ platform bundles; see [packaging and validation status](AI-ClientPackagingAudit.
 ```json
 {
   "Enabled": true,
-  "Amount": 5000
+  "Amount": 3000
 }
 ```
 
 The server records both `InitialPowderGranted` and the stable receipt ID
 `initial-meteorite-powder-v1`. On startup a background service scans existing
-accounts; registration requests another scan. Retries are idempotent. Disabling
-the option pauses grants without consuming eligibility. No client grants this
-powder.
+accounts; registration requests another scan. Retries are idempotent, and
+changing `Amount` only affects accounts that have not claimed the grant yet:
+already-claimed wallets are never deducted or re-granted. Disabling the option
+pauses grants without consuming eligibility. No client grants this powder.
 
 `DailyQuests.json` grants 20 powder for the first server-observed activity of a
 China-calendar day and grants 25, 35, and 45 powder at 2, 4, and 6 round wins.

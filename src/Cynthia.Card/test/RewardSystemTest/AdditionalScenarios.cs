@@ -70,7 +70,7 @@ partial class Program
             "identical round keys are independent between accounts");
         await db.AwardDailyCrown(shared.UserName,"shared-round",Now.AddDays(-4));
         Check((await Account(shared)).DailyQuests.Crowns==1,"changing a processed round timestamp cannot earn another crown");
-        foreach(int price in new[]{200,400})
+        foreach(int price in new[]{400,800})
         {
             var rich=await NewUser("price-"+price);await Grant(rich.Id,price,"price");
             var card=costs.First(x=>x.Value==price).Key;

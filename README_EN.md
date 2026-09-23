@@ -36,7 +36,7 @@ Check [here](.github/CONTRIBUTING_EN.md) for the detailed contribution guide.
 ## Development Environment
 
 + Server side: .NET 10, Mongodb 4.2
-+ Client side: Unity 2019.4.1f1
++ Client side: Unity 2019.4.41f2 (`6b23d448b533`, see the [Unity upgrade record](docs/UnityUpgrade.md))
 
 ## Development Guides
 

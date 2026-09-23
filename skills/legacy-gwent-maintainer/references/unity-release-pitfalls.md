@@ -114,7 +114,7 @@ Last verified: 2026-09-20
 
 ## Native metadata or a rebuilt artifact hash appears to drift
 
-- Symptom: Explorer reports `2019.4.1f1` instead of app version `2.1.9`, or an
+- Symptom: Explorer reports an engine version (historically `2019.4.1f1`) instead of app version `2.1.9`, or an
   exact-source rebuild changes all archive hashes despite no client-source edit.
 - Cause: Unity stamps its engine version into the Windows bootstrap; rebuilds
   also refresh PE timestamps, assembly MVID/PDB GUIDs, and Unity's build ID.

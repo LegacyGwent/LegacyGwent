@@ -35,7 +35,7 @@
 ## 开发环境
 
 + 服务端项目：.NET 10, Mongodb 4.2
-+ 客户端项目：Unity 2019.4.1f1
++ 客户端项目：Unity 2019.4.41f2（`6b23d448b533`，见 [Unity 升级记录](docs/UnityUpgrade.md)）
 
 ## 开发计划
 

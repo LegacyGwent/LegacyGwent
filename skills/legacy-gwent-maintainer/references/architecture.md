@@ -10,8 +10,9 @@ Last verified: 2026-08-02
   `netstandard2.0`.
 - Server AI: `src/Cynthia.Card/src/Cynthia.Card.AI`.
 - Unity client: `src/Cynthia.Card.Unity/src/Cynthia.Unity.Card`, maintained with
-  Unity 2019.4.1f1. Its bundled SignalR client remains 5.0.8; server framework
-  upgrades must not rewrite the Unity assembly set.
+  Unity 2019.4.41f2 (revision `6b23d448b533`, tracked in
+  `ProjectSettings/ProjectVersion.txt`). Its bundled SignalR client remains 5.0.8;
+  server framework upgrades must not rewrite the Unity assembly set.
 - MongoDB access is centralized in
   `Services/GwentGameService/GwentDatabaseService.cs`.
 - SignalR gameplay hub is `/hub/gwent`; liveness endpoint is `/healthz`.
@@ -60,7 +61,7 @@ Last verified: 2026-08-02
 - Downloaded locales persist under the client data path. Card and trinket maps
   currently replace only the in-memory compiled maps; cache them atomically with
   version/hash validation and a compiled fallback before relying on them offline.
-- Unity 2019.4.1f1 includes Addressables 1.18.11 and uses Addressables for card
+- The Unity 2019.4.41f2 project pins Addressables 1.18.19 and uses it for card
   art, miniatures, avatars, and borders, but remote catalogs are disabled and all
   groups still use local paths. This is local packaging, not resource hot update.
 - Current Addressables groups are packed together: the principal card-art bundle

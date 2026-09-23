@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 . (Join-Path $PSScriptRoot "dev-common.ps1")
 
 if (-not (Test-Path -LiteralPath $script:UnityExe)) {
-    throw "Unity 2019.4.1f1 is missing. Run scripts\setup-dev.ps1 first."
+    throw "Unity $script:UnityVersion is missing. Run scripts\setup-dev.ps1 first."
 }
 
 Sync-UnityCommonAssembly
@@ -23,6 +23,6 @@ try {
 finally {
     $env:GWENT_SERVER_URL = $previousServerUrl
 }
-Write-Host "Opening the client project in Unity 2019.4.1f1."
+Write-Host "Opening the client project in Unity $script:UnityVersion."
 Write-Host "The Unity client will connect to $ServerUrl."
 Write-Host "If prompted, sign in through Unity Hub and activate a Unity Personal license."

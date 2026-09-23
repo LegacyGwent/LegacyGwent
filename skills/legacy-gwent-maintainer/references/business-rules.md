@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-09-20
+Last verified: 2026-09-24
 
 ## DIY-AI release identity
 
@@ -37,10 +37,19 @@ Last verified: 2026-09-20
 - Old clients do not request the premium wallet. Login, registration, ordinary
   deck writes, matchmaking, and round progression must remain available when
   the wallet database or reward notification fails.
-- Initial powder is server-owned and configured by `InitialPowder.json`.
-  `Enabled` pauses without consuming eligibility; the stable receipt
-  `initial-meteorite-powder-v1` and `InitialPowderGranted` flag make both old
-  account backfill and new-account grants idempotent. Do not add a client grant.
+- Initial powder is server-owned and configured by `InitialPowder.json`
+  (`Amount` 3000). `Enabled` pauses without consuming eligibility; the stable
+  receipt `initial-meteorite-powder-v1` and `InitialPowderGranted` flag make
+  both old-account backfill and new-account grants idempotent. Changing
+  `Amount` is safe as long as that receipt ID and flag stay unchanged: only
+  accounts that have not claimed yet receive the new value, and already-granted
+  wallets are never deducted or re-granted. Do not add a client grant.
+- Premium crafting prices are server-owned by `PremiumCrafting.json`: Copper
+  100, Silver 400, Gold 800, Leader 1000. The server publishes the per-card
+  `Costs` map in `PremiumCollectionResult`; the Unity client holds no price
+  fallback and only renders the returned map, so a client cannot supply or
+  override a price. Changing a price does not invalidate stored craft receipts
+  (`CraftReceipts.RequestId`), which remain the idempotency key.
 - Daily rewards use the China calendar day: login grants 20 powder and crown
   thresholds 2/4/6 grant 25/35/45. Connected users cross midnight without
   relogging. Keep all processed round IDs across daily resets; delayed or

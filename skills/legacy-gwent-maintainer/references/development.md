@@ -5,7 +5,14 @@ Last verified: 2026-08-01
 ## Toolchain
 
 - Setup: `scripts/setup-dev.ps1` installs the .NET 10 SDK, MongoDB 4.4.29,
-  and Unity 2019.4.1f1 under `%LOCALAPPDATA%\LegacyGwentDev`.
+  and Unity 2019.4.41f2 under `%LOCALAPPDATA%\LegacyGwentDev`.
+- `scripts/dev-common.ps1` is the single place that parses
+  `ProjectSettings/ProjectVersion.txt` into `$script:UnityVersion` and
+  `$script:UnityRevision`; `setup-dev.ps1` builds the editor installer
+  name/URL from them and `open-unity.ps1` locates and reports the same editor.
+  Do not re-hardcode the editor version in individual scripts or docs.
+- The upgrade record and platform-module requirements are in
+  `docs/UnityUpgrade.md`.
 - Stable profile: `scripts/start-dev.ps1` uses server 5005, MongoDB 28020, and
   connection-URI suffix `gwent-diy`.
 - Isolated profile: `scripts/start-ai-dev.ps1` uses server 5010, MongoDB 28021,

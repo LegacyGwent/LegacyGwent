@@ -34,9 +34,9 @@ try {
     Check (Invoke-Hub 'Register' @($name,'PremiumHubTest2026',$name)) 'register isolated test account'
     $user=Invoke-Hub 'Login' @($name,'PremiumHubTest2026')
     $deadline=[DateTime]::UtcNow.AddSeconds(10)
-    do {$account=Invoke-Hub 'GetPremiumCollection' @();if($account.collection.meteoritePowder -ne 5020){Start-Sleep -Milliseconds 100}} while($account.collection.meteoritePowder -ne 5020 -and [DateTime]::UtcNow -lt $deadline)
+    do {$account=Invoke-Hub 'GetPremiumCollection' @();if($account.collection.meteoritePowder -ne 3020){Start-Sleep -Milliseconds 100}} while($account.collection.meteoritePowder -ne 3020 -and [DateTime]::UtcNow -lt $deadline)
     $initialPowder=$account.collection.meteoritePowder
-    Check ($account.collection.id -eq $user.id -and $initialPowder -eq 5020) 'wallet belongs to connection identity and includes initial plus daily rewards'
+    Check ($account.collection.id -eq $user.id -and $initialPowder -eq 3020) 'wallet belongs to connection identity and includes initial plus daily rewards'
     $card='14002'
     $crafted=Invoke-Hub 'CraftPremium' @($card)
     Check ($crafted.status -eq 'ok' -and $crafted.collection.meteoritePowder -eq ($initialPowder-100)) 'hub atomically charges and unlocks'

@@ -24,7 +24,7 @@ class Program
         await users.InsertOneAsync(user);
         var first = await service.GetPremiumCollection(user.UserName);
         Check(first.Success && first.Collection.MeteoritePowder == 0 && first.Collection.OwnedCards.Count == 0 && first.Collection.SelectedCards.Count == 0, "old account defaults to zero and locked");
-        Check(first.Costs.Count > 500 && first.Costs.Values.Contains(100) && first.Costs.Values.Contains(200) && first.Costs.Values.Contains(400), "catalog and approved prices");
+        Check(first.Costs.Count > 500 && first.Costs.Values.Contains(100) && first.Costs.Values.Contains(400) && first.Costs.Values.Contains(800) && first.Costs.Values.Contains(1000), "catalog and approved prices");
         string card = first.Costs.First(x => x.Value == 100).Key;
         Check((await service.CraftPremium(user.UserName, card)).Status == "insufficient_powder", "insufficient funds rejected");
         Check((await service.SelectPremium(user.UserName, card, true)).Status == "not_owned", "unowned equip rejected");

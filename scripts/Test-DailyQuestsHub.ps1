@@ -33,15 +33,15 @@ try {
     Check (Invoke-Hub 'Register' @($name,'DailyHubTest2026',$name)) 'isolated local account registered'
     $user=Invoke-Hub 'Login' @($name,'DailyHubTest2026')
     $deadline=[DateTime]::UtcNow.AddSeconds(10)
-    do {$wallet=Invoke-Hub 'GetPremiumCollection' @();if($wallet.collection.meteoritePowder -ne 5020){Start-Sleep -Milliseconds 100}} while($wallet.collection.meteoritePowder -ne 5020 -and [DateTime]::UtcNow -lt $deadline)
-    Check ($wallet.collection.meteoritePowder -eq 5020) 'server grants 5000 initial plus 20 daily powder without a client grant'
+    do {$wallet=Invoke-Hub 'GetPremiumCollection' @();if($wallet.collection.meteoritePowder -ne 3020){Start-Sleep -Milliseconds 100}} while($wallet.collection.meteoritePowder -ne 3020 -and [DateTime]::UtcNow -lt $deadline)
+    Check ($wallet.collection.meteoritePowder -eq 3020) 'server grants 3000 initial plus 20 daily powder without a client grant'
     $state=Invoke-Hub 'GetDailyQuests' @()
     Check ($state.wallet.collection.id -eq $user.id) 'daily data belongs to authenticated connection'
     Check ($state.dailyCap -eq 155 -and $state.wallet.collection.dailyQuests.crowns -eq 0) 'fresh progress and GG-inclusive approved cap'
     $remaining=([DateTimeOffset]::Parse($state.resetUtc)-[DateTimeOffset]::Parse($state.serverUtc)).TotalSeconds
     Check ($remaining -gt 0 -and $remaining -le 86400 -and ([DateTimeOffset]$state.resetUtc).UtcDateTime.Hour -eq 16) 'server supplies UTC time and China midnight boundary'
     1..5 | ForEach-Object {$null=Invoke-Hub 'GetDailyQuests' @()}
-    Check ((Invoke-Hub 'GetPremiumCollection' @()).collection.meteoritePowder -eq 5020) 'repeated refresh cannot duplicate either grant'
+    Check ((Invoke-Hub 'GetPremiumCollection' @()).collection.meteoritePowder -eq 3020) 'repeated refresh cannot duplicate either grant'
     $rejected=$false
     try {$null=Invoke-Hub 'AwardDailyCrown' @($name,'forged',6)} catch {$rejected=$true}
     Check $rejected 'no public method accepts client crown awards'
@@ -49,7 +49,7 @@ try {
     try {$null=Invoke-Hub 'GetDailyQuests' @('another-user','2099-01-01')} catch {$rejected=$true}
     Check $rejected 'client cannot choose reward identity or date'
     $null=Invoke-Hub 'Login' @($name,'DailyHubTest2026')
-    Check ((Invoke-Hub 'GetDailyQuests' @()).wallet.collection.meteoritePowder -eq 5020) 'same-day relogin preserves one login reward'
+    Check ((Invoke-Hub 'GetDailyQuests' @()).wallet.collection.meteoritePowder -eq 3020) 'same-day relogin preserves one login reward'
     $output=$OutputPath
     @{passed=$true;checks=$checks;playerId=$user.id}|ConvertTo-Json -Depth 6|Set-Content -LiteralPath $output
     Get-Content -LiteralPath $output
