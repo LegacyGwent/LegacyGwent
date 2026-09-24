@@ -790,7 +790,9 @@
         "Masquerade_ChangeSilver": "Zmień jakość wybranej jednostki na srebrną.",
         "Masquerade_ChangeCopper": "Zmień jakość wybranej jednostki na brązową.",
         "AxelThreeEyes_1_SpawnCrows": "Stwórz po 1 Kruku w każdym rzędzie.",
-        "AxelThreeEyes_2_CreateCrowEyes": "Dodaj 2 Wronie Oczy na spód swojej talii, a następnie zagraj najwyżej położone Wronie Oko ze swojej talii."
+        "AxelThreeEyes_2_CreateCrowEyes": "Dodaj 2 Wronie Oczy na spód swojej talii, a następnie zagraj najwyżej położone Wronie Oko ze swojej talii.",
+        "GezrasOfLeyda_1_Strengthen": "Strengthen by 1",
+        "GezrasOfLeyda_2_Weaken": "Weaken to 1"
     },
     "CardLocales": {
         "12001": {
@@ -2605,12 +2607,12 @@
         },
         "44033": {
             "Name": "Kołowrót",
-            "Info": "Wybierz: Zagraj brązową maszyne ze swojego cmentarza i daj jej Fatum, lub wzmocnij wszystkie maszyny po twojej stronie o 3.",
+            "Info": "Choose one: Resurrect a Bronze Machine and give it Doomed; or Boost all allied Machines by 3.",
             "Flavor": "Co tu dużo gadać, to po prostu kołowrót."
         },
         "44034": {
             "Name": "Krwawy Korbacz",
-            "Info": "Zadaj 5 pkt obrażeń i stwórz w losowym rzędzie Upiora.",
+            "Info": "Deal 5 damage and Spawn a Specter.",
             "Flavor": "Niektóre rodzaje oręża zostały zakazane w Królestwach Północy, tak straszne były rany zadane przy ich pomocy."
         },
         "45001": {
@@ -3445,7 +3447,7 @@
         },
         "70015": {
             "Name": "Obrończyni Brokilonu",
-            "Info": "Na koniec tury, jeśli przeciwnik ma dokładnie 4 jednostki na przeciwnym rzędzie, zadaj 1 pkt obrażeń tym jednostkom.",
+            "Info": "At the end of each turn, if there are exactly 4 enemies on the opposing row, damage each of them by 1.",
             "Flavor": "Tam gdzie są wasze pola i miasta, wciąż jest Brokilon. Odzyskamy coście zagrabili puszczy."
         },
         "70016": {
@@ -3610,7 +3612,7 @@
         },
         "70078": {
             "Name": "Potępienie",
-            "Info": "Wezwij z twojej talii 2 najsilniejsze brązowe jednostki do wybranego rzędu i zmień ich status zablokowania.",
+            "Info": "Summon the 2 highest Bronze units from your deck to the same row, change their Lock status, and give them their initial Armor.",
             "Flavor": "Przez te wszystkie stosy w Novigradzie nie da się oddychać!"
         },
         "70079": {
@@ -3690,7 +3692,7 @@
         },
         "70095": {
             "Name": "Lyrijski kusznik",
-            "Info": "Rozmieszczenie: Zadaj obrażenia wrogiej jednostce o sile niższej niż własna, wykorzystując różnicę między Siłami obu kart.",
+            "Info": "Damage a unit with lower power than self by the difference, or destroy all Armor on a unit with at least as much power as self.",
             "Flavor": "Trafię w jabłko ze stu kroków! Może nie za pierwszym razem... Ale w końcu na pewno!"
         },
         "70096": {
@@ -4065,7 +4067,7 @@
         },
         "70171": {
             "Name": "Pas Olbrzyma",
-            "Info": "Wzmocnij sojusznika o jego bazową Siłę. Jeśli to Ogroid, najpierw Ulepsz go o 2.",
+            "Info": "Boost an ally by its base Strength. If it is an Ogroid, Strengthen it by 2 first.",
             "Flavor": "Wytrzymały skórzany pas, najwyraźniej uszyty dla tytana, a jednak pasuje każdemu, kto go przymierzy. Choć powoduje, że noszący go staje się silny niczym gigant, nie zwiększa jego postury."
         },
         "70172": {
@@ -4095,7 +4097,7 @@
         },
         "70177": {
             "Name": "Pan Drapak",
-            "Info": "Wzmocnij wszystkie Bestie pod Pełnią Księżyca o 1. W ręce, talii lub po swojej stronie planszy: za każdym razem, gdy Bestia pojawi się po twojej stronie planszy, wzmocnij tę jednostkę o 1.",
+            "Info": "Boost all Beast units under “Full Moon” by 1. While in your hand or deck, Boost self by 1 whenever a Beast appears on your side of the board.",
             "Flavor": "Jeśli cenisz gałki oczne, nie drocz się z nim."
         },
         "70178": {
@@ -4150,7 +4152,7 @@
         },
         "70188": {
             "Name": "Bronibor",
-            "Info": "Stwórz \"Prostego Porwanego Piechura\", następnie za każdego sojuszniczego Żołnierza na planszy zadaj losowemu wrogowi 1 pkt obrażeń.",
+            "Info": "Spawn a Poor Fucking Infantry, then give every allied Soldier on one row 1 Armor and damage an enemy by the total Armor gained.",
             "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
         },
         "70190": {
@@ -4275,7 +4277,7 @@
         },
         "70200": {
             "Name": "Egmond",
-            "Info": "Usuń wszystkie wzmocnienia z sojuszniczej jednostki, a następnie zadaj wrogiej jednostce obrażenia równe usuniętej wartości. Jeśli ją zniszczysz, wzmocnij tę jednostkę o 1. Jeśli ta jednostka została wzmocniona podczas twojej tury, na końcu tury powtórz tę zdolność.",
+            "Info": "Remove the Boost from an allied unit and damage an enemy by the power it lost. If the target is destroyed, or this unit is Boosted during your turn, repeat this ability at turn end.",
             "Flavor": ""
         },
         "70201": {
@@ -4291,6 +4293,46 @@
         "70203": {
             "Name": "Axel Troje Oczu",
             "Info": "Wybierz jedno: stwórz po 1 Kruku w każdym rzędzie; albo dodaj 2 Wronie Oczy na spód swojej talii, a następnie zagraj najwyżej położone Wronie Oko ze swojej talii.",
+            "Flavor": ""
+        },
+        "70204": {
+            "Name": "Vlodimir von Everec",
+            "Info": "Play the weakest Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
+            "Flavor": ""
+        },
+        "70205": {
+            "Name": "Ophelie Van Moorlehem",
+            "Info": "Set the power of a unit in your deck with more than 1 power to 1, then deal damage equal to the power it lost. If the target is destroyed, Heal an allied unit or unit in your hand.",
+            "Flavor": ""
+        },
+        "70206": {
+            "Name": "Skjordal Drummond",
+            "Info": "Discard a Bronze Clan unit from your deck, then Resurrect a differently named Bronze unit from the same Clan.",
+            "Flavor": ""
+        },
+        "70207": {
+            "Name": "Gezras of Leyda",
+            "Info": "Choose one: Strengthen an allied Bronze/Silver Witcher or Beast by 1; or Weaken it to 1. Then replay it.",
+            "Flavor": ""
+        },
+        "70208": {
+            "Name": "Gaetan",
+            "Info": "Damage all other allied units on this row by 1. If the opposing row has more units than this unit’s base power, deal damage equal to the difference and repeat once for each other unit on this row.",
+            "Flavor": ""
+        },
+        "70209": {
+            "Name": "Brehen",
+            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the damage dealt. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Flavor": ""
+        },
+        "70210": {
+            "Name": "Cat School Witcher Thug",
+            "Info": "Move an enemy to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference twice, then repeat once.",
+            "Flavor": ""
+        },
+        "70211": {
+            "Name": "Cat School Witcher",
+            "Info": "If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
             "Flavor": ""
         }
     }

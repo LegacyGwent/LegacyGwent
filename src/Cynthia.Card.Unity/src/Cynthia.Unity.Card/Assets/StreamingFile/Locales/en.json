@@ -791,7 +791,9 @@
         "Masquerade_ChangeSilver": "Change the selected unit's rarity to Silver.",
         "Masquerade_ChangeCopper": "Change the selected unit's rarity to Bronze.",
         "AxelThreeEyes_1_SpawnCrows": "Spawn 1 Crow on each row.",
-        "AxelThreeEyes_2_CreateCrowEyes": "Add 2 Crow's Eyes to the bottom of your deck, then play the top Crow's Eye from your deck."
+        "AxelThreeEyes_2_CreateCrowEyes": "Add 2 Crow's Eyes to the bottom of your deck, then play the top Crow's Eye from your deck.",
+        "GezrasOfLeyda_1_Strengthen": "Strengthen by 1",
+        "GezrasOfLeyda_2_Weaken": "Weaken to 1"
     },
     "CardLocales": {
         "12001": {
@@ -2606,12 +2608,12 @@
         },
         "44033": {
             "Name": "Winch",
-            "Info": "Choose One: Resurrect a Bronze Machine and add the Doomed category to it; or Boost all Machines on your side of the board by 3.",
+            "Info": "Choose one: Resurrect a Bronze Machine and give it Doomed; or Boost all allied Machines by 3.",
             "Flavor": "It's a winch. Not much to flap your jaw about."
         },
         "44034": {
             "Name": "Bloody Flail",
-            "Info": "Deal 5 Damage and Spawn a Specter on a random row.",
+            "Info": "Deal 5 damage and Spawn a Specter.",
             "Flavor": "There are weapons banned in all the Northern Realms, for the wounds they deal are horrible beyond all imagining."
         },
         "45001": {
@@ -3446,7 +3448,7 @@
         },
         "70015": {
             "Name": "Brokilon Sentinel",
-            "Info": "On turn end, if the opponent has exactly 4 units on the opposite row, deal 1 Damage to all enemies in that row.",
+            "Info": "At the end of each turn, if there are exactly 4 enemies on the opposing row, damage each of them by 1.",
             "Flavor": "Brokilon is not merely the forest you see before you. She yet lives on in the cities, villages, and fields you so callously carved from her flesh. We shall yet reclaim what you have stolen from her."
         },
         "70016": {
@@ -3611,7 +3613,7 @@
         },
         "70078": {
             "Name": "Damnation",
-            "Info": "Summon 2 Highest Bronze units from the deck to the same row, then change their Lock status.",
+            "Info": "Summon the 2 highest Bronze units from your deck to the same row, change their Lock status, and give them their initial Armor.",
             "Flavor": "I can't bloody breathe! Won't they burn the wretches someplace else?"
         },
         "70079": {
@@ -3691,7 +3693,7 @@
         },
         "70095": {
             "Name": "Lyrian Arbalest",
-            "Info": "Deploy: Damage an Enemy unit with lower Power than self, by the difference between the two card's Power.",
+            "Info": "Damage a unit with lower power than self by the difference, or destroy all Armor on a unit with at least as much power as self.",
             "Flavor": "I can find the bull's-eye from a hundred paces! Perhaps not with my first shot, mind you..."
         },
         "70096": {
@@ -4066,7 +4068,7 @@
         },
         "70171": {
             "Name": "Giant's Belt",
-            "Info": "Boost an ally by its base Strength.\nIf it is an Ogroid, Strengthen it by 2 before applying Boost.",
+            "Info": "Boost an ally by its base Strength. If it is an Ogroid, Strengthen it by 2 first.",
             "Flavor": "A sturdy leather belt, clearly crafted for a titan, yet inexplicably fits the torso of anyone who tries it on. Although the girdle makes its wearer as strong as a giant, it does not make them giant-size."
         },
         "70172": {
@@ -4096,7 +4098,7 @@
         },
         "70177": {
             "Name": "Sir Scratch-a-Lot",
-            "Info": "Boost all Beast units under Full Moon by 1. While in your hand, deck, or on your side of the board, Boost self by 1 whenever a Beast appears on your side of the board.",
+            "Info": "Boost all Beast units under “Full Moon” by 1. While in your hand or deck, Boost self by 1 whenever a Beast appears on your side of the board.",
             "Flavor": "If you value your eyesight... Don't call him a pussy."
         },
         "70178": {
@@ -4151,7 +4153,7 @@
         },
         "70188": {
             "Name": "Bronibor",
-            "Info": "Spawn a Poor Fucking Infantry, then for each allied Soldier on the board, Damage a random enemy by 1.",
+            "Info": "Spawn a Poor Fucking Infantry, then give every allied Soldier on one row 1 Armor and damage an enemy by the total Armor gained.",
             "Flavor": "Here, outside this village, whose name I have forgotten, you will finally show how much worth you have as an army."
         },
         "70190": {
@@ -4276,7 +4278,7 @@
         },
         "70200": {
             "Name": "Egmond",
-            "Info": "Remove all Boost from an allied unit, then damage an enemy unit by the amount removed. If it is destroyed, Boost self by 1. If this unit was Boosted during your turn, repeat this ability at the end of the turn.",
+            "Info": "Remove the Boost from an allied unit and damage an enemy by the power it lost. If the target is destroyed, or this unit is Boosted during your turn, repeat this ability at turn end.",
             "Flavor": ""
         },
         "70201": {
@@ -4292,6 +4294,46 @@
         "70203": {
             "Name": "Axel Three-Eyes",
             "Info": "Choose One: Spawn 1 Crow on each row; or Add 2 Crow's Eyes to the bottom of your deck, then play the top Crow's Eye from your deck.",
+            "Flavor": ""
+        },
+        "70204": {
+            "Name": "Vlodimir von Everec",
+            "Info": "Play the weakest Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
+            "Flavor": ""
+        },
+        "70205": {
+            "Name": "Ophelie Van Moorlehem",
+            "Info": "Set the power of a unit in your deck with more than 1 power to 1, then deal damage equal to the power it lost. If the target is destroyed, Heal an allied unit or unit in your hand.",
+            "Flavor": ""
+        },
+        "70206": {
+            "Name": "Skjordal Drummond",
+            "Info": "Discard a Bronze Clan unit from your deck, then Resurrect a differently named Bronze unit from the same Clan.",
+            "Flavor": ""
+        },
+        "70207": {
+            "Name": "Gezras of Leyda",
+            "Info": "Choose one: Strengthen an allied Bronze/Silver Witcher or Beast by 1; or Weaken it to 1. Then replay it.",
+            "Flavor": ""
+        },
+        "70208": {
+            "Name": "Gaetan",
+            "Info": "Damage all other allied units on this row by 1. If the opposing row has more units than this unit’s base power, deal damage equal to the difference and repeat once for each other unit on this row.",
+            "Flavor": ""
+        },
+        "70209": {
+            "Name": "Brehen",
+            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the damage dealt. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Flavor": ""
+        },
+        "70210": {
+            "Name": "Cat School Witcher Thug",
+            "Info": "Move an enemy to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference twice, then repeat once.",
+            "Flavor": ""
+        },
+        "70211": {
+            "Name": "Cat School Witcher",
+            "Info": "If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
             "Flavor": ""
         }
     }

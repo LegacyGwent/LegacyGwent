@@ -48,8 +48,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 201), GwentMap.CardMapVersion);
-            Assert.Equal(728, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 202), GwentMap.CardMapVersion);
+            Assert.Equal(736, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -59,8 +59,72 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203", "70204", "70205", "70206", "70207", "70208", "70209", "70210", "70211" },
                 GwentMap.CardMap.Keys.Skip(709));
+        }
+
+        [Fact]
+        public void SeptemberTwentyFourthBatchMatchesPoolMetadataEffectsAndLocales()
+        {
+            var newIds = new[]
+            {
+                CardId.VlodimirVonEverec, CardId.OphelieVanMoorlehem,
+                CardId.SkjordalDrummond, CardId.GezrasOfLeyda, CardId.Gaetan,
+                CardId.Brehen, CardId.CatSchoolWitcherThug, CardId.CatSchoolWitcher
+            };
+            Assert.All(newIds, id =>
+            {
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.False(GwentMap.CardMap[id].IsDerive);
+            });
+
+            Assert.Equal(3, GwentMap.CardMap[CardId.Bronibor].Strength);
+            Assert.Equal(Faction.Neutral, GwentMap.CardMap[CardId.VlodimirVonEverec].Faction);
+            Assert.Equal(1, GwentMap.CardMap[CardId.VlodimirVonEverec].Strength);
+            Assert.Equal("欧菲丽·凡·莫拉汉姆", GwentMap.CardMap[CardId.OphelieVanMoorlehem].Name);
+            Assert.Equal("史裘达尔·德拉蒙", GwentMap.CardMap[CardId.SkjordalDrummond].Name);
+            Assert.Equal(new[] { Categorie.Witcher }, GwentMap.CardMap[CardId.GezrasOfLeyda].Categories);
+            Assert.Equal(Group.Gold, GwentMap.CardMap[CardId.GezrasOfLeyda].Group);
+            Assert.Equal(Group.Silver, GwentMap.CardMap[CardId.Gaetan].Group);
+            Assert.Equal(Group.Silver, GwentMap.CardMap[CardId.Brehen].Group);
+            Assert.Equal(Group.Copper, GwentMap.CardMap[CardId.CatSchoolWitcherThug].Group);
+            Assert.Equal(Group.Copper, GwentMap.CardMap[CardId.CatSchoolWitcher].Group);
+
+            var dataService = new GwentCardDataService();
+            Assert.Equal(typeof(VlodimirVonEverec), dataService.GetType(CardId.VlodimirVonEverec));
+            Assert.Equal(typeof(OphelieVanMoorlehem), dataService.GetType(CardId.OphelieVanMoorlehem));
+            Assert.Equal(typeof(SkjordalDrummond), dataService.GetType(CardId.SkjordalDrummond));
+            Assert.Equal(typeof(GezrasOfLeyda), dataService.GetType(CardId.GezrasOfLeyda));
+            Assert.Equal(typeof(Gaetan), dataService.GetType(CardId.Gaetan));
+            Assert.Equal(typeof(Brehen), dataService.GetType(CardId.Brehen));
+            Assert.Equal(typeof(CatSchoolWitcherThug), dataService.GetType(CardId.CatSchoolWitcherThug));
+            Assert.Equal(typeof(CatSchoolWitcher), dataService.GetType(CardId.CatSchoolWitcher));
+
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            Assert.All(new[] { "cn", "en", "pl", "ru" }, language =>
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                Assert.All(newIds, id => Assert.All(locales.Skip(1), locale =>
+                {
+                    Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                }));
+            });
+
+            var chinese = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                FindRepositoryFile("src/Cynthia.Card/src/Cynthia.Card.Server/Locales/cn.json")));
+            Assert.All(newIds, id =>
+            {
+                Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
+                Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
+            });
         }
 
         [Fact]
@@ -221,9 +285,9 @@ namespace Cynthia.Card.Server.Tests
                 ["70032"] = (1, "将双方同排所有单位移至随机排，每移动一个单位，便失去2点增益。若增益不足2点，则停止移动剩余单位。若位于手牌、牌组：己方回合中，有铜色/银色单位被移动时获得1点增益。"),
                 [CardId.CrowClanDruid] = (8, "生成1只“乌鸦”。每2回合结束时，若同排有“乌鸦”，重复此能力。"),
                 [CardId.Crowmother] = (4, "在己方其它排各生成1只“乌鸦”。生成与本次对局己方被摧毁数量相等的“乌鸦”，直至填满此排。"),
-                [CardId.VanMoorleheHunter] = (7, "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
-                [CardId.PhilippevanMoorlehem] = (9, "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
-                [CardId.VincentvanMoorlehem] = (6, "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。")
+                [CardId.VanMoorleheHunter] = (7, "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于其所失去战力的伤害。"),
+                [CardId.PhilippevanMoorlehem] = (9, "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于其所失去战力的伤害。"),
+                [CardId.VincentvanMoorlehem] = (6, "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于其所失去战力的伤害。")
             };
             Assert.Equal(Categorie.Relict, Assert.Single(GwentMap.CardMap[CardId.Miruna].Categories));
             Assert.Equal(4, GwentMap.CardMap[CardId.Crotch].Strength);
@@ -329,9 +393,9 @@ namespace Cynthia.Card.Server.Tests
                 (Id: "70139", Strength: 7, Group: Group.Silver, Faction: Faction.ScoiaTael, Effect: typeof(TreantBoar), Info: "造成3点伤害，使目标相邻单位移至随机排，若摧毁目标，重复此能力。"),
                 (Id: "70002", Strength: 5, Group: Group.Gold, Faction: Faction.Neutral, Effect: typeof(DetlaffHigherVampire), Info: "选择牌组中1张铜色单位牌，如果其战力高于自身，吞噬该单位，并获得等同于其战力的增益。否则，打出该单位，并在回合结束时将其摧毁。"),
                 (Id: "43006", Strength: 10, Group: Group.Silver, Faction: Faction.NorthernRealms, Effect: typeof(Nenneke), Info: "将墓场3张铜色/银色单位牌放回牌组。该效果视为复活。"),
-                (Id: "70153", Strength: 7, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorleheHunter), Info: "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
-                (Id: "70151", Strength: 9, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(PhilippevanMoorlehem), Info: "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。"),
-                (Id: "70150", Strength: 6, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(VincentvanMoorlehem), Info: "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。"),
+                (Id: "70153", Strength: 7, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorleheHunter), Info: "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于其所失去战力的伤害。"),
+                (Id: "70151", Strength: 9, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(PhilippevanMoorlehem), Info: "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于其所失去战力的伤害。"),
+                (Id: "70150", Strength: 6, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(VincentvanMoorlehem), Info: "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于其所失去战力的伤害。"),
                 (Id: "70152", Strength: 9, Group: Group.Copper, Faction: Faction.Nilfgaard, Effect: typeof(VanMoorlehemsCupbearer), Info: "每2回合开始时，随机隐匿1张铜色手牌，随后将其治愈。"),
                 (Id: "70201", Strength: 7, Group: Group.Gold, Faction: Faction.Nilfgaard, Effect: typeof(Rience), Info: "摧毁1个敌军单位，使其相邻单位各获得等同于其战力一半的增益。"),
                 (Id: "70202", Strength: 7, Group: Group.Silver, Faction: Faction.Nilfgaard, Effect: typeof(RamonTyrconnel), Info: "对1个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身，并重复此能力。"),
@@ -678,7 +742,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(Categorie.Soldier, egmond.Categories);
             Assert.Equal("d22220000", egmond.CardArtsId);
             Assert.Equal(
-                "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。若在己方回合中获得过增益，回合结束时重复此能力。",
+                "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。若摧毁目标，或在己方回合中获得增益，回合结束时重复此能力。",
                 egmond.Info);
 
             Assert.Equal(
@@ -2416,7 +2480,7 @@ namespace Cynthia.Card.Server.Tests
                 [CardId.Donar] = "改变1个单位的锁定状态。从对方墓场中将1张铜色单位牌移至己方墓场。",
                 ["70077"] = "每4回合，在回合结束时对4个随机敌军单位造成2点伤害。打出时场上每有1个被锁定的单位，减少1次回合计数。",
                 ["70086"] = "择一：从牌组中打出1张铜色/银色“法师”牌；生成1张铜色“法术”牌。",
-                ["70095"] = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
+                ["70095"] = "对1个战力低于自身的单位造成两者战力差值的伤害，或摧毁1个战力不低于自身的单位全部护甲。",
                 [CardId.CrowClanDruid] = "生成1只“乌鸦”。每2回合结束时，若同排有“乌鸦”，重复此能力。",
                 [CardId.Wisteria] = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
                 [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
@@ -2452,28 +2516,36 @@ namespace Cynthia.Card.Server.Tests
                     FindRepositoryFile($"{root}/cn.json")))).ToArray();
             Assert.All(chineseLocales.Skip(1), locale => Assert.All(chineseLocales[0].CardLocales, pair =>
                 Assert.Equal(pair.Value.Info, locale.CardLocales[pair.Key].Info)));
-            Assert.All(chineseLocales, locale => Assert.All(locale.CardLocales.Values, card =>
+            Assert.All(chineseLocales, locale => Assert.All(locale.CardLocales, pair =>
             {
+                var card = pair.Value;
                 if (string.IsNullOrEmpty(card.Info))
                 {
                     return;
                 }
                 Assert.DoesNotContain("一张", card.Info);
-                Assert.DoesNotContain("其他", card.Info);
+                if (pair.Key != CardId.Gaetan)
+                {
+                    Assert.DoesNotContain("其他", card.Info);
+                }
                 Assert.DoesNotContain(",", card.Info);
                 Assert.DoesNotContain(".", card.Info);
                 Assert.DoesNotContain("。 ", card.Info);
                 Assert.DoesNotContain("\n ", card.Info);
                 Assert.Matches("[。！？…]）?$", card.Info); // A full-sentence parenthetical reminder may close last.
             }));
-            Assert.All(GwentMap.CardMap.Values, card =>
+            Assert.All(GwentMap.CardMap, pair =>
             {
+                var card = pair.Value;
                 if (string.IsNullOrEmpty(card.Info))
                 {
                     return;
                 }
                 Assert.DoesNotContain("一张", card.Info);
-                Assert.DoesNotContain("其他", card.Info);
+                if (pair.Key != CardId.Gaetan)
+                {
+                    Assert.DoesNotContain("其他", card.Info);
+                }
                 Assert.DoesNotContain(",", card.Info);
                 Assert.DoesNotContain(".", card.Info);
                 Assert.DoesNotContain("。 ", card.Info);

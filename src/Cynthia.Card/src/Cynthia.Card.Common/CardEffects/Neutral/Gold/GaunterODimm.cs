@@ -10,15 +10,25 @@ namespace Cynthia.Card
         public GaunterODimm(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var target = GwentMap.GetCards().Where(x => (x.Group != Group.Leader) && x.CardInfo().CardType == CardType.Unit).Mess(RNG).First();
-            var switchCard = await Card.GetMenuSwitch(("猜疑", "GaunterODimm_1_LowerThanSix"), ("警告", "GaunterODimm_2_EqualToSix"), ("贪婪", "GaunterODimm_3_HigherThanSix"));
-            int juggnum = target.Strength == 6 ? 6 : (target.Strength > 6 ? 7 : 5);
-            if (switchCard != juggnum - 5)
+            var maxAttempts = Game.GetPlaceCards(PlayerIndex)
+                .Any(x => x.Status.CardId == CardId.VlodimirVonEverec && !x.Status.IsLock) ? 3 : 1;
+            for (var attempt = 0; attempt < maxAttempts; attempt++)
             {
-                return 0;
+                var target = GwentMap.GetCards()
+                    .Where(x => x.Group != Group.Leader && x.CardInfo().CardType == CardType.Unit)
+                    .Mess(RNG)
+                    .First();
+                var switchCard = await Card.GetMenuSwitch(("猜疑", "GaunterODimm_1_LowerThanSix"), ("警告", "GaunterODimm_2_EqualToSix"), ("贪婪", "GaunterODimm_3_HigherThanSix"));
+                var correctChoice = target.Strength == 6 ? 1 : target.Strength > 6 ? 2 : 0;
+                if (switchCard == correctChoice)
+                {
+                    await Game.CreateCard(target.CardId, PlayerIndex,
+                        new CardLocation(RowPosition.MyStay, 0));
+                    return 1;
+                }
             }
-            await Game.CreateCard(target.CardId, PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
-            return 1;
+
+            return 0;
         }
     }
 }

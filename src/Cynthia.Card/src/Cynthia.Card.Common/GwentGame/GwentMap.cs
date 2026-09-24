@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 201);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 202);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -7905,7 +7905,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "就是一个绞盘。没什么可大惊小怪的。",
-                    Info = "择一：从己方墓场打出1张铜色“机械”牌并使其获得佚亡；或使所有友军“机械”单位获得3点增益。",
+                    Info = "择一：复活1个铜色“机械”单位，并使其获得佚亡；或使所有友军“机械”单位获得3点增益。",
                     CardArtsId = "20165900",
                     LinkedCards=new List<String> {},
                 }
@@ -7926,7 +7926,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "有些武器在整个北方领域都禁止使用。因为它们所造成的伤害超出了人们的想象。",
-                    Info = "造成5点伤害，并在随机排生成1只“鬼灵”。",
+                    Info = "造成5点伤害，并生成1只“鬼灵”。",
                     CardArtsId = "20150300",
                     LinkedCards=new List<String> {"45001"},
                 }
@@ -11456,7 +11456,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dryad,Categorie.Soldier},
                     Flavor = "",
-                    Info = "回合结束时，若同排敌军单位数量为4，则对同排所有敌军单位造成1点伤害。",
+                    Info = "每回合结束时，若同排敌军数量为4，则对其造成1点伤害。",
                     CardArtsId = "202273",
                     LinkedCards=new List<String> {},
                 }
@@ -12179,7 +12179,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "“呛死我了！就不能去别的地方烧吗？”",
-                    Info = "从牌组召唤2张最强铜色单位牌到同排，改变其锁定状态。",
+                    Info = "从牌组召唤2张最强铜色单位牌到同排，改变其锁定状态，并使其获得初始护甲。",
                     CardArtsId = "202352",
                     LinkedCards=new List<String> {},
                 }
@@ -13616,7 +13616,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Lyria,Categorie.Soldier},
                     Flavor = "我能在百步之外找到靶心！也许我的第一枪就打不准......",
-                    Info = "对1个战力低于自身的单位造成两者战力差的伤害，对战力不低于自身的单位不造成伤害。",
+                    Info = "对1个战力低于自身的单位造成两者战力差值的伤害，或摧毁1个战力不低于自身的单位全部护甲。",
                     CardArtsId = "202155",
                     LinkedCards=new List<String> {},
                 }
@@ -14418,7 +14418,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "人人都对莫拉汉姆家敬而远之。哪怕是税务官也一样。",
-                    Info = "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于该牌所失去战力的伤害。",
+                    Info = "检视对方牌组3张战力大于1的非间谍铜色/银色单位牌，选择1张使其战力降至1点，并造成等同于其所失去战力的伤害。",
                     CardArtsId = "202543",
                     LinkedCards=new List<String> {},
                 }
@@ -14439,7 +14439,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "据说文森特·凡·莫拉汉姆只怕一个人。不是恩希尔·恩瑞斯，也不是利维亚的杰洛特，而是他的亲生儿子。",
-                    Info = "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
+                    Info = "使牌组中1个战力大于1的单位受到其战力一半的伤害，并造成等同于其所失去战力的伤害。",
                     CardArtsId = "202545",
                     LinkedCards=new List<String> {},
                 }
@@ -14482,7 +14482,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "他更喜欢在宫殿周围的树林里追捕入侵者，而不是野兽。只不过他们来得不如以前勤快了……",
-                    Info = "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于该单位所失去战力的伤害。",
+                    Info = "使牌组中1个战力大于1的铜色单位受到其战力一半的伤害，并造成等同于其所失去战力的伤害。",
                     CardArtsId = "202547",
                     LinkedCards=new List<String> {},
                 }
@@ -14821,7 +14821,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。",
-                    Info = "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先强化2点。",
+                    Info = "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先获得2点强化。",
                     CardArtsId = "203266",
                     LinkedCards=new List<String> {},
                 }
@@ -14947,7 +14947,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast, Categorie.Cursed},
                     Flavor = "不想少只眼睛的话……就别叫他小猫咪。",
-                    Info = "使所有位于满月之下的野兽单位获得1点增益。位于手牌、牌组：有“野兽”单位出现在己方半场时，获得1点增益。",
+                    Info = "使所有位于“满月”之下的野兽单位获得1点增益。位于手牌、牌组：有“野兽”单位出现在己方半场时，获得1点增益。",
                     CardArtsId = "203081",
                     LinkedCards=new List<String> {"25009"},
                 }
@@ -15170,7 +15170,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70188", //Bronibor
                     Name="布罗尼伯",
-                    Strength=1,
+                    Strength=3,
                     Group=Group.Gold,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -15180,7 +15180,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Officer, Categorie.Temeria},
                     Flavor = "在这里，这个村庄的名字我已经忘记了，你最终会展示出你作为一支军队的价值。",
-                    Info = "生成1个“可怜的步兵”，随后己方半场每有1个“士兵”单位，便对1个随机敌军单位造成1点伤害。",
+                    Info = "生成1个“可怜的步兵”，随后使己方单排所有“士兵”单位获得1点护甲，对1个敌军单位造成等同于本次总计获得护甲点数的伤害。",
                     CardArtsId = "c10003900",
                     LinkedCards=new List<String> {"44020"},
                 }
@@ -15562,7 +15562,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "",
-                    Info = "移除1个友方单位所有的增益，对1个敌军单位造成等同于移除增益数值的伤害，若摧毁目标，则获得1点增益。若在己方回合中获得过增益，回合结束时重复此能力。",
+                    Info = "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。若摧毁目标，或在己方回合中获得增益，回合结束时重复此能力。",
                     CardArtsId = "d22220000",
                     LinkedCards = new List<String> {},
                 }
@@ -15628,6 +15628,105 @@ namespace Cynthia.Card
                     Info = "择一：在每排生成1只“乌鸦”；或将2张“乌鸦眼”加入牌组底端，随后从牌组顶端打出1张“乌鸦眼”。",
                     CardArtsId = "d19860000",
                     LinkedCards = new List<String> { CardId.Crow, CardId.CrowSEye },
+                }
+            },
+            {
+                "70204",//弗洛迪米·伊佛瑞克 Vlodimir von Everec
+                new GwentCard()
+                {
+                    CardId = "70204", Name = "弗洛迪米·伊佛瑞克", Strength = 1, Group = Group.Silver,
+                    Faction = Faction.Neutral, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Cursed },
+                    Flavor = "弗洛迪米生前过得花天酒地，死后实在是把他给憋坏了。",
+                    Info = "从牌组打出1张最弱铜色/银色“猎魔人”单位牌。使己方打出的“刚特·欧迪姆”至多猜测3次。",
+                    CardArtsId = "202402", LinkedCards = new List<String> { CardId.GaunterODimm },
+                }
+            },
+            {
+                "70205",//欧菲丽·凡·莫拉汉姆 Ophelie Van Moorlehem
+                new GwentCard()
+                {
+                    CardId = "70205", Name = "欧菲丽·凡·莫拉汉姆", Strength = 7, Group = Group.Gold,
+                    Faction = Faction.Nilfgaard, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Vampire },
+                    Flavor = "欧菲丽·凡·莫拉汉姆喜欢举办盛大的庆典。虽然总有一些宾客会消失得无影无踪，但人们对此好像却无动于衷……",
+                    Info = "使牌组中1个战力大于1的单位战力降至1点，并造成等同于其所失去战力的伤害。若摧毁目标，治愈1个友军单位或1张手牌。",
+                    CardArtsId = "202544", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70206",//史裘达尔·德拉蒙 Skjordal Drummond
+                new GwentCard()
+                {
+                    CardId = "70206", Name = "史裘达尔·德拉蒙", Strength = 3, Group = Group.Gold,
+                    Faction = Faction.Skellige, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.ClanDrummond },
+                    Flavor = "他对荣誉的信奉，却招致了他的毁灭。",
+                    Info = "从牌组丢弃1张“家族”铜色单位牌，随后复活1个相同“家族”的非同名铜色单位。",
+                    CardArtsId = "202620", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70207",//雷达的吉兹拉斯 Gezras of Leyda
+                new GwentCard()
+                {
+                    CardId = "70207", Name = "雷达的吉兹拉斯", Strength = 5, Group = Group.Gold,
+                    Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
+                    Info = "择一：选择1个友军铜色/银色“猎魔人”或“野兽”单位，使其获得1点强化；或削弱其战力至1点。随后将其重新打出。",
+                    CardArtsId = "202801", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70208",//盖坦 Gaetan
+                new GwentCard()
+                {
+                    CardId = "70208", Name = "盖坦", Strength = 2, Group = Group.Silver,
+                    Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
+                    Info = "对同排其它友军单位造成1点伤害。若对方同排单位总数高于自身基础战力，造成差值的伤害，所在排每有1个其他单位便额外重复1次。",
+                    CardArtsId = "202805", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70209",//布雷恩 Brehen
+                new GwentCard()
+                {
+                    CardId = "70209", Name = "布雷恩", Strength = 6, Group = Group.Silver,
+                    Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
+                    Info = "对同排其它友军单位造成1点伤害，获得造成伤害数值一半的强化。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
+                    CardArtsId = "202804", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70210",//猫学派猎魔人恶徒 Cat School Witcher Thug
+                new GwentCard()
+                {
+                    CardId = "70210", Name = "猫学派猎魔人恶徒", Strength = 2, Group = Group.Copper,
+                    Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
+                    Info = "将1个敌军单位移至其所在半场的同排。若对方同排单位总数高于自身基础战力，造成差值的伤害2次，重复1次。",
+                    CardArtsId = "202808", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70211",//猫学派猎魔人 Cat School Witcher
+                new GwentCard()
+                {
+                    CardId = "70211", Name = "猫学派猎魔人", Strength = 6, Group = Group.Copper,
+                    Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = false, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
+                    Info = "若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
+                    CardArtsId = "202806", LinkedCards = new List<String> {},
                 }
             },
         };

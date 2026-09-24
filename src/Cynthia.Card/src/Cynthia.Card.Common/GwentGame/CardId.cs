@@ -689,6 +689,14 @@ namespace Cynthia.Card
         public const string Rience = "70201";
         public const string RamonTyrconnel = "70202";
         public const string AxelThreeEyes = "70203";
+        public const string VlodimirVonEverec = "70204";
+        public const string OphelieVanMoorlehem = "70205";
+        public const string SkjordalDrummond = "70206";
+        public const string GezrasOfLeyda = "70207";
+        public const string Gaetan = "70208";
+        public const string Brehen = "70209";
+        public const string CatSchoolWitcherThug = "70210";
+        public const string CatSchoolWitcher = "70211";
         public const string SvalblodFanatic = "70046";
 
     }

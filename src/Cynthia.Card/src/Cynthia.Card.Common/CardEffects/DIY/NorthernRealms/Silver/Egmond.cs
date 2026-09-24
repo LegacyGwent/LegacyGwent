@@ -8,7 +8,7 @@ namespace Cynthia.Card
     [CardEffectId(CardId.Egmond)]
     public class Egmond : CardEffect, IHandlesEvent<AfterCardBoost>, IHandlesEvent<AfterTurnOver>
     {
-        private bool _wasBoostedThisOwnerTurn;
+        private bool _shouldRepeatAtTurnEnd;
         private bool _isResolvingTurnEndRepeat;
 
         public Egmond(GameCard card) : base(card) { }
@@ -29,7 +29,7 @@ namespace Cynthia.Card
                 return Task.CompletedTask;
             }
 
-            _wasBoostedThisOwnerTurn = true;
+            _shouldRepeatAtTurnEnd = true;
             return Task.CompletedTask;
         }
 
@@ -40,8 +40,8 @@ namespace Cynthia.Card
                 return;
             }
 
-            var shouldRepeat = _wasBoostedThisOwnerTurn;
-            _wasBoostedThisOwnerTurn = false;
+            var shouldRepeat = _shouldRepeatAtTurnEnd;
+            _shouldRepeatAtTurnEnd = false;
             if (!shouldRepeat || !Card.Status.CardRow.IsOnPlace())
             {
                 return;
@@ -54,10 +54,9 @@ namespace Cynthia.Card
             }
             finally
             {
-                // A kill reward earned by this repeat is still applied, but it
-                // must not schedule another repeat or leak into the next turn.
+                // A repeat cannot schedule another repeat for the next turn.
                 _isResolvingTurnEndRepeat = false;
-                _wasBoostedThisOwnerTurn = false;
+                _shouldRepeatAtTurnEnd = false;
             }
         }
 
@@ -74,7 +73,10 @@ namespace Cynthia.Card
             var removedBoost = Math.Max(0, ally.Status.HealthStatus);
             if (removedBoost > 0)
             {
-                await ally.Effect.Reset(Card);
+                ally.Status.HealthStatus -= removedBoost;
+                await Game.ShowCardNumberChange(ally, -removedBoost, NumberType.Normal);
+                await Game.ShowSetCard(ally);
+                await Game.SetPointInfo();
             }
 
             var enemies = await Game.GetSelectPlaceCards(
@@ -90,7 +92,10 @@ namespace Cynthia.Card
             // target can still report an on-board row until this task completes.
             if (enemy.IsDead || !enemy.Status.CardRow.IsOnPlace())
             {
-                await Card.Effect.Boost(1, Card);
+                if (!_isResolvingTurnEndRepeat)
+                {
+                    _shouldRepeatAtTurnEnd = true;
+                }
             }
         }
     }

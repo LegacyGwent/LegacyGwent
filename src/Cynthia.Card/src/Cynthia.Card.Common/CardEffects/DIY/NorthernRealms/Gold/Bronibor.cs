@@ -1,43 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alsein.Extensions;
-using Cynthia.Card.Common.CardEffects.Neutral.Derive;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70188")]//布罗尼伯
+    [CardEffectId(CardId.Bronibor)]
     public class Bronibor : CardEffect, IHandlesEvent<AfterUnitDown>
-    {//Spawn and play a Poor Fucking Infantry. Then, deal 1 damage to a random enemy for each soldier you control.
+    {
+        private bool _isUsed;
+
         public Bronibor(GameCard card) : base(card) { }
 
-        private bool isused = false;
-
-        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Game.CreateCard(CardId.PoorFIngInfantry, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard(CardId.PoorFIngInfantry, PlayerIndex,
+                new CardLocation(RowPosition.MyStay, 0));
             return 1;
         }
+
         public async Task HandleEvent(AfterUnitDown @event)
         {
-            if (@event.Target.Status.CardId != CardId.PoorFIngInfantry || @event.Target.PlayerIndex != Card.PlayerIndex || isused || !Card.Status.CardRow.IsOnPlace())
+            if (@event.Target.Status.CardId != CardId.PoorFIngInfantry ||
+                @event.Target.PlayerIndex != PlayerIndex ||
+                _isUsed ||
+                !Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
-            var soldierlist = Game.GetPlaceCards(Card.PlayerIndex).FilterCards(filter: x => x.HasAllCategorie(Categorie.Soldier)).ToList();
-            int damage = soldierlist.Count();
-            for (int i = 0; i < damage; i++)
+
+            _isUsed = true;
+            var selectedRow = await Game.GetSelectRow(PlayerIndex, Card, TurnType.My.GetRow());
+            var soldiers = Game.RowToList(PlayerIndex, selectedRow)
+                .IgnoreConcealAndDead()
+                .Where(x => x.HasAnyCategorie(Categorie.Soldier))
+                .ToList();
+            var armorGained = 0;
+            foreach (var soldier in soldiers)
             {
-                var enemylist = Game.GetPlaceCards(AnotherPlayer).ToList();
-                if (enemylist.Count() == 0)
-                {
-                    break;
-                }
-                await enemylist.Mess(Game.RNG).First().Effect.Damage(1, Card);
+                var before = soldier.Status.Armor;
+                await soldier.Effect.Armor(1, Card);
+                armorGained += soldier.Status.Armor - before;
             }
-            isused = true;
-            return;
+
+            if (armorGained <= 0)
+            {
+                return;
+            }
+
+            var targets = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
+            if (targets.TrySingle(out var target))
+            {
+                await target.Effect.Damage(armorGained, Card);
+            }
         }
     }
 }

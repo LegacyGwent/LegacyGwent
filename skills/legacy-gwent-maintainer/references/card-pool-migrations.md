@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-09-16
+Last verified: 2026-09-24
 
-Verified against the DIY-AI reset lineage through `1.0.0.199`.
+Verified against the DIY-AI reset lineage through `1.0.0.202`.
 
 The August 11 first-batch restoration of `70082` (Arnjolf the Patricide) must
 also remove that ID from `DiyAiCardPool.RetiredCardIds` and add it to the exact
@@ -40,7 +40,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 728 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 736 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
 - After the `1.0.0.176` restoration, 84 entries are retired. The August 5 cards remain
@@ -93,6 +93,11 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   Crow `70136` must be unretired so linked/generation pools retain it, while its
   `IsDerive` flag continues to keep it out of user decks and the Mongo allowlist.
   Verify IDs against the compiled map; stale reference counts are not an ID allocator.
+- September 24 appends eight deckable cards in this exact order: Vlodimir von
+  Everec `70204`, Ophelie Van Moorlehem `70205`, Skjordal Drummond `70206`,
+  Gezras of Leyda `70207`, Gaetan `70208`, Brehen `70209`, Cat School Witcher
+  Thug `70210`, and Cat School Witcher `70211`. The exact Mongo allowlist range
+  therefore ends at `70211`; preserve the first 728 map slots unchanged.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.
@@ -125,7 +130,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 728 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 736 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

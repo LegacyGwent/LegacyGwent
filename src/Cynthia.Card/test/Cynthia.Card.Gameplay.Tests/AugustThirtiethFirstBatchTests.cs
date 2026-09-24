@@ -29,7 +29,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task EgmondGetsOneBoostWhenItsDamageDestroysTheTarget()
+        public async Task EgmondSchedulesARepeatWhenItsDamageDestroysTheTarget()
         {
             var fixture = new HeadlessGameFixture();
             var ally = fixture.AddCard(
@@ -48,7 +48,7 @@ namespace Cynthia.Card.Gameplay.Tests
                 () => egmond.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
             Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
-            Assert.Equal(1, egmond.Status.HealthStatus);
+            Assert.Equal(0, egmond.Status.HealthStatus);
             Assert.Equal(0, secondEnemy.Status.HealthStatus);
             Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
         }
@@ -74,7 +74,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
             Assert.Equal(0, secondEnemy.Status.HealthStatus);
-            Assert.Equal(2, egmond.Status.HealthStatus);
+            Assert.Equal(1, egmond.Status.HealthStatus);
             Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
 
             await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));

@@ -53,6 +53,7 @@ namespace Cynthia.Card.Gameplay.Tests
         public IList<IList<RowPosition>> RowRequests { get; } = new List<IList<RowPosition>>();
         public Action BeforeRowSelection { get; set; }
         public Func<MenuSelectCardInfo, IList<int>> MenuSelectionOverride { get; set; }
+        public Func<PlaceSelectCardsInfo, IList<CardLocation>> PlaceSelectionOverride { get; set; }
 
         public DeterministicHeadlessPlayer(string playerName)
         {
@@ -134,6 +135,12 @@ namespace Cynthia.Card.Gameplay.Tests
             PlaceSelectionSources.Add(new CardLocation(
                 info.SelectCard.RowPosition,
                 info.SelectCard.CardIndex));
+            if (PlaceSelectionOverride != null)
+            {
+                send(Operation.Create(UserOperationType.SelectPlaceCardsInfo,
+                    PlaceSelectionOverride(info)));
+                return;
+            }
             var selected = info.CanSelect.CardsPartToLocation().Take(info.SelectCount).ToList();
             send(Operation.Create(UserOperationType.SelectPlaceCardsInfo, selected));
         }

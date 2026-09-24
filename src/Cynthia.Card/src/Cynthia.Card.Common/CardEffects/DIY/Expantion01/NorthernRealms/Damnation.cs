@@ -22,10 +22,33 @@ namespace Cynthia.Card
                         var moveCard = list.Mess(RNG).First();
                         await moveCard.Effect.Lock(Card);
                         await moveCard.Effect.Summon(new CardLocation(result, row.Count), Card);
+                        var initialArmor = GetInitialArmor(moveCard.Status.CardId);
+                        if (initialArmor > 0 && moveCard.Status.CardRow.IsOnPlace())
+                        {
+                            await moveCard.Effect.Armor(initialArmor, Card);
+                        }
                 }
                     
             }
             return 0;
+        }
+
+        private static int GetInitialArmor(string cardId)
+        {
+            return cardId switch
+            {
+                "34004" => 2,
+                "34024" => 2,
+                "44001" => 4,
+                "44003" => 3,
+                "44006" => 4,
+                "44009" => 2,
+                "44010" => 2,
+                "44013" => 2,
+                "44024" => 1,
+                "64022" => 2,
+                _ => 0
+            };
         }
     }
 }

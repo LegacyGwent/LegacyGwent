@@ -776,7 +776,9 @@
         "Masquerade_ChangeSilver": "Измените качество выбранного отряда на серебряное.",
         "Masquerade_ChangeCopper": "Измените качество выбранного отряда на бронзовое.",
         "AxelThreeEyes_1_SpawnCrows": "Создайте по 1 Ворону в каждом ряду.",
-        "AxelThreeEyes_2_CreateCrowEyes": "Добавьте 2 Вороньих глаза в низ своей колоды, затем сыграйте верхний Вороний глаз из своей колоды."
+        "AxelThreeEyes_2_CreateCrowEyes": "Добавьте 2 Вороньих глаза в низ своей колоды, затем сыграйте верхний Вороний глаз из своей колоды.",
+        "GezrasOfLeyda_1_Strengthen": "Strengthen by 1",
+        "GezrasOfLeyda_2_Weaken": "Weaken to 1"
     },
     "CardLocales": {
         "12001": {
@@ -2591,12 +2593,12 @@
         },
         "44033": {
             "Name": "Лебедка",
-            "Info": "Выбор: воскресите и сыграйте бронзовую машину из вашего сброса и сделайте её обречённой или усильте все машины на поле на 3 ед.",
+            "Info": "Choose one: Resurrect a Bronze Machine and give it Doomed; or Boost all allied Machines by 3.",
             "Flavor": "Чего тут лишнего говорить-то? Просто лебедка."
         },
         "44034": {
             "Name": "Кровавый бич",
-            "Info": "Нанесите 5 ед. урона и создайте Призрака в случайном ряду.",
+            "Info": "Deal 5 damage and Spawn a Specter.",
             "Flavor": "Некоторые виды оружия были запрещены в королевствах Севера — столь страшны были раны, нанесенные ими."
         },
         "45001": {
@@ -3431,7 +3433,7 @@
         },
         "70015": {
             "Name": "Стража Брокилона",
-            "Info": "В конце своего хода, если в ряду противника ровно 4 отряда, нанесите по 1 ед. урона всем отрядам в этом ряду.",
+            "Info": "At the end of each turn, if there are exactly 4 enemies on the opposing row, damage each of them by 1.",
             "Flavor": "Там, где сейчас ваши поля и города, всё еще земля Брокилона. Мы вернем то, что вы украли у леса."
         },
         "70016": {
@@ -3596,7 +3598,7 @@
         },
         "70078": {
             "Name": "Проклятие",
-            "Info": "Сыграйте две сильнейшие бронзовые карты из своей колоды в один ряд и измените их статус блокировки.",
+            "Info": "Summon the 2 highest Bronze units from your deck to the same row, change their Lock status, and give them their initial Armor.",
             "Flavor": "Из-за этих костров в Новиграде дышать невозможно! Почему нельзя сжигать грешников где-нибудь на окраине?"
         },
         "70079": {
@@ -3676,7 +3678,7 @@
         },
         "70095": {
             "Name": "Лириан Арбалет",
-            "Info": "Нанесите урон вражескому отряду, равный разнице силы между этой карты и силой отряда противника.",
+            "Info": "Damage a unit with lower power than self by the difference, or destroy all Armor on a unit with at least as much power as self.",
             "Flavor": "Я попаду в яблочко со ста шагов! Может, не с первого раза… но когда-нибудь — обязательно!"
         },
         "70096": {
@@ -4051,7 +4053,7 @@
         },
         "70171": {
             "Name": "Пояс великаньей силищи",
-            "Info": "Усильте союзый отряд на его базовую силу. Если это Огроид, помимо усиления укрепите его на 2 ед.",
+            "Info": "Boost an ally by its base Strength. If it is an Ogroid, Strengthen it by 2 first.",
             "Flavor": "Прочный кожаный ремень, шитый на исполина. Волшебным образом приходится впору любому и наделяет владельца великаньей силой. Но не габаритами!"
         },
         "70172": {
@@ -4081,7 +4083,7 @@
         },
         "70177": {
             "Name": "Сэр Цараплот",
-            "Info": "Усильте всех Зверей под Полнолунием на 1. В руке, колоде или на вашей половине поля: каждый раз, когда Зверь появляется на вашей половине поля, усильте этот отряд на 1.",
+            "Info": "Boost all Beast units under “Full Moon” by 1. While in your hand or deck, Boost self by 1 whenever a Beast appears on your side of the board.",
             "Flavor": "Если дорожишь глазами... не называй его киской."
         },
         "70178": {
@@ -4136,7 +4138,7 @@
         },
         "70188": {
             "Name": "Бронибор",
-            "Info": "Создайте \"Простого Порванного Пехотинца\", затем за каждого союзного Солдата на поле нанесите случайному врагу 1 ед. урона.",
+            "Info": "Spawn a Poor Fucking Infantry, then give every allied Soldier on one row 1 Armor and damage an enemy by the total Armor gained.",
             "Flavor": "Здесь, за пределами этого села, имя которого я забыл, вы в конце концов покажете, насколько вы ценны как армия."
         },
         "70190": {
@@ -4261,7 +4263,7 @@
         },
         "70200": {
             "Name": "Эгмонд",
-            "Info": "Снимите все усиления с союзного отряда, затем нанесите вражескому отряду урон, равный снятой величине. Если уничтожите цель, усильте этот отряд на 1. Если этот отряд был усилен в ваш ход, повторите эту способность в конце хода.",
+            "Info": "Remove the Boost from an allied unit and damage an enemy by the power it lost. If the target is destroyed, or this unit is Boosted during your turn, repeat this ability at turn end.",
             "Flavor": ""
         },
         "70201": {
@@ -4277,6 +4279,46 @@
         "70203": {
             "Name": "Аксель Трёхглазый",
             "Info": "Выберите одно: создайте по 1 Ворону в каждом ряду; или добавьте 2 Вороньих глаза в низ своей колоды, затем сыграйте верхний Вороний глаз из своей колоды.",
+            "Flavor": ""
+        },
+        "70204": {
+            "Name": "Vlodimir von Everec",
+            "Info": "Play the weakest Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
+            "Flavor": ""
+        },
+        "70205": {
+            "Name": "Ophelie Van Moorlehem",
+            "Info": "Set the power of a unit in your deck with more than 1 power to 1, then deal damage equal to the power it lost. If the target is destroyed, Heal an allied unit or unit in your hand.",
+            "Flavor": ""
+        },
+        "70206": {
+            "Name": "Skjordal Drummond",
+            "Info": "Discard a Bronze Clan unit from your deck, then Resurrect a differently named Bronze unit from the same Clan.",
+            "Flavor": ""
+        },
+        "70207": {
+            "Name": "Gezras of Leyda",
+            "Info": "Choose one: Strengthen an allied Bronze/Silver Witcher or Beast by 1; or Weaken it to 1. Then replay it.",
+            "Flavor": ""
+        },
+        "70208": {
+            "Name": "Gaetan",
+            "Info": "Damage all other allied units on this row by 1. If the opposing row has more units than this unit’s base power, deal damage equal to the difference and repeat once for each other unit on this row.",
+            "Flavor": ""
+        },
+        "70209": {
+            "Name": "Brehen",
+            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the damage dealt. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Flavor": ""
+        },
+        "70210": {
+            "Name": "Cat School Witcher Thug",
+            "Info": "Move an enemy to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference twice, then repeat once.",
+            "Flavor": ""
+        },
+        "70211": {
+            "Name": "Cat School Witcher",
+            "Info": "If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
             "Flavor": ""
         }
     }
