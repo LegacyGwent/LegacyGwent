@@ -1,10 +1,10 @@
 # September 24 card batch
 
-Last verified: 2026-09-24
+Last verified: 2026-09-25
 
 ## Identity and localization
 
-- CardMap `1.0.0.202` has 736 entries. It preserves the first 728 entries and
+- CardMap `1.0.0.203` has 736 entries. It preserves the first 728 entries and
   appends `70204` through `70211` in the order recorded in
   `card-pool-migrations.md`.
 - The eight new cards are ordinary deckable cards. Add them to the exact Mongo
@@ -12,6 +12,10 @@ Last verified: 2026-09-24
   locales aligned in Chinese, English, Polish, and Russian.
 - Existing art `202801`, `202804`, `202805`, `202806`, and `202808` is already
   registered as full and slot Addressables for the five new Scoia'tael cards.
+- Brokilon Sentinel `70015` and Giant's Belt `70171` also have registered full
+  and slot art (`202273` and `203266`). Their September 24 effects did not make
+  them deckable until they were removed from the retired manifest and added to
+  the Mongo allowlist in CardMap `1.0.0.203`.
 
 ## Armor and repeat rules
 

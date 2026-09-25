@@ -1,6 +1,6 @@
 # Operations
 
-Last verified: 2026-08-01
+Last verified: 2026-09-25
 
 ## Stable DIY
 
@@ -68,6 +68,10 @@ Last verified: 2026-08-01
   self-contained `linux-x64`, uploads through dedicated account `card-deploy`,
   activates atomically, and verifies 5010 from the target host through the
   authenticated SSH channel.
+- The self-contained archive can exceed 100 MB. On September 24, GitHub's
+  runner-to-host `scp` was still progressing when the 30-minute deploy job
+  limit cancelled it, leaving the old release healthy. The deploy job now has
+  60 minutes; check remote upload size before treating a long upload as stuck.
 - A normal `diy-ai` push reaches deployment only through the `deploy` job in
   `DIY-AI CI`, after both `server` and `policy` succeed. The deploy workflow is
   reusable and manually dispatchable, but it has no independent push trigger.

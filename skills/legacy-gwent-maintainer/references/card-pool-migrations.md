@@ -1,14 +1,15 @@
 # Card-pool migrations
 
-Last verified: 2026-09-24
+Last verified: 2026-09-25
 
-Verified against the DIY-AI reset lineage through `1.0.0.202`.
+Verified against the DIY-AI reset lineage through `1.0.0.203`.
 
-The August 11 first-batch restoration of `70082` (Arnjolf the Patricide) must
-also remove that ID from `DiyAiCardPool.RetiredCardIds` and add it to the exact
-Mongo reset allowlist. Updating its effect, metadata, locale, and tests without
-asserting `IsUserDeckCard("70082")` leaves the card implemented but hidden from
-deck building after `DiyAiCardPool.Apply` runs.
+Restoring any historical card requires removing its ID from
+`DiyAiCardPool.RetiredCardIds`, adding it to the exact Mongo reset allowlist,
+and asserting `IsUserDeckCard(id)`. Updating only its effect, metadata, and
+locale leaves it hidden from deck building after `DiyAiCardPool.Apply` runs.
+This affected Arnjolf `70082` in August and Brokilon Sentinel `70015` plus
+Giant's Belt `70171` in September; all three are now deckable.
 
 Load this reference before removing, hiding, renumbering, or restoring cards.
 
@@ -98,6 +99,10 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   Gezras of Leyda `70207`, Gaetan `70208`, Brehen `70209`, Cat School Witcher
   Thug `70210`, and Cat School Witcher `70211`. The exact Mongo allowlist range
   therefore ends at `70211`; preserve the first 728 map slots unchanged.
+- September 25 restores historical Brokilon Sentinel `70015` and Giant's Belt
+  `70171` to user decks without adding or reordering CardMap slots. Both have
+  full and miniature art registered in Unity. CardMap version `1.0.0.203`
+  refreshes client availability, and the Mongo allowlist includes both IDs.
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.

@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
-            Assert.Equal(39, DiyAiCardPool.RetiredCardIds.Count);
+            Assert.Equal(37, DiyAiCardPool.RetiredCardIds.Count);
             Assert.Equal(10, DiyAiCardPool.SystemCardIds.Count);
             Assert.Empty(DiyAiCardPool.RetiredCardIds.Intersect(DiyAiCardPool.SystemCardIds));
             Assert.DoesNotContain("70041", DiyAiCardPool.RetiredCardIds);
@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 202), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 203), GwentMap.CardMapVersion);
             Assert.Equal(736, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -66,6 +66,13 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void SeptemberTwentyFourthBatchMatchesPoolMetadataEffectsAndLocales()
         {
+            foreach (var id in new[] { "70015", "70171" })
+            {
+                Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
+                Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                Assert.False(GwentMap.CardMap[id].IsDerive);
+            }
+
             var newIds = new[]
             {
                 CardId.VlodimirVonEverec, CardId.OphelieVanMoorlehem,
