@@ -9,6 +9,12 @@ namespace Cynthia.Card
     {//遗愿：在同排生成1个“羊角魔”。
         public PrizeWinningCow(GameCard card) : base(card) { }
 
+        public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
+        {
+            await Card.Effect.Resilience(Card);
+            return 0;
+        }
+
         public async Task HandleEvent(AfterCardDeath @event)
         {
             if (@event.Target != Card) return;
