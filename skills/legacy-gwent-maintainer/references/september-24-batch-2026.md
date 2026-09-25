@@ -4,7 +4,7 @@ Last verified: 2026-09-25
 
 ## Identity and localization
 
-- CardMap `1.0.0.203` has 736 entries. It preserves the first 728 entries and
+- CardMap `1.0.0.204` has 736 entries. It preserves the first 728 entries and
   appends `70204` through `70211` in the order recorded in
   `card-pool-migrations.md`.
 - The eight new cards are ordinary deckable cards. Add them to the exact Mongo
@@ -21,7 +21,7 @@ Last verified: 2026-09-25
 
 - Bronibor lets its controller choose one allied row after Poor Infantry lands.
   Every Soldier on that row gains 1 Armor, and one enemy takes damage equal to
-  the total Armor actually granted by that resolution.
+  the number of Soldiers on that row, independent of the Armor actually gained.
 - Damnation still locks and summons the two highest Bronze units. A summoned
   Bronze unit whose printed ability contains a standalone initial `X Armor`
   sentence receives that Armor after summoning. The verified IDs and values are
@@ -38,7 +38,8 @@ Last verified: 2026-09-25
 
 ## New-card timing
 
-- Vlodimir plays a random weakest Bronze/Silver Witcher from deck. While an
+- Vlodimir lets its controller choose any Bronze/Silver Witcher unit from deck.
+  While an
   unlocked allied Vlodimir remains on board, Gaunter O'Dimm gets up to three
   guesses; every failed guess rolls a new random unit, and a correct guess or
   the third failure ends the sequence.
@@ -46,7 +47,11 @@ Last verified: 2026-09-25
   Weakens its base Strength to 1, then clears temporary board state and replays
   that same card. The Strengthen/Weaken survives the replay.
 - Gaetan and Cat School Witcher recalculate the current opposing-row population
-  at their documented repeat or damage step. Cat School Witcher Thug moves the
-  selected enemy to the opposing row first and recalculates that row before the
-  repeated pair of hits. Brehen counts actual Armor/power lost by its allied
-  one-damage hits before Strengthening itself.
+  at their documented repeat or damage step. Gaetan may choose its damage target
+  anywhere on the board. Cat School Witcher Thug moves two enemies to the
+  opposing row, then chooses a damage target anywhere on the board for each of
+  its two hits; it recounts the opposing row before each hit. Brehen counts
+  actual Armor/power lost by its allied one-damage hits before Strengthening
+  itself.
+- Dwarf Berserker's Deploy selects only two allied units to move into its row.
+  When it moves, a random lowest-power allied unit in its new row gains 2 Boost.

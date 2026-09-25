@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public DwarvenChariot(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            var selectCard = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.AllRow, filter: x => x.Status.CardRow != Card.Status.CardRow);
+            var selectCard = await Game.GetSelectPlaceCards(Card, 2, selectMode: SelectModeType.MyRow, filter: x => x.Status.CardRow != Card.Status.CardRow);
             foreach (var target in selectCard)
             {
                 await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
@@ -22,7 +22,7 @@ namespace Cynthia.Card
          {
              if (@event.Target != Card) return;
              var row = Game.RowToList(PlayerIndex, Card.Status.CardRow).IgnoreConcealAndDead();
-             var card = row.Where(x => x.IsAliveOnPlance()).Mess(Game.RNG).Take(1);
+             var card = row.Where(x => x.IsAliveOnPlance()).WhereAllLowest().Mess(Game.RNG).Take(1);
               if (card.Count() > 0)
                 {
                      await card.Single().Effect.Boost(2, Card);

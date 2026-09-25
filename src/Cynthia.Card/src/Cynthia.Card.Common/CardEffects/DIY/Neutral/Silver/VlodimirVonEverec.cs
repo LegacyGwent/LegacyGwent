@@ -15,14 +15,19 @@ namespace Cynthia.Card
                 .Where(x => x.IsAnyGroup(Group.Copper, Group.Silver) &&
                             x.Is(type: CardType.Unit) &&
                             x.HasAnyCategorie(Categorie.Witcher))
-                .WhereAllLowest()
                 .ToList();
             if (candidates.Count == 0)
             {
                 return 0;
             }
 
-            await candidates.Mess(RNG).First().MoveToCardStayFirst();
+            var selected = await Game.GetSelectMenuCards(PlayerIndex, candidates, 1, isCanOver: false);
+            if (!selected.TrySingle(out var witcher))
+            {
+                return 0;
+            }
+
+            await witcher.MoveToCardStayFirst();
             return 1;
         }
     }

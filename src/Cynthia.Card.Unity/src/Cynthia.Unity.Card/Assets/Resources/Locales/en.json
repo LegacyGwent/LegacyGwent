@@ -3763,7 +3763,7 @@
         },
         "70109": {
             "Name": "Dwarf Berserker",
-            "Info": "Deploy: Choose 2 units and move them to this unit's row.\nWhen this unit is moved, Boost a random unit in the same row as this unit by 2.",
+            "Info": "Move 2 allied units to this row. When this unit moves, Boost a random lowest-power unit in its row by 2.",
             "Flavor": "I know I'm going to die. So I'm making sure I'll have company."
         },
         "70110": {
@@ -4153,7 +4153,7 @@
         },
         "70188": {
             "Name": "Bronibor",
-            "Info": "Spawn a Poor Fucking Infantry, then give every allied Soldier on one row 1 Armor and damage an enemy by the total Armor gained.",
+            "Info": "Spawn a Poor Fucking Infantry. Then give every allied Soldier on one row 1 Armor and damage an enemy by the number of Soldiers in that row.",
             "Flavor": "Here, outside this village, whose name I have forgotten, you will finally show how much worth you have as an army."
         },
         "70190": {
@@ -4298,7 +4298,7 @@
         },
         "70204": {
             "Name": "Vlodimir von Everec",
-            "Info": "Play the weakest Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
+            "Info": "Play a Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
             "Flavor": ""
         },
         "70205": {
@@ -4328,7 +4328,7 @@
         },
         "70210": {
             "Name": "Cat School Witcher Thug",
-            "Info": "Move an enemy to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference twice, then repeat once.",
+            "Info": "Move 2 enemies to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference, then repeat once.",
             "Flavor": ""
         },
         "70211": {

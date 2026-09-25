@@ -7,7 +7,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class SeptemberTwentyFourthEffectsTests
     {
         [Fact]
-        public async Task BroniborUsesTheTotalArmorActuallyGrantedAsDamage()
+        public async Task BroniborDamagesByTheNumberOfSoldiersInTheChosenRow()
         {
             var f = new HeadlessGameFixture();
             var infantry = f.AddCard(f.Game.Player1Index, CardId.PoorFIngInfantry, RowPosition.MyRow1);
@@ -24,6 +24,28 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(1, soldier.Status.Armor);
             Assert.Equal(0, bronibor.Status.Armor);
             Assert.Equal(-2, enemy.Status.HealthStatus);
+        }
+
+        [Fact]
+        public async Task DwarfBerserkerMovesOnlyAlliesAndBoostsTheWeakestUnitAfterMoving()
+        {
+            var f = new HeadlessGameFixture();
+            var firstAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 5);
+            var secondAlly = f.AddCard(f.Game.Player1Index, CardId.Nekker, RowPosition.MyRow1, 6);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 5);
+            var weakest = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow3, 2);
+            var other = f.AddCard(f.Game.Player1Index, CardId.Nekker, RowPosition.MyRow3, 4);
+            var berserker = f.AddCard(f.Game.Player1Index, CardId.DwarvenChariot, RowPosition.MyRow2);
+            await f.SynchronizeClientsAsync();
+
+            await berserker.Effect.CardPlayEffect(false, false);
+            Assert.Equal(RowPosition.MyRow2, firstAlly.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow2, secondAlly.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow1, enemy.Status.CardRow);
+
+            await berserker.Effect.Move(new CardLocation(RowPosition.MyRow3, int.MaxValue), berserker);
+            Assert.Equal(4, weakest.CardPoint());
+            Assert.Equal(4, other.CardPoint());
         }
 
         [Fact]
@@ -70,21 +92,24 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task VlodimirPlaysTheWeakestEligibleWitcherFromDeck()
+        public async Task VlodimirLetsThePlayerChooseAnEligibleWitcherFromDeck()
         {
             var f = new HeadlessGameFixture();
             f.Game.PlayersDeck[f.Game.Player1Index].Clear();
-            var eskel = f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyDeck);
+            f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyDeck);
+            var chosen = f.AddCard(f.Game.Player1Index, CardId.CatSchoolWitcher, RowPosition.MyDeck);
             f.AddCard(f.Game.Player1Index, CardId.GeraltOfRivia, RowPosition.MyDeck);
             f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyDeck);
             var vlodimir = f.AddCard(
                 f.Game.Player1Index, CardId.VlodimirVonEverec, RowPosition.MyRow1);
+            f.FirstPlayer.QueueMenuCardIds(CardId.CatSchoolWitcher);
             await f.SynchronizeClientsAsync();
 
             var played = await vlodimir.Effect.CardPlayEffect(false, false);
 
             Assert.Equal(1, played);
-            Assert.Same(eskel, Assert.Single(f.Game.PlayersStay[f.Game.Player1Index]));
+            Assert.Same(chosen, Assert.Single(f.Game.PlayersStay[f.Game.Player1Index]));
+            Assert.Equal(2, f.FirstPlayer.LastMenuOptionCount);
         }
 
         [Fact]
@@ -156,20 +181,26 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task GaetanRecountsTheOpposingRowForEachRepeat()
+        public async Task GaetanCanDamageAnAlliedUnitOutsideTheOpposingRow()
         {
             var f = new HeadlessGameFixture();
             var ally = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 10);
+            var distantAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow3, 20);
             var gaetan = f.AddCard(f.Game.Player1Index, CardId.Gaetan, RowPosition.MyRow1);
             var enemies = Enumerable.Range(0, 4)
                 .Select(_ => f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20))
                 .ToArray();
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.MyRow3)
+                .Take(info.SelectCount)
+                .ToList();
             await f.SynchronizeClientsAsync();
 
             await gaetan.Effect.CardPlayEffect(false, false);
 
             Assert.Equal(-1, ally.Status.HealthStatus);
-            Assert.Equal(-4, enemies.Sum(enemy => enemy.Status.HealthStatus));
+            Assert.Equal(-4, distantAlly.Status.HealthStatus);
+            Assert.All(enemies, enemy => Assert.Equal(0, enemy.Status.HealthStatus));
         }
 
         [Fact]
@@ -193,22 +224,33 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task CatSchoolWitcherThugMovesItsTargetAndRecalculatesBeforeTheRepeat()
+        public async Task CatSchoolWitcherThugMovesTwoEnemiesAndCanDamageAnUnrelatedUnit()
         {
             var f = new HeadlessGameFixture();
             var thug = f.AddCard(
                 f.Game.Player1Index, CardId.CatSchoolWitcherThug, RowPosition.MyRow2);
-            var target = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            var firstMoved = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            var secondMoved = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            var damageTarget = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow3, 20);
             for (var index = 0; index < 3; index++)
             {
                 f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, 20);
             }
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => info.SelectCount == 2
+                    ? location.RowPosition == RowPosition.EnemyRow1
+                    : location.RowPosition == RowPosition.MyRow3)
+                .Take(info.SelectCount)
+                .ToList();
             await f.SynchronizeClientsAsync();
 
             await thug.Effect.CardPlayEffect(false, false);
 
-            Assert.Equal(RowPosition.MyRow2, target.Status.CardRow);
-            Assert.Equal(-8, target.Status.HealthStatus);
+            Assert.Equal(RowPosition.MyRow2, firstMoved.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow2, secondMoved.Status.CardRow);
+            Assert.Equal(-6, damageTarget.Status.HealthStatus);
+            Assert.Equal(0, firstMoved.Status.HealthStatus);
+            Assert.Equal(0, secondMoved.Status.HealthStatus);
         }
 
         [Fact]

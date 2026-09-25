@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 203);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 204);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -12371,7 +12371,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier, Categorie.Dwarf},
                     Flavor = "“随你们怎么画，各位亲爱的矮人。但是我把话放在这里，它造不出来。”",
-                    Info = "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。",
+                    Info = "将2个友军单位移至同排，自身移动后使所在排1个最弱单位获得2点增益。",
                     CardArtsId = "202476",
                     LinkedCards=new List<String> {},
                 }
@@ -15180,7 +15180,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Officer, Categorie.Temeria},
                     Flavor = "在这里，这个村庄的名字我已经忘记了，你最终会展示出你作为一支军队的价值。",
-                    Info = "生成1个“可怜的步兵”，随后使己方单排所有“士兵”单位获得1点护甲，对1个敌军单位造成等同于本次总计获得护甲点数的伤害。",
+                    Info = "生成1个“可怜的步兵”。随后使己方单排所有“士兵”单位获得1点护甲，对1个敌军单位造成等同于该排士兵总数的伤害。",
                     CardArtsId = "c10003900",
                     LinkedCards=new List<String> {"44020"},
                 }
@@ -15639,7 +15639,7 @@ namespace Cynthia.Card
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed },
                     Flavor = "弗洛迪米生前过得花天酒地，死后实在是把他给憋坏了。",
-                    Info = "从牌组打出1张最弱铜色/银色“猎魔人”单位牌。使己方打出的“刚特·欧迪姆”至多猜测3次。",
+                    Info = "从牌组打出1张铜色/银色“猎魔人”单位牌。使己方打出的“刚特·欧迪姆”至多猜测3次。",
                     CardArtsId = "202402", LinkedCards = new List<String> { CardId.GaunterODimm },
                 }
             },
@@ -15713,7 +15713,7 @@ namespace Cynthia.Card
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
-                    Info = "将1个敌军单位移至其所在半场的同排。若对方同排单位总数高于自身基础战力，造成差值的伤害2次，重复1次。",
+                    Info = "将2个敌军单位移至其所在半场的同排。若对方同排单位总数高于自身基础战力，造成差值的伤害，重复1次。",
                     CardArtsId = "202808", LinkedCards = new List<String> {},
                 }
             },

@@ -34,15 +34,12 @@ namespace Cynthia.Card
                 .IgnoreConcealAndDead()
                 .Where(x => x.HasAnyCategorie(Categorie.Soldier))
                 .ToList();
-            var armorGained = 0;
             foreach (var soldier in soldiers)
             {
-                var before = soldier.Status.Armor;
                 await soldier.Effect.Armor(1, Card);
-                armorGained += soldier.Status.Armor - before;
             }
 
-            if (armorGained <= 0)
+            if (soldiers.Count == 0)
             {
                 return;
             }
@@ -50,7 +47,7 @@ namespace Cynthia.Card
             var targets = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
             if (targets.TrySingle(out var target))
             {
-                await target.Effect.Damage(armorGained, Card);
+                await target.Effect.Damage(soldiers.Count, Card);
             }
         }
     }

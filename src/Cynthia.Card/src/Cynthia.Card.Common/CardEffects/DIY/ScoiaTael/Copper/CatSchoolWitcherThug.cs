@@ -12,29 +12,29 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var selected = await Game.GetSelectPlaceCards(
-                Card,
+                Card, 2,
                 filter: x => x.Status.CardRow != Card.Status.CardRow,
                 selectMode: SelectModeType.EnemyRow);
-            if (!selected.TrySingle(out var target))
+            foreach (var target in selected)
             {
-                return 0;
+                await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
             }
-
-            await target.Effect.Move(new CardLocation(Card.Status.CardRow, int.MaxValue), Card);
             for (var repeat = 0; repeat < 2; repeat++)
             {
                 var enemyCount = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())
                     .IgnoreConcealAndDead().Count;
                 var damage = enemyCount - Card.Status.Strength;
-                if (damage <= 0 || target.IsDead || !target.Status.CardRow.IsOnPlace())
+                if (damage <= 0)
                 {
                     break;
                 }
-                await target.Effect.Damage(damage, Card);
-                if (!target.IsDead && target.Status.CardRow.IsOnPlace())
+
+                var damageTargets = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+                if (!damageTargets.TrySingle(out var damageTarget))
                 {
-                    await target.Effect.Damage(damage, Card);
+                    break;
                 }
+                await damageTarget.Effect.Damage(damage, Card);
             }
             return 0;
         }

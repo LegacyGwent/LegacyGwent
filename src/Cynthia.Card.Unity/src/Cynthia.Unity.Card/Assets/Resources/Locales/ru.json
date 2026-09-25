@@ -3748,7 +3748,7 @@
         },
         "70109": {
             "Name": "Краснолюд-берсерк",
-            "Info": "Выберите 2 союзных отряда и переместите их в тот же ряд, что и эта карта. Если этот отряд перемещается, усильте случайный отряд в вашем ряду на 2 ед.",
+            "Info": "Переместите 2 союзных отряда в этот ряд. Когда этот отряд перемещается, усильте случайный отряд с наименьшей силой в его ряду на 2 ед.",
             "Flavor": "Я знаю, что сегодня умру, но умру не один. Уж об этом я позабочусь."
         },
         "70110": {
@@ -4138,7 +4138,7 @@
         },
         "70188": {
             "Name": "Бронибор",
-            "Info": "Spawn a Poor Fucking Infantry, then give every allied Soldier on one row 1 Armor and damage an enemy by the total Armor gained.",
+            "Info": "Spawn a Poor Fucking Infantry. Then give every allied Soldier on one row 1 Armor and damage an enemy by the number of Soldiers in that row.",
             "Flavor": "Здесь, за пределами этого села, имя которого я забыл, вы в конце концов покажете, насколько вы ценны как армия."
         },
         "70190": {
@@ -4283,7 +4283,7 @@
         },
         "70204": {
             "Name": "Vlodimir von Everec",
-            "Info": "Play the weakest Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
+            "Info": "Play a Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
             "Flavor": ""
         },
         "70205": {
@@ -4313,7 +4313,7 @@
         },
         "70210": {
             "Name": "Cat School Witcher Thug",
-            "Info": "Move an enemy to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference twice, then repeat once.",
+            "Info": "Move 2 enemies to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference, then repeat once.",
             "Flavor": ""
         },
         "70211": {

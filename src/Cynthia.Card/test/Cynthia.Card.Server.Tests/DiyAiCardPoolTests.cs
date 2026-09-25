@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 203), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 204), GwentMap.CardMapVersion);
             Assert.Equal(736, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -132,6 +132,40 @@ namespace Cynthia.Card.Server.Tests
                 Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
                 Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
             });
+        }
+
+        [Fact]
+        public void SeptemberTwentyFifthBatchMatchesCardDescriptionsAndLocales()
+        {
+            var descriptions = new Dictionary<string, string>
+            {
+                [CardId.Bronibor] = "生成1个“可怜的步兵”。随后使己方单排所有“士兵”单位获得1点护甲，对1个敌军单位造成等同于该排士兵总数的伤害。",
+                [CardId.CatSchoolWitcherThug] = "将2个敌军单位移至其所在半场的同排。若对方同排单位总数高于自身基础战力，造成差值的伤害，重复1次。",
+                [CardId.DwarvenChariot] = "将2个友军单位移至同排，自身移动后使所在排1个最弱单位获得2点增益。",
+                [CardId.VlodimirVonEverec] = "从牌组打出1张铜色/银色“猎魔人”单位牌。使己方打出的“刚特·欧迪姆”至多猜测3次。"
+            };
+            var localeRoots = new[]
+            {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = localeRoots.Select(root =>
+                    JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                        FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                foreach (var id in descriptions.Keys)
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                        Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info));
+                    if (language == "cn")
+                    {
+                        Assert.Equal(descriptions[id], GwentMap.CardMap[id].Info);
+                        Assert.Equal(descriptions[id], locales[0].CardLocales[id].Info);
+                    }
+                }
+            }
         }
 
         [Fact]
@@ -524,7 +558,7 @@ namespace Cynthia.Card.Server.Tests
                 (Id: "70038", Strength: 1, Group: Group.Gold, Faction: Faction.Skellige,
                     Effect: typeof(Sigvald), Info: "每回合结束时，复活此单位。每复活2次，获得1点强化。"),
                 (Id: "70109", Strength: 8, Group: Group.Copper, Faction: Faction.ScoiaTael,
-                    Effect: typeof(DwarvenChariot), Info: "选择2个单位，将它们移至所在半场的此排。自身移动后使所在排随机1个单位获得2点增益。"),
+                    Effect: typeof(DwarvenChariot), Info: "将2个友军单位移至同排，自身移动后使所在排1个最弱单位获得2点增益。"),
                 (Id: "51003", Strength: 3, Group: Group.Leader, Faction: Faction.ScoiaTael,
                     Effect: typeof(Filavandrel), Info: "生成1张起始牌组之外的银色中立“特殊”牌。"),
                 (Id: "70191", Strength: 2, Group: Group.Leader, Faction: Faction.ScoiaTael,
@@ -939,7 +973,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.True(GwentMap.CardMap[CardId.HeftyHelge].IsCountdown);
             Assert.Equal(8, GwentMap.CardMap[CardId.DwarfMiner].Strength);
             Assert.Contains("牌组", GwentMap.CardMap[CardId.DwarfMiner].Info);
-            Assert.Contains("选择2个单位", GwentMap.CardMap[CardId.DwarvenChariot].Info);
+            Assert.Contains("将2个友军单位", GwentMap.CardMap[CardId.DwarvenChariot].Info);
             Assert.Equal(2, GwentMap.CardMap[CardId.VanMoorlehemsCupbearer].Countdown);
             Assert.Contains("敌军非间谍铜色单位", GwentMap.CardMap[CardId.MageInfiltrator].Info);
             Assert.Contains("被揭示的非间谍敌方铜色单位牌", GwentMap.CardMap[CardId.MageInfiltrator].Info);

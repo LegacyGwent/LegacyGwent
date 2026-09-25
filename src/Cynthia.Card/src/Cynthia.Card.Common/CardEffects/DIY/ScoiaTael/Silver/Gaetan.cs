@@ -36,8 +36,7 @@ namespace Cynthia.Card
 
                 var selected = await Game.GetSelectPlaceCards(
                     Card,
-                    filter: x => x.Status.CardRow == Card.Status.CardRow,
-                    selectMode: SelectModeType.EnemyRow);
+                    selectMode: SelectModeType.AllRow);
                 if (!selected.TrySingle(out var target))
                 {
                     break;

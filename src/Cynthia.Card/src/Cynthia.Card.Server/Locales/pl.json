@@ -3762,7 +3762,7 @@
         },
         "70109": {
             "Name": "Straceniec",
-            "Info": "Rozmieszczenie: Wybierz 2 jednostki i przenieś je do swojego rzędu. Kiedy ta karta się przemieści wzmocnij losowego sojusznika w tym rzędzie o 2.",
+            "Info": "Przenieś 2 sojusznicze jednostki do tego rzędu. Gdy ta karta się przemieści, wzmocnij o 2 losową jednostkę o najniższej sile w jej rzędzie.",
             "Flavor": "Wiem, że zginę. Więc upewniam się, że nie zabraknie mi towarzystwa."
         },
         "70110": {
@@ -4152,7 +4152,7 @@
         },
         "70188": {
             "Name": "Bronibor",
-            "Info": "Spawn a Poor Fucking Infantry, then give every allied Soldier on one row 1 Armor and damage an enemy by the total Armor gained.",
+            "Info": "Spawn a Poor Fucking Infantry. Then give every allied Soldier on one row 1 Armor and damage an enemy by the number of Soldiers in that row.",
             "Flavor": "Tutaj, poza tą wioską, której nazwy już zapomniałem, wreszcie pokażesz, ile jesteście warci jako armia."
         },
         "70190": {
@@ -4297,7 +4297,7 @@
         },
         "70204": {
             "Name": "Vlodimir von Everec",
-            "Info": "Play the weakest Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
+            "Info": "Play a Bronze/Silver Witcher unit from your deck. Your Gaunter O’Dimm may guess up to 3 times while this unit is allied.",
             "Flavor": ""
         },
         "70205": {
@@ -4327,7 +4327,7 @@
         },
         "70210": {
             "Name": "Cat School Witcher Thug",
-            "Info": "Move an enemy to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference twice, then repeat once.",
+            "Info": "Move 2 enemies to the opposing row. If that row has more units than this unit’s base power, deal damage equal to the difference, then repeat once.",
             "Flavor": ""
         },
         "70211": {
