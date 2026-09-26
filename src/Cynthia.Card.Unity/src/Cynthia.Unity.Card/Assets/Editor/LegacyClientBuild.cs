@@ -45,6 +45,9 @@ public static class LegacyClientBuild
                 target = target, locationPathName = Required(args, "customBuildPath"), options = BuildOptions.None,
                 scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray()
             });
+            // GameCI parses this stdout contract even when a custom build method exits successfully.
+            var summary = report.summary;
+            Console.WriteLine($"\n###########################\n#      Build results      #\n###########################\n\nDuration: {summary.totalTime}\nWarnings: {summary.totalWarnings}\nErrors: {summary.totalErrors}\nSize: {summary.totalSize} bytes\n");
             if (report.summary.result != BuildResult.Succeeded) throw new BuildFailedException("Player build failed: " + report.summary.result);
         }
         finally

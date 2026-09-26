@@ -121,7 +121,7 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
   按卡 ID 而非份数分配闪卡，以及旧客户端改牌组后残留无效外观选择的问题。
   初始奖励扫描改为批量跳过已领取账号；1017 个测试账号的重复扫描只有 6 次读取、
   0 次写入，避免对线上约 4.2 万个账号每 30 秒重复逐户提交无效更新。
-- 素材/产物交付测试 19 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
+- 素材/产物交付测试 20 项通过：哈希损坏、目录穿越、meta 冲突、已有文件保护、
   普通包混入动态资源、闪卡分卷缺失、APK 缺 ARM64 等均能被拒绝。
   包含传输片段重组、缺片、损坏片段、读取重试及草稿发布保留标签的检查。
 - 33 卷真实素材已在 AI 工作区解压和校验，677 张卡恢复完成。
@@ -133,6 +133,12 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
   Windows Editor 均通过，Android 额外启用 `ENABLE_IL2CPP` 条件符号也通过。
   这不是 Unity Player、原生 IL2CPP 或 shader 构建。
 - workflow YAML、shell 语法及 Git whitespace 检查纳入提交前验证。
+- PR #824 已合入 `diy-ai`；`ff6c0f031` 的 CI 与部署成功，线上 CardMap 1.0.0.205
+  及抽查卡牌字段/中文文本通过。41,960 个账户初始化完成，空奖励账本为 0；
+  原 DIY 服务进程及规则卡/回放分支保持不变。
+- 首轮 Windows/macOS 普通版已完成 Unity Player 构建，但自定义入口遗漏 GameCI
+  要求的 stdout 结果摘要，导致 action 收尾误报失败并跳过产物上传。现已按真实
+  BuildReport 输出摘要，回归覆盖非零错误数；修复后的完整流水线仍需重新验收。
 - **本次 APK/Windows Player 仍在云端构建，尚无安装和真机视觉、内存、温度、
   覆盖升级验证。** Windows/Android 闪卡源素材已在上游 runner 恢复完成；
   许可证有效不等于 Player、原生 IL2CPP 和 shader 构建已经成功。

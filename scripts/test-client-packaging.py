@@ -4,6 +4,7 @@ import importlib.util
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -22,6 +23,34 @@ def module(name, filename):
 delivery = module('delivery', 'premium-content.py')
 artifacts = module('artifacts', 'verify-client-content.py')
 publisher = module('publisher', 'publish-premium-content.py')
+
+
+class GameCIReporting(unittest.TestCase):
+    def test_custom_builder_reports_actual_summary_to_gameci_parser(self):
+        source = (Path(__file__).resolve().parents[1] /
+                  'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Editor/LegacyClientBuild.cs').read_text()
+        self.assertIn('var summary = report.summary;', source)
+        output = re.search(r'Console\.WriteLine\(\$"([^"\n]*Build results[^"\n]*)"\);', source)
+        self.assertIsNotNone(output, 'Custom build must emit the GameCI build-results section')
+        # Render the production C# interpolation with report fixtures; never supply a
+        # hardcoded successful log. Preserve the pinned action's exact regex shape.
+        template = output.group(1).replace('\\n', '\n')
+        for errors in (0, 3):
+            values = {'totalTime': '00:01:02', 'totalWarnings': 4,
+                      'totalErrors': errors, 'totalSize': 123456789}
+            rendered = template
+            for name, value in values.items():
+                self.assertIn('{summary.' + name + '}', template)
+                rendered = rendered.replace('{summary.' + name + '}', str(value))
+            self.assertNotIn('{summary.', rendered)
+            result = re.search(r'^#\s*Build results\s*#(.*)^Size:', rendered, re.M | re.S)
+            self.assertIsNotNone(result)
+            parsed_errors = re.search(r'^Errors:\s*(\d+)$', result.group(1), re.M)
+            self.assertIsNotNone(parsed_errors)
+            self.assertEqual(int(parsed_errors.group(1)), errors)
+            self.assertEqual(int(parsed_errors.group(1)) == 0, errors == 0)
+            self.assertIn('Size: 123456789 bytes', rendered)
+        self.assertLess(source.index(output.group(0)), source.index('if (report.summary.result != BuildResult.Succeeded)'))
 
 
 class SourceDelivery(unittest.TestCase):

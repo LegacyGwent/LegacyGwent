@@ -113,6 +113,25 @@ Last verified: 2026-09-26
   IL2CPP or compile Android shaders. Phone memory/visual acceptance remains
   required even with low-quality render targets and texture overrides.
 
+## Custom Unity build succeeds but GameCI rejects the action
+
+- Symptom: Unity exits successfully and the executable, content marker and
+  version file exist, then `unity-builder` fails with its generic build error.
+- Cause: pinned action `7afabe74` parses stdout for a `# Build results #`
+  section ending at `Size:`, including an `Errors:` count. A custom method
+  bypasses GameCI's default reporter; exit code zero alone does not pass.
+- Fix: after `BuildPipeline.BuildPlayer`, `LegacyClientBuild.Build` prints
+  duration, warnings, errors and size from the actual `report.summary`, in
+  the default reporter's format. Keep failure-result checks and normal return
+  so staged assets and signing passwords are cleaned up in `finally`.
+- Prevention: never print a synthetic zero error count to satisfy the parser.
+  Check the pinned action's custom-method contract when upgrading GameCI.
+- Verification: job `108385031290` produced a Windows player and exited zero
+  before the missing-summary rejection. `test-client-packaging.py` renders
+  the production reporting template using both zero-error and nonzero-error
+  report fixtures, then applies the pinned parser shape. A successful rerun
+  and artifact verification are still required to prove the live fix.
+
 ## Inspecting long first builds
 
 - Symptom: a cold Unity upgrade stays in the builder step much longer than a
