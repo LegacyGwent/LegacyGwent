@@ -85,7 +85,13 @@ Last verified: 2026-09-26
 - Cause: a different signing identity, missing Unity license, missing Android
   toolchain, or insufficient disk for source + Library + bundles + Docker.
 - Fix: persist one release keystore outside Git, back it up, and configure the
-  five `ANDROID_*` Secrets. `configure-android-signing.py` can upload encrypted
+  five `ANDROID_*` Secrets for formal releases. The manual mobile workflow also
+  supports `signing_mode=test` (default): it creates one temporary Android Debug
+  key for both variants in that run, shares it via a one-day Actions artifact,
+  and appends `-test.apk`. Test builds do not require release signing Secrets;
+  a later run has a different key and may require uninstalling the earlier APK.
+  Both modes check the selected certificate before uploading APKs. The tagged
+  release workflow still requires persistent signing. `configure-android-signing.py` can upload encrypted
   Secrets using PyNaCl. GameCI Personal setup documents `UNITY_LICENSE` (Hub
   generated .ulf), `UNITY_EMAIL`, and `UNITY_PASSWORD`; all are wired in CI.
   Missing repository Secrets does not mean the local editor lacks a license.

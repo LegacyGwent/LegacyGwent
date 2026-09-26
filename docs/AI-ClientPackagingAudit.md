@@ -35,8 +35,12 @@
    Android 动态 PNG 纹理使用 ETC2 RGBA8，最大 1024，不另存一套低清源图。
    Android 使用独立的平台资源包；不支持的后处理 shader 跳过，运行时图形能力
    不足时回退静态卡。低/中/高档仍控制渲染尺寸和刷新频率，不能代替内存实测。
-5. **固定安卓签名**：mobile/release 使用同一组 `ANDROID_*` Secrets；缺任一项
-   就停止。产物检查同时验证包名、版本、ARM64、签名证书 SHA-256 和资源成员。
+5. **安卓签名模式**：mobile 手动构建默认 `signing_mode=test`，同一次运行的标准包与
+   闪卡包共用临时 Android Debug 签名，文件名以 `-test.apk` 结尾；不要求配置正式签名。
+   临时密钥通过保留 1 天的构建 artifact 传递，密码为约定的 `android`，不能用于正式发布。
+   每次新运行生成新密钥，因此跨运行覆盖安装通常需先卸载。选择 `release` 或执行
+   `release.yml` 时仍要求同一组固定 `ANDROID_*` Secrets；缺任一项就停止。
+   APK 通过包名、版本、ARM64、所选签名证书 SHA-256 和资源成员检查后才上传。
    两种内容包保持同一应用身份。新签名不能直接覆盖使用其他签名的旧 APK；
    这次迁移通常要先卸载旧包，本地设置可能丢失，服务器账号数据不会因此被删除。
 
@@ -68,14 +72,18 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
 ## CI 与签名配置
 
 - 云端 Unity 构建仍需配置 `UNITY_LICENSE`；GameCI 个人版配置还列有
-  `UNITY_EMAIL`、`UNITY_PASSWORD`，workflow 已接入这些 Secrets。当前 fork 尚缺
-  该配置，workflow 会在下载大素材前明确失败。这不是要求另购许可证，也不表示
+  `UNITY_EMAIL`、`UNITY_PASSWORD`，workflow 已接入这些 Secrets。2026-09-20 的 fork
+  审计快照尚缺该配置；2026-09-26 上游仓库已有 `UNITY_LICENSE`，其构建激活结果
+  尚待验证。fork 不继承上游 Secrets，缺许可证时会在下载大素材前明确失败。
+  这不是要求另购许可证，也不表示
   本机 Unity 未激活。现行 [GameCI 说明](https://game.ci/docs/github/activation/)
   支持使用 Hub 生成的个人版 `.ulf` 跨平台配置；本机文档默认位置未找到该文件。
   不要将许可证/密码放入公开仓库或聊天，不要为此中断正在使用的本机激活。
-- 安卓需要 `ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、
+- 正式安卓签名（mobile 的 `release` 模式和 `release.yml`）需要
+  `ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、
   `ANDROID_KEY_ALIAS`、`ANDROID_KEY_PASSWORD`、`ANDROID_CERT_SHA256`。
-  这些已经配置到当前 fork，私钥及密码不在 Git 中。
+  2026-09-20 的 fork 审计快照已配置这些；2026-09-26 上游尚缺这五项，
+  默认 test 模式不依赖它们。私钥及密码不在 Git 中。
 - `scripts/configure-android-signing.py` 可在仓库外生成/复用固定签名并加密上传 Secrets；
   `--upload` 需要 PyNaCl。必须另做离线备份；不要在新机器上随意生成替代密钥。
 - 合入上游时使用上游自己的许可证与安卓签名 Secrets；fork 的私钥不会随 PR 传递。

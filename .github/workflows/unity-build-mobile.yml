@@ -8,6 +8,12 @@ on:
         description: Full commit SHA that must be built
         required: true
         type: string
+      signing_mode:
+        description: Test APKs or persistent release signing
+        required: true
+        type: choice
+        default: test
+        options: [test, release]
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -16,7 +22,28 @@ env:
 
 
 jobs:
+  prepareTestSigning:
+    if: inputs.signing_mode == 'test'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate shared debug signing identity
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          keytool -genkeypair -noprompt -storetype JKS \
+            -keystore "$RUNNER_TEMP/android-test.keystore" -storepass android \
+            -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
+            -validity 10000 -dname 'CN=Android Debug,O=Android,C=US'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-test-signing-${{ github.run_id }}
+          path: ${{ runner.temp }}/android-test.keystore
+          retention-days: 1
+          overwrite: true
+          if-no-files-found: error
   buildForAllSupportedPlatforms:
+    needs: [prepareTestSigning]
+    if: ${{ always() && !cancelled() && (needs.prepareTestSigning.result == 'success' || (inputs.signing_mode == 'release' && needs.prepareTestSigning.result == 'skipped')) }}
     name: Build ${{ matrix.targetPlatform }} / ${{ matrix.clientVariant }}
     runs-on: ubuntu-22.04
     strategy:
@@ -78,10 +105,15 @@ jobs:
           test "$tracked_android_code" = "$android_version_code"
           echo "value=$client_version" >> "$GITHUB_OUTPUT"
           echo "android_version_code=$android_version_code" >> "$GITHUB_OUTPUT"
-      - name: Require persistent Android signing
-        if: matrix.targetPlatform == 'Android'
+      - uses: actions/download-artifact@v4
+        if: inputs.signing_mode == 'test'
+        with:
+          name: android-test-signing-${{ github.run_id }}
+          path: ${{ runner.temp }}/android-test-signing
+      - name: Select Android signing identity
         shell: bash
         env:
+          SIGNING_MODE: ${{ inputs.signing_mode }}
           KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           STORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -89,12 +121,36 @@ jobs:
           CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
         run: |
           set -Eeuo pipefail
-          for name in KEYSTORE STORE_PASS KEY_ALIAS KEY_PASS CERT_SHA256; do
-            if [[ -z "${!name}" ]]; then
-              echo "Missing persistent Android signing secret: $name" >&2
-              exit 1
-            fi
-          done
+          case "$SIGNING_MODE" in
+            test)
+              test_keystore="$RUNNER_TEMP/android-test-signing/android-test.keystore"
+              KEYSTORE="$(base64 --wrap=0 "$test_keystore")"
+              STORE_PASS=android
+              KEY_ALIAS=androiddebugkey
+              KEY_PASS=android
+              CERT_SHA256="$(keytool -exportcert -keystore "$test_keystore" -storepass android -alias androiddebugkey | sha256sum | awk '{print $1}')"
+              ;;
+            release)
+              for name in KEYSTORE STORE_PASS KEY_ALIAS KEY_PASS CERT_SHA256; do
+                if [[ -z "${!name}" ]]; then
+                  echo "Missing persistent Android signing secret: $name" >&2
+                  exit 1
+                fi
+              done
+              ;;
+            *) echo "Invalid Android signing mode." >&2; exit 1 ;;
+          esac
+          [[ "$CERT_SHA256" =~ ^[0-9a-fA-F]{64}$ ]]
+          echo "::add-mask::$KEYSTORE"
+          echo "::add-mask::$STORE_PASS"
+          echo "::add-mask::$KEY_PASS"
+          {
+            echo "BUILD_KEYSTORE_BASE64=$KEYSTORE"
+            echo "BUILD_KEYSTORE_PASSWORD=$STORE_PASS"
+            echo "BUILD_KEY_ALIAS=$KEY_ALIAS"
+            echo "BUILD_KEY_PASSWORD=$KEY_PASS"
+            echo "EXPECTED_CERT_SHA256=$CERT_SHA256"
+          } >> "$GITHUB_ENV"
       - uses: ./.github/actions/prepare-premium-content
         with:
           variant: ${{ matrix.clientVariant }}
@@ -118,17 +174,17 @@ jobs:
           androidVersionCode: ${{ steps.client_version.outputs.android_version_code }}
           androidExportType: androidPackage
           androidKeystoreName: legacygwent.keystore
-          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          androidKeyaliasName: ${{ secrets.ANDROID_KEY_ALIAS }}
-          androidKeyaliasPass: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          androidKeystoreBase64: ${{ env.BUILD_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ env.BUILD_KEYSTORE_PASSWORD }}
+          androidKeyaliasName: ${{ env.BUILD_KEY_ALIAS }}
+          androidKeyaliasPass: ${{ env.BUILD_KEY_PASSWORD }}
           allowDirtyBuild: true
       - name: Prepare Android client
         id: package
         shell: bash
         env:
           CLIENT_VARIANT: ${{ matrix.clientVariant }}
-          EXPECTED_CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
+          SIGNING_MODE: ${{ inputs.signing_mode }}
           EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
         run: |
           set -Eeuo pipefail
@@ -138,17 +194,18 @@ jobs:
           mapfile -t apk_files < <(find "build/${{ matrix.targetPlatform }}" -type f -iname '*.apk' | sort)
           test "${#apk_files[@]}" -eq 1
           package_name="DiyGwent-AITest-Android-$EXPECTED_CLIENT_VERSION-$CLIENT_VARIANT.apk"
+          if [[ "$SIGNING_MODE" == test ]]; then package_name="${package_name%.apk}-test.apk"; fi
           cp "${apk_files[0]}" "$package_name"
           test -s "$package_name"
           python3 scripts/verify-client-content.py "$package_name" --variant "$CLIENT_VARIANT" --target Android
           echo "package_name=$package_name" >> "$GITHUB_OUTPUT"
 
       - name: Verify Android client
+        id: verify_android
         shell: bash
         env:
           PACKAGE_NAME: ${{ steps.package.outputs.package_name }}
           CLIENT_VARIANT: ${{ matrix.clientVariant }}
-          EXPECTED_CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
           EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
           EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
           EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
@@ -200,9 +257,9 @@ jobs:
           )"
           [[ "$certificate_digest" =~ ^[0-9a-fA-F]{64}$ ]]
           test "${certificate_digest,,}" = "${EXPECTED_CERT_SHA256,,}"
-          echo "Verified persistent signing certificate SHA-256: $certificate_digest"
+          echo "Verified selected signing certificate SHA-256: $certificate_digest"
       - uses: actions/upload-artifact@v4
-        if: ${{ always() && steps.package.outcome == 'success' }}
+        if: ${{ success() && steps.verify_android.outcome == 'success' }}
         with:
           name: ${{ steps.package.outputs.package_name }}
           path: ${{ steps.package.outputs.package_name }}
