@@ -8,6 +8,7 @@ using Cynthia.Card.Server;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Events;
 
 partial class Program
 {
@@ -15,6 +16,70 @@ partial class Program
         new ServiceCollection().AddSingleton(db.GetMongoClient()).AddSingleton(new InitialPowderOptions(amount)).BuildServiceProvider())
         { DailyQuestClock = () => Now };
     static int InitialGrants(PremiumCollection account) => account.Rewards.Count(x => x.RewardId == GwentDatabaseService.InitialPowderRewardId);
+
+    static async Task InitialBackfillCommandCounts()
+    {
+        // The dedicated client observes only this service, excluding unrelated hosted workers.
+        long writes = 0, reads = 0;
+        var settings = db.GetMongoClient().Settings.Clone();
+        var configure = settings.ClusterConfigurator;
+        settings.ClusterConfigurator = builder =>
+        {
+            configure?.Invoke(builder);
+            builder.Subscribe<CommandStartedEvent>(command =>
+            {
+                if (command.DatabaseNamespace.DatabaseName != "gwentdiy") return;
+                if (command.CommandName == "update" || command.CommandName == "findAndModify") Interlocked.Increment(ref writes);
+                if (command.CommandName == "find" || command.CommandName == "getMore") Interlocked.Increment(ref reads);
+            });
+        };
+        using var provider = new ServiceCollection().AddSingleton<IMongoClient>(new MongoClient(settings))
+            .AddSingleton(new InitialPowderOptions(1700)).BuildServiceProvider();
+        var service = new GwentDatabaseService(provider);
+        var prefix = "initial-batch-" + Guid.NewGuid().ToString("N");
+        var batch = Enumerable.Range(0, 520).Select(index => new UserInfo
+            { UserName = prefix + index, PlayerName = prefix + index }).ToList();
+        await Users.InsertManyAsync(batch);
+        var ids = batch.Select(user => user.Id).ToList();
+        try
+        {
+            Check(await service.BackfillInitialPowder() == batch.Count,
+                "initial backfill grants a cohort spanning multiple cursor batches");
+            Interlocked.Exchange(ref writes, 0); Interlocked.Exchange(ref reads, 0);
+            Check(await service.BackfillInitialPowder() == 0, "successful second batched sweep grants nothing twice");
+            long sweepWrites = Interlocked.Read(ref writes), sweepReads = Interlocked.Read(ref reads);
+            long totalUsers = await Users.CountDocumentsAsync(Builders<UserInfo>.Filter.Empty);
+            Check(sweepWrites == 0 && sweepReads <= 3 * ((totalUsers + 511) / 512) + 4,
+                "second sweep performs bounded batch reads and zero per-user updates",
+                new { sweepWrites, sweepReads, totalUsers });
+            Interlocked.Exchange(ref writes, 0);
+            var wallet = (await service.GetPremiumCollection(batch[0].UserName)).Collection;
+            Check(Interlocked.Read(ref writes) == 0 && wallet.MeteoritePowder == 1700 && InitialGrants(wallet) == 1,
+                "reading a claimed wallet avoids initial-grant writes");
+
+            var later = await NewUser("initial-batch-new"); ids.Add(later.Id);
+            Check(await service.BackfillInitialPowder() == 1 && (await Account(later)).MeteoritePowder == 1700,
+                "a new account still receives the configured grant after a converged sweep");
+
+            var repair = batch[1];
+            await Accounts.UpdateOneAsync(account => account.Id == repair.Id,
+                Builders<PremiumCollection>.Update.Set(account => account.Rewards, null));
+            Check(await service.BackfillInitialPowder() == 0 && (await Account(repair)).Rewards != null &&
+                    (await Account(repair)).MeteoritePowder == 1700,
+                "batched filtering retains claimed null-ledger repair without paying again");
+            var receiptOnly = batch[2];
+            await Accounts.UpdateOneAsync(account => account.Id == receiptOnly.Id,
+                Builders<PremiumCollection>.Update.Set(account => account.InitialPowderGranted, false));
+            Check(await service.BackfillInitialPowder() == 0 && (await Account(receiptOnly)).InitialPowderGranted &&
+                    (await Account(receiptOnly)).MeteoritePowder == 1700,
+                "receipt-only claims still promote the flag without another payment");
+        }
+        finally
+        {
+            await Users.DeleteManyAsync(Builders<UserInfo>.Filter.In(user => user.Id, ids));
+            await Accounts.DeleteManyAsync(Builders<PremiumCollection>.Filter.In(account => account.Id, ids));
+        }
+    }
 
     static async Task InitialPowderCases()
     {
@@ -109,6 +174,7 @@ partial class Program
         await Accounts.UpdateOneAsync(x => x.Id == overflow.Id, Builders<PremiumCollection>.Update.Set(x => x.MeteoritePowder, 0).Inc(x => x.Revision, 1));
         Check(await service.BackfillInitialPowder() == 1, "retry resumes only the previously failed account");
         Check(await other.BackfillInitialPowder() == 0, "repeated whole-server backfill does not duplicate grants");
+        await InitialBackfillCommandCounts();
         using (var cancelled = new CancellationTokenSource())
         {
             cancelled.Cancel(); bool stopped = false;

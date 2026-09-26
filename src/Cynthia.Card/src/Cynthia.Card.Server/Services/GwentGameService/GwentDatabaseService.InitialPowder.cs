@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -21,6 +22,11 @@ namespace Cynthia.Card.Server
             var accounts = PremiumAccounts.WithWriteConcern(WriteConcern.WMajority);
             var f = Builders<PremiumCollection>.Filter;
             var identity = f.Eq(x => x.Id, playerId);
+            // Frequent wallet reads should not issue grant writes after eligibility is consumed.
+            // Still visit claimed legacy wallets with a missing/null ledger so it is repaired.
+            if (await accounts.Find(identity & f.Eq(x => x.InitialPowderGranted, true)
+                    & f.Ne(x => x.Rewards, null)).AnyAsync(cancellationToken))
+                return false;
             var update = Builders<PremiumCollection>.Update
                 .SetOnInsert(x => x.MeteoritePowder, 0).SetOnInsert(x => x.Revision, 0)
                 .SetOnInsert(x => x.InitialPowderGranted, false)
@@ -68,18 +74,28 @@ namespace Cynthia.Card.Server
         {
             if (!_initialPowder.Value.Enabled) return 0;
             long granted = 0, errors = 0;
-            // Stream IDs instead of materializing all accounts or loading passwords/decks.
-            using (var cursor = await GetUserInfo().Find(Builders<UserInfo>.Filter.Empty)
+            // Bound both the user cursor and the claimed-wallet lookup. A converged scan
+            // performs one lookup per batch rather than several grant writes per account.
+            using (var cursor = await GetUserInfo().Find(Builders<UserInfo>.Filter.Empty,
+                    new FindOptions { BatchSize = 512 })
                 .Project(x => x.Id).ToCursorAsync(cancellationToken))
             {
                 while (await cursor.MoveNextAsync(cancellationToken))
-                    foreach (var id in cursor.Current)
+                {
+                    var ids = cursor.Current.ToList();
+                    var f = Builders<PremiumCollection>.Filter;
+                    var claimed = new HashSet<string>(await PremiumAccounts.Find(f.In(x => x.Id, ids)
+                            & f.Eq(x => x.InitialPowderGranted, true) & f.Ne(x => x.Rewards, null))
+                        .Project(x => x.Id).ToListAsync(cancellationToken));
+                    foreach (var id in ids)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
+                        if (claimed.Contains(id)) continue;
                         try { if (await EnsureInitialPowder(id, cancellationToken)) granted++; }
                         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
                         catch (Exception e) { errors++; onError?.Invoke(id, e); }
                     }
+                }
             }
             if (errors != 0) throw new InvalidOperationException("Initial powder backfill has " + errors + " failed accounts; retry is safe.");
             return granted;

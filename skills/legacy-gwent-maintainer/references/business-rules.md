@@ -55,6 +55,12 @@ Last verified: 2026-09-26
   `Amount` is safe as long as that receipt ID and flag stay unchanged: only
   accounts that have not claimed yet receive the new value, and already-granted
   wallets are never deducted or re-granted. Do not add a client grant.
+- Initial-grant scans repeat in the background, so skip already-claimed wallets
+  in 512-user batches instead of issuing grant updates for every account on
+  every sweep. Claimed wallets with missing/null ledgers still need repair;
+  receipt-only legacy claims must promote the flag without another payment.
+  The Mongo command-count regression verifies a converged scan performs zero
+  writes and reads proportional to batches, while newly added users still grant.
 - Premium crafting prices are server-owned by `PremiumCrafting.json`: Copper
   100, Silver 400, Gold 800, Leader 1000. The server publishes the per-card
   `Costs` map in `PremiumCollectionResult`; the Unity client holds no price
