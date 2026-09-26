@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 159);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 161);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -1592,7 +1592,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Beast},
                     HideTags = new HideTag[]{HideTag.Deathwish},
                     Flavor = "哞～～～",
-                    Info = "遗愿：在同排生成1个“羊角魔”。",
+                    Info = "坚韧。遗愿：在同排生成1个“羊角魔”。",
                     CardArtsId = "11220900",
                     LinkedCards=new List<String> {"15009"},
                 }
