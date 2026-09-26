@@ -112,3 +112,21 @@ Last verified: 2026-09-26
   and actual old/new client gameplay. Static Roslyn compilation does not run
   IL2CPP or compile Android shaders. Phone memory/visual acceptance remains
   required even with low-quality render targets and texture overrides.
+
+## Inspecting long first builds
+
+- Symptom: a cold Unity upgrade stays in the builder step much longer than a
+  cached build, and `gh run view --log` refuses to read an unfinished job.
+- Cause: the upgraded editor reimports card art, thousands of multilingual
+  voices, shaders and premium sources. The job-log REST endpoint can expose an
+  incomplete snapshot before the CLI accepts a finished job.
+- Fix: get the job ID from `gh run view <run> --json jobs`, then run
+  `python scripts/actions-job-log-tail.py <job-id> --lines 10`. It uses the
+  existing GitHub CLI login and an explicit byte range at the storage redirect.
+- Prevention: do not dump activation or Docker command lines containing derived
+  credentials. Do not interpret a partial snapshot as the complete current log;
+  check workflow state and later log timestamps before diagnosing a hang.
+- Verification: the Windows first-build log showed a valid 2019.4.41f2 license
+  and later asset imports. Explicit ranges fetched the tail in seconds; suffix
+  ranges were ignored and downloaded megabytes. Only final successful Player
+  builds and artifact checks establish package readiness.

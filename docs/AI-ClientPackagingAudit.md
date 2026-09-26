@@ -16,6 +16,26 @@
 `-clientVariant standard/premium` 选择内容。无需维护两套客户端代码。
 老客户端仍走原有协议；服务器奖励与玩家使用哪种包无关。
 
+## 运行打包
+
+在 GitHub Actions 页面选取待验收分支，手动运行 `Build Client for Computer`；
+它生成 Windows 普通／闪卡版，以及 macOS、Linux 普通版。安卓运行
+`Build Client for Mobile`，填入该分支完整提交 SHA，`signing_mode` 选 `test`。
+安卓会同时生成普通／闪卡两个测试 APK，无需配置正式签名 Secrets。
+成功产物位于对应运行页面的 Artifacts；这些任务不会自动公开一个正式 Release。
+
+已配置 GitHub CLI 时，也可以从候选 checkout 运行：
+
+```powershell
+$candidateBranch = git branch --show-current
+$candidateSha = git rev-parse HEAD
+gh workflow run unity-build-desktop.yml --repo LegacyGwent/LegacyGwent --ref $candidateBranch
+gh workflow run unity-build-mobile.yml --repo LegacyGwent/LegacyGwent --ref $candidateBranch -f expected_sha=$candidateSha -f signing_mode=test
+```
+
+先确认候选已推送。Unity 版本升级会使旧 Library 缓存失效；首次导入卡图、
+多语言语音和闪卡源素材比已有缓存的日常打包慢，需根据导入日志判断进展。
+
 ## 五项修复
 
 1. **素材交付**：`build-config/premium-content.json` 固定源素材版本和每卷 SHA-256。
@@ -73,8 +93,9 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
 
 - 云端 Unity 构建仍需配置 `UNITY_LICENSE`；GameCI 个人版配置还列有
   `UNITY_EMAIL`、`UNITY_PASSWORD`，workflow 已接入这些 Secrets。2026-09-20 的 fork
-  审计快照尚缺该配置；2026-09-26 上游仓库已有 `UNITY_LICENSE`，其构建激活结果
-  尚待验证。fork 不继承上游 Secrets，缺许可证时会在下载大素材前明确失败。
+  审计快照尚缺该配置；2026-09-26 上游仓库已有 `UNITY_LICENSE`，Windows 普通版
+  构建日志已确认 2019.4.41f2 的许可证有效且激活。fork 不继承上游 Secrets，
+  缺许可证时会在下载大素材前明确失败。
   这不是要求另购许可证，也不表示
   本机 Unity 未激活。现行 [GameCI 说明](https://game.ci/docs/github/activation/)
   支持使用 Hub 生成的个人版 `.ulf` 跨平台配置；本机文档默认位置未找到该文件。
@@ -87,7 +108,8 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
 - `scripts/configure-android-signing.py` 可在仓库外生成/复用固定签名并加密上传 Secrets；
   `--upload` 需要 PyNaCl。必须另做离线备份；不要在新机器上随意生成替代密钥。
 - 合入上游时使用上游自己的许可证与安卓签名 Secrets；fork 的私钥不会随 PR 传递。
-- fork 的部署工作流已加仓库身份限制；推送本分支不会部署上游 AI/DIY 服务。
+- fork 的部署工作流有仓库身份限制。上游的集成分支不会触发部署；向上游 `diy-ai`
+  推送则会在服务端 CI 通过后自动部署 5010，因此验收应先使用独立候选分支。
 
 ## 已执行验证及边界
 
@@ -111,9 +133,9 @@ CI 在恢复 Unity Library 前清理临时 runner 的多余工具和 Android SDK
   Windows Editor 均通过，Android 额外启用 `ENABLE_IL2CPP` 条件符号也通过。
   这不是 Unity Player、原生 IL2CPP 或 shader 构建。
 - workflow YAML、shell 语法及 Git whitespace 检查纳入提交前验证。
-- **没有生成或安装本次 APK/Windows Player，也没有安卓真机视觉、内存、温度、
-  覆盖升级和实际对局验证。** 本机 Unity 2019 缺 Android 模块；云端缺上述许可证。
-  因此修复配置和源码不等于四个真实产物已经验收。
+- **本次 APK/Windows Player 仍在云端构建，尚无安装和真机视觉、内存、温度、
+  覆盖升级验证。** Windows/Android 闪卡源素材已在上游 runner 恢复完成；
+  许可证有效不等于 Player、原生 IL2CPP 和 shader 构建已经成功。
 
 构建后运行 `scripts/verify-client-content.py` 验证嵌入标记和动态包成员；Android
 再通过 workflow 的 aapt/apksigner 检查。上线前还要进行旧客户端登录、编辑卡组、
