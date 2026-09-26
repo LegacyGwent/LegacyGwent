@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 204);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 205);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -13805,7 +13805,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.ClanHeymaey},
                     Flavor = "在危难关头，圣母弗蕾雅于欧特克尔的船上现身，传授他平息风暴的方法。她早已知晓，欧特克尔将像他的兄弟一样，谱写一段更为宏大的传奇。",
-                    Info = "使对方全场的“倾盆大雨”和“史凯利杰风暴”造成的所有伤害提高1点。",
+                    Info = "己方半场有未锁定的欧特克尔时，对方半场的“倾盆大雨”和“史凯利杰风暴”造成的所有伤害提高1点（不叠加）。",
                     CardArtsId = "c10001000",
                     LinkedCards=new List<String> {"14019"},
                 }
@@ -14651,7 +14651,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "每回合结束时，若至少具有3点增益，将增益转化为护甲，并使同排其它友军单位获得2点增益。",
+                    Info = "己方回合结束时，若自身至少具有3点增益，将增益转化为护甲并重置自身，然后使同排其它友军单位获得2点增益。",
                     CardArtsId = "202112",
                     LinkedCards=new List<String> {},
                 }
@@ -14905,7 +14905,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special, Categorie.Item},
                     Flavor = "手艺是厉害，可没谁会夸上一句，这些人就只会“啊啊啊，我的腿！”",
-                    Info = "选定对方单排，使其单位数量调整为4，优先移入战力最大或移出战力最小的单位。对因此移动的单位，造成2点伤害。",
+                    Info = "选定对方单排，使其单位数量调整为4：不足4个时从其它排移入战力最强的单位，超过4个时向其它排移出战力最强的单位。对因此移动的单位，造成2点伤害。",
                     CardArtsId = "203256",
                     LinkedCards=new List<String> {},
                 }

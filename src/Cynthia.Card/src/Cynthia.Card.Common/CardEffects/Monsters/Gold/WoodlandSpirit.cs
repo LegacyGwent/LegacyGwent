@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 3; i++)
             {
-                await Game.CreateCardAtEnd(CardId.Wolf, PlayerIndex, RowPosition.MyRow1);
+                await Game.CreateCardAtEnd(CardId.Wolf, PlayerIndex, RowPosition.MyRow1, source: Card);
             }
             await Game.GameRowEffect[AnotherPlayer][Card.Status.CardRow.MyRowToIndex()].SetStatus<ImpenetrableFogStatus>();
             return 0;

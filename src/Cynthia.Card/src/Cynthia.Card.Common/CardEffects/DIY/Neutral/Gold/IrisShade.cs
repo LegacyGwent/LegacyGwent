@@ -22,8 +22,8 @@ namespace Cynthia.Card
 				return;
 			}
 
-			await Game.CreateCardAtEnd(CardId.IrisCompanions, PlayerIndex, RowPosition.MyHand);
-			await Game.CreateCardAtEnd(CardId.IrisCompanions, AnotherPlayer, RowPosition.MyHand);
+			await Game.CreateCardAtEnd(CardId.IrisCompanions, PlayerIndex, RowPosition.MyHand, source: Card);
+			await Game.CreateCardAtEnd(CardId.IrisCompanions, AnotherPlayer, RowPosition.MyHand, source: Card);
 			await Card.Effect.SetCountdown(offset: -1);
 		}
 	}

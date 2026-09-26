@@ -43,7 +43,7 @@ namespace Cynthia.Card
             var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Unit,
                 x => x.HasAllCategorie(Categorie.Machine), Faction.Skellige)
                 .Select(x => x.CardId);
-            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray());
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray(), source: Card);
         }
 
         private async Task<int> FUNCTION2()

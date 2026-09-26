@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var id = GwentMap.GetCards().Where(x => x.Faction == Game.PlayersFaction[Card.PlayerIndex])
                 .FilterCards(Group.Copper, CardType.Unit)
                 .Mess(RNG).First().CardId;
-            await Game.CreateCard(id, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await Game.CreateCard(id, Card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: Card);
             return 1;
         }
     }

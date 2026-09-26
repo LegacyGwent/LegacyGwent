@@ -793,7 +793,78 @@
         "AxelThreeEyes_1_SpawnCrows": "Spawn 1 Crow on each row.",
         "AxelThreeEyes_2_CreateCrowEyes": "Add 2 Crow's Eyes to the bottom of your deck, then play the top Crow's Eye from your deck.",
         "GezrasOfLeyda_1_Strengthen": "Strengthen by 1",
-        "GezrasOfLeyda_2_Weaken": "Weaken to 1"
+        "GezrasOfLeyda_2_Weaken": "Weaken to 1",
+        "DailyQuest_GGStillAvailable": "Round win rewards are complete. You can still earn Good Game rewards today.",
+        "DailyQuest_GGCapReached": "Daily Good Game cap reached. Further Good Games give no powder.",
+        "DailyQuest_GGEarned": "GG powder today: {0} / {1}",
+        "DailyQuest_GGProgress": "Received {0} / {1}",
+        "DailyQuest_GGDescription": "Each Good Game you receive from an opponent: +{0} powder. Rewards are credited automatically.",
+        "DailyQuest_GGTitle": "Good Game received",
+        "DailyQuest_OpponentRules": "Only the first match against each opponent each day grants crowns and GG powder.\nResets at 00:00 China time (UTC+8). Login rewards are unaffected.",
+        "LoginMenu_TrinketDataUpdating": "Updating cosmetic data…",
+        "Time_Seconds": "{0}s",
+        "Time_Minutes": "{0}m",
+        "Time_Hours": "{0}h",
+        "Time_Days": "{0}d",
+        "CardDetails_Voice": "▷ VOICE",
+        "CardDetails_Strength": "STRENGTH",
+        "Settings_AnimatedCards": "Animated cards",
+        "Settings_On": "On",
+        "Settings_Off": "Off",
+        "Premium_OperationError": "Operation failed. Reopen collection to retry.",
+        "Premium_InsufficientPowder": "Insufficient powder",
+        "Premium_AlreadyOwned": "All copies owned; no additional powder spent",
+        "Premium_EquipError": "Could not equip. Please retry.",
+        "Premium_Uncertain": "Result uncertain; refreshing collection",
+        "Premium_SyncError": "Collection unavailable. Reopen to retry.",
+        "Premium_NeedPowder": " · Need {0} more powder",
+        "Premium_Unavailable": "No premium version available",
+        "Premium_Craft": "Craft 1 premium · {0}",
+        "Premium_Retry": "Retry last craft",
+        "Premium_Full": "All copies crafted",
+        "Premium_Crafting": "Crafting…",
+        "Premium_Syncing": "Synchronizing collection…",
+        "Premium_Ownership": "Standard ×{0} · Premium {1}/{2}",
+        "Premium_Wallet": "Meteorite Powder: {0}",
+        "Premium_Owned": "Owned",
+        "Premium_All": "All",
+        "Premium_Premium": "Premium",
+        "Premium_Standard": "Standard",
+        "Common_Syncing": "Synchronizing…",
+        "Common_CloseEsc": "[Esc] CLOSE",
+        "DailyQuest_SyncError": "Quest synchronization is temporarily unavailable",
+        "DailyQuest_Wallet": "Powder earned today: {0} / {1} · Balance: {2}",
+        "DailyQuest_Rules": "Each round won against a human earns half a crown. Six steps make three crowns. Rewards are credited automatically.",
+        "DailyQuest_Complete": "All of today's rewards received. Come back tomorrow.",
+        "DailyQuest_Tier": "Crowns: {0:0.#}\n+{1} powder\n{2}",
+        "DailyQuest_Incomplete": "Incomplete",
+        "DailyQuest_Granted": "Received",
+        "DailyQuest_LoginReward": "+{0} powder\n{1}",
+        "DailyQuest_Fetching": "Fetching quest progress from the server",
+        "DailyQuest_Progress": "Crowns: {0:0.#} / {1:0.#}",
+        "DailyQuest_ResetTime": "{0} · 00:00 China time (UTC+8)",
+        "DailyQuest_HudProgress": "Crowns: {0:0.#} / 3 · {1}",
+        "DailyQuest_Countdown": "Resets in {0}h {1:00}m",
+        "DailyQuest_ResetPending": "Waiting for the daily reset",
+        "DailyQuest_Syncing": "Synchronizing quests…",
+        "DailyQuest_RoundsTitle": "Daily round wins",
+        "DailyQuest_LoginDescription": "Log in each day. Rewards are credited automatically.",
+        "DailyQuest_LoginTitle": "Daily login",
+        "DailyQuest_Title": "Daily Quests",
+        "Settings_AnimatedCardsHigh": "High",
+        "Settings_AnimatedCardQuality": "Animated card quality",
+        "Settings_AnimatedCardsLow": "Low",
+        "Settings_AnimatedCardsMedium": "Medium",
+        "IngameMenu_MmrChange": "MMR: {0} → {1}",
+        "IngameMenu_ShowCards": "Show cards",
+        "Leaderboard_RankNumber": "Rank {0}",
+        "LoginMenu_Connecting": "Connecting to the server… Please wait…",
+        "LoginMenu_NewsBody": "Welcome to the experimental DiyGwent AITest realm on port 5010!\n\nThis game is permanently free and open-source.\nDownloads and community: https://discord.gg/Dw9sKgaUZN\n\nAI matchmaking:\nai: Geralt and Ciri\nai1: Recruit Training\nai2: Avallac’h\nai3: King Auberon\nai4: Iron Falcon Mercenaries\nai5: Dragon Hunter\nEnter the corresponding matchmaking password to challenge the AI. Players take priority when available. Add #f to force an AI match (for example, ai#f).",
+        "LoginMenu_Status": "Status:",
+        "Season_NoData": "No season data",
+        "Spectator_RoomNumber": "Room {0}",
+        "Spectator_Title": "SPECTATE",
+        "TrinketsMenu_NewReward": "NEW REWARD!"
     },
     "CardLocales": {
         "12001": {
@@ -3818,7 +3889,7 @@
         },
         "70121": {
             "Name": "Otkell",
-            "Info": "Increase the Damage dealt by Torrential Rain and Skellige Storm on the opposite side by 2.",
+            "Info": "While you have an Otkell on your side of the board that is not Locked, all Damage dealt by Torrential Rain and Skellige Storm on the enemy side is increased by 1 (does not stack).",
             "Flavor": "In his hour of doom, All-mother Freya appeared to Otkell on his ship, and gave him the means to soothe the raging tempest, for she already knew that Otkell, like his brothers, had a greater tale to tell."
         },
         "70122": {
@@ -4028,7 +4099,7 @@
         },
         "70163": {
             "Name": "Reynard Odo",
-            "Info": "At the end of every allied turn, if this unit has at least 3 Boost, convert its Boost into Armor, then Boost other allies on this row by 2.",
+            "Info": "At the end of your turn, if this unit has at least 3 Boosts, convert its Boosts into Armor and Reset it, then Boost all other allies on the same row by 2.",
             "Flavor": "Under your husband I served ten years, under you another eight. And never in that time did I fight for a more worthy cause."
         },
         "70164": {
@@ -4088,7 +4159,7 @@
         },
         "70175": {
             "Name": "Lure Trap",
-            "Info": "Select an enemy row, if it contains fewer than 4 units, move its highest allies to the row until it has 4 units, If it has more than 4 units, move the lowest allies on the row to random rows until it has 4 units, \ndamage any moved card by 2.",
+            "Info": "Select an enemy row and adjust it to 4 units: if it has fewer than 4 units, move the strongest units from other enemy rows into it; if it has more than 4 units, move the strongest units from it to other enemy rows. Each moved unit takes 2 damage.",
             "Flavor": "Always the same with these people: Ahhh, I can't feel my legs! You'd think they'd at least appreciate the craftsmanship..."
         },
         "70176": {
@@ -4334,6 +4405,11 @@
         "70211": {
             "Name": "Cat School Witcher",
             "Info": "If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Flavor": ""
+        },
+        "70018": {
+            "Name": "Reaver Hunter's Nightmare Armor",
+            "Info": "At the start of the game, move this card to the graveyard. While it is there, allied units cannot move from the deck to the graveyard, are immune to Duel damage, and gain either 1–2 damage or 1–2 boost when played.",
             "Flavor": ""
         }
     }

@@ -4,6 +4,11 @@
 
 ## Copyright Statement
 
+**This is an unofficial community project, not approved or endorsed by CD PROJEKT RED.**
+See the [asset and unofficial-project notice](ASSET_NOTICE.md), which also applies
+to associated source-asset releases. The source-code license does not license
+original game assets; non-commercial or educational intent is not authorization.
+
 + This project is based on the Beta Gwent. All art resources are extracted from the official client, and the copyright belongs to the original copyright owner. This work is for learning and communication purposes only and can **not** be used for commercial purposes.
 + All codes are written by the project author and have nothing to do with the official client. It is under the GNU General Public License, and welcome to contribute.
 
@@ -31,7 +36,7 @@ Check [here](.github/CONTRIBUTING_EN.md) for the detailed contribution guide.
 ## Development Environment
 
 + Server side: .NET 10, Mongodb 4.2
-+ Client side: Unity 2019.4.1f1
++ Client side: Unity 2019.4.41f2 (`6b23d448b533`, see the [Unity upgrade record](docs/UnityUpgrade.md))
 
 ## Development Guides
 

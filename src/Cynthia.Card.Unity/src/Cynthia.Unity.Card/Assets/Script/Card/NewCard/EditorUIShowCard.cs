@@ -17,7 +17,13 @@ public class EditorUIShowCard : MonoBehaviour, IPointerEnterHandler, IPointerExi
     //鼠标点击
     public void OnPointerClick(PointerEventData eventData)
     {
-        //GameCodeService.ClickUICard(transform.GetSiblingIndex());
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            var card = GetComponent<CardShowInfo>().CurrentCore;
+            if (card.IsPremium == true && !Assets.Script.DynamicCards.PremiumCollectionClient.Owns(card.CardId))
+                MainCodeService.SelectSwitchUICard(card);
+            else MainCodeService.GetCode<MainCode>().EditorMenu.OpenCardDetails(card);
+        }
     }
     //鼠标进入
     public void OnPointerEnter(PointerEventData eventData)

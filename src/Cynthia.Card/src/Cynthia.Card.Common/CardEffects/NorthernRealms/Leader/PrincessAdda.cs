@@ -14,7 +14,7 @@ namespace Cynthia.Card
                 x => x.Is(Group.Copper, CardType.Unit) &&
                     x.Faction == Faction.NorthernRealms &&
                     x.HasAllCategorie(Categorie.Cursed));
-            return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray());
+            return await Game.CreateAndMoveStay(PlayerIndex, ids.ToArray(), source: Card);
         }
     }
 }

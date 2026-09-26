@@ -9081,6 +9081,12 @@ MonoBehaviour:
     TextObject: {fileID: 1917997000}
   - Id: SettingsMenu_MuteAll
     TextObject: {fileID: 1420334462}
+  - Id: LoginMenu_Status
+    TextObject: {fileID: 677383893}
+  - Id: LoginMenu_Connecting
+    TextObject: {fileID: 847789410}
+  - Id: LoginMenu_LoadingLatestVersion
+    TextObject: {fileID: 1929106663}
 --- !u!224 &1440815957
 RectTransform:
   m_ObjectHideFlags: 0

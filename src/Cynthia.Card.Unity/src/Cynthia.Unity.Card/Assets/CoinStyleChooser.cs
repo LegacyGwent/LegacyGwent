@@ -23,8 +23,8 @@ public class CoinStyleChooser : MonoBehaviour
     {
         _selectedOption = PlayerPrefs.GetString("CoinDisplayMode", _coinOptions[0]);
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
-        MenuTitle.text = translator.GetText("CoinStyle");
-        ShowText.text = translator.GetText(_selectedOption);
+        LocalizedLabel.Set(MenuTitle, "CoinStyle");
+        LocalizedLabel.Set(ShowText, _selectedOption);
         onValueChanged.Invoke(_selectedOption);
     }
 
@@ -46,7 +46,7 @@ public class CoinStyleChooser : MonoBehaviour
     {
         _selectedOption = option;
         if (ShowText != null)
-            ShowText.text = translator.GetText(_selectedOption);
+            LocalizedLabel.Set(ShowText, _selectedOption);
 
         Debug.Log("[CoinStyleChooser] Selected: " + _selectedOption);
         onValueChanged.Invoke(_selectedOption);

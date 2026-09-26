@@ -12,8 +12,8 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             //Spawn a Mirror Image on both sides of the row.
-            await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow);
-            await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow);
+            await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow, source: Card);
+            await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow, source: Card);
             return 0;
         }
 
@@ -24,8 +24,8 @@ namespace Cynthia.Card
                 mystrength = Card.Status.Strength;
                 myhealth = Card.Status.HealthStatus;
                 //On turn end, repeat deploy ability
-                await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow);
-                await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow);
+                await Game.CreateCardAtEnd(CardId.MirrorImage, PlayerIndex, Card.Status.CardRow, source: Card);
+                await Game.CreateCardAtEnd(CardId.MirrorImage, AnotherPlayer, Card.Status.CardRow, source: Card);
                 int Power=Card.CardPoint();
                 int Strength = Card.Status.Strength;
                 int Change = Power - Strength;

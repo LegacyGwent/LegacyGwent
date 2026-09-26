@@ -4,14 +4,16 @@ using Cynthia.Card.Common.Models.Localization;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Cynthia.Card.Server.Services.GwentGameService
 {
     public class GwentLocalizationService
     {
         private readonly string _gameLocales;
+        private readonly string _version;
         private readonly IReadOnlyDictionary<string, GameLocale> _locales;
-
         public GwentLocalizationService()
         {
             var config = new List<ConfigEntry>();
@@ -39,6 +41,8 @@ namespace Cynthia.Card.Server.Services.GwentGameService
                 .GroupBy(locale => locale.Info.Filename, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
             _gameLocales = JsonConvert.SerializeObject(loadedLocales);
+            using (var hash = SHA256.Create())
+                _version = Convert.ToBase64String(hash.ComputeHash(Encoding.UTF8.GetBytes(_gameLocales)));
         }
 
         public static void ApplyChineseCardRules(GameLocale gameLocale)
@@ -73,7 +77,6 @@ namespace Cynthia.Card.Server.Services.GwentGameService
         {
             return _gameLocales;
         }
-
         public string GetMenuText(string locale, string key)
         {
             if (string.IsNullOrWhiteSpace(key)
@@ -100,6 +103,21 @@ namespace Cynthia.Card.Server.Services.GwentGameService
             }
 
             return cardLocale.Name;
+        }
+
+        public string GetVersion() => _version;
+
+        public string GetText(string language, string key)
+        {
+            var locale = _locales.TryGetValue(language ?? "en", out var selected)
+                ? selected
+                : (_locales.TryGetValue("en", out var english) ? english : null);
+            if (locale?.MenuLocales != null && locale.MenuLocales.TryGetValue(key, out var text))
+            {
+                return text;
+            }
+
+            return GetMenuText("en", key);
         }
     }
 }

@@ -29,7 +29,27 @@ $script:CommonProject = Join-Path $script:CommonProjectRoot "Cynthia.Card.Common
 $script:CommonDll = Join-Path $script:CommonProjectRoot "bin\Debug\netstandard2.0\Cynthia.Card.Common.dll"
 $script:UnityProjectRoot = Join-Path $script:RepoRoot "src\Cynthia.Card.Unity\src\Cynthia.Unity.Card"
 $script:UnityCommonDll = Join-Path $script:UnityProjectRoot "Assets\Assemblies\Cynthia.Card.Common.dll"
-$script:UnityEditorRoot = Join-Path $script:DevRoot "Unity\2019.4.1f1"
+
+# Derive the required Unity editor version/revision once from the tracked project
+# file so setup-dev.ps1 and open-unity.ps1 cannot drift from the client project.
+$script:UnityProjectVersionFile = Join-Path $script:UnityProjectRoot "ProjectSettings\ProjectVersion.txt"
+if (-not (Test-Path -LiteralPath $script:UnityProjectVersionFile)) {
+    throw "Unity ProjectVersion.txt is missing at $script:UnityProjectVersionFile."
+}
+$unityProjectVersionContent = Get-Content -LiteralPath $script:UnityProjectVersionFile -Raw
+if ($unityProjectVersionContent -notmatch '(?m)^m_EditorVersion:\s*(\S+)\s*$') {
+    throw "Cannot read m_EditorVersion from $script:UnityProjectVersionFile."
+}
+$script:UnityVersion = $Matches[1]
+if ($unityProjectVersionContent -notmatch '(?m)^m_EditorVersionWithRevision:.*\(([0-9a-fA-F]+)\)') {
+    throw "Cannot read the editor revision from $script:UnityProjectVersionFile."
+}
+$script:UnityRevision = $Matches[1]
+if ($script:UnityVersion -notmatch '^\d+\.\d+\.\d+[a-z]\d+$' -or $script:UnityRevision -notmatch '^[0-9a-fA-F]{12}$') {
+    throw "Unexpected Unity version '$script:UnityVersion' / revision '$script:UnityRevision' in $script:UnityProjectVersionFile."
+}
+
+$script:UnityEditorRoot = Join-Path $script:DevRoot "Unity\$script:UnityVersion"
 $script:UnityExe = Join-Path $script:UnityEditorRoot "Editor\Unity.exe"
 
 function Test-DotNetServerSdk {

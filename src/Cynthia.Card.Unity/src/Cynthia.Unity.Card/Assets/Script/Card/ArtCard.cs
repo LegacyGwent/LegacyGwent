@@ -63,6 +63,17 @@ public class ArtCard : MonoBehaviour
     //根据CurrentCore来刷新卡面
     public void SetCard()
     {
+        var presentation = GetComponent<Assets.Script.DynamicCards.DynamicCardPresentation>();
+        if (presentation == null) presentation = gameObject.AddComponent<Assets.Script.DynamicCards.DynamicCardPresentation>();
+        presentation.Configure(CardBorder.rectTransform, Content.transform);
+        CardImg.raycastTarget=false;
+        CardBorder.raycastTarget=true;
+        // This is the hover/detail portrait, not a card in the progressively loaded grid.
+        Assets.Script.DynamicCards.DynamicCardView.Bind(CardImg, CurrentCore.CardArtsId,
+            CurrentCore.IsCardBack || CurrentCore.Conceal, largePreview: true, wholeCard: CardBorder.rectTransform, playPreviewAudio: false,
+            presentationRoot: (RectTransform)transform, portraitBorder: CardBorder.rectTransform,
+            premium: Assets.Script.DynamicCards.PremiumCollectionClient.Show(CurrentCore));
+        Assets.Script.DynamicCards.PremiumCardAppearance.Apply(CardImg, CurrentCore, CardBorder, FactionIcon);
         Content.gameObject.SetActive(!(_currentCore.IsCardBack || _currentCore.Conceal));
         var iconCount = 0;
         var use = this.GetComponent<CardMoveInfo>();
@@ -70,8 +81,12 @@ public class ArtCard : MonoBehaviour
             use.CardUseInfo = CardInfo.CardUseInfo;
         if (CurrentCore.CardArtsId != null)
         {
-            Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).Completed += (obj) =>
+            var requestedArt = CurrentCore.CardArtsId;
+            Addressables.LoadAssetAsync<Sprite>(requestedArt).Completed += (obj) =>
             {
+                // A hover request can finish after another card was selected or this page closed.
+                if (this == null || CardImg == null || _currentCore == null ||
+                    _currentCore.CardArtsId != requestedArt || obj.Result == null) return;
                 CardImg.sprite = obj.Result;
             };
             // CardImg.sprite = Addressables.LoadAssetAsync<Sprite>(CurrentCore.CardArtsId).WaitForCompletion();

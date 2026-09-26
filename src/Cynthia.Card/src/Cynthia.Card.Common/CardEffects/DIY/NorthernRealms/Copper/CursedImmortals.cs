@@ -28,7 +28,7 @@ namespace Cynthia.Card
                         // 如果没有满
                         if (Game.RowToList(PlayerIndex, deathLoc.RowPosition).Count < Game.RowMaxCount)
                         {
-                            await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, deathLoc.RowPosition);
+                            await Game.CreateCardAtEnd(CardId.Specter, PlayerIndex, deathLoc.RowPosition, source: Card);
                         }
                     }
                 }

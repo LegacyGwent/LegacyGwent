@@ -1,6 +1,6 @@
 # Business rules
 
-Last verified: 2026-08-03
+Last verified: 2026-09-26
 
 ## DIY-AI release identity
 
@@ -18,6 +18,57 @@ Last verified: 2026-08-03
 - Registration form naming is counterintuitive: stored `UserName` is the login;
   stored `PlayerName` is the visible in-game name.
 - Verify account creation in MongoDB rather than trusting only the client screen.
+
+## Premium cards and rewards
+
+- Premium presentation preserves the original card ID and adds `IsPremium` on
+  the wire. `DeckModel.PremiumCards` and `PremiumLeader` are nullable: missing
+  values identify an old caller and must preserve, then reconcile, any stored
+  selection rather than clearing it.
+- Reconcile against per-copy ownership before creating the match snapshot,
+  including old decks whose appearance fields are absent. An owned card ID is
+  not permission to render all three copper copies as premium. Old-client edits
+  immediately trim preserved selections to remaining copies and clear premium
+  leader state when the leader changes; background persistence must agree.
+- Card version ownership follows the effect source: a transformation or a card
+  effect that generates a derived card inherits `IsPremium` from the card that
+  caused the action, and a self-transformation uses itself as the source. Only
+  system-owned creation with no source falls back to the account's premium
+  ownership of that card ID.
+- Keep premium deck selections out of `UserInfo.Decks`. Store them under
+  `premium_collection.DeckSelections`; the server BSON map must continue to
+  ignore premium `DeckModel` members so an older server can read the account
+  database after rollback.
+- Deck IDs are caller-owned strings, not necessarily GUIDs. Persist GUID keys
+  unchanged and encode other IDs with `PremiumDeckStorageKey`; decode exactly
+  once on freshly read wallet documents, never on already decoded results.
+  Permanent invalid writes must leave the global appearance queue; only
+  transient failures retry. RewardSystemTest exercises legacy IDs containing
+  dots, dollar signs and the encoding prefix through the real hub and MongoDB.
+- Old clients do not request the premium wallet. Login, registration, ordinary
+  deck writes, matchmaking, and round progression must remain available when
+  the wallet database or reward notification fails.
+- Initial powder is server-owned and configured by `InitialPowder.json`
+  (`Amount` 3000). `Enabled` pauses without consuming eligibility; the stable
+  receipt `initial-meteorite-powder-v1` and `InitialPowderGranted` flag make
+  both old-account backfill and new-account grants idempotent. Changing
+  `Amount` is safe as long as that receipt ID and flag stay unchanged: only
+  accounts that have not claimed yet receive the new value, and already-granted
+  wallets are never deducted or re-granted. Do not add a client grant.
+- Premium crafting prices are server-owned by `PremiumCrafting.json`: Copper
+  100, Silver 400, Gold 800, Leader 1000. The server publishes the per-card
+  `Costs` map in `PremiumCollectionResult`; the Unity client holds no price
+  fallback and only renders the returned map, so a client cannot supply or
+  override a price. Changing a price does not invalidate stored craft receipts
+  (`CraftReceipts.RequestId`), which remain the idempotency key.
+- Daily rewards use the China calendar day: login grants 20 powder and crown
+  thresholds 2/4/6 grant 25/35/45. Connected users cross midnight without
+  relogging. Keep all processed round IDs across daily resets; delayed or
+  repeated settlement must never pay the same round twice.
+- Round rewards are background work. Persist a `daily_round_reward_jobs` entry
+  before changing the wallet, retry incomplete jobs, and use the stable
+  match/round key as the idempotency key. SignalR notification is best effort
+  and must not control game progression or the reward commit.
 
 ## Deck validity
 

@@ -1,6 +1,6 @@
 # Unity release pitfalls
 
-Last verified: 2026-09-15
+Last verified: 2026-09-20
 
 ## Website artwork exists but the Unity card is blank
 
@@ -65,11 +65,14 @@ Last verified: 2026-09-15
 ## Android version code is valid but in-place upgrade still fails
 
 - Symptom: a newer APK has a higher `versionCode`, but `adb install -r` rejects it.
-- Cause: the mobile workflow has no fixed keystore; debug certificates may differ
-  across builders, and Android requires the same signing identity for upgrades.
+- Cause: historical mobile builds did not enforce a fixed keystore; debug
+  certificates can differ across builders, and upgrades require the same identity.
   A blank GameCI `androidVersionCode` also overrides a stale tracked value by
   deriving one from the semantic version, so CI and local builds can diverge.
-- Fix: configure a durable protected keystore before public distribution.
+- Fix: mobile/release now require protected `ANDROID_*` Secrets, compare the
+  built certificate SHA-256, and share one key across standard/premium variants.
+  Use `scripts/configure-android-signing.py` to provision a fork outside Git.
+  A new key does not recover the old signing identity from an APK.
 - Prevention: keep `AndroidBundleVersionCode` synchronized in ProjectSettings,
   pass it explicitly to GameCI, inspect the generated manifest, treat signing
   identity separately from version correctness, and record the expected
@@ -111,7 +114,7 @@ Last verified: 2026-09-15
 
 ## Native metadata or a rebuilt artifact hash appears to drift
 
-- Symptom: Explorer reports `2019.4.1f1` instead of app version `2.1.9`, or an
+- Symptom: Explorer reports an engine version (historically `2019.4.1f1`) instead of app version `2.1.9`, or an
   exact-source rebuild changes all archive hashes despite no client-source edit.
 - Cause: Unity stamps its engine version into the Windows bootstrap; rebuilds
   also refresh PE timestamps, assembly MVID/PDB GUIDs, and Unity's build ID.
@@ -140,9 +143,10 @@ Last verified: 2026-09-15
 - Symptom: the local API 35 x86_64 AVD cannot install or launch an APK that
   otherwise passes manifest and signature checks.
 - Cause: this AVD advertises translated arm64 support but no 32-bit ABI, while
-  the current AITest APK contains only `armeabi-v7a` libraries.
-- Fix: use ARMv7-capable physical hardware for this artifact, or add and verify
-  `arm64-v8a` in a later client change.
+  the historical AITest APK contained only `armeabi-v7a` libraries.
+- Fix: new builds explicitly select IL2CPP and ARMv7 + ARM64; the artifact
+  verifier rejects APKs without `lib/arm64-v8a`. Historical APKs still need
+  ARMv7-capable hardware. Source settings do not prove a new APK was built.
 - Prevention: inspect APK native libraries and `ro.product.cpu.abilist*` before
   spending time booting an emulator.
 - Verification: at least one APK ABI intersects the target device ABI list, then
@@ -163,3 +167,22 @@ Last verified: 2026-09-15
 - Verification: update one test card on Windows and Android, confirm only its
   bounded content group downloads, then verify progress, retry, disk-space,
   offline fallback, and rollback behavior.
+
+## Premium packaging and ordinary-player capabilities
+
+- Symptom: clean checkout cannot build premium players, or standard players
+  show premium controls despite having no animated payload.
+- Cause: `Content` is intentionally ignored except catalog/meta; Build-window
+  handlers are bypassed by programmatic builds; resource exclusion alone does
+  not control runtime UI.
+- Fix: use the pinned source manifest and release restore script, the shared
+  `LegacyClientBuild.Build` entry, target/variant CI matrices, and build-owned
+  `ClientContent` capabilities. Ordinary deck writes omit appearance fields.
+- Prevention: verify a clean source restore, original metas, platform-specific
+  bundles, and embedded artifact content. A fork needs its own Unity CI license
+  and signing configuration; upstream deployment is repository-guarded.
+- Verification: source roundtrip and contract tests passed; runtime Windows /
+  Android and Windows Editor static compilation passed. Actual IL2CPP, shader,
+  APK upgrade, and phone performance remain device/build acceptance work.
+  Details and commands: `docs/AI-ClientPackagingAudit.md`; source-delivery
+  invariants are in `premium-delivery.md`.

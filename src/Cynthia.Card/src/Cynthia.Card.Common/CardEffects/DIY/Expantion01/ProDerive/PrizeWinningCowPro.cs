@@ -12,7 +12,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardDeath @event)
         {
             if (@event.Target != Card) return;
-            await Game.CreateCard(CardId.Chort, PlayerIndex, @event.DeathLocation);
+            await Game.CreateCard(CardId.Chort, PlayerIndex, @event.DeathLocation, source: Card);
             //对方同排列表
             var row = Game.RowToList(PlayerIndex, @event.DeathLocation.RowPosition.Mirror()).IgnoreConcealAndDead();
             foreach (var it in row)

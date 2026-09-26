@@ -19,6 +19,9 @@ public class righclickLogic : MonoBehaviour
     public string DisplayID;
     private int SoundIndex;
     private int SoundCount;
+    private int cardRequest;
+    private RectTransform dynamicCardRoot;
+    private Assets.Script.DynamicCards.LegacyCardDetailsLayout detailsLayout;
 
     //fields
     public GameObject LinkedCard;
@@ -63,6 +66,8 @@ public class righclickLogic : MonoBehaviour
     void Start()
     {
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        detailsLayout = CardImg.canvas.gameObject.AddComponent<Assets.Script.DynamicCards.LegacyCardDetailsLayout>();
+        detailsLayout.Initialize(this);
         ExitButtonText.text=translator.GetText("LoginMenu_ExitButton");
         BackButtonText.text=translator.GetText("RegisterMenu_BackButton");
         History = new List<string>();
@@ -87,11 +92,30 @@ public class righclickLogic : MonoBehaviour
     }
     public void UpdateCard(string CardId)
     {
+        UpdateCard(CardId,true);
+    }
+    public void RefreshCardVisual() { UpdateCard(DisplayID,false); }
+    private void UpdateCard(string CardId,bool addHistory)
+    {
         
 
         DisplayID=CardId;
-        History.Add(DisplayID);
+        if(addHistory)History.Add(DisplayID);
         CardInfo = GwentMap.CardMap[CardId];
+        int request = ++cardRequest;
+        if (dynamicCardRoot == null)
+            dynamicCardRoot = Assets.Script.DynamicCards.DynamicCardView.FindCardRoot(CardImg.transform, CardBorder.transform);
+        if (dynamicCardRoot != null)
+        {
+            var presentation = dynamicCardRoot.GetComponent<Assets.Script.DynamicCards.DynamicCardPresentation>();
+            if (presentation == null) presentation = dynamicCardRoot.gameObject.AddComponent<Assets.Script.DynamicCards.DynamicCardPresentation>();
+            presentation.Configure(CardBorder.rectTransform, null);
+        }
+        Assets.Script.DynamicCards.DynamicCardView.Bind(CardImg, CardInfo.CardArtsId, false, true,
+            dynamicCardRoot, portraitBorder: CardBorder.rectTransform, premium: SceneManager.GetSceneByName("GamePlay").isLoaded ?
+                CardId == GameEvent.RightClickedCardID && GameEvent.RightClickedPremium :
+                Assets.Script.DynamicCards.PremiumCollectionClient.Owns(CardId) &&
+                (detailsLayout.PremiumFor(CardId) ?? (CardId == EditorInfo.RightClickedCardID ? EditorInfo.RightClickedPremium : Assets.Script.DynamicCards.PremiumCollectionClient.Selected(CardId))));
 
         SoundIndex=0;
         SoundCount=AudioManager.Instance.GetVoiceLineCount(CardInfo.CardArtsId);
@@ -117,7 +141,7 @@ public class righclickLogic : MonoBehaviour
         
         Addressables.LoadAssetAsync<Sprite>(CardInfo.CardArtsId).Completed += (obj) =>
         {
-            CardImg.sprite = obj.Result;
+            if (this != null && request == cardRequest) CardImg.sprite = obj.Result;
         };
 
 
@@ -182,8 +206,10 @@ public class righclickLogic : MonoBehaviour
         FlavourDisplay.text=translator.GetCardFlavor(CardInfo.CardId);
         LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
 
-        foreach (Transform child in ScrollContent)
+        for (int i = ScrollContent.childCount - 1; i >= 0; i--)
         {
+            var child = ScrollContent.GetChild(i);
+            child.SetParent(null, false);
             Destroy(child.gameObject);
         }
         List<string> LinkedCardsList = CardInfo.LinkedCards;
@@ -201,6 +227,9 @@ public class righclickLogic : MonoBehaviour
         {
             AddLinked(ID);
         }
+        Assets.Script.DynamicCards.PremiumCardAppearance.Apply(CardImg,
+            new CardStatus(CardId){IsPremium=detailsLayout.IsPremium},CardBorder,FactionIcon);
+        detailsLayout.Refresh();
     }
     public void AddLinked(string ID)
     {
@@ -208,12 +237,17 @@ public class righclickLogic : MonoBehaviour
         LinkedCard linkedCardScript = instance.GetComponent<LinkedCard>();
         linkedCardScript.myRightClickLogic = this;
         linkedCardScript.ID = ID;
-        linkedCardScript.UpdateSelfContent(); 
+        detailsLayout.StyleLinked(linkedCardScript);
+        linkedCardScript.UpdateSelfContent();
+        detailsLayout.RefreshLinkedLayout(linkedCardScript);
     }
     public void Closerightclick()
     {
-        GameEvent.RighClickActive=false;
-        SceneManager.UnloadSceneAsync("RightClick");
+        detailsLayout.Close(() =>
+        {
+            GameEvent.RighClickActive=false;
+            SceneManager.UnloadSceneAsync("RightClick");
+        });
     }
     public void BackButton()
     {
@@ -223,6 +257,7 @@ public class righclickLogic : MonoBehaviour
             DisplayID=History[History.Count - 1];
             UpdateCard(DisplayID);
             History.RemoveAt(History.Count - 1);
+            detailsLayout.Refresh();
         }
         else
         {

@@ -64,6 +64,7 @@ public class MatchInfo : MonoBehaviour
     public string CurrentDeckId { get; private set; }
     public bool IsDoingMatch { get; private set; }
     public bool IsRankMatch { get; private set; }
+    private AiQuickMatchSelector _aiSelector;
 
     private GwentClientService _client { get => DependencyResolver.Container.Resolve<GwentClientService>(); }
     private GlobalUIService _UIService { get => DependencyResolver.Container.Resolve<GlobalUIService>(); }
@@ -96,6 +97,7 @@ public class MatchInfo : MonoBehaviour
             MatchPasswordObject.SetActive(true);
             BlacklistObject.SetActive(true);
         }
+        SetAiSelectorVisible(!IsRankMatch);
     }
     public void NormalMatchMenuClick()
     {
@@ -117,6 +119,7 @@ public class MatchInfo : MonoBehaviour
         BlacklistObject.SetActive(false);
         Debug.Log("3");
         Debug.Log(MainMenu_MatchTitle.text);
+        SetAiSelectorVisible(false);
 
     }
     public void ResetMatch()
@@ -136,6 +139,7 @@ public class MatchInfo : MonoBehaviour
         MatchMessage.text = _translator.GetText("MatchmakingMenu_LookingForOpponent");
         MatchButtonText.text = _translator.GetText("MatchmakingMenu_CancelButton");
         MatchPassword.readOnly = true;
+        SetAiSelectorVisible(false);
     }
     public void ShowStopMatch()/////待编辑
     {
@@ -144,9 +148,31 @@ public class MatchInfo : MonoBehaviour
         MatchMessage.text = _translator.GetText("MatchmakingMenu_DeckReady");
         MatchButtonText.text = _translator.GetText("MatchmakingMenu_PlayButton");
         MatchPassword.readOnly = false;
+        SetAiSelectorVisible(!IsRankMatch);
     }
 
-    public async void MatchButtonClick()/////点击匹配按钮的话
+    public void MatchButtonClick()/////点击匹配按钮的话
+    {
+        RunMatch(null);
+    }
+
+    // Used by the AI quick-match selector. forceAi appends the server's "#f"
+    // suffix so the chosen AI is faced immediately instead of waiting for a human.
+    public void StartAiQuickMatch(string password, bool forceAi)
+    {
+        if (string.IsNullOrEmpty(password)) return;
+        var effective = forceAi ? ForcedAiPassword(password) : password;
+        if (MatchPassword != null) MatchPassword.text = effective;
+        RunMatch(effective);
+    }
+
+    public static string ForcedAiPassword(string password)
+    {
+        if (string.IsNullOrEmpty(password)) return password;
+        return password.EndsWith("#f", StringComparison.OrdinalIgnoreCase) ? password : password + "#f";
+    }
+
+    private async void RunMatch(string passwordOverride)
     {
         int usingBlacklist = RecordStatus.isOn ? 1 : 0;
 
@@ -162,7 +188,7 @@ public class MatchInfo : MonoBehaviour
             //如果是基础卡组（包括店店卡组）
             if (_client.User.Decks.Single(x => x.Id == CurrentDeckId).IsBasicDeck())
             {
-                var password = IsRankMatch ? "rank" : (MatchPassword.text).Replace("special", "");
+                var password = passwordOverride ?? (IsRankMatch ? "rank" : (MatchPassword.text).Replace("special", ""));
                 var setBlacklist = IsRankMatch ? 0 : usingBlacklist;
                 _ = _client.NewMatchOfPassword(CurrentDeckId, password, setBlacklist);
             }
@@ -220,6 +246,7 @@ public class MatchInfo : MonoBehaviour
     }
     public void SwitchDeckOpen()
     {
+        _aiSelector?.Close();
         ReturnButton.SetActive(false);
         SwitchButton.SetActive(false);
         MatchButton.SetActive(false);
@@ -255,6 +282,13 @@ public class MatchInfo : MonoBehaviour
         _client.ClientState = ClientState.Standby;
         RecordStatus.isOn = PlayerPrefs.GetInt("RecordBlacklist", 0) != 0;
         BlacklistMessage.text = _translator.GetText("MatchmakingMenu_BlacklistCheckbox");
+        _aiSelector = AiQuickMatchSelector.Attach(this);
+        SetAiSelectorVisible(!IsRankMatch && !IsDoingMatch);
+    }
+
+    private void SetAiSelectorVisible(bool visible)
+    {
+        if (_aiSelector != null) _aiSelector.SetVisible(visible);
     }
     public void SetDeckList(IList<DeckModel> decks)
     {
@@ -286,12 +320,15 @@ public class MatchInfo : MonoBehaviour
 
     public void SetMatchArtCard(CardStatus card, bool isOver = true)
     {
+        if (!isOver || card == null || string.IsNullOrEmpty(card.CardId)) return;
+        if (ShowArtCard.gameObject.activeSelf && ReferenceEquals(ShowArtCard.CurrentCore, card)) return;
         ShowArtCard.CurrentCore = card;
-        ShowArtCard.gameObject.SetActive(isOver);
+        ShowArtCard.gameObject.SetActive(true);
     }
 
     public void SetDeck(DeckModel deck, string id)
     {
+        ShowArtCard.gameObject.SetActive(false);
         Debug.Log($"设置");
         CurrentDeckId = id;
         var count = CardsContext.childCount;
@@ -309,14 +346,21 @@ public class MatchInfo : MonoBehaviour
         //DeckIcon.sprite = Resources.Load<Sprite>("Sprites/Control/coin_northern");
         //////////////////////////////////////////////////
         var leader = Instantiate(LaderPrefab);
-        leader.GetComponent<LeaderShow>().SetLeader(deck.Leader);
+        CardInventory.InitializeDeck(deck, Assets.Script.DynamicCards.PremiumCollectionClient.Account);
+        leader.GetComponent<LeaderShow>().SetLeader(deck.Leader, deck.PremiumLeader == true);
         leader.transform.SetParent(CardsContext, false);
         var cards = deck.Deck.Select(x => GwentMap.CardMap[x]);
-        cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.Name).ForAll(x =>
+        cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.CardId).ForAll(x =>
             {
-                var card = Instantiate(CardPrefab);
-                card.GetComponent<ListCardShowInfo>().SetCardInfo(x.First().CardId, x.Count());
-                card.transform.SetParent(CardsContext, false);
+                int premium = CardInventory.DeckPremiumCount(deck, x.Key);
+                foreach (bool version in new[] { false, true })
+                {
+                    int copies = version ? premium : x.Count() - premium;
+                    if (copies <= 0) continue;
+                    var card = Instantiate(CardPrefab);
+                    card.GetComponent<ListCardShowInfo>().SetCardInfo(x.Key, copies, version);
+                    card.transform.SetParent(CardsContext, false);
+                }
             });
         CopperCount.text = cards.Where(x => x.Group == Group.Copper).Count().ToString();
         SilverCount.text = $"{cards.Where(x => x.Group == Group.Silver).Count().ToString()}/6";
@@ -336,6 +380,7 @@ public class MatchInfo : MonoBehaviour
     }
     public void ReturnButtonClick()
     {
+        _aiSelector?.Close();
         ClientGlobalInfo.IsToMatch = false;
     }
 }

@@ -52,18 +52,18 @@ namespace Cynthia.Card
             return game.GetPlaceCards(game.Player1Index, planceRow, isHasDead, isHasConceal).Concat(game.GetPlaceCards(game.Player2Index, planceRow, isHasDead, isHasConceal));
         }
 
-        public static Task<GameCard> CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null)
+        public static Task<GameCard> CreateToStayFirst(this IGwentServerGame game, string cardId, int playerIndex, Action<CardStatus> setting = null, GameCard source = null)
         {
-            return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting);
+            return game.CreateCard(cardId, playerIndex, new CardLocation(RowPosition.MyStay, 0), setting, source);
         }
-        public static Task<GameCard> CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null)
+        public static Task<GameCard> CreateCardAtEnd(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Action<CardStatus> setting = null, GameCard source = null)
         {
-            return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting);
+            return game.CreateCard(cardId, playerIndex, new CardLocation(row, game.RowToList(playerIndex, row).Count), setting, source);
         }
 
-        public static Task CreateCardToRandom(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Random rng, Action<CardStatus> setting = null)
+        public static Task CreateCardToRandom(this IGwentServerGame game, string cardId, int playerIndex, RowPosition row, Random rng, Action<CardStatus> setting = null, GameCard source = null)
         {
-            return game.CreateCard(cardId, playerIndex, new CardLocation(row, rng.Next(0, game.RowToList(playerIndex, row).Count)), setting);
+            return game.CreateCard(cardId, playerIndex, new CardLocation(row, rng.Next(0, game.RowToList(playerIndex, row).Count)), setting, source);
         }
 
         public static IEnumerable<GwentCard> SelectCard(this IEnumerable<GwentCard> cards, Func<GwentCard, bool> filter, bool isDistinct = false)
@@ -104,16 +104,16 @@ namespace Cynthia.Card
         }
         public static async Task<int> CreateAndMoveStay(this GameCard card, string cardId)
         {
-            await card.Effect.Game.CreateCard(cardId, card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0));
+            await card.Effect.Game.CreateCard(cardId, card.PlayerIndex, new CardLocation(RowPosition.MyStay, 0), source: card);
             return 1;
         }
         public static Task<int> CreateAndMoveStay(this GameCard card, params string[] cards)
         {
-            return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex, cards);
+            return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex, cards, source: card);
         }
         public static Task<int> CreateAndMoveStay(this GameCard card, IList<string> cards)
         {
-            return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex, cards.ToArray());
+            return card.Effect.Game.CreateAndMoveStay(card.PlayerIndex, cards.ToArray(), source: card);
         }
         public static async Task<int> GetMenuSwitch(this GameCard card, params (string title, string message)[] cards)
         {

@@ -1,0 +1,4 @@
+# Extracted optional game assets stay outside Git; retain the mapping catalog.
+/Content/*
+!/Content/catalog.json
+!/Content/catalog.json.meta

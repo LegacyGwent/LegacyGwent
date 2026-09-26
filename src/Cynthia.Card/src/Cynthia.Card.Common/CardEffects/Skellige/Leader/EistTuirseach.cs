@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {   //图尔赛克家族，士兵，铜单位
             var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Unit, x => x.HasAllCategorie(Categorie.ClanTuirseach, Categorie.Soldier)).Select(x => x.CardId);
-            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray());
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray(), source: Card);
         }
     }
 }

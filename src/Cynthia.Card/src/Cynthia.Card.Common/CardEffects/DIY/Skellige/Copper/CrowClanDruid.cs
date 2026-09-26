@@ -46,7 +46,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, Card.Status.CardRow);
+            await Game.CreateCardAtEnd(CardId.Crow, PlayerIndex, Card.Status.CardRow, source: Card);
         }
     }
 }

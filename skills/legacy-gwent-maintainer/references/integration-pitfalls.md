@@ -1,6 +1,6 @@
 # Integration pitfalls
 
-Last verified: 2026-09-16
+Last verified: 2026-09-22
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
 
@@ -19,10 +19,62 @@ Last verified: 2026-09-16
 - Prevention: never cherry-pick a post-split DIY commit wholesale. Package a
   direct source-only fix separately from protocol, season-data, and Unity scene
   work; document unresolved product choices before implementation.
+  For the user's shared-feature work, inspect and deliver both `diy` and
+  `diy-ai`; a single-branch commit is not completion of a paired change. Use
+  `docs/CrossBranchSync.md` for the feature ledger and intentional differences.
+  Locale fixes need per-card comparison: AI Reynard is unlimited, AI Otkell's
+  Rain bonus does not stack, and AI Calanthe excludes spies. Those descriptions
+  must not be replaced by the otherwise-correct stable-DIY text.
 - Verification: run current server/gameplay tests, inspect numeric enum values
   and season-ID uniqueness, compare all locale surfaces, exercise the complete
   client/server path for protocol changes, and preview any 28021 migration with
   a restorable backup plan.
+
+## A feature port leaves generic UI translations behind
+
+- Symptom: premium-specific text is translated but titles, borders, settings,
+  and card category names revert to old English strings in the AI client.
+- Cause: comparing file presence or a feature-key subset does not cover all
+  personal changes inside shared language files. Whole-file copying is also
+  unsafe because AI card descriptions and choice text follow newer rules.
+- Fix: compare personal-base, personal-current, AI-base and AI-current values
+  per UI key. Restore nonconflicting generic text without replacing AI rule
+  descriptions, removed options or the AI endpoint welcome text. Synchronize
+  Resources, StreamingFile and server Locales together.
+- Prevention: audit original dirty files as well as committed source paths;
+  distinguish source Release delivery from Git tracking and historical evidence.
+- Verification: the final delivery audit restored 74 omitted UI translations;
+  `scripts/Verify-Localization.py` passed across all four languages and stores.
+  File/key presence alone does not establish semantic parity or device behavior.
+
+## A clean release branch does not mean the fork has no private history
+
+- Symptom: an AI release branch passes a text scan, but an older public branch
+  still exposes workstation paths or private contact addresses in Git metadata.
+- Cause: source-only ports can omit debug files and ancestry; older branches,
+  release tags and author/committer fields remain independently accessible.
+- Fix: inspect every relevant public ref, new-commit identity, tracked data and
+  source archives. Keep findings outside the repository and never print matched
+  secrets or private contact values. Prepare historical rewrites separately and
+  coordinate approval before force-pushing or moving published source tags.
+  If the user excludes history rewriting, make an ordinary cleanup commit on
+  the affected branch instead. Redact specific paths/addresses while retaining
+  diagnostic files; preserve an unrelated dirty checkout using a temporary Git
+  index. Explicitly report that historical blobs and email metadata remain.
+  When rewriting a not-yet-merged PR branch is authorized, sanitize every
+  contributed snapshot and identity while preserving the upstream base. Check
+  published tags separately and retain source Release assets when retargeting
+  an affected tag. Use explicit expected-SHA leases for only the affected refs.
+- Prevention: use the account's GitHub noreply identity, relative paths, and
+  `scripts/check-public-content.py` for new text. Keep third-party credits.
+  The guard does not scan all binary metadata or guarantee anonymity.
+- Verification: source-archive scanning, Git author/committer checks and branch
+  inventory are separate evidence. A new cleanup commit cannot erase old blobs,
+  downloaded copies or GitHub's ownership/activity records. Copyright statements
+  do not establish permission; see `ASSET_NOTICE.md` and the privacy guide.
+  Zero visible forks does not prove zero clones. A rewrite can remove old
+  commits from branch ancestry without removing GitHub cached commit views;
+  complete server-side removal requires GitHub Support's separate assessment.
 
 ## A skill script locates the discovery alias instead of the repository
 

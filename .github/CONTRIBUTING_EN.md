@@ -19,7 +19,9 @@ Installation：
 - Method 1（recommended）：windows: use [scoop](https://scoop.sh/)；Mac: use `brew`; Linux: use the package manager
 - Method 2：Download in [mongo website](https://docs.mongodb.com/manual/administration/install-community/). But might be buggy.
 
-### 4. Client: Unity 2019.4.1f1 (the exact version)
+### 4. Client: Unity 2019.4.41f2 (the exact version)
+
+See the [Unity upgrade record](../docs/UnityUpgrade.md) for the upgrade history, the authoritative version source, and platform module requirements.
 
 Installation：
 

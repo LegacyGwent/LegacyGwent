@@ -18,7 +18,7 @@ namespace Cynthia.Card
                                     !card.HasAnyCategorie(Categorie.Agent) &&
                                     card.HasAnyCategorie(Categorie.Soldier, Categorie.Officer)))
                 .Select(x => x.CardId).ToArray();
-            if (await Game.CreateAndMoveStay(PlayerIndex, cardsId) == 0)
+            if (await Game.CreateAndMoveStay(PlayerIndex, cardsId, source: Card) == 0)
             {
                 return 0;
             }

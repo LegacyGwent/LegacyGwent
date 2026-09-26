@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card;
 using UnityEngine.UI;
@@ -19,7 +19,91 @@ using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine.SceneManagement;
 public class EditorInfo : MonoBehaviour
 {
+    public Assets.Script.DynamicCards.PremiumCollectionPanel PremiumPanel { get; private set; }
+    public int PremiumFilter { get; private set; } = 2; // ordinary followed by its premium version
+    public bool OnlyOwned { get; private set; }
+    public Group? ShowGroup { get; private set; }
+    public void SetShowGroup(Group? group)
+    {
+        ShowGroup = group;
+        ClearCardPreview();
+        if (EditorStatus == EditorStatus.ShowCards) AutoSetShowCards();
+        PremiumPanel.RefreshGroupSelection();
+    }
+    public void SetOwnedFilter(bool value)
+    {
+        OnlyOwned=value;
+        SetPremiumFilter(PremiumFilter);
+    }
+    public static bool RightClickedPremium;
+    public void SetPremiumFilter(int value)
+    {
+        PremiumFilter = value;
+        ClearCardPreview();
+        if (EditorStatus == EditorStatus.ShowCards) AutoSetShowCards();
+        else if (EditorStatus == EditorStatus.EditorDeck) AutoSetEditorCards();
+    }
+    private IList<CardStatus> CollectionVariants(IList<CardStatus> cards)
+    {
+        if (!Assets.Script.DynamicCards.ClientContent.HasPremiumContent)
+            return cards.Select(c => new CardStatus(c.CardId) { IsPremium = false }).ToList();
+        var result = new List<CardStatus>();
+        foreach (var card in cards)
+        {
+            if (PremiumFilter != 1) { card.IsPremium = false; result.Add(card); }
+            if (PremiumFilter != 0 && (!OnlyOwned || Assets.Script.DynamicCards.PremiumCollectionClient.Owns(card.CardId)))
+                result.Add(new CardStatus(card.CardId) { IsPremium = true });
+        }
+        return result;
+    }
     private string LastHoveredCard;
+    public void RefreshPremiumCards(string id = null)
+    {
+        if (_nowEditorDeck != null && _nowEditorDeck.Id != "blacklist" && _nowEditorDeck.PremiumCards == null &&
+            Assets.Script.DynamicCards.PremiumCollectionClient.Ready)
+        {
+            CardInventory.InitializeDeck(_nowEditorDeck, Assets.Script.DynamicCards.PremiumCollectionClient.Account);
+            SetEditorDeck(_nowEditorDeck);
+        }
+        foreach (var container in new[] { ShowCardsContent, EditorCardsContext })
+            foreach (var view in container.GetComponentsInChildren<CardShowInfo>(true))
+                if (view.CurrentCore != null && (id == null || view.CurrentCore.CardId == id))
+                {
+                    view.SetCard();
+                    UpdateInventoryView(view);
+                }
+        foreach (var preview in new[] { ShowArtCard, EditorArtCard })
+            if (preview.gameObject.activeInHierarchy && preview.CurrentCore != null &&
+                (id == null || preview.CurrentCore.CardId == id)) preview.SetCard();
+    }
+
+    private void UpdateInventoryView(CardShowInfo view)
+    {
+        var card = view.CurrentCore;
+        if (card == null) return;
+        bool premium = card.IsPremium == true;
+        int owned = Assets.Script.DynamicCards.PremiumCollectionClient.Count(card.CardId, premium);
+        var core = view.GetComponent<EditorUICoreCard>();
+        int used = 0;
+        if (core != null && _nowEditorDeck != null)
+        {
+            int total = _nowEditorDeck.Deck.Count(x => x == card.CardId);
+            int selected = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(_nowEditorDeck, card.CardId) : 0;
+            used = premium ? selected : total - selected;
+            if (_nowEditorDeck.Id == "blacklist") owned = 1;
+            else if (isSpecial && card.Group == Group.Gold && !premium) owned = 3;
+            core.Count = Math.Max(0, owned - used);
+            int limit = _nowEditorDeck.Id == "blacklist" ? 1 :
+                card.Group == Group.Copper || (isSpecial && card.Group == Group.Gold) ? 3 : 1;
+            core.Gray.SetActive(owned <= used || total >= limit);
+        }
+        Assets.Script.DynamicCards.CardCopyBadge.Apply(view, Math.Max(0, owned - used));
+    }
+
+    private void RefreshInventoryCounts()
+    {
+        foreach (var view in EditorCardsContext.GetComponentsInChildren<CardShowInfo>(true)) UpdateInventoryView(view);
+    }
     //static public bool RighClickActive;
     public static string RightClickedCardID;
     //展示卡牌相关
@@ -117,6 +201,9 @@ public class EditorInfo : MonoBehaviour
         _clientService = DependencyResolver.Container.Resolve<GwentClientService>();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        PremiumPanel = gameObject.AddComponent<Assets.Script.DynamicCards.PremiumCollectionPanel>();
+        Assets.Script.DynamicCards.DailyQuestPanel.EnsureInitialized(this);
+        PremiumPanel.Initialize(this);
     }
 
     void Start()
@@ -142,6 +229,7 @@ public class EditorInfo : MonoBehaviour
 
     public void SetEditorCardInfo(IList<CardStatus> cards)
     {   //设置已有卡牌
+        cards = CollectionVariants(cards);
         var pagenum = 30;
         EditorCardsScroll.value = 1;
         RemoveAllChild(EditorCardsContext);
@@ -157,15 +245,10 @@ public class EditorInfo : MonoBehaviour
             newCards.ForAll(x =>
             {
                 var card = Instantiate(EditorMenuCardPrefab).GetComponent<EditorUICoreCard>();
+                card.cardShowInfo.PrepareCollectionDisplay(card.gameObject);
                 card.cardShowInfo.setCurrentCore(x, true);
-                var canAdd = 0;
-                if (_nowEditorDeck.Id == "blacklist")
-                    canAdd = 1;
-                else if (!isSpecial)
-                    canAdd = (x.Group == Group.Copper ? 3 : 1);
-                else
-                    canAdd = ((x.Group == Group.Gold || x.Group == Group.Copper) ? 3 : 1);
-                card.Count = (canAdd - _nowEditorDeck.Deck.Where(c => c == x.CardId).Count());
+                Assets.Script.DynamicCards.PremiumCollectionPanel.MarkCard(card.cardShowInfo, x);
+                UpdateInventoryView(card.cardShowInfo);
                 card.transform.SetParent(EditorCardsContext, false);
             });
         }
@@ -191,6 +274,7 @@ public class EditorInfo : MonoBehaviour
 
     public void SetShowCardInfo(IList<CardStatus> cards)
     {   //设置已有卡牌
+        cards = CollectionVariants(cards);
         var pagenum = 30;
         ShowCardScroll.value = 1;
         RemoveAllChild(ShowCardsContent);
@@ -206,7 +290,10 @@ public class EditorInfo : MonoBehaviour
             newCards.ForAll(x =>
             {
                 var card = Instantiate(UICardPrefab).GetComponent<CardShowInfo>();
+                card.PrepareCollectionDisplay(card.gameObject);
                 card.setCurrentCore(x, true);
+                Assets.Script.DynamicCards.PremiumCollectionPanel.MarkCard(card, x);
+                UpdateInventoryView(card);
                 card.transform.SetParent(ShowCardsContent, false);
             });
         }
@@ -230,6 +317,7 @@ public class EditorInfo : MonoBehaviour
 
     public void OpenEditor(bool IsMoveLeftRight = true)
     {
+        if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh();
         ShowCardScroll.value = 1;
         EditorCardsScroll.value = 1;
         EditorStatus = EditorStatus.ShowCards;
@@ -247,6 +335,7 @@ public class EditorInfo : MonoBehaviour
             RightSwitchMenu.anchoredPosition = new Vector2(1700, 0);
         }
         ResetEditor();
+        PremiumPanel.Open();
     }
 
     public void AutoSetShowCards()
@@ -254,6 +343,8 @@ public class EditorInfo : MonoBehaviour
         SetShowCardInfo
         (
             _cards
+            .Where(x => !ShowGroup.HasValue || x.Group == ShowGroup.Value ||
+                (ShowGroup == Group.Gold && x.Group == Group.Leader))
             .Where(x => ((_showFaction == Faction.All) ? true : (x.Faction == _showFaction)))
             .Where(x => ((_showSearchMessage == "") ? true :
                 (_translator.GetCardName(x.CardInfo().CardId).Contains(_showSearchMessage, StringComparison.OrdinalIgnoreCase) ||
@@ -267,12 +358,21 @@ public class EditorInfo : MonoBehaviour
 
     public void ResetEditor()
     {
-        EditorSearch.text = "";
-        ShowSearch.text = "";
+        ClearCardPreview();
+        EditorSearch.SetTextWithoutNotify("");
+        ShowSearch.SetTextWithoutNotify("");
+        _editorSearchMessage = "";
+        _showSearchMessage = "";
         _nowSwitchFaction = Faction.All;
+        _showFaction = Faction.All;
+        ShowGroup = null;
+        _nowShow = (int)Faction.All;
+        for (var i = 0; i < ShowButtons.Length; i++)
+            ShowButtons[i].SetIsOnWithoutNotify(i == _nowShow);
         //
+        // An already selected toggle does not emit a change event on entry.
+        AutoSetShowCards();
         SetDeckList(_clientService.User.Decks);
-        ShowButtons[0].isOn = true;
     }
 
     public void ShowFactionClick()
@@ -304,6 +404,7 @@ public class EditorInfo : MonoBehaviour
 
     public void SetDeckList(IList<DeckModel> decks)
     {
+        if (_deckPrefabMap == null) Start();
         //设置已有卡组
         RemoveAllChild(ShowDecksContext);
         var button = Instantiate(AddDeckButtonPrefab);
@@ -311,11 +412,18 @@ public class EditorInfo : MonoBehaviour
         //-----
         decks.ForAll(x =>
         {
-            if (_deckPrefabMap == null) Start();
-            if (x.Id != "blacklist")
+            if (x != null && x.Id != "blacklist")
             {
-                var deck = Instantiate(_deckPrefabMap[GwentMap.CardMap[x.Leader].Faction]);
-                string leaderartid = GwentMap.CardMap[x.Leader].CardArtsId;
+                if (string.IsNullOrEmpty(x.Leader) ||
+                    !GwentMap.CardMap.TryGetValue(x.Leader, out var leader) ||
+                    !_deckPrefabMap.TryGetValue(leader.Faction, out var prefab) || prefab == null)
+                {
+                    // Keep the saved deck intact; an unsupported deck must not abort collection entry.
+                    Debug.LogWarning($"Cannot display deck '{x.Id}': unsupported leader '{x.Leader}'.");
+                    return;
+                }
+                var deck = Instantiate(prefab);
+                string leaderartid = leader.CardArtsId;
                 deck.GetComponent<DeckShowInfo>().SetDeckInfo(x.Name, x.IsBasicDeck() || x.IsSpecialDeck() || (x.IsBlacklist() && x.Id == "blacklist"));
                 deck.GetComponent<DeckEditorMiniatures>().SetMiniatureArt(leaderartid);
                 deck.GetComponent<EditorShowDeck>().Id = x.Id;
@@ -356,6 +464,7 @@ public class EditorInfo : MonoBehaviour
         Debug.Log("点击了【" + _clientService.User.Decks.Single(x => x.Id == Id).Name + "】卡组的编辑按钮");
         var deck = _clientService.User.Decks.Single(x => x.Id == Id);
         _nowEditorDeck = deck;
+        CardInventory.InitializeDeck(_nowEditorDeck, Assets.Script.DynamicCards.PremiumCollectionClient.Account);
         isSpecial = (!deck.IsHalfBasicDeck()) && deck.IsHalfSpecialDeck();
         _nowSwitchLeaderId = deck.Leader;
         _nowSwitchFaction = GwentMap.CardMap[deck.Leader].Faction;
@@ -394,6 +503,7 @@ public class EditorInfo : MonoBehaviour
             _nowEditorDeck.Deck = gold;
         }
 
+        CardInventory.TrimDeckVersions(_nowEditorDeck);
         SetEditorDeck(_nowEditorDeck);
         //=============================================================================================================================
         AutoSetEditorCards();
@@ -454,21 +564,26 @@ public class EditorInfo : MonoBehaviour
     }
     public void SelectSwitchUICard(CardStatus card, bool isOver = true)
     {
-        //悬停在卡牌上,显示卡牌信息...但是目前没有做
-        // Debug.Log($"选中卡牌发生变化:  是否选中?:{isOver},卡牌名称:{card.Name},当前页面:{this.EditorStatus}");
-        if (EditorStatus == EditorStatus.EditorDeck)
-        {
-            EditorArtCard.CurrentCore = card;
-            EditorArtCard.gameObject.SetActive(isOver);
-            LastHoveredCard=card.CardId;
-        }
-        else if (EditorStatus == EditorStatus.ShowCards)
-        {
-            ShowArtCard.CurrentCore = card;
-            ShowArtCard.gameObject.SetActive(isOver);
-            LastHoveredCard=card.CardId;
-        }
-        //Debug.Log("LAST HOVERED: "+LastHoveredCard);
+        if (PremiumPanel != null && PremiumPanel.Busy) return;
+        // Keep the last meaningful preview when the pointer moves into empty space.
+        if (!isOver || card == null || string.IsNullOrEmpty(card.CardId)) return;
+        var preview = EditorStatus == EditorStatus.EditorDeck ? EditorArtCard :
+            EditorStatus == EditorStatus.ShowCards ? ShowArtCard : null;
+        if (preview == null) return;
+        var rotating=preview.CardImg.GetComponent<Assets.Script.DynamicCards.DynamicCardView>();
+        if(rotating!=null && rotating.IsDragging)return;
+        LastHoveredCard = card.CardId;
+        PremiumPanel.Preview(card);
+        if (preview.gameObject.activeSelf && preview.CurrentCore?.CardId == card.CardId && preview.CurrentCore.IsPremium == card.IsPremium) return;
+        preview.CurrentCore = card;
+        preview.gameObject.SetActive(true);
+    }
+
+    private void ClearCardPreview()
+    {
+        EditorArtCard.gameObject.SetActive(false);
+        ShowArtCard.gameObject.SetActive(false);
+        LastHoveredCard = null;
     }
     private void Update()
     {
@@ -508,15 +623,23 @@ public class EditorInfo : MonoBehaviour
             IsRightClickMobile = false;
             pressTime = 0;              
 
-            if (EditorArtCard.gameObject.activeSelf || ShowArtCard.gameObject.activeSelf)
+            if ((EditorStatus == EditorStatus.EditorDeck || EditorStatus == EditorStatus.ShowCards) &&
+                (EditorArtCard.gameObject.activeSelf || ShowArtCard.gameObject.activeSelf))
             {
-                RightClickedCardID = LastHoveredCard;
-                Debug.Log("Right Clicked ID: " + RightClickedCardID);
-                SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+                OpenCardDetails((EditorStatus == EditorStatus.EditorDeck ? EditorArtCard : ShowArtCard).CurrentCore);
             }
         }
     }
             
+    public void OpenCardDetails(CardStatus card)
+    {
+        if (card == null || card.IsCardBack || PremiumPanel.Busy || GameEvent.RighClickActive || SceneManager.GetSceneByName("RightClick").isLoaded) return;
+        RightClickedCardID = card.CardId;
+        RightClickedPremium = card.IsPremium ?? Assets.Script.DynamicCards.PremiumCollectionClient.Selected(card.CardId);
+        GameEvent.RighClickActive = true;
+        SceneManager.LoadScene("RightClick", LoadSceneMode.Additive);
+    }
+
     public void ClickSwitchUICard(CardStatus card)
     {
         if (EditorStatus == EditorStatus.SwitchFaction)
@@ -528,9 +651,11 @@ public class EditorInfo : MonoBehaviour
         }
         else if (EditorStatus == EditorStatus.SwitchLeader)
         {   //选择了领袖
+            if (card.IsPremium == true && !Assets.Script.DynamicCards.PremiumCollectionClient.Owns(card.CardId)) return;
             _nowSwitchLeaderId = card.CardId;
             if (_nowEditorDeck != null) _nowEditorDeck.Leader = _nowSwitchLeaderId;
-            else _nowEditorDeck = new DeckModel() { Leader = _nowSwitchLeaderId, Deck = new List<string>() };
+            else _nowEditorDeck = new DeckModel() { Leader = _nowSwitchLeaderId, Deck = new List<string>(), PremiumCards = new Dictionary<string, int>() };
+            _nowEditorDeck.PremiumLeader = card.IsPremium == true;
             //收回...不过降下编辑的
             EditorBodyCore.SetActive(true);
             EditorBodyMian.SetActive(false);
@@ -574,6 +699,7 @@ public class EditorInfo : MonoBehaviour
                 Right y:0 | X: 468 true     X: 1700 false*/
                 break;
             case EditorStatus.ShowCards://展示卡牌阶段,关闭编辑器
+                ClearCardPreview();
                 MainUI.SetActive(true);
                 EditorUI.SetActive(false);
                 EditorStatus = EditorStatus.Close;
@@ -651,11 +777,15 @@ public class EditorInfo : MonoBehaviour
 
     public void SetSwitchList(IList<CardStatus> cards)
     {//选择列表
+        if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent && cards.Count > 0 && cards.All(x => x.Group == Group.Leader))
+            cards = cards.SelectMany(x => new[] { new CardStatus(x.CardId) { IsPremium = false }, new CardStatus(x.CardId) { IsPremium = true } }).ToList();
         RemoveAllChild(SwitchCardsContext);
         cards.ForAll(x =>
         {
             var card = Instantiate(SwitchCardPrefab).GetComponent<SwitchUICard>();
             card.CardShowInfo.setCurrentCore(x, true);
+            if (x.Group == Group.Leader) Assets.Script.DynamicCards.CardCopyBadge.Apply(card.CardShowInfo,
+                Assets.Script.DynamicCards.PremiumCollectionClient.Count(x.CardId, x.IsPremium == true));
             card.transform.SetParent(SwitchCardsContext, false);
         });
         //------------------------------------------------------------------------//276
@@ -676,6 +806,7 @@ public class EditorInfo : MonoBehaviour
 
     public void ResetEditorCore()
     {//初始化
+        ClearCardPreview();
         EditorSearch.text = "";
         DeckName.text = (_nowEditorDeck.Name == null || _nowEditorDeck.Name == "") ? _translator.GetText("EditorMenu_DefaultDeckname") : _nowEditorDeck.Name;
         if (_nowEditorDeck.Id != "blacklist")
@@ -708,62 +839,46 @@ public class EditorInfo : MonoBehaviour
                                        //Debug.Log("点击了领袖");
     }
 
-    public void ClickEditorListCard(string id)
-    {//点击了卡牌   应该从卡组去除对应卡牌,并且更新显示
-        var subIndex = _nowEditorDeck.Deck.Select((item, index) => (item, index)).First(x => x.item == id).index;
-        _nowEditorDeck.Deck.RemoveAt(subIndex);
+    public void ClickEditorListCard(string id, bool premium = false)
+    {
+        if (_nowEditorDeck == null || PremiumPanel.Busy) return;
+        int total = _nowEditorDeck.Deck.Count(x => x == id);
+        int selected = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(_nowEditorDeck, id) : 0;
+        if ((premium ? selected : total - selected) <= 0) return;
+        _nowEditorDeck.Deck.Remove(id);
+        if (premium) _nowEditorDeck.PremiumCards[id] = selected - 1;
+        CardInventory.TrimDeckVersions(_nowEditorDeck);
         SetEditorDeck(_nowEditorDeck);
-        //**************************************************
-        var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == id);
-        c.ForAll(x => { x.Count++; });
+        RefreshInventoryCounts();
     }
 
     public void ClickEditorUICoreCard(CardStatus card)
-    {//点击了显示卡牌  应该判断是否应该添加卡牌,如果可以,添加并且更新显示,否则跳出消息提醒
-        var count = _nowEditorDeck.Deck.Where(x => x == card.CardId).Count();
+    {
+        if (card == null || PremiumPanel.Busy || _nowEditorDeck == null) return;
+        bool premium = card.IsPremium == true;
         if (_nowEditorDeck.Id == "blacklist")
         {
-            if (!(count >= 1 || (_nowEditorDeck.Deck.Count >= 2)))
-            {   //如果超过上限,禁止加入卡牌
-                _nowEditorDeck.Deck.Add(card.CardId);
-                SetEditorDeck(_nowEditorDeck);
-                //**********************************************
-                var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
-                c.ForAll(x => { x.Count--; });
-            }
-
-        }
-        else if (!isSpecial)
-        {
-            if (!((card.Group == Group.Copper && count >= 3) ||
-                (card.Group != Group.Copper && count >= 1) ||
-                (_nowEditorDeck.Deck.Count >= 40) ||
-                (card.Group == Group.Silver && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Silver).Count() >= 6) ||
-                (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 4)))
-            {   //如果超过上限,禁止加入卡牌
-                _nowEditorDeck.Deck.Add(card.CardId);
-                SetEditorDeck(_nowEditorDeck);
-                //**********************************************
-                var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
-                c.ForAll(x => { x.Count--; });
-            }
+            if (_nowEditorDeck.Deck.Contains(card.CardId) || _nowEditorDeck.Deck.Count >= 2) return;
         }
         else
         {
-            if (!((card.Group == Group.Silver && count >= 1) ||
-               ((card.Group == Group.Gold || card.Group == Group.Copper) && count >= 3) ||
-               (_nowEditorDeck.Deck.Count >= 40) ||
-               (card.Group == Group.Silver && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Silver).Count() >= 6) ||
-               (card.Group == Group.Gold && _nowEditorDeck.Deck.Where(x => x.CardInfo().Group == Group.Gold).Count() >= 12)))
-            {
-                _nowEditorDeck.Deck.Add(card.CardId);
-                SetEditorDeck(_nowEditorDeck);
-                //**********************************************
-                var c = GetAllChilds<EditorUICoreCard>(EditorCardsContext).Where(x => x.cardShowInfo.CurrentCore.CardId == card.CardId);
-                c.ForAll(x => { x.Count--; });
-            }
+            if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent && !Assets.Script.DynamicCards.PremiumCollectionClient.Ready) return;
+            if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) CardInventory.InitializeDeck(_nowEditorDeck, Assets.Script.DynamicCards.PremiumCollectionClient.Account);
+            int total = _nowEditorDeck.Deck.Count(x => x == card.CardId);
+            int selected = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(_nowEditorDeck, card.CardId) : 0;
+            int owned = Assets.Script.DynamicCards.PremiumCollectionClient.Count(card.CardId, premium);
+            if (isSpecial && card.Group == Group.Gold && !premium) owned = 3;
+            if ((premium ? selected : total - selected) >= owned)
+            { SelectSwitchUICard(card); return; }
+            int limit = card.Group == Group.Copper || (isSpecial && card.Group == Group.Gold) ? 3 : 1;
+            if (total >= limit || _nowEditorDeck.Deck.Count >= 40 ||
+                (card.Group == Group.Silver && _nowEditorDeck.Deck.Count(x => x.CardInfo().Group == Group.Silver) >= 6) ||
+                (card.Group == Group.Gold && _nowEditorDeck.Deck.Count(x => x.CardInfo().Group == Group.Gold) >= (isSpecial ? 12 : 4))) return;
+            if (premium) _nowEditorDeck.PremiumCards[card.CardId] = selected + 1;
         }
-        //Debug.Log("点击了菜单卡");
+        _nowEditorDeck.Deck.Add(card.CardId);
+        SetEditorDeck(_nowEditorDeck);
+        RefreshInventoryCounts();
     }
 
     public void EditorGroupClick()
@@ -809,21 +924,26 @@ public class EditorInfo : MonoBehaviour
         {
             var factionIndex = GetFactionIndex(_nowSwitchFaction);
             var leader = Instantiate(EditorLeadersPrefab[factionIndex]).GetComponent<LeaderShow>();
-            leader.SetLeader(_nowSwitchLeaderId);
+            leader.SetLeader(_nowSwitchLeaderId, Assets.Script.DynamicCards.ClientContent.HasPremiumContent && deck.PremiumLeader == true);
             leader.GetComponent<EditorListLeader>().Id = _nowSwitchLeaderId;
             leader.transform.SetParent(EditorCListContext, false);
         }
-        deck.Deck.Select(x => GwentMap.CardMap[x])
-            .OrderByDescending(x => x.Group)
-            .ThenByDescending(x => x.Strength)
-            .GroupBy(x => x.CardId)
-        .ForAll(x =>
+        foreach (var group in deck.Deck.GroupBy(x => x)
+            .OrderByDescending(x => GwentMap.CardMap[x.Key].Group).ThenByDescending(x => GwentMap.CardMap[x.Key].Strength))
         {
+            int premium = Assets.Script.DynamicCards.ClientContent.HasPremiumContent ? CardInventory.DeckPremiumCount(deck, group.Key) : 0;
+            AddRow(group.Key, false, group.Count() - premium);
+            AddRow(group.Key, true, premium);
+        }
+        void AddRow(string id, bool premium, int copies)
+        {
+            if (copies <= 0) return;
             var card = Instantiate(EditorListCardPrefab).GetComponent<ListCardShowInfo>();
-            card.SetCardInfo(x.Key, x.Count());
-            card.GetComponent<EditorListCard>().Id = x.Key;
+            card.SetCardInfo(id, copies, premium);
+            var row = card.GetComponent<EditorListCard>();
+            row.Id = id; row.IsPremium = premium;
             card.transform.SetParent(EditorCListContext, false);
-        });
+        }
         AllCount.text = _nowEditorDeck.Deck.Count().ToString();
         bool valid = deck.Id == "blacklist" || (deck.IsSpecialDeck() || deck.IsBasicDeck());
         AllCount.color = valid ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
@@ -846,7 +966,7 @@ public class EditorInfo : MonoBehaviour
         //*****************
         //等待补充？？？
         //*****************
-        var count = deck.Deck.Distinct().Count();
+        var count = EditorCListContext.childCount;
         var height = ((10 + 75 + 2.6f + (41.5f + 2.6f) * count) + 5f);
         EditorCListContext.sizeDelta = new Vector2(0, height);
         //EditorCListScroll.value = 1;

@@ -34,7 +34,7 @@ operator-directed redeployment.
 ## Keep the Unity transport boundary frozen during server upgrades
 
 Framework migration applies to the ASP.NET Core server and server-side test
-tools only. Common and AI remain `netstandard2.0`, Unity remains 2019.4.1f1,
+tools only. Common and AI remain `netstandard2.0`, Unity remains 2019.4.41f2,
 and the Unity SignalR 5.0.8 assemblies are checksum-protected in DIY-AI CI.
 Upgrade transport libraries only as a separate compatibility project.
 

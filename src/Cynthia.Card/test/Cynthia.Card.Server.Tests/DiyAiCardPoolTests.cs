@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 204), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 205), GwentMap.CardMapVersion);
             Assert.Equal(736, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));

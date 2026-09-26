@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Yennefer(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
-            return await Game.CreateAndMoveStay(Card.PlayerIndex, new[] { CardId.Unicorn, CardId.Chironex }, 1);
+            return await Game.CreateAndMoveStay(Card.PlayerIndex, new[] { CardId.Unicorn, CardId.Chironex }, 1, source: Card);
         }
     }
 }

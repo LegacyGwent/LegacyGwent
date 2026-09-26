@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using Cynthia.Card;
@@ -92,7 +92,7 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         string color = _titles.Where(x => x.ID == currenttitle).Single().TitleColor;
         if (currentborder != OldTitle)
         {
-            TitleText.text = _translator.GetText(currenttitle + "Name");
+            LocalizedLabel.Set(TitleText, currenttitle + "Name");
             TitleText.color = mycolormap[color];
             OldTitle = currenttitle;
         }

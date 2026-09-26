@@ -15,7 +15,7 @@ namespace Cynthia.Card
         private bool _targetIsHealth = false;
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Game.CreateCard(CardId.Fleder, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, 0));
+            await Game.CreateCard(CardId.Fleder, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, 0), source: Card);
             return 0;
         }
 

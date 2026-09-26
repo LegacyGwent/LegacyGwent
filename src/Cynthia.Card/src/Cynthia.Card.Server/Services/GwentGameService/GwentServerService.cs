@@ -23,12 +23,22 @@ namespace Cynthia.Card.Server
         private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService _databaseService;
         private readonly GwentMatchs _gwentMatchs;
+        private readonly RewardSettlementService _rewardSettlement;
+        private readonly PremiumDeckSelectionService _deckSelections;
+        private readonly InitialPowderGrantService _initialPowderGrants;
+        private readonly ConcurrentDictionary<string, PremiumCollection> _premiumCollections =
+            new ConcurrentDictionary<string, PremiumCollection>();
 
         private GwentCardDataService _gwentCardDataService;
         private GwentLocalizationService _gwentLocalizationService;
 
         public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
+
+        // Server-side receipt for the most recent finished human match of each participant.
+        // Postgame GG is authenticated against this receipt, never against caller-supplied names.
+        private readonly ConcurrentDictionary<string, GgMatchReceipt> _finishedMatches = new ConcurrentDictionary<string, GgMatchReceipt>();
+        private static readonly TimeSpan GgPostgameWindow = TimeSpan.FromHours(6);
 
         // private readonly IDictionary<string, (ITubeInlet sender, ITubeOutlet receiver)> _waitReconnectList = new ConcurrentDictionary<string, (ITubeInlet, ITubeOutlet)>();
         public GwentServerService(
@@ -37,7 +47,10 @@ namespace Cynthia.Card.Server
             IServiceProvider container,
             IWebHostEnvironment env,
             GwentCardDataService gwentCardDataService,
-            GwentLocalizationService gwentLocalizationService
+            GwentLocalizationService gwentLocalizationService,
+            RewardSettlementService rewardSettlement,
+            PremiumDeckSelectionService deckSelections,
+            InitialPowderGrantService initialPowderGrants
         )
         {
             _databaseService = databaseService;
@@ -47,6 +60,9 @@ namespace Cynthia.Card.Server
             ResultList = _databaseService.GetRecentGameResults(50);
             _gwentCardDataService = gwentCardDataService;
             _gwentLocalizationService = gwentLocalizationService;
+            _rewardSettlement = rewardSettlement;
+            _deckSelections = deckSelections;
+            _initialPowderGrants = initialPowderGrants;
             UpdateAndSaveSeasons();
             
         }
@@ -426,6 +442,7 @@ namespace Cynthia.Card.Server
                 user.OwnedBorders = loginUser.OwnedBorders;
                 user.OwnedTitles = loginUser.OwnedTitles;
                 _users.Add(user.ConnectionId, user);
+                _rewardSettlement.QueueDailyLogin(user.UserName, user.ConnectionId);
 
                 // give all default avatars
                 await AddAvatar(user.PlayerName, "NoAvatar");
@@ -471,7 +488,120 @@ namespace Cynthia.Card.Server
             return loginUser;
         }
 
-        public bool Register(string username, string password, string playerName) => _databaseService.Register(username, password, playerName);
+        public async Task<bool> Register(string username, string password, string playerName)
+        {
+            var registered = await _databaseService.Register(username, password, playerName);
+            if (registered)
+                _initialPowderGrants.RequestScan();
+            return registered;
+        }
+
+        public async Task<PremiumCollectionResult> GetPremiumCollection(string connectionId)
+        {
+            if (!_users.TryGetValue(connectionId, out var user))
+                return new PremiumCollectionResult { Status = "unauthenticated" };
+            var result = await _databaseService.GetPremiumCollection(user.UserName);
+            if (result.Success)
+            {
+                _premiumCollections[user.UserName] = result.Collection;
+                ApplyDeckSelections(user, result.Collection);
+            }
+            return result;
+        }
+
+        public async Task<DailyQuestResult> GetDailyQuests(string connectionId)
+        {
+            if (!_users.TryGetValue(connectionId, out var user))
+                return new DailyQuestResult { Status = "unauthenticated" };
+            var result = await _databaseService.GetDailyQuests(user.UserName);
+            if (result.Wallet?.Success == true)
+                _premiumCollections[user.UserName] = result.Wallet.Collection;
+            return result;
+        }
+
+        // Legacy enqueue without opponent context; kept for tests and non-human callers.
+        public void QueueDailyCrown(User user, string roundId, DateTimeOffset settledUtc)
+        {
+            _rewardSettlement.QueueDailyRound(user.UserName, user.PlayerName, user.ConnectionId, null, null, roundId, settledUtc);
+        }
+
+        // Authoritative human-vs-human enqueue. The queued work keeps the server-issued match id
+        // and both display names so the same-opponent check can run at settlement time without
+        // blocking round progression.
+        public void QueueDailyCrown(User user, User opponent, string matchId, string roundId, DateTimeOffset settledUtc)
+        {
+            _rewardSettlement.QueueDailyRound(user.UserName, user.PlayerName, user.ConnectionId,
+                opponent?.PlayerName, matchId, roundId, settledUtc);
+        }
+
+        public void QueueDailyLoginForOnlineUsers()
+        {
+            foreach (var user in _users.Values.ToArray())
+                _rewardSettlement.QueueDailyLogin(user.UserName, user.ConnectionId);
+        }
+
+        // Records the authoritative result of the most recent human-vs-human match for both
+        // participants. Called from GwentMatchs only when a real, distinct-human game finished.
+        public void RecordFinishedMatch(string matchId, User first, User second) =>
+            RecordFinishedMatch(matchId, first, second, _databaseService.DailyQuestClock().ToUniversalTime());
+
+        // Overload used when the settlement already carries the game-over timestamp.
+        public void RecordFinishedMatch(string matchId, User first, User second, DateTimeOffset finishedUtc)
+        {
+            if (string.IsNullOrWhiteSpace(matchId) || first == null || second == null ||
+                string.IsNullOrWhiteSpace(first.UserName) || string.IsNullOrWhiteSpace(second.UserName) ||
+                first.UserName == second.UserName)
+                return;
+            var finished = finishedUtc.ToUniversalTime();
+            _finishedMatches[first.UserName] = new GgMatchReceipt
+            {
+                MatchId = matchId,
+                OpponentUserName = second.UserName,
+                OpponentPlayerName = second.PlayerName,
+                FinishedUtc = finished
+            };
+            _finishedMatches[second.UserName] = new GgMatchReceipt
+            {
+                MatchId = matchId,
+                OpponentUserName = first.UserName,
+                OpponentPlayerName = first.PlayerName,
+                FinishedUtc = finished
+            };
+        }
+
+        public async Task<PremiumCollectionResult> CraftPremium(string connectionId, string cardId) =>
+            await UpdatePremiumCache(connectionId, user => _databaseService.CraftPremium(user.UserName, cardId));
+
+        public async Task<PremiumCollectionResult> CraftPremiumCopy(string connectionId, string cardId, string requestId) =>
+            await UpdatePremiumCache(connectionId, user => _databaseService.CraftPremiumCopy(user.UserName, cardId, requestId));
+
+        public async Task<PremiumCollectionResult> SelectPremium(string connectionId, string cardId, bool premium) =>
+            await UpdatePremiumCache(connectionId, user => _databaseService.SelectPremium(user.UserName, cardId, premium));
+
+        private async Task<PremiumCollectionResult> UpdatePremiumCache(
+            string connectionId, Func<User, Task<PremiumCollectionResult>> operation)
+        {
+            if (!_users.TryGetValue(connectionId, out var user))
+                return new PremiumCollectionResult { Status = "unauthenticated" };
+            var result = await operation(user);
+            if (result.Success)
+                _premiumCollections[user.UserName] = result.Collection;
+            return result;
+        }
+
+        private static void ApplyDeckSelections(User user, PremiumCollection collection)
+        {
+            if (user?.Decks == null || collection?.DeckSelections == null)
+                return;
+            foreach (var deck in user.Decks)
+            {
+                if (deck == null || !collection.DeckSelections.TryGetValue(deck.Id, out var selection) || selection == null)
+                    continue;
+                deck.PremiumCards = new Dictionary<string, int>(selection.PremiumCards ?? new Dictionary<string, int>());
+                deck.PremiumLeader = selection.LeaderId == deck.Leader && selection.PremiumLeader;
+                CardInventory.TrimDeckVersions(deck);
+            }
+        }
 
         public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
         {
@@ -483,10 +613,20 @@ namespace Cynthia.Card.Server
                 //如果玩家不处于闲置状态,或玩家没有该Id的卡组,或者该卡组不符合标准,禁止匹配
                 if (user.UserState != UserState.Standby || !(user.Decks.Any(x => x.Id == deckId) && (user.Decks.Single(x => x.Id == deckId).IsSpecialDeck() || user.Decks.Single(x => x.Id == deckId).IsBasicDeck())))
                     return false;
+                var savedDeck = user.Decks.Single(x => x.Id == deckId);
+                _premiumCollections.TryGetValue(user.UserName, out var collection);
+                if (collection != null && !CardInventory.ValidDeckVersions(savedDeck, collection)) return false;
                 //建立一个新的玩家
                 var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);//Container.Resolve<IHubContext<GwentHub>>);
                 //设置玩家的卡组
-                player.Deck = user.Decks.Single(x => x.Id == deckId);
+                // Snapshot the saved versions; edits while queued cannot change this match.
+                player.Deck = new DeckModel { Id = savedDeck.Id, Name = savedDeck.Name, Leader = savedDeck.Leader,
+                    Deck = savedDeck.Deck.ToList(), PremiumCards = savedDeck.PremiumCards == null
+                        ? null : new Dictionary<string, int>(savedDeck.PremiumCards),
+                    PremiumLeader = savedDeck.PremiumLeader };
+                // A legacy wire shape still needs the authoritative per-copy inventory limit.
+                CardInventory.InitializeDeck(player.Deck, collection);
+                player.PremiumCards = new HashSet<string>(collection?.OwnedCards ?? new List<string>());
                 player.CurrentAvatar = user.CurrentAvatar;
                 player.CurrentBorder = user.CurrentBorder;
                 player.CurrentTitle = user.CurrentTitle;
@@ -603,20 +743,50 @@ namespace Cynthia.Card.Server
             return wasAdded;
         }
 
-        public async Task<bool> SendGG(string MyName, string EnemyName) // send your name to the opponent and trigger GG
+        // Legacy hub signature (two caller strings) is preserved; identity now comes from the
+        // authenticated connection and the server match receipt. Caller names are only cross-checked.
+        public async Task<bool> SendGG(string connectionId, string MyName, string EnemyName)
         {
-            if (_users.Any(x => x.Value.PlayerName == EnemyName))
+            if (!_users.TryGetValue(connectionId, out var sender)) return false;
+            if (string.IsNullOrWhiteSpace(MyName) || MyName != sender.PlayerName) return false; // forged sender display
+            if (string.IsNullOrWhiteSpace(EnemyName) || EnemyName == sender.PlayerName) return false; // self or empty
+            if (!_finishedMatches.TryGetValue(sender.UserName, out var receipt)) return false; // no real finished match
+            if (receipt.OpponentPlayerName != EnemyName) return false; // arbitrary / nonparticipant recipient
+            var now = _databaseService.DailyQuestClock().ToUniversalTime();
+            if (now - receipt.FinishedUtc > GgPostgameWindow || receipt.FinishedUtc > now) return false; // stale / future receipt
+
+            // The event key is server-issued: one GG per sender per finished match.
+            var award = await _databaseService.AwardDailyGG(receipt.OpponentUserName, receipt.OpponentPlayerName,
+                sender.PlayerName, receipt.MatchId, receipt.FinishedUtc);
+            if (!award.Success) return false;
+            if (!award.Processed) return true; // idempotent replay of an already-settled GG
+
+            var recipient = _users.Values.FirstOrDefault(x => x.UserName == receipt.OpponentUserName);
+            if (recipient != null && _users.ContainsKey(recipient.ConnectionId))
             {
-                var connectionId = _users.Single(x => x.Value.PlayerName == EnemyName).Value.ConnectionId;
-                if (!_users.ContainsKey(connectionId))
+                try { await _hub.Clients.Client(recipient.ConnectionId).SendAsync("DisplayGG", sender.PlayerName); }
+                catch (Exception e)
                 {
-                    return false;
+                    NLog.LogManager.GetCurrentClassLogger().Warn(e,
+                        "GG settled but display failed. Sender={0}, Recipient={1}, Match={2}",
+                        sender.UserName, receipt.OpponentUserName, receipt.MatchId);
                 }
-                var user = _users[connectionId];
-                await _hub.Clients.Client(connectionId).SendAsync("DisplayGG", MyName);
-                _databaseService.UpdateGGCounter(EnemyName); // update the GG couter
+                try { await _hub.Clients.Client(recipient.ConnectionId).SendAsync("DailyQuestsChanged"); }
+                catch (Exception e)
+                {
+                    NLog.LogManager.GetCurrentClassLogger().Warn(e,
+                        "GG settled but daily quest notification failed. Recipient={0}", receipt.OpponentUserName);
+                }
             }
-            return false;
+            // Social counter increments once per valid GG even when the powder cap is already reached.
+            try { _databaseService.UpdateGGCounter(receipt.OpponentUserName); }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Warn(e,
+                    "GG powder settled but social counter update failed. Recipient={0}, Match={1}",
+                    receipt.OpponentUserName, receipt.MatchId);
+            }
+            return true;
         }
         public async Task<bool> SendTaunt(string EnemyName, string TauntID) // 
         {
@@ -692,9 +862,15 @@ namespace Cynthia.Card.Server
             var user = _users[connectionId];
             if (user.Decks.Count >= 1000)
                 return false;
+            var hasAppearance = deck.PremiumCards != null || deck.PremiumLeader.HasValue;
+            _premiumCollections.TryGetValue(user.UserName, out var collection);
+            if (hasAppearance && !CardInventory.ValidDeckVersions(deck, collection))
+                return false;
             if (!_databaseService.AddDeck(user.UserName, deck))
                 return false;
             user.Decks.Add(deck);
+            if (hasAppearance)
+                _deckSelections.QueueSave(user.UserName, deck);
             return true;
         }
 
@@ -712,6 +888,7 @@ namespace Cynthia.Card.Server
                 if (!_databaseService.RemoveDeck(user.UserName, id))
                     return false;
             user.Decks.RemoveAt(user.Decks.Select((x, index) => (x, index)).Single(deck => deck.x.Id == id).index);
+            _deckSelections.QueueRemove(user.UserName, id);
             return true;
         }
 
@@ -745,10 +922,30 @@ namespace Cynthia.Card.Server
             var user = _users[connectionId];
             if (user.Decks.Count < 0)
                 return false;
+            if (deck == null || !user.Decks.Any(item => item.Id == id))
+                return false;
+            var existing = user.Decks.Single(item => item.Id == id);
+            var hasAppearance = deck.PremiumCards != null || deck.PremiumLeader.HasValue;
+            if (!hasAppearance)
+            {
+                deck.PremiumCards = existing.PremiumCards == null
+                    ? null : new Dictionary<string, int>(existing.PremiumCards);
+                deck.PremiumLeader = deck.Leader == existing.Leader ? existing.PremiumLeader : false;
+                CardInventory.TrimDeckVersions(deck);
+            }
+            else
+            {
+                _premiumCollections.TryGetValue(user.UserName, out var collection);
+                if (!CardInventory.ValidDeckVersions(deck, collection)) return false;
+            }
             //如果卡组不合规范
             if (!_databaseService.ModifyDeck(user.UserName, id, deck))
                 return false;
             user.Decks[user.Decks.Select((x, index) => (x, index)).Single(d => d.x.Id == id).index] = deck;
+            if (hasAppearance)
+                _deckSelections.QueueSave(user.UserName, deck);
+            else
+                _deckSelections.QueueReconcile(user.UserName, deck);
             return true;
         }
 
@@ -845,6 +1042,13 @@ ai5 Dragon Hunter
 Append #f (# is also accepted) to force an AI match when another player may use the same password, for example ai1#f.
 
 Note: this realm changes frequently and may be interrupted. Its experimental data evolves independently; report issues in the group.";
+        }
+
+        public Task<string> GetLocalizedNotes(string connectionId, string language)
+        {
+            if (language == "cn") return GetNotes(connectionId);
+            if (language == "en") return GetNotesEN(connectionId);
+            return Task.FromResult(_gwentLocalizationService.GetText(language, "LoginMenu_NewsBody"));
         }
 
         public async Task<string> GetDownloadLink(string connectionId)
@@ -1173,6 +1377,7 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         {
             return _gwentLocalizationService.GetGameLocales();
         }
+        public string GetGameLocalesVersion() => _gwentLocalizationService.GetVersion();
 
         public int GetPalyernameMMR(string playername) => _databaseService.QueryMMR(playername);
 
@@ -1196,5 +1401,14 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
             await Task.CompletedTask;
             return true;
         }
+    }
+
+    // Server-only proof that a human match finished. Never serialized to clients.
+    internal sealed class GgMatchReceipt
+    {
+        public string MatchId { get; set; }
+        public string OpponentUserName { get; set; }
+        public string OpponentPlayerName { get; set; }
+        public DateTimeOffset FinishedUtc { get; set; }
     }
 }

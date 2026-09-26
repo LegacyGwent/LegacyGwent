@@ -14,8 +14,8 @@ namespace Cynthia.Card
             if (Game.GameRowEffect[Card.PlayerIndex][Card.Status.CardRow.MyRowToIndex()].RowStatus == RowStatus.FullMoon)
             {
                 isfullmoon = true;
-                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation());
-                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation() + 1);
+                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation(), source: Card);
+                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation() + 1, source: Card);
             }
             return;
         }
@@ -46,8 +46,8 @@ namespace Cynthia.Card
             if (@event.Type == RowStatus.FullMoon && !isfullmoon)
             {
                 isfullmoon = true;
-                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation());
-                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation() + 1);
+                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation(), source: Card);
+                await Game.CreateCard(CardId.Wolf, PlayerIndex, Card.GetLocation() + 1, source: Card);
                 return;
             }
             return;

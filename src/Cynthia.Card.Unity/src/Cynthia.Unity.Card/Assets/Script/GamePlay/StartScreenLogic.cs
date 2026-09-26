@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Cynthia.Card;
 using UnityEngine.UI;
 using TMPro;
@@ -241,7 +241,7 @@ public class StartScreenLogic : MonoBehaviour
         MyBorderTarget.sprite = loadedMyBorder;
         SetTextBackground(myLeaderStatus,MyFactionBackground);
         SetBackground(myLeaderStatus,MyLeft,MyRight);
-        MyCards.SetCard(myLeaderStatus.CardId);
+        MyCards.SetCard(myLeaderStatus.CardId, myLeaderStatus.IsPremium == true);
         SetRank(myMMRValue,MyRank);
         //Enemy
         EnemyNameField.text = enemyNameValue; //works
@@ -253,7 +253,7 @@ public class StartScreenLogic : MonoBehaviour
         EnemyBorderTarget.sprite = loadedEnemyBorder;//works
         SetTextBackground(enemyLeaderStatus,EnemyFactionBackground);//works
         SetBackground(enemyLeaderStatus,EnemyLeft,EnemyRight);
-        EnemyCards.SetCard(enemyLeaderStatus.CardId);//works
+        EnemyCards.SetCard(enemyLeaderStatus.CardId, enemyLeaderStatus.IsPremium == true);//works
         SetRank(enemyMMRValue,EnemyRank);//?
 
         StartCoroutine(PlayAnimations());
@@ -389,4 +389,3 @@ public class StartScreenLogic : MonoBehaviour
             eventSystem.enabled = true;
     }
 }
- 

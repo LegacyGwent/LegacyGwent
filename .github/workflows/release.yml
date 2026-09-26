@@ -13,6 +13,8 @@ on:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
 permissions:
   contents: read
@@ -87,7 +89,7 @@ jobs:
           fi
 
   buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+    name: Build ${{ matrix.targetPlatform }} / ${{ matrix.clientVariant }}
     needs:
       - validate_release
       - create_release
@@ -97,6 +99,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        clientVariant: [standard]
+        include:
+          - targetPlatform: StandaloneWindows64
+            clientVariant: premium
+          - targetPlatform: Android
+            clientVariant: premium
         targetPlatform:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
@@ -104,15 +112,17 @@ jobs:
           - Android # Build an Android .apk standalone app.
           - iOS # Build an iOS player.
     steps:
+      - name: Require Unity CI license
+        shell: bash
+        run: |
+          if [[ -z "$UNITY_LICENSE" ]]; then
+            echo "Missing UNITY_LICENSE repository secret. Configure the Unity CI license before building clients." >&2
+            exit 1
+          fi
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
-      - uses: actions/cache@v4
-        with:
-          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
-          key: Library-${{ matrix.targetPlatform }}
-          restore-keys: Library-${{ matrix.targetPlatform }}-
       - name: Setup .NET 10 SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -150,21 +160,55 @@ jobs:
           test "$android_version_code" = "$EXPECTED_ANDROID_VERSION_CODE"
           echo "value=$client_version" >> "$GITHUB_OUTPUT"
           echo "android_version_code=$android_version_code" >> "$GITHUB_OUTPUT"
+      - name: Require persistent Android signing
+        if: matrix.targetPlatform == 'Android'
+        shell: bash
+        env:
+          KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
+        run: |
+          set -Eeuo pipefail
+          for name in KEYSTORE STORE_PASS KEY_ALIAS KEY_PASS CERT_SHA256; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing persistent Android signing secret: $name" >&2
+              exit 1
+            fi
+          done
+      - uses: ./.github/actions/prepare-premium-content
+        with:
+          variant: ${{ matrix.clientVariant }}
+      - uses: actions/cache@v4
+        with:
+          path: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Library
+          key: Library-v3-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}-${{ hashFiles('build-config/premium-content.json', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/ProjectSettings/**', 'src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Packages/**') }}
+          restore-keys: Library-v3-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}-
       - uses: game-ci/unity-builder@7afabe74da5227a9ecd537f5260b398258c3eb3b
         id: unity_build
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           projectPath: src/Cynthia.Card.Unity/src/Cynthia.Unity.Card
-          buildName: DiyGwent-AITest-${{ matrix.targetPlatform }}
+          buildName: DiyGwent-AITest-${{ matrix.targetPlatform }}-${{ matrix.clientVariant }}
+          buildMethod: LegacyClientBuild.Build
+          customParameters: -clientVariant ${{ matrix.clientVariant }}
           versioning: Custom
           version: ${{ steps.client_version.outputs.value }}
           androidVersionCode: ${{ steps.client_version.outputs.android_version_code }}
           androidExportType: androidPackage
+          androidKeystoreName: legacygwent.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          androidKeyaliasName: ${{ secrets.ANDROID_KEY_ALIAS }}
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEY_PASSWORD }}
           allowDirtyBuild: true
       - name: Package release client
         id: package
         shell: bash
         env:
+          CLIENT_VARIANT: ${{ matrix.clientVariant }}
+          EXPECTED_CERT_SHA256: ${{ secrets.ANDROID_CERT_SHA256 }}
           EXPECTED_CLIENT_VERSION: ${{ steps.client_version.outputs.value }}
           EXPECTED_ANDROID_VERSION_CODE: ${{ steps.client_version.outputs.android_version_code }}
           EXPECTED_ANDROID_PACKAGE: cynthia.diy.ai.card
@@ -179,9 +223,10 @@ jobs:
             Android)
               mapfile -t apk_files < <(find "build/$TARGET_PLATFORM" -type f -iname '*.apk' | sort)
               test "${#apk_files[@]}" -eq 1
-              asset_name="DiyGwent-AITest-Android-$EXPECTED_CLIENT_VERSION.apk"
+              asset_name="DiyGwent-AITest-Android-$EXPECTED_CLIENT_VERSION-$CLIENT_VARIANT.apk"
               asset_path="$GITHUB_WORKSPACE/$asset_name"
               cp "${apk_files[0]}" "$asset_path"
+              python3 scripts/verify-client-content.py "$asset_path" --variant "$CLIENT_VARIANT" --target Android
 
               find_android_tool() {
                 local tool_name="$1"
@@ -227,15 +272,17 @@ jobs:
                   tr -d '[:space:]:'
               )"
               [[ "$certificate_digest" =~ ^[0-9a-fA-F]{64}$ ]]
-              echo "Normalized signing certificate SHA-256: $certificate_digest"
+              test "${certificate_digest,,}" = "${EXPECTED_CERT_SHA256,,}"
+              echo "Verified persistent signing certificate SHA-256: $certificate_digest"
               ;;
-            StandaloneWindows64) asset_name="DiyGwent-AITest-Windows-$EXPECTED_CLIENT_VERSION.zip" ;;
-            StandaloneOSX) asset_name="DiyGwent-AITest-macOS-$EXPECTED_CLIENT_VERSION.zip" ;;
-            StandaloneLinux64) asset_name="DiyGwent-AITest-Linux-$EXPECTED_CLIENT_VERSION.zip" ;;
-            iOS) asset_name="DiyGwent-AITest-iOS-$EXPECTED_CLIENT_VERSION.zip" ;;
+            StandaloneWindows64) asset_name="DiyGwent-AITest-Windows-$EXPECTED_CLIENT_VERSION-$CLIENT_VARIANT.zip" ;;
+            StandaloneOSX) asset_name="DiyGwent-AITest-macOS-$EXPECTED_CLIENT_VERSION-$CLIENT_VARIANT.zip" ;;
+            StandaloneLinux64) asset_name="DiyGwent-AITest-Linux-$EXPECTED_CLIENT_VERSION-$CLIENT_VARIANT.zip" ;;
+            iOS) asset_name="DiyGwent-AITest-iOS-$EXPECTED_CLIENT_VERSION-$CLIENT_VARIANT.zip" ;;
             *) echo "Unsupported release target: $TARGET_PLATFORM" >&2; exit 1 ;;
           esac
           if [[ "$TARGET_PLATFORM" != Android ]]; then
+            python3 scripts/verify-client-content.py "build/$TARGET_PLATFORM" --variant "$CLIENT_VARIANT" --target "$TARGET_PLATFORM"
             package_root="${asset_name%.zip}"
             staging_dir="$RUNNER_TEMP/release-$TARGET_PLATFORM"
             mkdir -p "$staging_dir/$package_root"

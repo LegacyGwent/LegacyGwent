@@ -17,7 +17,7 @@ namespace Cynthia.Card
             {
                 if (row.Count < Game.RowMaxCount)
                 {
-                    await Game.CreateCard("25002", Card.PlayerIndex, new CardLocation(result, row.Count));
+                    await Game.CreateCard("25002", Card.PlayerIndex, new CardLocation(result, row.Count), source: Card);
                 }
             }
             return 0;

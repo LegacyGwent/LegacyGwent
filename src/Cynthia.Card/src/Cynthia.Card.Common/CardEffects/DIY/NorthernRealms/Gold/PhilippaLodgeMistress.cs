@@ -64,7 +64,7 @@ namespace Cynthia.Card
             var cardsId = GwentMap.GetCards().FilterCards(Group.Copper, CardType.Special, x => x.HasAllCategorie(Categorie.Spell))
                  .Select(x => x.CardId);
 
-            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray());
+            return await Game.CreateAndMoveStay(PlayerIndex, cardsId.ToArray(), source: Card);
         }
     }
 }

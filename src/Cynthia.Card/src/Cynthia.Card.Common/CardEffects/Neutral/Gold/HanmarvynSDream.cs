@@ -11,7 +11,7 @@ namespace Cynthia.Card
         public override async Task<int> CardUseEffect()
         {
             var ids = Game.PlayersCemetery[AnotherPlayer].Where(x => x.Is(Group.Gold, CardType.Unit)).Select(x => x.Status.CardId).ToArray();
-            var count = await Game.CreateAndMoveStay(PlayerIndex, ids);
+            var count = await Game.CreateAndMoveStay(PlayerIndex, ids, source: Card);
             if (count == 0)
             {
                 return 0;

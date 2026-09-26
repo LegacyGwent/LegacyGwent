@@ -5,14 +5,17 @@ project documentation:
 
 - .NET 10 SDK for the `net10.0` server
 - MongoDB 4.4.29 on `127.0.0.1:28020`
-- Unity 2019.4.1f1 (`e6c045e14e4e`) for the client
+- Unity 2019.4.41f2 (`6b23d448b533`) for the client
 
 Tools and database files are kept outside the repository in
 `%LOCALAPPDATA%\LegacyGwentDev`.
 
 The server upgrade is intentionally isolated from the Unity runtime. The shared
-Common and AI projects still target `netstandard2.0`, Unity remains on
-2019.4.1f1, and its bundled SignalR client remains at 5.0.8.
+Common and AI projects still target `netstandard2.0`, the client editor is
+2019.4.41f2, and its bundled SignalR client remains at 5.0.8. See
+[docs/UnityUpgrade.md](docs/UnityUpgrade.md) for the upgrade record, the
+authoritative `ProjectSettings/ProjectVersion.txt` source, the UPM changes, and
+platform module requirements.
 
 ## First-time setup
 

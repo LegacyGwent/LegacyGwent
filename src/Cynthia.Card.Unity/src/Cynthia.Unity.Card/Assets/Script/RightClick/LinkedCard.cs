@@ -43,6 +43,8 @@ public class LinkedCard : MonoBehaviour
     {
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
         CardInfo = GwentMap.CardMap[ID];
+        Assets.Script.DynamicCards.DynamicCardView.Bind(CardImg, CardInfo.CardArtsId,
+            premium: Assets.Script.DynamicCards.PremiumCollectionClient.Selected(CardInfo.CardId));
 
         if (CardInfo.Group == Group.Gold || CardInfo.Group == Group.Leader)
             CardBorder.sprite = GoldBorder;

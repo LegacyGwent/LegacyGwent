@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Cynthia.Card.Client;
 using System;
 using System.Collections.Generic;
@@ -40,6 +40,27 @@ public class GameInit : MonoBehaviour
         ConfigureGame();
         _loadServerMessageCancellation = new CancellationTokenSource();
         LoadServerMessage(_loadServerMessageCancellation.Token);
+    }
+
+    private int newsRequest;
+    private void OnEnable() { TextLocalization.LanguageChanged += LanguageChanged; }
+    private void OnDisable() { TextLocalization.LanguageChanged -= LanguageChanged; newsRequest++; }
+    private async void LanguageChanged()
+    {
+        if (_translator == null || _gwentClientService == null) return;
+        try { await RefreshNews(); }
+        catch { if (this != null && NotesText != null) NotesText.text = _translator.GetText("LoginMenu_NewsError"); }
+    }
+    private async System.Threading.Tasks.Task RefreshNews()
+    {
+        int request = ++newsRequest;
+        string language = _translator.TextLocalization.ChosenLanguage.Filename;
+        string news = await _gwentClientService.GetLocalizedNotes(language,
+            _loadServerMessageCancellation == null ? CancellationToken.None : _loadServerMessageCancellation.Token);
+        if (this == null || request != newsRequest || NotesText == null) return;
+        NotesText.text = news.Replace("\\n", "\n");
+        LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.rectTransform);
+        NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.rectTransform.sizeDelta.y);
     }
 
     private void OnDestroy()
@@ -156,24 +177,7 @@ public class GameInit : MonoBehaviour
         }
         try
         {
-            var textLanguageManager = DependencyResolver.Container.Resolve<LocalizationService>().TextLocalization;
-            var language = textLanguageManager.ChosenLanguage.Filename;
-            if (language=="cn")
-            {
-                var notes = await _gwentClientService.GetNotes(cancellationToken);
-                cancellationToken.ThrowIfCancellationRequested();
-                NotesText.text = notes.Replace("\\n", "\n");
-                LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
-                NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
-            }
-            else if (Array.Exists(new[] { "en", "ru", "pl" }, element => element == language))
-            {
-                var notes = await _gwentClientService.GetNotesEN(cancellationToken);
-                cancellationToken.ThrowIfCancellationRequested();
-                NotesText.text = notes.Replace("\\n", "\n");
-                LayoutRebuilder.ForceRebuildLayoutImmediate(NotesText.GetComponent<RectTransform>());
-                NotesContext.sizeDelta = new Vector2(NotesContext.sizeDelta.x, NotesText.GetComponent<RectTransform>().sizeDelta.y);
-            }
+            await RefreshNews();
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {

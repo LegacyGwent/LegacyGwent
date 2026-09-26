@@ -20,7 +20,8 @@ namespace Cynthia.Card
                 }
 
                 await Game.CreateCardAtEnd(CardId.GirlWhoDrankBrokilonWater, PlayerIndex, row,
-                    copy => copy.IsDoomed = true);
+                    copy => copy.IsDoomed = true,
+                    source: Card);
             }
 
             return 0;

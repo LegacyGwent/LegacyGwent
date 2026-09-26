@@ -13,7 +13,7 @@ namespace Cynthia.Card
             for (var i = 0; i < 3; i++)
             {
                 if (Card.Status.CardRow == i.IndexToMyRow()) continue;
-                await Game.CreateCardAtEnd("34027", Card.PlayerIndex, i.IndexToMyRow(), x => x.IsDoomed = true);
+                await Game.CreateCardAtEnd("34027", Card.PlayerIndex, i.IndexToMyRow(), x => x.IsDoomed = true, source: Card);
             }
             return 0;
         }

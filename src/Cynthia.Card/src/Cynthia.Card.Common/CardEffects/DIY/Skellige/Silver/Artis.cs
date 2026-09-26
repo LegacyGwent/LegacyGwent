@@ -13,7 +13,8 @@ namespace Cynthia.Card
             await Game.CreateCard(
                 CardId.CultistOblation,
                 AnotherPlayer,
-                new CardLocation(Card.Status.CardRow, int.MaxValue));
+                new CardLocation(Card.Status.CardRow, int.MaxValue),
+                source: Card);
 
             var selectList = await Game.GetSelectPlaceCards(
                 Card,

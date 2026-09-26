@@ -882,6 +882,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 9220000000000000000}
   - component: {fileID: 6875727742203086462}
   - component: {fileID: 6875727742203086448}
   - component: {fileID: 5075545764400108921}
@@ -1338,3 +1339,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &9220000000000000000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875727742203086463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf092c67e6cf9b4499867f65c143084, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  ObjectsToTranslate:
+  - Id: TrinketsMenu_NewReward
+    TextObject: {fileID: 3927647155526959330}
+  - Id: PopupWindow_OkButton
+    TextObject: {fileID: 6772064393634740074}

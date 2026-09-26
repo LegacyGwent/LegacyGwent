@@ -13,7 +13,7 @@ namespace Cynthia.Card
             var list = Game.PlayersDeck[PlayerIndex].Where(x => x.Status.CardId == Card.Status.CardId).ToList();
             if (list.Count() == 0)
             {
-                await Game.CreateCardAtEnd(Card.Status.CardId, PlayerIndex, RowPosition.MyDeck);
+                await Game.CreateCardAtEnd(Card.Status.CardId, PlayerIndex, RowPosition.MyDeck, source: Card);
                 return 0;
             }
             await list.First().MoveToCardStayFirst();

@@ -13,7 +13,7 @@ namespace Cynthia.Card
             await Card.Effect.SetCountdown(value: 3);
             // The generated Egg is a normal copy. Do not emulate Doomed with a
             // display-only category: that left stale death/lock event state.
-            await Game.CreateCard(CardId.EndregaEggs, PlayerIndex, Card.GetLocation());
+            await Game.CreateCard(CardId.EndregaEggs, PlayerIndex, Card.GetLocation(), source: Card);
             return 0;
         }
         public async Task HandleEvent(AfterTurnOver @event)
@@ -36,7 +36,7 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterCardDeath @event)
         {
             if (@event.Target != Card) return;
-            await Game.CreateCard(CardId.EndregaLarva, PlayerIndex, @event.DeathLocation);
+            await Game.CreateCard(CardId.EndregaLarva, PlayerIndex, @event.DeathLocation, source: Card);
 
             // Strengthening a Queen can summon it and therefore mutate the deck.
             // Snapshot first so multiple copies and the 10-strength threshold are safe.

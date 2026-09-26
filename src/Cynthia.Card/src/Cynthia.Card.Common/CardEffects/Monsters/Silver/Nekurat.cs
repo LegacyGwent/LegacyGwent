@@ -10,7 +10,7 @@ namespace Cynthia.Card
         public Nekurat(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Game.CreateToStayFirst(CardId.Moonlight, Card.PlayerIndex);
+            await Game.CreateToStayFirst(CardId.Moonlight, Card.PlayerIndex, source: Card);
             return 1;
         }
     }

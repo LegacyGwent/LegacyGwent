@@ -31,7 +31,8 @@ namespace Cynthia.Card
             await Game.CreateCard(
                 targetCard.Status.CardId,
                 controller,
-                new CardLocation(RowPosition.MyStay, 0));
+                new CardLocation(RowPosition.MyStay, 0),
+                source: Card);
             return 1;
         }
     }

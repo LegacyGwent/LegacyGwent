@@ -14,10 +14,20 @@ namespace Cynthia.Card.Server
         public GwentHub(GwentServerService gwentServerService) => _gwentServerService = gwentServerService;
 
         //注册
-        public bool Register(string username, string password, string playername) => _gwentServerService.Register(username, password, playername);
+        public Task<bool> Register(string username, string password, string playername) => _gwentServerService.Register(username, password, playername);
 
         //登录
         public async Task<UserInfo> Login(string username, string password) => await _gwentServerService.Login(new User(username, Context.ConnectionId), password);
+        public Task<PremiumCollectionResult> GetPremiumCollection() => _gwentServerService.GetPremiumCollection(Context.ConnectionId);
+        public Task<DailyQuestResult> GetDailyQuests() => _gwentServerService.GetDailyQuests(Context.ConnectionId);
+        public Task<PremiumCollectionResult> CraftPremium(string cardId) => _gwentServerService.CraftPremium(Context.ConnectionId, cardId);
+
+        public Task<PremiumCollectionResult> CraftPremiumCopy(string cardId, string requestId) =>
+            _gwentServerService.CraftPremiumCopy(Context.ConnectionId, cardId, requestId);
+        // Legacy Unity serializes bool arguments as strings. Use an explicit 0/1 wire value.
+        public Task<PremiumCollectionResult> SelectPremium(string cardId, int premium) => premium == 0 || premium == 1
+            ? _gwentServerService.SelectPremium(Context.ConnectionId, cardId, premium == 1)
+            : Task.FromResult(new PremiumCollectionResult { Status = "invalid_selection" });
         // update the userinfo when loading GameScene to update the avatars/borders/titles
         public async Task<UserInfo> QueryUserInfo(string username, string password) => await _gwentServerService.QueryUserInfo(username, password);
         
@@ -56,7 +66,7 @@ namespace Cynthia.Card.Server
         public bool MatchOfPassword(string deckId, string password) => NewMatchOfPassword(deckId, password, 0);
 
         public bool NewMatchOfPassword(string deckId, string password, int usingBlacklist) => _gwentServerService.Match(Context.ConnectionId, deckId, password, usingBlacklist);
-        public Task<bool> SendGG(string MyName, string EnemyName) => _gwentServerService.SendGG(MyName, EnemyName);
+        public Task<bool> SendGG(string MyName, string EnemyName) => _gwentServerService.SendGG(Context.ConnectionId, MyName, EnemyName);
 
         public Task<bool> SendTaunt(string EnemyName, string tauntID)  => _gwentServerService.SendTaunt(EnemyName, tauntID);
         
@@ -95,12 +105,15 @@ namespace Cynthia.Card.Server
         public string GetBorderMap() => _gwentServerService.GetBorderMap(); // retreive border info from server
         public string GetTitleMap() => _gwentServerService.GetTitleMap(); // retreive title info from server
         public string GetGameLocales() => _gwentServerService.GetGameLocales();
+        public string GetGameLocalesVersion() => _gwentServerService.GetGameLocalesVersion();
 
         public async Task<string> GetLatestVersion() => await _gwentServerService.GetLatestVersion(Context.ConnectionId);
 
         public async Task<string> GetNotes() => await _gwentServerService.GetNotes(Context.ConnectionId);
 
         public async Task<string> GetNotesEN() => await _gwentServerService.GetNotesEN(Context.ConnectionId);
+
+        public Task<string> GetLocalizedNotes(string language) => _gwentServerService.GetLocalizedNotes(Context.ConnectionId, language);
 
         public async Task<string> GetDownloadLink() => await _gwentServerService.GetDownloadLink(Context.ConnectionId);   
 

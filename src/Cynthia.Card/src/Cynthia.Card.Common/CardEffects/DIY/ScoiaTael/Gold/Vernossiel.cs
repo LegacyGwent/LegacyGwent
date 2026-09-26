@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 2; i++)
             {
-                await Game.CreateCard(CardId.VernossielsCommando, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)));
+                await Game.CreateCard(CardId.VernossielsCommando, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), source: Card);
             }
 
             var cards = Game.PlayersDeck[Card.PlayerIndex].Where(x => x.Status.CardId == CardId.VernossielsCommando).ToList();

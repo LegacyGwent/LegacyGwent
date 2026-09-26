@@ -9,8 +9,8 @@ $ErrorActionPreference = "Stop"
 $dotnetInstaller = Join-Path $env:TEMP "legacygwent-dotnet-install.ps1"
 $mongoArchive = Join-Path $script:DevRoot "mongodb-windows-x86_64-4.4.29.zip"
 $mongoUrl = "https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-4.4.29.zip"
-$unityInstaller = Join-Path $script:DevRoot "UnitySetup64-2019.4.1f1.exe"
-$unityUrl = "https://download.unity3d.com/download_unity/e6c045e14e4e/Windows64EditorInstaller/UnitySetup64-2019.4.1f1.exe"
+$unityInstaller = Join-Path $script:DevRoot "UnitySetup64-$script:UnityVersion.exe"
+$unityUrl = "https://download.unity3d.com/download_unity/$script:UnityRevision/Windows64EditorInstaller/UnitySetup64-$script:UnityVersion.exe"
 
 New-Item -ItemType Directory -Path $script:DevRoot -Force | Out-Null
 
@@ -43,7 +43,7 @@ if (-not $SkipUnity) {
     }
 
     if (-not (Test-Path -LiteralPath $script:UnityExe)) {
-        Write-Host "Installing Unity Editor 2019.4.1f1..."
+        Write-Host "Installing Unity Editor $script:UnityVersion..."
         if (-not (Test-Path -LiteralPath $unityInstaller)) {
             curl.exe -L --fail --show-error $unityUrl -o $unityInstaller
         }

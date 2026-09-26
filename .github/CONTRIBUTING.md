@@ -14,7 +14,9 @@ Windows, macOS, Linux均可。
 
 直接在[微软开发者官网](https://dotnet.microsoft.com/download/dotnet/10.0)下载 .NET 10 SDK。共享模型仍以 `netstandard2.0` 构建供旧版 Unity 使用。
 
-### 3. 客户端UI: Unity 2019.4.1f1（版本必须一样）
+### 3. 客户端UI: Unity 2019.4.41f2（版本必须一样）
+
+升级经过、权威版本来源与平台模块要求见 [Unity 升级记录](../docs/UnityUpgrade.md)。
 
 安装方法：
 

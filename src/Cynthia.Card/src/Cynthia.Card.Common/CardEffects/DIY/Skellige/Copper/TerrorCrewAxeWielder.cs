@@ -33,7 +33,7 @@ namespace Cynthia.Card
 
             for (var i = 0; i < 1; i++)
             {
-                await Game.CreateCardToRandom(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck, Game.RNG);
+                await Game.CreateCardToRandom(CardId.TerrorCrewPlunderer, PlayerIndex, RowPosition.MyDeck, Game.RNG, source: Card);
             }
         }
 

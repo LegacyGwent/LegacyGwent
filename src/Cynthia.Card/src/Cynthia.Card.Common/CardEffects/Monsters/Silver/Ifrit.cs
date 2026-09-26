@@ -13,7 +13,7 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 3; i++)
             {
-                await Game.CreateCard(CardId.LesserIfrit, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++));
+                await Game.CreateCard(CardId.LesserIfrit, PlayerIndex, Card.GetLocation().With(x => x.CardIndex++), source: Card);
             }
             return 0;
         }

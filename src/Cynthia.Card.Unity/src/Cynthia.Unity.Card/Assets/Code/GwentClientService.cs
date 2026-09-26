@@ -116,14 +116,17 @@ namespace Cynthia.Card.Client
             });
             hubConnection.On("RepeatLogin", async () =>
             {
+                Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
                 SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
                 await DependencyResolver.Container.Resolve<GlobalUIService>().YNMessageBox(
                     _translator.GetText("PopupWindow_LoggedOutTitle"),
                     _translator.GetText("PopupWindow_LoggedOutDesc"));
             });
+            hubConnection.On("DailyQuestsChanged", () => { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh(true); });
             hubConnection.Closed += (async x =>
             {
+                Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
                 (sender, receiver) = Tube.CreateSimplex();
                 SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
@@ -243,7 +246,7 @@ namespace Cynthia.Card.Client
                 if (clientTrinketMapVersion != severTrinketMapVersion)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    infoText.text = "loading trinkets information";
+                    infoText.text = _translator.GetText("LoginMenu_TrinketDataUpdating");
                     var loadedAvatarMap = JsonConvert.DeserializeObject<Dictionary<string, TrinketAvatar>>(await GetAvatarMap(cancellationToken));
                     cancellationToken.ThrowIfCancellationRequested();
                     TrinketMap.AvatarMap = loadedAvatarMap;
@@ -287,10 +290,13 @@ namespace Cynthia.Card.Client
                 // 1. Locales have not been downloaded on this installation
                 // 2. There came out a new version of locales since the last time we downloaded them
 
+                string localeVersion = null;
+                try { localeVersion = await HubConnection.InvokeAsync<string>("GetGameLocalesVersion", cancellationToken); }
+                catch (Microsoft.AspNetCore.SignalR.HubException) { /* Older servers use the card-map version. */ }
+                // Translation-only fixes must invalidate caches even when card rules do not change.
                 if (LocalizationUpdatePolicy.ShouldDownloadLocales(
-                    fileHandler.AreFilesDownloaded(),
-                    localesWereLastUpdatedTo,
-                    serverVersion))
+                        fileHandler.AreFilesDownloaded(), localesWereLastUpdatedTo, serverVersion) ||
+                    localeVersion != null && PlayerPrefs.GetString("LocalizationContentVersion", "") != localeVersion)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     infoText.text = _translator.GetText("LoginMenu_LanguagesUpdating");
@@ -298,6 +304,7 @@ namespace Cynthia.Card.Client
                     cancellationToken.ThrowIfCancellationRequested();
                     fileHandler.SaveGameLocales(loadedGameLocales);
                     PlayerPrefs.SetString("LocalizationVersion", serverVersion.ToString());
+                    if (localeVersion != null) PlayerPrefs.SetString("LocalizationContentVersion", localeVersion);
                 }
                 cancellationToken.ThrowIfCancellationRequested();
                 infoText.text = _translator.GetText("LoginMenu_GameUpdated");
@@ -407,6 +414,16 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<string>("GetNotesEN", cancellationToken);
         }
+        public async Task<string> GetLocalizedNotes(string language, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Keep compatibility with servers that do not yet expose localized news.
+            if (language == "cn") return await GetNotes(cancellationToken);
+            if (language == "en") return await GetNotesEN(cancellationToken);
+            try { return await HubConnection.InvokeAsync<string>("GetLocalizedNotes", language, cancellationToken); }
+            catch (Microsoft.AspNetCore.SignalR.HubException)
+            { return _translator.GetText("LoginMenu_NewsBody"); }
+        }
+
         public Task<string> GetDownloadLink(CancellationToken cancellationToken = default(CancellationToken))
         {
             return HubConnection.InvokeAsync<string>("GetDownloadLink", cancellationToken);
@@ -455,10 +472,16 @@ namespace Cynthia.Card.Client
         public Task<bool> Register(string username, string password, string playername) => HubConnection.InvokeAsync<bool>("Register", username, password, playername);
         public async Task<UserInfo> Login(string username, string password)
         {
+            Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
             //登录,如果成功保存登录信息
             User = await HubConnection.InvokeAsync<UserInfo>("Login", username, password);
             if (User != null)
+            {
                 Player.PlayerName = User.PlayerName;
+                try { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) await Assets.Script.DynamicCards.PremiumCollectionClient.Refresh(); }
+                catch (Exception e) { Debug.LogWarning("Premium collection unavailable: " + e.Message); }
+            }
+            if (User != null && Assets.Script.DynamicCards.ClientContent.HasPremiumContent) await Assets.Script.DynamicCards.DailyQuestClient.Refresh(true);
             return User;
         }
         // get the version of the Trinket Map to decide if it needs an update
@@ -504,10 +527,10 @@ namespace Cynthia.Card.Client
         //新建卡组,删除卡组,修改卡组
         public Task JoinEditor() => HubConnection.InvokeAsync<bool>("JoinEditor");
         public Task LeaveEditor() => HubConnection.InvokeAsync<bool>("LeaveEditor");
-        public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", deck);
+        public Task<bool> AddDeck(DeckModel deck) => HubConnection.InvokeAsync<bool>("AddDeck", Assets.Script.DynamicCards.ClientContent.ForServer(deck));
         public Task<bool> RemoveDeck(string deckId) => HubConnection.InvokeAsync<bool>("RemoveDeck", deckId);
         public Task<bool> SwapDecks(string firstDeckId, string secondDeckId) => HubConnection.InvokeAsync<bool>("SwapDecks", firstDeckId, secondDeckId);
-        public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, deck);
+        public Task<bool> ModifyDeck(string deckId, DeckModel deck) => HubConnection.InvokeAsync<bool>("ModifyDeck", deckId, Assets.Script.DynamicCards.ClientContent.ForServer(deck));
         public Task<bool> ModifyBlacklist(BlacklistModel blacklist) => HubConnection.InvokeAsync<bool>("ModifyBlacklist", blacklist);
 
         public Task SendOperation(Task<Operation<int>> operation) => HubConnection.SendAsync("GameOperation", operation);

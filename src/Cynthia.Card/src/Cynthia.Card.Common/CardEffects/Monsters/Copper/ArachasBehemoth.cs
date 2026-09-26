@@ -15,7 +15,7 @@ namespace Cynthia.Card
             {
                 await Card.Effect.SetCountdown(offset: -1);
                 //在随机排末尾生成
-                await Game.CreateCard(CardId.ArachasHatchling, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true));
+                await Game.CreateCard(CardId.ArachasHatchling, PlayerIndex, Game.GetRandomCanPlayLocation(PlayerIndex, true), source: Card);
             }
             return;
         }

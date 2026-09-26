@@ -10,8 +10,8 @@ namespace Cynthia.Card
         public PoorFIngInfantry(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            await Game.CreateCard(CardId.LeftFlankInfantry, PlayerIndex, Card.GetLocation());
-            await Game.CreateCard(CardId.RightFlankInfantry, PlayerIndex, Card.GetLocation() + 1);
+            await Game.CreateCard(CardId.LeftFlankInfantry, PlayerIndex, Card.GetLocation(), source: Card);
+            await Game.CreateCard(CardId.RightFlankInfantry, PlayerIndex, Card.GetLocation() + 1, source: Card);
 
             return 0;
         }

@@ -53,7 +53,7 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     }
     void Update()
     {
-        if (myavatar.Length <1) // set the round avatar in the avatar UI
+        if (string.IsNullOrEmpty(myavatar)) // set the round avatar in the avatar UI
         {
             gameUIControl = GameUI.GetComponent<GameUIControl>();
             myavatar = gameUIControl.Myavatar;
@@ -62,7 +62,9 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
             {
                 return;
             }
-            var op =Addressables.LoadAssetAsync<Sprite>(myavatar+"Round");
+            // The default avatar has no separate "Round" addressable.
+            var key = myavatar == "NoAvatar" ? myavatar : myavatar + "Round";
+            var op = Addressables.LoadAssetAsync<Sprite>(key);
             Sprite go = op.WaitForCompletion();
             RoundAvatar.sprite = go;
         }

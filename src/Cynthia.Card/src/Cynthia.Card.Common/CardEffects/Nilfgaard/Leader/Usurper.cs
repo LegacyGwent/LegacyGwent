@@ -19,7 +19,7 @@ namespace Cynthia.Card
             var count = await Game.CreateAndMoveStay(
                 opponent,
                 createCards.ToArray(),
-                1);
+                1, source: Card);
             if (count == 0) return 0;
             await Game.RowToList(opponent, RowPosition.MyStay).First().Effect.Boost(1, Card);
             return 1;

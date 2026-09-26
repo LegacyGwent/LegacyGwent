@@ -14,7 +14,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             await Game.CreateCard(CardId.PoorFIngInfantry, PlayerIndex,
-                new CardLocation(RowPosition.MyStay, 0));
+                new CardLocation(RowPosition.MyStay, 0), source: Card);
             return 1;
         }
 

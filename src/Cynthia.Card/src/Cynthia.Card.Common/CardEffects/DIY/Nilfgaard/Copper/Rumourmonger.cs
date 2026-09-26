@@ -19,7 +19,8 @@ namespace Cynthia.Card
             await Game.CreateCard(
                 topCopper.Status.CardId,
                 AnotherPlayer,
-                new CardLocation(RowPosition.MyDeck, 0));
+                new CardLocation(RowPosition.MyDeck, 0),
+                source: Card);
             await Game.DrawCard(1, 1);
             return 0;
         }

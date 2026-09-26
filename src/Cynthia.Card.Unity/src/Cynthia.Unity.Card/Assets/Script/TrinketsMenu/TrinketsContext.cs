@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,21 +48,21 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     {
         if (OwnedText != null) // avoid triggering the update when in prefab mode
         {
-            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketOwned");
+            LocalizedLabel.Set(OwnedText, "TrinketsMenu_TrinketOwned");
         }
         if (trinkettype == "OwnedAvatars")
         {
 
             if (SetAvatarButton != null) // do not trigger in prefab mode
             {
-                AvatarsButtonText.text = _translator.GetText("TrinketsMenu_SetAvatarButton");
+                LocalizedLabel.Set(AvatarsButtonText, "TrinketsMenu_SetAvatarButton");
                 SetAvatarButton.SetActive(true);
                 SetBorderButton.SetActive(false);
                 if (!_clientService.User.OwnedAvatars.Contains(trinket))
                 {
                     AvatarArt.material = LightGray;
                     SetAvatarButton.SetActive(false);
-                    OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
+                    LocalizedLabel.Set(OwnedText, "TrinketsMenu_TrinketNotOwned");
                 }
             }
             
@@ -72,14 +72,14 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
         {
             if (SetBorderButton != null) // do not trigger in prefab mode
                 {
-                    BordersButtonText.text = _translator.GetText("TrinketsMenu_SetBorderButton");
+                    LocalizedLabel.Set(BordersButtonText, "TrinketsMenu_SetBorderButton");
                     SetAvatarButton.SetActive(false);
                     SetBorderButton.SetActive(true);
                     if (!_clientService.User.OwnedBorders.Contains(trinket))
                         {
                             AvatarArt.material = LightGray;
                             SetBorderButton.SetActive(false);
-                            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
+                            LocalizedLabel.Set(OwnedText, "TrinketsMenu_TrinketNotOwned");
                         }
                 }
             borderID = trinket;
@@ -92,18 +92,18 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     {
         if (OwnedText != null) // avoid triggering the update when in prefab mode
         {
-            OwnedText.text = _translator.GetText("TrinketsMenu_TrinketOwned");
+            LocalizedLabel.Set(OwnedText, "TrinketsMenu_TrinketOwned");
             SetTitleButton.SetActive(true);
-            TitlesButtonText.text = _translator.GetText("TrinketsMenu_SetTitleButton");
+            LocalizedLabel.Set(TitlesButtonText, "TrinketsMenu_SetTitleButton");
             SetAvatarButton.SetActive(false);
             if (!_clientService.User.OwnedTitles.Contains(title))
                 {
                     TitlesBackground.GetComponent<Image>().material = LightGray;
                     SetTitleButton.SetActive(false);
-                    OwnedText.text = _translator.GetText("TrinketsMenu_TrinketNotOwned");
+                    LocalizedLabel.Set(OwnedText, "TrinketsMenu_TrinketNotOwned");
                 }
         }
-        TitleText.text = _translator.GetText(title+"Name");
+        LocalizedLabel.Set(TitleText, title+"Name");
         TitleText.color= color;
         TitlesBackground.SetActive(true);
         AvatarArt.gameObject.SetActive(false);
@@ -111,8 +111,8 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     }
     public void SetAvatarContext(string avatar) // set name, decription and if necessary, the progress towards unlock
     {
-        AvatarName.text = _translator.GetText(avatar+"Name");
-        AvatarsContext.text = _translator.GetText(avatar+"Description");
+        LocalizedLabel.Set(AvatarName, avatar+"Name");
+        LocalizedLabel.Set(AvatarsContext, avatar+"Description");
         if (_avatars.Where(x => x.ID == avatar).Single().UnlockStat != null)
         {
             ProgresObject.SetActive(true);
@@ -122,8 +122,8 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     }
     public void SetBorderContext(string border) // set name, decription and if necessary, the progress towards unlock
     {
-        AvatarName.text = _translator.GetText(border+"Name");
-        AvatarsContext.text = _translator.GetText(border+"Description");
+        LocalizedLabel.Set(AvatarName, border+"Name");
+        LocalizedLabel.Set(AvatarsContext, border+"Description");
         if (_borders.Where(x => x.ID == border).Single().UnlockStat != null)
         {
             ProgresObject.SetActive(true);
@@ -133,8 +133,8 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     }
     public void SetTitleContext(string title) // set name, decription and if necessary, the progress towards unlock
     {
-        AvatarName.text = _translator.GetText(title+"Name");
-        AvatarsContext.text = _translator.GetText(title+"Description");
+        LocalizedLabel.Set(AvatarName, title+"Name");
+        LocalizedLabel.Set(AvatarsContext, title+"Description");
         if (_titles.Where(x => x.ID == title).Single().UnlockStat != null)
         {
             ProgresObject.SetActive(true);

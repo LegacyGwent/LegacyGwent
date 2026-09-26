@@ -15,7 +15,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying,bool isReveal)
         {
             var position = Card.GetLocation();
-            await Game.CreateCard(Card.Status.CardId, PlayerIndex, position, setting: ToDoomed);
+            await Game.CreateCard(Card.Status.CardId, PlayerIndex, position, setting: ToDoomed, source: Card);
             return 0;
         }
 

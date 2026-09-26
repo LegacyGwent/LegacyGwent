@@ -19,6 +19,7 @@ public class MyCards : MonoBehaviour
     public Image CardBorder;
     public Image CardImg;
     public Image BackCard;
+    private int cardRequest;
 
     [Header("Sprites")]
     public Sprite CopperBorder;
@@ -50,18 +51,24 @@ public class MyCards : MonoBehaviour
         //animator.speed = 0.5f;
         //translator = DependencyResolver.Container.Resolve<LocalizationService>();
     }
-    public void SetCard(string CardId)
+    public void SetCard(string CardId, bool premium = false)
     {
         //Debug.Log("xxxxxxx "+CardId);
         
         var CardInfo = GwentMap.CardMap[CardId];
+        int request = ++cardRequest;
+        // The start-screen Animator owns the entrance and card flip. Only animate
+        // the portrait here; do not attach the hover-preview rotation to its root.
+        Assets.Script.DynamicCards.DynamicCardView.Bind(CardImg, CardInfo.CardArtsId,
+            largePreview: true, playPreviewAudio: false,
+            premium: premium);
 
         Strength.text = (CardInfo.Strength).ToString();
         SetFaction(FactionIcon,CardInfo);
         SetBorder(CardBorder,CardInfo);
         Addressables.LoadAssetAsync<Sprite>(CardInfo.CardArtsId).Completed += (obj) =>
         {
-            CardImg.sprite = obj.Result;
+            if (this != null && request == cardRequest) CardImg.sprite = obj.Result;
         };
 
     }

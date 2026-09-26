@@ -22,7 +22,7 @@ namespace Cynthia.Card
 			var selctCardId = result.First().Status.CardId;
 
             await result.First().MoveToCardStayFirst();
-			await Game.CreateToStayFirst(selctCardId, PlayerIndex);
+			await Game.CreateToStayFirst(selctCardId, PlayerIndex, source: Card);
 			// await Game.CreateCard(selctCardId,Card.PlayerIndex,new CardLocation(RowPosition.MyStay,0));
 			// await Card.CreateAndMoveStay();
 

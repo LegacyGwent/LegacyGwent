@@ -12,9 +12,9 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             Card.Status.IsImmue = true;
-            var wing1 = await Game.CreateCard(CardId.AlbastraLeftWing, PlayerIndex, Card.GetLocation());
+            var wing1 = await Game.CreateCard(CardId.AlbastraLeftWing, PlayerIndex, Card.GetLocation(), source: Card);
             await wing1.Effect.Armor(3, Card);
-            var wing2 = await Game.CreateCard(CardId.AlbastraRightWing, PlayerIndex, Card.GetLocation() + 1);
+            var wing2 = await Game.CreateCard(CardId.AlbastraRightWing, PlayerIndex, Card.GetLocation() + 1, source: Card);
             await wing2.Effect.Armor(3, Card);
             await ApplyFrost();
             await Card.Effect.SetCountdown(2);

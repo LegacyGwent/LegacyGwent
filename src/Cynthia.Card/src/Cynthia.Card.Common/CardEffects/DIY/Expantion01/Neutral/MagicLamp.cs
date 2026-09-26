@@ -16,7 +16,7 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 3; i++)
             {
-                await Game.CreateCard(CardId.TheLastWish, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)));
+                await Game.CreateCard(CardId.TheLastWish, Card.PlayerIndex, new CardLocation(RowPosition.MyDeck, RNG.Next(0, Game.PlayersDeck[Card.PlayerIndex].Count)), source: Card);
             }
             await Card.Effect.Discard(Card);
             return;

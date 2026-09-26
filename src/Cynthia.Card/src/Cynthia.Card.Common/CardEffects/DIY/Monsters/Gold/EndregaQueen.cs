@@ -32,7 +32,7 @@ namespace Cynthia.Card
                 return;
             }
 
-            await Game.CreateCard(CardId.EndregaEggs, PlayerIndex, Card.GetLocation());
+            await Game.CreateCard(CardId.EndregaEggs, PlayerIndex, Card.GetLocation(), source: Card);
             await SetCountdown(value: 3);
         }
 

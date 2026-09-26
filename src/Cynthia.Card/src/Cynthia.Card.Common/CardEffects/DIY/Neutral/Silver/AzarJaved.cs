@@ -12,7 +12,7 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 2; i++)
             {
-                await Game.CreateCard(CardId.Scarab, PlayerIndex,new CardLocation(RowPosition.MyStay, 0));
+                await Game.CreateCard(CardId.Scarab, PlayerIndex,new CardLocation(RowPosition.MyStay, 0), source: Card);
             }
             return 2;
         }

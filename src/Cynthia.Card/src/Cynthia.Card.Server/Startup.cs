@@ -25,16 +25,22 @@ namespace Cynthia.Card.Server
         public Startup(IWebHostEnvironment env)
         {
             _env = env;
+            // Alternate hosts (integration tests and tools) do not execute Program.Main.
+            // Register the rollback-compatible deck mapping before any service can touch MongoDB.
+            Program.ConfigureMongoMappings();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new DailyQuestProgressJsonConverter()));
             services.AddDataProtection();
             services.AddHealthChecks();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSignalR().AddHubOptions<GwentHub>(options =>
+            services.AddSignalR().AddJsonProtocol(options =>
+                options.PayloadSerializerOptions.Converters.Add(new DailyQuestProgressJsonConverter()))
+                .AddHubOptions<GwentHub>(options =>
             {
                 options.ClientTimeoutInterval = TimeSpan.FromSeconds(90);
             });
@@ -48,6 +54,14 @@ namespace Cynthia.Card.Server
             services.AddSingleton<IHubProtocol, AsciiSafeJsonHubProtocol>();
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
+            services.AddSingleton(InitialPowderOptions.Load());
+            services.AddSingleton<InitialPowderGrantService>();
+            services.AddHostedService(provider => provider.GetRequiredService<InitialPowderGrantService>());
+            services.AddSingleton<RewardSettlementService>();
+            services.AddHostedService(provider => provider.GetRequiredService<RewardSettlementService>());
+            services.AddSingleton<PremiumDeckSelectionService>();
+            services.AddHostedService(provider => provider.GetRequiredService<PremiumDeckSelectionService>());
+            services.AddHostedService<DailyLoginGrantService>();
             services.AddSingleton<GwentCardDataService>();
             services.AddSingleton<GwentLocalizationService>();
             services.AddSingleton<CounterService>();

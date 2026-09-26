@@ -5,7 +5,7 @@ Last verified: 2026-08-01
 ## Maintained boundaries
 
 - Server and server-side tools target .NET 10; Common and AI remain
-  `netstandard2.0`, and Unity remains 2019.4.1f1.
+  `netstandard2.0`, and Unity remains 2019.4.41f2.
 - Keep the Unity SignalR client at 5.0.8 during server and database-driver
   upgrades. CI checksum-protects the bundled assembly.
 - The server pins `NLog.Web.AspNetCore` 4.9.3 and `MongoDB.Driver` 3.9.0.

@@ -14,7 +14,7 @@ namespace Cynthia.Card
         {
             //根据https://www.youtube.com/watch?v=BEWI3pCjzl8 1：16直接选怪生成
             var list = new List<string>() { CardId.FieldMarshalDudaAgitator, CardId.FieldMarshalDudaCompanion };
-            var count = (await Game.CreateAndMoveStay(PlayerIndex, list.ToArray()));
+            var count = (await Game.CreateAndMoveStay(PlayerIndex, list.ToArray(), source: Card));
             if (count == 0)
             {
                 return 0;

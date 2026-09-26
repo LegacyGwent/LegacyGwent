@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,7 +58,7 @@ public class SeasonRow : MonoBehaviour
     public void SetSeasonRow(string seasonName, string seasonEndTimerText, DateTime seasonEndTime, Color color, bool active)
     {
         if (seasonName == "")
-            SeasonName.text = "NO_SEASON_DATA";
+            SeasonName.text = LocalizedLabel.Get("Season_NoData");
         else
             SeasonName.text = seasonName;
 
@@ -82,7 +82,7 @@ public class SeasonRow : MonoBehaviour
                     CancelInvoke("UpdateTimer");
                     timerInvoked = false;
                 }
-                Time.text = endTime.ToString("d");
+                Time.text = endTime.ToString("d", DependencyResolver.Container.Resolve<LocalizationService>().TextLocalization.Culture);
             }
         }
 
@@ -101,15 +101,15 @@ public class SeasonRow : MonoBehaviour
         List<string> parts = new List<string>();
 
         if (timeToEnd.Days > 0)
-            parts.Add($"{timeToEnd.Days}d");
+            parts.Add(LocalizedLabel.Get("Time_Days",timeToEnd.Days));
         if (timeToEnd.Hours > 0)
-            parts.Add($"{timeToEnd.Hours}h");
+            parts.Add(LocalizedLabel.Get("Time_Hours",timeToEnd.Hours));
         if (timeToEnd.Minutes > 0)
-            parts.Add($"{timeToEnd.Minutes}m");
+            parts.Add(LocalizedLabel.Get("Time_Minutes",timeToEnd.Minutes));
         //if (timeToEnd.Seconds > 0)
         //    parts.Add($"{timeToEnd.Seconds}s");
 
-        Time.text = parts.Count > 0 ? string.Join(" : ", parts) : "0s";
+        Time.text = parts.Count > 0 ? string.Join(" : ", parts) : LocalizedLabel.Get("Time_Seconds",0);
         if (timeToEnd < TimeSpan.FromDays(7))
             Time.color = Color.red;
         else if (timeToEnd < TimeSpan.FromDays(14))

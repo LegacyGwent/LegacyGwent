@@ -23,7 +23,7 @@ namespace Cynthia.Card
                 if (switchCard == correctChoice)
                 {
                     await Game.CreateCard(target.CardId, PlayerIndex,
-                        new CardLocation(RowPosition.MyStay, 0));
+                        new CardLocation(RowPosition.MyStay, 0), source: Card);
                     return 1;
                 }
             }
