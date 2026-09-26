@@ -99,7 +99,7 @@ jobs:
           chmod +x "$MONGO_SHELL"
           trap 'docker rm --force "$mongo_name" >/dev/null 2>&1 || true' EXIT
           docker run --detach --name "$mongo_name" --publish 127.0.0.1:28121:27017 \
-            --mount "type=bind,src=$grant_temp,dst=$grant_temp,readonly" mongo:4.4.29 --bind_ip_all >/dev/null
+            --mount "type=bind,src=$grant_temp,dst=$grant_temp,readonly" mongo:4.4.29 --bind_ip_all --setParameter enableTestCommands=1 >/dev/null
           for attempt in $(seq 1 30); do
             if docker exec "$mongo_name" mongo --quiet --eval 'quit(db.runCommand({ping: 1}).ok ? 0 : 2)'; then break; fi
             sleep 1
@@ -109,7 +109,7 @@ jobs:
             dotnet run --configuration Release --project "src/Cynthia.Card/test/$suite/$suite.csproj"
           done
           dotnet build --configuration Release src/Cynthia.Card/test/RewardSystemTest/RewardSystemTest.csproj
-          dotnet src/Cynthia.Card/test/RewardSystemTest/bin/Release/net10.0/RewardSystemTest.dll "$GITHUB_WORKSPACE" "$RUNNER_TEMP/reward-system-tests" 127.0.0.1
+          dotnet src/Cynthia.Card/test/RewardSystemTest/bin/Release/net10.0/RewardSystemTest.dll "$GITHUB_WORKSPACE" "$RUNNER_TEMP/reward-system-tests" 127.0.0.1 failpoints
 
       - name: Run headless gameplay tests
         run: >-

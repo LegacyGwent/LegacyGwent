@@ -77,6 +77,11 @@ Last verified: 2026-09-26
   `MONGO_SHELL`; failed administrator funding can otherwise cascade into
   misleading inventory and concurrency failures. Keep its database separate
   from all player and stable-service data.
+  The `failpoints` option requires `--setParameter enableTestCommands=1` only
+  on that isolated test Mongo. Reward job IDs are globally deduplicated: use a
+  fresh ID on each test run, and tolerate an absent wallet while polling its
+  background creation. Reusing a fixed job ID falsely suppresses the reward
+  for a newly generated test user on later runs.
 
 ## Signing and runner prerequisites
 

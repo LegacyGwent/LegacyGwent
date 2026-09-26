@@ -140,11 +140,12 @@ partial class Program
 
         var server=host.Services.GetRequiredService<GwentServerService>();
         var notify=await NewUser("notification-failure");
-        server.QueueDailyCrown(new User(notify.UserName,"missing-connection"),"notify-once",Now);
+        string notificationRound="notify-once:"+Guid.NewGuid().ToString("N");
+        server.QueueDailyCrown(new User(notify.UserName,"missing-connection"),notificationRound,Now);
         var rewardDeadline=DateTimeOffset.UtcNow.AddSeconds(10);
-        while(DateTimeOffset.UtcNow<rewardDeadline && (await Account(notify))?.DailyQuests?.Crowns!=1)await Task.Delay(50);
+        while(DateTimeOffset.UtcNow<rewardDeadline && (await Accounts.Find(x=>x.Id==notify.Id).FirstOrDefaultAsync())?.DailyQuests?.Crowns!=1)await Task.Delay(50);
         Check((await Account(notify)).DailyQuests.Crowns==1,"background reward persists even when its client notification cannot be delivered");
-        await db.AwardDailyCrown(notify.UserName,"notify-once",Now);
+        await db.AwardDailyCrown(notify.UserName,notificationRound,Now);
         Check((await Account(notify)).DailyQuests.Crowns==1,"retry after failed notification cannot duplicate crown");
 
         using(var c=await WireClient.Connect(url))
