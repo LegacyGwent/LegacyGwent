@@ -4411,6 +4411,11 @@
             "Name": "Reaver Hunter's Nightmare Armor",
             "Info": "At the start of the game, move this card to the graveyard. While it is there, allied units cannot move from the deck to the graveyard, are immune to Duel damage, and gain either 1–2 damage or 1–2 boost when played.",
             "Flavor": ""
+        },
+        "70212": {
+            "Name": "Raffard’s Vengeance",
+            "Info": "Every 4 turns, at turn end, deal 10 damage. Increase the damage by 1 for each Mage on the same row. Crewed: Reduce the countdown by 1.",
+            "Flavor": ""
         }
     }
 }

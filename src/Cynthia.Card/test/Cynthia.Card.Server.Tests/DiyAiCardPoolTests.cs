@@ -48,8 +48,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 205), GwentMap.CardMapVersion);
-            Assert.Equal(736, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 206), GwentMap.CardMapVersion);
+            Assert.Equal(737, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -59,7 +59,7 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203", "70204", "70205", "70206", "70207", "70208", "70209", "70210", "70211" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203", "70204", "70205", "70206", "70207", "70208", "70209", "70210", "70211", "70212" },
                 GwentMap.CardMap.Keys.Skip(709));
         }
 
@@ -132,6 +132,57 @@ namespace Cynthia.Card.Server.Tests
                 Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
                 Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
             });
+        }
+
+        [Fact]
+        public void SeptemberTwentySeventhBatchMatchesMetadataAndLocales()
+        {
+            var arts = new Dictionary<string, string> {
+                ["70191"] = "203195", ["70199"] = "202438", ["70202"] = "202446",
+                ["70200"] = "202648", ["70203"] = "202516", ["70195"] = "202319"
+            };
+            foreach (var art in arts) Assert.Equal(art.Value, GwentMap.CardMap[art.Key].CardArtsId);
+            Assert.Contains(Categorie.Cultist, GwentMap.CardMap["70013"].Categories);
+            Assert.DoesNotContain(Categorie.Support, GwentMap.CardMap["70013"].Categories);
+            var card = GwentMap.CardMap[CardId.RaffardsVengeance];
+            Assert.Equal(9, card.Strength);
+            Assert.Equal(Group.Silver, card.Group);
+            Assert.Equal(Faction.NorthernRealms, card.Faction);
+            Assert.Equal(new[] { Categorie.Machine }, card.Categories);
+            Assert.Equal("203050", card.CardArtsId);
+            Assert.Equal("拉法达的复仇", card.Name);
+            Assert.Equal("每4回合结束时，造成10点伤害。同排每有1个“法师”单位，伤害提高1点。驱动：减少1次回合计数。", card.Info);
+            const string assets = "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets";
+            foreach (var artId in arts.Values.Append("203050"))
+            {
+                foreach (var pair in new[] { (Folder: "Cards", Suffix: "", Group: "Default Local Group"),
+                    (Folder: "Miniatures", Suffix: "_slot", Group: "Miniatures") })
+                {
+                    var path = $"{assets}/Addressables/{pair.Folder}/{artId}{pair.Suffix}.png";
+                    Assert.True(File.Exists(FindRepositoryFile(path)));
+                    var meta = File.ReadAllText(FindRepositoryFile(path + ".meta"));
+                    var guid = Regex.Match(meta, @"(?m)^guid: ([a-f0-9]+)").Groups[1].Value;
+                    Assert.Equal(32, guid.Length);
+                    var group = File.ReadAllText(FindRepositoryFile($"{assets}/AddressableAssetsData/AssetGroups/{pair.Group}.asset"));
+                    Assert.Matches($@"m_GUID: {guid}\r?\n\s+m_Address: {artId}{pair.Suffix}(?:\r?\n)", group);
+                }
+            }
+            Assert.True(card.IsCountdown);
+            Assert.Equal(4, card.Countdown);
+            Assert.False(card.IsDerive);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.RaffardsVengeance));
+            Assert.Equal(typeof(RaffardsVengeance), new GwentCardDataService().GetType(CardId.RaffardsVengeance));
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var entries = new[] {
+                    "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                    "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                    "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+                }.Select(root => JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(
+                    FindRepositoryFile($"{root}/{language}.json"))).CardLocales[CardId.RaffardsVengeance]).ToArray();
+                Assert.All(entries.Skip(1), entry => Assert.Equal(entries[0].Info, entry.Info));
+                if (language == "cn") Assert.Equal(card.Info, entries[0].Info);
+            }
         }
 
         [Fact]
@@ -357,7 +408,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(new[] { Categorie.Druid }, axel.Categories);
             Assert.False(axel.IsDerive);
             Assert.False(axel.IsCountdown);
-            Assert.Equal("d19860000", axel.CardArtsId);
+            Assert.Equal("202516", axel.CardArtsId);
             Assert.Equal(new[] { CardId.Crow, CardId.CrowSEye }, axel.LinkedCards);
             Assert.Equal(typeof(AxelThreeEyes), data.GetType(CardId.AxelThreeEyes));
             Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.AxelThreeEyes));
@@ -461,7 +512,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(new[] { Categorie.Mage }, GwentMap.CardMap[CardId.Rience].Categories);
             Assert.Equal(new[] { Categorie.Officer }, GwentMap.CardMap[CardId.RamonTyrconnel].Categories);
             Assert.Equal("c10001100", GwentMap.CardMap[CardId.Rience].CardArtsId);
-            Assert.Equal("d19330000", GwentMap.CardMap[CardId.RamonTyrconnel].CardArtsId);
+            Assert.Equal("202446", GwentMap.CardMap[CardId.RamonTyrconnel].CardArtsId);
             var roots = new[]
             {
                 "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
@@ -781,7 +832,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(Faction.NorthernRealms, egmond.Faction);
             Assert.Equal(CardType.Unit, egmond.CardType);
             Assert.Contains(Categorie.Soldier, egmond.Categories);
-            Assert.Equal("d22220000", egmond.CardArtsId);
+            Assert.Equal("202648", egmond.CardArtsId);
             Assert.Equal(
                 "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。若摧毁目标，或在己方回合中获得增益，回合结束时重复此能力。",
                 egmond.Info);
@@ -1000,7 +1051,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(Group.Copper, rumourmonger.Group);
             Assert.Equal(Faction.Nilfgaard, rumourmonger.Faction);
             Assert.Contains(Categorie.Soldier, rumourmonger.Categories);
-            Assert.Equal("d18990000", rumourmonger.CardArtsId);
+            Assert.Equal("202319", rumourmonger.CardArtsId);
 
             var localeRoots = new[]
             {

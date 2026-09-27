@@ -13,9 +13,10 @@ Last verified: 2026-09-16
 - Crow `70136` is an active derived dependency, so it must not be retired or
   stripped from linked-card pools. `IsDerive` keeps it non-deckable and outside
   the Mongo allowlist.
-- Axel is a 5-power Skellige Silver Druid. Its art `d19860000` is a local Unity
-  Addressable without a separate `_slot`; the list-card fallback crops the
-  readable full texture at an 8:1 rectangle centered on the character.
+- Axel is a 5-power Skellige Silver Druid. Its CardMap art ID is now `202516`
+  under the September 27 metadata correction; the earlier `d19860000` mapping
+  is superseded. Keep the canonical `AxelThreeEyes` identity and existing
+  ability while replacing the art mapping.
 
 ## Balance and metadata
 

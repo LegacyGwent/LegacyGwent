@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-09-25
+Last verified: 2026-09-27
 
-Verified against the DIY-AI reset lineage through `1.0.0.203`.
+Verified against the DIY-AI reset lineage through `1.0.0.206`.
 
 Restoring any historical card requires removing its ID from
 `DiyAiCardPool.RetiredCardIds`, adding it to the exact Mongo reset allowlist,
@@ -41,7 +41,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## DIY-AI baseline classification
 
-- Current map: 736 entries. `origin/master` contributes the 516 baseline IDs.
+- Current map: 737 entries. `origin/master` contributes the 516 baseline IDs.
 - Keep system card `70014` (Goddess of Justice) and AI-only IDs `70018`,
   `80001`, `80002`, `80003`, `89004`, `89005`, `89006`, `89007`, `89008`.
 - After the `1.0.0.176` restoration, 84 entries are retired. The August 5 cards remain
@@ -103,6 +103,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
   `70171` to user decks without adding or reordering CardMap slots. Both have
   full and miniature art registered in Unity. CardMap version `1.0.0.203`
   refreshes client availability, and the Mongo allowlist includes both IDs.
+- September 27 appends deckable Northern Realms Silver Machine Raffard's Vengeance `70212` after `70211`. CardMap `1.0.0.206` has 737 entries; the exact Mongo allowlist extends through `70212`. See [September 27 rules](september-27-batch-2026.md).
 - Do not classify only by the `GwentMap.cs` DIY marker. The marker partition and
   `origin/master` swap `70084` and `13015`: the master-ID rule retires `70084`
   and retains `13015`.
@@ -135,7 +136,7 @@ Load this reference before removing, hiding, renumbering, or restoring cards.
 
 ## Retirement checklist
 
-1. Keep all 736 CardMap keys in the same order and maintain an explicit retired
+1. Keep all 737 CardMap keys in the same order and maintain an explicit retired
    ID manifest. Make retired cards non-deckable/hidden while keeping metadata for
    history.
 2. Reject unknown, derived, and retired IDs on deck upload, deck-code import, and

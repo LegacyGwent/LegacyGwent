@@ -5417,6 +5417,10 @@ MonoBehaviour:
     m_Address: d19330000
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ab784f4a0d9b4a24a7771b8a83f2925a
+    m_Address: 203050
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5906503ae4b1e438db91b29a26dbfb, type: 2}
   m_SchemaSet:

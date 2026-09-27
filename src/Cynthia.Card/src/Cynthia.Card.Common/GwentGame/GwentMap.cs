@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 205);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 206);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -11412,7 +11412,7 @@ namespace Cynthia.Card
                     IsDoomed = false,
                     IsCountdown = false,
                     IsDerive = false,
-                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Support},
+                    Categories = new Categorie[]{ Categorie.ClanHeymaey, Categorie.Cultist},
                     Flavor = "",
                     Info = "在双方同排各降下“倾盆大雨”。",
                     CardArtsId = "202283",
@@ -15457,7 +15457,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "",
                     Info = "休战：将对方牌组顶端1张铜色牌的原始同名牌置于其牌组顶端，随后双方各抽1张牌。",
-                    CardArtsId = "d18990000",
+                    CardArtsId = "202319",
                     LinkedCards = new List<String> {},
                 }
             },
@@ -15542,7 +15542,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Insectoid },
                     Flavor = "",
                     Info = "每3回合结束时，在左侧生成1个“安德莱格虫卵”。对局开始时，置于牌组底端。当基础战力不小于10时，召唤此单位至近战排。",
-                    CardArtsId = "d19180000",
+                    CardArtsId = "202438",
                     LinkedCards = new List<String> { "70106" },
                 }
             },
@@ -15563,7 +15563,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "",
                     Info = "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。若摧毁目标，或在己方回合中获得增益，回合结束时重复此能力。",
-                    CardArtsId = "d22220000",
+                    CardArtsId = "202648",
                     LinkedCards = new List<String> {},
                 }
             },
@@ -15605,7 +15605,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Officer },
                     Flavor = "",
                     Info = "对1个敌军单位造成4点伤害，回合结束时，若位于手牌则揭示自身，并重复此能力。",
-                    CardArtsId = "d19330000",
+                    CardArtsId = "202446",
                     LinkedCards = new List<String> {},
                 }
             },
@@ -15626,7 +15626,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Druid },
                     Flavor = "",
                     Info = "择一：在每排生成1只“乌鸦”；或将2张“乌鸦眼”加入牌组底端，随后从牌组顶端打出1张“乌鸦眼”。",
-                    CardArtsId = "d19860000",
+                    CardArtsId = "202516",
                     LinkedCards = new List<String> { CardId.Crow, CardId.CrowSEye },
                 }
             },
@@ -15727,6 +15727,18 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
                     Info = "若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
                     CardArtsId = "202806", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70212",//拉法达的复仇 Raffard's Vengeance
+                new GwentCard()
+                {
+                    CardId = "70212", Name = "拉法达的复仇", Strength = 9, Group = Group.Silver,
+                    Faction = Faction.NorthernRealms, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = true, Countdown = 4, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Machine }, Flavor = "",
+                    Info = "每4回合结束时，造成10点伤害。同排每有1个“法师”单位，伤害提高1点。驱动：减少1次回合计数。",
+                    CardArtsId = "203050", LinkedCards = new List<String> {},
                 }
             },
         };

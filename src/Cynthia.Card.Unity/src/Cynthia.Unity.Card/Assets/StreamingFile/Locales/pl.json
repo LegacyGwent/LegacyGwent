@@ -4411,6 +4411,11 @@
             "Name": "Koszmarna zbroja łowcy łupieżców",
             "Info": "Na początku gry przenieś tę kartę na cmentarz. Dopóki się tam znajduje, sojusznicze jednostki nie mogą być przenoszone z talii na cmentarz, są odporne na obrażenia z Pojedynku i po zagraniu otrzymują 1–2 pkt. obrażeń albo 1–2 pkt. wzmocnienia.",
             "Flavor": ""
+        },
+        "70212": {
+            "Name": "Zemsta Raffarda",
+            "Info": "Co 4 tury, na koniec tury, zadaj 10 pkt obrażeń. Zwiększ obrażenia o 1 za każdego Maga w tym samym rzędzie. Obsługa: Zmniejsz licznik o 1.",
+            "Flavor": ""
         }
     }
 }
