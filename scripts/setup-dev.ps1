@@ -45,7 +45,12 @@ if (-not $SkipUnity) {
     if (-not (Test-Path -LiteralPath $script:UnityExe)) {
         Write-Host "Installing Unity Editor $script:UnityVersion..."
         if (-not (Test-Path -LiteralPath $unityInstaller)) {
-            curl.exe -L --fail --show-error $unityUrl -o $unityInstaller
+            $unityPartial = "$unityInstaller.partial"
+            curl.exe -L --fail --show-error --retry 3 $unityUrl -o $unityPartial
+            if ($LASTEXITCODE -ne 0) {
+                throw "Unity download failed. Check the official URL and any regional redirect: $unityUrl. The installer was not started."
+            }
+            Move-Item -LiteralPath $unityPartial -Destination $unityInstaller
         }
         $unityInstall = Start-Process -FilePath $unityInstaller `
             -ArgumentList @("/S", "/D=$script:UnityEditorRoot") `

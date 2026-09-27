@@ -33,6 +33,7 @@ Read this file first, then load only the rows relevant to the task.
 | Runtime packages, vulnerability audits, upgrade paths | [dependencies.md](dependencies.md) | Supported pins and phased security upgrades |
 | Unity startup, runtime localization, platform launch | [unity-pitfalls.md](unity-pitfalls.md) | Unity runtime root causes and verified remedies |
 | Unity CI, packaging, versions, release artifacts | [unity-release-pitfalls.md](unity-release-pitfalls.md) | Unity release root causes and verified remedies |
+| Local premium build, long Windows paths, old Java keystore formats | [local-premium-packaging.md](local-premium-packaging.md) | Short-path retry and identity-preserving JKS conversion |
 | Premium source delivery, package capabilities, Android variants | [premium-delivery.md](premium-delivery.md) | Versioned sources, standard/premium contracts, signing and verification boundaries |
 | Branches, worktrees, PR integration, workflow triggers | [integration-pitfalls.md](integration-pitfalls.md) | Integration drift and automation traps |
 | Other failure, confusing symptom, known trap | [pitfalls.md](pitfalls.md) | Cross-cutting root causes and verified remedies |
