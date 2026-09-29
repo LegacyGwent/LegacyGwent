@@ -31,7 +31,9 @@ public class Bootstrapper : MonoBehaviour
             x => new HubConnectionBuilder().WithUrl($"{serverUrl}/hub/gwent", HttpTransportType.WebSockets, options => { options.SkipNegotiation = true; })
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new BoolConverter()))
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new NullableBoolConverter()))
+                    .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new IntArrayConverter()))
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new StringIntDictionaryConverter()))
+                    .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new PremiumDeckSelectionDictionaryConverter()))
                     .AddJsonProtocol(options => options.PayloadSerializerOptions.Converters.Add(new ListOperationConverter()))
                     .Build()
                     ).Named<HubConnection>("game").SingleInstance();

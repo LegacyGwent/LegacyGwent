@@ -44,6 +44,37 @@ public class NullableBoolConverter : JsonConverter<bool?>
     }
 }
 
+public class IntArrayConverter : JsonConverter<int[]>
+{
+    public override int[] Read(ref Utf8JsonReader reader, Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartArray)
+            throw new JsonException("Expected a JSON array of integers.");
+
+        var values = new List<int>();
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndArray)
+                return values.ToArray();
+            if (reader.TokenType != JsonTokenType.Number)
+                throw new JsonException("Expected an integer array element.");
+            values.Add(reader.GetInt32());
+        }
+
+        throw new JsonException("Incomplete integer array.");
+    }
+
+    public override void Write(Utf8JsonWriter writer, int[] value,
+        JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+        foreach (var item in value)
+            writer.WriteNumberValue(item);
+        writer.WriteEndArray();
+    }
+}
+
 // System.Text.Json creates its default Dictionary<string, int> converter through
 // reflection. Unity 2019 IL2CPP cannot compile that closed generic constructor
 // when it is only discovered at runtime while parsing a SignalR response.
@@ -78,6 +109,44 @@ public class StringIntDictionaryConverter : JsonConverter<Dictionary<string, int
         writer.WriteStartObject();
         foreach (var entry in value)
             writer.WriteNumber(entry.Key, entry.Value);
+        writer.WriteEndObject();
+    }
+}
+
+public class PremiumDeckSelectionDictionaryConverter : JsonConverter<Dictionary<string, PremiumDeckSelection>>
+{
+    public override Dictionary<string, PremiumDeckSelection> Read(ref Utf8JsonReader reader,
+        Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartObject)
+            throw new JsonException("Expected a JSON object for premium deck selections.");
+
+        var result = new Dictionary<string, PremiumDeckSelection>();
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndObject)
+                return result;
+            if (reader.TokenType != JsonTokenType.PropertyName)
+                throw new JsonException("Expected a premium deck key.");
+
+            var key = reader.GetString();
+            if (!reader.Read())
+                throw new JsonException("Expected a premium deck selection.");
+            result.Add(key, JsonSerializer.Deserialize<PremiumDeckSelection>(ref reader, options));
+        }
+
+        throw new JsonException("Incomplete premium deck selections object.");
+    }
+
+    public override void Write(Utf8JsonWriter writer, Dictionary<string, PremiumDeckSelection> value,
+        JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
+        foreach (var entry in value)
+        {
+            writer.WritePropertyName(entry.Key);
+            JsonSerializer.Serialize(writer, entry.Value, options);
+        }
         writer.WriteEndObject();
     }
 }
