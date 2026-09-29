@@ -126,6 +126,10 @@ namespace Cynthia.Card.Client
             hubConnection.On("DailyQuestsChanged", () => { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh(true); });
             hubConnection.Closed += (async x =>
             {
+                // Keep credentials and server exception messages out of player logs.
+                // The exception type lets Android players report why login closed.
+                var closeReason = x?.GetBaseException().GetType().Name ?? "ConnectionClosed";
+                Debug.LogError("[LegacyGwent] Hub closed; reason=" + closeReason + "; state=" + ClientState);
                 Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
                 (sender, receiver) = Tube.CreateSimplex();
                 SceneManager.LoadScene("LoginScene");
@@ -135,7 +139,7 @@ namespace Cynthia.Card.Client
                 // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
                 await _globalUIService.YNMessageBox(
                     _translator.GetText("PopupWindow_DisconnectedTitle"),
-                    _translator.GetText("PopupWindow_DisconnectedDesc"),
+                    _translator.GetText("PopupWindow_DisconnectedDesc") + "\n[" + closeReason + "]",
                     "PopupWindow_OkButton", isOnlyYes: true);
                 Application.Quit();
                 // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
@@ -475,13 +479,27 @@ namespace Cynthia.Card.Client
             Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
             //登录,如果成功保存登录信息
             User = await HubConnection.InvokeAsync<UserInfo>("Login", username, password);
+            Debug.Log("[LegacyGwent] Login reply received; accepted=" + (User != null));
             if (User != null)
             {
                 Player.PlayerName = User.PlayerName;
-                try { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) await Assets.Script.DynamicCards.PremiumCollectionClient.Refresh(); }
-                catch (Exception e) { Debug.LogWarning("Premium collection unavailable: " + e.Message); }
+                try
+                {
+                    if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent)
+                    {
+                        Debug.Log("[LegacyGwent] Login: refreshing premium collection.");
+                        await Assets.Script.DynamicCards.PremiumCollectionClient.Refresh();
+                        Debug.Log("[LegacyGwent] Login: premium collection refresh returned.");
+                    }
+                }
+                catch (Exception e) { Debug.LogWarning("[LegacyGwent] Premium collection unavailable: " + e.GetBaseException().GetType().Name); }
             }
-            if (User != null && Assets.Script.DynamicCards.ClientContent.HasPremiumContent) await Assets.Script.DynamicCards.DailyQuestClient.Refresh(true);
+            if (User != null && Assets.Script.DynamicCards.ClientContent.HasPremiumContent)
+            {
+                Debug.Log("[LegacyGwent] Login: refreshing daily quests.");
+                await Assets.Script.DynamicCards.DailyQuestClient.Refresh(true);
+                Debug.Log("[LegacyGwent] Login: daily quest refresh returned.");
+            }
             return User;
         }
         // get the version of the Trinket Map to decide if it needs an update
