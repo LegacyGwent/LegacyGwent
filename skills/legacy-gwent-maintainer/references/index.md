@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-09-27
+Last verified: 2026-09-29
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -23,6 +23,7 @@ Read this file first, then load only the rows relevant to the task.
 | September 15 card batch | [september-15-batch-2026.md](september-15-batch-2026.md) | Gascon movement, Crow engines, Axel Three-Eyes, deck-power filters, and Draug replacement |
 | September 24-25 card batches | [september-24-batch-2026.md](september-24-batch-2026.md) | Soldier-count damage, initial Armor restoration, Egmond repeat timing, Gaunter guesses, Witcher selection, and Cat School row-count effects |
 | September 27 card batch | [september-27-batch-2026.md](september-27-batch-2026.md) | Raffard's Vengeance Countdown/Crew order, art IDs, and identity/category corrections |
+| September 29 card batch | [september-29-batch-2026.md](september-29-batch-2026.md) | Gaetan/Brehen pre-damage row counts, concealed Ambush, servant Conceal timing, and Ophelie power |
 | Zone changes, state reset, unlocking, replay and return-to-deck | [zone-state-transitions.md](zone-state-transitions.md) | A-H transition matrix, Repair versus Resurrect, preserved power/counters, and card-specific exceptions |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |

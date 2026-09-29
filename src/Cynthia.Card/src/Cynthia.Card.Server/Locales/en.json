@@ -3919,7 +3919,7 @@
         },
         "70127": {
             "Name": "Van Moorlehem Servant",
-            "Info": "Immune. Gain 5 Boost when Concealed.",
+            "Info": "Immune. When Concealed during your turn, gain 4 Boost, then Reveal self.",
             "Flavor": "They say she's served the Moorlehems for thirty years. And she hasn't aged a day…"
         },
         "70128": {
@@ -4394,7 +4394,7 @@
         },
         "70209": {
             "Name": "Brehen",
-            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the damage dealt. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the number of units on this row. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
             "Flavor": ""
         },
         "70210": {

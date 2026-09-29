@@ -1,8 +1,8 @@
 # Card-pool migrations
 
-Last verified: 2026-09-27
+Last verified: 2026-09-29
 
-Verified against the DIY-AI reset lineage through `1.0.0.206`.
+Verified against the DIY-AI reset lineage through `1.0.0.207`.
 
 Restoring any historical card requires removing its ID from
 `DiyAiCardPool.RetiredCardIds`, adding it to the exact Mongo reset allowlist,

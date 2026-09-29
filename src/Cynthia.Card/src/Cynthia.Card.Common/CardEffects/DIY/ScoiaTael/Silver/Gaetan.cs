@@ -12,6 +12,8 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
+            var repetitions = 1 + Game.RowToList(PlayerIndex, Card.Status.CardRow)
+                .Count(x => x != Card && !x.IsDead);
             var allies = Game.RowToList(PlayerIndex, Card.Status.CardRow)
                 .IgnoreConcealAndDead()
                 .Where(x => x != Card)
@@ -21,9 +23,6 @@ namespace Cynthia.Card
                 await ally.Effect.Damage(1, Card);
             }
 
-            var repetitions = 1 + Game.RowToList(PlayerIndex, Card.Status.CardRow)
-                .IgnoreConcealAndDead()
-                .Count(x => x != Card);
             for (var index = 0; index < repetitions; index++)
             {
                 var enemyCount = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())

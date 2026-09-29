@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 206), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 207), GwentMap.CardMapVersion);
             Assert.Equal(737, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -132,6 +132,36 @@ namespace Cynthia.Card.Server.Tests
                 Assert.Equal(GwentMap.CardMap[id].Name, chinese.CardLocales[id].Name);
                 Assert.Equal(GwentMap.CardMap[id].Info, chinese.CardLocales[id].Info);
             });
+        }
+
+        [Fact]
+        public void SeptemberTwentyNinthCardChangesMatchMetadataAndLocales()
+        {
+            Assert.Equal(5, GwentMap.CardMap[CardId.OphelieVanMoorlehem].Strength);
+            Assert.Equal("欧菲丽·凡·莫拉汉姆", GwentMap.CardMap[CardId.OphelieVanMoorlehem].Name);
+            Assert.Equal("在己方回合中，被隐匿时获得4点增益，随后揭示自身。免疫。",
+                GwentMap.CardMap[CardId.VanMoorlehemServant].Info);
+            Assert.Equal("对同排其它友军单位造成1点伤害，获得同排单位数量一半的强化。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
+                GwentMap.CardMap[CardId.Brehen].Info);
+
+            var ids = new[] { CardId.VanMoorlehemServant, CardId.Brehen };
+            var roots = new[] {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile($"{root}/{language}.json")))).ToArray();
+                foreach (var id in ids)
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                        Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info));
+                    if (language == "cn")
+                        Assert.Equal(GwentMap.CardMap[id].Info, locales[0].CardLocales[id].Info);
+                }
+            }
         }
 
         [Fact]

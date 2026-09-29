@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 206);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 207);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -13931,7 +13931,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire,Categorie.Support},
                     Flavor = "据说她在莫拉汉姆家干了三十年，一点都不见老……",
-                    Info = "免疫，被隐匿时获得5点增益。",
+                    Info = "在己方回合中，被隐匿时获得4点增益，随后揭示自身。免疫。",
                     CardArtsId = "202550",
                     LinkedCards=new List<String> {},
                 }
@@ -15647,7 +15647,7 @@ namespace Cynthia.Card
                 "70205",//欧菲丽·凡·莫拉汉姆 Ophelie Van Moorlehem
                 new GwentCard()
                 {
-                    CardId = "70205", Name = "欧菲丽·凡·莫拉汉姆", Strength = 7, Group = Group.Gold,
+                    CardId = "70205", Name = "欧菲丽·凡·莫拉汉姆", Strength = 5, Group = Group.Gold,
                     Faction = Faction.Nilfgaard, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Vampire },
@@ -15701,7 +15701,7 @@ namespace Cynthia.Card
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
-                    Info = "对同排其它友军单位造成1点伤害，获得造成伤害数值一半的强化。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
+                    Info = "对同排其它友军单位造成1点伤害，获得同排单位数量一半的强化。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
                     CardArtsId = "202804", LinkedCards = new List<String> {},
                 }
             },

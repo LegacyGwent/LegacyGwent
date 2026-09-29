@@ -3919,7 +3919,7 @@
         },
         "70127": {
             "Name": "Służka Van Moorlehemów",
-            "Info": "Odporność. Gdy zakryjesz tę kartę wzmocnij ją o 5.",
+            "Info": "Odporność. Gdy ta karta zostanie zakryta podczas twojej tury, wzmocnij ją o 4, a następnie odkryj.",
             "Flavor": "Mówią, że służy u Moorlehemów już trzydziesty rok. I nic, ale to nic się nie postarzała…"
         },
         "70128": {
@@ -4394,7 +4394,7 @@
         },
         "70209": {
             "Name": "Brehen",
-            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the damage dealt. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Info": "Zadaj 1 pkt obrażeń wszystkim innym sojuszniczym jednostkom w tym rzędzie, a następnie wzmocnij tę kartę o połowę liczby jednostek w tym rzędzie. Jeśli w przeciwnym rzędzie jest mniej jednostek niż wynosi bazowa siła tej karty, zadaj każdej z nich obrażenia równe różnicy.",
             "Flavor": ""
         },
         "70210": {
