@@ -1,6 +1,6 @@
 # September 24 card batch
 
-Last verified: 2026-09-25
+Last verified: 2026-09-29
 
 ## Identity and localization
 
@@ -48,10 +48,10 @@ Last verified: 2026-09-25
   that same card. The Strengthen/Weaken survives the replay.
 - Gaetan and Cat School Witcher recalculate the current opposing-row population
   at their documented repeat or damage step. Gaetan may choose its damage target
-  anywhere on the board. Cat School Witcher Thug moves two enemies to the
-  opposing row, then chooses a damage target anywhere on the board for each of
-  its two hits; it recounts the opposing row before each hit. Brehen counts
-  actual Armor/power lost by its allied one-damage hits before Strengthening
-  itself.
+  anywhere on the board; its repetition count follows
+  [September 29](september-29-batch-2026.md). Cat School Witcher Thug moves two
+  enemies to the opposing row, then chooses a damage target anywhere on the
+  board for each of its two hits; it recounts the opposing row before each hit.
+  Brehen's revised Strengthen rule is in the September 29 reference.
 - Dwarf Berserker's Deploy selects only two allied units to move into its row.
   When it moves, a random lowest-power allied unit in its new row gains 2 Boost.

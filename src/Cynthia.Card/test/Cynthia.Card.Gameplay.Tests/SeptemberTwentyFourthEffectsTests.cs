@@ -204,7 +204,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task BrehenStrengthensByHalfTheActualAlliedDamageThenHitsTheOpposingRow()
+        public async Task BrehenStrengthensByHalfThePreDamageRowCountThenHitsTheOpposingRow()
         {
             var f = new HeadlessGameFixture();
             var firstAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 10);
@@ -221,6 +221,70 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(-1, secondAlly.Status.HealthStatus);
             Assert.Equal(7, brehen.Status.Strength);
             Assert.All(enemies, enemy => Assert.Equal(-5, enemy.Status.HealthStatus));
+        }
+
+        [Fact]
+        public async Task GaetanCountsLethalAllyAndConcealedAmbushBeforeDamage()
+        {
+            var f = new HeadlessGameFixture();
+            var doomedAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 1);
+            var ambush = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 8);
+            ambush.Status.Conceal = true;
+            var gaetan = f.AddCard(f.Game.Player1Index, CardId.Gaetan, RowPosition.MyRow1);
+            var target = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow3, 20);
+            for (var i = 0; i < 4; i++)
+                f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.MyRow3)
+                .Take(info.SelectCount).ToList();
+            await f.SynchronizeClientsAsync();
+
+            await gaetan.Effect.CardPlayEffect(false, false);
+
+            Assert.True(doomedAlly.IsDead || !doomedAlly.Status.CardRow.IsOnPlace());
+            Assert.Equal(0, ambush.Status.HealthStatus);
+            Assert.Equal(-6, target.Status.HealthStatus);
+        }
+
+        [Fact]
+        public async Task BrehenCountsConcealedAmbushAndLethalAllyForStrengthen()
+        {
+            var f = new HeadlessGameFixture();
+            var doomedAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 1);
+            var ambush = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 8);
+            ambush.Status.Conceal = true;
+            var brehen = f.AddCard(f.Game.Player1Index, CardId.Brehen, RowPosition.MyRow1);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            await f.SynchronizeClientsAsync();
+
+            await brehen.Effect.CardPlayEffect(false, false);
+
+            Assert.True(doomedAlly.IsDead || !doomedAlly.Status.CardRow.IsOnPlace());
+            Assert.Equal(0, ambush.Status.HealthStatus);
+            Assert.Equal(7, brehen.Status.Strength);
+            Assert.Equal(-6, enemy.Status.HealthStatus);
+        }
+
+        [Fact]
+        public async Task BrehenStrengthensByPopulationEvenWhenShieldsPreventAllDamage()
+        {
+            var f = new HeadlessGameFixture();
+            var first = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 8);
+            var second = f.AddCard(f.Game.Player1Index, CardId.Nekker, RowPosition.MyRow1, 8);
+            first.Status.IsShield = true;
+            second.Status.IsShield = true;
+            var ambush = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 8);
+            ambush.Status.Conceal = true;
+            var brehen = f.AddCard(f.Game.Player1Index, CardId.Brehen, RowPosition.MyRow1);
+            await f.SynchronizeClientsAsync();
+
+            await brehen.Effect.CardPlayEffect(false, false);
+
+            Assert.False(first.Status.IsShield);
+            Assert.False(second.Status.IsShield);
+            Assert.Equal(0, first.Status.HealthStatus);
+            Assert.Equal(0, second.Status.HealthStatus);
+            Assert.Equal(8, brehen.Status.Strength);
         }
 
         [Fact]

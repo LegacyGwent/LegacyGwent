@@ -4,7 +4,7 @@ using Alsein.Extensions;
 
 namespace Cynthia.Card
 {
-    [CardEffectId("70127")]//莫拉汉姆家仆从 VanMoorlehemServant
+    [CardEffectId(CardId.VanMoorlehemServant)]//莫拉汉姆家仆从 VanMoorlehemServant
     public class VanMoorlehemServant : CardEffect, IHandlesEvent<AfterCardConceal>
     {//
         public VanMoorlehemServant(GameCard card) : base(card) { }
@@ -17,8 +17,9 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterCardConceal @event)
         {
-            if (@event.Target != Card || @event.Source == null || @event.Source.PlayerIndex != Card.PlayerIndex) return;
-            await Card.Effect.Boost(5, Card);
+            if (@event.Target != Card || (int)Game.GameRound != Card.PlayerIndex) return;
+            await Card.Effect.Boost(4, Card);
+            await Card.Effect.Reveal(Card);
             return;
         }
     }
