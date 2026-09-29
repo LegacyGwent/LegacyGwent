@@ -96,6 +96,8 @@ public class LoginClick : MonoBehaviour
             var failure = exception.GetBaseException();
             var failureCode = loginStage + "/" + failure.GetType().Name;
             Debug.LogError("[LegacyGwent] Login failed: " + failureCode);
+            if (failure is System.ExecutionEngineException aotError)
+                Debug.LogError("[LegacyGwent] AOT failure: " + aotError.Message);
             //await DependencyResolver.Container.ResolveNamed<HubConnection>().Named("game").StartAsync();
             //await _client.Login(Username.text, Password.text);
             //if (_client.User == null)

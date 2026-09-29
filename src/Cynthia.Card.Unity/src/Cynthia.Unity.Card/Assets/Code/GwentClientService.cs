@@ -130,6 +130,8 @@ namespace Cynthia.Card.Client
                 // The exception type lets Android players report why login closed.
                 var closeReason = x?.GetBaseException().GetType().Name ?? "ConnectionClosed";
                 Debug.LogError("[LegacyGwent] Hub closed; reason=" + closeReason + "; state=" + ClientState);
+                if (x?.GetBaseException() is ExecutionEngineException aotError)
+                    Debug.LogError("[LegacyGwent] AOT failure: " + aotError.Message);
                 Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
                 (sender, receiver) = Tube.CreateSimplex();
                 SceneManager.LoadScene("LoginScene");
