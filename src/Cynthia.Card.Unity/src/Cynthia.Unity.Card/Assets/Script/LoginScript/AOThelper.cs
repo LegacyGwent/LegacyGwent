@@ -24,6 +24,26 @@ public class BoolConverter : JsonConverter<bool>
             JsonSerializerOptions options) => writer.WriteBooleanValue(value);
 }
 
+public class NullableBoolConverter : JsonConverter<bool?>
+{
+    public override bool? Read(ref Utf8JsonReader reader, Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        if (reader.TokenType == JsonTokenType.Null)
+            return null;
+        return reader.GetBoolean();
+    }
+
+    public override void Write(Utf8JsonWriter writer, bool? value,
+        JsonSerializerOptions options)
+    {
+        if (value.HasValue)
+            writer.WriteBooleanValue(value.Value);
+        else
+            writer.WriteNullValue();
+    }
+}
+
 // System.Text.Json creates its default Dictionary<string, int> converter through
 // reflection. Unity 2019 IL2CPP cannot compile that closed generic constructor
 // when it is only discovered at runtime while parsing a SignalR response.
