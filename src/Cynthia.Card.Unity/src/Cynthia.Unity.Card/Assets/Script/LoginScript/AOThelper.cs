@@ -24,6 +24,44 @@ public class BoolConverter : JsonConverter<bool>
             JsonSerializerOptions options) => writer.WriteBooleanValue(value);
 }
 
+// System.Text.Json creates its default Dictionary<string, int> converter through
+// reflection. Unity 2019 IL2CPP cannot compile that closed generic constructor
+// when it is only discovered at runtime while parsing a SignalR response.
+public class StringIntDictionaryConverter : JsonConverter<Dictionary<string, int>>
+{
+    public override Dictionary<string, int> Read(ref Utf8JsonReader reader, Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartObject)
+            throw new JsonException("Expected a JSON object for Dictionary<string, int>.");
+
+        var result = new Dictionary<string, int>();
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndObject)
+                return result;
+            if (reader.TokenType != JsonTokenType.PropertyName)
+                throw new JsonException("Expected a dictionary key.");
+
+            var key = reader.GetString();
+            if (!reader.Read() || reader.TokenType != JsonTokenType.Number)
+                throw new JsonException("Expected an integer dictionary value.");
+            result.Add(key, reader.GetInt32());
+        }
+
+        throw new JsonException("Incomplete Dictionary<string, int> JSON object.");
+    }
+
+    public override void Write(Utf8JsonWriter writer, Dictionary<string, int> value,
+        JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
+        foreach (var entry in value)
+            writer.WriteNumber(entry.Key, entry.Value);
+        writer.WriteEndObject();
+    }
+}
+
 public class ListOperationConverter : JsonConverter<IList<Operation<int>>>
 {
     public override IList<Operation<int>> Read(ref Utf8JsonReader reader, Type typeToConvert,
