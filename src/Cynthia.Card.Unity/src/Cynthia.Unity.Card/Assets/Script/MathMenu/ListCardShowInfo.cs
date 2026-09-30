@@ -32,6 +32,7 @@ public class ListCardShowInfo : MonoBehaviour
     private void SetCardInfo(int strength, string name, int count = 1, Group group = Group.Gold, string artid = "15230800")
     {
         var request = ++miniatureRequest;
+        CardMiniatureCover.Apply(Miniature, false);
         // Deck rows use the original static _slot artwork, even when full cards animate.
         var animatedView = Miniature.GetComponent<Assets.Script.DynamicCards.DynamicCardView>();
         if (animatedView != null)

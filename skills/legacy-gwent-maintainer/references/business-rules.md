@@ -75,6 +75,10 @@ Last verified: 2026-09-26
   before changing the wallet, retry incomplete jobs, and use the stable
   match/round key as the idempotency key. SignalR notification is best effort
   and must not control game progression or the reward commit.
+- A human opponent's surrender or disconnect tops the winner up to two crown
+  events for that match; a drawn round creates no event. Keep stable event keys,
+  one terminal outcome, the loser's prior crowns, and existing eligibility/caps.
+  On DIY-AI, `RoundWon` remains an enqueue callback; wallet settlement is asynchronous.
 
 ## Deck validity
 

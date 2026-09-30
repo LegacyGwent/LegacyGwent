@@ -1,6 +1,6 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-10
+Last verified: 2026-09-30
 
 ## New card art loads but its deck-list miniature is missing
 
@@ -17,6 +17,40 @@ Last verified: 2026-08-10
   addresses for every new art ID.
 - Verification: the group entries resolve to the two `.meta` GUIDs and the
   client can load both `<CardArtsId>` and `<CardArtsId>_slot`.
+
+## A leader banner exposes bands or leaks past its frame
+
+- Symptom: Dana Meadbh or another narrow `_slot` image leaves background bands
+  above/below the leader art; simply turning off aspect preservation stretches
+  faces and can also expose art beyond the metal frame.
+- Cause: regular slot art is usually 512x64 (8:1), while old leader slots are
+  512x128 or 560x128. The authored leader viewports are about 3.75:1 to 5.68:1;
+  `preserveAspect` fits the whole image instead of filling the viewport. Some
+  faction miniature rectangles also extend beyond their immediate banner parent.
+- Fix: keep the old frame/prefab geometry. `CardMiniatureCover` rewrites only
+  the Image quad and UVs to cover its target proportionally, using the sprite's
+  own region rather than the whole atlas texture. Leader/deck banners limit that
+  target to their original image rect intersected with the parent frame inset by
+  3 UI units. Recompute on mesh rebuild, including layout changes; do not create
+  fixed-size wrapper masks or resize the frame. Border, name and controls are
+  separate graphics and remain unchanged. Align horizontal crops to the right edge
+  to retain right-side subjects even near the source edge; vertical crops are centred.
+- Integration: `LeaderShow.SetLeader` and `DeckEditorMiniatures.SetMiniatureArt`
+  enable parent-frame clipping; `ListCardShowInfo` uses the same proportional
+  cover in its compact authored viewport without the leader inset. Both normal
+  and premium rows keep their existing appearance/border and count semantics.
+- Asset provenance: Dana `203195_slot.png` uses the existing 512x128 crop from
+  upstream commit `47f1c3de5`, with its original Addressable name and `.meta` GUID.
+  The full `203195.png` portrait is unchanged. Full card textures have their own
+  padded canvas convention; do not resize those canvases to fix a slot image.
+- Prevention: test 4:1, 4.375:1 and 8:1 inputs against every faction's leader,
+  deck-selection and compact-card viewport. Check no stretching, exposed strips,
+  frame overflow, atlas-region leakage, or stale clipping after a layout resize.
+  A new portrait must not require another CardId-specific rendering exception.
+- Verification boundary: source/geometry checks and offline renders of the actual
+  prefab dimensions and assets are reproducible evidence, but do not claim they
+  are Unity Play Mode, packaged-client or device screenshots. Those remain a
+  separate visual acceptance gate.
 
 ## Downloaded macOS or Linux client is not executable
 
