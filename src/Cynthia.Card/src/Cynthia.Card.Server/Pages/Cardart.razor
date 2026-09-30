@@ -1,28 +1,1152 @@
 @page "/cardart"
+@using System;
 @using System.IO;
 @using System.Collections.Generic;
+@using System.Linq;
+@using Microsoft.AspNetCore.Components;
+@using Newtonsoft.Json;
+@using Cynthia.Card.Common.Models.Localization;
 
-<div>
-    @foreach (var card in GetPngFileNames("./wwwroot/scale"))
+@{
+    var visibleCards = GetFilteredCards();
+}
+
+<div class="cardart-page">
+    <div class="cardart-toolbar">
+        <input class="cardart-search" type="text" value="@_searchText" @oninput="OnSearchInput"
+               placeholder="搜索中英文名 / 卡图ID / 小窝卡牌ID / GWENT编号（空格分词）" autocomplete="off" />
+        @if (!string.IsNullOrEmpty(_searchText))
+        {
+            <button class="cardart-clear" type="button" @onclick="ClearSearch">清除</button>
+        }
+        <span class="cardart-count">显示 @visibleCards.Count / 共 @_cards.Count 张</span>
+    </div>
+
+    @if (_cards.Count == 0)
     {
-        <div class="card">
-            <img src="@($"./scale/{card}")" alt="card" />
-            <p class="card-text">@card.Replace(".png", "")</p>
+        <p class="cardart-empty">未在 ./wwwroot/scale 下找到卡图文件。</p>
+    }
+    else if (visibleCards.Count == 0)
+    {
+        <p class="cardart-empty">没有匹配「@_searchText」的卡图。</p>
+    }
+    else
+    {
+        <div class="cardart-grid">
+            @foreach (var card in visibleCards)
+            {
+                <div class="card cardart-item" title="@card.Tooltip">
+                    <img src="@($"./scale/{card.FileName}")" alt="@card.AltText" loading="lazy" />
+                    <p class="card-text cardart-name-cn">@card.ChineseName</p>
+                    <p class="cardart-name-en">@card.EnglishName</p>
+                    <p class="cardart-artid">@card.ArtId</p>
+                </div>
+            }
         </div>
     }
 </div>
 
+<style>
+    .cardart-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        background: #f7f7f7;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .cardart-search {
+        flex: 1 1 260px;
+        min-width: 200px;
+        padding: 6px 10px;
+        font-size: 14px;
+        border: 1px solid #bbbbbb;
+        border-radius: 4px;
+    }
+
+    .cardart-clear {
+        padding: 5px 12px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .cardart-count {
+        color: #666666;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .cardart-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .cardart-item {
+        width: 150px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+    }
+
+    .cardart-item img {
+        display: block;
+        width: 150px;
+        height: auto;
+        border-radius: 6px;
+        background: #222222;
+    }
+
+    .cardart-name-cn {
+        margin: 4px 0 0;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.25;
+        word-break: break-word;
+    }
+
+    .cardart-name-en {
+        margin: 1px 0 0;
+        font-size: 12px;
+        color: #555555;
+        line-height: 1.25;
+        word-break: break-word;
+    }
+
+    .cardart-artid {
+        margin: 1px 0 0;
+        font-size: 11px;
+        color: #999999;
+        font-family: Consolas, Menlo, monospace;
+    }
+
+    .cardart-empty {
+        padding: 24px 12px;
+        color: #666666;
+    }
+</style>
+
 @code
 {
+    private sealed class CardArtItem
+    {
+        public string FileName { get; set; }
+        public string ArtId { get; set; }
+        public string ChineseName { get; set; }
+        public string EnglishName { get; set; }
+        public string SearchText { get; set; }
+        public string AltText { get; set; }
+        public string Tooltip { get; set; }
+    }
+
+    private sealed class CardNameInfo
+    {
+        // true 表示这行编号来自 GWENT 客户端 TemplateId，false 表示小窝项目卡号。
+        public bool IsClientId { get; set; }
+        public List<string> Ids { get; set; }
+        public string ChineseName { get; set; }
+        public string EnglishName { get; set; }
+    }
+
+    // ClientArtNames 的解析结果，保留每行的编号来源与拆分后的编号。
+    private sealed class ClientArtRow
+    {
+        public string ArtId { get; set; }
+        public bool IsClientId { get; set; }
+        public List<string> Ids { get; set; }
+        public string ChineseName { get; set; }
+        public string EnglishName { get; set; }
+    }
+
+    private List<CardArtItem> _cards = new List<CardArtItem>();
+    private string _searchText = "";
+
+    // 没有已核实名称的卡图统一使用这两个占位名，不再臆测卡图身份。
+    private const string UnknownChineseName = "未命名";
+    private const string UnknownEnglishName = "Unnamed";
+
+    // 提示里区分两种编号来源，不把项目卡号与客户端编号混写。
+    private const string ProjectIdLabel = "小窝卡牌ID";
+    private const string ClientIdLabel = "GWENT客户端编号";
+
+    // 已核实名称表里唯一一条用项目卡号登记的记录（63010 是项目卡号，不是客户端TemplateId）。
+    private const string ProjectNumberClientArtId = "d22990000";
+
+    protected override void OnInitialized()
+    {
+        _cards = BuildCardArtItems();
+    }
+
+    /// <summary>
+    /// 按中文名、英文名、卡图ID、小窝卡牌ID、GWENT客户端编号过滤，
+    /// 多个关键词以空格分隔（全部命中才算匹配）。
+    /// </summary>
+    private List<CardArtItem> GetFilteredCards()
+    {
+        if (string.IsNullOrWhiteSpace(_searchText))
+        {
+            return _cards;
+        }
+
+        var keywords = _searchText.Split(
+            new[] { ' ', '\t', '\r', '\n', '\u3000' },
+            StringSplitOptions.RemoveEmptyEntries);
+
+        if (keywords.Length == 0)
+        {
+            return _cards;
+        }
+
+        return _cards
+            .Where(card => keywords.All(keyword =>
+                card.SearchText.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0))
+            .ToList();
+    }
+
+    private void OnSearchInput(ChangeEventArgs args)
+    {
+        _searchText = args?.Value?.ToString() ?? string.Empty;
+    }
+
+    private void ClearSearch()
+    {
+        _searchText = string.Empty;
+    }
+
     public List<string> GetPngFileNames(string folderPath)
     {
-        List<string> pngFileNames = new List<string>(); 
+        List<string> pngFileNames = new List<string>();
+
+        if (!Directory.Exists(folderPath))
+        {
+            return pngFileNames;
+        }
+
         foreach (string filePath in Directory.GetFiles(folderPath, "*.png"))
         {
             string fileName = Path.GetFileName(filePath);
             pngFileNames.Add(fileName);
         }
 
+        pngFileNames.Sort(StringComparer.OrdinalIgnoreCase);
         return pngFileNames;
+    }
+
+    private List<CardArtItem> BuildCardArtItems()
+    {
+        var artNames = BuildArtNameMap();
+        var items = new List<CardArtItem>();
+
+        foreach (var fileName in GetPngFileNames("./wwwroot/scale"))
+        {
+            var artId = Path.GetFileNameWithoutExtension(fileName) ?? string.Empty;
+            var chineseNames = new List<string>();
+            var englishNames = new List<string>();
+            var searchIds = new List<string>();
+            var detailLines = new List<string>();
+            var shownNamePairs = new HashSet<string>(StringComparer.Ordinal);
+
+            if (artNames.TryGetValue(artId, out var infos))
+            {
+                foreach (var info in infos)
+                {
+                    if (!string.IsNullOrWhiteSpace(info.ChineseName) && !chineseNames.Contains(info.ChineseName))
+                    {
+                        chineseNames.Add(info.ChineseName);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(info.EnglishName) && !englishNames.Contains(info.EnglishName))
+                    {
+                        englishNames.Add(info.EnglishName);
+                    }
+
+                    foreach (var id in info.Ids)
+                    {
+                        if (!string.IsNullOrWhiteSpace(id) && !searchIds.Contains(id))
+                        {
+                            searchIds.Add(id);
+                        }
+                    }
+
+                    // 每条来源单独成行，明确区分小窝卡牌ID与GWENT客户端编号；
+                    // 同一名称只写一次，避免重复显示。
+                    var idText = string.Join(", ", info.Ids);
+                    var idLabel = info.IsClientId ? ClientIdLabel : ProjectIdLabel;
+                    var namePair = string.Join(" / ", new[] { info.ChineseName, info.EnglishName }
+                        .Where(name => !string.IsNullOrWhiteSpace(name)));
+                    if (namePair.Length > 0 && shownNamePairs.Add(namePair))
+                    {
+                        detailLines.Add($"{idLabel} {idText}：{namePair}");
+                    }
+                    else
+                    {
+                        detailLines.Add($"{idLabel} {idText}");
+                    }
+                }
+            }
+
+            var chinese = string.Join(" / ", chineseNames);
+            var english = string.Join(" / ", englishNames);
+            var hasName = !string.IsNullOrEmpty(chinese) || !string.IsNullOrEmpty(english);
+
+            // 没有已核实名称的卡图统一显示“未命名 / Unnamed”，占位名同样参与检索。
+            if (!hasName)
+            {
+                chinese = UnknownChineseName;
+                english = UnknownEnglishName;
+            }
+
+            var searchParts = new List<string> { fileName, artId, chinese, english };
+            searchParts.AddRange(searchIds);
+
+            items.Add(new CardArtItem
+            {
+                FileName = fileName,
+                ArtId = artId,
+                ChineseName = chinese,
+                EnglishName = english,
+                SearchText = string.Join(" ", searchParts),
+                // 占位名不是卡图身份，alt 只保留卡图ID。
+                AltText = hasName ? $"{chinese} {english} {artId}".Trim() : artId,
+                Tooltip = hasName
+                    ? $"{string.Join("\n", detailLines)}\n卡图ID：{artId}"
+                    : $"卡图ID：{artId}（未收录卡牌名称）",
+            });
+        }
+
+        items.Sort((left, right) => string.CompareOrdinal(left.FileName, right.FileName));
+        return items;
+    }
+
+    /// <summary>
+    /// 建立 卡图ID -> 卡牌名称 的映射，数据来自 GwentMap 与 Locales 下的多语言词条，
+    /// 再用客户端卡图名称表补齐。这里只包含已核实名称；查不到名称的卡图由调用方
+    /// 统一显示为未命名占位名。
+    /// </summary>
+    private static Dictionary<string, List<CardNameInfo>> BuildArtNameMap()
+    {
+        var chineseLocale = LoadLocale("cn");
+        var englishLocale = LoadLocale("en");
+        var map = new Dictionary<string, List<CardNameInfo>>(StringComparer.OrdinalIgnoreCase);
+
+        var clientRows = ParseClientArtRows();
+        // 已核实名称表给出的 客户端TemplateId -> 所有实际卡图ID 索引（多编号行逐一拆分）。
+        var clientTemplateArtIndex = BuildIndex(clientRows, isClientId: true);
+        // 唯一以项目卡号登记的特例（d22990000 的 63010），单独建索引，不并入客户端编号。
+        var clientProjectArtIndex = BuildIndex(clientRows, isClientId: false);
+
+        foreach (var pair in GwentMap.CardMap)
+        {
+            var card = pair.Value;
+            var cardArtsId = card.CardArtsId;
+            if (string.IsNullOrWhiteSpace(cardArtsId))
+            {
+                continue;
+            }
+
+            var chineseName = GetLocaleCardName(chineseLocale, pair.Key);
+            if (string.IsNullOrWhiteSpace(chineseName))
+            {
+                chineseName = card.Name;
+            }
+
+            // 优先使用 Locales 既有英文，仅在缺失时使用本页补充译名。
+            var englishName = GetLocaleCardName(englishLocale, pair.Key);
+            if (string.IsNullOrWhiteSpace(englishName))
+            {
+                englishName = GetSupplementalEnglish(englishLocale, pair.Key);
+            }
+
+            var info = new CardNameInfo
+            {
+                IsClientId = false,
+                Ids = new List<string> { pair.Key },
+                ChineseName = chineseName,
+                EnglishName = englishName,
+            };
+
+            // 原有行为：CardArtsId 直接对应同名卡图。
+            AddNameInfo(map, cardArtsId, info);
+
+            // 新增关联：GwentMap.CardArtsId 若是已核实的客户端 TemplateId，
+            // 就把该项目的卡号与中英文名称挂到该编号对应的所有实际卡图上。
+            if (clientTemplateArtIndex.TryGetValue(cardArtsId, out var templateArts))
+            {
+                foreach (var artId in templateArts)
+                {
+                    AddNameInfo(map, artId, info);
+                }
+            }
+
+            // 特例：补充表中以项目卡号登记的行。
+            if (clientProjectArtIndex.TryGetValue(pair.Key, out var projectArts))
+            {
+                foreach (var artId in projectArts)
+                {
+                    AddNameInfo(map, artId, info);
+                }
+            }
+        }
+
+        // 已核实名称表：官方名与项目名并存，只补充不覆盖。
+        foreach (var row in clientRows)
+        {
+            AddNameInfo(map, row.ArtId, new CardNameInfo
+            {
+                IsClientId = row.IsClientId,
+                Ids = row.Ids,
+                ChineseName = row.ChineseName,
+                EnglishName = row.EnglishName,
+            });
+        }
+
+        return map;
+    }
+
+    /// <summary>
+    /// 按 (来源, 编号) 去重后加入映射，避免同一项目卡或同一客户端编号重复出现。
+    /// </summary>
+    private static void AddNameInfo(Dictionary<string, List<CardNameInfo>> map, string artId, CardNameInfo info)
+    {
+        if (string.IsNullOrWhiteSpace(artId))
+        {
+            return;
+        }
+
+        if (!map.TryGetValue(artId, out var infos))
+        {
+            infos = new List<CardNameInfo>();
+            map[artId] = infos;
+        }
+
+        foreach (var existing in infos)
+        {
+            if (existing.IsClientId == info.IsClientId && IdsEqual(existing.Ids, info.Ids))
+            {
+                return;
+            }
+        }
+
+        infos.Add(info);
+    }
+
+    private static bool IdsEqual(List<string> left, List<string> right)
+    {
+        if (left == null || right == null)
+        {
+            return ReferenceEquals(left, right);
+        }
+
+        if (left.Count != right.Count)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < left.Count; i++)
+        {
+            if (!string.Equals(left[i], right[i], StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 由已核实名称表建立 编号 -> 实际卡图ID 的索引；多编号行按逗号逐一拆分。
+    /// </summary>
+    private static Dictionary<string, List<string>> BuildIndex(IEnumerable<ClientArtRow> rows, bool isClientId)
+    {
+        var index = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var row in rows)
+        {
+            if (row.IsClientId != isClientId)
+            {
+                continue;
+            }
+
+            foreach (var id in row.Ids)
+            {
+                if (!index.TryGetValue(id, out var artIds))
+                {
+                    artIds = new List<string>();
+                    index[id] = artIds;
+                }
+
+                if (!artIds.Contains(row.ArtId))
+                {
+                    artIds.Add(row.ArtId);
+                }
+            }
+        }
+
+        return index;
+    }
+
+    /// <summary>
+    /// 解析已核实卡图名称表。每行格式：卡图ID|中文名|英文名|编号（多个编号以逗号分隔）。
+    /// 第四列多数是客户端 TemplateId；唯一特例 d22990000 的 63010 是项目卡号，
+    /// 单独标记为项目编号，不作为客户端编号建索引。
+    /// </summary>
+    private static List<ClientArtRow> ParseClientArtRows()
+    {
+        var rows = new List<ClientArtRow>();
+
+        foreach (var rawLine in ClientArtNames.Split('\n'))
+        {
+            var line = rawLine.Trim();
+            if (line.Length == 0 || line[0] == '#')
+            {
+                continue;
+            }
+
+            var parts = line.Split('|');
+            if (parts.Length < 4)
+            {
+                continue;
+            }
+
+            var artId = parts[0].Trim();
+            var chineseName = parts[1].Trim();
+            var englishName = parts[2].Trim();
+            if (artId.Length == 0 || (chineseName.Length == 0 && englishName.Length == 0))
+            {
+                continue;
+            }
+
+            var ids = parts[3].Split(',')
+                .Select(id => id.Trim())
+                .Where(id => id.Length > 0)
+                .ToList();
+
+            rows.Add(new ClientArtRow
+            {
+                ArtId = artId,
+                IsClientId = !string.Equals(artId, ProjectNumberClientArtId, StringComparison.OrdinalIgnoreCase),
+                Ids = ids,
+                ChineseName = chineseName,
+                EnglishName = englishName,
+            });
+        }
+
+        return rows;
+    }
+
+    /// <summary>
+    /// 名称取自本机 Steam 版 GWENT 客户端 data_definitions 中的
+    /// Templates.xml、Localization/zh-cn.csv、Localization/en-us.csv；
+    /// 少数特殊 ID 由逐像素或近似同图比对确认，d22990000 沿用 GwentMap 词条。
+    /// 同图核对的客户端贴图：c10000700→33800000，c10001100→13690000，
+    /// c10001600→13640000，d17970000→40800000，d20650000→40320000。
+    /// 比对前需去除客户端贴图的底部填充区域；名称按对应 TemplateId 取双语词条。
+    /// 每行格式：卡图ID|中文名|英文名|编号（多个客户端TemplateId以逗号分隔；
+    /// 唯一特例 d22990000 一行的 63010 是项目卡号）。（# 开头为注释）
+    /// </summary>
+    private const string ClientArtNames = @"
+14800000|考德威尔伯爵|Count Caldwell|202101
+20024000|加博·齐格林|Gabor Zigrin|202106
+20030900|精灵恶棍|Elven Roughneck|202166
+20176700|北风炸弹|Northern Wind|202208
+c10000700|莉迪亚·凡·布雷德沃特|Lydia van Bredevoort|203038
+c10001100|里恩斯|Rience|202905
+c10001200|全能天神|Allgod|202596
+c10001600|提尔：英格瓦屠戮者 / 提尔：小史凯利格岛之主|Tyr: Slayer of Yngvar / Tyr: Master of An Skellig|203194,203205
+c10001900|艾德斯伯格的贾奎斯|Jacques de Aldersberg|202630
+c10002900|烈焰蔷薇骑士团步兵|Flaming Rose Footman|202641
+c10003000|烈焰蔷薇骑士团牧师|Cleric of the Flaming Rose|202637
+d10000000|法利波|Falibor|202151
+d10060000|战术优势|Tactical Advantage|202140
+d13570000|艾德斯伯格的贾奎斯|Jacques de Aldersberg|202630
+d13620000|巨橡|The Great Oak|202264
+d13670000|狄拉夫·艾瑞廷|Dettlaff van der Eretein|202888
+d13680000|席安娜|Syanna|202194
+d13710000|布洛克莱昂之水|Water of Brokilon|202266
+d13720000|狄拉夫：高阶吸血鬼|Dettlaff: Higher Vampire|202291
+d13730000|安娜·亨利叶塔|Anna Henrietta|202880
+d13750000|德马维国王三世|King Demavend III|203258
+d13770000|菲丽芭·艾哈特|Philippa Eilhart|202298
+d13800000|斯瓦勃洛勇士|Champion of Svalblod|202292
+d13850000|吸血鬼女|Alp|202230
+d13870000|瘟疫妖女|Plague Maiden|202523
+d13880000|比武会沙尔玛|Tourney Shaelmaar|202241
+d13890000|“魔兽”|The Beast|202525
+d13930000|奥莉安娜|Orianna|202222
+d13950000|米尔顿·德·佩拉克-佩兰|Milton de Peyrac-Peyran|202238
+d13960000|帕尔梅林·德·郎佛尔|Palmerin de Launfal|202237
+d13970000|薇薇恩：月下金莺|Vivienne: Oriole|202198
+d13980000|薇薇恩·塔布里司|Vivienne de Tabris|202235
+d13990000|迦勒·曼吉|Caleb Menge|202296
+d14000000|塔玛拉·斯特伦格|Tamara Strenger|202311
+d14030000|法芙|Fauve|202263
+d14040000|茜尔莎|Sirssa|202267
+d14090000|幽冥犬|Barghest|202527
+d14100000|尖啸女妖|Bruxa|202234
+d14110000|蝠翼魔|Fleder|202229
+d14120000|猩红盛宴|Feast of Blood|202228
+d14130000|夜之妖灵|Nightwraith|202531
+d14140000|日间妖灵|Noonwraith|202530
+d14210000|帝国占卜师|Imperial Diviner|202246
+d14220000|公爵守卫|Ducal Guard|202244
+d14240000|马战|Tourney Joust|202242
+d14260000|异兽园看管|Menagerie Keeper|202245
+d14270000|帝国毒牙|Fangs of the Empire|202247
+d14280000|陶森特游侠骑士|Toussaintois Knight-Errant|202243
+d14300000|烈焰蔷薇骑士团牧师|Cleric of the Flaming Rose|202637
+d14310000|永恒之火审讯官|Eternal Fire Inquisitor|202365
+d14330000|变异兄弟|Greater Brothers|202564
+d14340000|永恒之火祭司|Eternal Fire Priest|202362
+d14350000|变种人凶徒|Mutant Killer|202432
+d14360000|女巫猎人行刑官|Witch Hunter Executioner|202318
+d14380000|布洛克莱昂哨兵|Brokilon Sentinel|202273
+d14390000|林语者|Forest Whisperer|202272
+d14470000|树人野猪|Treant Boar|202268
+d14480000|树人螳螂：拟态 / 树人螳螂：出击|Treant Mantis: Stalk / Treant Mantis: Strike|202271,202293
+d14550000|斯瓦勃洛牧师|Svalblod Priest|202284
+d14770000|加博·齐格林|Gabor Zigrin|202106
+d14790000|雷纳德·奥多|Reynard Odo|202112
+d14800000|考德威尔伯爵|Count Caldwell|202101
+d14810000|莱里亚镰刀手|Lyrian Scytheman|202161
+d14830000|德内斯勒的艾克|Eyck of Denesle|202098
+d14910000|鼓舞人心的歌谣|Inspirational Ballad|202212
+d14960000|精灵恶棍|Elven Roughneck|202166
+d15010000|污水怪|Glustyworp|202105
+d15020000|泽维尔·雷曼斯|Xavier Lemmens|202102
+d15030000|维尔姆王子|Prince Villem|202100
+d15040000|“双刃”达葛|Dagur Two Blades|202110
+d15050000|艾尔丹恩|Eldain|202885
+d15060000|背亲者恩约夫|Arnjolf the Patricide|202182
+d15190000|史帕拉流亡军|Strays of Spalla|202121
+d15200000|加斯科|Gascon|202099
+d15210000|莱里亚长矛兵|Lyrian Landsknecht|202156
+d15230000|利维亚矛兵|Rivian Pikeman|202154
+d15240000|特拉席恩·维迪法|Traheaern var Vdyffir|202111
+d15250000|“快嘴”古德蒙|Lippy Gudmund|202109
+d15320000|阿达尔·爱普·达西|Ardal aep Dahy|203094
+d15350000|格尼阔拉|Gernichora|202994
+d15360000|克尔图里斯|Keltullis|202103
+d15400000|炸弹手|Bomb Heaver|202122
+d15410000|莱里亚强弩手|Lyrian Arbalest|202155
+d15520000|车堡|Wagenburg|202407
+d15560000|防盾|Mantlet|202413
+d15570000|车匪|Highwaymen|202415
+d15590000|莱里亚骑兵|Lyrian Cavalry|202153
+d15600000|工兵|Sapper|202414
+d15660000|米薇女王|Queen Meve|202887
+d15720000|哈吉的伊斯贝尔|Isbel of Hagge|202108
+d15730000|黑蕾拉|Black Rayla|202113
+d15750000|精灵洋葱汤|Elf and Onion Soup|202054
+d15760000|巴纳巴斯·贝肯鲍尔|Barnabas Beckenbauer|202107
+d15780000|贝哈文的伊沃|Ivo of Belhaven|202064
+d15830000|风暴权杖|Scepter of Storms|202220
+d15900000|不光彩的争斗者|Disgraced Brawler|202288
+d16430000|北风炸弹|Northern Wind|202208
+d16540000|符文|Runeword|202255
+d16550000|暴风雨|Tempest|202203
+d16560000|无尽渴求|Undying Thirst|202227
+d16570000|桑格烈|Sangreal|202202
+d16600000|渴血鸟怪|Plumard|202231
+d16610000|蝠翼脑魔|Garkain|202224
+d16640000|货车|Wagon|202412
+d16650000|斯瓦勃洛|Svalblod|203193
+d16660000|“无情者”克努特|Knut the Callous|202277
+d16670000|斯瓦勃洛图腾|Svalblod Totem|202278
+d16680000|亚提斯|Artis|202279
+d16690000|维尔卡战士|Vildkaarl|202280
+d16700000|亚恩瓦德|Arnvald|202281
+d16710000|西格瓦尔德|Sigvald|202282
+d16730000|斯瓦勃洛狂信者|Svalblod Fanatic|202286
+d16740000|腐化的佛兰明妮卡|Corrupted Flaminica|202283
+d16750000|高贡山丘的格雷葛瑞|Gregoire de Gorgon|202199
+d16760000|夜行吸血鬼|Nekurat|202233
+d16770000|原蝠翼魔|Protofleder|202223
+d16780000|融雪|Thaw|202213
+d16790000|树精族母|Dryad Matron|202275
+d16800000|渔夫之王|Fisher King|202197
+d16810000|加尔|Gael|202226
+d16820000|亚托列司·薇歌|Artorius Vigo|202239
+d16830000|夜之女王|Queen of the Night|202221
+d16840000|裤裆|Knickers|202397
+d16860000|沙尘暴|Sandstorm|202205
+d16870000|传送门|Portal|202201
+d16880000|“瘸子”戈温|Gimpy Gerwin|202044
+d16890000|安娜·斯特伦格|Anna Strenger|202152
+d16900000|红雾炸弹|Red Haze|202211
+d16910000|焚风炸弹|Samum|202210
+d16920000|月之尘炸弹|Moon Dust|202209
+d16930000|恶魔之尘炸弹|Devil's Puffball|202207
+d16940000|舞动之星炸弹|Dancing Star|202206
+d16950000|雷吉斯：血欲化身|Regis: Bloodlust|202195
+d16960000|腐化诅咒|Curse of Corruption|202204
+d16970000|湖中仙女|Lady of the Lake|202196
+d16980000|迪沙谬那之剑|Tesham Mutna Sword|202191
+d16990000|春分|Spring Equinox|202219
+d17000000|布拉维坎的音乐家|Musicians of Blaviken|202200
+d17020000|亨·盖德长剑|Hen Gaidth Sword|202192
+d17030000|雏凤|Phoenix Hatchling|202114
+d17040000|戴米恩·图尔|Damien de la Tour|202236
+d17060000|唐泰恩的罗德烈克|Roderick of Dun Tynne|202240
+d17070000|阿德莉亚女王|Queen Adalia|202250
+d17080000|安古兰|Angoulême|202149
+d17100000|辛特拉工匠|Cintrian Artificer|202258
+d17110000|辛特拉女术士|Cintrian Enchantress|202257
+d17120000|辛特拉使者|Cintrian Envoy|202261
+d17130000|辛特拉骑士|Cintrian Knight|202259
+d17140000|辛特拉皇家护卫|Cintrian Royal Guard|202260
+d17150000|辛特拉织法者|Cintrian Spellweaver|202256
+d17160000|“咯咯哒”艾伯伦特|Coodcoodak|202253
+d17170000|罗格纳王|King Roegner|202249
+d17180000|维赛基德|Vissegerd|202252
+d17190000|科沃的维索戈塔|Vysogota of Corvo|202150
+d17200000|亚特里的温德哈姆|Windhalm of Attre|202254
+d17210000|达娜梅碧|Dana Méadbh|202705
+d17220000|树精林卫|Dryad Grovekeeper|202270
+d17240000|树精的呵护|Dryad's Caress|202269
+d17250000|嚎哭之柳|Weeping Willow|202265
+d17330000|黑市炼金师|Back-Alley Chemist|202314
+d17340000|“白砂糖”|Fisstech|202322
+d17370000|霍斯特·波索迪|Horst Borsodi|202307
+d17380000|霍桑的怪诞秀|Whoreson's Freak Show|202337
+d17390000|疯狂的冲锋|Mad Charge|202420
+d17400000|恐怖变异猎犬|Dire Mutated Hound|202428
+d17410000|神圣之火|Sacred Flame|202349
+d17420000|爱丽丝：庄园幽影|Iris: Shade|202399
+d17430000|神殿守卫|Temple Guard|202372
+d17440000|牛堡自然学家|Oxenfurt Naturalist|202316
+d17460000|新生树精|Dryad Fledgling|202276
+d17490000|永恒之火门徒|Eternal Fire Disciple|202366
+d17500000|苦行队|Procession of Penance|202354
+d17510000|赫斯特中尉|Lieutenant von Herst|202635
+d17520000|阿扎·贾维德|Azar Javed|202425
+d17530000|艾瓦德·波索迪|Ewald Borsodi|202309
+d17540000|瑞达尼亚弓箭手|Redanian Archer|202422
+d17550000|海狼|Sea Jackal|202341
+d17560000|萨沃拉|Savolla|202427
+d17580000|堕落的骑士|Fallen Knight|202638
+d17590000|赛勒斯·赫姆法特|Cyrus Engelkind Hemmelfart|203101
+d17600000|葛拉登|Graden|202302
+d17610000|变异猎犬|Mutated Hounds|202429
+d17620000|德内斯勒的齐格弗里德|Siegfried of Denesle|202595
+d17660000|安赛斯王子|Prince Anséis|202251
+d17700000|行脚商人|Traveling Merchant|202215
+d17710000|巫医|Pellar|202216
+d17720000|快刀手|Cutthroat|202217
+d17730000|牛堡学者|Oxenfurt Scholar|202218
+d17740000|斯瓦勃洛邪教徒|Svalblod Cultist|202285
+d17750000|原始野性|Primal Savagery|202287
+d17760000|异变巨熊|Bear Abomination|202289
+d17770000|骑士册封|Knighthood|202262
+d17780000|女爵的告密者|Duchess' Informant|202248
+d17790000|尖啸女海妖|Deafening Siren|202181
+d17800000|乌瑞克|Ulrich|202632
+d17910000|奈瑟尼尔·派斯托迪|Nathaniel Pastodi|202353
+d17940000|特罗伊的多尼米尔|Donimir of Troy|202418
+d17950000|弗洛迪米·伊佛瑞克|Vlodimir von Everec|202402
+d17970000|西吉·卢文：幕后主谋|Sigi Reuven: Mastermind|203162
+d18030000|自由军|Free Company|202403
+d18040000|克特|Kurt|202304
+d18050000|沃米尔|Voymir|202419
+d18120000|孤独的勇士|Lonely Champion|202639
+d18160000|教授|Professor|202426
+d18170000|拉多维德皇家护卫|Radovid's Royal Guards|202421
+d18210000|火蜥蜴帮潜行者|Salamandra Assassin|202431
+d18220000|袭击|Assault|202430
+d18230000|烈焰守护者|Keeper of the Flame|202369
+d18310000|格尼阔拉的果实|Gernichora's Fruit|202183
+d18320000|精灵暗箭手|Elven Deadeye|202184
+d18330000|无情的母熊|Unrelenting She-Bear|202290
+d18340000|卡兰瑟女王|Queen Calanthe|202571
+d18350000|猩红诅咒|Crimson Curse|202190
+d18360000|霍桑二世|Whoreson Junior|202891
+d18370000|“残翼”|Tatterwing|202327
+d18380000|波里斯|Boris|202333
+d18390000|收获之日|Payday|202330
+d18400000|巨魔“砸砸”|Pugo Boom-Breaker|202332
+d18410000|铁钩伊果|Igor the Hook|202323
+d18420000|霍桑一世|Whoreson Senior|202312
+d18430000|齐齐摩战士|Kikimore Warrior|202342
+d18440000|角斗场安德莱格|Arena Endrega|202351
+d18450000|角斗场食尸鬼|Arena Ghoul|202357
+d18460000|幸运轮盘|Wheel of Fortune|202360
+d18470000|霍桑的侍从|Cutup Lackey|202363
+d18480000|暗场保镖|Casino Bouncers|202368
+d18490000|一场好戏|Bloody Good Fun|202371
+d18500000|西吉·卢文|Sigi Reuven|202299
+d18510000|维瓦尔第银行|Vivaldi Bank|202300
+d18520000|解梦术|Oneiromancy|202594
+d18530000|莫雷斯|Moreelse|202305
+d18550000|可悲的失心者|Wretched Addict|202335
+d18560000|镇民|Townsfolk|202338
+d18570000|税务官|Tax Collector|202340
+d18580000|授信额度|Line of Credit|202343
+d18590000|黑巷药贩|Fisstech Trafficker|202345
+d18600000|先知雷比欧达|Prophet Lebioda|202348
+d18610000|大审讯官赫韦德|Grand Inquisitor Helveed|202350
+d18620000|烈火责罚|Damnation|202352
+d18630000|教会除名|Excommunication|202356
+d18640000|集会传教|Congregation|202374
+d18650000|火誓书吏|Firesworn Scribe|202376
+d18660000|“砍刀”|Cleaver|202890
+d18670000|雕刻家佛科|Ferko the Sculptor|202389
+d18680000|香肠贩子|The Sausage Maker|202388
+d18690000|凯撒·比尔曾|Caesar Bilzen|202387
+d18700000|坑道钻机|Tunnel Drill|202386
+d18710000|针牙爵士|Sir Skewertooth|202385
+d18720000|诺维格瑞的制裁|Novigradian Justice|202384
+d18730000|哈罗德·戈多|Harald Gord|202383
+d18740000|黑金会恶棍|Crownsplitter Thug|202382
+d18750000|砍刀的打手|Cleaver's Muscle|202381
+d18760000|诓瞒|Swindle|202380
+d18770000|被胁迫的铁匠|Coerced Blacksmith|202379
+d18780000|讹诈|Shakedown|202378
+d18790000|赤手打斗者|Bare-Knuckle Brawler|202377
+d18800000|半身人开锁贼|Halfling Safecracker|202375
+d18810000|古德伦·约斯多蒂尔|Gudrun Bjornsdottir|203170
+d18820000|伊魅珂|Imke|202370
+d18830000|飞翔的瑞达尼亚人|The Flying Redanian|202367
+d18840000|哈蒙德|Hammond|202364
+d18850000|宾西·布鲁默豪特|Bincy Blumerholdt|202361
+d18860000|酒馆乱斗|Tavern Brawl|202358
+d18870000|苏克鲁斯|Sukrus|202355
+d18880000|赫维特和阿莱蒂雅|Hvitr and Aelydia|202346
+d18890000|黑货商人|Fence|202344
+d18900000|踏浪悍夺者|Tidecloak Ransackers|202339
+d18910000|暮色窃行|Eventide Plunder|202336
+d18920000|下水道匪帮|Sewer Raiders|202334
+d18930000|踏浪帮密所|Tidecloak Hideaway|202331
+d18940000|与鱼共眠|Dip in the Pontar|202329
+d18950000|乞丐王|King of Beggars|203100
+d18960000|杜德里克·略马尔茨|Doadrick Leumaerts|202326
+d18970000|锡皮小子|Tinboy|202324
+d18980000|路易莎夫人|Madame Luiza|202321
+d18990000|流言蜚语|Slander|202319
+d19000000|利可·梅耶朵夫|Rico Meiersdorf|202317
+d19010000|阿道伯图斯·卡尔克斯坦|Adalbertus Kalkstein|202315
+d19020000|白裘阿德里亚诺|Adriano the Mink|202313
+d19030000|妙手空空|Pickpocket|202310
+d19040000|狡诈的美人儿|Sly Seductress|202308
+d19050000|暗巷帮药剂师|Blindeye Apothecary|202306
+d19060000|窃听|Eavesdrop|202301
+d19070000|乞丐|Beggar|202297
+d19080000|脱逃的法师|Renegade Mage|202295
+d19090000|信使|Courier|202294
+d19100000|火誓狂热者|Firesworn Zealot|202359
+d19110000|上缴献金|Pay Tribute|202394
+d19120000|扣留献金|Withhold Tribute|202395
+d19130000|齐齐摩女王|Kikimore Queen|202435
+d19140000|齐齐摩工兵|Kikimore Worker|202443
+d19150000|装甲蟹蜘蛛|Armored Arachas|202439
+d19160000|杰洛特：亚克席法印|Geralt: Axii|202396
+d19170000|龙龟|Dracoturtle|202456
+d19180000|安德莱格女王|Endrega Queen|202438
+d19190000|卓尔坦：矮人战士|Zoltan: Warrior|202467
+d19200000|帕西瓦尔·舒滕巴赫|Percival Schuttenbach|202468
+d19210000|穆罗·布鲁伊斯|Munro Bruys|202469
+d19220000|菲吉斯·梅鲁佐|Figgis Merluzzo|202470
+d19230000|卓尔坦的伙伴|Zoltan's Company|202471
+d19240000|洞穴巨魔|Cave Troll|202436
+d19250000|加斯科：铁隼之首|Gascon: Iron Falcon|202400
+d19260000|独眼贝蒂|One-Eyed Betsy|202401
+d19270000|巨型蜈蚣|Yghern|202437
+d19280000|活体盔甲|Living Armor|202404
+d19290000|军械库|Armory|202405
+d19300000|降兵|Surrender|202406
+d19320000|亚凡·希尔格兰|Affan Hillergrand|202445
+d19330000|拉蒙·蒂尔康奈尔|Ramon Tyrconnel|202446
+d19340000|军事会议|War Council|202447
+d19350000|费恩·瓦·盖内尔|Ffion var Gaernel|202448
+d19360000|格莱尼丝·爱普·洛纳克|Glynnis aep Loernach|202449
+d19370000|刀剑盟约|Covenant of Steel|202457
+d19380000|莫克瓦格：恐惧之心|Morkvarg: Heart of Terror|202458
+d19390000|突袭船队|Raiding Fleet|202459
+d19400000|海上恶魔|Terror of the Seas|202460
+d19410000|矮人战车|Dwarven Chariot|202472
+d19420000|淬火|Tempering|202473
+d19430000|矿工|Miner|202474
+d19440000|树精附魔师|Dryad Enchantress|202475
+d19450000|矮人狂战士|Dwarf Berserker|202476
+d19460000|喧闹的矮人|Rowdy Dwarf|202477
+d19470000|铁隼飞刀手|Iron Falcon Knife Juggler|202408
+d19480000|铁隼步兵|Iron Falcon Infantry|202409
+d19490000|铁隼吟游诗人|Iron Falcon Troubadour|202410
+d19500000|穿甲弹|Piercing Missile|202411
+d19510000|护甲师的工坊|Armorer's Workshop|202416
+d19520000|安德莱格幼虫|Endrega Larva|202440
+d19530000|安德莱格战士|Endrega Warrior|202441
+d19540000|物竞天择|Natural Selection|202442
+d19550000|安德莱格虫卵|Endrega Eggs|202444
+d19560000|日轮之师十字弩手|Ard Feainn Crossbowman|202450
+d19570000|日轮之师龟甲盾卫|Ard Feainn Tortoise|202451
+d19580000|日轮之师轻骑兵|Ard Feainn Light Cavalry|202452
+d19590000|日轮之师重骑兵|Ard Feainn Heavy Cavalry|202453
+d19600000|战前准备|Battle Preparation|202454
+d19610000|装甲战舰|Armored Drakkar|202461
+d19620000|恐狼勇士|Terror Crew Plunderer|202462
+d19630000|造船工|Boatbuilders|202463
+d19640000|“恐怖海狼”持斧者|Terror Crew Axe-wielder|202464
+d19650000|震骇猛击|Stunning Blow|202465
+d19670000|变种人|Mutant|202433
+d19680000|沃尔特·维里塔司|Walter Veritas|202392
+d19690000|圣甲虫|Scarab|202562
+d19700000|萨沃拉的畏惧者|Savolla's Frightener|202563
+d19710000|巨蝎煎药：浓缩 / 巨蝎煎药：扩散 / 巨蝎煎药|Gigascorpion Decoction: Condense / Gigascorpion Decoction: Spread / Gigascorpion Decoction|201709,201710,202515
+d19720000|假死|Feign Death|202536
+d19730000|菲利普·凡·莫拉汉姆|Philippe van Moorlehem|202545
+d19740000|莫拉汉姆家斟酒侍者|Van Moorlehem's Cupbearer|202546
+d19750000|萨乌尔·德·那瓦雷特|Saul de Navarette|202555
+d19760000|战车|War Chariot|202505
+d19770000|杜拉·卡亚玛尼|Dulla kh'Amanni|202481
+d19780000|符文匠|Runewright|202482
+d19790000|莫拉汉姆家仆从|Van Moorlehem Servant|202550
+d19800000|一对好友|Bloody Good Friends|202557
+d19810000|云梯|Siege Ladder|202507
+d19820000|滚油|Boiling Oil|202511
+d19830000|衔尾蛇面具|Mask of Uroboros|202512
+d19840000|盖迪尼斯的阴影下|In Gedyneith's Shadow|202513
+d19850000|乌鸦之母|Crowmother|202514
+d19860000|“三目者”艾克索|Axel Three-Eyes|202516
+d19870000|艾恩·希德战刀|Aen Seidhe Saber|202532
+d19880000|爱特丽尔|Etriel|202533
+d19890000|摩尔雷加|Muirlega|202534
+d19900000|弗妮希尔|Vernossiel|202535
+d19910000|奴隶|Collar|202542
+d19920000|文森特·凡·莫拉汉姆|Vincent van Moorlehem|202543
+d19930000|假面舞会|Masquerade Ball|202544
+d19940000|虎眼石|Tiger's Eye|202552
+d19950000|串通|Collusion|202553
+d19960000|帕西佛罗拉一夜|One Night at the Passiflora|202554
+d19970000|鲁多维西斯·布伦纳鲍尔|Ludovicus Brunenbaum|202556
+d19980000|工程解决方案|Engineering Solution|202502
+d19990000|战象|War Elephant|202503
+d20000000|围攻|Siege|202504
+d20010000|不朽者|Immortals|202506
+d20020000|雷蒂娅|Radeyah|202478
+d20030000|马拉尔|Maraal|202479
+d20040000|玛塔·乌莉|Matta Hu'uri|202480
+d20050000|萨坤|Saer Qu'an|202483
+d20060000|暗影之瓮|Urn of Shadows|202522
+d20080000|忏悔灵|Penitent|202524
+d20100000|鬼婆|Haunt|202526
+d20110000|鸦母德鲁伊|Crow Clan Druid|202517
+d20120000|鸦母布道者|Crow Clan Preacher|202518
+d20130000|乌鸦眼块茎|Crow's-eye Rhizome|202520
+d20140000|信鸦|Crow Messenger|202521
+d20150000|弗妮希尔的突击队|Vernossiel's Commando|202537
+d20160000|维里赫德旅破坏者|Vrihedd Saboteur|202538
+d20170000|大自然的报复|Nature's Rebuke|202539
+d20180000|驾鹰|Trained Hawk|202540
+d20190000|莫拉汉姆家猎手|Van Moorlehem Hunter|202547
+d20200000|狩猎恶犬|Hunting Pack|202549
+d20210000|口渴的夫人|Thirsty Dame|202551
+d20220000|街头顽童|Street Urchins|202559
+d20230000|“薪酬专员”|Payroll Specialist|202560
+d20240000|帕西佛罗拉佳丽|Passiflora Peaches|202561
+d20250000|不朽者骑兵|Immortal Cavalry|202509
+d20260000|机动弩炮|Carroballista|202510
+d20280000|沙漠女妖|Desert Banshee|202529
+d20310000|车队先锋|Caravan Vanguard|202484
+d20320000|车队护卫|Caravan Guard|202485
+d20330000|眼镜王蛇|King Cobra|202486
+d20340000|欧菲尔商人|Ofiri Merchant|202487
+d20350000|石化蜥蜴毒液|Basilisk Venom|202491
+d20360000|水晶面甲|Crystal Skull|202493
+d20370000|注魔盔甲|Enchanted Armor|202497
+d20380000|被诅咒的卷轴|Cursed Scroll|202498
+d20390000|仪式匕首|Ceremonial Dagger|202500
+d20400000|神灯|Magic Lamp|202501
+d20430000|乌鸦|Crow|202568
+d20440000|沙漠宝藏|Desert Treasure|202569
+d20450000|瓶中迪精|Lamp Djinn|202566
+d20460000|老鼠|Rat|202567
+d20560000|特工|Operative|202669
+d20580000|志愿军|Volunteer|202654
+d20600000|游荡的树人|Wandering Treant|202683
+d20610000|年轻的树精|Young Dryad|202682
+d20650000|比约恩的战船|Bjorn's Drakkar|203126
+d20700000|篡位者 - 军官|Usurper: Officer|202655
+d20710000|篡位者 - 将军|Usurper: General|202656
+d20720000|篡位者 - 皇帝|Usurper: Emperor|202657
+d20730000|布拉森斯|Braathens|202658
+d20740000|致命一击|Coup de Grâce|202659
+d20750000|佛古斯·瓦·恩瑞斯|Fergus var Emreis|202660
+d20760000|伊伦瓦尔德的乌奇翁|Urcheon of Erlenwald|202661
+d20770000|法师折磨者|Mage Torturer|202664
+d20780000|大赦|Amnesty|202663
+d20800000|法师渗透者|Mage Infiltrator|202666
+d20810000|煽动的贵族|Seditious Aristocrats|202665
+d21830000|愤怒的暴民|Angry Mob|202667
+d21840000|多尼|Duny|202662
+d21850000|奥贝伦王|Auberon: King|202603
+d21860000|入侵者奥贝伦|Auberon: Invader|202604
+d21870000|征服者奥贝伦|Auberon: Conqueror|202605
+d21890000|诸界之门|Ard Gaeth|202607
+d21900000|冬之女王|Winter Queen|202608
+d21910000|蜜蜂幽灵|The Apiarian Phantom|202609
+d21920000|红骑士 / 红骑士：精准 / 红骑士：扩散 / 红骑士：冲锋|Red Riders / Red Riders: Precision / Red Riders: Spread / Red Riders: Charge|202610,202703,202704,203125
+d21930000|纳吉尔法船员|Naglfar Crew|202612
+d21940000|纳吉尔法工头|Naglfar Taskmaster|202613
+d21950000|狂猎碾压者|Wild Hunt Bruiser|202611
+d21960000|艾恩·艾尔征服者|Aen Elle Conqueror|202614
+d21970000|神童贾奎斯|Jacques: Miracle Child|202629
+d21980000|大团长贾奎斯|Jacques: Grand Master|202631
+d22000000|神谴之日|Dies Irae|202633
+d22010000|私运|Smuggle|202636
+d22040000|突变研究者|Mutants Maker|202640
+d22050000|新王艾思娜|Eithné: Young Queen|202670
+d22060000|慈母艾思娜|Eithné: Mother|202671
+d22070000|艾思娜：布洛克莱昂之怒|Eithné: Wrath of Brokilon|202672
+d22080000|森林保护者|Forest Protector|202673
+d22090000|自然法则 / 自然法则：遮蔽 / 自然法则：增益 / 自然法则：活力|Shaping Nature / Shaping Nature: Veil / Shaping Nature: Boost / Shaping Nature: Vitality|202674,202700,202701,202702
+d22100000|菲斯奈特|Freixenet|202675
+d22110000|邓卡|Dunca|202676
+d22120000|生命循环|Circle of Life|202677
+d22130000|林中之女|Hamadryad|202678
+d22140000|橡树之灵|Oakcritters|202680
+d22150000|橡树之地护卫|Duén Canell Guardian|202679
+d22160000|弃女|Abandoned Girl|202681
+d22170000|维拉克萨斯王子|Viraxas: Prince|202642
+d22180000|流放者维拉克萨斯|Viraxas: Outcast|202643
+d22190000|维拉克萨斯国王|Viraxas: King|202644
+d22200000|贝罗恒王|King Belohun|202647
+d22210000|水路突袭|Amphibious Assault|202646
+d22220000|埃格蒙德|Egmund|202648
+d22230000|伊尔迪珂|Ildiko|202645
+d22240000|凯拉克护卫舰|Kerack Frigate|202650
+d22250000|烟熏火烤|Smoke Them Out!|202649
+d22260000|凯拉克城防守卫|Kerack City Guard|202651
+d22270000|凯拉克海军|Kerack Marine|202652
+d22280000|凯拉克快刀手|Kerack Cutthroat|202653
+d22290000|镜子大师|Master Mirror|202592
+d22310000|烈焰蔷薇骑士团步兵|Flaming Rose Footman|202641
+d22320000|哈罗德·奎特|Harald an Craite|202615
+d22330000|好战者哈罗德|Harald: Warmonger|202616
+d22350000|泰格威·图尔赛克|Tyrggvi Tuirseach|202618
+d22360000|血鹰|Blood Eagle|202619
+d22370000|史裘达尔·德拉蒙|Skjordal Drummond|202620
+d22380000|海科亚·德拉蒙|Herkja Drummond|202621
+d22390000|群岛战争|War of Clans|202622
+d22400000|奎特家族突袭者|An Craite Raiders|202624
+d22410000|图尔赛克家族入侵者|Tuirseach Invader|202623
+d22420000|德拉蒙家族村民|Drummond Villager|202625
+d22430000|德拉蒙家族狂战士|Drummond Berserker|202626
+d22450000|虚无|Ethereal|202593
+d22470000|全能天神|Allgod|202596
+d22480000|玛琳·卓斯塔玛拉|Marlene de Trastamara|202597
+d22490000|契约|Pact|202598
+d22500000|精灵与莹火|Will o' the wisp|202599
+d22510000|松鼠|Squirrel|202600
+d22520000|贡品|Offering|202601
+d22530000|预言家|Fortune Teller|202602
+d22800000|夕阳下的流浪者|Sunset Wanderers|202953
+d22810000|偷梁换柱|Imposter|202573
+d22820000|百炼精刚|Mahakam Forge|202575
+d22830000|荣耀圣焰|Blaze of Glory|202576
+d22840000|无尽渴望|Overwhelming Hunger|202572
+d22850000|揭竿而起|Uprising|202574
+d22860000|军备宝箱|Hidden Cache|202577
+d22980000|鼓舞人心的歌谣|Inspirational Ballad|202212
+d22990000|德莱格·波·德乌|Draig Bon-Dhu|63010
+d23000000|卓尔坦的伙伴|Zoltan's Company|202471
+d23010000|红色突变诱发物|Red Mutagen|202788
+d23020000|绿色突变诱发物|Green Mutagen|202790
+";
+
+    /// <summary>
+    /// 上游 Locales/en.json 缺少英文时的项目卡补充译名，仅覆盖已确认的 27 个项目卡号；
+    /// 能从 Locales 读到的英文一律优先，不在此覆盖。
+    /// “晋升”沿用基础卡既有英文并加 “: Ascended”（项目补充译名，不冒充官方文本）；
+    /// 同名变体沿用基础卡既有英文。基础卡号来自逐条核对的中文名对应关系，
+    /// 不使用“去掉末尾 0”之类的推断。
+    /// </summary>
+    private static readonly Dictionary<string, string> AscendedBaseCardIds =
+        new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        { "130010", "13001" }, { "130020", "13002" }, { "130030", "13003" },
+        { "130040", "13004" }, { "130050", "13005" }, { "130060", "13006" },
+        { "130070", "13007" }, { "130080", "13008" }, { "130090", "13009" },
+        { "130100", "13010" }, { "130120", "13012" }, { "130130", "13013" },
+        { "130140", "13014" }, { "130150", "13015" }, { "130160", "13016" },
+        { "130170", "13017" }, { "130180", "13018" }, { "130190", "13019" },
+        { "130200", "13020" }, { "130210", "13021" }, { "130220", "13022" },
+        { "240140", "24014" }, { "640080", "64008" },
+    };
+
+    private static readonly Dictionary<string, string> SameNameVariantBaseCardIds =
+        new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        { "130110", "13011" }, // Carlo Varese
+        { "240230", "24023" }, // Wyvern
+        { "240250", "24025" }, // Barbegazi
+    };
+
+    // 上游没有 70018 词条；沿用 fork en.json 已有译名，保证只移植本页时也可用。
+    private const string ReaverHunterNightmareArmorCardId = "70018";
+    private const string ReaverHunterNightmareArmorEnglish = "Reaver Hunter's Nightmare Armor";
+
+    private static string GetSupplementalEnglish(GameLocale englishLocale, string cardId)
+    {
+        if (string.Equals(cardId, ReaverHunterNightmareArmorCardId, StringComparison.Ordinal))
+        {
+            return ReaverHunterNightmareArmorEnglish;
+        }
+
+        if (SameNameVariantBaseCardIds.TryGetValue(cardId, out var variantBaseId))
+        {
+            // 同名变体保留基础卡既有英文，不添加后缀。
+            return GetLocaleCardName(englishLocale, variantBaseId);
+        }
+
+        if (AscendedBaseCardIds.TryGetValue(cardId, out var ascendedBaseId))
+        {
+            var baseName = GetLocaleCardName(englishLocale, ascendedBaseId);
+            if (!string.IsNullOrWhiteSpace(baseName))
+            {
+                return baseName + ": Ascended";
+            }
+        }
+
+        return null;
+    }
+
+    private static string GetLocaleCardName(GameLocale locale, string cardId)
+    {
+        if (locale?.CardLocales == null)
+        {
+            return null;
+        }
+
+        if (locale.CardLocales.TryGetValue(cardId, out var cardLocale)
+            && cardLocale != null
+            && !string.IsNullOrWhiteSpace(cardLocale.Name))
+        {
+            return cardLocale.Name;
+        }
+
+        return null;
+    }
+
+    private static GameLocale LoadLocale(string language)
+    {
+        try
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Locales", language + ".json");
+            if (!File.Exists(path))
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(path));
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
