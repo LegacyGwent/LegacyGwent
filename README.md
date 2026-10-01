@@ -36,6 +36,7 @@
 
 + 服务端项目：.NET 10, Mongodb 4.2
 + 客户端项目：Unity 2019.4.41f2（`6b23d448b533`，见 [Unity 升级记录](docs/UnityUpgrade.md)）
++ 闪卡开发：[编辑器闪卡加载与验收](docs/PremiumEditorReadiness.md)。使用 `Tools → Dynamic Cards → Preview Status` 检查缓存、源资源和预览模式。
 
 ## 开发计划
 

@@ -40,6 +40,7 @@ Read this file first, then load only the rows relevant to the task.
 | Unity CI, packaging, versions, release artifacts | [unity-release-pitfalls.md](unity-release-pitfalls.md) | Unity release root causes and verified remedies |
 | Local premium build, long Windows paths, old Java keystore formats | [local-premium-packaging.md](local-premium-packaging.md) | Short-path retry and identity-preserving JKS conversion |
 | Premium source delivery, package capabilities, Android variants | [premium-delivery.md](premium-delivery.md) | Versioned sources, standard/premium contracts, signing and verification boundaries |
+| Editor premium cards stop after resource edits, missing cache, source preview | [premium-editor-readiness.md](premium-editor-readiness.md) | Automatic Editor source fallback, readiness checks and real playback acceptance |
 | Branches, worktrees, PR integration, workflow triggers | [integration-pitfalls.md](integration-pitfalls.md) | Integration drift and automation traps |
 | Other failure, confusing symptom, known trap | [pitfalls.md](pitfalls.md) | Cross-cutting root causes and verified remedies |
 | Website, Blazor, local preview failure | [website-pitfalls.md](website-pitfalls.md) | Website-specific symptoms and verified remedies |
