@@ -8,6 +8,7 @@ Read this file first, then load only the rows relevant to the task.
 | --- | --- | --- |
 | Components, source ownership, runtime flow | [architecture.md](architecture.md) | Repository layout and component boundaries |
 | Accounts, cards, decks, AI, matchmaking | [business-rules.md](business-rules.md) | Verified gameplay and domain behavior |
+| Blacklist, ordinary/premium card rows, deck counts | [deck-editing.md](deck-editing.md) | Identity-based bans, shared copy limits, package-aware presentation |
 | Card identity, selected DIY effects, balance variants, generate rules | [card-rules.md](card-rules.md) | Verified card-specific behavior |
 | August 5-6 Monster card batches | [monster-batches-august-2026.md](monster-batches-august-2026.md) | Restored pool, effects, and edge conditions |
 | August 6 Nilfgaard/global card batch | [nilfgaard-batch-august-2026.md](nilfgaard-batch-august-2026.md) | Restored pool, effects, rounding rule, and regressions |

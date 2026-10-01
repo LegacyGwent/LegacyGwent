@@ -13,5 +13,7 @@ public class DeckEditorMiniatures : MonoBehaviour
         var op = Addressables.LoadAssetAsync<Sprite>(artid + "_slot");
         Sprite go = op.WaitForCompletion();
         Miniature.sprite = go;
+        // Use the same framed, proportional crop as the leader preview.
+        CardMiniatureCover.Apply(Miniature, true);
     }
 }

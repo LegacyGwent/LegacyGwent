@@ -187,16 +187,24 @@ namespace Assets.Script.DynamicCards
             }
         }
 
-        private void RefreshLabels()
+        public void RefreshLabels()
         {
             if (wallet == null) return;
             RefreshGroupSelection();
             wallet.text = LocalizedLabel.Get("Premium_Wallet", PremiumCollectionClient.Ready ? PremiumCollectionClient.Account.MeteoritePowder.ToString("N0", translator.TextLocalization.Culture) : "—");
             actions.gameObject.SetActive(detailsOwner != null && current?.IsPremium == true &&
                 (editor.EditorStatus == EditorStatus.ShowCards || editor.EditorStatus == EditorStatus.EditorDeck));
+            // The blacklist is keyed by card id and has no versions, so its version filter row is
+            // withdrawn; the saved PremiumFilter/OnlyOwned choice stays for the other screens.
+            bool blacklist = editor != null && editor.IsBlacklistEditor;
             foreach (var group in new[] { showFilters, deckFilters })
                 if (group != null) for (int i = 0; i < group.Length; i++)
-                { group[i].transform.Find("Selected").gameObject.SetActive(i == 3 ? editor.OnlyOwned : i == editor.PremiumFilter); group[i].interactable = !busy; }
+                {
+                    bool hidden = blacklist && group == deckFilters;
+                    group[i].gameObject.SetActive(!hidden);
+                    group[i].transform.Find("Selected").gameObject.SetActive(!hidden && (i == 3 ? editor.OnlyOwned : i == editor.PremiumFilter));
+                    group[i].interactable = !busy && !hidden;
+                }
             if (current == null) return;
             int count = PremiumCollectionClient.Count(current.CardId, true);
             int limit = CardInventory.Limit(current.CardId);
