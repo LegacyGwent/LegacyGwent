@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Cynthia.Card.Common.Models.Localization;
 using Cynthia.Card.Common.Models;
@@ -45,6 +46,7 @@ namespace Cynthia.Card.Client
         private ClientMessagesReaderService _messagesReaderService;
         private string _username;
         private string _password;
+        private readonly SynchronizationContext _mainThread;
         // The server keeps a game for 60 seconds after a disconnect; stop trying a bit earlier
         private const int ReconnectSeconds = 55;
 
@@ -101,6 +103,7 @@ namespace Cynthia.Card.Client
         {
             _translator = container.Resolve<LocalizationService>();
             _globalUIService = globalUIService;
+            _mainThread = SynchronizationContext.Current;
 
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
@@ -125,34 +128,12 @@ namespace Cynthia.Card.Client
                     _translator.GetText("PopupWindow_LoggedOutTitle"),
                     _translator.GetText("PopupWindow_LoggedOutDesc"));
             });
-            hubConnection.Closed += (async x =>
+            hubConnection.Closed += x =>
             {
-                if (ClientState == ClientState.Play && ClientGlobalInfo.ViewingRoomId == "" && await TryReconnectGame())
-                    return;
-                if (ClientState == ClientState.Play)
-                    await Player.EndGame();
-                (sender, receiver) = Tube.CreateSimplex();
-                SceneManager.LoadScene("LoginScene");
-                ClientState = ClientState.Standby;
-                Player.ResetTube();
-
-                // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
-                await _globalUIService.YNMessageBox(
-                    _translator.GetText("PopupWindow_DisconnectedTitle"),
-                    _translator.GetText("PopupWindow_DisconnectedDesc"),
-                    "PopupWindow_OkButton", isOnlyYes: true);
-                Application.Quit();
-                // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
-                // messageBox.Buttons.SetActive(true);
-                // messageBox.YesButton.SetActive(true);
-                // messageBox.NoButton.SetActive(false);
-                // messageBox.TitleText.text = "断开连接";
-                // messageBox.MessageText.text = "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n");
-                // messageBox.YesText.text = "确定";
-                // messageBox.gameObject.SetActive(true);
-                // await messageBox.receiver.ReceiveAsync<bool>();
-                // LayoutRebuilder.ForceRebuildLayoutImmediate(messageBox.Context);
-            });
+                Debug.Log($"连接断开 Connection closed: {x?.Message}");
+                // SignalR raises Closed on a worker thread, but scenes and UI may only be touched from Unity's main thread
+                return RunOnMainThread(() => OnConnectionClosed());
+            };
             hubConnection.On("ExitGame", () =>
             {
                 Application.Quit();
@@ -433,15 +414,72 @@ namespace Cynthia.Card.Client
             }
         }
 
+        private async Task OnConnectionClosed()
+        {
+            if (ClientState == ClientState.Play && ClientGlobalInfo.ViewingRoomId == "" && await TryReconnectGame())
+                return;
+            if (ClientState == ClientState.Play)
+                await Player.EndGame();
+            (sender, receiver) = Tube.CreateSimplex();
+            SceneManager.LoadScene("LoginScene");
+            ClientState = ClientState.Standby;
+            Player.ResetTube();
+
+            // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
+            await _globalUIService.YNMessageBox(
+                _translator.GetText("PopupWindow_DisconnectedTitle"),
+                _translator.GetText("PopupWindow_DisconnectedDesc"),
+                "PopupWindow_OkButton", isOnlyYes: true);
+            Application.Quit();
+            // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
+            // messageBox.Buttons.SetActive(true);
+            // messageBox.YesButton.SetActive(true);
+            // messageBox.NoButton.SetActive(false);
+            // messageBox.TitleText.text = "断开连接";
+            // messageBox.MessageText.text = "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n");
+            // messageBox.YesText.text = "确定";
+            // messageBox.gameObject.SetActive(true);
+            // await messageBox.receiver.ReceiveAsync<bool>();
+            // LayoutRebuilder.ForceRebuildLayoutImmediate(messageBox.Context);
+        }
+
+        private Task RunOnMainThread(Func<Task> action)
+        {
+            if (_mainThread == null || SynchronizationContext.Current == _mainThread)
+                return action();
+            var done = new TaskCompletionSource<bool>();
+            _mainThread.Post(async _ =>
+            {
+                try
+                {
+                    await action();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                done.SetResult(true);
+            }, null);
+            return done.Task;
+        }
+
         // The connection dropped during a game: connect and log in again, then resume the game
         private async Task<bool> TryReconnectGame()
         {
             if (_username == null)
                 return false;
-            _globalUIService.Wait("PopupWindow_ReconnectingTitle", "PopupWindow_ReconnectingDesc");
             var deadline = DateTime.UtcNow.AddSeconds(ReconnectSeconds);
             try
             {
+                try
+                {
+                    _globalUIService.Wait("PopupWindow_ReconnectingTitle", "PopupWindow_ReconnectingDesc");
+                }
+                catch (Exception e)
+                {
+                    //提示框出错不影响重连
+                    Debug.LogException(e);
+                }
                 while (DateTime.UtcNow < deadline)
                 {
                     try
@@ -453,8 +491,14 @@ namespace Cynthia.Card.Client
                         await Task.Delay(2000);
                         continue;
                     }
-                    if (await Login(_username, _password) == null || !await Reconnect())
+                    Debug.Log("重连: 已连接 Reconnect: connected");
+                    if (await Login(_username, _password) == null)
                         return false;
+                    var resumed = await Reconnect();
+                    Debug.Log($"重连: 回到对局 Reconnect: game resumed = {resumed}");
+                    if (!resumed)
+                        return false;
+                    ClientGlobalInfo.IsReconnecting = true;
                     SceneManager.LoadScene("GamePlay");
                     return true;
                 }

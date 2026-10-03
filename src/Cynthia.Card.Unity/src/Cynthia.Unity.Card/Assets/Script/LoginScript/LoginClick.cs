@@ -79,6 +79,7 @@ public class LoginClick : MonoBehaviour
             if (await _client.Reconnect())
             {
                 _client.ClientState = ClientState.Play;
+                ClientGlobalInfo.IsReconnecting = true;
                 SceneManager.LoadScene("GamePlay");
                 return;
             }

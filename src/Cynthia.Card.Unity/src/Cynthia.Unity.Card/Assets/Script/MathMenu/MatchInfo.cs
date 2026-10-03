@@ -199,6 +199,7 @@ public class MatchInfo : MonoBehaviour
 #if UNITY_STANDALONE_WIN
                 ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
 #endif
+                ClientGlobalInfo.IsReconnecting = false;
                 SceneManager.LoadScene("GamePlay");
                 _client.ClientState = ClientState.Play;
                 return;

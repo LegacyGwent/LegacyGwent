@@ -30,10 +30,11 @@ public class MessageBox : MonoBehaviour
     }
     public void Wait(string title, string message)
     {
+        //先激活,保证Awake已执行(_translator已初始化)
+        gameObject.SetActive(true);
         Buttons.SetActive(false);
         TitleText.text = _translator.GetText(title);
         MessageText.text = _translator.GetText(message);
-        gameObject.SetActive(true);
     }
     public void Close()
     {
