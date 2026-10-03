@@ -44,6 +44,13 @@ namespace Cynthia.Card.Server
             }
             await _hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", tempList);
         }
+        public void ClearOperactionList()
+        {
+            lock (OperactionList)
+            {
+                OperactionList.Clear();
+            }
+        }
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);
         public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create(type, objs));
         public new Task<Operation<ServerOperationType>> ReceiveAsync() => _downstream.ReceiveAsync<Operation<ServerOperationType>>();

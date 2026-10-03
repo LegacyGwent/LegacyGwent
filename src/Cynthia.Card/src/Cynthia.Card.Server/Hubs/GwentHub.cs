@@ -204,7 +204,7 @@ namespace Cynthia.Card.Server
         }
 
         //重新连接
-        // public async Task<bool> Reconnect(string username, string password) => await _gwentServerService.Reconnect(Context.ConnectionId, username, password);
+        public Task<bool> Reconnect() => _gwentServerService.Reconnect(Context.ConnectionId);
 
         //连接中断
         public override Task OnDisconnectedAsync(Exception exception)

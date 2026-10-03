@@ -71,6 +71,12 @@ namespace Cynthia.Card.Server
         }
         public int TurnCardPlayedNum { get; set; } = 0;//本回合打出牌的数量
 
+        // Requests the player has not answered yet; resent when the player reconnects
+        private readonly IList<Operation<ServerOperationType>>[] _pendingRequests = new IList<Operation<ServerOperationType>>[2]
+        {
+            new List<Operation<ServerOperationType>>(), new List<Operation<ServerOperationType>>()
+        };
+
         private readonly TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
 
         public async Task PlayGame()
@@ -327,7 +333,7 @@ namespace Cynthia.Card.Server
                 return true;
             }
             //让玩家选择拖拽,或者Pass
-            await Players[playerIndex].SendAsync(ServerOperationType.GetDragOrPass);
+            await SendRequestAsync(playerIndex, Operation.Create(ServerOperationType.GetDragOrPass));
             //获取信息
             var roundInfo = (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<RoundInfo>();//接收玩家的选择,提取结果
 
@@ -557,6 +563,10 @@ namespace Cynthia.Card.Server
             {
                 await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
                 PlayerToResendToViewerInfo[playerIndex].Add(Operation.Create(ServerOperationType.GetMulliganInfo));
+                // a reconnecting player needs the mulligan screen again, with the current hand and the remaining count
+                SetPendingRequest(playerIndex,
+                    Operation.Create(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status).ToList(), count - i),
+                    Operation.Create(ServerOperationType.GetMulliganInfo));
                 var result = await ReceiveAsync(playerIndex);
                 var mulliganCardIndex = result.Arguments.ToArray()[0].ToType<int>();
                 if (mulliganCardIndex == -1)
@@ -674,7 +684,7 @@ namespace Cynthia.Card.Server
             {
                 return new List<int>();
             }
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectMenuCards, info);
+            await SendRequestAsync(playerIndex, Operation.Create(ServerOperationType.SelectMenuCards, info));
             PlayerToResendToViewerInfo[playerIndex].Add(Operation.Create(ServerOperationType.SelectMenuCards, info));
             var selected = (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<IList<int>>();
             PlayerToResendToViewerInfo[playerIndex].Clear();
@@ -686,19 +696,19 @@ namespace Cynthia.Card.Server
             {
                 return new List<CardLocation>();
             }
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectPlaceCards, info);
+            await SendRequestAsync(playerIndex, Operation.Create(ServerOperationType.SelectPlaceCards, info));
             return (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<IList<CardLocation>>();
         }
         public async Task<RowPosition> GetSelectRow(int playerIndex, GameCard card, IList<RowPosition> rowPart)//选择排
         {
             if (rowPart.Count == 0) return RowPosition.Banish;
-            await Players[playerIndex].SendAsync(ServerOperationType.SelectRow, GetCardLocation(playerIndex, card), rowPart);
+            await SendRequestAsync(playerIndex, Operation.Create(ServerOperationType.SelectRow, GetCardLocation(playerIndex, card), rowPart));
             return (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<RowPosition>();
         }
         public async Task<CardLocation> GetPlayCard(GameCard card, bool isAnother = false)//选择放置一张牌
         {
             var playerIndex = isAnother ? AnotherPlayer(card.PlayerIndex) : card.PlayerIndex;
-            await Players[playerIndex].SendAsync(ServerOperationType.PlayCard, GetCardLocation(playerIndex, card));
+            await SendRequestAsync(playerIndex, Operation.Create(ServerOperationType.PlayCard, GetCardLocation(playerIndex, card)));
             return (await ReceiveAsync(playerIndex)).Arguments.ToArray()[0].ToType<CardLocation>();
         }
         //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -1882,7 +1892,56 @@ namespace Cynthia.Card.Server
             {
                 await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
             }
-            return await Players[playerIndex].ReceiveAsync();
+            var result = await Players[playerIndex].ReceiveAsync();
+            SetPendingRequest(playerIndex);
+            return result;
+        }
+
+        private void SetPendingRequest(int playerIndex, params Operation<ServerOperationType>[] operations)
+        {
+            lock (_pendingRequests[playerIndex])
+            {
+                _pendingRequests[playerIndex].Clear();
+                foreach (var operation in operations)
+                    _pendingRequests[playerIndex].Add(operation);
+            }
+        }
+
+        // Send a request that waits for an answer, remembering it so it can be resent after a reconnect
+        private async Task SendRequestAsync(int playerIndex, Operation<ServerOperationType> operation)
+        {
+            SetPendingRequest(playerIndex, operation);
+            await Players[playerIndex].SendAsync(operation);
+        }
+
+        // Bring a reconnected player's client back to the current game state
+        public async Task ResendGameState(int playerIndex)
+        {
+            if (!(Players[playerIndex] is ClientPlayer player))
+                return;
+            // operations queued while the player was away are covered by the full state below
+            player.ClearOperactionList();
+            var twoPlayer = playerIndex == Player1Index ? TwoPlayer.Player1 : TwoPlayer.Player2;
+            await Players[playerIndex].SendAsync(ServerOperationType.SetAllInfo, GetAllInfo(twoPlayer));
+            await SetDeckInfo(playerIndex);
+            await Players[playerIndex].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[playerIndex].Select(x => x.Status).ToList());
+            await Players[playerIndex].SendAsync(ServerOperationType.SetEnemyCemetery, PlayersCemetery[AnotherPlayer(playerIndex)].Select(x => x.Status).ToList());
+            await Players[playerIndex].SendAsync(ServerOperationType.SetCoinInfo, GameRound.ToPlayerIndex(this) == playerIndex);
+            List<Operation<ServerOperationType>> pending;
+            lock (_pendingRequests[playerIndex])
+            {
+                pending = _pendingRequests[playerIndex].ToList();
+            }
+            foreach (var operation in pending)
+            {
+                await Players[playerIndex].SendAsync(operation);
+            }
+            await player.SendOperactionList();
+        }
+
+        public Task SendMessageBox(int playerIndex, string msg)
+        {
+            return Players[playerIndex].SendAsync(ServerOperationType.MessageBox, msg);
         }
         public async Task SendOperactionList()
         {
