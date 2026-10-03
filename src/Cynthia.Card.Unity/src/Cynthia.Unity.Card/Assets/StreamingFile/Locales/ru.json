@@ -137,6 +137,8 @@
         "PopupWindow_DisconnectedDesc": " Пожалуйста, попробуйте войти снова!\nNПримечание!\nNВ текущей версии, если вы отключились во время сопоставления или игры, вам необходимо перезапустить клиент, иначе в следующей игре будут ошибки",
         "PopupWindow_ReconnectingTitle": "ПЕРЕПОДКЛЮЧЕНИЕ",
         "PopupWindow_ReconnectingDesc": "Соединение с сервером потеряно.\nПытаемся вернуть вас в игру...",
+        "PopupWindow_OpponentDisconnected": "Соперник потерял соединение.\nЖдём до 60 секунд, пока он переподключится...",
+        "PopupWindow_OpponentReconnected": "Соперник вернулся в игру.",
         "PopupWindow_QuitTitle": "Выйти",
         "PopupWindow_QuitDesc": "Вы уверены что хотите выйти?",
         "PopupWindow_Surrender_title": "Хотите сдаться?",

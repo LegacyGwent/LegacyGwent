@@ -32,6 +32,7 @@ namespace Cynthia.Card.Server
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
 
         // How long a player who lost the connection during a game can take to come back
+        // (also named in the PopupWindow_OpponentDisconnected texts of the client locales)
         public const int ReconnectWaitSeconds = 60;
         // Players who lost the connection during a game, by user name
         private readonly IDictionary<string, (User User, CancellationTokenSource Cancel)> _waitReconnectList = new Dictionary<string, (User, CancellationTokenSource)>();
@@ -833,7 +834,7 @@ namespace Cynthia.Card.Server
                     previous.Cancel.Cancel();
                 _waitReconnectList[user.UserName] = (user, cancel);
             }
-            await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer, ReconnectWaitSeconds);
+            await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer);
             try
             {
                 await Task.Delay(TimeSpan.FromSeconds(ReconnectWaitSeconds), cancel.Token);

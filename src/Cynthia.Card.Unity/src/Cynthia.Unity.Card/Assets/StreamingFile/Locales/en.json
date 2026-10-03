@@ -137,6 +137,8 @@
         "PopupWindow_DisconnectedDesc": "Please try to log in again!\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will be buggy",
         "PopupWindow_ReconnectingTitle": "RECONNECTING",
         "PopupWindow_ReconnectingDesc": "The connection to the server was lost.\nTrying to get you back into your game...",
+        "PopupWindow_OpponentDisconnected": "Your opponent lost the connection.\nWaiting up to 60 seconds for them to reconnect...",
+        "PopupWindow_OpponentReconnected": "Your opponent is back in the game.",
         "PopupWindow_QuitTitle": "QUIT",
         "PopupWindow_QuitDesc": "Are you sure you want to quit?",
         "PopupWindow_Surrender_title": "Surrender?",

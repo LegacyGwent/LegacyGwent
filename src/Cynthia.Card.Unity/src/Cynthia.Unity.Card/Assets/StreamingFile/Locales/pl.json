@@ -137,6 +137,8 @@
         "PopupWindow_DisconnectedDesc": "Spróbuj zalogować się ponownie! \nJeżeli zostałeś rozłączony w trakcie gry-zrestartuj klient.",
         "PopupWindow_ReconnectingTitle": "PONOWNE ŁĄCZENIE",
         "PopupWindow_ReconnectingDesc": "Utracono połączenie z serwerem.\nPróbujemy przywrócić cię do gry...",
+        "PopupWindow_OpponentDisconnected": "Przeciwnik utracił połączenie.\nCzekamy do 60 sekund na jego powrót...",
+        "PopupWindow_OpponentReconnected": "Przeciwnik wrócił do gry.",
         "PopupWindow_QuitTitle": "WYJDŹ",
         "PopupWindow_QuitDesc": "Czy na pewno chcesz wyjść?",
         "PopupWindow_Surrender_title": "Rezygnacja?",
