@@ -13,31 +13,39 @@ namespace Cynthia.Card.Client
 {
     public class LocalPlayer : Player
     {
+        private readonly HubConnection _hubConnection;
+
         public LocalPlayer(HubConnection hubConnection) : base()
         {
-            //接收到通讯层消息,发送到下游
-            ((Player)this).Receive += async x => await hubConnection.SendAsync("GameOperation", x.Result);
+            _hubConnection = hubConnection;
+            ForwardToServer();
             hubConnection.On<IList<Operation<int>>>("GameOperation", async x =>
             {
                 await _upstream.SendAsync(x);
             });
-            ((Player)this).Receive += async x => await hubConnection.SendAsync("ViewerGameOperation", x.Result);
             hubConnection.On<IList<Operation<int>>>("ViewerGameOperation", async x =>
             {
                 await _upstream.SendAsync(x);
             });
-            hubConnection.Closed += async (e) =>
-            {
-                if (DependencyResolver.Container.Resolve<GwentClientService>().ClientState == ClientState.Play)
-                {
-                    await _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
-                }
-            };
+        }
+
+        //接收到通讯层消息,发送到下游
+        private void ForwardToServer()
+        {
+            ((Player)this).Receive += async x => await _hubConnection.SendAsync("GameOperation", x.Result);
+            ((Player)this).Receive += async x => await _hubConnection.SendAsync("ViewerGameOperation", x.Result);
+        }
+
+        // Stop the running game on this client, e.g. after the connection was lost for good
+        public Task EndGame()
+        {
+            return _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
         }
 
         public void ResetTube()
         {
             (_upstream, _downstream) = Tube.CreateDuplex();
+            ForwardToServer();
         }
 
         public Task SendAsync(Operation<int> operation) => _downstream.SendAsync(operation);

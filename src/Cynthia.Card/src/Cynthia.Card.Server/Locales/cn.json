@@ -135,6 +135,8 @@
         "PopupWindow_LoggedOutDesc": "账号被登陆,被挤下了线",
         "PopupWindow_DisconnectedTitle": "断开连接",
         "PopupWindow_DisconnectedDesc": "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。",
+        "PopupWindow_ReconnectingTitle": "正在重新连接",
+        "PopupWindow_ReconnectingDesc": "与服务器的连接已断开\n正在尝试回到对局中...",
         "PopupWindow_QuitTitle": "退出游戏?",
         "PopupWindow_QuitDesc": "是否退出游戏",
         "PopupWindow_Surrender_title": "确认投降?",

@@ -3,6 +3,7 @@ using Alsein.Extensions.LifetimeAnnotations;
 using Assets.Script.Localization;
 using Assets.Script.ResourceManagement;
 using Autofac;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using System;
@@ -42,6 +43,10 @@ namespace Cynthia.Card.Client
         private ITubeOutlet Receiver;// receiver for taunts
         private LocalizationService _translator;
         private ClientMessagesReaderService _messagesReaderService;
+        private string _username;
+        private string _password;
+        // The server keeps a game for 60 seconds after a disconnect; stop trying a bit earlier
+        private const int ReconnectSeconds = 55;
 
         private readonly object _lock = new object();
         private ClientState _clientState = ClientState.Standby;
@@ -122,6 +127,10 @@ namespace Cynthia.Card.Client
             });
             hubConnection.Closed += (async x =>
             {
+                if (ClientState == ClientState.Play && ClientGlobalInfo.ViewingRoomId == "" && await TryReconnectGame())
+                    return;
+                if (ClientState == ClientState.Play)
+                    await Player.EndGame();
                 (sender, receiver) = Tube.CreateSimplex();
                 SceneManager.LoadScene("LoginScene");
                 ClientState = ClientState.Standby;
@@ -399,8 +408,67 @@ namespace Cynthia.Card.Client
             //登录,如果成功保存登录信息
             User = await HubConnection.InvokeAsync<UserInfo>("Login", username, password);
             if (User != null)
+            {
                 Player.PlayerName = User.PlayerName;
+                //保存登录信息,用于断线重连
+                _username = username;
+                _password = password;
+            }
             return User;
+        }
+
+        // Resume the game this user was disconnected from, if the server still holds it.
+        // The server then sends the whole game state, so the game scene has to be (re)loaded.
+        public async Task<bool> Reconnect()
+        {
+            Player.ResetTube();
+            try
+            {
+                return await HubConnection.InvokeAsync<bool>("Reconnect");
+            }
+            catch (HubException)
+            {
+                //服务端不支持重连
+                return false;
+            }
+        }
+
+        // The connection dropped during a game: connect and log in again, then resume the game
+        private async Task<bool> TryReconnectGame()
+        {
+            if (_username == null)
+                return false;
+            _globalUIService.Wait("PopupWindow_ReconnectingTitle", "PopupWindow_ReconnectingDesc");
+            var deadline = DateTime.UtcNow.AddSeconds(ReconnectSeconds);
+            try
+            {
+                while (DateTime.UtcNow < deadline)
+                {
+                    try
+                    {
+                        await HubConnection.StartAsync();
+                    }
+                    catch
+                    {
+                        await Task.Delay(2000);
+                        continue;
+                    }
+                    if (await Login(_username, _password) == null || !await Reconnect())
+                        return false;
+                    SceneManager.LoadScene("GamePlay");
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Reconnect failed: {e.Message}");
+                return false;
+            }
+            finally
+            {
+                _globalUIService.Close();
+            }
         }
         // get the version of the Trinket Map to decide if it needs an update
         public async Task<UserInfo> QueryUserInfo(string username, string password)
