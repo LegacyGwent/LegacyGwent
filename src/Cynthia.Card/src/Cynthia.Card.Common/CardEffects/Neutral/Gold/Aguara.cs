@@ -81,7 +81,7 @@ namespace Cynthia.Card
             {
                 return 0;
             }
-            var selected = await Game.GetSelectMenuCards(Card.PlayerIndex, cards, 1, "选择增益1张牌");
+            var selected = await Game.GetSelectMenuCards(Card.PlayerIndex, cards, 1, "选择增益1张牌", isCanOver: false);
             if (selected.TrySingle(out var target))
             {
                 await target.Effect.Boost(5, Card);

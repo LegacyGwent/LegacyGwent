@@ -190,7 +190,8 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(5, spy.Status.HealthStatus);
             Assert.Equal(0, loyal.Status.HealthStatus);
             Assert.Contains(fixture.FirstPlayer.MenuRequests,
-                request => request.SelectList.Any(card => card.CardId == CardId.Emissary));
+                request => request.SelectList.Any(card => card.CardId == CardId.Emissary) &&
+                    !request.IsCanOver);
         }
 
         [Fact]
