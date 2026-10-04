@@ -668,7 +668,7 @@ namespace Cynthia.Card.Server
 
         public bool Surrender(string connectionId) // 投降
         {
-            var result = _gwentMatchs.PlayerLeave(connectionId, new Exception("已投降\nSurrendered"), isSurrender: true);
+            var result = _gwentMatchs.PlayerLeave(connectionId, isSurrender: true);
             InovkeUserChanged();
             return result;
         }
@@ -806,7 +806,7 @@ namespace Cynthia.Card.Server
                 //对局中断线,等待玩家重连
                 _users.Remove(connectionId);
                 InovkeUserChanged();
-                _ = WaitReconnect(leavingUser, exception);
+                _ = WaitReconnect(leavingUser);
                 return;
             }
             if (_users[connectionId].UserState == UserState.Match || _users[connectionId].UserState == UserState.PasswordMatch)//如果用户正在匹配
@@ -825,7 +825,7 @@ namespace Cynthia.Card.Server
             InovkeUserChanged();
         }
 
-        private async Task WaitReconnect(User user, Exception exception)
+        private async Task WaitReconnect(User user)
         {
             var cancel = new CancellationTokenSource();
             lock (_waitReconnectList)
@@ -850,8 +850,8 @@ namespace Cynthia.Card.Server
                     return;
                 _waitReconnectList.Remove(user.UserName);
             }
-            //超时未重连,判负
-            _gwentMatchs.PlayerLeave(user.ConnectionId, exception);
+            //超时未重连,判负 (without the connection error, so the opponent gets the translated "opponent left" message)
+            _gwentMatchs.PlayerLeave(user.ConnectionId);
         }
 
         // Called by a freshly logged in client; resumes the game the user was disconnected from
@@ -882,7 +882,7 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.9";
+            return "2.2.0";
         }
 
         public async Task<string> GetNotes(string connectionId)
@@ -1133,7 +1133,7 @@ When other players are available, player matchmaking will be prioritized. Add #f
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.9";
+            return @"2.2.0";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()

@@ -157,9 +157,15 @@ namespace Cynthia.Card.Server
 
         public async Task GameEnd(int winPlayerIndex, Exception exception, bool isSurrender = false)
         {
-            if (exception == null)
+            // locale keys, translated by the client
+            if (isSurrender)
+            {
+                await SendMessageBox(winPlayerIndex, "PopupWindow_OpponentSurrendered");
+                await SendMessageBox(AnotherPlayer(winPlayerIndex), "PopupWindow_YouSurrendered");
+            }
+            else if (exception == null)
                 // await MessageBox("对方的账号被强制顶下线,比赛结束");
-                await MessageBox("对方已断开连接,比赛结束!");
+                await MessageBox("PopupWindow_OpponentLeft");
             else
                 await MessageBox(exception.Message);
 
