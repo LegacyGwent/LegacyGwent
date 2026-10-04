@@ -1944,10 +1944,10 @@ namespace Cynthia.Card.Server
             return Players[playerIndex].SendAsync(ServerOperationType.MessageBox, msg);
         }
 
-        // A message without an OK button that closes itself after a few seconds
-        public Task SendMessageBoxAutoClose(int playerIndex, string msg, int seconds)
+        // A message without an OK button that closes itself after a few seconds, optionally with a timer bar
+        public Task SendMessageBoxAutoClose(int playerIndex, string msg, int seconds, bool showTimer = false)
         {
-            return Players[playerIndex].SendAsync(ServerOperationType.MessageBoxAutoClose, msg, seconds);
+            return Players[playerIndex].SendAsync(ServerOperationType.MessageBoxAutoClose, msg, seconds, showTimer);
         }
         public async Task SendOperactionList()
         {

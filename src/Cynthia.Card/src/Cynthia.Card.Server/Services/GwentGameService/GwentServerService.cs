@@ -834,7 +834,7 @@ namespace Cynthia.Card.Server
                     previous.Cancel.Cancel();
                 _waitReconnectList[user.UserName] = (user, cancel);
             }
-            await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer);
+            await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer, ReconnectWaitSeconds);
             try
             {
                 await Task.Delay(TimeSpan.FromSeconds(ReconnectWaitSeconds), cancel.Token);

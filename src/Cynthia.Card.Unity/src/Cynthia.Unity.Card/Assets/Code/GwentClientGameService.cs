@@ -153,7 +153,8 @@ namespace Cynthia.Card.Client
                     _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), "PopupWindow_OkButton", isOnlyYes: true);
                     break;
                 case ServerOperationType.MessageBoxAutoClose:
-                    GlobalUIService.ShowAutoClose("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), arguments[1].ToType<int>());
+                    GlobalUIService.ShowAutoClose("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), arguments[1].ToType<int>(),
+                        arguments.Length > 2 && arguments[2].ToType<bool>());
                     break;
                 case ServerOperationType.RoundEnd://回合结束
                     GameCodeService.RoundEnd();

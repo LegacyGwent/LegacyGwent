@@ -383,15 +383,15 @@ namespace Cynthia.Card.Server
         public bool IsInGame(ClientPlayer player) => FindGame(player) != null;
 
         // The player lost the connection; the game waits for a reconnect instead of ending
-        public async Task PlayerDisconnected(ClientPlayer player)
+        public async Task PlayerDisconnected(ClientPlayer player, int waitSeconds)
         {
             var found = FindGame(player);
             if (found == null)
                 return;
             var (game, playerIndex) = found.Value;
             var enemyIndex = game.AnotherPlayer(playerIndex);
-            // a locale key, translated by the client
-            await game.SendMessageBox(enemyIndex, "PopupWindow_OpponentDisconnected");
+            // a locale key, translated by the client; shown without an OK button and with a timer bar
+            await game.SendMessageBoxAutoClose(enemyIndex, "PopupWindow_OpponentDisconnected", waitSeconds, showTimer: true);
             if (game.Players[enemyIndex] is ClientPlayer enemy)
                 await enemy.SendOperactionList();
         }
