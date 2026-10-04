@@ -72,7 +72,9 @@ namespace Cynthia.Card.Server
             services.AddHostedService<ScheduledEventService>();
             services.AddAntDesign();
             services.AddBlazoredLocalStorage();
-            services.AddTransient<IMongoClient, MongoClient>(x => new MongoClient(GetConnectionString()));
+            // MongoClient owns connection pools and must be shared for the host lifetime.
+            // DatabaseService resolves it for every collection access, including backfills.
+            services.AddSingleton<IMongoClient>(_ => new MongoClient(GetConnectionString()));
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -182,7 +184,6 @@ namespace Cynthia.Card.Server
         private string GetConnectionString()
         {
             string variable = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING");
-            Console.WriteLine(variable);
             if (string.IsNullOrEmpty(variable))
             {
                 return "mongodb://localhost:28020/gwent-diy";

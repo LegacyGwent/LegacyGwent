@@ -11,7 +11,8 @@ EnvironmentFile=/etc/card-diy-ai.env
 # sudo drops both identities consistently before the launcher selects the
 # self-contained host (or a retained pre-migration rollback release).
 ExecStart=/usr/bin/sudo -E -u card-diy-ai -g card-diy-ai /usr/local/sbin/run-card-diy-ai
-Restart=on-failure
+# BackgroundServiceExceptionBehavior.StopHost exits cleanly; restart even then.
+Restart=always
 RestartSec=5s
 TimeoutStopSec=30s
 KillSignal=SIGINT
