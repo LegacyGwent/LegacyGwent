@@ -32,7 +32,7 @@ namespace Cynthia.Card.Server
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
 
         // How long a player who lost the connection during a game can take to come back
-        // (also named in the PopupWindow_OpponentDisconnected texts of the client locales)
+        // (the opponent sees a timer bar counting down this time)
         public const int ReconnectWaitSeconds = 60;
         // Players who lost the connection during a game, by user name
         private readonly IDictionary<string, (User User, CancellationTokenSource Cancel)> _waitReconnectList = new Dictionary<string, (User, CancellationTokenSource)>();
