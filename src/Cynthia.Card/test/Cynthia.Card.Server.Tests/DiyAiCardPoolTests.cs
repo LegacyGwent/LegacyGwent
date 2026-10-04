@@ -48,7 +48,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 207), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 208), GwentMap.CardMapVersion);
             Assert.Equal(737, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -254,7 +254,7 @@ namespace Cynthia.Card.Server.Tests
         {
             Assert.Equal(5, GwentMap.CardMap[CardId.TrissMerigold].Strength);
             Assert.Equal(9, GwentMap.CardMap[CardId.CursedImmortals].Strength);
-            Assert.Equal(6, GwentMap.CardMap[CardId.Meve].Strength);
+            Assert.Equal(7, GwentMap.CardMap[CardId.Meve].Strength);
             Assert.Equal(8, GwentMap.CardMap[CardId.CrowClanDruid].Strength);
             Assert.Equal(
                 new[] { Categorie.Draconid, Categorie.Beast },
@@ -750,7 +750,7 @@ namespace Cynthia.Card.Server.Tests
                 ["52012"] = "迫使2个同排的敌军单位相互对决。获得等同于此对决造成伤害次数的增益。",
                 ["53014"] = "选定一排，对左右两侧末端的单位各造成6点伤害，己方半场每有1个未翻开的“伏击”单位，伤害提高1点。",
                 ["70088"] = "将己方墓场中所有的“小雾妖”放回牌组底端。在对方单排降下“蔽日浓雾”，己方回合中，若有“倾盆大雨”灾厄效果出现在敌方半场，重复此能力。",
-                ["70089"] = "在对方同排生成“巨熊祭品”，随后将1个己方“士兵”单位转化为“斯瓦勃洛狂信者”。",
+                ["70089"] = "在对方同排生成“巨熊祭品”，随后将1个友军单位转化为“斯瓦勃洛狂信者”。",
                 ["70099"] = "对手牌和牌组的所有战力不小于2的非间谍单位造成2点伤害，随后使其获得2点强化。将牌组中战力不大于2的非间谍单位移至己方墓场。",
                 ["70110"] = "自身战力不低于手牌数时，召唤此单位。",
                 ["70148"] = "每回合结束时，若对方同排没有高于自身战力的单位，汲食该排1个最强敌军单位1点战力。",
@@ -1342,7 +1342,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("克鲁姆国王", GwentMap.CardMap["70190"].Name);
 
             Assert.Equal("生成1张银色“有机”牌。", GwentMap.CardMap["21003"].Info);
-            Assert.Contains("随机非间谍单位", GwentMap.CardMap["12027"].Info);
+            Assert.Contains("手牌中的1个单位", GwentMap.CardMap["12027"].Info);
             Assert.Contains("伤害减半", GwentMap.CardMap["70062"].Info);
             Assert.DoesNotContain("向上取整", GwentMap.CardMap["70062"].Info);
             Assert.Contains("重复3次", GwentMap.CardMap["70119"].Info);
@@ -1353,7 +1353,7 @@ namespace Cynthia.Card.Server.Tests
                 "src/Cynthia.Card/src/Cynthia.Card.Common/CardEffects/Neutral/Gold/Aguara.cs"));
             Assert.Contains("Aguara_1_BoostLowest", aguaraSource);
             Assert.Contains("Aguara_3_BoostHand", aguaraSource);
-            Assert.Contains("CardUseInfo.MyRow", aguaraSource);
+            Assert.Contains("GetSelectMenuCards(Card.PlayerIndex, cards", aguaraSource);
         }
 
         [Fact]
@@ -1762,7 +1762,7 @@ namespace Cynthia.Card.Server.Tests
                 CardId.DanaMeadbh
             };
             Assert.All(leaderIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
-            Assert.Equal(new[] { 6, 6, 7, 2 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
+            Assert.Equal(new[] { 7, 6, 7, 2 }, leaderIds.Select(id => GwentMap.CardMap[id].Strength));
             Assert.Equal(Faction.ScoiaTael, GwentMap.CardMap[CardId.DanaMeadbh].Faction);
             Assert.Equal("203195", GwentMap.CardMap[CardId.DanaMeadbh].CardArtsId);
             Assert.Equal("从牌组打出1张中立牌。", GwentMap.CardMap[CardId.DanaMeadbh].Info);

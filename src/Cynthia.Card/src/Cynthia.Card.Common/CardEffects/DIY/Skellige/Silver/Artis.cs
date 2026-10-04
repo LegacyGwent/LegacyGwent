@@ -6,7 +6,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70089")]//亚提斯
     public class Artis : CardEffect
-    {//部署：对一个敌军单位造成7点伤害，若摧毁目标，则在对方同排生成一张“巨熊祭品”。
+    {//在对方同排生成“巨熊祭品”，随后将1个友军单位转化为“斯瓦勃洛狂信者”。
         public Artis(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -18,7 +18,6 @@ namespace Cynthia.Card
 
             var selectList = await Game.GetSelectPlaceCards(
                 Card,
-                filter: x => x.HasAllCategorie(Categorie.Soldier),
                 selectMode: SelectModeType.MyRow);
             if (!selectList.TrySingle(out var target))
             {
