@@ -97,7 +97,7 @@ public class StringIntDictionaryConverter : JsonConverter<Dictionary<string, int
             var key = reader.GetString();
             if (!reader.Read() || reader.TokenType != JsonTokenType.Number)
                 throw new JsonException("Expected an integer dictionary value.");
-            result.Add(key, reader.GetInt32());
+            result[key] = reader.GetInt32();
         }
 
         throw new JsonException("Incomplete Dictionary<string, int> JSON object.");
@@ -132,7 +132,7 @@ public class PremiumDeckSelectionDictionaryConverter : JsonConverter<Dictionary<
             var key = reader.GetString();
             if (!reader.Read())
                 throw new JsonException("Expected a premium deck selection.");
-            result.Add(key, JsonSerializer.Deserialize<PremiumDeckSelection>(ref reader, options));
+            result[key] = JsonSerializer.Deserialize<PremiumDeckSelection>(ref reader, options);
         }
 
         throw new JsonException("Incomplete premium deck selections object.");
