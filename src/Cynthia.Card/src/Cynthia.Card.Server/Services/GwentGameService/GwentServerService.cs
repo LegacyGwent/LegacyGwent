@@ -376,17 +376,6 @@ namespace Cynthia.Card.Server
             var loginUser = _databaseService.Login(username, password);
             if (loginUser == null) return null;
 
-            // if user is online, attach any pending newly unlocked trinkets
-            var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
-            if (onlineUser != null && onlineUser.NewlyUnlockedTrinkets != null)
-            {
-                loginUser.NewlyUnlockedTrinkets = new NewlyUnlockedTrinkets
-                {
-                    NewAvatars = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewAvatars),
-                    NewBorders = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewBorders),
-                    NewTitles = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewTitles)
-                };
-            }
             // give trinkets linked to a counter such as GG
             if (loginUser.GGsReceived >= 100)
             {
@@ -411,6 +400,19 @@ namespace Cynthia.Card.Server
             if (loginUser.GamesOver200 >= 10)
             {
                 await AddAvatar(loginUser.PlayerName, "Odrin");
+            }
+            // Return the final profile and notification buffer after counter awards.
+            loginUser = _databaseService.Login(username, password);
+            // if user is online, attach any pending newly unlocked trinkets
+            var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
+            if (onlineUser != null && onlineUser.NewlyUnlockedTrinkets != null)
+            {
+                loginUser.NewlyUnlockedTrinkets = new NewlyUnlockedTrinkets
+                {
+                    NewAvatars = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewAvatars),
+                    NewBorders = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewBorders),
+                    NewTitles = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewTitles)
+                };
             }
             //
             return loginUser;
@@ -472,6 +474,12 @@ namespace Cynthia.Card.Server
                     await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
 
+                // The Add/Update methods persisted defaults after the original query. Return that
+                // complete snapshot (including ownership) and keep the online representation aligned.
+                loginUser = _databaseService.Login(user.UserName, password);
+                user.OwnedAvatars = loginUser.OwnedAvatars;
+                user.OwnedBorders = loginUser.OwnedBorders;
+                user.OwnedTitles = loginUser.OwnedTitles;
                 // Copy newly unlocked trinkets to the returned UserInfo (map buffer -> DTO)
                 if (user.NewlyUnlockedTrinkets != null)
                 {

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -253,25 +253,27 @@ public class GameUIControl : MonoBehaviour
             EnemyName.text = Enemy;
         }
         MyName.text = gameInfomation.MyName;
-        MyTitle.text = _translator.GetText(gameInfomation.MyTitle + "Name");
+        var myTitle = TrinketMap.ResolveTitle(gameInfomation.MyTitle);
+        var enemyTitle = TrinketMap.ResolveTitle(gameInfomation.EnemyTitle);
+        MyTitle.text = _translator.GetText(myTitle.ID + "Name");
         Myavatar = gameInfomation.MyAvatar;
         Enemyname = gameInfomation.EnemyName;
-        EnemyTitle.text = _translator.GetText(gameInfomation.EnemyTitle + "Name");
-        string mycolor = _titles.Where(x => x.ID == gameInfomation.MyTitle).Single().TitleColor;
+        EnemyTitle.text = _translator.GetText(enemyTitle.ID + "Name");
+        string mycolor = myTitle.TitleColor;
         MyTitle.color= mycolormap[mycolor];
-        string enemycolor = _titles.Where(x => x.ID == gameInfomation.EnemyTitle).Single().TitleColor;
+        string enemycolor = enemyTitle.TitleColor;
         EnemyTitle.color= mycolormap[enemycolor];
-        var op = Addressables.LoadAssetAsync<Sprite>(gameInfomation.MyAvatar);
+        var op = Addressables.LoadAssetAsync<Sprite>(TrinketMap.ResolveAvatar(gameInfomation.MyAvatar).ID);
         Sprite go = op.WaitForCompletion();
         MyAvatar.sprite = go;
-        op = Addressables.LoadAssetAsync<Sprite>(gameInfomation.EnemyAvatar);
+        op = Addressables.LoadAssetAsync<Sprite>(TrinketMap.ResolveAvatar(gameInfomation.EnemyAvatar).ID);
         go = op.WaitForCompletion();
         Debug.Log(gameInfomation.EnemyAvatar);
         EnemyAvatar.sprite = go;
-        op = Addressables.LoadAssetAsync<Sprite>(gameInfomation.MyBorder);
+        op = Addressables.LoadAssetAsync<Sprite>(TrinketMap.ResolveBorder(gameInfomation.MyBorder).ID);
         go = op.WaitForCompletion();
         MyBorder.sprite = go;
-        op = Addressables.LoadAssetAsync<Sprite>(gameInfomation.EnemyBorder);
+        op = Addressables.LoadAssetAsync<Sprite>(TrinketMap.ResolveBorder(gameInfomation.EnemyBorder).ID);
         go = op.WaitForCompletion();
         EnemyBorder.sprite = go;
 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +87,7 @@ public class PlayerTableRowScript : MonoBehaviour
     {
         try
         {
-            var op = Addressables.LoadAssetAsync<Sprite>(avatar);
+            var op = Addressables.LoadAssetAsync<Sprite>(Cynthia.Card.TrinketMap.ResolveAvatar(avatar).ID);
             Sprite avatar_img = op.WaitForCompletion();
             Avatar.sprite = avatar_img;
         }
@@ -98,7 +98,7 @@ public class PlayerTableRowScript : MonoBehaviour
     {
         try
         {
-            var op = Addressables.LoadAssetAsync<Sprite>(border);
+            var op = Addressables.LoadAssetAsync<Sprite>(Cynthia.Card.TrinketMap.ResolveBorder(border).ID);
             Sprite border_img = op.WaitForCompletion();
             Border.sprite = border_img;
         }

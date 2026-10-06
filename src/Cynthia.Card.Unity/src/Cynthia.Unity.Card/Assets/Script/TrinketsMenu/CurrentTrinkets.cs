@@ -71,7 +71,7 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
         {
             return;
         }
-        var currentavatar = _clientService.User.CurrentAvatar;
+        var currentavatar = TrinketMap.ResolveAvatar(_clientService.User.CurrentAvatar).ID;
         if (currentavatar != OldAvatar)
         {
             var op = Addressables.LoadAssetAsync<Sprite>(currentavatar);
@@ -79,7 +79,7 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
             AvatarArt.sprite = go;
             OldAvatar = currentavatar;
         }
-        var currentborder = _clientService.User.CurrentBorder;
+        var currentborder = TrinketMap.ResolveBorder(_clientService.User.CurrentBorder).ID;
         if (currentborder != OldBorder)
         {
             var op = Addressables.LoadAssetAsync<Sprite>(currentborder);
@@ -88,9 +88,10 @@ public class CurrentTrinkets : MonoBehaviour // this scripts updates the avatar/
             OldBorder = currentborder;
         }
         var user = _clientService.User;
-        var currenttitle = user.CurrentTitle;
-        string color = _titles.Where(x => x.ID == currenttitle).Single().TitleColor;
-        if (currentborder != OldTitle)
+        var title = TrinketMap.ResolveTitle(user.CurrentTitle);
+        var currenttitle = title.ID;
+        string color = title.TitleColor;
+        if (currenttitle != OldTitle)
         {
             LocalizedLabel.Set(TitleText, currenttitle + "Name");
             TitleText.color = mycolormap[color];

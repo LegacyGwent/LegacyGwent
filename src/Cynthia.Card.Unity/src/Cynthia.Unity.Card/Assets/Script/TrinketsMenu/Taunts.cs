@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Autofac;
 using System.Linq;
@@ -114,42 +114,42 @@ public class Taunts : MonoBehaviour // This script controls the behaviour of the
     public void WatchThis() // taunt 1
     {
         
-        string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt1.ToString();
+        string mytaunt = TrinketMap.ResolveAvatar(myavatar).Taunt1.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
         IsTauntNotOnCoolDown = false;
     }
     public void Dammit() // taunt 2
     {
-        string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt2.ToString();
+        string mytaunt = TrinketMap.ResolveAvatar(myavatar).Taunt2.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
         IsTauntNotOnCoolDown = false;
     }
     public void YouReGoingDown() // taunt 3
     {
-        string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt3.ToString();
+        string mytaunt = TrinketMap.ResolveAvatar(myavatar).Taunt3.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
         IsTauntNotOnCoolDown = false;
     }
     public void BadMove() // taunt 4
     {
-        string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt4.ToString();
+        string mytaunt = TrinketMap.ResolveAvatar(myavatar).Taunt4.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
         IsTauntNotOnCoolDown = false;
     }
     public void WellPlayed() // taunt 5
     {
-        string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt5.ToString();
+        string mytaunt = TrinketMap.ResolveAvatar(myavatar).Taunt5.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
         IsTauntNotOnCoolDown = false;
     }
     public void Thanks() // taunt 6
     {
-        string mytaunt = _avatars.Where(x => x.ID == myavatar).Single().Taunt6.ToString();
+        string mytaunt = TrinketMap.ResolveAvatar(myavatar).Taunt6.ToString();
         InvokeRepeating("DisableSendTaunt", 5, 0);
         PlayMyTaunt(mytaunt);
         IsTauntNotOnCoolDown = false;

@@ -1,4 +1,4 @@
-﻿using Assets.Script.Localization;
+using Assets.Script.Localization;
 using Cynthia.Card.Client;
 using UnityEngine;
 using Autofac;
@@ -82,7 +82,7 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewAvatars)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Canevas.transform, false);
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedAvatars"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetAvatarContext(trinketID);
                 }
@@ -92,7 +92,7 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewBorders)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
+                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Canevas.transform, false);
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTrinketArt(trinketID, "OwnedBorders"); // sets the art in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetBorderContext(trinketID);
                 }
@@ -102,9 +102,10 @@ public class MainCode : MonoBehaviour
             {
                 foreach (var trinketID in _client.User.NewlyUnlockedTrinkets.NewTitles)
                 {
-                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Vector3.zero, Quaternion.identity, Canevas.transform);
-                    string color = _titles.Where(x => x.ID == trinketID).Single().TitleColor;
-                    TrinketUnlock.GetComponent<TrinketsContext>().SetTitleLook(trinketID, mycolormap[color]); // sets the look in the preview
+                    TrinketUnlock = Instantiate(TrinketUnlockPrefab, Canevas.transform, false);
+                    var title = TrinketMap.ResolveTitle(trinketID);
+                    string color = title.TitleColor;
+                    TrinketUnlock.GetComponent<TrinketsContext>().SetTitleLook(title.ID, mycolormap[color]); // sets the look in the preview
                     TrinketUnlock.GetComponent<TrinketsContext>().SetTitleContext(trinketID);
                 }
 

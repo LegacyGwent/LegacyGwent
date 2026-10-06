@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -251,8 +251,9 @@ public class EnhancedMessageBox : MessageBox
                 titleObject.transform.SetParent(RewardsGridTitles.transform, false);
                 titleObject.GetComponent<RectTransform>().pivot = new Vector2(0.8f, 0.0f);
                 Text titleText = titleObject.transform.GetChild(1).gameObject.GetComponent<Text>();
-                titleText.text = _translator.GetText(title_name+"Name");
-                titleText.color = ColorMap.colormap[Cynthia.Card.TrinketMap.GetTitles().FirstOrDefault(x => x.ID == title_name)?.TitleColor];
+                var resolvedTitle = Cynthia.Card.TrinketMap.ResolveTitle(title_name);
+                titleText.text = _translator.GetText(resolvedTitle.ID + "Name");
+                titleText.color = ColorMap.colormap[resolvedTitle.TitleColor];
                 titleObject.GetComponent<Image>().color = titleText.color;
 
                 titleObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);

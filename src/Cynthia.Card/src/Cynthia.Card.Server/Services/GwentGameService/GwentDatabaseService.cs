@@ -300,17 +300,18 @@ namespace Cynthia.Card.Server
             }
             var decks = new List<DeckModel>();
             var ownedavatars = new List<string>();
+            ownedavatars.Add("NoAvatar");
             ownedavatars.Add("GeraltOfRivia");
             var ownedborders = new List<string>();
             ownedborders.Add("NoBorder");
             var ownedtitles = new List<string>();
-            ownedtitles.Add("NoBorder");
+            ownedtitles.Add("CARDSMITH");
             // DIY-AI reset uses the original master starter deck (the default branch).
             decks.Add(GwentDeck.CreateBasicDeck(0));
 
             var emptyStreak = new List<int[]>() { new int[3], new int[3], new int[3], new int[3], new int[3] };
 
-            var user = new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, HighestMMR = initMMR, OwnedAvatars = ownedavatars, OwnedBorders = ownedborders };
+            var user = new UserInfo { UserName = username, PassWord = password, PlayerName = playername, Decks = decks, MMR = initMMR, HighestMMR = initMMR, OwnedAvatars = ownedavatars, OwnedBorders = ownedborders, OwnedTitles = ownedtitles, CurrentAvatar = "NoAvatar", CurrentBorder = "NoBorder", CurrentTitle = "CARDSMITH" };
             await temp.InsertOneAsync(user);
             return true;
         }

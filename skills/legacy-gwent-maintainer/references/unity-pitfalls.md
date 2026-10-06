@@ -1,6 +1,36 @@
 # Unity client pitfalls
 
-Last verified: 2026-09-30
+Last verified: 2026-10-06
+
+## Fresh or legacy account profile has missing cosmetics
+
+- Symptom: login reaches Game, then `CurrentTrinkets.Update` throws
+  `Sequence contains no elements`; profile notification rendering can dereference
+  a missing `NewlyUnlockedTrinkets`. These managed UI errors alone do not establish
+  an Android native crash or identify the cause of another player's crash.
+- Cause: `Game.unity` left MainCode's unlock prefab and Canvas references empty,
+  so a normal first-login notification dereferenced `Canevas.transform`. Separately,
+  registration omitted equipped cosmetics and owned titles. Login updated
+  Mongo and the online user after reading its response DTO, then returned that
+  stale DTO. Cosmetic UI assumed every saved ID exists in its current catalog;
+  missing/null notification and ownership collections had no shared DTO contract.
+- Fix: bind the real unlock prefab and Canvas in Game; notification prefabs omit
+  progress controls, so the shared progress presenter treats those as optional.
+  Register valid defaults; return a refreshed login/query profile after grants and
+  default selection. `UserInfo` and `NewlyUnlockedTrinkets` map missing/explicit-null
+  collections to empty collections. `TrinketMap.ResolveAvatar/Border/Title` provide
+  presentation defaults for absent or unavailable IDs without changing stored IDs
+  or granting ownership; use them across profile, rank, match and trinket UI.
+- Prevention: verify first login with a login ID different from the display name;
+  compare the final response with persisted defaults. Do not hide missing catalog
+  IDs with per-screen `Single` assumptions or equate metadata preservation with
+  Android AOT coverage.
+- Verification: `UserProfileCompatibilityTests` checks actual serialized scene,
+  prefab and Canvas references and covers fresh/missing/null JSON,
+  old BSON, unavailable IDs, no ownership grants, and preserved valid selections.
+  The pre-fix Android emulator reached the menu with these managed errors. The
+  changed client/server still requires a rebuilt-player fresh-login verification;
+  offline tests do not establish deployment or true-device behavior.
 
 ## New card art loads but its deck-list miniature is missing
 
