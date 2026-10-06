@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,12 +14,11 @@ namespace Assets.Script.DynamicCards
         public const string BundleFile = "cards.bundle";
         public const string BundleIndexFile = "cards.index.json";
 #if UNITY_EDITOR
-        // Source prefabs can stall Unity's main thread for seconds. Keep that path
-        // available for content authoring, but never enter it implicitly in the game UI.
+        // Compatibility: old authoring probes restore false back to Automatic.
         public static bool AllowEditorSourceLoading
         {
-            get { return UnityEditor.EditorPrefs.GetBool("LegacyGwent.DynamicCards.SourceLoading." + Application.dataPath, false); }
-            set { UnityEditor.EditorPrefs.SetBool("LegacyGwent.DynamicCards.SourceLoading." + Application.dataPath, value); }
+            get { return DynamicCardEditorContentPolicy.Mode == DynamicCardEditorContentMode.SourceOnly; }
+            set { DynamicCardEditorContentPolicy.Mode = value ? DynamicCardEditorContentMode.SourceOnly : DynamicCardEditorContentMode.Automatic; }
         }
 #endif
         private static DynamicCardLibrary instance;
@@ -41,6 +40,7 @@ namespace Assets.Script.DynamicCards
         private readonly Dictionary<string, Part> parts = new Dictionary<string, Part>();
         private readonly Dictionary<string, Part> prefabParts = new Dictionary<string, Part>(StringComparer.OrdinalIgnoreCase);
         private bool loading, loaded, failed;
+        private readonly HashSet<string> loadWarnings = new HashSet<string>(StringComparer.Ordinal);
         private readonly List<PendingCard> queue = new List<PendingCard>();
         private bool creating;
         private float nextLoad, interactionUntil;
@@ -166,7 +166,11 @@ namespace Assets.Script.DynamicCards
             while (loading) yield return null;
             DynamicCardEntry entry;
             if (!loaded || string.IsNullOrEmpty(artId) || !entries.TryGetValue(artId, out entry))
-            { complete(null, null, null); yield break; }
+            {
+                if (loaded && !string.IsNullOrEmpty(artId) && loadWarnings.Add("art:" + artId))
+                    Debug.LogWarning("Dynamic card catalog has no entry for requested art=" + artId + ". Static art remains active.");
+                complete(null, null, null); yield break;
+            }
             GameObject prefab=null;AudioClip audio=null;
             Part part = null;
             bool transferred = false;
@@ -198,12 +202,25 @@ namespace Assets.Script.DynamicCards
                     }
                 }
 #if UNITY_EDITOR
-                else
+                if (prefab == null && bundle != null)
+                {
+                    var fallback = DynamicCardEditorContentPolicy.EvaluateSource("card-package-load-failed");
+                    if (fallback.Source == "source")
+                    {
+                        if (loadWarnings.Add("fallback:" + entry.prefab)) Debug.LogWarning(fallback.Message + " art=" + artId + " path=" + entry.prefab);
+                        prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(entry.prefab);
+                        yield return null;
+                        if (withAudio && !string.IsNullOrEmpty(entry.audio)) audio = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(entry.audio);
+                    }
+                }
+                else if (bundle == null)
                 {
                     prefab=UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(entry.prefab);yield return null;
                     if(withAudio && !string.IsNullOrEmpty(entry.audio))audio=UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>(entry.audio);
                 }
 #endif
+                if (prefab == null && loadWarnings.Add(entry.prefab))
+                    Debug.LogWarning("Dynamic card prefab unavailable: art=" + artId + " path=" + entry.prefab + ". Restore source content or rebuild dynamic card packages, then restart Play Mode.");
                 complete(entry, prefab, audio);
                 transferred = prefab != null;
             }
@@ -230,24 +247,14 @@ namespace Assets.Script.DynamicCards
             string json = null;
             string indexJson = null;
 #if UNITY_EDITOR
-            const string editorBundle="Library/DynamicCardsBundles/StandaloneWindows64/cards.bundle";
-            if(File.Exists(editorBundle) && File.Exists(editorBundle+".editor-ready"))
+            var status = DynamicCardEditorContentPolicy.Evaluate();
+            bundleRoot = status.BundleRoot;
+            if (status.Source == "bundles")
             {
-                bundleRoot = Path.GetDirectoryName(editorBundle);
                 yield return OpenBundle(BundleFile, result => bundle = result);
+                if (bundle == null) status = DynamicCardEditorContentPolicy.EvaluateSource("bundle-load-failed");
             }
-            if (bundle == null)
-            {
-                if (AllowEditorSourceLoading)
-                {
-                    Debug.LogWarning("Dynamic cards: source asset loading was explicitly enabled for content development. Synchronous reads may stall the editor. Rebuild packages through Tools > Dynamic Cards > Build Options for asynchronous page loading.");
-                    var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>(CatalogAsset);
-                    if (asset != null) json = asset.text;
-                }
-                else
-                    Debug.LogWarning("Dynamic card package cache is missing or outdated; static art remains active to avoid synchronous editor stalls. Rebuild through Tools > Dynamic Cards > Build Options > 仅构建动态卡资源包, then restart Play Mode.");
-                yield return null;
-            }
+            if (status.Source == "source") json = ReadEditorCatalog();
 #else
             bundleRoot = Path.Combine(Application.streamingAssetsPath, "DynamicCards");
             yield return OpenBundle(BundleFile, result => bundle = result);
@@ -267,10 +274,54 @@ namespace Assets.Script.DynamicCards
                         if (!indexRequest.isNetworkError && !indexRequest.isHttpError) indexJson = indexRequest.downloadHandler.text;
                     }
                 }
-                else if (File.Exists(path)) indexJson = File.ReadAllText(path);
+                else if (File.Exists(path))
+                {
+                    try { indexJson = File.ReadAllText(path); }
+                    catch (Exception exception)
+                    {
+                        // Let catalog validation fail normally (and Auto preview recover).
+                        // A disk read failure must not strand every requester in loading=true.
+                        Debug.LogWarning("Dynamic card package index read failed: " + exception.Message);
+                    }
+                }
             }
+            string error;
+            loaded = TryReadCatalog(json, indexJson, out error);
+#if UNITY_EDITOR
+            if (!loaded && status.Source == "bundles")
+            {
+                if (bundle != null) { bundle.Unload(true); bundle = null; }
+                entries.Clear(); parts.Clear(); prefabParts.Clear();
+                status = DynamicCardEditorContentPolicy.EvaluateSource("bundle-catalog-invalid: " + error);
+                if (status.Source == "source")
+                    loaded = TryReadCatalog(ReadEditorCatalog(), null, out error);
+            }
+            if (loaded && status.Source == "bundles") Debug.Log(status.Message);
+            else Debug.LogWarning(status.Message + (loaded ? "" : " Catalog error: " + error));
+#else
+            if (!loaded && !string.IsNullOrEmpty(error)) Debug.LogWarning("Dynamic card catalog: " + error);
+#endif
+            failed = !loaded;
+            loading = false;
+            if (failed) Debug.LogWarning("Dynamic card content is unavailable; static card art remains active.");
+        }
+
+#if UNITY_EDITOR
+        private static string ReadEditorCatalog()
+        {
+            try { return File.ReadAllText(CatalogAsset); }
+            catch (Exception exception) { Debug.LogWarning("Dynamic card source catalog read failed: " + exception.Message); return null; }
+        }
+#endif
+
+        private bool TryReadCatalog(string json, string indexJson, out string error)
+        {
+            error = null;
             try
             {
+                var catalog = json == null ? null : JsonUtility.FromJson<DynamicCardCatalog>(json);
+                if (catalog == null || catalog.version != 1 || catalog.cards == null || catalog.cards.Length == 0)
+                    throw new InvalidDataException("Missing or unsupported catalog.");
                 if (!string.IsNullOrEmpty(indexJson))
                 {
                     var index = JsonUtility.FromJson<DynamicCardBundleIndex>(indexJson);
@@ -278,24 +329,34 @@ namespace Assets.Script.DynamicCards
                         throw new InvalidDataException("Dynamic card packages need rebuilding with animation dependencies (index v2).");
                     foreach (var item in index.parts)
                     {
-                        if (Path.GetFileName(item.file) != item.file || !item.file.StartsWith("cards-") || !item.file.EndsWith(".bundle"))
-                            throw new InvalidDataException("Invalid dynamic card part filename.");
+                        if (item == null || string.IsNullOrEmpty(item.file) || item.file.Contains("\\") || item.file.Contains("/") || item.file.Contains(":") ||
+                            Path.GetFileName(item.file) != item.file || !item.file.StartsWith("cards-") || !item.file.EndsWith(".bundle") || item.prefabs == null)
+                            throw new InvalidDataException("Invalid dynamic card part filename or mapping.");
                         var part = new Part { File = item.file, ExpectedControllers = item.animationControllers }; parts.Add(item.file, part);
                         foreach (var prefab in item.prefabs) prefabParts.Add(prefab, part);
                     }
                 }
-                var catalog = json == null ? null : JsonUtility.FromJson<DynamicCardCatalog>(json);
-                if (catalog != null && catalog.version == 1 && catalog.cards != null)
-                    foreach (var card in catalog.cards)
-                        if (card.artIds != null)
-                            foreach (var artId in card.artIds)
-                                if (!entries.ContainsKey(artId)) entries.Add(artId, card);
-                loaded = catalog != null;
+#if UNITY_EDITOR
+                if (bundle != null)
+                {
+                    if (string.IsNullOrEmpty(indexJson)) throw new InvalidDataException("Package index is missing.");
+                    var mapped = new HashSet<string>(prefabParts.Keys, StringComparer.OrdinalIgnoreCase);
+                    if (!mapped.SetEquals(Array.ConvertAll(catalog.cards, card => card.prefab)))
+                        throw new InvalidDataException("Package catalog and index disagree.");
+                }
+#endif
+                foreach (var card in catalog.cards)
+                    if (card.artIds != null)
+                        foreach (var artId in card.artIds)
+                            if (!entries.ContainsKey(artId)) entries.Add(artId, card);
+                return true;
             }
-            catch (Exception exception) { Debug.LogWarning("Dynamic card catalog: " + exception.Message); }
-            failed = !loaded;
-            loading = false;
-            if (failed) Debug.LogWarning("Dynamic card content is unavailable; static card art remains active.");
+            catch (Exception exception)
+            {
+                error = exception.Message;
+                entries.Clear(); parts.Clear(); prefabParts.Clear();
+                return false;
+            }
         }
 
         private IEnumerator OpenPart(Part part)

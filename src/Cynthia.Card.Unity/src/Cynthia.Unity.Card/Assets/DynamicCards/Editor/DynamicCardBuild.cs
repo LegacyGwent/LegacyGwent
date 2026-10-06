@@ -208,10 +208,11 @@ namespace Assets.Script.DynamicCards.Editor
                 Debug.Log("Dynamic card bundle: " + Path.GetFullPath(path));
             }
             EditorGUILayout.Space();
-            bool sourceLoading = EditorGUILayout.Toggle("开发用：允许同步读取原资源", DynamicCardLibrary.AllowEditorSourceLoading);
-            if (sourceLoading != DynamicCardLibrary.AllowEditorSourceLoading) DynamicCardLibrary.AllowEditorSourceLoading = sourceLoading;
-            if (sourceLoading)
-                EditorGUILayout.HelpBox("仅用于素材调试：缓存不可用时直接读取工程资源，可能导致收藏界面长时间停顿。修改后重新进入 Play Mode 生效。", MessageType.Warning);
+            var mode = DynamicCardEditorContentPolicy.Mode;
+            var selected = (DynamicCardEditorContentMode)EditorGUILayout.EnumPopup("Editor 预览来源", mode);
+            if (selected != mode) DynamicCardEditorContentPolicy.Mode = selected;
+            EditorGUILayout.HelpBox("Automatic：完整缓存优先，缓存失效时用源资源预览；BundlesOnly：仅缓存，用于性能和资源包验收；SourceOnly：强制源预览。源读取可能停顿，修改后重新进入 Play Mode。", MessageType.Info);
+            if (GUILayout.Button("检查当前预览状态")) DynamicCardEditorPreflight.Open();
         }
     }
 }
