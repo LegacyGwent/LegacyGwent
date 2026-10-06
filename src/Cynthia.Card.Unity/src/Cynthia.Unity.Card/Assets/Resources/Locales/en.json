@@ -2419,7 +2419,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Swap a card, then Swap a second one.",
+            "Info": "Swap a card, then repeat this ability.",
             "Flavor": "Better to live one day as a king than a whole life as a beggar."
         },
         "43003": {
@@ -4319,7 +4319,7 @@
         },
         "70194": {
             "Name": "Wraith Sorcerer",
-            "Info": "At game start, change this unit's Lock status. Every 2 allied turns, if its Power is at least 3, repeat this effect.",
+            "Info": "At the start of the match, toggle this unit’s Lock. Every 2 turns, at turn start, if its power is at least 3, repeat this ability.",
             "Flavor": ""
         },
         "70195": {
@@ -4349,7 +4349,7 @@
         },
         "70200": {
             "Name": "Egmond",
-            "Info": "Remove the Boost from an allied unit and damage an enemy by the power it lost. If the target is destroyed, or this unit is Boosted during your turn, repeat this ability at turn end.",
+            "Info": "Remove the Boost from an ally and damage an enemy by the power it lost. Every 2 turns, at turn end, repeat this ability.",
             "Flavor": ""
         },
         "70201": {
@@ -4389,12 +4389,12 @@
         },
         "70208": {
             "Name": "Gaetan",
-            "Info": "Damage all other allied units on this row by 1. If the opposing row has more units than this unit’s base power, deal damage equal to the difference and repeat once for each other unit on this row.",
+            "Info": "Damage other allies on this row by 1. If the opposing row has more units than this unit’s base power, deal damage equal to the difference and repeat twice. Repeat once more for every 2 other units on this row.",
             "Flavor": ""
         },
         "70209": {
             "Name": "Brehen",
-            "Info": "Damage all other allied units on this row by 1, then Strengthen self by half the number of units on this row. If the opposing row has fewer units than this unit’s base power, damage every unit there by the difference.",
+            "Info": "Damage other allies on this row by 1. If the opposing row has fewer units than this unit’s base power, damage all units on that row by the difference. Increase this damage by 1 for every 2 other units on this row.",
             "Flavor": ""
         },
         "70210": {

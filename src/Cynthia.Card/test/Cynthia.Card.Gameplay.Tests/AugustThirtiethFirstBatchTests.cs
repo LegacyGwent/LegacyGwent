@@ -29,7 +29,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task EgmondSchedulesARepeatWhenItsDamageDestroysTheTarget()
+        public async Task EgmondKillDoesNotAccelerateFirstTurnRepeat()
         {
             var fixture = new HeadlessGameFixture();
             var ally = fixture.AddCard(
@@ -51,84 +51,38 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(0, egmond.Status.HealthStatus);
             Assert.Equal(0, secondEnemy.Status.HealthStatus);
             Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
+            ally.Status.HealthStatus = 2;
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
+            Assert.Equal(0, secondEnemy.Status.HealthStatus);
+            Assert.Equal(1, egmond.Status.Countdown);
         }
 
         [Fact]
-        public async Task EgmondTurnEndKillRewardDoesNotQueueOrCarryAnotherRepeat()
+        public async Task EgmondCountsOnlyUnlockedOwnerTurnsAndResetsAfterTwo()
         {
-            var fixture = new HeadlessGameFixture();
-            var ally = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 5);
-            ally.Status.HealthStatus = 5;
-            var egmond = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Egmond, RowPosition.MyRow2);
-            var firstEnemy = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 4);
-            var secondEnemy = fixture.AddCard(
-                fixture.Game.Player2Index, CardId.ArachasHatchling, RowPosition.MyRow2, 8);
-            fixture.Game.GameRound = (TwoPlayer)fixture.Game.Player1Index;
-            await fixture.SynchronizeClientsAsync();
-
-            await fixture.Game.AddTask(() => egmond.Effect.Boost(1, ally));
-            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
-
-            Assert.False(firstEnemy.Status.CardRow.IsOnPlace());
-            Assert.Equal(0, secondEnemy.Status.HealthStatus);
-            Assert.Equal(1, egmond.Status.HealthStatus);
-            Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
-
-            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
-
-            Assert.Equal(2, fixture.FirstPlayer.PlaceSelectionSources.Count);
-            Assert.Equal(0, secondEnemy.Status.HealthStatus);
-        }
-
-        [Fact]
-        public async Task EgmondOwnerTurnBoostsWaitUntilTurnEndAndRepeatOnlyOnce()
-        {
-            var ownTurn = new HeadlessGameFixture();
-            var ally = ownTurn.AddCard(
-                ownTurn.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 5);
-            ally.Status.HealthStatus = 3;
-            var egmond = ownTurn.AddCard(
-                ownTurn.Game.Player1Index, CardId.Egmond, RowPosition.MyRow2);
-            var enemy = ownTurn.AddCard(
-                ownTurn.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 10);
-            ownTurn.Game.GameRound = (TwoPlayer)ownTurn.Game.Player1Index;
-            await ownTurn.SynchronizeClientsAsync();
-
-            await ownTurn.Game.AddTask(() => egmond.Effect.Boost(1, ally));
-            await ownTurn.Game.AddTask(() => egmond.Effect.Boost(1, ally));
-
-            Assert.Equal(3, ally.Status.HealthStatus);
+            var f = new HeadlessGameFixture();
+            var ally = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 5);
+            var egmond = f.AddCard(f.Game.Player1Index, CardId.Egmond, RowPosition.MyDeck);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            f.Game.GameRound = (TwoPlayer)f.Game.Player1Index;
+            await f.SynchronizeClientsAsync();
+            // Direct summon bypasses Deploy: printed Countdown still starts at two.
+            await egmond.Effect.Summon(new CardLocation(RowPosition.MyRow2, 0), egmond);
+            await f.Game.AddTask(() => egmond.Effect.Boost(1, ally));
+            ally.Status.HealthStatus = 4;
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player2Index));
+            Assert.Equal(2, egmond.Status.Countdown);
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
+            Assert.Equal(1, egmond.Status.Countdown);
             Assert.Equal(0, enemy.Status.HealthStatus);
-            Assert.Empty(ownTurn.FirstPlayer.PlaceSelectionSources);
-
-            await ownTurn.Game.SendEvent(new AfterTurnOver(ownTurn.Game.Player1Index));
-
+            egmond.Status.IsLock = true;
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
+            Assert.Equal(1, egmond.Status.Countdown);
+            egmond.Status.IsLock = false;
+            await f.Game.SendEvent(new AfterTurnOver(f.Game.Player1Index));
+            Assert.Equal(-4, enemy.Status.HealthStatus);
+            Assert.Equal(2, egmond.Status.Countdown);
             Assert.Equal(0, ally.Status.HealthStatus);
-            Assert.Equal(-3, enemy.Status.HealthStatus);
-            Assert.Equal(2, egmond.Status.HealthStatus);
-            Assert.Equal(2, ownTurn.FirstPlayer.PlaceSelectionSources.Count);
-
-            var enemyTurn = new HeadlessGameFixture();
-            var untouchedAlly = enemyTurn.AddCard(
-                enemyTurn.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 5);
-            untouchedAlly.Status.HealthStatus = 3;
-            var passiveEgmond = enemyTurn.AddCard(
-                enemyTurn.Game.Player1Index, CardId.Egmond, RowPosition.MyRow2);
-            var untouchedEnemy = enemyTurn.AddCard(
-                enemyTurn.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 10);
-            enemyTurn.Game.GameRound = (TwoPlayer)enemyTurn.Game.Player2Index;
-            await enemyTurn.SynchronizeClientsAsync();
-
-            await enemyTurn.Game.AddTask(() => passiveEgmond.Effect.Boost(1, untouchedAlly));
-            await enemyTurn.Game.SendEvent(new AfterTurnOver(enemyTurn.Game.Player1Index));
-
-            Assert.Equal(3, untouchedAlly.Status.HealthStatus);
-            Assert.Equal(0, untouchedEnemy.Status.HealthStatus);
-            Assert.Equal(1, passiveEgmond.Status.HealthStatus);
-            Assert.Empty(enemyTurn.FirstPlayer.PlaceSelectionSources);
         }
 
         [Fact]

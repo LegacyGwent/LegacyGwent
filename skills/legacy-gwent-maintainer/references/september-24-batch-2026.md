@@ -28,10 +28,7 @@ Last verified: 2026-09-29
   `34004:2`, `34024:2`, `44001:4`, `44003:3`, `44006:4`, `44009:2`,
   `44010:2`, `44013:2`, `44024:1`, and `64022:2`. Do not execute the whole
   Deploy ability merely to restore printed Armor.
-- Egmond removes only positive Boost from the chosen ally. Destroying the
-  damage target schedules one repeat at the owner's turn end, as does Egmond
-  receiving Boost during its owner's turn. A turn-end repeat cannot schedule
-  another repeat.
+- Egmond's kill/Boost repeat triggers are superseded by the October 7 two-owner-turn Countdown.
 - Lyrian Arbalest can target either side. It damages a lower-power target by the
   difference with normal Armor interaction; a target at least as strong loses
   all Armor and no power.
@@ -52,6 +49,6 @@ Last verified: 2026-09-29
   [September 29](september-29-batch-2026.md). Cat School Witcher Thug moves two
   enemies to the opposing row, then chooses a damage target anywhere on the
   board for each of its two hits; it recounts the opposing row before each hit.
-  Brehen's revised Strengthen rule is in the September 29 reference.
+  Brehen's Strengthen was removed in the October 7 batch.
 - Dwarf Berserker's Deploy selects only two allied units to move into its row.
   When it moves, a random lowest-power allied unit in its new row gains 2 Boost.

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 208);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 209);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -6806,7 +6806,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Temeria},
                     Flavor = "宁似帝王快活一天，强如乞丐苟活一世。",
-                    Info = "交换1张牌，然后交换第二张牌。",
+                    Info = "交换1张牌，随后重复此能力。",
                     CardArtsId = "12220400",
                     LinkedCards=new List<String> {},
                 }
@@ -15435,7 +15435,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Mage, Categorie.Cursed },
                     Flavor = "",
-                    Info = "对局开始时，改变自身的锁定状态。每2回合开始时，若战力不小于3，重复此效果。",
+                    Info = "对局开始时，改变自身的锁定状态。每2回合开始时，若战力不小于3，重复此能力。",
                     CardArtsId = "c10002300",
                     LinkedCards = new List<String> {},
                 }
@@ -15558,11 +15558,12 @@ namespace Cynthia.Card
                     CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = false,
+                    IsCountdown = true,
+                    Countdown = 2,
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "",
-                    Info = "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。若摧毁目标，或在己方回合中获得增益，回合结束时重复此能力。",
+                    Info = "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。每2回合结束时，重复此能力。",
                     CardArtsId = "202648",
                     LinkedCards = new List<String> {},
                 }
@@ -15689,7 +15690,7 @@ namespace Cynthia.Card
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
-                    Info = "对同排其它友军单位造成1点伤害。若对方同排单位总数高于自身基础战力，造成差值的伤害，所在排每有1个其他单位便额外重复1次。",
+                    Info = "对同排其它友军单位造成1点伤害。若对方同排单位总数高于自身基础战力，造成差值的伤害，并重复2次。所在排每有2个其它单位便额外重复1次。",
                     CardArtsId = "202805", LinkedCards = new List<String> {},
                 }
             },
@@ -15697,11 +15698,11 @@ namespace Cynthia.Card
                 "70209",//布雷恩 Brehen
                 new GwentCard()
                 {
-                    CardId = "70209", Name = "布雷恩", Strength = 6, Group = Group.Silver,
+                    CardId = "70209", Name = "布雷恩", Strength = 7, Group = Group.Silver,
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
-                    Info = "对同排其它友军单位造成1点伤害，获得同排单位数量一半的强化。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
+                    Info = "对同排其它友军单位造成1点伤害。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。所在排每有2个其它单位便额外提高1点伤害。",
                     CardArtsId = "202804", LinkedCards = new List<String> {},
                 }
             },

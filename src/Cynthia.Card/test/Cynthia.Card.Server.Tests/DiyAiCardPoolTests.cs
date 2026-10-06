@@ -17,6 +17,34 @@ namespace Cynthia.Card.Server.Tests
     public class DiyAiCardPoolTests
     {
         [Fact]
+        public void OctoberSeventhBatchPreservesIdentityAndMatchesAllLocaleSurfaces()
+        {
+            Assert.Equal(new Version(1, 0, 0, 209), GwentMap.CardMapVersion);
+            Assert.Equal(7, GwentMap.CardMap[CardId.Brehen].Strength);
+            Assert.True(GwentMap.CardMap[CardId.Egmond].IsCountdown);
+            Assert.Equal(2, GwentMap.CardMap[CardId.Egmond].Countdown);
+            var ids = new[] { "70194", "70200", "70208", "70209", "43002" };
+            var roots = new[] {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales"
+            };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile(root + "/" + language + ".json")))).ToArray();
+                foreach (var id in ids)
+                {
+                    Assert.True(DiyAiCardPool.IsUserDeckCard(id));
+                    Assert.False(GwentMap.CardMap[id].IsDerive);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locales[1].CardLocales[id].Info);
+                    Assert.Equal(locales[0].CardLocales[id].Info, locales[2].CardLocales[id].Info);
+                    if (language == "cn") Assert.Equal(GwentMap.CardMap[id].Info, locales[0].CardLocales[id].Info);
+                }
+            }
+        }
+
+        [Fact]
         public void ResetPoolRetiresOnlyDiyCardsAndPreservesSystemCards()
         {
             Assert.Equal(37, DiyAiCardPool.RetiredCardIds.Count);
@@ -48,7 +76,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 208), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 209), GwentMap.CardMapVersion);
             Assert.Equal(737, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -141,7 +169,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal("欧菲丽·凡·莫拉汉姆", GwentMap.CardMap[CardId.OphelieVanMoorlehem].Name);
             Assert.Equal("在己方回合中，被隐匿时获得4点增益，随后揭示自身。免疫。",
                 GwentMap.CardMap[CardId.VanMoorlehemServant].Info);
-            Assert.Equal("对同排其它友军单位造成1点伤害，获得同排单位数量一半的强化。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。",
+            Assert.Equal("对同排其它友军单位造成1点伤害。若对方同排单位总数低于自身基础战力，使对方同排所有单位受到差值的伤害。所在排每有2个其它单位便额外提高1点伤害。",
                 GwentMap.CardMap[CardId.Brehen].Info);
 
             var ids = new[] { CardId.VanMoorlehemServant, CardId.Brehen };
@@ -864,7 +892,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(Categorie.Soldier, egmond.Categories);
             Assert.Equal("202648", egmond.CardArtsId);
             Assert.Equal(
-                "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。若摧毁目标，或在己方回合中获得增益，回合结束时重复此能力。",
+                "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。每2回合结束时，重复此能力。",
                 egmond.Info);
 
             Assert.Equal(
