@@ -34,6 +34,7 @@ Read this file first, then load only the rows relevant to the task.
 | Linux server, SSH, systemd, CI/CD, rollback | [operations.md](operations.md) | Stable and DIY-AI operations |
 | Runtime packages, vulnerability audits, upgrade paths | [dependencies.md](dependencies.md) | Supported pins and phased security upgrades |
 | Unity startup, runtime localization, platform launch | [unity-pitfalls.md](unity-pitfalls.md) | Unity runtime root causes and verified remedies |
+| Android login, IL2CPP AOT, ambiguous rebuilt APKs | [android-login.md](android-login.md) | Exact missing generic signatures, shared converters, device and delivery acceptance |
 | Unity CI, packaging, versions, release artifacts | [unity-release-pitfalls.md](unity-release-pitfalls.md) | Unity release root causes and verified remedies |
 | Premium source delivery, package capabilities, Android variants | [premium-delivery.md](premium-delivery.md) | Versioned sources, standard/premium contracts, signing and verification boundaries |
 | Branches, worktrees, PR integration, workflow triggers | [integration-pitfalls.md](integration-pitfalls.md) | Integration drift and automation traps |
