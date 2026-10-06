@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-09-29
+Last verified: 2026-10-06
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -8,6 +8,7 @@ Read this file first, then load only the rows relevant to the task.
 | --- | --- | --- |
 | Components, source ownership, runtime flow | [architecture.md](architecture.md) | Repository layout and component boundaries |
 | Accounts, cards, decks, AI, matchmaking | [business-rules.md](business-rules.md) | Verified gameplay and domain behavior |
+| Season notifications, offline backlog, acknowledgement loops | [account-messages.md](account-messages.md) | Account ownership, monotonic IDs, atomic queues, Unity async dispatch |
 | Blacklist, ordinary/premium card rows, deck counts | [deck-editing.md](deck-editing.md) | Identity-based bans, shared copy limits, package-aware presentation |
 | Card identity, selected DIY effects, balance variants, generate rules | [card-rules.md](card-rules.md) | Verified card-specific behavior |
 | August 5-6 Monster card batches | [monster-batches-august-2026.md](monster-batches-august-2026.md) | Restored pool, effects, and edge conditions |

@@ -52,6 +52,8 @@ public class MainCode : MonoBehaviour
         //_ = AutoTest();
         _globalUIService = DependencyResolver.Container.Resolve<GlobalUIService>();
         _messagesReaderService = DependencyResolver.Container.Resolve<ClientMessagesReaderService>();
+        // The reader is a singleton; returning after another login must also check the queue.
+        _ = _messagesReaderService.CheckMessages();
 
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
 

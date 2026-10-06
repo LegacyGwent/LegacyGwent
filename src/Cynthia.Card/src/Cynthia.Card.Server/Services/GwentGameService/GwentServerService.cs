@@ -349,11 +349,11 @@ namespace Cynthia.Card.Server
             return true;
         }
 
-        public async Task<bool> SendSeasonEndMessage(string username, IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName)
+        public async Task<bool> SendSeasonEndMessage(string playername, IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName)
         {
-            if (_users.Any(x => x.Value.PlayerName == username))
+            if (_users.Any(x => x.Value.PlayerName == playername))
             {
-                var connectionId = _users.Single(x => x.Value.PlayerName == username).Value.ConnectionId;
+                var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
                 if (!_users.ContainsKey(connectionId))
                 {
                     return false;
@@ -365,7 +365,7 @@ namespace Cynthia.Card.Server
             {
                 //not logged
                 var message = new UserSeasonEndMessage("DisplaySeasonEndMessage", avatars, borders, titles, mmrBeforeReset, rank, seasonName);
-                await _databaseService.SaveUserMessage(username, message);
+                await _databaseService.SaveUserMessage(playername, message);
                 
             }
             return false;
@@ -1395,8 +1395,15 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
 
         public async Task<SeasonInfo> GetSeasonData(bool active = true, int id = 0) => await _databaseService.QuerySeasonData(active, id);
-        public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
-        public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
+        // Message ownership comes from the authenticated connection, not wire-supplied names.
+        public IList<string> GetUserMessages(string connectionId) =>
+            _users.TryGetValue(connectionId, out var user)
+                ? _databaseService.QueryUserMessages(user.UserName)
+                : new List<string>();
+        public Task<bool> RemoveUserMessage(string connectionId, string expectedUsername, int messageId) =>
+            _users.TryGetValue(connectionId, out var user) && user.UserName == expectedUsername
+                ? _databaseService.RemoveUserMessage(user.UserName, messageId)
+                : Task.FromResult(false);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);
         public IList<Tuple<string, string, string, string, int, int, IList<int[]>>> GetAllMMRExtended(int offset, int limit) => _databaseService.QueryAllMMRExtended(offset, limit);

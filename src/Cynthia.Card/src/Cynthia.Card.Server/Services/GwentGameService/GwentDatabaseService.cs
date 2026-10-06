@@ -506,11 +506,10 @@ namespace Cynthia.Card.Server
             var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
             return user.Length > 0 ? new Tuple<int, int>(user[0].MMR, user[0].HighestMMR) : new Tuple<int, int>(0, 0);
         }
-        public IList<string> QueryUserMessages(string playername)
+        public IList<string> QueryUserMessages(string username)
         {
-            var temp = GetUserInfo();
-            var user = temp.AsQueryable().Where(x => x.PlayerName == playername).ToArray();
-            return user.Length > 0 ? user[0].UserMessages : new List<string>();
+            var user = GetUserInfo().Find(x => x.UserName == username).FirstOrDefault();
+            return user?.UserMessages ?? new List<string>();
         }
 
         public int[] QueryStreak(string playername, int factionId = -1)
@@ -892,62 +891,74 @@ namespace Cynthia.Card.Server
             await GetUserInfo().UpdateOneAsync(filter, update);
         }
 
-        public async Task<bool> SaveUserMessage(string username, UserMessage message)
+        // Season settlement addresses a player name; message reads/acks address a login name.
+        public async Task<bool> SaveUserMessage(string playername, UserMessage message)
         {
-            var temp = GetUserInfo();
-            var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
-            var user = await temp.Find(filter).FirstOrDefaultAsync();
+            if (!(message is UserSeasonEndMessage seasonEndMessage)) return false;
+            var users = GetUserInfo();
+            var user = await users.Find(x => x.PlayerName == playername).FirstOrDefaultAsync();
+            if (user == null) return false;
 
-            if (user != null)
+            // Keep IDs beyond an emptied queue without changing the legacy user-document schema.
+            // $max also seeds the counter from pre-existing messages on the first upgraded write.
+            var counters = GetDatabase().GetCollection<BsonDocument>("usermessagecounters");
+            var counterFilter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
+            await SeedUserMessageCounter(user);
+            var counter = await counters.FindOneAndUpdateAsync(counterFilter,
+                Builders<BsonDocument>.Update.Inc("Sequence", 1),
+                new FindOneAndUpdateOptions<BsonDocument> { ReturnDocument = ReturnDocument.After });
+            message.MessageId = checked((int)counter["Sequence"].ToInt64());
+            string condensedMessage = $"UserSeasonEndMessage|{message.MessageId}|{string.Join(",", seasonEndMessage.avatars)}|{string.Join(",", seasonEndMessage.borders)}|{string.Join(",", seasonEndMessage.titles)}|{seasonEndMessage.mmrBeforeReset}|{seasonEndMessage.rank}|{seasonEndMessage.seasonName}";
+
+            // Atomic append handles legacy null/missing arrays and cannot overwrite an ack or sender.
+            var append = new BsonDocument("$set", new BsonDocument("UserMessages",
+                new BsonDocument("$concatArrays", new BsonArray
+                {
+                    new BsonDocument("$ifNull", new BsonArray { "$UserMessages", new BsonArray() }),
+                    new BsonArray { condensedMessage }
+                })));
+            var result = await users.UpdateOneAsync(x => x.Id == user.Id,
+                new PipelineUpdateDefinition<UserInfo>(new[] { append }));
+            return result.IsAcknowledged && result.MatchedCount == 1;
+        }
+
+        private async Task SeedUserMessageCounter(UserInfo user)
+        {
+            var counters = GetDatabase().GetCollection<BsonDocument>("usermessagecounters");
+            var counterFilter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
+            var existingMax = (user.UserMessages ?? new List<string>())
+                .Where(x => x != null).Select(x => x.Split('|').ElementAtOrDefault(1))
+                .Select(x => int.TryParse(x, out var id) ? id : 0).DefaultIfEmpty(0).Max();
+            try
             {
-                int newMessageId;
-                if (user.UserMessages == null || !user.UserMessages.Any())
-                {
-                    user.UserMessages = new List<string>();
-                    newMessageId = 1;
-                }
-                else
-                {
-                    newMessageId = UserMessage.ReCreateMessage(user.UserMessages.Last()).MessageId + 1;
-                }
-                message.MessageId = newMessageId;
-
-                if (message is UserSeasonEndMessage seasondEndMsg)
-                {
-                    string condensedMessage = $"UserSeasonEndMessage|{seasondEndMsg.MessageId.ToString()}|{string.Join(",", seasondEndMsg.avatars)}|{string.Join(",", seasondEndMsg.borders)}|{string.Join(",", seasondEndMsg.titles)}|{seasondEndMsg.mmrBeforeReset}|{seasondEndMsg.rank}|{seasondEndMsg.seasonName}";
-
-                    user.UserMessages.Add(condensedMessage);
-                    var update = Builders<UserInfo>.Update.Set(x => x.UserMessages, user.UserMessages);
-                    await temp.UpdateOneAsync(filter, update);
-                }
-                return true;
+                await counters.UpdateOneAsync(counterFilter,
+                    Builders<BsonDocument>.Update.Max("Sequence", existingMax),
+                    new UpdateOptions { IsUpsert = true });
             }
-            return false;
+            catch (MongoWriteException exception) when (exception.WriteError.Category == ServerErrorCategory.DuplicateKey)
+            {
+                // Another sender created this account's counter concurrently.
+                await counters.UpdateOneAsync(counterFilter,
+                    Builders<BsonDocument>.Update.Max("Sequence", existingMax));
+            }
         }
 
         public async Task<bool> RemoveUserMessage(string username, int messageToRemoveId)
         {
-            var temp = GetUserInfo();
-            var filter = Builders<UserInfo>.Filter.Eq(x => x.UserName, username);
-            var user = await temp.Find(filter).FirstOrDefaultAsync();
-            if (user != null)
-            {
-                var messages = user.UserMessages;
-
-                foreach (var codedMessage in messages)
-                {
-                    if (UserMessage.ReCreateMessage(codedMessage).MessageId == messageToRemoveId)
-                    {
-                        messages.Remove(codedMessage);
-                        var update = Builders<UserInfo>.Update.Set(x => x.UserMessages, messages);
-                        await temp.UpdateOneAsync(filter, update);
-                        break;
-                    }
-                }
-            }
-            return false;
+            if (messageToRemoveId <= 0) return false;
+            // Match the envelope ID directly: unrelated/unknown payloads need not deserialize.
+            var messageFilter = new BsonDocumentFilterDefinition<string>(new BsonDocument("$regex",
+                $"^[^|]+\\|{messageToRemoveId}\\|"));
+            var users = GetUserInfo();
+            var user = await users.Find(x => x.UserName == username).FirstOrDefaultAsync();
+            if (user == null) return false;
+            // Seed before removing the last legacy message, even if no upgraded sender has run yet.
+            await SeedUserMessageCounter(user);
+            if (user.UserMessages == null) return true;
+            var result = await users.UpdateOneAsync(x => x.Id == user.Id,
+                Builders<UserInfo>.Update.PullFilter(x => x.UserMessages, messageFilter));
+            // An already-removed message is a successful idempotent acknowledgement.
+            return result.IsAcknowledged && result.MatchedCount == 1;
         }
-        
     }
-    
 }

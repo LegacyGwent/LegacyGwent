@@ -193,8 +193,8 @@ namespace Cynthia.Card.Server
         }*/
 
 
-        public IList<string> GetUserMessages(string playername) => _gwentServerService.GetUserMessages(playername);
-        public Task<bool> RemoveUserMessage(string username, int messageId) => _gwentServerService.RemoveUserMessage(username, messageId);
+        public IList<string> GetUserMessages(string playername) => _gwentServerService.GetUserMessages(Context.ConnectionId);
+        public Task<bool> RemoveUserMessage(string username, int messageId) => _gwentServerService.RemoveUserMessage(Context.ConnectionId, username, messageId);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type) => _gwentServerService.GetSeasonRewards(seasonID, type);
 
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _gwentServerService.GetAllMMR(offset, limit);
