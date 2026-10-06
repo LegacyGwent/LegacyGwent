@@ -1,7 +1,6 @@
 # Premium source delivery and package variants
 
 Last verified: 2026-10-07
-
 ## Clean-checkout source delivery
 
 - Symptom: premium builds work only in the asset-rich authoring checkout.
@@ -25,7 +24,6 @@ Last verified: 2026-10-07
   sizes/digests match the manifest; one unauthenticated public download also
   matched its local hash. Local restore alone is not proof of remote availability;
   publishing verifies the final remote inventory before making its draft visible.
-
 ## Resuming an interrupted source publication
 
 - Symptom: the tag endpoint returns 404 for a draft, or an interrupted asset
@@ -51,7 +49,6 @@ Last verified: 2026-10-07
   returned digest matched; real chunk reassembly reproduced a 590 MB ZIP hash.
   Regression fixtures cover transient read retries, no blind creation retries,
   and preservation of the intended tag when a resumed draft is published.
-
 ## Platform and content are independent build dimensions
 
 - Symptom: a standard package exposes crafting it cannot render, or Android
@@ -86,11 +83,9 @@ Last verified: 2026-10-07
   completion path remain unverified. Public `v2.1.10` now contains Windows ZIP
   (2011551690 bytes, SHA-256 `fc09c959410823b5c6dfdd9b4bbd34d2762b57a55be5b6be5c6a28535442f8df`)
   and Android 7z (2075248944 bytes, SHA-256 `46e51299c3b99e1449b9d3c4b0bbad3a7c70c8ee7f10a1f75b128be07dc9d93a`).
-  Integrity checks and GitHub digests match; unauthenticated range downloads
-  return HTTP206. Final Android Deflate ZIP exceeded GitHub's 2 GiB asset limit;
-  LZMA2 7z retains the same tested APK while meeting the actual size gate.
-  Users must extract before installing. Old defective draft APK assets were
-  removed before publication, and redundant tag-trigger builds were cancelled.
+  Integrity/GitHub digests match; public range downloads return HTTP206.
+  Deflate ZIP exceeded 2 GiB; 7z retains the tested APK below the size limit.
+  Extract before installing; defective draft assets/duplicate builds were removed.
 - CI also runs the Mongo-backed crafting, daily, GG, same-opponent and combined
   reward suites against an isolated MongoDB 4.4.29 instance. Run the combined
   suite using `dotnet RewardSystemTest.dll <repo> <results> 127.0.0.1`, not the
@@ -104,7 +99,6 @@ Last verified: 2026-10-07
   fresh ID on each test run, and tolerate an absent wallet while polling its
   background creation. Reusing a fixed job ID falsely suppresses the reward
   for a newly generated test user on later runs.
-
 ## Successful player build omits static Addressables content
 
 - Symptom: Unity exits zero and premium verification succeeds, yet static
@@ -136,7 +130,6 @@ Last verified: 2026-10-07
   bundle integrity, address resolution, rendering or IL2CPP AOT correctness;
   those need independent packaged-player/device evidence. The final `d5edd7df9`
   AVD rendering acceptance above supplies that bounded observation.
-
 ## Signing and runner prerequisites
 
 - Symptom: a valid APK cannot replace an installed version, or CI fails before
@@ -166,7 +159,6 @@ Last verified: 2026-10-07
   and actual old/new client gameplay. Static Roslyn compilation does not run
   IL2CPP or compile Android shaders. Phone memory/visual acceptance remains
   required even with low-quality render targets and texture overrides.
-
 ## Custom Unity build succeeds but GameCI rejects the action
 
 - Symptom: Unity exits successfully and the executable, content marker and
@@ -185,7 +177,6 @@ Last verified: 2026-10-07
   the production reporting template using both zero-error and nonzero-error
   report fixtures, then applies the pinned parser shape. A successful rerun
   and artifact verification are still required to prove the live fix.
-
 ## Inspecting long first builds
 
 - Symptom: a cold Unity upgrade stays in the builder step much longer than a
