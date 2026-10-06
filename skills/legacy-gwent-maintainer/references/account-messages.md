@@ -1,6 +1,6 @@
 # Account message queues
 
-Last verified: 2026-10-06
+Last verified: 2026-10-07
 
 ## Season confirmation loops
 
@@ -35,6 +35,11 @@ Last verified: 2026-10-06
   compiles the production Unity reader against minimal UI/transport fakes and
   covers delayed acknowledgements, reentry, failed acknowledgement, Standby
   events, account changes, and immediate live dispatch.
+  The final `d5edd7df9` Android APK on the API35 translated-ARM64 AVD displayed
+  and individually confirmed three synthetic no-rank notices (IDs 801-803).
+  The Mongo queue ended empty with counter `Sequence=803`, without repeated
+  popups or exceptions in that session. This verifies the real packaged-client
+  path for that sequence; physical phones and the Windows UI remain untested.
 
 ## IDs across empty queues and upgrades
 

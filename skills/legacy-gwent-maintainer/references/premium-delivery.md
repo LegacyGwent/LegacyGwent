@@ -70,6 +70,21 @@ Last verified: 2026-10-07
   static Addressables settings/catalog and their referenced local bundles,
   premium partition membership and ARM64. Fixtures prove gate behavior, not
   real APK success. `RewardClientTest` covers capability/deck/preference rules.
+  The final local `d5edd7df9` selective-cache premium Android APK is 2,378,080,073
+  bytes, version 2.1.10/code 2001010, ARMv7/ARM64, with the same `cf51` signing
+  certificate prefix and a successful in-place install. Source/hash receipt:
+  `D:/LegacyGwentBuildArchive/ai-diy-2026-10-07/premium-local-oct6-addressables-selectiveCache-d5edd7df9/Android/build-receipt.json`.
+  On the API35 translated-ARM64 AVD, fresh registration/login, first Yen/Triss
+  reward rendering/confirmation, cleared reward arrays, card sprites and deck
+  editor succeeded. A synthetic Whispering Hillock premium craft cost 1000 dust;
+  enabling Graphics flash-card quality `Low` (default `Off`) rendered animation.
+  `outputs/emulator-oct6-d5-render1.png` and `render2.png` show changed animation
+  positions; the final observed session had no exceptions. Three individually
+  confirmed no-rank notices drained their queue (see `account-messages.md`).
+  Windows `3fbbc738c` has only artifact/static-content acceptance; its native UI,
+  physical phones, explicitly observed borders and the exact missing-address
+  completion path remain unverified. Local acceptance does not establish public
+  delivery; the release archive/upload was still pending at this verification.
 - CI also runs the Mongo-backed crafting, daily, GG, same-opponent and combined
   reward suites against an isolated MongoDB 4.4.29 instance. Run the combined
   suite using `dotnet RewardSystemTest.dll <repo> <results> 127.0.0.1`, not the
@@ -113,7 +128,8 @@ Last verified: 2026-10-07
   settings/catalog/bundles, wrong platform, unrelated replacement bundles,
   compressed IDs, remote URLs and both variants. Presence checks do not prove
   bundle integrity, address resolution, rendering or IL2CPP AOT correctness;
-  those remain packaged-player/device acceptance gates.
+  those need independent packaged-player/device evidence. The final `d5edd7df9`
+  AVD rendering acceptance above supplies that bounded observation.
 
 ## Signing and runner prerequisites
 

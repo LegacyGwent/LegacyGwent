@@ -32,11 +32,14 @@ Last verified: 2026-10-07
   entire static `assets/aa` payload after an Addressables preprocessing move
   exception; the artifact contract and separate fix are in `premium-delivery.md`.
   Restoring payload and preserving constructors are independent requirements.
-  Static XML/package checks establish
-  that the fix covers the two runtime assemblies. A rebuilt Android IL2CPP player
-  must verify initialization, avatar/border/reward/card sprites, and the completed
-  operation path for an unavailable address without another constructor error.
-  No rebuilt-player/device acceptance is established by the source change.
+  The final `d5edd7df9` selective-cache APK passed in-place installation and
+  login/main-scene loading on the API35 translated-ARM64 AVD. A disposable fresh
+  registration/login rendered and confirmed Yen/Triss first rewards, then emptied
+  the new-reward arrays. Card sprites and deck editor rendered, with no exceptions
+  in the final observed session. The exact unavailable-address completion path
+  and border rendering were not separately observed. Physical-phone behavior and
+  future reflected generic shapes remain unverified; emulator success is bounded
+  to the exact APK recorded in `premium-delivery.md`.
 
 ## SignalR login closes with missing AOT code
 
