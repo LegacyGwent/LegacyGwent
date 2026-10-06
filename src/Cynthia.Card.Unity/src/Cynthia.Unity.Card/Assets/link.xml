@@ -1,4 +1,11 @@
 <linker>
+  <!-- Addressables 1.18 allocates internal generic operations and catalog providers
+       through reflection. Keep their constructors for every asset/result type,
+       including initialization and failure paths, in all player variants.
+       Do not rely on the generated Library/AddressablesLink descriptor being
+       passed to Unity 2019.4's player linker. -->
+  <assembly fullname="Unity.ResourceManager" preserve="all"/>
+  <assembly fullname="Unity.Addressables" preserve="all"/>
   <assembly fullname="Assembly-CSharp"/>
   <assembly fullname="Autofac"/>
   <assembly fullname="Cynthia.Card.Common"/>
