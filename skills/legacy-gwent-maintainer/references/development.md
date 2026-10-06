@@ -1,6 +1,6 @@
 # Local development
 
-Last verified: 2026-08-01
+Last verified: 2026-09-27
 
 ## Toolchain
 
@@ -11,8 +11,25 @@ Last verified: 2026-08-01
   `$script:UnityRevision`; `setup-dev.ps1` builds the editor installer
   name/URL from them and `open-unity.ps1` locates and reports the same editor.
   Do not re-hardcode the editor version in individual scripts or docs.
+- The 2019.4.41f2 Windows Android Support EXE supplies the playback engine,
+  not its SDK/NDK/JDK ZIP submodules. The release metadata's Android subtree
+  names seven ZIPs: OpenJDK 8, SDK tools, NDK r19, build-tools 30.0.2,
+  platform-tools 28.0.1, and API 29/30 platforms. Use
+  `scripts/install-unity-android-zip-modules.py` to download into a cache and
+  `--offline --install` only after the support EXE exits successfully; it
+  refuses overwriting existing module paths. Verified local binaries report
+  Java 1.8, NDK 19.0.5232133, working aapt/adb, and both platform android.jar
+  files. The metadata has no integrity hashes; the script pins hashes computed
+  from those verified downloads, which detect later archive drift.
 - The upgrade record and platform-module requirements are in
   `docs/UnityUpgrade.md`.
+- Installer download failure: the official 2019.4.41f2 Windows URL can redirect
+  to `download.unitychina.cn` and return `404 NoSuchKey`. Verify the complete
+  redirect chain; this does not mean the official version is invalid. Use a
+  working route to Unity's official download, retain the tracked version, and
+  do not launch a partial installer. Setup now checks curl's exit code and
+  promotes a `.partial` download only after success. A local proxy port alone
+  does not prove the domain is routed internationally.
 - Stable profile: `scripts/start-dev.ps1` uses server 5005, MongoDB 28020, and
   connection-URI suffix `gwent-diy`.
 - Isolated profile: `scripts/start-ai-dev.ps1` uses server 5010, MongoDB 28021,
@@ -25,6 +42,14 @@ Last verified: 2026-08-01
 
 - `scripts/open-unity.ps1` builds/synchronizes the Common DLL and sets
   `GWENT_SERVER_URL` only for the launched Unity process.
+- `scripts/build-premium-local.ps1 -Background` prepares sequential premium
+  Windows and Android batch builds using the tracked Unity version, Common DLL,
+  restored source catalog and a local Android Debug key outside Git. Use
+  `-Target Windows` or `-Target Android` for one platform, or
+  `-CheckSourcesOnly` to preflight source presence without launching Unity; inspect the
+  emitted log directory. It verifies each built artifact's content marker and
+  version. Android still requires the editor's SDK, NDK and OpenJDK modules;
+  this script does not install modules or activate the editor.
 - For the deployed DIY-AI track, use the tracked 5010 endpoint (currently the
   direct public IP). Use the hostname only where DNS and proxy routing are known
   to preserve the real public address.
