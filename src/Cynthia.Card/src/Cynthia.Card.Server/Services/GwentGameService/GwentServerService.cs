@@ -19,7 +19,6 @@ namespace Cynthia.Card.Server
     [Singleton]
     public class GwentServerService
     {
-        private const string LatestClientVersion = "2.1.10";
         //public IContainer Container { get; set; }
         private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService _databaseService;
@@ -1010,13 +1009,13 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return LatestClientVersion;
+            return "2.1.9";
         }
 
         public async Task<string> GetNotes(string connectionId)
         {
             await Task.CompletedTask;
-            return $@"DiyGwent AITest {LatestClientVersion} · 5010 实验服
+            return @"DiyGwent AITest 2.1.9 · 5010 实验服
 
 QQ群：945408322（约战、反馈、DIY 讨论）
 
@@ -1036,7 +1035,7 @@ ai5 猎龙人
         public async Task<string> GetNotesEN(string connectionId)
         {
             await Task.CompletedTask;
-            return $@"DiyGwent AITest {LatestClientVersion} · experimental realm on port 5010
+            return @"DiyGwent AITest 2.1.9 · experimental realm on port 5010
 
 QQ group: 945408322 (matches, feedback, and DIY discussion)
 
@@ -1063,13 +1062,13 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         public async Task<string> GetDownloadLink(string connectionId)
         {
             await Task.CompletedTask;
-            return "https://github.com/LegacyGwent/LegacyGwent/releases/tag/v" + LatestClientVersion;
+            return string.Empty;
         }
 
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return LatestClientVersion;
+            return @"2.1.9";
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
