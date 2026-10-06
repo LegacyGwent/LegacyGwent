@@ -136,8 +136,15 @@ class SourceDelivery(unittest.TestCase):
 
 class PlayerArtifacts(unittest.TestCase):
     def fixture(self, variant='standard', target='Android'):
-        root = 'assets/' if target == 'Android' else 'client_Data/StreamingAssets/'
+        root = ('assets/' if target == 'Android' else
+                'Data/Raw/' if target == 'iOS' else 'client_Data/StreamingAssets/')
         data = {root + 'client-content.json': json.dumps(dict(schema=1, variant=variant, target=target)).encode()}
+        runtime = artifacts.RUNTIME_PATH
+        data[root + 'aa/settings.json'] = json.dumps(dict(m_buildTarget=target,
+            m_CatalogLocations=[dict(m_InternalId=runtime + '/catalog.json')])).encode()
+        data[root + 'aa/catalog.json'] = json.dumps(dict(m_InternalIds=[
+            runtime + '/' + target + '/static.bundle'])).encode()
+        data[root + 'aa/' + target + '/static.bundle'] = b'fixture'
         if target == 'Android': data['lib/arm64-v8a/libil2cpp.so'] = b'fixture'
         if variant == 'premium':
             data[root + 'DynamicCards/cards.bundle'] = b'fixture'
@@ -170,8 +177,51 @@ class PlayerArtifacts(unittest.TestCase):
             self.check(self.fixture(target='StandaloneWindows64'))
 
     def test_ios_raw_marker(self):
-        data = {'Data/Raw/client-content.json': b'{"schema":1,"variant":"standard","target":"iOS"}'}
-        self.check(data, target='iOS')
+        self.check(self.fixture(target='iOS'), target='iOS')
+
+    def test_premium_without_static_addressables_rejected(self):
+        data = {k: v for k, v in self.fixture('premium').items() if not k.startswith('assets/aa/')}
+        with self.assertRaisesRegex(ValueError, 'Addressables content.*settings.json'):
+            self.check(data, 'premium')
+
+    def test_referenced_addressables_content_missing_or_empty_rejected(self):
+        for path in ('settings.json', 'catalog.json', 'Android/static.bundle'):
+            for empty in (False, True):
+                with self.subTest(path=path, empty=empty):
+                    data = self.fixture()
+                    if empty: data['assets/aa/' + path] = b''
+                    else: del data['assets/aa/' + path]
+                    with self.assertRaisesRegex(ValueError, 'Missing or empty Addressables'):
+                        self.check(data)
+
+    def test_unreferenced_bundle_cannot_hide_missing_bundle(self):
+        data = self.fixture(); del data['assets/aa/Android/static.bundle']
+        data['assets/aa/Android/other.bundle'] = b'fixture'
+        with self.assertRaisesRegex(ValueError, 'static.bundle'): self.check(data)
+
+    def test_addressables_platform_mismatch_rejected(self):
+        data = self.fixture()
+        data['assets/aa/settings.json'] = data['assets/aa/settings.json'].replace(b'Android', b'StandaloneWindows64')
+        with self.assertRaisesRegex(ValueError, 'Addressables platform mismatch'): self.check(data)
+
+    def test_catalog_must_reference_local_payload(self):
+        for ids in ([], ['https://example.test/remote.bundle']):
+            data = self.fixture()
+            data['assets/aa/catalog.json'] = json.dumps(dict(m_InternalIds=ids)).encode()
+            with self.assertRaisesRegex(ValueError, 'local bundle references'): self.check(data)
+
+    def test_windows_separators_compressed_ids_and_remote_entries(self):
+        data = self.fixture()
+        data['assets/aa/catalog.json'] = json.dumps(dict(
+            m_InternalIdPrefixes=[artifacts.RUNTIME_PATH + '\\Android'],
+            m_InternalIds=['0#\\static.bundle', 'https://example.test/remote.bundle'])).encode()
+        self.check(data)
+
+    def test_unsafe_local_reference_rejected(self):
+        data = self.fixture()
+        data['assets/aa/catalog.json'] = json.dumps(dict(m_InternalIds=[
+            artifacts.RUNTIME_PATH + '/../static.bundle'])).encode()
+        with self.assertRaisesRegex(ValueError, 'Unsafe Addressables'): self.check(data)
 
 
 class SourcePublication(unittest.TestCase):

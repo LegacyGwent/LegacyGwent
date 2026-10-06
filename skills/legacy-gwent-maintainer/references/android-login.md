@@ -28,7 +28,11 @@ Last verified: 2026-10-07
   successful build as runtime acceptance. Assembly preservation can increase
   player size; it does not guarantee every future value-type generic AOT shape.
 - Verification: the pre-fix `3fbbc738c` Android emulator reproduced both named
-  constructor failures after accepted login. Static XML/package checks establish
+  constructor failures after accepted login. That cacheD APK also omitted its
+  entire static `assets/aa` payload after an Addressables preprocessing move
+  exception; the artifact contract and separate fix are in `premium-delivery.md`.
+  Restoring payload and preserving constructors are independent requirements.
+  Static XML/package checks establish
   that the fix covers the two runtime assemblies. A rebuilt Android IL2CPP player
   must verify initialization, avatar/border/reward/card sprites, and the completed
   operation path for an unavailable address without another constructor error.

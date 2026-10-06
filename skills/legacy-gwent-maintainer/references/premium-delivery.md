@@ -1,6 +1,6 @@
 # Premium source delivery and package variants
 
-Last verified: 2026-09-26
+Last verified: 2026-10-07
 
 ## Clean-checkout source delivery
 
@@ -67,6 +67,7 @@ Last verified: 2026-09-26
   Android uses IL2CPP, both ARM ABIs, GLES3, ETC2 RGBA8 and max-1024 dynamic PNGs;
   unsupported postprocess shaders are skipped. Keep one authored source library.
 - Verification: `verify-client-content.py` checks the embedded target/variant,
+  static Addressables settings/catalog and their referenced local bundles,
   premium partition membership and ARM64. Fixtures prove gate behavior, not
   real APK success. `RewardClientTest` covers capability/deck/preference rules.
 - CI also runs the Mongo-backed crafting, daily, GG, same-opponent and combined
@@ -82,6 +83,37 @@ Last verified: 2026-09-26
   fresh ID on each test run, and tolerate an absent wallet while polling its
   background creation. Reusing a fixed job ID falsely suppresses the reward
   for a newly generated test user on later runs.
+
+## Successful player build omits static Addressables content
+
+- Symptom: Unity exits zero and premium verification succeeds, yet static
+  avatars, borders or card art cannot load. The APK can contain all 677 dynamic
+  card payloads while having no `assets/aa/` directory.
+- Cause: Addressables 1.18.19's `CopyTemporaryPlayerBuildData` uses
+  `Directory.Move` from Library to StreamingAssets. A whole-Library junction
+  to another volume caused `UnauthorizedAccessException`; the observed player
+  build continued successfully. The previous verifier checked only the variant
+  marker, dynamic partitions and ABI, so it missed the independent static
+  content contract. This differs from stripped reflection constructors: code
+  preservation cannot restore missing catalog/settings or bundles.
+- Fix: use a same-volume cache layout for paths moved by Unity/Addressables
+  (see `local-premium-packaging.md`). The shared artifact verifier requires
+  nonempty `aa/settings.json`, a matching build target, its local JSON catalogs,
+  and every RuntimePath `.bundle` reference in those catalogs. Optional internal
+  ID prefixes and Windows separators follow the pinned catalog format; remote
+  URLs do not require embedded files. The local-content contract applies to both
+  standard and premium players and directory/ZIP/APK inputs.
+- Prevention: verify the actual artifact after a successful build, not only
+  premium source count or exit status. Require catalog-referenced files instead
+  of an arbitrary bundle or a hardcoded list of cards/groups. Format changes
+  such as a bundled/binary local catalog need an explicit verifier update.
+- Verification: the `3fbbc738c` cacheD Android APK is rejected for missing
+  `assets/aa/settings.json`; the `d5edd7df9` selective-cache Android APK and
+  original `3fbbc738c` Windows directory pass. Fixtures cover missing/empty
+  settings/catalog/bundles, wrong platform, unrelated replacement bundles,
+  compressed IDs, remote URLs and both variants. Presence checks do not prove
+  bundle integrity, address resolution, rendering or IL2CPP AOT correctness;
+  those remain packaged-player/device acceptance gates.
 
 ## Signing and runner prerequisites
 
