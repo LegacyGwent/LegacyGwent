@@ -83,8 +83,14 @@ Last verified: 2026-10-07
   confirmed no-rank notices drained their queue (see `account-messages.md`).
   Windows `3fbbc738c` has only artifact/static-content acceptance; its native UI,
   physical phones, explicitly observed borders and the exact missing-address
-  completion path remain unverified. Local acceptance does not establish public
-  delivery; the release archive/upload was still pending at this verification.
+  completion path remain unverified. Public `v2.1.10` now contains Windows ZIP
+  (2011551690 bytes, SHA-256 `fc09c959410823b5c6dfdd9b4bbd34d2762b57a55be5b6be5c6a28535442f8df`)
+  and Android 7z (2075248944 bytes, SHA-256 `46e51299c3b99e1449b9d3c4b0bbad3a7c70c8ee7f10a1f75b128be07dc9d93a`).
+  Integrity checks and GitHub digests match; unauthenticated range downloads
+  return HTTP206. Final Android Deflate ZIP exceeded GitHub's 2 GiB asset limit;
+  LZMA2 7z retains the same tested APK while meeting the actual size gate.
+  Users must extract before installing. Old defective draft APK assets were
+  removed before publication, and redundant tag-trigger builds were cancelled.
 - CI also runs the Mongo-backed crafting, daily, GG, same-opponent and combined
   reward suites against an isolated MongoDB 4.4.29 instance. Run the combined
   suite using `dotnet RewardSystemTest.dll <repo> <results> 127.0.0.1`, not the
