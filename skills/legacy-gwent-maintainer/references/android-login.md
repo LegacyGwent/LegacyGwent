@@ -1,6 +1,38 @@
 # Android login and IL2CPP serialization
 
-Last verified: 2026-10-06
+Last verified: 2026-10-07
+
+## Login works but Addressables images are blank on IL2CPP
+
+- Symptom: authentication and the main scene succeed, but avatar/reward art is
+  blank. `MissingMethodException: Default constructor not found` names
+  `ProviderOperation<ResourceManagerRuntimeData>` or `CompletedOperation<Sprite>`
+  through `Activator.CreateInstance`, `LRUCacheAllocationStrategy.New` and
+  `ResourceManager.CreateOperation`. This is constructor stripping, a different
+  signature from System.Text.Json's missing AOT code below.
+- Cause: pinned Addressables 1.18.19 reflectively allocates its internal provider,
+  completed, chain, group and instance operations. The tracked `Assets/link.xml`
+  did not preserve either Addressables runtime assembly. The generated Android
+  `Library/com.unity.addressables/aa/Android/AddressablesLink/link.xml` exists,
+  but the observed Unity 2019.4 linker command explicitly includes only the
+  tracked descriptor plus engine/temporary descriptors; existence of generated
+  content metadata alone does not establish constructor preservation.
+- Fix: preserve `Unity.ResourceManager` and `Unity.Addressables` in the tracked
+  descriptor for all player variants. This covers reflection-based operation
+  allocation and catalog/provider initialization at their common linker boundary,
+  without Sprite/account-specific code or changes to UI asset loading.
+  Unity 2019.4's [link XML contract](https://docs.unity3d.com/2019.4/Documentation/Manual/ManagedCodeStripping.html#LinkXML)
+  defines assembly-level `preserve="all"` as preserving the entire assembly.
+- Prevention: inspect the exact exception, package allocation implementation and
+  actual linker inputs. Do not edit ignored generated descriptors or treat a
+  successful build as runtime acceptance. Assembly preservation can increase
+  player size; it does not guarantee every future value-type generic AOT shape.
+- Verification: the pre-fix `3fbbc738c` Android emulator reproduced both named
+  constructor failures after accepted login. Static XML/package checks establish
+  that the fix covers the two runtime assemblies. A rebuilt Android IL2CPP player
+  must verify initialization, avatar/border/reward/card sprites, and the completed
+  operation path for an unavailable address without another constructor error.
+  No rebuilt-player/device acceptance is established by the source change.
 
 ## SignalR login closes with missing AOT code
 
