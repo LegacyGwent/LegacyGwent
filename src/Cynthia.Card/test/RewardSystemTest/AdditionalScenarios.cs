@@ -185,16 +185,50 @@ partial class Program
         Check(!await game.PlayerRound() && game.IsPlayersPass[0],"empty hand and used leader force pass and terminate when opponent passed");
         foreach(bool surrender in new[]{true,false})
         {
-            var u=await NewUser("end-"+surrender);game=SimpleGame();
-            game.RoundWon=(w,key,time)=>db.AwardDailyCrown(u.UserName,key,Now).GetAwaiter().GetResult();
-            await game.GameEnd(0,new Exception(surrender?"surrender fixture":"disconnect fixture"),surrender);
-            Check((await db.GetDailyQuests(u.UserName)).Wallet.Collection.DailyQuests.Crowns==0,
-                (surrender?"surrender":"disconnect")+" before any settled round awards no crown");
-            game=SimpleGame();game.RoundWon=(w,key,time)=>db.AwardDailyCrown(u.UserName,key,Now).GetAwaiter().GetResult();
-            var card=game.PlayersDeck[0][0];card.Status.Conceal=false;card.Status.Strength=10;game.PlayersPlace[0][0].Add(card);
+            string mode=surrender?"surrender":"disconnect";
+            // A match that is conceded before any round settled owes the winner both crowns.
+            var conceded=await NewUser("end-"+mode);
+            game=SimpleGame();
+            int concededWinner=-1;var concededKeys=new List<string>();
+            game.RoundWon=(w,key,time)=>{concededWinner=w;concededKeys.Add(key);db.AwardDailyCrown(conceded.UserName,key,Now).GetAwaiter().GetResult();};
+            await game.GameEnd(0,new Exception(mode+" fixture"),surrender);
+            Check((await db.GetDailyQuests(conceded.UserName)).Wallet.Collection.DailyQuests.Crowns==2,
+                mode+" during the first undecided round credits both match-win crowns");
+            Check(concededWinner==0 && concededKeys.Count==2 && concededKeys.Distinct().Count()==2,
+                mode+" credits the declared match winner with two distinct idempotent keys",new{winner=concededWinner,keys=concededKeys});
+
+            // One genuinely won round already credited a crown; the concession completes the pair.
+            var ongoing=await NewUser("end-ongoing-"+mode);
+            game=SimpleGame();
+            game.RoundWon=(w,key,time)=>db.AwardDailyCrown(ongoing.UserName,key,Now).GetAwaiter().GetResult();
+            var firstRound=game.PlayersDeck[0][0];firstRound.Status.Conceal=false;firstRound.Status.Strength=10;game.PlayersPlace[0][0].Add(firstRound);
+            await game.BigRoundEnd();
+            await game.GameEnd(0,new Exception(mode+" in round two"),surrender);
+            Check((await Account(ongoing)).DailyQuests.Crowns==2,
+                mode+" in a later round keeps the settled crown and continues the crown count for the conceded round");
+
+            var settledUser=await NewUser("end-settled-"+mode);
+            game=SimpleGame();
+            game.RoundWon=(w,key,time)=>db.AwardDailyCrown(settledUser.UserName,key,Now).GetAwaiter().GetResult();
+            var settledCard=game.PlayersDeck[0][0];settledCard.Status.Conceal=false;settledCard.Status.Strength=10;game.PlayersPlace[0][0].Add(settledCard);
             game.PlayersWinCount[0]=1;await game.BigRoundEnd();
             await game.GameEnd(1,new Exception("fixture end"),surrender);
-            Check((await Account(u)).DailyQuests.Crowns==1,(surrender?"surrender":"disconnect")+" preserves a settled crown without adding an unplayed win");
+            Check((await Account(settledUser)).DailyQuests.Crowns==1,
+                mode+" preserves a settled crown without inventing one once the match is already decided");
+        }
+        {
+            // An unreachable peer must not swallow the concession reward.
+            var offline=await NewUser("end-offline");
+            var leader=GwentMap.CardMap.First(x=>x.Value.Group==Cynthia.Card.Group.Leader).Key;
+            var bronze=GwentMap.CardMap.First(x=>x.Value.Group==Cynthia.Card.Group.Copper).Key;
+            Func<Player> unreachable=()=>new BrokenSinkPlayer{Deck=new DeckModel{Leader=leader,Deck=new List<string>{bronze}}};
+            game=new GwentServerGame(unreachable(),unreachable());
+            int credited=0;
+            game.RoundWon=(w,key,time)=>{credited++;db.AwardDailyCrown(offline.UserName,key,Now).GetAwaiter().GetResult();};
+            Exception messaging=null;
+            try{await game.GameEnd(0,new Exception("peer connection lost"));}catch(Exception e){messaging=e;}
+            Check(credited==2 && (await Account(offline)).DailyQuests.Crowns==2,
+                "both disconnect crowns are committed even when the leaving client cannot be notified",new{rewardCalls=credited,notificationFailed=messaging!=null});
         }
         game=SimpleGame();game.PlayersWinCount[0]=1;
         var winning=game.PlayersDeck[0][0];winning.Status.Conceal=false;winning.Status.Strength=10;game.PlayersPlace[0][0].Add(winning);
@@ -202,7 +236,7 @@ partial class Program
         game.RoundWon=(w,key,time)=>{attempts++;throw new Exception("reward queue unavailable");};
         Exception failure=null;try{await game.BigRoundEnd();}catch(Exception e){failure=e;}
         Check(failure==null && game.CurrentRoundCount==1,"reward storage failure must not interrupt normal round advancement",new{error=failure?.Message,round=game.CurrentRoundCount});
-        Check(attempts==1 && game.PlayersWinCount[0]==2,"reward enqueue failure is isolated from the winner and round state");
+        Check(attempts==3 && game.PlayersWinCount[0]==2,"reward enqueue failure is retried to its bounded limit and isolated from the winner and round state");
 
         var user=await NewUser("round-background");await db.GetDailyQuests(user.UserName);
         game=SimpleGame();game.PlayersWinCount[0]=1;
@@ -281,5 +315,11 @@ partial class Program
     {
         readonly bool fail;public FailingProxy(bool fail){this.fail=fail;}
         public Task SendCoreAsync(string method,object[] args,CancellationToken token=default)=>fail?Task.FromException(new Exception("injected notification failure")):Task.CompletedTask;
+    }
+    // A player whose client side rejects every game message, mirroring a peer that dropped
+    // mid-match. The server must still be able to settle the concession reward.
+    sealed class BrokenSinkPlayer:Player
+    {
+        public BrokenSinkPlayer(){_downstream.Receive+=_=>Task.FromException(new Exception("connection lost"));}
     }
 }

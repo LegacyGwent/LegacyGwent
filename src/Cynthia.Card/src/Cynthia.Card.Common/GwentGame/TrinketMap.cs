@@ -8,6 +8,14 @@ namespace Cynthia.Card
 {
     public static class TrinketMap
     {
+        // Presentation fallback for missing/retired IDs, shared by profile, rank and match UI.
+        // Resolving a display does not change the saved selection or cosmetic ownership.
+        public static TrinketAvatar ResolveAvatar(string id) =>
+            id != null && AvatarMap.TryGetValue(id, out var avatar) ? avatar : AvatarMap["NoAvatar"];
+        public static Border ResolveBorder(string id) =>
+            id != null && BorderMap.TryGetValue(id, out var border) ? border : BorderMap["NoBorder"];
+        public static Title ResolveTitle(string id) =>
+            id != null && TitleMap.TryGetValue(id, out var title) ? title : TitleMap["CARDSMITH"];
         //
         public static Version TrinketMapVersion { get; } = new Version(1, 0, 0, 10);
 

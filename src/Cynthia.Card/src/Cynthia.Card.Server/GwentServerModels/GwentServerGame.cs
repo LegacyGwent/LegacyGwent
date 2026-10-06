@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Alsein.Extensions;
 using Alsein.Extensions.Extensions;
@@ -74,28 +75,55 @@ namespace Cynthia.Card.Server
         }
         public int TurnCardPlayedNum { get; set; } = 0;//本回合打出牌的数量
 
-        private readonly TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>();
+        private readonly TaskCompletionSource<int> _setGameEnd = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        private sealed class CrownEvent
+        {
+            public string Key;
+            public DateTimeOffset SettledUtc;
+            public bool Delivered;
+        }
+        // One gate serializes round scoring, the round index, reward-event allocation and the
+        // single terminal snapshot. The AI reward callback stays fire-and-forget (Action), so a
+        // callback that returns without throwing is treated as accepted for the in-process queue;
+        // durable idempotency and retries continue in RewardSettlementService.
+        private readonly SemaphoreSlim _settlementGate = new SemaphoreSlim(1, 1);
+        private readonly List<CrownEvent>[] _crownEvents = { new List<CrownEvent>(), new List<CrownEvent>() };
+        private int _settlementStarted;
+        private bool IsSettled => Volatile.Read(ref _settlementStarted) != 0;
+        private static readonly NLog.Logger SettlementLog = NLog.LogManager.GetCurrentClassLogger();
 
         public async Task PlayGame()
         {
+            if (IsSettled) return;
             //###游戏开始###
             //双方抽牌10张
             await SendEvent(new OnGameStart());
+            if (IsSettled) return;
             await LogicDrawCard(Player1Index, 10);//不会展示动画的,抽牌
+            if (IsSettled) return;
             await LogicDrawCard(Player2Index, 10);
+            if (IsSettled) return;
             await SetAllInfo();
+            if (IsSettled) return;
             await DecideRedCoin();
+            if (IsSettled) return;
             //----------------------------------------------------------------------------------------
             await PlayerBigRound(3, 3); // 双方轮流执行回合 | 第一小局 (传入双方可进行的调度次数) Both players take turns executing rounds | First small round (passes in the number of available actions for both players)
+            if (IsSettled) return;
 
             await DrawCard(2, 2);      // 同时抽牌的动画, 双方都看到自己先抽牌Simultaneous card draw animation, both players see themselves draw first
+            if (IsSettled) return;
 
             await PlayerBigRound(2, 2); // 双方轮流执行回合 | 第二小局 Both players take turns executing rounds | Second small round
+            if (IsSettled) return;
 
             if (PlayersWinCount[Player1Index] < 2 && PlayersWinCount[Player2Index] < 2)//如果前两局没有分出结果
             {
                 await DrawCard(1, 1);
+                if (IsSettled) return;
                 await PlayerBigRound(1, 1);//双方轮流执行回合|第三小局
+                if (IsSettled) return;
             }
             //-----------------------------------------------------------------------------------------
             await GameOverExecute();//发送游戏结束信息
@@ -148,23 +176,106 @@ namespace Cynthia.Card.Server
 
         public async Task<GameResult> Play()
         {
-            await Task.WhenAny(PlayGame(), _setGameEnd.Task);
-            await SendOperactionList();
+            if (!IsSettled)
+            {
+                var gameplay = PlayGame();
+                var completed = await Task.WhenAny(gameplay, _setGameEnd.Task);
+                if (completed == gameplay)
+                {
+                    try { await gameplay; }
+                    catch (Exception) when (IsSettled) { await _setGameEnd.Task; }
+                }
+                else
+                {
+                    // The abandoned gameplay loop exits through the IsSettled guards; observe its
+                    // fault so it never becomes an unobserved task exception.
+                    _ = gameplay.ContinueWith(t => SettlementLog.Warn(t.Exception,
+                        "Gameplay stopped after settlement. Match={0}", dailyMatchId),
+                        TaskContinuationOptions.OnlyOnFaulted);
+                }
+            }
+            await _setGameEnd.Task;
+            await FlushFinalOperations();
             return TempGameResult;
         }
 
-        public async Task GameEnd(int winPlayerIndex, Exception exception, bool isSurrender = false)
+        public Task GameEnd(int winPlayerIndex, Exception exception, bool isSurrender = false)
         {
-            if (exception == null)
-                // await MessageBox("对方的账号被强制顶下线,比赛结束");
-                await MessageBox("对方已断开连接,比赛结束!");
-            else
-                await MessageBox(exception.Message);
+            if (winPlayerIndex != Player1Index && winPlayerIndex != Player2Index)
+                throw new ArgumentOutOfRangeException(nameof(winPlayerIndex));
+            return SettleGame(winPlayerIndex, exception, isSurrender);
+        }
 
+        private async Task SettleGame(int? forfeitWinner, Exception exception, bool isSurrender)
+        {
+            bool ownsSettlement = false;
+            try
+            {
+                await _settlementGate.WaitAsync();
+                try
+                {
+                    if (!IsSettled)
+                    {
+                        ownsSettlement = true;
+                        Volatile.Write(ref _settlementStarted, 1);
+                        // The last normal round takes precedence over a late leave, even before its
+                        // client animation finishes and PlayGame reaches GameOverExecute.
+                        if (PlayersWinCount[0] >= 2 || PlayersWinCount[1] >= 2)
+                            forfeitWinner = null;
+                        if (forfeitWinner.HasValue && RoundWon != null)
+                        {
+                            var events = _crownEvents[forfeitWinner.Value];
+                            // Count allocated reward events, not acknowledgements. The AI queue is
+                            // fire-and-forget, so a stable key that was already allocated must be
+                            // re-sent with the same id instead of minting a third crown.
+                            while (events.Count < 2)
+                                events.Add(new CrownEvent { Key = dailyMatchId + ":forfeit:" + forfeitWinner.Value + ":" + events.Count,
+                                    SettledUtc = DateTimeOffset.UtcNow });
+                            foreach (var award in events.Where(x => !x.Delivered))
+                                award.Delivered = await TryAwardDailyRound(forfeitWinner.Value, award.Key, award.SettledUtc);
+                        }
+                        TempGameResult = CreateGameResult(forfeitWinner, isSurrender && forfeitWinner.HasValue);
+                    }
+                }
+                finally { _settlementGate.Release(); }
+                if (!ownsSettlement)
+                {
+                    // Only the owner signals completion, after rewards and the result are ready.
+                    await _setGameEnd.Task;
+                    return;
+                }
+                try { GameResultEvent?.Invoke(TempGameResult); }
+                catch (Exception e) { SettlementLog.Error(e, "Publishing game result failed. Match={0}", dailyMatchId); }
+                if (forfeitWinner.HasValue)
+                {
+                    string message = exception?.Message ?? "对方已断开连接,比赛结束!";
+                    for (int player = 0; player < 2; player++)
+                    {
+                        try { await Players[player].SendAsync(ServerOperationType.MessageBox, message); }
+                        catch (Exception e) { SettlementLog.Warn(e, "End message failed. Player={0}, Match={1}", player, dailyMatchId); }
+                    }
+                }
+                for (int player = 0; player < 2; player++)
+                {
+                    try
+                    {
+                        await SendGameResult(player, forfeitWinner.HasValue
+                            ? (player == forfeitWinner.Value ? GameStatus.Win : GameStatus.Lose) : GameStatus.None);
+                    }
+                    catch (Exception e) { SettlementLog.Warn(e, "End result notification failed. Player={0}, Match={1}", player, dailyMatchId); }
+                }
+            }
+            finally
+            {
+                if (ownsSettlement) _setGameEnd.TrySetResult(forfeitWinner ?? -1);
+            }
+        }
 
+        private GameResult CreateGameResult(int? forfeitWinner, bool isSurrender)
+        {
             var redIndex = RedCoin[0];
             var blueIndex = AnotherPlayer(redIndex);
-            var result = new GameResult()
+            return new GameResult
             {
                 RedPlayerName = Players[redIndex].PlayerName,
                 BluePlayerName = Players[blueIndex].PlayerName,
@@ -176,72 +287,106 @@ namespace Cynthia.Card.Server
                 RedWinCount = PlayersWinCount[redIndex],
                 BlueWinCount = PlayersWinCount[blueIndex],
                 ValidCount = RoundCount,
-                RedPlayerGameResultStatus = redIndex == winPlayerIndex ? GameStatus.Win : GameStatus.Lose,
-                RedScore = new int[] { PlayersRoundResult[0][redIndex], PlayersRoundResult[1][redIndex], PlayersRoundResult[2][redIndex] },
-                BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
+                RedPlayerGameResultStatus = forfeitWinner.HasValue
+                    ? (redIndex == forfeitWinner.Value ? GameStatus.Win : GameStatus.Lose)
+                    : (PlayersWinCount[redIndex] > PlayersWinCount[blueIndex] ? GameStatus.Win
+                        : (PlayersWinCount[redIndex] == PlayersWinCount[blueIndex] ? GameStatus.Draw : GameStatus.Lose)),
+                RedScore = new[] { PlayersRoundResult[0][redIndex], PlayersRoundResult[1][redIndex], PlayersRoundResult[2][redIndex] },
+                BlueScore = new[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
                 RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
                 BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
                 isSurrender = isSurrender,
                 BalancePoint = balancePoint,
                 isSpecial = isSpecialGame,
                 RedBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
-                BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
+                BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? ""
             };
-            GameResultEvent(result);
-            TempGameResult = result;
+        }
 
-            await Task.WhenAll(SendGameResult(winPlayerIndex, GameStatus.Win), SendGameResult(AnotherPlayer(winPlayerIndex), GameStatus.Lose));
-            _setGameEnd.SetResult(winPlayerIndex);
+        private async Task FlushFinalOperations()
+        {
+            foreach (var player in Players.OfType<ClientPlayer>())
+            {
+                try { await player.SendOperactionList(); }
+                catch (Exception e) { SettlementLog.Warn(e, "Final packet failed. Player={0}, Match={1}", player.PlayerName, dailyMatchId); }
+            }
+        }
+
+        private async Task<bool> TryAwardDailyRound(int winner, string roundId, DateTimeOffset settledUtc)
+        {
+            var award = RoundWon;
+            if (award == null) return false;
+            for (int attempt = 1; attempt <= 3; attempt++)
+            {
+                try { award(winner, roundId, settledUtc); return true; }
+                catch (Exception e)
+                {
+                    if (attempt == 3)
+                        SettlementLog.Error(e, "Daily reward retries exhausted; game continues. Player={0}, Round={1}, SettledUtc={2:O}",
+                            Players[winner].PlayerName, roundId, settledUtc);
+                    else await Task.Delay(100 * attempt);
+                }
+            }
+            return false;
         }
 
         public async Task BigRoundEnd()//小局结束,进行收场
         {
+            if (IsSettled) return;
+            var expectedRound = CurrentRoundCount;
             await ClientDelay(500);
-            var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row1Point = PlayersPlace[Player2Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row2Point = PlayersPlace[Player2Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player2Row3Point = PlayersPlace[Player2Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
-            var player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
-            var player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
-            PlayersRoundResult[CurrentRoundCount][Player1Index] = player1PlacePoint;
-            PlayersRoundResult[CurrentRoundCount][Player2Index] = player2PlacePoint;
-            if (player1PlacePoint > player2PlacePoint)
+            int player1PlacePoint, player2PlacePoint;
+            await _settlementGate.WaitAsync();
+            try
             {
-                GameRound = TwoPlayer.Player1;
-                PlayersWinCount[Player1Index]++;
-            }
-            else if (player2PlacePoint > player1PlacePoint)
-            {
-                GameRound = TwoPlayer.Player2;
-                PlayersWinCount[Player2Index]++;
-            }
-            else
-            {
-                GameRound = AnotherPlayer(RedCoin[CurrentRoundCount]) == Player1Index ? TwoPlayer.Player1 : TwoPlayer.Player2;
-                PlayersWinCount[Player1Index]++;
-                PlayersWinCount[Player2Index]++;
-            }
-            if (RoundWon != null && player1PlacePoint != player2PlacePoint)
-            {
-                try
+                // A concession may have settled while the score animation was playing, and a second
+                // BigRoundEnd for the same round must not score the same round twice.
+                if (IsSettled || CurrentRoundCount != expectedRound || CurrentRoundCount >= PlayersRoundResult.Length) return;
+                var player1Row1Point = PlayersPlace[Player1Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player1Row2Point = PlayersPlace[Player1Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player1Row3Point = PlayersPlace[Player1Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player2Row1Point = PlayersPlace[Player2Index][0].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player2Row2Point = PlayersPlace[Player2Index][1].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                var player2Row3Point = PlayersPlace[Player2Index][2].Where(x => !x.Status.Conceal).Select(x => x.Status).Sum(x => x.Strength + x.HealthStatus);
+                player1PlacePoint = (player1Row1Point + player1Row2Point + player1Row3Point);
+                player2PlacePoint = (player2Row1Point + player2Row2Point + player2Row3Point);
+                PlayersRoundResult[CurrentRoundCount][Player1Index] = player1PlacePoint;
+                PlayersRoundResult[CurrentRoundCount][Player2Index] = player2PlacePoint;
+                if (player1PlacePoint > player2PlacePoint)
                 {
-                    RoundWon(player1PlacePoint > player2PlacePoint ? Player1Index : Player2Index,
-                        dailyMatchId + ":" + CurrentRoundCount, DateTimeOffset.UtcNow);
+                    GameRound = TwoPlayer.Player1;
+                    PlayersWinCount[Player1Index]++;
                 }
-                catch (Exception error)
+                else if (player2PlacePoint > player1PlacePoint)
                 {
-                    NLog.LogManager.GetCurrentClassLogger().Error(error,
-                        "Daily reward enqueue failed; round progression continues.");
+                    GameRound = TwoPlayer.Player2;
+                    PlayersWinCount[Player2Index]++;
+                }
+                else
+                {
+                    GameRound = AnotherPlayer(RedCoin[CurrentRoundCount]) == Player1Index ? TwoPlayer.Player1 : TwoPlayer.Player2;
+                    PlayersWinCount[Player1Index]++;
+                    PlayersWinCount[Player2Index]++;
+                }
+                if (RoundWon != null && player1PlacePoint != player2PlacePoint)
+                {
+                    var winner = player1PlacePoint > player2PlacePoint ? Player1Index : Player2Index;
+                    // Record the allocated event before attempting the enqueue. A concession later
+                    // counts allocated events, so a lost acknowledgement retries this exact key
+                    // instead of adding a second crown for the same won round.
+                    var award = new CrownEvent { Key = dailyMatchId + ":" + CurrentRoundCount, SettledUtc = DateTimeOffset.UtcNow };
+                    _crownEvents[winner].Add(award);
+                    award.Delivered = await TryAwardDailyRound(winner, award.Key, award.SettledUtc);
+                }
+                RoundCount++;//有效回合的总数
+                CurrentRoundCount++;//当前回合
+                if (CurrentRoundCount <= 2)
+                {
+                    RedCoin[CurrentRoundCount] = GameRound.ToPlayerIndex(this);
                 }
             }
-            RoundCount++;//有效回合的总数
-            CurrentRoundCount++;//当前回合
-            if (CurrentRoundCount <= 2)
-            {
-                RedCoin[CurrentRoundCount] = GameRound.ToPlayerIndex(this);
-            }
+            finally { _settlementGate.Release(); }
+            if (IsSettled) return;
             IsPlayersPass[Player1Index] = false;
             IsPlayersPass[Player2Index] = false;
             await SetWinCountInfo();//设置小皇冠图标
@@ -376,6 +521,7 @@ namespace Cynthia.Card.Server
         //一小局的流程
         public async Task PlayerBigRound(int player1Mulligan = 0, int player2Mulligan = 0)
         {
+            if (IsSettled) return;
             //双方调度指定次数
             await Task.WhenAll(MulliganCard(Player1Index, player1Mulligan), MulliganCard(Player2Index, player2Mulligan));
             //双方轮流进行游戏
@@ -387,7 +533,7 @@ namespace Cynthia.Card.Server
                 var blueIndex = AnotherPlayer(redIndex);
             }
 
-            while (await PlayerRound())
+            while (!IsSettled && await PlayerRound())
             {
                 //2.处理回合结束
                 await SendEvent(new AfterTurnOver(TwoPlayerToPlayerIndex(GameRound)));
@@ -396,7 +542,7 @@ namespace Cynthia.Card.Server
             }
 
             //处理小局结束
-            await BigRoundEnd();
+            if (!IsSettled) await BigRoundEnd();
         }
 
         public async Task RoundPlayCard(int playerIndex, RoundInfo cardInfo, bool autoUpdateCemetery = true, bool autoUpdateDeck = true)//哪一位玩家,打出第几张手牌,打到了第几排,第几列
@@ -793,37 +939,7 @@ namespace Cynthia.Card.Server
             }
             return source;
         }
-        public async Task GameOverExecute()
-        {
-            var redIndex = RedCoin[0];
-            var blueIndex = AnotherPlayer(redIndex);
-            var result = new GameResult()
-            {
-                RedPlayerName = Players[redIndex].PlayerName,
-                BluePlayerName = Players[blueIndex].PlayerName,
-                RedLeaderId = PlayerBaseDeck[redIndex].Leader.CardId,
-                BlueLeaderId = PlayerBaseDeck[blueIndex].Leader.CardId,
-                RedDeckName = PlayerBaseDeck[redIndex].Name,
-                BlueDeckName = PlayerBaseDeck[blueIndex].Name,
-                Time = DateTime.UtcNow,
-                ValidCount = RoundCount,
-                RedWinCount = PlayersWinCount[redIndex],
-                BlueWinCount = PlayersWinCount[blueIndex],
-                RedPlayerGameResultStatus = PlayersWinCount[redIndex] > PlayersWinCount[blueIndex] ? GameStatus.Win : (PlayersWinCount[redIndex] == PlayersWinCount[blueIndex] ? GameStatus.Draw : GameStatus.Lose),
-                RedScore = new int[] { PlayersRoundResult[0][redIndex], PlayersRoundResult[1][redIndex], PlayersRoundResult[2][redIndex] },
-                BlueScore = new int[] { PlayersRoundResult[0][blueIndex], PlayersRoundResult[1][blueIndex], PlayersRoundResult[2][blueIndex] },
-                RedDeckCode = PlayerBaseDeck[redIndex].CompressDeck(),
-                BlueDeckCode = PlayerBaseDeck[blueIndex].CompressDeck(),
-                BalancePoint = balancePoint,
-                isSpecial = isSpecialGame,
-                RedBlacklistCode = Players[redIndex].Blacklist?.ToDeckModel().CompressDeck() ?? "",
-                BlueBlacklistCode = Players[blueIndex].Blacklist?.ToDeckModel().CompressDeck() ?? ""
-            };
-            GameResultEvent(result);
-            TempGameResult = result;
-
-            await Task.WhenAll(SendGameResult(Player1Index), SendGameResult(Player2Index));
-        }
+        public Task GameOverExecute() => SettleGame(null, null, false);
         public IList<GameCard> RowToList(int myPlayerIndex, RowPosition row, bool isHasDead = false, bool isHasConceal = false)
         {
             var enemyPlayerIndex = (AnotherPlayer(myPlayerIndex));
@@ -1918,7 +2034,11 @@ namespace Cynthia.Card.Server
             {
                 await ((ClientPlayer)Players[Player2Index]).SendOperactionList();
             }
-            return await Players[playerIndex].ReceiveAsync();
+            var receive = Players[playerIndex].ReceiveAsync();
+            // A settled match must not leave an abandoned gameplay loop waiting for input forever.
+            if (await Task.WhenAny(receive, _setGameEnd.Task) != receive || IsSettled)
+                throw new OperationCanceledException("The match has ended.");
+            return await receive;
         }
         public async Task SendOperactionList()
         {

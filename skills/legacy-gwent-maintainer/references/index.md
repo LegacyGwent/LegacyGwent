@@ -1,6 +1,6 @@
 # Knowledge index
 
-Last verified: 2026-09-29
+Last verified: 2026-10-06
 
 Read this file first, then load only the rows relevant to the task.
 
@@ -8,6 +8,8 @@ Read this file first, then load only the rows relevant to the task.
 | --- | --- | --- |
 | Components, source ownership, runtime flow | [architecture.md](architecture.md) | Repository layout and component boundaries |
 | Accounts, cards, decks, AI, matchmaking | [business-rules.md](business-rules.md) | Verified gameplay and domain behavior |
+| Season notifications, offline backlog, acknowledgement loops | [account-messages.md](account-messages.md) | Account ownership, monotonic IDs, atomic queues, Unity async dispatch |
+| Blacklist, ordinary/premium card rows, deck counts | [deck-editing.md](deck-editing.md) | Identity-based bans, shared copy limits, package-aware presentation |
 | Card identity, selected DIY effects, balance variants, generate rules | [card-rules.md](card-rules.md) | Verified card-specific behavior |
 | August 5-6 Monster card batches | [monster-batches-august-2026.md](monster-batches-august-2026.md) | Restored pool, effects, and edge conditions |
 | August 6 Nilfgaard/global card batch | [nilfgaard-batch-august-2026.md](nilfgaard-batch-august-2026.md) | Restored pool, effects, rounding rule, and regressions |
@@ -33,6 +35,7 @@ Read this file first, then load only the rows relevant to the task.
 | Linux server, SSH, systemd, CI/CD, rollback | [operations.md](operations.md) | Stable and DIY-AI operations |
 | Runtime packages, vulnerability audits, upgrade paths | [dependencies.md](dependencies.md) | Supported pins and phased security upgrades |
 | Unity startup, runtime localization, platform launch | [unity-pitfalls.md](unity-pitfalls.md) | Unity runtime root causes and verified remedies |
+| Android login, IL2CPP AOT, ambiguous rebuilt APKs | [android-login.md](android-login.md) | Exact missing generic signatures, shared converters, device and delivery acceptance |
 | Unity CI, packaging, versions, release artifacts | [unity-release-pitfalls.md](unity-release-pitfalls.md) | Unity release root causes and verified remedies |
 | Local premium build, long Windows paths, old Java keystore formats | [local-premium-packaging.md](local-premium-packaging.md) | Short-path retry and identity-preserving JKS conversion |
 | Premium source delivery, package capabilities, Android variants | [premium-delivery.md](premium-delivery.md) | Versioned sources, standard/premium contracts, signing and verification boundaries |

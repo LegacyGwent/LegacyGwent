@@ -46,6 +46,23 @@ Last verified: 2026-09-25
 - A normal service stop can cancel `ScheduledEventService` and emit a single
   `TaskCanceledException`; correlate it with systemd lifecycle timestamps.
   Error markers after the new process begins are the deployment signal.
+- Symptom: the client cannot fetch announcements or connect to 5010, and
+  `card-diy-ai.service` is `inactive (dead)` with exit status 0.
+- Cause: on October 4 the initial powder backfill repeatedly raised managed
+  `OutOfMemoryException`; `BackgroundServiceExceptionBehavior.StopHost` then
+  ended the host cleanly, so systemd's previous `Restart=on-failure` did not
+  restart it. Production DI also registered `IMongoClient` as transient while
+  the singleton database service resolved it for every collection access.
+  This client churn affects reward, premium, daily quest, and result paths;
+  no heap capture is available to attribute all memory growth to it.
+- Fix: share one `IMongoClient` for the host lifetime and set the AI unit to
+  `Restart=always`. Remove connection-string logging from client creation.
+- Prevention: test the real `Startup` DI lifetime, not only fixtures that
+  replace it with a singleton. A normal deployment does not install the unit:
+  install the reviewed unit and `systemctl daemon-reload` separately.
+- Verification: check 5010 `/healthz`, `systemctl show card-diy-ai -p Restart`,
+  process RSS and Mongo connections over repeated backfill cycles; confirm
+  5005 PID and service state are unchanged.
 - Stable-to-AI database copy: `/usr/local/sbin/sync-card-diy-to-ai --execute`.
   It snapshots 28020 online, stops only `card-diy-ai`, backs up 28021 under
   `/var/backups/legacy-gwent/diy-ai-sync/<run>`, replaces both logical

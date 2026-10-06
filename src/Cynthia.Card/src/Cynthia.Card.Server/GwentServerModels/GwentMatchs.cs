@@ -75,9 +75,21 @@ namespace Cynthia.Card.Server
             }
             //开启游戏
             room.CurrentGame = gwentGame;
-            await gwentGame.Play();
-            GameEnd(room);
-            _gwentService.InovkeUserChanged();
+            try
+            {
+                await gwentGame.Play();
+            }
+            catch (Exception e)
+            {
+                // A match task failure must not leak the room or leave both users stuck in Play.
+                NLog.LogManager.GetCurrentClassLogger().Error(e,
+                    "Match task failed; releasing the room. Room={0}", room.RoomId);
+            }
+            finally
+            {
+                GameEnd(room);
+                _gwentService.InovkeUserChanged();
+            }
         }
 
         //以密码的方式进行匹配

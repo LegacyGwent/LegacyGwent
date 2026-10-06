@@ -71,9 +71,11 @@ namespace Cynthia.Card.Client
             return HubConnection.InvokeAsync<IList<string>>("GetUserMessages", playername);
         }
 
-        public Task<bool> RemoveUserMessage(int messageId)
+        public Task<bool> RemoveUserMessage(int messageId) => RemoveUserMessage(messageId, User.UserName);
+
+        public Task<bool> RemoveUserMessage(int messageId, string expectedUsername)
         {
-            return HubConnection.InvokeAsync<bool>("RemoveUserMessage", User.UserName, messageId);
+            return HubConnection.InvokeAsync<bool>("RemoveUserMessage", expectedUsername, messageId);
         }
 
 

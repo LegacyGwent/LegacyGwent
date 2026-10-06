@@ -8270,8 +8270,8 @@ MonoBehaviour:
   MatchMenuButton: {fileID: 415551549}
   RankMatchMenuButton: {fileID: 1408859237}
   DoMatchButton: {fileID: 138314391}
-  TrinketUnlockPrefab: {fileID: 0}
-  Canevas: {fileID: 0}
+  TrinketUnlockPrefab: {fileID: 6875727742203086463, guid: 23eca9e6d8b425e48bc3a7a464b03006, type: 3}
+  Canevas: {fileID: 1617802058}
 --- !u!114 &377524192
 MonoBehaviour:
   m_ObjectHideFlags: 0

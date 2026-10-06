@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="../../../Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Script/GlobalUI/ClientMessagesReaderService.cs" Link="Client/ClientMessagesReaderService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 

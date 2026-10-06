@@ -6,13 +6,15 @@ namespace Cynthia.Card
 {
     [CardEffectId("70132")]//蝠翼脑魔 Garkain
     public class Garkain: CardEffect
-    {//随机对敌军单位造成1点伤害5次，若目标受伤则改为汲食。
+    {//使对方同排的随机单位受到1点伤害5次，若目标受伤则变为汲食。
         public Garkain(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             for (var i = 0; i < 5; i++)
             {
-                var cards = Game.GetPlaceCards(AnotherPlayer);
+                var cards = Game.RowToList(PlayerIndex, Card.Status.CardRow.Mirror())
+                    .IgnoreConcealAndDead()
+                    .ToList();
                 if (cards.Count() == 0)
                 {
                     return 0;

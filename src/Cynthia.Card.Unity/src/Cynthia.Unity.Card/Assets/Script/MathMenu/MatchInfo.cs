@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card.Client;
 using Cynthia.Card;
@@ -352,7 +352,8 @@ public class MatchInfo : MonoBehaviour
         var cards = deck.Deck.Select(x => GwentMap.CardMap[x]);
         cards.OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).GroupBy(x => x.CardId).ForAll(x =>
             {
-                int premium = CardInventory.DeckPremiumCount(deck, x.Key);
+                int premium = Assets.Script.DynamicCards.ClientContent.HasPremiumContent
+                    ? Assets.Script.DynamicCards.DeckCardCounts.VersionInDeck(deck, x.Key, true) : 0;
                 foreach (bool version in new[] { false, true })
                 {
                     int copies = version ? premium : x.Count() - premium;
@@ -362,10 +363,11 @@ public class MatchInfo : MonoBehaviour
                     card.transform.SetParent(CardsContext, false);
                 }
             });
-        CopperCount.text = cards.Where(x => x.Group == Group.Copper).Count().ToString();
-        SilverCount.text = $"{cards.Where(x => x.Group == Group.Silver).Count().ToString()}/6";
-        GoldCount.text = $"{cards.Where(x => x.Group == Group.Gold).Count().ToString()}/4";
-        AllCount.text = $"{deck.Deck.Count()}";
+        var counts = Assets.Script.DynamicCards.DeckCardCounts.Summarize(deck);
+        CopperCount.text = counts.Copper.ToString();
+        SilverCount.text = $"{counts.Silver}/{Assets.Script.DynamicCards.DeckCardCounts.SilverCapacity}";
+        GoldCount.text = $"{counts.Gold}/{Assets.Script.DynamicCards.DeckCardCounts.GoldCapacity(deck)}";
+        AllCount.text = counts.Total.ToString();
         AllCount.color = (deck.IsBasicDeck() || deck.IsSpecialDeck() || (deck.IsBlacklist() && deck.Id == "blacklist")) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         AllCountText.color = (deck.IsBasicDeck() || deck.IsSpecialDeck() || (deck.IsBlacklist() && deck.Id == "blacklist")) ? ClientGlobalInfo.NormalColor : ClientGlobalInfo.ErrorColor;
         HeadT.sprite = HeadTSprite[GetFactionIndex(GwentMap.CardMap[deck.Leader].Faction)];

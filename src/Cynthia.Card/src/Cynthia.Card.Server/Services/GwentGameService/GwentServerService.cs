@@ -19,6 +19,7 @@ namespace Cynthia.Card.Server
     [Singleton]
     public class GwentServerService
     {
+        private const string LatestClientVersion = "2.1.10";
         //public IContainer Container { get; set; }
         private readonly IHubContext<GwentHub> _hub;
         public GwentDatabaseService _databaseService;
@@ -348,11 +349,11 @@ namespace Cynthia.Card.Server
             return true;
         }
 
-        public async Task<bool> SendSeasonEndMessage(string username, IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName)
+        public async Task<bool> SendSeasonEndMessage(string playername, IList<string> avatars, IList<string> borders, IList<string> titles, int mmrBeforeReset, int rank, string seasonName)
         {
-            if (_users.Any(x => x.Value.PlayerName == username))
+            if (_users.Any(x => x.Value.PlayerName == playername))
             {
-                var connectionId = _users.Single(x => x.Value.PlayerName == username).Value.ConnectionId;
+                var connectionId = _users.Single(x => x.Value.PlayerName == playername).Value.ConnectionId;
                 if (!_users.ContainsKey(connectionId))
                 {
                     return false;
@@ -364,7 +365,7 @@ namespace Cynthia.Card.Server
             {
                 //not logged
                 var message = new UserSeasonEndMessage("DisplaySeasonEndMessage", avatars, borders, titles, mmrBeforeReset, rank, seasonName);
-                await _databaseService.SaveUserMessage(username, message);
+                await _databaseService.SaveUserMessage(playername, message);
                 
             }
             return false;
@@ -376,17 +377,6 @@ namespace Cynthia.Card.Server
             var loginUser = _databaseService.Login(username, password);
             if (loginUser == null) return null;
 
-            // if user is online, attach any pending newly unlocked trinkets
-            var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
-            if (onlineUser != null && onlineUser.NewlyUnlockedTrinkets != null)
-            {
-                loginUser.NewlyUnlockedTrinkets = new NewlyUnlockedTrinkets
-                {
-                    NewAvatars = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewAvatars),
-                    NewBorders = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewBorders),
-                    NewTitles = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewTitles)
-                };
-            }
             // give trinkets linked to a counter such as GG
             if (loginUser.GGsReceived >= 100)
             {
@@ -411,6 +401,19 @@ namespace Cynthia.Card.Server
             if (loginUser.GamesOver200 >= 10)
             {
                 await AddAvatar(loginUser.PlayerName, "Odrin");
+            }
+            // Return the final profile and notification buffer after counter awards.
+            loginUser = _databaseService.Login(username, password);
+            // if user is online, attach any pending newly unlocked trinkets
+            var onlineUser = _users.Values.FirstOrDefault(x => x.UserName == username);
+            if (onlineUser != null && onlineUser.NewlyUnlockedTrinkets != null)
+            {
+                loginUser.NewlyUnlockedTrinkets = new NewlyUnlockedTrinkets
+                {
+                    NewAvatars = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewAvatars),
+                    NewBorders = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewBorders),
+                    NewTitles = new List<string>(onlineUser.NewlyUnlockedTrinkets.NewTitles)
+                };
             }
             //
             return loginUser;
@@ -472,6 +475,12 @@ namespace Cynthia.Card.Server
                     await UpdateTitle(user.PlayerName, "CARDSMITH");
                 }
 
+                // The Add/Update methods persisted defaults after the original query. Return that
+                // complete snapshot (including ownership) and keep the online representation aligned.
+                loginUser = _databaseService.Login(user.UserName, password);
+                user.OwnedAvatars = loginUser.OwnedAvatars;
+                user.OwnedBorders = loginUser.OwnedBorders;
+                user.OwnedTitles = loginUser.OwnedTitles;
                 // Copy newly unlocked trinkets to the returned UserInfo (map buffer -> DTO)
                 if (user.NewlyUnlockedTrinkets != null)
                 {
@@ -1001,13 +1010,13 @@ namespace Cynthia.Card.Server
         public async Task<string> GetLatestVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return "2.1.9";
+            return LatestClientVersion;
         }
 
         public async Task<string> GetNotes(string connectionId)
         {
             await Task.CompletedTask;
-            return @"DiyGwent AITest 2.1.9 · 5010 实验服
+            return $@"DiyGwent AITest {LatestClientVersion} · 5010 实验服
 
 QQ群：945408322（约战、反馈、DIY 讨论）
 
@@ -1027,7 +1036,7 @@ ai5 猎龙人
         public async Task<string> GetNotesEN(string connectionId)
         {
             await Task.CompletedTask;
-            return @"DiyGwent AITest 2.1.9 · experimental realm on port 5010
+            return $@"DiyGwent AITest {LatestClientVersion} · experimental realm on port 5010
 
 QQ group: 945408322 (matches, feedback, and DIY discussion)
 
@@ -1054,13 +1063,13 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         public async Task<string> GetDownloadLink(string connectionId)
         {
             await Task.CompletedTask;
-            return string.Empty;
+            return "https://github.com/LegacyGwent/LegacyGwent/releases/tag/v" + LatestClientVersion;
         }
 
         public async Task<string> GetLatestClientVersion(string connectionId)
         {
             await Task.CompletedTask;
-            return @"2.1.9";
+            return LatestClientVersion;
         }
         //-------------------------------------------------------------------------
         public int GetUserCount()
@@ -1386,8 +1395,15 @@ Note: this realm changes frequently and may be interrupted. Its experimental dat
         public int[] GetPlayernameStreak(string playername) => _databaseService.QueryStreak(playername);
 
         public async Task<SeasonInfo> GetSeasonData(bool active = true, int id = 0) => await _databaseService.QuerySeasonData(active, id);
-        public IList<string> GetUserMessages(string playername) => _databaseService.QueryUserMessages(playername);
-        public Task<bool> RemoveUserMessage(string username, int messageId) => _databaseService.RemoveUserMessage(username, messageId);
+        // Message ownership comes from the authenticated connection, not wire-supplied names.
+        public IList<string> GetUserMessages(string connectionId) =>
+            _users.TryGetValue(connectionId, out var user)
+                ? _databaseService.QueryUserMessages(user.UserName)
+                : new List<string>();
+        public Task<bool> RemoveUserMessage(string connectionId, string expectedUsername, int messageId) =>
+            _users.TryGetValue(connectionId, out var user) && user.UserName == expectedUsername
+                ? _databaseService.RemoveUserMessage(user.UserName, messageId)
+                : Task.FromResult(false);
         public IList<SeasonReward> GetSeasonRewards(int seasonID, string type = "all") => _databaseService.QuerySeasonRewards(seasonID, type);
         public IList<Tuple<string, int>> GetAllMMR(int offset, int limit) => _databaseService.QueryAllMMR(offset, limit);
         public IList<Tuple<string, string, string, string, int, int, IList<int[]>>> GetAllMMRExtended(int offset, int limit) => _databaseService.QueryAllMMRExtended(offset, limit);

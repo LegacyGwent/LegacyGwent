@@ -108,7 +108,7 @@ public static class PremiumCopyVerification
             var samples = editor.EditorCardsContext.GetComponentsInChildren<EditorUICoreCard>();
             Check(samples.Length == 8, "quantity visibility covers both versions of all four card groups");
             foreach (var sample in samples)
-                Check(sample.CountIcon.activeSelf == (sample.cardShowInfo.CurrentCore.Group == Group.Copper && sample.cardShowInfo.CurrentCore.IsPremium == true),
+                Check(sample.CountIcon.activeSelf == (sample.cardShowInfo.CurrentCore.Group == Group.Copper),
                     "deck quantity visibility " + sample.cardShowInfo.CurrentCore.Group + " premium=" + sample.cardShowInfo.CurrentCore.IsPremium);
             ScreenCapture.CaptureScreenshot(Path.Combine(Work, "deck-quantity-visibility.png"));
             await Task.Delay(200);
@@ -117,18 +117,17 @@ public static class PremiumCopyVerification
             editor.ClickEditorUICoreCard(new CardStatus(id) { IsPremium = false });
             editor.ClickEditorUICoreCard(new CardStatus(id) { IsPremium = true }); await Task.Delay(1200);
             var rows = editor.EditorCListContext.GetComponentsInChildren<ListCardShowInfo>();
-            Check(rows.Length == 2 && !rows.Single(x => x.CardStatus.IsPremium == false).Count.activeSelf &&
-                rows.Single(x => x.CardStatus.IsPremium == true).Count.activeSelf && rows.Single(x => x.CardStatus.IsPremium == true).CountText.text == "x1",
-                "deck rows separate versions and show only premium copper quantity");
+            Check(rows.Length == 2 && rows.All(x => x.Count.activeSelf) &&
+                rows.Single(x => x.CardStatus.IsPremium == false).CountText.text == "x2" &&
+                rows.Single(x => x.CardStatus.IsPremium == true).CountText.text == "x1",
+                "deck rows separate versions and show each copper quantity");
             Check(rows.Single(x => x.CardStatus.IsPremium == true).Border.transform.Find("PremiumEdge").gameObject.activeSelf,
                 "premium miniature has its distinct border");
             editor.ClickEditorUICoreCard(new CardStatus(id) { IsPremium = true });
             Check(deck.Deck.Count == 3, "mixed variants share the three-copy deck cap");
             var editorCards = editor.EditorCardsContext.GetComponentsInChildren<EditorUICoreCard>();
-            Check(!editorCards.Single(x => x.cardShowInfo.CurrentCore.IsPremium == false).CountIcon.activeSelf &&
-                editorCards.Single(x => x.cardShowInfo.CurrentCore.IsPremium == true).CountText.text == "X2" &&
-                editorCards.Single(x => x.cardShowInfo.CurrentCore.IsPremium == true).CountIcon.activeSelf,
-                "only premium copper original counter shows remaining copies in deck editor");
+            Check(editorCards.All(x => x.CountIcon.activeSelf) && editorCards.All(x => x.CountText.text == "X0"),
+                "both copper versions report zero remaining once the shared deck cap is reached");
             Check(editor.EditorCardsContext.GetComponentsInChildren<EditorUICoreCard>().All(x => x.Gray.activeSelf),
                 "both variants show unavailable when the shared deck limit is full");
             ScreenCapture.CaptureScreenshot(Path.Combine(Work, "deck-mixed.png"));

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Cynthia.Card;
 using Cynthia.Card.Common.Models;
@@ -84,8 +84,9 @@ public class RewardTableElement : MonoBehaviour
     {
         TitleImage.enabled = true;
         TitleText.enabled = true;
-        TitleText.text = _translator.GetText(title_id + "Name");
-        TitleText.color = mycolormap[_titles.FirstOrDefault(x => x.ID == title_id)?.TitleColor];
+        var title = Cynthia.Card.TrinketMap.ResolveTitle(title_id);
+        TitleText.text = _translator.GetText(title.ID + "Name");
+        TitleText.color = mycolormap[title.TitleColor];
         
     }
     

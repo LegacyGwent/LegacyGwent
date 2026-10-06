@@ -51,6 +51,8 @@ public class LeaderShow : MonoBehaviour
         var op = Addressables.LoadAssetAsync<Sprite>(miniatureid);
         Sprite go = op.WaitForCompletion();
         Miniature.sprite = go;
+        // Fill the legacy banner without stretching the artwork or crossing its frame.
+        CardMiniatureCover.Apply(Miniature, true);
         // Addressables.LoadAssetAsync<Sprite>(miniatureid).Completed += (obj) =>
         // {
         //     Miniature.sprite = obj.Result;

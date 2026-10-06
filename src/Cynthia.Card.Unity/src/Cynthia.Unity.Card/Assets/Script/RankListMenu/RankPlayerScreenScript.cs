@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -106,7 +106,7 @@ public class RankPlayerScreenScript : MonoBehaviour
 
         try
         {
-            var _avatar = Addressables.LoadAssetAsync<Sprite>(avatar);
+            var _avatar = Addressables.LoadAssetAsync<Sprite>(TrinketMap.ResolveAvatar(avatar).ID);
             Sprite avatar_img = _avatar.WaitForCompletion();
             PlayerAvatar.sprite = avatar_img;
         }
@@ -114,7 +114,7 @@ public class RankPlayerScreenScript : MonoBehaviour
 
         try
         {
-            var _border = Addressables.LoadAssetAsync<Sprite>(border);
+            var _border = Addressables.LoadAssetAsync<Sprite>(TrinketMap.ResolveBorder(border).ID);
             Sprite border_img = _border.WaitForCompletion();
             PlayerBorder.sprite = border_img;
         }
@@ -122,8 +122,9 @@ public class RankPlayerScreenScript : MonoBehaviour
         var titleColor = Color.white;
         try
         {
-            titleColor = mycolormap[_titles.Where(x => x.ID == title).Single().TitleColor];
-            PlayerTitle.text = _translator.GetText(title + "Name");
+            var resolvedTitle = TrinketMap.ResolveTitle(title);
+            titleColor = mycolormap[resolvedTitle.TitleColor];
+            PlayerTitle.text = _translator.GetText(resolvedTitle.ID + "Name");
             PlayerTitle.color = titleColor;
         }
         catch (Exception e) { }

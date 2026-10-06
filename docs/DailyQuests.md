@@ -8,9 +8,9 @@
 - 全球统一按中国时间（UTC+8，Asia/Shanghai）00:00 重置，使用服务器 UTC 时钟换算，不依赖主机所在时区或玩家电脑日期。
 - 登录成功自动发 20 陨星粉尘；当天多次登录、刷新或断线重连不重复发放。保持在线的账号在跨日后的首次任务同步也会领取当天登录奖励。
 - 真人对局每赢一个实际结算的小局得到 1 个小王冠，累计 2／4／6 冠分别额外发 25／35／45 粉尘，登录与王冠合计最多 125 粉尘。第 6 冠以后进度和奖励封顶。
-- 人机练习、自我对局、平局不计每日王冠。投降／断线只保留此前已经结算赢下的小局，不凭整场胜利补发未进行的小局。匹配和密码真人房均计入。
+- 人机练习、自我对局、平局不计每日王冠。真人对局中对手投降或掉线时，幸存方按“赢下整场”补足 2 枚小王冠进度：已结算的非平局小局各占一个奖励事件，缺少的部分用稳定的场次级幂等键补记；此前写入确认丢失的事件沿用原键重试，不额外生成奖励。平局小局不占奖励事件，因此不能用胜场数直接计算补足量。已经分出胜负的对局不会再多计，败方已获得的进度保留。匹配和密码真人房均计入。
 - 王冠按服务器处理奖励时的中国日期归属，不按小局结束日期归属。零点前结束、零点后首次处理的小局计入新一天，并按新一天的进度与上限发奖；服务器提供的未来结算时间仍不接受。
-- 同一账号同一小局只处理一次，跨日和重启重试也不重复计冠；当天已经封顶后处理的小局同样记入去重记录，不能通过次日重试获取奖励。服务器时钟倒退到已保存日期之前时停止发放。
+- 同一账号同一奖励事件（正常小局或投降补记）只处理一次，跨日和重启重试也不重复计冠；当天已经封顶后处理的小局同样记入去重记录，不能通过次日重试获取奖励。服务器时钟倒退到已保存日期之前时停止发放。
 - 对局结束后向对手发送 GG（Good Game）时，接收方每个有效 GG 得到 5 陨星粉尘，每天最多 6 个（30 粉尘）；第 7 个起不再增加进度或奖励，但社交 GG 提示与 `GGsReceived` 计数仍按每个有效对局一次保留。
 - 每天与同一对手仅首场真人对局可获得小王冠与 GG 粉尘；当天再次遇到同一对手时，这两项奖励均不再发放。登录奖励独立于该限制，仍按当天首次登录发放。
 - 首场资格适用于普通匹配和密码真人房；投降或断线的真人对局同样占用当天与该对手的首场资格。判断只读现有服务端 `GameResults` 对局记录，不新建反刷集合。
@@ -23,7 +23,7 @@
 
 同对手规则的独立说明见 [SameOpponentRewardsVerification.md](SameOpponentRewardsVerification.md)，GG 奖励见 [GGRewardsVerification.md](GGRewardsVerification.md)。
 
-`GwentServerGame.BigRoundEnd` 从双方实际场面得分确定胜者，通过 `GwentMatchs` 绑定的服务端回调计冠。AI 分支保持既有设计：回调只做入队，绝不阻塞小局推进。
+`GwentServerGame.BigRoundEnd` 从双方实际场面得分确定胜者，通过 `GwentMatchs` 绑定的服务端回调计冠。AI 分支保持既有设计：回调只做入队，绝不阻塞小局推进。对手投降或掉线时 `GwentMatchs.PlayerLeave` 调用 `GwentServerGame.GameEnd` 结束对局：`GameEnd` 与自然结束的 `GameOverExecute` 共用一次性终局闸门，只发布一个结果，且不会翻转已经自然分出胜负的对局。尚未分出胜负时，服务端按本场已分配的奖励事件数为幸存方补足整场胜利的 2 枚（用 `场次 ID:forfeit:玩家编号:事件序号` 稳定幂等键，与正常小局结算共用去重账本），因此重复结束、双方同时掉线或与正在结算的小局竞争都不会多发。奖励入队先于任何客户端消息，掉线导致的通知失败不会吞掉奖励；回调抛出异常时按原键有界重试，入队成功后持久工作项与 5 秒退避重试由 `RewardSettlementService` 负责。客户端不能提交用户名、时区、日期、胜场数或奖励金额；唯一公开任务接口为认证连接上的 `GetDailyQuests()`。
 
 - 真人对局创建时生成一个服务器场次 id，同时作为 `GwentServerGame` 的小局奖励 id 前缀、落库 `GameResult.Id` 和 GG 回执 id。
 - `GwentMatchs` 在小局结算时调用 `GwentServerService.QueueDailyCrown(winner, opponent, matchId, roundId, settledUtc)`，把钱包归属账号、双方显示名和场次 id 一起入队。
@@ -47,6 +47,7 @@ GG 发奖的持久去重账本与临时对局回执分开：回执在内存中�
 - 保留 AI 的 `.NET 10`、`MongoDB.Driver 3.9`、`RewardSettlementService`、`PremiumDeckSelectionService`、`InitialPowderGrantService` 与初始粉尘、闪卡、菜单行为；未整体替换 `GwentServerService`／`GwentMatchs`／`GwentServerGame`。
 - AI 原有 `QueueDailyCrown(User, roundId, settledUtc)` 三参数重载保留给合成工作项与既有测试；新增带对手和场次上下文的重载供真实真人局使用。
 - `GwentMatchs` 的 `isAiMatch` 在开局时一次性求值，保持原 `InvokeGameOver(result, isAi || isAi, isCountMMR)` 语义。
+- 投降／掉线补冠沿用 AI 的入队式回调（`Action`，不阻塞小局推进），用 `GwentServerGame` 内的一次性终局闸门保证每场只结算一次；持久去重、同对手校验与重试仍由 `RewardSettlementService`／`AwardDailyCrown` 负责。
 - 隔离环境：服务 `card-diy-ai`（TCP 5010）、MongoDB `mongod-diy-ai`（回环 28021），数据写入逻辑库 `gwentdiy`／`Web`；不触碰 `card-diy`／5005／28020。
 
 ## 客户端
@@ -65,6 +66,7 @@ GG 发奖的持久去重账本与临时对局回执分开：回执在内存中�
 
 ## 验证状态（移植后）
 
+- 2026-09-30 投降／掉线补冠修复与专项验收见 [ForfeitRewardsVerification.md](ForfeitRewardsVerification.md)。
 - `python scripts/Verify-Localization.py`：通过。四语言、三份语言包一致，格式参数与运行时代码引用键有效；每份 `MenuLocales` 由 852 键增至 859 键（仅新增 7 个 GG／规则键）。
 - 编译：`Cynthia.Card.Server`、`DailyQuestTest`、`RewardClientTest`、`GGRewardsTest`、`SameOpponentRewardsTest`、`RewardSystemTest`、`PremiumCraftingTest`、`Cynthia.Card.Server.Tests`、`Cynthia.Card.Gameplay.Tests` 在 .NET SDK 10.0.102 下退出码 0、编译错误 0。
 - 2026-09-22 Codex 独立复核：隔离 Mongo `127.0.0.1:28129` 上，GG 54、同对手 38、每日任务 34、合成 21 项通过；客户端同步 30 项、旧字段兼容 2 项通过；另用仓库外临时测试验证真实后台队列的首场计冠、后续拦截、上下文落库与重启恢复，6 项通过，合计 185 项。生产服务与数据库未改动。

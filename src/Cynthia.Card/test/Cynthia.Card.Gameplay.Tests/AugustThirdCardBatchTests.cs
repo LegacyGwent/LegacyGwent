@@ -172,7 +172,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task AguaraRandomHandBoostExcludesSpies()
+        public async Task AguaraLetsPlayerChooseAnyHandUnitIncludingSpies()
         {
             var fixture = new HeadlessGameFixture();
             var aguara = fixture.AddCard(
@@ -187,8 +187,11 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await aguara.Effect.CardPlayEffect(false, false);
 
-            Assert.Equal(0, spy.Status.HealthStatus);
-            Assert.Equal(5, loyal.Status.HealthStatus);
+            Assert.Equal(5, spy.Status.HealthStatus);
+            Assert.Equal(0, loyal.Status.HealthStatus);
+            Assert.Contains(fixture.FirstPlayer.MenuRequests,
+                request => request.SelectList.Any(card => card.CardId == CardId.Emissary) &&
+                    !request.IsCanOver);
         }
 
         [Fact]

@@ -84,7 +84,9 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
                 }
             borderID = trinket;
         }
-        var op = Addressables.LoadAssetAsync<Sprite>(trinket);
+        var displayId = trinkettype == "OwnedAvatars"
+            ? TrinketMap.ResolveAvatar(trinket).ID : TrinketMap.ResolveBorder(trinket).ID;
+        var op = Addressables.LoadAssetAsync<Sprite>(displayId);
         Sprite go = op.WaitForCompletion();
         AvatarArt.sprite = go;        
     }
@@ -113,35 +115,33 @@ public class TrinketsContext : MonoBehaviour // this script generates a prefab o
     {
         LocalizedLabel.Set(AvatarName, avatar+"Name");
         LocalizedLabel.Set(AvatarsContext, avatar+"Description");
-        if (_avatars.Where(x => x.ID == avatar).Single().UnlockStat != null)
-        {
-            ProgresObject.SetActive(true);
-            var mystat = _avatars.Where(x => x.ID == avatar).Single().UnlockStat;
-            Progress.text = _clientService.User[mystat] + "/" + _avatars.Where(x => x.ID == avatar).Single().UnlockCounter.ToString();
-        } 
+        var definition = TrinketMap.ResolveAvatar(avatar);
+        SetUnlockProgress(definition.UnlockStat, definition.UnlockCounter);
     }
     public void SetBorderContext(string border) // set name, decription and if necessary, the progress towards unlock
     {
         LocalizedLabel.Set(AvatarName, border+"Name");
         LocalizedLabel.Set(AvatarsContext, border+"Description");
-        if (_borders.Where(x => x.ID == border).Single().UnlockStat != null)
-        {
-            ProgresObject.SetActive(true);
-            var mystat = _borders.Where(x => x.ID == border).Single().UnlockStat;
-            Progress.text = _clientService.User[mystat] + "/" + _borders.Where(x => x.ID == border).Single().UnlockCounter.ToString();
-        } 
+        var definition = TrinketMap.ResolveBorder(border);
+        SetUnlockProgress(definition.UnlockStat, definition.UnlockCounter);
     }
     public void SetTitleContext(string title) // set name, decription and if necessary, the progress towards unlock
     {
         LocalizedLabel.Set(AvatarName, title+"Name");
         LocalizedLabel.Set(AvatarsContext, title+"Description");
-        if (_titles.Where(x => x.ID == title).Single().UnlockStat != null)
-        {
-            ProgresObject.SetActive(true);
-            var mystat = _titles.Where(x => x.ID == title).Single().UnlockStat;
-            Progress.text = _clientService.User[mystat] + "/" + _titles.Where(x => x.ID == title).Single().UnlockCounter.ToString();
-        } 
+        var definition = TrinketMap.ResolveTitle(title);
+        SetUnlockProgress(definition.UnlockStat, definition.UnlockCounter);
     }
+    // Selection panels have progress widgets; unlock notifications intentionally omit them.
+    private void SetUnlockProgress(string stat, int counter)
+    {
+        if (ProgresObject == null || Progress == null)
+            return;
+        ProgresObject.SetActive(stat != null);
+        if (stat != null)
+            Progress.text = _clientService.User[stat] + "/" + counter;
+    }
+
     // When the SetAvatarButton is clicked, set the current avatar of the user
     public async void SetAvatar()
     {   

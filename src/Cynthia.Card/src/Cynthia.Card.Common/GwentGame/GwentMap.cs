@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 207);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 208);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -777,7 +777,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Relict},
                     Flavor = "乖乖听话，不然就让狐妖把你抓走！",
-                    Info = "择二：使最弱的友军单位获得5点增益；使手牌中的1个随机非间谍单位获得5点增益；对最强的1个敌军单位造成5点伤害；魅惑1个战力不高于5点的敌军“精灵”单位。",
+                    Info = "择二：使最弱的友军单位获得5点增益；使手牌中的1个单位获得5点增益；对最强的1个敌军单位造成5点伤害；魅惑1个战力不高于5点的敌军“精灵”单位。",
                     CardArtsId = "20006200",
                     LinkedCards=new List<String> {},
                 }
@@ -2020,7 +2020,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Tactic,Categorie.Special},
                     Flavor = "以诸神的名义，猎魔人，你把这鬼东西拿来干嘛？！“我要那畜生的脑袋！”这句话不过是打个比方！",
-                    Info = "如果落后，生成1只“帝国蝎尾狮”；如果领先，生成“蝎尾狮毒液”。",
+                    Info = "如果落后，生成“帝国蝎尾狮”；如果领先，生成“蝎尾狮毒液”。",
                     CardArtsId = "20153200",
                     LinkedCards=new List<String> {"23002","13030"},
                 }
@@ -2503,7 +2503,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special},
                     Flavor = "人类对变形怪深恶痛绝，觉得光是处刑还不够。因此一旦落入人类手中，他们自然就凶多吉少了……",
-                    Info = "随机生成 1 张己方阵营中的铜色单位牌。",
+                    Info = "生成等同于手牌数量的战力的起始牌组之外的己方阵营中的铜色单位。若无对应战力单位，则生成1个“农民”。",
                     CardArtsId = "20163100",
                     LinkedCards=new List<String> {},
                 }
@@ -11330,7 +11330,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "从牌组召唤1张同名牌至同排。每当有铜色/银色敌方单位转为受伤状态时，获得1点增益。",
+                    Info = "从牌组召唤1张同名牌至同排。每当有铜色/银色敌方单位变为受伤状态时，获得1点增益。",
                     CardArtsId = "202229",
                     LinkedCards=new List<String> {},
                 }
@@ -11351,7 +11351,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "",
-                    Info = "生成1张“蝠翼魔”并将其置于你的牌组顶端。每当有铜色/银色敌方单位转为受伤状态时，获得2点增益。",
+                    Info = "生成1张“蝠翼魔”并将其置于你的牌组顶端。每当有铜色/银色敌方单位变为受伤状态时，获得2点增益。",
                     CardArtsId = "202223",
                     LinkedCards=new List<String> {"70009"},
                 }
@@ -11912,7 +11912,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70045", //Meve
                     Name="米薇",
-                    Strength=6,
+                    Strength=7,
                     Group=Group.Leader,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13342,7 +13342,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed},
                     Flavor = "结束了，结束了，那是怜悯。",
-                    Info = "在对方同排生成“巨熊祭品”，随后将1个己方“士兵”单位转化为“斯瓦勃洛狂信者”。",
+                    Info = "在对方同排生成“巨熊祭品”，随后将1个友军单位转化为“斯瓦勃洛狂信者”。",
                     CardArtsId = "202279",
                     LinkedCards=new List<String> {"70090"},
                 }
@@ -13763,7 +13763,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "如此恐怖的现场……显然是蝠翼脑魔所为。",
-                    Info = "随机对敌军单位造成1点伤害5次，若目标受伤则变为汲食。",
+                    Info = "使对方同排的随机单位受到1点伤害5次，若目标受伤则变为汲食。",
                     CardArtsId = "202224",
                     LinkedCards=new List<String> {},
                 }
@@ -14693,7 +14693,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "将一个友军单位转为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
+                    Info = "将一个友军单位转化为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
                     CardArtsId = "202235",
                     LinkedCards=new List<String> {},
                 }

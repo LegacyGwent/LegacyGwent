@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using Xunit;
 
 namespace Cynthia.Card.Server.Tests
@@ -132,6 +133,20 @@ namespace Cynthia.Card.Server.Tests
             Assert.Equal(TimeSpan.FromSeconds(90), options.ClientTimeoutInterval);
             Assert.Single(protocols, protocol => protocol.Name == "json");
             Assert.Contains(protocols, protocol => protocol.Name == "blazorpack");
+        }
+
+        [Fact]
+        public void StartupConfiguration_ReusesMongoClientAcrossScopes()
+        {
+            using var provider = CreateServerServices();
+            using var firstScope = provider.CreateScope();
+            using var secondScope = provider.CreateScope();
+
+            var first = firstScope.ServiceProvider.GetRequiredService<IMongoClient>();
+            var second = secondScope.ServiceProvider.GetRequiredService<IMongoClient>();
+
+            Assert.Same(first, second);
+            Assert.Same(first, provider.GetRequiredService<IMongoClient>());
         }
 
         private static ServiceProvider CreateServerServices()

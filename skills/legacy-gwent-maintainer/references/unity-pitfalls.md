@@ -1,6 +1,36 @@
 # Unity client pitfalls
 
-Last verified: 2026-08-10
+Last verified: 2026-10-06
+
+## Fresh or legacy account profile has missing cosmetics
+
+- Symptom: login reaches Game, then `CurrentTrinkets.Update` throws
+  `Sequence contains no elements`; profile notification rendering can dereference
+  a missing `NewlyUnlockedTrinkets`. These managed UI errors alone do not establish
+  an Android native crash or identify the cause of another player's crash.
+- Cause: `Game.unity` left MainCode's unlock prefab and Canvas references empty,
+  so a normal first-login notification dereferenced `Canevas.transform`. Separately,
+  registration omitted equipped cosmetics and owned titles. Login updated
+  Mongo and the online user after reading its response DTO, then returned that
+  stale DTO. Cosmetic UI assumed every saved ID exists in its current catalog;
+  missing/null notification and ownership collections had no shared DTO contract.
+- Fix: bind the real unlock prefab and Canvas in Game; notification prefabs omit
+  progress controls, so the shared progress presenter treats those as optional.
+  Register valid defaults; return a refreshed login/query profile after grants and
+  default selection. `UserInfo` and `NewlyUnlockedTrinkets` map missing/explicit-null
+  collections to empty collections. `TrinketMap.ResolveAvatar/Border/Title` provide
+  presentation defaults for absent or unavailable IDs without changing stored IDs
+  or granting ownership; use them across profile, rank, match and trinket UI.
+- Prevention: verify first login with a login ID different from the display name;
+  compare the final response with persisted defaults. Do not hide missing catalog
+  IDs with per-screen `Single` assumptions or equate metadata preservation with
+  Android AOT coverage.
+- Verification: `UserProfileCompatibilityTests` checks actual serialized scene,
+  prefab and Canvas references and covers fresh/missing/null JSON,
+  old BSON, unavailable IDs, no ownership grants, and preserved valid selections.
+  The pre-fix Android emulator reached the menu with these managed errors. The
+  changed client/server still requires a rebuilt-player fresh-login verification;
+  offline tests do not establish deployment or true-device behavior.
 
 ## New card art loads but its deck-list miniature is missing
 
@@ -17,6 +47,40 @@ Last verified: 2026-08-10
   addresses for every new art ID.
 - Verification: the group entries resolve to the two `.meta` GUIDs and the
   client can load both `<CardArtsId>` and `<CardArtsId>_slot`.
+
+## A leader banner exposes bands or leaks past its frame
+
+- Symptom: Dana Meadbh or another narrow `_slot` image leaves background bands
+  above/below the leader art; simply turning off aspect preservation stretches
+  faces and can also expose art beyond the metal frame.
+- Cause: regular slot art is usually 512x64 (8:1), while old leader slots are
+  512x128 or 560x128. The authored leader viewports are about 3.75:1 to 5.68:1;
+  `preserveAspect` fits the whole image instead of filling the viewport. Some
+  faction miniature rectangles also extend beyond their immediate banner parent.
+- Fix: keep the old frame/prefab geometry. `CardMiniatureCover` rewrites only
+  the Image quad and UVs to cover its target proportionally, using the sprite's
+  own region rather than the whole atlas texture. Leader/deck banners limit that
+  target to their original image rect intersected with the parent frame inset by
+  3 UI units. Recompute on mesh rebuild, including layout changes; do not create
+  fixed-size wrapper masks or resize the frame. Border, name and controls are
+  separate graphics and remain unchanged. Align horizontal crops to the right edge
+  to retain right-side subjects even near the source edge; vertical crops are centred.
+- Integration: `LeaderShow.SetLeader` and `DeckEditorMiniatures.SetMiniatureArt`
+  enable parent-frame clipping; `ListCardShowInfo` uses the same proportional
+  cover in its compact authored viewport without the leader inset. Both normal
+  and premium rows keep their existing appearance/border and count semantics.
+- Asset provenance: Dana `203195_slot.png` uses the existing 512x128 crop from
+  upstream commit `47f1c3de5`, with its original Addressable name and `.meta` GUID.
+  The full `203195.png` portrait is unchanged. Full card textures have their own
+  padded canvas convention; do not resize those canvases to fix a slot image.
+- Prevention: test 4:1, 4.375:1 and 8:1 inputs against every faction's leader,
+  deck-selection and compact-card viewport. Check no stretching, exposed strips,
+  frame overflow, atlas-region leakage, or stale clipping after a layout resize.
+  A new portrait must not require another CardId-specific rendering exception.
+- Verification boundary: source/geometry checks and offline renders of the actual
+  prefab dimensions and assets are reproducible evidence, but do not claim they
+  are Unity Play Mode, packaged-client or device screenshots. Those remain a
+  separate visual acceptance gate.
 
 ## Downloaded macOS or Linux client is not executable
 
