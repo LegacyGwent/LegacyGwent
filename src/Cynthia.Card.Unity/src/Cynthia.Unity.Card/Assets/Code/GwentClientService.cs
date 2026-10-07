@@ -49,6 +49,7 @@ namespace Cynthia.Card.Client
         private readonly SynchronizationContext _mainThread;
         // The server keeps a game for 60 seconds after a disconnect; stop trying a bit earlier
         private const int ReconnectSeconds = 55;
+        private int _handlingClosed;
 
         private readonly object _lock = new object();
         private ClientState _clientState = ClientState.Standby;
@@ -400,9 +401,24 @@ namespace Cynthia.Card.Client
 
         // Resume the game this user was disconnected from, if the server still holds it.
         // The server then sends the whole game state, so the game scene has to be (re)loaded.
+        private void ResetPlayer()
+        {
+            var old = Player;
+            old.Retire();
+            Player = new LocalPlayer(HubConnection)
+            {
+                PlayerName = old.PlayerName,
+                CurrentAvatar = old.CurrentAvatar,
+                CurrentBorder = old.CurrentBorder,
+                CurrentTitle = old.CurrentTitle,
+                Deck = old.Deck,
+                Blacklist = old.Blacklist
+            };
+        }
+
         public async Task<bool> Reconnect()
         {
-            Player.ResetTube();
+            ResetPlayer();
             try
             {
                 return await HubConnection.InvokeAsync<bool>("Reconnect");
@@ -416,6 +432,14 @@ namespace Cynthia.Card.Client
 
         private async Task OnConnectionClosed()
         {
+            if (Interlocked.CompareExchange(ref _handlingClosed, 1, 0) != 0) return;
+            try { await OnConnectionClosedCore(); }
+            finally { Volatile.Write(ref _handlingClosed, 0); }
+        }
+
+        private async Task OnConnectionClosedCore()
+        {
+            Player.Retire();
             if (ClientState == ClientState.Play && ClientGlobalInfo.ViewingRoomId == "" && await TryReconnectGame())
                 return;
             if (ClientState == ClientState.Play)
@@ -423,7 +447,7 @@ namespace Cynthia.Card.Client
             (sender, receiver) = Tube.CreateSimplex();
             SceneManager.LoadScene("LoginScene");
             ClientState = ClientState.Standby;
-            Player.ResetTube();
+            ResetPlayer();
 
             // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
             await _globalUIService.YNMessageBox(
