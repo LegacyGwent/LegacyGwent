@@ -77,5 +77,6 @@ namespace Cynthia.Card
         SetNameInfo,//更新名称方面信息(虽然感觉没什么意义)
         //------------------------------
         //预留一些指令
+        MessageBoxAutoClose,//显示消息,几秒后自动关闭 (string message, int seconds, bool showTimer)
     }
 }

@@ -52,11 +52,19 @@ namespace Cynthia.Card.Client
             // {
             //AudioManager.Instance.PlayAudio("11320700", AudioType.Card); // play commander's horn sound to notify the player that the game has started
             Debug.Log("运行开始 - Game Start");
+            try
+            {
             while (
+                !player.IsRetired &&
                 await ResponseOperations(
                     await _player.ReceiveAsync(), ClientGlobalInfo.ViewingRoomId != ""
                 )
             ) ;
+            }
+            catch (Exception) when (player.IsRetired)
+            {
+                // The old scene must not make its outer GameStart catch reset a resumed session.
+            }
             // });
             // await Task.WhenAny(game, ConnectTask);
         }
@@ -72,6 +80,7 @@ namespace Cynthia.Card.Client
             foreach (var operation in operations)
             {
                 // Debug.Log($"执行了指令{operaction.OperationType},线程Id:{Thread.CurrentThread.ManagedThreadId}");
+                if (_player.IsRetired) return false;
                 if (!await ResponseOperation(operation, isViewer))
                 {
                     return false;
@@ -152,6 +161,10 @@ namespace Cynthia.Card.Client
                 case ServerOperationType.MessageBox:
                     _ = GlobalUIService.YNMessageBox("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), "PopupWindow_OkButton", isOnlyYes: true);
                     break;
+                case ServerOperationType.MessageBoxAutoClose:
+                    GlobalUIService.ShowAutoClose("PopupWindow_ReceivedMessageTitle", arguments[0].ToType<string>(), arguments[1].ToType<int>(),
+                        arguments.Length > 2 && arguments[2].ToType<bool>());
+                    break;
                 case ServerOperationType.RoundEnd://回合结束
                     GameCodeService.RoundEnd();
                     break;
@@ -162,6 +175,7 @@ namespace Cynthia.Card.Client
                     var info = arguments[0].ToType<GameResultInfomation>();
                     GameCodeService.ShowGameResult(info);
                     var newMMR = await _server.GetPalyernameMMR(info.MyName);
+                    if (_player.IsRetired) return false;
                     GameCodeService.ShowMMRResult(myMMR, newMMR);
                     return false;
                 case ServerOperationType.CardMove:
@@ -225,7 +239,9 @@ namespace Cynthia.Card.Client
                     var gameInfo = arguments[0].ToType<GameInfomation>();
                     GameCodeService.SetAllInfo(gameInfo);
                     myMMR = await _server.GetPalyernameMMR(gameInfo.MyName);
+                    if (_player.IsRetired) return false;
                     var enemyMMR = await _server.GetPalyernameMMR(gameInfo.EnemyName);
+                    if (_player.IsRetired) return false;
                     GameCodeService.SetMMRInfo(myMMR, enemyMMR);
                     break;
                 case ServerOperationType.SetCardsInfo:

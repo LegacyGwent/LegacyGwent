@@ -5,6 +5,7 @@ using Alsein.Extensions.IO;
 using Alsein.Extensions.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Alsein.Extensions;
 using Autofac;
@@ -13,43 +14,73 @@ namespace Cynthia.Card.Client
 {
     public class LocalPlayer : Player
     {
+        private readonly HubConnection _hubConnection;
+        private readonly object _lifetime = new object();
+        private readonly CancellationTokenSource _transportLifetime = new CancellationTokenSource();
+        private readonly TaskCompletionSource<bool> _retired = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        private readonly IDisposable _gameSubscription;
+        private readonly IDisposable _viewerSubscription;
+        public bool IsRetired => _retired.Task.IsCompleted;
+
         public LocalPlayer(HubConnection hubConnection) : base()
         {
-            //接收到通讯层消息,发送到下游
-            ((Player)this).Receive += async x => await hubConnection.SendAsync("GameOperation", x.Result);
-            hubConnection.On<IList<Operation<int>>>("GameOperation", async x =>
+            _hubConnection = hubConnection;
+            ForwardToServer();
+            _gameSubscription = hubConnection.On<IList<Operation<int>>>("GameOperation", async x =>
             {
-                await _upstream.SendAsync(x);
+                if (!IsRetired) await _upstream.SendAsync(x);
             });
-            ((Player)this).Receive += async x => await hubConnection.SendAsync("ViewerGameOperation", x.Result);
-            hubConnection.On<IList<Operation<int>>>("ViewerGameOperation", async x =>
+            _viewerSubscription = hubConnection.On<IList<Operation<int>>>("ViewerGameOperation", async x =>
             {
-                await _upstream.SendAsync(x);
+                if (!IsRetired) await _upstream.SendAsync(x);
             });
-            hubConnection.Closed += async (e) =>
-            {
-                if (DependencyResolver.Container.Resolve<GwentClientService>().ClientState == ClientState.Play)
-                {
-                    await _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
-                }
-            };
         }
 
-        public void ResetTube()
+        //接收到通讯层消息,发送到下游
+        private void ForwardToServer()
         {
-            (_upstream, _downstream) = Tube.CreateDuplex();
+            ((Player)this).Receive += x => Forward("GameOperation", x.Result);
+            ((Player)this).Receive += x => Forward("ViewerGameOperation", x.Result);
         }
 
-        public Task SendAsync(Operation<int> operation) => _downstream.SendAsync(operation);
-
-        public Task SendAsync(UserOperationType type, params object[] objs) => _downstream.SendAsync(Operation.Create((int)type, objs));
-
-        public new Task<IList<Operation<ServerOperationType>>> ReceiveAsync()
+        private Task Forward(string method, object result)
         {
-            return _downstream.ReceiveAsync<IList<Operation<int>>>().ContinueWith(x =>
-            {
+            lock (_lifetime)
+                return IsRetired ? Task.CompletedTask : _hubConnection.SendAsync(method, result, _transportLifetime.Token);
+        }
+
+        // Stop the running game on this client, e.g. after the connection was lost for good
+        public Task EndGame()
+        {
+            return _upstream.SendAsync(Operation.Create(ServerOperationType.GameEnd, new GameResultInfomation("END", "END", new GameStatus())));
+        }
+
+        // Old scene callbacks keep this instance; they must never write to a new session.
+        public void Retire()
+        {
+            lock (_lifetime)
+                if (!_retired.TrySetResult(true)) return;
+            _transportLifetime.Cancel();
+            _gameSubscription.Dispose();
+            _viewerSubscription.Dispose();
+        }
+
+        public Task SendAsync(Operation<int> operation)
+        {
+            lock (_lifetime)
+                return IsRetired ? Task.CompletedTask : _downstream.SendAsync(operation);
+        }
+
+        public Task SendAsync(UserOperationType type, params object[] objs) => SendAsync(Operation.Create((int)type, objs));
+
+        public new async Task<IList<Operation<ServerOperationType>>> ReceiveAsync()
+        {
+                if (IsRetired) return new List<Operation<ServerOperationType>>();
+                var receive = _downstream.ReceiveAsync<IList<Operation<int>>>();
+                if (await Task.WhenAny(receive, _retired.Task) != receive || IsRetired)
+                    return new List<Operation<ServerOperationType>>();
                 IList<Operation<ServerOperationType>> res = new List<Operation<ServerOperationType>>();
-                var ans = x.Result;
+                var ans = await receive;
                 foreach (var p in ans)
                 {
                     var temp = Operation.Create((ServerOperationType)p.OperationType);
@@ -57,7 +88,6 @@ namespace Cynthia.Card.Client
                     res.Add(temp);
                 }
                 return res;
-            });
         }
 
         public new event Func<TubeReceiveEventArgs, Task> Receive { add => _downstream.Receive += value; remove => _downstream.Receive -= value; }

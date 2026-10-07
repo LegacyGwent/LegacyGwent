@@ -365,23 +365,64 @@ namespace Cynthia.Card.Server
             }
             return false;
         }
-        // public async Task<bool> WaitReconnect(string connectionId, Func<Task<bool>> waitReconnect)
-        // {
-        //     foreach (var room in GwentRooms)
-        //     {
-        //         if (room.IsReady && room.Player1.CurrentUser.ConnectionId == connectionId)
-        //         {
-        //             //强制结束游戏,将获胜方设定为玩家2(待补充)
-        //             return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player2Index, waitReconnect);
-        //         }
-        //         if (room.IsReady && room.Player2.CurrentUser.ConnectionId == connectionId)
-        //         {
-        //             //强制结束游戏,将获胜方设定为玩家2(待补充)
-        //             return await room.CurrentGame.WaitReconnect(room.CurrentGame.Player1Index, waitReconnect);
-        //         }
-        //     }
-        //     return false;
-        // }
+        // Find the running game of a player, with the player's index in that game
+        private (GwentServerGame Game, int PlayerIndex)? FindGame(ClientPlayer player)
+        {
+            foreach (var room in GwentRooms.ToList())
+            {
+                if (!room.IsReady || room.CurrentGame == null || room.CurrentGame.IsFinished)
+                    continue;
+                if (room.Player1 == player)
+                    return (room.CurrentGame, room.CurrentGame.Player1Index);
+                if (room.Player2 == player)
+                    return (room.CurrentGame, room.CurrentGame.Player2Index);
+            }
+            return null;
+        }
+
+        public bool IsInGame(ClientPlayer player) => FindGame(player) != null;
+        public Task PlayerOperation(ClientPlayer player, User owner, Operation<UserOperationType> operation)
+        {
+            var found = FindGame(player);
+            return found?.Game.AcceptInput(player, owner, operation) ?? Task.CompletedTask;
+        }
+
+        // The player lost the connection; the game waits for a reconnect instead of ending
+        public async Task PlayerDisconnected(ClientPlayer player, int waitSeconds, User disconnectedOwner = null)
+        {
+            var found = FindGame(player);
+            if (found == null)
+                return;
+            var (game, playerIndex) = found.Value;
+            await game.RunGameAction(async () =>
+            {
+            if (game.IsFinished || (disconnectedOwner != null && player.CurrentUser != disconnectedOwner)) return;
+            var enemyIndex = game.AnotherPlayer(playerIndex);
+            // a locale key, translated by the client; shown without an OK button and with a timer bar
+            await game.SendMessageBoxAutoClose(enemyIndex, "PopupWindow_OpponentDisconnected", waitSeconds, showTimer: true);
+            if (game.Players[enemyIndex] is ClientPlayer enemy)
+                await enemy.SendOperactionList();
+            });
+        }
+
+        // The player is back on a new connection; send the current game state again
+        public async Task<bool> PlayerReconnected(ClientPlayer player, Func<bool> claimOwnership = null)
+        {
+            var found = FindGame(player);
+            if (found == null)
+                return false;
+            var (game, playerIndex) = found.Value;
+            if (!await game.ResendGameState(playerIndex, claimOwnership)) return false;
+            await game.RunGameAction(async () =>
+            {
+            if (game.IsFinished) return;
+            var enemyIndex = game.AnotherPlayer(playerIndex);
+            await game.SendMessageBoxAutoClose(enemyIndex, "PopupWindow_OpponentReconnected", 3);
+            if (game.Players[enemyIndex] is ClientPlayer enemy)
+                await enemy.SendOperactionList();
+            });
+            return true;
+        }
 
         // JoinViewList
         public bool JoinViewList(User user, string roomId)
