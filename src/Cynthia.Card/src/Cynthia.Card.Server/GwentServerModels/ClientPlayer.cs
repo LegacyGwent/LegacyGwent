@@ -2,6 +2,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 using Alsein.Extensions.IO;
 using Microsoft.AspNetCore.SignalR;
 
@@ -13,6 +14,7 @@ namespace Cynthia.Card.Server
         // private (TaskCompletionSource<bool> Task, string Id) _nowOkTask;
         public Func<IHubContext<GwentHub>> _hub;
         public IList<object> OperactionList { get; set; } = new List<object>();
+        private readonly SemaphoreSlim _sendGate = new SemaphoreSlim(1, 1);
         public ClientPlayer(User user, Func<IHubContext<GwentHub>> hub) : base()
         {
             PlayerName = user.PlayerName;
@@ -35,20 +37,33 @@ namespace Cynthia.Card.Server
         }
         public async Task SendOperactionList()
         {
-            if (OperactionList.Count == 0) return;
+            await _sendGate.WaitAsync();
+            try
+            {
             var tempList = default(IList<object>);
             lock (OperactionList)
             {
+                if (OperactionList.Count == 0) return;
                 tempList = OperactionList.ToList();
                 OperactionList.Clear();
             }
             await _hub().Clients.Client(CurrentUser.ConnectionId).SendAsync("GameOperation", tempList);
+            }
+            finally { _sendGate.Release(); }
         }
         public void ClearOperactionList()
         {
             lock (OperactionList)
             {
                 OperactionList.Clear();
+            }
+        }
+        public void ReplaceOperationList(IEnumerable<Operation<ServerOperationType>> operations)
+        {
+            lock (OperactionList)
+            {
+                OperactionList.Clear();
+                foreach (var operation in operations) OperactionList.Add(operation);
             }
         }
         public Task SendAsync(Operation<UserOperationType> operation) => _downstream.SendAsync(operation);

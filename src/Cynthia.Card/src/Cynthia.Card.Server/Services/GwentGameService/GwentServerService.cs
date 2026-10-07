@@ -36,6 +36,7 @@ namespace Cynthia.Card.Server
         public const int ReconnectWaitSeconds = 60;
         // Players who lost the connection during a game, by user name
         private readonly IDictionary<string, (User User, CancellationTokenSource Cancel)> _waitReconnectList = new Dictionary<string, (User, CancellationTokenSource)>();
+        private readonly SemaphoreSlim _loginGate = new SemaphoreSlim(1, 1);
         public GwentServerService(
             IHubContext<GwentHub> hub,
             GwentDatabaseService databaseService,
@@ -422,15 +423,25 @@ namespace Cynthia.Card.Server
             return loginUser;
         }
 
-        public async Task<UserInfo> Login(User user, string password)
+        public async Task<UserInfo> Login(User user, string password, CancellationToken connectionAborted = default)
+        {
+            await _loginGate.WaitAsync();
+            try { return await LoginCore(user, password, connectionAborted); }
+            finally { _loginGate.Release(); }
+        }
+
+        private async Task<UserInfo> LoginCore(User user, string password, CancellationToken connectionAborted)
         {
             //判断用户名与密码
             var loginUser = _databaseService.Login(user.UserName, password);
             if (loginUser != null)
             {
-                if (_users.Any(x => x.Value.UserName == user.UserName))//如果重复登录的话,触发"掉线"
+                User previousSession;
+                lock (_waitReconnectList)
+                    previousSession = _users.Values.FirstOrDefault(x => x.UserName == user.UserName);
+                if (previousSession != null)//如果重复登录的话,触发"掉线"
                 {
-                    var connectionId = _users.Single(x => x.Value.UserName == user.UserName).Value.ConnectionId;
+                    var connectionId = previousSession.ConnectionId;
                     await _hub.Clients.Client(connectionId).SendAsync("RepeatLogin");
                     await Disconnect(connectionId);
                 }
@@ -447,7 +458,11 @@ namespace Cynthia.Card.Server
                 user.OwnedAvatars = loginUser.OwnedAvatars;
                 user.OwnedBorders = loginUser.OwnedBorders;
                 user.OwnedTitles = loginUser.OwnedTitles;
-                _users.Add(user.ConnectionId, user);
+                lock (_waitReconnectList)
+                {
+                    if (connectionAborted.IsCancellationRequested) return null;
+                    _users.Add(user.ConnectionId, user);
+                }
 
                 // give all default avatars
                 await AddAvatar(user.PlayerName, "NoAvatar");
@@ -790,93 +805,130 @@ namespace Cynthia.Card.Server
         }
         public Task GameOperation(Operation<UserOperationType> operation, string connectionId)
         {
-            var result = _users[connectionId].CurrentPlayer.SendAsync(operation);
-            return result;
+            lock (_waitReconnectList)
+            {
+                if (!_users.TryGetValue(connectionId, out var user) || user.CurrentPlayer == null
+                    || user.CurrentPlayer.CurrentUser != user) return Task.CompletedTask;
+                return _gwentMatchs.PlayerOperation(user.CurrentPlayer, user, operation);
+            }
         }
 
         public async Task Disconnect(string connectionId, Exception exception = null)
         {
             await Task.CompletedTask;
-            if (!_users.ContainsKey(connectionId))//如果用户没有在线,无效果
-                return;
-            var leavingUser = _users[connectionId];
+            User leavingUser;
+            CancellationTokenSource reconnectCancel = null;
+            lock (_waitReconnectList)
+            {
+            if (!_users.TryGetValue(connectionId, out leavingUser)) return;
             if ((leavingUser.UserState == UserState.Play || leavingUser.UserState == UserState.PlayWithAI)
                 && leavingUser.CurrentPlayer != null && _gwentMatchs.IsInGame(leavingUser.CurrentPlayer))
             {
-                //对局中断线,等待玩家重连
-                _users.Remove(connectionId);
-                InovkeUserChanged();
-                _ = WaitReconnect(leavingUser);
+                reconnectCancel = new CancellationTokenSource();
+                if (_waitReconnectList.TryGetValue(leavingUser.UserName, out var previous))
+                    previous.Cancel.Cancel();
+                _waitReconnectList[leavingUser.UserName] = (leavingUser, reconnectCancel);
+            }
+            _users.Remove(connectionId);
+            }
+            InovkeUserChanged();
+            if (reconnectCancel != null)
+            {
+                _ = WaitReconnect(leavingUser, reconnectCancel);
                 return;
             }
-            if (_users[connectionId].UserState == UserState.Match || _users[connectionId].UserState == UserState.PasswordMatch)//如果用户正在匹配
+            if (leavingUser.UserState == UserState.Match || leavingUser.UserState == UserState.PasswordMatch)//如果用户正在匹配
             {
                 _ = _gwentMatchs.StopMatch(connectionId);//停止匹配
             }
-            if (_users[connectionId].UserState == UserState.Play || _users[connectionId].UserState == UserState.PlayWithAI)//如果用户正在进行对局
+            if (leavingUser.UserState == UserState.Play || leavingUser.UserState == UserState.PlayWithAI)//如果用户正在进行对局
             {
                 _gwentMatchs.PlayerLeave(connectionId, exception);
             }
-            if (_users[connectionId].UserState == UserState.Viewing)//如果用户正在观战
+            if (leavingUser.UserState == UserState.Viewing)//如果用户正在观战
             {
-                _gwentMatchs.LeaveViewList(_users[connectionId], "");
+                _gwentMatchs.LeaveViewList(leavingUser, "");
             }
-            _users.Remove(connectionId);
-            InovkeUserChanged();
         }
 
-        private async Task WaitReconnect(User user)
+        private async Task WaitReconnect(User user, CancellationTokenSource cancel)
         {
-            var cancel = new CancellationTokenSource();
-            lock (_waitReconnectList)
-            {
-                if (_waitReconnectList.TryGetValue(user.UserName, out var previous))
-                    previous.Cancel.Cancel();
-                _waitReconnectList[user.UserName] = (user, cancel);
-            }
-            await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer, ReconnectWaitSeconds);
+            var deadline = Task.Delay(TimeSpan.FromSeconds(ReconnectWaitSeconds), cancel.Token);
+            _ = NotifyDisconnected(user);
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(ReconnectWaitSeconds), cancel.Token);
+                await deadline;
             }
             catch (TaskCanceledException)
             {
                 return;
             }
+            ExpireReconnect(user, cancel);
+        }
+
+        private void ExpireReconnect(User user, CancellationTokenSource cancel)
+        {
             lock (_waitReconnectList)
             {
                 //玩家已经重连
                 if (!_waitReconnectList.TryGetValue(user.UserName, out var waiting) || waiting.Cancel != cancel)
                     return;
                 _waitReconnectList.Remove(user.UserName);
+                // Claim timeout before reconnect can move the player to a new owner.
+                _gwentMatchs.PlayerLeave(user.ConnectionId);
             }
-            //超时未重连,判负 (without the connection error, so the opponent gets the translated "opponent left" message)
-            _gwentMatchs.PlayerLeave(user.ConnectionId);
+        }
+
+        private async Task NotifyDisconnected(User user)
+        {
+            try { await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer, ReconnectWaitSeconds, user); }
+            catch (Exception) { /* Transport failure must not disable the reconnect deadline. */ }
         }
 
         // Called by a freshly logged in client; resumes the game the user was disconnected from
         public async Task<bool> Reconnect(string connectionId)
         {
-            if (!_users.TryGetValue(connectionId, out var user) || user.UserState != UserState.Standby)
-                return false;
-            User oldUser;
+            ClientPlayer player;
+            User candidate;
+            CancellationTokenSource ticket;
             lock (_waitReconnectList)
             {
+                if (!_users.TryGetValue(connectionId, out var user) || user.UserState != UserState.Standby)
+                    return false;
                 if (!_waitReconnectList.TryGetValue(user.UserName, out var waiting))
                     return false;
-                _waitReconnectList.Remove(user.UserName);
-                waiting.Cancel.Cancel();
-                oldUser = waiting.User;
+                var oldUser = waiting.User;
+                player = oldUser.CurrentPlayer;
+                if (player == null || !_gwentMatchs.IsInGame(player)) return false;
+                candidate = user;
+                ticket = waiting.Cancel;
             }
-            var player = oldUser.CurrentPlayer;
-            if (player == null || !_gwentMatchs.IsInGame(player))
+            bool ClaimOwnership()
+            {
+                lock (_waitReconnectList)
+                {
+                    if (!_users.TryGetValue(connectionId, out var live) || live != candidate || live.UserState != UserState.Standby
+                        || !_waitReconnectList.TryGetValue(live.UserName, out var waiting) || waiting.Cancel != ticket) return false;
+                    _waitReconnectList.Remove(live.UserName);
+                    waiting.Cancel.Cancel();
+                    player.CurrentUser = live;
+                    live.CurrentPlayer = player;
+                    live.UserState = waiting.User.UserState;
+                    return true;
+                }
+            }
+            try
+            {
+                var restored = await _gwentMatchs.PlayerReconnected(player, ClaimOwnership);
+                InovkeUserChanged();
+                return restored;
+            }
+            catch (Exception)
+            {
+                // A failed state delivery restores a bounded reconnect ticket.
+                await Disconnect(connectionId);
                 return false;
-            //将对局中的玩家转移到新的连接上
-            player.CurrentUser = user;
-            user.CurrentPlayer = player;
-            user.UserState = oldUser.UserState;
-            InovkeUserChanged();
-            return await _gwentMatchs.PlayerReconnected(player);
+            }
         }
 
         public async Task<string> GetLatestVersion(string connectionId)
