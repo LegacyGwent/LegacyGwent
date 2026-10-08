@@ -442,7 +442,9 @@ namespace Cynthia.Card.Server
                 if (previousSession != null)//如果重复登录的话,触发"掉线"
                 {
                     var connectionId = previousSession.ConnectionId;
-                    await _hub.Clients.Client(connectionId).SendAsync("RepeatLogin");
+                    // Not awaited: the old connection is often dead, and a send to it can
+                    // hang until the server notices, holding up every login meanwhile.
+                    _ = NotifyRepeatLogin(connectionId);
                     await Disconnect(connectionId);
                 }
                 if (_users.ContainsKey(user.ConnectionId))
@@ -688,28 +690,28 @@ namespace Cynthia.Card.Server
             return result;
         }
 
-        public bool JoinViewList(string connectionId, string roomId)
+        public async Task<bool> JoinViewList(string connectionId, string roomId)
         {
             if (!_users.ContainsKey(connectionId))
                 return false;
             var user = _users[connectionId];
             if (user.UserState != UserState.Standby)
                 return false;
-            if (!_gwentMatchs.JoinViewList(user, roomId))
+            if (!await _gwentMatchs.JoinViewList(user, roomId))
                 return false;
             user.UserState = UserState.Viewing;
             InovkeUserChanged();
             return true;
         }
 
-        public bool LeaveViewList(string connectionId, string roomId = "")
+        public async Task<bool> LeaveViewList(string connectionId, string roomId = "")
         {
             if (!_users.ContainsKey(connectionId))
                 return false;
             var user = _users[connectionId];
             if (user.UserState != UserState.Viewing)
                 return false;
-            if (!_gwentMatchs.LeaveViewList(user, roomId))
+            if (!await _gwentMatchs.LeaveViewList(user, roomId))
                 return false;
             user.UserState = UserState.Standby;
             InovkeUserChanged();
@@ -847,7 +849,7 @@ namespace Cynthia.Card.Server
             }
             if (leavingUser.UserState == UserState.Viewing)//如果用户正在观战
             {
-                _gwentMatchs.LeaveViewList(leavingUser, "");
+                await _gwentMatchs.LeaveViewList(leavingUser, "");
             }
         }
 
@@ -879,6 +881,12 @@ namespace Cynthia.Card.Server
             }
         }
 
+        private async Task NotifyRepeatLogin(string connectionId)
+        {
+            try { await _hub.Clients.Client(connectionId).SendAsync("RepeatLogin"); }
+            catch (Exception) { /* The old connection is gone; nothing to tell it. */ }
+        }
+
         private async Task NotifyDisconnected(User user)
         {
             try { await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer, ReconnectWaitSeconds, user); }
@@ -894,12 +902,22 @@ namespace Cynthia.Card.Server
             lock (_waitReconnectList)
             {
                 if (!_users.TryGetValue(connectionId, out var user) || user.UserState != UserState.Standby)
+                {
+                    Console.WriteLine($"Reconnect refused: {user?.UserName ?? "unknown connection"} is not logged in or not idle ({user?.UserState})");
                     return false;
+                }
                 if (!_waitReconnectList.TryGetValue(user.UserName, out var waiting))
+                {
+                    Console.WriteLine($"Reconnect refused: no game is waiting for {user.UserName}");
                     return false;
+                }
                 var oldUser = waiting.User;
                 player = oldUser.CurrentPlayer;
-                if (player == null || !_gwentMatchs.IsInGame(player)) return false;
+                if (player == null || !_gwentMatchs.IsInGame(player))
+                {
+                    Console.WriteLine($"Reconnect refused: the game of {user.UserName} has already ended");
+                    return false;
+                }
                 candidate = user;
                 ticket = waiting.Cancel;
             }
@@ -920,11 +938,13 @@ namespace Cynthia.Card.Server
             try
             {
                 var restored = await _gwentMatchs.PlayerReconnected(player, ClaimOwnership);
+                if (!restored) Console.WriteLine($"Reconnect refused: the game of {candidate.UserName} ended or was claimed meanwhile");
                 InovkeUserChanged();
                 return restored;
             }
-            catch (Exception)
+            catch (Exception error)
             {
+                Console.WriteLine($"Reconnect of {candidate.UserName} failed: {error}");
                 // A failed state delivery restores a bounded reconnect ticket.
                 await Disconnect(connectionId);
                 return false;

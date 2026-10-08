@@ -178,6 +178,12 @@ namespace Cynthia.Card.Server
                     // still being sent; room cleanup must wait for settlement.
                     await _setGameEnd.Task;
                 }
+                catch (Exception error)
+                {
+                    // A bug in the game (a card effect, for example) ends only this
+                    // game; it must not escape to the server and stop every game.
+                    await AbortGame(error);
+                }
             }
             else _ = ObserveStoppedGame(play);
             // Both a canceled input wait and a successful final-round return can
@@ -191,6 +197,32 @@ namespace Cynthia.Card.Server
         {
             try { await play; }
             catch (OperationCanceledException) { }
+            catch (Exception error) { Console.WriteLine($"Stopped game failed: {error}"); }
+        }
+
+        // The game itself failed: tell both players and end it as a draw, without a recorded result
+        private async Task AbortGame(Exception error)
+        {
+            Console.WriteLine($"Game failed: {error}");
+            if (_finished)
+            {
+                await _setGameEnd.Task;
+                return;
+            }
+            _finished = true;
+            try
+            {
+                await MessageBox("对局出错,比赛结束\nThe game ran into an error and has ended");
+                await Task.WhenAll(SendGameResult(Player1Index, GameStatus.Draw), SendGameResult(Player2Index, GameStatus.Draw));
+            }
+            catch (Exception sendError)
+            {
+                Console.WriteLine($"Could not tell the players the game failed: {sendError}");
+            }
+            finally
+            {
+                _setGameEnd.TrySetResult(-1);
+            }
         }
 
         public Task GameEnd(int winPlayerIndex, Exception exception, bool isSurrender = false)
@@ -2070,8 +2102,9 @@ namespace Cynthia.Card.Server
             }
         }
 
-        public bool JoinViewList(Viewer viewer)
-            => _execution.Run(() => Task.FromResult(JoinViewListCore(viewer))).GetAwaiter().GetResult();
+        // Awaited instead of blocking a thread pool thread until the game is free
+        public Task<bool> JoinViewList(Viewer viewer)
+            => _execution.Run(() => Task.FromResult(JoinViewListCore(viewer)));
 
         private bool JoinViewListCore(Viewer viewer)
         {
@@ -2096,8 +2129,8 @@ namespace Cynthia.Card.Server
             return false;
         }
 
-        public bool LeaveViewList(User user)
-            => _execution.Run(() => Task.FromResult(LeaveViewListCore(user))).GetAwaiter().GetResult();
+        public Task<bool> LeaveViewList(User user)
+            => _execution.Run(() => Task.FromResult(LeaveViewListCore(user)));
 
         private bool LeaveViewListCore(User user)
         {
