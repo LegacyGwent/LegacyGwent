@@ -21,6 +21,14 @@ namespace Cynthia.Card.Server
         }
         public async void StartGame(GwentRoom room, bool isSpecial = false, bool isCountMMR = false)
         {
+            // An exception that leaves an async void method stops the whole server
+            // process, and with it every running game, so none may escape here.
+            try { await StartGameCore(room, isSpecial, isCountMMR); }
+            catch (Exception error) { Console.WriteLine($"Game failed: {error}"); }
+        }
+
+        private async Task StartGameCore(GwentRoom room, bool isSpecial, bool isCountMMR)
+        {
             //通知玩家游戏开始
             if (room.Player1 is ClientPlayer)
             {
@@ -45,9 +53,15 @@ namespace Cynthia.Card.Server
             }
             //开启游戏
             room.CurrentGame = gwentGame;
-            await gwentGame.Play();
-            GameEnd(room);
-            _gwentService.InovkeUserChanged();
+            try
+            {
+                await gwentGame.Play();
+            }
+            finally
+            {
+                GameEnd(room);
+                _gwentService.InovkeUserChanged();
+            }
         }
 
         //以密码的方式进行匹配
@@ -348,7 +362,7 @@ namespace Cynthia.Card.Server
         }
         public bool PlayerLeave(string connectionId, Exception exception = null, bool isSurrender = false)
         {   //对局中离开, 如果玩家没有正在对局,返回false
-            foreach (var room in GwentRooms)
+            foreach (var room in GwentRooms.ToList())
             {
                 if (room.IsReady && room.Player1 is ClientPlayer && (room.Player1 as ClientPlayer).CurrentUser.ConnectionId == connectionId)
                 {
@@ -425,37 +439,37 @@ namespace Cynthia.Card.Server
         }
 
         // JoinViewList
-        public bool JoinViewList(User user, string roomId)
+        public async Task<bool> JoinViewList(User user, string roomId)
         {
-            foreach (var room in GwentRooms)
+            foreach (var room in GwentRooms.ToList())
             {
-                if (room.RoomId == roomId && room.IsReady)
+                if (room.RoomId == roomId && room.IsReady && room.CurrentGame != null)
                 {
-                    return room.CurrentGame.JoinViewList(new Viewer(user, _hub));
+                    return await room.CurrentGame.JoinViewList(new Viewer(user, _hub));
                 }
             }
             return false;
         }
 
-        public bool LeaveViewList(User user, string roomId)
+        public async Task<bool> LeaveViewList(User user, string roomId)
         {
             if (roomId == "")
             {
-                foreach (var room in GwentRooms)
+                foreach (var room in GwentRooms.ToList())
                 {
-                    if (room.IsReady && room.CurrentGame.ViewList.Any(x => x.CurrentUser.ConnectionId == user.ConnectionId))
+                    if (room.IsReady && room.CurrentGame != null && room.CurrentGame.ViewList.Any(x => x.CurrentUser.ConnectionId == user.ConnectionId))
                     {
-                        return room.CurrentGame.LeaveViewList(user);
+                        return await room.CurrentGame.LeaveViewList(user);
                     }
                 }
                 return true;
             }
 
-            foreach (var room in GwentRooms)
+            foreach (var room in GwentRooms.ToList())
             {
-                if (room.RoomId == roomId && room.IsReady)
+                if (room.RoomId == roomId && room.IsReady && room.CurrentGame != null)
                 {
-                    return room.CurrentGame.LeaveViewList(user);
+                    return await room.CurrentGame.LeaveViewList(user);
                 }
             }
             return true;
