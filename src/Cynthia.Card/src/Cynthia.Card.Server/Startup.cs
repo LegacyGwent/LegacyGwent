@@ -28,6 +28,7 @@ namespace Cynthia.Card.Server
             });
             services.AddSingleton<GwentServerService>();
             services.AddSingleton<GwentDatabaseService>();
+            services.AddSingleton<GwentArenaService>();
             services.AddSingleton<GwentCardDataService>();
             services.AddSingleton<GwentLocalizationService>();
             services.AddSingleton<CounterService>();

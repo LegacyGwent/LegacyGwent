@@ -75,6 +75,13 @@ namespace Cynthia.Card.Server
         //
         //停止匹配
         public async Task<bool> StopMatch() => await _gwentServerService.StopMatch(Context.ConnectionId);
+
+        //Arena: draft a deck, then play until 9 wins or 3 losses
+        public ArenaRunModel GetArenaRun() => _gwentServerService.GetArenaRun(Context.ConnectionId);
+        public ArenaRunModel StartArena() => _gwentServerService.StartArena(Context.ConnectionId);
+        public ArenaRunModel ArenaPick(string cardId) => _gwentServerService.ArenaPick(Context.ConnectionId, cardId);
+        public bool AbandonArena() => _gwentServerService.AbandonArena(Context.ConnectionId);
+        public bool ArenaMatch() => _gwentServerService.ArenaMatch(Context.ConnectionId);
         public bool Surrender() => _gwentServerService.Surrender(Context.ConnectionId); // 投降
 
         public bool JoinViewList(string roomId) => _gwentServerService.JoinViewList(Context.ConnectionId, roomId);
@@ -148,6 +155,16 @@ namespace Cynthia.Card.Server
         {
             await Task.CompletedTask;
             return _gwentServerService.GetIsRankQueue();
+        }
+        public async Task<int> GetUsersInArenaCount()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetUsersInArenaCount();
+        }
+        public async Task<int> GetIsArenaQueue()
+        {
+            await Task.CompletedTask;
+            return _gwentServerService.GetIsArenaQueue();
         }
         public async Task<int> GetIsCasualQueue()
         {

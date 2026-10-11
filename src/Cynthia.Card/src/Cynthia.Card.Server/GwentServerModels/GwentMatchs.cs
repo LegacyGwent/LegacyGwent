@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server
             _gwentCardTypeServic = gwentCardTypeService;
             _gwentService = gwentService;
         }
-        public async void StartGame(GwentRoom room, bool isSpecial = false, bool isCountMMR = false)
+        public async void StartGame(GwentRoom room, bool isSpecial = false, bool isCountMMR = false, bool isArena = false)
         {
             //通知玩家游戏开始
             if (room.Player1 is ClientPlayer)
@@ -33,7 +33,12 @@ namespace Cynthia.Card.Server
             //初始化房间
             var player1 = room.Player1;
             var player2 = room.Player2;
-            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result => _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer), isCountMMR), isSpecial);
+            var gwentGame = new GwentServerGame(player1, player2, _gwentCardTypeServic, result =>
+            {
+                _gwentService.InvokeGameOver(result, (player1 is AIPlayer || player2 is AIPlayer), isCountMMR);
+                if (isArena)
+                    _gwentService.RecordArenaResult(room, result);
+            }, isSpecial);
             //开始游戏改变玩家状态
             if (room.Player1 is ClientPlayer)
             {
@@ -173,7 +178,7 @@ namespace Cynthia.Card.Server
                     room.AddPlayer(player);
                     if (room.IsReady)
                     {
-                        StartGame(room, password.ToLower() == "ld", room.Password == "rank");
+                        StartGame(room, password.ToLower() == "ld", room.Password == "rank", room.Password == GwentArenaService.ArenaRoomPassword);
                         return;
                     }
                 }

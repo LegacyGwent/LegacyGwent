@@ -196,6 +196,7 @@ public class MatchInfo : MonoBehaviour
                 Debug.Log("成功匹配,进入游戏");
                 ClientGlobalInfo.IsToMatch = false;
                 ClientGlobalInfo.IsPreviousRankMatch = IsRankMatch;
+                ClientGlobalInfo.IsPreviousArenaMatch = false;
 #if UNITY_STANDALONE_WIN
                 ClientGlobalInfo.OpenWindow("UnityWndClass", "MyGwent");
 #endif

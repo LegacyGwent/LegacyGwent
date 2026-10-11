@@ -8,6 +8,7 @@ public static class ClientGlobalInfo
 {
     public static bool IsToMatch = false;
     public static bool IsPreviousRankMatch = false;
+    public static bool IsPreviousArenaMatch = false;
 
     public static bool IsLoadGlobal = false;
 
