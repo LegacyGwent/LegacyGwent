@@ -27,6 +27,7 @@ namespace Cynthia.Card.Server
 
         private GwentCardDataService _gwentCardDataService;
         private GwentLocalizationService _gwentLocalizationService;
+        private readonly GwentArenaService _arenaService;
 
         public IWebHostEnvironment _env;
         private readonly IDictionary<string, User> _users = new ConcurrentDictionary<string, User>();
@@ -43,9 +44,11 @@ namespace Cynthia.Card.Server
             IServiceProvider container,
             IWebHostEnvironment env,
             GwentCardDataService gwentCardDataService,
-            GwentLocalizationService gwentLocalizationService
+            GwentLocalizationService gwentLocalizationService,
+            GwentArenaService arenaService
         )
         {
+            _arenaService = arenaService;
             _databaseService = databaseService;
             _gwentMatchs = new GwentMatchs(() => hub, (GwentCardDataService)container.GetService(typeof(GwentCardDataService)), this);
             _hub = hub;
@@ -512,6 +515,9 @@ namespace Cynthia.Card.Server
 
         public bool Match(string connectionId, string deckId, string password, int usingBlacklist)//匹配
         {
+            //Arena rooms can only be joined through ArenaMatch, with the drafted deck
+            if (password != null && password.ToLower() == GwentArenaService.ArenaRoomPassword)
+                return false;
             //如果这个玩家在登陆状态,并且处于闲置中
             if (_users.ContainsKey(connectionId) && _users[connectionId].UserState == UserState.Standby)
             {
@@ -541,6 +547,49 @@ namespace Cynthia.Card.Server
             //玩家未在线,失败
             return false;
         }
+        public ArenaRunModel GetArenaRun(string connectionId) =>
+            _users.TryGetValue(connectionId, out var user) ? _arenaService.GetRun(user.UserName) : null;
+
+        public ArenaRunModel StartArena(string connectionId) =>
+            _users.TryGetValue(connectionId, out var user) && user.UserState == UserState.Standby ? _arenaService.StartRun(user.UserName, user.PlayerName) : null;
+
+        public ArenaRunModel ArenaPick(string connectionId, string cardId) =>
+            _users.TryGetValue(connectionId, out var user) ? _arenaService.Pick(user.UserName, cardId) : null;
+
+        public bool AbandonArena(string connectionId) =>
+            _users.TryGetValue(connectionId, out var user) && user.UserState == UserState.Standby && _arenaService.Abandon(user.UserName);
+
+        public bool ArenaMatch(string connectionId)
+        {
+            if (!_users.TryGetValue(connectionId, out var user) || user.UserState != UserState.Standby)
+                return false;
+            var deck = _arenaService.GetPlayableDeck(user.UserName);
+            if (deck == null)
+                return false;
+            var player = user.CurrentPlayer = new ClientPlayer(user, () => _hub);
+            player.Deck = deck;
+            player.CurrentAvatar = user.CurrentAvatar;
+            player.CurrentBorder = user.CurrentBorder;
+            player.CurrentTitle = user.CurrentTitle;
+            player.Blacklist = null;
+            _gwentMatchs.PlayerJoin(player, GwentArenaService.ArenaRoomPassword);
+            InovkeUserChanged();
+            return true;
+        }
+
+        public void RecordArenaResult(GwentRoom room, GameResult result)
+        {
+            foreach (var player in new[] { room.Player1, room.Player2 })
+            {
+                if (!(player is ClientPlayer clientPlayer))
+                    continue;
+                var isRed = result.RedPlayerName == player.PlayerName;
+                var status = isRed ? result.RedPlayerGameResultStatus : Invert(result.RedPlayerGameResultStatus);
+                _arenaService.RecordResult(clientPlayer.CurrentUser.UserName, isRed ? result.BluePlayerName : result.RedPlayerName, status);
+            }
+            GameStatus Invert(GameStatus status) => status == GameStatus.Win ? GameStatus.Lose : status == GameStatus.Lose ? GameStatus.Win : status;
+        }
+
         public async Task<bool> UpdateAvatar(string playername, string AvatarID) // updates the avatar of the user
         {
             _databaseService.UpdateAvatar(playername, AvatarID);
@@ -1210,14 +1259,22 @@ When other players are available, player matchmaking will be prioritized. Add #f
         }
         public int GetUsersInCasualCount() // including playing vs friend
         {
-            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank").Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
+            var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password != "rank" && x.Password != GwentArenaService.ArenaRoomPassword).Select(x => (x.Player1.PlayerName, x.Player2.PlayerName)).ToList();
             return list.Count * 2;
+        }
+        public int GetUsersInArenaCount()
+        {
+            return _gwentMatchs.GwentRooms.Count(x => x.IsReady && x.Player1 is ClientPlayer && x.Player2 is ClientPlayer && x.Password == GwentArenaService.ArenaRoomPassword) * 2;
         }
 
         public int GetIsRankQueue()
         {
             var list = _gwentMatchs.GwentRooms.Where(x => x.IsReady == false && x.Password == "rank").Select(x => (x.Player1.PlayerName)).ToList();
             return list.Count();
+        }
+        public int GetIsArenaQueue()
+        {
+            return _gwentMatchs.GwentRooms.Count(x => x.IsReady == false && x.Password == GwentArenaService.ArenaRoomPassword);
         }
         public int GetIsCasualQueue()
         {

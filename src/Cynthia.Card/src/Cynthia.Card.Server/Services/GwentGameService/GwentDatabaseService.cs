@@ -37,6 +37,13 @@ namespace Cynthia.Card.Server
         private const string _repositoryName = "user";
 
         private const string _seasonRepositoryName = "season";
+
+        private const string _arenaRepositoryName = "arena";
+        private IMongoCollection<ArenaRunModel> GetArenaRuns() => GetDatabase().GetCollection<ArenaRunModel>(_arenaRepositoryName);
+
+        public ArenaRunModel QueryArenaRun(string username) => GetArenaRuns().AsQueryable().FirstOrDefault(x => x.Id == username);
+        public void SaveArenaRun(ArenaRunModel run) => GetArenaRuns().ReplaceOne(x => x.Id == run.Id, run, new ReplaceOptions { IsUpsert = true });
+        public void RemoveArenaRun(string username) => GetArenaRuns().DeleteOne(x => x.Id == username);
         public GwentDatabaseService(IServiceProvider provider)
         {
             _provider = provider;

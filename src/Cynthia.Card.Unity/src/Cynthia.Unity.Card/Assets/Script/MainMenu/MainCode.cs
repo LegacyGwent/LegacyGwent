@@ -54,12 +54,16 @@ public class MainCode : MonoBehaviour
         _messagesReaderService = DependencyResolver.Container.Resolve<ClientMessagesReaderService>();
 
         _client = DependencyResolver.Container.Resolve<GwentClientService>();
-
-
+        _translator = DependencyResolver.Container.Resolve<LocalizationService>();
+        var arenaMenu = ArenaMenu.Install(RankMatchMenuButton, MatchMenuButton);
 
         if (_client.IsAutoPlay || ClientGlobalInfo.IsToMatch)
         {
-            if (ClientGlobalInfo.IsPreviousRankMatch)
+            if (ClientGlobalInfo.IsPreviousArenaMatch && arenaMenu != null)
+            {
+                arenaMenu.Open();
+            }
+            else if (ClientGlobalInfo.IsPreviousRankMatch)
             {
                 RankMatchMenuButton.onClick.Invoke();
             }

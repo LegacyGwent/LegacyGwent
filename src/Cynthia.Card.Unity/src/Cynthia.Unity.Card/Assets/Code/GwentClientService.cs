@@ -574,6 +574,14 @@ namespace Cynthia.Card.Client
         {
             return HubConnection.InvokeAsync<bool>("StopMatch");
         }
+        //Arena
+        public Task<ArenaRunModel> GetArenaRun() => HubConnection.InvokeAsync<ArenaRunModel>("GetArenaRun");
+        public Task<ArenaRunModel> StartArena() => HubConnection.InvokeAsync<ArenaRunModel>("StartArena");
+        public Task<ArenaRunModel> ArenaPick(string cardId) => HubConnection.InvokeAsync<ArenaRunModel>("ArenaPick", cardId);
+        public Task<bool> AbandonArena() => HubConnection.InvokeAsync<bool>("AbandonArena");
+        public Task<bool> ArenaMatch() => HubConnection.InvokeAsync<bool>("ArenaMatch");
+        public Task<int> GetUsersInArenaCount() => HubConnection.InvokeAsync<int>("GetUsersInArenaCount");
+        public Task<int> GetIsArenaQueue() => HubConnection.InvokeAsync<int>("GetIsArenaQueue");
         public Task<bool> Surrender()
         {
             return HubConnection.InvokeAsync<bool>("Surrender");
