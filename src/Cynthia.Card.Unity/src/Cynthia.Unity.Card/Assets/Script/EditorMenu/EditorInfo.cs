@@ -579,6 +579,24 @@ public class EditorInfo : MonoBehaviour
         if (PremiumPanel != null && PremiumPanel.Busy) return;
         // Keep the last meaningful preview when the pointer moves into empty space.
         if (!isOver || card == null || string.IsNullOrEmpty(card.CardId)) return;
+        if (EditorStatus == EditorStatus.SwitchLeader)
+        {
+            if (card.Group != Group.Leader || card.IsCardBack || card.Conceal) return;
+            if (_leaderSelectionPreview == null)
+            {
+                // Reuse the localized description renderer in the selection panel,
+                // since the deck editor's preview parent is inactive here.
+                _leaderSelectionPreview = Instantiate(EditorArtCard.Content, RightSwitchMenu, false);
+                var rect = (RectTransform)_leaderSelectionPreview.transform;
+                rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.pivot = new Vector2(0.5f, 0.5f);
+                rect.anchoredPosition = Vector2.zero;
+                rect.localScale = Vector3.one * 2f;
+            }
+            _leaderSelectionPreview.gameObject.SetActive(true);
+            _leaderSelectionPreview.SetCard(card);
+            return;
+        }
         var preview = EditorStatus == EditorStatus.EditorDeck ? EditorArtCard :
             EditorStatus == EditorStatus.ShowCards ? ShowArtCard : null;
         if (preview == null) return;
@@ -591,10 +609,13 @@ public class EditorInfo : MonoBehaviour
         preview.gameObject.SetActive(true);
     }
 
+    private CardContent _leaderSelectionPreview;
+
     private void ClearCardPreview()
     {
         EditorArtCard.gameObject.SetActive(false);
         ShowArtCard.gameObject.SetActive(false);
+        if (_leaderSelectionPreview != null) _leaderSelectionPreview.gameObject.SetActive(false);
         LastHoveredCard = null;
     }
     private void Update()
@@ -789,6 +810,7 @@ public class EditorInfo : MonoBehaviour
 
     public void SetSwitchList(IList<CardStatus> cards)
     {//选择列表
+        ClearCardPreview();
         if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent && cards.Count > 0 && cards.All(x => x.Group == Group.Leader))
             cards = cards.SelectMany(x => new[] { new CardStatus(x.CardId) { IsPremium = false }, new CardStatus(x.CardId) { IsPremium = true } }).ToList();
         RemoveAllChild(SwitchCardsContext);

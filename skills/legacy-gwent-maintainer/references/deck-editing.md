@@ -4,6 +4,23 @@ Last verified: 2026-09-30
 
 Evidence covers source and executable logic; AI Play Mode remains pending.
 
+## Leader selection has no effect description on hover
+
+- Symptom: leader choices enlarge on hover but show no localized effect text,
+  both when creating a deck and when replacing its leader.
+- Cause: the selection prefab uses `SwitchCardEvent`, whose hover dispatch was
+  disabled, and `EditorInfo.SelectSwitchUICard` only routed deck/collection
+  previews. The deck preview parent is inactive during leader selection.
+- Fix: dispatch selection hover through the existing service and reuse
+  `CardContent` under `RightSwitchMenu` for leader selection. Clear the preview
+  whenever the selection list changes or deck editing resets. Both ordinary
+  and premium leaders use the same localized description renderer.
+- Prevention: inspect the actual prefab event component, not a similarly named
+  collection component; restoring the renderer alone leaves this path unreachable.
+- Verification: source/prefab route review covers both selection entry points;
+  actual Unity hover, long text layout and mobile pointer behavior remain native
+  acceptance requirements.
+
 ## A blacklist offers ordinary and premium copies as separate choices
 
 - Symptom: the blacklist shows two versions of the same card, or a leftover
