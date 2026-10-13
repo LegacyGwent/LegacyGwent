@@ -10982,7 +10982,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Token},
                     Flavor = "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”",
-                    Info = "回合结束时移至随机排，对同排所有其他单位造成1点伤害。遗愿：再次触发此能力。间谍。",
+                    Info = "回合结束时移至随机排，对同排所有其它单位造成1点伤害。遗愿：再次触发此能力。间谍。",
                     CardArtsId = "15240300",
                     LinkedCards=new List<String> {},
                 }
@@ -13363,7 +13363,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛唯一的戒律：杀戮",
-                    Info = "己方回合中，每当1个单位转化为其他单位，在自身左侧生成1个佚亡同名单位，复刻自身当前状态，随后对自身造成4点伤害。",
+                    Info = "己方回合中，每当有单位被转化为其它单位时，在左侧生成1个佚亡同名牌，随后对自身造成4点伤害。",
                     CardArtsId = "202285",
                     LinkedCards=new List<String> {},
                 }

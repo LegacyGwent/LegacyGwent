@@ -34,6 +34,19 @@ namespace Cynthia.Card.Server.Tests
             Assert.False(DiyAiCardPool.IsUserDeckCard("65004"));
             Assert.Equal("使1个友军单位获得坚韧。操控。", GwentMap.CardMap["34018"].Info);
             Assert.All(GwentMap.CardMap.Values, card => Assert.DoesNotContain("友方单位", card.Info));
+            var changedIds = new[] { "33023", "34018", "43002", "43009", "44008", "65004", "70089", "70090", "70101", "70112", "70171", "70200", "70206" };
+            foreach (var root in new[] {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales" })
+            {
+                var locale = JsonConvert.DeserializeObject<GameLocale>(File.ReadAllText(FindRepositoryFile(root + "/cn.json")));
+                foreach (var id in changedIds)
+                {
+                    Assert.Equal(GwentMap.CardMap[id].Info, locale.CardLocales[id].Info);
+                    Assert.Equal(GwentMap.CardMap[id].Name, locale.CardLocales[id].Name);
+                }
+            }
         }
 
         [Fact]
