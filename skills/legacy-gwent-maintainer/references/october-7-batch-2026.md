@@ -22,12 +22,11 @@ Last verified: 2026-10-07
   Snapshot counts remain fixed after lethal allied self-damage; Gaetan's enemy
   count remains live. Existing September 29 code omitted enemy Ambushes from
   the population filter; this batch completes that earlier explicit requirement.
-- Card-ability exchange is not universally same-name-safe. Ves excludes its
-  selected CardId and stops if only identical IDs remain. Shared Swap /
-  GetDeckSwapCard do not impose this exclusion; Sarah, Elven Scout, Vrihedd
-  Officer and War Council can still exchange into an identical card.
-  Opening/round MulliganCard is separate: it blacklists already returned IDs
-  while other eligible IDs remain, then falls back to that blacklist if needed.
+- This batch originally gave Ves a selected-ID exchange exclusion. October 12
+  supersedes that exclusion: Ves now uses ordinary unrestricted Swap, as do
+  Sarah, Elven Scout, Vrihedd Officer and War Council. Opening/round MulliganCard
+  remains separate: it blacklists returned IDs while other eligible IDs remain,
+  then falls back to that blacklist if needed.
 - Verification uses production headless event/selection pipelines, including
   lock/owner timer gating, pre-damage lethal/hidden ally counts, Shield, and
   hidden enemy population versus damage legality. These are local tests, not

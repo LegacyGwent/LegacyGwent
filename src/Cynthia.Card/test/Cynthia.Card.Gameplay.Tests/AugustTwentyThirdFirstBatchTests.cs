@@ -7,7 +7,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class AugustTwentyThirdFirstBatchTests
     {
         [Fact]
-        public async Task VesNeverSwapsAHandCardForTheSameCardId()
+        public async Task VesCanSwapWhenOnlyTheSameCardIdRemains()
         {
             var fixture = new HeadlessGameFixture();
             ClearMutableZones(fixture);
@@ -19,7 +19,7 @@ namespace Cynthia.Card.Gameplay.Tests
             var deckWolf = fixture.AddCard(
                 fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyDeck);
             var deckEskel = fixture.AddCard(
-                fixture.Game.Player1Index, CardId.Eskel, RowPosition.MyDeck);
+                fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyDeck);
             var swaps = new List<(string HandId, string DeckId)>();
             HeadlessGameFixture.ReplaceMainEffect(
                 handWolf, new RecordingSwapEffect(handWolf, swaps));
@@ -27,14 +27,14 @@ namespace Cynthia.Card.Gameplay.Tests
                 deckWolf, new RecordingSwapEffect(deckWolf, swaps));
             HeadlessGameFixture.ReplaceMainEffect(
                 deckEskel, new RecordingSwapEffect(deckEskel, swaps));
-            fixture.FirstPlayer.QueueMenuCardIds(CardId.Wolf, CardId.Eskel);
+            fixture.FirstPlayer.QueueMenuCardIds(CardId.Wolf, CardId.Wolf);
             await fixture.SynchronizeClientsAsync();
 
             await fixture.Game.AddTask(
                 () => ves.Effects.RaiseEvent(new CardPlayEffect(false, false)));
 
             Assert.Equal(2, swaps.Count);
-            Assert.All(swaps, swap => Assert.NotEqual(swap.HandId, swap.DeckId));
+            Assert.All(swaps, swap => Assert.Equal(swap.HandId, swap.DeckId));
         }
 
         private static void ClearMutableZones(HeadlessGameFixture fixture)

@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 209);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 210);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -5667,7 +5667,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Officer},
                     Flavor = "奴隶贩子只有一个追求：那就是把他的命令一丝不苟地执行下去。",
-                    Info = "将一个友军单位的战力降至1点，并对一个敌军单位造成伤害，数值等同于该友方单位所失去的战力。",
+                    Info = "将一个友军单位的战力降至1点，并对一个敌军单位造成伤害，数值等同于该友军单位所失去的战力。",
                     CardArtsId = "20137700",
                     LinkedCards=new List<String> {},
                 }
@@ -5962,7 +5962,7 @@ namespace Cynthia.Card
                     Categories = new Categorie[]{ Categorie.Support},
                     CrewCount = 1,
                     Flavor = "战争是文明进步的确凿证据——看看吧，现在大伙儿打仗更有效率了。",
-                    Info = "使1个友军单位获得5点增益。\n操控。",
+                    Info = "使1个友军单位获得坚韧。操控。",
                     CardArtsId = "16231300",
                     LinkedCards=new List<String> {},
                 }
@@ -6954,7 +6954,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Kaedwen},
                     Flavor = "喝酒少了欧德林，就像划船没带桨。",
-                    Info = "回合开始时，移至随机排，并使同排所有友军单位获得1点增益。",
+                    Info = "每回合开始时，移至随机排，并使同排所有友军单位获得1点增益。遗愿：使同排所有友军单位获得1点增益。",
                     CardArtsId = "12221300",
                     LinkedCards=new List<String> {},
                 }
@@ -7376,7 +7376,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Machine},
                     Flavor = "感受到了吗？每当这宝贝儿投出巨石，大地都会震颤。",
-                    Info = "回合结束时，对1个敌军随机单位造成1点伤害。驱动：获得1点强化。",
+                    Info = "回合结束时，对1个敌军随机单位造成1点伤害。驱动：伤害增加1点。",
                     CardArtsId = "12231500",
                     LinkedCards=new List<String> {},
                 }
@@ -10982,7 +10982,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Cursed,Categorie.Token},
                     Flavor = "“呃，座头鲸应该没那么大。那是头长须鲸。”“嘴那么短的长须鲸？你被药草冲昏了头吗！”",
-                    Info = "回合结束时移至随机排，对同排所有其它单位造成1点伤害。间谍。",
+                    Info = "回合结束时移至随机排，对同排所有其他单位造成1点伤害。遗愿：再次触发此能力。间谍。",
                     CardArtsId = "15240300",
                     LinkedCards=new List<String> {},
                 }
@@ -12455,7 +12455,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Special,Categorie.Organic},
                     Flavor = "",
-                    Info = "对1个非“呓语”友方单位造成3点伤害，随后从牌组打出1张铜色“呓语”牌，并使其获得1点强化。",
+                    Info = "对1个非“呓语”友军单位造成3点伤害，随后从牌组打出1张铜色“呓语”牌，并使其获得1点强化。",
                     CardArtsId = "202287",
                     LinkedCards=new List<String> {},
                 }
@@ -13332,7 +13332,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70089", //Artis
                     Name="亚提斯",
-                    Strength=3,
+                    Strength = 10,
                     Group=Group.Silver,
                     Faction = Faction.Skellige,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -13342,9 +13342,9 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist, Categorie.Cursed},
                     Flavor = "结束了，结束了，那是怜悯。",
-                    Info = "在对方同排生成“巨熊祭品”，随后将1个友军单位转化为“斯瓦勃洛狂信者”。",
+                    Info = "对1个友军单位造成9点伤害，生成1个战力等同于其失去战力的“斯瓦勃洛狂信者”，并使其具有佚亡。",
                     CardArtsId = "202279",
-                    LinkedCards=new List<String> {"70090"},
+                    LinkedCards=new List<String> {"70046"},
                 }
             },
             {
@@ -13352,19 +13352,18 @@ namespace Cynthia.Card
                 new GwentCard()
                 {
                     CardId ="70090", //Cultist Oblation
-                    Name="巨熊祭品",
-                    Strength=2,
+                    Name="斯瓦勃洛邪教徒",
+                    Strength = 9,
                     Group=Group.Copper,
                     Faction = Faction.Skellige,
-                    CardUseInfo = CardUseInfo.AnyRow,
+                    CardUseInfo = CardUseInfo.MyRow,
                     CardType = CardType.Unit,
                     IsDoomed = false,
-                    IsCountdown = true,
-                    Countdown=2,
-                    IsDerive = true,
-                    Categories = new Categorie[]{ Categorie.Token},
+                    IsCountdown = false,
+                    IsDerive = false,
+                    Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛唯一的戒律：杀戮",
-                    Info = "2回合后的回合开始时，放逐自身。遗愿：治愈对方半场的1个受伤量最大的单位，并使其获得1点强化。",
+                    Info = "己方回合中，每当1个单位转化为其他单位，在自身左侧生成1个佚亡同名单位，复刻自身当前状态，随后对自身造成4点伤害。",
                     CardArtsId = "202285",
                     LinkedCards=new List<String> {},
                 }
@@ -13732,7 +13731,7 @@ namespace Cynthia.Card
                 {
                     CardId ="70101", //Immortal Cavalry
                     Name="不朽者骑兵",
-                    Strength=7,
+                    Strength = 8,
                     Group=Group.Copper,
                     Faction = Faction.NorthernRealms,
                     CardUseInfo = CardUseInfo.MyRow,
@@ -14821,7 +14820,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Special,Categorie.Item},
                     Flavor = "一条结实的皮革腰带，显然是为泰坦所打造，至今没有谁的躯干能与之匹配。尽管穿上后可以获得巨人般的神力，却无法获得巨人般的体型。",
-                    Info = "使一名友方单位获得等同于其基础战力的增益，如果该单位是食人魔，则先获得2点强化。",
+                    Info = "使一名友军单位获得等同于其基础战力的增益，如果该单位是食人魔，则先获得2点强化。",
                     CardArtsId = "203266",
                     LinkedCards=new List<String> {},
                 }
@@ -15563,7 +15562,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Soldier },
                     Flavor = "",
-                    Info = "移除1个友方单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。每2回合结束时，重复此能力。",
+                    Info = "移除1个友军单位的增益，对1个敌军单位造成等同于其所失去战力的伤害。每2回合结束时，重复此能力。",
                     CardArtsId = "202648",
                     LinkedCards = new List<String> {},
                 }
@@ -15666,7 +15665,7 @@ namespace Cynthia.Card
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.ClanDrummond },
                     Flavor = "他对荣誉的信奉，却招致了他的毁灭。",
-                    Info = "从牌组丢弃1张“家族”铜色单位牌，随后复活1个相同“家族”的非同名铜色单位。",
+                    Info = "从牌组丢弃1张“家族”单位牌，随后复活1个相同“家族”的非同名铜色单位。",
                     CardArtsId = "202620", LinkedCards = new List<String> {},
                 }
             },
