@@ -109,6 +109,24 @@ await game.GameEnd(0, null);
 Check(results == 1, "Natural/forced settlement published duplicate results");
 Console.WriteLine("PASS: terminal settlement cancels pending input and natural/forced paths publish once");
 
+// A failing game must end itself instead of throwing into async void StartGame,
+// which would stop the server process and every other game with it.
+var brokenUsers = new[] { new User("broken1", "broken1", UserState.Play) { PlayerName = "broken1" }, new User("broken2", "broken2", UserState.Play) { PlayerName = "broken2" } };
+var broken = new GwentServerGame(new ClientPlayer(brokenUsers[0], () => hub) { Deck = new DeckModel { Leader = leader } }, new ClientPlayer(brokenUsers[1], () => hub) { Deck = new DeckModel { Leader = leader } });
+broken.PlayersDeck = null;
+var sentBefore = wire.Batches.Count;
+await broken.Play().WaitAsync(TimeSpan.FromSeconds(5));
+Check(broken.IsFinished, "Failed game not marked finished");
+Check(wire.Batches.Skip(sentBefore).SelectMany(x => x).OfType<Operation<ServerOperationType>>().Count(x => x.OperationType == ServerOperationType.GameEnd) == 2, "Players not told that the failed game ended");
+Console.WriteLine("PASS: a failing game ends as a draw instead of throwing out of Play");
+
+// An exception from an async void callback must not fail every later action of the game.
+var poisoned = new GwentServerGame(player, enemy);
+await Run(poisoned, () => { SynchronizationContext.Current.Post(_ => throw new Exception("async void failure"), null); return Task.CompletedTask; });
+await Run(poisoned, () => Task.Delay(50));
+await Run(poisoned, () => Task.CompletedTask).WaitAsync(TimeSpan.FromSeconds(3));
+Console.WriteLine("PASS: an async void failure does not fail later game actions");
+
 sealed class Wire : IClientProxy
 {
     public readonly List<IList<object>> Batches = new();

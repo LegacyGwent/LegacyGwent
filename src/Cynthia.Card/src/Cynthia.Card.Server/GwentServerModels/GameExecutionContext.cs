@@ -11,7 +11,6 @@ namespace Cynthia.Card.Server
     {
         private readonly Queue<Action> _queue = new Queue<Action>();
         private bool _running;
-        private readonly TaskCompletionSource<Exception> _fault = new TaskCompletionSource<Exception>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         public override void Post(SendOrPostCallback callback, object state)
         {
@@ -37,7 +36,9 @@ namespace Cynthia.Card.Server
                 var previous = Current;
                 SetSynchronizationContext(this);
                 try { action(); }
-                catch (Exception error) { _fault.TrySetResult(error); }
+                // Only an async void callback can throw here. It belongs to no
+                // Run call, so it must not fail the later ones of this game.
+                catch (Exception error) { Console.WriteLine($"Game continuation failed: {error}"); }
                 finally { SetSynchronizationContext(previous); }
             }
         }
@@ -46,7 +47,6 @@ namespace Cynthia.Card.Server
         {
             if (Current == this) return action();
             var completion = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
-            _ = _fault.Task.ContinueWith(task => completion.TrySetException(task.Result), TaskScheduler.Default);
             Post(async _ =>
             {
                 try { completion.TrySetResult(await action()); }
