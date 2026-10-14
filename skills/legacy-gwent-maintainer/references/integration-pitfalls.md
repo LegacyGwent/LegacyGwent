@@ -1,6 +1,5 @@
 # Integration pitfalls
-
-Last verified: 2026-09-22
+Last verified: 2026-10-14
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
 
@@ -39,14 +38,46 @@ Last verified: 2026-09-22
 - #817 also inserts `SetEnemyDeck` before `SetNameInfo` in the wire protocol;
   append new operations with explicit compatible numbers rather than shifting
   old ones. Spectator snapshots and client rendering require paired validation.
+- AI spectator adaptation appends `SetEnemyDeck=44`, `RightOnType.EnemyDeck=4`,
+  and `MenuShowType.EnemyDeck=5`; `SetNameInfo=43` and `RightOnType.Card=3` stay
+  unchanged. Bind the EnemyDeck scene component to 4; do not import #828.
+  Both initial and per-player deck refreshes use the same spectator perspective.
+  The player-0 operation stream can mask opponent draw/mulligan cards, so flush
+  those moves before the spectator-only real-status update. Hand-entry moves
+  (including return) and direct creation need the same flush/update at their
+  shared `ShowCardMove`/`CreateCard` entry points, not card-effect exceptions.
+  `SetCard` must be
+  guarded by `IsOnRow`: decks/cemeteries/banish are not indexed client rows.
+  Preserve real `Conceal`/`IsCardBack`; #817 does not authorize revealing ambush
+  visuals. `SpectatorProtocolTests` covers both sides, wire IDs, premium and
+  player secrecy offline. Oct14 Unity 2019 menu checks passed 15 assertions;
+  the reduced-art fixture does not validate rendered art, input or premium motion.
 - #816's spectator button binds `view` while its added locale key is
   `Spectator_Watch_Button`. Missing translations return the input ID, so fix
   the shared key contract before porting. Do not replace whole AI language packs.
-- #829 reconnect needs AI-specific settlement, daily crown, premium and login
-  lifecycle integration. #830 is still WIP at the audit; source review is not
-  native reconnect acceptance. Each port requires the user's item approval.
-- These are source-verified migration constraints, not claims that the features
-  have been ported or tested in a packaged AI client.
+- Approved Oct14 UI port uses that key in four languages, binds four editor Back
+  targets, and widens both name/title regions without weather changes. Scene
+  targets need real stripped GameObject declarations. Bronibor c10003900_slot
+  was already registered in AI at 6dc6233a0; no duplicate port.
+- #829 preserves AI terminal/settlement gates, daily reward keys, GG receipts,
+  premium/profile/login behavior and version/endpoints. See docs/reconnection.md
+  for invariants and focused source checks; these do not prove native acceptance.
+  Publish pending state before every transport await, including the mulligan
+  opening screen; do not re-register an early replay answer after send resumes.
+  Each dialog owns its answer: replacement declines old confirmation, never
+  injects consent into a shared tube. Focused regressions exercise both paths.
+- #830 callback isolation must not fabricate draw/ranking/rewards for incomplete
+  failures. Awaited faults stay visible; initialization and cleanup are contained.
+  Async spectator optimization remains separate.
+- .NET 10 IHubClients.Client mocks implement ISingleClientProxy; Unity lifetime
+  tests reference actual bundled SignalR 5.0.8. Oct14 loopback acceptance uses
+  real WebSockets, production Hub/JSON/LocalPlayer and reconnect request replay;
+  it bypasses Login/Mongo and uses graceful close, not OS network loss. Packaged
+  clients, automatic Unity scene recovery and mixed versions remain unverified.
+- Reward fixtures must keep RoundWon enqueue-only: synchronous Mongo GetResult
+  blocks the game drain needed by database continuations. CrownRewardCapture
+  records events; await its persistence outside game actions with bounded waits
+  and propagated failures. ReconnectRegression covers the same helper without DB.
 
 ## A feature port leaves generic UI translations behind
 

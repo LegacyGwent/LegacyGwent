@@ -120,6 +120,12 @@ public class StartScreenLogic : MonoBehaviour
 
     private void Start()
     {
+        //断线重连回到对局时不再播放开场动画
+        if (_isReconnect)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         DisableMouseInput();
         init();
         StartCoroutine(WaitForAllInfoWithRetry());
@@ -131,8 +137,12 @@ public class StartScreenLogic : MonoBehaviour
         translator = DependencyResolver.Container.Resolve<LocalizationService>();
         LoadingTextField.text = translator.GetText("Loading_game_info");
     }
+    private bool _isReconnect;
     private void Awake()
     {
+        //开场界面在对局开始后才被激活,在这里读取并重置标记
+        _isReconnect = ClientGlobalInfo.IsReconnecting;
+        ClientGlobalInfo.IsReconnecting = false;
         // Try to find EventSystem automatically
         eventSystem = EventSystem.current;
 

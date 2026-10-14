@@ -116,6 +116,13 @@ namespace Cynthia.Card.Gameplay.Tests
             }
         }
 
+        public Queue<int> MulliganChoices { get; } = new Queue<int>();
+        public override void GetMulliganInfo(Action<Operation<UserOperationType>> send)
+        {
+            send(Operation.Create(UserOperationType.MulliganInfo,
+                MulliganChoices.Count > 0 ? MulliganChoices.Dequeue() : -1));
+        }
+
         public int LastMenuOptionCount { get; private set; }
 
         public void QueueMenuOptionKeys(params string[] keys)

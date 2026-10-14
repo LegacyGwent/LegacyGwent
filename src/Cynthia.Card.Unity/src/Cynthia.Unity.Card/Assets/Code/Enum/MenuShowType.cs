@@ -4,5 +4,6 @@ public enum MenuShowType
     EnemyCemetery,
     MyDeck,
     UseCard,
-    None
+    None,
+    EnemyDeck = 5
 }

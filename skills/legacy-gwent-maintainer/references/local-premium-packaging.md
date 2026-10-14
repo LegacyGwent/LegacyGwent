@@ -96,3 +96,13 @@ Last verified: 2026-10-07
   content gate, native metadata/signature checks, in-place install and the
   API35 translated-ARM64 AVD acceptance recorded in `premium-delivery.md`.
   This establishes the observed cache-layout remedy, not physical-phone coverage.
+
+## Missing cache junction targets invalidate import evidence
+
+- Before reusing a relocated cache, check that every junction target exists.
+  On Oct14 the Artifacts target was missing: Unity reported CreateDirectory
+  failures, could not load user assemblies, then could not find executeMethod.
+- With Unity stopped, recreate missing cache destinations. If import databases
+  still claim the absent artifacts are current, preserve SourceAssetDB,
+  ArtifactDB and scripting maps outside Library and allow a fresh import.
+  This restored native C# compilation; it is not a source/NDK fix or player test.

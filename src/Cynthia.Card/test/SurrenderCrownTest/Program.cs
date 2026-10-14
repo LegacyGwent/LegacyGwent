@@ -220,8 +220,16 @@ static class SurrenderCrownTest
             var second = new BrokenSinkPlayer { Deck = Deck(), Fail = false };
             var game = Game(out var wallets, matchId: "broken", first: first, second: second);
             var play = game.Play();
-            first.Fail = second.Fail = true;
-            await game.GameEnd(0, new Exception("peer connection lost"));
+            // Failure begins at the terminal segment, so this tests notification isolation,
+            // rather than racing an unrelated gameplay fault before concession is claimed.
+            var terminal = (Task)typeof(GwentServerGame).GetMethod("RunGameAction",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .Invoke(game, new object[] { (Func<Task>)(async () =>
+                {
+                    first.Fail = second.Fail = true;
+                    await game.GameEnd(0, new Exception("peer connection lost"));
+                }) });
+            await terminal;
             var completed = await Task.WhenAny(play, Task.Delay(5000));
             Check(completed == play, "a conceded match with unreachable peers still releases Play()");
             if (completed == play) await play; // Completion alone must not hide a faulted match task.
@@ -286,7 +294,12 @@ static class SurrenderCrownTest
             var game = Game(out var wallets, results, "pending-duplicate");
             var entered = new ManualResetEventSlim(false);
             var release = new ManualResetEventSlim(false);
-            game.RoundWon = (w, key, time) => { entered.Set(); release.Wait(); wallets[w].Award(key); };
+            game.RoundWon = (w, key, time) =>
+            {
+                entered.Set();
+                if (!release.Wait(5000)) throw new TimeoutException("Settlement hold fixture timed out.");
+                wallets[w].Award(key);
+            };
             var play = game.Play();
             var first = Task.Run(() => game.GameEnd(0, null));
             Check(entered.Wait(5000), "the settlement owner reached the pending reward");
@@ -296,7 +309,7 @@ static class SurrenderCrownTest
             release.Set();
             var all = Task.WhenAll(first, duplicate, play);
             Check(await Task.WhenAny(all, Task.Delay(5000)) == all, "pending settlement and both end callers complete");
-            await all;
+            await all.WaitAsync(TimeSpan.FromSeconds(5));
             Check(results.Count == 1 && wallets[0].Crowns == 2 && wallets[1].Crowns == 0,
                 "only the settlement owner publishes the result and releases gameplay");
         }

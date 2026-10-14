@@ -1,0 +1,251 @@
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using Cynthia.Card;
+using Cynthia.Card.Server;
+using Microsoft.AspNetCore.SignalR;
+
+static void Check(bool value, string message) { if (!value) throw new Exception(message); }
+static FieldInfo Field(object target, string name) => target.GetType().GetField(name, BindingFlags.NonPublic | BindingFlags.Instance);
+static Task Run(GwentServerGame game, Func<Task> action) => (Task)typeof(GwentServerGame).GetMethod("RunGameAction", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(game, new object[] { action });
+static Task Input(GwentServerGame game, ClientPlayer player, User user) => (Task)typeof(GwentServerGame).GetMethod("AcceptInput", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(game, new object[] { player, user, Operation.Create(UserOperationType.SelectRowInfo, RowPosition.MyRow1) });
+
+var wire = new Wire();
+var clients = DispatchProxy.Create<IHubClients, ClientsProxy>();
+((ClientsProxy)(object)clients).Wire = wire;
+var hub = new Hub(clients);
+var leader = GwentMap.CardMap.First(x => x.Value.Group == Group.Leader).Key;
+var old = new User("account", "old", UserState.Play) { PlayerName = "old" };
+var player = new ClientPlayer(old, () => hub) { Deck = new DeckModel { Leader = leader } };
+var enemyUser = new User("enemy", "enemy", UserState.Play) { PlayerName = "enemy" };
+var enemy = new ClientPlayer(enemyUser, () => hub) { Deck = new DeckModel { Leader = leader } };
+old.CurrentPlayer = player;
+enemyUser.CurrentPlayer = enemy;
+var game = new GwentServerGame(player, enemy);
+var room = new GwentRoom(player, "") { Player2 = enemy, CurrentGame = game };
+var matchs = new GwentMatchs(() => hub, null, null);
+matchs.GwentRooms.Add(room);
+var service = (GwentServerService)RuntimeHelpers.GetUninitializedObject(typeof(GwentServerService));
+var users = new ConcurrentDictionary<string, User>();
+var tickets = new Dictionary<string, (User User, CancellationTokenSource Cancel)>();
+Field(service, "_users").SetValue(service, users);
+Field(service, "_waitReconnectList").SetValue(service, tickets);
+Field(service, "_gwentMatchs").SetValue(service, matchs);
+
+// Force the contender to wait outside the session gate, then disconnect the
+// Standby connection. The original check-before-lock implementation consumes
+// the old ticket and transfers ownership to this removed connection.
+var fresh = new User("account", "fresh");
+users[fresh.ConnectionId] = fresh;
+var ticket = new CancellationTokenSource();
+tickets[old.UserName] = (old, ticket);
+Task<bool> claim;
+lock (tickets)
+{
+    claim = Task.Run(() => service.Reconnect(fresh.ConnectionId));
+    Thread.Sleep(80);
+    service.Disconnect(fresh.ConnectionId).GetAwaiter().GetResult();
+}
+Check(!await claim.WaitAsync(TimeSpan.FromSeconds(3)), "Removed connection reclaimed a ticket");
+Check(tickets.ContainsKey(old.UserName) && !ticket.IsCancellationRequested && player.CurrentUser == old, "Failed claimant destroyed old ownership/deadline");
+Console.WriteLine("PASS: disconnect while reconnect claim waits preserves ticket and owner");
+
+// Wire payloads must detach at creation, including deferred list enumerations.
+var status = new CardStatus(leader);
+var payload = Operation.Create(ServerOperationType.SetMyDeck, new[] { status }.Select(x => x));
+var frozen = payload.Arguments.Single();
+status.Strength += 7;
+Check(payload.Arguments.Single() == frozen, "Operation payload changed after creation");
+Console.WriteLine("PASS: operation freezes mutable/deferred payload");
+
+var pending = (IList<Operation<ServerOperationType>>[])Field(game, "_pendingRequests").GetValue(game);
+pending[0].Add(Operation.Create(ServerOperationType.SelectRow, RowPosition.MyRow1));
+var captured = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+wire.Block = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+wire.Captured = captured;
+var receiving = Run(game, async () => { await game.ReceiveAsync(0); });
+await Run(game, () => Task.CompletedTask);
+var restore = game.ResendGameState(0);
+await captured.Task.WaitAsync(TimeSpan.FromSeconds(3));
+var answer = Input(game, player, old);
+await Task.WhenAll(answer, receiving).WaitAsync(TimeSpan.FromSeconds(3));
+Check(pending[0].Count == 0, "Accepted answer still pending");
+var batch = wire.Batches.First();
+Check(batch.OfType<Operation<ServerOperationType>>().Any(x => x.OperationType == ServerOperationType.SelectRow), "Snapshot lost request present at capture");
+wire.Block.TrySetResult(true);
+Check(await restore.WaitAsync(TimeSpan.FromSeconds(3)), "Restore failed");
+await game.ResendGameState(0).WaitAsync(TimeSpan.FromSeconds(3));
+Check(!wire.Batches.Last().OfType<Operation<ServerOperationType>>().Any(x => x.OperationType == ServerOperationType.SelectRow), "Answered request replayed");
+Console.WriteLine("PASS: answer during snapshot transport consumes pending request at common scheduler boundary");
+
+pending[0].Add(Operation.Create(ServerOperationType.SelectRow, RowPosition.MyRow1));
+var staleUser = new User("account", "stale");
+await Input(game, player, staleUser);
+Check(pending[0].Count == 1, "Stale owner consumed request");
+Field(game, "_settlementStarted").SetValue(game, 1);
+Check(!matchs.IsInGame(player) && !await game.ResendGameState(0), "Terminal game allowed ownership/replay");
+try { await game.ReceiveAsync(0); throw new Exception("Ended receive accepted"); }
+catch (OperationCanceledException) { }
+Console.WriteLine("PASS: stale owner and terminal game cannot accept/resume input");
+
+// An expired wait retained from an earlier disconnect cannot settle the newer ticket.
+var replacement = new CancellationTokenSource();
+tickets[old.UserName] = (old, replacement);
+typeof(GwentServerService).GetMethod("ExpireReconnect", BindingFlags.NonPublic | BindingFlags.Instance)
+    .Invoke(service, new object[] { old, ticket });
+Check(tickets[old.UserName].Cancel == replacement && !replacement.IsCancellationRequested, "Old timeout consumed replacement ticket");
+Console.WriteLine("PASS: late old timeout cannot consume a replacement disconnect ticket");
+
+Field(game, "_settlementStarted").SetValue(game, 0);
+var results = 0;
+game.GameResultEvent = _ => results++;
+var waitingInput = Run(game, async () => { await game.ReceiveAsync(0); });
+await Run(game, () => Task.CompletedTask);
+await game.GameEnd(1, null);
+try { await waitingInput.WaitAsync(TimeSpan.FromSeconds(3)); throw new Exception("Terminal input remained pending"); }
+catch (OperationCanceledException) { }
+await game.GameOverExecute();
+await game.GameEnd(0, null);
+Check(results == 1, "Natural/forced settlement published duplicate results");
+Console.WriteLine("PASS: terminal settlement cancels pending input and natural/forced paths publish once");
+
+// Drive the real mulligan entry at both transport boundaries: opening screen and
+// GetMulliganInfo automatic flush. Complete pending state must exist before either await.
+foreach (var queuedCount in new[] { 50, 48 })
+{
+    var mulliganUser = new User("mulligan", "mulligan", UserState.Play);
+    var mulliganPlayer = new ClientPlayer(mulliganUser, () => hub) { Deck = GwentDeck.CreateBasicDeck(0) };
+    var otherPlayer = new ClientPlayer(enemyUser, () => hub) { Deck = GwentDeck.CreateBasicDeck(0) };
+    var mulliganGame = new GwentServerGame(mulliganPlayer, otherPlayer);
+    var handCard = mulliganGame.PlayersDeck[0][0];
+    mulliganGame.PlayersDeck[0].RemoveAt(0);
+    mulliganGame.PlayersHandCard[0].Add(handCard);
+    for (int i = 0; i < queuedCount; i++)
+        mulliganPlayer.OperactionList.Add(Operation.Create(ServerOperationType.SetCoinInfo, true));
+    wire.Batches.Clear();
+    wire.Captured = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+    wire.Block = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+    var mulligan = Run(mulliganGame, () => mulliganGame.MulliganCard(0, 2));
+    await wire.Captured.Task.WaitAsync(TimeSpan.FromSeconds(3));
+    var resume = mulliganGame.ResendGameState(0);
+    await Run(mulliganGame, () => Task.CompletedTask).WaitAsync(TimeSpan.FromSeconds(3));
+    var restored = mulliganPlayer.OperactionList.OfType<Operation<ServerOperationType>>().ToList();
+    Check(restored.Any(x => x.OperationType == ServerOperationType.SetAllInfo)
+        && restored.Any(x => x.OperationType == ServerOperationType.GetMulliganInfo),
+        "Mulligan reconnect lost the pending request during automatic flush");
+    var screen = restored.Single(x => x.OperationType == ServerOperationType.MulliganStart);
+    Check(screen.Arguments.ElementAt(1).ToType<int>() == 2
+        && screen.Arguments.First().ToType<IList<CardStatus>>().Single().CardId == handCard.Status.CardId,
+        "Restored mulligan screen lost current hand or remaining count");
+    var answerMulligan = (Task)typeof(GwentServerGame).GetMethod("AcceptInput", BindingFlags.NonPublic | BindingFlags.Instance)
+        .Invoke(mulliganGame, new object[] { mulliganPlayer, mulliganUser, Operation.Create(UserOperationType.MulliganInfo, -1) });
+    await Run(mulliganGame, () => Task.CompletedTask);
+    var mulliganPending = (IList<Operation<ServerOperationType>>[])Field(mulliganGame, "_pendingRequests").GetValue(mulliganGame);
+    Check(mulliganPending[0].Count == 0, "Early restored answer was not consumed before transport resumed");
+    wire.Block.TrySetResult(true);
+    Check(await resume.WaitAsync(TimeSpan.FromSeconds(3)), "Mulligan restore did not finish after transport resumed");
+    await Task.WhenAll(answerMulligan, mulligan).WaitAsync(TimeSpan.FromSeconds(3));
+    Check(mulliganPending[0].Count == 0, "Opening-screen continuation republished an already accepted answer");
+    Check(!mulliganGame.IsPlayersMulligan[0], "Restored mulligan answer did not release the real entry");
+}
+wire.Block = null;
+wire.Captured = null;
+Console.WriteLine("PASS: real mulligan opening/request flush snapshots contain current hand, remaining count and input request");
+
+// Initial MatchResult failure occurs before game construction, and must still clean both users.
+var startupRoom = new GwentRoom(player, "") { Player2 = enemy };
+var startupMatches = new GwentMatchs(() => hub, null, service);
+startupMatches.GwentRooms.Add(startupRoom);
+old.CurrentPlayer = player;
+enemyUser.CurrentPlayer = enemy;
+old.UserState = enemyUser.UserState = UserState.Play;
+wire.FailMatchResult = true;
+var startup = (Task)typeof(GwentMatchs).GetMethod("StartGameCore", BindingFlags.NonPublic | BindingFlags.Instance)
+    .Invoke(startupMatches, new object[] { startupRoom, false, false });
+await startup.WaitAsync(TimeSpan.FromSeconds(3));
+Check(startupMatches.GwentRooms.Count == 0 && old.CurrentPlayer == null && enemyUser.CurrentPlayer == null
+    && old.UserState == UserState.Standby && enemyUser.UserState == UserState.Standby,
+    "Initial notification failure leaked a room or playing users");
+Check(results == 1, "Startup failure published a normal game result");
+wire.FailMatchResult = false;
+Console.WriteLine("PASS: initial game notification failure cleans the room without normal settlement");
+
+// Fire-and-forget callback failures must not poison reconnect, input or cleanup actions.
+var context = (SynchronizationContext)Field(game, "_execution").GetValue(game);
+context.Post(_ => throw new InvalidOperationException("isolated callback fixture"), null);
+await Run(game, () => Task.CompletedTask).WaitAsync(TimeSpan.FromSeconds(3));
+try
+{
+    await Run(game, () => Task.FromException(new InvalidOperationException("awaited gameplay fixture")));
+    throw new Exception("Awaited action failure was swallowed");
+}
+catch (InvalidOperationException) { }
+await Run(game, () => Task.CompletedTask).WaitAsync(TimeSpan.FromSeconds(3));
+Console.WriteLine("PASS: callback faults are isolated while awaited action failures remain observable");
+
+// Reuse the persistence suite's actual capture helper with truly asynchronous work.
+// Calling GetResult here inside RoundWon would wait for a continuation queued on
+// the blocked game context; enqueue then drain outside that context avoids it.
+var rewardGame = new GwentServerGame(player, enemy);
+var queuedKeys = new List<string>();
+var persistedKeys = new List<string>();
+SynchronizationContext callbackContext = null;
+var capture = new CrownRewardCapture(async (winner, key, time) =>
+{
+    Check(SynchronizationContext.Current == null, "Persistence began inside game synchronization context");
+    await Task.Yield();
+    Check(SynchronizationContext.Current == null, "Persistence continuation returned to blocked game context");
+    persistedKeys.Add(key);
+});
+rewardGame.RoundWon = (winner, key, time) =>
+{
+    callbackContext = SynchronizationContext.Current;
+    queuedKeys.Add(key);
+    capture.Enqueue(winner, key, time);
+};
+await rewardGame.GameEnd(0, null).WaitAsync(TimeSpan.FromSeconds(3));
+Check(callbackContext?.GetType().Name == "GameExecutionContext" && queuedKeys.Count == 2 && persistedKeys.Count == 0,
+    "Reward callback did not use enqueue-only production contract");
+await capture.DrainAsync("no-DB async continuation regression").WaitAsync(TimeSpan.FromSeconds(3));
+Check(persistedKeys.SequenceEqual(queuedKeys) && persistedKeys.Distinct().Count() == 2,
+    "Deferred persistence changed or dropped crown event keys");
+var brokenCapture = new CrownRewardCapture(async (winner, key, time) =>
+{
+    await Task.Yield();
+    throw new InvalidOperationException("persistence fixture failure");
+});
+brokenCapture.Enqueue(0, "failure-fixture", DateTimeOffset.UtcNow);
+try { await brokenCapture.DrainAsync("error propagation"); throw new Exception("Persistence failure was hidden"); }
+catch (InvalidOperationException error) when (error.Message == "persistence fixture failure") { }
+Console.WriteLine("PASS: shared reward fixture records on game context, awaits asynchronous persistence outside it and preserves failures/keys");
+
+sealed class Wire : ISingleClientProxy
+{
+    public Task<T> InvokeCoreAsync<T>(string method, object[] args, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public readonly List<IList<object>> Batches = new();
+    public bool FailMatchResult;
+    public TaskCompletionSource<bool> Captured;
+    public TaskCompletionSource<bool> Block;
+    public Task SendCoreAsync(string method, object[] args, CancellationToken cancellationToken = default)
+    {
+        if (method == "MatchResult" && FailMatchResult) throw new InvalidOperationException("startup notification fixture");
+        if (method == "GameOperation")
+        {
+            Batches.Add(((IEnumerable<object>)args[0]).ToList());
+            Captured?.TrySetResult(true);
+        }
+        return Block?.Task ?? Task.CompletedTask;
+    }
+}
+public class ClientsProxy : DispatchProxy
+{
+    internal IClientProxy Wire;
+    protected override object Invoke(MethodInfo method, object[] args) => Wire;
+}
+sealed class Hub : IHubContext<GwentHub>
+{
+    public Hub(IHubClients clients) { Clients = clients; }
+    public IHubClients Clients { get; }
+    public IGroupManager Groups => null;
+}

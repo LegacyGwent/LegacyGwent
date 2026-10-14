@@ -78,6 +78,15 @@ public class LoginClick : MonoBehaviour
             Debug.Log("[LegacyGwent] Login: authenticated; loading Game scene.");
             LogMessage.text = string.Format(_translator.GetText("LoginMenu_WelcomeMessage"), _client.User.PlayerName);
 
+            //如果有未完成的对局,直接回到对局中
+            if (await _client.Reconnect())
+            {
+                _client.ClientState = ClientState.Play;
+                ClientGlobalInfo.IsReconnecting = true;
+                SceneManager.LoadScene("GamePlay");
+                return;
+            }
+
             //SceneManager.LoadScene("Game");
 
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Game");

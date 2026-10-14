@@ -15,7 +15,8 @@ namespace Cynthia.Card
         public Operation(TOperationType operationType, IEnumerable<object> arguments)
         {
             OperationType = operationType;
-            Arguments = arguments.Select(x => x.ToJson());
+            // Freeze the wire payload at the operation's creation boundary.
+            Arguments = arguments.Select(x => x.ToJson()).ToArray();
         }
     }
 }

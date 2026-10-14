@@ -11,6 +11,9 @@ public static class ClientGlobalInfo
 
     public static bool IsLoadGlobal = false;
 
+    // Set when the game scene is loaded to resume a game after a reconnect, so the intro is skipped
+    public static bool IsReconnecting = false;
+
     public static string ViewingRoomId { get; set; } = "";
 
     public static string DefaultDeckId

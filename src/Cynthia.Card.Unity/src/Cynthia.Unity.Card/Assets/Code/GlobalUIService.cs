@@ -37,6 +37,11 @@ namespace Cynthia.Card.Client
             _messageBox().Wait(title.Replace("\\n", "\n"), message.Replace("\\n", "\n"));
         }
 
+        public void ShowAutoClose(string title, string message, float seconds, bool showTimer = false)
+        {
+            _messageBox().ShowAutoClose(title.Replace("\\n", "\n"), message.Replace("\\n", "\n"), seconds, showTimer);
+        }
+
         public void Close()
         {
             _messageBox().Close();
